@@ -103,15 +103,13 @@ describe("what a cue may say", () => {
     t.shorn = t.blades.length - CFG.tasterClosedBlades;
     worlds.push(taster);
     const undertow = opened("undertow");
-    // Under the cannon, so the sweep sees `OPEN` — the word only this fight
-    // says — rather than the `MOVE` a lobe out of reach would give it.
-    boss(undertowBoss(undertow), "undertow").breaches.push({
+    // A yellow lobe under the cannon, so the sweep sees `SUCK` rather than
+    // the `MOVE` a lobe out of reach would give it.
+    boss(undertowBoss(undertow), "undertow").lobes.push({
       col: undertow.cannonCol,
       stage: "standing",
       stageBeat: undertow.beat,
-      tall: false,
-      widthMilli: 0,
-      widened: false,
+      answer: "maw",
     });
     worlds.push(undertow);
     const baton = opened("baton", 3);

@@ -8,8 +8,8 @@ import { type Layout, tileCX } from "./layout.js";
 import { drawLedgerRoot } from "./ledger-root.js";
 import type { RenderState } from "./render-state.js";
 import type { ViewState } from "./renderer.js";
+import { drawUndertowClock } from "./undertow-clock.js";
 import { drawUndertowHull } from "./undertow-draw.js";
-import { drawUndertowGrips } from "./undertow-grip.js";
 
 /**
  * **The fifth pass: what is stuck to the finished ship.** Drawn after
@@ -137,18 +137,14 @@ export function drawOnShip(
   // painted over while it was drawn with the body (`ledger-root.ts`).
   const ledgerVerdicts = held.effects.boss.ledger.marks.verdicts;
   drawLedgerRoot(ctx, l, world, view.beatPhase, view.time, surfaceY, ledgerVerdicts);
-  // And THE UNDERTOW's plating: the plate bowing, the seams lit, the breach
-  // parted round its lobe and the whole edge rising — the hull's own skin
-  // doing something, over the rim the ship pass just lit (`undertow-draw.ts`).
-  drawUndertowHull(ctx, l, world, view.role, view.beatPhase, view.time, surfaceY, hull.cannonX);
-  // And its one transient, on the same plating: the plate closing under a
-  // cannon slid off in time, which the world has already forgotten
-  // (`undertow-fx.ts`).
-  held.effects.boss.undertow.drawClose(ctx, l, surfaceY, view.time);
-  // And the two rings that plating is taken hold of by: the navigator's thumb
-  // on a standing lobe and her haul on the column the floor has the pilot
-  // stuck in. Last of all, over every seam and flap, because a ring is a thing
-  // to reach for and not a part of the ship (`undertow-grip.ts`).
-  const verdicts = held.effects.boss.undertow.marks.verdicts;
-  drawUndertowGrips(ctx, l, world, view.beatPhase, view.time, verdicts);
+  // And THE UNDERTOW's plating: the plate bowing and shaking over a lobe on
+  // its way, and parted round each one standing — the hull's own skin doing
+  // something, over the rim the ship pass just lit (`undertow-draw.ts`).
+  drawUndertowHull(ctx, l, world, view.role, view.beatPhase, view.time, surfaceY);
+  // And its transients, on the same plating: the plate closing over a lobe
+  // taken or ebbed, and the hole a burst one blew, which the world has
+  // already forgotten (`undertow-fx.ts`).
+  held.effects.boss.undertow.draw(ctx, l, surfaceY, view.time);
+  // And the level's clock, at the top of the field (`undertow-clock.ts`).
+  drawUndertowClock(ctx, l, world, view.beatPhase);
 }

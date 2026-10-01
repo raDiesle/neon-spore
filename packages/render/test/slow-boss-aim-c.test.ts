@@ -180,17 +180,17 @@ describe("THE SLOW's aim at a boss, page three", () => {
     expect(Math.max(at.y, at.ay)).toBeLessThan(L.hullY - 2 * L.tile);
   });
 
-  it("stands along THE UNDERTOW's open breaches, and at the cannon with none open", () => {
+  it("stands along THE UNDERTOW's lobes, and at the cannon with none up", () => {
     const world = stood("undertow");
     const u = need(undertowBoss(world), "undertow");
-    expect(u.breaches).toEqual([]);
+    expect(u.lobes).toEqual([]);
     const cannon = aim(world, L, 0, 0);
     expect(cannon.y).toBeGreaterThan(L.hullY - 2 * L.tile);
-    u.breaches.push(
-      { col: 1, stage: "standing", stageBeat: 0, tall: false, widthMilli: 0, widened: false },
-      { col: 4, stage: "bowing", stageBeat: 0, tall: false, widthMilli: 500, widened: false },
+    u.lobes.push(
+      { col: 1, stage: "standing", stageBeat: 0, answer: "maw" },
+      { col: 4, stage: "bowing", stageBeat: 0, answer: "shield" },
     );
-    const edge = need(undertowEdgeBox(L, CFG, u, u.breaches, 0, 0), "undertow");
+    const edge = need(undertowEdgeBox(L, CFG, u, u.lobes, 0, 0), "undertow");
     expect(aim(world, L, 0, 0)).toEqual(capsule(edge));
   });
 

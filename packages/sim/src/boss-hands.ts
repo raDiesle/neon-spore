@@ -44,7 +44,7 @@ import { throatHeard } from "./throat-hand.js";
 import { trivetGuarded } from "./trivet-guard.js";
 import { trivetHeard } from "./trivet-hand.js";
 import type { TimedCommand } from "./types.js";
-import { undertowHandsHeard } from "./undertow-hand.js";
+import { undertowTapHeard } from "./undertow-press.js";
 import { valveHeard } from "./valve-hand.js";
 import { viseGuarded } from "./vise-guard.js";
 import { viseHeard } from "./vise-hand.js";
@@ -207,11 +207,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // next beat would be answered against a lock that had already moved
   // (`baton-hand.ts`). The trigger and the shot stay where they were.
   for (const c of commands) batonHeard(world, c.player, c.command);
-  // THE UNDERTOW's two thumbs on the hull, on the tick because a pin is a
-  // plate and the plate it stands beside is read where the press is — the maw
-  // asks `undertowPinned` on the same tick it asks `world.shieldCol`
-  // (`undertow-hand.ts`). What either came to over the beat is counted there.
-  for (const c of commands) undertowHandsHeard(world, c.player, c.command);
+  // THE UNDERTOW's tap on a tall lobe, from either seat, on the tick because
+  // the lobe it shrinks would burst on the next beat (`undertow-press.ts`).
+  for (const c of commands) undertowTapHeard(world, c.command);
   // THE THROAT's cinch and haul, on the tick because a thumb is down when it
   // lands and the beat only ever asks whether it was down (`throat-hand.ts`).
   // Both are *spent* on the beat, by `throatBreathes` and `throatHaul`, which

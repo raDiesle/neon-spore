@@ -136,7 +136,7 @@ export function tasterLockCol(t: TasterState): number {
  * fan had said where it was going.
  *
  * One pin. A thumb landing on a second growing blade moves it, and the count
- * starts again — `undertowPin`'s rule, and for its reason: the pilot has one
+ * starts again — `undertowTap`'s rule, and for its reason: the pilot has one
  * spare thumb and the fight should never be readable as two.
  */
 function pin(world: World, t: TasterState, on: boolean, col: number): void {

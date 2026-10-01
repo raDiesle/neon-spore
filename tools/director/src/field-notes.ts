@@ -30,11 +30,9 @@ export const DECISIONS: readonly FieldDecision[] = [
       "THE GAUGE'S NEEDLE",
       "THE GAUGE'S BAND",
       "THE GAUGE'S TOOTH",
-      "THE UNDERTOW'S PIN",
       "THE VALVE'S WHEEL",
       "THE VANE'S ARM",
       "THE VANE'S HOUSING",
-      "THE UNDERTOW'S FREE",
       "THE MAZE'S STRING",
       "THE QUEEN'S MARKS",
     ],
@@ -93,7 +91,6 @@ export const ROW_NOTES: Readonly<Record<string, string>> = {
     "sensor the game ever reads.",
   "THE CHOIR'S RIGHT ARROW": "As the left arrow.",
   "THE LIGHT": "Keep. The only generic press that is on both screens at once.",
-  "THE UNDERTOW'S PIN": "A falling-through press, against the wrong-seat rule.",
   "THE PLUMB'S LEFT STONE":
     "Was TILT until the owner's ruling. Keep as a LEVER; say in the row " +
     "that no sensor is read.",

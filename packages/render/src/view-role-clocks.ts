@@ -44,10 +44,10 @@ export const showsThroatLock = (role: ViewRole): boolean => role !== "p1";
 /**
  * THE UNDERTOW's bow — the plate rising before a lobe comes through it. The
  * pilot's, because the floor is his half the way the rocks are: he owns the
- * maw and the cannon's column, so the seat that has to answer a breach is the
+ * maw and the cannon's column, so the seat that has to answer a lobe is the
  * seat that is shown where the next one is pushing. The navigator is shown
- * the breach the moment it opens, and the plate she has to stand on it, and
- * nothing of the four beats before (`undertow-draw.ts`).
+ * the lobe the moment it stands, and nothing of the beats before
+ * (`undertow-draw.ts`).
  */
 export const showsUndertowBow = (role: ViewRole): boolean => role !== "p2";
 /**

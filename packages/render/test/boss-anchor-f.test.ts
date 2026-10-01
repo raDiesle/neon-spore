@@ -15,7 +15,7 @@ import { anchorPoint } from "../src/caption-anchor.js";
 import { computeLayout, tileCX } from "../src/layout.js";
 import { throatLockPoint } from "../src/throat-lock.js";
 import { mouthX, mouthY, rings } from "../src/throat-shape.js";
-import { breachHalf } from "../src/undertow-shape.js";
+import { PLATE_HALF } from "../src/undertow-shape.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals } from "./canvas-stub.js";
 
 // The cap, applied per file because bun applies it to the file it is in
@@ -25,11 +25,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * WHERE A CAPTION ABOUT A BOSS'S OWN FIXTURE POINTS — the two films whose
  * pages the fifth file took off the hull last (`caption-anchor-boss-e.ts`):
- * THE UNDERTOW's breaches, plates and lobes, THE THROAT's gullet, mouth,
+ * THE UNDERTOW's plates and lobes, THE THROAT's gullet, mouth,
  * rings and count.
  *
  * These two are the pair the hull was nearly right for, so the thing each
- * test proves is the *nearly*: the ring is on the column the breach is in and
+ * test proves is the *nearly*: the ring is on the column the lobe is in and
  * not in the middle of the plating, and it follows the mouth when the mouth
  * slides off the middle. The seat a part is not drawn on gets no ring at all
  * (`boss-anchor.test.ts`).
@@ -52,28 +52,28 @@ function withBoss(boss: BossEntry, ticks = 120): World {
   return world;
 }
 
-/** The boss with at least one breach up, stepped until the first push lands. */
+/** The boss with at least one lobe up, stepped until the first bow. */
 function pushing(): { world: World; u: UndertowState } {
   const world = withBoss({ kind: "undertow" }, 0);
   for (let t = 0; t < 2000; t++) {
     step(world, []);
     const u = undertowBoss(world);
-    if (u !== null && u.breaches.length > 0) return { world, u };
+    if (u !== null && u.lobes.length > 0) return { world, u };
   }
   throw new Error("the undertow never pushed");
 }
 
 describe("a caption pointed at THE UNDERTOW", () => {
-  it("rings the column the breach is in, not the middle of the plating", () => {
+  it("rings the column the lobe is in, not the middle of the plating", () => {
     const { world, u } = pushing();
-    const b = u.breaches[0];
-    if (b === undefined) throw new Error("no breach");
+    const b = u.lobes[0];
+    if (b === undefined) throw new Error("no lobe");
     for (const l of BOTH) {
       const at = anchorPoint(l, world, SET, { at: "boss" }, 0);
       expect(at?.x).toBeCloseTo(tileCX(l, b.col));
-      expect(at?.rx ?? 0).toBeGreaterThanOrEqual(breachHalf(b) * l.tile);
+      expect(at?.rx ?? 0).toBeGreaterThanOrEqual(PLATE_HALF * l.tile);
     }
-    // The point of the lane: a breach in column 0 is nowhere near the middle
+    // The point of the lane: a lobe in column 0 is nowhere near the middle
     // of the plating, which is the only place the hull anchor ever is.
     b.col = 0;
     const hull = anchorPoint(PILOT, world, SET, { at: "hull" }, 0);
@@ -84,23 +84,23 @@ describe("a caption pointed at THE UNDERTOW", () => {
 
   it("rings a standing lobe above the skin, and a bowing plate on it", () => {
     const { world, u } = pushing();
-    const b = u.breaches[0];
-    if (b === undefined) throw new Error("no breach");
+    const b = u.lobes[0];
+    if (b === undefined) throw new Error("no lobe");
     b.stage = "bowing";
     const flat = anchorPoint(PILOT, world, SET, { at: "boss", part: "plate" }, 0);
     expect(flat?.y).toBeCloseTo(PILOT.hullY);
     b.stage = "standing";
     b.stageBeat = world.beat - 2;
     const up = anchorPoint(PILOT, world, SET, { at: "boss", part: "lobe" }, 0);
-    // A lobe stands a whole tile out of the hull, so the ring has to rise to
+    // A lobe stands two tiles out of the hull, so the ring has to rise to
     // meet it rather than sit flat on the line.
     expect(up?.y ?? 0).toBeLessThan(PILOT.hullY - PILOT.tile * 0.3);
   });
 
   it("falls back to the whole edge for a plate the navigator is not shown", () => {
     const { world, u } = pushing();
-    const b = u.breaches[0];
-    if (b === undefined) throw new Error("no breach");
+    const b = u.lobes[0];
+    if (b === undefined) throw new Error("no lobe");
     b.stage = "bowing";
     const whole = anchorPoint(NAVIGATOR, world, SET, { at: "boss" }, 0);
     const plate = anchorPoint(NAVIGATOR, world, SET, { at: "boss", part: "plate" }, 0);

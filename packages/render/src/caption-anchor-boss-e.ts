@@ -133,19 +133,18 @@ function splicePart(
 }
 
 /**
- * THE UNDERTOW: every breach it is pushing at, along the edge they are in —
+ * THE UNDERTOW: every lobe it is pushing up, along the edge they are in —
  * and no ring at all while the field is quiet between pushes, which is the one
  * honest answer when there is nothing on the hull to point at.
  *
  * `plate` is a bow before its lobe is through, the pilot's alone
- * (`showsUndertowBow`) but both seats' on the last push, exactly as the plate
- * is drawn; `lobe` is what is standing in a breach right now, on both screens.
- * Either falls back to the whole edge rather than to nothing, because a page
- * about a bow is still a page about the column it is bowing in.
+ * (`showsUndertowBow`), exactly as the plate is drawn; `lobe` is what is
+ * standing or tall right now, on both screens. Either falls back to every
+ * lobe rather than to nothing, because a page about a bow is still a page
+ * about the column it is bowing in.
  *
- * The widths are the boss's own `breachHalf`, so a breach that has spread
- * takes the ring with it — which is what makes *left alone · it widens* a
- * sentence the picture says rather than one the caption claims.
+ * The box reaches as high as the tallest lobe it rings (`undertowEdgeBox`),
+ * so a lobe gone tall takes the ring up with it.
  */
 function undertowPart(
   l: Layout,
@@ -155,13 +154,12 @@ function undertowPart(
   beat: number,
   beatPhase: number,
 ): AnchorPoint | null {
-  const last = u.phase === "last";
-  const wanted = u.breaches.filter((b) => {
-    if (part === "plate") return b.stage !== "standing" && (showsUndertowBow(l.role) || last);
-    if (part === "lobe") return b.stage === "standing";
+  const wanted = u.lobes.filter((b) => {
+    if (part === "plate") return b.stage === "bowing" && showsUndertowBow(l.role);
+    if (part === "lobe") return b.stage !== "bowing";
     return true;
   });
-  const shown = wanted.length > 0 ? wanted : u.breaches;
+  const shown = wanted.length > 0 ? wanted : u.lobes;
   const edge = undertowEdgeBox(l, cfg, u, shown, beat, beatPhase);
   return edge === null ? null : box(edge);
 }

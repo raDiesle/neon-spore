@@ -37,17 +37,14 @@ describe("the column a boss is answered from", () => {
     expect(bossAnswerCol(open({ kind: "baton" }))).toBeNull();
   });
 
-  it("is THE UNDERTOW's first breach, whichever column the rng chose", () => {
+  it("is THE UNDERTOW's first lobe, whichever column the rng chose", () => {
     const world = open({ kind: "undertow" });
     expect(bossAnswerCol(world)).toBeNull();
     for (let i = 0; i < 40 * TPB && bossAnswerCol(world) === null; i++) step(world, []);
     const u = undertowBoss(world);
     if (u === null) throw new Error("no floor");
-    expect(u.breaches).toHaveLength(1);
-    expect(bossAnswerCol(world)).toBe(u.breaches[0]?.col ?? -1);
-    // And none under the cannon's own seat: the answer there is to leave.
-    u.phase = "seat";
-    expect(bossAnswerCol(world)).toBeNull();
+    expect(u.lobes).toHaveLength(1);
+    expect(bossAnswerCol(world)).toBe(u.lobes[0]?.col ?? -1);
   });
 
   it("is THE TASTER's first blade once its edge has set, and nothing while it grows or once the fan closes", () => {

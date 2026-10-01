@@ -156,8 +156,8 @@ export const DIAL_RADII = 1.55;
  * was being sold the same hole for a wash at 0.18 alpha it cannot see, so
  * `theirs` came out a flat black disc in the middle of the picture: on
  * PINBALL's table a hole in the board, and on THE UNDERTOW's hull a lobe with a
- * breach in it that nothing had breached (`undertow-grip.ts`, 22 September
- * 2026, where it cost that boss's pin its place on the pilot's screen). So a
+ * breach in it that nothing had breached (22 September 2026, where it cost
+ * that boss's old pin its place on the pilot's screen). So a
  * ring drawn for the other seat fills nothing and is its rim and its wash, over
  * whatever is behind it, which is the picture it was always meant to be.
  */

@@ -104,14 +104,14 @@ export const NO_SUBJECT: Record<string, string> = {
   "boss.undertowLobe": "a lobe standing up through the plate. Same argument.",
   "boss.undertowTaken": "the lobe drawn into the maw and the plate closing. Same argument.",
   "boss.undertowScar":
-    "the lobe withdrawing and the breach staying. What is left is a scar, which is drawn on the hull rather than standing on the field.",
-  "boss.undertowWidened": "a breach grown wide enough for a second lobe. Same argument.",
+    "a tall lobe tapped back down to standing. What moves is the hull's own bump, not a body on the field.",
+  "boss.undertowWidened": "a lobe left standing and growing tall. Same argument.",
   "boss.undertowUnseated":
     "the floor coming up under the cannon. What it happens to is the cannon's mount, not a body.",
   "boss.undertowRise":
     "the whole edge lifting at once. What lifts is every column of hull, which is the ship and not a card.",
   "boss.undertowSwallowed":
-    "the body following its lobe down through the hole. What this marks is a hull closed over a thing inside it — an absence like ui.waveClear rather than a thing standing anywhere.",
+    "the level's ebb drawing every lobe back under. What this marks is a hull closed over a thing inside it — an absence like ui.waveClear rather than a thing standing anywhere.",
   "boss.undertowThrough":
     "the last lobe coming through the other way. What gives is the hull, and the wave with it.",
   // THE GORGE's nine. The boss is a sack the sheet has no card for, and

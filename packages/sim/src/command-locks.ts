@@ -3,13 +3,12 @@ import { faultSwallows } from "./fault-swallow.js";
 import { mirrorHoldsControls } from "./mirror.js";
 import { stareBreaks } from "./stare-step.js";
 import type { TimedCommand } from "./types.js";
-import { undertowUnseats } from "./undertow-press.js";
 import type { World } from "./world.js";
 
 /**
  * **Every way a press is refused before it is read**, in one place.
  *
- * Cut out of `commands.ts` when THE UNDERTOW's unseat took that file over its
+ * Cut out of `commands.ts` when a boss's lock took that file over its
  * 250-line limit, and along the seam that was already drawn there in a row
  * of `if (...) return;` lines above the switch: next door is *what a press
  * does*, and this is *whether it is heard at all*. Every lock is checked here
@@ -33,9 +32,5 @@ export function pressRefused(world: World, timed: TimedCommand): boolean {
   if (stareBreaks(world, timed)) return true;
   // **THE BATON swallows a press and says nothing**: the seat was told *not
   // yet*, and the grey panel is the whole of the telling (`baton-press.ts`).
-  if (batonLocks(world, timed)) return true;
-  // **THE UNDERTOW unseats one seat**: the floor came up under the cannon and
-  // player 1 stayed on it, so his verbs are swallowed for the beats it takes
-  // him to get back in the chair. Player 2 is untouched (`undertow-press.ts`).
-  return undertowUnseats(world, timed);
+  return batonLocks(world, timed);
 }

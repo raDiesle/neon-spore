@@ -81,9 +81,9 @@ const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
  *   Every beat it keeps — the flight, the turn, the lock — is the pair's
  *   cadence rather than a per-wave decision (`sim/config-baton.ts`).
  * - **THE UNDERTOW** asks for nothing for the same reasons again: every
- *   column it comes up through is drawn from the rng and the last is
- *   `midCol`, the lobes it has to lose are its health, and how many of each
- *   push and how long each takes are the pair's cadence (`sim/config-undertow.ts`).
+ *   column and colour it comes up with is drawn from the rng, there is no
+ *   health — the pair lasts out a clock — and how many lobes each level
+ *   stands and how long each takes are the pair's cadence (`sim/config-undertow.ts`).
  *
  * - **THE THROAT** asks for nothing for the same three reasons said about a
  *   tube: the gullet hangs dead centre so there is no column, the five rings

@@ -59,21 +59,17 @@ export const SILENT_BOSS = [
   "batonMissed",
   "batonShed",
   "batonDown",
-  // THE UNDERTOW's ten: the hull lifting and the lobe in it are drawn off
-  // the world (`undertow-draw.ts`), the plate closing off `undertow-fx.ts`,
-  // and a spark on plating that is seen moving would be the same fact twice;
-  // the scar it leaves and the hull's own `breach` at the end land on the
-  // field by themselves.
+  // THE UNDERTOW's seven: the plate and the lobe in it are drawn off the
+  // world (`undertow-draw.ts`), a lobe taken, a burst and the ebb off
+  // `undertow-fx.ts`, and a spark on plating that is seen moving would be the
+  // same fact twice; the scar a burst leaves lands on the field by itself.
   "undertowBow",
   "undertowLobe",
   "undertowTaken",
-  "undertowScar",
-  "undertowWidened",
-  "undertowUnseated",
-  "undertowClosed",
-  "undertowRise",
-  "undertowSwallowed",
-  "undertowThrough",
+  "undertowGrow",
+  "undertowTapped",
+  "undertowBurst",
+  "undertowEbb",
   // THE MIRROR's four: the ghost shot, the echo, the verdict and the fall —
   // `simon-fx.ts` owns the whole sequence.
   "mirrorShow",

@@ -131,14 +131,12 @@ function reEdge(world: World, t: TasterState): void {
  * while it was open.
  *
  * The two counts the hands are judged by, kept here rather than in
- * `taster-hand.ts` for `undertow-hand.ts`' reason turned round: a thumb is a
- * thing that happens on the tick, and *how long it has been there* is a thing
+ * `taster-hand.ts` because a thumb is a thing that happens on the tick, and *how long it has been there* is a thing
  * that happens on the beat, and this is the file the beat is in.
  *
  * A pin whose blade went while it was held — struck off by the other seat, or
  * decided past the hold — is a thumb on nothing, and the hold goes with it.
- * The count is **not** reset by a slip, for the reason THE UNDERTOW's free is
- * not: a count that punished a dropped move would ask a phone for the one
+ * The count is **not** reset by a slip: a count that punished a dropped move would ask a phone for the one
  * thing it cannot promise (`docs/spec/latency.md`); a thumb genuinely lifted
  * clears it in `taster-hand.ts`, where the lift is heard.
  */

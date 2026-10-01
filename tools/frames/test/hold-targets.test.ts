@@ -154,13 +154,17 @@ describe("the flag's names and the wire's", () => {
 
 describe("the handles the handles lanes drew", () => {
   it("puts each seat's thumb where its hand file listens", () => {
-    // `undertow-hand.ts` returns on player 1; the pin's id is the lobe's column.
-    expect(shape("undertowPin=0,id=4")[1]).toMatchObject({
-      player: 2,
-      target: "undertowPin",
+    // `undertow-press.ts` hears either seat; the tap's id is the tall lobe's column.
+    expect(shape("undertowTap=0,id=4")[1]).toMatchObject({
+      player: 1,
+      target: "undertowTap",
       id: 4,
     });
-    expect(shape("undertowFree=0")[1]).toMatchObject({ player: 2, on: true });
+    expect(shape("undertowTap2=0,id=4")[1]).toMatchObject({
+      player: 2,
+      target: "undertowTap",
+      id: 4,
+    });
     // `pulse-hand.ts`: a brace from each seat, on one meter.
     expect(shape("pulseMeter2=0")[1]).toMatchObject({ player: 2, target: "pulseMeter" });
     // `scout-hand.ts`: her line, his prime.

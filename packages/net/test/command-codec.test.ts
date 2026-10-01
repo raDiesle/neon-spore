@@ -108,15 +108,10 @@ const ACCEPTED: Command[] = [
   // hold the wrong bead on the other (`sim/baton-hand.ts`).
   { kind: "drag", target: "batonSocket", on: true, fromMilli: 0, fromYMilli: 0, id: 4 },
   { kind: "drag", target: "batonSocket", on: false, fromMilli: 0, fromYMilli: 0, id: 10 },
-  // THE UNDERTOW's two thumbs on the hull. The pin carries the column as its
-  // `id` — a codec that dropped it would have her plate standing on one
-  // breach here and another there, and the maw refused at a column nobody is
-  // holding. The free carries nothing but `on`, and a codec that dropped it
-  // would give one device the seat back and leave the other one dead
-  // (`sim/undertow-hand.ts`).
-  { kind: "drag", target: "undertowPin", on: true, fromMilli: 0, fromYMilli: 0, id: 3 },
-  { kind: "drag", target: "undertowPin", on: false, fromMilli: 0, fromYMilli: 0, id: 3 },
-  { kind: "drag", target: "undertowFree", on: true, fromMilli: 0, fromYMilli: 0 },
+  // THE UNDERTOW's tap on a tall lobe carries the lobe's column as its `id`
+  // — a codec that dropped it would shrink one lobe on one device and leave
+  // it to burst on the other (`sim/undertow-press.ts`).
+  { kind: "drag", target: "undertowTap", on: true, fromMilli: 0, fromYMilli: 0, id: 3 },
   { kind: "drag", target: "throatRing", on: true, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "throatRing", on: false, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "throatTube", on: false, fromMilli: -900, fromYMilli: 0 },
@@ -433,8 +428,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   scoutPrime: true,
   pulseMeter: true,
   batonSocket: true,
-  undertowPin: true,
-  undertowFree: true,
+  undertowTap: true,
   throatRing: true,
   throatTube: true,
   curtainHem: true,

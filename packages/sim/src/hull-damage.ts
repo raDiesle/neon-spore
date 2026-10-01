@@ -63,10 +63,10 @@ export function breachHull(
 /**
  * **A scar with no hit in front of it**: the plating torn and the wave still
  * running. One caller besides `breachHull` itself, and it is the boss the
- * distinction was written for: a lobe of THE UNDERTOW withdrawing untaken
- * takes a piece of the hull with it, and nothing reached the ship — the
- * owner's rule is that a *hit* costs the wave, and something leaving is not
- * one (`undertow-step.ts`). The cap is the same cap, so the oldest scar goes
+ * distinction was written for: a tall lobe of THE UNDERTOW bursting takes
+ * the plating of its column and the one beside it, and `breachUnscarred`
+ * then charges the hit once, in its own column — two holes, one wave lost
+ * (`undertow-step.ts`). The cap is the same cap, so the oldest scar goes
  * whichever way the newest was made.
  */
 export function scarHull(

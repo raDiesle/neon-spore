@@ -9,12 +9,12 @@ import { fourBeatsIn, type Row } from "./boss-hurt-rows.js";
 export const HURT_ROWS_B: Row[] = [
   {
     boss: "undertow",
-    land: [
-      { type: "undertowTaken", col: 3 },
-      { type: "undertowSwallowed", col: 5 },
+    land: [{ type: "undertowTaken", col: 3 }],
+    part: [
+      { type: "undertowBow", col: 3 },
+      { type: "undertowTapped", col: 3 },
     ],
-    part: [{ type: "undertowBow", col: 3 }],
-    hit: "a lobe is one bite, and the swallow a hold",
+    hit: "a lobe taken by its colour; a tap only puts one back",
     hurt: (fx) => fx.boss.undertow.hurt,
     world: undertowStanding,
   },
@@ -232,18 +232,11 @@ export const HURT_ROWS_B: Row[] = [
   },
 ];
 
-/** THE UNDERTOW with a lobe up in a breach: nothing of it shows otherwise. */
+/** THE UNDERTOW with a lobe standing: nothing of it shows otherwise. */
 function undertowStanding(): World {
   const world = fourBeatsIn("undertow")();
   const u = undertowBoss(world);
   if (u === null) throw new Error("the undertow wave installed no floor");
-  u.breaches.push({
-    col: 3,
-    stage: "standing",
-    stageBeat: world.beat - 2,
-    tall: false,
-    widthMilli: 0,
-    widened: false,
-  });
+  u.lobes.push({ col: 3, stage: "standing", stageBeat: world.beat - 2, answer: "maw" });
   return world;
 }

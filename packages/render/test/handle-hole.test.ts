@@ -24,7 +24,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * being sold the same hole under a wash it cannot see at 0.18 alpha, and what
  * came out was a black disc in the middle of the picture: on PINBALL's lit
  * board a hole in the board, on THE UNDERTOW's hull a breach nothing had
- * breached (`undertow-grip.ts`, 22 September 2026). So a ring drawn `theirs`
+ * breached (the old `undertow-grip.ts`, 22 September 2026). So a ring drawn `theirs`
  * fills nothing, and that is what is counted here.
  *
  * **A background fill is a ring and nothing else is**, in both of these waves:

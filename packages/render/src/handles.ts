@@ -48,7 +48,7 @@ import { tasterGripUnder } from "./taster-grip.js";
 import { throatGripUnder } from "./throat-grip.js";
 import type { Field, Touch } from "./touch.js";
 import { trivetPadUnder } from "./trivet-grip.js";
-import { undertowGripUnder } from "./undertow-grip.js";
+import { undertowTapUnder } from "./undertow-tap.js";
 import { valvePinUnder, valveWheelUnder } from "./valve-grip.js";
 import { vaneGripUnder } from "./vane-grip.js";
 import { viseLobeUnder } from "./vise-grip.js";
@@ -122,7 +122,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     vaneGripUnder(l, x, y, field) ?? // THE VANE's swinging arm and the housing under its hub (`vane-grip.ts`).
     throatGripUnder(l, x, y, field) ?? // THE THROAT's slack ring and the tube under its mouth (`throat-grip.ts`).
     snakeGripUnder(l, x, y, field) ?? // SNAKE's stuck jaws and dragging tail, on the body itself (`snake-grip.ts`).
-    undertowGripUnder(l, x, y, field) ?? // THE UNDERTOW's pin on a standing lobe and the free over the stuck pilot (`undertow-grip.ts`).
+    undertowTapUnder(l, x, y, field) ?? // THE UNDERTOW's tall lobe, either seat's tap (`undertow-tap.ts`).
     scoutGripUnder(l, x, y, field) ?? // THE SCOUT's line on a laden ship and the prime off a heavy one's stern (`scout-grip.ts`).
     pinballGripUnder(l, x, y, field) ?? // PINBALL's plunger on a slack spring and the shove on a table in flight (`pinball-grip.ts`).
     // THE TASTER's pin on a blade that has not decided, wipe across a gap a

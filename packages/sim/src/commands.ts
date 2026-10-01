@@ -17,7 +17,6 @@ import { sceneGuard, sceneSuck } from "./scene-panel.js";
 import { fireStep } from "./simon.js";
 import { spliceHeard } from "./splice-round.js";
 import { bodyCenterCol, type Color, type TimedCommand } from "./types.js";
-import { undertowIntake } from "./undertow-press.js";
 import type { World } from "./world.js";
 
 /**
@@ -111,9 +110,6 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     case "intake":
       world.intakeTick = world.tick;
       mirrorHeard(world, "intake", "panel");
-      // And THE UNDERTOW, whose lobes the maw takes: after `intakeTick`, so
-      // `mawOpen` reads true for it. A no-op unless that boss is installed.
-      undertowIntake(world);
       // And THE SPLICE, whose whole fight is this one press: the entrance
       // under the cannon, if there is one, and the number at the far end of
       // its straw on its way down (`splice-round.ts`).

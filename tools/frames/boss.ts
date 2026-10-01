@@ -20,7 +20,7 @@
  * thing that changed on 18 September 2026. `--boss` was scalars-only by design:
  * a flag that wrote THE BATON's socket array as text would be a flag nobody
  * could read at a glance. But the states that most need photographing *are*
- * lists — THE BATON's thread, THE UNDERTOW's breaches, THE TASTER's blades, THE
+ * lists — THE BATON's thread, THE UNDERTOW's lobes, THE TASTER's blades, THE
  * GORGE's intakes — and refusing them meant a look lane fell back to the
  * preview page, a world built by hand in a console and a canvas pulled out as
  * base64, which is a picture nobody can take again. So the second flag takes a

@@ -1,111 +1,68 @@
+import { guardArmed } from "./hull-guard.js";
 import { mawOpen } from "./pod-intake.js";
-import { reachesShip } from "./ship-verbs.js";
-import type { TimedCommand } from "./types.js";
-import {
-  type UndertowBreach,
-  type UndertowState,
-  undertowBoss,
-  undertowLobeAt,
-  undertowPinned,
-  undertowUnseated,
-} from "./undertow.js";
-import { undertowSlow } from "./undertow-slow.js";
+import type { Command } from "./types.js";
+import { type UndertowLobe, undertowBoss, undertowEbbing, undertowLobeAt } from "./undertow.js";
 import type { World } from "./world.js";
 
 /**
- * THE UNDERTOW's presses: the maw, the beam and the unseat.
+ * THE UNDERTOW's answers, and the tap, all on the **tick**.
  *
- * All three happen on the **tick**, from wherever the press arrives —
- * `commands.ts` for the maw, `lance-burn.ts` for the beam — because an answer
- * that waited for the next beat would put a queue between *now* and the
- * taking. The clock that sets the questions is `undertow-step.ts`.
+ * The clock that sets the questions is `undertow-step.ts`, on the beat; an
+ * answer that waited for the next beat would put a queue between *now* and the
+ * taking, so the two controls are asked here every tick from `step.ts` and the
+ * tap is heard the tick it arrives (`boss-hands.ts`).
  */
 
+/** Whether the control this lobe's colour names is on it right now. */
+function answered(world: World, l: UndertowLobe): boolean {
+  if (l.answer === "maw") return world.cannonCol === l.col && mawOpen(world);
+  return world.shieldCol === l.col && guardArmed(world);
+}
+
 /**
- * The maw over a lobe, or the beam through one. Called from the beat as well
- * as the tick — a maw already open when the lobe stands takes it that beat —
- * so the rule is written once.
+ * **Every standing lobe its answer is on**, taken. A yellow lobe by the maw
+ * opened with the cannon under it; a shield-coloured one by the shield raised
+ * in its column. The wrong control on a lobe does nothing — that is the call
+ * the colour asks for. A bowing lobe has not come through yet, a tall one is
+ * the tap's, and a shrinking level answers nothing: the clock has already won.
  *
- * **The plate covers the breach.** A shield standing on the column stops it
- * widening and, for the same reason, keeps the maw out of it: the pair has to
- * decide which seat has the column, which is the whole of part two. **Her
- * thumb is the same plate** (`undertowPinned`, `undertow-hand.ts`) — which is
- * what makes the pin a sentence rather than a free win, because the column she
- * is holding shut is a column he cannot take until she says so. A tall lobe is
- * the beam's alone.
- *
- * The last lobe is not taken, it is *held*: `undertow-step.ts` counts the
- * beats the maw is open under it.
+ * Asked every tick rather than on the press, so a maw opened over a bow takes
+ * the lobe the tick it stands, and a shield already up is an answer too.
  */
-export function undertowTake(
-  world: World,
-  u: UndertowState,
-  b: UndertowBreach,
-  beam: boolean,
-): boolean {
-  if (u.phase === "last") return false;
-  if (!beam) {
-    if (b.tall || world.shieldCol === b.col || undertowPinned(u, b.col)) return false;
-    if (world.cannonCol !== b.col || !mawOpen(world)) return false;
+export function undertowAnswers(world: World): void {
+  const u = undertowBoss(world);
+  if (u === null || undertowEbbing(u)) return;
+  for (const l of [...u.lobes]) {
+    if (l.stage !== "standing" || !answered(world, l)) continue;
+    u.lobes.splice(u.lobes.indexOf(l), 1);
+    u.taken += 1;
+    world.events.push({ type: "undertowTaken", col: l.col });
   }
-  const i = u.breaches.indexOf(b);
-  if (i >= 0) u.breaches.splice(i, 1);
-  u.taken += 1;
-  world.events.push({ type: "undertowTaken", col: b.col });
-  undertowSlow(world, u);
-  return true;
 }
 
 /**
- * **Player 1's maw**, from `commands.ts` on the `intake` press, after
- * `intakeTick` is set so `mawOpen` reads true. A no-op unless THE UNDERTOW is
- * installed and a lobe stands under the cannon.
+ * **A thumb on a tall lobe** shrinks it back to standing, with its stand
+ * started again — so it can be answered, and so it grows again if it is not.
+ * Anything else under the thumb is not a handle: a bow has not come through,
+ * and a standing lobe is the colour's to answer, not the thumb's.
  */
-export function undertowIntake(world: World): void {
+export function undertowTapped(world: World, col: number): void {
   const u = undertowBoss(world);
-  if (u === null) return;
-  const b = undertowLobeAt(u, world.cannonCol);
-  if (b !== null) undertowTake(world, u, b, false);
+  if (u === null || undertowEbbing(u)) return;
+  const l = undertowLobeAt(u, col);
+  if (l === null || l.stage !== "tall") return;
+  l.stage = "standing";
+  l.stageBeat = world.beat;
+  l.tapped = true;
+  world.events.push({ type: "undertowTapped", col });
 }
 
 /**
- * **The beam**, from `releaseLance` after the column burnt: a beam standing
- * in a column burns the floor of it too, which is the only thing in the game
- * that reaches a tall lobe. The plate does not keep the beam out — it is
- * light, not a mouth.
+ * `undertowTap` off the wire, from **either seat**: both screens draw the hull
+ * and the lobes on it, so whoever sees it grow first may put a thumb on it.
+ * Only the press counts; the lift says nothing.
  */
-export function undertowBurned(world: World, col: number): void {
-  const u = undertowBoss(world);
-  if (u === null) return;
-  const b = undertowLobeAt(u, col);
-  if (b !== null) undertowTake(world, u, b, true);
-}
-
-/**
- * **The floor follows the cannon**, on the beat, while it bows under it: a
- * slide short of `undertowUnseatSlides` bows it again under the column the
- * carriage stopped in, inside the same window, and says so with the bow's own
- * event. The last slide is answered where it always was — the cannon off the
- * bow when it parts (`undertow-step.ts`, `through`).
- */
-export function undertowFollow(world: World, u: UndertowState, b: UndertowBreach): void {
-  if (world.cannonCol === b.col || u.slid + 1 >= world.cfg.undertowUnseatSlides) return;
-  u.slid += 1;
-  b.col = world.cannonCol;
-  world.events.push({ type: "undertowBow", col: b.col });
-}
-
-/**
- * **The unseat**, asked in `applyCommand` above the switch beside
- * `batonLocks`. The floor came up under the cannon and player 1 did not slide
- * off it: his seat is dead for `undertowUnseatedBeats`, every verb that
- * reaches the ship swallowed, silently — he was shown the bow and stayed.
- * Player 2 is untouched. The rehearsal's `restart` is not a verb of the ship
- * and gets through, as it does under every other lock.
- */
-export function undertowUnseats(world: World, timed: TimedCommand): boolean {
-  const u = undertowBoss(world);
-  if (u === null || timed.player !== 1) return false;
-  if (!undertowUnseated(u, world.beat)) return false;
-  return reachesShip(timed.command);
+export function undertowTapHeard(world: World, command: Command): void {
+  if (command.kind !== "drag" || command.target !== "undertowTap" || !command.on) return;
+  undertowTapped(world, command.id ?? -1);
 }

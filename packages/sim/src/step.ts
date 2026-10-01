@@ -16,6 +16,7 @@ import { advancePods } from "./pods.js";
 import { stepReach } from "./reach.js";
 import { stepRound } from "./step-round.js";
 import type { TimedCommand } from "./types.js";
+import { undertowAnswers } from "./undertow-press.js";
 import { stepWardenTether } from "./warden-rope.js";
 import { progressWave } from "./wave-end.js";
 import { countPlay, failHolds, stepFailHold } from "./wave-fail.js";
@@ -133,6 +134,10 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // shield's column is answered on the beat it is drawn arriving there rather
   // than a whole beat later (`coil.ts`).
   wardCoils(world);
+  // THE UNDERTOW's two answers, on the same terms: a lobe is taken by the
+  // maw open over it or the shield standing on it, whichever got there, so it
+  // is asked every tick rather than only on the press (`undertow-press.ts`).
+  undertowAnswers(world);
 
   advanceBullets(world);
   // After the shots, before anything else asks who is holding what: a hand

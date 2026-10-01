@@ -1,4 +1,4 @@
-import { stareHand } from "@neon-spore/hands";
+import { stareHand, undertowHand } from "@neon-spore/hands";
 import { vanePhase, wardenPhase } from "@neon-spore/sim";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
@@ -10,7 +10,7 @@ import { bossPose } from "./poses-bosses-kit.js";
  *
  * What arrives unattended is what is here: THE STARE's rest, blue pass,
  * live pass and charge (its hit and its end are earned, by `stareHand`), THE
- * UNDERTOW's five of six, the first phase of each boss whose next phase is
+ * UNDERTOW's levels and its tall lobe, the first phase of each boss whose next phase is
  * something the pair has to *earn*, such as a plate off THE WARDEN. Those
  * are owed, named in each
  * group's note, and the pose that earns each sends the cannon's own commands
@@ -89,32 +89,24 @@ export const CLOCK_BOSS_POSES: Pose[] = [
   bossPose(
     "undertow",
     "one",
-    "One lobe at a time out of the floor. P1 opens the maw under it; P2 says which column bows.",
-    { hold: 12 },
+    "One lobe up, left standing until it grows tall. P1 or P2 taps it down; SUCK under yellow, SHIELD over cyan.",
+    {
+      want: (w) => w.boss?.kind === "undertow" && w.boss.lobes.some((b) => b.stage === "tall"),
+      hold: 12,
+      budgetBeats: 24,
+    },
   ),
   bossPose(
     "undertow",
     "two",
-    "Two lobes at once, four columns apart. P1 takes one with the maw; P2 stands the plate on the other.",
-    { hold: 12, budgetBeats: 80 },
+    "Two lobes at once. P1 takes the yellow with the cannon; P2 moves the shield under the cyan.",
+    { hand: undertowHand, hold: 12, budgetBeats: 80 },
   ),
   bossPose(
     "undertow",
-    "hard",
-    "A lobe too tall for the maw. P1 aims under it; P2 primes — only the beam takes it.",
-    { hold: 12, budgetBeats: 120 },
-  ),
-  bossPose(
-    "undertow",
-    "seat",
-    "The floor bows under the cannon itself. P2 sees which column; P1 slides the cannon off it.",
-    { hold: 12, budgetBeats: 160 },
-  ),
-  bossPose(
-    "undertow",
-    "last",
-    "Every seam lit and one lobe in the middle that will not go. P1 holds the maw open; P2 waits.",
-    { hold: 12, budgetBeats: 170 },
+    "three",
+    "Three lobes and the clock nearly out. P1 sucks the yellow; P2 shields the cyan; whoever is free taps a tall one.",
+    { hand: undertowHand, hold: 12, budgetBeats: 140 },
   ),
   bossPose(
     "instar",

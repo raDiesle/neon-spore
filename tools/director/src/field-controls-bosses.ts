@@ -123,9 +123,8 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // and the first two here drawn on a thing that moves between beats
   // (`field-controls-snake.ts`).
   ...SNAKE_CONTROLS,
-  // THE UNDERTOW's pin and free, the first pair here **one seat owns whole** —
-  // and the free is the only control in the game that hands the other player
-  // his own seat back (`field-controls-undertow.ts`).
+  // THE UNDERTOW's tap, either seat's, on a tall lobe before it bursts
+  // (`field-controls-undertow.ts`).
   ...UNDERTOW_CONTROLS,
   // THE SCOUT's line and prime, the only pair in the game drawn in the same
   // place on two screens — the ship is both handles, and the round's split is

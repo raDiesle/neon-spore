@@ -1,154 +1,78 @@
 import type { GuideScene } from "../scene-types.js";
 
 /**
- * THE UNDERTOW's rehearsal: the floor bows, and the pair answers it downward.
+ * THE UNDERTOW's rehearsal: the floor bows, a lobe stands, and its colour says
+ * who answers it.
+ *
+ * Rewritten for the rework of 1 October 2026, which asked the film for four
+ * things and nothing else: the shield under a shield-coloured lobe, SUCK with
+ * the cannon under a yellow one, a tall lobe tapped back down, and the burst
+ * that loses the wave. Nobody is unseated any more and there is no pin, so the
+ * pages that taught either went with them.
  *
  * Nothing falls in it. The boss is a fixture in the hull and the field stays
- * empty, so the film is the pushes and the two answers, in the order the
- * fight asks them: a first lobe nobody touches, whose breach widens 100 a beat
- * with no plate on it, reaches `undertowWideMilli` on its fourth beat and puts
- * **a second lobe up next door**, both of which then withdraw and leave two
- * columns scarred (`scarHull`); a second the cannon is
- * slid under while the plate is still bowing and the maw is opened over as it
- * comes through — a maw already open on the beat the lobe stands takes it
- * that beat (`through` → `undertowTake`), which is the guide's *open the maw
- * as the lobe comes through*; a third that bows under the plate, because a
- * shield standing on the column keeps the maw out of it as well as stopping
- * it widening, so player 2 has to move off before player 1 can answer; and
- * the first pair, four columns apart, where the maw takes the near one and
- * the plate stands on the far one.
- *
- * Every lobe stands `undertowStandBeats` ten since the owner's doubling, 24
- * September 2026 (`docs/spec/choreographed-windows.md`): the two scars come
- * five beats later, everything from the first taking moved with them, and
- * the film ends on the plated far lobe withdrawing, before the next push.
+ * empty, so the film is three lobes in the order the fight raises them: the
+ * first shield-coloured — player 2 slides the shield under it while it is
+ * still bowing and player 1 arms it once it stands (`undertowAnswers`); the
+ * second yellow, with the cannon slid under the bow and SUCK opened once it
+ * stands; the third left alone. It grows tall after `undertowStandBeats`,
+ * player 2 taps it back down (`undertowTapped`), it grows tall again, and
+ * nobody taps it, so it bursts — the one page that says what a mistake costs.
  *
  * Where a lobe comes up is the seeded rng's and not an author's, so the
- * cannon acts say `atBoss` and `bossAnswerCol` reads the first breach at the
- * moment the thumb goes down. The shield's column is authored, and that is
- * why the seed is 36: the far lobe of a pair has to stand in a column
- * `mapCol` reaches — 3 and 7 are the one pair that does — and this seed puts
- * a single under the plate first, so the third lesson comes for free.
- *
- * Every page not on a control is on the breach it is about
- * (`render/caption-anchor-boss-e.ts`, 21 September 2026): `plate` for the two
- * about the bow, `lobe` for the two about one standing, and the boss itself —
- * every breach it is pushing at — for the two about a pair. They were all on
- * the hull, which is the middle of the plating and never where the seed put
- * the lobe. The bow is drawn on player 1's screen alone (`showsUndertowBow`),
- * which is the first page, and the anchor is told by the same predicate.
+ * shield and cannon acts say `atBoss` (`bossAnswerCol` reads the first lobe
+ * when the thumb goes down) and the tap is resolved by the runner onto the
+ * tall lobe (`sim/scene-aim.ts`). The seed is 18 because it raises a
+ * shield-coloured lobe first and a yellow one second, the order the pages
+ * teach, and puts the third in a column away from the cannon, so nothing
+ * answers it by accident.
  */
 export const THE_UNDERTOW: GuideScene = {
   ticks: 2940,
   bpm: 120,
-  seed: 36,
+  seed: 18,
   entries: [],
   boss: { kind: "undertow" },
   acts: [
-    { tick: 1410, control: "cannon", col: 3, atBoss: true },
-    { tick: 1540, control: "intake" },
-    { tick: 1710, control: "cannon", col: 3, atBoss: true },
-    { tick: 1740, control: "shield", col: 0 },
-    { tick: 1900, control: "intake" },
-    { tick: 2070, control: "cannon", col: 3, atBoss: true },
-    { tick: 2265, control: "intake" },
-    { tick: 2440, control: "shield", col: 4 },
+    { tick: 150, control: "shield", col: 3, atBoss: true },
+    { tick: 400, control: "guard" },
+    { tick: 600, control: "cannon", col: 3, atBoss: true },
+    { tick: 840, control: "intake" },
+    { tick: 1710, drag: "undertowTap", hand: 2, until: 1720 },
   ],
   steps: [
     {
       tick: 0,
-      seat: 1,
-      text: "ONLY PLAYER 1 SEES IT BULGE",
-      anchor: { at: "boss", part: "plate" },
-    },
-    {
-      tick: 180,
-      seat: 1,
-      text: "A LOBE COMES UP IN 4 BEATS",
-      anchor: { at: "boss", part: "plate" },
-    },
-    {
-      tick: 360,
       seat: 2,
-      text: "A LOBE IS UP · NO ONE ACTS",
-      anchor: { at: "boss", part: "lobe" },
+      text: "CYAN LOBE · SHIELD UNDER IT",
+      anchor: { at: "control", control: "shield" },
     },
     {
-      tick: 540,
-      seat: 2,
-      text: "LEFT ALONE · THE HOLE GROWS",
-      anchor: { at: "boss", part: "lobe" },
-    },
-    { tick: 720, seat: 2, text: "IT SPREADS · TWO SCARS STAY", anchor: { at: "boss" } },
-    // Three pages here said a verb the fight now writes itself, 18 September
-    // 2026 (`boss-cue-read-j.ts`): the slide, and the maw twice. All three
-    // kept their tick, their seat and their anchor, because every one of them
-    // is the only page of its seat over an act of its seat and a deleted one
-    // would hand the ghost hand to the other screen (`new-tutorial`, *take the
-    // verb out, not always the page*).
-    //
-    // This one says the reason the cannon has anywhere to be: the maw and the
-    // beam both fire straight up the column the carriage is in
-    // (`undertow-press.ts`, `lance-burn.ts`), and a cue may never name a
-    // column.
-    {
-      tick: 1320,
+      tick: 240,
       seat: 1,
-      text: "THE CANNON MUST BE UNDER IT",
+      text: "PLAYER 1 RAISES THE SHIELD",
+      anchor: { at: "control", control: "guard" },
+    },
+    {
+      tick: 480,
+      seat: 1,
+      text: "YELLOW · CANNON UNDER IT",
       anchor: { at: "control", control: "cannon" },
     },
     {
-      tick: 1500,
+      tick: 720,
       seat: 1,
-      text: "SUCK TAKES THE RISING LOBE",
+      text: "SUCK TAKES A YELLOW LOBE",
       anchor: { at: "control", control: "intake" },
     },
-    // This page said PLAYER 2 MOVES THE PLATE OFF until 17 September 2026: the
-    // fight writes CARRY over the plate and MOVE under it exactly while it
-    // stands in the column the maw is coming for (`decisions.md` #34). The
-    // plate at 1440 is hers and both neighbours are his, so the page keeps her
-    // screen and says the reason instead of the verb. The page above it keeps
-    // SUCK: its subject is the beat, not the gesture.
+    { tick: 1140, seat: 2, text: "LEFT STANDING · IT GROWS", anchor: { at: "boss", part: "lobe" } },
     {
-      tick: 1680,
+      tick: 1620,
       seat: 2,
-      text: "A SHIELD HERE BLOCKS SUCK",
-      anchor: { at: "control", control: "shield" },
+      text: "TALL · PLAYER 2 TAPS IT DOWN",
+      anchor: { at: "boss", part: "lobe" },
     },
-    // The beat after her plate was in his way, which is the moment the split
-    // bites: neither seat is drawn the other's carriage (`showsCannon`,
-    // `showsShield`), so the column he needs is a sentence she has to say. The
-    // page said THE MAW TAKES IT AGAIN, which was the film narrating its own
-    // verb a second time.
-    //
-    // **Every caption was reworded on 25 September 2026**, for a player who
-    // read them and could not follow: *try to improve text so i understand
-    // it.* BOW became BULGE, the maw became SUCK — the word on its button —
-    // and the three reasons say the thing itself (the cannon under the lobe,
-    // the shield blocking the suck, no shield on his screen) rather than
-    // a pronoun pointing at it.
-    {
-      tick: 1860,
-      seat: 1,
-      text: "PLAYER 1 SEES NO SHIELD",
-      anchor: { at: "control", control: "intake" },
-    },
-    { tick: 2040, seat: 2, text: "TWO LOBES · FAR APART", anchor: { at: "boss" } },
-    // Why the last lesson divides at all — one carriage, two lobes, four
-    // columns apart. The cue says `OPEN` on the one he is under and nothing
-    // about the other, because *which* is the pair's own sentence; the page
-    // below answers it on her screen.
-    {
-      tick: 2220,
-      seat: 1,
-      text: "PLAYER 1 CANNOT REACH BOTH",
-      anchor: { at: "control", control: "intake" },
-    },
-    {
-      tick: 2400,
-      seat: 2,
-      text: "SHIELD STOPS THE OTHER ONE",
-      anchor: { at: "control", control: "shield" },
-    },
+    { tick: 2160, seat: 2, text: "TALL AGAIN · NOBODY TAPS", anchor: { at: "boss", part: "lobe" } },
+    { tick: 2640, seat: 1, text: "IT BURSTS · THE WAVE IS LOST", anchor: { at: "hit" } },
   ],
 };

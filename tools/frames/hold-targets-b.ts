@@ -77,9 +77,9 @@ export const ROWS: Record<string, Row> = {
   // `baton-hand.ts`: a thumb each, and `id` is the socket.
   batonSocket: { id: true },
   batonSocket2: { seat: 2, as: "batonSocket", id: true },
-  // `undertow-hand.ts`: both hers; the pin's `id` is the lobe's column.
-  undertowPin: { seat: 2, id: true },
-  undertowFree: { seat: 2 },
+  // `undertow-press.ts`: a press from either seat; `id` is the tall lobe's column.
+  undertowTap: { id: true },
+  undertowTap2: { seat: 2, as: "undertowTap", id: true },
   // `curtain-hand.ts`.
   curtainHem: {},
   // `taster-hand.ts`: the blade's and the gap's `id` are columns.

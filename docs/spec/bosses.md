@@ -3763,242 +3763,114 @@ so the only two things that reach it are the maw, opened over the breach from
 the cannon's own column, and the lance beam, which burns its whole column
 standing.
 
-**The shape.** Nothing above the hull line, most of the time: the field is
-empty and the boss exists only where it breaks through. A **breach** is a
-place rather than a scar — a column, a stage (`bowing`, `standing`), a beat
-count, a width in thousandths and whether it was widened into — and the list
-of them is the whole of the state (`sim/undertow.ts`, hashed in
+**Reworked on the owner's word, 1 October 2026.** Everything below this line
+is the fight as it ships since that date. The design page's five parts, the
+pairs four apart, the tall lobe only the beam took, the seat under the cannon
+(`undertowUnseats`), the last lobe held down, her two hands on the hull — the
+pin and the free, and the black ring the pin was drawn as — the breach
+widening into a second lobe, and THE SLOW over every ask are **gone**, with
+their files (sim/undertow-hand.ts, sim/undertow-slow.ts,
+render/undertow-grip.ts, undertow-grip-place.ts, undertow-marks.ts).
+The owner asked for a fight the pair can read in one look and play moving
+freely, and named the slow as the lag on a phone.
+
+**The shape.** Nothing above the hull line but the lobes. A **lobe** is a
+column, a stage (`bowing`, `standing`, `tall`), the beat that stage began and
+its **answer** (`maw` or `shield`), and the list of them, with the level and
+its clock, is the whole of the state (`sim/undertow.ts`, hashed in
 `sim/undertow-hash.ts`). It is a fixture, not a body (`bossFillsWave ===
 false`), and the arrivals around it are the wave's own
-(`content/src/waves/act-7e.ts`, plain slicks from the fourth push on, as the
-design page's step 8 asks).
+(`content/src/waves/act-7e.ts`).
 
 **The rule, in one sentence.** A plate bows for `undertowBowBeats` (4) and a
-lobe stands through it for `undertowStandBeats` (10); the maw opened under it
-takes it (`undertowTake`, asked from `intake` before the pods are), a tall one
-is the beam's alone (`releaseLance` → `undertowBurned`), and one left standing
-withdraws and **the column is a scar** — `scarHull`, cut out of `breachHull`
-so a scar can be laid without the wave being lost — and `undertowRestBeats`
-(2) of empty field pass before the next plate bows. While a lobe stands its
-breach widens `undertowWidenMilli` (100) a beat unless the shield is on its
-column, and at `undertowWideMilli` (400) a second lobe comes through next
-door, already standing. **The stand is longer than four beats so that this
-can happen at all**: an unplated breach is at 400 on its fourth beat and
-breeds there, and withdraws later. At four it withdrew at 300 and the second lobe was a
-sentence on this page the game never performed — `undertow.test.ts` reached it
-only by setting `undertowStandBeats` to 40, and now runs on the shipped
-figures.
+lobe stands through it in its answer's colour; the answer under it takes it —
+a **yellow** lobe the maw opened with the cannon in its column, a
+**shield-coloured** one the shield armed in its column (`undertowAnswers`,
+asked every tick) — and the wrong control on it does nothing; one left standing
+`undertowStandBeats` (8) grows **tall**, and a thumb on a tall lobe from
+either seat shrinks it back to standing with its stand begun again
+(`undertowTapped`, the `undertowTap` drag); one left tall `undertowTallBeats`
+(8) **bursts**. At 120 bpm the stand and the tall are four seconds each, the
+owner's *about five*.
 
-**The four parts.** `undertowSingles` (3) pushes alone; `undertowPairs` (2)
-in pairs `undertowPairGap` (4) columns apart, so the maw reaches one and the
-pair have to say which; `undertowTalls` (2) tall; then one under the cannon's
-own column, which has `undertowUnseatBeats` (4) to slide off
-`undertowUnseatSlides` (2) times — the floor follows every slide short of the
-last (`undertowFollow`) — and if it does not,
-every press from that seat is swallowed for `undertowUnseatedBeats` (4)
-(`undertowUnseats`, in the lock chain `command-locks.ts` now holds for THE
-MIRROR, THE MALFUNCTION, THE STARE and THE BATON as well). Last, the whole
-edge lifts for `undertowRiseBeats` (4) and one lobe rises in `midCol`: the maw
-held open under it for `undertowHoldBeats` (12), counted on the beat, takes
-the body down through the breach in `undertowDownBeats` (4); `undertowLastBeats`
-(20) standing and it comes through the other way, a heavy breach at the middle
-and the wave lost. THE SLOW spans every ask — a lobe standing, the floor under
-the cannon, the last lobe (`undertow-slow.ts`) — and the body passing opens
-`undertowSlowBeats` (2) of its own.
+**The burst is the one hit in this fight.** A heavy breach in the lobe's
+column, the plating in it and in the column beside it taken (`Scar.plate`,
+`undertowPlateBeside`), and the wave lost and played again — the owner's rule
+that a hole through the hull costs the wave, whatever made it. Nothing else
+the floor does reaches the hull.
 
-**Health is the hull.** Every hole it punches is also a hole to reach into,
-and a hole it withdraws from is a scar in the pair's own hull for the rest of
-the run. `taken` and `scars` are the two counts, and nothing else is.
+**Three levels, each a clock.** `undertowLevelBeats` (48) a level, with
+`undertowOneLobes` (1), `undertowTwoLobes` (2) and `undertowThreeLobes` (3)
+up at most, one bow at a time and `undertowRestBeats` (2) between bows, each
+in a free column and a colour drawn from the seeded stream. **Surviving the
+clock is the win**: when it runs out (`undertowEbb`) every lobe still up
+shrinks back into the hull over `undertowEbbBeats` (4), nothing answers,
+grows or bursts while it does, and the next level begins on a clear floor —
+after the third the boss is gone. `taken` is counted and decides nothing.
 
-**The plate taken** — the design's steps 9 and 10, as of 17 September 2026.
-A tall lobe withdrawing untaken does not tear the plating, it takes it: the
-scar it leaves in its own column and in the neighbour's
-(`undertowPlateBeside`, the widening's own rule for which column is next
-door) carries `Scar.plate`, the plating gone rather than cracked, and the
-hull is two columns shorter for the rest of the run — four after the phase,
-the design's step 10. It is in the hash (`scarHashParts`), because a hull two
-devices disagreed about would be two hulls. The `undertowScar` event says
-`tall` for it. **Step 8's *worth two* is not built, on purpose**: the owner's
-rule is that a body reaching the hull costs the wave, whatever it came
-through, so a creature through a breach is the wave lost like any other and
-there is nothing for it to be worth twice.
+**The plate taken** — the design's steps 9 and 10, as of 17 September 2026,
+and the burst's since the rework. The scars a burst leaves carry `Scar.plate`,
+the plating gone rather than cracked. It is in the hash (`scarHashParts`),
+because a hull two devices disagreed about would be two hulls.
 
 **The plate's look** — 17 September 2026. A scar with `plate` is not a crack
 (`scars.ts` skips it) but **a hole in the outline**: `plate-gap.ts` joins the
-two plate scars a tall lobe leaves — adjacent columns, one beat — into one
-gap, and the hull's rim is cut out over it the way it is cut over a crater's
-mouth (`clipOutPlates`, the same even-odd clip as `clipOutMouths`, composed).
-Inside the gap the ship's deepest body colour is filled to a jittered floor
-`0.42` tiles under the skin, and the rim colour is carried down both walls
-and along that floor, so the outline visibly dips two columns and the eye
-reads *shorter*, not *marked*. The splash the lobe left stays on the skin
-either side, torn edges in its colour; inside the gap it is painted over,
-since there is no skin there to hold it.
-
-**Step 11, landed** — 17 September 2026. The design's step 11 asks one thing
-of the seat beat: slide off in time. Until this date the simulation asked a
-second — a lobe stood where the cannon had been and the maw had to take it —
-which the design never wrote; now a cannon slid off in time **closes the
-plate** (`undertowClosed`), nothing comes through, no scar, his seat is his.
-The close is the pilot's, like the bow (`showsUndertowBow`), and it is the one
-transient THE UNDERTOW keeps (`undertow-fx.ts`, `BossTransients.undertow`):
-the breach leaves the world the beat it closes, so a plate flat the next
-frame would be a plate that vanished, and instead the same bow is drawn by
-the same seam with the lift running down over half `undertowBowBeats`, and
-the rim over the plate flares once in its own light as it seats
-(`restart.test.ts` proves it forgotten). Nothing of the design is left
-unbuilt in this section.
+two plate scars a burst leaves — adjacent columns, one beat — into one gap,
+and the hull's rim is cut out over it the way it is cut over a crater's mouth
+(`clipOutPlates`, the same even-odd clip as `clipOutMouths`, composed). Inside
+the gap the ship's deepest body colour is filled to a jittered floor `0.42`
+tiles under the skin, and the rim colour is carried down both walls and along
+that floor, so the outline visibly dips two columns and the eye reads
+*shorter*, not *marked*.
 
 **Drawn, in two passes, because the boss is on both sides of the hull line.**
-The lobes and the body are drawn in the field pass with the other bosses
-(`boss-draw.ts` → `undertow-lobe.ts`), and they start *below* the skin, so the
-ship drawn over them hides their root and what shows is a thing that has come
-up through the plating rather than one sitting on it. Everything that is the
-plating itself — the plate bowing, the seams lit, the breach parted with its
-two flaps, the whole edge lifting before the last lobe — is drawn on the
-finished ship (`frame-on-ship.ts` → `undertow-draw.ts`), where nothing
-between it and the eye can cover it. The numbers are one file with no canvas
-in it (`undertow-shape.ts`): a bow is `smoothstep` over `undertowBowBeats`
-for the phase, a lobe rises over a beat (half a beat for a tall one) and
-holds, the last one grows over `undertowLastBeats`, and the body's height is
-a half-sine over `undertowDownBeats`.
+The lobes are drawn in the field pass with the other bosses (`boss-draw.ts` →
+`undertow-lobe.ts`) and start *below* the skin, so the ship drawn over them
+hides their root: **a lobe is a bump of the ship**, the way the cannon is,
+and not a thing sitting on it. A standing lobe is `LOBE_TILES` (2) tall,
+twice what it was, a tall one `TALL_TILES` (4), and both lean with the
+outline tier (`undertow-drift.ts`) and shake on top of it, seeded by column so
+two never shake as one. The plating itself — the plate bowing, its seams lit —
+is drawn on the finished ship (`frame-on-ship.ts` → `undertow-draw.ts`). The
+numbers are one file with no canvas in it (`undertow-shape.ts`): the bow is
+`smoothstep` over `undertowBowBeats`, a lobe rises over a beat, a tall one
+grows over a beat and a tapped one falls back the same way (`tapped`), and
+the ebb draws every lobe back over `undertowEbbBeats`.
 
-**The bow is player 1's, and the breach is everyone's.** A plate bowing is
-drawn on the pilot's screen and not on the navigator's (`showsUndertowBow`)
-— the column the next lobe is pushing at is the whole of his first part of
-this fight, and a copy of it on her phone would leave the pair nothing to
-say. The moment the lobe stands the breach is on both screens, since her plate
-has to stand on it and his maw has to open over it. The one bow that is not
-his alone is the last: every seam lit at once has no column to call, so the
-edge lifting is drawn for both. The seat's column is lit under the cannon on
-his screen while it is unseated.
+**The bow is player 1's, and it shakes.** A plate bowing is drawn on the
+pilot's screen and not the navigator's (`showsUndertowBow`) — the column and
+the colour are his to call — with a small tremor sideways that grows with the
+lift. The moment the lobe stands it is on both screens.
 
-**The colours are the design's.** The seam-light is the hull's violet
-(`PALETTE.hull`) as additive light between the raised plate and the skin; the
-flaps and the plate keep the hull's rim; a lobe is wet rock slime, lit from
-above and from the breach under it, with a fold across its foot, because it is
-not a creature and has nothing to say (`render/undertow-flesh.ts`). A tall
-lobe alone carries the beam's two colours, cyan at its top and red at its
-base, which is the sentence *only the beam takes this* said in paint rather
-than told. The body is the sheen's own deep violet, pinched to the plate's
-width at the hull line and swelling above it. The ten events are still
-silent in `render/` (`effects-ingest-silent-boss.ts`,
-`effects-spark-silent.ts`): a breach that opens is drawn open, the plate gone
-is a hole in the outline, and a spark on top of either would be the same fact
-said twice.
+**The colours are the answers.** A yellow lobe is the pods' yellow
+(`PALETTE.pod`), the maw's colour; a shield lobe is `PALETTE.shield`. Both are
+wet slime lit from above (`render/undertow-flesh.ts`), and a tall lobe is the
+same colour stretched, so what it asks for after the tap is still written on
+it. The seam-light is the hull's violet (`PALETTE.hull`).
+
+**The level clock** (`render/undertow-clock.ts`, the owner by name,
+1 October 2026). `LEVEL 2/3  0:14` and THE FLEET's drain bar
+(`fleet-clock.ts`), on both screens at the top of the field under the ship's
+chrome. **Never red**: running out is the level won.
+
+**What the field says** (`render/src/boss-cue-read-j.ts`, `docs/decisions.md`
+#34). The buttons' own words. A standing yellow lobe is `SUCK` on it when the
+cannon is in its column and `MOVE` on the cannon when it is not; a shield lobe
+is `SHIELD` on it when the shield is in its column and `MOVE` on the shield
+when it is not — `MOVE` always where the carriage stands, never where it is
+wanted, because *which column* is the sentence the pair says. A tall lobe is
+`TAP` on both screens. A bow says nothing, and neither does the ebb.
+
+**The rehearsal** (`content/src/scenes/the-undertow.ts`) is the four things
+the owner asked of it and nothing else: the shield under a shield lobe, SUCK
+under a yellow one, a tall lobe tapped back down, and one left to burst.
 
 **Never watched at tempo.** What the tests say is the mechanism: a plate bows
-for four beats and a lobe stands for four, the maw takes it and the plate does
-not, a lobe left standing scars without failing the wave, a breach widens to a
-second lobe and a plate on it stops that, a pair comes up four apart, a tall
-one is beam-only, the seat under the cannon is swallowed and the shield's is
-not, the last lobe is held down or comes through, the wave stays open until
-the body has passed, and the same run fingerprints the same way twice
-(`sim/test/undertow.test.ts`).
-
-**Her two hands on the hull** (`sim/undertow-hand.ts`, 18 September 2026 — the
-simulation; `render/src/undertow-grip.ts` and `undertow-grip-place.ts`,
-22 September, the picture). The fight shipped
-answered entirely from the panel: the maw, the beam, the shield's column and
-the slide off are four presses and a carriage, and none of them is a hand on
-the boss itself. The boss itself is the hull, which is the one part of this
-fight either seat can point at — so both new hands are the **navigator's**,
-because his are the cannon and the maw and they are full.
-
-*The pin* is a second plate, made of a thumb. Held on a lobe standing in the
-hull it stops that breach widening exactly as the shield does and — for the
-same reason the shield does — **keeps the maw out of that column**, so the pair
-has to say *let go* before he can take it. There is one pin; a thumb landing on
-a second lobe moves it; a pin whose lobe leaves the world comes off by itself.
-It is refused on a bow, which is not yet a hole, and in **last**, where
-`undertowTake` refuses anyway and a pin would only spoil his hold.
-
-*The free* is the one hand in this game that **gives a seat back**. The floor
-comes up under the cannon and a pilot who did not slide off is swallowed for
-`undertowUnseatedBeats` (4); her thumb held on his column for
-`undertowFreeBeats` (2) hauls the plate off him and he is his own again. Two of
-the four, because half the dead time is hers to win back and she cannot have
-all of it or the unseat would cost nothing at all. Lifted off part way the
-count keeps, for the same reason the maw's hold under the last lobe keeps
-(`docs/spec/latency.md`).
-
-**And the two rings they are taken hold of by** (`undertow-grip.ts`,
-22 September 2026). The pin floats `0.45` of a tile above the hull line in the
-lobe's own throat — where her plate would stand, which is what the handle is —
-and the free hangs a clear tile over the stuck cannon, above the plate, the
-carriage and the bow rising off the skin in that column. Both are read off
-`l.hullY` rather than the undulating skin: that skin is a function of x the
-draw files are handed and a hit test is not, and a ring is a ring and not a
-trace. Neither covers a lobe's two beam bands, which are its wall lit from
-inside over the top and bottom thirds, half a tile out (`undertow-flesh.ts`),
-and run outside a ring three tenths of a tile across.
-
-**The free is on both screens, hers bright and his dim; the pin is on hers
-alone.** The bargain `sinew-handles.ts` struck — neither seat can feel the
-other's thumb, so each is shown a dim copy of the other's handle — earns the
-free more than it has earned anywhere: it is *his* seat she is buying back,
-and a pilot who could not see it coming would sit out `undertowUnseatedBeats`
-with no idea. **It does not earn the pin, and the frame is what said so.** A
-ring fills its disc in `PALETTE.background` before anything else
-(`handle-draw.ts`), so his dim copy came out a flat black disc filling the head
-of the lobe under it — and a lobe with a hole in it is what a breach in this
-hull looks like — on every standing lobe at once, which is his whole target
-list, offering him a thumb the wire drops. His screen is shown the pin she has
-*made* and not the ones she could: one ring at most, in the column
-`undertowPinned` is keeping his maw out of, which is the half of this handle he
-can act on and has to be told before he can say *let go*. Every case of this is
-a frame rather than a hit test (`render/test/undertow-grip-frame.test.ts`): the
-hit test computes its circles from the same file the drawing does, so the two
-of them agree with each other whatever either is doing to the picture.
-
-**What the field says** (`render/src/boss-cue-read-j.ts`, 18 September 2026,
-`docs/decisions.md` #34). Four words across all five phases, and the one that
-decides the reading is the column: the maw takes from the cannon's own column
-and the beam burns it (`undertow-press.ts`, `lance-burn.ts`), so a lobe he is
-not under is `CARRY` / `MOVE` on his cannon and nothing on her screen at all,
-whichever seat would have answered it from underneath. Under him it is `HOLD` /
-`OPEN` on an ordinary lobe, his, and `HOLD` / `BURN` on a tall one, hers — her
-hold fills the lance, his carriage decides what it burns, one gesture across
-two seats. `CARRY` / `MOVE` is hers as well when her plate is standing on a
-lobe's own column and keeping the maw out of it, and his `OPEN` stands beside
-it rather than waiting for her, because the maw is a window and not a shot. In
-**seat** the bow under the cannon is `MOVE`, first of everything — and once the
-seat has him the reading goes **silent**, because `undertowUnseats` swallows
-every verb of his that reaches the ship and a word there would be the field
-asking for the one thing he cannot do. In **last** the rise is `MOVE` until he
-is in the middle and then `OPEN` for the hold, and she is told nothing, since
-`undertowTake` refuses in that phase and her plate changes no rule.
-
-**And two things the field is deliberately not given.** An ordinary bow in
-phases one, two and hard carries no word: the lobe stands for
-`undertowStandBeats` afterwards and the maw reaches it through all ten, so a
-cue on the bow would be the field talking over a fight that has not asked yet,
-and the rehearsal teaches that answer instead. Nor is there a word telling her
-to *put* the plate on a breach to stop it widening — the widening is slow
-pressure rather than a moment, and which of two lobes the plate goes to is the
-pair's own sentence, which is what the last part of this fight is made of.
-
-**Doubled on the owner's rule, 24 September 2026**
-(`docs/spec/choreographed-windows.md`): `undertowStandBeats` 5 → 10,
-`undertowUnseatBeats` 2 → 4 with two slides (`undertowUnseatSlides`, the
-floor re-bowing under the cannon after the first, with the bow's own event),
-`undertowHoldBeats` 6 → 12 and `undertowLastBeats` 10 → 20. THE SLOW left
-the last lobe's rise for the asks themselves, up while any lobe stands, the
-floor bows under an unanswered cannon or the last lobe waits, and shut the
-beat the last one is answered (`sim/undertow-slow.ts`); a lobe through the
-hull shuts it, the body swallowed keeps its own. The rehearsal is 300 ticks
-longer and its takings five beats later.
-
-**Both rings answer a touch the way every mark does** (`render/undertow-marks.ts`,
-the owner, 27 September 2026). Each pin a standing lobe offers wears the halo
-on her screen until her thumb is on it, and the free wears it while the floor
-has him (`sim/undertow-hand.ts` `undertowPinAsks`, `undertowFreeAsks`). The
-pins are hers alone and drawn on her screen alone, so they carry no clock and
-nothing is refused out loud. The free is drawn on both, and it is the one wait
-this fight gives one seat on the other: on the pilot's screen it wears the
-partner's clock, and his own press on it is refused with `undertowRefuse`
-rather than dropped. A pin going down and the pilot let go wash their ring
-green; his refused press washes the free red.
+four beats and stands, the right answer takes it and the wrong one does not, a
+standing lobe grows tall, a tap shrinks it back from either seat, a tall one
+left alone bursts and loses the wave, the level's clock ebbs the lobes away and
+opens the next level, three levels end the boss, and the same run fingerprints
+the same way twice (`sim/test/undertow.test.ts`).
 
 ## 11.23 THE GORGE — the boss you hurt by not shooting
 

@@ -4,7 +4,7 @@ import type { World } from "./world.js";
 
 /**
  * **THE SLOW on THE BATON spans its asks exactly** (`docs/decisions.md` #33,
- * `undertow-slow.ts`' pattern), and there are three: a shell swelling for
+ * the pattern THE UNDERTOW's first form set), and there are three: a shell swelling for
  * its strips, the two beads hung for the draw, and the crossing's acts. Each
  * closes on its own clock — the shell stripped or let go, the draw made or
  * run out, the bead dropped or missed — and a handover asks nothing slowly:

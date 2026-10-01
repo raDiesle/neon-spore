@@ -1,58 +1,61 @@
 import type { Point } from "@neon-spore/content";
-import { type SimConfig, type UndertowState, undertowLastCol } from "@neon-spore/sim";
+import type { SimConfig, UndertowLobe, UndertowState } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { withOutlinePose } from "./outline-drift.js";
+import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
-import { bodyPose, lobePose } from "./undertow-drift.js";
-import { paintBody, paintLobe } from "./undertow-flesh.js";
-import { bodyHeight, bodyPass, lobeHeight, PLATE_HALF } from "./undertow-shape.js";
+import { lobePose } from "./undertow-drift.js";
+import { paintLobe } from "./undertow-flesh.js";
+import { lobeHeight } from "./undertow-shape.js";
 
 /**
- * THE UNDERTOW's lobes and, once, its body — the half of the boss that is
- * *above* the hull line.
+ * THE UNDERTOW's lobes — the half of the boss that is *above* the hull line.
  *
- * **Drawn with the field, under the ship.** Everything here comes up through
- * the plating, so its base is set half a tile below the skin and the hull
- * pass paints over it: a lobe is seen from the hull line up and nothing of
- * where it came from, which is the design's *nothing above the hull line,
- * most of the time* — and the reason this cannot be drawn with the things
- * stuck *on* the ship (`undertow-draw.ts`), where a lobe would stand on the
- * plating rather than through it.
+ * **A bump of the ship, the way the cannon is one.** Wide where it leaves the
+ * skin and narrowing to a rounded crown, so it reads as the hull pushed up
+ * from under rather than a thing stood on it; its base is set below the skin
+ * and the hull pass paints over it, so where it came from is never seen. Drawn
+ * with the field, under the ship, for that reason (`undertow-draw.ts` is the
+ * plating, drawn over it).
  *
- * **Rock grey, and a colour only on the tall ones.** A lobe in a breach is
- * the one vulnerable thing in the fight and nothing can be fired at it — the
- * cannon shoots up the column and the lobe is in the column's floor
- * (`sim/undertow.ts`) — so it is `rock`, the honest grey for a thing no
- * trigger answers. What it is made of is `undertow-flesh.ts`. The tall one is the exception the design names: *the
- * ammunition colour only on the hard lobes that need the lance, so a colour
- * in the frame means "this one needs the beam" and nothing else.* Either
- * beam burns it, so it carries both, the way THE WISP does: cyan on its top
- * third and red on its bottom, which cannot be said as either.
+ * **Its colour is its answer** (`undertow-flesh.ts`): yellow the maw's, cyan
+ * the shield's. A tall lobe is twice a standing one and carries the colour
+ * down the whole of its wall.
  *
- * Nothing here is held between frames. The blow of a lobe taken is handed
- * in — how hard it still shows, and the sideways shake it puts through
- * everything of the boss still standing (`undertow-fx.ts`).
+ * **It dances and shakes.** The lean is the outline tier's
+ * (`undertow-drift.ts`); the shake is a quick sideways tremor on top of it,
+ * harder on a tall lobe, which is the one about to go. Both are drawing only
+ * — the answer and the tap are judged by column.
+ *
+ * Nothing here is held between frames. The blow of a lobe taken is handed in
+ * — how hard it still shows, and the sideways shake it puts through every lobe
+ * still standing (`undertow-fx.ts`).
  */
 
-/** Half a lobe's width, in tiles: a column's worth, and a little more for a tall one. */
-const LOBE_HALF = 0.42;
-const TALL_HALF = 0.5;
+/** Half a lobe's width where it leaves the skin, in tiles: the column and a shoulder. */
+const BASE_HALF = 0.5;
+/** Half its width at the crown, in tiles. */
+const CROWN_HALF = 0.32;
 /** How far below the skin the base is set, so the hull hides where it comes from. */
-const BURIED = 0.6;
-/** How wide the body swells above the breach that is too narrow for it, in tiles. */
-const BODY_HALF = 1.7;
+const BURIED = 0.5;
+/** The tremor, in tiles each way, standing and tall, and how fast it runs, per second. */
+const SHAKE_TILES = 0.035;
+const TALL_SHAKE_TILES = 0.08;
+const SHAKE_RATE = 23;
 
-/** How far a lobe's lit side drifts as it breathes, and how fast. The outline
- * already wobbles on its own (the `0.03 * sin(time * 1.3 + a * 2 + seed)` term
- * below), but the gradient and film that light it (`undertow-flesh.ts`) sat on
- * a fixed `x`, no matter how the rim bulged under them — beautifully lit and
- * still a still life (`docs/style-guide.md`'s "Depth on a body that already
- * ships"). On its own rate, distinct from the outline's own (1.3) and the
- * body's sway (0.9), so it never comes back into step with either. */
-const LOBE_LIT_WOBBLE = 0.06;
-const LOBE_LIT_WOBBLE_RATE = 0.47;
+/** The colour that answers a lobe: the pod's yellow for the maw, the dome's cyan for the shield. */
+export function lobeColour(b: UndertowLobe): string {
+  return b.answer === "maw" ? PALETTE.pod : PALETTE.shield;
+}
+
+/** The tremor's sideways offset at `time`, in pixels, seeded by column so two do not shake as one. */
+export function lobeShake(b: UndertowLobe, tile: number, time: number): number {
+  const reach = b.stage === "tall" ? TALL_SHAKE_TILES : SHAKE_TILES;
+  const t = time * SHAKE_RATE + b.col * 1.9;
+  return tile * reach * (Math.sin(t) * 0.7 + Math.sin(t * 1.7 + 0.4) * 0.3);
+}
 
 export function drawUndertowLobes(
   ctx: CanvasRenderingContext2D,
@@ -66,92 +69,43 @@ export function drawUndertowLobes(
   hurt = 0,
   shake = 0,
 ): void {
-  for (const b of u.breaches) {
+  for (const b of u.lobes) {
     const h = lobeHeight(cfg, u, b, beat, beatPhase);
     if (h <= 0) continue;
     const x = tileCX(l, b.col);
     // Each leans about where it crosses the skin (`undertow-drift.ts`).
-    const root = { x: x + shake, y: skinY(x) };
+    const root = { x: x + shake + lobeShake(b, l.tile, time), y: skinY(x) };
     withOutlinePose(ctx, lobePose(cfg, b.col, h, l.tile, beat, beatPhase), root, () =>
-      drawLobe(ctx, l, root.x, root.y, h, b.tall, time, b.col, hurt),
+      drawLobe(ctx, l, root.x, root.y, h, b, time, hurt),
     );
   }
-  const pass = bodyPass(cfg, u, beat, beatPhase);
-  if (pass < 0) return;
-  // The sim clears the breaches at the swallow, so the hole the body is
-  // squeezing through is the last lobe's own: a plate's width, dead centre.
-  const x = tileCX(l, undertowLastCol(cfg));
-  const tiles = bodyHeight(pass);
-  const root = { x: x + shake, y: skinY(x) };
-  withOutlinePose(ctx, bodyPose(cfg, tiles, l.tile, beat, beatPhase), root, () =>
-    drawBody(ctx, l, root.x, root.y, tiles, time, hurt),
-  );
 }
 
-/** One lobe: a blob standing on end, seeded per column so two are not one. */
+/** One lobe: a bump wide at the skin and round at the crown, breathing at its rim. */
 function drawLobe(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   x: number,
   skin: number,
   tiles: number,
-  tall: boolean,
-  time: number,
-  seed: number,
-  hurt: number,
-): void {
-  const hw = l.tile * (tall ? TALL_HALF : LOBE_HALF);
-  const top = skin - tiles * l.tile;
-  const base = skin + BURIED * l.tile;
-  const mid = (top + base) / 2;
-  const hh = (base - top) / 2;
-  const pts: Point[] = [];
-  for (let i = 0; i < 20; i++) {
-    const a = (i / 20) * Math.PI * 2;
-    const m = 1 + 0.07 * Math.sin(a * 3 + seed) + 0.03 * Math.sin(time * 1.3 + a * 2 + seed);
-    pts.push({ x: x + Math.cos(a) * hw * m, y: mid + Math.sin(a) * hh * m });
-  }
-  const path = splinePath(pts, true);
-  const wobble = LOBE_LIT_WOBBLE * Math.sin(time * LOBE_LIT_WOBBLE_RATE + seed * 1.7);
-  paintLobe(ctx, path, { x: x + hw * wobble, top, skin, hw, tile: l.tile }, tall);
-  drawHurt(ctx, path, hurt);
-}
-
-/**
- * The body, passing through a breach narrower than it is.
- *
- * The whole boss, drawn for the first and only time: pinched to the breach's
- * width at the hull line, swelling to more than three tiles above it, and
- * rounded at the top. The pinch is the *deforming to fit* — the outline is
- * the breach's width where it crosses the skin and its own everywhere else,
- * and the spline between the two is the plating squeezing it. The ship's own
- * colour, which is the fiction: it is coming up out of whatever the ship is
- * standing on, and going back in.
- */
-function drawBody(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  x: number,
-  skin: number,
-  tiles: number,
+  b: UndertowLobe,
   time: number,
   hurt: number,
 ): void {
-  if (tiles <= 0.05) return;
   const t = l.tile;
+  const top = skin - tiles * t;
+  const base = skin + BURIED * t;
   const H = tiles * t;
-  const pinch = PLATE_HALF * t;
-  const swell = Math.min(BODY_HALF * t, H * 0.9);
-  const sway = Math.sin(time * 0.9) * t * 0.04;
+  const breathe = 1 + 0.04 * Math.sin(time * 2.1 + b.col);
+  const crown = CROWN_HALF * t * breathe;
+  const foot = BASE_HALF * t;
   const side = (s: number): Point[] => [
-    { x: x + s * pinch, y: skin + BURIED * t },
-    { x: x + s * pinch * 1.05, y: skin - H * 0.08 },
-    { x: x + s * swell + sway, y: skin - H * 0.45 },
-    { x: x + s * swell * 0.7 + sway, y: skin - H * 0.85 },
+    { x: x + s * foot * 1.05, y: base },
+    { x: x + s * foot, y: skin },
+    { x: x + s * (foot * 0.55 + crown * 0.45), y: skin - H * 0.45 },
+    { x: x + s * crown, y: top + Math.min(H * 0.3, crown) },
   ];
-  const left = side(-1);
-  const right = side(1).reverse();
-  const path = splinePath([...left, { x: x + sway, y: skin - H }, ...right], true);
-  paintBody(ctx, path, { x: x + sway, top: skin - H, skin, hw: swell, tile: t });
+  const path = splinePath([...side(-1), { x, y: top }, ...side(1).reverse()], true);
+  paintLobe(ctx, path, { x, top, skin, hw: foot, tile: t }, lobeColour(b), b.stage === "tall");
   drawHurt(ctx, path, hurt);
 }

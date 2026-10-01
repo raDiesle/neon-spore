@@ -47,7 +47,7 @@ boss.
 | THE SINEW | `sinewFallBeats` 4 → 8 | `sinewClearCols` 3 → 4 — the three-wide mass is kept on an eleven-column field, so four from the middle is the wall; the five first written here could not be walked |
 | THE CANDLE | `candleSmokeBeats` 6 → 12 | `candlePinchMilli` 1500 → 3000 |
 | THE ANTIPHON | `antiphonWindowBeats` 14 → 28; `antiphonTightWindowBeats` 8 → 16 | `antiphonPullMilli` 400 → 800 |
-| THE UNDERTOW | `undertowStandBeats` 5 → 10; `undertowUnseatBeats` 2 → 4; `undertowLastBeats` 10 → 20 | `undertowHoldBeats` 6 → 12; the unseat's one slide → two (`undertowUnseatSlides`) |
+| THE UNDERTOW | `undertowStandBeats` 5 → 10; `undertowUnseatBeats` 2 → 4; `undertowLastBeats` 10 → 20 — all but the stand gone with the rework of 1 October 2026, which set it to 8 and gave the tall lobe its own 8 | `undertowHoldBeats` 6 → 12; the unseat's one slide → two (`undertowUnseatSlides`) — both gone with that rework |
 | THE HASP | `haspHoldBeats` 6 → 12; `haspLastHoldBeats` 4 → 8 | `haspWindMilli` 800 → 1600; `haspWindStepMilli` 400 → 800 |
 | THE BATON | `batonSwellBeats` 3 → 6; `batonMergeWindowBeats` 6 → 12; `batonFinalBeats` 11 → 22 | the swell's one strip → two (`batonSwellStrips`); `batonMergeBeats` 2 → 4; the final is one act a beat, so its need doubles with it |
 

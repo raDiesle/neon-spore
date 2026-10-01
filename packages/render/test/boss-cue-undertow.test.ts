@@ -5,7 +5,7 @@ import {
   startWave,
   step,
   ticksPerBeat,
-  type UndertowBreach,
+  type UndertowLobe,
   type UndertowState,
   undertowBoss,
   type World,
@@ -23,24 +23,17 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE UNDERTOW, and the word each of its five phases says**
- * (`render/src/boss-cue-read-j.ts`).
+ * **THE UNDERTOW, and the word each lobe says** (`render/src/boss-cue-read-j.ts`).
  *
- * Three of these cases were in `boss-cue.test.ts` until 18 September 2026 and
- * came here with the reading; the fight is still in the sweep at the foot of
- * that file, which is about what a cue may *contain* and wants every boss in
- * it.
- *
- * What they were missing is a column. The maw takes from the cannon's own
- * column and the beam burns it (`undertow-press.ts`, `lance-burn.ts`), and
- * the old reading said `OPEN` and `BURN` on any standing lobe wherever the
- * cannon was — a word asking for a thumb that would have done nothing. So
- * almost every case below is a pair: the lobe under him, and the same lobe
- * five columns away.
+ * Rewritten for the rework of 1 October 2026. A lobe's colour is its answer:
+ * a yellow one is the maw's, with the cannon under it; a shield-coloured one
+ * is the shield's, raised under it; a tall one is either seat's tap. What is
+ * checked is the column as much as the verb — a word asking for a press that
+ * would do nothing from where the carriage stands is the fight lying, so
+ * almost every case is a pair: under it, and away from it.
  *
  * The states are set rather than played into: every clock under them is
- * proved in `sim/test/undertow*.test.ts`, and a test that pushed the fight
- * through four phases to reach the rise would be that suite's second copy.
+ * proved in `sim/test/undertow.test.ts`.
  */
 
 beforeAll(installCanvasGlobals);
@@ -69,16 +62,8 @@ function elsewhere(world: World): number {
   return world.cannonCol === 0 ? 1 : 0;
 }
 
-function breach(world: World, col: number, over: Partial<UndertowBreach> = {}): UndertowBreach {
-  return {
-    col,
-    stage: "standing",
-    stageBeat: world.beat,
-    tall: false,
-    widthMilli: 0,
-    widened: false,
-    ...over,
-  };
+function lobe(world: World, col: number, over: Partial<UndertowLobe> = {}): UndertowLobe {
+  return { col, stage: "standing", stageBeat: world.beat, answer: "maw", ...over };
 }
 
 /** The word this seat is given, or nothing. */
@@ -93,139 +78,80 @@ function cue(world: World, role: ViewRole): BossCue | null {
   return bossCue(l, world, 0, HULL(l));
 }
 
-describe("a lobe standing under the cannon", () => {
-  it("gives the maw to the pilot and the beam to the navigator", () => {
+describe("a yellow lobe", () => {
+  it("asks the pilot for SUCK with the cannon under it, and her for nothing", () => {
     const { world, u } = opened();
-    // Both carriages start in the middle, and a plate over the lobe is its own
-    // case below — park hers out of the way so this one is about the lobe.
-    world.shieldCol = elsewhere(world);
-    u.breaches.push(breach(world, world.cannonCol));
+    u.lobes.push(lobe(world, world.cannonCol));
     expect(word(world, "p1")).toBe("SUCK");
     expect(cue(world, "p1")?.kind).toBe("HOLD");
-    // Nothing for her: the maw is his alone, and a word on her screen this
-    // beat would be the fight asking for a thumb that changes no rule.
     expect(word(world, "p2")).toBeNull();
-
-    const tall = opened();
-    tall.world.shieldCol = elsewhere(tall.world);
-    tall.u.breaches.push(breach(tall.world, tall.world.cannonCol, { tall: true }));
-    expect(word(tall.world, "p2")).toBe("SHOOT");
-    expect(cue(tall.world, "p2")?.kind).toBe("HOLD");
-    expect(word(tall.world, "p1")).toBeNull();
-  });
-});
-
-describe("a lobe standing somewhere else", () => {
-  /**
-   * The case the reading was missing. Both of the things that reach a lobe
-   * fire up the cannon's own column, so a lobe five columns away is a word
-   * for the pilot and for nobody else — whichever seat would have answered it
-   * from underneath.
-   */
-  it("asks the pilot for the column before it asks either seat for the shot", () => {
-    const { world, u } = opened();
-    u.breaches.push(breach(world, elsewhere(world)));
-    expect(word(world, "p1")).toBe("MOVE");
-    expect(cue(world, "p1")?.kind).toBe("CARRY");
-    expect(word(world, "p2")).toBeNull();
-
-    const tall = opened();
-    tall.u.breaches.push(breach(tall.world, elsewhere(tall.world), { tall: true }));
-    // Hers to burn, once he is under it — and until then it is not her word.
-    expect(word(tall.world, "p1")).toBe("MOVE");
-    expect(word(tall.world, "p2")).toBeNull();
   });
 
-  it("marks the cannon and never the lobe he is wanted at", () => {
+  it("asks him to move the cannon when it is away, and marks the cannon", () => {
     const { world, u } = opened();
     const col = elsewhere(world);
-    u.breaches.push(breach(world, col));
+    u.lobes.push(lobe(world, col));
+    expect(word(world, "p1")).toBe("MOVE");
     const c = cue(world, "p1");
+    expect(c?.kind).toBe("CARRY");
     const l = LAYOUT.p1;
-    // Inside the cannon's own tile, and nowhere near the lobe's: the field
-    // says the verb and the pair say the column (`docs/decisions.md` #34).
+    // On the carriage and never on the lobe: the pair say the column (#34).
     expect(Math.abs((c?.x ?? 0) - tileCX(l, world.cannonCol))).toBeLessThan(1);
-    expect(Math.abs((c?.x ?? 0) - tileCX(l, col))).toBeGreaterThan(l.tile);
+    expect(Math.abs((c?.x ?? 0) - tileCX(l, col))).toBeGreaterThan(l.tile / 2);
+    expect(word(world, "p2")).toBeNull();
   });
 });
 
-describe("the shield in the way", () => {
-  it("tells the navigator to move a shield that is keeping the maw off a lobe", () => {
+describe("a shield-coloured lobe", () => {
+  it("asks the pilot to raise the shield when it is under it", () => {
     const { world, u } = opened();
-    u.breaches.push(breach(world, world.shieldCol));
+    u.lobes.push(lobe(world, world.shieldCol, { answer: "shield" }));
+    expect(word(world, "p1")).toBe("SHIELD");
+    expect(cue(world, "p1")?.kind).toBe("PRESS");
+    expect(word(world, "p2")).toBeNull();
+  });
+
+  it("asks the navigator to move the shield when it is away", () => {
+    const { world, u } = opened();
+    world.shieldCol = elsewhere(world);
+    u.lobes.push(lobe(world, world.cannonCol, { answer: "shield" }));
     expect(word(world, "p2")).toBe("MOVE");
-    // The pilot still has his own half of the same beat: the maw is a window
-    // and not a shot, so the beat she clears the column he is already open.
-    expect(word(world, "p1")).toBe("SUCK");
-  });
-
-  it("says nothing to her about a plate that is not on a lobe's column", () => {
-    const { world, u } = opened();
-    u.breaches.push(breach(world, elsewhere(world)));
-    expect(world.shieldCol).not.toBe(elsewhere(world));
-    expect(word(world, "p2")).toBeNull();
+    expect(cue(world, "p2")?.kind).toBe("CARRY");
+    expect(word(world, "p1")).toBeNull();
   });
 });
 
-describe("the seat coming up under him", () => {
-  it("tells the pilot to slide off the plate while it is still bowing", () => {
-    const { world, u } = opened();
-    u.phase = "seat";
-    u.breaches.push(breach(world, world.cannonCol, { stage: "bowing" }));
-    expect(word(world, "p1")).toBe("MOVE");
-    expect(word(world, "p2")).toBeNull();
+describe("a tall lobe", () => {
+  it("asks both seats to tap it, whatever its colour and wherever they stand", () => {
+    for (const answer of ["maw", "shield"] as const) {
+      const { world, u } = opened();
+      u.lobes.push(lobe(world, elsewhere(world), { stage: "tall", answer }));
+      expect(word(world, "p1")).toBe("TAP");
+      expect(word(world, "p2")).toBe("TAP");
+      expect(cue(world, "p2")?.kind).toBe("PRESS");
+    }
   });
 
-  it("says nothing about a bow he is not sitting on", () => {
+  it("comes before a standing lobe, because it is the one about to burst", () => {
     const { world, u } = opened();
-    u.phase = "seat";
-    u.breaches.push(breach(world, elsewhere(world), { stage: "bowing" }));
-    expect(word(world, "p1")).toBeNull();
-  });
-
-  /**
-   * Rule one, in the one place the old reading broke it: `undertowUnseats`
-   * swallows every verb of his that reaches the ship for the whole of it, so
-   * `MOVE` there was the field asking for the one thing he cannot do.
-   */
-  it("goes quiet once the seat has him", () => {
-    const { world, u } = opened();
-    u.unseatedUntil = world.beat + 2;
-    u.breaches.push(breach(world, world.cannonCol));
-    expect(word(world, "p1")).toBeNull();
-    expect(word(world, "p2")).toBeNull();
+    u.lobes.push(lobe(world, world.cannonCol));
+    u.lobes.push(lobe(world, elsewhere(world), { stage: "tall" }));
+    expect(word(world, "p1")).toBe("TAP");
   });
 });
 
-describe("the last lobe", () => {
-  it("gives the pilot the rise to carry the cannon to the middle", () => {
+describe("nothing to say", () => {
+  it("is quiet over a plate still bowing", () => {
     const { world, u } = opened();
-    u.phase = "last";
-    // The body comes up dead centre (`undertowLastCol`), and the whole edge
-    // bows for `undertowRiseBeats` first: that lift is the time he has to be
-    // there, and it was the one phase the reading said nothing in.
-    const middle = world.cannonCol;
-    world.cannonCol = elsewhere(world);
-    u.breaches.push(breach(world, middle, { stage: "bowing" }));
-    expect(word(world, "p1")).toBe("MOVE");
+    u.lobes.push(lobe(world, world.cannonCol, { stage: "bowing" }));
+    expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBeNull();
   });
 
-  it("asks him to hold the maw open on it, and asks her nothing at all", () => {
+  it("is quiet while the level's ebb draws the lobes back", () => {
     const { world, u } = opened();
-    u.phase = "last";
-    u.breaches.push(breach(world, world.cannonCol));
-    expect(word(world, "p1")).toBe("SUCK");
-    // Her plate is on the same column and she is still told nothing:
-    // `undertowTake` refuses in this phase, so moving it changes no rule.
-    expect(world.shieldCol).toBe(world.cannonCol);
-    expect(word(world, "p2")).toBeNull();
-  });
-
-  it("says nothing once the body is in", () => {
-    const { world, u } = opened();
-    u.phase = "taken";
-    u.breaches.push(breach(world, world.cannonCol));
+    u.ebbBeat = world.beat;
+    u.lobes.push(lobe(world, world.cannonCol, { stage: "tall" }));
     expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBeNull();
   });

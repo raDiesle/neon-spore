@@ -742,7 +742,7 @@ by hand never moves.
 | `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
 | `packages/sim/src/config-well.ts` | THE WELL's numbers — how long the face stands still, how far it slips a beat |
 | `packages/sim/src/config-warden.ts` | THE WARDEN's throw: how far the swipe has to travel and how many beats the hatch stands open |
-| `packages/sim/src/config-undertow.ts` | THE UNDERTOW's numbers — how many times it pushes up through the floor in each part of the fight |
+| `packages/sim/src/config-undertow.ts` | THE UNDERTOW's numbers — how long each of its three levels lasts, how many lobes each lets up at once |
 | `packages/sim/src/config-throat.ts` | **THE THROAT's numbers**: how many rings the gullet has, where its mouth hangs |
 | `packages/sim/src/config-taster.ts` | THE TASTER's numbers — how many blades the fan holds |
 | `packages/sim/src/config-trivet.ts` | THE TRIVET's tuning: the rests around its steps, the grace a chord is given |
@@ -802,10 +802,8 @@ by hand never moves.
 | `packages/sim/src/beat-clock.ts` | Converting between the tick line and the beat, in the one place that may |
 | `packages/sim/src/bearing.ts` | **A bearing**: where a hand is round a circle, in thousandths of a turn clockwise from the top |
 | `packages/sim/src/undertow-hash.ts` | What THE UNDERTOW puts into `hashWorld`, and nothing else |
-| `packages/sim/src/undertow-hand.ts` | THE UNDERTOW's two hands, both the navigator's: a pin that plates a lobe, and the thumb that gives an unseated pilot his seat back |
-| `packages/sim/src/undertow-press.ts` | THE UNDERTOW's presses: the maw, the beam and the unseat |
-| `packages/sim/src/undertow-step.ts` | THE UNDERTOW's clock: the push, the bow, the lobe coming through, the widening, the withdrawal |
-| `packages/sim/src/undertow-slow.ts` | THE SLOW on THE UNDERTOW, spanning its asks: a lobe standing, the floor under the cannon, the last lobe |
+| `packages/sim/src/undertow-press.ts` | THE UNDERTOW's answers, and the tap, all on the **tick** |
+| `packages/sim/src/undertow-step.ts` | THE UNDERTOW's clock: the bow, the lobe standing, the lobe growing, the burst |
 | `packages/sim/src/undertow.ts` | THE UNDERTOW: where you are being hit from |
 | `packages/sim/src/antiphon-hash.ts` | What THE ANTIPHON puts into `hashWorld`, and nothing else |
 | `packages/sim/src/antiphon-hand.ts` | **A thumb resting on THE ANTIPHON's organ**, off the wire, on the tick |
@@ -1010,7 +1008,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-balloon.ts` | THE BALLOON's rehearsal: two hands on one body, or nothing at all |
 | `packages/content/src/scenes/the-baton.ts` | THE BATON's rehearsal: a launch nobody answers, then three handovers |
 | `packages/content/src/scenes/the-beatbox.ts` | THE BEATBOX's rehearsal: the tap you do not make is the one that counts |
-| `packages/content/src/scenes/the-undertow.ts` | THE UNDERTOW's rehearsal: the floor bows, and the pair answers it downward |
+| `packages/content/src/scenes/the-undertow.ts` | THE UNDERTOW's rehearsal: the floor bows, a lobe stands, and its colour says who answers it |
 | `packages/content/src/scenes/the-antiphon.ts` | THE ANTIPHON's rehearsal: a wrong candidate first, then six organs described across the two seats |
 | `packages/content/src/scenes/one-last-chance.ts` | ONE LAST CHANCE's rehearsal: the shield pushes a slick back up once, and only the cannon kills it |
 | `packages/content/src/scenes-choreographed.ts` | The rehearsals of the bosses designed on `docs/spec/bosses-choreographed.md` |
@@ -2375,16 +2373,15 @@ by hand never moves.
 | `packages/render/src/solid-sheet.ts` | A SHEET OF A RIG: skin stretched flat between bones — a wing's membrane, a fin, a sail |
 | `packages/render/src/solid-verlet.ts` | A TRAILING PART THAT IS DRAGGED: a verlet chain, for the one case `chainAt` (`solid-motion.ts`) is not |
 | `packages/render/src/unseen.ts` | **A frame with the bodies neither screen may draw taken out of it** — once, for every pass under it |
-| `packages/render/src/undertow-draw.ts` | THE UNDERTOW, on the ship: the plate bowing, the seams lit, the breach parted |
+| `packages/render/src/undertow-draw.ts` | THE UNDERTOW, on the ship: the plate bowing, its seams lit |
 | `packages/render/src/undertow-drift.ts` | **THE UNDERTOW leans where it comes up through the plating** |
-| `packages/render/src/undertow-lobe.ts` | THE UNDERTOW's lobes and, once, its body — the half of the boss that is *above* the hull line |
-| `packages/render/src/undertow-shape.ts` | THE UNDERTOW's geometry: how far a plate has risen, how high a lobe stands, how wide a breach is |
+| `packages/render/src/undertow-lobe.ts` | THE UNDERTOW's lobes — the half of the boss that is *above* the hull line |
+| `packages/render/src/undertow-shape.ts` | THE UNDERTOW's geometry: how far a plate has risen, how high a lobe stands |
 | `packages/render/src/undertow-seam.ts` | THE UNDERTOW's seam: the skin lifted between two x's, the violet light under it |
-| `packages/render/src/undertow-fx.ts` | What THE UNDERTOW leaves behind a frame: **the plate closing** under a cannon slid off in time |
-| `packages/render/src/undertow-flesh.ts` | **What THE UNDERTOW is made of** where it comes up through the plating: a slime lobe, wet |
-| `packages/render/src/undertow-grip.ts` | **THE UNDERTOW's two hands**, and the circles the drawing and the hit test share |
-| `packages/render/src/undertow-grip-place.ts` | **THE UNDERTOW's two hands**, and the circles the drawing and the hit test share |
-| `packages/render/src/undertow-marks.ts` | THE UNDERTOW's pin and free answering a touch the way every mark does: the halo, the clock on the free, the verdicts |
+| `packages/render/src/undertow-fx.ts` | What THE UNDERTOW leaves behind a frame: **the plate closing** over a lobe that went back down |
+| `packages/render/src/undertow-flesh.ts` | **What THE UNDERTOW is made of** where it comes up through the plating: the ship's own flesh |
+| `packages/render/src/undertow-clock.ts` | How long THE UNDERTOW's level has left, as a bar and as a number |
+| `packages/render/src/undertow-tap.ts` | **A thumb on a tall lobe**, either seat's |
 
 ### packages/net
 
@@ -2495,7 +2492,7 @@ by hand never moves.
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |
 | `packages/audio/src/bind-warden-hand.ts` | THE WARDEN's hold, throw and slam, cued at the hatch's column |
 | `packages/audio/src/bind-well.ts` | THE WELL's four, in a file of their own for `bind-gauge.ts`'s reason — `bind-choreographed-b.ts` is full |
-| `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's nine, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |
+| `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's seven, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |
 | `packages/audio/src/bind-taster.ts` | THE TASTER's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-throat.ts` | THE THROAT's two hands on the gullet itself, in a file of their own for `bind-vane.ts`' reason |
 | `packages/audio/src/bind-trivet.ts` | THE TRIVET's thirteen, in a file of their own for `bind-gorge.ts`' reason |
@@ -3390,7 +3387,7 @@ by hand never moves.
 | `tools/director/src/field-controls-vane.ts` | **THE VANE's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-valve.ts` | THE VALVE's two handles, as rows of the ON THE FIELD tab: the wheel, the pilot's |
 | `tools/director/src/field-controls-vise.ts` | THE VISE's two lobe pinches, as rows of the ON THE FIELD tab |
-| `tools/director/src/field-controls-undertow.ts` | **THE UNDERTOW's two thumbs**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-undertow.ts` | **THE UNDERTOW's one thumb**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-keel.ts` | THE KEEL's one control, as a row of the ON THE FIELD tab: a tap on the lit joint |
 | `tools/director/src/field-controls-oculus.ts` | THE OCULUS's two leaf holds, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-davit.ts` | THE DAVIT's two steers and two looses, as rows of the ON THE FIELD tab |

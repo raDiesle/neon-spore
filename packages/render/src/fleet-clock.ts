@@ -39,8 +39,9 @@ function secondsLeft(world: World, boss: FleetState, beatPhase: number): number 
   return beats * beatSeconds(world.cfg);
 }
 
-/** `1:40`, and never `100`. Two people say minutes at this length. */
-function clockText(seconds: number): string {
+/** `1:40`, and never `100`. Two people say minutes at this length. Exported for
+ * THE UNDERTOW's level clock (`undertow-clock.ts`), which says the same thing. */
+export function clockText(seconds: number): string {
   const whole = Math.ceil(Math.max(0, seconds));
   const mins = Math.floor(whole / 60);
   return `${mins}:${String(whole - mins * 60).padStart(2, "0")}`;

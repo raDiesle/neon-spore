@@ -1,18 +1,17 @@
-import type { Point } from "@neon-spore/content";
-import { type UndertowBreach, undertowBoss, undertowUnseated, type World } from "@neon-spore/sim";
+import { type UndertowLobe, undertowBoss, type World } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 import { drawPlateBow, flicker, lifted, seamLight } from "./undertow-seam.js";
-import { bowLift, breachHalf, edgeLight } from "./undertow-shape.js";
+import { bowLift, PLATE_HALF } from "./undertow-shape.js";
 import type { ViewRole } from "./view-role.js";
 import { showsUndertowBow } from "./view-role-clocks.js";
 
 /**
- * THE UNDERTOW, on the ship: the plate bowing, the seams lit, the breach
- * parted, and the whole edge rising before the last lobe.
+ * THE UNDERTOW, on the ship: the plate bowing, its seams lit, and the plate
+ * parted round a lobe that has come up through it.
  *
  * **Drawn on the finished ship** (`frame-on-ship.ts`), because every piece of
  * it is the hull's own plating doing something: a plate lifting off the skin
@@ -21,30 +20,24 @@ import { showsUndertowBow } from "./view-role-clocks.js";
  * that come up through the plating are the other way round and go down with
  * the field (`undertow-lobe.ts`).
  *
- * **The bow is the pilot's** (`showsUndertowBow`). The floor is his half the
- * way the rocks are: he owns the maw and the cannon's column, so he is the
- * seat shown where the next lobe is pushing, four beats before it stands, and
- * the fight's first part is him calling the column. The navigator is shown a
- * breach the moment it opens and nothing before — the plate she has to stand
- * on it faces down for the first time in the game, and she has to be told
- * where. The rise before the last lobe is every seam at once and the whole
- * edge, and that is both screens: there is no column to call.
+ * **The bow is the pilot's** (`showsUndertowBow`), four beats before the lobe
+ * stands, and it shakes — a small tremor sideways, so a plate about to go
+ * reads as pushed from under rather than drawn a hair high. What colour the
+ * lobe will be is not shown until it stands; the bow only says where.
  *
- * **Violet, through the seams.** The light is `hull`, the ship's own colour,
- * which is the fiction the design asks for — it is coming up out of whatever
- * the ship is standing on. Nothing here is held between frames; the one
- * moment that outlives one, a plate closing under a cannon slid off in time,
- * is `undertow-fx.ts`'s, drawn with the same seam (`undertow-seam.ts`).
+ * **Violet, through the seams.** The light is `hull`, the ship's own colour.
+ * Nothing here is held between frames.
  */
 
-/** How far the whole edge lifts at the rise, in tiles: less than one plate's bow. */
-const EDGE_TILES = 0.18;
-/** How high the light stands in an open breach, in tiles. */
+/** How high the light stands in an open plate, in tiles. */
 const GLOW_TILES = 0.2;
 /** Half-width of the two flaps a parted plate leaves either side of the lobe, in tiles. */
 const FLAP_HALF = 0.32;
 /** How far off the skin a parted flap stands, in tiles. */
 const FLAP_TILES = 0.22;
+/** The bow's tremor, in tiles each way, and how fast, per second. */
+const BOW_SHAKE_TILES = 0.04;
+const BOW_SHAKE_RATE = 19;
 
 export function drawUndertowHull(
   ctx: CanvasRenderingContext2D,
@@ -54,44 +47,39 @@ export function drawUndertowHull(
   beatPhase: number,
   time: number,
   surfaceY: SurfaceY,
-  cannonX: number,
 ): void {
   const u = undertowBoss(world);
   if (u === null) return;
   const { cfg, beat } = world;
-  const edge = edgeLight(cfg, u, beat, beatPhase);
-  if (edge > 0) drawEdge(ctx, l, edge, time, surfaceY);
-  for (const b of u.breaches) {
-    if (b.stage === "standing") drawParted(ctx, l, b, time, surfaceY);
-    else if (showsUndertowBow(role) || u.phase === "last") {
-      const lift = bowLift(cfg, u, b, beat, beatPhase);
-      drawPlateBow(ctx, l, tileCX(l, b.col), breachHalf(b) * l.tile, lift, time, surfaceY);
+  const half = PLATE_HALF * l.tile;
+  for (const b of u.lobes) {
+    if (b.stage !== "bowing") {
+      drawParted(ctx, l, b, time, surfaceY);
+      continue;
     }
-  }
-  // The seat's own column, lit under the cannon while it is unseated: the
-  // floor came up under him and he stayed, and the four dead beats are shown
-  // where they were earned. His screen alone — it is his seat that is dead.
-  if (showsUndertowBow(role) && undertowUnseated(u, beat)) {
-    halo(ctx, cannonX, surfaceY(cannonX), l.tile * 0.7, PALETTE.hull, 0.35 + 0.25 * flicker(time));
+    if (!showsUndertowBow(role)) continue;
+    const lift = bowLift(cfg, b, beat, beatPhase);
+    // The shake grows with the bow: nothing on the first beat, the full
+    // tremor the beat the lobe is through.
+    const shake = l.tile * BOW_SHAKE_TILES * lift * Math.sin(time * BOW_SHAKE_RATE + b.col * 2.3);
+    drawPlateBow(ctx, l, tileCX(l, b.col) + shake, half, lift, time, surfaceY);
   }
 }
 
 /**
- * A plate parted round a standing lobe: light standing in the breach the
- * lobe's own width, and a flap lifted either side of it. The flaps stand
- * where the breach's edges are, so a breach widening a tenth of a tile a beat
- * is seen widening — the flaps walk outward — which is what the navigator's
- * plate is there to stop.
+ * A plate parted round a standing lobe: light standing in the opening the
+ * lobe's own width, and a flap lifted either side of it — the cannon's own
+ * collar, which is what makes the lobe read as part of the ship.
  */
 function drawParted(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  b: UndertowBreach,
+  b: UndertowLobe,
   time: number,
   surfaceY: SurfaceY,
 ): void {
   const x = tileCX(l, b.col);
-  const half = breachHalf(b) * l.tile;
+  const half = PLATE_HALF * l.tile;
   const glow = 0.5 + 0.3 * flicker(time);
   const inside = lifted(x - half, x + half, GLOW_TILES * l.tile, surfaceY);
   seamLight(ctx, inside, x - half, x + half, 0.35 * glow, surfaceY);
@@ -104,33 +92,4 @@ function drawParted(
     strokeGlow(ctx, splinePath(flap, false), PALETTE.hullRim, STROKE.inner, 0.8);
     halo(ctx, x + s * half, surfaceY(x + s * half), l.tile * 0.4, PALETTE.hull, glow);
   }
-}
-
-/**
- * The rise: every seam in the hull lit at once and the whole edge bowing
- * along its full width. One lifted run across the grid, its light under it
- * and its rim over, brightening with `edgeLight` and going out again as the
- * body goes down.
- */
-function drawEdge(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  light: number,
-  time: number,
-  surfaceY: SurfaceY,
-): void {
-  const x0 = l.gridLeft;
-  const x1 = l.gridLeft + l.gridWidth;
-  const lift = EDGE_TILES * l.tile * light;
-  const pts: Point[] = [];
-  const n = 2 * l.cols;
-  for (let i = 0; i <= n; i++) {
-    const x = x0 + (x1 - x0) * (i / n);
-    // Every seam: a ripple one column long, so the lit edge reads as plates
-    // lifting one by one rather than as the whole hull drawn a hair higher.
-    const seam = 0.5 * (1 - Math.cos(((x - x0) / l.tile) * Math.PI * 2));
-    pts.push({ x, y: surfaceY(x) - lift * (0.4 + 0.6 * seam) });
-  }
-  seamLight(ctx, pts, x0, x1, (0.15 + 0.25 * light) * (0.8 + 0.2 * flicker(time)), surfaceY);
-  strokeGlow(ctx, splinePath(pts, false), PALETTE.hullRim, STROKE.inner, 0.3 + 0.6 * light);
 }

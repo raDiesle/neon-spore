@@ -2,7 +2,6 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import { createWorld, type Scar, startWave, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { computeLayout, type ViewRole } from "../src/layout.js";
-import { PALETTE } from "../src/palette.js";
 import { plateGaps } from "../src/plate-gap.js";
 import { UndertowFx } from "../src/undertow-fx.js";
 import {
@@ -20,15 +19,16 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * THE UNDERTOW's two leftovers from the design, as pictures: the plate a
  * tall lobe takes with it, drawn as a hole in the hull's outline rather than
- * as a crack (`plate-gap.ts`), and the plate closing under a cannon slid off
- * in time (`undertow-fx.ts`).
+ * as a crack (`plate-gap.ts`), and the moments `undertow-fx.ts` remembers
+ * past the tick a lobe leaves the world: the plate closing over it, and the
+ * burst of one left tall.
  *
  * The scars are **set** rather than earned, for `undertow-frame.test.ts`'
  * reason: `sim/test/undertow.test.ts` proves which lobe leaves which scar.
  * What this file asks is whether a plate scar is drawn as something other
  * than a crack, whether two of them from one lobe are one hole, and whether
- * the close is on the pilot's screen and on no other — the bow it closes
- * never reached the navigator.
+ * the close and the burst are drawn on both screens — a lobe is answered from
+ * either seat now.
  */
 
 beforeAll(installCanvasGlobals);
@@ -113,35 +113,35 @@ describe("the plate a tall lobe takes", () => {
   }
 });
 
-describe("the plate closing under a cannon slid off", () => {
+describe("the plate closing over a lobe taken, and the burst", () => {
   /** The harness leaves the stepping to this when it is given: step, then add the one event. */
-  const stepThen = (col: number) => (tick: number, world: World) => {
-    step(world, []);
-    if (tick === 0) world.events.push({ type: "undertowClosed", col });
-  };
+  const stepThen =
+    (type: "undertowTaken" | "undertowBurst", col: number) => (tick: number, world: World) => {
+      step(world, []);
+      if (tick === 0) world.events.push({ type, col });
+    };
 
-  it("is on the pilot's screen and on no other", () => {
-    const quiet = drawn(opened(), "p1", TPB).text;
-    const p1 = drawn(opened(), "p1", TPB, stepThen(4)).text;
-    expect(p1).not.toBe(quiet);
-    // The seam's own violet, more of it while the plate settles.
-    expect(count(p1, PALETTE.hull)).toBeGreaterThan(count(quiet, PALETTE.hull));
-    expect(drawn(opened(), "p2", TPB, stepThen(4)).text).toBe(drawn(opened(), "p2", TPB).text);
-  });
+  for (const role of ROLES) {
+    it(`draws a lobe taken and a burst on ${role}'s screen`, () => {
+      const quiet = drawn(opened(), role, TPB).text;
+      const closed = drawn(opened(), role, TPB, stepThen("undertowTaken", 4)).text;
+      const burst = drawn(opened(), role, TPB, stepThen("undertowBurst", 4)).text;
+      expect(closed).not.toBe(quiet);
+      expect(burst).not.toBe(quiet);
+      expect(burst).not.toBe(closed);
+    });
+  }
 
   it("settles and is gone, and a reset forgets it", () => {
     const l = computeLayout(VIEWPORT, CFG, "p1");
     const fx = new UndertowFx();
-    fx.ingest([{ type: "undertowClosed", col: 4 }], l, CFG, 0.5, "p1");
+    fx.ingest([{ type: "undertowEbb", col: 4 }], l, CFG, 0.5);
     fx.update(0.1);
     expect(fx).not.toEqual(new UndertowFx());
-    fx.update(CFG.undertowBowBeats * 0.5 * 0.5);
+    fx.update(1);
     expect(fx).toEqual(new UndertowFx());
-    fx.ingest([{ type: "undertowClosed", col: 4 }], l, CFG, 0.5, "p1");
+    fx.ingest([{ type: "undertowBurst", col: 4 }], l, CFG, 0.5);
     fx.clear();
-    expect(fx).toEqual(new UndertowFx());
-    // The navigator's screen takes nothing from the event at all.
-    fx.ingest([{ type: "undertowClosed", col: 4 }], l, CFG, 0.5, "p2");
     expect(fx).toEqual(new UndertowFx());
   });
 });

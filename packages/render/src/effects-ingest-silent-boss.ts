@@ -76,24 +76,20 @@ export const INGEST_SILENT_BOSS = [
   "batonMissed",
   "batonShed",
   "batonDown",
-  // THE UNDERTOW's ten: the plate bowing, the lobe standing in its breach and
-  // the body passing through are read off the world every frame
-  // (`undertow-draw.ts`, `undertow-lobe.ts`), and a breach that opens is
-  // drawn open. What it does to the hull it does through `scarHull` and
-  // `breachHull`, so a scar — and the plate a tall lobe takes, drawn as a
-  // hole in the outline (`plate-gap.ts`) — is on the field the same tick.
-  // The one that outlives its frame, the plate closing under a cannon slid
-  // off in time, is read above the loop by `undertow-fx.ts`.
+  // THE UNDERTOW's seven: the plate bowing, the lobe standing, growing tall
+  // and shrinking back under a tap are read off the world every frame
+  // (`undertow-draw.ts`, `undertow-lobe.ts`). What a burst does to the hull
+  // it does through `scarHull` and `breachUnscarred`, so the hole is on the
+  // field the same tick. The three that outlive their frame — a lobe taken,
+  // a lobe burst and the level's ebb — are read above the loop by
+  // `undertow-fx.ts`.
   "undertowBow",
   "undertowLobe",
   "undertowTaken",
-  "undertowScar",
-  "undertowWidened",
-  "undertowUnseated",
-  "undertowClosed",
-  "undertowRise",
-  "undertowSwallowed",
-  "undertowThrough",
+  "undertowGrow",
+  "undertowTapped",
+  "undertowBurst",
+  "undertowEbb",
   // THE GORGE's nine, read above the loop by `gorge-fx.ts` the way the
   // mirror's are: the bursts and the beads leaving are its; the sack, the
   // lobes and the beads in them are drawn off the boss every frame.

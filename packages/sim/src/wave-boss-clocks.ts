@@ -100,9 +100,8 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
   } else if (boss.kind === "undertow") {
     // No creature and no row, and for the first time nothing *above* the
     // hull either: the whole of it is underneath, so the fall loop and a
-    // hand find nothing, and the hull meets it only as its own scars — a lobe
-    // withdrawn untaken is written straight into `world.scars`, and the last
-    // lobe not held is `breachHull` like any other hit (`undertow-step.ts`).
+    // hand find nothing, and the hull meets it only as a lobe left tall too
+    // long bursting: its plating taken and the wave lost (`undertow-step.ts`).
     // The arrivals over it are the wave's own (`bossFillsWave`).
     world.boss = installUndertow(world);
   } else if (boss.kind === "gorge") {

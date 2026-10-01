@@ -31553,3 +31553,17 @@ Bottleneck: the head radius is the whole body's unit and the face-on marks are p
 Bottleneck: a landed `--keep` branch and a fresh one look the same to `git status` and `rev-list`, so the hook had to read the branch's reflog to tell them apart.
 
 *Measured: 10 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE UNDERTOW reworked: two answers, a tap, three timed levels
+
+- reading: 15 min. The old fight's five parts, its hands, THE SLOW over it,
+  and every file and test that named a breach, a pin or a seat.
+- writing: 55 min. The lobe's stages and answers, the tap, the burst, the
+  level clock and its ebb, the rehearsal's four steps, the old hands and
+  their files out, the spec, the controls row and the sounds re-bound.
+- looking: 5 min. One frame from the landed sha.
+- friction: 5 min. A zsh glob unquoted, and a heredoc the guard refused.
+- landing: 20 min. Three compactions' worth of stale comments, the
+  director's poses for phases that are gone, `check:fast`, lint, `land`.
+
+Bottleneck: the old fight's names were spread through ninety files, and each one had to be read before it could be removed.

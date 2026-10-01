@@ -15,7 +15,7 @@
  * item, at any length.** It used to take only its own length, which was right
  * for THE BATON's thread and THE TASTER's blades and refused every list a boss
  * grows — THE SCUTTLE's `loose`, THE LEDGER's `beads`, THE SCOUT's `carrying`,
- * THE UNDERTOW's `breaches`, SNAKE's `body` — so the states most worth a
+ * THE UNDERTOW's `lobes`, SNAKE's `body` — so the states most worth a
  * picture could not be posed. The owner chose the item's type over the
  * length. An item that is a shape must carry the keys the items already there
  * carry, and no key none of them has. An empty list has no item to judge by,

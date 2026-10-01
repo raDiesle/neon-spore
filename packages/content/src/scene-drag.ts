@@ -150,8 +150,8 @@ export function dragSeat(target: DragTarget, hand?: 1 | 2): 1 | 2 {
   // THE SURGE's bulb is the one handle both seats hold, so the target cannot
   // say and the act does (`SceneAct.hand`); the pilot's when it does not.
   // THE HIVE's lobe is the other: the pilot's haul on a clenched mass, or the
-  // navigator's pinch on a swelling site (`sim/hive-hand.ts`).
-  if (target === "surgeBulb" || target === "hiveLobe") return hand ?? 1;
+  // navigator's pinch on a swelling site (`sim/hive-hand.ts`); THE UNDERTOW's tap is either's.
+  if (target === "surgeBulb" || target === "hiveLobe" || target === "undertowTap") return hand ?? 1;
   // THE SCOUT's two are each one seat's, but the seats swap every arena
   // (`scoutPilot`), so a film about its second level writes the hand: the
   // line is the navigator's and the prime the pilot's when it does not.
@@ -184,6 +184,15 @@ export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   const player = dragSeat(target, act.hand);
   // A ring or a wheel is turned, not carried: a bearing, not a distance.
   if (TURNED.has(target)) return ringCommands(act, player, cfg);
+  // THE UNDERTOW's tap is a press with nothing carried: one down, one up, and
+  // the lobe it is on found by the runner (`sim/scene-aim.ts`).
+  if (target === "undertowTap") {
+    const tap = { kind: "drag", target, fromMilli: 0, fromYMilli: 0 } as const;
+    return [
+      { tick: act.tick, player, command: { ...tap, on: true } },
+      { tick: act.until ?? act.tick + 1, player, command: { ...tap, on: false } },
+    ];
+  }
   const to = act.toMilli ?? tautMilli(target, cfg) * (act.dir ?? 1);
   const until = act.until ?? act.tick;
   // The carry and the letting go are two clocks, not one. A film about a lid

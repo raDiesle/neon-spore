@@ -46,8 +46,8 @@ export interface Scar {
   color?: Color;
   /**
    * **The plating itself is gone here**, not cracked. One maker: a tall lobe
-   * of THE UNDERTOW withdrawing untaken takes a plate of hull with it, its own
-   * column's and the neighbour's (`undertow-step.ts`, the design's step 9).
+   * of THE UNDERTOW bursting takes a plate of hull with it, its own column's
+   * and the neighbour's (`undertow-step.ts`).
    * Absent for every other scar, which is a tear in plating still there. The
    * picture reads it as a hole in the outline rather than a crack on it, and
    * it is in the hash because two devices that disagreed about it would draw

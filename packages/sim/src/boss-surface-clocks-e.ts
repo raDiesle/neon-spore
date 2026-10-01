@@ -73,7 +73,7 @@ export {
   freshCapstan,
 } from "./capstan.js";
 // Whether THE CURTAIN's hem asks the pilot for his thumb
-// (`render/curtain-marks.ts`), for the reason THE UNDERTOW's asks are below.
+// (`render/curtain-marks.ts`), because the page it would have joined was within twenty lines of its limit.
 export { curtainHemAsks } from "./curtain-hand.js";
 // THE FLUE's ember: the phase, the lit step, the drift and the steadying,
 // whose rest is counted and whose tap is heard, the taps, the vents and the
@@ -155,12 +155,6 @@ export {
   lampreyTeethIn,
   lampreyToothIn,
 } from "./lamprey.js";
-// Whether each of THE UNDERTOW's rings asks her for a thumb
-// (`render/undertow-marks.ts`). Here rather than beside its boss's other names
-// because that page was within twenty lines of its limit; the rest of the
-// roll-out's asks (`render/test/mark-feedback-roll-out.test.ts`) belong here
-// too, for the same reason.
-export { undertowFreeAsks, undertowPinAsks } from "./undertow-hand.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),
 // the hit test that answers it (`render/touch-well.ts`) and the director's

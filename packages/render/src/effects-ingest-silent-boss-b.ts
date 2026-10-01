@@ -204,13 +204,6 @@ export const INGEST_SILENT_BOSS_B = [
   "batonRefused",
   "batonHeld",
   "batonParted",
-  // THE UNDERTOW's two thumbs on the hull, drawn since 22 September 2026 and
-  // still silent: which lobe she is pinning and how long she has held his
-  // column are state, read off `pinCol` and `freed` every frame and put on
-  // the rings themselves (`sim/undertow-hand.ts`, `undertow-grip.ts`).
-  // Her other ten are on the first page, with the floor they answer.
-  "undertowPinned",
-  "undertowFreed",
   // THE THROAT's two hands on the gullet, drawn since 21 September 2026 and
   // still silent: the pinched ring darkens off `cinchBeat` and the mouth's
   // column is derived every frame, so both are already on the picture

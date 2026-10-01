@@ -51,8 +51,6 @@ export const HELD_FAMILIES: readonly FieldGroup[] = [
       "THE VANE'S ARM",
       "THE THROAT'S RING",
       "SNAKE'S TAIL",
-      "THE UNDERTOW'S PIN",
-      "THE UNDERTOW'S FREE",
       "THE SCOUT'S LINE",
       "THE LEDGER'S PLUG",
       "THE FLEET'S PLUME",

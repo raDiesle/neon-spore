@@ -149,7 +149,7 @@ export const BOSS_MECHANICS = {
     reach: "spawn",
   },
   undertow: {
-    what: "A lobe comes up through the hull. Only Player 1 sees where the floor bows. Move the cannon under it and open the maw. Tall ones need the beam.",
+    what: "Lobes come up through the hull. Yellow wants the cannon under it and SUCK, shield-coloured the shield. Tap a tall one down before it bursts. Outlast the clock.",
     reach: "spawn",
   },
   instar: {

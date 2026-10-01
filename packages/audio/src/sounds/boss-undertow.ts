@@ -33,7 +33,7 @@ export const BOSS_UNDERTOW_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "The plate parting and a lobe standing up through it: a tear, then a wet body settling.",
     status: "bound",
-    use: "THE UNDERTOW's lobe through the hull, standing in the breach where the maw can reach it.",
+    use: "THE UNDERTOW's lobe standing up through the hull, yellow or shield-coloured.",
     level: 0.46,
     layers: [
       thud(200, 60, 0.36, 0.6),
@@ -46,7 +46,7 @@ export const BOSS_UNDERTOW_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "A lobe drawn down into the maw and the plate closing over: a swallow, and a clank.",
     status: "bound",
-    use: "THE UNDERTOW's lobe taken by the maw or the beam — the breach closed.",
+    use: "THE UNDERTOW's lobe taken by the maw or the shield its colour names.",
     level: 0.44,
     layers: [
       air(260, 70, 0.3, 0.24, 1.6),
@@ -57,10 +57,9 @@ export const BOSS_UNDERTOW_SOUNDS: SoundDef[] = [
   {
     id: "boss.undertowScar",
     family: "boss",
-    blurb:
-      "A lobe withdrawing untaken and the breach staying: a slide down, and the hull not closing.",
+    blurb: "A tall lobe pressed back down: a slide down, and the plate settling round it.",
     status: "bound",
-    use: "THE UNDERTOW's lobe standing its beats and going back under, leaving the column a scar.",
+    use: "THE UNDERTOW's tall lobe tapped back down to standing.",
     level: 0.4,
     layers: [
       { source: "sine", freq: 220, toFreq: 60, gain: 0.3, attack: 0.02, hold: 0.1, release: 0.4 },
@@ -71,10 +70,9 @@ export const BOSS_UNDERTOW_SOUNDS: SoundDef[] = [
   {
     id: "boss.undertowWidened",
     family: "boss",
-    blurb:
-      "A breach grown wide enough for a second lobe next door: plating tearing, and two standing.",
+    blurb: "A lobe heaving up to twice its height: plating tearing, and a body settling higher.",
     status: "bound",
-    use: "THE UNDERTOW's breach reaching its width with no plate on it, and a second lobe through beside it.",
+    use: "THE UNDERTOW's lobe left standing its beats and growing tall.",
     level: 0.48,
     layers: [
       burst(metal(110, 0.2, 0.24, 200), 3, 0.07, 0.8, -3),
@@ -86,8 +84,8 @@ export const BOSS_UNDERTOW_SOUNDS: SoundDef[] = [
     id: "boss.undertowUnseated",
     family: "boss",
     blurb: "The floor coming up under the cannon: a jolt, and the mount ringing loose.",
-    status: "bound",
-    use: "THE UNDERTOW under the cannon's own column, the pilot not slid off in time — his seat swallowed for the next beats.",
+    status: "spare",
+    use: "THE UNDERTOW's unseat, which the rework of 1 October 2026 took out.",
     level: 0.46,
     layers: [
       thud(280, 90, 0.2, 0.6),
@@ -100,8 +98,8 @@ export const BOSS_UNDERTOW_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb:
       "Every seam in the hull lighting at once: the whole edge lifting, and the body underneath.",
-    status: "bound",
-    use: "THE UNDERTOW's last lobe rising in the middle column with the whole body behind it.",
+    status: "spare",
+    use: "THE UNDERTOW's last push, which the rework of 1 October 2026 took out.",
     level: 0.5,
     // Not `pierce`: the edge lifting is a sub swell and the seams glint above
     // the band, so nothing in it lands where a voice is.
@@ -115,9 +113,9 @@ export const BOSS_UNDERTOW_SOUNDS: SoundDef[] = [
     id: "boss.undertowSwallowed",
     family: "boss",
     blurb:
-      "The body following its lobe down through the hole: a long swallow, and the hull closing over it.",
+      "Every lobe still up drawn back under at a level's end: a long swallow, and the hull closing over them.",
     status: "bound",
-    use: "THE UNDERTOW beaten — the maw held open under the last lobe, and the whole of it taken into the ship.",
+    use: "THE UNDERTOW's level running out, each lobe still up shrinking back under.",
     level: 0.55,
     layers: [
       air(180, 50, 1.0, 0.3, 1.2),
@@ -131,7 +129,7 @@ export const BOSS_UNDERTOW_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "The last lobe coming through the other way: the hull giving along its whole width.",
     status: "bound",
-    use: "THE UNDERTOW's last lobe standing too long — through the hull, and the wave lost.",
+    use: "THE UNDERTOW's tall lobe left too long and bursting the hull — the level lost.",
     level: 0.55,
     layers: [
       thud(240, 30, 0.9, 0.8),

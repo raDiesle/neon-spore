@@ -74,9 +74,9 @@ export function clockHashParts(boss: BossState): number[] {
   if (boss.kind === "throat") {
     for (const n of throatHashParts(boss)) out.push(n);
   }
-  // THE UNDERTOW, whose numbers are *which columns of the hull are open* —
-  // the one thing two devices must not disagree on when one seat is being
-  // asked to answer a hole and the other to plate it (`undertow-hash.ts`).
+  // THE UNDERTOW, whose numbers are *which lobe stands where, in which
+  // colour, and since when* — two devices that disagreed on one would be
+  // asking the pair for different answers to the same floor (`undertow-hash.ts`).
   if (boss.kind === "undertow") {
     for (const n of undertowHashParts(boss)) out.push(n);
   }

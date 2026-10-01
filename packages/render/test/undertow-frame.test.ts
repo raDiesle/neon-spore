@@ -2,16 +2,17 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
-  midCol,
   startWave,
   step,
   ticksPerBeat,
+  type UndertowLobe,
   type UndertowState,
   undertowBoss,
   type World,
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
+import type { TextBox } from "./canvas-stub-text.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -24,16 +25,16 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * THE UNDERTOW's plating, on both screens.
+ * THE UNDERTOW's plating, on both screens, on the rework of 1 October 2026.
  *
- * The breaches are **set** rather than pushed into, which is
+ * The lobes are **set** rather than played into, which is
  * `throat-frame.test.ts`' arrangement and for its reason: which column the
  * floor comes up in is the rng's, and `sim/test/undertow.test.ts` already
  * proves the clock. What this file asks is whether every branch of the
- * picture is one a canvas accepts, and the two things nothing else in the
- * suite could catch: that the bow is on the pilot's screen and on no other,
- * and that a standing lobe reaches both — the navigator's plate has to stand
- * on a breach she can see.
+ * picture is one a canvas accepts, and the things nothing else in the suite
+ * could catch: that the bow is on the pilot's screen and on no other, that a
+ * standing lobe reaches both, that its colour is its answer, and that the
+ * level's ebb draws the lobes back in.
  */
 
 beforeAll(installCanvasGlobals);
@@ -65,154 +66,95 @@ function drawn(world: World, role: ViewRole, ticks: number): { calls: number; te
   return { calls: ctx.calls, text: log.join("|") };
 }
 
+/** Every word a screen wrote on its last frame. */
+function words(world: World, role: ViewRole): string[] {
+  let boxes: TextBox[] = [];
+  runFrames(world, role, 1, {
+    onCanvas: (c) => {
+      boxes = [];
+      c.texts = boxes;
+    },
+  });
+  return boxes.map((b) => b.text);
+}
+
+/** `LEVEL 2/3  0:14` as the seconds it says. */
+function secondsOf(text = ""): number {
+  const [m = "0", s = "0"] = text.slice(-4).split(":");
+  return Number(m) * 60 + Number(s);
+}
+
 function count(text: string, colour: string): number {
   return text.split(colour).length - 1;
 }
 
-function bowing(world: World, col: number, tall = false): void {
-  floor(world).breaches.push({
-    col,
-    stage: "bowing",
-    stageBeat: world.beat,
-    tall,
-    widthMilli: 0,
-    widened: false,
-  });
-}
-
-function standing(world: World, col: number, tall = false, widthMilli = 0): void {
-  floor(world).breaches.push({
-    col,
+/** A world with one lobe set in column 4, its stage begun this beat. */
+function withLobe(over: Partial<UndertowLobe> = {}): World {
+  const world = opened();
+  floor(world).lobes.push({
+    col: 4,
     stage: "standing",
     stageBeat: world.beat,
-    tall,
-    widthMilli,
-    widened: false,
+    answer: "maw",
+    ...over,
   });
+  return world;
 }
 
 describe("the undertow", () => {
   for (const role of ROLES) {
     it(`draws a plate bowing for ${role}`, () => {
-      const world = opened();
-      bowing(world, 2);
-      expect(drawn(world, role, TPB).calls).toBeGreaterThan(500);
+      expect(drawn(withLobe({ stage: "bowing" }), role, TPB).calls).toBeGreaterThan(500);
     });
 
-    it(`draws a lobe standing in a parted plate for ${role}`, () => {
-      const world = opened();
-      standing(world, 4);
-      const quiet = drawn(opened(), role, TPB).text;
-      const { calls, text } = drawn(world, role, TPB);
+    it(`draws a lobe standing, in the colour of its answer, for ${role}`, () => {
+      const maw = drawn(withLobe(), role, TPB).text;
+      const shield = drawn(withLobe({ answer: "shield" }), role, TPB).text;
+      expect(count(maw, PALETTE.pod)).toBeGreaterThan(count(shield, PALETTE.pod));
+      expect(count(shield, PALETTE.shield)).toBeGreaterThan(count(maw, PALETTE.shield));
+    });
+
+    it(`draws a tall lobe otherwise than a standing one for ${role}`, () => {
+      const standing = drawn(withLobe(), role, TPB).text;
+      expect(drawn(withLobe({ stage: "tall" }), role, TPB).text).not.toBe(standing);
+    });
+
+    it(`draws the ebb shrinking a lobe back for ${role}`, () => {
+      const up = withLobe({ stage: "tall" });
+      const ebbing = withLobe({ stage: "tall" });
+      floor(ebbing).ebbBeat = ebbing.beat;
+      const { calls, text } = drawn(ebbing, role, TPB);
       expect(calls).toBeGreaterThan(500);
-      // The lobe is rock: a grey the empty field never sets.
-      expect(count(text, PALETTE.rockDark)).toBeGreaterThan(count(quiet, PALETTE.rockDark));
-    });
-
-    it(`puts both beam colours on a tall lobe and neither on a plain one for ${role}`, () => {
-      const plain = opened();
-      standing(plain, 4);
-      const tall = opened();
-      standing(tall, 4, true);
-      const a = drawn(plain, role, TPB).text;
-      const b = drawn(tall, role, TPB).text;
-      expect(count(b, PALETTE.cyan)).toBeGreaterThan(count(a, PALETTE.cyan));
-      expect(count(b, PALETTE.red)).toBeGreaterThan(count(a, PALETTE.red));
-    });
-
-    it(`draws a breach widened past its column for ${role}`, () => {
-      const world = opened();
-      standing(world, 4, false, CFG.undertowWideMilli);
-      expect(drawn(world, role, TPB).calls).toBeGreaterThan(500);
+      expect(text).not.toBe(drawn(up, role, TPB).text);
     });
   }
 
   it("puts the bow on the pilot's screen and on no other", () => {
-    // The load-bearing test of this file. The column the next lobe is pushing
-    // at is the pilot's whole first part of this fight, and a copy of it on
-    // the navigator's phone would leave the pair nothing to say.
-    const p2 = opened();
-    bowing(p2, 2);
-    expect(drawn(p2, "p2", TPB).text).toBe(drawn(opened(), "p2", TPB).text);
-    const p1 = opened();
-    bowing(p1, 2);
-    expect(drawn(p1, "p1", TPB).text).not.toBe(drawn(opened(), "p1", TPB).text);
-    const both = opened();
-    bowing(both, 2);
-    expect(drawn(both, "test", TPB).text).not.toBe(drawn(opened(), "test", TPB).text);
+    // The warning is his: the navigator is shown the lobe the moment it
+    // stands, and nothing of the beats before (`view-role-clocks.ts`).
+    const quiet = (role: ViewRole): string => drawn(opened(), role, TPB).text;
+    const bow = (role: ViewRole): string => drawn(withLobe({ stage: "bowing" }), role, TPB).text;
+    expect(bow("p1")).not.toBe(quiet("p1"));
+    expect(bow("p2")).toBe(quiet("p2"));
   });
 
-  it("shows a standing lobe to both seats", () => {
-    // Nothing about a breach that is open is kept from either screen: the
-    // navigator's plate has to stand on it, and the pilot's maw has to open
-    // over it.
-    for (const role of ["p1", "p2"] as const) {
-      const world = opened();
-      standing(world, 4);
-      expect(drawn(world, role, TPB).text).not.toBe(drawn(opened(), role, TPB).text);
+  it("stands a lobe on both screens", () => {
+    for (const role of ROLES) {
+      expect(drawn(withLobe(), role, TPB).text, role).not.toBe(drawn(opened(), role, TPB).text);
     }
   });
 
-  it("lights the whole edge before the last lobe, on both screens", () => {
-    // The rise is every seam at once and there is no column to call, so the
-    // navigator is shown it too — the one bow that is not the pilot's alone.
+  it("writes the level and the time it has left on both screens", () => {
     for (const role of ROLES) {
-      const world = opened();
-      const u = floor(world);
-      u.phase = "last";
-      u.phaseBeat = world.beat;
-      bowing(world, midCol(CFG));
-      expect(drawn(world, role, TPB * 2).text).not.toBe(drawn(opened(), role, TPB * 2).text);
-    }
-  });
-
-  it("draws the body passing through and stops when the boss does", () => {
-    const world = opened();
-    const u = floor(world);
-    u.phase = "taken";
-    u.phaseBeat = world.beat;
-    u.taken = 1;
-    const quiet = drawn(opened(), "test", TPB).text;
-    // Through the whole pass and a beat past it: the sim nulls the boss at the
-    // end, so the last frames are of a field with no floor under them.
-    const { calls, text } = drawn(world, "test", (CFG.undertowDownBeats + 2) * TPB);
-    expect(calls).toBeGreaterThan(500);
-    // The body's ground, which nothing else in this wave draws.
-    expect(count(text, PALETTE.sheenDeep)).toBeGreaterThan(count(quiet, PALETTE.sheenDeep));
-    expect(undertowBoss(world)).toBeNull();
-  });
-
-  it("lights the seat's column while the cannon is unseated, on the pilot's screen", () => {
-    // **Counted rather than compared**, which the frames stopped allowing on
-    // 22 September 2026: the navigator's haul is drawn over that same column
-    // while he is unseated (`undertow-grip.ts`), so her screen is no longer
-    // identical to a seated one and the whole-log comparison this test used
-    // to make would now fail on her own handle. The light itself is the one
-    // thing being asked about and it is a `halo`, which is a `drawImage` and
-    // nothing else here is.
-    const seated = opened();
-    const world = opened();
-    floor(world).unseatedUntil = world.beat + CFG.undertowUnseatedBeats;
-    expect(count(drawn(world, "p1", TPB).text, "drawImage")).toBeGreaterThan(
-      count(drawn(seated, "p1", TPB).text, "drawImage"),
-    );
-    const p2 = opened();
-    floor(p2).unseatedUntil = p2.beat + CFG.undertowUnseatedBeats;
-    expect(count(drawn(p2, "p2", TPB).text, "drawImage")).toBe(
-      count(drawn(opened(), "p2", TPB).text, "drawImage"),
-    );
-  });
-
-  it("puts the navigator's haul over the unseated column, on both screens", () => {
-    // The other half of the line above, and the reason it had to be rewritten.
-    // Her thumb is the one thing that ends the four dead beats early, and a
-    // pilot who could not see it coming would sit them out with no idea he was
-    // being bought back — so the ring is on both screens, bright on hers and
-    // dim on his (`undertow-grip.ts`).
-    for (const role of ROLES) {
-      const world = opened();
-      floor(world).unseatedUntil = world.beat + CFG.undertowUnseatedBeats;
-      expect(drawn(world, role, TPB).text, role).not.toBe(drawn(opened(), role, TPB).text);
+      const first = words(opened(), role).find((t) => t.startsWith("LEVEL"));
+      expect(first, role).toMatch(/^LEVEL 1\/3 {2}\d:\d\d$/);
+      const later = opened();
+      floor(later).phase = "two";
+      floor(later).phaseBeat = later.beat - CFG.undertowLevelBeats / 2;
+      const second = words(later, role).find((t) => t.startsWith("LEVEL"));
+      expect(second, role).toMatch(/^LEVEL 2\/3/);
+      // Half the level gone is a smaller number than none of it.
+      expect(secondsOf(second)).toBeLessThan(secondsOf(first));
     }
   });
 
@@ -220,6 +162,7 @@ describe("the undertow", () => {
     const world = createWorld(CFG, 7, buildQueue(0, CFG.cols));
     for (let i = 0; i < TPB * 2; i++) step(world, []);
     expect(undertowBoss(world)).toBeNull();
-    expect(drawn(world, "p1", TPB).text).not.toContain(PALETTE.rockDark);
+    expect(drawn(world, "p1", TPB).text).not.toContain(PALETTE.sheenDeep);
+    expect(words(world, "p1").some((t) => t.startsWith("LEVEL"))).toBe(false);
   });
 });

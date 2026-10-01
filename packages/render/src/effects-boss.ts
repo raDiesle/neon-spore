@@ -59,7 +59,7 @@ export class BossTransients extends BossRoster {
     if (boss === "nettle") this.nettle.ingest(events, l, burst);
     else this.instar.ingest(events, l, burst);
     this.stare.ingest(events, l, cfg, burst);
-    this.undertow.ingest(events, l, cfg, beatSeconds, role);
+    this.undertow.ingest(events, l, cfg, beatSeconds);
     this.filament.ingest(events, l, cfg, burst);
     this.gimbal.ingest(events, l, cfg, burst);
     this.spool.ingest(events, l, cfg, burst);

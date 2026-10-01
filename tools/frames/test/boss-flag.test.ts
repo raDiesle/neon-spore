@@ -91,7 +91,7 @@ describe("--boss on the command line", () => {
  * `--boss-json`, which is the flag that lets a list be photographed at all.
  *
  * `--boss` is scalars by design, and the states that most need a picture are
- * lists — THE BATON's thread, THE UNDERTOW's breaches, THE TASTER's blades, THE
+ * lists — THE BATON's thread, THE UNDERTOW's lobes, THE TASTER's blades, THE
  * GORGE's intakes. The page still owns every question about the boss: whether
  * the field exists, whether it is a list, and whether its items are the right
  * kind are all checked against the state that is actually installed

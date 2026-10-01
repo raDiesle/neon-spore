@@ -2,20 +2,19 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE UNDERTOW's nine, in a file of their own for `bind-baton.ts`' reason —
+ * THE UNDERTOW's seven, in a file of their own for `bind-baton.ts`' reason —
  * and along the seam the fight has: everything here happens *to the hull*,
- * in one column of it, and the pair answers it downward.
+ * in one column of it.
  *
- * All but one are panned, and harder than usual: the boss is under the floor,
- * so the only thing the navigator has of it is where. The bow is on the
- * pilot's screen alone, and a bow heard in a lane is the one tell she gets
- * before the lobe stands. `undertowRise` is the whole edge at once and has no
- * column to be in — no pan, like `boss.stareCaught`.
+ * All are panned, and harder than usual: the bow is on the pilot's screen
+ * alone, and a bow heard in a lane is the one tell the navigator gets before
+ * the lobe stands.
  *
- * Thirteen events on those nine sounds and the refusal: the plate closing is the take quieter,
- * and **her two hands are the ship's grip** rather than the floor's — a thumb
- * on a lobe is a hand landing on something falling, which is the sound the
- * game already has for exactly that (`sounds/grip.ts`, `bind-fleet.ts`).
+ * Seven events on seven of the boss's nine sounds. A lobe tapped back down is
+ * the old scar's slide — a lobe going back under — and the level's ebb is the
+ * swallow that closed the old fight, one per lobe. `boss.undertowUnseated` and
+ * `boss.undertowRise` are spare since the rework of 1 October 2026: nobody is
+ * unseated and there is no last push.
  */
 export function undertowCue(
   e: Extract<
@@ -25,56 +24,30 @@ export function undertowCue(
         | "undertowBow"
         | "undertowLobe"
         | "undertowTaken"
-        | "undertowScar"
-        | "undertowWidened"
-        | "undertowUnseated"
-        | "undertowClosed"
-        | "undertowRise"
-        | "undertowSwallowed"
-        | "undertowThrough"
-        | "undertowPinned"
-        | "undertowFreed"
-        | "undertowRefuse";
+        | "undertowGrow"
+        | "undertowTapped"
+        | "undertowBurst"
+        | "undertowEbb";
     }
   >,
   cols: number,
 ): Cue {
+  const pan = panForCol(e.col, cols);
   switch (e.type) {
     case "undertowBow":
-      return { id: "boss.undertowBow", pan: panForCol(e.col, cols) };
+      return { id: "boss.undertowBow", pan };
     case "undertowLobe":
-      // The tall one is lower: a bigger thing coming through a bigger hole,
-      // and the one the maw will not take.
-      return { id: "boss.undertowLobe", pan: panForCol(e.col, cols), pitch: e.tall ? 0.8 : 1 };
+      // The shield's lobe is higher: the dome's colour, and a lighter thing.
+      return { id: "boss.undertowLobe", pan, pitch: e.answer === "shield" ? 1.2 : 1 };
     case "undertowTaken":
-      return { id: "boss.undertowTaken", pan: panForCol(e.col, cols) };
-    case "undertowScar":
-      return { id: "boss.undertowScar", pan: panForCol(e.col, cols) };
-    case "undertowWidened":
-      return { id: "boss.undertowWidened", pan: panForCol(e.col, cols) };
-    case "undertowUnseated":
-      return { id: "boss.undertowUnseated", pan: panForCol(e.col, cols) };
-    case "undertowClosed":
-      // The same plate closing as after a take, quieter: nothing went in.
-      return { id: "boss.undertowTaken", pan: panForCol(e.col, cols), gain: 0.7 };
-    case "undertowRise":
-      return { id: "boss.undertowRise" };
-    case "undertowSwallowed":
-      return { id: "boss.undertowSwallowed", pan: panForCol(e.col, cols) };
-    case "undertowThrough":
-      return { id: "boss.undertowThrough", pan: panForCol(e.col, cols) };
-    case "undertowPinned":
-      // Her thumb taking a lobe and leaving it, in THE FLEET's words for the
-      // same pair of moments: the pin is a plate made of a hand, and what the
-      // pilot needs off it is *which column, and is it still held*.
-      return { id: e.on ? "ship.gripTake" : "ship.gripSlip", pan: panForCol(e.col, cols) };
-    case "undertowFreed":
-      // The plate hauled off the cannon: weight dragged by a hand, which is
-      // what `ship.gripCarry` is, here in his lane rather than hers.
-      return { id: "ship.gripCarry", pan: panForCol(e.col, cols) };
-    case "undertowRefuse":
-      // The pilot's thumb on her free: THE INSTAR's refusal, the one sound
-      // every refused mark makes.
-      return { id: "boss.instarRefuse", pan: panForCol(e.col, cols) };
+      return { id: "boss.undertowTaken", pan };
+    case "undertowGrow":
+      return { id: "boss.undertowWidened", pan };
+    case "undertowTapped":
+      return { id: "boss.undertowScar", pan };
+    case "undertowBurst":
+      return { id: "boss.undertowThrough", pan };
+    case "undertowEbb":
+      return { id: "boss.undertowSwallowed", pan, gain: 0.7 };
   }
 }

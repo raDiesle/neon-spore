@@ -14,7 +14,6 @@ import { surgeMarkSeat } from "./surge-grip.js";
 import { tasterGripSeat } from "./taster-grip.js";
 import { throatGripSeat } from "./throat-grip.js";
 import { type Field, type Touch, touchDown } from "./touch.js";
-import { undertowGripSeat } from "./undertow-grip.js";
 import { vaneGripSeat } from "./vane-grip.js";
 import { wardenGripSeat } from "./warden-grip.js";
 
@@ -51,11 +50,10 @@ import { wardenGripSeat } from "./warden-grip.js";
  *    SCOUT's line and prime the eleventh (`scout-grip.ts` `scoutGripSeat`),
  *    and THE BATON's shell and beads the twelfth (`baton-grip.ts`
  *    `batonGripSeat`), and THE THROAT's ring and tube the thirteenth
- *    (`throat-grip.ts` `throatGripSeat`), and THE UNDERTOW's pins and free
- *    the fourteenth (`undertow-grip.ts` `undertowGripSeat`), and THE
- *    CURTAIN's hem the fifteenth (`curtain-grip.ts` `curtainHemSeat`), and
- *    THE TASTER's pin, wipe and pry the sixteenth (`taster-grip.ts`
- *    `tasterGripSeat`), and THE SURGE's two grip marks the seventeenth
+ *    (`throat-grip.ts` `throatGripSeat`), and THE
+ *    CURTAIN's hem the fourteenth (`curtain-grip.ts` `curtainHemSeat`), and
+ *    THE TASTER's pin, wipe and pry the fifteenth (`taster-grip.ts`
+ *    `tasterGripSeat`), and THE SURGE's two grip marks the sixteenth
  *    (`surge-grip.ts` `surgeMarkSeat`).
  *    One question for all of them, `markSeat`.
  * 2. **Every other handle a seat does not own is simply not there for it** —
@@ -176,7 +174,6 @@ function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefi
     scoutGripSeat(l, x, y, field) ??
     batonGripSeat(l, x, y, field) ??
     throatGripSeat(l, x, y, field) ??
-    undertowGripSeat(l, x, y, field) ??
     curtainHemSeat(l, x, y, field) ??
     tasterGripSeat(l, x, y, field) ??
     surgeMarkSeat(l, x, y, field)

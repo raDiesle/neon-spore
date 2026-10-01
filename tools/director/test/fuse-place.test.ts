@@ -38,7 +38,8 @@ import { stageField } from "../src/stage-field.js";
  * no gap, and the fuse stands over it — or drops onto the hull where the field
  * over it is shorter, walking up off it clear of a ring standing there: those
  * are the places it may stand other than under the body, and only on the hull
- * may it cross the body. THE UNDERTOW is that boss. A boss THE SLOW's aim has no row for falls
+ * may it cross the body. THE UNDERTOW was that boss until its rework of
+ * 1 October 2026 took THE SLOW off it. A boss THE SLOW's aim has no row for falls
  * back to the cannon on the hull and would be excused the same way, which is
  * how five bosses hid there until page four (`slow-boss-aim-d.ts`) gave them
  * rows: those five must now be walked, and leave a gap on every tick, and so

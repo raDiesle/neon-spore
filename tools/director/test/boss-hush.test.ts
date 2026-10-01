@@ -35,6 +35,9 @@ import { DRAWN } from "./boss-hush-drawn.js";
  * the same state the cue is, and by the motions `DRAWN` names. THE DAVIT
  * was the last of the queue's list, once AUTO had a hand for it
  * (`boss-hands-davit.ts`).
+ *
+ * THE UNDERTOW had a row until its rework of 1 October 2026 took THE SLOW
+ * off it: with no window it has nothing to hold still in.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
@@ -42,7 +45,6 @@ const LIMIT = 0.1; // tiles a wall-clock second
 
 /** The bosses whose marks have been read and hold still; the rest are in `docs/queue.md`. */
 const STILL: readonly BossKind[] = [
-  "undertow",
   "gorge",
   "curtain",
   "taster",

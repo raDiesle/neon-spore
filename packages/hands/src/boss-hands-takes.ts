@@ -9,6 +9,7 @@ import {
   spliceWantedAfterFlights,
   type TimedCommand,
   undertowBoss,
+  undertowEbbing,
   type World,
 } from "@neon-spore/sim";
 import type { Hand } from "./hand.js";
@@ -17,7 +18,7 @@ import type { Hand } from "./hand.js";
  * **The pair's hands on the bosses a taking answers** — THE CAIRN, THE
  * SPLICE, THE UNDERTOW, THE ANTIPHON — each a `Hand` (`hand.ts`).
  * A rock pulled out of the pile, a number sucked down its straw, a lobe
- * held in the maw, an organ pitted by its own colour: each is one thing
+ * taken by its colour, an organ pitted by its own colour: each is one thing
  * taken off the boss, and the hand takes it the way the pair does, one
  * press a tick, reading the field for which thing is up now.
  */
@@ -91,18 +92,34 @@ export const spliceHand: Hand = (w) => {
 };
 
 /**
- * THE UNDERTOW: the last lobe is not taken but *held* — the maw open under
- * it for `undertowHoldBeats`, counted on the beat (`undertow-step.ts`'s
- * `last`). The maw stays open only while the press keeps coming
- * (`intakeWindowTicks`), so the hand presses every tick it stands under
- * the lobe. The earlier lobes are the clock's and go by untaken here: the
- * phases advance by beat count, and the state posed is the taking.
+ * THE UNDERTOW: every lobe that stands is answered by its colour — the
+ * cannon under a yellow one and the maw opened, the shield carried under a
+ * cyan one and raised — and a tall one is tapped back down first, because it
+ * is the one about to burst (`undertow-press.ts`). The maw stays open only
+ * while the press keeps coming (`intakeWindowTicks`), so the hand presses
+ * every tick it stands under the lobe. The clock does the rest: a level is
+ * survived, not cleared.
  */
 export const undertowHand: Hand = (w) => {
   const u = undertowBoss(w);
-  if (u === null || u.phase !== "last") return [];
-  const b = u.breaches.find((x) => x.stage === "standing");
+  if (u === null || undertowEbbing(u)) return [];
+  const tall = u.lobes.find((x) => x.stage === "tall");
+  if (tall !== undefined) {
+    const command = {
+      kind: "drag",
+      target: "undertowTap",
+      on: true,
+      fromMilli: 0,
+      id: tall.col,
+    } as const;
+    return [{ player: 1, command }];
+  }
+  const b = u.lobes.find((x) => x.stage === "standing");
   if (b === undefined) return [];
+  if (b.answer === "shield") {
+    if (w.shieldCol !== b.col) return [{ player: 2, command: { kind: "shieldCol", col: b.col } }];
+    return [{ player: 1, command: { kind: "guard" } }];
+  }
   if (w.cannonCol !== b.col) return [aim(b.col)];
   return [intake()];
 };

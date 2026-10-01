@@ -1,7 +1,7 @@
 import { undertowBoss, type World } from "@neon-spore/sim";
 import type { AnchorPoint } from "./caption-anchor.js";
 import type { Layout } from "./layout.js";
-import { LOBE_TILES } from "./undertow-shape.js";
+import { TALL_TILES } from "./undertow-shape.js";
 
 /**
  * **A caption on a control stands clear of a fight that is in the hull.**
@@ -16,11 +16,12 @@ import { LOBE_TILES } from "./undertow-shape.js";
  * controls is above the hull graphics so i cant see the enemy and follow the
  * tutorial. so move the text boxes higher.*
  *
- * The room is a standing lobe's full height and half a tile of air, fixed
- * rather than read off the lobe standing now, so the box does not ride up
- * and down the page with the lobe it is pointing past.
+ * The room is a tall lobe's full height and half a tile of air — the tap's
+ * page is about the tallest thing the fight stands — fixed rather than read
+ * off the lobe standing now, so the box does not ride up and down the page
+ * with the lobe it is pointing past.
  */
-const UNDERTOW_ROOM_TILES = LOBE_TILES + 0.5;
+const UNDERTOW_ROOM_TILES = TALL_TILES + 0.5;
 
 /** How far above `hullY` this world's fight reaches, in tiles, or null. */
 function hullRoomTiles(world: World): number | null {

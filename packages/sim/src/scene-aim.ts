@@ -3,6 +3,7 @@ import { gripOf, NO_GRIP } from "./grip.js";
 import { hiveBoss, hiveNext } from "./hive.js";
 import { bodyCenterCol, occupiesCol } from "./span.js";
 import type { Command, Creature } from "./types.js";
+import { undertowBoss } from "./undertow.js";
 import type { World } from "./world.js";
 
 /**
@@ -125,6 +126,14 @@ export function aimed(world: World, c: SceneCommand): Command {
     const s = hiveBoss(world);
     const next = s === null ? -1 : hiveNext(s);
     return next < 0 ? c.command : { ...c.command, id: next };
+  }
+  if (c.command.kind === "drag" && c.command.target === "undertowTap") {
+    // THE UNDERTOW's tap is on a tall lobe, named by its column — and where a
+    // lobe comes up is the seeded rng's, which an author cannot know. The
+    // oldest tall one is the thumb's; none leaves it as written, a tap on
+    // nothing, which is what a mistimed film should look like.
+    const tall = undertowBoss(world)?.lobes.find((l) => l.stage === "tall");
+    return tall === undefined ? c.command : { ...c.command, id: tall.col };
   }
   if (c.dragCol !== undefined && c.command.kind === "drag") {
     // The lowest body in the column, as a grip takes: a hand goes on the thing

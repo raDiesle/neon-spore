@@ -124,8 +124,8 @@ export function drawClockBoss(
     return;
   }
 
-  // THE UNDERTOW: the half of it that is above the hull line — a lobe standing
-  // in its breach, and once, the body — drawn here so the ship pass paints
+  // THE UNDERTOW: the half of it that is above the hull line — the lobes
+  // standing out of the plating — drawn here so the ship pass paints
   // over where it came from. The plate it came up through, the seams and the
   // rise are on the finished ship instead (`undertow-draw.ts`).
   if (boss.kind === "undertow") {

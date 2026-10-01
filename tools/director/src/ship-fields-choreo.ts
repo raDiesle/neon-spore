@@ -68,27 +68,18 @@ export const CHOREO_FIELD_GROUP = {
   throatEvertBeats: "THE THROAT — the boss you answer by feeding it",
   throatCinchBeats: "THE THROAT — the boss you answer by feeding it",
   throatHaulMilli: "THE THROAT — the boss you answer by feeding it",
-  // UndertowConfig — how often it comes up, and how long each part of a push
-  // takes. Every beat is a call: a bow is a column said, a stand is a maw
-  // opened or a plate moved on a word (`config-undertow.ts`).
-  undertowSingles: "THE UNDERTOW — the boss under the floor, answered downward",
-  undertowPairs: "THE UNDERTOW — the boss under the floor, answered downward",
-  undertowPairGap: "THE UNDERTOW — the boss under the floor, answered downward",
-  undertowTalls: "THE UNDERTOW — the boss under the floor, answered downward",
+  // UndertowConfig — how long a level lasts, how many lobes each stands, and
+  // how long each stage of a lobe takes. Every beat is a call: a bow is a
+  // column said, a stand is a colour answered (`config-undertow.ts`).
+  undertowLevelBeats: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowOneLobes: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowTwoLobes: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowThreeLobes: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowBowBeats: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowStandBeats: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowTallBeats: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowRestBeats: "THE UNDERTOW — the boss under the floor, answered downward",
-  undertowWidenMilli: "THE UNDERTOW — the boss under the floor, answered downward",
-  undertowWideMilli: "THE UNDERTOW — the boss under the floor, answered downward",
-  undertowUnseatBeats: "THE UNDERTOW — the boss under the floor, answered downward",
-  undertowUnseatSlides: "THE UNDERTOW — the boss under the floor, answered downward",
-  undertowUnseatedBeats: "THE UNDERTOW — the boss under the floor, answered downward",
-  undertowFreeBeats: "THE UNDERTOW — the boss under the floor, answered downward",
-  undertowRiseBeats: "THE UNDERTOW — the boss under the floor, answered downward",
-  undertowHoldBeats: "THE UNDERTOW — the boss under the floor, answered downward",
-  undertowLastBeats: "THE UNDERTOW — the boss under the floor, answered downward",
-  undertowDownBeats: "THE UNDERTOW — the boss under the floor, answered downward",
-  undertowSlowBeats: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowEbbBeats: "THE UNDERTOW — the boss under the floor, answered downward",
   // GorgeConfig — how wide the sack is, how many beads fill an intake, how
   // long a full one holds before venting, and when it spits and gorges
   // (`config-gorge.ts`).

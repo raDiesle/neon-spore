@@ -6,104 +6,134 @@ import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
-import { UndertowMarks } from "./undertow-marks.js";
 import { drawPlateBow, lifted } from "./undertow-seam.js";
 import { PLATE_HALF } from "./undertow-shape.js";
-import type { ViewRole } from "./view-role.js";
-import { showsUndertowBow } from "./view-role-clocks.js";
 
 /**
- * What THE UNDERTOW leaves behind a frame: **the plate closing** under a
- * cannon slid off in time — the design's step 11, landed.
+ * What THE UNDERTOW leaves behind a frame: **the plate closing** over a lobe
+ * that went back down, and **the burst** of one left tall too long.
  *
  * Everything else about the floor is drawn off the boss every frame
- * (`undertow-draw.ts`). This is the exception, and it has to be: the beat the
- * pilot slides off, the breach is gone from the world (`undertowClosed`,
- * `sim/undertow-step.ts`), and a plate that was standing off the skin one
- * frame and flat the next is a plate that vanished, not one that closed. So
- * the bow is remembered here for the beats it takes to settle — the same
- * plate, drawn by the same seam (`undertow-seam.ts`) with the lift running
- * the other way — and cleared in `Effects.reset()` like everything that
- * outlives its frame (`restart.test.ts`).
+ * (`undertow-draw.ts`). These are the exceptions, and they have to be: the
+ * tick a lobe is taken, or bursts, it is gone from the world
+ * (`sim/undertow-press.ts`, `sim/undertow-step.ts`), and a plate that was
+ * parted one frame and flat the next is a plate that vanished, not one that
+ * closed. So each is remembered here for the second or so it takes, and
+ * cleared in `Effects.reset()` like everything that outlives its frame
+ * (`restart.test.ts`).
  *
- * **The pilot's, like the bow it closes** (`showsUndertowBow`): the navigator
- * never saw this plate rise, and a plate settling on her screen would be one
- * lifting for no reason. The seam's light dies with the lift, and at the
- * end a brief glow along the seam says *seated*.
+ * **Both screens.** A lobe is answered from either seat now — the maw's from
+ * the pilot's, the shield's from the navigator's — so either may have done
+ * it, and both see it done.
  *
- * **A lobe taken is a sequence landed** — the maw held open over it, or the
- * beam burned it — and so is the swallow, so both deal the boss the blow
- * every boss takes (`boss-hurt.ts`), on both screens. The lobe taken is
- * gone that tick, so the blow is worn by what still stands of it: the other
- * lobes, and at the swallow the body (`undertow-lobe.ts`). A bow deals
- * nothing.
+ * **A lobe taken is a sequence landed**, so it deals the boss the blow every
+ * boss takes (`boss-hurt.ts`), worn by the lobes still standing. The burst
+ * deals the ship one instead: a flash the hull's own colour and a ring going
+ * out from it, over the hole the simulation has already torn in the plating
+ * (`scarHull`, drawn with the rest of the hull's scars).
  */
 
-/** Beats the plate takes to settle: the bow's own count, halved — it falls faster than it rose. */
-const SETTLE_SHARE = 0.5;
+/** Seconds a plate takes to settle over a lobe gone down. */
+const SETTLE_SECONDS = 0.5;
+/** Seconds the burst's flash and ring last. */
+const BURST_SECONDS = 1.1;
+/** How far the burst's ring goes out, in tiles. */
+const BURST_REACH = 2.4;
 /** How far into the settle the seating glow starts, 0..1. */
-const SEAT_FROM = 0.75;
+const SEAT_FROM = 0.6;
 
-interface Closing {
+interface Moment {
+  kind: "close" | "burst";
   x: number;
   left: number;
   life: number;
 }
 
 export class UndertowFx {
-  private closing: Closing[] = [];
+  private moments: Moment[] = [];
   /** The blow a lobe taken deals the boss. */
   readonly hurt = new BossHurt();
-  /** The verdicts round her two rings, on both screens (`undertow-marks.ts`). */
-  readonly marks = new UndertowMarks();
 
   ingest(
     events: readonly SimEvent[],
     l: Layout,
-    cfg: SimConfig,
+    _cfg: SimConfig,
     /** Seconds a beat lasts. */
-    spb: number,
-    role: ViewRole,
+    _spb: number,
   ): void {
     for (const e of events) {
-      if (e.type === "undertowTaken" || e.type === "undertowSwallowed") this.hurt.hit();
+      if (e.type === "undertowTaken") {
+        this.hurt.hit();
+        this.push("close", tileCX(l, e.col), SETTLE_SECONDS);
+      } else if (e.type === "undertowEbb") {
+        this.push("close", tileCX(l, e.col), SETTLE_SECONDS);
+      } else if (e.type === "undertowBurst") {
+        this.push("burst", tileCX(l, e.col), BURST_SECONDS);
+      }
     }
-    this.marks.ingest(events);
-    if (!showsUndertowBow(role)) return;
-    for (const e of events) {
-      if (e.type !== "undertowClosed") continue;
-      const life = cfg.undertowBowBeats * SETTLE_SHARE * spb;
-      this.closing.push({ x: tileCX(l, e.col), left: life, life });
-    }
+  }
+
+  private push(kind: Moment["kind"], x: number, life: number): void {
+    this.moments.push({ kind, x, left: life, life });
   }
 
   update(dt: number): void {
-    for (const c of this.closing) c.left -= dt;
-    this.closing = this.closing.filter((c) => c.left > 0);
+    for (const m of this.moments) m.left -= dt;
+    this.moments = this.moments.filter((m) => m.left > 0);
     this.hurt.update(dt);
-    this.marks.update(dt);
   }
 
-  /** On the finished ship, over the rim, where the bow itself is drawn. */
-  drawClose(ctx: CanvasRenderingContext2D, l: Layout, surfaceY: SurfaceY, time: number): void {
-    for (const c of this.closing) {
-      const t = 1 - c.left / c.life;
-      const half = PLATE_HALF * l.tile;
-      drawPlateBow(ctx, l, c.x, half, 1 - smoothstep(t), time, surfaceY);
-      if (t < SEAT_FROM) continue;
-      // Seated: the rim over the plate flares once in its own light, brightest
-      // as the plate lands and gone with it — the seam's light, on the skin.
-      const seat = (t - SEAT_FROM) / (1 - SEAT_FROM);
-      const glow = Math.sin(seat * Math.PI);
-      const seam = splinePath(lifted(c.x - half, c.x + half, 0, surfaceY), false);
-      strokeGlow(ctx, seam, PALETTE.hullRim, STROKE.inner, 0.9 * glow);
-      halo(ctx, c.x, surfaceY(c.x), l.tile * 0.9, PALETTE.hullRim, 0.4 * glow);
+  /** On the finished ship, over the rim, where the plating itself is drawn. */
+  draw(ctx: CanvasRenderingContext2D, l: Layout, surfaceY: SurfaceY, time: number): void {
+    for (const m of this.moments) {
+      const t = 1 - m.left / m.life;
+      if (m.kind === "burst") drawBurst(ctx, l, m.x, t, surfaceY);
+      else drawClose(ctx, l, m.x, t, time, surfaceY);
     }
   }
 
   clear(): void {
-    this.closing = [];
+    this.moments = [];
     this.hurt.clear();
-    this.marks.clear();
   }
+}
+
+/** A plate settling flat, `t` 0..1, and the seam flaring once as it lands. */
+function drawClose(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  x: number,
+  t: number,
+  time: number,
+  surfaceY: SurfaceY,
+): void {
+  const half = PLATE_HALF * l.tile;
+  drawPlateBow(ctx, l, x, half, 1 - smoothstep(t), time, surfaceY);
+  if (t < SEAT_FROM) return;
+  const glow = Math.sin(((t - SEAT_FROM) / (1 - SEAT_FROM)) * Math.PI);
+  const seam = splinePath(lifted(x - half, x + half, 0, surfaceY), false);
+  strokeGlow(ctx, seam, PALETTE.hullRim, STROKE.inner, 0.9 * glow);
+  halo(ctx, x, surfaceY(x), l.tile * 0.9, PALETTE.hullRim, 0.4 * glow);
+}
+
+/** The burst, `t` 0..1: a white-hot flash at the skin and a ring going out across the hull. */
+function drawBurst(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  x: number,
+  t: number,
+  surfaceY: SurfaceY,
+): void {
+  const y = surfaceY(x);
+  const fade = 1 - smoothstep(t);
+  halo(ctx, x, y, l.tile * (1.2 + 1.4 * t), PALETTE.hull, 0.9 * fade);
+  halo(ctx, x, y, l.tile * 0.8, PALETTE.hullRim, fade * fade);
+  ctx.save();
+  ctx.globalAlpha = 0.8 * fade;
+  ctx.strokeStyle = PALETTE.hullRim;
+  ctx.lineWidth = STROKE.inner * (1 + 2 * fade);
+  ctx.beginPath();
+  ctx.arc(x, y, l.tile * BURST_REACH * smoothstep(Math.min(1, t * 1.6)), 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.restore();
 }

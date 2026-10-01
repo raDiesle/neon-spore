@@ -34,8 +34,7 @@ export type DragTargetB =
   | "scoutPrime"
   | "pulseMeter"
   | "batonSocket"
-  | "undertowPin"
-  | "undertowFree"
+  | "undertowTap"
   | "throatRing"
   | "throatTube"
   | "curtainHem"
@@ -120,26 +119,14 @@ export type DragTargetB =
  */
 
 /**
- * `undertowPin` and `undertowFree` are the fortieth and forty-first, and the
- * first pair on a boss that is **under** the floor: both are the navigator's,
- * and both are on the hull itself rather than on her panel, because the hull
- * is the only part of that fight either seat can point at
- * (`undertow-hand.ts`).
- *
- * `undertowPin` is a second plate, made of a thumb. Held on a lobe standing
- * in the hull it stops that breach widening exactly as the shield does, and —
- * for the same reason the shield does — **keeps the maw out of the column**,
- * so the pair has to say *let go* before he can take it. `id` is the column,
- * which is the whole of what the hand says; there is one pin, and a thumb
- * landing on a second lobe moves it.
- *
- * `undertowFree` is the one hand in this game that **gives a seat back**. The
- * floor comes up under the cannon and a pilot who did not slide off is dead
- * for `undertowUnseatedBeats`; her thumb held on his column for
- * `undertowFreeBeats` hauls the plate off him and he is his own again. It
- * carries nothing but `on`, for `pulseMeter`'s reason — the column is the one
- * the cannon is stuck in, and where on it her thumb landed says nothing the
- * fight wants.
+ * `undertowTap` is the fortieth, and the first handle on a boss that is
+ * **under** the floor: it is on the hull itself rather than on either panel,
+ * because the hull is the only part of that fight both seats can point at.
+ * A thumb on a lobe that has grown tall shrinks it back to standing, where
+ * its colour's control can take it — and from **either seat**, for
+ * `pulseMeter`'s reason: both screens draw the hull, and whoever sees it grow
+ * first is the one who should reach (`undertow-press.ts`). `id` is the column,
+ * which is the whole of what the hand says.
  */
 
 /**
@@ -152,7 +139,7 @@ export type DragTargetB =
  *
  * `throatRing` is the navigator's thumb on a ring already gone slack, and
  * while it is there the gullet does not breathe — no swallow, no lift. It
- * carries nothing but `on`, for `undertowFree`'s reason: every slack ring is
+ * carries nothing but `on`, for `pulseMeter`'s reason: every slack ring is
  * the same ring to the simulation, and which one she pinched says nothing the
  * fight wants. What it costs is `throatCinchBeats` inhales owed back at one a
  * beat, so it is the one hold in this game that is **borrowed** rather than

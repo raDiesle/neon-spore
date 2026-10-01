@@ -68,10 +68,9 @@ export interface ThroatEntry {
 
 /**
  * What a wave authors when it wants THE UNDERTOW, which is nothing at all —
- * the third boss in a row to author nothing. No column: it pushes where the
- * seeded rng says and, once, where the cannon is standing. No health: the
- * fight is a fixed number of pushes and the last of them is a hold, not a
- * hit (`undertow.ts`). Every count is tuning (`config-undertow.ts`), for
+ * the third boss in a row to author nothing. No column: a lobe stands where the
+ * seeded rng says. No health: the fight is three levels on a clock, and the
+ * pair wins by still being there when the last runs out (`undertow.ts`). Every count is tuning (`config-undertow.ts`), for
  * THE BATON's reason: a boss whose pushes differed by wave would be several
  * bosses wearing one name, and none of them learnable.
  */

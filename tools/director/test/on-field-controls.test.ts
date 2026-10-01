@@ -233,14 +233,11 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // each draws the two beads into one (`sim/baton-hand.ts`,
   // `render/baton-grip.ts`, `field-controls-baton.ts`).
   batonSocket: "field",
-  // THE UNDERTOW's two thumbs, both the navigator's and both on the hull
-  // itself: a pin is a second plate on a standing lobe, and the free hauls
-  // the plate off a pilot the floor unseated (`sim/undertow-hand.ts`). Drawn
-  // from 22 September 2026 — a ring per standing lobe just clear of the
-  // plating, and one a tile above it over the stuck column with the count on
-  // its dial (`render/undertow-grip.ts`).
-  undertowPin: "field",
-  undertowFree: "field",
+  // THE UNDERTOW's tap, either seat's, on a tall lobe itself: it puts the
+  // lobe back to standing before it bursts (`sim/undertow-press.ts`,
+  // `render/undertow-tap.ts`). The pin and the free it replaced went with
+  // the rework of 1 October 2026.
+  undertowTap: "field",
   // THE THROAT's two, and the only pair the fight hands out as it loses: a
   // thumb on a ring already gone slack holds the gullet's breath, and in
   // `open` a carry drags the tube itself a column off its meal

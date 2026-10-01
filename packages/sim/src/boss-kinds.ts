@@ -42,8 +42,8 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // that spawned its own dinner would be a boss healing off bodies its author
   // never wrote, which is to say a boss whose difficulty nobody set.
   // THE UNDERTOW is the seventh, and the one that is underneath the field
-  // rather than above it: a fixture in the hull that pushes up through the
-  // floor and falls nothing at all (`undertow.ts`). What comes down over it
+  // rather than above it: a fixture in the hull whose lobes stand up through
+  // the floor and which falls nothing at all (`undertow.ts`). What comes down over it
   // is the wave's own.
   // THE GORGE is the eighth, and the one that sends bodies *because* of the
   // wave's own: a sack that swallows every shot nobody aimed at a creature,

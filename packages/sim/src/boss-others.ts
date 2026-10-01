@@ -83,10 +83,10 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepThroat(world, boss);
     return;
   }
-  // THE UNDERTOW on the beat is the floor's own clock: a push, a plate
-  // parting, a breach widening, a lobe withdrawing, the hold counted. The
-  // two answers — the maw and the beam — arrive on the tick, from
-  // `commands.ts` and `lance-burn.ts` (`undertow-press.ts`).
+  // THE UNDERTOW on the beat is the floor's own clock: a bow, a lobe
+  // standing, a lobe growing or bursting, the level running out. The two
+  // answers — the maw and the shield — are asked on the tick, from `step.ts`,
+  // and the tap from `boss-hands.ts` (`undertow-press.ts`).
   if (boss.kind === "undertow") {
     stepUndertow(world, boss);
     return;

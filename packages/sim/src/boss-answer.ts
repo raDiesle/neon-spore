@@ -40,12 +40,9 @@ import type { World } from "./world.js";
 export function bossAnswerCol(world: World): number | null {
   const u = undertowBoss(world);
   if (u !== null) {
-    // The breach the maw answers: the first one up. Two come up four apart in
-    // phase `two` and the maw reaches one of them; the film takes the left,
-    // which is the pair's own choice made once. The `seat` push is under the
-    // cannon itself and the answer is to leave, so it has no column here.
-    if (u.phase === "seat") return null;
-    return u.breaches[0]?.col ?? null;
+    // The lobe to answer: the first one up. Later levels stand more than one
+    // and the film takes the oldest, which is the pair's own choice made once.
+    return u.lobes[0]?.col ?? null;
   }
   const t = tasterBoss(world);
   if (t !== null) return tasterAnswerCol(world, t);

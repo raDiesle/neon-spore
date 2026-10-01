@@ -49,7 +49,7 @@ export type DragTargetC =
  * `tasterBlade` is the pilot's thumb on a blade that is out of the crest and
  * has not decided, in `fanning` alone. It holds the blade out of its decision
  * for `tasterPinBeats`, which is the navigator's window to turn the ledger the
- * blade will read. `id` is the column, for `undertowPin`'s reason: three grow
+ * blade will read. `id` is the column, for `undertowTap`'s reason: three grow
  * at once there, and which one he took is the whole of what the hand says.
  *
  * `tasterGap` is the navigator's carry across a column a blade was struck off
@@ -149,7 +149,7 @@ export type DragTargetC =
  * `showsScuttleLive` is hers, and a hand of hers on the frame would be her
  * steering the column her own readout names.
  *
- * `id` is the socket, for `undertowPin`'s reason: two parts hang at once once
+ * `id` is the socket, for `undertowTap`'s reason: two parts hang at once once
  * the frame is thin, and which one he took is most of what the hand says.
  * `fromMilli` is the carry against `scuttleSwingMilli`, and unlike
  * `tasterGap`'s its **sign is the whole point** — it is the direction the

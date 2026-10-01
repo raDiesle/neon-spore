@@ -2,44 +2,33 @@ import { describe, expect, it } from "bun:test";
 import {
   DEFAULT_CONFIG,
   type SimConfig,
-  type UndertowBreach,
+  type UndertowLobe,
   type UndertowState,
 } from "@neon-spore/sim";
+import { computeLayout } from "../src/layout.js";
 import {
-  BODY_TILES,
-  bodyHeight,
-  bodyPass,
   bowLift,
-  breachHalf,
-  edgeLight,
-  LAST_TILES,
+  ebbLeft,
   LOBE_TILES,
   lobeHeight,
-  PLATE_HALF,
   TALL_TILES,
+  undertowEdgeBox,
 } from "../src/undertow-shape.js";
 
 /**
  * THE UNDERTOW's geometry, which is the half of its picture that had to be
  * decided rather than drawn: how far a plate has risen at a given beat, how
- * high a lobe stands, and when the whole edge lights. Each is a convention
- * the simulation does not hold — it counts beats and says *bowing* or
- * *standing* — and each would be invisible to a frame test, which accepts a
- * plate that rose in one frame as happily as one that took four beats.
+ * high a lobe stands, and how far the level's ebb has drawn it back. Each is
+ * a convention the simulation does not hold — it counts beats and says
+ * *bowing*, *standing* or *tall* — and each would be invisible to a frame
+ * test, which accepts a plate that rose in one frame as happily as one that
+ * took four beats.
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
 
-function breach(over: Partial<UndertowBreach> = {}): UndertowBreach {
-  return {
-    col: 3,
-    stage: "bowing",
-    stageBeat: 10,
-    tall: false,
-    widthMilli: 0,
-    widened: false,
-    ...over,
-  };
+function lobe(over: Partial<UndertowLobe> = {}): UndertowLobe {
+  return { col: 3, stage: "bowing", stageBeat: 10, answer: "maw", ...over };
 }
 
 function floor(over: Partial<UndertowState> = {}): UndertowState {
@@ -47,111 +36,92 @@ function floor(over: Partial<UndertowState> = {}): UndertowState {
     kind: "undertow",
     phase: "one",
     phaseBeat: 0,
-    push: 1,
     restBeat: -1,
-    breaches: [],
+    ebbBeat: -1,
     taken: 0,
-    scars: 0,
-    unseatedUntil: -1,
-    hold: 0,
-    slid: 0,
-    pinCol: -1,
-    freeHeld: false,
-    freed: 0,
+    lobes: [],
     ...over,
   };
 }
 
 describe("the bow", () => {
-  it("rises from nothing to the whole plate over the phase's bow beats", () => {
-    const u = floor();
-    const b = breach();
-    expect(bowLift(CFG, u, b, 10, 0)).toBe(0);
-    const mid = bowLift(CFG, u, b, 10 + CFG.undertowBowBeats / 2, 0);
+  it("rises from nothing to the whole plate over the bow beats", () => {
+    const b = lobe();
+    expect(bowLift(CFG, b, 10, 0)).toBe(0);
+    const mid = bowLift(CFG, b, 10 + CFG.undertowBowBeats / 2, 0);
     expect(mid).toBeGreaterThan(0.3);
     expect(mid).toBeLessThan(0.7);
-    expect(bowLift(CFG, u, b, 10 + CFG.undertowBowBeats, 0)).toBe(1);
-  });
-
-  it("is a shorter count under the seat, because that push is seen rather than called", () => {
-    const u = floor({ phase: "seat" });
-    expect(bowLift(CFG, u, breach(), 10 + CFG.undertowUnseatBeats, 0)).toBe(1);
+    expect(bowLift(CFG, b, 10 + CFG.undertowBowBeats, 0)).toBe(1);
   });
 
   it("is full for as long as the lobe stands", () => {
-    expect(bowLift(CFG, floor(), breach({ stage: "standing" }), 10, 0)).toBe(1);
+    expect(bowLift(CFG, lobe({ stage: "standing" }), 10, 0)).toBe(1);
   });
 });
 
 describe("the lobe", () => {
   it("stands nothing while the plate is bowing", () => {
-    expect(lobeHeight(CFG, floor(), breach(), 12, 0.5)).toBe(0);
+    expect(lobeHeight(CFG, floor(), lobe(), 12, 0.5)).toBe(0);
   });
 
-  it("comes up a tile over the beat it stands on", () => {
-    const b = breach({ stage: "standing" });
+  it("comes up twice the old tile over the beat it stands on", () => {
+    const b = lobe({ stage: "standing" });
+    expect(LOBE_TILES).toBe(2);
     expect(lobeHeight(CFG, floor(), b, 10, 0)).toBe(0);
     expect(lobeHeight(CFG, floor(), b, 11, 0)).toBe(LOBE_TILES);
     expect(lobeHeight(CFG, floor(), b, 13, 0.5)).toBe(LOBE_TILES);
   });
 
-  it("comes up fast and three tiles high when it is tall", () => {
-    const b = breach({ stage: "standing", tall: true });
-    expect(lobeHeight(CFG, floor(), b, 10, 0.5)).toBe(TALL_TILES);
+  it("grows from the standing height to twice it when it is tall", () => {
+    const b = lobe({ stage: "tall" });
+    expect(lobeHeight(CFG, floor(), b, 10, 0)).toBe(LOBE_TILES);
+    const mid = lobeHeight(CFG, floor(), b, 10, 0.5);
+    expect(mid).toBeGreaterThan(LOBE_TILES);
+    expect(mid).toBeLessThan(TALL_TILES);
+    expect(lobeHeight(CFG, floor(), b, 11, 0)).toBe(TALL_TILES);
   });
 
-  it("keeps growing for as long as the last one stands", () => {
-    const u = floor({ phase: "last" });
-    const b = breach({ stage: "standing" });
-    expect(lobeHeight(CFG, u, b, 11, 0)).toBeGreaterThan(LOBE_TILES);
-    expect(lobeHeight(CFG, u, b, 11, 0)).toBeLessThan(LAST_TILES);
-    expect(lobeHeight(CFG, u, b, 10 + CFG.undertowLastBeats, 0)).toBe(LAST_TILES);
-  });
-});
-
-describe("the breach", () => {
-  it("is a plate wide, and wider by what it has spread", () => {
-    expect(breachHalf(breach())).toBe(PLATE_HALF);
-    expect(breachHalf(breach({ widthMilli: CFG.undertowWideMilli }))).toBe(
-      PLATE_HALF + CFG.undertowWideMilli / 1000,
-    );
+  it("falls from tall to the standing height when a tap shrinks it, never to nothing", () => {
+    const b = lobe({ stage: "standing", tapped: true });
+    expect(lobeHeight(CFG, floor(), b, 10, 0)).toBe(TALL_TILES);
+    const mid = lobeHeight(CFG, floor(), b, 10, 0.5);
+    expect(mid).toBeGreaterThan(LOBE_TILES);
+    expect(mid).toBeLessThan(TALL_TILES);
+    expect(lobeHeight(CFG, floor(), b, 11, 0)).toBe(LOBE_TILES);
   });
 });
 
-describe("the edge", () => {
-  it("is dark through the first four parts", () => {
-    for (const phase of ["one", "two", "hard", "seat"] as const) {
-      expect(edgeLight(CFG, floor({ phase, breaches: [breach()] }), 12, 0.5)).toBe(0);
-    }
+describe("the ebb", () => {
+  it("is whole until the level's clock runs out", () => {
+    expect(ebbLeft(CFG, floor(), 40, 0.5)).toBe(1);
   });
 
-  it("lights with the rise before the last lobe and stays lit while it stands", () => {
-    const u = floor({ phase: "last", breaches: [breach()] });
-    expect(edgeLight(CFG, u, 10, 0)).toBe(0);
-    expect(edgeLight(CFG, u, 10 + CFG.undertowRiseBeats, 0)).toBe(1);
-    u.breaches = [breach({ stage: "standing", stageBeat: 14 })];
-    expect(edgeLight(CFG, u, 20, 0.3)).toBe(1);
-  });
-
-  it("goes out as the body goes down", () => {
-    const u = floor({ phase: "taken", phaseBeat: 20 });
-    expect(edgeLight(CFG, u, 20, 0)).toBe(1);
-    expect(edgeLight(CFG, u, 20 + CFG.undertowDownBeats, 0)).toBe(0);
+  it("shrinks every lobe still up back to nothing over the ebb beats", () => {
+    const u = floor({ ebbBeat: 48 });
+    const b = lobe({ stage: "tall", stageBeat: 30 });
+    expect(lobeHeight(CFG, u, b, 48, 0)).toBe(TALL_TILES);
+    const mid = lobeHeight(CFG, u, b, 48 + CFG.undertowEbbBeats / 2, 0);
+    expect(mid).toBeGreaterThan(0);
+    expect(mid).toBeLessThan(TALL_TILES);
+    expect(lobeHeight(CFG, u, b, 48 + CFG.undertowEbbBeats, 0)).toBe(0);
   });
 });
 
-describe("the body", () => {
-  it("passes only while the boss is being taken", () => {
-    expect(bodyPass(CFG, floor({ phase: "last" }), 20, 0)).toBe(-1);
-    const u = floor({ phase: "taken", phaseBeat: 20 });
-    expect(bodyPass(CFG, u, 20, 0)).toBe(0);
-    expect(bodyPass(CFG, u, 20 + CFG.undertowDownBeats, 0)).toBe(1);
+describe("the edge a caption stands round", () => {
+  const l = computeLayout({ width: 390, height: 844, dpr: 1 }, CFG, "p1");
+
+  it("is nothing with no lobe in it", () => {
+    expect(undertowEdgeBox(l, CFG, floor(), [], 12, 0)).toBeNull();
   });
 
-  it("stands nothing above the hull at either end and most in the middle", () => {
-    expect(bodyHeight(-1)).toBe(0);
-    expect(bodyHeight(0)).toBe(0);
-    expect(bodyHeight(0.5)).toBe(BODY_TILES);
-    expect(bodyHeight(1)).toBeCloseTo(0, 6);
+  it("reaches higher over a tall lobe than over a standing one", () => {
+    const standing = lobe({ stage: "standing" });
+    const tall = lobe({ stage: "tall", stageBeat: 0 });
+    const low = undertowEdgeBox(l, CFG, floor(), [standing], 20, 0);
+    const high = undertowEdgeBox(l, CFG, floor(), [tall], 20, 0);
+    expect(low).not.toBeNull();
+    expect(high).not.toBeNull();
+    expect(high?.ry ?? 0).toBeGreaterThan(low?.ry ?? 0);
+    expect(high?.y ?? 0).toBeLessThan(low?.y ?? 0);
   });
 });

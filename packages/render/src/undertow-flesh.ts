@@ -2,27 +2,26 @@ import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
 
 /**
- * **What THE UNDERTOW is made of** where it comes up through the plating: a
- * slime lobe, wet, lit from above and from the breach under it — not a grey
- * fill with a glowing line drawn round it, which is the one picture the brief
- * rules out by name (`new-boss-more` §6.3).
+ * **What THE UNDERTOW is made of** where it comes up through the plating: the
+ * ship's own flesh, a bump of the hull the way the cannon is one — wet, lit
+ * from above and from the breach under it, and coloured inside its wall by
+ * what answers it.
  *
  * Split off `undertow-lobe.ts`, which decides *where* a lobe stands and how
  * tall, so that file stays about the fight and this one about the material.
  *
- * **The light is the breach's.** Whatever the ship stands on glows in the
- * hull's violet, and a lobe pushed up out of it carries that light on its
- * foot, fading up the lobe; the shoulder takes the cold light from above,
- * and the side away from it goes to the deep. The squeeze through a plate
- * leaves a fold across the foot, which is what says *pushed up* rather than
- * *standing*.
+ * **The colour is the answer.** A yellow lobe is the maw's — the pod colour,
+ * which is what the maw takes everywhere else — and a cyan one the shield's,
+ * in the dome's own colour, so the pair reads which control by looking and
+ * says it in one word. A tall lobe carries the colour the whole length of its
+ * wall and brighter: it is the one a tap has to come down on.
  *
  * **The colours go in plain and the strength in the alpha**, so the tests
- * find the lobe's grey, the tall one's two beam colours and the body's ground
- * on the op log (`undertow-frame.test.ts`).
+ * find the lobe's ground and its answer's colour on the op log
+ * (`undertow-frame.test.ts`).
  */
 
-/** Where one lobe or the body sits: its middle, its half-sizes, and the skin it crosses. */
+/** Where one lobe sits: its middle, its half-sizes, and the skin it crosses. */
 export interface Mass {
   x: number;
   /** The top of it. */
@@ -34,48 +33,39 @@ export interface Mass {
   tile: number;
 }
 
-/** A lobe: rock flesh, and on a tall one the beam's colours lit inside its wall. */
+/** A lobe: the hull's deep, lit from the breach, and its answer's colour inside the wall. */
 export function paintLobe(
   ctx: CanvasRenderingContext2D,
   path: Path2D,
   m: Mass,
+  colour: string,
   tall: boolean,
 ): void {
-  ctx.save();
-  ctx.fillStyle = PALETTE.rockDark;
-  ctx.fill(path);
-  ctx.clip(path);
-  shade(ctx, path, m, PALETTE.rock);
-  underlight(ctx, path, m, 0.55);
-  fold(ctx, m);
-  if (tall) {
-    // The beam's colours, one per end, lit on the inside of the wall and
-    // clipped to the thirds so the middle stays grey: a lobe wholly red would
-    // be a lobe somebody loads red for.
-    const third = (m.skin - m.top) / 3;
-    innerWall(ctx, path, m, m.top - m.tile, third + m.tile, PALETTE.cyan, 0.85);
-    innerWall(ctx, path, m, m.skin - third, third, PALETTE.red, 0.85);
-  } else {
-    // The shoulder's cold light on the inside of the wall, top half only:
-    // light from above, not a line drawn round the thing.
-    innerWall(ctx, path, m, m.top - m.tile, (m.skin - m.top) * 0.45 + m.tile, PALETTE.rock, 0.4);
-  }
-  ctx.restore();
-  film(ctx, m, 0.3);
-}
-
-/** The body: the ship's own deep, lit up from the breach it is squeezing through. */
-export function paintBody(ctx: CanvasRenderingContext2D, path: Path2D, m: Mass): void {
   ctx.save();
   ctx.fillStyle = PALETTE.sheenDeep;
   ctx.fill(path);
   ctx.clip(path);
   shade(ctx, path, m, PALETTE.sheenRim);
-  underlight(ctx, path, m, 0.8);
+  underlight(ctx, path, m, 0.7);
   fold(ctx, m);
-  innerWall(ctx, path, m, m.top - m.tile, m.skin - m.top + m.tile * 2, PALETTE.hull, 0.55);
+  const h = m.skin - m.top;
+  // The answer lit on the inside of the wall: the top half on a standing
+  // lobe, light from above; the whole of it on a tall one.
+  const reach = tall ? h + m.tile : h * 0.55 + m.tile;
+  innerWall(ctx, path, m, m.top - m.tile, reach, colour, tall ? 1 : 0.8);
+  cap(ctx, m, colour, tall ? 0.75 : 0.5);
   ctx.restore();
-  film(ctx, m, 0.35);
+  film(ctx, m, 0.3);
+}
+
+/** The answer's colour pooled in the crown, so a lobe a tile tall still says which. */
+function cap(ctx: CanvasRenderingContext2D, m: Mass, colour: string, a: number): void {
+  const r = Math.max(2, m.hw * 1.1);
+  const g = ctx.createRadialGradient(m.x, m.top, 0, m.x, m.top, r);
+  g.addColorStop(0, rgba(colour, a));
+  g.addColorStop(1, rgba(colour, 0));
+  ctx.fillStyle = g;
+  ctx.fillRect(m.x - r, m.top - r, r * 2, r * 2);
 }
 
 /** Lit on the upper left shoulder, gone to the deep on the far side. */

@@ -138,11 +138,11 @@ export function longBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       if (s === null) return null;
       return spreadCapsule(throatGullet(l, cfg, s, beat, beatPhase), l.tile * GULLET_PAD);
     }
-    // The edge along every breach it is pushing at. None open is no body on
+    // The edge along every lobe it is pushing up. None open is no body on
     // the field, and the cannon's column at the hull is the edge it will come at.
     case "undertow": {
       const s = undertowBoss(world);
-      const edge = s === null ? null : undertowEdgeBox(l, cfg, s, s.breaches, beat, beatPhase);
+      const edge = s === null ? null : undertowEdgeBox(l, cfg, s, s.lobes, beat, beatPhase);
       return edge === null ? null : capsule(edge);
     }
     // The body the width of the field: a disc round it would be the whole top

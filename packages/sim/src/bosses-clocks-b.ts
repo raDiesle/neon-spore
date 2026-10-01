@@ -187,23 +187,23 @@ export {
 // the next inhale will swallow it, since the swallow and the fall's refusal are
 // one rule (`throat-pull.ts`). Read by the cue, never written out again.
 export { throatHolds } from "./throat-pull.js";
-// THE UNDERTOW is a clock the pair says out loud too — beats a plate bows,
-// beats a lobe stands — with the difference that it counts *under* the field.
+// THE UNDERTOW is a clock the pair says out loud too — beats a lobe stands,
+// beats left on the level — with the difference that it counts *under* the field.
 export {
-  UNDERTOW_BREACH_STAGES,
+  UNDERTOW_ANSWERS,
+  UNDERTOW_LOBE_STAGES,
   UNDERTOW_PHASES,
-  type UndertowBreach,
-  type UndertowBreachStage,
+  type UndertowAnswer,
+  type UndertowLobe,
+  type UndertowLobeStage,
   type UndertowPhase,
   type UndertowState,
   undertowBoss,
-  undertowBowBeats,
-  undertowBreachAt,
-  undertowLastCol,
+  undertowEbbing,
+  undertowLevelLeft,
   undertowLobeAt,
-  undertowPinned,
+  undertowLobesIn,
   undertowPlateBeside,
-  undertowUnseated,
 } from "./undertow.js";
 // The last form's walk, a clock of whole cycles (`vane-arm.ts`), and the guard
 // arms each re-formed bearing adds (`vane-guard.ts`).

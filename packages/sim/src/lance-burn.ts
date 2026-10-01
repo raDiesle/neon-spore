@@ -36,7 +36,6 @@ import { spendShot } from "./spend.js";
 import { tasterStruck } from "./taster-shot.js";
 import { trivetStruck } from "./trivet-shot.js";
 import type { Bullet, Color } from "./types.js";
-import { undertowBurned } from "./undertow-press.js";
 import { valveStruck } from "./valve-shot.js";
 import { vaneMouthAlong, vaneMouthStruck, vaneStruck } from "./vane.js";
 import { viseStruck } from "./vise-shot.js";
@@ -93,9 +92,6 @@ export function releaseLance(world: World): void {
   // is, and it spends her turn the same way (`baton-press.ts`).
   batonShotSpends(world);
   world.beam = { col, color, left: beamTicks(world.cfg), topMilli: burnColumn(world, col, color) };
-  // And the floor of the column, which nothing else reaches: the only answer
-  // to THE UNDERTOW's tall lobes. A no-op unless that boss is installed.
-  undertowBurned(world, col);
 }
 
 /**

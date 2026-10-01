@@ -1,83 +1,39 @@
 import type { FieldControlDef } from "./field-control-def.js";
 
 /**
- * **THE UNDERTOW's two thumbs**, in a file of its own, the split every boss
+ * **THE UNDERTOW's one thumb**, in a file of its own, the split every boss
  * since THE INSTAR has made.
  *
- * Two rows on two targets, and **both of them the navigator's** — the first
- * pair here that one seat owns whole. Every other boss with two handles gives
- * one to each; this fight cannot. The attack comes up through the floor, so
- * the pilot's maw and his cannon's column are the two answers to it and both
- * of his hands are on them for the whole fight. Hers is the plate, and a plate
- * stands where it is put and then waits — which is what leaves her a thumb.
+ * One row, and **either seat's**. The fight's other answers are controls the
+ * ship already has — the cannon and SUCK under a yellow lobe, the shield under
+ * a cyan one — so the only thing the field itself has to offer is the lobe
+ * left standing too long: tall, twice its height, and bursting through the
+ * hull if nobody puts it back.
  *
- * The second is also the only control in the game that **hands the other
- * player his seat back**: the floor bows under the cannon, he fails to slide
- * off it, and for `undertowUnseatedBeats` every verb of his is refused. She
- * holds his column for two beats and he has the rest of them.
- *
- * **The rules shipped first and the pictures came after.** Both gestures were
- * heard by `sim/undertow-hand.ts` with nothing on either screen to take hold
- * of, which is why there were no rows here and `on-field-controls.test.ts` had
- * `undertowPin` and `undertowFree` filed as `unbuilt`.
+ * Until the rework of 1 October 2026 there were two rows here, both the
+ * navigator's: a pin ring that held a breach shut and a free ring that handed
+ * the pilot his seat back. The owner asked for both to go, with the
+ * unseating they answered.
  */
 export const UNDERTOW_CONTROLS: readonly FieldControlDef[] = [
   {
-    name: "THE UNDERTOW'S PIN",
+    name: "THE UNDERTOW'S TAP",
     where:
-      "on the hull line over a lobe standing out of the floor, one ring per " +
-      "lobe, just clear of the plating and below the lobe's own two bands — " +
-      "so the cyan on a tall one's top third, which is the whole of how the " +
-      "pilot is told to prime the beam rather than open the maw, is never " +
-      "under her thumb (render/undertow-grip.ts)",
-    seat:
-      "player 2 only — a press from the pilot falls through as if no ring were there; " +
-      "the ring asking her wears the halo on her screen, and a pin washes green (render/undertow-marks.ts)",
-    gesture: "hold",
+      "on a tall lobe itself — as high as it is drawn and a shoulder either " +
+      "side — and on nothing else: a standing lobe is its colour's to answer, " +
+      "so a thumb there falls through to the cannon strip behind it " +
+      "(render/undertow-tap.ts)",
+    seat: "either seat — both screens draw the lobes, and the tall one is the one both can see",
+    gesture: "press",
     does:
-      "Pins that breach shut for as long as her thumb is down: it stops " +
-      "widening and the maw stays out of it, both exactly the way her plate " +
-      "does — undertowPinned is asked on the same line as world.shieldCol in " +
-      "both places that number is asked (sim/undertow-step.ts, " +
-      "undertow-press.ts). So it is a second plate, on a fight whose whole " +
-      "second phase is two breaches and one plate. One pin only: a thumb on " +
-      "a second lobe moves it off the first, and lifting off a column she is " +
-      "no longer pinning says nothing (sim/undertow-hand.ts). Refused on a " +
-      "plate still bowing — there is no hole yet — and through last, where a " +
-      "pin could only spoil the hold the fight ends on.",
-    source: "touch.ts — undertowGripUnder() under handleUnder()",
+      "Shrinks a tall lobe back to standing, with its count restarted, so it " +
+      "is the colour's to answer again (sim/undertow-press.ts undertowTapped). " +
+      "Left tall for undertowTallBeats, the lobe bursts: a hole in the hull, " +
+      "a breach, and the wave to play again.",
+    source: "handles.ts — undertowTapUnder() under handleUnder()",
     holdKind: "drag",
-    dragTarget: "undertowPin",
+    dragTarget: "undertowTap",
     sends: ["drag"],
-    pose: "THE UNDERTOW · TWO",
-  },
-  {
-    name: "THE UNDERTOW'S FREE",
-    where:
-      "a clear tile above the hull line over the cannon's own column, and " +
-      "only while the floor has the pilot stuck in it — above the plate, the " +
-      "cannon and the bow rising off the skin, in air nothing else of this " +
-      "fight is drawn in. Its dial is the count itself, so what fills is the " +
-      "number the simulation acts on (render/undertow-grip.ts).",
-    seat:
-      "player 2 only — it is the pilot's seat she is hauling the plate off; his press is " +
-      "refused out loud and washes red, and his screen wears the clock he waits on (render/undertow-marks.ts)",
-    gesture: "hold",
-    does:
-      "Gives him his seat back. A bow under the cannon he did not slide off " +
-      "unseats him and refuses every verb he has for undertowUnseatedBeats; " +
-      "her thumb held on that column for undertowFreeBeats ends it early, " +
-      "with the beats that are left handed back on the tick rather than on " +
-      "the beat after (sim/undertow-hand.ts, unseatedUntil). Lifted off, the " +
-      "count keeps — the maw's rule under the last lobe, and here because a " +
-      "count that reset on a slip would ask for the one thing a phone cannot " +
-      "promise across a call. Held before the floor takes him it does " +
-      "nothing at all: that is a thumb on the hull, and the beats it would " +
-      "bank are beats she did not spend watching the bow.",
-    source: "touch.ts — undertowGripUnder() under handleUnder()",
-    holdKind: "drag",
-    dragTarget: "undertowFree",
-    sends: ["drag"],
-    pose: "THE UNDERTOW · SEAT",
+    pose: "THE UNDERTOW · ONE",
   },
 ];

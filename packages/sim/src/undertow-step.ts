@@ -1,33 +1,28 @@
-import type { SimConfig } from "./config.js";
-import { breachHull, scarHull } from "./hull-damage.js";
-import { mawOpen } from "./pod-intake.js";
+import { midCol } from "./config-derived.js";
+import { breachUnscarred, scarHull } from "./hull-damage.js";
 import { nextInt } from "./rng.js";
-import { closeSlow, openSlow } from "./slow.js";
 import {
-  type UndertowBreach,
-  type UndertowPhase,
+  UNDERTOW_ANSWERS,
+  UNDERTOW_PHASES,
+  type UndertowLobe,
   type UndertowState,
-  undertowBowBeats,
-  undertowLastCol,
-  undertowPinned,
+  undertowEbbing,
+  undertowLobeAt,
+  undertowLobesIn,
   undertowPlateBeside,
 } from "./undertow.js";
-import { stepUndertowHands, undertowHandsFresh } from "./undertow-hand.js";
-import { undertowFollow, undertowTake } from "./undertow-press.js";
-import { undertowSlow } from "./undertow-slow.js";
 import type { World } from "./world.js";
 
 /**
- * THE UNDERTOW's clock: the push, the bow, the lobe coming through, the
- * widening, the withdrawal, and the body taken in.
+ * THE UNDERTOW's clock: the bow, the lobe standing, the lobe growing, the
+ * burst, and the end of each level drawing every lobe back in.
  *
- * Everything here happens **on the beat**, from `stepBoss`, and every one of
- * the numbers it counts to is a config field a pair can be told (`config-
- * undertow.ts`): a lobe that came through between two beats would come
- * through on a count nobody said. The two things that happen on the **tick**
- * are the two answers — the maw opening and the beam going off — and they
- * are next door in `undertow-press.ts`, because an answer that waited for
- * the next beat would put a queue between *now* and the taking.
+ * Everything here happens **on the beat**, from `stepBoss`, and every number
+ * it counts to is a config field a pair can be told (`config-undertow.ts`): a
+ * lobe that stood between two beats would stand on a count nobody said. The
+ * two answers and the tap are on the **tick**, next door in
+ * `undertow-press.ts`, because an answer that waited for the next beat would
+ * put a queue between *now* and the taking.
  */
 
 /** Install it from the wave's own `boss:` entry. There is nothing to author. */
@@ -36,208 +31,105 @@ export function installUndertow(world: World): UndertowState {
     kind: "undertow",
     phase: "one",
     phaseBeat: world.beat,
-    push: 0,
-    // The field is quiet from the first beat: the opening push comes a rest
+    // The field is quiet from the first beat: the opening bow comes a rest
     // later, so the pair has the rest to read the hull before it moves.
     restBeat: world.beat,
-    breaches: [],
+    ebbBeat: -1,
     taken: 0,
-    scars: 0,
-    unseatedUntil: -1,
-    hold: 0,
-    slid: 0,
-    ...undertowHandsFresh(),
+    lobes: [],
   };
 }
 
-/** Pushes a phase makes before the next one begins: the seat and the last are one push each. */
-function pushesIn(cfg: SimConfig, phase: UndertowPhase): number {
-  if (phase === "one") return cfg.undertowSingles;
-  if (phase === "two") return cfg.undertowPairs;
-  if (phase === "hard") return cfg.undertowTalls;
-  return phase === "taken" ? 0 : 1;
-}
-
-function bow(world: World, u: UndertowState, col: number, tall: boolean): void {
-  u.breaches.push({
-    col,
-    stage: "bowing",
-    stageBeat: world.beat,
-    tall,
-    widthMilli: 0,
-    widened: false,
-  });
+/**
+ * One more lobe bows, if the level has room for it: a column nobody is
+ * standing in, and a colour drawn from the same seeded stream, so the pair
+ * hears both in one call — *yellow, four*.
+ */
+function bow(world: World, u: UndertowState): void {
+  const cfg = world.cfg;
+  if (u.lobes.length >= undertowLobesIn(cfg, u.phase)) return;
+  if (world.beat - u.restBeat < cfg.undertowRestBeats) return;
+  const free: number[] = [];
+  for (let c = 0; c < cfg.cols; c++) if (undertowLobeAt(u, c) === null) free.push(c);
+  if (free.length === 0) return;
+  const col = free[nextInt(world.rng, free.length)] ?? 0;
+  const answer = UNDERTOW_ANSWERS[nextInt(world.rng, UNDERTOW_ANSWERS.length)] ?? "maw";
+  u.lobes.push({ col, stage: "bowing", stageBeat: world.beat, answer });
+  // One bow a rest: two lobes bowing on the same beat would be two calls in
+  // one breath, and the level's count goes up one lobe at a time.
+  u.restBeat = world.beat;
   world.events.push({ type: "undertowBow", col });
 }
 
-/** The next push of the current phase, or the first of the next one. */
-function push(world: World, u: UndertowState): void {
+/**
+ * A tall lobe nobody tapped. **The burst is the one hit in this fight**: a
+ * hole through the hull where it stood, the plating beside it gone with it
+ * (`Scar.plate`), and the wave lost, to be played again. Scarred first and
+ * then breached unscarred, so the hole is the plate taken and not a second,
+ * ordinary scar drawn over it.
+ */
+function burst(world: World, u: UndertowState, l: UndertowLobe): void {
   const cfg = world.cfg;
-  if (u.push >= pushesIn(cfg, u.phase)) {
-    const next: UndertowPhase[] = ["one", "two", "hard", "seat", "last", "taken"];
-    u.phase = next[next.indexOf(u.phase) + 1] ?? "taken";
-    u.phaseBeat = world.beat;
-    u.push = 0;
-  }
-  u.push += 1;
-  u.restBeat = -1;
-  switch (u.phase) {
-    case "one":
-      bow(world, u, nextInt(world.rng, cfg.cols), false);
-      return;
-    case "two": {
-      // Four apart, so the maw cannot reach one from the other and the plate
-      // has to stand on the one it does not: the pair decides which is which.
-      const gap = Math.min(cfg.undertowPairGap, cfg.cols - 1);
-      const left = nextInt(world.rng, cfg.cols - gap);
-      bow(world, u, left, false);
-      bow(world, u, left + gap, false);
-      return;
-    }
-    case "hard":
-      bow(world, u, nextInt(world.rng, cfg.cols), true);
-      return;
-    case "seat":
-      // Under the cannon itself, wherever it is standing: the one push that
-      // is aimed rather than drawn, because the point of it is the slide off.
-      bow(world, u, world.cannonCol, false);
-      return;
-    case "last":
-      bow(world, u, undertowLastCol(cfg), false);
-      world.events.push({ type: "undertowRise", col: undertowLastCol(cfg) });
-      return;
-    case "taken":
-      return;
-  }
+  scarHull(world, l.col, "slick", null, true);
+  scarHull(world, undertowPlateBeside(cfg, l.col), "slick", null, true);
+  breachUnscarred(world, l.col, "slick", 0, "heavy", null, { by: "undertow", blow: "burst" });
+  world.events.push({ type: "undertowBurst", col: l.col });
+  u.lobes.splice(u.lobes.indexOf(l), 1);
 }
 
-function remove(u: UndertowState, b: UndertowBreach): void {
-  const i = u.breaches.indexOf(b);
-  if (i >= 0) u.breaches.splice(i, 1);
+/** Each lobe one beat further along: bowing to standing, standing to tall, tall to the burst. */
+function stepLobes(world: World, u: UndertowState): void {
+  const cfg = world.cfg;
+  for (const l of [...u.lobes]) {
+    const since = world.beat - l.stageBeat;
+    if (l.stage === "bowing" && since >= cfg.undertowBowBeats) {
+      l.stage = "standing";
+      l.stageBeat = world.beat;
+      world.events.push({ type: "undertowLobe", col: l.col, answer: l.answer });
+    } else if (l.stage === "standing" && since >= cfg.undertowStandBeats) {
+      l.stage = "tall";
+      l.stageBeat = world.beat;
+      world.events.push({ type: "undertowGrow", col: l.col });
+    } else if (l.stage === "tall" && since >= cfg.undertowTallBeats) {
+      burst(world, u, l);
+    }
+  }
 }
 
 /**
- * The plate parts. In the `seat` phase the push was at the seat, not the
- * hull, and no lobe comes through either way: a cannon still on the bow is
- * unseated; slid off in time, **the plate closes** (`undertowClosed`) — the
- * design's step 11, whose one ask is the slide. Until 17 September 2026 a
- * lobe stood where the cannon had been, a second ask the design never made.
+ * The level's clock ran out and the lobes are shrinking: nothing grows,
+ * nothing bursts and nothing answers. When the shrink is over the floor is
+ * clear and the next level begins, or — after the third — the boss is gone.
+ * Nulled here rather than when the clock ran out, so the picture has the whole
+ * of the shrink before the wave is allowed to end (`bossHoldsWave`).
  */
-function through(world: World, u: UndertowState, b: UndertowBreach): void {
+function stepEbb(world: World, u: UndertowState): void {
   const cfg = world.cfg;
-  if (u.phase === "seat") {
-    if (world.cannonCol !== b.col) world.events.push({ type: "undertowClosed", col: b.col });
-    else {
-      u.unseatedUntil = world.beat + cfg.undertowUnseatedBeats;
-      world.events.push({ type: "undertowUnseated", col: b.col });
-    }
-    remove(u, b);
+  if (world.beat - u.ebbBeat < cfg.undertowEbbBeats) return;
+  const next = UNDERTOW_PHASES[UNDERTOW_PHASES.indexOf(u.phase) + 1];
+  if (next === undefined) {
+    world.boss = null;
     return;
   }
-  b.stage = "standing";
-  b.stageBeat = world.beat;
-  world.events.push({ type: "undertowLobe", col: b.col, tall: b.tall });
-  // A maw already open over the bow takes the lobe the beat it stands.
-  undertowTake(world, u, b, false);
-}
-
-/**
- * A lobe withdraws untaken. **A scar and not a lost wave**: nothing reached
- * the ship, something left it and took plating with it (`undertow.ts`). A
- * tall one **takes the plate** — its own column's and the neighbour's, since
- * it was too big for the column it came up — and the hull is two columns
- * shorter for the rest of the run (`Scar.plate`, the design's steps 9 and
- * 10); an ordinary one tears the plating and leaves it.
- */
-function withdraw(world: World, u: UndertowState, b: UndertowBreach): void {
-  scarHull(world, b.col, "slick", null, b.tall);
-  if (b.tall) scarHull(world, undertowPlateBeside(world.cfg, b.col), "slick", null, true);
-  u.scars += 1;
-  world.events.push({ type: "undertowScar", col: b.col, tall: b.tall });
-  remove(u, b);
-}
-
-/** A breach no plate — or thumb (`undertow-hand.ts`) — stands on spreads, and wide enough lets a second lobe through beside it. */
-function widen(world: World, u: UndertowState, b: UndertowBreach): void {
-  const cfg = world.cfg;
-  if (world.shieldCol === b.col || undertowPinned(u, b.col)) return;
-  b.widthMilli += cfg.undertowWidenMilli;
-  if (b.widthMilli < cfg.undertowWideMilli || b.widened) return;
-  b.widened = true;
-  const side = undertowPlateBeside(cfg, b.col);
-  if (u.breaches.some((o) => o.col === side)) return;
-  u.breaches.push({
-    col: side,
-    stage: "standing",
-    stageBeat: world.beat,
-    tall: false,
-    widthMilli: 0,
-    // Never widens again itself: a breach that bred breaches would fill the
-    // hull from one miss, and the sentence is *the plate stops it*, not *the
-    // plate is the only thing between you and the whole floor*.
-    widened: true,
-  });
-  world.events.push({ type: "undertowWidened", col: side });
-}
-
-/**
- * The last lobe, standing: the maw held open under it for enough beats, the
- * body follows it in and the boss is beaten. Not held for long enough, it
- * comes through — the one miss in the fight that is a hit, and the wave.
- *
- * **Closed for a beat, the count keeps.** The sentence is *hold it open*, and
- * a hold that reset on a slip would ask for the one thing a phone cannot
- * promise across a call (`docs/spec/latency.md`).
- */
-function last(world: World, u: UndertowState, b: UndertowBreach): void {
-  const cfg = world.cfg;
-  if (world.cannonCol === b.col && mawOpen(world)) u.hold += 1;
-  if (world.beat - b.stageBeat >= cfg.undertowLastBeats) {
-    breachHull(world, b.col, "slick", 0, "heavy");
-    world.events.push({ type: "undertowThrough", col: b.col });
-    closeSlow(world);
-    u.breaches = [];
-    u.phase = "taken";
-    u.phaseBeat = world.beat;
-    return;
-  }
-  if (u.hold >= cfg.undertowHoldBeats) {
-    u.taken += 1;
-    world.events.push({ type: "undertowSwallowed", col: b.col });
-    openSlow(world, cfg.undertowSlowBeats, "show");
-    u.breaches = [];
-    u.phase = "taken";
-    u.phaseBeat = world.beat;
-  }
+  u.phase = next;
+  u.phaseBeat = world.beat;
+  u.restBeat = world.beat;
+  u.ebbBeat = -1;
+  u.lobes = [];
 }
 
 /** One beat of the floor. */
 export function stepUndertow(world: World, u: UndertowState): void {
   const cfg = world.cfg;
-  stepUndertowHands(world, u); // What her two thumbs came to, counted where they are heard.
-  if (u.phase === "taken") {
-    // Nulled here rather than at the swallow, so the picture has the whole of
-    // the body going in before the wave is allowed to end (`bossHoldsWave`).
-    if (world.beat - u.phaseBeat >= cfg.undertowDownBeats) world.boss = null;
+  if (undertowEbbing(u)) {
+    stepEbb(world, u);
     return;
   }
-  for (const b of [...u.breaches]) {
-    const since = world.beat - b.stageBeat;
-    if (b.stage === "bowing") {
-      if (u.phase === "seat") undertowFollow(world, u, b);
-      if (since >= undertowBowBeats(cfg, u.phase)) through(world, u, b);
-    } else if (u.phase === "last") {
-      last(world, u, b);
-    } else if (since >= cfg.undertowStandBeats) {
-      withdraw(world, u, b);
-    } else {
-      widen(world, u, b);
-    }
+  if (world.beat - u.phaseBeat >= cfg.undertowLevelBeats) {
+    u.ebbBeat = world.beat;
+    world.events.push({ type: "undertowEbb", col: midCol(cfg) });
+    return;
   }
-  // `last` and `through` may have just ended the fight: a taken boss rests.
-  if (u.breaches.length === 0 && (u.phase as UndertowPhase) !== "taken") {
-    if (u.restBeat < 0) u.restBeat = world.beat;
-    else if (world.beat - u.restBeat >= cfg.undertowRestBeats) push(world, u);
-  }
-  undertowSlow(world, u);
+  stepLobes(world, u);
+  bow(world, u);
 }

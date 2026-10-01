@@ -652,3 +652,16 @@ Then drop the shear from the doc comment on `StareEyeLook.lean`. This is a fix
 to something wrong and not a new look, because the spec names the shudder.
 Done when a frame test sees the globe's opening move across the beats after a
 hit and stand still on a quiet beat, and `bun run check` is green.
+
+## `scene-drag.ts` is at the 250-line limit
+
+- **Found:** 2026-10-01, claude/undertow-boss-rework-ccb2d2
+- **Where:** local
+- **Files:** `packages/content/src/scene-drag.ts`
+
+THE UNDERTOW's rework replaced its pin and free with one tap and left the
+file at exactly 250, trimmed to get there. It holds every boss's rehearsal
+drag, one branch per target, in a long run. Split the bosses' targets into
+`scene-drag-boss.ts`, called once from the file it came from. Done when
+`scene-drag.ts` is under ~200 lines, the next boss's drag goes in the split
+file, and `bun run check` is green with every scene test unchanged.

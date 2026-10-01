@@ -1,3 +1,5 @@
+import type { UndertowAnswer } from "./undertow.js";
+
 /**
  * **Everything THE UNDERTOW does that neither screen already says**, as
  * events.
@@ -6,11 +8,11 @@
  * incidents that share a body — and one arm of `SimEvent`, so every consumer
  * still switches over the whole list.
  *
- * Where the floor is bowing, which breaches have a lobe standing in them and
- * how wide each has got are all read off `UndertowState` every frame
- * (`undertow.ts`). What is *not* in the world a frame later is the moment the
- * plate parted, the moment the maw closed over a lobe, the moment one
- * withdrew and left the hull shorter — so each of these is one such edge.
+ * Where a lobe stands, what colour it is and how tall it has grown are all
+ * read off `UndertowState` every frame (`undertow.ts`). What is *not* in the
+ * world a frame later is the moment the plate parted, the moment a lobe was
+ * taken, the moment a thumb shrank one and the moment one burst — so each of
+ * these is one such edge.
  */
 
 /** A column's worth of THE UNDERTOW, for the events that name one. */
@@ -22,27 +24,15 @@ interface UndertowColEvent {
 export type UndertowEvent =
   /** The floor began to bow in that column: a lobe is coming. */
   | ({ type: "undertowBow" } & UndertowColEvent)
-  /** The plate parted and a lobe stands in the breach — `tall` if the maw cannot take it. */
-  | ({ type: "undertowLobe"; tall: boolean } & UndertowColEvent)
-  /** The maw closed over a lobe, or the beam burned one; the plate closes behind it. */
+  /** The plate parted and a lobe stands in the column, in the colour of the control that takes it. */
+  | ({ type: "undertowLobe"; answer: UndertowAnswer } & UndertowColEvent)
+  /** The maw or the shield took a standing lobe; the plate closes behind it. */
   | ({ type: "undertowTaken" } & UndertowColEvent)
-  /** A lobe withdrew untaken. The breach is a scar in the pair's own hull — and a tall one took the plate with it (`Scar.plate`). */
-  | ({ type: "undertowScar"; tall: boolean } & UndertowColEvent)
-  /** A breach nobody plated got wide enough for a second lobe, now standing at `col`. */
-  | ({ type: "undertowWidened" } & UndertowColEvent)
-  /** The floor bowed under the cannon and it was not slid off in time: player 1's seat is unseated. */
-  | ({ type: "undertowUnseated" } & UndertowColEvent)
-  /** The floor bowed under the cannon and it was slid off in time: the plate closes, with nothing through it. */
-  | ({ type: "undertowClosed" } & UndertowColEvent)
-  /** Every seam lit at once: the last lobe is rising in the middle column. */
-  | ({ type: "undertowRise" } & UndertowColEvent)
-  /** The maw was held open long enough: the body follows the lobe in, and the boss is beaten. */
-  | ({ type: "undertowSwallowed" } & UndertowColEvent)
-  /** The last lobe was not held. It came through, and so did the hull. */
-  | ({ type: "undertowThrough" } & UndertowColEvent)
-  /** Player 2's thumb landed on a standing lobe, or left it: her second plate, on or off (`undertow-hand.ts`). */
-  | ({ type: "undertowPinned"; on: boolean } & UndertowColEvent)
-  /** She held his column long enough: the plate comes off the cannon and the pilot has his seat back. */
-  | ({ type: "undertowFreed" } & UndertowColEvent)
-  /** The pilot pressed the free over his own column, which is hers: refused (`undertow-hand.ts`). */
-  | ({ type: "undertowRefuse" } & UndertowColEvent);
+  /** A lobe stood too long and grew: only a tap brings it back now. */
+  | ({ type: "undertowGrow" } & UndertowColEvent)
+  /** A thumb on a tall lobe shrank it back to standing (`undertow-press.ts`). */
+  | ({ type: "undertowTapped" } & UndertowColEvent)
+  /** A tall lobe nobody tapped burst through the hull, and the wave is lost. */
+  | ({ type: "undertowBurst" } & UndertowColEvent)
+  /** The level's clock ran out: every lobe still up shrinks back into the floor. */
+  | ({ type: "undertowEbb" } & UndertowColEvent);

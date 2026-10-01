@@ -4,7 +4,6 @@ import {
   cairnHand,
   cairnHoldHand,
   spliceHand,
-  undertowHand,
 } from "@neon-spore/hands";
 import { repriseEchoing, repriseHeld, spliceRound, type World } from "@neon-spore/sim";
 import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
@@ -13,7 +12,7 @@ import { bossPose } from "./poses-bosses-kit.js";
 /**
  * **The states a taking brings on** — a rock out of THE CAIRN, the same pile
  * held so that none comes out of it, a number down
- * THE SPLICE's straw, the last lobe held in THE UNDERTOW's maw, THE
+ * THE SPLICE's straw, THE
  * ANTIPHON's organs pitted and its ship shot — posed the way
  * `poses-bosses-hands-field.ts` poses the field bosses': the boss's wave, a
  * hand on the controls (`boss-hands-takes.ts`), the run held until the state
@@ -84,17 +83,6 @@ export const TAKE_HAND_POSES: Pose[] = [
       want: (w) => !repriseEchoing(w) && repriseHeld(w) > 0,
       hold: TPB * 2,
       budgetBeats: 100,
-    },
-  ),
-  bossPose(
-    "undertow",
-    "taken",
-    "The maw held open under the last lobe and it is swallowed. P1 holds the maw there; P2 waits it out.",
-    {
-      hand: undertowHand,
-      want: (w) => w.boss?.kind === "undertow" && w.boss.phase === "taken",
-      hold: TPB * 2,
-      budgetBeats: 190,
     },
   ),
   bossPose(
