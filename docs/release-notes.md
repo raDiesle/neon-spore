@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 1e9f550c6 — A SCOUT arena can name how many motes the ship carries
+
+An arena may now say how many motes the little ship holds at once (`carry`), read through `scoutCarryLimit`; THE SCOUT's own four levels name none and still carry one at a time. This is the half of the owner's answer that a wave reaching `laden` and `heavy` needs: the limit is hashed with the arena and kept by the director's serializer. Nothing drawn moved.
+
 ## 2026-10-01 · d67ddd349 — THE BULB QUEEN's arms swing a tile, slower than their row
 
 Her parts ship moving now. Her elbows swing more than a tile at the widest, as the owner asked for on 27 September, and take 2.25 times the arm row's period to do it (`QUEEN_ARM`), so an arm under a tile long still turns under the spec's 20° a second of its own and 30° as drawn. The arm that straightens to let a bulb go is still at its pose on every drop of her wave.
