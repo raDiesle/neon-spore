@@ -23,6 +23,7 @@ export {
 export { scoutAtHome } from "./scout-arena.js";
 // What is read off the round, never re-derived from its fields (`scout-ask.ts`).
 export {
+  scoutCarryLimit,
   scoutCleared,
   scoutCurrent,
   scoutLeft,

@@ -1,3 +1,4 @@
+import type { SimConfig } from "./config.js";
 import type { ScoutArena, ScoutState } from "./scout.js";
 
 /**
@@ -10,6 +11,11 @@ import type { ScoutArena, ScoutState } from "./scout.js";
 /** The arena being flown, or the last one when the round is over. */
 export function scoutCurrent(scout: ScoutState): ScoutArena {
   return scout.arenas[Math.min(scout.arena, scout.arenas.length - 1)] as ScoutArena;
+}
+
+/** How many motes the ship may have aboard at once in the arena being flown. */
+export function scoutCarryLimit(cfg: SimConfig, scout: ScoutState): number {
+  return scoutCurrent(scout).carry ?? cfg.scoutCarryMax;
 }
 
 /**

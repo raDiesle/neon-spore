@@ -88,6 +88,14 @@ export interface ScoutArena {
   motes: readonly ScoutMote[];
   /** Everything that is moving and must not be touched. */
   hazards: readonly ScoutHazard[];
+  /**
+   * How many motes the ship holds at once in this arena, when it is not
+   * `cfg.scoutCarryMax`. THE SCOUT's own arenas leave it out and carry one at
+   * a time; an arena authored to reach `laden` and `heavy` names more than
+   * `scoutHeavyMotes` (the owner, 30 September 2026: *a new wave is built
+   * that carries enough motes to reach them*). Read through `scoutCarryLimit`.
+   */
+  carry?: number;
 }
 
 /**

@@ -31021,3 +31021,15 @@ Bottleneck: finding that the rock arrives in its draw and not its update, which 
 Bottleneck: her arm is under a tile long, so a tile of elbow at the row's 6 s turns it twice as fast as the spec allows, and slowing it was the only answer that kept both the owner's size and the ceiling.
 
 *Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — An arena names how many motes the ship carries
+
+- reading: 10 min. The load's thresholds, the carry gate, the hash and the
+  director's serializer, after a context cut.
+- writing: 5 min. `carry` on `ScoutArena`, `scoutCarryLimit`, the hash part,
+  the serializer line, one trip test.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: re-reading THE SCOUT's six files after the cut cost twice the change itself.

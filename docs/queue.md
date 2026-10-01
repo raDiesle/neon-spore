@@ -539,6 +539,7 @@ and `bun run check` is green.
 - **Files:** `packages/sim/src/scout-hand.ts`, `packages/sim/src/config-scout.ts`, `packages/render/src/scout-grip.ts`, `tools/director/src/field-controls-scout.ts`, `tools/director/src/poses-bosses-rounds-b.ts`
 - **Asks:** THE SCOUT's line and prime can never be offered while one mote rides at a time — take the loads, the line and the prime out, or re-gate them on something one mote reaches (the level), which puts two hands back on the field?
 - **Answered:** 2026-09-30 — keep them, over taking them out and over re-gating THE SCOUT's own: the line and the prime stay as a set for later rounds, and a new wave is built that carries enough motes to reach them.
+- **Half landed:** 2026-10-01 — the simulation: an arena may name its own `carry` (`scoutCarryLimit`, hashed, kept by the director's serializer). Left: the wave whose arenas carry past `scoutHeavyMotes`, its guide, the director's two poses pointed at it and `LADEN_AT_ONE`/`HEAVY_AT_ONE` dropped.
 
 `laden` and `heavy` need more than one mote aboard (`scoutLadenMotes`,
 `scoutHeavyMotes`), and since the owner's one-at-a-time pass `scoutCarryMax` is

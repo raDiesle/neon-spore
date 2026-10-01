@@ -72,6 +72,9 @@ export function scoutHashParts(b: ScoutState): number[] {
   push(b.arenas.length);
   for (const arena of b.arenas) {
     push(arena.beats);
+    // 0 for an arena that names no limit, which no arena can name: it would
+    // be an arena nothing can be carried out of.
+    push(arena.carry ?? 0);
     push(arena.motes.length);
     for (const mote of arena.motes) {
       push(mote.colMilli);

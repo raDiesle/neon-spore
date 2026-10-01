@@ -2,7 +2,7 @@ import { roundStrikesHull } from "./boss-strike.js";
 import type { SimConfig } from "./config.js";
 import { midCol } from "./config.js";
 import type { ScoutPoint, ScoutState } from "./scout.js";
-import { scoutCleared, scoutCurrent } from "./scout-ask.js";
+import { scoutCarryLimit, scoutCleared, scoutCurrent } from "./scout-ask.js";
 import { stepScoutFlight, stepScoutHazards } from "./scout-fly.js";
 import { scoutHome, scoutRelaunch, scoutStand } from "./scout-open.js";
 import { scoutSuckTakes } from "./scout-suck.js";
@@ -101,10 +101,10 @@ export function stepScoutArena(world: World, scout: ScoutState): boolean | null 
   const caught = scoutHazardAt(cfg, scout);
   if (caught >= 0) return caughtBy(world, scout, caught);
 
-  // One at a time: a ship already carrying `scoutCarryMax` flies straight
-  // through the rest (the owner, 29 September 2026 — *one must be collected
-  // after another and sucked each*).
-  if (scout.carrying.length < cfg.scoutCarryMax && !scout.sucking) {
+  // One at a time unless the arena says otherwise: a ship already carrying
+  // its limit flies straight through the rest (the owner, 29 September 2026 —
+  // *one must be collected after another and sucked each*).
+  if (scout.carrying.length < scoutCarryLimit(cfg, scout) && !scout.sucking) {
     const mote = scoutMoteAt(cfg, scout);
     if (mote >= 0) scout.carrying.push(mote);
   }

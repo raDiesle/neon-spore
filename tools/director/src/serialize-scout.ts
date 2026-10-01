@@ -60,6 +60,8 @@ function arena(a: ScoutArena): string[] {
   return [
     "  {",
     `    beats: ${a.beats},`,
+    // Kept when an arena names one, so a level saved from the editor carries what it carried.
+    ...(a.carry === undefined ? [] : [`    carry: ${a.carry},`]),
     ...list("motes", a.motes.map(point)),
     ...list("hazards", a.hazards.map(hazard)),
     "  },",

@@ -878,7 +878,8 @@ September 2026 — and `scoutVerdictBeats` is how long the result stands.
 `scoutLaunchMilli` above the cannon. A turn steps the nose 45° at once, the
 cannon's feel, and a held turn steps again every `scoutTurnRepeatTicks`. The
 ship holds `scoutCarryMax` motes — one, so each is fetched and sucked home
-before the next — and an open mouth takes a carrying ship from anywhere inside
+before the next, unless an arena names its own `carry` (`scoutCarryLimit`),
+which is how a round reaches `laden` and `heavy` — and an open mouth takes a carrying ship from anywhere inside
 `scoutSuckRadiusMilli` of the cannon, drawing it in at `scoutSuckMilli` a beat
 with the pilot's hands dead until it is home. The pilot is shown the arena
 `scoutRevealFirstTicks` after the ship is let go, and again every

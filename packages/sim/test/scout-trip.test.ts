@@ -126,6 +126,26 @@ describe("THE SCOUT's trip", () => {
     expect(round(world).carrying).toEqual([0]);
   });
 
+  it("carries as many as its arena names, and still flies through the one past them", () => {
+    // Three in the ship's line and a limit of two: the third is passed over.
+    const world = open([
+      {
+        ...ARENA,
+        carry: 2,
+        motes: [
+          { colMilli: 5_500, rowMilli: 10_000 },
+          { colMilli: 5_500, rowMilli: 8_500 },
+          { colMilli: 5_500, rowMilli: 7_000 },
+          { colMilli: 500, rowMilli: 500 },
+        ],
+      },
+    ]);
+    play(world);
+    burn(world, 4 * TPB);
+    expect(round(world).rowMilli).toBeLessThan(7_000);
+    expect(round(world).carrying).toEqual([0, 1]);
+  });
+
   it("banks it only when the mouth sucks the ship in, from two tiles off", () => {
     const world = open();
     play(world);
