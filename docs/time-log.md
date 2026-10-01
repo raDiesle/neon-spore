@@ -31005,3 +31005,17 @@ Bottleneck: choosing the gesture — A DRAWN GLYPH was the one card with a state
 Bottleneck: finding that the rock arrives in its draw and not its update, which is what the first unit test missed.
 
 *Measured: 17 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE BULB QUEEN's arms swing a tile
+
+- reading: 10 min. The queue item's three options, `partOn`, the crane's
+  joints and release, and the spec's two speed ceilings.
+- writing: 15 min. `PartSize` and the period factor, `QUEEN_ARM`, the arm
+  tests split into their own file, the spec paragraph, the surface-marks
+  entry's question.
+- looking: 0 min. Proved by measuring the elbow, no picture sent.
+- friction: 10 min. A context cut mid-lane, and a probe to find that a tile
+  of elbow on her short arm breaks 20° a second at the row's period.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: her arm is under a tile long, so a tile of elbow at the row's 6 s turns it twice as fast as the spec allows, and slowing it was the only answer that kept both the owner's size and the ceiling.

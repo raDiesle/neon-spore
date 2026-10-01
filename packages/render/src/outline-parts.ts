@@ -36,10 +36,8 @@ import { OUTLINE_SEED, type OutlineBoss, outlinePose, type Point } from "./outli
 
 /**
  * How much of the part drift each boss's parts take: 0 still, 1 scaled to
- * `PART.tip`. The queen's are held at 0: at half a tile her wings' ends are
- * behind her torches and her arms still read as nearly still on a phone, and
- * moving them further runs into her drop cue (`docs/queue.md`, "THE BULB
- * QUEEN's parts: how far"). THE WARDEN has none: the whole ring rocks
+ * `PART.tip`, or to the tip a boss names for one of its parts (the queen's
+ * arms, `QUEEN_ARM`). THE WARDEN has none: the whole ring rocks
  * (`warden-drift.ts`); nor THE THROAT, whose rings swing (`throat-sway.ts`),
  * nor THE UNDERTOW, whose every lobe leans whole (`undertow-drift.ts`), nor
  * THE GORGE, whose lobes do the same (`gorge-drift.ts`), nor THE CURTAIN,
@@ -47,7 +45,7 @@ import { OUTLINE_SEED, type OutlineBoss, outlinePose, type Point } from "./outli
  * sway by the lean they already had (`taster-sway.ts`).
  */
 export const OUTLINE_PARTS: Record<OutlineBoss, number> = {
-  queen: 0,
+  queen: 1,
   cairn: 1,
   reprise: 1,
   warden: 0,
@@ -68,6 +66,12 @@ export const PART = {
   /** At most this many moving parts a boss, a pair counting as two. */
   most: 8,
 } as const;
+
+/** How far a part's tip moves at its widest, in tiles, and how many times its row's period it takes. */
+export interface PartSize {
+  readonly tip: number;
+  readonly slow: number;
+}
 
 /** Where a part turns about, which way it points from there, and how long it is. */
 export interface PartFrame {
@@ -103,9 +107,12 @@ function ownReach(row: PartRow): number {
 /**
  * Part `index` of `boss`, on the part-table row `row`, hung on `parent`, as a
  * function of time the next part down can hang on. Its own wander is scaled
- * so its tip, `length` tiles from its joint, moves `PART.tip` at the widest; a
- * part under `PART.minTiles` only follows. `hush` is the body's
- * (`outlineHush`), times anything of the drawer's own that stills the part.
+ * so its tip, `length` tiles from its joint, moves `size.tip` tiles at the
+ * widest (`PART.tip` unless the boss says otherwise), over `size.slow` times
+ * its row's period — a part told to move further than its row is slowed to
+ * stay under the spec's speed ceilings; a part under `PART.minTiles`
+ * only follows. `hush` is the body's (`outlineHush`), times anything of the
+ * drawer's own that stills the part.
  */
 export function partOn(
   boss: OutlineBoss,
@@ -114,12 +121,16 @@ export function partOn(
   parent: (t: number) => PartAngles,
   length: number,
   hush: number,
+  size: PartSize = { tip: PART.tip, slow: 1 },
 ): (t: number) => PartAngles {
   const k = OUTLINE_PARTS[boss] * hush;
-  const gain = length < PART.minTiles ? 0 : PART.tip / (length * ownReach(row));
+  const gain = length < PART.minTiles ? 0 : size.tip / (length * ownReach(row));
   const seed = partSeed(OUTLINE_SEED[boss], index);
   return (t) =>
-    partDrift(t, seed, row, parent, k * gain, { life: OUTLINE_PARTS[boss] > 0 ? motionLife() : 0 });
+    partDrift(t, seed, row, parent, k * gain, {
+      life: OUTLINE_PARTS[boss] > 0 ? motionLife() : 0,
+      slow: size.slow,
+    });
 }
 
 /**

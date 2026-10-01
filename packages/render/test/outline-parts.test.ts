@@ -11,11 +11,10 @@ import { buildBoss, buildQueue } from "@neon-spore/content";
 import { createWorld, startWave, ticksPerBeat } from "@neon-spore/sim";
 import { HUSH } from "../src/idle-drift.js";
 import { type PartAngles, partDrift, partSeed, STILL } from "../src/idle-drift-parts.js";
-import { computeLayout, tileCX, tileCY } from "../src/layout.js";
+import { tileCX, tileCY } from "../src/layout.js";
 import { OUTLINE_DRIFT, OUTLINE_SEED } from "../src/outline-drift.js";
 import { OUTLINE_PARTS, PART, partMatrix, partPoint } from "../src/outline-parts.js";
-import { craneElbow, craneJoints } from "../src/queen-crane.js";
-import { QUEEN_FIGURE, queenMarkCenter, queenRoot } from "../src/queen-figure.js";
+import { QUEEN_FIGURE, queenMarkCenter } from "../src/queen-figure.js";
 import { type QueenParts, queenPartLengths, queenParts, swingWings } from "../src/queen-parts.js";
 import { queenShellParts } from "../src/queen-shell.js";
 import { correlation, maxSpeed, sample } from "./drift-stats.js";
@@ -24,9 +23,9 @@ import {
   FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   runFrames,
-  VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
+import { queenOnField } from "./queen-on-field.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 beforeAll(installCanvasGlobals);
@@ -35,28 +34,18 @@ beforeAll(installCanvasGlobals);
  * THE OUTLINE TIER's parts (`outline-parts.ts`) and the first boss that has
  * them, THE BULB QUEEN (`queen-parts.ts`): a part's matrix keeps its joint,
  * every tip moves far enough to be seen and no further, no mark rides a moving
- * part, her pairs are exact mirrors, her arm is still once it lets go, and her
- * parts are out of step with one another.
+ * part, her pairs are exact mirrors, and her parts are out of step with one
+ * another. Her arms, the large ones, are `queen-arm-parts.test.ts`.
  */
 
 const saved = { drift: { ...OUTLINE_DRIFT }, parts: { ...OUTLINE_PARTS } };
 beforeEach(() => {
-  OUTLINE_PARTS.queen = 1;
+  OUTLINE_PARTS.queen = saved.parts.queen;
 });
 afterEach(() => {
   Object.assign(OUTLINE_DRIFT, saved.drift);
   Object.assign(OUTLINE_PARTS, saved.parts);
 });
-
-function queenOnField() {
-  const world = createWorld(CFG, 7, buildQueue(0, CFG.cols));
-  const index = waveWith("queen");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  const queen = world.creatures.find((c) => c.kind === "queen");
-  if (!queen) throw new Error("no queen");
-  const l = computeLayout(VIEWPORT, CFG, "test");
-  return { l, queen, root: queenRoot(l, queen) };
-}
 
 describe("a part's matrix", () => {
   const joint = { x: 120, y: 80 };
@@ -93,8 +82,8 @@ describe("a part's matrix", () => {
 });
 
 describe("THE BULB QUEEN's parts", () => {
-  test("ship still, while the owner says how far they go", () => {
-    expect(saved.parts.queen).toBe(0);
+  test("ship moving", () => {
+    expect(saved.parts.queen).toBe(1);
   });
 
   test("at 0 none of them moves, and hushed to nothing none moves either", () => {
@@ -126,24 +115,22 @@ describe("THE BULB QUEEN's parts", () => {
   });
 
   // The owner could not see a fifth of a tile (`docs/looks.md`, *Big enough to be seen*).
-  test("every tip moves far enough to be seen, and never past `PART.tip`", () => {
+  test("every wing's tip moves far enough to be seen, and never past `PART.tip`", () => {
     const { l, queen, root } = queenOnField();
     const tile = l.tile;
-    const len = queenPartLengths(l, queen);
-    for (const k of ["wing", "arm"] as const) {
-      let worst = 0;
-      for (let f = 0; f <= 600 * 20; f++) {
-        const a = (queenParts(l, queen, f / 20, 1, root.reach) as QueenParts)[k]
-          .right as PartAngles;
-        const tip = partPoint(partMatrix(a, { joint: { x: 0, y: 0 }, axis: 0 }), {
-          x: len[k] * tile,
-          y: 0,
-        });
-        worst = Math.max(worst, Math.hypot(tip.x - len[k] * tile, tip.y) / tile);
-      }
-      expect(worst).toBeLessThanOrEqual(PART.tip);
-      expect(worst).toBeGreaterThan(PART.tip * 0.6);
+    const len = queenPartLengths(l, queen).wing;
+    let worst = 0;
+    for (let f = 0; f <= 600 * 20; f++) {
+      const a = (queenParts(l, queen, f / 20, 1, root.reach) as QueenParts).wing
+        .right as PartAngles;
+      const tip = partPoint(partMatrix(a, { joint: { x: 0, y: 0 }, axis: 0 }), {
+        x: len * tile,
+        y: 0,
+      });
+      worst = Math.max(worst, Math.hypot(tip.x - len * tile, tip.y) / tile);
     }
+    expect(worst).toBeLessThanOrEqual(PART.tip);
+    expect(worst).toBeGreaterThan(PART.tip * 0.6);
   });
 
   test("no wing comes within a mark's reach at its widest, so no hit test has a part to follow", () => {
@@ -164,17 +151,6 @@ describe("THE BULB QUEEN's parts", () => {
             nearest = Math.min(nearest, Math.hypot(q.x + bodyX - m.x, q.y + bodyY - m.y) - m.r);
     }
     expect(nearest).toBeGreaterThan(0);
-  });
-
-  test("the arm's swing is gone once it has straightened to let go", () => {
-    const { l, queen, root } = queenOnField();
-    const a = (queenParts(l, queen, 9.1, 1, root.reach) as QueenParts).arm.right;
-    const bodyY = tileCY(l, queen.row) + QUEEN_FIGURE.bodyCy * l.tile;
-    const j = (release: number) =>
-      craneJoints(l.tile, tileCX(l, queen.col), bodyY, 1, 700, tileCY(l, queen.row), 30, release);
-    expect(craneElbow(j(1), a, 1)).toEqual(j(1).elbow);
-    const held = craneElbow(j(0), a, 0);
-    expect(Math.hypot(held.x - j(0).elbow.x, held.y - j(0).elbow.y)).toBeGreaterThan(1);
   });
 
   test("no part is faster than 30° a second as drawn", () => {

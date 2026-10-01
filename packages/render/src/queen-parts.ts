@@ -4,6 +4,7 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
 import {
   OUTLINE_PARTS,
   outlineBody,
+  type PartSize,
   partMatrix,
   partOn,
   partPoint,
@@ -19,7 +20,14 @@ import { torchRadius } from "./rock-size.js";
  * about its root on the shell (`queenShellParts`), each crane arm's elbow
  * about its shoulder. None carries a mark — hers sit on her body
  * (`queenMarkCenter`) — so each moves its tip `PART.tip` with no hit test to
- * follow it.
+ * follow it. Her wings move theirs half a tile, as every part does; their
+ * ends are behind her torches, so what is seen of her is her arms, and they
+ * swing their elbows `QUEEN_ARM.tip`, slower (the owner left how far to the lane,
+ * 27 September 2026, on one condition: what falls, and the torches, barely
+ * move sideways — `docs/queue.md`, "THE BULB QUEEN's parts: how far"). Large
+ * arms, over moving the torches with the wings, which stands them off their
+ * columns, and over leaning her whole body, which moves her marks and her
+ * drops with it. The rock and the wrist on it do not move at all.
  *
  * **Each pair is one part, drawn as a mirror.** The part drift's rule is that
  * the two of a pair are not a mirror; hers overrules it, and is older. Her
@@ -32,10 +40,20 @@ import { torchRadius } from "./rock-size.js";
  *
  * The arm's wrist stays on its rock, which does not move — it is the creature
  * the torch becomes the beat it breaks off — so only its elbow swings, and the
- * swing dies as the arm straightens to let go (`drawCraneArm`). **The claw
- * stays still**: how far it is open is the drop's *when* (`craneRelease`), and
- * a claw turning on its wrist would open one finger and shut the other.
+ * swing dies as the arm straightens to let go (`drawCraneArm`), so the drop's
+ * cue is read against an arm coming to rest rather than a still one. **The
+ * claw stays still**: how far it is open is the drop's *when*
+ * (`craneRelease`), and a claw turning on its wrist would open one finger and
+ * shut the other.
  */
+
+/**
+ * How far her elbow swings at its widest, in tiles — twice any other part, so
+ * a phone sees it — and how much slower than the arm row it goes: her arm is
+ * under a tile long, so a tile of swing at the row's 6 s would turn it past the
+ * spec's 20° a second. Slower for a big part is the spec's own weight.
+ */
+export const QUEEN_ARM: PartSize = { tip: 1.2, slow: 2.25 };
 
 /** One pair's angles as drawn inside her pose, or `null` for a still one. */
 export interface QueenPair {
@@ -71,7 +89,7 @@ export function queenParts(
   const body = outlineBody("queen", hush, reach, tile);
   const len = queenPartLengths(l, queen);
   const wing = partOn("queen", INDEX.wing, "wing", body, len.wing, hush);
-  const arm = partOn("queen", INDEX.arm, "arm", body, len.arm, hush);
+  const arm = partOn("queen", INDEX.arm, "arm", body, len.arm, hush, QUEEN_ARM);
   const at = body(time);
   const pair = (part: (t: number) => PartAngles): QueenPair => {
     const a = part(time);

@@ -503,45 +503,11 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## THE BULB QUEEN's parts: how far
-
-- **Found:** 2026-09-27, claude/queue-living-bosses-the-outline-tiers-parts-and-surfac
-- **Taken:** 2026-10-01, claude/queue-bulb-queen-parts-large-arms (claim: claude/queue-the-bulb-queens-parts-how-far)
-- **Files:** `packages/render/src/outline-parts.ts`, `packages/render/src/queen-parts.ts`, `packages/render/src/queen-crane.ts`, `packages/render/src/queen.ts`, `packages/render/test/outline-parts.test.ts`
-- **Asks:** How should THE BULB QUEEN's parts move so the movement is seen: large arms, torches that sway with her wings, her whole body instead, or not at all?
-- **Answered:** 2026-09-27 — the owner left it to the lane on one condition: what falls, and the torches, must barely move sideways, or the shield and the cannon cannot be placed for them. Chosen: (a) large arms, over (b), which moves the torches off their columns, and (c), which moves her marks and drops with her body. Her arm's swing dies as `craneRelease` straightens it; prove the claw is at its still position when the drop leaves.
-
-The part drift is built and tested (`outline-parts.ts`, `queen-parts.ts`,
-`craneElbow`): her wings swing about their hinges and her arms about their
-shoulders, each pair an exact mirror, every tip half a tile at its widest,
-and it draws with no more ops than still. It ships at
-`OUTLINE_PARTS.queen = 0`, because at half a tile two phone stills side by
-side cannot be told apart. Her structure is why: her wings' moving ends sit
-behind the torch rocks; her arm's elbow and claw are the drop's timing cue
-(`craneRelease` straightens the arm and opens the claw in the beat before a
-drop); and `torchTremor` forbids her two sides moving differently. Her marks
-are on her body, so no hit test reads a part, and no cap is holding her back.
-The options:
-**(a) large arms.** Raise `PART.tip` for her arms to a tile or more, and accept
-that the straightening before a drop is read against an arm that is already
-moving (the swing still dies as it straightens).
-**(b) torches with the wings.** Move each torch rock with its wing, the same on
-both sides, so the wing's end shows; a torch then stands off its column by
-up to half a tile.
-**(c) her whole body.** Leave her parts still and give her a large body pose
-through `OUTLINE_DRIFT`, with `queenMarkCenter`'s hit test following the pose
-(the route of "the outline drift for the next six").
-**(d) nothing.** Remove `queen-parts.ts` and `craneElbow`, keep the helper for
-THE CAIRN and THE REPRISE.
-
-Wire the one he picks, with two stills at the widest moment that tell apart
-on a phone. `bun run check` proves it.
-
 ## Living bosses — the surface marks by longitude, once an outline body turns
 
 - **Found:** 2026-09-27, claude/queue-reprise-parts
 - **Files:** `packages/content/src/surface.ts`, `packages/render/src/outline-drift.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/queen-figure.ts`, `docs/spec/living-bosses.md`
-- **Needs:** THE BULB QUEEN's parts: how far
+- **Asks:** which outline body turns, and how far — THE REPRISE's sac, the queen's shell, or none, which closes this entry?
 
 Split off "THE REPRISE's parts, and the surface marks" when its parts
 landed. A surface mark placed with `pin`/`facet` moves only when its body
@@ -550,9 +516,13 @@ slots, dropped as too small to see. So there is nothing for a mark to follow
 until an outline pose large enough to see ships with its hit tests following
 it. The outline drift for six more bosses landed on 27 September 2026 and
 shows how (`warden-drift.ts` is the worked example), but none of those six
-carries a surface mark, and the three slots here are still 0: which body
-turns, and by how much, is the owner's answer to "THE BULB QUEEN's parts:
-how far", so this waits on it. Then place the marks that
+carries a surface mark, and the three slots here are still 0. "THE BULB
+QUEEN's parts: how far" was built on 1 October 2026 as her arms, not
+her body, so no body turns still, and which one does is the owner's.
+The options: **THE REPRISE's sac** rolls, its veins and gloss carried round
+and its hit test following; **the queen's shell** turns, her marks and so
+her drops moving with it, which that answer passed over; **none**, and this
+entry is closed. Then place the marks that
 sit on an outline body's skin — THE REPRISE's veins and gloss, the queen's
 marks on her shell — by longitude through `pin`/`facet`, so a turn carries
 them round and one goes behind the rim; the same size rule, and a hit test

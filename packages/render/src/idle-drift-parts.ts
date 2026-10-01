@@ -83,6 +83,8 @@ export interface PartOptions {
   readonly life?: number;
   /** A gesture's `letGo(...)`, 1 when the script does not own the part. */
   readonly letGo?: number;
+  /** How many times the row's period the part takes, 1 unless it is larger than its row. */
+  readonly slow?: number;
 }
 
 /** A part's seed: the boss's and the part's index, hashed together. */
@@ -99,11 +101,12 @@ export function partOwn(
   part: PartRow,
   link = 0,
   links = 1,
+  slow = 1,
 ): PartAngles {
   const row = PART_ROWS[part];
   const tip = links > 1 ? link / (links - 1) : 0;
   const at = (k: number, r: readonly [number, number]): number => {
-    const w: Wander = { amp: reach(r, tip), period: row.period };
+    const w: Wander = { amp: reach(r, tip), period: row.period * slow };
     return w.amp === 0 ? 0 : wander(time, subSeed(seed, k), w);
   };
   return {
@@ -132,7 +135,7 @@ export function partDrift(
   const now = parent(time);
   if (life === 0) return now;
   const late = parent(time - row.lag);
-  const own = partOwn(time, seed, part, opts.link ?? 0, opts.links ?? 1);
+  const own = partOwn(time, seed, part, opts.link ?? 0, opts.links ?? 1, opts.slow ?? 1);
   const k = hush * (opts.letGo ?? 1) * DEG;
   const mix = (n: number, l: number, o: number) => n + life * (FALLOFF * l - n + o * k);
   return {
