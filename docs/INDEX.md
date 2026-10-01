@@ -1797,6 +1797,7 @@ by hand never moves.
 | `packages/render/src/intro-ear.ts` | **AN EAR, AND NOTHING BUT AN EAR.** The other half of the owner's instruction of 16 September 2026 |
 | `packages/render/src/intro-mouth.ts` | **A MOUTH, AND NOTHING BUT A MOUTH.** The owner, 16 September 2026, on the intro's two people |
 | `packages/render/src/instar-draw.ts` | **THE INSTAR**: a living dragon of a ship, the size of the field (§11.32) |
+| `packages/render/src/instar-drift.ts` | **THE INSTAR turns on the idle drift** — the owner, 26 September 2026: the full body should keep turning |
 | `packages/render/src/instar-fx.ts` | What THE INSTAR leaves behind a frame: the **jolt** of a landing and of the last |
 | `packages/render/src/instar-fx-ingest.ts` | **What each of THE INSTAR's events does to its fx** |
 | `packages/render/src/instar-fire.ts` | **The fire in THE INSTAR's mouth**: a ball of flame turning on itself in the middle of the open jaws |
@@ -2985,6 +2986,7 @@ by hand never moves.
 | `tools/raster/src/solid-page.ts` | The solid sheet's page: bundled for the browser by `solid.ts` and run there |
 | `tools/raster/src/solid-instar-page.ts` | The INSTAR head sheet (`bun run solid --instar`) |
 | `tools/raster/src/solid-instar-body-page.ts` | The INSTAR body sheet (`bun run solid --instar-body`) |
+| `tools/raster/src/solid-instar-drift-page.ts` | The INSTAR drift strip (`bun run solid --instar-drift`): the game's own renderer drawing THE INSTAR's wave |
 | `tools/raster/src/strip-bake.ts` | One painted strip, baked and packed: the atlas the field fetches (`<name>-strip.webp`) |
 | `tools/raster/src/sling-draw-art.ts` | One frame of THE SLING's arm drawing home, drawn into a 2D context |
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |

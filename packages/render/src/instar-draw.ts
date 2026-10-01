@@ -99,6 +99,7 @@ export function drawInstar(
     shoveUp: fx.shove.up,
     shoveDown: fx.shove.down,
     weak,
+    drift: sway.drift,
   };
   const side = instarHandover(f.side);
   // Most of a turn is flown off the field, where a view is not drawn at all

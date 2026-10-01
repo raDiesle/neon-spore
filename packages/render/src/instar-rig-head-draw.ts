@@ -1,4 +1,4 @@
-import { FRONT, facet, type Pin, pin, type Seen, SIDE, view } from "@neon-spore/content";
+import { FRONT, facet, type Pin, pin, type Seen, SIDE, see, view } from "@neon-spore/content";
 import { drawFireball, fireRadius } from "./instar-fire.js";
 import { frontLipsAt } from "./instar-head.js";
 import { drawEye } from "./instar-head-parts.js";
@@ -111,12 +111,19 @@ export function drawRigHead(ctx: CanvasRenderingContext2D, look: RigHeadLook, ya
 /**
  * The rig head in profile, where the profile's own head would be: `look.head`
  * is that head's middle rather than the mouth's, so the rig is moved to put
- * its eye on the profile's (`SIDE_EYE`). Side-on the view is `(x, y)`.
+ * its eye on the profile's (`SIDE_EYE`). Side-on the view is `(x, y)`; at any
+ * other `yaw` (the idle drift's turn, `instar-drift.ts`) the near eye stays on
+ * that point and the head turns about it.
  */
-export function drawRigSideHead(ctx: CanvasRenderingContext2D, look: RigHeadLook): void {
+export function drawRigSideHead(
+  ctx: CanvasRenderingContext2D,
+  look: RigHeadLook,
+  yaw = SIDE,
+): void {
   const { f, r, head } = look;
   const eye = onSkull(eyePin(1).lon, eyePin(1).lat);
   const y = upperAnchor(f, r).at.y + eye.y * r;
-  const at = { x: head.x + SIDE_EYE.x * r - eye.x * r, y: head.y + SIDE_EYE.y * r - y };
-  drawRigHead(ctx, { ...look, head: at }, SIDE);
+  const seen = see({ x: eye.x * r, y, z: eye.z * r }, view(yaw));
+  const at = { x: head.x + SIDE_EYE.x * r - seen.x, y: head.y + SIDE_EYE.y * r - seen.y };
+  drawRigHead(ctx, { ...look, head: at }, yaw);
 }

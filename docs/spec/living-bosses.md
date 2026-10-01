@@ -75,6 +75,16 @@ of its own to keep its ±14°. Every period in both tables is taken at its slow
 end for the same reason. Tests: `packages/render/test/idle-drift.test.ts`
 and `packages/render/test/idle-drift-parts.test.ts`.
 
+**Offered (1 October 2026, VERSUS `instar:drift` / `turn`).** THE INSTAR's
+whole side-on body drifts on the rig's yaw, pitch and roll about its middle
+(`packages/render/src/instar-drift.ts`, `driftTransform` in
+`instar-place.ts`), and the head is drawn turned on top of it, from the
+profile toward three-quarter and back, never past face-on and never away
+(`headTurn`). It is nothing on a face-on step, a tenth over live marks, and
+the marks are pressed where the drift draws them. Each part's own drift is
+not built yet: `docs/queue.md`, "THE INSTAR's parts drift on their own".
+Test: `packages/render/test/instar-drift.test.ts`.
+
 ### How far it reaches, by kind of body
 
 - **A body on the rig** (`packages/render/src/solid-rig.ts`) takes all four

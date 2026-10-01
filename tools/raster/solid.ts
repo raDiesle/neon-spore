@@ -12,7 +12,9 @@
  * five yaws, jaw shut and open, beside the shipped face-on head
  * (`src/solid-instar-page.ts`); `--instar-body` draws its perched body at the
  * same five yaws, shipped above VERSUS's body with weight
- * (`src/solid-instar-body-page.ts`).
+ * (`src/solid-instar-body-page.ts`); `--instar-drift` draws the game's own
+ * frames of THE INSTAR side-on across ten seconds, still above VERSUS's
+ * idle drift (`src/solid-instar-drift-page.ts`).
  */
 
 import { resolve } from "node:path";
@@ -22,7 +24,16 @@ const args = process.argv.slice(2);
 const zdog = args.includes("--zdog");
 const instar = args.includes("--instar");
 const body = args.includes("--instar-body");
-const sheet = zdog ? "zdog" : body ? "solid-instar-body" : instar ? "solid-instar" : "solid";
+const drift = args.includes("--instar-drift");
+const sheet = zdog
+  ? "zdog"
+  : drift
+    ? "solid-instar-drift"
+    : body
+      ? "solid-instar-body"
+      : instar
+        ? "solid-instar"
+        : "solid";
 const named = args.find((a) => !a.startsWith("--"));
 const out = resolve(named ?? `.claude/tmp/${sheet}-sheet.png`);
 

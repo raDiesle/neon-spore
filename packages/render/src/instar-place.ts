@@ -61,11 +61,65 @@ export function instarHeadAt(l: Layout, f: Figure): { head: Point; r: number } {
 export function instarMarkPoint(
   l: Layout,
   mark: SceneMark,
-  sway: { xMilli: number; yMilli: number },
+  sway: { xMilli: number; yMilli: number; drift?: InstarDrift },
   along: number,
 ): Point {
   const x = mark.xMilli + (mark.sweepMilli ?? 0) * along;
-  return instarAt(l, x + sway.xMilli, mark.yMilli + sway.yMilli);
+  const p = instarAt(l, x + sway.xMilli, mark.yMilli + sway.yMilli);
+  return sway.drift === undefined ? p : instarDrifted(l, sway.drift, p);
+}
+
+/**
+ * **The body turned on the idle drift** (`instar-drift.ts`): about where it
+ * turns, in thousandths of the field, and how far. Only the body's angles are
+ * here; the head's own turn is the profile's (`instar-profile.ts`).
+ */
+export interface InstarDrift {
+  readonly pivotXMilli: number;
+  readonly pivotYMilli: number;
+  readonly yaw: number;
+  readonly pitch: number;
+  readonly roll: number;
+  /** The head's yaw on the body's, radians. */
+  readonly headYaw: number;
+}
+
+/**
+ * Where a pixel of the side-on body lands once it has turned: the rig's view
+ * of a point on the body's own plane (`see` with `z` 0, `view(yaw, pitch)`),
+ * rolled about the line of sight, all about the pivot. The profile sets the
+ * same matrix on the canvas (`driftTransform`), so a mark is drawn and found
+ * where the body carried it.
+ */
+export function instarDrifted(l: Layout, d: InstarDrift, p: Point): Point {
+  const c = instarAt(l, d.pivotXMilli, d.pivotYMilli);
+  const [a, b, cc, dd] = driftMatrix(d);
+  const x = p.x - c.x;
+  const y = p.y - c.y;
+  return { x: c.x + a * x + cc * y, y: c.y + b * x + dd * y };
+}
+
+/** The drift's linear part, `[a, b, c, d]` as `ctx.transform` takes it. */
+export function driftMatrix(d: InstarDrift): readonly [number, number, number, number] {
+  const cy = Math.cos(d.yaw);
+  const sy = Math.sin(d.yaw);
+  const cp = Math.cos(d.pitch);
+  const sp = Math.sin(d.pitch);
+  const cr = Math.cos(d.roll);
+  const sr = Math.sin(d.roll);
+  // R(roll) · [[cy, 0], [−sy·sp, cp]]: the turn first, then the roll.
+  const a0 = cy;
+  const b0 = -sy * sp;
+  return [cr * a0 - sr * b0, sr * a0 + cr * b0, -sr * cp, cr * cp];
+}
+
+/** The drift on the canvas, about the pivot: what `instarDrifted` does to a point. */
+export function driftTransform(ctx: CanvasRenderingContext2D, l: Layout, d: InstarDrift): void {
+  const c = instarAt(l, d.pivotXMilli, d.pivotYMilli);
+  const [a, b, cc, dd] = driftMatrix(d);
+  ctx.translate(c.x, c.y);
+  ctx.transform(a, b, cc, dd, 0, 0);
+  ctx.translate(-c.x, -c.y);
 }
 
 /** A mark's radius in pixels: the handle's, the one size a thumb is asked for. */

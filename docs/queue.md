@@ -392,34 +392,26 @@ already has a pattern for. Whoever takes this names it in the entry they
 leave behind, same as the four already listed, and it is a look:
 `tools/versus/candidates/`, never straight onto the field.
 
-## Living bosses — THE INSTAR turns on the idle drift, as a VERSUS candidate
+## THE INSTAR's parts drift on their own
 
-- **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-10-01, claude/queue-living-bosses-the-instars-body-with-weight-as-a (claim: claude/queue-living-bosses-the-instar-turns-on-the-idle-drift)
+- **Found:** 2026-10-01, claude/queue-living-bosses-the-instar-turns-on-the-idle-drift
 - **Where:** local
-- **Needs:** Living bosses — THE INSTAR's body with weight, as a VERSUS candidate
-- **Files:** `packages/render/src/instar-profile.ts`, `packages/render/src/instar-mark-grip.ts`, `packages/render/src/instar-sway.ts`, `packages/render/test/instar-budget.test.ts`, `packages/render/test/baked-growth.test.ts`, `docs/spec/living-bosses.md`
+- **Needs:** Living bosses — THE INSTAR turns on the idle drift, as a VERSUS candidate
+- **Files:** `packages/render/src/instar-profile.ts`, `packages/render/src/instar-drift.ts`, `packages/render/src/instar-rig-head-draw.ts`, `packages/render/src/instar-wings.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/idle-drift.ts`, `packages/render/test/instar-drift.test.ts`
 
-The owner: the full body should keep turning — look left, then right, the
-body too — so it reads 3D. Draw the side-on body through `view(SIDE + yaw)`
-with the idle drift's angles, head leading — the head turned toward the
-viewer, so its eyes and mouth face the players' screen, and the drift's
-"away" half folded back toward them (the owner, 27 September 2026:
-`docs/spec/living-bosses.md` section 1, "A face looks at the players") —
-and hush it to a tenth over
-windows with live marks (it was a third; the owner, 27 September 2026). The mark hit test goes through the same projection
-(`instarMarkUnder`), so a drifted mark is found where it is drawn. Give every
-part its own `partDrift` on its anchor, as section 1's part map lists them:
-head, jaw, eyes, horns, both wings and their claws, the tail links and the
-blade — eyes leading the head, the wings' drift letting go while they beat,
-the jaw's while the script opens it. A VERSUS candidate beside the
-fixed-angle body.
+The other half of THE INSTAR's drift. The VERSUS candidate `instar:drift` /
+`turn` turns the whole body and the head on it; each part still rides the
+body rigidly. Give every part its own `partDrift` on its anchor, as
+`docs/spec/living-bosses.md` section 1's part map lists them: head, jaw,
+eyes, horns, both wings and their claws, the tail links and the blade —
+the eyes leading the head, the wings' drift letting go while they beat, the
+jaw's while the script opens it — behind the same `INSTAR_DRIFT.amount`, so
+it stays the one candidate.
 
-Done when: a test presses every mark of every step at the drift's widest
-yaw, with every part at its widest too, and finds it; a test finds the face
-turned toward the viewer, never away, at every sampled frame of ten minutes; `packages/render/test/baked-growth.test.ts` stays flat
-with the drift running; op count within 10%; a strip of eight frames across
-ten seconds is sent to the owner. `bun run check` proves the tests.
+Done when: `instar-drift.test.ts` presses every mark of every step at the
+drift's widest yaw *with every part at its widest too* and finds it; the
+never-snaps ceilings of `idle-drift-parts.test.ts` hold for each part; op
+count within 10% of the shipped body. `bun run check` proves the tests.
 
 ## Living bosses — THE INSTAR's serpentine flight, as a VERSUS candidate
 

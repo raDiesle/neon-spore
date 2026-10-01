@@ -3,9 +3,16 @@ import { drawHurt } from "./boss-hurt.js";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { INSTAR_BODY } from "./instar-body-look.js";
+import { headTurn, INSTAR_DRIFT } from "./instar-drift.js";
 import { drawNests } from "./instar-eggs.js";
 import { drawMoult } from "./instar-moult.js";
-import { instarAt, instarFarEnd, type Point } from "./instar-place.js";
+import {
+  driftTransform,
+  instarAt,
+  instarDrifted,
+  instarFarEnd,
+  type Point,
+} from "./instar-place.js";
 import { drawSeam, faded, type Look } from "./instar-plate.js";
 import { BREATH_PERIOD, breathAt, headBob, rollAt, undulate } from "./instar-profile-life.js";
 import { bodyOf, drawLamps, drawRidge, drawScales } from "./instar-profile-surface.js";
@@ -119,6 +126,11 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
   const { spine, top, bottom, rear, seats } = profileLines(l, look);
   const back = (u: number): Point => top[Math.round(u * N)] ?? rear;
   const W = view(SIDE);
+  const drift = look.drift;
+  // The idle drift turns the whole body on the canvas, and the head is drawn
+  // turned on its own afterwards, at the point the body carried it to.
+  ctx.save();
+  if (drift) driftTransform(ctx, l, drift);
   const farRoot = { x: back(0.38).x - r * 0.25, y: back(0.38).y - r * 0.1 };
   drawWing(ctx, look, farRoot, W, { x: 0, y: 0, z: -r * 0.3 }, -1, 1);
   const flick = 0.75 + 0.25 * Math.sin(time * 21);
@@ -131,7 +143,8 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
     0.7 * flick * fade,
   );
   const body = bodyOf(top, bottom);
-  const roll = rollAt(time);
+  // Tipped toward the player, the back comes round into view: the rows walk with it.
+  const roll = rollAt(time) + (drift?.pitch ?? 0);
   drawRidge(ctx, body, r, roll, fade, true, EVERY);
   const hide = drawTube(ctx, body.seen, SKIN, fade);
   strokeGlow(ctx, hide, faded(PALETTE.hull, fade), STROKE.inner, 0.5 * fade);
@@ -160,7 +173,10 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
   drawTail(ctx, l, look, rear);
   drawWing(ctx, look, back(0.42), W, { x: 0, y: 0, z: r * 0.3 }, 1);
   drawNests(ctx, l, look);
-  INSTAR_BODY.head(ctx, { ...look, head: headBob(head, r, time) });
+  ctx.restore();
+  const bobbed = headBob(head, r, time);
+  if (!drift) INSTAR_BODY.head(ctx, { ...look, head: bobbed });
+  else INSTAR_DRIFT.head(ctx, { ...look, head: instarDrifted(l, drift, bobbed) }, headTurn(drift));
 }
 
 /** A point `u` of the way along a Catmull-Rom spline through `k`. */

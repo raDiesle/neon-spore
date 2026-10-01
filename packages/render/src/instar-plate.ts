@@ -2,7 +2,7 @@ import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { type Form, lightHide } from "./instar-hide.js";
-import type { Point } from "./instar-place.js";
+import type { InstarDrift, Point } from "./instar-place.js";
 import type { Figure } from "./instar-shape.js";
 import type { InstarWeak } from "./instar-weak.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -41,6 +41,8 @@ export interface Look {
   shoveDown: number;
   /** How hard each part a live shoot mark names glows, 0..1 (`instar-weak.ts`); none if absent. */
   weak?: InstarWeak;
+  /** The body turned on the idle drift, when VERSUS turns it on (`instar-drift.ts`). */
+  drift?: InstarDrift | undefined;
 }
 
 /** A colour at the fade: the hex itself while the body is whole, so the frame

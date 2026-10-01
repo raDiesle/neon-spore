@@ -31079,3 +31079,17 @@ Bottleneck: the caption's anchor fell through to the lid lookup for the two new 
 Bottleneck: chasing the beaten pose's near nest through seat depths before a probe showed it sat on the head, not off the back.
 
 *Measured: 25 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — Living bosses — THE INSTAR turns on the idle drift, as a VERSUS candidate
+
+- reading: 20 min. The idle drift, the sway, the mark hit test, the profile
+  and the rig head, the VERSUS variant patching.
+- writing: 50 min. The drift record and transform, the turned head, the
+  marks, face and bake tests, the budget rows, the ten-second strip.
+- looking: 10 min. The strip, regridded once to be readable.
+- friction: 10 min. Step 0 of the script is face-on, so the drift was zero
+  there and the first face test saw no turn at all.
+- landing: 5 min. Formatting, the index, a missing director pose row,
+  `check:fast`, `land`.
+
+Bottleneck: the script's first step is face-on, where the drift is zero by design, so the face test passed on nothing until it looked for a side-on step.
