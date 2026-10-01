@@ -31551,3 +31551,5 @@ Bottleneck: the head radius is the whole body's unit and the face-on marks are p
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: a landed `--keep` branch and a fresh one look the same to `git status` and `rev-list`, so the hook had to read the branch's reflog to tell them apart.
+
+*Measured: 10 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

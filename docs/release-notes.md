@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · f55e76f27 — The automatic compaction window goes back to 200k, and a lane is held from its first read
+
+At the owner's word, `autoCompactWindow` is 200000 again rather than 120000: a large task was being compacted repeatedly while it was still reading. And `tools/hooks/defer-compact.ts` now holds an automatic compaction for a lane whose branch is new and has committed nothing yet, read off the branch's reflog, so the exploration before the first edit is kept whole; the branch `land --keep` leaves standing has commits in its reflog and is let through.
+
 ## 2026-10-01 · 6691b05c9 — THE INSTAR's head is bigger side-on; the four VERSUS heads are dropped
 
 The owner kept the current head over the drake, hound, rig and viper candidates and asked for it bigger, so side-on and turned it is drawn 1.3 times the body's head radius (`SIDE_GROW`), grown by as far as the turn has reached so it meets the face-on head through the cross-fade. The body, wings and tail keep their size; the face-on head keeps its, its eye marks being pinned to it. Exemption: a look the owner asked for by name.
