@@ -31567,3 +31567,5 @@ Bottleneck: a landed `--keep` branch and a fresh one look the same to `git statu
   director's poses for phases that are gone, `check:fast`, lint, `land`.
 
 Bottleneck: the old fight's names were spread through ninety files, and each one had to be read before it could be removed.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

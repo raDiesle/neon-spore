@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 57e609b99 — THE UNDERTOW reworked: two answers, a tap, three timed levels
+
+Lobes rise through the hull after the bow, which now shakes. A yellow one is taken by SUCK with the cannon under it, a shield-coloured one by the shield under it. Each stands twice as tall as before, dancing, and the ship is free to move while it is up. One left standing grows tall; a tap from either seat shrinks it back, and one left tall bursts — a hole in the plating and the wave lost. Three levels, each a clock shown on both screens: outlasting it wins, and every lobe still up shrinks back under. The pin's black ring, the seat, the free and THE SLOW are gone, the slow being the lag on a phone. The rehearsal is four steps: shield, suck, tap, burst.
+
 ## 2026-10-01 · f55e76f27 — The automatic compaction window goes back to 200k, and a lane is held from its first read
 
 At the owner's word, `autoCompactWindow` is 200000 again rather than 120000: a large task was being compacted repeatedly while it was still reading. And `tools/hooks/defer-compact.ts` now holds an automatic compaction for a lane whose branch is new and has committed nothing yet, read off the branch's reflog, so the exploration before the first edit is kept whole; the branch `land --keep` leaves standing has commits in its reflog and is let through.
