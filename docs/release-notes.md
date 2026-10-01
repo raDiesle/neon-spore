@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 076f2efdb — PINBALL: either seat may bump the ball in flight, three shoves between them
+
+The shove on a falling ball was the navigator's alone, once a flight. Either player may now shove it, out of one count of three the pair share; the fourth tilts the table for the rest of that flight. The shove's ring is bright on both screens; the plunger stays the pilot's.
+
 ## 2026-10-01 · 9bcfc88f3 — The lit-open-stopped rule for every boss a bolt strikes
 
 Recorded in `new-boss/generic.md`, from the owner's message of 1 October 2026: a part the cannon must hit is lit in its colour and beats like a heart, the bolt has a clear path to it, and the bolt stops on whatever it meets. Two queue entries: the audit of the thirty-three other bosses, and THE SEAM's false point, which asks whether it is cut or given a hold-fire cue.
