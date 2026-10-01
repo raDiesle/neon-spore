@@ -30824,3 +30824,5 @@ Bottleneck: the context cut; the hub's halo had to be drawn after the hub, in th
 - landing: 5 min. `check:fast` and `land`.
 
 Bottleneck: the context cut; every level is both pulls, so which stones a level asks had to be read off the hand, not the step's name.
+
+*Measured: 40 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

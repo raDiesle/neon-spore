@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 4d33bcba3 — THE PLUMB's marks answer a touch the way every mark does
+
+Each stone wears the halo on its own seat's screen, and the partner's ring and clock on the other's, while a level step is lit and that seat is not yet pulling towards true. The core haloes on both screens while a fire step stands with it lit. A settle or a steady greens both stones and a core hit greens the core. A drift or a pull through the bleed reddens its own stone, and a step run out reddens only what it asked.
+
 ## 2026-10-01 · 186597937 — THE TRIVET's marks answer a touch the way every mark does
 
 Each outer foot of the stand wears the halo on its own seat's screen while the lit step wants its chord and the chord is not held, and the partner's ring and clock on the other screen; the hub and the hull under the needle halo on both screens while their step stands. A plant, a brace, a hub hit and a needle turned answer green; a lit pad lifted reddens its own foot, and a foot springing, the stand rocking or a step missed reddens only what that step asked.
