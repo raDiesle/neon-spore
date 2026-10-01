@@ -30869,3 +30869,5 @@ Bottleneck: the context cut; placing the jaw marks meant reading the caliper's t
 - landing: 5 min. `check:fast` and `land`.
 
 Bottleneck: the restart and the cut; the flanks are each tapped by one seat and pinched by the other, so a side's two marks had to answer to different seats.
+
+*Measured: 66 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

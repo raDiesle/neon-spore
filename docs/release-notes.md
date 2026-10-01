@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 7dfa7252e — THE CYST's marks answer a touch the way every mark does
+
+Each freeze mark wears the halo on its tapper's screen and the partner's ring and clock on the other's while its flank's step is lit, and each flank on its pincher's while stilled or on a swell and not yet shut; the core and the bud halo on both screens. A tap that stills, a crack, a guard, a swell clenched, a core hit and a bud shot green what they answer; a shudder, a slip, a spring, and a step run out redden what they owe.
+
 ## 2026-10-01 · 89e600d1f — THE GRINDSTONE's marks answer a touch the way every mark does
 
 Each flat wears the halo on its own seat's screen and the partner's ring and clock on the other's while its pass is lit, and each jaw while a clamp is lit and it is not yet held; the axle haloes on both screens with the caliper locked on a fire step. A clean pass, a held clamp and an axle hit green their marks; a slip, a grind or pad through the fade, and a step run out redden only what was asked (render/grindstone-verdicts.ts).
