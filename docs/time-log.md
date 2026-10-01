@@ -31062,3 +31062,5 @@ Bottleneck: the director's save assumed one arena file per boss, and teaching it
 - landing: 5 min. Two counts in `briefings.md`, a file one line over, `land`.
 
 Bottleneck: the caption's anchor fell through to the lid lookup for the two new handles, which only a frame showed.
+
+*Measured: 22 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

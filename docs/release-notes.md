@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · b831ae608 — THE HAUL's guide: a hold filled, the line reeled home, the prime pulled
+
+THE HAUL opens on a rehearsal now. Level one fills the hold to laden and player 2 reels the ship home on the line; level two swaps the seats, fills it to heavy, and player 2 primes the burn before player 1 sucks it in. Its captions and the ghost hand point at the real rings on the ship, which had fallen through to the wrong lookup. The director's SCOUT note says what the hold, the line and the prime are.
+
 ## 2026-10-01 · 752dfea8d — THE HAUL: THE SCOUT again, with holds that take every mote on the level
 
 A new wave after THE SCOUT — the one where every mote you keep makes the ship harder to fly. Its two levels name a `carry` equal to their motes: four on the first, so a full hold is laden and player 2's line is on offer; five on the second, so it goes on to heavy and the thruster will not burn until player 1 primes it. Whether a level is one trip or five is the pair's call. The line and the prime had been drawn and never offered since the ship carried one mote at a time.
