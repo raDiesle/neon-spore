@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 68cf9bb0e — INSTAR:HEAD · DRAKE is a smaller drake in the old plated skin, and SHOOT labels sit under the eggs
+
+The drake candidate's side-on head is now the shipped profile's skin on a drake's skull: plates, scales, the same horns, teeth and green venom, seam, lamp and eye, drawn 0.88 the size about the neck, the jaw tapering under the snout and opening less than half as far, a small brow clear of the horn roots. The turned rig drake has a shorter, less open jaw and a smaller brow. The SHOOT CYAN / SHOOT RED words now try the place under the eggs first, so they no longer overlap the head.
+
 ## 2026-10-01 · ac78f675e — `bun run frames <sha> --boss` takes the after frame alone when the parent has no such field
 
 A `--boss` field the sha itself adds — 13757cea1 renamed `catchBeat` to `catchTick` — was refused on the parent's side, and the refusal took the whole pair with it: no picture at all of the change the flag was meant to show. That one refusal is now a `NoSuchField`, `run.ts` steps past it, says "before has no such field, so the after frame alone", and writes `after.png`. Every other refusal — a wrong type, a phase out of range — still stops the run.

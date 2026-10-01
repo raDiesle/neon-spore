@@ -31252,3 +31252,5 @@ Bottleneck: telling a missing field apart from every other refusal without match
 - landing: 5 min. Formatting, `check:fast`, `land`.
 
 Bottleneck: getting a drake out of a skull outline by eye — each pass on the knots needed a fresh shot to judge.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
