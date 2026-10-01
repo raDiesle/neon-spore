@@ -31393,3 +31393,15 @@ whole of the work.
 Bottleneck: the twelve registrations a new boss needs outside the simulation, found one failing director test at a time.
 
 *Measured: 74 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE SEAM's answer, and THE INSTAR held
+
+- reading: 5 min. Item 14's options, and how `Answered:` and `Deferred:`
+  lines are read.
+- writing: 0 min. Two lines in the queue.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. `next` handed out THE INSTAR's ship, which the owner said
+  waits for his VERSUS feedback. The claim was released.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: an owner's hold said in chat was not on the entry, so `next` handed it out.

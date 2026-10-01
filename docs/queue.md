@@ -401,6 +401,7 @@ leave behind, same as the four already listed, and it is a look:
 - **Files:** `packages/render/src/instar-draw.ts`, `packages/render/src/instar-side-head.ts`, `packages/render/src/instar-turn.ts`, `tools/versus/candidates/registry.ts`, `docs/spec/living-bosses.md`
 - **Asks:** Of the four THE INSTAR candidates in VERSUS (one head, body with weight, turning, serpentine flight), which ship?
 - **Answered:** 2026-09-28, in part — not the one head as it stands. The owner: `INSTAR:HEAD · RIG` looks weird and has no good skin, but its facing toward the player is good and stays. Before this entry ships anything, the rig head needs a skin; the other three are judged once they are on VERSUS.
+- **Deferred:** 2026-10-01 — the owner: VERSUS feedback on THE INSTAR comes later, one candidate at a time. Nothing here ships until he gives it.
 
 Put the ones the owner picks on the field and retire what they replace:
 with the one head picked, `instar-side-head.ts` and the handover in
@@ -570,6 +571,7 @@ lanes: split it before starting, a handful of bosses per lane.
 - **Where:** local
 - **Files:** `packages/render/src/seam-hold.ts`, `packages/sim/src/seam-step.ts`, `packages/content/src/waves/act-11.ts`
 - **Asks:** cut the false point from THE SEAM, or give it a cue that says "hold fire"?
+- **Answered:** 2026-10-01 — option 3, change the fuse, over cutting the step and a hold-fire cue on the lens. On a hold step the fuse burns the other way or in grey, and every boss's hold step follows.
 
 The owner, 1 October 2026: *there is a step with a grey rounded inside the
 middle and the timing indicator runs. why? what i have to do?* That is the false
