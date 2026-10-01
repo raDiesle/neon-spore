@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 5bdc41015 — PINBALL: while the ball is up, the cannon is a funnel to catch it
+
+The MOVE word on the cannon is gone. For as long as a ball is in flight, the cannon is drawn as a green cup exactly as wide as the catch (`pinballCatchReachMilli` either side of the mouth), so the picture shows how much of the floor brings the ball home. A light breathes at its neck, sparks slide down both walls into it, and chevrons fall down the middle, pointing at the mouth.
+
 ## 2026-10-01 · 076f2efdb — PINBALL: either seat may bump the ball in flight, three shoves between them
 
 The shove on a falling ball was the navigator's alone, once a flight. Either player may now shove it, out of one count of three the pair share; the fourth tilts the table for the rest of that flight. The shove's ring is bright on both screens; the plunger stays the pilot's.
