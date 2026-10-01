@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 752dfea8d — THE HAUL: THE SCOUT again, with holds that take every mote on the level
+
+A new wave after THE SCOUT — the one where every mote you keep makes the ship harder to fly. Its two levels name a `carry` equal to their motes: four on the first, so a full hold is laden and player 2's line is on offer; five on the second, so it goes on to heavy and the thruster will not burn until player 1 primes it. Whether a level is one trip or five is the pair's call. The line and the prime had been drawn and never offered since the ship carried one mote at a time.
+
+## 2026-10-01 · 68d99e148 — The owner's answers: both bodies turn, and THE LAMPREY and THE MIMIC are queued
+
+The surface marks follow a turning body on THE REPRISE's sac first and then the queen's shell. THE LAMPREY (§41) and THE MIMIC (§42) go from the NOT BUILT YET sheet into the queue, each as a simulation lane and a look lane.
+
 ## 2026-10-01 · 1e9f550c6 — A SCOUT arena can name how many motes the ship carries
 
 An arena may now say how many motes the little ship holds at once (`carry`), read through `scoutCarryLimit`; THE SCOUT's own four levels name none and still carry one at a time. This is the half of the owner's answer that a wave reaching `laden` and `heavy` needs: the limit is hashed with the arena and kept by the director's serializer. Nothing drawn moved.
