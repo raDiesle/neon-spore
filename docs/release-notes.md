@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · a7566d926 — THE LAMPREY's simulation: a mouth on the hull, one thumb pinning it and one knocking its teeth out
+
+THE LAMPREY (§41) bites the hull and crawls along it. One seat keeps a thumb on the jaw while the other taps the one lit tooth before it snaps back. Five of the seven teeth out over two bites drop it off the hull; then the gullet takes three shots in the colour it shows, and every shot run out is a re-bite. It is wave 122, in act 14, with its AUTO hand, its thirteen sounds, its director rows and the shape sheet's stand-in for a look.
+
 ## 2026-10-01 · 1fe630933 — PINBALL: the cannon takes a ball only from the column it falls into
 
 The catch reaches half a column either side of the cannon, down from a column and a tenth, so a pilot standing a column off now loses the ball to the hull. The funnel drawn in flight shrinks with it, because it is drawn from the same number. The owner, 1 October 2026: "It should still be possible that ball is hitting the hull ship, otherwise it's too easy."

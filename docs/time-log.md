@@ -31391,3 +31391,5 @@ whole of the work.
 - landing: 10 min. `check:fast`, `land`.
 
 Bottleneck: the twelve registrations a new boss needs outside the simulation, found one failing director test at a time.
+
+*Measured: 74 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
