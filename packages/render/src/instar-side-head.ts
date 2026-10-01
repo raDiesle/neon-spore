@@ -1,10 +1,9 @@
-import { strokeGlow } from "./glow.js";
-import { drawDrip, drawGlint, drawScales } from "./instar-hide.js";
+import { drawDrip, drawScales } from "./instar-hide.js";
 import { drawHorn } from "./instar-horn.js";
 import type { Point } from "./instar-place.js";
 import { drawLamp, drawPlate, drawSeam, faded, type Look } from "./instar-plate.js";
-import { drawWeak } from "./instar-weak.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { drawLipTeeth, drawSideEye, hinged } from "./instar-side-parts.js";
+import { PALETTE } from "./palette.js";
 import { breath } from "./solid-motion.js";
 import { splinePath } from "./spline.js";
 
@@ -47,14 +46,8 @@ export function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
   const open =
     (0.15 + 0.55 * (f.jawUp + f.jawDown) * 0.5) * 0.8 +
     JAW_BREATH * (1 + breath(time, JAW_BREATH_PERIOD, 0.35, 5));
-  const cos = Math.cos(-open);
-  const sin = Math.sin(-open);
-  const jaw = (x: number, y: number): Point => {
-    const p = at(x, y);
-    const dx = p.x - hinge.x;
-    const dy = p.y - hinge.y;
-    return { x: hinge.x + dx * cos - dy * sin, y: hinge.y + dx * sin + dy * cos };
-  };
+  const turn = hinged(hinge, open);
+  const jaw = (x: number, y: number): Point => turn(at(x, y));
   const lower = splinePath(
     [
       jaw(0.3, 0.08),
@@ -132,50 +125,15 @@ export function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
   drawPlate(ctx, skull, fade, 0.7, hurt, crown);
   drawScales(ctx, skull, crown, r * 0.11, fade);
   // Teeth along the upper lip, over the open mouth.
-  // Each tooth two faces, the one toward the key lit.
-  ctx.save();
-  for (let i = 0; i < 5; i++) {
-    const p = at(-0.95 + i * 0.25, 0.06);
-    const tip = p.y + r * (i === 1 ? 0.2 : 0.11);
-    for (const [s, hex] of [
-      [-1, PALETTE.rock],
-      [1, PALETTE.rockDark],
-    ] as const) {
-      ctx.fillStyle = faded(hex, fade, 0.95);
-      ctx.beginPath();
-      ctx.moveTo(p.x + s * r * 0.035, p.y);
-      ctx.lineTo(p.x, p.y);
-      ctx.lineTo(p.x, tip);
-      ctx.closePath();
-      ctx.fill();
-    }
-  }
-  ctx.restore();
+  const roots = [0, 1, 2, 3, 4].map((i) => at(-0.95 + i * 0.25, 0.06));
+  drawLipTeeth(
+    ctx,
+    roots,
+    roots.map((_, i) => r * (i === 1 ? 0.2 : 0.11)),
+    r * 0.035,
+    fade,
+  );
   drawSeam(ctx, at(-0.9, -0.16), at(-0.4, -0.3), at(0.1, -0.42), fade, 0.5);
   drawLamp(ctx, at(-1.02, -0.06), r * 0.03, fade, 0.5 + 0.5 * Math.sin(time * 3));
-  const eye = at(SIDE_EYE.x, SIDE_EYE.y);
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.background, fade, 0.75);
-  ctx.beginPath();
-  ctx.ellipse(eye.x, eye.y + r * 0.01, r * 0.2, r * 0.1, 0.25, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-  if (f.eye <= 0.02) return;
-  const p = new Path2D();
-  p.ellipse(eye.x, eye.y, r * 0.15, r * 0.065 * f.eye, 0.25, 0, Math.PI * 2);
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.pod, fade, 0.95);
-  ctx.fill(p);
-  ctx.fillStyle = faded(PALETTE.ember, fade, 0.55);
-  ctx.beginPath();
-  ctx.ellipse(eye.x - r * 0.03, eye.y, r * 0.065, r * 0.06 * f.eye, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = faded(PALETTE.background, fade);
-  ctx.beginPath();
-  ctx.ellipse(eye.x - r * 0.03, eye.y, r * 0.02, r * 0.06 * f.eye, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-  strokeGlow(ctx, p, faded(PALETTE.podRim, fade), STROKE.inner, 0.7 * fade);
-  drawWeak(ctx, p, (look.weak?.eye ?? 0) * fade, "eye");
-  drawGlint(ctx, { x: eye.x - r * 0.06, y: eye.y - r * 0.015 * f.eye }, r * 0.02 * f.eye, fade);
+  drawSideEye(ctx, look, at(SIDE_EYE.x, SIDE_EYE.y));
 }

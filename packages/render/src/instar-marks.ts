@@ -139,7 +139,8 @@ export function drawInstarMarks(
     const at = instarMarkPoint(l, mark, sway, along);
     const mine = instarMarkIsMine(role, mark.seat);
     // Away from the middle, and never over the step's other marks.
-    const room = { own: rooms[i] as MarkRoom, avoid: rooms.filter((_, j) => j !== i) };
+    const below = mark.gesture === "shoot";
+    const room = { own: rooms[i] as MarkRoom, avoid: rooms.filter((_, j) => j !== i), below };
     const side = mark.xMilli < 500 ? -1 : 1;
     if (instarMarkDone(s, i)) {
       drawInstarDone(

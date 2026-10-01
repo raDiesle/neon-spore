@@ -1798,6 +1798,7 @@ by hand never moves.
 | `packages/render/src/intro-ear.ts` | **AN EAR, AND NOTHING BUT AN EAR.** The other half of the owner's instruction of 16 September 2026 |
 | `packages/render/src/intro-mouth.ts` | **A MOUTH, AND NOTHING BUT A MOUTH.** The owner, 16 September 2026, on the intro's two people |
 | `packages/render/src/instar-draw.ts` | **THE INSTAR**: a living dragon of a ship, the size of the field (§11.32) |
+| `packages/render/src/instar-drake-side-head.ts` | **THE INSTAR's head side-on as a drake**, snout to the left |
 | `packages/render/src/instar-drift.ts` | **THE INSTAR turns on the idle drift** — the owner, 26 September 2026: the full body should keep turning |
 | `packages/render/src/instar-fx.ts` | What THE INSTAR leaves behind a frame: the **jolt** of a landing and of the last |
 | `packages/render/src/instar-fx-ingest.ts` | **What each of THE INSTAR's events does to its fx** |
@@ -1823,6 +1824,7 @@ by hand never moves.
 | `packages/render/src/instar-sway.ts` | **THE INSTAR weaves**, and everything of it weaves together |
 | `packages/render/src/instar-strike.ts` | **What THE INSTAR does when the pair do not stop it**, one picture per part |
 | `packages/render/src/instar-side-head.ts` | **THE INSTAR's head side-on**, snout to the left: the skull and its horns, the socket and the eye in it |
+| `packages/render/src/instar-side-parts.ts` | **The parts a head in profile shares**, whichever skull carries them: the socket and the eye in it |
 | `packages/render/src/instar-scutes.ts` | THE INSTAR's belly plates side-on: a short dark notch in from the belly edge at each sample of the spine |
 | `packages/render/src/instar-spit.ts` | THE INSTAR's rear globs and spread embers, falling on their marks while the window is open |
 | `packages/render/src/instar-spit-baked.ts` | **THE INSTAR's fire, baked** — the eighth and ninth examples (`sprite-bake.ts`) |

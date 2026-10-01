@@ -31238,3 +31238,17 @@ Bottleneck: proving that a step which times out still takes down what it brings 
 Bottleneck: telling a missing field apart from every other refusal without matching on the message, which meant giving the refusal a kind of its own.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — INSTAR:HEAD · DRAKE in the old skin, and SHOOT under the eggs
+
+- reading: 15 min. The shipped side head and its skin calls, the rig drake's
+  `HeadSpec`, the drake candidate and `drawInstarWord`'s places.
+- writing: 30 min. `instar-side-parts.ts` split out, `instar-drake-side-head.ts`,
+  the rig drake's jaw and brow, the `below` room for SHOOT.
+- looking: 30 min. Three passes on the profile (thin like a crocodile, then
+  too deep, then right) and the solid heads sheet for the turned rig.
+- friction: 10 min. The context ran out mid-lane; `bun run crop`'s argument
+  shape and the root-only typecheck.
+- landing: 5 min. Formatting, `check:fast`, `land`.
+
+Bottleneck: getting a drake out of a skull outline by eye — each pass on the knots needed a fresh shot to judge.

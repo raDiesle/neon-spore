@@ -83,6 +83,9 @@ export interface MarkRoom {
 export interface WordRoom {
   readonly own: MarkRoom;
   readonly avoid: readonly MarkRoom[];
+  /** Below the mark before beside it — a shoot mark on the eggs, whose side
+   * is the head (the owner, 1 October 2026: *move it down below the eggs*). */
+  readonly below?: boolean;
 }
 
 /**
@@ -105,7 +108,8 @@ export interface WordRoom {
  * side the partner's ring is on: the lash's sweep carries player 1's blade to
  * 270 thousandths with player 2's 240 across, and the flipped box stood on
  * player 2's ring. Below comes before above because above a mark is the body
- * it is on. When nowhere is clear the box stands where it always did.
+ * it is on. When nowhere is clear the box stands where it always did. A room
+ * marked `below` tries below first: a shoot mark's side is THE INSTAR's head.
  */
 export function drawInstarWord(
   ctx: CanvasRenderingContext2D,
@@ -132,10 +136,12 @@ export function drawInstarWord(
   const { own } = room;
   const mid = at((own.left + own.right) / 2, 0);
   const other = side > 0 ? own.left : own.right;
+  const under = [mid, own.bottom + hh, own.bottom + hh * 2 <= l.height] as const;
   const places: readonly (readonly [number, number, boolean])[] = [
+    ...(room.below === true ? [under] : []),
     [here, y, here === x + side * half],
     [at(other, -side), y, at(other, -side) === other - side * half],
-    [mid, own.bottom + hh, own.bottom + hh * 2 <= l.height],
+    under,
     [mid, own.top - hh, own.top - hh * 2 >= 0],
   ];
   const clear = (cx: number, cy: number): boolean =>

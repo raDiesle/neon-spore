@@ -9,7 +9,8 @@ import { type HeadSpec, organicHead } from "./instar-rig-head-organic.js";
  * face-on head sits on its skin.
  */
 
-/** A long head: a high brow, a nose bridge that falls to a narrow snout, a deep jaw angle and swept horns. */
+/** A long head: a small brow clear of the horn roots, a nose bridge that falls to a narrow snout,
+ * a jaw that ends under it and opens a little, and swept horns. */
 export const DRAKE: HeadSpec = {
   upper: [
     [1.0, -0.42, 0, 0.36],
@@ -20,14 +21,13 @@ export const DRAKE: HeadSpec = {
     [-1.18, -0.12, 0, 0.12],
   ],
   jaw: [
-    [0.42, 0.2, 0, 0.2],
-    [0.05, 0.3, 0, 0.3],
-    [-0.5, 0.23, 0, 0.23],
-    [-1.05, 0.16, 0, 0.16],
-    [-1.5, 0.12, 0, 0.12],
-    [-1.76, 0.1, 0, 0.1],
+    [0.42, 0.18, 0, 0.18],
+    [0.05, 0.24, 0, 0.24],
+    [-0.45, 0.18, 0, 0.17],
+    [-0.85, 0.12, 0, 0.12],
+    [-1.12, 0.08, 0, 0.08],
   ],
-  hinge: { x: 0.7, open: 0.45 },
+  hinge: { x: 0.7, open: 0.2 },
   lobes: [
     {
       on: "upper",
@@ -54,16 +54,16 @@ export const DRAKE: HeadSpec = {
       skin: "hide",
       mirror: true,
       knots: [
-        [0.3, -0.76, 0.26, 0.12],
-        [-0.05, -0.74, 0.3, 0.12],
-        [-0.32, -0.6, 0.22, 0.07],
+        [0.02, -0.66, 0.28, 0.06],
+        [-0.2, -0.62, 0.3, 0.07],
+        [-0.4, -0.5, 0.22, 0.04],
       ],
     },
   ],
   teeth: [
     { on: "upper", at: [-0.78, -0.02, 0.13], len: 0.2, w: 0.05 },
     { on: "upper", at: [-0.45, -0.02, 0.2], len: 0.12, w: 0.04 },
-    { on: "jaw", at: [-1.5, 0, 0.09], len: 0.15, w: 0.04 },
+    { on: "jaw", at: [-0.95, 0, 0.09], len: 0.1, w: 0.035 },
   ],
   nostril: { x: -1.22, y: -0.17, z: 0.07 },
   cheek: [
