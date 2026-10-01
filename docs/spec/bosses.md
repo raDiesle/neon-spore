@@ -10645,6 +10645,21 @@ boom spent and ends the fight. Whether any of it *reads* — whether dragging
 the boom for a partner's draw feels like aiming for them — is the owner's
 eye, on two real phones.
 
+**Its marks answer a touch the way every mark does**
+(`render/davit-verdicts.ts`, `test/davit-verdict.test.ts`). Two marks: the
+boom, round its middle as wide as the steer's reach, and the hook, as wide as
+a loose is taken. On a swing the boom wears the halo on its steerer's screen
+and the hook on its drawer's, each with the partner's ring and clock on the
+other's. On a reland both ask both seats until one thumb holds the boom on
+its target; then the boom asks only that seat and the hook only the other,
+so the seat steering sees its partner's loose waited on. On a fire step with
+the pivot lit the hook asks for the shot, which is either seat's, so it
+haloes on both screens with nobody's clock. A true loose, on a swing or a
+reland, greens both marks and a hit greens the hook; a steer drifted off
+reddens the boom, a draw sprung slack the hook, a swing or a reland run out
+both, and a shot run out the hook. A wrong seat's touch and a wrong colour
+stay silent, as the simulation is.
+
 ## 11.53 THE HALTER — the boss one hand keeps still for the other to open
 
 > A wary seam down the hull's spine that hugs its plating shut at the

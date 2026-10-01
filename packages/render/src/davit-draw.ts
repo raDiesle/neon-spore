@@ -8,6 +8,7 @@ import {
 } from "./davit-marks.js";
 import { davitAngle, davitPivotGlow, davitStood, davitWindowLeft } from "./davit-pose.js";
 import { DAVIT_SAG, davitMast } from "./davit-shape.js";
+import { type DavitVerdicts, drawDavitMarkFeedback } from "./davit-verdicts.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -16,7 +17,8 @@ import type { Layout } from "./layout.js";
  * own thumb, a hook on the end of its slack chain both cannons are asked to
  * hit. Both screens are drawn the same — the other seat has to see which
  * half the lean is steering and how far the lit step's window has run
- * (`view-role-clocks-c.ts`).
+ * (`view-role-clocks-c.ts`). Its marks answer a touch over it
+ * (`davit-verdicts.ts`).
  */
 export function drawDavit(
   ctx: CanvasRenderingContext2D,
@@ -26,6 +28,7 @@ export function drawDavit(
   beat: number,
   beatPhase: number,
   time: number,
+  marks: DavitVerdicts,
 ): void {
   const cfg = world.cfg;
   const mast = davitMast(l, cfg);
@@ -53,5 +56,6 @@ export function drawDavit(
     : null;
   drawDavitHook(ctx, l, angle, sag, davitPivotGlow(s), lit, beatPhase);
 
+  drawDavitMarkFeedback(ctx, l, s, angle, time, marks.verdicts);
   ctx.restore();
 }

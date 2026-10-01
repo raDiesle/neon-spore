@@ -17,7 +17,10 @@ const STEER_DOES =
   "counts only while the boom stands on the lit column, and a steer that " +
   "leaves it costs that draw its count (`davitDrift`); a lift lets the boom " +
   "swing back toward hanging. Asked only while the step wants this seat's " +
-  "steer; anywhere else on the panel is the draw's (sim/davit-hand.ts).";
+  "steer; anywhere else on the panel is the draw's (sim/davit-hand.ts). " +
+  "While it asks, the boom wears the halo on the steerer's screen and the " +
+  "partner's ring and clock on the other's; a true loose greens it, and a " +
+  "drift or a swing run out reddens it (render/davit-verdicts.ts).";
 
 const LOOSE_DOES =
   "A **draw and loose**, THE SLING's: a thumb down anywhere on the field " +
@@ -27,7 +30,11 @@ const LOOSE_DOES =
   "the target the instant it lifts, and the swipe goes toward the target's " +
   "half**; any other lift springs the draw slack, the step still lit. Asked " +
   "only while the step wants this seat's loose, so a fire step's cannon and " +
-  "trigger answer underneath it (sim/davit-hand.ts).";
+  "trigger answer underneath it (sim/davit-hand.ts). While it asks, the " +
+  "hook wears the halo on the drawer's screen and the partner's ring and " +
+  "clock on the other's, and on both screens once the pivot is lit; a loose " +
+  "or a hit greens it, and a slack, a sway or a miss reddens it " +
+  "(render/davit-verdicts.ts).";
 
 const SOURCE =
   "handles.ts — davitLooseUnder() under handleUnder(); the swipe's side carried on the lift by touch.ts' swiped set";

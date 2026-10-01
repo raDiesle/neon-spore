@@ -11,6 +11,7 @@ import {
 } from "@neon-spore/sim";
 import { drawDavit } from "../src/davit-draw.js";
 import { davitStood } from "../src/davit-pose.js";
+import { DavitVerdicts } from "../src/davit-verdicts.js";
 import { computeLayout } from "../src/layout.js";
 import { drawMantle } from "../src/mantle-draw.js";
 import { MantleFx } from "../src/mantle-fx.js";
@@ -60,7 +61,7 @@ describe("a boss arriving", () => {
     const s = boom(world, "still");
     const fade = davitStood(s, world.beat, 0.5, CFG.davitStillBeats);
     expect(fade).toBeLessThan(0.5);
-    const { at } = marks((c) => drawDavit(c, l, world, s, world.beat, 0.5, 0));
+    const { at } = marks((c) => drawDavit(c, l, world, s, world.beat, 0.5, 0, new DavitVerdicts()));
     expect(at.length).toBeGreaterThan(5);
     expect(Math.max(...at)).toBeLessThanOrEqual(fade + EPS);
   });
@@ -71,7 +72,7 @@ describe("a boss arriving", () => {
       const world = davitWorld();
       const s = boom(world, phase);
       expect(davitStood(s, world.beat, 0, CFG.davitStillBeats)).toBe(1);
-      const { at } = marks((c) => drawDavit(c, l, world, s, world.beat, 0, 0));
+      const { at } = marks((c) => drawDavit(c, l, world, s, world.beat, 0, 0, new DavitVerdicts()));
       expect(Math.max(...at)).toBe(1);
     },
   );

@@ -1,6 +1,7 @@
 import { BurgeeFx } from "./burgee-fx.js";
 import { CapstanFx } from "./capstan-fx.js";
 import { CystFx } from "./cyst-fx.js";
+import { DavitVerdicts } from "./davit-verdicts.js";
 import { RoundMarks } from "./effects-round-marks.js";
 import { FlueFx } from "./flue-fx.js";
 import { GallFx } from "./gall-fx.js";
@@ -26,6 +27,9 @@ import { TrivetFx } from "./trivet-fx.js";
 export class LateRoster extends RoundMarks {
   /** THE SLING's painted draw over a cord loosed true (`sling-fx.ts`). */
   readonly sling = new SlingFx();
+  /** THE DAVIT's marks' verdicts on a touch — it throws nothing else that
+   * outlives a frame yet, so it has no fx of its own (`davit-verdicts.ts`). */
+  readonly davit = new DavitVerdicts();
   /** THE TRIVET's thud, the clamps' flare, the hub's flash and the collapse's,
    * the hull shock, and its receipts' bursts — thrown the same on both
    * screens, and told the hub's colour by the drawer (`trivet-fx.ts`,

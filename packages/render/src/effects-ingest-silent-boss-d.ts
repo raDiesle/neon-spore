@@ -114,8 +114,8 @@ export const INGEST_SILENT_BOSS_D = [
   "cystPop",
   "cystSplit",
   "cystOut",
-  // THE DAVIT's thirteen: nothing of it outlives a frame yet
-  // (`packages/audio/src/bind-davit.ts`).
+  // THE DAVIT's thirteen: what outlives a frame is its marks' verdicts,
+  // `davit-verdicts.ts`', read above the loop (`packages/audio/src/bind-davit.ts`).
   "davitEnter",
   "davitLight",
   "davitDrift",

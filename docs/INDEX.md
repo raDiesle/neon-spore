@@ -2194,6 +2194,7 @@ by hand never moves.
 | `packages/render/src/davit-marks.ts` | The mast's own socket: a dark steel foot the boom always stands out of |
 | `packages/render/src/davit-pose.ts` | THE DAVIT's timing: how far the boom has stood up out of stowed, how far a lit step's window has run |
 | `packages/render/src/davit-shape.ts` | **THE DAVIT's geometry**: a boom stowed pointing straight up off a mast over the middle column |
+| `packages/render/src/davit-verdicts.ts` | **THE DAVIT's marks answering a touch the way every mark does** (`mark-feedback.ts`) |
 | `packages/render/src/magnet-coil.ts` | WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips |
 | `packages/render/src/magnet-lanes.ts` | Where an intake lane starts and ends, in body radii from the centre |
 | `packages/render/src/magnet-look.ts` | THE ONE RECORD A CANDIDATE MAGNET LOOK PATCHES |

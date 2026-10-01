@@ -78,6 +78,7 @@ export class BossTransients extends BossRoster {
     this.trivet.ingest(events, l, cfg, beatSeconds, burst);
     this.plumb.ingest(events, l, cfg, burst);
     this.cyst.ingest(events, l, cfg, beatSeconds, burst);
+    this.davit.ingest(events);
     this.capstan.ingest(events, l, cfg, beatSeconds, burst);
     this.gall.ingest(events, l, cfg, beatSeconds, burst);
     this.burgee.ingest(events, l, cfg, beatSeconds, burst);
@@ -130,6 +131,7 @@ export class BossTransients extends BossRoster {
     this.trivet.update(dt);
     this.plumb.update(dt);
     this.cyst.update(dt);
+    this.davit.update(dt);
     this.capstan.update(dt);
     this.gall.update(dt);
     this.burgee.update(dt);
@@ -200,6 +202,7 @@ export class BossTransients extends BossRoster {
     this.trivet.clear();
     this.plumb.clear();
     this.cyst.clear();
+    this.davit.clear();
     this.capstan.clear();
     this.gall.clear();
     this.burgee.clear();

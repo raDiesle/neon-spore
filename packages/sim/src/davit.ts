@@ -158,6 +158,33 @@ export function davitSteering(s: DavitState): 0 | 1 | null {
   return null;
 }
 
+/**
+ * Whether the boom is asking this seat to steer it this instant: the lit step
+ * lets it steer, and on a reland nobody else's thumb already holds it on the
+ * target. What the boom's halo reads (`render/davit-verdicts.ts`).
+ */
+export function davitSteerAsks(s: DavitState, side: 0 | 1): boolean {
+  if (!davitSteers(s, side)) return false;
+  const steering = davitSteering(s);
+  return steering === null || steering === side;
+}
+
+/**
+ * Whether the hook is asking this seat for its loose this instant: the lit
+ * step asks it to draw, and on a reland its own thumb is not the one holding
+ * the boom — so the seat steering sees its partner's loose waited on.
+ */
+export function davitLooseAsks(s: DavitState, side: 0 | 1): boolean {
+  if (!davitDraws(s, side)) return false;
+  const steering = davitSteering(s);
+  return steering === null || steering !== side;
+}
+
+/** Whether the hook is asking for a shot this instant: a fire step lit, with the pivot lit. */
+export function davitPivotAsks(s: DavitState): boolean {
+  return s.pivotLit && davitLitStep(s)?.ask === "fire";
+}
+
 /** The boom swung hard over: the fight is over and it is only hanging there. */
 export function davitDone(s: DavitState): boolean {
   return s.phase === "spent";

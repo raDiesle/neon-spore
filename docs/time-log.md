@@ -30871,3 +30871,16 @@ Bottleneck: the context cut; placing the jaw marks meant reading the caliper's t
 Bottleneck: the restart and the cut; the flanks are each tapped by one seat and pinched by the other, so a side's two marks had to answer to different seats.
 
 *Measured: 66 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE DAVIT's marks answer a touch
+
+- reading: 5 min. The boom's steps, hand and events, and THE CYST's
+  verdicts to copy.
+- writing: 15 min. Three asking predicates in the simulation, the verdict
+  file, its wiring into the boom's frame and its test, the spec and the
+  director's lines.
+- looking: 0 min. The frame tests count the halo, the clock and the red.
+- friction: 5 min. A context cut mid-lane.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: the reland, where either seat may steer, so who the boom and the hook ask turns on whose thumb already holds it.

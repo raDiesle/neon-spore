@@ -38,9 +38,10 @@ import { bossOf } from "./touch-field.js";
  * resting picture, never for the hit test.
  */
 
-const GRIP_R_MUL = 1.6;
+/** The loose's reach round the hook, in hook radii. The marks are this wide too (`davit-verdicts.ts`). */
+export const GRIP_R_MUL = 1.6;
 /** The steer's reach round the boom's middle, in tiles: the boom and the mast. */
-const STEER_R = 1.1;
+export const STEER_R = 1.1;
 
 function seatSide(field: Field): 0 | 1 | null {
   return field.seat === 1 ? 0 : field.seat === 2 ? 1 : null;

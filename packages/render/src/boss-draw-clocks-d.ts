@@ -109,7 +109,7 @@ export function drawLatePairBoss(
   // lean is steering and how far the lit step's window has run
   // (`davit-draw.ts`).
   if (boss.kind === "davit") {
-    drawDavit(ctx, l, world, boss, beat, beatPhase, time);
+    drawDavit(ctx, l, world, boss, beat, beatPhase, time, effects.boss.davit);
     return;
   }
 
