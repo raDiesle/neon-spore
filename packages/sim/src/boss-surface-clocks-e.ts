@@ -2,7 +2,8 @@
  * **The clock bosses' half of the surface, the fifth page** — THE BURGEE's
  * flag, whatever comes after it, and THE WELL's face, the fourth page's last
  * row, moved across on 1 October 2026 when THE HALTER's asking predicates
- * took that page past the limit.
+ * took that page past the limit, and THE CAPSTAN's drum, the same day, when
+ * its own asking predicates took the fourth page within ten lines of it.
  *
  * Cut on 27 September 2026, when THE BURGEE's block would have taken
  * `boss-surface-clocks-d.ts` to the 250-line limit. Unlike the cuts before
@@ -42,10 +43,36 @@ export {
   burgeeSwipe,
   freshBurgee,
 } from "./burgee.js";
+// THE CAPSTAN's drum: the phase, the lit step, both bands' wear, which seat
+// steers and which rubs, and the face the cradle bares, for the picture, the
+// cue and the director's hand. Straight off `capstan.ts` (§37).
+export {
+  CAPSTAN_ASKS,
+  CAPSTAN_PHASES,
+  CAPSTAN_UNREAD,
+  type CapstanAsk,
+  type CapstanEntry,
+  type CapstanPhase,
+  type CapstanState,
+  type CapstanStep,
+  capstanBand,
+  capstanBoss,
+  capstanBright,
+  capstanCoreAsks,
+  capstanDone,
+  capstanFace,
+  capstanLitStep,
+  capstanPullFace,
+  capstanRubAsks,
+  capstanSeatIndex,
+  capstanSteerAsks,
+  capstanSteerer,
+  capstanWearer,
+  freshCapstan,
+} from "./capstan.js";
 // Whether THE CURTAIN's hem asks the pilot for his thumb
 // (`render/curtain-marks.ts`), for the reason THE UNDERTOW's asks are below.
 export { curtainHemAsks } from "./curtain-hand.js";
-
 // THE FLUE's ember: the phase, the lit step, the drift and the steadying,
 // whose rest is counted and whose tap is heard, the taps, the vents and the
 // core, for the picture, the cue and the director's hand. Straight off
@@ -73,7 +100,6 @@ export {
   flueTapper,
   freshFlue,
 } from "./flue.js";
-
 // THE GOVERNOR's needle: the phase, the lit step, the needle and its speed,
 // whose chord brakes it and whose tap is heard, the runs and the hub, for the
 // picture, the cue and the director's hand. Straight off `governor.ts` (§43).

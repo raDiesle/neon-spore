@@ -154,6 +154,32 @@ export function capstanFace(world: Pick<World, "cfg">, s: CapstanState): 0 | 1 |
   return capstanPullFace(s.pullMilli[capstanSeatIndex(steer)], world.cfg.capstanPullMilli);
 }
 
+/**
+ * Whether the cradle asks a seat's steer, nought for the pilot: the lit
+ * band's own seat on a left or a right; on a hold, both seats until one pulls
+ * past the mark, and then only that one.
+ */
+export function capstanSteerAsks(world: Pick<World, "cfg">, s: CapstanState, side: 0 | 1): boolean {
+  const ask = capstanLitStep(s)?.ask;
+  if (ask !== "left" && ask !== "right" && ask !== "hold") return false;
+  const steer = capstanSteerer(world, s);
+  if (steer === null) return ask === "hold";
+  return capstanSeatIndex(steer) === side;
+}
+
+/** Whether the bared face asks a seat's rub: the seat not steering, once one steers. */
+export function capstanRubAsks(world: Pick<World, "cfg">, s: CapstanState, side: 0 | 1): boolean {
+  const ask = capstanLitStep(s)?.ask;
+  if (ask !== "left" && ask !== "right" && ask !== "hold") return false;
+  const wear = capstanWearer(world, s);
+  return wear !== null && capstanSeatIndex(wear) === side;
+}
+
+/** Whether the core asks for a shot: a fire step lit with the core bared. */
+export function capstanCoreAsks(s: CapstanState): boolean {
+  return s.bared && capstanLitStep(s)?.ask === "fire";
+}
+
 /** Whether a band is worn bright for good. */
 export function capstanBright(world: World, s: CapstanState, side: 0 | 1): boolean {
   return s.wear[side] >= world.cfg.capstanWearThreshold;

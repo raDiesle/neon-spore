@@ -1656,6 +1656,7 @@ by hand never moves.
 | `packages/render/src/capstan-blow.ts` | **THE CAPSTAN's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/capstan-fx.ts` | What THE CAPSTAN leaves behind a frame (§11.54): the **scrub** of a reversal worn into a band |
 | `packages/render/src/capstan-grip.ts` | **The bands on THE CAPSTAN** — the hands lane that makes the drum answer a thumb at all (§11.54 |
+| `packages/render/src/capstan-verdicts.ts` | **THE CAPSTAN's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
 | `packages/render/src/guide-boss-hand.ts` | The ghost hand on a clock boss's own handle, on either seat |
 | `packages/render/src/guide-film.ts` | Where a rehearsal's film stands on its stage — phone-shaped and centred, less the nav bar — and the hands drawn on it |

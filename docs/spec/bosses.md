@@ -11034,6 +11034,22 @@ the cap and ends the fight; and two devices part over a single reversal.
 Whether any of it *reads* — whether steering for a partner's thumb feels
 like working together — is the owner's eye, on two real phones.
 
+**Its marks answer a touch the way every mark does**
+(`render/capstan-verdicts.ts`, `test/capstan-verdict.test.ts`). Three
+marks: the middle, where the pull is taken; the end the bared face is
+rubbed at; and the core, as wide as it is drawn. The middle asks the lit
+band's own seat on a left or a right, and the end the other seat — each the
+halo on its own seat's screen and the partner's ring and clock on the
+other's, so both screens wait on something. On a hold either seat may
+steer, so the middle asks both until one pulls past the mark, and then only
+that one, and the end the other. On a fire step with the core bared the core
+asks for the shot, which is either seat's, so it haloes on both screens with
+nobody's clock. A band worn bright or a hold kept greens the middle and the
+end, and a hit greens the core; a band run out or a hold the cover came down
+on reddens both, and a shot run out the core. A reversal worn in and a drift
+say nothing, and a wrong seat's touch and a wrong colour stay silent, as the
+simulation is.
+
 ## 11.55 THE GALL — the boss that moves the moment it is closed
 
 > A soft nodule on a raised seam across the hull. The seat nearer it

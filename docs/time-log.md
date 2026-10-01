@@ -30901,3 +30901,17 @@ Bottleneck: the reland, where either seat may steer, so who the boom and the hoo
 Bottleneck: the rest — on a step only one seat grips, so the clock belongs on the resting screen alone, and the first test wrongly wanted it on both.
 
 *Measured: 104 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE CAPSTAN's marks answer a touch
+
+- reading: 5 min. The drum's steps, hand and events, and THE HALTER's
+  verdicts to copy.
+- writing: 15 min. Three asking predicates in the simulation, the verdict
+  file, its wiring into the drum's frame and its test, the spec and the
+  director's lines.
+- looking: 0 min. The frame tests count the halo, the clock and the red.
+- friction: 10 min. The surface's fourth page past the size hook, its
+  CAPSTAN rows moved to the fifth, and a context cut mid-lane.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: the surface page — the three new names took `boss-surface-clocks-d.ts` to 241 lines, so THE CAPSTAN's whole block moved to the fifth page first.

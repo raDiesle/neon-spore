@@ -1,9 +1,10 @@
 /**
  * **The clock bosses' half of the surface, the fourth page** — THE GRINDSTONE's
- * wheel, THE CYST's sac, THE DAVIT's boom, THE HALTER's seam, THE CAPSTAN's
- * drum, THE GALL's seam, THE VISE's seed-case and THE TRIVET's stand. THE
+ * wheel, THE CYST's sac, THE DAVIT's boom, THE HALTER's seam, THE GALL's
+ * seam, THE VISE's seed-case and THE TRIVET's stand. THE
  * WELL's face went to the fifth page, its last row, when THE HALTER's asking
- * predicates took this one to 252 lines.
+ * predicates took this one to 252 lines, and THE CAPSTAN's drum after it,
+ * when THE CAPSTAN's took it to 241.
  *
  * Cut when THE VALVE's window lengths took `boss-surface-clocks-c.ts` to 253
  * lines against a 250-line limit, along the seam the third page was cut on:
@@ -17,30 +18,6 @@
 
 // THE BURGEE and after, on the fifth page (`boss-surface-clocks-e.ts`).
 export * from "./boss-surface-clocks-e.js";
-// THE CAPSTAN's drum: the phase, the lit step, both bands' wear, which seat
-// steers and which rubs, and the face the cradle bares, for the picture, the
-// cue and the director's hand. Straight off `capstan.ts` (§37).
-export {
-  CAPSTAN_ASKS,
-  CAPSTAN_PHASES,
-  CAPSTAN_UNREAD,
-  type CapstanAsk,
-  type CapstanEntry,
-  type CapstanPhase,
-  type CapstanState,
-  type CapstanStep,
-  capstanBand,
-  capstanBoss,
-  capstanBright,
-  capstanDone,
-  capstanFace,
-  capstanLitStep,
-  capstanPullFace,
-  capstanSeatIndex,
-  capstanSteerer,
-  capstanWearer,
-  freshCapstan,
-} from "./capstan.js";
 // THE CYST's sac: the phase, the lit step, the flanks, their gaps and taps,
 // and whose hand is on which, for the picture, the cue and the director's
 // hand. Straight off `cyst.ts` (`docs/spec/bosses-choreographed.md` §34).

@@ -1,6 +1,7 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import { capstanCentre, capstanFaceAt, capstanHornAt, capstanSize } from "./capstan-shape.js";
+import { CapstanVerdicts } from "./capstan-verdicts.js";
 import type { Burst } from "./effects-boss.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -41,6 +42,8 @@ export class CapstanFx {
   private coreHex: string = PALETTE.hullRim;
   /** The blow a band worn bright, a hold made and a core hit deal the drum. */
   readonly hurt = new BossHurt();
+  /** Whether the last touch on each of the drum's marks was right (`capstan-verdicts.ts`). */
+  readonly verdicts = new CapstanVerdicts();
 
   /** How far the whole drum is knocked down right now, in tiles. */
   get thud(): number {
@@ -79,6 +82,7 @@ export class CapstanFx {
     _beatSeconds: number,
     burst: Burst,
   ): void {
+    this.verdicts.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("capstan")) continue;
       const mid = capstanCentre(l, cfg);
@@ -143,6 +147,7 @@ export class CapstanFx {
     if (this.flashNow === 0) this.flashHits = 0;
     this.openNow = Math.max(0, this.openNow - FLASH_DECAY * step);
     this.hurt.update(dt);
+    this.verdicts.update(dt);
   }
 
   clear(): void {
@@ -156,5 +161,6 @@ export class CapstanFx {
     this.openNow = 0;
     this.coreHex = PALETTE.hullRim;
     this.hurt.clear();
+    this.verdicts.clear();
   }
 }

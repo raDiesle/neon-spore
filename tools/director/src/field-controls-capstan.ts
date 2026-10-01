@@ -15,7 +15,10 @@ const STEER_DOES =
   "left or right. Each drag says how far across it has come since it went " +
   "down, and a carry past capstanPullMilli rocks the cradle to bare that " +
   "side's face for as long as it is held. A lift lets the cradle drift back " +
-  "level, which pauses the rub and never resets it (sim/capstan-hand.ts).";
+  "level, which pauses the rub and never resets it (sim/capstan-hand.ts). While it " +
+  "asks, the middle wears the halo on the steerer's screen and the partner's " +
+  "ring and clock on the other's; a band worn bright or a hold kept greens " +
+  "it, and a band or a hold run out reddens it (render/capstan-verdicts.ts).";
 
 const RUB_DOES =
   "A **rub**: a thumb within a face's height of either end of the drum, held " +
@@ -24,7 +27,10 @@ const RUB_DOES =
   "other seat's pull has bared** — from the seat not steering, and nothing " +
   "while the drum sits level. A band worn to its mark cracks bright; on a " +
   "hold, a beat with a reversal on a bared face counts one. A lift sets the " +
-  "count back to nought (sim/capstan-hand.ts, packages/render/src/rub.ts).";
+  "count back to nought (sim/capstan-hand.ts, packages/render/src/rub.ts). " +
+  "While it asks, the end wears the halo on the wearer's screen and the " +
+  "partner's ring and clock on the steerer's, greened and reddened with the " +
+  "middle (render/capstan-verdicts.ts).";
 
 export const CAPSTAN_CONTROLS: readonly FieldControlDef[] = [
   {

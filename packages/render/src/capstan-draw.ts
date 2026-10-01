@@ -34,6 +34,7 @@ import {
   capstanSize,
   capstanSqueeze,
 } from "./capstan-shape.js";
+import { drawCapstanMarkFeedback } from "./capstan-verdicts.js";
 import { coreHurt } from "./core-hurt.js";
 import { seatIsMine } from "./handle-word.js";
 import { rgba } from "./hex.js";
@@ -86,8 +87,9 @@ export function drawCapstan(
   const step = capstanLitStep(s);
   if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
 
+  const fade = (0.2 + 0.8 * arrived) * (1 - gone);
   ctx.save();
-  ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - gone);
+  ctx.globalAlpha = fade;
   // Spent, the drum lifts off its cradle as it goes.
   ctx.translate(at.x + fx.hurt.shakeX(time, l.tile), at.y + pivot - gone * l.tile);
   ctx.rotate(capstanRoll(turn));
@@ -127,6 +129,7 @@ export function drawCapstan(
   );
   drawCapstanFlash(ctx, l, fx.flash, fx.open);
   ctx.restore();
+  drawCapstanMarkFeedback(ctx, l, cfg, s, beat, beatPhase, time, fade, fx.verdicts.verdicts);
 }
 
 /** Whether end `side` is turned away behind the drum. */
