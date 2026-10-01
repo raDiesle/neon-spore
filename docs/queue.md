@@ -395,6 +395,7 @@ leave behind, same as the four already listed, and it is a look:
 ## §41 THE WINCH — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-10-01, claude/queue-work-1cce21 (claim: claude/queue-41-the-winch-the-simulation-lane)
 - **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt-b.ts`
 - **Asks:** THE DAVIT already ships this question — its draw "counts its beats only while the other seat's lean holds … and lands only if it lifts while the lean still holds" (`docs/spec/bosses.md` §11.52) — so THE WINCH plays as THE DAVIT with THE TRIVET's chord where the lean is. Build it anyway as designed (two lanes, sim then look); cut §41 as a duplicate and drop both WINCH entries; or redesign it first so a lifted brake also unwinds a draw already banked, which DAVIT's lean never does?
 - **Answered:** 2026-09-27 — redesign, over building as designed or cutting. The owner's rule: a mechanic that is most of a boss must not repeat one that ships, but a boss that uses it as one state among others may. Here the gated draw is rows 2–9 of ten, so it is the whole boss, and that boss is THE DAVIT. Redesign it so a lifted brake also unwinds a draw already banked, and add states before or after it so the boss keeps the pair busy for 30 seconds or more — the owner's floor for any boss.
