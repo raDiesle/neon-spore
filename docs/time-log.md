@@ -31019,3 +31019,5 @@ Bottleneck: finding that the rock arrives in its draw and not its update, which 
 - landing: 5 min. `check:fast` and `land`.
 
 Bottleneck: her arm is under a tile long, so a tile of elbow at the row's 6 s turns it twice as fast as the spec allows, and slowing it was the only answer that kept both the owner's size and the ceiling.
+
+*Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · d67ddd349 — THE BULB QUEEN's arms swing a tile, slower than their row
+
+Her parts ship moving now. Her elbows swing more than a tile at the widest, as the owner asked for on 27 September, and take 2.25 times the arm row's period to do it (`QUEEN_ARM`), so an arm under a tile long still turns under the spec's 20° a second of its own and 30° as drawn. The arm that straightens to let a bulb go is still at its pose on every drop of her wave.
+
 ## 2026-10-01 · ec3d1b9fe — A whole-picture round's timeout hit is drawn
 
 When THE PULSE, THE SCOUT, THE SNAKE, THE GAUGE or THE PINBALL ran out of time, the hull's scar and crack popped in with no rock falling: the round's frame returns before the field ingests the breach, and the field never gets to draw it later, because the round holds its picture until the wave change wipes the effects. The round now draws that hit itself (`round-hit.ts`), on the hull it already draws, using the field's own pieces: the rock falls, sparks fly off the crater, and the crack waits for the rock.
