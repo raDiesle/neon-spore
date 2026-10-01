@@ -31267,3 +31267,5 @@ Bottleneck: getting a drake out of a skull outline by eye — each pass on the k
 - landing: 10 min. `check:fast`, `land`.
 
 Bottleneck: slicing by line numbers lost one comment opener, and only the parse error showed it.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
