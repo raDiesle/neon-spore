@@ -31537,3 +31537,5 @@ Bottleneck: the turn moved veins drawn at an eighth of full strength, so nothing
 - landing: 5 min. The profile's reach margins remeasured and moved, `check:fast`, `land`.
 
 Bottleneck: the head radius is the whole body's unit and the face-on marks are pinned to it, so "bigger head" had to be a grown copy of the look handed to the side-on head drawers alone, and then the reach margins remeasured.
+
+*Measured: 7 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

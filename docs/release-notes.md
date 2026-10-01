@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 6691b05c9 — THE INSTAR's head is bigger side-on; the four VERSUS heads are dropped
+
+The owner kept the current head over the drake, hound, rig and viper candidates and asked for it bigger, so side-on and turned it is drawn 1.3 times the body's head radius (`SIDE_GROW`), grown by as far as the turn has reached so it meets the face-on head through the cross-fade. The body, wings and tail keep their size; the face-on head keeps its, its eye marks being pinned to it. Exemption: a look the owner asked for by name.
+
 ## 2026-10-01 · 0fb2e9304 — THE REPRISE's skin candidate shows its veins turning
 
 VERSUS reprise:skin · TURN showed no difference, because the veins it carries round the sac were drawn at an eighth of full strength. The veins' opacity and width are now fields of REPRISE_SURFACE, still at their shipped values, so the game draws exactly what it did. The candidate draws the veins three times as bright and nearly twice as wide, and turns them 65° rather than 40°.
