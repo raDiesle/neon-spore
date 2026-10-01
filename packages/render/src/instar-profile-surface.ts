@@ -10,9 +10,11 @@ import {
   seeTube,
   tubeFrames,
   turn,
+  type View,
   view,
 } from "@neon-spore/content";
 import { rgba } from "./hex.js";
+import { INSTAR_BODY } from "./instar-body-look.js";
 import type { Point } from "./instar-place.js";
 import { drawLamp, faded } from "./instar-plate.js";
 import { PALETTE } from "./palette.js";
@@ -35,7 +37,7 @@ import { speck } from "./solid-tube-screen.js";
  * together there on the screen.
  */
 
-const W = view(SIDE);
+const SIDE_VIEW = view(SIDE);
 const SHADOW = "#0B1024";
 
 /** THE INSTAR's body as the rig sees it. */
@@ -48,6 +50,8 @@ export interface Body {
   /** Whether the frames' own `0` is the back, or the belly: it starts from "up",
    * and a spine that leaves the neck running backward has its back underneath. */
   readonly upright: boolean;
+  /** The view it is seen through: side-on on the field, any yaw on the rig's sheet. */
+  readonly w: View;
 }
 
 /** A point on the surface: where on the screen, how squarely it faces the player, how lit. */
@@ -59,7 +63,7 @@ export interface Placed {
 }
 
 /** The body whose outline runs along `top` and `bottom`, one ring per pair. */
-export function bodyOf(top: readonly Point[], bottom: readonly Point[]): Body {
+export function bodyOf(top: readonly Point[], bottom: readonly Point[], W = SIDE_VIEW): Body {
   const rings = top.map((t, i) => {
     const b = bottom[i] as Point;
     const c = { x: (t.x + b.x) / 2, y: (t.y + b.y) / 2, z: 0 };
@@ -71,16 +75,16 @@ export function bodyOf(top: readonly Point[], bottom: readonly Point[]): Body {
   const t0 = top[0] as Point;
   const c0 = (rings[0] as Ring).c;
   const upright = f0.n.x * (t0.x - c0.x) + f0.n.y * (t0.y - c0.y) >= 0;
-  return { rings, frames, seen: seeTube(rings, frames, W), side, upright };
+  return { rings, frames, seen: seeTube(rings, frames, W), side, upright, w: W };
 }
 
 /** Where angle `a` from the back round ring `i` lands, `lift` radii out from the surface. */
 export function place(body: Body, i: number, a: number, lift = 0): Placed {
   const ang = body.upright ? a * body.side : Math.PI - a * body.side;
   const frame = body.frames[i] as Frame;
-  const p = see(onRing(body.rings[i] as Ring, frame, ang, lift), W);
+  const p = see(onRing(body.rings[i] as Ring, frame, ang, lift), body.w);
   const n = ringNormal(frame, ang);
-  return { x: p.x, y: p.y, near: turn(n, W).z, lit: litIn(n, W) };
+  return { x: p.x, y: p.y, near: turn(n, body.w).z, lit: litIn(n, body.w) };
 }
 
 /** The screen direction the body runs at ring `i`, neck toward rear. */
@@ -186,7 +190,7 @@ export function drawRidge(
     const u = i / n;
     const base = place(body, i, a);
     if (!far && base.near < 0) continue;
-    const tip = place(body, i, a, 0.85 * (1 - 0.45 * u));
+    const tip = place(body, i, a, 0.85 * (1 - 0.45 * u) * INSTAR_BODY.ridge(u));
     const t = along(body, i);
     const w = r * (0.08 - 0.03 * u);
     const tx = tip.x + t.x * w * 1.2;

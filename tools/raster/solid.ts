@@ -10,7 +10,9 @@
  * canvas, the one the game draws on. `--zdog` draws the Zdog comparison
  * instead (`src/zdog-page.ts`); `--instar` draws THE INSTAR's rig head at
  * five yaws, jaw shut and open, beside the shipped face-on head
- * (`src/solid-instar-page.ts`).
+ * (`src/solid-instar-page.ts`); `--instar-body` draws its perched body at the
+ * same five yaws, shipped above VERSUS's body with weight
+ * (`src/solid-instar-body-page.ts`).
  */
 
 import { resolve } from "node:path";
@@ -19,7 +21,8 @@ import { closeBrowser, launchBrowser } from "@neon-spore/frames/capture.js";
 const args = process.argv.slice(2);
 const zdog = args.includes("--zdog");
 const instar = args.includes("--instar");
-const sheet = zdog ? "zdog" : instar ? "solid-instar" : "solid";
+const body = args.includes("--instar-body");
+const sheet = zdog ? "zdog" : body ? "solid-instar-body" : instar ? "solid-instar" : "solid";
 const named = args.find((a) => !a.startsWith("--"));
 const out = resolve(named ?? `.claude/tmp/${sheet}-sheet.png`);
 

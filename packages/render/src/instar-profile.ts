@@ -2,8 +2,8 @@ import { SIDE, view } from "@neon-spore/content";
 import { drawHurt } from "./boss-hurt.js";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
+import { INSTAR_BODY } from "./instar-body-look.js";
 import { drawNests } from "./instar-eggs.js";
-import { INSTAR_HEAD } from "./instar-head-look.js";
 import { drawMoult } from "./instar-moult.js";
 import { instarAt, instarFarEnd, type Point } from "./instar-place.js";
 import { drawSeam, faded, type Look } from "./instar-plate.js";
@@ -70,19 +70,19 @@ export const RING_LOOK: { paint: (ctx: CanvasRenderingContext2D, ring: BodyRing)
     drawSeam(ctx, a, { x: (a.x + b.x) / 2 + r * 0.12, y: (a.y + b.y) / 2 }, b, fade, 0.35),
 };
 
-export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
-  const { f, head, r, fade, hurt, time } = look;
+/** The body's lines for one frame: the spine through the nests, and the hide's two edges. */
+export function profileLines(l: Layout, look: Look) {
+  const { f, head, r, time } = look;
   const nest = instarAt(l, f.nestX, f.nestY);
   const eggs = instarAt(l, f.eggsX, f.eggsY);
   // The nearer nest to the head first, whichever it is, so the back does not
   // double on itself when the brood's nests change sides.
   const [near, far] = nest.x <= eggs.x ? [nest, eggs] : [eggs, nest];
-  const knots = [
-    { x: head.x + r * 0.7, y: head.y + r * 0.15 },
-    { x: near.x, y: near.y + r * 0.42 },
-    { x: far.x, y: far.y + r * 0.42 },
-    instarFarEnd(l, f),
-  ];
+  // A Catmull-Rom knot k of four sits at u = k / 3, so that is where the nests are seated.
+  const neck = { x: head.x + r * 0.7, y: head.y + r * 0.15 };
+  const end = instarFarEnd(l, f);
+  const seats = [seated(near, neck, far, r, 1 / 3), seated(far, near, end, r, 2 / 3)] as const;
+  const knots = [neck, ...seats, end];
   const spine = Array.from({ length: N + 1 }, (_, i) => along(knots, i / N));
   undulate(spine, r, time);
   const rear = spine[N] as Point;
@@ -95,13 +95,28 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
     const len = Math.hypot(q.x - o.x, q.y - o.y) || 1;
     const nx = (q.y - o.y) / len;
     const ny = -(q.x - o.x) / len;
-    const w = r * (0.34 + 0.2 * Math.sin(Math.PI * Math.min(1, u * 1.3))) * (1 - 0.5 * u);
+    const w = r * INSTAR_BODY.girth(u);
     // The lung fills the belly more than the back.
     const lung = breathAt(u, time);
     const up = w * (1 + (lung - 1) * 0.3);
     top.push({ x: p.x + nx * up, y: p.y + ny * up });
     bottom.push({ x: p.x - nx * w * lung * 0.9, y: p.y - ny * w * lung * 0.9 });
   });
+  return { spine, top, bottom, near, far, rear, seats };
+}
+
+/** Where the spine runs under the nest at `p`, seated `INSTAR_BODY.seat(u)` off the back:
+ * straight down the screen, or across the spine running `from` → `to` (`INSTAR_BODY.across`). */
+function seated(p: Point, from: Point, to: Point, r: number, u: number): Point {
+  const s = r * INSTAR_BODY.seat(u);
+  if (!INSTAR_BODY.across) return { x: p.x, y: p.y + s };
+  const len = Math.hypot(to.x - from.x, to.y - from.y) || 1;
+  return { x: p.x - ((to.y - from.y) / len) * s, y: p.y + ((to.x - from.x) / len) * s };
+}
+
+export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
+  const { head, r, fade, hurt, time } = look;
+  const { spine, top, bottom, rear, seats } = profileLines(l, look);
   const back = (u: number): Point => top[Math.round(u * N)] ?? rear;
   const W = view(SIDE);
   const farRoot = { x: back(0.38).x - r * 0.25, y: back(0.38).y - r * 0.1 };
@@ -121,6 +136,7 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
   const hide = drawTube(ctx, body.seen, SKIN, fade);
   strokeGlow(ctx, hide, faded(PALETTE.hull, fade), STROKE.inner, 0.5 * fade);
   drawHurt(ctx, hide, hurt * fade);
+  INSTAR_BODY.belly(ctx, body, hide, roll, fade);
   drawScales(ctx, body, hide, r * 0.13, roll, fade);
   const coarse = <T>(a: readonly T[]): T[] => a.filter((_, i) => i % EVERY === 0);
   drawScutes(ctx, coarse(bottom), coarse(spine), r, fade);
@@ -135,7 +151,7 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
   drawLamps(ctx, body, r, roll, time, fade, EVERY * 2);
   drawRidge(ctx, body, r, roll, fade, false, EVERY);
   // Where the nests, the near wing and the head bear on the body.
-  for (const p of [near, far]) drawContact(ctx, hide, p.x, p.y + r * 0.42, r * 0.5, fade);
+  for (const p of seats) drawContact(ctx, hide, p.x, p.y, r * 0.5, fade);
   const root = back(0.42);
   drawContact(ctx, hide, root.x, root.y, r * 0.3, 0.8 * fade);
   drawContact(ctx, hide, (spine[0] as Point).x, (spine[0] as Point).y, r * 0.45, fade);
@@ -144,7 +160,7 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
   drawTail(ctx, l, look, rear);
   drawWing(ctx, look, back(0.42), W, { x: 0, y: 0, z: r * 0.3 }, 1);
   drawNests(ctx, l, look);
-  INSTAR_HEAD.side(ctx, { ...look, head: headBob(head, r, time) });
+  INSTAR_BODY.head(ctx, { ...look, head: headBob(head, r, time) });
 }
 
 /** A point `u` of the way along a Catmull-Rom spline through `k`. */

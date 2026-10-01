@@ -31064,3 +31064,16 @@ Bottleneck: the director's save assumed one arena file per boss, and teaching it
 Bottleneck: the caption's anchor fell through to the lid lookup for the two new handles, which only a frame showed.
 
 *Measured: 22 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE INSTAR's body with weight, as a VERSUS candidate
+
+- reading: 15 min. The profile, its surface and tail, the head candidate's
+  slot and budget test, the rig sheet runner.
+- writing: 40 min. The body record, the candidate, the nest and tail tests,
+  the budget rows, the five-yaw sheet.
+- looking: 15 min. The VERSUS shot and the sheet, one picture each.
+- friction: 10 min. The beaten sag put the near nest on the head, past `ON`,
+  at every seat depth tried.
+- landing: 5 min. Formatting, the index, `check:fast`, `land`.
+
+Bottleneck: chasing the beaten pose's near nest through seat depths before a probe showed it sat on the head, not off the back.

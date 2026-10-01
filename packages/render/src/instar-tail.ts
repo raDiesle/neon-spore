@@ -1,18 +1,12 @@
-import {
-  type Ring,
-  type SeenRing,
-  SIDE,
-  seeTube,
-  tubeFrames,
-  type View,
-  view,
-} from "@neon-spore/content";
+import { type Ring, type SeenRing, seeTube, tubeFrames } from "@neon-spore/content";
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
+import { INSTAR_BODY } from "./instar-body-look.js";
 import { instarAt, type Point } from "./instar-place.js";
 import { faded, type Look, toward } from "./instar-plate.js";
 import { drawBlade } from "./instar-tail-blade.js";
+import { apex, lensView } from "./instar-tail-lens.js";
 import { drawWeak } from "./instar-weak.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -74,7 +68,6 @@ const SWING_GROW = 1.5 ** (1 / N);
 /** How far off the eye is, in head radii: near enough that a tip swung at the player grows. */
 const LENS = 7;
 
-const W_OF = new Map<number, View>();
 const SKIN = {
   base: mixHex(PALETTE.sheenDeep, PALETTE.hull, 0.25),
   lift: PALETTE.hull,
@@ -114,7 +107,7 @@ export function drawTail(ctx: CanvasRenderingContext2D, l: Layout, look: Look, r
     const s = lens / (lens - z);
     const x = (p.x - rear.x + across.x * side) / s;
     const y = (p.y - rear.y + across.y * side) / s;
-    rings.push({ c: { x, y, z }, r: r * (0.3 - 0.2 * u) });
+    rings.push({ c: { x, y, z }, r: r * INSTAR_BODY.tail(u) });
   }
   const seen = seeTube(rings, tubeFrames(rings), lensView(lens));
   const left: Point[] = [];
@@ -175,31 +168,6 @@ export function drawTail(ctx: CanvasRenderingContext2D, l: Layout, look: Look, r
     const k = 0.35 + 0.65 * f.tail;
     drawBlade(ctx, fork, { x: fork.x + reach.x * k, y: fork.y + reach.y * k }, s, look);
   }
-}
-
-/**
- * Where the curl tops out: the highest ring, when it is well inside the tail
- * and the tail comes back down from it — else 0, and the tail is one tube.
- */
-function apex(seen: readonly SeenRing[]): number {
-  let k = 0;
-  for (let i = 1; i < seen.length; i++)
-    if ((seen[i] as SeenRing).c.y < (seen[k] as SeenRing).c.y) k = i;
-  const last = seen[seen.length - 1] as SeenRing;
-  const rise = last.c.y - (seen[k] as SeenRing).c.y;
-  return k > 1 && k < seen.length - 2 && rise > (seen[k] as SeenRing).r * 2 ? k : 0;
-}
-
-/** The side view at the tail's lens, one per head radius the field has been drawn at. */
-function lensView(lens: number): View {
-  const key = Math.round(lens);
-  let w = W_OF.get(key);
-  if (!w) {
-    if (W_OF.size > 8) W_OF.clear();
-    w = view(SIDE, 0, key);
-    W_OF.set(key, w);
-  }
-  return w;
 }
 
 /** The tail's rings from `from` to before `to`: a dark groove across it every

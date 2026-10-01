@@ -392,27 +392,6 @@ already has a pattern for. Whoever takes this names it in the entry they
 leave behind, same as the four already listed, and it is a look:
 `tools/versus/candidates/`, never straight onto the field.
 
-## Living bosses — THE INSTAR's body with weight, as a VERSUS candidate
-
-- **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-10-01, claude/queue-the-haul-has-no-guide-and-no-mechanic-row (claim: claude/queue-living-bosses-the-instars-body-with-weight-as-a)
-- **Where:** local
-- **Needs:** Living bosses — THE INSTAR's one head, modelled once, as a VERSUS candidate
-- **Files:** `packages/render/src/instar-profile.ts`, `packages/render/src/instar-profile-surface.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/instar-poses.ts`, `tools/versus/candidates/registry.ts`, `docs/spec/living-bosses.md`
-
-The owner: the body is too thin and does not look cool. Replace the width
-the poses' top and bottom lines give with the radius profile in section 2 of
-`docs/spec/living-bosses.md` (chest 1.05 head radii, tapering to 0.07 at the
-tail's blade), add the paler belly band placed by longitude and a higher
-ridge at the chest. Keep the nests sitting on the back in every pose — the
-spine still runs under each nest. A VERSUS candidate beside the shipped
-body, with the rig sheet at five yaws.
-
-Done when: the candidate is in VERSUS with the new head; every pose of
-`packages/render/src/instar-poses.ts` still has both nests on the body (a
-test); the tail's width falls monotonically root to tip; the sheet PNG is
-sent to the owner; op count within 10%. `bun run check` proves the tests.
-
 ## Living bosses — THE INSTAR turns on the idle drift, as a VERSUS candidate
 
 - **Found:** 2026-09-26, claude/living-motion-spec
@@ -635,3 +614,19 @@ its wave and its hands. Done when an autopilot clears its wave and
 The second lane of `.claude/skills/new-boss`: BLOOM · GLYPHED, `bloom`'s
 eight-armed mantle with `glyphed`'s rim of marks, the sign on one seat and
 the mottle on the other, in `frame.test.ts`. The sheet PNG is sent to the owner.
+
+## THE INSTAR's shipped rise leaves both nests beside its back
+
+- **Found:** 2026-10-01, claude/queue-living-bosses-the-instars-body-with-weight-as-a
+- **Files:** `packages/render/src/instar-body-look.ts`, `packages/render/src/instar-profile.ts`, `tools/versus/test/instar-body.test.ts`
+
+The shipped body seats its spine straight down the screen under each nest
+(`INSTAR_BODY.across: false`). In the upright `rise` pose the back runs up
+the screen, so the eggs end about half a head to the side of the body rather
+than on it. `instar-body.test.ts` skips `rise` for the shipped body for this
+reason. Set the shipped `across` to `true` so the seat runs across the spine,
+as the VERSUS body with weight already does. Then check that every other pose
+stays within `ON`, and delete the skip. This changes a drawn frame, but it is
+a fix to something wrong, not to something unlovely: eggs that float off the
+body. If the owner picks WEIGHT in VERSUS first, the fix ships with it. Prove
+it with `bun run check`.

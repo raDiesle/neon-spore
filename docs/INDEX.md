@@ -1831,6 +1831,7 @@ by hand never moves.
 | `packages/render/src/instar-track.ts` | **A swipe is drawn as the way the thumb goes, not as a place to press.** The owner, 24 September 2026 |
 | `packages/render/src/instar-tail.ts` | **THE INSTAR's tail**: plated, spined, and forked at the end into two blades |
 | `packages/render/src/instar-tail-blade.ts` | THE INSTAR's tail ends in a fork of two of these (`instar-tail.ts`) |
+| `packages/render/src/instar-tail-lens.ts` | Two measures of THE INSTAR's tail, cut off `instar-tail.ts` when the body's record (`instar-body-look.ts`)… |
 | `packages/render/src/instar-turn.ts` | THE INSTAR seen a third of the way round: the body yawed, the head as two fitted planes |
 | `packages/render/src/instar-eggs.ts` | THE INSTAR's clutch, one egg per swipe, and the egg each counted swipe drops to the hull |
 | `packages/render/src/instar-egg-spots.ts` | **Where THE INSTAR's eggs sit in their two nests**, in head radii from the nest's middle |
@@ -1856,6 +1857,7 @@ by hand never moves.
 | `packages/render/src/instar-moult-wound.ts` | **The edges of THE INSTAR's wound**, drawn every frame |
 | `packages/render/src/instar-nest-baked.ts` | **THE INSTAR's nests, baked** — the second example (`sprite-bake.ts`) |
 | `packages/render/src/instar-between.ts` | **THE INSTAR between two poses**: the in-between motion of a morph, keyed on the pose it comes from |
+| `packages/render/src/instar-body-look.ts` | **THE INSTAR's side-on body, as the one record its widths are read from** |
 | `packages/render/src/instar-crosshair.ts` | **A shoot mark is a crosshair**: a violet ring with four ticks pointing in, and nothing over the part |
 | `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
 | `packages/render/src/index-solid.ts` | **The solid half of the barrel**: a boss drawn from any side |
@@ -2982,6 +2984,7 @@ by hand never moves.
 | `tools/raster/src/solid-demo.ts` | The test rig the solid sheet turns: not a boss, only the parts a boss is made of — a long body |
 | `tools/raster/src/solid-page.ts` | The solid sheet's page: bundled for the browser by `solid.ts` and run there |
 | `tools/raster/src/solid-instar-page.ts` | The INSTAR head sheet (`bun run solid --instar`) |
+| `tools/raster/src/solid-instar-body-page.ts` | The INSTAR body sheet (`bun run solid --instar-body`) |
 | `tools/raster/src/strip-bake.ts` | One painted strip, baked and packed: the atlas the field fetches (`<name>-strip.webp`) |
 | `tools/raster/src/sling-draw-art.ts` | One frame of THE SLING's arm drawing home, drawn into a 2D context |
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |
