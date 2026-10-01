@@ -30977,3 +30977,15 @@ Bottleneck: what the rester's screen should ask — keeping still has nothing to
 Bottleneck: finding a pairing the page has not spent — `RepeatedTap` was the one primitive no concept had used, and a crawling mouth to hold gave it a second seat.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — §42 THE SLUICE is cut, and THE MIMIC takes its place
+
+- reading: 5 min. The unbuilt gesture cards, the library's unspent
+  primitives, the shape drafts and the two lines in §43 that named THE SLUICE.
+- writing: 15 min. THE MIMIC's section whole, its index line, and §43's two
+  references.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. A context cut at the lane's start.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: choosing the gesture — A DRAWN GLYPH was the one card with a stated reason and no concept, and putting the sign on the other seat's screen (`PerSeatTruth`) is what made it a boss rather than a drawing test.

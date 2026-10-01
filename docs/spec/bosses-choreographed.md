@@ -49,6 +49,7 @@ reordering the page without keeping them would break every one of them.
 **Not built — written and nobody has started it**
 
 - **[THE LAMPREY](#41-the-lamprey--a-mouth-on-the-hull-one-thumb-pinning-it-and-one-knocking-its-teeth-out)** · §41 — a mouth on the hull, one thumb pinning it and one knocking its teeth out. Written 1 October 2026 in place of THE WINCH, which the owner cut on 27 September 2026; not built.
+- **[THE MIMIC](#42-the-mimic--a-skin-only-one-of-you-can-read-and-only-the-other-can-answer)** · §42 — a skin only one of you can read, and only the other can answer. Written 1 October 2026 in place of THE SLUICE, which the owner cut on 27 September 2026; not built.
 - **[THE FILAMENT](#17-the-filament--whether-you-can-follow-a-line-that-is-still-being-drawn)** · §17 — whether you can follow a line that is still being drawn. Written 17 September 2026 out of [the second brief](#a-second-brief-and-the-four-things-in-it-this-page-did-not-have)'s one absent category, and it wants `TraceDrag`, which is the only gesture on either brief with no ancestor anywhere in this game
 - **[THE GIMBAL](#18-the-gimbal--whether-the-same-turn-means-the-same-thing-to-both-of-you)** · §18 — whether the same turn means the same thing to both of you. One of [five more](#five-more-asked-for-by-name) written 20 September 2026; queued in two lanes, cloud and local
 - **[THE BELLOWS](#19-the-bellows--whether-you-can-push-when-she-is-pulling)** · §19 — whether you can push when she is pulling. One of [five more](#five-more-asked-for-by-name); built 22 September 2026 and taken out on 24 September 2026 — [bosses](bosses.md) §11.35, under *Retired*, has the owner's reason
@@ -5018,112 +5019,142 @@ hand gates the other.
 
 ---
 
-### §42 THE SLUICE — a gate two thumbs must keep pinched shut for a draw somewhere else to count
+### §42 THE MIMIC — a skin only one of you can read, and only the other can answer
 
-**Question.** THE WINCH asked whether a chord held by one seat can gate a
-wholly different seat's release-resolved draw; the gate there is binary,
-locked or sprung, exactly as `CHORD` reads every other control it has ever
-touched. `SqueezeGap` has never played that role — THE VISE, THE CYST and
-THE GALL all judge it on its own, a gap closed or reopened against its own
-threshold, never underwriting a gesture somewhere else. This asks whether a
-*continuously drifting* seal — a pinch that widens back the instant a thumb
-eases, the same reflex THE VISE's own gap already has — can gate a partner's
-draw exactly as a chord does, so the gating seat is fighting the gap's own
-give for as long as the draw is open, not just holding two controls flat.
+*Written 1 October 2026 in place of THE SLUICE, which the owner cut on 27
+September 2026 with THE WINCH: both were THE DAVIT's gated draw again.
+**The owner's ask:** something fresh, with more states, that keeps a pair
+busy for half a minute or more. THE DAVIT's control step is not here at all.
+Nothing is held, and no hand makes another hand's gesture count.*
 
-**Silhouette.** A hull-set sluice gate mid-spillway, two lobed jaws pinched
-shut over the flow, a geared handle drawn back along a track to the side that
-looses a bolt into a lit column. Health is the two draws, one per seat, each
-loosed at a lit column, plus a lit core once both are locked home; the core
-takes three ordinary hits.
+**Question.** A DRAWN GLYPH has a card on the director's list and no
+concept that wants it: one phone shows a shape, the other draws it. The card
+gives the reason it is worth having: describing a shape across a room is
+exactly the talking the game is for. This asks what a boss is that you
+answer by drawing. It is a mimic. Its skin shows a sign, and the sign shows
+on **one screen only** (`PerSeatTruth`). The other screen sees the same body
+mottled, a camouflage with nothing to read. The seat that sees the sign
+describes it. The seat that cannot see it draws it on their own glass, and
+the recogniser on that phone sends one command. **Seeing and answering are
+on two different phones, every time.** That is the whole fight.
 
-**Mechanic.** `sluiceGapLeft` / `sluiceGapRight`, one per seat, read by
-`SqueezeGap` exactly as THE VISE reads its lobes — held shut only while the
-two-finger pinch stays at or under `sluiceShutMilli`, and a gap widened past
-it starting the seal over. `sluiceDrawnMilli`, the other seat, read by
-`HOLD, THEN SWIPE` exactly as THE SLING's and THE WINCH's hook: held, then
-resolved at release against a lit column. But the draw only ever looses true
-while the *other* seat's gap is currently pinched shut — a release timed true
-against the column with the gate sprung open springs the bolt back slack all
-the same, precisely as THE WINCH's brake lifting already does; the gate
-opening mid-draw costs nothing banked so far, only the draw in flight. Unlike
-THE WINCH's brake, nothing here is a flat hold: the pinching seat must
-actively re-shut the gap against its own regrowth for the whole span the
-other seat draws, the same fight THE VISE's own pinch already is, now spent
-underwriting a stranger's gesture rather than closing on its own body.
+**Silhouette.** A soft, round mantle with eight short arms, each one a
+rounded lobe. Two drafts are combined and named here **BLOOM · GLYPHED**.
+The body is `bloom`'s core and arms, from THE VESSEL's draft, set to eight
+arms of even length. The skin is `glyphed`'s rim of marks, from THE CODEX's
+draft, laid over the mantle instead of a slab's edge. It enters flattened
+against the top of the field, the same mottle as the dark around it, and
+pops into its full round shape with a wet slap. **The health is its signs.**
+Six signs peeled off bare the core, and the core takes two hits.
 
-**Player 1 and Player 2.** Identical screens, both jaws and the handle
-visible on both — but **the seat pinching the gate is never the seat drawing
-the handle**: Player 1 seals for Player 2 to draw, then the two trade so
-Player 2 seals for Player 1, the same cross THE WINCH's brake-and-hook
-already make literal, now with a gate that must be worked rather than merely
-held.
+**Mechanic.** **The signs are five, each one stroke**, so each is easy to
+say and easy to draw: a ring, a triangle, a zigzag, a wave and a hook.
+`mimicSign` is the sign the skin wears now: an index into five, picked by
+the seeded `Rng`, never the same twice running, and hashed. `mimicGlyph` is
+the command the recogniser sends: the index of the nearest of the five to
+the stroke the thumb drew. It is recognised on the drawing phone, where
+milliseconds are allowed, and sent as one command, as the shake is. **A
+right sign peels.** The sign lifts off the skin like a sticker and falls
+down the field, and the mimic flinches. **A wrong sign is mimicked.** For
+two beats the skin wears the shape that was drawn, on **both** screens, so
+the drawer sees what they actually drew. Then one arm reaches a step down
+toward the hull. A window that runs out with nothing drawn does the same,
+with the skin left mottled. **Three reaches in one movement strike the
+hull, and so they are the wave.** A peel draws every arm back up a step.
+
+**Player 1 and Player 2.** Both screens show the same mimic, the same arms
+and the same reach. **Only the reader's screen shows the sign.** The
+drawer's screen shows the mottle and a faint drawing pad over the lower
+field, where the stroke is drawn. The pad is the drawer's, and it is empty
+on the reader's screen. Neither seat can do the other's half: the reader
+has no pad, and the drawer has no sign. In movement 1 Player 1 reads and
+Player 2 draws. In movement 2 the mimic turns its other face to the pair,
+and the two trade. In movement 3 both read and both draw, at once.
 
 **The beat list.**
 
 | # | Picture | Seat | Gesture | Window | Landed | Missed |
 |---|---|---|---|---|---|---|
-| **Movement 1 — the left draw** ||||||
-| 1 | The bolt hangs slack at the spillway, both jaws open, core dark | — | — | — | — | — |
-| 2 | The left jaw glows | P1 | pinch the gap shut and hold it there (`SqueezeGap`, held at or under the shut threshold) | held, steadying, regrowing if eased | gate sealed | gap widens past the threshold, retry |
-| 3 | The handle's grip lights, a column lit to match | P2 | hold, then loose it toward the lit column (`HOLD, THEN SWIPE`), gate sealed throughout | 5 beats, held, then released true, gate shut at release | left draw locked home | gate springs open before release, held too short, or wrong direction: bolt springs slack, retry from row 2 |
-| **Movement 2 — the right draw, roles swapped** ||||||
-| 4 | The right jaw glows for the other seat | P2 | pinch and hold the gap shut | held, regrowing if eased | gate sealed | springs open, retry |
-| 5 | The handle lights, column lit | P1 | hold, then loose it true, gate sealed throughout | 5 beats, held, then released true, gate shut at release | right draw locked home, core lights | springs slack, retry from row 4 |
-| **Movement 3 — the core, held down** ||||||
-| 6 | The core flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
-| 7 | Both bolts creep slack under the core | P1+P2 | one seals the gate while the other redraws | held, then released true | core stays down | gate opens or draw springs, movement's fire beats lost until both draws lock home again |
-| 8 | Core flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
-| 9 | Bolts creep slack a second time, faster | P1+P2 | seal and redraw again, roles free to trade | held, then released true | stays down | springs, retry |
-| 10 | Core flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, sluice spent | stays lit |
-| 11 | Both jaws spring open for good and the spillway floods, spent | — | — | — | — | — |
+| **Movement 1 — the first face** ||||||
+| 1 | The mottle at the top of the field slaps into a round mantle with eight arms; its skin ripples | — | — | 4 beats | — | — |
+| 2 | A sign surfaces on the skin, on P1's screen only; P2 sees mottle and a pad | P2, told by P1 | draw it (`mimicGlyph`) | 6 beats, seen by one | sign 1 peels, the arms draw back | the skin wears what was drawn, then an arm reaches |
+| 3 | The next sign surfaces | P2 | draw it | 6 beats | sign 2 peels | mimicked, an arm reaches |
+| 4 | The next sign surfaces | P2 | draw it | 6 beats | sign 3 peels, the mimic shudders and rolls over | mimicked, an arm reaches |
+| **Movement 2 — the other face, roles traded, the skin restless** ||||||
+| 5 | The mimic rolls, and its other face turns to the pair; the sign now shows on P2's screen only | — | — | 2 beats | — | — |
+| 6 | A sign surfaces on P2's screen | P1, told by P2 | draw it | 6 beats | sign 4 peels | mimicked, an arm reaches |
+| 7 | A sign surfaces, and **changes on the window's third beat** to another of the five | P1 | draw the one it is when the stroke ends | 6 beats | sign 5 peels | the old sign drawn is a wrong sign: mimicked |
+| 8 | A sign surfaces and changes on its third beat | P1 | draw the new one | 6 beats | sign 6 peels, the mimic goes pale and grey | mimicked, an arm reaches |
+| **Movement 3 — two faces at once** ||||||
+| 9 | The mimic splits its skin down the middle; each half shows a sign, and each half only on the other seat's screen | P1+P2 | each draws the sign the other reads to them | 6 beats, both talking at once | both peel, the core shows through, lit in one cannon's colour | either wrong is mimicked on that half, and both halves come back |
+| 10 | The core, bare and lit | that cannon's seat | fire into it (`FIRE`) | 3 beats, seen | first hit, the mimic clenches | the skin closes over it: back to row 9 |
+| 11 | The skin splits again; two new signs | P1+P2 | each draws the other's | 6 beats | both peel, the core lit the other colour | mimicked, back to row 11 |
+| 12 | The core, lit the other colour | that cannon's seat | fire it | 3 beats, seen | second hit, the mimic goes slack | closes, back to row 11 |
+| 13 | The mimic loses its shape and falls down the field as plain mottle, its arms trailing | — | — | — | — | — |
 
-**THE SLOW** opens on every seal-and-draw window (rows 2–3, 4–5, 7, 9)
-together — the pinch and the draw are one thing to watch rather than two,
-the same seconds-not-beats argument THE VISE's and THE SLING's own windows
-already make, sharpened here because the gate is never simply down: it is
-always mid-regrowth, so the seconds must show a seal actively being re-won
-rather than a state merely held.
+**About forty seconds clean at 96 a minute.** The entrance is four beats,
+each movement's three signs are eighteen beats, and movement 3 is two double
+signs and two shots. Every wrong sign adds two beats of mimicry and a new
+sign, so a pair that talks badly plays it longer, never shorter.
 
-**Presentation.** No camera. Each locked draw a taut snap, THE SLING's own;
-each jaw held shut a wet compressing creak that catches and releases as the
-thumb re-seals it; a bolt sprung by a widened gate the same slack, empty
-thud `DrawRelease` already gives a wrong-direction release.
+**THE SLOW** opens on the first sign of each movement (rows 2, 6 and 9). The
+reader has just learnt what the five are called, or that the job has changed
+hands. Seconds go on agreeing a word for a shape, and beats would only hurry
+the drawer's thumb.
 
-**Animation.** Five poses: both bolts slack, jaws open; left drawn, gate
-sealed; both drawn, core lit; core guarded, a bolt creeping slack; jaws
-open for good, spillway flooded. The gate closes by the two lobes visibly
-fighting the flow shut rather than fading in, the same drawn-as-mechanism
-choice THE VISE and THE WINCH both make.
+**Presentation.** No camera. A peel is a soft *thwip*, and the sign drifts
+down the field turning over, so both screens can see it go. A mimicked sign
+is the mimic's own drawing of it: the skin redrawn in the drawer's stroke,
+wobbles and all, for two beats. A reach is a low creak as an arm stretches a
+step down the field. The third reach's strike is the hull's own hit.
 
-**Colour.** Gate and jaws a cold iron blue-grey, the bolt a hot amber when
-drawn true, same as THE SLING's cup; the core is the only lit colour on the
-body, in whichever cannon colour a given beat wants.
+**Animation.** Six poses:
+- flat mottle, hidden against the field;
+- the slap into a full round mantle;
+- rippling, with a sign surfacing;
+- the flinch as a sign peels, all eight arms pulling in;
+- split down the middle, two faces;
+- shapeless, falling.
 
-**Payoff.** Rows 3 and 5 — a draw already timed true against its column
-undone by a hand that was never on it, here by a seal that was always one
-eased thumb from springing back rather than a chord that only ever flips,
-distinct from THE WINCH's binary brake and from THE CAPSTAN's
-pause-without-loss.
+A sign surfaces from the middle of the mantle outwards, in about half a
+beat. A sign that changes in movement 2 sinks back and a new one rises in
+the same place, so the reader sees the change happen and does not just find
+it done.
 
-**Cost. Low.** No new primitive — `SqueezeGap` is already built for THE
-VISE, THE CYST and THE GALL, `HOLD, THEN SWIPE` for THE SLING and THE WINCH.
-The only new code is reading the sealing seat's gap state at the instant the
-drawing seat releases, ordinary per-boss wiring rather than a new field
-type.
+**Colour.** The mimic is a mottle of two dark greens, close to the field's
+own dark. A sign is a pale cyan line on the skin, the only bright line on
+the body. A mimicked sign is drawn in the hull's red, so a wrong answer
+reads as wrong on both screens without a word. The core in movement 3 is
+the only lit fill on the body, in whichever cannon colour the beat wants.
 
-**Reusable.** Gating a release-resolved gesture on a continuously-drifting
-pinch, rather than on a flat chord, is a shape distinct from THE WINCH's own
-coupling; any future concept wanting a partner's held-but-fighting-to-stay
-state to underwrite another seat's aim can reach for `SqueezeGap` in that
-role before assuming `CHORD` is the only gate that fits.
+**Payoff.** In movement 1 the pair find out that the screens disagree, and
+agree five names. Movement 2 hands the names to the other mouth, then makes
+the sign change mid-sentence, so "no — it's a zigzag now" is the line the
+movement is for. Movement 3 asks both to talk and draw at once, which is the
+loudest half-minute the game asks for.
+
+**Cost. Medium–high.** **A DRAWN GLYPH is new.** It needs a recogniser in
+`apps/game`, which runs where milliseconds are allowed and is never in
+`sim`, and it needs one command carrying an index into five. The shake's
+path is the model: a gesture judged on the device that sends one word.
+`PerSeatTruth` is built: the Queen's two marks, with `queen-split.test.ts`
+the test to copy, holding both halves shut so the drawer's screen never
+draws the sign. `mimicSign` is one hashed index from the seeded `Rng`, and
+the reach is a count per movement. The sign changing in movement 2 is a
+beat count on the window. The window lengths and the three reaches are
+`SimConfig` fields.
+
+**Reusable.** A DRAWN GLYPH itself, spent at last, with five signs any later
+boss can use. And `PerSeatTruth` turned on its side: before, the truth was
+on one screen and the hand that acts on it was on the same screen. **Here
+the screen that can see is never the hand that can answer.**
 
 ---
 
 ### §43 THE GOVERNOR — a chord that does not gate the tap, only how hard it lands
 
 **Question.** Every pairing so far that couples a held state with a
-different seat's gesture — THE DAVIT's lean, THE SLUICE's seal — asks the
+different seat's gesture — THE DAVIT's lean is the one that ships — asks the
 same shape: hold the gate whole or the other seat's gesture springs back
 to nothing. `CHORD` has never done anything else. `TAPS ON A MOVING
 TARGET` has so far only ever been judged against a target moving on the
@@ -5219,8 +5250,8 @@ multiplier on the needle's own script, read from the chord seat's state
 each frame rather than sampled once at a gate.
 
 **Reusable.** A held state changing how hard a different seat's gesture is
-to land, rather than whether it counts at all, is a third coupling shape
-beside THE DAVIT's binary lean gate and THE SLUICE's continuous-pinch gate; any
+to land, rather than whether it counts at all, is a second coupling shape
+beside THE DAVIT's binary lean gate; any
 future concept wanting difficulty rather than validity to ride a partner's
 hold can reach for a speed or window multiplier before reaching for a
 spring-back rule.

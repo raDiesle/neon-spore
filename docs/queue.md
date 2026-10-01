@@ -392,54 +392,6 @@ already has a pattern for. Whoever takes this names it in the entry they
 leave behind, same as the four already listed, and it is a look:
 `tools/versus/candidates/`, never straight onto the field.
 
-## §42 THE SLUICE — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-10-01, claude/queue-41-the-winch-the-simulation-lane (claim: claude/queue-42-the-sluice-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`
-- **Asks:** THE DAVIT already ships this shape — its draw counts only while the other seat's lean holds and lands only if it lifts while the lean still holds (`docs/spec/bosses.md` §11.52) — and THE SLUICE is that with THE VISE's pinch where the lean is, as THE WINCH is with a chord (the same question on its entry). Build it as designed (two lanes, sim then look); cut §42 as a duplicate and drop both SLUICE entries; or redesign it first so a gap sprung open also unwinds a draw already banked, which DAVIT's lean never does?
-- **Answered:** 2026-09-27 — redesign, the same answer as THE WINCH's and for the same reason. The gated draw is rows 2–9 of ten, so it is the whole boss, and that boss is THE DAVIT with a pinch. Redesign it so a gap sprung open also unwinds a draw already banked, and add states before or after it so the boss keeps the pair busy for 30 seconds or more.
-- **Answered:** 2026-09-27 — cut as it stands, over the redesign answered above. The owner, refining it: keep a boss that shares THE DAVIT's control step only when that step is one of several, and when the boss looks exciting and different from THE DAVIT; otherwise skip it and design something fresh, with more states and a new mechanic. Here the gated draw is rows 2–9 of ten, so it is not one of several. Take §42 out of `docs/spec/bosses-choreographed.md` and its `where` rows out of the gesture catalogue (none are left since those cards were built, `tools/director/src/gesture-built-bosses.ts`), delete this entry and its look lane with `queue done`, and put a fresh boss on the NOT BUILT YET sheet in its place, one that keeps a pair busy for 30 seconds or more.
-
-No new gesture, no new primitive: `SqueezeGap` (THE VISE's `SqueezeGap`)
-paired with `HOLD, THEN SWIPE` (THE SLING's `DrawRelease`) for the first
-time — the seam, as with THE WINCH, is which seat governs which, but the
-governing gesture is a continuously-read pinch rather than a flat chord.
-One seat pinches a gap shut and must actively re-shut it against its own
-regrowth (the same widen-back THE VISE's own gap already has); the other
-draws and releases toward a lit column exactly as THE SLING already
-resolves it, but the draw only counts while the sealing seat's gap is
-currently at or under its shut threshold. The gate opening at any point
-mid-draw springs the draw back slack, the same "spring back rather than
-lose the step outright" `DrawRelease` already uses for an early or
-wrong-direction release. This is a finer-grained version of THE WINCH's
-coupling: a chord is either held or not, but a pinch drifts, so the
-sealing seat is fighting the gap the whole span the draw is open rather
-than simply holding two controls flat. The full beat list and primitive
-table entry are §42 of `docs/spec/bosses-choreographed.md`. `SQUEEZE ONE
-BODY` and `HOLD, THEN SWIPE` each already carry a §42 THE SLUICE entry in
-their `where` arrays in what is `tools/director/src/gesture-built-bosses.ts`
-now — land it with the rest. THE SLOW on every seal-and-draw window. `bun run check`
-proves it.
-
-## §42 THE SLUICE — the look
-
-- **Found:** 2026-09-26, this session
-- **Needs:** §42 THE SLUICE — the simulation lane
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-Lane two, read against `docs/style-guide.md`: a new silhouette (checked
-this session against `packages/content/src/silhouettes*.ts` and every
-file under `tools/shape-sheet/src/drafts/` — nothing sluice- or
-jaw-pinch-shaped exists to reuse or collide with; a `GATE` draft is a bar
-across a lane, an unrelated shape) for two lobed jaws over a spillway,
-the seal visibly straining and creeping open the instant a thumb eases
-rather than snapping between two fixed states, and a bolt that pays out
-smoothly while the seal holds and snaps taut with a shudder the instant
-the gate springs — the same drawn-as-mechanism choice THE VISE's pinch
-and THE WINCH's brake both make. Nothing here is drawn yet; how it
-looks at tempo is the owner's to judge, not an entry.
-
 ## A whole-picture round's timeout hit is never drawn
 
 - **Found:** 2026-09-30, claude/queue-the-rounds-own-timeout-hit-offered-on-versus-bes
