@@ -24,12 +24,13 @@ export function pinHeightMilli(cfg: SimConfig): number {
 }
 
 /**
- * Where the launch lane begins, from the top: no piece may hang below it, or
- * the ball would hit it before it had left the cannon. The catch's height
- * twice — the bucket's mouth and the same again for the ball to clear it.
+ * Where the launch lane begins, from the top: no piece may hang below it.
+ * The catch's height twice is the least it could be — the bucket's mouth and
+ * the same again for the ball to clear it — and `pinballClearMilli` is the
+ * air the owner asked for above the ship, which is the larger of the two.
  */
 export function pinLaneFloorMilli(cfg: SimConfig): number {
-  return pinHeightMilli(cfg) - cfg.pinballCatchMilli * 2;
+  return pinHeightMilli(cfg) - Math.max(cfg.pinballCatchMilli * 2, cfg.pinballClearMilli);
 }
 
 /** The slice of `SimConfig` the ball is stepped against. */

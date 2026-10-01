@@ -1682,7 +1682,10 @@ ball gains downward on a tick gravity is applied, and `pinballGravityTicks` is
 one tick in how many — 1 on every second, since the owner asked for the flight
 at half speed. `pinballLaunchMilli` is the speed a ball leaves the bucket
 at on a full-power launch, and `pinballWeakPermille` is the weakest launch as a
-fraction of it. `pinballPowerMilli` is how far the power bar travels each tick.
+fraction of it — 600, so that even the weakest climbs to the board's lowest row.
+`pinballClearMilli` is the air above the ship a board must leave empty: five
+tiles, the owner's *no obstacles near the hull*, which is the ball's whole last
+second of fall with nothing to turn it. `pinballPowerMilli` is how far the power bar travels each tick.
 `pinballSweepMilli` is how far the needle sweeps either side of straight up, in
 thousandths of a degree — THE MAZE's angle unit, because the sine comes off
 `mazeSinMilli`. `pinballWallPermille` is how much of the speed survives a bounce

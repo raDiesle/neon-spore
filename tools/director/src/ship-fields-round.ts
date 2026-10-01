@@ -98,6 +98,7 @@ export const ROUND_FIELD_GROUP = {
   pinballPowerMilli: "PINBALL — a table the ship's cannon fires up into",
   pinballCatchMilli: "PINBALL — a table the ship's cannon fires up into",
   pinballCatchReachMilli: "PINBALL — a table the ship's cannon fires up into",
+  pinballClearMilli: "PINBALL — a table the ship's cannon fires up into",
   pinballHardMilli: "PINBALL — a table the ship's cannon fires up into",
   pinballWindMilli: "PINBALL — a table the ship's cannon fires up into",
   pinballNudgeMilli: "PINBALL — a table the ship's cannon fires up into",

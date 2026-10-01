@@ -71,11 +71,13 @@ const strokes = (log: string[]) => log.filter((call) => call === "stroke").lengt
 describe("PINBALL's aim fan against the board", () => {
   it("rings where both arcs first touch a piece, and draws the leg off it", () => {
     const log = aimLog(false);
-    // The first board's top track stands over the middle column, so both the
-    // weakest and the strongest throw straight up arrive at it.
-    expect(arcs(log)).toBe(2);
-    // Each arc is its flight, its leg after the bounce and its ring.
-    expect(strokes(log)).toBe(6);
+    // The first board's target stands over the middle column, so the
+    // strongest throw straight up arrives at it — and the weakest climbs only
+    // to the lowest row a board may hold, which this one leaves empty.
+    expect(arcs(log)).toBe(1);
+    // An arc that touches is its flight, its leg after the bounce and its
+    // ring; the one that does not is a plain line.
+    expect(strokes(log)).toBe(4);
   });
 
   it("draws one plain line each over a board with nothing standing", () => {

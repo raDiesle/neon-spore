@@ -30,7 +30,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * **The shot is set rather than played to**, which is what the round's own
  * frame test does the opposite of and for a reason that does not apply here:
  * a slack spring costs a launch in the top tenth of a bar that runs a cycle in
- * 2.1 s, and a test that got there by firing would be a test about the bar.
+ * 4.2 s, and a test that got there by firing would be a test about the bar.
  * The phase is stepped into `play` rather than written, because that is the
  * gate the simulation itself puts every hand of this round behind
  * (`pinballRoundHeard`).

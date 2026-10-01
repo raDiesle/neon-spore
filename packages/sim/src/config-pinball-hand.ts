@@ -15,8 +15,8 @@ export interface PinballHandConfig {
    * slack (`pinball-shot.ts`).
    *
    * 900: the top tenth of the bar, which is the part the pair has to *aim* for
-   * rather than drift into — the bar runs a full cycle in 2.1 s, so nine
-   * tenths is about a tenth of a second wide at each end. A shot that hard is
+   * rather than drift into — the bar runs a full cycle in 4.2 s, so nine
+   * tenths is about a fifth of a second wide at each end. A shot that hard is
    * the one that reaches the far corner of the board, and the round charges
    * for it on the shot after.
    */

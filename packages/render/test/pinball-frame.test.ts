@@ -47,7 +47,7 @@ beforeAll(installCanvasGlobals);
 interface Watched {
   phases: Set<string>;
   shots: Set<string>;
-  /** Pieces knocked out, which is the only thing a still frame cannot show. */
+  /** Pieces struck or knocked out, which is the only thing a still frame cannot show. */
   cleared: number;
 }
 
@@ -74,15 +74,20 @@ function pinballFrames(
         watched.phases.add(p.phase);
         if (p.phase === "play") {
           watched.shots.add(p.shot);
+          // Lit pieces count as well as fallen ones: the first board has a
+          // single target, and the shot that clears it moves the round on to
+          // the next board in the same tick, so its `alive` never shows a gap.
           watched.cleared = Math.max(
             watched.cleared,
-            p.alive.filter((standing) => !standing).length,
+            p.alive.filter((standing) => !standing).length + p.lit.length,
           );
-          // Stop the needle, and fire on the bar a few ticks later so the
-          // power reading is not always the same one.
+          // Stop the needle, and fire high on the bar: a weak shot straight
+          // up dies in the clear air above the ship (`pinballClearMilli`)
+          // and would knock nothing out. Off a tick count rather than the
+          // first tick past the mark, so the reading is not always the same.
           if (p.shot === "aim") {
             commands.push({ tick, player: 1, command: { kind: "latch" } });
-          } else if (p.shot === "power" && tick % 7 === 0) {
+          } else if (p.shot === "power" && p.powerMilli > 700 && tick % 7 === 0) {
             commands.push({ tick, player: 2, command: { kind: "launch" } });
           }
           // And the cannon walks under it on the ship's own strip, which is

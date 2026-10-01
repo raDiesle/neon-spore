@@ -58,7 +58,14 @@ export interface PinballConfig {
   pinballWallPermille: number;
   /** The speed a ball leaves the bucket at on a full-power launch. */
   pinballLaunchMilli: number;
-  /** The weakest launch, as a fraction of the full one, in thousandths. */
+  /**
+   * The weakest launch, as a fraction of the full one, in thousandths.
+   *
+   * 600 since the clear band above the ship (`pinballClearMilli`): it was 450,
+   * which rose three tiles and now meets nothing, so the bottom of the bar was
+   * a shot that could not reach the board. At 600 the weakest reading climbs
+   * to the lowest row a board may hold, and every reading on the bar is a shot.
+   */
   pinballWeakPermille: number;
   /**
    * How far the needle sweeps either side of straight up, in thousandths of a
@@ -90,6 +97,17 @@ export interface PinballConfig {
    * column off still takes the ball.
    */
   pinballCatchReachMilli: number;
+  /**
+   * How much air above the ship a board must leave empty, in thousandths of a
+   * tile (`pinLaneFloorMilli`).
+   *
+   * The owner, 1 October 2026: *near the ship hull there are no obstacles,
+   * only with more distance.* A piece a tile above the cannon sent a falling
+   * ball sideways in the last instant before it reached the ship, which no
+   * call could answer; five tiles is the ball's whole last second of fall,
+   * clear, so the cannon has the time to get under it.
+   */
+  pinballClearMilli: number;
   /** Beats one shot may stay in the air before the table gives it back. */
   pinballFlightBeats: number;
 }
@@ -111,8 +129,11 @@ export interface PinballConfig {
  * meant to be fought with a thumb; this one is meant to be talked over, and
  * the two numbers are three times apart for that reason alone.
  *
- * `pinballBouncePermille: 880` is a steel ball on a hard peg: lively enough
- * that a cluster cascades, dead enough that the ball always comes down.
+ * `pinballBouncePermille: 600` is a ball off a rubber post: a cluster still
+ * passes it along, and a ball that met a piece comes away slower than it
+ * arrived. It was 880, a steel ball on a hard peg, and on 1 October 2026 the
+ * owner asked for the bounce off a piece to cost more — and the bounce off
+ * the cabinet's walls left as it was, so `pinballWallPermille` is untouched.
  */
 export const PINBALL_DEFAULTS: PinballConfig = {
   pinballCols: 11,
@@ -123,10 +144,10 @@ export const PINBALL_DEFAULTS: PinballConfig = {
   pinballGravityTicks: 2,
   // Below `pinballBallMilli` plus `PIN_THIN_MILLI` — see the header.
   pinballSpeedCapMilli: 150,
-  pinballBouncePermille: 880,
+  pinballBouncePermille: 600,
   pinballWallPermille: 820,
   pinballLaunchMilli: 125,
-  pinballWeakPermille: 450,
+  pinballWeakPermille: 600,
   // Forty-eight degrees either side of straight up. It was seventy-five, and
   // an arc that wide spent most of its sweep pointing at a side wall a tile
   // away — the two ends of it were the same shot twice and the pair could say
@@ -138,11 +159,14 @@ export const PINBALL_DEFAULTS: PinballConfig = {
   // seconds to cross: 122 over ±48° is 190 over ±75°. The arc is what got
   // smaller; the sentence the pair say over it is not.
   pinballNeedleMilli: 122,
-  // A hundred and twenty-five ticks to full and as many back, so the bar's
-  // whole cycle is 2.1 s — the short end of a spoken exchange, deliberately.
-  pinballPowerMilli: 8,
+  // Two hundred and fifty ticks to full and as many back, so the bar's whole
+  // cycle is 4.2 s. It was 2.1 s, the short end of a spoken exchange, and on
+  // 1 October 2026 the owner asked for it slower: "now" has to land on a bar
+  // that is still where it was when the word was started.
+  pinballPowerMilli: 4,
   pinballCatchMilli: 620,
   pinballCatchReachMilli: 1100,
+  pinballClearMilli: 5000,
   // Twice the 24 it was, with the flight at half speed.
   pinballFlightBeats: 48,
 };

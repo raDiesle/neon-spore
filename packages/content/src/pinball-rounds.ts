@@ -145,39 +145,38 @@ export function pinPicture(pieces: readonly PinPiece[]): string {
 }
 
 /**
- * The three boards, and they are a difficulty curve in the one currency this
- * round has: **how far a target is from a lane the ball can come back down.**
+ * The five boards, one more target on each than the one before — one, two,
+ * three, four, five — on the owner's call of 1 October 2026: *start the first
+ * level with one only, and every level adds one.* The difficulty is still in
+ * the one currency this round has: **how far a target is from a lane the ball
+ * can come back down.**
  *
- * **The pegs are chained rather than scattered.** They used to sit on
- * alternating squares, a tile of air on every side, and a ball fell through
- * that board the way it falls through nothing — one peg at a time, at random,
- * with nothing to aim along. Drawn on the owner's call as **tracks** instead:
- * runs of pegs shoulder to shoulder, so a ball arriving at one end of a run
- * skids down the whole of it. That is what a cluster is for, and it is the
- * difference between "hit that peg" and "come in along the top and let it
- * run".
+ * **Seven rows, and the five tiles under them empty.** The boards were eleven
+ * rows deep and their lowest pieces hung a tile and a half above the cannon,
+ * where a falling ball was knocked sideways in the last instant before the
+ * ship and no call could answer it. On the same day the owner asked for no
+ * obstacles near the hull, so a board now ends at `pinballClearMilli` above
+ * it and `pinBoardRows` says how many rows that leaves.
  *
- * **The first** is open, so almost any launch that goes up comes back through
- * something and the pair learns what a run does. Five targets under and beside
- * the arcs: every launch finds one.
+ * **The pegs are chained rather than scattered**: runs of pegs shoulder to
+ * shoulder, so a ball arriving at one end of a run skids down the whole of it.
+ * That is the difference between "hit that peg" and "come in along the top
+ * and let it run".
  *
- * **The second** puts two walls across the middle, which is where blocks start
- * mattering — a flat face returns a ball along a line the pair can predict out
- * loud, and that is the board where "bank it off the left wall" becomes a
- * sentence. A ball straight up comes straight back; the way in is off a side
- * wall and along a block. The target in the middle is buried inside a closed
- * band of pegs, so it is reached along a track and not through one.
+ * **The first** is a lesson: one target in the middle, under an arch, and a
+ * shot straight up finds it. **The second** puts its two in the arch's
+ * shoulders, so the needle has to lean. **The third** adds a middle one above
+ * two walls of blocks — a flat face returns a ball along a line the pair can
+ * predict out loud, which is where "bank it off the left wall" becomes a
+ * sentence. **The fourth** hides two below a closed band, reached from above
+ * or not at all. **The fifth** is a funnel: the middle is blocked, and the
+ * targets are in the shoulders where only a wall bounce reaches them.
  *
- * **The third** is a funnel. The middle is a chute back to the bucket and
- * worth nothing; the targets are in the shoulders and only a wall bounce
- * reaches them.
- *
- * **Sixty-odd beats is about forty seconds at 96 BPM.** It was forty-odd, and
- * three boards with the morph and the verdict either side was the ninety the
- * whole category is written around
- * ([interludes](../../../docs/spec/interludes.md)); on 30 September 2026 the
- * owner asked for the ball slower, every flight now takes twice as long, and
- * the rounds grew by a half so a pair still gets about as many shots.
+ * **A hundred and twenty-eight beats is eighty seconds at 96 BPM**, and each
+ * board adds sixteen to the one before. They were sixty to seventy-two, and on
+ * 1 October 2026 the owner asked for a lot more time: a slower bar and a ball
+ * that comes off a piece slower both make a shot longer, and the round should
+ * be lost to the board and not to the clock.
  *
  * **Everything worth saying about a board is said up here, and not beside
  * it.** The director regenerates this array on every save
@@ -189,51 +188,63 @@ export function pinPicture(pieces: readonly PinPiece[]): string {
  */
 export const PINBALL_ROUNDS: PinballRound[] = [
   {
-    beats: 60,
+    beats: 128,
     pieces: pinBoard(`
       ...........
       ..ooooooo..
       .oo.....oo.
-      .O.......O.
       ...........
-      ..ooOoOoo..
-      .oo.....oo.
+      ...ooOoo...
       ...........
-      ...ooooo...
-      ....oOo....
       ...........
     `),
   },
   {
-    beats: 66,
+    beats: 144,
     pieces: pinBoard(`
       ...........
       ..O.....O..
       .oo.....oo.
       .ooo...ooo.
-      .===...===.
       ...........
-      ..ooooooo..
-      .oo..#..oo.
-      ..ooooooo..
-      ....===....
-      ...o.O.o...
+      ..ooo.ooo..
+      ...o...o...
     `),
   },
   {
-    beats: 72,
+    beats: 160,
+    pieces: pinBoard(`
+      ...........
+      ..O..O..O..
+      .oo.....oo.
+      .===...===.
+      ...........
+      ..ooo.ooo..
+      ...o...o...
+    `),
+  },
+  {
+    beats: 176,
+    pieces: pinBoard(`
+      ..O.....O..
+      .oo.....oo.
+      .ooo...ooo.
+      .===...===.
+      ...........
+      ..oo#.#oo..
+      ...ooooo...
+    `),
+  },
+  {
+    beats: 192,
     pieces: pinBoard(`
       .O.......O.
       .oo.....oo.
-      .ooo...ooo.
+      .ooo.O.ooo.
       ..=oo.oo=..
-      ...oo.oo...
       ...O...O...
       ...oo.oo...
-      ....ooo....
       ....===....
-      ...........
-      .....O.....
     `),
   },
 ];

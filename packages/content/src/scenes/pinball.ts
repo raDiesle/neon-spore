@@ -31,9 +31,9 @@ export const PINBALL: GuideScene = {
   bpm: 120,
   // One row shorter than the game's table, so the board hangs under the
   // tutorial plate and the round's header has the empty top row to drop
-  // into (`GuideScene.pinballRows`). The first board is ten rows deep and a
-  // thirteen-row table carries exactly ten; the ball's course is unchanged
-  // and the miss the last page is about still lands inside page four.
+  // into (`GuideScene.pinballRows`). The first board is seven rows deep and
+  // hangs from the top, so a thirteen-row table still leaves the band of clear
+  // air above the hull that `pinballClearMilli` keeps.
   pinballRows: 13,
   seed: 1,
   entries: [],
@@ -49,7 +49,10 @@ export const PINBALL: GuideScene = {
     // Long after the needle stopped, because the bar the launch takes its
     // strength off does not stop: it fills and empties on its own, and the
     // press is a moment inside that rather than the next thing on a list.
-    { tick: 1010, control: "pinLaunch" },
+    // Forty ticks into page four since 1 October 2026: the slower bar and the
+    // deader bounce keep a ball up longer, and a launch any later comes down
+    // after the film has ended — this one drops at 1239, under the last page.
+    { tick: 900, control: "pinLaunch" },
   ],
   steps: [
     // PLAYER 1 SLIDES THE CANNON stood here and is the cue's now: the field

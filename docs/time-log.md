@@ -31285,3 +31285,16 @@ Bottleneck: slicing by line numbers lost one comment opener, and only the parse 
 Bottleneck: the hand looked innocent until the probe ran under the game's own `shotChargeBeats`, not the default config's.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — PINBALL: five boards, a clear band, a slower bar, a deader bounce
+
+- reading: 10 min. The round's sim, the five config files, the boards, the
+  film and the frame tests that play a shot.
+- writing: 10 min. Four tunings, one new field, five boards, the lane floor.
+- looking: 0 min.
+- friction: 5 min. The film's scripted miss landed after its last tick under
+  the new physics; a probe over latch, launch and column found a launch that
+  drops inside the last page.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the guide film and the frame test both scripted a shot against the old physics, and each one had to be re-timed by probing rather than by reading.
