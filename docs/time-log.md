@@ -31363,3 +31363,15 @@ Bottleneck: getting a frame with the ball actually in the air, because the
 frames tool has no way to force a shot state.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-01 — PINBALL: the cannon takes a ball only from its own column
+
+- reading: 5 min. Who reads `pinballCatchReachMilli`: the catch, the funnel's
+  width and one spec paragraph, and no test pinned the old value.
+- writing: 5 min. One number, its doc and the spec sentence.
+- looking: 5 min. One frame; the cup now covers a column of the middle gap.
+- friction: 0 min.
+- landing: 5 min. One `check:fast`.
+
+Bottleneck: none worth naming; reading what depends on the number was the
+whole of the work.

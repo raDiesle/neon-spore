@@ -93,8 +93,12 @@ export interface PinballConfig {
    *
    * Its own number since 30 September 2026, when the owner asked for a wider
    * catch: widening `pinballCatchMilli` would have raised the launch lane and
-   * cost every board a row. A column and a tenth either side, so a cannon a
-   * column off still takes the ball.
+   * cost every board a row. It was a column and a tenth either side until
+   * 1 October 2026, when the owner, looking at a frame of the funnel drawn that
+   * wide, said: *it should still be possible that ball is hitting the hull
+   * ship, otherwise it's too easy* — the cup covered most of the gap the side
+   * funnels leave. Half a column now: the cannon takes the ball only from the
+   * column it is falling into, so a pilot a column off loses it.
    */
   pinballCatchReachMilli: number;
   /**
@@ -180,7 +184,7 @@ export const PINBALL_DEFAULTS: PinballConfig = {
   // that is still where it was when the word was started.
   pinballPowerMilli: 4,
   pinballCatchMilli: 620,
-  pinballCatchReachMilli: 1100,
+  pinballCatchReachMilli: 500,
   pinballClearMilli: 5000,
   pinballFunnelMilli: 3000,
   pinballFunnelPermille: 400,

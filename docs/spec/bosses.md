@@ -1676,7 +1676,9 @@ which is also how high a ball rests above the floor and how deep the clear lane
 above the ship is — one number, because the mouth a ball comes out of is the
 mouth it has to come back into; how far across from the cannon's middle a
 falling ball is still taken is `pinballCatchReachMilli`, its own number so the
-catch could widen without raising the lane. `pinballGravityMilli` is what the
+catch could change without raising the lane — half a column since 1 October
+2026, so only the column the ball falls into takes it and a ball can still
+reach the hull. `pinballGravityMilli` is what the
 ball gains downward on a tick gravity is applied, and `pinballGravityTicks` is
 one tick in how many — 1 on every second, since the owner asked for the flight
 at half speed. `pinballLaunchMilli` is the speed a ball leaves the bucket
