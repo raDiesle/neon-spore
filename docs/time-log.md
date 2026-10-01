@@ -30809,3 +30809,5 @@ Bottleneck: the restart; the template itself was two lanes old.
 - landing: 5 min. `check:fast` and `land`.
 
 Bottleneck: the context cut; the hub's halo had to be drawn after the hub, in the stand's frame, or the hub hid it.
+
+*Measured: 31 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

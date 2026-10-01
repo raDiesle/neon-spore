@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 186597937 — THE TRIVET's marks answer a touch the way every mark does
+
+Each outer foot of the stand wears the halo on its own seat's screen while the lit step wants its chord and the chord is not held, and the partner's ring and clock on the other screen; the hub and the hull under the needle halo on both screens while their step stands. A plant, a brace, a hub hit and a needle turned answer green; a lit pad lifted reddens its own foot, and a foot springing, the stand rocking or a step missed reddens only what that step asked.
+
 ## 2026-10-01 · e7cd9376d — THE RIME's marks answer a touch the way every mark does
 
 Each half of the lens wears the halo on its own seat's screen while a wipe or the whiteout is lit on it with frost still on it, and the partner's ring and clock on the other screen; the core, the hull under the surge and the hull under the icicle halo on both screens while their step stands. A half wiped clear, the whiteout thawed, a core hit and a shield turned answer green; a half frosting back, the lens clouding or a step missed reddens only what that step asked, and a wipe too many in the refreeze reddens the core.
