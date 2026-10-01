@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 7ef9b5e61 — THE INSTAR's side-on head as a living skull, three ways, offered in VERSUS
+
+Three new VERSUS candidates in `instar:head`: drake, hound and viper. Each keeps the shipped face-on head. Side-on and turned on the idle drift, each draws one skull and one jaw, each a spline of rings, instead of the rig's ball with tubes for a muzzle and a jaw: - drake: long, with swept horns. - hound: domed, with ram's horns and tusks. - viper: a flat fanged wedge with a spiked crest.
+
 ## 2026-10-01 · a19fc2a35 — THE INSTAR turns on the idle drift, offered in VERSUS
 
 A VERSUS candidate, `instar:drift` / `turn`: nothing on the field changes until the owner picks it. THE INSTAR's whole side-on body drifts on the rig's slow yaw, pitch and roll, and its head turns on top of it toward the players, from profile to three-quarter and back, never away. The drift is nothing on face-on steps and a tenth over live marks, and a mark is pressed where the drift draws it.

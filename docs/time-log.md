@@ -31110,3 +31110,5 @@ Bottleneck: the script's first step is face-on, where the drift is zero by desig
 
 Bottleneck: the first jaws were cones fat at the hinge, and the jowl lobes
 read as a second tube side-on, which took two more renders to see and cut.
+
+*Measured: 27 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
