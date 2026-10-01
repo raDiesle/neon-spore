@@ -31191,3 +31191,5 @@ Bottleneck: which vein faces us at which turn could only be settled by printing 
 - landing: 5 min. Formatting, `check:fast`, `land`.
 
 Bottleneck: finding every place that locates a mark — drawing, hit test, cue and caption — so they all ask the one turn.
+
+*Measured: 58 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

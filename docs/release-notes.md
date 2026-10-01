@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · fd856eb42 — THE QUEEN's shell can turn, its plates and marks with it, offered in VERSUS as queen:plates turn
+
+Her seams are pinned by longitude (`queen-surface.ts`), so a turn of up to 45° on her outline's yaw slides them across her, takes an outer seam over the rim and brings a far one round. Her two marks ride the same turn by 9°, and the drawing, the hit test, the cue and the caption all ask `queenTurn`, so a thumb finds a mark where it is drawn. Shipped still: the field draws as it did. Exemption: a look the owner asked for by name.
+
 ## 2026-10-01 · 5b9d91a34 — THE REPRISE's veins can turn with its sac, offered in VERSUS as reprise:skin turn
 
 The veins on THE REPRISE's sac are pinned to the body by longitude. When the outline turns, up to 40°, they slide across the skin: fast through the middle, slowly at the rim. The near vein on the leading lobe goes over the edge, and a far vein, hidden behind the rim at rest, comes round. The gloss stays, because the light does not turn. The shipped sac keeps its skin still and draws the same curves it always did. Exemption: a look the owner asked for by name (the living bosses' surface marks).
