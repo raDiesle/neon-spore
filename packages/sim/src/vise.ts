@@ -127,6 +127,23 @@ export function viseClosed(world: World, s: ViseState): boolean {
   return false;
 }
 
+/** Whether lobe `side` is asked to be pinched: a pinch step naming it lit, and its gap not yet shut. */
+export function viseLobeAsks(world: World, s: ViseState, side: 0 | 1): boolean {
+  const ask = viseLitStep(s)?.ask;
+  const named = ask === "both" || ask === (side === 0 ? "left" : "right");
+  return named && !viseShut(world, s, side);
+}
+
+/** Whether the kernel is asked for a shot: a fire step lit, the kernel bare. */
+export function viseKernelAsks(s: ViseState): boolean {
+  return s.bared && viseLitStep(s)?.ask === "fire";
+}
+
+/** Whether the spat seed is asked for a shot up its column. */
+export function viseSeedAsks(s: ViseState): boolean {
+  return viseLitStep(s)?.ask === "spit";
+}
+
 /** The case split: the fight is over and it is only falling. */
 export function viseDone(s: ViseState): boolean {
   return s.phase === "split";

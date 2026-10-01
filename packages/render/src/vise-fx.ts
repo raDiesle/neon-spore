@@ -7,6 +7,7 @@ import { PAINTED_STRIPS } from "./painted-strips.js";
 import { PALETTE } from "./palette.js";
 import { SpriteBursts } from "./sprite-burst.js";
 import { viseCentre, viseKernel, viseLift, viseRadius } from "./vise-shape.js";
+import { ViseVerdicts } from "./vise-verdicts.js";
 
 /**
  * What THE VISE leaves behind a frame (§28, *Presentation*): the **dry thud**
@@ -34,7 +35,8 @@ import { viseCentre, viseKernel, viseLift, viseRadius } from "./vise-shape.js";
  * blow, drawn by `boss-strike-fx.ts` for every boss that strikes.
  *
  * The kernel's colour is the lit step's and not in `viseHit`, so the drawer
- * tells it every frame (`tell`), THE OCULUS's way. Everything is cleared in
+ * tells it every frame (`tell`), THE OCULUS's way. Whether each mark was
+ * right to touch is `marks` (`vise-verdicts.ts`). Everything is cleared in
  * `Effects.reset()` (`restart.test.ts`).
  */
 
@@ -65,6 +67,8 @@ export class ViseFx {
   readonly hurt = new BossHurt();
   /** The painted crack the split throws off the kernel: an offered look, off until installed. */
   readonly crack = new SpriteBursts(PAINTED_STRIPS["vise-crack"]);
+  /** Whether the last touch on each of the case's marks was right. */
+  readonly marks = new ViseVerdicts();
 
   /** How far the whole case is pressed down right now, in tiles. */
   get thud(): number {
@@ -103,6 +107,7 @@ export class ViseFx {
     beatSeconds: number,
     burst: Burst,
   ): void {
+    this.marks.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("vise")) continue;
       const mid = viseCentre(l, cfg);
@@ -169,6 +174,7 @@ export class ViseFx {
     this.shock.update(dt);
     this.hurt.update(dt);
     this.crack.update(dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
@@ -182,6 +188,7 @@ export class ViseFx {
     this.kernelHex = PALETTE.hullRim;
     this.hurt.clear();
     this.crack.clear();
+    this.marks.clear();
   }
 }
 

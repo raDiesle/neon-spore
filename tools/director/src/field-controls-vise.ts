@@ -19,7 +19,11 @@ const LOBE_DOES =
   "(`viseShutMilli`) and cracks a seam when they run out, and the gap widening " +
   "past the line starts the count again. **Either finger lifting lets the lobe " +
   "go**, back open. A third finger is nobody's. The case takes a pinch " +
-  "whenever it stands, until it splits (sim/vise-hand.ts).";
+  "whenever it stands, until it splits (sim/vise-hand.ts). While a pinch " +
+  "naming a lobe is lit and its gap is not yet shut, the lobe wears the halo " +
+  "on its seat's screen and the partner's ring and clock on the other's; a " +
+  "seam cracked greens its lobe, a brace greens both, and a slip or a pinch " +
+  "run out reddens the lobe it asked (render/vise-verdicts.ts).";
 
 export const VISE_CONTROLS: readonly FieldControlDef[] = [
   {

@@ -9413,6 +9413,20 @@ go; and `FIRE` at the hull under the middle column while the kernel is lit,
 to either seat and never naming the colour. Nothing between steps or as it
 splits (`render/boss-cue-read-zf.ts`, `test/boss-cue-vise.test.ts`).
 
+**Its marks answer a touch the way every mark does** (`render/vise-verdicts.ts`,
+`test/vise-verdict.test.ts`). Five marks: each lobe, the kernel, the hull
+under the case and the spat seed. While a pinch naming a lobe is lit and its
+gap is not yet shut, the lobe wears the halo on its own seat's screen and the
+partner's ring and clock on the other's, so a seat already pinching sees the
+one still open. The kernel asks for its shot while a fire step stands with it
+bare, the hull for the shield through the bite, and the seed for a shot up its
+column; either seat answers those three, so they halo on both screens with
+nobody's clock. A seam cracked greens its lobe and a brace greens both; a
+pinch slipping open reddens its own lobe. A kernel hit, a bite blocked and a
+seed burst green their marks, and a step let run out reddens only what it
+asked. A lobe pinched by the wrong seat, and a shot of the wrong colour, stay
+silent, as the simulation is.
+
 ## 11.46 THE RIME — the boss two rubs wipe clear, then shoot into
 
 > A frosted lens over the middle of the field, iced in two halves. Your half

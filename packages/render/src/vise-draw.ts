@@ -38,15 +38,17 @@ import {
   viseSpinePath,
 } from "./vise-shape.js";
 import { drawViseBiteBar, drawViseSeed, viseBite, viseLunge, viseSpit } from "./vise-story.js";
+import { drawViseMarkFeedback } from "./vise-verdicts.js";
 
 /**
  * **THE VISE**: a seed-case of two lobes over the middle column, each pinched
  * shut by one seat's thumb and finger, and a kernel in the hollow between them
  * that both cannons are asked to hit (§11.45, `bosses-choreographed.md` §28).
  *
- * **Both screens are drawn the same.** Nothing here reads `l.role`: a pinch is
- * one seat's, but the other has to see which lobe is lit to say so, and a fire
- * step's colour says which cannon answers.
+ * **Both screens are drawn the same.** Nothing here reads `l.role` but the
+ * marks' feedback (`vise-verdicts.ts`): a pinch is one seat's, but the other
+ * has to see which lobe is lit to say so, and a fire step's colour says which
+ * cannon answers.
  *
  * **A husk, not flesh**: dry tan shell, the cracks a paler white, and the only
  * colour on it is what a step asks for — the lit seam in white, the kernel in
@@ -124,6 +126,7 @@ export function drawVise(
     const spit = viseSpit(s, cfg, beat, beatPhase);
     drawViseSeed(ctx, l, spit, seedX, l.hullY - y, spat.color, beatPhase);
   }
+  drawViseMarkFeedback(ctx, l, world, s, beat, beatPhase, time, l.hullY - y, fx.marks.verdicts);
   drawViseFlash(ctx, l, fx.flash, fx.split);
   ctx.restore();
   // In field pixels, not the case's frame: the crack stays where the kernel broke.

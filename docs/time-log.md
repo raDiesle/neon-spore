@@ -30767,3 +30767,16 @@ Bottleneck: the rule lived in eight comments and four documents, each
 saying the same thing in its own words.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE VISE's marks answer a touch
+
+- reading: 5 min. THE OCULUS's verdicts and test, to copy, and the case's
+  events and cue.
+- writing: 5 min. Three asking predicates in the simulation, the verdict
+  file, its wiring and its test, the spec and the director's line.
+- looking: 0 min. The frame tests count the halo, the clock and the red.
+- friction: 0 min. A typecheck pointed at a package with no tsconfig, run
+  again from the root.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: none worth the name; the template was one lane old.
