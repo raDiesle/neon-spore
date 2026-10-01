@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 1fe630933 — PINBALL: the cannon takes a ball only from the column it falls into
+
+The catch reaches half a column either side of the cannon, down from a column and a tenth, so a pilot standing a column off now loses the ball to the hull. The funnel drawn in flight shrinks with it, because it is drawn from the same number. The owner, 1 October 2026: "It should still be possible that ball is hitting the hull ship, otherwise it's too easy."
+
 ## 2026-10-01 · 5bdc41015 — PINBALL: while the ball is up, the cannon is a funnel to catch it
 
 The MOVE word on the cannon is gone. For as long as a ball is in flight, the cannon is drawn as a green cup exactly as wide as the catch (`pinballCatchReachMilli` either side of the mouth), so the picture shows how much of the floor brings the ball home. A light breathes at its neck, sparks slide down both walls into it, and chevrons fall down the middle, pointing at the mouth.
