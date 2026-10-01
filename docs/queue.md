@@ -437,6 +437,7 @@ flat. `bun run check` proves the tests.
 ## THE LAMPREY's simulation (§41)
 
 - **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
+- **Taken:** 2026-10-01, claude/queue-auto-loses-the-valve-to-its-first-spark (claim: claude/queue-the-lampreys-simulation-41)
 - **Files:** `packages/sim/src/`, `packages/content/src/`, `packages/hands/src/`, `docs/spec/bosses-choreographed.md`
 
 The owner, 1 October 2026, asked for THE LAMPREY to be built from its sheet
