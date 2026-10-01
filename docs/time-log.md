@@ -30839,3 +30839,5 @@ Bottleneck: the context cut; every level is both pulls, so which stones a level 
 - landing: 5 min. `check:fast` and `land`.
 
 Bottleneck: the context cut; a `both` step's loose answers only its own cord, so the other had to stay owed past it.
+
+*Measured: 49 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

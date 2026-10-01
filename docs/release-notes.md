@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 2c10a557e — THE SLING's marks answer a touch the way every mark does
+
+Each cord haloes on its own seat's screen and shows the partner's ring and clock on the other's while a draw is lit on it and not yet loosed; the cup haloes on both screens while a fire step stands with the yoke lit. A true loose, a steady and a cup hit green their marks; a lift short of true, a draw through the cool, and a step let run out redden only what was asked.
+
 ## 2026-10-01 · 4d33bcba3 — THE PLUMB's marks answer a touch the way every mark does
 
 Each stone wears the halo on its own seat's screen, and the partner's ring and clock on the other's, while a level step is lit and that seat is not yet pulling towards true. The core haloes on both screens while a fire step stands with it lit. A settle or a steady greens both stones and a core hit greens the core. A drift or a pull through the bleed reddens its own stone, and a step run out reddens only what it asked.
