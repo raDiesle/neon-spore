@@ -31142,3 +31142,5 @@ Bottleneck: the wave lives only on the side-on profile during a flight, so neith
 - landing: 5 min. Formatting, the index, the spec, `check:fast`, `land`.
 
 Bottleneck: the op-count test failed on fills the earlier body drift already drew, and it took a temporary switch to show the parts were not the cause.
+
+*Measured: 34 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

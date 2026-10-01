@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · a83884a72 — THE INSTAR's parts drift on their own, in the VERSUS candidate
+
+On top of the body's turn in VERSUS `instar:drift` / `turn`, seven of THE INSTAR's parts now drift on their own: the head cocks and turns about its neck, the jaw breathes open while the script holds it shut, the eyes glance, each wing wanders on its shoulder and lets go while it spreads, and the tail swings about its root down three links. The horns and the claws ride their parents. Head and tail marks are pressed where their part carried them. Only the candidate changes; the shipped body is untouched (no look replaced).
+
 ## 2026-10-01 · 91cab568a — THE INSTAR swims on its flights, offered in VERSUS
 
 On the flight in and the passes, THE INSTAR's long body can now swim instead of being carried stiff. A wave runs down the spine from the neck to the tail, one and a half crests along it, growing from a third of a head radius at the neck to a whole one at the rear. A crest toward the players swells the girth by up to 18%, and the wings beat once a crest, on the wave at the shoulders. The wave grows out of the resting body and dies back into it, so the landing has nothing to snap. It is VERSUS `instar:flight` / `serpent`, and nothing on the field changes (amount 0): a look with no shipped alternative. `bun run solid --instar-flight` draws the strip.
