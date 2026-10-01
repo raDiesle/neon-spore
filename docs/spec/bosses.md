@@ -9952,6 +9952,20 @@ pulled from the last shot from its first beat. Whether any of it
 *reads* — whether two thumbs find the sum by talking — is the owner's eye,
 on two real phones.
 
+**Its marks answer a touch the way every mark does** (`render/plumb-verdicts.ts`,
+`test/plumb-verdict.test.ts`). Three marks: each stone and the core. While a
+level step is lit, every stone whose seat is not yet pulling towards true
+wears the halo on its own seat's screen and the partner's ring and clock on
+the other's, so a seat already pulling sees the stone still waited on; a
+level is always both pulls, so whichever weight it settles it asks both
+stones. The core asks for its shot while a fire step stands with it lit;
+either seat answers it, so it haloes on both screens with nobody's clock. A
+settle and a steady green both stones and a core hit greens the core; a pull
+knocking the bob off true, and a pull through the bleed, redden their own
+stone. A step let run out — a weight swung back, the core dimmed, a shot
+missed — reddens only what it asked. A stone pulled by the wrong seat, and a
+shot of the wrong colour, stay silent, as the simulation is.
+
 ## 11.49 THE SLING — the boss two draws loose, then shoot into
 
 > A forked arm bolted over the middle of the field, both draw-arms slack.

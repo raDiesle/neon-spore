@@ -10,7 +10,7 @@ import { coreHurt } from "./core-hurt.js";
 import { seatIsMine } from "./handle-word.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
-import type { Layout } from "./layout.js";
+import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawPlumbBleed } from "./plumb-bleed-light.js";
 import type { PlumbFx } from "./plumb-fx.js";
@@ -30,6 +30,7 @@ import {
   plumbBeamEnd,
   plumbBeamPath,
   plumbChain,
+  plumbCoreAt,
   plumbHook,
   plumbHookPath,
   plumbLift,
@@ -38,6 +39,7 @@ import {
   plumbSacPath,
   plumbSacRadius,
 } from "./plumb-shape.js";
+import { drawPlumbMarkFeedback } from "./plumb-verdicts.js";
 import { drawPlumbWeight } from "./plumb-weight.js";
 import { stepColour } from "./step-colour.js";
 
@@ -91,6 +93,7 @@ export function drawPlumb(
   drawBob(ctx, l, world, s, beat, beatPhase, time, fx);
   ctx.restore();
 
+  const stones: Circle[] = [];
   for (const side of [0, 1] as const) {
     const end = plumbBeamEnd(l, side, skew);
     const swing = plumbSwing(s, world, side, beat, beatPhase, time);
@@ -115,6 +118,7 @@ export function drawPlumb(
     );
     const bled = plumbBled(s, world, side, beat, beatPhase);
     const stone = { ...ball, r: plumbBallR(l, side) * size };
+    stones.push(stone);
     if (bled !== null) drawPlumbBleed(ctx, l, skew, side, stone, bled);
     // The painted settle, behind `?raster=1`, hung from where this chain is.
     ctx.save();
@@ -122,6 +126,8 @@ export function drawPlumb(
     fx.swing.draw(ctx, side);
     ctx.restore();
   }
+  const at = { core: plumbCoreAt(l, { x: 0, y: 0 }, skew), stones: stones as [Circle, Circle] };
+  drawPlumbMarkFeedback(ctx, l, s, time, at, fx.marks.verdicts);
   ctx.restore();
 }
 

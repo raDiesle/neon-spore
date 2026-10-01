@@ -5,6 +5,7 @@ import type { Layout } from "./layout.js";
 import { PAINTED_STRIPS } from "./painted-strips.js";
 import { PALETTE } from "./palette.js";
 import { plumbCoreAt, plumbGlass, plumbHook } from "./plumb-shape.js";
+import { PlumbVerdicts } from "./plumb-verdicts.js";
 import { SpriteBursts } from "./sprite-burst.js";
 
 /**
@@ -52,6 +53,8 @@ export class PlumbFx {
   private coreHex: string = PALETTE.plumbGlass;
   /** The blow a weight settling true, a steady or a shot landing deals the bob. */
   readonly hurt = new BossHurt();
+  /** The stones' and the core's verdicts on a touch (`plumb-verdicts.ts`). */
+  readonly marks = new PlumbVerdicts();
   /**
    * The painted settle: an offered look, off until installed. Its bursts sit
    * in beam-end coordinates, keyed by side, because the beam turns as it
@@ -85,6 +88,7 @@ export class PlumbFx {
   }
 
   ingest(events: readonly SimEvent[], l: Layout, cfg: SimConfig, burst: Burst): void {
+    this.marks.ingest(events);
     const hook = plumbHook(l, cfg);
     const core = plumbCoreAt(l, hook, 0);
     for (const e of events) {
@@ -132,6 +136,7 @@ export class PlumbFx {
     this.hitNow = Math.max(0, this.hitNow - HIT_DECAY * step);
     this.freeNow = Math.max(0, this.freeNow - FREE_DECAY * step);
     this.hurt.update(dt);
+    this.marks.update(dt);
     this.swing.update(dt);
   }
 
@@ -144,6 +149,7 @@ export class PlumbFx {
     this.freeNow = 0;
     this.coreHex = PALETTE.plumbGlass;
     this.hurt.clear();
+    this.marks.clear();
     this.swing.clear();
   }
 }

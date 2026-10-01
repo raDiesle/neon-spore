@@ -142,6 +142,23 @@ export function plumbTrue(s: PlumbState): boolean {
   return Math.abs(plumbOff(s)) <= step.rangeMilli;
 }
 
+/**
+ * Whether seat `side`'s stone is asked for this instant: a level step is lit,
+ * and that seat's pull does not yet lean the way true is. A thumb up, or one
+ * pulling the bob further off, is still asked; one pulling towards true is
+ * doing its half, whether or not the sum is in range yet.
+ */
+export function plumbStoneAsks(s: PlumbState, side: 0 | 1): boolean {
+  const step = plumbLitStep(s);
+  if (step === null || !levelling(s)) return false;
+  return !(s.pullMilli[side] * step.skewMilli < 0);
+}
+
+/** Whether the core is asked for a shot this instant: a fire step lit, with the core lit. */
+export function plumbCoreAsks(s: PlumbState): boolean {
+  return plumbLitStep(s)?.ask === "fire" && s.coreLit;
+}
+
 /** The bob swinging free: the fight is over and it is only falling away. */
 export function plumbDone(s: PlumbState): boolean {
   return s.phase === "free";

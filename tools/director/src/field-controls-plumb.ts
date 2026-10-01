@@ -17,7 +17,11 @@ const does = (side: "left" | "right") =>
   "grows the right, and either tips the bob the way the thumb goes. The bob " +
   "hangs true while the step's skew and both pulls sum inside its range, and " +
   "the lit weight settles once it has hung there for the step's beats. A " +
-  "lift is a pull of nought (sim/plumb-hand.ts).";
+  "lift is a pull of nought (sim/plumb-hand.ts). While a level is lit and " +
+  "the seat is not yet pulling towards true, the stone wears the halo on its " +
+  "seat's screen and the partner's ring and clock on the other's; a settle " +
+  "or a steady greens, and a drift, a pull through the bleed or a weight " +
+  "swung back reddens (render/plumb-verdicts.ts).";
 
 export const PLUMB_CONTROLS: readonly FieldControlDef[] = [
   {

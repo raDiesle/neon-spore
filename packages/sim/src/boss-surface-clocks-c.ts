@@ -121,9 +121,11 @@ export {
   type PlumbState,
   type PlumbStep,
   plumbBoss,
+  plumbCoreAsks,
   plumbDone,
   plumbLitStep,
   plumbOff,
+  plumbStoneAsks,
   plumbTrue,
 } from "./plumb.js";
 export {

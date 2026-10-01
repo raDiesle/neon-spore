@@ -30811,3 +30811,16 @@ Bottleneck: the restart; the template itself was two lanes old.
 Bottleneck: the context cut; the hub's halo had to be drawn after the hub, in the stand's frame, or the hub hid it.
 
 *Measured: 31 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE PLUMB's marks answer a touch
+
+- reading: 5 min. The bob's step, hand and draw, and THE TRIVET's verdicts
+  to copy.
+- writing: 15 min. Two asking predicates in the simulation, the verdict
+  file, its wiring into the bob's frame and its test, the spec and the
+  director's line.
+- looking: 0 min. The frame tests count the halo, the clock and the red.
+- friction: 5 min. A context cut mid-lane.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: the context cut; every level is both pulls, so which stones a level asks had to be read off the hand, not the step's name.
