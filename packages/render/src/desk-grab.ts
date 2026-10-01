@@ -47,7 +47,7 @@ import { wardenGripSeat } from "./warden-grip.js";
  *    seventh (`vane-grip.ts` `vaneGripSeat`), and THE MAZE's string and
  *    heart the eighth (`maze-grip.ts` `mazeGripSeat`), and SNAKE's jaws and
  *    tail the ninth (`snake-grip.ts` `snakeGripSeat`), and PINBALL's plunger
- *    and table the tenth (`pinball-grip.ts` `pinballGripSeat`), and THE
+ *    (the table is both seats') the tenth (`pinball-grip.ts` `pinballGripSeat`), and THE
  *    SCOUT's line and prime the eleventh (`scout-grip.ts` `scoutGripSeat`),
  *    and THE BATON's shell and beads the twelfth (`baton-grip.ts`
  *    `batonGripSeat`), and THE THROAT's ring and tube the thirteenth

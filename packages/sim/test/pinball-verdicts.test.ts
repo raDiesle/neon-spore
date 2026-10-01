@@ -17,8 +17,8 @@ import { pinballDragHeard } from "../src/pinball-hand.js";
 /**
  * PINBALL's plunger and table answering a touch the way every mark does:
  * which part is asked (`pinPlungerAsks`, `pinTableAsks`), and a press from the
- * other seat on an asked part said once as a refusal (`pinRefuse`) and doing
- * nothing else. `pinball-hand.test.ts` holds the wind and the shove themselves.
+ * other seat on the asked plunger said once as a refusal (`pinRefuse`) and
+ * doing nothing else. The table has no other seat. `pinball-hand.test.ts` holds the wind and the shove themselves.
  */
 
 type Drag = Extract<Command, { kind: "drag" }>;
@@ -106,14 +106,12 @@ test("the driver's thumb on the asked plunger is refused once and winds nothing"
   expect(said(world, pin, 1, plunger(false))).toEqual([{ type: "pinWind" }]);
 });
 
-test("the pilot's thumb on the asked table is refused once and shoves nothing", () => {
+test("the asked table refuses neither seat: the shove is both of theirs", () => {
   const { world, pin } = playing();
   flight(pin);
-  expect(said(world, pin, 1, table(true))).toEqual([
-    { type: "pinRefuse", part: "table", player: 1 },
-  ]);
-  expect(said(world, pin, 1, table(false))).toEqual([]);
-  expect(pin.nudges).toBe(0);
+  expect(said(world, pin, 1, table(true))).toEqual([]);
+  expect(said(world, pin, 1, table(false))).toEqual([{ type: "pinNudge", way: 1 }]);
+  expect(said(world, pin, 2, table(true))).toEqual([]);
   expect(said(world, pin, 2, table(false))).toEqual([{ type: "pinNudge", way: 1 }]);
 });
 

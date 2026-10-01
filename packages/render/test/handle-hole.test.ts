@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
-import { createWorld, startWave, step, type World } from "@neon-spore/sim";
+import { createWorld, type PinballState, startWave, step, type World } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import {
@@ -75,31 +75,42 @@ function launched(world: World): World {
   return world;
 }
 
-describe("PINBALL's nudge, which is hers while a ball falls", () => {
+/** A spring a hard launch left slack, on the shot it is wound on: the one
+ * moment the plunger asks for the pilot's hand (`pinball-hand.ts`). */
+function slack(world: World): World {
+  const pin = world.boss as PinballState;
+  pin.slack = true;
+  pin.shot = "power";
+  return world;
+}
+
+describe("PINBALL's two rings, one both seats' and one the pilot's", () => {
   it.each(ROLES)("punches nothing out of a table nobody has a hand on, on %s", (role) => {
     expect(holes(table(), role)).toBe(0);
   });
 
-  it("fills its disc on her screen, where a thumb may land in it", () => {
-    // Her one answer during a flight, and the thing she has to be able to find
-    // on a board of pegs and targets (`pinball-hand.ts`).
-    expect(holes(launched(table()), "p2")).toBe(1);
+  it.each(ROLES)("fills the shove's disc on %s, where a thumb may land in it", (role) => {
+    // Both of theirs since 1 October 2026 (`pinball-hand.ts`): the one thing
+    // each of them has to be able to find on a board of pegs and targets.
+    expect(holes(launched(table()), role)).toBe(1);
   });
 
-  it("punches no hole in his board, where it is hers to press and his to read", () => {
+  it("fills the plunger's disc on his screen, where the wind is his", () => {
+    expect(holes(slack(table()), "p1")).toBe(1);
+  });
+
+  it("punches no hole in her board, where it is his to wind and hers to read", () => {
     // **The defect, in the one wave whose handle stands on a lit surface.** It
-    // stays on his screen: the dial is how many nudges she has spent, a second
-    // one tilts the table and her hand is dead for the rest of the flight, so
-    // *not yet* is a sentence the two of them have to say out loud — and he
-    // cannot say it without the number. What he may not be shown is a hole.
-    expect(holes(launched(table()), "p1")).toBe(0);
+    // stays on her screen: a slack spring is a bar that will not run, and she
+    // is the one waiting to fire on it. What she may not be shown is a hole.
+    expect(holes(slack(table()), "p2")).toBe(0);
   });
 
-  it("is still drawn on his screen, in the dim it is read in", () => {
+  it("is still drawn on her screen, in the dim it is read in", () => {
     const quiet = table();
-    const flying = launched(table());
-    const dim = (w: World) => drawn(w, "p1").split(PALETTE.dim).length - 1;
-    expect(dim(flying)).toBeGreaterThan(dim(quiet));
+    const wound = slack(table());
+    const dim = (w: World) => drawn(w, "p2").split(PALETTE.dim).length - 1;
+    expect(dim(wound)).toBeGreaterThan(dim(quiet));
   });
 });
 

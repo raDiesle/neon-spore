@@ -21,7 +21,8 @@ import { resetShot } from "../src/pinball-shot.js";
  * Both are entered by the pair's own last answer, which is THE GAUGE's shape
  * for the same brief: a launch above `pinballHardMilli` leaves the spring
  * slack and the bar will not run until player 1 has wound the plunger; through
- * a flight player 2 may shove the table once, and a second shove tilts it.
+ * a flight either seat may shove the table, out of one count the two of them
+ * share, and the shove past it tilts it.
  *
  * Nothing here can reach the hull. Every refusal below is a hand that did
  * nothing, which is the only kind of cost this round charges outside the ball
@@ -143,7 +144,7 @@ describe("the spring, after a hard launch", () => {
 });
 
 describe("the nudge, through a flight", () => {
-  it("shoves the ball the way she carried the table", () => {
+  it("shoves the ball the way the table was carried", () => {
     const world = open();
     launchAt(world, 500);
     expect(pin(world).shot).toBe("flight");
@@ -161,12 +162,28 @@ describe("the nudge, through a flight", () => {
     expect(pin(world).ball.vxMilli).toBe(before - CFG.pinballNudgeShoveMilli);
   });
 
-  it("refuses a shove too short, one from the pilot, and one off a flight", () => {
+  /** The owner, 1 October 2026: *any player can bump the ball*. */
+  it("takes a shove from either seat, out of the one count they share", () => {
+    const mixed = open();
+    const driver = open();
+    launchAt(mixed, 500);
+    launchAt(driver, 500);
+    press(mixed, 1, table(CFG.pinballNudgeMilli));
+    press(driver, 2, table(CFG.pinballNudgeMilli));
+    expect(pin(mixed).nudges).toBe(1);
+    press(mixed, 2, table(CFG.pinballNudgeMilli));
+    press(driver, 2, table(CFG.pinballNudgeMilli));
+    // Whose thumb it was is nowhere in the table afterwards: the same shove.
+    expect(pin(mixed).nudges).toBe(2);
+    expect(hashWorld(mixed)).toBe(hashWorld(driver));
+  });
+
+  it("refuses a shove too short, and one off a flight", () => {
     const world = open();
     launchAt(world, 500);
     const before = pin(world).ball.vxMilli;
     press(world, 2, table(CFG.pinballNudgeMilli - 1));
-    press(world, 1, table(CFG.pinballNudgeMilli));
+    press(world, 1, table(CFG.pinballNudgeMilli - 1));
     expect(pin(world).ball.vxMilli).toBe(before);
     expect(pin(world).nudges).toBe(0);
     const aiming = open();
@@ -175,12 +192,15 @@ describe("the nudge, through a flight", () => {
   });
 
   /** The arcade's own rule: the shove after the last one is the tilt. */
-  it("tilts on the next shove, and her hand is dead for the rest of the flight", () => {
+  it("tilts on the next shove, and both hands are dead for the rest of the flight", () => {
     const world = open();
     launchAt(world, 500);
-    for (let i = 0; i <= CFG.pinballNudges; i++) press(world, 2, table(CFG.pinballNudgeMilli));
+    for (let i = 0; i <= CFG.pinballNudges; i++) {
+      press(world, i % 2 === 0 ? 1 : 2, table(CFG.pinballNudgeMilli));
+    }
     expect(pin(world).tilted).toBe(true);
     const after = pin(world).ball.vxMilli;
+    press(world, 1, table(CFG.pinballNudgeMilli));
     press(world, 2, table(CFG.pinballNudgeMilli));
     expect(pin(world).ball.vxMilli).toBe(after);
   });

@@ -4,9 +4,8 @@ import type { World } from "./world.js";
 
 /**
  * **PINBALL's two hands on the table itself**: player 1 winding a spring his
- * own last shot left slack, and player 2 nudging a ball she can do nothing
- * else about (`docs/spec/interludes.md`, PINBALL's *Three shots, three
- * hands*).
+ * own last shot left slack, and either of them nudging a ball in the air
+ * (`docs/spec/interludes.md`, PINBALL's *Three shots, three hands*).
  *
  * Both are entered by the pair's **own last answer**, which is the shape THE
  * GAUGE's two states took for the same brief: the round is never in a state
@@ -20,14 +19,15 @@ import type { World } from "./world.js";
  * *where from* a gesture, on the shot after the one it bought, which is the
  * only kind of cost this round can charge without touching the hull.
  *
- * **The nudge is player 2's**, and it is the one thing she has during a
- * flight. The round's own header says it: nothing either of them presses
- * reaches a ball in the air, and the strip is the only control that answers
- * while it falls — which leaves her watching. One nudge a flight shoves the
- * ball `pinballNudgeShoveMilli` the way she carried the table, and a second
- * **tilts** it: her hand is dead for the rest of that flight. That is the
- * arcade's own rule, and it is the reason the nudge is worth having a
- * conversation about — *not yet* is a sentence the pair now has to say.
+ * **The nudge is either seat's**, from one count the two of them share. A
+ * shove carries the ball `pinballNudgeShoveMilli` the way the table was
+ * carried, and the one after `pinballNudges` **tilts** it: the table is dead
+ * to both hands for the rest of that flight. It was player 2's alone, one a
+ * flight, until the owner asked on 1 October 2026 that *any player can bump
+ * the ball to lead the direction a little while flying*. Shared rather than
+ * one count each, because two counts are two players shoving without a word
+ * between them; one count is a thing they have to spend together, and *not
+ * yet — mine* is a sentence the pair now has to say.
  *
  * Nothing here can hurt them. A wind too short, a nudge on a shot that is not
  * in flight, a second nudge — each does nothing, and a tilt costs a hand and
@@ -36,7 +36,7 @@ import type { World } from "./world.js";
 
 /**
  * Whether the spring is offering player 1 a wind, and whether the table is
- * offering player 2 a shove.
+ * offering either of them a shove.
  *
  * **Two predicates rather than two conditions inside the two functions below**,
  * because the picture has to ask exactly the same questions: a ring drawn on a
@@ -82,7 +82,8 @@ export function pinballDragHeard(
     windHeard(world, state, player, command);
     return;
   }
-  if (command.target === "pinTable") nudgeHeard(world, state, player, command);
+  // Whose thumb it was is not asked: the table is both of theirs.
+  if (command.target === "pinTable") nudgeHeard(world, state, command);
 }
 
 function windHeard(
@@ -106,20 +107,15 @@ function windHeard(
 function nudgeHeard(
   world: World,
   state: PinballState,
-  player: 1 | 2,
   command: Extract<Command, { kind: "drag" }>,
 ): void {
-  if (player !== 2) {
-    if (command.on && pinTableAsks(state)) refuse(world, "table", player);
-    return;
-  }
   if (!pinNudgeable(state)) return;
   if (command.on) return;
   const carried = command.fromMilli;
   if (Math.abs(carried) < world.cfg.pinballNudgeMilli) return;
   if (state.nudges >= world.cfg.pinballNudges) {
     // The one over the line is the tilt, and it is charged rather than
-    // ignored: a nudge that did nothing would be a nudge she went on making.
+    // ignored: a nudge that did nothing would be a nudge they went on making.
     state.tilted = true;
     world.events.push({ type: "pinTilt" });
     return;
@@ -134,7 +130,8 @@ function nudgeHeard(
  * A press from the seat the part is not asked of, said once — the press and
  * never its lift. Both rings are drawn on both screens (`render/pinball-grip.ts`),
  * so a thumb can land on the wrong one, and every mark's *not yours* is said.
+ * Only the plunger has a wrong seat since the table became both of theirs.
  */
-function refuse(world: World, part: "plunger" | "table", player: 1 | 2): void {
+function refuse(world: World, part: "plunger", player: 1 | 2): void {
   world.events.push({ type: "pinRefuse", part, player });
 }

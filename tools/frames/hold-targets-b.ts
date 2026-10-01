@@ -62,7 +62,7 @@ export const ROWS: Record<string, Row> = {
   snakeTail: { seat: 2 },
   // `pinball-hand.ts`: the wind and the nudge are both spent on the lift.
   pinPlunger: { lift: true },
-  pinTable: { seat: 2, lift: true },
+  pinTable: { lift: true },
   // `scout-hand.ts`.
   scoutLine: { seat: 2 },
   scoutPrime: { lift: true },

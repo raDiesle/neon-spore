@@ -30,15 +30,15 @@ export interface PinballHandConfig {
    */
   pinballWindMilli: number;
   /**
-   * And how far player 2's has to carry the table for a nudge to count.
+   * And how far either seat's thumb has to carry the table for a nudge to count.
    *
    * 1200, which is shorter than a swipe on purpose: a nudge is a shove and not
-   * a stroke, and the ball it is aimed at is falling while she makes it.
+   * a stroke, and the ball it is aimed at is falling while it is made.
    */
   pinballNudgeMilli: number;
   /**
    * What one nudge adds to the ball's sideways speed, in thousandths of a tile
-   * per tick, in the direction she shoved.
+   * per tick, in the direction the table was shoved.
    *
    * 60 (120 until the flight was halved in speed on 30 September 2026):
    * enough to move a ball a peg over by the time it has fallen a third of
@@ -47,20 +47,23 @@ export interface PinballHandConfig {
    */
   pinballNudgeShoveMilli: number;
   /**
-   * Nudges the table takes in one flight before the next one tilts it.
+   * Nudges the table takes in one flight, from both seats together, before
+   * the next one tilts it.
    *
-   * 1. Two would make the nudge a second steering control; nought would make
-   * it a rule with nothing on the other side of it. One is the arcade's own
-   * number and the only one that makes the pair say *not yet* out loud.
+   * 3. It was 1, player 2's, until the owner asked on 1 October 2026 that
+   * *any player can bump the ball to lead the direction a little*: one shove
+   * between two seats is a race to it rather than a lead. Three is a flight
+   * led a little — a shove moves the ball a peg over and no more — and still
+   * a count the pair have to share out loud, because the fourth tilts.
    */
   pinballNudges: number;
 }
 
-/** The defaults: the top tenth, a tile and a half, a shove and one of them. */
+/** The defaults: the top tenth, a tile and a half, a shove and three of them. */
 export const PINBALL_HAND_DEFAULTS: PinballHandConfig = {
   pinballHardMilli: 900,
   pinballWindMilli: 1500,
   pinballNudgeMilli: 1200,
   pinballNudgeShoveMilli: 60,
-  pinballNudges: 1,
+  pinballNudges: 3,
 };

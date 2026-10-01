@@ -521,7 +521,7 @@ in a state the two of them did not just put it in.
 |---|---|---|
 | `aim` | player 1's latch | nothing: the needle sweeps and the pair talks over it |
 | `power` | player 2's launch | **the spring may be slack.** A launch above `pinballHardMilli` leaves it so, and the bar does not run at all until player 1 carries the plunger back (`pinPlunger`, `pinballWindMilli`) |
-| `flight` | nobody — the ball is out of their hands | **the nudge.** Player 2 may shove the table sideways (`pinTable`, `pinballNudgeMilli`), once, and the ball takes `pinballNudgeShoveMilli` the way she shoved. The shove after that **tilts** it and her hand is dead for the rest of the flight |
+| `flight` | nobody — the ball is out of their hands | **the nudge.** Either player may shove the table sideways (`pinTable`, `pinballNudgeMilli`), three times between them, and the ball takes `pinballNudgeShoveMilli` the way it was shoved. The shove after that **tilts** it and both hands are dead for the rest of the flight |
 
 **The wind is the price of the shot they just took.** A launch at the top of
 the bar is the one that reaches the far corner of the board, and the top tenth
@@ -544,6 +544,17 @@ make the nudge a second steering control and nought would make it a rule with
 nothing on the other side. The shove after it is a **tilt**, which is the
 arcade's own rule and the reason the nudge is worth a sentence: *not yet* is
 now a thing the pair has to say to each other.
+
+**Either seat's, three between them, 1 October 2026.** The owner: *add also
+that any player can bump the ball to lead a little bit the direction while
+flying.* The table is now both seats' — nothing refuses player 1, and the
+ring is bright on both screens — and `pinballNudges` is three. **One count,
+shared**, rather than three each: two counts would be two players shoving
+without a word between them, and one is a thing they spend together, so *not
+yet — mine* is the sentence. The gesture is still the ring's carry, not a
+swipe anywhere on the table, because the pilot's thumb is on the cannon
+through a flight and a table-wide swipe would take his slide from under it.
+What is written above about her hand is the round as it was before.
 
 **Nothing new can hurt them.** A wind too short, a shove too short, a shove
 off a flight, a shove after the tilt — each does nothing. A tilt costs a hand

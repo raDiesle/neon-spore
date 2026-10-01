@@ -63,10 +63,10 @@ export const PINBALL_CONTROLS: readonly FieldControlDef[] = [
       "through a flight, and only until the table is tilted " +
       "(render/pinball-grip.ts)",
     seat:
-      "player 2 only — the seat that has nothing else while a ball falls. " +
-      "Haloed on her screen while asked, the clock on his; the shove washes it " +
-      "green, the tilt red, and his press on it is refused once and washes it " +
-      "red (render/pinball-marks.ts)",
+      "either seat, out of one count the two of them share — the owner, " +
+      "1 October 2026: any player can bump the ball. Haloed on both screens " +
+      "while asked; the shove washes it green and the tilt red " +
+      "(render/pinball-marks.ts)",
     gesture: "grab and drag",
     does:
       "Shoves the whole table sideways: a carry of at least pinballNudgeMilli, " +
@@ -75,8 +75,8 @@ export const PINBALL_CONTROLS: readonly FieldControlDef[] = [
       "The one thing either seat has that reaches a ball already thrown, and " +
       "it is a direction and never a place: enough to move it a peg over by " +
       "the time it has fallen a third of the table, and nowhere near enough " +
-      "to aim it. pinballNudges of them a flight — one — and the shove after " +
-      "that tilts the table and kills her hand for the rest of it. Its dial " +
+      "to aim it. pinballNudges of them a flight — three, between them — and " +
+      "the shove after that tilts the table and kills both hands for the rest of it. Its dial " +
       "is that count, so a full ring means the next one tilts, and a tilt " +
       "takes the ring off the table altogether.",
     source: "touch.ts — pinballGripUnder() under handleUnder()",

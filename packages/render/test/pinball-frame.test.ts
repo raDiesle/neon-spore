@@ -188,10 +188,9 @@ describe("the two hands on the table", () => {
     ).toBe(0);
   });
 
-  /** The seats the plunger is *theirs* on, and the ones the shove is: his is
-   * the spring, hers is the table, and the rig may press either. */
+  /** The seats the plunger is *theirs* on: his is the spring, and the rig may
+   * press it too. The shove is every seat's since 1 October 2026. */
   const HIS: ViewRole[] = ROLES.filter((r) => r !== "p2");
-  const HERS: ViewRole[] = ROLES.filter((r) => r !== "p1");
 
   it.each(HIS)("punches the plunger's disc on a slack spring, and only then, for %s", (role) => {
     expect(
@@ -202,7 +201,7 @@ describe("the two hands on the table", () => {
     ).toBe(1);
   });
 
-  it.each(HERS)("punches the shove's through a flight and takes it off a tilt for %s", (role) => {
+  it.each(ROLES)("punches the shove's through a flight and takes it off a tilt for %s", (role) => {
     expect(rings(role, (p) => (p.shot = "flight"))).toBe(1);
     expect(
       rings(role, (p) => {
@@ -212,23 +211,20 @@ describe("the two hands on the table", () => {
     ).toBe(0);
   });
 
-  it("punches nothing for the seat that may not press it, on either handle", () => {
-    // The whole of the change: she reads his plunger and he reads her shove,
-    // and neither reading cuts a hole in the board between them.
+  it("punches nothing for the seat that may not press the plunger", () => {
+    // She reads his plunger, and the reading cuts no hole in the board.
     expect(
       rings("p2", (p) => {
         p.shot = "power";
         p.slack = true;
       }),
     ).toBe(0);
-    expect(rings("p1", (p) => (p.shot = "flight"))).toBe(0);
   });
 
-  it("gives each seat the other's handle dimmed, and the rig neither", () => {
-    // Neither can feel the other's thumb, so each is drawn on both screens,
-    // bright on the seat it belongs to and dim on the other
-    // (`pinball-grip.ts`). The navigator reads the plunger dim because it is
-    // his; he reads the shove dim because it is hers; the rig owns both.
+  it("gives the navigator his plunger dimmed, and the shove neither seat", () => {
+    // She cannot feel his thumb, so the plunger is drawn on both screens,
+    // bright on his and dim on hers (`pinball-grip.ts`). The shove is both
+    // of theirs, and bright on both.
     const dim = (role: ViewRole, set: (state: PinballState) => void): number => {
       const world = stopped();
       set(pinballState(world));
@@ -250,7 +246,7 @@ describe("the two hands on the table", () => {
       p.shot = "flight";
     };
     expect(dim("p2", wound)).toBeGreaterThan(dim("p1", wound));
-    expect(dim("p1", falling)).toBeGreaterThan(dim("p2", falling));
+    expect(dim("p1", falling)).toBe(dim("p2", falling));
   });
 });
 

@@ -92,12 +92,12 @@ describe("PINBALL's parts asking", () => {
     expect(count(asked("p2", pin), CLOCK)).toBe(1);
   });
 
-  it("in a flight: the table halos for the driver, and the pilot waits on it", () => {
+  it("in a flight: the table halos for both seats, and neither waits on it", () => {
     const { pin } = playing("flight");
-    expect(count(asked("p2", pin), HALO)).toBe(1);
-    expect(count(asked("p1", pin), HALO)).toBe(0);
-    expect(count(asked("p1", pin), CLOCK)).toBe(1);
-    expect(count(asked("test", pin), HALO)).toBe(1);
+    for (const role of ROLES) {
+      expect(count(asked(role, pin), HALO)).toBe(1);
+      expect(count(asked(role, pin), CLOCK)).toBe(0);
+    }
   });
 });
 
@@ -134,13 +134,19 @@ describe("a press on the wrong seat's part", () => {
   it("at a desk is signed with the part's own seat instead", () => {
     const { world } = playing("flight");
     const l = layout("test");
+    // The table is both seats', so it signs nothing and the desk's own seat
+    // presses it; the plunger is still his.
     const at = pinTableCircle(l, CFG);
-    expect(pinballGripSeat(l, at.x, at.y, field(world, 1))).toBe(2);
-    const plunger = pinPlungerCircle(l, CFG);
-    expect(pinballGripSeat(l, plunger.x, plunger.y, field(world, 1))).toBeUndefined();
+    expect(pinballGripSeat(l, at.x, at.y, field(world, 1))).toBeUndefined();
     const touch = deskDown(l, at.x, at.y, [1, 2], (seat) => field(world, seat));
-    expect(touch?.player).toBe(2);
     expect(touch?.hold).not.toBeNull();
+  });
+
+  it("at a desk signs the slack plunger with his seat", () => {
+    const { world } = playing("power");
+    const l = layout("test");
+    const at = pinPlungerCircle(l, CFG);
+    expect(pinballGripSeat(l, at.x, at.y, field(world, 2))).toBe(1);
   });
 });
 

@@ -31331,3 +31331,17 @@ could still fire from under it.
 Bottleneck: finding where on the picture each simulation verdict lands, since the sim judges every bolt at row 0 and the ridge's shape lives only in render.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-01 — PINBALL: either seat bumps the ball, three between them
+
+- reading: 5 min. `pinball-hand.ts`, the grip, the marks and every test that
+  named the shove as the driver's.
+- writing: 5 min. One seat check gone from the sim, the ring bright on both
+  screens, the spec, the director's who-line, the tests turned to both seats.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `handle-hole.test.ts` still asserted her shove punched no
+  hole on his board; its dim-copy case moved to the plunger on hers.
+
+Bottleneck: the shove's seat was asserted in seven test files, and only the
+gate found the last of them.

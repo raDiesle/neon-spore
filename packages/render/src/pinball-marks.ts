@@ -17,7 +17,7 @@ import { pinAfoot, pinPlungerCircle, pinTableCircle } from "./pinball-grip.js";
  *
  * Whether each is asked is the simulation's (`sim/pinball-hand.ts`
  * `pinPlungerAsks`, `pinTableAsks`), and whose it is never changes: the wind
- * is the pilot's and the shove the driver's. Both are lifts measured on the
+ * is the pilot's and the shove is both of theirs (the owner, 1 October 2026). Both are lifts measured on the
  * way up, so nothing in the simulation says a thumb is down, and the halo
  * stands for as long as the part is asked — the wind ends the asking, and so
  * does the tilt. The part asked of the partner wears their turning ring and
@@ -25,8 +25,8 @@ import { pinAfoot, pinPlungerCircle, pinTableCircle } from "./pinball-grip.js";
  *
  * The verdicts come last, over everything: the green of the wind and of the
  * shove (`pinWind`, `pinNudge`), and the red of the shove one too many
- * (`pinTilt`), which is her own thumb and the wrong one, and of a press from
- * the seat the part is not asked of (`pinRefuse`). Keys are 0 for the plunger
+ * (`pinTilt`), which is their own thumb and the wrong one, and of a press on
+ * the plunger from the driver's seat (`pinRefuse`). Keys are 0 for the plunger
  * and 1 for the table. A round, so fed by the takeover (`effects-round-marks.ts`).
  */
 export class PinballMarks {
@@ -38,7 +38,7 @@ export class PinballMarks {
       if (e.type === "pinWind") this.verdicts.mark(PLUNGER, true);
       if (e.type === "pinNudge") this.verdicts.mark(TABLE, true);
       if (e.type === "pinTilt") this.verdicts.mark(TABLE, false);
-      if (e.type === "pinRefuse") this.verdicts.mark(e.part === "plunger" ? PLUNGER : TABLE, false);
+      if (e.type === "pinRefuse") this.verdicts.mark(PLUNGER, false);
     }
   }
 
@@ -57,7 +57,7 @@ const TABLE = 1;
 interface Part {
   key: number;
   c: Circle;
-  seat: 1 | 2;
+  seat: 1 | 2 | "both";
   asked: boolean;
 }
 
@@ -65,13 +65,13 @@ interface Part {
 function parts(l: Layout, cfg: SimConfig, state: PinballState): Part[] {
   return [
     { key: PLUNGER, c: pinPlungerCircle(l, cfg), seat: 1, asked: pinPlungerAsks(state) },
-    { key: TABLE, c: pinTableCircle(l, cfg), seat: 2, asked: pinTableAsks(state) },
+    { key: TABLE, c: pinTableCircle(l, cfg), seat: "both", asked: pinTableAsks(state) },
   ];
 }
 
 /** Whether this screen's seat is the part's — the test screen is both. */
-const mine = (l: Layout, seat: 1 | 2): boolean =>
-  l.role === "test" || (l.role === "p1") === (seat === 1);
+const mine = (l: Layout, seat: 1 | 2 | "both"): boolean =>
+  seat === "both" || l.role === "test" || (l.role === "p1") === (seat === 1);
 
 /** The asking, drawn under the two rings. */
 export function drawPinballAsked(

@@ -143,22 +143,22 @@ describe("the pilot's plunger on a slack spring", () => {
   });
 });
 
-describe("the navigator's shove on a ball in the air", () => {
+describe("the shove on a ball in the air", () => {
   it("takes hold at the left-hand end of the same band", () => {
     const world = playing();
     flight(world);
     expect(pressTable(world, 2)).toBe("pinTable");
   });
 
-  it("is hers, and nothing at all from the pilot", () => {
-    // His hand through a flight is the cannon, and a seat that could shove the
-    // ball it is catching would be one phone playing the round.
+  it("is the pilot's too", () => {
+    // The owner, 1 October 2026: *any player can bump the ball*. The count it
+    // spends is the pair's, not his (`sim/pinball-hand.ts`).
     const world = playing();
     flight(world);
-    expect(pressTable(world, 1)).not.toBe("pinTable");
+    expect(pressTable(world, 1)).toBe("pinTable");
   });
 
-  it("is still there with her one nudge spent, because the next one tilts", () => {
+  it("is still there with the pair's nudges spent, because the next one tilts", () => {
     const world = playing();
     flight(world).nudges = CFG.pinballNudges;
     expect(pressTable(world, 2)).toBe("pinTable");

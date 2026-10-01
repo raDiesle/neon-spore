@@ -15,9 +15,9 @@ import { bossOf } from "./touch-field.js";
 
 /**
  * **PINBALL's two hands on the table itself**: player 1 winding a spring his
- * own last shot left slack, and player 2 shoving a table she can do nothing
- * else about (`sim/pinball-hand.ts`, `docs/spec/interludes.md`, PINBALL's
- * *Three shots, three hands*).
+ * own last shot left slack, and either of them shoving a ball in the air
+ * (`sim/pinball-hand.ts`, `docs/spec/interludes.md`, PINBALL's *Three shots,
+ * three hands*).
  *
  * Both shipped in the simulation on 18 September 2026 with nothing drawn to
  * take hold of — that lane's own note says so: *the plunger is drawn the same
@@ -33,11 +33,11 @@ import { bossOf } from "./touch-field.js";
  * whole of it. The bar runs in that band while the wind is offered
  * (`pinball-aim.ts`) and nothing at all is drawn there during a flight.
  *
- * **His is at the right end of it and hers at the left**, which is the one
- * thing about the pair that is arbitrary and is worth being arbitrary about: a
- * round that put two different hands in one place would be teaching the pair
- * that *the handle is over there*, and they would find the wrong one first the
- * first time both gestures came up in one table.
+ * **The plunger is at the right end of it and the shove at the left**, which
+ * is the one thing about the pair that is arbitrary and is worth being
+ * arbitrary about: a round that put two different hands in one place would be
+ * teaching the pair that *the handle is over there*, and they would find the
+ * wrong one first the first time both gestures came up in one table.
  *
  * Nothing here outlives a frame, and both circles are read off `pinTable` —
  * the same call the board, the ball and the preview are drawn from, so a
@@ -93,7 +93,7 @@ export function pinPlungerCircle(l: Layout, cfg: SimConfig): Circle {
   return { x: t.x + t.tile * (t.cols - HAND_INSET) - r, y: handY(t), r };
 }
 
-/** And the shove: the left end of the same band, as far from his as it goes. */
+/** And the shove: the left end of the same band, as far from the plunger as it goes. */
 export function pinTableCircle(l: Layout, cfg: SimConfig): Circle {
   const t = pinTable(l, cfg);
   const r = ringRadius(l, cfg, t);
@@ -118,11 +118,12 @@ export function pinAfoot(state: PinballState): boolean {
 
 /**
  * The press on whichever of the two is asked, from either seat. The wind is
- * the pilot's because he is the seat that owns *where from*, and the shove is
- * hers because it is the one thing she has while a ball falls
- * (`pinball-hand.ts`). **A press from the other seat is handed through with no
- * hold**, so the simulation can refuse it once and the ring wash red
- * (`pinball-marks.ts`) — both rings are drawn on both screens.
+ * the pilot's because he is the seat that owns *where from*; the shove is
+ * both of theirs since the owner asked on 1 October 2026 that *any player can
+ * bump the ball* (`pinball-hand.ts`). **A press on the plunger from the other
+ * seat is handed through with no hold**, so the simulation can refuse it once
+ * and the ring wash red (`pinball-marks.ts`) — both rings are drawn on both
+ * screens.
  */
 export function pinballGripUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const pin = bossOf(field, "pinball");
@@ -132,21 +133,21 @@ export function pinballGripUnder(l: Layout, x: number, y: number, field: Field):
     return grab("pinPlunger", seat, seat === 1, x, y);
   }
   if (pinTableAsks(pin) && hitCircle(pinTableCircle(l, cfg), x, y)) {
-    return grab("pinTable", seat, seat === 2, x, y);
+    return grab("pinTable", seat, true, x, y);
   }
   return null;
 }
 
 /**
  * The seat a press on an asked ring belongs to, so one mouse at a desk takes
- * the driver's table rather than having it refused as the pilot's
- * (`desk-grab.ts` `markSeat`).
+ * the pilot's plunger rather than having it refused as the driver's
+ * (`desk-grab.ts` `markSeat`). The table belongs to whichever seat pressed it,
+ * so it names none.
  */
 export function pinballGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
   const pin = bossOf(field, "pinball");
   if (pin === null) return undefined;
   if (pinPlungerAsks(pin) && hitCircle(pinPlungerCircle(l, field.cfg), x, y)) return 1;
-  if (pinTableAsks(pin) && hitCircle(pinTableCircle(l, field.cfg), x, y)) return 2;
   return undefined;
 }
 
@@ -174,15 +175,16 @@ function grab(
  * `sinew-handles.ts` made: neither seat can feel the other's thumb, and each
  * of these is a thing the other seat is waiting on. It earns it twice here —
  * a navigator who could not see that the spring is slack would be firing on a
- * bar that is not going to run, and a pilot who could not see her one shove
- * spent would go on asking for another.
+ * bar that is not going to run. **The shove's ring is bright on both**, since
+ * it is both of theirs.
  *
  * **The shove's dial is the count, and it fills when the nudge is gone**:
- * `nudges` out of `pinballNudges`, which is one — so an empty ring is a shove
- * in hand and a full one is *the next one tilts it*, which is the sentence the
- * round exists to make the pair say. The tilt itself takes the ring off the
- * table, because from there her hand is dead for the rest of the flight and a
- * handle that answered nothing would be worse than none.
+ * `nudges` out of `pinballNudges`, the count the two of them share — so an
+ * empty ring is every shove in hand and a full one is *the next one tilts it*,
+ * which is the sentence the round exists to make the pair say. The tilt itself
+ * takes the ring off the table, because from there both hands on it are dead
+ * for the rest of the flight and a handle that answered nothing would be
+ * worse than none.
  *
  * **The plunger's is empty and stays empty.** The wind is a carry measured on
  * the lift and the simulation remembers nothing about a thumb on the way down
@@ -201,7 +203,7 @@ export function drawPinballGrips(
   if (pinWindable(state)) ring(ctx, pinPlungerCircle(l, cfg), l, 1, 0, time);
   if (!pinNudgeable(state)) return;
   const spent = Math.max(0, Math.min(1, state.nudges / Math.max(1, cfg.pinballNudges)));
-  ring(ctx, pinTableCircle(l, cfg), l, 2, spent, time);
+  ring(ctx, pinTableCircle(l, cfg), l, "both", spent, time);
 }
 
 /**
@@ -216,11 +218,11 @@ function ring(
   ctx: CanvasRenderingContext2D,
   at: Circle,
   l: Layout,
-  player: 1 | 2,
+  player: 1 | 2 | "both",
   pull: number,
   time: number,
 ): void {
-  const mine = l.role === "test" || (l.role === "p1") === (player === 1);
+  const mine = player === "both" || l.role === "test" || (l.role === "p1") === (player === 1);
   drawHandleRing(ctx, {
     x: at.x,
     y: at.y,
