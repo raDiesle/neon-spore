@@ -31157,3 +31157,5 @@ Bottleneck: the op-count test failed on fills the earlier body drift already dre
 - landing: 5 min. Formatting, `check:fast`, `land`.
 
 Bottleneck: which of the head's fifteen parts paid the extra fills was only answerable with a per-part probe written for the purpose.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
