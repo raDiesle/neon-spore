@@ -40,6 +40,10 @@ const ORIGIN = { x: 0, y: 0 };
 
 const tubes = (f: { jawUp: number; jawDown: number }) =>
   headParts(f, R).filter((p): p is TubePart => p.kind === "tube");
+/** The tubes in `headParts`' order: four horns, the muzzle, two fangs, two mandibles, two fangs. */
+const HORNS = [0, 1, 2, 3];
+const MUZZLE = 4;
+const MANDIBLES = [7, 8];
 
 /** The highest (`top`) or lowest point, face-on at the middle, of the discs a tube's rings project to. */
 function atMiddle(rings: readonly Ring[], edge: "top" | "bottom"): number | undefined {
@@ -81,8 +85,8 @@ describe("THE INSTAR's rig head face-on", () => {
       const lips = frontLipsAt(f, ORIGIN, R);
       const upper = poseOf(upperAnchor(f, R));
       const jaw = poseOf(jawAnchor(f, R));
-      const muzzle = tubes(f).find((t) => t.anchor?.at.x === 0 && t.rings.length === 5);
-      const mandibles = tubes(f).filter((t) => t.rings.length === 8);
+      const muzzle = tubes(f)[MUZZLE];
+      const mandibles = MANDIBLES.flatMap((i) => tubes(f)[i] ?? []);
       expect(muzzle).toBeDefined();
       expect(mandibles.length).toBe(2);
       const under = atMiddle(hangRings(upper, muzzle?.rings ?? []), "bottom");
@@ -101,7 +105,7 @@ describe("THE INSTAR's rig head side-on", () => {
   });
 
   it("has a blunt muzzle, no longer than the skull is deep", () => {
-    const muzzle = tubes({ jawUp: 0, jawDown: 0 }).find((t) => t.rings.length === 5);
+    const muzzle = tubes({ jawUp: 0, jawDown: 0 })[MUZZLE];
     const rings = muzzle?.rings ?? [];
     const back = rings[0] as Ring;
     const front = rings[rings.length - 1] as Ring;
@@ -110,7 +114,7 @@ describe("THE INSTAR's rig head side-on", () => {
   });
 
   it("sweeps every horn back and up from its root", () => {
-    const horns = tubes({ jawUp: 0, jawDown: 0 }).filter((t) => t.rings.length === 6);
+    const horns = HORNS.flatMap((i) => tubes({ jawUp: 0, jawDown: 0 })[i] ?? []);
     expect(horns.length).toBe(4);
     for (const h of horns) {
       const base = (h.rings[0] as Ring).c;

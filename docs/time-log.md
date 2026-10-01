@@ -31144,3 +31144,16 @@ Bottleneck: the wave lives only on the side-on profile during a flight, so neith
 Bottleneck: the op-count test failed on fills the earlier body drift already drew, and it took a temporary switch to show the parts were not the cause.
 
 *Measured: 34 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE INSTAR's turned body draws 13% more fills than the still one
+
+- reading: 10 min. `densify`, the rig head's parts and the parts test's cost
+  block.
+- writing: 10 min. Two rings for the straight tubes, `mandible`'s ring count,
+  and the still-body fill test.
+- looking: 5 min. A before and an after shot of the `turn` candidate.
+- friction: 15 min. A throwaway probe to count each head part's fills, the
+  context ran out mid-lane, and there is no PNG decoder to diff two shots.
+- landing: 5 min. Formatting, `check:fast`, `land`.
+
+Bottleneck: which of the head's fifteen parts paid the extra fills was only answerable with a per-part probe written for the purpose.

@@ -26,7 +26,8 @@ import { acting, field, hung, TPB } from "./instar-kit.js";
  * the tail on top of the body's turn. Every mark of every step is pressed
  * where the body *and* its head and tail are near their widest together, the
  * never-snaps ceilings hold for each part, and a frame draws within a tenth of
- * the body turning whole.
+ * the body turning whole — and within a tenth of the body standing still,
+ * whose head is the profile's own rather than the rig's.
  */
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -37,9 +38,9 @@ const SPAN = 600 / beatSeconds(CFG);
 /** A side-on step with the jaw nearly shut and the wings folded, where every part has room. */
 const SIDE_STEP = 22;
 
-function drifting<T>(run: () => T, parts = true): T {
+function drifting<T>(run: () => T, parts = true, amount = 1): T {
   const was = { ...INSTAR_DRIFT };
-  INSTAR_DRIFT.amount = 1;
+  INSTAR_DRIFT.amount = amount;
   INSTAR_DRIFT.parts = parts;
   try {
     return run();
@@ -181,17 +182,20 @@ describe("what a frame costs with the parts drifting", () => {
     return most;
   };
 
+  const KEYS = ["fill", "stroke", "drawImage", "createLinearGradient", "createRadialGradient"];
+  const moving = drifting(worst);
+
   it("draws within a tenth of the body turning whole", () => {
     const whole = drifting(worst, false);
-    const moving = drifting(worst);
-    for (const key of [
-      "fill",
-      "stroke",
-      "drawImage",
-      "createLinearGradient",
-      "createRadialGradient",
-    ]) {
+    for (const key of KEYS) {
       expect(moving.get(key) ?? 0, key).toBeLessThanOrEqual(Math.ceil((whole.get(key) ?? 0) * 1.1));
     }
+  });
+
+  it("fills within a tenth of the body standing still", () => {
+    const still = drifting(worst, true, 0);
+    const fills = still.get("fill") ?? 0;
+    expect(fills).toBeGreaterThan(0);
+    expect(moving.get("fill") ?? 0).toBeLessThanOrEqual(Math.ceil(fills * 1.1));
   });
 });

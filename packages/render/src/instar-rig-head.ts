@@ -95,11 +95,15 @@ export function eyePin(s: -1 | 1): { lon: number; lat: number; pin: Pin } {
   return { lon, lat, pin: pin(lon, lat, SKULL.r) };
 }
 
-/** The mandibles, in the jaw's frame, in pixels. */
-function mandible(s: -1 | 1, r: number): Ring[] {
+/**
+ * The mandibles, in the jaw's frame, in pixels. A mandible is straight, so
+ * two rings draw the same tube eight do; each ring gap costs at least one
+ * fill, and the hinge's solver alone wants the eight it samples between.
+ */
+function mandible(s: -1 | 1, r: number, n = 8): Ring[] {
   const a = { x: JAW.back, y: 0, z: s * JAW.zBack };
   const b = { x: JAW.front, y: 0, z: s * JAW.zFront };
-  return line(a, b, JAW.rBack, JAW.rFront, r, 8);
+  return line(a, b, JAW.rBack, JAW.rFront, r, n);
 }
 
 /**
@@ -202,7 +206,7 @@ export function headParts(f: HeadPose, r: number, drop = 1): Part[] {
     MUZZLE.rBack,
     MUZZLE.rFront,
     r,
-    5,
+    2,
   );
   // The cheek: from under the skull's back to the top of the jaw, in the middle plane.
   const upperPose = poseOf(upper);
@@ -232,14 +236,14 @@ export function headParts(f: HeadPose, r: number, drop = 1): Part[] {
   parts.push({ kind: "tube", rings: muzzle, skin: HIDE, anchor: upper });
   for (const s of [-1, 1] as const) {
     const at = { x: -0.6, y: -0.03, z: s * 0.18 };
-    const rings = line(at, { ...at, x: -0.62, y: upLen }, 0.05, 0.012, r, 3);
+    const rings = line(at, { ...at, x: -0.62, y: upLen }, 0.05, 0.012, r, 2);
     parts.push({ kind: "tube", rings, skin: BONE, anchor: upper });
   }
   for (const s of [-1, 1] as const)
-    parts.push({ kind: "tube", rings: mandible(s, r), skin: HIDE, anchor: jaw });
+    parts.push({ kind: "tube", rings: mandible(s, r, 2), skin: HIDE, anchor: jaw });
   for (const s of [-1, 1] as const) {
     const at = { x: -1.08, y: -0.15, z: s * 0.17 };
-    const rings = line(at, { ...at, x: -1.1, y: -0.15 - downLen }, 0.045, 0.01, r, 3);
+    const rings = line(at, { ...at, x: -1.1, y: -0.15 - downLen }, 0.045, 0.01, r, 2);
     parts.push({ kind: "tube", rings, skin: BONE, anchor: jaw });
   }
   return parts;
