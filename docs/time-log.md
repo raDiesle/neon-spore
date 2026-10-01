@@ -31539,3 +31539,15 @@ Bottleneck: the turn moved veins drawn at an eighth of full strength, so nothing
 Bottleneck: the head radius is the whole body's unit and the face-on marks are pinned to it, so "bigger head" had to be a grown copy of the look handed to the side-on head drawers alone, and then the reach margins remeasured.
 
 *Measured: 7 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-01 — The automatic compaction window goes back to 200k, and a lane is held from its first read
+
+- reading: 5 min. `defer-compact.ts`, its test, `token-budget.md`, and what
+  `land --keep` leaves behind on the branch.
+- writing: 10 min. The window, `unstarted` and its test, the documents.
+- looking: 0 min.
+- friction: 10 min. A read refused by auto mode, the heredoc guard, and the
+  hook that refuses an edit to another worktree's files.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: a landed `--keep` branch and a fresh one look the same to `git status` and `rev-list`, so the hook had to read the branch's reflog to tell them apart.

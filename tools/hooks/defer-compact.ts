@@ -3,12 +3,13 @@
 /**
  * An automatic compaction waits for the item to land, up to a ceiling.
  *
- * `autoCompactWindow` (120k) cannot see a task boundary, so the cut falls
+ * `autoCompactWindow` (200k) cannot see a task boundary, so the cut falls
  * wherever the count crosses it — inside about half of all landed items. The
  * advice everywhere is to compact between tasks, never in one. This is a
  * `PreCompact` hook: an automatic compaction is blocked while the lane is
- * mid-item — the tree is dirty, or the branch holds commits `main` does not —
- * and the last turn's context is under `CEILING`. The harness asks again
+ * mid-item — the tree is dirty, the branch holds commits `main` does not, or
+ * the lane's branch is new and has committed nothing yet (`unstarted`) — and
+ * the last turn's context is under `CEILING`. The harness asks again
  * before every turn, so the first turn after `bun run land` compacts, on the
  * boundary. A manual `/compact` is never refused.
  *
@@ -62,15 +63,35 @@ export function lastContextTokens(tail: string): number {
   return 0;
 }
 
+/**
+ * Whether a lane's branch has been made and has committed nothing yet, from
+ * its reflog's subjects: nothing on it but its creation and the trunk brought
+ * up.
+ *
+ * **The reading before the first edit is mid-item too.** Until 1 October 2026
+ * the tree had to be dirty, so a lane still reading was compacted at the
+ * window, and a large task met its first cut before it had written anything —
+ * the one stretch where everything it knows lives only in the chat. Not every
+ * branch off `main` counts: `land --keep` leaves the branch standing, clean
+ * and level with the trunk, and the turn after a landing is the boundary this
+ * hook waits for. The landed branch has commits in its reflog; the new one
+ * has none.
+ */
+export function unstarted(subjects: string[]): boolean {
+  if (subjects.length === 0) return false;
+  return subjects.every((s) => /^branch: Created from |^(merge|pull) .*: Fast-forward$/.test(s));
+}
+
 /** Whether to refuse this compaction, from what the payload and the tree say. */
 export function shouldDefer(facts: {
   trigger: unknown;
   contextTokens: number;
   dirty: boolean;
   ahead: boolean;
+  fresh: boolean;
 }): boolean {
   if (facts.trigger !== "auto") return false;
-  if (!facts.dirty && !facts.ahead) return false;
+  if (!facts.dirty && !facts.ahead && !facts.fresh) return false;
   // Zero is a transcript this could not read; better the ordinary compaction
   // than one refused on a number it never had.
   return facts.contextTokens > 0 && facts.contextTokens < CEILING;
@@ -89,6 +110,7 @@ export function logLine(decision: {
   contextTokens: number;
   dirty: boolean;
   ahead: boolean;
+  fresh: boolean;
   deferred: boolean;
 }): string {
   return `${JSON.stringify({ at: new Date().toISOString(), ...decision })}\n`;
@@ -127,8 +149,14 @@ async function main(): Promise<void> {
   const contextTokens = lastContextTokens(await tail(transcriptPath(payload)));
   const dirty = run(["git", "status", "--porcelain"]).trim() !== "";
   const ahead = Number(run(["git", "rev-list", "--count", "main..HEAD"]).trim() || "0") > 0;
-  const deferred = shouldDefer({ trigger: payload?.trigger, contextTokens, dirty, ahead });
-  await note(logLine({ session: sessionId(payload), contextTokens, dirty, ahead, deferred }));
+  const branch = run(["git", "branch", "--show-current"]).trim();
+  const reflog = run(["git", "reflog", "show", "--format=%gs", `refs/heads/${branch}`]);
+  const fresh =
+    branch !== "" && branch !== "main" && unstarted(reflog.split("\n").filter((s) => s !== ""));
+  const deferred = shouldDefer({ trigger: payload?.trigger, contextTokens, dirty, ahead, fresh });
+  await note(
+    logLine({ session: sessionId(payload), contextTokens, dirty, ahead, fresh, deferred }),
+  );
   if (!deferred) return;
   const k = Math.round(contextTokens / 1000);
   process.stderr.write(

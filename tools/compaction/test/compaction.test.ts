@@ -115,6 +115,7 @@ describe("the compaction trial", () => {
       contextTokens: 150_000,
       dirty: true,
       ahead: false,
+      fresh: false,
       deferred: true,
     });
     expect(line.endsWith("\n")).toBe(true);

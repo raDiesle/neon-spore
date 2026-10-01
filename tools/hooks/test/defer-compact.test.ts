@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { CEILING, lastContextTokens, shouldDefer } from "../defer-compact";
+import { CEILING, lastContextTokens, shouldDefer, unstarted } from "../defer-compact";
 
 /**
  * The hook that holds an automatic compaction back until the item lands. What
@@ -24,7 +24,13 @@ const turn = (input: number, read: number, written: number): string =>
     },
   });
 
-const midItem = { trigger: "auto", contextTokens: 210_000, dirty: true, ahead: false };
+const midItem = {
+  trigger: "auto",
+  contextTokens: 210_000,
+  dirty: true,
+  ahead: false,
+  fresh: false,
+};
 
 describe("defer-compact", () => {
   it("reads the context off the latest assistant turn, past a cut first line and user lines", () => {
@@ -42,6 +48,19 @@ describe("defer-compact", () => {
   it("holds an automatic compaction back while the lane is mid-item", () => {
     expect(shouldDefer(midItem)).toBe(true);
     expect(shouldDefer({ ...midItem, dirty: false, ahead: true })).toBe(true);
+    expect(shouldDefer({ ...midItem, dirty: false, fresh: true })).toBe(true);
+  });
+
+  it("counts a new branch as mid-item from its first read, and a landed one as between items", () => {
+    const made = "branch: Created from main";
+    const up = "merge origin/main: Fast-forward";
+    expect(unstarted([made])).toBe(true);
+    expect(unstarted([up, "merge main: Fast-forward", made])).toBe(true);
+    // What `land --keep` leaves: clean, level with the trunk, and committed to.
+    expect(
+      unstarted(["rebase (finish): refs/heads/claude/x onto 129f4f2", "commit: A", made]),
+    ).toBe(false);
+    expect(unstarted([])).toBe(false);
   });
 
   it("lets it through between items, on a manual /compact, and at the ceiling", () => {
