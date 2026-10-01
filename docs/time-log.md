@@ -30989,3 +30989,5 @@ Bottleneck: finding a pairing the page has not spent — `RepeatedTap` was the o
 - landing: 5 min. `check:fast` and `land`.
 
 Bottleneck: choosing the gesture — A DRAWN GLYPH was the one card with a stated reason and no concept, and putting the sign on the other seat's screen (`PerSeatTruth`) is what made it a boss rather than a drawing test.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

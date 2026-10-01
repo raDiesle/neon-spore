@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 263271c2f — §42 THE SLUICE is cut, and THE MIMIC takes its place
+
+THE MIMIC is a slime with eight arms whose skin wears a sign that only one seat's screen shows. The other seat draws the sign on their own glass, and the drawing phone sends the nearest of five one-stroke signs as a single command. That spends A DRAWN GLYPH at last, beside `PerSeatTruth`. It has three movements: the first face, the roles traded with a sign that changes mid-window, and both seats reading and drawing at once. It runs about forty seconds clean. Both SLUICE queue entries are closed as the owner ruled on 27 September 2026, and §43 no longer cites THE SLUICE.
+
 ## 2026-10-01 · ab32bd10f — §41 THE WINCH is cut, and THE LAMPREY takes its place
 
 The owner cut THE WINCH on 27 September 2026 and asked for a fresh boss that keeps a pair busy thirty seconds or more. THE LAMPREY is a slime eel that bites the hull: one seat keeps a thumb on its jaw as it crawls along the hull, while the other taps its lit teeth out one by one, and the bite deepens into a hull hit whenever the jaw goes unheld. Three movements, the seats trading between the first two, about forty seconds clean. Both of THE WINCH's queue entries are closed, and the sections that stay no longer name it.
