@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 0c4b2bd95 — THE FLUE's marks answer a touch the way every mark does
+
+THE FLUE's ember and core now show the same halo, partner's ring, waiting clock and green-or-red verdict as every other boss's marks. Once the rester has steadied the lit vent, the ember is haloed on the tapper's screen, and the rester's screen shows the partner's ring and clock. The bared core on a fire step is haloed on both screens. A landed tap or a spent vent greens the ember. A skid, a lapse or a run-out window reddens it. A hit greens the core and a missed shot reddens it. THE FLUE was the last boss on the roll-out list, which is now empty.
+
 ## 2026-10-01 · 071bade51 — THE BURGEE's marks answer a touch the way every mark does
 
 The flag's freeze ring, its draw track and its spindle now wear the halo on the screen they ask, the partner's ring and clock on the other, and a green or red ring when the flag answers: a freeze on the mark greens the ring and a flap reddens it, a flutter reddens the track, a catch greens both and a catch run out reddens both, and a hit or a shot run out says so on the spindle. Between steps the rings stand at the last lit catch's column, so a verdict stays where it was earned.

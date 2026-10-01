@@ -30961,3 +30961,5 @@ Bottleneck: where the circles stand between steps — the ring and the track sit
 - landing: 5 min. `check:fast` and `land`.
 
 Bottleneck: what the rester's screen should ask — keeping still has nothing to touch, so the only thing the still seat is shown is the partner's clock on the ember.
+
+*Measured: 144 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
