@@ -5,10 +5,10 @@ import { bossWorld } from "./poses-bosses-kit.js";
 
 /**
  * **A round running out on nobody** — the timeout hit, which breaks the hull
- * when a round's clock empties and no hand has answered it. The
- * `round:timeout-hit` slot is judged here: the game draws that hit as a rock
- * (`rock-impact.ts`) and a candidate paints the round's own picture in its
- * place (`round-strike-look.ts`).
+ * when a round's clock empties and no hand has answered it. The game paints
+ * that hit as the round's own window closing on the column
+ * (`round-strike-window.ts`, through `round-strike-look.ts`) where it used to
+ * drop a rock; the `round:timeout-hit` slot was judged here.
  *
  * THE FLEET and not THE PULSE, which the queue item suggested: the pulse, the
  * gauge, the snake, the pinball and the scout take the whole picture over, so

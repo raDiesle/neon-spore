@@ -3047,7 +3047,8 @@ into the hull. A hit leaves a scar on the cowl per level spent, and the struck
 eye shudders. THE SLOW's light stands round the cowl, swollen as far as the
 charge has come (`slow-boss-aim-b.ts`), so the prism never splits the eye.
 The eye is painted through one record, `STARE_EYE` (`render/stare-eye-look.ts`),
-and VERSUS offers `stare:eye` / `globe` against it on THE STARE · LIVE. Proved
+as a globe that rolls its opening round to face the pair (`render/stare-eye-globe.ts`,
+taken from VERSUS on 1 October 2026). Proved
 in `render/test/stare-frame.test.ts`.
 
 **The cue** (`render/boss-cue-read-d.ts`) is `STILL`, on both seats, at the

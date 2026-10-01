@@ -2,16 +2,18 @@ import type { RoundKind } from "@neon-spore/sim";
 import type { StrikeFrame } from "./boss-strike-look.js";
 import type { Layout } from "./layout.js";
 import type { Impact } from "./rock-impact-state.js";
+import { paintWindow } from "./round-strike-window.js";
 
 /**
- * **What a round's own timeout hit looks like** — the slot a VERSUS candidate
- * paints into. An interlude whose meter ran out unattended breaks the hull
+ * **What a round's own timeout hit looks like** — the slot the round's
+ * window is painted through. An interlude whose meter ran out unattended breaks the hull
  * with a breach that names the round (`sim/boss-strike.ts`,
- * `roundStrikesHull`), and today that breach is still drawn as a rock
- * (`rock-impact.ts`), which is the look a candidate is offered beside.
+ * `roundStrikesHull`). The game paints it as the round's own window closing
+ * on the struck column (`round-strike-window.ts`, taken from VERSUS on 1
+ * October 2026) rather than as a rock (`rock-impact.ts`).
  *
- * `ROUND_STRIKE_LOOK.paint` is null in the game, and while it is the round's
- * hit is exactly the rock it always was. Set, it is drawn *in place of* the
+ * While `ROUND_STRIKE_LOOK.paint` is null the round's hit is exactly the rock
+ * it always was, which a test and a later candidate can still ask for. Set, it is drawn *in place of* the
  * rock's body, tail, glow and roll marks — the hit's own clock is the rock's
  * replay, so the sparks, the crack and the hole still come the frame the
  * rock's fall would have touched the skin. `reach` runs 0→1 over that fall
@@ -24,8 +26,8 @@ export interface RoundStrikeFrame extends Omit<StrikeFrame, "blow"> {
 
 export type RoundStrikePaint = (ctx: CanvasRenderingContext2D, f: RoundStrikeFrame) => void;
 
-/** The slot. Only a VERSUS candidate ever sets it. */
-export const ROUND_STRIKE_LOOK: { paint: RoundStrikePaint | null } = { paint: null };
+/** The slot, filled with the round's window. */
+export const ROUND_STRIKE_LOOK: { paint: RoundStrikePaint | null } = { paint: paintWindow };
 
 /** How long the hit's afterglow runs once it has reached the skin: a boss
  * blow's withdrawal (`boss-strike-fx.ts`). */

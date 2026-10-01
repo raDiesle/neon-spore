@@ -1460,7 +1460,8 @@ by hand never moves.
 | `packages/render/src/pinball-round.ts` | PINBALL over the whole stage |
 | `packages/render/src/pinball-table.ts` | PINBALL's table: the frame it is played inside, and everything standing on it |
 | `packages/render/src/round-draw.ts` | Which bosses replace the whole picture, and what draws each |
-| `packages/render/src/round-strike-look.ts` | **What a round's own timeout hit looks like** — the slot a VERSUS candidate paints into |
+| `packages/render/src/round-strike-look.ts` | **What a round's own timeout hit looks like** — the slot the round's window is painted through |
+| `packages/render/src/round-strike-window.ts` | The round's window closing on the ship |
 | `packages/render/src/round-hit.ts` | **The rock a whole-picture round brings down on its own hull** when its window runs out — fall, sparks, and the crack held for it, drawn by the round because its frame returns before the field ingests |
 | `packages/render/src/snake-head.ts` | The head, shut and open |
 | `packages/render/src/snake-home.ts` | **The mouth on the way home**, the picture half of `sim/snake-home.ts` |
@@ -1687,9 +1688,11 @@ by hand never moves.
 | `packages/render/src/stare-shape.ts` | **Where THE STARE is, and how far it has turned** — the numbers the drawer |
 | `packages/render/src/stare-lid.ts` | **THE STARE's lid**: the one thing on the eye a hand takes hold of |
 | `packages/render/src/stare-blow.ts` | THE STARE's timeout blow: its gaze narrows to one ray that brands the eye into the hull |
-| `packages/render/src/stare-eye-look.ts` | THE STARE's eye as the one record its turn is painted through, so VERSUS can offer another turn |
+| `packages/render/src/stare-eye-look.ts` | THE STARE's eye as the one record its turn is painted through: a globe that rolls in its socket |
+| `packages/render/src/stare-eye-globe.ts` | **THE STARE's eye as a ball that turns**, where the game used to squash a flat eye to a sliver and shear it |
 | `packages/render/src/stare-charge.ts` | **THE STARE's beam, gathering and let out** — the two pictures the owner asked for on 29 September 2026 |
 | `packages/render/src/stare-lashes.ts` | **What THE STARE counts with, and what it has taken**: the lashes that are its score |
+| `packages/render/src/stare-globe.ts` | **The globe's geometry**: an eye modelled as a ball set in the cowl, and the opening |
 | `packages/render/src/intro-parts.ts` | The parts the intro's picture is built out of: a plate, a body, a hull |
 | `packages/render/src/intro-pair.ts` | THE PICTURE THE WHOLE INTRO IS: two people, two phones, and a word crossing between them |
 | `packages/render/src/intro-player.ts` | ONE OF THE TWO PEOPLE IN THE SCENE |

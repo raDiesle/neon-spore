@@ -139,6 +139,16 @@ describe("pointing the record at the moved function", () => {
     expect(r.was.startsWith("pit: (ctx, c, skin) =>")).toBe(true);
   });
 
+  it("reads past a comment inside an inline function that holds an apostrophe", () => {
+    const src = RECORD.replace(
+      "= { pit }",
+      "= {\n  pit: (ctx, c) => {\n    // The socket's own rim.\n    /* it's */ ctx.arc(0, 0, c.r, 0, 1);\n  },\n}",
+    );
+    const r = pointRecord(src, "CRATER_LOOK", "pit", "shards", "./crater-shards.js");
+    if ("why" in r) throw new Error(r.why);
+    expect(r.text).toContain("{\n  pit: shards,\n}");
+  });
+
   it("refuses a name the file already uses, and a field it cannot find", () => {
     expect("why" in pointRecord(RECORD, "CRATER_LOOK", "pit", "pit", "./x.js")).toBe(true);
     expect("why" in pointRecord(RECORD, "CRATER_LOOK", "rim", "shards", "./x.js")).toBe(true);

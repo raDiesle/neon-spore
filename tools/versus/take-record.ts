@@ -99,6 +99,16 @@ function valueSpan(
         j = skipString(src, j);
         continue;
       }
+      // A comment inside an inline function, with an apostrophe in it, is not
+      // the start of a string (`stare-eye-look.ts`, 1 October 2026).
+      if (ch === "/" && src[j + 1] === "/") {
+        j = src.indexOf("\n", j);
+        continue;
+      }
+      if (ch === "/" && src[j + 1] === "*") {
+        j = src.indexOf("*/", j) + 1;
+        continue;
+      }
       if (ch === "{" || ch === "[" || ch === "(") d++;
       if (ch === "}" || ch === "]" || ch === ")") {
         if (d === 0) return { from, to: j, lead: head[1] ?? "" };

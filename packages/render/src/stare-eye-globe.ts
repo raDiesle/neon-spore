@@ -1,12 +1,10 @@
-import { KEY, LIGHT_HALF } from "../../../../../packages/content/src/light.js";
-import { facet, pin, surfaceDim } from "../../../../../packages/content/src/surface.js";
-import { drawIrisMarks } from "../../../../../packages/render/src/eye-iris.js";
-import { halo, strokeGlow } from "../../../../../packages/render/src/glow.js";
-import { mixHex } from "../../../../../packages/render/src/hex.js";
-import { litRound } from "../../../../../packages/render/src/key-light.js";
-import { PALETTE, STROKE } from "../../../../../packages/render/src/palette.js";
-import type { StareEyeLook } from "../../../../../packages/render/src/stare-eye-look.js";
-import { stareHeat } from "../../../../../packages/render/src/stare-shape.js";
+import { facet, KEY, LIGHT_HALF, pin, surfaceDim } from "@neon-spore/content";
+import { drawIrisMarks } from "./eye-iris.js";
+import { halo, strokeGlow } from "./glow.js";
+import { mixHex } from "./hex.js";
+import { litRound } from "./key-light.js";
+import { PALETTE, STROKE } from "./palette.js";
+import type { StareEyeLook } from "./stare-eye-look.js";
 import {
   APERTURE_LON,
   aperturePath,
@@ -16,11 +14,12 @@ import {
   hairPath,
   lidBottom,
   lidTop,
-} from "./globe.js";
+} from "./stare-globe.js";
+import { stareHeat } from "./stare-shape.js";
 
 /**
- * **THE STARE's eye as a ball that turns**, where the game squashes a flat eye
- * to a sliver and shears it. The ball's outline never changes; the opening,
+ * **THE STARE's eye as a ball that turns**, where the game used to squash a
+ * flat eye to a sliver and shear it. The ball's outline never changes; the opening,
  * the iris and the lashes are placed on it and carried round, so an eye that
  * looks away is a dark lit globe with its opening folded against the right
  * limb, and the seven beats of the tell bring that opening round to face the
@@ -31,7 +30,7 @@ import {
  * **It turns one way, always.** Which seat the eye will watch is told to one
  * screen only (`sim/stare.ts`), so a turn toward a side would tell both.
  *
- * Read off the same `face` and `open` as the shipped eye and nothing new:
+ * Read off the same `face` and `open` as the flat eye was, and nothing new:
  * `face` becomes an angle through `stareHeat`, and `lean` is not used,
  * because the lean was the stand-in for exactly this.
  */
@@ -48,7 +47,7 @@ const DIM = 0.5;
 /** The iris's home: straight ahead, on the equator. */
 const HOME = pin(0, 0, 1);
 
-export function paint(
+export function paintGlobe(
   ctx: CanvasRenderingContext2D,
   { e, face, lean, open, ink, time, beats }: StareEyeLook,
 ): void {

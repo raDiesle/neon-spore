@@ -36,6 +36,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * frame, so it is a look for VERSUS rather than a fix. These rows only keep
  * the open frame from growing a cost the desktop *would* see.
  *
+ * `drawImage` went from 29 to 30 in both rows on 1 October 2026, when the
+ * globe was taken from VERSUS: its halos, round the ball and on its wet
+ * point, are one cached sprite more than the flat eye drew.
+ *
  * Each row is the worst of each op over one beat, on a phone. Set `MEASURE`
  * to true and run this file to print the rows as they are written below
  * (`budget-row.ts`); never committed as `true`.
@@ -53,7 +57,7 @@ const BUDGETS: Record<string, { open: boolean; budget: Budget }> = {
     budget: {
       fill: 53,
       stroke: 120,
-      drawImage: 29,
+      drawImage: 30,
       createLinearGradient: 13,
       createRadialGradient: 7,
     },
@@ -63,7 +67,7 @@ const BUDGETS: Record<string, { open: boolean; budget: Budget }> = {
     budget: {
       fill: 54,
       stroke: 123,
-      drawImage: 29,
+      drawImage: 30,
       createLinearGradient: 14,
       createRadialGradient: 7,
     },

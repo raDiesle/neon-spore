@@ -1,4 +1,4 @@
-import { limbX } from "../../../../../packages/content/src/surface.js";
+import { limbX } from "@neon-spore/content";
 
 /**
  * **The globe's geometry**: an eye modelled as a ball set in the cowl, and the

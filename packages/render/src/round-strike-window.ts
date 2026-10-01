@@ -1,7 +1,7 @@
-import { halo } from "../../../../../packages/render/src/glow.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import type { RoundStrikeFrame } from "../../../../../packages/render/src/round-strike-look.js";
-import { fuseColours } from "../../../../../packages/render/src/slow-fuse.js";
+import { halo } from "./glow.js";
+import { rgba } from "./hex.js";
+import type { RoundStrikeFrame } from "./round-strike-look.js";
+import { fuseColours } from "./slow-fuse.js";
 
 /**
  * The round's window closing on the ship. A bar of light as wide as the field
@@ -24,7 +24,7 @@ const RING = 2.6;
 
 const ease = (t: number): number => 1 - (1 - t) * (1 - t);
 
-export function paint(ctx: CanvasRenderingContext2D, f: RoundStrikeFrame): void {
+export function paintWindow(ctx: CanvasRenderingContext2D, f: RoundStrikeFrame): void {
   const { l, from, to, reach, after, tile } = f;
   const { body, core } = fuseColours(0);
   const mid = l.gridLeft + l.gridWidth / 2;

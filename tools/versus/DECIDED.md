@@ -1431,3 +1431,35 @@ Written into `packages/render/src/queen-surface.ts`, `QUEEN_SURFACE`:
 Written into `packages/render/src/outline-drift.ts`, `OUTLINE_DRIFT`: `queen`.
 
 It was the only answer offered.
+
+## `round:timeout-hit` / `window` — taken, 2026-10-01
+
+The owner, 1 October 2026: *like it.* A round that runs out now breaks the
+hull with its own window closing on the struck column, not a rock nobody saw
+fall.
+
+window — a round that runs out breaks the hull with its own window closing, a
+field-wide bar narrowing to a spike on the struck column and a ring along the
+membrane, instead of a rock nobody saw fall
+
+`ROUND_STRIKE_LOOK.paint` is `paintWindow`, moved from
+`tools/versus/candidates/round-timeout-hit/window/paint.ts` to
+`packages/render/src/round-strike-window.ts`.
+
+It was the only answer offered.
+
+## `stare:eye` / `globe` — taken, 2026-10-01
+
+The owner, 1 October 2026: *much better.* THE STARE's eye is now a lit ball
+turning in the cowl, its opening carried round on the surface, instead of a
+flat almond squashed to a sliver.
+
+globe — THE STARE's eye is a lit ball that turns in the cowl, its opening
+folded against the edge while it looks away and coming round to face you over
+the tell, instead of a flat eye squashed to a sliver
+
+`STARE_EYE.paint` is `paintGlobe`, moved from
+`tools/versus/candidates/stare-eye/globe/paint.ts` to
+`packages/render/src/stare-eye-globe.ts`.
+
+It was the only answer offered.

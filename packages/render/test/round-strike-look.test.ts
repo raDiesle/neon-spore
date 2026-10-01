@@ -3,14 +3,16 @@ import { DEFAULT_CONFIG, hullRow, type RoundKind } from "@neon-spore/sim";
 import { computeLayout } from "../src/layout.js";
 import { RockImpactFx } from "../src/rock-impact.js";
 import { ROUND_STRIKE_LOOK, type RoundStrikeFrame } from "../src/round-strike-look.js";
+import { paintWindow } from "../src/round-strike-window.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * The slot a round's timeout hit is offered in (`round-strike-look.ts`). Empty,
- * which is the game, the hit must be the rock it always was, call for call;
- * filled, the rock must be gone and the hit's clock must still be the rock's.
+ * The slot a round's timeout hit is painted through (`round-strike-look.ts`).
+ * Empty, the hit must be the rock it always was, call for call; filled, the
+ * rock must be gone and the hit's clock must still be the rock's. The game
+ * fills it with the round's window (`round-strike-window.ts`, 1 October 2026).
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -20,8 +22,9 @@ const FROM = hullRow(CFG) - 3;
 const skin = () => L.hullY;
 
 beforeAll(installCanvasGlobals);
+const SHIPPED = ROUND_STRIKE_LOOK.paint;
 afterEach(() => {
-  ROUND_STRIKE_LOOK.paint = null;
+  ROUND_STRIKE_LOOK.paint = SHIPPED;
 });
 
 /** The calls each of `frames` frames made, and how often the rock arrived. */
@@ -44,7 +47,17 @@ function run(round: RoundKind | undefined, frames: number): { calls: number[]; a
 }
 
 describe("a round's timeout hit", () => {
+  it("is the round's window in the game, not the rock", () => {
+    expect(SHIPPED).toBe(paintWindow);
+    const rock = run(undefined, 40);
+    const round = run("pulse", 40);
+    expect(round.arrivals).toBe(1);
+    expect(round.calls).not.toEqual(rock.calls);
+    expect(round.calls.some((n) => n > 0)).toBe(true);
+  });
+
   it("is the rock it always was while the slot is empty", () => {
+    ROUND_STRIKE_LOOK.paint = null;
     const rock = run(undefined, 40);
     const round = run("pulse", 40);
     expect(round.calls).toEqual(rock.calls);
