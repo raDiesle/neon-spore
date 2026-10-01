@@ -784,6 +784,7 @@ by hand never moves.
 | `packages/sim/src/pinball-hand.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |
 | `packages/sim/src/pinball-hash.ts` | What PINBALL puts into `hashWorld`, and nothing else |
 | `packages/sim/src/pinball-open.ts` | **Standing PINBALL up**: one round opened, the board loaded onto the table |
+| `packages/sim/src/pinball-funnel.ts` | The two funnels low on the table: a slope down from each side wall to a third of the way in |
 | `packages/sim/src/plumb-hand.ts` | Two pulls on THE PLUMB, one stone each |
 | `packages/sim/src/plumb-hash.ts` | What THE PLUMB puts into `hashWorld`, and nothing else |
 | `packages/sim/src/plumb-shot.ts` | **THE PLUMB's shot**: the lit core, where a bolt leaves the top of the field in the middle column |

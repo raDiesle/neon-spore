@@ -1,4 +1,4 @@
-import type { PinballState, SimConfig } from "@neon-spore/sim";
+import { type PinballState, pinFunnels, pinPhysics, type SimConfig } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -87,6 +87,46 @@ export function drawPinWalls(ctx: CanvasRenderingContext2D, t: Table): void {
   ctx.lineTo(t.x + w - 0.5, t.y);
   ctx.lineTo(t.x + w - 0.5, t.y + h);
   ctx.stroke();
+  ctx.restore();
+}
+
+/**
+ * The two funnels low on the table (`sim/pinball-funnel.ts`): a slab from each
+ * wall down to the floor a third of the way in, and a lit rim along the slope
+ * the ball rolls on.
+ *
+ * The owner asked for them by name, 1 October 2026. The rim is the hull's own
+ * violet because the slopes are the ship's mouth widened, not a piece on the
+ * board: nothing on them can be struck, and a piece's colours would say that
+ * something could.
+ */
+export function drawPinFunnels(ctx: CanvasRenderingContext2D, t: Table, cfg: SimConfig): void {
+  ctx.save();
+  for (const fun of pinFunnels(pinPhysics(cfg))) {
+    const a = pinAt(t, fun.axMilli, fun.ayMilli);
+    const b = pinAt(t, fun.bxMilli, fun.byMilli);
+    const corner = pinAt(t, fun.axMilli, fun.byMilli);
+    const body = ctx.createLinearGradient(0, a.y, 0, b.y);
+    body.addColorStop(0, rgba(PALETTE.hull, 0.22));
+    body.addColorStop(1, rgba(PALETTE.hull, 0.06));
+    ctx.fillStyle = body;
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.lineTo(corner.x, corner.y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.lineCap = "round";
+    ctx.strokeStyle = rgba(PALETTE.hull, 0.35);
+    ctx.lineWidth = Math.max(2, t.tile * 0.22);
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.stroke();
+    ctx.strokeStyle = PALETTE.hullRim;
+    ctx.lineWidth = Math.max(1, t.tile * 0.06);
+    ctx.stroke();
+  }
   ctx.restore();
 }
 

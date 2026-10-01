@@ -108,6 +108,21 @@ export interface PinballConfig {
    * clear, so the cannon has the time to get under it.
    */
   pinballClearMilli: number;
+  /**
+   * How high up each side wall the two funnels start, in thousandths of a tile
+   * (`pinball-funnel.ts`). Each runs from there down to the floor a third of
+   * the way in, so a falling ball reaches the ship only across its middle
+   * third. The owner, 1 October 2026: *easier to catch the ball again.* Three
+   * tiles is a slope of about 39°, steep enough that a ball never rests on it
+   * and low enough to stay under the five clear tiles of `pinballClearMilli`.
+   */
+  pinballFunnelMilli: number;
+  /**
+   * How much of the speed *into* a funnel's slope comes back out, in
+   * thousandths. Only that part: what runs along the slope is kept, so a ball
+   * lands, rolls and leaves towards the middle rather than bouncing high.
+   */
+  pinballFunnelPermille: number;
   /** Beats one shot may stay in the air before the table gives it back. */
   pinballFlightBeats: number;
 }
@@ -167,6 +182,8 @@ export const PINBALL_DEFAULTS: PinballConfig = {
   pinballCatchMilli: 620,
   pinballCatchReachMilli: 1100,
   pinballClearMilli: 5000,
+  pinballFunnelMilli: 3000,
+  pinballFunnelPermille: 400,
   // Twice the 24 it was, with the flight at half speed.
   pinballFlightBeats: 48,
 };

@@ -15,7 +15,13 @@ import { drawPinballGrips } from "./pinball-grip.js";
 import { drawPinballAsked, drawPinballVerdicts } from "./pinball-marks.js";
 import { drawPinPieces } from "./pinball-piece.js";
 import { drawPinSockets } from "./pinball-socket.js";
-import { drawPinBall, drawPinResting, drawPinWalls, pinTable } from "./pinball-table.js";
+import {
+  drawPinBall,
+  drawPinFunnels,
+  drawPinResting,
+  drawPinWalls,
+  pinTable,
+} from "./pinball-table.js";
 import type { ViewState } from "./renderer.js";
 import { seatSkin } from "./seat-skin.js";
 import { drawShipAir } from "./ship-air.js";
@@ -114,6 +120,7 @@ export function drawPinballRound(
 
   ctx.textAlign = "center";
   drawPinWalls(ctx, table);
+  drawPinFunnels(ctx, table, cfg);
   // No header: the only reading the top of the table carries is the board's
   // clock, the fuse every boss wears (`pinball-fuse.ts`).
   drawPinFuse(ctx, l, table, view, boss);

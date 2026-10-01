@@ -1,4 +1,5 @@
 import { hitPiece, isqrt, type PinBall, type PinPiece } from "./pinball-contact.js";
+import { stepFunnels } from "./pinball-funnel.js";
 
 /**
  * One tick of a ball on a table. Integers only, no world and no config object
@@ -43,6 +44,10 @@ export interface PinPhysics {
   speedCapMilli: number;
   bouncePermille: number;
   wallPermille: number;
+  /** How high up each side wall the funnels start; 0 is a table with none. */
+  funnelMilli: number;
+  /** How much of the speed into a funnel's slope comes back out of it. */
+  funnelPermille: number;
   widthMilli: number;
   heightMilli: number;
 }
@@ -96,6 +101,8 @@ export function stepBall(
   ball.ageTicks += 1;
   if (ball.ageTicks % Math.max(1, phys.gravityTicks) === 0) ball.vyMilli += phys.gravityMilli;
   capSpeed(ball, phys.speedCapMilli);
+  const fromX = ball.xMilli;
+  const fromY = ball.yMilli;
   ball.xMilli += ball.vxMilli;
   ball.yMilli += ball.vyMilli;
 
@@ -111,6 +118,8 @@ export function stepBall(
     ball.yMilli = r;
     reflect(ball, 0, 1000, phys.wallPermille);
   }
+  stepFunnels(ball, fromX, fromY, phys);
+  capSpeed(ball, phys.speedCapMilli);
 
   const struck: number[] = [];
   let deepest = -1;

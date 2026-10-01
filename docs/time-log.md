@@ -31300,3 +31300,16 @@ Bottleneck: the hand looked innocent until the probe ran under the game's own `s
 Bottleneck: the guide film and the frame test both scripted a shot against the old physics, and each one had to be re-timed by probing rather than by reading.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-01 — PINBALL: two funnels low on the table
+
+- reading: 5 min. `stepBall`'s order of walls, pieces and cap, and where
+  `pinPhysics` is assembled.
+- writing: 15 min. `pinball-funnel.ts` as a one-way gate, its four tests, the
+  two config fields and their director lines, the drawing.
+- looking: 5 min. One frame at tick 1150.
+- friction: 0 min.
+- landing: 5 min. Biome's sort and format, `bun run index`, `check:fast`.
+
+Bottleneck: deciding that the slope had to be a one-way gate, so the cannon
+could still fire from under it.

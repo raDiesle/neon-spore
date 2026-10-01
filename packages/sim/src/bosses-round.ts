@@ -82,6 +82,8 @@ export {
   type PinPiece,
   type PinPieceKind,
 } from "./pinball-contact.js";
+// The two slopes low on the table, so the picture draws the line the ball rolls on.
+export { type PinFunnel, pinFunnels } from "./pinball-funnel.js";
 // The two gates the round's hands are held to, so the rings drawn on them ask
 // the simulation rather than restating it (`pinball-hand.ts`).
 export { pinNudgeable, pinPlungerAsks, pinTableAsks, pinWindable } from "./pinball-hand.js";

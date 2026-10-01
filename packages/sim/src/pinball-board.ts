@@ -42,6 +42,8 @@ export function pinPhysics(cfg: SimConfig): PinPhysics {
     speedCapMilli: cfg.pinballSpeedCapMilli,
     bouncePermille: cfg.pinballBouncePermille,
     wallPermille: cfg.pinballWallPermille,
+    funnelMilli: cfg.pinballFunnelMilli,
+    funnelPermille: cfg.pinballFunnelPermille,
     widthMilli: pinWidthMilli(cfg),
     heightMilli: pinHeightMilli(cfg),
   };

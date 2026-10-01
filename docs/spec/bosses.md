@@ -1685,7 +1685,12 @@ at on a full-power launch, and `pinballWeakPermille` is the weakest launch as a
 fraction of it — 600, so that even the weakest climbs to the board's lowest row.
 `pinballClearMilli` is the air above the ship a board must leave empty: five
 tiles, the owner's *no obstacles near the hull*, which is the ball's whole last
-second of fall with nothing to turn it. `pinballPowerMilli` is how far the power bar travels each tick.
+second of fall with nothing to turn it. `pinballFunnelMilli` is how high up
+each side wall the two funnels start: each slopes down to the floor a third of
+the way in, so a falling ball reaches the ship only across its middle third,
+and a ball fired from under one passes up through it. `pinballFunnelPermille` is
+how much of the speed into a slope comes back out; what runs along it is kept,
+so the ball rolls down towards the middle. `pinballPowerMilli` is how far the power bar travels each tick.
 `pinballSweepMilli` is how far the needle sweeps either side of straight up, in
 thousandths of a degree — THE MAZE's angle unit, because the sine comes off
 `mazeSinMilli`. `pinballWallPermille` is how much of the speed survives a bounce

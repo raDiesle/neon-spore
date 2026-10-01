@@ -7,6 +7,7 @@ import {
   type PinBall,
   type PinPiece,
 } from "../src/pinball-contact.js";
+import { pinFunnels } from "../src/pinball-funnel.js";
 import { type PinPhysics, stepBall } from "../src/pinball-physics.js";
 
 /**
@@ -31,6 +32,8 @@ const PHYS: PinPhysics = {
   speedCapMilli: CFG.pinballSpeedCapMilli,
   bouncePermille: CFG.pinballBouncePermille,
   wallPermille: CFG.pinballWallPermille,
+  funnelMilli: CFG.pinballFunnelMilli,
+  funnelPermille: CFG.pinballFunnelPermille,
   widthMilli: CFG.pinballCols * 1000,
   heightMilli: CFG.pinballRows * 1000,
 };
@@ -196,5 +199,61 @@ describe("stepBall", () => {
       return out.join(",");
     };
     expect(trace()).toBe(trace());
+  });
+});
+
+describe("the funnels", () => {
+  /** Run a ball with nothing on the table until it leaves by the floor; where it left. */
+  function fall(ball: PinBall): number {
+    for (let tick = 0; tick < 4000; tick++) {
+      stepBall(ball, [], [], PHYS);
+      if (ball.yMilli > PHYS.heightMilli) return ball.xMilli;
+    }
+    return -1;
+  }
+
+  it("are a slope from each wall down to a third of the way in", () => {
+    const [left, right] = pinFunnels(PHYS);
+    const third = Math.trunc(PHYS.widthMilli / 3);
+    expect(left?.bxMilli).toBe(third);
+    expect(right?.bxMilli).toBe(PHYS.widthMilli - third);
+    expect(left?.ayMilli).toBe(PHYS.heightMilli - CFG.pinballFunnelMilli);
+    expect(pinFunnels({ ...PHYS, funnelMilli: 0 })).toEqual([]);
+  });
+
+  it("send a ball dropped down either side out through the middle third", () => {
+    // The owner's sentence as a test: whatever falls down a side reaches the
+    // floor only across the middle, where the cannon can be under it.
+    const third = Math.trunc(PHYS.widthMilli / 3);
+    for (let x = 300; x < third; x += 400) {
+      for (const at of [x, PHYS.widthMilli - x]) {
+        const out = fall({ xMilli: at, yMilli: 2000, vxMilli: 0, vyMilli: 0, ageTicks: 0 });
+        expect(out).toBeGreaterThanOrEqual(third - PHYS.ballMilli);
+        expect(out).toBeLessThanOrEqual(PHYS.widthMilli - third + PHYS.ballMilli);
+      }
+    }
+  });
+
+  it("let a shot from under a funnel pass up through it", () => {
+    // The cannon at column 0, firing straight up: the slope is a one-way gate.
+    const ball: PinBall = {
+      xMilli: 500,
+      yMilli: PHYS.heightMilli - CFG.pinballCatchMilli,
+      vxMilli: 0,
+      vyMilli: -CFG.pinballLaunchMilli,
+      ageTicks: 0,
+    };
+    for (let tick = 0; tick < 60; tick++) stepBall(ball, [], [], PHYS);
+    expect(ball.yMilli).toBeLessThan(PHYS.heightMilli - CFG.pinballFunnelMilli - PHYS.ballMilli);
+    expect(ball.vxMilli).toBe(0);
+  });
+
+  it("never speed a ball up", () => {
+    const ball: PinBall = { xMilli: 1000, yMilli: 6000, vxMilli: -60, vyMilli: 100, ageTicks: 0 };
+    for (let tick = 0; tick < 600 && ball.yMilli <= PHYS.heightMilli; tick++) {
+      const before = speed(ball);
+      stepBall(ball, [], [], PHYS);
+      expect(speed(ball)).toBeLessThanOrEqual(before + PHYS.gravityMilli + 1);
+    }
   });
 });
