@@ -30930,3 +30930,5 @@ Bottleneck: the surface page — the three new names took `boss-surface-clocks-d
 - landing: 5 min. `check:fast` and `land`.
 
 Bottleneck: the moving point — the halo has to follow the gall across the middle, so whose screen it is on comes from the pincher, not from a fixed seat.
+
+*Measured: 121 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 80bc06e52 — THE GALL's marks answer a touch the way every mark does
+
+The point the gall sits on and its bared root now wear the halo on the screen they ask, the partner's ring and clock on the other, and a green or red ring when the seam answers: a close landed greens the point, a pinch let slip or a close run out reddens it, and a hit or a shot run out says so on the root. When the gall jumps across the middle, the halo goes over to the other screen with it.
+
 ## 2026-10-01 · 2d04d0963 — THE CAPSTAN's marks answer a touch the way every mark does
 
 The drum's middle, the end its bared face is rubbed at, and its core now wear the halo on the screen they ask, the partner's ring and clock on the other, and a green or red ring when the drum answers: a band worn bright or a hold kept greens the middle and the end, a band or a hold run out reddens them, and a hit or a shot run out says so on the core.
