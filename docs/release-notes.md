@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 0fb2e9304 — THE REPRISE's skin candidate shows its veins turning
+
+VERSUS reprise:skin · TURN showed no difference, because the veins it carries round the sac were drawn at an eighth of full strength. The veins' opacity and width are now fields of REPRISE_SURFACE, still at their shipped values, so the game draws exactly what it did. The candidate draws the veins three times as bright and nearly twice as wide, and turns them 65° rather than 40°.
+
 ## 2026-10-01 · 6debfb4c6 — THE INSTAR's weight candidate is one body, neck to tail
 
 The owner said the WEIGHT body's pieces did not look like one body. Now the spine starts inside the skull, so there is a neck. The rear narrows to the tail's root, so the two are the same width. The tail leaves along the spine before it turns up to the fork, and its seam shadow fades out. The candidate wears the shipped head. `INSTAR_BODY` gains `neck` and `flow`, and the shipped defaults draw what they drew before. The look changes only inside VERSUS.

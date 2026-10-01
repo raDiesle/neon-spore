@@ -31523,3 +31523,5 @@ Bottleneck: each seam (neck, rear, tail root) was a different file's choice, so 
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: the turn moved veins drawn at an eighth of full strength, so nothing could be seen moving until the strength was a field the candidate could patch.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
