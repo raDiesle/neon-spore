@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 9bcfc88f3 — The lit-open-stopped rule for every boss a bolt strikes
+
+Recorded in `new-boss/generic.md`, from the owner's message of 1 October 2026: a part the cannon must hit is lit in its colour and beats like a heart, the bolt has a clear path to it, and the bolt stops on whatever it meets. Two queue entries: the audit of the thirty-three other bosses, and THE SEAM's false point, which asks whether it is cut or given a hold-fire cue.
+
+## 2026-10-01 · 05c009d4a — THE SEAM: the lit point beats like a heart
+
+The point a bolt must hit on THE SEAM now beats on a lub-dub, the same curve THE FILAMENT's heart already swelled on. It swells, brightens and throws a glow of its own colour on each beat, and it stays lit between beats. The curve has moved to `heartbeat.ts`, so every target beats on the same one.
+
 ## 2026-10-01 · 2f8325cf4 — PINBALL: two funnels low on the table, so a falling ball reaches the ship only across its middle third
 
 A slope runs down from each side wall, three tiles up, to the floor a third of the way in. A ball that comes down on one rolls off towards the middle instead of reaching the ship's outer thirds, so the cannon has a third of the hull to cover, not all of it. The slope is a one-way gate: a shot fired from under a funnel still passes up through it. Only the speed into the slope is damped (`pinballFunnelPermille`), so the ball rolls instead of sticking.

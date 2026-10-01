@@ -31329,3 +31329,5 @@ could still fire from under it.
   first half.
 
 Bottleneck: finding where on the picture each simulation verdict lands, since the sim judges every bolt at row 0 and the ridge's shape lives only in render.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
