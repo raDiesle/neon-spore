@@ -31093,3 +31093,5 @@ Bottleneck: chasing the beaten pose's near nest through seat depths before a pro
   `check:fast`, `land`.
 
 Bottleneck: the script's first step is face-on, where the drift is zero by design, so the face test passed on nothing until it looked for a side-on step.
+
+*Measured: 55 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

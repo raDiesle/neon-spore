@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · a19fc2a35 — THE INSTAR turns on the idle drift, offered in VERSUS
+
+A VERSUS candidate, `instar:drift` / `turn`: nothing on the field changes until the owner picks it. THE INSTAR's whole side-on body drifts on the rig's slow yaw, pitch and roll, and its head turns on top of it toward the players, from profile to three-quarter and back, never away. The drift is nothing on face-on steps and a tenth over live marks, and a mark is pressed where the drift draws it.
+
 ## 2026-10-01 · fd35c7f28 — THE INSTAR's body with weight, offered in VERSUS
 
 A VERSUS candidate, so nothing on the field changes. The `instar:body` slot offers WEIGHT, a heavier INSTAR. Its girth runs, in head radii, 0.65 at the neck, 1.05 at the chest, 0.9 at the middle and 0.6 at the rear. The tail thins from 0.45 to 0.07. A pale band runs along the belly, the ridge stands tallest over the chest, and the rig head is on it. The spine is seated under each nest across the body, so the eggs stay on the back in every pose.
