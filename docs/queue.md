@@ -638,6 +638,7 @@ the mottle on the other, in `frame.test.ts`. The sheet PNG is sent to the owner.
 ## THE HAUL has no guide, and no mechanic row
 
 - **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
+- **Taken:** 2026-10-01, claude/queue-the-haul-guide (claim: claude/queue-the-haul-has-no-guide-and-no-mechanic-row)
 - **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/scenes-choreographed.ts`, `tools/director/src/ship-notes-round.ts`
 
 The second half of *THE SCOUT's loads are unreachable*. THE HAUL ships with
