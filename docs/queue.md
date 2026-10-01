@@ -508,6 +508,7 @@ flat. `bun run check` proves the tests.
 - **Found:** 2026-09-27, claude/queue-reprise-parts
 - **Files:** `packages/content/src/surface.ts`, `packages/render/src/outline-drift.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/queen-figure.ts`, `docs/spec/living-bosses.md`
 - **Asks:** which outline body turns, and how far — THE REPRISE's sac, the queen's shell, or none, which closes this entry?
+- **Answered:** 2026-10-01 — both, over either alone and over closing it: THE REPRISE's sac first, in its own lane, since no hit test reads a mark on it; then the queen's shell, whose marks her drops and hit test follow. How far is the looks rule's: far enough to be seen (`docs/looks.md`), offered in VERSUS beside the still body.
 
 Split off "THE REPRISE's parts, and the surface marks" when its parts
 landed. A surface mark placed with `pin`/`facet` moves only when its body
@@ -604,3 +605,49 @@ the hand or the timing. Add a hands test (`packages/hands/test/` has only
 the vane's and the warden's) that AUTO clears the first movement. Until this
 is fixed, the watch of the jet, brace, wipe and seal (the 2b291c8d3 entry)
 cannot be run with `--auto both`. Prove it with `bun run check`.
+
+## THE LAMPREY's simulation (§41)
+
+- **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
+- **Files:** `packages/sim/src/`, `packages/content/src/`, `packages/hands/src/`, `docs/spec/bosses-choreographed.md`
+
+The owner, 1 October 2026, asked for THE LAMPREY to be built from its sheet
+(`docs/spec/bosses-choreographed.md` §41): a mouth bitten onto the hull, one
+seat tapping the lit tooth as it jumps round the ring (`RepeatedTap`), the
+other keeping a thumb on the crawling mouth (`FollowTarget`). Its first lane,
+by `.claude/skills/new-boss`: the states, the teeth as its health, the gullet,
+its wave and its hands, with the look left as the shape sheet's stand-in.
+Done when an autopilot clears its wave and `bun run check` is green.
+
+## THE LAMPREY's look (§41)
+
+- **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
+- **Needs:** THE LAMPREY's simulation (§41)
+- **Files:** `packages/render/src/`, `packages/content/src/silhouettes*.ts`, `packages/render/test/frame.test.ts`
+
+The second lane of `.claude/skills/new-boss`: the eel's lobed body, the
+sucker and its seven teeth, the S entry and the slam, drawn from the shape
+sheet's drafts and in `frame.test.ts`. The sheet PNG is sent to the owner.
+
+## THE MIMIC's simulation (§42)
+
+- **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
+- **Files:** `packages/sim/src/`, `packages/content/src/`, `packages/hands/src/`, `apps/game/src/`, `docs/spec/bosses-choreographed.md`
+
+The owner, 1 October 2026, asked for THE MIMIC to be built from its sheet
+(`docs/spec/bosses-choreographed.md` §42): a sign on its skin shown on one
+seat only (`PerSeatTruth`), drawn on the other seat's glass and recognised on
+that phone into one command (DRAWN GLYPH). Its first lane, by
+`.claude/skills/new-boss`: the states, the signs, the recogniser's command,
+its wave and its hands. Done when an autopilot clears its wave and
+`bun run check` is green.
+
+## THE MIMIC's look (§42)
+
+- **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
+- **Needs:** THE MIMIC's simulation (§42)
+- **Files:** `packages/render/src/`, `packages/content/src/silhouettes*.ts`, `packages/render/test/frame.test.ts`
+
+The second lane of `.claude/skills/new-boss`: BLOOM · GLYPHED, `bloom`'s
+eight-armed mantle with `glyphed`'s rim of marks, the sign on one seat and
+the mottle on the other, in `frame.test.ts`. The sheet PNG is sent to the owner.
