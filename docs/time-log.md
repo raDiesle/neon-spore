@@ -31126,3 +31126,5 @@ read as a second tube side-on, which took two more renders to see and cut.
 - landing: 5 min. Formatting, the registry, the index, `check:fast`, `land`.
 
 Bottleneck: the wave lives only on the side-on profile during a flight, so neither a still director pose nor the face-on early frames of the strip can show it, and the strip had to be windowed to the passes.
+
+*Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 91cab568a — THE INSTAR swims on its flights, offered in VERSUS
+
+On the flight in and the passes, THE INSTAR's long body can now swim instead of being carried stiff. A wave runs down the spine from the neck to the tail, one and a half crests along it, growing from a third of a head radius at the neck to a whole one at the rear. A crest toward the players swells the girth by up to 18%, and the wings beat once a crest, on the wave at the shoulders. The wave grows out of the resting body and dies back into it, so the landing has nothing to snap. It is VERSUS `instar:flight` / `serpent`, and nothing on the field changes (amount 0): a look with no shipped alternative. `bun run solid --instar-flight` draws the strip.
+
 ## 2026-10-01 · 7ef9b5e61 — THE INSTAR's side-on head as a living skull, three ways, offered in VERSUS
 
 Three new VERSUS candidates in `instar:head`: drake, hound and viper. Each keeps the shipped face-on head. Side-on and turned on the idle drift, each draws one skull and one jaw, each a spline of rings, instead of the rig's ball with tubes for a muzzle and a jaw: - drake: long, with swept horns. - hound: domed, with ram's horns and tusks. - viper: a flat fanged wedge with a spiked crest.
