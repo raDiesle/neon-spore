@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · e7cd9376d — THE RIME's marks answer a touch the way every mark does
+
+Each half of the lens wears the halo on its own seat's screen while a wipe or the whiteout is lit on it with frost still on it, and the partner's ring and clock on the other screen; the core, the hull under the surge and the hull under the icicle halo on both screens while their step stands. A half wiped clear, the whiteout thawed, a core hit and a shield turned answer green; a half frosting back, the lens clouding or a step missed reddens only what that step asked, and a wipe too many in the refreeze reddens the core.
+
 ## 2026-10-01 · c2a4bfada — THE VISE's marks answer a touch the way every mark does
 
 Each lobe now wears the halo on its own seat's screen, and the partner's ring and clock on the other's, while a pinch naming it is lit and its gap is not yet shut. The kernel, the hull under the case and the spat seed halo on both screens while their step asks. A seam cracked or a brace greens its lobes, a slip reddens its own lobe, a kernel hit, a bite blocked and a seed burst green their marks, and a step let run out reddens only what it asked.
