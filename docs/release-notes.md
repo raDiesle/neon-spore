@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · d01fa60c5 — THE QUEEN's plates turn with her
+
+BULB QUEEN's shell now turns as she drifts: the seams ride round by their longitude, the outer one goes over the rim and the far one comes round, and the marks follow by less. The owner picked it in VERSUS: "looks better than current, like its moving". Exemption: a look the owner asked for by name.
+
 ## 2026-10-01 · f6ddfdc27 — THE INSTAR's turn candidate reaches wider and shakes
 
 VERSUS's `instar:drift` / `turn` now turns every drifted angle 1.75 times as far as the shared idle drift, and a quick tremor rides the body's roll and pitch, on the owner's feedback that the body should move and shake more. The shared drift and its speed ceilings are unchanged: `reach` and `shake` are THE INSTAR's own fields, and the jaw and glance stop at their own reach. Nothing on the field changes; the candidate is a look offered in VERSUS.

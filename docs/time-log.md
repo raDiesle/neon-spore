@@ -31447,3 +31447,5 @@ Bottleneck: the shared drift's speed ceilings are tested, so the wider turn had 
 - landing: 5 min. `check:fast` twice, `land`.
 
 Bottleneck: the op-count rows, which fail one key at a time until the measure switch is flipped.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
