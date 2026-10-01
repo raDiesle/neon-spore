@@ -1,5 +1,5 @@
 import { GALL_POINTS, type GallState, gallSeatAt, type SimConfig } from "@neon-spore/sim";
-import { gallPointAt, gallSize } from "./gall-shape.js";
+import { gallPointAt, gallRootAt, gallRootR, gallSize } from "./gall-shape.js";
 import type { Circle, Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -44,6 +44,12 @@ export function gallTakesPinch(s: GallState): boolean {
 export function gallPointCircle(l: Layout, cfg: SimConfig, point: number): Circle {
   const at = gallPointAt(l, cfg, point);
   return { x: at.x, y: at.y, r: gallSize(l).rx };
+}
+
+/** The bared root as a circle, where a shot is asked for once the third close pulls the gall under. */
+export function gallRootCircle(l: Layout, cfg: SimConfig): Circle {
+  const at = gallRootAt(l, cfg);
+  return { x: at.x, y: at.y, r: gallRootR(l) };
 }
 
 /** The point nearest a press along the seam, on this layout — mirrored under THE FLIP with the drawing. */

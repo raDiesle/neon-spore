@@ -80,8 +80,8 @@ export {
 // A steering carry as the boom's angle, for the autopilot's thumb (`davit-hand.ts`).
 export { davitCarryAngle } from "./davit-hand.js";
 // THE GALL's seam: the phase, the lit step, the point it sits on and the
-// column over it, whose pinch closes it and how shut, for the picture, the
-// cue and the director's hand. Straight off `gall.ts` (§38).
+// column over it, whose pinch closes it and how shut, and what its marks ask,
+// for the picture, the cue and the director's hand. Straight off `gall.ts` (§38).
 export {
   freshGall,
   GALL_ASKS,
@@ -98,7 +98,9 @@ export {
   gallDone,
   gallLitStep,
   gallPincher,
+  gallPointAsks,
   gallPointCol,
+  gallRootAsks,
   gallSeatAt,
   gallShut,
 } from "./gall.js";

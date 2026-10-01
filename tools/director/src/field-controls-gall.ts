@@ -20,7 +20,10 @@ const PINCH_DOES =
   "pinch counts only on the point the gall is on**: one on bare seam does " +
   "nothing, and one left where the gall was stays there when it jumps. Either " +
   "finger lifting lets go. Taken until the third close bares the root " +
-  "(sim/gall-hand.ts).";
+  "(sim/gall-hand.ts). While it asks, the point the gall is on wears the " +
+  "halo on the pincher's screen and the partner's ring and clock on the " +
+  "other's; a close landed greens it, and a slip or a close run out reddens " +
+  "it (render/gall-verdicts.ts).";
 
 export const GALL_CONTROLS: readonly FieldControlDef[] = [
   {

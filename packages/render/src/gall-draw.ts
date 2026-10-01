@@ -30,6 +30,7 @@ import {
   gallSeamPath,
   gallSize,
 } from "./gall-shape.js";
+import { drawGallMarkFeedback } from "./gall-verdicts.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
@@ -121,6 +122,7 @@ export function drawGall(
     drawNodule(ctx, l, s, world, time, beatPhase, sunk, fx);
     ctx.restore();
   }
+  drawGallMarkFeedback(ctx, l, cfg, s, time, 1 - flat, fx.verdicts.verdicts);
   ctx.restore();
 }
 

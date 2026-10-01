@@ -30917,3 +30917,16 @@ Bottleneck: the rest — on a step only one seat grips, so the clock belongs on 
 Bottleneck: the surface page — the three new names took `boss-surface-clocks-d.ts` to 241 lines, so THE CAPSTAN's whole block moved to the fifth page first.
 
 *Measured: 113 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE GALL's marks answer a touch
+
+- reading: 5 min. The seam's steps, hand and events, and THE CAPSTAN's
+  verdicts to copy.
+- writing: 15 min. Two asking predicates in the simulation, the root's
+  circle, the verdict file, its wiring into the seam's frame and its test,
+  the spec and the director's line.
+- looking: 0 min. The frame tests count the halo, the clock and the red.
+- friction: 5 min. A context cut mid-lane.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: the moving point — the halo has to follow the gall across the middle, so whose screen it is on comes from the pincher, not from a fixed seat.

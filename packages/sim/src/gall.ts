@@ -122,6 +122,16 @@ export function gallPincher(s: GallState): 1 | 2 {
   return gallSeatAt(s.point);
 }
 
+/** Whether the gall's point asks a seat's pinch, nought for the pilot: a close lit, and the gall on that seat's half. */
+export function gallPointAsks(s: GallState, side: 0 | 1): boolean {
+  return gallClosing(s) && gallPincher(s) === side + 1;
+}
+
+/** Whether the root asks for a shot: a fire step lit with the root bared. */
+export function gallRootAsks(s: GallState): boolean {
+  return s.bared && gallLitStep(s)?.ask === "fire";
+}
+
 /** Whether the gall is pinched shut this instant. */
 export function gallShut(world: World, s: GallState): boolean {
   return s.gapMilli <= world.cfg.gallShutMilli;

@@ -1245,6 +1245,7 @@ by hand never moves.
 | `packages/render/src/gall-fx.ts` | What THE GALL leaves behind a frame (§11.55): the **flare** of a pinch come shut |
 | `packages/render/src/gall-receipts.ts` | **What THE GALL's receipts are drawn as**, off the numbers `gall-fx.ts` keeps |
 | `packages/render/src/gall-grip.ts` | **The pinch on THE GALL** — the hands lane that makes the nodule answer two fingers at all |
+| `packages/render/src/gall-verdicts.ts` | **THE GALL's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/glide.ts` | A spring that chases a value |
 | `packages/render/src/gland-cord.ts` | THE STRINGS RUNNING UP FROM THE BUTTONS — PLASM's, kept |
 | `packages/render/src/gland-fluid.ts` | THE FLUID UNDER THE CONTROLS — the two things the owner picked out of PLASM and EMBEDDED on 11 September 2026… |

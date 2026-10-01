@@ -11221,6 +11221,19 @@ on two real phones. And of the body: whether the heel reads as
 *whose* at a glance at tempo, and whether the pinch's two chevrons read as a
 pinch before anybody has been told.
 
+**Its marks answer a touch the way every mark does**
+(`render/gall-verdicts.ts`, `test/gall-verdict.test.ts`). Two marks: the
+point the gall sits on, as wide as it is drawn, and the root once it is
+bared. The point asks a close of the seat whose half it is on — the halo on
+that seat's screen and the partner's ring and clock on the other's — so when
+the gall jumps across the middle the halo goes over to the other screen with
+it. On a fire step with the root bared the root asks for the shot, which is
+either seat's, so it haloes on both screens with nobody's clock. A close
+landed greens the point and a hit greens the root; a pinch let slip or a
+close run out reddens the point, and a shot run out the root. A pinch come
+shut says nothing, and a pinch on bare seam and a wrong colour stay silent,
+as the simulation is.
+
 ## 11.56 THE BURGEE — a flag stilled by one seat and caught by the other
 
 > A pennant on a free boom mid-hull swings across the middle columns on

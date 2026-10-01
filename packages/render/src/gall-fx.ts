@@ -2,6 +2,7 @@ import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { gallPointAt, gallRootAt } from "./gall-shape.js";
+import { GallVerdicts } from "./gall-verdicts.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -49,6 +50,8 @@ export class GallFx {
   private rootHex: string = PALETTE.hullRim;
   /** The blow a close and a hit deal the gall. */
   readonly hurt = new BossHurt();
+  /** Whether the last touch on each of the seam's marks was right (`gall-verdicts.ts`). */
+  readonly verdicts = new GallVerdicts();
 
   /** How bright the nodule's rim still flares for a pinch come shut, 0..1. */
   get flare(): number {
@@ -92,6 +95,7 @@ export class GallFx {
     _beatSeconds: number,
     burst: Burst,
   ): void {
+    this.verdicts.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("gall")) continue;
       const root = gallRootAt(l, cfg);
@@ -162,6 +166,7 @@ export class GallFx {
     this.flashNow = Math.max(0, this.flashNow - FLASH_DECAY * step);
     if (this.flashNow === 0) this.flashHits = 0;
     this.hurt.update(dt);
+    this.verdicts.update(dt);
   }
 
   clear(): void {
@@ -176,5 +181,6 @@ export class GallFx {
     this.flashHits = 0;
     this.rootHex = PALETTE.hullRim;
     this.hurt.clear();
+    this.verdicts.clear();
   }
 }

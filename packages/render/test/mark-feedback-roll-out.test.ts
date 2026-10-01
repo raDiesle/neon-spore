@@ -21,7 +21,7 @@ import { BOSS_KINDS } from "@neon-spore/sim";
  * that gives a boss its verdicts takes it off the list, or this goes red;
  * a boss built after 27 September 2026 is never put on it.
  */
-const TO_COME: readonly string[] = ["gall", "burgee", "flue"];
+const TO_COME: readonly string[] = ["burgee", "flue"];
 
 const SRC = new URL("../src/", import.meta.url);
 const FILES = readdirSync(SRC);
