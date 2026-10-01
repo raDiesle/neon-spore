@@ -416,6 +416,7 @@ count within 10% of the shipped body. `bun run check` proves the tests.
 ## Living bosses — THE INSTAR's serpentine flight, as a VERSUS candidate
 
 - **Found:** 2026-09-26, claude/living-motion-spec
+- **Taken:** 2026-10-01, claude/instar-side-head-variants (claim: claude/queue-living-bosses-the-instars-serpentine-flight-as-a)
 - **Where:** local
 - **Needs:** Living bosses — THE INSTAR turns on the idle drift, as a VERSUS candidate
 - **Files:** `packages/render/src/instar-flight.ts`, `packages/render/src/instar-profile-life.ts`, `packages/render/src/solid-motion.ts`, `packages/render/test/instar-flight.test.ts`, `docs/spec/living-bosses.md`
