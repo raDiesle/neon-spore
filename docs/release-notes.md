@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · ec3d1b9fe — A whole-picture round's timeout hit is drawn
+
+When THE PULSE, THE SCOUT, THE SNAKE, THE GAUGE or THE PINBALL ran out of time, the hull's scar and crack popped in with no rock falling: the round's frame returns before the field ingests the breach, and the field never gets to draw it later, because the round holds its picture until the wave change wipes the effects. The round now draws that hit itself (`round-hit.ts`), on the hull it already draws, using the field's own pieces: the rock falls, sparks fly off the crater, and the crack waits for the rock.
+
 ## 2026-10-01 · 263271c2f — §42 THE SLUICE is cut, and THE MIMIC takes its place
 
 THE MIMIC is a slime with eight arms whose skin wears a sign that only one seat's screen shows. The other seat draws the sign on their own glass, and the drawing phone sends the nearest of five one-stroke signs as a single command. That spends A DRAWN GLYPH at last, beside `PerSeatTruth`. It has three movements: the first face, the roles traded with a sign that changes mid-window, and both seats reading and drawing at once. It runs about forty seconds clean. Both SLUICE queue entries are closed as the owner ruled on 27 September 2026, and §43 no longer cites THE SLUICE.
