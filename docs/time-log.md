@@ -31159,3 +31159,18 @@ Bottleneck: the op-count test failed on fills the earlier body drift already dre
 Bottleneck: which of the head's fifteen parts paid the extra fills was only answerable with a per-part probe written for the purpose.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE REPRISE's veins placed by longitude
+
+- reading: 15 min. `surface.ts`'s pins, the outline tier's yaw, the sac's
+  shape and its veins, and why `reprise:sac` was dropped.
+- writing: 25 min. `reprise-surface.ts`, the yaw export, the test of the
+  veins and of a frame's cost, and the VERSUS candidate.
+- looking: 15 min. Five shots of `reprise:skin`; the first three showed
+  SLICK, the slot's fallback pose, and one of them was sent as the sac.
+- friction: 20 min. The context ran out mid-lane, two wrong expectations
+  about which vein goes over the rim, a crop given in the wrong frame, and
+  a new slot with no `SLOT_POSE` row, caught only by `check:fast`.
+- landing: 5 min. Formatting, `check:fast`, `land`.
+
+Bottleneck: which vein faces us at which turn could only be settled by printing the samples, since the outer vein lies wholly outside the sac under its clip.

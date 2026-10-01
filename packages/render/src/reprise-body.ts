@@ -5,6 +5,7 @@ import type { PartAngles } from "./idle-drift-parts.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { swungCord } from "./reprise-parts.js";
+import { drawVeins } from "./reprise-surface.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -128,7 +129,7 @@ function drawCords(
   }
 }
 
-/** The sac, filled and lit, and its contour for what is drawn into it. */
+/** The sac, filled and lit, and its contour for what is drawn into it; `theta` is its skin's turn (`repriseTurn`). */
 export function drawSac(
   ctx: CanvasRenderingContext2D,
   f: RepriseFrame,
@@ -136,6 +137,7 @@ export function drawSac(
   clench: number,
   t: number,
   swing: PartAngles,
+  theta = 0,
 ): Path2D {
   drawCords(ctx, f, t, swing);
   const sac = splinePath(sacPoints(f, clench, t), true);
@@ -158,23 +160,9 @@ export function drawSac(
   ctx.fillStyle = skin;
   ctx.fill(sac);
   ctx.clip(sac);
-  // Veins on the two outer lobes, faint, running down to where it is heavy.
-  ctx.lineCap = "round";
-  ctx.lineWidth = Math.max(0.8, f.u * 0.04);
-  ctx.strokeStyle = rgba(PALETTE.sheenRim, 0.12);
-  for (const side of [-1, 1]) {
-    for (const k of [0.62, 0.8]) {
-      ctx.beginPath();
-      ctx.moveTo(f.x + side * f.rx * k, f.cy - f.ry * 0.6);
-      ctx.quadraticCurveTo(
-        f.x + side * f.rx * (k + 0.12),
-        f.cy,
-        f.x + side * f.rx * (k - 0.1),
-        f.cy + f.ry * 0.8,
-      );
-      ctx.stroke();
-    }
-  }
+  // Veins on the two outer lobes, faint, running down to where it is heavy,
+  // placed by longitude so a turn carries them round (`reprise-surface.ts`).
+  drawVeins(ctx, f, theta);
   // A film of gloss over the top of the curve.
   ctx.strokeStyle = rgba(PALETTE.text, 0.22);
   ctx.lineWidth = f.u * 0.08;

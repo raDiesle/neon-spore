@@ -223,8 +223,14 @@ has none. The face-on half of a flight is unchanged. Test:
   pair, their ends walking half a tile along the top of the screen, and its
   eye — the lens and its ring of eggs — glances half a tile about inside the
   sac, home in the middle whenever an echo plays, where the navigator's word
-  and the beam stand (`reprise-parts.ts`). The surface marks wait for an
-  outline body that turns (`docs/queue.md`).
+  and the beam stand (`reprise-parts.ts`). *Its skin, 1 October 2026*
+  (`reprise-surface.ts`, offered as `reprise:skin` `turn`): the sac turns up
+  to 40° on the outline's own yaw, and its veins are pinned by longitude —
+  each sample's latitude its height, its longitude read off the sac's width
+  there — so a turn slides them across it, fastest through the middle; a near
+  vein goes over the rim and a far pair, hidden at rest, comes round. The
+  gloss stays: the light does not turn. Held still, the skin draws the
+  shipped curves to the pixel. THE QUEEN's shell is next (`docs/queue.md`).
 
 ### Every part moves on its own
 

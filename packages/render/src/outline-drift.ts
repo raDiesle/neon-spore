@@ -137,13 +137,28 @@ export function outlinePose(
   const shift = outlineShift(boss);
   const at = (share: number) => (share * shift * tile) / reach;
   const { roll, squash, stretch, slide } = OUTLINE.share;
-  const yaw = Math.max(-1, Math.min(1, d.yaw / (YAW_MAX * DEG)));
+  const yaw = yawShare(d.yaw);
   return {
     roll: (d.roll / (ROLL_MAX * DEG)) * at(roll),
     sx: 1 - yaw * yaw * at(squash),
     sy: 1 + (d.pitch / (PITCH_MAX * DEG)) * at(stretch),
     dx: yaw * slide * shift * tile,
   };
+}
+
+/** A drift's yaw as a share of its widest, -1 to 1: what the slide and the squash scale by. */
+function yawShare(yaw: number): number {
+  return Math.max(-1, Math.min(1, yaw / (YAW_MAX * DEG)));
+}
+
+/**
+ * **The turn the surface is placed by** (`packages/content/src/surface.ts`),
+ * -1 to 1 of its widest: the same seed and the same drift `outlinePose` slides
+ * and squashes the outline by, so a mark carried round goes the way the body
+ * leans. 0 where the body is hushed to nothing.
+ */
+export function outlineYaw(time: number, hush: number, seed: number): number {
+  return hush <= 0 ? 0 : yawShare(idleDrift(time, seed, hush).yaw);
 }
 
 /** The pose as the canvas's six numbers, about `root`: `[a, b, c, d, e, f]`. */

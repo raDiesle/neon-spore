@@ -598,3 +598,20 @@ its morph (the way `falling` in `poses-instar-spit.ts` holds three beats into
 a window), name it `INSTAR · IN FLIGHT`, and point the slot at it. Done when
 the director's VERSUS pair for `instar:flight` shows the two bodies differing
 and `bun run check` is green.
+
+## `versus:shot` shoots a slot with no `SLOT_POSE` row on SLICK without a word
+
+- **Found:** 2026-10-01, claude/queue-living-bosses-the-surface-marks-by-longitude-onc
+- **Where:** local
+- **Files:** `tools/director/src/versus-pose.ts`, `tools/director/src/versus-one.ts`
+
+A new candidate slot with no row in `SLOT_POSE` resolves to
+`DEFAULT_POSE_NAME`, "SLICK · FALLING", and `bun run versus:shot` draws it
+there and prints nothing; the slot's own subject is not on the field. Only
+`versus-pose.test.ts`'s "no open slot falls through to the default pose"
+catches it, at `check:fast`, after the shots are taken. `reprise:skin` was
+shot three times as SLICK, and one of those shots was sent as the sac. Make
+the shot refuse, or at least warn, when `poseForSlot` falls through. A
+`poseForSlot(slot, { strict: true })` that throws, naming the file to add the
+row in, would do it. Done when `bun run versus:shot <unmapped slot> …` says
+so and `bun run check` is green.

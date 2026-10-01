@@ -1995,6 +1995,7 @@ by hand never moves.
 | `packages/render/src/reprise-flesh.ts` | THE REPRISE's torn lip along the field's top edge, ragged only out past the sac |
 | `packages/render/src/reprise-fuse.ts` | **THE REPRISE's measure along the top of the screen**: THE SLOW's fuse burning down to the dark, then filling back up through the echo |
 | `packages/render/src/reprise-body.ts` | THE REPRISE's body: THE WEIGHT's sac hung through the tear on two cords, a halo that pulses on the beat, and the beam while an echo plays |
+| `packages/render/src/reprise-surface.ts` | **THE REPRISE's veins, placed by longitude**: pinned to the sac, so a turn slides them across it, over the rim and round from behind; held still, the shipped curves |
 | `packages/render/src/reprise-brood.ts` | THE REPRISE's count: a ring of eggs round the lens, laid as bodies are recorded and spent as they are sent, then a dashed shell per unseen body still falling |
 | `packages/render/src/reprise-lens.ts` | THE REPRISE's eye: a camera lens — shutter blink and blinking red dot while recording, rewind and triangle while playing |
 | `packages/render/src/reprise-parts.ts` | THE REPRISE's parts — the outline tier's (`outline-parts.ts`) on the sac |

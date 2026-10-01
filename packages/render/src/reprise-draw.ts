@@ -10,6 +10,7 @@ import { drawTearLip } from "./reprise-flesh.js";
 import type { RepriseFx, ReprisePhase } from "./reprise-fx.js";
 import { drawLens } from "./reprise-lens.js";
 import { cordSwing, eyeFreedom, repriseEye } from "./reprise-parts.js";
+import { repriseTurn } from "./reprise-surface.js";
 import type { Box } from "./slow-fuse-place.js";
 import { splinePath } from "./spline.js";
 
@@ -166,7 +167,8 @@ export function drawReprise(
   const eye = repriseEye(f, l.tile, d.time, d.hush, eyeFreedom(d.phase, d.fx.before, flip));
   const looked = { ...f, x: eye.x, cy: eye.y };
   withOutlinePose(ctx, pose, root, () => {
-    drawSac(ctx, f, playing, swallow, d.time, cordSwing(f, l.tile, d.time, d.hush));
+    const swing = cordSwing(f, l.tile, d.time, d.hush);
+    drawSac(ctx, f, playing, swallow, d.time, swing, repriseTurn(d.time, d.hush));
     drawLens(ctx, looked, { phase: d.phase, flip, beatPhase: d.beatPhase, time: d.time });
     drawBrood(ctx, looked, {
       phase: d.phase,
