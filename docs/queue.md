@@ -392,27 +392,24 @@ already has a pattern for. Whoever takes this names it in the entry they
 leave behind, same as the four already listed, and it is a look:
 `tools/versus/candidates/`, never straight onto the field.
 
-## THE INSTAR's parts drift on their own
+## THE INSTAR's turned body draws 13% more fills than the still one
 
-- **Found:** 2026-10-01, claude/queue-living-bosses-the-instar-turns-on-the-idle-drift
-- **Taken:** 2026-10-01, claude/queue-living-bosses-the-instars-serpentine-flight-as-a (claim: claude/queue-the-instars-parts-drift-on-their-own)
+- **Found:** 2026-10-01, claude/queue-the-instars-parts-drift-on-their-own
 - **Where:** local
-- **Needs:** Living bosses — THE INSTAR turns on the idle drift, as a VERSUS candidate
-- **Files:** `packages/render/src/instar-profile.ts`, `packages/render/src/instar-drift.ts`, `packages/render/src/instar-rig-head-draw.ts`, `packages/render/src/instar-wings.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/idle-drift.ts`, `packages/render/test/instar-drift.test.ts`
+- **Files:** `packages/render/src/instar-drift.ts`, `packages/render/src/instar-profile.ts`, `packages/render/src/instar-rig-head-draw.ts`, `packages/render/test/instar-parts.test.ts`
 
-The other half of THE INSTAR's drift. The VERSUS candidate `instar:drift` /
-`turn` turns the whole body and the head on it; each part still rides the
-body rigidly. Give every part its own `partDrift` on its anchor, as
-`docs/spec/living-bosses.md` section 1's part map lists them: head, jaw,
-eyes, horns, both wings and their claws, the tail links and the blade —
-the eyes leading the head, the wings' drift letting go while they beat, the
-jaw's while the script opens it — behind the same `INSTAR_DRIFT.amount`, so
-it stays the one candidate.
+The VERSUS candidate `instar:drift` / `turn` with `INSTAR_DRIFT.parts` off —
+the body drift alone, as the earlier lane landed it — draws 337 fills on
+side-on step 22 at 390×844 dpr 3 against 297 for the shipped body, about 13%
+over. The parts add nothing on top (`instar-parts.test.ts` compares against
+the body turning whole for that reason). Find where the ~40 fills come from —
+most likely the head drawn at a turned yaw (`INSTAR_HEAD.turned`, the rig
+head's three-quarter faces) rather than the profile's — and bring the drifted
+frame within 10% of the still one, then compare `instar-parts.test.ts`'s op
+count against the shipped body as the parts item asked.
 
-Done when: `instar-drift.test.ts` presses every mark of every step at the
-drift's widest yaw *with every part at its widest too* and finds it; the
-never-snaps ceilings of `idle-drift-parts.test.ts` hold for each part; op
-count within 10% of the shipped body. `bun run check` proves the tests.
+Done when: a test draws step 22 still and drifted and the drifted frame's
+fills are within 10%. `bun run check` proves it.
 
 ## Living bosses — ship THE INSTAR's picked candidates
 

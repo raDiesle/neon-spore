@@ -26,9 +26,9 @@ import { acting, asking, field, hung } from "./instar-kit.js";
  *
  * The marks are pressed at the beat of ten minutes where the body's yaw is
  * widest, with THE SLOW shut — the drift at its full — and open, where it is
- * hushed to a tenth. *Every part at its widest too* is the per-part drift's
- * (`docs/queue.md`, "THE INSTAR's parts drift on their own"): this lane turns
- * the body whole, and a mark rides the body.
+ * hushed to a tenth. *Every part at its widest too* is `instar-parts.test.ts`'s:
+ * there the head and the tail are cocked on the body as well, and a mark on
+ * them rides its part.
  */
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);

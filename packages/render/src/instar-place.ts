@@ -1,4 +1,5 @@
 import type { SceneMark, SimConfig } from "@neon-spore/sim";
+import type { InstarParts } from "./instar-parts.js";
 import type { Figure } from "./instar-shape.js";
 import type { Layout } from "./layout.js";
 
@@ -66,7 +67,41 @@ export function instarMarkPoint(
 ): Point {
   const x = mark.xMilli + (mark.sweepMilli ?? 0) * along;
   const p = instarAt(l, x + sway.xMilli, mark.yMilli + sway.yMilli);
-  return sway.drift === undefined ? p : instarDrifted(l, sway.drift, p);
+  const d = sway.drift;
+  if (d === undefined) return p;
+  const parts = d.parts;
+  // A mark on the head or the tail is carried by that part's own cock too (`instar-parts.ts`).
+  if (parts !== undefined && TAIL_MARKS.has(mark.part)) {
+    return instarDrifted(l, d, rotateAbout(p, instarTailRoot(l, parts), parts.tailPlane));
+  }
+  const q = instarDrifted(l, d, p);
+  if (parts === undefined || !HEAD_MARKS.has(mark.part)) return q;
+  return rotateAbout(q, instarDrifted(l, d, instarNeck(l, parts)), parts.headPlane);
+}
+
+/** The marks the head carries, and the one the tail does; the rest ride the body. */
+const HEAD_MARKS: ReadonlySet<string> = new Set(["head", "eye", "jaw", "fire"]);
+const TAIL_MARKS: ReadonlySet<string> = new Set(["tail"]);
+
+/** The neck the head cocks about, in pixels, the profile's (`instar-profile.ts` `profileLines`). */
+export function instarNeck(l: Layout, p: InstarParts): Point {
+  const head = instarAt(l, p.headXMilli, p.headYMilli);
+  const r = instarLen(l, p.headRMilli);
+  return { x: head.x + r * 0.7, y: head.y + r * 0.15 };
+}
+
+/** The root the tail swings about, in pixels. */
+export function instarTailRoot(l: Layout, p: InstarParts): Point {
+  return instarAt(l, p.rearXMilli, p.rearYMilli);
+}
+
+/** `p` turned `a` about `c`, as `ctx.rotate` turns it. */
+export function rotateAbout(p: Point, c: Point, a: number): Point {
+  const cos = Math.cos(a);
+  const sin = Math.sin(a);
+  const x = p.x - c.x;
+  const y = p.y - c.y;
+  return { x: c.x + cos * x - sin * y, y: c.y + sin * x + cos * y };
 }
 
 /**
@@ -82,6 +117,8 @@ export interface InstarDrift {
   readonly roll: number;
   /** The head's yaw on the body's, radians. */
   readonly headYaw: number;
+  /** Each part's own drift on the body's (`instar-parts.ts`). */
+  readonly parts?: InstarParts;
 }
 
 /**

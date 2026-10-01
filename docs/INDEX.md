@@ -1816,6 +1816,7 @@ by hand never moves.
 | `packages/render/src/instar-profile.ts` | **THE INSTAR side-on**: the perspective the owner asked to change to on 25 September 2026 |
 | `packages/render/src/instar-profile-life.ts` | **THE INSTAR side-on, alive**: what the long body does on its own clock while the script holds it in a pose |
 | `packages/render/src/instar-profile-surface.ts` | **What sits on THE INSTAR's long body, placed round it** — the owner, 26 September 2026 |
+| `packages/render/src/instar-parts.ts` | **THE INSTAR's parts drift on their own**: the head, jaw, eyes, each wing and the tail on top of the body's turn |
 | `packages/render/src/instar-shape.ts` | **Where THE INSTAR is**, as one figure of numbers: the head and its two jaws, the eyes |
 | `packages/render/src/instar-shove.ts` | **THE INSTAR's lips trembling under a shove** |
 | `packages/render/src/instar-sway.ts` | **THE INSTAR weaves**, and everything of it weaves together |

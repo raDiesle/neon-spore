@@ -31128,3 +31128,17 @@ read as a second tube side-on, which took two more renders to see and cut.
 Bottleneck: the wave lives only on the side-on profile during a flight, so neither a still director pose nor the face-on early frames of the strip can show it, and the strip had to be windowed to the passes.
 
 *Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE INSTAR's parts drift on their own, in VERSUS
+
+- reading: 15 min. `partDrift`, the profile's head and tail, the wings, the
+  mark grip and the drift test.
+- writing: 40 min. `instar-parts.ts`, the head and tail cocks in the profile
+  and the mark point, the jaw, glance and wing deltas, and the parts test.
+- looking: 5 min. One VERSUS shot of the candidate.
+- friction: 15 min. The fill budget failed and had to be traced to the body
+  drift rather than the parts, the context ran out mid-lane, and a
+  `versus:shot` with the slot misspelt took a 404 to notice.
+- landing: 5 min. Formatting, the index, the spec, `check:fast`, `land`.
+
+Bottleneck: the op-count test failed on fills the earlier body drift already drew, and it took a temporary switch to show the parts were not the cause.

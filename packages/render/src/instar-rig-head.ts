@@ -49,7 +49,7 @@ const JAW = { back: 0.1, front: -1.3, zBack: 0.5, zFront: 0.12, rBack: 0.24, rFr
  * own gape (`instar-side-head.ts`). Face-on the pitch barely shows — the
  * hinge's height puts the lip — so it is side-on that sets it.
  */
-const JAW_OPEN = 0.45;
+export const JAW_OPEN = 0.45;
 const RINGS = 6;
 
 export const HIDE: Skin = { base: "#2A1B4A", lift: "#C05CFF", sheen: "#F3DEFF" };

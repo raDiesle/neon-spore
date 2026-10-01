@@ -36,7 +36,10 @@ import { drawRig, type Part, type RigLook } from "./solid-rig.js";
  */
 
 /** What the rig head reads off a frame: `Look` satisfies it. */
-export type RigHeadLook = Pick<Look, "head" | "r" | "time" | "fade" | "fire" | "weak"> & {
+export type RigHeadLook = Pick<
+  Look,
+  "head" | "r" | "time" | "fade" | "fire" | "weak" | "glance"
+> & {
   f: Pick<Look["f"], "jawUp" | "jawDown" | "eye" | "wince" | "winceLeft">;
 };
 
@@ -82,7 +85,7 @@ function marks(look: RigHeadLook, yaw: number, nostrilAt: Vec3): Part[] {
     const at = onSkull(e.lon, e.lat);
     const open = f.eye * (1 - 0.8 * (s === 1 ? f.wince : f.winceLeft));
     const draw = onPin(e.pin, yaw, (ctx) => {
-      const eye = drawEye(ctx, { x: 0, y: 0 }, r, s, open, time, fade);
+      const eye = drawEye(ctx, { x: 0, y: 0 }, r, s, open, time, fade, look.glance);
       if (eye) drawWeak(ctx, eye, (look.weak?.eye ?? 0) * fade, "eye");
     });
     out.push({ kind: "mark", c: { x: at.x * r, y: at.y * r, z: at.z * r }, draw, anchor: upper });

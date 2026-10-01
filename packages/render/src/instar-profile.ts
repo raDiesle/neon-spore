@@ -6,8 +6,10 @@ import { INSTAR_BODY } from "./instar-body-look.js";
 import { headTurn, INSTAR_DRIFT } from "./instar-drift.js";
 import { drawNests } from "./instar-eggs.js";
 import { drawMoult } from "./instar-moult.js";
+import { cockAbout } from "./instar-parts.js";
 import {
   driftTransform,
+  type InstarDrift,
   instarAt,
   instarDrifted,
   instarFarEnd,
@@ -16,6 +18,7 @@ import {
 import { drawSeam, faded, type Look } from "./instar-plate.js";
 import { BREATH_PERIOD, breathAt, headBob, rollAt, undulate } from "./instar-profile-life.js";
 import { bodyOf, drawLamps, drawRidge, drawScales } from "./instar-profile-surface.js";
+import { JAW_OPEN } from "./instar-rig-head.js";
 import { drawScutes } from "./instar-scutes.js";
 import { swellAt, swimAt, swimLook } from "./instar-serpent.js";
 import { drawTail } from "./instar-tail.js";
@@ -178,13 +181,39 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, still: Loo
   drawContact(ctx, hide, (spine[0] as Point).x, (spine[0] as Point).y, r * 0.45, fade);
   rimTube(ctx, hide, PALETTE.sheenRim, r * 0.06, fade);
   drawMoult(ctx, coarse(top), coarse(bottom), look);
+  // The tail swings about its root on its own drift (`instar-parts.ts`).
+  ctx.save();
+  if (drift?.parts) cockAbout(ctx, rear, drift.parts.tailPlane);
   drawTail(ctx, l, look, rear);
+  ctx.restore();
   drawWing(ctx, look, back(0.42), W, { x: 0, y: 0, z: r * 0.3 }, 1);
   drawNests(ctx, l, look);
   ctx.restore();
   const bobbed = headBob(head, r, time);
   if (!drift) INSTAR_BODY.head(ctx, { ...look, head: bobbed });
-  else INSTAR_DRIFT.head(ctx, { ...look, head: instarDrifted(l, drift, bobbed) }, headTurn(drift));
+  else drawDriftedHead(ctx, l, look, drift, bobbed);
+}
+
+/** The head on the drift: cocked about its neck, the jaw breathed open, the eyes glancing. */
+function drawDriftedHead(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  look: Look,
+  drift: InstarDrift,
+  bobbed: Point,
+): void {
+  const head = instarDrifted(l, drift, bobbed);
+  const parts = drift.parts;
+  if (!parts) {
+    INSTAR_DRIFT.head(ctx, { ...look, head }, headTurn(drift));
+    return;
+  }
+  const neck = instarDrifted(l, drift, { x: bobbed.x + look.r * 0.7, y: bobbed.y + look.r * 0.15 });
+  const f = { ...look.f, jawDown: look.f.jawDown + (2 * parts.jaw) / JAW_OPEN };
+  ctx.save();
+  cockAbout(ctx, neck, parts.headPlane);
+  INSTAR_DRIFT.head(ctx, { ...look, f, head, glance: parts.glance }, headTurn(drift));
+  ctx.restore();
 }
 
 /** A point `u` of the way along a Catmull-Rom spline through `k`. */

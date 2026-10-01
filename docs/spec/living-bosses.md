@@ -81,9 +81,15 @@ whole side-on body drifts on the rig's yaw, pitch and roll about its middle
 `instar-place.ts`), and the head is drawn turned on top of it, from the
 profile toward three-quarter and back, never past face-on and never away
 (`headTurn`). It is nothing on a face-on step, a tenth over live marks, and
-the marks are pressed where the drift draws them. Each part's own drift is
-not built yet: `docs/queue.md`, "THE INSTAR's parts drift on their own".
-Test: `packages/render/test/instar-drift.test.ts`.
+the marks are pressed where the drift draws them. On top of the body each
+part drifts on its own (`instar-parts.ts`): the head cocks about its neck and
+turns, the jaw breathes open while the script holds it shut, the eyes glance,
+each wing wanders on its shoulder and lets go while it spreads, and the tail
+swings about its root down three links — seven parts under the part map's
+eight, because the horns and the claws ride their parents. A head or tail mark
+is pressed where its part carried it. `INSTAR_DRIFT.parts` off turns the body
+whole. Tests: `packages/render/test/instar-drift.test.ts`,
+`packages/render/test/instar-parts.test.ts`.
 
 **Offered (1 October 2026, VERSUS `instar:head` / `drake`, `hound`,
 `viper`).** The owner: the side-on rig head *looks very geometrical … not

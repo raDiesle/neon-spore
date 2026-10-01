@@ -88,11 +88,14 @@ export function drawWing(
   const beat = (sw ? own + (sw.flap - own) * sw.env : own) * BEAT * (0.4 + f.wing);
   const k = f.side;
   const mix = (a: number, b: number) => a + (b - a) * k;
+  // Each wing wanders on its own shoulder (`instar-parts.ts`), and gives it up to a flight's beat.
+  const wd = look.drift?.parts?.wings[side === 1 ? 0 : 1];
+  const wander = wd ? 1 - (sw?.env ?? 0) : 0;
   const anchor: Anchor = {
     at: hinge,
-    roll: side * (mix(FACE_ON.lift, SIDE_ON.lift) + beat),
-    pitch: mix(FACE_ON.droop, SIDE_ON.droop),
-    yaw: side * mix(FACE_ON.sweep, SIDE_ON.sweep),
+    roll: side * (mix(FACE_ON.lift, SIDE_ON.lift) + beat + (wd?.roll ?? 0) * wander),
+    pitch: mix(FACE_ON.droop, SIDE_ON.droop) + (wd?.pitch ?? 0) * wander,
+    yaw: side * (mix(FACE_ON.sweep, SIDE_ON.sweep) + (wd?.yaw ?? 0) * wander),
   };
   const s = r * SPAN * mix(FACE_ON.reach, SIDE_ON.reach);
   // Folded, the wing draws in along the arm and its trailing edge shortens.

@@ -2,6 +2,7 @@ import { FRONT, SIDE } from "@neon-spore/content";
 import { beatSeconds, type InstarState, type SimConfig } from "@neon-spore/sim";
 import { HUSH, idleDrift } from "./idle-drift.js";
 import { INSTAR_HEAD } from "./instar-head-look.js";
+import { instarParts } from "./instar-parts.js";
 import type { InstarDrift } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
 import { instarFigure } from "./instar-shape.js";
@@ -16,7 +17,8 @@ import { type SlowSpan, slowHush } from "./slow-hush.js";
  * reads 3D (`docs/spec/living-bosses.md` §1). The side-on body is seen through
  * the rig's `view(SIDE + yaw, pitch)` and rolled about the line of sight
  * (`instar-place.ts` `instarDrifted`), and the head turns on top of it, its
- * own yaw leading the body's (`idle-drift.ts`).
+ * own yaw leading the body's (`idle-drift.ts`), and every part on it drifts
+ * on its own as well (`instar-parts.ts`).
  *
  * **A face looks at the players.** The head's yaw is folded: the drift's
  * "away" half is turned back toward the viewer, so the head swings between
@@ -35,11 +37,14 @@ import { type SlowSpan, slowHush } from "./slow-hush.js";
  */
 export const INSTAR_DRIFT: {
   amount: number;
+  /** Whether each part drifts on the body as well (`instar-parts.ts`); off, the body turns whole. */
+  parts: boolean;
   /** The head at `yaw` (`SIDE` profile, `FRONT` face-on), where the profile's head would be:
    * whichever head `INSTAR_HEAD` draws turned. */
   head: (ctx: CanvasRenderingContext2D, look: Look, yaw: number) => void;
 } = {
   amount: 0,
+  parts: true,
   head: (ctx, look, yaw) => INSTAR_HEAD.turned(ctx, look, yaw),
 };
 
@@ -66,11 +71,13 @@ export function instarDrift(
     slowHush(slow, beat, beatPhase, HUSH.liveMark) *
     instarHandover(f.side) *
     still;
-  const pose = idleDrift((beat + beatPhase) * beatSeconds(cfg), SEED, hush);
+  const time = (beat + beatPhase) * beatSeconds(cfg);
+  const pose = idleDrift(time, SEED, hush);
   return {
     pivotXMilli: (f.headX + f.rearX) / 2 + sway.xMilli,
     pivotYMilli: (f.headY + f.rearY) / 2 + sway.yMilli,
     ...pose,
+    ...(INSTAR_DRIFT.parts ? { parts: instarParts(time, hush, f, sway) } : {}),
   };
 }
 
@@ -79,5 +86,5 @@ export function instarDrift(
  * folded toward the viewer and kept between the profile and face-on.
  */
 export function headTurn(d: InstarDrift): number {
-  return Math.min(FRONT, SIDE + Math.abs(d.yaw + d.headYaw));
+  return Math.min(FRONT, SIDE + Math.abs(d.yaw + d.headYaw + (d.parts?.headTurn ?? 0)));
 }
