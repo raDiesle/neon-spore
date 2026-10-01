@@ -31254,3 +31254,16 @@ Bottleneck: telling a missing field apart from every other refusal without match
 Bottleneck: getting a drake out of a skull outline by eye — each pass on the knots needed a fresh shot to judge.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-01 — `vane.test.ts` is three files on one fixture
+
+- reading: 5 min. `vane.test.ts`'s describe blocks, the `maze-fixture.ts`
+  pattern, and every file that names `vane.test.ts`.
+- writing: 10 min. `vane-fixture.ts`, the two new files, and the references
+  that follow them.
+- looking: 0 min.
+- friction: 5 min. The branch `take` had already made, and a doc comment's
+  opener lost in the slice.
+- landing: 10 min. `check:fast`, `land`.
+
+Bottleneck: slicing by line numbers lost one comment opener, and only the parse error showed it.

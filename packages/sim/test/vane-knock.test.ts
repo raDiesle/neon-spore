@@ -17,7 +17,7 @@ import {
  * **A pin knocked out is said** (`vane.ts` `vaneMouthStruck`): one `vaneKnock` per
  * pin, with what is left, so the one moment the pair beat the bearing has a
  * sound and a blow of its own rather than a count the picture has to watch.
- * `vane.test.ts` has the rules of the knock; this holds only what it tells.
+ * `vane-bearing.test.ts` has the rules of the knock; this holds only what it tells.
  */
 
 const CFG = { ...DEFAULT_CONFIG };

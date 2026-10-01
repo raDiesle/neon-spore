@@ -31,7 +31,7 @@ import type { Hand } from "./hand.js";
  * — the beat a gap will open on, the column a drift will land in — would
  * pose a state the game never puts a pair in. They wait the way a pair
  * waits, and they spray where a pair sprays: a shot off the beat costs
- * nothing on either (`warden.test.ts`, `vane.test.ts`), so the hand fires
+ * nothing on either (`warden.test.ts`, `vane-bearing.test.ts`), so the hand fires
  * whenever the cannon is free and lets the boss judge the beat.
  *
  * **THE BULB QUEEN was here too and is not any more.** This page went over

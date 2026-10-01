@@ -1019,7 +1019,7 @@ pair either have a vocabulary by then or they never will.
 
 **Nothing about it is random.** Like THE MIRROR and The Warden it never draws
 from the rng: the sweep, the openings, the colours and the fold all follow from
-the wave's beat and the pins. `vane.test.ts` holds the seed to that.
+the wave's beat and the pins. `vane-pinned.test.ts` holds the seed to that.
 
 ### Three phases, three gestures
 

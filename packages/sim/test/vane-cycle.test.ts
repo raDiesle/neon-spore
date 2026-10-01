@@ -24,8 +24,9 @@ import { colSpan } from "../src/types.js";
  * about it — the ones a pair has to be able to learn on their first turn.
  *
  * Everything here is arithmetic on a beat count, so it needs no world at all.
- * `vane.test.ts` next door is the fight; this is the clock, and the clock is
- * the half a wave author reads out of the director.
+ * `vane.test.ts`, `vane-bearing.test.ts` and `vane-pinned.test.ts` are the
+ * fight; this is the clock, and the clock is the half a wave author reads out
+ * of the director.
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;

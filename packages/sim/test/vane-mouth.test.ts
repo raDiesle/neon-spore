@@ -21,7 +21,7 @@ import { NO_SHELL } from "../src/shell.js";
  * split column, rather than at the top edge. What that changes is which bodies
  * are in the way — the two rows of sky above the arm are behind the bearing,
  * so a body still coming in there does not shield it, and one on the arm or
- * below it does, as it always did. `vane.test.ts` has the rest of the knock.
+ * below it does, as it always did. `vane-bearing.test.ts` has the rest of the knock.
  */
 
 const CFG = { ...DEFAULT_CONFIG };
