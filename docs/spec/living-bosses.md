@@ -95,6 +95,18 @@ one jaw, each a spline of rings with horns, brows and jowls as lobes off them
 hinge, so they open, turn and wince as it does. The sheet:
 `bun run solid --instar-heads`.
 
+**Offered (1 October 2026, VERSUS `instar:flight` / `serpent`).** While THE
+INSTAR flies in, passes or crosses, a wave runs down its side-on body from
+the neck to the engines: one and a half crests along it, a third of a head
+radius at the neck growing to a whole one at the rear, a crest every three
+beats (`packages/render/src/instar-serpent.ts`, on `chainAt`). A crest toward
+the players swells the girth by up to 18%, and the wings beat once a crest on
+the wave at the shoulders. It grows over the flight's first beat and dies
+over its last, so the landing has nothing to snap, and a step that stays
+has none. The face-on half of a flight is unchanged. Test:
+`packages/render/test/instar-serpent.test.ts`; the strip:
+`bun run solid --instar-flight`.
+
 ### How far it reaches, by kind of body
 
 - **A body on the rig** (`packages/render/src/solid-rig.ts`) takes all four

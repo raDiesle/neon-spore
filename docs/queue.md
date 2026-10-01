@@ -413,28 +413,6 @@ drift's widest yaw *with every part at its widest too* and finds it; the
 never-snaps ceilings of `idle-drift-parts.test.ts` hold for each part; op
 count within 10% of the shipped body. `bun run check` proves the tests.
 
-## Living bosses — THE INSTAR's serpentine flight, as a VERSUS candidate
-
-- **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-10-01, claude/instar-side-head-variants (claim: claude/queue-living-bosses-the-instars-serpentine-flight-as-a)
-- **Where:** local
-- **Needs:** Living bosses — THE INSTAR turns on the idle drift, as a VERSUS candidate
-- **Files:** `packages/render/src/instar-flight.ts`, `packages/render/src/instar-profile-life.ts`, `packages/render/src/solid-motion.ts`, `packages/render/test/instar-flight.test.ts`, `docs/spec/living-bosses.md`
-
-The owner: flight should be serpentine, like a Chinese dragon undulating
-through the air. Section 2 of `docs/spec/living-bosses.md`: the head flies a
-path with a sideways and a smaller vertical wave; each ring follows where
-the head was, by arc length, so the wave travels to the tail; one and a half
-crests along the body, growing from a third of a head radius at the neck to
-one at the tip; the vertical half seen in depth through the rig's lens; one
-slow wing beat per crest past the shoulders. Over `INSTAR_FLIGHT_ENDS` the
-wave settles into the resting undulation from where it was, never cut.
-
-Done when: a test finds the crest's position moving tailward every frame of
-a flight; `packages/render/test/instar-seams.test.ts` still finds no value
-jumping at the landing; the candidate is in VERSUS; a strip of one arrival
-is sent to the owner. `bun run check` proves the tests.
-
 ## Living bosses — ship THE INSTAR's picked candidates
 
 - **Found:** 2026-09-26, claude/living-motion-spec
@@ -624,3 +602,19 @@ stays within `ON`, and delete the skip. This changes a drawn frame, but it is
 a fix to something wrong, not to something unlovely: eggs that float off the
 body. If the owner picks WEIGHT in VERSUS first, the fix ships with it. Prove
 it with `bun run check`.
+
+## The director has no pose of THE INSTAR mid-flight
+
+- **Found:** 2026-10-01, claude/queue-living-bosses-the-instars-serpentine-flight-as-a
+- **Where:** local
+- **Files:** `tools/director/src/versus-pose.ts`, `tools/director/src/poses-instar-acts.ts`, `tools/director/src/poses-instar-spit.ts`, `packages/render/src/instar-serpent.ts`
+
+VERSUS `instar:flight` / `serpent` only moves the body while it flies — the
+morph phase of a step that does not `stay` — and only side-on. The director
+has no pose there, so `SLOT_POSE` maps the slot to `INSTAR · PERCHED`, where
+the candidate and the shipped body are drawn identically. Add a pose that
+runs the hand to the first `passes` step and holds the world a few beats into
+its morph (the way `falling` in `poses-instar-spit.ts` holds three beats into
+a window), name it `INSTAR · IN FLIGHT`, and point the slot at it. Done when
+the director's VERSUS pair for `instar:flight` shows the two bodies differing
+and `bun run check` is green.

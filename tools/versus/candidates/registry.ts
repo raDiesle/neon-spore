@@ -8,6 +8,7 @@
 import type { Variant } from "../variant.js";
 import { INSTAR_BODY_WEIGHT } from "./instar-body/weight/index.js";
 import { INSTAR_DRIFT_TURN } from "./instar-drift/turn/index.js";
+import { INSTAR_FLIGHT_SERPENT } from "./instar-flight/serpent/index.js";
 import { INSTAR_HEAD_DRAKE } from "./instar-head/drake/index.js";
 import { INSTAR_HEAD_HOUND } from "./instar-head/hound/index.js";
 import { INSTAR_HEAD_RIG } from "./instar-head/rig/index.js";
@@ -19,6 +20,7 @@ import { STARE_GLOBE } from "./stare-eye/globe/index.js";
 export const VARIANTS: Variant[] = [
   INSTAR_BODY_WEIGHT,
   INSTAR_DRIFT_TURN,
+  INSTAR_FLIGHT_SERPENT,
   INSTAR_HEAD_DRAKE,
   INSTAR_HEAD_HOUND,
   INSTAR_HEAD_RIG,

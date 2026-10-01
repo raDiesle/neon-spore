@@ -10,6 +10,7 @@ import { instarAt, instarFarEnd, instarHeadAt } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
 import { drawProfile } from "./instar-profile.js";
 import { frontReach, onField, profileReach } from "./instar-reach.js";
+import { instarSerpent } from "./instar-serpent.js";
 import { instarFade, instarThreat } from "./instar-shape.js";
 import { drawInstarSpit } from "./instar-spit.js";
 import { instarBody } from "./instar-sway.js";
@@ -100,6 +101,7 @@ export function drawInstar(
     shoveDown: fx.shove.down,
     weak,
     drift: sway.drift,
+    serpent: instarSerpent(s, beat, beatPhase),
   };
   const side = instarHandover(f.side);
   // Most of a turn is flown off the field, where a view is not drawn at all

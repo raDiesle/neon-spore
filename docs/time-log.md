@@ -31112,3 +31112,17 @@ Bottleneck: the first jaws were cones fat at the hinge, and the jowl lobes
 read as a second tube side-on, which took two more renders to see and cut.
 
 *Measured: 27 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE INSTAR's serpentine flight, in VERSUS
+
+- reading: 15 min. The flight, the profile's spine and wings, `chainAt`, and
+  the drift strip page.
+- writing: 35 min. The serpent wave, its threading through the profile and
+  the wings, three tests, the candidate, a shared raster world, the flight
+  strip.
+- looking: 10 min. One render of the flight strip, side-on frames read.
+- friction: 10 min. The context ran out mid-lane, and the new slot had no
+  director pose row, which `check:fast` caught.
+- landing: 5 min. Formatting, the registry, the index, `check:fast`, `land`.
+
+Bottleneck: the wave lives only on the side-on profile during a flight, so neither a still director pose nor the face-on early frames of the strip can show it, and the strip had to be windowed to the passes.

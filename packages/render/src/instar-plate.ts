@@ -3,6 +3,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { type Form, lightHide } from "./instar-hide.js";
 import type { InstarDrift, Point } from "./instar-place.js";
+import type { InstarSerpent } from "./instar-serpent.js";
 import type { Figure } from "./instar-shape.js";
 import type { InstarWeak } from "./instar-weak.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -43,6 +44,8 @@ export interface Look {
   weak?: InstarWeak;
   /** The body turned on the idle drift, when VERSUS turns it on (`instar-drift.ts`). */
   drift?: InstarDrift | undefined;
+  /** The wave down the body in flight, when VERSUS turns it on (`instar-serpent.ts`). */
+  serpent?: InstarSerpent | undefined;
 }
 
 /** A colour at the fade: the hex itself while the body is whole, so the frame

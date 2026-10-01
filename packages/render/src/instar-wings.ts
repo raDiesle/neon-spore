@@ -82,7 +82,10 @@ export function drawWing(
 ): void {
   const { f, time, fade, r } = look;
   const spread = 0.35 + 0.65 * f.wing;
-  const beat = Math.sin(time * 1.7) * BEAT * (0.4 + f.wing);
+  const own = Math.sin(time * 1.7);
+  // In flight the serpent's wave beats the wings, once a crest (`instar-serpent.ts`).
+  const sw = look.serpent;
+  const beat = (sw ? own + (sw.flap - own) * sw.env : own) * BEAT * (0.4 + f.wing);
   const k = f.side;
   const mix = (a: number, b: number) => a + (b - a) * k;
   const anchor: Anchor = {

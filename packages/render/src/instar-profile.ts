@@ -17,6 +17,7 @@ import { drawSeam, faded, type Look } from "./instar-plate.js";
 import { BREATH_PERIOD, breathAt, headBob, rollAt, undulate } from "./instar-profile-life.js";
 import { bodyOf, drawLamps, drawRidge, drawScales } from "./instar-profile-surface.js";
 import { drawScutes } from "./instar-scutes.js";
+import { swellAt, swimAt, swimLook } from "./instar-serpent.js";
 import { drawTail } from "./instar-tail.js";
 import { drawWing } from "./instar-wings.js";
 import type { Layout } from "./layout.js";
@@ -92,6 +93,10 @@ export function profileLines(l: Layout, look: Look) {
   const knots = [neck, ...seats, end];
   const spine = Array.from({ length: N + 1 }, (_, i) => along(knots, i / N));
   undulate(spine, r, time);
+  // In flight a wave runs down it from the neck (`instar-serpent.ts`).
+  spine.forEach((p, i) => {
+    p.y += swimAt(look, i / N);
+  });
   const rear = spine[N] as Point;
   const top: Point[] = [];
   const bottom: Point[] = [];
@@ -102,14 +107,15 @@ export function profileLines(l: Layout, look: Look) {
     const len = Math.hypot(q.x - o.x, q.y - o.y) || 1;
     const nx = (q.y - o.y) / len;
     const ny = -(q.x - o.x) / len;
-    const w = r * INSTAR_BODY.girth(u);
+    const w = r * INSTAR_BODY.girth(u) * swellAt(look, u);
     // The lung fills the belly more than the back.
     const lung = breathAt(u, time);
     const up = w * (1 + (lung - 1) * 0.3);
     top.push({ x: p.x + nx * up, y: p.y + ny * up });
     bottom.push({ x: p.x - nx * w * lung * 0.9, y: p.y - ny * w * lung * 0.9 });
   });
-  return { spine, top, bottom, near, far, rear, seats };
+  const swum = seats.map((p, k) => ({ x: p.x, y: p.y + swimAt(look, (k + 1) / 3) }));
+  return { spine, top, bottom, near, far, rear, seats: swum };
 }
 
 /** Where the spine runs under the nest at `p`, seated `INSTAR_BODY.seat(u)` off the back:
@@ -121,9 +127,11 @@ function seated(p: Point, from: Point, to: Point, r: number, u: number): Point {
   return { x: p.x - ((to.y - from.y) / len) * s, y: p.y + ((to.x - from.x) / len) * s };
 }
 
-export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
+export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, still: Look): void {
+  const { spine, top, bottom, rear, seats } = profileLines(l, still);
+  // The head and the nests ride the wave the spine swims on, if it swims.
+  const look = swimLook(l, still);
   const { head, r, fade, hurt, time } = look;
-  const { spine, top, bottom, rear, seats } = profileLines(l, look);
   const back = (u: number): Point => top[Math.round(u * N)] ?? rear;
   const W = view(SIDE);
   const drift = look.drift;

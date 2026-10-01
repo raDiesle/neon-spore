@@ -1824,6 +1824,7 @@ by hand never moves.
 | `packages/render/src/instar-scutes.ts` | THE INSTAR's belly plates side-on: a short dark notch in from the belly edge at each sample of the spine |
 | `packages/render/src/instar-spit.ts` | THE INSTAR's rear globs and spread embers, falling on their marks while the window is open |
 | `packages/render/src/instar-spit-baked.ts` | **THE INSTAR's fire, baked** — the eighth and ninth examples (`sprite-bake.ts`) |
+| `packages/render/src/instar-serpent.ts` | **THE INSTAR flies like a serpent** — `docs/spec/living-bosses.md` §1 |
 | `packages/render/src/instar-word.ts` | **The word over a mark, in a scanner box** — one or two words naming the gesture the ring under it wants |
 | `packages/render/src/instar-wings.ts` | **THE INSTAR's wings**: a bat's, membrane stretched between an arm and three long fingers — and solid |
 | `packages/render/src/instar-wing-baked.ts` | **THE INSTAR's wing membrane, baked** — the fourth example (`sprite-bake.ts`) |
@@ -2990,12 +2991,14 @@ by hand never moves.
 | `tools/raster/src/solid-instar-body-page.ts` | The INSTAR body sheet (`bun run solid --instar-body`) |
 | `tools/raster/src/solid-instar-drift-page.ts` | The INSTAR drift strip (`bun run solid --instar-drift`): the game's own renderer drawing THE INSTAR's wave |
 | `tools/raster/src/solid-instar-heads-page.ts` | The INSTAR heads sheet (`bun run solid --instar-heads`) |
+| `tools/raster/src/solid-instar-flight-page.ts` | The INSTAR flight strip (`bun run solid --instar-flight`) |
 | `tools/raster/src/strip-bake.ts` | One painted strip, baked and packed: the atlas the field fetches (`<name>-strip.webp`) |
 | `tools/raster/src/sling-draw-art.ts` | One frame of THE SLING's arm drawing home, drawn into a 2D context |
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |
 | `tools/raster/src/zdog-page.ts` | The Zdog comparison, 26 September 2026: the owner found Zdog promising |
 | `tools/raster/src/vise-crack-art.ts` | One frame of THE VISE's kernel crack, drawn into a 2D context |
 | `tools/raster/src/trivet-plant-art.ts` | One frame of THE TRIVET's foot planting home, drawn into a 2D context |
+| `tools/raster/src/instar-world.ts` | THE INSTAR's wave for the solid strips, as `packages/render/test/instar-kit.ts` hangs it |
 | `tools/raster/solid.ts` | `bun run solid [out.png]` — the solid sheet: a test rig turned from the side to the front |
 | `tools/raster/sprite.ts` | `bun run sprite [name] [out.png]` — the sprite sheet |
 | `tools/raster/verify.ts` | `bun run raster:verify` — opens the generated assets in a real browser and says whether they decode |

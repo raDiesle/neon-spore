@@ -1,22 +1,11 @@
-import { buildBoss, buildQueue, INSTAR_SCRIPT, WAVES } from "@neon-spore/content";
+import { INSTAR_SCRIPT } from "@neon-spore/content";
 import { Canvas2DRenderer } from "../../../packages/render/src/canvas2d.js";
 import { INSTAR_DRIFT } from "../../../packages/render/src/instar-drift.js";
 import { instarSway } from "../../../packages/render/src/instar-sway.js";
-import {
-  beatSeconds,
-  createWorld,
-  DEFAULT_CONFIG,
-  type InstarState,
-  instarBoss,
-  NO_BEARING,
-  NOT_DONE,
-  startWave,
-  step,
-  ticksPerBeat,
-  type World,
-} from "../../../packages/sim/src/index.js";
+import { beatSeconds, DEFAULT_CONFIG, type World } from "../../../packages/sim/src/index.js";
 import { INSTAR_DRIFT_TURN } from "../../versus/candidates/instar-drift/turn/index.js";
 import { apply, restore } from "../../versus/variant.js";
+import { acting, hung } from "./instar-world.js";
 
 /**
  * The INSTAR drift strip (`bun run solid --instar-drift`): the game's own
@@ -35,30 +24,6 @@ const SECONDS = 10;
 const CELL = 450;
 /** Frames to a row: the eight in two rows of four, shipped above drift each time. */
 const COLS = 4;
-
-/** The wave hung, a few beats in — `packages/render/test/instar-kit.ts`'s `hung`. */
-function hung(): World {
-  const world = createWorld(CFG, 3);
-  const index = WAVES.findIndex((w) => w.boss?.kind === "instar");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  for (let i = 0; i < ticksPerBeat(CFG) * 4; i++) step(world, []);
-  return world;
-}
-
-/** The body acting step `cursor` from `beat`, its marks untouched. */
-function acting(world: World, cursor: number, beat: number): InstarState {
-  const s = instarBoss(world);
-  if (s === null) throw new Error("the instar wave hung no body");
-  s.cursor = cursor;
-  s.phase = "act";
-  s.phaseBeat = beat;
-  const n = s.steps[cursor]?.marks.length ?? 0;
-  s.progress = Array.from({ length: n }, () => 0);
-  s.doneBeat = Array.from({ length: n }, () => NOT_DONE);
-  s.ref = Array.from({ length: n }, () => NO_BEARING);
-  s.thumbs = Array.from({ length: n }, () => 0);
-  return s;
-}
 
 /** The first step acted side-on, where the drift is whole. */
 function sideOn(world: World): number {
