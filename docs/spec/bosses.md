@@ -11590,6 +11590,21 @@ down the middle column, slow off the flue and hard at the end; it leaves a
 scorch on the skin and a spray of the rim's white sparks. Whether a tick
 that small reads at tempo on a phone is the owner's eye.
 
+**Its marks answer a touch the way every mark does**
+(`render/flue-verdicts.ts`, `test/flue-verdict.test.ts`). Two marks: the
+ember and the core. The ember asks the lit vent's tapper once the rester has
+steadied it (`flueTapAsks`) — the halo on the tapper's screen and the
+partner's ring and clock on the rester's, so the still seat sees the taps are
+wanted of the other. Keeping still is never a mark's to ask, there being
+nothing to touch, so the tapper's screen waits on nothing and a damper step
+asks no mark at all. The core asks for the shot on a fire step once bared,
+which is either seat's, so it haloes on both screens with nobody's clock. A
+tap landed or a vent spent greens the ember; a skid, a lapse, or a vent's
+window run out reddens it; a hit greens the core and a shot run out reddens
+it. A stir before any tap, a damper held and a damper shut say nothing on a
+mark. The ember's circle follows the ember as it is drawn, so the last tap's
+verdict stays round it after the vent has gone to rest.
+
 ## 11.58 THE GOVERNOR — a needle one seat brakes for the other to tap
 
 > A needle runs round a dial mid-hull on its own. One of you holds both

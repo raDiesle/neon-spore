@@ -63,7 +63,9 @@ export class GripVerdicts {
  * The verdict round a mark of radius `r` at `x, y`: the mark itself washed in
  * the colour for the first third, so it reads as the circle turning green or
  * red and not merely circled, and a ring opening from its edge to twice it as
- * it fades.
+ * it fades. `alpha` scales all of it, for a mark on a body that fades itself
+ * (THE FLUE spent): the ring's glow does not read the caller's alpha, and the
+ * rim is drawn at `alpha`.
  */
 export function drawVerdictRing(
   ctx: CanvasRenderingContext2D,
@@ -71,6 +73,7 @@ export function drawVerdictRing(
   y: number,
   r: number,
   v: GripVerdict,
+  alpha = 1,
 ): void {
   const t = Math.min(1, Math.max(0, v.age / VERDICT_SECONDS));
   const fade = 1 - t;
@@ -79,12 +82,13 @@ export function drawVerdictRing(
   if (t < 0.35) {
     const wash = new Path2D();
     wash.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fillStyle = rgba(colour, 0.6 * (1 - t / 0.35));
+    ctx.fillStyle = rgba(colour, 0.6 * (1 - t / 0.35) * alpha);
     ctx.fill(wash);
   }
   const ring = new Path2D();
   ring.arc(x, y, r * (1 + t), 0, Math.PI * 2);
-  strokeGlow(ctx, ring, colour, STROKE.outline * (1.5 - 0.5 * t), 1.4 * fade, fade);
+  strokeGlow(ctx, ring, colour, STROKE.outline * (1.5 - 0.5 * t), 1.4 * fade, fade * alpha);
+  ctx.globalAlpha = alpha;
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(rim, fade);
   ctx.stroke(ring);

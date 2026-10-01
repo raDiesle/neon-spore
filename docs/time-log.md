@@ -30948,3 +30948,16 @@ Bottleneck: the moving point — the halo has to follow the gall across the midd
 Bottleneck: where the circles stand between steps — the ring and the track sit over the lit column, which is gone once the step ends, so the verdicts file remembers the last lit catch's column for the green or red to land on.
 
 *Measured: 132 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE FLUE's marks answer a touch
+
+- reading: 10 min. The flue's steps, hand, events and shape, and THE
+  BURGEE's verdicts to copy.
+- writing: 15 min. One asking predicate in the simulation, the verdict
+  file with its two circles, its wiring into the flue's frame and its test,
+  the spec and the director's line.
+- looking: 0 min. The frame tests count the halo, the clock and the red.
+- friction: 5 min. A context cut mid-lane.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: what the rester's screen should ask — keeping still has nothing to touch, so the only thing the still seat is shown is the partner's clock on the ember.

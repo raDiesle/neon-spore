@@ -19,7 +19,11 @@ export const FLUE_CONTROLS: readonly FieldControlDef[] = [
       "the rester has kept still long enough to stop the ember, a tap on its " +
       "column is one of `FLUE_TAPS`; a tap on any other column, or before " +
       "the ember stops, is a skid. The rester's own press costs the taps, and a " +
-      "thumb resting on the glass has to lift and come down again (sim/flue-hand.ts).",
+      "thumb resting on the glass has to lift and come down again (sim/flue-hand.ts). " +
+      "Once the ember is steady it wears the halo on the tapper's screen and the " +
+      "partner's ring and clock on the rester's; a tap landed or a vent spent " +
+      "greens it, and a skid, a lapse or a window run out reddens it " +
+      "(render/flue-verdicts.ts).",
     source: SOURCE,
     holdKind: "drag",
     dragTarget: "flueTap",

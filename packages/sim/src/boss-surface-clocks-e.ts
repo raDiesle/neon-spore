@@ -99,6 +99,7 @@ export {
   flueSeatIndex,
   flueSettled,
   flueSteady,
+  flueTapAsks,
   flueTapper,
   freshFlue,
 } from "./flue.js";

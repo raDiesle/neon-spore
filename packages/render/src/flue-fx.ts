@@ -4,6 +4,7 @@ import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import { FLUE_ENDS } from "./flue-marks.js";
 import { FLUE_DAMPER, flueCentre, flueUnitAt, flueUnitR } from "./flue-shape.js";
+import { FlueVerdicts } from "./flue-verdicts.js";
 import { HullShock } from "./hull-shock.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -34,7 +35,7 @@ import { PALETTE } from "./palette.js";
  * A fire step run out throws nothing here: the hull it breaks is the boss's
  * own blow (`flue-blow.ts`). The core's colour is the lit step's and not in
  * `flueHit`, so the drawer tells it every frame (`tell`), THE VISE's way.
- * Everything is cleared in `Effects.reset()` (`restart.test.ts`).
+ * Which touch was right is `verdicts` (`flue-verdicts.ts`). Everything is cleared in `Effects.reset()` (`restart.test.ts`).
  */
 
 /** How far the damper is knocked down by a thud, in tiles, and how fast it settles back. */
@@ -63,6 +64,8 @@ export class FlueFx {
   readonly shock = new HullShock();
   /** The blow a vent spent, a damper held and a core hit deal the flue; a tap the lighter one. */
   readonly hurt = new BossHurt();
+  /** Was the last touch on the ember and on the core right (`flue-verdicts.ts`). */
+  readonly verdicts = new FlueVerdicts();
 
   /** How bright the last tap's tick through the slot still is, 0..1 — drawn over the ember, which a tap finds steady. */
   get tick(): number {
@@ -101,6 +104,7 @@ export class FlueFx {
     beatSeconds: number,
     burst: Burst,
   ): void {
+    this.verdicts.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("flue")) continue;
       const mid = flueCentre(l, cfg);
@@ -183,6 +187,7 @@ export class FlueFx {
     if (this.flashNow === 0) this.flashHits = 0;
     this.shock.update(dt);
     this.hurt.update(dt);
+    this.verdicts.update(dt);
   }
 
   clear(): void {
@@ -196,5 +201,6 @@ export class FlueFx {
     this.coreHex = PALETTE.hullRim;
     this.shock.clear();
     this.hurt.clear();
+    this.verdicts.clear();
   }
 }

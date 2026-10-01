@@ -42,6 +42,7 @@ import {
   flueUnitR,
   type Point,
 } from "./flue-shape.js";
+import { drawFlueMarkFeedback } from "./flue-verdicts.js";
 import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
@@ -121,6 +122,7 @@ export function drawFlue(
   if (step?.ask === "vent") drawFlueTapStuds(ctx, l, centre, s.taps);
   const ends = [flueUnitAt(l, cfg, FLUE_ENDS[0]), flueUnitAt(l, cfg, FLUE_ENDS[1])] as const;
   drawFlueVents(ctx, l, ends, s.vents, (i) => fx.flare(i));
+  drawFlueMarkFeedback(ctx, l, world, s, beat, beatPhase, time, fx.verdicts);
   ctx.restore();
 }
 

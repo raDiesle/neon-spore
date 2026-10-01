@@ -146,6 +146,16 @@ export function flueSteady(world: World, s: FlueState): boolean {
   return flueLitStep(s)?.ask === "vent" && flueSettled(world, s);
 }
 
+/**
+ * Whether the ember asks a seat's tap, nought for the pilot: the lit vent's
+ * tapper, once its rester has steadied it. The rester is never asked for
+ * anything — keeping still is not a touch.
+ */
+export function flueTapAsks(world: World, s: FlueState, side: 0 | 1): boolean {
+  const tapper = flueTapper(s);
+  return tapper !== null && flueSteady(world, s) && flueSeatIndex(tapper) === side;
+}
+
 /** The column the ember sits over, rounded; the one a tap must name while it is steady. */
 export function flueEmberCol(cfg: SimConfig, s: FlueState): number {
   return midCol(cfg) + Math.round(s.emberMilli / 1000);
