@@ -31433,3 +31433,5 @@ Bottleneck: reading all three candidates' code up front, before the first one co
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: the shared drift's speed ceilings are tested, so the wider turn had to be THE INSTAR's own fields rather than the table's numbers.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · f6ddfdc27 — THE INSTAR's turn candidate reaches wider and shakes
+
+VERSUS's `instar:drift` / `turn` now turns every drifted angle 1.75 times as far as the shared idle drift, and a quick tremor rides the body's roll and pitch, on the owner's feedback that the body should move and shake more. The shared drift and its speed ceilings are unchanged: `reach` and `shake` are THE INSTAR's own fields, and the jaw and glance stop at their own reach. Nothing on the field changes; the candidate is a look offered in VERSUS.
+
 ## 2026-10-01 · eda3c7207 — THE INSTAR's serpent candidate swims harder and shivers
 
 On the owner's VERSUS note that SERPENT looks better and the body could move and shake more: the wave down THE INSTAR's body in flight is half as big again (half a head radius at the neck to one and a half at the rear), a crest comes every two beats rather than three, the girth swells by up to 28%, and a quick small shiver runs down on top of the swim. The candidate only; the field is unchanged.
