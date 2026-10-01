@@ -1,6 +1,7 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import { cystCentre, cystMarkAt, cystR } from "./cyst-shape.js";
+import { CystVerdicts } from "./cyst-verdicts.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
@@ -41,6 +42,8 @@ export class CystFx {
   private coreHex: string = PALETTE.hullRim;
   /** The blow a crack and a core hit deal the sac. */
   readonly hurt = new BossHurt();
+  /** Each mark's verdict on the last touch, and what the lit step owes (`cyst-verdicts.ts`). */
+  readonly marks = new CystVerdicts();
 
   /** How far the whole sac is pressed down right now, in tiles. */
   get thud(): number {
@@ -75,6 +78,7 @@ export class CystFx {
     _beatSeconds: number,
     burst: Burst,
   ): void {
+    this.marks.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("cyst")) continue;
       const mid = cystCentre(l, cfg);
@@ -134,6 +138,7 @@ export class CystFx {
     if (this.flashNow === 0) this.flashHits = 0;
     this.splitNow = Math.max(0, this.splitNow - FLASH_DECAY * step);
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
@@ -145,6 +150,7 @@ export class CystFx {
     this.splitNow = 0;
     this.coreHex = PALETTE.hullRim;
     this.hurt.clear();
+    this.marks.clear();
   }
 }
 

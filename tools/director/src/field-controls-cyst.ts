@@ -16,7 +16,10 @@ const MARK_DOES =
   "**edge** counts — a thumb already resting on the mark when the flank " +
   "lights has to lift and come down again — and only on the lit flank's own " +
   "mark, while it waits: the flank stops shuddering for the step's beats and " +
-  "a grace. Marks are tried before pinches (sim/cyst-hand.ts).";
+  "a grace. Marks are tried before pinches (sim/cyst-hand.ts). While its " +
+  "flank's step is lit the mark wears the halo on its tapper's screen and the " +
+  "partner's ring and clock on the other's; a tap that stills greens, and a " +
+  "flank left shuddering reddens (render/cyst-verdicts.ts).";
 
 const FLANK_DOES =
   "A **pinch**, THE VISE's lobe: two fingers of the same seat laid in that " +
@@ -25,7 +28,11 @@ const FLANK_DOES =
   "flank counts the beats it stays shut and cracks when they run out, the " +
   "gap widening starts the count again, and a lift is the flank open. **A " +
   "pinch on a flank nobody stilled counts nothing**; a swell asks both flanks " +
-  "shut together (sim/cyst-hand.ts, packages/render/src/pinch.ts).";
+  "shut together (sim/cyst-hand.ts, packages/render/src/pinch.ts). While its " +
+  "flank is stilled, or a swell is lit, and it is not yet shut, the flank " +
+  "wears the halo on its pincher's screen and the partner's ring and clock on " +
+  "the other's; a crack, a guard or a swell clenched greens, and a slip, a " +
+  "spring or a swell run out reddens (render/cyst-verdicts.ts).";
 
 const UNTIL = "on both screens, from the drop into frame until the sac splits";
 const SOURCE =

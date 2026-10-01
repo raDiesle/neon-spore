@@ -2305,6 +2305,7 @@ by hand never moves.
 | `packages/render/src/cyst-shape.ts` | **THE CYST's geometry**: where the sac stands, and the paths it is made of |
 | `packages/render/src/cyst-story.ts` | **THE CYST's three story steps, drawn** (§34; the rules are `sim/cyst-step.ts` and `sim/cyst-shot.ts`) |
 | `packages/render/src/cyst-blow.ts` | **THE CYST's own blow at the hull** (`boss-strike-look.ts`) |
+| `packages/render/src/cyst-verdicts.ts` | **THE CYST's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/splash-blob.ts` | ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down |
 | `packages/render/src/spool-brake.ts` | **The pilot's brake**: a rail hanging outside the brake's flange, a knob on it at the depth his thumb has it |
 | `packages/render/src/spool-draw.ts` | **THE SPOOL**: a thread-spool slung sideways across the top of the field |

@@ -10480,6 +10480,23 @@ column and leaves the core's hits alone; each run out is the hull. Whether any o
 tapping a partner's flank still feels like holding it for them — is the
 owner's eye, after lane two and the touch sender, on two real phones.
 
+**Its marks answer a touch the way every mark does**
+(`render/cyst-verdicts.ts`, `test/cyst-verdict.test.ts`). Six marks: each
+freeze mark, each flank, the core and the bud. While a flank's step is lit
+its freeze mark, and while it is stilled or a swell is lit and it is not yet
+shut the flank, wears the halo on its own seat's screen and the partner's
+ring and clock on the other's — the tapper's and the pincher's, two seats on
+each side — so a seat already pinching on a swell sees the other flank still
+waited on. The core asks for its shot while a fire step is lit with it bare,
+and the bud while a bud step is lit; either seat answers each, so they halo
+on both screens with nobody's clock. A tap that stills greens its mark, a
+crack or a guard greens its flank, a swell clenched greens both, a core hit
+the core and a bud shot the bud; a flank left shuddering reddens its mark,
+and a pinch slipped or a stilled flank let spring reddens its flank. A shot,
+a swell or a bud let run out reddens only what it asked. The spit is the
+shield's and has no mark on the sac; a wrong seat's touch and a wrong colour
+stay silent, as the simulation is.
+
 ## 11.52 THE DAVIT — the boss one hand steers for the other to loose
 
 > A crane boom pivoted off the hull's spine, swinging on a slack chain.

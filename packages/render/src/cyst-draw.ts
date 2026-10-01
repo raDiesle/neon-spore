@@ -29,12 +29,13 @@ import {
   cystSacPath,
   cystTip,
 } from "./cyst-shape.js";
-import { drawCystBud, drawCystSpore } from "./cyst-story.js";
+import { cystBudAt, drawCystBud, drawCystSpore } from "./cyst-story.js";
+import { drawCystMarkFeedback } from "./cyst-verdicts.js";
 import { fieldX } from "./field-flip.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
-import type { Layout } from "./layout.js";
+import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
 
@@ -114,6 +115,7 @@ export function drawCyst(
   const told =
     s.phase === "lit" ? s.steps[s.cursor] : s.phase === "rest" ? s.steps[s.cursor - 1] : undefined;
   const rest = cfg.cystRestBeats;
+  let bud: Circle | null = null;
   if (told?.ask === "spit") {
     const dx = fieldX(l, cystStepCol(midCol(cfg), told)) - home.x;
     const out = cystPosed(s, "spit", rest, beat, beatPhase);
@@ -125,7 +127,9 @@ export function drawCyst(
     const dx = fieldX(l, cystStepCol(midCol(cfg), told)) - home.x;
     const grown = cystPosed(s, "bud", rest, beat, beatPhase);
     drawCystBud(ctx, l, grown, dx, told.color, s.phase === "lit" ? left : 0, beatPhase);
+    bud = cystBudAt(l, grown, dx);
   }
+  if (split <= 0) drawCystMarkFeedback(ctx, l, world, s, time, bud, fx.marks.verdicts);
   drawCystFlash(ctx, l, fx.flash, fx.split);
   ctx.restore();
 }

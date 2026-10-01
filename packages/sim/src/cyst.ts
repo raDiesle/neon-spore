@@ -135,6 +135,35 @@ export function cystClenched(world: World, s: CystState): boolean {
   );
 }
 
+/**
+ * Whether freeze mark `side` is asking for its tap this instant: its flank's
+ * step lit and not yet stilled. What the marks' halo reads (`render/cyst-verdicts.ts`).
+ */
+export function cystMarkAsks(s: CystState, side: 0 | 1): boolean {
+  return s.phase === "lit" && cystSide(s) === side;
+}
+
+/**
+ * Whether flank `side` is asking for its pinch this instant: stilled, or on
+ * a swell, and not yet pinched shut — so a seat already holding its flank
+ * sees its partner's still waited on.
+ */
+export function cystFlankAsks(world: World, s: CystState, side: 0 | 1): boolean {
+  if (s.gapMilli[side] <= world.cfg.cystShutMilli) return false;
+  if (s.phase === "frozen") return cystSide(s) === side;
+  return s.phase === "lit" && cystLitStep(s)?.ask === "swell";
+}
+
+/** Whether the core is asking for a shot this instant: a fire step lit, with it bare. */
+export function cystCoreAsks(s: CystState): boolean {
+  return s.phase === "lit" && s.bared && cystLitStep(s)?.ask === "fire";
+}
+
+/** Whether the bud is asking for a shot this instant: a bud step lit. */
+export function cystBudAsks(s: CystState): boolean {
+  return s.phase === "lit" && cystLitStep(s)?.ask === "bud";
+}
+
 /** The column a spore falls down or a bud swells over. */
 export function cystStepCol(mid: number, step: CystStep): number {
   return mid + (step.offset ?? 0);
