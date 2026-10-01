@@ -22,6 +22,8 @@ import { patch, type Variant } from "../../../variant.js";
 const front = (ctx: CanvasRenderingContext2D, l: Look) =>
   drawRigHead(ctx, l, FRONT - instarTurn(l.f.side));
 const side = drawRigSideHead;
+const turned = (ctx: CanvasRenderingContext2D, l: Look, yaw: number) =>
+  drawRigSideHead(ctx, l, yaw);
 
 export const INSTAR_HEAD_RIG: Variant = {
   slot: "instar:head",
@@ -36,9 +38,9 @@ export const INSTAR_HEAD_RIG: Variant = {
       where: {
         file: "packages/render/src/instar-head-look.ts",
         symbol: "INSTAR_HEAD",
-        type: "{ front: (ctx: CanvasRenderingContext2D, look: Look) => void; side: (ctx: CanvasRenderingContext2D, look: Look) => void }",
+        type: "{ front: (ctx: CanvasRenderingContext2D, look: Look) => void; side: (ctx: CanvasRenderingContext2D, look: Look) => void; turned: (ctx: CanvasRenderingContext2D, look: Look, yaw: number) => void }",
       },
-      fields: { front, side },
+      fields: { front, side, turned },
     }),
   ],
 };

@@ -8,7 +8,10 @@
 import type { Variant } from "../variant.js";
 import { INSTAR_BODY_WEIGHT } from "./instar-body/weight/index.js";
 import { INSTAR_DRIFT_TURN } from "./instar-drift/turn/index.js";
+import { INSTAR_HEAD_DRAKE } from "./instar-head/drake/index.js";
+import { INSTAR_HEAD_HOUND } from "./instar-head/hound/index.js";
 import { INSTAR_HEAD_RIG } from "./instar-head/rig/index.js";
+import { INSTAR_HEAD_VIPER } from "./instar-head/viper/index.js";
 import { KEEL_THREE } from "./keel-seam/three/index.js";
 import { ROUND_TIMEOUT_WINDOW } from "./round-timeout-hit/window/index.js";
 import { STARE_GLOBE } from "./stare-eye/globe/index.js";
@@ -16,7 +19,10 @@ import { STARE_GLOBE } from "./stare-eye/globe/index.js";
 export const VARIANTS: Variant[] = [
   INSTAR_BODY_WEIGHT,
   INSTAR_DRIFT_TURN,
+  INSTAR_HEAD_DRAKE,
+  INSTAR_HEAD_HOUND,
   INSTAR_HEAD_RIG,
+  INSTAR_HEAD_VIPER,
   KEEL_THREE,
   ROUND_TIMEOUT_WINDOW,
   STARE_GLOBE,

@@ -31095,3 +31095,18 @@ Bottleneck: chasing the beaten pose's near nest through seat depths before a pro
 Bottleneck: the script's first step is face-on, where the drift is zero by design, so the face test passed on nothing until it looked for a side-on step.
 
 *Measured: 55 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE INSTAR's side-on head as a living skull, three ways, in VERSUS
+
+- reading: 15 min. The rig head's frames, its hinge solve, the marks, and the
+  `instar:head` candidate and its budget test.
+- writing: 45 min. The shape interface on the rig head, the organic spline
+  head, three specs, the heads sheet, three candidates.
+- looking: 20 min. Three renders of the sheet, cropped to the turned columns,
+  softening the jaws each time.
+- friction: 5 min. The context ran out mid-lane and the state had to be read
+  back off the tree.
+- landing: 5 min. Formatting, the registry, the index, `check:fast`, `land`.
+
+Bottleneck: the first jaws were cones fat at the hinge, and the jowl lobes
+read as a second tube side-on, which took two more renders to see and cut.

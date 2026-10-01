@@ -1,9 +1,19 @@
-import { FRONT, facet, type Pin, pin, type Seen, SIDE, see, view } from "@neon-spore/content";
+import {
+  FRONT,
+  facet,
+  type Pin,
+  pin,
+  type Seen,
+  SIDE,
+  see,
+  type Vec3,
+  view,
+} from "@neon-spore/content";
 import { drawFireball, fireRadius } from "./instar-fire.js";
 import { frontLipsAt } from "./instar-head.js";
 import { drawEye } from "./instar-head-parts.js";
 import { faded, type Look } from "./instar-plate.js";
-import { eyePin, headParts, onSkull, upperAnchor } from "./instar-rig-head.js";
+import { eyePin, type HeadPose, headParts, onSkull, upperAnchor } from "./instar-rig-head.js";
 import { SIDE_EYE } from "./instar-side-head.js";
 import { drawWeak } from "./instar-weak.js";
 import { PALETTE } from "./palette.js";
@@ -35,6 +45,16 @@ const LOOK: RigLook = { deep: PALETTE.background, rim: PALETTE.hullRim, haze: 0.
 /** The nostrils on the muzzle's tip, as a pin on its end: across and down, in head radii. */
 const NOSTRIL = { x: -0.91, y: -0.1, z: 0.14 } as const;
 
+/** What a rig head is made of: its parts with the jaw's hinge dropped by
+ * `drop`, and where its nostrils sit, in head radii. VERSUS offers others
+ * (`instar-rig-head-organic.ts`). */
+export interface RigHeadShape {
+  readonly parts: (f: HeadPose, r: number, drop: number) => Part[];
+  readonly nostril: Vec3;
+}
+
+export const RIG_HEAD: RigHeadShape = { parts: headParts, nostril: NOSTRIL };
+
 /** A mark foreshortened by its pin, `yaw - FRONT` round, drawn about its origin. */
 function onPin(
   p: Pin,
@@ -53,7 +73,7 @@ function onPin(
 }
 
 /** The eyes, nostrils and throat, as marks of the rig. */
-function marks(look: RigHeadLook, yaw: number): Part[] {
+function marks(look: RigHeadLook, yaw: number, nostrilAt: Vec3): Part[] {
   const { f, r, time, fade } = look;
   const upper = upperAnchor(f, r);
   const out: Part[] = [];
@@ -66,7 +86,7 @@ function marks(look: RigHeadLook, yaw: number): Part[] {
       if (eye) drawWeak(ctx, eye, (look.weak?.eye ?? 0) * fade, "eye");
     });
     out.push({ kind: "mark", c: { x: at.x * r, y: at.y * r, z: at.z * r }, draw, anchor: upper });
-    const lon = Math.atan2(s * NOSTRIL.z, 0.16);
+    const lon = Math.atan2(s * nostrilAt.z, 0.16);
     const nostril = onPin(pin(lon, 0, 1), yaw, (ctx) => {
       ctx.fillStyle = faded(PALETTE.background, fade);
       ctx.beginPath();
@@ -77,7 +97,7 @@ function marks(look: RigHeadLook, yaw: number): Part[] {
       ctx.ellipse(0, 0, r * 0.025, r * 0.012, s * 0.5, 0, Math.PI * 2);
       ctx.fill();
     });
-    const n = { x: NOSTRIL.x * r, y: NOSTRIL.y * r, z: s * NOSTRIL.z * r };
+    const n = { x: nostrilAt.x * r, y: nostrilAt.y * r, z: s * nostrilAt.z * r };
     out.push({ kind: "mark", c: n, draw: nostril, anchor: upper });
   }
   const lips = frontLipsAt(f, { x: 0, y: 0 }, r);
@@ -103,8 +123,14 @@ function marks(look: RigHeadLook, yaw: number): Part[] {
  * THE INSTAR's rig head at `yaw`, about `look.head`: `FRONT` face-on, `SIDE`
  * in profile. The jaw's hinge drops by the sine of the yaw (`jawAnchor`).
  */
-export function drawRigHead(ctx: CanvasRenderingContext2D, look: RigHeadLook, yaw: number): void {
-  const parts = [...headParts(look.f, look.r, Math.max(0, Math.sin(yaw))), ...marks(look, yaw)];
+export function drawRigHead(
+  ctx: CanvasRenderingContext2D,
+  look: RigHeadLook,
+  yaw: number,
+  shape = RIG_HEAD,
+): void {
+  const drop = Math.max(0, Math.sin(yaw));
+  const parts = [...shape.parts(look.f, look.r, drop), ...marks(look, yaw, shape.nostril)];
   drawRig(ctx, parts, view(yaw), look.head.x, look.head.y, LOOK, look.fade);
 }
 
@@ -119,11 +145,12 @@ export function drawRigSideHead(
   ctx: CanvasRenderingContext2D,
   look: RigHeadLook,
   yaw = SIDE,
+  shape = RIG_HEAD,
 ): void {
   const { f, r, head } = look;
   const eye = onSkull(eyePin(1).lon, eyePin(1).lat);
   const y = upperAnchor(f, r).at.y + eye.y * r;
   const seen = see({ x: eye.x * r, y, z: eye.z * r }, view(yaw));
   const at = { x: head.x + SIDE_EYE.x * r - seen.x, y: head.y + SIDE_EYE.y * r - seen.y };
-  drawRigHead(ctx, { ...look, head: at }, yaw);
+  drawRigHead(ctx, { ...look, head: at }, yaw, shape);
 }

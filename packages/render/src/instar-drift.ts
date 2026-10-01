@@ -1,9 +1,9 @@
 import { FRONT, SIDE } from "@neon-spore/content";
 import { beatSeconds, type InstarState, type SimConfig } from "@neon-spore/sim";
 import { HUSH, idleDrift } from "./idle-drift.js";
+import { INSTAR_HEAD } from "./instar-head-look.js";
 import type { InstarDrift } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
-import { drawRigSideHead } from "./instar-rig-head-draw.js";
 import { instarFigure } from "./instar-shape.js";
 import { instarHandover } from "./instar-turn.js";
 import { bodyLife } from "./motion-life.js";
@@ -35,11 +35,12 @@ import { type SlowSpan, slowHush } from "./slow-hush.js";
  */
 export const INSTAR_DRIFT: {
   amount: number;
-  /** The head at `yaw` (`SIDE` profile, `FRONT` face-on), where the profile's head would be. */
+  /** The head at `yaw` (`SIDE` profile, `FRONT` face-on), where the profile's head would be:
+   * whichever head `INSTAR_HEAD` draws turned. */
   head: (ctx: CanvasRenderingContext2D, look: Look, yaw: number) => void;
 } = {
   amount: 0,
-  head: (ctx, look, yaw) => drawRigSideHead(ctx, look, yaw),
+  head: (ctx, look, yaw) => INSTAR_HEAD.turned(ctx, look, yaw),
 };
 
 /** THE INSTAR's own seed for the drift, so it does not turn in step with another boss. */

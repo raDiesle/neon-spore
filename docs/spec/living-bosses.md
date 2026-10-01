@@ -85,6 +85,16 @@ the marks are pressed where the drift draws them. Each part's own drift is
 not built yet: `docs/queue.md`, "THE INSTAR's parts drift on their own".
 Test: `packages/render/test/instar-drift.test.ts`.
 
+**Offered (1 October 2026, VERSUS `instar:head` / `drake`, `hound`,
+`viper`).** The owner: the side-on rig head *looks very geometrical … not
+natural shape of a living head*, and the face-on pose *looks good*. Each
+keeps the shipped face-on head, and draws side-on and turned as one skull and
+one jaw, each a spline of rings with horns, brows and jowls as lobes off them
+(`packages/render/src/instar-rig-head-organic.ts`, the three in
+`instar-rig-head-shapes.ts`). They sit on the rig head's frames, eyes and
+hinge, so they open, turn and wince as it does. The sheet:
+`bun run solid --instar-heads`.
+
 ### How far it reaches, by kind of body
 
 - **A body on the rig** (`packages/render/src/solid-rig.ts`) takes all four
