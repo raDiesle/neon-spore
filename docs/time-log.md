@@ -31509,3 +31509,5 @@ found one red test at a time.
 - landing: 5 min. The gradient budget remeasured and moved, `check:fast`, `land`.
 
 Bottleneck: each seam (neck, rear, tail root) was a different file's choice, so making it one body meant reading three drawers before one line changed.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

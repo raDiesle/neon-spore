@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 6debfb4c6 — THE INSTAR's weight candidate is one body, neck to tail
+
+The owner said the WEIGHT body's pieces did not look like one body. Now the spine starts inside the skull, so there is a neck. The rear narrows to the tail's root, so the two are the same width. The tail leaves along the spine before it turns up to the fork, and its seam shadow fades out. The candidate wears the shipped head. `INSTAR_BODY` gains `neck` and `flow`, and the shipped defaults draw what they drew before. The look changes only inside VERSUS.
+
 ## 2026-10-01 · fb616266e — THE LAMPREY is drawn: the eel, its sucker and seven teeth, the scar, the marks
 
 THE LAMPREY's body (§41): a dark olive eel on a lagging spine (LIGHT TRACE) trailing up the field from a round sucker ringed with seven bone teeth (BULB · SPIKE), swum in from the nearer side, bitten flat onto the hull and crawling, then reared full-face with its gullet lit in the shot's colour. A knocked-out tooth leaves a socket, the gullet shrinks a step per hit, and the scar under the mouth deepens with the bite. Both seats draw the one eel; the jaw's band is full on the pinner's screen and the lit tooth's ring on the tapper's.
