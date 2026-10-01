@@ -3,12 +3,13 @@
  * boss had no sounds of its own until 19 September 2026, because nothing about
  * it happened that was not a state both screens already drew.
  *
- * The first three are the pair's hands — a gullet held shut under a thumb,
- * that hold let go, and the tube dragged sideways. The last four are the
- * gullet's own clock, and they came the same day the first three did, once the
- * argument for the silence had been looked at properly: both screens draw the
- * breath, the choke, the swallow and the eversion, and what either player is
- * actually looking at during this fight is the other half of their own screen.
+ * **Three are bound since the rework of 1 October 2026**, when the fight
+ * became a carried mouth, a pump and four colours (`docs/spec/bosses.md`
+ * §11.19): the cinch is the colour set, the swallow is a ring going slack —
+ * the fight's progress now, where it was the boss healing — and the eversion
+ * is the ending. The refusal is THE INSTAR's. The slip, the haul, the inhale
+ * and the choke were the old fight's hold, carry, clock and gum, and are
+ * spare: finished, and nothing in the new fight is shaped like them.
  *
  * All seven stay out of the 300–3000 Hz band, because the pair is saying a
  * column *and* a count to each other across a voice delay for the whole fight
@@ -16,10 +17,8 @@
  * this is a gullet and not a bearing, and the pair has to be able to tell a
  * hand on the tube from a hand on anything else without looking at it.
  *
- * The choke and the swallow are the same event turned around and are built to
- * be heard that way: the choke slumps — a hit landing and a ring letting go
- * downward — and the swallow goes down and then **rises**, because what it
- * costs is a ring drawing tight again.
+ * The choke and the swallow were built as the same event turned around: the
+ * choke slumps, and the swallow goes down and then rises.
  */
 
 import { after, air, noise, soft, sub, thud } from "../grain.js";
@@ -31,7 +30,7 @@ export const BOSS_THROAT_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "A wet tube pinched shut: a close, and the draw through it stopping dead.",
     status: "bound",
-    use: "THE THROAT's slack ring caught under player 2's thumb — the gullet stops breathing.",
+    use: "THE THROAT's colour set by either seat — the gullet pinched to a new shape, heard by both.",
     level: 0.36,
     // A close under the band and the draw dying above it. What this gesture
     // buys is silence from a thing that was about to swallow, so the sound is
@@ -42,8 +41,8 @@ export const BOSS_THROAT_SOUNDS: SoundDef[] = [
     id: "boss.throatSlip",
     family: "boss",
     blurb: "A pinched tube opening again: the draw coming back, and weight settling into it.",
-    status: "bound",
-    use: "THE THROAT's cinch lost — lifted, or torn out when its beats ran out. The gullet breathes.",
+    status: "spare",
+    use: "THE THROAT's old hold let go. Spare since the rework: nothing in the fight is held now.",
     level: 0.42,
     // The cinch turned around: the draw comes back instead of stopping, and
     // the sub under it is the bill arriving. Both seats have to hear a window
@@ -58,8 +57,8 @@ export const BOSS_THROAT_SOUNDS: SoundDef[] = [
     id: "boss.throatHaul",
     family: "boss",
     blurb: "Something heavy and wet dragged a pace sideways: a slide down, and a soft stop.",
-    status: "bound",
-    use: "THE THROAT's mouth hauled a column by player 1 under HAUL — her column is stale now.",
+    status: "spare",
+    use: "THE THROAT's old sideways haul. Spare since the rework: the mouth is carried, not hauled.",
     level: 0.44,
     // A slide that lands rather than rising to a stop: the mouth did not open,
     // it moved, and the navigator is being told the number she just said is
@@ -90,8 +89,8 @@ export const BOSS_THROAT_SOUNDS: SoundDef[] = [
     id: "boss.throatInhale",
     family: "boss",
     blurb: "A wet draw upward through a tube, and weight settling in behind it.",
-    status: "bound",
-    use: "THE THROAT's gullet takes a breath — the beat player 2 has been counting down to.",
+    status: "spare",
+    use: "THE THROAT's old inhale on a clock. Spare since the rework: the pump has no beat.",
     level: 0.3,
     // The one sound of the seven that happens on a schedule, so it is the one
     // that had to be built quiet: a rising band of air under the voice, a
@@ -110,8 +109,8 @@ export const BOSS_THROAT_SOUNDS: SoundDef[] = [
     id: "boss.throatChoke",
     family: "boss",
     blurb: "A wet hit landing in a tube and a ring going slack under it: a slump.",
-    status: "bound",
-    use: "THE THROAT takes a flung gum in the mouth — one ring goes slack, and stays slack.",
+    status: "spare",
+    use: "THE THROAT's old flung gum. Spare since the rework: there are no gums in the fight.",
     level: 0.5,
     // The best shot in the fight, so it lands like one: a thud through the
     // floor, a lowpassed splat over it, and the ring itself letting go — a
@@ -135,7 +134,7 @@ export const BOSS_THROAT_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "A gulp going down, then a ring drawing tight again: a fall, then a rise.",
     status: "bound",
-    use: "THE THROAT swallows what stood in its mouth — a slack ring re-tightens and the boss is further from dead.",
+    use: "THE THROAT swallows a body in its own colour — one ring goes slack, and the boss is nearer dead.",
     level: 0.46,
     // The choke turned around and built to be heard as such. The fall is the
     // body going down; the rise under it is the ring coming back, which is the

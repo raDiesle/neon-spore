@@ -1,4 +1,4 @@
-import { buildBoss, buildQueue } from "@neon-spore/content";
+import { buildBoss, buildQueue, type ControlSet, controlSet } from "@neon-spore/content";
 import {
   type Creature,
   createWorld,
@@ -13,17 +13,19 @@ import {
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
+import type { Field, touchDown } from "../src/touch.js";
 import { CFG, VIEWPORT, waveWith } from "./frame-harness.js";
 
 /**
- * THE THROAT's fight stood up for its cue tests, and the two questions they
- * ask a seat: which word, and which whole cue. Shared by
- * `boss-cue-throat.test.ts` (the gum, and a body in the mouth) and
- * `boss-cue-throat-rock.test.ts` (a rock in the mouth, and one climbing), cut
- * in two on 26 September 2026 when the one file was 345 lines.
+ * THE THROAT's fight stood up for every render test of it: the gullet as its
+ * wave installs it, a body put where a test wants one, the field a press is
+ * read against, and the two questions a cue test asks a seat — which word, and
+ * which whole cue.
  */
 
 const TPB = ticksPerBeat(CFG);
+const STANDARD: ControlSet = controlSet("default");
+
 export const LAYOUT: Record<ViewRole, Layout> = {
   p1: computeLayout(VIEWPORT, CFG, "p1"),
   p2: computeLayout(VIEWPORT, CFG, "p2"),
@@ -42,25 +44,26 @@ export function opened(): { world: World; t: ThroatState } {
   return { world, t };
 }
 
-/** Which column the mouth is under this beat — the only column that holds. */
-export function mouthCol(world: World, t: ThroatState): number {
-  return throatMouthCol(CFG, t, world.beat);
-}
-
-/** A column the mouth is not under, for the half of a pair that misses. */
-export function elsewhere(world: World, t: ThroatState): number {
-  return mouthCol(world, t) === 0 ? 1 : 0;
+/** Which column the mouth stands over. */
+export function mouthCol(t: ThroatState): number {
+  return throatMouthCol(t);
 }
 
 /** A body put on the field where the test wants it, and handed back. */
-export function put(world: World, kind: Creature["kind"], col: number, row: number): Creature {
+export function put(
+  world: World,
+  kind: Creature["kind"],
+  col: number,
+  row: number,
+  color: Creature["color"] = null,
+): Creature {
   const c: Creature = {
     id: world.nextId++,
     kind,
     col,
     row,
     fromRow: row,
-    color: null,
+    color,
     holes: 0,
     petals: 0,
     dragMilli: 0,
@@ -68,6 +71,31 @@ export function put(world: World, kind: Creature["kind"], col: number, row: numb
   } as Creature;
   world.creatures.push(c);
   return c;
+}
+
+/** The field a press from this seat is read against. */
+export function field(world: World, seat: 1 | 2, boss = world.boss): Field {
+  return {
+    creatures: world.creatures,
+    cannonCol: world.cannonCol,
+    shieldCol: world.shieldCol,
+    beatPhase: 0.4,
+    skinY: null,
+    beat: world.beat,
+    waveBeat: world.waveBeat,
+    tick: world.tick,
+    seat,
+    cfg: CFG,
+    boss,
+    controls: STANDARD,
+    faults: [],
+    well: false,
+  };
+}
+
+/** The handle a press took hold of, or nothing. */
+export function target(touch: ReturnType<typeof touchDown>): string | null {
+  return touch?.hold?.kind === "drag" ? touch.hold.target : null;
 }
 
 /** The word this seat is given, or nothing. */

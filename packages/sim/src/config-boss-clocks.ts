@@ -72,7 +72,7 @@ export { UNDERTOW_DEFAULTS, type UndertowConfig } from "./config-undertow.js";
  *
  * `SimConfig` extends `BossClockConfig` rather than nesting it, exactly as it
  * extended the five separately: every call site still reads `cfg.stareTurnBeats`
- * and `cfg.throatInhaleBeats`, and nothing outside this file learns there is a
+ * and `cfg.throatRings`, and nothing outside this file learns there is a
  * grouping at all.
  */
 export interface BossClockConfig

@@ -16,11 +16,10 @@ import { around, box } from "./caption-anchor-box.js";
 import type { Layout } from "./layout.js";
 import { ledgerBodyBox, ledgerRootPoint, ledgerSocketPoint } from "./ledger-shape.js";
 import { spliceCurve } from "./splice-straws.js";
-import { throatLockPoint } from "./throat-lock.js";
 import { GULLET_PAD, mouthX, mouthY, rings, throatGullet } from "./throat-shape.js";
 import { undertowEdgeBox } from "./undertow-shape.js";
 import { showsSpliceTangle } from "./view-role.js";
-import { showsLedgerSocket, showsThroatLock, showsUndertowBow } from "./view-role-clocks.js";
+import { showsLedgerSocket, showsUndertowBow } from "./view-role-clocks.js";
 
 /**
  * **Where the fixtures of THE LEDGER, THE SPLICE, THE UNDERTOW and THE
@@ -164,19 +163,16 @@ function undertowPart(
   return edge === null ? null : box(edge);
 }
 
-/** How much of a tile THE THROAT's mouth, gums and lock are worth as a ring. */
+/** How much of a tile THE THROAT's mouth is worth as a ring. */
 const GULLET_R = 0.75;
 
 /**
- * THE THROAT: the whole gullet, from the root it hangs off down to the mouth,
- * leaning however far the rings it has lost let it (`throat-shape.ts`).
+ * THE THROAT: the whole gullet, from its root in the hull up to the mouth
+ * the navigator carries (`throat-shape.ts`).
  *
- * `mouths` is the mouth alone — where a body stops, and the one circle a gum
- * has to be flung into; `ring` is the lowest ring still holding, which is the
- * one the next swallow costs; `tally` is NEXT INHALE, on the column the mouth
- * will inhale in, and it is the navigator's, so on the pilot's screen it is no
- * ring at all (`showsThroatLock`) — which is the film's own first page,
- * *only player 2 sees the count*, drawn rather than asserted.
+ * `mouths` is the mouth alone — the circle that pulls bodies in; `ring` is the
+ * ring nearest the mouth still holding, which is the one the next swallow
+ * costs.
  */
 function throatPart(
   l: Layout,
@@ -186,11 +182,7 @@ function throatPart(
   beat: number,
   beatPhase: number,
 ): AnchorPoint | null {
-  const mouth = { x: mouthX(l, cfg, b, beat, beatPhase), y: mouthY(l, cfg) };
-  if (part === "tally") {
-    if (!showsThroatLock(l.role)) return null;
-    return around([throatLockPoint(l, cfg, b, beat)], l.tile * GULLET_R);
-  }
+  const mouth = { x: mouthX(l, b), y: mouthY(l, b) };
   if (part === "mouths") return around([mouth], l.tile * GULLET_R);
   const all = rings(l, cfg, b, beat, beatPhase);
   if (part === "ring") {

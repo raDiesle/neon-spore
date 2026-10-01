@@ -1,30 +1,35 @@
 import { afterEach, describe, expect, it } from "bun:test";
-import { DEFAULT_CONFIG, midCol, type SimConfig, type ThroatState } from "@neon-spore/sim";
+import { DEFAULT_CONFIG, hullRow, midCol, type SimConfig, type ThroatState } from "@neon-spore/sim";
 import { computeLayout } from "../src/layout.js";
 import { OUTLINE_DRIFT } from "../src/outline-drift.js";
-import { throatRingCircle } from "../src/throat-grip.js";
+import { throatAimCircle } from "../src/throat-grip.js";
 import { rings } from "../src/throat-shape.js";
 import { THROAT_SWAY } from "../src/throat-sway.js";
 
 /**
  * THE THROAT's sway (`throat-sway.ts`): the middle of the gullet swings more
- * than half a tile, the root and the lowest ring do not move at all, and the
- * navigator's cinch is on the ring as it is drawn.
+ * than half a tile, the root and the ring under the mouth do not move at all,
+ * so the gullet stays joined to the mouth the navigator carries.
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
 const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "p1");
 const B: ThroatState = {
   kind: "throat",
-  phase: "still",
+  phase: "sucks",
   phaseBeat: 0,
   slack: 1,
-  mouthFrom: midCol(CFG),
-  chokedBeat: -1,
   fedBeat: -1,
-  cinchBeat: -1,
-  breath: 0,
-  haulStep: 0,
+  refusedTick: -1,
+  refusedId: -1,
+  aimXMilli: midCol(CFG) * 1000,
+  aimYMilli: (hullRow(CFG) - 3) * 1000,
+  aimFromXMilli: -1,
+  aimFromYMilli: -1,
+  mode: "red",
+  pumpDir: 0,
+  pumpFromYMilli: 0,
+  pumpMilli: 0,
 };
 
 const saved = OUTLINE_DRIFT.throat;
@@ -62,12 +67,12 @@ describe("THE THROAT sways where it hangs free", () => {
     }
   });
 
-  it("puts the cinch on the lowest ring as it is drawn", () => {
+  it("keeps the top ring under the mouth as it is drawn", () => {
     for (const beat of [3, 17, 41]) {
-      const low = rings(L, CFG, B, beat, 0.5)[CFG.throatRings - 1];
-      const cinch = throatRingCircle(L, CFG, B, beat, 0.5);
-      expect(cinch?.x).toBe(low?.x);
-      expect(cinch?.y).toBe(low?.y);
+      const top = rings(L, CFG, B, beat, 0.5)[CFG.throatRings - 1];
+      const mouth = throatAimCircle(L, CFG, B);
+      expect(top?.x).toBeCloseTo(mouth.x, 6);
+      expect(top?.y ?? 0).toBeGreaterThan(mouth.y);
     }
   });
 });

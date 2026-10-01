@@ -126,6 +126,12 @@ export function lobeMeans(
       return { command: controlPress(id).down, hold: { kind: "held", control: id, player: 1 } };
     case "gaugeRed":
     case "gaugeCyan":
+    // THE THROAT's four colours: a press sets the mouth and is over
+    // (`sim/throat-hand.ts`).
+    case "throatShield":
+    case "throatSuck":
+    case "throatRed":
+    case "throatCyan":
       return { command: controlPress(id).down, hold: null };
     case "cannon":
     case "shield":

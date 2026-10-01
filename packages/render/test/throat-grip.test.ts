@@ -1,231 +1,106 @@
-import { describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue, type ControlSet, controlSet } from "@neon-spore/content";
-import {
-  createWorld,
-  DEFAULT_CONFIG,
-  startWave,
-  type ThroatState,
-  throatCinchable,
-  type World,
-} from "@neon-spore/sim";
-import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
-import { throatRingCircle, throatTubeCircle } from "../src/throat-grip.js";
-import { type Field, touchDown } from "../src/touch.js";
-import { FRAME_TIMEOUT_MS, waveWith } from "./frame-harness.js";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
+import { throatAimCircle, throatGripSeat, throatPumpCircle } from "../src/throat-grip.js";
+import { touchDown } from "../src/touch.js";
+import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals } from "./frame-harness.js";
+import { field, LAYOUT, opened, target } from "./throat-rig.js";
 
 // The cap, applied per file because bun applies it to the file it is in
 // (`canvas-stub.ts`).
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **Two real thumbs on THE THROAT.**
+ * **Two real thumbs on THE THROAT** (`throat-grip.ts`).
  *
- * Both rules shipped with nothing on either screen to take hold of, and the
- * field's own cue has been printing `CINCH` and `HOLD` over bare tube ever
- * since (`boss-cue-read-k.ts`). What this file asks is the half a simulation
- * cannot: that a press on the ring the picture draws is the press
- * `throat-hand.ts` would accept, that each seat can take hold of its own
- * handle, and that a press on the other's is handed through with no hold, for
- * the simulation to refuse (`throatRefuse`, `throat-marks.ts`).
- *
- * The load-bearing cases are the two the gullet **grows**: there is no ring to
- * pinch on a whole tube and no tube to haul outside `open`, so a thumb that
- * lands on either of those places early must fall straight through to whatever
- * is behind it.
+ * What this file asks is the half a simulation cannot: that a press on the
+ * ring the picture draws is the press `throat-hand.ts` would accept, that each
+ * seat takes hold of its own handle — the navigator the mouth, the pilot the
+ * pump — and that a press on the other's is handed through with no hold, for
+ * the simulation to refuse. Neither handle is there once the tube everts.
  */
 
-const CFG = DEFAULT_CONFIG;
-const STANDARD: ControlSet = controlSet("default");
+beforeAll(installCanvasGlobals);
 
-const layout = (role: ViewRole = "p1"): Layout =>
-  computeLayout({ width: 420, height: 900, dpr: 2 }, CFG, role);
-
-function fighting(): { world: World; boss: ThroatState } {
-  const world = createWorld(CFG, 5);
-  const index = waveWith("throat");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  if (world.boss?.kind !== "throat") throw new Error("the throat's wave installed no throat");
-  return { world, boss: world.boss };
-}
-
-function field(world: World, seat: 1 | 2, boss = world.boss): Field {
-  return {
-    creatures: world.creatures,
-    cannonCol: world.cannonCol,
-    shieldCol: world.shieldCol,
-    beatPhase: 0.4,
-    skinY: null,
-    beat: world.beat,
-    waveBeat: world.waveBeat,
-    tick: world.tick,
-    seat,
-    cfg: CFG,
-    boss,
-    controls: STANDARD,
-    faults: [],
-    well: false,
-  };
-}
-
-function target(touch: ReturnType<typeof touchDown>): string | null {
-  return touch?.hold?.kind === "drag" ? touch.hold.target : null;
-}
-
-/** A gullet with one muscle choked and the debt paid — the least this fight
- * can hand her, read back off the rule rather than asserted here. */
-function choked(boss: ThroatState): ThroatState {
-  boss.phase = "slide";
-  boss.slack = 1;
-  boss.breath = 0;
-  boss.cinchBeat = -1;
-  if (!throatCinchable(boss)) throw new Error("a choked gullet offers no ring");
-  return boss;
-}
-
-function ring(l: Layout, f: Field, b: ThroatState): { x: number; y: number } {
-  const at = throatRingCircle(l, CFG, b, f.beat, f.beatPhase);
-  if (at === null) throw new Error("the gullet has no lowest ring");
-  return at;
-}
-
-function tube(l: Layout, f: Field, b: ThroatState): { x: number; y: number } {
-  return throatTubeCircle(l, CFG, b, f.beat, f.beatPhase);
-}
-
-describe("the navigator's thumb on a slack ring", () => {
-  it("takes hold of the lowest ring, where the ring is drawn", () => {
-    const l = layout("p2");
-    const { world, boss } = fighting();
-    choked(boss);
-    const f = field(world, 2);
-    const at = ring(l, f, boss);
-    expect(target(touchDown(l, at.x, at.y, f))).toBe("throatRing");
+describe("the navigator's thumb on the mouth", () => {
+  it("takes hold of the mouth, where the mouth is drawn", () => {
+    const { world, t } = opened();
+    const at = throatAimCircle(LAYOUT.p2, CFG, t);
+    expect(target(touchDown(LAYOUT.p2, at.x, at.y, field(world, 2)))).toBe("throatAim");
   });
 
-  it("is the navigator's: the pilot's press is handed through with no hold, to be refused", () => {
-    const l = layout("p1");
-    const { world, boss } = fighting();
-    choked(boss);
-    const f = field(world, 1);
-    const at = ring(l, f, boss);
-    const touch = touchDown(l, at.x, at.y, f);
+  it("follows the mouth wherever it was carried", () => {
+    const { world, t } = opened();
+    t.aimXMilli += 2000;
+    t.aimYMilli -= 3000;
+    const at = throatAimCircle(LAYOUT.p2, CFG, t);
+    expect(target(touchDown(LAYOUT.p2, at.x, at.y, field(world, 2)))).toBe("throatAim");
+  });
+
+  it("is the navigator's: the pilot's press is handed through with no hold", () => {
+    const { world, t } = opened();
+    const at = throatAimCircle(LAYOUT.p1, CFG, t);
+    const touch = touchDown(LAYOUT.p1, at.x, at.y, field(world, 1));
     expect(touch?.hold).toBeNull();
-    expect(touch?.command).toMatchObject({ target: "throatRing", on: true });
-  });
-
-  it("offers nothing on a whole gullet: there is no slack ring to pinch", () => {
-    const l = layout("p2");
-    const { world, boss } = fighting();
-    choked(boss);
-    const f = field(world, 2);
-    const at = ring(l, f, boss);
-    boss.slack = 0;
-    expect(target(touchDown(l, at.x, at.y, f))).not.toBe("throatRing");
-  });
-
-  it("refuses a second thumb while one is already on it", () => {
-    const l = layout("p2");
-    const { world, boss } = fighting();
-    choked(boss);
-    const f = field(world, 2);
-    const at = ring(l, f, boss);
-    boss.cinchBeat = world.beat;
-    expect(target(touchDown(l, at.x, at.y, f))).not.toBe("throatRing");
-  });
-
-  it("refuses while the last cinch is still being paid for", () => {
-    const l = layout("p2");
-    const { world, boss } = fighting();
-    choked(boss);
-    const f = field(world, 2);
-    const at = ring(l, f, boss);
-    boss.breath = 1;
-    expect(target(touchDown(l, at.x, at.y, f))).not.toBe("throatRing");
-  });
-
-  it("refuses while the tube is everting, when every rule is off", () => {
-    const l = layout("p2");
-    const { world, boss } = fighting();
-    choked(boss);
-    const f = field(world, 2);
-    const at = ring(l, f, boss);
-    boss.phase = "everts";
-    expect(target(touchDown(l, at.x, at.y, f))).not.toBe("throatRing");
+    expect(touch?.command).toMatchObject({ target: "throatAim", on: true });
   });
 });
 
-describe("the pilot's carry on the tube", () => {
-  it("takes hold under the mouth once the gullet is open", () => {
-    const l = layout("p1");
-    const { world, boss } = fighting();
-    boss.phase = "open";
-    const f = field(world, 1);
-    const at = tube(l, f, boss);
-    expect(target(touchDown(l, at.x, at.y, f))).toBe("throatTube");
+describe("the pilot's thumb on the pump", () => {
+  it("takes hold of the pump beside the root", () => {
+    const { world } = opened();
+    const at = throatPumpCircle(LAYOUT.p1, CFG);
+    expect(target(touchDown(LAYOUT.p1, at.x, at.y, field(world, 1)))).toBe("throatPump");
   });
 
-  it("is the pilot's: the navigator's press is handed through with no hold, to be refused", () => {
-    const l = layout("p2");
-    const { world, boss } = fighting();
-    boss.phase = "open";
-    const f = field(world, 2);
-    const at = tube(l, f, boss);
-    const touch = touchDown(l, at.x, at.y, f);
+  it("is the pilot's: the navigator's press is handed through with no hold", () => {
+    const { world } = opened();
+    const at = throatPumpCircle(LAYOUT.p2, CFG);
+    const touch = touchDown(LAYOUT.p2, at.x, at.y, field(world, 2));
     expect(touch?.hold).toBeNull();
-    expect(touch?.command).toMatchObject({ target: "throatTube", on: true });
+    expect(touch?.command).toMatchObject({ target: "throatPump", on: true });
   });
 
-  it("offers nothing in the phases where the mouth still travels", () => {
-    const l = layout("p1");
-    const { world, boss } = fighting();
-    boss.phase = "open";
-    const f = field(world, 1);
-    const at = tube(l, f, boss);
-    for (const phase of ["still", "slide", "quick", "everts"] as const) {
-      boss.phase = phase;
-      expect(target(touchDown(l, at.x, at.y, f)), phase).not.toBe("throatTube");
+  it("stands clear of the mouth at home, so one thumb never covers both", () => {
+    const { t } = opened();
+    const aim = throatAimCircle(LAYOUT.p1, CFG, t);
+    const pump = throatPumpCircle(LAYOUT.p1, CFG);
+    expect(Math.hypot(aim.x - pump.x, aim.y - pump.y)).toBeGreaterThan(aim.r + pump.r);
+  });
+});
+
+describe("whose handle a press is on", () => {
+  it("names the navigator for the mouth and the pilot for the pump, from either seat", () => {
+    const { world, t } = opened();
+    for (const seat of [1, 2] as const) {
+      const f = field(world, seat);
+      const aim = throatAimCircle(LAYOUT.test, CFG, t);
+      const pump = throatPumpCircle(LAYOUT.test, CFG);
+      expect(throatGripSeat(LAYOUT.test, aim.x, aim.y, f)).toBe(2);
+      expect(throatGripSeat(LAYOUT.test, pump.x, pump.y, f)).toBe(1);
     }
-  });
-
-  it("refuses a second carry while one is still to land", () => {
-    const l = layout("p1");
-    const { world, boss } = fighting();
-    boss.phase = "open";
-    const f = field(world, 1);
-    const at = tube(l, f, boss);
-    boss.haulStep = 1;
-    expect(target(touchDown(l, at.x, at.y, f))).not.toBe("throatTube");
-  });
-
-  it("hangs clear of the mouth, so a body standing in it is never covered", () => {
-    const l = layout("p1");
-    const { world, boss } = fighting();
-    boss.phase = "open";
-    const f = field(world, 1);
-    const at = throatTubeCircle(l, CFG, boss, f.beat, f.beatPhase);
-    const lowest = ring(l, f, boss);
-    // Below the lip, and below the lowest muscle the navigator pinches: the
-    // two handles of this fight are never within reach of one thumb.
-    expect(at.y).toBeGreaterThan(lowest.y + at.r * 2);
   });
 });
 
 describe("a miss", () => {
-  it("falls through to whatever is behind the handle", () => {
-    const l = layout("p2");
-    const { world, boss } = fighting();
-    choked(boss);
-    const f = field(world, 2);
-    const at = ring(l, f, boss);
-    expect(target(touchDown(l, at.x + l.tile * 3, at.y, f))).not.toBe("throatRing");
+  it("offers neither handle while the tube everts", () => {
+    const { world, t } = opened();
+    t.phase = "everts";
+    const aim = throatAimCircle(LAYOUT.p2, CFG, t);
+    const pump = throatPumpCircle(LAYOUT.p1, CFG);
+    expect(target(touchDown(LAYOUT.p2, aim.x, aim.y, field(world, 2)))).not.toBe("throatAim");
+    expect(target(touchDown(LAYOUT.p1, pump.x, pump.y, field(world, 1)))).not.toBe("throatPump");
+    expect(throatGripSeat(LAYOUT.p2, aim.x, aim.y, field(world, 2))).toBeUndefined();
+  });
+
+  it("falls through to whatever is beside the handle", () => {
+    const { world, t } = opened();
+    const at = throatAimCircle(LAYOUT.p2, CFG, t);
+    const off = touchDown(LAYOUT.p2, at.x + LAYOUT.p2.tile * 3, at.y, field(world, 2));
+    expect(target(off)).not.toBe("throatAim");
   });
 
   it("says nothing at all on a field with no throat in it", () => {
-    const l = layout("p2");
-    const { world, boss } = fighting();
-    choked(boss);
-    const at = ring(l, field(world, 2), boss);
-    const f = field(world, 2, null);
-    expect(target(touchDown(l, at.x, at.y, f))).not.toBe("throatRing");
+    const { world, t } = opened();
+    const at = throatAimCircle(LAYOUT.p2, CFG, t);
+    expect(target(touchDown(LAYOUT.p2, at.x, at.y, field(world, 2, null)))).not.toBe("throatAim");
   });
 });

@@ -30,23 +30,14 @@ import type { Wave } from "../wave-types.js";
  * against it is paid for on this page rather than by another seam
  * (`docs/queue.md`).
  *
- * **THE THROAT is the only wave in this game authored to be *eaten*.** The
- * gullet hangs from the top down to `throatMouthRow` with its mouth in authored
- * column 3 — `midCol` of whatever field is played — and every arrival on it is
- * one of two things: a gum for player 1 to fling into that mouth, or a body the
- * throat will swallow and heal off if the pair leaves it standing there. So the
- * middle column is not kept clear; it is
- * *stocked*, on purpose, with the bodies whose answer is a cannon shot and the
- * ones whose answer is a hand.
- *
- * The gums are authored one lane either side of the mouth at first and out at
- * the walls later, for the arithmetic rather than the difficulty: a gum falls
- * a row a beat, so one dropped in authored column 2 is on the mouth's row five
- * beats later and a swipe from there crosses `gumFlingCols` into the mouth on
- * the next beat; one at the wall gives three beats of flight and a moved mouth.
- *
- * **Nothing is placed against the inhale's own count**: which beat the tube tightens on depends on when the pair
- * chokes its second ring, a beat nobody can know at authoring time.
+ * **THE THROAT's wave is the four things its mouth can be set to eat**, one
+ * kind at a time at first and then two at once: red slicks, cyan bulbs, rocks
+ * and pods, so every one of the four buttons has a body to be pressed for. The
+ * mouth replaces the cannon and the shield, so anything that reaches the hull
+ * is a hit — the arrivals are spaced eight beats apart to begin with, the
+ * time a carry and a colour change take, and closer once the pair has both.
+ * Sixteen bodies, four of them pods, against five rings, so a pair that lets a few through still
+ * has the swallows to finish it (`sim/throat-suck.ts`).
  *
  * **THE GORGE's arrivals are what the pair must answer without missing.** The
  * sack swallows every shot that reaches the top of the field, so the cost of
@@ -86,25 +77,28 @@ export const WAVES_ACT_7E: Wave[] = [
       scene: "theThroat",
     },
     entries: [
-      { beat: 2, col: 4, kind: "gum", color: null },
-      { beat: 8, col: 3, color: "red" },
-      { beat: 12, col: 2, kind: "gum", color: null },
-      { beat: 18, col: 3, kind: "meteor", color: null },
-      { beat: 22, col: 6, kind: "gum", color: null },
-      { beat: 26, col: 1, color: "cyan" },
-      { beat: 30, col: 3, color: "cyan" },
-      { beat: 34, col: 0, kind: "gum", color: null },
-      { beat: 40, col: 5, color: "red" },
-      { beat: 44, col: 3, kind: "gum", color: null },
-      { beat: 50, col: 2, kind: "meteor", color: null },
-      { beat: 54, col: 6, kind: "gum", color: null },
-      { beat: 60, col: 4, color: "red" },
-      { beat: 64, col: 0, kind: "gum", color: null },
-      { beat: 70, col: 3, color: "cyan" },
-      { beat: 76, col: 2, kind: "gum", color: null },
+      { beat: 4, col: 3, color: "red" },
+      { beat: 12, col: 2, color: "red" },
+      { beat: 20, col: 4, color: "cyan" },
+      { beat: 28, col: 1, kind: "meteor", color: null },
+      { beat: 36, col: 5, color: "cyan" },
+      { beat: 44, col: 3, kind: "meteor", color: null },
+      { beat: 50, col: 1, color: "red" },
+      { beat: 54, col: 5, color: "cyan" },
+      { beat: 62, col: 2, kind: "meteor", color: null },
+      { beat: 66, col: 4, color: "red" },
+      { beat: 74, col: 3, color: "cyan" },
+      { beat: 78, col: 1, kind: "meteor", color: null },
+    ],
+    pods: [
+      { beat: 32, col: 0, row: 4, kind: "purge", cross: 1 },
+      { beat: 58, col: 6, row: 3, kind: "purge", cross: -1 },
+      { beat: 70, col: 0, row: 5, kind: "purge", cross: 1 },
+      { beat: 84, col: 6, row: 4, kind: "purge", cross: -1 },
     ],
     boss: { kind: "throat" },
     bossType: "normal",
+    controls: "throat",
   },
   {
     id: "theGorge",

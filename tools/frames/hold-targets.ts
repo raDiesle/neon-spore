@@ -49,8 +49,8 @@ export const SEAT: Record<string, 1 | 2> = {
   /** THE MAZE's heart takes either seat's thumb (`maze-hand.ts`); a capture
    * holds the navigator's, one thumb of the two the shake needs. */
   mazeHeart: 2,
-  /** THE THROAT's cinch is hers; the haul next door is his (`throat-hand.ts`). */
-  throatRing: 2,
+  /** THE THROAT's carry is hers; the pump is his (`throat-hand.ts`). */
+  throatAim: 2,
   ...Object.fromEntries(rows.flatMap(([name, r]) => (r.seat ? [[name, r.seat]] : []))),
 };
 
@@ -113,16 +113,15 @@ export const ID_CHOICES: Record<string, readonly number[]> = {
  * Handles that are **let go of** rather than held, and whose picture is what
  * the lift bought.
  *
- * THE THROAT's haul is the only one so far and it is a rule rather than a
- * quirk: `tubeHeard` refuses a command with `on` set, because a tap on the
- * tube would move the mouth by the width of a fingertip's jitter and the
- * mouth's column is the one thing in that fight the navigator has already said
- * out loud. So the carry is the grab, the travel, **and the lift** — three
- * things a finger does and two commands on the wire, the second with `on`
- * false. Without this the flag could build the gesture's shape and never the
- * gesture, which is the failure a picture cannot show.
+ * THE THROAT's old haul was the first, refused with `on` set so a tap could
+ * not move the mouth by a fingertip's jitter; it went with the rework of 1
+ * October 2026, and the rule stays for the rows that set `lift`. The carry is
+ * the grab, the travel, **and the lift** — three things a finger does and two
+ * commands on the wire, the second with `on` false. Without this the flag
+ * could build the gesture's shape and never the gesture, which is the failure
+ * a picture cannot show.
  */
-export const CARRIES = ["throatTube", ...rows.flatMap(([name, r]) => (r.lift ? [name] : []))];
+export const CARRIES = rows.flatMap(([name, r]) => (r.lift ? [name] : []));
 
 /**
  * Handles that are carried **and then** let go of: THE INSTAR's swipe arms on
@@ -159,8 +158,8 @@ export const DRAGS = [
   "stareLid",
   "stareLid2",
   "mazeHeart",
-  "throatRing",
-  "throatTube",
+  "throatAim",
+  "throatPump",
   "scuttlePart",
   ...rows.map(([name]) => name),
 ];

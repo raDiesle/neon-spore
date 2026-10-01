@@ -9,9 +9,9 @@ import { noise1 } from "./solid-motion.js";
  * the outline tier). A lean about one root, the tier's pose for a body with
  * one end (`outline-drift.ts`), would part the gullet from the mouth it
  * narrows to, so the throat bows instead: both ends held, the middle swung.
- * The root is fixed to the top of the frame, and the lowest ring stands just
- * above the mouth and is the navigator's cinch (`throatRingCircle`). Neither
- * moves, and the rings between swing most of a tile, which is seen (*Big
+ * The root is fixed in the hull where the cannon would stand, and the top ring
+ * stands under the mouth the navigator carries (`throatAimCircle`). Neither
+ * sways, and the rings between swing most of a tile, which is seen (*Big
  * enough to be seen*, `docs/looks.md`).
  *
  * Two shapes on two wanders from the throat's own seed: a bow, widest in
@@ -20,7 +20,7 @@ import { noise1 } from "./solid-motion.js";
  * `idle-drift.ts`' reason.
  *
  * **Everything that reads a ring gets the swung ring** — the skin, the
- * captions round the gullet, THE SLOW's aim, the cinch — because the sway
+ * captions round the gullet, THE SLOW's aim — because the sway
  * lives in `rings()` and there is no rest ring to read. That is why the clock
  * is the beat: a hit test has the beat and no frame time.
  */
@@ -32,7 +32,7 @@ export const THROAT_SWAY = {
 } as const;
 
 /**
- * How far across the ring `t` of the way from the root to the lowest ring is
+ * How far across the ring `t` of the way from the root to the ring under the mouth is
  * swung, in pixels, at `beat` and `beatPhase`: 0 at both ends.
  */
 export function throatSway(

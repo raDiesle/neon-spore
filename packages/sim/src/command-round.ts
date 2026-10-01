@@ -1,4 +1,5 @@
 import type { PulseLane } from "./pulse.js";
+import type { ThroatMode } from "./throat.js";
 import type { Color } from "./types.js";
 
 /**
@@ -128,7 +129,14 @@ export type RoundCommand =
    * round, and the catch being two hands is the thing this round borrowed
    * from that panel (`scout-arena.ts`).
    */
-  | { kind: "scoutMaw" };
+  | { kind: "scoutMaw" }
+  /**
+   * THE THROAT's colour: a press that sets which bodies the mouth swallows,
+   * red and cyan from player 2's two, SHIELD and SUCK from player 1's
+   * (`throat-hand.ts`). Not a round, but the same growth: a boss that takes
+   * the panel away for a panel of its own wants a verb of its own.
+   */
+  | { kind: "throatMode"; mode: ThroatMode };
 
 /**
  * The two ways SNAKE's body can be turned, and they are quarter turns rather

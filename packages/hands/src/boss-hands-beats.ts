@@ -8,12 +8,14 @@ import {
   batonMergeSocket,
   batonSocketCol,
   type Color,
-  gumIsFlung,
   MILLI,
+  THROAT_MODES,
+  type ThroatMode,
+  type ThroatState,
   type TimedCommand,
   throatBoss,
-  throatMouthCol,
-  throatMouthRow,
+  throatModeSeat,
+  throatTakes,
   type World,
 } from "@neon-spore/sim";
 import type { Hand } from "./hand.js";
@@ -23,7 +25,7 @@ import type { Hand } from "./hand.js";
  * THROAT — each a `Hand` (`hand.ts`). The shot bosses' hands
  * (`boss-hands-shots.ts`) spray and let the boss judge the beat; these two
  * cannot, because what they answer is not a shot but a moment: a turn taken
- * and then the other seat's, a gum flung along a row as the mouth passes. So each hand reads the moment off the field the way the pair
+ * and then the other seat's, the mouth carried over a body in the colour that swallows it. So each hand reads the moment off the field the way the pair
  * does — off the boss's own predicates, never off a clock of its own — and
  * presses when it is there.
  */
@@ -133,31 +135,67 @@ function shot(w: World, b: BatonState, bead: BatonBead): Press[] {
 }
 
 /**
- * THE THROAT: a gum on the row above the mouth's, still falling, is gripped
- * and flung toward the mouth — the carry is answered on the beat, after the
- * fall has put the gum on the mouth's row, and it flies level from there
- * (`gumSwiped`, `throatFedFling`). Either hand may; this is the navigator's.
+ * THE THROAT: the nearest body some colour swallows is the target. Its colour
+ * is set from the seat that owns it (`throatModeSeat`), the navigator carries
+ * the mouth to it, and the pilot pumps — a whole stroke the other way every
+ * tick, which is as fast as a thumb could ever go.
  */
 export const throatHand: Hand = (w) => {
   const b = throatBoss(w);
-  if (b === null || b.phase === "everts") return [];
-  const row = throatMouthRow(w.cfg);
-  const mouth = throatMouthCol(w.cfg, b, w.beat + 1);
+  if (b === null || b.phase !== "sucks") return [];
+  const target = throatTarget(w, b);
+  if (target === null) return [];
   const out: Press[] = [];
-  for (const c of w.creatures) {
-    if (c.kind !== "gum" || gumIsFlung(c) || c.row !== row - 1 || c.col === mouth) continue;
-    const dir = c.col < mouth ? 1 : -1;
-    out.push({ player: 2, command: { kind: "grip", id: c.id } });
+  if (b.mode !== target.mode) {
     out.push({
-      player: 2,
-      command: {
-        kind: "drag",
-        target: "gripBody",
-        on: true,
-        fromMilli: dir * w.cfg.gumSwipeMilli,
-        id: c.id,
-      },
+      player: throatModeSeat(target.mode),
+      command: { kind: "throatMode", mode: target.mode },
     });
   }
+  // A carry is measured from where the hold began, which is where the mouth
+  // stood on its first sample (`throat-hand.ts`).
+  const fromX = b.aimFromXMilli < 0 ? b.aimXMilli : b.aimFromXMilli;
+  const fromY = b.aimFromYMilli < 0 ? b.aimYMilli : b.aimFromYMilli;
+  out.push({
+    player: 2,
+    command: {
+      kind: "drag",
+      target: "throatAim",
+      on: true,
+      fromMilli: target.x - fromX,
+      fromYMilli: target.y - fromY,
+    },
+  });
+  const stroke = w.tick % 2 === 0 ? w.cfg.throatStrokeMilli : -w.cfg.throatStrokeMilli;
+  out.push({
+    player: 1,
+    command: { kind: "drag", target: "throatPump", on: true, fromMilli: 0, fromYMilli: stroke },
+  });
   return out;
 };
+
+interface ThroatTarget {
+  x: number;
+  y: number;
+  mode: ThroatMode;
+}
+
+/** The nearest body to the mouth that one of the four colours swallows. */
+function throatTarget(w: World, b: ThroatState): ThroatTarget | null {
+  let best: ThroatTarget | null = null;
+  let bestD = Number.POSITIVE_INFINITY;
+  const consider = (x: number, y: number, mode: ThroatMode): void => {
+    if (y < 0) return;
+    const d = (x - b.aimXMilli) ** 2 + (y - b.aimYMilli) ** 2;
+    if (d < bestD) {
+      bestD = d;
+      best = { x, y, mode };
+    }
+  };
+  for (const c of w.creatures) {
+    const mode = THROAT_MODES.find((m) => throatTakes(m, c));
+    if (mode !== undefined) consider(c.col * MILLI, c.row * MILLI, mode);
+  }
+  for (const p of w.pods) if (!p.husk) consider(p.colMilli, p.rowMilli, "suck");
+  return best;
+}

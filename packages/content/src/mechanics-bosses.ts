@@ -97,7 +97,7 @@ export const BOSS_MECHANICS = {
     reach: "spawn",
   },
   throat: {
-    what: "A mouth that swallows its own column. No shot touches it. Fling a gum level into the mouth. One of you sees the mouth. The other flings.",
+    what: "A mouth on a neck takes the cannon's place. One of you drags it. The other pumps to open its pull. Set its colour to what it may eat.",
     reach: "spawn",
   },
   stare: {

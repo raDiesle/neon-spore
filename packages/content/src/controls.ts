@@ -1,4 +1,5 @@
 import { ROUND_CONTROLS } from "./controls-round.js";
+import { THROAT_CONTROLS } from "./controls-throat.js";
 
 /**
  * Every button either player can be given, one row each, listed rather than
@@ -58,7 +59,12 @@ export type ControlId =
   | "pulse2Pod"
   | "reach"
   | "crank"
-  | "mawTake";
+  | "mawTake"
+  // THE THROAT's four colours, two a seat (`controls-throat.ts`).
+  | "throatShield"
+  | "throatSuck"
+  | "throatRed"
+  | "throatCyan";
 
 export interface ControlDef {
   id: ControlId;
@@ -171,6 +177,7 @@ export const CONTROLS: readonly ControlDef[] = [
     ship: "cannon",
   },
   ...ROUND_CONTROLS,
+  ...THROAT_CONTROLS,
 ];
 
 export function control(id: ControlId): ControlDef {

@@ -1,66 +1,56 @@
 import { describe, expect, it } from "bun:test";
 import {
   DEFAULT_CONFIG,
-  midCol,
+  hullRow,
   type SimConfig,
   type ThroatState,
-  throatMouthCol,
-  throatMouthRow,
-  throatToInhale,
+  throatHomeCol,
 } from "@neon-spore/sim";
-import { computeLayout, tileCY } from "../src/layout.js";
+import { computeLayout, tileCX, tileCY } from "../src/layout.js";
 import { evertedRings, evertShare } from "../src/throat-evert.js";
-import { inhaleShare } from "../src/throat-lock.js";
-import { mouthX, ringSlack, ringSqueeze, rings } from "../src/throat-shape.js";
+import { mouthX, mouthY, ringSlack, ringSqueeze, rings } from "../src/throat-shape.js";
 
 /**
  * The gullet's geometry, which is the half of THE THROAT's picture that had to
  * be *decided* rather than drawn.
  *
- * Three of the four things asserted here are conventions the simulation does
- * not hold and could not: which ring a choke took, which way the contraction
- * travels, and where the mouth is inside a beat. Each one is argued in
- * `throat-shape.ts`, and each one would be invisible to a frame test — a
- * canvas accepts a gullet whose rings go slack from the wrong end just as
- * happily as the right one.
+ * Two of the things asserted here are conventions the simulation does not hold
+ * and could not: which ring a swallow spent, and which way the contraction
+ * travels. Each one is argued in `throat-shape.ts`, and each one would be
+ * invisible to a frame test — a canvas accepts a gullet whose rings go slack
+ * from the wrong end just as happily as the right one.
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
 const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "p1");
+const HOME = throatHomeCol(CFG);
 
 function tube(over: Partial<ThroatState> = {}): ThroatState {
   return {
     kind: "throat",
-    phase: "still",
+    phase: "sucks",
     phaseBeat: 0,
     slack: 0,
-    mouthFrom: midCol(CFG),
-    chokedBeat: -1,
     fedBeat: -1,
-    cinchBeat: -1,
-    breath: 0,
-    haulStep: 0,
+    refusedTick: -1,
+    refusedId: -1,
+    aimXMilli: HOME * 1000,
+    aimYMilli: (hullRow(CFG) - 3) * 1000,
+    aimFromXMilli: -1,
+    aimFromYMilli: -1,
+    mode: "red",
+    pumpDir: 0,
+    pumpFromYMilli: 0,
+    pumpMilli: 0,
     ...over,
   };
 }
 
 describe("which rings are slack", () => {
-  it("takes them from the mouth upward", () => {
-    // A choke lands at the mouth, so the ring nearest it is the first to go.
+  it("takes them from the mouth downward", () => {
+    // A swallow is taken at the mouth, so the ring nearest it is the first to go.
     expect(ringSlack(CFG, tube({ slack: 1 }), CFG.throatRings - 1)).toBe(1);
     expect(ringSlack(CFG, tube({ slack: 1 }), 0)).toBe(0);
-  });
-
-  it("gives back the one furthest from the mouth first", () => {
-    // Which falls out of the rule above without a second one: a swallow drops
-    // the count, so the highest slack ring is the one that tightens again, and
-    // a heal visibly undoes the last hit.
-    const before = tube({ slack: 3 });
-    const after = tube({ slack: 2 });
-    const top = CFG.throatRings - 3;
-    expect(ringSlack(CFG, before, top)).toBe(1);
-    expect(ringSlack(CFG, after, top)).toBe(0);
-    expect(ringSlack(CFG, after, CFG.throatRings - 1)).toBe(1);
   });
 
   it("marks every ring once the tube is spent", () => {
@@ -70,109 +60,62 @@ describe("which rings are slack", () => {
 });
 
 describe("the gulp", () => {
-  it("starts at the mouth on the inhale and climbs away from the field", () => {
-    const b = tube();
-    const bottom = CFG.throatRings - 1;
-    // On the inhale beat the contraction is in the ring above the mouth and
-    // nowhere else; a beat later it has moved one ring up, not down.
-    expect(ringSqueeze(CFG, b, bottom, 0, 0)).toBe(1);
-    expect(ringSqueeze(CFG, b, bottom - 1, 0, 0)).toBe(0);
-    expect(ringSqueeze(CFG, b, bottom - 1, 1, 0)).toBe(1);
-    expect(ringSqueeze(CFG, b, bottom, 1, 0)).toBe(0);
+  it("starts under the mouth on a swallow and runs down into the ship", () => {
+    const b = tube({ fedBeat: 4 });
+    const top = CFG.throatRings - 1;
+    expect(ringSqueeze(CFG, b, top, 4, 0)).toBe(1);
+    expect(ringSqueeze(CFG, b, top - 1, 4, 0)).toBe(0);
+    expect(ringSqueeze(CFG, b, top - 1, 5, 0)).toBe(1);
+    expect(ringSqueeze(CFG, b, top, 5, 0)).toBe(0);
   });
 
-  it("is out of the tube before the next inhale", () => {
-    // Which is what keeps it a receipt rather than a countdown: there is a
-    // stretch of beats with nothing in the gullet at all, and it ends when
-    // the throat takes something and not a fixed number of beats before.
-    const b = tube();
-    const quiet = CFG.throatRings;
+  it("is nothing before the first swallow, and out of the tube after", () => {
     for (let i = 0; i < CFG.throatRings; i++) {
-      expect(ringSqueeze(CFG, b, i, quiet, 0)).toBe(0);
-    }
-  });
-
-  it("squeezes a ring once when two gulps overlap", () => {
-    // Phase `open` inhales every beat, so several are in the tube at once.
-    const b = tube({ phase: "open" });
-    for (let i = 0; i < CFG.throatRings; i++) {
-      expect(ringSqueeze(CFG, b, i, 8, 0)).toBeLessThanOrEqual(1);
+      expect(ringSqueeze(CFG, tube(), i, 3, 0)).toBe(0);
+      expect(ringSqueeze(CFG, tube({ fedBeat: 0 }), i, CFG.throatRings, 0)).toBe(0);
     }
   });
 });
 
 describe("the tube", () => {
   it("keeps every ring however many have gone slack", () => {
-    // The silhouette is the health bar: a choked gullet has to read as weaker
+    // The silhouette is the health bar: a spent gullet has to read as weaker
     // and never as shorter, so a limp ring still has a station.
     for (const slack of [0, 2, CFG.throatRings]) {
       expect(rings(L, CFG, tube({ slack }), 0, 0)).toHaveLength(CFG.throatRings);
     }
   });
 
-  it("hangs straight from the root while it is whole and sags once it is not", () => {
-    const b = tube({ phase: "quick", mouthFrom: 0 });
-    const off = throatMouthCol(CFG, b, 0);
-    if (off === midCol(CFG)) throw new Error("the mouth is not off centre to lean toward");
-    const whole = rings(L, CFG, b, 0, 1)[1];
-    const worn = rings(L, CFG, tube({ ...b, slack: CFG.throatRings - 1 }), 0, 1)[1];
-    if (whole === undefined || worn === undefined) throw new Error("no second ring");
-    // The second ring from the root: near its home column while the muscles
-    // hold, dragged most of the way toward the mouth once they do not.
-    expect(Math.abs(worn.x - whole.x)).toBeGreaterThan(L.tile * 0.2);
-  });
-
-  it("puts the mouth in the column the hit test will use", () => {
-    // The whole of why the mouth snaps rather than slides: `throatMouthCol`
-    // says it *is* in this column for the whole beat and a fling is swept
-    // against that, so by a third of the way in the picture has to agree.
-    const b = tube({ phase: "quick", phaseBeat: 0 });
-    const at = 3;
-    const want = throatMouthCol(CFG, b, at);
-    for (const phase of [0.4, 0.7, 0.99]) {
-      expect(mouthX(L, CFG, b, at, phase)).toBeCloseTo(
-        mouthX(L, CFG, tube({ ...b, phase: "still", mouthFrom: want }), at, 0),
-        6,
-      );
+  it("is rooted in the hull at the cannon's place, wherever the mouth goes", () => {
+    for (const aimXMilli of [500, HOME * 1000, (CFG.cols - 1) * 1000]) {
+      const root = rings(L, CFG, tube({ aimXMilli }), 0, 0)[0];
+      if (root === undefined) throw new Error("no root ring");
+      expect(root.x).toBeCloseTo(tileCX(L, HOME), 0);
+      expect(root.y).toBeGreaterThan(L.hullY);
     }
   });
 
-  it("ends the stack above the mouth's own row", () => {
-    // The lip has to sit at the end of the tube rather than inside the lowest
-    // ring: the mouth is the thing a gum is aimed at, and a ring drawn over it
-    // would be a target with a hoop across it.
-    const low = rings(L, CFG, tube(), 0, 0)[CFG.throatRings - 1];
-    if (low === undefined) throw new Error("no lowest ring");
-    expect(low.y + low.ry).toBeLessThan(tileCY(L, throatMouthRow(CFG)));
-  });
-});
-
-describe("the navigator's readout", () => {
-  it("locks the column the mouth will be in on the inhale, not the one it is in now", () => {
-    // The whole reason the mouth's column is a function of the beat. A lock on
-    // where the tube is already pointing would tell that seat nothing the
-    // pilot cannot see, and the pilot is the one with the thumb.
-    const b = tube({ phase: "quick", phaseBeat: 0, mouthFrom: 0 });
-    const at = 1;
-    const wait = throatToInhale(CFG, b, at);
-    if (wait <= 0) throw new Error("the beat asked about is itself an inhale");
-    expect(throatMouthCol(CFG, b, at + wait)).not.toBe(throatMouthCol(CFG, b, at));
+  it("puts the mouth exactly where the navigator carried it", () => {
+    const b = tube({ aimXMilli: 1500, aimYMilli: 4250 });
+    expect(mouthX(L, b)).toBeCloseTo(tileCX(L, 1.5), 6);
+    expect(mouthY(L, b)).toBeCloseTo(tileCY(L, 4.25), 6);
   });
 
-  it("fills the bar over the inhale it is actually waiting on", () => {
+  it("hangs straight from the root while it is whole and sags once it is not", () => {
+    const b = tube({ aimXMilli: 0 });
+    const whole = rings(L, CFG, b, 0, 0)[1];
+    const worn = rings(L, CFG, tube({ ...b, slack: CFG.throatRings - 1 }), 0, 0)[1];
+    if (whole === undefined || worn === undefined) throw new Error("no second ring");
+    expect(Math.abs(worn.x - whole.x)).toBeGreaterThan(L.tile * 0.2);
+  });
+
+  it("ends the stack under the mouth, never across it", () => {
+    // The lip sits at the end of the tube rather than inside the top ring: a
+    // ring drawn over the mouth would be a target with a hoop across it.
     const b = tube();
-    // Empty on the beat it inhales — the whole wait is ahead — and full on the
-    // last frame before the next one.
-    expect(inhaleShare(CFG, b, 0, 0)).toBe(0);
-    expect(inhaleShare(CFG, b, CFG.throatInhaleBeats - 1, 0.99)).toBeGreaterThan(0.9);
-  });
-
-  it("reads the stride the phase is on and not the one it was on", () => {
-    // The inhale tightens once two rings are slack, so a bar off a remembered
-    // stride would run past its own end (`throat-lock.ts`).
-    const quick = tube({ phase: "quick", slack: 2 });
-    expect(inhaleShare(CFG, quick, CFG.throatTightBeats - 1, 0.99)).toBeGreaterThan(0.9);
-    expect(inhaleShare(CFG, quick, CFG.throatTightBeats, 0)).toBe(0);
+    const top = rings(L, CFG, b, 0, 0)[CFG.throatRings - 1];
+    if (top === undefined) throw new Error("no top ring");
+    expect(top.y - top.ry).toBeGreaterThan(mouthY(L, b));
   });
 });
 
@@ -184,9 +127,6 @@ describe("the eversion", () => {
   });
 
   it("is over when the simulation says the boss is", () => {
-    // Off the beats left rather than a remembered start, so the picture cannot
-    // outlive the boss: the frame the count reaches zero is the frame
-    // `stepThroat` nulls it.
     const b = tube({ phase: "everts", phaseBeat: 0 });
     expect(evertShare(CFG, b, CFG.throatEvertBeats + 4, 0)).toBe(1);
   });

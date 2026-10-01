@@ -1,113 +1,78 @@
-import {
-  type SimConfig,
-  type ThroatState,
-  throatCinchable,
-  throatCinched,
-  throatHauling,
-  throatRingAsks,
-  throatTubeAsks,
-} from "@neon-spore/sim";
+import { type SimConfig, type ThroatState, throatHomeCol } from "@neon-spore/sim";
 import { drawHandleRing, handleRadius } from "./handle-draw.js";
-import { type Circle, hitCircle, type Layout } from "./layout.js";
+import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { mouthX, mouthY, rings } from "./throat-shape.js";
+import { mouthX, mouthY } from "./throat-shape.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
 /**
  * **THE THROAT's two hands**, and the two circles the drawing and the hit test
- * share: the navigator's thumb on a ring already gone slack and the pilot's
- * carry on the tube itself (`sim/throat-hand.ts`, `docs/spec/bosses.md`
+ * share: the navigator's carry on the mouth itself and the pilot's pump on a
+ * handle beside the gullet's root (`sim/throat-hand.ts`, `docs/spec/bosses.md`
  * §11.19).
  *
- * Both gestures shipped in the simulation with nothing drawn to take hold of,
- * and the cue was saying `CINCH` and `HAUL` over bare tube (now `PULL` and `HOLD`)
- * (`boss-cue-read-k.ts`). The look is exempt under *a look with no shipped
- * alternative*: there was no drawing of either control to run a candidate
- * against.
+ * **The mouth is the navigator's handle.** She takes it anywhere on the field
+ * and the gullet follows, kept inside the box the simulation leaves round the
+ * walls and the top (`throatAimBox`). The ring sits on the lip, because the
+ * mouth is the thing being carried and a handle a tile away from it would be
+ * a handle on nothing.
  *
- * **The gullet hands out its own controls as it loses them**, which is the one
- * thing worth saying about where these two stand. There is nothing to pinch
- * until the pair has choked a ring, and nothing to haul until four are slack
- * and the mouth has stopped travelling — so a fight that is going badly grows
- * handles, and a frame of this boss with two rings on it is a frame of a boss
- * most of the way down.
+ * **The pump is the pilot's**, standing on the hull beside the root where the
+ * cannon would have stood — the gullet is fixed to the ship the way the cannon
+ * is — and only the height his thumb travels matters. Up and down, quickly,
+ * and the circle round the mouth opens (`throatRadiusMilli`).
  *
- * **Neither ring covers what the pair is reading.** Hers is on the lowest
- * muscle, which is always the slack one (`ringSlack` chokes from the mouth
- * upward), and a slack muscle is a limp curve rather than a number — the count
- * that matters is the four *taut* rings above it, and those are untouched.
- * His hangs a tile **below** the mouth rather than on it, because
- * `drawHandleRing` fills opaquely and the mouth is the one thing in this fight
- * both seats aim at: a ring over the lip would hide the body standing in it on
- * the beat it is about to be swallowed.
+ * Both are on offer for the whole of `sucks`, and neither once the tube
+ * everts. A press on the other seat's handle is handed through with no hold,
+ * and the simulation hears nothing from it: neither hand can do the other's.
  */
 
-/** How far below the mouth the pilot's ring hangs, in tiles — clear of the
- * lip at its widest gape (`LIP_OPEN` in `throat-mouth.ts`) and of the handle's
- * own radius. */
-const BELOW_MOUTH = 0.95;
+/** How far beside the gullet's root the pump stands, in tiles, and how far
+ * over the hull — clear of the root's widest ring (`TOP_RX` in
+ * `throat-shape.ts`) and of the hull's own skin. */
+const PUMP_ASIDE = 2;
+const PUMP_ABOVE = 1.1;
 
-/** The navigator's circle: on the lowest ring, which is the slack one. */
-export function throatRingCircle(
-  l: Layout,
-  cfg: SimConfig,
-  b: ThroatState,
-  beat: number,
-  beatPhase: number,
-): Circle | null {
-  const ring = rings(l, cfg, b, beat, beatPhase)[cfg.throatRings - 1];
-  return ring === undefined ? null : { x: ring.x, y: ring.y, r: handleRadius(l, cfg) };
+/** The navigator's circle: on the mouth, travelling with it. */
+export function throatAimCircle(l: Layout, cfg: SimConfig, b: ThroatState): Circle {
+  return { x: mouthX(l, b), y: mouthY(l, b), r: handleRadius(l, cfg) };
 }
 
-/** The pilot's circle: under the mouth, travelling with it. */
-export function throatTubeCircle(
-  l: Layout,
-  cfg: SimConfig,
-  b: ThroatState,
-  beat: number,
-  beatPhase: number,
-): Circle {
+/** The pilot's circle: on the hull, beside the root, never moving. */
+export function throatPumpCircle(l: Layout, cfg: SimConfig): Circle {
   return {
-    x: mouthX(l, cfg, b, beat, beatPhase),
-    y: mouthY(l, cfg) + l.tile * BELOW_MOUTH,
+    x: tileCX(l, throatHomeCol(cfg) + PUMP_ASIDE),
+    y: l.hullY - l.tile * PUMP_ABOVE,
     r: handleRadius(l, cfg),
   };
 }
 
+/** Whether the carry is running: a thumb is down on the mouth. */
+export const throatCarrying = (b: ThroatState): boolean => b.aimFromXMilli >= 0;
+
+/** Whether the pump is running: a stroke is under way. */
+export const throatPumping = (b: ThroatState): boolean => b.pumpDir !== 0;
+
 interface Hand {
-  target: "throatRing" | "throatTube";
+  target: "throatAim" | "throatPump";
   seat: 1 | 2;
   c: Circle;
 }
 
-/**
- * The rings on offer under a point, this seat's own first where they overlap.
- * Whether each is on offer is the simulation's (`sim/throat-hand.ts`
- * `throatRingAsks`, `throatTubeAsks`): a slack ring with the last cinch paid
- * for and no thumb on it yet, and the tube only in `open` with no carry still
- * to land.
- */
+/** The handles under a point, this seat's own first where they overlap. */
 function handsUnder(l: Layout, x: number, y: number, field: Field, b: ThroatState): Hand[] {
-  const { cfg, beat, beatPhase } = field;
-  const hands: Hand[] = [];
-  const ring = throatRingAsks(b) ? throatRingCircle(l, cfg, b, beat, beatPhase) : null;
-  if (ring !== null) hands.push({ target: "throatRing", seat: 2, c: ring });
-  if (throatTubeAsks(b)) {
-    hands.push({ target: "throatTube", seat: 1, c: throatTubeCircle(l, cfg, b, beat, beatPhase) });
-  }
+  if (b.phase !== "sucks") return [];
+  const hands: Hand[] = [
+    { target: "throatAim", seat: 2, c: throatAimCircle(l, field.cfg, b) },
+    { target: "throatPump", seat: 1, c: throatPumpCircle(l, field.cfg) },
+  ];
   return hands
     .filter((h) => hitCircle(h.c, x, y))
     .sort((a, c) => Number(c.seat === field.seat) - Number(a.seat === field.seat));
 }
 
-/**
- * The press on whichever ring is on offer, from either seat. The cinch is hers
- * and the haul is his, and neither can do the other's: **a press from the other
- * seat is handed through with no hold**, so the simulation refuses it once and
- * the ring washes red (`throat-marks.ts`) — both rings are drawn on both
- * screens.
- */
+/** The press on whichever handle is under the thumb, from either seat. */
 export function throatGripUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const b = bossOf(field, "throat");
   if (b === null) return null;
@@ -117,8 +82,8 @@ export function throatGripUnder(l: Layout, x: number, y: number, field: Field): 
 }
 
 /**
- * The seat a press on a ring on offer belongs to, so one mouse at a desk
- * takes the navigator's cinch rather than having it refused as the pilot's
+ * The seat a press on a handle belongs to, so one mouse at a desk takes the
+ * navigator's carry rather than having it dropped as the pilot's
  * (`desk-grab.ts` `markSeat`).
  */
 export function throatGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
@@ -128,7 +93,7 @@ export function throatGripSeat(l: Layout, x: number, y: number, field: Field): 1
 }
 
 function grab(
-  target: "throatRing" | "throatTube",
+  target: "throatAim" | "throatPump",
   player: 1 | 2,
   owns: boolean,
   x: number,
@@ -142,47 +107,26 @@ function grab(
 }
 
 /**
- * Both rings, drawn from `drawThroat` so the gullet and the hands on it are
- * one drawing — over the tube and the mouth, under the navigator's readout
- * (`throat-lock.ts`), which is words and must never be behind anything.
+ * Both handles, drawn from `drawThroat` over the tube and the mouth.
  *
  * **Each is drawn on both screens, yours bright and theirs dim**, the bargain
  * `sinew-handles.ts` made: neither seat can feel the other's thumb, and the
- * cinch is a freeze the pilot is spending his beats inside.
+ * pump is the reason the mouth she is carrying is pulling at all. **The dim
+ * copy fills nothing** (`theirs`, `handle-draw.ts`), so his copy of her ring
+ * leaves the lip and the body standing in it showing.
  *
- * **The dim copy fills nothing** (`theirs`, `handle-draw.ts`, 22 September
- * 2026). A ring punches its circle out of the background first so it reads
- * over whatever it hangs on, and these two hang on the tube and on a slack
- * ring of the gullet itself. The seat that may not press one cannot see the
- * wash inside the hole, so its copy came out a gap in the gullet — a throat
- * with a piece missing, on the boss whose whole picture is how much of it is
- * left. Theirs is its rim and its wash over the plating now.
- *
- * **Each stays up while its gesture is standing, drawn `held`.** A cinched
- * ring refuses a second thumb and a spent haul refuses a second carry, so
- * `throatRingAsks` and `throatTubeAsks` both say no there — but the
- * ring is showing the hold that *is* running, and one that vanished on the
- * press would take the freeze off both screens on the beat it began to matter.
- *
- * The halo and the verdicts are `throat-marks.ts`', drawn round these two:
- * `drawThroat` passes the verdicts in so they land over the rings.
+ * Each is drawn `held` while its gesture runs.
  */
 export function drawThroatGrips(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   cfg: SimConfig,
   b: ThroatState,
-  beat: number,
-  beatPhase: number,
   time: number,
 ): void {
-  if (throatCinchable(b) || throatCinched(b)) {
-    const at = throatRingCircle(l, cfg, b, beat, beatPhase);
-    if (at !== null) ring(ctx, at, l, 2, throatCinched(b), time);
-  }
-  if (b.phase === "open") {
-    ring(ctx, throatTubeCircle(l, cfg, b, beat, beatPhase), l, 1, throatHauling(b), time);
-  }
+  if (b.phase !== "sucks") return;
+  ring(ctx, throatPumpCircle(l, cfg), l, 1, throatPumping(b), time);
+  ring(ctx, throatAimCircle(l, cfg, b), l, 2, throatCarrying(b), time);
 }
 
 function ring(

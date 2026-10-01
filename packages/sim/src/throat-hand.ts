@@ -1,168 +1,120 @@
-import { type ThroatState, throatMouthCol } from "./throat.js";
+import {
+  type ThroatMode,
+  type ThroatState,
+  throatAimAt,
+  throatBoss,
+  throatMouthCol,
+} from "./throat.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * **THE THROAT's two hands on the gullet itself** — the cinch and the haul,
- * both on the picture and neither on a panel (`docs/spec/bosses.md` §11.19).
+ * **THE THROAT's three hands**: the carry, the pump and the colour
+ * (`throat.ts`, `docs/spec/bosses.md` §11.19).
  *
- * The fight shipped with three gestures and asked for all three in every
- * phase: fling a gum across the mouth, shoot what is standing in it, brake
- * what is climbing towards it. Five states and one sentence. These two are the
- * states saying different things, and what makes them this boss rather than
- * any other is **where they come from**: there is nothing to pinch until the
- * pair has choked a ring, and nothing to haul until four are slack. The gullet
- * hands out its own controls as it loses them.
+ * Heard on the tick from `bossHandsHeard`, because all three are a thumb that
+ * is down *now* and the mouth answers it now — a mouth that waited for the
+ * beat to follow a finger would be a mouth that lags a finger, which is the
+ * one thing a carried thing must never do.
  *
- * **The cinch is the navigator's**, on a ring already gone slack. While her
- * thumb is on it the gullet does not breathe — no swallow, no lift — and the
- * inhales she takes off the grid are owed back one a beat the moment she lifts
- * (`throatBreathes`). So it is a bargain and not a pause: real time for the
- * pilot to get a gum onto the mouth's row, bought at the worst rate in the
- * fight. Held past `throatCinchBeats` the ring tears out of her thumb and the
- * bill arrives anyway.
+ * **The carry is player 2's.** A drag on the mouth reports how far the thumb
+ * has come from where it went down (`render/touch-move.ts`), so the first
+ * sample of a hold anchors the mouth where it stands and every sample after
+ * puts it at anchor plus displacement, kept inside the box (`throatAimAt`).
+ * A lifted thumb leaves the mouth where it was.
  *
- * **The haul is the pilot's**, and only in `open`. Four rings slack is the one
- * phase where the mouth stops travelling and inhales every beat: the pair can
- * no longer wait for it to come to them, and a body standing in it has one
- * beat. His carry drags the tube a column sideways — `fromMilli`, whose
- * **sign is the direction**, as `pinTable` reads it — and the mouth is
- * somewhere else when the inhale lands. It is the only way in this fight to
- * take something *back* out of the throat's mouth.
+ * **The pump is player 1's**, a drag on a handle of his own, and only its
+ * height matters. A stroke is the thumb carried `throatStrokeMilli` the other
+ * way from the last turn, and every stroke adds `throatPumpGainMilli` to the
+ * pump; the suck takes a little back every tick (`throat-suck.ts`), so the
+ * circle is as wide as the strokes are quick. A thumb that drifts back by less
+ * than a stroke has not turned, which is what keeps jitter from pumping.
  *
- * Nothing here can hurt the pair, which is THE VANE's own bargain: a thumb
- * lifted early is a window lost, a haul heard in the wrong phase is nothing at
- * all, and the worst the cinch can do is hand back the beats it borrowed.
- */
-
-/**
- * **Whether there is a ring to pinch**: one has gone slack, the tube is still
- * whole, and the last cinch has been paid for.
+ * **The colour is each seat's own two**: red and cyan are player 2's, as the
+ * two shots are on the ordinary panel, and SHIELD and SUCK are player 1's, as
+ * the shield and the maw are. A press on the other seat's colour is refused
+ * aloud and changes nothing — the mouth's colour is the pair's sentence and
+ * neither may say the other's half.
  *
- * The debt is in the test and that is the whole cap. A thumb held down sends
- * `on: true` every tick it moves (`stareLidHeard`), so a ring torn out at
- * `throatCinchBeats` would be back under the same thumb on the next message
- * and the freeze would be free and endless. `breath` is what stops it: while
- * anything is owed the ring cannot be taken again, so the pair gets the beats
- * it borrowed back in full before it may borrow any more, and a thumb that
- * never lifts buys `throatCinchBeats` frozen beats out of every
- * `2 * throatCinchBeats` rather than all of them.
- *
- * Read by the cue rather than written out there (`boss-cue-read-k.ts`), for
- * the reason `throatHolds` is: the handle the picture offers and the handle
- * the simulation accepts are one question, and a second copy of it would be
- * the one that said `CINCH` over a ring no thumb could take.
- */
-export function throatCinchable(b: ThroatState): boolean {
-  return b.slack > 0 && b.phase !== "everts" && b.breath <= 0;
-}
-
-/** Whether a thumb is on a slack ring now. The cue goes quiet on it for
- * `gripBrakes`' reason: a word over a body that is already being answered
- * teaches the pair to stop reading the words. */
-export function throatCinched(b: ThroatState): boolean {
-  return b.cinchBeat >= 0;
-}
-
-/** Whether the mouth has already been asked to move on the next beat. The
- * same silence, one beat wide: the carry is spent and the picture is about to
- * show what it bought. */
-export function throatHauling(b: ThroatState): boolean {
-  return b.haulStep !== 0;
-}
-
-/**
- * **Whether each ring asks its seat for a thumb** — the ring hers while it is
- * on offer and no thumb is on it yet, the tube his while `open` has it on
- * offer and no carry is still to land. The picture's hit test and its halo
- * both read these (`render/throat-grip.ts`, `render/throat-marks.ts`).
- */
-export function throatRingAsks(b: ThroatState): boolean {
-  return throatCinchable(b) && !throatCinched(b);
-}
-
-export function throatTubeAsks(b: ThroatState): boolean {
-  return b.phase === "open" && !throatHauling(b);
-}
-
-/** A press on the other seat's ring while it was asking, said out loud. */
-function refuse(world: World, b: ThroatState, part: "ring" | "tube", player: 1 | 2): void {
-  const col = throatMouthCol(world.cfg, b, world.beat);
-  world.events.push({ type: "throatRefuse", col, part, player });
-}
-
-/**
- * Both hands, heard on the tick from `bossHandsHeard`.
- *
- * On the tick and not the beat because a thumb is down when it lands and the
- * beat only ever asks whether it was down — `vane-hand.ts`'s argument exactly.
- * What each one *does* still lands on a beat: the cinch is spent by
- * `throatBreathes` and the haul is taken by `throatHaul`, both from
- * `stepThroat`, which is this fight's promise that every change is one
- * somebody can name a count for.
+ * Nothing here can hurt the pair.
  */
 export function throatHeard(world: World, player: 1 | 2, command: Command): void {
-  const b = world.boss;
-  if (b === null || b.kind !== "throat" || command.kind !== "drag") return;
-  if (command.target === "throatRing") ringHeard(world, b, player, command.on);
-  if (command.target === "throatTube") tubeHeard(world, b, player, command);
+  const b = throatBoss(world);
+  if (b === null || b.phase !== "sucks") return;
+  if (command.kind === "throatMode") modeHeard(world, b, player, command.mode);
+  if (command.kind !== "drag") return;
+  if (command.target === "throatAim" && player === 2) aimHeard(world, b, command);
+  if (command.target === "throatPump" && player === 1) pumpHeard(world, b, command);
 }
 
-function ringHeard(world: World, b: ThroatState, player: 1 | 2, on: boolean): void {
-  if (player !== 2) {
-    if (on && throatRingAsks(b)) refuse(world, b, "ring", player);
-    return;
-  }
-  if (!on) {
-    throatRelease(world, b);
-    return;
-  }
-  // A thumb already on one stays where it is. There is one cinch however many
-  // rings are slack: the gullet breathes or it does not, and a second thumb
-  // that re-anchored `cinchBeat` would hand the pair a hold they could renew
-  // for nothing.
-  if (throatCinched(b) || !throatCinchable(b)) return;
-  b.cinchBeat = world.beat;
-  world.events.push({ type: "throatCinch", col: throatMouthCol(world.cfg, b, world.beat) });
+/** Which seat sets which colour: the shots are the navigator's, the shield
+ * and the maw the pilot's — the ordinary panel's own split. */
+export function throatModeSeat(mode: ThroatMode): 1 | 2 {
+  return mode === "red" || mode === "cyan" ? 2 : 1;
 }
 
-function tubeHeard(
-  world: World,
-  b: ThroatState,
-  player: 1 | 2,
-  command: Extract<Command, { kind: "drag" }>,
-): void {
-  if (player !== 1) {
-    if (command.on && throatTubeAsks(b)) refuse(world, b, "tube", player);
+function modeHeard(world: World, b: ThroatState, player: 1 | 2, mode: ThroatMode): void {
+  const col = throatMouthCol(b);
+  if (throatModeSeat(mode) !== player) {
+    world.events.push({ type: "throatRefuse", col, part: mode, player });
     return;
   }
-  if (b.phase !== "open") return;
-  // The press says nothing; the carry is the lift, and only one that travelled
-  // (`vaneHeard`). A tap on the tube would move the mouth by the width of a
-  // fingertip's jitter, and the mouth's column is the one thing in this fight
-  // player 2 has already said out loud.
-  if (command.on || throatHauling(b)) return;
-  if (Math.abs(command.fromMilli) < world.cfg.throatHaulMilli) return;
-  b.haulStep = command.fromMilli < 0 ? -1 : 1;
+  if (b.mode === mode) return;
+  b.mode = mode;
+  world.events.push({ type: "throatMode", col, mode });
+}
+
+type Drag = Extract<Command, { kind: "drag" }>;
+
+function aimHeard(world: World, b: ThroatState, command: Drag): void {
+  if (!command.on) {
+    b.aimFromXMilli = -1;
+    b.aimFromYMilli = -1;
+    return;
+  }
+  if (b.aimFromXMilli < 0) {
+    b.aimFromXMilli = b.aimXMilli;
+    b.aimFromYMilli = b.aimYMilli;
+  }
+  throatAimAt(
+    world.cfg,
+    b,
+    b.aimFromXMilli + command.fromMilli,
+    b.aimFromYMilli + (command.fromYMilli ?? 0),
+  );
 }
 
 /**
- * The ring let go of: by her thumb, or torn out by the cap
- * (`throatBreathes`).
+ * One sample of the pump, at the thumb's height `y` from where it went down.
  *
- * One place for `releasePin`'s reason — a lift and a tear cost the pair the
- * same thing and have to be one line, and that day came: `throatSlip` is said
- * once here and both ways of losing the ring reach it (`events-throat.ts`).
- *
- * Silent when there was nothing cinched, which is the guard and not a nicety.
- * A thumb that is down sends `on: true` every tick and a thumb lifting sends
- * one `on: false`, but a thumb that never landed on a ring at all — a drag
- * across the tube in `still`, a peer's command arriving after the cap already
- * tore it out — still ends in a lift, and a slip on every one of those would
- * be a sound for a window that never opened.
+ * `pumpDir` is the way the current stroke is going and `pumpFromYMilli` the
+ * furthest the thumb has got along it: a sample further the same way moves
+ * that mark, and one a whole stroke back from it is a turn — a stroke counted.
+ * The first stroke of a hold is free of the gain, so a thumb that only goes
+ * down once has not pumped.
  */
-export function throatRelease(world: World, b: ThroatState): void {
-  if (!throatCinched(b)) return;
-  b.cinchBeat = -1;
-  world.events.push({ type: "throatSlip", col: throatMouthCol(world.cfg, b, world.beat) });
+function pumpHeard(world: World, b: ThroatState, command: Drag): void {
+  if (!command.on) {
+    b.pumpDir = 0;
+    b.pumpFromYMilli = 0;
+    return;
+  }
+  const y = command.fromYMilli ?? 0;
+  const stroke = world.cfg.throatStrokeMilli;
+  const d = y - b.pumpFromYMilli;
+  if (b.pumpDir === 0) {
+    // Measured from where the thumb went down, which a lift reset to nought.
+    if (Math.abs(d) < stroke) return;
+    b.pumpDir = Math.sign(d);
+    b.pumpFromYMilli = y;
+    return;
+  }
+  if (Math.sign(d) === b.pumpDir) {
+    b.pumpFromYMilli = y;
+    return;
+  }
+  if (Math.abs(d) < stroke) return;
+  b.pumpDir = -b.pumpDir;
+  b.pumpFromYMilli = y;
+  b.pumpMilli = Math.min(1000, b.pumpMilli + world.cfg.throatPumpGainMilli);
 }

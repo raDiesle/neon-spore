@@ -156,11 +156,16 @@ export {
   tasterWipable,
 } from "./taster-hand.js";
 export {
+  THROAT_MODES,
   THROAT_PHASES,
+  type ThroatMode,
   type ThroatPhase,
   type ThroatState,
+  throatAimBox,
   throatBoss,
+  throatEvertBeatsLeft,
+  throatHomeCol,
   throatMouthCol,
-  throatMouthRow,
-  throatStride,
+  throatRadiusMilli,
+  throatRingsLeft,
 } from "./throat.js";

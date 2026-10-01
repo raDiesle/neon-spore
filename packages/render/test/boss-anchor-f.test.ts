@@ -13,7 +13,6 @@ import {
 } from "@neon-spore/sim";
 import { anchorPoint } from "../src/caption-anchor.js";
 import { computeLayout, tileCX } from "../src/layout.js";
-import { throatLockPoint } from "../src/throat-lock.js";
 import { mouthX, mouthY, rings } from "../src/throat-shape.js";
 import { PLATE_HALF } from "../src/undertow-shape.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals } from "./canvas-stub.js";
@@ -25,13 +24,13 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * WHERE A CAPTION ABOUT A BOSS'S OWN FIXTURE POINTS — the two films whose
  * pages the fifth file took off the hull last (`caption-anchor-boss-e.ts`):
- * THE UNDERTOW's plates and lobes, THE THROAT's gullet, mouth,
- * rings and count.
+ * THE UNDERTOW's plates and lobes, THE THROAT's gullet, mouth
+ * and rings.
  *
  * These two are the pair the hull was nearly right for, so the thing each
  * test proves is the *nearly*: the ring is on the column the lobe is in and
  * not in the middle of the plating, and it follows the mouth when the mouth
- * slides off the middle. The seat a part is not drawn on gets no ring at all
+ * is carried off the middle. The seat a part is not drawn on gets no ring at all
  * (`boss-anchor.test.ts`).
  */
 
@@ -111,57 +110,47 @@ describe("a caption pointed at THE UNDERTOW", () => {
 });
 
 /**
- * THE THROAT with its mouth standing in column 0 rather than in the middle.
+ * THE THROAT with its mouth carried to column 0 rather than the middle.
  *
- * Put there rather than waited for: the mouth is still while the gullet is
- * whole (`throatStride`), and the phase and the column it started the phase
- * in are the only two things its position is a function of.
+ * Put there rather than dragged: where the mouth stands is the navigator's
+ * `aimXMilli` and nothing else, kept inside the box round the walls by the
+ * simulation (`throatAimAt`) and not by the picture.
  */
-function sliding(): { world: World; b: ThroatState } {
+function carried(): { world: World; b: ThroatState } {
   const world = withBoss({ kind: "throat" });
   const b = world.boss;
   if (b?.kind !== "throat") throw new Error("no throat");
-  b.phase = "slide";
-  b.mouthFrom = 0;
-  b.phaseBeat = world.beat;
+  b.phase = "sucks";
+  b.aimXMilli = 0;
   return { world, b };
 }
 
 describe("a caption pointed at THE THROAT", () => {
   it("rings the mouth where the gullet hangs it, on both screens", () => {
-    const { world, b } = sliding();
+    const { world, b } = carried();
     for (const l of BOTH) {
       const at = anchorPoint(l, world, SET, { at: "boss", part: "mouths" }, 0);
-      expect(at?.x).toBeCloseTo(mouthX(l, CFG, b, world.beat, 0));
-      expect(at?.y).toBeCloseTo(mouthY(l, CFG));
+      expect(at?.x).toBeCloseTo(mouthX(l, b));
+      expect(at?.y).toBeCloseTo(mouthY(l, b));
       // And it has left the middle of the plating, which is where the page was.
       expect(Math.abs((at?.x ?? 0) - l.width / 2)).toBeGreaterThan(l.tile);
     }
   });
 
   it("rings the whole gullet, root to mouth, when no part is named", () => {
-    const { world, b } = sliding();
+    const { world, b } = carried();
     const all = rings(PILOT, CFG, b, world.beat, 0);
-    const top = Math.min(...all.map((r) => r.y));
+    const root = Math.max(...all.map((r) => r.y));
     const at = anchorPoint(PILOT, world, SET, { at: "boss" }, 0);
     expect(at).not.toBeNull();
     // Tall enough to hold the root and the mouth both, which is what makes it
     // the tube rather than one muscle of it.
-    expect((at?.y ?? 0) - (at?.r ?? 0)).toBeLessThanOrEqual(top);
-    expect((at?.y ?? 0) + (at?.r ?? 0)).toBeGreaterThanOrEqual(mouthY(PILOT, CFG));
+    expect((at?.y ?? 0) - (at?.r ?? 0)).toBeLessThanOrEqual(mouthY(PILOT, b));
+    expect((at?.y ?? 0) + (at?.r ?? 0)).toBeGreaterThanOrEqual(root);
   });
 
-  it("rings NEXT INHALE on the navigator's screen and nothing on the pilot's", () => {
-    const { world, b } = sliding();
-    const at = anchorPoint(NAVIGATOR, world, SET, { at: "boss", part: "tally" }, 0);
-    const lock = throatLockPoint(NAVIGATOR, CFG, b, world.beat);
-    expect(at?.x).toBeCloseTo(lock.x);
-    expect(at?.y).toBeCloseTo(lock.y);
-    expect(anchorPoint(PILOT, world, SET, { at: "boss", part: "tally" }, 0)).toBeNull();
-  });
-
-  it("rings the lowest ring still holding for `ring`, narrower than the tube", () => {
-    const { world, b } = sliding();
+  it("rings the ring nearest the mouth still holding for `ring`, narrower than the tube", () => {
+    const { world, b } = carried();
     b.slack = 1;
     const one = anchorPoint(PILOT, world, SET, { at: "boss", part: "ring" }, 0);
     const whole = anchorPoint(PILOT, world, SET, { at: "boss" }, 0);

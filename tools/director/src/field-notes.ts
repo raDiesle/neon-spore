@@ -54,7 +54,7 @@ export const DECISIONS: readonly FieldDecision[] = [
       "a coloured groove, boss by boss. Suggest one generic ASKED mark — a " +
       "halo on the seat's own screen, the clock on the other's — as THE " +
       "THROAT, THE SNAKE and THE TASTER already do, and every boss uses it.",
-    rows: ["THE THROAT'S RING", "SNAKE'S JAWS", "THE TASTER'S PIN", "THE INSTAR'S MARKS"],
+    rows: ["THE THROAT'S MOUTH", "SNAKE'S JAWS", "THE TASTER'S PIN", "THE INSTAR'S MARKS"],
   },
   {
     title: "A WHEEL TURNS BY BEARING",

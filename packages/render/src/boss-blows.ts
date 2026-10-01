@@ -26,8 +26,8 @@ import { ThroatMarks } from "./throat-marks.js";
 type Blowed = "throat" | "vane" | "cairn" | "baton";
 
 const BLOW_OF: Partial<Record<SimEvent["type"], Blowed>> = {
-  // A flung gum arrived at the mouth and a ring went slack, and the last one.
-  throatChoke: "throat",
+  // A body went down the mouth and a ring went slack, and the last one.
+  throatSwallow: "throat",
   throatEvert: "throat",
   // A unit hauled off the pile — once per seat that paid for the pull.
   cairnPulled: "cairn",

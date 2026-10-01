@@ -4,7 +4,6 @@ import { mirrorBaitTaken } from "./mirror-round.js";
 import { podArrived, podLost } from "./pod-arrive.js";
 import { huskRefused } from "./pod-intake.js";
 import { nextInt } from "./rng.js";
-import { throatHoldsPod } from "./throat-pull.js";
 import type { Pod, PodKind } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -173,13 +172,6 @@ export function advancePods(world: World): void {
           continue;
         }
       }
-      survivors.push(p);
-      continue;
-    }
-    // THE THROAT's pull, which is the design's step 10: a loose pod in the
-    // mouth's column is the throat's until the mouth steps off it or the maw's
-    // reach takes it back, and it goes nowhere meanwhile (`throat-pull.ts`).
-    if (throatHoldsPod(world, p)) {
       survivors.push(p);
       continue;
     }

@@ -8,7 +8,7 @@ import { MILLI, type World } from "./world.js";
  * and what a pod that got away is worth.
  *
  * Cut out of `pods.ts` on 17 September 2026, when THE THROAT's hold on a pod
- * (`throat-pull.ts`) put that file over its limit, along the seam the file
+ * (since reworked away) put that file over its limit, along the seam the file
  * already drew in prose: `pods.ts` is the fall — hanging, freed, crossing,
  * sinking, steering — and this is the receipt at the end of it. `pod-intake.ts`
  * next door is the mouth itself (whether it is open, what a cargo is worth

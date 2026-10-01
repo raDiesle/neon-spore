@@ -100,14 +100,11 @@ export const HURT_ROWS_B: Row[] = [
   {
     boss: "throat",
     land: [
-      { type: "throatChoke", col: 3 },
+      { type: "throatSwallow", col: 3 },
       { type: "throatEvert", col: 3 },
     ],
-    part: [
-      { type: "throatCinch", col: 3 },
-      { type: "throatHaul", col: 3 },
-    ],
-    hit: "one ring is one gum, and landed",
+    part: [{ type: "throatRefuse", col: 3, part: "cyan", player: 1 }],
+    hit: "one ring is one right swallow, and landed",
     hurt: (fx) => fx.boss.blows.throat,
   },
   {

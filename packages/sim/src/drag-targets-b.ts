@@ -35,8 +35,8 @@ export type DragTargetB =
   | "pulseMeter"
   | "batonSocket"
   | "undertowTap"
-  | "throatRing"
-  | "throatTube"
+  | "throatAim"
+  | "throatPump"
   | "curtainHem"
   // THE TASTER's three and THE LEDGER's four, argued beside themselves on the
   // third page: this one filled the way the first did.
@@ -130,27 +130,17 @@ export type DragTargetB =
  */
 
 /**
- * `throatRing` and `throatTube` are the forty-second and -third, and the only
- * pair in this union the **pair themselves make**. There is nothing to pinch
- * on THE THROAT until a gum has choked a ring, and nothing to haul until four
- * are slack: the gullet hands out its own handles as it loses, so a fight that
- * goes badly is one played with three gestures and a fight that goes well is
- * one played with five (`throat-hand.ts`).
+ * `throatAim` and `throatPump` are the forty-second and -third: THE THROAT's
+ * carry and its pump, one to each seat (`throat-hand.ts`).
  *
- * `throatRing` is the navigator's thumb on a ring already gone slack, and
- * while it is there the gullet does not breathe — no swallow, no lift. It
- * carries nothing but `on`, for `pulseMeter`'s reason: every slack ring is
- * the same ring to the simulation, and which one she pinched says nothing the
- * fight wants. What it costs is `throatCinchBeats` inhales owed back at one a
- * beat, so it is the one hold in this game that is **borrowed** rather than
- * paid for.
+ * `throatAim` is the navigator's thumb on the mouth, and both its numbers are
+ * read: `fromMilli` across and `fromYMilli` down, from where the thumb went
+ * down, so the mouth follows the thumb anywhere inside its box. No `id`:
+ * there is one mouth.
  *
- * `throatTube` is the pilot's carry on the gullet, in the `open` phase alone,
- * and `fromMilli`'s **sign is the direction** — `pinTable`'s reading, the
- * second place in this union a carry's direction is the whole of what it says.
- * The mouth moves one column on the next beat however far his thumb went,
- * because a column is the unit player 2 has already said out loud. No `id`:
- * there is one tube, and one mouth on the end of it.
+ * `throatPump` is the pilot's handle, and only `fromYMilli` is read — a
+ * stroke is the thumb carried far enough down and then far enough up again,
+ * and how quick the strokes come is how wide the mouth sucks.
  */
 
 /**

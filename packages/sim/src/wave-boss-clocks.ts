@@ -89,13 +89,11 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // (`baton-step.ts`). The arrivals around it are the wave's own.
     world.boss = installBaton(world);
   } else if (boss.kind === "throat") {
-    // No creature either, and here the absence is the mechanic rather than the
-    // geometry: the gullet hangs from the top down to `throatMouthRow` and its
-    // mouth walks that row, but nothing of it is a body — so it cannot be shot,
-    // warded or taken hold of, and **shots pass straight through the tube**,
-    // which is what leaves player 2 an answer to a creature about to be eaten.
-    // The arrivals underneath are the wave author's, and they are also the
-    // boss's dinner (`throat.ts`, `bossFillsWave`).
+    // No creature either: the gullet is rooted in the hull where the cannon
+    // stands and its mouth goes wherever the navigator carries it, but nothing
+    // of it is a body, so it cannot be shot or warded. The arrivals over it
+    // are the wave author's, and they are also the boss's dinner
+    // (`throat.ts`, `bossFillsWave`).
     world.boss = installThroat(world);
   } else if (boss.kind === "undertow") {
     // No creature and no row, and for the first time nothing *above* the

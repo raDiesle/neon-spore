@@ -146,15 +146,21 @@ describe("wave content", () => {
    * A lure's authored colour is the disguise's rather than the body's, which
    * is the right one to ask for here anyway: the disguise is what player 2 is
    * being invited to fire at.
+   *
+   * THE THROAT has no cannon and answers a colour by setting its mouth to it
+   * (`controls-throat.ts`), so its colour lobes count as the shot.
    */
   it("only sends a colour the wave's own panel can fire", () => {
     for (const [i, wave] of WAVES.entries()) {
       const set = controlSetForWave(i);
       for (const entry of queueFromWave(wave, AUTHORED_COLS)) {
         if (entry.color === null) continue;
-        const lobe = entry.color === "red" ? "fireRed" : "fireCyan";
+        const lobes =
+          entry.color === "red"
+            ? (["fireRed", "throatRed"] as const)
+            : (["fireCyan", "throatCyan"] as const);
         expect(
-          setHas(set, lobe),
+          lobes.some((lobe) => setHas(set, lobe)),
           `${wave.name} sends ${entry.color}, which ${set.name} cannot fire`,
         ).toBe(true);
       }

@@ -85,6 +85,7 @@ export type ControlSetId =
   | "splice"
   | "claw"
   | "scout"
+  | "throat"
   | "scene";
 
 export interface ControlSet {

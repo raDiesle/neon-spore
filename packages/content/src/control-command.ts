@@ -183,6 +183,17 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
       return { down: { kind: "scoutBurn", on: true }, up: { kind: "scoutBurn", on: false } };
     case "scoutMaw":
       return { down: { kind: "scoutMaw" } };
+    // THE THROAT's four colours. A press sets the mouth and is over; the
+    // seat that may set each colour is the simulation's to judge, so a press
+    // from the wrong one is sent and refused aloud (`sim/throat-hand.ts`).
+    case "throatShield":
+      return { down: { kind: "throatMode", mode: "shield" } };
+    case "throatSuck":
+      return { down: { kind: "throatMode", mode: "suck" } };
+    case "throatRed":
+      return { down: { kind: "throatMode", mode: "red" } };
+    case "throatCyan":
+      return { down: { kind: "throatMode", mode: "cyan" } };
   }
 }
 

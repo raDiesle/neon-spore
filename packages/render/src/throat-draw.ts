@@ -6,49 +6,35 @@ import { splinePath } from "./spline.js";
 import { drawEversion, evertedRings } from "./throat-evert.js";
 import { paintBand, paintLimp, paintTube } from "./throat-flesh.js";
 import { drawThroatGrips } from "./throat-grip.js";
-import { drawThroatLock } from "./throat-lock.js";
 import { drawThroatAsked } from "./throat-marks.js";
 import { drawMouth } from "./throat-mouth.js";
 import { drawThroatReceipt } from "./throat-receipt.js";
 import { type Ring, rings } from "./throat-shape.js";
 
 /**
- * THE THROAT, drawn: a gullet of ring muscles hanging from the top of the
- * frame, narrowing to a mouth one column wide that walks its own row.
+ * THE THROAT, drawn: a gullet of ring muscles rooted in the hull where the
+ * cannon would be, climbing to a mouth the navigator carries anywhere over the
+ * field (`throat-shape.ts`).
  *
  * **The silhouette is the health bar** (`docs/spec/bosses.md` §11.0), and on
- * this boss it is the whole of it: a ring a gum has choked goes slack for good,
- * loses its tension and hangs limp inside the tube, so how many taut muscles
- * are left is how many gums the fight still needs. There is no bar and no
- * count. A tube whose rings have all gone is one that cannot hold its own shape
- * and sags across the field, which is the last picture before it everts.
+ * this boss it is the whole of it: every right swallow slackens a ring for
+ * good, so it loses its tension and hangs limp inside the tube, and how many
+ * taut muscles are left is how many swallows the fight still needs. There is
+ * no bar and no count. The fifth turns the gullet inside out.
  *
- * **Both screens draw the same gullet**, and the split of this fight is in what
- * is *said* about it: the navigator alone is told which column the mouth will
- * be in on its next inhale and how long until that beat (`throat-lock.ts`).
- * Nothing about the tube as it stands right now is kept from either seat — the
- * mouth's column this beat is what a fling is judged against, and a picture
- * that hid it from the seat who owns the fling would be a boss with no answer
- * at all.
+ * **Both screens draw the same gullet**: the split of this fight is in the
+ * hands — one carries the mouth, the other pumps it open, and each sets two of
+ * its four colours (`sim/throat-hand.ts`).
  *
- * **`crowded` goes quiet on the count while a body is held**, `throatCinched`'s
- * reason applied to the other readout: `PRESS FIRE` on a body standing in the
- * mouth and `HOLD BRAKE` on one climbing under it both stand close enough to
- * the mouth's own row that `NEXT INHALE` had nowhere left to sit — the label
- * and the word landed on top of each other, on the one screen that ever draws
- * both (queue, 20 September 2026). A word already answering the beat is the
- * count answered too, so the readout stepping aside for it loses nothing the
- * pair did not already have.
- *
- * **Grey, except the lip.** Shots pass straight through the tube and no hand
- * can take hold of it (`sim/throat.ts`), so the body of it is `rock` — THE
- * VANE's arm and THE BATON's spine, and the honest colour for a mechanism
- * nothing can be fired at. `throat-mouth.ts` argues the one exception.
+ * **Grey, except the lip.** Shots pass straight through the tube, so the body
+ * of it is `rock` — THE VANE's arm and THE BATON's spine, the honest colour
+ * for a mechanism nothing can be fired at. `throat-mouth.ts` argues the one
+ * exception.
  *
  * Nothing here is held between frames. Every number comes off the boss and the
  * beat (`throat-shape.ts`), so a restart cannot show this fight the last
- * one's gullet. The one thing handed in is the blow of a choked ring — how
- * red the skin still shows (`boss-blows.ts`); its shake is the caller's.
+ * one's gullet. The one thing handed in is the blow of a swallow — how red the
+ * skin still shows (`boss-blows.ts`); its shake is the caller's.
  */
 
 /** How far past a ring the skin between two of them bows outward. */
@@ -62,9 +48,6 @@ export function drawThroat(
   beat: number,
   beatPhase: number,
   time: number,
-  /** Whether the throat is holding a body right now — `boss-cue-read-k.ts`'s
-   * own question, asked again here for `drawThroatLock`'s reason. */
-  crowded: boolean,
   hurt = 0,
 ): void {
   // The eversion feeds the tube through its own mouth, so the gullet above
@@ -80,21 +63,20 @@ export function drawThroat(
     // ring left at the end of the eversion drew a flat line across the field,
     // which the last frames of it made plain.
     if (shape.length > 1) drawSkin(ctx, l, shape, time, hurt);
-    // Top down, so a ring's band sits over the skin above it and the gullet
+    // Root first, so a ring's band sits over the skin below it and the gullet
     // reads as a stack of muscles seen from outside rather than as a ladder of
-    // hoops. The top one is the gullet's opening.
-    for (const [i, ring] of shape.entries()) drawRing(ctx, l, ring, time, i === 0);
+    // hoops. The last one is the gullet's opening, under the mouth.
+    const top = shape.length - 1;
+    for (const [i, ring] of shape.entries()) drawRing(ctx, l, ring, time, i === top);
   }
   drawMouth(ctx, l, cfg, b, beat, beatPhase, time);
-  // The two hands the gullet hands out as it loses, over the tube and the
-  // lip they are taken on and under the readout, which is words
+  // The two handles, the mouth's and the pump's, over the tube and the lip
   // (`throat-grip.ts`), haloed under while each asks this seat
   // (`throat-marks.ts`); the verdicts are the caller's, drawn last.
   if (b.phase !== "everts") {
-    drawThroatAsked(ctx, l, cfg, b, beat, beatPhase, time);
-    drawThroatGrips(ctx, l, cfg, b, beat, beatPhase, time);
+    drawThroatAsked(ctx, l, cfg, b, time);
+    drawThroatGrips(ctx, l, cfg, b, time);
   }
-  drawThroatLock(ctx, l, cfg, b, beat, beatPhase, time, crowded);
   // What the last thing into the mouth did, on both screens (`throat-receipt.ts`).
   drawThroatReceipt(ctx, l, cfg, b, beat, beatPhase);
 }

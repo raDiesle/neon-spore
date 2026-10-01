@@ -19,6 +19,7 @@ export const SHAPED_FAMILIES: readonly FieldGroup[] = [
       "THE DAVIT'S RIGHT STEER",
       "THE MAZE'S STRING",
       "THE WELL'S WIND",
+      "THE THROAT'S MOUTH",
     ],
   },
   {
@@ -78,6 +79,7 @@ export const SHAPED_FAMILIES: readonly FieldGroup[] = [
       "THE GRINDSTONE'S LEFT FLAT",
       "THE GRINDSTONE'S RIGHT FLAT",
       "THE MAZE'S HEART",
+      "THE THROAT'S PUMP",
     ],
   },
   {

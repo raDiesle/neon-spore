@@ -3351,404 +3351,108 @@ the ring's own seat (`baton-grip.ts` `batonGripSeat`). One `GripVerdicts` in
 
 ## 11.19 THE THROAT — the boss you answer by feeding it
 
-*Built 16–17 September 2026 in three pieces: the simulation, the gullet, then
-the navigator's readout and the eversion. The design is
-`docs/spec/bosses-choreographed.md` §1; the code is `sim/throat.ts`,
-`sim/throat-step.ts`, `sim/throat-clock.ts`, `sim/throat-feed.ts`,
-`sim/throat-pull.ts`, `sim/throat-hand.ts`, `sim/config-throat.ts` and
-`render/throat-draw.ts`, `render/throat-shape.ts`, `render/throat-mouth.ts`,
-`render/throat-lock.ts`, `render/throat-evert.ts`,
-`render/boss-cue-read-k.ts`. It gained two gestures of its own on 19 September
-2026, below.*
+*Built 16–17 September 2026; **reworked 1 October 2026** at the owner's word —
+"hard to understand and not logical to me … completely rework it, but keep
+graphics". The gullet is the old picture; everything it does is new. The code
+is `sim/throat.ts`, `sim/throat-hand.ts`, `sim/throat-suck.ts`,
+`sim/throat-step.ts`, `sim/throat-hash.ts`, `sim/config-throat.ts`,
+`sim/events-throat.ts` and `render/throat-draw.ts`, `render/throat-shape.ts`,
+`render/throat-mouth.ts`, `render/throat-grip.ts`, `render/throat-marks.ts`,
+`render/throat-receipt.ts`, `render/throat-evert.ts`, `render/throat-say.ts`,
+`render/boss-cue-read-k.ts`. The design is
+`docs/spec/bosses-choreographed.md` §1.*
 
 **The question no other boss asks.** *What you put in on purpose.* Every other
-boss in this game is answered by taking something away from it. This one is
-answered by **giving** it something, and the pair's own habit — clear the
-field, shoot the hazard, ward the rock — is what feeds it.
+boss is answered by taking something away from it. This one is answered by
+**feeding** it — and only the right thing, in the right colour.
 
-**The shape.** A gullet of `throatRings` ring muscles hangs from the top of the
-field down to `throatMouthRow`, ending in a mouth one column wide that slides
-along that row. It is a fixture and not a body (`bossFillsWave` is false, THE
-VANE's family): nothing of it is among the creatures, so it cannot be shot,
-warded or taken hold of, and **shots pass straight through the tube**. That
-last is deliberate and load-bearing — player 2's answer to a creature about to
-be eaten is to shoot it *in the mouth's own column*, and a tube that stopped
-bolts would be a boss with no answer at all.
+**In one sentence**: one of you carries the mouth over a body, the other pumps
+it open, and it swallows the body if it is in that body's colour.
 
-**Health is the rings.** A choked ring goes slack for good. A tube of five
-slack rings cannot hold its own shape and everts.
+### The shape
 
-**Two clocks, and both are said out loud.** The inhale comes round every
-`throatInhaleBeats`, which tightens to `throatTightBeats` once two rings are
-slack and becomes every beat once four are. The mouth steps `throatSlideCols` a
-beat from the moment the first ring chokes and `throatQuickCols` from the
-second, turning at the walls.
+The gullet stands where the cannon would: a tube of `throatRings` ring muscles
+rooted in the hull, climbing to a mouth the navigator carries anywhere over
+the field. It is a fixture and not a body (`bossFillsWave` is false): nothing
+of it is among the creatures, so nothing can shoot it or ward it. The wave is
+played on its own control set, `"throat"` (`content/control-sets-table.ts`) —
+four colour buttons in the panel's columns, and no strip and no fire, so the
+cannon has nothing to do.
 
-**The mouth's column is derived, not stored**, and that is the one decision in
-this boss a later lane must not undo. `throatMouthCol(cfg, b, beat)` is a pure
-function of an anchor — the column the mouth stood in when the phase began, and
-the beat it began on — so it answers about *any* beat. Two reasons, and the
-second is the stronger. First, the ordering hazard: the pull is decided inside
-`beat.ts`'s fall loop and the hit tests run from `stepBoss` after it, so a
-stored column stepped by either one would be read a beat stale by the other —
-the class of bug `beamBeat` was written to fix a day earlier. Second, player 2's
-readout is *which column the mouth will be in*, a question about a beat that has
-not happened, and a stepper cannot answer it at all.
+### The hands
 
-**What the pull does.** A body in the mouth's column at or below the mouth's
-row stops falling. On each inhale the throat **swallows before it lifts**:
-whatever is standing in the mouth is taken, and everything else in the column is
-hauled one row closer. That order is the pair's window — a body hauled into the
-mouth stands in it for a whole inhale before it goes down. It is **THE DRAG and
-not THE SLOW** (`decisions.md` #33 says why they are two tools): the climb costs
-real beats, so a braking hand has a whole inhale to arrive rather than one
-frame. `gripBrakes` and not `gripCount`, which is the shipped rule — a hand on a
-living body is player 1's aim and drags at nothing — so the sentence the pair
-ends up saying is *a rock in that column is his to brake, a creature is hers to
-shoot*.
+- **P2 carries the mouth.** A drag that starts on the mouth (`throatAim`)
+  moves it, and the tube follows from the root. It may go anywhere inside
+  `throatAimBox`: `throatSideMarginMilli` off each side wall and
+  `throatTopMarginMilli` off the top, so the mouth and its circle are never
+  cut by the frame or hidden under the status bar.
+- **P1 pumps.** A drag on the pump handle beside the root (`throatPump`),
+  down and then up, as fast as it will go. A stroke is a thumb carried
+  `throatStrokeMilli` the other way; each adds `throatPumpGainMilli` to the
+  pump, and every tick takes `throatPumpDecayMilli` back
+  (`sim/throat-hand.ts`). The pump is the circle: `throatRadiusMilli` runs
+  from `throatMinRadiusMilli` at the first stroke to `throatMaxRadiusMilli` at
+  a full pump, and a still pump closes it.
+- **Each seat sets two colours.** The `throatMode` command, from the four
+  panel buttons: red and cyan are P2's, SHIELD and SUCK are P1's
+  (`throatModeSeat`). A press on the other seat's colour is refused, and
+  `throatMode` says the new colour in an event of that name.
 
-**A swallowed body re-tightens a ring.** So the throat heals out of the wave's
-own arrivals, and all of them do: two bodies in the mouth on one inhale tighten
-two rings, which is the design's own step 10. **The phases only ever go
-forward** — what a heal costs is rings, which is to say the fight is longer
-than it was, and never the ground the pair can see it has taken.
+### What each colour swallows
 
-**The one thing that hurts it** is THE GUM, flung. A hand carries a falling gum
-`gumSwipeMilli` sideways and it leaves its lane to fly level along the row it
-was on at `gumFlingCols` a beat (`sim/gum.ts`). Arriving at the mouth, it chokes
-a ring for good and opens a slow window, because the design asks for it by name:
-*the fling is a SLOW*. The hit test is a **sweep** and not an equality: a gum
-crosses three columns a beat and the mouth is one wide, so a test that asked
-only whether the two matched would be a boss a fling flew over two times in
-three. The sweep is read off where the gum landed and the way it is going, never
-off `fromCol` — that field is a fact about the picture and outside the
-fingerprint, and a hit test built on it is one two devices could disagree about.
+The ordinary panel's answer to each body, called and never re-derived
+(`sim/throat-suck.ts`):
 
-**Beaten, it everts** for `throatEvertBeats` with a slow window over the whole
-of it, and the boss is nulled at the end rather than at the last choke, so the
-picture has the eversion to run before the wave ends under it.
+| Colour | Swallows | Called |
+|---|---|---|
+| red | a slick | `livingKindForColor` |
+| cyan | a bulb | `livingKindForColor` |
+| SHIELD | a meteor | `isMeteorKind` |
+| SUCK | a pod, giving its cargo as the maw does | `takeCargo` |
 
-**A pod is held by the same rule** — step 10, built last, on 17 September
-2026. Pods are a separate array in thousandths with their own step, so the hold
-is asked of a *place* rather than of a body (`Standing`, `throat-pull.ts`) and
-both arrays are read through the one predicate: a creature by its span, a pod by
-the tile it is nearest. A loose pod in the mouth's column stops where it is, is
-hauled a tile an inhale, and standing in the mouth is swallowed and re-tightens a
-ring — the design's own fail cell for that step, and it does not lose the wave:
-what the pod cost is rings. The maw answers it by reach: a loose pod within
-`podHomeTiles` of the hull is steering for the cannon and the throat has lost
-it. A moored pod hangs off the field and is nobody's to haul.
+A husk is never swallowed: it is the maw's lie, and this mouth cannot tell it
+any better. A boss's part, a span and a worn shell are not the mouth's to take.
 
-**Two things the design asks for that are not built, and why.**
-*A braked gum.* Step 12 wants a hand to hold a gum out of a continuous inhale,
-"THE GRIP, unchanged" — but a hand on a gum is already the *fling* gesture
-(`handMeans` calls it a pull), so braking one would change THE GUM rather than
-leave it unchanged. Phase `open` inhales every beat instead, which is the same
-pressure without a gesture meaning two things.
-*Nothing else.* The mouth's target lock and the eversion landed with the look,
-below.
+### A wrong colour
 
-### The gullet, drawn
+**Refused, never punished.** A body inside the circle that the colour does not
+answer stays: it shakes where it is (render reads `refusedId` and
+`refusedTick`), the sound says no once per `throatRefuseTicks`, and it keeps
+falling as it was. No damage to the hull and no miss on the sheet — the cost of
+the mistake is the time it took.
 
-*Landed 17 September 2026. A look with **no shipped alternative** — the boss
-played and was invisible — which is the second of the three exemptions in
-`CLAUDE.md`.*
+### Health, and the eversion
 
-**The silhouette is the health bar, and here it is the whole of it** (§11.0).
-Five ring muscles hang between the top of the frame and the mouth's row, each a
-lit band standing proud of a wet grey tube, the top one's whole rim the
-gullet's dark opening (`render/throat-flesh.ts`). A ring a gum choked goes
-slack for good: it is drawn **limp inside its own station**, a dark narrow band
-sagging below where the taut one was. A slack ring is never simply left out — a gullet with three gone
-has to read as *weaker* and not as *shorter*, and a tube that got visibly
-smaller as the pair won would be telling them the fight was nearly over at the
-moment it started healing.
+**Health is the rings.** Every right swallow slackens one for good, and
+`throatRingsLeft` is how many are still taut. When the last goes slack the tube
+cannot hold its own shape: the phase turns from `sucks` to `everts`, and for
+`throatEvertBeats` the gullet pulls itself through its own mouth, ring by ring.
+Then the boss is gone and the wave plays out. Both hands are asked for nothing
+while it everts.
 
-**Which ring a choke took is a convention, and it had to be.** The simulation
-stores a count and nothing else, deliberately, because no rule cares which
-muscle it was. So the picture chose: the rings go slack **from the mouth
-upward**, a choke landing at the mouth and the damage climbing. A second rule
-for healing then came free — the count drops, so the ring that tightens again is
-the one furthest from the mouth, which is the most recent one to have gone.
-Either choice had to be a function of `b.slack` alone or two phones would draw
-two different gullets out of one world (`render/throat-shape.ts`).
+### The picture kept
 
-**The tube leans toward the mouth, and how far up the lean reaches is the
-slack.** A whole gullet bends only in its lowest rings and hangs straight from
-the root; one with four muscles gone sags across the field from the top. That is
-the design's *the tube can no longer hold its own shape*, said with the number
-that already exists rather than with a second clock.
+The gullet is drawn as it was: the ring muscles, taut and lit or limp inside
+their stations, the dark skin between them, the lip, and the eversion. What
+moved is where it stands — rooted in the hull at the cannon's place, its mouth
+wherever P2 has carried it (`render/throat-shape.ts`).
 
-**The contraction travels upward, and that is the load-bearing decision of this
-half.** A gulp starts at the mouth on an inhale and climbs one ring a beat. The
-other direction was the obvious one and is wrong: a wave running *down* the tube
-to arrive at the mouth on the inhale beat is a **countdown**, legible on both
-screens — and the count is the one thing this fight gives the navigator alone to
-say. Running upward it is a receipt: *it has just taken something*, a fact
-neither player needs the other for, and it gives away no beat that has not
-happened. The lip gapes on the inhale and shuts over the beat after, never
-ahead of one, for the same reason.
+### The words
 
-**Grey, except the lip.** Shots pass straight through the tube and no hand can
-take hold of it, so the body of it is `rock` — THE VANE's arm and THE BATON's
-spine, the honest colour for a mechanism nothing can be fired at. The lip is
-`venom`, THE GUM's own hue, because it is the only thing in the fight anybody
-aims at and the gum is the only ammunition that touches it: a *load this* mark
-that is true, which is what `clownNose` and `arc` are each argued not to be.
+Two, one per seat, beside its own handle (`render/boss-cue-read-k.ts`):
+`PULL` on the mouth for P2, `PUMP` on the handle for P1, each gone while its
+gesture runs and both gone once it everts. The colour is never said — which
+colour the body in the circle wants is the sentence the pair says to each
+other. After a right swallow `SWALLOWED` stands under the mouth for two beats
+(`render/throat-receipt.ts`).
 
-**The hauled column is drawn or the pull is a bug.** A rock that stops falling
-halfway down a lane with nothing to say why is the most alarming thing this boss
-does. The first frame of it was an even ladder of chevrons at full length and
-full strength — louder than the gum it was a background to, and perfectly still,
-because an evenly spaced repeat has no motion in it. The throat's reach really
-is the whole column, so the current is not shortened to lie about it; it is
-thinned with distance instead, which is true of a pull anyway and leaves the
-bottom of the column to the bodies standing in it. The marks climb, and that is
-the one thing about it that must be unmistakable: everything else on this field
-goes down.
+### What is not verified
 
-**Both screens draw the same gullet.** Nothing about the tube *as it stands* is
-kept from either seat: the mouth's column this beat is what a fling is swept
-against, and hiding it from the seat who owns the fling would be a boss with no
-answer at all.
-
-### The navigator's readout, and the eversion
-
-*Landed 17 September 2026, the same exemption.*
-
-**NEXT INHALE is the navigator's whole half of this fight** — the column the
-mouth will be standing in on the beat it next takes something, and how long
-until that beat. It is `queen-drop.ts`'s picture, which the design asks for by
-name: the target lock, the words under it, and a bar that fills as the beat
-comes on rather than draining, so the eye reads a thing arriving.
-
-**It is the one readout in this game about a beat that has not happened**, and
-it is why the mouth's column is a pure function of the beat rather than a
-position stepped once a beat. A stepper could not answer the question at all.
-The pilot is not being punished for it: he has the whole gullet, which is where
-the mouth is *now*, and now is what a fling this beat is swept against. What he
-cannot see is where to let go for a gum that lands in four beats' time, and the
-mouth crosses two columns a beat while the gum crosses three — that arithmetic
-is the sentence the pair has to say out loud.
-
-**No bracket until the mouth walks**, which the first frame of it taught. In
-phase `still` the mouth has no stride, so the column it will be in *is* the
-column it is in, and the bracket landed around the lip as a second highlight on
-a thing already drawn on both screens. A bracket answers *which column*; until
-there is a question there is none, and the words and the bar carry the count on
-their own. The bar reads `throatEvery` every frame rather than a remembered
-stride, so it is still right on the beat the inhale tightens from six to four.
-
-**The eversion** is what the design calls the whole reason to build it. With
-every ring slack the tube pulls itself through its own mouth: the root descends,
-the gullet above shortens from the top as it feeds through, and each ring that
-comes out blooms below the mouth's row, the newest widest, so what grows on the
-field is visibly the boss turned inside out rather than a boss falling apart.
-
-**The inside is `venom`, and it needed no new hue** — the lip has been saying so
-the whole fight. The lip is the *edge* of this surface, the only part of the
-inside a pair can ever see, and the first thing the eversion does is prove the
-green they have been aiming at goes all the way in. Not one stroke of the tube's
-grey outside is drawn on an everted ring; that is the picture. It runs off
-`throatEvertBeatsLeft` rather than a remembered start, so the frame the count
-reaches zero is the frame `stepThroat` nulls the boss and there is nothing left
-to draw — which is why the sim keeps the boss installed for the whole of
-`throatEvertBeats` instead of nulling it at the last choke.
-
-**Nothing is held between frames.** Every number is arithmetic over the phase,
-the anchor, the slack count and the two receipt beats, so there is no `Effects`
-field to clear and a restart cannot show this fight the last one's gullet.
-
-**A worn gullet was never photographed**, and that is a tool gap rather than a
-choice: every ring going slack needs a gum flung into a walking mouth, and
-`bun run frames` has no handle for a sideways carry and no way to set a boss's
-own fields (`docs/queue.md`). The sag, the limp rings, the gulp's direction and
-the mouth's snap are proved as arithmetic in
-`render/test/throat-shape.test.ts` — which is the right proof of the geometry
-and no proof at all of how it reads.
-
-**What the field says** (`render/src/boss-cue-read-k.ts`, 19 September 2026,
-`docs/decisions.md` #34). Six words across four moments, and the one that
-decides the first reading is a row. `CARRY` / `FLING` stands on a gum **only while it
-is on the mouth's row** — a gum flies level along the row it was on when the
-thumb lifted (`gumSwiped`) and `throatChoked` refuses one arriving on any other
-(`throat-step.ts`) — so the word that used to stand for the whole of a fall now
-stands for the one beat it is worth anything. It says nothing about which side
-to start from or how far to carry, which is the arithmetic sentence this fight
-is made of: a gum crosses `gumFlingCols` a beat and the mouth steps its own
-stride.
-
-The other two moments were silent, and they are the fight. A living body
-standing **in** the mouth has one inhale to live — the swallow takes what is
-there and the lift hauls the next body up afterwards (`throat-step.ts`), so
-arriving in the mouth buys a whole beat — and that beat is `PRESS` / `FIRE` on
-her screen when his carriage is in the mouth's column and `CARRY` / `MOVE` on
-his cannon when it is not, THE UNDERTOW's pairing exactly: the colour buttons
-are hers and they fire straight up *his* column. A rock the throat has hold of
-**below** the mouth is `HOLD` / `BRAKE`, on `seat: null` because `handMeans`
-gives the brake to either thumb, and it goes quiet the beat `gripBrakes` counts
-a hand on it. Nothing at all is said while it everts: `throatChoked` refuses,
-the hold is let go of, and every gesture those words ask for is worth nothing.
-
-**The fourth moment is the rock standing in the mouth**, and until the gullet
-grew two handles of its own it carried no word at all: `isWardable` says a bolt
-leaves a crater and not a kill, and a hand on it drags at a fall that has
-already stopped. Both old gestures miss it. What stands there now is `HOLD` /
-`CINCH` or `CARRY` / `HAUL`, and **which one it is is the phase** — the section
-below. One word however many rocks are in the mouth, because the handle is the
-gullet's and not the body's.
-
-**And the one thing the field is still deliberately not given**: any word for
-the mouth's own column or the beats to the next inhale — the two numbers on the
-navigator's bar, which is the whole of what this pair has to say out loud.
-
-### The gullet's two handles, one per state
-
-*Landed 19 September 2026. The simulation is `sim/throat-hand.ts`, the clock it
-spends on is `sim/throat-step.ts`, the cadence they both read is
-`sim/throat-clock.ts`, and the words are `render/boss-cue-read-k.ts`.*
-
-**The fight shipped with five states and one sentence.** Fling a gum across the
-mouth, shoot what is standing in it, brake what is climbing — in every phase,
-answered on the ordinary panel, and nothing to touch on the boss itself. The
-phases changed two numbers between them and asked for the same three thumbs.
-
-**So the gullet hands out a control as it loses one**, which is the only place
-these two could have come from and still be this boss. There is nothing to
-pinch until the pair has choked a ring, and nothing to haul until four are
-slack: the handles are the damage, and a fresh tube offers neither.
-
-**The cinch is the navigator's**, on a ring already gone slack, and it is a
-bargain rather than a pause. While her thumb is on it the gullet does not
-breathe — no swallow, no lift — and every inhale she takes off the grid is owed
-back **one a beat** the moment she lets go (`throatBreathes`). So the freeze is
-borrowed and never given, and it is bought at the worst rate in the fight: held
-past `throatCinchBeats` the ring tears out of her thumb and the bill arrives
-anyway. A thumb that never lifts buys `throatCinchBeats` frozen beats out of
-every `2 * throatCinchBeats` and not one more, because the ring cannot be
-re-taken while anything is owed — a held thumb sends `on: true` on every tick
-(`stareLidHeard`), so without that the freeze would be free and endless.
-
-**It stops the inhale and it does not stop the mouth.** `throatMouthCol` is a
-pure function of the beat and no thumb reaches it, which makes the cinch mean a
-different thing in every phase without a line of code per phase: in `slide` and
-`quick` the frozen beats are the mouth **sliding off** the body it was about to
-take, and in `open` the stride is zero and the same gesture is worth nothing at
-all. That is the state machine doing the work rather than a table.
-
-**And the readout does not flinch.** `throatToInhale` stays a pure function of
-the phase, so the number player 2 is saying out loud counts down exactly as it
-did while her own thumb is holding the gullet shut. The debt is a second field
-and not a shifted origin, for that reason alone: a pair cannot say a number
-that moves when one of them acts.
-
-**The haul is the pilot's, and only in `open`** — the phase where the mouth has
-stopped coming to them and takes something every beat. His carry drags the tube
-a column sideways, `fromMilli`'s **sign is the direction** as `pinTable` reads
-it, and it is a carry and not a press: a tap would move the mouth by a
-fingertip's jitter, and the mouth's column is the one thing player 2 has
-already said out loud. It is the only way in this fight to take something
-*back out* of the mouth, and it is spent on the beat it lands on — a pending
-step that outlived its beat is a number two devices could spend on different
-ones, which is why `haulStep` is in the fingerprint and cleared whatever the
-phase does next.
-
-**Neither can hurt the pair**, which is THE VANE's own bargain: a thumb lifted
-early is a window lost, a haul heard in the wrong phase is nothing at all, and
-the worst the cinch can do is hand back the beats it borrowed. Both are heard
-on the **tick** (a thumb is down when it lands) and both are **spent on the
-beat**, by `throatBreathes` and `throatHaul`, which is this fight's whole
-promise: every change lands on a count somebody said.
-
-**Both are on the picture and neither is on a panel.** `CINCH` stands on the
-lowest ring, which is always the slack one because the picture chokes from the
-mouth upward, and `HAUL` stands on the mouth itself — each mark where the thumb
-goes, which is `MOVE`'s rule. Each goes quiet the moment it is being answered:
-a word over a ring a thumb is already on is `gripBrakes`' lesson repeated.
-
-**Three fields and one config pair.** `cinchBeat`, `breath` and `haulStep` are
-in `throatHashParts`; `throatCinchBeats` and `throatHaulMilli` are in
-`ThroatConfig`; `throatRing` and `throatTube` are in
-`net/src/command-fields.ts`, without which the wire would drop both silently.
-
-**The cinch was photographed on 22 September 2026**, and the sentence that
-stood here — that `bun run frames` had no handle for setting a boss's own
-fields — was wrong when it was written: `--boss slack=3,phase=slide` puts a
-slack ring on the gullet in one command, and the frame it took is what found
-the defect below. What is still unphotographed is the **haul**, which wants the
-mouth walking and a sideways carry nothing on the command line can make. The
-arithmetic is proved in `sim/test/throat-hands.test.ts` and the words in
-`render/test/boss-cue-throat.test.ts`.
-
-**And the dim copy fills nothing, 22 September 2026.** Both rings are drawn on
-both screens — bright on the seat it belongs to and dim on the other, because
-the cinch is a freeze the pilot spends his beats inside and neither can feel
-the other's thumb. What the dim copy may not do is **cut**. A ring fills its
-circle in the background colour before its own so it reads over whatever it
-hangs on, and these two hang on the gullet itself: the first frame of the cinch
-from the pilot's seat came back with a black disc bitten out of the end of the
-tube, on the boss whose whole picture is how much of it is left. It fills
-nothing now (`theirs`, `handle-draw.ts`), and
-`render/test/handle-hole-bosses.test.ts` counts the discs punched on each
-screen.
-
-**Both rings answer a touch the way every mark does** (28 September 2026, the
-owner's consistent visual; `render/throat-marks.ts`). The ring that asks this
-seat for a thumb wears the halo: the slack ring on the navigator's screen until
-her thumb is on it, the tube on the pilot's until a carry has been given
-(`sim/throat-hand.ts` `throatRingAsks`, `throatTubeAsks`, which the grip, the
-cue and the halo all read). There is no partner's clock: both are one seat's
-bargain, taken when that seat chooses, and the gullet goes on breathing and
-inhaling whether or not either is taken. A cinch and a haul wash their ring
-green (`throatCinch`, `throatHaul`); a press from the other seat washes it red
-(`throatRefuse`, the eighth event, which sounds `boss.instarRefuse`). The
-picture used to let that press fall through; it hands it through now with no
-hold, so the refusal is said once rather than on every move of a held thumb.
-At a desk the press is signed with the ring's own seat (`throat-grip.ts`
-`throatGripSeat`). The verdicts are kept in `BossBlows` and drawn last, inside
-the gullet's shake. `render/test/throat-verdict.test.ts` and
-`sim/test/throat-asks.test.ts` hold it.
-
-**The two hands have sounds.** The cinch, the slip and the haul are
-`events-throat.ts`, bound in `audio/bind-throat.ts` and panned to the mouth's
-own column, because a fixture has no body to point at and the column is the one
-number this fight says out loud. Both hands are heard on the tick and both are
-*said* where they land: the cinch and the slip in `throat-hand.ts`, the haul on
-the beat in `throat-step.ts` where `throatSnap` settles which column it moved
-to. A lift and a tear are one `throatSlip`, because they cost the pair the same
-thing.
-
-**And so does the gullet's own clock, since 19 September 2026** — the inhale,
-the choke, the swallow and the eversion, on the same union and the
-same pan. The hands are receipts for what the pair did; these four are what the
-boss did, which is the half of the fight neither screen spells out while both
-players are looking at the other half of their own. The breath is the count
-player 2 has been saying out loud, so it is pushed **after** the
-`throatBreathes` gate and **before** `throatFed`: the bill for a mouthful
-arrives after the moment she was counting to and not instead of it. The choke is
-pushed **before** the `throatSpent` return, so a gum landing on the last ring
-— the best shot in the fight — is never the one shot with no sound. The swallow
-is one event however many bodies were taken, because what the pair is owed is
-the fact that a ring they had already paid for came back. The eversion is said
-beside `openSlow` on the beat the last ring went slack, not on the beat the boss
-is nulled, because the sound is the ending *starting* and THE SLOW is open for
-`throatEvertBeats` after it.
-
-**The four are heard and not drawn.** Every one of them is a state the field
-already carries — the phase and its `phaseBeat`, `chokedBeat`, `fedBeat`, the
-eversion under THE SLOW — so a burst on top would be a look and goes to VERSUS
-rather than onto the field (`docs/looks.md`). They are in the silent lists in
-`render/effects-ingest-silent-boss-b.ts` and `effects-spark-silent-boss-b.ts`
-for that reason and not for want of a lane. The order they are said in, and that
-an empty mouth says nothing, are in `sim/test/throat-clock-heard.test.ts`.
-
-**Never watched at tempo.** Whether a pair can hold a column and a count at 96
-BPM while one of them is timing a thumb is a thing a person finds out with
-another person. The tests say the arithmetic: that the mouth's travel is a pure
-function of the beat and never stands still against a wall, that the inhale
-counts from its phase's own origin, that the pull holds and a braking hand stops
-it, that a swallow re-tightens and a fling chokes, and that the phases go one
-way (`sim/test/throat.test.ts`).
+The owner's eye on the rework: whether the pump at these three numbers feels
+like pumping, whether a pair finds the colour split without being told, and
+whether the mouth's colour reads at a glance. The look lane — the circle's
+ring, the refusal's shake, the pump's handle and the mouth's colour — follows
+this one, and with it the cannon taken off the hull for the wave.
 
 ## 11.20 THE UNDERTOW — the boss under the floor, answered downward
 

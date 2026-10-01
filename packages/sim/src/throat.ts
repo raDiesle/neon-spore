@@ -2,130 +2,111 @@ import { hullRow, midCol, type SimConfig } from "./config.js";
 import type { World } from "./world.js";
 
 /**
- * THE THROAT: the one boss you answer by **giving it something**.
+ * THE THROAT: the one boss the pair **works as a machine of its own**.
  *
- * **The question no other boss asks** — *what you put in on purpose.*
- * Everything else in this game is answered by taking something away from it,
- * and the pair's habit is the one they were taught in wave one: clear the
- * field, shoot the hazard, ward the rock. Here that habit is the boss's
- * dinner. A creature it swallows **re-tightens a slack ring**, so a pair who
- * lets the field run is fighting a thing that heals out of their own arrivals,
- * and the only thing that hurts it is a gum thrown into its mouth.
+ * Reworked on 1 October 2026, on the owner's word that the old fight — gums
+ * flung into a mouth that slid on a clock — was hard to understand. The
+ * picture stayed; the rules are new, and they fit in one sentence: *pump it
+ * and it sucks, and it only swallows what its colour says.*
  *
- * **Health is the five rings** (`throatRings`). A choked ring goes slack for
- * good and stops joining the contraction wave, so the wave visibly gets
- * shorter as the fight goes on: the health, the clock and the picture are one
- * drawing, which is THE QUEEN's bargain and the reason there is no bar.
+ * **The cannon is gone for the fight.** In its place a gullet grows out of the
+ * hull at the middle column and ends in a mouth, and the mouth is where the
+ * two hands meet:
  *
- * **It is a fixture and not a body** (`bossFillsWave` is false for it): the
- * gullet hangs from the top of the field down to `throatMouthRow` and nothing
- * of it is among `world.creatures`, so it falls nothing, reaches nothing, and
- * cannot be warded or taken hold of — THE VANE's family. **Shots pass through
- * the tube**, and that is not an oversight: player 2's answer to a creature
- * about to be swallowed is to shoot it *in the mouth's own column*, and a tube
- * that stopped bolts would be a boss with no answer at all.
+ * - **Player 2 carries the mouth** anywhere over the field (`throatAimAt`),
+ *   kept clear of the walls and the top so it is never cut off the screen.
+ * - **Player 1 pumps it**, a stroke down and a stroke up and again, and the
+ *   faster the strokes come the wider the circle round the mouth that pulls
+ *   things in (`throatRadiusMilli`).
+ * - **Each seat owns two of its four colours** (`THROAT_MODES`), the four the
+ *   ordinary panel's columns stand for: red and cyan are player 2's as the two
+ *   shots are, SHIELD and SUCK are player 1's as the shield and the maw are.
  *
- * ## Two clocks, and both of them are said out loud
+ * A body inside the circle in the colour it answers to is swallowed and gone
+ * — a slick in red, a bulb in cyan, a rock in SHIELD, a pod in SUCK — and every
+ * swallow is one ring of the gullet's health (`throat-suck.ts`). A body in the
+ * wrong colour shakes where it is and stays, and nobody is hurt: the mistake
+ * costs time and nothing else.
  *
- * *Its* clock is the inhale (`throatInhales`): every `throatInhaleBeats` it
- * swallows whatever is standing in its mouth and hauls everything else in its
- * column one row closer. *Its* other clock is the mouth's travel
- * (`throatMouthCol`), a column a beat along its own row, turning at the walls.
+ * **Health is the five rings** (`throatRings`): each swallow slackens one, and
+ * the fifth turns the tube through its own mouth. The rings are the bar, which
+ * is THE QUEEN's bargain and the reason there is no other.
  *
- * Player 2 is shown both and neither is on player 1's screen. Player 1 owns
- * the fling, because the row a gum is on when the thumb lifts is the line it
- * flies along (`gum.ts`). So the fight is an arithmetic sentence: *a gum falls
- * a row a beat, the mouth steps a column a beat, a fling crosses
- * `gumFlingCols` a beat — which beat do I let go?*
- *
- * The clock and the two hit tests are `throat-step.ts`, the pull is
- * `throat-pull.ts`, the fingerprint is `throat-hash.ts`, the numbers are
- * `config-throat.ts`, and `docs/spec/bosses-choreographed.md` §1 is the
- * design. This file is the shape, the geometry and the questions asked of both.
+ * **It is a fixture and not a body** (`bossFillsWave` is false for it):
+ * nothing of it is among `world.creatures`, so it falls nothing and is never
+ * hit. The hands are `throat-hand.ts`, the suck is `throat-suck.ts`, the beat
+ * is `throat-step.ts`, the fingerprint is `throat-hash.ts` and the numbers are
+ * `config-throat.ts`. This file is the shape and the questions asked of it.
  */
 
 /**
- * The phases, in the order `throat-hash.ts` numbers them by.
+ * The phases, in the order `throat-hash.ts` numbers them by — a list rather
+ * than a bare union, because the index is a wire value.
  *
- * A list rather than a bare union, because a phase goes into `hashWorld` as its index, so the order is a wire value and a name
- * inserted in the middle would renumber the ones after it.
- *
- * - `still` — the mouth hangs over the middle column and does not move.
- * - `slide` — it steps a column a beat and turns at the walls.
- * - `quick` — the inhale tightens and the mouth steps two.
- * - `open` — four rings slack: it inhales every beat and stops sliding.
+ * - `sucks` — the fight: carried, pumped and fed.
  * - `everts` — beaten. It pulls itself through its own mouth.
  */
-export const THROAT_PHASES = ["still", "slide", "quick", "open", "everts"] as const;
+export const THROAT_PHASES = ["sucks", "everts"] as const;
 
 /** Where the fight is. */
 export type ThroatPhase = (typeof THROAT_PHASES)[number];
 
-/** Everything THE THROAT remembers between beats. */
+/**
+ * **The four colours the mouth can be set to**, in the order the hash numbers
+ * them by: the panel's four columns, the two shots and then the two of player
+ * 1's own (`throat-hand.ts` says which seat sets which).
+ */
+export const THROAT_MODES = ["red", "cyan", "shield", "suck"] as const;
+
+/** One of the four. */
+export type ThroatMode = (typeof THROAT_MODES)[number];
+
+/** Everything THE THROAT remembers between ticks. */
 export interface ThroatState {
   kind: "throat";
   phase: ThroatPhase;
-  /** `world.beat` the current phase began on — the origin of both clocks. */
+  /** `world.beat` the current phase began on — the eversion's clock. */
   phaseBeat: number;
-  /**
-   * Rings gone slack, 0 to `throatRings`. **It goes down as well as up**,
-   * which is the whole boss: a swallowed creature re-tightens one.
-   */
+  /** Rings gone slack, 0 to `throatRings`: one for every right swallow. */
   slack: number;
-  /**
-   * The column the mouth stands in at `phaseBeat`, and the travel's only
-   * anchor — `throatMouthCol` is a pure function of this and the beat.
-   *
-   * An anchor rather than a position, and the difference is the boss. A stored
-   * column would have to be stepped by something, and whatever stepped it
-   * would sit on one side of `onBeat` while the pull and the hit tests sat on
-   * the other (`step.ts`, where a beam on a boundary tick burns while the
-   * counter still reads the beat that has just ended). Worse, player 2's readout is *which
-   * column the mouth will be in* — a question about a beat that has not
-   * happened — and a stepper cannot answer it at all.
-   */
-  mouthFrom: number;
-  /** The beat a ring last choked, -1 before the first. render/'s, so the tube
-   * darkens off the world rather than off a clock a restart could carry. */
-  chokedBeat: number;
-  /** The beat it last swallowed something, -1 before the first. render/'s for
-   * the same reason, and the pair's receipt for a body they left alone. */
+  /** The beat it last swallowed something, -1 before the first. render/'s,
+   * so the gulp is drawn off the world rather than off a clock a restart could
+   * carry. */
   fedBeat: number;
   /**
-   * **The beat player 2's thumb landed on a slack ring**, -1 when no thumb is
-   * on one — the cinch, and the fight's second gesture (`throat-hand.ts`).
-   *
-   * A beat and not a flag for `vane-hand.ts`'s reason turned around: the hold
-   * is heard on the tick and spent on the beat, and the number is what the
-   * picture darkens the pinched ring from. It is the one handle in this fight
-   * that **the pair made themselves** — there is nothing to pinch until a gum
-   * has choked a ring, so the boss hands out its own second control as it
-   * loses.
+   * The tick a body in the wrong colour was refused, -1 before the first, and
+   * which one. render/'s for the shake, and the simulation's for the throttle:
+   * a body sitting in the circle is refused once per `throatRefuseTicks` and
+   * not sixty times a second (`throat-suck.ts`).
    */
-  cinchBeat: number;
+  refusedTick: number;
+  refusedId: number;
   /**
-   * **Inhales the cinch has stolen and not yet given back**, 0 to
-   * `throatCinchBeats`.
-   *
-   * The whole cost of the gesture, and the reason it is a bargain rather than
-   * a pause button: a held ring does not stop the gullet breathing, it makes
-   * it breathe *later and faster*. Every inhale her thumb takes off the grid
-   * is owed back one a beat the moment she lifts (`throatBreathes`), so the
-   * pilot's window is real time and the bill arrives at the worst rate in the
-   * fight.
+   * **Where the mouth is**, in thousandths of a tile from the field's top
+   * left (column `c` is `c * 1000`), and player 2's whole job. Stored and not
+   * derived: it is wherever her thumb last left it, kept inside
+   * `throatAimAt`'s margins.
    */
-  breath: number;
+  aimXMilli: number;
+  aimYMilli: number;
   /**
-   * **The column player 1's carry has asked the mouth to move on the next
-   * beat**: -1, 0 or 1 (`throat-hand.ts`).
-   *
-   * Pending rather than applied, because this file's own promise is that every
-   * change in this fight lands on a beat somebody can name. A haul heard on
-   * the tick that moved the mouth on the tick would move it between two counts
-   * player 2 had already said out loud, and her column would be wrong through
-   * no fault of hers.
+   * Where the mouth stood when her thumb took hold, -1 when no thumb is on
+   * it. A drag reports a displacement from where the press began
+   * (`render/touch-move.ts`), so the mouth goes to anchor plus displacement and
+   * a lifted thumb leaves it where it is.
    */
-  haulStep: number;
+  aimFromXMilli: number;
+  aimFromYMilli: number;
+  /** The colour the mouth is set to. Red to begin with, the first shot. */
+  mode: ThroatMode;
+  /**
+   * **The pump**: which way the current stroke is going (-1 up, 1 down, 0
+   * before the first sample of a hold), the thumb's height the stroke is
+   * measured from, and how hard it is pumped, 0 to 1000 (`throat-hand.ts`).
+   */
+  pumpDir: number;
+  pumpFromYMilli: number;
+  pumpMilli: number;
 }
 
 /** Rings still tight, which is the health left. */
@@ -138,91 +119,63 @@ export function throatSpent(cfg: SimConfig, b: ThroatState): boolean {
   return b.slack >= cfg.throatRings;
 }
 
-/**
- * The row the mouth hangs on, clamped to a row a body can actually stand in.
- *
- * Never the hull row, for `rockCrossRowFor`'s reason said about a mouth: a
- * body on `hullRow` is one `resolveHull` answers at the end of the beat, so a
- * mouth authored onto it would be competing with the ship for the same
- * arrival and the pair could not tell which of the two had taken it.
- */
-export function throatMouthRow(cfg: SimConfig): number {
-  return Math.max(1, Math.min(hullRow(cfg) - 1, cfg.throatMouthRow));
+/** Beats of the eversion left, 0 outside it. */
+export function throatEvertBeatsLeft(cfg: SimConfig, b: ThroatState, beat: number): number {
+  if (b.phase !== "everts") return 0;
+  return Math.max(0, cfg.throatEvertBeats - (beat - b.phaseBeat));
 }
 
-/** Columns the mouth steps a beat, in this phase. 0 is a mouth standing
- * still, which is two of the five and both deliberately. */
-export function throatStride(cfg: SimConfig, b: ThroatState): number {
-  if (b.phase === "slide") return cfg.throatSlideCols;
-  if (b.phase === "quick") return cfg.throatQuickCols;
-  return 0;
-}
-
-/**
- * **Where the mouth is on this beat**, derived rather than stored.
- *
- * A ping-pong from `mouthFrom` at `phaseBeat`, `throatStride` columns a beat,
- * reflecting inside the field — `cross.ts`'s rule said as an oracle instead of
- * as a stepper, and the reflection is why it is not that function: `crossField`
- * truncates a stride at the wall and turns there, which is the right answer
- * when something is walking beat by beat and cannot be asked about beat
- * forty. This can, and has to be — player 2's whole readout is a column the
- * mouth has not reached yet.
- *
- * The travel is reflected over `span`, which is the last whole stride inside
- * the field rather than the wall itself. That keeps `cross.ts`'s own promise —
- * *there is never a beat spent standing still against a wall* — for a stride
- * that does not divide the field: the mouth turns a column short instead of
- * arriving twice.
- *
- * Negative beats fold, so it answers before `phaseBeat` as well as after: a
- * phase re-anchors on a beat and the frame drawn on that boundary is allowed
- * to ask about the beat that has just gone.
- */
-export function throatMouthCol(cfg: SimConfig, b: ThroatState, beat: number): number {
-  const stride = throatStride(cfg, b);
-  if (stride <= 0) return b.mouthFrom;
-  const wall = cfg.cols - 1;
-  const span = wall - (wall % stride);
-  if (span <= 0) return b.mouthFrom;
-  const period = 2 * span;
-  const raw = b.mouthFrom + stride * (beat - b.phaseBeat);
-  const p = ((raw % period) + period) % period;
-  return p <= span ? p : period - p;
-}
-
-/**
- * The column the mouth stands in at the start of a phase, snapped to a stop
- * the new stride can actually reach.
- *
- * Called on every phase change rather than derived at read time, because the
- * anchor is what makes the travel a pure function: a mouth that entered
- * `quick` on an odd column would reflect between two columns and never stand
- * on a wall, and `throatMouthCol`'s no-repeat promise would quietly stop
- * holding.
- */
-export function throatSnap(cfg: SimConfig, col: number, stride: number): number {
-  if (stride <= 1) return Math.max(0, Math.min(cfg.cols - 1, col));
-  const wall = cfg.cols - 1;
-  const span = wall - (wall % stride);
-  const inside = Math.max(0, Math.min(span, col));
-  return inside - (inside % stride);
-}
-
-/** Where the mouth hangs on the first beat of the fight: the middle column,
- * because a fixture placed off centre would have a long
- * side and a short one, and the pair is already doing arithmetic. */
+/** The column the gullet grows out of the hull at: the middle, as the cannon
+ * it stands in for starts there. */
 export function throatHomeCol(cfg: SimConfig): number {
   return midCol(cfg);
 }
 
 /**
- * The boss, if it is the one installed. Narrowing in one place rather than
- * four, and it is **here** rather than beside the clock in
- * `throat-step.ts` so that `throat-pull.ts` can ask without the two files
- * importing each other at runtime. `World` comes back as a type only, which is
- * erased — the cycle `bullet-types.ts` already stands in.
+ * **Where the mouth may stand**, the box `throatAimAt` keeps it in.
+ *
+ * Inside the side walls and under the top by a margin each, so the mouth and
+ * its circle are never cut by the frame — the owner's own words, *leave some
+ * space so it is not cut* — and never lower than the row above the hull, so
+ * the gullet always has a length to draw.
  */
+export function throatAimBox(cfg: SimConfig): {
+  minX: number;
+  maxX: number;
+  minY: number;
+  maxY: number;
+} {
+  const minX = cfg.throatSideMarginMilli;
+  const maxX = Math.max(minX, (cfg.cols - 1) * 1000 - cfg.throatSideMarginMilli);
+  const minY = cfg.throatTopMarginMilli;
+  const maxY = Math.max(minY, (hullRow(cfg) - 1) * 1000);
+  return { minX, maxX, minY, maxY };
+}
+
+/** Put the mouth here, kept inside `throatAimBox`. */
+export function throatAimAt(cfg: SimConfig, b: ThroatState, xMilli: number, yMilli: number): void {
+  const box = throatAimBox(cfg);
+  b.aimXMilli = Math.max(box.minX, Math.min(box.maxX, xMilli));
+  b.aimYMilli = Math.max(box.minY, Math.min(box.maxY, yMilli));
+}
+
+/** The column the mouth is over, for the events' pan. */
+export function throatMouthCol(b: ThroatState): number {
+  return Math.round(b.aimXMilli / 1000);
+}
+
+/**
+ * **How far round the mouth it pulls**, in thousandths of a tile, and 0 when
+ * it is not pumped at all — a still pump sucks nothing, so the circle is the
+ * pilot's to open and keep open.
+ */
+export function throatRadiusMilli(cfg: SimConfig, b: ThroatState): number {
+  if (b.phase !== "sucks" || b.pumpMilli <= 0) return 0;
+  const span = cfg.throatMaxRadiusMilli - cfg.throatMinRadiusMilli;
+  return cfg.throatMinRadiusMilli + Math.floor((span * b.pumpMilli) / 1000);
+}
+
+/** The boss, if it is the one installed. Narrowing in one place. */
 export function throatBoss(world: World): ThroatState | null {
   const boss = world.boss;
   return boss !== null && boss.kind === "throat" ? boss : null;

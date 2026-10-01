@@ -13,29 +13,35 @@ import { WAVES } from "../src/waves.js";
  */
 
 describe("the rehearsal for THE THROAT", () => {
-  it("clears one body, chokes a ring with a gum, then heals it off a rock", () => {
+  it("carries the mouth, pumps it open, refuses the wrong colour and takes the right", () => {
     const wave = WAVES.findIndex((w) => w.guide?.scene === "theThroat");
     const run = new SceneRun(sceneScript("theThroat", wave, DEFAULT_CONFIG));
-    const flungAt: number[] = [];
-    let slackAt = -1;
+    const swallowedAt: number[] = [];
+    const refused: string[] = [];
+    let modeAt = -1;
+    let startY = -1;
     for (let t = 0; t < SCENES.theThroat.ticks - 1; t++) {
       run.advance([]);
-      for (const e of run.world.events) if (e.type === "gumFlung") flungAt.push(run.world.beat);
       const b = run.world.boss;
-      if (slackAt < 0 && b?.kind === "throat" && b.slack > 0) slackAt = run.world.beat;
+      if (startY < 0 && b?.kind === "throat") startY = b.aimYMilli;
+      for (const e of run.world.events) {
+        if (e.type === "throatSwallow") swallowedAt.push(run.world.tick);
+        if (e.type === "throatRefuse") refused.push(e.part);
+        if (e.type === "throatMode") modeAt = run.world.tick;
+      }
     }
     const boss = run.world.boss;
     if (boss?.kind !== "throat") throw new Error("no throat");
-    // The gum flies for one beat and chokes on the next, which sets the mouth
-    // sliding.
-    expect(flungAt).toEqual([18]);
-    expect(slackAt).toBe(19);
-    expect(boss.phase).toBe("slide");
-    // The red creature is shot before the inhale at beat 12, so the only body
-    // ever swallowed is the rock, on the inhale at 31 — and the ring the gum
-    // choked is tight again. That is the film's last page, and the answer to
-    // *should we let it be sucked in*.
-    expect(boss.fedBeat).toBe(31);
-    expect(boss.slack).toBe(0);
+    // Player 2's carry took the mouth up toward what falls.
+    expect(boss.aimYMilli).toBeLessThan(startY);
+    // The slick goes into the red mouth; the bulb is refused in red, and is
+    // taken on the tick the colour turns cyan.
+    expect(swallowedAt).toHaveLength(2);
+    expect(refused.length).toBeGreaterThan(0);
+    expect(new Set(refused)).toEqual(new Set(["red"]));
+    expect(swallowedAt[1]).toBe(modeAt);
+    expect(boss.mode).toBe("cyan");
+    expect(boss.slack).toBe(2);
+    expect(boss.phase).toBe("sucks");
   });
 });

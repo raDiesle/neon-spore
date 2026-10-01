@@ -210,10 +210,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE UNDERTOW's tap on a tall lobe, from either seat, on the tick because
   // the lobe it shrinks would burst on the next beat (`undertow-press.ts`).
   for (const c of commands) undertowTapHeard(world, c.command);
-  // THE THROAT's cinch and haul, on the tick because a thumb is down when it
-  // lands and the beat only ever asks whether it was down (`throat-hand.ts`).
-  // Both are *spent* on the beat, by `throatBreathes` and `throatHaul`, which
-  // is this fight's own promise: every change lands on a count somebody said.
+  // THE THROAT's carry, pump and colour, on the tick because a mouth that
+  // follows a thumb has to be where the thumb is now, and the suck that reads
+  // it runs on the tick as well (`throat-hand.ts`, `throat-suck.ts`).
   for (const c of commands) throatHeard(world, c.player, c.command);
   // THE CURTAIN's lift on the hem, on the tick because the gap over the core
   // is open only while the thumb is at the top, and a lift answered on the

@@ -180,6 +180,18 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     controls: ["scoutTurnLeft", "scoutTurnRight", "scoutBurn", "scoutMaw"],
   },
   {
+    id: "throat",
+    name: "THE THROAT",
+    why: "The cannon is a mouth: player 2 carries it, player 1 pumps it, and each sets two of its four colours, so nothing is swallowed by one person alone.",
+    // **Four colours and no strip.** The cannon is gone from the hull and
+    // the throat stands where it stood (`sim/throat.ts`); what slides it is a
+    // thumb on the mouth itself and what opens it is a thumb pumping its
+    // handle, both on the field. The four colours are the standard panel's
+    // four answers in the seats they were in — the shots on player 2, the
+    // shield and the maw on player 1 (`controls-throat.ts`).
+    controls: ["throatShield", "throatSuck", "throatRed", "throatCyan"],
+  },
+  {
     id: "scene",
     name: "THE SCENE",
     why: "Nothing on the band at all: the boss's own body carries every mark a thumb answers, and where a mark sits says whose thumb it is.",

@@ -3,12 +3,12 @@ import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
 /**
- * **The states a beat earns** — THE BATON's crossing, THE THROAT's inhale — posed the way `poses-bosses-hands-shots.ts`
+ * **The states a beat earns** — THE BATON's crossing, THE THROAT's suck — posed the way `poses-bosses-hands-shots.ts`
  * poses the shot bosses': the boss's wave, a hand on the controls
  * (`boss-hands-beats.ts`), the run held until the state is there.
  *
- * These are the long ones. THE THROAT's rings come off one carry at a time
- * and its last phase is sixty beats in; THE BATON's crossing is near a
+ * These are the long ones. THE THROAT's rings come off one swallow at a time
+ * and its last phase waits on five bodies falling into reach; THE BATON's crossing is near a
  * hundred, and its first is spoiled by a rock the wave drops down the
  * bead's column — the miss, the arm regrown, and the second crossing made
  * whole at a hundred and forty-six. The budgets say so, and a wave retuned
@@ -42,26 +42,14 @@ export const BEAT_HAND_POSES: Pose[] = [
   ),
   bossPose(
     "throat",
-    "slide",
-    "One ring in and the mouth slides a column a beat. P1 aims ahead of it; P2 flings a gum along its row.",
+    "sucks",
+    "The mouth carried over a body and pumped wide, in the colour that body wants. P2 pulls the mouth; P1 pumps.",
     { hand: throatHand, hold: 12 },
-  ),
-  bossPose(
-    "throat",
-    "quick",
-    "Two rings in and the mouth crosses two columns a beat. P1 answers the carry on the beat; P2 flings.",
-    { hand: throatHand, hold: 12 },
-  ),
-  bossPose(
-    "throat",
-    "open",
-    "Four rings in and the mouth three columns wide. P1 hauls the tube; P2 flings a gum into the mouth.",
-    { hand: throatHand, hold: 12, budgetBeats: 90 },
   ),
   bossPose(
     "throat",
     "everts",
-    "The last ring in and the tube turned inside out. P1 aims at the wave again; P2 fires.",
-    { hand: throatHand, hold: 12, budgetBeats: 90 },
+    "The last ring slack and the tube turned inside out. P1 and P2 are asked for nothing.",
+    { hand: throatHand, hold: 12, budgetBeats: 160 },
   ),
 ];

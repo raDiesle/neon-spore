@@ -201,19 +201,12 @@ export const SILENT_BOSS_B = [
   "batonRefused",
   "batonHeld",
   "batonParted",
-  // THE THROAT's two hands, drawn since 21 September 2026 and still no burst:
-  // both stand on the tube, which is a fixture the field draws every frame,
-  // and on a ring of their own (`throat-grip.ts`); the green of a cinch and a
-  // haul and the red of a refused press are `throat-marks.ts`'.
-  "throatCinch",
-  "throatSlip",
-  "throatHaul",
+  // THE THROAT's five, no burst: the colour, the circle, the swallow and the
+  // eversion are all states of a fixture the field redraws every frame, and a
+  // refused body shakes where it stands (`throat-draw.ts`); a shower over any
+  // of them is a look (`docs/looks.md`).
+  "throatMode",
   "throatRefuse",
-  // And its clock's four, no burst for the same reason: the breath, the choke,
-  // the swallow and the eversion are all states of a fixture the field redraws
-  // every frame, and a shower over any of them is a look (`docs/looks.md`).
-  "throatInhale",
-  "throatChoke",
   "throatSwallow",
   "throatEvert",
   // THE HASP's fourteen throw no burst from this table: every burst of

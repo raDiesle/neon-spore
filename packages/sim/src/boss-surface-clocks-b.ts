@@ -97,21 +97,10 @@ export {
   sinewWalked,
   sinewZone,
   sinewZoneWidth,
-  // And the two hands it gained the day after (19 September 2026): the cue
-  // over a body in the mouth asks the simulation whether a ring may be pinched
-  // and whether the tube may be hauled, rather than re-deriving either from
-  // the phase (`throat-hand.ts`).
-  throatCinchable,
-  throatCinched,
-  throatHauling,
-  // THE THROAT's hold (19 September 2026): whether the gullet has this body,
-  // which is the same question as whether the next inhale will swallow it —
-  // the swallow and the fall's refusal are one rule (`throat-pull.ts`). On
-  // this page because page one is exactly at its limit.
-  throatHolds,
-  // Whether each ring asks its seat for a thumb (`render/throat-marks.ts`).
-  throatRingAsks,
-  throatTubeAsks,
+  // THE THROAT's hands (1 October 2026): whose colour is whose, and whether
+  // a colour swallows a body (`throat-hand.ts`, `throat-suck.ts`).
+  throatModeSeat,
+  throatTakes,
 } from "./bosses.js";
 export {
   FILAMENT_PHASES,

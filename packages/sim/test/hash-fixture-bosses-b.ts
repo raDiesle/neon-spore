@@ -72,9 +72,10 @@ export const BOSS_ENTRIES_B = {
   // the bead is in, whose turn it is — is what the fixture's world has moved
   // by the time it is fingerprinted (`baton-hash.ts`).
   baton: { kind: "baton" },
-  // THE THROAT authors nothing either, and here the absence is the mechanic:
-  // what it eats is the wave's own arrivals, so its difficulty is the wave's
-  // and its two clocks are tuning (`config-throat.ts`).
+  // THE THROAT authors nothing either: what it eats is the wave's own
+  // arrivals, the pump and the circle are tuning (`config-throat.ts`), and
+  // where the mouth stands and in which colour is what the fixture's world has
+  // moved by the time it is fingerprinted (`throat-hash.ts`).
   throat: { kind: "throat" },
   // THE UNDERTOW authors nothing either: how many pushes and how long each
   // stands are tuning (`config-undertow.ts`), and what it remembers — which

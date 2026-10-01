@@ -89,8 +89,8 @@ export function drawEversion(
 ): void {
   const through = evertedRings(cfg, b, beat, beatPhase);
   if (through <= 0) return;
-  const x = mouthX(l, cfg, b, beat, beatPhase);
-  const y = mouthY(l, cfg);
+  const x = mouthX(l, b);
+  const y = mouthY(l, b);
   for (let i = 0; i < cfg.throatRings; i++) {
     // How much of this ring is out: 1 when it is through, a fraction while it
     // is coming, 0 before its turn.

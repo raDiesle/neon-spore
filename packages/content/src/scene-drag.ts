@@ -1,5 +1,6 @@
 import type { DragTarget, SceneCommand, SimConfig } from "@neon-spore/sim";
 import type { SceneAct } from "./scene-act-types.js";
+import { pumpCommands } from "./scene-pump.js";
 import { actCol } from "./scene-script.js";
 import { ringCommands } from "./scene-turn.js";
 
@@ -83,6 +84,10 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // `scoutPrimeMilli`; left out, a film carries it exactly that far.
   if (target === "scoutLine") return 0;
   if (target === "scoutPrime") return cfg.scoutPrimeMilli;
+  // THE THROAT's mouth is carried **up**, toward what is falling, and has no
+  // end but the box it is kept in (`throatAimAt`): left out, a film carries it
+  // one widest circle, which is a body reached from where it stood.
+  if (target === "throatAim") return -cfg.throatMaxRadiusMilli;
   return cfg.mazeTurnMilli;
 }
 
@@ -144,6 +149,7 @@ const NAVIGATORS: ReadonlySet<DragTarget> = new Set([
   "gimbalInner",
   "haspWheel",
   "ratchetCatch",
+  "throatAim",
 ]);
 
 export function dragSeat(target: DragTarget, hand?: 1 | 2): 1 | 2 {
@@ -161,7 +167,8 @@ export function dragSeat(target: DragTarget, hand?: 1 | 2): 1 | 2 {
   // pulled down, and the sum is the two of them (`sim/sinew-hand.ts`).
   // THE GIMBAL's inner ring, THE HASP's wheel and THE RATCHET's catch are the
   // navigator's, by geometry and by the design (`sim/gimbal-hand.ts`,
-  // `sim/hasp-hand.ts`, `sim/ratchet-hand.ts`).
+  // `sim/hasp-hand.ts`, `sim/ratchet-hand.ts`), and so is THE THROAT's mouth
+  // (`sim/throat-hand.ts`).
   return NAVIGATORS.has(target) ? 2 : 1;
 }
 
@@ -193,6 +200,8 @@ export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
       { tick: act.until ?? act.tick + 1, player, command: { ...tap, on: false } },
     ];
   }
+  // A pump is stroked back and forth, not carried (`scene-pump.ts`).
+  if (target === "throatPump") return pumpCommands(act, player, cfg);
   const to = act.toMilli ?? tautMilli(target, cfg) * (act.dir ?? 1);
   const until = act.until ?? act.tick;
   // The carry and the letting go are two clocks, not one. A film about a lid

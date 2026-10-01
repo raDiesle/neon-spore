@@ -86,10 +86,10 @@ const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
  *   stands and how long each takes are the pair's cadence (`sim/config-undertow.ts`).
  *
  * - **THE THROAT** asks for nothing for the same three reasons said about a
- *   tube: the gullet hangs dead centre so there is no column, the five rings
- *   are the health so there is no number, and **the inhale and the mouth's
- *   stride are the two numbers the pair says out loud** — a wave that authored
- *   its own pair would be a boss nobody could learn to talk about
+ *   tube: the gullet roots where the cannon stands so there is no column,
+ *   the five rings are the health so there is no number, and **the pump's
+ *   gain and the circle it opens are the cadence the pair learns by hand** —
+ *   a wave that authored its own would be a boss nobody could learn to play
  *   (`sim/config-throat.ts`).
  * - **THE CURTAIN** asks for nothing for THE UNDERTOW's reasons: it unrolls
  *   dead centre and where its core hides is drawn from the rng, the lobes

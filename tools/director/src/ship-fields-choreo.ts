@@ -54,20 +54,20 @@ export const CHOREO_FIELD_GROUP = {
   batonFinalBeats: "THE BATON — a bead passed down an arm, one seat a beat",
   batonDownBeats: "THE BATON — a bead passed down an arm, one seat a beat",
   batonThreadBeats: "THE BATON — a bead passed down an arm, one seat a beat",
-  // ThroatConfig — five rings, a mouth a third of the way down, the inhale
-  // and what it tightens to, and how far the mouth steps between inhales.
-  // Every one of them is a deadline somebody has to say out loud rather than a
-  // difficulty knob: shorten the inhale and the fight does not get harder, it
-  // gets quiet (`config-throat.ts`).
+  // ThroatConfig — five rings, where the mouth may be carried, and the pump:
+  // a stroke, what it adds, what a tick takes back, and the circle it opens.
+  // The three pump numbers are one sentence and change together
+  // (`config-throat.ts`).
   throatRings: "THE THROAT — the boss you answer by feeding it",
-  throatMouthRow: "THE THROAT — the boss you answer by feeding it",
-  throatInhaleBeats: "THE THROAT — the boss you answer by feeding it",
-  throatTightBeats: "THE THROAT — the boss you answer by feeding it",
-  throatSlideCols: "THE THROAT — the boss you answer by feeding it",
-  throatQuickCols: "THE THROAT — the boss you answer by feeding it",
   throatEvertBeats: "THE THROAT — the boss you answer by feeding it",
-  throatCinchBeats: "THE THROAT — the boss you answer by feeding it",
-  throatHaulMilli: "THE THROAT — the boss you answer by feeding it",
+  throatSideMarginMilli: "THE THROAT — the boss you answer by feeding it",
+  throatTopMarginMilli: "THE THROAT — the boss you answer by feeding it",
+  throatStrokeMilli: "THE THROAT — the boss you answer by feeding it",
+  throatPumpGainMilli: "THE THROAT — the boss you answer by feeding it",
+  throatPumpDecayMilli: "THE THROAT — the boss you answer by feeding it",
+  throatMinRadiusMilli: "THE THROAT — the boss you answer by feeding it",
+  throatMaxRadiusMilli: "THE THROAT — the boss you answer by feeding it",
+  throatRefuseTicks: "THE THROAT — the boss you answer by feeding it",
   // UndertowConfig — how long a level lasts, how many lobes each stands, and
   // how long each stage of a lobe takes. Every beat is a call: a bow is a
   // column said, a stand is a colour answered (`config-undertow.ts`).

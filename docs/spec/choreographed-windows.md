@@ -55,7 +55,7 @@ boss.
 
 | Boss | Figure | Why |
 |---|---|---|
-| THE THROAT | `throatInhaleBeats` 6, `throatTightBeats` 4 | the inhale is *the pair's whole rhythm* (`config-throat.ts`), a cadence — and THE DRAG, not a deadline: a hand has six real beats to arrive every time |
+| THE THROAT | none since the rework of 1 October 2026 | it has no window at all: a body is swallowed the tick it is inside the circle in the right colour, and the only clock is the falling field's own (`config-throat.ts`) |
 | THE LEDGER | `ledgerCadenceBeats` 5 → 2 | the returns are the fight's tempo, and their falling is the fight getting harder |
 | THE SCUTTLE | `scuttleThrowBeats` 3, `scuttleFastBeats` 2 | a boss racing the pair to its own death; the cadence is the race |
 | THE BATON | `batonFlightBeats` 3, `batonTurnBeats` 2 / 1 | measured against the wire's latency (`latency.md`), not authored |

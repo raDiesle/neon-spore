@@ -38,7 +38,7 @@ export type BossPart =
   | "organ"
   /** THE ANTIPHON's rail of candidates along the underside — the navigator's. */
   | "rail"
-  /** THE THROAT's lowest muscle still holding. */
+  /** THE THROAT's lowest ring still holding — one slackens per swallow. */
   | "ring"
   /** THE SCOUT's burning rocks crossing the arena — the navigator's. */
   | "hazard"
@@ -49,7 +49,7 @@ export type BossPart =
   /**
    * A boss's mouth, where a body goes in: THE SPLICE's row of them over the
    * plating — the one part of it the pilot is shown — and THE THROAT's one,
-   * with the gums a fling has to land between.
+   * at the head of the neck, where the pump's circle pulls a body in.
    */
   | "mouths"
   /** THE UNDERTOW's plate, bowing over a breach before its lobe is through — the pilot's. */

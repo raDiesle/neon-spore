@@ -204,22 +204,13 @@ export const INGEST_SILENT_BOSS_B = [
   "batonRefused",
   "batonHeld",
   "batonParted",
-  // THE THROAT's two hands on the gullet, drawn since 21 September 2026 and
-  // still silent: the pinched ring darkens off `cinchBeat` and the mouth's
-  // column is derived every frame, so both are already on the picture
-  // (`sim/throat-hand.ts`, `throat-draw.ts`, `throat-grip.ts`).
-  "throatCinch",
-  "throatSlip",
-  "throatHaul",
-  // And the gullet's own clock, which got sounds on 19 September 2026 and no
-  // effects with them: every one of the four is a state the field is already
-  // drawing — the breath off the phase and `phaseBeat`, the choke and the
-  // swallow off `chokedBeat` and `fedBeat`, the eversion off the phase itself
-  // under THE SLOW. A burst here would be a second sentence over a picture
-  // that already says it, and changing what the fight *looks* like is a look
-  // and goes to VERSUS (`docs/looks.md`).
-  "throatInhale",
-  "throatChoke",
+  // THE THROAT's four, still silent: the mouth's place, its colour and the
+  // circle are state, read off `aimXMilli`, `mode` and `pumpMilli` every frame
+  // and drawn on the gullet itself (`sim/throat-hand.ts`, `throat-draw.ts`);
+  // the swallow and the eversion are `fedBeat` and the phase under THE SLOW.
+  // A burst here would be a second sentence over a picture that already says
+  // it, and changing what the fight *looks* like is a look (`docs/looks.md`).
+  "throatMode",
   "throatSwallow",
   "throatEvert",
   // THE SCUTTLE's ten are read as one family above the loop by

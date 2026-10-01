@@ -120,7 +120,7 @@ function foot(world: World, t: LedgerState, on: boolean, fromMilli: number): voi
  * **The plug.** In and out with the thumb, and what it costs is counted on the
  * beat rather than here (`stepLedgerHands`): a hand that landed and lifted
  * between two beats has rolled nothing over and is charged nothing for it,
- * which is the same bargain `throatTube`'s cinch strikes — the gesture is
+ * which is the same bargain THE THROAT's old cinch struck — the gesture is
  * *held*, and a fight is a thing you pay for by the beat.
  *
  * A thumb put in a socket the fight will not let her plug is dropped without a

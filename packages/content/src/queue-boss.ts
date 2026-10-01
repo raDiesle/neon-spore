@@ -99,10 +99,10 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // against (`sim/baton.ts`).
   if (boss.kind === "baton") return { ...boss };
   // THE THROAT has nothing to remap, and like THE BATON that is geometry
-  // rather than absence: the mouth starts at `midCol` of whatever field is
-  // actually played and its travel reflects inside that field's own walls, so
-  // the gullet is centred on eleven columns as exactly as on the seven it was
-  // authored against (`sim/throat.ts`).
+  // rather than absence: the mouth starts over the middle column of whatever
+  // field is actually played and is carried inside that field's own walls
+  // (`throatAimAt`), so the neck is centred on eleven columns as exactly as on
+  // the seven it was authored against (`sim/throat.ts`).
   if (boss.kind === "throat") return { ...boss };
   // THE UNDERTOW has nothing to remap: every column it comes up through is
   // drawn from the field being played, and the last one is `midCol` of it

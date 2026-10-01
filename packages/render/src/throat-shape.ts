@@ -1,25 +1,18 @@
-import {
-  midCol,
-  type SimConfig,
-  type ThroatState,
-  throatEvery,
-  throatInhales,
-  throatMouthCol,
-  throatMouthRow,
-  throatStride,
-} from "@neon-spore/sim";
+import { type SimConfig, type ThroatState, throatHomeCol } from "@neon-spore/sim";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { throatSway } from "./throat-sway.js";
 
 /**
  * Where every part of THE THROAT is, as numbers — no canvas in this file.
  *
- * The gullet is five ring muscles stacked between the top of the frame and the
- * mouth's row, and **not one of them is stored anywhere**. The simulation holds
- * a phase, an anchor, a slack count and two receipt beats (`sim/throat.ts`),
- * and everything the picture needs is arithmetic over those — which is the
- * same bargain `baton-draw.ts` takes, and the reason it does not own an `Effects` field. A restart cannot show this fight the
- * last one's gullet because there is nothing here to carry.
+ * The gullet is five ring muscles stacked between the hull, where it is fixed
+ * to the ship the way the cannon is, and the mouth, which stands wherever the
+ * navigator has carried it — and **not one of the rings is stored anywhere**.
+ * The simulation holds a phase, the mouth's place, a slack count and a receipt
+ * beat (`sim/throat.ts`), and everything the picture needs is arithmetic over
+ * those — the bargain `baton-draw.ts` takes, and the reason it does not own an
+ * `Effects` field. A restart cannot show this fight the last one's gullet
+ * because there is nothing here to carry.
  *
  * Kept apart from the drawing because the two are read for different reasons:
  * a reviewer asking *which ring is slack* or *where does the tube lean* wants
@@ -27,10 +20,10 @@ import { throatSway } from "./throat-sway.js";
  * convention rather than looked up.
  */
 
-/** How far above row 0 the tube's root hangs, in tiles — the baton arm's. */
-export const ROOT = 0.6;
+/** How far into the hull the tube's root sits, in tiles — it grows out of it. */
+export const ROOT = 0.15;
 
-/** A ring's half-width at the root and just above the mouth, as shares of a tile. */
+/** A ring's half-width at the root and just under the mouth, as shares of a tile. */
 const TOP_RX = 0.82;
 const LOW_RX = 0.46;
 
@@ -41,14 +34,14 @@ const SLACK_RY = 0.13;
 /** How much wider than its station a slack ring hangs. */
 const SLACK_SPREAD = 0.22;
 
-/** The share of a beat the mouth spends arriving in its new column. */
-const SLIDE_SHARE = 0.35;
+/** How far under the mouth the last ring stands, in tiles. */
+const UNDER_MOUTH = 0.62;
 
 const clamp01 = (v: number): number => Math.max(0, Math.min(1, v));
 
 /** One ring, placed and sized for this frame. */
 export interface Ring {
-  /** 0 at the root, `throatRings - 1` just above the mouth. */
+  /** 0 at the root in the hull, `throatRings - 1` just under the mouth. */
   index: number;
   x: number;
   y: number;
@@ -63,38 +56,26 @@ export interface Ring {
 /**
  * **Which rings are slack, and it is a convention rather than a fact.**
  *
- * `b.slack` is a count and the simulation never records *which* muscle a gum
- * choked — deliberately, because nothing in the rules cares. So the picture
- * has to choose, and the choice has to be a function of the count alone or two
- * screens would draw two different gullets from the same world.
+ * `b.slack` is a count and the simulation never records *which* muscle a
+ * swallow spent — deliberately, because nothing in the rules cares. So the
+ * picture has to choose, and the choice has to be a function of the count
+ * alone or two screens would draw two different gullets from the same world.
  *
- * The rings go slack **from the mouth upward**: a choke lands at the mouth and
- * the damage climbs the gullet. It falls out of that, without a second rule,
- * that a swallow re-tightens the ring *furthest* from the mouth — the most
- * recent one to go — so a heal visibly undoes the last hit rather than handing
- * the pair back a muscle they took four gums ago.
+ * The rings go slack **from the mouth downward**: what is swallowed is taken
+ * at the mouth, and the tube gives out from there toward the hull.
  */
 export function ringSlack(cfg: SimConfig, b: ThroatState, index: number): number {
   return index >= cfg.throatRings - b.slack ? 1 : 0;
 }
 
 /**
- * **The gulp**: a contraction that starts at the mouth on an inhale and travels
- * up the gullet at one ring a beat.
+ * **The gulp**: a contraction that starts at the mouth on the beat of a
+ * swallow and travels down the gullet into the ship at one ring a beat.
  *
- * It runs **bottom to top** because that is the direction a throat actually
- * works — what the mouth took is going *away* from the field — and because of
- * what the other direction would have been. A wave running down the tube and
- * arriving at the mouth on the inhale beat is a **countdown**, readable on
- * both screens, and the count is the one thing this fight gives player 2 alone
- * to say (`docs/spec/bosses-choreographed.md` §1). Running upward it is a
- * receipt instead: it says *it has just taken something*, which is a fact
- * neither player has to be told by the other, and it gives away no beat that
- * has not happened yet.
- *
- * `max` over the gulps still in the tube rather than a sum, so two of them
- * overlapping in phase `open` — where the inhale comes every beat — squeeze a
- * ring once and not twice.
+ * It is a receipt: it says *it has just taken something*, on both screens,
+ * and it runs away from the field because that is the way a throat works.
+ * Read off `fedBeat`, the last swallow's beat, so a second swallow restarts it
+ * rather than adding a second wave.
  */
 export function ringSqueeze(
   cfg: SimConfig,
@@ -103,42 +84,24 @@ export function ringSqueeze(
   beat: number,
   beatPhase: number,
 ): number {
-  if (throatEvery(cfg, b) <= 0) return 0;
-  const up = cfg.throatRings - 1 - index;
-  let out = 0;
-  for (let k = 0; k < cfg.throatRings; k++) {
-    if (!throatInhales(cfg, b, beat - k)) continue;
-    out = Math.max(out, Math.max(0, 1 - Math.abs(up - (k + beatPhase))));
-  }
-  return out;
+  if (b.fedBeat < 0) return 0;
+  const k = beat - b.fedBeat;
+  if (k < 0 || k >= cfg.throatRings) return 0;
+  const down = cfg.throatRings - 1 - index;
+  return Math.max(0, 1 - Math.abs(down - (k + beatPhase)));
 }
 
 /**
- * The mouth's x, and the one place this file eases anything.
- *
- * It arrives in its column over the first third of the beat and then stands
- * still, rather than sliding across the whole of it. That order is the honest
- * one: `throatMouthCol` says the mouth **is** in this column for the whole of
- * this beat, a fling is judged against that column by a sweep, and a mouth
- * drawn still travelling toward it would be a picture disagreeing with the hit
- * test for two thirds of every beat — so it snaps, then rests.
+ * The mouth's place: where the navigator has carried it, to the thousandth of
+ * a tile. Nothing is eased — the thumb is the easing, and the circle the suck
+ * is judged against is centred exactly here.
  */
-export function mouthX(
-  l: Layout,
-  cfg: SimConfig,
-  b: ThroatState,
-  beat: number,
-  beatPhase: number,
-): number {
-  const col = throatMouthCol(cfg, b, beat);
-  if (throatStride(cfg, b) <= 0) return tileCX(l, col);
-  const from = throatMouthCol(cfg, b, beat - 1);
-  const ease = clamp01(beatPhase / SLIDE_SHARE);
-  return tileCX(l, from) + (tileCX(l, col) - tileCX(l, from)) * ease;
+export function mouthX(l: Layout, b: ThroatState): number {
+  return tileCX(l, b.aimXMilli / 1000);
 }
 
-export function mouthY(l: Layout, cfg: SimConfig): number {
-  return tileCY(l, throatMouthRow(cfg));
+export function mouthY(l: Layout, b: ThroatState): number {
+  return tileCY(l, b.aimYMilli / 1000);
 }
 
 /** How far round the gullet's outline its whole body stands, in tiles. */
@@ -156,19 +119,19 @@ export function throatGullet(
   return [
     ...all.map((r) => ({ x: r.x - r.rx, y: r.y })),
     ...all.map((r) => ({ x: r.x + r.rx, y: r.y })),
-    { x: mouthX(l, cfg, b, beat, beatPhase), y: mouthY(l, cfg) },
+    { x: mouthX(l, b), y: mouthY(l, b) },
   ];
 }
 
 /**
- * Every ring of the gullet, top down.
+ * Every ring of the gullet, from the hull up.
  *
- * **The tube leans toward the mouth**, and how far up the lean reaches is the
- * slack: a whole gullet bends only in its lowest rings and hangs straight from
- * the root, and one with four muscles gone sags across the field from the top —
- * which is the design's *the tube can no longer hold its own shape*, said with
- * the one number that already exists rather than with a second clock. On top
- * of the lean the free middle sways, both ends held (`throat-sway.ts`).
+ * **The tube leans toward the mouth**, and how far down the lean reaches is
+ * the slack: a whole gullet bends only near the mouth and stands straight
+ * out of the hull, and one with four muscles gone sags across the field from
+ * its root — *the tube can no longer hold its own shape*, said with the one
+ * number that already exists. On top of the lean the free middle sways, both
+ * ends held (`throat-sway.ts`).
  */
 export function rings(
   l: Layout,
@@ -177,12 +140,12 @@ export function rings(
   beat: number,
   beatPhase: number,
 ): Ring[] {
-  const rootY = tileCY(l, 0) - l.tile * ROOT;
-  const lowY = mouthY(l, cfg) - l.tile * 0.62;
-  const homeX = tileCX(l, midCol(cfg));
-  const mx = mouthX(l, cfg, b, beat, beatPhase);
+  const rootY = l.hullY + l.tile * ROOT;
+  const lowY = mouthY(l, b) + l.tile * UNDER_MOUTH;
+  const homeX = tileCX(l, throatHomeCol(cfg));
+  const mx = mouthX(l, b);
   // 2 while the gullet is whole and 1 once every ring is gone: the exponent is
-  // where the bend sits, and a straight tube is one whose top does not move.
+  // where the bend sits, and a straight tube is one whose root does not lean.
   const power = 2 - clamp01(b.slack / cfg.throatRings);
   const out: Ring[] = [];
   for (let i = 0; i < cfg.throatRings; i++) {

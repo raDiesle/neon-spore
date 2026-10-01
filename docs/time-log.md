@@ -31569,3 +31569,21 @@ Bottleneck: a landed `--keep` branch and a fresh one look the same to `git statu
 Bottleneck: the old fight's names were spread through ninety files, and each one had to be read before it could be removed.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE THROAT reworked: carry the mouth, pump it open, four colours
+
+- reading: 40 min. The old throat across sim, content, render, audio, net and
+  the director; `livingKindForColor`, `takeCargo`, the control-set table.
+- writing: 95 min. `throat-suck.ts`, the hand, the control set, the cue
+  words, the sounds, the wire, the poses, §11.19 and the docs that named the
+  inhale.
+- looking: 0 min. The picture is kept; the mode colour on the mouth is the
+  next lane.
+- friction: 15 min. Context ran out more than once in a lane that touched
+  over a hundred files.
+- landing: 55 min. Doc drift, `imports:sort`, lint, `check:fast`, and a
+  rebase over THE UNDERTOW's rework: sixteen files in conflict, the wire,
+  the hands and the drags of both bosses.
+
+Bottleneck: the registrations — a boss's rules are named in about a hundred
+files, and each one had to be found and rewritten before anything was green.

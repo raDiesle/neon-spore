@@ -418,12 +418,10 @@ by hand never moves.
 | `packages/sim/src/strand-spawn.ts` | How a thread comes onto the field: one queue entry in, two to five bodies out |
 | `packages/sim/src/throb.ts` | the throb's clockwise turn, which half a shot met, and what it costs |
 | `packages/sim/src/throat-hash.ts` | What THE THROAT puts into `hashWorld`, and nothing else |
-| `packages/sim/src/throat-hand.ts` | **THE THROAT's two hands on the gullet itself** — the cinch and the haul |
-| `packages/sim/src/throat-pull.ts` | **The pull**: what standing in THE THROAT's column does to a body |
+| `packages/sim/src/throat-hand.ts` | **THE THROAT's three hands**: the carry, the pump and the colour (`throat.ts`, `docs/spec/bosses.md` §11.19) |
 | `packages/sim/src/throat-step.ts` | THE THROAT's clock, and the two things that change its health |
-| `packages/sim/src/throat-clock.ts` | **THE THROAT's cadence**: how often the gullet inhales, how long the pair has until it does |
-| `packages/sim/src/throat-feed.ts` | **The two things that change THE THROAT's health**, and they are opposite gestures — which is the boss |
-| `packages/sim/src/throat.ts` | THE THROAT: the one boss you answer by **giving it something** |
+| `packages/sim/src/throat-suck.ts` | **THE THROAT's suck**, every tick: the pump eases off |
+| `packages/sim/src/throat.ts` | THE THROAT: the one boss the pair **works as a machine of its own** |
 | `packages/sim/src/taster-hash.ts` | What THE TASTER puts into `hashWorld`, and nothing else |
 | `packages/sim/src/taster-hand.ts` | **THE TASTER's three thumbs on its own fan**, off the wire, on the tick |
 | `packages/sim/src/taster-shot.ts` | **What a shot does to THE TASTER**, which is the whole of the inverted rule |
@@ -743,7 +741,7 @@ by hand never moves.
 | `packages/sim/src/config-well.ts` | THE WELL's numbers — how long the face stands still, how far it slips a beat |
 | `packages/sim/src/config-warden.ts` | THE WARDEN's throw: how far the swipe has to travel and how many beats the hatch stands open |
 | `packages/sim/src/config-undertow.ts` | THE UNDERTOW's numbers — how long each of its three levels lasts, how many lobes each lets up at once |
-| `packages/sim/src/config-throat.ts` | **THE THROAT's numbers**: how many rings the gullet has, where its mouth hangs |
+| `packages/sim/src/config-throat.ts` | **THE THROAT's numbers**: how many rings the gullet has, where its mouth may be carried |
 | `packages/sim/src/config-taster.ts` | THE TASTER's numbers — how many blades the fan holds |
 | `packages/sim/src/config-trivet.ts` | THE TRIVET's tuning: the rests around its steps, the grace a chord is given |
 | `packages/sim/src/config-ledger.ts` | THE LEDGER's numbers — how wide the body stands, how many hits part it |
@@ -857,6 +855,7 @@ by hand never moves.
 | `packages/content/src/snake-rounds.ts` | SNAKE's rounds: three maps, and the map is the fight |
 | `packages/content/src/creatures-worn.ts` | the five bestiary rows for bodies drawn as something else — a slick or a bulb under a disguise, plating, a membrane, weather or nothing but a smaller size |
 | `packages/content/src/controls-round.ts` | The buttons that belong to a round rather than to the ship |
+| `packages/content/src/controls-throat.ts` | **THE THROAT's four colours**, one row each — the only buttons on its panel |
 | `packages/content/src/pinball-rounds.ts` | PINBALL's boards, one per round, **drawn rather than listed** |
 | `packages/content/src/waves/act-5.ts` | you are adding a wave — this is the act new ones land in, act four having filled |
 | `packages/content/src/lid-shape.ts` | you are tuning THE LID's outline — two arcs meeting at a corner, the fourth contour family here |
@@ -1022,6 +1021,7 @@ by hand never moves.
 | `packages/content/src/metaball.ts` | the outline of a metaball field, as however many closed loops it has — what SYMBIOSIS and THE CHOIR are drawn with |
 | `packages/content/src/scene-drag.ts` | **A hand carrying a handle**, turned into the stream of `drag` messages a rehearsal's runner sends — how far |
 | `packages/content/src/scene-act-types.ts` | one moment of a rehearsal — a thumb on a control or a hand on the field, and a field for every gesture the film can show |
+| `packages/content/src/scene-pump.ts` | **A hand working a pump**: THE THROAT's handle |
 | `packages/content/src/scout-arenas.ts` | THE SCOUT's arenas: four levels, one mote more on each, and the arena is the fight |
 | `packages/content/src/scout-haul-arenas.ts` | THE HAUL's arenas: THE SCOUT again, with a hold that takes every mote on the level at once |
 | `packages/content/src/screen-words.ts` | The sentences a player reads outside a wave: the card a bad line puts up |
@@ -1101,7 +1101,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-i.ts` | **What THE BATON is asking for** — page nine of the readings |
 | `packages/render/src/boss-cue-read-i-b.ts` | **THE BATON's `passing`** — the second half of page nine, and the readings' first cut *within* a boss |
 | `packages/render/src/boss-cue-read-j.ts` | **What THE UNDERTOW is asking for** — page ten of the readings |
-| `packages/render/src/boss-cue-read-k.ts` | **What THE THROAT is asking for** — page eleven of the readings |
+| `packages/render/src/boss-cue-read-k.ts` | **What THE THROAT is asking for**, the eleventh page of the readings: one word on each seat's handle |
 | `packages/render/src/boss-cue-read-n.ts` | **What THE GORGE is asking for** — page fourteen of the readings |
 | `packages/render/src/boss-cue-read-o.ts` | **What THE LEDGER is asking for** — page fifteen of the readings |
 | `packages/render/src/boss-cue-read-p.ts` | **What THE ANTIPHON is asking for** — page sixteen of the readings |
@@ -1933,14 +1933,13 @@ by hand never moves.
 | `packages/render/src/throb.ts` | where THE THROB's far half lies — the seam meridian this instant and the region the paint clips to |
 | `packages/render/src/throb-look.ts` | THE ONE RECORD A CANDIDATE THROB LOOK PATCHES |
 | `packages/render/src/throb-pores.ts` | THE THROB's surface, PORES — a middle with no ammunition colour, black and white pores pinned round the ball, the two colours on the rim |
-| `packages/render/src/throat-draw.ts` | THE THROAT, drawn: a gullet of ring muscles hanging from the top of the frame |
-| `packages/render/src/throat-mouth.ts` | The mouth, the lip, and the column of field the inhale is holding |
+| `packages/render/src/throat-draw.ts` | THE THROAT, drawn: a gullet of ring muscles rooted in the hull where the cannon would be |
+| `packages/render/src/throat-mouth.ts` | The mouth and its lip |
 | `packages/render/src/throat-marks.ts` | THE THROAT's ring and tube answering a touch: the halo under this seat's ring while it asks, and the verdict of a cinch, a haul or a refused press |
 | `packages/render/src/throat-shape.ts` | Where every part of THE THROAT is, as numbers — no canvas in this file |
 | `packages/render/src/throat-say.ts` | The reason under each of THE THROAT's cue verbs (`BossCue.why`), and the receipt words |
 | `packages/render/src/throat-sway.ts` | **THE THROAT sways where it hangs free** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/throat-evert.ts` | **The eversion**: with every ring slack the tube can no longer hold its own shape |
-| `packages/render/src/throat-lock.ts` | NEXT INHALE: the column the mouth will be standing in on the beat it next takes something |
 | `packages/render/src/throat-grip.ts` | **THE THROAT's two hands**, and the two circles the drawing and the hit test share |
 | `packages/render/src/throat-flesh-lip.ts` | **What THE THROAT's mouth is made of**, and the inside it turns out through it at the end |
 | `packages/render/src/throat-flesh.ts` | **What THE THROAT is made of**: a wet gullet of ring muscle, lit from above and to the left |
@@ -3194,7 +3193,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-queen.ts` | THE BULB QUEEN's three states — the oldest boss |
 | `tools/director/src/poses-bosses-rounds.ts` | **The rounds' states** — the bosses that take the field away and hand the pair a screen of their own… |
 | `tools/director/src/poses-bosses-rounds-b.ts` | **The rounds' states, the second page** — PINBALL's and THE PULSE's |
-| `tools/director/src/poses-bosses-hands-beats.ts` | **The states a beat earns** — THE BATON's crossing, THE THROAT's inhale |
+| `tools/director/src/poses-bosses-hands-beats.ts` | **The states a beat earns** — THE BATON's crossing, THE THROAT's suck |
 | `tools/director/src/poses-bosses-hands-shots.ts` | **The states a shot earns** on the clock bosses — THE WARDEN's plates, THE VANE's pins |
 | `tools/director/src/poses-bosses-hands-seam.ts` | **THE SEAM's states**, posed with a hand on the controls (`boss-hands-seam.ts`) |
 | `tools/director/src/poses-bosses-hands-clocks.ts` | **The states the pair's hands bring on the bosses that keep a ledger of their own** — THE TASTER's fan |

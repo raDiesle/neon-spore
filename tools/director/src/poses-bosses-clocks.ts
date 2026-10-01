@@ -81,12 +81,6 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     { hold: 12 },
   ),
   bossPose(
-    "throat",
-    "still",
-    "The mouth hangs over the middle, rings taut, the inhale slow. P1 holds the haul; P2 holds a gum.",
-    { hold: 12 },
-  ),
-  bossPose(
     "undertow",
     "one",
     "One lobe up, left standing until it grows tall. P1 or P2 taps it down; SUCK under yellow, SHIELD over cyan.",

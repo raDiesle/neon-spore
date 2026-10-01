@@ -8,6 +8,7 @@ import {
   isPulseLane,
   isSnakeTurn,
   isStep,
+  isThroatMode,
   optional,
 } from "./command-fields.js";
 
@@ -137,6 +138,10 @@ export function decodeCommand(x: unknown): Command | null {
       return isBool(c.on) ? { kind: "scoutBurn", on: c.on } : null;
     case "scoutMaw":
       return { kind: "scoutMaw" };
+    // THE THROAT's colour, checked against the list for `pulseStep`'s reason:
+    // a mode the mouth does not have would be a colour nobody can see.
+    case "throatMode":
+      return isThroatMode(c.mode) ? { kind: "throatMode", mode: c.mode } : null;
     // `fromMilli` is a **displacement**, so it is signed: a hand that carried
     // a handle to the left reports a negative number, and `isNonNegInt` here
     // dropped exactly those frames — a pull that worked on one device and

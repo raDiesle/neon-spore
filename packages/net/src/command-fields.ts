@@ -1,4 +1,11 @@
-import { type Color, type DragTarget, PULSE_LANES, SNAKE_TURNS } from "@neon-spore/sim";
+import {
+  type Color,
+  type DragTarget,
+  PULSE_LANES,
+  SNAKE_TURNS,
+  THROAT_MODES,
+  type ThroatMode,
+} from "@neon-spore/sim";
 
 /**
  * The shape of every field a `Command` can carry on the wire, one predicate
@@ -22,7 +29,7 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "wardenEye", "wardenHatch", "fleetBreach", "fleetRake", "fleetWreck",
   "vaneArm", "vaneHousing", "snakeJaws", "snakeTail", "pinPlunger", "pinTable",
   "scoutLine", "scoutPrime", "pulseMeter", "batonSocket", "undertowTap",
-  "throatRing", "throatTube", "curtainHem",
+  "throatAim", "throatPump", "curtainHem",
   "tasterBlade", "tasterGap", "tasterLock",
   "ledgerFoot", "ledgerSocket", "ledgerBead", "ledgerCord",
   "leadStalk", "scuttlePart", "antiphonRail", "wellSeam", "hiveLobe",
@@ -72,6 +79,9 @@ export const isSnakeTurn = (x: unknown): x is SnakeTurn =>
 
 export const isPulseLane = (x: unknown): x is PulseLane =>
   typeof x === "string" && (PULSE_LANES as readonly string[]).includes(x);
+
+export const isThroatMode = (x: unknown): x is ThroatMode =>
+  typeof x === "string" && (THROAT_MODES as readonly string[]).includes(x);
 
 /**
  * How far a hand has carried a handle, in thousandths of a tile. Signed, and

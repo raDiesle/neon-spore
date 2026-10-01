@@ -1,4 +1,4 @@
-import { throatHolds, type World } from "@neon-spore/sim";
+import type { World } from "@neon-spore/sim";
 import { drawBaton } from "./baton-draw.js";
 import { drawBatonGrip } from "./baton-grip.js";
 import { drawBatonAsked, drawBatonVerdicts } from "./baton-marks.js";
@@ -103,23 +103,19 @@ export function drawClockBoss(
     return;
   }
 
-  // THE THROAT: a gullet down the middle of the frame with its mouth walking
-  // one row of it, the same on both screens. It is above and across the field
-  // rather than on it — nothing of it is among the creatures, for THE VANE's
-  // reason — and it is the first boss the field is drawn *through*: shots pass
-  // up the tube and bodies are hauled up the column under the mouth
-  // (`throat-draw.ts`).
-  // The blow of a choked ring shakes the whole gullet, the readout with it.
+  // THE THROAT: a gullet rooted in the hull where the cannon stands, climbing
+  // to a mouth the navigator carries, the same on both screens. Nothing of it
+  // is among the creatures, for THE VANE's reason, and shots pass through the
+  // tube (`throat-draw.ts`). The blow of a swallow shakes the whole gullet.
   if (boss.kind === "throat") {
-    const crowded = world.creatures.some((c) => throatHolds(world, c));
     const hurt = effects.boss.blows.throat;
     const { beatPhase, time } = view;
     ctx.save();
     ctx.translate(hurt.shakeX(time, l.tile), 0);
-    drawThroat(ctx, l, world.cfg, boss, world.beat, beatPhase, time, crowded, hurt.value);
-    // The verdict of a touch on either ring, over everything (`throat-marks.ts`).
+    drawThroat(ctx, l, world.cfg, boss, world.beat, beatPhase, time, hurt.value);
+    // The verdict of a touch on either handle, over everything (`throat-marks.ts`).
     const verdicts = effects.boss.blows.throatMarks.verdicts;
-    drawThroatVerdicts(ctx, l, world.cfg, boss, world.beat, beatPhase, verdicts);
+    drawThroatVerdicts(ctx, l, world.cfg, boss, verdicts);
     ctx.restore();
     return;
   }

@@ -112,9 +112,12 @@ const ACCEPTED: Command[] = [
   // — a codec that dropped it would shrink one lobe on one device and leave
   // it to burst on the other (`sim/undertow-press.ts`).
   { kind: "drag", target: "undertowTap", on: true, fromMilli: 0, fromYMilli: 0, id: 3 },
-  { kind: "drag", target: "throatRing", on: true, fromMilli: 0, fromYMilli: 0 },
-  { kind: "drag", target: "throatRing", on: false, fromMilli: 0, fromYMilli: 0 },
-  { kind: "drag", target: "throatTube", on: false, fromMilli: -900, fromYMilli: 0 },
+  // THE THROAT's carry is the one drag a thumb takes anywhere on the screen,
+  // so both of its numbers have to cross signed and whole, and the pump is
+  // read off its height alone (`sim/throat-hand.ts`).
+  { kind: "drag", target: "throatAim", on: true, fromMilli: -2300, fromYMilli: -4100 },
+  { kind: "drag", target: "throatAim", on: false, fromMilli: 0, fromYMilli: 0 },
+  { kind: "drag", target: "throatPump", on: true, fromMilli: 0, fromYMilli: -900 },
   // THE CURTAIN's hem, carried **up** rather than down: the codec has to keep
   // a negative `fromYMilli` whole, because the lift is read off its size
   // against `curtainLiftMilli` (`sim/curtain-hand.ts`). A sign dropped on the
@@ -336,6 +339,8 @@ const ACCEPTED: Command[] = [
   { kind: "scoutTurn", on: true, dir: -1 },
   { kind: "scoutBurn", on: false },
   { kind: "scoutMaw" },
+  // THE THROAT's colour: a mode is one of four words, never a number.
+  { kind: "throatMode", mode: "shield" },
 ];
 
 /**
@@ -387,6 +392,7 @@ const EVERY_KIND: Record<Command["kind"], true> = {
   scoutTurn: true,
   scoutBurn: true,
   scoutMaw: true,
+  throatMode: true,
   retryGuide: true,
   quit: true,
 };
@@ -429,8 +435,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   pulseMeter: true,
   batonSocket: true,
   undertowTap: true,
-  throatRing: true,
-  throatTube: true,
+  throatAim: true,
+  throatPump: true,
   curtainHem: true,
   tasterBlade: true,
   tasterGap: true,
@@ -549,6 +555,11 @@ describe("decodeCommand: rejections", () => {
   it("refuses a turn that is not one of the two", () => {
     expect(decodeCommand({ kind: "snakeTurn", dir: "widdershins" })).toBeNull();
     expect(decodeCommand({ kind: "snakeTurn" })).toBeNull();
+  });
+
+  it("refuses a throat colour the mouth does not have", () => {
+    expect(decodeCommand({ kind: "throatMode", mode: "purple" })).toBeNull();
+    expect(decodeCommand({ kind: "throatMode", mode: 2 })).toBeNull();
   });
 
   it("refuses an unknown kind", () => {

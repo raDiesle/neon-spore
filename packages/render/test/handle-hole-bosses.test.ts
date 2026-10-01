@@ -59,10 +59,8 @@ function throat(set: (b: ThroatState) => void): World {
   startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
   const b = world.boss as ThroatState | null;
   if (b === null || b.kind !== "throat") throw new Error("THE THROAT's wave grew no gullet");
-  b.phase = "slide";
+  b.phase = "sucks";
   b.slack = 0;
-  b.breath = 0;
-  b.cinchBeat = -1;
   set(b);
   return world;
 }
@@ -105,28 +103,20 @@ describe("SNAKE's two rings, on the body they are standing on", () => {
   });
 });
 
-describe("THE THROAT's two rings, on the gullet", () => {
-  it("punches the cinch's disc on her screen and not on his", () => {
+describe("THE THROAT's two rings, on the mouth and beside the root", () => {
+  it("punches one for the seat that may press it, and none for the other", () => {
+    // Both are on offer for the whole of `sucks` and neither once the tube
+    // everts: hers on the mouth, his on the pump. A hole in hers is a bite out
+    // of the lip and the body standing in it.
     const { p1, p2, test } = added(
-      throat(() => {}),
       throat((b) => {
-        b.slack = 1;
+        b.phase = "everts";
       }),
-    );
-    expect(p2).toBe(1);
-    expect(p1).toBe(0);
-    expect(test).toBe(1);
-  });
-
-  it("punches the haul's on his screen and not on hers", () => {
-    const { p1, p2 } = added(
       throat(() => {}),
-      throat((b) => {
-        b.phase = "open";
-      }),
     );
     expect(p1).toBe(1);
-    expect(p2).toBe(0);
+    expect(p2).toBe(1);
+    expect(test).toBe(2);
   });
 });
 

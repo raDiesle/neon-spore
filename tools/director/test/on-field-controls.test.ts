@@ -238,15 +238,12 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // `render/undertow-tap.ts`). The pin and the free it replaced went with
   // the rework of 1 October 2026.
   undertowTap: "field",
-  // THE THROAT's two, and the only pair the fight hands out as it loses: a
-  // thumb on a ring already gone slack holds the gullet's breath, and in
-  // `open` a carry drags the tube itself a column off its meal
-  // (`sim/throat-hand.ts`, `render/throat-grip.ts`). The seventh and eighth
-  // to make the walk, and the first whose *cue* was already on the
-  // field: `CINCH` and `HAUL` have been printed over bare tube since the
-  // fight shipped, and this is the pair of rings they were pointing at.
-  throatRing: "field",
-  throatTube: "field",
+  // THE THROAT's two since the rework of 1 October 2026: player 2 carries
+  // the mouth anywhere in its box and player 1 pumps a handle of his own up
+  // and down (`sim/throat-hand.ts`), each on a ring of its own
+  // (`render/throat-grip.ts`, `field-controls-throat.ts`).
+  throatAim: "field",
+  throatPump: "field",
   // THE CURTAIN's hem, the pilot's alone and heard only while the rail is
   // jammed: carried **up** past `curtainLiftMilli`, it holds a gap open over
   // the core for as long as the thumb stays there (`sim/curtain-hand.ts`).

@@ -52,21 +52,22 @@ export const CHOREO_NOTES = {
     "(sim/baton-slow.ts). Nothing about it is authored per " +
     "wave. See sim/baton.ts, sim/baton-cross.ts, sim/config-baton.ts.",
   "THE THROAT — the boss you answer by feeding it":
-    "Designed on 16 September 2026 in docs/spec/bosses-choreographed.md §1, " +
-    "and the only boss in the game answered by GIVING it something. A gullet " +
-    "of throatRings ring muscles hangs from the top of the field to " +
-    "throatMouthRow, ending in a mouth one column wide that slides its own " +
-    "row — throatSlideCols a beat, and throatQuickCols once two rings are " +
-    "slack. Every throatInhaleBeats it inhales: whatever stands in the mouth " +
-    "is swallowed and everything else in the column is hauled a row closer, " +
-    "which is THE DRAG and not THE SLOW, so a braking hand has a whole " +
-    "inhale to arrive. A swallowed creature RE-TIGHTENS a slack ring, so the " +
-    "wave's own arrivals are the boss's dinner and a pair who lets the field " +
-    "run is fighting something that heals. The only thing that hurts it is a " +
-    "gum a hand has flung, level along the mouth's row, into the mouth. " +
-    "Shots pass through the tube on purpose: that is player 2's answer to a " +
-    "creature about to be eaten. Nothing is authored per wave. " +
-    "See sim/throat.ts, sim/config-throat.ts, sim/throat-pull.ts.",
+    "Designed on 16 September 2026 in docs/spec/bosses-choreographed.md §1 " +
+    "and reworked on 1 October 2026: the gullet stands where the cannon does, " +
+    "joined to the hull, and its mouth is the only weapon in the wave. Player " +
+    "2 carries the mouth anywhere on the field, kept throatSideMarginMilli " +
+    "off the walls and throatTopMarginMilli off the top. Player 1 pumps a " +
+    "handle up and down: every stroke of throatStrokeMilli adds " +
+    "throatPumpGainMilli and every tick takes throatPumpDecayMilli back, and " +
+    "the circle round the mouth is throatMinRadiusMilli to " +
+    "throatMaxRadiusMilli as wide as the pump is full. The mouth has four " +
+    "colours, two a seat: red and cyan are player 2's and swallow a slick and " +
+    "a bulb of their colour, SHIELD and SUCK are player 1's and swallow a rock " +
+    "and a pod. A body in the wrong colour is refused, shakes and stays, " +
+    "once per throatRefuseTicks; nothing is lost. Each right swallow slackens " +
+    "one of throatRings rings, and the last turns the tube through its own " +
+    "mouth over throatEvertBeats. Nothing is authored per wave. " +
+    "See sim/throat.ts, sim/throat-hand.ts, sim/throat-suck.ts.",
   "THE UNDERTOW — the boss under the floor, answered downward":
     "Designed on 16 September 2026 in docs/spec/bosses-choreographed.md §13: " +
     "the one boss that comes up through the hull, reworked on 1 October " +

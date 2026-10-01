@@ -53,5 +53,11 @@ export function groupsCoveredBy(set: ControlSet): ControlGroup[] {
   // (`sim/reach.ts`). It is a worse answer than the dome and a real one, which
   // is exactly what a panel with no dome on it should have.
   if (setHas(set, "guard") || setHas(set, "reach")) covered.push("guard");
+  // **THE THROAT's mouth covers both**, by its colours: red or cyan swallow a
+  // living body as the shot would kill it, and SHIELD swallows a rock
+  // (`sim/throat-suck.ts`). The mouth is carried rather than slid, so there is
+  // no strip to ask for.
+  if (setHas(set, "throatRed") || setHas(set, "throatCyan")) covered.push("aim");
+  if (setHas(set, "throatShield")) covered.push("guard");
   return covered;
 }

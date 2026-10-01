@@ -172,12 +172,19 @@ const WANT: Record<string, (w: World) => Aim> = {
   },
 };
 
+/**
+ * Bosses whose body is rooted in the hull, so the whole of it reaches down to
+ * the ship: THE THROAT's gullet stands where the cannon would, fixed to the
+ * ship the way the cannon is (`throat-shape.ts`).
+ */
+const ROOTED = new Set(["throat"]);
+
 describe("THE SLOW's aim at a boss, page three", () => {
   it.each(Object.keys(WANT))("stands round THE %s's whole body, over the field", (kind) => {
     const world = stood(kind as Parameters<typeof waveWith>[0]);
     const at = aim(world, L, 0, 0);
     expect(at).toEqual((WANT[kind] as (w: World) => Aim)(world));
-    expect(Math.max(at.y, at.ay)).toBeLessThan(L.hullY - 2 * L.tile);
+    if (!ROOTED.has(kind)) expect(Math.max(at.y, at.ay)).toBeLessThan(L.hullY - 2 * L.tile);
   });
 
   it("stands along THE UNDERTOW's lobes, and at the cannon with none up", () => {

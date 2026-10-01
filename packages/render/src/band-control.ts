@@ -1,6 +1,6 @@
 import type { ControlDef } from "@neon-spore/content";
 import { controlBroken } from "@neon-spore/content";
-import { faultsNow, reachOut, type World } from "@neon-spore/sim";
+import { faultsNow, reachOut, throatBoss, type World } from "@neon-spore/sim";
 import { drawActionButton, drawFireButton } from "./controls.js";
 import { drawAimButton, drawSalvoButton } from "./controls-fleet.js";
 import { drawCrankDial } from "./crank-dial.js";
@@ -165,6 +165,25 @@ function drawFace(
     drawGaugeLobe(ctx, circle, gauge, world, skin);
     return;
   }
+  // THE THROAT's four colours, each the ordinary panel's own face for what
+  // it swallows — the shield's for a rock, the maw's for a pod, the two shots
+  // for their two kinds — lit while it is the mouth's colour, because which
+  // one is set is the one thing a seat needs off its own two buttons.
+  const mode = THROAT_LOBES[c.id];
+  if (mode !== undefined) {
+    const lit = throatBoss(world)?.mode === mode;
+    if (mode === "shield") {
+      drawActionButton(ctx, x, y, r, lit, PALETTE.shield, "#08131A", "guard", skin.dead[0]);
+    } else if (mode === "suck") {
+      drawActionButton(ctx, x, y, r, lit, PALETTE.pod, PALETTE.podDark, "intake", skin.dead[0]);
+    } else {
+      ctx.save();
+      if (!lit) ctx.globalAlpha = 0.45;
+      drawFireButton(ctx, x, y, r, mode, skin);
+      ctx.restore();
+    }
+    return;
+  }
   // THE FLEET's five. The arrows are one picture with a direction, so they
   // are one call rather than four branches — a fifth direction is not a thing
   // a chart has.
@@ -183,6 +202,14 @@ function drawFace(
   const shot = c.id === "fireRed" ? "red" : "cyan";
   drawFireButton(ctx, x, y, r, shot, skin, lanceFillFor(world, shot));
 }
+
+/** Which of THE THROAT's colours each of its four buttons sets. */
+const THROAT_LOBES: Partial<Record<ControlDef["id"], "red" | "cyan" | "shield" | "suck">> = {
+  throatRed: "red",
+  throatCyan: "cyan",
+  throatShield: "shield",
+  throatSuck: "suck",
+};
 
 /** Which way each of player 2's four arrows points. */
 const AIM_ARROWS: Partial<Record<ControlDef["id"], readonly [number, number]>> = {

@@ -49,7 +49,7 @@ import { wardenGripSeat } from "./warden-grip.js";
  *    (the table is both seats') the tenth (`pinball-grip.ts` `pinballGripSeat`), and THE
  *    SCOUT's line and prime the eleventh (`scout-grip.ts` `scoutGripSeat`),
  *    and THE BATON's shell and beads the twelfth (`baton-grip.ts`
- *    `batonGripSeat`), and THE THROAT's ring and tube the thirteenth
+ *    `batonGripSeat`), and THE THROAT's mouth and pump the thirteenth
  *    (`throat-grip.ts` `throatGripSeat`), and THE
  *    CURTAIN's hem the fourteenth (`curtain-grip.ts` `curtainHemSeat`), and
  *    THE TASTER's pin, wipe and pry the fifteenth (`taster-grip.ts`

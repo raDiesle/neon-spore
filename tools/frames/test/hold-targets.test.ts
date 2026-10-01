@@ -66,21 +66,20 @@ describe("the handles on a boss's own picture", () => {
     ]);
   });
 
-  it("THE THROAT's cinch is hers and stays down", () => {
-    // `ringHeard` refuses player 1 and reads nothing but `on`.
-    expect(shape("throatRing=0")).toEqual([
-      { player: 2, kind: "drag", target: "throatRing", on: true, fromMilli: 0 },
-      { player: 2, kind: "drag", target: "throatRing", on: true, fromMilli: 0 },
+  it("THE THROAT's carry is hers and stays down", () => {
+    // `aimHeard` refuses player 1, anchors on the first sample and reads the
+    // second as anchor plus displacement.
+    expect(shape("throatAim=0,y=-3000")).toEqual([
+      { player: 2, kind: "drag", target: "throatAim", on: true, fromMilli: 0, fromYMilli: 0 },
+      { player: 2, kind: "drag", target: "throatAim", on: true, fromMilli: 0, fromYMilli: -3000 },
     ]);
   });
 
-  it("THE THROAT's haul is his, and it is spent on the lift", () => {
-    // `tubeHeard` refuses a command with `on` set — a tap would move the mouth
-    // by a fingertip's jitter — so the carry ends with the thumb coming off,
-    // carrying the distance the lift is read from.
-    expect(shape("throatTube=-1500")).toEqual([
-      { player: 1, kind: "drag", target: "throatTube", on: true, fromMilli: 0 },
-      { player: 1, kind: "drag", target: "throatTube", on: false, fromMilli: -1500 },
+  it("THE THROAT's pump is his", () => {
+    // `pumpHeard` refuses player 2 and reads only the height.
+    expect(shape("throatPump=0,y=1500")).toEqual([
+      { player: 1, kind: "drag", target: "throatPump", on: true, fromMilli: 0, fromYMilli: 0 },
+      { player: 1, kind: "drag", target: "throatPump", on: true, fromMilli: 0, fromYMilli: 1500 },
     ]);
   });
 

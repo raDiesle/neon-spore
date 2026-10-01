@@ -76,9 +76,9 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepBaton(world, boss);
     return;
   }
-  // THE THROAT: the eversion's clock, the phase its slack rings have earned,
-  // and then the inhale — swallow what is in the mouth, then haul everything
-  // else in the column a row closer (`throat-step.ts`).
+  // THE THROAT on the beat is only the eversion's end. The suck and the three
+  // hands — the carry, the pump and the colour — arrive on the tick
+  // (`throat-suck.ts`, `throat-hand.ts`).
   if (boss.kind === "throat") {
     stepThroat(world, boss);
     return;

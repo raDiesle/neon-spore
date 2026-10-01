@@ -56,7 +56,7 @@ export type DragTargetC =
  * in, in `hurrying` alone, and it cuts the crest the way a bolt into that
  * column does — with **no colour spent**, which is the one move in this fight
  * the boss cannot taste. `id` is the column and `fromMilli` is the carry;
- * unlike `pinTable` and `throatTube` its **sign says nothing**, because a gap
+ * unlike `pinTable` its **sign says nothing**, because a gap
  * is wiped from either side.
  *
  * `tasterLock` is the pilot's carry on the closed interlock, `fromYMilli`
