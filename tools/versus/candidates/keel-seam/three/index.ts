@@ -6,15 +6,17 @@ import { paint } from "./paint.js";
  * THREE — offered 29 September 2026, from `bosses-choreographed.md` §24
  * *Animation*: a locked seam's brightness in three states across the fight.
  * The game draws one seam throughout, a thin white line as bright as its
- * segment. This is a hairline through movement one, a fuller seam pulsing on
- * the beat once the socket frees its segment, and full white through the
- * held breath and after — so how far the fight has come is on the seams.
+ * segment. This is a faint hairline through movement one, a seam twice as
+ * wide flaring on the beat once the socket frees its segment, and a white-hot
+ * bar four times as wide through the held breath and after — so how far the
+ * fight has come is on the seams. Widened on 1 October 2026: the owner, of
+ * the first offer, "very barely visible difference".
  */
 export const KEEL_THREE: Variant = {
   slot: "keel:seam",
   name: "three",
   sentence:
-    "three — THE KEEL's seams are a hairline in movement one, a fuller pulsing seam from the socket on, and full white from the held breath, instead of one thin line all fight",
+    "three — THE KEEL's seams are a faint hairline in movement one, twice as wide and flaring on the beat from the socket on, and a white-hot bar four times as wide from the held breath, instead of one thin line all fight",
   dir: "tools/versus/candidates/keel-seam/three",
   patches: [
     patch({

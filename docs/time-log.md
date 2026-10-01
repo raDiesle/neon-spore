@@ -31464,3 +31464,14 @@ Bottleneck: the op-count rows, which fail one key at a time until the measure sw
 Bottleneck: `versus adopt` refused both candidates, for two separate reasons, before either one moved.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE KEEL's seam candidate widened
+
+- reading: 5 min. The candidate's paint and the BREATH pose it is shot in.
+- writing: 5 min. Four times the shipped width and a wide halo through the
+  breath, twice on the beat before it, a fainter hairline in movement one.
+- looking: 5 min. The before and after shots at the held breath.
+- friction: 5 min. A heredoc refused by the hook guard, redone by hand.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the pose VERSUS shoots shows only the breath, so the whole difference had to live in that one state.
