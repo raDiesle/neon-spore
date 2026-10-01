@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · aea28383c — THE STARE's eye is a globe that turns, and a round's timeout hit is its window closing
+
+The owner judged two VERSUS slots and both are now in the game. THE STARE's eye is a ball that rolls its opening round to face the pair over the seven beats of the tell, where it used to be a flat eye squashed to a sliver. A round whose clock runs out unattended now breaks the hull with its own window narrowing down onto the struck column, where it used to drop a rock.
+
 ## 2026-10-01 · d01fa60c5 — THE QUEEN's plates turn with her
 
 BULB QUEEN's shell now turns as she drifts: the seams ride round by their longitude, the outer one goes over the rim and the far one comes round, and the marks follow by less. The owner picked it in VERSUS: "looks better than current, like its moving". Exemption: a look the owner asked for by name.
