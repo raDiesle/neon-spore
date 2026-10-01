@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · ab32bd10f — §41 THE WINCH is cut, and THE LAMPREY takes its place
+
+The owner cut THE WINCH on 27 September 2026 and asked for a fresh boss that keeps a pair busy thirty seconds or more. THE LAMPREY is a slime eel that bites the hull: one seat keeps a thumb on its jaw as it crawls along the hull, while the other taps its lit teeth out one by one, and the bite deepens into a hull hit whenever the jaw goes unheld. Three movements, the seats trading between the first two, about forty seconds clean. Both of THE WINCH's queue entries are closed, and the sections that stay no longer name it.
+
 ## 2026-10-01 · 0c4b2bd95 — THE FLUE's marks answer a touch the way every mark does
 
 THE FLUE's ember and core now show the same halo, partner's ring, waiting clock and green-or-red verdict as every other boss's marks. Once the rester has steadied the lit vent, the ember is haloed on the tapper's screen, and the rester's screen shows the partner's ring and clock. The bared core on a fire step is haloed on both screens. A landed tap or a spent vent greens the ember. A skid, a lapse or a run-out window reddens it. A hit greens the core and a missed shot reddens it. THE FLUE was the last boss on the roll-out list, which is now empty.

@@ -30975,3 +30975,5 @@ Bottleneck: what the rester's screen should ask — keeping still has nothing to
 - landing: 5 min. `check:fast` and `land`.
 
 Bottleneck: finding a pairing the page has not spent — `RepeatedTap` was the one primitive no concept had used, and a crawling mouth to hold gave it a second seat.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
