@@ -30884,3 +30884,5 @@ Bottleneck: the restart and the cut; the flanks are each tapped by one seat and 
 - landing: 5 min. `check:fast` and `land`.
 
 Bottleneck: the reland, where either seat may steer, so who the boom and the hook ask turns on whose thumb already holds it.
+
+*Measured: 94 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

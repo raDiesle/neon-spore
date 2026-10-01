@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · cbd54847f — THE DAVIT's marks answer a touch the way every mark does
+
+On a swing the boom wears the halo on its steerer's screen and the hook on its drawer's, each with the partner's ring and clock on the other's; on a reland both ask both seats until one thumb holds the boom, and the lit pivot haloes the hook on both screens. A true loose greens both marks and a hit the hook; a drift reddens the boom, a slack or a miss the hook, and a sway or a dim both.
+
 ## 2026-10-01 · 7dfa7252e — THE CYST's marks answer a touch the way every mark does
 
 Each freeze mark wears the halo on its tapper's screen and the partner's ring and clock on the other's while its flank's step is lit, and each flank on its pincher's while stilled or on a swell and not yet shut; the core and the bud halo on both screens. A tap that stills, a crack, a guard, a swell clenched, a core hit and a bud shot green what they answer; a shudder, a slip, a spring, and a step run out redden what they owe.
