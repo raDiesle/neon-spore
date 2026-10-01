@@ -308,6 +308,9 @@ const ACCEPTED: Command[] = [
   // THE GAUGE's tooth names the tooth as `id` and is carried (`sim/gauge-tooth.ts`).
   { kind: "drag", target: "gaugeTooth", on: true, id: 4, fromMilli: 300, fromYMilli: -600 },
   { kind: "drag", target: "gaugeTongue", on: true, id: 0, fromMilli: -900, fromYMilli: 0 },
+  // THE LAMPREY's jaw names the column under the thumb, its tooth the tooth (`sim/lamprey-hand.ts`).
+  { kind: "drag", target: "lampreyJaw", on: true, id: 4, fromMilli: 0 },
+  { kind: "drag", target: "lampreyTooth", on: true, id: 2, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -497,6 +500,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   governorTap: true,
   gaugeTooth: true,
   gaugeTongue: true,
+  lampreyJaw: true,
+  lampreyTooth: true,
   crank: true,
 };
 

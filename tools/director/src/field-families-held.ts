@@ -56,6 +56,7 @@ export const HELD_FAMILIES: readonly FieldGroup[] = [
       "THE SCOUT'S LINE",
       "THE LEDGER'S PLUG",
       "THE FLEET'S PLUME",
+      "THE LAMPREY'S JAW",
     ],
   },
   {

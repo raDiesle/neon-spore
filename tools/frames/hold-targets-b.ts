@@ -50,6 +50,11 @@ export const ROWS: Record<string, Row> = {
   // `gauge-tongue.ts`: both hands on the tongue, each seat its own half.
   gaugeTongue: {},
   gaugeTongue2: { seat: 2, as: "gaugeTongue" },
+  // `lamprey-hand.ts`: either seat pins or taps, by the step; the column and the tooth as `id`.
+  lampreyJaw: { id: true },
+  lampreyJaw2: { seat: 2, as: "lampreyJaw", id: true },
+  lampreyTooth: { id: true },
+  lampreyTooth2: { seat: 2, as: "lampreyTooth", id: true },
   // `fleet-hand.ts`.
   fleetBreach: { seat: 2 },
   fleetRake: {},

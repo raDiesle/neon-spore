@@ -121,4 +121,19 @@ export const INGEST_SILENT_BOSS_E = [
   // And THE UNDERTOW's, the pilot on her free: a red ring round it,
   // `effects.boss.undertow.marks`' (`undertow-marks.ts`).
   "undertowRefuse",
+  // THE LAMPREY, every event: its look is the shape sheet's stand-in until
+  // its own lane draws it (`docs/spec/bosses-choreographed.md` §41).
+  "lampreyEnter",
+  "lampreyBite",
+  "lampreyCrack",
+  "lampreySnap",
+  "lampreyCrawl",
+  "lampreyGnaw",
+  "lampreyFull",
+  "lampreyLoose",
+  "lampreyRear",
+  "lampreyHit",
+  "lampreyLunge",
+  "lampreySpent",
+  "lampreyOut",
 ] as const satisfies readonly SimEvent["type"][];

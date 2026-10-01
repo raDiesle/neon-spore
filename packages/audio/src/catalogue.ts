@@ -34,6 +34,7 @@ import { BOSS_HASP_STORY_SOUNDS } from "./sounds/boss-hasp-story.js";
 import { BOSS_HIVE_SOUNDS } from "./sounds/boss-hive.js";
 import { BOSS_INSTAR_SOUNDS } from "./sounds/boss-instar.js";
 import { BOSS_KEEL_SOUNDS } from "./sounds/boss-keel.js";
+import { BOSS_LAMPREY_SOUNDS } from "./sounds/boss-lamprey.js";
 import { BOSS_LEAD_SOUNDS } from "./sounds/boss-lead.js";
 import { BOSS_LEDGER_SOUNDS } from "./sounds/boss-ledger.js";
 import { BOSS_MANTLE_SOUNDS } from "./sounds/boss-mantle.js";
@@ -130,6 +131,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_BURGEE_SOUNDS,
   ...BOSS_FLUE_SOUNDS,
   ...BOSS_GOVERNOR_SOUNDS,
+  ...BOSS_LAMPREY_SOUNDS,
   ...BOSS_WARDEN_SOUNDS,
   ...BOSS_VANE_SOUNDS,
   ...BOSS_THROAT_SOUNDS,

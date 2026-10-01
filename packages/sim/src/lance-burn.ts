@@ -17,6 +17,7 @@ import { halterStruck } from "./halter-shot.js";
 import { haspStruck } from "./hasp-shot.js";
 import { hiveStruck } from "./hive-shot.js";
 import { keelStruck } from "./keel-shot.js";
+import { lampreyStruck } from "./lamprey-shot.js";
 import { beamTicks, lanceReady, primeColor, spendPrime } from "./lance.js";
 import { leadStruck } from "./lead-shot.js";
 import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
@@ -228,6 +229,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   flueStruck(world, b);
   // And THE GOVERNOR's lit hub (`governor-shot.ts`).
   governorStruck(world, b);
+  // And THE LAMPREY's lit gullet (`lamprey-shot.ts`).
+  lampreyStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

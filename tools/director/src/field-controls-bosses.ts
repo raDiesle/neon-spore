@@ -21,6 +21,7 @@ import { HASP_CONTROLS } from "./field-controls-hasp.js";
 import { HIVE_CONTROLS } from "./field-controls-hive.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
 import { KEEL_CONTROLS } from "./field-controls-keel.js";
+import { LAMPREY_CONTROLS } from "./field-controls-lamprey.js";
 import { LEAD_CONTROLS } from "./field-controls-lead.js";
 import { LEDGER_CONTROLS } from "./field-controls-ledger.js";
 import { MANTLE_CONTROLS } from "./field-controls-mantle.js";
@@ -207,4 +208,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE VALVE's wheel and pin, the only pair here **one control that is a
   // tap, a draw and a rub** by the phase it is pressed in (`field-controls-valve.ts`).
   ...VALVE_CONTROLS,
+  // THE LAMPREY's jaw and teeth, the only pair here where **one seat's level
+  // follows a part that crawls** while the other's edge picks at it (`field-controls-lamprey.ts`).
+  ...LAMPREY_CONTROLS,
 ];

@@ -42,7 +42,9 @@ export type DragTargetE =
   | "governorChordRight"
   | "governorTap"
   | "gaugeTooth"
-  | "gaugeTongue";
+  | "gaugeTongue"
+  | "lampreyJaw"
+  | "lampreyTooth";
 
 /**
  * `trivetPadFront` and `trivetPadRear` are the seventy-ninth and
@@ -208,4 +210,14 @@ export type DragTargetE =
  * seats' hands between the second level and the third. `fromMilli` is how far
  * that thumb has dragged across, signed; `id` is unused. Two of them wrung
  * opposite ways past `gaugeTongueTwistMilli` twist it (`gauge-tongue.ts`).
+ */
+
+/**
+ * `lampreyJaw` and `lampreyTooth` are the hundred-and-tenth and eleventh:
+ * THE LAMPREY's jaw, under the pinner's thumb, and its ring of teeth, under
+ * the tapper's.
+ *
+ * No new reading. The jaw is `flueTap`'s and `gallPinch`'s follow — `id` the
+ * column under the thumb and `on` whether it is down — and the teeth are
+ * `valvePin`'s edge with `id` the tooth (`lamprey-hand.ts`).
  */

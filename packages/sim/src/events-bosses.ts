@@ -18,6 +18,7 @@ import type { HaspEvent } from "./events-hasp.js";
 import type { HiveEvent } from "./events-hive.js";
 import type { InstarEvent } from "./events-instar.js";
 import type { KeelEvent } from "./events-keel.js";
+import type { LampreyEvent } from "./events-lamprey.js";
 import type { LeadEvent } from "./events-lead.js";
 import type { LedgerEvent } from "./events-ledger.js";
 import type { MantleEvent } from "./events-mantle.js";
@@ -105,6 +106,7 @@ export type BossEvent =
   | BurgeeEvent
   | FlueEvent
   | GovernorEvent
+  | LampreyEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -139,6 +141,7 @@ export type { HaspEvent } from "./events-hasp.js";
 export type { HiveEvent } from "./events-hive.js";
 export type { InstarEvent } from "./events-instar.js";
 export type { KeelEvent } from "./events-keel.js";
+export type { LampreyEvent } from "./events-lamprey.js";
 export type { LeadEvent } from "./events-lead.js";
 export type { LedgerEvent } from "./events-ledger.js";
 export type { MantleEvent } from "./events-mantle.js";

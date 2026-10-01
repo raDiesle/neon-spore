@@ -644,6 +644,11 @@ by hand never moves.
 | `packages/sim/src/pulse.ts` | THE PULSE: the same song on two screens, and neither of you can read all of it |
 | `packages/sim/src/pulse-open.ts` | Opening a stage, and opening the round — the two places a `PulseState` is written from nothing |
 | `packages/sim/src/lance-burn.ts` | **THE LANCE going off**: the lobe coming full, and the column burning on that tick |
+| `packages/sim/src/lamprey-hand.ts` | THE LAMPREY's two handles: the jaw and the teeth |
+| `packages/sim/src/lamprey-hash.ts` | What THE LAMPREY puts into `hashWorld`, and nothing else |
+| `packages/sim/src/lamprey-shot.ts` | **THE LAMPREY's shot**: the lit gullet, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/lamprey-step.ts` | THE LAMPREY's clock, once a beat: the jaw held or chewing, the jaw crawling |
+| `packages/sim/src/lamprey.ts` | THE LAMPREY: a sucker mouth bitten onto the hull, crawling along it |
 | `packages/sim/src/ledger-bead.ts` | **What a bill is**: one hit down the seam, and one return on the cord |
 | `packages/sim/src/ledger-hash.ts` | What THE LEDGER puts into `hashWorld`, and nothing else |
 | `packages/sim/src/ledger-hand.ts` | **THE LEDGER's four hands on its own cord**, off the wire, on the tick |
@@ -703,6 +708,7 @@ by hand never moves.
 | `packages/sim/src/events-trivet.ts` | What THE TRIVET says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-ledger.ts` | **Everything THE LEDGER does that neither screen already says**, as events |
 | `packages/sim/src/events-lead.ts` | **Everything THE LEAD does that neither screen already says**, as events |
+| `packages/sim/src/events-lamprey.ts` | What THE LAMPREY says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-antiphon.ts` | **Everything THE ANTIPHON does that neither screen already says**, as events |
 | `packages/sim/src/events-hive.ts` | **Everything THE HIVE does that neither screen already says**, as events |
 | `packages/sim/src/events-hasp.ts` | What THE HASP says as it happens, one line per thing the picture and the sound answer |
@@ -742,6 +748,7 @@ by hand never moves.
 | `packages/sim/src/config-trivet.ts` | THE TRIVET's tuning: the rests around its steps, the grace a chord is given |
 | `packages/sim/src/config-ledger.ts` | THE LEDGER's numbers — how wide the body stands, how many hits part it |
 | `packages/sim/src/config-lead.ts` | THE LEAD's numbers — how many segments the stalk has, how far ahead of the body a shot has to be put |
+| `packages/sim/src/config-lamprey.ts` | THE LAMPREY's tuning: the beats around its bites and its gullet, how fast a jaw let go bites deeper |
 | `packages/sim/src/config-antiphon.ts` | THE ANTIPHON's numbers — how many contours the body can grow and how they fall into families |
 | `packages/sim/src/config-hive.ts` | THE HIVE's numbers — how many breach sites the underside has, how long it hangs before the first opens |
 | `packages/sim/src/config-hasp.ts` | THE HASP's tuning: how long a grip lasts before it burns the hand off, how long the burn holds |
@@ -940,6 +947,7 @@ by hand never moves.
 | `packages/content/src/waves/act-11.ts` | Act eleven, opened for THE SPOOL on 22 September 2026 |
 | `packages/content/src/waves/act-12.ts` | Act twelve, opened for THE VISE on 26 September 2026 |
 | `packages/content/src/waves/act-13.ts` | Act thirteen, opened for THE DAVIT on 26 September 2026 |
+| `packages/content/src/waves/act-14.ts` | Act fourteen, opened for THE LAMPREY on 1 October 2026 |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
 | `packages/content/src/body-path.ts` | one living body's contour — a blob, or the walk that puts clubs on its rim |
 | `packages/content/src/body-path-clubbed.ts` | a creature is not a blob — the walked rim of balls on stalks THE THROB and THE BEATBOX wear, and the four numbers it is sampled at |
@@ -1881,6 +1889,7 @@ by hand never moves.
 | `packages/render/src/effects-spark-silent-boss-b.ts` | **The bosses' half of the not-a-burst list, the second page** — from THE FILAMENT on |
 | `packages/render/src/effects-spark-silent-boss-c.ts` | **The bosses' half of the not-a-burst list, the third page** — THE GAUGE's four and THE WELL's four |
 | `packages/render/src/effects-spark-silent-boss-d.ts` | **The bosses' half of the not-a-burst list, the fourth page** — THE CYST's seventeen, THE DAVIT's thirteen |
+| `packages/render/src/effects-spark-silent-boss-e.ts` | **The bosses' half of the not-a-burst list, the fifth page** |
 | `packages/render/src/effects-spark-handed.ts` | The bursts for the bodies answered by hands alone (`creatures-handed.ts`) |
 | `packages/render/src/effects-spark-hole.ts` | **A crater's puffs, thrown from the rock rather than from its row.** A rock's last six rows are drawn higher… |
 | `packages/render/src/effects-spark-worn.ts` | The bursts for a covering coming off a body that is still there (shell, clasp, coil, carom, crystal, volley), each colour argued against the others |
@@ -2423,6 +2432,7 @@ by hand never moves.
 | `packages/audio/src/bind-lookups.ts` | The two id-to-id tables `bind.ts` reads, and the only *data* in a file that is otherwise a switch |
 | `packages/audio/src/bind-ledger.ts` | THE LEDGER's eleven, in a file of their own for `bind-taster.ts`' reason |
 | `packages/audio/src/bind-lead.ts` | THE LEAD's fourteen, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-lamprey.ts` | Whether an event is THE LAMPREY's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-fence.ts` | **What THE FENCE sounds like**: the wire going over the ship, and a bolt cutting a way through it |
 | `packages/audio/src/bind-filament.ts` | THE FILAMENT's eleven, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
@@ -2534,6 +2544,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-valve.ts` | **THE VALVE played right**, for the autopilot: the wheel turned onto each mark by the pilot |
 | `packages/hands/src/boss-hands-plumb.ts` | **THE PLUMB, on AUTO**: both stones pulled half the lit step's skew each, the other way |
 | `packages/hands/src/boss-hands-davit.ts` | **THE DAVIT played right**, for the autopilot: one seat leans to the target, the other draws and looses, the pivot shot |
+| `packages/hands/src/boss-hands-lamprey.ts` | **THE LAMPREY played right**, for the autopilot |
 | `packages/hands/src/boss-hand-fleet.ts` | **The pair's hands on THE FLEET**, a `Hand` (`hand.ts`) |
 | `packages/hands/src/boss-hand-hive.ts` | **The pair's hands on THE HIVE**, a `Hand` (`hand.ts`) |
 | `packages/hands/src/autopilot-hands.ts` | **The hand AUTO plays each boss with**: the one the poses reach the boss's defeat with |
@@ -2853,6 +2864,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-bosses.ts` | Every boss's grips on the ON THE FIELD tab, in the tab's order: one file a boss |
 | `tools/director/src/poses-field-controls-flue.ts` | THE FLUE's tap, **photographed from the tapper's seat**, the screen it is pressed on |
 | `tools/director/src/poses-field-controls-plumb.ts` | THE PLUMB's pull: the left weight asked for, the bob skewed left |
+| `tools/director/src/poses-field-controls-lamprey.ts` | THE LAMPREY's two hands, **each photographed from the seat that presses it** |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -3310,7 +3322,7 @@ by hand never moves.
 | `tools/director/src/sound-link-none-b.ts` | The sounds wired up with nothing to draw, the second page — from THE SCUTTLE on |
 | `tools/director/src/sound-link-none-c.ts` | The sounds wired up with nothing to draw, the third page — from THE GAUGE on |
 | `tools/director/src/sound-link-none-d.ts` | The sounds wired up with nothing to draw, the fourth page — from THE SEAM on |
-| `tools/director/src/sound-link-none-e.ts` | The sounds wired up with nothing to draw, the fifth page — THE VALVE's |
+| `tools/director/src/sound-link-none-e.ts` | The sounds wired up with nothing to draw, the fifth page — THE VALVE's and THE LAMPREY's |
 | `tools/director/src/sound-row.ts` | **One sound, as a row of the catalogue sheet.** Its own file beside `sound-page.ts` |
 | `tools/director/src/pose-type.ts` | What a pose *is* — the shape of one, and the two things a caller can ask of one without building it |
 | `tools/director/src/pose-commands.ts` | the commands a pose presses, spelled short — `aim`, `ward`, `guard`, `suck`, `prime`, `shoot`, `pullCord`, `hold` — one builder per verb, re-exported by the kit |
@@ -3370,6 +3382,7 @@ by hand never moves.
 | `tools/director/src/field-controls-halter.ts` | THE HALTER's two grips, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-lead.ts` | **THE LEAD's stalk**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-ledger.ts` | **The navigator's two hands on THE LEDGER's root**, in a file of its own |
+| `tools/director/src/field-controls-lamprey.ts` | THE LAMPREY's jaw and teeth, as rows of the ON THE FIELD tab: the pinner's thumb on the crawling jaw |
 | `tools/director/src/field-controls-vane.ts` | **THE VANE's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-valve.ts` | THE VALVE's two handles, as rows of the ON THE FIELD tab: the wheel, the pilot's |
 | `tools/director/src/field-controls-vise.ts` | THE VISE's two lobe pinches, as rows of the ON THE FIELD tab |

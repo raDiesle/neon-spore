@@ -12,6 +12,7 @@ import { stepGovernor } from "./governor-step.js";
 import { stepGrindstone } from "./grindstone-step.js";
 import { stepHalter } from "./halter-step.js";
 import { stepHasp } from "./hasp-step.js";
+import { stepLamprey } from "./lamprey-step.js";
 import { stepMaze } from "./maze-round.js";
 import { stepRatchet } from "./ratchet-step.js";
 import { stepSplice } from "./splice-round.js";
@@ -52,6 +53,11 @@ import type { World } from "./world.js";
  * stepped somewhere else (`boss-off-beat.ts`).
  */
 export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>): void {
+  // THE LAMPREY: the jaw chewing and crawling, a tooth's window run out, the gullet's, and the eel spent (`lamprey-step.ts`).
+  if (boss.kind === "lamprey") {
+    stepLamprey(world, boss);
+    return;
+  }
   // THE GOVERNOR: steps lit, windows run out, and the flyweights spent; the needle turns on the tick (`governor-step.ts`).
   if (boss.kind === "governor") {
     stepGovernor(world, boss);

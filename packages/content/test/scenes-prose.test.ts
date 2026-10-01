@@ -126,6 +126,9 @@ const STILL_PROSE = [
   // And THE GOVERNOR (§43), a twenty-fifth time: the dial is undrawn, and the
   // guide says which seat brakes and which taps, and when they swap.
   "THE GOVERNOR",
+  // And THE LAMPREY (§41), a twenty-sixth time: the jaw is undrawn, and the
+  // guide says which seat pins and which taps, and when they swap.
+  "THE LAMPREY",
 ];
 
 const guided = WAVES.filter((w) => w.guide);

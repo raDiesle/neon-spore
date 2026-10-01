@@ -42,6 +42,9 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   burgee: ["slack", "lit", "rest", "spent"],
   flue: ["slack", "lit", "rest", "spent"],
   governor: ["slack", "lit", "rest", "spent"],
+  // THE LAMPREY, all six: its look is the shape sheet's stand-in, and a card
+  // of a stand-in is a card of nothing. Its look lane poses them (§41).
+  lamprey: ["entering", "bite", "loose", "rearing", "recoil", "spent"],
 };
 
 describe("the BOSSES category", () => {

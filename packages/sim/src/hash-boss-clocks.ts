@@ -18,6 +18,7 @@ import { haspHashParts } from "./hasp-hash.js";
 import { hiveHashParts } from "./hive-hash.js";
 import { instarHashParts } from "./instar-hash.js";
 import { keelHashParts } from "./keel-hash.js";
+import { lampreyHashParts } from "./lamprey-hash.js";
 import { leadHashParts } from "./lead-hash.js";
 import { ledgerHashParts } from "./ledger-hash.js";
 import { mantleHashParts } from "./mantle-hash.js";
@@ -223,6 +224,8 @@ export function clockHashParts(boss: BossState): number[] {
   if (boss.kind === "governor") {
     for (const n of governorHashParts(boss)) out.push(n);
   }
+  // THE LAMPREY: the phase, the jaw, the bite, the teeth, the thumbs and the script (`lamprey-hash.ts`).
+  if (boss.kind === "lamprey") for (const n of lampreyHashParts(boss)) out.push(n);
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {
     for (const n of filamentHashParts(boss)) out.push(n);
@@ -230,8 +233,7 @@ export function clockHashParts(boss: BossState): number[] {
   if (boss.kind === "curtain") {
     for (const n of curtainHashParts(boss)) out.push(n);
   }
-  // THE LEDGER: the seam, the socket and every return on the cord
-  // (`ledger-hash.ts`).
+  // THE LEDGER: the seam, the socket and every return on the cord (`ledger-hash.ts`).
   if (boss.kind === "ledger") {
     for (const n of ledgerHashParts(boss)) out.push(n);
   }

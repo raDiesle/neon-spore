@@ -44,6 +44,7 @@ const AUTHORS_NOTHING = [
   "burgee",
   "flue",
   "governor",
+  "lamprey",
 ] as const satisfies readonly BossEntry["kind"][];
 
 const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
@@ -181,6 +182,10 @@ const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
  *   too: all `midCol`. THE GALL's points are the seam's own (`gallPointCol`),
  *   and THE BURGEE's columns and THE FLUE's notches are offsets from `midCol`;
  *   THE GOVERNOR's dial is `midCol` and its marks are thousandths of a lap.
+ * - **THE LAMPREY**'s script is one list of steps too, and each step names
+ *   the column its bite lands on — a field of the step, not a form's. No
+ *   number: the teeth are the health, and the gullet's hits after them
+ *   (`sim/lamprey.ts`).
  *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which

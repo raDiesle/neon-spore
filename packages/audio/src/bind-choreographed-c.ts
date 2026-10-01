@@ -12,6 +12,7 @@ import { governorCue, isGovernorEvent } from "./bind-governor.js";
 import { haspCue, isHaspEvent } from "./bind-hasp.js";
 import { hiveCue } from "./bind-hive.js";
 import { instarCue } from "./bind-instar.js";
+import { isLampreyEvent, lampreyCue } from "./bind-lamprey.js";
 import { mantleCue } from "./bind-mantle.js";
 import { ratchetCue } from "./bind-ratchet.js";
 import { scuttleCue } from "./bind-scuttle.js";
@@ -79,12 +80,13 @@ type LateEvent = Extract<
       | `burgee${string}`
       | `flue${string}`
       | `governor${string}`
+      | `lamprey${string}`
       | `undertow${string}`;
   }
 >;
 
 export function lateCue(e: LateEvent, cols: number): Cue | null {
-  // THE CAPSTAN, THE GALL, THE BURGEE, THE FLUE and THE GOVERNOR are bound here and not on `bind-choreographed-d.ts`,
+  // THE CAPSTAN, THE GALL, THE BURGEE, THE FLUE, THE GOVERNOR and THE LAMPREY are bound here and not on `bind-choreographed-d.ts`,
   // which is two lines from the limit: handed over whole, before the switch.
   // THE HASP joined them when its story brought twelve more (`bind-hasp.ts`),
   // and THE SPOOL when its story brought nine (`bind-spool.ts`).
@@ -95,6 +97,7 @@ export function lateCue(e: LateEvent, cols: number): Cue | null {
   if (isBurgeeEvent(e)) return burgeeCue(e, cols);
   if (isFlueEvent(e)) return flueCue(e, cols);
   if (isGovernorEvent(e)) return governorCue(e, cols);
+  if (isLampreyEvent(e)) return lampreyCue(e, cols);
   switch (e.type) {
     // The three that came over on 22 September 2026, in the order they stood
     // at the foot of `bind-choreographed.ts`.

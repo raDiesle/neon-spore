@@ -7,6 +7,7 @@ import type { GallEntry } from "./gall.js";
 import type { GovernorEntry } from "./governor.js";
 import type { GrindstoneEntry } from "./grindstone.js";
 import type { HalterEntry } from "./halter.js";
+import type { LampreyEntry } from "./lamprey.js";
 import type { OculusEntry } from "./oculus.js";
 import type { PlumbEntry } from "./plumb.js";
 import type { RimeEntry } from "./rime.js";
@@ -59,7 +60,9 @@ export type ScriptedBossEntry =
   // The one that authors stillness as well as taps: an ember one seat keeps steady for the other to tap (`flue.ts`).
   | FlueEntry
   // The one that authors a pace as well as taps: a needle one seat brakes for the other to tap (`governor.ts`).
-  | GovernorEntry;
+  | GovernorEntry
+  // The one that authors a grip as well as taps: a jaw one seat pins for the other to pull its teeth (`lamprey.ts`).
+  | LampreyEntry;
 
 export type { BurgeeEntry, BurgeeStep } from "./burgee.js";
 export type { CapstanEntry, CapstanStep } from "./capstan.js";
@@ -70,6 +73,7 @@ export type { GallEntry, GallStep } from "./gall.js";
 export type { GovernorEntry, GovernorStep } from "./governor.js";
 export type { GrindstoneEntry, GrindstoneStep } from "./grindstone.js";
 export type { HalterEntry, HalterStep } from "./halter.js";
+export type { LampreyEntry, LampreyStep } from "./lamprey.js";
 export type { OculusEntry, OculusStep } from "./oculus.js";
 export type { PlumbEntry, PlumbStep } from "./plumb.js";
 export type { RimeEntry, RimeStep } from "./rime.js";

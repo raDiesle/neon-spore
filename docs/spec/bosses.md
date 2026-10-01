@@ -11800,6 +11800,124 @@ and `FIRE` under the middle column while the hub is lit. AUTO's hand
 and never lifts, taps when the needle is on the mark, and shoots the step's
 colour; it plays the script through (`tools/director/test/autopilot-governor.test.ts`).
 
+## 11.59 THE LAMPREY — a mouth on the hull, one thumb pinning it and one knocking its teeth out
+
+> A mouth bites onto the hull and crawls along it. One of you keeps a thumb
+> on the jaw wherever it crawls; the other taps the one lit tooth before it
+> snaps back. Five teeth over two bites drop it off, the seats swapped. Then
+> shoot the gullet in its colour, three times.
+
+Designed as §41 of [bosses-choreographed](bosses-choreographed.md) — a
+choreographed scene, the third kind in `.claude/skills/new-boss`. No new
+primitive: THE GALL's `FollowTarget` and THE VALVE's edge, put on one mouth
+for the first time as `RepeatedTap`, **a tap on a target that jumps between
+taps**. Neither hand gates the other: each stops its own half of the bite,
+and the two fail in two different pictures.
+
+**It is the teeth, and they are its health.** The state (`sim/lamprey.ts`,
+hashed in `sim/lamprey-hash.ts`) is the **phase** and the beat it began, the
+**cursor** into the script, the **jaw**'s column, the way it is crawling and
+the beat it last crawled, the bite's **depth** in thousandths, the teeth out
+for good as a mask of seven bits, the **lit tooth** and the beat its window
+began, the teeth **pulled** in this bite, whether this bite is a
+**re-bite**, the **hits**, and for each seat the column under its thumb on
+the jaw and whether its thumb is down on the teeth. The script is the
+wave's (`LampreyEntry.steps`), copied at install: each step asks `bite` or
+`gullet`, names its **pinner** (the other seat taps), the **teeth** it asks
+for and each tooth's **window**, the **column** it bites onto, which way it
+**crawls** first and how many beats a crawl takes, and for a gullet its
+**colour** and its beats. **A gullet step's bite fields are its re-bite.**
+
+**The rule, in one sentence.** One of you keeps a thumb on the crawling jaw,
+and the other taps the one lit tooth before it snaps back.
+
+**The split.** By the step, not by geometry: the eel is on both screens, and
+which seat pins and which taps swaps by bite, §41's cross. The first bite is
+the pilot's to pin from the left of the hull crawling right, the second the
+navigator's from the right crawling left. A gullet is the ordinary shot —
+Player 1's cannon under the middle column, Player 2's trigger in its colour.
+
+**The clock** (`sim/lamprey-step.ts`) runs on the beat: the eel swims in for
+`lampreyEnterBeats`, then each bite opens under THE SLOW
+(`openSlow(…, "ask")`, for the tooth's window and a beat) with a tooth lit
+(`lampreyBite`). Every beat of a bite the jaw, **unless it is held**, chews
+`lampreyBiteStepMilli` deeper (`lampreyGnaw`), and at `lampreyBiteFullMilli`
+it is a full bite (`lampreyFull`) and the hull, THE SEAM's rule; it crawls a
+column every `crawlBeats` (`lampreyCrawl`), turning back at either end; and
+a lit tooth whose window has run out snaps the last one back
+(`lampreySnap`). With the bite's teeth out the mouth comes off the hull
+(`lampreyLoose`) for `lampreyLooseBeats`; a gullet step rears it, lit in its
+colour (`lampreyRear`), and a gullet run out is a lunge (`lampreyLunge`):
+the eel bites again with the step's bite fields. A hit recoils it
+(`lampreyHit`) for `lampreyRecoilBeats`; with the script done it is limp
+(`lampreySpent`) for `lampreySpentBeats` and falls away (`lampreyOut`).
+
+**The answers** (`sim/lamprey-hand.ts`). The jaw is the drag `lampreyJaw`,
+**a level**, THE GALL's pinch: its `id` is the column under the thumb and
+`on` whether it is down, recorded for either seat, and the jaw is held while
+the bite's pinner's thumb is within `lampreyGripCols` of the column the jaw
+has crawled to. The teeth are the drag `lampreyTooth`, **an edge**, THE
+VALVE's pin, its `id` the tooth. From the bite's tapper, a press on the lit
+tooth cracks it (`lampreyCrack`) and the light jumps to the first tooth
+still in two places on, never the one beside it; a press on any other tooth
+snaps the last one back; from the pinner it does nothing. A crack or a snap
+closes THE SLOW. The shot is judged where a bolt leaves the top of the
+field (`sim/lamprey-shot.ts`): only while the gullet is lit, only in the
+middle column, and only in its colour unless it is `either` — the other
+colour is missed on the balance sheet and the gullet stays lit.
+
+**Where this departs from the design, and why.** Six places.
+
+- **Rows 6 and 7 are one phase.** §41 draws the mouth pulling free and the
+  eel swimming round as two rows of two beats; nothing is asked in either,
+  so they are one `loose` of four beats, and it is the same between every
+  bite and a gullet.
+- **A re-bite is the pilot's to pin.** §41's row 12 says "P1+P2", one pins
+  and the other taps. Every step names its pinner, as every choreographed
+  body names its seats, so a seat cannot both pin and tap; the shipped wave
+  authors each re-bite to the pilot.
+- **A re-bite has no window of its own.** §41's row 12 says the window runs
+  out "as a full bite". A bite is lost only through its depth, and a tooth
+  run out only snaps back, so a re-bite is the bite's rule again.
+- **A full bite starts the depth again from nothing.** It is the wave
+  either way (`wave-fail.ts`); a depth left full would strike again every
+  beat in a world nobody is playing any more.
+- **THE SLOW opens at every bite.** §41 opens it "on the first tap of each
+  bite (rows 3, 9 and 12)": it opens with the bite's first lit tooth, a
+  re-bite's included, for the window and a beat, and the first crack or snap
+  closes it.
+- **The gullets are red, cyan and white.** §41 says "one cannon's colour",
+  then "the other", then white; the wave picks the pilot's first.
+
+The design's `lampreyBiteMilli` is the state's `biteMilli`. A snap with
+nothing pulled in this bite takes nothing back and only restarts the
+window.
+
+**What is proven, and what is not.** `sim/test/lamprey.test.ts` proves the
+rules: the eel swims in and the first bite opens under THE SLOW, the pilot
+pinning and the navigator tapping; a jaw let go chews a step a beat and a
+full bite is the hull; a held jaw stops chewing while the thumb follows it,
+the tapper's thumb holds nothing and two columns off holds nothing; only the
+tapper's press on the lit tooth cracks it and the next lit is two places on;
+a wrong tooth or a window run out snaps the last one back; a thumb left down
+counts once; three teeth let the mouth go with three teeth out for good,
+and the second bite trades the seats and comes from the other end; a gullet
+wants its colour and the middle column; a gullet run out lunges, and the
+re-bite's teeth are not lost; and the whole script ends spent and out, the
+same twice from one seed. AUTO's hand (`hands/src/boss-hands-lamprey.ts`)
+puts the pinner's thumb on the jaw and moves it after each crawl, taps the
+lit tooth and lifts the tick after, and shoots the gullet's colour; it plays
+the script through without a snap, a gnaw or a scar
+(`tools/director/test/autopilot-lamprey.test.ts`). Whether a pair can find a
+jumping tooth while the other's thumb chases a crawling jaw — §41's payoff —
+is the owner's eye, and it has never been watched at tempo.
+
+**The look** is queued (`docs/queue.md`, THE LAMPREY's look (§41)); until it
+lands the eel is the shape sheet's stand-in, and every one of its events is
+silent to the renderer (`render/src/effects-ingest-silent-boss-e.ts`). Its
+thirteen sounds are bound (`audio/src/bind-lamprey.ts`), panned after the
+jaw, so a crawl is heard moving along the hull.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

@@ -23,6 +23,7 @@ type BossIdB = Extract<
   | "cyst"
   | "davit"
   | "halter"
+  | "lamprey"
   | "capstan"
   | "gall"
   | "burgee"
@@ -146,6 +147,10 @@ export const BOSS_MECHANICS_B = {
   },
   governor: {
     what: "One of you holds both brake pads to keep the needle slow. The other taps as it crosses the lit mark. Three taps each. Shoot the hub in its colour.",
+    reach: "spawn",
+  },
+  lamprey: {
+    what: "One of you keeps a thumb on the mouth's crawling jaw. The other taps the lit tooth before it snaps back. Then shoot the gullet in its colour.",
     reach: "spawn",
   },
   vane: {

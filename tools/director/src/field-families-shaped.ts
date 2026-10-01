@@ -126,6 +126,7 @@ export const SHAPED_FAMILIES: readonly FieldGroup[] = [
       "THE FLUE'S EMBER",
       "THE GOVERNOR'S NEEDLE",
       "THE TASTER'S PIN",
+      "THE LAMPREY'S TEETH",
     ],
   },
   {

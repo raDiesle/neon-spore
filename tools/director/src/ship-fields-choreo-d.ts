@@ -92,4 +92,14 @@ export const CHOREO_FIELD_GROUP_D = {
   governorHotMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
   governorClimbMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
   governorEaseMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
+  // LampreyConfig — the swim in, the pull off between bites, the recoil and
+  // the fall, how deep a chew goes and how deep is full, and how near the
+  // jaw a thumb has to be (`config-lamprey.ts`).
+  lampreyEnterBeats: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
+  lampreyLooseBeats: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
+  lampreyRecoilBeats: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
+  lampreySpentBeats: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
+  lampreyBiteStepMilli: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
+  lampreyBiteFullMilli: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
+  lampreyGripCols: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
 } satisfies Record<string, GroupName>;

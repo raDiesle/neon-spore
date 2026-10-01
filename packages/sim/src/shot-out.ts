@@ -15,6 +15,7 @@ import { halterStruck } from "./halter-shot.js";
 import { haspStruck } from "./hasp-shot.js";
 import { hiveStruck } from "./hive-shot.js";
 import { keelStruck } from "./keel-shot.js";
+import { lampreyStruck } from "./lamprey-shot.js";
 import { leadStruck } from "./lead-shot.js";
 import { ledgerStruck } from "./ledger-shot.js";
 import { mantleStruck } from "./mantle-shot.js";
@@ -139,6 +140,8 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   met = flueStruck(world, b) || met;
   // THE GOVERNOR's lit hub, in its colour (`governor-shot.ts`).
   met = governorStruck(world, b) || met;
+  // THE LAMPREY's gullet, in its colour (`lamprey-shot.ts`).
+  met = lampreyStruck(world, b) || met;
   // THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   met = haspStruck(world, b) || met;
@@ -203,6 +206,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "burgee",
   "flue",
   "governor",
+  "lamprey",
   "hasp",
   "ratchet",
   "hive",

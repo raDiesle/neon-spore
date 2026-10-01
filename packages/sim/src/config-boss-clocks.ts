@@ -18,6 +18,7 @@ import { HASP_DEFAULTS, type HaspConfig } from "./config-hasp.js";
 import { HIVE_DEFAULTS, type HiveConfig } from "./config-hive.js";
 import { INSTAR_DEFAULTS, type InstarConfig } from "./config-instar.js";
 import { KEEL_DEFAULTS, type KeelConfig } from "./config-keel.js";
+import { LAMPREY_DEFAULTS, type LampreyConfig } from "./config-lamprey.js";
 import { LEAD_DEFAULTS, type LeadConfig } from "./config-lead.js";
 import { LEDGER_DEFAULTS, type LedgerConfig } from "./config-ledger.js";
 import { MANTLE_DEFAULTS, type MantleConfig } from "./config-mantle.js";
@@ -111,6 +112,7 @@ export interface BossClockConfig
     BurgeeConfig,
     FlueConfig,
     GovernorConfig,
+    LampreyConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -159,6 +161,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...BURGEE_DEFAULTS,
   ...FLUE_DEFAULTS,
   ...GOVERNOR_DEFAULTS,
+  ...LAMPREY_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

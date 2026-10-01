@@ -10,6 +10,7 @@ import { GRINDSTONE_GRIPS } from "./poses-field-controls-grindstone.js";
 import { HALTER_GRIPS } from "./poses-field-controls-halter.js";
 import { HASP_GRIPS } from "./poses-field-controls-hasp.js";
 import { KEEL_GRIPS } from "./poses-field-controls-keel.js";
+import { LAMPREY_GRIPS } from "./poses-field-controls-lamprey.js";
 import { MANTLE_GRIPS } from "./poses-field-controls-mantle.js";
 import { OCULUS_GRIPS } from "./poses-field-controls-oculus.js";
 import { PLUMB_GRIPS } from "./poses-field-controls-plumb.js";
@@ -46,4 +47,5 @@ export const BOSS_GRIPS: readonly Pose[] = [
   ...GOVERNOR_GRIPS,
   ...SLING_GRIPS,
   ...VALVE_GRIPS,
+  ...LAMPREY_GRIPS,
 ];

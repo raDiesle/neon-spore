@@ -218,6 +218,9 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   if (boss.kind === "flue") return { ...boss };
   // THE GOVERNOR the same: its dial is `midCol` and its marks are thousandths of a lap.
   if (boss.kind === "governor") return { ...boss };
+  // THE LAMPREY bites authored hull columns, one a step: each is remapped.
+  if (boss.kind === "lamprey")
+    return { ...boss, steps: boss.steps.map((s) => ({ ...s, col: mapCol(s.col, cols) })) };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

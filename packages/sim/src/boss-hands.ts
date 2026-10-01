@@ -20,6 +20,7 @@ import { haspHeard } from "./hasp-hand.js";
 import { hiveHeard } from "./hive-hand.js";
 import { instarHeard } from "./instar-hand.js";
 import { keelHeard } from "./keel-hand.js";
+import { lampreyHeard } from "./lamprey-hand.js";
 import { leadHeard } from "./lead-hand.js";
 import { ledgerHandsHeard } from "./ledger-hand.js";
 import { mantleHeard } from "./mantle-hand.js";
@@ -137,8 +138,7 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   for (const c of commands) trivetHeard(world, c.player, c.command);
   // Its needle, THE SEAM's shield once a tick after the commands (`trivet-guard.ts`).
   trivetGuarded(world);
-  // THE PLUMB's leans, the same: a drift is the instant a lean leaves range
-  // (`plumb-hand.ts`).
+  // THE PLUMB's leans, the same: a drift is the instant a lean leaves range (`plumb-hand.ts`).
   for (const c of commands) plumbHeard(world, c.player, c.command);
   // THE SLING's draws, the same: a draw is judged the instant it lifts
   // (`sling-hand.ts`).
@@ -169,6 +169,8 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE GOVERNOR's chords and tap, and its needle turned after them (`governor-hand.ts`, `governor-turn.ts`).
   for (const c of commands) governorHeard(world, c.player, c.command);
   governorTurned(world);
+  // THE LAMPREY's jaw and teeth, a crack or a snap the instant (`lamprey-hand.ts`).
+  for (const c of commands) lampreyHeard(world, c.player, c.command);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

@@ -130,6 +130,31 @@ export {
   governorTapper,
   governorTapping,
 } from "./governor.js";
+// THE LAMPREY's jaw and teeth: the phase, the step, the seats, the ring and
+// the gullet, for the picture, the cue and the director's hand (§41).
+export {
+  freshLamprey,
+  LAMPREY_ASKS,
+  LAMPREY_JUMP,
+  LAMPREY_PHASES,
+  LAMPREY_TEETH,
+  type LampreyAsk,
+  type LampreyEntry,
+  type LampreyPhase,
+  type LampreyState,
+  type LampreyStep,
+  lampreyBiting,
+  lampreyBoss,
+  lampreyDone,
+  lampreyFiring,
+  lampreyHeld,
+  lampreyNextTooth,
+  lampreyPinner,
+  lampreyStep,
+  lampreyTapper,
+  lampreyTeethIn,
+  lampreyToothIn,
+} from "./lamprey.js";
 // Whether each of THE UNDERTOW's rings asks her for a thumb
 // (`render/undertow-marks.ts`). Here rather than beside its boss's other names
 // because that page was within twenty lines of its limit; the rest of the

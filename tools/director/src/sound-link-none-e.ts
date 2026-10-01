@@ -1,5 +1,6 @@
 /**
- * The sounds wired up with nothing to draw, the fifth page — THE VALVE's.
+ * The sounds wired up with nothing to draw, the fifth page — THE VALVE's and
+ * THE LAMPREY's.
  *
  * Cut off `sound-link-none-c.ts` on 30 September 2026, when THE GAUGE's loose
  * tooth left that page at 248 lines, by the rule the pages before it carry:
@@ -29,4 +30,20 @@ export const NO_SUBJECT_E: Record<string, string> = {
   // and the argument is theirs.
   "boss.haspRattle": "a door shaking on its hinge. Part of the fixture, like the clasps.",
   "boss.haspRust": "a clasp furred with rust. Same argument: a coat on the fixture.",
+  // THE LAMPREY's thirteen (`sim/events-lamprey.ts`). An eel is a body, but
+  // its look is still the shape sheet's stand-in: there is no frame of it to
+  // point a sound at until its look lane lands, and each of these is owed one.
+  "boss.lampreyEnter": "the eel swimming in. Its look is the stand-in; no frame yet.",
+  "boss.lampreyBite": "the mouth biting onto the hull, a tooth lit. Same argument.",
+  "boss.lampreyCrack": "the lit tooth knocked out. Same argument.",
+  "boss.lampreySnap": "the lit tooth snapping a cracked one back in. Same argument.",
+  "boss.lampreyCrawl": "the jaw crawling a column along the hull. Same argument.",
+  "boss.lampreyGnaw": "the jaw let go, chewing a step deeper. Same argument.",
+  "boss.lampreyFull": "a full bite, on the hull, which the hull's own sounds have.",
+  "boss.lampreyLoose": "the mouth pulling off the hull. Same argument.",
+  "boss.lampreyRear": "the eel rearing, the gullet lit. Same argument.",
+  "boss.lampreyHit": "a shot into the gullet. Same argument.",
+  "boss.lampreyLunge": "a gullet window run out, the eel lunging to bite again. Same argument.",
+  "boss.lampreySpent": "the eel gone limp, falling away. Same argument.",
+  "boss.lampreyOut": "the eel gone and the wave ending. Same argument, and an absence.",
 };

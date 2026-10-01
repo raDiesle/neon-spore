@@ -32,6 +32,36 @@ export const BOSS_ENTRIES_F = {
       { ask: "fire", tapper: 2, markMilli: 0, paceMilli: 0, color: "cyan", beats: 3 },
     ],
   },
+  // A bite and a gullet, the pinners apart, both crawls and the first step's
+  // colour set off `either`, for the walk only changes element 0
+  // (`lamprey-hash.ts`).
+  lamprey: {
+    kind: "lamprey",
+    steps: [
+      {
+        ask: "bite",
+        pinner: 1,
+        teeth: 3,
+        toothBeats: 3,
+        col: 2,
+        crawl: 1,
+        crawlBeats: 3,
+        color: "cyan",
+        beats: 0,
+      },
+      {
+        ask: "gullet",
+        pinner: 2,
+        teeth: 2,
+        toothBeats: 2,
+        col: 8,
+        crawl: -1,
+        crawlBeats: 2,
+        color: "either",
+        beats: 3,
+      },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE FLUE on's share of `patchBoss`. */
@@ -68,5 +98,26 @@ export function patchBossF(boss: BossState): void {
     boss.hubLit = true;
     boss.padsDown = [1, 2];
     boss.tapDown = [true, false];
+  }
+  if (boss.kind === "lamprey") {
+    // A re-bite on, crawling left off its column, half bitten, two teeth out
+    // for good and one cracked this bite, the gullet shot once, one thumb on
+    // the jaw and the other's down — every field given a value
+    // (`lamprey-hash.ts`).
+    boss.phase = "bite";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.jawCol = 5;
+    boss.crawlDir = -1;
+    boss.crawlBeat = 4;
+    boss.biteMilli = 375;
+    boss.teethOut = 0b101;
+    boss.litTooth = 4;
+    boss.toothBeat = 5;
+    boss.pulled = [3];
+    boss.rebiting = true;
+    boss.hits = 1;
+    boss.holdCol = [4, -1];
+    boss.tapDown = [false, true];
   }
 }

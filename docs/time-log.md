@@ -31377,3 +31377,17 @@ Bottleneck: none worth naming; reading what depends on the number was the
 whole of the work.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE LAMPREY's simulation (§41)
+
+- reading: 20 min. §41's fifteen rows, THE GALL's pinch and THE VALVE's
+  edge, and THE GOVERNOR's twelve registrations to copy.
+- writing: 30 min. The state, the clock, the two handles, the shot, wave
+  122, the cue, AUTO's hand, the director rows, the rule tests, §11.59.
+- looking: 0 min. No look in this lane: the eel is the shape sheet's
+  stand-in.
+- friction: 5 min. Two context compactions mid-lane, each re-read from the
+  tree.
+- landing: 10 min. `check:fast`, `land`.
+
+Bottleneck: the twelve registrations a new boss needs outside the simulation, found one failing director test at a time.

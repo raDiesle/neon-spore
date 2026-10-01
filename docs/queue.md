@@ -434,20 +434,6 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## THE LAMPREY's simulation (§41)
-
-- **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
-- **Taken:** 2026-10-01, claude/queue-auto-loses-the-valve-to-its-first-spark (claim: claude/queue-the-lampreys-simulation-41)
-- **Files:** `packages/sim/src/`, `packages/content/src/`, `packages/hands/src/`, `docs/spec/bosses-choreographed.md`
-
-The owner, 1 October 2026, asked for THE LAMPREY to be built from its sheet
-(`docs/spec/bosses-choreographed.md` §41): a mouth bitten onto the hull, one
-seat tapping the lit tooth as it jumps round the ring (`RepeatedTap`), the
-other keeping a thumb on the crawling mouth (`FollowTarget`). Its first lane,
-by `.claude/skills/new-boss`: the states, the teeth as its health, the gullet,
-its wave and its hands, with the look left as the shape sheet's stand-in.
-Done when an autopilot clears its wave and `bun run check` is green.
-
 ## THE LAMPREY's look (§41)
 
 - **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
@@ -602,3 +588,18 @@ The options:
 3. **Change the fuse.** On a hold step, it burns the other way or in grey, so
    a running fuse no longer always means "do something". Every boss's hold
    step would follow.
+
+## `boss-hands.ts` and `hash-boss-clocks.ts` are at the 250-line limit
+
+- **Found:** 2026-10-01, claude/queue-the-lampreys-simulation-41
+- **Where:** local
+- **Files:** `packages/sim/src/boss-hands.ts`, `packages/sim/src/hash-boss-clocks.ts`
+
+THE LAMPREY took both files to 251. That lane joined an older comment's two
+lines into one in each file to get back to 250, which is stepping around the
+limit, not fixing it. Each file is one call per boss, in a long run. Split
+each by family: the choreographed bosses' hands into `boss-hands-choreo.ts`,
+and their hash parts into `hash-boss-clocks-choreo.ts`, each called once from
+the file it came from. Done when both files are under ~200 lines, the next
+boss adds to the split file, and `bun run check` is green, with
+`hash-coverage.test.ts` unchanged.
