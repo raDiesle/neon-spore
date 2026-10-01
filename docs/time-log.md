@@ -30915,3 +30915,5 @@ Bottleneck: the rest — on a step only one seat grips, so the clock belongs on 
 - landing: 5 min. `check:fast` and `land`.
 
 Bottleneck: the surface page — the three new names took `boss-surface-clocks-d.ts` to 241 lines, so THE CAPSTAN's whole block moved to the fifth page first.
+
+*Measured: 113 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

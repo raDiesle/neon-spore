@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 2d04d0963 — THE CAPSTAN's marks answer a touch the way every mark does
+
+The drum's middle, the end its bared face is rubbed at, and its core now wear the halo on the screen they ask, the partner's ring and clock on the other, and a green or red ring when the drum answers: a band worn bright or a hold kept greens the middle and the end, a band or a hold run out reddens them, and a hit or a shot run out says so on the core.
+
 ## 2026-10-01 · 82f16ebf5 — THE HALTER's marks answer a touch the way every mark does
 
 The lit segment's two grips wear the halo on the gripper's screen and the partner's ring and clock on the resting seat's; on a guard they ask both seats until one has a grip down, and then only that one. The bared core on a fire step is either seat's and haloes on both screens with nobody's clock. A crack, a guard or a hit greens its mark; a slip, a startle, a shut step, a seal or a miss reddens it. THE WELL's surface exports moved to clocks page e to keep page d under 250 lines.
