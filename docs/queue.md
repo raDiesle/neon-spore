@@ -506,6 +506,7 @@ flat. `bun run check` proves the tests.
 ## THE BULB QUEEN's parts: how far
 
 - **Found:** 2026-09-27, claude/queue-living-bosses-the-outline-tiers-parts-and-surfac
+- **Taken:** 2026-10-01, claude/queue-bulb-queen-parts-large-arms (claim: claude/queue-the-bulb-queens-parts-how-far)
 - **Files:** `packages/render/src/outline-parts.ts`, `packages/render/src/queen-parts.ts`, `packages/render/src/queen-crane.ts`, `packages/render/src/queen.ts`, `packages/render/test/outline-parts.test.ts`
 - **Asks:** How should THE BULB QUEEN's parts move so the movement is seen: large arms, torches that sway with her wings, her whole body instead, or not at all?
 - **Answered:** 2026-09-27 — the owner left it to the lane on one condition: what falls, and the torches, must barely move sideways, or the shield and the cannon cannot be placed for them. Chosen: (a) large arms, over (b), which moves the torches off their columns, and (c), which moves her marks and drops with her body. Her arm's swing dies as `craneRelease` straightens it; prove the claw is at its still position when the drop leaves.
