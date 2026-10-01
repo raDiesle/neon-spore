@@ -70,10 +70,9 @@ export const SYSTEM_DRAFTS: CatalogueEntry[] = [
   {
     subject: arm("LIGHT TRACE", "a trailing line that lags what made it", 90, 1.5),
     motion: DRIFT,
-    status: "draft",
+    status: "taken",
     slot: "field",
-    suggests: "Light traces",
     owner:
-      "the whip is the whole idea: the bend runs down the trace and arrives late at the tip, so a trace says where something *was* rather than where it is",
+      "THE LAMPREY, taken 1 October 2026, combined with BULB · SPIKE: the trace is the eel's body, a lobed ribbon on a spine that lags the mouth, trailing up the field from the sucker bitten onto the hull and tapering to a tail, so a crawl along the hull arrives late at the tail (`render/lamprey-shape.ts`). Before that: the whip is the whole idea: the bend runs down the trace and arrives late at the tip, so a trace says where something *was* rather than where it is",
   },
 ];

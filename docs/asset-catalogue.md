@@ -1,6 +1,6 @@
 # The asset catalogue
 
-> **Status: eleven drafts, eighteen claimed, ten set free and two moved to VERSUS so far.** A draft is a picture
+> **Status: ten drafts, twenty claimed, nine set free and two moved to VERSUS so far.** A draft is a picture
 > offered to an idea, not a decision about it. Nothing on this page is in the
 > game until it is claimed — its parameters moving into `packages/content`, or
 > into `packages/render` where what was drawn is a mechanism rather than a
@@ -280,8 +280,10 @@ Said plainly, because a catalogue that oversells itself is worse than none.
   is unanswered; the *count* was answered another way when THE COUNT was built
   (11 September 2026): the marks are cut by the renderer on one screen off the
   world's beat, and the disc under them is the silhouette.
-- **The arms are single strokes.** THE CONDUCTOR, THE NEEDLE and LIGHT TRACE
-  have no thickness of their own. A real one is a stroke width and a taper.
+- **The arms are single strokes.** THE CONDUCTOR and THE NEEDLE have no
+  thickness of their own. A real one is a stroke width and a taper, which is
+  what LIGHT TRACE got when THE LAMPREY took it (1 October 2026): a lobed
+  ribbon round the lagging spine, tapering to the tail (`render/lamprey-shape.ts`).
   THE VANE now carries a drawn bearing at its pivot, which is the part of it
   that can be hit; the arm below the bearing is still one stroke.
 - **The pile creases, and nobody has seen whether the creases count.** `pile`

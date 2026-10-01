@@ -11913,9 +11913,18 @@ the script through without a snap, a gnaw or a scar
 jumping tooth while the other's thumb chases a crawling jaw — §41's payoff —
 is the owner's eye, and it has never been watched at tempo.
 
-**The look** is queued (`docs/queue.md`, THE LAMPREY's look (§41)); until it
-lands the eel is the shape sheet's stand-in, and every one of its events is
-silent to the renderer (`render/src/effects-ingest-silent-boss-e.ts`). Its
+**The look's body** landed on 1 October 2026 (`render/src/lamprey-draw.ts`):
+LIGHT TRACE for the eel, a dark olive lobed ribbon on a spine that lags the
+mouth, and BULB · SPIKE for the sucker, seven bone teeth round a black mouth
+with the lit one bright. A tooth knocked out leaves a socket, the scar under
+the mouth is the hull's red as deep as the bite, and the gullet reared is lit
+in the shot's colour and shrinks a step per hit. Both screens draw the one
+eel; the jaw's band on the hull is full on the pinner's and the lit tooth's
+ring, with its window, on the tapper's. The hand (the grip, the cue, the
+STATES cards) and the receipts (the bursts, the blow) are queued
+(`docs/queue.md`, THE LAMPREY's look (§41)), and every one of its events is
+still silent to the renderer but for the marks' verdicts
+(`render/src/effects-ingest-silent-boss-e.ts`). Its
 thirteen sounds are bound (`audio/src/bind-lamprey.ts`), panned after the
 jaw, so a crawl is heard moving along the hull.
 

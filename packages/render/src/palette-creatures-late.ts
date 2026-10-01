@@ -88,4 +88,16 @@ export const LATE_CREATURE_HUES = {
   governorFace: "#15110C",
   governorHot: "#FFE0A8",
   governorHub: "#5C4B31",
+  /**
+   * THE LAMPREY (§41, *Colour*): a dark wet olive for the body and its
+   * shadow, a pale bone white for the teeth — the lit one the only bright
+   * thing on the ring — the mouth's black, and the gullet unlit, a dull meat
+   * red that is not the hull's: the gullet lit is the only cannon's colour
+   * on the body, and the scar is the hull's own red.
+   */
+  lampreyHide: "#4E5A3A",
+  lampreyHideDark: "#1A2014",
+  lampreyTooth: "#E8E2CC",
+  lampreyMouth: "#0E0A0A",
+  lampreyGullet: "#5A2A22",
 } as const;

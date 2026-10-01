@@ -121,8 +121,8 @@ export const INGEST_SILENT_BOSS_E = [
   // And THE UNDERTOW's, the pilot on her free: a red ring round it,
   // `effects.boss.undertow.marks`' (`undertow-marks.ts`).
   "undertowRefuse",
-  // THE LAMPREY, every event: its look is the shape sheet's stand-in until
-  // its own lane draws it (`docs/spec/bosses-choreographed.md` §41).
+  // THE LAMPREY, every event: seven are the verdicts on its marks
+  // (`lamprey-verdicts.ts`), and the receipts half of its look is to come (§41).
   "lampreyEnter",
   "lampreyBite",
   "lampreyCrack",

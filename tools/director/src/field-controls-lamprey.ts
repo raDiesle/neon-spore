@@ -3,9 +3,9 @@ import type { FieldControlDef } from "./field-control-def.js";
 /**
  * THE LAMPREY's jaw and teeth, as rows of the ON THE FIELD tab: the pinner's
  * thumb on the crawling jaw, and the tapper's tap on the one lit tooth
- * (`sim/lamprey-hand.ts`, `docs/spec/bosses-choreographed.md` §41). The look
- * is still the shape sheet's stand-in, so the rows name the parts the touch
- * reads rather than how they are drawn.
+ * (`sim/lamprey-hand.ts`, `docs/spec/bosses-choreographed.md` §41). The body
+ * is drawn (`render/src/lamprey-draw.ts`); the rows name the parts the touch
+ * reads, the jaw's band on the hull and the ring round the lit tooth.
  */
 const SOURCE =
   "sim/lamprey-hand.ts — the drag's `id` is the column for the jaw, the tooth for the teeth";

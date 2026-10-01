@@ -5,8 +5,7 @@ import { fresh, type Pose, run, runUntil, POSE_TPB as TPB } from "./pose-kit.js"
  * THE LAMPREY's two hands, **each photographed from the seat that presses
  * it**: the jaw from the pilot's screen, the teeth from the navigator's. The
  * world is the same one, and a gallery pose is run to, never set
- * (`.claude/skills/new-boss` §4). The eel is still the shape sheet's stand-in,
- * so these show where the hands go, not what the eel looks like.
+ * (`.claude/skills/new-boss` §4). The eel is `render/src/lamprey-draw.ts`.
  */
 
 /** The pilot pins the first bite; the navigator taps. */

@@ -37,9 +37,11 @@ describe("a shape drawn at a concept", () => {
     // Not a count that has to be kept up to date — a floor. If this drops to
     // nothing the join is still correct and no longer does anything, and a
     // green test that proves nothing is the failure mode being guarded here.
+    // A boss taking a draft drains the pool: it stood at eleven until THE
+    // LAMPREY took LIGHT TRACE on 1 October 2026, and five is still a join.
     const names = await specNames();
     const hit = suggested().filter((s) => names.has(s.toLowerCase()));
-    expect(hit.length).toBeGreaterThan(10);
+    expect(hit.length).toBeGreaterThan(5);
   });
 
   test("is offered rather than claimed: a draft is never marked taken", () => {

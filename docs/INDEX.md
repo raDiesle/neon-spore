@@ -2114,6 +2114,11 @@ by hand never moves.
 | `packages/render/src/landing.ts` | Where a body's last glide ends: half-sunk in the ship's skin, so the beat it is seen to touch the hull is the beat the hull answers |
 | `packages/render/src/label-box.ts` | The box a guide writes in: a solid ground, a two-pixel edge in the pod's colour, sixteen-point Courier |
 | `packages/render/src/last-chance.ts` | ONE LAST CHANCE over every body the shield has already pushed, on both screens, read straight off the world |
+| `packages/render/src/lamprey-draw.ts` | **THE LAMPREY** drawn: the eel, the sucker and its seven teeth, the scar, the gullet, both seats' marks |
+| `packages/render/src/lamprey-marks.ts` | **THE LAMPREY's marks**: what says which thumb goes where |
+| `packages/render/src/lamprey-pose.ts` | **The clock THE LAMPREY is posed off** (§41, *Animation*), six poses |
+| `packages/render/src/lamprey-shape.ts` | **THE LAMPREY's shape** (§41, *The look*): two drafts combined, named on the shape sheet |
+| `packages/render/src/lamprey-verdicts.ts` | **THE LAMPREY's marks answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
 | `packages/render/src/ledger-cord.ts` | **The cord**, and the one hole in the ship it goes into |
 | `packages/render/src/ledger-draw.ts` | **THE LEDGER**: a tall split body high in the field on a single thick cord running down into the pair's own… |
 | `packages/render/src/ledger-fx.ts` | What THE LEDGER leaves behind a frame: the pulse a warded return throws back **up** the cord |

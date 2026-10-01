@@ -534,6 +534,31 @@
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">governorHub</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#5C4B31 36°</text>
     </g>
+    <g transform="translate(268 2200)">
+      <rect width="66" height="46" rx="4" fill="#4E5A3A" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">lampreyHide</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#4E5A3A 83°</text>
+    </g>
+    <g transform="translate(344 2200)">
+      <rect width="66" height="46" rx="4" fill="#1A2014" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">lampreyHideDark</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#1A2014 90°</text>
+    </g>
+    <g transform="translate(420 2200)">
+      <rect width="66" height="46" rx="4" fill="#E8E2CC" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">lampreyTooth</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#E8E2CC 47°</text>
+    </g>
+    <g transform="translate(496 2200)">
+      <rect width="66" height="46" rx="4" fill="#0E0A0A" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">lampreyMouth</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#0E0A0A 0°</text>
+    </g>
+    <g transform="translate(572 2200)">
+      <rect width="66" height="46" rx="4" fill="#5A2A22" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">lampreyGullet</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#5A2A22 9°</text>
+    </g>
 <text x="40" y="2306" fill="#2FE0F0" font-family="Courier New, monospace" font-size="10" text-anchor="start">THE FILM</text>
 <text x="150" y="2306" fill="#7A6FA8" font-family="Courier New, monospace" font-size="9" text-anchor="start">not a colour but a sweep: THE BALLOON's skin runs 245°–290°–320° and back, so no hue on it ever holds still long enough to be named.</text>
     <g transform="translate(40 2322)">

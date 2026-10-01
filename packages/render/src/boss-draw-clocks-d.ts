@@ -9,6 +9,7 @@ import { drawGall } from "./gall-draw.js";
 import { drawGovernor } from "./governor-draw.js";
 import { drawGrindstone } from "./grindstone-draw.js";
 import { drawHalter } from "./halter-draw.js";
+import { drawLamprey } from "./lamprey-draw.js";
 import type { Layout } from "./layout.js";
 import { drawPlumb } from "./plumb-draw.js";
 import type { ViewState } from "./renderer.js";
@@ -45,6 +46,7 @@ export const LATE_PAIR_KINDS = [
   "burgee",
   "flue",
   "governor",
+  "lamprey",
 ] as const;
 
 export type LatePairBoss = Extract<Installed, { kind: (typeof LATE_PAIR_KINDS)[number] }>;
@@ -178,5 +180,14 @@ export function drawLatePairBoss(
   // governor, braked by one seat's chord on the yoke and tapped by the other
   // on the lit mark, the hub it turns on shot (`governor-draw.ts`); its
   // marks' verdicts on a touch are `governor-verdicts.ts`.
-  drawGovernor(ctx, l, world, boss, beat, beatPhase, time, effects.boss.governor);
+  if (boss.kind === "governor") {
+    drawGovernor(ctx, l, world, boss, beat, beatPhase, time, effects.boss.governor);
+    return;
+  }
+
+  // THE LAMPREY: an eel bitten onto the hull and crawling along it, held
+  // under by one seat while the other taps its lit tooth out, then reared
+  // with its gullet lit and shot (`lamprey-draw.ts`); its marks' verdicts on
+  // a touch are `lamprey-verdicts.ts`.
+  drawLamprey(ctx, l, world, boss, beat, beatPhase, time, effects.boss.lamprey);
 }

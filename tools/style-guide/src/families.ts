@@ -112,6 +112,11 @@ export const FAMILIES: Family[] = [
       "governorFace",
       "governorHot",
       "governorHub",
+      "lampreyHide",
+      "lampreyHideDark",
+      "lampreyTooth",
+      "lampreyMouth",
+      "lampreyGullet",
     ],
   },
   {

@@ -30,10 +30,11 @@ export const NO_SUBJECT_E: Record<string, string> = {
   // and the argument is theirs.
   "boss.haspRattle": "a door shaking on its hinge. Part of the fixture, like the clasps.",
   "boss.haspRust": "a clasp furred with rust. Same argument: a coat on the fixture.",
-  // THE LAMPREY's thirteen (`sim/events-lamprey.ts`). An eel is a body, but
-  // its look is still the shape sheet's stand-in: there is no frame of it to
-  // point a sound at until its look lane lands, and each of these is owed one.
-  "boss.lampreyEnter": "the eel swimming in. Its look is the stand-in; no frame yet.",
+  // THE LAMPREY's thirteen (`sim/events-lamprey.ts`). Its body is drawn, but
+  // none of its events throws a receipt yet (`effects-spark-silent-boss-e.ts`):
+  // there is no moment on the frame to point a sound at until the receipts
+  // half of its look lands, and each of these is owed one.
+  "boss.lampreyEnter": "the eel swimming in. No receipt drawn for it yet.",
   "boss.lampreyBite": "the mouth biting onto the hull, a tooth lit. Same argument.",
   "boss.lampreyCrack": "the lit tooth knocked out. Same argument.",
   "boss.lampreySnap": "the lit tooth snapping a cracked one back in. Same argument.",

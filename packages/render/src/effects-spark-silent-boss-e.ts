@@ -10,8 +10,8 @@ import type { SimEvent } from "@neon-spore/sim";
  * neither.
  */
 export const SILENT_BOSS_E = [
-  // THE LAMPREY, every event: its look is the shape sheet's stand-in until
-  // its own lane draws one, so nothing here throws a burst for it yet
+  // THE LAMPREY, every event: the body is drawn, but nothing here throws a
+  // burst for it until the receipts half of its look lands
   // (`docs/spec/bosses-choreographed.md` §41).
   "lampreyEnter",
   "lampreyBite",

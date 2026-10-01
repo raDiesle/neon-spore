@@ -132,10 +132,10 @@ export const OFFERED_DRAFTS: CatalogueEntry[] = [
       "eight deep arms with real gaps between them",
     ),
     motion: BULB_MOTION,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "nothing wears it: `bulb:shape` / `spike`, moved here with the other four on 9 September 2026. Eight lobes at nearly twice the shipped depth — a starfish rather than a spore, with real gaps between the arms instead of a scalloped rim. Eight is past counting on the fingers, deliberately: this body would be named by how sharp it is rather than by how many arms it has, and no shipped body carries eight. What it risks is that a star is a hazard — deep points are what the game draws on things that hurt, the fence's shards and a broken plate, and a body that looks armed is a body a pair hesitates over",
+      "THE LAMPREY, taken 1 October 2026, combined with LIGHT TRACE: the deep points are the sucker's ring of teeth, seven not eight, one per tooth the tapper knocks out, laid round the mouth bitten onto the hull — the hazard the star risked is the point, since the teeth are what hurt (`render/lamprey-shape.ts`). Before that, nothing wore it: `bulb:shape` / `spike`, moved here with the other four on 9 September 2026. Eight lobes at nearly twice the shipped depth — a starfish rather than a spore, with real gaps between the arms instead of a scalloped rim. Eight is past counting on the fingers, deliberately: this body would be named by how sharp it is rather than by how many arms it has, and no shipped body carries eight. What it risks is that a star is a hazard — deep points are what the game draws on things that hurt, the fence's shards and a broken plate, and a body that looks armed is a body a pair hesitates over",
   },
   {
     subject: blob(
