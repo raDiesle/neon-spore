@@ -1091,7 +1091,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-e.ts` | **What the rounds are asking for** — page five of the readings: THE MIRROR and THE MAZE |
 | `packages/render/src/boss-cue-read-f.ts` | **What the bosses with a handle on the field are asking for** — page six of the readings |
 | `packages/render/src/boss-cue-read-g.ts` | **What the rounds drawn as a chart are asking for** — page seven of the readings, opened for THE FLEET |
-| `packages/render/src/boss-cue-read-h.ts` | **What the round that kept the ship is asking for** — page eight of the readings, opened for PINBALL |
+| `packages/render/src/boss-cue-read-h.ts` | **What the rounds that kept the ship are asking for** — page eight of the readings: PINBALL, THE SCOUT |
 | `packages/render/src/boss-cue-read-i.ts` | **What THE BATON is asking for** — page nine of the readings |
 | `packages/render/src/boss-cue-read-i-b.ts` | **THE BATON's `passing`** — the second half of page nine, and the readings' first cut *within* a boss |
 | `packages/render/src/boss-cue-read-j.ts` | **What THE UNDERTOW is asking for** — page ten of the readings |
@@ -2262,6 +2262,7 @@ by hand never moves.
 | `packages/render/src/pinball-grip.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |
 | `packages/render/src/pinball-socket.ts` | **The wet socket every piece on PINBALL's table stands in.** The owner, 18 September 2026 |
 | `packages/render/src/pinball-marks.ts` | PINBALL's plunger and table haloed while asked, the partner's clock on the other, green on the wind and shove, red on the tilt and the other seat's press |
+| `packages/render/src/pinball-mouth.ts` | **While the ball is up, the cannon is a funnel waiting for it** |
 | `packages/render/src/pinball-fuse.ts` | **PINBALL's clock is the fuse every boss wears, along the top of the table** |
 | `packages/render/src/pinball-catch.ts` | **A ball caught back in the cannon is said out loud: YEAH** |
 | `packages/render/src/pinch.ts` | **`SqueezeGap` from two fingers** — the one gesture in the game read off two touches at once |

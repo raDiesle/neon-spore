@@ -31347,3 +31347,17 @@ Bottleneck: the shove's seat was asserted in seven test files, and only the
 gate found the last of them.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-01 — PINBALL: the cannon is a funnel while the ball is up
+
+- reading: 0 min. The round's drawer and the cue page were open from A3.
+- writing: 5 min. `pinball-mouth.ts` and its test, the cue page emptied,
+  and four passages that still described `MOVE`.
+- looking: 5 min. Two frame runs: the first cup read as flared prongs, the
+  second as a bowl sunk into the muzzle.
+- friction: 0 min. `--boss-json` does not force a flight; `--auto both` at
+  tick 900 did.
+- landing: 5 min. The import sort and one `check:fast`.
+
+Bottleneck: getting a frame with the ball actually in the air, because the
+frames tool has no way to force a shot state.

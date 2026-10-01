@@ -13,6 +13,7 @@ import { drawPinCatch } from "./pinball-catch.js";
 import { drawPinFuse } from "./pinball-fuse.js";
 import { drawPinballGrips } from "./pinball-grip.js";
 import { drawPinballAsked, drawPinballVerdicts } from "./pinball-marks.js";
+import { drawPinMouth, pinMouthShown } from "./pinball-mouth.js";
 import { drawPinPieces } from "./pinball-piece.js";
 import { drawPinSockets } from "./pinball-socket.js";
 import {
@@ -151,13 +152,15 @@ export function drawPinballRound(
   );
   effects.boss.hit.draw(ctx, l, view.time, skinSampler(f));
   // Over the ship, because both are *on* it: the ball waiting in the muzzle
-  // between shots, the fire from the last one that got past it, and the
+  // between shots, the funnel the cannon becomes while it is up
+  // (`pinball-mouth.ts`), the fire from the last one that got past it, and the
   // cheer for the last one that did not.
   const mouthX = table.x + (pinCannonMilli(cfg, world.cannonCol) * table.tile) / 1000;
   const mouthY = surfaceY(mouthX) - table.tile * 0.34;
   if (boss.phase === "play" && boss.shot !== "flight") {
     drawPinResting(ctx, table, mouthX, mouthY, cfg.pinballBallMilli);
   }
+  if (pinMouthShown(boss)) drawPinMouth(ctx, table, cfg, mouthX, mouthY, view.time);
   drawPinBlast(ctx, l, table, view, boss, surfaceY);
   drawPinCatch(ctx, table, view, boss, mouthX, mouthY);
   // The two hands on the table, after the ship: both stand a tile and a half

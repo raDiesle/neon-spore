@@ -1,7 +1,5 @@
 import {
   type PinballState,
-  pinCannonMilli,
-  pinCaught,
   type ScoutState,
   scoutHome,
   scoutMawOpen,
@@ -12,7 +10,6 @@ import {
 import type { BossCue } from "./boss-cue.js";
 import { cueFrame } from "./boss-cue-frame.js";
 import type { Layout } from "./layout.js";
-import { pinTable } from "./pinball-table.js";
 import { scoutAt } from "./scout-draw.js";
 
 /**
@@ -30,93 +27,43 @@ import { scoutAt } from "./scout-draw.js";
  * a line of its own at the top, on both screens, every tick, saying *what is
  * wanted now* (`waiting`), and a cue that said the same thing again three
  * tiles lower would be the four-pictures-for-one-idea mistake `target-lock.ts`
- * records the owner ending — so only the one word its sentence cannot say
- * survives. THE SCOUT said *what this seat is for* at the top until 29
- * September 2026, when the owner had every word over its arena taken away; its
- * one word is still only the moment the round cannot show on its own.
+ * records the owner ending — and since 1 October 2026 not even the one word
+ * its sentence could not say survives: the cannon says it. THE SCOUT said
+ * *what this seat is for* at the top until 29 September 2026, when the owner
+ * had every word over its arena taken away; its one word is still only the
+ * moment the round cannot show on its own.
  */
 
 /**
- * **How far above the plating the mark on the cannon stops**, in tiles —
- * frame, gap and word together, which is why it is more than `CUE_FRAME.h`.
- *
- * The cannon *is* the floor of the table, so a mark left on it would hang its
- * verb over the hull and the band (`boss-cue-text.ts` puts the word under the
- * frame and never over it).
- *
- * **The two lifts on the field are gone and this one is not**, which is worth
- * a line. THE WARDEN's handle and THE UNDERTOW's lobes each carried one of
- * these until 21 September 2026, and both came down: `cueWordY` flips a verb
- * that would land in the membrane above its mark instead, so nothing has to be
- * lifted to keep a word readable (`BossCue.wordFloor`). That rule is the *hull's*
- * — a cue passing through `bossCue` is stamped with `skinY` under it — and
- * PINBALL's table is not the hull. Its floor is the band under `pinTable`, a
- * place `wordFloor` says nothing about, so the arithmetic here is still the only
- * thing holding the word off it.
- */
-const HULL_LIFT = 1.7;
-
-/**
- * PINBALL. One word, the pilot's, and the navigator is told nothing at all.
+ * PINBALL. Nothing, to either seat.
  *
  * **She cannot be told anything the round does not already say.** Her whole
- * seat is one press on the bar, in one phase, and the header names it in a
- * sentence addressed to her for every tick of that phase. A mark over the bar
- * would add a box and no fact: it could not say *when*, because when is the
- * answer and the bar filling and emptying is the question, and the round has
- * no sub-state inside `power` to come out in. So nothing. It is the third
- * navigator in a row who is told nothing (THE FLEET, SNAKE) and the first for
- * this reason: not a half of the picture she is not shown, but a half the
- * round has already said out loud.
+ * seat is one press on the bar, in one phase, and a mark over the bar would
+ * add a box and no fact: it could not say *when*, because when is the answer
+ * and the bar filling and emptying is the question.
  *
- * **He is told the one thing the sentence cannot say: that he is wrong now.**
- * *Get the cannon under it* stands from the first tick of a flight to the
- * last, whether the cannon is under the ball or not. `CARRY` / `MOVE` comes
- * out only while it is **not**, and goes the moment it is — which is the one
- * fact in the round that changes tick by tick and that nothing marks.
+ * **And he is no longer told MOVE.** Until 1 October 2026 a `CARRY` / `MOVE`
+ * stood on the cannon through every flight in which the ball was not over it.
+ * The owner that day: *the "move" helper is stupid* — and he asked instead for
+ * the cannon itself to change while the ball is up, into a funnel that can take
+ * it back, with a green light drawing in and an arrow down its middle
+ * (`pinball-mouth.ts`). The mouth now says *this is where it comes home* on its
+ * own, every tick of the flight, and a word on top of it would be the
+ * four-pictures-for-one-idea mistake `target-lock.ts` records the owner ending.
  *
- * - It is asked of `pinCaught`, the rule the floor itself is judged by
- *   (`sim/pinball-board.ts`), so the word cannot disagree with the catch by
- *   half a tile.
- * - It is asked **of the ball where it is**, never of where it is going. A
- *   mark that led the ball would be the round's entire difficulty handed over
- *   — reading a bounce is what the pair is here to do — and #34's second rule
- *   said again: the verb, never the answer. It says nothing about which way to
- *   go either; both of them can see the ball, because this round has no
- *   picture split at all (`showsPinPieces`).
- * - It stands on the cannon and not on the ball, because the cannon is the
- *   thing his thumb moves, lifted clear of the plating so the verb is readable
- *   at all.
- *
- * Nothing outside `play`, and nothing while the ball is on the muzzle: in
- * `aim` and `power` the cannon is where the shot is being aimed from, and a
- * word telling him to move it then would be the field arguing with the
- * conversation it takes the sweep's six and a half seconds to make room for.
+ * Kept as a page entry that answers nothing, rather than a missing case, so
+ * the reason is written where the next reading would be added.
  */
-export function pinballCues(l: Layout, world: World, b: PinballState): readonly BossCue[] {
-  if (b.phase !== "play" || b.shot !== "flight") return [];
-  if (pinCaught(world.cfg, b.ball.xMilli, world.cannonCol)) return [];
-  const t = pinTable(l, world.cfg);
-  const x = t.x + (pinCannonMilli(world.cfg, world.cannonCol) * t.tile) / 1000;
-  return [
-    {
-      seat: 1,
-      kind: "CARRY",
-      word: "MOVE",
-      x,
-      y: l.hullY - l.tile * HULL_LIFT,
-      ...cueFrame(l),
-      seed: 77,
-    },
-  ];
+export function pinballCues(_l: Layout, _world: World, _b: PinballState): readonly BossCue[] {
+  return [];
 }
 
 /**
  * **How far above the mouth the navigator's mark stands**, in tiles.
  *
  * `scoutHome` is on the bottom row and the bottom row is the hull's skin, so
- * PINBALL's `HULL_LIFT` argument applies here with one thing added: what the
- * mark must also not cover is **the mouth itself** — the home ring is
+ * the mark has to be held off the plating, and with one thing added: what it
+ * must also not cover is **the mouth itself** — the home ring is
  * `scoutHomeRadiusMilli` across, the largest radius in the round, and it is the
  * one thing she is watching. The verb hangs under the frame and never over it
  * (`boss-cue-text.ts`), so the whole mark rides above the ring rather than

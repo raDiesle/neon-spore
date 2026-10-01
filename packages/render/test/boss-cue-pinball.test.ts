@@ -11,7 +11,6 @@ import {
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
-import { pinTable } from "../src/pinball-table.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -23,14 +22,13 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **PINBALL, and the one word the field may say about it**
+ * **PINBALL, and why the field says nothing about it**
  * (`render/src/boss-cue-read-h.ts`).
  *
- * This round already writes a sentence at the top of the table, addressed, on
- * both screens, every tick (`pinball-round.ts`'s `waiting`), so the cases here
- * are mostly about **silence**: nothing in `aim`, nothing in `power`, nothing
- * to the navigator ever, and nothing to the pilot in the one flight state the
- * sentence and the cue would agree about — the cannon already under it.
+ * The cases are all **silence**: nothing in `aim`, nothing in `power`, nothing
+ * through a flight, nothing in a verdict. The pilot's MOVE went on 1 October
+ * 2026, when the owner asked for the cannon itself to say *bring it home* by
+ * turning into a funnel while the ball is up (`pinball-mouth.ts`).
  */
 
 beforeAll(installCanvasGlobals);
@@ -86,49 +84,16 @@ describe("PINBALL", () => {
     expect(cue(world, "p1")).toBeNull();
   });
 
-  it("asks the pilot to MOVE while the ball is coming down somewhere else", () => {
+  // The owner, 1 October 2026: *the "move" helper is stupid*. The cannon
+  // turns into a funnel for the flight instead (`pinball-mouth.ts`), and the
+  // word it used to carry is gone on every side of it.
+  it("says nothing in flight, on either seat, wherever the ball is coming down", () => {
     const { world, b } = opened();
-    flying(world, b, 4);
-    const c = cue(world, "p1");
-    expect(c?.word).toBe("MOVE");
-    expect(c?.kind).toBe("CARRY");
-    expect(c?.seat).toBe(1);
-    // On the cannon — the thing his thumb moves — and not on the ball.
-    const t = pinTable(LAYOUT.p1, world.cfg);
-    const mouth = t.x + (pinCannonMilli(world.cfg, world.cannonCol) * t.tile) / 1000;
-    expect(c?.x).toBeCloseTo(mouth, 6);
-    // And never on her screen: she has nothing that reaches a ball in the air.
-    expect(cue(world, "p2")).toBeNull();
-  });
-
-  it("goes the moment the cannon is under it, without waiting for the floor", () => {
-    const { world, b } = opened();
-    flying(world, b, 0);
-    expect(cue(world, "p1")).toBeNull();
-  });
-
-  // The verb, never the answer: the mark stands where the cannon is, so it
-  // cannot be read as a place to go, and it is the same word whichever side of
-  // the cannon the ball is falling on.
-  it("says the same word on either side, and never which way to go", () => {
-    const { world, b } = opened();
-    flying(world, b, -2);
-    const left = cue(world, "p1");
-    flying(world, b, 3);
-    const right = cue(world, "p1");
-    expect(left?.word).toBe("MOVE");
-    expect(right?.word).toBe("MOVE");
-    expect(left?.x).toBeCloseTo(right?.x ?? -1, 6);
-  });
-
-  it("keeps the word clear of the plating, so the verb can be read at all", () => {
-    const { world, b } = opened();
-    flying(world, b, 4);
-    const c = cue(world, "p1");
-    if (c === null) throw new Error("the pilot was owed a word and got none");
-    const l = LAYOUT.p1;
-    expect(c.y + c.halfH).toBeLessThan(l.hullY);
-    expect(l.hullY - (c.y + c.halfH)).toBeGreaterThan(l.tile * 0.5);
+    for (const away of [-2, 0, 3, 4]) {
+      flying(world, b, away);
+      expect(cue(world, "p1")).toBeNull();
+      expect(cue(world, "p2")).toBeNull();
+    }
   });
 
   it("says nothing once the round is over, on either screen", () => {
