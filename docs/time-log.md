@@ -31496,3 +31496,16 @@ the catalogue's count, the style guide's families, the top-of-screen rule —
 found one red test at a time.
 
 *Measured: 55 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE INSTAR's weight is one body
+
+- reading: 5 min. The profile's lines, where the spine leaves the head, the
+  tail's root and the contact shadow at its seam.
+- writing: 10 min. `neck` and `flow` on `INSTAR_BODY`, the tail carried on
+  along the spine's heading, the candidate's profile retuned to the rear's
+  width and the shipped head.
+- looking: 5 min. The candidate's shot, cropped.
+- friction: 0 min.
+- landing: 5 min. The gradient budget remeasured and moved, `check:fast`, `land`.
+
+Bottleneck: each seam (neck, rear, tail root) was a different file's choice, so making it one body meant reading three drawers before one line changed.

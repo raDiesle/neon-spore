@@ -90,7 +90,7 @@ export function profileLines(l: Layout, look: Look) {
   // double on itself when the brood's nests change sides.
   const [near, far] = nest.x <= eggs.x ? [nest, eggs] : [eggs, nest];
   // A Catmull-Rom knot k of four sits at u = k / 3, so that is where the nests are seated.
-  const neck = { x: head.x + r * 0.7, y: head.y + r * 0.15 };
+  const neck = { x: head.x + r * INSTAR_BODY.neck.x, y: head.y + r * INSTAR_BODY.neck.y };
   const end = instarFarEnd(l, f);
   const seats = [seated(near, neck, far, r, 1 / 3), seated(far, near, end, r, 2 / 3)] as const;
   const knots = [neck, ...seats, end];
@@ -184,7 +184,7 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, still: Loo
   // The tail swings about its root on its own drift (`instar-parts.ts`).
   ctx.save();
   if (drift?.parts) cockAbout(ctx, rear, drift.parts.tailPlane);
-  drawTail(ctx, l, look, rear);
+  drawTail(ctx, l, look, rear, heading(spine));
   ctx.restore();
   drawWing(ctx, look, back(0.42), W, { x: 0, y: 0, z: r * 0.3 }, 1);
   drawNests(ctx, l, look);
@@ -214,6 +214,14 @@ function drawDriftedHead(
   cockAbout(ctx, neck, parts.headPlane);
   INSTAR_DRIFT.head(ctx, { ...look, f, head, glance: parts.glance }, headTurn(drift));
   ctx.restore();
+}
+
+/** The way the spine runs at its rear, a unit vector. */
+function heading(spine: readonly Point[]): Point {
+  const a = spine[N - 2] as Point;
+  const b = spine[N] as Point;
+  const len = Math.hypot(b.x - a.x, b.y - a.y) || 1;
+  return { x: (b.x - a.x) / len, y: (b.y - a.y) / len };
 }
 
 /** A point `u` of the way along a Catmull-Rom spline through `k`. */

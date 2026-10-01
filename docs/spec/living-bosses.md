@@ -617,6 +617,18 @@ ridge** (`drawRidge`) rising a little higher at the chest. The breath, the
 roll and the undulation of `packages/render/src/instar-profile-life.ts` stay
 as they are, on the thicker body.
 
+Retuned (1 October 2026, the owner: *each body piece looks like it does not
+belong together to same body, should look like one body*). Three seams made
+it read as parts: the spine began below and behind the skull, so there was
+no neck; the rear was wider than the tail that stood straight up off it; and a
+contact shadow marked the join. Now the spine starts inside the skull
+(`INSTAR_BODY.neck`, 0.3 and 0.05 head radii off its centre), the profile is
+0.5 at the neck, 1.0 at the chest, 0.88 at the middle and 0.42 at the rear,
+the tail's root is 0.4 — the rear's own width — and the tail leaves along the
+spine's heading before it turns up to the fork (`INSTAR_BODY.flow`, 0.8), its
+seam shadow fading as it does. The candidate wears the shipped head, not the
+rig's.
+
 **The whole body keeps turning.** The profile goes through `view(yaw)`
 with the idle drift of section 1 on top of `SIDE`: the head turns toward the
 players and back, never away from them (section 1, "A face looks at the

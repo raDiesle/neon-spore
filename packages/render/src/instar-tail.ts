@@ -68,13 +68,22 @@ const SWING_GROW = 1.5 ** (1 / N);
 /** How far off the eye is, in head radii: near enough that a tip swung at the player grows. */
 const LENS = 7;
 
+/** How far along the spine's heading a tail that flows carries its root, in head radii. */
+const FLOW_REACH = 1.6;
+
 const SKIN = {
   base: mixHex(PALETTE.sheenDeep, PALETTE.hull, 0.25),
   lift: PALETTE.hull,
   sheen: PALETTE.sheenRim,
 };
 
-export function drawTail(ctx: CanvasRenderingContext2D, l: Layout, look: Look, rear: Point): void {
+export function drawTail(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  look: Look,
+  rear: Point,
+  heading: Point = { x: 1, y: 0 },
+): void {
   const { f, r, fade, hurt, time, threat } = look;
   const rest = { x: rear.x + r * 0.9, y: rear.y - r * 1.3 };
   const aimed = instarAt(l, f.tailX, f.tailY - FORK_RISE);
@@ -82,7 +91,11 @@ export function drawTail(ctx: CanvasRenderingContext2D, l: Layout, look: Look, r
   const fork = toward(rest, aimed, f.tail);
   fork.x += Math.sin(time * 23) * shiver + Math.sin(time * 1.9) * r * 0.06 * f.tail;
   fork.y += Math.cos(time * 19) * shiver;
-  const c1 = { x: rear.x + r * (0.4 + 0.9 * f.tail), y: rear.y - r * 1.5 };
+  const rise = { x: rear.x + r * (0.4 + 0.9 * f.tail), y: rear.y - r * 1.5 };
+  // Carried on along the spine, the root is the body going on rather than a
+  // tube stood up off its end (`INSTAR_BODY.flow`).
+  const on = { x: rear.x + heading.x * r * FLOW_REACH, y: rear.y + heading.y * r * FLOW_REACH };
+  const c1 = toward(rise, on, INSTAR_BODY.flow);
   const c2 = { x: fork.x + r * (0.4 + 1.2 * f.tail), y: fork.y - r * (0.3 + 0.9 * f.tail) };
   const at = (u: number): Point => {
     const v = 1 - u;
@@ -146,7 +159,7 @@ export function drawTail(ctx: CanvasRenderingContext2D, l: Layout, look: Look, r
     drawWeak(ctx, hide, (look.weak?.tail ?? 0) * fade, "tail");
     drawRings(ctx, left, right, r, fade, from, to);
     // Where the tail goes into the rear.
-    if (from === 0) drawContact(ctx, hide, 0, 0, r * 0.4, 0.8 * fade);
+    if (from === 0) drawContact(ctx, hide, 0, 0, r * 0.4, 0.8 * fade * (1 - INSTAR_BODY.flow));
     rimTube(ctx, hide, PALETTE.sheenRim, r * 0.05, fade);
     ctx.fillStyle = faded(PALETTE.rock, fade, 0.9);
     for (const [p, n, k, i] of spikes) {

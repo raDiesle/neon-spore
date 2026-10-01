@@ -1,7 +1,6 @@
 import { rgba } from "../../../../../packages/render/src/hex.js";
 import * as look from "../../../../../packages/render/src/instar-body-look.js";
 import { type Body, place } from "../../../../../packages/render/src/instar-profile-surface.js";
-import { drawRigSideHead } from "../../../../../packages/render/src/instar-rig-head-draw.js";
 import { PALETTE } from "../../../../../packages/render/src/palette.js";
 import { patch, type Variant } from "../../../variant.js";
 
@@ -15,8 +14,13 @@ import { patch, type Variant } from "../../../variant.js";
  * belly, placed by longitude so the roll carries it round; the ridge stands
  * highest over the chest. The spine is seated deeper under each nest by the
  * girth there, across the spine rather than down the screen, so the eggs still
- * sit on the back in every pose — the upright rise too — and the head
- * is the rig's (`instar:head`'s RIG), so the two are seen together.
+ * sit on the back in every pose — the upright rise too.
+ *
+ * Retuned 1 October 2026, the owner: *each body piece looks like it does not
+ * belong together*. So the seams go: the spine starts inside the skull, the
+ * profile runs 0.5 at the neck, 1.0 at the chest, 0.88 at the middle, 0.42 at
+ * the rear, the tail's root is the rear's width and leaves along the spine
+ * before it turns up (`flow`), and the head is the shipped one.
  */
 
 /** A smooth curve through `knots` (u, value), flat at each knot. */
@@ -35,16 +39,19 @@ function through(knots: readonly (readonly [number, number])[]): (u: number) => 
 }
 
 const girth = through([
-  [0, 0.65],
-  [0.25, 1.05],
-  [0.5, 0.9],
-  [1, 0.6],
+  [0, 0.5],
+  [0.25, 1.0],
+  [0.5, 0.88],
+  [1, 0.42],
 ]);
+/** The spine starts inside the skull, so the neck runs into the head. */
+const neck = { x: 0.3, y: 0.05 };
 /** The nest is sunk a little into the back: the spine runs under it at the girth less 0.15. */
 const seat = (u: number) => girth(u) - 0.15;
+/** The root is the rear's own width, so the tail goes on from the body. */
 const tail = through([
-  [0, 0.45],
-  [0.75, 0.2],
+  [0, 0.4],
+  [0.7, 0.18],
   [1, 0.07],
 ]);
 /** Half the shipped spines' stand-off, since the rings they stand on are twice the girth — and more over the chest. */
@@ -85,7 +92,7 @@ export const INSTAR_BODY_WEIGHT: Variant = {
   slot: "instar:body",
   name: "weight",
   sentence:
-    "weight — THE INSTAR's body is the spec's radius profile, a chest a head across tapering to a thin tail blade, with a paler belly band and a higher ridge at the chest, and the rig's head on it",
+    "weight — THE INSTAR's body is the spec's radius profile, a chest a head across tapering to a thin tail blade, with a paler belly band and a higher ridge at the chest, one body from the neck in the skull to a tail that goes on from the rear",
   dir: "tools/versus/candidates/instar-body/weight",
   patches: [
     patch({
@@ -94,9 +101,9 @@ export const INSTAR_BODY_WEIGHT: Variant = {
       where: {
         file: "packages/render/src/instar-body-look.ts",
         symbol: "INSTAR_BODY",
-        type: "{ girth: (u: number) => number; seat: (u: number) => number; across: boolean; tail: (u: number) => number; ridge: (u: number) => number; belly: (ctx: CanvasRenderingContext2D, body: Body, clip: Path2D, roll: number, fade: number) => void; head: (ctx: CanvasRenderingContext2D, look: Look) => void }",
+        type: "{ neck: { readonly x: number; readonly y: number }; girth: (u: number) => number; seat: (u: number) => number; across: boolean; tail: (u: number) => number; flow: number; ridge: (u: number) => number; belly: (ctx: CanvasRenderingContext2D, body: Body, clip: Path2D, roll: number, fade: number) => void; head: (ctx: CanvasRenderingContext2D, look: Look) => void }",
       },
-      fields: { girth, seat, across: true, tail, ridge, belly, head: drawRigSideHead },
+      fields: { neck, girth, seat, across: true, tail, flow: 0.8, ridge, belly },
     }),
   ],
 };

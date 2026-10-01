@@ -110,7 +110,7 @@ describe("THE INSTAR's body keeps both nests on its back", () => {
 });
 
 describe("the body with weight's tail", () => {
-  it("thins monotonically, root to blade", () => {
+  it("thins monotonically, from the rear's own width to the blade", () => {
     const applied = apply(INSTAR_BODY_WEIGHT);
     try {
       let was = Number.POSITIVE_INFINITY;
@@ -119,7 +119,8 @@ describe("the body with weight's tail", () => {
         expect(w, `u ${i / 40}`).toBeLessThan(was);
         was = w;
       }
-      expect(INSTAR_BODY.tail(0)).toBeCloseTo(0.45);
+      // The root as wide as the rear it goes on from, so the two read as one body.
+      expect(Math.abs(INSTAR_BODY.tail(0) - INSTAR_BODY.girth(1))).toBeLessThan(0.05);
       expect(INSTAR_BODY.tail(1)).toBeCloseTo(0.07);
     } finally {
       restore(applied);
