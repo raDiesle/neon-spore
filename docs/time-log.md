@@ -30780,3 +30780,5 @@ saying the same thing in its own words.
 - landing: 5 min. `check:fast` and `land`.
 
 Bottleneck: none worth the name; the template was one lane old.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

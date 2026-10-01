@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · c2a4bfada — THE VISE's marks answer a touch the way every mark does
+
+Each lobe now wears the halo on its own seat's screen, and the partner's ring and clock on the other's, while a pinch naming it is lit and its gap is not yet shut. The kernel, the hull under the case and the spat seed halo on both screens while their step asks. A seam cracked or a brace greens its lobes, a slip reddens its own lobe, a kernel hit, a bite blocked and a seed burst green their marks, and a step let run out reddens only what it asked.
+
 ## 2026-09-30 · 9f2cd4460 — A check a landing could not make is never a queue entry again
 
 `bun run land --unverified "<what>"` now only prints each item as left for the owner's regression pass. It writes nothing into docs/queue.md, and `bun run unverified` is gone. The twenty `Unverified at <sha>:` entries, all of them watched-at-tempo checks, are off the queue, and no other work waits on them. The owner, 30 September 2026: "they should be gone from queue and do not block other tasks." The rule is rewritten in queue.md, cloud-session.md, commands.md and CLAUDE.md. VERSUS candidates and look entries are untouched and stay the owner's to check and decide.
