@@ -570,7 +570,10 @@ bare `bun test` is still bun's, one process, for a human running one file.
 
 The floor is `opening.test.ts` alone in its shard, 32 s of Chrome plus the
 process start; nothing below it can bring the wall clock under that, and the
-other seven finish between 16 and 31 s. The weighing is what moves a run
+other seven finish between 16 and 31 s. Since 1 October 2026 that file is
+two halves on one rig (`tools/frames/test/opening-rig.ts`), each with a
+preview and a browser of its own, 14 s apiece side by side, so the floor is
+no longer one file of Chrome. The weighing is what moves a run
 between the second row and the third: `shards.ts` puts the three files whose
 cost is nothing like their size in a table, in seconds, and weighs the rest by
 bytes at two rates — a frame test or a shape-sheet test runs at about 3 500

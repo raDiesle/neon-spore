@@ -30013,7 +30013,8 @@ Bottleneck: looking — the auto-run's hands go straight past the twist, so the 
 - writing: 15 min. The fade over the pause, `carryPauseLeft` so the
   subtraction is not copied into render/, the inverted tests, the documents.
 - looking: 5 min. The director's GRIP pose frame.
-- friction: 5 min. A context compaction mid-lane.
+- friction: 10 min. A context compaction mid-lane, and the two halves'
+  builds writing into one `dist/` at once, found by `check:fast`.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: writing — six documents said the arrows were the offer, and each
@@ -31207,3 +31208,17 @@ Bottleneck: finding every place that locates a mark — drawing, hit test, cue a
 Bottleneck: which of three readings of "remember test mode" was meant — the page, a row, or the seat — had to be settled without the owner.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-01 — `opening.test.ts` is two halves on one rig, every step on its own clock
+
+- reading: 15 min. The 552-line file, `capture.ts`'s launch and close,
+  `deadline.ts`, `serve.ts`, and every passage that named the file.
+- writing: 30 min. `opening-rig.ts`, the split into `capture-shots.test.ts`,
+  the shard weights, the cross-references, and `GAME_DIST`.
+- looking: 10 min. Timing each step on an idle machine, both halves side by
+  side, and a starved launch forced to prove the late browser is closed.
+- friction: 10 min. A context compaction mid-lane, and the two halves'
+  builds writing into one `dist/` at once, found by `check:fast`.
+- landing: 10 min. `check`, `land`.
+
+Bottleneck: proving that a step which times out still takes down what it brings up late, which needed a budget forced to 5 ms and a process list read before and after.

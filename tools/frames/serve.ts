@@ -24,10 +24,11 @@ export { git, root, run } from "./exec.js";
  * than guessing a port — the same rule `CLAUDE.md`'s verification section gives a human. */
 export async function startPreview(
   cwd: string,
+  dist?: string,
 ): Promise<{ url: string; stop: () => Promise<void> }> {
   const proc = Bun.spawn(["bun", "run", "--cwd", "apps/game", "preview:once"], {
     cwd,
-    env: { ...process.env, PREVIEW_HOST: "127.0.0.1" },
+    env: { ...process.env, PREVIEW_HOST: "127.0.0.1", ...(dist ? { GAME_DIST: dist } : {}) },
     stdout: "pipe",
     stderr: "pipe",
   });

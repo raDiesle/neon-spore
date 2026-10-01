@@ -1,4 +1,5 @@
 import { mkdir, readdir, rm } from "node:fs/promises";
+import { resolve } from "node:path";
 import { buildDateToday } from "../../tools/build-stamp.js";
 
 /**
@@ -15,7 +16,11 @@ import { buildDateToday } from "../../tools/build-stamp.js";
  */
 
 const here = new URL("./", import.meta.url);
-const distDir = Bun.fileURLToPath(new URL("./dist/", here));
+/** `dist/`, or `GAME_DIST`, which `preview.ts` then serves: two builds of one
+ * tree at once must not write into each other (`tools/frames/test/opening-rig.ts`). */
+const distDir = process.env.GAME_DIST
+  ? `${resolve(process.env.GAME_DIST)}/`
+  : Bun.fileURLToPath(new URL("./dist/", here));
 const publicDir = Bun.fileURLToPath(new URL("./public/", here));
 const indexHtml = Bun.fileURLToPath(new URL("./index.html", here));
 

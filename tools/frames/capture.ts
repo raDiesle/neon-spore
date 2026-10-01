@@ -64,7 +64,7 @@ export async function captureFrames(
   await clearFrames(outPrefix);
 
   // A browser of its own unless the caller lent one: one capture wants the
-  // launch, a test file taking six wants one browser (`test/opening.test.ts`).
+  // launch, a test file taking six wants one browser (`test/opening-rig.ts`).
   const browser = shared ?? (await launchBrowser());
   let opened: Page | null = null;
   try {

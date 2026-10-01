@@ -3,7 +3,7 @@ import { parseHand } from "../hand.js";
 
 /**
  * `--hand` as a string, before a browser is anywhere near it. The pressing
- * itself is proved against the built game in `opening.test.ts`, beside the
+ * itself is proved against the built game in `capture-shots.test.ts`, beside the
  * other captures that need a page.
  */
 describe("parseHand", () => {

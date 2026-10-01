@@ -10,7 +10,7 @@ import { DEFAULT_UNTIL_TICKS, parseUntil } from "../until-flags.js";
  * `--ticks` bisecting for the window. `--frames` and `--stride` already
  * counted forward from the event, so the workaround was a wide sweep and forty
  * pictures to throw away. The browser half — that the picture really is taken
- * N ticks on — is `opening.test.ts`'s.
+ * N ticks on — is `capture-shots.test.ts`'s.
  */
 
 const waves = [{ name: "THE DRIFT" }, { name: "THE SHELL" }];

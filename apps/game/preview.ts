@@ -25,13 +25,17 @@
 //
 // Run it through `bun run preview`, which builds first.
 
+import { resolve } from "node:path";
 import { claimPort, treeKey } from "../../tools/ports.js";
 import { announce } from "../../tools/running.js";
 import { SERVERS } from "../../tools/servers.js";
 
 const tree = Bun.fileURLToPath(new URL("../../", import.meta.url));
 const given = process.env.PREVIEW_PORT === undefined ? undefined : Number(process.env.PREVIEW_PORT);
-const root = new URL("./dist/", import.meta.url);
+/** `dist/`, or the `GAME_DIST` that `build.ts` was given. */
+const root = process.env.GAME_DIST
+  ? Bun.pathToFileURL(`${resolve(process.env.GAME_DIST)}/`)
+  : new URL("./dist/", import.meta.url);
 /** The base, the band, the marker and the two paths, from the one table. */
 const spec = SERVERS.preview;
 const marker = spec.marker;

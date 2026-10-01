@@ -18,12 +18,14 @@ export interface Weighed {
  * `docs/performance.md`'s table: a real Chrome, a walk through every
  * rehearsal, and a wait on workerd. Everything else is weighed by its bytes.
  * Balance by bytes alone and the shard that drew `opening.test.ts` finished
- * last by half a minute, whatever else it was given. A file missing from
+ * last by half a minute, whatever else it was given — one file then, two
+ * halves on one rig since 1 October 2026, 14 s each side by side. A file missing from
  * here is not wrong, only slower to find its shard's end; the profile says
  * when one has earned a row.
  */
 export const KNOWN_SECONDS: Readonly<Record<string, number>> = {
-  "tools/frames/test/opening.test.ts": 30,
+  "tools/frames/test/opening.test.ts": 15,
+  "tools/frames/test/capture-shots.test.ts": 15,
   "packages/render/test/briefing.test.ts": 24,
   "apps/server/test/room.test.ts": 8,
 };

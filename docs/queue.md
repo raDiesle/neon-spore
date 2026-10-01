@@ -434,20 +434,6 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## `frames/test/opening.test.ts` times out in its hook on a busy machine
-
-- **Found:** 2026-09-30, claude/queue-the-gauges-hands-test-is-past-the-line-too
-- **Taken:** 2026-10-01, claude/queue-living-bosses-the-surface-marks-by-longitude-onc (claim: claude/queue-frames-test-opening-test-ts-times-out-in-its-hoo)
-- **Files:** `tools/frames/test/opening.test.ts`
-
-At a load average of about 31, `bun run land` went red on this file alone. A
-`beforeAll`/`afterAll` hook ran out its `STARVED_MS` of 120 s, and the result
-was reported as an unnamed case. The rerun a minute later was green, so the
-lane landed around it. The file is also 552 lines. Split it in two around a
-shared rig, the way the gauge tests were. Time the preview and browser start
-on an idle machine, and either share one preview between the halves or give
-the hook a figure it can meet under load. Prove it with `bun run check`.
-
 ## `bun run frames <sha> --boss <field>` refuses a field the sha itself adds
 
 - **Found:** 2026-09-30, claude/pinball-wave-physics-ux-b2db9f

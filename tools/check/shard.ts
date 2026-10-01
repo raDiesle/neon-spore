@@ -32,8 +32,9 @@
  * width is not something a run can know, so it is kept where the runs can all
  * see it — a directory of claims under `tmpdir()`.
  *
- * **Ports.** Two files start a server: `opening.test.ts` builds and serves
- * the game, `room.test.ts` raises workerd. Neither takes the port a tree
+ * **Ports.** Three files start a server: `opening.test.ts` and
+ * `capture-shots.test.ts` each build and serve the game (`opening-rig.ts`),
+ * `room.test.ts` raises workerd. Neither takes the port a tree
  * derives (`tools/ports.ts`): the preview is started with `PREVIEW_PORT=0`
  * and Miniflare asks the OS as well — two `room.test.ts` side by side both
  * passed, on 10 September 2026, which is how that was settled. A test that

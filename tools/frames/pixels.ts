@@ -9,7 +9,7 @@
  * block layout, and nothing in the format promises it picks the same ones on
  * a machine that is being fought over. So two files that differ are not two
  * pictures that differ, and an assertion that says so is asking the wrong
- * question — of `test/opening.test.ts`, and of `bun run frames`'s own
+ * question — of `test/capture-shots.test.ts`, and of `bun run frames`'s own
  * `identical:` guard, which refuses to write a before-and-after pair that
  * shows nothing.
  *

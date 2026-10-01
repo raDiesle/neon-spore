@@ -14,7 +14,7 @@ import { Unreachable } from "../shot-state.js";
  * a page's own exception to a listener — nothing a fake page could prove.
  *
  * One browser for the file and no server: the page is set from a string.
- * `opening.test.ts` has why the browser is shared and the budget is generous.
+ * `opening-rig.ts` has why the browser is shared and the budget is generous.
  */
 const STARVED_MS = 120_000;
 
