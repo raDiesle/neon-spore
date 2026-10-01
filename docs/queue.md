@@ -395,6 +395,7 @@ leave behind, same as the four already listed, and it is a look:
 ## §42 THE SLUICE — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-10-01, claude/queue-41-the-winch-the-simulation-lane (claim: claude/queue-42-the-sluice-the-simulation-lane)
 - **Files:** `docs/spec/bosses-choreographed.md`
 - **Asks:** THE DAVIT already ships this shape — its draw counts only while the other seat's lean holds and lands only if it lifts while the lean still holds (`docs/spec/bosses.md` §11.52) — and THE SLUICE is that with THE VISE's pinch where the lean is, as THE WINCH is with a chord (the same question on its entry). Build it as designed (two lanes, sim then look); cut §42 as a duplicate and drop both SLUICE entries; or redesign it first so a gap sprung open also unwinds a draw already banked, which DAVIT's lean never does?
 - **Answered:** 2026-09-27 — redesign, the same answer as THE WINCH's and for the same reason. The gated draw is rows 2–9 of ten, so it is the whole boss, and that boss is THE DAVIT with a pinch. Redesign it so a gap sprung open also unwinds a draw already banked, and add states before or after it so the boss keeps the pair busy for 30 seconds or more.
