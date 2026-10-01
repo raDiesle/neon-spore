@@ -7,6 +7,7 @@ import {
   seamWantsShot,
   type World,
 } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
@@ -37,6 +38,7 @@ import {
   seamLift,
   seamRidgePath,
 } from "./seam-shape.js";
+import { seamStopper } from "./seam-stop.js";
 import { drawSeamBack, drawSeamGlow, seamTurn, seamTurnWidth } from "./seam-story.js";
 import {
   drawSeamHalo,
@@ -79,6 +81,7 @@ export function drawSeam(
   beatPhase: number,
   time: number,
   fx: SeamFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const arrived = seamArrived(s, cfg, beat, beatPhase);
@@ -89,6 +92,7 @@ export function drawSeam(
   const hurt = fx.hurt.value;
   const thrown = seamThrow(l, world, s, c, beat, beatPhase);
   fx.note(seamCrackCircle(l, s, c), seamRockNow(l, thrown));
+  stops?.aim(seamStopper(l, world, s, c, arrived, split, thrown, beat, beatPhase));
 
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.6 * split);

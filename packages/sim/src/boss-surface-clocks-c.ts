@@ -191,6 +191,7 @@ export {
   seamWantsShield,
   seamWantsShot,
 } from "./seam.js";
+export { type SeamVerdict, seamVerdict } from "./seam-shot.js";
 export { seamStepBeats } from "./seam-step.js";
 // THE SLING's fork: the phase, the lit step, the arms and both seats'
 // draws, for the picture, the cue and the director's hand. Straight off

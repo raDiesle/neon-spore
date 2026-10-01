@@ -2,6 +2,7 @@ import type { BossKind, SimConfig, SimEvent, World } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
 import { BeatboxSilences } from "./beatbox-silence.js";
 import { BeatboxWaves } from "./beatbox-wave.js";
+import { BoltStops } from "./bolt-stop.js";
 import { ChoirQuake } from "./choir-quake.js";
 import { ClaspFrames } from "./clasp-frames.js";
 import { CoilFlightFx } from "./coil-flight.js";
@@ -96,6 +97,8 @@ export class Effects {
   readonly shieldPush = new ShieldPushFx();
   /** A bolt carried on past the top row to the top of the screen (`shot-out.ts`). */
   readonly shotOut = new ShotOutFx();
+  /** And one stopped short of it, on the boss it met, burst there (`bolt-stop.ts`). */
+  readonly bolts = new BoltStops();
   /** And on HARD a wasted one, glancing off the top back onto the hull. Drawn
    * over the hull by the ship pass, like `rockImpact` (`ricochet.ts`). */
   readonly ricochet = new RicochetFx();

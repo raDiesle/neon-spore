@@ -149,7 +149,7 @@ export function drawPairBoss(
   // spark, the reseal's flash, the blow and the marks' verdicts — is
   // `effects.boss.seam` (`seam-fx.ts`).
   if (boss.kind === "seam") {
-    drawSeam(ctx, l, world, boss, beat, beatPhase, time, effects.boss.seam);
+    drawSeam(ctx, l, world, boss, beat, beatPhase, time, effects.boss.seam, effects.bolts);
     return;
   }
 

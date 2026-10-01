@@ -1,4 +1,5 @@
 import { type Bullet, bulletShown } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { halo } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -72,6 +73,7 @@ export function drawBullets(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   bullets: readonly Bullet[],
+  stops?: BoltStops,
 ): void {
   for (const b of bullets) {
     // **Every bullet on the field is an ordinary one.** A lance does not
@@ -85,8 +87,13 @@ export function drawBullets(
     // (`sim/codex.ts`).
     const hex = bulletShown(b) === "red" ? PALETTE.red : PALETTE.cyan;
     const frac = b.subMilli / 1000;
-    drawShot(ctx, l, look, b.col + b.driftMilli / 1000, b.row - frac, frac, b.aimMilli, hex);
+    const col = b.col + b.driftMilli / 1000;
+    // A bolt that has met a boss's picture is drawn no further than where it
+    // met it (`bolt-stop.ts`).
+    if (stops?.stopped(b, tileCX(l, col), tileCY(l, b.row - frac), hex)) continue;
+    drawShot(ctx, l, look, col, b.row - frac, frac, b.aimMilli, hex);
   }
+  stops?.end(bullets);
 }
 
 /**

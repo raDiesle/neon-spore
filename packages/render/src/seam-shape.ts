@@ -167,3 +167,17 @@ export function seamFalsePath(l: Layout): Path2D {
   p.ellipse(0, 0, OPEN * l.tile * 1.1, 0.28 * l.tile, 0, 0, Math.PI * 2);
   return p;
 }
+
+/**
+ * **Where a bolt `dx` across from the spine first meets the ridge**, climbing
+ * from below: the lowest `y` on it whose half-width reaches `dx`, or `null`
+ * for a column the ridge does not stand over (`seam-stop.ts`).
+ */
+export function seamFootAt(l: Layout, dx: number): number | null {
+  const half = seamHalfHeight(l);
+  for (let i = N; i >= 0; i--) {
+    const y = -half + (2 * half * i) / N;
+    if (profile(l, y).w >= Math.abs(dx)) return y;
+  }
+  return null;
+}

@@ -9,7 +9,7 @@ import {
   seamWantsShot,
 } from "./seam.js";
 import { seamAnswered, seamFiredInto } from "./seam-step.js";
-import type { Bullet } from "./types.js";
+import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -29,23 +29,19 @@ import type { World } from "./world.js";
  * ridge's column — the one thing they ask is that none comes (`seamFiredInto`).
  */
 export function seamStruck(world: World, bullet: Bullet): boolean {
+  const verdict = seamVerdict(world, bullet.col, bullet.color);
   const s = seamBoss(world);
-  if (s === null) return false;
-  const step = seamLitStep(s);
-  if (step !== null && seamHoldsFire(step) && bullet.col === midCol(world.cfg)) {
+  const step = s === null ? null : seamLitStep(s);
+  if (verdict === null || s === null || step === null) return false;
+  if (verdict === "held") {
     seamFiredInto(world, s, step, bullet.col);
     return true;
   }
-  // Only a lit step stands in a column: a bolt anywhere else met nothing
-  // (`shot-out.ts`).
-  if (step === null || !seamWantsShot(s) || bullet.col !== seamStepCol(world, step)) return false;
-  if (step.color !== "either") {
-    if (bullet.color !== step.color) {
-      missedColor(world);
-      return true;
-    }
-    metColor(world);
+  if (verdict === "wrong") {
+    missedColor(world);
+    return true;
   }
+  if (step.color !== "either") metColor(world);
   if (step.ask === "glow") {
     // The glow gathers until enough shots have landed on it; each one tells
     // the picture how much is left.
@@ -67,4 +63,30 @@ export function seamStruck(world: World, bullet: Bullet): boolean {
   }
   if (!seamWantsShield(s)) seamAnswered(world, s);
   return true;
+}
+
+/** What `seamVerdict` says a bolt would meet on the ridge. */
+export type SeamVerdict = "target" | "wrong" | "held";
+
+/**
+ * **What a bolt in `col` of `color` would meet on the ridge right now**, and
+ * nothing done about it: the lit target (`"target"`), the lit target in the
+ * wrong colour (`"wrong"`), the false point or the dark up the middle
+ * (`"held"`), or no lit step in that column at all (`null`).
+ *
+ * `seamStruck` is this verdict acted on. It is a function of its own so the
+ * picture can stop a bolt where it meets the ridge, with the burst the
+ * simulation is about to give it, without a second copy of which column
+ * takes what (the owner, 1 October 2026: *a shot hits a graphic … it should
+ * have some explosion or damage effect and shot disappears*).
+ */
+export function seamVerdict(world: World, col: number, color: Color): SeamVerdict | null {
+  const s = seamBoss(world);
+  if (s === null) return null;
+  const step = seamLitStep(s);
+  if (step !== null && seamHoldsFire(step) && col === midCol(world.cfg)) return "held";
+  // Only a lit step stands in a column: a bolt anywhere else met nothing
+  // (`shot-out.ts`).
+  if (step === null || !seamWantsShot(s) || col !== seamStepCol(world, step)) return null;
+  return step.color !== "either" && color !== step.color ? "wrong" : "target";
 }

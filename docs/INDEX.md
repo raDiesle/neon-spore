@@ -1627,6 +1627,7 @@ by hand never moves.
 | `packages/render/src/seam-pose.ts` | **The clock THE SEAM is posed off** (§26, *Animation*): four poses — the crack dark, one point sealed |
 | `packages/render/src/seam-shape.ts` | **THE SEAM's geometry**: where the ridge stands, and the paths it is made of |
 | `packages/render/src/seam-story.ts` | **THE SEAM's two story steps, drawn** (§26's story item; the rules are `sim/seam.ts`'s `blind` and `glow`) |
+| `packages/render/src/seam-stop.ts` | **Where a bolt meets THE SEAM**, for `BoltStops` (`bolt-stop.ts`) |
 | `packages/render/src/seam-blow.ts` | **THE SEAM's own blow at the hull** (`boss-strike-look.ts`): its crack does not stop at the ridge |
 | `packages/render/src/seam-verdicts.ts` | **THE SEAM's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/seam-fx.ts` | What THE SEAM leaves behind a frame (§26, *Presentation*) |
@@ -1987,6 +1988,7 @@ by hand never moves.
 | `packages/render/src/hull-skin.ts` | the colours a ship is painted in — `HullSkin`, the player's own and THE MIRROR's; a seat's is `seat-skin.ts` |
 | `packages/render/src/hull-splash.ts` | What the thing that broke the hull left on it: a splash, in its own colour, that stays for the rest of the run |
 | `packages/render/src/bolt.ts` | **One discharge drawn between two points**, and the one place the shape of a bolt in this game is decided |
+| `packages/render/src/bolt-stop.ts` | **A bolt stops on what it meets** |
 | `packages/render/src/coil-jump.ts` | The charge leaving a dome that has just failed and crossing the field to the next one |
 | `packages/render/src/coil-look.ts` | THE ONE RECORD A CANDIDATE **COIL** LOOK PATCHES |
 | `packages/render/src/coil-prongs.ts` | PRONGS — the dome has terminals, and the charge sprays off them |

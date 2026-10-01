@@ -132,6 +132,7 @@ export function updateAll(e: Effects, dt: number, l: Layout): void {
   e.harpoonLine.update(dt);
   e.volleyShards.update(dt);
   e.shotOut.update(dt, l);
+  e.bolts.update(dt, (x, y, n, hex) => e.sparks.burst(x, y, n, hex));
   e.shieldPush.update(dt);
   e.ricochet.update(dt, (x, y, n, hex) => e.sparks.burst(x, y, n, hex));
   e.crawler.update(dt);
@@ -165,6 +166,7 @@ export function drawAll(
   e.coilFlight.draw(ctx, l);
   e.volleyShards.draw(ctx);
   e.shotOut.draw(ctx, l);
+  e.bolts.draw(ctx, l.tile);
   e.crawler.draw(ctx, l, surfaceY);
   e.spriteBursts.draw(ctx);
   e.huskDeflates.draw(ctx, l);
@@ -194,6 +196,7 @@ export function resetAll(e: Effects): void {
   e.harpoonLine.reset();
   e.volleyShards.clear();
   e.shotOut.clear();
+  e.bolts.clear();
   e.shieldPush.clear();
   e.ricochet.clear();
   e.crawler.clear();

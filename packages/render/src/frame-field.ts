@@ -241,7 +241,7 @@ export function drawBodies(
   // `drawLureAlarms`' reason — nothing that draws a body should have to know
   // which seat it is running on.
   drawHuskMarks(ctx, l, world, view.time, view.bare);
-  drawBullets(ctx, l, world.bullets);
+  drawBullets(ctx, l, world.bullets, effects.bolts);
   // Last of the pass, and over every body in it. The world goes in for the
   // ward's bolts and the shell they take off a clasp: both are drawn around a
   // creature the world still holds, from the same `creatureCenter` the body
