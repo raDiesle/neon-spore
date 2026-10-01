@@ -395,6 +395,7 @@ leave behind, same as the four already listed, and it is a look:
 ## THE INSTAR's turned body draws 13% more fills than the still one
 
 - **Found:** 2026-10-01, claude/queue-the-instars-parts-drift-on-their-own
+- **Taken:** 2026-10-01, claude/queue-the-instars-parts-drift-on-their-own (claim: claude/queue-the-instars-turned-body-draws-13-more-fills-than)
 - **Where:** local
 - **Files:** `packages/render/src/instar-drift.ts`, `packages/render/src/instar-profile.ts`, `packages/render/src/instar-rig-head-draw.ts`, `packages/render/test/instar-parts.test.ts`
 
