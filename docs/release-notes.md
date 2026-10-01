@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 5b9d91a34 — THE REPRISE's veins can turn with its sac, offered in VERSUS as reprise:skin turn
+
+The veins on THE REPRISE's sac are pinned to the body by longitude. When the outline turns, up to 40°, they slide across the skin: fast through the middle, slowly at the rim. The near vein on the leading lobe goes over the edge, and a far vein, hidden behind the rim at rest, comes round. The gloss stays, because the light does not turn. The shipped sac keeps its skin still and draws the same curves it always did. Exemption: a look the owner asked for by name (the living bosses' surface marks).
+
 ## 2026-10-01 · afe6a91e8 — THE INSTAR's rig head draws its straight tubes in two rings
 
 The muzzle, the mandibles and the four fangs are straight tubes with a linear radius, so two rings draw the same tube five or eight did, and every ring gap costs at least one fill. The drifted frame falls from 337 fills to about 317 against the still body's 297, inside the tenth the parts test now holds it to. A speed fix to a drawing only VERSUS shows; the before and after shots of the `turn` candidate are the same picture.

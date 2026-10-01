@@ -31174,3 +31174,5 @@ Bottleneck: which of the head's fifteen parts paid the extra fills was only answ
 - landing: 5 min. Formatting, `check:fast`, `land`.
 
 Bottleneck: which vein faces us at which turn could only be settled by printing the samples, since the outer vein lies wholly outside the sac under its clip.
+
+*Measured: 23 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
