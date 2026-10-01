@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 6dd358dca — THE VALVE's spark gives three beats, so AUTO and a player can shoot it out
+
+The game lays a press on the next half beat, and a spark counted from the beat it leaked on had as little as a beat and a sixth before it reached the hull: less than the lay and a bolt's climb of the field together, so AUTO lost the wave on its first spark even firing on the spark's own tick. Three beats is the least that covers both. The spark's fall is drawn off the same number and is slower with it — a fix to something wrong rather than unlovely. `valve-hand.test.ts` plays the fight to its open face on the game's grid and on none.
+
 ## 2026-10-01 · 2177ba51c — `vane.test.ts` is three files on one fixture: the arm, the bearing, and a cycle pinned
 
 The 440-line file is split along its describe blocks into `vane.test.ts` (the arm and the fold), `vane-bearing.test.ts` (the shot that takes a pin) and `vane-pinned.test.ts` (one whole cycle, seeded), with the shared rig in `vane-fixture.ts`; the 23 cases are unchanged, and the files and the spec that named `vane.test.ts` for the knock or the seed now name the file that holds it.
