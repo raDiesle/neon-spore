@@ -395,6 +395,7 @@ leave behind, same as the four already listed, and it is a look:
 ## A whole-picture round's timeout hit is never drawn
 
 - **Found:** 2026-09-30, claude/queue-the-rounds-own-timeout-hit-offered-on-versus-bes
+- **Taken:** 2026-10-01, claude/queue-42-the-sluice-the-simulation-lane (claim: claude/queue-a-whole-picture-rounds-timeout-hit-is-never-draw)
 - **Files:** `packages/render/src/canvas2d-takeover.ts`, `packages/sim/src/pulse-round.ts`, `packages/render/src/effects-breach.ts`, `packages/render/test/frame.test.ts`
 
 THE PULSE's meter emptying calls `roundStrikesHull` and then enters its
