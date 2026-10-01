@@ -10,6 +10,12 @@ import { halterGripStanding } from "./halter-grip.js";
 import type { Circle, Layout } from "./layout.js";
 import { plumbStoneStanding, plumbTakesHand } from "./plumb-grip.js";
 import { rimeHalfStanding, rimeTakesHand } from "./rime-grip.js";
+import {
+  scoutLineCircle,
+  scoutLineGrippable,
+  scoutPrimeCircle,
+  scoutPrimeGrippable,
+} from "./scout-grip.js";
 import { slingDrawCircle } from "./sling-grip.js";
 import { trivetFootStanding, trivetTakesChord } from "./trivet-grip.js";
 import { valvePinHandle, valveWheelCircle } from "./valve-grip.js";
@@ -144,6 +150,15 @@ export function laterBossHandleCircle(
     if (b === null) return null;
     if (target === "valvePin") return valvePinHandle(l, cfg, b, world.beat, beatPhase);
     return valveTurning(b) ? valveWheelCircle(l, cfg, b, world.beat, beatPhase) : null;
+  }
+  if (target === "scoutLine" || target === "scoutPrime") {
+    // THE SCOUT's two hands on its own ship: the line on the ship's middle,
+    // the prime off its stern, each only while its load offers it (`scout-grip.ts`).
+    const b = world.boss?.kind === "scout" ? world.boss : null;
+    if (b === null) return null;
+    if (target === "scoutLine")
+      return scoutLineGrippable(cfg, b) ? scoutLineCircle(l, cfg, b) : null;
+    return scoutPrimeGrippable(cfg, b) ? scoutPrimeCircle(l, cfg, b) : null;
   }
   return undefined;
 }

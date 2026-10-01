@@ -11,6 +11,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { handleCircle } from "../src/handle-place.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { scoutLineCircle, scoutPrimeCircle } from "../src/scout-grip.js";
 import { type Field, touchDown } from "../src/touch.js";
@@ -172,5 +173,22 @@ describe("the two rings on one ship", () => {
       expect(pressLine(world, 2), phase).toBeNull();
       expect(pressPrime(world, 1), phase).toBeNull();
     }
+  });
+});
+
+describe("where a guide's page about either hand points", () => {
+  // THE HAUL's guide says each of these out loud, and the caption's ring and
+  // the ghost hand go to `handleCircle` for where (`handle-place-boss-b.ts`).
+  // Before 1 October 2026 neither had a branch there and both fell to the lid
+  // lookup, which knows no scout.
+  it("is the ring each seat presses, and nothing while it is not offered", () => {
+    const l = layout("test");
+    const world = flying();
+    expect(handleCircle(l, world, "scoutLine", 0)).toBeNull();
+    const r = heavy(world);
+    expect(handleCircle(l, world, "scoutLine", 0)).toEqual(scoutLineCircle(l, CFG, r));
+    expect(handleCircle(l, world, "scoutPrime", 0)).toEqual(scoutPrimeCircle(l, CFG, r));
+    laden(world);
+    expect(handleCircle(l, world, "scoutPrime", 0)).toBeNull();
   });
 });

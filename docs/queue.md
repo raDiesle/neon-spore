@@ -634,17 +634,3 @@ its wave and its hands. Done when an autopilot clears its wave and
 The second lane of `.claude/skills/new-boss`: BLOOM · GLYPHED, `bloom`'s
 eight-armed mantle with `glyphed`'s rim of marks, the sign on one seat and
 the mottle on the other, in `frame.test.ts`. The sheet PNG is sent to the owner.
-
-## THE HAUL has no guide, and no mechanic row
-
-- **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
-- **Taken:** 2026-10-01, claude/queue-the-haul-guide (claim: claude/queue-the-haul-has-no-guide-and-no-mechanic-row)
-- **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/scenes-choreographed.ts`, `tools/director/src/ship-notes-round.ts`
-
-The second half of *THE SCOUT's loads are unreachable*. THE HAUL ships with
-no `guide`, so the line and the prime — the two hands it exists to put on the
-field — are on offer with nothing to say what they are. Give it a choreographed
-scene the way `theScout` has one (`scenes-choreographed.ts`; `.claude/skills/new-tutorial`),
-showing a full hold made laden then heavy, the line brought in and the prime
-pulled, and give the director's MECHANICS sheet its row. Fix the
-`briefings.md` §1 count the scene changes. Prove it with `bun run check`.

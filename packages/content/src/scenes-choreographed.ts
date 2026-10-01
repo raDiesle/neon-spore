@@ -5,6 +5,7 @@ import { THE_CURTAIN } from "./scenes/the-curtain.js";
 import { THE_GIMBAL } from "./scenes/the-gimbal.js";
 import { THE_GORGE } from "./scenes/the-gorge.js";
 import { THE_HASP } from "./scenes/the-hasp.js";
+import { THE_HAUL } from "./scenes/the-haul.js";
 import { THE_HIVE } from "./scenes/the-hive.js";
 import { THE_LEAD } from "./scenes/the-lead.js";
 import { THE_LEDGER } from "./scenes/the-ledger.js";
@@ -50,7 +51,8 @@ export type ChoreographedSceneId =
   | "theSpool"
   | "theGimbal"
   | "theHasp"
-  | "theRatchet";
+  | "theRatchet"
+  | "theHaul";
 
 export const SCENES_CHOREOGRAPHED: Record<ChoreographedSceneId, GuideScene> = {
   theBaton: THE_BATON,
@@ -71,4 +73,5 @@ export const SCENES_CHOREOGRAPHED: Record<ChoreographedSceneId, GuideScene> = {
   theGimbal: THE_GIMBAL,
   theHasp: THE_HASP,
   theRatchet: THE_RATCHET,
+  theHaul: THE_HAUL,
 };

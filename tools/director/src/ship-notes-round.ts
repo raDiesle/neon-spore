@@ -37,7 +37,10 @@ export const ROUND_NOTES = {
     "as a ship rather than a cursor. Player 2 is shown every mote and every " +
     "hazard and has no button at all, so the flying is done on their word. " +
     "Collect every mote and the wave is over; a hazard's touch or the clock " +
-    "running out costs the hull, which is the wave lost. The arenas are " +
+    "running out costs the hull, which is the wave lost. THE HAUL is the " +
+    "same round with a hold that takes a whole level: past the laden count " +
+    "player 2 can reel the ship home on a line, and past the heavy count it " +
+    "will not burn until player 1 primes it. The arenas are " +
     "authored in packages/content/src/scout-arenas.ts, and THE HAUL's in " +
     "scout-haul-arenas.ts; these dials are how it " +
     "flies, and the top three are the whole feel of it.",

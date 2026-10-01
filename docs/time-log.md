@@ -31050,3 +31050,15 @@ Bottleneck: re-reading THE SCOUT's six files after the cut cost twice the change
 Bottleneck: the director's save assumed one arena file per boss, and teaching it two was half the lane.
 
 *Measured: 38 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE HAUL's guide: the hold filled, the line reeled, the prime pulled
+
+- reading: 5 min. THE SCOUT's scene, the drag acts and where a handle
+  anchor resolves, after a context cut.
+- writing: 10 min. The recorded flight as a scene, the line and prime as
+  drag targets with a seat, their handle circles, the pinned trace.
+- looking: 5 min. The guide's pages photographed; the caption on the ring.
+- friction: 0 min.
+- landing: 5 min. Two counts in `briefings.md`, a file one line over, `land`.
+
+Bottleneck: the caption's anchor fell through to the lid lookup for the two new handles, which only a frame showed.

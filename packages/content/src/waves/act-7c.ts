@@ -58,6 +58,9 @@ export const WAVES_ACT_7C: Wave[] = [
   {
     id: "theHaul",
     name: "THE HAUL",
+    guide: {
+      scene: "theHaul",
+    },
     entries: [],
     boss: { kind: "scout", arenas: SCOUT_HAUL_ARENAS },
     bossType: "special",

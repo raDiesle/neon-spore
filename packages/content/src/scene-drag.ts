@@ -77,6 +77,12 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // down is the whole of it (`sim/ratchet-hand.ts`).
   if (target === "ratchetCatch") return cfg.ratchetReachMilli;
   if (target === "ratchetPawl") return 0;
+  // THE SCOUT's line reads no distance — a thumb on the little ship is the
+  // reel, held (`sim/scout-hand.ts`) — and its prime reads only the distance
+  // the thumb has travelled when it lets go, which has to be past
+  // `scoutPrimeMilli`; left out, a film carries it exactly that far.
+  if (target === "scoutLine") return 0;
+  if (target === "scoutPrime") return cfg.scoutPrimeMilli;
   return cfg.mazeTurnMilli;
 }
 
@@ -146,6 +152,11 @@ export function dragSeat(target: DragTarget, hand?: 1 | 2): 1 | 2 {
   // THE HIVE's lobe is the other: the pilot's haul on a clenched mass, or the
   // navigator's pinch on a swelling site (`sim/hive-hand.ts`).
   if (target === "surgeBulb" || target === "hiveLobe") return hand ?? 1;
+  // THE SCOUT's two are each one seat's, but the seats swap every arena
+  // (`scoutPilot`), so a film about its second level writes the hand: the
+  // line is the navigator's and the prime the pilot's when it does not.
+  if (target === "scoutLine") return hand ?? 2;
+  if (target === "scoutPrime") return hand ?? 1;
   // And THE SINEW's right handle, the second: one handle per seat, each
   // pulled down, and the sum is the two of them (`sim/sinew-hand.ts`).
   // THE GIMBAL's inner ring, THE HASP's wheel and THE RATCHET's catch are the
@@ -206,7 +217,14 @@ export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   out.push({
     tick: until,
     player,
-    command: { kind: "drag", target, on: false, ...carry(target, 0) },
+    // A prime is the one handle read on the letting go, by how far the thumb
+    // had travelled (`sim/scout-hand.ts`), so it lets go where it got to.
+    command: {
+      kind: "drag",
+      target,
+      on: false,
+      ...carry(target, target === "scoutPrime" ? to : 0),
+    },
   });
   return out;
 }
