@@ -535,6 +535,7 @@ and `bun run check` is green.
 ## THE SCOUT's loads are unreachable
 
 - **Found:** 2026-09-29, claude/scout-wave-mechanics-3e9480
+- **Taken:** 2026-10-01, claude/queue-bulb-queen-parts-large-arms (claim: claude/queue-the-scouts-loads-are-unreachable)
 - **Files:** `packages/sim/src/scout-hand.ts`, `packages/sim/src/config-scout.ts`, `packages/render/src/scout-grip.ts`, `tools/director/src/field-controls-scout.ts`, `tools/director/src/poses-bosses-rounds-b.ts`
 - **Asks:** THE SCOUT's line and prime can never be offered while one mote rides at a time — take the loads, the line and the prime out, or re-gate them on something one mote reaches (the level), which puts two hands back on the field?
 - **Answered:** 2026-09-30 — keep them, over taking them out and over re-gating THE SCOUT's own: the line and the prime stay as a set for later rounds, and a new wave is built that carries enough motes to reach them.
