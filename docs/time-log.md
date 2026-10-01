@@ -31587,3 +31587,5 @@ Bottleneck: the old fight's names were spread through ninety files, and each one
 
 Bottleneck: the registrations — a boss's rules are named in about a hundred
 files, and each one had to be found and rewritten before anything was green.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

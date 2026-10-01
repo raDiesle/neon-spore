@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 82f457f0d — scene-drag.ts split: how far each handle goes is its own file
+
+THE THROAT's pump took the rehearsal's drag file past 250 lines; the per-handle carry distances move to scene-drag-taut.ts, and the queue item now names the two files that are still close.
+
+## 2026-10-01 · 871aadd3a — THE THROAT reworked: one of you carries the mouth, the other pumps it open
+
+THE THROAT now has a control set of its own. The gullet is rooted in the hull where the cannon stands. Player 2 pulls its mouth anywhere over the field, kept clear of the walls and the top. Player 1 strokes the pump up and down, and the faster the strokes, the wider the circle round the mouth that draws bodies in. Four buttons set the colour of what it swallows: red and cyan for player 2, SHIELD and SUCK for player 1. Red takes the red body, cyan the cyan one, SHIELD a meteor and SUCK a pod. A body in the wrong colour shakes in place and keeps falling, and nobody is hurt. Five swallowed rings, and the tube everts under THE SLOW. The inhale, the gum and the fling are gone.
+
 ## 2026-10-01 · 57e609b99 — THE UNDERTOW reworked: two answers, a tap, three timed levels
 
 Lobes rise through the hull after the bow, which now shakes. A yellow one is taken by SUCK with the cannon under it, a shield-coloured one by the shield under it. Each stands twice as tall as before, dancing, and the ship is free to move while it is up. One left standing grows tall; a tap from either seat shrinks it back, and one left tall bursts — a hole in the plating and the wave lost. Three levels, each a clock shown on both screens: outlasting it wins, and every lobe still up shrinks back under. The pin's black ring, the seat, the free and THE SLOW are gone, the slow being the lag on a phone. The rehearsal is four steps: shield, suck, tap, burst.
