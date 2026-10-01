@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · fb616266e — THE LAMPREY is drawn: the eel, its sucker and seven teeth, the scar, the marks
+
+THE LAMPREY's body (§41): a dark olive eel on a lagging spine (LIGHT TRACE) trailing up the field from a round sucker ringed with seven bone teeth (BULB · SPIKE), swum in from the nearer side, bitten flat onto the hull and crawling, then reared full-face with its gullet lit in the shot's colour. A knocked-out tooth leaves a socket, the gullet shrinks a step per hit, and the scar under the mouth deepens with the bite. Both seats draw the one eel; the jaw's band is full on the pinner's screen and the lit tooth's ring on the tapper's.
+
 ## 2026-10-01 · 49e6b24ab — THE KEEL's seam candidate burns four times as wide through the breath
 
 VERSUS keel:seam · THREE was too faint to judge, so it is now wider. Through the held breath the seams are white-hot bars four times the shipped width, inside a wide halo. Before the breath they are twice as wide and flare on the beat, and in movement one they are a fainter hairline. Only the candidate changed; the game still draws its one thin seam.

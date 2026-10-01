@@ -31494,3 +31494,5 @@ Bottleneck: the pose VERSUS shoots shows only the breath, so the whole differenc
 Bottleneck: the records a new body owes outside `render/` — the shape sheet,
 the catalogue's count, the style guide's families, the top-of-screen rule —
 found one red test at a time.
+
+*Measured: 55 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
