@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 49e6b24ab — THE KEEL's seam candidate burns four times as wide through the breath
+
+VERSUS keel:seam · THREE was too faint to judge, so it is now wider. Through the held breath the seams are white-hot bars four times the shipped width, inside a wide halo. Before the breath they are twice as wide and flare on the beat, and in movement one they are a fainter hairline. Only the candidate changed; the game still draws its one thin seam.
+
 ## 2026-10-01 · aea28383c — THE STARE's eye is a globe that turns, and a round's timeout hit is its window closing
 
 The owner judged two VERSUS slots and both are now in the game. THE STARE's eye is a ball that rolls its opening round to face the pair over the seven beats of the tell, where it used to be a flat eye squashed to a sliver. A round whose clock runs out unattended now breaks the hull with its own window narrowing down onto the struck column, where it used to drop a rock.
