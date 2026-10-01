@@ -8655,7 +8655,10 @@ that runs out kicks the wheel `valveKickMilli` off its mark and the turning
 starts again from nothing. A pin out closes THE SLOW, and the drum lists for
 `valveListBeats` before the next mark lights. The first pin out leaks a spark
 down the drum's column, with `valveSparkBeats` before it reaches the hull,
-and the second leaks another (the story's brace, below). In
+and the second leaks another (the story's brace, below). The spark is counted
+from the beat it leaked on, so a late leak gets one beat less; three is the
+least that still covers the game's half-beat lay and a bolt's climb of the
+whole field, and two lost AUTO the wave on its first spark. In
 the third movement the mark only counts once the wheel has travelled
 `valveLapMilli` one way round — row 9's long way. The last pin out lets the
 face fall open, and it hangs `valveOpenBeats` before the wave may end.

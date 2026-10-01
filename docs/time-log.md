@@ -31269,3 +31269,17 @@ Bottleneck: getting a drake out of a skull outline by eye — each pass on the k
 Bottleneck: slicing by line numbers lost one comment opener, and only the parse error showed it.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — AUTO loses THE VALVE to its first spark
+
+- reading: 15 min. The valve's step, shot and hand, the shot-lay grid, and the
+  game's own config in `main-world.ts`.
+- writing: 10 min. `valveSparkBeats` to three, `valve-hand.test.ts`, a
+  sentence in the spec.
+- looking: 10 min. A `frames --auto both --events` run and a headless probe,
+  side by side, to see where the two diverged.
+- friction: 5 min. The headless probe won on DEFAULT_CONFIG, which hid that
+  the game lays shots on a half-beat grid.
+- landing: 10 min. `check:fast`, `land`.
+
+Bottleneck: the hand looked innocent until the probe ran under the game's own `shotChargeBeats`, not the default config's.

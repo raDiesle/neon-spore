@@ -434,25 +434,6 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## AUTO loses THE VALVE to its first spark
-
-- **Found:** 2026-09-30, claude/queue-unverified-at-c2a4f79ca-the-valves-drum-watched
-- **Taken:** 2026-10-01, claude/queue-vane-test-ts-is-past-250-lines (claim: claude/queue-auto-loses-the-valve-to-its-first-spark)
-- **Files:** `packages/hands/src/boss-hands-valve.ts`, `packages/sim/src/valve-shot.ts`, `packages/sim/src/valve-step.ts`
-
-`bun run frames . --wave "THE VALVE" --auto both --events --until valveOut
---until-ticks 900` gives `valveSpark@190` in the middle column, then
-`fire@226` twice in that column in cyan, `valveShudder@287`, and
-`valveSparkHit@300` followed by `waveFailed` (breach by=valve). No
-`valveSparkOut` fires between them. So `spark()`'s shot never reaches
-`valveStruck` while the spark is still leaking. It could be taken by
-something on the grid first, arrive after `valveLeaking` has gone false, or
-be fired before the cannon has settled. Find out which with a probe, and fix
-the hand or the timing. Add a hands test (`packages/hands/test/` has only
-the vane's and the warden's) that AUTO clears the first movement. Until this
-is fixed, the watch of the jet, brace, wipe and seal (the 2b291c8d3 entry)
-cannot be run with `--auto both`. Prove it with `bun run check`.
-
 ## THE LAMPREY's simulation (§41)
 
 - **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable

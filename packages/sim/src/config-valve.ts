@@ -62,7 +62,7 @@ export const VALVE_DEFAULTS: ValveConfig = {
   valvePullMilli: 600,
   valveKickMilli: 200,
   valveListBeats: 1,
-  valveSparkBeats: 2,
+  valveSparkBeats: 3,
   valveOpenBeats: 2,
   valveJetBeats: 2,
   valveBraceBeats: 3,
