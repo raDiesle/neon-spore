@@ -395,6 +395,7 @@ leave behind, same as the four already listed, and it is a look:
 ## Living bosses — THE INSTAR's body with weight, as a VERSUS candidate
 
 - **Found:** 2026-09-26, claude/living-motion-spec
+- **Taken:** 2026-10-01, claude/queue-the-haul-has-no-guide-and-no-mechanic-row (claim: claude/queue-living-bosses-the-instars-body-with-weight-as-a)
 - **Where:** local
 - **Needs:** Living bosses — THE INSTAR's one head, modelled once, as a VERSUS candidate
 - **Files:** `packages/render/src/instar-profile.ts`, `packages/render/src/instar-profile-surface.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/instar-poses.ts`, `tools/versus/candidates/registry.ts`, `docs/spec/living-bosses.md`
