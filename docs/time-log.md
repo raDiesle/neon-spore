@@ -31298,3 +31298,5 @@ Bottleneck: the hand looked innocent until the probe ran under the game's own `s
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the guide film and the frame test both scripted a shot against the old physics, and each one had to be re-timed by probing rather than by reading.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

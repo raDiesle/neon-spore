@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 0434c509e — PINBALL: five boards of one to five targets, a clear band above the hull, a slower bar and a deader bounce
+
+The round now runs five boards, and each one has one more target than the one before it, from a single target to five. No piece may hang within five tiles of the hull (`pinballClearMilli`), so the air above the ship stays empty. The round's budget is 200 beats. The power bar fills half as fast. A bounce off a peg or block keeps 60% of the ball's speed instead of 88%, and the side walls are unchanged. The weakest launch is 60% of full strength, so the slower ball still reaches the boards. This is a look the owner asked for by name.
+
 ## 2026-10-01 · 6dd358dca — THE VALVE's spark gives three beats, so AUTO and a player can shoot it out
 
 The game lays a press on the next half beat, and a spark counted from the beat it leaked on had as little as a beat and a sixth before it reached the hull: less than the lay and a bolt's climb of the field together, so AUTO lost the wave on its first spark even firing on the spark's own tick. Three beats is the least that covers both. The spark's fall is drawn off the same number and is slower with it — a fix to something wrong rather than unlovely. `valve-hand.test.ts` plays the fight to its open face on the game's grid and on none.
