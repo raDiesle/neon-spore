@@ -437,6 +437,7 @@ flat. `bun run check` proves the tests.
 ## AUTO loses THE VALVE to its first spark
 
 - **Found:** 2026-09-30, claude/queue-unverified-at-c2a4f79ca-the-valves-drum-watched
+- **Taken:** 2026-10-01, claude/queue-vane-test-ts-is-past-250-lines (claim: claude/queue-auto-loses-the-valve-to-its-first-spark)
 - **Files:** `packages/hands/src/boss-hands-valve.ts`, `packages/sim/src/valve-shot.ts`, `packages/sim/src/valve-step.ts`
 
 `bun run frames . --wave "THE VALVE" --auto both --events --until valveOut
