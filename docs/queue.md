@@ -437,6 +437,7 @@ flat. `bun run check` proves the tests.
 ## `vane.test.ts` is past 250 lines
 
 - **Found:** 2026-09-30, claude/the-vane-boss-expansion-12346e
+- **Taken:** 2026-10-01, claude/queue-vane-test-past-250 (claim: claude/queue-vane-test-ts-is-past-250-lines)
 - **Files:** `packages/sim/test/vane.test.ts`
 
 At 440 lines it is well past the limit. Split it along its own `describe`
