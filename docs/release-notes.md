@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 82f16ebf5 — THE HALTER's marks answer a touch the way every mark does
+
+The lit segment's two grips wear the halo on the gripper's screen and the partner's ring and clock on the resting seat's; on a guard they ask both seats until one has a grip down, and then only that one. The bared core on a fire step is either seat's and haloes on both screens with nobody's clock. A crack, a guard or a hit greens its mark; a slip, a startle, a shut step, a seal or a miss reddens it. THE WELL's surface exports moved to clocks page e to keep page d under 250 lines.
+
 ## 2026-10-01 · cbd54847f — THE DAVIT's marks answer a touch the way every mark does
 
 On a swing the boom wears the halo on its steerer's screen and the hook on its drawer's, each with the partner's ring and clock on the other's; on a reland both ask both seats until one thumb holds the boom, and the lit pivot haloes the hook on both screens. A true loose greens both marks and a hit the hook; a drift reddens the boom, a slack or a miss the hook, and a sway or a dim both.

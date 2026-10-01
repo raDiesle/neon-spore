@@ -30899,3 +30899,5 @@ Bottleneck: the reland, where either seat may steer, so who the boom and the hoo
 - landing: 5 min. `check:fast` and `land`.
 
 Bottleneck: the rest — on a step only one seat grips, so the clock belongs on the resting screen alone, and the first test wrongly wanted it on both.
+
+*Measured: 104 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
