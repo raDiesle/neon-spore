@@ -158,3 +158,15 @@ item naming the rule, never a fix made in passing.
   `EYE_DROP` tiles under row 0's top (`stare-shape.ts`). A new boss is held
   to it by `packages/render/test/boss-top.test.ts`, which lists the three
   exemptions and why.
+- **A part the cannon must hit is lit, open to it, and stops the bolt**,
+  generic, 1 October 2026, on THE SEAM *but also all other bosses*. Three
+  things, all of them. **Lit:** the part is drawn in the colour that hits it,
+  and it *beats like vulnerable hearth*. That means `lubDub` in
+  `render/heartbeat.ts`, never a cosine of its own. **Open:** a clear path
+  from the cannon to it, with no other boss graphics in between *in non colour
+  to shoot*. **Stopped:** the bolt is drawn no further than the first thing it
+  meets. On the right part it bursts and is gone. On a wrong part, or the
+  shell, it scuffs with grey grit and does nothing to the boss. The boss's
+  drawer passes a `Stopper` to `effects.bolts.aim` each frame. It reads the
+  simulation's own verdict (`seamVerdict`) and never re-derives it. THE SEAM
+  is the worked example (`render/seam-stop.ts`).

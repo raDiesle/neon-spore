@@ -544,3 +544,61 @@ ones in `vane-knock`, `vane-drift` and `vane-forms`. Import them from the
 fixture instead. Done when every VANE test file is under 250 lines, none
 defines its own `open`, `beats` or `vane`, the case count is unchanged, and
 `bun run check` is green.
+
+## Every other boss a bolt strikes, held to the lit-open-stopped rule
+
+- **Found:** 2026-10-01, claude/boss-cannon-targeting-feedback-15f334
+- **Where:** local
+- **Files:** `packages/sim/src/shot-out.ts`, `packages/render/src/bolt-stop.ts`, `packages/render/src/seam-stop.ts`, `packages/render/src/heartbeat.ts`, `.claude/skills/new-boss/generic.md`
+
+The owner, 1 October 2026, on THE SEAM *but also all other bosses*: the part
+the cannon must hit is lit in its colour and beats like a heart, the bolt has a
+clear path to it, and a bolt stops on whatever it meets. On the right part it
+bursts; anywhere else it scuffs and does nothing. The rule is the last bullet
+of `generic.md`. Only THE SEAM keeps it so far.
+
+Every boss imported by `shot-out.ts` with a `…Struck` function is judged at row
+0 and drawn with bolts flying through its body: THE ANTIPHON, BURGEE,
+CAPSTAN, CURTAIN, CYST, DAVIT, FLUE, GALL, GIMBAL, GORGE, GOVERNOR,
+GRINDSTONE, HALTER, HASP, HIVE, KEEL, LEAD, LEDGER, MANTLE, OCULUS, PLUMB,
+RATCHET, RIME, INSTAR, NETTLE, SCUTTLE, SLING, STARE, TASTER, TRIVET, VALVE,
+VANE and VISE.
+
+For each one, in its own lane:
+- Write a stopper, in a file beside the boss's drawer, shaped like
+  `seam-stop.ts`. It reads the boss's own `…Struck` verdict, never a copy of it.
+- Pass it to `effects.bolts.aim` from the boss's drawer.
+- Make its target beat on `lubDub`.
+
+A boss whose target sits behind its own body in another colour is a look. Its
+fix goes to VERSUS, not onto the field, unless that is a clipping fault.
+
+Done when every boss above calls `bolts.aim`, `frame.test.ts` draws each one
+with a bolt stopped, and `bun run check` is green. It is about thirty-three
+lanes: split it before starting, a handful of bosses per lane.
+
+## THE SEAM's false point says nothing about holding fire
+
+- **Found:** 2026-10-01, claude/boss-cannon-targeting-feedback-15f334
+- **Where:** local
+- **Files:** `packages/render/src/seam-hold.ts`, `packages/sim/src/seam-step.ts`, `packages/content/src/waves/act-11.ts`
+- **Asks:** cut the false point from THE SEAM, or give it a cue that says "hold fire"?
+
+The owner, 1 October 2026: *there is a step with a grey rounded inside the
+middle and the timing indicator runs. why? what i have to do?* That is the false
+point (§26 row 10). The pair must send nothing up the middle until its window
+closes, and a bolt fired into it costs a hull hit. Nothing on the glass says
+so. A grey flicker on a slower period is a tell only a pair who were told about
+it can read, and the fuse running over it reads as "act now".
+
+The options:
+1. **Cut it.** Take the decoy step out of THE SEAM's script in `act-11.ts`.
+   This is the smallest change. The wave loses the one step that asks for
+   restraint.
+2. **A hold-fire cue on the point.** A crossed-out crosshair, or the
+   controls-catalogue's STILL word, drawn over the grey lens in
+   `seam-hold.ts`. The fuse stays, but it reads as "wait it out". This is a
+   look, so it goes to VERSUS first.
+3. **Change the fuse.** On a hold step, it burns the other way or in grey, so
+   a running fuse no longer always means "do something". Every boss's hold
+   step would follow.

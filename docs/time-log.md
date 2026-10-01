@@ -31315,3 +31315,17 @@ Bottleneck: deciding that the slope had to be a one-way gate, so the cannon
 could still fire from under it.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE SEAM: a bolt stops on the ridge, and the lit point beats
+
+- reading: 10 min. `shot-out.ts`, THE SEAM's verdict, step and drawer, and
+  how a bolt is drawn past row 0.
+- writing: 10 min. `seamVerdict`, `BoltStops`, `seamStopper`, `lubDub` and
+  the point's beat, the rule in `generic.md`, and two queue entries.
+- looking: 10 min. Frame strips of the stopped bolt and of the beat, cropped.
+- friction: 5 min. `bun run index` took the verdict's doc as the file's
+  header, the import sort, and `sheet` wanting a prefix with no dash.
+- landing: 10 min. Two `check:fast` runs, two commits, and the landing of the
+  first half.
+
+Bottleneck: finding where on the picture each simulation verdict lands, since the sim judges every bolt at row 0 and the ridge's shape lives only in render.
