@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 96747c159 — THE MIMIC's receipts: the peel drifting off, the core's flash, the slap at the hull
+
+A sign drawn right now lifts off THE MIMIC's skin. It comes away as a scrap with the sign still on it and a pale torn edge, and drifts down the field turning over, on both screens. A shot into the core flashes a ring out past it in the colour it was lit. The mantle shakes and reddens with the blow, and the hull shudders as the mimic slaps into shape and as it falls spent. Its own blow at the hull is the slap: the arm already hung down to the hull lifts, comes down on the column, and leaves a ring of sucker prints in red. THE MIMIC's look (§42) is done. Exemption: a look with no shipped alternative. Not delegated.
+
 ## 2026-10-02 · 48c78c77a — THE MIMIC's hand: eight cards, SIGN and DRAW, THE SLOW's aim
 
 THE MIMIC's eight STATES cards are posed on AUTO's hand. On the mimicking card P2 draws the wrong sign, so the skin wears it in red and an arm stretches. The field now says SIGN on the mantle on the screen that reads it, DRAW in the pad on the screen that draws, and FIRE on the hull while the core is bare. THE SLOW aims round the whole mantle. The marks-window and hush tests now cover the pad and the two words. Exemption: a look with no shipped alternative. Not delegated.
