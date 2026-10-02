@@ -475,6 +475,7 @@ bolt stopped, and `bun run check` is green.
 ## THE SEAM's false point says nothing about holding fire
 
 - **Found:** 2026-10-01, claude/boss-cannon-targeting-feedback-15f334
+- **Taken:** 2026-10-02, claude/queue-the-sinews-two-sideways-gestures-now-that-a-pull (claim: claude/queue-the-seams-false-point-says-nothing-about-holding)
 - **Where:** local
 - **Files:** `packages/render/src/seam-hold.ts`, `packages/sim/src/seam-step.ts`, `packages/content/src/waves/act-11.ts`
 - **Asks:** cut the false point from THE SEAM, or give it a cue that says "hold fire"?
