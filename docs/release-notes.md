@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 4b43a9418 — THE STARE's struck eye shudders again, the ball rattling in its socket
+
+The globe taken from VERSUS read how far the eye faced and how far it stood open, and dropped the lean, which carried the hurt shudder as well as the sliver's shear. While the eye faces the pair the ball now turns by the lean, so a hit rattles it in its socket and dies out over the hurt, as the spec says. While it turns away the lean is still ignored, since the ball already draws that turn.
+
 ## 2026-10-02 · 796b5c900 — versus adopt takes an export named after its field, renamed after the candidate
 
 A candidate exporting `paint` for a record's `paint` field was always refused, because the field's own key counted as a use of the name. When the key is the record's only use of it, the moved export now takes the field and the candidate's name, `paintGlobe` for `globe`, in every file that moves with it, and the record points there. Any other use of the name is still a refusal.

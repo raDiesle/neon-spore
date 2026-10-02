@@ -31983,3 +31983,5 @@ Bottleneck: none to speak of — the entry said what to do and where.
 
 Bottleneck: looking — the frames were cropped twice to find the eye, and
 then could not show the thing that moved.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
