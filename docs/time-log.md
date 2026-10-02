@@ -32276,3 +32276,5 @@ only quoted strings did.
 - landing: 5 min. `check:fast`, the catalogue rows, `land`.
 
 Bottleneck: finding a frame where each boss was asking for its shot.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
