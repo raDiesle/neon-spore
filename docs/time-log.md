@@ -31589,3 +31589,15 @@ Bottleneck: the registrations — a boss's rules are named in about a hundred
 files, and each one had to be found and rewritten before anything was green.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — The automatic compaction window goes to 320k, the ceiling to 400k
+
+- reading: 5 min. The settings, both hook tests, `token-budget.md`.
+- writing: 5 min. The two figures in five files.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. The first try set the window equal to the ceiling, and
+  `defer-compact.test.ts` refused it; the owner chose 400k for the ceiling.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the hook's test, which holds the ceiling over the window — the
+question it raised had to go back to the owner overnight.

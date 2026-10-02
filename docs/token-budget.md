@@ -8,8 +8,8 @@ to change the wrong thing.
 ## How the work is actually done
 
 One session at a time, on Opus 5.5 at high effort, tasks one after another in it, with the
-conversation compacted automatically at about 200k tokens between items, and
-held back to 320k inside one — from the lane's first read, not its first edit. There is no model
+conversation compacted automatically at about 320k tokens between items, and
+held back to 400k inside one — from the lane's first read, not its first edit. There is no model
 choice to make and no parallel lane to schedule. So the bill has two parts
 and only two levers:
 
@@ -20,9 +20,9 @@ and only two levers:
 - **At a compaction, the conversation is replaced by a summary.** The next
   turn is cheap again — and everything that lived only in the chat is gone or
   blurred. The lever is what has been written into the repository by then.
-  The threshold is `autoCompactWindow` in `.claude/settings.json`, 200k rather
+  The threshold is `autoCompactWindow` in `.claude/settings.json`, 320k rather
   than the model's own ~967k, because every turn re-reads everything below it.
-  **It is written as the integer `200000`.** The setting is validated as a
+  **It is written as the integer `320000`.** The setting is validated as a
   whole number between 100000 and 1000000 and a value that fails is discarded
   without a word, so the `"200k"` string — the form `/autocompact` accepts on
   the command line, and what this file said until 18 September 2026 — pinned
@@ -32,7 +32,7 @@ and only two levers:
   count and no suffix; a cloud session that does not read this checkout is
   pinned there instead. What is actually in force is not a guess:
   `claude -p "/autocompact"` prints the window and where it came from, and
-  `200k tokens (from settings)` is the answer this repository should give —
+  `320k tokens (from settings)` is the answer this repository should give —
   `tokens (default for this model)` means the value was thrown away again.
   A machine-wide default for every *other* checkout is a separate thing, in the
   user settings file under the home directory; `/autocompact 200k` writes it
@@ -63,6 +63,9 @@ and only two levers:
   lane too, a branch whose reflog shows its creation and nothing committed;
   the branch `land --keep` leaves standing has commits in its reflog and is
   let through, so the turn after a landing is still the boundary.
+  It went to 320k on 2 October 2026, again at the owner's word, and the
+  ceiling to 400k with it, so the hook still has room to hold a lane: THE
+  THROAT's look lane ran out of 200k twice in one sitting.
 
 ## The four levers, and why compaction makes them matter more
 
@@ -110,7 +113,7 @@ for one kind of work goes in that work's skill, a fact that changes goes in
 - **An automatic compaction waits for the item to land.** A second
   `PreCompact` hook, `tools/hooks/defer-compact.ts`, refuses an automatic
   one while the tree is dirty or the branch is ahead of `main`, until the
-  last turn's context reaches 320k; the harness asks again before every
+  last turn's context reaches 400k; the harness asks again before every
   turn, so the first turn after `bun run land` compacts on the boundary, and
   a manual `/compact` always goes through. The price is that turns between
   the window and the ceiling re-read more than they would have. The ceiling is not optional:
