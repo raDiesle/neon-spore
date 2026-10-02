@@ -115,6 +115,7 @@ by hand never moves.
 | `packages/sim/src/sinew-hand.ts` | **The two hands on THE SINEW**, off the wire, on the tick |
 | `packages/sim/src/sinew-hash.ts` | What THE SINEW puts into `hashWorld`, and nothing else |
 | `packages/sim/src/sinew-step.ts` | THE SINEW's clock — the hold, the part, the snap-back, the slack, the fall |
+| `packages/sim/src/sinew-zone.ts` | Where the zone sits for the fibre now hanging by |
 | `packages/sim/src/sinew.ts` | THE SINEW: how hard, not when |
 | `packages/sim/src/mirror.ts` | THE MIRROR's choreography: count in, perform, listen |
 | `packages/sim/src/mirror-round.ts` | how a round ends: the echo strike, the break, the bait |

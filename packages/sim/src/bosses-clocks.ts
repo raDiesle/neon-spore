@@ -81,6 +81,7 @@ export {
   sinewCatching,
   sinewCaught,
   sinewDecaying,
+  sinewEntering,
   sinewGone,
   sinewHeld,
   sinewInZone,

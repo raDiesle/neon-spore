@@ -561,3 +561,21 @@ restored by hand before work can start. Make `take` leave this tree's copy as
 have `alsoHere` skip a tree whose branch does not hold the entry's claim. Done
 when a test runs `release` then `take` from a worktree on another branch and
 the tree is clean, and `bun run check` is green.
+
+## THE SINEW's two sideways gestures, now that a pull is straight down
+
+- **Found:** 2026-10-02, claude/sinew-boss-mechanics-dbcd1b
+- **Files:** `packages/sim/src/sinew-hand.ts`, `packages/sim/src/sinew-step.ts`, `packages/sim/src/config-sinew.ts`, `packages/render/src/sinew-word.ts`, `packages/audio/src/bind-sinew.ts`
+- **Asks:** Keep the catch and the fall's walk sideways, drop them both and let the last fibre win outright, or keep only the walk?
+
+The owner asked on 2 October 2026 that a pull work only straight down, and it
+does: `sinewHeard` drops the sideways half of the drag while the tendon hangs.
+Two gestures in this fight are sideways and were left as they were: **the
+catch** (both hands carried apart while a snap-back swings, buying its beats
+back) and **the fall** (both hands carried the same way walk the falling mass
+a column a beat, `sinewClearCols` from the middle or it lands on the hull).
+(a) Keep both — they are not pulls. (b) Drop both: no catch, and the last
+fibre's mass falls clear on its own, which removes the crush. (c) Keep the
+walk and drop the catch. (b) touches the events, the sound binds, the words
+and the director's poses. Done when the chosen gestures are the ones the sim
+hears and `bun run check` is green.

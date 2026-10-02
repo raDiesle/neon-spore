@@ -31861,3 +31861,17 @@ Bottleneck: landing — the change is a dozen lines; the full check under
 Bottleneck: landing — the edit is mechanical; the full check is the lane.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE SINEW's pull is three tiles, straight down, and its zones span the band
+
+- reading: 15 min. The owner's note against the boss's sim, render and
+  tests, and two frames of it as it stands, to split sim from look.
+- writing: 10 min. The reach and widths tripled, the zone stretches, the
+  drop-in, the sway dropped while it hangs, the tests and the film's sums.
+- looking: 5 min. Two frames before, one per seat.
+- friction: 0 min.
+- landing: 5 min. The film re-authored against the new zones, the limit
+  split (`sinew-zone.ts`), the docs drift, `check:fast`.
+
+Bottleneck: reading — one note carried thirteen asks across two lanes, and
+which of them was the simulation's had to be settled first.

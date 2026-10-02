@@ -23,6 +23,8 @@ export function sinewHashParts(s: SinewState): number[] {
     s.swayP2Milli,
     s.slackMilli,
     s.zoneLowMilli,
+    s.zoneSlots,
+    s.settleBeat,
     s.holdBeat,
     s.snapBeat,
     s.catchBeat,

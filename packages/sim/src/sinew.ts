@@ -64,6 +64,14 @@ export interface SinewState {
   slackMilli: number;
   /** Bottom of the zone on the band; its width is `sinewZoneWidth`. */
   zoneLowMilli: number;
+  /**
+   * Which stretches of the band a zone has already been rolled in, a bit
+   * each (`rollZone`): every fibre but the last gets a height of its own, so
+   * the fight goes over the whole band and not five times near its top.
+   */
+  zoneSlots: number;
+  /** `world.beat` the tendon was installed on: it drops in over `sinewEnterBeats` from here. */
+  settleBeat: number;
   /** `world.beat` the sum entered the zone on; `-1` while it is outside. */
   holdBeat: number;
   /** `world.beat` of the last snap-back; `-1` before the first. */
@@ -136,6 +144,14 @@ export function sinewInZone(s: SinewState, cfg: SimConfig): boolean {
 /** Whether the tendon has begun to go slack under a hand. */
 export function sinewDecaying(s: SinewState, cfg: SimConfig): boolean {
   return s.fibres > 1 && sinewGone(s, cfg) >= cfg.sinewDecayFibres;
+}
+
+/**
+ * Whether the tendon is still dropping in: the first `sinewEnterBeats` of the
+ * fight, when a hand may take hold and nothing it does is a pull yet.
+ */
+export function sinewEntering(s: SinewState, cfg: SimConfig, beat: number): boolean {
+  return beat - s.settleBeat < cfg.sinewEnterBeats;
 }
 
 /** Whether the handles are still swinging from a snap-back: a hand on one steers, it cannot pull. */

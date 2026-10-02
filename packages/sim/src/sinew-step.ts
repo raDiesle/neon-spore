@@ -6,6 +6,7 @@ import {
   type SinewState,
   sinewBandMilli,
   sinewDecaying,
+  sinewEntering,
   sinewHeld,
   sinewInZone,
   sinewMassLeft,
@@ -14,15 +15,16 @@ import {
   sinewSwinging,
   sinewWalked,
   sinewZone,
-  sinewZoneWidth,
 } from "./sinew.js";
 import { catchSinew, releaseSinew } from "./sinew-hand.js";
+import { rollZone } from "./sinew-zone.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
  * THE SINEW's clock — the hold, the part, the snap-back, the slack, the
- * fall. The two hands on it are `sinew-hand.ts`, on the tick.
+ * fall. The two hands on it are `sinew-hand.ts`, on the tick, and where the
+ * zone is rolled `sinew-zone.ts`.
  *
  * Everything here runs on the **beat** from `stepBoss`. The sum is *read* on
  * the beat, like everything else this boss decides: a wobble over the zone's
@@ -43,6 +45,8 @@ export function installSinew(world: World): SinewState {
     swayP2Milli: 0,
     slackMilli: 0,
     zoneLowMilli: 0,
+    zoneSlots: 0,
+    settleBeat: world.beat,
     holdBeat: -1,
     snapBeat: -1,
     catchBeat: -1,
@@ -57,26 +61,6 @@ export function installSinew(world: World): SinewState {
     row: sinewMassRow(s, cfg, world.beat),
   });
   return s;
-}
-
-/**
- * Where the zone sits for the fibre now hanging by. Rolled anywhere from
- * `sinewZoneLowMilli` up to the band's top for every fibre but the last,
- * whose zone is the last step under the top: one hand at the limit and the
- * other all but, which is the hardest sum there is to say — and still one
- * that can be over-pulled, because the top of the band is the snap and not
- * the zone, and the last fibre's snap is the one that throws three rocks.
- */
-function rollZone(world: World, s: SinewState): void {
-  const cfg = world.cfg;
-  const width = sinewZoneWidth(s, cfg);
-  const top = sinewBandMilli(cfg) - width;
-  if (s.fibres <= 1) {
-    s.zoneLowMilli = Math.max(0, top - width);
-    return;
-  }
-  const low = Math.max(0, Math.min(top, cfg.sinewZoneLowMilli));
-  s.zoneLowMilli = low + nextInt(world.rng, Math.max(1, top - low + 1));
 }
 
 /** One rock out of the mass, into one of its own columns, from where it hangs. */
@@ -191,7 +175,7 @@ function fall(world: World, s: SinewState): void {
  * One beat of the tendon.
  *
  * After the mass lands it stands `sinewOutBeats` and goes. While it falls,
- * the fall. While the handles swing, the one thing that can happen is the
+ * the fall. While it is still dropping in, nothing. While the handles swing, the one thing that can happen is the
  * catch — both hands carried outward end the swing here. Otherwise: the slack
  * creeps if it is time; then the sum is read against the zone — over the top
  * is a snap, inside is the hold counting or the fibre parting, under is the
@@ -213,6 +197,7 @@ export function stepSinew(world: World, s: SinewState): void {
     fall(world, s);
     return;
   }
+  if (sinewEntering(s, cfg, world.beat)) return;
   if (sinewSwinging(s, world)) {
     catchSinew(world, s);
     return;

@@ -19,9 +19,10 @@ import type { GuideScene } from "../scene-types.js";
  * **The film is arithmetic, and the seed decides nothing that is not said.**
  * The zone is rolled at install (`sinewZoneLowMilli` and the band above it),
  * so its numbers are the seed's, and this seed's are the ones the pulls below
- * are authored against: 600 and 700 inside the first zone, 800 and 900 inside
- * the one that replaces it, and then 1000 and 1000 — one hand's whole reach
- * each — over the top of the third. Every hand is carried to a written
+ * are authored against: 1600 and 1700 inside the first zone, 2300 and 2500
+ * inside the one that replaces it, and then 3000 and 3000 — one hand's whole
+ * reach each — over the top of the third (re-authored when the reach tripled,
+ * 2 October 2026). Every hand is carried to a written
  * `toMilli` rather than taut (`scene-drag.ts`), because a hand at taut is a
  * snap and the film has two holds to show before its one.
  *
@@ -65,16 +66,16 @@ export const THE_SINEW: GuideScene = {
   entries: [],
   boss: { kind: "sinew" },
   acts: [
-    // The first hold: 600 + 700 = 1300, inside the seed's zone, four beats.
-    { tick: 600, drag: "sinewLeft", toMilli: 600, by: 640, until: 905 },
-    { tick: 600, drag: "sinewRight", toMilli: 700, by: 640, until: 905 },
-    // The second, against the zone the part rolled: 800 + 900 = 1700.
-    { tick: 1140, drag: "sinewLeft", toMilli: 800, by: 1180, until: 1445 },
-    { tick: 1140, drag: "sinewRight", toMilli: 900, by: 1180, until: 1445 },
-    // And over the top: both hands at their reach, 2000, and the tendon snaps
+    // The first hold: 1600 + 1700 = 3300, inside the seed's zone, four beats.
+    { tick: 600, drag: "sinewLeft", toMilli: 1600, by: 640, until: 905 },
+    { tick: 600, drag: "sinewRight", toMilli: 1700, by: 640, until: 905 },
+    // The second, against the zone the part rolled: 2300 + 2500 = 4800.
+    { tick: 1140, drag: "sinewLeft", toMilli: 2300, by: 1180, until: 1445 },
+    { tick: 1140, drag: "sinewRight", toMilli: 2500, by: 1180, until: 1445 },
+    // And over the top: both hands at their reach, 6000, and the tendon snaps
     // on the beat the sum is read. The hands are thrown off before `until`.
-    { tick: 1500, drag: "sinewLeft", toMilli: 1000, by: 1550, until: 1700 },
-    { tick: 1500, drag: "sinewRight", toMilli: 1000, by: 1550, until: 1700 },
+    { tick: 1500, drag: "sinewLeft", toMilli: 3000, by: 1550, until: 1700 },
+    { tick: 1500, drag: "sinewRight", toMilli: 3000, by: 1550, until: 1700 },
     { tick: 1800, control: "shield", col: 4, atBody: true },
     { tick: 1880, control: "guard" },
   ],

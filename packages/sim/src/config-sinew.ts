@@ -56,16 +56,21 @@ export interface SinewConfig {
   sinewClearCols: number;
   /** Beats the boss stands after the mass lands clear, before the wave may end. */
   sinewOutBeats: number;
+  /**
+   * Beats the tendon takes to drop in from above the field and settle, at
+   * the start of the fight: a hand may take hold, but nothing pulls yet.
+   */
+  sinewEnterBeats: number;
 }
 
 /**
  * The defaults, spread into `DEFAULT_CONFIG`.
  *
- * Read as one fight: six fibres, a band of two thousand, a zone 480 wide that
- * narrows by 80 a fibre until the last is the 80 just under the band's top —
+ * Read as one fight: six fibres, a band of six thousand, a zone 1440 wide that
+ * narrows by 240 a fibre until the last is the 240 just under the band's top —
  * one hand at the limit and the other all but, and the top itself a snap. Four beats held parts one; a snap costs two
  * beats and a rock, three on the last, and those two beats are bought back by
- * both hands carried 400 outward — two fifths of a reach, far enough that it
+ * both hands carried 400 outward — two fifths of a tile, far enough that it
  * is a gesture and not a wobble. The mass starts on row 5 and is on
  * row 10 by the last fibre, four rows over the hull; when it falls it has
  * eight beats to be walked four columns.
@@ -76,12 +81,21 @@ export interface SinewConfig {
  * three wide and kept on an eleven-column field, so its middle stops a
  * column short of either wall and four from `midCol` is as far as it goes.
  * The fall is THE SLOW (`sinew-step.ts`).
+ *
+ * **The reach tripled on the owner's word, 2 October 2026**: a hand's whole
+ * pull was a tile of thumb, and a sum a pair could only say coarsely. Three
+ * tiles now, and every width on the band tripled with it — the zone, its
+ * narrowing, the slack — so the fight asks the same share of the band and
+ * the thumb has three times the travel to find it in. The zone's floor came
+ * down to a tenth of the band at the same time: a zone is rolled across the
+ * whole height now, a stretch of it each, and the top only once
+ * (`rollZone`). The tendon drops in over four beats before anything pulls.
  */
 export const SINEW_DEFAULTS: SinewConfig = {
   sinewFibres: 6,
-  sinewReachMilli: 1000,
-  sinewZoneMilli: 480,
-  sinewZoneNarrowMilli: 80,
+  sinewReachMilli: 3000,
+  sinewZoneMilli: 1440,
+  sinewZoneNarrowMilli: 240,
   sinewZoneLowMilli: 600,
   sinewHoldBeats: 4,
   sinewSnapBeats: 2,
@@ -91,10 +105,11 @@ export const SINEW_DEFAULTS: SinewConfig = {
   sinewMassRow: 5,
   sinewMassCols: 3,
   sinewDecayFibres: 4,
-  sinewDecayMilli: 60,
+  sinewDecayMilli: 180,
   sinewPartSlowBeats: 2,
   sinewFallBeats: 8,
   sinewSwayMilli: 300,
   sinewClearCols: 4,
   sinewOutBeats: 2,
+  sinewEnterBeats: 4,
 };

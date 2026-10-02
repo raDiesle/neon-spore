@@ -1,4 +1,11 @@
-import { type SinewState, sinewBoss, sinewCatching, sinewHeld, sinewSwinging } from "./sinew.js";
+import {
+  type SinewState,
+  sinewBoss,
+  sinewCatching,
+  sinewEntering,
+  sinewHeld,
+  sinewSwinging,
+} from "./sinew.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -59,6 +66,13 @@ export function releaseSinew(world: World, s: SinewState, player: 1 | 2): void {
  * while the snap-back is still whipping it, but its pull is pinned to nought
  * for as long as that lasts: nobody hauls on a rope that is not there yet.
  * What the sway is for in those beats is `catchSinew` below.
+ *
+ * **A pull is straight down and nothing else** (the owner, 2 October 2026):
+ * while the tendon hangs and is not swinging, the sideways half of the drag
+ * is dropped here, so the handle runs down its own line and a thumb that
+ * wanders is not read as a sway. Sideways only counts where sideways is the
+ * ask — the catch, and the fall. While the tendon is still dropping in a hand
+ * may take hold, and its pull is pinned to nought the way a whipped one is.
  */
 export function sinewHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag") return;
@@ -79,8 +93,10 @@ export function sinewHeard(world: World, player: 1 | 2, command: Command): void 
   if (s.outBeat >= 0) return;
   const reach = world.cfg.sinewReachMilli;
   const whipped = sinewSwinging(s, world);
-  const pull = whipped ? 0 : Math.max(0, Math.min(reach, Math.round(command.fromYMilli ?? 0)));
-  const sway = Math.max(-reach, Math.min(reach, Math.round(command.fromMilli)));
+  const pinned = whipped || sinewEntering(s, world.cfg, world.beat);
+  const pull = pinned ? 0 : Math.max(0, Math.min(reach, Math.round(command.fromYMilli ?? 0)));
+  const sideways = whipped || s.fallBeat >= 0;
+  const sway = sideways ? Math.max(-reach, Math.min(reach, Math.round(command.fromMilli))) : 0;
   if (!sinewHeld(s, player))
     world.events.push({ type: "sinewGrip", player, col: handCol(world, s, player) });
   if (player === 1) {

@@ -4334,13 +4334,19 @@ only if something arrives while both hands are on the rope.
 
 **The rule, in one sentence.** Each seat has one handle (`sinewLeft` is player
 1's, `sinewRight` player 2's, a `drag` whose `fromYMilli` is the pull, up to
-`sinewReachMilli` (1000), and whose `fromMilli` is the sway; `sim/sinew-hand.ts`
+`sinewReachMilli` (3000, three tiles of thumb since 2 October 2026), and whose
+`fromMilli` is the sway — dropped while the tendon hangs, so a pull runs
+straight down, and kept only for the catch and the fall; `sim/sinew-hand.ts`
 hears them on the tick), the two pulls **add** into one sum less the slack,
 and the fibre being held **parts** when that sum has sat inside a **zone**
-for `sinewHoldBeats` (4) beats on end. The zone is `sinewZoneMilli` (480)
-wide less `sinewZoneNarrowMilli` (80) per fibre gone, never narrower than one
-step, rolled fresh from the rng for every fibre from `sinewZoneLowMilli` (600)
-up to the band's top (twice a handle's reach). A sum over the zone's top is a
+for `sinewHoldBeats` (4) beats on end. The zone is `sinewZoneMilli` (1440)
+wide less `sinewZoneNarrowMilli` (240) per fibre gone, never narrower than one
+step. The band from `sinewZoneLowMilli` (600) to under the last fibre's zone is
+cut into one stretch per fibre, and each fibre's zone is rolled into a stretch
+not yet taken (`sim/sinew-zone.ts`), so a fight visits the whole height and
+only the last zone reaches the top (twice a handle's reach). For the first
+`sinewEnterBeats` (4) the tendon drops in from above the field: a hand may take
+hold, and nothing pulls yet. A sum over the zone's top is a
 **snap** (`sinewSnap`): both hands are thrown off, no handle can be taken for
 `sinewSnapBeats` (2), and `sinewSnapRocks` (1) meteor comes out of the mass
 into a column of its span — `sinewSnapRocksLast` (3) on the last fibre. A hand
@@ -4352,7 +4358,7 @@ beats back and never costs any. A sum
 out of the zone the other way, or a hand lifted, restarts the count
 (`sinewLoose`). Each part sinks the mass a row and opens THE SLOW for
 `sinewPartSlowBeats` (2). From `sinewDecayFibres` (4) gone the rope **creeps
-slack** under a held hand by `sinewDecayMilli` (60) a beat, so the same two
+slack** under a held hand by `sinewDecayMilli` (180) a beat, so the same two
 thumbs read less every beat, until both hands come off and the slack is
 gone. The last fibre's zone is the one step under the band's top. When it
 parts the mass **falls** (`sinewFall`) over `sinewFallBeats` (8), and on every

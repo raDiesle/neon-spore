@@ -24,7 +24,8 @@ import {
  * moment that asks nothing. The fight is `sinew.test.ts`.
  */
 
-const CFG: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
+// The drop-in is its own test below: everything else starts with the tendon hung.
+const CFG: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true, sinewEnterBeats: 0 };
 const TPB = ticksPerBeat(CFG);
 
 function sinew(world: World): SinewState {

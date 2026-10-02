@@ -1,6 +1,13 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { controlSet } from "@neon-spore/content";
-import { createWorld, DEFAULT_CONFIG, sinewBoss, startWave, step } from "@neon-spore/sim";
+import {
+  createWorld,
+  DEFAULT_CONFIG,
+  sinewBoss,
+  startWave,
+  step,
+  ticksPerBeat,
+} from "@neon-spore/sim";
 import { anchorPoint } from "../src/caption-anchor.js";
 import { handleCircle } from "../src/handles.js";
 import { computeLayout } from "../src/layout.js";
@@ -29,11 +36,12 @@ const SET = controlSet("default");
 
 beforeAll(installCanvasGlobals);
 
-/** A world with the tendon installed, a beat in. */
+/** A world with the tendon installed and dropped in, a beat after it settled. */
 function withSinew() {
   const world = createWorld(CFG, 12, []);
   startWave(world, 9, [], [], { kind: "sinew" });
-  for (let t = 0; t < 60; t++) step(world, []);
+  const settled = ticksPerBeat(CFG) * (CFG.sinewEnterBeats + 1);
+  for (let t = 0; t < settled; t++) step(world, []);
   if (sinewBoss(world) === null) throw new Error("no tendon was installed");
   return world;
 }

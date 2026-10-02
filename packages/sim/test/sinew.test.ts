@@ -45,7 +45,8 @@ import {
  * pinned (`docs/decisions.md` #19).
  */
 
-const CFG: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
+// The drop-in is its own test below: everything else starts with the tendon hung.
+const CFG: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true, sinewEnterBeats: 0 };
 const TPB = ticksPerBeat(CFG);
 const BAND = sinewBandMilli(CFG);
 
@@ -181,13 +182,15 @@ describe("the two hands", () => {
     expect(s.pullP2Milli).toBe(300);
   });
 
-  it("report a depth, never a height, cut to the reach", () => {
+  it("report a depth, never a height, cut to the reach, and never a sway", () => {
     const world = install();
     const s = sinew(world);
-    const seen = runTo(world, 4, [pull(1, 1, -400), pull(2, 1, 5000), pull(3, 2, 250, -9000)]);
+    const seen = runTo(world, 4, [pull(1, 1, -400), pull(2, 1, 99000), pull(3, 2, 250, -9000)]);
     expect(seen.has("sinewGrip")).toBe(true);
     expect(s.pullP2Milli).toBe(250);
-    expect(s.swayP2Milli).toBe(-CFG.sinewReachMilli);
+    // A pull is straight down: the sideways half of the drag is dropped while
+    // the tendon hangs, and kept only for the catch and the fall.
+    expect(s.swayP2Milli).toBe(0);
     expect(s.pullP1Milli).toBe(CFG.sinewReachMilli);
     runTo(world, 2, []);
     const early = install();
@@ -273,6 +276,66 @@ describe("the snap-back", () => {
     const at = world.tick + TPB * CFG.sinewSnapBeats;
     runTo(world, at + 1, [pull(at, 1, 300)]);
     expect(s.pullP1Milli).toBe(300);
+  });
+});
+
+describe("the drop-in", () => {
+  const ENTER: SimConfig = { ...CFG, sinewEnterBeats: 4 };
+  const installEntering = (): World => {
+    const world = createWorld({ ...ENTER }, 0);
+    startWave(world, 0, [], [], { kind: "sinew" });
+    return world;
+  };
+
+  it("lets a hand take hold and pulls nothing until the tendon has settled", () => {
+    const world = installEntering();
+    const s = sinew(world);
+    const settled = s.settleBeat + ENTER.sinewEnterBeats;
+    const d = inZone(s);
+    const seen = new Set<string>();
+    while (world.beat < settled) {
+      step(world, [pull(world.tick, 1, d), pull(world.tick, 2, d)]);
+      for (const e of world.events) seen.add(e.type);
+    }
+    expect(seen.has("sinewGrip")).toBe(true);
+    expect(seen.has("sinewEnter")).toBe(false);
+    const until = world.tick + TPB * 2;
+    while (world.tick < until) {
+      step(world, [pull(world.tick, 1, d), pull(world.tick, 2, d)]);
+      for (const e of world.events) seen.add(e.type);
+    }
+    expect(sinewSum(s)).toBe(d * 2);
+    expect(seen.has("sinewEnter")).toBe(true);
+  });
+});
+
+describe("the zone's height", () => {
+  it("visits a different stretch of the band for every fibre, and reaches the top once", () => {
+    for (const seed of [0, 1, 2, 3, 4, 5, 6, 7]) {
+      const world = install(seed);
+      const s = sinew(world);
+      const lows: number[] = [];
+      while (s.fibres > 0 && world.tick < TPB * 400) {
+        const fibres = s.fibres;
+        if (lows.length < CFG.sinewFibres - fibres + 1) lows.push(s.zoneLowMilli);
+        runHolding(world, s, world.tick + TPB);
+        if (s.fibres === fibres) continue;
+        // Both hands off between fibres, which is what resets the slack.
+        runTo(world, world.tick + 1, [letGo(world.tick, 1), letGo(world.tick, 2)]);
+      }
+      expect(lows.length).toBe(CFG.sinewFibres);
+      const top = BAND - CFG.sinewZoneNarrowMilli * 2;
+      const early = lows.slice(0, -1);
+      // Only the last fibre's zone is at the top.
+      expect(lows[lows.length - 1]).toBe(top);
+      for (const low of early) expect(low).toBeLessThan(top - CFG.sinewZoneNarrowMilli);
+      // One stretch each: every stretch of the band was taken, once.
+      expect(s.zoneSlots).toBe((1 << (CFG.sinewFibres - 1)) - 1);
+      const span = top - CFG.sinewZoneLowMilli;
+      // And the whole height is used: one in the bottom fifth, one in the top.
+      expect(Math.min(...early)).toBeLessThan(CFG.sinewZoneLowMilli + span / 5);
+      expect(Math.max(...early)).toBeGreaterThan(CFG.sinewZoneLowMilli + span / 2);
+    }
   });
 });
 
