@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · a3bea87b8 — queue release leaves a tree on another branch as its HEAD has it
+
+Giving a claim back took its Taken: line off the trunk and off this tree's own copy as well, uncommitted. From a tree standing on some other branch, a take after it made the claim branch and the checkout of it refused, because the copy no longer matched the tree's HEAD. The copy is now edited only when this tree stands on the claim's branch or on the branch its mark names, which is the lane whose landing would otherwise put the line back.
+
 ## 2026-10-02 · ec6e751df — THE GAUGE: a miss opens the mouth instead of jamming the valve, and three teeth to pull
 
 A wrong shot no longer kills P1's valve. It opens the alien's mouth one step instead, and so does every level up. Each step makes the wound narrower. When the mouth is five steps open it swallows the ship: the round is lost and the hull is struck, the same as when the clock runs out. That allows five misses on the first level and three on the last. Before this, a pair who did not know the jammed needle could be dragged by hand ran out of time on their first wrong shot. In the rest after the first level, three teeth now come loose one after another. P1 sees only the next one, and the rest is 32 beats long to fit them. A wrong tooth, or a tooth or the tongue left in, still jams the valve. The mouth does not visibly open yet; that is the next lane.

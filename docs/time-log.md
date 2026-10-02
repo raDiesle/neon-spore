@@ -32050,3 +32050,5 @@ not make directly, and the probe was what found which rule made it.
 
 Bottleneck: reading — `run.ts` is bound to this repository, so the fix had
 to move into a function that takes a root before a test could reach it.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
