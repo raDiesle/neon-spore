@@ -439,6 +439,7 @@ flat. `bun run check` proves the tests.
 ## THE INSTAR's shipped rise leaves both nests beside its back
 
 - **Found:** 2026-10-01, claude/queue-living-bosses-the-instars-body-with-weight-as-a
+- **Taken:** 2026-10-02, claude/queue-the-instars-shipped-rise-leaves-both-nests-besid
 - **Files:** `packages/render/src/instar-body-look.ts`, `packages/render/src/instar-profile.ts`, `tools/versus/test/instar-body.test.ts`
 
 The shipped body seats its spine straight down the screen under each nest
