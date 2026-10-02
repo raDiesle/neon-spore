@@ -31845,3 +31845,5 @@ one world differing until the first is thrown away.
 
 Bottleneck: landing — the change is a dozen lines; the full check under
 `land` is most of the lane.
+
+*Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
