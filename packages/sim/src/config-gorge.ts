@@ -44,7 +44,7 @@ export const GORGE_DEFAULTS: GorgeConfig = {
   gorgeRow: 5,
   gorgeRingRows: 2,
   gorgeLevelGapBeats: 4,
-  gorgeTurnBeats: 8,
+  gorgeTurnBeats: 5,
   gorgeOpenTaps: 3,
   gorgeOutBeats: 2,
 };

@@ -31697,3 +31697,15 @@ Bottleneck: calibrating — five synthetic strokes per sign run against the
 matcher until a triangle begun at a corner stopped sitting near the ring.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE GORGE's ring turns every five beats, not eight
+
+- reading: 5 min. The turn setting and where it is named.
+- writing: 5 min. The figure, in the config and §11.23.
+- looking: 0 min. Nothing new drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land --keep`.
+
+Bottleneck: picking the figure — 6, 5 and 4 were each played by AUTO on
+three seeds, and 4 was slower than 5, because the bubble often turns away
+before it has been tapped open and fed.

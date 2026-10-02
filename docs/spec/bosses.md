@@ -3663,7 +3663,7 @@ would a body (`gorgeAlong`, beside the bodies in the same segment). A ring
 stands round a circle `gorgeRingRows` (2) tiles across, centred on the middle
 column at the same row, and takes shots **only at its bottom bubble**, in the
 middle column, `gorgeRingRows` rows lower (`gorgeColOf`, `gorgeRowOf`). Every
-`gorgeTurnBeats` (8) it turns one step, skipping sated bubbles (`gorgeTurn`),
+`gorgeTurnBeats` (5) it turns one step, skipping sated bubbles (`gorgeTurn`),
 and the bubble it turns away loses its taps. THE SLOW is up while the bottom
 bubble is due and not yet sated, to the beat the ring next turns (`gorgeSlow`,
 `docs/decisions.md` #33).
