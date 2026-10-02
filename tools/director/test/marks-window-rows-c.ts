@@ -12,6 +12,10 @@ import {
   halterLitStep,
   type LampreyState,
   lampreyBiting,
+  type MimicState,
+  mimicAsking,
+  mimicDraws,
+  mimicMimicking,
   type PlumbState,
   plumbLitStep,
   type RimeState,
@@ -27,12 +31,14 @@ import * as gallMarks from "../../../packages/render/src/gall-marks.js";
 import * as grindstoneMarks from "../../../packages/render/src/grindstone-marks.js";
 import * as halterMarks from "../../../packages/render/src/halter-marks.js";
 import * as lampreyMarks from "../../../packages/render/src/lamprey-marks.js";
+import * as mimicPad from "../../../packages/render/src/mimic-pad.js";
+import * as mimicSign from "../../../packages/render/src/mimic-sign.js";
 import * as plumbMarks from "../../../packages/render/src/plumb-marks.js";
 import { plumbAsked } from "../../../packages/render/src/plumb-pose.js";
 import * as rimeMarks from "../../../packages/render/src/rime-marks.js";
 import * as rimeStory from "../../../packages/render/src/rime-story.js";
 import * as slingMarks from "../../../packages/render/src/sling-marks.js";
-import { mark, type Row } from "./marks-window-kit.js";
+import { mark, type Row, unreached } from "./marks-window-kit.js";
 
 /**
  * **The rows after the second six bosses'** of `marks-window.test.ts`. THE GALL's scars
@@ -52,6 +58,7 @@ const flue = (w: World) => w.boss as FlueState;
 const grindstone = (w: World) => w.boss as GrindstoneState;
 const halter = (w: World) => w.boss as HalterState;
 const lamprey = (w: World) => w.boss as LampreyState;
+const mimic = (w: World) => w.boss as MimicState;
 const plumb = (w: World) => w.boss as PlumbState;
 const rime = (w: World) => w.boss as RimeState;
 const sling = (w: World) => w.boss as SlingState;
@@ -174,6 +181,29 @@ export const ROWS_C: readonly Row[] = [
     marks: [
       mark(lampreyMarks, "drawLampreyJawMark", (w) => lampreyBiting(lamprey(w))),
       mark(lampreyMarks, "drawLampreyToothMark", (w) => lampreyBiting(lamprey(w))),
+    ],
+  },
+  {
+    // THE MIMIC's pad while a seat owes a sign, the sign while one is on the
+    // skin and risen, and a mimicked sign only while the skin wears one.
+    kind: "mimic",
+    marks: [
+      mark(mimicPad, "drawMimicPad", (w) => ([1, 2] as const).some((k) => mimicDraws(mimic(w), k))),
+      mark(
+        mimicSign,
+        "drawSkinSign",
+        (w) => mimicAsking(mimic(w)),
+        (a) => (a[1] as number) >= 0 && (a[5] as number) > 0,
+      ),
+      unreached(
+        mark(
+          mimicSign,
+          "drawMimickedSign",
+          (w) => mimicMimicking(mimic(w)),
+          (a) => (a[1] as number) >= 0,
+        ),
+        "AUTO draws every sign right, so it never sees the skin wear a wrong one",
+      ),
     ],
   },
 ];

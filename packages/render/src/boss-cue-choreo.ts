@@ -13,6 +13,7 @@ import { valveCues } from "./boss-cue-read-zp.js";
 import { governorCues } from "./boss-cue-read-zq.js";
 import { seamCues } from "./boss-cue-read-zr.js";
 import { lampreyCues } from "./boss-cue-read-zs.js";
+import { mimicCues } from "./boss-cue-read-zt.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import type { Layout } from "./layout.js";
 import { plumbCues } from "./plumb-marks.js";
@@ -78,6 +79,9 @@ export function choreoCues(
     // THE LAMPREY's, a hold on the jaw's band to the pinner until the thumb is on it, a tap on the lit tooth to the tapper, and one under the lit gullet (`boss-cue-read-zs.ts`).
     case "lamprey":
       return lampreyCues(l, world, boss, beatPhase);
+    // THE MIMIC's, a call over the sign to the seat that sees it, a draw on the pad to the seat that owes it, and one under the bare core (`boss-cue-read-zt.ts`).
+    case "mimic":
+      return mimicCues(l, world, boss, beatPhase);
     default:
       return [];
   }

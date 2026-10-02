@@ -14,6 +14,7 @@ import { KEEL_POSES } from "./poses-bosses-hands-keel.js";
 import { LAMPREY_POSES } from "./poses-bosses-hands-lamprey.js";
 import { MANTLE_POSES } from "./poses-bosses-hands-mantle.js";
 import { MECHANISM_POSES } from "./poses-bosses-hands-mechanisms.js";
+import { MIMIC_POSES } from "./poses-bosses-hands-mimic.js";
 import { NETTLE_POSES } from "./poses-bosses-hands-nettle.js";
 import { OCULUS_POSES } from "./poses-bosses-hands-oculus.js";
 import { RATCHET_POSES } from "./poses-bosses-hands-ratchet.js";
@@ -73,6 +74,7 @@ export const BOSS_POSES: Pose[] = [
   ...VALVE_POSES,
   ...SEAM_POSES,
   ...LAMPREY_POSES,
+  ...MIMIC_POSES,
   ...MECHANISM_POSES,
 ];
 

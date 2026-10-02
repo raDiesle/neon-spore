@@ -449,13 +449,11 @@ and its four files, `test/mimic-frame.test.ts`; §11.60, *The look*): the
 mantle, the sign on the reader's screen from the recogniser's own templates
 (`render/glyph-shapes.ts`), the pad on the drawer's (`mimicPad`, which
 `inPad` now reads), the mimicked sign, the reach, the roll, the split, the
-core and the fall. Two halves are left, in order:
+core and the fall. **The hand landed the same day** (the eight cards in
+`tools/director/src/poses-bosses-hands-mimic.ts`, SIGN and DRAW in
+`render/boss-cue-read-zt.ts`, THE SLOW's aim, the marks-window and hush
+rows). One half is left:
 
-- **the hand** — the eight STATES cards on `OWED` in
-  `tools/director/test/boss-states.test.ts`, posed on AUTO's hand with the
-  sign on one seat and the pad on the other; the cue's words, if the field
-  says any beyond `FIRE` on the core (`render/boss-cue-read-*.ts`); THE
-  SLOW's aim round the mantle; the marks-window row for the pad;
 - **the receipts** — an `fx` file: the peel lifting off like a sticker and
   drifting down the field turning over, the flinch, the reach's creak and
   the third reach's strike (a LOOK and a FROM row in `boss-strike-*.ts`),

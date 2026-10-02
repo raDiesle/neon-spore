@@ -11534,12 +11534,24 @@ breathing on the beat, **only on the screen of the seat that owes a sign**
 (`mimicPad`, read by `apps/game/src/glyph-pad.ts` `inPad`). **A mimicked
 sign** is the template drawn shaken in the hull's red on every screen.
 
-**What is not built.** **The hand half** — the eight STATES cards, owed in
-`tools/director/test/boss-states.test.ts`, the cue's words and THE SLOW's
-aim — and **the receipts** — the peel drifting down the field turning over,
-the flinch's and the reach's bursts, the strike — are queued (`docs/queue.md`,
-THE MIMIC's look (§42)); every event is still silent to the renderer
-(`render/src/effects-ingest-silent-boss-e.ts`). The body has not been
+**The hand** landed the same day. The eight STATES cards are posed on
+AUTO's hand (`tools/director/src/poses-bosses-hands-mimic.ts`); the
+mimicking card has P2 draw the wrong sign a beat in, so the skin wears it in
+red and the arm stretches. The field's words (`render/boss-cue-read-zt.ts`):
+**SIGN**, a CALL on the mantle, on the screen that reads it — a word to say,
+not a verb to do — and **DRAW**, a CARRY in the pad, on the screen that
+draws; on a split each stands over its own half. **FIRE** stands on the hull
+while the core is bare. THE SLOW aims round the whole mantle, arms and all
+(`slow-boss-aim-d.ts`). The marks-window row (`marks-window-rows-c.ts`)
+holds the pad and the skin's sign open while a sign is owed; the mimicked
+sign is unreached on AUTO, which never draws a sign wrong. The hush test
+holds the two words still.
+
+**What is not built.** **The receipts** — the peel drifting down the field
+turning over, the flinch's and the reach's bursts, the strike, the core's
+hit and its clench — are queued (`docs/queue.md`, THE MIMIC's look (§42));
+every event is still silent to the renderer
+(`render/src/effects-ingest-silent-boss-e.ts`). Neither half has been
 watched at tempo on two phones.
 
 **What is proven, and what is not.** `sim/test/mimic.test.ts` proves the

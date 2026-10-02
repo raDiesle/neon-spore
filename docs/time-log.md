@@ -31767,3 +31767,18 @@ Bottleneck: looking — the first frame of a new body is never the one that
 ships, and each round of the look costs a render and a read.
 
 *Measured: 18 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE MIMIC's hand: eight cards, SIGN and DRAW, THE SLOW's aim
+
+- reading: 5 min. THE LAMPREY's hand lane, the STATES card rules, the cue
+  kinds and the marks-window rows.
+- writing: 5 min. The cards, the cue reader and its test, the aim, the
+  marks-window and hush rows, the write-ups.
+- looking: 0 min. Nothing new is drawn on the field but two words.
+- friction: 5 min. The peeled card never arrived — the phase clock counts
+  whole beats, so a card wanting half a beat into a one-beat phase waits
+  for nothing — and the mimicking card's note had to name P1.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: friction — a card's `want` is matched against a clock in whole
+beats, and that is found only by a card that never arrives.

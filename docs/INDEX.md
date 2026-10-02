@@ -1150,6 +1150,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zq.ts` | **What THE GOVERNOR is asking for**, page forty-three of the readings |
 | `packages/render/src/boss-cue-read-zr.ts` | **What THE SEAM is asking for**, page forty-four of the readings |
 | `packages/render/src/boss-cue-read-zs.ts` | **What THE LAMPREY is asking for**, page forty-five of the readings |
+| `packages/render/src/boss-cue-read-zt.ts` | **What THE MIMIC is asking for**: SIGN on the screen that reads, DRAW in the pad on the one that draws, FIRE on the bare core |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -3239,6 +3240,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-nettle.ts` | **THE NETTLE's four states**, THE INSTAR's four (`poses-bosses-clocks.ts` |
 | `tools/director/src/poses-bosses-hands-mantle.ts` | **THE MANTLE's ten states**, posed with a hand on the controls (`boss-hands-mantle.ts`) |
 | `tools/director/src/poses-bosses-hands-mechanisms.ts` | THE DAVIT's, THE PLUMB's and THE SLING's stills: each machine arrived and standing, no step lit yet |
+| `tools/director/src/poses-bosses-hands-mimic.ts` | **THE MIMIC's states**: eight cards on AUTO's hand, the mimicking one with P2 drawing the wrong sign |
 | `tools/director/src/poses-bosses-hands-keel.ts` | **THE KEEL's twelve states**, posed with a hand on the controls (`boss-hands-keel.ts`) |
 | `tools/director/src/poses-bosses-hands-oculus.ts` | **THE OCULUS's four states**, posed with a hand on the controls (`boss-hands-oculus.ts`) |
 | `tools/director/src/poses-bosses-hands-vise.ts` | **THE VISE's four states**, posed with a hand on the controls (`boss-hands-vise.ts`) |

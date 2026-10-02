@@ -42,9 +42,6 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   burgee: ["slack", "lit", "rest", "spent"],
   flue: ["slack", "lit", "rest", "spent"],
   governor: ["slack", "lit", "rest", "spent"],
-  // THE MIMIC, all eight: the body is drawn, and the hand half of its look
-  // lane poses them with the sign on one seat and the pad on the other (§42).
-  mimic: ["entering", "sign", "mimicking", "peeled", "rolling", "core", "clench", "spent"],
 };
 
 describe("the BOSSES category", () => {

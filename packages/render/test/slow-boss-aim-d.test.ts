@@ -25,8 +25,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * **THE SLOW's light stands round the bosses on page four**
  * (`slow-boss-aim-d.ts`): five that opened windows that ask and were aimed at
- * the cannon on the hull until 27 September 2026, and THE NETTLE once its body
- * was drawn. Each is held to the body its
+ * the cannon on the hull until 27 September 2026, THE NETTLE once its body
+ * was drawn, and THE MIMIC with its hand. Each is held to the body its
  * own shape file names — its box holds the body, and stands well clear of the
  * hull — rather than to its own arithmetic again.
  */
@@ -49,7 +49,7 @@ function settled(kind: Parameters<typeof waveWith>[0]) {
 }
 
 describe("THE SLOW's aim at the bosses on page four", () => {
-  it.each(["seam", "halter", "capstan", "gall", "burgee", "nettle"] as const)(
+  it.each(["seam", "halter", "capstan", "gall", "burgee", "nettle", "mimic"] as const)(
     "stands round THE %s, not the cannon, and leaves the hull a gap",
     (kind) => {
       const box = settled(kind);
