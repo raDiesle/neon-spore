@@ -32650,3 +32650,5 @@ column had to learn a body can span the field.
 
 Bottleneck: the dispatcher page every drawer's new argument went through
 had filled, and wanted its seam cut before the lane could go on.
+
+*Measured: 36 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
