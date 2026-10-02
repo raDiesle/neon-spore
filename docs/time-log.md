@@ -32522,3 +32522,14 @@ GIMBAL's lane, when the next one was opened.
 Bottleneck: the request read two opposite ways and needed a question.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — The CDP launcher's test makes `.claude/tmp` before using it
+
+- reading: 5 min. The failing `mkdtemp`, and `profileDir`, which already
+  makes the directory.
+- writing: 0 min. One `mkdir` in the test's `profile()`.
+- looking: 0 min. A test; nothing drawn.
+- friction: 0 min.
+- landing: 5 min. The test with `.claude/tmp` removed, `check:fast`, `land`.
+
+Bottleneck: it read as a race until the test's own helper was read.

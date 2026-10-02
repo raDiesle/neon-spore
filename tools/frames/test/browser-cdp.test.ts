@@ -1,5 +1,5 @@
 import { afterAll, describe, expect, it } from "bun:test";
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdir, mkdtemp, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { PROFILE_PREFIX, tmpRoot } from "../../tmp-litter.js";
 import { launchBrowser } from "../browser.js";
@@ -31,6 +31,8 @@ afterAll(async () => {
 });
 
 async function profile(): Promise<string> {
+  // A fresh worktree has no `.claude/tmp` until something makes it.
+  await mkdir(tmpRoot(root), { recursive: true });
   const dir = await mkdtemp(join(tmpRoot(root), PROFILE_PREFIX));
   made.push(dir);
   return dir;
