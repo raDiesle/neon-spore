@@ -31709,3 +31709,5 @@ matcher until a triangle begun at a corner stopped sitting near the ring.
 Bottleneck: picking the figure — 6, 5 and 4 were each played by AUTO on
 three seeds, and 4 was slower than 5, because the bubble often turns away
 before it has been tapped open and fed.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

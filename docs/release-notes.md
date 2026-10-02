@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 6fb850a61 — THE GORGE's ring turns every five beats, not eight
+
+The owner asked for a faster turn (2 October 2026), so the pair waits less for the due bubble to come round to the bottom. AUTO played 6, 5 and 4 beats on three seeds. At 5 the whole wave takes 190–234 beats, down from 250–370. At 4 it is slower again, because the bubble often turns away before it has been tapped open and fed.
+
 ## 2026-10-02 · 8641dba8e — THE MIMIC's recogniser: a stroke on the lower field becomes the sign it was nearest
 
 While this phone's seat owes THE MIMIC a sign, a stroke on the lower half of the play area is resampled, boxed and matched to every way each of the five can be drawn, and sent as a `glyph`; a tap, a line or a scribble sends nothing. At a desk, keys 1 to 5 send the five, and `bun run frames --press` takes `glyph=<n|name>`. The pad and the sign are not drawn yet; that is the look's lane.
