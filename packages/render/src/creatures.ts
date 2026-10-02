@@ -13,6 +13,7 @@ import { landingY } from "./landing.js";
 import type { Layout } from "./layout.js";
 import { drawLidCords } from "./lid-string.js";
 import type { RecoilLeapFx } from "./recoil-leap.js";
+import { throatRefuseShake } from "./throat-refuse-shake.js";
 import { drawWeightPress } from "./weight.js";
 import { showsWisp } from "./wisp.js";
 import { drawWispGround } from "./wisp-ground.js";
@@ -114,7 +115,8 @@ export function drawCreatures(
       onRim ??
       flown ??
       (leap ? centerAt(l, c, leap.row, leap.col) : creatureCenter(l, world, c, glide));
-    const x = placed.x;
+    // A body THE THROAT refused shudders where it is (`throat-refuse-shake.ts`).
+    const x = placed.x + throatRefuseShake(l, world, c, beatPhase);
     // A landing beat ends half-sunk in the skin and not under the membrane at
     // the hull row's centre: a rock so that `RockImpactFx` takes it over where
     // it stands, everything else so that the beat it is seen to touch the ship

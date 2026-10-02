@@ -11,6 +11,7 @@ import {
 import { computeLayout, computeStage, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { throatAimCircle, throatPumpCircle } from "../src/throat-grip.js";
+import { throatHue } from "../src/throat-hue.js";
 import { SWALLOWED } from "../src/throat-say.js";
 import {
   CFG,
@@ -92,10 +93,11 @@ function dialAt(log: string[], at: { x: number; y: number }): boolean {
 describe("the throat", () => {
   for (const role of ROLES) {
     it(`draws the gullet standing at home for ${role}`, () => {
-      const { world } = opened();
+      const { world, t } = opened();
       const { calls, text } = drawn(world, role, TPB * 2);
       expect(calls).toBeGreaterThan(500);
-      expect(text).toContain(PALETTE.venom);
+      // The lip in the colour the mouth is set to (`throat-hue.ts`).
+      expect(text).toContain(throatHue(t.mode).hex);
     });
 
     it(`draws a worn gullet with its mouth carried off to a corner for ${role}`, () => {
@@ -142,8 +144,9 @@ describe("the throat", () => {
     // This fight splits the hands and not the eyes: the body in the circle is
     // what the colour is called against, and both seats own two colours.
     for (const role of ["p1", "p2"] as const) {
-      const { world } = opened();
-      expect(drawn(world, role, TPB).text).toContain(PALETTE.venom);
+      const { world, t } = opened();
+      t.mode = "suck";
+      expect(drawn(world, role, TPB).text).toContain(PALETTE.pod);
     }
   });
 

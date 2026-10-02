@@ -3359,6 +3359,7 @@ is `sim/throat.ts`, `sim/throat-hand.ts`, `sim/throat-suck.ts`,
 `sim/events-throat.ts` and `render/throat-draw.ts`, `render/throat-shape.ts`,
 `render/throat-mouth.ts`, `render/throat-grip.ts`, `render/throat-marks.ts`,
 `render/throat-receipt.ts`, `render/throat-evert.ts`, `render/throat-say.ts`,
+`render/throat-hue.ts`, `render/throat-refuse-shake.ts`, `render/hull-crown.ts`,
 `render/boss-cue-read-k.ts`. The design is
 `docs/spec/bosses-choreographed.md` §1.*
 
@@ -3446,13 +3447,43 @@ colour the body in the circle wants is the sentence the pair says to each
 other. After a right swallow `SWALLOWED` stands under the mouth for two beats
 (`render/throat-receipt.ts`).
 
+### The look
+
+Landed 2 October 2026, the second lane of the rework.
+
+- **The root, not the gun.** On this wave the hull's swelling carries no
+  muzzle, no inhale and no charge: the gullet grows out of it where the
+  muzzle was (`render/hull-crown.ts`, `HullCrown` `"root"`). The cannon's
+  light column still stands over the swelling's column.
+- **The mouth wears its colour.** The lip, its halo and a swallow's flare are
+  in the colour the mouth is set to: red, cyan, the shield's colour, or the
+  pod's amber for SUCK (`render/throat-hue.ts`). **The shield's colour and the
+  cyan shot's are one hex in this game**, so in SHIELD and SUCK the mouth also
+  carries the band's own button face inside its hole (`emblem`, the ward and
+  the intake). A shot's mouth carries none.
+- **The pull circle.** A thin glow ring round the mouth, `throatRadiusMilli`
+  wide, in the mouth's colour. It breathes inward a little, like air being
+  drawn in, and brightens as the pump fills. It is gone while the pump is
+  still, because a still pump pulls nothing.
+- **A refused body shakes.** Sideways, three swings a beat, about a seventh of a
+  tile, fading over `throatRefuseTicks`. The simulation writes the refusal
+  again while the body stays in the circle, so the shake lasts as long as the
+  wrong colour is held on it (`render/throat-refuse-shake.ts`). It reads
+  only the tick and the beat's phase, so both screens shake the same body
+  the same way.
+- **The pump shows its way.** On the pilot's screen the pump's handle carries
+  the shared pull arrow with two heads, down and up (`drawPullArrow`), the
+  owner's rule that no pull mark is a bare circle.
+
+Tested in `render/test/throat-look.test.ts`: the colours, the circle at the
+simulation's radius, the shake's window, and the crown.
+
 ### What is not verified
 
-The owner's eye on the rework: whether the pump at these three numbers feels
-like pumping, whether a pair finds the colour split without being told, and
-whether the mouth's colour reads at a glance. The look lane — the circle's
-ring, the refusal's shake, the pump's handle and the mouth's colour — follows
-this one, and with it the cannon taken off the hull for the wave.
+The owner's eye and the tempo: whether the pump at these three numbers feels
+like pumping, whether a pair finds the colour split without being told,
+whether the lip's colour reads at a glance on a phone, and whether the
+circle is bright enough to carry the mouth against.
 
 ## 11.20 THE UNDERTOW — the boss under the floor, answered downward
 

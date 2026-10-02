@@ -1945,6 +1945,8 @@ by hand never moves.
 | `packages/render/src/throat-flesh-lip.ts` | **What THE THROAT's mouth is made of**, and the inside it turns out through it at the end |
 | `packages/render/src/throat-flesh.ts` | **What THE THROAT is made of**: a wet gullet of ring muscle, lit from above and to the left |
 | `packages/render/src/throat-receipt.ts` | What the last thing into the mouth did, for two beats: `RING DOWN` or `SWALLOWED · RING HEALS` |
+| `packages/render/src/throat-refuse-shake.ts` | **A body the mouth would not take shakes where it stands**, sideways, for as long as the wrong colour is held on it |
+| `packages/render/src/throat-hue.ts` | **Which colour the mouth is set to**, worn on the lip, with the panel face for shield and suck, and the pump's pull circle |
 | `packages/render/src/crawler-fx.ts` | THE CRAWLER's three transients — the burst ring's splash, the swept lane, the burrow's mound |
 | `packages/render/src/crawler.ts` | THE CRAWLER, drawn — a maggot lying along the ship's surface, its rings overlapping |
 | `packages/render/src/crawler-ring.ts` | **One ring of a maggot, as a shape** — the three sets of proportions the parts of a worm are drawn at |
@@ -2299,6 +2301,7 @@ by hand never moves.
 | `packages/render/src/hull-break.ts` | **What the ship wears where something went through it.** One call per open hole |
 | `packages/render/src/hull-mood.ts` | what the ship is doing this frame — `HullMood`, the eased state of its membrane, and `LobePositions`, where its lobes stand — re-exported from `hull-frame.ts` |
 | `packages/render/src/hull-outline.ts` | The hull's contour and the body it closes, as paths — `drawHull`'s, and THE MIRROR's blow laid over the same outline |
+| `packages/render/src/hull-crown.ts` | **What the swelling player 1 slides is, on this panel**: a gun, THE CLAW's hand, or THE THROAT's root with no muzzle |
 | `packages/render/src/husk-deflate.ts` | **A husk refused: a balloon let go.** The owner asked for this by name on 15 September 2026 |
 | `packages/render/src/husk-mark.ts` | **The frame player 2 sees around a husk, and player 1 never does** |
 | `packages/render/src/husk-look.ts` | How a husk is told from a pod — the one record VERSUS can offer a second answer through |

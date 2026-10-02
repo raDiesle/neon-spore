@@ -140,7 +140,7 @@ Taught once, by the guide; **no helper on the field** (above).
 | Piece | Shared | Says | Who |
 |---|---|---|---|
 | `drawPullKnob`, `PULL_GRAB` | `pull-knob.ts` | **a pull**: the big circle to start, with the arrow of the way inside it; answered at `PULL_GRAB` times its radius | THE WARDEN, THE LID, THE STARE, THE CURTAIN, THE MAZE, THE SINEW, THE BALLOON, THE FLEET, THE LEDGER |
-| `drawPullArrow` | `pull-knob.ts` | the knob's arrow without the knob, for a pull whose mark is not a ring, on its owner's screen | THE ANTIPHON, THE CAIRN, THE PLUMB, THE VALVE, THE MANTLE, THE CAPSTAN |
+| `drawPullArrow` | `pull-knob.ts` | the knob's arrow without the knob, for a pull whose mark is not a ring, on its owner's screen | THE ANTIPHON, THE CAIRN, THE PLUMB, THE VALVE, THE MANTLE, THE CAPSTAN, THE THROAT's pump |
 | `drawPullTrack`, `PullTrack`, `PullTrackDraw`, `pullTrackPoint`, `pullWay`, `PULL_TRACK_W` | `pull-track.ts` | the way the pull can go: a thin channel filling green behind the hand, chevrons ahead; `closed` for a turn with no end | the same |
 | `straightPullTrack`, `StraightPull`, `PullWay`, `PULL_UP`, `PULL_DOWN`, `pullRoom`, `fittingWay` | `pull-line.ts` | a pull measured as a distance, as a straight track that turns to follow the hand; how much field it has room for | THE WARDEN, THE LID, THE STARE, THE CURTAIN |
 | `drawWayArrow` | `way-arrow.ts` | **a direction**: THE INSTAR's arrow turned any way; `heads: 2` for a pull that may go either way | THE INSTAR's rings, every knob |
@@ -155,7 +155,8 @@ Taught once, by the guide; **no helper on the field** (above).
 |---|---|---|---|
 | `drawInstarCrosshair`, `CROSSHAIR_LOOK` | `instar-crosshair.ts` | **a shot**: a ring with four ticks in and nothing across the part, in the bolt's colour on THE INSTAR, violet when either takes it | THE INSTAR, every cue's aim |
 | `cueHelper`, `CueHelper`, `cueAim`, `aimIsHere`, `drawCueHelper` | `cue-helper.ts` | a cue's picture: the crosshair on `BossCue.aim` for `FIRE` and `SHOOT`, the panel's face in the scanner box for `SHIELD` and `SUCK` — drawn for every boss by `boss-cue-draw.ts`, so no boss draws its own | every boss with a cue; `cue-aim.test.ts` fails a shot at the hull that aims at nothing |
-| `emblem` | `action-face.ts` | the band's button faces — the ward, the throat, the hand — at any size | the band, THE MIRROR's sequence, the cue helper, THE INSTAR |
+| `emblem` | `action-face.ts` | the band's button faces — the ward, the throat, the hand — at any size | the band, THE MIRROR's sequence, the cue helper, THE INSTAR, THE THROAT's mouth in SHIELD and SUCK |
+| `drawPullCircle`, `drawModeFace`, `throatHue` | `throat-hue.ts` | **how far a pull reaches**: a faint ring round the thing pulling, as wide as the simulation pulls, in the colour it is set to; gone while nothing pulls | THE THROAT |
 | `drawTargetLock`, `drawRadarLock` | `target-lock.ts` | *an instrument has picked this out and cannot tell you the rest*: four corner brackets, a sweep, a flicker | the cue's scan frame, the lure, the dart, the veil, THE QUEEN's marks and more |
 
 ### The words

@@ -31603,3 +31603,19 @@ Bottleneck: the hook's test, which holds the ceiling over the window — the
 question it raised had to go back to the owner overnight.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE THROAT's look: the mouth in its colour, the pull circle, the shake, the root
+
+- reading: 25 min. The hull's crown passes, the band's emblem, the pull
+  arrow, the lip and the frames tool's `--hold` timing.
+- writing: 35 min. Four new render files, the hull's crown parameter,
+  `throat-look.test.ts`, §11.19 *The look*, the catalogue rows.
+- looking: 20 min. Five captures with `bun run frames`.
+- friction: 15 min. Two compactions inside the lane, and a capture whose
+  first `--hold` sat where the grab already was, so the pump never moved —
+  the probe proved the simulation before the tool was suspected.
+- landing: 10 min. `check:fast`: INDEX rows, the pull-handle list, a test
+  timeout, and two frame tests that expected the old venom lip.
+
+Bottleneck: the context — the lane ran out of it twice and each compaction
+cost a re-read of the files it was editing.

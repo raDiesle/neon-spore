@@ -36,6 +36,7 @@ const PULL_HANDLES: Readonly<Record<string, string>> = {
   "valve-draw.ts": "THE VALVE",
   "mantle-handle.ts": "THE MANTLE",
   "capstan-marks.ts": "THE CAPSTAN",
+  "throat-grip.ts": "THE THROAT",
 };
 
 const TO_COME: Readonly<Record<string, string>> = {};

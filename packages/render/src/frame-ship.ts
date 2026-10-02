@@ -14,6 +14,7 @@ import { HANDOVER_LOOK } from "./handover-look.js";
 import { drawControlHover } from "./hover.js";
 import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull, type HullMood, hullSkinY, type LobePositions, surfaceSampler } from "./hull.js";
+import { hullCrown } from "./hull-crown.js";
 import { frame, type HullFrame } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawMagnetAlarm } from "./magnet-alarm.js";
@@ -81,9 +82,8 @@ export function drawShip(
   // the hull leaves the gun's own mouth undrawn, and the arm is drawn folded
   // on the crown where that mouth used to sit (`reach-arm.ts`).
   const arm = setHas(bandControlSet(view.controls, world), "reach");
-  // Queen boss only: the ship's own render-only echo of her torch tremor
-  // (queen.ts's `hullShake`); undefined everywhere else, so `drawHull` falls
-  // back to its own no-shake default.
+  // Queen boss only: her torch tremor echoed in the ship (queen.ts's
+  // `hullShake`); undefined elsewhere, so `drawHull` keeps still.
   const shake =
     world.boss?.kind === "queen"
       ? hullShake(torchTremor(l.tile, world.boss, world.beat, view.time))
@@ -103,7 +103,7 @@ export function drawShip(
     seatSkin(view.role).hull,
     shake,
     f,
-    arm,
+    hullCrown(world, arm),
   );
   // **THE FENCE's current, jumping between a wall on its way down and the dome
   // under it** — here rather than in the field pass, because that pass runs

@@ -121,7 +121,7 @@ export function drawGaugeRound(
   drawGaugeFoe(ctx, dial, view.world.cfg, boss, dialView);
 
   const f = restHull(l, view.time);
-  // `arm`: the cannon lobe carries the turning cannon rather than the laying
+  // A `hand` crown: the cannon lobe carries the turning cannon rather than the laying
   // mouth, so the laying pass stays undrawn under its lobe.
   const skin = seatSkin(view.role).hull;
   drawHull(
@@ -136,7 +136,7 @@ export function drawGaugeRound(
     skin,
     undefined,
     f,
-    true,
+    "hand",
   );
   effects.boss.hit.draw(ctx, l, view.time, skinSampler(f));
 

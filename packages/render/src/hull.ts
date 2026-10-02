@@ -6,6 +6,7 @@ import { type Crater, clipOutMouths, drawCraters, craters as findCraters } from 
 import { strokeGlow } from "./glow.js";
 import { drawHarpoonDanger } from "./harpoon-danger.js";
 import { drawHullBreaks } from "./hull-break.js";
+import type { HullCrown } from "./hull-crown.js";
 import {
   frame,
   type HullFrame,
@@ -65,24 +66,8 @@ export function drawHull(
   shake: { x: number; y: number } = { x: 0, y: 0 },
   // As `hullSkinY`: usually already built this tick and handed down.
   f: HullFrame = frame(l, time, mood, at),
-  /**
-   * Whether the cannon lobe is a **hand** rather than a mouth — THE CLAW's
-   * panel, and nothing else in the game.
-   *
-   * It leaves the laying pass undrawn, which is the whole of it. That pass is
-   * the cloaca a shot is pressed out of, and it is drawn at rest as well as
-   * under load (`cannon-maw.ts`), so on a panel with no trigger on it the
-   * swelling carried a mouth nothing would ever come out of — a round dark
-   * shape sitting in the bump, which is what the owner asked to be replaced by
-   * the arm itself. The throat is untouched: `mawTake` still opens it, because
-   * the pod the arm brings home is caught by the other seat's mouth.
-   *
-   * It is a parameter rather than a field of `HullMood` because it is not a
-   * mood: nothing about it is eased and nothing about it is transient. It is a
-   * fact about the panel, and `frame-ship.ts` reads it off the one function
-   * that answers which panel a frame is drawn on.
-   */
-  arm = false,
+  /** A gun, a hand or a root (`hull-crown.ts`); a gun unless said. */
+  crown: HullCrown = "gun",
 ): void {
   // The contour and the body it closes, sampled past the stage's edges
   // (`hull-outline.ts`).
@@ -203,16 +188,20 @@ export function drawHull(
   // thing happening *to* the lobe and not a thing the lobe is doing
   // (`harpoon-danger.ts`).
   drawHarpoonDanger(ctx, l, mood.danger, time, f, at, on, skin_);
-  const tip = surface(f, f.cannonX);
-  drawInhale(ctx, l, mood.intake, time, tip.x, tip.y);
-  drawMuzzle(ctx, f, l, mood.intake, skin_);
-  drawChew(ctx, l, mood, time, f.cannonX, on);
-  drawCharge(ctx, l, mood, filled, body);
-  // Last, and over everything the ship is otherwise doing: a shot about to leave
-  // is the only thing here either player has to act on within the beat. Not on
-  // the panel where the swelling is a hand — see `arm`.
-  if (!arm) {
-    drawLay(ctx, l, mood.lay ?? 0, time, f.cannonX, tip.y, mood.intake, on, mood.layFlare);
+  // A root is a swelling and nothing more: the gun's mouth, its intake and its
+  // chew are the gun's, and none of them is drawn under a gullet (`hull-crown.ts`).
+  if (crown !== "root") {
+    const tip = surface(f, f.cannonX);
+    drawInhale(ctx, l, mood.intake, time, tip.x, tip.y);
+    drawMuzzle(ctx, f, l, mood.intake, skin_);
+    drawChew(ctx, l, mood, time, f.cannonX, on);
+    drawCharge(ctx, l, mood, filled, body);
+    // Last, and over everything the ship is otherwise doing: a shot about to
+    // leave is the only thing here either player has to act on within the
+    // beat. Not on the panel where the swelling is a hand.
+    if (crown === "gun") {
+      drawLay(ctx, l, mood.lay ?? 0, time, f.cannonX, tip.y, mood.intake, on, mood.layFlare);
+    }
   }
   ctx.restore();
 }

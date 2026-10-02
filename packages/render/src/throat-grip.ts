@@ -2,6 +2,8 @@ import { type SimConfig, type ThroatState, throatHomeCol } from "@neon-spore/sim
 import { drawHandleRing, handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawPullArrow } from "./pull-knob.js";
+import { PULL_DOWN } from "./pull-line.js";
 import { mouthX, mouthY } from "./throat-shape.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -125,9 +127,17 @@ export function drawThroatGrips(
   time: number,
 ): void {
   if (b.phase !== "sucks") return;
-  ring(ctx, throatPumpCircle(l, cfg), l, 1, throatPumping(b), time);
+  const pump = throatPumpCircle(l, cfg);
+  ring(ctx, pump, l, 1, throatPumping(b), time);
+  // The pump's way inside its ring, on the pilot's screen: up and down, so two
+  // heads — every handle that is pulled carries its arrow (`way-arrow.ts`).
+  if (mine(l, 1)) drawPullArrow(ctx, pump, pump.r, PULL_DOWN, time, { alpha: 0.9, either: true });
   ring(ctx, throatAimCircle(l, cfg, b), l, 2, throatCarrying(b), time);
 }
+
+/** Whether this screen's seat is `player` — the test screen is both. */
+const mine = (l: Layout, player: 1 | 2): boolean =>
+  l.role === "test" || (l.role === "p1") === (player === 1);
 
 function ring(
   ctx: CanvasRenderingContext2D,
@@ -137,16 +147,16 @@ function ring(
   held: boolean,
   time: number,
 ): void {
-  const mine = l.role === "test" || (l.role === "p1") === (player === 1);
+  const own = mine(l, player);
   drawHandleRing(ctx, {
     x: at.x,
     y: at.y,
     r: at.r,
-    hex: mine ? PALETTE.rock : PALETTE.dim,
-    rim: mine ? PALETTE.text : PALETTE.rock,
+    hex: own ? PALETTE.rock : PALETTE.dim,
+    rim: own ? PALETTE.text : PALETTE.rock,
     held,
     pull: held ? 1 : 0,
     time,
-    theirs: !mine,
+    theirs: !own,
   });
 }

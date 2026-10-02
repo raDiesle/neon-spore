@@ -2,23 +2,24 @@ import { circleSubpath } from "@neon-spore/content";
 import { type SimConfig, type ThroatState, throatRadiusMilli } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 import { paintLip } from "./throat-flesh-lip.js";
+import { drawModeFace, drawPullCircle, throatHue } from "./throat-hue.js";
 import { mouthX, mouthY } from "./throat-shape.js";
 
 /**
  * The mouth and its lip.
  *
- * **The lip is the one place a colour is spent on this boss**, and it is
- * `venom`. Everything else about the gullet is `rock`, which is the honest
- * word for it: shots pass straight through the tube, so the body of it says
- * *nothing to report* the way THE VANE's arm and THE BATON's spine do. The
- * mouth is the exception because it is the only thing in the fight anybody
- * steers.
+ * **The lip is the one place a colour is spent on this boss**, and it is the
+ * colour the mouth is set to (`throat-hue.ts`): which of the four is set is
+ * the fact both seats must read off the field before a body is pulled in.
+ * Everything else about the gullet is `rock`, the honest word for a tube
+ * shots pass straight through.
  *
  * **It stands as open as the pump has it** (`throatRadiusMilli`), so the
- * pilot's strokes are read off the lip on both screens.
+ * pilot's strokes are read off the lip on both screens, and off the circle
+ * round it.
  */
 
 /** How wide the lip's own ring is, as a share of a tile, shut and open. */
@@ -55,10 +56,13 @@ export function drawMouth(
   // a shallow depth — enough that it purses as it shuts and never enough to
   // become a shape with a front.
   const lip = splinePath(lipPoints(x, y, r, r * (0.42 + 0.34 * open), time), true);
-  if (open > 0) halo(ctx, x, y, r * 2.4, PALETTE.venom, 0.18 * open);
-  paintLip(ctx, lip, x, y, r, l.tile, PALETTE.venom, PALETTE.venomRim, 0.6 + 0.4 * open);
+  const hue = throatHue(b.mode);
+  if (b.phase === "sucks") drawPullCircle(ctx, l, cfg, b, time);
+  if (open > 0) halo(ctx, x, y, r * 2.4, hue.hex, 0.18 * open);
+  paintLip(ctx, lip, x, y, r, l.tile, hue.hex, hue.rim, 0.6 + 0.4 * open);
+  if (b.phase === "sucks") drawModeFace(ctx, b.mode, x, y, r);
 
-  drawFlare(ctx, x, y, r, b.fedBeat, beat, beatPhase, PALETTE.venomRim);
+  drawFlare(ctx, x, y, r, b.fedBeat, beat, beatPhase, hue.rim);
 }
 
 /** The lip's outline, pursed on its short axis. */
