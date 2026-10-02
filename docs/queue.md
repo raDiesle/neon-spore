@@ -475,6 +475,7 @@ bolt stopped, and `bun run check` is green.
 ## Every other boss's lit part, lit from inside rather than glowing round it
 
 - **Found:** 2026-10-02, claude/boss-body-glow-indicators-22a92a
+- **Taken:** 2026-10-02, claude/queue-lit-from-inside (claim: claude/queue-every-other-bosss-lit-part-lit-from-inside-rathe)
 - **Files:** `packages/render/src/part-light.ts`, `packages/render/src/burgee-marks.ts`, `packages/render/src/capstan-marks.ts`, `packages/render/src/cyst-marks.ts`, `packages/render/src/davit-marks.ts`, `packages/render/src/gall-marks.ts`, `packages/render/src/grindstone-marks.ts`, `packages/render/src/halter-marks.ts`, `packages/render/src/oculus-marks.ts`, `packages/render/src/plumb-marks.ts`, `packages/render/src/rime-marks.ts`, `packages/render/src/sling-marks.ts`, `packages/render/src/trivet-marks.ts`, `packages/render/src/vise-marks.ts`, `packages/render/src/instar-track.ts`, `packages/render/src/warden-track.ts`
 
 The owner, 2 October 2026, for every boss: *only let the part of body shape
