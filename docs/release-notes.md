@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 374d0384d — THE STARE is survived, not shot: five turns a level, and lashes to pull
+
+The eye can no longer be shot or hurt. A level is five turns, each one a live pass and the charge after it. Live through all five and the eye rises to the next level; live through the last and the wave is won. While the eye charges, both players pull its lashes up: 4 on the first level, then 8, 16 and 32. Every lash must be up before the beam fires. Each flick of a thumb upward pulls one lash. The lid is gone, and there are four levels instead of five (the owner's choice).
+
 ## 2026-10-02 · 7d36e2886 — Four pressed GAUGE misses do open the mouth in `bun run frames`
 
 The queue said `bun run frames` with four `--press` calls drew THE GAUGE's mouth shut. On today's tree it does not: at the capture the world holds four misses, and the rim stands four steps further out than at tick 390. The entry was filed from the same commit that made the mouth open, so it was found on a build made partway through that lane. The render tests already hold the rim a step out for every miss and every level, so nothing was added.
