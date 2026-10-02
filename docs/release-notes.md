@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 9a647937f — The automatic compaction window goes to 320k, and the hold-back ceiling to 400k
+
+At the owner's word, `autoCompactWindow` in `.claude/settings.json` is 320000 rather than 200000: THE THROAT's look lane ran out of its context twice in one sitting. `CEILING` in `tools/hooks/defer-compact.ts` goes from 320k to 400k with it, so the hook still has room to hold a lane until it lands. `defer-compact.test.ts` keeps the ceiling above the window, and it refused the first try, which set the two equal.
+
 ## 2026-10-01 · 82f457f0d — scene-drag.ts split: how far each handle goes is its own file
 
 THE THROAT's pump took the rehearsal's drag file past 250 lines; the per-handle carry distances move to scene-drag-taut.ts, and the queue item now names the two files that are still close.
