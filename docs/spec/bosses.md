@@ -3677,12 +3677,22 @@ offer and due. The ring the thumb is answered at is the ring drawn
 
 **Two seats, two halves** (`render/gorge-draw.ts`, `render/gorge-place.ts`).
 The pilot is shown, under every bubble still wanting, the count it wants and,
-on an ordered level, its place in the order (`showsGorgeTally`); the
-navigator is shown the colour it wants, in the bubble's floor, and no number
-(`showsGorgeNearest`). A bubble wanting both is lit in both. The beads that
-went in hang in the bubble on both screens, in the colour they went in as.
-Neither seat can feed a bubble alone: he knows where and how many, she knows
-which colour.
+on an ordered level, its place in the order — over the bubble on a row,
+beside it on a ring, away from the middle (`showsGorgeTally`,
+`gorgeOrderAt`). They are white and edged in the field's dark, because the
+hull's violet could not be read on the violet sack. The navigator is shown
+the colour it wants, poured into the bubble, and no number
+(`showsGorgeNearest`, `render/gorge-want.ts`). A bubble wanting both is
+two-tone: red from the bottom up to the red share of its shots, cyan above,
+the order the beads stack in. She is shown the share, he the count, and the
+split is theirs to work out between them. The beads that went in hang in the
+bubble on both screens, in the colour they went in as. Neither seat can feed
+a bubble alone: he knows where and how many, she knows which colour.
+
+**The ring swings** to each turn over three quarters of a beat, eased, from
+where it stood (`turnFrom`, hashed) through every sated bubble the turn
+skipped (`render/gorge-place.ts`); the thumb's ring is carried with it.
+`render/test/gorge-place.test.ts` holds the swing and the numbers' clearance.
 
 **The cue** (`render/boss-cue-read-n.ts`). On a row in any order nothing is
 said to the pilot — which bubble is his to pick. On an ordered row, `MOVE` on

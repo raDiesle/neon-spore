@@ -55,15 +55,3 @@ keeps it either way. Nothing here is ticked, and nothing here is counted — a
 count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
-
-## THE GORGE rework, lane B: the picture of the levels
-
-- **Found:** 2026-10-01, claude/gorge-level-rework-5fc11f
-- **Files:** `packages/render/src/gorge-draw.ts`, `packages/render/src/gorge-lobe.ts`
-
-Starts once lane A has landed. Bubbles drawn centred on the field (row 5 of
-15), as a row or round a turning ring. The pilot sees each bubble's count left
-and its place in the order; the navigator sees its colour, two-tone when
-mixed; the bottom bubble of a ring carries the tap mark and the taps left.
-Right and refused mark `GripVerdicts` with the shared halo
-(`mark-feedback.ts`). PNGs with `bun run frames <sha>` to the owner, then land.

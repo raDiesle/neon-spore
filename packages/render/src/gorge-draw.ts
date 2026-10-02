@@ -13,7 +13,7 @@ import { type LobeDepth, lobeDepths } from "./gorge-depth.js";
 import { gorgePose } from "./gorge-drift.js";
 import { paintSack, paintSackGone } from "./gorge-flesh.js";
 import { drawLobe, gorgeWant } from "./gorge-lobe.js";
-import { gorgeBubbleAt, gorgeSackBox, gorgeTallyAt } from "./gorge-place.js";
+import { gorgeBubbleAt, gorgeOrderAt, gorgeSackBox, gorgeTallyAt } from "./gorge-place.js";
 import type { Layout } from "./layout.js";
 import { withOutlinePose } from "./outline-drift.js";
 import { PALETTE } from "./palette.js";
@@ -43,8 +43,6 @@ import { showsGorgeNearest, showsGorgeTally } from "./view-role-clocks.js";
 
 /** Beats the sack takes to go out after the last level, over `gorgeOutBeats`. */
 const OUT_FADE = 2;
-/** How far above an intake its place in the order is written, in tiles. */
-const ORDER_RISE = 1.25;
 /** A ring's bubbles all stand at one depth: it faces the pair. */
 const FLAT: LobeDepth = { s: 1, back: 0, turn: 0 };
 
@@ -86,7 +84,8 @@ export function drawGorge(
   // and the skin is the one thing on the screen in neither. A row carries a
   // seam between each pair of bubbles; a ring has none to carry.
   const ring = gorgeLevelOf(g).ring;
-  const at = g.intakes.map((_, i) => gorgeBubbleAt(l, cfg, g, i));
+  const beats = beat + beatPhase;
+  const at = g.intakes.map((_, i) => gorgeBubbleAt(l, cfg, g, i, beats));
   const seams = ring ? [] : at.map((p) => p.x);
   paintSack(ctx, body, { ...sack, tile: l.tile }, breath, time, seams, at[0]?.y ?? sack.y);
   drawHurt(ctx, body, hurt);
@@ -107,31 +106,55 @@ export function drawGorge(
       drawLobe(ctx, l.tile, k, p.x, p.y, breath, want, time, i, d),
     );
   }
-  if (showsGorgeTally(l.role)) drawTally(ctx, l, cfg, g);
+  if (showsGorgeTally(l.role)) drawTally(ctx, l, cfg, g, beats);
 }
 
 /**
  * The pilot's tally: under every bubble still wanting shots, the count it
  * wants — and over it, on an ordered level, its place in the order, the due
- * one bright and the rest in the hull's violet, the colour of a thing that is
- * his and not the field's. A sated bubble carries no number.
+ * one bright and the rest dimmed. Each is cut out of the sack by a dark edge:
+ * in the hull's violet, on a violet skin, they could not be read at a
+ * phone's size. A sated bubble carries no number.
  */
-function drawTally(ctx: CanvasRenderingContext2D, l: Layout, cfg: SimConfig, g: GorgeState): void {
-  const size = Math.max(8, Math.min(13, l.tile * 0.36));
+function drawTally(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  g: GorgeState,
+  beats: number,
+): void {
+  const size = Math.max(11, Math.min(18, l.tile * 0.5));
   ctx.save();
-  ctx.font = `600 ${Math.round(size)}px "Courier New",monospace`;
+  ctx.font = `700 ${Math.round(size)}px "Courier New",monospace`;
   ctx.textAlign = "center";
+  ctx.lineJoin = "round";
+  ctx.lineWidth = size * 0.3;
+  ctx.strokeStyle = PALETTE.background;
   for (let i = 0; i < g.intakes.length; i++) {
     const k = g.intakes[i];
     if (k === undefined || gorgeSated(k)) continue;
-    const t = gorgeTallyAt(l, cfg, g, i);
+    const t = gorgeTallyAt(l, cfg, g, i, beats);
     ctx.textBaseline = "top";
-    ctx.fillStyle = PALETTE.hull;
-    ctx.fillText(String(gorgeOwed(k)), t.x, t.y);
+    numeral(ctx, String(gorgeOwed(k)), t.x, t.y, PALETTE.text, 1);
     if (k.order < 0) continue;
-    ctx.textBaseline = "bottom";
-    ctx.fillStyle = gorgeDue(g, i) ? PALETTE.text : PALETTE.hull;
-    ctx.fillText(String(k.order + 1), t.x, t.y - l.tile * ORDER_RISE);
+    ctx.textBaseline = "middle";
+    const due = gorgeDue(g, i);
+    const o = gorgeOrderAt(l, cfg, g, i, beats);
+    numeral(ctx, String(k.order + 1), o.x, o.y, due ? PALETTE.text : PALETTE.hull, due ? 1 : 0.8);
   }
   ctx.restore();
+}
+
+function numeral(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  x: number,
+  y: number,
+  colour: string,
+  alpha: number,
+): void {
+  ctx.globalAlpha = alpha;
+  ctx.strokeText(text, x, y);
+  ctx.fillStyle = colour;
+  ctx.fillText(text, x, y);
 }

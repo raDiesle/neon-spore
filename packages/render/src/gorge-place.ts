@@ -19,6 +19,10 @@ import type { Point } from "./outline-drift.js";
  * at its bottom is the one in `midCol` a row-and-a-ring lower — exactly where
  * `sim/gorge-step.ts` meets a shot (`gorgeColOf`, `gorgeRowOf`).
  *
+ * **A ring swings round to its turn** over `SWING_BEATS`, from where it stood
+ * before (`turnFrom`) through every bubble the turn skipped, eased so it
+ * settles; asked with no `beats`, a bubble is where it has settled.
+ *
  * The point returned is a bubble's **intake**, the bottom of it, where a shot
  * goes in: the bubble itself stands half a tile above, filling the tile of
  * the row it is met on.
@@ -30,28 +34,71 @@ const INTAKE_DROP = 0.5;
 const SACK_PAD = 0.7;
 /** How far under an intake the pilot's count is written, in tiles. */
 const TALLY_DROP = 0.14;
+/** How far above an intake a row writes its place in the order, in tiles. */
+const ORDER_RISE = 1.25;
+/** How far beside a ring's bubble its place is written, outward from the middle, in tiles. */
+const ORDER_SIDE = 0.85;
+/** Beats a ring takes to swing round to its turn. */
+const SWING_BEATS = 0.75;
+
+/** Steps of the ring still to swing through at `beats` (the beat and its phase), 0 once settled. */
+function swingLeft(g: GorgeState, beats: number): number {
+  const t = Math.min(1, Math.max(0, (beats - g.turnBeat) / SWING_BEATS));
+  const eased = 1 - (1 - t) ** 3;
+  return (g.turn - g.turnFrom) * (1 - eased);
+}
 
 /** The ring's centre, on a ring level. */
 function ringCentre(l: Layout, cfg: SimConfig): Point {
   return { x: tileCX(l, midCol(cfg)), y: tileCY(l, cfg.gorgeRow) };
 }
 
-/** Bubble `i`'s intake this frame. */
-export function gorgeBubbleAt(l: Layout, cfg: SimConfig, g: GorgeState, i: number): Point {
+/** Bubble `i`'s intake this frame; `beats` is the beat and its phase, or settled. */
+export function gorgeBubbleAt(
+  l: Layout,
+  cfg: SimConfig,
+  g: GorgeState,
+  i: number,
+  beats = Number.POSITIVE_INFINITY,
+): Point {
   if (!gorgeLevelOf(g).ring) {
     return { x: tileCX(l, g.col + i), y: tileCY(l, gorgeRowOf(cfg, g)) + l.tile * INTAKE_DROP };
   }
   const n = Math.max(1, g.intakes.length);
   const c = ringCentre(l, cfg);
   const r = l.tile * cfg.gorgeRingRows;
-  const a = Math.PI / 2 + ((i - gorgeBottom(g)) * Math.PI * 2) / n;
+  const a = Math.PI / 2 + ((i - gorgeBottom(g) + swingLeft(g, beats)) * Math.PI * 2) / n;
   return { x: c.x + Math.cos(a) * r, y: c.y + Math.sin(a) * r + l.tile * INTAKE_DROP };
 }
 
 /** Where the pilot's count under bubble `i` is written. */
-export function gorgeTallyAt(l: Layout, cfg: SimConfig, g: GorgeState, i: number): Point {
-  const p = gorgeBubbleAt(l, cfg, g, i);
+export function gorgeTallyAt(
+  l: Layout,
+  cfg: SimConfig,
+  g: GorgeState,
+  i: number,
+  beats = Number.POSITIVE_INFINITY,
+): Point {
+  const p = gorgeBubbleAt(l, cfg, g, i, beats);
   return { x: p.x, y: p.y + l.tile * TALLY_DROP };
+}
+
+/**
+ * Where the pilot reads bubble `i`'s place in the order: over it on a row;
+ * beside it on a ring, on the side away from the middle, because round a
+ * ring the bubble above stands where the number would.
+ */
+export function gorgeOrderAt(
+  l: Layout,
+  cfg: SimConfig,
+  g: GorgeState,
+  i: number,
+  beats = Number.POSITIVE_INFINITY,
+): Point {
+  const p = gorgeBubbleAt(l, cfg, g, i, beats);
+  if (!gorgeLevelOf(g).ring) return { x: p.x, y: p.y - l.tile * ORDER_RISE };
+  const side = p.x < ringCentre(l, cfg).x - 1 ? -1 : 1;
+  return { x: p.x + side * l.tile * ORDER_SIDE, y: p.y - l.tile * 0.5 };
 }
 
 /**

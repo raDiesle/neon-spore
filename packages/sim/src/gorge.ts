@@ -95,6 +95,12 @@ export interface GorgeState {
   next: number;
   /** On a ring, how many steps it has turned: bubble `turn % intakes.length` is at the bottom. */
   turn: number;
+  /**
+   * `turn` before the last turn, or the level's start: a turn skips sated
+   * bubbles, so it may be several steps, and the picture swings the ring
+   * round through all of them (`render/gorge-place.ts`).
+   */
+  turnFrom: number;
   /** `world.beat` of the last turn, or of the level's start; the next turn counts from it. */
   turnBeat: number;
   /** `world.beat` the level was sated on; `-1` while it is still being fed. */

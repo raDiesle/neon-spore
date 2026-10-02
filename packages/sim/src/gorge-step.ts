@@ -39,6 +39,7 @@ export function installGorge(world: World, levels: readonly GorgeLevel[]): Gorge
     intakes: [],
     next: 0,
     turn: 0,
+    turnFrom: 0,
     turnBeat: world.beat,
     clearBeat: -1,
     outBeat: -1,
@@ -83,6 +84,7 @@ function hang(world: World, g: GorgeState): void {
   }
   g.next = 0;
   g.turn = 0;
+  g.turnFrom = 0;
   g.turnBeat = world.beat;
   g.clearBeat = -1;
   world.events.push({ type: "gorgeSettle", row: gorgeRowOf(world.cfg, g), col: g.col, width });

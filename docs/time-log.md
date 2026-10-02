@@ -31665,3 +31665,17 @@ Bottleneck: the registrations — thirty-odd files a boss is a name in, found
 one red test at a time.
 
 *Measured: 24 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE GORGE's picture: the navigator's colours poured in, the pilot's numbers readable, the ring swinging
+
+- reading: 15 min. The lobe, its skin, the tally, the placement and the hand.
+- writing: 30 min. `gorge-want.ts`, `gorgeOrderAt`, the swing and `turnFrom`,
+  the GORGE hand's field half, two test files, §11.23.
+- looking: 20 min. Eight captures with `bun run frames`, three of them crops.
+- friction: 15 min. AUTO lost the wave on the first ring, so the ring could
+  not be captured until the hand played the wave's bodies; and a fixture edit
+  landed on THE MAZE's `turn` before THE GORGE's.
+- landing: 10 min. `check:fast`, two `land --keep`.
+
+Bottleneck: AUTO could not reach the ring levels, and the capture waited on
+fixing the hand.

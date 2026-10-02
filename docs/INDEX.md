@@ -2068,6 +2068,7 @@ by hand never moves.
 | `packages/render/src/gorge-grip.ts` | **THE GORGE's one thumb**: the pilot's tap that opens the bubble at the bottom of a ring |
 | `packages/render/src/gorge-marks.ts` | **THE GORGE's tap answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/gorge-place.ts` | **Where THE GORGE's bubbles hang**, asked by the picture, the rings and the cues alike |
+| `packages/render/src/gorge-want.ts` | **What a bubble of THE GORGE wants, poured into it** — on the navigator's screen only (`gorge-draw.ts` |
 | `packages/render/src/governor-draw.ts` | **THE GOVERNOR**: a flywheel whose needle sweeps on its own under a flyball governor, braked by one seat and tapped by the other |
 | `packages/render/src/governor-hub.ts` | **The hub the needle turns on**, THE VANE's bearing: dull until both runs are spent, lit in a shot's colour while one is owed |
 | `packages/render/src/governor-marks.ts` | **THE GOVERNOR's marks**: what says what a step asks and what is spent |

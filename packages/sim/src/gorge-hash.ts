@@ -16,6 +16,7 @@ import type { GorgeState } from "./gorge.js";
  */
 export function gorgeHashParts(g: GorgeState): number[] {
   const out = [g.col, g.levels.length, g.level, g.intakes.length, g.next, g.turn];
+  out.push(g.turnFrom);
   out.push(g.turnBeat, g.clearBeat, g.outBeat);
   for (const v of g.levels) {
     out.push(v.intakes, v.ordered ? 1 : 0, v.ring ? 1 : 0, v.mixed, v.needMin, v.needMax);

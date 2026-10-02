@@ -47,6 +47,7 @@ export function turnRing(world: World, g: GorgeState): void {
   const n = g.intakes.length;
   const leaving = g.intakes[gorgeBottom(g)];
   if (leaving !== undefined) leaving.taps = 0;
+  g.turnFrom = g.turn;
   for (let step = 1; step <= n; step++) {
     const k = g.intakes[(g.turn + step) % n];
     if (k !== undefined && !gorgeSated(k)) {

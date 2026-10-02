@@ -132,7 +132,7 @@ export function patchBossB(boss: BossState, scar: () => Required<Scar>): void {
     boss.gripShookMilli = [500, 700];
   }
   if (boss.kind === "gorge") {
-    // A shot of each colour in, a tap on it and the ring turned once, and
+    // A shot of each colour in, a tap on it and the ring turned on from one, and
     // the level's two clocks set, so none is the 0 or -1 it is hung with.
     const first = boss.intakes[0];
     if (first !== undefined) {
@@ -141,7 +141,8 @@ export function patchBossB(boss: BossState, scar: () => Required<Scar>): void {
       first.taps = 1;
     }
     boss.next = 1;
-    boss.turn = 1;
+    boss.turn = 2;
+    boss.turnFrom = 1;
     boss.turnBeat = 2;
     boss.clearBeat = 3;
     boss.outBeat = 4;

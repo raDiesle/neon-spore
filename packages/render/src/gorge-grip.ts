@@ -35,7 +35,7 @@ export function gorgeGripCircle(
   beat: number,
   beatPhase: number,
 ): Circle {
-  const root = gorgeBubbleAt(l, cfg, g, i);
+  const root = gorgeBubbleAt(l, cfg, g, i, beat + beatPhase);
   const at = gorgePosed(gorgePose(l, cfg, root, i, beat, beatPhase), {
     x: root.x,
     y: root.y - l.tile * 0.5,

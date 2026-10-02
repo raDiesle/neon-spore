@@ -5,6 +5,7 @@ import { halo } from "./glow.js";
 import type { LobeDepth } from "./gorge-depth.js";
 import { paintPucker } from "./gorge-flesh-torn.js";
 import { paintLobeRim, paintLobeSkin } from "./gorge-lobe-skin.js";
+import { paintLobeWant } from "./gorge-want.js";
 import { PALETTE } from "./palette.js";
 import { drawContact } from "./solid-haze.js";
 import { splinePath } from "./spline.js";
@@ -18,8 +19,8 @@ import { splinePath } from "./spline.js";
  * (`docs/spec/bosses.md` §11.0), each in the colour it went in: a bubble with
  * two red beads and a cyan has had three shots. **What it wants is the floor's
  * colour, and only on the screen shown it** — `want` is `null` on the pilot's,
- * who is shown the count instead (`gorge-draw.ts`). A bubble that wants both
- * is lit in neither, white, for the pair to argue the split out loud.
+ * who is shown the count instead (`gorge-draw.ts`). It is poured into the
+ * lobe, and a bubble that wants both is two-tone at its share (`gorge-want.ts`).
  *
  * **A sated bubble goes transparent** and swells a little, its beads risen to
  * the top: the one state change a seat two rows down reads at a glance, and a
@@ -82,8 +83,9 @@ export function drawLobe(
   const body = splinePath(blobPoints(x, cy, rx, ry, 3, 0.1, 0.04, time * 0.5, seed, 24), true);
   const { hex, rim } = lobeHex(want);
   // A sated lobe has no wash of skin at all — that is what *transparent*
-  // means here. The colour it wanted is lit in the floor instead.
-  const floor = want === null ? PALETTE.dim : hex;
+  // means here. The colour it wanted is lit in the floor instead; a mixed
+  // one's floor is its bottom colour, red, where the beads start.
+  const floor = want === null ? PALETTE.dim : want === "both" ? PALETTE.red : hex;
   // The beads swim round inside: the ones behind go first, under the skin, so
   // the membrane veils them, and the ones in front come after it.
   drawBeads(ctx, tile, k, x, y, ry, full, time, false);
@@ -102,6 +104,7 @@ export function drawLobe(
     time,
     seed,
   });
+  if (want !== null && !full) paintLobeWant(ctx, body, k, x, cy, rx, ry, tile);
   // Where it hangs from the sack, dark under its crown, so it is hung and not pasted.
   drawContact(ctx, body, x, cy - ry, rx * 1.1, 0.55);
   paintLobeRim(ctx, body, x, rx, tile, depth.turn, 1 - depth.back * 2);
