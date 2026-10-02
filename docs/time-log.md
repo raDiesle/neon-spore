@@ -32189,3 +32189,5 @@ on the owner saying which kinds of mistake it means.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: none — a wording lane, answered in one line by the owner.
+
+*Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

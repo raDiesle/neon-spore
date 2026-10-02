@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 3cdf22da0 — What a mistake costs is decided boss by boss, not by a generic rule
+
+Shown that 48 bosses answer some mistake with something other than a failed wave, the owner, 2 October 2026: "i will do every boss separately and individual. so only change for this boss for now". THE GAUGE stays the only boss a miss fails outright. The new-boss skill's generic rule becomes a pointer to `docs/miss-rule-audit.md`, read when the owner names the next boss, and THE GAUGE's comments stop saying "for every boss".
+
 ## 2026-10-02 · f9ce47cc0 — Every boss audited against the rule that a miss fails the wave
 
 48 of the 56 shipped bosses other than THE GAUGE answer some mistake with something other than a failed wave: a wrong-colour shot that only counts, a lapsed step asked again, a slipped hold, a heal, a margin, a jam, or no hull strike at all. `docs/miss-rule-audit.md` lists them in eleven kinds, a row a boss; one queue entry asks which kinds the rule means before any boss is changed.
