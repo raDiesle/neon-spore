@@ -23,6 +23,21 @@ export function landingPage(asked: MenuPage, testMode: boolean): MenuPage {
   return testMode && asked === "root" ? "testing" : asked;
 }
 
+/**
+ * Whether a wave started from the rig moves the seat to TEST, both halves on
+ * this device. The owner, 2 October 2026: *"when i am in test mode and jump to
+ * wave, also the player simulation should be default to 'test'."* A P1 picked
+ * once and remembered (`view.ts`) used to come back on every jump, so a tester
+ * reached for a wave and landed on half a band.
+ *
+ * **A default, not a lock**: a seat card pressed on this opening of the menu is
+ * the tester's own answer and stands. Never in a room — the room deals the
+ * seat, and a device on the other player's controls sends its touches nowhere.
+ */
+export function startsOnTest(testMode: boolean, inRoom: boolean, seatPicked: boolean): boolean {
+  return testMode && !inRoom && !seatPicked;
+}
+
 /** Wrapped like `last-wave.ts`: private browsing keeps nothing, and a device
  * that cannot remember is a device that presses the spore again. */
 export function readTestMode(): boolean {

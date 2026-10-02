@@ -24,6 +24,14 @@
  * on the menu — it is the game's front door. Every other screen over the
  * field (the room screen, the intro, the bad-line card) gets the question.
  *
+ * **A device in the rig goes straight to the wave list.** The owner, 2 October
+ * 2026: *"when i am in game app, and i press back, i want to directly see list
+ * of waves."* A tester's back is a wish for another wave, never to quit one,
+ * so with test mode on (`test-mode.ts`) every pop opens JUMP TO WAVE — over
+ * the field, over the question, over any other page of the menu — and the
+ * question is never asked. A player's back is unchanged: the rig is the only
+ * place a wave list exists.
+ *
  * **The entries are pushed from inside a press, never from a pop.** This file
  * used to push one at load and push it straight back on every pop, and Chrome
  * reads both as a page trapping its visitor: an entry added without the
@@ -97,6 +105,10 @@ export interface BackAskParts {
   /** Whether the menu is up: a pop over it stays on it. */
   menuOpen: () => boolean;
   openMenu: () => void;
+  /** Whether this device is in the rig (`test-mode.ts`): its pop is the list. */
+  testMode: () => boolean;
+  /** The menu, on JUMP TO WAVE. */
+  openWaves: () => void;
   /** End the run on both seats — the same command the lost screen's QUIT
    * gives (`lost.ts`), which the simulation now reads mid-wave too. */
   quit: () => void;
@@ -118,9 +130,10 @@ export interface BackAsk {
 
 /** What a pop means, given what is already on the screen. Pure, so the rule
  * can be read and tested without a history to pop. */
-export type BackAnswer = "ask" | "menu" | "stay";
+export type BackAnswer = "ask" | "menu" | "stay" | "waves";
 
-export function backAnswer(asking: boolean, menuOpen: boolean): BackAnswer {
+export function backAnswer(asking: boolean, menuOpen: boolean, testMode = false): BackAnswer {
+  if (testMode) return "waves";
   if (asking) return "menu";
   if (menuOpen) return "stay";
   return "ask";
@@ -159,8 +172,9 @@ export function bindBackAsk(p: BackAskParts): BackAsk {
   stack.onPop(() => {
     // Nothing is pushed back here: a push from a pop is the one the back
     // button skips. The next press puts it back.
-    const what = backAnswer(asking, p.menuOpen());
-    if (what === "menu") answer(p.openMenu);
+    const what = backAnswer(asking, p.menuOpen(), p.testMode());
+    if (what === "waves") answer(p.openWaves);
+    else if (what === "menu") answer(p.openMenu);
     else if (what === "ask") ask();
   });
 

@@ -8,7 +8,7 @@ import type { MenuPage } from "./menu-parts.js";
 import { bindMenuSteps } from "./menu-steps.js";
 import { buildMenu } from "./menu-view.js";
 import { pairsHere as pairs } from "./pairing.js";
-import { landingPage, readTestMode } from "./test-mode.js";
+import { landingPage, readTestMode, startsOnTest } from "./test-mode.js";
 
 export type { MainMenu, MenuBindings } from "./menu-bindings.js";
 /**
@@ -48,6 +48,11 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
    * players share is a thing the wire cannot say yet.
    */
   const inRoom = (): boolean => linkIsRoom(link);
+  /** A seat card pressed since the menu last opened (`startsOnTest`). */
+  let seatPicked = false;
+  const seatForRig = (): void => {
+    if (startsOnTest(readTestMode(), inRoom(), seatPicked)) b.setSeat("test");
+  };
 
   const close = (): void => {
     steps.cancel();
@@ -58,6 +63,7 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     b.run.hold("menu", false);
   };
   const open = (page: MenuPage = "root"): void => {
+    seatPicked = false;
     // A device let into the rig opens on it (`test-mode.ts`).
     dom.show(landingPage(page, readTestMode()));
     dom.paintSeat(b.seat());
@@ -70,12 +76,14 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
   };
   /** Every way out of the menu into the field is the same three things. */
   const play = (wave: number): void => {
+    seatForRig();
     b.jumpToWave(wave);
     b.run.hold("hand", false);
     close();
   };
   /** The one way in that also turns switches on before the wave starts. */
   const playDemo = (id: MechanicId): void => {
+    seatForRig();
     b.openDemo(id);
     b.run.hold("hand", false);
     close();
@@ -130,6 +138,7 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
       b.joinRoom(room);
     },
     onSeat: (role) => {
+      seatPicked = true;
       b.setSeat(role);
       dom.paintSeat(role);
     },

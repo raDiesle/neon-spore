@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
-import { landingPage, readTestMode, writeTestMode } from "../src/test-mode.js";
+import { landingPage, readTestMode, startsOnTest, writeTestMode } from "../src/test-mode.js";
 
 /**
  * The three presses on the spore are remembered on the device. The owner,
@@ -67,5 +67,20 @@ describe("landingPage", () => {
   test("a page asked for by name is that page either way", () => {
     expect(landingPage("settings", true)).toBe("settings");
     expect(landingPage("testing", false)).toBe("testing");
+  });
+});
+
+describe("startsOnTest", () => {
+  test("a wave jumped to from the rig plays both halves", () => {
+    expect(startsOnTest(true, false, false)).toBe(true);
+  });
+
+  test("a seat card pressed on the way stands", () => {
+    expect(startsOnTest(true, false, true)).toBe(false);
+  });
+
+  test("a room's seat is the room's, and a player's is untouched", () => {
+    expect(startsOnTest(true, true, false)).toBe(false);
+    expect(startsOnTest(false, false, false)).toBe(false);
   });
 });

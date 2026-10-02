@@ -80,16 +80,26 @@ function card(dom: FakeDom): void {
 
 interface Heard {
   menu: number;
+  waves: number;
   quit: number;
   holds: boolean[];
 }
 
-function bind(stack: BackStack, inRoom = false, menuOpen = () => false): Heard {
-  const heard: Heard = { menu: 0, quit: 0, holds: [] };
+function bind(
+  stack: BackStack,
+  inRoom = false,
+  menuOpen = () => false,
+  testMode = () => false,
+): Heard {
+  const heard: Heard = { menu: 0, waves: 0, quit: 0, holds: [] };
   bindBackAsk({
     menuOpen,
     openMenu: () => {
       heard.menu += 1;
+    },
+    testMode,
+    openWaves: () => {
+      heard.waves += 1;
     },
     quit: () => {
       heard.quit += 1;
@@ -247,6 +257,43 @@ describe("what a pop means", () => {
     expect(backAnswer(true, false)).toBe("menu");
     expect(backAnswer(true, true)).toBe("menu");
     expect(backAnswer(false, true)).toBe("stay");
+  });
+
+  test("in the rig, every pop is the wave list", () => {
+    for (const asking of [false, true]) {
+      for (const menuOpen of [false, true]) {
+        expect(backAnswer(asking, menuOpen, true)).toBe("waves");
+      }
+    }
+  });
+});
+
+describe("the back gesture in the rig", () => {
+  test("opens JUMP TO WAVE and never asks, over the field and over the menu", () => {
+    const dom = installDom();
+    try {
+      card(dom);
+      const stack = fakeStack();
+      let open = false;
+      const heard = bind(
+        stack,
+        false,
+        () => open,
+        () => true,
+      );
+      stack.press();
+      stack.pop();
+      expect(heard.waves).toBe(1);
+      expect(asking(dom)).toBe(false);
+      expect(heard.holds).toEqual([]);
+      open = true;
+      stack.pop();
+      expect(heard.waves).toBe(2);
+      expect(heard.menu).toBe(0);
+      expect(stack.left()).toBe(false);
+    } finally {
+      dom.restore();
+    }
   });
 });
 

@@ -32191,3 +32191,16 @@ on the owner saying which kinds of mistake it means.
 Bottleneck: none — a wording lane, answered in one line by the owner.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — Back in the rig opens the wave list; a rig jump plays TEST
+
+- reading: 10 min. `back-ask.ts`, the menu's pages, `test-mode.ts`, the
+  view switch and where a seat is set.
+- writing: 5 min. The rig's `waves` answer to a pop, `startsOnTest`, tests.
+- looking: 5 min. The preview: a stored P1 jumped to TEST, two backs both on
+  JUMP TO WAVE.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading which of the menu's pages a wave list is on, and that only
+the rig has one.

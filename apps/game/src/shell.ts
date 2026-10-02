@@ -17,6 +17,7 @@ import type { CommandSource } from "./relay.js";
 import type { RunState } from "./run-state.js";
 import { hasMotionChoice, readSettings } from "./settings.js";
 import { menuWiring } from "./shell-menu.js";
+import { readTestMode } from "./test-mode.js";
 import { roomHasTheSeat } from "./view.js";
 
 /**
@@ -222,6 +223,8 @@ export function bindShell(p: ShellParts): Link {
   bindBackAsk({
     menuOpen: () => menu?.isOpen() ?? false,
     openMenu: () => menu?.open(),
+    testMode: readTestMode,
+    openWaves: () => menu?.open("waves"),
     quit: p.quit,
     hold: (on) => p.run.hold("ask", on),
     inRoom: () => link.status().state !== "solo",
