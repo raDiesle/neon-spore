@@ -568,6 +568,7 @@ the tree is clean, and `bun run check` is green.
 ## THE SINEW's two sideways gestures, now that a pull is straight down
 
 - **Found:** 2026-10-02, claude/sinew-boss-mechanics-dbcd1b
+- **Taken:** 2026-10-02, claude/queue-tasks-c28dd7 (claim: claude/queue-the-sinews-two-sideways-gestures-now-that-a-pull)
 - **Files:** `packages/sim/src/sinew-hand.ts`, `packages/sim/src/sinew-step.ts`, `packages/sim/src/config-sinew.ts`, `packages/render/src/sinew-word.ts`, `packages/audio/src/bind-sinew.ts`
 - **Asks:** Keep the catch and the fall's walk sideways, drop them both and let the last fibre win outright, or keep only the walk?
 
