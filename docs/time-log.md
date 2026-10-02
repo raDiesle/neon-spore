@@ -31648,3 +31648,5 @@ ninety files, and every one had to be read before it could be rewritten.
 - landing: 5 min. `check:fast`, `land --keep`.
 
 Bottleneck: none — the cut was the one both files' order already drew.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

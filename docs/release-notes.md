@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · f1a434d36 — The scripted bosses' hands and hash branches get pages of their own
+
+THE LAMPREY had taken `boss-hands.ts` and `hash-boss-clocks.ts` to 250 lines. The run from THE SEAM to THE LAMPREY, every boss on `SCRIPTED_KINDS`, now lives in `boss-hands-scripted.ts` and `hash-boss-scripted.ts`. Each is called once from where the block stood. The hash is unchanged, because only one boss's branch can match. The next scripted boss adds its line to the new pages.
+
 ## 2026-10-02 · 15991801e — THE GORGE reworked: five levels of bubbles, one of you counts and the other colours
 
 THE GORGE is now a sack of bubbles in the middle of the field, fought over five levels. Player 1 sees how many shots each bubble wants and, from level 2, the order to feed them in; player 2 sees the colour each wants. Level 1 is a row in any order, level 2 a row in one order, and from level 3 the bubbles stand round a ring that turns, taking shots only at its bottom bubble once player 1 has tapped it open three times. Levels 4 and 5 add bubbles that want both colours. A shot out of turn or into a shut bubble is spat back down its column. The pinch, the pry, the mouth and the vent are gone.
