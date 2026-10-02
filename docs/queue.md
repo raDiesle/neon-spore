@@ -495,17 +495,3 @@ boss's own `*-frame.test.ts` counts its lit colour and may need the `rgba`
 prefix `flue-frame.test.ts` counts now, since a gradient's stops are not in
 the stub's log. A lane taking THE BURGEE … SLING from the lit-open-stopped
 entry above does its lit faces there and drops them from this list.
-
-## `frames --auto both` on THE INSTAR shows step 0 seven times in 9000 ticks
-
-- **Found:** 2026-10-02, claude/boss-body-glow-indicators-22a92a
-- **Taken:** 2026-10-02, claude/queue-frames-auto-instar (claim: claude/queue-frames-auto-both-on-the-instar-shows-step-0-seve)
-- **Files:** `tools/frames/auto.ts`, `tools/frames/recipes.ts`
-
-`bun run frames . --wave "THE INSTAR" --auto both --ticks 9000 --events`
-fires `instarShow` only with `step=0` (x7) and `instarMorph` only into
-`step=1`, so AUTO never reaches a shoot step and the recipe's own
-`--until instarShow:step=4` cannot be met. Worked around with `--boss
-cursor=10,phase=act,phaseBeat=now --ticks 400`. Find whether AUTO loses
-the breath's pulls and the wave restarts, fix it, and add the `--boss`
-spelling as a recipe for opening a scene boss on a given step.

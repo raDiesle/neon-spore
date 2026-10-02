@@ -141,17 +141,25 @@ export function backTick(until: UntilSpec, at: number, from: number): number {
  * capture that ran three thousand of them would otherwise print a page nobody
  * reads. The tick is the **first** of each kind, because that is the number a
  * reader is about to put after `--ticks`.
+ *
+ * **And the last one's fields, when they differ.** The first firing's alone
+ * read as every firing's: `instarShow@1800 (step=0 col=5) (x7)` was taken on
+ * 2 October 2026 for THE INSTAR showing step 0 seven times under AUTO, when
+ * it had shown steps 0 to 6 once each. So a kind that fired more than once
+ * with other fields by the end says where it got to.
  */
 export function firedNote(log: readonly Fired[]): string {
   if (log.length === 0) return "fired: nothing — the world was not stepped";
   const first = new Map<string, number>();
   const detail1 = new Map<string, string>();
+  const last = new Map<string, Fired>();
   const count = new Map<string, number>();
   for (const one of log) {
     if (!first.has(one.type)) {
       first.set(one.type, one.tick);
       if (one.detail !== undefined) detail1.set(one.type, one.detail);
     }
+    last.set(one.type, one);
     count.set(one.type, (count.get(one.type) ?? 0) + 1);
   }
   const said = [...first].map(([type, tick]) => {
@@ -160,7 +168,10 @@ export function firedNote(log: readonly Fired[]): string {
     // glance to find a tick worth photographing, and a wave that throws forty
     // parts would otherwise print forty sockets.
     const detail = detail1.get(type);
-    return `${type}@${tick}${detail === undefined ? "" : ` (${detail})`}${n > 1 ? ` (x${n})` : ""}`;
+    const end = last.get(type);
+    const moved = end?.detail !== undefined && end.detail !== detail;
+    const times = n > 1 ? ` (x${n}${moved ? `, last @${end.tick} ${end.detail}` : ""})` : "";
+    return `${type}@${tick}${detail === undefined ? "" : ` (${detail})`}${times}`;
   });
   return `fired: ${said.join(", ")}`;
 }

@@ -86,6 +86,10 @@ export const RECIPES: readonly Recipe[] = [
     what: "a boss's last phase",
   },
   {
+    argv: '. --wave "THE INSTAR" --boss cursor=10,phase=act,phaseBeat=now --ticks 200',
+    what: "a scene boss opened on a given step, not played to it",
+  },
+  {
     argv: `. --wave "THE BATON" --boss-json '{"sockets":[1,1,0]}'`,
     what: "a list the wave never reaches",
   },

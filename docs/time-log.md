@@ -32292,3 +32292,15 @@ Bottleneck: the queue entry naming the deleted files, which held the doc
 check red until `done` took it out.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — `frames`' fired line says where a kind got to, not only where it began
+
+- reading: 5 min. `auto.ts`, the INSTAR hand, `until.ts`'s summary.
+- writing: 5 min. The last firing's fields, two tests, a `--boss` recipe.
+- looking: 5 min. A headless probe of AUTO through 18 steps, three captures,
+  one frame of the recipe.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the finding itself — AUTO was never stuck; the summary printed
+only the first firing's fields, and seven showings read as step 0 seven times.

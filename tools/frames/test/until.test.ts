@@ -222,7 +222,23 @@ describe("what fired", () => {
       { tick: 300, type: "scuttleLoose", detail: "col=7 socket=5 live=true throwBeat=7" },
       { tick: 525, type: "scuttleLoose", detail: "col=3 socket=11 live=true throwBeat=10" },
     ]);
-    expect(said).toBe("fired: scuttleLoose@300 (col=7 socket=5 live=true throwBeat=7) (x2)");
+    expect(said).toBe(
+      "fired: scuttleLoose@300 (col=7 socket=5 live=true throwBeat=7) (x2, last @525 col=3 socket=11 live=true throwBeat=10)",
+    );
+  });
+
+  it("says where a kind got to, so seven showings are not read as one step seven times", () => {
+    const shows = [0, 1, 2].map((step) => ({
+      tick: 1800 + 375 * step,
+      type: "instarShow",
+      detail: `step=${step} col=5`,
+    }));
+    expect(firedNote(shows)).toBe(
+      "fired: instarShow@1800 (step=0 col=5) (x3, last @2550 step=2 col=5)",
+    );
+    // The same fields every time say nothing more than the count.
+    const same = shows.map((s) => ({ ...s, detail: "col=5" }));
+    expect(firedNote(same)).toBe("fired: instarShow@1800 (col=5) (x3)");
   });
 
   it("says so when the world was never stepped", () => {
