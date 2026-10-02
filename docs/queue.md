@@ -401,6 +401,7 @@ leave behind, same as the four already listed, and it is a look:
 - **Asks:** Of the four THE INSTAR candidates in VERSUS (one head, body with weight, turning, serpentine flight), which ship?
 - **Answered:** 2026-09-28, in part — not the one head as it stands. The owner: `INSTAR:HEAD · RIG` looks weird and has no good skin, but its facing toward the player is good and stays. Before this entry ships anything, the rig head needs a skin; the other three are judged once they are on VERSUS.
 - **Deferred:** 2026-10-02 — the owner judged three on 2 October 2026: `instar:drift` looks worse and was dropped; `instar:flight` serpent and `instar:body` weight look better, but the serpent is to be slower and gentler and swim through every step of the level, and the body more naturally dragon-shaped. Both are reworked on VERSUS first, and nothing here ships until he picks the reworks.
+- **Asked:** 2026-10-02 — both reworks are on VERSUS (`261fd4a52` the slower serpent, `b45757585` the dragon-shaped body); the owner was asked which of the two ship.
 
 Put the ones the owner picks on the field and retire what they replace:
 with the one head picked, `instar-side-head.ts` and the handover in
