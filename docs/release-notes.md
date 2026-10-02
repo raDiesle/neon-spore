@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · ccf601dff — THE ANTIPHON, THE BATON and THE LEAD keep their light turn as their drift
+
+The owner's answer of 2 October 2026: everything these three say is read by column, so their bodies do not wander under it, and the turn in their light they already have is enough. The rig-drift entry closes after THE GIMBAL. So do the two entries that waited on it, and the frame-coverage entry, which THE INSTAR's rig head and wings already meet in `instar-frame.test.ts`.
+
 ## 2026-10-02 · 117177605 — THE BATON's bead answers player 1's tap
 
 The field writes TAP / TO LAUNCH IT on the bead in its socket, and TAP / TO SEND IT DOWN on the crossing's, but nothing answered a finger there: the launch was only the guard button on the band and the shield lobe on the hull, so a player 1 on a phone who did what the field said pressed nothing. A press on the bead the trigger would send is now player 1's `guard` (`render/src/baton-tap.ts`), asked beside the arm's other handles; player 2's thumb there falls through as before.
