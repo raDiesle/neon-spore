@@ -32520,3 +32520,5 @@ GIMBAL's lane, when the next one was opened.
 - landing: 5 min. `check:fast` twice, `land`.
 
 Bottleneck: the request read two opposite ways and needed a question.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

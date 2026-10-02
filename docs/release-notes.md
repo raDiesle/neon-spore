@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · dc4a7c1dc — THE SCOUT gives every level the same clock, 208 beats
+
+All four levels of THE SCOUT now run on one clock of 208 beats, about two minutes, where they were 24, 56, 80 and 104. That is eight times what a clean flight of the longest level takes, so the first level is mostly room and the last has twice the time it had. The owner, 2 October 2026: a lot more time, and the same time for every level. THE HAUL's clocks are unchanged.
+
 ## 2026-10-02 · ccf601dff — THE ANTIPHON, THE BATON and THE LEAD keep their light turn as their drift
 
 The owner's answer of 2 October 2026: everything these three say is read by column, so their bodies do not wander under it, and the turn in their light they already have is enough. The rig-drift entry closes after THE GIMBAL. So do the two entries that waited on it, and the frame-coverage entry, which THE INSTAR's rig head and wings already meet in `instar-frame.test.ts`.
