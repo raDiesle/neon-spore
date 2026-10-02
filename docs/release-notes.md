@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 796b5c900 — versus adopt takes an export named after its field, renamed after the candidate
+
+A candidate exporting `paint` for a record's `paint` field was always refused, because the field's own key counted as a use of the name. When the key is the record's only use of it, the moved export now takes the field and the candidate's name, `paintGlobe` for `globe`, in every file that moves with it, and the record points there. Any other use of the name is still a refusal.
+
 ## 2026-10-02 · 916af56a5 — THE CYST's freeze mark answers TEST's one mouse
 
 On THE CYST under TEST, the navigator's tap on the left freeze mark did nothing, while under PLAYER 2 it worked. The mark stands inside the pilot's pinch zone, and a press with no seat key is tried as player 1 first, so the pilot's pinch answered every point of it. `cystGripSeat` now names each mark's seat, the seventeenth entry in the desk's `markSeat`.
