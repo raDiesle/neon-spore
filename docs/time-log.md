@@ -32590,3 +32590,5 @@ commit never sweeps a half-written entry.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: finding which of the three red circles on the lens was the cue's.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
