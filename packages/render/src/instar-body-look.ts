@@ -22,7 +22,8 @@ export const INSTAR_BODY: {
   girth: (u: number) => number;
   /** How far under each nest the spine runs, so the nest sits on the back. */
   seat: (u: number) => number;
-  /** Whether the seat runs across the spine, or (shipped) straight down the screen. */
+  /** Whether the seat runs across the spine (shipped), or straight down the
+   * screen — which leaves the nests beside the back once it stands upright. */
   across: boolean;
   /** The tail's radius, root to blade. */
   tail: (u: number) => number;
@@ -44,7 +45,7 @@ export const INSTAR_BODY: {
   neck: { x: 0.7, y: 0.15 },
   girth: (u) => (0.34 + 0.2 * Math.sin(Math.PI * Math.min(1, u * 1.3))) * (1 - 0.5 * u),
   seat: () => 0.42,
-  across: false,
+  across: true,
   tail: (u) => 0.3 - 0.2 * u,
   flow: 0,
   ridge: () => 1,

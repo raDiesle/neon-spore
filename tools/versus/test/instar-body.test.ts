@@ -73,11 +73,9 @@ function off(p: Point, line: readonly Point[]): number {
 }
 
 /** The worst nest's distance from the back, in head radii, over every figure and time. */
-function worst(skip: readonly string[] = []): { at: string; by: number } {
+function worst(): { at: string; by: number } {
   let most = { at: "", by: 0 };
-  for (const [name, f] of figures.filter(
-    ([n]) => !skip.some((k) => n === k || n.endsWith(` ${k}`)),
-  ))
+  for (const [name, f] of figures)
     for (const time of TIMES) {
       const look = lookOf(f, time);
       const { top, near, far } = profileLines(L, look);
@@ -92,10 +90,8 @@ function worst(skip: readonly string[] = []): { at: string; by: number } {
 }
 
 describe("THE INSTAR's body keeps both nests on its back", () => {
-  // The shipped seat runs down the screen, so the upright rise leaves its nests
-  // half a head beside the back (`docs/queue.md`); the candidate seats across the spine.
-  it("the shipped body, but for the rise", () => {
-    const { at, by } = worst(["rise"]);
+  it("the shipped body", () => {
+    const { at, by } = worst();
     expect(by, at).toBeLessThanOrEqual(ON);
   });
   it("the body with weight", () => {

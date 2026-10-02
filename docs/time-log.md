@@ -31800,3 +31800,17 @@ Bottleneck: looking — AUTO peels every half beat and never lands three
 reaches, so neither receipt can be seen in open field on a frame it plays.
 
 *Measured: 44 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE INSTAR's nests sit on its back when it rises
+
+- reading: 5 min. The seat, the flag and the nest-distance test.
+- writing: 5 min. The flag, its comment, and the test without its skip.
+- looking: 5 min. The rise at step eighteen, shot with the old seat and the
+  new; the first read of `frames`' output took its first event of each type
+  for the only one, and nearly gave the shot up.
+- friction: 5 min. A grep for the candidate through `node_modules` ran past
+  two minutes and was stopped; `git grep` found it at once.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: looking — the pose this fixes is eighteen steps in, and the
+before needed the flag flipped back by hand for one shot.

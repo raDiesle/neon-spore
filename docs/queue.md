@@ -436,23 +436,6 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## THE INSTAR's shipped rise leaves both nests beside its back
-
-- **Found:** 2026-10-01, claude/queue-living-bosses-the-instars-body-with-weight-as-a
-- **Taken:** 2026-10-02, claude/queue-the-instars-shipped-rise-leaves-both-nests-besid
-- **Files:** `packages/render/src/instar-body-look.ts`, `packages/render/src/instar-profile.ts`, `tools/versus/test/instar-body.test.ts`
-
-The shipped body seats its spine straight down the screen under each nest
-(`INSTAR_BODY.across: false`). In the upright `rise` pose the back runs up
-the screen, so the eggs end about half a head to the side of the body rather
-than on it. `instar-body.test.ts` skips `rise` for the shipped body for this
-reason. Set the shipped `across` to `true` so the seat runs across the spine,
-as the VERSUS body with weight already does. Then check that every other pose
-stays within `ON`, and delete the skip. This changes a drawn frame, but it is
-a fix to something wrong, not to something unlovely: eggs that float off the
-body. If the owner picks WEIGHT in VERSUS first, the fix ships with it. Prove
-it with `bun run check`.
-
 ## The director has no pose of THE INSTAR mid-flight
 
 - **Found:** 2026-10-01, claude/queue-living-bosses-the-instars-serpentine-flight-as-a
