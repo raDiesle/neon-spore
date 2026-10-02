@@ -367,6 +367,7 @@ bolt stopped, and `bun run check` is green.
 ## `browser-cdp.test.ts` fails in a fresh worktree until `.claude/tmp` exists
 
 - **Found:** 2026-10-02, claude/boss-gesture-progress-feedback-81ceaf
+- **Taken:** 2026-10-02, claude/queue-the-instar-answers-a-press-on-a-mark-it-is-not-d (claim: claude/queue-browser-cdp-test-ts-fails-in-a-fresh-worktree-un)
 - **Files:** `tools/frames/browser-cdp.ts`, `tools/frames/test/browser-cdp.test.ts`
 
 The first `bun run check:fast` in a new worktree failed four
