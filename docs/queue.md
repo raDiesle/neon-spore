@@ -397,8 +397,7 @@ leave behind, same as the four already listed, and it is a look:
 - **Found:** 2026-09-26, claude/living-motion-spec
 - **Where:** local
 - **Files:** `packages/render/src/gimbal-draw.ts`, `packages/render/src/gimbal-rig.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/baton-draw.ts`, `packages/render/src/lead-draw.ts`, `packages/render/src/solid-rig.ts`, `docs/spec/living-bosses.md`
-- **Asks:** The owner dropped THE INSTAR's idle drift on 2 October 2026 as looking worse — do these four still get it?
-- **Answered:** 2026-10-02 — offer it anyway: each gets the drift in VERSUS, and the owner judges it per boss.
+- **Asks:** THE ANTIPHON, THE BATON and THE LEAD keep everything the rules read where it is — pits, perches and rail; joints and knuckles; angle and beads — and already turn in their light: drift the body under pinned readouts, keep the light turn as their drift, or drop the three?
 
 The owner, 26 September 2026, widened the depth work from THE INSTAR alone
 to every boss with a body; "move one boss a lane onto the solid rig, from
@@ -425,6 +424,26 @@ and the pins lies in one plane, and an orthographic view of a plane is an
 affine, so those are painted flat through it and land where the rig would put
 them — which brought the frame under the shipped one. Look for the same in
 each boss before drawing its parts as tubes. Next is THE ANTIPHON.
+
+**The owner's first answer**, 2 October 2026, to whether these four still
+get the drift after THE INSTAR's was dropped as looking worse: offer it
+anyway — each in VERSUS, judged per boss.
+
+**What the remaining three ask** (2 October 2026): the style guide's depth
+rules (`docs/style-guide.md`, "A long body that cannot bow its outline",
+"A cord that carries the count", "A long band across the field") keep every
+readout of these three in place — THE ANTIPHON's pits, perches and rail, read
+by column; THE BATON's joints and lit knuckles; THE LEAD's angle, bead count
+and bead sizes — and put their depth into light, which already turns on a
+`breath`. THE GIMBAL could tilt because its ring and its mark go through one
+transform; a column read off the field cannot. The options:
+1. **Drift the body under pinned readouts** — the mantle, the arm, the ridge
+   drawn solid and wandering, everything read by the rules held to its
+   column; the body slides under what hangs on it.
+2. **The light turn is their drift** — nothing more is built for them; this
+   entry closes after THE GIMBAL.
+3. **Drop the three** from the rig work altogether, with the two entries
+   that wait on this one.
 
 Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
