@@ -472,26 +472,6 @@ bares, and a bolt reaching the core is drawn through it.
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
 
-## `mergeRecord` refuses a ledger entry whose only change is its trailing newline
-
-- **Found:** 2026-10-02, claude/director-tap-input-boss-bug-778083
-- **Taken:** 2026-10-02, claude/queue-the-sinews-crown-cut-at-the-chrome-line-or-at-th (claim: claude/queue-mergerecord-refuses-a-ledger-entry-whose-only-ch)
-- **Files:** `tools/land/record-merge.ts`, `tools/land/queue-merge.ts`, `tools/land/test/`
-
-`bun run land --keep` stopped on `docs/time-log.md` with nothing to
-disagree about. The lane had appended its entry straight after the last line
-of the one before it, with no blank line between, and `split` then gives that
-earlier entry's block without its closing `\n`. The trunk had meanwhile
-stamped the same earlier entry with its *Measured:* line, so `mergeRecord`
-saw both sides rewrite one entry and returned `null`.
-
-Reproduce with the three blobs: base `916af56a5`, trunk `b9b9f7abb`, lane
-`03bafef2f`, each `docs/time-log.md`, through `mergeLedger` — it returns
-`null`. Compare blocks with trailing whitespace trimmed (in `mergeRecord`'s
-equality checks, or by normalising in `split`), and add a test with an entry
-appended without the blank line. The release notes share the merge and
-gain the same fix.
-
 ## `bun run frames` with four `--press` gauge calls draws the mouth shut
 
 - **Found:** 2026-10-02, claude/gauge-wave-cannon-mechanics-fa4bb7

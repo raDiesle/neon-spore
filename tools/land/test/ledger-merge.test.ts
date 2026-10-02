@@ -109,6 +109,22 @@ describe("the ledger's own merge", () => {
     const lane = `${twice}\n${entry("my-lane", 15)}`;
     expect(mergeLedger(twice, trunk, lane)).toBe(`${trunk}\n${entry("my-lane", 15)}`);
   });
+
+  test("merges an entry appended with no blank line over a stamped one", () => {
+    // 2 October 2026: a lane wrote its entry straight under the last line of
+    // the one before, so that entry came back from `split` without its closing
+    // newline, while the trunk had stamped it with its *Measured:* line. Two
+    // sides rewriting one entry, said the merge, and the landing stopped.
+    const trunk = `${BASE}\n*Measured: 4 min, claim to trunk.*\n`;
+    const lane = `${BASE}${entry("my-lane", 15)}`;
+    expect(mergeLedger(BASE, trunk, lane)).toBe(`${trunk}\n${entry("my-lane", 15)}`);
+  });
+
+  test("still refuses when that entry's words changed on both sides", () => {
+    const trunk = `${BASE}\n*Measured: 4 min, claim to trunk.*\n`;
+    const lane = `${BASE.replace("was reading", "was writing")}${entry("my-lane", 15)}`;
+    expect(mergeLedger(BASE, trunk, lane)).toBeNull();
+  });
 });
 
 describe("the preamble, which is prose", () => {

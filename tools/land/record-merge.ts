@@ -69,6 +69,24 @@ function byTitle(entries: readonly Entry[]): Map<string, string> {
 }
 
 /**
+ * Whether two blocks of one entry say the same thing: equal but for the
+ * whitespace they end on.
+ *
+ * An entry's block runs up to the next heading, so the blank line between two
+ * entries is the earlier one's. On 2 October 2026 a lane appended its entry
+ * straight under the last line of the one before, with no blank line, and
+ * `split` handed that earlier entry back without its closing newline; the
+ * trunk had stamped the same entry with its *Measured:* line meanwhile, so the
+ * merge saw both sides rewrite one entry and stopped a landing with nothing
+ * to disagree about. A trailing newline is where an entry stops, not what it
+ * says.
+ */
+function same(a: string | undefined, b: string | undefined): boolean {
+  if (a === undefined || b === undefined) return a === b;
+  return a.trimEnd() === b.trimEnd();
+}
+
+/**
  * The preamble, which is prose and is nobody's to merge.
  *
  * Whichever side changed it wins when only one did; both changing it the same
@@ -115,23 +133,23 @@ export function mergeRecord(
   // that decided something. Refuse, the way a session resolving this by hand
   // would stop and look — unless the row is still there word for word, which
   // is a copy of one note taken out rather than a note lost.
-  const laneBlocks = new Set(laneAt.values());
+  const laneBlocks = new Set([...laneAt.values()].map((block) => block.trimEnd()));
   for (const [title, block] of baseAt) {
-    if (!laneAt.has(title) && !laneBlocks.has(block)) return null;
+    if (!laneAt.has(title) && !laneBlocks.has(block.trimEnd())) return null;
   }
 
   const kept: Entry[] = [];
   for (const entry of trunkEntries) {
     const mine = laneAt.get(entry.title);
-    if (mine === undefined || mine === entry.block) {
+    if (mine === undefined || same(mine, entry.block)) {
       kept.push(entry);
       continue;
     }
     const was = baseAt.get(entry.title);
     // Both sides filed an entry under one heading, with different bodies.
     if (was === undefined) return null;
-    if (entry.block === was) kept.push({ title: entry.title, block: mine });
-    else if (mine === was) kept.push(entry);
+    if (same(mine, was)) kept.push(entry);
+    else if (same(entry.block, was)) kept.push({ title: entry.title, block: mine });
     else return null; // both rewrote the same entry
   }
   // What this side wrote, which is what the whole merge exists for.

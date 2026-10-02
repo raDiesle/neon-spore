@@ -32083,3 +32083,15 @@ Bottleneck: reading — a short screen puts the root above the glass, which
 only the layouts' numbers showed, so the anchor needed a floor.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — The ledger merges an entry appended with no blank line over a stamped one
+
+- reading: 0 min. `record-merge.ts`'s four equality checks and `split`.
+- writing: 5 min. One `same` that ignores trailing whitespace, two tests,
+  the owner's generic miss rule and two queue entries.
+- looking: 0 min. The three blobs the entry named, through `mergeLedger`:
+  refused before, trunk plus the lane's entry after.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: landing — the fix was one function; the check is most of it.
