@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 79b6ffa9f — `versus adopt` reads a typed record's value, not its type
+
+A record written `X: { amount: number } = { amount: 0 }` was refused as stale, because adopt read the type annotation's braces as the record and compared `number` with the live value. It now looks for the record after the `=`, so the INSTAR records refused today would adopt.
+
 ## 2026-10-02 · 779b0af7a — THE INSTAR's dragon body and serpent swim go into the game
 
 The owner picked both reworks from VERSUS on 2 October 2026. THE INSTAR's side-on body now has a dragon's line: a slender neck, a deep chest, a waist, full haunches, a tail thinning to a blade, and a paler belly band. It also swims all through the level, slowly and gently, more in flight. The look was asked for by name.
