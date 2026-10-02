@@ -522,3 +522,17 @@ at the capture is not the one that drew the misses, or its paint reads a
 clock `gaugeGapeShown` does not expect. Find which, fix the tool or the
 picture, and add a frames test that a pressed miss moves the rim. Worked
 around in the lane by `--boss misses=4`.
+
+## THE GAUGE's tooth and tongue mistakes still jam the valve
+
+- **Found:** 2026-10-02, claude/gauge-wave-cannon-mechanics-fa4bb7
+- **Files:** `packages/sim/src/gauge-tooth.ts`, `packages/sim/src/gauge-tongue.ts`, `packages/sim/src/gauge-hand.ts`
+- **Asks:** Should a wrong tooth, or a tooth or the tongue left in when its rest runs out, open the mouth a step like a miss does, instead of jamming the valve?
+
+A miss opens the mouth now (`gauge-gape.ts`, 2 October 2026), because a jam
+the pair did not understand lost the wave to the clock. The rests' three
+mistakes still jam it into the next level, which is the same trap. (a) Leave
+them jamming: the needle-by-hand gesture keeps a way in. (b) Make them open
+the mouth a step: one rule for every mistake, and the jam then has no way in
+and is retired with its gesture, pose and cue. (c) Make them open the mouth
+and keep the jam for a wrong tooth alone.
