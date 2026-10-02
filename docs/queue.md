@@ -436,23 +436,6 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## The director has no pose of THE INSTAR mid-flight
-
-- **Found:** 2026-10-01, claude/queue-living-bosses-the-instars-serpentine-flight-as-a
-- **Taken:** 2026-10-02, claude/queue-the-director-has-no-pose-of-the-instar-mid-fligh
-- **Where:** local
-- **Files:** `tools/director/src/versus-pose.ts`, `tools/director/src/poses-instar-acts.ts`, `tools/director/src/poses-instar-spit.ts`, `packages/render/src/instar-serpent.ts`
-
-VERSUS `instar:flight` / `serpent` only moves the body while it flies — the
-morph phase of a step that does not `stay` — and only side-on. The director
-has no pose there, so `SLOT_POSE` maps the slot to `INSTAR · PERCHED`, where
-the candidate and the shipped body are drawn identically. Add a pose that
-runs the hand to the first `passes` step and holds the world a few beats into
-its morph (the way `falling` in `poses-instar-spit.ts` holds three beats into
-a window), name it `INSTAR · IN FLIGHT`, and point the slot at it. Done when
-the director's VERSUS pair for `instar:flight` shows the two bodies differing
-and `bun run check` is green.
-
 ## `versus:shot` shoots a slot with no `SLOT_POSE` row on SLICK without a word
 
 - **Found:** 2026-10-01, claude/queue-living-bosses-the-surface-marks-by-longitude-onc

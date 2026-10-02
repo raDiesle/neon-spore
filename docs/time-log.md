@@ -31816,3 +31816,18 @@ Bottleneck: looking — the pose this fixes is eighteen steps in, and the
 before needed the flag flipped back by hand for one shot.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — The director holds THE INSTAR in flight for instar:flight's pair
+
+- reading: 0 min. The slot table, the `falling` pose, the flight clock and
+  the serpent's condition, all short.
+- writing: 5 min. The pose, its registration, the slot row and the pair test.
+- looking: 0 min. Nothing in the game changed; the test compares the two
+  frames.
+- friction: 0 min. `versus:shot … current` has no page to shoot, and the
+  first pair test failed on the perched pose because a first frame builds
+  sprite caches the second reuses; a frame thrown away first fixed it.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: writing — the lane was small; the one surprise was two frames of
+one world differing until the first is thrown away.
