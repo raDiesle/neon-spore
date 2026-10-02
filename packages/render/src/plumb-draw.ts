@@ -5,6 +5,7 @@ import {
   plumbLitStep,
   type World,
 } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
 import { seatIsMine } from "./handle-word.js";
@@ -39,6 +40,7 @@ import {
   plumbSacPath,
   plumbSacRadius,
 } from "./plumb-shape.js";
+import { plumbStopper } from "./plumb-stop.js";
 import { drawPlumbMarkFeedback } from "./plumb-verdicts.js";
 import { drawPlumbWeight } from "./plumb-weight.js";
 import { stepColour } from "./step-colour.js";
@@ -71,6 +73,7 @@ export function drawPlumb(
   beatPhase: number,
   time: number,
   fx: PlumbFx,
+  stops?: BoltStops,
 ): void {
   const arrived = plumbArrived(s, world, beat, beatPhase);
   const free = plumbFree(s, world, beat, beatPhase);
@@ -79,7 +82,8 @@ export function drawPlumb(
 
   ctx.save();
   ctx.globalAlpha = alpha;
-  ctx.translate(hook.x + fx.hurt.shakeX(time, l.tile), hook.y - plumbLift(l, arrived));
+  const at = { x: hook.x + fx.hurt.shakeX(time, l.tile), y: hook.y - plumbLift(l, arrived) };
+  ctx.translate(at.x, at.y);
   for (const side of [0, 1] as const) {
     drawPlumbGlass(ctx, l, s, side, beatPhase);
     ctx.globalAlpha = alpha;
@@ -90,7 +94,8 @@ export function drawPlumb(
   const skew = plumbSkew(s, beatPhase) + 0.6 * free * Math.sin(free * Math.PI * 3);
   ctx.save();
   ctx.rotate(skew);
-  drawBob(ctx, l, world, s, beat, beatPhase, time, fx);
+  const turn = plumbTurn(s, world, beat, beatPhase);
+  drawBob(ctx, l, world, s, turn, beat, beatPhase, time, fx);
   ctx.restore();
 
   const stones: Circle[] = [];
@@ -126,8 +131,9 @@ export function drawPlumb(
     fx.swing.draw(ctx, side);
     ctx.restore();
   }
-  const at = { core: plumbCoreAt(l, { x: 0, y: 0 }, skew), stones: stones as [Circle, Circle] };
-  drawPlumbMarkFeedback(ctx, l, s, time, at, fx.marks.verdicts);
+  stops?.aim(plumbStopper(l, world, { at, skew, wide: plumbWide(turn), time, stones }));
+  const marks = { core: plumbCoreAt(l, { x: 0, y: 0 }, skew), stones: stones as [Circle, Circle] };
+  drawPlumbMarkFeedback(ctx, l, s, time, marks, fx.marks.verdicts);
   ctx.restore();
 }
 
@@ -152,6 +158,7 @@ function drawBob(
   l: Layout,
   world: World,
   s: PlumbState,
+  turn: number,
   beat: number,
   beatPhase: number,
   time: number,
@@ -167,8 +174,7 @@ function drawBob(
   ctx.strokeStyle = rgba(PALETTE.plumbBronze, 0.9);
   ctx.stroke(beam);
 
-  const turn = plumbTurn(s, world, beat, beatPhase);
-  const wide = 0.62 + 0.38 * turn;
+  const wide = plumbWide(turn);
   const mid = plumbSacMiddle(l);
   const { rx, ry } = plumbSacRadius(l);
   ctx.save();
@@ -206,4 +212,9 @@ function drawBob(
   const glowing = s.coreLit && s.phase !== "bleed" && s.phase !== "free";
   drawPlumbCore(ctx, l, turn, coreHurt(s.hits), glowing, fire, beatPhase);
   ctx.restore();
+}
+
+/** How wide the sac is drawn, turned `turn` of the way round to face the eye. */
+function plumbWide(turn: number): number {
+  return 0.62 + 0.38 * turn;
 }

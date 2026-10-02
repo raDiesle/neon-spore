@@ -81,9 +81,14 @@ function edge(l: Layout, a: number): Point {
 
 /** The whole pane. */
 export function rimeLensPath(l: Layout): Path2D {
+  return splinePath(rimeLensPoints(l), true);
+}
+
+/** The points `rimeLensPath` runs through, about the lens's middle. */
+export function rimeLensPoints(l: Layout): Point[] {
   const pts: Point[] = [];
   for (let i = 0; i < N; i++) pts.push(edge(l, (i * Math.PI * 2) / N));
-  return splinePath(pts, true);
+  return pts;
 }
 
 /** Half `side`'s pane — the pilot's (0) on the left, the navigator's (1) on the right — closed along the spine. */

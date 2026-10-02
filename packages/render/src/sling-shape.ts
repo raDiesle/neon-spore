@@ -73,6 +73,11 @@ export function slingCupRadius(l: Layout): number {
 
 /** One tine: a tapered spar from the crotch to its tip, folded or splayed by `out`. */
 export function slingTinePath(l: Layout, side: 0 | 1, out: number): Path2D {
+  return splinePath(slingTinePoints(l, side, out), true);
+}
+
+/** The points `slingTinePath` runs through, about the crotch. */
+export function slingTinePoints(l: Layout, side: 0 | 1, out: number): Point[] {
   const tip = slingTip(l, side, out);
   const flip = side === 0 ? -1 : 1;
   const width = 0.1 * l.tile;
@@ -85,7 +90,7 @@ export function slingTinePath(l: Layout, side: 0 | 1, out: number): Path2D {
   const far: Point = { x: -flip * width * 0.6, y: 0 };
   const tipA: Point = { x: tip.x - wx * 0.15, y: tip.y - wy * 0.15 };
   const tipB: Point = { x: tip.x + wx * 0.15, y: tip.y + wy * 0.15 };
-  return splinePath([near, tipB, tipA, far], true);
+  return [near, tipB, tipA, far];
 }
 
 /** The cord itself, crotch-side tip to the drawn or slack handle. */

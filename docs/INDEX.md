@@ -1116,6 +1116,7 @@ by hand never moves.
 | `packages/render/src/boss-draw-clocks-b.ts` | **The clock bosses, drawn — page two**: the ones whose picture keeps something that outlives a frame |
 | `packages/render/src/boss-draw-clocks-c.ts` | **The clock bosses, drawn — page three**: the pairs asked for by name |
 | `packages/render/src/boss-draw-clocks-d.ts` | **The clock bosses, drawn — page four**: the pairs from THE SLING on |
+| `packages/render/src/boss-draw-clocks-e.ts` | **The clock bosses, drawn — page five**: the pairs from THE FLUE on |
 | `packages/render/src/boss-cue-draw.ts` | **The cue this screen is owed, drawn**: the frame on the mark, and the two lines beside it |
 | `packages/render/src/boss-cue-read-b.ts` | **What THE TASTER and THE VANE are asking for** — page two of the readings |
 | `packages/render/src/boss-cue-read-c.ts` | **What THE LEAD is asking for** — page three of the readings, its page alone |
@@ -1384,6 +1385,7 @@ by hand never moves.
 | `packages/render/src/sling-marks.ts` | One side's cord: cord-brown at rest, glowing white while this side is the one asked to draw it |
 | `packages/render/src/sling-pose.ts` | **The clock THE SLING is posed off** (§32) |
 | `packages/render/src/sling-shape.ts` | **THE SLING's geometry**: a forked bracket bolted over the middle column |
+| `packages/render/src/sling-stop.ts` | **Where a bolt meets THE SLING**: the rung cup, or the lowest of cup, tines and cords |
 | `packages/render/src/sling-blow.ts` | **THE SLING's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/sling-fx.ts` | What THE SLING leaves behind a frame: its marks' verdicts (`marks`, `sling-verdicts.ts`) and |
 | `packages/render/src/sling-verdicts.ts` | **THE SLING's marks answering a touch the way every mark does** (`mark-feedback.ts` |
@@ -1579,6 +1581,7 @@ by hand never moves.
 | `packages/render/src/rime-pose.ts` | **The clock THE RIME is posed off** (§29, *Animation*) |
 | `packages/render/src/rime-shape.ts` | **THE RIME's geometry**: where the lens stands, and the paths it is made of |
 | `packages/render/src/rime-story.ts` | **THE RIME's two story steps, drawn** (§29's story item; the rules are `sim/rime-step.ts` |
+| `packages/render/src/rime-stop.ts` | **Where a bolt meets THE RIME**: the bared core, or the lens's edge and any icicle |
 | `packages/render/src/rime-blow.ts` | THE RIME's timeout blow: the lens drops a frosted sheet that bursts and frosts the hull |
 | `packages/render/src/rime-glint.ts` | **THE RIME's frost glints**: a line of light crosses the pane on a slant every few seconds, catching the sheets' edges |
 | `packages/render/src/rime-grip.ts` | **The two halves of THE RIME's lens as controls** |
@@ -2350,6 +2353,7 @@ by hand never moves.
 | `packages/render/src/plumb-marks.ts` | **THE PLUMB's marks**: a level's glass with its bubble, and the lit core in its step's colour |
 | `packages/render/src/plumb-pose.ts` | **The clock THE PLUMB is posed off** (§31, *Animation*) |
 | `packages/render/src/plumb-shape.ts` | **THE PLUMB's geometry**: where the bob hangs, and the paths it is made of |
+| `packages/render/src/plumb-stop.ts` | **Where a bolt meets THE PLUMB**: the lit core in the sac, or the lowest of sac, beam, chains, stones and levels |
 | `packages/render/src/plumb-blow.ts` | THE PLUMB's own blow at the hull: a small bob drops down its plumb line and strikes point first |
 | `packages/render/src/plumb-bleed-light.ts` | How much of the way the running light covers, as a share of it |
 | `packages/render/src/plumb-fx.ts` | What THE PLUMB leaves behind a frame: a weight's **settle** ringing its glass, a **drift**'s jolt through it |

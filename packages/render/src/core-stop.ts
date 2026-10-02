@@ -70,3 +70,20 @@ export function outlineFoot(points: readonly { x: number; y: number }[], dx = 0,
     return low === null ? null : low + dy;
   };
 }
+
+/** The foot of a straight rod from `a` to `b`, `half` either side of its line: a boom, a cord, a chain. */
+export function rodFoot(
+  a: { x: number; y: number },
+  b: { x: number; y: number },
+  half: number,
+): Foot {
+  const len = Math.hypot(b.x - a.x, b.y - a.y) || 1;
+  const nx = (-(b.y - a.y) / len) * half;
+  const ny = ((b.x - a.x) / len) * half;
+  return outlineFoot([
+    { x: a.x + nx, y: a.y + ny },
+    { x: b.x + nx, y: b.y + ny },
+    { x: b.x - nx, y: b.y - ny },
+    { x: a.x - nx, y: a.y - ny },
+  ]);
+}

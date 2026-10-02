@@ -1,33 +1,10 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { type Bullet, type Color, midCol } from "@neon-spore/sim";
 import { BoltStops } from "../src/bolt-stop.js";
-import { drawBurgee } from "../src/burgee-draw.js";
-import { BurgeeFx } from "../src/burgee-fx.js";
-import { drawCapstan } from "../src/capstan-draw.js";
-import { CapstanFx } from "../src/capstan-fx.js";
-import { drawDavit } from "../src/davit-draw.js";
-import { DavitVerdicts } from "../src/davit-verdicts.js";
-import { drawFlue } from "../src/flue-draw.js";
-import { FlueFx } from "../src/flue-fx.js";
-import { drawGall } from "../src/gall-draw.js";
-import { GallFx } from "../src/gall-fx.js";
-import { drawGovernor } from "../src/governor-draw.js";
-import { GovernorFx } from "../src/governor-fx.js";
-import { drawGrindstone } from "../src/grindstone-draw.js";
-import { GrindstoneFx } from "../src/grindstone-fx.js";
-import { GripVerdicts } from "../src/grip-verdict.js";
-import { drawHalter } from "../src/halter-draw.js";
 import { computeLayout, type Layout, tileCX } from "../src/layout.js";
-import * as burgee from "./burgee-harness.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
-import * as capstan from "./capstan-harness.js";
-import * as davit from "./davit-harness.js";
-import * as flue from "./flue-harness.js";
+import { installCanvasGlobals } from "./canvas-stub.js";
+import { ROWS, type Row } from "./core-stop-rows.js";
 import { CFG, FRAME_TIMEOUT_MS, ROLES, VIEWPORT } from "./frame-harness.js";
-import * as gall from "./gall-harness.js";
-import * as governor from "./governor-harness.js";
-import * as grindstone from "./grindstone-harness.js";
-import * as halter from "./halter-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -37,117 +14,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * through its own drawer, open on a cyan fire step and shut, and asked where
  * a bolt in a column meets it — the core in its colour bursts, the other
  * colour scuffs there, the shell scuffs at its foot, and clear air lets it
- * go. One row a boss; the next lane adds its own.
+ * go. One row a boss, in `core-stop-rows.ts`; the next lane adds its own.
  */
-
-interface Row {
-  name: string;
-  /** The boss stood and drawn with `stops`, its core open on a cyan fire step or shut. */
-  draw(stops: BoltStops, l: Layout, open: boolean): void;
-  /**
-   * Whether the body stands over the column beside the middle one while the
-   * core is open; a boss hung from one point over the middle column does not.
-   */
-  wide: boolean;
-  /** Whether the body lies edge to edge across the field, so no column goes past it. */
-  spans?: boolean;
-}
-
-const ROWS: Row[] = [
-  {
-    name: "THE FLUE",
-    draw(stops, l, open) {
-      const world = flue.stood();
-      const s = flue.posed(world, open ? flue.FIRE : flue.DAMPER, 0, (f) => {
-        f.bared = open;
-        f.vents = 2;
-      });
-      drawFlue(paper(), l, world, s, world.beat, 0.5, 0, new FlueFx(), stops);
-    },
-    wide: true,
-  },
-  {
-    name: "THE GOVERNOR",
-    draw(stops, l, open) {
-      const world = governor.stood();
-      const s = governor.posed(world, open ? governor.FIRE : governor.TAP, 0, (g) => {
-        g.hubLit = open;
-      });
-      drawGovernor(paper(), l, world, s, world.beat, 0.5, 0, new GovernorFx(), stops);
-    },
-    wide: true,
-  },
-  {
-    name: "THE BURGEE",
-    draw(stops, l, open) {
-      const world = burgee.stood();
-      const s = burgee.posed(world, open ? burgee.FIRE : burgee.CATCH, 0, (b) => {
-        b.spindleLit = open;
-      });
-      drawBurgee(paper(), l, world, s, world.beat, 0.5, 0, new BurgeeFx(), stops);
-    },
-    wide: false,
-  },
-  {
-    name: "THE CAPSTAN",
-    draw(stops, l, open) {
-      const world = capstan.stood();
-      const s = capstan.posed(world, capstan.FIRE, (c) => {
-        c.bared = open;
-      });
-      drawCapstan(paper(), l, world, s, world.beat, 0.5, 0, new CapstanFx(), stops);
-    },
-    wide: true,
-  },
-  {
-    name: "THE DAVIT",
-    draw(stops, l, open) {
-      const world = davit.stood();
-      const s = davit.posed(world, davit.FIRE, 0, (d) => {
-        d.pivotLit = open;
-      });
-      drawDavit(paper(), l, world, s, world.beat, 0.5, 0, new DavitVerdicts(), stops);
-    },
-    wide: false,
-  },
-  {
-    name: "THE GALL",
-    draw(stops, l, open) {
-      const world = gall.stood();
-      const s = gall.posed(world, gall.FIRE);
-      s.bared = open;
-      drawGall(paper(), l, world, s, world.beat, 0.5, 0, new GallFx(), stops);
-    },
-    wide: true,
-    spans: true,
-  },
-  {
-    name: "THE GRINDSTONE",
-    draw(stops, l, open) {
-      const world = grindstone.stood();
-      const s = grindstone.posed(world, grindstone.FIRE, (g) => {
-        g.locked = open;
-      });
-      drawGrindstone(paper(), l, world, s, world.beat, 0.5, 0, new GrindstoneFx(), stops);
-    },
-    wide: true,
-  },
-  {
-    name: "THE HALTER",
-    draw(stops, l, open) {
-      const world = halter.stood();
-      const s = halter.posed(world, halter.FIRE, (h) => {
-        h.bared = open;
-      });
-      drawHalter(paper(), l, world, s, world.beat, 0.5, 0, new GripVerdicts(), stops);
-    },
-    wide: true,
-  },
-];
 
 beforeAll(() => installCanvasGlobals());
 
-const paper = () => stubCanvas().ctx as unknown as CanvasRenderingContext2D;
 const MID = midCol(CFG);
 
 function aimed(row: Row, l: Layout, open: boolean): BoltStops {

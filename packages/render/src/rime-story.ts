@@ -6,7 +6,7 @@ import type { Layout } from "./layout.js";
 import { drawOculusSight } from "./oculus-story.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { phaseInto } from "./phase-into.js";
-import { rimeFacetPath, rimeLensPath, rimeRadius } from "./rime-shape.js";
+import { type Point, rimeFacetPath, rimeLensPath, rimeRadius } from "./rime-shape.js";
 
 /**
  * **THE RIME's two story steps, drawn** (§29's story item; the rules are
@@ -83,6 +83,25 @@ export function drawRimeFog(
 }
 
 /**
+ * Where the icicle hangs, `out` of the way out over its column and `sink` of
+ * the way sunk toward the hull `toHull` below, about the lens's middle: its
+ * middle, its length and its half-width.
+ */
+export function rimeIcicleAt(
+  l: Layout,
+  out: number,
+  sink: number,
+  dx: number,
+  toHull: number,
+): { at: Point; long: number; half: number } {
+  const { ry } = rimeRadius(l);
+  const top = ry * 0.9;
+  const long = l.tile * 0.5 * ICICLE_LONG;
+  const y = top + (toHull - top - long) * SINK * sink;
+  return { at: { x: dx * out, y: y + long * 0.5 }, long, half: l.tile * 0.5 * ICICLE_THIN };
+}
+
+/**
  * The icicle, `out` of the way out to hang `dx` across over its column and
  * `sink` of the way sunk, with the sight down to the hull `toHull` below.
  */
@@ -96,11 +115,7 @@ export function drawRimeIcicle(
   beatPhase: number,
 ): void {
   if (out <= 0) return;
-  const { ry } = rimeRadius(l);
-  const top = ry * 0.9;
-  const long = l.tile * 0.5 * ICICLE_LONG;
-  const y = top + (toHull - top - long) * SINK * sink;
-  const at = { x: dx * out, y: y + long * 0.5 };
+  const { at, long } = rimeIcicleAt(l, out, sink, dx, toHull);
   ctx.save();
   ctx.translate(at.x, at.y);
   ctx.scale(ICICLE_THIN, ICICLE_LONG);

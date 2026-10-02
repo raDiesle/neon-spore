@@ -32636,3 +32636,17 @@ Bottleneck: THE GALL's seam lies edge to edge, and the test's clear-sky
 column had to learn a body can span the field.
 
 *Measured: 25 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE PLUMB, RIME and SLING stop a bolt on what it meets
+
+- reading: 5 min. The three drawers and shapes, THE RIME's icicle and their
+  frame tests' posing.
+- writing: 10 min. A stopper each and `rodFoot`; page five of the boss
+  dispatcher cut off; the stop test's rows moved to their own file; three
+  harnesses.
+- looking: 0 min. The stop heights printed against each shape instead.
+- friction: 0 min.
+- landing: 5 min. A sort, `check:fast`, `land`.
+
+Bottleneck: the dispatcher page every drawer's new argument went through
+had filled, and wanted its seam cut before the lane could go on.

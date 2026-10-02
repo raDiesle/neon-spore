@@ -7,6 +7,7 @@ import {
   rimeRubbing,
   type World,
 } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
 import { fieldX } from "./field-flip.js";
@@ -30,7 +31,15 @@ import {
   rimeRadius,
   rimeSheet,
 } from "./rime-shape.js";
-import { drawRimeFog, drawRimeIcicle, rimeFog, rimeIcicle, rimeSink } from "./rime-story.js";
+import { rimeStopper } from "./rime-stop.js";
+import {
+  drawRimeFog,
+  drawRimeIcicle,
+  rimeFog,
+  rimeIcicle,
+  rimeIcicleAt,
+  rimeSink,
+} from "./rime-story.js";
 import { drawRimeMarkFeedback } from "./rime-verdicts.js";
 import { stepColour } from "./step-colour.js";
 
@@ -62,6 +71,7 @@ export function drawRime(
   beatPhase: number,
   time: number,
   fx: RimeFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const arrived = rimeArrived(s, cfg, beat, beatPhase);
@@ -72,7 +82,8 @@ export function drawRime(
   ctx.save();
   ctx.globalAlpha = alpha;
   const at = rimeAt(l, cfg, arrived);
-  ctx.translate(at.x + fx.hurt.shakeX(time, l.tile), at.y);
+  const shook = { x: at.x + fx.hurt.shakeX(time, l.tile), y: at.y };
+  ctx.translate(shook.x, shook.y);
 
   if (shatter <= 0) drawGlass(ctx, l, time, fx.hurt.value);
   const step = rimeLitStep(s);
@@ -80,7 +91,20 @@ export function drawRime(
   const lit = firing ? { color: step.color, left: rimeLeft(s, beat, beatPhase) } : null;
   if (lit !== null) fx.tell(stepColour(lit.color).rim);
   const hurt = coreHurt(s.hits);
-  drawRimeCore(ctx, l, hurt.size * (1 - 0.6 * shatter), hurt.bright, s.bared, lit, beatPhase);
+  const size = hurt.size * (1 - 0.6 * shatter);
+  const out = step?.ask === "icicle" && shatter <= 0 ? rimeIcicle(s, beat, beatPhase) : 0;
+  const icicle =
+    step?.ask === "icicle" && out > 0
+      ? rimeIcicleAt(
+          l,
+          out,
+          rimeSink(s, beat, beatPhase),
+          fieldX(l, rimeIcicleCol(midCol(cfg), step)) - home.x,
+          l.hullY - at.y,
+        )
+      : null;
+  stops?.aim(rimeStopper(l, world, { at: shook, whole: shatter <= 0, size, icicle }));
+  drawRimeCore(ctx, l, size, hurt.bright, s.bared, lit, beatPhase);
   ctx.globalAlpha = alpha;
 
   if (shatter > 0) {

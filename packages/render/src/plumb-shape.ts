@@ -127,12 +127,19 @@ export function plumbSacRadius(l: Layout): { rx: number; ry: number } {
  * skin, slow enough never to say *now*.
  */
 export function plumbSacPath(l: Layout, wide: number, time: number): Path2D {
+  return splinePath(plumbSacPoints(l, wide, time), true);
+}
+
+/** The points `plumbSacPath` runs through, about the sac's middle. */
+export function plumbSacPoints(l: Layout, wide: number, time: number): Point[] {
   const { rx, ry } = plumbSacRadius(l);
   const pts = sacPoints(time * 0.25, SAC_BIAS, rx, ry, undefined, N);
-  return splinePath(
-    pts.map((p) => ({ x: p.x * wide, y: p.y })),
-    true,
-  );
+  return pts.map((p) => ({ x: p.x * wide, y: p.y }));
+}
+
+/** The beam's half-thickness, and the stem's, in pixels. */
+export function plumbBar(l: Layout): { beam: number; stem: number } {
+  return { beam: BAR * l.tile, stem: BAR * 0.6 * l.tile };
 }
 
 /** The sac's lowest point below its origin: where the plumb line is read against. */

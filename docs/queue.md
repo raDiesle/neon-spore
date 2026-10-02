@@ -339,17 +339,13 @@ The owner, 1 October 2026, on THE SEAM *but also all other bosses*: the part
 the cannon must hit is lit in its colour and beats like a heart, the bolt has a
 clear path to it, and a bolt stops on whatever it meets. On the right part it
 bursts; anywhere else it scuffs and does nothing. The rule is the last bullet
-of `generic.md`. THE SEAM, FLUE, GOVERNOR, BURGEE, CAPSTAN, DAVIT, GALL,
-GRINDSTONE and HALTER keep it so far.
-
-**Three are the short case**, their shot already `coreVerdict`
-(`sim/core-verdict.ts`) and their own `…Verdict` exported: THE PLUMB, RIME
-and SLING. Each needs a `…-stop.ts` calling
-`coreStopper` with the core's near rim and the body's `Foot`
-(`render/core-stop.ts`; `outlineFoot` takes a contour's points, which the
-shape file hands out beside its path, as `capstanBodyPoints` does), its
-drawer to aim it, and a row in `render/test/core-stop.test.ts`. Their lit
-faces are already `drawLitCore`, `lightWithin` at `heartLight`. One lane.
+of `generic.md`. THE SEAM keeps it, and every boss whose shot is
+`coreVerdict` (`sim/core-verdict.ts`): THE BURGEE, CAPSTAN, DAVIT, FLUE,
+GALL, GOVERNOR, GRINDSTONE, HALTER, PLUMB, RIME and SLING — a `…-stop.ts`
+each calling `coreStopper` with the core's near rim and the body's `Foot`
+(`render/core-stop.ts`: `roundFoot`, `outlineFoot` over a contour's points,
+which the shape file hands out beside its path, and `rodFoot`), and a row in
+`render/test/core-stop-rows.ts`.
 
 **Twenty-two need their verdict pulled out first**, the way THE SEAM's was —
 a pure `…Verdict(world, col, color)` the `…Struck` acts on: THE ANTIPHON,

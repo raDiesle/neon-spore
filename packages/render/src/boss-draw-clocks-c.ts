@@ -180,6 +180,6 @@ export function drawPairBoss(
   // so (`rime-draw.ts`). What outlives a frame — the flakes, the flashes,
   // the film flashing back, the shatter's shudder, the blow, and the painted
   // clearing behind `?raster=1` — is `effects.boss.rime` (`rime-fx.ts`).
-  drawRime(ctx, l, world, boss, beat, beatPhase, time, effects.boss.rime);
+  drawRime(ctx, l, world, boss, beat, beatPhase, time, effects.boss.rime, effects.bolts);
   effects.boss.rime.clear.draw(ctx);
 }

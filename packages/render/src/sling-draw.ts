@@ -1,5 +1,6 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import { type SlingState, slingAsks, slingLitStep, type World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Circle, Layout } from "./layout.js";
@@ -16,6 +17,7 @@ import {
   slingWindowLeft,
 } from "./sling-pose.js";
 import { slingCupRadius, slingHandle, slingHome, slingTinePath, slingTip } from "./sling-shape.js";
+import { slingStopper } from "./sling-stop.js";
 import { drawSlingMarkFeedback } from "./sling-verdicts.js";
 
 /**
@@ -37,6 +39,7 @@ export function drawSling(
   beatPhase: number,
   time: number,
   fx: SlingFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const arrived = slingArrived(s, cfg, beat, beatPhase);
@@ -50,15 +53,18 @@ export function drawSling(
   const step = slingLitStep(s);
   const cooled = slingCooled(s, cfg, beat, beatPhase);
   const cords: Circle[] = [];
+  const tension: [number, number] = [0, 0];
   for (const side of [0, 1] as const) {
     drawTine(ctx, l, side, arrived, time);
-    const tension =
+    const drawn =
       cooled === null
         ? slingTension(world, s, side, beat, beatPhase)
         : slingCoolTension(s, side, cooled, beatPhase);
-    drawSlingCord(ctx, l, side, tension, slingAsks(s, side), beatPhase);
-    cords.push(cordMark(l, side, tension));
+    drawSlingCord(ctx, l, side, drawn, slingAsks(s, side), beatPhase);
+    cords.push(cordMark(l, side, drawn));
+    tension[side] = drawn;
   }
+  stops?.aim(slingStopper(l, world, home, arrived, tension));
   const r = slingCupRadius(l);
   const at = { cup: { x: 0, y: -r * 0.2, r }, cords: [cords[0], cords[1]] as [Circle, Circle] };
 

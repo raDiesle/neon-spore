@@ -2,7 +2,7 @@ import { type BurgeeState, burgeeVerdict, type World } from "@neon-spore/sim";
 import type { Stopper } from "./bolt-stop.js";
 import { burgeePivot, burgeeSpindleAt, burgeeSpindlePoints, type Point } from "./burgee-shape.js";
 import { coreHurt } from "./core-hurt.js";
-import { coreStopper, lowestFoot, outlineFoot } from "./core-stop.js";
+import { coreStopper, lowestFoot, outlineFoot, rodFoot } from "./core-stop.js";
 import type { Layout } from "./layout.js";
 import { STROKE } from "./palette.js";
 
@@ -31,25 +31,12 @@ export function burgeeStopper(
   const spindlePts = burgeeSpindlePoints(l, time, coreHurt(s.hits).size);
   const spindle = outlineFoot(spindlePts, at.x + off.x, at.y + off.y);
   const core = spindle(at.x + off.x) ?? at.y + off.y;
-  const feet = [
-    spindle,
-    boomFoot(burgeePivot(l, world.cfg), tip, off),
-    outlineFoot(flag, off.x, off.y),
-  ];
+  const pivot = burgeePivot(l, world.cfg);
+  const boom = rodFoot(
+    { x: pivot.x + off.x, y: pivot.y + off.y },
+    { x: tip.x + off.x, y: tip.y + off.y },
+    STROKE.outline * 1.3,
+  );
+  const feet = [spindle, boom, outlineFoot(flag, off.x, off.y)];
   return coreStopper(world, burgeeVerdict, core, lowestFoot(feet));
-}
-
-/** The boom as the rod it is stroked as, pivot to tip. */
-function boomFoot(pivot: Point, tip: Point, off: Point) {
-  const len = Math.hypot(tip.x - pivot.x, tip.y - pivot.y) || 1;
-  const w = STROKE.outline * 1.3;
-  const nx = (-(tip.y - pivot.y) / len) * w;
-  const ny = ((tip.x - pivot.x) / len) * w;
-  const rod = [
-    { x: pivot.x + nx, y: pivot.y + ny },
-    { x: tip.x + nx, y: tip.y + ny },
-    { x: tip.x - nx, y: tip.y - ny },
-    { x: pivot.x - nx, y: pivot.y - ny },
-  ];
-  return outlineFoot(rod, off.x, off.y);
 }

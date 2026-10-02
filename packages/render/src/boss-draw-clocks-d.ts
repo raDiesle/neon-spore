@@ -4,14 +4,10 @@ import { drawCapstan } from "./capstan-draw.js";
 import { drawCyst } from "./cyst-draw.js";
 import { drawDavit } from "./davit-draw.js";
 import type { Effects } from "./effects.js";
-import { drawFlue } from "./flue-draw.js";
 import { drawGall } from "./gall-draw.js";
-import { drawGovernor } from "./governor-draw.js";
 import { drawGrindstone } from "./grindstone-draw.js";
 import { drawHalter } from "./halter-draw.js";
-import { drawLamprey } from "./lamprey-draw.js";
 import type { Layout } from "./layout.js";
-import { drawMimic } from "./mimic-draw.js";
 import { drawPlumb } from "./plumb-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawSling } from "./sling-draw.js";
@@ -24,7 +20,8 @@ import { drawTrivet } from "./trivet-draw.js";
  * Cut from `boss-draw-clocks-c.ts` on 26 September 2026, when THE CYST and
  * THE GRINDSTONE landing side by side had put that page at 254 lines. There
  * is no seam in the bosses here the way there was at page three; the cut is
- * where the page was full, and the next pair appends here.
+ * where the page was full. It filled again with THE GALL and THE BURGEE, and
+ * from THE FLUE on is page five (`boss-draw-clocks-e.ts`).
  *
  * **The order inside is the order they were built in** and nothing depends on
  * it: every arm returns, and no two of these bosses are ever installed at once.
@@ -45,10 +42,6 @@ export const LATE_PAIR_KINDS = [
   "capstan",
   "gall",
   "burgee",
-  "flue",
-  "governor",
-  "lamprey",
-  "mimic",
 ] as const;
 
 export type LatePairBoss = Extract<Installed, { kind: (typeof LATE_PAIR_KINDS)[number] }>;
@@ -78,7 +71,7 @@ export function drawLatePairBoss(
   // loosed true (`sling-fx.ts`): its hands and effects are the second half of
   // its look.
   if (boss.kind === "sling") {
-    drawSling(ctx, l, world, boss, beat, beatPhase, time, effects.boss.sling);
+    drawSling(ctx, l, world, boss, beat, beatPhase, time, effects.boss.sling, effects.bolts);
     effects.boss.sling.draw.draw(ctx);
     return;
   }
@@ -102,7 +95,7 @@ export function drawLatePairBoss(
   // (`plumb-draw.ts`). A weight's settle, a drift's jolt, the core's hit and
   // the free swing's release are `effects.boss.plumb` (`plumb-fx.ts`).
   if (boss.kind === "plumb") {
-    drawPlumb(ctx, l, world, boss, beat, beatPhase, time, effects.boss.plumb);
+    drawPlumb(ctx, l, world, boss, beat, beatPhase, time, effects.boss.plumb, effects.bolts);
     return;
   }
 
@@ -184,40 +177,5 @@ export function drawLatePairBoss(
   // tapped still over the lit column by one seat and caught by the other's
   // swipe, the spindle shot (`burgee-draw.ts`); the flag's eased place and
   // a mistimed swipe's limp flutter are `burgee-fx.ts`.
-  if (boss.kind === "burgee") {
-    drawBurgee(ctx, l, world, boss, beat, beatPhase, time, effects.boss.burgee, effects.bolts);
-    return;
-  }
-
-  // THE FLUE: a slotted flue across the field, its ember stopped dead by one
-  // seat sending nothing and tapped three times by the other, a core bared
-  // under a damper and shot (`flue-draw.ts`); a tap's tick, a notch's flare,
-  // the damper's thud and the core's flash are `flue-fx.ts`.
-  if (boss.kind === "flue") {
-    drawFlue(ctx, l, world, boss, beat, beatPhase, time, effects.boss.flue, effects.bolts);
-    return;
-  }
-
-  // THE GOVERNOR: a flywheel's needle sweeping on its own under a flyball
-  // governor, braked by one seat's chord on the yoke and tapped by the other
-  // on the lit mark, the hub it turns on shot (`governor-draw.ts`); its
-  // marks' verdicts on a touch are `governor-verdicts.ts`.
-  if (boss.kind === "governor") {
-    drawGovernor(ctx, l, world, boss, beat, beatPhase, time, effects.boss.governor, effects.bolts);
-    return;
-  }
-
-  // THE LAMPREY: an eel bitten onto the hull and crawling along it, held
-  // under by one seat while the other taps its lit tooth out, then reared
-  // with its gullet lit and shot (`lamprey-draw.ts`); its marks' verdicts on
-  // a touch are `lamprey-verdicts.ts`.
-  if (boss.kind === "lamprey") {
-    drawLamprey(ctx, l, world, boss, beat, beatPhase, time, effects.boss.lamprey);
-    return;
-  }
-
-  // THE MIMIC: a mantle over the top of the field wearing a sign on one
-  // screen and mottle on the other, the pad on the drawer's, split on its
-  // lit core at the last (`mimic-draw.ts`); its receipts are `mimic-fx.ts`.
-  drawMimic(ctx, l, world, boss, beat, beatPhase, time, effects.boss.mimic);
+  drawBurgee(ctx, l, world, boss, beat, beatPhase, time, effects.boss.burgee, effects.bolts);
 }
