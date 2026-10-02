@@ -10,11 +10,14 @@ import {
   lampreyToothIn,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { strokeGlowFaded } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
+import type { LampreyFx } from "./lamprey-fx.js";
 import { drawLampreyJawMark, drawLampreyToothMark } from "./lamprey-marks.js";
 import { lampreyDepth, lampreyPose, lampreyToothLeft } from "./lamprey-pose.js";
+import { drawLampreyFlung, drawLampreyGulp, drawLampreySnap } from "./lamprey-receipts.js";
 import {
   type LampreyPose,
   lampreyBody,
@@ -26,7 +29,7 @@ import {
   lampreyToothAt,
   type Point,
 } from "./lamprey-shape.js";
-import { drawLampreyHalos, drawLampreyVerdicts, type LampreyVerdicts } from "./lamprey-verdicts.js";
+import { drawLampreyHalos, drawLampreyVerdicts } from "./lamprey-verdicts.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
@@ -51,8 +54,10 @@ const FLICK = 0.2;
  * **Its health is read off the ring**, no bar: a tooth knocked out leaves a
  * socket, so the gaps can be counted by eye, and the gullet shrinks a step
  * per hit. The scar under the mouth is the hull's own red, as deep as the
- * bite. Everything is read off `world` each frame; the marks' verdicts are
- * the one thing the events leave (`lamprey-verdicts.ts`).
+ * bite. Everything is read off `world` each frame; what the events leave —
+ * a flung tooth, a snap, a gulp, the blow it takes, the marks' verdicts — is
+ * `fx` (`lamprey-fx.ts`, drawn by `lamprey-receipts.ts`), and its own blow at
+ * the hull is `lamprey-blow.ts`.
  */
 export function drawLamprey(
   ctx: CanvasRenderingContext2D,
@@ -62,10 +67,11 @@ export function drawLamprey(
   beat: number,
   beatPhase: number,
   time: number,
-  v: LampreyVerdicts,
+  fx: LampreyFx,
 ): void {
   const cfg = world.cfg;
   const p = lampreyPose(l, cfg, s, beat, beatPhase);
+  fx.note(p);
   ctx.save();
   // Every glow under the fade is `strokeGlowFaded`, which leaves it standing.
   ctx.globalAlpha = 1 - 0.5 * p.spent;
@@ -76,10 +82,15 @@ export function drawLamprey(
     const full = showsLampreyHand(l.role, pinner);
     drawLampreyJawMark(ctx, l, p.x, cfg.lampreyGripCols, full, beatPhase);
   }
-  drawBody(ctx, l, p);
+  // The eel shakes with the blow it took; the scar and the band are the hull's, and stay.
+  ctx.save();
+  ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
+  drawBody(ctx, l, p, fx.hurt.value);
   drawLampreyHalos(ctx, l, p, s, time);
   drawMouth(ctx, p, s);
+  drawLampreyGulp(ctx, p, fx.gulp);
   drawTeeth(ctx, p, s);
+  drawLampreySnap(ctx, p, fx.snap);
   drawFlick(ctx, p, s, beat, beatPhase);
   const tapper = lampreyTapper(s);
   const step = lampreyStep(s);
@@ -88,7 +99,9 @@ export function drawLamprey(
     const full = showsLampreyHand(l.role, tapper);
     drawLampreyToothMark(ctx, p, s.litTooth, left, full, beatPhase);
   }
-  drawLampreyVerdicts(ctx, l, p, s, time, v.verdicts);
+  drawLampreyVerdicts(ctx, l, p, s, time, fx.verdicts);
+  ctx.restore();
+  drawLampreyFlung(ctx, l, fx.flung);
   ctx.restore();
 }
 
@@ -102,8 +115,8 @@ function drawScar(ctx: CanvasRenderingContext2D, l: Layout, x: number, depth: nu
   strokeGlowFaded(ctx, scar, PALETTE.red, STROKE.inner, depth, 1);
 }
 
-/** The body and the mouth's lip: its shadow under it, lit from the key, and a dark line down the spine. */
-function drawBody(ctx: CanvasRenderingContext2D, l: Layout, p: LampreyPose): void {
+/** The body and the mouth's lip: its shadow under it, lit from the key, a dark line down the spine, and the blow's red. */
+function drawBody(ctx: CanvasRenderingContext2D, l: Layout, p: LampreyPose, hurt: number): void {
   const spine = lampreySpine(l, p);
   const body = lampreyBody(l, spine);
   const lip = lampreyRing(p, 1);
@@ -138,6 +151,8 @@ function drawBody(ctx: CanvasRenderingContext2D, l: Layout, p: LampreyPose): voi
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.lampreyHideDark, 0.6);
   ctx.stroke(line(spine.slice(2, -3)));
+  drawHurt(ctx, body, hurt);
+  drawHurt(ctx, lip, hurt);
 }
 
 /** A polyline through `points`. */

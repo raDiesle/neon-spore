@@ -8,7 +8,7 @@ import { GallFx } from "./gall-fx.js";
 import { GovernorFx } from "./governor-fx.js";
 import { GrindstoneFx } from "./grindstone-fx.js";
 import { HalterVerdicts } from "./halter-verdicts.js";
-import { LampreyVerdicts } from "./lamprey-verdicts.js";
+import { LampreyFx } from "./lamprey-fx.js";
 import { PlumbFx } from "./plumb-fx.js";
 import { SeamFx } from "./seam-fx.js";
 import { SlingFx } from "./sling-fx.js";
@@ -84,7 +84,8 @@ export class LateRoster extends RoundMarks {
    * screens, and told where the crack's mark and the rock stand by the
    * drawer (`seam-fx.ts`, `seam-draw.ts`). */
   readonly seam = new SeamFx();
-  /** THE LAMPREY's marks' verdicts on a touch — nothing else of it outlives
-   * a frame yet, so it has no fx of its own (`lamprey-verdicts.ts`). */
-  readonly lamprey = new LampreyVerdicts();
+  /** THE LAMPREY's flung tooth, its snap and its gulp, the hull's shudder
+   * under its bites, the blow it takes, and its marks' verdicts on a touch
+   * (`lamprey-fx.ts`, `lamprey-receipts.ts`). */
+  readonly lamprey = new LampreyFx();
 }

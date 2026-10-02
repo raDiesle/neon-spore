@@ -11,6 +11,7 @@ import { gimbalCentre } from "./gimbal-shape.js";
 import { governorBlowFrom } from "./governor-blow.js";
 import { grindstoneBlowFrom } from "./grindstone-blow.js";
 import { halterBlowFrom } from "./halter-blow.js";
+import { lampreyBlowFrom } from "./lamprey-blow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { ledgerBodyY } from "./ledger-shape.js";
 import { mantleCentre } from "./mantle-shape.js";
@@ -109,6 +110,8 @@ const FROM: Partial<
   flue: flueBlowFrom,
   // The flywheel's near edge, where the shard shears off (`governor-blow.ts`).
   governor: governorBlowFrom,
+  // The mouth itself, flat on the hull over the jaw's column (`lamprey-blow.ts`).
+  lamprey: lampreyBlowFrom,
 };
 
 /** Where the blow leaves the body — for THE FILAMENT, the tile it struck from

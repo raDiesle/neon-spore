@@ -11390,10 +11390,18 @@ are held to the bite (`marks-window-rows-c.ts`). **It has no hush row**:
 the window closes on the first crack, inside the half beat
 `boss-hush.test.ts` waits before it reads.
 
-The receipts (the bursts, the blow) are queued (`docs/queue.md`, THE
-LAMPREY's look (§41)), and every one of its events is still silent to the
-renderer but for the marks' verdicts
-(`render/src/effects-ingest-silent-boss-e.ts`). Its
+**The receipts** landed on 2 October 2026 (`render/src/lamprey-fx.ts`,
+drawn by `lamprey-receipts.ts`). A crack flings the tooth off the ring from
+where it stood, turning end over end and falling as it fades, and deals the
+lighter blow; a snap closes a ring hard on the tooth that went back in; a
+shot down the gullet flares it in the colour it reared in, past its lip and
+back to the size the hit left it, and deals the whole blow, as the mouth
+coming loose does. The eel shakes with a blow it takes; its scar and the
+jaw's band are the hull's and stay. The hull shudders as the mouth slams on,
+harder as a full bite tears it, and as the eel is spent. **Its own blow**
+(`lamprey-blow.ts`) is the clamp: the seven teeth, spread round the mouth
+flat on the plating, close to a tight ring at the jaw's column and leave
+punctures bleeding the hull's red, with flecks of plating thrown up. Its
 thirteen sounds are bound (`audio/src/bind-lamprey.ts`), panned after the
 jaw, so a crawl is heard moving along the hull. A jaw chased by a thumb on
 two phones has never been played at tempo.

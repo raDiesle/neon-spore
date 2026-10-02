@@ -96,7 +96,7 @@ describe("a boss's blow at the hull", () => {
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
       ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "davit", "halter"],
       ...["capstan", "gall", "burgee", "cyst", "grindstone", "sling", "flue", "governor"],
-      "filament",
+      ...["filament", "lamprey"],
     ] as const;
     for (const by of bosses) {
       const fx = new BossStrikeFx();
@@ -162,6 +162,17 @@ describe("a boss's blow at the hull", () => {
     const frame = { l: L, blow: undefined, from, to, tile: L.tile, time: 0, after: 0 };
     const look = strikeLook(by);
     expect(look).not.toBe(lash);
+    expect(firstTranslate(look, { ...frame, reach: 0 })).toEqual(from);
+    expect(firstTranslate(look, { ...frame, reach: 1 })).toEqual(to);
+  });
+
+  it("THE LAMPREY clamps its sucker shut on the hull, where its mouth already is", () => {
+    const from = strikeFrom(L, CFG, "lamprey", 4);
+    expect(from).toEqual({ x: tileCX(L, 4), y: L.hullY });
+    const look = strikeLook("lamprey");
+    expect(look).not.toBe(lash);
+    const to = { x: from.x, y: L.hullY + 2 };
+    const frame = { l: L, blow: undefined, from, to, tile: L.tile, time: 0, after: 0 };
     expect(firstTranslate(look, { ...frame, reach: 0 })).toEqual(from);
     expect(firstTranslate(look, { ...frame, reach: 1 })).toEqual(to);
   });

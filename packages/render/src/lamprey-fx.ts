@@ -1,0 +1,214 @@
+import type { SimConfig, SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
+import type { Burst } from "./effects-boss.js";
+import { fieldX } from "./field-flip.js";
+import type { GripVerdicts } from "./grip-verdict.js";
+import { HullShock } from "./hull-shock.js";
+import { type LampreyPose, lampreyToothAt, type Point } from "./lamprey-shape.js";
+import { LampreyVerdicts } from "./lamprey-verdicts.js";
+import type { Layout } from "./layout.js";
+import { PALETTE } from "./palette.js";
+import { stepColour } from "./step-colour.js";
+
+/**
+ * What THE LAMPREY leaves behind a frame (§11.59, *The receipts*): the
+ * **tooth** a crack knocks out, flung off the ring and tumbling away; the
+ * **snap**, a ring closing on the tooth that went back in; the **gulp**, the
+ * gullet flashing in its colour as a shot goes down it; the hull's shudder
+ * as the mouth slams on and as a full bite tears it; the bursts its other
+ * receipts throw; and its marks' verdicts on a touch (`lamprey-verdicts.ts`).
+ *
+ * Everything else — where the mouth is, which teeth are out, how deep the
+ * scar — is read off the boss every frame (`lamprey-draw.ts`).
+ *
+ * **Both screens are thrown the same**, like the drawing: the jaw is one
+ * seat's and the teeth the other's, and each has to see the other land.
+ *
+ * **A crack is one counted hit** and deals the lighter blow; **a bite's teeth
+ * all out** — the mouth let go — and **a shot down the gullet** are a
+ * sequence landed and deal the whole one (`boss-hurt.ts`). A bite, a crawl,
+ * a chew, a rear, a lunge and the spend deal nothing.
+ *
+ * The events carry a column and a tooth and no place on the mouth, so the
+ * drawer hands over the eel it drew each frame (`note`), THE GOVERNOR's way:
+ * a cracked tooth flies from where it stood, and a burst is thrown where the
+ * mouth is. A full bite throws nothing here but the shudder: the hull it
+ * breaks is the eel's own blow (`lamprey-blow.ts`). Everything is cleared in
+ * `Effects.reset()` (`restart.test.ts`).
+ */
+
+/** How strong the hull's shudder is for the mouth slamming on, a full bite and the spend, and how long, in beats. */
+const SLAM_FORCE = 0.25;
+const SLAM_BEATS = 0.4;
+const FULL_FORCE = 0.7;
+const FULL_BEATS = 0.8;
+const SPENT_FORCE = 0.5;
+const SPENT_BEATS = 1;
+/** How fast a flung tooth, a snap and a gulp fade, per second. */
+const TOOTH_DECAY = 1.6;
+const SNAP_DECAY = 4;
+const GULP_DECAY = 3;
+
+/** A tooth knocked off the ring: where it stood, which way it was flung, and how much of its flight is left. */
+export interface FlungTooth {
+  now: number;
+  at: Point;
+  /** Out from the mouth's middle, a unit vector. */
+  dir: Point;
+}
+
+export class LampreyFx {
+  private pose: LampreyPose | null = null;
+  private flungNow = 0;
+  private flungAt: Point = { x: 0, y: 0 };
+  private flungDir: Point = { x: 0, y: -1 };
+  private snapNow = 0;
+  private snapTooth = 0;
+  private gulpNow = 0;
+  private gulpHits = 0;
+  private rearHex: string = PALETTE.hullRim;
+  /** The hull's shudder as the mouth slams on, as a full bite tears it, and as the eel is spent. */
+  readonly shock = new HullShock();
+  /** The blow a bite's teeth all out and a shot down the gullet deal; a crack the lighter one. */
+  readonly hurt = new BossHurt();
+  private readonly said = new LampreyVerdicts();
+
+  /** The jaw's, the tooth's and the gullet's verdicts on a touch. */
+  get verdicts(): GripVerdicts {
+    return this.said.verdicts;
+  }
+
+  /** The last tooth knocked out, in flight. */
+  get flung(): FlungTooth {
+    return { now: this.flungNow, at: this.flungAt, dir: this.flungDir };
+  }
+
+  /** The last tooth snapped back in: how bright the ring closing on it still is, 0..1, and which. */
+  get snap(): { now: number; tooth: number } {
+    return { now: this.snapNow, tooth: this.snapTooth };
+  }
+
+  /** The last shot down the gullet: how bright it still is, 0..1, the hit it was, and the colour it was lit. */
+  get gulp(): { now: number; hits: number; hex: string } {
+    return { now: this.gulpNow, hits: this.gulpHits, hex: this.rearHex };
+  }
+
+  /** The drawer's word for where the eel is, which the events do not carry. */
+  note(p: LampreyPose): void {
+    this.pose = p;
+  }
+
+  ingest(
+    events: readonly SimEvent[],
+    l: Layout,
+    _cfg: SimConfig,
+    beatSeconds: number,
+    burst: Burst,
+  ): void {
+    this.said.ingest(events);
+    for (const e of events) {
+      if (!e.type.startsWith("lamprey")) continue;
+      const mouth = this.mouth(l, "col" in e ? e.col : 0);
+      switch (e.type) {
+        case "lampreyEnter":
+          burst(mouth.x, mouth.y, 8, PALETTE.lampreyHide);
+          break;
+        case "lampreyBite":
+          // The sucker slammed flat onto the plating.
+          burst(mouth.x, l.hullY, 8, PALETTE.lampreyHide);
+          burst(mouth.x, l.hullY, 4, PALETTE.rockDark);
+          this.shock.strike(beatSeconds * SLAM_BEATS, SLAM_FORCE);
+          break;
+        case "lampreyCrack": {
+          const at = this.tooth(mouth, e.tooth);
+          const len = Math.hypot(at.x - mouth.x, at.y - mouth.y);
+          this.flungNow = 1;
+          this.flungAt = at;
+          this.flungDir =
+            len > 0 ? { x: (at.x - mouth.x) / len, y: (at.y - mouth.y) / len } : { x: 0, y: -1 };
+          burst(at.x, at.y, 6, PALETTE.lampreyTooth);
+          this.hurt.jab();
+          break;
+        }
+        case "lampreySnap":
+          if (e.tooth >= 0) {
+            this.snapNow = 1;
+            this.snapTooth = e.tooth;
+            const at = this.tooth(mouth, e.tooth);
+            burst(at.x, at.y, 3, PALETTE.rockDark);
+          }
+          break;
+        case "lampreyCrawl":
+          burst(mouth.x, l.hullY, 2, PALETTE.rockDark);
+          break;
+        case "lampreyGnaw":
+          burst(mouth.x, l.hullY, 3, PALETTE.red);
+          break;
+        case "lampreyFull":
+          burst(mouth.x, l.hullY, 10, PALETTE.red);
+          this.shock.strike(beatSeconds * FULL_BEATS, FULL_FORCE);
+          break;
+        case "lampreyLoose":
+          burst(mouth.x, mouth.y, 6, PALETTE.lampreyHide);
+          this.hurt.hit();
+          break;
+        case "lampreyRear":
+          this.rearHex = stepColour(e.color).rim;
+          burst(mouth.x, mouth.y, 8, this.rearHex);
+          break;
+        case "lampreyHit":
+          burst(mouth.x, mouth.y, 8 + 4 * e.hits, this.rearHex);
+          this.gulpNow = 1;
+          this.gulpHits = e.hits;
+          this.hurt.hit();
+          break;
+        case "lampreyLunge":
+          burst(mouth.x, mouth.y, 6, PALETTE.rockDark);
+          break;
+        case "lampreySpent":
+          burst(mouth.x, mouth.y, 20, PALETTE.lampreyHide);
+          burst(mouth.x, mouth.y, 8, PALETTE.lampreyTooth);
+          this.shock.strike(beatSeconds * SPENT_BEATS, SPENT_FORCE);
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  /** Where the mouth is: as last drawn, or on the hull over the event's column before the first frame. */
+  private mouth(l: Layout, col: number): Point {
+    return this.pose ?? { x: fieldX(l, col), y: l.hullY };
+  }
+
+  /** Where tooth `t` stood on the mouth last drawn, or the mouth's middle before the first frame. */
+  private tooth(mouth: Point, t: number): Point {
+    return this.pose === null ? mouth : lampreyToothAt(this.pose, t);
+  }
+
+  update(dt: number): void {
+    const step = Math.min(dt, 1 / 30);
+    this.flungNow = Math.max(0, this.flungNow - TOOTH_DECAY * step);
+    this.snapNow = Math.max(0, this.snapNow - SNAP_DECAY * step);
+    this.gulpNow = Math.max(0, this.gulpNow - GULP_DECAY * step);
+    if (this.gulpNow === 0) this.gulpHits = 0;
+    this.shock.update(dt);
+    this.hurt.update(dt);
+    this.said.update(dt);
+  }
+
+  clear(): void {
+    this.pose = null;
+    this.flungNow = 0;
+    this.flungAt = { x: 0, y: 0 };
+    this.flungDir = { x: 0, y: -1 };
+    this.snapNow = 0;
+    this.snapTooth = 0;
+    this.gulpNow = 0;
+    this.gulpHits = 0;
+    this.rearHex = PALETTE.hullRim;
+    this.shock.clear();
+    this.hurt.clear();
+    this.said.clear();
+  }
+}

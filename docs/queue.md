@@ -436,27 +436,6 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## THE LAMPREY's look (§41)
-
-- **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
-- **Taken:** 2026-10-02, claude/queue-the-mimics-recogniser (claim: claude/queue-the-lampreys-look-41)
-- **Needs:** THE LAMPREY's simulation (§41)
-- **Files:** `packages/render/src/`, `packages/content/src/silhouettes*.ts`, `packages/render/test/frame.test.ts`
-
-The second lane of `.claude/skills/new-boss`: the eel's lobed body, the
-sucker and its seven teeth, the S entry and the slam, drawn from the shape
-sheet's drafts and in `frame.test.ts`. The sheet PNG is sent to the owner.
-
-**The body landed on 1 October 2026** (`render/src/lamprey-draw.ts`, LIGHT
-TRACE with BULB · SPIKE): the eel, the teeth and sockets, the scar, the
-gullet, the jaw's band and the tooth's ring, and their verdicts. **The hand
-landed on 2 October 2026** (`render/src/lamprey-grip.ts`, the cue words in
-`boss-cue-read-zs.ts`, the six STATES cards, the marks-window row; no hush
-row, and `boss-hush.test.ts` says why). Left, in one landing: **the
-receipts** — the tooth, crack, snap, slam and strike bursts, the blow and its
-shake, the silent lists, `boss-hurt-rows-c.ts`, `boss-strike.test.ts`,
-`glow-faded.test.ts` and the sound links (`sound-link-none-e.ts`).
-
 ## THE MIMIC's look (§42)
 
 - **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable

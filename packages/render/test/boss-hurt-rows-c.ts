@@ -155,4 +155,24 @@ export const HURT_ROWS_C: Row[] = [
     ],
     hurt: (fx) => fx.boss.seam.hurt,
   },
+  {
+    boss: "lamprey",
+    // A bite's teeth all out, the mouth let go, and a shot down the gullet.
+    land: [
+      { type: "lampreyLoose", col: 3 },
+      { type: "lampreyHit", hits: 1, col: 3 },
+    ],
+    // A bite, a crawl, a chew, a snap, a rear and a lunge only work toward one, or against it.
+    part: [
+      { type: "lampreyBite", side: 0, tooth: 0, col: 3 },
+      { type: "lampreyCrawl", dir: 1, col: 4 },
+      { type: "lampreyGnaw", biteMilli: 200, col: 3 },
+      { type: "lampreySnap", tooth: 0, col: 3 },
+      { type: "lampreyRear", color: "red", col: 3 },
+      { type: "lampreyLunge", col: 3 },
+    ],
+    // A tooth knocked out, one of the five that are its health.
+    hit: [{ type: "lampreyCrack", side: 1, tooth: 0, col: 3 }],
+    hurt: (fx) => fx.boss.lamprey.hurt,
+  },
 ];

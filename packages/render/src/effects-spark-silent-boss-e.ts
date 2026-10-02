@@ -10,9 +10,8 @@ import type { SimEvent } from "@neon-spore/sim";
  * neither.
  */
 export const SILENT_BOSS_E = [
-  // THE LAMPREY, every event: the body is drawn, but nothing here throws a
-  // burst for it until the receipts half of its look lands
-  // (`docs/spec/bosses-choreographed.md` §41).
+  // THE LAMPREY's thirteen, no burst from this table: each is thrown above
+  // the loop by its own fx file (`lamprey-fx.ts`).
   "lampreyEnter",
   "lampreyBite",
   "lampreyCrack",

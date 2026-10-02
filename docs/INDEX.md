@@ -2131,6 +2131,9 @@ by hand never moves.
 | `packages/render/src/lamprey-shape.ts` | **THE LAMPREY's shape** (§41, *The look*): two drafts combined, named on the shape sheet |
 | `packages/render/src/lamprey-verdicts.ts` | **THE LAMPREY's marks answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
 | `packages/render/src/lamprey-grip.ts` | **THE LAMPREY's hands**: the pinner's thumb on the jaw, following it, and the tapper's tap on the nearest tooth |
+| `packages/render/src/lamprey-blow.ts` | **THE LAMPREY's own blow at the hull** (`boss-strike-look.ts`) |
+| `packages/render/src/lamprey-fx.ts` | What THE LAMPREY leaves behind a frame: the flung tooth, the snap, the gulp, the shudder and the blow |
+| `packages/render/src/lamprey-receipts.ts` | **THE LAMPREY's receipts, drawn** — what `lamprey-fx.ts` holds between frames |
 | `packages/render/src/ledger-cord.ts` | **The cord**, and the one hole in the ship it goes into |
 | `packages/render/src/ledger-draw.ts` | **THE LEDGER**: a tall split body high in the field on a single thick cord running down into the pair's own… |
 | `packages/render/src/ledger-fx.ts` | What THE LEDGER leaves behind a frame: the pulse a warded return throws back **up** the cord |

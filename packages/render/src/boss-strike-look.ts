@@ -11,6 +11,7 @@ import { governorBlow } from "./governor-blow.js";
 import { grindstoneBlow } from "./grindstone-blow.js";
 import { halterBlow } from "./halter-blow.js";
 import { haspBlow } from "./hasp-blow.js";
+import { lampreyBlow } from "./lamprey-blow.js";
 import type { Layout } from "./layout.js";
 import { ledgerBlow } from "./ledger-blow.js";
 import { mantleBlow } from "./mantle-blow.js";
@@ -110,6 +111,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   flue: flueBlow,
   // A fire step let run: the ungoverned flywheel bursts, and a shard of its rim bites the skin.
   governor: governorBlow,
+  // A bite let go full: the sucker clamps, and its seven teeth puncture the skin.
+  lamprey: lampreyBlow,
   // A fault on the line, or a line let stand: the vein snaps where it stood
   // and whips its torn end down to the column.
   filament: filamentBlow,

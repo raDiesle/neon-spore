@@ -118,8 +118,8 @@ export const INGEST_SILENT_BOSS_E = [
   // And THE THROAT's, on the ring or the tube: a red ring round the part,
   // `effects.boss.blows.throatMarks`' (`throat-marks.ts`).
   "throatRefuse",
-  // THE LAMPREY, every event: seven are the verdicts on its marks
-  // (`lamprey-verdicts.ts`), and the receipts half of its look is to come (§41).
+  // THE LAMPREY's thirteen: what outlives a frame is `lamprey-fx.ts`',
+  // read above the loop, and seven of them its marks' verdicts with it.
   "lampreyEnter",
   "lampreyBite",
   "lampreyCrack",

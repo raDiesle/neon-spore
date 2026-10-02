@@ -31730,3 +31730,18 @@ move, and the hush test's half-beat wait that THE LAMPREY's first crack never
 reaches.
 
 *Measured: 19 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE LAMPREY's receipts: the flung tooth, the snap, the gulp, the clamp
+
+- reading: 10 min. THE GOVERNOR's fx, its receipts and its tests, the
+  strike's LOOK and FROM tables, the silent lists and the sound links.
+- writing: 15 min. `lamprey-fx.ts`, `lamprey-receipts.ts`, `lamprey-blow.ts`,
+  the drawer's wiring, the hurt and strike rows, the fade row, the fx test,
+  the write-ups.
+- looking: 0 min. No picture taken; the frames are held by tests.
+- friction: 5 min. The fade row failed on the verdict rings, which draw at
+  full alpha by design — THE GOVERNOR's row clears them too.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: tracing the one mark brighter than the spent fade, which turned
+out to be the verdicts the test is meant to hold off.

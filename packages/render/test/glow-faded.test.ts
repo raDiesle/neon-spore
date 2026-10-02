@@ -5,20 +5,24 @@ import { FlueFx } from "../src/flue-fx.js";
 import { strokeGlowFaded } from "../src/glow.js";
 import { drawGovernor } from "../src/governor-draw.js";
 import { GovernorFx } from "../src/governor-fx.js";
+import { drawLamprey } from "../src/lamprey-draw.js";
+import { LampreyFx } from "../src/lamprey-fx.js";
 import { computeLayout } from "../src/layout.js";
 import { STROKE } from "../src/palette.js";
 import { stood as flueStood } from "./flue-harness.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, VIEWPORT } from "./frame-harness.js";
 import { marks } from "./glow-marks.js";
 import { stood as governorStood } from "./governor-harness.js";
+import { GULLET, posed as lampreyPosed, stood as lampreyStood } from "./lamprey-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * `strokeGlowFaded` (`glow.ts`): a glow inside a body that fades itself by
  * `ctx.globalAlpha` is faded with it and leaves the fade behind — and THE
- * FLUE and THE GOVERNOR, spent and at half alpha with their last hit's flash,
- * its red and a tap's receipt still up, draw nothing brighter than that half.
+ * FLUE, THE GOVERNOR and THE LAMPREY, spent and at half alpha with their
+ * last hit's flash, its red and a tap's receipt still up, draw nothing
+ * brighter than that half.
  * Before, THE FLUE's first glow put the alpha back at 1 and the rest of the
  * body was drawn whole, and a blow's red (`drawHurt`) did the same to a plate.
  */
@@ -83,6 +87,27 @@ describe("a spent boss at half alpha", () => {
     // (`governor-verdicts.ts` puts the fade back after each), so it is not asked.
     fx.verdicts.clear();
     const { at } = marks((c) => drawGovernor(c, l, world, s, world.beat, 0, 0, fx));
+    expect(at.length).toBeGreaterThan(10);
+    expect(Math.max(...at)).toBeLessThanOrEqual(0.5 + 1e-9);
+  });
+
+  it("THE LAMPREY draws nothing brighter than its fade", () => {
+    const world = lampreyStood();
+    const s = lampreyPosed(world, "spent", GULLET, (t) => {
+      t.phaseBeat = world.beat - CFG.lampreySpentBeats - 1;
+      t.hits = 3;
+    });
+    const fx = new LampreyFx();
+    const col = midCol(CFG);
+    const thrown = [
+      { type: "lampreyRear", color: "red", col },
+      { type: "lampreyHit", hits: 3, col },
+      { type: "lampreyCrack", side: 1, tooth: 2, col },
+      { type: "lampreySnap", tooth: 4, col },
+    ] as const;
+    fx.ingest(thrown, l, CFG, 0.5, () => {});
+    fx.verdicts.clear();
+    const { at } = marks((c) => drawLamprey(c, l, world, s, world.beat, 0, 0, fx));
     expect(at.length).toBeGreaterThan(10);
     expect(Math.max(...at)).toBeLessThanOrEqual(0.5 + 1e-9);
   });

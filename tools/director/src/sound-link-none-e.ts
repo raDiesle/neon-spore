@@ -30,11 +30,11 @@ export const NO_SUBJECT_E: Record<string, string> = {
   // and the argument is theirs.
   "boss.haspRattle": "a door shaking on its hinge. Part of the fixture, like the clasps.",
   "boss.haspRust": "a clasp furred with rust. Same argument: a coat on the fixture.",
-  // THE LAMPREY's thirteen (`sim/events-lamprey.ts`). Its body is drawn, but
-  // none of its events throws a receipt yet (`effects-spark-silent-boss-e.ts`):
-  // there is no moment on the frame to point a sound at until the receipts
-  // half of its look lands, and each of these is owed one.
-  "boss.lampreyEnter": "the eel swimming in. No receipt drawn for it yet.",
+  // THE LAMPREY's thirteen (`sim/events-lamprey.ts`). Its receipts are drawn
+  // (`lamprey-fx.ts`), but the eel is drawn from two drafts — LIGHT TRACE's
+  // body and BULB · SPIKE's ring — and neither is a shape-sheet subject, so
+  // there is no card on the sheet to point a sound at.
+  "boss.lampreyEnter": "the eel swimming in. Drawn from two drafts; no shape-sheet subject.",
   "boss.lampreyBite": "the mouth biting onto the hull, a tooth lit. Same argument.",
   "boss.lampreyCrack": "the lit tooth knocked out. Same argument.",
   "boss.lampreySnap": "the lit tooth snapping a cracked one back in. Same argument.",
