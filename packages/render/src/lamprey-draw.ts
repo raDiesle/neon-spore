@@ -18,6 +18,7 @@ import { lampreyDepth, lampreyPose, lampreyToothLeft } from "./lamprey-pose.js";
 import {
   type LampreyPose,
   lampreyBody,
+  lampreyGulletReach,
   lampreyRing,
   lampreySocket,
   lampreySpine,
@@ -31,10 +32,8 @@ import { PALETTE, STROKE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
 import { showsLampreyHand } from "./view-role-clocks-c.js";
 
-/** The mouth's black inside the lip, and the gullet's opening, in radii. */
+/** The mouth's black inside the lip, in radii. */
 const MOUTH_IN = 0.8;
-const GULLET = 0.45;
-const GULLET_HIT = 0.08;
 /** How long the lit tooth's flick of light round the rim takes, in beats. */
 const FLICK = 0.2;
 
@@ -160,7 +159,7 @@ function drawMouth(ctx: CanvasRenderingContext2D, p: LampreyPose, s: LampreyStat
   ctx.fillStyle = PALETTE.lampreyMouth;
   ctx.fill(lampreyRing(p, MOUTH_IN));
   if (s.phase !== "rearing" && s.phase !== "recoil" && s.phase !== "spent") return;
-  const gullet = lampreyRing(p, Math.max(0.12, GULLET - GULLET_HIT * s.hits));
+  const gullet = lampreyRing(p, lampreyGulletReach(s.hits));
   const step = lampreyStep(s);
   if (lampreyFiring(s) && step !== null) {
     const lit = stepColour(step.color).rim;

@@ -12,6 +12,7 @@ import { flueCues } from "./boss-cue-read-zo.js";
 import { valveCues } from "./boss-cue-read-zp.js";
 import { governorCues } from "./boss-cue-read-zq.js";
 import { seamCues } from "./boss-cue-read-zr.js";
+import { lampreyCues } from "./boss-cue-read-zs.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import type { Layout } from "./layout.js";
 import { plumbCues } from "./plumb-marks.js";
@@ -74,6 +75,9 @@ export function choreoCues(
     // THE SEAM's, a shield under the ridge while grit falls and a fire under the lit point or the rock, and nothing on the false point or the dark (`boss-cue-read-zr.ts`).
     case "seam":
       return seamCues(l, world, boss, beatPhase);
+    // THE LAMPREY's, a hold on the jaw's band to the pinner until the thumb is on it, a tap on the lit tooth to the tapper, and one under the lit gullet (`boss-cue-read-zs.ts`).
+    case "lamprey":
+      return lampreyCues(l, world, boss, beatPhase);
     default:
       return [];
   }

@@ -31711,3 +31711,20 @@ three seeds, and 4 was slower than 5, because the bubble often turns away
 before it has been tapped open and fed.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE LAMPREY's hand: the jaw that follows, the teeth, the words, the cards
+
+- reading: 10 min. The queue entry, THE GOVERNOR's and THE GALL's hand
+  landings, the touch plumbing (`touch-move.ts`, the drag hold), the desk's
+  seat rule, the marks-window and hush tests.
+- writing: 10 min. `lamprey-grip.ts` and the `follows` hold, the cue page,
+  THE SLOW's aim, the six STATES cards, the marks-window row, two render
+  tests, the write-ups.
+- looking: 0 min. No picture: the hand adds words and a touch, held by tests.
+- friction: 5 min. `queue release` left this tree's `docs/queue.md` dirty and
+  the checkout of the claim branch refused; restored by hand, queued.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: finding that no drag before this one sent a changing `id` on its
+move, and the hush test's half-beat wait that THE LAMPREY's first crack never
+reaches.

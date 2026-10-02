@@ -182,6 +182,13 @@ export type Hold =
        * `rub-turns.ts`).
        */
       rub?: true;
+      /**
+       * A thumb that **follows** a body along the hull — THE LAMPREY's jaw:
+       * what it sends is the column under it, on the press and on every
+       * move, as `id`, so a jaw that crawls is chased rather than dragged
+       * (`lamprey-grip.ts`).
+       */
+      follows?: true;
     };
 
 export interface Touch {

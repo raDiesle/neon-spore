@@ -449,12 +449,12 @@ sheet's drafts and in `frame.test.ts`. The sheet PNG is sent to the owner.
 
 **The body landed on 1 October 2026** (`render/src/lamprey-draw.ts`, LIGHT
 TRACE with BULB · SPIKE): the eel, the teeth and sockets, the scar, the
-gullet, the jaw's band and the tooth's ring, and their verdicts. Left, in two
-landings: **the hand** — the render grip, the cue words (`boss-cue-choreo.ts`),
-`handle-place-boss-b.ts`, `slow-boss-aim-d.ts`, the marks-window and STILL
-rows, and the director's six STATES cards (`OWED` in `boss-states.test.ts`);
-then **the receipts** — the tooth, crack, snap, slam and strike bursts, the
-blow and its shake, the silent lists, `boss-hurt-rows-c.ts`, `boss-strike.test.ts`,
+gullet, the jaw's band and the tooth's ring, and their verdicts. **The hand
+landed on 2 October 2026** (`render/src/lamprey-grip.ts`, the cue words in
+`boss-cue-read-zs.ts`, the six STATES cards, the marks-window row; no hush
+row, and `boss-hush.test.ts` says why). Left, in one landing: **the
+receipts** — the tooth, crack, snap, slam and strike bursts, the blow and its
+shake, the silent lists, `boss-hurt-rows-c.ts`, `boss-strike.test.ts`,
 `glow-faded.test.ts` and the sound links (`sound-link-none-e.ts`).
 
 ## THE MIMIC's look (§42)
@@ -645,3 +645,21 @@ takes either past the limit. (`scene-drag.ts`, which the same lane took to
 259, was split there: `scene-drag-taut.ts` holds how far each handle goes.)
 Split each along a seam it already has before the next set is added. Done
 when both are under ~200 lines and `bun run check` is green.
+
+## `queue release` then `take` leaves this tree dirty, blocking the checkout
+
+- **Found:** 2026-10-02, claude/queue-the-lampreys-look-41
+- **Where:** local
+- **Files:** `tools/queue/run.ts`, `tools/queue/repo.ts`, `tools/queue/test/`
+
+A spent claim is given back and taken again from a worktree standing on some
+other, already-landed branch: `bun run queue release "<title>"` commits the
+give-back to `main` and, through `alsoHere`, also cuts the `Taken:` line out of
+this tree's own copy, uncommitted. `take` then stamps `main` and creates the
+claim branch, but leaves that copy alone. `git checkout <claim branch>` then
+refuses ("Your local changes … would be overwritten"), and the tree has to be
+restored by hand before work can start. Make `take` leave this tree's copy as
+`HEAD` has it when the claim branch is not the branch this tree stands on, or
+have `alsoHere` skip a tree whose branch does not hold the entry's claim. Done
+when a test runs `release` then `take` from a worktree on another branch and
+the tree is clean, and `bun run check` is green.

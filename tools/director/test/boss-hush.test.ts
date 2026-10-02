@@ -38,6 +38,11 @@ import { DRAWN } from "./boss-hush-drawn.js";
  *
  * THE UNDERTOW had a row until its rework of 1 October 2026 took THE SLOW
  * off it: with no window it has nothing to hold still in.
+ *
+ * THE LAMPREY has none for a reason of the same kind: its window opens with
+ * each bite's first lit tooth and closes on the first crack (§11.59), and
+ * AUTO cracks it inside the half beat this waits before it reads, so the walk
+ * takes no sample at all. Its marks ride the crawling mouth by the rule.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };

@@ -1,4 +1,5 @@
 import { lightMove } from "./dark-tap.js";
+import { fieldCol } from "./field-flip.js";
 import { gimbalRingTurn } from "./gimbal-grip.js";
 import { colFromX, type Layout } from "./layout.js";
 import { crankTurn, dragging, rimFrom, turnAbout } from "./touch-drag.js";
@@ -56,6 +57,13 @@ export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | 
     // a chord's finger is a pad counted by its host (`chord.ts`), and a rub's
     // turns are counted there too (`rub.ts`).
     if (hold.pinch || hold.chord || hold.rub) return null;
+    // **A thumb that follows says where it is**, a column, not how far it
+    // came: the body it chases crawls under it (`lamprey-grip.ts`).
+    if (hold.follows) {
+      const id = fieldCol(l, colFromX(l, x));
+      const { player, target } = hold;
+      return { player, command: { kind: "drag", target, on: true, fromMilli: 0, id }, hold };
+    }
     // **The crank is not carried anywhere, it is turned**, and what a turn
     // reports is an angle rather than a distance (`touch-drag.ts`).
     if (hold.target === "crank") return crankTurn(hold, x, y);

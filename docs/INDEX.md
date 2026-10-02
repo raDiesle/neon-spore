@@ -1144,6 +1144,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zp.ts` | **What THE VALVE is asking for**: page forty-two of the readings |
 | `packages/render/src/boss-cue-read-zq.ts` | **What THE GOVERNOR is asking for**, page forty-three of the readings |
 | `packages/render/src/boss-cue-read-zr.ts` | **What THE SEAM is asking for**, page forty-four of the readings |
+| `packages/render/src/boss-cue-read-zs.ts` | **What THE LAMPREY is asking for**, page forty-five of the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -2129,6 +2130,7 @@ by hand never moves.
 | `packages/render/src/lamprey-pose.ts` | **The clock THE LAMPREY is posed off** (§41, *Animation*), six poses |
 | `packages/render/src/lamprey-shape.ts` | **THE LAMPREY's shape** (§41, *The look*): two drafts combined, named on the shape sheet |
 | `packages/render/src/lamprey-verdicts.ts` | **THE LAMPREY's marks answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
+| `packages/render/src/lamprey-grip.ts` | **THE LAMPREY's hands**: the pinner's thumb on the jaw, following it, and the tapper's tap on the nearest tooth |
 | `packages/render/src/ledger-cord.ts` | **The cord**, and the one hole in the ship it goes into |
 | `packages/render/src/ledger-draw.ts` | **THE LEDGER**: a tall split body high in the field on a single thick cord running down into the pair's own… |
 | `packages/render/src/ledger-fx.ts` | What THE LEDGER leaves behind a frame: the pulse a warded return throws back **up** the cord |
@@ -3233,6 +3235,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-vise.ts` | **THE VISE's four states**, posed with a hand on the controls (`boss-hands-vise.ts`) |
 | `tools/director/src/poses-bosses-hands-valve.ts` | **THE VALVE's ten states**, posed with a hand on the controls (`boss-hands-valve.ts`) |
 | `tools/director/src/poses-bosses-hands-grindstone.ts` | **THE GRINDSTONE's four states**, posed with a hand on the controls (`boss-hands-grindstone.ts`) |
+| `tools/director/src/poses-bosses-hands-lamprey.ts` | **THE LAMPREY's states**, posed with a hand on the controls (`boss-hands-lamprey.ts`) |
 | `tools/director/src/poses-bosses.ts` | **The BOSSES category of the STATES sheet**: one group per boss, in the order the simulation numbers them |
 | `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
 | `tools/director/src/poses-cage.ts` | The pose a candidate for THE RECOIL's cage is judged on |

@@ -7,6 +7,7 @@ import { gallPointCircle, gallTakesPinch } from "./gall-grip.js";
 import { governorChordsFor, governorTapCircle, governorYokeCircle } from "./governor-grip.js";
 import { grindstoneStanding, grindstoneTakesHand } from "./grindstone-grip.js";
 import { halterGripStanding } from "./halter-grip.js";
+import { lampreyJawCircle, lampreyToothCircle } from "./lamprey-grip.js";
 import type { Circle, Layout } from "./layout.js";
 import { plumbStoneStanding, plumbTakesHand } from "./plumb-grip.js";
 import { rimeHalfStanding, rimeTakesHand } from "./rime-grip.js";
@@ -150,6 +151,14 @@ export function laterBossHandleCircle(
     if (b === null) return null;
     if (target === "valvePin") return valvePinHandle(l, cfg, b, world.beat, beatPhase);
     return valveTurning(b) ? valveWheelCircle(l, cfg, b, world.beat, beatPhase) : null;
+  }
+  if (target === "lampreyJaw" || target === "lampreyTooth") {
+    // THE LAMPREY's jaw, the band on the hull under the mouth, and its lit
+    // tooth, each only while a bite is on (`lamprey-grip.ts`).
+    const b = world.boss?.kind === "lamprey" ? world.boss : null;
+    if (b === null) return null;
+    if (target === "lampreyTooth") return lampreyToothCircle(l, cfg, b, world.beat, beatPhase);
+    return lampreyJawCircle(l, cfg, b, world.beat, beatPhase);
   }
   if (target === "scoutLine" || target === "scoutPrime") {
     // THE SCOUT's two hands on its own ship: the line on the ship's middle,

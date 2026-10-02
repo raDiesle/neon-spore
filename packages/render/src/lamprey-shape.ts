@@ -29,6 +29,15 @@ const TOOTH_ROOT = 0.9;
 const TOOTH_TIP = 0.52;
 /** A tooth's root, as a share of the gap between two. */
 const TOOTH_WIDE = 0.42;
+/** The gullet's opening in radii, what each hit takes off it, and the least it shrinks to. */
+const GULLET = 0.45;
+const GULLET_HIT = 0.08;
+const GULLET_LEAST = 0.12;
+
+/** How wide the gullet opens after `hits`, in mouth radii: a step smaller per hit. */
+export function lampreyGulletReach(hits: number): number {
+  return Math.max(GULLET_LEAST, GULLET - GULLET_HIT * hits);
+}
 
 export interface Point {
   x: number;

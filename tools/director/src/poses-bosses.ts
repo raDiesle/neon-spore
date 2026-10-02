@@ -11,6 +11,7 @@ import { GRINDSTONE_POSES } from "./poses-bosses-hands-grindstone.js";
 import { HANDLE_HAND_POSES } from "./poses-bosses-hands-handles.js";
 import { HASP_STORY_POSES } from "./poses-bosses-hands-hasp.js";
 import { KEEL_POSES } from "./poses-bosses-hands-keel.js";
+import { LAMPREY_POSES } from "./poses-bosses-hands-lamprey.js";
 import { MANTLE_POSES } from "./poses-bosses-hands-mantle.js";
 import { MECHANISM_POSES } from "./poses-bosses-hands-mechanisms.js";
 import { NETTLE_POSES } from "./poses-bosses-hands-nettle.js";
@@ -71,6 +72,7 @@ export const BOSS_POSES: Pose[] = [
   ...RIME_POSES,
   ...VALVE_POSES,
   ...SEAM_POSES,
+  ...LAMPREY_POSES,
   ...MECHANISM_POSES,
 ];
 

@@ -11370,13 +11370,33 @@ with the lit one bright. A tooth knocked out leaves a socket, the scar under
 the mouth is the hull's red as deep as the bite, and the gullet reared is lit
 in the shot's colour and shrinks a step per hit. Both screens draw the one
 eel; the jaw's band on the hull is full on the pinner's and the lit tooth's
-ring, with its window, on the tapper's. The hand (the grip, the cue, the
-STATES cards) and the receipts (the bursts, the blow) are queued
-(`docs/queue.md`, THE LAMPREY's look (§41)), and every one of its events is
-still silent to the renderer but for the marks' verdicts
+ring, with its window, on the tapper's.
+
+**The hand** landed on 2 October 2026 (`render/src/lamprey-grip.ts`). The
+jaw is taken on a band on the hull round the mouth, as wide as the grip,
+from the bite's pinner, or from the next bite's while the eel swims in or
+pulls loose. The press and every move after send the column under the
+thumb, so the thumb chases the crawl: a drag that *follows* rather than
+carries (`follows` on its hold, `render/src/touch-move.ts`). The
+mouth is the tapper's: a press inside the lip is the tooth it is nearest,
+an edge. The other seat's press falls through, to the cannon under the
+mouth and on the desk to the seat it is for. The field says `HOLD` on the
+band to the pinner until the thumb is on it, `TAP` on the lit tooth to the
+tapper, and `FIRE` under the middle column on the lit gullet, its crosshair
+on the gullet (`render/src/boss-cue-read-zs.ts`). THE SLOW stands round the
+mouth and the band (`slow-boss-aim-d.ts`). The director's six STATES cards
+are posed on AUTO's hand (`poses-bosses-hands-lamprey.ts`), and both marks
+are held to the bite (`marks-window-rows-c.ts`). **It has no hush row**:
+the window closes on the first crack, inside the half beat
+`boss-hush.test.ts` waits before it reads.
+
+The receipts (the bursts, the blow) are queued (`docs/queue.md`, THE
+LAMPREY's look (§41)), and every one of its events is still silent to the
+renderer but for the marks' verdicts
 (`render/src/effects-ingest-silent-boss-e.ts`). Its
 thirteen sounds are bound (`audio/src/bind-lamprey.ts`), panned after the
-jaw, so a crawl is heard moving along the hull.
+jaw, so a crawl is heard moving along the hull. A jaw chased by a thumb on
+two phones has never been played at tempo.
 
 ## 11.60 THE MIMIC — a skin only one of you can read, and only the other can answer
 

@@ -10,6 +10,8 @@ import {
   grindstoneLitStep,
   type HalterState,
   halterLitStep,
+  type LampreyState,
+  lampreyBiting,
   type PlumbState,
   plumbLitStep,
   type RimeState,
@@ -24,6 +26,7 @@ import * as flueMarks from "../../../packages/render/src/flue-marks.js";
 import * as gallMarks from "../../../packages/render/src/gall-marks.js";
 import * as grindstoneMarks from "../../../packages/render/src/grindstone-marks.js";
 import * as halterMarks from "../../../packages/render/src/halter-marks.js";
+import * as lampreyMarks from "../../../packages/render/src/lamprey-marks.js";
 import * as plumbMarks from "../../../packages/render/src/plumb-marks.js";
 import { plumbAsked } from "../../../packages/render/src/plumb-pose.js";
 import * as rimeMarks from "../../../packages/render/src/rime-marks.js";
@@ -40,12 +43,15 @@ import { mark, type Row } from "./marks-window-kit.js";
  * was handed. THE RIME's icicle is drawn from `rime-story.ts`, not its marks
  * file.
  * THE FLUE's ring is round the ember only once it has steadied under a rester.
+ * THE LAMPREY's band and ring are both the bite's: the jaw to pin and the
+ * tooth to tap are asked only while the mouth is on the hull.
  */
 
 const gall = (w: World) => w.boss as GallState;
 const flue = (w: World) => w.boss as FlueState;
 const grindstone = (w: World) => w.boss as GrindstoneState;
 const halter = (w: World) => w.boss as HalterState;
+const lamprey = (w: World) => w.boss as LampreyState;
 const plumb = (w: World) => w.boss as PlumbState;
 const rime = (w: World) => w.boss as RimeState;
 const sling = (w: World) => w.boss as SlingState;
@@ -161,6 +167,13 @@ export const ROWS_C: readonly Row[] = [
     marks: [
       mark(flueMarks, "drawFlueSlotGlow", (w) => flueLitStep(flue(w))?.ask === "vent"),
       mark(flueMarks, "drawFlueTapRing", (w) => flueSteady(w, flue(w))),
+    ],
+  },
+  {
+    kind: "lamprey",
+    marks: [
+      mark(lampreyMarks, "drawLampreyJawMark", (w) => lampreyBiting(lamprey(w))),
+      mark(lampreyMarks, "drawLampreyToothMark", (w) => lampreyBiting(lamprey(w))),
     ],
   },
 ];

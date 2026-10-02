@@ -3,6 +3,7 @@ import {
   capstanBoss,
   gallBoss,
   halterBoss,
+  lampreyBoss,
   sceneBoss,
   seamBoss,
   type World,
@@ -16,6 +17,7 @@ import { gallSeamY, gallSize } from "./gall-shape.js";
 import { halterArrived } from "./halter-pose.js";
 import { halterAt, halterBend, halterGap, halterSize } from "./halter-shape.js";
 import { instarAt, instarLen } from "./instar-place.js";
+import { lampreyPose } from "./lamprey-pose.js";
 import type { Layout } from "./layout.js";
 import { nettleReach } from "./nettle-body.js";
 import { nettleBody } from "./nettle-sway.js";
@@ -34,7 +36,8 @@ import type { Aim } from "./slow-intake-aim.js";
  *
  * THE NETTLE joined once its body was drawn: it shares THE INSTAR's engine
  * but not its body, so it is aimed here off its own bell and arms rather than
- * beside THE INSTAR in `aim()`. A kind none of the four pages has is aimed at
+ * beside THE INSTAR in `aim()`. THE LAMPREY joined with its hand, since
+ * THE SLOW opens at every bite. A kind none of the four pages has is aimed at
  * the cannon.
  */
 export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: number): Aim | null {
@@ -109,6 +112,16 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       const { f } = nettleBody(s, cfg, world, beat, beatPhase);
       const c = instarAt(l, f.bellX, f.bellY);
       return spreadCapsule(nettleReach(c.x, c.y, instarLen(l, f.bellR), f), 0);
+    }
+    // The mouth where it is this frame, and the jaw's band on the hull under
+    // it, as wide as the grip reaches either side: the two things a bite asks.
+    case "lamprey": {
+      const s = lampreyBoss(world);
+      if (s === null) return null;
+      const p = lampreyPose(l, cfg, s, beat, beatPhase);
+      const reach = Math.max(p.r, (cfg.lampreyGripCols + 0.5) * l.tile);
+      const bottom = Math.max(p.y + p.r * p.tilt, l.hullY);
+      return capsule(sides(p.x - reach, p.x + reach, p.y - p.r * p.tilt, bottom));
     }
     default:
       return null;

@@ -22,6 +22,7 @@ import { haspHandleUnder, haspRimUnder } from "./hasp-grip.js";
 import { hiveLobeUnder } from "./hive-grip.js";
 import { instarMarkUnder } from "./instar-mark-grip.js";
 import { keelJointUnder } from "./keel-grip.js";
+import { lampreyGripUnder } from "./lamprey-grip.js";
 import type { Layout } from "./layout.js";
 import { leadStalkUnder } from "./lead-grip.js";
 import { ledgerGripUnder } from "./ledger-grip.js";
@@ -162,7 +163,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     burgeeFreezeUnder(l, x, y, field) ?? // THE BURGEE's freeze ring, the lit step's freezer's tap (`burgee-grip.ts`).
     burgeeDrawUnder(l, x, y, field) ?? // And its track, the other seat's, held then swiped toward the ring (`burgee-grip.ts`).
     flueTapUnder(l, x, y, field) ?? // THE FLUE's row while a vent is lit, either seat's tap, the column carried (`flue-grip.ts`).
-    governorGripUnder(l, x, y, field) // THE GOVERNOR's dial, the tapper's tap, and the works around it, a finger of the brake's chord (`governor-grip.ts`).
+    governorGripUnder(l, x, y, field) ?? // THE GOVERNOR's dial, the tapper's tap, and the works around it, a finger of the brake's chord (`governor-grip.ts`).
+    lampreyGripUnder(l, x, y, field) // THE LAMPREY's mouth, the tapper's tap on a tooth, and the band round it, the pinner's thumb on the jaw (`lamprey-grip.ts`).
   );
 }
 
