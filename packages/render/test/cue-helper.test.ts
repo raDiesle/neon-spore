@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import type { BossCue } from "../src/boss-cue-shape.js";
-import { aimIsHere, cueAim, cueHelper, drawCueHelper } from "../src/cue-helper.js";
+import { aimIsHere, cueAim, cueHelper, drawCueHelper, holdIsHere } from "../src/cue-helper.js";
 import { CROSSHAIR_LOOK } from "../src/instar-crosshair.js";
 import { drawPullKnob } from "../src/pull-knob.js";
 import { drawWayArrow } from "../src/way-arrow.js";
@@ -50,6 +50,8 @@ describe("the cue's helper", () => {
     expect(cueHelper("FIRE ON ZERO")).toBe("aim");
     expect(cueHelper("SHIELD")).toBe("guard");
     expect(cueHelper("SUCK")).toBe("intake");
+    expect(cueHelper("HOLD")).toBe("hold");
+    expect(cueHelper("HOLD BOTH")).toBe("hold");
     expect(cueHelper("PULL")).toBeNull();
     expect(cueHelper("MOVE")).toBeNull();
   });
@@ -93,6 +95,19 @@ describe("the cue's helper", () => {
     expect(suck.length).toBeGreaterThan(0);
     expect(shield.join()).not.toBe(suck.join());
     expect(log((ctx) => drawCueHelper(ctx, cue("PULL", 100, HULL), HULL, 0))).toEqual([]);
+  });
+});
+
+describe("a hold's circle", () => {
+  it("stands in the scan frame's place: a red circle with a thumbprint, and no box", () => {
+    expect(holdIsHere(cue("HOLD", 100, 200, { kind: "HOLD" }))).toBe(true);
+    expect(holdIsHere(cue("SHIELD", 100, 200))).toBe(false);
+    const calls = log((ctx) =>
+      drawCueHelper(ctx, cue("HOLD", 100, 200, { kind: "HOLD" }), HULL, 0),
+    );
+    // The ring, and the print's ridges inside it: arcs and ellipses, never a rectangle.
+    expect(calls.some((c) => c.startsWith("ellipse("))).toBe(true);
+    expect(calls.some((c) => c.startsWith("strokeRect(") || c.startsWith("rect("))).toBe(false);
   });
 });
 

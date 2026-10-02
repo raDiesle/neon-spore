@@ -193,27 +193,31 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
     mid: {
       fillRect: 66,
       // Nine fewer than the pilot's: five hulls, their spines and their scars
-      // are the whole of what this seat is not shown (`fleet-hulls.ts`).
-      stroke: 78,
-      fill: 69,
+      // are the whole of what this seat is not shown (`fleet-hulls.ts`). Six
+      // more since 2 October 2026: the navigator's `HOLD` wears a red circle
+      // with a thumbprint (`hold-mark.ts`) — the ring's glow, five ridges and
+      // the loop, one fill and one path — in place of the scan box.
+      stroke: 84,
+      fill: 70,
       clip: 7,
-      save: 52,
+      save: 53,
       drawImage: 23,
       createLinearGradient: 16,
       createRadialGradient: 12,
-      "new Path2D": 22,
+      "new Path2D": 23,
       fillText: 26,
     },
     hit: {
       fillRect: 89,
-      stroke: 78,
-      fill: 67,
+      // The hold's circle, as at mid.
+      stroke: 85,
+      fill: 68,
       clip: 7,
-      save: 60,
+      save: 61,
       drawImage: 26,
       createLinearGradient: 15,
       createRadialGradient: 13,
-      "new Path2D": 22,
+      "new Path2D": 23,
       // One fewer than the pilot's, every frame: the square's own name is on
       // both screens and the wave's own readouts are not all of them.
       fillText: 26,

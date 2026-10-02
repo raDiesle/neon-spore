@@ -32578,3 +32578,15 @@ Bottleneck: telling a clean copy from one the lane is still editing, so the
 commit never sweeps a half-written entry.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — Every HOLD cue is a red circle with a thumbprint
+
+- reading: 15 min. THE OCULUS's cue, the scan frame in `boss-cue-draw.ts`,
+  the shared mark pieces and THE INSTAR's two-thumb glyph.
+- writing: 10 min. `hold-mark.ts`, the `hold` helper, the frame left off it,
+  the test.
+- looking: 10 min. THE OCULUS's lit pair on P1's phone, before and after.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: finding which of the three red circles on the lens was the cue's.

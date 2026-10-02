@@ -1,5 +1,6 @@
 import { emblem } from "./action-face.js";
 import type { BossCue } from "./boss-cue-shape.js";
+import { drawHoldMark, HOLD_MARK_R } from "./hold-mark.js";
 import { drawInstarCrosshair } from "./instar-crosshair.js";
 import { PALETTE } from "./palette.js";
 
@@ -24,12 +25,16 @@ import { PALETTE } from "./palette.js";
  * - **`SHIELD`, `SUCK`**: the panel's own button face inside the scanner
  *   box (`action-face.ts`), the ward for one and the throat for the other —
  *   the button under the thumb, shown where the field wants it pressed.
+ * - **`HOLD`**: a red circle with a thumbprint in it (`hold-mark.ts`), and
+ *   **no scanner box** — the owner, 2 October 2026: *i expect some red circle
+ *   like, no scan rectangle box*. The circle is the frame there, as the
+ *   crosshair is a shot's (`holdIsHere`).
  *
  * Pulls are not here: a pull is a handle, and its arrow is the knob's
  * (`pull-knob.ts`, `way-arrow.ts`).
  */
 
-export type CueHelper = "aim" | "guard" | "intake";
+export type CueHelper = "aim" | "guard" | "intake" | "hold";
 
 /** Which helper a word asks for, by its first word: `FIRE ON ZERO` still fires. */
 export function cueHelper(word: string): CueHelper | null {
@@ -37,6 +42,7 @@ export function cueHelper(word: string): CueHelper | null {
   if (verb === "FIRE" || verb === "SHOOT") return "aim";
   if (verb === "SHIELD") return "guard";
   if (verb === "SUCK") return "intake";
+  if (verb === "HOLD") return "hold";
   return null;
 }
 
@@ -66,6 +72,11 @@ export function aimIsHere(cue: BossCue, hullY: number): boolean {
   return Math.abs(aim.x - cue.x) <= cue.halfW && Math.abs(aim.y - cue.y) <= cue.halfH;
 }
 
+/** Whether the cue wears the hold's circle, which stands in the scan frame's place. */
+export function holdIsHere(cue: BossCue): boolean {
+  return cueHelper(cue.word) === "hold";
+}
+
 export function drawCueHelper(
   ctx: CanvasRenderingContext2D,
   cue: BossCue,
@@ -82,6 +93,10 @@ export function drawCueHelper(
     const aim = cueAim(cue, hullY);
     if (aim === null) return;
     drawInstarCrosshair(ctx, aim.x, aim.y, aim.r ?? short * AIM_R, true, breath);
+    return;
+  }
+  if (helper === "hold") {
+    drawHoldMark(ctx, cue.x, cue.y, short * HOLD_MARK_R, time);
     return;
   }
   ctx.save();

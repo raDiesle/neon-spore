@@ -402,7 +402,11 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // each in a lit and a shadowed pass, and the seizing at the eye is a
       // path of its own (`tether-twist.ts`). `save` and `new Path2D` moved
       // with it and `fill` lost the old knot's dot.
-      stroke: 142,
+      // **Six more on 2 October 2026**: the `HOLD` on the handle wears a red
+      // circle with a thumbprint (`hold-mark.ts`) in place of the scan box —
+      // the ring's glow, five ridges and the loop; `save` and `new Path2D`
+      // one each.
+      stroke: 148,
       // Four more: the two patches of the wet film, the eyelids and their
       // pupils. Flat, whatever the openness.
       fill: 79,
@@ -415,7 +419,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // **Two more on 27 September 2026, when the ring began to rock**: the
       // body and the grip are each drawn in the pose, a frame apiece, and the
       // rope between them is not (`warden-frame.ts`).
-      save: 50,
+      save: 51,
       // Two of these are the ball as well, and they are the whole of what it
       // costs: the dome is a sprite baked once per colour and size, and the wet
       // point is `halo`'s. Neither builds a gradient, which is why the two
@@ -428,20 +432,22 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // One is the lids' folds, and it is one however far apart they stand.
       // One more on 25 September 2026: the circle to start at the rope's end
       // is `drawPullKnob`'s disc, a path of its own (`pull-knob.ts`).
-      "new Path2D": 79,
+      "new Path2D": 80,
       fillText: 2,
     },
     {
       fillRect: 57,
-      stroke: 144,
+      // The hold's circle, as in frame 0.
+      stroke: 150,
       fill: 79,
       clip: 8,
-      save: 50,
+      save: 51,
       drawImage: 29,
       createLinearGradient: 12,
       createRadialGradient: 8,
-      // One more on 25 September 2026, the rope's knob, as in frame 0.
-      "new Path2D": 54,
+      // One more on 25 September 2026, the rope's knob, as in frame 0; one
+      // more on 2 October, the hold's circle.
+      "new Path2D": 55,
       fillText: 2,
     },
   ],
