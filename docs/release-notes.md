@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 14c6c09cf — THE STARE looks angrier each level, shows its turns left, and stands behind glass
+
+Each level now opens in a more dangerous colour: yellow, then orange, red, and a red gone violet. The ball's green fluid takes that colour too. A brow comes down over the eye in a V, lower every level. The beat lashes now stand on that brow, and they are the eye's only upper lashes. The lashes a charge asks the pair to pull stand in the same place. Under the eye a number counts the turns left before the next level. A dome of faint glass cells round the eye shows that it cannot be hurt. A bolt that meets the eye rings off the glass (`stareDeflect`), with sparks and the game's deflect sound.
+
 ## 2026-10-02 · 374d0384d — THE STARE is survived, not shot: five turns a level, and lashes to pull
 
 The eye can no longer be shot or hurt. A level is five turns, each one a live pass and the charge after it. Live through all five and the eye rises to the next level; live through the last and the wave is won. While the eye charges, both players pull its lashes up: 4 on the first level, then 8, 16 and 32. Every lash must be up before the beam fires. Each flick of a thumb upward pulls one lash. The lid is gone, and there are four levels instead of five (the owner's choice).
