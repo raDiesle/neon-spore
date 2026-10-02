@@ -1,10 +1,10 @@
 import type { ControlDef } from "@neon-spore/content";
 import { controlBroken } from "@neon-spore/content";
-import { faultsNow, reachOut, throatBoss, type World } from "@neon-spore/sim";
+import { faultsNow, reachOut, type World } from "@neon-spore/sim";
+import { drawBossFace } from "./band-control-bosses.js";
+import { drawRoundFace } from "./band-control-rounds.js";
 import { drawActionButton, drawFireButton } from "./controls.js";
-import { drawAimButton, drawSalvoButton } from "./controls-fleet.js";
 import { drawCrankDial } from "./crank-dial.js";
-import { drawGaugeLobe, gaugeLobeOf } from "./gauge-button.js";
 import { halo } from "./glow.js";
 import { guardLapse } from "./guard-lapse.js";
 import { lanceFillFor } from "./lance.js";
@@ -12,11 +12,7 @@ import type { Circle, Layout } from "./layout.js";
 import { LOBE_LOOK } from "./lobe-look.js";
 import { drawFaultOver } from "./malfunction-look.js";
 import { PALETTE } from "./palette.js";
-import { drawPinLobe, pinLobeOf } from "./pinball-button.js";
-import { drawPulseLobe, pulseLobeOf } from "./pulse-button.js";
-import { drawScoutLobe, scoutLobeOf } from "./scout-button.js";
 import { type SeatSkin, seatSkin } from "./seat-skin.js";
-import { drawSnakeLobe, snakeLobeOf } from "./snake-button.js";
 
 /**
  * One control of the band, drawn — a lobe or a strip, whichever the set says.
@@ -25,8 +21,10 @@ import { drawSnakeLobe, snakeLobeOf } from "./snake-button.js";
  * its 250-line limit, and along the seam that was already there: next door is
  * the *panel* — the plate, the seam, the two seats, the name and the lock —
  * and this is what one thing on it looks like. The panel grows by a seat's
- * worth of chrome and never again; this file grows by one picture every time a
- * control set is invented, and there are eleven rounds still to come.
+ * worth of chrome and never again. A control set invented since goes in
+ * `band-control-rounds.ts` for a round and `band-control-bosses.ts` for a
+ * boss, which were cut out of here when THE THROAT's set brought it to 236
+ * lines; this file keeps the ordinary panel's own buttons.
  *
  * Nothing here knows which set it is in or where the button is: `bandLobes`
  * places them and `touchDown` answers them, both off the same list.
@@ -124,113 +122,13 @@ function drawFace(
     drawActionButton(ctx, x, y, r, open, PALETTE.pod, PALETTE.podDark, "intake", skin.dead[0]);
     return;
   }
-  // THE PULSE's four, and it is the first *round* whose buttons are lobes on
-  // the band rather than a slab panel of its own. The owner asked for that
-  // round to look like the game it is part of, so its lanes stand in the same
-  // sockets as everything else and this branch is the whole of the difference
-  // (`pulse-button.ts`).
-  if (pulseLobeOf(c.id) !== null) {
-    drawPulseLobe(ctx, circle, c.id, world, skin, lead);
-    return;
-  }
-  // PINBALL's two, on the band for the same reason and after the same request:
-  // the needle player 1 stops, and the shot player 2 takes off the bar
-  // (`pinball-button.ts`).
-  const pin = pinLobeOf(c.id);
-  if (pin !== null) {
-    drawPinLobe(ctx, circle, pin, world, skin);
-    return;
-  }
-  // THE SCOUT's four, on the band because its design put them in THE CLAW's
-  // sockets and that panel is the band: the nose under the pilot's thumb, and
-  // the mouth under the navigator's (`scout-button.ts`).
-  const scout = scoutLobeOf(c.id);
-  if (scout !== null) {
-    drawScoutLobe(ctx, circle, scout, world, skin);
-    return;
-  }
-  // SNAKE's four, on the band since the owner asked for its buttons to look
-  // like the others: the heading under the driver's thumb, the head under
-  // the shooter's (`snake-button.ts`).
-  const snake = snakeLobeOf(c.id);
-  if (snake !== null) {
-    drawSnakeLobe(ctx, circle, snake, world, skin);
-    return;
-  }
-  // THE GAUGE's three, the last round to leave its slabs, after the same
-  // request: the claw's two turns under the pilot's thumb, and the reach under
-  // the navigator's (`gauge-button.ts`).
-  const gauge = gaugeLobeOf(c.id);
-  if (gauge !== null) {
-    drawGaugeLobe(ctx, circle, gauge, world, skin);
-    return;
-  }
-  // THE THROAT's four colours, each the ordinary panel's own face for what
-  // it swallows — the shield's for a rock, the maw's for a pod, the two shots
-  // for their two kinds — lit while it is the mouth's colour, because which
-  // one is set is the one thing a seat needs off its own two buttons.
-  const mode = THROAT_LOBES[c.id];
-  if (mode !== undefined) {
-    const lit = throatBoss(world)?.mode === mode;
-    if (mode === "shield") {
-      drawActionButton(ctx, x, y, r, lit, PALETTE.shield, "#08131A", "guard", skin.dead[0]);
-    } else if (mode === "suck") {
-      drawActionButton(ctx, x, y, r, lit, PALETTE.pod, PALETTE.podDark, "intake", skin.dead[0]);
-    } else {
-      ctx.save();
-      if (!lit) ctx.globalAlpha = 0.45;
-      drawFireButton(ctx, x, y, r, mode, skin);
-      ctx.restore();
-    }
-    return;
-  }
-  // THE FLEET's five. The arrows are one picture with a direction, so they
-  // are one call rather than four branches — a fifth direction is not a thing
-  // a chart has.
-  const arrow = AIM_ARROWS[c.id];
-  if (arrow) {
-    drawAimButton(ctx, x, y, r, arrow[0], arrow[1], skin.dead[1]);
-    return;
-  }
-  if (c.id === "salvo") {
-    drawSalvoButton(ctx, x, y, r, salvoRest(world), r > 16 ? c.label : null, skin.dead[0]);
-    return;
-  }
+  // A round's lobes and a boss's own set, each in a file of its own
+  // (`band-control-rounds.ts`, `band-control-bosses.ts`).
+  if (drawRoundFace(ctx, circle, c, world, skin, lead)) return;
+  if (drawBossFace(ctx, circle, c, world, skin)) return;
   // The two colours, and the fill closing round whichever of them a thumb is
   // resting on: a tap is a shot, a hold is a lance, and the ring is the only
   // thing that says which one is happening (`lance.ts`).
   const shot = c.id === "fireRed" ? "red" : "cyan";
   drawFireButton(ctx, x, y, r, shot, skin, lanceFillFor(world, shot));
-}
-
-/** Which of THE THROAT's colours each of its four buttons sets. */
-const THROAT_LOBES: Partial<Record<ControlDef["id"], "red" | "cyan" | "shield" | "suck">> = {
-  throatRed: "red",
-  throatCyan: "cyan",
-  throatShield: "shield",
-  throatSuck: "suck",
-};
-
-/** Which way each of player 2's four arrows points. */
-const AIM_ARROWS: Partial<Record<ControlDef["id"], readonly [number, number]>> = {
-  aimLeft: [-1, 0],
-  aimRight: [1, 0],
-  aimUp: [0, -1],
-  aimDown: [0, 1],
-};
-
-/**
- * How much of the rest between two salvoes is still to run, 0..1.
- *
- * Read off the world every frame rather than eased, for the reason THE
- * WARDEN's hatch is: it is the pilot's only readout of whether the next press
- * will do anything, and a button that lied about that for a quarter of a beat
- * would lie at exactly the moment somebody is deciding to fire.
- */
-function salvoRest(world: World): number {
-  const boss = world.boss;
-  if (boss === null || boss.kind !== "fleet") return 0;
-  const rest = world.cfg.fleetSalvoRestBeats;
-  if (rest <= 0) return 0;
-  return Math.max(0, Math.min(1, (rest - (world.beat - boss.firedBeat)) / rest));
 }

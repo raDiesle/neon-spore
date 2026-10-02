@@ -1,3 +1,4 @@
+import { FLEET_CONTROLS } from "./controls-fleet.js";
 import { ROUND_CONTROLS } from "./controls-round.js";
 import { THROAT_CONTROLS } from "./controls-throat.js";
 
@@ -177,6 +178,7 @@ export const CONTROLS: readonly ControlDef[] = [
     ship: "cannon",
   },
   ...ROUND_CONTROLS,
+  ...FLEET_CONTROLS,
   ...THROAT_CONTROLS,
 ];
 

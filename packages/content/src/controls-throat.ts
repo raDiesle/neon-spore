@@ -3,7 +3,7 @@ import type { ControlDef } from "./controls.js";
 /**
  * **THE THROAT's four colours**, one row each — the only buttons on its panel.
  *
- * Its own file because `controls-round.ts` is at its line limit, and because
+ * Its own file because `controls-round.ts` was at its line limit, and because
  * these are not a round's: THE THROAT is a field boss, played on the ordinary
  * falling field, and its panel is the ordinary panel's four *answers* with the
  * cannon taken away. What used to be four different things — a red shot, a

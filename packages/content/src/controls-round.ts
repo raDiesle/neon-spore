@@ -1,4 +1,5 @@
 import type { ControlDef } from "./controls.js";
+import { PULSE_CONTROLS } from "./controls-pulse.js";
 
 /**
  * The buttons that belong to a round rather than to the ship.
@@ -44,14 +45,9 @@ import type { ControlDef } from "./controls.js";
  * wound's colour became a rule (`sim/gauge-call.ts`): four, not three.
  *
  * `CONTROLS` spreads this in place, so nothing that reads the vocabulary had
- * to learn there are two files.
- *
- * **THE PULSE's eight are the one place a control is written twice**, once for
- * each seat, and it is not a mistake in the model. A `ControlDef` belongs to a
- * seat — that is what makes a panel two halves — and this is the first round
- * where both halves are the same four buttons. The alternative was a control
- * that belongs to *both*, which would be a third value on a field that is
- * `1 | 2` in forty places, to save writing four labels out twice.
+ * to learn there are two files. THE FLEET's five, a boss's and not a round's,
+ * are `controls-fleet.ts`'s, for THE THROAT's reason (`controls-throat.ts`),
+ * and THE PULSE's eight, written once for each seat, are `controls-pulse.ts`'s.
  */
 export const ROUND_CONTROLS: readonly ControlDef[] = [
   {
@@ -83,41 +79,6 @@ export const ROUND_CONTROLS: readonly ControlDef[] = [
     does: "Fires the cannon cyan along its line. A cyan shot in a cyan wound counts. A shot on the armour, or in the wrong colour, jams the valve.",
   },
   {
-    id: "salvo",
-    player: 1,
-    form: "lobe",
-    label: "SALVO",
-    does: "Fires into whichever square of THE FLEET's chart the sights are standing in.",
-  },
-  {
-    id: "aimLeft",
-    player: 2,
-    form: "lobe",
-    label: "◀",
-    does: "Carries the sights one square left. A step, never a place — a place would need no telling.",
-  },
-  {
-    id: "aimUp",
-    player: 2,
-    form: "lobe",
-    label: "▲",
-    does: "One square up the chart.",
-  },
-  {
-    id: "aimDown",
-    player: 2,
-    form: "lobe",
-    label: "▼",
-    does: "One square down the chart.",
-  },
-  {
-    id: "aimRight",
-    player: 2,
-    form: "lobe",
-    label: "▶",
-    does: "One square right.",
-  },
-  {
     id: "snakeLeft",
     player: 2,
     form: "lobe",
@@ -145,62 +106,7 @@ export const ROUND_CONTROLS: readonly ControlDef[] = [
     label: "EAT",
     does: "Opens the mouth for a moment. A point driven over with it shut starts the round again.",
   },
-  {
-    id: "pulse1Slick",
-    player: 1,
-    form: "lobe",
-    label: "SLICK",
-    does: "Player 1's slick lane in THE PULSE. Both seats carry all four, and both press the same chart.",
-  },
-  {
-    id: "pulse1Bulb",
-    player: 1,
-    form: "lobe",
-    label: "BULB",
-    does: "Player 1's bulb lane in THE PULSE. Both seats carry all four, and both press the same chart.",
-  },
-  {
-    id: "pulse1Meteor",
-    player: 1,
-    form: "lobe",
-    label: "ROCK",
-    does: "Player 1's meteor lane in THE PULSE. Both seats carry all four, and both press the same chart.",
-  },
-  {
-    id: "pulse1Pod",
-    player: 1,
-    form: "lobe",
-    label: "POD",
-    does: "Player 1's pod lane in THE PULSE. Both seats carry all four, and both press the same chart.",
-  },
-  {
-    id: "pulse2Slick",
-    player: 2,
-    form: "lobe",
-    label: "SLICK",
-    does: "Player 2's slick lane in THE PULSE. Both seats carry all four, and both press the same chart.",
-  },
-  {
-    id: "pulse2Bulb",
-    player: 2,
-    form: "lobe",
-    label: "BULB",
-    does: "Player 2's bulb lane in THE PULSE. Both seats carry all four, and both press the same chart.",
-  },
-  {
-    id: "pulse2Meteor",
-    player: 2,
-    form: "lobe",
-    label: "ROCK",
-    does: "Player 2's meteor lane in THE PULSE. Both seats carry all four, and both press the same chart.",
-  },
-  {
-    id: "pulse2Pod",
-    player: 2,
-    form: "lobe",
-    label: "POD",
-    does: "Player 2's pod lane in THE PULSE. Both seats carry all four, and both press the same chart.",
-  },
+  ...PULSE_CONTROLS,
   {
     id: "pinLatch",
     player: 1,

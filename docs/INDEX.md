@@ -869,6 +869,8 @@ by hand never moves.
 | `packages/content/src/creatures-worn.ts` | the five bestiary rows for bodies drawn as something else — a slick or a bulb under a disguise, plating, a membrane, weather or nothing but a smaller size |
 | `packages/content/src/controls-round.ts` | The buttons that belong to a round rather than to the ship |
 | `packages/content/src/controls-throat.ts` | **THE THROAT's four colours**, one row each — the only buttons on its panel |
+| `packages/content/src/controls-fleet.ts` | **THE FLEET's five**: the salvo under the pilot's thumb |
+| `packages/content/src/controls-pulse.ts` | **THE PULSE's eight**: four lanes, a slick, a bulb, a meteor and a pod |
 | `packages/content/src/pinball-rounds.ts` | PINBALL's boards, one per round, **drawn rather than listed** |
 | `packages/content/src/waves/act-5.ts` | you are adding a wave — this is the act new ones land in, act four having filled |
 | `packages/content/src/lid-shape.ts` | you are tuning THE LID's outline — two arcs meeting at a corner, the fourth contour family here |
@@ -1463,6 +1465,8 @@ by hand never moves.
 | `packages/render/src/fleet-hull-detail.ts` | what is on a fleet hull — seams on the squares' own lines, deck, keel, glass and lamp |
 | `packages/render/src/fleet-marks.ts` | THE FLEET's shared half: every square already spent, and the sights standing on one |
 | `packages/render/src/band-control.ts` | One control of the band, drawn — a lobe or a strip, whichever the set says |
+| `packages/render/src/band-control-bosses.ts` | **A boss's own buttons on the band**: the control sets a fight brings with it in place of the ordinary panel… |
+| `packages/render/src/band-control-rounds.ts` | **The rounds' buttons on the band**: the five interludes whose controls left their slab panels for the band's… |
 | `packages/render/src/view-role.ts` | Whose screen this is, and what that seat is allowed to be shown |
 | `packages/render/src/view-role-clocks.ts` | **The clock bosses' halves** — what each seat is shown of THE THROAT onward |
 | `packages/render/src/view-role-clocks-b.ts` | **The clock bosses' halves, page two** |

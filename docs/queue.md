@@ -472,20 +472,6 @@ bares, and a bolt reaching the core is drawn through it.
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
 
-## `band-control.ts` and `controls-round.ts` are one control set from 250
-
-- **Found:** 2026-10-01, claude/throat-boss-rework-48518d
-- **Taken:** 2026-10-02, claude/queue-the-stares-struck-eye-no-longer-shudders (claim: claude/queue-band-control-ts-and-controls-round-ts-are-one-co)
-- **Where:** local
-- **Files:** `packages/render/src/band-control.ts`, `packages/content/src/controls-round.ts`
-
-THE THROAT's rework added a control set and left `band-control.ts` at 236
-lines and `controls-round.ts` at 246; the next boss with a set of its own
-takes either past the limit. (`scene-drag.ts`, which the same lane took to
-259, was split there: `scene-drag-taut.ts` holds how far each handle goes.)
-Split each along a seam it already has before the next set is added. Done
-when both are under ~200 lines and `bun run check` is green.
-
 ## `queue release` then `take` leaves this tree dirty, blocking the checkout
 
 - **Found:** 2026-10-02, claude/queue-the-lampreys-look-41

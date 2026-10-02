@@ -32006,3 +32006,16 @@ Bottleneck: reading — whether a seat's handle was its own could only be
 read off each boss's simulation, one file at a time.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — The band's controls and the round's vocabulary, split on their seams
+
+- reading: 5 min. Both files, the readers of `CONTROLS`' order, the menu
+  that lists panels off `CONTROL_SETS`.
+- writing: 10 min. Two render files for a round's lobes and a boss's set;
+  THE FLEET's five and THE PULSE's eight into content files of their own.
+- looking: 0 min. A refactor; nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: the second cut — THE FLEET's five alone left `controls-round.ts`
+at 212, and the next seam had to be found.
