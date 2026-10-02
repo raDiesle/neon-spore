@@ -1,9 +1,11 @@
 import { cystCorePath, cystCoreR, cystMarkAt, cystR } from "./cyst-shape.js";
 import type { CystCoreLit } from "./cyst-story.js";
 import { strokeGlow } from "./glow.js";
+import { heartLight } from "./heartbeat.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { lightWithin } from "./part-light.js";
 import { stepColour } from "./step-colour.js";
 
 /**
@@ -100,20 +102,20 @@ export function drawCystCore(
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.cystScar, 0.7);
   ctx.stroke(hollow);
-  if (lit === null) {
-    ctx.fillStyle = rgba(PALETTE.cystSac, 0.8);
-    ctx.fill(core);
-    return;
-  }
-  const { body, rim } = stepColour(lit.color);
-  ctx.fillStyle = rgba(body, bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
+  ctx.fillStyle = rgba(PALETTE.cystSac, 0.8);
   ctx.fill(core);
-  strokeGlow(ctx, core, rim, STROKE.inner, 0.8 + bright);
+  if (lit === null) return;
+  // Lit from inside, beating like a heart, and nothing past its edge (`part-light.ts`).
+  const { body } = stepColour(lit.color);
+  const light = heartLight(beatPhase) * (0.6 + 0.4 * bright);
+  lightWithin(ctx, core, body, light, { x: 0, y: 0, r: cystCoreR(l) });
   if (lit.left <= 0) return;
   const ring = new Path2D();
   const r = cystCoreR(l) * RING;
   ring.arc(0, 0, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
-  strokeGlow(ctx, ring, body, STROKE.outline, 1);
+  ctx.lineWidth = STROKE.inner;
+  ctx.strokeStyle = rgba(body, 0.75);
+  ctx.stroke(ring);
 }
 
 /**

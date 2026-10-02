@@ -1,9 +1,11 @@
 import type { Color } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
+import { heartLight } from "./heartbeat.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { oculusLeafEdge, oculusRadius, oculusSocketRadius } from "./oculus-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { lightWithin } from "./part-light.js";
 import { stepColour } from "./step-colour.js";
 
 /**
@@ -51,22 +53,22 @@ export function drawOculusCore(
   const r = oculusSocketRadius(l) * open * 0.72 * Math.max(0.3, 1 - 0.2 * hits) * scale;
   const core = new Path2D();
   core.arc(0, 0, Math.max(0.5, r), 0, Math.PI * 2);
-  if (lit === null) {
-    ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
-    ctx.fill(core);
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.rock, 0.5);
-    ctx.stroke(core);
-    return;
-  }
-  const { body, rim } = stepColour(lit.color);
-  ctx.fillStyle = rgba(body, 0.65 + 0.25 * Math.cos(beatPhase * Math.PI * 2));
+  ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
   ctx.fill(core);
-  strokeGlow(ctx, core, rim, STROKE.inner, 1.3);
-  const ring = new Path2D();
-  const rr = oculusSocketRadius(l) * 1.25;
-  ring.arc(0, 0, rr, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
-  strokeGlow(ctx, ring, body, STROKE.outline, 1);
+  if (lit !== null) {
+    // Lit from inside, beating like a heart, and nothing past its edge (`part-light.ts`).
+    const { body } = stepColour(lit.color);
+    lightWithin(ctx, core, body, heartLight(beatPhase), { x: 0, y: 0, r });
+    const ring = new Path2D();
+    const rr = oculusSocketRadius(l) * 1.25;
+    ring.arc(0, 0, rr, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
+    ctx.lineWidth = STROKE.inner;
+    ctx.strokeStyle = rgba(body, 0.75);
+    ctx.stroke(ring);
+  }
+  ctx.lineWidth = STROKE.inner;
+  ctx.strokeStyle = rgba(PALETTE.rock, 0.5);
+  ctx.stroke(core);
 }
 
 /**

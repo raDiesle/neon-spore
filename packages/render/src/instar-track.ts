@@ -1,8 +1,9 @@
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
-import { drawMarkWait } from "./mark-feedback.js";
+import { drawMarkWait, markLightAt } from "./mark-feedback.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { lightWithin } from "./part-light.js";
 
 /**
  * **A swipe is drawn as the way the thumb goes, not as a place to press.**
@@ -71,6 +72,7 @@ export function drawInstarTrack(
   ctx.globalAlpha = held ? 0.45 : mine ? 0.22 : 0.1;
   ctx.fill(p);
   ctx.restore();
+  if (mine) drawInstarTrackHalo(ctx, t, time);
   if (along > 0) {
     ctx.save();
     ctx.clip(p);
@@ -107,20 +109,12 @@ export function drawInstarTrackWindow(
   strokeGlow(ctx, bar(t, r * (0.75 + 1.1 * left)), PALETTE.red, STROKE.inner, alpha);
 }
 
-/** This seat's track: a soft red light under it, breathing. */
-export function drawInstarTrackHalo(
-  ctx: CanvasRenderingContext2D,
-  t: Track,
-  r: number,
-  time: number,
-): void {
-  const breathe = 0.75 + 0.25 * Math.sin(time * 4);
-  ctx.save();
-  ctx.fillStyle = rgba(PALETTE.redRim, 0.28 * breathe);
-  ctx.fill(bar(t, r * 0.9));
-  ctx.fillStyle = rgba(PALETTE.redRim, 0.18 * breathe);
-  ctx.fill(bar(t, r * 0.45));
-  ctx.restore();
+/** This seat's track: a soft red light breathing inside the channel and gone
+ * at its edge, as an open ring's is (`mark-feedback.ts` `drawMarkHalo`). Until
+ * 2 October 2026 it was a red bar reaching nine tenths of a mark out past it;
+ * the owner: *no glowing outside*. */
+export function drawInstarTrackHalo(ctx: CanvasRenderingContext2D, t: Track, time: number): void {
+  lightWithin(ctx, bar(t, 0), PALETTE.red, markLightAt(time));
 }
 
 /** The partner's track: a dim dashed bar turning round it. */
@@ -152,7 +146,6 @@ export function drawInstarSwipe(
   awaited: boolean,
   left: number,
 ): void {
-  if (mine) drawInstarTrackHalo(ctx, t, r, time);
   drawInstarTrack(ctx, t, r, mine, held, along, time, awaited);
   if (!mine) drawInstarTrackTheirs(ctx, t, r, time);
   drawInstarTrackWindow(ctx, t, r, left, mine);

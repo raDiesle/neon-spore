@@ -93,11 +93,11 @@ describe("THE WARDEN's verdict on a touch", () => {
 
   it("puts the halo on the seat the eye asks for, and the partner's ring and clock on the other", () => {
     // Round the eye the halo is the one radial light it adds
-    // (`mark-feedback.ts`); along the hatch's track it is a soft red bar,
-    // breathing, so it is counted by its colour with any alpha
-    // (`warden-track.ts`, the INSTAR track's own).
+    // (`mark-feedback.ts`); along the hatch's track it is the channel lit
+    // red from inside, breathing, so it is counted by its colour with any
+    // alpha (`warden-track.ts`, the INSTAR track's own).
     const ring = "createRadialGradient";
-    const track = rgba(PALETTE.redRim, 0).slice(0, -2);
+    const track = rgba(PALETTE.red, 0).slice(0, -2);
     const theirs = rgba(PALETTE.text, 0.8);
     const clock = rgba(PALETTE.text, 0.85);
     // NARROW asks the navigator; GLARE the pilot. The test screen is both seats.

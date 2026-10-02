@@ -476,7 +476,7 @@ bolt stopped, and `bun run check` is green.
 
 - **Found:** 2026-10-02, claude/boss-body-glow-indicators-22a92a
 - **Taken:** 2026-10-02, claude/queue-lit-from-inside (claim: claude/queue-every-other-bosss-lit-part-lit-from-inside-rathe)
-- **Files:** `packages/render/src/part-light.ts`, `packages/render/src/burgee-marks.ts`, `packages/render/src/capstan-marks.ts`, `packages/render/src/cyst-marks.ts`, `packages/render/src/davit-marks.ts`, `packages/render/src/gall-marks.ts`, `packages/render/src/grindstone-marks.ts`, `packages/render/src/halter-marks.ts`, `packages/render/src/oculus-marks.ts`, `packages/render/src/plumb-marks.ts`, `packages/render/src/rime-marks.ts`, `packages/render/src/sling-marks.ts`, `packages/render/src/trivet-marks.ts`, `packages/render/src/vise-marks.ts`, `packages/render/src/instar-track.ts`, `packages/render/src/warden-track.ts`
+- **Files:** `packages/render/src/part-light.ts`, `packages/render/src/burgee-marks.ts`, `packages/render/src/capstan-marks.ts`, `packages/render/src/davit-marks.ts`, `packages/render/src/gall-marks.ts`, `packages/render/src/grindstone-marks.ts`, `packages/render/src/halter-marks.ts`, `packages/render/src/plumb-marks.ts`, `packages/render/src/rime-marks.ts`, `packages/render/src/sling-marks.ts`
 
 The owner, 2 October 2026, for every boss: *only let the part of body shape
 glow red, but not so heavy and no glowing outside. and the borders should not
@@ -489,9 +489,11 @@ behind it; `grep -l stepColour | xargs grep -lE "strokeGlow|halo\("` in
 `packages/render/src` finds them, with their `-draw.ts` and `-story.ts`
 siblings. Each lit face becomes `lightWithin` at `heartLight` with its border
 stroked in its unlit colour, the way `flue-core.ts` does it now; the countdown
-ring round it stays, a plain stroke. THE INSTAR's and THE WARDEN's pull tracks
-lay a red bar along the channel at up to 0.28 — the same faint light should
-stay inside the channel at `MARK_LIGHT`. A lane a handful of bosses; each
+ring round it stays, a plain stroke. THE CYST, THE OCULUS, THE TRIVET and THE
+VISE are done, and both pull tracks light inside the channel at `markLightAt`
+(claude/queue-lit-from-inside, 2 October 2026) — `trivet-marks.ts` is the
+nearest worked one. The nine left are the ones the lit-open-stopped entry
+above also names, so they wait for that lane's claim. A lane a handful of bosses; each
 boss's own `*-frame.test.ts` counts its lit colour and may need the `rgba`
 prefix `flue-frame.test.ts` counts now, since a gradient's stops are not in
 the stub's log. A lane taking THE BURGEE … SLING from the lit-open-stopped

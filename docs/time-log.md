@@ -32306,3 +32306,16 @@ Bottleneck: the finding itself — AUTO was never stuck; the summary printed
 only the first firing's fields, and seven showings read as step 0 seven times.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — Four bosses' lit cores and both pull tracks lit from inside
+
+- reading: 5 min. `part-light.ts`, `flue-core.ts`, the four `-marks.ts` and
+  the two tracks.
+- writing: 5 min. Each lit face on `lightWithin` at `heartLight`, the tracks
+  on a new `markLightAt`, three tests counting the new light.
+- looking: 5 min. A step list probed, two captures of THE TRIVET, one crop.
+- friction: 0 min.
+- landing: 5 min. `check:fast` twice, `land`.
+
+Bottleneck: the trivet's halo count, which took the hub's own new light for
+an asked mark's until the face was told apart by where it is drawn.

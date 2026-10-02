@@ -1,8 +1,10 @@
 import type { Color } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
+import { heartLight } from "./heartbeat.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { lightWithin } from "./part-light.js";
 import { stepColour } from "./step-colour.js";
 import { viseKernel, viseKernelPath, viseRadius, viseSeamPath } from "./vise-shape.js";
 
@@ -140,23 +142,24 @@ function paintKernel(
   time: number,
 ): void {
   const core = viseKernelPath(l, size);
-  if (lit === null) {
-    ctx.fillStyle = rgba(PALETTE.viseCase, bare ? 0.75 : 0.35);
-    ctx.fill(core);
-    VISE_KERNEL.sheen(ctx, l, core, size, bare, time);
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.viseCaseDark, 0.9);
-    ctx.stroke(core);
-    return;
-  }
-  const { body, rim } = stepColour(lit.color);
-  ctx.fillStyle = rgba(body, bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
+  ctx.fillStyle = rgba(PALETTE.viseCase, bare ? 0.75 : 0.35);
   ctx.fill(core);
-  strokeGlow(ctx, core, rim, STROKE.inner, 0.8 + bright);
-  const k = viseKernel(l);
-  const ring = new Path2D();
-  ring.arc(k.x, k.y, k.r * 1.45, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
-  strokeGlow(ctx, ring, body, STROKE.outline, 1);
+  VISE_KERNEL.sheen(ctx, l, core, size, bare, time);
+  if (lit !== null) {
+    // Lit from inside, beating like a heart, and nothing past its edge (`part-light.ts`).
+    const { body } = stepColour(lit.color);
+    const k = viseKernel(l);
+    const light = heartLight(beatPhase) * (0.6 + 0.4 * bright);
+    lightWithin(ctx, core, body, light, { x: k.x, y: k.y, r: k.r * size });
+    const ring = new Path2D();
+    ring.arc(k.x, k.y, k.r * 1.45, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
+    ctx.lineWidth = STROKE.inner;
+    ctx.strokeStyle = rgba(body, 0.75);
+    ctx.stroke(ring);
+  }
+  ctx.lineWidth = STROKE.inner;
+  ctx.strokeStyle = rgba(PALETTE.viseCaseDark, 0.9);
+  ctx.stroke(core);
 }
 
 /**

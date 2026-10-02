@@ -48,6 +48,10 @@ beforeAll(installCanvasGlobals);
 
 const TPB = ticksPerBeat(CFG);
 const HALO = "createRadialGradient";
+/** The hub's face, lit from inside while its step counts down, drawn in the
+ * hub's own frame at its origin (`trivet-marks.ts`): the step's light, not a
+ * mark's halo, so it is not counted as one. */
+const FACE = /^createRadialGradient\(0, 0, 0, 0, 0, (?!1\))/;
 /** The partner's waiting clock's face, as `drawMarkWait` strokes it. */
 const CLOCK = rgba(PALETTE.text, 0.85);
 /** Both pads of a two-pad chord. */
@@ -98,7 +102,10 @@ function frame(role: ViewRole, arrange: (world: World) => void, said: SimEvent[]
 }
 
 const count = (text: string, what: string) => text.split(what).length - 1;
-const halos = (role: ViewRole, arrange: (w: World) => void) => count(frame(role, arrange), HALO);
+const halos = (role: ViewRole, arrange: (w: World) => void) =>
+  frame(role, arrange)
+    .split("|")
+    .filter((c) => c.startsWith(HALO) && !FACE.test(c)).length;
 const clocks = (role: ViewRole, arrange: (w: World) => void) => count(frame(role, arrange), CLOCK);
 
 describe("THE TRIVET's marks asking", () => {

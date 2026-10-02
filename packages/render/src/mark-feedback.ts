@@ -61,9 +61,14 @@ export function drawMarkHalo(
   r: number,
   time: number,
 ): void {
+  lightWithin(ctx, new Path2D(circleSubpath(x, y, r)), PALETTE.red, markLightAt(time), { x, y, r });
+}
+
+/** How lit this seat's open mark is at `time`: `MARK_LIGHT`, breathing. A mark
+ * that is not a circle — a pull's track — lights its own outline with it. */
+export function markLightAt(time: number): number {
   const breathe = (Math.sin(time * 4) + 1) / 2;
-  const alpha = MARK_LIGHT.low + (MARK_LIGHT.high - MARK_LIGHT.low) * breathe;
-  lightWithin(ctx, new Path2D(circleSubpath(x, y, r)), PALETTE.red, alpha, { x, y, r });
+  return MARK_LIGHT.low + (MARK_LIGHT.high - MARK_LIGHT.low) * breathe;
 }
 
 /** The partner's open mark: a dim dashed ring turning round it. */

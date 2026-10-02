@@ -2,8 +2,9 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
 import type { Circle } from "./layout.js";
-import { drawMarkWait } from "./mark-feedback.js";
+import { drawMarkWait, markLightAt } from "./mark-feedback.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { lightWithin } from "./part-light.js";
 
 /**
  * **THE WARDEN's hatch under GLARE is a swipe, so it is drawn as a track**
@@ -52,15 +53,6 @@ export function drawWardenTrack(
 ): void {
   const w = c.r * HALF;
   const p = bar(c, w, reach, 0);
-  if (mine) {
-    const breathe = 0.75 + 0.25 * Math.sin(time * 4);
-    ctx.save();
-    ctx.fillStyle = rgba(PALETTE.redRim, 0.28 * breathe);
-    ctx.fill(bar(c, w, reach, c.r * 0.9));
-    ctx.fillStyle = rgba(PALETTE.redRim, 0.18 * breathe);
-    ctx.fill(bar(c, w, reach, c.r * 0.45));
-    ctx.restore();
-  }
   ctx.save();
   ctx.fillStyle = PALETTE.background;
   ctx.fill(p);
@@ -68,6 +60,9 @@ export function drawWardenTrack(
   ctx.globalAlpha = mine ? 0.22 : 0.1;
   ctx.fill(p);
   ctx.restore();
+  // This seat's: a soft red light breathing inside the channel, nothing past it
+  // (`part-light.ts`) — until 2 October 2026 a red bar reaching out round it.
+  if (mine) lightWithin(ctx, p, PALETTE.red, markLightAt(time));
   const fill = Math.max(-1, Math.min(1, along));
   if (fill !== 0) {
     ctx.save();
