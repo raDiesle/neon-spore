@@ -11466,15 +11466,26 @@ sign must be a whole number under `GLYPHS.length` or the frame is dropped
 - **The design's `mimicGlyph` is the command, not a field.** The sign drawn
   is not state: a right one becomes a peel and a wrong one `drawn`.
 
-**What is not built.** **The recogniser**, the stroke on the glass that
-becomes a `glyph` — `apps/game` has nothing that sends one, so until it
-lands only AUTO can play this wave (`docs/queue.md`, THE MIMIC's
-recogniser). **The look** — the mantle, the sign on one seat and the mottle
-on the other, the pad, the arms, the core — is the second lane
+**The recogniser** (`apps/game/src/glyph-stroke.ts`, landed 2 October
+2026). A stroke on the lower half of the play area, while this phone's seat
+owes a sign (`glyph-pad.ts`), is resampled to 32 points, boxed, and matched
+point for point with every way each of the five can be drawn — either
+direction, mirrored, and the ring and the triangle begun anywhere round
+them. The nearest wins; a stroke under 40 pixels long, or further than 0.2
+of its box from all five, sends nothing, so a miss is a try again rather
+than a wrong sign. **Its five templates are the picture of each sign**: a
+ring, a triangle on its base, a W for the zigzag, one lying sine period for
+the wave, and a J for the hook — the look draws these. At a desk, keys 1 to
+5 send the five, Shift for the navigator's half of a split on the test
+screen; `bun run frames --press <t>:2:glyph=<n|name>`.
+
+**What is not built.** **The look** — the mantle, the sign on one seat and
+the mottle on the other, the pad, the arms, the core — is the second lane
 (`docs/queue.md`, THE MIMIC's look (§42)); every event is silent to the
 renderer until it lands (`render/src/effects-ingest-silent-boss-e.ts`), and
 its eight STATES cards are owed (`tools/director/test/boss-states.test.ts`).
-No desk key sends a glyph, and `bun run frames --press` has no glyph.
+Until it lands the pad is not drawn and the sign is on no screen, so only
+AUTO and the desk keys can play this wave.
 
 **What is proven, and what is not.** `sim/test/mimic.test.ts` proves the
 rules: the mantle slaps into shape and the first sign surfaces under THE

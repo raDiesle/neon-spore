@@ -1,4 +1,4 @@
-import { SNAKE_TURNS } from "@neon-spore/sim";
+import { GLYPHS, SNAKE_TURNS } from "@neon-spore/sim";
 import { PICKS } from "./press.js";
 
 /**
@@ -133,6 +133,19 @@ export function commandFor(
         throw new Error(`--press ${whole}: "${one}" — a snake turns ${SNAKE_TURNS.join(" or ")}`);
       }
       return { kind, dir };
+    }
+    case "glyph": {
+      // THE MIMIC's answer, a sign drawn on the pad: its index into the five,
+      // or the sign's own name (`sim/glyphs.ts`).
+      const said = needs();
+      const named = (GLYPHS as readonly string[]).indexOf(said);
+      const sign = named >= 0 ? named : Number(said);
+      if (!Number.isInteger(sign) || sign < 0 || sign >= GLYPHS.length) {
+        throw new Error(
+          `--press ${whole}: "${one}" — a sign is 0 to ${GLYPHS.length - 1}, or ${GLYPHS.join(", ")}`,
+        );
+      }
+      return { kind, sign };
     }
     case "mawTake":
       // The same command the ship's own maw sends; only the seat differs, and

@@ -35,6 +35,9 @@ import { CONTROLS, controlPress, controlSetForWave } from "@neon-spore/content";
  * - `shake` is THE CHOIR's, and is not a thumb at all — the *device* moved
  *   (`sim/choir-gesture.ts`). The pilot's, for the reason every handle on this
  *   field is: the navigator carries both colours and fires.
+ * - `glyph` is THE MIMIC's, a sign drawn on the pad over the lower field
+ *   (`apps/game/src/glyph-pad.ts`), and either seat's: who owes one moves
+ *   with the script, and the simulation drops the reader's (`sim/mimic-hand.ts`).
  * - `snakeJaws` and `snakeTail` are SNAKE's **hands on the body** — the head
  *   prised open, the tail lifted clear (`render/snake-grip.ts`) — and the
  *   round refuses each from the other seat (`sim/snake-controls.ts`): the
@@ -54,6 +57,7 @@ const OFF_PANEL_SEAT: Record<string, 1 | 2 | "either"> = {
   grip: "either",
   tap: 2,
   shake: 1,
+  glyph: "either",
   snakeJaws: 1,
   snakeTail: 2,
 };

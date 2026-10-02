@@ -31681,3 +31681,17 @@ Bottleneck: AUTO could not reach the ring levels, and the capture waited on
 fixing the hand.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE MIMIC's recogniser: a stroke on the glass becomes a sign
+
+- reading: 10 min. `shake.ts`, the field's knot, `lost.ts`, the desk keys,
+  the frames press parser and its seat table.
+- writing: 10 min. The matcher and its five templates, the pad, the desk's
+  five keys, `--press glyph`, three tests, §11.60.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. The guard refused a heredoc with a doubled backslash, and
+  the first resampler was wrong.
+- landing: 5 min. `check:fast`, `land --keep`.
+
+Bottleneck: calibrating — five synthetic strokes per sign run against the
+matcher until a triangle begun at a corner stopped sitting near the ring.

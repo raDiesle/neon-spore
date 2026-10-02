@@ -2616,6 +2616,8 @@ by hand never moves.
 | `apps/game/src/back-ask.ts` | **The phone's back gesture asks rather than leaves**: three answers over the field, on one history entry pushed back on every pop |
 | `apps/game/src/demo-menu.ts` | the DEMOS page: one row per mechanic, read out of `DEMONSTRATIONS` |
 | `apps/game/src/guide-swipe.ts` | a thumb dragged across a guide, read as a page turn: left is back, right is next |
+| `apps/game/src/glyph-pad.ts` | **THE MIMIC's pad**: a stroke on the lower field, sent as the `glyph` it was nearest, signed by the seat that owes a sign; and the desk's keys 1 to 5 |
+| `apps/game/src/glyph-stroke.ts` | **A stroke on the glass, judged as one of the five signs**, or none: resampled, boxed and matched to every way each can be drawn |
 | `apps/game/src/handle.ts` | `window.neonSpore` — the handle a headless check drives the game by |
 | `apps/game/src/handle-press.ts` | **The handle's two verbs about a press**: sending one, and asking first whether it would be heard |
 | `apps/game/src/key-hint.ts` | a keyboard hint for the player who sits at a PC with no panel to read the keys off |

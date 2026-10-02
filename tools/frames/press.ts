@@ -127,6 +127,7 @@ const PRESS_KINDS = [
   "scoutMaw",
   "valve",
   "call",
+  "glyph",
 ];
 
 export const PICKS: Record<string, "first" | "lowest"> = { first: "first", lowest: "lowest" };
