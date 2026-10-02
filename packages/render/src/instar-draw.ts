@@ -101,7 +101,7 @@ export function drawInstar(
     shoveDown: fx.shove.down,
     weak,
     drift: sway.drift,
-    serpent: instarSerpent(s, beat, beatPhase),
+    serpent: instarSerpent(s, cfg, world, beat, beatPhase),
   };
   const side = instarHandover(f.side);
   // Most of a turn is flown off the field, where a view is not drawn at all

@@ -96,7 +96,7 @@ export function profileLines(l: Layout, look: Look) {
   const knots = [neck, ...seats, end];
   const spine = Array.from({ length: N + 1 }, (_, i) => along(knots, i / N));
   undulate(spine, r, time);
-  // In flight a wave runs down it from the neck (`instar-serpent.ts`).
+  // A wave swims down it from the neck, grown in flight (`instar-serpent.ts`).
   spine.forEach((p, i) => {
     p.y += swimAt(look, i / N);
   });

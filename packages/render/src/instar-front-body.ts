@@ -5,6 +5,7 @@ import { mixHex } from "./hex.js";
 import { drawScales } from "./instar-hide.js";
 import type { Point } from "./instar-place.js";
 import { drawLamp, drawSeam, faded, type Look } from "./instar-plate.js";
+import { swimAt } from "./instar-serpent.js";
 import { BODY_DEPTH as DEPTH, BODY_LENS as LENS } from "./instar-turn.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawTube, rimTube } from "./solid-tube-draw.js";
@@ -20,7 +21,8 @@ import { drawTube, rimTube } from "./solid-tube-draw.js";
  * divided back out — so the body covers what it always covered; what changed
  * is that it is round. It swims: a slow wave runs down it, the neck and the
  * engines held where they are and the middle swinging, as the side view
- * undulates (`instar-profile-life.ts`).
+ * undulates (`instar-profile-life.ts`); and with VERSUS's serpent on, its
+ * wave rides down the tube as well (`dive`).
  */
 
 /** Rings along the body, and how many of them one plate of seam and lamps spans. */
@@ -54,10 +56,16 @@ export function seeFrontBody(look: Look, neck: Point, rear: Point, turn: number)
     const s = LENS / (LENS + u * DEPTH);
     const swim =
       SWIM * r * 4 * u * (1 - u) * Math.sin((time * Math.PI * 2) / SWIM_PERIOD - u * 2.5);
-    const at = { x: (rear.x - neck.x) * u + swim, y: (rear.y - neck.y) * u };
+    const at = { x: (rear.x - neck.x) * u + swim, y: (rear.y - neck.y) * u + dive(look, u) };
     rings.push({ c: { x, y: at.y / s, z: at.x / s }, r: (r * (0.7 - 0.5 * u) * plate(i)) / s });
   }
   return seeTube(rings, tubeFrames(rings), w);
+}
+
+/** The serpent's wave seen from the head end (`instar-serpent.ts`): the tube rising and
+ * dipping as it goes back, the neck held where the head is so its marks do not move. */
+function dive(look: Look, u: number): number {
+  return swimAt(look, u) * u;
 }
 
 /** The body `seeFrontBody` saw, the far end first under everything. */

@@ -46,7 +46,7 @@ export interface Look {
   drift?: InstarDrift | undefined;
   /** Where both pupils look, in eye radii, when the parts drift (`instar-parts.ts`). */
   glance?: { x: number; y: number } | undefined;
-  /** The wave down the body in flight, when VERSUS turns it on (`instar-serpent.ts`). */
+  /** The wave down the body, grown in flight, when VERSUS turns it on (`instar-serpent.ts`). */
   serpent?: InstarSerpent | undefined;
 }
 

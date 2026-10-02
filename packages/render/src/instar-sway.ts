@@ -98,6 +98,27 @@ export function instarHush(slow: SlowSpan, beat: number, beatPhase: number): num
   return slowHush(slow, beat, beatPhase, HUSHED);
 }
 
+/**
+ * **How much of the body's own motion is left**: the weave's, and the
+ * serpent's swim on top of it (`instar-serpent.ts`). Hushed while THE SLOW is
+ * open, and a beaten body hangs still: damped out over the first beats of
+ * `down`, well inside `instarOutBeats`, so it is not still moving as the shape
+ * fades.
+ */
+export function instarLive(
+  s: InstarState,
+  cfg: SimConfig,
+  slow: SlowSpan,
+  beat: number,
+  beatPhase: number,
+): number {
+  const alive =
+    s.phase === "down"
+      ? Math.max(0, 1 - phaseInto(s, beat, beatPhase) / Math.min(STILLING, cfg.instarOutBeats))
+      : 1;
+  return alive * instarHush(slow, beat, beatPhase);
+}
+
 /** Where the body is carried this frame. */
 export function instarSway(
   s: InstarState,
@@ -107,14 +128,7 @@ export function instarSway(
   beatPhase: number,
 ): Sway {
   const swing = (beat + beatPhase) * ((Math.PI * 2) / BEATS);
-  // A beaten body hangs still: the swing is damped out over the first beats of
-  // `down`, well inside `instarOutBeats`, so it is not still fading when the
-  // shape does.
-  const alive =
-    s.phase === "down"
-      ? Math.max(0, 1 - phaseInto(s, beat, beatPhase) / Math.min(STILLING, cfg.instarOutBeats))
-      : 1;
-  const k = alive * instarHush(slow, beat, beatPhase);
+  const k = instarLive(s, cfg, slow, beat, beatPhase);
   const sway = {
     xMilli: REACH * k * Math.sin(swing),
     // The weave is highest at the ends of its travel and lowest through the

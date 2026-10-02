@@ -14,12 +14,18 @@ import { patch, type Variant } from "../../../variant.js";
  * Retuned the same day on the owner's *can also be more movement shake of
  * body*: the wave is half as big again and a crest comes every two beats,
  * and a quick small shiver runs down on top of it.
+ *
+ * Reworked on 2 October 2026, the owner: *looks better. can you make it
+ * slower and not so strong path of movement and also have it in all
+ * perspective of boss level*. The wave is half that size, a crest takes four
+ * beats, the shiver is gone; and it swims on every step at half its flight's
+ * size, side-on and face-on, holding still under THE SLOW.
  */
 export const INSTAR_FLIGHT_SERPENT: Variant = {
   slot: "instar:flight",
   name: "serpent",
   sentence:
-    "serpent — on its flights THE INSTAR swims: a wave runs down its body from the neck to the tail, growing toward the rear with a shiver on top, and the wings beat with it",
+    "serpent — THE INSTAR swims all through the level, side-on and face-on: a slow, gentle wave runs down its body from the neck to the tail, bigger in flight, where the wings beat with it",
   dir: "tools/versus/candidates/instar-flight/serpent",
   patches: [
     patch({

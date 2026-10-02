@@ -132,6 +132,20 @@ rather than three. The girth swells by up to 28%. A shiver now runs down
 on top of the swim, three to the body, one every half beat, growing to a
 seventh of a head radius at the rear, so the body shakes as it swims.
 
+**Reworked (2 October 2026, the owner: *looks better. can you make it slower
+and not so strong path of movement and also have it in all perspective of boss
+level like this movement animation of body*).** The wave is half the first
+retune's — a quarter of a head radius at the neck to three quarters at the
+rear — a crest takes four beats, the body holds a crest and a quarter, the
+girth swells by up to 14%, and the shiver is gone. It runs on every step now,
+not only in flight: perched, standing and turning the body swims at half its
+flight's size (`REST`), on the beat clock so a flight is the same wave grown
+and nothing jumps at either end. Face-on it rides down the tube going back
+into the dark, the neck held under the head (`instar-front-body.ts` `dive`).
+It takes the weave's hush (`instar-sway.ts` `instarLive`), a twentieth while
+THE SLOW is open and none once the body is beaten, so a mark on a nest stays
+under its circle. The wings take the wave's beat only in flight.
+
 ### How far it reaches, by kind of body
 
 - **A body on the rig** (`packages/render/src/solid-rig.ts`) takes all four

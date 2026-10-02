@@ -32220,3 +32220,15 @@ the rig has one.
 Bottleneck: `versus drop` leaving the dropped candidate's importers behind.
 
 *Measured: 7 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE INSTAR's serpent reworked: slower, gentler, on every step
+
+- reading: 10 min. The serpent, the weave's hush, the face-on tube, the wings.
+- writing: 15 min. The wave on the beat clock with a perch level, the face-on
+  dive, `instarLive` lifted out of the weave, the tests.
+- looking: 5 min. The VERSUS shot caught mid-turn; the flight strip showed it.
+- friction: 0 min.
+- landing: 5 min. `check:fast` twice, `land`.
+
+Bottleneck: the crest-finding test, which jittered between two crests once
+the body held a crest and a quarter, rewritten as a delay.

@@ -85,12 +85,12 @@ export function drawWing(
   const own = Math.sin(time * 1.7);
   // In flight the serpent's wave beats the wings, once a crest (`instar-serpent.ts`).
   const sw = look.serpent;
-  const beat = (sw ? own + (sw.flap - own) * sw.env : own) * BEAT * (0.4 + f.wing);
+  const beat = (sw ? own + (sw.flap - own) * sw.fly : own) * BEAT * (0.4 + f.wing);
   const k = f.side;
   const mix = (a: number, b: number) => a + (b - a) * k;
   // Each wing wanders on its own shoulder (`instar-parts.ts`), and gives it up to a flight's beat.
   const wd = look.drift?.parts?.wings[side === 1 ? 0 : 1];
-  const wander = wd ? 1 - (sw?.env ?? 0) : 0;
+  const wander = wd ? 1 - (sw?.fly ?? 0) : 0;
   const anchor: Anchor = {
     at: hinge,
     roll: side * (mix(FACE_ON.lift, SIDE_ON.lift) + beat + (wd?.roll ?? 0) * wander),

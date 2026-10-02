@@ -1,62 +1,77 @@
-import { type InstarState, instarStep } from "@neon-spore/sim";
+import { type InstarState, instarStep, type SimConfig } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import type { Look } from "./instar-plate.js";
 import { INSTAR_FLIGHT_ENDS } from "./instar-shape.js";
+import { instarLive } from "./instar-sway.js";
 import type { Layout } from "./layout.js";
 import { phaseInto } from "./phase-into.js";
+import type { SlowSpan } from "./slow-hush.js";
 import { chainAt } from "./solid-motion.js";
 
 /**
- * **THE INSTAR flies like a serpent** — `docs/spec/living-bosses.md` §1: on
- * the flight in and the passes the long body should swim through the air,
- * not be carried stiff. A wave runs down the spine from the neck to the
- * engines while the body flies (`instar-flight.ts`), one and a half crests
+ * **THE INSTAR swims like a serpent** — `docs/spec/living-bosses.md` §1: the
+ * long body should swim through the air, not be carried stiff. A slow wave
+ * runs down the spine from the neck to the engines, a crest and a quarter
  * along it at once, small at the neck and growing to the rear, so the head
- * leads and the tail whips; a quicker, smaller shiver runs down on top of it,
- * so the body shakes as it swims; a crest toward the players swells the body
- * as it passes; and the wings beat once a crest on the wave at the shoulders
- * rather than on their own clock.
+ * leads and the tail follows; a crest toward the players swells the body as
+ * it passes.
  *
- * **It grows out of the body at rest and dies back into it**: the envelope is
- * nought at the flight's first beat and at its last, so the body that lands is
- * the body the flight started from, and the landing has nothing to snap.
+ * **It swims on every step, seen from either end.** The owner, 2 October
+ * 2026, on the first offer: *make it slower and not so strong path of
+ * movement and also have it in all perspective of boss level*. So the wave
+ * is half the size it was and a crest takes four beats rather than two, the
+ * shiver on top of it is gone, and it no longer runs only in flight: perched,
+ * standing and turning it swims at `REST` of its flight's size, side-on down
+ * the profile (`instar-profile.ts`) and face-on down the tube going back into
+ * the dark (`instar-front-body.ts`). Its clock is the beat itself, so a
+ * flight's wave is the perch's wave grown, and nothing jumps where a phase
+ * changes.
+ *
+ * **In flight it grows to the whole and the wings beat on it**, once a crest
+ * at the shoulders rather than on their own clock (`fly`); the growth is
+ * nought at the flight's first beat and its last, so the landing is the
+ * perch's swim again.
+ *
+ * **It holds still under a thumb**: it takes the weave's hush
+ * (`instar-sway.ts` `instarLive`), a twentieth while THE SLOW is open — when
+ * the marks are up — and none once the body is beaten, so a mark on a nest
+ * stays where its circle is drawn.
  *
  * **It is offered, not shipped**: `amount` is 0 on the field and VERSUS's
  * candidate (`tools/versus/candidates/instar-flight/serpent`) sets it to 1.
- * At 0 `instarSerpent` answers `undefined` and the profile is drawn as before.
+ * At 0 `instarSerpent` answers `undefined` and the body is drawn as before.
  */
 export const INSTAR_SERPENT: { amount: number } = { amount: 0 };
 
 /** What the profile reads off the wave this frame. */
 export interface InstarSerpent {
-  /** How far the wave is grown, 0..1. */
+  /** How much of the wave is drawn, 0..1: `REST` on a perch, the whole in flight, hushed under THE SLOW. */
   env: number;
+  /** How far into a flight the body is, 0..1: the share of the wings' beat the wave takes. */
+  fly: number;
   /** How far the spine at `u` (0 the neck, 1 the rear) is carried down, in head radii. */
   across: (u: number) => number;
-  /** The shiver on top of the swim at `u`, in head radii: quick and small, toward the rear. */
-  shiver: (u: number) => number;
   /** How much the body at `u` swells toward the players, as a share of its girth. */
   deep: (u: number) => number;
   /** The wing's beat, -1..1, read off the wave at the shoulders. */
   flap: number;
 }
 
-/** Beats a crest takes to come round, and how many crests the body holds at once. */
-const PERIOD = 2;
-const CRESTS = 1.5;
-/** The wave at the neck and at the rear, in head radii — half as big again as
- * first offered, on the owner's *more movement shake of body*, 1 October 2026. */
-const AT_NECK = 1 / 2;
-const AT_REAR = 3 / 2;
+/** Beats a crest takes to come round, and how many crests the body holds at once —
+ * four and a quarter, on the owner's *slower*, 2 October 2026. */
+const PERIOD = 4;
+const CRESTS = 1.25;
+/** The wave at the neck and at the rear, in head radii, in full flight — half
+ * what it was, on the owner's *not so strong path of movement*, 2 October 2026. */
+const AT_NECK = 1 / 4;
+const AT_REAR = 3 / 4;
 /** How far a crest toward the players swells the girth. */
-const SWELL = 0.28;
-/** The shiver: beats one takes, how many the body holds, and its size at the rear in head radii. */
-const SHIVER_PERIOD = 1 / 2;
-const SHIVERS = 3;
-const SHIVER = 0.14;
+const SWELL = 0.14;
+/** The share of the flight's wave the body swims with when it is not flying. */
+export const REST = 0.5;
 /** Where the wings' shoulders are along the body (`instar-profile.ts` `back(0.42)`). */
 const SHOULDERS = 0.42;
-/** Beats the wave takes to grow at the start and to die at the end. */
+/** Beats a flight's wave takes to grow at the start and to die at the end. */
 const GROW = 1;
 /** The spine's samples the chain is reckoned over (`instar-profile.ts` `N`). */
 const LINKS = 32;
@@ -64,42 +79,52 @@ const LINKS = 32;
 const TAU = Math.PI * 2;
 const LAG = (CRESTS * PERIOD) / LINKS;
 const FALLOFF = (AT_REAR / AT_NECK) ** (1 / LINKS);
-const SHIVER_LAG = (SHIVERS * SHIVER_PERIOD) / LINKS;
 
-/** The wave `b` beats into a flight `end` beats long; `undefined` outside it. */
-export function serpentAt(b: number, end: number): InstarSerpent | undefined {
-  if (b <= 0 || b >= end) return undefined;
-  const env = smoothstep(b / GROW) * smoothstep((end - b) / GROW) * INSTAR_SERPENT.amount;
+/** How far a flight `end` beats long has grown its wave `b` beats in: 0 at either end. */
+export function flightGrown(b: number, end: number): number {
+  if (b <= 0 || b >= end) return 0;
+  return smoothstep(b / GROW) * smoothstep((end - b) / GROW);
+}
+
+/** The wave on the beat clock `clock`, `fly` of the way into a flight and with `live` of
+ * the body's motion left; `undefined` with the candidate off or nothing left. */
+export function serpentAt(clock: number, fly: number, live = 1): InstarSerpent | undefined {
+  const env = (REST + (1 - REST) * fly) * live * INSTAR_SERPENT.amount;
   if (env <= 0) return undefined;
   const wave = (shift: number) => (u: number) =>
-    AT_NECK * chainAt((t) => Math.sin((t / PERIOD) * TAU + shift), b, u * LINKS, LAG, FALLOFF);
+    AT_NECK * chainAt((t) => Math.sin((t / PERIOD) * TAU + shift), clock, u * LINKS, LAG, FALLOFF);
   const across = wave(0);
   const quarter = wave(Math.PI / 2);
   return {
     env,
+    fly,
     across,
-    shiver: (u) => SHIVER * u * Math.sin(((b - SHIVER_LAG * u * LINKS) / SHIVER_PERIOD) * TAU),
     deep: (u) => SWELL * quarter(u),
     flap: across(SHOULDERS) / (AT_NECK * FALLOFF ** (SHOULDERS * LINKS)),
   };
 }
 
-/** The wave this frame: only while the body flies in, passes or crosses. */
+/** The wave this frame: on every step, grown while the body flies in, passes or crosses. */
 export function instarSerpent(
   s: InstarState,
+  cfg: SimConfig,
+  slow: SlowSpan,
   beat: number,
   beatPhase: number,
 ): InstarSerpent | undefined {
-  if (INSTAR_SERPENT.amount <= 0 || s.phase !== "morph") return undefined;
+  if (INSTAR_SERPENT.amount <= 0) return undefined;
   const step = instarStep(s);
-  if (step === null || step.arrive === "stay") return undefined;
-  return serpentAt(phaseInto(s, beat, beatPhase), step.morphBeats * INSTAR_FLIGHT_ENDS);
+  const fly =
+    s.phase === "morph" && step !== null && step.arrive !== "stay"
+      ? flightGrown(phaseInto(s, beat, beatPhase), step.morphBeats * INSTAR_FLIGHT_ENDS)
+      : 0;
+  return serpentAt(beat + beatPhase, fly, instarLive(s, cfg, slow, beat, beatPhase));
 }
 
 /** How far the spine `u` along is carried down this frame, in pixels; nought with no wave. */
 export function swimAt(look: Pick<Look, "r" | "serpent">, u: number): number {
   const sw = look.serpent;
-  return sw ? look.r * (sw.across(u) + sw.shiver(u)) * sw.env : 0;
+  return sw ? look.r * sw.across(u) * sw.env : 0;
 }
 
 /** What the girth `u` along is multiplied by this frame; one with no wave. */

@@ -16,10 +16,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * `instar:flight`'s pair has to show two different bodies. The serpent's
- * wave runs only while THE INSTAR flies (`instar-serpent.ts`), so on a pose
- * where it stays — `INSTAR · PERCHED`, where the slot used to open — the
- * candidate and the shipped body draw the same frame, and the vote is
- * between two identical pictures. `INSTAR · IN FLIGHT` holds it mid-pass.
+ * wave is grown to its whole only while THE INSTAR flies
+ * (`instar-serpent.ts`), so the slot opens on `INSTAR · IN FLIGHT`, held
+ * mid-pass. Since 2 October 2026 it swims at half that on every other step
+ * too — the owner: *have it in all perspective of boss level* — so the
+ * perched pair differs as well.
  */
 
 beforeAll(installCanvasGlobals);
@@ -73,10 +74,10 @@ describe("instar:flight's pair", () => {
     expect(serpent).not.toBe(shipped);
   });
 
-  it("would not on the perched pose it used to open on", () => {
+  it("and on the perched pose, where it swims at rest", () => {
     const perched = POSE_GROUPS.flatMap((g) => g.poses).find((p) => p.name === "INSTAR · PERCHED");
     if (!perched) throw new Error("no INSTAR · PERCHED pose");
     const [shipped, serpent] = pair(perched.build());
-    expect(serpent).toBe(shipped);
+    expect(serpent).not.toBe(shipped);
   });
 });
