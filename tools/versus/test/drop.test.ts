@@ -78,4 +78,38 @@ describe("drop", () => {
     expect(() => drop("ship:hull", "", root)).toThrow(/open right now: .*panel:join/);
     expect(read("tools/versus/DECIDED.md")).toBe("# Decided\n");
   });
+
+  it("refuses a slot imported from outside it, naming the importers, and changes nothing", () => {
+    put(
+      "tools/raster/src/crater-page.ts",
+      'import { SHARDS } from "../../versus/candidates/ship-crater/shards/index.js";\n',
+    );
+    put(
+      "tools/versus/test/ring.test.ts",
+      'await import("../candidates/ship-crater/ring/index.js");\n',
+    );
+    put(
+      "tools/versus/test/join.test.ts",
+      'import { WIDE } from "../candidates/panel-join/wide/index.js";\n',
+    );
+    put("tools/director/test/crater.test.ts", 'poseForSlot("ship:crater");\n');
+    let said = "";
+    try {
+      drop("ship:crater", "neither", root);
+    } catch (e) {
+      said = String(e);
+    }
+    expect(said).toContain(
+      "  tools/director/test/crater.test.ts\n  tools/raster/src/crater-page.ts\n  tools/versus/test/ring.test.ts\n",
+    );
+    // Another slot's importer does not hold this one, and the pose map's row is not an importer.
+    expect(said).not.toContain("join.test.ts");
+    expect(said).not.toContain("versus-pose.ts");
+    expect(existsSync(join(root, CANDIDATES, "ship-crater", "shards", "index.ts"))).toBe(true);
+    expect(read("tools/versus/DECIDED.md")).toBe("# Decided\n");
+    rmSync(join(root, "tools/raster"), { recursive: true });
+    rmSync(join(root, "tools/director/test"), { recursive: true });
+    rmSync(join(root, "tools/versus/test/ring.test.ts"));
+    expect(() => drop("ship:crater", "neither", root)).not.toThrow();
+  });
 });

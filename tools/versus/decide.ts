@@ -32,6 +32,7 @@ import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from "no
 import { join } from "node:path";
 import { byHand } from "./by-hand.js";
 import { type FileEdit, recordDecision } from "./decided-md.js";
+import { refuseImporters } from "./importers.js";
 import { removePoseRow } from "./pose-row.js";
 import { isRefusal, rewriteRecord } from "./record-edit.js";
 import { writeRegistry } from "./registry.js";
@@ -141,6 +142,7 @@ export async function adopt(
     );
   }
 
+  refuseImporters(slot, root);
   const plan = planFor(won, root, as);
   for (const f of plan) {
     writeFileSync(join(root, f.file), f.text);
@@ -178,6 +180,7 @@ export function drop(slotName: string, reason: string, root = ROOT): string[] {
   const under = candidatesUnder(root);
   const candidates = candidatesIn(under, slotName);
   if (candidates.length === 0) throw noSlot(slotName, slotsOnDisk(under));
+  refuseImporters(slotName, root);
   const out = [`${slotName} — nothing taken. The game draws what it drew.`, ""];
   out.push(...removeSlot(slotName, candidates, root), "");
   recordDecision(slotName, null, candidates, reason, [], root);

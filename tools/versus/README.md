@@ -21,6 +21,10 @@ reasoning; this is how to use it.
                                             shipped record; the slot then goes
     bun run versus drop <slot> "…"          the slot closed with nothing taken
 
+Both refuse, before changing anything, while a file outside the slot imports
+one of its candidates or names the slot in a string — a sheet, a budget test,
+a director test — and name each one (`importers.ts`).
+
 ## The four words
 
 **Slot** — the question. `ship:hull-skin`. One slot, one decision, and every

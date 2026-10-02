@@ -485,18 +485,3 @@ a path nothing takes. Take it out: delete `instar-drift.ts`, `instar-parts.ts`
 and their two tests, and make each reader take the path it takes at
 `undefined`. The shared `idle-drift.ts` stays — the other bosses and the queued
 rig-boss drift read it. `bun run check` proves the field draws as it did.
-
-## `versus drop` leaves files outside the slot importing its candidates
-
-- **Found:** 2026-10-02, claude/versus-decisions-2026-10-02
-- **Taken:** 2026-10-02, claude/queue-versus-drop-importers (claim: claude/queue-versus-drop-leaves-files-outside-the-slot-import)
-- **Files:** `tools/versus/decide.ts`, `tools/versus/test/`
-
-Dropping `instar:drift` removed `candidates/instar-drift/turn` and left two
-files importing it — tools/raster/src/solid-instar-drift-page.ts (the
-`bun run solid --instar-drift` strip) and
-tools/versus/test/instar-drift-budget.test.ts — so the typecheck went red
-and they were deleted by hand. `drop` and `adopt` should `git grep` for every
-import of the slot's candidate directories outside them, and either remove
-what exists only for the candidate or refuse and name the files. A test with a
-fixture importer proves it.

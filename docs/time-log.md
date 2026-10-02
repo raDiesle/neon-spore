@@ -32247,3 +32247,15 @@ Bottleneck: the neck, hidden behind the lower jaw until the chest moved two
 fifths back.
 
 *Measured: 18 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-02 — `versus adopt` and `drop` refuse while a file outside the slot still reads it
+
+- reading: 5 min. `decide.ts`, `drop.test.ts`, who reads the two open slots.
+- writing: 10 min. `importers.ts`, the two calls, the test, the README line.
+- looking: 0 min. No picture: nothing drawn changed.
+- friction: 5 min. The Bash guard refused a heredoc holding a regex's doubled
+  backslash; written with the Write tool instead.
+- landing: 5 min. `check:fast` three times, `land`.
+
+Bottleneck: a backticked slot name in a comment counting as a reader, until
+only quoted strings did.

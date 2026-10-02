@@ -3137,6 +3137,7 @@ by hand never moves.
 | `tools/versus/take-rename.ts` | A moved export renamed, when its name is the field it fills |
 | `tools/versus/by-hand.ts` | The four steps `adopt` prints when it will not take a slot itself |
 | `tools/versus/pose-row.ts` | The row a slot has in the director's `SLOT_POSE` map, taken out with the slot |
+| `tools/versus/importers.ts` | **Who outside a slot still imports its candidates**, or names it in a string: `adopt` and `drop` refuse with the list before changing anything |
 | `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |
 | `tools/index/doc.ts` | **The shape of `docs/INDEX.md` around its Code table**: the heading and markers the table is anchored on |
 | `tools/index/sentence.ts` | **The one line a row carries**, read off the file's own header comment and cut to something a table can hold |
