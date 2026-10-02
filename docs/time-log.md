@@ -32562,3 +32562,17 @@ Bottleneck: the twelve tests that pressed a ring the game would not have drawn.
 Bottleneck: the lane that fixed it left its entry on the queue.
 
 *Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — A lane that gives its own claim back can land at once
+
+- reading: 5 min. `give-back.ts`, how `onTrunk` and `alsoHere` write the
+  two copies, and the give-back test's repositories.
+- writing: 5 min. The tree's cut committed under the trunk's subject when
+  the file was clean; two cases in the test.
+- looking: 0 min.
+- friction: 5 min. A heredoc with an escaped newline was refused by the
+  guard; written through Edit.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: telling a clean copy from one the lane is still editing, so the
+commit never sweeps a half-written entry.

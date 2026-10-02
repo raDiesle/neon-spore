@@ -363,18 +363,3 @@ bares, and a bolt reaching the core is drawn through it.
 
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
-
-## `queue release` of a lane's own claim leaves an edit `land` then refuses
-
-- **Found:** 2026-10-02, claude/queue-living-bosses-the-four-rig-bosses-get-the-idle-d
-- **Taken:** 2026-10-02, claude/queue-browser-cdp-test-ts-fails-in-a-fresh-worktree-un (claim: claude/queue-queue-release-of-a-lanes-own-claim-leaves-an-edi)
-- **Files:** `tools/queue/give-back.ts`, `tools/land/run.ts`
-
-Released from inside the lane that held it, `release` commits the cut
-`Taken:` line on the trunk and also cuts it from this tree's copy
-(`alsoHere`), uncommitted. The next `bun run land --keep` stopped on
-`1 uncommitted file here … docs/queue.md`. It was worked around by checking the
-file out, because the trunk already had the edit. Either commit the tree's
-half on the lane branch with the same message, or have `land` let through an
-uncommitted `docs/queue.md` whose only difference is a hunk the trunk already
-holds. Add a test that releases from the claim's own tree and then lands.

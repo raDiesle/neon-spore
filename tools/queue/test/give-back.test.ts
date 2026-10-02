@@ -16,7 +16,8 @@ import { claim, trunkTaken } from "../repo.js";
  * `Taken:` line out of that tree's copy, uncommitted, and `git checkout` of
  * the fresh claim refused. Each repository here is that shape: a trunk
  * carrying a stale mark, and a tree on `landed`, cut from it. And one a lane
- * giving back its own claim, whose copy is still edited.
+ * giving back its own claim, whose copy is cut and committed — or left
+ * uncommitted when the lane was already editing the file.
  */
 
 const ENTRY = `# Queue
@@ -100,6 +101,28 @@ describe("a give-back from the lane that holds the claim", () => {
       giveBack(item, STALE, r.root);
       expect(trunkTaken(item, r.root)).toBe("");
       expect(takenIn(await r.here(), TITLE)).toBe("");
+      // Committed, so `land` finds the tree clean; and it is the trunk's own
+      // patch, so the landing's rebase leaves nothing of it.
+      expect(await r.run(["status", "--porcelain"])).toBe("");
+      await r.run(["rebase", "-q", "main"]);
+      expect(await r.run(["rev-list", "main..HEAD"])).toBe("");
+    },
+    repoTimeout(8),
+  );
+
+  it(
+    "leaves the cut uncommitted in a copy the lane is already editing",
+    async () => {
+      const r = await repo(CLAIM, STALE);
+      await writeFile(
+        join(r.root, "docs", "queue.md"),
+        `${await r.here()}A finding half written.\n`,
+      );
+      giveBack(await r.item(), STALE, r.root);
+      expect(takenIn(await r.here(), TITLE)).toBe("");
+      expect(await r.here()).toContain("A finding half written.");
+      expect(await r.run(["status", "--porcelain"])).toContain("docs/queue.md");
+      expect(await r.run(["rev-list", "--count", "main..HEAD"])).toBe("0");
     },
     repoTimeout(8),
   );
