@@ -12,6 +12,7 @@ import {
   gorgeDue,
   gorgeOffers,
   gorgePhase,
+  gorgeRowOf,
   gorgeSated,
   gorgeTapSeat,
   type ScuttleState,
@@ -24,6 +25,7 @@ import {
   type TimedCommand,
   type World,
 } from "@neon-spore/sim";
+import { fieldHand } from "./autopilot-field-hand.js";
 import type { Hand } from "./hand.js";
 
 /**
@@ -69,14 +71,20 @@ const tap = (id: number): Press => ({
  * one. It feeds the bubble due: on a row in any order the first still
  * wanting, on an ordered row the next in the order, on a ring the bottom one
  * (`gorgeDue`) once the ring has turned it there, tapping it open first, a
- * press a tick, for `gorgeOpenTaps` (`gorge-hand.ts`). A bubble wanting both takes its reds first. Between
- * levels and once it is out, nothing.
+ * press a tick, for `gorgeOpenTaps` (`gorge-hand.ts`). A bubble wanting both takes its reds first.
+ *
+ * **The wave's own bodies come first** once one is below the bubbles: the
+ * five levels outlast the wave's rocks and slimes, and a shot up a column
+ * under a bubble would be met by the bubble before the body above it — so
+ * the pair answers what has got past, the field's way (`fieldHand`), and
+ * goes back to feeding. Between levels and once it is out, only the field.
  */
 export const gorgeHand: Hand = (w) => {
   const g = gorgeBoss(w);
   if (g === null) return [];
   const phase = gorgePhase(g);
-  if (phase !== "row" && phase !== "ring") return [];
+  const past = w.creatures.some((c) => c.row > gorgeRowOf(w.cfg, g));
+  if (past || (phase !== "row" && phase !== "ring")) return fieldHand(w);
   // On a ring only the bottom bubble is ever shot: the hand waits under it
   // for the one due to turn round.
   const i =
