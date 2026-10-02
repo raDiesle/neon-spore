@@ -367,6 +367,7 @@ bolt stopped, and `bun run check` is green.
 ## THE INSTAR answers a press on a mark it is not drawing
 
 - **Found:** 2026-10-02, claude/boss-gesture-progress-feedback-81ceaf
+- **Taken:** 2026-10-02, claude/queue-living-bosses-the-four-rig-bosses-get-the-idle-d (claim: claude/queue-the-instar-answers-a-press-on-a-mark-it-is-not-d)
 - **Files:** `packages/render/src/instar-mark-grip.ts`, `packages/render/src/instar-marks.ts`
 
 `markUnder` takes hold of a mark whenever the step is acting
