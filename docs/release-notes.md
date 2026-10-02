@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · b3fab5863 — THE OCULUS shows its time left over the lens, and its tap and turn on a ring
+
+Each level's time left is now THE SLOW's fuse line, the same width, colours and sparks, stood above the lens. A shot waits, so no fuse is drawn over one. The tap level puts a row of pips on each seat's side of a ring round the lens, and they go green per tap. The turn level puts a knob for each seat on that ring, as THE MAZE's lever does, and each knob moves round by its own count. A knob that stays still under a moving thumb means the partner is not pulling. A press is taken out to the knobs, and the lit pair glows white on all three levels. A look the owner asked for by name.
+
 ## 2026-10-02 · 774ff7bc4 — THE OCULUS in three levels: hold, tap, turn, with a wave round it
 
 The owner's rework of 2 October 2026. Nothing slows for the lens any more, and a wave falls round it, painted in the director. Each level shuts a pair of leaves: first both thumbs held together, then both seats tapping their own half, then a lever each carried round the rim like THE MAZE's, counted only while both pull. A count is kept when a hand comes off. A level's fuse run out springs it open back to nought, with no hull hit. After each level one shot at the core in its colour waits for the pair. The cue says HOLD, TAP or TURN on each seat's half. A look the owner asked for by name.

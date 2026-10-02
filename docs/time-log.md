@@ -32678,3 +32678,5 @@ Bottleneck: the rig's loops on a lit phase running into the next step's light.
 - landing: 5 min. `check:fast`, two registries naming the new files, `land`.
 
 Bottleneck: AUTO answering each level inside a second, so the frame had to be taken within a few ticks of the light.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
