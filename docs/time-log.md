@@ -32348,3 +32348,5 @@ Bottleneck: the frame tests counting the shot's hex, which a light drawn in
 
 Bottleneck: the entry's own count — seven files when the arc was in
 eighteen, found only by searching for the angles rather than the name.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

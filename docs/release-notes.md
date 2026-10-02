@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · a3356c1e8 — Every ring's arc from twelve o'clock is one arcFromTop
+
+Countdown rings, filling rings and dials were each drawn by typing the same two angles out: start at twelve o'clock and go clockwise by a share. That happened nineteen times in eighteen render files. `render/arc-from-top.ts` now adds that arc to a Path2D or the context's own path, every caller strokes it the way it already did, and a COPIES row catches the next hand-typed one. No frame changes.
+
 ## 2026-10-02 · 19d78a55b — Every boss's lit core is lit from inside, through one drawLitCore
 
 THE BURGEE, THE CAPSTAN, THE DAVIT, THE GALL, THE GRINDSTONE, THE HALTER, THE PLUMB, THE RIME and THE SLING no longer glow round the part they ask the cannon to hit. The part keeps its unlit colour and border, and takes the step's colour inside its outline, beating like a heart. Its countdown is a plain ring. All thirteen bosses with such a core, plus THE FLUE and THE GOVERNOR, now draw it through `drawLitCore` in `render/lit-core.ts`, and a COPIES row stops the next boss from pasting it.
