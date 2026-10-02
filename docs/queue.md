@@ -474,6 +474,7 @@ over the lower field on a seat that `mimicDraws`, empty on the reader's.
 ## THE MIMIC's recogniser: a stroke on the glass becomes a `glyph`
 
 - **Found:** 2026-10-02, claude/queue-the-mimics-simulation-42
+- **Taken:** 2026-10-02, claude/queue-the-mimics-simulation-42 (claim: claude/queue-the-mimics-recogniser-a-stroke-on-the-glass-beco)
 - **Needs:** THE MIMIC's simulation (§42)
 - **Files:** `apps/game/src/`, `apps/game/src/keys.ts`, `tools/frames/press.ts`, `tools/frames/press-command.ts`, `packages/sim/src/glyphs.ts`
 
