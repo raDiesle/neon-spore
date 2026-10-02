@@ -475,6 +475,7 @@ bolt stopped, and `bun run check` is green.
 ## THE GAUGE's tooth and tongue mistakes still jam the valve
 
 - **Found:** 2026-10-02, claude/gauge-wave-cannon-mechanics-fa4bb7
+- **Taken:** 2026-10-02, claude/queue-bun-run-frames-with-four-press-gauge-calls-draws (claim: claude/queue-the-gauges-tooth-and-tongue-mistakes-still-jam-t)
 - **Files:** `packages/sim/src/gauge-tooth.ts`, `packages/sim/src/gauge-tongue.ts`, `packages/sim/src/gauge-hand.ts`
 - **Asks:** Should a wrong tooth, or a tooth or the tongue left in when its rest runs out, open the mouth a step like a miss does, instead of jamming the valve?
 - **Answered:** 2026-10-02 — none of the three: *a miss makes the boss wave fail and requires retry. this is generic rules for bosses* (`.claude/skills/new-boss/generic.md`).
