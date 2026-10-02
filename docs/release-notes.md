@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 83f882727 — A thumb on a boss's mark wears a ring past it, green while it holds, red when refused
+
+A finger covers the mark it presses, so the progress arc and the verdict on it were hidden under the thumb. Every press a boss's drag answers — held, or refused as the partner's — now draws a soft ring round this phone's own finger: it grows fast and then keeps creeping, beats green on the beat, and turns red when the mark under it is judged wrong (the wrong thumb, a hold let go too early). It borrows the mark's own verdict, so no boss calls it.
+
 ## 2026-10-02 · 815db1d48 — A module-level cache of paths or canvases must be a `bakedCache`
 
 A test now refuses a top-level `Map` in render/src whose type names `Path2D`, a canvas, a gradient or a pattern. The test harnesses empty only the caches `bakedCache` registered, so a plain `Map` like THE STARE's lattice used to be could carry a stub path onto a real canvas and fail a test, depending on which test files shared a shard.
