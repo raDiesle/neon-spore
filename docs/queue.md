@@ -328,128 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## move one boss a lane onto the solid rig, from the roster
-
-- **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
-- **Needs:** Living bosses — the four rig bosses get the idle drift, one per lane
-- **Files:** `packages/render/src/solid-rig.ts`, `docs/style-guide.md`
-
-Released 27 September 2026: the owner moved every deferred entry back onto the
-queue. It had been held since 26 September, when new graphics stayed on THE
-INSTAR alone. Its work is done through “Living bosses — the four rig bosses
-get the idle drift, one per lane”, whose last lane removes this entry.
-
-`drawRig` draws tubes and balls from any side with a fixed key, haze and
-contact. Bosses whose bodies are tubes and balls already — THE GORGE, THE
-ANTIPHON, THE BATON, THE LEAD — could each be rebuilt as a rig so they turn
-correctly when the fight turns them. **Each one is a look**: it goes to
-`tools/versus/candidates/` beside the shipped body, one boss per lane, with
-`bun run solid`'s pattern for its own sheet. Take one, name it in the entry
-you leave behind, and leave the rest listed.
-
-## the rig has no frame.test coverage until a boss uses it
-
-- **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
-- **Needs:** move one boss a lane onto the solid rig, from the roster
-- **Files:** `packages/render/test/frame.test.ts`, `packages/render/test/solid.test.ts`
-
-Released 27 September 2026: the owner moved every deferred entry back onto the
-queue. It had been held since 26 September, when new graphics stayed on THE
-INSTAR alone.
-
-`solid.test.ts` draws the rig through the stub from every side; nothing in
-`frame.test.ts` does, because no wave draws one yet. The first boss that ships
-on a rig adds its wave there, at SIDE, THREE_QUARTER and FRONT if the fight
-reaches them.
-
-## THE GIMBAL, a fifth rig candidate, sharpest for the mirror rule
-
-- **Found:** 2026-09-26, this session
-- **Needs:** Living bosses — the four rig bosses get the idle drift, one per lane
-- **Files:** `packages/content/src/gimbal-script.ts`, `packages/render/src/gimbal-draw.ts`, `docs/style-guide.md`, `docs/spec/bosses.md`
-
-Released 27 September 2026: the owner moved every deferred entry back onto the
-queue. It had been held since 26 September, when new graphics stayed on THE
-INSTAR alone. Its work is done through “Living bosses — the four rig bosses
-get the idle drift, one per lane”, whose last lane removes this entry. It also
-waited on "a densified tube costs a gradient per slice, per frame" and "a
-dragged tail wants a verlet chain in Effects", both above.
-
-"move one boss a lane onto the solid rig, from the roster" names THE GORGE,
-THE ANTIPHON, THE BATON and THE LEAD. THE GIMBAL is a fifth, and its shape
-argues for it over any of the four: it is "a drum in two rings", the outer
-facing the pilot and drawn as the wheel is, the inner facing the navigator
-*from the other side* so her nought is the wheel's nought and her clockwise
-is its counter-clockwise (`docs/spec/bosses.md`, "THE GIMBAL", `gimbalShownMilli`).
-That is exactly the failure a flat pose cannot solve and a rig is built for —
-`docs/style-guide.md`'s "A boss seen from any side" — because the two rings
-are not the same picture mirrored, they are the same wheel seen from its two
-faces, which only a body modelled in three dimensions and projected can get
-right at once. Two balls (the hubs) and two tubes (the rings, ridged for the
-latch-teeth) is the whole rig; the near ring's swept teeth would want the
-"long enough to be both in front of and behind another" split the demo's tail
-already has a pattern for. Whoever takes this names it in the entry they
-leave behind, same as the four already listed, and it is a look:
-`tools/versus/candidates/`, never straight onto the field.
-
-## Living bosses — the four rig bosses get the idle drift, one per lane
-
-- **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-10-02, claude/queue-living-bosses-the-four-rig-bosses-get-the-idle-d
-- **Where:** local
-- **Files:** `packages/render/src/gimbal-draw.ts`, `packages/render/src/gimbal-rig.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/baton-draw.ts`, `packages/render/src/lead-draw.ts`, `packages/render/src/solid-rig.ts`, `docs/spec/living-bosses.md`
-- **Asks:** THE ANTIPHON, THE BATON and THE LEAD keep everything the rules read where it is — pits, perches and rail; joints and knuckles; angle and beads — and already turn in their light: drift the body under pinned readouts, keep the light turn as their drift, or drop the three?
-
-The owner, 26 September 2026, widened the depth work from THE INSTAR alone
-to every boss with a body; "move one boss a lane onto the solid rig, from
-the roster" and "THE GIMBAL, a fifth rig candidate" wait on this entry.
-Take the next of THE GIMBAL, THE ANTIPHON, THE BATON and THE LEAD, in that
-order: rebuild it on the rig as those two entries say, with
-each part it has on its own anchor, give it the idle drift with its own seed
-and its hush over windows, give each part its `partDrift` (section 1, "Every
-part moves on its own" — at most eight, the head first where it has one, a
-mechanism's parts only where they hang or hinge), and offer it as
-a VERSUS candidate with its five-yaw sheet sent to the owner. Where it has a
-face, the head turns and tilts toward the players' screen and its drift never
-carries the face away past side-on (the owner, 27 September 2026:
-`docs/spec/living-bosses.md` section 1, "A face looks at the players"). Leave this
-entry with the rest listed; the last lane removes it and those two
-entries.
-
-**THE GIMBAL is done** (2 October 2026): its rig is `gimbal-rig.ts`, with
-the sheet `bun run solid --gimbal`, and its candidate is `gimbal:tilt` /
-`drift` in VERSUS (`packages/render/src/gimbal-tilt.ts`). What it found for the
-next three: a part drawn as rig tubes costs about three hundred canvas calls a
-hoop, which doubled THE GIMBAL's frame. Everything on that cradle but the drum
-and the pins lies in one plane, and an orthographic view of a plane is an
-affine, so those are painted flat through it and land where the rig would put
-them — which brought the frame under the shipped one. Look for the same in
-each boss before drawing its parts as tubes. Next is THE ANTIPHON.
-
-**The owner's first answer**, 2 October 2026, to whether these four still
-get the drift after THE INSTAR's was dropped as looking worse: offer it
-anyway — each in VERSUS, judged per boss.
-
-**What the remaining three ask** (2 October 2026): the style guide's depth
-rules (`docs/style-guide.md`, "A long body that cannot bow its outline",
-"A cord that carries the count", "A long band across the field") keep every
-readout of these three in place — THE ANTIPHON's pits, perches and rail, read
-by column; THE BATON's joints and lit knuckles; THE LEAD's angle, bead count
-and bead sizes — and put their depth into light, which already turns on a
-`breath`. THE GIMBAL could tilt because its ring and its mark go through one
-transform; a column read off the field cannot. The options:
-1. **Drift the body under pinned readouts** — the mantle, the arm, the ridge
-   drawn solid and wandering, everything read by the rules held to its
-   column; the body slides under what hangs on it.
-2. **The light turn is their drift** — nothing more is built for them; this
-   entry closes after THE GIMBAL.
-3. **Drop the three** from the rig work altogether, with the two entries
-   that wait on this one.
-
-Done when, per boss: the candidate is in VERSUS; its hit tests find every
-target at the drift's widest; op count within 10%; `baked-growth.test.ts`
-flat. `bun run check` proves the tests.
-
 ## Every other boss a bolt strikes, held to the lit-open-stopped rule
 
 - **Found:** 2026-10-01, claude/boss-cannon-targeting-feedback-15f334
@@ -512,3 +390,17 @@ the second run passed because something else had made the directory by
 then. Worked around by running it again. `mkdtemp` wants its parent to
 exist: create it (`mkdirSync(…, { recursive: true })`) before the call, and
 let the test start from a tree with no `.claude/tmp`.
+
+## `queue release` of a lane's own claim leaves an edit `land` then refuses
+
+- **Found:** 2026-10-02, claude/queue-living-bosses-the-four-rig-bosses-get-the-idle-d
+- **Files:** `tools/queue/give-back.ts`, `tools/land/run.ts`
+
+Released from inside the lane that held it, `release` commits the cut
+`Taken:` line on the trunk and also cuts it from this tree's copy
+(`alsoHere`), uncommitted. The next `bun run land --keep` stopped on
+`1 uncommitted file here … docs/queue.md`. It was worked around by checking the
+file out, because the trunk already had the edit. Either commit the tree's
+half on the lane branch with the same message, or have `land` let through an
+uncommitted `docs/queue.md` whose only difference is a hunk the trunk already
+holds. Add a test that releases from the claim's own tree and then lands.

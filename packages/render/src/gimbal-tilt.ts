@@ -5,8 +5,8 @@ import { bodyLife } from "./motion-life.js";
 import { type SlowSpan, slowHush } from "./slow-hush.js";
 
 /**
- * **THE GIMBAL, drifting** (`docs/spec/living-bosses.md` §1; the queue's
- * "the four rig bosses get the idle drift"): the cradle drawn through its rig
+ * **THE GIMBAL, drifting** (`docs/spec/living-bosses.md` §1, the rollout's
+ * four rig candidates): the cradle drawn through its rig
  * (`gimbal-rig.ts`) and wandering on the idle drift — the whole cradle turning
  * a little in its yoke, tipping toward the players and back, and rolling;
  * the drum nodding inside its rings on its own, the way a head leads a body.

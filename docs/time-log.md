@@ -32491,3 +32491,17 @@ running game and not the PAUSED screen.
 Bottleneck: none; the cue and its missing hit test were two files apart.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — The rig-drift entry closes after THE GIMBAL
+
+- reading: 5 min. THE ANTIPHON's drawer, and the style guide's depth rules
+  for it, THE BATON and THE LEAD.
+- writing: 5 min. The question on the entry, then the four entries out and
+  the decision into the spec.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. `queue release` committed its own edit to `main`, and the
+  same edit left in the tree stopped `land` until it was checked out.
+- landing: 5 min. Two lands.
+
+Bottleneck: the three bosses' readout rules were only found after THE
+GIMBAL's lane, when the next one was opened.

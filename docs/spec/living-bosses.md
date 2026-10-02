@@ -425,7 +425,8 @@ with a joint, before it can move.
 | THE KEEL | each spine segment | ready |
 | THE CAIRN | each stone | ready |
 | THE FILAMENT | heart | ready |
-| THE ANTIPHON, THE BATON, THE LEAD, THE GIMBAL | as their rig rebuilds name them | the rig lane splits them |
+| THE GIMBAL | the drum, nodding in its rings | built, in VERSUS (`gimbal-tilt.ts`) |
+| THE ANTIPHON, THE BATON, THE LEAD | none | decided 2 October 2026: their light turn is their drift |
 | THE NETTLE | its bell and each tentacle | not drawn yet: its body lane builds the parts separate from the start |
 
 **The owner, 27 September 2026, widened this:** a machine moves too —
@@ -541,6 +542,11 @@ fit for the rig. This ask widens it to every visible boss. The order:
    *Built:* THE GIMBAL, offered in VERSUS as `gimbal:tilt` (2 October 2026):
    a shaded drum nodding inside steel rings, the cradle turning, tipping and
    rolling in its yoke, a third of it through a turn (`gimbal-tilt.ts`).
+   *Decided, 2 October 2026:* the other three keep the turn in their light
+   and get nothing more. Everything they say is read by column — THE
+   ANTIPHON's pits, perches and rail, THE BATON's joints and knuckles, THE
+   LEAD's angle and beads — so their bodies cannot wander under it, and the
+   owner judged the light turn they already have enough.
 3. **Every other boss with a body**, on the outline tier: a pose-only drift
    through the shared helper, six bosses a lane, as a roster entry.
 

@@ -4,8 +4,8 @@ import type { Part } from "./solid-rig.js";
 import type { Skin } from "./solid-tube-draw.js";
 
 /**
- * **THE GIMBAL, modelled** (`docs/spec/living-bosses.md` §1, the queue's
- * "THE GIMBAL, a fifth rig candidate"): the sealed drum, its two rings and the
+ * **THE GIMBAL, modelled** (`docs/spec/living-bosses.md` §1, the rollout's
+ * four rig candidates): the sealed drum, its two rings and the
  * yoke as tubes and balls, so `drawRig` turns, orders, hazes and lights it
  * (`solid-rig.ts`). The field draws it only as a VERSUS candidate
  * (`gimbal-tilt.ts`); `bun run solid --gimbal` is its sheet.
