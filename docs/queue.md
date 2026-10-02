@@ -475,6 +475,7 @@ bolt stopped, and `bun run check` is green.
 ## `mergeRecord` refuses a ledger entry whose only change is its trailing newline
 
 - **Found:** 2026-10-02, claude/director-tap-input-boss-bug-778083
+- **Taken:** 2026-10-02, claude/queue-the-sinews-crown-cut-at-the-chrome-line-or-at-th (claim: claude/queue-mergerecord-refuses-a-ledger-entry-whose-only-ch)
 - **Files:** `tools/land/record-merge.ts`, `tools/land/queue-merge.ts`, `tools/land/test/`
 
 `bun run land --keep` stopped on `docs/time-log.md` with nothing to
