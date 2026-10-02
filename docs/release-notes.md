@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 779b0af7a — THE INSTAR's dragon body and serpent swim go into the game
+
+The owner picked both reworks from VERSUS on 2 October 2026. THE INSTAR's side-on body now has a dragon's line: a slender neck, a deep chest, a waist, full haunches, a tail thinning to a blade, and a paler belly band. It also swims all through the level, slowly and gently, more in flight. The look was asked for by name.
+
 ## 2026-10-02 · dea7cff37 — THE INSTAR's two reworks are put to the owner
 
 Both reworks the owner asked for on 2 October are on VERSUS: the slower serpent and the dragon-shaped body. The entry that ships them now says the owner was asked, and its lapsed claim is given back.

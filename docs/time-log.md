@@ -32379,3 +32379,5 @@ owner's pick of THE INSTAR's reworks and the fifth is claimed live.
 
 Bottleneck: the turn budget's gradient spike, which looked like the
 body's cost and was a cache emptying mid-run.
+
+*Measured: 17 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
