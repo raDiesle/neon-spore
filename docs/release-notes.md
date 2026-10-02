@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 4cbbcb823 — THE GIMBAL drifts in VERSUS: a solid cradle that turns, tips and rolls
+
+`gimbal:tilt` / `drift` offers THE GIMBAL drawn solid: a shaded drum nodding inside steel rings, with round pins and a steel yoke. The whole cradle wanders on the idle drift. It keeps a third of the drift while a ring is being turned and a tenth of that under THE SLOW, and none once the drum opens. The ring, its teeth and the seat's mark go through one transform, so a ring brought onto its drawn mark is on its true mark. At the drift's widest, the rim stays within half the grab radius and half the true band.
+
 ## 2026-10-02 · 03d42e8bf — THE GIMBAL's rig is modelled, with its own sheet
 
 THE GIMBAL's drum, seam, rings, teeth, pins and yoke are now built as tubes and balls that `drawRig` can turn to any side (`gimbal-rig.ts`). The rings stand in the plane the pilot faces, so the navigator's view from behind comes out mirrored with nothing mirrored by hand. `bun run solid --gimbal` draws the rig at five turns for each seat. Nothing on the field draws it yet; its VERSUS candidate is the next half.

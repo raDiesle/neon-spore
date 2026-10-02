@@ -32457,3 +32457,5 @@ the flat ring lays it out.
 
 Bottleneck: the rig's tubes doubled the frame's canvas calls, found only by
 measuring after the picture looked right.
+
+*Measured: 31 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
