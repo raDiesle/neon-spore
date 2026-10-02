@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · d048768ff — THE INSTAR's dropped idle drift is taken out of the code
+
+The owner dropped VERSUS instar:drift on 2 October 2026, so the drift that turned THE INSTAR's body, cocked its head, glanced its eyes and wandered its wings and tail was a path nothing took. Its two modules and their tests are gone, and every drawer and the mark placement take the path they always took with it off. The head record loses the turned head only the drift drew. The field draws exactly what it did; the shared idle drift the other bosses use stays.
+
 ## 2026-10-02 · 32b92c75b — A part a boss asks for is lit from inside, never in a red cloud round it
 
 The red light under every asked mark no longer reaches past it: it is a faint red breathing inside the mark's ring, blended into what is drawn there so the body and everything round it still read. A part the cannon must hit — THE SEAM's point, THE FLUE's core, THE GOVERNOR's hub, THE INSTAR's eyes, eggs, tail and heart — is lit red from inside its own outline, brighter and beating on the heart's lub-dub, with its border back in its own colour, no glow outside it and no swell past its edge. A look the owner asked for by name.
