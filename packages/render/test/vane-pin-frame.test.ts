@@ -18,7 +18,7 @@ import { drawVane } from "../src/vane-draw.js";
 /**
  * The one thing `docs/queue.md` named: from VEER on, a pinned arm has to be
  * drawn where the pilot's thumb left it, not where the cycle has since swept
- * on to (`docs/spec/bosses.md` §11.5). `sim/test/vane-hand.test.ts` already
+ * on to (`docs/spec/bosses.md` §11.5). `sim/test/vane-pin.test.ts` already
  * proves `vaneTipNow` freezes the column; this proves `drawVane` reads it
  * rather than the cycle's own `vaneTipCol`, by parsing the tip circle's own
  * path out of a canvas that just remembers what it was given.
@@ -139,7 +139,7 @@ describe("a pinned arm, drawn", () => {
     ]);
     const b = vane(world);
     const held = b.pinCol;
-    // Two beats on, exactly as `sim/test/vane-hand.test.ts` proves: the cycle
+    // Two beats on, exactly as `sim/test/vane-pin.test.ts` proves: the cycle
     // has moved and the pin has not.
     beats(world, 2);
     const swept = vaneTipCol(CFG, b.pins, world.waveBeat);

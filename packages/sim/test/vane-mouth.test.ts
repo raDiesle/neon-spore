@@ -1,19 +1,15 @@
 import { describe, expect, it } from "bun:test";
 import {
-  createWorld,
-  DEFAULT_CONFIG,
   type SimEvent,
-  startWave,
   step,
   type TimedCommand,
-  ticksPerBeat,
-  type VaneState,
   vaneColor,
   vaneOpening,
   vaneWeakCol,
   type World,
 } from "../src/index.js";
 import { NO_SHELL } from "../src/shell.js";
+import { ARM, beats, CFG, open, TPB, vane } from "./vane-fixture.js";
 
 /**
  * **Where a shot meets THE VANE's bearing** since the arm came down to
@@ -24,23 +20,8 @@ import { NO_SHELL } from "../src/shell.js";
  * below it does, as it always did. `vane-bearing.test.ts` has the rest of the knock.
  */
 
-const CFG = { ...DEFAULT_CONFIG };
-const TPB = ticksPerBeat(CFG);
-const ARM = CFG.vaneArmRow;
-
 /** The bearing full, one beat in, so the housing is split at the first stop. */
-function open(): World {
-  const world = createWorld({ ...CFG }, 1);
-  startWave(world, 0, [], [], { kind: "vane" });
-  for (let t = 0; t < TPB; t++) step(world, []);
-  return world;
-}
-
-const vane = (world: World): VaneState => {
-  const b = world.boss;
-  if (b === null || b.kind !== "vane") throw new Error("no vane on the field");
-  return b;
-};
+const split = (): World => beats(open(), 1);
 
 /** A rock standing still in `col` on `row`, as though it had arrived there. */
 function rock(world: World, col: number, row: number): void {
@@ -80,7 +61,7 @@ function shoot(world: World): SimEvent[] {
 
 describe("the bearing, on the arm's row", () => {
   it("takes the pin on the arm's row, not at the top edge", () => {
-    const world = open();
+    const world = split();
     const events = shoot(world);
     expect(vane(world).pins).toBe(CFG.vanePins - 1);
     expect(events.some((e) => e.type === "vaneKnock")).toBe(true);
@@ -88,7 +69,7 @@ describe("the bearing, on the arm's row", () => {
 
   it("is not shielded by a body still above the arm", () => {
     // Row 0 is behind the bearing: the shot meets the arm two rows short of it.
-    const world = open();
+    const world = split();
     rock(world, vaneWeakCol(CFG, world.waveBeat), 0);
     shoot(world);
     expect(vane(world).pins).toBe(CFG.vanePins - 1);
@@ -96,14 +77,14 @@ describe("the bearing, on the arm's row", () => {
   });
 
   it("is shielded by a body standing on the arm's own row", () => {
-    const world = open();
+    const world = split();
     rock(world, vaneWeakCol(CFG, world.waveBeat), ARM);
     shoot(world);
     expect(vane(world).pins).toBe(CFG.vanePins);
   });
 
   it("says a wrong colour on the arm's row, where the shot stopped", () => {
-    const world = open();
+    const world = split();
     const col = vaneWeakCol(CFG, world.waveBeat);
     const wrong = vaneColor(CFG, vaneOpening(world.waveBeat)) === "red" ? "cyan" : "red";
     const at = world.tick;

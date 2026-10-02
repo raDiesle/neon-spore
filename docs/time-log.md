@@ -31847,3 +31847,15 @@ Bottleneck: landing — the change is a dozen lines; the full check under
 `land` is most of the lane.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE VANE's tests share one rig, and the hand file is split in two
+
+- reading: 0 min. The fixture and the seven files' copies of it.
+- writing: 0 min. The split, the fixture's three hand helpers, and the five
+  files pointed at it.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min. The guard refused biome's `--unsafe` and named `bun run
+  imports`, which did the cut and caught one rename missed.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: landing — the edit is mechanical; the full check is the lane.

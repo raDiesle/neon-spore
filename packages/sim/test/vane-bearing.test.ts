@@ -124,7 +124,7 @@ describe("the bearing", () => {
 
   it("re-forms on its first form's last pin rather than going down", () => {
     // SEIZE: the arm pinned under the pilot's thumb, the seized housing hauled
-    // off it by the navigator, and then the shot (`vane-hand.test.ts`). The
+    // off it by the navigator, and then the shot (`vane-haul.test.ts`). The
     // fall itself is the last form's (`vane-forms.test.ts`).
     const world = beats(open(1), 1);
     const at = world.tick;

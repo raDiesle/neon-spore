@@ -1,11 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import {
-  createWorld,
-  DEFAULT_CONFIG,
   hashWorld,
-  type SimConfig,
-  startWave,
-  type VaneState,
   vaneDriftCol,
   vaneGuardedAt,
   vanePivotAt,
@@ -15,6 +10,7 @@ import {
   type World,
 } from "../src/index.js";
 import { vaneGuarded } from "../src/vane-guard.js";
+import { CFG, open, vane } from "./vane-fixture.js";
 
 /**
  * **THE VANE's last form walks** (`vaneDriftCol`, `docs/spec/bosses.md` §11.5,
@@ -25,30 +21,18 @@ import { vaneGuarded } from "../src/vane-guard.js";
  * the split and the guards with it.
  */
 
-const CFG: SimConfig = { ...DEFAULT_CONFIG };
 const HOME = vanePivotCol(CFG);
 const LAST = CFG.vaneForms - 1;
 const CYCLE = 12;
 const SPAN = CYCLE * 4 * CFG.vaneDriftCols * 2;
 
-function open(): World {
-  const world = createWorld({ ...CFG }, 1);
-  startWave(world, 0, [], [], { kind: "vane" });
-  return world;
-}
-
-const vane = (world: World): VaneState => {
-  const b = world.boss;
-  if (b === null || b.kind !== "vane") throw new Error("no vane");
-  return b;
-};
-
-const beats = (n: number) => Array.from({ length: n }, (_, i) => i);
+/** The beats nought to `n - 1`, to walk the drift over. */
+const upTo = (n: number) => Array.from({ length: n }, (_, i) => i);
 
 describe("the walk", () => {
   it("keeps the pivot home in every form but the last", () => {
     for (let form = 0; form < LAST; form++)
-      for (const beat of beats(SPAN)) expect(vaneDriftCol(CFG, form, 0, beat)).toBe(HOME);
+      for (const beat of upTo(SPAN)) expect(vaneDriftCol(CFG, form, 0, beat)).toBe(HOME);
   });
 
   it("starts the last form at home, wherever the wave's beat is", () => {
@@ -57,7 +41,7 @@ describe("the walk", () => {
   });
 
   it("walks out to the drift either side and no further, on the grid", () => {
-    const at = beats(SPAN).map((beat) => vaneDriftCol(CFG, LAST, 0, beat));
+    const at = upTo(SPAN).map((beat) => vaneDriftCol(CFG, LAST, 0, beat));
     expect(Math.min(...at)).toBe(HOME - CFG.vaneDriftCols);
     expect(Math.max(...at)).toBe(HOME + CFG.vaneDriftCols);
     for (const col of at) {
@@ -67,7 +51,7 @@ describe("the walk", () => {
   });
 
   it("moves at most one column a beat, and only between cycles", () => {
-    for (const beat of beats(SPAN).slice(1)) {
+    for (const beat of upTo(SPAN).slice(1)) {
       const step = vaneDriftCol(CFG, LAST, 0, beat) - vaneDriftCol(CFG, LAST, 0, beat - 1);
       expect(Math.abs(step)).toBeLessThanOrEqual(1);
       if ((beat - 1) % CYCLE !== 0) expect(step).toBe(0);
@@ -76,7 +60,7 @@ describe("the walk", () => {
 
   it("stays home with no drift configured", () => {
     const still = { ...CFG, vaneDriftCols: 0 };
-    for (const beat of beats(SPAN)) expect(vaneDriftCol(still, LAST, 0, beat)).toBe(HOME);
+    for (const beat of upTo(SPAN)) expect(vaneDriftCol(still, LAST, 0, beat)).toBe(HOME);
   });
 });
 
@@ -104,7 +88,7 @@ describe("what walks with it", () => {
     const b = vane(world);
     for (const pins of [1, 2, 3]) {
       b.pins = pins;
-      for (const beat of beats(SPAN)) {
+      for (const beat of upTo(SPAN)) {
         const tip = vaneTipAt(CFG, b, 0, beat);
         expect(tip).toBeGreaterThanOrEqual(0);
         expect(tip).toBeLessThan(CFG.cols);
@@ -124,7 +108,7 @@ describe("what walks with it", () => {
     const world = walked();
     const b = vane(world);
     const pivot = vanePivotAt(CFG, b, world.beat, world.waveBeat);
-    for (const beat of beats(CYCLE)) {
+    for (const beat of upTo(CYCLE)) {
       world.waveBeat = CYCLE + 1 + beat;
       const now = vanePivotAt(CFG, b, world.beat, world.waveBeat);
       expect(vaneGuarded(world, b, now + 1)).toBe(

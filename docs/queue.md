@@ -436,22 +436,6 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## `vane-hand.test.ts` is past 250 lines, and four VANE files copy the fixture
-
-- **Found:** 2026-10-01, claude/queue-vane-test-ts-is-past-250-lines
-- **Taken:** 2026-10-02, claude/queue-vane-hand-test-ts-is-past-250-lines-and-four-van
-- **Where:** local
-- **Files:** `packages/sim/test/vane-hand.test.ts`, `packages/sim/test/vane-knock.test.ts`, `packages/sim/test/vane-drift.test.ts`, `packages/sim/test/vane-forms.test.ts`, `packages/sim/test/vane-fixture.ts`
-
-`vane-hand.test.ts` is 275 lines. Split it along its describe blocks: "the pin,
-under VEER" and "the haul, under SEIZE", with "the two hands in the
-fingerprint" going with the second. Its `CFG`, `TPB`, `PIVOT`, `open`, `beats`
-and `vane` are copies of what `vane-fixture.ts` now exports, and so are the
-ones in `vane-knock`, `vane-drift` and `vane-forms`. Import them from the
-fixture instead. Done when every VANE test file is under 250 lines, none
-defines its own `open`, `beats` or `vane`, the case count is unchanged, and
-`bun run check` is green.
-
 ## Every other boss a bolt strikes, held to the lit-open-stopped rule
 
 - **Found:** 2026-10-01, claude/boss-cannon-targeting-feedback-15f334

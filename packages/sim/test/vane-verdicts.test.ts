@@ -1,43 +1,26 @@
 import { expect, test } from "bun:test";
 import {
-  createWorld,
-  DEFAULT_CONFIG,
   type SimEvent,
-  startWave,
   step,
   type TimedCommand,
-  ticksPerBeat,
-  type VaneState,
   vaneArmAsks,
   vaneHousingAsks,
   vaneSplitCol,
   vaneTipNow,
   type World,
 } from "../src/index.js";
+import { beats, CFG, open, vane } from "./vane-fixture.js";
 
 /**
  * THE VANE's arm and housing answering a touch the way every mark does: which
  * part is asked of which seat (`vaneArmAsks`, `vaneHousingAsks`), and a press
  * on the part asked of the other seat refused and said (`vaneRefuse`) —
- * `vane-hand.ts`. `vane-hand.test.ts` holds the pin and the haul themselves.
+ * `vane-hand.ts`. `vane-pin.test.ts` and `vane-haul.test.ts` hold the pin and
+ * the haul themselves.
  */
 
-const CFG = { ...DEFAULT_CONFIG };
-const TPB = ticksPerBeat(CFG);
-
-/** SWING at four pins, VEER at two, SEIZE at one (`VANE_PHASES`). */
-function open(pins: number): World {
-  const world = createWorld({ ...CFG }, 1);
-  startWave(world, 0, [], [], { kind: "vane", pins });
-  for (let i = 0; i < 2 * TPB; i++) step(world, []);
-  return world;
-}
-
-const vane = (world: World): VaneState => {
-  const b = world.boss;
-  if (b === null || b.kind !== "vane") throw new Error("no vane");
-  return b;
-};
+/** SWING at four pins, VEER at two, SEIZE at one (`VANE_PHASES`), two beats in. */
+const settled = (pins: number): World => beats(open(pins), 2);
 
 const arm = (player: 1 | 2, on: boolean): TimedCommand => ({
   tick: 0,
@@ -66,9 +49,9 @@ const asks = (world: World) => [
 ];
 
 test("the parts asked: nothing under SWING, the arm under VEER, the housing only while it is pinned", () => {
-  expect(asks(open(4))).toEqual([false, false]);
-  expect(asks(open(2))).toEqual([true, false]);
-  const seize = open(1);
+  expect(asks(settled(4))).toEqual([false, false]);
+  expect(asks(settled(2))).toEqual([true, false]);
+  const seize = settled(1);
   expect(asks(seize)).toEqual([true, false]);
   send(seize, arm(1, true));
   expect(asks(seize)).toEqual([false, true]);
@@ -77,7 +60,7 @@ test("the parts asked: nothing under SWING, the arm under VEER, the housing only
 });
 
 test("the navigator's thumb on the asked arm is refused, once, and pins nothing", () => {
-  const world = open(2);
+  const world = settled(2);
   const col = vaneTipNow(world, vane(world));
   const seen = send(world, arm(2, true));
   expect(said(seen, "vaneRefuse")).toEqual([{ type: "vaneRefuse", col, part: "arm", player: 2 }]);
@@ -87,7 +70,7 @@ test("the navigator's thumb on the asked arm is refused, once, and pins nothing"
 });
 
 test("the pilot's thumb on the asked housing is refused and hauls nothing", () => {
-  const world = open(1);
+  const world = settled(1);
   send(world, arm(1, true));
   const col = vaneSplitCol(world, vane(world));
   const seen = send(world, housing(1, true));
@@ -99,9 +82,9 @@ test("the pilot's thumb on the asked housing is refused and hauls nothing", () =
 });
 
 test("a press on a part nobody is asked for says nothing", () => {
-  const swing = open(4);
+  const swing = settled(4);
   expect(said(send(swing, arm(2, true), housing(1, true)), "vaneRefuse")).toEqual([]);
-  const veer = open(2);
+  const veer = settled(2);
   send(veer, arm(1, true));
   // Pinned: the arm is asked of nobody, and VEER never asks for the housing.
   expect(said(send(veer, arm(2, true), housing(1, true)), "vaneRefuse")).toEqual([]);

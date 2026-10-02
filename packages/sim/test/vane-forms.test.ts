@@ -1,20 +1,16 @@
 import { describe, expect, it } from "bun:test";
 import {
-  createWorld,
-  DEFAULT_CONFIG,
   hashWorld,
-  type SimConfig,
-  startWave,
   type VaneState,
   vaneGuardBeat,
   vaneGuardCount,
   vaneGuardedAt,
   vanePhase,
-  vanePivotCol,
   type World,
 } from "../src/index.js";
 import type { Bullet } from "../src/types.js";
 import { vaneMouthStruck } from "../src/vane.js";
+import { CFG, open, PIVOT, vane } from "./vane-fixture.js";
 
 /**
  * **THE VANE's four forms and the guard arms they bring** (`vane.ts`,
@@ -26,22 +22,8 @@ import { vaneMouthStruck } from "../src/vane.js";
  * a shot at a guarded mouth is refused and spends the opening.
  */
 
-const CFG: SimConfig = { ...DEFAULT_CONFIG };
-const PIVOT = vanePivotCol(CFG);
 const RIGHT = PIVOT + 1;
 const LEFT = PIVOT - 1;
-
-function open(): World {
-  const world = createWorld({ ...CFG }, 1);
-  startWave(world, 0, [], [], { kind: "vane" });
-  return world;
-}
-
-const vane = (world: World): VaneState => {
-  const b = world.boss;
-  if (b === null || b.kind !== "vane") throw new Error("no vane");
-  return b;
-};
 
 const bolt = (col: number, color: Bullet["color"]): Bullet => ({
   id: 1,

@@ -152,7 +152,7 @@ describe("a full cycle, pinned", () => {
    * The cycle's own openings answer only while SWING lasts, which is the first
    * two pins. The third shot of the run is fired at an end of the sweep the
    * housing no longer splits at — the arm is in VEER by then and wants a thumb
-   * on it — so it costs a colour miss and nothing else (`vane-hand.test.ts`
+   * on it — so it costs a colour miss and nothing else (`vane-pin.test.ts`
    * takes the third pin the way the pair now has to).
    */
   it("answers the openings its first phase has, and no more", () => {
