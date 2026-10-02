@@ -32489,3 +32489,5 @@ running game and not the PAUSED screen.
 - landing: 5 min. `bun run index`, the drawing-test timeout, `check:fast`.
 
 Bottleneck: none; the cue and its missing hit test were two files apart.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
