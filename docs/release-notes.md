@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · bdc3911bc — THE MIMIC's simulation: a sign only one of you can see, and only the other can draw
+
+THE MIMIC (§42) wears one of five signs on its skin: a ring, a triangle, a zigzag, a wave or a hook. The sign shows on one seat's screen only, and the other seat draws it. The answer is a new `glyph` command, the index of the sign drawn, and it crosses the wire. A right sign peels off. A wrong sign is worn on the skin, then an arm reaches down, and three reaches in a movement hit the hull. There are three signs, a roll that trades the seats, three more signs that change partway through, then two split skins, each baring a core to shoot in its colour. It is wave 123, in act 14. It has its AUTO hand, its thirteen sounds and its director rows. Nothing on the phone turns a stroke into a glyph yet; that recogniser is queued, and so is the look.
+
 ## 2026-10-02 · 1fb9ed867 — AUTO plays THE GORGE's whole wave, not only its bubbles
 
 The five levels outlast the wave's rocks and slimes, and the GORGE hand fed bubbles and nothing else, so AUTO lost the hull at tick 2700, on the first ring, every time. It now answers any body that is below the bubbles the field's way, and plays the field between levels, then goes back to feeding. A new director test plays the real wave on three seeds to the sack going out.

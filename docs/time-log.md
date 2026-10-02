@@ -31663,3 +31663,5 @@ Bottleneck: none — the cut was the one both files' order already drew.
 
 Bottleneck: the registrations — thirty-odd files a boss is a name in, found
 one red test at a time.
+
+*Measured: 24 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
