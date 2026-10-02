@@ -1,11 +1,9 @@
 import type { Color } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
-import { heartLight } from "./heartbeat.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { drawLitCore } from "./lit-core.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { lightWithin } from "./part-light.js";
-import { stepColour } from "./step-colour.js";
 import { viseKernel, viseKernelPath, viseRadius, viseSeamPath } from "./vise-shape.js";
 
 /**
@@ -146,16 +144,9 @@ function paintKernel(
   ctx.fill(core);
   VISE_KERNEL.sheen(ctx, l, core, size, bare, time);
   if (lit !== null) {
-    // Lit from inside, beating like a heart, and nothing past its edge (`part-light.ts`).
-    const { body } = stepColour(lit.color);
+    // Lit for its step, from inside, and nothing past its edge (`lit-core.ts`).
     const k = viseKernel(l);
-    const light = heartLight(beatPhase) * (0.6 + 0.4 * bright);
-    lightWithin(ctx, core, body, light, { x: k.x, y: k.y, r: k.r * size });
-    const ring = new Path2D();
-    ring.arc(k.x, k.y, k.r * 1.45, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(body, 0.75);
-    ctx.stroke(ring);
+    drawLitCore(ctx, core, lit, beatPhase, { x: k.x, y: k.y, r: k.r * size }, k.r * 1.45, bright);
   }
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.viseCaseDark, 0.9);

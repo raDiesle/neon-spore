@@ -2,6 +2,7 @@ import type { Color } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { drawLitCore } from "./lit-core.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { RimeFx } from "./rime-fx.js";
 import {
@@ -11,7 +12,6 @@ import {
   rimeInnerPath,
   rimeLensPath,
 } from "./rime-shape.js";
-import { stepColour } from "./step-colour.js";
 
 /**
  * **THE RIME's marks**: the three things that say what a step asks — the lit
@@ -80,21 +80,23 @@ export function drawRimeCore(
   beatPhase: number,
 ): void {
   const core = rimeCorePath(l, size);
-  if (lit === null) {
-    ctx.fillStyle = rgba(bare ? PALETTE.rock : PALETTE.rockDark, bare ? 0.5 : 0.9);
-    ctx.fill(core);
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.rock, bare ? 0.85 : 0.35);
-    ctx.stroke(core);
-    return;
-  }
-  const { body, rim } = stepColour(lit.color);
-  ctx.fillStyle = rgba(body, bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
+  ctx.fillStyle = rgba(bare ? PALETTE.rock : PALETTE.rockDark, bare ? 0.5 : 0.9);
   ctx.fill(core);
-  strokeGlow(ctx, core, rim, STROKE.inner, 0.8 + bright);
-  const ring = new Path2D();
-  ring.arc(0, 0, rimeCoreR(l) * 1.45, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
-  strokeGlow(ctx, ring, body, STROKE.outline, 1);
+  if (lit !== null) {
+    // Lit for its step, from inside, and nothing past its edge (`lit-core.ts`).
+    drawLitCore(
+      ctx,
+      core,
+      lit,
+      beatPhase,
+      { x: 0, y: 0, r: rimeCoreR(l) * size },
+      rimeCoreR(l) * 1.45,
+      bright,
+    );
+  }
+  ctx.lineWidth = STROKE.inner;
+  ctx.strokeStyle = rgba(PALETTE.rock, bare ? 0.85 : 0.35);
+  ctx.stroke(core);
 }
 
 /**

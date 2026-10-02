@@ -3,8 +3,8 @@ import { strokeGlow } from "./glow.js";
 import { halterCoreR, halterGripAt, halterGripR } from "./halter-shape.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { drawLitCore } from "./lit-core.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { stepColour } from "./step-colour.js";
 
 /**
  * **THE HALTER's marks**: what says what a step asks — a segment's stretch of
@@ -71,19 +71,13 @@ export function drawHalterCore(
   const r = halterCoreR(l);
   const face = new Path2D();
   face.arc(0, 0, r * size, 0, Math.PI * 2);
-  if (lit === null) {
-    ctx.fillStyle = rgba(PALETTE.halterFleshDark, 0.9);
-    ctx.fill(face);
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.halterFlesh, 0.6);
-    ctx.stroke(face);
-    return;
-  }
-  const { body, rim } = stepColour(lit.color);
-  ctx.fillStyle = rgba(body, bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
+  ctx.fillStyle = rgba(PALETTE.halterFleshDark, 0.9);
   ctx.fill(face);
-  strokeGlow(ctx, face, rim, STROKE.inner, 0.8 + bright);
-  const ring = new Path2D();
-  ring.arc(0, 0, r * 1.6, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
-  strokeGlow(ctx, ring, body, STROKE.outline, 1);
+  if (lit !== null) {
+    // Lit for its step, from inside, and nothing past its edge (`lit-core.ts`).
+    drawLitCore(ctx, face, lit, beatPhase, { x: 0, y: 0, r: r * size }, r * 1.6, bright);
+  }
+  ctx.lineWidth = STROKE.inner;
+  ctx.strokeStyle = rgba(PALETTE.halterFlesh, 0.6);
+  ctx.stroke(face);
 }

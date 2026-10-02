@@ -32321,3 +32321,16 @@ Bottleneck: the trivet's halo count, which took the hub's own new light for
 an asked mark's until the face was told apart by where it is drawn.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — The other nine bosses' lit cores on one `drawLitCore`
+
+- reading: 5 min. The nine `-marks.ts` and their callers' `glow`.
+- writing: 10 min. `lit-core.ts`, thirteen callers and THE FLUE's and THE
+  GOVERNOR's moved onto it, a `COPIES` row, five frame tests counting the
+  lit colour's prefix.
+- looking: 5 min. A step list probed, one capture of THE CAPSTAN, one crop.
+- friction: 0 min.
+- landing: 5 min. `check:fast` three times, `land`.
+
+Bottleneck: the frame tests counting the shot's hex, which a light drawn in
+`rgba` never writes.

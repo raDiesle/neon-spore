@@ -12,8 +12,8 @@ import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
+import { drawLitCore } from "./lit-core.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { stepColour } from "./step-colour.js";
 
 /** The mast's own socket: a dark steel foot the boom always stands out of. */
 export function drawDavitMast(ctx: CanvasRenderingContext2D, l: Layout): void {
@@ -84,20 +84,14 @@ export function drawDavitHook(
 ): void {
   const hook = davitHookPath(l, angle, sag);
   const r = davitHookRadius(l);
-  if (lit === null) {
-    ctx.fillStyle = rgba(PALETTE.davitSteelDark, 0.9 * glow + 0.1);
-    ctx.fill(hook);
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.davitSteel, 0.9);
-    ctx.stroke(hook);
-    return;
-  }
-  const { body, rim } = stepColour(lit.color);
-  ctx.fillStyle = rgba(body, glow * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
+  ctx.fillStyle = rgba(PALETTE.davitSteelDark, 0.9 * glow + 0.1);
   ctx.fill(hook);
-  strokeGlowFaded(ctx, hook, rim, STROKE.inner, 0.8 + glow);
-  const point = davitHook(l, angle, sag);
-  const ring = new Path2D();
-  ring.arc(point.x, point.y, r * 1.6, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
-  strokeGlowFaded(ctx, ring, body, STROKE.outline, 1);
+  if (lit !== null) {
+    // Lit for its step, from inside, and nothing past its edge (`lit-core.ts`).
+    const point = davitHook(l, angle, sag);
+    drawLitCore(ctx, hook, lit, beatPhase, { ...point, r }, r * 1.6, glow);
+  }
+  ctx.lineWidth = STROKE.inner;
+  ctx.strokeStyle = rgba(PALETTE.davitSteel, 0.9);
+  ctx.stroke(hook);
 }

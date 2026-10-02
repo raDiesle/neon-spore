@@ -11,6 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { grindstoneShut } from "../src/grindstone-pose.js";
+import { rgba } from "../src/hex.js";
 import type { ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import {
@@ -21,6 +22,11 @@ import {
   runFrames,
   waveWith,
 } from "./frame-harness.js";
+
+/** The shot's colour as the lit core is drawn in it: `drawLitCore`'s light and
+ * ring are `rgba` of it, whatever the beat, and a gradient's stops are not in
+ * the stub's log, so it is counted by its prefix (`lit-core.ts`). */
+const CYAN_LIT = rgba(PALETTE.cyan, 0).slice(0, -2);
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -160,7 +166,7 @@ describe("THE GRINDSTONE's axle and its fall", () => {
       const lit = frame(role, (w) => {
         posed(w, FIRE).locked = true;
       });
-      expect(count(lit, PALETTE.cyan)).toBeGreaterThan(count(dark, PALETTE.cyan));
+      expect(count(lit, CYAN_LIT)).toBeGreaterThan(count(dark, CYAN_LIT));
       const hit = frame(role, (w) => {
         const s = posed(w, FIRE);
         s.locked = true;

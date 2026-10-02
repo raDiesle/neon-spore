@@ -1992,6 +1992,7 @@ by hand never moves.
 | `packages/render/src/crawler-skin.ts` | **The wet on a maggot, and the little on its face** |
 | `packages/render/src/living-frame.ts` | Where a living body is standing this frame, and the transform that puts a pen in its own local units |
 | `packages/render/src/living-pose.ts` | where a living body sits and which way it faces on this beat — the own-motion's sway, the throb's turn, the dart's lean and flip |
+| `packages/render/src/lit-core.ts` | `drawLitCore`: a part the cannon must hit, lit inside its contour in the step's colour, beating, with its countdown ring — every boss's core |
 | `packages/render/src/strand-thread.ts` | Which beads of THE STRAND are on one thread, and in what order along it |
 | `packages/render/src/crawler-marks.ts` | What each ring of THE CRAWLER is owed — a crosshair on every one, the shield's mark over the dome's |
 | `packages/render/src/crawler-place.ts` | Where a ring of THE CRAWLER actually sits on screen, and how much bigger it draws for being that near |

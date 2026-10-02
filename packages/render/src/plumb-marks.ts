@@ -4,6 +4,7 @@ import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { drawLitCore } from "./lit-core.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { plumbStoneStanding } from "./plumb-grip.js";
 import { PLUMB_VIAL_MILLI, plumbArrived, plumbAsked, plumbSkew } from "./plumb-pose.js";
@@ -15,7 +16,6 @@ import {
   plumbLift,
   plumbVialPath,
 } from "./plumb-shape.js";
-import { stepColour } from "./step-colour.js";
 
 /**
  * **THE PLUMB's marks**: the two things that say what a step asks — a level's
@@ -48,22 +48,15 @@ export function drawPlumbCore(
   const r = Math.max(0.5, c.r * hurt.size);
   const core = new Path2D();
   core.ellipse(c.x, c.y, r * turn, r, 0, 0, Math.PI * 2);
-  if (fire === null) {
-    ctx.fillStyle = rgba(lit ? PALETTE.plumbGlass : PALETTE.plumbBronzeDark, lit ? 0.55 : 0.9);
-    ctx.fill(core);
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.plumbGlass, (lit ? 0.9 : 0.3) * turn);
-    ctx.stroke(core);
-    return;
-  }
-  const { body, rim } = stepColour(fire.color);
-  const pulse = 0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2);
-  ctx.fillStyle = rgba(body, hurt.bright * pulse);
+  ctx.fillStyle = rgba(lit ? PALETTE.plumbGlass : PALETTE.plumbBronzeDark, lit ? 0.55 : 0.9);
   ctx.fill(core);
-  strokeGlow(ctx, core, rim, STROKE.inner, 0.8 + hurt.bright);
-  const ring = new Path2D();
-  ring.arc(c.x, c.y, c.r * 1.5, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * fire.left);
-  strokeGlow(ctx, ring, body, STROKE.outline, 1);
+  if (fire !== null) {
+    // Lit for its step, from inside, and nothing past its edge (`lit-core.ts`).
+    drawLitCore(ctx, core, fire, beatPhase, { x: c.x, y: c.y, r }, c.r * 1.5, hurt.bright);
+  }
+  ctx.lineWidth = STROKE.inner;
+  ctx.strokeStyle = rgba(PALETTE.plumbGlass, (lit ? 0.9 : 0.3) * turn);
+  ctx.stroke(core);
 }
 
 /**

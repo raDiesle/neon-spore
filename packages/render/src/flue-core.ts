@@ -4,11 +4,10 @@ import type { FlueFx } from "./flue-fx.js";
 import { drawFlueFlash } from "./flue-marks.js";
 import { flueLeft } from "./flue-pose.js";
 import { FLUE_DAMPER, flueCoreR, flueUnitAt, type Point } from "./flue-shape.js";
-import { heartLight } from "./heartbeat.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { drawLitCore } from "./lit-core.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { lightWithin } from "./part-light.js";
 import { stepColour } from "./step-colour.js";
 
 /**
@@ -53,16 +52,9 @@ function drawCoreFace(
   ctx.fillStyle = PALETTE.flueCore;
   ctx.fill(face);
   if (step?.ask === "fire" && s.bared) {
-    const { body, rim } = stepColour(step.color);
-    fx.tell(rim);
-    const light = heartLight(beatPhase) * (0.6 + 0.4 * hurt.bright);
-    lightWithin(ctx, face, body, light, { x: at.x, y: at.y, r });
-    const ring = new Path2D();
-    const left = flueLeft(s, beat, beatPhase);
-    ring.arc(at.x, at.y, r * 1.6, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(body, 0.75);
-    ctx.stroke(ring);
+    fx.tell(stepColour(step.color).rim);
+    const lit = { color: step.color, left: flueLeft(s, beat, beatPhase) };
+    drawLitCore(ctx, face, lit, beatPhase, { x: at.x, y: at.y, r }, r * 1.6, hurt.bright);
   }
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.flueSootDark, 0.9);

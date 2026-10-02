@@ -472,29 +472,18 @@ bares, and a bolt reaching the core is drawn through it.
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
 
-## Every other boss's lit part, lit from inside rather than glowing round it
+## A boss's countdown ring is drawn by hand in seven files
 
-- **Found:** 2026-10-02, claude/boss-body-glow-indicators-22a92a
-- **Taken:** 2026-10-02, claude/queue-lit-from-inside (claim: claude/queue-every-other-bosss-lit-part-lit-from-inside-rathe)
-- **Files:** `packages/render/src/part-light.ts`, `packages/render/src/burgee-marks.ts`, `packages/render/src/capstan-marks.ts`, `packages/render/src/davit-marks.ts`, `packages/render/src/gall-marks.ts`, `packages/render/src/grindstone-marks.ts`, `packages/render/src/halter-marks.ts`, `packages/render/src/plumb-marks.ts`, `packages/render/src/rime-marks.ts`, `packages/render/src/sling-marks.ts`
+- **Found:** 2026-10-02, claude/queue-lit-from-inside
+- **Files:** `packages/render/src/lit-core.ts`, `packages/render/src/cyst-story.ts`, `packages/render/src/cyst-marks.ts`, `packages/render/src/seam-story.ts`, `packages/render/src/seam-marks.ts`, `packages/render/src/flue-marks.ts`, `packages/render/src/burgee-marks.ts`
 
-The owner, 2 October 2026, for every boss: *only let the part of body shape
-glow red, but not so heavy and no glowing outside. and the borders should not
-be red … only when player needs to shoot a specific part of body it can glow
-and pulse some more.* The shared halo (`drawMarkHalo`), THE SEAM, THE FLUE,
-THE GOVERNOR and THE INSTAR keep it (`generic.md`, the *Lit* bullet). The
-files above still light the part they ask for with a `strokeGlow` of the
-step's rim colour — a coloured border with a glow outside it — or a `halo`
-behind it; `grep -l stepColour | xargs grep -lE "strokeGlow|halo\("` in
-`packages/render/src` finds them, with their `-draw.ts` and `-story.ts`
-siblings. Each lit face becomes `lightWithin` at `heartLight` with its border
-stroked in its unlit colour, the way `flue-core.ts` does it now; the countdown
-ring round it stays, a plain stroke. THE CYST, THE OCULUS, THE TRIVET and THE
-VISE are done, and both pull tracks light inside the channel at `markLightAt`
-(claude/queue-lit-from-inside, 2 October 2026) — `trivet-marks.ts` is the
-nearest worked one. The nine left are the ones the lit-open-stopped entry
-above also names, so they wait for that lane's claim. A lane a handful of bosses; each
-boss's own `*-frame.test.ts` counts its lit colour and may need the `rgba`
-prefix `flue-frame.test.ts` counts now, since a gradient's stops are not in
-the stub's log. A lane taking THE BURGEE … SLING from the lit-open-stopped
-entry above does its lit faces there and drops them from this list.
+The arc that closes as a step's window runs out —
+`arc(x, y, R, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left)` — is typed
+in each of these, and each strokes it its own way: `drawLitCore` a plain
+`rgba(body, 0.75)` at `STROKE.inner`, the others a `strokeGlow` of their own.
+`lit-core.ts` could export the arc as a path (`countdownRing(x, y, r, left)`)
+for every caller to stroke; then a `COPIES` row in
+`packages/sim/test/copies-table.ts` on the arc's shape keeps the next boss
+from pasting it again. The strokes themselves are looks and stay as they are.
+`grep -rn "Math.PI \* 2 \* .*left" packages/render/src` finds them.
+Done when they all call it and `bun run check` is green.

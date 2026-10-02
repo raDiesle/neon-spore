@@ -1,11 +1,9 @@
 import type { Color } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
-import { heartLight } from "./heartbeat.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { drawLitCore } from "./lit-core.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { lightWithin } from "./part-light.js";
-import { stepColour } from "./step-colour.js";
 import { trivetFaceR, trivetHubR, trivetSocketAt, trivetSocketR } from "./trivet-shape.js";
 
 /**
@@ -74,15 +72,8 @@ export function drawTrivetFace(
   ctx.fillStyle = rgba(hubLit ? PALETTE.rock : PALETTE.trivetMetalDark, hubLit ? 0.5 : 0.95);
   ctx.fill(face);
   if (lit !== null) {
-    // Lit from inside, beating like a heart, and nothing past its edge (`part-light.ts`).
-    const { body } = stepColour(lit.color);
-    const light = heartLight(beatPhase) * (0.6 + 0.4 * bright);
-    lightWithin(ctx, face, body, light, { x: 0, y: 0, r: r * size });
-    const ring = new Path2D();
-    ring.arc(0, 0, r * 1.4, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(body, 0.75);
-    ctx.stroke(ring);
+    // Lit for its step, from inside, and nothing past its edge (`lit-core.ts`).
+    drawLitCore(ctx, face, lit, beatPhase, { x: 0, y: 0, r: r * size }, r * 1.4, bright);
   }
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(hubLit ? PALETTE.rock : PALETTE.trivetMetal, hubLit ? 0.85 : 0.6);

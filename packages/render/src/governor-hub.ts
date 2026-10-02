@@ -4,13 +4,11 @@ import { coreHurt } from "./core-hurt.js";
 import { strokeGlowFaded } from "./glow.js";
 import { governorLeft } from "./governor-pose.js";
 import { type Dial, hubR } from "./governor-shape.js";
-import { heartLight } from "./heartbeat.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
+import { lightCore } from "./lit-core.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { lightWithin } from "./part-light.js";
-import { stepColour } from "./step-colour.js";
 
 /**
  * The hub the needle turns on, THE VANE's bearing: a dull brass boss until
@@ -55,9 +53,7 @@ export function drawGovernorHub(
     return;
   }
   // Lit for a shot, it beats like a heart, inside its own rim.
-  const { body } = stepColour(step.color);
-  const light = heartLight(beatPhase) * (0.6 + 0.4 * hurt.bright);
-  lightWithin(ctx, face, body, light, { x: d.cx, y: d.cy, r });
+  const body = lightCore(ctx, face, step.color, beatPhase, { x: d.cx, y: d.cy, r }, hurt.bright);
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.governorBrassDark, 0.95);
   ctx.stroke(face);

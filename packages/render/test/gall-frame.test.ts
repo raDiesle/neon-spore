@@ -9,11 +9,17 @@ import {
   gallSpent,
 } from "../src/gall-pose.js";
 import { gallPointAt } from "../src/gall-shape.js";
+import { rgba } from "../src/hex.js";
 import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { showsGallReach } from "../src/view-role-clocks-c.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, VIEWPORT } from "./frame-harness.js";
 import { CLOSE, count, FIRE, frame, posed, stood } from "./gall-harness.js";
+
+/** The shot's colour as the lit core is drawn in it: `drawLitCore`'s light and
+ * ring are `rgba` of it, whatever the beat, and a gradient's stops are not in
+ * the stub's log, so it is counted by its prefix (`lit-core.ts`). */
+const CYAN_LIT = rgba(PALETTE.cyan, 0).slice(0, -2);
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -171,7 +177,7 @@ describe("THE GALL's root", () => {
         return s;
       };
       const lit = frame(role, bared);
-      expect(count(lit, PALETTE.cyan)).toBeGreaterThan(count(covered, PALETTE.cyan));
+      expect(count(lit, CYAN_LIT)).toBeGreaterThan(count(covered, CYAN_LIT));
       const hit = frame(role, (w) => {
         bared(w).hits = 1;
       });

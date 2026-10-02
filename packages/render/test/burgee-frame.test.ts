@@ -4,12 +4,17 @@ import { BurgeeFx } from "../src/burgee-fx.js";
 import { burgeeAsked, burgeeLay, burgeeSpindleGlow } from "../src/burgee-pose.js";
 import { burgeeTip } from "../src/burgee-shape.js";
 import { fieldX } from "../src/field-flip.js";
-import { mixHex } from "../src/hex.js";
+import { mixHex, rgba } from "../src/hex.js";
 import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { showsBurgeeHand } from "../src/view-role-clocks-c.js";
 import { CATCH, count, FIRE, frame, posed, stood } from "./burgee-harness.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, VIEWPORT } from "./frame-harness.js";
+
+/** The shot's colour as the lit core is drawn in it: `drawLitCore`'s light and
+ * ring are `rgba` of it, whatever the beat, and a gradient's stops are not in
+ * the stub's log, so it is counted by its prefix (`lit-core.ts`). */
+const CYAN_LIT = rgba(PALETTE.cyan, 0).slice(0, -2);
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -63,7 +68,7 @@ describe("THE BURGEE's body", () => {
       const between = frame(role, (w) => posed(w, null, 0, lit));
       const owed = frame(role, (w) => posed(w, FIRE, 0, lit));
       // The navigator's panel is cyan on every screen; the studs are cyan on top of it.
-      expect(count(owed, PALETTE.cyan)).toBeGreaterThan(count(between, PALETTE.cyan));
+      expect(count(owed, CYAN_LIT)).toBeGreaterThan(count(between, CYAN_LIT));
     },
   );
 

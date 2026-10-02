@@ -809,6 +809,16 @@ export const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // **A part the cannon must hit, lit for its step** — its light inside its
+    // contour, beating and brighter with hurt, and its countdown ring. The
+    // lit-from-inside lane (2 October 2026) wrote it into four bosses before
+    // the nine after them made `lit-core.ts`; the beat times the hurt is the
+    // shape a fourteenth would paste.
+    call: "drawLitCore",
+    owner: "packages/render/src/lit-core.ts",
+    pattern: /heartLight\([^)]*\)\s*\*\s*\(\s*0\.6\s*\+\s*0\.4\s*\*/,
+  },
+  {
     // **A hull shock's clock** — struck, fading linearly, drawn along the
     // plating. THE GRINDSTONE's fx kept it in three fields and four lines, and
     // nine more fx files had pasted the same fields before `HullShock` took

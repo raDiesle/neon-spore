@@ -2,8 +2,8 @@ import type { Color } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { drawLitCore } from "./lit-core.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { stepColour } from "./step-colour.js";
 
 /**
  * **THE GALL's marks**: what says what a step asks — two chevrons closing on
@@ -105,18 +105,12 @@ export function drawGallRoot(
   }
   const face = new Path2D();
   face.arc(0, 0, R, 0, Math.PI * 2);
-  if (lit === null) {
-    ctx.fillStyle = PALETTE.gallRoot;
-    ctx.fill(face);
-    ctx.strokeStyle = rgba(PALETTE.gallFleshDark, 0.9);
-    ctx.stroke(face);
-    return;
-  }
-  const { body, rim } = stepColour(lit.color);
-  ctx.fillStyle = rgba(body, bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
+  ctx.fillStyle = PALETTE.gallRoot;
   ctx.fill(face);
-  strokeGlow(ctx, face, rim, STROKE.inner, 0.8 + bright);
-  const ring = new Path2D();
-  ring.arc(0, 0, r * 1.7, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
-  strokeGlow(ctx, ring, body, STROKE.outline, 1);
+  if (lit !== null) {
+    // Lit for its step, from inside, and nothing past its edge (`lit-core.ts`).
+    drawLitCore(ctx, face, lit, beatPhase, { x: 0, y: 0, r: R }, r * 1.7, bright);
+  }
+  ctx.strokeStyle = rgba(PALETTE.gallFleshDark, 0.9);
+  ctx.stroke(face);
 }

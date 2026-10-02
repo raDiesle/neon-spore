@@ -174,7 +174,9 @@ item naming the rule, never a fix made in passing.
   a fill of the part's own contour, added over its drawing, no halo, no glow
   passes, no swell past its edge, and its border stroked in the colour it has
   unlit. An asked mark is faint (`MARK_LIGHT`, `drawMarkHalo`); a part the
-  cannon must hit is brighter and beats (`heartLight`). **Open:** a clear path
+  cannon must hit is brighter and beats (`heartLight`); a core lit for its
+  step, with its countdown ring, is one call to `drawLitCore`
+  (`render/lit-core.ts`). **Open:** a clear path
   from the cannon to it, with no other boss graphics in between *in non colour
   to shoot*. **Stopped:** the bolt is drawn no further than the first thing it
   meets. On the right part it bursts and is gone. On a wrong part, or the

@@ -11,9 +11,9 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
+import { drawLitCore } from "./lit-core.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawPullArrow } from "./pull-knob.js";
-import { stepColour } from "./step-colour.js";
 
 /**
  * **THE CAPSTAN's marks**: what says what a step asks — a horn of the cradle
@@ -130,21 +130,14 @@ export function drawCapstanCore(
   if (cover < 1) {
     const face = new Path2D();
     face.arc(0, 0, r * size, 0, Math.PI * 2);
-    if (lit === null) {
-      ctx.fillStyle = PALETTE.capstanCore;
-      ctx.fill(face);
-      ctx.lineWidth = STROKE.inner;
-      ctx.strokeStyle = rgba(PALETTE.capstanRustDark, 0.9);
-      ctx.stroke(face);
-    } else {
-      const { body, rim } = stepColour(lit.color);
-      ctx.fillStyle = rgba(body, bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
-      ctx.fill(face);
-      strokeGlow(ctx, face, rim, STROKE.inner, 0.8 + bright);
-      const ring = new Path2D();
-      ring.arc(0, 0, r * 1.7, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
-      strokeGlow(ctx, ring, body, STROKE.outline, 1);
-    }
+    ctx.fillStyle = PALETTE.capstanCore;
+    ctx.fill(face);
+    // Lit for its step, from inside, and nothing past its edge (`lit-core.ts`).
+    if (lit !== null)
+      drawLitCore(ctx, face, lit, beatPhase, { x: 0, y: 0, r: r * size }, r * 1.7, bright);
+    ctx.lineWidth = STROKE.inner;
+    ctx.strokeStyle = rgba(PALETTE.capstanRustDark, 0.9);
+    ctx.stroke(face);
   }
   drawCap(ctx, l, cover);
 }
