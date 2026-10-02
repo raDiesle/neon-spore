@@ -19,7 +19,7 @@ import { stepThroatSuck } from "./throat-suck.js";
 import type { TimedCommand } from "./types.js";
 import { undertowAnswers } from "./undertow-press.js";
 import { stepWardenTether } from "./warden-rope.js";
-import { progressWave } from "./wave-end.js";
+import { dropScriptAfterBoss, progressWave } from "./wave-end.js";
 import { countPlay, failHolds, stepFailHold } from "./wave-fail.js";
 import type { World } from "./world.js";
 
@@ -68,6 +68,9 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     return;
   }
   countPlay(world);
+  // Whether a boss stands as the tick begins, so the end of it can tell
+  // whether one was beaten in between (`dropScriptAfterBoss`).
+  const stood = world.boss !== null;
   // A round has the world: no spawn, no fall, no shot, no hull resolved.
   // "The field is gone" as an early return rather than a coat of paint, and
   // five of them now share the shape — which round is up, whose press it is,
@@ -155,6 +158,7 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // THE THROAT's suck after the pods have moved, so a body or a pod is taken
   // at the place it is drawn this frame (`throat-suck.ts`).
   stepThroatSuck(world);
+  dropScriptAfterBoss(world, stood);
   progressWave(world);
 }
 

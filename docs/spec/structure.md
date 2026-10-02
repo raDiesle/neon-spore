@@ -44,6 +44,13 @@
 > column with none of the boss in it loses the wave, and so does THE LEAD's
 > flight when it comes down where the body is not (`sim/shot-out.ts`,
 > `sim/shot-wasted.ts`).
+>
+> **Since 2 October 2026, a boss beaten ends its wave.** The owner: THE
+> SINEW left on beat 42 and its wave went on sending what was authored for
+> beats 52 to 80. Now everything the script had still to send, arrivals and
+> pods, is dropped the tick the boss leaves. The wave clears once what is
+> already on the field has been answered (`dropScriptAfterBoss`,
+> `sim/wave-end.ts`).
 
 - Waves come **all at once as a closed set**, then a short rest, then the next
 - Wave length 30–60 s; the rests shrink as the wave number rises

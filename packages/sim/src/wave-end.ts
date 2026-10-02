@@ -28,6 +28,26 @@ export function noteWaveCleared(world: World): void {
 }
 
 /**
+ * **A boss that has left ends its wave**: whatever the script still had to
+ * send is dropped, arrivals and pods alike, and the wave clears through
+ * `beat.ts` once what is already on the field has been answered. The owner, 2
+ * October 2026: THE SINEW was beaten on beat 42 and its wave went on sending
+ * the arrivals authored for beats 52 to 80.
+ *
+ * `stood` is whether a boss was installed when the tick began. Asked once a
+ * tick, after everything that can take a boss off, because about thirty
+ * places do — a step that runs out, a shot, a verdict — and this is the one
+ * question all of them come to. A round never reaches it: it returns before
+ * the field's rules (`step-round.ts`) and fills its wave, so it has no script
+ * to drop.
+ */
+export function dropScriptAfterBoss(world: World, stood: boolean): void {
+  if (!stood || world.boss !== null) return;
+  world.spawned = world.queue.length;
+  world.podSpawned = world.podQueue.length;
+}
+
+/**
  * The rest between waves is over — and mark it spent, so the question is not
  * asked again on every following tick while the host gets around to it.
  *

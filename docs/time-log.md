@@ -32607,3 +32607,15 @@ Bottleneck: carrying THE CAPSTAN's roll and rattle into the stopper, so the
 foot is the drum and cradle where the drawer puts them.
 
 *Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — A boss beaten ends its wave
+
+- reading: 10 min. The clear in `beat.ts`, `wave-end.ts`, `spawn.ts`, the
+  director's stage, and where each boss with authored arrivals leaves.
+- writing: 5 min. `dropScriptAfterBoss`, one call in `step`, a test.
+- looking: 0 min. A rule, not a look; checked with probes, not frames.
+- friction: 10 min. The report read as a bug the other way round — that the
+  wave ended early — and probes hunted for it until the owner's answer.
+- landing: 5 min.
+
+Bottleneck: reading the report as the opposite of what it asked for.
