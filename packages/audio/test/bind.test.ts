@@ -102,6 +102,7 @@ const SAMPLES: Record<string, SimEvent> = {
   stareLash: { type: "stareLash", player: 1, up: 3, of: 8 },
   stareVent: { type: "stareVent", player: 2 },
   stareBlast: { type: "stareBlast", col: 3 },
+  stareDeflect: { type: "stareDeflect", col: 3 },
   stareOut: { type: "stareOut" },
   queenFlinch: { type: "queenFlinch", col: 3, row: 2, side: -1 },
   queenPry: { type: "queenPry", col: 5, row: 2, side: 1 },

@@ -11,9 +11,11 @@ import type { World } from "./world.js";
  * day a bolt into the shut eye ended a level; now every bolt up the middle,
  * in any phase, meets it and does nothing, which is armour (`shot-out.ts`).
  * Met rather than passed, so the shot is not the wasted one that loses the
- * wave, and the picture sees it ring off the eye (`shotOut`, render/).
+ * wave, and `stareDeflect` rings it off the eye for the picture and the ear.
  */
 export function stareStruck(world: World, bullet: Bullet): boolean {
   if (stareBoss(world) === null) return false;
-  return bullet.col === midCol(world.cfg);
+  if (bullet.col !== midCol(world.cfg)) return false;
+  world.events.push({ type: "stareDeflect", col: bullet.col });
+  return true;
 }

@@ -13,6 +13,8 @@ export interface StareEyeLook {
   /** How far the lids stand open, `OPEN_SHUT..1` (`stareFace`). */
   open: number;
   ink: EyeInk;
+  /** The fluid the ball stands in and its rim: the level's colour, or the lesson's (`stare-level-look.ts`). */
+  wash: EyeInk;
   /** The wall clock, for the fluid and the lashes. */
   time: number;
   /** The beat clock, for the lens: the pupil is the same on both phones. */

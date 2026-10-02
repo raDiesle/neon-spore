@@ -37,5 +37,10 @@ export type StareEvent =
   | { type: "stareVent"; player: 1 | 2 }
   /** Nobody pulled the lid: the beam comes down the middle onto the hull. */
   | { type: "stareBlast"; col: number }
+  /**
+   * A bolt met the eye and glanced off it, in `col`, the middle: nothing hurts
+   * it, and the picture and the ear say so (`stare-shot.ts`).
+   */
+  | { type: "stareDeflect"; col: number }
   /** The eye is out and the boss is gone. */
   | { type: "stareOut" };

@@ -1,43 +1,45 @@
-import { type EyeInk, ROOT_MUL } from "./eye.js";
-import { rimBox, rimPoint } from "./eye-rim.js";
+import type { EyeInk } from "./eye.js";
 import { strokeGlow } from "./glow.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { browPoint } from "./stare-level-look.js";
 import type { StareEye } from "./stare-shape.js";
 
 /**
  * **What THE STARE counts with, and what it has taken**: the lashes that are
- * its score, and the scars a hit leaves on the cowl.
+ * its score, and the scars a level leaves on the cowl.
  *
  * **The lashes are the score.** The owner, 29 September 2026: *do not use the
  * progress dots … make eye some bigger and we could use glowing eyelash each
- * to use for counting.* One lash a beat of the level's pattern, fanned under
+ * to use for counting.* One lash a beat of the level's pattern, fanned over
  * the eye from corner to corner and read left to right: an open beat's lash
  * is long and lit in the eye's ink, a shut beat's short and dim. The lash of
  * the beat the eye is on burns white and longer still — the playhead — and
  * the ones already played go dark, so a pair with the sound off counts along
  * the fan the way the music counts the bar.
  *
- * **A scar a level.** Each level hit cuts one crack into the cowl, so the
- * fight's progress is on the boss rather than in a number.
+ * **Above the eye, and the only lashes it has**, since 2 October 2026 — the
+ * owner, *the lashes to indicate state should be above eyes to replace other
+ * lashes*. They stand on the brow's edge (`stare-level-look.ts`), where the
+ * ball's own upper fringe used to be, and the lashes the charge asks to be
+ * pulled stand in the same place (`stare-lash-pull.ts`).
+ *
+ * **A scar a level.** Each level survived cuts one crack into the cowl, so
+ * the fight's progress is on the boss rather than in a number.
  */
 
-/**
- * The lashes stand on the lower rim, clear of the corners by this share of
- * its length at each end, rooted where `eye.ts` roots the eye's own fringe —
- * past the film, so a lash only ever travels away from the eye.
- */
-const MARGIN = 0.1;
+/** The fan stands clear of the brow's ends by this share of its length at each end. */
+const MARGIN = 0.12;
 /** Lash lengths in socket heights: an open beat's, a shut beat's, and the extra on the one it is on. */
-const LONG = 1.7;
-const SHORT = 0.75;
-const NOW = 0.45;
+const LONG = 1.25;
+const SHORT = 0.55;
+const NOW = 0.35;
 
 /**
  * The fan, for a pattern and the beat the eye is on (`-1` in the lead-in,
  * when every lash is waiting and none is lit white). `ink` is the ink the
- * pattern is played in — blue for a lesson, red for real — so the lead-in
- * already says which it will be. Each lash is laid on a dark stroke of the
- * sky first, so it reads over the gaze's own light.
+ * pattern is played in — blue for a lesson, the level's colour for real — so
+ * the lead-in already says which it will be. Each lash is laid on a dark
+ * stroke of the sky first, so it reads over the gaze's own light.
  */
 export function drawLashes(
   ctx: CanvasRenderingContext2D,
@@ -45,24 +47,21 @@ export function drawLashes(
   pattern: string,
   at: number,
   ink: EyeInk,
+  anger: number,
 ): void {
   const n = pattern.length;
   if (n === 0) return;
-  const box = rimBox(e.rx, e.ry, ROOT_MUL);
   const open = new Path2D();
   const shut = new Path2D();
   const spent = new Path2D();
   const now = new Path2D();
   for (let i = 0; i < n; i++) {
-    // Left to right: the lower rim runs from the right corner back to the
-    // left (`rimPoint`), so the share across is turned round.
-    const across = MARGIN + ((1 - 2 * MARGIN) * (i + 0.5)) / n;
-    const p = rimPoint(box, 0.5 + 0.5 * (1 - across));
+    const p = browPoint(e, anger, MARGIN + ((1 - 2 * MARGIN) * (i + 0.5)) / n);
     const isOpen = pattern[i] === "x";
     const len = e.ry * ((isOpen ? LONG : SHORT) + (i === at ? NOW : 0));
     const path = i === at ? now : at >= 0 && i < at ? spent : isOpen ? open : shut;
-    path.moveTo(e.cx + p.x, e.cy + p.y);
-    path.lineTo(e.cx + p.x + p.nx * len, e.cy + p.y + p.ny * len);
+    path.moveTo(p.x, p.y);
+    path.lineTo(p.x + p.nx * len, p.y + p.ny * len);
   }
   const w = STROKE.outline * 2;
   const thin = STROKE.outline * 1.2;
@@ -94,9 +93,9 @@ const SCARS: readonly (readonly [number, number, number, number, number, number]
   [-1.3, -0.55, -1.15, -0.25, -1.4, 0.1],
 ];
 
-/** One crack in the cowl for each level the pair has taken off it. */
-export function drawScars(ctx: CanvasRenderingContext2D, e: StareEye, hits: number): void {
-  const n = Math.min(hits, SCARS.length);
+/** One crack in the cowl for each level the pair has survived. */
+export function drawScars(ctx: CanvasRenderingContext2D, e: StareEye, levels: number): void {
+  const n = Math.min(levels, SCARS.length);
   if (n <= 0) return;
   const p = new Path2D();
   for (let i = 0; i < n; i++) {

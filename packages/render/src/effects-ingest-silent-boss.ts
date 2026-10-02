@@ -56,6 +56,7 @@ export const INGEST_SILENT_BOSS = [
   "stareRise",
   "stareCharge",
   "stareLash",
+  "stareDeflect",
   "stareVent",
   "stareBlast",
   "stareOut",

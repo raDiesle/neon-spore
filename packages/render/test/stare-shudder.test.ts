@@ -55,6 +55,7 @@ function painted(s: StareState, beat: number, phase: number): string {
     e,
     ...look,
     ink: INK,
+    wash: INK,
     time: 1,
     beats: 0,
   });

@@ -13,7 +13,6 @@ import {
   globePath,
   hairPath,
   lidBottom,
-  lidTop,
 } from "./stare-globe.js";
 import { stareHeat } from "./stare-shape.js";
 
@@ -52,7 +51,7 @@ const HOME = pin(0, 0, 1);
 
 export function paintGlobe(
   ctx: CanvasRenderingContext2D,
-  { e, face, lean, open, ink, time, beats }: StareEyeLook,
+  { e, face, lean, open, ink, wash, time, beats }: StareEyeLook,
 ): void {
   const heat = stareHeat({ face, open, lean });
   const g: Globe = {
@@ -65,7 +64,7 @@ export function paintGlobe(
   const ball = globePath(g);
 
   // The wash the ball stands in, and the ball, lit by the one key light.
-  halo(ctx, g.cx, g.cy, g.rx * 1.9, PALETTE.eyeFluid, 0.1 + 0.14 * open);
+  halo(ctx, g.cx, g.cy, g.rx * 1.9, wash.hex, 0.1 + 0.14 * open);
   ctx.save();
   ctx.fillStyle = mixHex(PALETTE.background, ink.hex, 0.3);
   ctx.fill(ball);
@@ -74,7 +73,7 @@ export function paintGlobe(
   ctx.scale(1, g.ry / g.rx);
   litRound(ctx, 0, 0, g.rx + 2, LIGHT_HALF.rock);
   ctx.restore();
-  strokeGlow(ctx, globePath(g, 1.06), PALETTE.eyeFluidRim, STROKE.inner, 0.3 + 0.3 * open);
+  strokeGlow(ctx, globePath(g, 1.06), wash.rim, STROKE.inner, 0.3 + 0.3 * open);
 
   // The opening, dimmed as it turns off the light.
   const at = facet(HOME, g.theta);
@@ -101,15 +100,10 @@ export function paintGlobe(
   }
   strokeGlow(ctx, gap, ink.rim, STROKE.inner, (0.8 + 0.6 * open) * lit);
 
-  // Lashes off the upper lid and cilia off the lower, rooted on the ball.
-  const lashes = hairPath(
-    g,
-    7,
-    (u) => lidTop(u, open) - 0.05,
-    (i) => -(i % 2 === 0 ? 0.3 : 0.2) * (1 + open * 0.25),
-    (i) => Math.sin(time * 1.6 + i * 2.1) * 0.04,
-  );
-  strokeGlow(ctx, lashes, ink.rim, STROKE.inner * 1.2, (0.5 + open * 0.7) * lit);
+  // Cilia off the lower lid, rooted on the ball. The upper lashes are the
+  // score's and the pull's, on the brow (`stare-lashes.ts`) — the owner, 2
+  // October 2026: *the lashes to indicate state should be above eyes to
+  // replace other lashes*.
   const cilia = hairPath(
     g,
     13,

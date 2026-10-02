@@ -42,6 +42,10 @@ import { showsStareCaught } from "./view-role-clocks-b.js";
  * burst off both corners of the eye and the jets it throws to the walls
  * (`vent`), and the beam let go and a bolt home are a lesser flash with no
  * seat — transients, on both screens.
+ *
+ * **And the shell's ring** (2 October 2026): a bolt the eye cannot take
+ * glances off the glass it stands behind (`stareDeflect`), and the glass
+ * lights and fades (`ping`, `stare-shell.ts`).
  */
 
 /** How fast the flash falls away — a beat and a bit at the game's tempo. */
@@ -50,12 +54,15 @@ const FLASH_DECAY = 3;
 const VENT_FALL = 1.4;
 /** How much of the panel the flash is worth at its brightest. */
 const FLASH_ALPHA = 0.55;
+/** How fast the shell's ring falls away when a bolt glances off it. */
+const PING_FALL = 2.2;
 /** How far past the button's own edge the flash spills, as a share of it. */
 const FLASH_SPREAD = 1.35;
 
 export class StareFx {
   private flashNow = 0;
   private ventNow = 0;
+  private pingNow = 0;
   private seat: 0 | 1 | 2 = 0;
   /** The press the eye punished, for finding the circle it came through. */
   private verb: Command | null = null;
@@ -68,6 +75,11 @@ export class StareFx {
   /** How much of the vent is still in the air, one on the tick and falling (`stare-charge.ts`). */
   get vent(): number {
     return this.ventNow;
+  }
+
+  /** How hard the shell is still ringing from a bolt, one on the tick and falling (`stare-shell.ts`). */
+  get ping(): number {
+    return this.pingNow;
   }
 
   /** Which seat was caught, while the flash is up. */
@@ -95,6 +107,12 @@ export class StareFx {
         this.ventNow = 1;
         burst(eye.cx - eye.rx, eye.cy, 10, PALETTE.cyan);
         burst(eye.cx + eye.rx, eye.cy, 10, PALETTE.cyan);
+      } else if (e.type === "stareDeflect") {
+        // A bolt off the shell: it rings, and the bolt's sparks fly off where
+        // it struck, under the eye — the shot spent on a thing nothing hurts.
+        const eye = stareEye(l, cfg);
+        this.pingNow = 1;
+        burst(eye.cx, eye.cy + eye.ry * 1.6, 8, PALETTE.text);
       } else if (e.type === "stareBlast" || e.type === "stareRise") {
         // The beam let go, or a level won and the eye rising in rage: the eye
         // goes white, half as hard as a catch and with no panel under it.
@@ -108,6 +126,7 @@ export class StareFx {
     const step = Math.min(dt, 1 / 30);
     this.flashNow = Math.max(0, this.flashNow - this.flashNow * FLASH_DECAY * step);
     this.ventNow = Math.max(0, this.ventNow - VENT_FALL * step);
+    this.pingNow = Math.max(0, this.pingNow - PING_FALL * step);
     if (this.flashNow < 0.01) {
       this.flashNow = 0;
       this.seat = 0;
@@ -146,6 +165,7 @@ export class StareFx {
   clear(): void {
     this.flashNow = 0;
     this.ventNow = 0;
+    this.pingNow = 0;
     this.seat = 0;
     this.verb = null;
   }

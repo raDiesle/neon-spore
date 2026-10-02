@@ -223,6 +223,7 @@ describe("THE STARE", () => {
       eye(w).open ? [] : [cmd(w, 2, { kind: "fire", color: "cyan" })],
     );
     expect(seen.some((e) => e.type === "shotOut" && e.col === MID && !e.wasted)).toBe(true);
+    expect(seen.some((e) => e.type === "stareDeflect" && e.col === MID)).toBe(true);
     expect(eye(world).level).toBe(0);
     expect(failHolds(world)).toBe(false);
   });

@@ -29,6 +29,10 @@ export function stareCue(e: Extract<SimEvent, { type: `stare${string}` }>): Cue 
       return { id: "boss.stareLash", pitch: 1 + (0.5 * e.up) / Math.max(1, e.of) };
     case "stareVent":
       return { id: "boss.stareVent" };
+    // A bolt glancing off the eye is the game's own ricochet: the ear already
+    // knows it as *that did nothing*.
+    case "stareDeflect":
+      return { id: "impact.deflect" };
     case "stareBlast":
       return { id: "boss.stareBlast" };
     case "stareOut":

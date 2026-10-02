@@ -1721,12 +1721,14 @@ by hand never moves.
 | `packages/render/src/stare-draw.ts` | THE STARE, drawn: the cowled eye over the top of the field, opening on the beats of its pattern |
 | `packages/render/src/stare-fx.ts` | What THE STARE leaves behind a frame: the **flash** of a press it caught |
 | `packages/render/src/stare-shape.ts` | **Where THE STARE is, and how far it has turned** — the numbers the drawer |
+| `packages/render/src/stare-shell.ts` | **THE STARE's shell**: the glass the eye stands behind |
 | `packages/render/src/stare-blow.ts` | THE STARE's timeout blow: its gaze narrows to one ray that brands the eye into the hull |
 | `packages/render/src/stare-eye-look.ts` | THE STARE's eye as the one record its turn is painted through: a globe that rolls in its socket |
 | `packages/render/src/stare-eye-globe.ts` | **THE STARE's eye as a ball that turns**, where the game used to squash a flat eye to a sliver and shear it |
 | `packages/render/src/stare-charge.ts` | **THE STARE's beam, gathering and let out** — the two pictures the owner asked for on 29 September 2026 |
 | `packages/render/src/stare-lashes.ts` | **What THE STARE counts with, and what it has taken**: the lashes that are its score |
 | `packages/render/src/stare-lash-pull.ts` | **THE STARE's lashes, to be pulled**: the one thing on the eye a hand takes hold of |
+| `packages/render/src/stare-level-look.ts` | **How angry THE STARE is, and how dangerous it looks**: the colour a level opens in |
 | `packages/render/src/stare-globe.ts` | **The globe's geometry**: an eye modelled as a ball set in the cowl, and the opening |
 | `packages/render/src/intro-parts.ts` | The parts the intro's picture is built out of: a plate, a body, a hull |
 | `packages/render/src/intro-pair.ts` | THE PICTURE THE WHOLE INTRO IS: two people, two phones, and a word crossing between them |

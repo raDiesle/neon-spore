@@ -40,6 +40,12 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * globe was taken from VERSUS: its halos, round the ball and on its wet
  * point, are one cached sprite more than the flat eye drew.
  *
+ * `stroke` went up by thirteen and `fill` by one in both rows on 2 October
+ * 2026, for what the owner asked the levels to show: the brow's cap and its
+ * lit edge, the level's halo round the cowl, the shell's lattice, rim and
+ * glint, and the dark rims under the turns count — less the seven upper
+ * lashes the ball no longer draws.
+ *
  * Each row is the worst of each op over one beat, on a phone. Set `MEASURE`
  * to true and run this file to print the rows as they are written below
  * (`budget-row.ts`); never committed as `true`.
@@ -55,8 +61,8 @@ const BUDGETS: Record<string, { open: boolean; budget: Budget }> = {
   shut: {
     open: false,
     budget: {
-      fill: 53,
-      stroke: 120,
+      fill: 54,
+      stroke: 133,
       drawImage: 30,
       createLinearGradient: 13,
       createRadialGradient: 7,
@@ -65,8 +71,8 @@ const BUDGETS: Record<string, { open: boolean; budget: Budget }> = {
   open: {
     open: true,
     budget: {
-      fill: 54,
-      stroke: 123,
+      fill: 55,
+      stroke: 136,
       drawImage: 30,
       createLinearGradient: 14,
       createRadialGradient: 7,

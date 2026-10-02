@@ -32129,3 +32129,17 @@ Bottleneck: writing — the rename of the lid to the lashes reaches eighteen
 files outside the boss, and each one is only found by the typecheck.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE STARE looks angrier each level, shows its turns left, and stands behind glass
+
+- reading: 0 min. The eye's files were open from the lane before.
+- writing: 10 min. The level's colour and the brow, the turns count, the
+  shell and its ring, the lashes moved onto the brow, the tests and the
+  spec paragraph.
+- looking: 5 min. The first and last levels open, and a charge with a lash
+  up; the brow was too faint and the last level's lashes splayed flat.
+- friction: 0 min.
+- landing: 5 min. Two lint rounds, a test missing its timeout, `land`.
+
+Bottleneck: looking — the brow only read as a frown once a frame showed
+it vanishing into the cowl's own rock.

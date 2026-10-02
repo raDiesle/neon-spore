@@ -41,6 +41,7 @@ export const SILENT_BOSS = [
   "stareRise",
   "stareCharge",
   "stareLash",
+  "stareDeflect",
   "stareVent",
   "stareBlast",
   "stareOut",

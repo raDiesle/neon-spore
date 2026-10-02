@@ -1,12 +1,11 @@
 import { type SimConfig, type StareState, stareCharging, stareLashesOwed } from "@neon-spore/sim";
-import { ROOT_MUL } from "./eye.js";
-import { rimBox, rimPoint } from "./eye-rim.js";
 import { strokeGlow } from "./glow.js";
 import { handleRadius } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawPullArrow } from "./pull-knob.js";
 import { PULL_UP } from "./pull-line.js";
+import { browPoint, stareAnger } from "./stare-level-look.js";
 import { type StareEye, stareEye } from "./stare-shape.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -19,7 +18,7 @@ import { bossOf } from "./touch-field.js";
  * The owner, 2 October 2026: *instead of pulling middle, players need to pull
  * up a number of lashes. First level 4 and every level more doubling it.* So
  * while the eye charges, a fan of `stareLashesOwed` lashes stands along the
- * eye's **upper** rim, corner to corner: a lash still down is short and
+ * brow over the eye, corner to corner, where the score's lashes stood: a lash still down is short and
  * smouldering in the charge's ember, a lash pulled up is long and lit green —
  * the owner's colour for a pull done (`pull-track.ts`) — and the lash a thumb
  * is pulling rides up with the thumb (`lashMilli`). They come up from both
@@ -99,7 +98,7 @@ export function drawStareLashPull(
     rise[slotOf(next, n)] = Math.min(1, (s.lashMilli[seat] as number) / pull);
     next += 1;
   }
-  const box = rimBox(e.rx, e.ry, ROOT_MUL);
+  const anger = stareAnger(s);
   const up = new Path2D();
   const down = new Path2D();
   const going = new Path2D();
@@ -107,7 +106,7 @@ export function drawStareLashPull(
   let goings = 0;
   for (let i = 0; i < n; i++) {
     const across = MARGIN + ((1 - 2 * MARGIN) * (i + 0.5)) / n;
-    const p = rimPoint(box, across * 0.5);
+    const p = browPoint(e, anger, across);
     const r = rise[i] as number;
     const len = e.ry * (DOWN + (UP - DOWN) * r);
     const path = r >= 1 ? up : r > 0 ? going : down;
@@ -115,8 +114,8 @@ export function drawStareLashPull(
     else if (r > 0) goings += 1;
     // A lash still down droops a little and stirs; one pulled stands straight.
     const sway = r >= 1 ? 0 : Math.sin(time * 2.1 + i * 1.7) * 0.15 * (1 - r);
-    path.moveTo(e.cx + p.x, e.cy + p.y);
-    path.lineTo(e.cx + p.x + (p.nx + sway) * len, e.cy + p.y + p.ny * len);
+    path.moveTo(p.x, p.y);
+    path.lineTo(p.x + (p.nx + sway) * len, p.y + p.ny * len);
   }
   const w = STROKE.outline * (n > 16 ? 1.2 : 1.8);
   ctx.save();

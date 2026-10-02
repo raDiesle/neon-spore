@@ -131,6 +131,7 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "stareRise":
     case "stareCharge":
     case "stareLash":
+    case "stareDeflect":
     case "stareVent":
     case "stareBlast":
     case "stareOut":

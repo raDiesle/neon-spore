@@ -3040,22 +3040,39 @@ level a step higher, so a level is also a key. A lash pulled is a pluck that
 climbs as the charge's lashes come up, so the pair hears how close the vent is.
 
 **The look** (`render/stare-draw.ts`, `stare-shape.ts`, `stare-lashes.ts`,
-`stare-charge.ts`, `stare-fx.ts`, `stare-lash-pull.ts`, `stare-blow.ts`): the cowled
+`stare-charge.ts`, `stare-fx.ts`, `stare-lash-pull.ts`, `stare-blow.ts`,
+`stare-level-look.ts`, `stare-shell.ts`): the cowled
 eye over the middle column, **hung inside the field** two tiles under row 0's
 top edge — the owner, 29 September 2026, *any boss should not touch top of
-game screen* — its ink blue with a blue halo on the cowl while it teaches, red
-while it plays for real and grey between. It opens on an open beat and falls
+game screen* — its ink blue with a blue halo on the cowl while it teaches, the
+**level's colour** while it plays for real and grey between. The owner, 2
+October 2026: *every level it looks more angry and in more dangerous colour.
+There is only green opening eye colour* — so the ball's fluid, the game's
+green `eyeFluid` until that day, takes the level's colour too: yellow, orange,
+red, then a red gone violet (`LEVEL_INKS`), with a halo of it round the cowl.
+**A brow** of the cowl's rock comes down over the ball in a V, its point lower
+every level (`stareAnger`), its edge lit in the level's colour, so the eye
+frowns on the first level and glares on the last. **The turns left** before
+the next level are a number under the eye, *5 TURNS LEFT* down to *1 TURN
+LEFT*, in the level's colour, through the rest, the passes and the charge.
+**The eye stands in a shell** (`stare-shell.ts`): a dome of faint six-sided
+glass cells with a glint running round its rim, the picture's *you cannot hurt
+it*; a bolt that meets the eye rings off it (`stareDeflect`), lighting the
+glass and throwing sparks from where it struck, with the game's deflect
+sound. It opens on an open beat and falls
 shut as the beat passes; the gaze is drawn down the field on both screens while
 it is open, and runs out `GAZE_TILES` (8.5) down, so the red and the word at
 its foot stand well clear of the eye. **The score is the lashes** — the
 owner's *do not use the progress dots … we could use glowing eyelash each to
-use for counting* — one lash a beat of the pattern along the eye's lower rim,
+use for counting* — one lash a beat of the pattern standing on the brow's
+edge, the eye's **only** upper lashes since 2 October 2026 (the owner: *the
+lashes to indicate state should be above eyes to replace other lashes*),
 long and lit for an open beat, short for a shut one, dim once played, and the
 beat the eye is on white and longest, each over a dark stroke so it reads
 through the gaze. A pair with the sound off reads the rhythm off them.
 **The charge** swells the eye (`swollenEye`), gathers a hot core in it with
 light streaking in from round the cowl, and warms an ember halo on the cowl,
-all read off `stareSwell`; the lashes it asks for stand along its upper rim
+all read off `stareSwell`; the lashes it asks for stand on the same brow
 on every screen, smouldering ember while down and lit green once pulled, with
 the pull's arrow over them (`stare-lash-pull.ts`).
 **A vent** throws the charge out flat from both corners of the eye to the
@@ -3068,7 +3085,7 @@ charge has come (`slow-boss-aim-b.ts`), so the prism never splits the eye.
 The eye is painted through one record, `STARE_EYE` (`render/stare-eye-look.ts`),
 as a globe that rolls its opening round to face the pair (`render/stare-eye-globe.ts`,
 taken from VERSUS on 1 October 2026). Proved
-in `render/test/stare-frame.test.ts`.
+in `render/test/stare-frame.test.ts` and `stare-level-look.test.ts`.
 
 **The cue** (`render/boss-cue-read-d.ts`) is `STILL`, on both seats, at the
 foot of the gaze on an open live beat — the fifth kind of cue and the only one
