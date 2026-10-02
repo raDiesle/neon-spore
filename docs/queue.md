@@ -439,6 +439,7 @@ flat. `bun run check` proves the tests.
 ## Every other boss a bolt strikes, held to the lit-open-stopped rule
 
 - **Found:** 2026-10-01, claude/boss-cannon-targeting-feedback-15f334
+- **Taken:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
 - **Where:** local
 - **Files:** `packages/sim/src/shot-out.ts`, `packages/render/src/bolt-stop.ts`, `packages/render/src/seam-stop.ts`, `packages/render/src/heartbeat.ts`, `.claude/skills/new-boss/generic.md`
 
