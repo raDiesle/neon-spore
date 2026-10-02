@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · f922f1dfb — THE GORGE's picture: colours poured in, numbers readable, the ring swinging
+
+The navigator's bubbles are filled with the colour they want, and a bubble that wants both colours is two-tone: red up to its red share, cyan above. The pilot's counts and order numbers are white with a dark edge. On a ring each order number sits beside its bubble, so it no longer lands on the count of the bubble above it. The ring swings round to each turn instead of snapping: a new hashed field, `turnFrom`, records where it stood. This is a look the owner asked for by name (1 October 2026), so it does not go through VERSUS.
+
 ## 2026-10-02 · bdc3911bc — THE MIMIC's simulation: a sign only one of you can see, and only the other can draw
 
 THE MIMIC (§42) wears one of five signs on its skin: a ring, a triangle, a zigzag, a wave or a hook. The sign shows on one seat's screen only, and the other seat draws it. The answer is a new `glyph` command, the index of the sign drawn, and it crosses the wire. A right sign peels off. A wrong sign is worn on the skin, then an arm reaches down, and three reaches in a movement hit the hull. There are three signs, a roll that trades the seats, three more signs that change partway through, then two split skins, each baring a core to shoot in its colour. It is wave 123, in act 14. It has its AUTO hand, its thirteen sounds and its director rows. Nothing on the phone turns a stroke into a glyph yet; that recogniser is queued, and so is the look.
