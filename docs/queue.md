@@ -475,6 +475,7 @@ bolt stopped, and `bun run check` is green.
 ## THE INSTAR's idle drift is dead code since the owner dropped it
 
 - **Found:** 2026-10-02, claude/versus-decisions-2026-10-02
+- **Taken:** 2026-10-02, claude/queue-instar-drift-dead (claim: claude/queue-the-instars-idle-drift-is-dead-code-since-the-ow)
 - **Files:** `packages/render/src/instar-drift.ts`, `packages/render/src/instar-parts.ts`, `packages/render/src/instar-place.ts`, `packages/render/src/instar-head-look.ts`, `packages/render/src/instar-head-parts.ts`, `packages/render/src/instar-plate.ts`, `packages/render/src/instar-profile.ts`, `packages/render/src/instar-rig-head-draw.ts`, `packages/render/src/instar-sway.ts`, `packages/render/src/instar-wings.ts`, `packages/render/test/instar-drift.test.ts`, `packages/render/test/instar-parts.test.ts`
 
 VERSUS `instar:drift` / `turn` was dropped on 2 October 2026 (*looks worse*,
