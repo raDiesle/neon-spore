@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 7d36e2886 — Four pressed GAUGE misses do open the mouth in `bun run frames`
+
+The queue said `bun run frames` with four `--press` calls drew THE GAUGE's mouth shut. On today's tree it does not: at the capture the world holds four misses, and the rim stands four steps further out than at tick 390. The entry was filed from the same commit that made the mouth open, so it was found on a build made partway through that lane. The render tests already hold the rim a step out for every miss and every level, so nothing was added.
+
 ## 2026-10-02 · 6a27b4194 — The ledger merges an entry appended with no blank line over a stamped one
 
 A lane that wrote its time-log entry straight under the last line of the one before handed that earlier entry back to the merge without its closing newline. When the trunk had stamped the same entry with its Measured line, the merge saw both sides rewrite one entry and stopped the landing. `mergeRecord` now compares an entry's two sides without the whitespace they end on, so the release notes gain the same fix.

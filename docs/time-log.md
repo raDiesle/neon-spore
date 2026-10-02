@@ -32109,3 +32109,5 @@ Bottleneck: landing — the fix was one function; the check is most of it.
 
 Bottleneck: looking — the entry was filed from the commit that made the
 mouth open, so only a frame of today's tree could say whether it still held.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
