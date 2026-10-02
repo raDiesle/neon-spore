@@ -165,7 +165,16 @@ item naming the rule, never a fix made in passing.
   generic, 1 October 2026, on THE SEAM *but also all other bosses*. Three
   things, all of them. **Lit:** the part is drawn in the colour that hits it,
   and it *beats like vulnerable hearth*. That means `lubDub` in
-  `render/heartbeat.ts`, never a cosine of its own. **Open:** a clear path
+  `render/heartbeat.ts`, never a cosine of its own. **Lit from inside, and
+  nowhere else** — generic, 2 October 2026: *only let the part of body shape
+  glow red, but not so heavy and no glowing outside. and the borders should
+  not be red … only when player needs to shoot a specific part of body it can
+  glow and pulse some more. the graphics around red light or below should
+  still be good visible.* The light is `lightWithin` (`render/part-light.ts`):
+  a fill of the part's own contour, added over its drawing, no halo, no glow
+  passes, no swell past its edge, and its border stroked in the colour it has
+  unlit. An asked mark is faint (`MARK_LIGHT`, `drawMarkHalo`); a part the
+  cannon must hit is brighter and beats (`heartLight`). **Open:** a clear path
   from the cannon to it, with no other boss graphics in between *in non colour
   to shoot*. **Stopped:** the bolt is drawn no further than the first thing it
   meets. On the right part it bursts and is gone. On a wrong part, or the
@@ -175,8 +184,8 @@ item naming the rule, never a fix made in passing.
   is the worked example (`render/seam-stop.ts`). **A core over the middle
   column is the short case:** the shot asks `coreVerdict`
   (`sim/core-verdict.ts`), the stopper is `coreStopper` with the core's near
-  rim and the body's `Foot` (`render/core-stop.ts`), and the lit face swells
-  on `heartCore`. THE FLUE and THE GOVERNOR are the examples, and
+  rim and the body's `Foot` (`render/core-stop.ts`), and the lit face is
+  `lightWithin` at `heartLight`. THE FLUE and THE GOVERNOR are the examples, and
   `render/test/core-stop.test.ts` takes one row a boss.
 - **What a mistake costs is decided boss by boss**, not here. The owner, 2
   October 2026, made a miss fail THE GAUGE's wave — *a miss makes the boss

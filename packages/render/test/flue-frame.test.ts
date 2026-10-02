@@ -3,6 +3,7 @@ import { midCol } from "@neon-spore/sim";
 import { fieldX } from "../src/field-flip.js";
 import { flueDamperOpen, flueEmberDrawn, flueSmear } from "../src/flue-pose.js";
 import { flueDamperAt, flueEmberAt, flueUnitAt } from "../src/flue-shape.js";
+import { rgba } from "../src/hex.js";
 import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { showsFlueHand } from "../src/view-role-clocks-c.js";
@@ -62,9 +63,14 @@ describe("THE FLUE's body", () => {
     };
     const between = frame(role, (w) => posed(w, null, 0, bare));
     const owed = frame(role, (w) => posed(w, FIRE, 0, bare));
-    // The navigator's panel is cyan on every screen; the core is cyan on top of it.
-    expect(count(owed, PALETTE.cyan)).toBeGreaterThan(count(between, PALETTE.cyan));
+    // The navigator's panel is cyan by its hex on every screen; the core's
+    // light and its ring are cyan by `rgba`, and only while the shot is owed.
+    const cyan = rgba(PALETTE.cyan, 0).slice(0, -2);
+    expect(count(owed, cyan)).toBeGreaterThan(count(between, cyan));
     expect(count(between, PALETTE.flueCore)).toBeGreaterThan(0);
+    // Lit from inside: the core's own soot and rim are still drawn under the light.
+    expect(count(owed, PALETTE.flueCore)).toBeGreaterThan(0);
+    expect(count(owed, rgba(PALETTE.flueSootDark, 0.9))).toBeGreaterThan(0);
   });
 });
 

@@ -4,18 +4,20 @@ import { coreHurt } from "./core-hurt.js";
 import { strokeGlowFaded } from "./glow.js";
 import { governorLeft } from "./governor-pose.js";
 import { type Dial, hubR } from "./governor-shape.js";
-import { heartCore } from "./heartbeat.js";
+import { heartLight } from "./heartbeat.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { lightWithin } from "./part-light.js";
 import { stepColour } from "./step-colour.js";
 
 /**
  * The hub the needle turns on, THE VANE's bearing: a dull brass boss until
- * both runs are spent; lit softly while it waits between shots, and in the
- * step's colour, beating like a heart, with a ring closing while a shot is
- * owed; smaller and brighter for every hit.
+ * both runs are spent; lit softly while it waits between shots, and from
+ * inside in the step's colour, beating like a heart, with a ring closing
+ * while a shot is owed (`heartbeat.ts`, `part-light.ts`) — its brass rim
+ * kept, and no colour past its edge; smaller for every hit.
  */
 export function drawGovernorHub(
   ctx: CanvasRenderingContext2D,
@@ -27,10 +29,7 @@ export function drawGovernorHub(
 ): void {
   const hurt = coreHurt(s.hits);
   const step = governorLitStep(s);
-  // Lit for a shot, it beats like a heart (`heartbeat.ts`).
-  const heart = heartCore(beatPhase);
-  const swell = s.hubLit && step?.ask === "fire" ? heart.swell : 1;
-  const r = hubR(l) * (s.hubLit ? hurt.size : 1) * swell;
+  const r = hubR(l) * (s.hubLit ? hurt.size : 1);
   const squash = 0.5 + 0.5 * d.tilt;
   const face = new Path2D();
   face.ellipse(d.cx, d.cy, r, r * squash, 0, 0, Math.PI * 2);
@@ -55,10 +54,13 @@ export function drawGovernorHub(
     strokeGlowFaded(ctx, face, PALETTE.hullRim, STROKE.inner, 0.5, 0.8);
     return;
   }
-  const { body, rim } = stepColour(step.color);
-  ctx.fillStyle = rgba(body, hurt.bright * heart.fill);
-  ctx.fill(face);
-  strokeGlowFaded(ctx, face, rim, STROKE.inner, 0.8 + hurt.bright + heart.glow);
+  // Lit for a shot, it beats like a heart, inside its own rim.
+  const { body } = stepColour(step.color);
+  const light = heartLight(beatPhase) * (0.6 + 0.4 * hurt.bright);
+  lightWithin(ctx, face, body, light, { x: d.cx, y: d.cy, r });
+  ctx.lineWidth = STROKE.inner;
+  ctx.strokeStyle = rgba(PALETTE.governorBrassDark, 0.95);
+  ctx.stroke(face);
   const ring = new Path2D();
   const left = governorLeft(s, beat, beatPhase);
   const n = 28;
@@ -69,5 +71,7 @@ export function drawGovernorHub(
     if (i === 0) ring.moveTo(x, y);
     else ring.lineTo(x, y);
   }
-  strokeGlowFaded(ctx, ring, body, STROKE.outline, 1);
+  ctx.lineWidth = STROKE.inner;
+  ctx.strokeStyle = rgba(body, 0.75);
+  ctx.stroke(ring);
 }

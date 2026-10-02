@@ -1084,6 +1084,7 @@ by hand never moves.
 | `packages/render/src/palette-creatures-late.ts` | The hues one creature or boss owns, cut out of `palette-creatures.ts` when that file reached its ceiling |
 | `packages/render/src/panel-plan.ts` | where the controls stand on the panel, as a record — the rows, the radius and each seat's spread, read by the layout and by bandLobes so drawing and touch move together |
 | `packages/render/src/painted-strips.ts` | **Every painted strip, by its asset's name**: the one place a strip's numbers are written |
+| `packages/render/src/part-light.ts` | **A part of a body lit from inside**: the one way a boss says *this part is the one to act on* |
 | `packages/render/src/glow.ts` | glow without shadowBlur |
 | `packages/render/src/layout.ts` | screen geometry, shared with input hit-testing |
 | `packages/render/src/layout-stage.ts` | **Where the game is drawn, before anything is placed inside it.** Cut out of `layout.ts` when THE WELL's roll… |

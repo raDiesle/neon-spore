@@ -10,15 +10,22 @@ export function lubDub(beatPhase: number): number {
   return Math.exp(-beatPhase * 9) + (dub > 0 ? 0.5 * Math.exp(-dub * 9) : 0);
 }
 
-/** How far a lit target swells on the lub, as a share of its size: THE SEAM's point's. */
-export const HEART_SWELL = 0.3;
+/** How lit a part the cannon must hit is between beats, and how much the lub adds. */
+const HEART_REST = 0.55;
+const HEART_LUB = 0.45;
 
 /**
- * **A lit core's heartbeat**, for every boss whose target is a round core lit
- * in its cannon's colour: how far it is swollen, how full its fill, and how
- * hard its rim glows this instant. Still lit between beats, never dark.
+ * **How lit a part the cannon must hit is this instant**, for `lightWithin`
+ * (`part-light.ts`): brighter than an asked mark's `MARK_LIGHT`, beating on
+ * `lubDub`, still lit between beats, never dark.
+ *
+ * **It beats in light, not in size.** Until 2 October 2026 the part also
+ * swelled by a third on the lub, with a glow of its colour round its rim;
+ * the owner, that day: *only let the part of body shape glow … no glowing
+ * outside. and the borders should not be red … only when player needs to
+ * shoot a specific part of body it can glow and pulse some more.* A part
+ * that swells is a coloured shape growing over what stands round it.
  */
-export function heartCore(beatPhase: number): { swell: number; fill: number; glow: number } {
-  const thump = lubDub(beatPhase);
-  return { swell: 1 + HEART_SWELL * thump, fill: 0.6 + 0.4 * thump, glow: thump };
+export function heartLight(beatPhase: number): number {
+  return HEART_REST + HEART_LUB * lubDub(beatPhase);
 }

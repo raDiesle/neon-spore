@@ -32261,3 +32261,18 @@ Bottleneck: a backticked slot name in a comment counting as a reader, until
 only quoted strings did.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — an asked part lit from inside, never round it
+
+- reading: 10 min. From the cue frame to the real source, `drawMarkHalo`'s
+  red cloud 2.6 radii wide over fifty bosses, and the four heartbeat faces.
+- writing: 10 min. `part-light.ts`, the halo, THE SEAM, THE FLUE, THE
+  GOVERNOR and THE INSTAR on it; two frame tests and THE FLEET's budget.
+- looking: 20 min. Before and after crops of four bosses, a beat strip of
+  THE FLUE, and three blends tried before `hard-light` with a little
+  `lighter` turned a yellow eye red as well as lighting a dark core.
+- friction: 5 min. No recipe opens THE INSTAR on a shoot step; AUTO never
+  left its first step in 9000 ticks, so the state was written with `--boss`.
+- landing: 5 min. `check:fast`, the catalogue rows, `land`.
+
+Bottleneck: finding a frame where each boss was asking for its shot.

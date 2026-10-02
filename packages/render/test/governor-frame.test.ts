@@ -11,6 +11,7 @@ import {
   TILT_READ,
 } from "../src/governor-pose.js";
 import { dialAt, flyweightAt, governorDial } from "../src/governor-shape.js";
+import { rgba } from "../src/hex.js";
 import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { showsGovernorHand } from "../src/view-role-clocks-c.js";
@@ -69,7 +70,11 @@ describe("THE GOVERNOR's body", () => {
     };
     const between = frame(role, (w) => posed(w, null, 0, lit));
     const owed = frame(role, (w) => posed(w, FIRE, 0, lit));
-    expect(count(owed, PALETTE.cyanRim)).toBeGreaterThan(count(between, PALETTE.cyanRim));
+    // The hub's light and its ring are the shot's colour by `rgba`, only while it is owed,
+    // and its brass rim stays brass: lit from inside, never outlined in the colour.
+    const cyan = rgba(PALETTE.cyan, 0).slice(0, -2);
+    expect(count(owed, cyan)).toBeGreaterThan(count(between, cyan));
+    expect(count(owed, rgba(PALETTE.governorBrassDark, 0.95))).toBeGreaterThan(0);
     expect(count(between, PALETTE.governorHub)).toBeLessThan(
       count(
         frame(role, (w) => posed(w, null)),

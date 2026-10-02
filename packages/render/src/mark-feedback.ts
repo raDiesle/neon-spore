@@ -1,6 +1,7 @@
 import { circleSubpath } from "@neon-spore/content";
 import { rgba } from "./hex.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { lightWithin } from "./part-light.js";
 
 /**
  * **Which mark is wanted, and by whom** — the two halves of the owner's rule
@@ -11,10 +12,10 @@ import { PALETTE, STROKE } from "./palette.js";
  * September 2026 (*the consistent visual across all waves*); THE INSTAR was
  * the worked example they were written for.
  *
- * - **This seat's open mark wears a halo**: a soft red light breathing out
- *   past the ring, under it, so the one thing this thumb is being asked for
- *   is the brightest thing on the screen and not one ring among the body's
- *   own glow.
+ * - **This seat's open mark wears a halo**: a faint red light breathing
+ *   inside the ring and nowhere past it, so the part this thumb is being
+ *   asked for is warmer than the rest of the body and everything drawn on it
+ *   and round it still reads (`part-light.ts`, 2 October 2026).
  * - **The partner's open mark wears a turning ring**: a dashed orbit going
  *   round it, dim, which says *someone is being waited on here* without the
  *   light that would invite this seat's thumb onto it — the wrong thumb is
@@ -38,10 +39,21 @@ import { PALETTE, STROKE } from "./palette.js";
  * mark-feedback-roll-out.test.ts`.
  */
 
-/** How far past the ring the halo reaches, in radii. */
-const HALO = 2.6;
+/**
+ * How lit this seat's open mark is at the bottom of its breath and at the
+ * top. Faint on purpose: it says *here*, it is not the brightest thing on
+ * the screen. A part the cannon must hit is brighter, and beats
+ * (`heartLight`).
+ */
+export const MARK_LIGHT = { low: 0.14, high: 0.3 } as const;
 
-/** This seat's open mark: a breathing light under the ring. */
+/**
+ * This seat's open mark: a soft red light breathing **inside** the mark's
+ * circle and gone at its ring (`part-light.ts`). Until 2 October 2026 it was
+ * a red cloud reaching 2.6 radii out at 0.85, laid over whatever stood there;
+ * the owner: *not so heavy and no glowing outside … the graphics around red
+ * light or below should still be good visible*.
+ */
 export function drawMarkHalo(
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -49,15 +61,9 @@ export function drawMarkHalo(
   r: number,
   time: number,
 ): void {
-  const breathe = 0.75 + 0.25 * Math.sin(time * 4);
-  const reach = r * HALO * (0.9 + 0.1 * breathe);
-  const light = ctx.createRadialGradient(x, y, r * 0.8, x, y, reach);
-  light.addColorStop(0, rgba(PALETTE.redRim, 0.85 * breathe));
-  light.addColorStop(1, rgba(PALETTE.red, 0));
-  ctx.save();
-  ctx.fillStyle = light;
-  ctx.fill(new Path2D(circleSubpath(x, y, reach)));
-  ctx.restore();
+  const breathe = (Math.sin(time * 4) + 1) / 2;
+  const alpha = MARK_LIGHT.low + (MARK_LIGHT.high - MARK_LIGHT.low) * breathe;
+  lightWithin(ctx, new Path2D(circleSubpath(x, y, r)), PALETTE.red, alpha, { x, y, r });
 }
 
 /** The partner's open mark: a dim dashed ring turning round it. */

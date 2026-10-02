@@ -454,7 +454,7 @@ of `generic.md`. THE SEAM, THE FLUE and THE GOVERNOR keep it so far.
 CAPSTAN, DAVIT, GALL, GRINDSTONE, HALTER, PLUMB, RIME and SLING. Each needs a
 `…-stop.ts` calling `coreStopper` with the core's near rim and the body's
 `Foot` (`render/core-stop.ts`, THE GOVERNOR's is nine lines), its drawer to
-aim it, its lit face to swell on `heartCore` in place of its own cosine, and a
+aim it, its lit face to be `lightWithin` at `heartLight` in place of its own cosine (`render/part-light.ts`: inside its contour, border its own colour, no glow outside — the owner, 2 October 2026), and a
 row in `render/test/core-stop.test.ts`. A handful a lane.
 
 **Twenty-two need their verdict pulled out first**, the way THE SEAM's was —
@@ -486,3 +486,40 @@ a path nothing takes. Take it out: delete `instar-drift.ts`, `instar-parts.ts`
 and their two tests, and make each reader take the path it takes at
 `undefined`. The shared `idle-drift.ts` stays — the other bosses and the queued
 rig-boss drift read it. `bun run check` proves the field draws as it did.
+
+## Every other boss's lit part, lit from inside rather than glowing round it
+
+- **Found:** 2026-10-02, claude/boss-body-glow-indicators-22a92a
+- **Files:** `packages/render/src/part-light.ts`, `packages/render/src/burgee-marks.ts`, `packages/render/src/capstan-marks.ts`, `packages/render/src/cyst-marks.ts`, `packages/render/src/davit-marks.ts`, `packages/render/src/gall-marks.ts`, `packages/render/src/grindstone-marks.ts`, `packages/render/src/halter-marks.ts`, `packages/render/src/oculus-marks.ts`, `packages/render/src/plumb-marks.ts`, `packages/render/src/rime-marks.ts`, `packages/render/src/sling-marks.ts`, `packages/render/src/trivet-marks.ts`, `packages/render/src/vise-marks.ts`, `packages/render/src/instar-track.ts`, `packages/render/src/warden-track.ts`
+
+The owner, 2 October 2026, for every boss: *only let the part of body shape
+glow red, but not so heavy and no glowing outside. and the borders should not
+be red … only when player needs to shoot a specific part of body it can glow
+and pulse some more.* The shared halo (`drawMarkHalo`), THE SEAM, THE FLUE,
+THE GOVERNOR and THE INSTAR keep it (`generic.md`, the *Lit* bullet). The
+files above still light the part they ask for with a `strokeGlow` of the
+step's rim colour — a coloured border with a glow outside it — or a `halo`
+behind it; `grep -l stepColour | xargs grep -lE "strokeGlow|halo\("` in
+`packages/render/src` finds them, with their `-draw.ts` and `-story.ts`
+siblings. Each lit face becomes `lightWithin` at `heartLight` with its border
+stroked in its unlit colour, the way `flue-core.ts` does it now; the countdown
+ring round it stays, a plain stroke. THE INSTAR's and THE WARDEN's pull tracks
+lay a red bar along the channel at up to 0.28 — the same faint light should
+stay inside the channel at `MARK_LIGHT`. A lane a handful of bosses; each
+boss's own `*-frame.test.ts` counts its lit colour and may need the `rgba`
+prefix `flue-frame.test.ts` counts now, since a gradient's stops are not in
+the stub's log. A lane taking THE BURGEE … SLING from the lit-open-stopped
+entry above does its lit faces there and drops them from this list.
+
+## `frames --auto both` on THE INSTAR shows step 0 seven times in 9000 ticks
+
+- **Found:** 2026-10-02, claude/boss-body-glow-indicators-22a92a
+- **Files:** `tools/frames/auto.ts`, `tools/frames/recipes.ts`
+
+`bun run frames . --wave "THE INSTAR" --auto both --ticks 9000 --events`
+fires `instarShow` only with `step=0` (x7) and `instarMorph` only into
+`step=1`, so AUTO never reaches a shoot step and the recipe's own
+`--until instarShow:step=4` cannot be met. Worked around with `--boss
+cursor=10,phase=act,phaseBeat=now --ticks 400`. Find whether AUTO loses
+the breath's pulls and the wave restarts, fix it, and add the `--boss`
+spelling as a recipe for opening a scene boss on a given step.

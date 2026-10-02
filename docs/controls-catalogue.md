@@ -122,7 +122,8 @@ Taught once, by the guide; **no helper on the field** (above).
 
 | Piece | Shared | Says | Who |
 |---|---|---|---|
-| `drawMarkHalo` | `mark-feedback.ts` | *this is yours, now*: a breathing light under this seat's open mark | every boss with verdicts |
+| `drawMarkHalo`, `MARK_LIGHT` | `mark-feedback.ts` | *this is yours, now*: a faint red light breathing inside this seat's open mark, never past its ring | every boss with verdicts |
+| `lightWithin` | `part-light.ts` | *act on this part*: a part lit from inside its own contour, added over its drawing, its border left its own colour — faint for a mark, brighter and beating on `heartLight` for a part the cannon must hit | the halo, THE SEAM, THE FLUE, THE GOVERNOR |
 | `drawMarkTheirs` | `mark-feedback.ts` | *someone else is being waited on here*: a dim dashed ring turning round the partner's | the same |
 | `drawMarkWait` | `mark-feedback.ts` | *not yours — wait*: a clock face whose hand goes round, in place of the gesture | the same |
 | `drawHandleHint`, `handleIsMine`, `seatIsMine`, `HandleWords`, `PILOT_HANDLE`, `HINT_LOUD`, `HINT_SOFT`, `HintStyle` | `handle-word.ts` | the word under a handle: `PULL` on the seat it is for, `P1'S` on the other, gone once a hand lands; `seatIsMine`, whether a seat's handle is this screen's | THE WARDEN, THE LID, THE MAZE, THE CURTAIN, THE BALLOON, THE FLEET |

@@ -155,7 +155,10 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // barrel: `hull-barrel.ts` strokes the contour with a crown ramp, clipped
       // to the body. Every row in this file carries the same two.
       stroke: 87,
-      fill: 55,
+      // One more than before 2 October 2026: an asked mark's light is a
+      // colour pass and a glow pass inside it (`part-light.ts`), where the old
+      // halo was one red cloud over everything round it. Both rows carry it.
+      fill: 56,
       clip: 7,
       save: 46,
       drawImage: 16,
@@ -170,7 +173,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fillRect: 86,
       // Two more than mid: the shockwave ring and the fireball's own contour.
       stroke: 89,
-      fill: 54,
+      fill: 55,
       clip: 7,
       // Nine more: the burst opens one per shard it turns, and the shards are
       // the only thing in this picture drawn in a frame of its own.
@@ -192,7 +195,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // Nine fewer than the pilot's: five hulls, their spines and their scars
       // are the whole of what this seat is not shown (`fleet-hulls.ts`).
       stroke: 78,
-      fill: 68,
+      fill: 69,
       clip: 7,
       save: 52,
       drawImage: 23,
@@ -204,7 +207,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
     hit: {
       fillRect: 89,
       stroke: 78,
-      fill: 66,
+      fill: 67,
       clip: 7,
       save: 60,
       drawImage: 26,
