@@ -1,4 +1,5 @@
 import type { Layout } from "./layout.js";
+import type { SharpRect } from "./slow-intake-aim.js";
 import type { SlowWindow } from "./slow-look.js";
 
 /**
@@ -64,7 +65,8 @@ export interface Eye {
  * The clip is laid in layout coordinates first and survives the reset, so
  * nothing a lens moves can land on the band — the band is drawn over the
  * field later anyway, but a copy scaled outward would otherwise carry the
- * field's light down into the letterbox beside it.
+ * field's light down into the letterbox beside it. A `hole` is cut out of it
+ * the same way, for a gauge the lens must leave as it was drawn.
  */
 export function inField(
   ctx: CanvasRenderingContext2D,
@@ -72,6 +74,8 @@ export function inField(
   x: number,
   y: number,
   draw: (eye: Eye) => void,
+  /** A rectangle left out of the clip, so nothing the lens does lands in it. */
+  hole?: SharpRect,
 ): void {
   const m = ctx.getTransform();
   const eye: Eye = {
@@ -84,7 +88,8 @@ export function inField(
   ctx.save();
   ctx.beginPath();
   ctx.rect(0, 0, l.width, l.bandTop);
-  ctx.clip();
+  if (hole !== undefined) ctx.rect(hole.x, hole.y, hole.w, hole.h);
+  ctx.clip(hole === undefined ? "nonzero" : "evenodd");
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   draw(eye);
   ctx.restore();

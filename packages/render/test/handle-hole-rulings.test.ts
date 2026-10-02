@@ -58,10 +58,12 @@ describe("THE SINEW's two handles, resting on the mass's own lobes", () => {
   it("spares each seat the disc of the handle that is not its own", () => {
     // Both are on offer for the whole fight, so there is no ring-free state of
     // this boss to difference against: `test` owns both and is the both-seats
-    // picture. One fewer disc than it is the other seat's ring cutting nothing.
+    // picture. Two fewer than it is the other seat's ring cutting nothing, and
+    // the other seat's pull channel (`sinew-marks.ts`), whose bed is cut in the
+    // same colour, not drawn either.
     const { p1, p2 } = spared(() => boss("sinew"));
-    expect(p1).toBe(1);
-    expect(p2).toBe(1);
+    expect(p1).toBe(2);
+    expect(p2).toBe(2);
   });
 });
 

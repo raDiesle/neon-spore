@@ -10,6 +10,7 @@ import {
   sinewWalked,
 } from "@neon-spore/sim";
 import { type Layout, tileCX, tileCY } from "./layout.js";
+import { sinewCrownDrop, sinewMassBob, sinewMassRing } from "./sinew-arrive.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -37,8 +38,9 @@ const MASS_RX = 0.92;
 const MASS_RY = 0.7;
 /** How far the mass sags below its row at full strain, in tiles: the pull is seen arriving. */
 const SAG = 0.35;
-/** How far above the field's top row the root is, in tiles. */
-const ROOT_ABOVE = 0.2;
+/** How far above the field's top row the root is, in tiles: where the fibres
+ * leave the crown, the body they hang from (`sinew-crown.ts`). */
+const ROOT_ABOVE = 1.2;
 /** How much of the mass's half-height it sits into the hull once landed. */
 const LANDED_SINK = 0.8;
 
@@ -46,6 +48,18 @@ const LANDED_SINK = 0.8;
  * on the field that hangs from somewhere the field is not. */
 export function sinewAnchor(l: Layout, cfg: SimConfig): Point {
   return { x: tileCX(l, midCol(cfg)), y: l.gridTop - l.tile * ROOT_ABOVE };
+}
+
+/** The root now: the anchor, with the crown still sliding in at the start. */
+export function sinewRoot(
+  l: Layout,
+  cfg: SimConfig,
+  s: SinewState,
+  beat: number,
+  beatPhase: number,
+): Point {
+  const a = sinewAnchor(l, cfg);
+  return { x: a.x, y: a.y + sinewCrownDrop(s, cfg, beat, beatPhase) * l.tile };
 }
 
 export function sinewMassRx(l: Layout, cfg: SimConfig): number {
@@ -87,10 +101,12 @@ export function sinewMassRowNow(
 }
 
 /**
- * The mass's centre. `swingTiles` is the whip a snap-back leaves in it,
- * kept by `sinew-fx.ts` because nothing in the world remembers it.
+ * Where the mass hangs, with no sag and no bounce: its row, eased through
+ * the fall, and the ringing it arrives on. What the strain band is hung
+ * against (`sinew-band.ts`), so the gauge holds still while the mass bobs
+ * under it.
  */
-export function sinewMassCentre(
+export function sinewMassHung(
   l: Layout,
   cfg: SimConfig,
   s: SinewState,
@@ -102,10 +118,30 @@ export function sinewMassCentre(
   const x = tileCX(l, s.massCol) + swingTiles * l.tile;
   if (sinewLanded(s)) return { x, y: l.hullY - ry * LANDED_SINK };
   const row = sinewMassRowNow(s, cfg, beat, beatPhase);
+  const ring = sinewMassRing(s, cfg, beat, beatPhase) * l.tile;
+  return { x, y: Math.min(tileCY(l, row) + ring, tileCY(l, hullRow(cfg))) };
+}
+
+/**
+ * The mass's centre. `swingTiles` is the whip a snap-back leaves in it,
+ * kept by `sinew-fx.ts` because nothing in the world remembers it. The sag
+ * and the beat's bounce are on it here, and the handles rest off it — so
+ * the ring a thumb is answered at bounces with the ring that is drawn.
+ */
+export function sinewMassCentre(
+  l: Layout,
+  cfg: SimConfig,
+  s: SinewState,
+  beat: number,
+  beatPhase: number,
+  swingTiles = 0,
+): Point {
+  const hung = sinewMassHung(l, cfg, s, beat, beatPhase, swingTiles);
+  if (sinewLanded(s)) return hung;
   const sag = sinewSum01(s, cfg) * SAG * l.tile;
+  const bob = sinewMassBob(s, cfg, beat, beatPhase) * l.tile;
   // Never below where it lands: the last row of the fall is the hull's.
-  const y = Math.min(tileCY(l, row) + sag, tileCY(l, hullRow(cfg)));
-  return { x, y };
+  return { x: hung.x, y: Math.min(hung.y + sag + bob, tileCY(l, hullRow(cfg))) };
 }
 
 /** The mass itself: a five-lobed blob the width of its columns, wobbling on

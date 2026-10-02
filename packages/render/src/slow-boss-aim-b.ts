@@ -12,6 +12,7 @@ import { grindstoneArrived, grindstoneFree, grindstoneShut } from "./grindstone-
 import { grindstoneAxleAt, grindstoneReach } from "./grindstone-shape.js";
 import type { Layout } from "./layout.js";
 import { rimeCentre, rimeRadius } from "./rime-shape.js";
+import { sinewCollarBox } from "./sinew-band.js";
 import { sinewMassCentre, sinewMassRx, sinewMassRy } from "./sinew-shape.js";
 import { longBossAim } from "./slow-boss-aim-c.js";
 import type { Aim } from "./slow-intake-aim.js";
@@ -46,12 +47,22 @@ export function lateBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       return still(c, c.r);
     }
     // The mass, where it hangs on its tendon this frame; the tendon above it
-    // is the thing the light is allowed to split.
+    // is the thing the light is allowed to split, all but its strain band.
     case "sinew": {
       const s = sinewBoss(world);
       if (s === null) return null;
       const at = sinewMassCentre(l, cfg, s, beat, beatPhase);
-      return still(at, longer({ rx: sinewMassRx(l, cfg), ry: sinewMassRy(l) }));
+      // The strain band is read through the window, so the prism leaves it
+      // whole — its walls, the line standing out past them, and their glow.
+      const box = sinewCollarBox(l, cfg, s, beat, beatPhase);
+      const out = l.tile * 0.75;
+      const sharp = {
+        x: box.x - box.rx - out,
+        y: box.y - box.ry - l.tile * 0.25,
+        w: (box.rx + out) * 2,
+        h: (box.ry + l.tile * 0.25) * 2,
+      };
+      return { ...still(at, longer({ rx: sinewMassRx(l, cfg), ry: sinewMassRy(l) })), sharp };
     }
     // The heart, as big as the filaments left in it make it.
     case "filament": {

@@ -2,49 +2,57 @@ import { type SimConfig, type SinewState, sinewDecaying, sinewGone } from "@neon
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import type { CollarBox } from "./sinew-band.js";
 import { paintCord, paintSheath } from "./sinew-flesh.js";
+import { drawFray } from "./sinew-fray.js";
 import type { Point } from "./sinew-shape.js";
 import { sinewSum01 } from "./sinew-shape.js";
 import { splinePath } from "./spline.js";
 
 /**
- * **The tendon**: a bundle of fibres from the root to the mass, inside a
- * translucent sheath, and its health is its silhouette — a fibre that parts
- * is drawn as two curling stubs, one hanging off the root and one off the
- * mass, and never drawn whole again.
+ * **The tendon**: a bundle of fibres hung in two runs — from the crown down
+ * into the top of the strain band, and out of the band's foot down into the
+ * mass (the owner, 2 October 2026: *the strings should not go from the very
+ * top to the very bottom, but connect twice with the middle shape*). Each run
+ * has its own translucent sheath, and its health is its silhouette.
+ *
+ * **One fibre is one stage.** There are `sinewFibres` of them and each one
+ * parted is a stage the pair has won, so a fibre that parts is drawn as
+ * curling stubs where both its runs were — off the crown, off the band's top
+ * and foot, off the mass — and never drawn whole again. The tear itself is
+ * `sinew-tear.ts`'s.
  *
  * The bundle parts **from the outside in**: the first fibre to go is the
  * leftmost, the second the rightmost, and so on toward the middle, so what
  * is left always reads as one thinner cord down the centre rather than as a
  * comb with gaps in it. The order is this file's and nothing in the
  * simulation cares which fibre is which — it counts them (`sim/sinew.ts`).
+ * The next to go **frays** while the sum is held in the zone, and that is
+ * the hold's count (`sinew-fray.ts`).
  *
  * The strain is on the line itself: slack, each fibre carries a slow wave;
  * as the sum climbs the wave flattens, the fibres straighten, thin and
- * brighten toward the rim colour, and the sheath pales. That is the only
- * gauge of the pull both seats are shown, and it is continuous because a
- * player reads tension off the picture and never off a number.
+ * brighten toward the rim colour, and the sheath pales.
  */
 
-/** How far the fibres fan out at the mass, as a share of its half-width, and
- * how much of that fan survives at the root. */
+/** How far the fibres spread at the crown, in tiles; at the band, as a share of its
+ * half-width; at the mass, as a share of its. */
+const ROOT_SPREAD = 0.7;
+const BAND_SPREAD = 0.75;
 const FAN = 0.7;
-const ROOT_FAN = 0.25;
 /** The slack wave: its height in tiles and its speed. */
-const WAVE = 0.12;
+const WAVE = 0.1;
 const WAVE_HZ = 1.8;
-/** A stub: how far it hangs, in tiles, and how far it curls sideways. */
-const STUB = 0.55;
-const CURL = 0.3;
-/** The sheath's half-width at the root and at the mass, in tiles, with every fibre whole. */
-const SHEATH_ROOT = 0.3;
-const SHEATH_MASS = 0.55;
+/** A stub: how far it hangs, as a share of its run and never more than this, in tiles. */
+const STUB = 0.5;
+const STUB_SHARE = 0.4;
+const CURL = 0.22;
 const SEGMENTS = 8;
 /** A cord's width in tiles, slack; it thins by up to 0.6 of that under strain. */
 const CORD = 0.05;
 
 /** Which fibre goes `k`th: the outermost, alternating sides, toward the middle. */
-function partOrder(n: number): number[] {
+export function partOrder(n: number): number[] {
   const order: number[] = [];
   for (let i = 0; i < n; i++) order.push(i % 2 === 0 ? i / 2 : n - 1 - (i - 1) / 2);
   return order;
@@ -55,18 +63,43 @@ export function fibreWhole(i: number, n: number, gone: number): boolean {
   return partOrder(n).indexOf(i) >= gone;
 }
 
-/** The sideways offset of fibre `i` at the mass, in pixels. */
-function fan(i: number, n: number, rx: number): number {
-  if (n <= 1) return 0;
-  return ((i - (n - 1) / 2) / ((n - 1) / 2)) * rx * FAN;
+/** Fibre `i` of `n` as a share of the bundle's width, -1 at the left to 1 at the right. */
+function lane(i: number, n: number): number {
+  return n <= 1 ? 0 : (i - (n - 1) / 2) / ((n - 1) / 2);
 }
 
+/** Where fibre `i` of `n`'s two runs start and end: crown, band top, band foot, mass. */
+export interface FibreEnds {
+  root: Point;
+  top: Point;
+  foot: Point;
+  mass: Point;
+}
+
+export function fibreEnds(
+  i: number,
+  n: number,
+  root: Point,
+  box: CollarBox,
+  mass: Point,
+  rx: number,
+  tile: number,
+): FibreEnds {
+  const u = lane(i, n);
+  return {
+    root: { x: root.x + u * ROOT_SPREAD * tile, y: root.y },
+    top: { x: box.x + u * box.rx * BAND_SPREAD, y: box.y - box.ry },
+    foot: { x: box.x + u * box.rx * BAND_SPREAD, y: box.y + box.ry },
+    mass: { x: mass.x + u * rx * FAN, y: mass.y },
+  };
+}
+
+/** One run of one fibre, `a` to `b`, waving with the slack. */
 function whole(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  root: Point,
-  mass: Point,
-  off: number,
+  a: Point,
+  b: Point,
   i: number,
   strain: number,
   time: number,
@@ -78,65 +111,53 @@ function whole(
     const t = k / SEGMENTS;
     const belly = Math.sin(t * Math.PI);
     const wave = Math.sin(time * WAVE_HZ * Math.PI * 2 + t * Math.PI * 2 + i * 1.3) * amp * belly;
-    pts.push({
-      x: root.x + (mass.x + off - root.x) * t + off * (ROOT_FAN - 1) * (1 - t) + wave,
-      y: root.y + (mass.y - root.y) * t,
-    });
+    pts.push({ x: a.x + (b.x - a.x) * t + wave, y: a.y + (b.y - a.y) * t });
   }
   paintCord(ctx, splinePath(pts, false), hex, l.tile * CORD * (1.4 - 0.6 * strain), l.tile);
 }
 
-/** Two stubs where a fibre was: one off the root, curling out, one off the mass. */
-function parted(
+/** A stub hanging off `from` toward `to`, curling out to `side`. */
+function stub(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  root: Point,
-  mass: Point,
-  off: number,
+  from: Point,
+  to: Point,
+  side: number,
   time: number,
 ): void {
-  const side = off === 0 ? 1 : Math.sign(off);
-  const sway = Math.sin(time * 1.1 + off) * 0.08 * l.tile;
-  const top = splinePath(
+  const run = Math.hypot(to.x - from.x, to.y - from.y);
+  const len = Math.min(STUB * l.tile, run * STUB_SHARE);
+  const dir = Math.sign(to.y - from.y) || 1;
+  const sway = Math.sin(time * 1.1 + from.x) * 0.06 * l.tile;
+  const path = splinePath(
     [
-      { x: root.x + off * ROOT_FAN, y: root.y },
-      { x: root.x + off * ROOT_FAN + sway, y: root.y + STUB * 0.6 * l.tile },
-      { x: root.x + off * ROOT_FAN + side * CURL * l.tile, y: root.y + STUB * l.tile },
+      from,
+      { x: from.x + sway, y: from.y + dir * len * 0.6 },
+      { x: from.x + side * CURL * l.tile, y: from.y + dir * len },
     ],
     false,
   );
-  const bottom = splinePath(
-    [
-      { x: mass.x + off, y: mass.y },
-      { x: mass.x + off - sway, y: mass.y - STUB * 0.6 * l.tile },
-      { x: mass.x + off + side * CURL * l.tile, y: mass.y - STUB * l.tile },
-    ],
-    false,
-  );
-  paintCord(ctx, top, PALETTE.dim, l.tile * CORD, l.tile);
-  paintCord(ctx, bottom, PALETTE.dim, l.tile * CORD, l.tile);
+  paintCord(ctx, path, PALETTE.dim, l.tile * CORD, l.tile);
 }
 
-/** The sheath: a band from the root to the mass, as wide as the fibres left in it. */
+/** A run's sheath: a band from `a` to `b`, `wa` and `wb` half-wide at its ends. */
 function sheath(
   ctx: CanvasRenderingContext2D,
-  l: Layout,
-  root: Point,
-  mass: Point,
-  share: number,
+  a: Point,
+  b: Point,
+  wa: number,
+  wb: number,
   strain: number,
 ): void {
-  const wr = SHEATH_ROOT * l.tile * share;
-  const wm = SHEATH_MASS * l.tile * share;
   const path = new Path2D();
-  path.moveTo(root.x - wr, root.y);
-  path.lineTo(root.x + wr, root.y);
-  path.lineTo(mass.x + wm, mass.y);
-  path.lineTo(mass.x - wm, mass.y);
+  path.moveTo(a.x - wa, a.y);
+  path.lineTo(a.x + wa, a.y);
+  path.lineTo(b.x + wb, b.y);
+  path.lineTo(b.x - wb, b.y);
   path.closePath();
   const tint = mixHex(PALETTE.hull, PALETTE.hullRim, strain * 0.5);
-  const left = Math.min(root.x - wr, mass.x - wm);
-  const right = Math.max(root.x + wr, mass.x + wm);
+  const left = Math.min(a.x - wa, b.x - wb);
+  const right = Math.max(a.x + wa, b.x + wb);
   paintSheath(ctx, path, left, right, tint, 0.1 + 0.12 * strain);
 }
 
@@ -146,25 +167,48 @@ export function drawSinewFibres(
   cfg: SimConfig,
   s: SinewState,
   root: Point,
+  box: CollarBox,
   mass: Point,
   rx: number,
+  /** How far the hold has counted, 0..1; `-1` while the sum is not held in the zone. */
+  hold: number,
   time: number,
 ): void {
   const n = Math.max(1, cfg.sinewFibres);
   const gone = sinewGone(s, cfg);
   const strain = sinewSum01(s, cfg);
+  const fraying = hold >= 0 && s.fibres > 0 ? partOrder(n)[gone] : -1;
   // A tendon going slack under a hand is drawn greying: the pull is leaking.
   const hex = sinewDecaying(s, cfg)
     ? mixHex(PALETTE.hull, PALETTE.dim, 0.4)
     : mixHex(PALETTE.hull, PALETTE.hullRim, strain * 0.8);
+  const top = { x: box.x, y: box.y - box.ry };
+  const foot = { x: box.x, y: box.y + box.ry };
   ctx.save();
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
-  if (s.fibres > 0) sheath(ctx, l, root, mass, s.fibres / n, strain);
+  if (s.fibres > 0) {
+    const share = s.fibres / n;
+    const wBand = box.rx * BAND_SPREAD * share + l.tile * 0.08;
+    sheath(ctx, root, top, l.tile * ROOT_SPREAD * share + l.tile * 0.08, wBand, strain);
+    sheath(ctx, foot, mass, wBand, rx * FAN * share + l.tile * 0.08, strain);
+  }
   for (let i = 0; i < n; i++) {
-    const off = fan(i, n, rx);
-    if (fibreWhole(i, n, gone)) whole(ctx, l, root, mass, off, i, strain, time, hex);
-    else parted(ctx, l, root, mass, off, time);
+    const u = lane(i, n);
+    const { root: r, top: t, foot: f, mass: m } = fibreEnds(i, n, root, box, mass, rx, l.tile);
+    if (i === fraying) {
+      drawFray(ctx, r, t, hold, l.tile, time, i);
+      drawFray(ctx, f, m, hold, l.tile, time, i + 7);
+    } else if (fibreWhole(i, n, gone)) {
+      whole(ctx, l, r, t, i, strain, time, hex);
+      whole(ctx, l, f, m, i + 3, strain, time, hex);
+    } else {
+      const side = u === 0 ? 1 : Math.sign(u);
+      stub(ctx, l, r, t, side, time);
+      stub(ctx, l, t, r, side, time);
+      stub(ctx, l, f, m, side, time);
+      stub(ctx, l, m, f, side, time);
+    }
   }
   ctx.restore();
 }

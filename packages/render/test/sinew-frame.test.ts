@@ -182,16 +182,20 @@ describe("THE SINEW's tendon", () => {
     expect(test).toBeGreaterThan(p1);
   });
 
-  it.each(ROLES)("lights the hold's pips while the sum is in the zone, on %s", (role) => {
-    const outside = hung();
-    pulled(outside);
-    const inside = hung();
-    heldInZone(inside);
-    // Lit pips name the text white; unlit ones the grey.
-    expect(count(drawn(inside, role, 3).text, PALETTE.text)).toBeGreaterThan(
-      count(drawn(outside, role, 3).text, PALETTE.text),
-    );
-  });
+  it.each(ROLES)(
+    "frays the next fibre and lights the band green while the sum is in the zone, on %s",
+    (role) => {
+      const outside = hung();
+      pulled(outside);
+      const inside = hung();
+      heldInZone(inside);
+      // The hold's count is the next fibre fraying toward the zone's green and
+      // the band's frame going green: both seats, since *in* is told to both.
+      expect(count(drawn(inside, role, 3).text, PALETTE.good)).toBeGreaterThan(
+        count(drawn(outside, role, 3).text, PALETTE.good),
+      );
+    },
+  );
 
   it.each(ROLES)(
     "hangs the mass lower with fibres parted, and greys the slack tendon, on %s",
@@ -256,10 +260,10 @@ describe("THE SINEW's tendon", () => {
     // The baseline is noted too, so the only difference the comparison can
     // catch is the burst the event itself throws — not the note.
     const baseline = new Effects();
-    baseline.boss.sinew.note(10, 20);
+    baseline.boss.sinew.note(10, 20, { x: 10, y: 0 });
 
     const fx = new Effects();
-    fx.boss.sinew.note(10, 20);
+    fx.boss.sinew.note(10, 20, { x: 10, y: 0 });
     fx.ingest([{ type: "sinewCatch", col: 5 }], L, 0, () => 0, CFG);
     fx.update(1 / 60, L);
     expect(fx).not.toEqual(baseline);

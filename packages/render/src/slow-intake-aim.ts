@@ -70,6 +70,21 @@ export interface Aim {
   readonly r: number;
   readonly ax: number;
   readonly ay: number;
+  /**
+   * A gauge the pair reads through the window, in layout pixels, that the
+   * prism leaves whole (`slow-prism.ts`): a line split into three colours is
+   * three lines, and the pair has to know which is the one. THE SINEW's strain
+   * band is the one so far (`slow-boss-aim-b.ts`).
+   */
+  readonly sharp?: SharpRect;
+}
+
+/** A rectangle the window's lens leaves alone, in layout pixels. */
+export interface SharpRect {
+  readonly x: number;
+  readonly y: number;
+  readonly w: number;
+  readonly h: number;
 }
 
 /**

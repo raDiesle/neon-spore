@@ -2,6 +2,9 @@ import { type SimConfig, type SinewState, sinewHeld } from "@neon-spore/sim";
 import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
 import type { Circle } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
+import { PALETTE } from "./palette.js";
+import { PULL_DOWN, straightPullTrack } from "./pull-line.js";
+import { drawPullTrack } from "./pull-track.js";
 import { sinewWord } from "./sinew-word.js";
 
 /**
@@ -35,6 +38,44 @@ export function sinewHandleAsks(
   swinging: boolean,
 ): boolean {
   return !sinewHeld(s, player) && sinewWord(cfg, s, player, falling, swinging) !== null;
+}
+
+/**
+ * **The way down**, under this seat's own ring while the tendon hangs: the
+ * channel every pull in the game wears (`pull-track.ts`), from where the
+ * handle rests to a whole reach below it, filling behind the hand — the
+ * owner's ask of 2 October 2026 that THE SINEW's pull carry the same
+ * direction mark as every other. Straight down and only down, the way the
+ * simulation now reads it (`sim/sinew-hand.ts`); not drawn through the
+ * snap-back or the fall, where the ask is sideways.
+ */
+export function drawSinewChannel(
+  ctx: CanvasRenderingContext2D,
+  rest: Circle,
+  head: Circle,
+  /** The whole reach, in pixels, and how much of it the hand has pulled, 0..1. */
+  len: number,
+  pull: number,
+  held: boolean,
+  time: number,
+): void {
+  const track = straightPullTrack({
+    from: rest,
+    r: rest.r,
+    head,
+    held,
+    rest: PULL_DOWN,
+    len,
+    follow: false,
+  });
+  drawPullTrack(ctx, track, {
+    hex: PALETTE.rock,
+    rim: PALETTE.text,
+    held,
+    origin: 0,
+    at: pull,
+    time,
+  });
 }
 
 /** Under the ring: the halo, on this seat's asking handle. */

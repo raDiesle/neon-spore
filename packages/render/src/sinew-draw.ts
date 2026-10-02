@@ -3,31 +3,33 @@ import { drawHurt } from "./boss-hurt.js";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { drawSinewBand } from "./sinew-band.js";
+import { drawSinewBand, sinewCollarBox } from "./sinew-band.js";
+import { drawSinewCrown } from "./sinew-crown.js";
 import { drawSinewFibres } from "./sinew-fibres.js";
 import { paintMass } from "./sinew-flesh.js";
 import type { SinewFx } from "./sinew-fx.js";
 import { drawSinewHandles } from "./sinew-handles.js";
 import {
-  sinewAnchor,
   sinewCrushed,
   sinewLanded,
   sinewMassCentre,
   sinewMassPath,
   sinewMassRx,
   sinewMassRy,
+  sinewRoot,
   sinewSum01,
 } from "./sinew-shape.js";
+import { drawSinewTear } from "./sinew-tear.js";
 
 /**
- * **THE SINEW**: a tendon from the top edge down to a mass, a handle on each
- * side of the mass — one per seat — and the strain band on the way down,
- * read by seat (§11.26).
+ * **THE SINEW**: a tendon hung from a body over the top edge — the crown —
+ * down to a mass, a handle on each side of the mass — one per seat — and the
+ * strain band in the middle of the tendon, read by seat (§11.26).
  *
  * Read off the world every frame and drawn in the order the eye reads it:
- * the fibres, the collar over them, the mass over the ends of the fibres,
- * and the handles last, over everything, because they are what a thumb
- * lands on. The mass is drawn *after* the fibres so their ends go into it
+ * the crown, the fibres, the band they run into and out of, the mass over
+ * the ends of the fibres, a tear if one has just happened, and the handles
+ * last, over everything, because they are what a thumb lands on. The mass is drawn *after* the fibres so their ends go into it
  * rather than over it, and the handles' cords leave from its flank.
  *
  * Its health is its silhouette: a fibre parted is a fibre drawn as two
@@ -51,12 +53,13 @@ export function drawSinew(
   const cfg = world.cfg;
   const swinging = sinewSwinging(s, world);
   const swing = swinging ? fx.swingTiles : 0;
-  const root = sinewAnchor(l, cfg);
+  const root = sinewRoot(l, cfg, s, beat, beatPhase);
   // A fibre parted shakes the mass and not the root: the fibres and the
   // handles' cords follow it, the way they follow the swing (`boss-hurt.ts`).
   const hung = sinewMassCentre(l, cfg, s, beat, beatPhase, swing);
   const mass = { x: hung.x + fx.hurt.shakeX(time, l.tile), y: hung.y };
-  fx.note(mass.x, mass.y);
+  const box = sinewCollarBox(l, cfg, s, beat, beatPhase, swing);
+  fx.note(mass.x, mass.y, box);
   const rx = sinewMassRx(l, cfg);
   const landed = sinewLanded(s);
   // Once landed the mass fades over the beats the boss stands before it
@@ -70,11 +73,18 @@ export function drawSinew(
 
   ctx.save();
   ctx.globalAlpha = fade;
+  const strain = sinewSum01(s, cfg);
   if (!landed) {
-    drawSinewFibres(ctx, l, cfg, s, root, mass, rx, time);
-    drawSinewBand(ctx, l, cfg, s, root, mass, beat, beatPhase, time);
+    drawSinewCrown(ctx, l, root, strain, time);
+    const holds = Math.max(1, cfg.sinewHoldBeats);
+    const hold = s.holdBeat >= 0 ? Math.min(1, (beat - s.holdBeat + beatPhase) / holds) : -1;
+    drawSinewFibres(ctx, l, cfg, s, root, box, mass, rx, hold, time);
+    drawSinewBand(ctx, l, cfg, s, box, beatPhase, time);
   }
-  drawMass(ctx, l, cfg, mass, rx, time, sinewSum01(s, cfg), sinewCrushed(s, cfg), fx.hurt.value);
+  drawMass(ctx, l, cfg, mass, rx, time, strain, sinewCrushed(s, cfg), fx.hurt.value);
+  const tear = fx.tear;
+  if (tear !== null)
+    drawSinewTear(ctx, tear, Math.max(1, cfg.sinewFibres), root, box, mass, rx, l.tile);
   if (!landed)
     drawSinewHandles(ctx, l, cfg, s, mass, beat, beatPhase, time, swing, swinging, fx.verdicts);
   ctx.restore();

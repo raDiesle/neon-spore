@@ -5,6 +5,7 @@ import { rgba } from "./hex.js";
 import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { TEAR_BEATS, type Tear, tornFibre } from "./sinew-tear.js";
 
 /**
  * What THE SINEW leaves behind a frame: the whip a snap-back puts through
@@ -60,17 +61,31 @@ export class SinewFx {
   readonly shock = new HullShock();
   private massX = 0;
   private massY = 0;
+  private bandX = 0;
+  private bandY = 0;
   private noted = false;
+  /** The fibre last torn, and the seconds its tear has left (`sinew-tear.ts`). */
+  private tearFibre = 0;
+  private tearLeft = 0;
+  private tearLife = 1;
   /** The blow a fibre parted deals the mass. */
   readonly hurt = new BossHurt();
   /** Each handle's verdict, keyed by its owner's seat. */
   readonly verdicts = new GripVerdicts();
 
-  /** Where the mass was drawn this frame, for the receipts with no row of their own. */
-  note(x: number, y: number): void {
+  /** Where the mass and the band were drawn this frame, for the receipts with no row of their own. */
+  note(x: number, y: number, band: { x: number; y: number }): void {
     this.massX = x;
     this.massY = y;
+    this.bandX = band.x;
+    this.bandY = band.y;
     this.noted = true;
+  }
+
+  /** The tear being drawn, if a fibre has just parted. */
+  get tear(): Tear | null {
+    if (this.tearLeft <= 0) return null;
+    return { fibre: this.tearFibre, k: 1 - this.tearLeft / this.tearLife };
   }
 
   /** The whip's offset now, in tiles: a sine dying away. */
@@ -119,7 +134,10 @@ export class SinewFx {
           atMass(2, PALETTE.dim);
           break;
         case "sinewPart":
-          burst(tileCX(l, e.col), tileCY(l, e.row) - l.tile, 12, PALETTE.hullRim);
+          // A stage won: the band bursts green and the fibre whips apart.
+          if (this.noted) burst(this.bandX, this.bandY, 24, PALETTE.good);
+          burst(tileCX(l, e.col), tileCY(l, e.row) - l.tile, 8, PALETTE.hullRim);
+          this.torn(cfg.sinewFibres, e.fibres, spb);
           this.hurt.hit();
           break;
         case "sinewSnap":
@@ -141,7 +159,9 @@ export class SinewFx {
           atMass(2, PALETTE.dim);
           break;
         case "sinewFall":
+          if (this.noted) burst(this.bandX, this.bandY, 24, PALETTE.good);
           burst(tileCX(l, e.col), tileCY(l, e.row), 10, PALETTE.hull);
+          this.torn(cfg.sinewFibres, 0, spb);
           this.hurt.hit();
           break;
         case "sinewSwing":
@@ -159,6 +179,12 @@ export class SinewFx {
     }
   }
 
+  private torn(n: number, left: number, spb: number): void {
+    this.tearFibre = tornFibre(Math.max(1, n), left);
+    this.tearLife = TEAR_BEATS * spb;
+    this.tearLeft = this.tearLife;
+  }
+
   private snap(spb: number): void {
     this.whipLife = WHIP_BEATS * spb;
     this.whipLeft = this.whipLife;
@@ -170,6 +196,7 @@ export class SinewFx {
   update(dt: number): void {
     this.whipLeft = Math.max(0, this.whipLeft - dt);
     this.flashLeft = Math.max(0, this.flashLeft - dt);
+    this.tearLeft = Math.max(0, this.tearLeft - dt);
     this.shock.update(dt);
     this.hurt.update(dt);
     this.verdicts.update(dt);
@@ -193,7 +220,12 @@ export class SinewFx {
     this.flashLife = 1;
     this.massX = 0;
     this.massY = 0;
+    this.bandX = 0;
+    this.bandY = 0;
     this.noted = false;
+    this.tearFibre = 0;
+    this.tearLeft = 0;
+    this.tearLife = 1;
     this.hurt.clear();
     this.verdicts.clear();
   }

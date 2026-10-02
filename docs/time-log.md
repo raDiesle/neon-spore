@@ -31895,3 +31895,17 @@ Bottleneck: reading — what looked like thirty-three lanes was eleven
 identical judgements, and seeing that took longer than writing the cure.
 
 *Measured: 22 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE SINEW drops in, hangs from a crown, and frays the fibre it is about to tear
+
+- reading: 5 min. THE SLOW's prism, to find what split the gauge's line red
+  and green, and the hole-count helpers.
+- writing: 15 min. The drop-in and bob, the crown, the tube and its fluid,
+  the two-run fibres, the fray, the tear, the pull channel, the prism's hole.
+- looking: 5 min. Frames of the entrance, the hold and the tear, one seat.
+- friction: 5 min. A redraw over the prism that left its fringes, thrown
+  away for a hole in its clip; four colour-count tests and the top-chrome rule.
+- landing: 5 min. Docs, `check:fast`, `land`.
+
+Bottleneck: friction — the colour-count tests each pin one hex to one meaning,
+and every new colour on the band had to be fitted between them.

@@ -16,6 +16,7 @@ import { grindstoneArrived, grindstoneFree, grindstoneShut } from "../src/grinds
 import { grindstoneAxleAt, grindstoneReach } from "../src/grindstone-shape.js";
 import { computeLayout } from "../src/layout.js";
 import { rimeCentre, rimeRadius } from "../src/rime-shape.js";
+import { sinewCollarBox } from "../src/sinew-band.js";
 import { sinewMassCentre, sinewMassRx, sinewMassRy } from "../src/sinew-shape.js";
 import { aim } from "../src/slow-intake-aim.js";
 import { spoolBarrelHalf, spoolFlangeR, spoolHome } from "../src/spool-shape.js";
@@ -101,7 +102,16 @@ describe("THE SLOW's aim at a boss, page two", () => {
     const s = need(sinewBoss(world), "sinew");
     const r = Math.max(sinewMassRx(L, CFG), sinewMassRy(L));
     const beat = world.beat;
-    expect(aim(world, L, beat, 0.5)).toEqual(round(sinewMassCentre(L, CFG, s, beat, 0.5), r));
+    const { sharp, ...at } = aim(world, L, beat, 0.5);
+    expect(at).toEqual(round(sinewMassCentre(L, CFG, s, beat, 0.5), r));
+    // The strain band is left out of the prism whole: the gauge is read
+    // through the window, and a line split three ways is three lines.
+    const box = sinewCollarBox(L, CFG, s, beat, 0.5);
+    if (sharp === undefined) throw new Error("the band is not kept sharp");
+    expect(sharp.x).toBeLessThan(box.x - box.rx);
+    expect(sharp.x + sharp.w).toBeGreaterThan(box.x + box.rx);
+    expect(sharp.y).toBeLessThan(box.y - box.ry);
+    expect(sharp.y + sharp.h).toBeGreaterThan(box.y + box.ry);
   });
 
   it("stands round THE FILAMENT's heart, as big as the filaments left make it", () => {

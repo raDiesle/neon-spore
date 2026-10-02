@@ -1355,15 +1355,20 @@ by hand never moves.
 | `packages/render/src/siren-seats.ts` | The two chips that flank the siren: which seat, and what that seat has to do about the thing on the field |
 | `packages/render/src/siren-dial.ts` | the siren's dial — housing, ticks, the ring that breathes, two bars and the turning core — beside `siren-seats.ts` |
 | `packages/render/src/siren.ts` | The warning siren, top right of the field beside the strip, and the two seats' jobs under it |
-| `packages/render/src/sinew-band.ts` | **The strain band**: a collar around the tendon on its way down, and the one place the split is drawn |
-| `packages/render/src/sinew-draw.ts` | **THE SINEW**: a tendon from the top edge down to a mass, a handle on each side of the mass — one per seat |
-| `packages/render/src/sinew-fibres.ts` | **The tendon**: a bundle of fibres from the root to the mass, inside a translucent sheath |
+| `packages/render/src/sinew-band.ts` | **The strain band**: a tube hung in the middle of the tendon |
+| `packages/render/src/sinew-draw.ts` | **THE SINEW**: a tendon hung from a body over the top edge — the crown — down to a mass |
+| `packages/render/src/sinew-fibres.ts` | **The tendon**: a bundle of fibres hung in two runs — from the crown down into the top of the strain band |
 | `packages/render/src/sinew-fx.ts` | What THE SINEW leaves behind a frame: the whip a snap-back puts through the mass and its handles |
 | `packages/render/src/sinew-flesh.ts` | **What THE SINEW is made of**: a tendon of wet cords, each lit along one side, in a sheath of membrane |
+| `packages/render/src/sinew-fluid.ts` | **The sum as a fluid**: what fills THE SINEW's strain band from its foot up to the sum |
+| `packages/render/src/sinew-fray.ts` | **The hold, counted on the fibre it is counting down to** |
 | `packages/render/src/sinew-handles.ts` | **THE SINEW's two handles**, one either side of the mass and one per seat |
 | `packages/render/src/sinew-shape.ts` | **Where THE SINEW is**, in field pixels: the root the tendon hangs from, the mass on the end of it |
 | `packages/render/src/sinew-word.ts` | **What THE SINEW is asking of one hand**, and the three silences that are the fight |
 | `packages/render/src/sinew-marks.ts` | THE SINEW's handles answering a touch: the halo, the partner's ring and clock, the verdict |
+| `packages/render/src/sinew-arrive.ts` | **THE SINEW dropping in, and its rubber after**, as offsets in tiles off where the tendon hangs |
+| `packages/render/src/sinew-crown.ts` | **The crown**: the body THE SINEW's tendon hangs from, over the top of the field and mostly above it |
+| `packages/render/src/sinew-tear.ts` | **A fibre torn: the stage won, said so nobody can miss it** — the owner, 2 October 2026 |
 | `packages/render/src/slime-look.ts` | WHAT HANGS OFF THE MEMBRANE INTO THE CHAMBER, AS A RECORD |
 | `packages/render/src/sling-draw.ts` | **THE SLING** (§32): a forked bracket over the middle column, folded until it swings into stand |
 | `packages/render/src/sling-grip.ts` | **THE SLING's two cords as controls**: `slingDrawLeft` is the pilot's (seat 1) |
@@ -2245,6 +2250,7 @@ by hand never moves.
 | `packages/render/src/touch-well.ts` | THE WELL's screen as a control: the same two questions `touch.ts` asks of the flat field |
 | `packages/render/src/touch-band.ts` | A press on the panel below the field: the buttons, and the two strips |
 | `packages/render/src/touch-move.ts` | The same finger, moved, and the two kinds of answer it can have |
+| `packages/render/src/top-chrome.ts` | **How far down from the top of the stage the game's own chrome reaches**, in CSS pixels |
 | `packages/render/src/tile-seed.ts` | The seed a picture of one tile is drawn from |
 | `packages/render/src/trivet-draw.ts` | How far the hub sinks as the stand collapses, in tiles |
 | `packages/render/src/trivet-marks.ts` | **THE TRIVET's marks**: the two things that say what a step asks — the lit sockets on a foot |

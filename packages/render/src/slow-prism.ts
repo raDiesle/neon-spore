@@ -16,7 +16,9 @@ import type { SlowWindow } from "./slow-look.js";
  * beat is seen as well as heard.
  *
  * How it can lose: a split is a blur by another name, and a body falling at
- * the edge of the field is the one it blurs most.
+ * the edge of the field is the one it blurs most. A gauge read through the
+ * window is cut out of it whole (`Aim.sharp`): THE SINEW's sum line came
+ * apart into three lines exactly while the pair read it (2 October 2026).
  */
 
 /** The split held for the whole window, as a share of each point's distance from the boss. */
@@ -51,16 +53,23 @@ export function drawPrism(
 ): void {
   if (up <= 0) return;
   const k = up * (HOLD + KICK * (1 - beatFrac(win)) ** DECAY);
-  inField(ctx, l, at.x, at.y, (eye) => {
-    const red = snapshot(ctx, 0);
-    const blue = snapshot(ctx, 1);
-    channel(red, "#ff0000");
-    channel(blue, "#0000ff");
-    ctx.globalCompositeOperation = "multiply";
-    ctx.fillStyle = "#00ff00";
-    ctx.fillRect(0, 0, eye.w, eye.h);
-    ctx.globalCompositeOperation = "lighter";
-    drawAbout(ctx, red, eye, 1 + k);
-    drawAbout(ctx, blue, eye, 1 - k);
-  });
+  inField(
+    ctx,
+    l,
+    at.x,
+    at.y,
+    (eye) => {
+      const red = snapshot(ctx, 0);
+      const blue = snapshot(ctx, 1);
+      channel(red, "#ff0000");
+      channel(blue, "#0000ff");
+      ctx.globalCompositeOperation = "multiply";
+      ctx.fillStyle = "#00ff00";
+      ctx.fillRect(0, 0, eye.w, eye.h);
+      ctx.globalCompositeOperation = "lighter";
+      drawAbout(ctx, red, eye, 1 + k);
+      drawAbout(ctx, blue, eye, 1 - k);
+    },
+    at.sharp,
+  );
 }

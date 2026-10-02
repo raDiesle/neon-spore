@@ -4419,9 +4419,12 @@ answer that costs nothing when it is missed (19 September 2026,
 `sim/sinew-hand.ts`).
 
 **The look** (`render/sinew-draw.ts`, `sinew-shape.ts`, `sinew-fibres.ts`,
-`sinew-flesh.ts`, `sinew-band.ts`, `sinew-handles.ts`, `sinew-fx.ts`). A root a fifth of a
-tile above the field's top in the middle column, and from it a fan of
-`sinewFibres` fibres in the hull's violet down to a five-lobed mass
+`sinew-flesh.ts`, `sinew-band.ts`, `sinew-handles.ts`, `sinew-fx.ts`, `sinew-crown.ts`,
+`sinew-arrive.ts`). A root in the middle column under a **crown** — a
+seven-lobed body of the same flesh, three times the mass's size and mostly
+above the field, cut where the game's top chrome stops (`top-chrome.ts`,
+2 October 2026) — and from it a fan of
+`sinewFibres` fibres in the hull's violet, in two runs through the band, down to a five-lobed mass
 (`blobPath`) three columns wide and a row deep, hung at `sinewMassRow` and a
 row lower per fibre parted, its sag capped at the hull's row. The fibres
 straighten and brighten toward the hull's rim with the sum — strain is a
@@ -4434,15 +4437,27 @@ cord a twentieth of a tile thick, thinning under strain, with a highlight down
 its lit side; the sheath is membrane lit down its left and deep down its
 right; the mass is muscle — shaded from the top left, its grain running the
 way the pull runs, its lower wall lit from inside brighter with the strain, a
-dark pucker where the tendon goes in, and a film. The **band** is a collar on the tendon
-under the root, a rounded rect the tendon runs through: the pilot's screen
-fills the zone on it in the green the game already spends on *good* with its
-rim stroked, and never the sum; the navigator's fills the sum up the collar
-in ember with the marker line in its rim, and never the zone; the test screen
-has both (`showsSinewZone`, `showsSinewSum` — the split *is* the encounter).
-The collar's own rim brightens while the hold is counting and its
-`sinewHoldBeats` pips fill one a beat, on both screens, because the hold
-counting is the one fact of the band neither seat is denied. The two
+dark pucker where the tendon goes in, and a film. The **band** is a tall
+glass tube halfway down the tendon, a tile and a half wide and three and a
+half tall, the upper runs ending in its top and the lower ones leaving its
+foot: the pilot's screen washes the zone on it in the green the game already
+spends on *good*, with a bracket on each wall and no edge across the tube, and
+never the sum; the navigator's fills the sum up it as a bubbling amber fluid
+(`sinew-fluid.ts`) to one bright line standing out past both walls, and never
+the zone; the test screen has both (`showsSinewZone`, `showsSinewSum` — the
+split *is* the encounter). THE SLOW's colour split leaves the tube out
+(`Aim.sharp`), so the only line across it is the sum's. While the sum is in
+the zone the frame glows green and breathes on both screens, the sum's line
+goes green, and **the hold's count is the next fibre fraying** — lighting
+toward green, shivering, splitting into strands and hairs over
+`sinewHoldBeats` (`sinew-fray.ts`) — because the hold counting is the one fact
+of the band neither seat is denied. A part **tears** it (`sinew-tear.ts`):
+the tube flashes green, a ring goes out, the fibre's runs whip back to stubs.
+The boss **drops in** over `sinewEnterBeats` — the crown slides down, the mass
+falls past its row and rings back like a rubber band — then bobs on the
+tendon for a beat after every part. Each seat's own handle stands in a
+**pull channel** straight down, the shared pull track (`pull-track.ts`) a
+reach long, filling green as it is pulled (`sinew-marks.ts`). The two
 **handles** hang off the mass's flanks on the shipped SINEW tether
 (`tether-sinew.ts`), the pilot's on the left and the navigator's on the
 right, yours bright and theirs dim — and **theirs fills nothing**

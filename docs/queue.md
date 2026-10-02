@@ -582,3 +582,18 @@ fibre's mass falls clear on its own, which removes the crush. (c) Keep the
 walk and drop the catch. (b) touches the events, the sound binds, the words
 and the director's poses. Done when the chosen gestures are the ones the sim
 hears and `bun run check` is green.
+
+## THE SINEW's crown, cut at the chrome line or at the screen's true top
+
+- **Found:** 2026-10-02, claude/sinew-boss-mechanics-dbcd1b
+- **Files:** `packages/render/src/sinew-crown.ts`, `packages/render/src/top-chrome.ts`, `packages/render/test/boss-top.test.ts`
+- **Asks:** Leave the crown cut at the chrome line, or let it run off the screen's true top edge under the seat switcher?
+
+The owner asked on 2 October 2026 for a body above the tendon's strings that
+"can be cut by the top of the screen". The rule of 29 September 2026 is that
+no boss is drawn under the seat switcher (`boss-top.test.ts`), so the crown is
+clipped at `TOP_CHROME_PX` (50 px) with a faint lit edge along the cut, and
+the band of screen above it stays the chrome's. (a) Keep the cut there.
+(b) Let it run to the true edge: an EXEMPT row for THE SINEW in
+`boss-top.test.ts` with the sentence that says why, and the clip removed.
+Done when the crown is cut where the owner chose and `bun run check` is green.

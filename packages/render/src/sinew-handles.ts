@@ -9,7 +9,12 @@ import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawPullKnob } from "./pull-knob.js";
 import { PULL_DOWN } from "./pull-line.js";
-import { drawSinewHandleHalo, drawSinewHandleMarks, sinewHandleAsks } from "./sinew-marks.js";
+import {
+  drawSinewChannel,
+  drawSinewHandleHalo,
+  drawSinewHandleMarks,
+  sinewHandleAsks,
+} from "./sinew-marks.js";
 import { type Point, sinewLanded, sinewMassCentre, sinewMassRx } from "./sinew-shape.js";
 import { sinewWord } from "./sinew-word.js";
 import { sinew } from "./tether-sinew.js";
@@ -190,6 +195,11 @@ export function drawSinewHandles(
       hex: mine ? PALETTE.hull : PALETTE.dim,
       rim: mine ? PALETTE.hullRim : PALETTE.rock,
     });
+    if (mine && !falling && !swinging) {
+      const rest = { ...sinewHandleCircle(l, cfg, s, beat, beatPhase, side), x: head.x };
+      const len = (cfg.sinewReachMilli * l.tile) / 1000;
+      drawSinewChannel(ctx, rest, head, len, pull, held, time);
+    }
     drawSinewHandleHalo(ctx, head, mine, asks, time);
     // The shared knob, carrying the way down on its owner's screen alone.
     const rim = swinging ? PALETTE.emberRim : mine ? PALETTE.text : PALETTE.rock;

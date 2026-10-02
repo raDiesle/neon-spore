@@ -13,6 +13,7 @@ import { cordSwing, eyeFreedom, repriseEye } from "./reprise-parts.js";
 import { repriseTurn } from "./reprise-surface.js";
 import type { Box } from "./slow-fuse-place.js";
 import { splinePath } from "./spline.js";
+import { TOP_CHROME_PX } from "./top-chrome.js";
 
 /**
  * THE REPRISE, drawn: a sac hung through a tear in the field's top edge, with
@@ -69,13 +70,8 @@ export function repriseFrame(l: Layout, cfg: SimConfig): RepriseFrame {
   };
 }
 
-/**
- * How far down the sac may reach from the top of the stage, in CSS pixels:
- * under the ≡ button and the link chip, which reach 40 px down
- * (`apps/game/src/game.css`). THE SLOW's fuse stood here until it moved under
- * the body on 27 September 2026, and the body kept the room it had.
- */
-const TOP_PX = 50;
+/** How far down the sac may reach from the top of the stage (`top-chrome.ts`). */
+const TOP_PX = TOP_CHROME_PX;
 
 /** The sac's box at rest, for the fuse hung under it (`slow-fuse-place.ts`). */
 export function repriseBox(l: Layout, cfg: SimConfig): Box {
