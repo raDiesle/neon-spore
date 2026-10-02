@@ -1,31 +1,34 @@
 import { failHolds } from "@neon-spore/sim";
-import { type GripVerdict, type VerdictSpot, verdictsDrawn } from "./grip-verdict.js";
-import { rgba } from "./hex.js";
+import type { GripVerdict } from "./grip-verdict.js";
 import type { Layout } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { type MarkSpot, marksDrawn, marksOnStage, nearestMark } from "./mark-spots.js";
 import type { ViewState } from "./renderer.js";
+import { AURA_ONSET_SECONDS, auraRadius, drawAuraRing, FLASH_SECONDS } from "./thumb-aura-ring.js";
 import type { Touch } from "./touch-hold.js";
 
 /**
- * **The glow round this device's own thumb while it holds a boss's mark.**
+ * **The ring round a boss's mark while this device's own thumb holds it.**
  * The owner, 2 October 2026, generic: *when there is hold or push on screen
  * gesture … you cannot see the progress circle with its colour because your
  * thumb is below. so some feedback, maybe around the circle like a green blur
  * beat … and if interrupted or wrong gesture done on the circle to be red. …
  * when starting to press it grows bigger and bigger first quick and then very
- * slow, so people see that something is still ongoing.*
+ * slow, so people see that something is still ongoing.* And on the first cut,
+ * which ringed the finger a tile and more wide: *it should slowly grow exactly
+ * green circle where center is the red circle. the current green is too big.*
  *
- * So a soft ring is drawn round the finger itself — wider than any thumb, so
- * it shows past the pad — and:
+ * So the ring is round **the mark**, not the finger, and sized by it:
  *
- * - **it grows** from the press, most of the way in a fifth of a second and
- *   then by a little more for as long as the thumb stays (`auraRadius`), so a
- *   hold that is still running is a picture that is still moving;
+ * - **it is centred on the mark** the thumb came down on, found among the
+ *   marks drawn this frame (`mark-spots.ts`) and followed as the boss moves
+ *   it; a press on no mark drawn keeps a small ring on the finger;
+ * - **it grows** from just outside the mark, quickly and then slowly
+ *   (`auraRadius`), so a hold still running is a ring still opening;
  * - **it beats green** on the wave's beat while the thumb is down;
- * - **it goes red** when the mark under it is judged wrong — the wrong thumb,
- *   the wrong gesture, a hold let go too early — and stops growing; and it
- *   flashes brighter green when the mark under it is judged right. Both are
- *   the mark's own verdict (`grip-verdict.ts`), never this file's guess.
+ * - **it goes red** when the mark is judged wrong — the wrong thumb, the
+ *   wrong gesture, a hold let go too early — and stops growing; it flashes
+ *   brighter green when it is judged right. Both are the mark's own verdict
+ *   (`grip-verdict.ts`), never this file's guess.
  *
  * It starts white for `AURA_ONSET_SECONDS`, the time a press takes to reach
  * the simulation and come back judged across a link, so a refused thumb goes
@@ -34,7 +37,8 @@ import type { Touch } from "./touch-hold.js";
  * early is told so.
  *
  * Per device and never shared, like `ViewState.hand`: the thumbs are the
- * host's, kept with the other per-finger counts (`fingers.ts`), and nothing here reaches the world.
+ * host's, kept with the other per-finger counts (`fingers.ts`), and nothing
+ * here reaches the world.
  */
 
 /** A finger down on a boss's mark, in stage coordinates. */
@@ -58,41 +62,29 @@ export function auraTouch(t: Pick<Touch, "command" | "hold">): boolean {
   return t.hold?.kind === "drag" || t.command?.kind === "drag";
 }
 
-/** How long the ring stays white before it beats green, in seconds. */
-export const AURA_ONSET_SECONDS = 0.25;
+export { AURA_ONSET_SECONDS, auraRadius } from "./thumb-aura-ring.js";
 /** How long a lifted thumb's ring takes to fade, in seconds. */
 export const AURA_LINGER_SECONDS = 0.5;
-/** How long a verdict's flash lasts on the ring, in seconds. */
-const FLASH_SECONDS = 0.35;
-
-/**
- * The ring's radius `t` seconds into a press, in tiles: 1.2 at the touch —
- * just past a thumb's pad — over half a tile more in the first fifth of a
- * second, then a slow creep that never quite stops: the owner's *first quick
- * and then very slow*.
- */
-export function auraRadius(t: number): number {
-  const quick = 1 - Math.exp(-t / 0.08);
-  const slow = Math.log(1 + t / 0.6);
-  return Math.min(3, 1.2 + 0.6 * quick + 0.25 * slow);
-}
 
 /** What a frame hands the rings: `ViewState`'s part of it. */
 type AuraView = Pick<ViewState, "world" | "thumbs" | "dt" | "beatPhase">;
 
-/** A canvas transform, as `getTransform` hands it back. */
-type Matrix = Pick<DOMMatrix, "a" | "b" | "c" | "d" | "e" | "f">;
-
 interface Aura {
+  /** The finger, while it is down. */
+  fx: number;
+  fy: number;
+  /** The ring's centre: the mark's, once one is found, else the finger's. */
   x: number;
   y: number;
+  /** The mark's radius when it was found, or null while none has been. */
+  r: number | null;
   /** Seconds since the press. */
   age: number;
   /** Seconds since the lift, or null while the thumb is down. */
   lifted: number | null;
-  /** The radius, in tiles, the ring stopped at when it went red. */
+  /** The radius, in the mark's radii, the ring stopped at when it went red. */
   stopped: number | null;
-  /** Seconds since the last verdict under it, and which way it went. */
+  /** Seconds since the last verdict on it, and which way it went. */
   flash: { age: number; good: boolean } | null;
   /** The verdict already taken, so one verdict is taken once. */
   taken: GripVerdict | null;
@@ -109,7 +101,7 @@ export class ThumbAuras {
 
   /**
    * The whole of a frame's part, last of the frame: the thumbs moved, the
-   * verdicts drawn since `watchVerdicts` read, and the rings put down over
+   * marks drawn since `watchMarks` read, and the rings put down over
    * everything — a ring under the band would be under the thumb again.
    *
    * None once the wave is lost or over: a thumb still down when the hit
@@ -117,13 +109,14 @@ export class ThumbAuras {
    * still under the lost screen, nor over the screen (`failHolds`).
    */
   frame(ctx: CanvasRenderingContext2D, l: Layout, view: AuraView): void {
-    const spots = verdictsDrawn(ctx);
+    const spots = marksOnStage(marksDrawn(ctx), ctx.getTransform());
     if (view.world.over || failHolds(view.world)) {
       this.clear();
       return;
     }
     this.update(view.thumbs, view.dt);
-    this.judge(spots, ctx.getTransform(), l);
+    this.anchor(spots, l);
+    this.judge(spots, l);
     this.draw(ctx, l, view.beatPhase);
   }
 
@@ -140,8 +133,12 @@ export class ThumbAuras {
         this.auras.set(t.id, fresh(t));
         continue;
       }
-      a.x = t.x;
-      a.y = t.y;
+      a.fx = t.x;
+      a.fy = t.y;
+      if (a.r === null) {
+        a.x = t.x;
+        a.y = t.y;
+      }
     }
     for (const [id, a] of this.auras) {
       a.age += dt;
@@ -153,35 +150,40 @@ export class ThumbAuras {
   }
 
   /**
-   * The verdicts drawn this frame (`verdictsDrawn`), in the canvas's pixels,
-   * and the transform the stage is drawn in. Each ring takes the nearest one
-   * given since its press, within reach of the thumb.
+   * Each ring onto its mark, among the marks drawn this frame in the stage's
+   * frame: first the one nearest the finger, within a thumb's reach of it;
+   * after that the one nearest where the ring is, so it follows a mark the
+   * boss carries. Its radius is kept from the first, so a mark that breathes
+   * does not shake the ring.
    */
-  judge(spots: readonly VerdictSpot[], m: Matrix, l: Layout): void {
-    if (spots.length === 0 || this.auras.size === 0) return;
-    const det = m.a * m.d - m.b * m.c;
-    if (det === 0) return;
-    const scale = Math.sqrt(Math.abs(det));
+  anchor(spots: readonly MarkSpot[], l: Layout): void {
     for (const a of this.auras.values()) {
-      let best: VerdictSpot | null = null;
-      let bestD = Infinity;
-      for (const s of spots) {
-        if (s.v === a.taken || s.v.age > a.age) continue;
-        // The spot back into the stage's own frame: the transform, undone.
-        const dx = s.x - m.e;
-        const dy = s.y - m.f;
-        const x = (m.d * dx - m.c * dy) / det;
-        const y = (m.a * dy - m.b * dx) / det;
-        const d = Math.hypot(x - a.x, y - a.y);
-        if (d <= Math.max((s.r / scale) * 3, l.tile * 1.5) && d < bestD) {
-          best = s;
-          bestD = d;
-        }
-      }
-      if (best === null) continue;
-      a.taken = best.v;
-      a.flash = { age: 0, good: best.v.good };
-      if (!best.v.good && a.stopped === null) {
+      if (a.lifted !== null) continue;
+      const from = a.r === null ? { x: a.fx, y: a.fy } : a;
+      const reach = (s: MarkSpot) =>
+        a.r === null ? Math.max(s.r * 3, l.tile * 1.2) : Math.max(s.r, l.tile * 0.5);
+      const s = nearestMark(spots, from, reach, (s) => s.v === undefined);
+      if (s === null) continue;
+      a.x = s.x;
+      a.y = s.y;
+      a.r ??= s.r;
+    }
+  }
+
+  /** Each ring takes the nearest verdict given on its mark since its press. */
+  judge(spots: readonly MarkSpot[], l: Layout): void {
+    for (const a of this.auras.values()) {
+      const reach = (s: MarkSpot) => Math.max(s.r * 1.5, l.tile * 0.8);
+      const s = nearestMark(
+        spots,
+        a,
+        reach,
+        (s) => s.v !== undefined && s.v !== a.taken && s.v.age <= a.age,
+      );
+      if (s?.v === undefined) continue;
+      a.taken = s.v;
+      a.flash = { age: 0, good: s.v.good };
+      if (!s.v.good && a.stopped === null) {
         a.stopped = auraRadius(a.age);
         // A slip told after the lift is shown whole before it fades.
         if (a.lifted !== null) a.lifted = 0;
@@ -201,36 +203,27 @@ export class ThumbAuras {
 }
 
 function fresh(t: Thumb): Aura {
-  return { x: t.x, y: t.y, age: 0, lifted: null, stopped: null, flash: null, taken: null };
+  return {
+    ...{ fx: t.x, fy: t.y, x: t.x, y: t.y, r: null, age: 0 },
+    ...{ lifted: null, stopped: null, flash: null, taken: null },
+  };
 }
 
 function drawAura(ctx: CanvasRenderingContext2D, l: Layout, a: Aura, beatPhase: number): void {
   const red = a.stopped !== null;
-  const fade = a.lifted === null ? 1 : 1 - a.lifted / AURA_LINGER_SECONDS;
   const flash = a.flash === null ? 0 : Math.max(0, 1 - a.flash.age / FLASH_SECONDS);
-  // The beat: loud on it, gone before the next — the field's own flash shape.
-  const beat = red ? 0 : Math.exp(-beatPhase * 5);
-  const onset = Math.min(1, a.age / AURA_ONSET_SECONDS);
-  const colour = red ? PALETTE.red : onset < 1 ? PALETTE.text : PALETTE.good;
   // Red shakes as it lands: the ring refusing, not just recoloured.
-  const shake = red ? Math.sin(a.age * 70) * flash * l.tile * 0.12 : 0;
-  const x = a.x + shake;
-  const r = l.tile * (a.stopped ?? auraRadius(a.age)) * (1 + 0.06 * beat + 0.08 * flash);
-  const glow = (0.32 + 0.3 * beat + 0.35 * flash) * fade;
-  ctx.save();
-  const g = ctx.createRadialGradient(x, a.y, r * 0.62, x, a.y, r * 1.22);
-  g.addColorStop(0, rgba(colour, 0));
-  g.addColorStop(0.45, rgba(colour, glow));
-  g.addColorStop(1, rgba(colour, 0));
-  ctx.fillStyle = g;
-  ctx.beginPath();
-  ctx.arc(x, a.y, r * 1.22, 0, Math.PI * 2);
-  ctx.arc(x, a.y, r * 0.62, 0, Math.PI * 2, true);
-  ctx.fill();
-  ctx.strokeStyle = rgba(colour, (0.7 + 0.3 * Math.max(beat, flash)) * fade);
-  ctx.lineWidth = STROKE.inner * (1.2 + flash);
-  ctx.beginPath();
-  ctx.arc(x, a.y, r, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.restore();
+  const shake = red ? Math.sin(a.age * 70) * flash * l.tile * 0.08 : 0;
+  const base = a.r ?? l.tile * 0.5;
+  drawAuraRing(ctx, {
+    x: a.x + shake,
+    y: a.y,
+    r: base * (a.stopped ?? auraRadius(a.age)),
+    red,
+    onset: a.age < AURA_ONSET_SECONDS,
+    fade: a.lifted === null ? 1 : 1 - a.lifted / AURA_LINGER_SECONDS,
+    flash,
+    // The beat: loud on it, gone before the next — the field's own flash shape.
+    beat: red ? 0 : Math.exp(-beatPhase * 5),
+  });
 }

@@ -1,9 +1,10 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { type SimEvent, step, type World } from "@neon-spore/sim";
 import { Fingers } from "../src/fingers.js";
-import { drawVerdictRing, watchVerdicts } from "../src/grip-verdict.js";
+import { drawVerdictRing } from "../src/grip-verdict.js";
 import { rgba } from "../src/hex.js";
 import { computeLayout } from "../src/layout.js";
+import { marksDrawn, noteMark, watchMarks } from "../src/mark-spots.js";
 import { PALETTE } from "../src/palette.js";
 import {
   AURA_LINGER_SECONDS,
@@ -25,10 +26,11 @@ import { asking, hung } from "./instar-kit.js";
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **The glow round a thumb on a boss's mark** — the owner, 2 October 2026,
- * generic: the progress ring is under the thumb, so a ring round the thumb
- * itself grows *first quick and then very slow*, beats green, and goes red
- * when the mark under it is judged wrong (`thumb-aura.ts`).
+ * **The ring round a boss's mark under this device's thumb** — the owner,
+ * 2 October 2026, generic: the progress ring is under the thumb, so a ring
+ * round the mark grows *first quick and then very slow*, beats green, and goes
+ * red when the mark is judged wrong; and on the first cut, *it should slowly
+ * grow exactly green circle where center is the red circle* (`thumb-aura.ts`).
  */
 
 beforeAll(installCanvasGlobals);
@@ -42,56 +44,111 @@ function colours(log: readonly string[]): string {
     .join("|");
 }
 
-/** A ring held `seconds`, drawn once at the end, with a verdict thrown at
- * `(vx, vy)` on the last frame if `good` is given — drawn in a frame shifted
- * by `shift`, the way a boss draws in its own. */
-function held(seconds: number, verdict?: { good: boolean; vx: number; vy: number }): string {
+/** The mark every ring below is held on, in the stage's frame — up and to
+ * the right of the thumb, the way a thumb lands off a mark's centre. */
+const MARK = { x: 110, y: 190, r: 12 };
+
+/**
+ * A thumb at (100, 200) held `seconds` on `MARK`, drawn once at the end, with
+ * a verdict thrown at `(vx, vy)` on the last frame if `good` is given — both
+ * drawn in a frame shifted by (40, -30), the way a boss draws in its own.
+ * Hands back the log of that last frame.
+ */
+function held(seconds: number, verdict?: { good: boolean; vx: number; vy: number }): string[] {
   const { ctx } = stubCanvas();
   const log: string[] = [];
   const c = ctx as unknown as CanvasRenderingContext2D;
   const auras = new ThumbAuras();
   const thumb = [{ id: 1, x: 100, y: 200 }];
   const dt = 1 / 30;
-  for (let t = 0; t < seconds; t += dt) auras.update(thumb, dt);
-  ctx.log = log;
   ctx.translate(10, 20);
-  watchVerdicts(c);
-  if (verdict) {
+  const boss = (last: boolean) => {
+    watchMarks(c);
     ctx.save();
     ctx.translate(40, -30);
-    drawVerdictRing(c, verdict.vx - 40, verdict.vy + 30, 20, { good: verdict.good, age: 0 });
+    noteMark(c, MARK.x - 40, MARK.y + 30, MARK.r);
+    if (last && verdict) {
+      drawVerdictRing(c, verdict.vx - 40, verdict.vy + 30, 20, { good: verdict.good, age: 0 });
+    }
     ctx.restore();
+  };
+  for (let t = dt; t < seconds; t += dt) {
+    boss(false);
+    auras.frame(c, L, { world: playing(), thumbs: thumb, dt, beatPhase: 0.5 });
   }
-  log.length = 0;
+  boss(true);
+  ctx.log = log;
   auras.frame(c, L, { world: playing(), thumbs: thumb, dt, beatPhase: 0.5 });
-  return colours(log);
+  return log;
 }
 
-describe("the glow round a thumb on a boss's mark", () => {
-  it("grows quickly at first and then very slowly, and never past its cap", () => {
+/** The crisp circle's centre and radius: the last arc a ring draws. */
+function circle(log: readonly string[]): { x: number; y: number; r: number } {
+  const arc = log.filter((e) => e.startsWith("arc(")).at(-1) ?? "";
+  const [x = NaN, y = NaN, r = NaN] = arc.slice(4, -1).split(", ").map(Number);
+  return { x, y, r };
+}
+
+describe("the ring round a boss's mark under the thumb", () => {
+  it("grows quickly at first, then slowly, and the slow part can still be seen", () => {
     const at = (t: number) => auraRadius(t);
-    expect(at(0.2) - at(0)).toBeGreaterThan(0.5);
-    expect(at(2) - at(1)).toBeGreaterThan(0);
-    expect(at(2) - at(1)).toBeLessThan(0.15);
-    expect(at(10)).toBeGreaterThan(at(5));
-    expect(at(600)).toBeLessThanOrEqual(3);
+    // Starts just outside the mark, not a tile out past the thumb.
+    expect(at(0)).toBeGreaterThan(1.1);
+    expect(at(0)).toBeLessThan(1.5);
+    // Quick: more in the first half second than in the whole second after it.
+    expect(at(0.5) - at(0)).toBeGreaterThan(at(1.5) - at(0.5));
+    // Slow, and still moving: a tenth of a radius and more between 2 s and 3 s.
+    expect(at(3) - at(2)).toBeGreaterThan(0.1);
+    expect(at(3) - at(2)).toBeLessThan(at(0.5) - at(0));
+    expect(at(600)).toBeLessThan(3.1);
+  });
+
+  it("is centred on the mark, not the thumb, and sized by the mark", () => {
+    const early = circle(held(0.1));
+    expect(early.x).toBeCloseTo(MARK.x, 3);
+    expect(early.y).toBeCloseTo(MARK.y, 3);
+    expect(early.r).toBeGreaterThan(MARK.r);
+    expect(early.r).toBeLessThan(MARK.r * 1.8);
+    const later = circle(held(3));
+    expect(later.x).toBeCloseTo(MARK.x, 3);
+    expect(later.r).toBeGreaterThan(early.r + MARK.r * 0.5);
+  });
+
+  it("keeps a small ring on the finger where no mark is drawn", () => {
+    const { ctx } = stubCanvas();
+    const c = ctx as unknown as CanvasRenderingContext2D;
+    const log: string[] = [];
+    ctx.log = log;
+    watchMarks(c);
+    new ThumbAuras().frame(c, L, {
+      world: playing(),
+      thumbs: [{ id: 1, x: 100, y: 200 }],
+      dt: 0.1,
+      beatPhase: 0,
+    });
+    const ring = circle(log);
+    expect([ring.x, ring.y]).toEqual([100, 200]);
+    expect(ring.r).toBeLessThan(L.tile);
+    expect(marksDrawn(c)).toEqual([]);
   });
 
   it("is white while the press is still on its way to being judged, then green", () => {
-    const early = held(AURA_ONSET_SECONDS / 2);
+    const early = colours(held(AURA_ONSET_SECONDS / 2));
     expect(early).toContain(rgbaPrefix(PALETTE.text));
     expect(early).not.toContain(rgbaPrefix(PALETTE.good));
-    const later = held(1);
+    const later = colours(held(1));
     expect(later).toContain(rgbaPrefix(PALETTE.good));
     expect(later).not.toContain(rgbaPrefix(PALETTE.red));
   });
 
-  it("goes red when the mark under the thumb is judged wrong, wherever the boss drew it", () => {
-    expect(held(1, { good: false, vx: 105, vy: 195 })).toContain(rgbaPrefix(PALETTE.red));
+  it("goes red when its mark is judged wrong, wherever the boss drew it", () => {
+    const red = colours(held(1, { good: false, vx: MARK.x, vy: MARK.y }));
+    expect(red).toContain(rgbaPrefix(PALETTE.red));
   });
 
-  it("does not take a verdict on a mark far from the thumb", () => {
-    expect(held(1, { good: false, vx: 300, vy: 600 })).not.toContain(rgbaPrefix(PALETTE.red));
+  it("does not take a verdict on another mark", () => {
+    const far = colours(held(1, { good: false, vx: 300, vy: 600 }));
+    expect(far).not.toContain(rgbaPrefix(PALETTE.red));
   });
 
   it("does not take a verdict given before the thumb landed", () => {
@@ -100,7 +157,7 @@ describe("the glow round a thumb on a boss's mark", () => {
     const auras = new ThumbAuras();
     const thumb = [{ id: 1, x: 100, y: 200 }];
     auras.update(thumb, 0.1);
-    watchVerdicts(c);
+    watchMarks(c);
     drawVerdictRing(c, 100, 200, 20, { good: false, age: 0.4 });
     const log: string[] = [];
     ctx.log = log;

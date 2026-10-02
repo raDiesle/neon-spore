@@ -1,4 +1,5 @@
 import type { Point } from "@neon-spore/content";
+import { noteMark } from "./mark-spots.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { PullWay } from "./pull-line.js";
 import { drawWayArrow } from "./way-arrow.js";
@@ -53,6 +54,7 @@ export function drawPullKnob(
     theirs?: boolean;
   },
 ): void {
+  noteMark(ctx, at.x, at.y, r);
   ctx.save();
   if (!o.held) {
     const breathe = 0.5 + 0.5 * Math.sin(o.time * 4);

@@ -140,12 +140,16 @@ item naming the rule, never a fix made in passing.
   cannot see the progress circle with its colour because your thumb is below
   … some feedback, maybe around the circle like a green blur beat … if
   interrupted or wrong gesture done on the circle to be red … it grows bigger
-  and bigger first quick and then very slow.* The renderer draws it round
-  this phone's own finger for every press a boss's drag answers — held or
-  refused — and borrows the mark's own verdict for red and green
-  (`render/thumb-aura.ts`). **No boss calls it**: a mark is found by its
-  `drag` and its verdict by `drawVerdictRing`, so a boss that already uses
-  both has the ring, and a new one gets it for nothing.
+  and bigger first quick and then very slow*; and *exactly green circle
+  where center is the red circle*. The renderer draws it **centred on the
+  mark** this phone's finger came down on, from just outside it, for every
+  press a boss's drag answers — held or refused — and borrows the mark's own
+  verdict for red and green (`render/thumb-aura.ts`). **No boss calls it**: a
+  press is found by its `drag`, the mark by the shared piece that drew it
+  (`drawMarkHalo`, `drawMarkTheirs`, `drawPullKnob`, `drawGripRing` note
+  themselves in `mark-spots.ts`) and its verdict by `drawVerdictRing`, so a
+  boss that already uses them has the ring, and a new one gets it for
+  nothing. A mark drawn some other way gets a small ring on the finger.
 - **Every mark shows its gesture: a pull its way, a shot its target, a
   shield or a suck its button**, 29 September 2026, for all bosses: *we use
   always the visualization we have of the direction, not just rounded red

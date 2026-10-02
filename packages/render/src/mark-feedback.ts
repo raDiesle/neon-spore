@@ -1,5 +1,6 @@
 import { circleSubpath } from "@neon-spore/content";
 import { rgba } from "./hex.js";
+import { noteMark } from "./mark-spots.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { lightWithin } from "./part-light.js";
 
@@ -61,6 +62,7 @@ export function drawMarkHalo(
   r: number,
   time: number,
 ): void {
+  noteMark(ctx, x, y, r);
   lightWithin(ctx, new Path2D(circleSubpath(x, y, r)), PALETTE.red, markLightAt(time), { x, y, r });
 }
 
@@ -79,6 +81,7 @@ export function drawMarkTheirs(
   r: number,
   time: number,
 ): void {
+  noteMark(ctx, x, y, r);
   ctx.save();
   ctx.strokeStyle = rgba(PALETTE.text, 0.8);
   ctx.lineWidth = STROKE.outline;

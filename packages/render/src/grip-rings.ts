@@ -1,6 +1,7 @@
 import { circleSubpath } from "@neon-spore/content";
 import { arcFromTop } from "./arc-from-top.js";
 import { strokeGlow } from "./glow.js";
+import { noteMark } from "./mark-spots.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -20,6 +21,7 @@ export function drawGripRing(
   held: boolean,
   time: number,
 ): void {
+  noteMark(ctx, x, y, r);
   const breathe = held ? 1 : 1 + 0.08 * Math.sin(time * 4);
   const p = new Path2D(circleSubpath(x, y, r * breathe));
   if (held) {

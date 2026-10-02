@@ -1987,7 +1987,8 @@ by hand never moves.
 | `packages/render/src/throat-receipt.ts` | What the last thing into the mouth did, for two beats: `RING DOWN` or `SWALLOWED · RING HEALS` |
 | `packages/render/src/throat-refuse-shake.ts` | **A body the mouth would not take shakes where it stands**, sideways, for as long as the wrong colour is held on it |
 | `packages/render/src/throat-hue.ts` | **Which colour the mouth is set to**, worn on the lip, with the panel face for shield and suck, and the pump's pull circle |
-| `packages/render/src/thumb-aura.ts` | **The glow round this device's own thumb while it holds a boss's mark** |
+| `packages/render/src/thumb-aura.ts` | **The ring round a boss's mark while this device's own thumb holds it** |
+| `packages/render/src/thumb-aura-ring.ts` | **The ring round a held mark, drawn**: how fast it opens (`auraRadius`), a crisp circle and a narrow glow |
 | `packages/render/src/crawler-fx.ts` | THE CRAWLER's three transients — the burst ring's splash, the swept lane, the burrow's mound |
 | `packages/render/src/crawler.ts` | THE CRAWLER, drawn — a maggot lying along the ship's surface, its rings overlapping |
 | `packages/render/src/crawler-ring.ts` | **One ring of a maggot, as a shape** — the three sets of proportions the parts of a worm are drawn at |
@@ -2302,6 +2303,7 @@ by hand never moves.
 | `packages/render/src/mantle-vent.ts` | **THE MANTLE's vent and its crosswise crack, drawn** — the red slot with its hiss, and the crack across the seam |
 | `packages/render/src/mantle-marks.ts` | **THE MANTLE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/mark-feedback.ts` | **Which mark is wanted, and by whom**, on every boss with a mark: the halo on this seat's open mark, the turning ring and the waiting clock on the partner's |
+| `packages/render/src/mark-spots.ts` | **Where each boss's marks were drawn this frame, on the screen** |
 | `packages/render/src/mount-look.ts` | THE ONE RECORD A CANDIDATE **MOUNT** PATCHES |
 | `packages/render/src/mount-bearing.ts` | Where on its wheel a mount stands, for a look that turns with it |
 | `packages/render/src/mount-rasp.ts` | RASP — a kept look for THE GYRE's mounts, drawn only on the GRAPHICS page's LIBRARY |

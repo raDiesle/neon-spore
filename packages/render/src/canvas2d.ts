@@ -14,10 +14,10 @@ import {
   drawShip,
   wellShown,
 } from "./frame-passes.js";
-import { watchVerdicts } from "./grip-verdict.js";
 import { handedView } from "./handover.js";
 import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
 import { computeStage, frameLayout } from "./layout.js";
+import { watchMarks } from "./mark-spots.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import { seenView } from "./unseen.js";
 
@@ -95,8 +95,8 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
     // is one frame of lag on a quake lasting a second (`choir-quake.ts`).
     const quake = this.held.effects.quake.offset(view.time);
     ctx.translate(stage.left + quake.x, stage.top + quake.y);
-    // Where each boss's verdict lands, for the ring round the thumb (`thumb-aura.ts`).
-    watchVerdicts(ctx);
+    // Where each boss's marks and verdicts land, for the ring round a held mark (`thumb-aura.ts`).
+    watchMarks(ctx);
 
     // Before anything eases or ingests: a wave that just (re)started leaves
     // none of last run's state meaning anything, and this frame is already

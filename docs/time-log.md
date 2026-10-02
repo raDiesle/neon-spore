@@ -32459,3 +32459,19 @@ Bottleneck: the rig's tubes doubled the frame's canvas calls, found only by
 measuring after the picture looked right.
 
 *Measured: 31 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — The ring round a held mark is centred on the mark, and visibly slows
+
+- reading: 10 min. Which shared pieces draw a mark, so the ring can find the
+  red circle rather than the finger.
+- writing: 20 min. `mark-spots.ts` out of `grip-verdict.ts`, the ring drawn
+  from `thumb-aura-ring.ts`, a new curve with a slow half that can be seen,
+  the tests rewritten round a mark.
+- looking: 10 min. THE INSTAR on P1's phone: a frame at the press and one
+  2.5 s in.
+- friction: 10 min. The hidden pane held the run, and a `p` keypress had
+  toggled a hand pause on top of it.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: getting the hidden Browser pane to tick so the frame was the
+running game and not the PAUSED screen.
