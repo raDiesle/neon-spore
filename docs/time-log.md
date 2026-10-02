@@ -31814,3 +31814,5 @@ reaches, so neither receipt can be seen in open field on a frame it plays.
 
 Bottleneck: looking — the pose this fixes is eighteen steps in, and the
 before needed the flag flipped back by hand for one shot.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

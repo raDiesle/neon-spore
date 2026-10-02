@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 52f30a669 — THE INSTAR's nests sit on its back when it rises
+
+When THE INSTAR stood upright in its rise, the nests on its back ended about half a head off to the side of the body. The seat under each nest was measured straight down the screen. It is now measured across the spine, as the VERSUS body with weight already does. The nest test now covers every pose, the rise included. Exemption: a fix to something wrong rather than unlovely (nests floating off the body).
+
 ## 2026-10-02 · 96747c159 — THE MIMIC's receipts: the peel drifting off, the core's flash, the slap at the hull
 
 A sign drawn right now lifts off THE MIMIC's skin. It comes away as a scrap with the sign still on it and a pale torn edge, and drifts down the field turning over, on both screens. A shot into the core flashes a ring out past it in the colour it was lit. The mantle shakes and reddens with the blow, and the hull shudders as the mimic slaps into shape and as it falls spent. Its own blow at the hull is the slap: the arm already hung down to the hull lifts, comes down on the column, and leaves a ring of sucker prints in red. THE MIMIC's look (§42) is done. Exemption: a look with no shipped alternative. Not delegated.
