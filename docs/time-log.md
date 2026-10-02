@@ -32218,3 +32218,5 @@ the rig has one.
 - landing: 5 min. `check:fast` twice, `land`.
 
 Bottleneck: `versus drop` leaving the dropped candidate's importers behind.
+
+*Measured: 7 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

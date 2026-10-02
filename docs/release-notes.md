@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 38c15d583 — THE REPRISE's sac turns on the field, its veins sliding round it
+
+The owner took VERSUS reprise:skin · TURN on 2 October 2026 (*like it, build into game*; a look the owner asked for by name). THE REPRISE's sac now leans on the outline drift and its skin turns with it up to 65°: the veins, now bright and thick rather than faint, slide across it, the near ones going over the rim and the far pair coming round from behind. VERSUS keel:seam · THREE and instar:drift · TURN were rejected (*looks worse*), so THE KEEL keeps its one thin seam and THE INSTAR's body stays unturned.
+
 ## 2026-10-02 · 8440140f0 — Back opens the wave list in test mode, and a jump from the rig plays TEST
 
 On a device in test mode the phone's back gesture now opens the menu straight on JUMP TO WAVE — over the field, over the question, over any menu page — and the CONTINUE / BACK TO MENU / QUIT question is never asked. A player's back is unchanged. A wave, demo or SINGLE PLAYER started from the rig now moves the seat to TEST (both halves) instead of a remembered P1 or P2, unless a seat card was pressed on that opening of the menu; a room's seat is never touched.
