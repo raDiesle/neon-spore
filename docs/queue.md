@@ -475,6 +475,7 @@ bolt stopped, and `bun run check` is green.
 ## `queue release` then `take` leaves this tree dirty, blocking the checkout
 
 - **Found:** 2026-10-02, claude/queue-the-lampreys-look-41
+- **Taken:** 2026-10-02, claude/queue-band-control-ts-and-controls-round-ts-are-one-co (claim: claude/queue-queue-release-then-take-leaves-this-tree-dirty-b)
 - **Where:** local
 - **Files:** `tools/queue/run.ts`, `tools/queue/repo.ts`, `tools/queue/test/`
 
