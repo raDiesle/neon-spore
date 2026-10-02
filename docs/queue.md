@@ -439,6 +439,7 @@ flat. `bun run check` proves the tests.
 ## `vane-hand.test.ts` is past 250 lines, and four VANE files copy the fixture
 
 - **Found:** 2026-10-01, claude/queue-vane-test-ts-is-past-250-lines
+- **Taken:** 2026-10-02, claude/queue-vane-hand-test-ts-is-past-250-lines-and-four-van
 - **Where:** local
 - **Files:** `packages/sim/test/vane-hand.test.ts`, `packages/sim/test/vane-knock.test.ts`, `packages/sim/test/vane-drift.test.ts`, `packages/sim/test/vane-forms.test.ts`, `packages/sim/test/vane-fixture.ts`
 
