@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 4b72f645f — A press where THE INSTAR draws no ring takes hold of nothing
+
+Before, the hit test took hold of a mark whenever the step was acting. The drawer puts the rings up only while THE SLOW is open as well. So a press during a retried wave's title, or after a strike had shut the window, still sent a drag, and the glow round the thumb showed it. Now the hit test asks the drawer's own question (`instarMarksUp`) of the field's window. THE NETTLE shares it.
+
 ## 2026-10-02 · 69f40bda9 — The CDP launcher's test makes `.claude/tmp` before taking a profile in it
 
 `launchOverCdp`'s test took its browser profile with a bare `mkdtemp` under `.claude/tmp`, which a fresh worktree does not have until some other tool makes it, so the first `bun run land` from a new tree failed two tests. The test now makes the directory first, as `profileDir` in `browser.ts` already does.

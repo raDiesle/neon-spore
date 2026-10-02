@@ -32547,3 +32547,5 @@ Bottleneck: it read as a race until the test's own helper was read.
   one now (`asking`), and one row presses with it shut.
 
 Bottleneck: the twelve tests that pressed a ring the game would not have drawn.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
