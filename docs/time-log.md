@@ -32667,3 +32667,14 @@ had filled, and wanted its seam cut before the lane could go on.
 Bottleneck: the rig's loops on a lit phase running into the next step's light.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE OCULUS's time left over the lens, and its tap and turn drawn
+
+- reading: 0 min. THE SLOW's fuse line and its placement, THE MAZE's knob.
+- writing: 5 min. `oculus-fuse.ts`, `oculus-levers.ts`, `fuseOver`, the
+  wider press, the frame test.
+- looking: 5 min. The hold, tap and turn frames on P1's phone.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, two registries naming the new files, `land`.
+
+Bottleneck: AUTO answering each level inside a second, so the frame had to be taken within a few ticks of the light.

@@ -1,5 +1,6 @@
 import { type OculusState, oculusDone, type SimConfig, type World } from "@neon-spore/sim";
 import type { Circle, Layout } from "./layout.js";
+import { OCULUS_KNOB, oculusLeverRadius } from "./oculus-levers.js";
 import { oculusArrived } from "./oculus-pose.js";
 import { oculusCentre, oculusLift, oculusRadius } from "./oculus-shape.js";
 import type { Field, Touch } from "./touch.js";
@@ -95,14 +96,16 @@ export function oculusLeafUnder(l: Layout, x: number, y: number, field: Field): 
   const lens = lensAt(l, field.cfg, s, field.beat, field.beatPhase);
   const dx = x - lens.x;
   const dy = y - lens.y;
-  if (dx * dx + dy * dy > lens.r * lens.r) return null;
+  // Out to the lever ring's knobs, so a thumb on a knob is on its lever.
+  const reach = Math.max(lens.r, oculusLeverRadius(l, field.cfg) + OCULUS_KNOB * l.tile);
+  if (dx * dx + dy * dy > reach * reach) return null;
   const seat = field.seat;
   if (dx * oculusSide(seat) < 0) return null;
   const target = seat === 1 ? "oculusLeafLeft" : "oculusLeafRight";
   // Read round the lens, never sideways: on a turn the leaf is a lever, and
   // how far round it has come is an arc of the ring its knob runs on
   // (`rimFrom`, `sim/oculus-hand.ts`). A hold or a tap ignores where it goes.
-  const r = (field.cfg.oculusLeverRadiusMilli / 1000) * l.tile;
+  const r = oculusLeverRadius(l, field.cfg);
   const rim = { cx: lens.x, cy: lens.y, r, angle: Math.atan2(dy, dx) };
   return {
     player: seat,

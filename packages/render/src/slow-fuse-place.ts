@@ -198,3 +198,15 @@ export function fusePlace(l: Layout, body: Under, marks: readonly Box[]): FusePl
 export function fuseAt(l: Layout, world: World, beatPhase: number, body: Under): FusePlace {
   return fusePlace(l, body, liveMarks(l, world, beatPhase));
 }
+
+/**
+ * The fuse stood over a body whatever the room under it — THE OCULUS's, which
+ * the owner asked for *above boss* (`oculus-fuse.ts`) — `top` its highest
+ * pixel, and never above the field.
+ */
+export function fuseOver(l: Layout, top: number): FusePlace {
+  const x = l.width / 2;
+  const h = fuseHalfHeight(l);
+  const half = Math.max(0, x - l.tile * SIDE);
+  return { x, y: Math.max(l.gridTop + h, top - OVER_BODY - h), half };
+}

@@ -8623,6 +8623,15 @@ hull hit. The counting is `sim/oculus-level.ts`, read by the picture through
 `oculusLevelShare`. Glare, look and reseal are still understood by the
 simulation, and no longer in the script.
 
+**The levels' look** (the same day). The lit level's time left is THE SLOW's
+fuse line, stood **over** the lens (`render/oculus-fuse.ts`, `fuseOver`) and
+none over a shot. A tap is a row of pips on each seat's side of a ring round
+the lens, lit green per tap; a turn is a knob each on that ring at
+`oculusLeverRadiusMilli`, carried round by its own count, so a knob standing
+still under a moving thumb says the other is not pulling
+(`render/oculus-levers.ts`). A press is taken out to the knobs
+(`oculus-grip.ts`), and the lit pair glows white on all three levels.
+
 **Its look is done** (26 September 2026). The lens is drawn
 (`render/oculus-shape.ts`, `oculus-pose.ts`, `oculus-draw.ts`,
 `oculus-marks.ts`), each seat's half held as its own leaf on both phones

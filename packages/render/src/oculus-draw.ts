@@ -2,6 +2,7 @@ import { LIGHT_HALF } from "@neon-spore/content";
 import {
   OCULUS_LEAVES,
   type OculusState,
+  oculusIsPair,
   oculusLitStep,
   oculusWindowBeats,
   type World,
@@ -11,7 +12,9 @@ import { fieldX } from "./field-flip.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
+import { drawOculusFuse } from "./oculus-fuse.js";
 import type { OculusFx } from "./oculus-fx.js";
+import { drawOculusLevers } from "./oculus-levers.js";
 import { drawOculusCore, drawOculusFlash, drawOculusLitPair } from "./oculus-marks.js";
 import {
   oculusArrived,
@@ -115,10 +118,12 @@ export function drawOculus(
       ctx.restore();
     }
   }
+  if (shatter <= 0) drawOculusLevers(ctx, l, cfg, s, l.role, time);
   const hull = { x: aim.lookX, y: aim.toHull };
   drawOculusMarkFeedback(ctx, l, cfg, s, beat, beatPhase, time, hull, fx.marks.verdicts);
   drawOculusFlash(ctx, l, fx.flash, fx.shatter);
   ctx.restore();
+  drawOculusFuse(ctx, l, world, s, beat, beatPhase);
 }
 
 /** The lens whole: glass face, the leaves across it, the socket and core behind, the rim over their roots, the blow over the rim. */
@@ -195,7 +200,7 @@ function drawLens(
   const colour = stepColour(step?.ask === "look" ? step.color : "either");
   drawOculusSight(ctx, l, core, { x: aim.lookX, y: aim.toHull }, colour, gaze);
 
-  if (step === null || (step.ask !== "shut" && step.ask !== "reseal")) return;
+  if (step === null || !oculusIsPair(step)) return;
   const pair = oculusLitPair(s);
   drawOculusLitPair(ctx, l, [pair, pair + OCULUS_LEAVES / 2], shut, beatPhase);
 }

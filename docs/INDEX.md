@@ -1653,8 +1653,10 @@ by hand never moves.
 | `packages/render/src/oculus-story.ts` | **THE OCULUS's two story steps, drawn** (§27's story item; the rules are `sim/oculus-guard.ts` and… |
 | `packages/render/src/oculus-grip.ts` | **The thumbs on THE OCULUS** — the first of its hands lanes |
 | `packages/render/src/oculus-fx.ts` | What THE OCULUS leaves behind a frame (§27, *Presentation*) |
+| `packages/render/src/oculus-fuse.ts` | **THE OCULUS's time left, over the lens**: THE SLOW's fuse line counting the lit level's fuse, none over a shot |
 | `packages/render/src/oculus-blow.ts` | **THE OCULUS's own blow at the hull** (`boss-strike-look.ts`): the lens does what a lens does |
 | `packages/render/src/oculus-verdicts.ts` | **THE OCULUS's marks answering a touch the way every mark does** (`mark-feedback.ts` |
+| `packages/render/src/oculus-levers.ts` | **THE OCULUS's tap and turn levels, drawn on the lens**: pips per tap, a knob each on a ring carried by its count |
 | `packages/render/src/outline-drift.ts` | **The outline tier** (`docs/spec/living-bosses.md` §1, "How far it reaches, by kind of body") |
 | `packages/render/src/outline-parts.ts` | **The outline tier's parts** (`docs/spec/living-bosses.md` §1, "How an outline boss gets it") |
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |

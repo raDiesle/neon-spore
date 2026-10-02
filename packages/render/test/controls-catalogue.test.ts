@@ -67,6 +67,7 @@ const NOT_MARKS: Readonly<Record<string, string>> = {
   "hash.ts": "a seed from an id",
   "pods.ts": "the pods",
   "creature-place.ts": "where a body stands",
+  "slow-fuse-place.ts": "where the fuse stands, which is `slow-fuse.ts` on the page",
   "depth.ts": "a body's depth",
   "baked.ts": "a cache",
   "rock-size.ts": "a rock's size",
