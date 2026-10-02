@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · d6d41a5ea — Four bosses' lit cores and both pull tracks are lit from inside
+
+THE CYST, THE OCULUS, THE TRIVET and THE VISE no longer glow round the part they ask the cannon to hit. The core keeps its unlit colour, takes a light that beats like a heart and never leaves its edge, and keeps its own border. The countdown ring round it is now a plain stroke. On THE INSTAR's and THE WARDEN's pull tracks, the red bar laid over the channel becomes the same faint breathing light as the mark halo, inside the channel.
+
 ## 2026-10-02 · 42a2fb729 — frames' fired line says where each kind of event got to, not only where it began
 
 `bun run frames --events` summed each kind of event on one line with the first firing's fields and a count, so `instarShow@1800 (step=0 col=5) (x7)` read as THE INSTAR showing step 0 seven times under AUTO. It had shown steps 0 to 6 once each. A kind that fired more than once, with other fields by the end, now adds the last firing: `(x7, last @… step=6 col=5)`. The help gains a recipe for opening a scene boss on a given step with `--boss cursor=…`.
