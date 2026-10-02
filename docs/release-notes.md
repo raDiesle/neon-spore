@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · b60f0a33d — Ask whether THE ANTIPHON, THE BATON and THE LEAD drift under pinned readouts
+
+Their readouts are read by column and their depth already turns in light, so the rig drift collides with the style guide's rules for them; the remaining three lanes wait on the owner's pick.
+
 ## 2026-10-02 · 4cbbcb823 — THE GIMBAL drifts in VERSUS: a solid cradle that turns, tips and rolls
 
 `gimbal:tilt` / `drift` offers THE GIMBAL drawn solid: a shaded drum nodding inside steel rings, with round pins and a steel yoke. The whole cradle wanders on the idle drift. It keeps a third of the drift while a ring is being turned and a tenth of that under THE SLOW, and none once the drum opens. The ring, its teeth and the seat's mark go through one transform, so a ring brought onto its drawn mark is on its true mark. At the drift's widest, the rim stays within half the grab radius and half the true band.
