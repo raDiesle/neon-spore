@@ -364,19 +364,6 @@ bares, and a bolt reaching the core is drawn through it.
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
 
-## `browser-cdp.test.ts` fails in a fresh worktree until `.claude/tmp` exists
-
-- **Found:** 2026-10-02, claude/boss-gesture-progress-feedback-81ceaf
-- **Taken:** 2026-10-02, claude/queue-the-instar-answers-a-press-on-a-mark-it-is-not-d (claim: claude/queue-browser-cdp-test-ts-fails-in-a-fresh-worktree-un)
-- **Files:** `tools/frames/browser-cdp.ts`, `tools/frames/test/browser-cdp.test.ts`
-
-The first `bun run check:fast` in a new worktree failed four
-`launchOverCdp` tests with `ENOENT … mkdtemp '<tree>/.claude/tmp/neon-spore-chrome-…'`;
-the second run passed because something else had made the directory by
-then. Worked around by running it again. `mkdtemp` wants its parent to
-exist: create it (`mkdirSync(…, { recursive: true })`) before the call, and
-let the test start from a tree with no `.claude/tmp`.
-
 ## `queue release` of a lane's own claim leaves an edit `land` then refuses
 
 - **Found:** 2026-10-02, claude/queue-living-bosses-the-four-rig-bosses-get-the-idle-d

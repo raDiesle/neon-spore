@@ -32549,3 +32549,14 @@ Bottleneck: it read as a race until the test's own helper was read.
 Bottleneck: the twelve tests that pressed a ring the game would not have drawn.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — The CDP test's missing directory was already made
+
+- reading: 5 min. The launcher, its test, and the commit that had fixed it.
+- writing: 0 min.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. The test run with no `.claude/tmp`, three green; the
+  entry out.
+
+Bottleneck: the lane that fixed it left its entry on the queue.
