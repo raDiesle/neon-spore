@@ -32037,3 +32037,16 @@ Bottleneck: reading — the owner's sentence named a loss the simulation does
 not make directly, and the probe was what found which rule made it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — `queue release` leaves a tree on another branch as its `HEAD` has it
+
+- reading: 5 min. `release`, `alsoHere`, `claim`, and the two repo tests
+  to borrow a scratch repository from.
+- writing: 5 min. `give-back.ts`, `run.ts` calling it, a test that
+  releases, takes and checks the claim out from a tree on a landed branch.
+- looking: 0 min. A tool; nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: reading — `run.ts` is bound to this repository, so the fix had
+to move into a function that takes a root before a test could reach it.

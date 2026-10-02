@@ -472,25 +472,6 @@ bares, and a bolt reaching the core is drawn through it.
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
 
-## `queue release` then `take` leaves this tree dirty, blocking the checkout
-
-- **Found:** 2026-10-02, claude/queue-the-lampreys-look-41
-- **Taken:** 2026-10-02, claude/queue-band-control-ts-and-controls-round-ts-are-one-co (claim: claude/queue-queue-release-then-take-leaves-this-tree-dirty-b)
-- **Where:** local
-- **Files:** `tools/queue/run.ts`, `tools/queue/repo.ts`, `tools/queue/test/`
-
-A spent claim is given back and taken again from a worktree standing on some
-other, already-landed branch: `bun run queue release "<title>"` commits the
-give-back to `main` and, through `alsoHere`, also cuts the `Taken:` line out of
-this tree's own copy, uncommitted. `take` then stamps `main` and creates the
-claim branch, but leaves that copy alone. `git checkout <claim branch>` then
-refuses ("Your local changes … would be overwritten"), and the tree has to be
-restored by hand before work can start. Make `take` leave this tree's copy as
-`HEAD` has it when the claim branch is not the branch this tree stands on, or
-have `alsoHere` skip a tree whose branch does not hold the entry's claim. Done
-when a test runs `release` then `take` from a worktree on another branch and
-the tree is clean, and `bun run check` is green.
-
 ## THE SINEW's crown, cut at the chrome line or at the screen's true top
 
 - **Found:** 2026-10-02, claude/sinew-boss-mechanics-dbcd1b

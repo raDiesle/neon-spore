@@ -30,18 +30,17 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { askFirst } from "./asking.js";
 import { branchFor, claimOn, heldElsewhere, refuseNumbered, unclaimed } from "./claim.js";
-import { clearTaken, removeItem } from "./edit.js";
+import { removeItem } from "./edit.js";
+import { giveBack } from "./give-back.js";
 import { printList } from "./list.js";
 import { originRefusal, readOrigin } from "./origin-check.js";
 import { refuseUnlessWhole } from "./problems.js";
 import { type Item, match, order, parseItems, pick } from "./queue.js";
 import {
-  alsoHere,
   claim,
   drop,
   hasBranch,
   headBranch,
-  onTrunk,
   PATHS,
   ROOT,
   refs,
@@ -169,14 +168,10 @@ if (!command || command === "list") {
   if (!claimOn(item, known) && !marked) {
     console.log(`Not held: ${item.title} (no ${branch}, no Taken: line — nobody is on it)`);
   } else {
-    if (marked) {
-      const cut = (md: string): string => clearTaken(md, item.title);
-      onTrunk(item, cut, `Give ${JSON.stringify(item.title)} back`);
-      // And in this checkout's own copy, which is the half a trunk edit cannot
-      // reach: a lane holding its own `docs/queue.md` puts the line straight
-      // back the moment `bun run land` rebases it over the give-back.
-      alsoHere(item, cut);
-    }
+    // And in this checkout's own copy when this tree holds the claim, which
+    // is the half a trunk edit cannot reach; a tree on another branch is left
+    // as its `HEAD` has it, or the claim's checkout refuses (`give-back.ts`).
+    if (marked) giveBack(item, marked);
     // The line can outlive the branch — a landing sweeps the branch, and a clone
     // never had one — so "no branch" is a shape of release rather than a failure.
     const { ok, note } = hasBranch(branch)

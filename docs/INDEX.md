@@ -3298,6 +3298,7 @@ by hand never moves.
 | `tools/director/src/plain-words.ts` | The plain-English half of an unbuilt entry: what the thing does, what each seat does about it |
 | `tools/queue/edit.ts` | Editing `docs/queue.md` and `docs/parked.md` in place: the claim written into an entry |
 | `tools/queue/git.ts` | The queue's git: one runner, and the one piece of plumbing that writes a commit onto a branch nothing has… |
+| `tools/queue/give-back.ts` | **A claim's `Taken:` line given back** — the half of `release` that writes |
 | `tools/queue/stale.ts` | Whether an entry has gone stale: written before something landed on the files it names |
 | `tools/queue/status.ts` | `bun run queue status` — DONE, IDLE or BUSY, and who is on what |
 | `tools/queue/skipped.ts` | **Why `next` stepped past a free entry**, counted for the listing's foot |
