@@ -32592,3 +32592,16 @@ commit never sweeps a half-written entry.
 Bottleneck: finding which of the three red circles on the lens was the cue's.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE BURGEE, CAPSTAN and DAVIT stop a bolt on what it meets
+
+- reading: 5 min. The three drawers and shapes, `core-stop.ts`, THE
+  GOVERNOR's stopper and the stop test's rows.
+- writing: 10 min. `outlineFoot`; a stopper each; points handed out beside
+  four paths; two posing harnesses; three rows.
+- looking: 0 min. The stop heights printed against each shape instead.
+- friction: 0 min.
+- landing: 5 min. A sort, the controls catalogue's list, `check:fast`, `land`.
+
+Bottleneck: carrying THE CAPSTAN's roll and rattle into the stopper, so the
+foot is the drum and cradle where the drawer puts them.

@@ -1,12 +1,21 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { type Bullet, type Color, midCol } from "@neon-spore/sim";
 import { BoltStops } from "../src/bolt-stop.js";
+import { drawBurgee } from "../src/burgee-draw.js";
+import { BurgeeFx } from "../src/burgee-fx.js";
+import { drawCapstan } from "../src/capstan-draw.js";
+import { CapstanFx } from "../src/capstan-fx.js";
+import { drawDavit } from "../src/davit-draw.js";
+import { DavitVerdicts } from "../src/davit-verdicts.js";
 import { drawFlue } from "../src/flue-draw.js";
 import { FlueFx } from "../src/flue-fx.js";
 import { drawGovernor } from "../src/governor-draw.js";
 import { GovernorFx } from "../src/governor-fx.js";
 import { computeLayout, type Layout, tileCX } from "../src/layout.js";
+import * as burgee from "./burgee-harness.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import * as capstan from "./capstan-harness.js";
+import * as davit from "./davit-harness.js";
 import * as flue from "./flue-harness.js";
 import { CFG, FRAME_TIMEOUT_MS, ROLES, VIEWPORT } from "./frame-harness.js";
 import * as governor from "./governor-harness.js";
@@ -26,6 +35,11 @@ interface Row {
   name: string;
   /** The boss stood and drawn with `stops`, its core open on a cyan fire step or shut. */
   draw(stops: BoltStops, l: Layout, open: boolean): void;
+  /**
+   * Whether the body stands over the column beside the middle one while the
+   * core is open; a boss hung from one point over the middle column does not.
+   */
+  wide: boolean;
 }
 
 const ROWS: Row[] = [
@@ -39,6 +53,7 @@ const ROWS: Row[] = [
       });
       drawFlue(paper(), l, world, s, world.beat, 0.5, 0, new FlueFx(), stops);
     },
+    wide: true,
   },
   {
     name: "THE GOVERNOR",
@@ -49,6 +64,40 @@ const ROWS: Row[] = [
       });
       drawGovernor(paper(), l, world, s, world.beat, 0.5, 0, new GovernorFx(), stops);
     },
+    wide: true,
+  },
+  {
+    name: "THE BURGEE",
+    draw(stops, l, open) {
+      const world = burgee.stood();
+      const s = burgee.posed(world, open ? burgee.FIRE : burgee.CATCH, 0, (b) => {
+        b.spindleLit = open;
+      });
+      drawBurgee(paper(), l, world, s, world.beat, 0.5, 0, new BurgeeFx(), stops);
+    },
+    wide: false,
+  },
+  {
+    name: "THE CAPSTAN",
+    draw(stops, l, open) {
+      const world = capstan.stood();
+      const s = capstan.posed(world, capstan.FIRE, (c) => {
+        c.bared = open;
+      });
+      drawCapstan(paper(), l, world, s, world.beat, 0.5, 0, new CapstanFx(), stops);
+    },
+    wide: true,
+  },
+  {
+    name: "THE DAVIT",
+    draw(stops, l, open) {
+      const world = davit.stood();
+      const s = davit.posed(world, davit.FIRE, 0, (d) => {
+        d.pivotLit = open;
+      });
+      drawDavit(paper(), l, world, s, world.beat, 0.5, 0, new DavitVerdicts(), stops);
+    },
+    wide: false,
   },
 ];
 
@@ -85,7 +134,7 @@ describe.each(ROWS)("$name stops a bolt", (row) => {
 
   it.each(ROLES)("on the shell beside the core, and on the shut core, on %s", (role) => {
     const l = computeLayout(VIEWPORT, CFG, role);
-    expect(meets(aimed(row, l, true), l, MID + 1, "cyan")?.hit).toBe("body");
+    if (row.wide) expect(meets(aimed(row, l, true), l, MID + 1, "cyan")?.hit).toBe("body");
     expect(meets(aimed(row, l, false), l, MID, "cyan")?.hit).toBe("body");
   });
 

@@ -1194,6 +1194,7 @@ by hand never moves.
 | `packages/render/src/burgee-marks.ts` | **THE BURGEE's marks**: what says what a step asks |
 | `packages/render/src/burgee-pose.ts` | **The clock THE BURGEE is posed off** (§39, *Animation*), four poses: the flag sweeping loose |
 | `packages/render/src/burgee-shape.ts` | **THE BURGEE's geometry**: where the spindle stands, where the boom hangs and the paths the three are made of |
+| `packages/render/src/burgee-stop.ts` | **Where a bolt meets THE BURGEE**: the lit spindle, or the lowest of spindle, boom and flag |
 | `packages/render/src/burgee-blow.ts` | **THE BURGEE's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/burgee-receipts.ts` | **What THE BURGEE's receipts are drawn as**, off the numbers `burgee-fx.ts` keeps: a freeze's snap |
 | `packages/render/src/burgee-grip.ts` | **THE BURGEE's two hands as controls**: the freeze ring `burgeeFreeze` and the draw's track `burgeeDraw` |
@@ -1708,6 +1709,7 @@ by hand never moves.
 | `packages/render/src/capstan-marks.ts` | **THE CAPSTAN's marks**: the lit horn, band and core, and a band's health as its marks |
 | `packages/render/src/capstan-pose.ts` | **The clock THE CAPSTAN is posed off**: the rock read off the lean, the cap, the rattle |
 | `packages/render/src/capstan-shape.ts` | **THE CAPSTAN's geometry**: GATE's bar and BEARING RING's faces, the yaw, the cradle |
+| `packages/render/src/capstan-stop.ts` | **Where a bolt meets THE CAPSTAN**: the bared core, or the lowest of drum and cradle, rolled and rattled |
 | `packages/render/src/capstan-blow.ts` | **THE CAPSTAN's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/capstan-fx.ts` | What THE CAPSTAN leaves behind a frame (§11.54): the **scrub** of a reversal worn into a band |
 | `packages/render/src/capstan-grip.ts` | **The bands on THE CAPSTAN** — the hands lane that makes the drum answer a thumb at all (§11.54 |
@@ -2287,6 +2289,7 @@ by hand never moves.
 | `packages/render/src/davit-marks.ts` | The mast's own socket: a dark steel foot the boom always stands out of |
 | `packages/render/src/davit-pose.ts` | THE DAVIT's timing: how far the boom has stood up out of stowed, how far a lit step's window has run |
 | `packages/render/src/davit-shape.ts` | **THE DAVIT's geometry**: a boom stowed pointing straight up off a mast over the middle column |
+| `packages/render/src/davit-stop.ts` | **Where a bolt meets THE DAVIT**: the lit hook, or the lowest of hook, boom and socket |
 | `packages/render/src/davit-verdicts.ts` | **THE DAVIT's marks answering a touch the way every mark does** (`mark-feedback.ts`) |
 | `packages/render/src/magnet-coil.ts` | WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips |
 | `packages/render/src/magnet-lanes.ts` | Where an intake lane starts and ends, in body radii from the centre |

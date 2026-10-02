@@ -102,6 +102,11 @@ export function capstanSqueeze(turn: number): number {
 
 /** GATE's bar, `squeeze` of its length: the drum seen side-on. */
 export function capstanBodyPath(l: Layout, squeeze: number): Path2D {
+  return splinePath(capstanBodyPoints(l, squeeze), true);
+}
+
+/** The points `capstanBodyPath` runs through, about the drum's middle. */
+export function capstanBodyPoints(l: Layout, squeeze: number): Point[] {
   const { rx, ry } = capstanSize(l);
   const pts: Point[] = [];
   for (let i = 0; i < N; i++) {
@@ -111,7 +116,7 @@ export function capstanBodyPath(l: Layout, squeeze: number): Path2D {
     const r = (Math.abs(c) ** GATE.power + Math.abs(s) ** GATE.power) ** (-1 / GATE.power);
     pts.push({ x: c * r * rx * squeeze, y: s * r * ry });
   }
-  return splinePath(pts, true);
+  return pts;
 }
 
 /**
@@ -181,21 +186,50 @@ export function capstanBandTick(
  * the post it stands on.
  */
 export function capstanCradlePath(l: Layout): Path2D {
-  const { rx, ry } = capstanSize(l);
-  const w = rx * 0.82;
-  const t = 0.2 * l.tile;
-  const bottom = SADDLE * l.tile;
+  const { w, top, t, bottom, post, pw } = cradle(l);
   const p = new Path2D();
-  p.moveTo(-w, -ry * 0.05);
-  p.quadraticCurveTo(0, bottom * 2 - ry * 0.05, w, -ry * 0.05);
-  p.lineTo(w - t, -ry * 0.05);
-  p.quadraticCurveTo(0, bottom * 2 - ry * 0.05 - 2.4 * t, -w + t, -ry * 0.05);
+  p.moveTo(-w, top);
+  p.quadraticCurveTo(0, bottom * 2 + top, w, top);
+  p.lineTo(w - t, top);
+  p.quadraticCurveTo(0, bottom * 2 + top - 2.4 * t, -w + t, top);
   p.closePath();
-  const post = POST * l.tile;
-  const pw = 0.09 * l.tile;
   p.rect(-pw, bottom - t * 0.5, pw * 2, post + t * 0.5);
   p.rect(-pw * 3, bottom + post - pw, pw * 6, pw * 1.4);
   return p;
+}
+
+/** The cradle's three pieces as outlines, for where a bolt meets it: the saddle's underside, the post, its foot. */
+export function capstanCradleOutline(l: Layout): Point[][] {
+  const { w, top, t, bottom, post, pw } = cradle(l);
+  const saddle: Point[] = [];
+  for (let i = 0; i <= 12; i++) {
+    const u = i / 12;
+    // The saddle's outer curve, as `quadraticCurveTo` lays it.
+    saddle.push({ x: (2 * u - 1) * w, y: top + 2 * u * (1 - u) * bottom * 2 });
+  }
+  const box = (x: number, y: number, bw: number, bh: number): Point[] => [
+    { x, y },
+    { x: x + bw, y },
+    { x: x + bw, y: y + bh },
+    { x, y: y + bh },
+  ];
+  return [
+    saddle,
+    box(-pw, bottom - t * 0.5, pw * 2, post + t * 0.5),
+    box(-pw * 3, bottom + post - pw, pw * 6, pw * 1.4),
+  ];
+}
+
+function cradle(l: Layout) {
+  const { rx, ry } = capstanSize(l);
+  return {
+    w: rx * 0.82,
+    top: -ry * 0.05,
+    t: 0.2 * l.tile,
+    bottom: SADDLE * l.tile,
+    post: POST * l.tile,
+    pw: 0.09 * l.tile,
+  };
 }
 
 /** Horn `side`'s tip, where the lean's mark sits: nought the left, one the right. */

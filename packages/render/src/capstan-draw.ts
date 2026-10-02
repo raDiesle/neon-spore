@@ -6,6 +6,7 @@ import {
   capstanLitStep,
   type World,
 } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import type { CapstanFx } from "./capstan-fx.js";
 import {
@@ -34,6 +35,7 @@ import {
   capstanSize,
   capstanSqueeze,
 } from "./capstan-shape.js";
+import { capstanStopper } from "./capstan-stop.js";
 import { drawCapstanMarkFeedback } from "./capstan-verdicts.js";
 import { coreHurt } from "./core-hurt.js";
 import { seatIsMine } from "./handle-word.js";
@@ -77,6 +79,7 @@ export function drawCapstan(
   beatPhase: number,
   time: number,
   fx: CapstanFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const arrived = capstanArrived(s, cfg, beat, beatPhase);
@@ -86,12 +89,16 @@ export function drawCapstan(
   const turn = capstanTurn(world, s);
   const step = capstanLitStep(s);
   if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
+  const shook = { x: at.x + fx.hurt.shakeX(time, l.tile), y: at.y };
+  const shake = capstanShake(l, world, s, beat, beatPhase, time);
+  const place = { at: shook, lift: gone * l.tile, thud: fx.thud * l.tile, turn, shake };
+  stops?.aim(capstanStopper(l, world, s, place));
 
   const fade = (0.2 + 0.8 * arrived) * (1 - gone);
   ctx.save();
   ctx.globalAlpha = fade;
   // Spent, the drum lifts off its cradle as it goes.
-  ctx.translate(at.x + fx.hurt.shakeX(time, l.tile), at.y + pivot - gone * l.tile);
+  ctx.translate(shook.x, shook.y + pivot - gone * l.tile);
   ctx.rotate(capstanRoll(turn));
   ctx.translate(0, -pivot + fx.thud * l.tile);
   drawCradle(ctx, l);
@@ -101,7 +108,6 @@ export function drawCapstan(
     drawCapstanHorn(ctx, l, side, strength, mine, beatPhase, time);
   }
 
-  const shake = capstanShake(l, world, s, beat, beatPhase, time);
   ctx.translate(shake.x, shake.y);
   ctx.rotate(shake.roll);
   const squeeze = capstanSqueeze(turn);

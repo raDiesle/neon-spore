@@ -113,7 +113,7 @@ export function drawLatePairBoss(
   // lean is steering and how far the lit step's window has run
   // (`davit-draw.ts`).
   if (boss.kind === "davit") {
-    drawDavit(ctx, l, world, boss, beat, beatPhase, time, effects.boss.davit);
+    drawDavit(ctx, l, world, boss, beat, beatPhase, time, effects.boss.davit, effects.bolts);
     return;
   }
 
@@ -147,7 +147,7 @@ export function drawLatePairBoss(
   // core under a cap in its middle both cannons hit (`capstan-draw.ts`); a
   // band's scrub and ring, a window's thud and the core's flash are `capstan-fx.ts`.
   if (boss.kind === "capstan") {
-    drawCapstan(ctx, l, world, boss, beat, beatPhase, time, effects.boss.capstan);
+    drawCapstan(ctx, l, world, boss, beat, beatPhase, time, effects.boss.capstan, effects.bolts);
     return;
   }
 
@@ -165,7 +165,7 @@ export function drawLatePairBoss(
   // swipe, the spindle shot (`burgee-draw.ts`); the flag's eased place and
   // a mistimed swipe's limp flutter are `burgee-fx.ts`.
   if (boss.kind === "burgee") {
-    drawBurgee(ctx, l, world, boss, beat, beatPhase, time, effects.boss.burgee);
+    drawBurgee(ctx, l, world, boss, beat, beatPhase, time, effects.boss.burgee, effects.bolts);
     return;
   }
 

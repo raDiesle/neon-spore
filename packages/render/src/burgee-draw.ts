@@ -9,6 +9,7 @@ import {
   midCol,
   type World,
 } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import type { BurgeeFx } from "./burgee-fx.js";
 import { burgeeMarks, drawBurgeeRing, drawBurgeeStuds, drawBurgeeTrack } from "./burgee-marks.js";
@@ -24,7 +25,7 @@ import {
 import { drawBurgeeCrack, drawBurgeeFlash, drawBurgeeSnap } from "./burgee-receipts.js";
 import {
   burgeeColumnPx,
-  burgeeFlagPath,
+  burgeeFlagPoints,
   burgeePivot,
   burgeeSpindleAt,
   burgeeSpindlePath,
@@ -32,6 +33,7 @@ import {
   burgeeTip,
   type Point,
 } from "./burgee-shape.js";
+import { burgeeStopper } from "./burgee-stop.js";
 import { drawBurgeeMarkFeedback } from "./burgee-verdicts.js";
 import { coreHurt } from "./core-hurt.js";
 import { strokeGlow } from "./glow.js";
@@ -39,6 +41,7 @@ import { mixHex, rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 import { stepColour } from "./step-colour.js";
 import { showsBurgeeHand } from "./view-role-clocks-c.js";
 
@@ -80,16 +83,23 @@ export function drawBurgee(
   beatPhase: number,
   time: number,
   fx: BurgeeFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   fx.flag.aim(burgeeAsked(s, cfg, beatPhase));
   const tip = burgeeTip(l, cfg, fx.flag.swing);
   const pivot = burgeePivot(l, cfg);
+  const lay = burgeeLay(fx, burgeeColumnPx(l, cfg), time);
+  const flagPts = burgeeFlagPoints(l, tip, lay);
+  const off = {
+    x: fx.hurt.shakeX(time, l.tile),
+    y: -(1 - burgeeArrived(s, cfg, beat, beatPhase)) * ARRIVE * l.tile,
+  };
+  stops?.aim(burgeeStopper(l, world, s, time, tip, flagPts, off));
 
   ctx.save();
   ctx.globalAlpha = 1 - 0.5 * burgeeSpent(s, cfg, beat, beatPhase);
-  const shake = fx.hurt.shakeX(time, l.tile);
-  ctx.translate(shake, -(1 - burgeeArrived(s, cfg, beat, beatPhase)) * ARRIVE * l.tile);
+  ctx.translate(off.x, off.y);
   if (burgeeCatching(s)) drawHands(ctx, l, world, s, beat, beatPhase);
   const snap = fx.snap;
   drawBurgeeSnap(ctx, l, burgeeTip(l, cfg, (snap.col - midCol(cfg)) * 1000), snap.now);
@@ -105,8 +115,7 @@ export function drawBurgee(
   ctx.strokeStyle = PALETTE.burgeeSteel;
   ctx.stroke(boom);
 
-  const lay = burgeeLay(fx, burgeeColumnPx(l, cfg), time);
-  const flag = burgeeFlagPath(l, tip, lay);
+  const flag = splinePath(flagPts, true);
   ctx.fillStyle = mixHex(PALETTE.burgeeCanvas, PALETTE.burgeeCanvasCaught, burgeeCaught(s));
   ctx.fill(flag);
   ctx.save();

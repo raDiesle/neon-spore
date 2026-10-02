@@ -62,6 +62,11 @@ export function davitHookRadius(l: Layout): number {
 
 /** The boom itself: a tapered spar from the mast to its tip, swung to `angle`, standing to `stand`. */
 export function davitBoomPath(l: Layout, angle: number, stand: number): Path2D {
+  return splinePath(davitBoomPoints(l, angle, stand), true);
+}
+
+/** The points `davitBoomPath` runs through, about the mast. */
+export function davitBoomPoints(l: Layout, angle: number, stand: number): Point[] {
   const tip = davitTip(l, angle * stand);
   const width = 0.11 * l.tile;
   const nx = -tip.y;
@@ -72,7 +77,7 @@ export function davitBoomPath(l: Layout, angle: number, stand: number): Path2D {
   const foot: Point = { x: 0, y: width * 0.6 };
   const tipA: Point = { x: tip.x - wx * 0.15, y: tip.y - wy * 0.15 };
   const tipB: Point = { x: tip.x + wx * 0.15, y: tip.y + wy * 0.15 };
-  return splinePath([foot, tipB, tipA, foot], true);
+  return [foot, tipB, tipA, foot];
 }
 
 /** The chain, tip to hook, a slack curve rather than a straight drop. */
@@ -100,8 +105,14 @@ export function davitHookPath(l: Layout, angle: number, sag: number): Path2D {
 
 /** The mast's own foot: a short socket the boom stands out of. */
 export function davitMastPath(l: Layout): Path2D {
-  const r = 0.22 * l.tile;
+  const m = davitSocket(l);
   const p = new Path2D();
-  p.ellipse(0, -r * 0.2, r, r * 0.7, 0, 0, Math.PI * 2);
+  p.ellipse(0, m.y, m.rx, m.ry, 0, 0, Math.PI * 2);
   return p;
+}
+
+/** The socket's ellipse about the mast: its middle's y, and its half-width and half-height. */
+export function davitSocket(l: Layout): { y: number; rx: number; ry: number } {
+  const r = 0.22 * l.tile;
+  return { y: -r * 0.2, rx: r, ry: r * 0.7 };
 }

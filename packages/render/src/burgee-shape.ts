@@ -96,6 +96,11 @@ export function burgeeSpindleTall(l: Layout): number {
 
 /** REVERB on end round the spindle's middle, `size` of its full width. */
 export function burgeeSpindlePath(l: Layout, time: number, size: number): Path2D {
+  return splinePath(burgeeSpindlePoints(l, time, size), true);
+}
+
+/** The points `burgeeSpindlePath` runs through, about the spindle's middle. */
+export function burgeeSpindlePoints(l: Layout, time: number, size: number): Point[] {
   const pts: Point[] = [];
   for (let i = 0; i < N; i++) {
     const a = (i / N) * Math.PI * 2;
@@ -106,7 +111,7 @@ export function burgeeSpindlePath(l: Layout, time: number, size: number): Path2D
       y: Math.cos(a) * SPINDLE_TALL * l.tile * m,
     });
   }
-  return splinePath(pts, true);
+  return pts;
 }
 
 /** How the flag is laid this frame, read off the pose (`burgee-pose.ts`). */
@@ -129,6 +134,11 @@ export interface FlagLay {
  * fly, so the tail flutters and the hoist stays on the boom.
  */
 export function burgeeFlagPath(l: Layout, tip: Point, lay: FlagLay): Path2D {
+  return splinePath(burgeeFlagPoints(l, tip, lay), true);
+}
+
+/** The points `burgeeFlagPath` runs through, in field pixels. */
+export function burgeeFlagPoints(l: Layout, tip: Point, lay: FlagLay): Point[] {
   const dx = Math.sin(lay.angle);
   const dy = Math.cos(lay.angle);
   // Across the flag, a quarter-turn round from along it.
@@ -148,5 +158,5 @@ export function burgeeFlagPath(l: Layout, tip: Point, lay: FlagLay): Path2D {
     const across = v * wide + bend;
     pts.push({ x: tip.x + dx * along + nx * across, y: tip.y + dy * along + ny * across });
   }
-  return splinePath(pts, true);
+  return pts;
 }

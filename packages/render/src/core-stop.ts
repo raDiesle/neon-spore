@@ -50,3 +50,23 @@ export function lowestFoot(feet: readonly Foot[]): Foot {
     return low;
   };
 }
+
+/**
+ * The foot of a closed outline through `points`, laid `dx`, `dy` off where
+ * they stand: the lowest of its edges over x. A Catmull-Rom contour runs
+ * through its points, so the polygon is its foot to well under a pixel.
+ */
+export function outlineFoot(points: readonly { x: number; y: number }[], dx = 0, dy = 0): Foot {
+  return (x) => {
+    const u = x - dx;
+    let low: number | null = null;
+    for (let i = 0; i < points.length; i++) {
+      const a = points[i] as { x: number; y: number };
+      const b = points[(i + 1) % points.length] as { x: number; y: number };
+      if (u < Math.min(a.x, b.x) || u > Math.max(a.x, b.x) || a.x === b.x) continue;
+      const y = a.y + ((u - a.x) / (b.x - a.x)) * (b.y - a.y);
+      if (low === null || y > low) low = y;
+    }
+    return low === null ? null : low + dy;
+  };
+}

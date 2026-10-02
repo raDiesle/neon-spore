@@ -1,4 +1,5 @@
 import { type DavitState, davitLitStep, type World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import {
   drawDavitAsk,
   drawDavitBoom,
@@ -8,6 +9,7 @@ import {
 } from "./davit-marks.js";
 import { davitAngle, davitPivotGlow, davitStood, davitWindowLeft } from "./davit-pose.js";
 import { DAVIT_SAG, davitMast } from "./davit-shape.js";
+import { davitStopper } from "./davit-stop.js";
 import { type DavitVerdicts, drawDavitMarkFeedback } from "./davit-verdicts.js";
 import type { Layout } from "./layout.js";
 
@@ -29,12 +31,14 @@ export function drawDavit(
   beatPhase: number,
   time: number,
   marks: DavitVerdicts,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const mast = davitMast(l, cfg);
   const stood = davitStood(s, beat, beatPhase, cfg.davitStillBeats);
   const angle = davitAngle(s, cfg, beatPhase);
   const sag = DAVIT_SAG;
+  stops?.aim(davitStopper(l, world, angle, stood));
 
   ctx.save();
   ctx.globalAlpha = stood;
