@@ -19,7 +19,9 @@ import type { World } from "./world.js";
  * having: the round is never in a state the two of them did not just put it
  * in, and neither of them can see the other's half of why.
  *
- * - **The jam**, his. A call that misses sticks the valve, and the needle is
+ * - **The jam**, his. A tooth pulled wrong, or a tooth or the tongue left in
+ *   when its rest runs out, sticks the valve (a miss did too, until 2 October
+ *   2026 gave it the mouth instead, `gauge-gape.ts`), and the needle is
  *   then his hand on the needle itself — a bearing round the dial, so the
  *   needle simply goes where the finger points. That is instant where the
  *   valve is slow, and what it costs is `gaugeSettleBeats` in which a call is
@@ -52,8 +54,8 @@ import type { World } from "./world.js";
  * written by hand on the director's side (`boss-phases.ts`).
  *
  * Unlike those, these two are **not one enum**: the jam is his and the bind is
- * hers, they are entered by different halves of the same call, and a pair that
- * misses on the mark after a bind is in both at once. So there is no neutral
+ * hers, they are entered by different moments of the round, and a pair that
+ * pulled a tooth wrong and then wound the band is in both at once. So there is no neutral
  * third name here — the ordinary state of the round is the round, `play`.
  * `loose` is the third, and the rest's: a tooth waiting to be pulled between
  * two levels (`gauge-tooth.ts`). `twisting` is the fourth, and both seats':

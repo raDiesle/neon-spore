@@ -1,6 +1,7 @@
 import type { SimConfig } from "./config.js";
 import { GAUGE_FULL, type GaugeState } from "./gauge.js";
-import { gaugeLevelDrift, gaugeLevelSpan } from "./gauge-level.js";
+import { gaugeGapeSpan } from "./gauge-gape.js";
+import { gaugeLevelDrift } from "./gauge-level.js";
 import { nextInt } from "./rng.js";
 import type { World } from "./world.js";
 
@@ -46,7 +47,7 @@ export function gaugeBound(gauge: GaugeState): boolean {
 export function gaugeSpanNow(cfg: SimConfig, gauge: GaugeState): number {
   return gaugeBound(gauge) && !gauge.openThumb
     ? cfg.gaugeBoundSpanMilli
-    : gaugeLevelSpan(cfg, gauge);
+    : gaugeGapeSpan(cfg, gauge);
 }
 
 /**
@@ -73,7 +74,7 @@ export function gaugeHits(cfg: SimConfig, gauge: GaugeState, milli: number): boo
  * end of its walk is still a band, and not one pinned against the rim.
  */
 export function driftBand(world: World, gauge: GaugeState): void {
-  const span = gaugeLevelSpan(world.cfg, gauge);
+  const span = gaugeGapeSpan(world.cfg, gauge);
   const next = gauge.markMilli + gauge.driftDir * gaugeLevelDrift(world.cfg, gauge);
   if (next < span || next > GAUGE_FULL - span) {
     gauge.driftDir = -gauge.driftDir;
@@ -91,7 +92,7 @@ export function driftBand(world: World, gauge: GaugeState): void {
  * the draws they always were (`gauge-call.ts`).
  */
 export function drawBand(world: World, gauge: GaugeState): void {
-  const span = gaugeLevelSpan(world.cfg, gauge);
+  const span = gaugeGapeSpan(world.cfg, gauge);
   const lo = span;
   const hi = GAUGE_FULL - span;
   let mark = lo + nextInt(world.rng, hi - lo + 1);

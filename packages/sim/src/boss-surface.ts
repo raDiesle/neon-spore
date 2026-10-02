@@ -70,15 +70,19 @@ export {
   // cue reads all three, and the dial draws the band at the width the
   // judgement uses rather than at the one in the config.
   gaugeBound,
+  // How far the mouth is open, and whether it has swallowed the ship
+  // (`gauge-gape.ts`): the rim's reach and the wound's width both read it.
+  gaugeGape,
+  gaugeGapeSpan,
   gaugeHolds,
   gaugeJammed,
   gaugeLevelMarksMade,
-  gaugeLevelSpan,
   gaugeRound,
   gaugeSeated,
   gaugeSeatedBy,
   gaugeSettling,
   gaugeSpanNow,
+  gaugeSwallowed,
   gaugeTongueAsks,
   gaugeTongueOut,
   gaugeToothAsks,

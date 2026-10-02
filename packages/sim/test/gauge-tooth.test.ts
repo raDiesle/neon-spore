@@ -24,9 +24,10 @@ import {
  * **The loose tooth** (`src/gauge-tooth.ts`). The owner, 30 September 2026:
  * *pull teeth out ( p1 needs to tell p2 which one to pull out.)*. Held to what
  * the pair would notice: that the tooth comes loose after the first level and
- * no other, that only the navigator's hand can pull, that the right pull ends
- * the rest early and a wrong one — or none — jams the valve, and that two
- * devices agree about all of it.
+ * no other, that only the navigator's hand can pull, that three come loose one
+ * after another (2 October 2026), that the last right pull ends the rest early
+ * and a wrong one — or none — jams the valve, and that two devices agree about
+ * all of it.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -77,6 +78,11 @@ function pull(world: World, player: 1 | 2, id: number, fromYMilli: number): void
   });
 }
 
+/** Every loose tooth pulled, one after another, the way the rest asks. */
+function pullAll(world: World, g: GaugeState): void {
+  for (let i = 0; i < CFG.gaugeTeethToPull; i++) pull(world, 2, g.looseTooth, 2000);
+}
+
 /** A tooth that is not the loose one, and not at either end. */
 function wrong(g: GaugeState): number {
   return g.looseTooth === 1 ? 2 : 1;
@@ -103,14 +109,31 @@ describe("THE GAUGE's loose tooth", () => {
     expect(g.toothHold).toBe(k);
     expect(gaugeToothLoose(g)).toBe(true);
     pull(world, 2, k, CFG.gaugeToothPullMilli);
-    expect(gaugeToothLoose(g)).toBe(false);
     expect(gaugeToothPulled(g, k)).toBe(true);
     expect(g.toothHold).toBe(-1);
   });
 
-  it("ends the rest early when it is the right one", () => {
+  it("loosens the next the moment the last is out, never one already out", () => {
     const { world, g } = toTheTooth();
-    pull(world, 2, g.looseTooth, 2000);
+    const before = g.levelBeat;
+    const out = new Set<number>();
+    for (let i = 0; i < CFG.gaugeTeethToPull - 1; i++) {
+      out.add(g.looseTooth);
+      pull(world, 2, g.looseTooth, 2000);
+      expect(g.toothPulls).toBe(i + 1);
+      expect(gaugeToothLoose(g)).toBe(true);
+      expect(out.has(g.looseTooth)).toBe(false);
+      expect(g.looseTooth).toBeGreaterThan(0);
+      expect(g.looseTooth).toBeLessThan(GAUGE_TEETH - 1);
+      // The rest is not cut short until the last of them is out.
+      expect(g.levelBeat).toBe(before);
+    }
+  });
+
+  it("ends the rest early when the last right one is out", () => {
+    const { world, g } = toTheTooth();
+    pullAll(world, g);
+    expect(gaugeToothLoose(g)).toBe(false);
     expect(g.levelBeat - world.beat).toBe(CFG.gaugeRegrowBeats);
     expect(gaugeJammed(g)).toBe(false);
     ticks(world, TPB * (CFG.gaugeRegrowBeats + 1));
@@ -143,7 +166,7 @@ describe("THE GAUGE's loose tooth", () => {
 
   it("comes loose once in the round, not after the second level", () => {
     const { world, g } = toTheTooth();
-    pull(world, 2, g.looseTooth, 2000);
+    pullAll(world, g);
     const pulled = g.pulledTeeth;
     while (g.level === 1 && g.phase === "play") {
       while (!gaugeWoundOpen(g)) ticks(world, 1);

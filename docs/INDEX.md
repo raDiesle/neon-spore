@@ -163,6 +163,7 @@ by hand never moves.
 | `packages/sim/src/gauge-level.ts` | **THE GAUGE's levels**: three rounds of the same rule, each harder |
 | `packages/sim/src/gauge-tooth.ts` | **THE GAUGE's loose tooth**: the rest between the first level and the second, spent on a gesture |
 | `packages/sim/src/gauge-tongue.ts` | **THE GAUGE's twisted tongue**: the rest after the second level, wrung by both hands opposite ways |
+| `packages/sim/src/gauge-gape.ts` | **How far THE GAUGE's mouth is open**, and the one number that makes the round harder as it goes |
 | `packages/sim/src/gauge.ts` | THE GAUGE: one needle, two marks, one of you reading and the other turning |
 | `packages/sim/src/gall-hand.ts` | A pinch on THE GALL: `gallPinch`, `fromMilli` the gap between the two touches in thousandths of a tile |
 | `packages/sim/src/gall-hash.ts` | What THE GALL puts into `hashWorld`, and nothing else |

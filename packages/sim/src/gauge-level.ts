@@ -22,11 +22,6 @@ import type { World } from "./world.js";
  * break is where they hear that it counted.
  */
 
-/** Half the band's width on this level, before any bind narrows it. */
-export function gaugeLevelSpan(cfg: SimConfig, gauge: GaugeState): number {
-  return cfg.gaugeSpanMilli - gauge.level * cfg.gaugeLevelSpanMilli;
-}
-
 /** How far the band walks each beat on this level. */
 export function gaugeLevelDrift(cfg: SimConfig, gauge: GaugeState): number {
   return cfg.gaugeDriftMilli + gauge.level * cfg.gaugeLevelDriftMilli;

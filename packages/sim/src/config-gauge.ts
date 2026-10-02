@@ -36,8 +36,13 @@ export interface GaugeConfig {
   gaugeLevels: number;
   /** How much faster the band walks each level up, in thousandths a beat. */
   gaugeLevelDriftMilli: number;
-  /** How much narrower the band's half-width is each level up, in thousandths. */
-  gaugeLevelSpanMilli: number;
+  /**
+   * How much narrower the band's half-width is each step the mouth opens, in
+   * thousandths. A level up opens it one step and so does a miss (`gauge-gape.ts`).
+   */
+  gaugeGapeSpanMilli: number;
+  /** Steps open at which the mouth swallows the ship, and the round is lost. */
+  gaugeGapeFull: number;
   /** Beats of bare rim between two levels, the level's clock held full. */
   gaugeLevelRestBeats: number;
   /** Beats between two calls, landed or not, so a held thumb is slower than talking. */
@@ -64,6 +69,8 @@ export interface GaugeConfig {
   gaugeRegrowBeats: number;
   /** Beats the rest after the first level lasts, spent on the loose tooth. */
   gaugeToothBeats: number;
+  /** Loose teeth pulled one after another in that rest, each shown only once the last is out. */
+  gaugeTeethToPull: number;
   /** How far a tooth is dragged before it comes out, in thousandths of a tile. */
   gaugeToothPullMilli: number;
   /** Beats the rest after the second level lasts, spent on the tongue. */
@@ -79,9 +86,16 @@ export interface GaugeConfig {
  * **Three levels, each harder** (the owner, 29 September 2026: *add more
  * levels (at least 3 and it should become harder, maybe the mouth moves faster
  * … or becomes bigger every level)*). Each level up walks the band
- * `gaugeLevelDriftMilli` faster — 18, 26, 34 — and cuts its half-width
- * `gaugeLevelSpanMilli` narrower — 60, 52, 44 — so the third is a band nearly
- * twice as quick and a quarter slimmer. Three marks a level keeps the whole
+ * `gaugeLevelDriftMilli` faster — 18, 26, 34 — and opens the mouth a step, which
+ * cuts the band's half-width `gaugeGapeSpanMilli` narrower — 60, 52, 44 — so
+ * the third is a band nearly twice as quick and a quarter slimmer.
+ *
+ * **A miss opens it a step too** (the owner, 2 October 2026, choosing it over a
+ * miss that jammed the valve: a pair that did not know the needle could be
+ * swung by hand lost the wave to the clock on its first wrong shot). At
+ * `gaugeGapeFull` 5 the mouth swallows the ship: five misses on the first
+ * level, three on the last, and every one of them narrows the band by the same
+ * 8 a level does — 28 at the widest, still wider than the bind's 18. Three marks a level keeps the whole
  * round near the ninety seconds it was, plus the rests between. The bound
  * width stays 18 on every level: it is the bind's own number, and 18 is still
  * well under the narrowest level's 44.
@@ -109,14 +123,16 @@ export interface GaugeConfig {
  * not a second event. `gaugeRegrowBeats` at 2 is the bare rim after a wound is
  * shot out: the break he asked for, and a beat more so the burst is seen.
  *
- * **The tooth** (`gauge-tooth.ts`, 30 September 2026). `gaugeToothBeats` at
- * 16 is ten seconds: time for him to count along the rim out loud and for her
- * to count along with him, and short enough that a pair who pulls it at once
- * gets the rest back. `gaugeToothPullMilli` at 800 is most of a tile — a pull,
+ * **The teeth** (`gauge-tooth.ts`, 30 September 2026). `gaugeTeethToPull` at
+ * 3 since 2 October 2026 (the owner: *increase number of teeth require to pull
+ * out*), and `gaugeToothBeats` at 32 is twenty seconds for the three: time for
+ * him to count along the rim out loud three times and for her to count along
+ * with him, and short enough that a pair who pulls them at once gets the rest
+ * back. `gaugeToothPullMilli` at 800 is most of a tile — a pull,
  * not a brush of the thumb on the way somewhere else.
  *
  * **The tongue** (`gauge-tongue.ts`, 30 September 2026). `gaugeTongueBeats` at
- * 16 is the tooth's rest again: long enough to count *three, two, one* twice
+ * 16 is the one tooth's rest it was first: long enough to count *three, two, one* twice
  * over after a first try that came apart. `gaugeTongueTwistMilli` at 800 is
  * the tooth's pull, asked of each thumb, so the two halves weigh the same and
  * neither of them can do the other's by dragging further.
@@ -129,7 +145,8 @@ export const GAUGE_DEFAULTS: GaugeConfig = {
   gaugeLevelBeats: 48,
   gaugeLevels: 3,
   gaugeLevelDriftMilli: 8,
-  gaugeLevelSpanMilli: 8,
+  gaugeGapeSpanMilli: 8,
+  gaugeGapeFull: 5,
   gaugeLevelRestBeats: 4,
   gaugeCallRestBeats: 2,
   gaugeSettleBeats: 2,
@@ -137,7 +154,8 @@ export const GAUGE_DEFAULTS: GaugeConfig = {
   gaugeBoundSpanMilli: 18,
   gaugeShotTicks: 45,
   gaugeRegrowBeats: 2,
-  gaugeToothBeats: 16,
+  gaugeToothBeats: 32,
+  gaugeTeethToPull: 3,
   gaugeToothPullMilli: 800,
   gaugeTongueBeats: 16,
   gaugeTongueTwistMilli: 800,

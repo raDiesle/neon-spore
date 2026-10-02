@@ -170,8 +170,8 @@ The round is **`gaugeLevels` levels**, each harder (the owner, 29 September
 2026: *add more levels (at least 3 and it should become harder)*).
 `gaugeLevelBeats` is how many beats one level lasts before time runs out, and
 `gaugeLevelMarks` is how many marks finish it — three repetitions of one rule.
-Each level up walks the band `gaugeLevelDriftMilli` further a beat and cuts
-its half-width by `gaugeLevelSpanMilli`, and between two levels the rim stands
+Each level up walks the band `gaugeLevelDriftMilli` further a beat and opens
+the mouth a step, and between two levels the rim stands
 bare for `gaugeLevelRestBeats` with the next level's clock held full, under
 the words `LEVEL N`. The rule never changes from one level to the next; how
 long "now" lasts does (`packages/sim/src/gauge-level.ts`). `gaugeSpanMilli` is half the distance between the two marks, in
@@ -180,13 +180,28 @@ whole of the pressure. `gaugeTurnMilli` is how far the pilot's valve moves the
 needle each tick. `gaugeCallRestBeats` is the beats between two calls, landed or
 not, so a held thumb is slower than talking.
 
+**The mouth opens** (2 October 2026). The owner: *when hitted wrong, the wave
+is lost. What about different levels and idea to increase distance of cannon to
+teeth (so more opened mouth)?* A miss used to jam the valve, and a pair who did
+not know the needle could then be swung by hand ran the level's clock out on
+the first wrong shot. Now a miss opens the mouth a step, and so does every
+level up: the opening is `level + misses` (`gaugeGape`), each step cuts the
+band's half-width by `gaugeGapeSpanMilli` — the same tear further off is a
+narrower angle — and a mouth `gaugeGapeFull` steps open swallows the ship: the
+round lost and the hull struck, exactly as the clock running out does
+(`packages/sim/src/gauge-gape.ts`). Five misses on the first level, three on
+the last. The valve keeps answering through all of it.
+
 **The loose tooth** (30 September 2026). The owner: *add some intermediate
 choreographed on screen gesture events, e.g. pull teeth out ( p1 needs to tell
 p2 which one to pull out.)*. The rest after the first level is
-`gaugeToothBeats` long and spent on one tooth of `GAUGE_TEETH`, and the split
-is turned round for it: the pilot's screen shows which tooth is loose, the
-navigator's hand pulls — a drag of `gaugeToothPullMilli` from the tooth she
-pressed. The loose one ends the rest early, after `gaugeRegrowBeats`; any other
+`gaugeToothBeats` long and spent on `gaugeTeethToPull` teeth of `GAUGE_TEETH`,
+one loose at a time (three since 2 October 2026, the owner: *increase number of
+teeth require to pull out*), and the split is turned round for it: the pilot's
+screen shows which tooth is loose, the navigator's hand pulls — a drag of
+`gaugeToothPullMilli` from the tooth she pressed. The next comes loose the
+moment the last is out; the last right one ends the rest early, after
+`gaugeRegrowBeats`; any other
 comes out anyway and jams the valve into the next level, and a rest that runs
 out with the loose one still in costs the same. The pulled teeth stay out for
 the round (`packages/sim/src/gauge-tooth.ts`, THE GAUGE'S TOOTH in
@@ -233,15 +248,16 @@ seconds. What it has now is two more, and the point of both is that the pair's
 own last answer is what enters them. The round is never in a state the two of
 them did not just put it in, and neither seat can see the whole of why.
 
-**The jam, his.** A call that misses sticks the valve — `gaugeJammed`, from
+**The jam, his.** A tooth pulled wrong, or a tooth or the tongue left in when
+its rest runs out, sticks the valve — a miss did too, until the mouth took that
+over on 2 October 2026 — `gaugeJammed`, from
 `jamBeat` — and the needle stops answering the thumb he is still holding.
 Until the next call lands, the needle is his hand on the needle itself: a drag
 at `gaugeNeedle`, read as a **bearing** round the dial (`bearing.ts`), so it
 goes where the finger points rather than walking there. That is instant where
 the valve is slow, and what it costs is `gaugeSettleBeats` after he lifts, in
 which a call is *refused*. The sentence stops being *left — less — less* and
-becomes *swing it over — stop — wait — now*. A miss was the one thing in this
-round that was free; what it costs now is the control.
+becomes *swing it over — stop — wait — now*.
 
 **The bind, hers.** Every `gaugeBindMarks` marks the band winds tight to
 `gaugeBoundSpanMilli` — under a third of its width — and the one after it lets
@@ -401,7 +417,7 @@ The wound is red or cyan, drawn from the `Rng` with every band (`drawBand`)
 and hashed, and only she sees it. Her CALL is gone: she has a RED and a CYAN
 fire button in its place, and a shot lands only in the wound and in the
 wound's colour. A shot in the other colour, on a seated needle, is a miss like
-one on the armour — it jams the valve (`sim/gauge-call.ts`). He cannot see the
+one on the armour — it opens the mouth a step (`sim/gauge-call.ts`). He cannot see the
 colour at all, so it adds nothing to say; it is one more thing she must not
 get wrong while she is saying *left, left, stop*.
 
@@ -412,8 +428,8 @@ inside rather than a picture of either. That one is still in
 
 **The round has sound now** (19 September 2026): `gaugeMark`, `gaugeMiss`,
 `gaugeJam` and `gaugeBind`, in `packages/sim/src/events-gauge.ts`, pushed from
-`gaugeHeard` — a call answers with a mark or a miss, and a miss beside it jams
-the valve while a mark beside it can wind the band. All four are bound in
+`gaugeHeard` — a call answers with a mark or a miss, and a mark beside it can
+wind the band; the jam is said by the tooth and the tongue (`gauge-tooth.ts`). All four are bound in
 `packages/audio/src/bind-gauge.ts`, panned to the middle: the needle and the
 band are both drawn on the plate rather than over a column, so there is no
 lane for either sound to stand in. The picture needed nothing beside them —

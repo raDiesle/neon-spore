@@ -13,15 +13,15 @@ import type { World } from "./world.js";
  * should stay a picture: *a rule*. So her panel is the ship's two fire
  * buttons, red and cyan, and the wound is one or the other, drawn with the
  * band (`drawBand`). A call lands when the needle is between the marks **and**
- * it went out in the wound's colour; anything else is a miss, and a miss jams
- * the valve. The colour is hers to read — his screen has no wound on it — so
+ * it went out in the wound's colour; anything else is a miss, and a miss opens
+ * the mouth a step (`gauge-gape.ts`). The colour is hers to read — his screen has no wound on it — so
  * it adds nothing for him to say and one more thing for her to get right.
  *
  * A call also reports itself, in `events-gauge.ts`: `gaugeMark` or
- * `gaugeMiss`, and `gaugeJam` or `gaugeBind` beside it when the same call
- * sticks the valve or winds the band. Both of the second pair are facts about
- * the *other* seat's half, which is exactly why an ear says them faster than
- * an eye finding the other screen could (`docs/queue.md`, 19 September 2026).
+ * `gaugeMiss`, and `gaugeBind` beside a mark when the same call winds the
+ * band — a fact about the *other* seat's half, which is exactly why an ear
+ * says it faster than an eye finding the other screen could (`docs/queue.md`,
+ * 19 September 2026).
  */
 export function gaugeCalled(world: World, gauge: GaugeState, color: Color): void {
   // Two calls in a row cost the rest between them whether the first landed or
@@ -56,13 +56,12 @@ export function gaugeShotLands(world: World, gauge: GaugeState): void {
     gaugeHits(world.cfg, gauge, gauge.calledMilli) && gauge.calledColor === gauge.woundColor;
   gauge.calledGood = good;
   if (!good) {
+    // And the mouth opens a step: the wound is further off and narrower, and
+    // a mouth opened all the way swallows the ship (`gauge-gape.ts`). It used
+    // to jam the valve, and a pair who did not know the needle could then be
+    // swung by hand lost the wave to the clock on their first wrong shot.
     gauge.misses += 1;
-    // And the valve sticks. A miss is the one thing in this round that was
-    // free — time, and the pair was going to spend that anyway — so what it
-    // costs now is the control itself, until the next call lands.
-    gauge.jamBeat = world.beat;
     world.events.push({ type: "gaugeMiss" });
-    world.events.push({ type: "gaugeJam" });
     return;
   }
   gauge.marks += 1;

@@ -45,10 +45,11 @@ export function gaugeHashParts(g: GaugeState): number[] {
   push(g.shotTick);
   push(g.regrowBeat);
   push(g.woundBeat);
-  // The tooth between two levels: a device that thinks it is still loose
-  // hears a pull land that the other one refuses.
+  // The teeth between two levels: a device that thinks one is still loose,
+  // or that a second is, hears a pull land that the other one refuses.
   push(g.looseTooth);
   push(g.pulledTeeth);
+  push(g.toothPulls);
   push(g.toothHold);
   push(g.toothDxMilli);
   push(g.toothDyMilli);

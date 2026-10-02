@@ -131,8 +131,8 @@ export const ROUND_BOSS_POSES: Pose[] = [
   bossPose(
     "gauge",
     "jammed",
-    "A call went wide and the valve is dead. P1 swings the needle by hand; P2 cannot call until it settles.",
-    { ...FULL, hand: gaugeJamHand, want: gaugeIs(gaugeJammed), hold: 6 },
+    "A wrong tooth came out and the valve is dead. P1 swings the needle by hand; P2 cannot call until it settles.",
+    { ...FULL, hand: gaugeJamHand, want: gaugeIs(gaugeJammed), hold: 6, budgetBeats: 140 },
   ),
   bossPose(
     "gauge",
@@ -167,7 +167,7 @@ export const ROUND_BOSS_POSES: Pose[] = [
     "gauge",
     "spent",
     "Nothing to do. The passed round holds its picture. P1 waits; P2 waits for the next wave.",
-    { ...FULL, hand: gaugeHand, hold: 6 },
+    { ...FULL, hand: gaugeHand, hold: 6, budgetBeats: 260 },
   ),
   bossPose(
     "snake",

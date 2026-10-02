@@ -32021,3 +32021,17 @@ Bottleneck: the second cut — THE FLEET's five alone left `controls-round.ts`
 at 212, and the next seam had to be found.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE GAUGE: a miss opens the mouth instead of jamming the valve, and three teeth to pull
+
+- reading: 10 min. The round's nine sim files, and a probe proving a miss
+  only jams — the wave was lost to the clock, not to the shot.
+- writing: 10 min. `gauge-gape.ts`, the three-tooth rest, their tests, the
+  spec and controls rows.
+- looking: 0 min. The simulation's half; the picture is the next lane.
+- friction: 5 min. A render fixture built a `GaugeState` without `misses`,
+  and the wound drew NaN.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: reading — the owner's sentence named a loss the simulation does
+not make directly, and the probe was what found which rule made it.

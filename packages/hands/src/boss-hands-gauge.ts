@@ -18,8 +18,8 @@ import type { Hand } from "./hand.js";
  * string pulled until the way in clicks, the shot up the lit column, the
  * valve turned toward the mark and the call when the needle sits between the
  * two. THE GAUGE's jam cannot be reached that way at all — it is what a
- * *missed* call costs (`sim/gauge.ts`), so the only way to a picture of it is
- * a pair who got it wrong, on purpose, once.
+ * *wrong tooth* costs (`sim/gauge-tooth.ts`), so the only way to a picture of
+ * it is a pair who got it wrong, on purpose, once.
  *
  * That is a fair thing for the sheet to show. The jam is not a failure state
  * the pair fell into; it is the round handing the pilot the needle itself
@@ -36,9 +36,9 @@ const valve = (dir: -1 | 1): Press => ({ player: 1, command: { kind: "valve", on
  * THE GAUGE: the pilot turns the valve toward the mark he cannot see, and
  * the navigator calls whenever the needle is seated between her marks
  * (`gaugeSeated`), in the wound's colour (`sim/gauge-call.ts`). Between the
- * first two levels she pulls the loose tooth, once half the rest has gone —
- * the time it takes him to count it out — so the loose tooth stands long
- * enough to be posed (`sim/gauge-tooth.ts`). After the next, the two of them
+ * first two levels she pulls each loose tooth in turn, once half the rest has
+ * gone — the time it takes him to count the first out — so the loose tooth
+ * stands long enough to be posed (`sim/gauge-tooth.ts`). After the next, the two of them
  * wring the tongue opposite ways on the same half-rest (`sim/gauge-tongue.ts`).
  */
 export const gaugeHand: Hand = (w) => {
@@ -76,19 +76,17 @@ const pull = (k: number): Press => ({
 });
 
 /**
- * The one call this tool makes that is meant to be wrong: she calls while the
- * needle is wide of the band, the valve sticks, and the round is in the jam.
+ * The one pull this tool makes that is meant to be wrong: the round played
+ * straight to the loose tooth, and then she pulls its neighbour — the valve
+ * sticks, and the round is in the jam.
  *
- * The band is drawn well clear of the needle (`drawBand`), so on the first
- * tick of `play` it is already a miss and the hand is done. The turn in the
- * other branch is for the tick it is not — the band walks, and a needle it has
- * walked onto would take the call as a *mark*. Turning away from it rather
- * than waiting keeps the hand honest about which of the two happened.
+ * A wrong *call* was the way in until 2 October 2026; a miss opens the mouth
+ * now and leaves the valve answering (`sim/gauge-gape.ts`), so a wrong tooth
+ * is the nearest a hand can get to the jam (`sim/gauge-tooth.ts`).
  */
 export const gaugeJamHand: Hand = (w) => {
   const g = gaugeRound(w);
   if (g === null || g.phase !== "play") return [];
-  if (!gaugeSeated(w, g)) return [{ player: 2, command: { kind: "call", color: g.woundColor } }];
-  const away = g.needleMilli < g.markMilli ? -1 : 1;
-  return g.valve === away ? [] : [valve(away)];
+  if (!gaugeToothAsks(g)) return gaugeHand(w);
+  return [pull(g.looseTooth === 1 ? 2 : g.looseTooth - 1)];
 };

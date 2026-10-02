@@ -1,6 +1,6 @@
 import {
   type GaugeState,
-  gaugeLevelSpan,
+  gaugeGapeSpan,
   gaugeSeatedBy,
   gaugeSpanNow,
   type SimConfig,
@@ -114,7 +114,7 @@ export function drawGaugeFoe(
     dial,
     gauge.markMilli,
     gaugeSpanNow(cfg, gauge),
-    gaugeLevelSpan(cfg, gauge),
+    gaugeGapeSpan(cfg, gauge),
     gaugeWoundColor(gauge),
     glow,
     gaugeWoundGrown(gauge, c),

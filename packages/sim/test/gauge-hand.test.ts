@@ -1,7 +1,14 @@
 import { describe, expect, it } from "bun:test";
 import { gaugeBearingMilli } from "../src/gauge-hand.js";
-import { GAUGE_FULL, gaugeJammed, gaugeSettling, step } from "../src/index.js";
-import { CFG, call, callable, heard, needle, offBand, playing, TPB } from "./gauge-rig.js";
+import {
+  GAUGE_FULL,
+  type GaugeState,
+  gaugeJammed,
+  gaugeSettling,
+  step,
+  type World,
+} from "../src/index.js";
+import { CFG, call, callable, heard, needle, playing, TPB } from "./gauge-rig.js";
 
 /**
  * **THE GAUGE's two states and the two thumbs that answer them**
@@ -9,8 +16,8 @@ import { CFG, call, callable, heard, needle, offBand, playing, TPB } from "./gau
  *
  * The round shipped with one state in it: turn, talk, call, for ninety
  * seconds. What is proved here is that the two it gained are both entered by
- * the pair's *own* last answer — a miss sticks the valve, a mark winds the
- * band — and that each costs the seat that did not cause it nothing it has to
+ * the pair's *own* last answer — a tooth pulled wrong sticks the valve, a
+ * mark winds the band — and that each costs the seat that did not cause it nothing it has to
  * guess at. Neither is a timer, and a lane that made either of them fire on a
  * clock would fail the two cases that name the call.
  *
@@ -37,14 +44,19 @@ describe("the dial's bearing", () => {
   });
 });
 
+/**
+ * The valve jammed the way a wrong tooth jams it (`src/gauge-tooth.ts`). A
+ * miss did until 2 October 2026, and opens the mouth now (`gauge-gape.test.ts`).
+ */
+function jam(world: World, g: GaugeState): void {
+  g.jamBeat = world.beat;
+}
+
 describe("the jam", () => {
-  it("is a miss, and the valve goes dead under his thumb", () => {
+  it("is a dead valve under his thumb", () => {
     const { world, g } = playing();
-    callable(world, g);
-    offBand(g);
     heard(world, 1, { kind: "valve", on: true, dir: 1 });
-    heard(world, 2, call(world));
-    expect(g.misses).toBe(1);
+    jam(world, g);
     expect(gaugeJammed(g)).toBe(true);
     // The valve is still held — what a seat is holding is a fact about the
     // seat — and the needle no longer answers it.
@@ -58,9 +70,7 @@ describe("the jam", () => {
     const { world, g } = playing();
     heard(world, 1, needle(true, 250));
     expect(g.handOn).toBe(false);
-    callable(world, g);
-    offBand(g);
-    heard(world, 2, call(world));
+    jam(world, g);
     // Hers is ignored rather than refused: there is no needle drawn under her
     // thumb to have taken hold of.
     heard(world, 2, needle(true, 250));
@@ -72,9 +82,7 @@ describe("the jam", () => {
 
   it("puts the needle where the finger points, in one gesture rather than a walk", () => {
     const { world, g } = playing();
-    callable(world, g);
-    offBand(g);
-    heard(world, 2, call(world));
+    jam(world, g);
     heard(world, 1, needle(true, 750));
     expect(g.needleMilli).toBe(0);
     heard(world, 1, needle(true, 0));
@@ -83,10 +91,8 @@ describe("the jam", () => {
 
   it("clears the instant a call lands, and the valve picks up where it was held", () => {
     const { world, g } = playing();
-    callable(world, g);
-    offBand(g);
     heard(world, 1, { kind: "valve", on: true, dir: -1 });
-    heard(world, 2, call(world));
+    jam(world, g);
     expect(gaugeJammed(g)).toBe(true);
     g.needleMilli = g.markMilli;
     callable(world, g);
@@ -102,9 +108,7 @@ describe("the jam", () => {
 describe("the settle", () => {
   it("runs from the lift and refuses the call without charging her a miss", () => {
     const { world, g } = playing();
-    callable(world, g);
-    offBand(g);
-    heard(world, 2, call(world));
+    jam(world, g);
     const missed = g.misses;
     heard(world, 1, needle(true, 0));
     heard(world, 1, needle(false, 0));
@@ -124,9 +128,7 @@ describe("the settle", () => {
 
   it("starts on a thumb that landed and never moved: a hand is a hand", () => {
     const { world, g } = playing();
-    callable(world, g);
-    offBand(g);
-    heard(world, 2, call(world));
+    jam(world, g);
     const was = g.needleMilli;
     // `NO_BEARING`: a hand that has landed and not yet said where.
     heard(world, 1, needle(true, -1));

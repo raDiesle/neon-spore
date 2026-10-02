@@ -1,5 +1,6 @@
 import { drawBand, driftBand, gaugeSeatedBy, gaugeWoundOpen } from "./gauge-band.js";
 import { gaugeShotLands, gaugeWoundRegrows } from "./gauge-call.js";
+import { gaugeSwallowed } from "./gauge-gape.js";
 import { gaugeJammed } from "./gauge-hand.js";
 import { gaugeAllLevels } from "./gauge-level.js";
 import { gaugeTongueLapses } from "./gauge-tongue.js";
@@ -20,9 +21,10 @@ import type { World } from "./world.js";
  * between the marks would leave the navigator with information and no verb: a
  * player watching. The call is the moment she commits to what she has been
  * saying, and it is the only thing in the round that can be wrong. It costs
- * `gaugeCallRestBeats` whether it lands or not. Time is what a call costs; what
- * the *round* costs when it is not finished in time is the hull, in
- * `gauge-round.ts` — this file is only its arithmetic.
+ * `gaugeCallRestBeats` whether it lands or not, and a miss opens the mouth a
+ * step (`gauge-gape.ts`). What the *round* costs when the mouth opens all the
+ * way or it is not finished in time is the hull, in `gauge-round.ts` — this
+ * file is only its arithmetic.
  *
  * **Why the band drifts.** Without it the round ends the first time the pilot
  * happens to stop in the right place and the pair never has to keep talking.
@@ -86,7 +88,7 @@ export interface GaugeState {
   driftDir: number;
   /** Calls that landed between the marks, over the whole round. */
   marks: number;
-  /** Calls that did not. They cost time and nothing else. */
+  /** Calls that did not. Each opens the mouth a step (`gauge-gape.ts`). */
   misses: number;
   /** `world.beat` of the most recent call, for the rest between two of them. */
   calledBeat: number;
@@ -106,9 +108,9 @@ export interface GaugeState {
    */
   calledTick: number;
   /**
-   * `world.beat` the valve jammed on, or `-1`. A call that misses jams it and
-   * a call that lands frees it, so the state the round is in is the pair's own
-   * last answer (`gauge-hand.ts`).
+   * `world.beat` the valve jammed on, or `-1`. A tooth or the tongue got wrong
+   * jams it and a call that lands frees it, so the state the round is in is
+   * the pair's own last answer (`gauge-hand.ts`).
    */
   jamBeat: number;
   /** Whether the pilot's hand is on the needle itself. */
@@ -128,9 +130,10 @@ export interface GaugeState {
   regrowBeat: number;
   /** `world.beat` the wound now on the rim opened on, which the picture grows it from. */
   woundBeat: number;
-  /** The loose tooth or `-1`, the teeth out, and her pull (`gauge-tooth.ts`). */
+  /** The loose tooth or `-1`, the teeth out, the right ones pulled, and her pull (`gauge-tooth.ts`). */
   looseTooth: number;
   pulledTeeth: number;
+  toothPulls: number;
   toothHold: number;
   toothDxMilli: number;
   toothDyMilli: number;
@@ -175,6 +178,7 @@ export function openGauge(world: World): GaugeState {
     woundBeat: world.beat,
     looseTooth: -1,
     pulledTeeth: 0,
+    toothPulls: 0,
     toothHold: -1,
     toothDxMilli: 0,
     toothDyMilli: 0,
@@ -229,6 +233,9 @@ export function stepGauge(world: World, gauge: GaugeState, onBeat: boolean): boo
   if (onBeat && !still) driftBand(world, gauge);
 
   if (gaugeAllLevels(cfg, gauge)) return true;
+  // Two ways to lose it, and they cost the same: the mouth opened all the way
+  // by misses and levels (`gauge-gape.ts`), or the level's clock run out.
+  if (gaugeSwallowed(cfg, gauge)) return false;
   if (gaugeBeatsLeft(world, gauge) <= 0) return false;
   return null;
 }

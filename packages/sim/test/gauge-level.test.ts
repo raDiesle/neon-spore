@@ -6,8 +6,8 @@ import {
   type GaugeState,
   gaugeBeatsLeft,
   gaugeBetweenLevels,
+  gaugeGapeSpan,
   gaugeLevelMarksMade,
-  gaugeLevelSpan,
   gaugeRound,
   gaugeSpanNow,
   gaugeWoundOpen,
@@ -60,14 +60,14 @@ function mark(world: World, g: GaugeState): void {
 describe("THE GAUGE's levels", () => {
   it("go up on a level's own marks, with the next quicker and slimmer", () => {
     const { world, g } = playing();
-    const first = gaugeLevelSpan(CFG, g);
+    const first = gaugeGapeSpan(CFG, g);
     for (let i = 0; i < CFG.gaugeLevelMarks; i++) mark(world, g);
     expect(g.level).toBe(1);
     expect(gaugeLevelMarksMade(CFG, g)).toBe(0);
-    expect(gaugeLevelSpan(CFG, g)).toBe(first - CFG.gaugeLevelSpanMilli);
+    expect(gaugeGapeSpan(CFG, g)).toBe(first - CFG.gaugeGapeSpanMilli);
     // A level opens free: whatever the last mark wound is let go.
     expect(g.boundBeat).toBe(-1);
-    expect(gaugeSpanNow(CFG, g)).toBe(gaugeLevelSpan(CFG, g));
+    expect(gaugeSpanNow(CFG, g)).toBe(gaugeGapeSpan(CFG, g));
   });
 
   it("walk the band further a beat on the level above", () => {

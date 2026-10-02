@@ -12,10 +12,13 @@ import type { World } from "./world.js";
  * So the round's split is turned round for one rest. The pilot's screen is
  * the one that shows *which* tooth is loose — it wobbles there and nowhere
  * else — and the navigator's is the one with a hand on the teeth. He counts
- * it out, *fifth from the left*, and she pulls. The right one ends the rest
- * early, after the ordinary break; a wrong one comes out anyway and costs
- * what a miss costs, the valve jammed into the next level. A rest that runs
- * out with the loose tooth still in costs the same.
+ * it out, *fifth from the left*, and she pulls. **Three of them**, one after
+ * another (the owner, 2 October 2026: *increase number of teeth require to
+ * pull out*): the next comes loose the moment the last is out, so he cannot
+ * count ahead and she cannot pull ahead. The last right one ends the rest
+ * early, after the ordinary break; a wrong one comes out anyway and jams the
+ * valve into the next level, and the loose one is still loose. A rest that
+ * runs out with a loose tooth still in costs the same.
  *
  * The rest itself is `gaugeToothBeats` long rather than
  * `gaugeLevelRestBeats`, and it is the level's own rest: the next level's
@@ -48,16 +51,28 @@ export function gaugeToothPulled(gauge: GaugeState, k: number): boolean {
 }
 
 /**
- * On a level up: if this is the level the tooth comes loose in, pick it and
- * stretch the rest to `gaugeToothBeats`. The two teeth at either end are never
+ * On a level up: if this is the level the teeth come loose in, pick the first
+ * and stretch the rest to `gaugeToothBeats`. The two teeth at either end are never
  * chosen — half-drawn at the dial's corners, they are not a tooth anyone can
  * count to.
  */
 export function gaugeLoosenTooth(world: World, gauge: GaugeState): void {
   if (gauge.level !== GAUGE_TOOTH_LEVEL) return;
-  gauge.looseTooth = 1 + nextInt(world.rng, GAUGE_TEETH - 2);
+  gauge.toothPulls = 0;
+  loosenNext(world, gauge);
   gauge.levelBeat = world.beat + world.cfg.gaugeToothBeats;
   gauge.regrowBeat = gauge.levelBeat;
+}
+
+/**
+ * One more tooth comes loose, drawn from the seeded rng among those still in
+ * and off the two ends. There are always some: a rest pulls three and at most
+ * a handful wrong, out of thirteen.
+ */
+function loosenNext(world: World, gauge: GaugeState): void {
+  const standing: number[] = [];
+  for (let k = 1; k < GAUGE_TEETH - 1; k++) if (!gaugeToothPulled(gauge, k)) standing.push(k);
+  gauge.looseTooth = standing[nextInt(world.rng, standing.length)] ?? -1;
 }
 
 /**
@@ -115,8 +130,13 @@ function pulled(world: World, gauge: GaugeState, k: number): void {
     world.events.push({ type: "gaugeJam" });
     return;
   }
-  gauge.looseTooth = -1;
   world.events.push({ type: "gaugePull" });
+  gauge.toothPulls += 1;
+  if (gauge.toothPulls < world.cfg.gaugeTeethToPull) {
+    loosenNext(world, gauge);
+    return;
+  }
+  gauge.looseTooth = -1;
   // The rest ends early, after the ordinary break a mark leaves.
   const next = Math.min(gauge.levelBeat, world.beat + world.cfg.gaugeRegrowBeats);
   gauge.levelBeat = next;

@@ -20,7 +20,7 @@ import { landNow } from "./gauge-land.js";
  * September 2026, asked whether the wound's colour should stay a picture:
  * *a rule*. So her panel is a red and a cyan button, the wound is one or the
  * other, drawn with the band, and a seated needle called in the wrong colour
- * is a miss that jams the valve like any other.
+ * is a miss that opens the mouth like any other.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -56,7 +56,7 @@ describe("THE GAUGE's call", () => {
     expect(g.misses).toBe(0);
   });
 
-  it("misses in the other colour on a seated needle, and the miss jams the valve", () => {
+  it("misses in the other colour on a seated needle, and the valve still answers", () => {
     const { world, g } = playing();
     seat(world, g);
     const wrong = other(g);
@@ -65,9 +65,9 @@ describe("THE GAUGE's call", () => {
     landNow(world, g);
     expect(g.marks).toBe(0);
     expect(g.misses).toBe(1);
-    expect(gaugeJammed(g)).toBe(true);
+    expect(gaugeJammed(g)).toBe(false);
     expect(g.calledColor).toBe(wrong);
-    expect(world.events.map((e) => e.type)).toEqual(["gaugeMiss", "gaugeJam"]);
+    expect(world.events.map((e) => e.type)).toEqual(["gaugeMiss"]);
   });
 
   it("draws the colour with each band, so both come up", () => {
