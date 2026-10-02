@@ -31765,3 +31765,5 @@ out to be the verdicts the test is meant to hold off.
 
 Bottleneck: looking — the first frame of a new body is never the one that
 ships, and each round of the look costs a render and a read.
+
+*Measured: 18 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
