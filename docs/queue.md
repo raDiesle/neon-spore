@@ -475,6 +475,7 @@ bolt stopped, and `bun run check` is green.
 ## Every boss held to the rule that a miss fails the wave
 
 - **Found:** 2026-10-02, claude/queue-mergerecord-refuses-a-ledger-entry-whose-only-ch
+- **Taken:** 2026-10-02, claude/queue-the-gauges-tooth-and-tongue-mistakes-still-jam-t (claim: claude/queue-every-boss-held-to-the-rule-that-a-miss-fails-th)
 - **Files:** `.claude/skills/new-boss/generic.md`, `packages/sim/src/`, `docs/spec/bosses.md`
 
 The owner made it generic on 2 October 2026: *a miss makes the boss wave fail
