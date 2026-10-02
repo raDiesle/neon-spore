@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · e1397dd36 — versus adopt and drop refuse while a file outside the slot still reads it
+
+Closing a VERSUS slot used to leave behind any file elsewhere that imported one of its candidates — a sheet drawing it beside the shipped look, a budget test — and the typecheck was the first to notice, as it was when instar:drift was dropped on 2 October 2026. Now `bun run versus adopt` and `drop` look first, and refuse before changing anything while a file outside the slot imports its candidates or names the slot in a quoted string (a test finding it in VARIANTS, a director test asking for its pose). They name each file.
+
 ## 2026-10-02 · b45757585 — VERSUS instar:body weight has a dragon's neck, chest, waist and haunches
 
 On the owner's 2 October 2026 answer to the body with weight, *looks better but make body more natural shape of a dragon*: THE INSTAR's candidate body is no longer one swell from the head to the rear. A slender neck shows under the head, a deep chest swells behind it over the shoulders, the body draws in at the waist and fills again over the haunches, and the tail thins to a finer blade. The ridge stands tallest over the chest and lowers toward the tail. Only the candidate changes; the field draws what it did.

@@ -32259,3 +32259,5 @@ fifths back.
 
 Bottleneck: a backticked slot name in a comment counting as a reader, until
 only quoted strings did.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
