@@ -32176,3 +32176,5 @@ its drag target and the codec each test the others, so it went in one lane.
 
 Bottleneck: the rule read literally rewrites 48 bosses, so the entries wait
 on the owner saying which kinds of mistake it means.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

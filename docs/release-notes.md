@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · f9ce47cc0 — Every boss audited against the rule that a miss fails the wave
+
+48 of the 56 shipped bosses other than THE GAUGE answer some mistake with something other than a failed wave: a wrong-colour shot that only counts, a lapsed step asked again, a slipped hold, a heal, a margin, a jam, or no hull strike at all. `docs/miss-rule-audit.md` lists them in eleven kinds, a row a boss; one queue entry asks which kinds the rule means before any boss is changed.
+
 ## 2026-10-02 · 057a87372 — THE GAUGE: every mistake loses the round, and the jam is retired
 
 The owner's rule for every boss, 2 October 2026: a miss makes the boss wave fail and requires retry. A call that misses, a tooth pulled wrong, and a tooth or the tongue left in when its rest runs out now each count in `misses`, and the first ends the play on that tick: the round lost, the hull struck, the wave offered again. Only a level up opens the mouth a step; a miss no longer gulps the rim.
