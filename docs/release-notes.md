@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · ea93fca81 — THE VANE's tests share one rig, and the hand file is split in two
+
+`vane-hand.test.ts` was 275 lines. It is now two files: `vane-pin.test.ts` (the pin, under VEER) and `vane-haul.test.ts` (the haul, under SEIZE, and both hands in the fingerprint). The arm and housing commands and `pin` moved into `vane-fixture.ts`. The knock, drift, forms, mouth and verdict tests now import `open`, `beats` and `vane` from the fixture instead of each keeping its own copy. The case count is unchanged.
+
 ## 2026-10-02 · 1687ccbb5 — versus:shot refuses a slot with no pose of its own
 
 `bun run versus:shot` no longer quietly shoots a slot that has no row in `SLOT_POSE`. Such a slot used to open on SLICK · FALLING, where its own subject is not on the field. The shot now stops and names the file to add the row in. The VERSUS page says the same above the phones, and `poseForSlot(slot, { strict: true })` throws it.
