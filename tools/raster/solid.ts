@@ -12,7 +12,9 @@
  * five yaws, jaw shut and open, beside the shipped face-on head
  * (`src/solid-instar-page.ts`); `--instar-body` draws its perched body at the
  * same five yaws (`src/solid-instar-body-page.ts`); `--instar-flight` draws
- * one pass of its flight (`src/solid-instar-flight-page.ts`).
+ * one pass of its flight (`src/solid-instar-flight-page.ts`); `--gimbal` draws
+ * THE GIMBAL's rig at five turns, the pilot's ring and the navigator's
+ * (`src/solid-gimbal-page.ts`).
  */
 
 import { resolve } from "node:path";
@@ -23,15 +25,18 @@ const zdog = args.includes("--zdog");
 const instar = args.includes("--instar");
 const body = args.includes("--instar-body");
 const flight = args.includes("--instar-flight");
+const gimbal = args.includes("--gimbal");
 const sheet = zdog
   ? "zdog"
-  : flight
-    ? "solid-instar-flight"
-    : body
-      ? "solid-instar-body"
-      : instar
-        ? "solid-instar"
-        : "solid";
+  : gimbal
+    ? "solid-gimbal"
+    : flight
+      ? "solid-instar-flight"
+      : body
+        ? "solid-instar-body"
+        : instar
+          ? "solid-instar"
+          : "solid";
 const named = args.find((a) => !a.startsWith("--"));
 const out = resolve(named ?? `.claude/tmp/${sheet}-sheet.png`);
 

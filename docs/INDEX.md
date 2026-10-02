@@ -2117,6 +2117,7 @@ by hand never moves.
 | `packages/render/src/gimbal-drum.ts` | **The sealed drum the two rings hang round, and the clock the whole scene is posed off** (§18, *Animation*) |
 | `packages/render/src/gimbal-depth.ts` | **THE GIMBAL in depth**: a ring is not a line drawn round the drum but a hoop of metal with a body |
 | `packages/render/src/gimbal-ring.ts` | **The half of THE GIMBAL a hand is on**: one ring, drawn on the screen of the seat that grips it |
+| `packages/render/src/gimbal-rig.ts` | THE GIMBAL's drum, rings and yoke as tubes and balls for `drawRig`; the navigator's ring is the same wheel seen from behind |
 | `packages/render/src/gimbal-shape.ts` | **Where THE GIMBAL is**, in field pixels: the yoke it hangs from |
 | `packages/render/src/gimbal-fx.ts` | What THE GIMBAL leaves behind a frame: the **kick** of the whole cradle as a tooth shears off it |
 | `packages/render/src/gimbal-grip.ts` | **The ring under each thumb**: where a hand may take hold of it, what a turn of it says |
@@ -3073,6 +3074,7 @@ by hand never moves.
 | `tools/raster/src/solid-instar-page.ts` | The INSTAR head sheet (`bun run solid --instar`) |
 | `tools/raster/src/solid-instar-body-page.ts` | The INSTAR body sheet (`bun run solid --instar-body`) |
 | `tools/raster/src/solid-instar-flight-page.ts` | The INSTAR flight strip (`bun run solid --instar-flight`) |
+| `tools/raster/src/solid-gimbal-page.ts` | `bun run solid --gimbal`: THE GIMBAL's rig at five turns, the pilot's ring and the navigator's |
 | `tools/raster/src/strip-bake.ts` | One painted strip, baked and packed: the atlas the field fetches (`<name>-strip.webp`) |
 | `tools/raster/src/sling-draw-art.ts` | One frame of THE SLING's arm drawing home, drawn into a 2D context |
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |

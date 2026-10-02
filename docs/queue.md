@@ -397,8 +397,9 @@ leave behind, same as the four already listed, and it is a look:
 - **Found:** 2026-09-26, claude/living-motion-spec
 - **Taken:** 2026-10-02, claude/queue-nothing-holds-a-module-level-map-of-paths-or-can (claim: claude/queue-living-bosses-the-four-rig-bosses-get-the-idle-d)
 - **Where:** local
-- **Needs:** Living bosses — ship THE INSTAR's picked candidates
-- **Files:** `packages/render/src/gimbal-draw.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/baton-draw.ts`, `packages/render/src/lead-draw.ts`, `packages/render/src/solid-rig.ts`, `docs/spec/living-bosses.md`
+- **Files:** `packages/render/src/gimbal-draw.ts`, `packages/render/src/gimbal-rig.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/baton-draw.ts`, `packages/render/src/lead-draw.ts`, `packages/render/src/solid-rig.ts`, `docs/spec/living-bosses.md`
+- **Asks:** The owner dropped THE INSTAR's idle drift on 2 October 2026 as looking worse — do these four still get it?
+- **Answered:** 2026-10-02 — offer it anyway: each gets the drift in VERSUS, and the owner judges it per boss.
 
 The owner, 26 September 2026, widened the depth work from THE INSTAR alone
 to every boss with a body; "move one boss a lane onto the solid rig, from
@@ -415,6 +416,14 @@ carries the face away past side-on (the owner, 27 September 2026:
 `docs/spec/living-bosses.md` section 1, "A face looks at the players"). Leave this
 entry with the rest listed; the last lane removes it and those two
 entries.
+
+**THE GIMBAL is half done** (2 October 2026): its rig is modelled —
+`packages/render/src/gimbal-rig.ts`, the rings in the plane the pilot faces so
+the navigator's view from behind is mirrored by the projection, and its sheet
+is `bun run solid --gimbal`. Next is its VERSUS candidate: the field drawing
+the cradle through the rig with the drift, the hush and the part drift on it.
+The hoop's eight arcs show their joints as lumps on the sheet; smooth them
+there.
 
 Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
