@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · a1b28d8df — THE LAMPREY takes a hand: a thumb that follows the jaw, a tap on the teeth
+
+The pinner's thumb goes on a band on the hull round the mouth, as wide as the grip. While the jaw crawls, the thumb chases it: the press and every move after send the column under it. The tapper's press inside the lip is the tooth it is nearest, and it counts once per press. The other seat's press falls through to the cannon. The field says HOLD on the band to the pinner until the thumb is on it, TAP on the lit tooth to the tapper, and FIRE under the middle column on the lit gullet. THE SLOW's light stands round the mouth and the band.
+
 ## 2026-10-02 · 6fb850a61 — THE GORGE's ring turns every five beats, not eight
 
 The owner asked for a faster turn (2 October 2026), so the pair waits less for the due bubble to come round to the bottom. AUTO played 6, 5 and 4 beats on three seeds. At 5 the whole wave takes 190–234 beats, down from 250–370. At 4 it is slower again, because the bubble often turns away before it has been tapped open and fed.

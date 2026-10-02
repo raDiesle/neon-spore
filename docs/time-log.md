@@ -31728,3 +31728,5 @@ before it has been tapped open and fed.
 Bottleneck: finding that no drag before this one sent a changing `id` on its
 move, and the hush test's half-beat wait that THE LAMPREY's first crack never
 reaches.
+
+*Measured: 19 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
