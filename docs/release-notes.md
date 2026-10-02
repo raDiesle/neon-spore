@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 6e2a93c4a — The ring round a held boss mark is centred on the red mark, smaller, and visibly slows
+
+The ring a thumb wears on a boss's mark was drawn round the finger, a tile and more wide, and grew most of the way in a fifth of a second before creeping a pixel or two a second, so it read as a ring that appeared and stood. It is now centred on the mark the thumb came down on and sized by it: it starts just outside the mark (1.3 of its radius), opens to about 1.9 in the first half second, and then keeps opening slowly and visibly — 2.4 at two seconds, 2.6 at three. The shared mark drawers note where they drew (`mark-spots.ts`), so every boss has it without calling anything. A look the owner asked for by name.
+
 ## 2026-10-02 · b60f0a33d — Ask whether THE ANTIPHON, THE BATON and THE LEAD drift under pinned readouts
 
 Their readouts are read by column and their depth already turns in light, so the rig drift collides with the style guide's rules for them; the remaining three lanes wait on the owner's pick.
