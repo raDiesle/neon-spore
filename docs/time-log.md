@@ -31911,7 +31911,6 @@ Bottleneck: friction — the colour-count tests each pin one hex to one meaning,
 and every new colour on the band had to be fitted between them.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
-
 ## 2026-10-02 — THE SINEW keeps its catch and its fall's walk
 
 - reading: 5 min. The entry, the spec paragraph the pull change rewrote.
@@ -31940,3 +31939,17 @@ Bottleneck: reading — the entry named the SEAM's files, and the fuse it was
 about lives in THE SLOW, eight bosses wide.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE CYST's tap answers TEST's one mouse
+
+- reading: 5 min. The director's opening press and the desk's seat rule,
+  after a first guess at THE CRYSTAL's guide that was not the wave meant.
+- writing: 5 min. `cystGripSeat`, and `desk-reach.test.ts`, which asks every
+  boss whether each seat's handles can be reached from TEST.
+- looking: 5 min. The director in the pane: the guide's NEXT, the band's
+  fire, then THE CYST's mark freezing its flank.
+- friction: 0 min.
+- landing: 0 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — "the cryst" named two waves, and the wrong one was
+searched first.

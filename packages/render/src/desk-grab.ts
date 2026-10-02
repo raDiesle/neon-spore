@@ -1,5 +1,6 @@
 import { batonGripSeat } from "./baton-grip.js";
 import { curtainHemSeat } from "./curtain-grip.js";
+import { cystGripSeat } from "./cyst-grip.js";
 import { instarMarkBoth, instarMarkSeat } from "./instar-mark-grip.js";
 import type { Layout } from "./layout.js";
 import { mazeGripSeat } from "./maze-grip.js";
@@ -54,7 +55,8 @@ import { wardenGripSeat } from "./warden-grip.js";
  *    CURTAIN's hem the fourteenth (`curtain-grip.ts` `curtainHemSeat`), and
  *    THE TASTER's pin, wipe and pry the fifteenth (`taster-grip.ts`
  *    `tasterGripSeat`), and THE SURGE's two grip marks the sixteenth
- *    (`surge-grip.ts` `surgeMarkSeat`).
+ *    (`surge-grip.ts` `surgeMarkSeat`), and THE CYST's freeze marks the
+ *    seventeenth (`cyst-grip.ts` `cystGripSeat`).
  *    One question for all of them, `markSeat`.
  * 2. **Every other handle a seat does not own is simply not there for it** —
  *    THE GAUGE's band, THE GIMBAL's inner rim, THE HASP's wheel under the
@@ -158,8 +160,12 @@ export function pressSeat(
   return handed && pressY >= l.bandTop ? device : t.player;
 }
 
-/** Whose thumb the mark under this point names, on every boss whose mark answers either seat. */
-function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+/**
+ * Whose thumb the mark under this point names, on every boss whose mark
+ * answers either seat. Exported for `test/desk-reach.test.ts`, which asks it
+ * which seat's press at a point the simulation would refuse.
+ */
+export function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
   return (
     instarMarkSeat(l, x, y, field) ??
     wardenGripSeat(l, x, y, field) ??
@@ -176,6 +182,7 @@ function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefi
     throatGripSeat(l, x, y, field) ??
     curtainHemSeat(l, x, y, field) ??
     tasterGripSeat(l, x, y, field) ??
-    surgeMarkSeat(l, x, y, field)
+    surgeMarkSeat(l, x, y, field) ??
+    cystGripSeat(l, x, y, field)
   );
 }

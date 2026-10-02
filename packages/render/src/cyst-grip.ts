@@ -128,6 +128,24 @@ export function cystBudStanding(
 }
 
 /**
+ * **Whose the freeze mark under a desk press is** (`desk-grab.ts` `markSeat`).
+ * The navigator's mark stands in the pilot's pinch zone, so the test screen's
+ * mouse, tried as player 1 first, took a pinch on every point of it and the
+ * tap was never asked for — the owner, 2 October 2026: *on THE CYST under
+ * TEST the tap does not work, under PLAYER 2 it does.* Each mark names its
+ * own seat, `cystFreezer`, and a pinch is still everywhere else on its side.
+ */
+export function cystGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const s = bossOf(field, "cyst");
+  if (s === null || cystDone(s)) return undefined;
+  for (const side of [0, 1] as const) {
+    const m = cystMarkCircle(l, field.cfg, s, side, field.beat, field.beatPhase);
+    if (hitCircle({ ...m, r: m.r * REACH }, x, y)) return cystFreezer(side);
+  }
+  return undefined;
+}
+
+/**
  * A press on this seat's freeze mark — a tap, sent at once and let go on the
  * lift — or in this seat's pinch zone, one finger of a pinch on its flank.
  * `bossOf(field, "cyst")` is `null` on every wave without it.
