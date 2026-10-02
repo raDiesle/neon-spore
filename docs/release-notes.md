@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · dea7cff37 — THE INSTAR's two reworks are put to the owner
+
+Both reworks the owner asked for on 2 October are on VERSUS: the slower serpent and the dragon-shaped body. The entry that ships them now says the owner was asked, and its lapsed claim is given back.
+
 ## 2026-10-02 · a3356c1e8 — Every ring's arc from twelve o'clock is one arcFromTop
 
 Countdown rings, filling rings and dials were each drawn by typing the same two angles out: start at twelve o'clock and go clockwise by a share. That happened nineteen times in eighteen render files. `render/arc-from-top.ts` now adds that arc to a Path2D or the context's own path, every caller strokes it the way it already did, and a COPIES row catches the next hand-typed one. No frame changes.

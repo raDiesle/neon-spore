@@ -32363,3 +32363,5 @@ eighteen, found only by searching for the angles rather than the name.
 
 Bottleneck: nothing in the queue was workable — four entries wait on the
 owner's pick of THE INSTAR's reworks and the fifth is claimed live.
+
+*Measured: 27 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
