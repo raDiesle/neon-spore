@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 15991801e — THE GORGE reworked: five levels of bubbles, one of you counts and the other colours
+
+THE GORGE is now a sack of bubbles in the middle of the field, fought over five levels. Player 1 sees how many shots each bubble wants and, from level 2, the order to feed them in; player 2 sees the colour each wants. Level 1 is a row in any order, level 2 a row in one order, and from level 3 the bubbles stand round a ring that turns, taking shots only at its bottom bubble once player 1 has tapped it open three times. Levels 4 and 5 add bubbles that want both colours. A shot out of turn or into a shut bubble is spat back down its column. The pinch, the pry, the mouth and the vent are gone.
+
 ## 2026-10-02 · 0f087bc3d — THE THROAT's look: the mouth wears its colour, pulls a circle, and shakes what it refuses
 
 The mouth's lip, halo and flare are now in the colour it is set to (red, cyan, the shield's, or the pod's amber for SUCK). Shield and the cyan shot are one hue, so in SHIELD and SUCK the mouth also carries the band's own button face. Pumping draws a faint ring round the mouth, as wide as the simulation pulls. A body in the wrong colour shakes sideways where it stands. On this wave the hull grows the gullet's root where the muzzle was. The pump's handle carries the two-headed pull arrow.

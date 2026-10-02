@@ -31636,3 +31636,5 @@ cost a re-read of the files it was editing.
 
 Bottleneck: the old fight's pinch, pry, mouth and vent were named in about
 ninety files, and every one had to be read before it could be rewritten.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
