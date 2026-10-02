@@ -25,8 +25,8 @@ import { PALETTE } from "./palette.js";
  * it, the alien's arms throw out, and the wound caves in and is gone. The rim
  * stands bare for `gaugeRegrowBeats`, and the next one tears open elsewhere
  * from the beat the simulation opened it on (`woundBeat`). A miss is a clang:
- * the bolt flattens on a plate, grey sparks come back off it, and the cannon
- * rattles — the valve it turns on has just jammed (`gauge-hand.ts`).
+ * the bolt flattens on a plate, grey sparks come back off it, the cannon
+ * rattles, and the mouth gulps a step wider (`gauge-gape.ts`).
  *
  * **Both screens.** The pilot never sees the wound, but the burst is where
  * *he* stopped, and what it tells him is the one thing he could not

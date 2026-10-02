@@ -190,7 +190,19 @@ band's half-width by `gaugeGapeSpanMilli` — the same tear further off is a
 narrower angle — and a mouth `gaugeGapeFull` steps open swallows the ship: the
 round lost and the hull struck, exactly as the clock running out does
 (`packages/sim/src/gauge-gape.ts`). Five misses on the first level, three on
-the last. The valve keeps answering through all of it.
+the last. The valve keeps answering through all of it. On both screens the rim
+stands `RIM_STEP` of the dial further off the cannon a step, gulping out past
+it on the landing of the shot that opened it (`render/gauge-gape.ts`), so the
+teeth, the wound and every thumb on the rim move out with it.
+
+**What he sees while she calls** (2 October 2026). The owner: *for p1 to
+indicate he is waiting for player to call … very fast rotating teeths …
+colouring left to right, then right to left, in random cyan and red and in
+some visual that it's hallucination not real*. While his hand is off the valve
+in the play — a wound open, no bolt out, nothing loose — a sweep races along
+his teeth and back, each lit tooth a ghost split in two and floating off its
+socket, red or cyan by a hash of the pass and the tooth and never by the
+wound. Her screen never shows it (`render/gauge-mirage.ts`).
 
 **The loose tooth** (30 September 2026). The owner: *add some intermediate
 choreographed on screen gesture events, e.g. pull teeth out ( p1 needs to tell

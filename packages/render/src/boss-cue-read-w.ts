@@ -1,6 +1,7 @@
 import {
   type GaugeState,
   gaugeBound,
+  gaugeGape,
   gaugeJammed,
   gaugeSeated,
   gaugeSettling,
@@ -13,6 +14,7 @@ import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
 import { type Dial, gaugeBandMid, gaugeNeedleTip } from "./gauge.js";
 import { rimPoint } from "./gauge-alien.js";
+import { gaugeOpenDial } from "./gauge-gape.js";
 import { gaugeDial } from "./gauge-round.js";
 import { toothPoint } from "./gauge-teeth.js";
 import { gaugeTongueGrip } from "./gauge-tongue.js";
@@ -87,7 +89,7 @@ import type { Layout } from "./layout.js";
  */
 export function gaugeCues(l: Layout, world: World, g: GaugeState): readonly BossCue[] {
   if (g.phase !== "play") return [];
-  const dial = gaugeDial(l);
+  const dial = gaugeOpenDial(gaugeDial(l), gaugeGape(g));
   const out: BossCue[] = [];
   if (callReady(world, g)) {
     const tip = gaugeNeedleTip(dial, g);

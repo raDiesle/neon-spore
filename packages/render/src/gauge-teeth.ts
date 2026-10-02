@@ -49,7 +49,7 @@ export interface TeethView {
 export const TOOTH_STEP = GAUGE_FULL / GAUGE_TEETH;
 
 /** Every other tooth a little shorter, so the row is a jaw and not a saw. */
-function depthOf(dial: Dial, k: number): number {
+export function depthOf(dial: Dial, k: number): number {
   return dial.r * TOOTH_DEPTH * (k % 2 === 0 ? 1 : 0.8);
 }
 
@@ -148,7 +148,7 @@ export function toothAt(dial: Dial, x: number, y: number, reach: number): number
 }
 
 /** One fang from `lo` to `hi` on the rim, its point `depth` towards the cannon. */
-function toothPath(dial: Dial, lo: number, hi: number, depth: number): Path2D {
+export function toothPath(dial: Dial, lo: number, hi: number, depth: number): Path2D {
   const path = new Path2D();
   const steps = 6;
   for (let i = 0; i <= steps; i++) {

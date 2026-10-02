@@ -1258,6 +1258,7 @@ by hand never moves.
 | `packages/render/src/frame-passes.ts` | The four passes `Canvas2DRenderer.draw` assembles a frame from, in the order a reader looks for them: the |
 | `packages/render/src/gauge-round.ts` | THE GAUGE over the whole stage |
 | `packages/render/src/gauge-grip.ts` | **THE GAUGE's two thumbs on the dial itself**: the pilot's on the needle while the valve is dead |
+| `packages/render/src/gauge-gape.ts` | **THE GAUGE's mouth, opening** |
 | `packages/render/src/gauge-button.ts` | THE GAUGE's four presses, as faces on the band's own lobes |
 | `packages/render/src/gauge-alien.ts` | THE GAUGE's enemy: a big alien ship hung over ours with its mouth open round it — the owner |
 | `packages/render/src/gauge-cannon.ts` | THE GAUGE's cannon: the ship's own, standing on the crown where it always stands and **turning** through the… |
@@ -1267,6 +1268,7 @@ by hand never moves.
 | `packages/render/src/gauge-wound.ts` | THE GAUGE's wound: where the band is, drawn as a place the alien's armour is torn open and the flesh under it… |
 | `packages/render/src/gauge-words.ts` | THE GAUGE's big words over the dial: the count-in, the level that is coming, and the verdict |
 | `packages/render/src/gauge-marks.ts` | THE GAUGE's needle and band haloed and answering a touch green, on the screen that shows each and never the other |
+| `packages/render/src/gauge-mirage.ts` | **What the pilot sees while he waits for her call** |
 | `packages/render/src/gauge-hurt.ts` | **What the alien has taken**: one torn gash in its flesh for every mark the pair has landed |
 | `packages/render/src/gauge-face.ts` | **THE GAUGE's face**: two eyes on the crown over the open mouth, and a tongue lolling in it |
 | `packages/render/src/gauge-teeth.ts` | **THE GAUGE's teeth**: the jaw, a socket where one is out, the loose one rocking on his screen and the held one on her thumb |

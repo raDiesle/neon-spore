@@ -32052,3 +32052,18 @@ Bottleneck: reading — `run.ts` is bound to this repository, so the fix had
 to move into a function that takes a root before a test could reach it.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE GAUGE's mouth opens on screen, and P1 sees a mirage while he waits for her call
+
+- reading: 5 min. The dial, the rim and the three places that ask for it.
+- writing: 15 min. `render/gauge-gape.ts`, `render/gauge-mirage.ts`, their
+  tests, one spec paragraph.
+- looking: 15 min. Six frames at chosen clock times for the sweep, a zoom on
+  the ghosts, the rim at four misses.
+- friction: 10 min. A strip at a fixed stride aliased against the sweep, and
+  four `--press` calls landed one miss in the browser — `--boss misses=4`
+  showed the opening.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: looking — a fast sweep and a strip's stride beat against each
+other, so the motion had to be sampled at hand-picked times.

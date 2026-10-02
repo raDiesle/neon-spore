@@ -23,7 +23,8 @@ import { splinePath } from "./spline.js";
  * angle the needle stands at, so everything the round is judged by is an
  * angle about one point, as it always was. The rim does not breathe: the
  * wound, the aim mark and the two thumbs all stand on it, and a thing that is
- * aimed at must not move while the arm aiming at it is still.
+ * aimed at must not move while the arm aiming at it is still. It only ever
+ * opens, a step at a time and on a shot's landing (`gauge-gape.ts`).
  *
  * **The rim is teeth everywhere the wound is not.** They were grey plates, and
  * on 29 September 2026 the owner asked for the face they were half of: *i like
@@ -36,7 +37,9 @@ import { splinePath } from "./spline.js";
  */
 
 /** The rim's distance from the pivot, as a share of the dial's radius — out
- * from 0.9 on 29 September 2026, so the mouth stands further off the cannon. */
+ * from 0.9 on 29 September 2026, so the mouth stands further off the cannon.
+ * The mouth shut as far as it goes: every miss and level opens it further
+ * (`gauge-gape.ts`), and a dial that does not say is this one. */
 export const RIM = 0.97;
 /** The body's middle distance, and the arms' extra reach, as shares of it. */
 const BODY = 1.62;
@@ -57,7 +60,7 @@ function rimMul(a: number): number {
 
 /** The rim's distance from the pivot where `milli` points, in pixels. */
 export function rimRadius(dial: Dial, milli: number): number {
-  return dial.r * RIM * rimMul(angleOf(milli));
+  return dial.r * (dial.rim ?? RIM) * rimMul(angleOf(milli));
 }
 
 /**
@@ -95,7 +98,7 @@ function rimLoop(dial: Dial): Point[] {
   const pts: Point[] = [];
   for (let i = 0; i < N; i++) {
     const a = (i / N) * Math.PI * 2;
-    const d = dial.r * RIM * rimMul(a);
+    const d = dial.r * (dial.rim ?? RIM) * rimMul(a);
     pts.push({ x: dial.cx + Math.cos(a) * d, y: dial.cy + Math.sin(a) * d });
   }
   return pts;

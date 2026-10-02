@@ -10,6 +10,7 @@ import { drawGaugeAim, drawGaugeCannon } from "./gauge-cannon.js";
 import { drawGaugeEyes, drawGaugeTongue } from "./gauge-face.js";
 import { drawGaugeHurt } from "./gauge-hurt.js";
 import { gaugeShotLoad, gaugeWoundColor } from "./gauge-load.js";
+import { drawGaugeMirage, gaugeMirageShown } from "./gauge-mirage.js";
 import {
   cannonPose,
   drawGaugeShot,
@@ -65,6 +66,11 @@ export interface Dial {
   /** The pivot: the cannon's lobe, on the crown of the hull. */
   cy: number;
   r: number;
+  /**
+   * The mouth's rim as a share of `r`, opened a step on every miss and level
+   * (`gauge-gape.ts`). Left out, it is the mouth shut as far as it goes, `RIM`.
+   */
+  rim?: number;
 }
 
 export interface DialView {
@@ -95,6 +101,10 @@ export function drawGaugeFoe(
   const flinch = gaugeFlinch(gauge, c);
   drawGaugeAlien(ctx, dial, view.time, flinch);
   drawTeeth(ctx, dial, gaugeTeethView(gauge, view), view.time);
+  // His screen alone, while the round waits on her call (`gauge-mirage.ts`).
+  if (view.showValve && !view.showMarks && gaugeMirageShown(gauge)) {
+    drawGaugeMirage(ctx, dial, gauge, view.time);
+  }
   // Out and wrung in the rest after the second level (`gauge-tongue.ts`).
   if (gauge.tongueOut) drawGaugeTongueOut(ctx, dial, cfg, gauge, view.time);
   else drawGaugeTongue(ctx, dial, view.time);

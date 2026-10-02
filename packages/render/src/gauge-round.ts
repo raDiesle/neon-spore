@@ -9,8 +9,10 @@ import {
   showsGaugeValve,
 } from "./gauge.js";
 import { drawGaugeFuse, drawGaugeSiren } from "./gauge-crown.js";
+import { gaugeGapeShown, gaugeOpenDial } from "./gauge-gape.js";
 import { drawGaugeGrip } from "./gauge-grip.js";
 import { drawGaugeAsked, drawGaugeVerdicts } from "./gauge-marks.js";
+import { shotClock } from "./gauge-shot.js";
 import { drawGaugeLead, drawGaugeLevel, drawGaugeVerdict } from "./gauge-words.js";
 import { drawHull } from "./hull.js";
 import {
@@ -108,7 +110,6 @@ export function drawGaugeRound(
 
   // The alien first: it hangs over the ship with its mouth round it, and the
   // hull stands in front of the half of it below the crown (`gauge.ts`).
-  const dial = gaugeDial(l);
   const dialView: DialView = {
     showMarks: showsGaugeMarks(view.role),
     showValve: showsGaugeValve(view.role),
@@ -118,6 +119,10 @@ export function drawGaugeRound(
     tick: view.world.tick,
     time: view.time,
   };
+  // The rim where the mouth stands open this frame, easing out a step on the
+  // landing of the shot that opened it (`gauge-gape.ts`).
+  const c = shotClock(view.world.cfg, boss, view.world.tick, view.world.beat, view.beatPhase);
+  const dial = gaugeOpenDial(gaugeDial(l), gaugeGapeShown(view.world.cfg, boss, c));
   drawGaugeFoe(ctx, dial, view.world.cfg, boss, dialView);
 
   const f = restHull(l, view.time);

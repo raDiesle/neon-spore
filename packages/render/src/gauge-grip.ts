@@ -1,6 +1,7 @@
 import {
   type GaugeState,
   gaugeBandAsks,
+  gaugeGape,
   gaugeNeedleAsks,
   NO_BEARING,
   type SimConfig,
@@ -12,6 +13,7 @@ import {
   showsGaugeMarks,
   showsGaugeValve,
 } from "./gauge.js";
+import { gaugeOpenDial } from "./gauge-gape.js";
 import { gaugeDial } from "./gauge-round.js";
 import { drawGaugeTongueRing, gaugeTongueUnder } from "./gauge-tongue-grip.js";
 import { drawGaugeToothRings, gaugeToothUnder } from "./gauge-tooth-grip.js";
@@ -74,7 +76,9 @@ export function gaugeBandGrip(l: Layout, cfg: SimConfig, dial: Dial, g: GaugeSta
 export function gaugeGripUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const g = bossOf(field, "gauge");
   if (g === null || g.phase !== "play") return null;
-  const dial = gaugeDial(l);
+  // The rim where the mouth has settled, which is where the frame draws it
+  // but for the gulp's fraction of a beat (`gauge-gape.ts`).
+  const dial = gaugeOpenDial(gaugeDial(l), gaugeGape(g));
   if (
     field.seat === 1 &&
     gaugeNeedleAsks(g) &&
