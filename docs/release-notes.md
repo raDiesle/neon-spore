@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · f7fde5829 — THE BURGEE, CAPSTAN and DAVIT stop a bolt on what it meets
+
+A bolt up the middle column bursts on THE BURGEE's spindle, THE CAPSTAN's bared core and THE DAVIT's lit hook, in their colour, and scuffs in the other; anywhere else it scuffs at the lowest of the body over it — the flag and boom, the drum and its cradle rolled and rattled as drawn, the boom and the mast's socket — and past the body it flies on. Exemption: a look the owner asked for by name (1 October 2026, "but also all other bosses").
+
 ## 2026-10-02 · b26aae644 — Every HOLD cue is a red circle with a thumbprint, not a scan box
 
 A boss asking a thumb to stay down now shows a red circle breathing on the place, with a thumbprint in the middle, in place of the scanning frame the HOLD word used to wear. It is the same on every boss, through the one cue helper (`hold-mark.ts`, `cue-helper.ts`); the owner asked for it by name on THE OCULUS and in general. The fleet and WARDEN op-count rows move by the ring's glow and the print's ridges.
