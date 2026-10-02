@@ -25,7 +25,7 @@ export function openRefreeze(world: World, s: RimeState): void {
   s.litTick = world.tick;
   s.jars = 0;
   s.stirred = false;
-  openSlow(world, world.cfg.rimeRefreezeBeats, "ask");
+  openSlow(world, world.cfg.rimeRefreezeBeats, "hold");
   world.events.push({ type: "rimeRefreeze", col: midCol(world.cfg) });
 }
 
@@ -43,6 +43,6 @@ export function rimeStirred(world: World, s: RimeState, side: 0 | 1): void {
   s.stirred = true;
   s.jars += 1;
   const since = world.beat - s.phaseBeat;
-  openSlow(world, cfg.rimeRefreezeBeats + s.jars - since, "ask");
+  openSlow(world, cfg.rimeRefreezeBeats + s.jars - since, "hold");
   world.events.push({ type: "rimeScatter", side, col: midCol(cfg) });
 }

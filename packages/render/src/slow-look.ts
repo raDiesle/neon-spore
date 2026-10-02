@@ -55,6 +55,8 @@ export interface SlowWindow {
   readonly span: number;
   /** Whether it fails the pair if it runs out (`sim/slow.ts` `SlowKind`). */
   readonly asks: boolean;
+  /** Whether what it asks is to send nothing (`sim/slow.ts`, `"hold"`): the fuse burns grey. */
+  readonly holds: boolean;
 }
 
 /**
@@ -78,7 +80,7 @@ export function slowWindow(world: World, beatPhase: number): SlowWindow | null {
   const asked = Math.max(world.slowFromBeat, world.slowAskBeat);
   const span = Math.max(1, world.slowToBeat - asked);
   const left = Math.max(0, world.slowToBeat - now);
-  return { beats, through, left, span, asks: world.slowAsks };
+  return { beats, through, left, span, asks: world.slowAsks, holds: world.slowHolds };
 }
 
 /**

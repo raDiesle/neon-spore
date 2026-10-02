@@ -35,7 +35,7 @@ export function mazeWindow(
   world: World,
   m: MazeState,
   beatPhase: number,
-): Omit<SlowWindow, "asks"> | null {
+): Omit<SlowWindow, "asks" | "holds"> | null {
   const wheel = mazeCurrent(m);
   if (wheel === null) return null;
   const beats =

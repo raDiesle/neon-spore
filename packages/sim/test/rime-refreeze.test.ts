@@ -37,6 +37,7 @@ describe("THE RIME's refreeze", () => {
     expect(world.events.some((e) => e.type === "rimeShatter")).toBe(false);
     expect(slowing(world)).toBe(true);
     expect(world.slowAsks).toBe(true);
+    expect(world.slowHolds).toBe(true);
     expect(rime(world).jars).toBe(0);
   });
 

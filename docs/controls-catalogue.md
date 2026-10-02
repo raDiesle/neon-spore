@@ -173,7 +173,7 @@ Taught once, by the guide; **no helper on the field** (above).
 
 | Piece | Shared | Says | Who |
 |---|---|---|---|
-| `drawFuse`, `drawFuseLine`, `fuseColours` | `slow-fuse.ts` | THE SLOW's window: a fuse along the top burning in to the middle, orange from half, red for the last two beats | every choreographed step |
+| `drawFuse`, `drawFuseLine`, `fuseColours` | `slow-fuse.ts` | THE SLOW's window: a fuse along the top burning in to the middle, orange from half, red for the last two beats; grey on a step answered by sending nothing (`"hold"`) | every choreographed step |
 | `drawInstarWindow`, `drawInstarDone`, `instarTogetherLeft`, `instarAwaited` | `instar-together.ts` | a ring closing in on a mark, and a done mark still counting for its partner | THE INSTAR |
 | `slowHush`, `SlowSpan`, `NO_SPAN`, `HUSHED` | `slow-hush.ts` | a boss's own sway dies down while a mark asks | every boss with a sway under its marks |
 | `phaseInto` | `phase-into.ts` | how far into its phase a boss is, in beats | every choreographed pose |

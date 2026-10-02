@@ -21,6 +21,7 @@ describe("the false point", () => {
     const world = install([DECOY]);
     toLit(world);
     expect(slowing(world)).toBe(true);
+    expect(world.slowHolds).toBe(true);
     expect(world.events.some((e) => e.type === "seamLight" && e.ask === "decoy")).toBe(true);
     expect(seamWantsShot(seam(world))).toBe(false);
     expect(seamWantsShield(seam(world))).toBe(false);

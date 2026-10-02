@@ -41,8 +41,8 @@ const LAYOUT: Layout = computeLayout(VIEWPORT, CFG, "p1");
  * of the way down, four tiles long. Where it goes is `fusePlace`'s, below. */
 const PLACE: FusePlace = { x: LAYOUT.width / 2, y: LAYOUT.height / 3, half: LAYOUT.tile * 2 };
 
-function window(beats: number, left: number, asks = true, span = beats): SlowWindow {
-  return { beats, left, through: (beats - left) / beats, span, asks };
+function window(beats: number, left: number, asks = true, span = beats, holds = false): SlowWindow {
+  return { beats, left, through: (beats - left) / beats, span, asks, holds };
 }
 
 /**
@@ -140,6 +140,17 @@ describe("what colour it is", () => {
   it("colours by the share left, so a short ask starts green too", () => {
     expect(shows(window(2, 2), PALETTE.good)).toBe(true);
     expect(shows(window(12, 4, true, 4), PALETTE.good)).toBe(true);
+  });
+
+  /** The owner, 1 October 2026, on THE SEAM's false point: *the timing
+   * indicator runs. why? what i have to do?* A step answered by sending
+   * nothing burns grey, whole to empty, and never says hurry. */
+  it("burns grey on a hold step, at every length, and never in the four", () => {
+    for (const [left] of bands) {
+      const hold = window(8, left, true, 8, true);
+      expect(shows(hold, PALETTE.rock)).toBe(true);
+      for (const [, colour] of bands) expect(shows(hold, colour)).toBe(false);
+    }
   });
 });
 

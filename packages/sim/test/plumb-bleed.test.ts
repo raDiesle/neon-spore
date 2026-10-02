@@ -35,6 +35,7 @@ describe("THE PLUMB's bleed", () => {
     expect(world.events.some((e) => e.type === "plumbBleed")).toBe(true);
     expect(slowing(world)).toBe(true);
     expect(world.slowAsks).toBe(true);
+    expect(world.slowHolds).toBe(true);
     expect(plumb(world).flares).toBe(0);
   });
 

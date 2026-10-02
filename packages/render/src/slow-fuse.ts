@@ -40,6 +40,14 @@ import type { SlowWindow } from "./slow-look.js";
  * measure that lies about its last beat, so it stands at full strength from
  * the tick the window opens to the tick it shuts, and a step answered early
  * shuts the window and takes the fuse with it (`sim/slow.ts` `closeSlow`).
+ *
+ * **A hold step's burns grey.** A fuse in its colours says *act before it
+ * runs out*, and on a step answered by sending nothing — THE SEAM's false
+ * point, THE KEEL's breath, a fight's last cool — that is the wrong sentence:
+ * the owner, 1 October 2026, *the timing indicator runs. why? what i have to
+ * do?* So it burns in the shell's grey with a white core, THE REPRISE's
+ * waiting colours (`reprise-fuse.ts`), and never turns orange or red: what it
+ * counts down to is the pair being let go, not a hit.
  */
 
 /** The glow round the line, widest first: its width in lines, and its alpha. */
@@ -48,6 +56,9 @@ const GLOW: readonly (readonly [number, number])[] = [
   [3.2, 0.12],
   [2, 0.28],
 ];
+
+/** A hold step's fuse, the whole of its length: shell grey, a white core. */
+const HOLD_COLOURS = { body: PALETTE.rock, core: PALETTE.text } as const;
 
 /** The spark at each burning end, in lines; how thick a line is is `FUSE_THICK`. */
 const SPARK = 2.6;
@@ -77,7 +88,7 @@ export function drawFuse(
   if (!win.asks) return;
   const rest = Math.min(1, win.left / win.span);
   if (rest <= 0) return;
-  const { body, core } = fuseColours(rest);
+  const { body, core } = win.holds ? HOLD_COLOURS : fuseColours(rest);
   drawFuseLine(ctx, l, at, rest, body, core);
 }
 

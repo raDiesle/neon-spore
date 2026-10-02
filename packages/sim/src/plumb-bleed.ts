@@ -27,7 +27,7 @@ export function openBleed(world: World, s: PlumbState): void {
   s.phaseBeat = world.beat;
   s.flares = 0;
   s.stirred = false;
-  openSlow(world, world.cfg.plumbBleedBeats, "ask");
+  openSlow(world, world.cfg.plumbBleedBeats, "hold");
   world.events.push({ type: "plumbBleed", col: midCol(world.cfg) });
   stillPulled(world, s);
 }
@@ -50,7 +50,7 @@ export function plumbStirred(world: World, s: PlumbState, side: 0 | 1): void {
   s.stirred = true;
   s.flares += 1;
   const since = world.beat - s.phaseBeat;
-  openSlow(world, world.cfg.plumbBleedBeats + s.flares - since, "ask");
+  openSlow(world, world.cfg.plumbBleedBeats + s.flares - since, "hold");
   world.events.push({ type: "plumbFlare", side, col: midCol(world.cfg) });
 }
 

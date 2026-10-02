@@ -115,6 +115,7 @@ describe("the breath", () => {
   it("holds keelBreathBeats under THE SLOW, and held untouched opens the tempo run whole", () => {
     const world = breathing();
     expect(slowing(world)).toBe(true);
+    expect(world.slowHolds).toBe(true);
     const start = world.beat;
     const seen = runUntil(world, (w) => keel(w).movement === 3, CFG.keelBreathBeats + 1);
     expect(world.beat - start).toBe(CFG.keelBreathBeats);

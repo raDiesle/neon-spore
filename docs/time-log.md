@@ -31924,3 +31924,17 @@ Bottleneck: none — the question was the whole of the work, and it was asked
 first.
 
 *Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — A hold step's fuse burns grey
+
+- reading: 5 min. Finding which drawing the owner called the timing
+  indicator, then every boss whose window asks the pair to send nothing.
+- writing: 5 min. `"hold"` beside `"ask"` and `"show"`, `slowHolds` in the
+  world and its hash, eight openings switched, the grey fuse, the tests.
+- looking: 0 min. One frame of THE SEAM's false point.
+- friction: 0 min.
+- landing: 5 min. Two lint passes, `check:fast` reaching a thousand files
+  through the world's new field, `land`.
+
+Bottleneck: reading — the entry named the SEAM's files, and the fuse it was
+about lives in THE SLOW, eight bosses wide.

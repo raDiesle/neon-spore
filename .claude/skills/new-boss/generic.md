@@ -37,7 +37,10 @@ item naming the rule, never a fix made in passing.
   to take damage when not succeeding*: a **fuse along the top of the screen**
   burns in to the middle, orange from half the window and red for the last
   two beats (`render/slow-fuse.ts`); he kept it over three VERSUS answers the
-  same day, and asked for it bigger and clear of the top edge. **The slow's light runs from the top of the screen**,
+  same day, and asked for it bigger and clear of the top edge. **A step
+  answered by sending nothing opens its window as a `"hold"`** and its fuse
+  burns grey, never orange or red (1 October 2026, on THE SEAM's false point:
+  *the timing indicator runs. why? what i have to do?*). **The slow's light runs from the top of the screen**,
   never from an edge the player cannot see (24 September).
 - **No `CARRY` on the glass**, generic, 24 September 2026: *why we need the
   keyword of "Carry"? … "Pull up" its clear he has to take action.* A verb

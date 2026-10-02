@@ -46,6 +46,7 @@ describe("THE GRINDSTONE's fade", () => {
     expect(world.events.some((e) => e.type === "grindstoneFade")).toBe(true);
     expect(slowing(world)).toBe(true);
     expect(world.slowAsks).toBe(true);
+    expect(world.slowHolds).toBe(true);
     expect(grindstone(world).jars).toBe(0);
   });
 

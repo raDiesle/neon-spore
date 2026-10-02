@@ -86,6 +86,8 @@ export interface World extends ShipState, FaultState {
   slowToBeat: number;
   /** Whether the window up asks the pair for something (`slow.ts` `SlowKind`). */
   slowAsks: boolean;
+  /** Whether what it asks is to send nothing, a `"hold"` (`slow.ts`): the fuse burns grey. */
+  slowHolds: boolean;
   /**
    * **The beat the window's latest opening was made on**, ask or show, or
    * `NO_SLOW` before the wave's first. `openSlow` keeps `slowFromBeat` when it
@@ -186,6 +188,7 @@ export function createWorld(
     slowFromBeat: NO_SLOW,
     slowToBeat: NO_SLOW,
     slowAsks: false,
+    slowHolds: false,
     slowAskBeat: NO_SLOW,
     spend: newSpendLedger(),
     creatures: [],

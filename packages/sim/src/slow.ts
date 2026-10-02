@@ -46,8 +46,16 @@ export const NO_SLOW = -1;
  * eversion, a landing. Only an asking window gets the fuse that counts it
  * down (`render/slow-fuse.ts`); one on a show would count down to a hit that
  * never comes. Every `openSlow` names one, so a new window has to say.
+ *
+ * **`"hold"` is an ask answered by sending nothing**: THE SEAM's false point,
+ * THE KEEL's breath and cooldown, the last beat of THE SLING, THE PLUMB, THE
+ * GRINDSTONE and THE RIME. It asks, so it has a fuse, but a fuse in its
+ * colours says *act before it runs out*, which is the one thing a hold step
+ * must not be read as. The owner, 1 October 2026, over cutting the false point
+ * or a cue on it: *change the fuse* — so a hold's burns grey, and every boss's
+ * hold step says so by opening its window with this kind.
  */
-export type SlowKind = "ask" | "show";
+export type SlowKind = "ask" | "hold" | "show";
 
 /**
  * Whether the beat is being played slowly this instant.
@@ -99,7 +107,8 @@ export function openSlow(world: World, beats: number, kind: SlowKind): void {
   if (beats <= 0) return;
   world.slowFromBeat = slowing(world) ? world.slowFromBeat : world.beat;
   world.slowToBeat = world.beat + beats;
-  world.slowAsks = kind === "ask";
+  world.slowAsks = kind !== "show";
+  world.slowHolds = kind === "hold";
   world.slowAskBeat = world.beat;
 }
 
@@ -142,5 +151,6 @@ export function clearSlow(world: World): void {
   world.slowFromBeat = NO_SLOW;
   world.slowToBeat = NO_SLOW;
   world.slowAsks = false;
+  world.slowHolds = false;
   world.slowAskBeat = NO_SLOW;
 }

@@ -25,7 +25,7 @@ export function openCool(world: World, s: SlingState): void {
   s.phaseBeat = world.beat;
   s.snaps = 0;
   s.stirred = false;
-  openSlow(world, world.cfg.slingCoolBeats, "ask");
+  openSlow(world, world.cfg.slingCoolBeats, "hold");
   world.events.push({ type: "slingCool", col: midCol(world.cfg) });
   stillHeld(world, s);
 }
@@ -48,7 +48,7 @@ export function slingStirred(world: World, s: SlingState, side: 0 | 1): void {
   s.stirred = true;
   s.snaps += 1;
   const since = world.beat - s.phaseBeat;
-  openSlow(world, world.cfg.slingCoolBeats + s.snaps - since, "ask");
+  openSlow(world, world.cfg.slingCoolBeats + s.snaps - since, "hold");
   world.events.push({ type: "slingSnap", side, col: midCol(world.cfg) });
 }
 

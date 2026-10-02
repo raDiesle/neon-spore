@@ -35,6 +35,7 @@ describe("THE SLING's cool", () => {
     expect(world.events.some((e) => e.type === "slingCool")).toBe(true);
     expect(slowing(world)).toBe(true);
     expect(world.slowAsks).toBe(true);
+    expect(world.slowHolds).toBe(true);
     expect(sling(world).snaps).toBe(0);
   });
 

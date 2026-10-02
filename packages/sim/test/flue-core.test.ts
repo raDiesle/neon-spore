@@ -70,6 +70,13 @@ describe("the shot", () => {
 });
 
 describe("the damper", () => {
+  it("opens THE SLOW as a hold, where a vent opens an ordinary ask", () => {
+    expect(toStep(3).slowHolds).toBe(true);
+    const vent = toStep(0);
+    expect(vent.slowAsks).toBe(true);
+    expect(vent.slowHolds).toBe(false);
+  });
+
   it("is held when both seats keep still to the threshold", () => {
     const world = toStep(3);
     const seen = runUntil(world, (w) => flue(w).phase !== "lit");

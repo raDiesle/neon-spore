@@ -138,7 +138,8 @@ function next(world: World, s: FlueState): void {
   s.taps = 0;
   s.restBeats = [0, 0];
   s.stirred = [false, false];
-  if (step.ask !== "fire") openSlow(world, step.beats + 1, "ask");
+  const kind = step.ask === "damper" ? "hold" : "ask";
+  if (step.ask !== "fire") openSlow(world, step.beats + 1, kind);
   const at = step.ask === "vent" ? flueEmberCol(world.cfg, s) : col;
   world.events.push({ type: "flueLight", ask: step.ask, col: at });
 }

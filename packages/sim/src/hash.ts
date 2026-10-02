@@ -84,10 +84,12 @@ export function hashWorld(world: World): number {
   // `apps/game/src/loop.ts` — and they are in here for that reason rather than
   // in spite of it (`slow.ts`, `docs/decisions.md` #33). Whether it asks is
   // the fuse on both screens, so it is agreed about the same way, and so is
+  // whether it holds, which is the fuse's colour, and so is
   // the beat the latest opening was made on, which is where that fuse starts.
   push(world.slowFromBeat);
   push(world.slowToBeat);
   push(world.slowAsks ? 1 : 0);
+  push(world.slowHolds ? 1 : 0);
   push(world.slowAskBeat);
   // What the pair has spent, beat by beat (`spend.ts`). Two devices that
   // disagree about the tally disagree about the colour THE TASTER's next blade

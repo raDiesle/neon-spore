@@ -108,7 +108,7 @@ export function keelMarrowStruck(world: World, s: KeelState, bullet: Bullet): bo
 function openBreath(world: World, s: KeelState): void {
   keelEnter(world, s, "breath");
   s.stirred = false;
-  openSlow(world, world.cfg.keelBreathBeats, "ask");
+  openSlow(world, world.cfg.keelBreathBeats, "hold");
   world.events.push({ type: "keelBreath", col: midCol(world.cfg) });
 }
 
@@ -158,7 +158,7 @@ export function toTempo(world: World, s: KeelState): void {
 export function openCool(world: World, s: KeelState): void {
   keelEnter(world, s, "cool");
   s.flares = 0;
-  openSlow(world, world.cfg.keelCoolBeats, "ask");
+  openSlow(world, world.cfg.keelCoolBeats, "hold");
   world.events.push({ type: "keelCool", col: midCol(world.cfg) });
 }
 
@@ -171,6 +171,6 @@ export function stepCool(world: World, s: KeelState, since: number): void {
 export function keelFlared(world: World, s: KeelState): void {
   if (s.flares >= world.cfg.keelCoolFlares) return;
   s.flares += 1;
-  openSlow(world, world.cfg.keelCoolBeats + s.flares - (world.beat - s.phaseBeat), "ask");
+  openSlow(world, world.cfg.keelCoolBeats + s.flares - (world.beat - s.phaseBeat), "hold");
   world.events.push({ type: "keelFlare", col: midCol(world.cfg) });
 }

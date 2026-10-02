@@ -121,7 +121,8 @@ function next(world: World, s: SeamState): void {
   s.guarded = false;
   s.quenched = 0;
   s.held = false;
-  if (step.ask !== "dark") openSlow(world, seamStepBeats(world, s), "ask");
+  const kind = seamHoldsFire(step) ? "hold" : "ask";
+  if (step.ask !== "dark") openSlow(world, seamStepBeats(world, s), kind);
   world.events.push({ type: "seamLight", ask: step.ask, col: seamStepCol(world, step) });
 }
 

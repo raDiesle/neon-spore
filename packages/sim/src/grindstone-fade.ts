@@ -29,7 +29,7 @@ export function openFade(world: World, s: GrindstoneState): void {
   s.phaseBeat = world.beat;
   s.jars = 0;
   s.stirred = false;
-  openSlow(world, world.cfg.grindstoneFadeBeats, "ask");
+  openSlow(world, world.cfg.grindstoneFadeBeats, "hold");
   world.events.push({ type: "grindstoneFade", col: midCol(world.cfg) });
   stillHeld(world, s);
 }
@@ -52,7 +52,7 @@ export function grindstoneStirred(world: World, s: GrindstoneState, side: 0 | 1)
   s.stirred = true;
   s.jars += 1;
   const since = world.beat - s.phaseBeat;
-  openSlow(world, world.cfg.grindstoneFadeBeats + s.jars - since, "ask");
+  openSlow(world, world.cfg.grindstoneFadeBeats + s.jars - since, "hold");
   world.events.push({ type: "grindstoneJar", side, col: midCol(world.cfg) });
 }
 
