@@ -395,7 +395,6 @@ leave behind, same as the four already listed, and it is a look:
 ## Living bosses — ship THE INSTAR's picked candidates
 
 - **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-10-01, claude/queue-living-bosses-ship-the-instars-picked-candidates
 - **Where:** local
 - **Needs:** Living bosses — THE INSTAR's serpentine flight, as a VERSUS candidate
 - **Files:** `packages/render/src/instar-draw.ts`, `packages/render/src/instar-side-head.ts`, `packages/render/src/instar-turn.ts`, `tools/versus/candidates/registry.ts`, `docs/spec/living-bosses.md`
