@@ -475,6 +475,7 @@ bolt stopped, and `bun run check` is green.
 ## `band-control.ts` and `controls-round.ts` are one control set from 250
 
 - **Found:** 2026-10-01, claude/throat-boss-rework-48518d
+- **Taken:** 2026-10-02, claude/queue-the-stares-struck-eye-no-longer-shudders (claim: claude/queue-band-control-ts-and-controls-round-ts-are-one-co)
 - **Where:** local
 - **Files:** `packages/render/src/band-control.ts`, `packages/content/src/controls-round.ts`
 
