@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 42a2fb729 — frames' fired line says where each kind of event got to, not only where it began
+
+`bun run frames --events` summed each kind of event on one line with the first firing's fields and a count, so `instarShow@1800 (step=0 col=5) (x7)` read as THE INSTAR showing step 0 seven times under AUTO. It had shown steps 0 to 6 once each. A kind that fired more than once, with other fields by the end, now adds the last firing: `(x7, last @… step=6 col=5)`. The help gains a recipe for opening a scene boss on a given step with `--boss cursor=…`.
+
 ## 2026-10-02 · d048768ff — THE INSTAR's dropped idle drift is taken out of the code
 
 The owner dropped VERSUS instar:drift on 2 October 2026, so the drift that turned THE INSTAR's body, cocked its head, glanced its eyes and wandered its wings and tail was a path nothing took. Its two modules and their tests are gone, and every drawer and the mark placement take the path they always took with it off. The head record loses the turned head only the drift drew. The field draws exactly what it did; the shared idle drift the other bosses use stays.

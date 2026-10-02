@@ -32304,3 +32304,5 @@ check red until `done` took it out.
 
 Bottleneck: the finding itself — AUTO was never stuck; the summary printed
 only the first firing's fields, and seven showings read as step 0 seven times.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
