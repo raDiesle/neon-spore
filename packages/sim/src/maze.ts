@@ -1,5 +1,6 @@
 import type { SimConfig } from "./config.js";
 import type { MazeWheel } from "./maze-wheel.js";
+import { rimTurnMilli } from "./rim-turn.js";
 
 /**
  * THE MAZE's wheel, as arithmetic. No world, no events, no mutation — what the
@@ -116,7 +117,7 @@ export function mazeLeverRadiusMilli(cfg: SimConfig): number {
  * thousandths is the one rounding step, and it is the same on every device.
  */
 export function mazeDragTurn(cfg: SimConfig, movedMilli: number): number {
-  return Math.round((movedMilli * MAZE_TURN * 1000) / (6283 * mazeLeverRadiusMilli(cfg)));
+  return rimTurnMilli(movedMilli, mazeLeverRadiusMilli(cfg));
 }
 
 /** The angle a way in stands at, 0 being straight down at the ship. */

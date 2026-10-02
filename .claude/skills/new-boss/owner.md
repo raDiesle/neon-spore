@@ -108,6 +108,12 @@ bosses* — are `generic.md`, next to this page.**
   players can only hold one damage type and then needs to repeat wave.* A
   hit costs the wave whichever hazard lands it, so a second of anything is
   drawn as recognisable as the first, not worse than it.
+- **A boss's own count is kept, never started again; and nothing slows
+  for it**, 2 October 2026, on THE OCULUS: *when player stops hold, it
+  should keep current position of process … i want to use regular standard
+  process indicator for bosses, to show above boss - but without slow for.*
+  THE OCULUS became three levels (hold, tap, turn like THE MAZE's lever),
+  each count kept when a hand comes off, with a wave fought round it.
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

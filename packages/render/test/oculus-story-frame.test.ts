@@ -58,7 +58,7 @@ function posed(world: World, phase: OculusPhase, lit: OculusStep): OculusState {
   s.hits = 0;
   s.socketOpen = true;
   s.held = [false, false];
-  s.heldBeats = 0;
+  s.heldTicks = 0;
   s.cursor = phase === "rest" ? 1 : 0;
   s.steps[0] = lit;
   return s;

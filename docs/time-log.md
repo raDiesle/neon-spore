@@ -32652,3 +32652,16 @@ Bottleneck: the dispatcher page every drawer's new argument went through
 had filled, and wanted its seam cut before the lane could go on.
 
 *Measured: 36 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE OCULUS in three levels: hold, tap, turn, with a wave round it
+
+- reading: 5 min. THE OCULUS's step and hand, THE MAZE's rim drag, the slow
+  fuse and `bossFillsWave`.
+- writing: 20 min. The level counting, the tap and the lever, the shipped
+  script, the new act page, the cue words, the tests.
+- looking: 0 min.
+- friction: 5 min. The red checks from `check:fast`: the `window` ban,
+  two files over the size limit, the guided wave's meteors and its columns.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the rig's loops on a lit phase running into the next step's light.

@@ -69,7 +69,7 @@ function posed(world: World, phase: OculusPhase, shut = 0, lit?: OculusStep): Oc
   s.hits = 0;
   s.socketOpen = false;
   s.held = [false, false];
-  s.heldBeats = 0;
+  s.heldTicks = 0;
   s.cursor = 0;
   if (lit !== undefined) s.steps[0] = lit;
   return s;
@@ -144,7 +144,7 @@ describe("THE OCULUS's lens", () => {
     const holding = frame(role, (w) => {
       const s = posed(w, "lit", 2, asking("shut"));
       s.held = [true, true];
-      s.heldBeats = 2;
+      s.heldTicks = 150;
     });
     expect(holding.text).not.toBe(waiting.text);
   });

@@ -88,6 +88,10 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // because everything that falls in its wave is a rock an open breach
   // spilled (`hive-step.ts`), and a wave authored beside it would be a
   // spill nobody could seal.
+  // THE OCULUS is the seventeenth, since 2 October 2026: the owner reworked it
+  // so the pair fight a wave and work the lens in its gaps — *when there is
+  // some idle time to keep fingers hold the boss to proceed* — and wanted the
+  // wave painted in the director (`oculus.ts`).
   return (
     kind !== "vane" &&
     kind !== "well" &&
@@ -100,7 +104,8 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
     kind !== "sinew" &&
     kind !== "ledger" &&
     kind !== "surge" &&
-    kind !== "lead"
+    kind !== "lead" &&
+    kind !== "oculus"
   );
 }
 

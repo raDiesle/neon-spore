@@ -19,8 +19,8 @@ import {
 /**
  * THE OCULUS's story steps (§27): the open eye glaring down at the hull,
  * met by the shield under it, and the eye rolled aside to look down another
- * column, met by a shot up that column — each under THE SLOW, and each run
- * out a hull hit.
+ * column, met by a shot up that column — each with no slow since the wave
+ * goes on round the lens (2 October 2026), and each run out a hull hit.
  */
 
 const OPEN: OculusStep[] = [{ ask: "break", color: "either", beats: 1 }];
@@ -33,10 +33,10 @@ function lit(step: OculusStep) {
 }
 
 describe("the glare", () => {
-  it("lights under THE SLOW", () => {
+  it("lights with no slow", () => {
     const world = lit(GLARE);
     expect(oculus(world).steps[oculus(world).cursor]?.ask).toBe("glare");
-    expect(slowing(world)).toBe(true);
+    expect(slowing(world)).toBe(false);
   });
 
   it("takes no shot, only the shield under the eye", () => {

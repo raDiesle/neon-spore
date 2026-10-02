@@ -55,3 +55,5 @@ export { mazeHeartAsks } from "./maze-hand.js";
 export { mazeShakeFreeMilli, mazeShakeThrough } from "./maze-shake.js";
 // Which losses bring the drum down on the ship, which `maze-fall.ts` drops.
 export { mazeFalls } from "./maze-verdict.js";
+// The gearing of a lever carried round a rim, THE MAZE's and THE OCULUS's (`rim-turn.ts`).
+export { rimLapMilli, rimTurnMilli } from "./rim-turn.js";

@@ -227,7 +227,11 @@ export function patchBossD(boss: BossState): void {
     boss.hits = 1;
     boss.socketOpen = true;
     boss.held = [true, true];
-    boss.heldBeats = 2;
+    boss.heldTicks = 150;
+    boss.taps = [3, 4];
+    boss.leverAt = [500, 600];
+    boss.leverBest = [700, 800];
+    boss.turned = [9000, 10000];
   }
   if (boss.kind === "vise") {
     // The left lobe cracked once with the kernel bare — every field given a

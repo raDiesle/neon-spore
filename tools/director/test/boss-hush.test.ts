@@ -37,7 +37,8 @@ import { DRAWN } from "./boss-hush-drawn.js";
  * (`boss-hands-davit.ts`).
  *
  * THE UNDERTOW had a row until its rework of 1 October 2026 took THE SLOW
- * off it: with no window it has nothing to hold still in.
+ * off it: with no window it has nothing to hold still in. THE OCULUS lost
+ * its row the same way, to its rework in three levels of 2 October 2026.
  *
  * THE LAMPREY has none for a reason of the same kind: its window opens with
  * each bite's first lit tooth and closes on the first crack (§11.59), and
@@ -58,7 +59,6 @@ const STILL: readonly BossKind[] = [
   "ratchet",
   "mantle",
   "keel",
-  "oculus",
   "vise",
   "baton",
   "rime",

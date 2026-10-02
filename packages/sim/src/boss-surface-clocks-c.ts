@@ -81,9 +81,8 @@ export {
   mantleVenting,
   NO_SPARK,
 } from "./mantle.js";
-// THE OCULUS's lens: the phase, the lit step, the leaves and both thumbs, for
-// the picture, the cue and the director's hand. Straight off `oculus.ts`
-// (`docs/spec/bosses-choreographed.md` §27).
+// THE OCULUS's lens: the phase, the lit step, the leaves, both thumbs and each
+// level's count, for the picture, the cue and the director's hand (§27).
 export {
   freshOculus,
   OCULUS_ASKS,
@@ -101,10 +100,16 @@ export {
   oculusGlaring,
   oculusHolding,
   oculusHullAsks,
+  oculusIsHold,
+  oculusIsPair,
   oculusLeafAsks,
   oculusLitStep,
   oculusLookCol,
+  oculusPairing,
+  oculusTapsEach,
+  oculusTurnNeedMilli,
 } from "./oculus.js";
+export { oculusLevelShare, oculusLeverShare } from "./oculus-level.js";
 export { oculusWindowBeats } from "./oculus-step.js";
 // THE PLUMB's bob: the phase, the lit step, the weights and both seats'
 // leans, for the picture, the cue and the director's hand. Straight off

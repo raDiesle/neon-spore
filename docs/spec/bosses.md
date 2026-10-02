@@ -8601,6 +8601,28 @@ sheet and nothing else, THE SEAM's rule.
   plus a core of three hits; the script is nine steps, and the lens shatters
   when the last is answered, which is the third hit.
 
+**Reworked in three levels** (the owner, 2 October 2026: *people need to
+fight wave, but when there is some idle time to keep fingers hold the boss to
+proceed*). **No step opens THE SLOW any more**, and a wave falls round the
+lens, painted in the director (`bossFillsWave`). The shipped script is three
+levels, each a pair to shut and then one shot at the core in its colour that
+waits for it (`beats: 0`, no fuse):
+
+- **a hold** (`shut`): both thumbs down together, counted in ticks
+  (`heldTicks`); **a thumb lifted keeps the count** and only stops it;
+- **a tap** (`tap`): every press counts, `need` taps in all, each seat owing
+  half of them (`oculusTapsEach`); a thumb kept down is one tap;
+- **a turn** (`turn`): each seat's half is a lever carried round the rim at
+  `oculusLeverRadiusMilli`, THE MAZE's drag (`rim-turn.ts`); only the arc
+  turned while both are pulling counts, never the way back, and `need` is in
+  eighths of a lap per lever.
+
+A level's own fuse (`fuse` on a hold, `beats` on a tap or turn) run out
+**springs it open with its count back at nought**, and it lights again; no
+hull hit. The counting is `sim/oculus-level.ts`, read by the picture through
+`oculusLevelShare`. Glare, look and reseal are still understood by the
+simulation, and no longer in the script.
+
 **Its look is done** (26 September 2026). The lens is drawn
 (`render/oculus-shape.ts`, `oculus-pose.ts`, `oculus-draw.ts`,
 `oculus-marks.ts`), each seat's half held as its own leaf on both phones

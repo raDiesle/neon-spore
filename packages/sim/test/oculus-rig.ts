@@ -62,8 +62,7 @@ export function tick(world: World, cmds: TimedCommand[] = []): string[] {
   return world.events.map((e) => e.type);
 }
 
-/** Tick on until `until` holds, at most `beats` beats of ticks; every event type seen.
- * Generous, because THE SLOW stretches a beat. */
+/** Tick on until `until` holds, at most `beats` beats of ticks; every event type seen. */
 export function runUntil(world: World, until: (w: World) => boolean, beats = 40): Set<string> {
   const seen = new Set<string>();
   const end = world.tick + TPB * beats;
@@ -77,6 +76,11 @@ export function runUntil(world: World, until: (w: World) => boolean, beats = 40)
 /** Until the next step is lit. */
 export function toLit(world: World): Set<string> {
   return runUntil(world, (w) => oculus(w).phase === "lit");
+}
+
+/** Exactly `n` ticks, with no commands. */
+export function ticks(world: World, n: number): void {
+  for (let i = 0; i < n; i++) tick(world);
 }
 
 /** Until `n` more beats have gone by. */
@@ -134,11 +138,57 @@ export function answer(world: World): void {
     oculusStruck(world, shot(rightColor(step), oculusLookCol(MID, step)));
   else if (step.ask === "glare") shieldUnder(world);
   else if (step.ask === "break") runUntil(world, (w) => oculus(w).phase === "rest");
+  else if (step.ask === "tap") {
+    const at = oculus(world).cursor;
+    while (oculus(world).phase === "lit" && oculus(world).cursor === at) {
+      tapOnce(world, "left");
+      tapOnce(world, "right");
+    }
+  } else if (step.ask === "turn") turnBoth(world);
   else {
     holdBoth(world);
     runUntil(world, (w) => oculus(w).phase === "rest");
     releaseBoth(world);
   }
+}
+
+/** The shipped wave's three levels, written out: a hold, a tap, a turn, each with its shot. */
+export const LEVELS: readonly OculusStep[] = [
+  { ask: "shut", color: "either", beats: 6, fuse: 32 },
+  { ask: "break", color: "either", beats: 2 },
+  { ask: "fire", color: "red", beats: 0 },
+  { ask: "tap", color: "either", beats: 32, need: 12 },
+  { ask: "fire", color: "cyan", beats: 0 },
+  { ask: "turn", color: "either", beats: 32, need: 8 },
+  { ask: "fire", color: "either", beats: 0 },
+];
+
+/** One tap on a leaf: down, then up. */
+export function tapOnce(world: World, side: "left" | "right"): void {
+  leaf(world, side, true);
+  leaf(world, side, false);
+}
+
+/** A lever carried to `fromMilli` round the rim from where it was taken. */
+export function lever(world: World, side: "left" | "right", fromMilli: number): string[] {
+  const target = side === "left" ? "oculusLeafLeft" : "oculusLeafRight";
+  const player = side === "left" ? 1 : 2;
+  return tick(world, [
+    { tick: world.tick, player, command: { kind: "drag", target, on: true, fromMilli } },
+  ]);
+}
+
+/** Both levers taken and carried round together, `step` at a time, until the pair rests. */
+export function turnBoth(world: World, step = 150): void {
+  const cursor = oculus(world).cursor;
+  holdBoth(world);
+  let at = 0;
+  while (oculus(world).phase === "lit" && oculus(world).cursor === cursor) {
+    at += step;
+    lever(world, "left", at);
+    lever(world, "right", at);
+  }
+  releaseBoth(world);
 }
 
 /** A lens with the steps before `n` answered and step `n` lit. */

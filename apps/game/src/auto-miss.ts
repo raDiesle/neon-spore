@@ -14,11 +14,11 @@ import {
  * hull can be reached without a scratch script (`bun run frames --auto both
  * --auto-miss --until breach`).
  *
- * With no hand on them, THE OCULUS, THE VISE, THE HASP and five more never
+ * With no hand on them, THE VISE, THE HASP and six more never
  * miss: the fight never gets as far as asking. With AUTO on both seats it gets
  * there and never misses either. What was wanted is the fight played right up
  * to an ask and then left alone — and only that ask, because a *hold* that is
- * left alone slips and is asked again (`oculus-step.ts`), and a run that let
+ * left alone slips and is asked again, and a run that let
  * every ask go would stand on the same hold forever.
  *
  * So the windows alternate: the first asking window THE SLOW opens is let go,

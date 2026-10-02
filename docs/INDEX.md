@@ -237,6 +237,7 @@ by hand never moves.
 | `packages/sim/src/rime-step.ts` | THE RIME's clock: the lens settling, each step lighting |
 | `packages/sim/src/rime-refreeze.ts` | **THE RIME's refreeze**, §29 row 11 of `docs/spec/bosses-choreographed.md`: the third hit spends the core |
 | `packages/sim/src/rime.ts` | THE RIME: a frosted lens of two halves over the middle column, each wiped clear by its own seat |
+| `packages/sim/src/rim-turn.ts` | **How far a lever carried round a rim turns what it is bolted to**, in thousandths of a degree |
 | `packages/sim/src/events-creature.ts` | the arm of `SimEvent` about one body — a disguise, a covering, a cloud, a layer |
 | `packages/sim/src/snake-arena.ts` | What is standing on a tile, and whether a tile is a tile at all |
 | `packages/sim/src/echo-split.ts` | how an echo comes apart — which way the halves step, how long each generation waits first, and the pass that does it |
@@ -558,9 +559,10 @@ by hand never moves.
 | `packages/sim/src/oculus-hand.ts` | Two thumbs on THE OCULUS, one leaf each |
 | `packages/sim/src/oculus-hash.ts` | What THE OCULUS puts into `hashWorld`, and nothing else |
 | `packages/sim/src/oculus-shot.ts` | **THE OCULUS's shot**: the open socket, where a bolt leaves the top of the field in the middle column |
-| `packages/sim/src/oculus-step.ts` | THE OCULUS's clock: the lens settling, each step lighting, the beats both leaves are held being counted |
+| `packages/sim/src/oculus-step.ts` | THE OCULUS's clock: the lens settling, each step lighting, a fuse running out, and the shatter |
 | `packages/sim/src/oculus-guard.ts` | **THE OCULUS's shield**, asked once a tick after the commands are heard — THE SEAM's grit |
-| `packages/sim/src/oculus.ts` | THE OCULUS: a lens of six leaves over the middle column, shut two at a time by both seats holding at once |
+| `packages/sim/src/oculus-level.ts` | **How far THE OCULUS's lit pair has come**, by whichever of the three gestures it asks |
+| `packages/sim/src/oculus.ts` | THE OCULUS: a lens of six leaves over the middle column, shut two at a time by both seats at once |
 | `packages/sim/src/creature-state-gyre.ts` | **THE GYRE's four**: the two the hub carries and the two a body on its rim does |
 | `packages/sim/src/index-bodies.ts` | **The four bodies that wear something**, narrowed to what render/ and the tools actually ask of each |
 | `packages/sim/src/pod-effects.ts` | What a pod *gives*, once the mouth has closed on it |
@@ -958,6 +960,7 @@ by hand never moves.
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
 | `packages/content/src/waves/act-10.ts` | Act ten, opened for THE REPRISE — `act-9.ts` had twenty-odd lines left under the 250-line ceiling |
 | `packages/content/src/waves/act-11.ts` | Act eleven, opened for THE SPOOL on 22 September 2026 |
+| `packages/content/src/waves/act-11b.ts` | Act eleven's second page, opened for THE OCULUS on 2 October 2026 |
 | `packages/content/src/waves/act-12.ts` | Act twelve, opened for THE VISE on 26 September 2026 |
 | `packages/content/src/waves/act-13.ts` | Act thirteen, opened for THE DAVIT on 26 September 2026 |
 | `packages/content/src/waves/act-14.ts` | Act fourteen, opened for THE LAMPREY on 1 October 2026 |

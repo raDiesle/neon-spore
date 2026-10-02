@@ -14,9 +14,23 @@ import type { GroupName } from "./ship-groups.js";
  * brought ten more to page three: the last bosses on the page go, never the
  * boss being worked on. THE HALTER came over on 29 September 2026, when THE
  * SLING's cool took page three past the wall again, and THE CYST and THE
- * DAVIT on the same day, when THE SPOOL's story brought nine.
+ * DAVIT on the same day, when THE SPOOL's story brought nine. THE GRINDSTONE
+ * came over on 2 October 2026, when THE OCULUS's levers brought one more.
  */
 export const CHOREO_FIELD_GROUP_D = {
+  // GrindstoneConfig — the rests around the steps, the grit a reversal
+  // shaves and a beat regrows, the film a second pass starts from, the grace
+  // a clamp is given, the spent axle's fade and the snap free
+  // (`config-grindstone.ts`).
+  grindstoneStillBeats: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
+  grindstoneRestBeats: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
+  grindstoneFreeBeats: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
+  grindstoneShaveMilli: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
+  grindstoneRegrowMilli: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
+  grindstoneFilmMilli: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
+  grindstoneGraceBeats: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
+  grindstoneFadeBeats: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
+  grindstoneFadeJars: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
   // CystConfig — the rests around the steps, the tap's window, the grace a
   // stilled flank is given, the split, and the gaps a flank rests at and
   // counts as shut below (`config-cyst.ts`).

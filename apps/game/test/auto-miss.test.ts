@@ -62,8 +62,9 @@ function bossBlow(name: string, miss: boolean): { by: string; kind: string } | n
 }
 
 describe("--auto-miss", () => {
+  // THE OCULUS left the list on 2 October 2026: its rework in three levels
+  // has no blow at all, a level run out springing open and a shot waiting.
   for (const name of [
-    "THE OCULUS",
     "THE VISE",
     "THE TRIVET",
     "THE RATCHET",

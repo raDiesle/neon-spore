@@ -55,6 +55,14 @@ function stood(): { world: World; s: OculusState } {
   s.phase = "rest";
   s.phaseBeat = world.beat;
   s.held = [false, false];
+  // The shipped script is three levels since 2 October 2026; the lens still
+  // understands the story steps, so the readings are asked of them too.
+  s.steps = [
+    ...s.steps,
+    { ask: "glare", color: "either", beats: 3 },
+    { ask: "reseal", color: "either", beats: 3 },
+    { ask: "look", color: "either", beats: 4, offset: -2 },
+  ];
   return { world, s };
 }
 
@@ -86,6 +94,24 @@ describe("THE OCULUS", () => {
       expect(c?.x).toBeCloseTo(half.x, 5);
       expect(c?.y).toBeCloseTo(half.y, 5);
     }
+  });
+
+  it("asks each seat to TAP its half until it has given its share", () => {
+    const { world, s } = stood();
+    light(s, world, "tap");
+    expect(cue(world, "p1")?.word).toBe("TAP");
+    s.taps = [s.steps[s.cursor]?.need ?? 0, 0];
+    expect(cue(world, "p1")).toBeNull();
+    expect(cue(world, "p2")?.word).toBe("TAP");
+  });
+
+  it("asks each seat to TURN its lever until its thumb is on it", () => {
+    const { world, s } = stood();
+    light(s, world, "turn");
+    expect(cue(world, "p2")?.word).toBe("TURN");
+    s.held = [false, true];
+    expect(cue(world, "p2")).toBeNull();
+    expect(cue(world, "p1")?.word).toBe("TURN");
   });
 
   it("takes the word off a seat the moment its thumb is down, and leaves the other's", () => {
@@ -159,7 +185,7 @@ describe("THE OCULUS", () => {
   it("never writes a number, a colour or a column", () => {
     const { world, s } = stood();
     const words: string[] = [];
-    for (const ask of ["shut", "fire", "reseal", "glare", "look"] as const) {
+    for (const ask of ["shut", "tap", "turn", "fire", "reseal", "glare", "look"] as const) {
       light(s, world, ask);
       for (const role of ["p1", "p2"] as const) words.push(cue(world, role)?.word ?? "");
     }

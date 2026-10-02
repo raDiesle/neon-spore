@@ -14,6 +14,13 @@ export interface OculusConfig {
   oculusGraceBeats: number;
   /** Beats the shattered lens falls before the wave may end. */
   oculusShatterBeats: number;
+  /**
+   * How far from the lens's middle the two levers' knobs run, in thousandths
+   * of a tile: the rim and a knob's half beyond it. It is the levers' gearing
+   * as well (`rim-turn.ts`) — a lap of this ring is a turn of the lens — so
+   * the picture puts its knobs on it and reads the thumb round it.
+   */
+  oculusLeverRadiusMilli: number;
 }
 
 export const OCULUS_DEFAULTS: OculusConfig = {
@@ -21,4 +28,5 @@ export const OCULUS_DEFAULTS: OculusConfig = {
   oculusRestBeats: 1,
   oculusGraceBeats: 2,
   oculusShatterBeats: 2,
+  oculusLeverRadiusMilli: 1750,
 };

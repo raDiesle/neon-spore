@@ -56,6 +56,8 @@ const HALVES = [OCULUS_LEFT_MARK, OCULUS_RIGHT_MARK] as const;
 const OWES: Readonly<Record<OculusAsk, readonly number[]>> = {
   shut: HALVES,
   reseal: HALVES,
+  tap: HALVES,
+  turn: HALVES,
   fire: [OCULUS_CORE_MARK],
   glare: [OCULUS_HULL_MARK],
   look: [OCULUS_HULL_MARK],

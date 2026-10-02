@@ -72,7 +72,7 @@ function at(
   s.phaseBeat = world.beat - 1;
   s.cursor = 0;
   s.hits = 0;
-  s.heldBeats = 0;
+  s.heldTicks = 0;
   s.socketOpen = socketOpen;
   s.held = held;
   s.steps[0] = { ask, color: "either", beats: 4, offset: 2 };

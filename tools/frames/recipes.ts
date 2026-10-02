@@ -41,7 +41,7 @@ export const RECIPES: readonly Recipe[] = [
     what: "AUTO plays to a boss's receipt",
   },
   {
-    argv: '. --wave "THE OCULUS" --auto both --auto-miss --until breach --until-ticks 6000',
+    argv: '. --wave "THE VISE" --auto both --auto-miss --until breach --until-ticks 6000',
     what: "an ask let run out: the blow",
   },
   { argv: "<sha> --wave 21 --frames 6 --stride 4", what: "a short strip, for motion" },

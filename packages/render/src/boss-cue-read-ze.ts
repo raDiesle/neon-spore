@@ -1,9 +1,11 @@
 import {
   midCol,
+  type OculusAsk,
   type OculusState,
-  oculusHolding,
+  oculusLeafAsks,
   oculusLitStep,
   oculusLookCol,
+  oculusPairing,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
@@ -26,6 +28,11 @@ import { OCULUS_CORE_MARK, OCULUS_HULL_MARK, oculusMarkStanding } from "./oculus
  * MANTLE's brace (`boss-cue-read-zc.ts`): a word over a held leaf could only
  * say *keep going*, which the pair sliding shut already says.
  *
+ * **`TAP` and `TURN` the same way** since the rework in three levels of 2
+ * October 2026: a tap level's word stays on a seat's half until that seat has
+ * given its share of the taps, and a turn level's goes when its thumb is on
+ * the lever (`oculusLeafAsks`).
+ *
  * **`FIRE` at the hull under the middle column while the core is lit**, to
  * either seat. The core wants its own colour, and the word never names one:
  * the core is lit in it on both screens, and which cannon is that colour is
@@ -38,6 +45,14 @@ import { OCULUS_CORE_MARK, OCULUS_HULL_MARK, oculusMarkStanding } from "./oculus
  * **Each `FIRE` rings what its halo stands on** (`oculusMarkStanding`): the
  * lit core for a fire step, the look's notch at the hull for a look.
  */
+
+/** Each pair step's word on a half, and the kind of touch it is. */
+const PAIR_WORD: Partial<Record<OculusAsk, readonly [BossCue["kind"], string]>> = {
+  shut: ["HOLD", "HOLD"],
+  reseal: ["HOLD", "HOLD"],
+  tap: ["PRESS", "TAP"],
+  turn: ["CARRY", "TURN"],
+};
 
 export function oculusCues(
   l: Layout,
@@ -58,12 +73,14 @@ export function oculusCues(
     const x = fieldX(l, midCol(world.cfg));
     out.push({ seat: null, kind: "PRESS", word: "SHIELD", x, y: l.hullY, ...frame, seed: 133 });
   }
-  if (oculusHolding(s)) {
+  const said = step === null ? undefined : PAIR_WORD[step.ask];
+  if (said !== undefined && oculusPairing(s)) {
+    const [kind, word] = said;
     for (const seat of [1, 2] as const) {
-      if (s.held[seat === 1 ? 0 : 1]) continue;
+      if (!oculusLeafAsks(s, seat)) continue;
       const half = oculusHalfStanding(l, world, s, seat, beatPhase);
       const seed = seat === 1 ? 131 : 132;
-      out.push({ seat, kind: "HOLD", word: "HOLD", x: half.x, y: half.y, ...frame, seed });
+      out.push({ seat, kind, word, x: half.x, y: half.y, ...frame, seed });
     }
   }
   return out;

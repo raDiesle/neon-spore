@@ -13,6 +13,8 @@ import {
   runUntil,
   SCRIPT,
   shot,
+  TPB,
+  ticks,
   toLit,
   toStep,
 } from "./oculus-rig.js";
@@ -22,7 +24,7 @@ import {
  * step asks, then the ordinary shot into the socket that opens behind them.
  *
  * What these pin is the gate a phone cannot show: that one thumb counts for
- * nothing, that a thumb lifted starts the count again, that the wrong seat's
+ * nothing, that a thumb lifted keeps the count where it stood, that the wrong seat's
  * thumb is not heard, that a hold run out is tried again rather than lost,
  * that a shot outside its step or in the wrong colour does nothing, and that
  * a shot run out is the wave.
@@ -39,12 +41,12 @@ describe("THE OCULUS comes in", () => {
     expect(world.events.some((e) => e.type === "oculusEnter")).toBe(true);
   });
 
-  it("lights the first shut after it settles, under THE SLOW", () => {
+  it("lights the first shut after it settles, with no slow: the wave goes on round it", () => {
     const world = install();
     const seen = toLit(world);
     expect(seen.has("oculusLight")).toBe(true);
     expect(world.beat).toBe(CFG.oculusStillBeats);
-    expect(slowing(world)).toBe(true);
+    expect(slowing(world)).toBe(false);
   });
 
   it("takes no shot while the socket is shut", () => {
@@ -57,12 +59,13 @@ describe("THE OCULUS comes in", () => {
 });
 
 describe("a shut", () => {
-  it("counts only the beats both leaves are held, and shuts a pair at the step's count", () => {
+  it("counts only the ticks both leaves are held, and shuts a pair at the step's count", () => {
     const world = install();
     toLit(world);
     holdBoth(world);
-    beats(world, 2);
-    expect(oculus(world).heldBeats).toBe(2);
+    const from = oculus(world).heldTicks;
+    ticks(world, 2 * TPB);
+    expect(oculus(world).heldTicks - from).toBe(2 * TPB);
     expect(oculus(world).phase).toBe("lit");
     const seen = runUntil(world, (w) => oculus(w).phase === "rest");
     expect(seen.has("oculusShut")).toBe(true);
@@ -76,18 +79,25 @@ describe("a shut", () => {
     toLit(world);
     leaf(world, "left", true);
     beats(world, 2);
-    expect(oculus(world).heldBeats).toBe(0);
+    expect(oculus(world).heldTicks).toBe(0);
   });
 
-  it("starts again from nought when a thumb lifts while both were down", () => {
+  it("keeps the count where it stood when a thumb lifts, and goes on from there", () => {
     const world = install();
     toLit(world);
     holdBoth(world);
-    beats(world, 2);
+    ticks(world, 2 * TPB);
     const types = leaf(world, "right", false);
     expect(types).toContain("oculusSlip");
-    expect(oculus(world).heldBeats).toBe(0);
+    const kept = oculus(world).heldTicks;
+    expect(kept).toBeGreaterThanOrEqual(2 * TPB);
+    ticks(world, TPB);
+    expect(oculus(world).heldTicks).toBe(kept);
     expect(oculus(world).phase).toBe("lit");
+    // The press's own tick counts: the thumb is heard before the count.
+    leaf(world, "right", true);
+    ticks(world, TPB);
+    expect(oculus(world).heldTicks).toBe(kept + 1 + TPB);
   });
 
   it("does not hear the wrong seat's thumb", () => {

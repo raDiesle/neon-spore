@@ -13,6 +13,7 @@ import { lampreyHeard } from "./lamprey-hand.js";
 import { mimicHeard } from "./mimic-hand.js";
 import { oculusGuarded } from "./oculus-guard.js";
 import { oculusHeard } from "./oculus-hand.js";
+import { oculusCounted } from "./oculus-level.js";
 import { plumbHeard } from "./plumb-hand.js";
 import { rimeGuarded } from "./rime-guard.js";
 import { rimeHeard } from "./rime-hand.js";
@@ -38,8 +39,10 @@ export function scriptedHandsHeard(world: World, commands: readonly TimedCommand
   // own, only the guard and the plate read against its lit step (`seam-guard.ts`).
   seamGuarded(world);
   // THE OCULUS's two leaves, on the tick because a slip is the instant a
-  // thumb lifts; the beats held are counted on the beat (`oculus-hand.ts`).
+  // thumb lifts (`oculus-hand.ts`); and its pair counted and judged on the
+  // tick too, every tick both thumbs are down being worth one (`oculus-level.ts`).
   for (const c of commands) oculusHeard(world, c.player, c.command);
+  oculusCounted(world);
   // Its glare, THE SEAM's shield once a tick after the commands (`oculus-guard.ts`).
   oculusGuarded(world);
   // THE VISE's two gaps, on the tick for the same reason: a slip is the

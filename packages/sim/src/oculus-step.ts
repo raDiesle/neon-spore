@@ -1,24 +1,36 @@
 import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { freshOculus, type OculusState, type OculusStep, oculusBothHeld } from "./oculus.js";
-import { closeSlow, openSlow } from "./slow.js";
+import {
+  freshOculus,
+  type OculusState,
+  type OculusStep,
+  oculusIsHold,
+  oculusIsPair,
+} from "./oculus.js";
 import type { World } from "./world.js";
 
 /**
- * THE OCULUS's clock: the lens settling, each step lighting, the beats both
- * leaves are held being counted, a window running out, and the shatter.
+ * THE OCULUS's clock: the lens settling, each step lighting, a fuse running
+ * out, and the shatter.
  *
  * The shot is judged where a bolt leaves the top of the field
- * (`oculus-shot.ts`) and calls `oculusAnswered` here; the two leaves are
- * heard on the tick (`oculus-hand.ts`) and only *counted* here, on the beat,
- * because what a hold step asks is a number of beats.
+ * (`oculus-shot.ts`) and calls `oculusAnswered` here; the leaves are heard
+ * on the tick (`oculus-hand.ts`) and a pair's count is kept and judged on the
+ * tick too (`oculus-level.ts`), because a hold is worth every tick both
+ * thumbs are down, not every beat.
  *
- * **A hold that runs out is tried again**, the step relit after a rest with
- * the cursor where it was: §27 has a missed shut spring the pair back open and
- * a missed reseal swallow the socket, and neither is a hull hit. **A shot that
- * runs out is the hull**, THE SEAM's rule (`seam-step.ts`): this game has no
- * hull hit that is not the wave. So is a glare left unshielded and a look
- * left unanswered, the two story steps (`oculus-guard.ts`, `oculus-shot.ts`).
+ * **No slow** since 2 October 2026: the wave goes on round the lens and the
+ * pair work it between what falls, so a slow that stretched the field's
+ * time would stretch the wave's with it. What presses instead is the step's
+ * fuse, drawn over the lens.
+ *
+ * **A pair's fuse that runs out springs it open and lights it again**, the
+ * count back to nought and the cursor where it was: §27's missed shut, and a
+ * missed reseal swallows the socket. Neither is a hull hit. **A fire step
+ * authored with no beats waits for its shot**, as the three-level script's
+ * do; one with beats that runs out is the hull, THE SEAM's rule
+ * (`seam-step.ts`) — and so is a glare left unshielded and a look left
+ * unanswered, the two story steps (`oculus-guard.ts`, `oculus-shot.ts`).
  */
 
 export function installOculus(world: World, steps: readonly OculusStep[]): OculusState {
@@ -42,64 +54,54 @@ export function stepOculus(world: World, s: OculusState): void {
   else if (s.phase === "lit") lit(world, s, since);
 }
 
-/** How long the lit step stays lit: a hold's own beats and the grace, or the step's beats. */
+/**
+ * How long the lit step stays lit, in beats, nought for a step that waits: a
+ * hold's own `fuse`, or its beats and the grace; every other step's beats.
+ */
 export function oculusWindowBeats(world: World, step: OculusStep): number {
-  const hold = step.ask === "shut" || step.ask === "reseal";
-  return hold ? step.beats + world.cfg.oculusGraceBeats : step.beats;
+  if (oculusIsHold(step)) return step.fuse ?? step.beats + world.cfg.oculusGraceBeats;
+  return step.beats;
 }
 
 function lit(world: World, s: OculusState, since: number): void {
   const step = s.steps[s.cursor];
   if (step === undefined) return;
-  const hold = step.ask === "shut" || step.ask === "reseal";
-  if (hold && oculusBothHeld(s)) {
-    s.heldBeats += 1;
-    if (s.heldBeats >= step.beats) {
-      held(world, s, step);
-      return;
-    }
-  }
-  if (since < oculusWindowBeats(world, step)) return;
+  const lasts = oculusWindowBeats(world, step);
+  if (lasts <= 0 || since < lasts) return;
   if (step.ask === "break") rest(world, s, true);
-  else if (hold) slipped(world, s, step);
+  else if (oculusIsPair(step)) sprung(world, s, step);
   else miss(world, s);
 }
 
-/** A hold step held its beats: a pair of leaves shut, or the socket kept open. */
-function held(world: World, s: OculusState, step: OculusStep): void {
+/** A pair's count reached: its leaves shut, or the socket kept open. Called on the tick (`oculus-level.ts`). */
+export function oculusPairDone(world: World, s: OculusState, step: OculusStep): void {
   const col = midCol(world.cfg);
-  if (step.ask === "shut") {
-    s.leavesShut += 2;
-    world.events.push({ type: "oculusShut", shut: s.leavesShut, col });
-  } else {
+  if (step.ask === "reseal") {
     s.socketOpen = true;
     world.events.push({ type: "oculusReseal", col });
+  } else {
+    s.leavesShut += 2;
+    world.events.push({ type: "oculusShut", shut: s.leavesShut, col });
   }
   oculusAnswered(world, s);
 }
 
-/** A hold step ran out: the pair springs open, or the socket swallows itself. */
-function slipped(world: World, s: OculusState, step: OculusStep): void {
+/** A pair's fuse ran out: the pair springs open, or the socket swallows itself. */
+function sprung(world: World, s: OculusState, step: OculusStep): void {
   const col = midCol(world.cfg);
-  if (step.ask === "shut") world.events.push({ type: "oculusSpring", col });
-  else {
+  if (step.ask === "reseal") {
     s.socketOpen = false;
     world.events.push({ type: "oculusSwallow", col });
-  }
-  closeSlow(world);
+  } else world.events.push({ type: "oculusSpring", col });
   rest(world, s, false);
 }
 
-/**
- * The lit step has its answer: THE SLOW lets go, the cursor moves on and the
- * lens rests. Called by the shot and by a hold's count.
- */
+/** The lit step has its answer: the cursor moves on and the lens rests. Called by the shot and by a pair's count. */
 export function oculusAnswered(world: World, s: OculusState): void {
-  closeSlow(world);
   rest(world, s, true);
 }
 
-/** The next step lights, under THE SLOW unless it is a break; or, with the script done, the lens shatters. */
+/** The next step lights; or, with the script done, the lens shatters. */
 function next(world: World, s: OculusState): void {
   const step = s.steps[s.cursor];
   const col = midCol(world.cfg);
@@ -112,13 +114,11 @@ function next(world: World, s: OculusState): void {
   s.phase = "lit";
   s.phaseBeat = world.beat;
   s.litTick = world.tick;
-  s.heldBeats = 0;
   if (step.ask === "break") {
     s.socketOpen = true;
     world.events.push({ type: "oculusBreak", col });
     return;
   }
-  openSlow(world, oculusWindowBeats(world, step), "ask");
   world.events.push({ type: "oculusLight", ask: step.ask, col });
 }
 
@@ -129,14 +129,21 @@ function next(world: World, s: OculusState): void {
 function miss(world: World, s: OculusState): void {
   const col = midCol(world.cfg);
   world.events.push({ type: "oculusMiss", col });
-  closeSlow(world);
   rest(world, s, true);
   bossStrikesHull(world, "oculus", col);
 }
 
+/**
+ * Between steps: the count of the step just gone back to nought — its own
+ * kept progress is the only kind there is, and a new step starts from none.
+ * A lever still taken is taken again from where it stands.
+ */
 function rest(world: World, s: OculusState, advance: boolean): void {
   s.phase = "rest";
   s.phaseBeat = world.beat;
-  s.heldBeats = 0;
+  s.heldTicks = 0;
+  s.taps = [0, 0];
+  s.turned = [0, 0];
+  s.leverBest = [s.leverAt[0], s.leverAt[1]];
   if (advance) s.cursor += 1;
 }

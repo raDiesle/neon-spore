@@ -1,7 +1,7 @@
 import {
   OCULUS_LEAVES,
   type OculusState,
-  oculusBothHeld,
+  oculusLevelShare,
   oculusLitStep,
   type SimConfig,
 } from "@neon-spore/sim";
@@ -14,10 +14,11 @@ import { phaseInto } from "./phase-into.js";
  * the one morph between them the spec asks for, a pair of leaves sliding
  * across the face as both thumbs hold it.
  *
- * **The hold is the slide.** A lit shut step draws its pair closing by the
- * share of its beats both leaves have been down, so the pair creeps across
- * while the thumbs stay and the count is read off the face rather than off a
- * number; a thumb lifted drops the count to nought and the pair is back out.
+ * **The count is the slide.** A lit pair — held, tapped or turned — draws
+ * closing by the share of its count the pair has made (`oculusLevelShare`),
+ * so it creeps across while the thumbs work and the count is read off the
+ * face rather than off a number. A thumb lifted leaves it standing where it
+ * got to, since 2 October 2026; a fuse run out springs it back out.
  */
 
 /** Pairs are opposite leaves: leaf `k` and leaf `k + 3` shut together. */
@@ -43,12 +44,9 @@ export function oculusLitPair(s: OculusState): number {
   return Math.min(PAIRS - 1, s.leavesShut / 2);
 }
 
-/** How much of a lit hold step both thumbs have held, the running beat included while both are down. */
-export function oculusHeldShare(s: OculusState, beatPhase: number): number {
-  const step = oculusLitStep(s);
-  if (step === null || (step.ask !== "shut" && step.ask !== "reseal")) return 0;
-  const running = oculusBothHeld(s) ? beatPhase : 0;
-  return Math.min(1, (s.heldBeats + running) / Math.max(1, step.beats));
+/** How much of the lit pair the two seats have made, by whichever gesture it asks. */
+export function oculusHeldShare(s: OculusState, cfg: SimConfig): number {
+  return oculusLevelShare(cfg, s);
 }
 
 /**
@@ -85,13 +83,14 @@ export function oculusShut(
   const pairsShut = s.leavesShut / 2;
   const step = oculusLitStep(s);
   const lit = oculusLitPair(s);
-  const held = oculusHeldShare(s, beatPhase);
+  const held = oculusHeldShare(s, cfg);
   const burst = s.phase === "shatter" ? oculusShatter(s, cfg, beat, beatPhase) : 0;
   const shut: number[] = [];
   for (let k = 0; k < OCULUS_LEAVES; k++) {
     const pair = k % PAIRS;
     let v = pair < pairsShut ? 1 : 0;
-    if (step?.ask === "shut" && pair === lit) v = held;
+    const shuts = step?.ask === "shut" || step?.ask === "tap" || step?.ask === "turn";
+    if (shuts && pair === lit) v = held;
     if (step?.ask === "reseal" && pair === lit) v = 1 - CRACK * (1 - held);
     shut.push(v * (1 - Math.min(1, burst * 2)));
   }

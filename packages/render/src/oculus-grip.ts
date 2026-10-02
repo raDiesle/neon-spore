@@ -26,10 +26,11 @@ import { bossOf } from "./touch-field.js";
  * are counted from its first beat — which is the thing to teach, *get your
  * thumbs on before it asks*.
  *
- * **The hold is a press, never a carry.** The thumb is down or up, and the
- * leaf pair slides across the face by how long both have been down
- * (`oculus-pose.ts`); where a thumb wanders to after the press means
- * nothing, and the lift is what lets go.
+ * **A hold and a tap are a press, never a carry.** The thumb is down or up,
+ * and the leaf pair slides across the face by how far the pair has come
+ * (`oculus-pose.ts`); the lift is what lets go. **A turn is the one carry**:
+ * the leaf is a lever then, and the thumb going round the lens is read as an
+ * arc of the levers' ring.
  */
 
 /** Whether the lens is there to be held: every phase but the shatter. */
@@ -98,9 +99,14 @@ export function oculusLeafUnder(l: Layout, x: number, y: number, field: Field): 
   const seat = field.seat;
   if (dx * oculusSide(seat) < 0) return null;
   const target = seat === 1 ? "oculusLeafLeft" : "oculusLeafRight";
+  // Read round the lens, never sideways: on a turn the leaf is a lever, and
+  // how far round it has come is an arc of the ring its knob runs on
+  // (`rimFrom`, `sim/oculus-hand.ts`). A hold or a tap ignores where it goes.
+  const r = (field.cfg.oculusLeverRadiusMilli / 1000) * l.tile;
+  const rim = { cx: lens.x, cy: lens.y, r, angle: Math.atan2(dy, dx) };
   return {
     player: seat,
     command: { kind: "drag", target, on: true, fromMilli: 0 },
-    hold: { kind: "drag", target, player: seat, originX: x, originY: y },
+    hold: { kind: "drag", target, player: seat, originX: x, originY: y, rim },
   };
 }
