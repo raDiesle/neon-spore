@@ -32111,3 +32111,19 @@ Bottleneck: looking — the entry was filed from the commit that made the
 mouth open, so only a frame of today's tree could say whether it still held.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE STARE is survived, not shot: five turns a level, and lashes to pull
+
+- reading: 15 min. The eye's six sim files, its lid and cue on the render
+  side, and the fourteen registrations of `new-boss-state`.
+- writing: 40 min. The turn clock, the lash hand, the dead shot, the hash,
+  the config, the sounds, the hands, the cue, the fan, every test and the
+  spec section.
+- looking: 10 min. The eye before, and the charge with one lash up and one
+  under a thumb.
+- friction: 5 min. The fingerprint did not see the seat pairs' length, and
+  the `PULL` reason ran off the screen's edge.
+- landing: 10 min. `check:fast` twice, `index`, `land`.
+
+Bottleneck: writing — the rename of the lid to the lashes reaches eighteen
+files outside the boss, and each one is only found by the typecheck.

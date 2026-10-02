@@ -17,13 +17,14 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **The struck eye shudders** — `docs/spec/bosses.md` says so, and the globe
+ * **The rising eye shudders** — `docs/spec/bosses.md` says so, and the globe
  * taken from VERSUS on 1 October 2026 had stopped: it read `face` and `open`
- * and dropped `lean`, which carried the hurt shudder as well as the sliver's
- * shear. Now the ball turns by `lean` while it is square, so a hit rattles
- * it in its socket. The eye is painted straight through its record, with the
+ * and dropped `lean`, which carried the shudder as well as the sliver's
+ * shear. Now the ball turns by `lean` while it is square, so a level won
+ * rattles it in its socket — a hit did, until the eye stopped taking hits on
+ * 2 October 2026. The eye is painted straight through its record, with the
  * wall clock and the beat clock held still, so the only thing that can move
- * the picture between two beats of the hurt is the shudder.
+ * the picture between two beats of the rise is the shudder.
  */
 
 beforeAll(installCanvasGlobals);
@@ -61,9 +62,9 @@ function painted(s: StareState, beat: number, phase: number): string {
   return log.join("|");
 }
 
-describe("THE STARE's struck eye", () => {
-  it("rattles across the beats after a hit", () => {
-    const s = eye("hurt");
+describe("THE STARE's rising eye", () => {
+  it("rattles across the beats after a level is won", () => {
+    const s = eye("rise");
     const frames = [0.1, 0.3, 0.5, 0.7].map((t) => painted(s, 0, t));
     expect(new Set(frames).size).toBe(frames.length);
   });

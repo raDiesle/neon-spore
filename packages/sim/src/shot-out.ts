@@ -147,7 +147,7 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   met = haspStruck(world, b) || met;
   // THE RATCHET's, the same again (`ratchet-shot.ts`).
   met = ratchetStruck(world, b) || met;
-  // THE STARE's shut eye, on a live pass, in either colour (`stare-shot.ts`).
+  // THE STARE's eye, which nothing hurts: met, and armour (`stare-shot.ts`).
   met = stareStruck(world, b) || met;
   // THE HIVE's underside: an open breach in the bolt's column and colour is
   // sealed, the wrong colour provokes it (`hive-shot.ts`).

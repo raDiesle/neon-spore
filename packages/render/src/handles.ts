@@ -43,7 +43,7 @@ import { sinewHandleUnder } from "./sinew-handles.js";
 import { slingDrawUnder } from "./sling-grip.js";
 import { snakeGripUnder } from "./snake-grip.js";
 import { spoolBrakeUnder } from "./spool-grip.js";
-import { stareLidUnder } from "./stare-lid.js";
+import { stareLashUnder } from "./stare-lash-pull.js";
 import { surgeBulbUnder } from "./surge-grip.js";
 import { tasterGripUnder } from "./taster-grip.js";
 import { throatGripUnder } from "./throat-grip.js";
@@ -107,7 +107,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     gimbalRingUnder(l, x, y, field) ??
     instarMarkUnder(l, x, y, field) ??
     filamentGrabUnder(l, x, y, field) ??
-    stareLidUnder(l, x, y, field) ??
+    stareLashUnder(l, x, y, field) ??
     queenMarkUnder(l, x, y, field) ?? // THE BULB QUEEN's marks, under BROOD and SCREAM (`queen-grip.ts`).
     mirrorLobeUnder(l, x, y, field) ?? // THE MIRROR's two lobes, its last round and its pin (`mirror-grip.ts`).
     gorgeGripUnder(l, x, y, field) ?? // THE GORGE's tap, the ring's shut bottom bubble (`gorge-grip.ts`).

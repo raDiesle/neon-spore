@@ -95,9 +95,9 @@ export class StareFx {
         this.ventNow = 1;
         burst(eye.cx - eye.rx, eye.cy, 10, PALETTE.cyan);
         burst(eye.cx + eye.rx, eye.cy, 10, PALETTE.cyan);
-      } else if (e.type === "stareBlast" || e.type === "stareHit") {
-        // The beam let go, or a bolt home: the eye goes white, half as hard
-        // as a catch and with no panel under it.
+      } else if (e.type === "stareBlast" || e.type === "stareRise") {
+        // The beam let go, or a level won and the eye rising in rage: the eye
+        // goes white, half as hard as a catch and with no panel under it.
         this.flashNow = Math.max(this.flashNow, 0.5);
       }
     }

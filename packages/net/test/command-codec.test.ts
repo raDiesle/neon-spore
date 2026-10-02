@@ -53,9 +53,10 @@ const ACCEPTED: Command[] = [
   // (`sim/filament-hand.ts`), so the tile is in the numbers and nothing else.
   { kind: "drag", target: "filament", on: true, fromMilli: -1000, fromYMilli: -2000 },
   { kind: "drag", target: "filament", on: false, fromMilli: 0 },
-  // THE STARE's lid: a depth on the y, the way THE SINEW's are (`sim/stare-hand.ts`).
-  { kind: "drag", target: "stareLid", on: true, fromMilli: 0, fromYMilli: 600 },
-  { kind: "drag", target: "stareLid", on: false, fromMilli: 0 },
+  // THE STARE's lashes: a rise on the y, up negative, the way THE SINEW's
+  // are read (`sim/stare-hand.ts`).
+  { kind: "drag", target: "stareLash", on: true, fromMilli: 0, fromYMilli: -350 },
+  { kind: "drag", target: "stareLash", on: false, fromMilli: 0 },
   // THE BULB QUEEN's marks: `id` 0 is the left, 1 the right, and what the
   // press is worth is her phase's (`sim/queen-hand.ts`).
   { kind: "drag", target: "queenMark", on: true, fromMilli: 250, fromYMilli: 400, id: 1 },
@@ -415,7 +416,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   antiphonOrgan: true,
   instarMark: true,
   filament: true,
-  stareLid: true,
+  stareLash: true,
   queenMark: true,
   mirrorLobe: true,
   gorgeLobe: true,

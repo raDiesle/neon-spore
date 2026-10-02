@@ -8,8 +8,9 @@ import type { Cue } from "./bind.js";
  *
  * **A beat is the music** (`sounds/boss-stare.ts`): a knock on a shut beat, a
  * blink on an open one, the downbeat of the pattern a touch louder so the bar
- * can be counted, and each level a step higher — a level is also a key.
- * `stareAgain` is silent by design: the blue pass that follows it is heard.
+ * can be counted, and each level a step higher — a level is also a key. A
+ * lash pulled is a pluck that climbs as the charge's lashes come up, so the
+ * pair hears how close the vent is.
  */
 export function stareCue(e: Extract<SimEvent, { type: `stare${string}` }>): Cue | null {
   switch (e.type) {
@@ -20,16 +21,16 @@ export function stareCue(e: Extract<SimEvent, { type: `stare${string}` }>): Cue 
     }
     case "stareCaught":
       return { id: "boss.stareCaught" };
-    case "stareHit":
-      return { id: "boss.stareHit", pitch: 1 + e.level * 0.06 };
+    case "stareRise":
+      return { id: "boss.stareRise", pitch: 1 + e.level * 0.06 };
     case "stareCharge":
-      return { id: "boss.stareCharge", pitch: 1 + e.pass * 0.05 };
+      return { id: "boss.stareCharge", pitch: 1 + e.turn * 0.05 };
+    case "stareLash":
+      return { id: "boss.stareLash", pitch: 1 + (0.5 * e.up) / Math.max(1, e.of) };
     case "stareVent":
       return { id: "boss.stareVent" };
     case "stareBlast":
       return { id: "boss.stareBlast" };
-    case "stareAgain":
-      return null;
     case "stareOut":
       return { id: "boss.stareOut" };
   }

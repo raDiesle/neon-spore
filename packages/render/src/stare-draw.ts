@@ -15,8 +15,8 @@ import { PALETTE, STROKE } from "./palette.js";
 import { drawCharge, drawVent } from "./stare-charge.js";
 import { STARE_EYE } from "./stare-eye-look.js";
 import type { StareFx } from "./stare-fx.js";
+import { drawStareLashPull } from "./stare-lash-pull.js";
 import { drawLashes, drawScars } from "./stare-lashes.js";
-import { drawStareLid } from "./stare-lid.js";
 import {
   cowlPath,
   type StareEye,
@@ -37,8 +37,9 @@ import {
  * freeze on an open beat, so the gaze, the score and the lid are on both
  * phones. The **score** is the fan of lashes under the eye, one a beat of
  * the level's pattern (`stare-lashes.ts`) — the rhythm for a player with the
- * sound off. The cowl carries a scar for every level taken off it, and the
- * charge and the vent are `stare-charge.ts`'s.
+ * sound off. The cowl carries a scar for every level survived, the charge
+ * and the vent are `stare-charge.ts`'s, and the lashes the charge asks to be
+ * pulled are `stare-lash-pull.ts`'s.
  *
  * **The ink says what an open eye costs**: cyan on the teaching pass and its
  * lead-in, where nothing is caught, with a halo round the cowl; the hull's
@@ -109,8 +110,8 @@ export function drawStare(
     beats: beat + beatPhase,
   });
   drawCharge(ctx, eye, swell, beatPhase, time);
-  // The lid over it while it charges, and its ring (`stare-lid.ts`).
-  drawStareLid(ctx, l, cfg, boss, time, ink.rim);
+  // The lashes over it while it charges, to be pulled (`stare-lash-pull.ts`).
+  drawStareLashPull(ctx, l, cfg, boss, time);
 
   // The lashes are the score, from the lead-in to the end of the pass.
   if (boss.phase === "rest" || boss.phase === "teach" || boss.phase === "live") {

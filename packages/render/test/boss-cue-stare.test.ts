@@ -12,10 +12,9 @@ import {
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { STARE_WHY } from "../src/boss-cue-read-d.js";
-import { fieldX } from "../src/field-flip.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
-import { stareLidRest } from "../src/stare-lid.js";
-import { stareEye, stareGazeFootY } from "../src/stare-shape.js";
+import { stareLashCrown } from "../src/stare-lash-pull.js";
+import { stareGazeFootY } from "../src/stare-shape.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -31,10 +30,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * (`render/src/boss-cue-read-d.ts`), since 29 September 2026 on both seats.
  *
  * `STILL` at the foot of the gaze on an open beat of a live pass — never on
- * the blue teaching pass, which costs nothing — `FIRE` at the cannon on a
- * shut live beat with a shut beat after it, `MOVE` first if the cannon is not
- * under the eye, and `PULL` beside the lid's ring while the eye charges and
- * no thumb has it yet. Everything else is silence.
+ * the blue teaching pass, which costs nothing — and `PULL` beside the
+ * lashes' crown while the eye charges and no thumb is on them yet. Nothing
+ * says `FIRE` since 2 October 2026: the eye cannot be hurt. Everything else
+ * is silence.
  */
 
 beforeAll(installCanvasGlobals);
@@ -87,61 +86,30 @@ describe("THE STARE's cue", () => {
     expect(mine?.why).toBe(STARE_WHY.STILL);
   });
 
-  it.each(ROLES)("says PULL beside the lid's ring on %s while the eye charges", (role) => {
+  it.each(ROLES)("says PULL beside the lashes on %s while the eye charges", (role) => {
     const world = hung();
     set(world, "charge", false);
     const mine = cue(world, role);
     expect(mine?.word).toBe("PULL");
     expect(mine?.kind).toBe("CARRY");
     expect(mine?.why).toBe(STARE_WHY.PULL);
-    // Level with the ring and clear of it, so the word is not written over
+    // Level with the crown and clear of it, so the word is not written over
     // the thing it names.
-    const rest = stareLidRest(LAYOUT[role], CFG);
+    const rest = stareLashCrown(LAYOUT[role], CFG);
     expect(mine?.y).toBe(rest.y);
     expect(mine?.x ?? 0).toBeGreaterThan(rest.x + rest.r * 2);
-    // Once a thumb has the lid there is nothing left to say to it.
-    eye(world).lidSeat = 1;
+    // Once a thumb is on the lashes there is nothing left to say to it.
+    eye(world).lashHeld[1] = true;
     expect(cue(world, role)).toBeNull();
   });
 
-  it.each(["p2", "test"] as const)(
-    "says FIRE on %s at the cannon under the eye, aimed at it",
-    (role) => {
-      const world = hung();
-      world.cannonCol = midCol(CFG);
-      set(world, "live", false);
-      const mine = cue(world, role);
-      const l = LAYOUT[role];
-      const e = stareEye(l, CFG);
-      expect(mine?.word).toBe("FIRE");
-      expect(mine?.seat).toBe(2);
-      expect(mine?.x).toBe(fieldX(l, midCol(CFG)));
-      expect(mine?.y).toBe(l.hullY);
-      expect(mine?.aim).toEqual({ x: e.cx, y: e.cy, r: e.ry });
-      expect(mine?.why).toBe(STARE_WHY.FIRE);
-    },
-  );
-
-  it.each(["p1", "test"] as const)(
-    "says MOVE on %s at the cannon when it is not under the eye",
-    (role) => {
-      const world = hung();
-      world.cannonCol = midCol(CFG) - 2;
-      set(world, "live", false);
-      const mine = cue(world, role);
-      expect(mine?.word).toBe("MOVE");
-      expect(mine?.seat).toBe(1);
-      expect(mine?.x).toBe(fieldX(LAYOUT[role], world.cannonCol));
-    },
-  );
-
-  it("tells each seat only its own half of a clear shot", () => {
+  it.each(ROLES)("says nothing on %s on a shut live beat: there is nothing to shoot", (role) => {
     const world = hung();
-    world.cannonCol = midCol(CFG);
-    set(world, "live", false);
-    expect(cue(world, "p1")).toBeNull();
     world.cannonCol = midCol(CFG) - 2;
-    expect(cue(world, "p2")).toBeNull();
+    set(world, "live", false);
+    expect(cue(world, role)).toBeNull();
+    world.cannonCol = midCol(CFG);
+    expect(cue(world, role)).toBeNull();
   });
 
   it.each(ROLES)("says nothing on %s on the blue pass, open or shut", (role) => {
@@ -152,13 +120,11 @@ describe("THE STARE's cue", () => {
     expect(cue(world, role)).toBeNull();
   });
 
-  it.each(ROLES)("says nothing on %s on a shut beat before an open one, or at rest", (role) => {
+  it.each(ROLES)("says nothing on %s at rest, or while the eye rises", (role) => {
     const world = hung();
-    world.cannonCol = midCol(CFG);
-    // Beat 2 of `...x....`: a bolt now would land as the eye opens.
-    set(world, "live", false, 2);
-    expect(cue(world, role)).toBeNull();
     set(world, "rest", false);
+    expect(cue(world, role)).toBeNull();
+    set(world, "rise", false);
     expect(cue(world, role)).toBeNull();
   });
 

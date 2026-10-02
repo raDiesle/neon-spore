@@ -101,7 +101,7 @@ export const BOSS_MECHANICS = {
     reach: "spawn",
   },
   stare: {
-    what: "An eye opens on the beat. Learn its rhythm on the blue pass. Open: nobody touches anything. Shut: shoot it. Charging: pull the lid.",
+    what: "An eye opens on the beat. Learn its rhythm on the blue pass. Open: touch nothing. Charging: pull up every lash. You cannot hurt it. Live five turns a level.",
     reach: "spawn",
   },
   baton: {

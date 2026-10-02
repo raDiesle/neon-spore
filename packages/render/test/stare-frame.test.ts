@@ -63,20 +63,13 @@ function eye(world: World): StareState {
   return s;
 }
 
-/** The eye in `phase`, a beat in, open or shut, with the lid `lidMilli` down under `lidSeat`. */
-function set(
-  world: World,
-  phase: StareState["phase"],
-  open = false,
-  lidSeat: 0 | 1 | 2 = 0,
-  lidMilli = 0,
-): StareState {
+/** The eye in `phase`, a beat in, open or shut, with `up` lashes pulled. */
+function set(world: World, phase: StareState["phase"], open = false, up = 0): StareState {
   const s = eye(world);
   s.phase = phase;
   s.phaseBeat = world.beat - 1;
   s.open = open;
-  s.lidSeat = lidSeat;
-  s.lidMilli = lidMilli;
+  s.lashesUp = up;
   return s;
 }
 
@@ -114,7 +107,7 @@ describe("THE STARE's eye", () => {
     const rest = frame(role, (w) => set(w, "rest"));
     expect(rest.calls).toBeGreaterThan(100);
     expect(rest.text).toContain(PALETTE.rockDark);
-    for (const phase of ["teach", "live", "charge", "hurt", "dying"] as const) {
+    for (const phase of ["teach", "live", "charge", "rise", "calm"] as const) {
       expect(frame(role, (w) => set(w, phase)).calls).toBeGreaterThan(100);
     }
   });
@@ -147,7 +140,7 @@ describe("THE STARE's eye", () => {
   it.each(ROLES)("swells and heats the shut eye as the charge fills on %s", (role) => {
     const early = frame(role, (w) => set(w, "charge"));
     const late = frame(role, (w) => {
-      set(w, "charge").phaseBeat = w.beat - (CFG.stareChargeBeats - 1);
+      set(w, "charge").phaseBeat = w.beat - (CFG.stareChargeBeats + 1);
     });
     expect(late.text).not.toBe(early.text);
     // The core is round, and a shut live eye has none.
@@ -156,7 +149,7 @@ describe("THE STARE's eye", () => {
     );
   });
 
-  it.each(ROLES)("cuts a scar into the cowl for each level taken, on %s", (role) => {
+  it.each(ROLES)("cuts a scar into the cowl for each level survived, on %s", (role) => {
     const none = frame(role, (w) => set(w, "rest"));
     const two = frame(role, (w) => {
       set(w, "rest").level = 2;
@@ -175,15 +168,22 @@ describe("THE STARE's eye", () => {
     expect(after).toBeGreaterThan(0);
   });
 
-  it.each(ROLES)("brings the lid down with its handle on %s while the eye charges", (role) => {
-    // A lid half down fills its channel green behind the knob (`pull-track.ts`)
-    // — the one green in the picture — and it is on every screen: either seat
-    // may pull.
-    const half = frame(role, (w) => set(w, "charge", false, 1, CFG.stareLidPullMilli / 2));
+  it.each(ROLES)("stands the lashes up green as they are pulled, on %s", (role) => {
+    // A pulled lash is lit green — the owner's colour for a pull done, and
+    // the one green in the picture — and the fan is on every screen: both
+    // seats pull.
+    const two = frame(role, (w) => set(w, "charge", false, 2));
     const none = frame(role, (w) => set(w, "charge"));
-    expect(count(half.text, PALETTE.good)).toBeGreaterThan(0);
-    expect(count(half.text, PALETTE.rockDark)).toBeGreaterThan(count(none.text, PALETTE.rockDark));
-    // And no lid at all outside the charge.
+    expect(count(two.text, PALETTE.good)).toBeGreaterThan(0);
+    expect(count(none.text, PALETTE.good)).toBe(0);
+    // A lash on its way up under a thumb is another picture again.
+    const going = frame(role, (w) => {
+      const s = set(w, "charge", false, 2);
+      s.lashHeld[0] = true;
+      s.lashMilli[0] = CFG.stareLashPullMilli / 2;
+    });
+    expect(going.text).not.toBe(two.text);
+    // And no fan at all outside the charge.
     expect(count(frame(role, (w) => set(w, "live")).text, PALETTE.good)).toBe(0);
   });
 

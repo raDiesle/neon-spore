@@ -34,7 +34,7 @@ import { bossOf } from "./touch-field.js";
  *
  * **The lift is remapped and not one-to-one.** A handle that is a point can
  * sit exactly under the thumb; a hem the simulation calls high
- * has to *look* gathered, which is `stare-lid.ts`' case. Half a tile of thumb
+ * has to *look* gathered, which was THE STARE's lid's case. Half a tile of thumb
  * is not a sheet's worth of hem, so the full `curtainLiftMilli` draws the edge
  * up `HEM_DROP + RAIL_RISE - HEM_GATHER` tiles — to a sliver of cloth under the
  * rail, which is what a curtain gathered to the top looks like. The gap over

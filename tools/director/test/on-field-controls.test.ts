@@ -147,11 +147,11 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // `filamentGrabUnder` under `handleUnder()` at the ring each screen
   // draws (`render/filament-grip.ts`, `docs/spec/bosses.md` §11.33).
   filament: "field",
-  // `stareLid` is heard by `sim/stare-hand.ts` — a depth on the y from the
-  // seat the eye is not looking at — answered by `stareLidUnder` under
-  // `handleUnder()` at the ring only that seat's screen draws
-  // (`render/stare-lid.ts`, `docs/spec/bosses.md` §11.16).
-  stareLid: "field",
+  // `stareLash` is heard by `sim/stare-hand.ts` — a rise on the y from
+  // either seat, a lash for every pull — answered by `stareLashUnder` under
+  // `handleUnder()` on the fan both screens draw over the eye
+  // (`render/stare-lash-pull.ts`, `docs/spec/bosses.md` §11.16).
+  stareLash: "field",
   // `queenMark` is THE BULB QUEEN's two marks under player 1's thumb —
   // pried open under BROOD, held open under SCREAM (`sim/queen-hand.ts`,
   // `field-controls-queen.ts`).

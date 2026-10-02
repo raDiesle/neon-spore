@@ -65,8 +65,8 @@ const EITHER: Record<string, { as: string; when?: (w: World) => boolean }> = {
   grip: { as: "grip" },
   // Either thumb turns the organ (`sim/antiphon-hand.ts`).
   antiphonOrgan: { as: "antiphonOrgan" },
-  // Either seat pulls the lid, and the first thumb on it keeps it (`sim/stare-hand.ts`).
-  stareLid: { as: "stareLid" },
+  // Both seats pull the lashes at once (`sim/stare-hand.ts`).
+  stareLash: { as: "stareLash" },
   // Either seat taps a tall lobe (`sim/undertow-press.ts`).
   undertowTap: { as: "undertowTap" },
   // The works are one zone for both chords, and either brakes outside a tap;

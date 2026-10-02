@@ -1,3 +1,4 @@
+import type { SimConfig } from "./config.js";
 import { reachesShip } from "./ship-verbs.js";
 import type { Command } from "./types.js";
 
@@ -14,20 +15,24 @@ import type { Command } from "./types.js";
  * 1. **teach** — the eye glows blue and plays its pattern once. It opens on
  *    the pattern's beats and nothing it sees costs anything: this pass is the
  *    pair learning the rhythm, by ear and by the lashes (render/).
- * 2. **live** — the same pattern, for real, up to `starePasses` times. On an
- *    open beat **both** seats sit still: any press that reaches the ship is
- *    caught, and the laser strikes the column the cannon was sent to
- *    (`stare-step.ts`). On a closed beat a bolt up the middle column hits the
- *    eye, and one hit ends the level.
- * 3. **charge** — after every pass without a hit the shut eye swells with a
- *    beam. Either seat pulls the lid down in time and the energy vents out to
- *    the sides (`stare-hand.ts`); nobody does, and the beam comes straight
- *    down the middle column onto the hull.
+ * 2. **live** — the same pattern, for real. On an open beat **both** seats sit
+ *    still: any press that reaches the ship is caught, and the laser strikes
+ *    the column the cannon was sent to (`stare-step.ts`).
+ * 3. **charge** — after every live pass the shut eye swells with a beam, and
+ *    the pair pulls its lashes up: `stareLashesFirst` on the first level and
+ *    twice as many on every level after (`stareLashesOwed`). All of them up in
+ *    time and the energy vents out to the sides (`stare-hand.ts`); not, and
+ *    the beam comes straight down the middle column onto the hull.
  *
- * Three passes with no hit and the level starts again from its blue pass. The
- * last level hit, the eye dies and the wave is won. There is nothing else on
- * the field: the owner, the same day — *rocks falling is stupid because it
- * doesn't relate to the boss*. So the wave is the boss (`bossFillsWave`).
+ * A live pass and its charge is one **turn**, and `stareTurns` of them
+ * survived is the level won: the eye rises to the next, angrier. **The eye
+ * cannot be hurt.** The owner, 2 October 2026: *the eye cannot be shot or
+ * destroyed, just the sequence will take until it reaches next level and
+ * succeed it.* So a bolt up the middle meets it and does nothing
+ * (`stare-shot.ts`), and the last level survived is the wave won. There is
+ * nothing else on the field: the owner, 29 September — *rocks falling is
+ * stupid because it doesn't relate to the boss*. So the wave is the boss
+ * (`bossFillsWave`).
  *
  * The clock is `stare-step.ts` and what goes into the fingerprint is
  * `stare-hash.ts`. This file is the shape and the questions asked of it.
@@ -37,7 +42,7 @@ import type { Command } from "./types.js";
  * The phases, in the order `stare-hash.ts` numbers them by. A list rather than
  * a bare union for `SNAKE_PHASES`' reason: the order is a wire value.
  */
-export const STARE_PHASES = ["rest", "teach", "live", "charge", "hurt", "dying"] as const;
+export const STARE_PHASES = ["rest", "teach", "live", "charge", "rise", "calm"] as const;
 
 /** Where the eye is in its fight. */
 export type StarePhase = (typeof STARE_PHASES)[number];
@@ -53,10 +58,10 @@ export interface StareState {
    * A string because that is how a rhythm is read aloud and written down.
    */
   levels: readonly string[];
-  /** The level being played; `levels.length` once the last is hit. */
+  /** The level being played; `levels.length` once the last is survived. */
   level: number;
-  /** Which live pass of this level, from 0 to `starePasses - 1`. */
-  pass: number;
+  /** Which turn of this level, from 0 to `stareTurns - 1`. */
+  turn: number;
   /** Whether the eye is open *this beat*. Set on the beat, read on the tick. */
   open: boolean;
   /** `world.tick` a seat was caught moving on an open beat, or -1. */
@@ -65,10 +70,18 @@ export interface StareState {
   caughtPlayer: 0 | 1 | 2;
   /** The column the laser struck, where the cannon was sent; -1 before a catch. */
   caughtCol: number;
-  /** The seat whose thumb is on the lid, or 0. */
-  lidSeat: 0 | 1 | 2;
-  /** How far down the lid is, in thousandths of a tile, to `stareLidPullMilli`. */
-  lidMilli: number;
+  /** Lashes pulled up this charge, to `stareLashesOwed`. */
+  lashesUp: number;
+  /** Whether each seat, `[pilot, navigator]`, has a thumb on the lashes. */
+  lashHeld: [boolean, boolean];
+  /**
+   * Each seat's lowest `fromYMilli` since its last lash came up: the pull is
+   * measured from here, so a thumb that comes back down and goes up again
+   * pulls the next lash.
+   */
+  lashBaseMilli: [number, number];
+  /** How far up each seat has the lash it holds, in thousandths of a tile, to `stareLashPullMilli`. */
+  lashMilli: [number, number];
 }
 
 /** The pattern of the level being played, or `""` once the last is done. */
@@ -94,42 +107,55 @@ export function stareTeaching(s: StareState): boolean {
 
 /**
  * Whether the pass the eye is on, or is resting before, is the blue one: the
- * teach itself, and the lead-in to it. A pass is 0 only at the top of a level,
- * which is where the blue pass is (`stare-step.ts` asks this to choose).
+ * teach itself, and the lead-in to it. A turn is 0 at rest only at the top of
+ * a level, which is where the blue pass is (`stare-step.ts` asks this to
+ * choose).
  */
 export function stareBlue(s: StareState): boolean {
-  return s.phase === "teach" || (s.phase === "rest" && s.pass === 0);
+  return s.phase === "teach" || (s.phase === "rest" && s.turn === 0);
 }
 
-/**
- * Whether a shot now is a clean one: shut on a live pass, and the pattern's
- * next beat shut too, so no press lands on the tick the eye opens and no bolt
- * arrives at an open eye. What the hands shoot on and the `FIRE` cue asks on.
- */
-export function stareClearShot(s: StareState, beat: number): boolean {
-  if (!stareShootable(s)) return false;
-  const next = stareStepAt(s, beat) + 1;
-  return stareLevelPattern(s)[next] === ".";
-}
-
-/** Whether the eye is charging its beam and the lid is the pair's to pull. */
+/** Whether the eye is charging its beam and the lashes are the pair's to pull. */
 export function stareCharging(s: StareState): boolean {
   return s.phase === "charge";
 }
 
-/** Whether a bolt up the middle column would hit the eye now: live and shut. */
-export function stareShootable(s: StareState): boolean {
-  return s.phase === "live" && !s.open;
+/**
+ * **How many lashes this level's charge asks for**: `stareLashesFirst` on the
+ * first level and twice as many on each after. The owner, 2 October 2026:
+ * *first level 4 and every level more doubling it.*
+ */
+export function stareLashesOwed(s: StareState, cfg: SimConfig): number {
+  return cfg.stareLashesFirst * 2 ** Math.min(s.level, 10);
+}
+
+/**
+ * **How long this level's charge runs**, in beats: `stareChargeBeats`, and
+ * `stareLashBeatsMilli` more for every lash it asks for, so a level with
+ * twice the lashes gives the pair the time to pull them.
+ */
+export function stareChargeLength(s: StareState, cfg: SimConfig): number {
+  const lashes = stareLashesOwed(s, cfg);
+  return cfg.stareChargeBeats + Math.ceil((lashes * cfg.stareLashBeatsMilli) / 1000);
+}
+
+/**
+ * **Turns left before the next level**, counting the one being played: what
+ * the eye shows the pair (render/). `stareTurns` at the top of a level, 1 on
+ * its last turn.
+ */
+export function stareTurnsLeft(s: StareState, cfg: SimConfig): number {
+  return Math.max(0, cfg.stareTurns - s.turn);
 }
 
 /**
  * **What an open eye forbids**, and it is every verb that reaches the ship —
  * the owner's rule when this boss was first built: *you are not allowed to
  * shoot or move or use shield*. The list is `reachesShip` (`ship-verbs.ts`),
- * shared with THE BATON so the two cannot drift. The lid is a hand on the
- * eye, not on the ship, and is never a catch.
+ * shared with THE BATON so the two cannot drift. The lashes are a hand on the
+ * eye, not on the ship, and are never a catch.
  */
 export function stareForbids(c: Command): boolean {
-  if (c.kind === "drag" && c.target === "stareLid") return false;
+  if (c.kind === "drag" && c.target === "stareLash") return false;
   return reachesShip(c);
 }

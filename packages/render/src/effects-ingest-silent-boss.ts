@@ -53,11 +53,11 @@ export const INGEST_SILENT_BOSS = [
   // And the rest of its family, read above the loop by the same file or off
   // the state every frame (`stare-draw.ts`).
   "stareBeat",
-  "stareHit",
+  "stareRise",
   "stareCharge",
+  "stareLash",
   "stareVent",
   "stareBlast",
-  "stareAgain",
   "stareOut",
   // THE BATON's eleven, silent because its picture is read off its state
   // every frame rather than off an event: the arm, a socket going dark, the

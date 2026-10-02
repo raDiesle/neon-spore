@@ -124,15 +124,15 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       // rim is one; so is a thread with nothing alive left on it, which is why
       // the two share a case rather than each naming the same sound.
       return { id: "ruin.collapse", pan: panForCol(e.col, cols) };
-    // THE STARE's beats, its catch, its charge and its end, none of them
+    // THE STARE's beats, its catch, its charge, its lashes and its climb, none of them
     // panned (`bind-stare.ts`).
     case "stareBeat":
     case "stareCaught":
-    case "stareHit":
+    case "stareRise":
     case "stareCharge":
+    case "stareLash":
     case "stareVent":
     case "stareBlast":
-    case "stareAgain":
     case "stareOut":
       return stareCue(e);
     // THE BULB QUEEN's five, with THE WARDEN's in `bind-warden.ts`.

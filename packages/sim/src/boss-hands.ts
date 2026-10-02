@@ -19,7 +19,7 @@ import { queenHeard } from "./queen-hand.js";
 import { ratchetHeard } from "./ratchet-hand.js";
 import { scuttleHeard } from "./scuttle-hand.js";
 import { spoolHeard } from "./spool-hand.js";
-import { stareLidHeard } from "./stare-hand.js";
+import { stareLashHeard } from "./stare-hand.js";
 import { surgeHeard } from "./surge-hand.js";
 import { tasterHandsHeard } from "./taster-hand.js";
 import { throatHeard } from "./throat-hand.js";
@@ -46,9 +46,9 @@ import type { World } from "./world.js";
  * and it is kept as the bosses were built.
  */
 export function bossHandsHeard(world: World, commands: readonly TimedCommand[]): void {
-  // THE STARE's lid, on the tick because the charge is a race against the
+  // THE STARE's lashes, on the tick because the charge is a race against the
   // beam and a race is judged on the tick (`stare-hand.ts`).
-  for (const c of commands) stareLidHeard(world, c.player, c.command);
+  for (const c of commands) stareLashHeard(world, c.player, c.command);
   // THE SURGE's one handle, on the tick because the fight is two lifts
   // inside one beat of each other, and the tick is what a lift is timed by
   // (`surge-hand.ts`).

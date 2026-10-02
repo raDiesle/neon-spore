@@ -23,7 +23,7 @@ import { treeText } from "../../../tools/test/tree-text.js";
 const PULL_HANDLES: Readonly<Record<string, string>> = {
   "tether.ts": "THE WARDEN",
   "lid-string.ts": "THE LID",
-  "stare-lid.ts": "THE STARE",
+  "stare-lash-pull.ts": "THE STARE",
   "curtain-grip.ts": "THE CURTAIN",
   "maze-string.ts": "THE MAZE",
   "sinew-handles.ts": "THE SINEW",

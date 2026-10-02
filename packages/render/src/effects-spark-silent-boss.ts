@@ -38,11 +38,11 @@ export const SILENT_BOSS = [
   // And the rest of its family, read above the loop by the same file or off
   // the state every frame (`stare-draw.ts`).
   "stareBeat",
-  "stareHit",
+  "stareRise",
   "stareCharge",
+  "stareLash",
   "stareVent",
   "stareBlast",
-  "stareAgain",
   "stareOut",
   // THE BATON's eleven: the arm, the bead and the locked seat's grey are drawn
   // from the boss's state every frame (`baton-draw.ts`, `band-lock.ts`), and

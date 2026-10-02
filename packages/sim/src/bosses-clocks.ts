@@ -99,13 +99,14 @@ export {
   type StarePhase,
   type StareState,
   stareBlue,
+  stareChargeLength,
   stareCharging,
-  stareClearShot,
+  stareLashesOwed,
   stareLevelPattern,
   stareOpenLive,
-  stareShootable,
   stareStepAt,
   stareTeaching,
+  stareTurnsLeft,
 } from "./stare.js";
 export { stareBoss } from "./stare-step.js";
 // THE SURGE keeps a clock for each of the lift, the burst and the eversion,

@@ -157,9 +157,11 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.stareBeat":
     "a shut beat of the eye's pattern — the music the pair learns. The eye's, and the sheet has no card for the eye (`sim/stare-step.ts`).",
   "boss.stareBlink": "an open beat of the same pattern. Same argument.",
-  "boss.stareHit": "a bolt into the shut eye, ending a level. Same argument.",
-  "boss.stareCharge": "the eye charging its beam after a pass with no hit. Same argument.",
-  "boss.stareVent": "the lid pulled in time and the charge let out to the sides. Same argument.",
+  "boss.stareRise": "the eye rising to its next level, angrier. Same argument.",
+  "boss.stareCharge": "the eye charging its beam after a live pass. Same argument.",
+  "boss.stareLash": "a lash pulled up off the charging eye. Same argument.",
+  "boss.stareVent":
+    "the last lash pulled in time and the charge let out to the sides. Same argument.",
   "boss.stareBlast": "the beam coming down onto the hull. Same argument.",
   "boss.stareOut": "the eye going out. An absence like ui.waveClear.",
   // THE GORGE's tap and turn. The bubbles are the fixture the first page has

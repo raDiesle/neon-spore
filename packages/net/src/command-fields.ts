@@ -25,7 +25,7 @@ export const COLORS = ["red", "cyan"] as const;
 export const DRAG_TARGETS: readonly DragTarget[] = [
   "mazeString", "wardenTether", "lidString", "gripBody", "choirLeft", "choirRight",
   "balloonLeft", "balloonRight", "crank", "sinewLeft", "sinewRight",
-  "surgeBulb", "antiphonOrgan", "instarMark", "filament", "stareLid", "queenMark",
+  "surgeBulb", "antiphonOrgan", "instarMark", "filament", "stareLash", "queenMark",
   "mirrorLobe", "gorgeLobe", "mazeHeart", "gaugeNeedle", "gaugeBand",
   "wardenEye", "wardenHatch", "fleetBreach", "fleetRake", "fleetWreck",
   "vaneArm", "vaneHousing", "snakeJaws", "snakeTail", "pinPlunger", "pinTable",

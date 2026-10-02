@@ -2,19 +2,26 @@ import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { StarePhase, StareState } from "./stare.js";
-import { stareBlue, stareForbids, stareLevelPattern, stareOpenLive } from "./stare.js";
+import {
+  stareBlue,
+  stareChargeLength,
+  stareForbids,
+  stareLashesOwed,
+  stareLevelPattern,
+  stareOpenLive,
+} from "./stare.js";
 import type { Command, TimedCommand } from "./types.js";
 import type { World } from "./world.js";
 
 /**
  * THE STARE's clock: the lead-in, a pattern played beat by beat, the charge
- * after a pass, the hit and the end — and the one press that costs the hull.
+ * after a pass, the climb to the next level and the end — and the one press
+ * that costs the hull.
  *
  * It runs on the **beat** and from `stepBoss`, because every number in it is
  * a beat of the pattern the pair is learning: an eye that opened between two
- * beats would be an eye nobody could count. The bolt is judged where it
- * leaves the top of the field (`stare-shot.ts`) and the lid on the tick
- * (`stare-hand.ts`); both come back here to move the fight on.
+ * beats would be an eye nobody could count. The lashes are judged on the tick
+ * (`stare-hand.ts`) and come back here to move the fight on.
  *
  * There is no roll. The rhythm is authored, and both seats sit still on an
  * open beat, so there is nothing for one device to know that the other does
@@ -29,13 +36,15 @@ export function installStare(world: World, levels: readonly string[]): StareStat
     phaseBeat: world.beat,
     levels: [...levels],
     level: 0,
-    pass: 0,
+    turn: 0,
     open: false,
     caughtTick: -1,
     caughtPlayer: 0,
     caughtCol: -1,
-    lidSeat: 0,
-    lidMilli: 0,
+    lashesUp: 0,
+    lashHeld: [false, false],
+    lashBaseMilli: [0, 0],
+    lashMilli: [0, 0],
   };
 }
 
@@ -69,24 +78,20 @@ export function stepStare(world: World, s: StareState): void {
   }
 
   if (s.phase === "charge") {
-    if (since < cfg.stareChargeBeats) return;
+    if (since < stareChargeLength(s, cfg)) return;
     blast(world, s);
     return;
   }
 
-  if (s.phase === "hurt") {
-    if (since < cfg.stareHurtBeats) return;
-    if (s.level >= s.levels.length) {
-      enterStare(s, "dying", world.beat);
-      return;
-    }
-    s.pass = 0;
+  if (s.phase === "rise") {
+    if (since < cfg.stareRiseBeats) return;
     enterStare(s, "rest", world.beat);
     return;
   }
 
-  // Dying: the eye goes out, and a wave with nothing else in it is won.
-  if (since < cfg.stareDyingBeats) return;
+  // Calm: the last level survived, the eye closes for good, and a wave with
+  // nothing else in it is won.
+  if (since < cfg.stareCalmBeats) return;
   world.events.push({ type: "stareOut" });
   world.boss = null;
 }
@@ -116,44 +121,49 @@ function play(world: World, s: StareState): void {
     return;
   }
   enterStare(s, "charge", world.beat);
-  openSlow(world, world.cfg.stareChargeBeats, "ask");
-  world.events.push({ type: "stareCharge", pass: s.pass });
+  letGo(s);
+  openSlow(world, stareChargeLength(s, world.cfg), "ask");
+  world.events.push({ type: "stareCharge", turn: s.turn, lashes: stareLashesOwed(s, world.cfg) });
 }
 
-/** The charge ran out with the lid up: the beam comes down the middle. */
+/** Every lash down and no thumb on one: the top of a charge, and its end. */
+function letGo(s: StareState): void {
+  s.lashesUp = 0;
+  s.lashHeld = [false, false];
+  s.lashBaseMilli = [0, 0];
+  s.lashMilli = [0, 0];
+}
+
+/** The charge ran out with lashes still down: the beam comes down the middle. */
 function blast(world: World, s: StareState): void {
   const col = midCol(world.cfg);
   closeSlow(world);
-  s.lidSeat = 0;
-  s.lidMilli = 0;
+  letGo(s);
   enterStare(s, "rest", world.beat);
   world.events.push({ type: "stareBlast", col });
   bossStrikesHull(world, "stare", col, 0, "beam");
 }
 
 /**
- * The lid reached the bottom in time and the charge vents to the sides. The
- * next pass follows a lead-in; the third without a hit starts the level again
- * from its blue pass (`stareAgain`).
+ * Every lash came up in time and the charge vents to the sides: a turn
+ * survived. The `stareTurns`th is the level won, and the eye rises to the next
+ * one, angrier — or, after the last, calms and the wave is won.
  */
 export function stareVented(world: World, s: StareState, player: 1 | 2): void {
   closeSlow(world);
+  letGo(s);
   world.events.push({ type: "stareVent", player });
-  s.pass += 1;
-  if (s.pass >= world.cfg.starePasses) {
-    s.pass = 0;
-    world.events.push({ type: "stareAgain", level: s.level });
+  s.turn += 1;
+  if (s.turn < world.cfg.stareTurns) {
+    enterStare(s, "rest", world.beat);
+    return;
   }
-  enterStare(s, "rest", world.beat);
-}
-
-/** A bolt hit the shut eye on a live pass: the level is over. */
-export function stareHitHome(world: World, s: StareState): void {
   const level = s.level;
   s.level += 1;
-  s.pass = 0;
-  enterStare(s, "hurt", world.beat);
-  world.events.push({ type: "stareHit", level, last: s.level >= s.levels.length });
+  s.turn = 0;
+  const last = s.level >= s.levels.length;
+  world.events.push({ type: "stareRise", level, last });
+  enterStare(s, last ? "calm" : "rise", world.beat);
 }
 
 /**

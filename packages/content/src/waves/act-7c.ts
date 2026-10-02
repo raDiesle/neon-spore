@@ -35,7 +35,7 @@ import type { Wave } from "../wave-types.js";
  *
  * **THE STARE's wave has no arrivals** since 29 September 2026, when the
  * eye became a fight of its own — levels of beat patterns
- * (`stare-levels.ts`) and a shut eye to shoot — and the owner took the rocks
+ * (`stare-levels.ts`) and, since 2 October, an eye nothing hurts — and the owner took the rocks
  * off: *rocks falling is stupid because it doesn't relate to the boss*. Its
  * guide went the same day: *the guide is not required for this wave*.
  *

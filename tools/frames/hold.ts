@@ -32,8 +32,8 @@ import type { HoldSpec } from "./spec.js";
  *   --hold queenMark=0,id=0         BULB QUEEN: the pilot's thumb on her left mark
  *   --hold filament=1000            THE FILAMENT: the pilot drawing one tile on
  *   --hold filament2=0,y=1000       and the navigator following one tile down
- *   --hold stareLid=0,y=900         THE STARE: the pilot's thumb pulling the lid to vent
- *   --hold stareLid2=0,y=900        and the navigator's, on the same lid
+ *   --hold stareLash=0,y=-350       THE STARE: the pilot's thumb pulling a lash up
+ *   --hold stareLash2=0,y=-350      and the navigator's, on the same fan
  *   --hold mazeHeart=0,y=900        THE MAZE: the navigator's thumb shaking the heart
  *   --hold throatAim=0,y=-3000      THE THROAT: the navigator carrying the mouth three rows up
  *   --hold throatPump=0,y=1500      and the pilot's thumb one stroke down the pump
@@ -69,7 +69,7 @@ import type { HoldSpec } from "./spec.js";
  * **Six of these are on a boss that is in the wrong phase by default**, and a
  * hold the round cannot hear is dropped in the silence this flag exists to
  * end — so each is written with the `--boss` that opens its window, and the
- * pair is what a recipe is: `--boss phase=charge` for either seat's lid
+ * pair is what a recipe is: `--boss phase=charge` for either seat's lashes
  * (`stareCharging`), `--boss
  * phase=trace` for either filament, `--boss phase=grip` for the heart, and
  * `--boss phase=quick,slack=2` for the cinch or `phase=open,slack=4` for the

@@ -9,8 +9,8 @@ import {
   type SimEvent,
   type StareState,
   stareBoss,
+  stareLashesOwed,
   stareLevelPattern,
-  stareStepAt,
   startWave,
   step,
   type TimedCommand,
@@ -19,10 +19,11 @@ import {
 } from "../src/index.js";
 
 /**
- * THE STARE, rebuilt 29 September 2026: levels of an authored beat pattern,
- * each taught once in blue and then played for real, a shut eye that takes
- * one hit a level, an open eye that freezes both seats, and a charge after
- * every pass that only the lid can vent (`sim/stare.ts`).
+ * THE STARE, rebuilt 29 September 2026 and again on 2 October: levels of an
+ * authored beat pattern, each taught once in blue and then played for real
+ * for `stareTurns` turns, an open eye that freezes both seats, a charge after
+ * every pass that only the lashes vent, and an eye nothing hurts
+ * (`sim/stare.ts`).
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
@@ -32,6 +33,7 @@ const WAVE = 6;
 /** Short patterns, so a run reaches the part a test is about. */
 const LEVELS = ["..x..", ".x..x"];
 const MID = midCol(CFG);
+const PULL = CFG.stareLashPullMilli;
 
 function open(levels: readonly string[] = LEVELS, seed = 3): World {
   const world = createWorld(CFG, seed);
@@ -49,15 +51,9 @@ function cmd(world: World, player: 1 | 2, command: TimedCommand["command"]): Tim
   return { tick: world.tick, player, command };
 }
 
-/** A thumb on the lid, `depth` thousandths of a tile down. */
-function lid(world: World, player: 1 | 2, depth: number): TimedCommand {
-  return cmd(world, player, {
-    kind: "drag",
-    target: "stareLid",
-    on: true,
-    fromMilli: 0,
-    fromYMilli: depth,
-  });
+/** A thumb on the lashes, `y` thousandths of a tile from where it grabbed, down positive. */
+function lash(world: World, player: 1 | 2, y: number, on = true): TimedCommand {
+  return cmd(world, player, { kind: "drag", target: "stareLash", on, fromMilli: 0, fromYMilli: y });
 }
 
 /** Step until `done` holds, with `hand` choosing each tick's presses. Returns every event. */
@@ -78,21 +74,16 @@ function until(
 
 const inPhase = (phase: StareState["phase"]) => (w: World) => stareBoss(w)?.phase === phase;
 
-/** The lid pulled to the bottom the tick the charge starts. */
+/**
+ * One lash a tick while the eye charges: the pilot's thumb up and down,
+ * grabbing on one tick and pulling up the next.
+ */
 function vent(w: World): TimedCommand[] {
   const s = stareBoss(w);
-  return s?.phase === "charge" ? [lid(w, 1, CFG.stareLidPullMilli)] : [];
-}
-
-/** Fire up the middle on a shut live beat whose next beat is shut too, and vent every charge. */
-function play(w: World): TimedCommand[] {
-  const s = stareBoss(w);
-  if (s === null) return [];
-  if (s.phase === "charge") return vent(w);
-  if (s.phase !== "live" || s.open) return [];
-  const next = stareStepAt(s, w.beat) + 1;
-  if (stareLevelPattern(s)[next] !== ".") return [];
-  return [cmd(w, 2, { kind: "fire", color: "cyan" })];
+  if (s?.phase !== "charge") return [];
+  return [lash(w, 1, s.lashHeld[0] ? -PULL : 0)].concat(
+    s.lashHeld[0] ? [lash(w, 1, 0, false)] : [],
+  );
 }
 
 describe("THE STARE", () => {
@@ -151,77 +142,96 @@ describe("THE STARE", () => {
     expect(world.events.some((e) => e.type === "needWave")).toBe(true);
   });
 
-  it("charges after a live pass, and the beam fails the wave if nobody pulls the lid", () => {
+  it("charges after a live pass, and the beam fails the wave if the lashes stay down", () => {
     const world = open();
     const seen = until(world, inPhase("charge"));
-    expect(seen.some((e) => e.type === "stareCharge")).toBe(true);
+    const charge = seen.find((e) => e.type === "stareCharge");
+    expect(charge?.type === "stareCharge" && charge.lashes).toBe(CFG.stareLashesFirst);
     const blasted = until(world, (w) => failHolds(w) || stareBoss(w)?.phase === "rest");
     expect(blasted.some((e) => e.type === "stareBlast" && e.col === MID)).toBe(true);
     expect(failHolds(world)).toBe(true);
   });
 
-  it("vents to the sides when either seat pulls the lid to the bottom", () => {
-    for (const player of [1, 2] as const) {
-      const world = open();
-      until(world, inPhase("charge"));
-      step(world, [lid(world, player, CFG.stareLidPullMilli / 2)]);
-      expect(eye(world).lidSeat).toBe(player);
-      step(world, [lid(world, player, CFG.stareLidPullMilli)]);
-      expect(world.events.some((e) => e.type === "stareVent" && e.player === player)).toBe(true);
-      expect(eye(world).phase).toBe("rest");
-      expect(eye(world).pass).toBe(1);
-      expect(failHolds(world)).toBe(false);
+  it("pulls a lash each time a thumb rises a pull above its lowest", () => {
+    const world = open();
+    until(world, inPhase("charge"));
+    step(world, [lash(world, 1, 0)]);
+    step(world, [lash(world, 1, -PULL / 2)]);
+    expect(eye(world).lashMilli[0]).toBe(PULL / 2);
+    expect(eye(world).lashesUp).toBe(0);
+    step(world, [lash(world, 1, -PULL)]);
+    expect(eye(world).lashesUp).toBe(1);
+    // Back down, and up again from the new low: the next lash.
+    step(world, [lash(world, 1, PULL)]);
+    step(world, [lash(world, 1, 0)]);
+    expect(eye(world).lashesUp).toBe(2);
+    expect(world.events.some((e) => e.type === "stareLash" && e.up === 2)).toBe(true);
+  });
+
+  it("counts both seats' lashes together, and vents when the last comes up", () => {
+    const world = open();
+    until(world, inPhase("charge"));
+    const owed = stareLashesOwed(eye(world), CFG);
+    expect(owed).toBe(4);
+    const seen: SimEvent[] = [];
+    for (let i = 0; i < owed / 2; i++) {
+      step(world, [lash(world, 1, 0), lash(world, 2, 0)]);
+      step(world, [lash(world, 1, -PULL), lash(world, 2, -PULL)]);
+      seen.push(...world.events);
+      step(world, [lash(world, 1, 0, false), lash(world, 2, 0, false)]);
     }
+    expect(seen.filter((e) => e.type === "stareLash").length).toBe(owed);
+    expect(seen.some((e) => e.type === "stareVent")).toBe(true);
+    expect(eye(world).phase).toBe("rest");
+    expect(eye(world).turn).toBe(1);
+    expect(failHolds(world)).toBe(false);
   });
 
-  it("takes the lid from nobody outside a charge", () => {
+  it("takes a lash from nobody outside a charge", () => {
     const world = open();
     until(world, inPhase("teach"));
-    step(world, [lid(world, 1, CFG.stareLidPullMilli)]);
-    expect(eye(world).lidSeat).toBe(0);
-    expect(world.events.some((e) => e.type === "stareVent")).toBe(false);
+    step(world, [lash(world, 1, 0)]);
+    step(world, [lash(world, 1, -PULL)]);
+    expect(eye(world).lashesUp).toBe(0);
+    expect(eye(world).lashHeld[0]).toBe(false);
   });
 
-  it("starts the level again from its blue pass after three passes with no hit", () => {
+  it("is never caught for a thumb on the lashes on an open beat", () => {
     const world = open();
-    const seen = until(
-      world,
-      (w) => eye(w).pass === 0 && eye(w).phase === "teach" && w.beat > 0,
-      vent,
-    );
-    // The first teach is the one it opened on; this is the second.
-    const again = seen.filter((e) => e.type === "stareAgain");
-    expect(again.length).toBe(0);
-    const more = until(world, (w) => w.events.some((e) => e.type === "stareAgain"), vent);
-    expect(more.filter((e) => e.type === "stareVent").length).toBe(CFG.starePasses);
-    expect(eye(world).level).toBe(0);
+    until(world, (w) => eye(w).phase === "live" && eye(w).open);
+    step(world, [lash(world, 2, 0)]);
+    expect(failHolds(world)).toBe(false);
+  });
+
+  it("rises to the next level after stareTurns turns, and asks twice the lashes", () => {
+    const world = open();
+    const seen = until(world, inPhase("rise"), vent);
+    expect(seen.filter((e) => e.type === "stareVent").length).toBe(CFG.stareTurns);
+    expect(seen.some((e) => e.type === "stareRise" && e.level === 0 && !e.last)).toBe(true);
+    expect(eye(world).level).toBe(1);
+    expect(eye(world).turn).toBe(0);
+    // The next level opens on its own blue pass.
     until(world, inPhase("teach"), vent);
+    const more = until(world, inPhase("charge"), vent);
+    expect(more.some((e) => e.type === "stareCharge" && e.lashes === 8)).toBe(true);
     expect(failHolds(world)).toBe(false);
   });
 
-  it("takes a hit on the shut eye in a live pass and moves on to the next level", () => {
+  it("is not hurt by a bolt, in any phase, and the bolt is not wasted", () => {
     const world = open();
-    const seen = until(world, (w) => eye(w).level === 1, play);
-    expect(seen.some((e) => e.type === "stareHit" && e.level === 0 && !e.last)).toBe(true);
-    expect(eye(world).phase).toBe("hurt");
-    expect(failHolds(world)).toBe(false);
-  });
-
-  it("ignores a bolt at the eye while it teaches", () => {
-    const world = open();
-    until(world, inPhase("teach"));
-    const seen = until(world, inPhase("live"), (w) =>
+    const seen = until(world, inPhase("charge"), (w) =>
       eye(w).open ? [] : [cmd(w, 2, { kind: "fire", color: "cyan" })],
     );
-    expect(seen.some((e) => e.type === "stareHit")).toBe(false);
+    expect(seen.some((e) => e.type === "shotOut" && e.col === MID && !e.wasted)).toBe(true);
     expect(eye(world).level).toBe(0);
+    expect(failHolds(world)).toBe(false);
   });
 
-  it("dies after its last level is hit, and leaves the field", () => {
-    const world = open(["..x..", ".x..x", "x...x", "..x.x", "x.x.."]);
-    const seen = until(world, (w) => w.boss === null, play, 600);
-    expect(seen.filter((e) => e.type === "stareHit").length).toBe(5);
-    expect(seen.some((e) => e.type === "stareHit" && e.last)).toBe(true);
+  it("calms after its last level is survived, and leaves the field", () => {
+    const world = open();
+    const seen = until(world, (w) => w.boss === null, vent, 2000);
+    expect(seen.filter((e) => e.type === "stareRise").length).toBe(LEVELS.length);
+    expect(seen.some((e) => e.type === "stareRise" && e.last)).toBe(true);
     expect(seen.some((e) => e.type === "stareOut")).toBe(true);
     expect(failHolds(world)).toBe(false);
   });
@@ -230,8 +240,8 @@ describe("THE STARE", () => {
     const a = open();
     const b = open();
     for (let i = 0; i < 80 * TPB; i++) {
-      step(a, play(a));
-      step(b, play(b));
+      step(a, vent(a));
+      step(b, vent(b));
       if (a.boss === null) break;
     }
     expect(hashWorld(a)).toBe(hashWorld(b));

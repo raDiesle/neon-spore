@@ -33,7 +33,7 @@ export type DragTarget =
   | "antiphonOrgan"
   | "instarMark"
   | "filament"
-  | "stareLid"
+  | "stareLash"
   | "queenMark"
   | "mirrorLobe"
   | "gorgeLobe"
@@ -154,14 +154,14 @@ export type DragTarget =
  */
 
 /**
- * `stareLid` is the seventeenth, and the first that is **a handle on a
- * boss that punishes handles**: THE STARE's lid, pulled down over the eye by
- * the one seat the eye is not looking at, which frees the other and costs the
- * puller the next look (`stare-hand.ts`). `fromYMilli` is the depth, read on
- * the y the way THE SINEW's are, and it is the one `drag` a watched seat is
- * *not* caught for (`stareForbids`) — because the eye reopens on the seat
- * that shut it, and a thumb still on the lid at that moment is not a press.
- * No `id`: one eye, one lid, and it is the boss.
+ * `stareLash` is the seventeenth, and the first that is **a handle on a
+ * boss that punishes handles**: THE STARE's lashes, pulled up off the
+ * charging eye one at a time by either seat, both at once (`stare-hand.ts`).
+ * It was the lid until 2 October 2026. `fromYMilli` is how far the thumb has
+ * come, read on the y the way THE SINEW's are, and a lash comes up each time
+ * it rises `stareLashPullMilli` — so one thumb pulls lash after lash. It is
+ * the one `drag` a watched seat is *not* caught for (`stareForbids`). No
+ * `id`: the simulation counts lashes, and which one comes up is the picture's.
  */
 
 /**

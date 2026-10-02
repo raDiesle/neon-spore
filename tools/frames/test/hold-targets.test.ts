@@ -49,11 +49,11 @@ describe("the handles on a boss's own picture", () => {
   });
 
   it("THE STARE's lid is whichever seat is free, pulled down", () => {
-    // `stareLidHeard` takes either player and reads `fromYMilli`.
-    expect(shape("stareLid=0,y=900").map((c) => c.player)).toEqual([1, 1]);
-    expect(shape("stareLid2=0,y=900")).toEqual([
-      { player: 2, kind: "drag", target: "stareLid", on: true, fromMilli: 0, fromYMilli: 0 },
-      { player: 2, kind: "drag", target: "stareLid", on: true, fromMilli: 0, fromYMilli: 900 },
+    // `stareLashHeard` takes either player and reads `fromYMilli`.
+    expect(shape("stareLash=0,y=-350").map((c) => c.player)).toEqual([1, 1]);
+    expect(shape("stareLash2=0,y=-350")).toEqual([
+      { player: 2, kind: "drag", target: "stareLash", on: true, fromMilli: 0, fromYMilli: 0 },
+      { player: 2, kind: "drag", target: "stareLash", on: true, fromMilli: 0, fromYMilli: -350 },
     ]);
   });
 

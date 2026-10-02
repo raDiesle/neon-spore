@@ -97,11 +97,11 @@ const SAMPLES: Record<string, SimEvent> = {
     command: { kind: "fire", color: "red" },
     col: 3,
   },
-  stareHit: { type: "stareHit", level: 0, last: false },
-  stareCharge: { type: "stareCharge", pass: 1 },
+  stareRise: { type: "stareRise", level: 0, last: false },
+  stareCharge: { type: "stareCharge", turn: 1, lashes: 8 },
+  stareLash: { type: "stareLash", player: 1, up: 3, of: 8 },
   stareVent: { type: "stareVent", player: 2 },
   stareBlast: { type: "stareBlast", col: 3 },
-  stareAgain: { type: "stareAgain", level: 2 },
   stareOut: { type: "stareOut" },
   queenFlinch: { type: "queenFlinch", col: 3, row: 2, side: -1 },
   queenPry: { type: "queenPry", col: 5, row: 2, side: 1 },
@@ -858,9 +858,9 @@ describe("bindings", () => {
   // breaks it is `plumbFlare`, which is heard. `slingCool` is the eighth, and
   // THE SLING's spent yoke cooling the same beat: `slingSnap` is heard.
   // `grindstoneFade` is the ninth, THE GRINDSTONE's: `grindstoneJar` is heard.
-  // `stareAgain` is the tenth: THE STARE's level starting over is heard as
-  // the blue pass that follows it (`bind-stare.ts`). `rimeRefreeze` is the
-  // eleventh, THE RIME's, for the ninth's reason: `rimeScatter` is heard.
+  // `rimeRefreeze` is the tenth, THE RIME's, for the ninth's reason:
+  // `rimeScatter` is heard. (THE STARE's `stareAgain` was one until 2 October
+  // 2026, when its levels stopped starting over.)
   const SILENT_BY_DESIGN = new Set([
     "needWave",
     "choirMerge",
@@ -871,7 +871,6 @@ describe("bindings", () => {
     "plumbBleed",
     "slingCool",
     "grindstoneFade",
-    "stareAgain",
     "rimeRefreeze",
   ]);
 

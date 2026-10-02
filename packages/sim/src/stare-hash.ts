@@ -17,15 +17,19 @@ export function stareHashParts(b: StareState): number[] {
     STARE_PHASES.indexOf(b.phase),
     b.phaseBeat,
     b.level,
-    b.pass,
+    b.turn,
     b.open ? 1 : 0,
     b.caughtTick,
     b.caughtPlayer,
     b.caughtCol,
-    b.lidSeat,
-    b.lidMilli,
+    b.lashesUp,
     b.levels.length,
   ];
+  // A pair a seat, but each pushed whole with its length: a list hashed as
+  // two numbers would not see a third.
+  out.push(b.lashHeld.length, ...b.lashHeld.map((h) => (h ? 1 : 0)));
+  out.push(b.lashBaseMilli.length, ...b.lashBaseMilli);
+  out.push(b.lashMilli.length, ...b.lashMilli);
   for (const p of b.levels) out.push(patternBits(p), p.length);
   return out;
 }

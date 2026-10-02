@@ -9,7 +9,7 @@ import { bossPose } from "./poses-bosses-kit.js";
  * bosses.md` §11), posed at every phase its clock reaches on its own.
  *
  * What arrives unattended is what is here: THE STARE's rest, blue pass,
- * live pass and charge (its hit and its end are earned, by `stareHand`), THE
+ * live pass and charge (its climb and its end are earned, by `stareHand`), THE
  * UNDERTOW's levels and its tall lobe, the first phase of each boss whose next phase is
  * something the pair has to *earn*, such as a plate off THE WARDEN. Those
  * are owed, named in each
@@ -48,26 +48,31 @@ export const CLOCK_BOSS_POSES: Pose[] = [
   bossPose(
     "stare",
     "live",
-    "The rhythm for real. On an open beat P1 and P2 both touch nothing; on a shut one P2 fires up the middle.",
+    "The rhythm for real. On an open beat P1 and P2 both touch nothing. Nothing hurts the eye.",
     { hold: 6, lookAt: "the red eye in the cowl, open or shut on this beat" },
   ),
   bossPose(
     "stare",
     "charge",
-    "No hit this pass: the eye charges a beam. P1 or P2 pulls the lid down before it fires.",
+    "The eye charges a beam. P1 and P2 pull its lashes up, every one, before it fires.",
     { hold: 6 },
   ),
   bossPose(
     "stare",
-    "hurt",
-    "A bolt hit the shut eye and the level is over. P1 and P2 get ready for the next rhythm.",
-    { hand: stareHand, hold: 1, budgetBeats: 90 },
+    "rise",
+    "Five turns survived: the eye rises to its next level, angrier. P1 and P2 get ready for its rhythm.",
+    { hand: stareHand, hold: 1, budgetBeats: 150 },
   ),
-  bossPose("stare", "dying", "The last level hit: the eye goes out. P1 and P2 have won the wave.", {
-    hand: stareHand,
-    hold: 1,
-    budgetBeats: 400,
-  }),
+  bossPose(
+    "stare",
+    "calm",
+    "The last level survived: the eye closes. P1 and P2 have won the wave.",
+    {
+      hand: stareHand,
+      hold: 1,
+      budgetBeats: 600,
+    },
+  ),
   bossPose(
     "baton",
     "unfolding",

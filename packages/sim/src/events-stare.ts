@@ -23,15 +23,19 @@ export type StareEvent =
    * `col` is where the laser struck — the column the cannon was sent to.
    */
   | { type: "stareCaught"; player: 1 | 2; command: Command; col: number }
-  /** A bolt hit the shut eye and the level is over. `level` is the one just ended. */
-  | { type: "stareHit"; level: number; last: boolean }
-  /** A pass ran out with no hit and the eye began to charge its beam. */
-  | { type: "stareCharge"; pass: number }
-  /** `player` pulled the lid in time and the beam vented out to the sides. */
+  /**
+   * The pair survived `stareTurns` turns and the eye rises to the next level, angrier.
+   * `level` is the one just won; `last` when it was the last, and the eye
+   * calms rather than rising.
+   */
+  | { type: "stareRise"; level: number; last: boolean }
+  /** A live pass ended and the eye began to charge its beam. `lashes` is how many it asks for. */
+  | { type: "stareCharge"; turn: number; lashes: number }
+  /** `player` pulled a lash up: the `up`th of `of`. */
+  | { type: "stareLash"; player: 1 | 2; up: number; of: number }
+  /** The last lash came up, `player`'s, and the beam vented out to the sides. */
   | { type: "stareVent"; player: 1 | 2 }
   /** Nobody pulled the lid: the beam comes down the middle onto the hull. */
   | { type: "stareBlast"; col: number }
-  /** Three passes without a hit: the level starts again from its blue pass. */
-  | { type: "stareAgain"; level: number }
   /** The eye is out and the boss is gone. */
   | { type: "stareOut" };

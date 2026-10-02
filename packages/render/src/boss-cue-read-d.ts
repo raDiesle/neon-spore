@@ -1,17 +1,14 @@
 import {
-  midCol,
   type SpliceState,
   type StareState,
   stareCharging,
-  stareClearShot,
   stareOpenLive,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { cueFrame } from "./boss-cue-frame.js";
-import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
-import { stareLidRest } from "./stare-lid.js";
+import { stareLashCrown } from "./stare-lash-pull.js";
 import { stareEye, stareGazeFootY } from "./stare-shape.js";
 
 /**
@@ -24,25 +21,24 @@ import { stareEye, stareGazeFootY } from "./stare-shape.js";
  * beat is that no thumb goes anywhere, so it is the fifth kind
  * (`boss-cue.ts`, `CueKind`), the one the simulation can tell was *not*
  * done — and here the stillness is the rule itself, which the picture alone
- * does not say. Its gesture is the lid, below.
+ * does not say. Its gesture is the lashes, below.
  *
  * **Both seats, since 29 September 2026.** The eye no longer picks a seat:
  * an open beat of a live pass freezes the pair, so `STILL` is either seat's,
- * and the lid is either seat's to pull while the eye charges — `PULL` on its
- * ring until a thumb is on it. The two never stand together: one is an open
- * beat and the other the charge after the pass (`sim/stare.ts`).
+ * and the lashes are both seats' to pull while the eye charges — `PULL`
+ * beside them until a thumb is on them. The two never stand together: one is
+ * an open beat and the other the charge after the pass (`sim/stare.ts`).
  */
 
 /**
  * THE STARE. `STILL` at the foot of the gaze — halfway down the field, well
  * clear of the eye — on an open beat of a live pass, and nowhere else: the
- * teaching pass's cyan costs nothing and asks nothing. `FIRE` at the cannon
- * under the eye, aimed at the eye, on a shut live beat whose next beat is
- * shut too (`stareClearShot`) — the navigator's, and the pilot is told `MOVE`
- * if the cannon is not under it. `PULL` **beside** the lid's ring while the
- * eye charges and no thumb is on it yet, so the word is not written over the
- * ring it names; the ring filling is the picture's own answer, and a word
- * under a hand already doing it would be the second prompt.
+ * teaching pass's cyan costs nothing and asks nothing. Nothing says `FIRE`
+ * since 2 October 2026: the eye cannot be hurt, so there is nothing to shoot.
+ * `PULL` **beside** the lashes' crown while the eye charges and no thumb is
+ * on them yet, so the word is not written over the fan it names; the lashes
+ * coming up green are the picture's own answer, and a word under a hand
+ * already doing it would be the second prompt.
  */
 export function stareCues(l: Layout, world: World, s: StareState): readonly BossCue[] {
   const cfg = world.cfg;
@@ -63,30 +59,8 @@ export function stareCues(l: Layout, world: World, s: StareState): readonly Boss
       },
     ];
   }
-  if (stareClearShot(s, world.beat)) {
-    const col = midCol(cfg);
-    if (world.cannonCol !== col) {
-      const x = fieldX(l, world.cannonCol);
-      return [{ seat: 1, kind: "CARRY", word: "MOVE", x, y: l.hullY, ...frame, seed: 63 }];
-    }
-    const aim = { x: eye.cx, y: eye.cy, r: eye.ry };
-    const x = fieldX(l, col);
-    return [
-      {
-        seat: 2,
-        kind: "PRESS",
-        word: "FIRE",
-        x,
-        y: l.hullY,
-        ...frame,
-        seed: 64,
-        aim,
-        why: STARE_WHY.FIRE,
-      },
-    ];
-  }
-  if (!stareCharging(s) || s.lidSeat !== 0) return [];
-  const rest = stareLidRest(l, cfg);
+  if (!stareCharging(s) || s.lashHeld[0] || s.lashHeld[1]) return [];
+  const rest = stareLashCrown(l, cfg);
   return [
     {
       seat: null,
@@ -103,13 +77,12 @@ export function stareCues(l: Layout, world: World, s: StareState): readonly Boss
   ];
 }
 
-/** How far to the side of the lid's ring `PULL` is written, in socket half-widths. */
+/** How far to the side of the lashes' crown `PULL` is written, in socket half-widths. */
 const PULL_BESIDE = 1.85;
 
 /** What each of THE STARE's words is for — never a column, a colour or a count. */
 export const STARE_WHY = {
   STILL: "IT SEES ANY MOVE",
-  FIRE: "WHILE IT IS SHUT",
   PULL: "BEFORE IT FIRES",
 } as const;
 

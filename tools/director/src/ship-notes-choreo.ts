@@ -142,18 +142,20 @@ export const CHOREO_NOTES = {
   ...CHOREO_NOTES_C,
   ...CHOREO_NOTES_D,
   "THE STARE — an eye that opens on the beat":
-    "Rebuilt on the owner's word on 29 September 2026: every level is a beat " +
-    "pattern the pair learns, authored in content/src/stare-levels.ts. A " +
-    "level opens after stareRestBeats with a blue pass that plays the pattern " +
-    "once and costs nothing, then plays it for real up to starePasses times. " +
-    "On an open beat both seats touch nothing, or the laser strikes the " +
-    "column the cannon was sent to and the wave is lost; on a shut beat a " +
-    "bolt up the middle hits the eye, and one hit ends the level after " +
-    "stareHurtBeats. After a pass with no hit the eye charges for " +
-    "stareChargeBeats under THE SLOW: either seat pulls the lid down " +
-    "stareLidPullMilli to vent it, or the beam comes down the middle. The " +
-    "last level hit, the eye goes out after stareDyingBeats and the wave is " +
-    "won. Nothing else falls in its wave.",
+    "Rebuilt on the owner's word on 29 September and 2 October 2026: every " +
+    "level is a beat pattern the pair learns, authored in " +
+    "content/src/stare-levels.ts. A level opens after stareRestBeats with a " +
+    "blue pass that plays the pattern once and costs nothing, then plays it " +
+    "for real stareTurns times. On an open beat both seats touch nothing, or " +
+    "the laser strikes the column the cannon was sent to and the wave is " +
+    "lost. After every live pass the eye charges under THE SLOW for " +
+    "stareChargeBeats plus stareLashBeatsMilli a lash: both seats pull its " +
+    "lashes up, stareLashPullMilli of thumb each, stareLashesFirst on the " +
+    "first level and twice as many on each after, or the beam comes down " +
+    "the middle. The eye cannot be hurt: stareTurns turns survived, it rises " +
+    "to the next level after stareRiseBeats; the last level survived, it " +
+    "closes after stareCalmBeats and the wave is won. Nothing else falls in " +
+    "its wave.",
   "THE SPOOL — the boss where the line runs out at the speed one of you reads":
     "A thread-spool slung sideways across the top of the field, its line run " +
     "to the hull and taut. The pilot holds the brake at a depth: shallow pays " +

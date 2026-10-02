@@ -2974,32 +2974,41 @@ actions during he looks, it damages hull and wave must be repeated.*
 **Rebuilt on 29 September 2026**, on his second word: *every level should have
 a predefined beats kind of music which players need to learn, and for a brief
 moment of beat in the music it quickly opens the eye and closes again* — with
-a blue pass first that *explains the beat sequence*, the sequence *repeating 3
-times to give players time to shoot and hit once*, and the rocks gone because
+a blue pass first that *explains the beat sequence*, and the rocks gone because
 they *don't relate to the boss visuals*. What this section said before that
 day — a rolled seat, a seven-beat turn, a look that grew, a lid that moved the
 look onto whoever shut it, a film — is in git history and nowhere else.
 
+**Reworked on 2 October 2026**, on his third: *instead of pulling middle,
+players need to pull up a number of lashes. First level 4 and every level more
+doubling it. Eye rotates 5 times before it goes to next level … the eye cannot
+be shot or destroyed, just the sequence will take until it reaches next level
+and succeed it.* So the lid is gone, the shot is gone, and the fight is
+survived rather than won by a hit. Five levels became four the same day, the
+owner's choice, so the last asks thirty-two lashes rather than sixty-four.
+
 **It is the whole wave** (`bossFillsWave`): nothing else falls. The fight is
 **levels**, each an authored pattern of beats (`content/src/stare-levels.ts`,
-five of them, eight beats each: `x` the eye opens, `.` it stays shut), and each
+four of them, eight beats each: `x` the eye opens, `.` it stays shut), and each
 level is played the same way (`sim/stare.ts`, `sim/stare-step.ts`):
 
 | phase | beats | what it is |
 |---|---|---|
 | rest | `stareRestBeats` (2) | a shut, harmless eye: *here it comes* |
-| teach | the pattern's length | the eye glows **blue** and plays the pattern once. It opens on the `x` beats and nothing it sees costs anything; a bolt at it does nothing |
-| live | the pattern's length | the same pattern for real, in red. On an open beat **both** seats sit still; on a shut beat a bolt up the middle column hits it |
-| charge | `stareChargeBeats` (5), under THE SLOW | after every live pass with no hit, the shut eye swells with a beam, and the lid is the pair's to pull |
-| hurt | `stareHurtBeats` (3) | a hit: the level is over, and the next one starts from its rest |
-| dying | `stareDyingBeats` (4) | the last level hit; the eye goes out and the wave is won |
+| teach | the pattern's length | at the top of a level only: the eye glows **blue** and plays the pattern once. It opens on the `x` beats and nothing it sees costs anything |
+| live | the pattern's length | the same pattern for real. On an open beat **both** seats sit still |
+| charge | `stareChargeLength`, under THE SLOW | after every live pass the shut eye swells with a beam, and its lashes are the pair's to pull |
+| rise | `stareRiseBeats` (3) | `stareTurns` turns survived: the eye shudders and rises to the next level |
+| calm | `stareCalmBeats` (4) | the last level survived; the eye closes for good and the wave is won |
 
-**One hit a level, and three passes to land it.** A charge vented is a pass
-spent; `starePasses` (3) of them with no hit and the level starts again from
-its blue pass (`stareAgain`), so a pair that lost the rhythm hears it taught
-again rather than guessing. The rhythm is authored and never rolled: both
-seats freeze on an open beat, so there is nothing for one phone to know that
-the other does not, and what the pair shares is what they have learnt.
+**A turn is a live pass and its charge, and a level is `stareTurns` (5) of
+them.** A charge vented is a turn survived, and the fifth is the level won —
+the eye rises, and the next level opens on its own blue pass. **Nothing hurts
+the eye**: a bolt up the middle column meets it in any phase and does nothing
+(`sim/stare-shot.ts`) — met, so it is never the wasted shot that loses a wave.
+The rhythm is authored and never rolled: both seats freeze on an open beat, so
+there is nothing for one phone to know that the other does not, and what the
+pair shares is what they have learnt.
 
 **A press on an open live beat is refused and charged for**, which is what
 separates this boss from a malfunction: the button works and the pair was
@@ -3010,20 +3019,28 @@ sent to**, the owner's *hits where one of the players moved*: a slide names
 its column, and any other press is struck where the cannon stands
 (`caughtCol`). Any damage fails the wave, and the retry is the game's own.
 
-**The lid** (`sim/stare-hand.ts`) is the one thing on the boss a hand may take
-hold of, and only while the eye charges. Either seat drags it down; at
-`stareLidPullMilli` (600) the charge vents out to the sides of the eye and the
-next pass follows its rest. Nobody does, and the beam comes straight down the
-middle column onto the hull (`stareBlast`). A lid pulled outside a charge is
-nothing, and a thumb on it is never a catch.
+**The lashes** (`sim/stare-hand.ts`) are the one thing on the boss a hand may
+take hold of, and only while the eye charges. The charge asks
+`stareLashesOwed`: `stareLashesFirst` (4) on the first level and twice as many
+on each after — 4, 8, 16, 32 — and runs `stareChargeBeats` (3) plus
+`stareLashBeatsMilli` (300) thousandths of a beat a lash, rounded up: 5 beats
+on the first level, 13 on the last. **Both seats pull at once and the count is
+theirs together.** A press anywhere over the eye takes hold, and every
+`stareLashPullMilli` (350) the thumb rises above the lowest it has been since
+its last lash pulls one more — so a thumb pulls lash after lash going up, down
+and up again. All of them up and the charge vents out to the sides of the eye;
+not, and the beam comes straight down the middle column onto the hull
+(`stareBlast`). A thumb on the lashes outside a charge is nothing, and is
+never a catch.
 
 **The music is the pattern** (`audio/src/bind-stare.ts`,
 `audio/src/sounds/boss-stare.ts`): a knock on a shut beat, a blink on an open
 one, the pattern's downbeat a touch louder so the bar can be counted, and each
-level a step higher, so a level is also a key.
+level a step higher, so a level is also a key. A lash pulled is a pluck that
+climbs as the charge's lashes come up, so the pair hears how close the vent is.
 
 **The look** (`render/stare-draw.ts`, `stare-shape.ts`, `stare-lashes.ts`,
-`stare-charge.ts`, `stare-fx.ts`, `stare-lid.ts`, `stare-blow.ts`): the cowled
+`stare-charge.ts`, `stare-fx.ts`, `stare-lash-pull.ts`, `stare-blow.ts`): the cowled
 eye over the middle column, **hung inside the field** two tiles under row 0's
 top edge — the owner, 29 September 2026, *any boss should not touch top of
 game screen* — its ink blue with a blue halo on the cowl while it teaches, red
@@ -3038,13 +3055,15 @@ beat the eye is on white and longest, each over a dark stroke so it reads
 through the gaze. A pair with the sound off reads the rhythm off them.
 **The charge** swells the eye (`swollenEye`), gathers a hot core in it with
 light streaking in from round the cowl, and warms an ember halo on the cowl,
-all read off `stareSwell`; the lid's flap and ring are drawn on every screen.
+all read off `stareSwell`; the lashes it asks for stand along its upper rim
+on every screen, smouldering ember while down and lit green once pulled, with
+the pull's arrow over them (`stare-lash-pull.ts`).
 **A vent** throws the charge out flat from both corners of the eye to the
 walls of the field. **The beam**, when nobody pulls, is a column of ember
 light the eye's width straight down onto the ship; **the laser**, a catch, is
 one hard ray to the column the cannon was sent to, branding the eye's almond
-into the hull. A hit leaves a scar on the cowl per level spent, and the struck
-eye shudders, the ball rattling in its socket (`stare-eye-globe.ts`). THE SLOW's light stands round the cowl, swollen as far as the
+into the hull. A level survived leaves a scar on the cowl, and the rising eye
+shudders, the ball rattling in its socket (`stare-eye-globe.ts`). THE SLOW's light stands round the cowl, swollen as far as the
 charge has come (`slow-boss-aim-b.ts`), so the prism never splits the eye.
 The eye is painted through one record, `STARE_EYE` (`render/stare-eye-look.ts`),
 as a globe that rolls its opening round to face the pair (`render/stare-eye-globe.ts`,
@@ -3054,21 +3073,19 @@ in `render/test/stare-frame.test.ts`.
 **The cue** (`render/boss-cue-read-d.ts`) is `STILL`, on both seats, at the
 foot of the gaze on an open live beat — the fifth kind of cue and the only one
 that is not a gesture ([decisions](../decisions.md) #34), its own word rather
-than `HOLD` because a player told to hold would hold the trigger. On a shut
-live beat with a shut beat after it (`stareClearShot`) it is `FIRE` at the
-cannon on the navigator's screen, aimed at the eye, or `MOVE` on the pilot's
-first if the cannon is not under the eye; and `PULL`, a `CARRY` beside the
-lid's ring while the eye charges and nobody has it. Each carries a *why* line
+than `HOLD` because a player told to hold would hold the trigger; and `PULL`,
+a `CARRY` beside the lashes' crown while the eye charges and no thumb is on
+them. Nothing says `FIRE`: the eye cannot be hurt. Each carries a *why* line
 (`STARE_WHY`) that names no colour, column or count. Silent on the blue pass,
-on a shut beat before an open one and at rest:
-`render/test/boss-cue-stare.test.ts`. The hands shoot on `stareClearShot`
-too, so no rehearsal bolt meets an open eye.
+on a shut beat, at rest and while it rises:
+`render/test/boss-cue-stare.test.ts`. The hands touch nothing but the lashes.
 
 **There is no guide.** The owner, 29 September 2026: *the guide is not
 required for this wave* — the blue pass is the lesson, drawn on the field it
-is about. Every branch of the clock is held in `sim/test/stare.test.ts`, and the two clocks the hands and the cue read in `sim/test/stare-clocks.test.ts`.
+is about. Every branch of the clock is held in `sim/test/stare.test.ts`, and the clocks the hands, the cue and the picture read in `sim/test/stare-clocks.test.ts`.
 *Never watched at tempo*: whether eight beats at 96 bpm can be learnt from one
-blue pass, and how the lid feels under a thumb, are the owner's ear and eye.
+blue pass, how thirty-two lashes in thirteen beats feel under two thumbs, and
+whether a flick of 350 thousandths is a lash, are the owner's ear and eye.
 
 ## 11.18 THE BATON — a bead passed down an arm, one seat a beat
 
@@ -3830,7 +3847,7 @@ ring on the fabric's bottom edge (`curtain-grip.ts`), resting in the middle of
 the on-field sheet — **not** over the core, which is the navigator's to find,
 and a ring standing there would hand the pilot the one thing the split of eyes
 keeps from him. The thumb's carry is remapped rather than followed (THE STARE's
-lid is the precedent): the full `curtainLiftMilli` lifts the hem `HEM_DROP +
+lid was the precedent): the full `curtainLiftMilli` lifts the hem `HEM_DROP +
 RAIL_RISE` less a gathered sliver, so the cloth is seen bunching at the rail
 rather than leaving it. The sheet is drawn with that lift and the folds' waists
 travel with it, and because the core is drawn first and the fabric over it the

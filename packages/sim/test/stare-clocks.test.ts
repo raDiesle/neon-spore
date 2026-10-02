@@ -5,18 +5,21 @@ import {
   type StareState,
   stareBlue,
   stareBoss,
-  stareClearShot,
+  stareChargeLength,
+  stareLashesOwed,
+  stareTurnsLeft,
   startWave,
 } from "../src/index.js";
 
 /**
- * The two clocks the hands and the cue read THE STARE by (`sim/stare.ts`):
- * whether the eye is on its blue pass, and whether a shot now is a clean one.
- * Neither is re-derived outside the simulation, so both are proved here.
+ * The clocks the hands, the cue and the picture read THE STARE by
+ * (`sim/stare.ts`): whether the eye is on its blue pass, how many lashes and
+ * beats a charge asks, and how many turns are left. None is re-derived
+ * outside the simulation, so all are proved here.
  */
 
 /** An eye on `..x.x`, set by hand to `phase`, `into` beats into it. */
-function eye(phase: StareState["phase"], open: boolean, into = 0, pass = 0): StareState {
+function eye(phase: StareState["phase"], open: boolean, into = 0, turn = 0): StareState {
   const world = createWorld(DEFAULT_CONFIG, 3);
   startWave(world, 6, [], [], { kind: "stare", levels: ["..x.x"] });
   const s = stareBoss(world);
@@ -24,7 +27,7 @@ function eye(phase: StareState["phase"], open: boolean, into = 0, pass = 0): Sta
   s.phase = phase;
   s.phaseBeat = 100 - into;
   s.open = open;
-  s.pass = pass;
+  s.turn = turn;
   return s;
 }
 
@@ -41,21 +44,25 @@ describe("stareBlue", () => {
   });
 });
 
-describe("stareClearShot", () => {
-  it("holds on a shut live beat with a shut beat after it", () => {
-    expect(stareClearShot(eye("live", false, 0), 100)).toBe(true);
+describe("stareLashesOwed and stareChargeLength", () => {
+  it("asks stareLashesFirst on the first level and doubles on each after", () => {
+    const s = eye("charge", false);
+    const owed = [0, 1, 2, 3].map((level) => stareLashesOwed({ ...s, level }, DEFAULT_CONFIG));
+    expect(owed).toEqual([4, 8, 16, 32]);
   });
 
-  it("does not hold when the next beat opens", () => {
-    // Beat 1 of `..x.x`: the eye opens on beat 2, where the bolt would land.
-    expect(stareClearShot(eye("live", false, 1), 100)).toBe(false);
-    expect(stareClearShot(eye("live", false, 3), 100)).toBe(false);
+  it("gives a charge more beats for every lash it asks", () => {
+    const s = eye("charge", false);
+    const beats = [0, 3].map((level) => stareChargeLength({ ...s, level }, DEFAULT_CONFIG));
+    expect(beats).toEqual([5, 13]);
   });
+});
 
-  it("does not hold on an open beat, or outside a live pass", () => {
-    expect(stareClearShot(eye("live", true, 0), 100)).toBe(false);
-    expect(stareClearShot(eye("teach", false, 0), 100)).toBe(false);
-    expect(stareClearShot(eye("rest", false, 0), 100)).toBe(false);
-    expect(stareClearShot(eye("charge", false, 0), 100)).toBe(false);
+describe("stareTurnsLeft", () => {
+  it("counts the turn being played, down to one", () => {
+    expect(stareTurnsLeft(eye("live", false, 0, 0), DEFAULT_CONFIG)).toBe(
+      DEFAULT_CONFIG.stareTurns,
+    );
+    expect(stareTurnsLeft(eye("live", false, 0, 4), DEFAULT_CONFIG)).toBe(1);
   });
 });

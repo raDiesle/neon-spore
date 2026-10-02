@@ -1,4 +1,4 @@
-import { midCol, type SimConfig, type StareState } from "@neon-spore/sim";
+import { midCol, type SimConfig, type StareState, stareChargeLength } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { type Layout, tileCX } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -22,7 +22,7 @@ import { splinePath } from "./spline.js";
  * edge-on to square over a tell; since then it faces the pair the whole
  * fight and opens on the beats of its pattern (`sim/stare.ts`). The picture
  * under `stare-draw.ts` is still scaled by one `face` number, and only the
- * dying eye turns away with it. Everything here is read off the phase and
+ * calm eye turns away with it. Everything here is read off the phase and
  * the beat, never eased in the renderer: both phones draw the same eye on
  * the same beat.
  */
@@ -93,7 +93,8 @@ export const OPEN_SHUT = 0.08;
  * How the eye stands, read off the phase and the beat. Since 29 September
  * 2026 it faces the pair the whole fight and the lids are the picture: wide
  * on an open beat of the pattern, a seam on a shut one, a seam through the
- * charge. Only dying turns it away, over `stareDyingBeats`. An open beat
+ * charge. Only the calm after the last level turns it away, over
+ * `stareCalmBeats`, and the rise to a new level shakes it. An open beat
  * snaps open and eases shut across the beat, so the opening is on the beat
  * and the closing is not a second beat of its own.
  */
@@ -103,30 +104,31 @@ export function stareFace(
   beat: number,
   beatPhase: number,
 ): StareFace {
-  if (s.phase === "dying") {
-    const p = 1 - smoothstep((beat - s.phaseBeat + beatPhase) / cfg.stareDyingBeats);
+  if (s.phase === "calm") {
+    const p = 1 - smoothstep((beat - s.phaseBeat + beatPhase) / cfg.stareCalmBeats);
     return { face: FACE_AWAY + (1 - FACE_AWAY) * p, open: OPEN_SHUT, lean: LEAN * (1 - p) };
   }
-  if (s.phase === "hurt") {
-    // Struck: the eye flinches, a shudder that dies out over the hurt.
-    const p = Math.min(1, (beat - s.phaseBeat + beatPhase) / cfg.stareHurtBeats);
-    return { face: 1, open: OPEN_SHUT, lean: HURT_LEAN * Math.sin(p * Math.PI * 9) * (1 - p) };
+  if (s.phase === "rise") {
+    // Rising to a new level: the eye shakes with rage, a shudder that dies
+    // out over the rise.
+    const p = Math.min(1, (beat - s.phaseBeat + beatPhase) / cfg.stareRiseBeats);
+    return { face: 1, open: OPEN_SHUT, lean: RISE_LEAN * Math.sin(p * Math.PI * 9) * (1 - p) };
   }
   const open = s.open ? 1 - (1 - OPEN_SHUT) * smoothstep(beatPhase) ** 2 : OPEN_SHUT;
   return { face: 1, open, lean: 0 };
 }
 
-/** How hard the struck eye shudders, as a shear of its width. */
-const HURT_LEAN = 0.22;
+/** How hard the rising eye shudders, as a shear of its width. */
+const RISE_LEAN = 0.22;
 
 /**
- * How far the charge has come, zero to one across `stareChargeBeats`, and
+ * How far the charge has come, zero to one across `stareChargeLength`, and
  * zero outside it: what the eye swells by and the beam gathers on
  * (`stare-charge.ts`). Read off the beat, so both phones swell together.
  */
 export function stareSwell(s: StareState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase !== "charge") return 0;
-  return Math.min(1, (beat - s.phaseBeat + beatPhase) / Math.max(1, cfg.stareChargeBeats));
+  return Math.min(1, (beat - s.phaseBeat + beatPhase) / Math.max(1, stareChargeLength(s, cfg)));
 }
 
 /** How much bigger the eye stands at the top of its charge. */
@@ -136,17 +138,6 @@ const SWELL = 0.22;
 export function swollenEye(e: StareEye, swell: number): StareEye {
   const k = 1 + SWELL * swell;
   return { cx: e.cx, cy: e.cy, rx: e.rx * k, ry: e.ry * k };
-}
-
-/**
- * How far down the lid is, zero to one — what the lid's picture and its
- * handle are placed by (`stare-lid.ts`). The thumb's depth over
- * `stareLidPullMilli` while the eye charges, and no lid at any other time:
- * a pulled lid vents the charge and the eye is back on its pattern.
- */
-export function stareLidDrop(s: StareState, cfg: SimConfig): number {
-  if (s.phase !== "charge") return 0;
-  return Math.min(1, s.lidMilli / Math.max(1, cfg.stareLidPullMilli));
 }
 
 /** How far the eye has come round, zero to one — what the ink warms on. */
