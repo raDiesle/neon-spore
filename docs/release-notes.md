@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · d5cfeec6c — THE SINEW keeps its catch and its fall's walk
+
+A pull runs straight down, and the two sideways gestures in the fight stay as they are: the catch, both hands carried apart while a snap-back swings, and the fall's walk, both hands the same way carrying the falling mass clear of the hull. The owner kept both on 2 October 2026 because neither is a pull.
+
 ## 2026-10-02 · 8cfb327d2 — THE SINEW drops in, hangs from a crown, and frays the fibre it is about to tear
 
 The boss bounces down from the top and rings like a rubber band, under a crown of flesh cut by the top chrome. Its gauge is a wide glass tube of bubbling amber with one bright sum line, which THE SLOW's colour split no longer doubles. The fibres run crown to tube and tube to mass. While the sum is in the green zone the tube glows and the next fibre frays as the count; a win tears it with a green flash and ring. Each seat's handle has the shared pull channel, straight down. A look the owner asked for by name.

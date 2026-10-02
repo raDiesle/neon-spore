@@ -31922,3 +31922,5 @@ and every new colour on the band had to be fitted between them.
 
 Bottleneck: none — the question was the whole of the work, and it was asked
 first.
+
+*Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
