@@ -401,7 +401,7 @@ leave behind, same as the four already listed, and it is a look:
 - **Files:** `packages/render/src/instar-draw.ts`, `packages/render/src/instar-side-head.ts`, `packages/render/src/instar-turn.ts`, `tools/versus/candidates/registry.ts`, `docs/spec/living-bosses.md`
 - **Asks:** Of the four THE INSTAR candidates in VERSUS (one head, body with weight, turning, serpentine flight), which ship?
 - **Answered:** 2026-09-28, in part — not the one head as it stands. The owner: `INSTAR:HEAD · RIG` looks weird and has no good skin, but its facing toward the player is good and stays. Before this entry ships anything, the rig head needs a skin; the other three are judged once they are on VERSUS.
-- **Deferred:** 2026-10-01 — the owner: VERSUS feedback on THE INSTAR comes later, one candidate at a time. Nothing here ships until he gives it.
+- **Deferred:** 2026-10-02 — the owner judged three on 2 October 2026: `instar:drift` looks worse and was dropped; `instar:flight` serpent and `instar:body` weight look better, but the serpent is to be slower and gentler and swim through every step of the level, and the body more naturally dragon-shaped. Both are reworked on VERSUS first, and nothing here ships until he picks the reworks.
 
 Put the ones the owner picks on the field and retire what they replace:
 with the one head picked, `instar-side-head.ts` and the handover in
@@ -471,3 +471,31 @@ bares, and a bolt reaching the core is drawn through it.
 
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
+
+## THE INSTAR's idle drift is dead code since the owner dropped it
+
+- **Found:** 2026-10-02, claude/versus-decisions-2026-10-02
+- **Files:** `packages/render/src/instar-drift.ts`, `packages/render/src/instar-parts.ts`, `packages/render/src/instar-place.ts`, `packages/render/src/instar-head-look.ts`, `packages/render/src/instar-head-parts.ts`, `packages/render/src/instar-plate.ts`, `packages/render/src/instar-profile.ts`, `packages/render/src/instar-rig-head-draw.ts`, `packages/render/src/instar-sway.ts`, `packages/render/src/instar-wings.ts`, `packages/render/test/instar-drift.test.ts`, `packages/render/test/instar-parts.test.ts`
+
+VERSUS `instar:drift` / `turn` was dropped on 2 October 2026 (*looks worse*,
+`tools/versus/DECIDED.md`), so `INSTAR_DRIFT.amount` is 0 for good and
+`instarDrift` always answers `undefined`. Every drawer above still threads the
+drift through (`driftTransform`, the parts' wander, the head's folded yaw) for
+a path nothing takes. Take it out: delete `instar-drift.ts`, `instar-parts.ts`
+and their two tests, and make each reader take the path it takes at
+`undefined`. The shared `idle-drift.ts` stays — the other bosses and the queued
+rig-boss drift read it. `bun run check` proves the field draws as it did.
+
+## `versus drop` leaves files outside the slot importing its candidates
+
+- **Found:** 2026-10-02, claude/versus-decisions-2026-10-02
+- **Files:** `tools/versus/decide.ts`, `tools/versus/test/`
+
+Dropping `instar:drift` removed `candidates/instar-drift/turn` and left two
+files importing it — tools/raster/src/solid-instar-drift-page.ts (the
+`bun run solid --instar-drift` strip) and
+tools/versus/test/instar-drift-budget.test.ts — so the typecheck went red
+and they were deleted by hand. `drop` and `adopt` should `git grep` for every
+import of the slot's candidate directories outside them, and either remove
+what exists only for the candidate or refuse and name the files. A test with a
+fixture importer proves it.

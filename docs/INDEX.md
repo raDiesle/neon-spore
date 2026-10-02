@@ -3070,7 +3070,6 @@ by hand never moves.
 | `tools/raster/src/solid-page.ts` | The solid sheet's page: bundled for the browser by `solid.ts` and run there |
 | `tools/raster/src/solid-instar-page.ts` | The INSTAR head sheet (`bun run solid --instar`) |
 | `tools/raster/src/solid-instar-body-page.ts` | The INSTAR body sheet (`bun run solid --instar-body`) |
-| `tools/raster/src/solid-instar-drift-page.ts` | The INSTAR drift strip (`bun run solid --instar-drift`): the game's own renderer drawing THE INSTAR's wave |
 | `tools/raster/src/solid-instar-flight-page.ts` | The INSTAR flight strip (`bun run solid --instar-flight`) |
 | `tools/raster/src/strip-bake.ts` | One painted strip, baked and packed: the atlas the field fetches (`<name>-strip.webp`) |
 | `tools/raster/src/sling-draw-art.ts` | One frame of THE SLING's arm drawing home, drawn into a 2D context |

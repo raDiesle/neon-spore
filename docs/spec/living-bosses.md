@@ -102,6 +102,9 @@ their own reach, so a pupil stays in its eye. Both ride the hush, so the body
 is as still over live marks, face-on and beaten as before, and the mark tests
 run at the candidate's reach.
 
+**Dropped (2 October 2026, VERSUS `instar:drift`).** The owner: *looks
+worse.* The field keeps the body unturned; `INSTAR_DRIFT.amount` stays 0.
+
 **Decided (1 October 2026, VERSUS `instar:head`, dropped).** Three organic
 side-on heads were offered against the rig head; the owner kept the current
 one — *all alternatives look worse* — and asked for it *altogether* bigger. So
@@ -240,8 +243,10 @@ seventh of a head radius at the rear, so the body shakes as it swims.
   eye — the lens and its ring of eggs — glances half a tile about inside the
   sac, home in the middle whenever an echo plays, where the navigator's word
   and the beam stand (`reprise-parts.ts`). *Its skin, 1 October 2026*
-  (`reprise-surface.ts`, offered as `reprise:skin` `turn`): the sac turns up
-  to 40° on the outline's own yaw, and its veins are pinned by longitude —
+  (`reprise-surface.ts`, offered as `reprise:skin` `turn`, **taken 2 October
+  2026** — the owner: *like it, build into game*): the sac turns up to 65° on
+  the outline's own yaw, its veins drawn at 0.4 and 0.07 wide rather than the
+  faint 0.12 and 0.04 they had, and its veins are pinned by longitude —
   each sample's latitude its height, its longitude read off the sac's width
   there — so a turn slides them across it, fastest through the middle; a near
   vein goes over the rim and a far pair, hidden at rest, comes round. The

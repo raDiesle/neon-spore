@@ -16,7 +16,7 @@ beforeAll(installCanvasGlobals);
  * turn each sample lies on the curve the sac always drew and the far pair is
  * hidden; a turn moves every sample by its own longitude — fastest through
  * the middle — takes a near vein over the rim and brings a far one round;
- * the shipped still skin turns nothing; and a frame turning costs within a
+ * the skin ships turning, and at no amount turns nothing; and a frame turning costs within a
  * tenth of one standing still.
  */
 
@@ -77,25 +77,30 @@ describe("THE REPRISE's veins by longitude", () => {
     expect(travel(3)).toBeGreaterThan(travel(4));
   });
 
-  test("turned its widest, a near vein goes behind the rim and the far one comes round", () => {
-    const widest = REPRISE_SURFACE.degrees * DEG;
-    // Turning to the right takes the right lobe's outer vein over the edge
+  test("turned its widest, the near veins go behind the rim and the far one comes round", () => {
+    // At 40° turning right takes the right lobe's outer vein over the edge
     // and brings the left lobe's far vein round; turning left, the mirror.
-    expect(near(widest)).toEqual([true, true, true, true, false, false]);
-    expect(near(-widest)).toEqual([true, false, false, true, true, true]);
-    // Turned far enough, the inner vein goes behind the rim too.
-    expect(near(Math.PI / 2 + 0.2)[3]).toBe(false);
+    expect(near(40 * DEG)).toEqual([true, true, true, true, false, false]);
+    expect(near(-40 * DEG)).toEqual([true, false, false, true, true, true]);
+    // At the shipped 65° the inner vein has gone behind the rim too, and the
+    // whole of the far lobe's skin is out of sight.
+    const widest = REPRISE_SURFACE.degrees * DEG;
+    expect(widest).toBeGreaterThan(50 * DEG);
+    expect(near(widest)).toEqual([true, true, true, false, false, false]);
+    expect(near(-widest)).toEqual([false, false, false, true, true, true]);
     // A far vein brought round lands inside the sac, never past its rim.
     for (const q of veinAt(REPRISE_VEINS[2] ?? [], widest)) {
       if (q.near) expect(Math.abs(q.x)).toBeLessThanOrEqual(1);
     }
   });
 
-  test("ships still: no turn at 0, and none hushed", () => {
-    expect(saved.surface.amount).toBe(0);
+  test("ships turning (the owner, 2 October 2026), none at 0, and none hushed", () => {
+    expect(saved.surface.amount).toBe(1);
+    expect(saved.drift).toBe(1);
+    expect(repriseTurn(41.3, 0)).toBe(0);
+    REPRISE_SURFACE.amount = 0;
     expect(repriseTurn(41.3, 1)).toBe(0);
     REPRISE_SURFACE.amount = 1;
-    expect(repriseTurn(41.3, 0)).toBe(0);
     let widest = 0;
     for (let f = 0; f < 120 * FPS; f++)
       widest = Math.max(widest, Math.abs(repriseTurn(f / FPS, 1)));
@@ -126,6 +131,8 @@ describe("what a frame of THE REPRISE costs turning", () => {
   };
 
   test("draws within a tenth of the still sac", () => {
+    REPRISE_SURFACE.amount = 0;
+    OUTLINE_DRIFT.reprise = 0;
     const still = worst();
     REPRISE_SURFACE.amount = 1;
     OUTLINE_DRIFT.reprise = 1;

@@ -32206,3 +32206,15 @@ Bottleneck: reading which of the menu's pages a wave list is on, and that only
 the rig has one.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE REPRISE's turning skin is taken; two VERSUS slots dropped
+
+- reading: 5 min. `docs/versus.md`'s adopt and drop, the five slots, the spec.
+- writing: 5 min. The REPRISE tests at 65° and shipped turning, the spec, two
+  queue findings.
+- looking: 0 min. The owner had already looked; the values are his pick.
+- friction: 5 min. `versus drop instar:drift` left a strip page and a budget
+  test importing the candidate, red in the typecheck, removed by hand.
+- landing: 5 min. `check:fast` twice, `land`.
+
+Bottleneck: `versus drop` leaving the dropped candidate's importers behind.

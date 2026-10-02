@@ -7,15 +7,6 @@
 
 import type { Variant } from "../variant.js";
 import { INSTAR_BODY_WEIGHT } from "./instar-body/weight/index.js";
-import { INSTAR_DRIFT_TURN } from "./instar-drift/turn/index.js";
 import { INSTAR_FLIGHT_SERPENT } from "./instar-flight/serpent/index.js";
-import { KEEL_THREE } from "./keel-seam/three/index.js";
-import { REPRISE_SKIN_TURN } from "./reprise-skin/turn/index.js";
 
-export const VARIANTS: Variant[] = [
-  INSTAR_BODY_WEIGHT,
-  INSTAR_DRIFT_TURN,
-  INSTAR_FLIGHT_SERPENT,
-  KEEL_THREE,
-  REPRISE_SKIN_TURN,
-];
+export const VARIANTS: Variant[] = [INSTAR_BODY_WEIGHT, INSTAR_FLIGHT_SERPENT];

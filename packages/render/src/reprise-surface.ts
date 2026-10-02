@@ -21,22 +21,23 @@ import type { RepriseFrame } from "./reprise-body.js";
  * sample carried past it is dropped, and the run it ended is carried on to
  * the rim (`limbX`). The few samples the shipped curve put outside the sac, where its clip hid them, take a circle
  * of their own just past where they lie (`PAST`). At no turn every sample
- * lands on the curve, and a skin held still (`REPRISE_SURFACE.amount` 0,
- * as shipped) draws the curve itself, so the shipped field draws as it did.
+ * lands on the curve, and a skin held still (`REPRISE_SURFACE.amount` 0)
+ * draws the curve itself. It ships turning, 65° and bold — the owner took
+ * VERSUS `reprise:skin` / `turn` on 2 October 2026 (`tools/versus/DECIDED.md`).
  *
  * **The gloss is not here.** It is the key light's highlight, and the light
  * does not turn.
  */
 
 export const REPRISE_SURFACE = {
-  /** How much of the turn the skin takes: 0 still, as shipped; 1 the whole. */
-  amount: 0,
+  /** How much of the turn the skin takes: 0 still; 1 the whole, as shipped. */
+  amount: 1,
   /** The widest turn, degrees, at the drift's widest yaw. */
-  degrees: 40,
-  /** The veins' opacity: faint, as shipped. */
-  veinAlpha: 0.12,
+  degrees: 65,
+  /** The veins' opacity: bright enough that the turn reads. */
+  veinAlpha: 0.4,
   /** The veins' width, in the sac's unit (never under 0.8 px). */
-  veinWidth: 0.04,
+  veinWidth: 0.07,
 };
 
 /** How far past a sample lying outside the sac its own circle reaches, so it is never pinned on the rim itself. */

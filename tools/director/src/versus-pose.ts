@@ -35,10 +35,7 @@ import { POSE_GROUPS } from "./poses.js";
  */
 const SLOT_POSE: Record<string, string> = {
   "instar:body": "INSTAR · PERCHED",
-  "instar:drift": "INSTAR · PERCHED",
   "instar:flight": "INSTAR · IN FLIGHT",
-  "keel:seam": "THE KEEL · BREATH",
-  "reprise:skin": "THE REPRISE · RUNNING",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

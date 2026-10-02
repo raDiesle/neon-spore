@@ -1471,3 +1471,31 @@ shipped head is made bigger instead
 
 The other answers offered were `drake`, `hound`, `rig` and `viper`; they went
 with the slot.
+
+## `reprise:skin` / `turn` — taken, 2026-10-02
+
+the owner, 2 October 2026: like it, build into game
+
+turn — THE REPRISE's sac turns slowly left and right, its veins — bright and
+thick now, not faint — sliding round it, the near ones going over the edge and
+a far pair coming round from behind
+
+Written into `packages/render/src/reprise-surface.ts`, `REPRISE_SURFACE`:
+`amount`, `degrees`, `veinAlpha` and `veinWidth`.
+
+Written into `packages/render/src/outline-drift.ts`, `OUTLINE_DRIFT`:
+`reprise`.
+
+It was the only answer offered.
+
+## `keel:seam` — nothing taken, 2026-10-02
+
+the owner, 2 October 2026: looks worse, reject
+
+The other answer offered was `three`; it went with the slot.
+
+## `instar:drift` — nothing taken, 2026-10-02
+
+the owner, 2 October 2026: looks worse
+
+The other answer offered was `turn`; it went with the slot.
