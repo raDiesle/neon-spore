@@ -331,7 +331,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Every other boss a bolt strikes, held to the lit-open-stopped rule
 
 - **Found:** 2026-10-01, claude/boss-cannon-targeting-feedback-15f334
-- **Taken:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
 - **Where:** local
 - **Files:** `packages/sim/src/shot-out.ts`, `packages/sim/src/core-verdict.ts`, `packages/render/src/core-stop.ts`, `packages/render/src/governor-stop.ts`, `packages/render/src/heartbeat.ts`, `packages/render/test/core-stop.test.ts`, `.claude/skills/new-boss/generic.md`
 
