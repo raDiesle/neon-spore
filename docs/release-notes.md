@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 19d78a55b — Every boss's lit core is lit from inside, through one drawLitCore
+
+THE BURGEE, THE CAPSTAN, THE DAVIT, THE GALL, THE GRINDSTONE, THE HALTER, THE PLUMB, THE RIME and THE SLING no longer glow round the part they ask the cannon to hit. The part keeps its unlit colour and border, and takes the step's colour inside its outline, beating like a heart. Its countdown is a plain ring. All thirteen bosses with such a core, plus THE FLUE and THE GOVERNOR, now draw it through `drawLitCore` in `render/lit-core.ts`, and a COPIES row stops the next boss from pasting it.
+
 ## 2026-10-02 · d6d41a5ea — Four bosses' lit cores and both pull tracks are lit from inside
 
 THE CYST, THE OCULUS, THE TRIVET and THE VISE no longer glow round the part they ask the cannon to hit. The core keeps its unlit colour, takes a light that beats like a heart and never leaves its edge, and keeps its own border. The countdown ring round it is now a plain stroke. On THE INSTAR's and THE WARDEN's pull tracks, the red bar laid over the channel becomes the same faint breathing light as the mark halo, inside the channel.
