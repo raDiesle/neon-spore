@@ -11,6 +11,7 @@ import { drawGrindstone } from "./grindstone-draw.js";
 import { drawHalter } from "./halter-draw.js";
 import { drawLamprey } from "./lamprey-draw.js";
 import type { Layout } from "./layout.js";
+import { drawMimic } from "./mimic-draw.js";
 import { drawPlumb } from "./plumb-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawSling } from "./sling-draw.js";
@@ -47,6 +48,7 @@ export const LATE_PAIR_KINDS = [
   "flue",
   "governor",
   "lamprey",
+  "mimic",
 ] as const;
 
 export type LatePairBoss = Extract<Installed, { kind: (typeof LATE_PAIR_KINDS)[number] }>;
@@ -189,5 +191,13 @@ export function drawLatePairBoss(
   // under by one seat while the other taps its lit tooth out, then reared
   // with its gullet lit and shot (`lamprey-draw.ts`); its marks' verdicts on
   // a touch are `lamprey-verdicts.ts`.
-  drawLamprey(ctx, l, world, boss, beat, beatPhase, time, effects.boss.lamprey);
+  if (boss.kind === "lamprey") {
+    drawLamprey(ctx, l, world, boss, beat, beatPhase, time, effects.boss.lamprey);
+    return;
+  }
+
+  // THE MIMIC: a mantle over the top of the field wearing a sign on one
+  // screen and mottle on the other, the pad on the drawer's, split on its
+  // lit core at the last (`mimic-draw.ts`).
+  drawMimic(ctx, l, world, boss, beat, beatPhase);
 }

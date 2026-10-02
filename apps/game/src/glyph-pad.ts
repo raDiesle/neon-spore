@@ -1,4 +1,4 @@
-import type { Layout } from "@neon-spore/render";
+import { type Layout, mimicPad } from "@neon-spore/render";
 import { mimicBoss, mimicDraws, type World } from "@neon-spore/sim";
 import { samplesOf } from "./coalesced.js";
 import { recogniseGlyph, type StrokePoint } from "./glyph-stroke.js";
@@ -84,9 +84,10 @@ export function bindGlyphPad({
 /** The desk's five, in `GLYPHS` order. */
 const GLYPH_KEYS = ["Digit1", "Digit2", "Digit3", "Digit4", "Digit5"];
 
-/** Whether a point on the stage is on the pad: the lower half of the play area. */
+/** Whether a point on the stage is on the pad: the rectangle the drawer's screen frames (`render/mimic-pad.ts`). */
 export function inPad(l: Layout, p: { x: number; y: number }): boolean {
-  return p.y >= l.playHeight / 2 && p.y < l.bandTop && p.x >= 0 && p.x < l.width;
+  const pad = mimicPad(l);
+  return p.y >= pad.y && p.y < pad.y + pad.h && p.x >= pad.x && p.x < pad.x + pad.w;
 }
 
 /**

@@ -443,17 +443,26 @@ flat. `bun run check` proves the tests.
 - **Needs:** THE MIMIC's simulation (§42)
 - **Files:** `packages/render/src/`, `packages/content/src/silhouettes*.ts`, `packages/render/test/frame.test.ts`
 
-The second lane of `.claude/skills/new-boss`: BLOOM · GLYPHED, `bloom`'s
-eight-armed mantle with `glyphed`'s rim of marks, the sign on one seat and
-the mottle on the other, in `frame.test.ts`. The sheet PNG is sent to the owner.
-The simulation lane left it more: the eight STATES cards on `OWED` in
-`tools/director/test/boss-states.test.ts`, the thirteen events off the two
-silent lists (`render/src/effects-*-silent-boss-e.ts`), and the drawing pad
-over the lower field on a seat that `mimicDraws`, empty on the reader's. The
-pad's region is `inPad` in `apps/game/src/glyph-pad.ts` — draw it there —
-and the sign on the skin is drawn as the recogniser's five templates
-(`apps/game/src/glyph-stroke.ts` `SHAPES`), so the shape read aloud is the
-shape the pad listens for.
+The second lane of `.claude/skills/new-boss`, in three halves, as THE
+LAMPREY's was. **The body landed 2 October 2026** (`render/src/mimic-draw.ts`
+and its four files, `test/mimic-frame.test.ts`; §11.60, *The look*): the
+mantle, the sign on the reader's screen from the recogniser's own templates
+(`render/glyph-shapes.ts`), the pad on the drawer's (`mimicPad`, which
+`inPad` now reads), the mimicked sign, the reach, the roll, the split, the
+core and the fall. Two halves are left, in order:
+
+- **the hand** — the eight STATES cards on `OWED` in
+  `tools/director/test/boss-states.test.ts`, posed on AUTO's hand with the
+  sign on one seat and the pad on the other; the cue's words, if the field
+  says any beyond `FIRE` on the core (`render/boss-cue-read-*.ts`); THE
+  SLOW's aim round the mantle; the marks-window row for the pad;
+- **the receipts** — an `fx` file: the peel lifting off like a sticker and
+  drifting down the field turning over, the flinch, the reach's creak and
+  the third reach's strike (a LOOK and a FROM row in `boss-strike-*.ts`),
+  the core's hit and its clench, the blow it takes (`boss-hurt-rows-*.ts`);
+  the thirteen events off the two silent lists
+  (`render/src/effects-*-silent-boss-e.ts`), a `glow-faded.test.ts` row, and
+  the sound links' reasons (`tools/director/src/sound-link-none-e.ts`).
 
 ## THE INSTAR's shipped rise leaves both nests beside its back
 

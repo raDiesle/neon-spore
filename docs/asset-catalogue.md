@@ -1,6 +1,6 @@
 # The asset catalogue
 
-> **Status: ten drafts, twenty claimed, nine set free and two moved to VERSUS so far.** A draft is a picture
+> **Status: ten drafts, twenty-one claimed, eight set free and two moved to VERSUS so far.** A draft is a picture
 > offered to an idea, not a decision about it. Nothing on this page is in the
 > game until it is claimed — its parameters moving into `packages/content`, or
 > into `packages/render` where what was drawn is a mechanism rather than a
@@ -109,7 +109,8 @@ Each names the idea it is offered to, and a test fails if that idea is not a hea
 suggestion. Which is why THE MOTHER and THE VESSEL are **free** shapes now and
 not drafts: the names they were drawn for left the act order on 11 September
 2026 (`decisions.md` #30), and a picture with no idea to be offered to is a
-picture waiting for one.
+picture waiting for one. THE VESSEL's waited until THE MIMIC took it on
+2 October 2026.
 
 **Four ideas turned out to be one drawing problem, and that is why they had no
 picture.** *The breach*, *The Patch*, *The Other Hand* and *Handover* had sat
@@ -279,7 +280,10 @@ Said plainly, because a catalogue that oversells itself is worse than none.
   CODEX scroll a wave around their outline. Whether a *key* can be read off it
   is unanswered; the *count* was answered another way when THE COUNT was built
   (11 September 2026): the marks are cut by the renderer on one screen off the
-  world's beat, and the disc under them is the silhouette.
+  world's beat, and the disc under them is the silhouette. THE MIMIC (2
+  October 2026) cuts the same rim into a mantle's edge and leaves the reading
+  to a sign drawn on the skin inside it, one of the five a thumb can draw
+  (`render/mimic-sign.ts`): the rim is skin, and the key is elsewhere.
 - **The arms are single strokes.** THE CONDUCTOR and THE NEEDLE have no
   thickness of their own. A real one is a stroke width and a taper, which is
   what LIGHT TRACE got when THE LAMPREY took it (1 October 2026): a lobed

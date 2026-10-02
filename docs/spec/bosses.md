@@ -11503,17 +11503,44 @@ them. The nearest wins; a stroke under 40 pixels long, or further than 0.2
 of its box from all five, sends nothing, so a miss is a try again rather
 than a wrong sign. **Its five templates are the picture of each sign**: a
 ring, a triangle on its base, a W for the zigzag, one lying sine period for
-the wave, and a J for the hook — the look draws these. At a desk, keys 1 to
+the wave, and a J for the hook — the look draws these, from the one table
+both read (`render/src/glyph-shapes.ts`). At a desk, keys 1 to
 5 send the five, Shift for the navigator's half of a split on the test
 screen; `bun run frames --press <t>:2:glyph=<n|name>`.
 
-**What is not built.** **The look** — the mantle, the sign on one seat and
-the mottle on the other, the pad, the arms, the core — is the second lane
-(`docs/queue.md`, THE MIMIC's look (§42)); every event is silent to the
-renderer until it lands (`render/src/effects-ingest-silent-boss-e.ts`), and
-its eight STATES cards are owed (`tools/director/test/boss-states.test.ts`).
-Until it lands the pad is not drawn and the sign is on no screen, so only
-AUTO and the desk keys can play this wave.
+**The look.** **The body** landed on 2 October 2026 (`render/src/mimic-draw.ts`,
+`mimic-shape.ts`, `mimic-pose.ts`, `mimic-sign.ts`, `mimic-pad.ts`).
+BLOOM · GLYPHED: THE VESSEL's `bloom`, a soft round mantle hung over the
+middle column with eight round-ended arms of even length, each breathing a
+little out of step, and `glyphed`'s rim of marks cut shallow into its edge
+and marching as the skin ripples; a mottle of two dark greens close to the
+field's own dark, a different scatter for each face. It enters pressed flat
+against the top of the field and slaps round, ringing out; flinches small
+with its arms pulled in when a sign peels; rolls edge-on to turn its other
+face between movements; parts down the middle on a split, each half wearing
+its own face and drawing back further once peeled, the core between dull
+grey-green and lit in its cannon's colour only while it is bare to be shot;
+and falls shapeless down the field, spent, at half alpha. The arm that
+reaches is a lobed tentacle from under the mantle, a third of the way to the
+hull per reach, beginning to stretch in the last half beat of the mimicry.
+**The sign** is one of the five drawn from the recogniser's own templates in
+pale cyan, glowing — the only bright line on the body — rising from its
+middle over half a beat, and on a changing step sinking just before the
+change and rising again after it; it is drawn **only on the screen of the
+seat that does not draw it** (`showsMimicSign`, `view-role-clocks-c.ts`).
+**The pad** is a faint dashed frame over the lower half of the play area,
+breathing on the beat, **only on the screen of the seat that owes a sign**
+(`showsMimicPad`); its rectangle is the one the stroke is heard in
+(`mimicPad`, read by `apps/game/src/glyph-pad.ts` `inPad`). **A mimicked
+sign** is the template drawn shaken in the hull's red on every screen.
+
+**What is not built.** **The hand half** — the eight STATES cards, owed in
+`tools/director/test/boss-states.test.ts`, the cue's words and THE SLOW's
+aim — and **the receipts** — the peel drifting down the field turning over,
+the flinch's and the reach's bursts, the strike — are queued (`docs/queue.md`,
+THE MIMIC's look (§42)); every event is still silent to the renderer
+(`render/src/effects-ingest-silent-boss-e.ts`). The body has not been
+watched at tempo on two phones.
 
 **What is proven, and what is not.** `sim/test/mimic.test.ts` proves the
 rules: the mantle slaps into shape and the first sign surfaces under THE

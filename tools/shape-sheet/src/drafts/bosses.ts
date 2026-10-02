@@ -40,12 +40,13 @@ export const BOSS_DRAFTS: CatalogueEntry[] = [
   {
     subject: bloom("THE VESSEL", "one core, six arms, each at its own length", 60, 6, 0.62, 9),
     motion: TURN,
-    // Free since 11 September 2026, when it left the act order with every
-    // other unbuilt name (docs/decisions.md #30). The design is 11.2.
-    status: "free",
+    // Free from 11 September 2026, when it left the act order with every
+    // other unbuilt name (docs/decisions.md #30). Taken 2 October 2026 by
+    // THE MIMIC's mantle, combined with THE CODEX's rim of marks.
+    status: "taken",
     slot: "boss",
     owner:
-      "nothing wears it: drawn for The Vessel while it held the finale — the navigator reads a target combination and the pilot only the current states, so the silhouette has to *be* several readings at once — six arms on six periods, never in step, so the shape at any instant is a set of numbers and not a mood",
+      "THE MIMIC, taken 2 October 2026, combined with `glyphed`'s rim of marks as BLOOM · GLYPHED: the core is the mantle, the arms set to eight of even length, each a rounded lobe breathing on its own period, and the notched rim cut into the mantle's edge marching as the skin ripples (`render/mimic-shape.ts`). Before that, nothing wore it: drawn for The Vessel while it held the finale — the navigator reads a target combination and the pilot only the current states, so the silhouette has to *be* several readings at once — six arms on six periods, never in step, so the shape at any instant is a set of numbers and not a mood",
   },
   {
     subject: sac("THE WEIGHT", "a sac hung heavy, narrow at the top", 0.46, 74, 96),

@@ -142,3 +142,15 @@ export const showsGovernorHand = (role: ViewRole, seat: 1 | 2): boolean =>
  */
 export const showsLampreyHand = (role: ViewRole, seat: 1 | 2): boolean =>
   role === "test" || role === `p${seat}`;
+
+/**
+ * THE MIMIC's split (§42, *Player 1 and Player 2*), the Queen's two marks
+ * turned on their side: **the sign seat `drawer` must draw is shown to the
+ * other seat only**, and **the pad it draws on to `drawer` only** — the
+ * screen that can see is never the hand that can answer. `test` is both
+ * seats, and is shown both.
+ */
+export const showsMimicSign = (role: ViewRole, drawer: 1 | 2): boolean =>
+  role === "test" || role !== `p${drawer}`;
+export const showsMimicPad = (role: ViewRole, drawer: 1 | 2): boolean =>
+  role === "test" || role === `p${drawer}`;

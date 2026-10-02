@@ -1091,6 +1091,11 @@ by hand never moves.
 | `packages/render/src/mirror-marks.ts` | THE MIRROR's lobes answering a touch like every mark: halo, the partner's ring and clock, the green or red verdict |
 | `packages/render/src/mine-tap.ts` | **A finger on a bare square of the field**, from the seat that cannot see what is standing on it |
 | `packages/render/src/mine.ts` | THE MINE, drawn: the body on one seat, the **count** on both |
+| `packages/render/src/mimic-draw.ts` | **THE MIMIC**: a soft round mantle with eight short arms hung over the top of the field |
+| `packages/render/src/mimic-pad.ts` | **THE MIMIC's drawing pad** (§42, *Player 1 and Player 2*): the lower half of the play area |
+| `packages/render/src/mimic-pose.ts` | **The clock THE MIMIC is posed off** (§42, *Animation*), six poses |
+| `packages/render/src/mimic-shape.ts` | **THE MIMIC's shape** (§42, *Silhouette*): two drafts combined, named on the shape sheet **BLOOM · GLYPHED** |
+| `packages/render/src/mimic-sign.ts` | **A sign on THE MIMIC's skin** (§42, *Colour*): one of the five, from the recogniser's own templates |
 | `packages/render/src/simon-fx.ts` | the count-in, the handover, and what the row is showing |
 | `packages/render/src/simon-row.ts` | the row of slots: a control, or a question mark |
 | `packages/render/src/simon-verdict.ts` | the sequence flying into whichever ship earned it |
@@ -1276,6 +1281,7 @@ by hand never moves.
 | `packages/render/src/gland-organ.ts` | A BUTTON GROWN AS AN ORGAN — the flesh it swells out of, the veins that feed it |
 | `packages/render/src/gland-tube.ts` | A TUBE AND A CURVE — the two pieces of vector arithmetic every grown thing on VERSUS is drawn out of |
 | `packages/render/src/gland-wet.ts` | WET SKIN — the ship as a clear, light-reflecting surface, with **no grain** |
+| `packages/render/src/glyph-shapes.ts` | **The five signs as they are drawn** — a ring, a triangle, a zigzag, a wave and a hook (`sim/glyphs.ts`) |
 | `packages/render/src/handles.ts` | The handles: the things drawn **on the field** that a hand takes hold of and carries, as opposed to the |
 | `packages/render/src/handles-pairs.ts` | **The two handles that come in pairs** — THE CHOIR's arrows against the two walls |
 | `packages/render/src/handles-cords.ts` | **The three cords**: THE MAZE's string, THE WARDEN's rope and THE LID's cord |

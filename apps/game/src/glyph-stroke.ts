@@ -1,3 +1,4 @@
+import { GLYPH_SHAPES } from "@neon-spore/render";
 import { GLYPHS } from "@neon-spore/sim";
 
 /**
@@ -24,9 +25,9 @@ import { GLYPHS } from "@neon-spore/sim";
  * further, so a line stays a line instead of being blown up into a box —
  * a stroke straight across the pad is far from all five, not a zigzag.
  *
- * **The templates are the picture of each sign**: whoever draws the sign on
- * the skin (THE MIMIC's look) draws these five, so the shape a pair agrees a
- * word for is the shape this file is listening for.
+ * **The templates are the picture of each sign**, and they are the
+ * renderer's (`render/glyph-shapes.ts`): THE MIMIC's skin draws the same five,
+ * so the shape a pair agrees a word for is the shape this file is listening for.
  */
 
 export interface StrokePoint {
@@ -45,56 +46,6 @@ export const GLYPH_MIN_STROKE = 40;
 
 /** A closed sign's starting places, the ring's and the triangle's: every point round it. */
 const STARTS = POINTS - 1;
-
-/** Each of the five as it is drawn, in a box from 0 to 1 with y down. */
-const SHAPES: Record<(typeof GLYPHS)[number], { at: StrokePoint[]; closed: boolean }> = {
-  ring: {
-    at: Array.from({ length: 33 }, (_, i) => {
-      const a = (i / 32) * Math.PI * 2 - Math.PI / 2;
-      return { x: 0.5 + 0.5 * Math.cos(a), y: 0.5 + 0.5 * Math.sin(a) };
-    }),
-    closed: true,
-  },
-  triangle: {
-    at: [
-      { x: 0.5, y: 0 },
-      { x: 1, y: 1 },
-      { x: 0, y: 1 },
-      { x: 0.5, y: 0 },
-    ],
-    closed: true,
-  },
-  // Down and up twice, all straight: a W, four strokes with sharp corners.
-  zigzag: {
-    at: [
-      { x: 0, y: 0 },
-      { x: 0.25, y: 1 },
-      { x: 0.5, y: 0 },
-      { x: 0.75, y: 1 },
-      { x: 1, y: 0 },
-    ],
-    closed: false,
-  },
-  // One whole period of a sine, lying down: up, over, down, under and back.
-  wave: {
-    at: Array.from({ length: 25 }, (_, i) => ({
-      x: i / 24,
-      y: 0.5 - 0.5 * Math.sin((i / 24) * Math.PI * 2),
-    })),
-    closed: false,
-  },
-  // A J: straight down the right-hand side, then a half turn up the left.
-  hook: {
-    at: [
-      { x: 1, y: 0 },
-      ...Array.from({ length: 13 }, (_, i) => {
-        const a = (i / 12) * Math.PI;
-        return { x: 0.5 + 0.5 * Math.cos(a), y: 0.6 + 0.4 * Math.sin(a) };
-      }),
-    ],
-    closed: false,
-  },
-};
 
 /** How far along a polyline it runs, end to end. */
 export function strokeLength(at: readonly StrokePoint[]): number {
@@ -173,7 +124,7 @@ function variants(shape: { at: StrokePoint[]; closed: boolean }): StrokePoint[][
   return out;
 }
 
-const TEMPLATES: StrokePoint[][][] = GLYPHS.map((g) => variants(SHAPES[g]));
+const TEMPLATES: StrokePoint[][][] = GLYPHS.map((g) => variants(GLYPH_SHAPES[g]));
 
 function meanDistance(a: readonly StrokePoint[], b: readonly StrokePoint[]): number {
   let sum = 0;

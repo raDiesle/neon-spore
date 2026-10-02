@@ -133,8 +133,8 @@ export const INGEST_SILENT_BOSS_E = [
   "lampreyLunge",
   "lampreySpent",
   "lampreyOut",
-  // THE MIMIC, every event: its look is the shape sheet's stand-in until
-  // its own lane draws it (`docs/spec/bosses-choreographed.md` §42).
+  // THE MIMIC, every event: the body is drawn off the world each frame, and
+  // the receipts half of its look is to come (§42).
   "mimicEnter",
   "mimicSign",
   "mimicChange",

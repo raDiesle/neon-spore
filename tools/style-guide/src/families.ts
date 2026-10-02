@@ -117,6 +117,11 @@ export const FAMILIES: Family[] = [
       "lampreyTooth",
       "lampreyMouth",
       "lampreyGullet",
+      "mimicSkin",
+      "mimicMottle",
+      "mimicSkinDark",
+      "mimicSign",
+      "mimicCore",
     ],
   },
   {

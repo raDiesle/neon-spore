@@ -31747,3 +31747,21 @@ Bottleneck: tracing the one mark brighter than the spent fade, which turned
 out to be the verdicts the test is meant to hold off.
 
 *Measured: 30 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE MIMIC is drawn: the mantle, the sign on one screen, the pad on the other
+
+- reading: 15 min. §42's look, the simulation's state and clock, THE
+  LAMPREY's body lane as the template, the two drafts' forms, the pad and the
+  recogniser's templates.
+- writing: 25 min. The shared templates and pad rectangle, the shape, the
+  pose, the sign, the drawer, the seat split, the palette, the harness and
+  the frame test, the drafts and the write-ups.
+- looking: 15 min. Six frames: the rim marks drowned the arms and the key
+  light washed the mottle pale, the arms were spikes, and the split hid the
+  core, each fixed and shot again.
+- friction: 5 min. `frames --at` crops in the phone's own pixels, not the
+  layout's; two crops landed on empty sky before the whole frame was used.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: looking — the first frame of a new body is never the one that
+ships, and each round of the look costs a render and a read.

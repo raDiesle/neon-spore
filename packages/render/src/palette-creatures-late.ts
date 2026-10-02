@@ -100,4 +100,16 @@ export const LATE_CREATURE_HUES = {
   lampreyTooth: "#E8E2CC",
   lampreyMouth: "#0E0A0A",
   lampreyGullet: "#5A2A22",
+  /**
+   * THE MIMIC (§42, *Colour*): a mottle of two dark greens close to the
+   * field's own dark, so it hides against it flattened; its outline darker
+   * still; a sign the pale cyan line that is the only bright line on the
+   * body; and the core unlit, a dull grey-green — lit, it is the only lit
+   * fill on the body, in a cannon's colour. A mimicked sign is the hull's red.
+   */
+  mimicSkin: "#1D3326",
+  mimicMottle: "#243D2D",
+  mimicSkinDark: "#0A140E",
+  mimicSign: "#C4F6FF",
+  mimicCore: "#33413A",
 } as const;

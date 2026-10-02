@@ -48,8 +48,10 @@ export const NO_SUBJECT_E: Record<string, string> = {
   "boss.lampreySpent": "the eel gone limp, falling away. Same argument.",
   "boss.lampreyOut": "the eel gone and the wave ending. Same argument, and an absence.",
   // THE MIMIC's thirteen (`sim/events-mimic.ts`): the same argument as THE
-  // LAMPREY's above — no frame of it to point a sound at until its look lands.
-  "boss.mimicEnter": "the mottle slapping into a mantle. Its look is the stand-in; no frame yet.",
+  // LAMPREY's above — the mantle is drawn from two drafts combined, BLOOM ·
+  // GLYPHED, and neither is a shape-sheet subject, so no card to point at.
+  "boss.mimicEnter":
+    "the mottle slapping into a mantle. Drawn from two drafts; no shape-sheet subject.",
   "boss.mimicSign": "a sign surfacing on the skin. Same argument.",
   "boss.mimicChange": "the sign sinking and another rising. Same argument.",
   "boss.mimicPeel": "a sign drawn right, peeling off. Same argument.",

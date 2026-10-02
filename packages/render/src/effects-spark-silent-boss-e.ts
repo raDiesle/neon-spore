@@ -25,8 +25,8 @@ export const SILENT_BOSS_E = [
   "lampreyLunge",
   "lampreySpent",
   "lampreyOut",
-  // THE MIMIC, every event: its look is the shape sheet's stand-in until
-  // its own lane draws one, so nothing here throws a burst for it yet
+  // THE MIMIC, every event: the body is drawn, but nothing here throws a
+  // burst for it until the receipts half of its look lands
   // (`docs/spec/bosses-choreographed.md` §42).
   "mimicEnter",
   "mimicSign",
