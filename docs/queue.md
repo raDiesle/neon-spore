@@ -607,6 +607,7 @@ The options:
 ## `boss-hands.ts` and `hash-boss-clocks.ts` are at the 250-line limit
 
 - **Found:** 2026-10-01, claude/queue-the-lampreys-simulation-41
+- **Taken:** 2026-10-02, claude/queue-the-mimics-simulation-42 (claim: claude/queue-boss-hands-ts-and-hash-boss-clocks-ts-are-at-the)
 - **Where:** local
 - **Files:** `packages/sim/src/boss-hands.ts`, `packages/sim/src/hash-boss-clocks.ts`
 
