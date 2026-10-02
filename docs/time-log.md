@@ -32019,3 +32019,5 @@ read off each boss's simulation, one file at a time.
 
 Bottleneck: the second cut — THE FLEET's five alone left `controls-round.ts`
 at 212, and the next seam had to be found.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

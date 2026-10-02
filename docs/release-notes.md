@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · d96288e9b — The band's controls and the round's vocabulary are cut on their seams
+
+`band-control.ts` keeps the ordinary panel's own buttons; a round's lobes are in `band-control-rounds.ts` and a boss's own set in `band-control-bosses.ts`, where the next one is added. In content, THE FLEET's five move to `controls-fleet.ts` beside THE THROAT's, and THE PULSE's eight, the one set written for each seat, to `controls-pulse.ts`. Both files were within one control set of 250 lines and are now 134 and 152. Nothing drawn changes.
+
 ## 2026-10-02 · 007878fda — Every boss's handles answer TEST's one mouse
 
 Under TEST a press with no seat key is tried as player 1 first, so wherever both seats' hit tests answered one point the pilot took it — and on seven more bosses that was a handle only the navigator is heard on. THE KEEL's joint on the navigator's half, THE FILAMENT's tail ring, THE FLUE's row when the navigator taps, THE LAMPREY's mouth, THE CAPSTAN's drum, THE HALTER's grips on a right step and THE PULSE's bar when it asks the navigator now each name their seat to the desk, as THE CYST's marks do.
