@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · b45757585 — VERSUS instar:body weight has a dragon's neck, chest, waist and haunches
+
+On the owner's 2 October 2026 answer to the body with weight, *looks better but make body more natural shape of a dragon*: THE INSTAR's candidate body is no longer one swell from the head to the rear. A slender neck shows under the head, a deep chest swells behind it over the shoulders, the body draws in at the waist and fills again over the haunches, and the tail thins to a finer blade. The ridge stands tallest over the chest and lowers toward the tail. Only the candidate changes; the field draws what it did.
+
 ## 2026-10-02 · 261fd4a52 — VERSUS instar:flight serpent swims slower and gentler, on every step of the level
 
 On the owner's 2 October 2026 answer to the serpent, *looks better. can you make it slower and not so strong path of movement and also have it in all perspective of boss level*: the wave down THE INSTAR's body is half the size, a crest takes four beats rather than two, and the shiver is gone. It now swims on every step, not only in flight — perched and turning at half its flight's size, side-on and face-on down the tube going back — and grows to the whole in flight, where the wings beat on it. It holds still while THE SLOW is open, so a mark stays under its circle. Only the candidate changes; the field draws what it did.

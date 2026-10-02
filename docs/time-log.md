@@ -32245,3 +32245,5 @@ the body held a crest and a quarter, rewritten as a delay.
 
 Bottleneck: the neck, hidden behind the lower jaw until the chest moved two
 fifths back.
+
+*Measured: 18 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
