@@ -454,21 +454,3 @@ bares, and a bolt reaching the core is drawn through it.
 
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
-
-## Nothing holds a module-level `Map` of paths or canvases outside `bakedCache`
-
-- **Found:** 2026-10-02, claude/queue-living-bosses-ship-the-instars-picked-candidates
-- **Taken:** 2026-10-02, claude/queue-versus-adopt-reads-a-typed-records-annotation-as (claim: claude/queue-nothing-holds-a-module-level-map-of-paths-or-can)
-- **Where:** local
-- **Files:** `packages/render/src/baked.ts`, `packages/render/test/baked-growth.test.ts`
-
-`stare-shell.ts` kept THE STARE's lattice in a plain `new Map<string, Path2D>()`
-at module level. `installCanvasGlobals` and `installPixelGlobals` empty only
-the caches `bakedCache` registered, so a stub `Path2D` baked by a stub-canvas
-test survived into `pixel-frame.test.ts` on a real canvas and threw *Failed to
-recover `Path` type from napi value* — but only when the shards dealt the two
-files together, which a new test file elsewhere did. Fixed for THE STARE by
-making it a `bakedCache`. Write the guard: read `packages/render/src/*.ts`
-and refuse a top-level `new Map` whose value type names `Path2D`,
-`HTMLCanvasElement`, `OffscreenCanvas`, `CanvasGradient` or `CanvasPattern`,
-naming `bakedCache` as the fix. `bun run check` proves it.

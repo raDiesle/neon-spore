@@ -32394,3 +32394,15 @@ body's cost and was a cache emptying mid-run.
 Bottleneck: none; the fault was found and described when it bit.
 
 *Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — A module-level cache of paths or canvases is a `bakedCache`
+
+- reading: 5 min. Every top-level `Map` in render/src, and the two
+  `WeakMap`s of patterns.
+- writing: 5 min. `baked-cache-guard.test.ts`, proved against the old
+  STARE `Map`.
+- looking: 0 min. A test; nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none.
