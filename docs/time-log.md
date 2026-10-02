@@ -32477,3 +32477,15 @@ Bottleneck: getting the hidden Browser pane to tick so the frame was the
 running game and not the PAUSED screen.
 
 *Measured: 12 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE BATON's bead answers player 1's tap
+
+- reading: 5 min. The bead's `TAP` cue, the hit-test chain in `touch.ts`
+  and `handles.ts`, and `baton-grip.ts`, which answered only the shell and
+  the merge.
+- writing: 5 min. `baton-tap.ts` and its test, tap to flight.
+- looking: 0 min. No frame changes; the test drives `touchDown` into `step`.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, the drawing-test timeout, `check:fast`.
+
+Bottleneck: none; the cue and its missing hit test were two files apart.

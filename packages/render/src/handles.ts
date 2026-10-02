@@ -1,6 +1,7 @@
 import { antiphonOrganUnder } from "./antiphon-grip.js";
 import { antiphonRailUnder } from "./antiphon-rail-grip.js";
 import { batonSocketUnder } from "./baton-grip.js";
+import { batonBeadUnder } from "./baton-tap.js";
 import { burgeeDrawUnder, burgeeFreezeUnder } from "./burgee-grip.js";
 import { capstanRubUnder, capstanSteerUnder } from "./capstan-grip.js";
 import { curtainHemUnder } from "./curtain-grip.js";
@@ -114,6 +115,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     mazeHeartUnder(l, x, y, field) ?? // THE MAZE's heart under `grip`, the navigator's tear (`maze-grip.ts`).
     gaugeGripUnder(l, x, y, field) ?? // THE GAUGE's band, teeth and tongue (`gauge-grip.ts`).
     batonSocketUnder(l, x, y, field) ?? // THE BATON's swelling socket and its two beads (`baton-grip.ts`).
+    batonBeadUnder(l, x, y, field) ?? // THE BATON's bead, player 1's trigger (`baton-tap.ts`).
     fleetGripUnder(l, x, y, field) ?? // THE FLEET's wound, under `flood` and `wreck` (`fleet-grip.ts`).
     curtainHemUnder(l, x, y, field) ?? // THE CURTAIN's hem, while a hit has jammed the rail (`curtain-grip.ts`).
     leadStalkUnder(l, x, y, field) ?? // THE LEAD's stalk, while the body stands still (`lead-grip.ts`).
