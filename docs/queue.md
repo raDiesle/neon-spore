@@ -475,6 +475,7 @@ bolt stopped, and `bun run check` is green.
 ## `bun run frames` with four `--press` gauge calls draws the mouth shut
 
 - **Found:** 2026-10-02, claude/gauge-wave-cannon-mechanics-fa4bb7
+- **Taken:** 2026-10-02, claude/queue-mergerecord-refuses-a-ledger-entry-whose-only-ch (claim: claude/queue-bun-run-frames-with-four-press-gauge-calls-draws)
 - **Files:** `tools/frames/press.ts`, `tools/frames/drive.ts`, `packages/render/src/gauge-gape.ts`
 
 `bun run frames . --wave "THE GAUGE" --seat p2 --ticks 1250 --press
