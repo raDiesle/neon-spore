@@ -7,7 +7,7 @@ import { instarBody } from "../src/instar-sway.js";
 import { computeLayout } from "../src/layout.js";
 import { type Touch, touchMove } from "../src/touch.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT } from "./frame-harness.js";
-import { acting, field, hung } from "./instar-kit.js";
+import { asking, field, hung } from "./instar-kit.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -29,7 +29,7 @@ describe("the partner's ring", () => {
       st.marks.some((m) => m.seat !== "both" && !instarPanel(m.gesture)),
     );
     expect(cursor).toBeGreaterThanOrEqual(0);
-    acting(world, cursor);
+    asking(world, cursor);
     const marks = s.steps[cursor]?.marks ?? [];
     const id = marks.findIndex((m) => m.seat !== "both" && !instarPanel(m.gesture));
     const mark = marks[id];

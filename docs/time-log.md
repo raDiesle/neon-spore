@@ -32535,3 +32535,15 @@ Bottleneck: the request read two opposite ways and needed a question.
 Bottleneck: it read as a race until the test's own helper was read.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE INSTAR's marks are found only while they are drawn
+
+- reading: 5 min. The hit test, the drawer's rule, the field's window, and
+  the tests that press a mark.
+- writing: 5 min. `markUnder` asks `instarMarksUp`; `slowing` takes a span.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. Twelve tests pressed marks with no window open; they open
+  one now (`asking`), and one row presses with it shut.
+
+Bottleneck: the twelve tests that pressed a ring the game would not have drawn.

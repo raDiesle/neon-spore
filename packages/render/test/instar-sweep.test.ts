@@ -5,7 +5,7 @@ import { instarFigure, instarThreat } from "../src/instar-shape.js";
 import { instarBody } from "../src/instar-sway.js";
 import { computeLayout } from "../src/layout.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT } from "./frame-harness.js";
-import { acting, field, hung } from "./instar-kit.js";
+import { acting, asking, field, hung } from "./instar-kit.js";
 
 /**
  * **A swept mark is found where it has swept to** (`sweepMilli`): the ring,
@@ -23,7 +23,7 @@ describe("a swept mark", () => {
     const world = hung();
     const cursor = world.boss?.kind === "instar" ? world.boss.steps.findIndex(isSwept) : -1;
     expect(cursor).toBeGreaterThanOrEqual(0);
-    const s = acting(world, cursor);
+    const s = asking(world, cursor);
     const id = s.steps[cursor]?.marks.findIndex((m) => (m.sweepMilli ?? 0) !== 0) ?? -1;
     const mark = s.steps[cursor]?.marks[id];
     if (mark === undefined) throw new Error("the swept step has no swept mark");

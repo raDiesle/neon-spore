@@ -65,7 +65,7 @@ export type SlowKind = "ask" | "hold" | "show";
  * opens one for two beats gets exactly two, and two windows opened back to
  * back do not overlap on the beat between them.
  */
-export function slowing(world: World): boolean {
+export function slowing(world: Pick<World, "slowFromBeat" | "slowToBeat" | "beat">): boolean {
   return (
     world.slowToBeat !== NO_SLOW &&
     world.beat >= world.slowFromBeat &&

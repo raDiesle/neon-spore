@@ -106,9 +106,13 @@ export function instarMarkWord(mark: SceneMark, role: ViewRole): { kind?: CueKin
  * open. The step opens the slow for exactly its window and shuts it on the
  * landing and on the strike (`sim/instar-step.ts`), so outside a failed
  * wave the two agree; after a strike they do not, and the slow is the one
- * that has it right.
+ * that has it right. The hit test asks the same of the field's window
+ * (`instar-mark-grip.ts`), so no press takes hold of a ring nobody can see.
  */
-export function instarMarksUp(world: World, s: SceneState): boolean {
+export function instarMarksUp(
+  world: Pick<World, "slowFromBeat" | "slowToBeat" | "beat">,
+  s: SceneState,
+): boolean {
   return instarActing(s) && slowing(world);
 }
 

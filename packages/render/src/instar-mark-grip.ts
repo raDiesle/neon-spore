@@ -1,11 +1,11 @@
 import {
-  instarActing,
   instarSeatHears,
   instarStep,
   instarWound,
   NO_BEARING,
   type SceneMark,
 } from "@neon-spore/sim";
+import { instarMarksUp } from "./instar-marks.js";
 import { instarMarkPoint, instarMarkRadius, type Point } from "./instar-place.js";
 import { instarThreat } from "./instar-shape.js";
 import { instarSway } from "./instar-sway.js";
@@ -16,7 +16,10 @@ import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
 /**
- * THE INSTAR's marks under a thumb — the hit test alone.
+ * THE INSTAR's marks under a thumb — the hit test alone. A ring is found
+ * only while it is drawn: the step acting and THE SLOW open
+ * (`instarMarksUp`), the field's own window asked as the drawer asks the
+ * world's.
  *
  * Its own file because `instar-marks.ts` went over 250 lines when the swing
  * arrived (`instar-sway.ts`), and this is the seam that file already had: next
@@ -42,14 +45,15 @@ function markUnder(
   field: Field,
 ): { id: number; mark: SceneMark; at: Point } | null {
   const s = bossOf(field, "instar") ?? bossOf(field, "nettle");
-  if (s === null || !instarActing(s)) return null;
+  const slow = field.slow ?? NO_SPAN;
+  if (s === null || !instarMarksUp({ ...slow, beat: field.beat }, s)) return null;
   const step = instarStep(s);
   if (step === null) return null;
   const r = instarMarkRadius(l, field.cfg);
   const sway =
     s.kind === "nettle"
-      ? nettleSway(s, field.cfg, field.slow ?? NO_SPAN, field.beat, field.beatPhase)
-      : instarSway(s, field.cfg, field.slow ?? NO_SPAN, field.beat, field.beatPhase);
+      ? nettleSway(s, field.cfg, slow, field.beat, field.beatPhase)
+      : instarSway(s, field.cfg, slow, field.beat, field.beatPhase);
   const along = instarThreat(s, field.beat, field.beatPhase);
   let best: { id: number; mark: SceneMark; at: Point; d: number } | null = null;
   step.marks.forEach((mark, id) => {

@@ -20,7 +20,7 @@ import { instarSway } from "../src/instar-sway.js";
 import { computeLayout } from "../src/layout.js";
 import { type Field, type Touch, touchMove } from "../src/touch.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT, waveWith } from "./frame-harness.js";
-import { acting, hung, TPB } from "./instar-kit.js";
+import { asking, hung, TPB } from "./instar-kit.js";
 
 /**
  * **The test screen's one mouse picking a seat for itself.**
@@ -81,6 +81,7 @@ function instarField(world: World, seat: 1 | 2): Field {
     seat,
     cfg: CFG,
     boss: world.boss,
+    slow: world,
     controls: controlSetForWave(waveWith("instar")),
     faults: [],
     well: false,
@@ -110,7 +111,7 @@ function markOf(s: InstarState, seat: "p1" | "p2" | "both"): number {
 describe("a press on THE INSTAR's marks", () => {
   it("is signed with the seat the ring under the thumb asks for, either way round", () => {
     const world = hung();
-    const s = acting(world, 0);
+    const s = asking(world, 0);
     const field = (seat: 1 | 2): Field => instarField(world, seat);
     // The first pose is a mark on the jaw for each seat, which is the owner's
     // own example: either of them may be the one pulled first.
@@ -125,7 +126,7 @@ describe("a press on THE INSTAR's marks", () => {
     // at the same time and in any order, like players can.* Two fingers are
     // two presses, each deciding its own seat, and both held to the end.
     const world = hung();
-    const s = acting(world, 0);
+    const s = asking(world, 0);
     const field = (seat: 1 | 2): Field => instarField(world, seat);
     const send = (t: Touch | null): void => {
       if (t?.command) step(world, [{ tick: world.tick, player: t.player, command: t.command }]);
@@ -154,7 +155,7 @@ describe("a press on THE INSTAR's marks", () => {
   it("answers the pose that is one seat's alone", () => {
     const world = hung();
     // The navigator pulls the tail up and the pilot has nothing.
-    const s = acting(world, 0, ALONE);
+    const s = asking(world, 0, ALONE);
     const at = ringAt(s, world, markOf(s, "p2"));
     const t = deskDown(L, at.x, at.y, BOTH, (seat) => instarField(world, seat));
     expect(t?.player).toBe(2);
@@ -165,14 +166,14 @@ describe("a press on THE INSTAR's marks", () => {
     const world = hung();
     // Held by the pair together, so there is no seat to read off it and the
     // desk's unasked seat stands.
-    const s = acting(world, 0, TOGETHER);
+    const s = asking(world, 0, TOGETHER);
     const at = ringAt(s, world, markOf(s, "both"));
     expect(deskDown(L, at.x, at.y, BOTH, (seat) => instarField(world, seat))?.player).toBe(1);
   });
 
   it("is still refused, seat by seat, while a seat key is held", () => {
     const world = hung();
-    const s = acting(world, 0);
+    const s = asking(world, 0);
     const field = (seat: 1 | 2): Field => instarField(world, seat);
     const navigator = ringAt(s, world, markOf(s, "p2"));
     // `1` held: the pointer is the pilot's hand, and the navigator's ring
@@ -190,7 +191,7 @@ describe("one mouse on a ring that wants both thumbs", () => {
     // BOTH to continue on one screen — when I hold with the mouse it should
     // be for both players.*
     const world = hung();
-    const s = acting(world, 0, TOGETHER);
+    const s = asking(world, 0, TOGETHER);
     const id = markOf(s, "both");
     const at = ringAt(s, world, id);
     const field = (seat: 1 | 2): Field => instarField(world, seat);
@@ -212,7 +213,7 @@ describe("one mouse on a ring that wants both thumbs", () => {
 
   it("stays one hand on a phone, where the pointer has one seat", () => {
     const world = hung();
-    const s = acting(world, 0, TOGETHER);
+    const s = asking(world, 0, TOGETHER);
     const at = ringAt(s, world, markOf(s, "both"));
     const touches = deskDownAll(L, at.x, at.y, [1], (seat) => instarField(world, seat));
     expect(touches.map((t) => t.player)).toEqual([1]);
@@ -222,7 +223,7 @@ describe("one mouse on a ring that wants both thumbs", () => {
 describe("the desk's 3 held", () => {
   it("gives a ring that names one seat to that seat alone, never a refusal", () => {
     const world = hung();
-    const s = acting(world, 0);
+    const s = asking(world, 0);
     const field = (seat: 1 | 2): Field => instarField(world, seat);
     const navigator = ringAt(s, world, markOf(s, "p2"));
     const touches = deskDownAll(L, navigator.x, navigator.y, BOTH, field, true);
@@ -231,7 +232,7 @@ describe("the desk's 3 held", () => {
 
   it("is both hands on the HOLD BOTH ring too", () => {
     const world = hung();
-    const s = acting(world, 0, TOGETHER);
+    const s = asking(world, 0, TOGETHER);
     const at = ringAt(s, world, markOf(s, "both"));
     const touches = deskDownAll(L, at.x, at.y, BOTH, (seat) => instarField(world, seat), true);
     expect(touches.map((t) => t.player)).toEqual([1, 2]);

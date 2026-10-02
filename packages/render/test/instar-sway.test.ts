@@ -7,7 +7,7 @@ import { instarThreat } from "../src/instar-shape.js";
 import { instarBody, instarHush, instarSway } from "../src/instar-sway.js";
 import { computeLayout } from "../src/layout.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT } from "./frame-harness.js";
-import { acting, field, hung } from "./instar-kit.js";
+import { acting, asking, field, hung } from "./instar-kit.js";
 
 /**
  * **THE INSTAR's body travels, and everything of it travels together.**
@@ -68,7 +68,7 @@ describe("the body travels", () => {
 describe("a thumb finds a mark where it is drawn", () => {
   it("takes the ring at its swung place", () => {
     const world = hung();
-    const s = acting(world, 0);
+    const s = asking(world, 0);
     const beat = world.beat;
     const phase = 0.25; // the far end of the swing, where the two places differ most
     const mark = s.steps[0]?.marks[0];
@@ -84,13 +84,33 @@ describe("a thumb finds a mark where it is drawn", () => {
 
   it("finds nothing where the body would have hung", () => {
     const world = hung();
-    const s = acting(world, 0);
+    const s = asking(world, 0);
     const beat = world.beat;
     const phase = 0.25;
     const mark = s.steps[0]?.marks[0];
     if (mark === undefined) throw new Error("the script's first step has no mark");
     const still = instarMarkPoint(L, mark, { xMilli: 0, yMilli: 0 }, 0);
     expect(instarMarkUnder(L, still.x, still.y, field(world, beat, phase))).toBeNull();
+  });
+
+  it("finds nothing while THE SLOW is shut, where no ring is drawn", () => {
+    // Acting with no window — a retried wave's title — and acting after a
+    // strike shut the window: the step still acts, the drawer puts no ring
+    // up (`instarMarksUp`), and a press there takes hold of nothing.
+    const world = hung();
+    const s = acting(world, 0);
+    const mark = s.steps[0]?.marks[0];
+    if (mark === undefined) throw new Error("the script's first step has no mark");
+    const press = () => {
+      const { sway } = instarBody(s, CFG, world, world.beat, 0);
+      const at = instarMarkPoint(L, mark, sway, 0);
+      return instarMarkUnder(L, at.x, at.y, field(world, world.beat, 0));
+    };
+    expect(press()).toBeNull();
+    asking(world, 0);
+    expect(press()).not.toBeNull();
+    world.slowToBeat = world.beat;
+    expect(press()).toBeNull();
   });
 });
 
