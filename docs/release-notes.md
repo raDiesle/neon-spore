@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 195afa7b6 — THE SINEW's crown flies whole over the field, the strings riding it
+
+The owner changed his answer on 2 October 2026: the crown is not cut at all; the strings hang from something flying above the boss. The crown is now a whole seven-lobed body of the mass's flesh, wider than the mass, drifting on the shape sheet's free FLOAT motion at twice its reach, and the strings leave it where it is flying now. The strain band still hangs off the resting root and holds still. On a screen whose field starts near the top, the root comes down so the crown never reaches the chrome line.
+
 ## 2026-10-02 · 4841a5110 — Queue: THE GAUGE's tooth and tongue mistakes still jam the valve
 
 Asks whether a wrong tooth, or a tooth or the tongue left in when its rest runs out, should open the mouth a step like a miss does.
