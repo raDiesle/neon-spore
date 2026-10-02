@@ -21,6 +21,7 @@ import { Canvas2DRenderer } from "../src/canvas2d.js";
 import type { ViewRole } from "../src/layout.js";
 import type { Viewport } from "../src/renderer.js";
 import { STRIP_LOOK } from "../src/strip-look.js";
+import type { Thumb } from "../src/thumb-aura.js";
 import type { ShipHand } from "../src/touch-ship.js";
 import type { StubContext } from "./canvas-stub.js";
 import { stubCanvas } from "./canvas-stub.js";
@@ -205,6 +206,8 @@ export interface FramesOptions {
    * its own hands the renderer.
    */
   hand?: ShipHand;
+  /** This device's fingers on a boss's mark, for the glow round each (`thumb-aura.ts`). */
+  thumbs?: readonly Thumb[];
 }
 
 /**
@@ -252,6 +255,7 @@ export function runFrames(
       running: true,
       controls: options.controls,
       hand: options.hand,
+      thumbs: options.thumbs,
     });
     events = [];
     options.onDrawn?.(ctx, frame++);

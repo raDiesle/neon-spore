@@ -14,6 +14,7 @@ import {
   drawShip,
   wellShown,
 } from "./frame-passes.js";
+import { watchVerdicts } from "./grip-verdict.js";
 import { handedView } from "./handover.js";
 import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
 import { computeStage, frameLayout } from "./layout.js";
@@ -94,6 +95,8 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
     // is one frame of lag on a quake lasting a second (`choir-quake.ts`).
     const quake = this.held.effects.quake.offset(view.time);
     ctx.translate(stage.left + quake.x, stage.top + quake.y);
+    // Where each boss's verdict lands, for the ring round the thumb (`thumb-aura.ts`).
+    watchVerdicts(ctx);
 
     // Before anything eases or ingests: a wave that just (re)started leaves
     // none of last run's state meaning anything, and this frame is already
@@ -104,6 +107,7 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
     // round — each take the whole stage and end the frame here
     // (`canvas2d-takeover.ts`). The clocks they run go forward either way.
     if (drawTakeover(ctx, l, view, this.held, stage)) {
+      this.held.thumbs.frame(ctx, l, view);
       ctx.restore();
       return;
     }
@@ -211,6 +215,7 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
     if (this.held.effects.opening.launching) {
       this.held.effects.opening.drawLaunch(ctx, l.width, l.height, l.playHeight * 0.4);
     }
+    this.held.thumbs.frame(ctx, l, view);
     ctx.restore();
 
     drawStageSeam(ctx, this.viewport, stage);

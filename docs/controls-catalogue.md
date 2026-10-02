@@ -135,6 +135,8 @@ Taught once, by the guide; **no helper on the field** (above).
 |---|---|---|---|
 | `GripVerdicts`, `GripVerdict`, `VERDICT_SECONDS` | `grip-verdict.ts` | one verdict per mark, keyed on the mark: `mark(key, good)`, `at`, `update`, `clear` | every boss with a mark but `mark-feedback-roll-out.test.ts`'s `TO_COME` |
 | `drawVerdictRing` | `grip-verdict.ts` | green for right, red for refused, washed over the mark and widening off it | the same |
+| `watchVerdicts`, `verdictsDrawn`, `VerdictSpot` | `grip-verdict.ts` | where each verdict landed this frame, in the canvas's own pixels, for the glow round the thumb to find it again | the renderer, once a frame |
+| `ThumbAuras`, `auraTouch`, `auraRadius`, `Thumb`, `AURA_ONSET_SECONDS`, `AURA_LINGER_SECONDS` | `thumb-aura.ts` | *still going*, past the thumb that hides the mark: a soft ring round this device's finger on a press a boss's drag answered — held, or refused — growing fast then slowly, beating green, red when the mark under it is judged wrong (2 October 2026) | every boss, drawn by the renderer — no boss calls it |
 | `BossHurt`, `hurtShake`, `drawHurt`, `JAB_SHAKE` | `boss-hurt.ts` | a landed sequence: the body shakes and glows red for half a second | every boss with a sequence |
 
 ### What gesture it wants

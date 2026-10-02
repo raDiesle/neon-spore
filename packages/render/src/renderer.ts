@@ -2,6 +2,7 @@ import type { ControlSet, WaveGuide } from "@neon-spore/content";
 import type { SimEvent, World } from "@neon-spore/sim";
 import type { ViewRole } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
+import type { Thumb } from "./thumb-aura.js";
 import type { ShipHand } from "./touch-ship.js";
 
 /**
@@ -110,6 +111,12 @@ export interface ViewState {
    * own — a replay, a thumbnail, a frame test that is not about this.
    */
   hand?: ShipHand;
+  /**
+   * This device's fingers on a boss's mark, for the glow round each that
+   * shows past the thumb (`thumb-aura.ts`). Per device, like `hand`, and
+   * unset by any host with no fingers of its own.
+   */
+  thumbs?: readonly Thumb[];
   /**
    * Where a mouse is resting on the stage, or unset.
    *

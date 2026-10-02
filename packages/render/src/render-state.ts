@@ -14,6 +14,7 @@ import type { Layout } from "./layout.js";
 import { LureBlastFx } from "./lure-blast.js";
 import type { StripName } from "./painted-strips.js";
 import type { SpriteBursts } from "./sprite-burst.js";
+import { ThumbAuras } from "./thumb-aura.js";
 
 /**
  * EVERYTHING A RENDERER HOLDS BETWEEN ONE FRAME AND THE NEXT.
@@ -100,6 +101,8 @@ export class RenderState {
    * one that reaches it.
    */
   readonly lanceFlash = new LanceFlash();
+  /** The glow round this device's thumb on a boss's mark, over everything (`thumb-aura.ts`). */
+  readonly thumbs = new ThumbAuras();
   /**
    * The ship's skin the last field frame was drawn on (`skinSampler`), which
    * the hit test asks so a landing body is answered where it was drawn rather
@@ -237,5 +240,6 @@ export class RenderState {
     this.bodyBurst.clear();
     this.fenceShards.clear();
     this.lanceFlash.clear();
+    this.thumbs.clear();
   }
 }

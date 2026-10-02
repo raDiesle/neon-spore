@@ -117,7 +117,7 @@ const input = bindFieldInput({
   replayGuide: () => renderer.replayGuide(),
   nudgeGuide: () => renderer.nudgeGuide(),
 });
-const { tick: tickKeys, hand, pointer } = input;
+const { tick: tickKeys, hand, pointer, thumbs } = input;
 
 // AUTO under the TEST panel: the hand presses into the same buffer, on the
 // tick, just after the keyboard has (`autopilot.ts`).
@@ -189,6 +189,7 @@ const frames = startFrames({
   menuIdle: menuIdleHz(location.href),
   hand,
   pointer,
+  thumbs,
   tickKeys: () => {
     tickKeys();
     auto.press(world, buffer);

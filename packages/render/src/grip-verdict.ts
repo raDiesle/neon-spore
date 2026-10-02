@@ -75,6 +75,7 @@ export function drawVerdictRing(
   v: GripVerdict,
   alpha = 1,
 ): void {
+  noteVerdict(ctx, x, y, r, v);
   const t = Math.min(1, Math.max(0, v.age / VERDICT_SECONDS));
   const fade = 1 - t;
   const colour = v.good ? PALETTE.good : PALETTE.red;
@@ -92,4 +93,54 @@ export function drawVerdictRing(
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(rim, fade);
   ctx.stroke(ring);
+}
+
+/**
+ * **Where a verdict landed this frame, on the screen**, for the one reader
+ * that has to find it again away from the boss that drew it: the glow round
+ * this device's own thumb (`thumb-aura.ts`). A thumb covers the mark it is
+ * on, so the green or red thrown off the mark is under it; the aura is drawn
+ * wider than the thumb and borrows the mark's answer.
+ *
+ * Every boss draws its verdicts through `drawVerdictRing`, in whatever frame
+ * its drawer stood in — translated to a drum, turned by a list — so the spot
+ * is kept in the canvas's own pixels, and the reader turns it back. A canvas
+ * nobody is watching keeps nothing: `watchVerdicts` starts the list and
+ * `verdictsDrawn` takes it.
+ */
+export interface VerdictSpot {
+  /** Centre and radius in the canvas's own pixels. */
+  x: number;
+  y: number;
+  r: number;
+  /** The verdict itself — the same object for as long as it is on screen. */
+  v: GripVerdict;
+}
+
+const watched = new WeakMap<CanvasRenderingContext2D, VerdictSpot[]>();
+
+/** Begin keeping this frame's verdict spots on `ctx`. */
+export function watchVerdicts(ctx: CanvasRenderingContext2D): void {
+  watched.set(ctx, []);
+}
+
+/** The spots kept since `watchVerdicts`, and the watch over. */
+export function verdictsDrawn(ctx: CanvasRenderingContext2D): readonly VerdictSpot[] {
+  const spots = watched.get(ctx) ?? [];
+  watched.delete(ctx);
+  return spots;
+}
+
+function noteVerdict(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  v: GripVerdict,
+): void {
+  const spots = watched.get(ctx);
+  if (spots === undefined) return;
+  const m = ctx.getTransform();
+  const scale = Math.sqrt(Math.abs(m.a * m.d - m.b * m.c));
+  spots.push({ x: m.a * x + m.c * y + m.e, y: m.b * x + m.d * y + m.f, r: r * scale, v });
 }

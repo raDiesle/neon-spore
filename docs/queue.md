@@ -455,3 +455,30 @@ bares, and a bolt reaching the core is drawn through it.
 
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
+
+## THE INSTAR answers a press on a mark it is not drawing
+
+- **Found:** 2026-10-02, claude/boss-gesture-progress-feedback-81ceaf
+- **Files:** `packages/render/src/instar-mark-grip.ts`, `packages/render/src/instar-marks.ts`
+
+`markUnder` takes hold of a mark whenever the step is acting
+(`instarActing`), but the drawer puts the marks up only while THE SLOW is
+open as well (`instarMarksUp`, the owner's rule of 27 September 2026). So a
+press where no ring is drawn — on the field during a retried wave's title,
+or after a strike shut the slow — still sends an `instarMark` drag, and the
+glow round the thumb (`thumb-aura.ts`) now shows it. THE NETTLE shares the
+hit test. Make `markUnder` ask what the drawer asks (the field has `slow`),
+and add a hit-test row that a press with the slow shut finds nothing.
+`bun run check` proves it.
+
+## `browser-cdp.test.ts` fails in a fresh worktree until `.claude/tmp` exists
+
+- **Found:** 2026-10-02, claude/boss-gesture-progress-feedback-81ceaf
+- **Files:** `tools/frames/browser-cdp.ts`, `tools/frames/test/browser-cdp.test.ts`
+
+The first `bun run check:fast` in a new worktree failed four
+`launchOverCdp` tests with `ENOENT … mkdtemp '<tree>/.claude/tmp/neon-spore-chrome-…'`;
+the second run passed because something else had made the directory by
+then. Worked around by running it again. `mkdtemp` wants its parent to
+exist: create it (`mkdirSync(…, { recursive: true })`) before the call, and
+let the test start from a tree with no `.claude/tmp`.

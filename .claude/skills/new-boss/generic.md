@@ -136,6 +136,16 @@ item naming the rule, never a fix made in passing.
   `mark-feedback.ts`), and a boss with a mark or handle uses them rather
   than drawing its own. How: `new-boss` §5; what goes red without them:
   `render/test/mark-feedback-roll-out.test.ts`.
+- **A thumb on a mark wears a ring past it**, generic, 2 October 2026: *you
+  cannot see the progress circle with its colour because your thumb is below
+  … some feedback, maybe around the circle like a green blur beat … if
+  interrupted or wrong gesture done on the circle to be red … it grows bigger
+  and bigger first quick and then very slow.* The renderer draws it round
+  this phone's own finger for every press a boss's drag answers — held or
+  refused — and borrows the mark's own verdict for red and green
+  (`render/thumb-aura.ts`). **No boss calls it**: a mark is found by its
+  `drag` and its verdict by `drawVerdictRing`, so a boss that already uses
+  both has the ring, and a new one gets it for nothing.
 - **Every mark shows its gesture: a pull its way, a shot its target, a
   shield or a suck its button**, 29 September 2026, for all bosses: *we use
   always the visualization we have of the direction, not just rounded red

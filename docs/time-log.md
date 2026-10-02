@@ -32408,3 +32408,21 @@ Bottleneck: none; the fault was found and described when it bit.
 Bottleneck: none.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — A glow round the thumb on a boss's mark
+
+- reading: 10 min. How a boss's progress arc, its verdict and a finger's
+  hold reach the frame, to find the one place every boss already passes
+  through — `drawVerdictRing` and the `drag` hold.
+- writing: 10 min. `thumb-aura.ts`, the verdict spots, the fingers'
+  positions through `Fingers`, tests, the catalogue and the rule.
+- looking: 15 min. THE INSTAR on the preview with a synthetic touch: green
+  on P1's own mark, red on P2's — and three faults the picture showed (the
+  ring over the LOST screen, a refused press with no ring, a ring coming
+  back after the restart), each fixed and looked at again.
+- friction: 5 min. The preview paused itself and the wave was lost while
+  driving it; a fresh tree's CDP test failed once (queued).
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: driving a held touch on a live boss by hand — no tool presses a
+real pointer on a mark and holds it, so each look was a timed script.

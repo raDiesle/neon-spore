@@ -1987,6 +1987,7 @@ by hand never moves.
 | `packages/render/src/throat-receipt.ts` | What the last thing into the mouth did, for two beats: `RING DOWN` or `SWALLOWED · RING HEALS` |
 | `packages/render/src/throat-refuse-shake.ts` | **A body the mouth would not take shakes where it stands**, sideways, for as long as the wrong colour is held on it |
 | `packages/render/src/throat-hue.ts` | **Which colour the mouth is set to**, worn on the lip, with the panel face for shield and suck, and the pump's pull circle |
+| `packages/render/src/thumb-aura.ts` | **The glow round this device's own thumb while it holds a boss's mark** |
 | `packages/render/src/crawler-fx.ts` | THE CRAWLER's three transients — the burst ring's splash, the swept lane, the burrow's mound |
 | `packages/render/src/crawler.ts` | THE CRAWLER, drawn — a maggot lying along the ship's surface, its rings overlapping |
 | `packages/render/src/crawler-ring.ts` | **One ring of a maggot, as a shape** — the three sets of proportions the parts of a worm are drawn at |

@@ -61,6 +61,7 @@ export interface FrameParts {
   /** The ring round whatever this device's finger has hold of. */
   hand: { current: Parameters<Canvas2DRenderer["draw"]>[0]["hand"] };
   pointer: () => { x: number; y: number } | undefined;
+  thumbs: () => Parameters<Canvas2DRenderer["draw"]>[0]["thumbs"];
   /** The keyboard's per-tick call (`keys.ts`). */
   tickKeys: () => void;
   /** The link, whichever way it is: solo answers all of these too. */
@@ -138,6 +139,7 @@ export function startFrames(p: FrameParts): Frames {
       running: p.run.running(),
       hand: p.hand.current,
       pointer: p.pointer(),
+      thumbs: p.thumbs(),
       names: status.names,
       // The one thing on this screen that has to be drawn ahead of the
       // simulation: a chart judged on *when a thumb landed* cannot afford the

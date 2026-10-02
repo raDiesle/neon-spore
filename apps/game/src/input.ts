@@ -1,10 +1,12 @@
 import {
+  auraTouch,
   deskDownAll,
   Fingers,
   type Hold,
   type Pinched,
   pressSeat,
   shipUnder,
+  type Thumb,
   touchMove,
   touchUp,
 } from "@neon-spore/render";
@@ -33,6 +35,8 @@ export interface Controls {
    * light up (`render/hover.ts`, `render/nav-button.ts`).
    */
   pointer: () => { x: number; y: number } | undefined;
+  /** This device's fingers on a boss's mark, for the glow round each (`render/thumb-aura.ts`). */
+  thumbs: () => readonly Thumb[];
 }
 
 /**
@@ -91,7 +95,9 @@ export function bindControls(bindings: Bindings): Controls {
     // Null for the one press that takes hold and says nothing yet: player
     // 2's thumb landing on the muzzle, decided on the lift (`render/touch-ship.ts`).
     for (const t of touches) if (t.command) buffer.push(from(t, id), t.command);
-    say(fingers.down(layout(), id, holds, x, y), id);
+    // A press on a boss's mark wears a ring past the thumb (`render/thumb-aura.ts`).
+    const onMark = !opening() && touches.some(auraTouch);
+    say(fingers.down(layout(), id, holds, x, y, onMark), id);
     if (!first) pressY.delete(id);
   };
 
@@ -116,6 +122,8 @@ export function bindControls(bindings: Bindings): Controls {
       say(fingers.up(id), id);
       pressY.delete(id);
     }
+    // And a refused press on a boss's mark, which held nothing (`render/thumb-aura.ts`).
+    fingers.lift();
     hand.clear();
     pointer = undefined;
   };
@@ -174,7 +182,8 @@ export function bindControls(bindings: Bindings): Controls {
   });
   const up = (e: PointerEvent, at: { x: number; y: number } | undefined): void => {
     const holds = holding.get(e.pointerId);
-    if (!holds) return;
+    // A refused press on a boss's mark holds nothing and still wears a ring.
+    if (!holds) return void fingers.up(e.pointerId);
     holding.delete(e.pointerId);
     hand.clear();
     for (const hold of holds) {
@@ -231,5 +240,6 @@ export function bindControls(bindings: Bindings): Controls {
     }),
     hand,
     pointer: () => pointer,
+    thumbs: () => fingers.thumbs,
   };
 }

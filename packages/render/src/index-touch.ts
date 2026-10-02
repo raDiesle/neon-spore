@@ -24,6 +24,9 @@ export type { Pinched } from "./pinch-pair.js";
 // What a rub's count says; how many turns a thumb made, `rub-turns.ts`.
 export { RUB_TURN, rubFinger, rubSays } from "./rub.js";
 export { type CanvasBox, clientOfStage, pointOnStage } from "./stage-point.js";
+// The glow round a thumb on a boss's mark: which holds earn one, and what a
+// host hands the frame for each (`thumb-aura.ts`, `fingers.ts`).
+export { auraTouch, type Thumb } from "./thumb-aura.js";
 export { type Field, type Hold, type Touch, touchDown, touchMove, touchUp } from "./touch.js";
 export {
   cannonGrab,
