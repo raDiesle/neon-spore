@@ -475,6 +475,7 @@ bolt stopped, and `bun run check` is green.
 ## THE SINEW's crown, cut at the chrome line or at the screen's true top
 
 - **Found:** 2026-10-02, claude/sinew-boss-mechanics-dbcd1b
+- **Taken:** 2026-10-02, claude/queue-queue-release-then-take-leaves-this-tree-dirty-b (claim: claude/queue-the-sinews-crown-cut-at-the-chrome-line-or-at-th)
 - **Files:** `packages/render/src/sinew-crown.ts`, `packages/render/src/top-chrome.ts`, `packages/render/test/boss-top.test.ts`
 - **Asks:** Leave the crown cut at the chrome line, or let it run off the screen's true top edge under the seat switcher?
 
