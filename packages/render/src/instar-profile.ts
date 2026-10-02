@@ -3,22 +3,12 @@ import { drawHurt } from "./boss-hurt.js";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { INSTAR_BODY } from "./instar-body-look.js";
-import { headTurn, INSTAR_DRIFT } from "./instar-drift.js";
 import { drawNests } from "./instar-eggs.js";
 import { drawMoult } from "./instar-moult.js";
-import { cockAbout } from "./instar-parts.js";
-import {
-  driftTransform,
-  type InstarDrift,
-  instarAt,
-  instarDrifted,
-  instarFarEnd,
-  type Point,
-} from "./instar-place.js";
+import { instarAt, instarFarEnd, type Point } from "./instar-place.js";
 import { drawSeam, faded, type Look } from "./instar-plate.js";
 import { BREATH_PERIOD, breathAt, headBob, rollAt, undulate } from "./instar-profile-life.js";
 import { bodyOf, drawLamps, drawRidge, drawScales } from "./instar-profile-surface.js";
-import { JAW_OPEN } from "./instar-rig-head.js";
 import { drawScutes } from "./instar-scutes.js";
 import { swellAt, swimAt, swimLook } from "./instar-serpent.js";
 import { drawTail } from "./instar-tail.js";
@@ -137,11 +127,6 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, still: Loo
   const { head, r, fade, hurt, time } = look;
   const back = (u: number): Point => top[Math.round(u * N)] ?? rear;
   const W = view(SIDE);
-  const drift = look.drift;
-  // The idle drift turns the whole body on the canvas, and the head is drawn
-  // turned on its own afterwards, at the point the body carried it to.
-  ctx.save();
-  if (drift) driftTransform(ctx, l, drift);
   const farRoot = { x: back(0.38).x - r * 0.25, y: back(0.38).y - r * 0.1 };
   drawWing(ctx, look, farRoot, W, { x: 0, y: 0, z: -r * 0.3 }, -1, 1);
   const flick = 0.75 + 0.25 * Math.sin(time * 21);
@@ -155,7 +140,7 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, still: Loo
   );
   const body = bodyOf(top, bottom);
   // Tipped toward the player, the back comes round into view: the rows walk with it.
-  const roll = rollAt(time) + (drift?.pitch ?? 0);
+  const roll = rollAt(time);
   drawRidge(ctx, body, r, roll, fade, true, EVERY);
   const hide = drawTube(ctx, body.seen, SKIN, fade);
   strokeGlow(ctx, hide, faded(PALETTE.hull, fade), STROKE.inner, 0.5 * fade);
@@ -181,39 +166,10 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, still: Loo
   drawContact(ctx, hide, (spine[0] as Point).x, (spine[0] as Point).y, r * 0.45, fade);
   rimTube(ctx, hide, PALETTE.sheenRim, r * 0.06, fade);
   drawMoult(ctx, coarse(top), coarse(bottom), look);
-  // The tail swings about its root on its own drift (`instar-parts.ts`).
-  ctx.save();
-  if (drift?.parts) cockAbout(ctx, rear, drift.parts.tailPlane);
   drawTail(ctx, l, look, rear, heading(spine));
-  ctx.restore();
   drawWing(ctx, look, back(0.42), W, { x: 0, y: 0, z: r * 0.3 }, 1);
   drawNests(ctx, l, look);
-  ctx.restore();
-  const bobbed = headBob(head, r, time);
-  if (!drift) INSTAR_BODY.head(ctx, { ...look, head: bobbed });
-  else drawDriftedHead(ctx, l, look, drift, bobbed);
-}
-
-/** The head on the drift: cocked about its neck, the jaw breathed open, the eyes glancing. */
-function drawDriftedHead(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  look: Look,
-  drift: InstarDrift,
-  bobbed: Point,
-): void {
-  const head = instarDrifted(l, drift, bobbed);
-  const parts = drift.parts;
-  if (!parts) {
-    INSTAR_DRIFT.head(ctx, { ...look, head }, headTurn(drift));
-    return;
-  }
-  const neck = instarDrifted(l, drift, { x: bobbed.x + look.r * 0.7, y: bobbed.y + look.r * 0.15 });
-  const f = { ...look.f, jawDown: look.f.jawDown + (2 * parts.jaw) / JAW_OPEN };
-  ctx.save();
-  cockAbout(ctx, neck, parts.headPlane);
-  INSTAR_DRIFT.head(ctx, { ...look, f, head, glance: parts.glance }, headTurn(drift));
-  ctx.restore();
+  INSTAR_BODY.head(ctx, { ...look, head: headBob(head, r, time) });
 }
 
 /** The way the spine runs at its rear, a unit vector. */

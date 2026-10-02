@@ -100,7 +100,6 @@ export function drawInstar(
     shoveUp: fx.shove.up,
     shoveDown: fx.shove.down,
     weak,
-    drift: sway.drift,
     serpent: instarSerpent(s, cfg, world, beat, beatPhase),
   };
   const side = instarHandover(f.side);

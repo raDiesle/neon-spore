@@ -96,7 +96,6 @@ export function drawEye(
   open: number,
   time: number,
   fade: number,
-  glance?: { x: number; y: number },
 ): Path2D | null {
   drawSeam(
     ctx,
@@ -117,14 +116,13 @@ export function drawEye(
   if (open <= 0.02) return null;
   const p = new Path2D();
   p.ellipse(at.x, at.y, r * 0.17, r * 0.075 * open, tilt, 0, Math.PI * 2);
-  // The pupil wanders on its own, or glances where the parts' drift sends it (`instar-parts.ts`).
-  const look = glance ? glance.x * r * 0.17 : Math.sin(time * 0.6) * r * 0.04;
-  const lookY = glance ? glance.y * r * 0.075 * open : 0;
+  // The pupil wanders on its own.
+  const look = Math.sin(time * 0.6) * r * 0.04;
   ctx.save();
   IRIS_LOOK.paint(ctx, { at, r, open, look, fade, eye: p });
   ctx.fillStyle = faded(PALETTE.background, fade);
   ctx.beginPath();
-  ctx.ellipse(at.x + look, at.y + lookY, r * 0.022, r * 0.068 * open, 0, 0, Math.PI * 2);
+  ctx.ellipse(at.x + look, at.y, r * 0.022, r * 0.068 * open, 0, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
   strokeGlow(ctx, p, faded(PALETTE.podRim, fade), STROKE.inner, 0.7 * fade);

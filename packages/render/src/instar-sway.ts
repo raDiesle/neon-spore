@@ -1,6 +1,4 @@
 import type { InstarState, SimConfig } from "@neon-spore/sim";
-import { instarDrift } from "./instar-drift.js";
-import type { InstarDrift } from "./instar-place.js";
 import { type Figure, instarFigure } from "./instar-shape.js";
 import { phaseInto } from "./phase-into.js";
 import { type SlowSpan, slowHush } from "./slow-hush.js";
@@ -50,8 +48,6 @@ export interface Sway {
   xMilli: number;
   /** Thousandths of the field's height, added to every y. */
   yMilli: number;
-  /** The body turned on the idle drift, when VERSUS turns it on (`instar-drift.ts`). */
-  drift?: InstarDrift;
 }
 
 /**
@@ -129,15 +125,13 @@ export function instarSway(
 ): Sway {
   const swing = (beat + beatPhase) * ((Math.PI * 2) / BEATS);
   const k = instarLive(s, cfg, slow, beat, beatPhase);
-  const sway = {
+  return {
     xMilli: REACH * k * Math.sin(swing),
     // The weave is highest at the ends of its travel and lowest through the
     // middle, so the rise is the swing at twice the rate, and `yMilli` grows
     // downward: the body is carried *up* by a negative one.
     yMilli: -RISE * k * (1 - Math.cos(swing * 2)) * 0.5,
   };
-  const drift = instarDrift(s, cfg, slow, beat, beatPhase, sway);
-  return drift === undefined ? sway : { ...sway, drift };
 }
 
 /**

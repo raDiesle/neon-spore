@@ -472,21 +472,6 @@ bares, and a bolt reaching the core is drawn through it.
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
 
-## THE INSTAR's idle drift is dead code since the owner dropped it
-
-- **Found:** 2026-10-02, claude/versus-decisions-2026-10-02
-- **Taken:** 2026-10-02, claude/queue-instar-drift-dead (claim: claude/queue-the-instars-idle-drift-is-dead-code-since-the-ow)
-- **Files:** `packages/render/src/instar-drift.ts`, `packages/render/src/instar-parts.ts`, `packages/render/src/instar-place.ts`, `packages/render/src/instar-head-look.ts`, `packages/render/src/instar-head-parts.ts`, `packages/render/src/instar-plate.ts`, `packages/render/src/instar-profile.ts`, `packages/render/src/instar-rig-head-draw.ts`, `packages/render/src/instar-sway.ts`, `packages/render/src/instar-wings.ts`, `packages/render/test/instar-drift.test.ts`, `packages/render/test/instar-parts.test.ts`
-
-VERSUS `instar:drift` / `turn` was dropped on 2 October 2026 (*looks worse*,
-`tools/versus/DECIDED.md`), so `INSTAR_DRIFT.amount` is 0 for good and
-`instarDrift` always answers `undefined`. Every drawer above still threads the
-drift through (`driftTransform`, the parts' wander, the head's folded yaw) for
-a path nothing takes. Take it out: delete `instar-drift.ts`, `instar-parts.ts`
-and their two tests, and make each reader take the path it takes at
-`undefined`. The shared `idle-drift.ts` stays — the other bosses and the queued
-rig-boss drift read it. `bun run check` proves the field draws as it did.
-
 ## Every other boss's lit part, lit from inside rather than glowing round it
 
 - **Found:** 2026-10-02, claude/boss-body-glow-indicators-22a92a

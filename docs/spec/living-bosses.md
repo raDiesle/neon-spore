@@ -75,35 +75,17 @@ of its own to keep its ±14°. Every period in both tables is taken at its slow
 end for the same reason. Tests: `packages/render/test/idle-drift.test.ts`
 and `packages/render/test/idle-drift-parts.test.ts`.
 
-**Offered (1 October 2026, VERSUS `instar:drift` / `turn`).** THE INSTAR's
-whole side-on body drifts on the rig's yaw, pitch and roll about its middle
-(`packages/render/src/instar-drift.ts`, `driftTransform` in
-`instar-place.ts`), and the head is drawn turned on top of it, from the
-profile toward three-quarter and back, never past face-on and never away
-(`headTurn`). It is nothing on a face-on step, a tenth over live marks, and
-the marks are pressed where the drift draws them. On top of the body each
-part drifts on its own (`instar-parts.ts`): the head cocks about its neck and
-turns, the jaw breathes open while the script holds it shut, the eyes glance,
-each wing wanders on its shoulder and lets go while it spreads, and the tail
-swings about its root down three links — seven parts under the part map's
-eight, because the horns and the claws ride their parents. A head or tail mark
-is pressed where its part carried it. `INSTAR_DRIFT.parts` off turns the body
-whole. Tests: `packages/render/test/instar-drift.test.ts`,
-`packages/render/test/instar-parts.test.ts`.
-
-**Retuned (1 October 2026, the owner: *looks better but can also increase
-visible movement shake of body*).** Every drifted angle, the parts' included,
-now reaches 1.75 times the shared drift's (`INSTAR_DRIFT.reach`), and a quick
-tremor rides the body's roll and pitch, 3° and 2° on a cell of about half a
-second (`INSTAR_DRIFT.shake`). This is THE INSTAR's own: the shared table and
-its speed ceilings above are unchanged, and the candidate goes past them
-because the owner asked for it. The jaw's breath and the eyes' glance stop at
-their own reach, so a pupil stays in its eye. Both ride the hush, so the body
-is as still over live marks, face-on and beaten as before, and the mark tests
-run at the candidate's reach.
-
-**Dropped (2 October 2026, VERSUS `instar:drift`).** The owner: *looks
-worse.* The field keeps the body unturned; `INSTAR_DRIFT.amount` stays 0.
+**Offered (1 October 2026, VERSUS `instar:drift` / `turn`), dropped 2 October
+2026.** THE INSTAR's whole side-on body drifted on the rig's yaw, pitch and
+roll about its middle, the head turned on top of it from the profile toward
+three-quarter and back, never away, and seven of its parts drifted on their
+own — the head cocking about its neck, the jaw breathing, the eyes glancing,
+each wing wandering, the tail swinging — hushed to a tenth over live marks.
+Retuned the same day to reach 1.75 times the shared drift with a quick tremor
+on top, on the owner's *can also increase visible movement shake of body*.
+The owner, 2 October 2026: *looks worse*. The candidate went, and with it the
+code that drew it (`tools/versus/DECIDED.md`); the shared `idle-drift.ts`
+stays for the other bosses.
 
 **Decided (1 October 2026, VERSUS `instar:head`, dropped).** Three organic
 side-on heads were offered against the rig head; the owner kept the current

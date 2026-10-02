@@ -1,5 +1,4 @@
 import type { SceneMark, SimConfig } from "@neon-spore/sim";
-import type { InstarParts } from "./instar-parts.js";
 import type { Figure } from "./instar-shape.js";
 import type { Layout } from "./layout.js";
 
@@ -62,101 +61,11 @@ export function instarHeadAt(l: Layout, f: Figure): { head: Point; r: number } {
 export function instarMarkPoint(
   l: Layout,
   mark: SceneMark,
-  sway: { xMilli: number; yMilli: number; drift?: InstarDrift },
+  sway: { xMilli: number; yMilli: number },
   along: number,
 ): Point {
   const x = mark.xMilli + (mark.sweepMilli ?? 0) * along;
-  const p = instarAt(l, x + sway.xMilli, mark.yMilli + sway.yMilli);
-  const d = sway.drift;
-  if (d === undefined) return p;
-  const parts = d.parts;
-  // A mark on the head or the tail is carried by that part's own cock too (`instar-parts.ts`).
-  if (parts !== undefined && TAIL_MARKS.has(mark.part)) {
-    return instarDrifted(l, d, rotateAbout(p, instarTailRoot(l, parts), parts.tailPlane));
-  }
-  const q = instarDrifted(l, d, p);
-  if (parts === undefined || !HEAD_MARKS.has(mark.part)) return q;
-  return rotateAbout(q, instarDrifted(l, d, instarNeck(l, parts)), parts.headPlane);
-}
-
-/** The marks the head carries, and the one the tail does; the rest ride the body. */
-const HEAD_MARKS: ReadonlySet<string> = new Set(["head", "eye", "jaw", "fire"]);
-const TAIL_MARKS: ReadonlySet<string> = new Set(["tail"]);
-
-/** The neck the head cocks about, in pixels, the profile's (`instar-profile.ts` `profileLines`). */
-export function instarNeck(l: Layout, p: InstarParts): Point {
-  const head = instarAt(l, p.headXMilli, p.headYMilli);
-  const r = instarLen(l, p.headRMilli);
-  return { x: head.x + r * 0.7, y: head.y + r * 0.15 };
-}
-
-/** The root the tail swings about, in pixels. */
-export function instarTailRoot(l: Layout, p: InstarParts): Point {
-  return instarAt(l, p.rearXMilli, p.rearYMilli);
-}
-
-/** `p` turned `a` about `c`, as `ctx.rotate` turns it. */
-export function rotateAbout(p: Point, c: Point, a: number): Point {
-  const cos = Math.cos(a);
-  const sin = Math.sin(a);
-  const x = p.x - c.x;
-  const y = p.y - c.y;
-  return { x: c.x + cos * x - sin * y, y: c.y + sin * x + cos * y };
-}
-
-/**
- * **The body turned on the idle drift** (`instar-drift.ts`): about where it
- * turns, in thousandths of the field, and how far. Only the body's angles are
- * here; the head's own turn is the profile's (`instar-profile.ts`).
- */
-export interface InstarDrift {
-  readonly pivotXMilli: number;
-  readonly pivotYMilli: number;
-  readonly yaw: number;
-  readonly pitch: number;
-  readonly roll: number;
-  /** The head's yaw on the body's, radians. */
-  readonly headYaw: number;
-  /** Each part's own drift on the body's (`instar-parts.ts`). */
-  readonly parts?: InstarParts;
-}
-
-/**
- * Where a pixel of the side-on body lands once it has turned: the rig's view
- * of a point on the body's own plane (`see` with `z` 0, `view(yaw, pitch)`),
- * rolled about the line of sight, all about the pivot. The profile sets the
- * same matrix on the canvas (`driftTransform`), so a mark is drawn and found
- * where the body carried it.
- */
-export function instarDrifted(l: Layout, d: InstarDrift, p: Point): Point {
-  const c = instarAt(l, d.pivotXMilli, d.pivotYMilli);
-  const [a, b, cc, dd] = driftMatrix(d);
-  const x = p.x - c.x;
-  const y = p.y - c.y;
-  return { x: c.x + a * x + cc * y, y: c.y + b * x + dd * y };
-}
-
-/** The drift's linear part, `[a, b, c, d]` as `ctx.transform` takes it. */
-export function driftMatrix(d: InstarDrift): readonly [number, number, number, number] {
-  const cy = Math.cos(d.yaw);
-  const sy = Math.sin(d.yaw);
-  const cp = Math.cos(d.pitch);
-  const sp = Math.sin(d.pitch);
-  const cr = Math.cos(d.roll);
-  const sr = Math.sin(d.roll);
-  // R(roll) · [[cy, 0], [−sy·sp, cp]]: the turn first, then the roll.
-  const a0 = cy;
-  const b0 = -sy * sp;
-  return [cr * a0 - sr * b0, sr * a0 + cr * b0, -sr * cp, cr * cp];
-}
-
-/** The drift on the canvas, about the pivot: what `instarDrifted` does to a point. */
-export function driftTransform(ctx: CanvasRenderingContext2D, l: Layout, d: InstarDrift): void {
-  const c = instarAt(l, d.pivotXMilli, d.pivotYMilli);
-  const [a, b, cc, dd] = driftMatrix(d);
-  ctx.translate(c.x, c.y);
-  ctx.transform(a, b, cc, dd, 0, 0);
-  ctx.translate(-c.x, -c.y);
+  return instarAt(l, x + sway.xMilli, mark.yMilli + sway.yMilli);
 }
 
 /** A mark's radius in pixels: the handle's, the one size a thumb is asked for. */

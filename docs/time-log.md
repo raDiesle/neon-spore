@@ -32278,3 +32278,15 @@ only quoted strings did.
 Bottleneck: finding a frame where each boss was asking for its shot.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE INSTAR's dropped idle drift taken out of ten drawers
+
+- reading: 5 min. Every reader of the drift, the parts and the head's glance.
+- writing: 10 min. Two modules and their tests deleted, eight drawers on the
+  path they took at `undefined`, the spec's paragraphs folded into one.
+- looking: 0 min. No picture: the field draws what it drew.
+- friction: 0 min.
+- landing: 5 min. `check:fast` twice, `land`.
+
+Bottleneck: the queue entry naming the deleted files, which held the doc
+check red until `done` took it out.

@@ -36,10 +36,7 @@ import { drawRig, type Part, type RigLook } from "./solid-rig.js";
  */
 
 /** What the rig head reads off a frame: `Look` satisfies it. */
-export type RigHeadLook = Pick<
-  Look,
-  "head" | "r" | "time" | "fade" | "fire" | "weak" | "glance"
-> & {
+export type RigHeadLook = Pick<Look, "head" | "r" | "time" | "fade" | "fire" | "weak"> & {
   f: Pick<Look["f"], "jawUp" | "jawDown" | "eye" | "wince" | "winceLeft">;
 };
 
@@ -84,7 +81,7 @@ function marks(look: RigHeadLook, yaw: number, nostrilAt: Vec3): Part[] {
     const at = onSkull(e.lon, e.lat);
     const open = f.eye * (1 - 0.8 * (s === 1 ? f.wince : f.winceLeft));
     const draw = onPin(e.pin, yaw, (ctx) => {
-      const eye = drawEye(ctx, { x: 0, y: 0 }, r, s, open, time, fade, look.glance);
+      const eye = drawEye(ctx, { x: 0, y: 0 }, r, s, open, time, fade);
       if (eye) drawWeak(ctx, eye, (look.weak?.eye ?? 0) * fade, "eye");
     });
     out.push({ kind: "mark", c: { x: at.x * r, y: at.y * r, z: at.z * r }, draw, anchor: upper });
@@ -140,7 +137,7 @@ export function drawRigHead(
  * The rig head in profile, where the profile's own head would be: `look.head`
  * is that head's middle rather than the mouth's, so the rig is moved to put
  * its eye on the profile's (`SIDE_EYE`). Side-on the view is `(x, y)`; at any
- * other `yaw` (the idle drift's turn, `instar-drift.ts`) the near eye stays on
+ * other `yaw` the near eye stays on
  * that point and the head turns about it.
  */
 export function drawRigSideHead(

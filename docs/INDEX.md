@@ -1850,7 +1850,6 @@ by hand never moves.
 | `packages/render/src/intro-ear.ts` | **AN EAR, AND NOTHING BUT AN EAR.** The other half of the owner's instruction of 16 September 2026 |
 | `packages/render/src/intro-mouth.ts` | **A MOUTH, AND NOTHING BUT A MOUTH.** The owner, 16 September 2026, on the intro's two people |
 | `packages/render/src/instar-draw.ts` | **THE INSTAR**: a living dragon of a ship, the size of the field (§11.32) |
-| `packages/render/src/instar-drift.ts` | **THE INSTAR turns on the idle drift** — the owner, 26 September 2026: the full body should keep turning |
 | `packages/render/src/instar-fx.ts` | What THE INSTAR leaves behind a frame: the **jolt** of a landing and of the last |
 | `packages/render/src/instar-fx-ingest.ts` | **What each of THE INSTAR's events does to its fx** |
 | `packages/render/src/instar-fire.ts` | **The fire in THE INSTAR's mouth**: a ball of flame turning on itself in the middle of the open jaws |
@@ -1869,7 +1868,6 @@ by hand never moves.
 | `packages/render/src/instar-profile.ts` | **THE INSTAR side-on**: the perspective the owner asked to change to on 25 September 2026 |
 | `packages/render/src/instar-profile-life.ts` | **THE INSTAR side-on, alive**: what the long body does on its own clock while the script holds it in a pose |
 | `packages/render/src/instar-profile-surface.ts` | **What sits on THE INSTAR's long body, placed round it** — the owner, 26 September 2026 |
-| `packages/render/src/instar-parts.ts` | **THE INSTAR's parts drift on their own**: the head, jaw, eyes, each wing and the tail on top of the body's turn |
 | `packages/render/src/instar-shape.ts` | **Where THE INSTAR is**, as one figure of numbers: the head and its two jaws, the eyes |
 | `packages/render/src/instar-shove.ts` | **THE INSTAR's lips trembling under a shove** |
 | `packages/render/src/instar-sway.ts` | **THE INSTAR weaves**, and everything of it weaves together |

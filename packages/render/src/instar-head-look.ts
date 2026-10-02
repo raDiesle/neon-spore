@@ -1,18 +1,14 @@
 import { drawFrontHead } from "./instar-head.js";
 import type { Look } from "./instar-plate.js";
-import { drawRigSideHead } from "./instar-rig-head-draw.js";
 import { drawSideHead } from "./instar-side-head.js";
 import { drawTurnedHead } from "./instar-turn.js";
 
 /**
  * **THE INSTAR's head, as the one record every view draws it through**: the
  * face-on view's turned head (`drawTurnedHead` over `drawFrontHead`'s two
- * halves), the profile's (`drawSideHead`), and the profile's head turned on
- * the idle drift (`turned`, the rig head at `yaw`, `instar-drift.ts`). A
- * record so VERSUS can offer another head in all of them at once
- * (`tools/versus/candidates/instar-head/`); the draw paths call
- * `INSTAR_HEAD.front`, `.side` and `.turned` every frame and never the
- * drawings directly.
+ * halves) and the profile's (`drawSideHead`). A record so VERSUS can offer
+ * another head in both at once; the draw paths call `INSTAR_HEAD.front` and
+ * `.side` every frame and never the drawings directly.
  *
  * **The head side-on is drawn bigger than the body's unit** — the owner,
  * 1 October 2026, on the four heads VERSUS offered: *keep current, all
@@ -26,11 +22,9 @@ import { drawTurnedHead } from "./instar-turn.js";
 export const INSTAR_HEAD: {
   front: (ctx: CanvasRenderingContext2D, look: Look) => void;
   side: (ctx: CanvasRenderingContext2D, look: Look) => void;
-  turned: (ctx: CanvasRenderingContext2D, look: Look, yaw: number) => void;
 } = {
   front: drawInstarFront,
   side: (ctx, look) => drawSideHead(ctx, grown(look)),
-  turned: (ctx, look, yaw) => drawRigSideHead(ctx, grown(look), yaw),
 };
 
 /** How much bigger the head is side-on than the body's head radius. */
