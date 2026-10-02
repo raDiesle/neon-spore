@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 4841a5110 — Queue: THE GAUGE's tooth and tongue mistakes still jam the valve
+
+Asks whether a wrong tooth, or a tooth or the tongue left in when its rest runs out, should open the mouth a step like a miss does.
+
 ## 2026-10-02 · b45b18ad2 — THE GAUGE's mouth opens on screen, and P1 sees a mirage while he waits for her call
 
 On both screens, each miss and each level now moves the rim of the mouth further from the cannon. The teeth, the wound and every thumb ring move out with it, and the rim gulps out a little past the new step when the shot that opened it lands. On P1's screen only, while his hand is off the valve and the round waits for her call, a fast sweep runs along the teeth left to right and then back. Each lit tooth is a ghost in red or cyan, split in two and floating off its socket. The colours are random and never the wound's, so the sweep only means "waiting". Exemption: a look the owner asked for by name (2 October 2026).
