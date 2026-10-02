@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 261fd4a52 — VERSUS instar:flight serpent swims slower and gentler, on every step of the level
+
+On the owner's 2 October 2026 answer to the serpent, *looks better. can you make it slower and not so strong path of movement and also have it in all perspective of boss level*: the wave down THE INSTAR's body is half the size, a crest takes four beats rather than two, and the shiver is gone. It now swims on every step, not only in flight — perched and turning at half its flight's size, side-on and face-on down the tube going back — and grows to the whole in flight, where the wings beat on it. It holds still while THE SLOW is open, so a mark stays under its circle. Only the candidate changes; the field draws what it did.
+
 ## 2026-10-02 · 38c15d583 — THE REPRISE's sac turns on the field, its veins sliding round it
 
 The owner took VERSUS reprise:skin · TURN on 2 October 2026 (*like it, build into game*; a look the owner asked for by name). THE REPRISE's sac now leans on the outline drift and its skin turns with it up to 65°: the veins, now bright and thick rather than faint, slide across it, the near ones going over the rim and the far pair coming round from behind. VERSUS keel:seam · THREE and instar:drift · TURN were rejected (*looks worse*), so THE KEEL keeps its one thin seam and THE INSTAR's body stays unturned.
