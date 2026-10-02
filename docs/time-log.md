@@ -32067,3 +32067,5 @@ to move into a function that takes a root before a test could reach it.
 
 Bottleneck: looking — a fast sweep and a strip's stride beat against each
 other, so the motion had to be sampled at hand-picked times.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
