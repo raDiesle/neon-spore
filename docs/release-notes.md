@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · e9f8241b6 — A lane that gives its own claim back can land straight after
+
+`queue release`, run from the lane that holds the claim, cut the `Taken:` line from the lane's own copy and left it uncommitted. The next `land` then refused that one file. Now the cut is committed on the lane under the trunk's subject, when the file was clean. The trunk already has that patch, so the landing's rebase drops it. A copy the lane is mid-edit on is left as it was.
+
 ## 2026-10-02 · cbebc8bdb — The CDP test's `.claude/tmp` entry leaves the queue, already fixed
 
 `69f40bda9` makes the directory before the test takes a profile in it. Run from a tree with no `.claude/tmp`, the three `launchOverCdp` tests pass.

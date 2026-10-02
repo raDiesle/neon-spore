@@ -32576,3 +32576,5 @@ Bottleneck: the lane that fixed it left its entry on the queue.
 
 Bottleneck: telling a clean copy from one the lane is still editing, so the
 commit never sweeps a half-written entry.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
