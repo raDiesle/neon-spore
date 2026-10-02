@@ -472,24 +472,6 @@ bares, and a bolt reaching the core is drawn through it.
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
 
-## `bun run frames` with four `--press` gauge calls draws the mouth shut
-
-- **Found:** 2026-10-02, claude/gauge-wave-cannon-mechanics-fa4bb7
-- **Taken:** 2026-10-02, claude/queue-mergerecord-refuses-a-ledger-entry-whose-only-ch (claim: claude/queue-bun-run-frames-with-four-press-gauge-calls-draws)
-- **Files:** `tools/frames/press.ts`, `tools/frames/drive.ts`, `packages/render/src/gauge-gape.ts`
-
-`bun run frames . --wave "THE GAUGE" --seat p2 --ticks 1250 --press
-400:2:call=cyan --press 600:2:call=cyan --press 800:2:call=cyan --press
-1000:2:call=cyan --events` reports `gaugeMiss` four times, and the frame
-still draws the rim at its shut radius — the same picture as tick 390. The
-same four calls sent through `window.neonSpore.send` and `advance` in the
-preview, then `paint`, draw it four steps open, and so does the frames run
-with `--boss misses=4` or `--boss calledMilli=-1` added. So the tool's world
-at the capture is not the one that drew the misses, or its paint reads a
-clock `gaugeGapeShown` does not expect. Find which, fix the tool or the
-picture, and add a frames test that a pressed miss moves the rim. Worked
-around in the lane by `--boss misses=4`.
-
 ## THE GAUGE's tooth and tongue mistakes still jam the valve
 
 - **Found:** 2026-10-02, claude/gauge-wave-cannon-mechanics-fa4bb7

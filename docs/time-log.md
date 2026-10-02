@@ -32097,3 +32097,15 @@ only the layouts' numbers showed, so the anchor needed a floor.
 Bottleneck: landing — the fix was one function; the check is most of it.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — Four pressed GAUGE misses do open the mouth in `bun run frames`
+
+- reading: 5 min. `drive.ts`, `capture.ts` and `gauge-gape.ts`'s shot clock.
+- writing: 0 min. Nothing to fix: a throwaway dump, taken out again.
+- looking: 5 min. The four-call run beside tick 390, and the world dumped
+  at the capture: four misses, and the rim a step a miss further out.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: looking — the entry was filed from the commit that made the
+mouth open, so only a frame of today's tree could say whether it still held.
