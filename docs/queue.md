@@ -604,22 +604,6 @@ The options:
    a running fuse no longer always means "do something". Every boss's hold
    step would follow.
 
-## `boss-hands.ts` and `hash-boss-clocks.ts` are at the 250-line limit
-
-- **Found:** 2026-10-01, claude/queue-the-lampreys-simulation-41
-- **Taken:** 2026-10-02, claude/queue-the-mimics-simulation-42 (claim: claude/queue-boss-hands-ts-and-hash-boss-clocks-ts-are-at-the)
-- **Where:** local
-- **Files:** `packages/sim/src/boss-hands.ts`, `packages/sim/src/hash-boss-clocks.ts`
-
-THE LAMPREY took both files to 251. That lane joined an older comment's two
-lines into one in each file to get back to 250, which is stepping around the
-limit, not fixing it. Each file is one call per boss, in a long run. Split
-each by family: the choreographed bosses' hands into `boss-hands-choreo.ts`,
-and their hash parts into `hash-boss-clocks-choreo.ts`, each called once from
-the file it came from. Done when both files are under ~200 lines, the next
-boss adds to the split file, and `bun run check` is green, with
-`hash-coverage.test.ts` unchanged.
-
 ## `versus adopt` refuses a candidate whose function is named after the field
 
 - **Found:** 2026-10-01, claude/versus-feedback-comparison-6cf7e7

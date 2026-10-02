@@ -1,44 +1,28 @@
 import { antiphonHashParts } from "./antiphon-hash.js";
 import { batonHashParts } from "./baton-hash.js";
 import type { BossState } from "./boss-union.js";
-import { burgeeHashParts } from "./burgee-hash.js";
-import { capstanHashParts } from "./capstan-hash.js";
 import { curtainHashParts } from "./curtain-hash.js";
-import { cystHashParts } from "./cyst-hash.js";
-import { davitHashParts } from "./davit-hash.js";
 import { filamentHashParts } from "./filament-hash.js";
-import { flueHashParts } from "./flue-hash.js";
-import { gallHashParts } from "./gall-hash.js";
 import { gimbalHashParts } from "./gimbal-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
-import { governorHashParts } from "./governor-hash.js";
-import { grindstoneHashParts } from "./grindstone-hash.js";
-import { halterHashParts } from "./halter-hash.js";
+import { scriptedHashParts } from "./hash-boss-scripted.js";
 import { haspHashParts } from "./hasp-hash.js";
 import { hiveHashParts } from "./hive-hash.js";
 import { instarHashParts } from "./instar-hash.js";
 import { keelHashParts } from "./keel-hash.js";
-import { lampreyHashParts } from "./lamprey-hash.js";
 import { leadHashParts } from "./lead-hash.js";
 import { ledgerHashParts } from "./ledger-hash.js";
 import { mantleHashParts } from "./mantle-hash.js";
-import { oculusHashParts } from "./oculus-hash.js";
-import { plumbHashParts } from "./plumb-hash.js";
 import { ratchetHashParts } from "./ratchet-hash.js";
-import { rimeHashParts } from "./rime-hash.js";
 import { scuttleHashParts } from "./scuttle-hash.js";
-import { seamHashParts } from "./seam-hash.js";
 import { sinewHashParts } from "./sinew-hash.js";
-import { slingHashParts } from "./sling-hash.js";
 import { spoolHashParts } from "./spool-hash.js";
 import { stareHashParts } from "./stare-hash.js";
 import { surgeHashParts } from "./surge-hash.js";
 import { tasterHashParts } from "./taster-hash.js";
 import { throatHashParts } from "./throat-hash.js";
-import { trivetHashParts } from "./trivet-hash.js";
 import { undertowHashParts } from "./undertow-hash.js";
 import { valveHashParts } from "./valve-hash.js";
-import { viseHashParts } from "./vise-hash.js";
 import { wellHashParts } from "./well-hash.js";
 
 /**
@@ -144,88 +128,8 @@ export function clockHashParts(boss: BossState): number[] {
   if (boss.kind === "valve") {
     for (const n of valveHashParts(boss)) out.push(n);
   }
-  // THE SEAM: the phase, the cursor, the sealed points, the answers owed
-  // and the script (`seam-hash.ts`).
-  if (boss.kind === "seam") {
-    for (const n of seamHashParts(boss)) out.push(n);
-  }
-  // THE OCULUS: the phase, the cursor, the leaves, the hits, both thumbs
-  // and the script (`oculus-hash.ts`).
-  if (boss.kind === "oculus") {
-    for (const n of oculusHashParts(boss)) out.push(n);
-  }
-  // THE VISE: the phase, the cursor, the cracks, the hits, both gaps and
-  // the script (`vise-hash.ts`).
-  if (boss.kind === "vise") {
-    for (const n of viseHashParts(boss)) out.push(n);
-  }
-  // THE RIME: the phase, the cursor, the wipes, the hits, both halves' frost,
-  // the reversal counts and the script (`rime-hash.ts`).
-  if (boss.kind === "rime") {
-    for (const n of rimeHashParts(boss)) out.push(n);
-  }
-  // THE TRIVET: the phase, the cursor, the feet, the hits, both seats' pads
-  // and the script (`trivet-hash.ts`).
-  if (boss.kind === "trivet") {
-    for (const n of trivetHashParts(boss)) out.push(n);
-  }
-  // THE PLUMB: the phase, the cursor, the weights, the hits, both seats'
-  // leans and the script (`plumb-hash.ts`).
-  if (boss.kind === "plumb") {
-    for (const n of plumbHashParts(boss)) out.push(n);
-  }
-  // THE SLING: the phase, the cursor, the arms, the hits, both fingers, both
-  // counts and the script (`sling-hash.ts`).
-  if (boss.kind === "sling") {
-    for (const n of slingHashParts(boss)) out.push(n);
-  }
-  // THE GRINDSTONE: the phase, the cursor, the passes, the hits, the caliper,
-  // both flats' grit and rubs, both jaws and the script (`grindstone-hash.ts`).
-  if (boss.kind === "grindstone") {
-    for (const n of grindstoneHashParts(boss)) out.push(n);
-  }
-  // THE CYST: the phase, the cursor, the cracks, the hits, the core, both
-  // flanks' gaps and taps and the script (`cyst-hash.ts`).
-  if (boss.kind === "cyst") {
-    for (const n of cystHashParts(boss)) out.push(n);
-  }
-  // THE DAVIT: the phase, the cursor, the swings, the hits, the pivot, both
-  // seats' steers, fingers and counts, the boom and the script (`davit-hash.ts`).
-  if (boss.kind === "davit") {
-    for (const n of davitHashParts(boss)) out.push(n);
-  }
-  // THE HALTER: the phase, the cursor, the cracks, the hits, the centre, both
-  // seats' rests, stirrings and grips, the pair's count and the script (`halter-hash.ts`).
-  if (boss.kind === "halter") {
-    for (const n of halterHashParts(boss)) out.push(n);
-  }
-  // THE CAPSTAN: the phase, the cursor, both bands' wear, the hits, the core,
-  // both seats' leans and reversal counts, the hold's count and the script (`capstan-hash.ts`).
-  if (boss.kind === "capstan") {
-    for (const n of capstanHashParts(boss)) out.push(n);
-  }
-  // THE GALL: the phase, the cursor, the point, the closes, the hits, the root,
-  // the gap and its count, and the script (`gall-hash.ts`).
-  if (boss.kind === "gall") {
-    for (const n of gallHashParts(boss)) out.push(n);
-  }
-  // THE BURGEE: the phase, the cursor, the swing, the freeze, the catches, the
-  // hits, the spindle, the thumbs and the draws, and the script (`burgee-hash.ts`).
-  if (boss.kind === "burgee") {
-    for (const n of burgeeHashParts(boss)) out.push(n);
-  }
-  // THE FLUE: the phase, the cursor, the ember, the taps, the vents, the hits,
-  // the core, the rests, the stirs and the thumbs, and the script (`flue-hash.ts`).
-  if (boss.kind === "flue") {
-    for (const n of flueHashParts(boss)) out.push(n);
-  }
-  // THE GOVERNOR: the phase, the cursor, the needle and its speed, the taps,
-  // the hits, the hub, the pads and the thumbs, and the script (`governor-hash.ts`).
-  if (boss.kind === "governor") {
-    for (const n of governorHashParts(boss)) out.push(n);
-  }
-  // THE LAMPREY: the phase, the jaw, the bite, the teeth, the thumbs and the script (`lamprey-hash.ts`).
-  if (boss.kind === "lamprey") for (const n of lampreyHashParts(boss)) out.push(n);
+  // THE SEAM and every scripted boss after it (`hash-boss-scripted.ts`).
+  for (const n of scriptedHashParts(boss)) out.push(n);
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {
     for (const n of filamentHashParts(boss)) out.push(n);

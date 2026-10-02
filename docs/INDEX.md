@@ -169,6 +169,7 @@ by hand never moves.
 | `packages/sim/src/gall.ts` | THE GALL: a soft nodule riding a raised seam the width of the hull |
 | `packages/sim/src/hash-boss.ts` | the boss half of the world fingerprint |
 | `packages/sim/src/hash-boss-clocks.ts` | The fingerprint's share of **the bosses that are a clock** — THE STARE, THE BATON, THE THROAT and THE UNDERTOW |
+| `packages/sim/src/hash-boss-scripted.ts` | The fingerprint's share of **the scripted bosses** |
 | `packages/sim/src/hull-types.ts` | what the hull remembers: where it broke, and how the pair have been doing at stopping it breaking |
 | `packages/sim/src/hull.ts` | the row the shield answers a rock on: one above the ship's own |
 | `packages/sim/src/kinds.ts` | what a `CreatureKind` *means*: colour, fall speed, width, whether a hand may be put on it |
@@ -448,6 +449,7 @@ by hand never moves.
 | `packages/sim/src/boss-along.ts` | **The bosses a shot meets in mid-field** rather than past the top: THE VANE's open bearing on the arm's row |
 | `packages/sim/src/boss-phases.ts` | **Every boss's phases, in one table**, for the director's STATES sheet |
 | `packages/sim/src/boss-hands.ts` | **The choreographed bosses' hands, read on the tick** |
+| `packages/sim/src/boss-hands-scripted.ts` | **The scripted bosses' hands, read on the tick** |
 | `packages/sim/src/config-crawler.ts` | THE CRAWLER's five numbers: how long a worm is when the wave does not say, how fast it walks |
 | `packages/sim/src/crawler-beat.ts` | **A beat of every worm on the field**: the step it takes, the shield it may walk into |
 | `packages/sim/src/crawler-round.ts` | **How a worm comes on, how its body closes up, and what a shot into one does** |

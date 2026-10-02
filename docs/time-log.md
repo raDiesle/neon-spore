@@ -31638,3 +31638,13 @@ Bottleneck: the old fight's pinch, pry, mouth and vent were named in about
 ninety files, and every one had to be read before it could be rewritten.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — The scripted bosses' hands and hash branches get pages of their own
+
+- reading: 5 min. Both files, `SCRIPTED_KINDS`, THE LAMPREY's wiring.
+- writing: 5 min. A script carving the SEAM-to-LAMPREY run out of each file.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land --keep`.
+
+Bottleneck: none — the cut was the one both files' order already drew.
