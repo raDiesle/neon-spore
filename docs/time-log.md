@@ -32004,3 +32004,5 @@ then could not show the thing that moved.
 
 Bottleneck: reading — whether a seat's handle was its own could only be
 read off each boss's simulation, one file at a time.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

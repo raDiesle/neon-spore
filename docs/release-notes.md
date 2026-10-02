@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 007878fda — Every boss's handles answer TEST's one mouse
+
+Under TEST a press with no seat key is tried as player 1 first, so wherever both seats' hit tests answered one point the pilot took it — and on seven more bosses that was a handle only the navigator is heard on. THE KEEL's joint on the navigator's half, THE FILAMENT's tail ring, THE FLUE's row when the navigator taps, THE LAMPREY's mouth, THE CAPSTAN's drum, THE HALTER's grips on a right step and THE PULSE's bar when it asks the navigator now each name their seat to the desk, as THE CYST's marks do.
+
 ## 2026-10-02 · 4b43a9418 — THE STARE's struck eye shudders again, the ball rattling in its socket
 
 The globe taken from VERSUS read how far the eye faced and how far it stood open, and dropped the lean, which carried the hurt shudder as well as the sliver's shear. While the eye faces the pair the ball now turns by the lean, so a hit rattles it in its socket and dies out over the hurt, as the spec says. While it turns away the lean is still ignored, since the ball already draws that turn.
