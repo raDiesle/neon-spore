@@ -458,6 +458,7 @@ bolt stopped, and `bun run check` is green.
 ## `versus adopt` reads a typed record's annotation as its value
 
 - **Found:** 2026-10-02, claude/queue-living-bosses-ship-the-instars-picked-candidates
+- **Taken:** 2026-10-02, claude/queue-living-bosses-ship-the-instars-picked-candidates (claim: claude/queue-versus-adopt-reads-a-typed-records-annotation-as)
 - **Where:** local
 - **Files:** `tools/versus/record-edit.ts`, `tools/versus/test/record-edit.test.ts`
 
