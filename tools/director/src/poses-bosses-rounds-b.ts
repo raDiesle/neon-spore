@@ -201,12 +201,14 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
     "scout",
     "verdict",
     "Caught, or through: the arena holds the moment the run ended. P1 waits; P2 waits.",
-    { ...FULL, hold: 6 },
+    // Nobody flies, so the verdict is the first level's clock running out —
+    // 208 beats on every level (`scout-arenas.ts`).
+    { ...FULL, hold: 6, budgetBeats: 220 },
   ),
   bossPose(
     "scout",
     "spent",
     "The arena is over and only looked at. P1 waits; P2 waits for the next wave.",
-    { ...FULL, hold: 12 },
+    { ...FULL, hold: 12, budgetBeats: 220 },
   ),
 ];

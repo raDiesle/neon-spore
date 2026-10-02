@@ -23,8 +23,8 @@ import type { ScoutArena } from "@neon-spore/sim";
  * Authored as `scout-arenas.ts` is, in the same thousandths against seven
  * columns, and read the same way; that file's header says how. **The clocks**
  * are three to four times what the stupid autopilot in
- * `test/scout-haul-flight.test.ts` takes, the same room for the talking the
- * owner asked THE SCOUT's for.
+ * `test/scout-haul-flight.test.ts` takes — room for the talking, as THE
+ * SCOUT's own clocks are, though those are one clock for every level now.
  */
 export const SCOUT_HAUL_ARENAS: ScoutArena[] = [
   /**

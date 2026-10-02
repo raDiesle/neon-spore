@@ -23,7 +23,7 @@ describe("THE HAUL's arenas, flown", () => {
     });
   }
 
-  it("gives every level three to four times the flight, as THE SCOUT's are", () => {
+  it("gives every level three to four times the flight", () => {
     for (const [index, flight] of FLOWN.entries()) {
       const clock = SCOUT_HAUL_ARENAS[index]?.beats ?? 0;
       expect(clock).toBeGreaterThanOrEqual(flight * 3);

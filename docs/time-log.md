@@ -32507,3 +32507,16 @@ Bottleneck: the three bosses' readout rules were only found after THE
 GIMBAL's lane, when the next one was opened.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE SCOUT gives every level the same 208-beat clock
+
+- reading: 5 min. The scout's config, its four arenas and the flight test
+  that bounds their clocks.
+- writing: 5 min. The four clocks, the test, the spec line, the two poses'
+  budgets.
+- looking: 0 min. A clock; nothing drawn changes.
+- friction: 5 min. The question of which way "increases a lot" meant, and
+  a shared constant the wave editor could not write back.
+- landing: 5 min. `check:fast` twice, `land`.
+
+Bottleneck: the request read two opposite ways and needed a question.

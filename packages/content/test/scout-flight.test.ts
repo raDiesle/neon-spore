@@ -14,18 +14,12 @@ describe("THE SCOUT's arenas, flown", () => {
     });
   }
 
-  it("gives every level much more clock than the flight", () => {
+  it("gives every level the same clock, eight times the longest flight", () => {
     // The owner, 29 September 2026: *increase time much more until to collect
-    // all*. The round is flown on what the other seat says, a heading at a
-    // time, and a rig says nothing — so a clock twice its flight was a clock
-    // for a pair who never spoke. Three times is the floor now, and four the
-    // ceiling, past which `ranOut` could only end a pair who had stopped
-    // flying altogether.
-    for (const [index, flight] of FLOWN.entries()) {
-      const clock = SCOUT_ARENAS[index]?.beats ?? 0;
-      expect(clock).toBeGreaterThanOrEqual(flight * 3);
-      expect(clock).toBeLessThanOrEqual(flight * 4);
-    }
+    // all*; and 2 October 2026: *the same time for every level, not
+    // different*, and a lot of it. The round is flown on what the other seat
+    // says, a heading at a time, and a rig says nothing.
+    expect(new Set(SCOUT_ARENAS.map((a) => a.beats))).toEqual(new Set([Math.max(...FLOWN) * 8]));
   });
 
   it("puts one mote more on each level, from one", () => {

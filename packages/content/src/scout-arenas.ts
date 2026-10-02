@@ -31,11 +31,15 @@ import type { ScoutArena } from "@neon-spore/sim";
  *
  * **One mote at a time**, brought home and sucked in before the next is taken
  * (`scoutCarryMax`), so a level of four motes is four trips out from the
- * mouth. That is what the clocks are set against: each is four times what the
- * stupid autopilot in `test/scout-flight.test.ts` takes — 6, 14, 20 and 26
- * beats — because the owner asked for *much more* time. The round is read out
- * loud, a heading at a time, and the clock is room for the talking; the old
- * clocks were half again the flight.
+ * mouth.
+ *
+ * **Every level has the same clock**, 208 beats — the owner, 2
+ * October 2026: *the same time for every level, not different*, and *a lot*
+ * more of it. It is eight times what the stupid autopilot in
+ * `test/scout-flight.test.ts` takes on the longest level (26 beats), so the
+ * first level is mostly room and the last still has twice the talking the old
+ * four-times clocks gave it. The round is read out loud, a heading at a time,
+ * and the clock is room for the talking, not the thing being tested.
  *
  * **The motes do not move and never will.** A pod comes to the ship because
  * there is no flying in this game (`sim/pods.ts`); a mote is the one power-up
@@ -48,7 +52,7 @@ export const SCOUT_ARENAS: ScoutArena[] = [
    * line to it. The whole round in a single trip — out, wait, through, home.
    */
   {
-    beats: 24,
+    beats: 208,
     motes: [{ colMilli: 3_500, rowMilli: 4_500 }],
     hazards: [{ colMilli: 500, rowMilli: 8_500, vColMilli: 3_000, vRowMilli: 0 }],
   },
@@ -57,7 +61,7 @@ export const SCOUT_ARENAS: ScoutArena[] = [
    * home. The first level with a *which one first*.
    */
   {
-    beats: 56,
+    beats: 208,
     motes: [
       { colMilli: 1_500, rowMilli: 4_000 },
       { colMilli: 5_500, rowMilli: 4_000 },
@@ -70,7 +74,7 @@ export const SCOUT_ARENAS: ScoutArena[] = [
    * high one only through both.
    */
   {
-    beats: 80,
+    beats: 208,
     motes: [
       { colMilli: 1_000, rowMilli: 8_000 },
       { colMilli: 6_000, rowMilli: 8_000 },
@@ -87,7 +91,7 @@ export const SCOUT_ARENAS: ScoutArena[] = [
    * its middle and one between it and home, out of step with each other.
    */
   {
-    beats: 104,
+    beats: 208,
     motes: [
       { colMilli: 1_500, rowMilli: 9_000 },
       { colMilli: 5_500, rowMilli: 9_000 },

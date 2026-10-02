@@ -906,8 +906,10 @@ which is how a round reaches `laden` and `heavy` — and an open mouth takes a c
 with the pilot's hands dead until it is home. The pilot is shown the arena
 `scoutRevealFirstTicks` after the ship is let go, and again every
 `scoutRevealEveryTicks`, for `scoutRevealTicks` each time. The four levels
-carry one mote more each, from one, on four times the clock a clean flight
-takes (`packages/content/src/scout-arenas.ts`).
+carry one mote more each, from one, and **all four have the same clock** —
+208 beats, eight times a clean flight of the longest — the owner, 2 October
+2026: *the same time for every level, not different*
+(`packages/content/src/scout-arenas.ts`).
 
 **How it looks** (`packages/render/src/scout-look.ts`, `scout-ship.ts`). The
 little ship is an alien pacman — a lobed violet round with a chomping mouth, a
