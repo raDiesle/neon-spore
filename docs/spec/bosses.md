@@ -4336,7 +4336,8 @@ only if something arrives while both hands are on the rope.
 1's, `sinewRight` player 2's, a `drag` whose `fromYMilli` is the pull, up to
 `sinewReachMilli` (3000, three tiles of thumb since 2 October 2026), and whose
 `fromMilli` is the sway — dropped while the tendon hangs, so a pull runs
-straight down, and kept only for the catch and the fall; `sim/sinew-hand.ts`
+straight down, and kept only for the catch and the fall, which the owner kept
+on 2 October 2026 because neither is a pull; `sim/sinew-hand.ts`
 hears them on the tick), the two pulls **add** into one sum less the slack,
 and the fibre being held **parts** when that sum has sat inside a **zone**
 for `sinewHoldBeats` (4) beats on end. The zone is `sinewZoneMilli` (1440)

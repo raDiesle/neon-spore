@@ -31911,3 +31911,14 @@ Bottleneck: friction — the colour-count tests each pin one hex to one meaning,
 and every new colour on the band had to be fitted between them.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE SINEW keeps its catch and its fall's walk
+
+- reading: 5 min. The entry, the spec paragraph the pull change rewrote.
+- writing: 0 min. One clause in the spec: the owner kept both gestures.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none — the question was the whole of the work, and it was asked
+first.
