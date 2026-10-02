@@ -866,4 +866,15 @@ export const COPIES: Copy[] = [
     pattern:
       /\bHALF_W\s*=\s*0\.(?:72|9)\b|\bHALF_H\s*=\s*0\.(?:66|62)\b|\bw:\s*0\.(?:72|9),\s*h:\s*0\.(?:66|62)\b/,
   },
+  {
+    // **What a bolt meets of a core over the middle column** — armour while it
+    // is shut, the step's colour wanted while it is open on a fire step.
+    // Eleven bosses carried the same seventeen lines until the picture had to
+    // ask where a bolt stops and would have been the twelfth (2 October 2026,
+    // `render/core-stop.ts`). Unstripped, because the step it asks is a string.
+    call: "coreVerdict",
+    owner: "packages/sim/src/core-verdict.ts",
+    pattern: /step\s*===\s*null\s*\|\|\s*step\.ask\s*!==\s*"fire"\s*(?:\|\||\))/,
+    strip: false,
+  },
 ];

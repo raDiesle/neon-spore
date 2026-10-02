@@ -32,6 +32,8 @@ const NOT_MARKS: Readonly<Record<string, string>> = {
   "ease.ts": "a curve",
   "key-light.ts": "a body's light",
   "field-flip.ts": "which way up the field is",
+  "heartbeat.ts": "a curve",
+  "bolt-stop.ts": "where a bolt is drawn to end, not what a thumb is asked",
   "effects-boss.ts": "where a boss's transients live",
   "effects.ts": "where every transient lives",
   "view-role.ts": "which seat sees what",

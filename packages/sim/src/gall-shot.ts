@@ -1,8 +1,7 @@
-import { metColor, missedColor } from "./balance.js";
-import { midCol } from "./config.js";
+import { type CoreVerdict, coreTaken, coreVerdict } from "./core-verdict.js";
 import { gallBoss, gallLitStep } from "./gall.js";
 import { gallAnswered } from "./gall-step.js";
-import type { Bullet } from "./types.js";
+import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -12,25 +11,22 @@ import type { World } from "./world.js";
  * Only a lit fire step takes one, with the root bare. **A step with a colour
  * wants that colour**, THE SEAM's rule (`seam-shot.ts`): the other is a colour
  * missed on the balance sheet and the step stays lit.
+ *
+ * What it says of a bolt is `gallVerdict`, which the picture asks too
+ * (`core-verdict.ts`).
  */
 export function gallStruck(world: World, bullet: Bullet): boolean {
   const s = gallBoss(world);
-  if (s === null) return false;
-  // The core is in the middle column, bared or not: a bolt there met it,
-  // and while it is shut that is armour (`shot-out.ts`).
-  const core = bullet.col === midCol(world.cfg);
-  if (!s.bared) return core;
-  const step = gallLitStep(s);
-  if (step === null || step.ask !== "fire" || !core) return core;
-  if (step.color !== "either") {
-    if (bullet.color !== step.color) {
-      missedColor(world);
-      return true;
-    }
-    metColor(world);
-  }
+  const verdict = gallVerdict(world, bullet.col, bullet.color);
+  if (s === null || !coreTaken(world, verdict, gallLitStep(s))) return verdict !== null;
   s.hits += 1;
   world.events.push({ type: "gallHit", hits: s.hits, col: bullet.col });
   gallAnswered(world, s);
   return true;
+}
+
+/** What a bolt of `color` in `col` meets of the core (`core-verdict.ts`). */
+export function gallVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const s = gallBoss(world);
+  return s === null ? null : coreVerdict(world, col, color, s.bared, gallLitStep(s));
 }

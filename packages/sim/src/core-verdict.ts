@@ -1,0 +1,52 @@
+import { metColor, missedColor } from "./balance.js";
+import { midCol } from "./config.js";
+import type { Color } from "./types.js";
+import type { World } from "./world.js";
+
+/**
+ * **What a bolt in a column meets of a core hung over the middle one**, the
+ * judgement ten bosses made in seventeen identical lines each — THE BURGEE,
+ * CAPSTAN, DAVIT, FLUE, GALL, GOVERNOR, GRINDSTONE, HALTER, PLUMB, RIME and
+ * SLING.
+ *
+ * - `null`: a column with none of the core in it.
+ * - `"armour"`: the core's column while it is shut, or open on a step that is
+ *   not a fire step. It costs nothing (`shot-out.ts`).
+ * - `"target"`: open on a fire step, in the step's colour, or either colour on
+ *   a step authored `"either"`, the white core.
+ * - `"wrong"`: open on a fire step, in the other colour: a colour missed.
+ *
+ * Pure, so the picture asks it where a bolt stops (`render/core-stop.ts`) and
+ * the boss's `…Struck` acts on the same answer through `coreTaken`.
+ */
+export type CoreVerdict = "target" | "wrong" | "armour" | null;
+
+/** A step the core is lit for, if it asks for fire. */
+export interface CoreStep {
+  ask: string;
+  color: Color | "either";
+}
+
+/** The verdict for a bolt of `color` in `col`, with the core `open` and `step` lit. */
+export function coreVerdict(
+  world: World,
+  col: number,
+  color: Color,
+  open: boolean,
+  step: CoreStep | null,
+): CoreVerdict {
+  if (col !== midCol(world.cfg)) return null;
+  if (!open || step === null || step.ask !== "fire") return "armour";
+  return step.color === "either" || color === step.color ? "target" : "wrong";
+}
+
+/**
+ * Acts on a verdict's colour: a colour missed or met on the balance sheet.
+ * True only when the core takes the hit, which the boss then counts.
+ */
+export function coreTaken(world: World, verdict: CoreVerdict, step: CoreStep | null): boolean {
+  if (verdict === "wrong") missedColor(world);
+  if (verdict !== "target") return false;
+  if (step !== null && step.color !== "either") metColor(world);
+  return true;
+}

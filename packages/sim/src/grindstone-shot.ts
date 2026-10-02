@@ -1,8 +1,7 @@
-import { metColor, missedColor } from "./balance.js";
-import { midCol } from "./config.js";
+import { type CoreVerdict, coreTaken, coreVerdict } from "./core-verdict.js";
 import { grindstoneBoss, grindstoneLitStep } from "./grindstone.js";
 import { grindstoneAnswered } from "./grindstone-step.js";
-import type { Bullet } from "./types.js";
+import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -13,25 +12,22 @@ import type { World } from "./world.js";
  * colour wants that colour**, THE SEAM's rule (`seam-shot.ts`): the other is a
  * colour missed on the balance sheet and the step stays lit. The last step is
  * authored `"either"`, the white axle, and takes both.
+ *
+ * What it says of a bolt is `grindstoneVerdict`, which the picture asks too
+ * (`core-verdict.ts`).
  */
 export function grindstoneStruck(world: World, bullet: Bullet): boolean {
   const s = grindstoneBoss(world);
-  if (s === null) return false;
-  // The core is in the middle column, bared or not: a bolt there met it,
-  // and while it is shut that is armour (`shot-out.ts`).
-  const core = bullet.col === midCol(world.cfg);
-  if (!s.locked) return core;
-  const step = grindstoneLitStep(s);
-  if (step === null || step.ask !== "fire" || !core) return core;
-  if (step.color !== "either") {
-    if (bullet.color !== step.color) {
-      missedColor(world);
-      return true;
-    }
-    metColor(world);
-  }
+  const verdict = grindstoneVerdict(world, bullet.col, bullet.color);
+  if (s === null || !coreTaken(world, verdict, grindstoneLitStep(s))) return verdict !== null;
   s.hits += 1;
   world.events.push({ type: "grindstoneHit", hits: s.hits, col: bullet.col });
   grindstoneAnswered(world, s);
   return true;
+}
+
+/** What a bolt of `color` in `col` meets of the core (`core-verdict.ts`). */
+export function grindstoneVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const s = grindstoneBoss(world);
+  return s === null ? null : coreVerdict(world, col, color, s.locked, grindstoneLitStep(s));
 }

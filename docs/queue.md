@@ -441,33 +441,36 @@ flat. `bun run check` proves the tests.
 - **Found:** 2026-10-01, claude/boss-cannon-targeting-feedback-15f334
 - **Taken:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
 - **Where:** local
-- **Files:** `packages/sim/src/shot-out.ts`, `packages/render/src/bolt-stop.ts`, `packages/render/src/seam-stop.ts`, `packages/render/src/heartbeat.ts`, `.claude/skills/new-boss/generic.md`
+- **Files:** `packages/sim/src/shot-out.ts`, `packages/sim/src/core-verdict.ts`, `packages/render/src/core-stop.ts`, `packages/render/src/governor-stop.ts`, `packages/render/src/heartbeat.ts`, `packages/render/test/core-stop.test.ts`, `.claude/skills/new-boss/generic.md`
 
 The owner, 1 October 2026, on THE SEAM *but also all other bosses*: the part
 the cannon must hit is lit in its colour and beats like a heart, the bolt has a
 clear path to it, and a bolt stops on whatever it meets. On the right part it
 bursts; anywhere else it scuffs and does nothing. The rule is the last bullet
-of `generic.md`. Only THE SEAM keeps it so far.
+of `generic.md`. THE SEAM, THE FLUE and THE GOVERNOR keep it so far.
 
-Every boss imported by `shot-out.ts` with a `…Struck` function is judged at row
-0 and drawn with bolts flying through its body: THE ANTIPHON, BURGEE,
-CAPSTAN, CURTAIN, CYST, DAVIT, FLUE, GALL, GIMBAL, GORGE, GOVERNOR,
-GRINDSTONE, HALTER, HASP, HIVE, KEEL, LEAD, LEDGER, MANTLE, OCULUS, PLUMB,
-RATCHET, RIME, INSTAR, NETTLE, SCUTTLE, SLING, STARE, TASTER, TRIVET, VALVE,
-VANE and VISE.
+**Nine are the short case**, their shot already `coreVerdict`
+(`sim/core-verdict.ts`) and their own `…Verdict` exported: THE BURGEE,
+CAPSTAN, DAVIT, GALL, GRINDSTONE, HALTER, PLUMB, RIME and SLING. Each needs a
+`…-stop.ts` calling `coreStopper` with the core's near rim and the body's
+`Foot` (`render/core-stop.ts`, THE GOVERNOR's is nine lines), its drawer to
+aim it, its lit face to swell on `heartCore` in place of its own cosine, and a
+row in `render/test/core-stop.test.ts`. A handful a lane.
 
-For each one, in its own lane:
-- Write a stopper, in a file beside the boss's drawer, shaped like
-  `seam-stop.ts`. It reads the boss's own `…Struck` verdict, never a copy of it.
-- Pass it to `effects.bolts.aim` from the boss's drawer.
-- Make its target beat on `lubDub`.
+**Twenty-two need their verdict pulled out first**, the way THE SEAM's was —
+a pure `…Verdict(world, col, color)` the `…Struck` acts on: THE ANTIPHON,
+CURTAIN, CYST, GIMBAL, GORGE, HASP, HIVE, KEEL, LEAD, LEDGER, MANTLE, OCULUS,
+RATCHET, INSTAR, NETTLE, SCUTTLE, STARE, TASTER, TRIVET, VALVE, VANE and VISE.
+THE CYST, OCULUS, TRIVET and VISE judge the middle column and one more, and
+may widen `coreVerdict` with a column rather than copy it.
 
 A boss whose target sits behind its own body in another colour is a look. Its
-fix goes to VERSUS, not onto the field, unless that is a clipping fault.
+fix goes to VERSUS, not onto the field, unless that is a clipping fault. THE
+FLUE is one: its damper drops *down* into the middle column under the core it
+bares, and a bolt reaching the core is drawn through it.
 
-Done when every boss above calls `bolts.aim`, `frame.test.ts` draws each one
-with a bolt stopped, and `bun run check` is green. It is about thirty-three
-lanes: split it before starting, a handful of bosses per lane.
+Done when every boss above calls `bolts.aim`, a test draws each one with a
+bolt stopped, and `bun run check` is green.
 
 ## THE SEAM's false point says nothing about holding fire
 

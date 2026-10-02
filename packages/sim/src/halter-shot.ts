@@ -1,8 +1,7 @@
-import { metColor, missedColor } from "./balance.js";
-import { midCol } from "./config.js";
+import { type CoreVerdict, coreTaken, coreVerdict } from "./core-verdict.js";
 import { halterBoss, halterLitStep } from "./halter.js";
 import { halterAnswered } from "./halter-step.js";
-import type { Bullet } from "./types.js";
+import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -13,25 +12,22 @@ import type { World } from "./world.js";
  * colour wants that colour**, THE SEAM's rule (`seam-shot.ts`): the other is
  * a colour missed on the balance sheet and the step stays lit. The last step
  * is authored `"either"`, the white centre, and takes both.
+ *
+ * What it says of a bolt is `halterVerdict`, which the picture asks too
+ * (`core-verdict.ts`).
  */
 export function halterStruck(world: World, bullet: Bullet): boolean {
   const s = halterBoss(world);
-  if (s === null) return false;
-  // The core is in the middle column, bared or not: a bolt there met it,
-  // and while it is shut that is armour (`shot-out.ts`).
-  const core = bullet.col === midCol(world.cfg);
-  if (!s.bared) return core;
-  const step = halterLitStep(s);
-  if (step === null || step.ask !== "fire" || !core) return core;
-  if (step.color !== "either") {
-    if (bullet.color !== step.color) {
-      missedColor(world);
-      return true;
-    }
-    metColor(world);
-  }
+  const verdict = halterVerdict(world, bullet.col, bullet.color);
+  if (s === null || !coreTaken(world, verdict, halterLitStep(s))) return verdict !== null;
   s.hits += 1;
   world.events.push({ type: "halterHit", hits: s.hits, col: bullet.col });
   halterAnswered(world, s);
   return true;
+}
+
+/** What a bolt of `color` in `col` meets of the core (`core-verdict.ts`). */
+export function halterVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const s = halterBoss(world);
+  return s === null ? null : coreVerdict(world, col, color, s.bared, halterLitStep(s));
 }

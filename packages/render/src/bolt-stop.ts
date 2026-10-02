@@ -66,6 +66,11 @@ export class BoltStops {
     this.stopper = stopper;
   }
 
+  /** What the boss aimed this frame says a bolt in `col` at `x` meets, stopping none: for the tests. */
+  meets(col: number, x: number, color: Color): BoltStop | null {
+    return this.stopper?.(col, x, color) ?? null;
+  }
+
   /** Whether `b`, its head at (`x`, `y`), has met the boss — bursting it the first frame it has. */
   stopped(b: Bullet, x: number, y: number, hex: string): boolean {
     if (this.seen.has(b.id)) return true;

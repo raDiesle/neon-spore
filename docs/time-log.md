@@ -31877,3 +31877,19 @@ Bottleneck: reading — one note carried thirteen asks across two lanes, and
 which of them was the simulation's had to be settled first.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — A bolt stops on THE FLUE and THE GOVERNOR, and eleven cores share one verdict
+
+- reading: 5 min. THE SEAM's stopper, the eleven shot files that turned out
+  to be one, and the two drawers' geometry.
+- writing: 5 min. `coreVerdict` and the eleven files onto it, `coreStopper`
+  and its feet, two stoppers, `heartCore`, THE FLUE's core split off, the
+  test, the COPIES row.
+- looking: 5 min. Three `frames` runs to find a tick with a bolt under the
+  lit core.
+- friction: 0 min. The COPIES pattern first caught THE KEEL's socket and was
+  narrowed.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: reading — what looked like thirty-three lanes was eleven
+identical judgements, and seeing that took longer than writing the cure.

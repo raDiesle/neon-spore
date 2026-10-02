@@ -9,6 +9,7 @@ import {
   governorTapping,
   type World,
 } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlowFaded } from "./glow.js";
 import type { GovernorFx } from "./governor-fx.js";
@@ -33,6 +34,7 @@ import {
   TRACK_IN,
   TRACK_OUT,
 } from "./governor-shape.js";
+import { governorStopper } from "./governor-stop.js";
 import { drawGovernorHalos, drawGovernorVerdicts } from "./governor-verdicts.js";
 import { drawGovernorWorks } from "./governor-works.js";
 import { rgba } from "./hex.js";
@@ -79,9 +81,11 @@ export function drawGovernor(
   beatPhase: number,
   time: number,
   fx: GovernorFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const d = governorStanding(l, cfg, s, beat, beatPhase);
+  stops?.aim(governorStopper(l, world, s, d));
   const step = governorLitStep(s);
   fx.note(s.needleMilli, step?.ask === "fire" ? stepColour(step.color).rim : PALETTE.hullRim);
   ctx.save();

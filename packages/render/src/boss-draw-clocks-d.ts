@@ -174,7 +174,7 @@ export function drawLatePairBoss(
   // under a damper and shot (`flue-draw.ts`); a tap's tick, a notch's flare,
   // the damper's thud and the core's flash are `flue-fx.ts`.
   if (boss.kind === "flue") {
-    drawFlue(ctx, l, world, boss, beat, beatPhase, time, effects.boss.flue);
+    drawFlue(ctx, l, world, boss, beat, beatPhase, time, effects.boss.flue, effects.bolts);
     return;
   }
 
@@ -183,7 +183,7 @@ export function drawLatePairBoss(
   // on the lit mark, the hub it turns on shot (`governor-draw.ts`); its
   // marks' verdicts on a touch are `governor-verdicts.ts`.
   if (boss.kind === "governor") {
-    drawGovernor(ctx, l, world, boss, beat, beatPhase, time, effects.boss.governor);
+    drawGovernor(ctx, l, world, boss, beat, beatPhase, time, effects.boss.governor, effects.bolts);
     return;
   }
 

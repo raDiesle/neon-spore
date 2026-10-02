@@ -767,6 +767,7 @@ by hand never moves.
 | `packages/sim/src/config-oculus.ts` | THE OCULUS's tuning: the rests around its steps and the grace a hold is given… |
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
+| `packages/sim/src/core-verdict.ts` | **What a bolt in a column meets of a core hung over the middle one** |
 | `packages/sim/src/curtain-hash.ts` | What THE CURTAIN puts into `hashWorld`, and nothing else |
 | `packages/sim/src/curtain-hand.ts` | **The one hand on THE CURTAIN that is not the shove**: the hem |
 | `packages/sim/src/curtain-shot.ts` | The two moments a shot meets THE CURTAIN, both on the **tick**: a bolt into the fabric |
@@ -1938,10 +1939,12 @@ by hand never moves.
 | `packages/render/src/flue-marks.ts` | **THE FLUE's marks**: what says what a step asks and what is spent |
 | `packages/render/src/flue-pose.ts` | **The clock THE FLUE is posed off** (§40, *Animation*), five poses: the ember drifting |
 | `packages/render/src/flue-shape.ts` | **THE FLUE's geometry**: where the flue lies, the units it is laid from, the slot the ember rides in |
+| `packages/render/src/flue-stop.ts` | **Where a bolt meets THE FLUE**: the bared core, or the row of units |
 | `packages/render/src/flue-blow.ts` | **THE FLUE's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/flue-fx.ts` | What THE FLUE leaves behind a frame (§40, *Presentation*) |
 | `packages/render/src/flue-grip.ts` | **THE FLUE's tap as a control**: `flueTap`, pressed anywhere along the flue's row while a vent is lit |
 | `packages/render/src/flue-verdicts.ts` | **THE FLUE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
+| `packages/render/src/flue-core.ts` | **THE FLUE's core**, in the damper's place in the row: dull while no shot is owed |
 | `packages/render/src/frame-field.ts` | The two passes that are about the field: the empty board, and the bodies on it |
 | `packages/render/src/frame-ship.ts` | The two passes that are about the ship: the hull with its controls, and the overlays |
 | `packages/render/src/frame-on-ship.ts` | a body sticks to the finished ship — the fifth pass, between the ship and the overlays: the fence's burn, the gums, the choke's coils, the clingers, in that order |
@@ -2043,6 +2046,7 @@ by hand never moves.
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
 | `packages/render/src/corner-light.ts` | One rounded light in the bottom-right corner of the sky |
 | `packages/render/src/core-hurt.ts` | **A core's hurt**: a little smaller and brighter for every hit it has taken |
+| `packages/render/src/core-stop.ts` | **Where a bolt meets a core over the middle column**: `coreStopper`, and a body's `Foot` |
 | `packages/render/src/countdown.ts` | THE COUNT: the disc, `showsCount`, and the notches it wore — NOTCHES on the LIBRARY |
 | `packages/render/src/countdown-look.ts` | THE COUNT's look as a record VERSUS can patch: `over` on both screens, `count` on the pilot's — IRIS filled in |
 | `packages/render/src/countdown-dial.ts` | DIAL — a kept look for THE COUNT, drawn only on the SHAPES page's LIBRARY |
@@ -2086,6 +2090,7 @@ by hand never moves.
 | `packages/render/src/governor-marks.ts` | **THE GOVERNOR's marks**: what says what a step asks and what is spent |
 | `packages/render/src/governor-pose.ts` | **The clock THE GOVERNOR is posed off** (§43, *Animation*), five poses |
 | `packages/render/src/governor-shape.ts` | **THE GOVERNOR's geometry**: the dial as a disc seen from above, and the spindle, flyweights, drum and yoke over it |
+| `packages/render/src/governor-stop.ts` | **Where a bolt meets THE GOVERNOR**: the lit hub, or the flywheel's near edge |
 | `packages/render/src/governor-works.ts` | **THE GOVERNOR's works**: the spindle, the brake drum and the yoke's jaws, the collar and the two flyweights |
 | `packages/render/src/governor-verdicts.ts` | **THE GOVERNOR's marks answering a touch the way every mark does**: the mark's, the yoke's and the hub's halos and verdicts |
 | `packages/render/src/governor-grip.ts` | **THE GOVERNOR's hands**: the brake's chord on the works and the tap on the dial (`sim/governor-hand.ts` |

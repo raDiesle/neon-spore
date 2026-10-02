@@ -169,4 +169,9 @@ item naming the rule, never a fix made in passing.
   shell, it scuffs with grey grit and does nothing to the boss. The boss's
   drawer passes a `Stopper` to `effects.bolts.aim` each frame. It reads the
   simulation's own verdict (`seamVerdict`) and never re-derives it. THE SEAM
-  is the worked example (`render/seam-stop.ts`).
+  is the worked example (`render/seam-stop.ts`). **A core over the middle
+  column is the short case:** the shot asks `coreVerdict`
+  (`sim/core-verdict.ts`), the stopper is `coreStopper` with the core's near
+  rim and the body's `Foot` (`render/core-stop.ts`), and the lit face swells
+  on `heartCore`. THE FLUE and THE GOVERNOR are the examples, and
+  `render/test/core-stop.test.ts` takes one row a boss.

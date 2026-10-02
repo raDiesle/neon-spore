@@ -1,17 +1,10 @@
 import { LIGHT_HALF } from "@neon-spore/content";
-import {
-  type FlueState,
-  flueLitStep,
-  flueSteady,
-  flueTapper,
-  type SimConfig,
-  type World,
-} from "@neon-spore/sim";
+import { type FlueState, flueLitStep, flueSteady, flueTapper, type World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
-import { coreHurt } from "./core-hurt.js";
+import { drawFlueCore } from "./flue-core.js";
 import type { FlueFx } from "./flue-fx.js";
 import {
-  drawFlueFlash,
   drawFlueLapse,
   drawFlueSlotGlow,
   drawFlueTapRing,
@@ -32,7 +25,6 @@ import {
   FLUE_DAMPER,
   FLUE_UNITS,
   flueCentre,
-  flueCoreR,
   flueDamperAt,
   flueEmberAt,
   flueEmberR,
@@ -42,13 +34,13 @@ import {
   flueUnitR,
   type Point,
 } from "./flue-shape.js";
+import { flueStopper } from "./flue-stop.js";
 import { drawFlueMarkFeedback } from "./flue-verdicts.js";
 import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { stepColour } from "./step-colour.js";
 import { showsFlueHand } from "./view-role-clocks-c.js";
 
 /** How far above its place the flue starts as it slides in, in tiles. */
@@ -84,6 +76,7 @@ export function drawFlue(
   beatPhase: number,
   time: number,
   fx: FlueFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const centre = flueCentre(l, cfg);
@@ -93,11 +86,12 @@ export function drawFlue(
   ctx.translate(fx.hurt.shakeX(time, l.tile), arrive);
 
   const open = flueDamperOpen(s, cfg, beat, beatPhase);
+  stops?.aim(flueStopper(l, world, s, open, arrive));
   const hurt = fx.hurt.value;
   for (let k = 0; k < FLUE_UNITS; k++) {
     if (k !== FLUE_DAMPER) drawUnit(ctx, l, k, flueUnitAt(l, cfg, k), hurt);
   }
-  drawCore(ctx, l, cfg, s, beat, beatPhase, open, fx);
+  drawFlueCore(ctx, l, cfg, s, beat, beatPhase, open, fx);
   const damper = flueDamperAt(l, cfg, open);
   drawUnit(ctx, l, FLUE_DAMPER, { x: damper.x, y: damper.y + fx.thud * l.tile }, hurt);
 
@@ -188,59 +182,4 @@ function drawEmber(
   ctx.fillStyle = rgba(PALETTE.hullRim, dim);
   ctx.fill(ember);
   strokeGlowFaded(ctx, ember, PALETTE.hullRim, STROKE.inner, dim, 0.9);
-}
-
-/**
- * The core in the damper's place in the row: dull while no shot is owed and lit in the
- * step's colour while one is, smaller and brighter for every hit, with a
- * ring closing as the fire step's beats run out, and a hit's flash over it.
- * Drawn only while the damper is some way open — shut, it is not there to see.
- */
-function drawCore(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  cfg: SimConfig,
-  s: FlueState,
-  beat: number,
-  beatPhase: number,
-  open: number,
-  fx: FlueFx,
-): void {
-  if (open <= 0) return;
-  const at = flueUnitAt(l, cfg, FLUE_DAMPER);
-  drawCoreFace(ctx, l, s, beat, beatPhase, at, fx);
-  drawFlueFlash(ctx, l, at, fx.flash);
-}
-
-function drawCoreFace(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  s: FlueState,
-  beat: number,
-  beatPhase: number,
-  at: Point,
-  fx: FlueFx,
-): void {
-  const hurt = coreHurt(s.hits);
-  const r = flueCoreR(l) * hurt.size;
-  const face = new Path2D();
-  face.arc(at.x, at.y, r, 0, Math.PI * 2);
-  const step = flueLitStep(s);
-  if (step?.ask !== "fire" || !s.bared) {
-    ctx.fillStyle = PALETTE.flueCore;
-    ctx.fill(face);
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.flueSootDark, 0.9);
-    ctx.stroke(face);
-    return;
-  }
-  const { body, rim } = stepColour(step.color);
-  fx.tell(rim);
-  ctx.fillStyle = rgba(body, hurt.bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
-  ctx.fill(face);
-  strokeGlowFaded(ctx, face, rim, STROKE.inner, 0.8 + hurt.bright);
-  const ring = new Path2D();
-  const left = flueLeft(s, beat, beatPhase);
-  ring.arc(at.x, at.y, r * 1.6, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
-  strokeGlowFaded(ctx, ring, body, STROKE.outline, 1);
 }

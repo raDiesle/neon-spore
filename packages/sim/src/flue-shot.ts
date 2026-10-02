@@ -1,8 +1,7 @@
-import { metColor, missedColor } from "./balance.js";
-import { midCol } from "./config.js";
+import { type CoreVerdict, coreTaken, coreVerdict } from "./core-verdict.js";
 import { flueBoss, flueFiring, flueLitStep } from "./flue.js";
 import { flueAnswered } from "./flue-step.js";
-import type { Bullet } from "./types.js";
+import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -13,25 +12,22 @@ import type { World } from "./world.js";
  * colour wants that colour**, THE SEAM's rule (`seam-shot.ts`): the other is
  * a colour missed on the balance sheet and the step stays lit. The last step
  * is authored `"either"`, the white core, and takes both.
+ *
+ * What it says of a bolt is `flueVerdict`, which the picture asks too
+ * (`core-verdict.ts`).
  */
 export function flueStruck(world: World, bullet: Bullet): boolean {
   const s = flueBoss(world);
-  if (s === null) return false;
-  // The core is in the middle column, bared or not: a bolt there met it,
-  // and while it is shut that is armour (`shot-out.ts`).
-  const core = bullet.col === midCol(world.cfg);
-  if (!flueFiring(s) || !core) return core;
-  const step = flueLitStep(s);
-  if (step === null) return core;
-  if (step.color !== "either") {
-    if (bullet.color !== step.color) {
-      missedColor(world);
-      return true;
-    }
-    metColor(world);
-  }
+  const verdict = flueVerdict(world, bullet.col, bullet.color);
+  if (s === null || !coreTaken(world, verdict, flueLitStep(s))) return verdict !== null;
   s.hits += 1;
   world.events.push({ type: "flueHit", hits: s.hits, col: bullet.col });
   flueAnswered(world, s);
   return true;
+}
+
+/** What a bolt of `color` in `col` meets of the core (`core-verdict.ts`). */
+export function flueVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const s = flueBoss(world);
+  return s === null ? null : coreVerdict(world, col, color, flueFiring(s), flueLitStep(s));
 }

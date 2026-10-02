@@ -45,6 +45,7 @@ export {
   burgeeSwipe,
   freshBurgee,
 } from "./burgee.js";
+export { burgeeVerdict } from "./burgee-shot.js";
 // THE CAPSTAN's drum: the phase, the lit step, both bands' wear, which seat
 // steers and which rubs, and the face the cradle bares, for the picture, the
 // cue and the director's hand. Straight off `capstan.ts` (§37).
@@ -72,9 +73,14 @@ export {
   capstanWearer,
   freshCapstan,
 } from "./capstan.js";
+export { capstanVerdict } from "./capstan-shot.js";
+// The core verdict eleven bosses share, and each one's own, which the picture asks
+// where a bolt stops (`core-verdict.ts`).
+export type { CoreVerdict } from "./core-verdict.js";
 // Whether THE CURTAIN's hem asks the pilot for his thumb
 // (`render/curtain-marks.ts`), because the page it would have joined was within twenty lines of its limit.
 export { curtainHemAsks } from "./curtain-hand.js";
+export { davitVerdict } from "./davit-shot.js";
 // THE FLUE's ember: the phase, the lit step, the drift and the steadying,
 // whose rest is counted and whose tap is heard, the taps, the vents and the
 // core, for the picture, the cue and the director's hand. Straight off
@@ -103,6 +109,8 @@ export {
   flueTapper,
   freshFlue,
 } from "./flue.js";
+export { flueVerdict } from "./flue-shot.js";
+export { gallVerdict } from "./gall-shot.js";
 // THE MIMIC's signs: the phase, the step, which seat sees which sign and which
 // draws, and the five a thumb can draw, for the picture, the pad and the
 // director's hand (§42).
@@ -134,6 +142,9 @@ export {
   governorTapper,
   governorTapping,
 } from "./governor.js";
+export { governorVerdict } from "./governor-shot.js";
+export { grindstoneVerdict } from "./grindstone-shot.js";
+export { halterVerdict } from "./halter-shot.js";
 // THE LAMPREY's jaw and teeth: the phase, the step, the seats, the ring and
 // the gullet, for the picture, the cue and the director's hand (§41).
 export {
@@ -177,6 +188,9 @@ export {
   mimicReadBy,
   mimicStep,
 } from "./mimic.js";
+export { plumbVerdict } from "./plumb-shot.js";
+export { rimeVerdict } from "./rime-shot.js";
+export { slingVerdict } from "./sling-shot.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),
 // the hit test that answers it (`render/touch-well.ts`) and the director's
