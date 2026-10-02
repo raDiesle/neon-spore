@@ -489,6 +489,7 @@ rig-boss drift read it. `bun run check` proves the field draws as it did.
 ## `versus drop` leaves files outside the slot importing its candidates
 
 - **Found:** 2026-10-02, claude/versus-decisions-2026-10-02
+- **Taken:** 2026-10-02, claude/queue-versus-drop-importers (claim: claude/queue-versus-drop-leaves-files-outside-the-slot-import)
 - **Files:** `tools/versus/decide.ts`, `tools/versus/test/`
 
 Dropping `instar:drift` removed `candidates/instar-drift/turn` and left two
