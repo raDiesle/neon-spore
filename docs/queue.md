@@ -455,24 +455,6 @@ bares, and a bolt reaching the core is drawn through it.
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
 
-## `versus adopt` reads a typed record's annotation as its value
-
-- **Found:** 2026-10-02, claude/queue-living-bosses-ship-the-instars-picked-candidates
-- **Taken:** 2026-10-02, claude/queue-living-bosses-ship-the-instars-picked-candidates (claim: claude/queue-versus-adopt-reads-a-typed-records-annotation-as)
-- **Where:** local
-- **Files:** `tools/versus/record-edit.ts`, `tools/versus/test/record-edit.test.ts`
-
-`bun run versus adopt instar:flight serpent` refused with
-*`INSTAR_SERPENT.amount` reads number in the file and 0 at runtime*, and
-`instar:body weight` the same way on its first field. Both records are written
-`export const X: { amount: number } = { amount: 0 }`: `literalSpan` takes the
-first `{` after the name, which is the type annotation's, so `fieldSpan`
-finds `amount: number` and the staleness refusal compares the type with the
-value. Both slots were taken by hand and closed with `drop`. Skip a type
-annotation — the literal is the brace after the `=` — and add a refusal test
-with a typed record whose file and runtime agree, which must adopt.
-`bun run check` proves it.
-
 ## Nothing holds a module-level `Map` of paths or canvases outside `bakedCache`
 
 - **Found:** 2026-10-02, claude/queue-living-bosses-ship-the-instars-picked-candidates

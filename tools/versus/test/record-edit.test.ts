@@ -98,6 +98,19 @@ describe("writing a field into a record", () => {
     expect(out).toContain("/** The shipped look. */");
   });
 
+  it("writes a record typed with an inline literal, reading the value and not the type", () => {
+    const typed = "export const INSTAR_SERPENT: { amount: number } = { amount: 0 };\n";
+    const out = text(rewriteRecord(typed, "INSTAR_SERPENT", { amount: 1 }, { amount: 0 }));
+    expect(out).toBe("export const INSTAR_SERPENT: { amount: number } = { amount: 1 };\n");
+  });
+
+  it("finds the assignment past an arrow in the annotation", () => {
+    const arrow =
+      "export const BODY: { flow: number; tail: (u: number) => number } = { flow: 0, tail: (u) => u };\n";
+    const out = text(rewriteRecord(arrow, "BODY", { flow: 0.8 }, { flow: 0 }));
+    expect(out).toContain("= { flow: 0.8, tail: (u) => u };");
+  });
+
   /**
    * An adoption ends by telling the session to run `bun run check`, so what it
    * writes has to be what biome would print — or the first thing the check

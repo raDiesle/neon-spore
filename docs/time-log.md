@@ -32381,3 +32381,14 @@ Bottleneck: the turn budget's gradient spike, which looked like the
 body's cost and was a cache emptying mid-run.
 
 *Measured: 17 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — `versus adopt` reads a typed record's value, not its type
+
+- reading: 5 min. `literalSpan` and its tests.
+- writing: 5 min. `assignment`, two tests.
+- looking: 0 min. A tool; nothing drawn.
+- friction: 5 min. A heredoc with a doubled backslash refused; written
+  through Edit.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none; the fault was found and described when it bit.

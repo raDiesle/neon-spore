@@ -54,6 +54,23 @@ function same(a: string, b: string): boolean {
 }
 
 /**
+ * Where the `=` of a declaration is, scanning from just past its name: the
+ * first one outside any bracket of its type annotation that is not half of a
+ * `=>`. -1 when there is none.
+ */
+function assignment(src: string, from: number): number {
+  let depth = 0;
+  for (let i = from; i < src.length; i++) {
+    const c = src[i];
+    if (c === '"' || c === "'" || c === "`") i = skipString(src, i);
+    else if (c === "{" || c === "[" || c === "(") depth++;
+    else if (c === "}" || c === "]" || c === ")") depth--;
+    else if (c === "=" && depth === 0 && src[i + 1] !== ">") return i;
+  }
+  return -1;
+}
+
+/**
  * The span of the object literal `export const <symbol>` is assigned, as
  * offsets into the source, or undefined when the declaration is not there.
  *
@@ -61,11 +78,18 @@ function same(a: string, b: string): boolean {
  * characters wide — find a brace, count to its partner, ignore what is inside
  * a string or a comment — and because a parser would put a dependency in a
  * directory whose whole point is that it has no `package.json`.
+ *
+ * The brace is the first after the `=`, not after the name: a record typed
+ * with an inline literal — `X: { amount: number } = { amount: 0 }` — has a
+ * brace in its annotation first, and a field found there reads its type as
+ * its value.
  */
 function literalSpan(src: string, symbol: string): { open: number; close: number } | undefined {
   const decl = new RegExp(`export\\s+const\\s+${symbol}\\b`).exec(src);
   if (!decl) return undefined;
-  const open = src.indexOf("{", decl.index);
+  const eq = assignment(src, decl.index + decl[0].length);
+  if (eq < 0) return undefined;
+  const open = src.indexOf("{", eq);
   if (open < 0) return undefined;
   let depth = 0;
   for (let i = open; i < src.length; i++) {
