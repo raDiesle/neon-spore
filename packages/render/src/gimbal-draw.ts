@@ -22,6 +22,8 @@ import {
   gimbalYokePath,
   type Point,
 } from "./gimbal-shape.js";
+import { GIMBAL_TILT, gimbalHush, gimbalTilt, tiltPlane } from "./gimbal-tilt.js";
+import { drawTiltedCradle } from "./gimbal-tilt-draw.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
@@ -95,13 +97,22 @@ export function drawGimbal(
   ctx.translate(at.x + fx.hurt.shakeX(time, l.tile), at.y + fx.kick * l.tile);
   ctx.rotate(fx.shake * 0.05 * Math.sin(time * 38));
   ctx.translate(-at.x, -at.y);
-  drawYoke(ctx, l, at, lit);
-  drawDrum(ctx, l, at, open, time, fx.hurt.value);
+  // The drifting candidate (`gimbal-tilt.ts`): the solid parts through the
+  // rig, then everything flat laid on through the same tilt.
+  const rigged = GIMBAL_TILT.amount > 0;
+  if (rigged) {
+    const tilt = gimbalTilt(time, gimbalHush(s, world, beat, beatPhase));
+    ctx.translate(at.x, at.y);
+    ctx.rotate(tilt.roll);
+    ctx.translate(-at.x, -at.y);
+    drawTiltedCradle(ctx, l, s, at, open, time, tilt);
+    tiltPlane(ctx, at, tilt);
+  } else drawYoke(ctx, l, at, lit);
+  if (!rigged || open > 0) drawDrum(ctx, l, at, open, time, fx.hurt.value);
   if (gimbalLeaking(s)) drawLeak(ctx, l, world, s, at, beat, beatPhase, open);
-  if (showsGimbalOuter(l.role))
-    drawGimbalRing(ctx, l, world, s, OUTER, at, beat, beatPhase, time, fx.marks.verdicts);
-  if (showsGimbalInner(l.role))
-    drawGimbalRing(ctx, l, world, s, INNER, at, beat, beatPhase, time, fx.marks.verdicts);
+  for (const ring of [OUTER, INNER] as const)
+    if (ring === OUTER ? showsGimbalOuter(l.role) : showsGimbalInner(l.role))
+      drawGimbalRing(ctx, l, world, s, ring, at, beat, beatPhase, time, fx.marks.verdicts, rigged);
   ctx.restore();
 }
 

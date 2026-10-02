@@ -58,6 +58,7 @@ export function drawGimbalRing(
   beatPhase: number,
   time: number,
   verdicts: GripVerdicts,
+  rigged = false,
 ): void {
   const cfg = world.cfg;
   const r = gimbalRingR(l, ring);
@@ -68,11 +69,13 @@ export function drawGimbalRing(
   const left = gimbalTeeth(s);
   const at_true = gimbalTurning(s) && gimbalRingTrue(s, cfg, beat, ring);
 
-  paintHoop(ctx, at, r, l.tile, ring, time);
+  // Drawn through the rig (`gimbal-tilt-draw.ts`), the hoop, the teeth and the
+  // pins are solid parts already, and only what is flat on them is drawn here.
+  if (!rigged) paintHoop(ctx, at, r, l.tile, ring, time);
   const rim = gimbalRimPath(at, r);
   ctx.lineWidth = STROKE.outline;
   if (at_true) strokeGlow(ctx, rim, PALETTE.rock, STROKE.outline, 1.4);
-  else {
+  else if (!rigged) {
     ctx.strokeStyle = PALETTE.rock;
     ctx.stroke(rim);
   }
@@ -80,20 +83,8 @@ export function drawGimbalRing(
   const sockets = gimbalTeethPath(l, at, r, face, left, of, true);
   ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
   ctx.fill(sockets);
-  const teeth = gimbalTeethPath(l, at, r, face, left, of, false);
-  ctx.fillStyle = at_true ? PALETTE.rock : rgba(PALETTE.rock, 0.8);
-  ctx.fill(teeth);
-  ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = PALETTE.rockDark;
-  ctx.stroke(teeth);
+  if (!rigged) drawTeethAndPins(ctx, l, at, r, ring, face, left, of, at_true);
   if (shear > 0) drawShear(ctx, at, r, face, left, of, shear);
-
-  const pins = gimbalPinPath(l, at, r, ring);
-  ctx.fillStyle = PALETTE.rockDark;
-  ctx.fill(pins);
-  ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = PALETTE.rock;
-  ctx.stroke(pins);
 
   // The knurl last of the rim's own furniture and before the mark, so a thumb
   // that has moved the ring less than a tooth still sees it was heard
@@ -109,6 +100,32 @@ export function drawGimbalRing(
   if (mark !== NO_BEARING) drawMark(ctx, l, at, r, mark, at_true, time);
   const v = verdicts.at(ring);
   if (grip !== null && v !== null) drawVerdictRing(ctx, grip.x, grip.y, grip.r, v);
+}
+
+/** The teeth still standing and the two pins, flat — what the rig draws solid instead. */
+function drawTeethAndPins(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  at: Point,
+  r: number,
+  ring: GimbalRing,
+  face: number,
+  left: number,
+  of: number,
+  at_true: boolean,
+): void {
+  const teeth = gimbalTeethPath(l, at, r, face, left, of, false);
+  ctx.fillStyle = at_true ? PALETTE.rock : rgba(PALETTE.rock, 0.8);
+  ctx.fill(teeth);
+  ctx.lineWidth = STROKE.inner;
+  ctx.strokeStyle = PALETTE.rockDark;
+  ctx.stroke(teeth);
+  const pins = gimbalPinPath(l, at, r, ring);
+  ctx.fillStyle = PALETTE.rockDark;
+  ctx.fill(pins);
+  ctx.lineWidth = STROKE.inner;
+  ctx.strokeStyle = PALETTE.rock;
+  ctx.stroke(pins);
 }
 
 /** The tooth coming off, at the place on the rim it is coming off — a white flare that grows and goes. */

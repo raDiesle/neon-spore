@@ -417,13 +417,15 @@ carries the face away past side-on (the owner, 27 September 2026:
 entry with the rest listed; the last lane removes it and those two
 entries.
 
-**THE GIMBAL is half done** (2 October 2026): its rig is modelled —
-`packages/render/src/gimbal-rig.ts`, the rings in the plane the pilot faces so
-the navigator's view from behind is mirrored by the projection, and its sheet
-is `bun run solid --gimbal`. Next is its VERSUS candidate: the field drawing
-the cradle through the rig with the drift, the hush and the part drift on it.
-The hoop's eight arcs show their joints as lumps on the sheet; smooth them
-there.
+**THE GIMBAL is done** (2 October 2026): its rig is `gimbal-rig.ts`, with
+the sheet `bun run solid --gimbal`, and its candidate is `gimbal:tilt` /
+`drift` in VERSUS (`packages/render/src/gimbal-tilt.ts`). What it found for the
+next three: a part drawn as rig tubes costs about three hundred canvas calls a
+hoop, which doubled THE GIMBAL's frame. Everything on that cradle but the drum
+and the pins lies in one plane, and an orthographic view of a plane is an
+affine, so those are painted flat through it and land where the rig would put
+them — which brought the frame under the shipped one. Look for the same in
+each boss before drawing its parts as tubes. Next is THE ANTIPHON.
 
 Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`

@@ -32443,3 +32443,17 @@ Bottleneck: reading enough of THE GIMBAL to place a bearing in 3D the way
 the flat ring lays it out.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE GIMBAL drifts, as a VERSUS candidate
+
+- reading: 5 min. THE GIMBAL's drawer and ring, the idle drift and the hush,
+  how a past candidate patched its record.
+- writing: 10 min. The drift and its hush by phase, the rigged draw path, the
+  candidate and its pose row, the tests.
+- looking: 5 min. Four pairs: the hoop's arc joints, a polygon hoop, the
+  seam stood on end, then right.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index rows, `land`.
+
+Bottleneck: the rig's tubes doubled the frame's canvas calls, found only by
+measuring after the picture looked right.

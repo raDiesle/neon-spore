@@ -538,6 +538,9 @@ fit for the rig. This ask widens it to every visible boss. The order:
    THE LEAD — one lane each, each moved onto the rig and given the full
    drift. Their entries already sit on the queue as DEFERRED; this ask
    un-defers them in that order.
+   *Built:* THE GIMBAL, offered in VERSUS as `gimbal:tilt` (2 October 2026):
+   a shaded drum nodding inside steel rings, the cradle turning, tipping and
+   rolling in its yoke, a third of it through a turn (`gimbal-tilt.ts`).
 3. **Every other boss with a body**, on the outline tier: a pose-only drift
    through the shared helper, six bosses a lane, as a roster entry.
 
