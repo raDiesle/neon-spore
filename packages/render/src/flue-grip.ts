@@ -1,4 +1,4 @@
-import { type FlueState, flueLitStep, type SimConfig } from "@neon-spore/sim";
+import { type FlueState, flueLitStep, flueTapper, type SimConfig } from "@neon-spore/sim";
 import { fieldCol } from "./field-flip.js";
 import { flueCentre, flueEmberAt, flueEmberR, flueSlotHalf, flueUnitR } from "./flue-shape.js";
 import { hitReach } from "./hit.js";
@@ -43,12 +43,28 @@ export function flueTapCircle(l: Layout, cfg: SimConfig, s: FlueState): Circle |
   return { x: at.x, y: at.y, r: flueEmberR(l) * 3 };
 }
 
+/** Whether a point is on the flue's row, the whole of what a tap answers. */
+function onRow(l: Layout, cfg: SimConfig, x: number, y: number): boolean {
+  const c = flueCentre(l, cfg);
+  const reach = hitReach(ROW_R * flueUnitR(l));
+  return Math.abs(y - c.y) <= reach && Math.abs(x - c.x) <= flueSlotHalf(l) + reach;
+}
+
+/**
+ * **Whose a desk press on the row is** (`desk-grab.ts` `markSeat`): the lit
+ * vent's tapper. Both seats' presses answer here, so the test screen's mouse,
+ * tried as player 1 first, was the pilot's on every vent — a skid when the
+ * navigator was asked to tap, and the rester's stir that costs the taps.
+ */
+export function flueGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const s = bossOf(field, "flue");
+  if (s === null || !venting(s) || !onRow(l, field.cfg, x, y)) return undefined;
+  return flueTapper(s) ?? undefined;
+}
+
 export function flueTapUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const s = bossOf(field, "flue");
-  if (s === null || !venting(s)) return null;
-  const c = flueCentre(l, field.cfg);
-  const reach = hitReach(ROW_R * flueUnitR(l));
-  if (Math.abs(y - c.y) > reach || Math.abs(x - c.x) > flueSlotHalf(l) + reach) return null;
+  if (s === null || !venting(s) || !onRow(l, field.cfg, x, y)) return null;
   const col = fieldCol(l, colFromX(l, x));
   return {
     player: field.seat,

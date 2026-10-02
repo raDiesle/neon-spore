@@ -1,11 +1,18 @@
 import { batonGripSeat } from "./baton-grip.js";
+import { capstanGripSeat } from "./capstan-grip.js";
 import { curtainHemSeat } from "./curtain-grip.js";
 import { cystGripSeat } from "./cyst-grip.js";
+import { filamentGripSeat } from "./filament-grip.js";
+import { flueGripSeat } from "./flue-grip.js";
+import { halterGripSeat } from "./halter-grip.js";
 import { instarMarkBoth, instarMarkSeat } from "./instar-mark-grip.js";
+import { keelGripSeat } from "./keel-grip.js";
+import { lampreyGripSeat } from "./lamprey-grip.js";
 import type { Layout } from "./layout.js";
 import { mazeGripSeat } from "./maze-grip.js";
 import { mirrorGripSeat } from "./mirror-grip.js";
 import { pinballGripSeat } from "./pinball-grip.js";
+import { pulseGripSeat } from "./pulse-grip.js";
 import { queenGripSeat } from "./queen-grip.js";
 import { scoutGripSeat } from "./scout-grip.js";
 import { sinewGripSeat } from "./sinew-handles.js";
@@ -56,7 +63,11 @@ import { wardenGripSeat } from "./warden-grip.js";
  *    THE TASTER's pin, wipe and pry the fifteenth (`taster-grip.ts`
  *    `tasterGripSeat`), and THE SURGE's two grip marks the sixteenth
  *    (`surge-grip.ts` `surgeMarkSeat`), and THE CYST's freeze marks the
- *    seventeenth (`cyst-grip.ts` `cystGripSeat`).
+ *    seventeenth (`cyst-grip.ts` `cystGripSeat`). THE KEEL's joint, THE
+ *    FILAMENT's two rings, THE FLUE's row, THE LAMPREY's mouth, THE
+ *    CAPSTAN's drum, THE HALTER's grips and THE PULSE's bar followed on the
+ *    same day, all found by `test/desk-reach.test.ts`, which asks every boss
+ *    whether TEST's mouse reaches what each seat could alone.
  *    One question for all of them, `markSeat`.
  * 2. **Every other handle a seat does not own is simply not there for it** —
  *    THE GAUGE's band, THE GIMBAL's inner rim, THE HASP's wheel under the
@@ -183,6 +194,13 @@ export function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 |
     curtainHemSeat(l, x, y, field) ??
     tasterGripSeat(l, x, y, field) ??
     surgeMarkSeat(l, x, y, field) ??
-    cystGripSeat(l, x, y, field)
+    cystGripSeat(l, x, y, field) ??
+    keelGripSeat(l, x, y, field) ??
+    filamentGripSeat(l, x, y, field) ??
+    flueGripSeat(l, x, y, field) ??
+    lampreyGripSeat(l, x, y, field) ??
+    capstanGripSeat(l, x, y, field) ??
+    halterGripSeat(l, x, y, field) ??
+    pulseGripSeat(l, x, y, field)
   );
 }

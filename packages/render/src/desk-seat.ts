@@ -117,3 +117,14 @@ export function pointerSeat(role: ViewRole, held: 1 | 2 | undefined): 1 | 2 {
   const [first = 1] = pointerSeats(role, held);
   return first;
 }
+
+/**
+ * **The one seat a handle asks for this instant**, or none when it asks both
+ * or neither — what a `markSeat` entry answers (`desk-grab.ts`) where the
+ * simulation, not the geometry, says whose a handle both seats can take is.
+ */
+export function onlySeat(asks: (seat: 1 | 2) => boolean): 1 | 2 | undefined {
+  const first = asks(1);
+  if (first === asks(2)) return undefined;
+  return first ? 1 : 2;
+}

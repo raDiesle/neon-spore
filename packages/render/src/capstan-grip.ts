@@ -1,5 +1,12 @@
 import type { Point } from "@neon-spore/content";
-import { type CapstanState, capstanBand, capstanFace, type SimConfig } from "@neon-spore/sim";
+import {
+  type CapstanState,
+  capstanBand,
+  capstanFace,
+  capstanRubAsks,
+  capstanSteerAsks,
+  type SimConfig,
+} from "@neon-spore/sim";
 import { capstanArrived, capstanGone, capstanTurn } from "./capstan-pose.js";
 import {
   capstanAt,
@@ -9,6 +16,7 @@ import {
   capstanSize,
   capstanSqueeze,
 } from "./capstan-shape.js";
+import { onlySeat } from "./desk-seat.js";
 import type { Circle, Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -172,4 +180,25 @@ export function capstanRubStanding(
 ): Circle {
   const side = capstanFace({ cfg }, s) ?? capstanBand(s) ?? 0;
   return endAt(l, cfg, s, side, beat, beatPhase);
+}
+
+/**
+ * **Whose a desk press on the drum is** (`desk-grab.ts` `markSeat`): an end
+ * the wearing seat's, the middle and the cradle the steering seat's, each
+ * when the lit step names one. Either seat's press answers both, so the test
+ * screen's mouse was the pilot's everywhere, and on a right band neither the
+ * navigator's steer nor, on a left, the navigator's rub could be reached.
+ */
+export function capstanGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const s = bossOf(field, "capstan");
+  if (s === null) return undefined;
+  const world = { cfg: field.cfg };
+  const side = (seat: 1 | 2): 0 | 1 => (seat === 1 ? 0 : 1);
+  if (capstanRubUnder(l, x, y, field) !== null) {
+    return onlySeat((seat) => capstanRubAsks(world, s, side(seat)));
+  }
+  if (capstanSteerUnder(l, x, y, field) !== null) {
+    return onlySeat((seat) => capstanSteerAsks(world, s, side(seat)));
+  }
+  return undefined;
 }

@@ -31,3 +31,22 @@ export function filamentGrabUnder(l: Layout, x: number, y: number, field: Field)
     hold: { kind: "drag", target: "filament", player: field.seat, originX: at.x, originY: at.y },
   };
 }
+
+/**
+ * **Whose ring a desk press is on** (`desk-grab.ts` `markSeat`): the head's
+ * the pilot's and the tail's the navigator's, the nearer where both are
+ * under the thumb. The two start a tile apart, so the test screen's mouse,
+ * tried as player 1 first, took the head wherever the rings overlapped.
+ */
+export function filamentGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const s = bossOf(field, "filament");
+  if (s === null || !filamentTracing(s)) return undefined;
+  let best: { seat: 1 | 2; d: number } | undefined;
+  for (const seat of [1, 2] as const) {
+    const c = filamentGrabCircle(l, s, seat);
+    if (c === null || !hitCircle(c, x, y)) continue;
+    const d = Math.hypot(x - c.x, y - c.y);
+    if (best === undefined || d < best.d) best = { seat, d };
+  }
+  return best?.seat;
+}

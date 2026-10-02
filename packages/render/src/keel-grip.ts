@@ -4,6 +4,7 @@ import {
   keelCooling,
   keelFlipping,
   keelLit,
+  keelSeat,
   NO_JOINT,
   type SimConfig,
 } from "@neon-spore/sim";
@@ -66,6 +67,33 @@ export function keelJointUnder(l: Layout, x: number, y: number, field: Field): T
     command: { kind: "drag", target: "keelJoint", on: true, fromMilli: 0 },
     hold: { kind: "drag", target: "keelJoint", player: seat, originX: x, originY: y },
   };
+}
+
+/**
+ * **Whose a desk press on the spine is** (`desk-grab.ts` `markSeat`): the lit
+ * joint's, by `keelSeat`, and while the spine flips, the end under the thumb —
+ * the nearer where both are. Both seats' presses answer a lit joint, so the
+ * test screen's mouse was the pilot's on every joint, refused on the
+ * navigator's half.
+ */
+export function keelGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const s = bossOf(field, "keel");
+  if (s === null) return undefined;
+  const { cfg, beat, beatPhase } = field;
+  if (keelFlipping(s)) {
+    const segs = keelSegs(l, cfg, s, beat, beatPhase);
+    let best: { seat: 1 | 2; d: number } | undefined;
+    for (const seat of [1, 2] as const) {
+      const end = keelEndCircle(segs, l, s, seat);
+      if (end === null || !hitCircle(end, x, y)) continue;
+      const d = Math.hypot(x - end.x, y - end.y);
+      if (best === undefined || d < best.d) best = { seat, d };
+    }
+    return best?.seat;
+  }
+  const ring = keelJointCircle(l, cfg, s, beat, beatPhase);
+  if (ring === null || !hitCircle(ring, x, y)) return undefined;
+  return keelSeat(s, cfg.cols) ?? undefined;
 }
 
 /** Whether a thumb at (x, y) from `seat` lands on a ring the spine has out this frame. */

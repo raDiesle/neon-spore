@@ -1,5 +1,6 @@
 import type { DragTarget, HalterState, SimConfig } from "@neon-spore/sim";
-import { halterLitStep } from "@neon-spore/sim";
+import { halterGripAsks, halterLitStep } from "@neon-spore/sim";
+import { onlySeat } from "./desk-seat.js";
 import { halterArrived, halterLitSegment } from "./halter-pose.js";
 import { halterAt, halterCoreAt, halterCoreR, halterGripAt, halterGripR } from "./halter-shape.js";
 import type { Circle, Layout } from "./layout.js";
@@ -125,4 +126,17 @@ export function halterGripUnder(l: Layout, x: number, y: number, field: Field): 
       chord: true,
     },
   };
+}
+
+/**
+ * **Whose a desk press on a grip is** (`desk-grab.ts` `markSeat`): the seat
+ * the lit step asks to chord — the pilot on the left, the navigator on the
+ * right, either on a guard until one has a grip down. Both seats' presses
+ * answer a grip, so the test screen's mouse was the pilot's on a right step,
+ * which is the rester stirring and the pair startled.
+ */
+export function halterGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const s = bossOf(field, "halter");
+  if (s === null || halterGripUnder(l, x, y, field) === null) return undefined;
+  return onlySeat((seat) => halterGripAsks(s, seat === 1 ? 0 : 1));
 }

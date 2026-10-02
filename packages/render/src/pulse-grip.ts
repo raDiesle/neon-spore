@@ -1,4 +1,5 @@
-import { type PulseState, pulseHeart, type SimConfig } from "@neon-spore/sim";
+import { type PulseState, pulseBarAsks, pulseHeart, type SimConfig } from "@neon-spore/sim";
+import { onlySeat } from "./desk-seat.js";
 import { handleRadius } from "./handle-draw.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -174,4 +175,16 @@ export function drawPulseGrip(
   ctx.textBaseline = "middle";
   ctx.fillText(word, l.width / 2, b.y + b.h / 2);
   ctx.restore();
+}
+
+/**
+ * **Whose a desk press on the bar is** (`desk-grab.ts` `markSeat`): the seat
+ * the bar asks for, when it asks one (`pulseBarAsks`). The bar is both
+ * seats', so the test screen's mouse was always the pilot's brace, and the
+ * navigator's end, haloed on its own, could not be braced without a key.
+ */
+export function pulseGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const p = bossOf(field, "pulse");
+  if (p === null || pulseMeterUnder(l, x, y, field) === null) return undefined;
+  return onlySeat((seat) => pulseBarAsks(field.cfg, p, seat));
 }

@@ -6,9 +6,17 @@ import {
   queueFromWave,
   WAVES,
 } from "@neon-spore/content";
-import { createWorld, startWave, step, ticksPerBeat, type World } from "@neon-spore/sim";
+import {
+  capstanLitStep,
+  createWorld,
+  pulseBarAsks,
+  startWave,
+  step,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
 import { deskDown, markSeat } from "../src/desk-grab.js";
-import { pointerSeats } from "../src/desk-seat.js";
+import { onlySeat, pointerSeats } from "../src/desk-seat.js";
 import { computeLayout } from "../src/layout.js";
 import { type Field, type Touch, touchDown } from "../src/touch.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT } from "./frame-harness.js";
@@ -36,16 +44,60 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 const L = computeLayout(VIEWPORT, CFG, "test");
 const BOTH = pointerSeats("test", undefined);
 const TPB = ticksPerBeat(CFG);
-/** The opening beats each boss is sampled on, every other one. */
-const BEATS = 16;
+/**
+ * The beats each boss is sampled on, every other one, with nobody playing —
+ * long enough for a fight with no hands on it to come round to every phase
+ * it reaches on its own. THE STARE's lid first answers at beat 18.
+ */
+const BEATS = 96;
 /** Grid pitch, as a share of a tile — fine enough for a freeze mark. */
 const PITCH = 0.4;
 
+/**
+ * **Handles either seat takes to the same end**, so the test screen's mouse
+ * taking player 1's has taken it: compared without the seat, under one name —
+ * always, or only while `when` holds. Everything else is that seat's own, and
+ * a desk that cannot reach it is short.
+ */
+const EITHER: Record<string, { as: string; when?: (w: World) => boolean }> = {
+  // A hand on a body is a brake or a pull from either seat, an aim only the
+  // pilot's (`sim/hand.ts`), and player 1 is tried first.
+  grip: { as: "grip" },
+  // Either thumb turns the organ (`sim/antiphon-hand.ts`).
+  antiphonOrgan: { as: "antiphonOrgan" },
+  // Either seat pulls the lid, and the first thumb on it keeps it (`sim/stare-hand.ts`).
+  stareLid: { as: "stareLid" },
+  // Either seat taps a tall lobe (`sim/undertow-press.ts`).
+  undertowTap: { as: "undertowTap" },
+  // The works are one zone for both chords, and either brakes outside a tap;
+  // inside one only the governing seat's answers at all (`governor-grip.ts`).
+  governorChordLeft: { as: "governorChord" },
+  governorChordRight: { as: "governorChord" },
+  // The bar asking both thumbs at once, or neither: one mouse is not two
+  // thumbs, and `3` is the key that braces both (`desk-seat.ts`).
+  pulseMeter: { as: "pulseMeter", when: (w) => pulseAsksOne(w) === undefined },
+  // No step lit, so nobody steers and nobody wears (`sim/capstan.ts`).
+  capstanRub: { as: "capstanRub", when: (w) => capstanUnlit(w) },
+  capstanSteer: { as: "capstanSteer", when: (w) => capstanUnlit(w) },
+};
+
+function pulseAsksOne(w: World): 1 | 2 | undefined {
+  const b = w.boss;
+  return b?.kind === "pulse" ? onlySeat((seat) => pulseBarAsks(w.cfg, b, seat)) : undefined;
+}
+
+function capstanUnlit(w: World): boolean {
+  return w.boss?.kind === "capstan" && capstanLitStep(w.boss) === null;
+}
+
 /** What a press takes hold of, by seat, so two presses on one handle compare equal. */
-function handle(t: Touch): string {
+function handle(t: Touch, world: World): string {
   const hold = t.hold as { kind: string; target?: string } | null;
   const command = t.command as { kind: string; target?: string } | null;
-  return `p${t.player} ${hold?.kind ?? "-"}:${hold?.target ?? ""} ${command?.kind ?? "-"}:${command?.target ?? ""}`;
+  const name = hold ? (hold.target ?? hold.kind) : (command?.target ?? command?.kind ?? "-");
+  const either = EITHER[name];
+  if (either === undefined || (either.when && !either.when(world))) return `p${t.player} ${name}`;
+  return `either ${either.as}`;
 }
 
 function fieldOf(world: World, wave: number, seat: 1 | 2): Field {
@@ -85,37 +137,14 @@ function unreached(world: World, wave: number): string[] {
       for (const seat of BOTH) {
         if (named !== undefined && named !== seat) continue;
         const t = touchDown(L, x, y, field(seat));
-        if (t !== null && t.player === seat) seated.add(handle(t));
+        if (t !== null && t.player === seat) seated.add(handle(t, world));
       }
       const t = deskDown(L, x, y, BOTH, field);
-      if (t !== null) desk.add(handle(t));
+      if (t !== null) desk.add(handle(t, world));
     }
   }
   return [...seated].filter((h) => !desk.has(h));
 }
-
-/**
- * The bosses the check found short on the day it was written, each fixed in
- * its own commit and struck off here. A name still on the list is asserted
- * still short, so the fix that lands it is told to take it off.
- */
-const PENDING = new Set([
-  "BULB QUEEN",
-  "THE VANE",
-  "THE PULSE",
-  "THE UNDERTOW",
-  "THE CURTAIN",
-  "THE LEAD",
-  "THE ANTIPHON",
-  "THE CAIRN",
-  "THE FILAMENT",
-  "THE KEEL",
-  "THE HALTER",
-  "THE CAPSTAN",
-  "THE FLUE",
-  "THE GOVERNOR",
-  "THE LAMPREY",
-]);
 
 const BOSSES = WAVES.flatMap((w, index) => (w.boss ? [{ wave: w, index }] : []));
 
@@ -136,8 +165,7 @@ describe("TEST's one mouse", () => {
         for (const h of unreached(world, index)) missed.add(`beat ${beat}: ${h}`);
         for (let i = 0; i < 2 * TPB && !world.over; i++) step(world, []);
       }
-      if (PENDING.has(wave.name)) expect(missed.size).toBeGreaterThan(0);
-      else expect([...missed]).toEqual([]);
+      expect([...missed]).toEqual([]);
     },
   );
 });

@@ -153,7 +153,9 @@ commit. The shape of it, from THE GORGE and THE CURTAIN:
   and `drawMarkWait` in place of the gesture (`mark-feedback.ts`); a mark
   the wrong seat cannot reach cannot be refused, so its press is handed
   through for the simulation to refuse, and the desk is told whose the mark
-  is before the press (`desk-grab.ts`, `wardenGripSeat`); and a
+  is before the press (`desk-grab.ts`, `wardenGripSeat`) — so is a handle
+  both seats' hit tests answer at one point, by whose the simulation hears
+  there, or `render/test/desk-reach.test.ts` is red for TEST's mouse; and a
   gesture begun the right way fills from the simulation's own word for it
   (`instarSwipeAlong`), or the shared `pull-track.ts` for a pull. A test
   beside `render/test/instar-verdict.test.ts`; without the verdicts,

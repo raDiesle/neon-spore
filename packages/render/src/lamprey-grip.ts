@@ -100,6 +100,19 @@ export function lampreyGulletCircle(
   return { x: p.x, y: p.y, r: p.r * lampreyGulletReach(s.hits) };
 }
 
+/**
+ * **Whose a desk press on the mouth is** while it bites (`desk-grab.ts`
+ * `markSeat`): the tapper's. The jaw's seat answers the hull's whole width
+ * below it, so the test screen's mouse, tried as player 1 first, took the jaw
+ * on the mouth whenever the pilot held it and the navigator was the tapper.
+ */
+export function lampreyGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const s = bossOf(field, "lamprey");
+  if (s === null || !lampreyBiting(s)) return undefined;
+  const p = lampreyPose(l, field.cfg, s, field.beat, field.beatPhase);
+  return onMouth(l, p, x, y) ? (lampreyTapper(s) ?? undefined) : undefined;
+}
+
 /** Whether a point is inside the mouth's lip, and a little past it. */
 function onMouth(l: Layout, p: LampreyPose, x: number, y: number): boolean {
   const past = LIP_PAST * l.tile;

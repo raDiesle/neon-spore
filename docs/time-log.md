@@ -31985,3 +31985,22 @@ Bottleneck: looking — the frames were cropped twice to find the eye, and
 then could not show the thing that moved.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — Every boss's handles answer TEST's one mouse
+
+- reading: 5 min. Fifteen bosses' hit tests and the simulation's seat rule
+  behind each, to tell a handle only one seat is heard on from one either
+  seat takes.
+- writing: 5 min. Seven `markSeat` entries, `onlySeat`, and the check's
+  either-seat table with a reason per handle.
+- looking: 0 min. The check is the proof; THE CYST was seen in the pane in
+  the lane before.
+- friction: 5 min. `land` stopped on a time-log conflict its own merge
+  should have settled: an entry appended with no blank line before its
+  heading reads as its neighbour rewritten by one newline. Rebased by hand,
+  and queued.
+- landing: 5 min. The controls catalogue's reason for `desk-seat.ts`,
+  `check:fast`, `land`.
+
+Bottleneck: reading — whether a seat's handle was its own could only be
+read off each boss's simulation, one file at a time.
