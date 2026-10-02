@@ -475,6 +475,7 @@ bolt stopped, and `bun run check` is green.
 ## `versus adopt` refuses a candidate whose function is named after the field
 
 - **Found:** 2026-10-01, claude/versus-feedback-comparison-6cf7e7
+- **Taken:** 2026-10-02, claude/queue-the-seams-false-point-says-nothing-about-holding (claim: claude/queue-versus-adopt-refuses-a-candidate-whose-function)
 - **Where:** local
 - **Files:** `tools/versus/take-record.ts`, `tools/versus/take-function.ts`, `tools/versus/test/take-function.test.ts`
 
