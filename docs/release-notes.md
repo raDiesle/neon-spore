@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 1fb9ed867 — AUTO plays THE GORGE's whole wave, not only its bubbles
+
+The five levels outlast the wave's rocks and slimes, and the GORGE hand fed bubbles and nothing else, so AUTO lost the hull at tick 2700, on the first ring, every time. It now answers any body that is below the bubbles the field's way, and plays the field between levels, then goes back to feeding. A new director test plays the real wave on three seeds to the sack going out.
+
 ## 2026-10-02 · f1a434d36 — The scripted bosses' hands and hash branches get pages of their own
 
 THE LAMPREY had taken `boss-hands.ts` and `hash-boss-clocks.ts` to 250 lines. The run from THE SEAM to THE LAMPREY, every boss on `SCRIPTED_KINDS`, now lives in `boss-hands-scripted.ts` and `hash-boss-scripted.ts`. Each is called once from where the block stood. The hash is unchanged, because only one boss's branch can match. The next scripted boss adds its line to the new pages.
