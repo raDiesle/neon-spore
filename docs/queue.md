@@ -439,6 +439,7 @@ flat. `bun run check` proves the tests.
 ## THE LAMPREY's look (§41)
 
 - **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
+- **Taken:** 2026-10-02, claude/queue-the-mimics-recogniser (claim: claude/queue-the-lampreys-look-41)
 - **Needs:** THE LAMPREY's simulation (§41)
 - **Files:** `packages/render/src/`, `packages/content/src/silhouettes*.ts`, `packages/render/test/frame.test.ts`
 
