@@ -32234,3 +32234,14 @@ Bottleneck: the crest-finding test, which jittered between two crests once
 the body held a crest and a quarter, rewritten as a delay.
 
 *Measured: 14 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-02 — VERSUS instar:body weight takes a dragon's line
+
+- reading: 5 min. The candidate, `INSTAR_BODY`'s fields, the spec's table.
+- writing: 5 min. The girth, tail and ridge curves, the spec, one test value.
+- looking: 5 min. Three body sheets: the slug, a waist, then a neck.
+- friction: 0 min.
+- landing: 5 min. `check:fast` twice, `land`.
+
+Bottleneck: the neck, hidden behind the lower jaw until the chest moved two
+fifths back.

@@ -21,6 +21,13 @@ import { patch, type Variant } from "../../../variant.js";
  * profile runs 0.5 at the neck, 1.0 at the chest, 0.88 at the middle, 0.42 at
  * the rear, the tail's root is the rear's width and leaves along the spine
  * before it turns up (`flow`), and the head is the shipped one.
+ *
+ * Reshaped 2 October 2026, the owner: *looks better but make body more
+ * natural shape of a dragon*. So it is no longer one swell from the head to
+ * the rear: a slender neck leaves the skull, a deep chest swells behind it
+ * over the shoulders, the body draws in at the waist and fills again over the
+ * haunches before it narrows into a tail that thins to a finer blade, and the
+ * ridge stands tallest over the chest and lowers toward the tail.
  */
 
 /** A smooth curve through `knots` (u, value), flat at each knot. */
@@ -38,11 +45,16 @@ function through(knots: readonly (readonly [number, number])[]): (u: number) => 
   };
 }
 
+/** A dragon's line: a slender neck out of the skull, swelling to a deep chest
+ * over the shoulders, drawn in at the waist, full again over the haunches, and
+ * narrowing into the tail. */
 const girth = through([
-  [0, 0.5],
-  [0.25, 1.0],
-  [0.5, 0.88],
-  [1, 0.42],
+  [0, 0.32],
+  [0.16, 0.4],
+  [0.4, 0.9],
+  [0.62, 0.64],
+  [0.8, 0.72],
+  [1, 0.36],
 ]);
 /** The spine starts inside the skull, so the neck runs into the head. */
 const neck = { x: 0.3, y: 0.05 };
@@ -50,12 +62,13 @@ const neck = { x: 0.3, y: 0.05 };
 const seat = (u: number) => girth(u) - 0.15;
 /** The root is the rear's own width, so the tail goes on from the body. */
 const tail = through([
-  [0, 0.4],
-  [0.7, 0.18],
-  [1, 0.07],
+  [0, 0.34],
+  [0.5, 0.17],
+  [1, 0.05],
 ]);
 /** Half the shipped spines' stand-off, since the rings they stand on are twice the girth — and more over the chest. */
-const ridge = (u: number) => 0.5 * (1 + 0.6 * Math.exp(-(((u - 0.25) / 0.12) ** 2)));
+const ridge = (u: number) =>
+  0.5 * (1 - 0.35 * u) * (1 + 0.6 * Math.exp(-(((u - 0.4) / 0.14) ** 2)));
 
 /** The belly's paler band: from low on the near flank round under the belly, rolled with the body. */
 const BAND_FROM = 2.3;
@@ -92,7 +105,7 @@ export const INSTAR_BODY_WEIGHT: Variant = {
   slot: "instar:body",
   name: "weight",
   sentence:
-    "weight — THE INSTAR's body is the spec's radius profile, a chest a head across tapering to a thin tail blade, with a paler belly band and a higher ridge at the chest, one body from the neck in the skull to a tail that goes on from the rear",
+    "weight — THE INSTAR's body has a dragon's line: a slender neck, a deep chest, a waist, full haunches and a tail thinning to a blade, with a paler belly band and the ridge tallest over the chest",
   dir: "tools/versus/candidates/instar-body/weight",
   patches: [
     patch({

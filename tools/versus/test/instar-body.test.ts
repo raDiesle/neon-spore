@@ -117,7 +117,8 @@ describe("the body with weight's tail", () => {
       }
       // The root as wide as the rear it goes on from, so the two read as one body.
       expect(Math.abs(INSTAR_BODY.tail(0) - INSTAR_BODY.girth(1))).toBeLessThan(0.05);
-      expect(INSTAR_BODY.tail(1)).toBeCloseTo(0.07);
+      // A fine blade at the end, finer since the dragon's line of 2 October 2026.
+      expect(INSTAR_BODY.tail(1)).toBeCloseTo(0.05);
     } finally {
       restore(applied);
     }

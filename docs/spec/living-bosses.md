@@ -646,6 +646,15 @@ spine's heading before it turns up to the fork (`INSTAR_BODY.flow`, 0.8), its
 seam shadow fading as it does. The candidate wears the shipped head, not the
 rig's.
 
+Reshaped (2 October 2026, the owner: *looks better but make body more natural
+shape of a dragon*). One swell from the head to the rear read as a slug, with
+the chest straight under the jaw. Now the profile has a dragon's line: 0.32 at
+the neck and 0.4 a sixth along, so a slender neck shows under the head; 0.9 at
+the chest, two fifths along over the shoulders; 0.64 at the waist; 0.72 over
+the haunches; 0.36 at the rear. The tail runs 0.34 at the root to 0.17 halfway
+and 0.05 at the blade, and the ridge stands tallest over the chest and lowers
+by a third toward the tail.
+
 **The whole body keeps turning.** The profile goes through `view(yaw)`
 with the idle drift of section 1 on top of `SIDE`: the head turns toward the
 players and back, never away from them (section 1, "A face looks at the
