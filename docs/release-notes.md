@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 8641dba8e — THE MIMIC's recogniser: a stroke on the lower field becomes the sign it was nearest
+
+While this phone's seat owes THE MIMIC a sign, a stroke on the lower half of the play area is resampled, boxed and matched to every way each of the five can be drawn, and sent as a `glyph`; a tap, a line or a scribble sends nothing. At a desk, keys 1 to 5 send the five, and `bun run frames --press` takes `glyph=<n|name>`. The pad and the sign are not drawn yet; that is the look's lane.
+
 ## 2026-10-02 · f922f1dfb — THE GORGE's picture: colours poured in, numbers readable, the ring swinging
 
 The navigator's bubbles are filled with the colour they want, and a bubble that wants both colours is two-tone: red up to its red share, cyan above. The pilot's counts and order numbers are white with a dark edge. On a ring each order number sits beside its bubble, so it no longer lands on the count of the bubble above it. The ring swings round to each turn instead of snapping: a new hashed field, `turnFrom`, records where it stood. This is a look the owner asked for by name (1 October 2026), so it does not go through VERSUS.
