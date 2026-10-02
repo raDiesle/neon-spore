@@ -31893,3 +31893,5 @@ which of them was the simulation's had to be settled first.
 
 Bottleneck: reading — what looked like thirty-three lanes was eleven
 identical judgements, and seeing that took longer than writing the cure.
+
+*Measured: 22 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

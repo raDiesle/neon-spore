@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 277ee6cf8 — A bolt stops on THE FLUE and THE GOVERNOR, and eleven cores share one verdict
+
+A bolt fired at THE FLUE or THE GOVERNOR used to fly through the body and was only judged where it left the top of the field. It is now drawn no further than where it meets the picture: it bursts on the lit core in that core's colour, and scuffs in grey on the other colour, on the shut core or on the shell. Both lit cores now swell and brighten on the heartbeat THE SEAM's point uses, instead of a slow cosine.
+
 ## 2026-10-02 · 66406ea0e — THE SINEW's pull is three tiles of thumb, straight down, and its zones span the whole band
 
 A hand's whole pull was one tile of drag; it is three now, with every width on the band tripled with it, so the same sums are said with three times the travel. Each fibre but the last has its zone rolled into a stretch of the band not yet taken, so the fight visits the whole height and only the last zone reaches the top. A pull runs straight down: the sideways half of the drag is dropped while the tendon hangs and kept only for the catch and the fall. The tendon drops in over its first four beats, and nothing pulls until it has settled. Whether the two sideways gestures should stay is queued as a question.
