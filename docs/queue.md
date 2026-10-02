@@ -475,6 +475,7 @@ bolt stopped, and `bun run check` is green.
 ## Which mistakes the rule that a miss fails the wave means
 
 - **Found:** 2026-10-02, claude/queue-every-boss-held-to-the-rule-that-a-miss-fails-th
+- **Taken:** 2026-10-02, claude/queue-every-boss-held-to-the-rule-that-a-miss-fails-th (claim: claude/queue-which-mistakes-the-rule-that-a-miss-fails-the-wa)
 - **Files:** `docs/miss-rule-audit.md`, `.claude/skills/new-boss/generic.md`, `packages/sim/src/core-verdict.ts`, `packages/sim/src/`
 - **Asks:** Which mistakes should fail a boss wave — every one, or only some kinds?
 
