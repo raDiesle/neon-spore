@@ -32441,3 +32441,5 @@ real pointer on a mark and holds it, so each look was a timed script.
 
 Bottleneck: reading enough of THE GIMBAL to place a bearing in 3D the way
 the flat ring lays it out.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

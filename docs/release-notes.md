@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 03d42e8bf — THE GIMBAL's rig is modelled, with its own sheet
+
+THE GIMBAL's drum, seam, rings, teeth, pins and yoke are now built as tubes and balls that `drawRig` can turn to any side (`gimbal-rig.ts`). The rings stand in the plane the pilot faces, so the navigator's view from behind comes out mirrored with nothing mirrored by hand. `bun run solid --gimbal` draws the rig at five turns for each seat. Nothing on the field draws it yet; its VERSUS candidate is the next half.
+
 ## 2026-10-02 · 83f882727 — A thumb on a boss's mark wears a ring past it, green while it holds, red when refused
 
 A finger covers the mark it presses, so the progress arc and the verdict on it were hidden under the thumb. Every press a boss's drag answers — held, or refused as the partner's — now draws a soft ring round this phone's own finger: it grows fast and then keeps creeping, beats green on the beat, and turns red when the mark under it is judged wrong (the wrong thumb, a hold let go too early). It borrows the mark's own verdict, so no boss calls it.
