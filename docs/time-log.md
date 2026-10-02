@@ -31970,3 +31970,16 @@ searched first.
 Bottleneck: none to speak of — the entry said what to do and where.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE STARE's struck eye rattles in its socket
+
+- reading: 5 min. `stareFace`'s three cases and the globe's angle.
+- writing: 0 min. One term on the globe's angle, two doc comments, a
+  test file of its own beside the 330-line frame test.
+- looking: 5 min. A strip of the hurt; a still cannot show a shudder,
+  so none was sent.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: looking — the frames were cropped twice to find the eye, and
+then could not show the thing that moved.

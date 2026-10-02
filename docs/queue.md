@@ -472,24 +472,6 @@ bares, and a bolt reaching the core is drawn through it.
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
 
-## THE STARE's struck eye no longer shudders
-
-- **Found:** 2026-10-01, claude/versus-feedback-comparison-6cf7e7
-- **Taken:** 2026-10-02, claude/queue-versus-adopt-refuses-a-candidate-whose-function (claim: claude/queue-the-stares-struck-eye-no-longer-shudders)
-- **Where:** local
-- **Files:** `packages/render/src/stare-eye-globe.ts`, `packages/render/src/stare-shape.ts`, `packages/render/src/stare-eye-look.ts`, `packages/render/test/stare-frame.test.ts`
-
-The globe taken from VERSUS reads `face` and `open` and ignores `lean`. But
-`stareFace` carried two things in `lean`: the sliver's shear, which the
-globe's roll replaces, and the hurt shudder (`HURT_LEAN`, a decaying sine
-after a hit). `docs/spec/bosses.md` still says "the struck eye shudders", and
-now it does not. The fix: let the globe turn its `theta` by `lean` while
-`face` is 1, so the hurt shudder becomes a rattle of the ball in its socket.
-Then drop the shear from the doc comment on `StareEyeLook.lean`. This is a fix
-to something wrong and not a new look, because the spec names the shudder.
-Done when a frame test sees the globe's opening move across the beats after a
-hit and stand still on a quiet beat, and `bun run check` is green.
-
 ## `band-control.ts` and `controls-round.ts` are one control set from 250
 
 - **Found:** 2026-10-01, claude/throat-boss-rework-48518d

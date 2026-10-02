@@ -3044,7 +3044,7 @@ walls of the field. **The beam**, when nobody pulls, is a column of ember
 light the eye's width straight down onto the ship; **the laser**, a catch, is
 one hard ray to the column the cannon was sent to, branding the eye's almond
 into the hull. A hit leaves a scar on the cowl per level spent, and the struck
-eye shudders. THE SLOW's light stands round the cowl, swollen as far as the
+eye shudders, the ball rattling in its socket (`stare-eye-globe.ts`). THE SLOW's light stands round the cowl, swollen as far as the
 charge has come (`slow-boss-aim-b.ts`), so the prism never splits the eye.
 The eye is painted through one record, `STARE_EYE` (`render/stare-eye-look.ts`),
 as a globe that rolls its opening round to face the pair (`render/stare-eye-globe.ts`,

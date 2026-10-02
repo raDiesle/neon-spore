@@ -30,9 +30,12 @@ import { stareHeat } from "./stare-shape.js";
  * **It turns one way, always.** Which seat the eye will watch is told to one
  * screen only (`sim/stare.ts`), so a turn toward a side would tell both.
  *
- * Read off the same `face` and `open` as the flat eye was, and nothing new:
- * `face` becomes an angle through `stareHeat`, and `lean` is not used,
- * because the lean was the stand-in for exactly this.
+ * Read off the same `face`, `open` and `lean` as the flat eye was, and
+ * nothing new: `face` becomes an angle through `stareHeat`, and `lean` turns
+ * the ball further only while it faces the pair. While it turns, the lean was
+ * the sliver's shear, the stand-in for exactly this turn, and the ball already
+ * draws it. Once it is square the lean is the hurt shudder (`stareFace`), and
+ * a struck eye rattles in its socket, which `docs/spec/bosses.md` says it does.
  */
 
 /** The ball against the shipped socket: a little wider, and tall enough to hold the opening. */
@@ -57,7 +60,7 @@ export function paintGlobe(
     cy: e.cy,
     rx: e.rx * GLOBE_X,
     ry: e.ry * GLOBE_Y,
-    theta: AWAY * (1 - heat),
+    theta: AWAY * (1 - heat) + (face >= 1 ? lean : 0),
   };
   const ball = globePath(g);
 

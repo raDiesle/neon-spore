@@ -8,7 +8,7 @@ export interface StareEyeLook {
   e: StareEye;
   /** How much of the face shows, `FACE_AWAY..1` (`stareFace`). */
   face: number;
-  /** The sliver's shear, gone once the eye is square (`stareFace`). */
+  /** The hurt shudder, a decaying sine after a hit, in radians of turn while the eye is square (`stareFace`). */
   lean: number;
   /** How far the lids stand open, `OPEN_SHUT..1` (`stareFace`). */
   open: number;
