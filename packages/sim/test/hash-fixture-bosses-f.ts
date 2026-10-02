@@ -62,6 +62,17 @@ export const BOSS_ENTRIES_F = {
       },
     ],
   },
+  // A sign and a split, the readers apart, the first one changing and its
+  // colour set off `either`, for the walk only changes element 0
+  // (`mimic-hash.ts`).
+  mimic: {
+    kind: "mimic",
+    steps: [
+      { ask: "sign", reader: 2, changes: true, color: "cyan", beats: 10 },
+      { ask: "split", reader: 1, changes: false, color: "either", beats: 8 },
+      { ask: "core", reader: 1, changes: false, color: "red", beats: 4 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE FLUE on's share of `patchBoss`. */
@@ -119,5 +130,20 @@ export function patchBossF(boss: BossState): void {
     boss.hits = 1;
     boss.holdCol = [4, -1];
     boss.tapDown = [false, true];
+  }
+  if (boss.kind === "mimic") {
+    // A split on with both signs up, the pilot's drawn wrong and the
+    // navigator's peeled, the sign changed, two arms reached, three signs off
+    // and the core shot once — every field given a value (`mimic-hash.ts`).
+    boss.phase = "sign";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.signs = [2, 4];
+    boss.drawn = [1, -1];
+    boss.peeled = [false, true];
+    boss.changed = true;
+    boss.reaches = 2;
+    boss.peels = 3;
+    boss.hits = 1;
   }
 }

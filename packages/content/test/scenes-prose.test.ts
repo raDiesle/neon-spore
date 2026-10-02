@@ -129,6 +129,9 @@ const STILL_PROSE = [
   // And THE LAMPREY (§41), a twenty-sixth time: the jaw is undrawn, and the
   // guide says which seat pins and which taps, and when they swap.
   "THE LAMPREY",
+  // And THE MIMIC (§42), a twenty-seventh time: the skin is undrawn, and the
+  // guide says which seat reads and which draws, and when they swap.
+  "THE MIMIC",
 ];
 
 const guided = WAVES.filter((w) => w.guide);

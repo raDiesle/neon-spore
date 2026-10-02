@@ -22,6 +22,7 @@ import type { LampreyEvent } from "./events-lamprey.js";
 import type { LeadEvent } from "./events-lead.js";
 import type { LedgerEvent } from "./events-ledger.js";
 import type { MantleEvent } from "./events-mantle.js";
+import type { MimicEvent } from "./events-mimic.js";
 import type { OculusEvent } from "./events-oculus.js";
 import type { PinballEvent } from "./events-pinball.js";
 import type { PlumbEvent } from "./events-plumb.js";
@@ -107,6 +108,7 @@ export type BossEvent =
   | FlueEvent
   | GovernorEvent
   | LampreyEvent
+  | MimicEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -145,6 +147,7 @@ export type { LampreyEvent } from "./events-lamprey.js";
 export type { LeadEvent } from "./events-lead.js";
 export type { LedgerEvent } from "./events-ledger.js";
 export type { MantleEvent } from "./events-mantle.js";
+export type { MimicEvent } from "./events-mimic.js";
 export type { OculusEvent } from "./events-oculus.js";
 export type { PinballEvent } from "./events-pinball.js";
 export type { PlumbEvent } from "./events-plumb.js";

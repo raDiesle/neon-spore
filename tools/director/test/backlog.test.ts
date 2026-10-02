@@ -100,7 +100,7 @@ describe("buildBacklog", () => {
     // (§31), THE SLING (§32), THE GRINDSTONE (§33), THE CYST (§34), THE
     // DAVIT (§35), THE HALTER (§36), THE CAPSTAN (§37), THE GALL (§38) and THE
     // BURGEE (§39) left it when their simulation lanes landed, and THE FLUE
-    // (§40) and THE GOVERNOR (§43) after them.
+    // (§40) and THE GOVERNOR (§43) after them, and THE MIMIC (§42) last.
     expect(proposedNames).not.toContain("THE MANTLE");
     expect(proposedNames).not.toContain("THE KEEL");
     expect(proposedNames).not.toContain("THE VALVE");
@@ -120,6 +120,7 @@ describe("buildBacklog", () => {
     expect(proposedNames).not.toContain("THE BURGEE");
     expect(proposedNames).not.toContain("THE FLUE");
     expect(proposedNames).not.toContain("THE GOVERNOR");
+    expect(proposedNames).not.toContain("THE MIMIC");
   });
 
   test("every group is populated, so a heading renamed in the spec is caught", async () => {
@@ -131,6 +132,11 @@ describe("buildBacklog", () => {
       // has landed — an outcome, not a broken parser. Its heading is held by
       // name in the bosses test above instead.
       if (group.title === "STILL IN HAND") continue;
+      // And PROPOSED, NOT STARTED, which is empty on a day when every concept
+      // written has a lane — THE MIMIC (§42), the last, took one on 2 October
+      // 2026. It is read off the ledger rather than off a heading, so an empty
+      // group is a concept-free page, not a parser that lost its place.
+      if (group.title === "PROPOSED, NOT STARTED") continue;
       const found = group.entries.length > 0;
       expect({ title: group.title, found }).toEqual({ title: group.title, found: true });
     }

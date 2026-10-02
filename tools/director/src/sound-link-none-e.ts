@@ -1,6 +1,6 @@
 /**
- * The sounds wired up with nothing to draw, the fifth page — THE VALVE's and
- * THE LAMPREY's.
+ * The sounds wired up with nothing to draw, the fifth page — THE VALVE's,
+ * THE LAMPREY's and THE MIMIC's.
  *
  * Cut off `sound-link-none-c.ts` on 30 September 2026, when THE GAUGE's loose
  * tooth left that page at 248 lines, by the rule the pages before it carry:
@@ -47,4 +47,19 @@ export const NO_SUBJECT_E: Record<string, string> = {
   "boss.lampreyLunge": "a gullet window run out, the eel lunging to bite again. Same argument.",
   "boss.lampreySpent": "the eel gone limp, falling away. Same argument.",
   "boss.lampreyOut": "the eel gone and the wave ending. Same argument, and an absence.",
+  // THE MIMIC's thirteen (`sim/events-mimic.ts`): the same argument as THE
+  // LAMPREY's above — no frame of it to point a sound at until its look lands.
+  "boss.mimicEnter": "the mottle slapping into a mantle. Its look is the stand-in; no frame yet.",
+  "boss.mimicSign": "a sign surfacing on the skin. Same argument.",
+  "boss.mimicChange": "the sign sinking and another rising. Same argument.",
+  "boss.mimicPeel": "a sign drawn right, peeling off. Same argument.",
+  "boss.mimicWrong": "the skin wearing a wrong sign. Same argument.",
+  "boss.mimicLapse": "a sign sinking back undrawn. Same argument.",
+  "boss.mimicReach": "an arm reaching a step down. Same argument.",
+  "boss.mimicRoll": "the mimic rolling its other face round. Same argument.",
+  "boss.mimicCore": "the core bared and lit. Same argument.",
+  "boss.mimicHit": "a shot into the core. Same argument.",
+  "boss.mimicClose": "the skin closing over the core. Same argument.",
+  "boss.mimicSpent": "the mimic shapeless, falling. Same argument.",
+  "boss.mimicOut": "the mimic gone and the wave ending. Same argument, and an absence.",
 };

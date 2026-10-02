@@ -103,6 +103,10 @@ export {
   flueTapper,
   freshFlue,
 } from "./flue.js";
+// THE MIMIC's signs: the phase, the step, which seat sees which sign and which
+// draws, and the five a thumb can draw, for the picture, the pad and the
+// director's hand (§42).
+export { GLYPHS, type Glyph, isGlyph } from "./glyphs.js";
 // THE GOVERNOR's needle: the phase, the lit step, the needle and its speed,
 // whose chord brakes it and whose tap is heard, the runs and the hub, for the
 // picture, the cue and the director's hand. Straight off `governor.ts` (§43).
@@ -155,6 +159,24 @@ export {
   lampreyTeethIn,
   lampreyToothIn,
 } from "./lamprey.js";
+export {
+  freshMimic,
+  MIMIC_ASKS,
+  MIMIC_PHASES,
+  type MimicAsk,
+  type MimicEntry,
+  type MimicPhase,
+  type MimicState,
+  type MimicStep,
+  mimicAsking,
+  mimicBoss,
+  mimicDone,
+  mimicDraws,
+  mimicFiring,
+  mimicMimicking,
+  mimicReadBy,
+  mimicStep,
+} from "./mimic.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),
 // the hit test that answers it (`render/touch-well.ts`) and the director's

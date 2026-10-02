@@ -133,4 +133,19 @@ export const INGEST_SILENT_BOSS_E = [
   "lampreyLunge",
   "lampreySpent",
   "lampreyOut",
+  // THE MIMIC, every event: its look is the shape sheet's stand-in until
+  // its own lane draws it (`docs/spec/bosses-choreographed.md` §42).
+  "mimicEnter",
+  "mimicSign",
+  "mimicChange",
+  "mimicPeel",
+  "mimicWrong",
+  "mimicLapse",
+  "mimicReach",
+  "mimicRoll",
+  "mimicCore",
+  "mimicHit",
+  "mimicClose",
+  "mimicSpent",
+  "mimicOut",
 ] as const satisfies readonly SimEvent["type"][];

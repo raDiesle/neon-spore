@@ -457,20 +457,6 @@ then **the receipts** — the tooth, crack, snap, slam and strike bursts, the
 blow and its shake, the silent lists, `boss-hurt-rows-c.ts`, `boss-strike.test.ts`,
 `glow-faded.test.ts` and the sound links (`sound-link-none-e.ts`).
 
-## THE MIMIC's simulation (§42)
-
-- **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
-- **Taken:** 2026-10-02, claude/task-queue-work-297731 (claim: claude/queue-the-mimics-simulation-42)
-- **Files:** `packages/sim/src/`, `packages/content/src/`, `packages/hands/src/`, `apps/game/src/`, `docs/spec/bosses-choreographed.md`
-
-The owner, 1 October 2026, asked for THE MIMIC to be built from its sheet
-(`docs/spec/bosses-choreographed.md` §42): a sign on its skin shown on one
-seat only (`PerSeatTruth`), drawn on the other seat's glass and recognised on
-that phone into one command (DRAWN GLYPH). Its first lane, by
-`.claude/skills/new-boss`: the states, the signs, the recogniser's command,
-its wave and its hands. Done when an autopilot clears its wave and
-`bun run check` is green.
-
 ## THE MIMIC's look (§42)
 
 - **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
@@ -480,6 +466,28 @@ its wave and its hands. Done when an autopilot clears its wave and
 The second lane of `.claude/skills/new-boss`: BLOOM · GLYPHED, `bloom`'s
 eight-armed mantle with `glyphed`'s rim of marks, the sign on one seat and
 the mottle on the other, in `frame.test.ts`. The sheet PNG is sent to the owner.
+The simulation lane left it more: the eight STATES cards on `OWED` in
+`tools/director/test/boss-states.test.ts`, the thirteen events off the two
+silent lists (`render/src/effects-*-silent-boss-e.ts`), and the drawing pad
+over the lower field on a seat that `mimicDraws`, empty on the reader's.
+
+## THE MIMIC's recogniser: a stroke on the glass becomes a `glyph`
+
+- **Found:** 2026-10-02, claude/queue-the-mimics-simulation-42
+- **Needs:** THE MIMIC's simulation (§42)
+- **Files:** `apps/game/src/`, `apps/game/src/keys.ts`, `tools/frames/press.ts`, `tools/frames/press-command.ts`, `packages/sim/src/glyphs.ts`
+
+The half of §42's DRAWN GLYPH that runs on the phone. Nothing in
+`apps/game` sends `{ kind: "glyph", sign }` yet, so only AUTO can play
+wave 123. While `mimicDraws(boss, seat)` is true for this device's seat, a
+stroke on the lower field is collected as points, resampled, scaled to a
+box, and matched to the nearest of the five in `GLYPHS` (a ring, a triangle,
+a zigzag, a wave, a hook), the way `apps/game/src/shake.ts` turns the
+accelerometer into one `shake`. A stroke too short or too far from all five
+sends nothing. Give the desk keys 1–5 a glyph each (`keys.ts`), and
+`bun run frames --press <t>:2:glyph:<n>`. Done when a unit test draws each
+of the five as points and gets its index back, a stroke of a single tap
+gets nothing, and `bun run check` is green.
 
 ## THE INSTAR's shipped rise leaves both nests beside its back
 

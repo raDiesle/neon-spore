@@ -3,6 +3,7 @@ import {
   isBool,
   isColor,
   isDragTarget,
+  isGlyphSign,
   isNonNegInt,
   isPull,
   isPulseLane,
@@ -183,6 +184,11 @@ export function decodeCommand(x: unknown): Command | null {
     // is the fact rather than the reading.
     case "shake":
       return { kind: "shake" };
+    // THE MIMIC's sign drawn on the glass, the shake's argument with a shape:
+    // which of the five the stroke was is decided on the phone it was drawn
+    // on, so what crosses is the index and never the stroke (`sim/mimic-hand.ts`).
+    case "glyph":
+      return isGlyphSign(c.sign) ? { kind: "glyph", sign: c.sign } : null;
     case "restart":
       return { kind: "restart" };
     // The lost screen's three answers, from either seat (`sim/wave-fail.ts`).

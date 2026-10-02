@@ -24,6 +24,7 @@ import { LAMPREY_PHASES } from "./lamprey.js";
 import { LEDGER_PHASES } from "./ledger.js";
 import { MANTLE_PHASES, MANTLE_SEAMS } from "./mantle.js";
 import { MAZE_PHASES } from "./maze.js";
+import { MIMIC_PHASES } from "./mimic.js";
 import { OCULUS_PHASES } from "./oculus.js";
 import { PIN_SHOTS, PINBALL_PHASES } from "./pinball.js";
 import { PLUMB_PHASES } from "./plumb.js";
@@ -149,5 +150,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   flue: FLUE_PHASES,
   governor: GOVERNOR_PHASES,
   lamprey: LAMPREY_PHASES,
+  mimic: MIMIC_PHASES,
   fleet: FLEET_PHASES,
 };

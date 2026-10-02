@@ -147,4 +147,18 @@ export const CHOREO_NOTES_D = {
     "the simulation lane has landed — see sim/lamprey.ts, " +
     "sim/lamprey-step.ts, sim/lamprey-hand.ts, sim/lamprey-shot.ts, " +
     "sim/config-lamprey.ts.",
+  "THE MIMIC — a sign one of you reads for the other to draw":
+    "Asked for in docs/spec/bosses-choreographed.md §42: a mantle with " +
+    "eight arms whose skin wears one of five signs — a ring, a triangle, a " +
+    "zigzag, a wave, a hook — shown on one seat's screen only. The other " +
+    "seat draws it on the glass, and the phone sends the nearest of the five " +
+    "as one glyph command. A right sign peels and draws the arms back up a " +
+    "step; a wrong one is worn on the skin for mimicMimicBeats, then an arm " +
+    "reaches a step down, and mimicReaches reaches in a movement strike the " +
+    "hull, which is the wave. Three signs read by the pilot, a roll, three " +
+    "read by the navigator that change mimicChangeBeats in, a roll, then two " +
+    "split skins each seat reads for the other, each baring a core to shoot " +
+    "in its colour. Nothing on the phone recognises a stroke yet. Only the " +
+    "simulation lane has landed — see sim/mimic.ts, sim/mimic-step.ts, " +
+    "sim/mimic-hand.ts, sim/mimic-shot.ts, sim/config-mimic.ts, sim/glyphs.ts.",
 } satisfies Partial<Record<GroupName, string>>;

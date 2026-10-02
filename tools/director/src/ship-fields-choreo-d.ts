@@ -102,4 +102,14 @@ export const CHOREO_FIELD_GROUP_D = {
   lampreyBiteStepMilli: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
   lampreyBiteFullMilli: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
   lampreyGripCols: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
+  // MimicConfig — the slap into shape, how long a wrong sign is worn, the
+  // flinch, when a changing sign changes, the reaches that strike the hull,
+  // the clench and the fall (`config-mimic.ts`).
+  mimicEnterBeats: "THE MIMIC — a sign one of you reads for the other to draw",
+  mimicMimicBeats: "THE MIMIC — a sign one of you reads for the other to draw",
+  mimicPeelBeats: "THE MIMIC — a sign one of you reads for the other to draw",
+  mimicChangeBeats: "THE MIMIC — a sign one of you reads for the other to draw",
+  mimicReaches: "THE MIMIC — a sign one of you reads for the other to draw",
+  mimicClenchBeats: "THE MIMIC — a sign one of you reads for the other to draw",
+  mimicSpentBeats: "THE MIMIC — a sign one of you reads for the other to draw",
 } satisfies Record<string, GroupName>;

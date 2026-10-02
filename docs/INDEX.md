@@ -136,6 +136,7 @@ by hand never moves.
 | `packages/sim/src/clasp.ts` | THE CLASP: a slick or a bulb inside a shield of its own, becoming a different creature instead of dying |
 | `packages/sim/src/cling.ts` | **THE LIMPET and THE LEECH**: two bodies that fall straight down one lane, cannot be shot |
 | `packages/sim/src/command-types.ts` | what a press *is*, as a flat union — so that a replay is a list of these and nothing else |
+| `packages/sim/src/command-touch.ts` | **The commands that are a touch on the field rather than a button on a panel, or no touch at all** |
 | `packages/sim/src/config-boss.ts` | the numbers the bosses own |
 | `packages/sim/src/config-boss-clocks.ts` | **The bosses that are a clock**, as one block of `SimConfig` |
 | `packages/sim/src/config-creatures.ts` | how long one creature's own clock runs, and the shapes it moves |
@@ -363,6 +364,11 @@ by hand never moves.
 | `packages/sim/src/lock.ts` | THE LOCK: the hand player 1 already has on the field, read a second way |
 | `packages/sim/src/mid-beat.ts` | **Where a thing stands between two beats**, in thousandths of a tile |
 | `packages/sim/src/mine.ts` | THE MINE: a wisp standing still, answered by a thumb instead of a bolt |
+| `packages/sim/src/mimic-hand.ts` | THE MIMIC's one hand: a sign drawn on the glass, heard as the `glyph` command the drawing phone recognised |
+| `packages/sim/src/mimic-hash.ts` | What THE MIMIC puts into `hashWorld`, and nothing else |
+| `packages/sim/src/mimic-shot.ts` | **THE MIMIC's shot**: the bare core, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/mimic-step.ts` | THE MIMIC's clock, once a beat: the slap into shape, a sign's window and its change |
+| `packages/sim/src/mimic.ts` | THE MIMIC: a soft mantle with eight arms whose skin wears a sign that only one seat can see |
 | `packages/sim/src/scene-aim.ts` | The three acts a film aims rather than writes down, resolved against a world |
 | `packages/sim/src/scene-panel.ts` | **The ship's own panel on a scene's body**: SHOOT, SHIELD and SUCK marks (`INSTAR_GESTURES`) |
 | `packages/sim/src/scout-arena.ts` | What the scout is touching, and the two ways an arena ends badly |
@@ -490,6 +496,7 @@ by hand never moves.
 | `packages/sim/src/config-maze-turn.ts` | THE MAZE's wheel under the hand: how fast it turns, how far a pull carries it, and how its click catches and lets go |
 | `packages/sim/src/config-mantle.ts` | THE MANTLE's tuning: how deep a floor either handle must clear before it counts toward the sum |
 | `packages/sim/src/config-mirror.ts` | THE MIRROR's tuning: how far a carry goes before it is one, how long the pin is held |
+| `packages/sim/src/config-mimic.ts` | THE MIMIC's tuning: the beats around its signs, how long a wrong sign is worn, when a changing sign changes |
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
 | `packages/sim/src/config-vise.ts` | THE VISE's tuning: the rests around its steps, the grace a pinch is given |
 | `packages/sim/src/config-vane.ts` | **THE VANE's second and third gestures**: how long a thumb may hold the arm before the sweep tears it free |
@@ -509,6 +516,7 @@ by hand never moves.
 | `packages/sim/src/moult.ts` | THE MOULT: one body that is a rock half the time and a cargo the other half |
 | `packages/sim/src/events-magnet.ts` | **What THE MAGNET does**, as events: a bolt turned away by the plate slung under the body |
 | `packages/sim/src/events-mantle.ts` | What THE MANTLE says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-mimic.ts` | What THE MIMIC says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/grip-push.ts` | THE PUSH: the hand on a rock, carried sideways — one column, then a beat of quiet |
 | `packages/sim/src/grip-push-dir.ts` | **Which way a carried body has been earned a column** |
 | `packages/sim/src/grindstone-hand.ts` | Two grinding thumbs and two jaws on THE GRINDSTONE, one of each a seat |
@@ -534,6 +542,7 @@ by hand never moves.
 | `packages/sim/src/gimbal-step.ts` | THE GIMBAL's clock: the marks lighting, the hold being counted, the shear, the seam, and the hatch |
 | `packages/sim/src/gimbal.ts` | THE GIMBAL: a sealed drum hung inside two nested rings set at right angles |
 | `packages/sim/src/geometry-seat.ts` | **Whose thumb a mark wants, read off where it is** |
+| `packages/sim/src/glyphs.ts` | **The five signs a thumb can draw**, each one stroke so that each is easy to say across a room and easy to… |
 | `packages/sim/src/hash-creature-held.ts` | **The fields a hand writes**, folded into the fingerprint |
 | `packages/sim/src/config-claw.ts` | THE CLAW's numbers — the rail, the clock, and what a bad grab costs |
 | `packages/sim/src/config-cling.ts` | THE LIMPET's and THE LEECH's numbers: how many beats a control may stand still with one on it before it goes… |
@@ -2477,6 +2486,7 @@ by hand never moves.
 | `packages/audio/src/bind-gimbal.ts` | THE GIMBAL's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-grindstone.ts` | Whether an event is THE GRINDSTONE's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
+| `packages/audio/src/bind-mimic.ts` | Whether an event is THE MIMIC's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-mantle.ts` | THE MANTLE's twenty-two, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
 | `packages/audio/src/bind-hasp.ts` | Whether an event is THE HASP's, so a page of the chain can hand it over whole |
@@ -2546,6 +2556,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-governor.ts` | **THE GOVERNOR played right**, for the autopilot |
 | `packages/hands/src/boss-hands-unseen.ts` | **The pair's hands on the two fights about what one of them cannot see** |
 | `packages/hands/src/boss-hands-mantle.ts` | **THE MANTLE played right**, for the STATES sheet and the autopilot: both handles pulled together |
+| `packages/hands/src/boss-hands-mimic.ts` | **THE MIMIC played right**, for the autopilot |
 | `packages/hands/src/boss-hands-keel.ts` | **THE KEEL played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-oculus.ts` | **THE OCULUS played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-vise.ts` | **THE VISE played right**, for the STATES sheet and the autopilot |
@@ -3329,7 +3340,7 @@ by hand never moves.
 | `tools/director/src/sound-link-none-b.ts` | The sounds wired up with nothing to draw, the second page — from THE SCUTTLE on |
 | `tools/director/src/sound-link-none-c.ts` | The sounds wired up with nothing to draw, the third page — from THE GAUGE on |
 | `tools/director/src/sound-link-none-d.ts` | The sounds wired up with nothing to draw, the fourth page — from THE SEAM on |
-| `tools/director/src/sound-link-none-e.ts` | The sounds wired up with nothing to draw, the fifth page — THE VALVE's and THE LAMPREY's |
+| `tools/director/src/sound-link-none-e.ts` | The sounds wired up with nothing to draw, the fifth page — THE VALVE's, THE LAMPREY's and THE MIMIC's |
 | `tools/director/src/sound-row.ts` | **One sound, as a row of the catalogue sheet.** Its own file beside `sound-page.ts` |
 | `tools/director/src/pose-type.ts` | What a pose *is* — the shape of one, and the two things a caller can ask of one without building it |
 | `tools/director/src/pose-commands.ts` | the commands a pose presses, spelled short — `aim`, `ward`, `guard`, `suck`, `prime`, `shoot`, `pullCord`, `hold` — one builder per verb, re-exported by the kit |

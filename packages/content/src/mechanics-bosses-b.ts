@@ -24,6 +24,7 @@ type BossIdB = Extract<
   | "davit"
   | "halter"
   | "lamprey"
+  | "mimic"
   | "capstan"
   | "gall"
   | "burgee"
@@ -151,6 +152,10 @@ export const BOSS_MECHANICS_B = {
   },
   lamprey: {
     what: "One of you keeps a thumb on the mouth's crawling jaw. The other taps the lit tooth before it snaps back. Then shoot the gullet in its colour.",
+    reach: "spawn",
+  },
+  mimic: {
+    what: "One of you sees a sign on its skin and says it. The other draws it. A wrong sign makes an arm reach down. Then shoot the core.",
     reach: "spawn",
   },
   vane: {

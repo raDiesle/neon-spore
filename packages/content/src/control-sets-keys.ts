@@ -62,4 +62,8 @@ const OFF_PANEL: ReadonlySet<Command["kind"]> = new Set([
   // may refuse it — and a field with no membrane on it does nothing with one
   // either way (`sim/choir-gesture.ts`).
   "shake",
+  // And THE MIMIC's sign, drawn on the field's own glass rather than pressed
+  // on any panel: the pad is the lower field, and a field with no mimic on it
+  // does nothing with one (`sim/mimic-hand.ts`).
+  "glyph",
 ]);

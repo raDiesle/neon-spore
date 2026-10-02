@@ -45,6 +45,9 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   // THE LAMPREY, all six: the body is drawn, and the hand half of its look
   // lane poses them with the marks they ask for (§41).
   lamprey: ["entering", "bite", "loose", "rearing", "recoil", "spent"],
+  // THE MIMIC, all eight: nothing of it is drawn yet, and its look lane poses
+  // them with the sign on one seat and the pad on the other (§42).
+  mimic: ["entering", "sign", "mimicking", "peeled", "rolling", "core", "clench", "spent"],
 };
 
 describe("the BOSSES category", () => {

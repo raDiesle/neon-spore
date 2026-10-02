@@ -24,6 +24,7 @@ import { LEDGER_DEFAULTS, type LedgerConfig } from "./config-ledger.js";
 import { MANTLE_DEFAULTS, type MantleConfig } from "./config-mantle.js";
 import { MAZE_GRIP_DEFAULTS, type MazeGripConfig } from "./config-maze-grip.js";
 import { MAZE_TURN_DEFAULTS, type MazeTurnConfig } from "./config-maze-turn.js";
+import { MIMIC_DEFAULTS, type MimicConfig } from "./config-mimic.js";
 import { MIRROR_DEFAULTS, type MirrorConfig } from "./config-mirror.js";
 import { OCULUS_DEFAULTS, type OculusConfig } from "./config-oculus.js";
 import { PLUMB_DEFAULTS, type PlumbConfig } from "./config-plumb.js";
@@ -113,6 +114,7 @@ export interface BossClockConfig
     FlueConfig,
     GovernorConfig,
     LampreyConfig,
+    MimicConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -162,6 +164,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...FLUE_DEFAULTS,
   ...GOVERNOR_DEFAULTS,
   ...LAMPREY_DEFAULTS,
+  ...MIMIC_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

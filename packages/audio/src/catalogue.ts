@@ -38,6 +38,7 @@ import { BOSS_LAMPREY_SOUNDS } from "./sounds/boss-lamprey.js";
 import { BOSS_LEAD_SOUNDS } from "./sounds/boss-lead.js";
 import { BOSS_LEDGER_SOUNDS } from "./sounds/boss-ledger.js";
 import { BOSS_MANTLE_SOUNDS } from "./sounds/boss-mantle.js";
+import { BOSS_MIMIC_SOUNDS } from "./sounds/boss-mimic.js";
 import { BOSS_OCULUS_SOUNDS } from "./sounds/boss-oculus.js";
 import { BOSS_PINBALL_HAND_SOUNDS } from "./sounds/boss-pinball-hand.js";
 import { BOSS_PLANNED_SOUNDS } from "./sounds/boss-planned.js";
@@ -132,6 +133,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_FLUE_SOUNDS,
   ...BOSS_GOVERNOR_SOUNDS,
   ...BOSS_LAMPREY_SOUNDS,
+  ...BOSS_MIMIC_SOUNDS,
   ...BOSS_WARDEN_SOUNDS,
   ...BOSS_VANE_SOUNDS,
   ...BOSS_THROAT_SOUNDS,

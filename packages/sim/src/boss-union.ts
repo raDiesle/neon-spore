@@ -25,6 +25,7 @@ import type { LeadState } from "./lead.js";
 import type { LedgerState } from "./ledger.js";
 import type { MantleState } from "./mantle.js";
 import type { MazeState } from "./maze-state.js";
+import type { MimicState } from "./mimic.js";
 import type { OculusState } from "./oculus.js";
 import type { PinballState } from "./pinball.js";
 import type { PlumbState } from "./plumb.js";
@@ -135,4 +136,5 @@ export type BossState =
   | BurgeeState
   | FlueState
   | GovernorState
-  | LampreyState;
+  | LampreyState
+  | MimicState;

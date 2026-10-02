@@ -11368,6 +11368,124 @@ still silent to the renderer but for the marks' verdicts
 thirteen sounds are bound (`audio/src/bind-lamprey.ts`), panned after the
 jaw, so a crawl is heard moving along the hull.
 
+## 11.60 THE MIMIC — a skin only one of you can read, and only the other can answer
+
+> A sign comes up on its skin, and only one of you can see it. Say what it
+> is; the other draws it on the glass. A right sign peels off, a wrong one is
+> worn, and an arm reaches down. Then both at once, and shoot the core.
+
+Designed as §42 of [bosses-choreographed](bosses-choreographed.md) — a
+choreographed scene, the third kind in `.claude/skills/new-boss`. **One new
+primitive, DRAWN GLYPH**: the `glyph` command, an index into the five signs
+of `sim/glyphs.ts` — a ring, a triangle, a zigzag, a wave and a hook — that
+the drawing phone recognised from the stroke. `PerSeatTruth` turned on its
+side: **the screen that can see is never the hand that can answer.**
+
+**It is the signs, and they are its health.** The state (`sim/mimic.ts`,
+hashed in `sim/mimic-hash.ts`) is the **phase** and the beat it began, the
+**cursor** into the script, the **sign** each seat must draw (an index into
+the five, or -1), what each seat **drew** wrong, which seats have **peeled**
+in the step that is on, whether the step's sign has **changed**, the
+**reaches** in this movement, the **peels** in all and the **hits**. The
+script is the wave's (`MimicEntry.steps`), copied at install: each step
+asks `sign`, `split`, `core` or `roll`, names its **reader** (for a sign;
+the other seat draws), whether it **changes**, its **colour** for a core,
+and its **beats**.
+
+**The rule, in one sentence.** One of you sees the sign on its skin and says
+what it is, and the other draws it.
+
+**The split.** By the truth, not by geometry: the mantle is on both screens,
+and the sign seat *k* must draw is `signs[k - 1]`, shown on the **other**
+seat's screen only (`mimicReadBy`). In the first movement the pilot reads
+and the navigator draws; a roll trades them; in the third each half of a
+split skin is read by one seat and drawn by the other, both at once. The
+core is the ordinary shot — Player 1's cannon under the middle column,
+Player 2's trigger in its colour.
+
+**The clock** (`sim/mimic-step.ts`) runs on the beat: the mottle slaps into
+shape for `mimicEnterBeats` (`mimicEnter`), then each sign surfaces under
+THE SLOW (`openSlow(…, "ask")`, for the window and a beat) with a sign
+picked by the seeded `Rng` from the five less the one that half wore last
+and the one the other half wears (`mimicSign`). A step that changes picks
+again `mimicChangeBeats` into its window (`mimicChange`). A window run out
+with nothing drawn is a lapse (`mimicLapse`). A lapse or a wrong sign is
+worn for `mimicMimicBeats`; then an arm reaches (`mimicReach`), and the
+`mimicReaches`-th reach in a movement strikes the hull (`bossStrikesHull`),
+which is the wave; the same step surfaces again with new signs. A step
+peeled flinches for `mimicPeelBeats`. A roll (`mimicRoll`) starts the
+reaches again for its beats. A core step bares the core, lit in its colour
+under THE SLOW (`mimicCore`); a hit clenches it (`mimicHit`) for
+`mimicClenchBeats`, and a core run out closes (`mimicClose`) and the split
+before it comes back. With the script done it loses its shape
+(`mimicSpent`) for `mimicSpentBeats` and falls away (`mimicOut`).
+
+**The answers** (`sim/mimic-hand.ts`). Only a seat with a sign to draw is
+heard (`mimicDraws`): the reader has no pad, and a half already peeled has
+nothing left, so a glyph from either is dropped. The sign drawn is judged the
+instant it lands against the one the skin wears now. **Right**, that half
+peels (`mimicPeel`) and every arm draws back up a step; the step is done
+when every half that asked has peeled, which closes THE SLOW. **Wrong**, the
+skin wears the drawn sign (`mimicWrong`), THE SLOW closes, and every half
+comes back after the reach. The shot is judged where a bolt leaves the top
+of the field (`sim/mimic-shot.ts`): only while the core is bare, only in the
+middle column, and only in its colour unless it is `either`.
+
+**The wire** (`net/command-codec.ts`). `{ kind: "glyph", sign }`, and the
+sign must be a whole number under `GLYPHS.length` or the frame is dropped
+(`net/test/glyph-codec.test.ts`). It is never a panel's to refuse
+(`content/control-sets-keys.ts`): the pad is the lower field.
+
+**Where this departs from the design, and why.** Six places.
+
+- **A window is ten beats, not six.** The owner's generic rule of 22
+  September 2026, a choreographed window long enough to talk in
+  (`new-boss/generic.md`). The need is already high: agreeing a word for a
+  shape across a room.
+- **THE SLOW opens at every sign and every core**, not only the first sign
+  of each movement. The owner's generic rule of the same day: the slow is
+  the window, and it stops the instant the step is answered or missed.
+- **A roll stands before movement 3 too.** §42 starts the third movement
+  with the split itself; a two-beat roll before it is where the reaches
+  start again, the way the roll before movement 2 does, and it is the split
+  pose's entrance.
+- **Every peel draws the arms back**, a split's two halves two steps. §42
+  says "a peel", and a split is two.
+- **A split never asks both seats for the same sign.** So "I drew the ring"
+  is never an answer to both halves.
+- **The design's `mimicGlyph` is the command, not a field.** The sign drawn
+  is not state: a right one becomes a peel and a wrong one `drawn`.
+
+**What is not built.** **The recogniser**, the stroke on the glass that
+becomes a `glyph` — `apps/game` has nothing that sends one, so until it
+lands only AUTO can play this wave (`docs/queue.md`, THE MIMIC's
+recogniser). **The look** — the mantle, the sign on one seat and the mottle
+on the other, the pad, the arms, the core — is the second lane
+(`docs/queue.md`, THE MIMIC's look (§42)); every event is silent to the
+renderer until it lands (`render/src/effects-ingest-silent-boss-e.ts`), and
+its eight STATES cards are owed (`tools/director/test/boss-states.test.ts`).
+No desk key sends a glyph, and `bun run frames --press` has no glyph.
+
+**What is proven, and what is not.** `sim/test/mimic.test.ts` proves the
+rules: the mantle slaps into shape and the first sign surfaces under THE
+SLOW, on the pilot's screen and owed by the navigator; the drawer's right
+glyph peels and the reader's is dropped; a wrong sign is worn, then an arm
+reaches, and three in a movement strike the hull; a window run out is worn
+as mottle and reaches; a peel draws an arm back; a roll starts the reaches
+again and trades the seats; a changing sign changes on its beat and the old
+one is then wrong; a split wants both halves, never one sign for both, and
+either wrong brings both back; the core wants its colour and the middle
+column, and run out closes back to the split; the whole script ends spent
+and out; no sign is worn twice running; the same seed and glyphs hash the
+same. AUTO's hand (`hands/src/boss-hands-mimic.ts`) draws each owed sign,
+the changing ones only once they have changed, and shoots the core's
+colour; it plays the script through without a wrong sign, a lapse, a reach
+or a scar (`tools/director/test/autopilot-mimic.test.ts`). Its thirteen
+sounds are bound (`audio/src/bind-mimic.ts`), a reach deepening as the arms
+come down. Whether a pair can name five shapes across a room and draw them
+under a ten-beat window — §42's payoff — is the owner's eye, and it has
+never been watched at tempo.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

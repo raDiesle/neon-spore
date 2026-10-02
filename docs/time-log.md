@@ -31650,3 +31650,16 @@ ninety files, and every one had to be read before it could be rewritten.
 Bottleneck: none — the cut was the one both files' order already drew.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE MIMIC's simulation: a sign one of you reads and the other draws
+
+- reading: 5 min. §42, the boss skill's registrations, THE LAMPREY's landing.
+- writing: 10 min. Eight sim files, the `glyph` command and its wire, the
+  wave, AUTO's hand, thirteen sounds, the director's rows, §11.60.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. `command-types.ts` and the two files #15 split were at
+  the limit; a heredoc with `\n` in a guide string was refused by the guard.
+- landing: 5 min. `check`, four counts in two documents, the baseline.
+
+Bottleneck: the registrations — thirty-odd files a boss is a name in, found
+one red test at a time.

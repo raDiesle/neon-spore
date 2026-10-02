@@ -14,6 +14,7 @@ import { stepHalter } from "./halter-step.js";
 import { stepHasp } from "./hasp-step.js";
 import { stepLamprey } from "./lamprey-step.js";
 import { stepMaze } from "./maze-round.js";
+import { stepMimic } from "./mimic-step.js";
 import { stepRatchet } from "./ratchet-step.js";
 import { stepSplice } from "./splice-round.js";
 import { stepSpool } from "./spool-step.js";
@@ -53,6 +54,11 @@ import type { World } from "./world.js";
  * stepped somewhere else (`boss-off-beat.ts`).
  */
 export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>): void {
+  // THE MIMIC: the slap, a sign's window and its change, the mimicry and the reach, the core and the fall (`mimic-step.ts`).
+  if (boss.kind === "mimic") {
+    stepMimic(world, boss);
+    return;
+  }
   // THE LAMPREY: the jaw chewing and crawling, a tooth's window run out, the gullet's, and the eel spent (`lamprey-step.ts`).
   if (boss.kind === "lamprey") {
     stepLamprey(world, boss);
