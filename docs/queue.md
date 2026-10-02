@@ -395,6 +395,7 @@ leave behind, same as the four already listed, and it is a look:
 ## Living bosses — the four rig bosses get the idle drift, one per lane
 
 - **Found:** 2026-09-26, claude/living-motion-spec
+- **Taken:** 2026-10-02, claude/queue-living-bosses-the-four-rig-bosses-get-the-idle-d
 - **Where:** local
 - **Files:** `packages/render/src/gimbal-draw.ts`, `packages/render/src/gimbal-rig.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/baton-draw.ts`, `packages/render/src/lead-draw.ts`, `packages/render/src/solid-rig.ts`, `docs/spec/living-bosses.md`
 - **Asks:** THE ANTIPHON, THE BATON and THE LEAD keep everything the rules read where it is — pits, perches and rail; joints and knuckles; angle and beads — and already turn in their light: drift the body under pinned readouts, keep the light turn as their drift, or drop the three?
