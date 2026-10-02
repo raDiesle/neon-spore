@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 0f087bc3d — THE THROAT's look: the mouth wears its colour, pulls a circle, and shakes what it refuses
+
+The mouth's lip, halo and flare are now in the colour it is set to (red, cyan, the shield's, or the pod's amber for SUCK). Shield and the cyan shot are one hue, so in SHIELD and SUCK the mouth also carries the band's own button face. Pumping draws a faint ring round the mouth, as wide as the simulation pulls. A body in the wrong colour shakes sideways where it stands. On this wave the hull grows the gullet's root where the muzzle was. The pump's handle carries the two-headed pull arrow.
+
 ## 2026-10-02 · 9a647937f — The automatic compaction window goes to 320k, and the hold-back ceiling to 400k
 
 At the owner's word, `autoCompactWindow` in `.claude/settings.json` is 320000 rather than 200000: THE THROAT's look lane ran out of its context twice in one sitting. `CEILING` in `tools/hooks/defer-compact.ts` goes from 320k to 400k with it, so the hook still has room to hold a lane until it lands. `defer-compact.test.ts` keeps the ceiling above the window, and it refused the first try, which set the two equal.
