@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 815db1d48 — A module-level cache of paths or canvases must be a `bakedCache`
+
+A test now refuses a top-level `Map` in render/src whose type names `Path2D`, a canvas, a gradient or a pattern. The test harnesses empty only the caches `bakedCache` registered, so a plain `Map` like THE STARE's lattice used to be could carry a stub path onto a real canvas and fail a test, depending on which test files shared a shard.
+
 ## 2026-10-02 · 79b6ffa9f — `versus adopt` reads a typed record's value, not its type
 
 A record written `X: { amount: number } = { amount: 0 }` was refused as stale, because adopt read the type annotation's braces as the record and compared `number` with the live value. It now looks for the record after the `=`, so the INSTAR records refused today would adopt.
