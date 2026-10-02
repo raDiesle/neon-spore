@@ -15,6 +15,7 @@ import { governorDial } from "../src/governor-shape.js";
 import { grindstoneCentre } from "../src/grindstone-shape.js";
 import { halterCentre } from "../src/halter-shape.js";
 import { computeLayout, tileCX, tileCY } from "../src/layout.js";
+import { mimicHang } from "../src/mimic-pose.js";
 import { RockImpactFx } from "../src/rock-impact.js";
 import { slingCentre } from "../src/sling-shape.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
@@ -96,7 +97,7 @@ describe("a boss's blow at the hull", () => {
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
       ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "davit", "halter"],
       ...["capstan", "gall", "burgee", "cyst", "grindstone", "sling", "flue", "governor"],
-      ...["filament", "lamprey"],
+      ...["filament", "lamprey", "mimic"],
     ] as const;
     for (const by of bosses) {
       const fx = new BossStrikeFx();
@@ -175,6 +176,28 @@ describe("a boss's blow at the hull", () => {
     const frame = { l: L, blow: undefined, from, to, tile: L.tile, time: 0, after: 0 };
     expect(firstTranslate(look, { ...frame, reach: 0 })).toEqual(from);
     expect(firstTranslate(look, { ...frame, reach: 1 })).toEqual(to);
+  });
+
+  it("THE MIMIC slaps the hull with the arm already hung down to it, rooted under the mantle", () => {
+    const from = strikeFrom(L, CFG, "mimic", 4);
+    const hung = mimicHang(L, CFG);
+    expect(from.x).toBe(hung.x);
+    expect(from.y).toBeGreaterThan(hung.y);
+    const look = strikeLook("mimic");
+    expect(look).not.toBe(lash);
+    const to = { x: from.x, y: L.hullY };
+    const frame = { l: L, blow: undefined, from, to, tile: L.tile, time: 0 };
+    const fills = (f: StrikeFrame): number => {
+      const { ctx } = stubCanvas();
+      look(ctx as unknown as CanvasRenderingContext2D, f);
+      return ctx.calls;
+    };
+    // The arm alone while it slaps; its prints on the plating once it has landed.
+    expect(fills({ ...frame, reach: 0.5, after: 0 })).toBeGreaterThan(0);
+    expect(fills({ ...frame, reach: 1, after: 0.3 })).toBeGreaterThan(
+      fills({ ...frame, reach: 0.5, after: 0 }),
+    );
+    expect(fills({ ...frame, reach: 1, after: 1 })).toBe(0);
   });
 
   it("forgets every blow on a restart", () => {

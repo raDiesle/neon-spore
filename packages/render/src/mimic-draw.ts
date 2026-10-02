@@ -6,10 +6,12 @@ import {
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
+import type { MimicFx } from "./mimic-fx.js";
 import { drawMimicPad } from "./mimic-pad.js";
 import {
   mimicHalfSide,
@@ -19,6 +21,7 @@ import {
   PART,
   PEELED_BACK,
 } from "./mimic-pose.js";
+import { drawMimicFlash, drawMimicPeel } from "./mimic-receipts.js";
 import {
   type MimicPose,
   mimicCore,
@@ -45,7 +48,10 @@ import { showsMimicPad, showsMimicSign } from "./view-role-clocks-c.js";
  * roll, the split and the core — is the same on both.
  *
  * **A mimicked sign is on both screens**, in the hull's red, so the drawer
- * sees what was drawn. Everything is read off `world` each frame.
+ * sees what was drawn. Everything is read off `world` each frame but its
+ * receipts — the peel, the core's flash and the blow it takes — which are
+ * `fx` (`mimic-fx.ts`, drawn by `mimic-receipts.ts`), and its own blow at the
+ * hull, which is `mimic-blow.ts`.
  */
 export function drawMimic(
   ctx: CanvasRenderingContext2D,
@@ -54,13 +60,19 @@ export function drawMimic(
   s: MimicState,
   beat: number,
   beatPhase: number,
+  time: number,
+  fx: MimicFx,
 ): void {
   const cfg = world.cfg;
   const p = mimicPose(l, cfg, s, beat, beatPhase);
+  fx.note(p);
   const split = p.split > 0;
+  const hurt = fx.hurt.value;
   ctx.save();
   // Every glow under the fade is `strokeGlowFaded`, which leaves it standing.
   ctx.globalAlpha = 1 - 0.5 * p.spent;
+  // The mantle shakes with the blow it took.
+  ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
 
   drawReach(ctx, l, p);
   if (split) drawCore(ctx, p, s);
@@ -72,11 +84,17 @@ export function drawMimic(
       ctx.save();
       ctx.translate(dx, 0);
       clipHalf(ctx, l, p, seat);
-      drawSkin(ctx, l, { ...p, face: seat });
+      drawSkin(ctx, l, { ...p, face: seat }, hurt);
       ctx.restore();
     }
-  } else drawSkin(ctx, l, p);
+  } else drawSkin(ctx, l, p, hurt);
+  drawMimicFlash(ctx, p, fx.flash);
   drawSigns(ctx, l, cfg, s, p, split, beat, beatPhase);
+  ctx.restore();
+  // The peel drifts free of the shake, but not of the fade.
+  ctx.save();
+  ctx.globalAlpha = 1 - 0.5 * p.spent;
+  drawMimicPeel(ctx, l, fx.peel);
   ctx.restore();
 
   for (const seat of [1, 2] as const) {
@@ -119,8 +137,8 @@ function clipHalf(ctx: CanvasRenderingContext2D, l: Layout, p: MimicPose, seat: 
   ctx.clip(half);
 }
 
-/** The mantle: its shadow, the skin, the mottle, the key light, and its outline round the arms and marks. */
-function drawSkin(ctx: CanvasRenderingContext2D, l: Layout, p: MimicPose): void {
+/** The mantle: its shadow, the skin, the mottle, the key light, its outline round the arms and marks, and the blow's red. */
+function drawSkin(ctx: CanvasRenderingContext2D, l: Layout, p: MimicPose, hurt: number): void {
   const mantle = mimicMantle(p);
   ctx.save();
   ctx.translate(0, l.tile * 0.12);
@@ -142,6 +160,7 @@ function drawSkin(ctx: CanvasRenderingContext2D, l: Layout, p: MimicPose): void 
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = PALETTE.mimicSkinDark;
   ctx.stroke(mantle);
+  drawHurt(ctx, mantle, hurt);
 }
 
 /**

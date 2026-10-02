@@ -51,6 +51,11 @@ function afterSplit(s: MimicState): boolean {
   return s.steps[s.cursor - 1]?.ask === "split";
 }
 
+/** Where the mantle hangs at rest: its middle, over the middle column. */
+export function mimicHang(l: Layout, cfg: SimConfig): { x: number; y: number } {
+  return { x: fieldX(l, midCol(cfg)), y: l.gridTop + HANG * l.tile };
+}
+
 /** The mantle's pose this frame. */
 export function mimicPose(
   l: Layout,
@@ -62,8 +67,7 @@ export function mimicPose(
   const into = phaseInto(s, beat, beatPhase);
   const wave = (beat + beatPhase) * Math.PI * 0.7;
   const r = MANTLE * l.tile;
-  const x = fieldX(l, midCol(cfg));
-  const y = l.gridTop + HANG * l.tile;
+  const { x, y } = mimicHang(l, cfg);
   const step = mimicStep(s);
   const face: 1 | 2 = step?.reader ?? 1;
   const base: MimicPose = {

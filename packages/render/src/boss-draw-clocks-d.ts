@@ -198,6 +198,6 @@ export function drawLatePairBoss(
 
   // THE MIMIC: a mantle over the top of the field wearing a sign on one
   // screen and mottle on the other, the pad on the drawer's, split on its
-  // lit core at the last (`mimic-draw.ts`).
-  drawMimic(ctx, l, world, boss, beat, beatPhase);
+  // lit core at the last (`mimic-draw.ts`); its receipts are `mimic-fx.ts`.
+  drawMimic(ctx, l, world, boss, beat, beatPhase, time, effects.boss.mimic);
 }

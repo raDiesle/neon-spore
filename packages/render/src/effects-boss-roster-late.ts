@@ -9,6 +9,7 @@ import { GovernorFx } from "./governor-fx.js";
 import { GrindstoneFx } from "./grindstone-fx.js";
 import { HalterVerdicts } from "./halter-verdicts.js";
 import { LampreyFx } from "./lamprey-fx.js";
+import { MimicFx } from "./mimic-fx.js";
 import { PlumbFx } from "./plumb-fx.js";
 import { SeamFx } from "./seam-fx.js";
 import { SlingFx } from "./sling-fx.js";
@@ -88,4 +89,8 @@ export class LateRoster extends RoundMarks {
    * under its bites, the blow it takes, and its marks' verdicts on a touch
    * (`lamprey-fx.ts`, `lamprey-receipts.ts`). */
   readonly lamprey = new LampreyFx();
+  /** THE MIMIC's peel drifting down the field, the core's flash, the hull's
+   * shudder under its slap and its fall, and the blow it takes
+   * (`mimic-fx.ts`, `mimic-receipts.ts`). */
+  readonly mimic = new MimicFx();
 }

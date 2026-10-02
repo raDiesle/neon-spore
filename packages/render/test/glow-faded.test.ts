@@ -8,19 +8,22 @@ import { GovernorFx } from "../src/governor-fx.js";
 import { drawLamprey } from "../src/lamprey-draw.js";
 import { LampreyFx } from "../src/lamprey-fx.js";
 import { computeLayout } from "../src/layout.js";
+import { drawMimic } from "../src/mimic-draw.js";
+import { MimicFx } from "../src/mimic-fx.js";
 import { STROKE } from "../src/palette.js";
 import { stood as flueStood } from "./flue-harness.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, VIEWPORT } from "./frame-harness.js";
 import { marks } from "./glow-marks.js";
 import { stood as governorStood } from "./governor-harness.js";
 import { GULLET, posed as lampreyPosed, stood as lampreyStood } from "./lamprey-harness.js";
+import { CORE, posed as mimicPosed, stood as mimicStood } from "./mimic-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * `strokeGlowFaded` (`glow.ts`): a glow inside a body that fades itself by
  * `ctx.globalAlpha` is faded with it and leaves the fade behind — and THE
- * FLUE, THE GOVERNOR and THE LAMPREY, spent and at half alpha with their
+ * FLUE, THE GOVERNOR, THE LAMPREY and THE MIMIC, spent and at half alpha with their
  * last hit's flash, its red and a tap's receipt still up, draw nothing
  * brighter than that half.
  * Before, THE FLUE's first glow put the alpha back at 1 and the rest of the
@@ -108,6 +111,25 @@ describe("a spent boss at half alpha", () => {
     fx.ingest(thrown, l, CFG, 0.5, () => {});
     fx.verdicts.clear();
     const { at } = marks((c) => drawLamprey(c, l, world, s, world.beat, 0, 0, fx));
+    expect(at.length).toBeGreaterThan(10);
+    expect(Math.max(...at)).toBeLessThanOrEqual(0.5 + 1e-9);
+  });
+
+  it("THE MIMIC draws nothing brighter than its fade", () => {
+    const world = mimicStood();
+    const s = mimicPosed(world, "spent", CORE, (t) => {
+      t.phaseBeat = world.beat - CFG.mimicSpentBeats - 1;
+      t.hits = 1;
+    });
+    const fx = new MimicFx();
+    const col = midCol(CFG);
+    const thrown = [
+      { type: "mimicCore", color: "red", col },
+      { type: "mimicHit", hits: 1, col },
+      { type: "mimicPeel", side: 1, sign: 0, peels: 1, col },
+    ] as const;
+    fx.ingest(thrown, l, CFG, 0.5, () => {});
+    const { at } = marks((c) => drawMimic(c, l, world, s, world.beat, 0, 0, fx));
     expect(at.length).toBeGreaterThan(10);
     expect(Math.max(...at)).toBeLessThanOrEqual(0.5 + 1e-9);
   });

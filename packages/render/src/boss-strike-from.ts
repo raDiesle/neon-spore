@@ -15,6 +15,7 @@ import { lampreyBlowFrom } from "./lamprey-blow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { ledgerBodyY } from "./ledger-shape.js";
 import { mantleCentre } from "./mantle-shape.js";
+import { mimicBlowFrom } from "./mimic-blow.js";
 import { oculusCentre } from "./oculus-shape.js";
 import { plumbHook, plumbSacBottom, plumbSacMiddle } from "./plumb-shape.js";
 import { ratchetPawlY, ratchetX } from "./ratchet-shape.js";
@@ -112,6 +113,8 @@ const FROM: Partial<
   governor: governorBlowFrom,
   // The mouth itself, flat on the hull over the jaw's column (`lamprey-blow.ts`).
   lamprey: lampreyBlowFrom,
+  // Under the mantle, where the reaching arm roots (`mimic-blow.ts`).
+  mimic: mimicBlowFrom,
 };
 
 /** Where the blow leaves the body — for THE FILAMENT, the tile it struck from

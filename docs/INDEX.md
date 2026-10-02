@@ -1096,6 +1096,9 @@ by hand never moves.
 | `packages/render/src/mimic-pose.ts` | **The clock THE MIMIC is posed off** (§42, *Animation*), six poses |
 | `packages/render/src/mimic-shape.ts` | **THE MIMIC's shape** (§42, *Silhouette*): two drafts combined, named on the shape sheet **BLOOM · GLYPHED** |
 | `packages/render/src/mimic-sign.ts` | **A sign on THE MIMIC's skin** (§42, *Colour*): one of the five, from the recogniser's own templates |
+| `packages/render/src/mimic-blow.ts` | **THE MIMIC's own blow at the hull**: the arm already hung there slaps it and leaves sucker prints |
+| `packages/render/src/mimic-fx.ts` | **What THE MIMIC leaves behind a frame**: the peel drifting off, the core's flash, the hull's shudder, the blow it takes |
+| `packages/render/src/mimic-receipts.ts` | **THE MIMIC's receipts, drawn** — what `mimic-fx.ts` holds between frames |
 | `packages/render/src/simon-fx.ts` | the count-in, the handover, and what the row is showing |
 | `packages/render/src/simon-row.ts` | the row of slots: a control, or a question mark |
 | `packages/render/src/simon-verdict.ts` | the sequence flying into whichever ship earned it |

@@ -11547,12 +11547,26 @@ holds the pad and the skin's sign open while a sign is owed; the mimicked
 sign is unreached on AUTO, which never draws a sign wrong. The hush test
 holds the two words still.
 
-**What is not built.** **The receipts** — the peel drifting down the field
-turning over, the flinch's and the reach's bursts, the strike, the core's
-hit and its clench — are queued (`docs/queue.md`, THE MIMIC's look (§42));
-every event is still silent to the renderer
-(`render/src/effects-ingest-silent-boss-e.ts`). Neither half has been
-watched at tempo on two phones.
+**The receipts** landed the same day (`render/src/mimic-fx.ts`, drawn by
+`mimic-receipts.ts`). **A peel** lifts the sign off where it was worn as a
+scrap of skin with the sign still on it and a pale torn edge, drifting down
+the field and aside, turning over to show its blank underside, on both
+screens — by then the sign is answered — and deals the lighter blow. **A
+shot into the core** flashes a ring out past it in the colour it was lit and
+deals the whole blow; the mantle shakes and reddens with either
+(`boss-hurt.ts`). The slap into shape and the fall, spent, shudder the hull.
+A sign, a change, a wrong sign (in the hull's red), a lapse, a reach, a
+roll, the core bared and closed over each throw a burst and deal nothing.
+**Its own blow** (`mimic-blow.ts`): the third reach in a movement leaves the
+arm already hung at the hull, so the blow is the slap — the tip lifts off the
+plating, comes down on the column and is drawn back up under the mantle,
+leaving a ring of sucker prints in the hull's red.
+
+**What is not proven by eye.** AUTO draws every sign at once, so no frame
+it plays has a peel in open field, and it never lets three reaches land in
+one movement, so the slap is proven on a stub canvas only
+(`boss-strike.test.ts`). None of the look has been watched at tempo on two
+phones.
 
 **What is proven, and what is not.** `sim/test/mimic.test.ts` proves the
 rules: the mantle slaps into shape and the first sign surfaces under THE

@@ -175,4 +175,24 @@ export const HURT_ROWS_C: Row[] = [
     hit: [{ type: "lampreyCrack", side: 1, tooth: 0, col: 3 }],
     hurt: (fx) => fx.boss.lamprey.hurt,
   },
+  {
+    boss: "mimic",
+    // A shot into the bare core.
+    land: [{ type: "mimicHit", hits: 1, col: 3 }],
+    // A sign surfacing or changing, worn wrong or let lapse, a reach, a roll,
+    // the core bared or closed over only work toward one, or against it.
+    part: [
+      { type: "mimicSign", signs: [-1, 0], col: 3 },
+      { type: "mimicChange", signs: [-1, 1], col: 3 },
+      { type: "mimicWrong", side: 1, drawn: 2, sign: 0, col: 3 },
+      { type: "mimicLapse", col: 3 },
+      { type: "mimicReach", reaches: 1, col: 3 },
+      { type: "mimicRoll", col: 3 },
+      { type: "mimicCore", color: "red", col: 3 },
+      { type: "mimicClose", col: 3 },
+    ],
+    // A sign peeled, one step of the script that is its health.
+    hit: [{ type: "mimicPeel", side: 1, sign: 0, peels: 1, col: 3 }],
+    hurt: (fx) => fx.boss.mimic.hurt,
+  },
 ];

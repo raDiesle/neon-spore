@@ -94,6 +94,9 @@ export function drawOnShip(
   // And THE LAMPREY's: the sucker slamming on, a full bite tearing at it,
   // and the eel spent and falling away (`lamprey-fx.ts`, §41).
   held.effects.boss.lamprey.shock.draw(ctx, l, surfaceY, view.time);
+  // And THE MIMIC's: the mottle slapping into shape, and its fall, spent
+  // (`mimic-fx.ts`, §42).
+  held.effects.boss.mimic.shock.draw(ctx, l, surfaceY, view.time);
   // And THE SEAM's: a click for every point shot shut, and the ridge splitting
   // a harder shudder (`seam-fx.ts`, §26).
   held.effects.boss.seam.shock.draw(ctx, l, surfaceY, view.time);

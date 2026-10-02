@@ -15,6 +15,7 @@ import { lampreyBlow } from "./lamprey-blow.js";
 import type { Layout } from "./layout.js";
 import { ledgerBlow } from "./ledger-blow.js";
 import { mantleBlow } from "./mantle-blow.js";
+import { mimicBlow } from "./mimic-blow.js";
 import { oculusBlow } from "./oculus-blow.js";
 import { PALETTE } from "./palette.js";
 import { plumbBlow } from "./plumb-blow.js";
@@ -113,6 +114,9 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   governor: governorBlow,
   // A bite let go full: the sucker clamps, and its seven teeth puncture the skin.
   lamprey: lampreyBlow,
+  // A third reach in one movement: the arm already hung at the hull slaps it,
+  // and its suckers leave their prints in the skin.
+  mimic: mimicBlow,
   // A fault on the line, or a line let stand: the vein snaps where it stood
   // and whips its torn end down to the column.
   filament: filamentBlow,

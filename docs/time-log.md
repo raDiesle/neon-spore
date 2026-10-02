@@ -31784,3 +31784,17 @@ Bottleneck: friction — a card's `want` is matched against a clock in whole
 beats, and that is found only by a card that never arrives.
 
 *Measured: 30 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE MIMIC's receipts: the peel drifting off, the core's flash, the slap at the hull
+
+- reading: 5 min. THE LAMPREY's fx, receipts, blow and their tests, and the
+  wiring sites.
+- writing: 5 min. The fx class, its drawings, the blow and its two rows,
+  the hurt and glow-faded rows, the silent and sound-link comments, the test.
+- looking: 5 min. Three rounds of the peel: as big as the sign and barely
+  falling, then dark on the dark mantle, then rimmed and falling.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: looking — AUTO peels every half beat and never lands three
+reaches, so neither receipt can be seen in open field on a frame it plays.

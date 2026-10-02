@@ -436,32 +436,6 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## THE MIMIC's look (§42)
-
-- **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
-- **Taken:** 2026-10-02, claude/queue-the-mimics-look-42
-- **Needs:** THE MIMIC's simulation (§42)
-- **Files:** `packages/render/src/`, `packages/content/src/silhouettes*.ts`, `packages/render/test/frame.test.ts`
-
-The second lane of `.claude/skills/new-boss`, in three halves, as THE
-LAMPREY's was. **The body landed 2 October 2026** (`render/src/mimic-draw.ts`
-and its four files, `test/mimic-frame.test.ts`; §11.60, *The look*): the
-mantle, the sign on the reader's screen from the recogniser's own templates
-(`render/glyph-shapes.ts`), the pad on the drawer's (`mimicPad`, which
-`inPad` now reads), the mimicked sign, the reach, the roll, the split, the
-core and the fall. **The hand landed the same day** (the eight cards in
-`tools/director/src/poses-bosses-hands-mimic.ts`, SIGN and DRAW in
-`render/boss-cue-read-zt.ts`, THE SLOW's aim, the marks-window and hush
-rows). One half is left:
-
-- **the receipts** — an `fx` file: the peel lifting off like a sticker and
-  drifting down the field turning over, the flinch, the reach's creak and
-  the third reach's strike (a LOOK and a FROM row in `boss-strike-*.ts`),
-  the core's hit and its clench, the blow it takes (`boss-hurt-rows-*.ts`);
-  the thirteen events off the two silent lists
-  (`render/src/effects-*-silent-boss-e.ts`), a `glow-faded.test.ts` row, and
-  the sound links' reasons (`tools/director/src/sound-link-none-e.ts`).
-
 ## THE INSTAR's shipped rise leaves both nests beside its back
 
 - **Found:** 2026-10-01, claude/queue-living-bosses-the-instars-body-with-weight-as-a

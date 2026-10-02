@@ -25,9 +25,8 @@ export const SILENT_BOSS_E = [
   "lampreyLunge",
   "lampreySpent",
   "lampreyOut",
-  // THE MIMIC, every event: the body is drawn, but nothing here throws a
-  // burst for it until the receipts half of its look lands
-  // (`docs/spec/bosses-choreographed.md` §42).
+  // THE MIMIC's thirteen, no burst from this table either: each is thrown
+  // above the loop by its own fx file (`mimic-fx.ts`).
   "mimicEnter",
   "mimicSign",
   "mimicChange",

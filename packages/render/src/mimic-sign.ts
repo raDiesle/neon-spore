@@ -26,7 +26,7 @@ const THICK = 1.6;
  * middle by `rise` (0 sunk, 1 surfaced), each point pushed `wobble` boxes
  * off the line by a shake that turns with `wave`.
  */
-function glyphPath(
+export function glyphPath(
   sign: number,
   cx: number,
   cy: number,
