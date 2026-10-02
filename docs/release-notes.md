@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 48c78c77a — THE MIMIC's hand: eight cards, SIGN and DRAW, THE SLOW's aim
+
+THE MIMIC's eight STATES cards are posed on AUTO's hand. On the mimicking card P2 draws the wrong sign, so the skin wears it in red and an arm stretches. The field now says SIGN on the mantle on the screen that reads it, DRAW in the pad on the screen that draws, and FIRE on the hull while the core is bare. THE SLOW aims round the whole mantle. The marks-window and hush tests now cover the pad and the two words. Exemption: a look with no shipped alternative. Not delegated.
+
 ## 2026-10-02 · 2db4e30f3 — THE MIMIC is drawn: the mantle, the sign on one screen, the pad on the other
 
 THE MIMIC's body (§42), BLOOM · GLYPHED: an eight-armed mantle in two dark greens with a rim of marks, hung over the middle column. It slaps round out of a flat mottle, flinches when a sign peels, rolls to turn its other face, splits on a core lit in its cannon's colour, reaches an arm a third of the way to the hull per reach, and falls spent. The sign is drawn in pale cyan on the reader's screen only, from the recogniser's own five templates, now shared from render (`glyph-shapes.ts`). The faint pad is drawn on the drawer's screen only, on the rectangle the stroke is heard in (`mimicPad`). A mimicked sign is in the hull's red on both screens.

@@ -31782,3 +31782,5 @@ ships, and each round of the look costs a render and a read.
 
 Bottleneck: friction — a card's `want` is matched against a clock in whole
 beats, and that is found only by a card that never arrives.
+
+*Measured: 30 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
