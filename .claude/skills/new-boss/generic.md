@@ -178,3 +178,9 @@ item naming the rule, never a fix made in passing.
   rim and the body's `Foot` (`render/core-stop.ts`), and the lit face swells
   on `heartCore`. THE FLUE and THE GOVERNOR are the examples, and
   `render/test/core-stop.test.ts` takes one row a boss.
+- **A miss fails the boss wave, and the pair retries it**, generic, 2 October
+  2026, asked about THE GAUGE's tooth and tongue mistakes: *a miss makes the
+  boss wave fail and requires retry. this is generic rules for bosses*. A
+  mistake does not jam the boss, open it a step or cost a level: the wave is
+  lost and the game's own retry starts it again. A boss that ships with a
+  mistake that costs anything else is a `docs/queue.md` item naming this rule.

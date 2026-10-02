@@ -514,11 +514,28 @@ around in the lane by `--boss misses=4`.
 - **Found:** 2026-10-02, claude/gauge-wave-cannon-mechanics-fa4bb7
 - **Files:** `packages/sim/src/gauge-tooth.ts`, `packages/sim/src/gauge-tongue.ts`, `packages/sim/src/gauge-hand.ts`
 - **Asks:** Should a wrong tooth, or a tooth or the tongue left in when its rest runs out, open the mouth a step like a miss does, instead of jamming the valve?
+- **Answered:** 2026-10-02 — none of the three: *a miss makes the boss wave fail and requires retry. this is generic rules for bosses* (`.claude/skills/new-boss/generic.md`).
 
 A miss opens the mouth now (`gauge-gape.ts`, 2 October 2026), because a jam
 the pair did not understand lost the wave to the clock. The rests' three
-mistakes still jam it into the next level, which is the same trap. (a) Leave
-them jamming: the needle-by-hand gesture keeps a way in. (b) Make them open
-the mouth a step: one rule for every mistake, and the jam then has no way in
-and is retired with its gesture, pose and cue. (c) Make them open the mouth
-and keep the jam for a wrong tooth alone.
+mistakes still jam it into the next level, which is the same trap. The owner's
+answer is the generic rule: every mistake — a miss, a wrong tooth, a tooth or
+the tongue left in when its rest runs out — fails the wave, and the game's
+own retry starts it again. So the jam has no way in and is retired with its
+gesture, pose and cue, and the mouth opens a step per level only (`level`,
+not `level + misses`, in `sim/gauge-gape.ts`). Done when each of the four
+mistakes fails the wave in a sim test and `bun run check` is green.
+
+## Every boss held to the rule that a miss fails the wave
+
+- **Found:** 2026-10-02, claude/queue-mergerecord-refuses-a-ledger-entry-whose-only-ch
+- **Files:** `.claude/skills/new-boss/generic.md`, `packages/sim/src/`, `docs/spec/bosses.md`
+
+The owner made it generic on 2 October 2026: *a miss makes the boss wave fail
+and requires retry. this is generic rules for bosses*. THE GAUGE has its own
+entry above. Walk every shipped boss's mistakes — a wrong shot, a wrong or
+late press, a step left unanswered — and note which cost something other than
+the wave: a jam, a step, a level, a heal, a second try. File one entry per
+boss that breaks the rule, naming it and the file the mistake is answered in;
+a boss already failing the wave on every mistake needs nothing. Done when
+each breaking boss has its entry and `bun run check` is green.
