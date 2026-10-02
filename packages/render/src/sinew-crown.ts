@@ -5,32 +5,96 @@ import { PALETTE } from "./palette.js";
 import { paintMass } from "./sinew-flesh.js";
 import type { Point } from "./sinew-shape.js";
 import { splinePath } from "./spline.js";
-import { TOP_CHROME_PX } from "./top-chrome.js";
 
 /**
- * **The crown**: the body THE SINEW's tendon hangs from, over the top of the
- * field and mostly above it — the owner, 2 October 2026: *on the top of the
- * strings there should be some body visible which is attached to them, but it
- * can be cut by the top of the screen.*
+ * **The crown**: the body THE SINEW's tendon hangs from, flying over the top
+ * of the field — the owner, 2 October 2026, asked first for *some body
+ * visible which is attached to them, but it can be cut by the top of the
+ * screen*, and then changed it: *i want not to cut. so strings are connected
+ * to something top of the boss flying.*
  *
- * The same flesh as the mass (`paintMass`), seven-lobed where the mass is
- * five, and three times its size, centred well above the root so only its
- * underside hangs into view. **It is cut along the line the game's own chrome
- * stops at** (`top-chrome.ts`) rather than at the glass's edge: no boss is
- * drawn under the seat switcher (`boss-top.test.ts`, 29 September 2026), so
- * the cut is where the top of the screen begins for a body. The fibres go
- * in at its underside, at the root (`sinew-fibres.ts`), so the tendon is a
- * thing hung between two bodies rather than a rope tied to the sky.
+ * So it is whole: the same flesh as the mass (`paintMass`), seven-lobed where
+ * the mass is five, and wider than it, hung just above the root and never
+ * reaching the line the game's own chrome stops at (`top-chrome.ts`,
+ * `boss-top.test.ts`). Where the field starts too high for that, the root
+ * comes down to it instead (`sinewAnchor`), so the body is never cut.
  *
- * It strains with the tendon, the way the mass does: the wall it is lit
- * through warms as the sum climbs, and nothing else about it moves but its
- * wobble and the slide in at the start (`sinew-arrive.ts`).
+ * It flies on **FLOAT**, the free own-motion in the shape sheet's drafts
+ * (`tools/shape-sheet/src/motions/offered.ts`): two slow drifts on periods
+ * that share no common multiple, a lazy roll and a breathing squash, here at
+ * twice the drafts' reach, because a boss is not held to a column's quarter
+ * tile. **The strings' root rides it** (`sinewCrownRoot`), so they leave the
+ * body where it is now and not where it rests; the strain band they run into
+ * is hung off the resting root (`sinewCollarBox`) and holds still to be read.
+ *
+ * Every motion here is the wall clock's, and nothing a thumb is answered
+ * against reads it: the handles rest off the mass, not the crown.
  */
 
-/** Its half-sizes, in tiles, and how far above the root its centre is. */
-const CROWN_RX = 2.6;
-const CROWN_RY = 2.5;
-const CROWN_UP = 1.9;
+/** Its half-sizes, in tiles, and how far above the root its centre rides. */
+const CROWN_RX = 1.4;
+const CROWN_RY = 0.75;
+const CROWN_LIFT = 0.25;
+/** The outline: lobe depth and wobble, as `blobPoints` takes them. */
+const DEPTH = 0.1;
+const WOBBLE = 0.04;
+/** FLOAT's two drifts, in tiles, at twice the drafts' reach, on its periods. */
+const WIDE = 0.32;
+const TALL = 0.22;
+const ACROSS = 0.317;
+const DOWN = 0.211;
+/** FLOAT's lazy roll, in radians, and the breath it squashes by. */
+const ROLL = 0.13;
+const ROLL_RATE = 0.139;
+const BREATH = 0.045;
+const BREATH_RATE = 0.263;
+/** Clear air between its highest reach and the chrome's line, in tiles. */
+const GAP = 0.1;
+
+/**
+ * How far above the root the crown can ever reach, in tiles: its lift, its
+ * half-height at the fullest breath and lobe, the drift up, the roll's rise at
+ * the tip, and the gap. `sinewAnchor` keeps the root this far under the
+ * chrome's line, so the body is whole on every screen.
+ */
+export const CROWN_HEADROOM =
+  CROWN_LIFT +
+  CROWN_RY * (1 + DEPTH + WOBBLE) * (1 + BREATH) +
+  TALL +
+  CROWN_RX * (1 + DEPTH + WOBBLE) * Math.sin(ROLL) +
+  GAP;
+
+const TAU = Math.PI * 2;
+
+/** Where FLOAT has the crown now, off its rest, in tiles. */
+function drift(time: number): Point {
+  return {
+    x: Math.sin(time * ACROSS * TAU) * WIDE,
+    y: Math.sin(time * DOWN * TAU + 1.1) * TALL,
+  };
+}
+
+/** Where the strings leave the crown now: the resting root, flown by FLOAT. */
+export function sinewCrownRoot(l: Layout, root: Point, time: number): Point {
+  const d = drift(time);
+  return { x: root.x + d.x * l.tile, y: root.y + d.y * l.tile };
+}
+
+/** The crown's outline around `root` — where the strings leave it now. */
+export function sinewCrownPoints(l: Layout, root: Point, time: number): Point[] {
+  const breath = Math.sin(time * BREATH_RATE * TAU);
+  const roll = Math.sin(time * ROLL_RATE * TAU) * ROLL;
+  const rx = CROWN_RX * l.tile * (1 + breath * BREATH);
+  const ry = CROWN_RY * l.tile * (1 - breath * BREATH);
+  const cx = root.x;
+  const cy = root.y - CROWN_LIFT * l.tile;
+  const cos = Math.cos(roll);
+  const sin = Math.sin(roll);
+  return blobPoints(0, 0, rx, ry, 7, DEPTH, WOBBLE, time * 0.25 + 1.7, 34).map((p) => ({
+    x: cx + p.x * cos - p.y * sin,
+    y: cy + p.x * sin + p.y * cos,
+  }));
+}
 
 export function drawSinewCrown(
   ctx: CanvasRenderingContext2D,
@@ -39,35 +103,14 @@ export function drawSinewCrown(
   strain: number,
   time: number,
 ): void {
-  const rx = CROWN_RX * l.tile;
-  const ry = CROWN_RY * l.tile;
-  const c = { x: root.x, y: root.y - CROWN_UP * l.tile };
-  const body = splinePath(blobPoints(c.x, c.y, rx, ry, 7, 0.1, 0.04, time * 0.25 + 1.7, 34), true);
+  const body = splinePath(sinewCrownPoints(l, root, time), true);
   const hex = mixHex(PALETTE.hull, PALETTE.hullRim, strain * 0.25);
-  ctx.save();
-  ctx.beginPath();
-  ctx.rect(0, TOP_CHROME_PX, l.width, l.height);
-  ctx.clip();
-  paintMass(
-    ctx,
-    body,
-    { x: c.x, y: c.y, rx, ry, tile: l.tile },
-    hex,
-    PALETTE.hullRim,
-    strain,
-    time,
-  );
-  // The cut edge, lit: a body sliced by the top of the screen, not a lid.
-  const top = c.y - ry;
-  if (top < TOP_CHROME_PX) {
-    ctx.strokeStyle = PALETTE.hullRim;
-    ctx.globalAlpha *= 0.35;
-    ctx.lineWidth = Math.max(1, l.tile * 0.03);
-    ctx.clip(body);
-    ctx.beginPath();
-    ctx.moveTo(0, TOP_CHROME_PX + 0.5);
-    ctx.lineTo(l.width, TOP_CHROME_PX + 0.5);
-    ctx.stroke();
-  }
-  ctx.restore();
+  const m = {
+    x: root.x,
+    y: root.y - CROWN_LIFT * l.tile,
+    rx: CROWN_RX * l.tile,
+    ry: CROWN_RY * l.tile,
+    tile: l.tile,
+  };
+  paintMass(ctx, body, m, hex, PALETTE.hullRim, strain, time);
 }

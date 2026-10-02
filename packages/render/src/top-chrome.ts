@@ -5,7 +5,7 @@
  * drawn above it (`boss-top.test.ts`, the owner, 29 September 2026).
  *
  * THE REPRISE's sac hangs under it (`reprise-draw.ts`), and THE SINEW's crown
- * is cut along it (`sinew-crown.ts`) — one number, so the two bosses that
+ * flies clear of it (`sinew-crown.ts`) — one number, so the two bosses that
  * reach for the top of the screen stop at the same line. THE SLOW's fuse
  * stood here until it moved under the body on 27 September 2026.
  */

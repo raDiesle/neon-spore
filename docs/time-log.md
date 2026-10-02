@@ -32069,3 +32069,15 @@ Bottleneck: looking — a fast sweep and a strip's stride beat against each
 other, so the motion had to be sampled at hand-picked times.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE SINEW's crown flies whole over the field, the strings riding it
+
+- reading: 5 min. The crown, the root it hangs off, the drafts for a free
+  motion, and the layouts' room under the chrome line.
+- writing: 5 min. `render/sinew-crown.ts` on FLOAT, the anchor's floor, a test.
+- looking: 0 min. One frame and one crop.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: reading — a short screen puts the root above the glass, which
+only the layouts' numbers showed, so the anchor needed a floor.

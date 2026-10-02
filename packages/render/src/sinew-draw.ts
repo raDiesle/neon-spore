@@ -4,7 +4,7 @@ import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawSinewBand, sinewCollarBox } from "./sinew-band.js";
-import { drawSinewCrown } from "./sinew-crown.js";
+import { drawSinewCrown, sinewCrownRoot } from "./sinew-crown.js";
 import { drawSinewFibres } from "./sinew-fibres.js";
 import { paintMass } from "./sinew-flesh.js";
 import type { SinewFx } from "./sinew-fx.js";
@@ -22,7 +22,7 @@ import {
 import { drawSinewTear } from "./sinew-tear.js";
 
 /**
- * **THE SINEW**: a tendon hung from a body over the top edge — the crown —
+ * **THE SINEW**: a tendon hung from a body flying over the field — the crown —
  * down to a mass, a handle on each side of the mass — one per seat — and the
  * strain band in the middle of the tendon, read by seat (§11.26).
  *
@@ -53,7 +53,9 @@ export function drawSinew(
   const cfg = world.cfg;
   const swinging = sinewSwinging(s, world);
   const swing = swinging ? fx.swingTiles : 0;
-  const root = sinewRoot(l, cfg, s, beat, beatPhase);
+  // The strings leave the crown where it is flying now; the band they run
+  // into hangs off the resting root, and holds still (`sinewCollarBox`).
+  const root = sinewCrownRoot(l, sinewRoot(l, cfg, s, beat, beatPhase), time);
   // A fibre parted shakes the mass and not the root: the fibres and the
   // handles' cords follow it, the way they follow the swing (`boss-hurt.ts`).
   const hung = sinewMassCentre(l, cfg, s, beat, beatPhase, swing);

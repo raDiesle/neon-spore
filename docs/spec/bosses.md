@@ -4422,9 +4422,11 @@ answer that costs nothing when it is missed (19 September 2026,
 **The look** (`render/sinew-draw.ts`, `sinew-shape.ts`, `sinew-fibres.ts`,
 `sinew-flesh.ts`, `sinew-band.ts`, `sinew-handles.ts`, `sinew-fx.ts`, `sinew-crown.ts`,
 `sinew-arrive.ts`). A root in the middle column under a **crown** — a
-seven-lobed body of the same flesh, three times the mass's size and mostly
-above the field, cut where the game's top chrome stops (`top-chrome.ts`,
-2 October 2026) — and from it a fan of
+seven-lobed body of the same flesh, wider than the mass, whole and flying
+over the field on the drafts' FLOAT motion at twice its reach, never up to
+the line the game's top chrome stops at (`top-chrome.ts`; the owner, 2 October
+2026: not cut, the strings hung from something flying) — and from where it
+is flying now a fan of
 `sinewFibres` fibres in the hull's violet, in two runs through the band, down to a five-lobed mass
 (`blobPath`) three columns wide and a row deep, hung at `sinewMassRow` and a
 row lower per fibre parted, its sag capped at the hull's row. The fibres

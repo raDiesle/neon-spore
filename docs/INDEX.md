@@ -1361,7 +1361,7 @@ by hand never moves.
 | `packages/render/src/siren-dial.ts` | the siren's dial — housing, ticks, the ring that breathes, two bars and the turning core — beside `siren-seats.ts` |
 | `packages/render/src/siren.ts` | The warning siren, top right of the field beside the strip, and the two seats' jobs under it |
 | `packages/render/src/sinew-band.ts` | **The strain band**: a tube hung in the middle of the tendon |
-| `packages/render/src/sinew-draw.ts` | **THE SINEW**: a tendon hung from a body over the top edge — the crown — down to a mass |
+| `packages/render/src/sinew-draw.ts` | **THE SINEW**: a tendon hung from a body flying over the field — the crown — down to a mass |
 | `packages/render/src/sinew-fibres.ts` | **The tendon**: a bundle of fibres hung in two runs — from the crown down into the top of the strain band |
 | `packages/render/src/sinew-fx.ts` | What THE SINEW leaves behind a frame: the whip a snap-back puts through the mass and its handles |
 | `packages/render/src/sinew-flesh.ts` | **What THE SINEW is made of**: a tendon of wet cords, each lit along one side, in a sheath of membrane |
@@ -1372,7 +1372,7 @@ by hand never moves.
 | `packages/render/src/sinew-word.ts` | **What THE SINEW is asking of one hand**, and the three silences that are the fight |
 | `packages/render/src/sinew-marks.ts` | THE SINEW's handles answering a touch: the halo, the partner's ring and clock, the verdict |
 | `packages/render/src/sinew-arrive.ts` | **THE SINEW dropping in, and its rubber after**, as offsets in tiles off where the tendon hangs |
-| `packages/render/src/sinew-crown.ts` | **The crown**: the body THE SINEW's tendon hangs from, over the top of the field and mostly above it |
+| `packages/render/src/sinew-crown.ts` | **The crown**: the body THE SINEW's tendon hangs from, flying over the top of the field — the owner |
 | `packages/render/src/sinew-tear.ts` | **A fibre torn: the stage won, said so nobody can miss it** — the owner, 2 October 2026 |
 | `packages/render/src/slime-look.ts` | WHAT HANGS OFF THE MEMBRANE INTO THE CHAMBER, AS A RECORD |
 | `packages/render/src/sling-draw.ts` | **THE SLING** (§32): a forked bracket over the middle column, folded until it swings into stand |

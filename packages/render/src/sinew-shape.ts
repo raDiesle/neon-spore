@@ -11,7 +11,9 @@ import {
 } from "@neon-spore/sim";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { sinewCrownDrop, sinewMassBob, sinewMassRing } from "./sinew-arrive.js";
+import { CROWN_HEADROOM } from "./sinew-crown.js";
 import { splinePath } from "./spline.js";
+import { TOP_CHROME_PX } from "./top-chrome.js";
 
 /**
  * **Where THE SINEW is**, in field pixels: the root the tendon hangs from,
@@ -45,9 +47,12 @@ const ROOT_ABOVE = 1.2;
 const LANDED_SINK = 0.8;
 
 /** The root: dead centre, just off the top edge. The tendon is the one thing
- * on the field that hangs from somewhere the field is not. */
+ * on the field that hangs from somewhere the field is not. Never so high that
+ * the crown flying over it would reach the chrome's line: on a screen whose
+ * field starts near the top, the root comes down instead (`sinew-crown.ts`). */
 export function sinewAnchor(l: Layout, cfg: SimConfig): Point {
-  return { x: tileCX(l, midCol(cfg)), y: l.gridTop - l.tile * ROOT_ABOVE };
+  const y = Math.max(l.gridTop - l.tile * ROOT_ABOVE, TOP_CHROME_PX + l.tile * CROWN_HEADROOM);
+  return { x: tileCX(l, midCol(cfg)), y };
 }
 
 /** The root now: the anchor, with the crown still sliding in at the start. */
