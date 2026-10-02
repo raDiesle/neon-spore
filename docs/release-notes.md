@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 6a27b4194 — The ledger merges an entry appended with no blank line over a stamped one
+
+A lane that wrote its time-log entry straight under the last line of the one before handed that earlier entry back to the merge without its closing newline. When the trunk had stamped the same entry with its Measured line, the merge saw both sides rewrite one entry and stopped the landing. `mergeRecord` now compares an entry's two sides without the whitespace they end on, so the release notes gain the same fix.
+
+## 2026-10-02 · 6bf902f7f — A miss fails the boss wave, and the pair retries it: the owner's generic rule
+
+The owner answered THE GAUGE's question on 2 October 2026 with a rule for every boss: a miss makes the boss wave fail and requires a retry. It is in the generic boss rules. THE GAUGE's entry now says what to build, and a new entry walks every shipped boss for a mistake that costs anything else.
+
 ## 2026-10-02 · 195afa7b6 — THE SINEW's crown flies whole over the field, the strings riding it
 
 The owner changed his answer on 2 October 2026: the crown is not cut at all; the strings hang from something flying above the boss. The crown is now a whole seven-lobed body of the mass's flesh, wider than the mass, drifting on the shape sheet's free FLOAT motion at twice its reach, and the strings leave it where it is flying now. The strain band still hangs off the resting root and holds still. On a screen whose field starts near the top, the root comes down so the crown never reaches the chrome line.
