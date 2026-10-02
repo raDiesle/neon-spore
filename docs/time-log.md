@@ -31833,3 +31833,15 @@ Bottleneck: writing — the lane was small; the one surprise was two frames of
 one world differing until the first is thrown away.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — versus:shot refuses a slot with no pose of its own
+
+- reading: 0 min. `poseForSlot`, the fall-through test and the shot's start.
+- writing: 0 min. `slotPoseMissing`, the strict flag, the shot's refusal,
+  the page's warning and the test.
+- looking: 0 min. One shot of a mapped slot, to see it still shoots.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: landing — the change is a dozen lines; the full check under
+`land` is most of the lane.

@@ -132,6 +132,14 @@ describe("poseForSlot", () => {
    * pose puts the slot's **own subject** on the field, and that is a different
    * assertion from the one above it.
    */
+  test("a slot with no row is refused when asked strictly, naming where to add one", () => {
+    expect(() => poseForSlot("nosuch:slot", { strict: true })).toThrow(
+      "nosuch:slot has no row in SLOT_POSE (tools/director/src/versus-pose.ts)",
+    );
+    expect(poseForSlot("nosuch:slot").name).toBe("SLICK · FALLING");
+    expect(poseForSlot("instar:flight", { strict: true }).name).toBe("INSTAR · IN FLIGHT");
+  });
+
   test("no open slot falls through to the default pose", () => {
     for (const slot of slots(VARIANTS)) {
       expect(poseForSlot(slot.slot).name, slot.slot).not.toBe("SLICK · FALLING");

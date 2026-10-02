@@ -52,7 +52,24 @@ function findPose(name: string): Pose {
   return pose;
 }
 
-/** The pose the pair opens on for this slot — never chosen by the operator. */
-export function poseForSlot(slot: string): Pose {
+/**
+ * Why a slot would open on the default pose, or `null` when it has a row.
+ * A slot with no row falls through to SLICK, where its own subject is not on
+ * the field: `reprise:skin` was shot three times that way, and one of the
+ * shots was sent as the sac (1 October 2026).
+ */
+export function slotPoseMissing(slot: string): string | null {
+  if (Object.hasOwn(SLOT_POSE, slot)) return null;
+  return `${slot} has no row in SLOT_POSE (tools/director/src/versus-pose.ts), so it opens on ${DEFAULT_POSE_NAME}, where its own subject is not on the field — add a row naming the pose that shows it`;
+}
+
+/**
+ * The pose the pair opens on for this slot — never chosen by the operator.
+ * `strict` refuses a slot with no row rather than opening it on the default,
+ * for a caller that is about to take a picture of it (`versus-shot.ts`).
+ */
+export function poseForSlot(slot: string, opts: { strict?: boolean } = {}): Pose {
+  const missing = opts.strict ? slotPoseMissing(slot) : null;
+  if (missing !== null) throw new Error(missing);
   return findPose(SLOT_POSE[slot] ?? DEFAULT_POSE_NAME);
 }

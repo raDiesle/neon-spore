@@ -436,24 +436,6 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## `versus:shot` shoots a slot with no `SLOT_POSE` row on SLICK without a word
-
-- **Found:** 2026-10-01, claude/queue-living-bosses-the-surface-marks-by-longitude-onc
-- **Taken:** 2026-10-02, claude/queue-versus-shot-shoots-a-slot-with-no-slot-pose-row
-- **Where:** local
-- **Files:** `tools/director/src/versus-pose.ts`, `tools/director/src/versus-one.ts`
-
-A new candidate slot with no row in `SLOT_POSE` resolves to
-`DEFAULT_POSE_NAME`, "SLICK · FALLING", and `bun run versus:shot` draws it
-there and prints nothing; the slot's own subject is not on the field. Only
-`versus-pose.test.ts`'s "no open slot falls through to the default pose"
-catches it, at `check:fast`, after the shots are taken. `reprise:skin` was
-shot three times as SLICK, and one of those shots was sent as the sac. Make
-the shot refuse, or at least warn, when `poseForSlot` falls through. A
-`poseForSlot(slot, { strict: true })` that throws, naming the file to add the
-row in, would do it. Done when `bun run versus:shot <unmapped slot> …` says
-so and `bun run check` is green.
-
 ## `vane-hand.test.ts` is past 250 lines, and four VANE files copy the fixture
 
 - **Found:** 2026-10-01, claude/queue-vane-test-ts-is-past-250-lines

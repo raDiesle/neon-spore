@@ -29,6 +29,7 @@
  * session write what it meant to.
  */
 
+import { poseForSlot } from "../director/src/versus-pose.js";
 import { startDirector } from "./director-serve.js";
 import { root, run } from "./exec.js";
 import { elementFor } from "./versus-element.js";
@@ -67,6 +68,14 @@ if (!slot || !name) {
   console.error("            candidate, notes and all. Default .versus-stage, the phones");
   console.error("       --scale   device scale factor, default 2 — with --at, how far a");
   console.error("            creature-sized crop is magnified; 6 shows a body at desk size");
+  process.exit(1);
+}
+
+// A slot with no pose of its own would be shot on SLICK, without a word.
+try {
+  poseForSlot(slot, { strict: true });
+} catch (e) {
+  console.error(`versus:shot: ${(e as Error).message}`);
   process.exit(1);
 }
 

@@ -5,7 +5,7 @@ import type { Pose } from "./pose-kit.js";
 import { controlsBar } from "./versus-controls.js";
 import { SEEN_FLOOR } from "./versus-diff.js";
 import { startPair } from "./versus-pair.js";
-import { poseForSlot } from "./versus-pose.js";
+import { poseForSlot, slotPoseMissing } from "./versus-pose.js";
 import { seatPlan } from "./versus-seat.js";
 import { LIVE, type ShotParams } from "./versus-shot.js";
 
@@ -70,6 +70,10 @@ export function renderCandidate(
   if (pose.lookAt) row.appendChild(el("p", "versus-look", `LOOK AT — ${pose.lookAt}`));
   if (pose.elsewhere?.length) row.appendChild(elsewhere(pose.elsewhere));
   row.appendChild(el("p", "versus-showing", `WHAT IS ON SCREEN — ${pose.name}`));
+  // Said where the looking happens, so a pair of two slicks is not voted on.
+  const missing = slotPoseMissing(slot.slot);
+  if (missing !== null)
+    row.appendChild(el("p", "versus-look", `NO POSE FOR THIS SLOT — ${missing}`));
   row.appendChild(el("p", "versus-blink-note", pose.note));
 
   // A screenshot candidate is always one seat, never both — the whole point
