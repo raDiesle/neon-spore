@@ -5,6 +5,7 @@ import {
   veilBeatsToMorph,
   type World,
 } from "@neon-spore/sim";
+import { arcFromTop } from "./arc-from-top.js";
 import { creatureCenter } from "./creature-place.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -188,7 +189,7 @@ function drawClock(
   ctx.strokeStyle = hex;
   ctx.globalAlpha = left <= 1 ? 1 : 0.85;
   ctx.beginPath();
-  ctx.arc(x, y, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * phase);
+  arcFromTop(ctx, x, y, r, phase);
   ctx.stroke();
 
   drawSwitch(ctx, tile, x, y, r * 0.62, hex, left <= 1 ? 1 : 0.75);

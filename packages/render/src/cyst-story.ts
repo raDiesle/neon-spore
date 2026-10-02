@@ -1,4 +1,5 @@
 import type { Color } from "@neon-spore/sim";
+import { arcFromTop } from "./arc-from-top.js";
 import { cystCoreR, type Point } from "./cyst-shape.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
@@ -102,7 +103,7 @@ export function drawCystBud(
   strokeGlow(ctx, bud, rim, STROKE.inner, grown);
   if (left <= 0) return;
   const ring = new Path2D();
-  ring.arc(at.x, at.y, r * 1.5, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
+  arcFromTop(ring, at.x, at.y, r * 1.5, left);
   strokeGlow(ctx, ring, body, STROKE.outline, grown);
 }
 

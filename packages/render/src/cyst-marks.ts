@@ -1,3 +1,4 @@
+import { arcFromTop } from "./arc-from-top.js";
 import { cystCorePath, cystCoreR, cystMarkAt, cystR } from "./cyst-shape.js";
 import type { CystCoreLit } from "./cyst-story.js";
 import { strokeGlow } from "./glow.js";
@@ -47,7 +48,7 @@ export function drawCystMark(
   strokeGlow(ctx, ring, PALETTE.hullRim, STROKE.outline, pulse);
   if (left <= 0) return;
   const window = new Path2D();
-  window.arc(m.x, m.y, m.r * 1.4, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
+  arcFromTop(window, m.x, m.y, m.r * 1.4, left);
   strokeGlow(ctx, window, PALETTE.hullRim, STROKE.inner, 0.9);
 }
 

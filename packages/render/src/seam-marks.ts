@@ -7,6 +7,7 @@ import {
   seamWantsShot,
   type World,
 } from "@neon-spore/sim";
+import { arcFromTop } from "./arc-from-top.js";
 import { fieldX } from "./field-flip.js";
 import { strokeGlow } from "./glow.js";
 import { heartLight } from "./heartbeat.js";
@@ -57,7 +58,7 @@ export function drawSeamPoint(
   ctx.strokeStyle = rgba(PALETTE.rock, 0.7);
   ctx.stroke(lens);
   const ring = new Path2D();
-  ring.arc(0, y, h * 0.75, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
+  arcFromTop(ring, 0, y, h * 0.75, left);
   ctx.strokeStyle = rgba(body, 0.75);
   ctx.stroke(ring);
 }

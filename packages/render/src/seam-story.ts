@@ -1,4 +1,5 @@
 import { SEAM_POINTS, type SeamState, type SimConfig } from "@neon-spore/sim";
+import { arcFromTop } from "./arc-from-top.js";
 import { smoothstep } from "./ease.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
@@ -112,6 +113,6 @@ export function drawSeamGlow(
   }
   const { y, h } = seamLobe(l, 1);
   const ring = new Path2D();
-  ring.arc(0, y, h * 0.75, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
+  arcFromTop(ring, 0, y, h * 0.75, left);
   strokeGlow(ctx, ring, PALETTE.hullRim, STROKE.outline, 1);
 }

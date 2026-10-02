@@ -471,20 +471,3 @@ bares, and a bolt reaching the core is drawn through it.
 
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
-
-## A boss's countdown ring is drawn by hand in seven files
-
-- **Found:** 2026-10-02, claude/queue-lit-from-inside
-- **Taken:** 2026-10-02, claude/queue-countdown-ring (claim: claude/queue-a-bosss-countdown-ring-is-drawn-by-hand-in-seven)
-- **Files:** `packages/render/src/lit-core.ts`, `packages/render/src/cyst-story.ts`, `packages/render/src/cyst-marks.ts`, `packages/render/src/seam-story.ts`, `packages/render/src/seam-marks.ts`, `packages/render/src/flue-marks.ts`, `packages/render/src/burgee-marks.ts`
-
-The arc that closes as a step's window runs out —
-`arc(x, y, R, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left)` — is typed
-in each of these, and each strokes it its own way: `drawLitCore` a plain
-`rgba(body, 0.75)` at `STROKE.inner`, the others a `strokeGlow` of their own.
-`lit-core.ts` could export the arc as a path (`countdownRing(x, y, r, left)`)
-for every caller to stroke; then a `COPIES` row in
-`packages/sim/test/copies-table.ts` on the arc's shape keeps the next boss
-from pasting it again. The strokes themselves are looks and stay as they are.
-`grep -rn "Math.PI \* 2 \* .*left" packages/render/src` finds them.
-Done when they all call it and `bun run check` is green.

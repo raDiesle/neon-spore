@@ -819,6 +819,14 @@ export const COPIES: Copy[] = [
     pattern: /heartLight\([^)]*\)\s*\*\s*\(\s*0\.6\s*\+\s*0\.4\s*\*/,
   },
   {
+    // **A share of a circle from twelve o'clock, clockwise** — every countdown
+    // ring, filling ring and dial. Nineteen arcs in eighteen files typed the
+    // two angles out before `arc-from-top.ts` (2 October 2026).
+    call: "arcFromTop",
+    owner: "packages/render/src/arc-from-top.ts",
+    pattern: /-\s*Math\.PI\s*\/\s*2\s*\+\s*(?:Math\.PI\s*\*\s*2|2\s*\*\s*Math\.PI)\s*\*/,
+  },
+  {
     // **A hull shock's clock** — struck, fading linearly, drawn along the
     // plating. THE GRINDSTONE's fx kept it in three fields and four lines, and
     // nine more fx files had pasted the same fields before `HullShock` took

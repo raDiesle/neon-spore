@@ -30,6 +30,7 @@ const NOT_MARKS: Readonly<Record<string, string>> = {
   "touch-field.ts": "the same",
   "desk-seat.ts": "whose hand a desk's one mouse is, not what is drawn",
   "spline.ts": "a curve",
+  "arc-from-top.ts": "a curve: the arc a ring is stroked along, whatever the ring says",
   "ease.ts": "a curve",
   "key-light.ts": "a body's light",
   "field-flip.ts": "which way up the field is",

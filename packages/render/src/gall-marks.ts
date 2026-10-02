@@ -1,4 +1,5 @@
 import type { Color } from "@neon-spore/sim";
+import { arcFromTop } from "./arc-from-top.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -73,7 +74,7 @@ export function drawGallPinch(
   }
   if (!full) return;
   const ring = new Path2D();
-  ring.arc(0, 0, reach + r * 0.9, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
+  arcFromTop(ring, 0, 0, reach + r * 0.9, left);
   strokeGlow(ctx, ring, PALETTE.hullRim, STROKE.inner, 0.6, 1);
 }
 

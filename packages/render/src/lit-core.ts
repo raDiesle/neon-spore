@@ -1,4 +1,5 @@
 import type { Color } from "@neon-spore/sim";
+import { arcFromTop } from "./arc-from-top.js";
 import { heartLight } from "./heartbeat.js";
 import { rgba } from "./hex.js";
 import { STROKE } from "./palette.js";
@@ -36,7 +37,7 @@ export function drawLitCore(
   const body = lightCore(ctx, part, lit.color, beatPhase, at, bright);
   if (lit.left <= 0) return;
   const ring = new Path2D();
-  ring.arc(at.x, at.y, ringR, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
+  arcFromTop(ring, at.x, at.y, ringR, lit.left);
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(body, 0.75);
   ctx.stroke(ring);

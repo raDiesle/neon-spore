@@ -1,4 +1,5 @@
 import { readyFraction, readyHeld, seatReady, type World } from "@neon-spore/sim";
+import { arcFromTop } from "./arc-from-top.js";
 import { halo } from "./glow.js";
 import { PALETTE } from "./palette.js";
 import { seatSkin } from "./seat-skin.js";
@@ -90,7 +91,7 @@ export function drawCircle(
   if (fill > 0) {
     ctx.strokeStyle = done ? PALETTE.good : bright ? skin.tint : skin.rim;
     ctx.beginPath();
-    ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * fill);
+    arcFromTop(ctx, cx, cy, r, fill);
     ctx.stroke();
   }
   // A held circle that is not full yet gets a filled centre, so a thumb that

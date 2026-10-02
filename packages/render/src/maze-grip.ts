@@ -8,6 +8,7 @@ import {
   mazeStringAsks,
   type SimConfig,
 } from "@neon-spore/sim";
+import { arcFromTop } from "./arc-from-top.js";
 import { strokeGlow } from "./glow.js";
 import { drawGripRing } from "./grip-rings.js";
 import { drawHandleHint, type HandleWords, HINT_LOUD } from "./handle-word.js";
@@ -177,7 +178,7 @@ function drawShakeCount(ctx: CanvasRenderingContext2D, c: Circle, through: numbe
     ctx.globalAlpha = 1;
     ctx.lineWidth = STROKE.outline * 2.4;
     ctx.beginPath();
-    ctx.arc(c.x, c.y, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.min(1, through));
+    arcFromTop(ctx, c.x, c.y, r, Math.min(1, through));
     ctx.stroke();
   }
   ctx.restore();

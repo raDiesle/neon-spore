@@ -1,5 +1,6 @@
 import { type Color, livingKindForColor } from "@neon-spore/sim";
 import { emblem } from "./action-face.js";
+import { arcFromTop } from "./arc-from-top.js";
 import { drawLivingMark } from "./body-mark.js";
 import { halo } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
@@ -105,7 +106,7 @@ export function drawFireButton(
   ctx.translate(x, y);
   ctx.beginPath();
   ctx.moveTo(0, 0);
-  ctx.arc(0, 0, r * 2, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * fill);
+  arcFromTop(ctx, 0, 0, r * 2, fill);
   ctx.closePath();
   ctx.clip();
   ctx.strokeStyle = lit;

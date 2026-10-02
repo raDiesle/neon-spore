@@ -1,5 +1,6 @@
 import { circleSubpath, type Point } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
+import { arcFromTop } from "./arc-from-top.js";
 import { strokeGlow } from "./glow.js";
 import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -213,7 +214,7 @@ export function drawHandleDial(
   ctx.lineCap = "butt";
   ctx.beginPath();
   // From the top, clockwise, so it fills the way a dial does.
-  ctx.arc(x, y, r * DIAL_RADII, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * pull);
+  arcFromTop(ctx, x, y, r * DIAL_RADII, pull);
   ctx.stroke();
   ctx.restore();
 }

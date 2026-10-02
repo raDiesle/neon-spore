@@ -1,4 +1,5 @@
 import type { BurgeeStep, Color, SimConfig } from "@neon-spore/sim";
+import { arcFromTop } from "./arc-from-top.js";
 import { burgeePivot, burgeeTip, type Point } from "./burgee-shape.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
@@ -79,7 +80,7 @@ export function drawBurgeeRing(
   const pulse = frozen ? 1 : 0.65 + 0.35 * Math.cos(beatPhase * Math.PI * 2);
   strokeGlow(ctx, ring, PALETTE.hullRim, STROKE.outline, pulse, 1);
   const time = new Path2D();
-  time.arc(at.x, at.y, r * 1.3, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
+  arcFromTop(time, at.x, at.y, r * 1.3, left);
   strokeGlow(ctx, time, PALETTE.hullRim, STROKE.inner, 0.6, 1);
 }
 
@@ -154,7 +155,7 @@ export function drawBurgeeStuds(
   });
   if (lit === null) return;
   const ring = new Path2D();
-  ring.arc(0, 0, tall * 1.35, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
+  arcFromTop(ring, 0, 0, tall * 1.35, lit.left);
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(stepColour(lit.color).body, 0.75);
   ctx.stroke(ring);

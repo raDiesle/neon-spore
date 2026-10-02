@@ -1,5 +1,6 @@
 import { circleSubpath } from "@neon-spore/content";
 import type { SceneMark } from "@neon-spore/sim";
+import { arcFromTop } from "./arc-from-top.js";
 import { strokeGlow } from "./glow.js";
 import { drawInstarCrosshair } from "./instar-crosshair.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
@@ -78,7 +79,7 @@ function drawProgress(
   ctx.strokeStyle = PALETTE.good;
   ctx.lineWidth = STROKE.outline * 1.6;
   ctx.beginPath();
-  ctx.arc(x, y, r * 1.55, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * along);
+  arcFromTop(ctx, x, y, r * 1.55, along);
   ctx.stroke();
   ctx.restore();
 }

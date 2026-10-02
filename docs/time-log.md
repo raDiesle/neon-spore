@@ -32336,3 +32336,15 @@ Bottleneck: the frame tests counting the shot's hex, which a light drawn in
 `rgba` never writes.
 
 *Measured: 27 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — Every ring's arc from twelve o'clock is one `arcFromTop`
+
+- reading: 5 min. The nineteen arcs, to see each was the same two angles.
+- writing: 5 min. `arc-from-top.ts`, one scripted replacement over eighteen
+  files, a `COPIES` row, the catalogue's not-a-mark line.
+- looking: 0 min. No picture: every call draws what it drew.
+- friction: 0 min.
+- landing: 5 min. `check:fast` twice, `land`.
+
+Bottleneck: the entry's own count — seven files when the arc was in
+eighteen, found only by searching for the angles rather than the name.

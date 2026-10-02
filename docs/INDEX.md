@@ -1208,6 +1208,7 @@ by hand never moves.
 | `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
 | `packages/render/src/renderer.ts` | the interface a PixiJS version would implement |
 | `packages/render/src/arrivals.ts` | Which impacts have actually landed, as far as the picture is concerned |
+| `packages/render/src/arc-from-top.ts` | `arcFromTop`: a share of a circle from twelve o'clock, clockwise — every countdown ring, filling ring and dial |
 | `packages/render/src/assets.d.ts` | Bun's bundler emits an imported binary as a file and hands back its URL |
 | `packages/render/src/backdrop.ts` | The field's back: two depths of drifting motes, a slow wash, and the horizon they sit in front of |
 | `packages/render/src/backdrop-look.ts` | THE ONE RECORD A CANDIDATE **BACKDROP** PATCHES |

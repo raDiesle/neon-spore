@@ -1,4 +1,5 @@
 import { circleSubpath } from "@neon-spore/content";
+import { arcFromTop } from "./arc-from-top.js";
 import { strokeGlow } from "./glow.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -45,7 +46,7 @@ export function drawGripDial(
   ctx.lineWidth = STROKE.outline * 1.6;
   ctx.lineCap = "butt";
   ctx.beginPath();
-  ctx.arc(x, y, r * 1.3, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
+  arcFromTop(ctx, x, y, r * 1.3, left);
   ctx.stroke();
   ctx.restore();
 }

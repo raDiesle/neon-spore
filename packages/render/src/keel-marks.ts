@@ -1,4 +1,5 @@
 import { type KeelState, keelWindowBeats, type World } from "@neon-spore/sim";
+import { arcFromTop } from "./arc-from-top.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { keelMiddle } from "./keel-pose.js";
@@ -116,6 +117,6 @@ export function drawKeelRing(
   ctx.strokeStyle = rgba(PALETTE.hullRim, 0.35);
   ctx.stroke(ring);
   const arc = new Path2D();
-  arc.arc(c.x, c.y, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
+  arcFromTop(arc, c.x, c.y, r, left);
   strokeGlow(ctx, arc, PALETTE.hullRim, STROKE.outline, 1.2);
 }

@@ -5,6 +5,7 @@ import {
   keelMarrowLit,
   type SimConfig,
 } from "@neon-spore/sim";
+import { arcFromTop } from "./arc-from-top.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { keelRingCircle } from "./keel-marks.js";
@@ -65,7 +66,7 @@ export function drawKeelEnds(
     if (down) strokeGlow(ctx, pad, PALETTE.hullRim, STROKE.inner, 1.2);
     if (chord <= 0) continue;
     const arc = new Path2D();
-    arc.arc(c.x, c.y, c.r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * chord);
+    arcFromTop(arc, c.x, c.y, c.r, chord);
     strokeGlow(ctx, arc, PALETTE.hullRim, STROKE.outline, 1.4);
   }
 }

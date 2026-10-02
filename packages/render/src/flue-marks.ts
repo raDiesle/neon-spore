@@ -1,4 +1,5 @@
 import { FLUE_TAPS, FLUE_VENTS } from "@neon-spore/sim";
+import { arcFromTop } from "./arc-from-top.js";
 import { FLUE_UNITS, flueCoreR, flueEmberR, type Point } from "./flue-shape.js";
 import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
@@ -63,7 +64,7 @@ export function drawFlueTapRing(
   const pulse = 0.65 + 0.35 * Math.cos(beatPhase * Math.PI * 2);
   strokeGlowFaded(ctx, ring, PALETTE.hullRim, STROKE.outline, pulse, 1);
   const time = new Path2D();
-  time.arc(at.x, at.y, r * 1.35, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
+  arcFromTop(time, at.x, at.y, r * 1.35, left);
   strokeGlowFaded(ctx, time, PALETTE.hullRim, STROKE.inner, 0.6, 1);
 }
 
