@@ -129,7 +129,17 @@ export function drawLatePairBoss(
   // (`grindstone-draw.ts`); a flat's clean flash, the caliper's flare, the
   // axle's flash and the snap free are `grindstone-fx.ts`.
   if (boss.kind === "grindstone") {
-    drawGrindstone(ctx, l, world, boss, beat, beatPhase, time, effects.boss.grindstone);
+    drawGrindstone(
+      ctx,
+      l,
+      world,
+      boss,
+      beat,
+      beatPhase,
+      time,
+      effects.boss.grindstone,
+      effects.bolts,
+    );
     return;
   }
 
@@ -138,7 +148,17 @@ export function drawLatePairBoss(
   // grips, the bared centre shot; its tell is the tremor stopping
   // (`halter-draw.ts`). Nothing of it outlives a frame.
   if (boss.kind === "halter") {
-    drawHalter(ctx, l, world, boss, beat, beatPhase, time, effects.boss.halter.verdicts);
+    drawHalter(
+      ctx,
+      l,
+      world,
+      boss,
+      beat,
+      beatPhase,
+      time,
+      effects.boss.halter.verdicts,
+      effects.bolts,
+    );
     return;
   }
 
@@ -156,7 +176,7 @@ export function drawLatePairBoss(
   // lands, the root bared under the peeled seam and shot (`gall-draw.ts`); a
   // pinch's flare, a close's ghost, the lips' tear and the root's flash are `gall-fx.ts`.
   if (boss.kind === "gall") {
-    drawGall(ctx, l, world, boss, beat, beatPhase, time, effects.boss.gall);
+    drawGall(ctx, l, world, boss, beat, beatPhase, time, effects.boss.gall, effects.bolts);
     return;
   }
 

@@ -1,5 +1,6 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import { type GallState, gallClosing, gallLitStep, gallPincher, type World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
 import type { GallFx } from "./gall-fx.js";
@@ -30,6 +31,7 @@ import {
   gallSeamPath,
   gallSize,
 } from "./gall-shape.js";
+import { gallStopper } from "./gall-stop.js";
 import { drawGallMarkFeedback } from "./gall-verdicts.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
@@ -75,6 +77,7 @@ export function drawGall(
   beatPhase: number,
   time: number,
   fx: GallFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const shake = fx.hurt.shakeX(time, l.tile);
@@ -82,6 +85,7 @@ export function drawGall(
   const flat = gallFlat(s, cfg, beat, beatPhase);
   const ripple = gallRippling(s, cfg, beat, beatPhase, world);
   const part = gallPart(s, cfg, beat, beatPhase);
+  stops?.aim(gallStopper(l, world, s, time, ripple, part, shake));
 
   ctx.save();
   ctx.globalAlpha = 1 - flat;

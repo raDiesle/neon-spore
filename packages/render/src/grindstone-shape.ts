@@ -95,6 +95,11 @@ export function grindstoneCut(l: Layout, depth: number): number {
  * flats, which stay facing their seats.
  */
 export function grindstoneWheelPath(l: Layout, spin: number, cuts: [number, number]): Path2D {
+  return splinePath(grindstoneWheelPoints(l, spin, cuts), true);
+}
+
+/** The points `grindstoneWheelPath` runs through, about the axle. */
+export function grindstoneWheelPoints(l: Layout, spin: number, cuts: [number, number]): Point[] {
   const k = grindstoneR(l) / SMART_RX;
   const c = Math.cos(spin);
   const n = Math.sin(spin);
@@ -103,7 +108,7 @@ export function grindstoneWheelPath(l: Layout, spin: number, cuts: [number, numb
     const y = (p.x * n + p.y * c) * k;
     return { x: Math.max(-cuts[0], Math.min(cuts[1], x)), y };
   });
-  return splinePath(pts, true);
+  return pts;
 }
 
 /** Half the height of a flat cut `cut` pixels out, in pixels: the chord of the wheel there. */

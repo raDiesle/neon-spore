@@ -1,5 +1,6 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import { type GrindstoneState, grinding, grindstoneLitStep, type World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
 import { strokeGlow } from "./glow.js";
@@ -29,13 +30,15 @@ import {
   grindstoneFacePath,
   grindstonePatchPath,
   grindstoneR,
-  grindstoneWheelPath,
+  grindstoneWheelPoints,
 } from "./grindstone-shape.js";
+import { grindstoneStopper } from "./grindstone-stop.js";
 import { drawGrindstoneMarkFeedback } from "./grindstone-verdicts.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
 import { stepColour } from "./step-colour.js";
 
 /** How far the jaws are flung spinning free, in tiles, and how thin the wheel turns edge-on. */
@@ -69,6 +72,7 @@ export function drawGrindstone(
   beatPhase: number,
   time: number,
   fx: GrindstoneFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const arrived = grindstoneArrived(s, cfg, beat, beatPhase);
@@ -79,9 +83,12 @@ export function drawGrindstone(
   const shut = grindstoneShut(world, s, beat, beatPhase);
   const faded = grindstoneFaded(s, cfg, beat, beatPhase);
 
+  const at = { x: axle.x + fx.hurt.shakeX(time, l.tile), y: axle.y + fx.thud * l.tile };
+  const squash = 1 - (1 - EDGE_ON) * free;
+
   ctx.save();
   ctx.globalAlpha = alpha;
-  ctx.translate(axle.x + fx.hurt.shakeX(time, l.tile), axle.y + fx.thud * l.tile);
+  ctx.translate(at.x, at.y);
   if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
 
   // The caliper first, behind the wheel it closes on; spinning free it is flung off both ways.
@@ -108,12 +115,13 @@ export function drawGrindstone(
 
   // Edge-on as it falls: the flats the pair ground turn away and only the rim is left.
   ctx.save();
-  ctx.scale(1 - (1 - EDGE_ON) * free, 1);
+  ctx.scale(squash, 1);
   const cuts: [number, number] = [
     grindstoneCut(l, grindstoneDepth(s, 0)),
     grindstoneCut(l, grindstoneDepth(s, 1)),
   ];
-  const wheel = grindstoneWheelPath(l, grindstoneSpin(arrived, free), cuts);
+  const wheelPts = grindstoneWheelPoints(l, grindstoneSpin(arrived, free), cuts);
+  const wheel = splinePath(wheelPts, true);
   drawWheel(ctx, l, wheel, time, fx.hurt.value);
   const lit = grinding(s);
   for (const side of [0, 1] as const) {
@@ -132,6 +140,7 @@ export function drawGrindstone(
     : null;
   // A core's hurt, called: the axle is smaller and brighter per shot the same way a kernel is.
   const hurt = coreHurt(s.hits);
+  stops?.aim(grindstoneStopper(l, world, hurt.size, at, squash, wheelPts));
   if (faded === null) drawGrindstoneAxle(ctx, l, hurt.size, hurt.bright, s.locked, shot, beatPhase);
   else drawGrindstoneHeat(ctx, l, hurt.size, faded, grindstoneFadeTurn(s, faded, beat, beatPhase));
   drawGrindstoneFlash(ctx, l, fx.flash, fx.free);

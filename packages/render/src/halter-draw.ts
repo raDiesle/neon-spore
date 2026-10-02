@@ -1,5 +1,6 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import { type HalterState, halterLitStep, type World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { coreHurt } from "./core-hurt.js";
 import type { GripVerdicts } from "./grip-verdict.js";
 import { drawHalterCore, drawHalterGrips, drawHalterSeamGlow } from "./halter-marks.js";
@@ -25,6 +26,7 @@ import {
   halterSpan,
   halterUpperPath,
 } from "./halter-shape.js";
+import { type HalterJaw, halterStopper } from "./halter-stop.js";
 import { drawHalterMarkFeedback } from "./halter-verdicts.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
@@ -64,6 +66,7 @@ export function drawHalter(
   beatPhase: number,
   time: number,
   v: GripVerdicts,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const arrived = halterArrived(s, cfg, beat, beatPhase);
@@ -74,11 +77,14 @@ export function drawHalter(
   const step = halterLitStep(s);
   const litK = halterLitSegment(s);
 
+  const scale = { sx: 1 + 0.15 * split, sy: 1 - (1 - EDGE_ON) * split };
+  const jaws: HalterJaw[] = [];
+
   ctx.save();
   ctx.globalAlpha = alpha;
   ctx.translate(at.x, at.y);
   // Spent, the slab tips over: the plating the pair has been reading turns away.
-  ctx.scale(1 + 0.15 * split, 1 - (1 - EDGE_ON) * split);
+  ctx.scale(scale.sx, scale.sy);
   for (const k of SEGMENTS) {
     const gap = halterGap(l, halterOpen(world, s, k, beat, beatPhase));
     if (gap > 0.5) drawFlesh(ctx, l, k, gap);
@@ -96,7 +102,9 @@ export function drawHalter(
     const down = halterTremor(time, k, 1, amp);
     drawPlate(ctx, l, k, halterUpperPath(l, k), up.x, up.y - gap, true);
     drawPlate(ctx, l, k, halterLowerPath(l, k), down.x, down.y + gap, false);
+    jaws.push({ k, dx: down.x, dy: down.y + gap });
   }
+  stops?.aim(halterStopper(l, world, coreHurt(s.hits).size, at, scale, jaws));
 
   // The asked segment's seam and its grips, over the plating; a shot's mark is the core itself.
   if (litK !== null && step !== null && step.ask !== "fire") {

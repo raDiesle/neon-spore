@@ -32621,3 +32621,16 @@ foot is the drum and cradle where the drawer puts them.
 Bottleneck: reading the report as the opposite of what it asked for.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE GALL, GRINDSTONE and HALTER stop a bolt on what it meets
+
+- reading: 5 min. The three drawers and shapes, and their frame tests'
+  posing.
+- writing: 5 min. A stopper each; the seam's underside, the wheel's points
+  and the plates' bent points handed out; two harnesses; three rows.
+- looking: 0 min. The stop heights printed against each shape instead.
+- friction: 0 min.
+- landing: 5 min. A sort, `check:fast`, `land`.
+
+Bottleneck: THE GALL's seam lies edge to edge, and the test's clear-sky
+column had to learn a body can span the field.

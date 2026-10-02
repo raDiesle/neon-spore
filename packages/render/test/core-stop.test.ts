@@ -9,8 +9,14 @@ import { drawDavit } from "../src/davit-draw.js";
 import { DavitVerdicts } from "../src/davit-verdicts.js";
 import { drawFlue } from "../src/flue-draw.js";
 import { FlueFx } from "../src/flue-fx.js";
+import { drawGall } from "../src/gall-draw.js";
+import { GallFx } from "../src/gall-fx.js";
 import { drawGovernor } from "../src/governor-draw.js";
 import { GovernorFx } from "../src/governor-fx.js";
+import { drawGrindstone } from "../src/grindstone-draw.js";
+import { GrindstoneFx } from "../src/grindstone-fx.js";
+import { GripVerdicts } from "../src/grip-verdict.js";
+import { drawHalter } from "../src/halter-draw.js";
 import { computeLayout, type Layout, tileCX } from "../src/layout.js";
 import * as burgee from "./burgee-harness.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
@@ -18,7 +24,10 @@ import * as capstan from "./capstan-harness.js";
 import * as davit from "./davit-harness.js";
 import * as flue from "./flue-harness.js";
 import { CFG, FRAME_TIMEOUT_MS, ROLES, VIEWPORT } from "./frame-harness.js";
+import * as gall from "./gall-harness.js";
 import * as governor from "./governor-harness.js";
+import * as grindstone from "./grindstone-harness.js";
+import * as halter from "./halter-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -40,6 +49,8 @@ interface Row {
    * core is open; a boss hung from one point over the middle column does not.
    */
   wide: boolean;
+  /** Whether the body lies edge to edge across the field, so no column goes past it. */
+  spans?: boolean;
 }
 
 const ROWS: Row[] = [
@@ -99,6 +110,39 @@ const ROWS: Row[] = [
     },
     wide: false,
   },
+  {
+    name: "THE GALL",
+    draw(stops, l, open) {
+      const world = gall.stood();
+      const s = gall.posed(world, gall.FIRE);
+      s.bared = open;
+      drawGall(paper(), l, world, s, world.beat, 0.5, 0, new GallFx(), stops);
+    },
+    wide: true,
+    spans: true,
+  },
+  {
+    name: "THE GRINDSTONE",
+    draw(stops, l, open) {
+      const world = grindstone.stood();
+      const s = grindstone.posed(world, grindstone.FIRE, (g) => {
+        g.locked = open;
+      });
+      drawGrindstone(paper(), l, world, s, world.beat, 0.5, 0, new GrindstoneFx(), stops);
+    },
+    wide: true,
+  },
+  {
+    name: "THE HALTER",
+    draw(stops, l, open) {
+      const world = halter.stood();
+      const s = halter.posed(world, halter.FIRE, (h) => {
+        h.bared = open;
+      });
+      drawHalter(paper(), l, world, s, world.beat, 0.5, 0, new GripVerdicts(), stops);
+    },
+    wide: true,
+  },
 ];
 
 beforeAll(() => installCanvasGlobals());
@@ -138,9 +182,11 @@ describe.each(ROWS)("$name stops a bolt", (row) => {
     expect(meets(aimed(row, l, false), l, MID, "cyan")?.hit).toBe("body");
   });
 
-  it("and lets one past the body go on into the sky", () => {
+  it("and lets one past the body go on into the sky, or scuffs it on one that spans the field", () => {
     const l = computeLayout(VIEWPORT, CFG, "test");
-    expect(meets(aimed(row, l, true), l, 0, "cyan")).toBeNull();
+    const edge = meets(aimed(row, l, true), l, 0, "cyan");
+    if (row.spans) expect(edge?.hit).toBe("body");
+    else expect(edge).toBeNull();
   });
 
   it("drawn no further than where it meets the core", () => {

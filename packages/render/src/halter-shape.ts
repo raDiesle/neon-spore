@@ -102,6 +102,11 @@ export function halterUpperPath(l: Layout, k: 0 | 1 | 2): Path2D {
 
 /** The plate under the seam in segment `k`, square below, with its two hanging plates. */
 export function halterLowerPath(l: Layout, k: 0 | 1 | 2): Path2D {
+  return polygon(halterLowerPoints(l, k));
+}
+
+/** The points `halterLowerPath` is drawn through, bent as it is, about the slab's middle. */
+export function halterLowerPoints(l: Layout, k: 0 | 1 | 2): Point[] {
   const { ry, drop } = halterSize(l);
   const { x0, x1 } = halterSpan(l, k);
   const w = (x1 - x0) / TEETH;
@@ -117,7 +122,7 @@ export function halterLowerPath(l: Layout, k: 0 | 1 | 2): Path2D {
     pts.push({ x: xL + pad, y: ry + drop }, { x: xL + pad, y: ry });
   }
   pts.push({ x: x0, y: ry });
-  return bentPath(l, pts);
+  return bentPoints(l, pts);
 }
 
 /** Segment `k`'s stretch of the seam: the line that glows when that segment is asked for. */
@@ -176,17 +181,29 @@ const SUB = 6;
 
 /** A closed outline laid flat, every edge cut into pieces and lifted over the hunched spine. */
 function bentPath(l: Layout, pts: readonly Point[]): Path2D {
-  const p = new Path2D();
+  return polygon(bentPoints(l, pts));
+}
+
+function bentPoints(l: Layout, pts: readonly Point[]): Point[] {
+  const out: Point[] = [];
   for (let i = 0; i < pts.length; i++) {
     const a = pts[i] as Point;
     const b = pts[(i + 1) % pts.length] as Point;
     const n = Math.abs(b.x - a.x) > l.tile * 0.3 ? SUB : 1;
     for (let j = 0; j < n; j++) {
       const x = a.x + ((b.x - a.x) * j) / n;
-      const y = a.y + ((b.y - a.y) * j) / n + halterBend(l, x);
-      if (i === 0 && j === 0) p.moveTo(x, y);
-      else p.lineTo(x, y);
+      out.push({ x, y: a.y + ((b.y - a.y) * j) / n + halterBend(l, x) });
     }
+  }
+  return out;
+}
+
+function polygon(pts: readonly Point[]): Path2D {
+  const p = new Path2D();
+  for (let i = 0; i < pts.length; i++) {
+    const q = pts[i] as Point;
+    if (i === 0) p.moveTo(q.x, q.y);
+    else p.lineTo(q.x, q.y);
   }
   p.closePath();
   return p;

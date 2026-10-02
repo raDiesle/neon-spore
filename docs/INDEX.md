@@ -1283,6 +1283,7 @@ by hand never moves.
 | `packages/render/src/gall-marks.ts` | **THE GALL's marks**: what says what a step asks — two chevrons closing on the nodule from either side |
 | `packages/render/src/gall-pose.ts` | **The clock THE GALL is posed off** (§38, *Animation*) |
 | `packages/render/src/gall-shape.ts` | **THE GALL's geometry**: where the seam runs, where its four points sit, and what the nodule on it is made of |
+| `packages/render/src/gall-stop.ts` | **Where a bolt meets THE GALL**: the bared root, or the seam's underside across the field |
 | `packages/render/src/gall-blow.ts` | **THE GALL's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/gall-fx.ts` | What THE GALL leaves behind a frame (§11.55): the **flare** of a pinch come shut |
 | `packages/render/src/gall-receipts.ts` | **What THE GALL's receipts are drawn as**, off the numbers `gall-fx.ts` keeps |
@@ -2088,6 +2089,7 @@ by hand never moves.
 | `packages/render/src/grindstone-marks.ts` | **THE GRINDSTONE's marks**: what a step asks — a flat's face glowing, a jaw's pads lit, the axle in a shot's colour |
 | `packages/render/src/grindstone-pose.ts` | **The clock THE GRINDSTONE is posed off**: the drop, the depth and grit of each flat, the caliper's swing and creep, the fall |
 | `packages/render/src/grindstone-shape.ts` | **THE GRINDSTONE's geometry**: where the wheel is, and the paths of the wheel, its flats, the patch and the caliper's jaws |
+| `packages/render/src/grindstone-stop.ts` | **Where a bolt meets THE GRINDSTONE**: the locked axle, or the wheel's ground edge |
 | `packages/render/src/grindstone-grip.ts` | **The flats and the jaws on THE GRINDSTONE** |
 | `packages/render/src/grindstone-fx.ts` | What THE GRINDSTONE leaves behind a frame (§33, *Presentation*) |
 | `packages/render/src/grindstone-jaw.ts` | **THE GRINDSTONE's caliper jaws**: THE HOOD's two, trembling at the tip while they stand open |
@@ -2257,6 +2259,7 @@ by hand never moves.
 | `packages/render/src/halter-marks.ts` | **THE HALTER's marks**: what says what a step asks — a segment's stretch of the seam glowing |
 | `packages/render/src/halter-pose.ts` | **The clock THE HALTER is posed off** (§36, *Animation*) |
 | `packages/render/src/halter-shape.ts` | **THE HALTER's geometry**: where the seam is, and the plates it is made of |
+| `packages/render/src/halter-stop.ts` | **Where a bolt meets THE HALTER**: the core in its mouth, or the lower plates' teeth |
 | `packages/render/src/halter-grip.ts` | **The grips on THE HALTER**: either seat's thumb on the lit segment's two grips, a finger of a chord each |
 | `packages/render/src/halter-verdicts.ts` | **THE HALTER's marks answering a touch the way every mark does** (`mark-feedback.ts`) |
 | `packages/render/src/crank-dial.ts` | THE CLAW's crank, drawn: the winder that brings the arm home |

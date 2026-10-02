@@ -114,6 +114,26 @@ function ridge(l: Layout, a: number, b: number, time: number, ripple: number): P
   return splinePath([...top, ...bottom.reverse()], true);
 }
 
+/**
+ * The seam's underside over screen `x`, as `ridge` lays it, or `null` past
+ * its ends or in the gap it parts at over the root.
+ */
+export function gallSeamFoot(
+  l: Layout,
+  x: number,
+  time: number,
+  ripple: number,
+  part: number,
+): number | null {
+  const half = (l.cols * l.tile) / 2;
+  const mid = l.gridLeft + half;
+  const u = Math.abs(x - mid) / half;
+  if (u > 1) return null;
+  if (part > 0.01 && Math.abs(x - mid) < gallSeamGap(l, part)) return null;
+  const t = (RIDGE - (RIDGE - RIDGE_END) * u * u) * l.tile;
+  return gallSeamY(l) + gallRipple(l, x, time, ripple) + t * 0.7;
+}
+
 /** The nodule's half-width and half-height at its fullest, in pixels. */
 export function gallSize(l: Layout): { rx: number; ry: number } {
   const k = (HALF_W * l.tile) / NOTCH.rx;

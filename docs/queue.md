@@ -339,18 +339,17 @@ The owner, 1 October 2026, on THE SEAM *but also all other bosses*: the part
 the cannon must hit is lit in its colour and beats like a heart, the bolt has a
 clear path to it, and a bolt stops on whatever it meets. On the right part it
 bursts; anywhere else it scuffs and does nothing. The rule is the last bullet
-of `generic.md`. THE SEAM, FLUE, GOVERNOR, BURGEE, CAPSTAN and DAVIT keep
-it so far.
+of `generic.md`. THE SEAM, FLUE, GOVERNOR, BURGEE, CAPSTAN, DAVIT, GALL,
+GRINDSTONE and HALTER keep it so far.
 
-**Six are the short case**, their shot already `coreVerdict`
-(`sim/core-verdict.ts`) and their own `…Verdict` exported: THE GALL,
-GRINDSTONE, HALTER, PLUMB, RIME and SLING. Each needs a `…-stop.ts` calling
+**Three are the short case**, their shot already `coreVerdict`
+(`sim/core-verdict.ts`) and their own `…Verdict` exported: THE PLUMB, RIME
+and SLING. Each needs a `…-stop.ts` calling
 `coreStopper` with the core's near rim and the body's `Foot`
 (`render/core-stop.ts`; `outlineFoot` takes a contour's points, which the
 shape file hands out beside its path, as `capstanBodyPoints` does), its
 drawer to aim it, and a row in `render/test/core-stop.test.ts`. Their lit
-faces are already `drawLitCore`, `lightWithin` at `heartLight`. A handful a
-lane.
+faces are already `drawLitCore`, `lightWithin` at `heartLight`. One lane.
 
 **Twenty-two need their verdict pulled out first**, the way THE SEAM's was —
 a pure `…Verdict(world, col, color)` the `…Struck` acts on: THE ANTIPHON,
@@ -364,7 +363,8 @@ fix goes to VERSUS, not onto the field, unless that is a clipping fault. THE
 FLUE is one: its damper drops *down* into the middle column under the core it
 bares, and a bolt reaching the core is drawn through it. So are THE BURGEE's
 flag, hanging and swinging under its spindle, THE CAPSTAN's cradle post under
-its core, and THE DAVIT's mast socket under its hook.
+its core, THE DAVIT's mast socket under its hook, and THE HALTER's lower
+plate under the core in its mouth.
 
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
