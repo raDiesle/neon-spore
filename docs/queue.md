@@ -460,6 +460,7 @@ blow and its shake, the silent lists, `boss-hurt-rows-c.ts`, `boss-strike.test.t
 ## THE MIMIC's simulation (§42)
 
 - **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
+- **Taken:** 2026-10-02, claude/task-queue-work-297731 (claim: claude/queue-the-mimics-simulation-42)
 - **Files:** `packages/sim/src/`, `packages/content/src/`, `packages/hands/src/`, `apps/game/src/`, `docs/spec/bosses-choreographed.md`
 
 The owner, 1 October 2026, asked for THE MIMIC to be built from its sheet
