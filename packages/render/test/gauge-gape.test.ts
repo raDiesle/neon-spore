@@ -15,8 +15,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * `gauge-mirage.ts`; the owner, 2 October 2026). Held to what a pair would
  * see: the rim standing further off the cannon a step per level, the step
  * taken on the landing of the mark that finished it and not before — never on
- * a miss, which loses the round (the owner's rule for every boss, 2 October
- * 2026) — and a sweep on his
+ * a miss, which loses the round (the owner's rule, 2 October 2026) — and a sweep on his
  * screen that comes only while the round waits on her call and whose colours
  * say nothing about the wound.
  */

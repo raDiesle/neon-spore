@@ -14,9 +14,9 @@ import type { GaugeState } from "./gauge.js";
  * so a narrower angle to aim at.
  *
  * A miss opened it a step as well, and five steps swallowed the ship, until
- * the owner answered the jam's question later the same day with a rule for
- * every boss: *a miss makes the boss wave fail and requires retry. this is
- * generic rules for bosses*. So a miss loses the round outright (`stepGauge`),
+ * the owner answered the jam's question later the same day: *a miss makes the
+ * boss wave fail and requires retry* — for THE GAUGE now, and every other
+ * boss decided on its own (`docs/miss-rule-audit.md`). So a miss loses the round outright (`stepGauge`),
  * the mouth opens on levels alone, and three levels never reach a swallow.
  *
  * **Derived, never stored.** The opening is `level`, a number the round

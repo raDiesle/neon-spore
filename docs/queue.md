@@ -471,33 +471,3 @@ bares, and a bolt reaching the core is drawn through it.
 
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
-
-## Which mistakes the rule that a miss fails the wave means
-
-- **Found:** 2026-10-02, claude/queue-every-boss-held-to-the-rule-that-a-miss-fails-th
-- **Taken:** 2026-10-02, claude/queue-every-boss-held-to-the-rule-that-a-miss-fails-th (claim: claude/queue-which-mistakes-the-rule-that-a-miss-fails-the-wa)
-- **Files:** `docs/miss-rule-audit.md`, `.claude/skills/new-boss/generic.md`, `packages/sim/src/core-verdict.ts`, `packages/sim/src/`
-- **Asks:** Which mistakes should fail a boss wave — every one, or only some kinds?
-
-The audit of the owner's rule of 2 October 2026 (*a miss makes the boss wave
-fail and requires retry*) found 48 of the 56 shipped bosses other than THE
-GAUGE answering some mistake with something other than the wave, in eleven
-kinds (`docs/miss-rule-audit.md`). Read literally the rule rewrites nearly
-every boss; the kinds are a choice, and the options are:
-
-- **All of them**: a wrong-colour shot, a shot into armour, a lapsed step, a
-  slipped hold, a press in a closing phase, a heal, a margin, a jam and a
-  wrong-seat press each fail the wave. Nine bosses gain a fail they have
-  never had (THE TASTER, THE VANE, THE WARDEN and six more).
-- **Shots and lapses**: a wrong-colour shot and a step left unanswered when
-  its window runs out fail the wave; a slipped hold, a closing-phase beat and
-  a wrong-seat press stay a cost in time. `coreTaken`'s wrong colour is one
-  change for most sky bosses; each boss's `rest(world, s, false)` is the
-  other.
-- **Lapses only**: a step left unanswered fails, with no in-boss second try;
-  wrong colours, slips and the rest stay as they are.
-- **What THE GAUGE had**: a jam, a step or a level lost to a mistake is
-  replaced by the failed wave; nothing that only costs time changes.
-
-Once answered, this entry is cut into one per boss, a creature-sized lane
-each, and the generic rule in `generic.md` says which kinds it names.

@@ -82,7 +82,7 @@ export interface GaugeConfig {
  * cuts the band's half-width `gaugeGapeSpanMilli` narrower — 60, 52, 44 — so
  * the third is a band nearly twice as quick and a quarter slimmer.
  *
- * **A miss loses the round** (the owner, 2 October 2026, for every boss: *a
+ * **A miss loses the round** (the owner, 2 October 2026: *a
  * miss makes the boss wave fail and requires retry*), and so does a wrong
  * tooth or a tooth or the tongue left in. Three marks a level keeps the whole
  * round near the ninety seconds it was, plus the rests between. The bound

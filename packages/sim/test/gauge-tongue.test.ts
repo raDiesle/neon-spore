@@ -146,7 +146,7 @@ describe("THE GAUGE's tongue", () => {
   });
 
   it("loses the round when the rest runs out with it still out", () => {
-    // The owner's rule for every boss, 2 October 2026: *a miss makes the boss
+    // The owner's rule, 2 October 2026: *a miss makes the boss
     // wave fail and requires retry*. It used to jam the valve.
     const { world, g } = toTheTongue();
     const events = ticks(world, TPB * (CFG.gaugeTongueBeats + 1));

@@ -138,7 +138,7 @@ describe("THE GAUGE's loose tooth", () => {
     expect(gaugeWoundOpen(g)).toBe(true);
   });
 
-  // The owner's rule for every boss, 2 October 2026: *a miss makes the boss
+  // The owner's rule, 2 October 2026: *a miss makes the boss
   // wave fail and requires retry*. Both of these used to jam the valve.
   it("loses the round when it is the wrong one", () => {
     const { world, g } = toTheTooth();

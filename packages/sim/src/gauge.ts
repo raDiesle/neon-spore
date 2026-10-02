@@ -90,7 +90,7 @@ export interface GaugeState {
   /**
    * Mistakes: a call that did not land, a sound tooth pulled, a tooth or the
    * tongue left in when its rest ran out. The first loses the round — the
-   * owner's rule for every boss, 2 October 2026: *a miss makes the boss wave
+   * owner's rule, 2 October 2026: *a miss makes the boss wave
    * fail and requires retry* (`stepGauge`).
    */
   misses: number;
@@ -220,7 +220,7 @@ export function stepGauge(world: World, gauge: GaugeState, onBeat: boolean): boo
   if (onBeat && !still) driftBand(world, gauge);
 
   // Two ways to lose it, and they cost the same: a mistake, which is the
-  // owner's rule for every boss (*a miss makes the boss wave fail and
+  // owner's rule (*a miss makes the boss wave fail and
   // requires retry*), or the level's clock run out.
   if (gauge.misses > 0) return false;
   if (gaugeAllLevels(cfg, gauge)) return true;

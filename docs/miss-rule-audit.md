@@ -1,8 +1,8 @@
 # What a mistake costs, boss by boss
 
-The owner, 2 October 2026, for every boss: *a miss makes the boss wave fail
-and requires retry* (`.claude/skills/new-boss/generic.md`). This is the
-audit of every shipped boss against that sentence, made the same day, read
+The owner, 2 October 2026, of THE GAUGE: *a miss makes the boss wave fail
+and requires retry. this is generic rules for bosses*. This is the audit of
+every shipped boss against that sentence, made the same day, read
 off `packages/sim/src` — what each mistake the pair can make costs today.
 Failing the wave is reaching `failWave` (`wave-fail.ts`): a hull strike, a
 wasted shot on HARD, or a pod not taken.
@@ -11,8 +11,13 @@ wasted shot on HARD, or a pod not taken.
 THE MAZE, THE MIRROR and THE WELL (the last two of those with nothing in them
 a mistake could be — CAIRN's pile and THE WELL's face cost nothing to leave).
 THE GAUGE was made to keep it the same day. **Forty-eight do not.** What they
-break it with falls into a few kinds, and most bosses carry more than one;
-which of them the rule means is the question in `docs/queue.md`.
+break it with falls into a few kinds, and most bosses carry more than one.
+
+**Answered the same day: boss by boss.** Shown this, the owner: *i will do
+every boss separately and individual. so only change for this boss for now*.
+So THE GAUGE is the only boss the rule has changed, and this page is what a
+lane reads when the owner names the next one — never a list to work down
+unasked (`.claude/skills/new-boss/generic.md`).
 
 ## The kinds
 

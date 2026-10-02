@@ -55,8 +55,8 @@ export function gaugeShotLands(world: World, gauge: GaugeState): void {
     gaugeHits(world.cfg, gauge, gauge.calledMilli) && gauge.calledColor === gauge.woundColor;
   gauge.calledGood = good;
   if (!good) {
-    // And the round is lost, on this tick (`stepGauge`): the owner's rule for
-    // every boss, 2 October 2026. It used to jam the valve, and then to open
+    // And the round is lost, on this tick (`stepGauge`): the owner's rule,
+    // 2 October 2026. It used to jam the valve, and then to open
     // the mouth a step.
     gauge.misses += 1;
     world.events.push({ type: "gaugeMiss" });

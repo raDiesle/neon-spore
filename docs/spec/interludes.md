@@ -190,7 +190,7 @@ rim stands `RIM_STEP` of the dial further off the cannon a step, gulping out
 past it on the landing of the mark that opened it (`render/gauge-gape.ts`), so
 the teeth, the wound and every thumb on the rim move out with it.
 
-**Every mistake loses the round**, the owner's rule for every boss the same
+**Every mistake loses the round**, the owner's rule the same
 day: *a miss makes the boss wave fail and requires retry*. A call that
 misses, a tooth pulled wrong, and a tooth or the tongue still in when its rest
 runs out each count in `misses`, and the first ends the play on that tick:

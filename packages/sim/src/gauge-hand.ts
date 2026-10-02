@@ -18,7 +18,7 @@ import type { World } from "./world.js";
  *
  * **The jam is gone.** A tooth pulled wrong, or a tooth or the tongue left in,
  * stuck the valve, and the needle was then the pilot's hand. On 2 October
- * 2026 the owner made a mistake lose the round instead, for every boss — *a
+ * 2026 the owner made a mistake lose the round instead — *a
  * miss makes the boss wave fail and requires retry* — so nothing could reach
  * the jam, and it went with its gesture, its settle and its cue.
  *

@@ -7,7 +7,7 @@ import type { ShotClock } from "./gauge-shot.js";
  * **THE GAUGE's mouth, opening.** The owner, 2 October 2026: *increase
  * distance of cannon to teeth (so more opened mouth)*. Every level opens the
  * mouth a step (`sim/gauge-gape.ts`) — a miss loses the round instead, the
- * owner's rule for every boss the same day — and here that is the
+ * owner's rule the same day — and here that is the
  * rim standing `RIM_STEP` of the dial further off the cannon: the teeth, the
  * wound and every thumb on the rim go with it, because they all stand on
  * `rimPoint`. The wound the simulation narrows is the same tear further away.

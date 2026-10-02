@@ -33,8 +33,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * needle that never moves, which is the half of the round that has no dial in
  * it. The pilot turns toward the band and the navigator calls, so the marks,
  * the miss and the verdict are all drawn. One call is blind, after the first
- * mark lands, and it loses the round — the owner's rule for every boss, 2
- * October 2026: *a miss makes the boss wave fail and requires retry*.
+ * mark lands, and it loses the round — the owner's rule, 2 October
+ * 2026: *a miss makes the boss wave fail and requires retry*.
  *
  * That the pilot can see the band at all is the rig's privilege, not the
  * game's: `markMilli` is the one thing player 1's screen does not carry, and

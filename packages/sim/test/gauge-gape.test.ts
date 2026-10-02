@@ -12,7 +12,7 @@ import { CFG, call, callable, heard, offBand, playing } from "./gauge-rig.js";
 /**
  * **THE GAUGE's mouth opens, and a miss loses the round** (`src/gauge-gape.ts`).
  * The owner, 2 October 2026: *when hitted wrong, the wave is lost*, and later
- * the same day, for every boss: *a miss makes the boss wave fail and requires
+ * the same day: *a miss makes the boss wave fail and requires
  * retry*. Held to what the pair would notice: a level opens the mouth a step
  * and narrows the wound, and a miss ends the round lost and strikes the hull,
  * so the wave fails into its retry.
