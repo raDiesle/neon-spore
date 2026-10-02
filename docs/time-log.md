@@ -32035,3 +32035,5 @@ at 212, and the next seam had to be found.
 
 Bottleneck: reading — the owner's sentence named a loss the simulation does
 not make directly, and the probe was what found which rule made it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

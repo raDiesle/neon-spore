@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · ec6e751df — THE GAUGE: a miss opens the mouth instead of jamming the valve, and three teeth to pull
+
+A wrong shot no longer kills P1's valve. It opens the alien's mouth one step instead, and so does every level up. Each step makes the wound narrower. When the mouth is five steps open it swallows the ship: the round is lost and the hull is struck, the same as when the clock runs out. That allows five misses on the first level and three on the last. Before this, a pair who did not know the jammed needle could be dragged by hand ran out of time on their first wrong shot. In the rest after the first level, three teeth now come loose one after another. P1 sees only the next one, and the rest is 32 beats long to fit them. A wrong tooth, or a tooth or the tongue left in, still jams the valve. The mouth does not visibly open yet; that is the next lane.
+
 ## 2026-10-02 · d96288e9b — The band's controls and the round's vocabulary are cut on their seams
 
 `band-control.ts` keeps the ordinary panel's own buttons; a round's lobes are in `band-control-rounds.ts` and a boss's own set in `band-control-bosses.ts`, where the next one is added. In content, THE FLEET's five move to `controls-fleet.ts` beside THE THROAT's, and THE PULSE's eight, the one set written for each seat, to `controls-pulse.ts`. Both files were within one control set of 250 lines and are now 134 and 152. Nothing drawn changes.
