@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · c145a7edd — VERSUS instar:flight now opens on THE INSTAR in flight
+
+VERSUS's `instar:flight` pair used to open on THE INSTAR perched. The serpent's wave only runs while the body flies, so on that pose the candidate and the shipped body were drawn exactly the same. The director now has a pose, INSTAR · IN FLIGHT, held four beats into the brood's first pass, and the slot opens on it. A test checks that the two bodies differ there and match on the perched pose.
+
 ## 2026-10-02 · 52f30a669 — THE INSTAR's nests sit on its back when it rises
 
 When THE INSTAR stood upright in its rise, the nests on its back ended about half a head off to the side of the body. The seat under each nest was measured straight down the screen. It is now measured across the spine, as the VERSUS body with weight already does. The nest test now covers every pose, the rise included. Exemption: a fix to something wrong rather than unlovely (nests floating off the body).

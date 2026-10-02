@@ -31831,3 +31831,5 @@ before needed the flag flipped back by hand for one shot.
 
 Bottleneck: writing — the lane was small; the one surprise was two frames of
 one world differing until the first is thrown away.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
