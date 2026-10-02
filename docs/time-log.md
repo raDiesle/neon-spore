@@ -31745,3 +31745,5 @@ reaches.
 
 Bottleneck: tracing the one mark brighter than the spent fade, which turned
 out to be the verdicts the test is meant to hold off.
+
+*Measured: 30 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

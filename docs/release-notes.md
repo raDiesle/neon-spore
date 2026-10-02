@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 768c4966d — THE LAMPREY's receipts: a tooth flung off the ring, the snap, the gulp, the clamp
+
+A crack flings the tooth off the mouth's ring from where it stood and deals the lighter blow; a snap closes a ring on the tooth that went back in; a shot down the gullet flares it in the colour it reared in and deals the whole blow, as the mouth coming loose does. The hull shudders as the mouth slams on, harder for a full bite, and the eel's own blow is its seven teeth clamping shut on the plating. Exemption: a look with no shipped alternative. Not delegated; never watched at tempo on two phones.
+
 ## 2026-10-02 · a1b28d8df — THE LAMPREY takes a hand: a thumb that follows the jaw, a tap on the teeth
 
 The pinner's thumb goes on a band on the hull round the mouth, as wide as the grip. While the jaw crawls, the thumb chases it: the press and every move after send the column under it. The tapper's press inside the lip is the tooth it is nearest, and it counts once per press. The other seat's press falls through to the cannon. The field says HOLD on the band to the pinner until the thumb is on it, TAP on the lit tooth to the tapper, and FIRE under the middle column on the lit gullet. THE SLOW's light stands round the mouth and the band.
