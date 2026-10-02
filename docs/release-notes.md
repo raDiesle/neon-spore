@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 8440140f0 — Back opens the wave list in test mode, and a jump from the rig plays TEST
+
+On a device in test mode the phone's back gesture now opens the menu straight on JUMP TO WAVE — over the field, over the question, over any menu page — and the CONTINUE / BACK TO MENU / QUIT question is never asked. A player's back is unchanged. A wave, demo or SINGLE PLAYER started from the rig now moves the seat to TEST (both halves) instead of a remembered P1 or P2, unless a seat card was pressed on that opening of the menu; a room's seat is never touched.
+
 ## 2026-10-02 · 3cdf22da0 — What a mistake costs is decided boss by boss, not by a generic rule
 
 Shown that 48 bosses answer some mistake with something other than a failed wave, the owner, 2 October 2026: "i will do every boss separately and individual. so only change for this boss for now". THE GAUGE stays the only boss a miss fails outright. The new-boss skill's generic rule becomes a pointer to `docs/miss-rule-audit.md`, read when the owner names the next boss, and THE GAUGE's comments stop saying "for every boss".
