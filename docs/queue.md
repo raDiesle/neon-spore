@@ -439,6 +439,7 @@ flat. `bun run check` proves the tests.
 ## `versus:shot` shoots a slot with no `SLOT_POSE` row on SLICK without a word
 
 - **Found:** 2026-10-01, claude/queue-living-bosses-the-surface-marks-by-longitude-onc
+- **Taken:** 2026-10-02, claude/queue-versus-shot-shoots-a-slot-with-no-slot-pose-row
 - **Where:** local
 - **Files:** `tools/director/src/versus-pose.ts`, `tools/director/src/versus-one.ts`
 
