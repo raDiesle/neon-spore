@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 66406ea0e — THE SINEW's pull is three tiles of thumb, straight down, and its zones span the whole band
+
+A hand's whole pull was one tile of drag; it is three now, with every width on the band tripled with it, so the same sums are said with three times the travel. Each fibre but the last has its zone rolled into a stretch of the band not yet taken, so the fight visits the whole height and only the last zone reaches the top. A pull runs straight down: the sideways half of the drag is dropped while the tendon hangs and kept only for the catch and the fall. The tendon drops in over its first four beats, and nothing pulls until it has settled. Whether the two sideways gestures should stay is queued as a question.
+
 ## 2026-10-02 · ea93fca81 — THE VANE's tests share one rig, and the hand file is split in two
 
 `vane-hand.test.ts` was 275 lines. It is now two files: `vane-pin.test.ts` (the pin, under VEER) and `vane-haul.test.ts` (the haul, under SEIZE, and both hands in the fingerprint). The arm and housing commands and `pin` moved into `vane-fixture.ts`. The knock, drift, forms, mouth and verdict tests now import `open`, `beats` and `vane` from the fixture instead of each keeping its own copy. The case count is unchanged.
