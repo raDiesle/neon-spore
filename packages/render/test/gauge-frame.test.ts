@@ -32,7 +32,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * of it — and left alone this one draws four beats of lead-in and then a
  * needle that never moves, which is the half of the round that has no dial in
  * it. The pilot turns toward the band and the navigator calls, so the marks,
- * the misses and the verdict are all drawn.
+ * the miss and the verdict are all drawn. One call is blind, after the first
+ * mark lands, and it loses the round — the owner's rule for every boss, 2
+ * October 2026: *a miss makes the boss wave fail and requires retry*.
  *
  * That the pilot can see the band at all is the rig's privilege, not the
  * game's: `markMilli` is the one thing player 1's screen does not carry, and
@@ -79,11 +81,13 @@ function gaugeFrames(role: ViewRole, ticks: number) {
               dir === 0 ? { kind: "valve", on: false, dir: 1 } : { kind: "valve", on: true, dir },
           });
         }
-        // The first call is made blind and early, before the needle has gone
-        // anywhere: a round drawn without a miss in it never shows the mark
-        // that says a call went wrong.
+        // One call is made blind, once the first mark has landed and the
+        // needle has been carried off the band: a round drawn without a miss
+        // in it never shows the mark that says a call went wrong, nor the
+        // verdict a miss costs.
         const seated = Math.abs(away) <= span;
-        if (seated || w.beat - g.openBeat === GAUGE_LEAD_BEATS + 1) {
+        const blind = g.marks === 1 && !seated && g.calledGood;
+        if (seated || blind) {
           commands.push({ tick, player: 2, command: { kind: "call", color: g.woundColor } });
         }
       }
@@ -94,9 +98,9 @@ function gaugeFrames(role: ViewRole, ticks: number) {
 }
 
 describe("THE GAUGE draws on all three screens", () => {
-  // The lead-in, the whole of the play, a verdict standing at the end of it
-  // and the spent round holding that picture afterwards: every phase this
-  // round has, through a canvas that refuses what a real one refuses.
+  // The lead-in, the play and the verdict the miss costs — every phase a lost
+  // round has, through a canvas that refuses what a real one refuses — with
+  // room to spare for a round that ran its whole course.
   const TICKS =
     ticksPerBeat(CFG) *
     (GAUGE_LEAD_BEATS + CFG.gaugeLevels * (CFG.gaugeLevelBeats + CFG.gaugeLevelRestBeats) + 2);
@@ -111,11 +115,11 @@ describe("THE GAUGE draws on all three screens", () => {
     });
   }
 
-  it("really turned the needle, landed calls and missed one, or the frames proved nothing", () => {
+  it("really turned the needle, landed a call and lost on the miss, or the frames proved nothing", () => {
     const { watched } = gaugeFrames("test", TICKS);
-    expect([...watched.phases].sort()).toEqual(["lead", "play", "spent", "verdict"]);
-    expect(watched.marks).toBeGreaterThan(0);
-    expect(watched.misses).toBeGreaterThan(0);
-    expect(watched.passed).toBe(true);
+    expect([...watched.phases].sort()).toEqual(["lead", "play", "verdict"]);
+    expect(watched.marks).toBe(1);
+    expect(watched.misses).toBe(1);
+    expect(watched.passed).toBe(false);
   });
 });

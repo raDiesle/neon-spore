@@ -1,8 +1,7 @@
-import { gaugeHand, gaugeJamHand, mazeHand, mirrorHand, snakeHand } from "@neon-spore/hands";
+import { gaugeHand, mazeHand, mirrorHand, snakeHand } from "@neon-spore/hands";
 import {
   type GaugeState,
   gaugeBound,
-  gaugeJammed,
   gaugeRound,
   gaugeTongueOut,
   gaugeToothLoose,
@@ -26,9 +25,9 @@ import { bossPose } from "./poses-bosses-kit.js";
  * it is *played* — THE MAZE's `travel`, THE GAUGE's `verdict` and `spent` —
  * are posed with a hand on the round's controls (`boss-hands-rounds.ts`).
  *
- * **And a round's states are not only its phases.** THE GAUGE's jam and its
- * bind are conditions the pair's own last call puts the round in, and both sit
- * inside `play` — so each is posed on a `want` of the simulation's own
+ * **And a round's states are not only its phases.** THE GAUGE's bind and its
+ * two rests are conditions the pair's own last answer puts the round in, and
+ * all sit inside `play` — so each is posed on a `want` of the simulation's own
  * predicate rather than on the stored phase, exactly as SNAKE's three bodies
  * are below (`sim/boss-phases.ts` says which states a sheet is owed).
  */
@@ -37,8 +36,8 @@ const FULL = { crop: "full" as const };
 
 /**
  * A condition of the round rather than a place on its clock. `bossPose`'s
- * default `want` reads the stored phase, and neither of THE GAUGE's two is
- * one: both are true *during* `play` and are asked of the round itself.
+ * default `want` reads the stored phase, and none of THE GAUGE's grips is
+ * one: each is true *during* `play` and is asked of the round itself.
  */
 const gaugeIs =
   (is: (g: GaugeState) => boolean) =>
@@ -127,12 +126,6 @@ export const ROUND_BOSS_POSES: Pose[] = [
     "play",
     "The needle drifts and the valve is open. P2 calls the mark only she can see; P1 turns the valve to it.",
     { ...FULL, hold: 24 },
-  ),
-  bossPose(
-    "gauge",
-    "jammed",
-    "A wrong tooth came out and the valve is dead. P1 swings the needle by hand; P2 cannot call until it settles.",
-    { ...FULL, hand: gaugeJamHand, want: gaugeIs(gaugeJammed), hold: 6, budgetBeats: 140 },
   ),
   bossPose(
     "gauge",

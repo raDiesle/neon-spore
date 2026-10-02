@@ -4,7 +4,6 @@ import {
   createWorld,
   DEFAULT_CONFIG,
   type GaugeState,
-  gaugeJammed,
   gaugeRound,
   gaugeSeated,
   hashWorld,
@@ -56,7 +55,7 @@ describe("THE GAUGE's call", () => {
     expect(g.misses).toBe(0);
   });
 
-  it("misses in the other colour on a seated needle, and the valve still answers", () => {
+  it("misses in the other colour on a seated needle", () => {
     const { world, g } = playing();
     seat(world, g);
     const wrong = other(g);
@@ -65,7 +64,6 @@ describe("THE GAUGE's call", () => {
     landNow(world, g);
     expect(g.marks).toBe(0);
     expect(g.misses).toBe(1);
-    expect(gaugeJammed(g)).toBe(false);
     expect(g.calledColor).toBe(wrong);
     expect(world.events.map((e) => e.type)).toEqual(["gaugeMiss"]);
   });

@@ -75,14 +75,11 @@ export {
   gaugeGape,
   gaugeGapeSpan,
   gaugeHolds,
-  gaugeJammed,
   gaugeLevelMarksMade,
   gaugeRound,
   gaugeSeated,
   gaugeSeatedBy,
-  gaugeSettling,
   gaugeSpanNow,
-  gaugeSwallowed,
   gaugeTongueAsks,
   gaugeTongueOut,
   gaugeToothAsks,
@@ -228,7 +225,7 @@ export {
 // Whether THE FLEET's wound asks for both thumbs, which its rings read (`fleet-grip-marks.ts`).
 export { fleetWoundAsks } from "./fleet-hand.js";
 // Which parts THE GAUGE asks a hand for, which its rings read (`gauge-marks.ts`).
-export { gaugeBandAsks, gaugeNeedleAsks } from "./gauge-hand.js";
+export { gaugeBandAsks } from "./gauge-hand.js";
 // Which marks THE MIRROR and THE BULB QUEEN ask a thumb for, which their
 // rings read rather than re-derive (`render/mirror-grip.ts`, `queen-marks.ts`).
 export { mirrorAsks, mirrorLobesOf } from "./mirror-hand.js";

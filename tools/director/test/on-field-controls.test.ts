@@ -168,11 +168,8 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // while the pilot braces the string (`sim/maze-hand.ts`,
   // `field-controls-maze.ts`).
   mazeHeart: "field",
-  // `gaugeNeedle` and `gaugeBand` are THE GAUGE's dial under one thumb each
-  // — his hand swinging the needle while the valve is jammed, her thumb
-  // holding the wound band open (`sim/gauge-hand.ts`, `render/gauge-grip.ts`,
-  // `field-controls-gauge.ts`).
-  gaugeNeedle: "field",
+  // `gaugeBand` is THE GAUGE's dial under her thumb, holding the wound band
+  // open (`sim/gauge-hand.ts`, `render/gauge-grip.ts`, `field-controls-gauge.ts`).
   gaugeBand: "field",
   // `wardenEye` and `wardenHatch` are THE WARDEN's second and third hands —
   // player 2's thumb resting on the eye under NARROW, player 1's swipe

@@ -38,21 +38,13 @@ export interface GaugeConfig {
   gaugeLevelDriftMilli: number;
   /**
    * How much narrower the band's half-width is each step the mouth opens, in
-   * thousandths. A level up opens it one step and so does a miss (`gauge-gape.ts`).
+   * thousandths. A level up opens it one step (`gauge-gape.ts`).
    */
   gaugeGapeSpanMilli: number;
-  /** Steps open at which the mouth swallows the ship, and the round is lost. */
-  gaugeGapeFull: number;
   /** Beats of bare rim between two levels, the level's clock held full. */
   gaugeLevelRestBeats: number;
   /** Beats between two calls, landed or not, so a held thumb is slower than talking. */
   gaugeCallRestBeats: number;
-  /**
-   * Beats a needle that was moved by hand must stand before a call counts. The
-   * whole cost of the jam: the hand is instant where the valve is not, and what
-   * it buys back is that the pair cannot call the moment it arrives.
-   */
-  gaugeSettleBeats: number;
   /** Landed marks between one winding of the band and the next. */
   gaugeBindMarks: number;
   /**
@@ -90,12 +82,9 @@ export interface GaugeConfig {
  * cuts the band's half-width `gaugeGapeSpanMilli` narrower — 60, 52, 44 — so
  * the third is a band nearly twice as quick and a quarter slimmer.
  *
- * **A miss opens it a step too** (the owner, 2 October 2026, choosing it over a
- * miss that jammed the valve: a pair that did not know the needle could be
- * swung by hand lost the wave to the clock on its first wrong shot). At
- * `gaugeGapeFull` 5 the mouth swallows the ship: five misses on the first
- * level, three on the last, and every one of them narrows the band by the same
- * 8 a level does — 28 at the widest, still wider than the bind's 18. Three marks a level keeps the whole
+ * **A miss loses the round** (the owner, 2 October 2026, for every boss: *a
+ * miss makes the boss wave fail and requires retry*), and so does a wrong
+ * tooth or a tooth or the tongue left in. Three marks a level keeps the whole
  * round near the ninety seconds it was, plus the rests between. The bound
  * width stays 18 on every level: it is the bind's own number, and 18 is still
  * well under the narrowest level's 44.
@@ -105,10 +94,8 @@ export interface GaugeConfig {
  * cross than the voice delay would turn every correction into a conversation
  * the pair had already finished.
  *
- * **The three numbers under the two states are set against those two**
- * (`gauge-hand.ts`, 18 September 2026). `gaugeSettleBeats` at 2 is a little
- * over a second: long enough that a hand is not simply a faster valve, short
- * enough that the pair does not stop talking while it runs. `gaugeBindMarks`
+ * **The two numbers under the bind are set against those two**
+ * (`gauge-hand.ts`, 18 September 2026). `gaugeBindMarks`
  * at 2 binds the band on the second mark and every other one after it, so the
  * round alternates rather than ending in one state. `gaugeBoundSpanMilli` at
  * 18 is under a third of `gaugeSpanMilli`: a band 36 wide against a needle
@@ -146,10 +133,8 @@ export const GAUGE_DEFAULTS: GaugeConfig = {
   gaugeLevels: 3,
   gaugeLevelDriftMilli: 8,
   gaugeGapeSpanMilli: 8,
-  gaugeGapeFull: 5,
   gaugeLevelRestBeats: 4,
   gaugeCallRestBeats: 2,
-  gaugeSettleBeats: 2,
   gaugeBindMarks: 2,
   gaugeBoundSpanMilli: 18,
   gaugeShotTicks: 45,

@@ -1,12 +1,5 @@
 import type { ControlId } from "@neon-spore/content";
-import {
-  GAUGE_FULL,
-  type GaugeState,
-  gaugeJammed,
-  gaugeRound,
-  gaugeSettling,
-  type World,
-} from "@neon-spore/sim";
+import { GAUGE_FULL, type GaugeState, gaugeRound, type World } from "@neon-spore/sim";
 import { drawFireButton } from "./controls.js";
 import { halo } from "./glow.js";
 import type { Circle } from "./layout.js";
@@ -37,8 +30,8 @@ import type { SeatSkin } from "./seat-skin.js";
  * (`sim/gauge-call.ts`), and she is the one who can see the wound.
  *
  * A button the round would refuse right now is drawn faint rather than
- * hidden: the turns while the valve is jammed, the call while her thumb holds
- * the band open or his needle is settling (`gaugeLobeArmed`).
+ * hidden: the call while her thumb holds the band open (`gaugeLobeArmed`).
+ * The turns are always live since the jam went, 2 October 2026.
  */
 
 export type GaugeLobe = "left" | "right" | "red" | "cyan";
@@ -70,7 +63,7 @@ export function drawGaugeLobe(
   const { x, y, r } = circle;
   const round = gaugeRound(world);
   const live = round !== null && round.phase === "play";
-  const armed = !live || gaugeLobeArmed(world, round, which);
+  const armed = !live || gaugeLobeArmed(round, which);
   ctx.save();
   if (!armed) ctx.globalAlpha = REFUSED;
   if (isCall(which)) {
@@ -100,13 +93,12 @@ export function drawGaugeLobe(
  * Whether a lobe would answer if it were pressed right now, asked the way the
  * simulation asks it (`sim/gauge.ts`, `gauge-hand.ts`) rather than guessed at.
  *
- * The valve is dead under a jam, and the call is refused while her own thumb
- * is holding the band open or while his needle is still settling. The rest
+ * The valve always answers, and the call is refused while her own thumb is
+ * holding the band open. The rest
  * between two calls is not in here — it is two beats, and a button that
  * blinked every time she pressed would read as a fault rather than a rhythm;
  * the shot in the air already says it.
  */
-export function gaugeLobeArmed(world: World, round: GaugeState, which: GaugeLobe): boolean {
-  if (!isCall(which)) return !gaugeJammed(round);
-  return !round.openThumb && !gaugeSettling(world.cfg, round, world.beat);
+export function gaugeLobeArmed(round: GaugeState, which: GaugeLobe): boolean {
+  return !isCall(which) || !round.openThumb;
 }

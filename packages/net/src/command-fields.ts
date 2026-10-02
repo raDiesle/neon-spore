@@ -26,7 +26,7 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "mazeString", "wardenTether", "lidString", "gripBody", "choirLeft", "choirRight",
   "balloonLeft", "balloonRight", "crank", "sinewLeft", "sinewRight",
   "surgeBulb", "antiphonOrgan", "instarMark", "filament", "stareLash", "queenMark",
-  "mirrorLobe", "gorgeLobe", "mazeHeart", "gaugeNeedle", "gaugeBand",
+  "mirrorLobe", "gorgeLobe", "mazeHeart", "gaugeBand",
   "wardenEye", "wardenHatch", "fleetBreach", "fleetRake", "fleetWreck",
   "vaneArm", "vaneHousing", "snakeJaws", "snakeTail", "pinPlunger", "pinTable",
   "scoutLine", "scoutPrime", "pulseMeter", "batonSocket", "undertowTap",

@@ -27,7 +27,6 @@ export const DECISIONS: readonly FieldDecision[] = [
       "to one seat, falling through only where the other seat has something " +
       "of its own underneath that the press was plainly for.",
     rows: [
-      "THE GAUGE'S NEEDLE",
       "THE GAUGE'S BAND",
       "THE GAUGE'S TOOTH",
       "THE VALVE'S WHEEL",

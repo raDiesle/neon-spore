@@ -17,8 +17,8 @@ import type { World } from "./world.js";
  * never needs — the same moment, on both seats.
  *
  * The rest is `gaugeTongueBeats` long. A twist ends it early, as the right
- * tooth does; a rest that runs out with the tongue still out jams the valve
- * for the level it opens onto, as the tooth's lapse does. Nothing is drawn
+ * tooth does; a rest that runs out with the tongue still out is a mistake,
+ * as the tooth's lapse is, and loses the round (`stepGauge`). Nothing is drawn
  * from the rng: there is nothing here one of them knows and the other does
  * not.
  */
@@ -45,13 +45,12 @@ export function gaugeLoosenTongue(world: World, g: GaugeState): void {
   g.regrowBeat = g.levelBeat;
 }
 
-/** On the beat: a rest that ran out with the tongue still out jams the valve. */
+/** On the beat: a rest that ran out with the tongue still out is a mistake, and loses the round. */
 export function gaugeTongueLapses(world: World, g: GaugeState): void {
   if (!g.tongueOut || world.beat < g.levelBeat) return;
   g.tongueOut = false;
   releaseTongue(g);
-  g.jamBeat = world.beat;
-  world.events.push({ type: "gaugeJam" });
+  g.misses += 1;
 }
 
 /**

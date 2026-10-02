@@ -180,20 +180,24 @@ whole of the pressure. `gaugeTurnMilli` is how far the pilot's valve moves the
 needle each tick. `gaugeCallRestBeats` is the beats between two calls, landed or
 not, so a held thumb is slower than talking.
 
-**The mouth opens** (2 October 2026). The owner: *when hitted wrong, the wave
-is lost. What about different levels and idea to increase distance of cannon to
-teeth (so more opened mouth)?* A miss used to jam the valve, and a pair who did
-not know the needle could then be swung by hand ran the level's clock out on
-the first wrong shot. Now a miss opens the mouth a step, and so does every
-level up: the opening is `level + misses` (`gaugeGape`), each step cuts the
-band's half-width by `gaugeGapeSpanMilli` — the same tear further off is a
-narrower angle — and a mouth `gaugeGapeFull` steps open swallows the ship: the
-round lost and the hull struck, exactly as the clock running out does
-(`packages/sim/src/gauge-gape.ts`). Five misses on the first level, three on
-the last. The valve keeps answering through all of it. On both screens the rim
-stands `RIM_STEP` of the dial further off the cannon a step, gulping out past
-it on the landing of the shot that opened it (`render/gauge-gape.ts`), so the
-teeth, the wound and every thumb on the rim move out with it.
+**The mouth opens, and a miss loses** (2 October 2026). The owner: *when
+hitted wrong, the wave is lost. What about different levels and idea to
+increase distance of cannon to teeth (so more opened mouth)?* Each level up
+opens the mouth a step: the opening is the level (`gaugeGape`), and each step
+cuts the band's half-width by `gaugeGapeSpanMilli` — the same tear further off
+is a narrower angle (`packages/sim/src/gauge-gape.ts`). On both screens the
+rim stands `RIM_STEP` of the dial further off the cannon a step, gulping out
+past it on the landing of the mark that opened it (`render/gauge-gape.ts`), so
+the teeth, the wound and every thumb on the rim move out with it.
+
+**Every mistake loses the round**, the owner's rule for every boss the same
+day: *a miss makes the boss wave fail and requires retry*. A call that
+misses, a tooth pulled wrong, and a tooth or the tongue still in when its rest
+runs out each count in `misses`, and the first ends the play on that tick:
+the round lost and the hull struck, exactly as the clock running out does,
+and the wave offered again. The jam those mistakes used to cost — a dead
+valve and a needle swung by hand — went with them, and so did the misses
+opening the mouth, which stood for half a day between the two.
 
 **What he sees while she calls** (2 October 2026). The owner: *for p1 to
 indicate he is waiting for player to call … very fast rotating teeths …
@@ -214,8 +218,8 @@ screen shows which tooth is loose, the navigator's hand pulls — a drag of
 `gaugeToothPullMilli` from the tooth she pressed. The next comes loose the
 moment the last is out; the last right one ends the rest early, after
 `gaugeRegrowBeats`; any other
-comes out anyway and jams the valve into the next level, and a rest that runs
-out with the loose one still in costs the same. The pulled teeth stay out for
+comes out anyway and loses the round, and a rest that runs out with the loose
+one still in costs the same. The pulled teeth stay out for
 the round (`packages/sim/src/gauge-tooth.ts`, THE GAUGE'S TOOTH in
 `controls.md`).
 
@@ -227,7 +231,7 @@ drags, and it is wrung only when both hands are on it and dragged opposite
 ways by `gaugeTongueTwistMilli` or more each — so the talking is a count, *three,
 two, one, now*, rather than a description. Wrung, the rest ends early after
 `gaugeRegrowBeats`; a hand let go unwinds its half, and a rest that runs out
-with the tongue still out jams the valve into the next level
+with the tongue still out loses the round
 (`packages/sim/src/gauge-tongue.ts`, THE GAUGE'S TONGUE in `controls.md`).
 
 **The crown and the gashes** (29 September 2026). The owner: *remove the
@@ -250,26 +254,18 @@ fired at. A hit shoots the wound out, and the rim stands bare for
 `gaugeRegrowBeats` before the next one opens, somewhere else. A call made
 while a bolt is out or the rim is bare is refused, never counted as a miss.
 
-### The two states it changes into, and the two thumbs that answer them
+### The state it changes into, and the thumb that answers it
 
 *18 September 2026, `.claude/skills/new-boss` §6.2. The simulation is
 `packages/sim/src/gauge-hand.ts` and `gauge-band.ts`.*
 
 The round shipped with **one** state in it: turn, talk, call, for ninety
-seconds. What it has now is two more, and the point of both is that the pair's
-own last answer is what enters them. The round is never in a state the two of
-them did not just put it in, and neither seat can see the whole of why.
-
-**The jam, his.** A tooth pulled wrong, or a tooth or the tongue left in when
-its rest runs out, sticks the valve — a miss did too, until the mouth took that
-over on 2 October 2026 — `gaugeJammed`, from
-`jamBeat` — and the needle stops answering the thumb he is still holding.
-Until the next call lands, the needle is his hand on the needle itself: a drag
-at `gaugeNeedle`, read as a **bearing** round the dial (`bearing.ts`), so it
-goes where the finger points rather than walking there. That is instant where
-the valve is slow, and what it costs is `gaugeSettleBeats` after he lifts, in
-which a call is *refused*. The sentence stops being *left — less — less* and
-becomes *swing it over — stop — wait — now*.
+seconds. It gained two, and the point of both was that the pair's own last
+answer is what enters them. **The jam**, his — a dead valve and the needle
+swung by hand, with a settle after it in which her call was refused — went on
+2 October 2026, when a mistake began to lose the round instead: nothing could
+reach it any more. The bind remains, and the round is never in a state the two
+of them did not just put it in.
 
 **The bind, hers.** Every `gaugeBindMarks` marks the band winds tight to
 `gaugeBoundSpanMilli` — under a third of its width — and the one after it lets
@@ -280,11 +276,10 @@ and it is why the bind is a gesture rather than a button: the pair has to agree
 out loud on the moment she lets go, and that moment is the only thing in the
 round she does not decide alone.
 
-Both refusals are **refusals and not misses**. A call under her own thumb or
-over a needle still settling is turned away without charging her, because both
-are the round asking for something else at that moment and the rest between
-calls would run as well — a pair doing exactly what was asked would be slowed
-for it.
+The refusal is **a refusal and not a miss**. A call under her own thumb is
+turned away without charging her, because it is the round asking for
+something else at that moment and the rest between calls would run as well —
+a pair doing exactly what was asked would be slowed for it.
 
 `gaugeSpanNow` is the one number the whole round is judged against, and it is
 **called and never re-derived**: the picture draws the band at the width the
@@ -292,7 +287,8 @@ judgement uses, so the pair can never call a needle the screen shows between
 the marks and be told it was not.
 
 **What the field says** (`render/src/boss-cue-read-w.ts`, 18 September 2026,
-`docs/decisions.md` #34). Four words now, three hers and one his.
+`docs/decisions.md` #34). Three words in the play, all hers; the rests have
+their own.
 
 Hers are her own verbs at the moment each will land: `CALL` / `POSITION` on
 the wound while it is open and the cannon is not yet over it, `PRESS` /
@@ -310,45 +306,39 @@ tight window is a mark she can take without spending the thumb. Neither is the
 round's difficulty — the hard half of her job is talking him there before it
 arrives, and that happens in the beats when there is no cue at all.
 
-**His is the jam, and it is a correction this reading had to make to itself.**
-While the valve answers he is told nothing, on any beat, in any state: the two
-marks are not on his screen (`showsGaugeMarks`), so the only word over his
-valve would be a direction, which is the answer and hers to say, and there is
-no beat when a turn is owed because the needle is parked on purpose while the
-band walks toward it. A dead valve is different. It is a fact about **his own
-half** — the thing under his thumb has stopped working — which his screen does
-not show him and hers cannot. `TURN` over the needle says that and nothing
-else: not the direction, not the distance, not that a call is close. It goes
-quiet the moment his hand is down, because a word over a needle he is already
-swinging is the field narrating him. He still keeps the rehearsal's one page
-about his half (`docs/spec/briefings.md`).
+**His screen is told nothing in the play**, on any beat: the two marks are
+not on it (`showsGaugeMarks`), so the only word over his valve would be a
+direction, which is the answer and hers to say, and there is no beat when a
+turn is owed because the needle is parked on purpose while the band walks
+toward it. The `TURN` he was given over a jammed needle went with the jam. He
+still keeps the rehearsal's one page about his half
+(`docs/spec/briefings.md`).
 
-**The look.** Each state puts a ring on the half of the picture its own seat
-is shown, and the ring is the game's own — breathing until a thumb lands,
-filled once one has (`render/gauge-grip.ts`, `grip-rings.ts`). His stands on
-the end of the needle while the valve is jammed and nowhere at all while it
-answers; hers stands in the middle of the band while it is wound, on the only
-screen the band is drawn on. The circle a thumb is answered at is the circle
+**The look.** The bind puts a ring on the half of the picture her seat is
+shown, and the ring is the game's own — breathing until a thumb lands, filled
+once one has (`render/gauge-grip.ts`, `grip-rings.ts`). It stands in the
+middle of the band while it is wound, on the only screen the band is drawn
+on. The circle a thumb is answered at is the circle
 the ring is drawn from, which is the one thing a control on a picture has to
 get right.
 
-**Its needle and band answer a touch the way every mark does, as far as the
-split lets them** (28 September 2026, `render/gauge-marks.ts`;
-`mark-feedback.ts`, `grip-verdict.ts`). Whether each is asked is the
-simulation's (`gaugeNeedleAsks`, `gaugeBandAsks`, `sim/gauge-hand.ts`). On the
-screen that shows it, the part asked wears the halo under its ring until the
+**Its band answers a touch the way every mark does, as far as the split lets
+it** (28 September 2026, `render/gauge-marks.ts`;
+`mark-feedback.ts`, `grip-verdict.ts`). Whether it is asked is the
+simulation's (`gaugeBandAsks`, `sim/gauge-hand.ts`). On the screen that shows
+it, the band asked wears the halo under its ring until the
 thumb is down, and the thumb landing washes it **green** (`gaugeHold`, silent:
 the ring filling already says it). **Half the convention is missing on
 purpose.** Every other mark wears the partner's turning ring and clock on the
 other screen, and a press from the wrong seat is refused red; here the band is
-never drawn on his screen and the jam never shown on hers, so either would tell
-a seat the one thing the round keeps from it. A wrong seat's thumb still falls
+never drawn on his screen, so either would tell him the one thing the round
+keeps from him. A wrong seat's thumb still falls
 through, and nothing is refused. A round ingests no effects of its own, so the
 takeover feeds these verdicts (`canvas2d-takeover.ts`).
 
 **And a button goes faint where the round would refuse it**, asked the way
-the simulation asks it and never guessed at (`gaugeLobeArmed`): the two turns
-under a jam, the call under her own thumb or over a settling needle. The rest
+the simulation asks it and never guessed at (`gaugeLobeArmed`): the call under
+her own thumb. His two turns always answer. The rest
 between two calls is not in it — two beats, and a button that blinked every
 time she pressed would read as a fault rather than a rhythm. The rows
 are in [controls](controls.md); the director's are in
@@ -384,7 +374,7 @@ its dotted line and shuts. A catch is a body: a pod stands where it was
 called, the hand closes on it in a green ring, carries it home and the ship
 swallows it at the crown, while the navigator's next pod swells in where the
 band has gone. A miss is an absence: the hand shuts on the dark in a grey
-puff and comes back closed and rattling on the valve that has just jammed.
+puff and comes back closed and rattling.
 Both screens — the pod in the hand is where the pilot stopped, and it is the
 one way he learns his stop was right (the catch's own file, since deleted). It is timed
 from `calledTick`, the one field the simulation gained, and it is over inside
@@ -429,27 +419,20 @@ The wound is red or cyan, drawn from the `Rng` with every band (`drawBand`)
 and hashed, and only she sees it. Her CALL is gone: she has a RED and a CYAN
 fire button in its place, and a shot lands only in the wound and in the
 wound's colour. A shot in the other colour, on a seated needle, is a miss like
-one on the armour — it opens the mouth a step (`sim/gauge-call.ts`). He cannot see the
+one on the armour — and the round is lost (`sim/gauge-call.ts`). He cannot see the
 colour at all, so it adds nothing to say; it is one more thing she must not
 get wrong while she is saying *left, left, stop*.
 
-**What is not built.** Neither state has a pose of its own in the director's
-gallery — both rows name `THE GAUGE · PLAY`, which is the phase they live
-inside rather than a picture of either. That one is still in
-[the queue](../queue.md).
-
-**The round has sound now** (19 September 2026): `gaugeMark`, `gaugeMiss`,
-`gaugeJam` and `gaugeBind`, in `packages/sim/src/events-gauge.ts`, pushed from
+**The round has sound now** (19 September 2026): `gaugeMark`, `gaugeMiss`
+and `gaugeBind`, in `packages/sim/src/events-gauge.ts`, pushed from
 `gaugeHeard` — a call answers with a mark or a miss, and a mark beside it can
-wind the band; the jam is said by the tooth and the tongue (`gauge-tooth.ts`). All four are bound in
-`packages/audio/src/bind-gauge.ts`, panned to the middle: the needle and the
-band are both drawn on the plate rather than over a column, so there is no
-lane for either sound to stand in. The picture needed nothing beside them —
-the needle, the band, the jam and the bind are all read off the round's own
-state every frame already (`render/gauge.ts`), so all four are on the render
-silent list rather than drawing anything new. The jam is the one of the four
-that mattered most: it is the one thing in the round the pilot cannot see
-coming, and an ear tells him instantly where the eye never could.
+wind the band. All three are bound in `packages/audio/src/bind-gauge.ts`,
+panned to the middle: the needle and the band are both drawn on the plate
+rather than over a column, so there is no lane for either sound to stand in.
+The picture needed nothing beside them — the needle, the band and the bind are
+all read off the round's own state every frame already (`render/gauge.ts`),
+so all three are on the render silent list rather than drawing anything new.
+A fourth, `gaugeJam`, went with the jam on 2 October 2026.
 
 What a round **may** do is give — a pod or two for the act about to start
 ([systems](systems.md#57-power-ups--the-pod-built)). That is not built. Pods are

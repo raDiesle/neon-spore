@@ -7,15 +7,15 @@ import {
   step,
   type World,
 } from "@neon-spore/sim";
-import { gaugeBandGrip, gaugeNeedleGrip } from "../src/gauge-grip.js";
+import { gaugeBandGrip } from "../src/gauge-grip.js";
 import { gaugeDial } from "../src/gauge-round.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import type { Field } from "../src/touch.js";
 import { CFG, waveWith } from "./frame-harness.js";
 
 /**
- * THE GAUGE's round in play, a touch field around it, and where its two rings
- * stand — shared by `gauge-grip.test.ts` and `gauge-bind-grip.test.ts`, cut in
+ * THE GAUGE's round in play, a touch field around it, and where the band's
+ * ring stands — shared by `gauge-grip.test.ts` and `gauge-bind-grip.test.ts`, cut in
  * two when THE GAUGE's loose tooth took the first to 261 lines.
  */
 export const layout = (role: ViewRole) =>
@@ -58,7 +58,5 @@ export function fieldWith(seat: 1 | 2, boss: GaugeState | null): Field {
   };
 }
 
-export const needleAt = (l: Layout, g: GaugeState) =>
-  gaugeNeedleGrip(l, DEFAULT_CONFIG, gaugeDial(l), g);
 export const bandAt = (l: Layout, g: GaugeState) =>
   gaugeBandGrip(l, DEFAULT_CONFIG, gaugeDial(l), g);

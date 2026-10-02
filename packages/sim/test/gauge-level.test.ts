@@ -49,12 +49,15 @@ function mark(world: World, g: GaugeState): void {
   while (!gaugeWoundOpen(g)) ticks(world, 1);
   g.needleMilli = g.markMilli;
   g.calledBeat = world.beat - CFG.gaugeCallRestBeats;
-  g.jamBeat = -1;
-  g.liftBeat = -1;
   const before = g.marks;
   gaugeRoundHeard(world, 2, { kind: "call", color: g.woundColor });
   ticks(world, CFG.gaugeShotTicks);
   expect(g.marks).toBe(before + 1);
+  // The rests' own asks are not this file's: a tooth or the tongue left in
+  // loses the round (`gauge-tooth.test.ts`, `gauge-tongue.test.ts`), so the
+  // one a level-up just put out is taken back in, and the rest runs bare.
+  g.looseTooth = -1;
+  g.tongueOut = false;
 }
 
 describe("THE GAUGE's levels", () => {

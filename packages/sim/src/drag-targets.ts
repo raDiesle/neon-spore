@@ -38,7 +38,6 @@ export type DragTarget =
   | "mirrorLobe"
   | "gorgeLobe"
   | "mazeHeart"
-  | "gaugeNeedle"
   | "gaugeBand"
   | "wardenEye"
   | "wardenHatch"
@@ -209,10 +208,9 @@ export type DragTarget =
  */
 
 /**
- * `gaugeNeedle` and `gaugeBand` are the twenty-third and twenty-fourth, the
- * two halves of one dial (`gauge-hand.ts`). `gaugeNeedle` is the third whose
- * `fromMilli` is a **bearing**, not a distance (`bearing.ts`): a hand swinging
- * a needle round a dial goes round a circle, and the needle stands where the
- * finger points. `gaugeBand` carries nothing but `on` — a thumb held on the
- * band keeps it open, and where it landed says nothing the round wants.
+ * `gaugeBand` is THE GAUGE's band, held open by her thumb (`gauge-hand.ts`).
+ * It carries nothing but `on` — a thumb held on the band keeps it open, and
+ * where it landed says nothing the round wants. `gaugeNeedle` stood beside it,
+ * the pilot's hand swinging the needle round the dial while the valve was
+ * jammed, until a mistake lost the round instead (2 October 2026).
  */

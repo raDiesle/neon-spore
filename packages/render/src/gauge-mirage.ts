@@ -1,10 +1,4 @@
-import {
-  GAUGE_TEETH,
-  type GaugeState,
-  gaugeJammed,
-  gaugeToothLoose,
-  gaugeWoundOpen,
-} from "@neon-spore/sim";
+import { GAUGE_TEETH, type GaugeState, gaugeToothLoose, gaugeWoundOpen } from "@neon-spore/sim";
 import type { Dial } from "./gauge.js";
 import { angleOf } from "./gauge-alien.js";
 import { depthOf, TOOTH_STEP, toothPath } from "./gauge-teeth.js";
@@ -45,7 +39,7 @@ const LIGHT = 0.9;
 export function gaugeMirageShown(g: GaugeState): boolean {
   if (g.phase !== "play" || g.valve !== 0) return false;
   if (!gaugeWoundOpen(g) || g.shotTick !== -1) return false;
-  return !gaugeToothLoose(g) && !g.tongueOut && !gaugeJammed(g);
+  return !gaugeToothLoose(g) && !g.tongueOut;
 }
 
 /** A coin for tooth `k` on pass `pass`: the same frame twice, never the state. */

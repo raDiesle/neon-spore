@@ -6,7 +6,6 @@ import {
   GAUGE_TONGUE_LEVEL,
   type GaugeState,
   gaugeBetweenLevels,
-  gaugeJammed,
   gaugeRound,
   gaugeTongueAsks,
   gaugeTongueOut,
@@ -24,8 +23,8 @@ import {
  * 2026: *or to rotate the tongue that it gets twisted by both players*. Held
  * to what the pair would notice: that the tongue comes out after the second
  * level and no other, that one hand alone or two the same way round wrings
- * nothing, that two opposite ways end the rest early and a rest run out jams
- * the valve, and that two devices agree about all of it.
+ * nothing, that two opposite ways end the rest early and a rest run out loses
+ * the round, and that two devices agree about all of it.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -57,25 +56,25 @@ function passLevel(world: World, g: GaugeState): void {
     while (!gaugeWoundOpen(g)) ticks(world, 1);
     g.needleMilli = g.markMilli;
     g.calledBeat = world.beat - CFG.gaugeCallRestBeats;
-    g.jamBeat = -1;
-    g.liftBeat = -1;
     gaugeRoundHeard(world, 2, { kind: "call", color: g.woundColor });
     ticks(world, CFG.gaugeShotTicks);
   }
 }
 
-/** Two levels finished and the tooth pulled between them, leaving the pair in the tongue's rest. */
+/** Two levels finished and the teeth pulled between them, leaving the pair in the tongue's rest. */
 function toTheTongue(seed = 5): { world: World; g: GaugeState } {
   const { world, g } = playing(seed);
   passLevel(world, g);
-  gaugeRoundHeard(world, 2, {
-    kind: "drag",
-    target: "gaugeTooth",
-    on: true,
-    id: g.looseTooth,
-    fromMilli: 0,
-    fromYMilli: 2000,
-  });
+  for (let k = 0; k < CFG.gaugeTeethToPull; k++) {
+    gaugeRoundHeard(world, 2, {
+      kind: "drag",
+      target: "gaugeTooth",
+      on: true,
+      id: g.looseTooth,
+      fromMilli: 0,
+      fromYMilli: 2000,
+    });
+  }
   passLevel(world, g);
   return { world, g };
 }
@@ -121,7 +120,7 @@ describe("THE GAUGE's tongue", () => {
     expect(gaugeTongueOut(g)).toBe(true);
   });
 
-  it("is wrung by two hands opposite ways, and the rest ends early without a jam", () => {
+  it("is wrung by two hands opposite ways, and the rest ends early", () => {
     const { world, g } = toTheTongue();
     wring(world, 1, -CFG.gaugeTongueTwistMilli);
     const before = world.events.length;
@@ -130,7 +129,7 @@ describe("THE GAUGE's tongue", () => {
     expect(gaugeTongueOut(g)).toBe(false);
     expect(g.tongueHolds).toBe(0);
     expect(g.levelBeat - world.beat).toBe(CFG.gaugeRegrowBeats);
-    expect(gaugeJammed(g)).toBe(false);
+    expect(g.misses).toBe(0);
     ticks(world, TPB * (CFG.gaugeRegrowBeats + 1));
     expect(gaugeBetweenLevels(world, g)).toBe(false);
     expect(gaugeWoundOpen(g)).toBe(true);
@@ -146,12 +145,16 @@ describe("THE GAUGE's tongue", () => {
     expect(gaugeTongueOut(g)).toBe(true);
   });
 
-  it("jams the valve when the rest runs out with it still out", () => {
+  it("loses the round when the rest runs out with it still out", () => {
+    // The owner's rule for every boss, 2 October 2026: *a miss makes the boss
+    // wave fail and requires retry*. It used to jam the valve.
     const { world, g } = toTheTongue();
     const events = ticks(world, TPB * (CFG.gaugeTongueBeats + 1));
     expect(gaugeTongueOut(g)).toBe(false);
-    expect(events.some((e) => e.type === "gaugeJam")).toBe(true);
-    expect(gaugeJammed(g)).toBe(true);
+    expect(g.misses).toBe(1);
+    expect(g.phase).toBe("verdict");
+    expect(g.passed).toBe(false);
+    expect(events.some((e) => e.type === "waveFailed")).toBe(true);
   });
 
   it("is in the fingerprint: a hand on one device only is a desync", () => {

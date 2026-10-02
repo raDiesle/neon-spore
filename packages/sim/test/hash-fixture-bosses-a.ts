@@ -131,12 +131,9 @@ export function patchBossA(boss: BossState, scar: () => Required<Scar>): void {
     boss.calledMilli = 3_100;
     boss.calledGood = true;
     boss.calledTick = 190;
-    // The two states the round gained, and the hands on them
-    // (`gauge-hand.ts`): every one of these is in `hashWorld`, so every one
-    // has to be moved off its opening value here or `hash-coverage` says so.
-    boss.jamBeat = 5;
-    boss.handOn = true;
-    boss.liftBeat = 6;
+    // The bind and the thumb on it (`gauge-hand.ts`): both are in
+    // `hashWorld`, so both have to be moved off their opening value here or
+    // `hash-coverage` says so.
     boss.boundBeat = 4;
     boss.openThumb = true;
     boss.shotTick = 230;

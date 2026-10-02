@@ -66,9 +66,6 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "gorgeLobe", on: true, fromMilli: 0, fromYMilli: 0, id: 3 },
   { kind: "drag", target: "gorgeLobe", on: false, fromMilli: 0, fromYMilli: 0, id: 3 },
   { kind: "drag", target: "mazeHeart", on: true, fromMilli: 0, fromYMilli: 450 },
-  // A bearing, not a distance: THE GAUGE's needle stands where the finger
-  // points round the dial (`sim/bearing.ts`).
-  { kind: "drag", target: "gaugeNeedle", on: true, fromMilli: 812, fromYMilli: 0 },
   { kind: "drag", target: "gaugeBand", on: true, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "wardenEye", on: true, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "wardenHatch", on: false, fromMilli: 1500, fromYMilli: 0 },
@@ -421,7 +418,6 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   mirrorLobe: true,
   gorgeLobe: true,
   mazeHeart: true,
-  gaugeNeedle: true,
   gaugeBand: true,
   wardenEye: true,
   wardenHatch: true,

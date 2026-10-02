@@ -45,8 +45,7 @@ export function gaugeBetweenLevels(world: World, gauge: GaugeState): boolean {
 /**
  * After a mark: if it finished a level that is not the last, the next begins
  * after a rest. Returns whether it did, so the caller does not wind the band on
- * the mark that ended a level — a new level opens free, with nothing jammed and
- * nothing bound.
+ * the mark that ended a level — a new level opens free, with nothing bound.
  */
 export function gaugeLevelUp(world: World, gauge: GaugeState): boolean {
   const cfg = world.cfg;
@@ -56,7 +55,6 @@ export function gaugeLevelUp(world: World, gauge: GaugeState): boolean {
   gauge.levelBeat = world.beat + cfg.gaugeLevelRestBeats;
   gauge.regrowBeat = gauge.levelBeat;
   gauge.boundBeat = -1;
-  gauge.jamBeat = -1;
   // One rest is spent on a tooth instead, and one on the tongue
   // (`gauge-tooth.ts`, `gauge-tongue.ts`).
   gaugeLoosenTooth(world, gauge);

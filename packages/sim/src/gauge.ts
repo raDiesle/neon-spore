@@ -1,7 +1,5 @@
 import { drawBand, driftBand, gaugeSeatedBy, gaugeWoundOpen } from "./gauge-band.js";
 import { gaugeShotLands, gaugeWoundRegrows } from "./gauge-call.js";
-import { gaugeSwallowed } from "./gauge-gape.js";
-import { gaugeJammed } from "./gauge-hand.js";
 import { gaugeAllLevels } from "./gauge-level.js";
 import { gaugeTongueLapses } from "./gauge-tongue.js";
 import { gaugeToothLapses } from "./gauge-tooth.js";
@@ -21,10 +19,11 @@ import type { World } from "./world.js";
  * between the marks would leave the navigator with information and no verb: a
  * player watching. The call is the moment she commits to what she has been
  * saying, and it is the only thing in the round that can be wrong. It costs
- * `gaugeCallRestBeats` whether it lands or not, and a miss opens the mouth a
- * step (`gauge-gape.ts`). What the *round* costs when the mouth opens all the
- * way or it is not finished in time is the hull, in `gauge-round.ts` — this
- * file is only its arithmetic.
+ * `gaugeCallRestBeats` whether it lands or not, and a miss loses the round.
+ * What the *round* costs when it is lost — a miss, a tooth or the tongue got
+ * wrong, or the level's clock run out — is the hull, in `gauge-round.ts`, and
+ * the hull struck fails the wave into its retry (`wave-fail.ts`) — this file
+ * is only its arithmetic.
  *
  * **Why the band drifts.** Without it the round ends the first time the pilot
  * happens to stop in the right place and the pair never has to keep talking.
@@ -88,7 +87,12 @@ export interface GaugeState {
   driftDir: number;
   /** Calls that landed between the marks, over the whole round. */
   marks: number;
-  /** Calls that did not. Each opens the mouth a step (`gauge-gape.ts`). */
+  /**
+   * Mistakes: a call that did not land, a sound tooth pulled, a tooth or the
+   * tongue left in when its rest ran out. The first loses the round — the
+   * owner's rule for every boss, 2 October 2026: *a miss makes the boss wave
+   * fail and requires retry* (`stepGauge`).
+   */
   misses: number;
   /** `world.beat` of the most recent call, for the rest between two of them. */
   calledBeat: number;
@@ -107,16 +111,6 @@ export interface GaugeState {
    * moment it was made (`render/gauge-shot.ts`).
    */
   calledTick: number;
-  /**
-   * `world.beat` the valve jammed on, or `-1`. A tooth or the tongue got wrong
-   * jams it and a call that lands frees it, so the state the round is in is
-   * the pair's own last answer (`gauge-hand.ts`).
-   */
-  jamBeat: number;
-  /** Whether the pilot's hand is on the needle itself. */
-  handOn: boolean;
-  /** `world.beat` his hand came off it, or `-1`: the settle counts from here. */
-  liftBeat: number;
   /** `world.beat` the band wound tight on, or `-1` while it is free. */
   boundBeat: number;
   /** Whether the navigator's thumb is holding the wound band open. */
@@ -168,9 +162,6 @@ export function openGauge(world: World): GaugeState {
     woundColor: "cyan",
     calledColor: "cyan",
     calledTick: NEVER_CALLED,
-    jamBeat: -1,
-    handOn: false,
-    liftBeat: -1,
     boundBeat: -1,
     openThumb: false,
     shotTick: -1,
@@ -200,8 +191,8 @@ export function gaugeBeatsLeft(world: World, gauge: GaugeState): number {
 }
 
 /**
- * One tick of the round, and whether it is over: `true` passed, `false` out of
- * time, `null` still going. The shell owns the phases and calls this only
+ * One tick of the round, and whether it is over: `true` passed, `false` a
+ * mistake made or out of time, `null` still going. The shell owns the phases and calls this only
  * while the round is actually being played.
  *
  * The needle moves on the tick and the band on the beat, deliberately. A valve
@@ -211,11 +202,7 @@ export function gaugeBeatsLeft(world: World, gauge: GaugeState): number {
  */
 export function stepGauge(world: World, gauge: GaugeState, onBeat: boolean): boolean | null {
   const cfg = world.cfg;
-  // A jammed valve is dead, and the needle is the pilot's own hand until a
-  // call lands (`gauge-hand.ts`). The command is still heard and still sets
-  // `valve` — what a seat is holding is a fact about the seat — so the needle
-  // sets off again the instant the jam clears, without a second press.
-  if (gauge.valve !== 0 && !gaugeJammed(gauge)) {
+  if (gauge.valve !== 0) {
     const next = gauge.needleMilli + gauge.valve * cfg.gaugeTurnMilli;
     gauge.needleMilli = Math.max(0, Math.min(GAUGE_FULL, next));
   }
@@ -232,10 +219,11 @@ export function stepGauge(world: World, gauge: GaugeState, onBeat: boolean): boo
   const still = gauge.openThumb || gauge.shotTick !== -1 || !gaugeWoundOpen(gauge);
   if (onBeat && !still) driftBand(world, gauge);
 
+  // Two ways to lose it, and they cost the same: a mistake, which is the
+  // owner's rule for every boss (*a miss makes the boss wave fail and
+  // requires retry*), or the level's clock run out.
+  if (gauge.misses > 0) return false;
   if (gaugeAllLevels(cfg, gauge)) return true;
-  // Two ways to lose it, and they cost the same: the mouth opened all the way
-  // by misses and levels (`gauge-gape.ts`), or the level's clock run out.
-  if (gaugeSwallowed(cfg, gauge)) return false;
   if (gaugeBeatsLeft(world, gauge) <= 0) return false;
   return null;
 }

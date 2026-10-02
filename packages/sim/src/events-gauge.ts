@@ -10,35 +10,31 @@
  * The needle is drawn on both screens and the band on the navigator's alone,
  * so these are not sounds for a half somebody cannot see — they are sounds
  * for the one moment in the round that is *decided* rather than watched: the
- * call. A mark and a miss are its two answers. A jam and a bind are what a
- * miss and a mark can cost, and each lands on the seat whose own screen never
- * says so: the pilot's valve going dead is a fact of his own half, and the
- * navigator's band winding tight is a fact of hers — the exact asymmetry
- * `gauge-hand.ts` is about. The fifth, `gaugeHold`, is no sound at all: it
+ * call. A mark and a miss are its two answers. A bind is what a mark can
+ * cost, and it lands on the seat whose own screen never says so: the
+ * navigator's band winding tight is a fact of her half — the exact asymmetry
+ * `gauge-hand.ts` is about. A jam stood beside it until 2 October 2026, when
+ * a miss began to lose the round. The fourth, `gaugeHold`, is no sound at all: it
  * is for the ring a thumb lands on (28 September 2026). The last two are the
  * tooth between two levels (`gauge-tooth.ts`, 30 September 2026): the right
- * one pulled, and the wrong one. The eighth is the tongue after the next
+ * one pulled, and the wrong one. The seventh is the tongue after the next
  * level, twisted by the two of them at once (`gauge-tongue.ts`).
  */
 export type GaugeEvent =
   /** A call landed between the marks. */
   | { type: "gaugeMark" }
-  /** A call did not — free the first time, and costing only the rest between
-   * two of them. */
+  /** A call did not, and the round is lost on this tick (`stepGauge`). */
   | { type: "gaugeMiss" }
-  /** The miss beside this one stuck the valve: the needle is his hand on it
-   * until the next call lands. */
-  | { type: "gaugeJam" }
   /** The mark beside this one wound the band tight: she cannot call while her
    * thumb is not holding it open. */
   | { type: "gaugeBind" }
-  /** His hand landed on the jammed needle, or her thumb on the wound band —
+  /** Her thumb landed on the wound band, a tooth or the tongue, or his on the tongue —
    * said once, on the landing, for the green round the ring
    * (`render/gauge-marks.ts`). Silent: the ring filling says it. */
-  | { type: "gaugeHold"; part: "band" | "needle" | "tooth" | "tongue" }
+  | { type: "gaugeHold"; part: "band" | "tooth" | "tongue" }
   /** The loose tooth came out, and the rest ends early. */
   | { type: "gaugePull" }
-  /** A sound tooth came out instead; the jam beside it is the cost. */
+  /** A sound tooth came out instead, and the round is lost (`stepGauge`). */
   | { type: "gaugeWrongPull" }
   /** Both hands wrung the tongue opposite ways, and the rest ends early. */
   | { type: "gaugeTwist" };

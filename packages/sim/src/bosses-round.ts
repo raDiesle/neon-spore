@@ -26,10 +26,10 @@ export {
 // it is at this moment, and whether it is wound at all (`gauge-band.ts`).
 export { gaugeBound, gaugeSeatedBy, gaugeSpanNow, gaugeWoundOpen } from "./gauge-band.js";
 // How far the mouth is open, which a level and a miss each open a step (`gauge-gape.ts`).
-export { gaugeGape, gaugeGapeSpan, gaugeSwallowed } from "./gauge-gape.js";
+export { gaugeGape, gaugeGapeSpan } from "./gauge-gape.js";
 // And the needle's two: dead valve, and a hand that has not settled yet —
 // with the pair of them named, which is the round's second axis.
-export { GAUGE_GRIPS, type GaugeGrip, gaugeJammed, gaugeSettling } from "./gauge-hand.js";
+export { GAUGE_GRIPS, type GaugeGrip } from "./gauge-hand.js";
 // Which of the three levels it is, and what that level asks (`gauge-level.ts`).
 export { gaugeBetweenLevels, gaugeLevelMarksMade } from "./gauge-level.js";
 export {

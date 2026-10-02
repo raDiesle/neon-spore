@@ -161,8 +161,8 @@ export function gaugeRoundHeard(world: World, player: 1 | 2, command: Command): 
 export function enterPhase(round: GaugeState, phase: GaugePhase, beat: number): void {
   round.phase = phase;
   round.phaseBeat = beat;
-  // Both hands come off with the phase. A play that ended under a thumb would
-  // leave a band held open and a needle settling into a verdict nobody can
-  // act on (`gauge-hand.ts`).
+  // Every hand comes off with the phase. A play that ended under a thumb
+  // would leave a band held open into a verdict nobody can act on
+  // (`gauge-hand.ts`).
   releaseGaugeHands(round);
 }

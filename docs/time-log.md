@@ -32145,3 +32145,19 @@ Bottleneck: looking — the brow only read as a frown once a frame showed
 it vanishing into the cowl's own rock.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE GAUGE's mistakes lose the round, and the jam is retired
+
+- reading: 5 min. Every reader of `jamBeat`, `handOn` and `liftBeat`, from
+  the simulation out to the director's pose, row and drag-target table.
+- writing: 15 min. `misses` counts every mistake and the first ends the play;
+  the needle gesture, the settle, the TURN cue, the jam sound and the jam
+  hand out; eleven test files rewritten round the loss.
+- looking: 0 min. No frame taken in the lane; the jam it removes was
+  unreachable once a mistake lost the round.
+- friction: 0 min.
+- landing: 5 min. Two audio-doc counts and two director pages that named
+  the needle, then `check:fast`.
+
+Bottleneck: the jam could not be cut in half — its pose, its control row,
+its drag target and the codec each test the others, so it went in one lane.

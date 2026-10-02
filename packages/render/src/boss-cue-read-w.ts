@@ -2,9 +2,7 @@ import {
   type GaugeState,
   gaugeBound,
   gaugeGape,
-  gaugeJammed,
   gaugeSeated,
-  gaugeSettling,
   gaugeTongueAsks,
   gaugeToothAsks,
   gaugeWoundOpen,
@@ -24,31 +22,19 @@ import type { Layout } from "./layout.js";
 /**
  * **What THE GAUGE is asking for** — the readings' page `w`, split off
  * `boss-cue-read-e.ts` on 19 September 2026, which kept THE MIRROR and THE
- * MAZE. This reading grew from one arm to three when the round gained its jam
- * and its bind, and the next round to be read had nowhere to go on a page
+ * MAZE. This reading grew from one arm to three when the round gained its bind
+ * and its rests, and the next round to be read had nowhere to go on a page
  * already carrying two others' (`docs/queue.md`). The letter rather than the
  * next free number is page `s`'s own reason — a sibling lane may be writing
  * another page the same day, and a number here would describe whichever
  * lands first rather than this page.
  *
- * Two words hers, one his — and his is the correction this reading had to
- * make to itself.
- *
- * **It used to say he could be told nothing true**, and while the valve works
- * that is still right: the two marks are not on his screen at all
- * (`showsGaugeMarks`), so the only word over his thumb would be `TURN`, and
- * the moment it wanted would be *which way* and *how far* — the answer, and
- * hers to say. Then the round gained the jam (`sim/gauge-hand.ts`), and a
- * dead valve is a fact about **his own half**: the thing under his thumb has
- * stopped answering, and the needle is his to swing by hand until a call
- * lands. `TURN` over the needle says that and nothing else — not the
- * direction, not the distance, not that a call is close. It is the one beat
- * of the round where the field knows something about his side that his side
- * does not show him, which is exactly when #34 says to speak.
- *
- * It goes quiet the moment his hand is down. A word over a needle he is
- * already swinging is the field narrating him, and the settle it costs is
- * long enough that the word would still be there when he had finished.
+ * **His screen is told nothing while the valve works**: the two marks are not
+ * on it at all (`showsGaugeMarks`), so the only word over his thumb would be
+ * `TURN`, and the moment it wanted would be *which way* and *how far* — the
+ * answer, and hers to say. The word it once had, `TURN` over a jammed needle,
+ * went with the jam on 2 October 2026, when a mistake began to lose the round
+ * instead (`sim/gauge-hand.ts`). His words now are the rests' alone.
  *
  * **Her words are her own verbs, at the moment each will land.** `CALL` /
  * `POSITION` on the wound while the cannon is not yet over it, and `PRESS` /
@@ -70,8 +56,8 @@ import type { Layout } from "./layout.js";
  *
  * **And nothing goes out over a control that is refusing.** Two calls inside
  * `gaugeCallRestBeats` cost the rest between them whether the first landed or
- * not; a call under her own thumb or over a needle still settling is turned
- * away in `stepGauge`. A word over any of the three would be an invitation to
+ * not; a call under her own thumb or while a bolt is still out is turned away
+ * in `gaugeCalled`. A word over any of them would be an invitation to
  * press nothing — THE MAZE's argument about a handle the ship has taken away,
  * on a button instead.
  *
@@ -105,10 +91,6 @@ export function gaugeCues(l: Layout, world: World, g: GaugeState): readonly Boss
   }
   if (gaugeToothAsks(g)) out.push(...toothCues(l, dial, g));
   if (gaugeTongueAsks(g)) out.push(...tongueCues(l, dial, g));
-  if (gaugeJammed(g) && !g.handOn) {
-    const tip = gaugeNeedleTip(dial, g);
-    out.push(markAt(1, "TURN", "TURN", tip.x, tip.y, l, 81));
-  }
   return out;
 }
 
@@ -143,6 +125,6 @@ function callDue(g: GaugeState): boolean {
 function callReady(world: World, g: GaugeState): boolean {
   if (world.beat - g.calledBeat < world.cfg.gaugeCallRestBeats) return false;
   if (!callDue(g)) return false;
-  if (g.openThumb || gaugeSettling(world.cfg, g, world.beat)) return false;
+  if (g.openThumb) return false;
   return gaugeSeated(world, g);
 }

@@ -94,10 +94,10 @@ describe("a STATES room's own section", () => {
     // heading by its text.
     const calls = { count: 0 };
     const el = section(
-      group("THE GAUGE", [fakePose("THE GAUGE · jammed", calls)]),
+      group("THE GAUGE", [fakePose("THE GAUGE · bound", calls)]),
     ) as unknown as FakeEl;
     expect(el.dataset.group).toBe("THE GAUGE");
     dom.intersect(el);
-    expect(el.children[2]?.children[0]?.dataset.pose).toBe("THE GAUGE · jammed");
+    expect(el.children[2]?.children[0]?.dataset.pose).toBe("THE GAUGE · bound");
   });
 });

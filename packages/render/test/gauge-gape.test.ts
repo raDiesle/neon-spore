@@ -13,8 +13,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * THE GAUGE's mouth opening and the pilot's mirage (`gauge-gape.ts`,
  * `gauge-mirage.ts`; the owner, 2 October 2026). Held to what a pair would
- * see: the rim standing further off the cannon a step per miss and level,
- * the step taken on the shot's landing and not before, and a sweep on his
+ * see: the rim standing further off the cannon a step per level, the step
+ * taken on the landing of the mark that finished it and not before — never on
+ * a miss, which loses the round (the owner's rule for every boss, 2 October
+ * 2026) — and a sweep on his
  * screen that comes only while the round waits on her call and whose colours
  * say nothing about the wound.
  */
@@ -38,7 +40,6 @@ function gauge(over: Partial<GaugeState> = {}): GaugeState {
     regrowBeat: -1,
     woundBeat: 0,
     woundColor: "red",
-    jamBeat: -1,
     looseTooth: -1,
     pulledTeeth: 0,
     tongueOut: false,
@@ -53,16 +54,22 @@ function shownAfter(g: GaugeState, ticks: number): number {
 }
 
 describe("THE GAUGE's mouth, opening", () => {
-  it("stands the rim a step further off the cannon for every miss and level", () => {
+  it("stands the rim a step further off the cannon for every level", () => {
     const shut = rimRadius(DIAL, GAUGE_FULL / 2);
-    const open = gauge({ misses: 2, level: 1 });
+    const open = gauge({ level: 3 });
     expect(gaugeGape(open)).toBe(3);
     const wide = rimRadius(gaugeOpenDial(DIAL, gaugeGape(open)), GAUGE_FULL / 2);
     expect(wide / shut).toBeCloseTo(1 + (3 * RIM_STEP) / 0.97, 6);
   });
 
-  it("takes the step on the landing of the shot that opened it, and settles there", () => {
-    const g = gauge({ misses: 1, calledMilli: 300, calledTick: 1000 });
+  it("takes the step on the landing of the mark that opened it, and settles there", () => {
+    const g = gauge({
+      level: 1,
+      marks: CFG.gaugeLevelMarks,
+      calledGood: true,
+      calledMilli: 300,
+      calledTick: 1000,
+    });
     expect(shownAfter(g, 0)).toBeCloseTo(0, 6);
     // A gulp: past the step on the way, never short of it at the end.
     const peak = Math.max(...Array.from({ length: TPB }, (_, i) => shownAfter(g, i)));
@@ -73,12 +80,12 @@ describe("THE GAUGE's mouth, opening", () => {
     expect(gaugeGapeShown(CFG, flying, shotClock(CFG, flying, 1060, 0, 0))).toBe(1);
   });
 
-  it("does not gulp on a mark that leaves the mouth where it was", () => {
+  it("does not gulp on a mark that leaves the mouth where it was, nor on a miss", () => {
     const g = gauge({ marks: 1, calledGood: true, calledMilli: 300, calledTick: 1000 });
     expect(shownAfter(g, 0)).toBe(0);
-    // The mark that ends a level does open it.
-    const up = gauge({ level: 1, marks: CFG.gaugeLevelMarks, calledGood: true, calledMilli: 3 });
-    expect(shownAfter({ ...up, calledTick: 1000 }, 0)).toBeCloseTo(0, 6);
+    const missed = gauge({ misses: 1, calledMilli: 300, calledTick: 1000 });
+    expect(shownAfter(missed, 0)).toBe(0);
+    expect(shownAfter(missed, TPB)).toBe(0);
   });
 });
 
@@ -90,7 +97,6 @@ describe("THE GAUGE's mirage", () => {
     expect(gaugeMirageShown(gauge({ regrowBeat: 9 }))).toBe(false);
     expect(gaugeMirageShown(gauge({ looseTooth: 4 }))).toBe(false);
     expect(gaugeMirageShown(gauge({ tongueOut: true }))).toBe(false);
-    expect(gaugeMirageShown(gauge({ jamBeat: 3 }))).toBe(false);
     expect(gaugeMirageShown(gauge({ phase: "verdict" }))).toBe(false);
   });
 

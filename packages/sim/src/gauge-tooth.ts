@@ -16,9 +16,9 @@ import type { World } from "./world.js";
  * another (the owner, 2 October 2026: *increase number of teeth require to
  * pull out*): the next comes loose the moment the last is out, so he cannot
  * count ahead and she cannot pull ahead. The last right one ends the rest
- * early, after the ordinary break; a wrong one comes out anyway and jams the
- * valve into the next level, and the loose one is still loose. A rest that
- * runs out with a loose tooth still in costs the same.
+ * early, after the ordinary break; a wrong one comes out anyway and is a
+ * mistake, and a mistake loses the round (`stepGauge`). A rest that runs out
+ * with a loose tooth still in costs the same.
  *
  * The rest itself is `gaugeToothBeats` long rather than
  * `gaugeLevelRestBeats`, and it is the level's own rest: the next level's
@@ -76,15 +76,14 @@ function loosenNext(world: World, gauge: GaugeState): void {
 }
 
 /**
- * On the beat: a rest that ran out with the tooth still in. It stays in, and
- * the valve is jammed into the level — what a wrong pull costs, because not
- * pulling is the same mistake made slower.
+ * On the beat: a rest that ran out with the tooth still in. It is a mistake,
+ * the one a wrong pull is made slower, and a mistake loses the round
+ * (`stepGauge`).
  */
 export function gaugeToothLapses(world: World, gauge: GaugeState): void {
   if (!gaugeToothLoose(gauge) || world.beat < gauge.levelBeat) return;
   gauge.looseTooth = -1;
-  gauge.jamBeat = world.beat;
-  world.events.push({ type: "gaugeJam" });
+  gauge.misses += 1;
 }
 
 /**
@@ -124,10 +123,10 @@ function pulled(world: World, gauge: GaugeState, k: number): void {
   gauge.pulledTeeth |= 1 << k;
   releaseTooth(gauge);
   if (k !== gauge.looseTooth) {
-    // The wrong one comes out all the same, and the loose one is still loose.
-    gauge.jamBeat = world.beat;
+    // The wrong one comes out all the same, and it is a mistake: the round
+    // is lost (`stepGauge`).
+    gauge.misses += 1;
     world.events.push({ type: "gaugeWrongPull" });
-    world.events.push({ type: "gaugeJam" });
     return;
   }
   world.events.push({ type: "gaugePull" });

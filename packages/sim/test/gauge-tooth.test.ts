@@ -6,7 +6,6 @@ import {
   GAUGE_TEETH,
   type GaugeState,
   gaugeBetweenLevels,
-  gaugeJammed,
   gaugeRound,
   gaugeToothAsks,
   gaugeToothLoose,
@@ -26,8 +25,8 @@ import {
  * the pair would notice: that the tooth comes loose after the first level and
  * no other, that only the navigator's hand can pull, that three come loose one
  * after another (2 October 2026), that the last right pull ends the rest early
- * and a wrong one — or none — jams the valve, and that two devices agree about
- * all of it.
+ * and a wrong one — or none — loses the round, and that two devices agree
+ * about all of it.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -59,8 +58,6 @@ function toTheTooth(seed = 5): { world: World; g: GaugeState } {
     while (!gaugeWoundOpen(g)) ticks(world, 1);
     g.needleMilli = g.markMilli;
     g.calledBeat = world.beat - CFG.gaugeCallRestBeats;
-    g.jamBeat = -1;
-    g.liftBeat = -1;
     gaugeRoundHeard(world, 2, { kind: "call", color: g.woundColor });
     ticks(world, CFG.gaugeShotTicks);
   }
@@ -135,33 +132,41 @@ describe("THE GAUGE's loose tooth", () => {
     pullAll(world, g);
     expect(gaugeToothLoose(g)).toBe(false);
     expect(g.levelBeat - world.beat).toBe(CFG.gaugeRegrowBeats);
-    expect(gaugeJammed(g)).toBe(false);
+    expect(g.misses).toBe(0);
     ticks(world, TPB * (CFG.gaugeRegrowBeats + 1));
     expect(gaugeBetweenLevels(world, g)).toBe(false);
     expect(gaugeWoundOpen(g)).toBe(true);
   });
 
-  it("jams the valve when it is the wrong one, and the loose one stays loose", () => {
+  // The owner's rule for every boss, 2 October 2026: *a miss makes the boss
+  // wave fail and requires retry*. Both of these used to jam the valve.
+  it("loses the round when it is the wrong one", () => {
     const { world, g } = toTheTooth();
     const k = wrong(g);
     const before = g.levelBeat;
     pull(world, 2, k, 2000);
     expect(gaugeToothPulled(g, k)).toBe(true);
     expect(gaugeToothLoose(g)).toBe(true);
-    expect(gaugeJammed(g)).toBe(true);
+    expect(g.misses).toBe(1);
     expect(g.levelBeat).toBe(before);
     // A tooth already out cannot be pressed again.
     pull(world, 2, k, 0);
     expect(g.toothHold).toBe(-1);
+    const events = ticks(world, 1);
+    expect(g.phase).toBe("verdict");
+    expect(g.passed).toBe(false);
+    expect(events.some((e) => e.type === "waveFailed")).toBe(true);
   });
 
-  it("jams the valve when the rest runs out with it still in", () => {
+  it("loses the round when the rest runs out with it still in", () => {
     const { world, g } = toTheTooth();
     const events = ticks(world, TPB * (CFG.gaugeToothBeats + 1));
     expect(gaugeToothLoose(g)).toBe(false);
     expect(g.pulledTeeth).toBe(0);
-    expect(events.some((e) => e.type === "gaugeJam")).toBe(true);
-    expect(gaugeJammed(g)).toBe(true);
+    expect(g.misses).toBe(1);
+    expect(g.phase).toBe("verdict");
+    expect(g.passed).toBe(false);
+    expect(events.some((e) => e.type === "waveFailed")).toBe(true);
   });
 
   it("comes loose once in the round, not after the second level", () => {
@@ -172,8 +177,6 @@ describe("THE GAUGE's loose tooth", () => {
       while (!gaugeWoundOpen(g)) ticks(world, 1);
       g.needleMilli = g.markMilli;
       g.calledBeat = world.beat - CFG.gaugeCallRestBeats;
-      g.jamBeat = -1;
-      g.liftBeat = -1;
       gaugeRoundHeard(world, 2, { kind: "call", color: g.woundColor });
       ticks(world, CFG.gaugeShotTicks);
     }

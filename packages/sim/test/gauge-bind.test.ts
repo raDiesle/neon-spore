@@ -1,23 +1,17 @@
 import { describe, expect, it } from "bun:test";
-import {
-  gaugeBound,
-  gaugeJammed,
-  gaugeSeated,
-  gaugeSpanNow,
-  hashWorld,
-  step,
-} from "../src/index.js";
-import { band, CFG, call, callable, heard, needle, playing, TPB } from "./gauge-rig.js";
+import { gaugeBound, gaugeSeated, gaugeSpanNow, hashWorld, step } from "../src/index.js";
+import { band, CFG, call, callable, heard, playing, TPB } from "./gauge-rig.js";
 
 /**
  * **THE GAUGE's bind, and both hands at the end of the play**
  * (`src/gauge-hand.ts`, `.claude/skills/new-boss` §6.2).
  *
- * Split out of `gauge-hand.test.ts`, which keeps the dial's bearing, the jam
- * and the settle. A mark winds the band every other time and her thumb holds
- * it open; what is proved here is that the bind costs her the call rather than
- * a miss, that only she can hold it, and that both thumbs — his on the needle,
- * hers on the band — come off and stay off once the round leaves its play.
+ * Once the half of `gauge-hand.test.ts` that was not about the jam; the jam
+ * went on 2 October 2026, when a mistake began to lose the round, and took
+ * that file with it. A mark winds the band every other time and her thumb
+ * holds it open; what is proved here is that the bind costs her the call
+ * rather than a miss, that only she can hold it, and that her thumb comes off
+ * and stays off once the round leaves its play.
  */
 
 describe("the bind", () => {
@@ -83,45 +77,33 @@ describe("the bind", () => {
   });
 });
 
-describe("both hands", () => {
-  it("come off when the round leaves its play", () => {
+describe("her thumb", () => {
+  it("comes off when the round leaves its play", () => {
     const { world, g } = playing();
-    g.jamBeat = world.beat;
     g.boundBeat = world.beat;
-    heard(world, 1, needle(true, 250));
     heard(world, 2, band(true));
-    expect(g.handOn).toBe(true);
     expect(g.openThumb).toBe(true);
     g.marks = CFG.gaugeLevels * CFG.gaugeLevelMarks;
     step(world, []);
     expect(g.phase).toBe("verdict");
-    expect(g.handOn).toBe(false);
     expect(g.openThumb).toBe(false);
     // What the pair *did* is not undone: the verdict's picture may show it.
-    expect(gaugeJammed(g)).toBe(true);
     expect(gaugeBound(g)).toBe(true);
   });
 
-  it("reach nothing outside the play at all", () => {
+  it("reaches nothing outside the play at all", () => {
     const { world, g } = playing();
-    g.jamBeat = world.beat;
     g.boundBeat = world.beat;
     g.phase = "verdict";
-    heard(world, 1, needle(true, 250));
     heard(world, 2, band(true));
-    expect(g.handOn).toBe(false);
     expect(g.openThumb).toBe(false);
   });
 
-  it("are in the hash, both of them, on both sides of the wire", () => {
+  it("is in the hash, on both sides of the wire", () => {
     const { world, g } = playing();
-    g.jamBeat = world.beat;
     g.boundBeat = world.beat;
     const quiet = hashWorld(world);
-    heard(world, 1, needle(true, 250));
-    const swung = hashWorld(world);
-    expect(swung).not.toBe(quiet);
     heard(world, 2, band(true));
-    expect(hashWorld(world)).not.toBe(swung);
+    expect(hashWorld(world)).not.toBe(quiet);
   });
 });

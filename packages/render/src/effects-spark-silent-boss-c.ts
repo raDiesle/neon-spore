@@ -15,13 +15,12 @@ import type { SimEvent } from "@neon-spore/sim";
  * and `burstFor`'s `assertNever` still catches an event named on neither.
  */
 export const SILENT_BOSS_C = [
-  // THE GAUGE's four, the first events this round has had at all: no burst,
-  // because a mark, a miss, a jam and a bind are every one of them a state the
+  // THE GAUGE's three, the first events this round has had at all: no burst,
+  // because a mark, a miss and a bind are every one of them a state the
   // plate already redraws every frame (`render/gauge.ts`). Sound is what was
   // missing, and it is bound instead (`packages/audio/src/bind-gauge.ts`).
   "gaugeMark",
   "gaugeMiss",
-  "gaugeJam",
   "gaugeBind",
   // And the thumb landing: no burst, the green round its ring is
   // `effects.boss.gauge`'s (`gauge-marks.ts`).

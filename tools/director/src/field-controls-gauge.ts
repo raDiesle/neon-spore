@@ -1,51 +1,28 @@
 import type { FieldControlDef } from "./field-control-def.js";
 
 /**
- * THE GAUGE's two thumbs on the dial, in a file of their own —
+ * THE GAUGE's thumbs on the dial, in a file of their own —
  * `field-controls-page.ts` is at its limit, the split every boss since THE
  * INSTAR has made. They sit together because they are one arrangement: each
- * is a control the round takes *away* from a seat and hands back as a gesture
- * on the picture, and neither seat can see the other's half of why
- * (`sim/gauge-hand.ts`, `render/gauge-grip.ts`, `docs/spec/interludes.md`).
+ * is a gesture on the picture rather than on the panel, and neither seat can
+ * see the other's half of why (`sim/gauge-hand.ts`, `render/gauge-grip.ts`,
+ * `docs/spec/interludes.md`). The pilot's needle was the first of them, while
+ * the valve was jammed; it went with the jam on 2 October 2026, when a mistake
+ * began to lose the round.
  *
  * Each row names **its own state** rather than the phase the two of them live
- * inside: `THE GAUGE · JAMMED` and `THE GAUGE · BOUND` are poses on the STATES
+ * inside: `THE GAUGE · BOUND` and the others are poses on the STATES
  * sheet, reached by a hand that plays the round into them and not by a field
- * written by hand (`poses-bosses-rounds.ts`, `packages/hands/src/boss-hands-gauge.ts`). Both rows
+ * written by hand (`poses-bosses-rounds.ts`, `packages/hands/src/boss-hands-gauge.ts`). The first rows
  * pointed at `THE GAUGE · PLAY` until 21 September 2026, which is a picture of
  * the round with neither control drawn on it — a reader following the link
  * found no ring where the row said one stands.
  *
- * The third, THE GAUGE'S TOOTH, turns the split round for one rest: it is
+ * THE GAUGE'S TOOTH turns the split round for one rest: it is
  * the pilot's screen that shows which tooth is loose, and the navigator's
  * hand that pulls it (`sim/gauge-tooth.ts`).
  */
 export const GAUGE_CONTROLS: readonly FieldControlDef[] = [
-  {
-    name: "THE GAUGE'S NEEDLE",
-    where:
-      "a ring on the end of the needle, on player 1's screen only, and only " +
-      "while the valve is jammed — nowhere at all while the valve answers — " +
-      "haloed until his hand is down, and green the moment it lands; nothing " +
-      "on player 2's screen, which never shows the jam",
-    seat:
-      "player 1 only — the pilot, whose valve it is; player 2's press falls " +
-      "through, never refused red: a refusal would tell her the valve is dead",
-    gesture: "grab and drag",
-    does:
-      "Swings the needle by hand while the valve is dead. A miss jams it " +
-      "(sim/gauge.ts) and the next call that lands clears it. The turn is a " +
-      "bearing about the dial's middle, so the needle goes where the finger " +
-      "points rather than walking there — and the press itself says nothing, " +
-      "so a thumb that missed its own tip does not move it. What it costs is " +
-      "gaugeSettleBeats after the lift, in which her call is refused " +
-      "(sim/gauge-hand.ts).",
-    source: "touch.ts — gaugeGripUnder() under handleUnder(), turned by turnAbout()",
-    holdKind: "drag",
-    dragTarget: "gaugeNeedle",
-    sends: ["drag"],
-    pose: "THE GAUGE · JAMMED",
-  },
   {
     name: "THE GAUGE'S BAND",
     where:
@@ -81,8 +58,8 @@ export const GAUGE_CONTROLS: readonly FieldControlDef[] = [
     does:
       "Pulls a tooth out of the rim: the press names the tooth and a drag of " +
       "gaugeToothPullMilli takes it. The loose one ends the rest early, after " +
-      "the ordinary regrow; any other comes out anyway and jams the valve into " +
-      "the next level, and a rest of gaugeToothBeats that runs out with the " +
+      "the ordinary regrow; any other comes out anyway and loses the round, " +
+      "and a rest of gaugeToothBeats that runs out with the " +
       "loose one still in costs the same (sim/gauge-tooth.ts).",
     source: "touch.ts — gaugeGripUnder() under handleUnder()",
     holdKind: "drag",
@@ -102,8 +79,8 @@ export const GAUGE_CONTROLS: readonly FieldControlDef[] = [
       "own half. When both hands are on it and have dragged opposite ways by " +
       "gaugeTongueTwistMilli or more, it is wrung, and the rest ends early " +
       "after the ordinary regrow; the same way round wrings nothing, and a " +
-      "rest of gaugeTongueBeats that runs out with the tongue still out jams " +
-      "the valve into the next level (sim/gauge-tongue.ts).",
+      "rest of gaugeTongueBeats that runs out with the tongue still out loses " +
+      "the round (sim/gauge-tongue.ts).",
     source: "touch.ts — gaugeGripUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "gaugeTongue",

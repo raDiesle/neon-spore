@@ -227,12 +227,11 @@ export const INGEST_SILENT_BOSS_C = [
   "trivetTurn",
   "trivetCollapse",
   "trivetOut",
-  // THE GAUGE's four, its first events: the needle, band, jam and bind are world
-  // state, read off `needleMilli`, `markMilli`, `jamBeat` and `boundBeat` every
-  // frame (`render/gauge.ts`, 19 September 2026). Sound was what was missing —
-  // nothing about a mark, a miss, a jam or a bind outlives its frame.
+  // THE GAUGE's three, its first events: the needle, band and bind are world
+  // state, read off `needleMilli`, `markMilli` and `boundBeat` every frame
+  // (`render/gauge.ts`, 19 September 2026). Sound was what was missing —
+  // nothing about a mark, a miss or a bind outlives its frame.
   "gaugeMark",
   "gaugeMiss",
-  "gaugeJam",
   "gaugeBind",
 ] as const satisfies readonly SimEvent["type"][];

@@ -10,22 +10,11 @@ import {
 import type { Hand } from "./hand.js";
 
 /**
- * **THE GAUGE's hands**, in a file of their own — `boss-hands-rounds.ts` was
- * at its limit and this round now wants two hands rather than one.
- *
- * The second is the reason the split is worth having and not only the line
- * count. Every other hand in this tool **plays its round straight**: the
- * string pulled until the way in clicks, the shot up the lit column, the
- * valve turned toward the mark and the call when the needle sits between the
- * two. THE GAUGE's jam cannot be reached that way at all — it is what a
- * *wrong tooth* costs (`sim/gauge-tooth.ts`), so the only way to a picture of
- * it is a pair who got it wrong, on purpose, once.
- *
- * That is a fair thing for the sheet to show. The jam is not a failure state
- * the pair fell into; it is the round handing the pilot the needle itself
- * because his valve has just died, and the picture the reader is looking up is
- * the ring on the needle's tip. The bind next door needs no second hand: it
- * arrives from playing *well*, every `gaugeBindMarks` marks.
+ * **THE GAUGE's hand**, in a file of its own — `boss-hands-rounds.ts` was at
+ * its limit. It plays the round straight, as every other hand in this tool
+ * does. A second hand once pulled the wrong tooth on purpose, to reach the
+ * jam; the jam went on 2 October 2026, when a mistake began to lose the round
+ * instead (`sim/gauge-tooth.ts`), and the hand went with it.
  */
 
 type Press = Omit<TimedCommand, "tick">;
@@ -74,19 +63,3 @@ const pull = (k: number): Press => ({
   player: 2,
   command: { kind: "drag", target: "gaugeTooth", on: true, id: k, fromMilli: 0, fromYMilli: 2000 },
 });
-
-/**
- * The one pull this tool makes that is meant to be wrong: the round played
- * straight to the loose tooth, and then she pulls its neighbour — the valve
- * sticks, and the round is in the jam.
- *
- * A wrong *call* was the way in until 2 October 2026; a miss opens the mouth
- * now and leaves the valve answering (`sim/gauge-gape.ts`), so a wrong tooth
- * is the nearest a hand can get to the jam (`sim/gauge-tooth.ts`).
- */
-export const gaugeJamHand: Hand = (w) => {
-  const g = gaugeRound(w);
-  if (g === null || g.phase !== "play") return [];
-  if (!gaugeToothAsks(g)) return gaugeHand(w);
-  return [pull(g.looseTooth === 1 ? 2 : g.looseTooth - 1)];
-};

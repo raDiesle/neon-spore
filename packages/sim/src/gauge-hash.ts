@@ -31,13 +31,9 @@ export function gaugeHashParts(g: GaugeState): number[] {
   // that thinks the wound is red hears a cyan call land that the other misses.
   push(g.woundColor === "red" ? 1 : 2);
   push(g.calledColor === "red" ? 1 : 2);
-  // And the two states the pair's own calls put it in: a jammed valve, a
-  // wound band, and the two thumbs on the dial (`gauge-hand.ts`). A device
-  // that thinks the valve still answers is a device moving a needle the
-  // other one is not.
-  push(g.jamBeat);
-  push(g.handOn ? 1 : 0);
-  push(g.liftBeat);
+  // And the state the pair's own marks put it in: a wound band, and her
+  // thumb on it (`gauge-hand.ts`). A device that thinks the band is held is
+  // a device whose band stands still while the other's walks.
   push(g.boundBeat);
   push(g.openThumb ? 1 : 0);
   // The shot in the air and the bare rim after a hit: a device that thinks

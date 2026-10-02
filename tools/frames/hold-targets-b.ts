@@ -41,8 +41,7 @@ export const ROWS: Record<string, Row> = {
   crank: {},
   // `gorge-hand.ts`: the pilot taps the ring's bottom bubble open.
   gorgeLobe: { id: true },
-  // `gauge-hand.ts`: his bearing on the needle, her thumb on the band.
-  gaugeNeedle: {},
+  // `gauge-hand.ts`: her thumb on the band.
   gaugeBand: { seat: 2 },
   // `gauge-tooth.ts`: her hand on the loose tooth, the tooth as `id`.
   gaugeTooth: { seat: 2, id: true },

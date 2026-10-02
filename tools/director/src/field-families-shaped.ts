@@ -32,7 +32,6 @@ export const SHAPED_FAMILIES: readonly FieldGroup[] = [
       "Already one helper. Make its picture generic too — one rim, one mark, " +
       "one tick per sector — and let every wheel in the game use it.",
     members: [
-      "THE GAUGE'S NEEDLE",
       "THE GIMBAL'S OUTER RING",
       "THE GIMBAL'S INNER RING",
       "THE HASP'S WHEEL",

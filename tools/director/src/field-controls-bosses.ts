@@ -92,7 +92,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...GORGE_CONTROLS, // THE GORGE's tap, on a ring's bottom bubble.
   ...MAZE_CONTROLS, // THE MAZE's string and its heart, the brace and the tear (`field-controls-maze.ts`).
   ...FLEET_CONTROLS, // THE FLEET's plume, rake and wreck, on its chart (`field-controls-fleet.ts`).
-  ...GAUGE_CONTROLS, // THE GAUGE's needle under a jam and its band under a bind (`field-controls-gauge.ts`).
+  ...GAUGE_CONTROLS, // THE GAUGE's band, tooth and tongue (`field-controls-gauge.ts`).
   ...WARDEN_CONTROLS, // THE WARDEN's tether, thumb and swipe (`field-controls-warden.ts`).
   // THE CURTAIN's hem, the one handle that exists because the other was jammed shut
   // (`field-controls-curtain.ts`).

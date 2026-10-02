@@ -73,7 +73,7 @@ export type DragTargetD =
  * `gimbalOuter` and `gimbalInner` are the fifty-eighth and fifty-ninth, and
  * the first pair that is **one thing gripped from opposite sides**.
  *
- * Both are bearings, `gaugeNeedle`'s and `crank`'s kind of `fromMilli`
+ * Both are bearings, `crank`'s kind of `fromMilli`
  * (`bearing.ts`): a hand going round a ring says where it *is*, because a
  * finger four times round the same circle is back where it grabbed four
  * times over. What is new is not the gesture, it is what the two of them

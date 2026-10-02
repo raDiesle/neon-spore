@@ -21,15 +21,13 @@
  * silhouettes of bodies on a grid, and there is no grid here to stand on.
  */
 export const NO_SUBJECT_C: Record<string, string> = {
-  // THE GAUGE's four, the round's first sounds at all. The subject is a dial
+  // THE GAUGE's three here, the round's first sounds at all. The subject is a dial
   // and a band on a plate, and the round has thrown the field away like the
   // others (`sim/events-gauge.ts`, `docs/spec/interludes.md`).
   "boss.gaugeMark":
     "a call landing between the two marks. The needle's, and the sheet has no card for a dial.",
   "boss.gaugeMiss":
-    "a call that missed — free the first time, and the valve sticks beside it. Same argument.",
-  "boss.gaugeJam":
-    "the miss beside this one sticking the valve: the needle answers his hand until the next call lands. Same argument.",
+    "a call that missed, or a tooth pulled wrong, and the round lost with it. Same argument.",
   "boss.gaugeBind":
     "the mark beside this one winding the band tight: she cannot call while her thumb is not holding it open. Same argument.",
   // THE WELL's four, the projection's first sounds at all. The subject in

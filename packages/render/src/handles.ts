@@ -112,7 +112,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     mirrorLobeUnder(l, x, y, field) ?? // THE MIRROR's two lobes, its last round and its pin (`mirror-grip.ts`).
     gorgeGripUnder(l, x, y, field) ?? // THE GORGE's tap, the ring's shut bottom bubble (`gorge-grip.ts`).
     mazeHeartUnder(l, x, y, field) ?? // THE MAZE's heart under `grip`, the navigator's tear (`maze-grip.ts`).
-    gaugeGripUnder(l, x, y, field) ?? // THE GAUGE's jammed needle and wound band (`gauge-grip.ts`).
+    gaugeGripUnder(l, x, y, field) ?? // THE GAUGE's band, teeth and tongue (`gauge-grip.ts`).
     batonSocketUnder(l, x, y, field) ?? // THE BATON's swelling socket and its two beads (`baton-grip.ts`).
     fleetGripUnder(l, x, y, field) ?? // THE FLEET's wound, under `flood` and `wreck` (`fleet-grip.ts`).
     curtainHemUnder(l, x, y, field) ?? // THE CURTAIN's hem, while a hit has jammed the rail (`curtain-grip.ts`).

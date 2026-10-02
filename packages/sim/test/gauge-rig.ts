@@ -29,7 +29,7 @@ import { landNow } from "./gauge-land.js";
  * answered by, and both halves of the old file run it — the round reached and
  * played in `gauge.test.ts`, the round left and fingerprinted in
  * `gauge-leave.test.ts`. The thumbs' helpers after `runToEnd` serve the two
- * states and their hands, in `gauge-hand.test.ts` and `gauge-bind.test.ts`.
+ * states and their hands, in `gauge-bind.test.ts`.
  */
 
 /**
@@ -141,10 +141,6 @@ export function heard(world: World, player: 1 | 2, command: Command): void {
   gaugeRoundHeard(world, player, command);
   const g = gaugeRound(world);
   if (g !== null) landNow(world, g);
-}
-
-export function needle(on: boolean, fromMilli: number): Command {
-  return { kind: "drag", target: "gaugeNeedle", on, fromMilli };
 }
 
 export function band(on: boolean): Command {

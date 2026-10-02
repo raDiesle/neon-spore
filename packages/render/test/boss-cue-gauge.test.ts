@@ -90,9 +90,8 @@ describe("THE GAUGE", () => {
     expect(cue(world, "p2")?.word).toBe("SHOOT");
   });
 
-  it("says nothing to the pilot while the valve answers, on any beat of any phase", () => {
+  it("says nothing to the pilot over the valve, on any beat of any phase", () => {
     const { world, g } = opened();
-    expect(g.jamBeat).toBe(-1);
     for (const phase of ["lead", "play", "verdict", "spent"] as const) {
       g.phase = phase;
       for (const needle of [0, g.markMilli, 100_000]) {
@@ -151,22 +150,6 @@ describe("THE GAUGE", () => {
     }
   });
 
-  it("gives him TURN over the needle once the valve has jammed, and takes it back under his hand", () => {
-    const { world, g } = opened();
-    g.phase = "play";
-    g.jamBeat = world.beat;
-    const c = cue(world, "p1");
-    expect(c?.word).toBe("TURN");
-    expect(c?.kind).toBe("TURN");
-    expect(c?.seat).toBe(1);
-    const tip = gaugeNeedleTip(gaugeDial(LAYOUT.p1), g);
-    expect(c?.x).toBeCloseTo(tip.x, 6);
-    // And gone while he is swinging it: a word over a needle already under a
-    // thumb is the field narrating him.
-    g.handOn = true;
-    expect(cue(world, "p1")).toBeNull();
-  });
-
   it("asks her to HOLD the band open, on its middle, while it is wound and her thumb is off", () => {
     const { world, g } = opened();
     g.phase = "play";
@@ -192,7 +175,7 @@ describe("THE GAUGE", () => {
     expect(cue(world, "p2")?.word).toBe("SHOOT");
   });
 
-  it("holds the call while it would be refused: under her own thumb, and under a settling needle", () => {
+  it("holds the call while it would be refused: under her own thumb", () => {
     const { world, g } = opened();
     seat(world, g);
     g.boundBeat = world.beat;
@@ -200,11 +183,6 @@ describe("THE GAUGE", () => {
     expect(cue(world, "p2")?.word).not.toBe("SHOOT");
     g.openThumb = false;
     g.boundBeat = -1;
-    expect(cue(world, "p2")?.word).toBe("SHOOT");
-    // The settle a hand-swung needle costs, from the beat it was lifted.
-    g.liftBeat = world.beat;
-    expect(cue(world, "p2")?.word).not.toBe("SHOOT");
-    g.liftBeat = world.beat - world.cfg.gaugeSettleBeats;
     expect(cue(world, "p2")?.word).toBe("SHOOT");
   });
 

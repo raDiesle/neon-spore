@@ -1,6 +1,5 @@
 import type { GaugeState } from "./gauge.js";
 import { drawBand, gaugeHits, gaugeWoundOpen } from "./gauge-band.js";
-import { gaugeSettling } from "./gauge-hand.js";
 import { gaugeLevelUp } from "./gauge-level.js";
 import type { Color } from "./types.js";
 import type { World } from "./world.js";
@@ -27,13 +26,13 @@ export function gaugeCalled(world: World, gauge: GaugeState, color: Color): void
   // Two calls in a row cost the rest between them whether the first landed or
   // not, so a thumb held on the button is slower than a pair who talk.
   if (world.beat - gauge.calledBeat < world.cfg.gaugeCallRestBeats) return;
-  // **Refused rather than missed**, four times: while a shot is still in the
-  // air, while the rim is bare between two wounds, while her own thumb is
-  // holding the band open, and while his needle is still settling from his
-  // hand. Each is the round asking for something else at that moment, and a
-  // miss would charge her for a state one of them is in the middle of leaving.
+  // **Refused rather than missed**, three times: while a shot is still in the
+  // air, while the rim is bare between two wounds, and while her own thumb is
+  // holding the band open. Each is the round asking for something else at
+  // that moment, and a miss would charge her for a state she is in the middle
+  // of leaving.
   if (gauge.shotTick !== -1 || !gaugeWoundOpen(gauge)) return;
-  if (gauge.openThumb || gaugeSettling(world.cfg, gauge, world.beat)) return;
+  if (gauge.openThumb) return;
 
   gauge.calledBeat = world.beat;
   gauge.calledMilli = gauge.needleMilli;
@@ -56,16 +55,14 @@ export function gaugeShotLands(world: World, gauge: GaugeState): void {
     gaugeHits(world.cfg, gauge, gauge.calledMilli) && gauge.calledColor === gauge.woundColor;
   gauge.calledGood = good;
   if (!good) {
-    // And the mouth opens a step: the wound is further off and narrower, and
-    // a mouth opened all the way swallows the ship (`gauge-gape.ts`). It used
-    // to jam the valve, and a pair who did not know the needle could then be
-    // swung by hand lost the wave to the clock on their first wrong shot.
+    // And the round is lost, on this tick (`stepGauge`): the owner's rule for
+    // every boss, 2 October 2026. It used to jam the valve, and then to open
+    // the mouth a step.
     gauge.misses += 1;
     world.events.push({ type: "gaugeMiss" });
     return;
   }
   gauge.marks += 1;
-  gauge.jamBeat = -1;
   world.events.push({ type: "gaugeMark" });
   // The mark that finishes a level opens the next after a longer rest, free of
   // the bind (`gauge-level.ts`).

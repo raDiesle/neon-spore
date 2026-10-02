@@ -1,18 +1,5 @@
-import {
-  type GaugeState,
-  gaugeBandAsks,
-  gaugeGape,
-  gaugeNeedleAsks,
-  NO_BEARING,
-  type SimConfig,
-} from "@neon-spore/sim";
-import {
-  type Dial,
-  gaugeBandMid,
-  gaugeNeedleTip,
-  showsGaugeMarks,
-  showsGaugeValve,
-} from "./gauge.js";
+import { type GaugeState, gaugeBandAsks, gaugeGape, type SimConfig } from "@neon-spore/sim";
+import { type Dial, gaugeBandMid, showsGaugeMarks, showsGaugeValve } from "./gauge.js";
 import { gaugeOpenDial } from "./gauge-gape.js";
 import { gaugeDial } from "./gauge-round.js";
 import { drawGaugeTongueRing, gaugeTongueUnder } from "./gauge-tongue-grip.js";
@@ -25,10 +12,12 @@ import { bossOf } from "./touch-field.js";
 import type { ViewRole } from "./view-role.js";
 
 /**
- * **THE GAUGE's two thumbs on the dial itself**: the pilot's on the needle
- * while the valve is dead, and the navigator's on the band while it is wound
- * tight — and hers on the teeth for one rest, which is `gauge-tooth-grip.ts`,
- * and both on the tongue for the next, which is `gauge-tongue-grip.ts`.
+ * **THE GAUGE's thumbs on the dial itself**: the navigator's on the band
+ * while it is wound tight — and hers on the teeth for one rest, which is
+ * `gauge-tooth-grip.ts`, and both on the tongue for the next, which is
+ * `gauge-tongue-grip.ts`. The pilot's on the needle, while the valve was
+ * jammed, went with the jam on 2 October 2026, when a mistake began to lose
+ * the round instead.
  * Drawn and answered in one file for `gorge-grip.ts`' reason — the circle a
  * thumb is answered at is the circle the ring is drawn from.
  *
@@ -36,27 +25,18 @@ import type { ViewRole } from "./view-role.js";
  * (`showsGaugeValve`, `showsGaugeMarks`), which is the round's whole split: he
  * has never seen the band and she has never had a valve. The ring is
  * `queen-grip.ts`' — breathing until a thumb lands, filled once one has — so a
- * held needle and a held mark read as one gesture across the whole game.
+ * held band and a held mark read as one gesture across the whole game.
  *
- * **Neither ring is ever standing when nothing would answer it.** The
- * simulation refuses a needle that is not jammed and a band that is not wound
- * (`sim/gauge-hand.ts`), and the same two questions are asked here —
- * `gaugeNeedleAsks` and `gaugeBandAsks` — rather than a second opinion
- * written down beside them — a ring on a needle that still
- * answers its valve would be a control drawn where it is not answered, which
- * is the thing `handles.ts` exists to prevent.
+ * **The ring is never standing when nothing would answer it.** The simulation
+ * refuses a band that is not wound (`sim/gauge-hand.ts`), and the same
+ * question is asked here — `gaugeBandAsks` — rather than a second opinion
+ * written down beside it: a ring on a band that is not wound would be a
+ * control drawn where it is not answered, which is the thing `handles.ts`
+ * exists to prevent.
  *
- * No dial on either ring. THE GORGE's tap carries one because it counts taps
- * out; both of these last exactly as long as the thumb does, and
- * the settle a lifted needle costs is the *other* seat's problem to hear about
- * — her call is refused, and the cue over it goes out (`boss-cue-read-w.ts`).
+ * No dial on the ring. THE GORGE's tap carries one because it counts taps
+ * out; this one lasts exactly as long as the thumb does.
  */
-
-/** The ring on the end of the needle: where the cue's frame already stands. */
-export function gaugeNeedleGrip(l: Layout, cfg: SimConfig, dial: Dial, g: GaugeState): Circle {
-  const tip = gaugeNeedleTip(dial, g);
-  return { x: tip.x, y: tip.y, r: handleRadius(l, cfg) };
-}
 
 /** The ring in the middle of the band, out at the rim where the band is drawn. */
 export function gaugeBandGrip(l: Layout, cfg: SimConfig, dial: Dial, g: GaugeState): Circle {
@@ -65,7 +45,7 @@ export function gaugeBandGrip(l: Layout, cfg: SimConfig, dial: Dial, g: GaugeSta
 }
 
 /**
- * The press, for whichever of the two this seat has this beat.
+ * The press, for whichever of the dial's grips this seat has this beat.
  *
  * `bossOf(field, "gauge")` is `null` on every wave that is not the round, and
  * a press then falls through to whatever is behind it. Outside `play` there is
@@ -79,12 +59,6 @@ export function gaugeGripUnder(l: Layout, x: number, y: number, field: Field): T
   // The rim where the mouth has settled, which is where the frame draws it
   // but for the gulp's fraction of a beat (`gauge-gape.ts`).
   const dial = gaugeOpenDial(gaugeDial(l), gaugeGape(g));
-  if (
-    field.seat === 1 &&
-    gaugeNeedleAsks(g) &&
-    hitCircle(gaugeNeedleGrip(l, field.cfg, dial, g), x, y)
-  )
-    return needleTouch(dial);
   if (field.seat === 2 && gaugeBandAsks(g) && hitCircle(gaugeBandGrip(l, field.cfg, dial, g), x, y))
     return bandTouch(x, y);
   // Both hands on the tongue, in the rest after the second (`gauge-tongue-grip.ts`).
@@ -94,27 +68,6 @@ export function gaugeGripUnder(l: Layout, x: number, y: number, field: Field): T
   // Her hand on the teeth, in the rest after the first level (`gauge-tooth-grip.ts`).
   if (field.seat === 2) return gaugeToothUnder(dial, hand, g, x, y);
   return null;
-}
-
-/**
- * His hand on the needle, and it is a **turn** rather than a carry: the hold's
- * origin is the dial's own middle, so every move reports where round the face
- * the finger is (`turnAbout` in `touch-drag.ts`, `turns`). The needle then
- * simply goes where he points, which is what makes it worth having while the
- * valve — a thing that walks — is dead.
- *
- * The press itself says `NO_BEARING`: a hand that has landed and not yet said
- * where. Reading a bearing off the press would move the needle by however far
- * his thumb missed its own tip by, on the one gesture in this round that is
- * supposed to be exact.
- */
-function needleTouch(dial: Dial): Touch {
-  const target = "gaugeNeedle";
-  return {
-    player: 1,
-    command: { kind: "drag", target, on: true, fromMilli: NO_BEARING },
-    hold: { kind: "drag", target, player: 1, originX: dial.cx, originY: dial.cy, turns: true },
-  };
 }
 
 /**
@@ -134,7 +87,7 @@ function bandTouch(x: number, y: number): Touch {
 
 /**
  * The rings, for the seat this screen is. Called after the dial is drawn, so a
- * ring stands on the needle and the band rather than under them.
+ * ring stands on the band rather than under it.
  */
 export function drawGaugeGrip(
   ctx: CanvasRenderingContext2D,
@@ -146,10 +99,6 @@ export function drawGaugeGrip(
   time: number,
 ): void {
   if (g.phase !== "play") return;
-  if (showsGaugeValve(role) && gaugeNeedleAsks(g)) {
-    const c = gaugeNeedleGrip(l, cfg, dial, g);
-    drawGripRing(ctx, c.x, c.y, c.r, g.handOn, time);
-  }
   if (showsGaugeMarks(role) && gaugeBandAsks(g)) {
     const c = gaugeBandGrip(l, cfg, dial, g);
     drawGripRing(ctx, c.x, c.y, c.r, g.openThumb, time);

@@ -5,8 +5,9 @@ import type { ShotClock } from "./gauge-shot.js";
 
 /**
  * **THE GAUGE's mouth, opening.** The owner, 2 October 2026: *increase
- * distance of cannon to teeth (so more opened mouth)*. Every miss and every
- * level opens the mouth a step (`sim/gauge-gape.ts`), and here that is the
+ * distance of cannon to teeth (so more opened mouth)*. Every level opens the
+ * mouth a step (`sim/gauge-gape.ts`) — a miss loses the round instead, the
+ * owner's rule for every boss the same day — and here that is the
  * rim standing `RIM_STEP` of the dial further off the cannon: the teeth, the
  * wound and every thumb on the rim go with it, because they all stand on
  * `rimPoint`. The wound the simulation narrows is the same tear further away.
@@ -35,12 +36,12 @@ export function gaugeOpenDial(dial: Dial, gape: number): Dial {
 }
 
 /**
- * Whether the last shot to land is the one that opened the mouth: a miss, or
- * the mark that finished a level. Any other mark leaves it where it was.
+ * Whether the last shot to land is the one that opened the mouth: the mark
+ * that finished a level. Any other mark leaves it where it was, and a miss
+ * ends the round with the mouth as it stood.
  */
 function landingOpened(cfg: SimConfig, g: GaugeState): boolean {
-  if (g.calledMilli < 0) return false;
-  if (!g.calledGood) return true;
+  if (g.calledMilli < 0 || !g.calledGood) return false;
   return g.level > 0 && gaugeLevelMarksMade(cfg, g) === 0;
 }
 
