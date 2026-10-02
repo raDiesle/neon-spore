@@ -499,6 +499,7 @@ entry above does its lit faces there and drops them from this list.
 ## `frames --auto both` on THE INSTAR shows step 0 seven times in 9000 ticks
 
 - **Found:** 2026-10-02, claude/boss-body-glow-indicators-22a92a
+- **Taken:** 2026-10-02, claude/queue-frames-auto-instar (claim: claude/queue-frames-auto-both-on-the-instar-shows-step-0-seve)
 - **Files:** `tools/frames/auto.ts`, `tools/frames/recipes.ts`
 
 `bun run frames . --wave "THE INSTAR" --auto both --ticks 9000 --events`
