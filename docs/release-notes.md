@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 8cfb327d2 — THE SINEW drops in, hangs from a crown, and frays the fibre it is about to tear
+
+The boss bounces down from the top and rings like a rubber band, under a crown of flesh cut by the top chrome. Its gauge is a wide glass tube of bubbling amber with one bright sum line, which THE SLOW's colour split no longer doubles. The fibres run crown to tube and tube to mass. While the sum is in the green zone the tube glows and the next fibre frays as the count; a win tears it with a green flash and ring. Each seat's handle has the shared pull channel, straight down. A look the owner asked for by name.
+
 ## 2026-10-02 · 277ee6cf8 — A bolt stops on THE FLUE and THE GOVERNOR, and eleven cores share one verdict
 
 A bolt fired at THE FLUE or THE GOVERNOR used to fly through the body and was only judged where it left the top of the field. It is now drawn no further than where it meets the picture: it bursts on the lit core in that core's colour, and scuffs in grey on the other colour, on the shut core or on the shell. Both lit cores now swell and brighten on the heartbeat THE SEAM's point uses, instead of a slow cosine.

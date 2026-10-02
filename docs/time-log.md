@@ -31909,3 +31909,5 @@ identical judgements, and seeing that took longer than writing the cure.
 
 Bottleneck: friction — the colour-count tests each pin one hex to one meaning,
 and every new colour on the band had to be fitted between them.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
