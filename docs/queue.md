@@ -395,6 +395,7 @@ leave behind, same as the four already listed, and it is a look:
 ## Living bosses — the four rig bosses get the idle drift, one per lane
 
 - **Found:** 2026-09-26, claude/living-motion-spec
+- **Taken:** 2026-10-02, claude/queue-nothing-holds-a-module-level-map-of-paths-or-can (claim: claude/queue-living-bosses-the-four-rig-bosses-get-the-idle-d)
 - **Where:** local
 - **Needs:** Living bosses — ship THE INSTAR's picked candidates
 - **Files:** `packages/render/src/gimbal-draw.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/baton-draw.ts`, `packages/render/src/lead-draw.ts`, `packages/render/src/solid-rig.ts`, `docs/spec/living-bosses.md`
