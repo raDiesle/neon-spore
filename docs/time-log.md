@@ -32619,3 +32619,5 @@ foot is the drum and cradle where the drawer puts them.
 - landing: 5 min.
 
 Bottleneck: reading the report as the opposite of what it asked for.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
