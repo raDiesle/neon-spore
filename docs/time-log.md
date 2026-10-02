@@ -31621,3 +31621,18 @@ Bottleneck: the context — the lane ran out of it twice and each compaction
 cost a re-read of the files it was editing.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE GORGE reworked: five levels of bubbles, counted by one and coloured by the other
+
+- reading: 45 min. The old sack across sim, content, render, audio, the
+  hands and the director; the parked hand-over and its plan.
+- writing: 150 min. `gorge-step.ts`, `gorge-levels.ts`, `boss-along.ts`,
+  `gorge-place.ts`, the tap, the hand, the film, the cue words, the sounds,
+  every gorge test rewritten, §11.23 and the controls row.
+- looking: 0 min. The picture is lane B.
+- friction: 30 min. Context ran out twice and the lane moved worktrees; the
+  hash-coverage walk was defeated by a levels array shared between two worlds.
+- landing: 20 min. Eight doc-drift failures, `check:fast`, `land`.
+
+Bottleneck: the old fight's pinch, pry, mouth and vent were named in about
+ninety files, and every one had to be read before it could be rewritten.

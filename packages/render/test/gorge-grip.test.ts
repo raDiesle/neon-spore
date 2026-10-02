@@ -1,10 +1,11 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue, controlSet } from "@neon-spore/content";
+import { buildBoss, buildQueue, controlSet, GORGE_LEVELS } from "@neon-spore/content";
 import {
   createWorld,
   DEFAULT_CONFIG,
   type GorgeState,
   gorgeBoss,
+  gorgeBottom,
   gorgeOffers,
   startWave,
   step,
@@ -28,44 +29,43 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * THE GORGE's two thumbs as controls (`gorge-grip.ts`): which intakes ring
- * for which seat, whose thumb each ring answers, that a held ring is drawn
- * heavier and the pry's dial runs out, and that the rings reach the canvas on
- * the screen they belong to and no other. The rule is the simulation's
- * (`sim/test/gorge-hand.test.ts`); this file proves the picture hands it a
- * thumb, with the intake's index on it.
+ * THE GORGE's one thumb as a control (`gorge-grip.ts`): which bubble rings,
+ * for whose seat, that the ring answers the pilot's tap with the bubble's
+ * index on it, that its dial runs out as the taps come, and that it reaches
+ * the canvas on the pilot's screen and no other. The rule is the
+ * simulation's (`sim/test/gorge-hand.test.ts`); this file proves the picture
+ * hands it a thumb.
  */
 
 beforeAll(installCanvasGlobals);
 
 const layout = (role: ViewRole) => computeLayout(VIEWPORT, CFG, role);
 
+/** The first ring of the authored levels, up on a fresh world. */
 function opened(): World {
   const world = createWorld(CFG, 5);
-  const index = waveWith("gorge");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+  startWave(world, waveWith("gorge"), [], [], { kind: "gorge", levels: GORGE_LEVELS.slice(2) });
   return world;
 }
 
-/** The sack with intake 2 full, intake 3 ruptured, and — when asked — a mouth at 5. */
-function staged(overrides: Partial<GorgeState> = {}, mouth = false): GorgeState {
+/** The ring, with the bottom bubble's taps and the sack's fields as asked. */
+function staged(overrides: Partial<GorgeState> = {}, taps = 0): GorgeState {
   const g = gorgeBoss(opened());
   if (g === null) throw new Error("the gorge wave installed no sack");
-  const full = g.intakes[2];
-  const torn = g.intakes[3];
-  const last = g.intakes[5];
-  if (!full || !torn || !last) throw new Error("the sack is short of intakes");
-  full.beads = CFG.gorgeFullBeads;
-  full.color = "red";
-  full.fullBeat = 4;
-  torn.ruptured = true;
-  if (mouth) {
-    last.beads = CFG.gorgeFullBeads;
-    last.color = "cyan";
-    g.mouth = 5;
-    g.ruptures = CFG.gorgeMouthRuptures;
-  }
+  const k = g.intakes[gorgeBottom(g)];
+  if (k === undefined) throw new Error("the ring has no bottom");
+  k.taps = taps;
   Object.assign(g, overrides);
+  return g;
+}
+
+/** The wave's own first level: a row, with nothing to tap. */
+function rowed(): GorgeState {
+  const world = createWorld(CFG, 5);
+  const index = waveWith("gorge");
+  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+  const g = gorgeBoss(world);
+  if (g === null) throw new Error("the gorge wave installed no sack");
   return g;
 }
 
@@ -88,29 +88,26 @@ function fieldWith(seat: 1 | 2, boss: GorgeState | null): Field {
   };
 }
 
-describe("which intakes ring", () => {
-  it("the full ones for the pinch, and never the mouth, the torn or the empty", () => {
-    expect(gorgeOffers(staged(), CFG, 1)).toEqual([2]);
-    expect(gorgeOffers(staged({}, true), CFG, 1)).toEqual([2]);
-    expect(gorgeOffers(staged(), CFG, 2)).toEqual([]);
+describe("which bubble rings", () => {
+  it("the ring's bottom one while it is shut, for the pilot alone", () => {
+    const g = staged();
+    expect(gorgeOffers(g, CFG, 1)).toEqual([gorgeBottom(g)]);
+    expect(gorgeOffers(g, CFG, 2)).toEqual([]);
   });
 
-  it("the mouth alone for the pry, once there is one", () => {
-    expect(gorgeOffers(staged({}, true), CFG, 2)).toEqual([5]);
-  });
-
-  it("none once the sack is out", () => {
-    const out = staged({ outBeat: 9 }, true);
-    expect(gorgeOffers(out, CFG, 1)).toEqual([]);
-    expect(gorgeOffers(out, CFG, 2)).toEqual([]);
+  it("none once it is open, on a row, or once the sack is out", () => {
+    expect(gorgeOffers(staged({}, CFG.gorgeOpenTaps), CFG, 1)).toEqual([]);
+    expect(gorgeOffers(rowed(), CFG, 1)).toEqual([]);
+    expect(gorgeOffers(staged({ outBeat: 9 }), CFG, 1)).toEqual([]);
   });
 });
 
 describe("the thumb", () => {
-  it("is answered for player 1 on the full intake, with its index on the hold", () => {
+  it("is answered for player 1 on the bottom bubble, with its index on the hold", () => {
     const l = layout("p1");
     const g = staged();
-    const at = gorgeGripCircle(l, CFG, g, 2, 6, 0.5);
+    const i = gorgeBottom(g);
+    const at = gorgeGripCircle(l, CFG, g, i, 6, 0.5);
     const touch = gorgeGripUnder(l, at.x, at.y, fieldWith(1, g));
     expect(touch?.player).toBe(1);
     expect(touch?.command).toEqual({
@@ -119,38 +116,31 @@ describe("the thumb", () => {
       on: true,
       fromMilli: 0,
       fromYMilli: 0,
-      id: 2,
+      id: i,
     });
-    expect(touch?.hold).toMatchObject({ kind: "drag", target: "gorgeLobe", player: 1, id: 2 });
+    expect(touch?.hold).toMatchObject({ kind: "drag", target: "gorgeLobe", player: 1, id: i });
   });
 
-  it("is answered for player 2 on the mouth, and refused from the other seat each", () => {
-    const g = staged({}, true);
-    const p2 = layout("p2");
-    const mouth = gorgeGripCircle(p2, CFG, g, 5, 6, 0.5);
-    expect(gorgeGripUnder(p2, mouth.x, mouth.y, fieldWith(2, g))?.command).toMatchObject({ id: 5 });
-    expect(gorgeGripUnder(p2, mouth.x, mouth.y, fieldWith(1, g))).toBeNull();
-    const full = gorgeGripCircle(p2, CFG, g, 2, 6, 0.5);
-    expect(gorgeGripUnder(p2, full.x, full.y, fieldWith(2, g))).toBeNull();
-  });
-
-  it("is refused off the rings, on a filling intake, and with no sack up", () => {
+  it("is refused from player 2's seat, off the ring, on another bubble, and with no sack up", () => {
     const l = layout("p1");
     const g = staged();
-    const filling = gorgeGripCircle(l, CFG, g, 0, 6, 0.5);
-    expect(gorgeGripUnder(l, filling.x, filling.y, fieldWith(1, g))).toBeNull();
-    const at = gorgeGripCircle(l, CFG, g, 2, 6, 0.5);
+    const i = gorgeBottom(g);
+    const at = gorgeGripCircle(l, CFG, g, i, 6, 0.5);
+    expect(gorgeGripUnder(l, at.x, at.y, fieldWith(2, g))).toBeNull();
     expect(gorgeGripUnder(l, at.x, at.y + l.tile * 3, fieldWith(1, g))).toBeNull();
+    const other = gorgeGripCircle(l, CFG, g, (i + 2) % g.intakes.length, 6, 0.5);
+    expect(gorgeGripUnder(l, other.x, other.y, fieldWith(1, g))).toBeNull();
     expect(gorgeGripUnder(l, at.x, at.y, fieldWith(1, null))).toBeNull();
   });
 
   it("is reached through touchDown, over the field", () => {
     const l = layout("p1");
     const g = staged();
-    const at = gorgeGripCircle(l, CFG, g, 2, 6, 0.5);
+    const i = gorgeBottom(g);
+    const at = gorgeGripCircle(l, CFG, g, i, 6, 0.5);
     expect(touchDown(l, at.x, at.y, fieldWith(1, g))?.command).toMatchObject({
       target: "gorgeLobe",
-      id: 2,
+      id: i,
     });
   });
 });
@@ -171,58 +161,38 @@ function strokes(role: ViewRole, g: GorgeState, beat = 6): number {
   return ctx.calls;
 }
 
-describe("the rings", () => {
-  it("are the pilot's over the full intake and the navigator's over the mouth", () => {
-    const spitting = staged();
-    expect(strokes("p1", spitting)).toBeGreaterThan(0);
-    expect(strokes("p2", spitting)).toBe(0);
-    const gorged = staged({}, true);
-    expect(strokes("p2", gorged)).toBeGreaterThan(0);
-    expect(strokes("test", gorged)).toBeGreaterThan(strokes("p1", gorged));
-    expect(strokes("test", gorged)).toBeGreaterThan(strokes("p2", gorged));
+describe("the ring", () => {
+  it("is the pilot's, and not the navigator's", () => {
+    const g = staged();
+    expect(strokes("p1", g)).toBeGreaterThan(0);
+    expect(strokes("p2", g)).toBe(0);
+    expect(strokes("test", g)).toBe(strokes("p1", g));
   });
 
-  it("are nobody's once the sack is out", () => {
-    for (const role of ROLES) expect(strokes(role, staged({ outBeat: 9 }, true))).toBe(0);
+  it("is nobody's once the bubble is open or the sack is out", () => {
+    for (const role of ROLES) {
+      expect(strokes(role, staged({}, CFG.gorgeOpenTaps))).toBe(0);
+      expect(strokes(role, staged({ outBeat: 9 }))).toBe(0);
+    }
   });
 
-  it("are drawn heavier under the thumb, and the pry's dial runs out", () => {
-    expect(strokes("p1", staged({ pinch: 2 }))).toBeGreaterThan(strokes("p1", staged()));
-    const pried = staged({ pry: 5, pryBeat: 6 }, true);
-    expect(strokes("p2", pried, 6)).toBeGreaterThan(strokes("p2", staged({}, true), 6));
-    // Past the window the dial is empty, and only the filled ring is left.
-    expect(strokes("p2", pried, 6 + CFG.gorgePryBeats)).toBeLessThan(strokes("p2", pried, 6));
+  it("carries its dial up to the last tap wanted", () => {
+    const shut = strokes("p1", staged({}, 0));
+    expect(strokes("p1", staged({}, CFG.gorgeOpenTaps - 1))).toBe(shut);
   });
 });
 
 describe("on the field", () => {
   for (const role of ROLES) {
-    it(`draws the rings, the pinch and the pry for ${role}`, () => {
+    it(`draws the ring and its taps for ${role}`, () => {
       const world = opened();
       const tpb = ticksPerBeat(CFG);
-      const set = (w: World, f: (g: GorgeState) => void) => {
-        if (w.boss?.kind === "gorge") f(w.boss);
-      };
       const { ctx } = runFrames(world, role, tpb * 12, {
         onTick: (tick, w) => {
           step(w, []);
-          if (tick === tpb * 2) {
-            set(w, (g) => {
-              const k = g.intakes[2];
-              if (k)
-                Object.assign(k, { beads: CFG.gorgeFullBeads, color: "red", fullBeat: w.beat });
-              g.pinch = 2;
-            });
-          }
-          if (tick === tpb * 6) {
-            set(w, (g) => {
-              const k = g.intakes[5];
-              if (k) Object.assign(k, { beads: CFG.gorgeFullBeads, color: "cyan" });
-              g.mouth = 5;
-              g.ruptures = CFG.gorgeMouthRuptures;
-              g.pry = 5;
-              g.pryBeat = w.beat;
-            });
+          if (tick === tpb * 2 && w.boss?.kind === "gorge") {
+            const k = w.boss.intakes[gorgeBottom(w.boss)];
+            if (k) k.taps = 1;
           }
         },
       });

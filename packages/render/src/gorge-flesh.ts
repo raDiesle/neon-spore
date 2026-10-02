@@ -9,16 +9,16 @@ import { PALETTE } from "./palette.js";
  * one picture the brief rules out by name (`new-boss-more` §6.3).
  *
  * Split off `gorge-draw.ts` and `gorge-lobe.ts`, which decide *what* the sack
- * says — how far it has sunk, which lobe is full, which is the mouth — so they
+ * says — where the bubbles hang, which is sated, what each wants — so they
  * stay about the fight and this one about the material. The beads are
  * THE BATON's drops (`baton-drop.ts`), called rather than drawn again; a
- * lobe's own skin is `gorge-lobe-skin.ts`, and the intake's pucker and a
- * pierced lobe's flaps are `gorge-flesh-torn.ts`.
+ * lobe's own skin is `gorge-lobe-skin.ts`, and the intake's pucker is
+ * `gorge-flesh-torn.ts`.
  *
  * **The line round a lobe was carrying its colour, and still does, from
- * inside.** A lobe with beads in it has their colour lit in its floor, where
- * they sit. A full lobe has its rim lit up the wall, and the mouth has the
- * fire's. An empty lobe is only skin. The colours go in plain and the
+ * inside.** A lobe has the colour it wants lit in its floor, on the screen
+ * shown it. A sated lobe has its rim lit up the wall. A lobe with no colour
+ * shown is only skin. The colours go in plain and the
  * strength in the alpha, so the tests find each of them on the op log.
  *
  * **Every width is off the tile**, never off a lobe's radius: a full lobe

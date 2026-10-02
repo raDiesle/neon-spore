@@ -82,10 +82,13 @@ export const BOSS_ENTRIES_B = {
   // columns are open and how wide — is what the fixture's world has moved by
   // the time it is fingerprinted (`undertow-hash.ts`).
   undertow: { kind: "undertow" },
-  // THE GORGE authors nothing either: the sack's width and fill are tuning
-  // (`config-gorge.ts`), and what its intakes hold is what the fixture's world
-  // has fired into them by the time it is fingerprinted (`gorge-hash.ts`).
-  gorge: { kind: "gorge" },
+  // THE GORGE authors its levels (`content/gorge-levels.ts`): one here, an
+  // ordered ring with a mixed bubble, so every field of a bubble is a number
+  // the walk can flip (`gorge-hash.ts`).
+  gorge: {
+    kind: "gorge",
+    levels: [{ intakes: 3, ordered: true, ring: true, mixed: 1, needMin: 2, needMax: 3 }],
+  },
   // THE CURTAIN authors nothing either: its width and its stride are tuning
   // (`config-curtain.ts`), and where its core hides, which lobes are soft and
   // how far it has been shoved are what the fixture's world has moved by the
@@ -129,21 +132,19 @@ export function patchBossB(boss: BossState, scar: () => Required<Scar>): void {
     boss.gripShookMilli = [500, 700];
   }
   if (boss.kind === "gorge") {
-    // One bead held, so the intake's colour is a value and not the null an
-    // empty sack starts with — the walk cannot flip a null.
+    // A shot of each colour in, a tap on it and the ring turned once, and
+    // the level's two clocks set, so none is the 0 or -1 it is hung with.
     const first = boss.intakes[0];
     if (first !== undefined) {
-      first.beads = 1;
-      first.color = "red";
-      first.fullBeat = 2;
+      first.gotRed = 1;
+      first.gotCyan = 1;
+      first.taps = 1;
     }
-    boss.swallowed = 1;
-    // A thumb on each: the pinch on the intake above and the pry on a mouth
-    // the fixture also names, so neither is the -1 the walk cannot flip.
-    boss.pinch = 0;
-    boss.mouth = 3;
-    boss.pry = 3;
-    boss.pryBeat = 2;
+    boss.next = 1;
+    boss.turn = 1;
+    boss.turnBeat = 2;
+    boss.clearBeat = 3;
+    boss.outBeat = 4;
   }
   if (boss.kind === "curtain") {
     // One lobe off, one hit in, and the state moved off the one it is hung

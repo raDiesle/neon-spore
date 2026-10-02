@@ -117,16 +117,14 @@ export const NO_SUBJECT: Record<string, string> = {
   // THE GORGE's nine. The boss is a sack the sheet has no card for, and
   // what these mark is fluid moving in and out of it, never a body standing.
   "boss.gorgeSettle":
-    "the sack settling into the top of the frame. It is as wide as seven columns, which is not a card (`sim/gorge.ts`).",
-  "boss.gorgeSwallow": "a shot swallowed, one bead in. Same argument.",
-  "boss.gorgeEmptied": "a bead let go for the wrong colour. Same argument.",
-  "boss.gorgeFull": "an intake at four beads, clear and about to vent. Same argument.",
-  "boss.gorgeRupture": "a full intake pierced for good. Same argument.",
-  "boss.gorgeVent": "a full intake nobody pierced, venting a torch. Same argument.",
-  "boss.gorgeSpit": "a swallowed bead spat back as a body. Same argument.",
-  "boss.gorgeMouth": "the last whole intake becoming the mouth. Same argument.",
+    "a level of bubbles settling into the middle of the field. A row or a ring of them, which is not a card (`sim/gorge.ts`).",
+  "boss.gorgeSwallow": "a shot of a wanted colour gone into a bubble. Same argument.",
+  "boss.gorgeEmptied": "a shot let go for a colour the bubble did not want. Same argument.",
+  "boss.gorgeFull": "a bubble with every shot it wants, shut for good. Same argument.",
+  "boss.gorgeCleared": "every bubble of a level sated. Same argument.",
+  "boss.gorgeSpit": "a refused shot spat back as a body. Same argument.",
   "boss.gorgeOut":
-    "the sack ruptured along its width by the beam. What this marks is a frame with nothing under its top — an absence like ui.waveClear rather than a thing standing anywhere.",
+    "the last level sated and the bubbles gone. What this marks is a frame with nothing under its top — an absence like ui.waveClear rather than a thing standing anywhere.",
   // THE CURTAIN's thirteen. The boss is a sheet the sheet has no card for, and
   // what these mark is fabric moving, never a body standing anywhere.
   "boss.curtainUnroll":

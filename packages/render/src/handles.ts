@@ -109,7 +109,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     stareLidUnder(l, x, y, field) ??
     queenMarkUnder(l, x, y, field) ?? // THE BULB QUEEN's marks, under BROOD and SCREAM (`queen-grip.ts`).
     mirrorLobeUnder(l, x, y, field) ?? // THE MIRROR's two lobes, its last round and its pin (`mirror-grip.ts`).
-    gorgeGripUnder(l, x, y, field) ?? // THE GORGE's pinch and pry, the full intakes and the mouth (`gorge-grip.ts`).
+    gorgeGripUnder(l, x, y, field) ?? // THE GORGE's tap, the ring's shut bottom bubble (`gorge-grip.ts`).
     mazeHeartUnder(l, x, y, field) ?? // THE MAZE's heart under `grip`, the navigator's tear (`maze-grip.ts`).
     gaugeGripUnder(l, x, y, field) ?? // THE GAUGE's jammed needle and wound band (`gauge-grip.ts`).
     batonSocketUnder(l, x, y, field) ?? // THE BATON's swelling socket and its two beads (`baton-grip.ts`).

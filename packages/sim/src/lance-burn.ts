@@ -1,5 +1,6 @@
 import { antiphonStruck } from "./antiphon-shot.js";
 import { batonBeadAlong, batonShotSpends, batonStruck } from "./baton-press.js";
+import { bossAlong, bossAlongStruck } from "./boss-along.js";
 import { resolve } from "./bullet-hit.js";
 import { burgeeStruck } from "./burgee-shot.js";
 import { capstanStruck } from "./capstan-shot.js";
@@ -10,7 +11,6 @@ import { davitStruck } from "./davit-shot.js";
 import { flueStruck } from "./flue-shot.js";
 import { gallStruck } from "./gall-shot.js";
 import { gimbalStruck } from "./gimbal-shot.js";
-import { gorgeStruck } from "./gorge-step.js";
 import { governorStruck } from "./governor-shot.js";
 import { grindstoneStruck } from "./grindstone-shot.js";
 import { halterStruck } from "./halter-shot.js";
@@ -37,7 +37,7 @@ import { tasterStruck } from "./taster-shot.js";
 import { trivetStruck } from "./trivet-shot.js";
 import type { Bullet, Color } from "./types.js";
 import { valveStruck } from "./valve-shot.js";
-import { vaneMouthAlong, vaneMouthStruck, vaneStruck } from "./vane.js";
+import { vaneStruck } from "./vane.js";
 import { viseStruck } from "./vise-shot.js";
 import type { World } from "./world.js";
 
@@ -141,14 +141,14 @@ function burnColumn(world: World, col: number, color: Color): number {
       batonStruck(world, b, bead);
       return bead;
     }
-    // THE VANE's open bearing, on the arm's row, the same way (`vane.ts`).
-    const mouth = vaneMouthAlong(world, b, from, 0);
+    // THE VANE's open bearing or THE GORGE's bubble, the same way (`boss-along.ts`).
+    const mouth = bossAlong(world, b, from, 0);
     if (
       mouth >= 0 &&
       (!hit || mouth > creatureMilli(world, hit)) &&
       (!pod || mouth > pod.rowMilli)
     ) {
-      vaneMouthStruck(world, b);
+      bossAlongStruck(world, b);
       return mouth;
     }
     if (pod && (!hit || pod.rowMilli > creatureMilli(world, hit))) {
@@ -163,9 +163,6 @@ function burnColumn(world: World, col: number, color: Color): number {
   // Nothing left in the column, so it reaches the top of the field — THE
   // VANE's armour and the other bosses above the grid.
   vaneStruck(world, b);
-  // And THE GORGE, where the beam in the mouth is what ends the fight
-  // (`gorge-step.ts`).
-  gorgeStruck(world, b);
   curtainStruck(world, b);
   // And THE TASTER, where the beam in the colour the pair has spent least of
   // is the one thing that opens the closed fan (`taster-shot.ts`).

@@ -27,7 +27,7 @@ import type { Layout } from "./layout.js";
  * the gall jumps the word jumps with it**, on the frame it lands, to whichever
  * seat is nearer there: *where did it go* is the pair's to say out loud, and
  * the word is only ever on the screen of the one who has to move. The kind is
- * `HOLD`, THE GORGE's pinch's: the close wants beats of it, not a moment.
+ * `HOLD`: the close wants beats of it, not a moment.
  *
  * **`FIRE` at the hull under the middle column on the bared root**, to either
  * seat. The step's colour is never named — the root is lit in it, on both

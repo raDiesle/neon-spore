@@ -801,7 +801,9 @@ came off is the pierce beat, and what it took is the clock a cue may never
 carry — `gorgeVentBeats` is four, and it is the only warning the pair gets.
 Both prose halves changed with it: the pilot's *hold the cannon there* is the
 field's now, and neither half had caught up with the pinch and the pry the
-fight grew the day before.
+fight grew the day before. All of it went on 1 October 2026, when the fight
+became its levels (`bosses.md` §11.23): the pilot is told `TAP` and `MOVE`
+where the column is not his choice, and the navigator `FIRE`.
 
 THE CURTAIN's two later rows are the same morning and the same finding a third
 time: two words that named a gesture each and no lane for either. `MOVE` is on

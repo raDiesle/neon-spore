@@ -91,16 +91,16 @@ export const INGEST_SILENT_BOSS = [
   "undertowBurst",
   "undertowEbb",
   // THE GORGE's nine, read above the loop by `gorge-fx.ts` the way the
-  // mirror's are: the bursts and the beads leaving are its; the sack, the
-  // lobes and the beads in them are drawn off the boss every frame.
+  // mirror's are: the bursts and the bubbles leaving are its; the bubbles,
+  // what they hold and the taps on them are drawn off the boss every frame.
   "gorgeSettle",
   "gorgeSwallow",
   "gorgeEmptied",
   "gorgeFull",
-  "gorgeRupture",
-  "gorgeVent",
   "gorgeSpit",
-  "gorgeMouth",
+  "gorgeTap",
+  "gorgeTurn",
+  "gorgeCleared",
   "gorgeOut",
   // THE CURTAIN's thirteen, read above the loop by `curtain-fx.ts` the way THE
   // GORGE's are: the sheet, its lobes and the shadow behind it are drawn off

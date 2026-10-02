@@ -139,7 +139,13 @@ export const SHAPED_FAMILIES: readonly FieldGroup[] = [
     suggest:
       "Keep specific, but one refusal: THE MANTLE and THE KEEL refuse the " +
       "wrong seat silently, where most of the game refuses it red.",
-    members: ["THE MANTLE'S CORE", "THE KEEL'S JOINT", "THE RATCHET'S PAWL", "THE BATON'S STRIP"],
+    members: [
+      "THE MANTLE'S CORE",
+      "THE KEEL'S JOINT",
+      "THE RATCHET'S PAWL",
+      "THE BATON'S STRIP",
+      "THE GORGE'S TAP",
+    ],
   },
   {
     key: "script",

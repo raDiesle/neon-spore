@@ -55,7 +55,7 @@ import { WARDEN_PHASES } from "./warden-cycle.js";
  * boss — `STARE_PHASES`, `BATON_STAGES`, `WARDEN_PHASES` — but a sheet that
  * imported nineteen tables would learn about the twentieth only when somebody
  * remembered to add it, and a boss whose phases are *derived* rather than
- * stored (THE WARDEN's from its plates, THE GORGE's from its beads) names them
+ * stored (THE WARDEN's from its plates, THE GORGE's from its levels) names them
  * in a shape of its own. So: one table, read by `tools/director/src/
  * boss-states.ts` and refused by `tools/director/test/boss-states.test.ts`
  * when a state here has no picture there.
@@ -77,8 +77,6 @@ import { WARDEN_PHASES } from "./warden-cycle.js";
  * not a preference: `boss-states.ts` reads `BOSS_PHASES[kind] ?? BY_HAND[kind]`,
  * so a boss with a phase table can never reach the hand-written half at all,
  * and a name kept there would be a state with no table to go stale against.
- * THE GORGE's pinch and its pry are the next two to ask (`docs/queue.md`,
- * 21 September 2026).
  */
 const MIRROR_PHASES: Record<MirrorPhase, 0> = { lead: 0, show: 0, listen: 0, verdict: 0, hold: 0 };
 

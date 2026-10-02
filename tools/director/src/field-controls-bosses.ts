@@ -89,7 +89,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...QUEEN_CONTROLS,
   ...BATON_CONTROLS, // THE BATON's arm, the first whose seat the beat decides.
   ...MIRROR_CONTROLS, // THE MIRROR's lobes, two gestures on one target (`field-controls-mirror.ts`).
-  ...GORGE_CONTROLS, // THE GORGE's pinch and pry, one target whose seat says the gesture.
+  ...GORGE_CONTROLS, // THE GORGE's tap, on a ring's bottom bubble.
   ...MAZE_CONTROLS, // THE MAZE's string and its heart, the brace and the tear (`field-controls-maze.ts`).
   ...FLEET_CONTROLS, // THE FLEET's plume, rake and wreck, on its chart (`field-controls-fleet.ts`).
   ...GAUGE_CONTROLS, // THE GAUGE's needle under a jam and its band under a bind (`field-controls-gauge.ts`).

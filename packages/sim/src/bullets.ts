@@ -1,4 +1,5 @@
 import { batonBeadAlong, batonShotSpends, batonStruck } from "./baton-press.js";
+import { bossAlong, bossAlongStruck } from "./boss-along.js";
 import { resolve } from "./bullet-hit.js";
 import { shotMeans } from "./codex.js";
 import { hullRow, ticksPerBeat } from "./config.js";
@@ -11,7 +12,6 @@ import { shotLeaves } from "./shot-out.js";
 import { firstAlong } from "./shot-reach.js";
 import { spendShot } from "./spend.js";
 import type { Bullet, Color } from "./types.js";
-import { vaneMouthAlong, vaneMouthStruck } from "./vane.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -154,16 +154,17 @@ function sweep(world: World, b: Bullet): boolean {
       batonStruck(world, b, bead);
       return false;
     }
-    // THE VANE's open bearing, on the arm's row in the split column — met by
+    // THE VANE's open bearing, on the arm's row in the split column, or THE
+    // GORGE's bubble on its own row — met by
     // the same rule, the lowest thing in the sweep first, and a body standing
     // on the arm's own row is in front of it (`vane.ts`).
-    const mouth = vaneMouthAlong(world, b, from, to);
+    const mouth = bossAlong(world, b, from, to);
     if (
       mouth >= 0 &&
       (!hit || mouth > creatureMilli(world, hit)) &&
       (!pod || mouth > pod.rowMilli)
     ) {
-      vaneMouthStruck(world, b);
+      bossAlongStruck(world, b);
       return false;
     }
     if (pod && (!hit || pod.rowMilli > creatureMilli(world, hit))) {

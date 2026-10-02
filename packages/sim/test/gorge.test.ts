@@ -1,306 +1,153 @@
 import { describe, expect, it } from "bun:test";
-import { gorgeStruck, installGorge } from "../src/gorge-step.js";
+import { gorgeAlong } from "../src/gorge-step.js";
 import {
-  createWorld,
-  DEFAULT_CONFIG,
-  type GorgeState,
-  gorgeBeads,
-  gorgeBoss,
-  gorgeFull,
-  gorgeNearestFull,
+  gorgeBottom,
+  gorgeColOf,
+  gorgeDue,
+  gorgeOwed,
   gorgePhase,
-  gorgeSink,
+  gorgeRowOf,
+  gorgeSated,
   hashWorld,
+  MILLI,
   midCol,
-  type SimConfig,
-  startWave,
-  step,
-  ticksPerBeat,
-  type World,
 } from "../src/index.js";
-import type { Bullet, Color } from "../src/types.js";
+import { beats, CFG, hit, MIXED, ORDERED, open, RING, ROW, sack, sate, shot } from "./gorge-kit.js";
 
 /**
- * THE GORGE, and the sentence it is built to make true: **the one boss you
- * hurt by not shooting.** Every shot that leaves the top of the field under
- * it is swallowed as a bead; four beads fill an intake and the next two shots
- * rupture it, but a full intake left alone vents a torch, and every bead the
- * pair throws in comes back at them once the sack starts spitting. What is
- * checked here is the rule and nothing of the look — the sack, the beads and
- * the rupture are render's, and `gorgeSink` is the one number it asks for.
+ * THE GORGE, and the sentence the owner gave it on 1 October 2026: **bubbles
+ * that each want so many shots of a colour, one of you counting and the other
+ * colouring.** Five levels, each one hung by the seed: a row in any order, a
+ * row in one order, a ring that turns and is opened at the bottom, and
+ * bubbles that want both colours. What is checked here is the rule and
+ * nothing of the look; the tap is `gorge-hand.test.ts`.
  */
 
-const CFG: SimConfig = DEFAULT_CONFIG;
-const TPB = ticksPerBeat(CFG);
-const WAVE = 6;
-
-function open(seed = 3): World {
-  const world = createWorld(CFG, seed);
-  startWave(world, WAVE, [], [], { kind: "gorge" });
-  return world;
-}
-
-function sack(world: World): GorgeState {
-  const g = gorgeBoss(world);
-  if (g === null) throw new Error("no sack installed");
-  return g;
-}
-
-/** Run `n` beats, and say which of the boss's events went by. */
-function beats(world: World, n: number): Set<string> {
-  const seen = new Set<string>();
-  for (let i = 0; i < n * TPB; i++) {
-    step(world, []);
-    for (const e of world.events) seen.add(e.type);
-  }
-  return seen;
-}
-
-/** A shot that has just left through the top of `col`, handed to the boss the way `bullets.ts` does. */
-function shot(world: World, col: number, color: Color = "red", lance = false): Bullet {
-  return { id: world.nextId++, col, row: 0, subMilli: 0, color, lance, driftMilli: 0, aimMilli: 0 };
-}
-
-/** `n` shots of `color` up `col`. */
-function feed(world: World, col: number, n: number, color: Color = "red"): void {
-  for (let i = 0; i < n; i++) gorgeStruck(world, shot(world, col, color));
-}
-
-/** Fill intake `i` and pierce it. */
-function pierce(world: World, i: number): void {
-  const col = sack(world).col + i;
-  feed(world, col, CFG.gorgeFullBeads + CFG.gorgeVentShots);
-}
-
-describe("the sack settling", () => {
-  it("arrives centred, as wide as the field allows, with every intake empty", () => {
-    const world = open();
-    const g = sack(world);
-    expect(g.intakes.length).toBe(Math.min(CFG.gorgeIntakes, CFG.cols));
-    expect(g.col + Math.floor(g.intakes.length / 2)).toBe(midCol(CFG));
-    expect(gorgeBeads(g)).toBe(0);
-    expect(gorgePhase(g, CFG)).toBe("feeding");
-    expect(world.events.some((e) => e.type === "gorgeSettle")).toBe(true);
+describe("THE GORGE's bubbles", () => {
+  it("hangs the first level centred, each bubble wanting one colour, in no order", () => {
+    const g = sack(open([ROW]));
+    expect(gorgePhase(g)).toBe("row");
+    expect(g.intakes).toHaveLength(4);
+    expect(g.col).toBe(midCol(CFG) - 2);
+    for (const k of g.intakes) {
+      expect(gorgeOwed(k)).toBeGreaterThanOrEqual(ROW.needMin);
+      expect(gorgeOwed(k)).toBeLessThanOrEqual(ROW.needMax);
+      expect(k.needRed === 0 || k.needCyan === 0).toBe(true);
+      expect(k.order).toBe(-1);
+    }
   });
 
-  it("swallows a shot in its column as a bead of that colour, and none outside it", () => {
-    const world = open();
-    const g = sack(world);
-    gorgeStruck(world, shot(world, g.col + 2, "cyan"));
-    expect(g.intakes[2]?.beads).toBe(1);
-    expect(g.intakes[2]?.color).toBe("cyan");
-    expect(world.balance.colorHits).toBe(1);
-    gorgeStruck(world, shot(world, g.col - 1));
-    gorgeStruck(world, shot(world, g.col + g.intakes.length));
-    expect(gorgeBeads(g)).toBe(1);
+  it("rolls the wants off the seed: the same seed the same sum, another seed another", () => {
+    const wants = (seed: number) =>
+      sack(open([ROW], seed)).intakes.map((k) => `${k.needRed}r${k.needCyan}c`);
+    expect(wants(5)).toEqual(wants(5));
+    const seen = new Set([1, 2, 3, 4, 5, 6, 7, 8].map((s) => wants(s).join(" ")));
+    expect(seen.size).toBeGreaterThan(1);
   });
 
-  it("lets a bead go for the wrong colour, and counts the miss", () => {
-    const world = open();
+  it("swallows its colour, and a wrong one takes a shot back out", () => {
+    const world = open([ROW]);
     const g = sack(world);
-    feed(world, g.col + 2, 2, "cyan");
-    gorgeStruck(world, shot(world, g.col + 2, "red"));
-    expect(g.intakes[2]?.beads).toBe(1);
-    expect(g.intakes[2]?.color).toBe("cyan");
-    expect(world.balance.colorMisses).toBe(1);
-    gorgeStruck(world, shot(world, g.col + 2, "red"));
-    expect(g.intakes[2]?.color).toBeNull();
-    expect(world.events.filter((e) => e.type === "gorgeEmptied").length).toBe(2);
-  });
-});
-
-describe("full, pierced or vented", () => {
-  it("is full at four beads, once, and holds no more", () => {
-    const world = open();
-    const g = sack(world);
-    feed(world, g.col + 3, CFG.gorgeFullBeads);
-    const k = g.intakes[3];
-    expect(k && gorgeFull(k, CFG)).toBe(true);
-    expect(gorgeNearestFull(g)).toBe(3);
-    expect(world.events.filter((e) => e.type === "gorgeFull").length).toBe(1);
-    expect(gorgeSink(g, CFG)).toBe(Math.floor(CFG.gorgeFullBeads / CFG.gorgeSinkPer));
+    const i = g.intakes.findIndex((k) => k.needRed >= 2);
+    const at = i >= 0 ? i : g.intakes.findIndex((k) => k.needCyan >= 2);
+    const k = g.intakes[at];
+    if (k === undefined) throw new Error("seed 3 rolls no bubble wanting two");
+    const right = k.needRed > 0 ? "red" : "cyan";
+    const wrong = right === "red" ? "cyan" : "red";
+    expect(hit(world, at, right)).toEqual(["gorgeSwallow"]);
+    expect(k.gotRed + k.gotCyan).toBe(1);
+    expect(hit(world, at, wrong)).toEqual(["gorgeEmptied"]);
+    expect(k.gotRed + k.gotCyan).toBe(0);
+    // Nothing to take out of an empty bubble, and nothing goes under nought.
+    hit(world, at, wrong);
+    expect(k.gotRed + k.gotCyan).toBe(0);
   });
 
-  it("ruptures a full intake on its second shot of any colour, and a shot then passes through", () => {
-    const world = open();
+  it("meets a shot mid-field in its column, and lets one past a sated bubble", () => {
+    const world = open([ROW]);
     const g = sack(world);
-    feed(world, g.col + 3, CFG.gorgeFullBeads);
-    gorgeStruck(world, shot(world, g.col + 3, "cyan"));
-    expect(g.intakes[3]?.ruptured).toBe(false);
-    expect(g.intakes[3]?.pierced).toBe(1);
-    expect(world.events).toContainEqual({
-      type: "gorgeNick",
-      col: g.col + 3,
-      color: "red",
-      owed: 1,
-    });
-    expect(g.intakes[3]?.beads).toBe(CFG.gorgeFullBeads);
-    gorgeStruck(world, shot(world, g.col + 3, "red"));
-    expect(g.intakes[3]?.ruptured).toBe(true);
-    expect(g.ruptures).toBe(1);
-    expect(world.events.some((e) => e.type === "gorgeRupture")).toBe(true);
-    gorgeStruck(world, shot(world, g.col + 3));
-    expect(g.intakes[3]?.beads).toBe(0);
-    expect(gorgeBeads(g)).toBe(0);
+    const col = gorgeColOf(CFG, g, 0);
+    const at = gorgeRowOf(CFG, g) * MILLI;
+    expect(gorgeAlong(world, shot(world, col, "red"), at + 500, at - 500)).toBe(at);
+    expect(gorgeAlong(world, shot(world, g.col - 1, "red"), at + 500, at - 500)).toBe(-1);
+    sate(world, 0);
+    expect(gorgeAlong(world, shot(world, col, "red"), at + 500, at - 500)).toBe(-1);
   });
 
-  it("vents a torch down the column of a full intake nobody pierced", () => {
-    const world = open();
+  it("clears the level when the last bubble is full, and hangs the next after the gap", () => {
+    const world = open([ROW, ORDERED]);
     const g = sack(world);
-    feed(world, g.col + 1, CFG.gorgeFullBeads);
-    // One shot of the two, and the count runs on regardless.
-    gorgeStruck(world, shot(world, g.col + 1));
-    beats(world, CFG.gorgeVentBeats - 1);
-    expect(g.intakes[1]?.beads).toBe(CFG.gorgeFullBeads);
-    const seen = beats(world, 2);
-    expect(seen.has("gorgeVent")).toBe(true);
-    expect(g.intakes[1]?.beads).toBe(0);
-    expect(g.intakes[1]?.color).toBeNull();
-    expect(g.intakes[1]?.pierced).toBe(0);
-    expect(world.creatures.some((c) => c.kind === "torch" && c.col === g.col + 1)).toBe(true);
-  });
-});
-
-describe("THE SLOW", () => {
-  it("opens on the full intake for the vent's window, and shuts on the rupture", () => {
-    const world = open();
-    const g = sack(world);
-    feed(world, g.col + 3, CFG.gorgeFullBeads);
-    expect(world.slowToBeat).toBe(world.beat + CFG.gorgeVentBeats);
-    feed(world, g.col + 3, CFG.gorgeVentShots);
-    expect(world.slowToBeat).toBe(world.beat);
+    for (let i = 0; i < 3; i++) sate(world, i);
+    expect(gorgePhase(g)).toBe("row");
+    sate(world, 3);
+    expect(gorgePhase(g)).toBe("clear");
+    beats(world, CFG.gorgeLevelGapBeats + 1);
+    expect(g.level).toBe(1);
+    expect(g.intakes).toHaveLength(ORDERED.intakes);
+    expect(g.intakes.map((k) => k.order).sort()).toEqual([0, 1, 2, 3, 4]);
   });
 
-  it("shuts on the vent, and stays up while a second intake still waits", () => {
-    const world = open();
+  it("on an ordered row, spits back a shot into a bubble not yet due", () => {
+    const world = open([ORDERED]);
     const g = sack(world);
-    feed(world, g.col + 1, CFG.gorgeFullBeads);
-    beats(world, 2);
-    feed(world, g.col + 5, CFG.gorgeFullBeads);
-    const second = world.beat + CFG.gorgeVentBeats;
-    expect(world.slowToBeat).toBe(second);
-    // Re-opened over the first: the start stays, and the world says when the
-    // latest ask was made, which is where a fuse of it counts from.
-    expect(world.slowFromBeat).toBeLessThan(world.beat);
-    expect(world.slowAskBeat).toBe(world.beat);
-    feed(world, g.col + 5, CFG.gorgeVentShots);
-    expect(world.slowToBeat).toBe(world.beat + CFG.gorgeVentBeats - 2);
-    const seen = beats(world, CFG.gorgeVentBeats);
-    expect(seen.has("gorgeVent")).toBe(true);
-    expect(world.slowToBeat).toBeLessThanOrEqual(world.beat);
-  });
-});
-
-describe("spitting", () => {
-  it("returns nothing before two ruptures, then a bead from the emptiest intake as a body of its colour", () => {
-    const world = open();
-    const g = sack(world);
-    feed(world, g.col + 0, 3, "red");
-    feed(world, g.col + 6, 1, "cyan");
-    pierce(world, 3);
-    expect(beats(world, CFG.gorgeSpitBeats + 1).has("gorgeSpit")).toBe(false);
-    pierce(world, 2);
-    expect(gorgePhase(g, CFG)).toBe("spitting");
-    // The count was already up: the first spit is on the next beat.
-    const seen = beats(world, 1);
-    expect(seen.has("gorgeSpit")).toBe(true);
-    expect(g.intakes[6]?.beads).toBe(0);
-    expect(g.intakes[0]?.beads).toBe(3);
-    expect(world.creatures.some((c) => c.kind === "bulb" && c.col === g.col + 6)).toBe(true);
-    // Then one bead every count, from what is left.
-    beats(world, CFG.gorgeSpitBeats);
-    expect(g.intakes[0]?.beads).toBe(2);
-    expect(world.creatures.some((c) => c.kind === "slick" && c.col === g.col)).toBe(true);
-  });
-});
-
-describe("the mouth", () => {
-  function gorged(seed = 3): World {
-    const world = open(seed);
-    for (const i of [0, 1, 5, 6]) pierce(world, i);
-    return world;
-  }
-
-  it("opens at four ruptures in the whole intake nearest the centre, and feeds itself", () => {
-    const world = gorged();
-    const g = sack(world);
-    expect(gorgePhase(g, CFG)).toBe("gorged");
-    expect(g.mouth).toBe(3);
-    expect(world.events.some((e) => e.type === "gorgeMouth")).toBe(true);
-    const color = g.intakes[3]?.color;
-    expect(color === "red" || color === "cyan").toBe(true);
-    beats(world, CFG.gorgeSpitBeats * CFG.gorgeFullBeads + 1);
-    expect(g.intakes[3]?.beads).toBe(CFG.gorgeFullBeads);
-    // Full, and never vented: the window stays open, and asks nothing on a clock.
-    expect(world.slowToBeat).toBeLessThanOrEqual(world.beat);
-    beats(world, CFG.gorgeVentBeats + 1);
-    expect(g.intakes[3]?.beads).toBe(CFG.gorgeFullBeads);
-    expect(world.creatures.some((c) => c.kind === "torch" && c.col === g.col + 3)).toBe(false);
+    const first = g.intakes.findIndex((k) => k.order === 0);
+    const later = g.intakes.findIndex((k) => k.order === 1);
+    const k = g.intakes[later];
+    if (k === undefined) throw new Error("no second bubble");
+    const before = world.creatures.length;
+    expect(hit(world, later, k.needRed > 0 ? "red" : "cyan")).toContain("gorgeSpit");
+    expect(world.creatures.length).toBe(before + 1);
+    expect(gorgeSated(k) || k.gotRed + k.gotCyan > 0).toBe(false);
+    sate(world, first);
+    expect(gorgeDue(g, later)).toBe(true);
   });
 
-  it("is never pierced by a bolt, and a wrong-colour beam only empties it a bead", () => {
-    const world = gorged();
+  it("on a ring, hangs lower, and only the bottom bubble has a column", () => {
+    const world = open([RING]);
     const g = sack(world);
-    beats(world, CFG.gorgeSpitBeats * CFG.gorgeFullBeads + 1);
-    const color = g.intakes[3]?.color ?? "red";
-    const other: Color = color === "red" ? "cyan" : "red";
-    gorgeStruck(world, shot(world, g.col + 3, color));
-    expect(g.intakes[3]?.ruptured).toBe(false);
-    expect(g.outBeat).toBe(-1);
-    gorgeStruck(world, shot(world, g.col + 3, other, true));
-    expect(g.intakes[3]?.beads).toBe(CFG.gorgeFullBeads - 1);
-    expect(g.outBeat).toBe(-1);
+    expect(gorgePhase(g)).toBe("ring");
+    expect(gorgeRowOf(CFG, g)).toBe(CFG.gorgeRow + CFG.gorgeRingRows);
+    const cols = g.intakes.map((_, i) => gorgeColOf(CFG, g, i));
+    expect(cols.filter((c) => c >= 0)).toEqual([midCol(CFG)]);
+    expect(cols[gorgeBottom(g)]).toBe(midCol(CFG));
   });
 
-  it("ends on two beams in its colour while full and pried, and holds the wave before the boss goes", () => {
-    const world = gorged();
+  it("turns every gorgeTurnBeats, past the bubbles already full", () => {
+    const world = open([RING]);
     const g = sack(world);
-    beats(world, CFG.gorgeSpitBeats * CFG.gorgeFullBeads + 1);
-    const color = g.intakes[3]?.color ?? "red";
-    // The pry is the navigator's thumb on the mouth (`gorge-hand.test.ts`).
-    g.pry = 3;
-    g.pryBeat = world.beat;
-    gorgeStruck(world, shot(world, g.col + 3, color, true));
-    expect(gorgePhase(g, CFG)).toBe("gorged");
-    expect(g.pryFills).toBe(1);
-    gorgeStruck(world, shot(world, g.col + 3, color, true));
-    expect(gorgePhase(g, CFG)).toBe("out");
-    expect(world.events.some((e) => e.type === "gorgeOut")).toBe(true);
-    // A shot into the sack now is nothing.
-    gorgeStruck(world, shot(world, g.col + 3, color));
-    expect(g.intakes[3]?.beads).toBe(CFG.gorgeFullBeads);
-    beats(world, CFG.gorgeOutBeats - 1);
-    expect(world.boss).not.toBeNull();
-    beats(world, 2);
+    const k = g.intakes[1];
+    if (k === undefined) throw new Error("no bubble 1");
+    k.gotRed = k.needRed;
+    k.gotCyan = k.needCyan;
+    expect(gorgeBottom(g)).toBe(0);
+    expect(beats(world, CFG.gorgeTurnBeats)).toContain("gorgeTurn");
+    expect(gorgeBottom(g)).toBe(2);
+  });
+
+  it("wants both colours in every mixed bubble", () => {
+    const world = open([MIXED]);
+    const g = sack(world);
+    for (const k of g.intakes) {
+      expect(k.needRed).toBeGreaterThan(0);
+      expect(k.needCyan).toBeGreaterThan(0);
+    }
+  });
+
+  it("goes out after the last level, and stands gorgeOutBeats before it is gone", () => {
+    const world = open([ROW]);
+    for (let i = 0; i < 4; i++) sate(world, i);
+    expect(beats(world, CFG.gorgeLevelGapBeats + 1)).toContain("gorgeOut");
+    expect(gorgePhase(sack(world))).toBe("out");
+    beats(world, CFG.gorgeOutBeats + 1);
     expect(world.boss).toBeNull();
   });
-});
 
-describe("the wave and the fingerprint", () => {
-  it("holds the wave open while it hangs there, with nothing else on the field", () => {
-    const world = open();
-    beats(world, 12);
-    expect(world.boss).not.toBeNull();
-    expect(world.events.some((e) => e.type === "needWave")).toBe(false);
-    expect(world.creatures.length).toBe(0);
-  });
-
-  it("fingerprints the same run the same way twice", () => {
-    const run = (): number => {
-      const world = open(11);
-      pierce(world, 1);
-      feed(world, sack(world).col + 4, 2, "cyan");
-      pierce(world, 5);
-      beats(world, 9);
-      return hashWorld(world);
-    };
-    expect(run()).toBe(run());
-  });
-
-  it("installs from a world with the wave's own beat", () => {
-    const world = createWorld(CFG, 1);
-    const g = installGorge(world);
-    expect(g.spitBeat).toBe(world.beat);
-    expect(g.mouth).toBe(-1);
+  it("is fingerprinted: a shot swallowed on one device and not the other is seen", () => {
+    const a = open([ROW]);
+    const b = open([ROW]);
+    expect(hashWorld(a)).toBe(hashWorld(b));
+    const k = sack(a).intakes[0];
+    hit(a, 0, k !== undefined && k.needRed > 0 ? "red" : "cyan");
+    expect(hashWorld(a)).not.toBe(hashWorld(b));
   });
 });

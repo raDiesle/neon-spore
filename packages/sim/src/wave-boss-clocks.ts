@@ -103,10 +103,9 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // The arrivals over it are the wave's own (`bossFillsWave`).
     world.boss = installUndertow(world);
   } else if (boss.kind === "gorge") {
-    // No creature and no row: a sack above the grid that swallows what the
-    // pair fires past the field, and falls only what they overfed it with
-    // (`gorge-step.ts`).
-    world.boss = installGorge(world);
+    // No creature: rows or rings of bubbles in mid-field, a level at a time,
+    // that fall only what they refuse (`gorge-step.ts`).
+    world.boss = installGorge(world, boss.levels);
   } else if (boss.kind === "curtain") {
     // A creature *and* a fixture: the fabric is a boss body the carry moves,
     // at `curtainRow`, and the core behind it is a column and a colour with

@@ -80,20 +80,15 @@ export const CHOREO_FIELD_GROUP = {
   undertowTallBeats: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowRestBeats: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowEbbBeats: "THE UNDERTOW — the boss under the floor, answered downward",
-  // GorgeConfig — how wide the sack is, how many beads fill an intake, how
-  // long a full one holds before venting, and when it spits and gorges
-  // (`config-gorge.ts`).
-  gorgeIntakes: "THE GORGE — the boss you hurt by not shooting",
-  gorgeFullBeads: "THE GORGE — the boss you hurt by not shooting",
-  gorgeVentBeats: "THE GORGE — the boss you hurt by not shooting",
-  gorgeVentShots: "THE GORGE — the boss you hurt by not shooting",
-  gorgeSpitRuptures: "THE GORGE — the boss you hurt by not shooting",
-  gorgeSpitBeats: "THE GORGE — the boss you hurt by not shooting",
-  gorgeMouthRuptures: "THE GORGE — the boss you hurt by not shooting",
-  gorgeSinkPer: "THE GORGE — the boss you hurt by not shooting",
-  gorgeOutBeats: "THE GORGE — the boss you hurt by not shooting",
-  gorgePryBeats: "THE GORGE — the boss you hurt by not shooting",
-  gorgePryFills: "THE GORGE — the boss you hurt by not shooting",
+  // GorgeConfig — where the bubbles hang, how wide the ring is, the beats
+  // between levels and between turns, the taps that open the bottom bubble,
+  // and the beats it is held for at the end (`config-gorge.ts`).
+  gorgeRow: "THE GORGE — bubbles one of you counts and the other colours",
+  gorgeRingRows: "THE GORGE — bubbles one of you counts and the other colours",
+  gorgeLevelGapBeats: "THE GORGE — bubbles one of you counts and the other colours",
+  gorgeTurnBeats: "THE GORGE — bubbles one of you counts and the other colours",
+  gorgeOpenTaps: "THE GORGE — bubbles one of you counts and the other colours",
+  gorgeOutBeats: "THE GORGE — bubbles one of you counts and the other colours",
   // CurtainConfig — where the sheet hangs, how much of it must stay on the
   // field, how often the hem softens and how many lobes at a time, when it
   // is light, how often the core fires covered and naked, how soon it

@@ -101,9 +101,10 @@ export function serializeBoss(boss: BossEntry, waveId = ""): string {
   // And THE UNDERTOW, the fifth of that length: no column, because it draws its own; no
   // health, because the pushes are counted (`sim/config-undertow.ts`).
   if (boss.kind === "undertow") return '{ kind: "undertow" }';
-  // And THE GORGE, the sixth: no column, the sack is centred and as wide as
-  // the field allows; no health, it runs backwards (`sim/config-gorge.ts`).
-  if (boss.kind === "gorge") return '{ kind: "gorge" }';
+  // And THE GORGE: no column, the sack is centred; its levels are named for
+  // THE INSTAR's reason below, a climb authored to be read down a page
+  // (`packages/content/src/gorge-levels.ts`).
+  if (boss.kind === "gorge") return '{ kind: "gorge", levels: GORGE_LEVELS }';
   // And THE CURTAIN, the seventh: no column, the sheet is centred and its core
   // rolled behind it; no health, the hem's lobes are it (`sim/config-curtain.ts`).
   if (boss.kind === "curtain") return '{ kind: "curtain" }';

@@ -2,186 +2,215 @@ import { metColor, missedColor } from "./balance.js";
 import { midCol } from "./config.js";
 import {
   type GorgeIntake,
+  type GorgeLevel,
   type GorgeState,
   gorgeBeads,
   gorgeBoss,
-  gorgeFull,
-  gorgeIntakeAt,
-  gorgePinched,
+  gorgeBottom,
+  gorgeDue,
+  gorgeLevelOf,
+  gorgePhase,
+  gorgeSated,
 } from "./gorge.js";
-import { empty, mouthStruck, openMouth, swallow } from "./gorge-mouth.js";
-import { spitEmptiest, stepGorgePry } from "./gorge-pry.js";
-import { gorgeSlow } from "./gorge-slow.js";
+import { gorgeColOf, gorgeRowOf, gorgeSlow, turnRing } from "./gorge-ring.js";
+import { livingKindForColor } from "./kinds.js";
+import { nextInt } from "./rng.js";
 import { spawnOne } from "./spawn.js";
-import type { Bullet } from "./types.js";
-import type { World } from "./world.js";
+import type { Bullet, Color } from "./types.js";
+import { MILLI, type World } from "./world.js";
 
 /**
- * THE GORGE's clock — the vent, the spit, the mouth feeding itself and the
- * beats after the beam — and the one moment a shot meets it: swallowed at
- * the top of the field. Everything on the **beat** runs from `stepBoss`; the
- * one thing on the **tick** is a shot leaving the top (`gorgeStruck`),
- * because a bead that waited for the next beat to go in would be a shot the
- * pair watched vanish into nothing. A bead and the mouth are `gorge-mouth.ts`,
- * the thumbs `gorge-hand.ts`.
+ * THE GORGE's clock — a level hung, the ring turning, the pause between
+ * levels and the beats after the last — and the one moment a shot meets it:
+ * a bubble in mid-field, in its column, met as a body would be
+ * (`gorgeAlong`, from `bullets.ts` and `lance-burn.ts`). The beat's work runs
+ * from `stepBoss`; the tap is `gorge-hand.ts`.
  */
 
-/** Install it from the wave's own `boss:` entry. There is nothing to author. */
-export function installGorge(world: World): GorgeState {
-  const cfg = world.cfg;
-  const width = Math.min(cfg.gorgeIntakes, cfg.cols);
-  const col = Math.max(0, Math.min(cfg.cols - width, midCol(cfg) - Math.floor(width / 2)));
-  const intakes: GorgeIntake[] = [];
-  for (let i = 0; i < width; i++)
-    intakes.push({ beads: 0, color: null, fullBeat: -1, ruptured: false, pierced: 0 });
-  world.events.push({ type: "gorgeSettle", col, width });
-  return {
+/** Install it with the wave's levels, the first one hung at once. */
+export function installGorge(world: World, levels: readonly GorgeLevel[]): GorgeState {
+  const g: GorgeState = {
     kind: "gorge",
-    col,
-    intakes,
-    ruptures: 0,
-    swallowed: 0,
-    spitBeat: world.beat,
-    mouth: -1,
+    col: 0,
+    // Copied, never shared: the state is the world's, and a content list
+    // edited in place would change a fight already under way.
+    levels: levels.map((v) => ({ ...v })),
+    level: 0,
+    intakes: [],
+    next: 0,
+    turn: 0,
+    turnBeat: world.beat,
+    clearBeat: -1,
     outBeat: -1,
-    pinch: -1,
-    pry: -1,
-    pryBeat: -1,
-    pryFills: 0,
   };
-}
-
-/** How many intakes can still be pierced. */
-function standing(g: GorgeState): number {
-  let n = 0;
-  for (const k of g.intakes) if (!k.ruptured) n += 1;
-  return n;
+  hang(world, g);
+  return g;
 }
 
 /**
- * **A shot that nothing on the field stopped, leaving through the top** of
- * a column the sack hangs over: from `bullets.ts` and `lance-burn.ts` beside
- * `vaneStruck`, a no-op unless THE GORGE is the boss and the column its own.
- *
- * A ruptured intake hangs open and the shot goes through. A full one is
- * pierced by any colour, bolt or beam, and ruptures on the `gorgeVentShots`th;
- * every shot short of it is a `gorgeNick`, as every beam short of the last
- * into the pried mouth is a `gorgePryFill`, so no shot that landed is silent.
- * Otherwise the shot is a bead: the intake's colour, or its first, fills it a
- * step and counts as a colour met; the other colour takes a bead back out and
- * counts as one missed. The mouth takes beads the same way but is never
- * pierced: `gorgePryFills` beams in its colour, standing in its column while
- * it is full **and pried open under player 2's thumb**, end the fight; on a
- * mouth nobody holds it clenches, and the beam goes in as nothing
- * (`gorge-hand.ts`). Whatever it answered, THE SLOW is put where the asks
- * still standing say (`gorge-slow.ts`).
+ * Put level `g.level` up, centred on the middle column. The shape is the
+ * level's; what each bubble wants is rolled here: a total from the level's
+ * range and a colour, the first `mixed` of them (with two shots or more to
+ * split) asking for some of each, and on an ordered level a shuffled order.
  */
-export function gorgeStruck(world: World, bullet: Bullet): boolean {
-  const g = gorgeBoss(world);
-  if (g === null || g.outBeat >= 0) return false;
-  const met = struck(world, g, bullet);
+function hang(world: World, g: GorgeState): void {
+  const cfg = world.cfg;
+  const level = gorgeLevelOf(g);
+  const width = Math.min(level.intakes, cfg.cols);
+  g.col = Math.max(0, Math.min(cfg.cols - width, midCol(cfg) - Math.floor(width / 2)));
+  g.intakes = [];
+  for (let i = 0; i < width; i++) {
+    const total = level.needMin + nextInt(world.rng, level.needMax - level.needMin + 1);
+    const k: GorgeIntake = { needRed: 0, needCyan: 0, gotRed: 0, gotCyan: 0, order: -1, taps: 0 };
+    if (i < level.mixed && total >= 2) {
+      k.needRed = 1 + nextInt(world.rng, total - 1);
+      k.needCyan = total - k.needRed;
+    } else if (nextInt(world.rng, 2) === 0) k.needRed = total;
+    else k.needCyan = total;
+    g.intakes.push(k);
+  }
+  if (level.ordered) {
+    const order = g.intakes.map((_, i) => i);
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = nextInt(world.rng, i + 1);
+      const t = order[i] ?? 0;
+      order[i] = order[j] ?? 0;
+      order[j] = t;
+    }
+    g.intakes.forEach((k, i) => {
+      k.order = order[i] ?? 0;
+    });
+  }
+  g.next = 0;
+  g.turn = 0;
+  g.turnBeat = world.beat;
+  g.clearBeat = -1;
+  world.events.push({ type: "gorgeSettle", row: gorgeRowOf(world.cfg, g), col: g.col, width });
   gorgeSlow(world, g);
-  return met;
 }
 
-function struck(world: World, g: GorgeState, bullet: Bullet): boolean {
-  const i = gorgeIntakeAt(g, bullet.col);
+/** The bubble a shot up `col` meets, or `-1`: none there, the level not being fed, or sated. */
+function bubbleIn(world: World, g: GorgeState, col: number): number {
+  const phase = gorgePhase(g);
+  if (phase !== "row" && phase !== "ring") return -1;
+  const i = phase === "ring" ? gorgeBottom(g) : col - g.col;
   const k = g.intakes[i];
-  // No intake, or one burst open: the bolt went up through the hole and met
-  // nothing, which HARD asks about (`shot-out.ts`).
-  if (k === undefined || k.ruptured) return false;
-  const cfg = world.cfg;
-  if (i === g.mouth) {
-    mouthStruck(world, g, i, bullet);
-    return true;
+  if (k === undefined || gorgeSated(k) || gorgeColOf(world.cfg, g, i) !== col) return -1;
+  return i;
+}
+
+/**
+ * Where a bubble stands in this shot's column and sweep, in thousandths of a
+ * row, or -1. Asked beside the bodies and pods in the same segment, so
+ * whichever stands lowest is met first (`vaneMouthAlong`'s rule). A sated
+ * bubble is shut for good, and a shot flies on past it.
+ */
+export function gorgeAlong(world: World, bullet: Bullet, from: number, to: number): number {
+  const g = gorgeBoss(world);
+  if (g === null || bubbleIn(world, g, bullet.col) < 0) return -1;
+  const at = gorgeRowOf(world.cfg, g) * MILLI;
+  return from < at || at < to ? -1 : at;
+}
+
+/**
+ * A shot meeting the bubble in its column, once `gorgeAlong` has said one is
+ * there. Out of turn, or a ring's bubble not yet tapped open, it is refused:
+ * spat back down the column as a body of the shot's colour. The colour it
+ * still wants fills it a step; the other takes a step back out.
+ */
+export function gorgeStruck(world: World, bullet: Bullet): void {
+  const g = gorgeBoss(world);
+  if (g === null) return;
+  const i = bubbleIn(world, g, bullet.col);
+  const k = g.intakes[i];
+  if (k === undefined) return;
+  const col = bullet.col;
+  const color = bullet.color;
+  const shut = gorgeLevelOf(g).ring && k.taps < world.cfg.gorgeOpenTaps;
+  if (shut || !gorgeDue(g, i)) {
+    world.events.push({ type: "gorgeSpit", row: gorgeRowOf(world.cfg, g), col, color });
+    spawnOne(world, { beat: world.beat, col, kind: livingKindForColor(color), color });
+    return;
   }
-  const col = g.col + i;
-  if (gorgeFull(k, cfg)) {
+  if (wants(k, color)) {
     metColor(world);
-    k.pierced += 1;
-    if (k.pierced < cfg.gorgeVentShots) {
-      const owed = cfg.gorgeVentShots - k.pierced;
-      world.events.push({ type: "gorgeNick", col, color: k.color ?? bullet.color, owed });
-      return true;
-    }
-    k.ruptured = true;
-    k.beads = 0;
-    k.color = null;
-    k.fullBeat = -1;
-    k.pierced = 0;
-    g.ruptures += 1;
-    if (g.pinch === i) g.pinch = -1;
-    world.events.push({ type: "gorgeRupture", col, left: standing(g) });
-    if (g.mouth < 0 && (g.ruptures >= cfg.gorgeMouthRuptures || standing(g) <= 1)) {
-      openMouth(world, g);
-    }
-    return true;
-  }
-  if (k.color === null || k.color === bullet.color) {
-    metColor(world);
-    swallow(world, g, i, k, bullet.color);
-    return true;
+    if (color === "red") k.gotRed += 1;
+    else k.gotCyan += 1;
+    world.events.push({
+      type: "gorgeSwallow",
+      row: gorgeRowOf(world.cfg, g),
+      col,
+      color,
+      beads: k.gotRed + k.gotCyan,
+    });
+    if (gorgeSated(k)) sated(world, g, col, color);
+    return;
   }
   missedColor(world);
-  empty(world, g, i, k);
-  return true;
+  spill(k, color);
+  world.events.push({
+    type: "gorgeEmptied",
+    row: gorgeRowOf(world.cfg, g),
+    col,
+    beads: k.gotRed + k.gotCyan,
+  });
 }
 
-/**
- * Every full intake past its patience lets go: a torch down the column, and
- * empty. One under the pilot's pinch waits, its count moved along with it,
- * so the patience runs from the lift and not the fill (`gorge-hand.ts`).
- */
-function vent(world: World, g: GorgeState): void {
-  const cfg = world.cfg;
-  for (let i = 0; i < g.intakes.length; i++) {
-    const k = g.intakes[i];
-    if (k === undefined || i === g.mouth || !gorgeFull(k, cfg)) continue;
-    if (gorgePinched(g, i)) {
-      k.fullBeat = world.beat;
-      continue;
-    }
-    if (world.beat - k.fullBeat < cfg.gorgeVentBeats) continue;
-    const col = g.col + i;
-    k.beads = 0;
-    k.color = null;
-    k.fullBeat = -1;
-    k.pierced = 0;
-    world.events.push({ type: "gorgeVent", col });
-    spawnOne(world, { beat: world.beat, col, kind: "torch", color: null });
+function wants(k: GorgeIntake, color: Color): boolean {
+  return color === "red" ? k.gotRed < k.needRed : k.gotCyan < k.needCyan;
+}
+
+/** One shot back out: of the colour that went in if it holds any, else of the other. */
+function spill(k: GorgeIntake, color: Color): void {
+  const red = color === "red" ? k.gotRed > 0 : k.gotCyan === 0;
+  if (red) k.gotRed = Math.max(0, k.gotRed - 1);
+  else k.gotCyan = Math.max(0, k.gotCyan - 1);
+}
+
+function sated(world: World, g: GorgeState, col: number, color: Color): void {
+  world.events.push({ type: "gorgeFull", row: gorgeRowOf(world.cfg, g), col, color });
+  if (gorgeLevelOf(g).ordered) g.next += 1;
+  if (g.intakes.every(gorgeSated)) {
+    g.clearBeat = world.beat;
+    world.events.push({
+      type: "gorgeCleared",
+      row: gorgeRowOf(world.cfg, g),
+      col: g.col,
+      level: g.level,
+    });
   }
+  gorgeSlow(world, g);
 }
 
 /**
- * One beat of the sack.
- *
- * Full intakes vent on their count. Then, on the spit count, the sack either
- * feeds its mouth a bead of the mouth's colour — never past full, never
- * venting — or, once it is spitting, returns one bead to the field. A pry
- * held past its window is thrown off first (`gorge-hand.ts`), and THE SLOW
- * is put where the asks left standing say (`gorge-slow.ts`). After the beam
- * it stands `gorgeOutBeats` and goes.
+ * One beat of THE GORGE. A ring turns on its count. A sated level stands its
+ * gap, then the next is hung — or, after the last, it is out, and stands
+ * `gorgeOutBeats` more before it goes, so the frame has its beats of bubbles
+ * leaving before the wave may end (`bossHoldsWave`).
  */
 export function stepGorge(world: World, g: GorgeState): void {
   const cfg = world.cfg;
-  if (g.outBeat >= 0) {
-    // Nulled here rather than at the beam, so the frame has its beats of
-    // beads leaving before the wave is allowed to end (`bossHoldsWave`).
+  const phase = gorgePhase(g);
+  if (phase === "out") {
     if (world.beat - g.outBeat >= cfg.gorgeOutBeats) world.boss = null;
     return;
   }
-  vent(world, g);
-  stepGorgePry(world, g);
-  gorgeSlow(world, g);
-  if (world.beat - g.spitBeat < cfg.gorgeSpitBeats) return;
-  const mouth = g.intakes[g.mouth];
-  if (mouth !== undefined) {
-    g.spitBeat = world.beat;
-    if (mouth.color !== null && !gorgeFull(mouth, cfg))
-      swallow(world, g, g.mouth, mouth, mouth.color);
+  if (phase === "clear") {
+    if (world.beat - g.clearBeat < cfg.gorgeLevelGapBeats) return;
+    if (g.level + 1 < g.levels.length) {
+      g.level += 1;
+      hang(world, g);
+      return;
+    }
+    g.outBeat = world.beat;
+    world.events.push({
+      type: "gorgeOut",
+      row: gorgeRowOf(world.cfg, g),
+      col: g.col,
+      beads: gorgeBeads(g),
+    });
     return;
   }
-  if (g.ruptures < cfg.gorgeSpitRuptures || gorgeBeads(g) === 0) return;
-  g.spitBeat = world.beat;
-  spitEmptiest(world, g);
+  if (phase === "ring" && world.beat - g.turnBeat >= cfg.gorgeTurnBeats) turnRing(world, g);
+  gorgeSlow(world, g);
 }

@@ -79,12 +79,9 @@ export const FIRST_BOSS_POSES: Pose[] = [
   ),
   bossPose(
     "gorge",
-    "feeding",
-    "Seven empty intakes across the top; what reaches them is swallowed. P1 pinches one full; P2 fires into it.",
-    {
-      want: (w) =>
-        w.boss?.kind === "gorge" && gorgePhase(w.boss, w.cfg) === "feeding" && w.beat >= 2,
-    },
+    "row",
+    "Four bubbles across the field, each wanting shots. P1 reads the counts and picks one; P2 fires its colour.",
+    { want: (w) => w.boss?.kind === "gorge" && gorgePhase(w.boss) === "row" && w.beat >= 2 },
   ),
   bossPose(
     "curtain",

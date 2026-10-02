@@ -41,7 +41,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE BATON — a bead passed down an arm, one seat a beat",
   "THE THROAT — the boss you answer by feeding it",
   "THE UNDERTOW — the boss under the floor, answered downward",
-  "THE GORGE — the boss you hurt by not shooting",
+  "THE GORGE — bubbles one of you counts and the other colours",
   "THE CURTAIN — the boss that is in the way",
   "THE TASTER — the boss that grows its armour in the colour you have been spending",
   "THE SINEW — the boss that asks how hard, not when",

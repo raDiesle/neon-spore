@@ -8,7 +8,6 @@ import { davitStruck } from "./davit-shot.js";
 import { flueStruck } from "./flue-shot.js";
 import { gallStruck } from "./gall-shot.js";
 import { gimbalStruck } from "./gimbal-shot.js";
-import { gorgeStruck } from "./gorge-step.js";
 import { governorStruck } from "./governor-shot.js";
 import { grindstoneStruck } from "./grindstone-shot.js";
 import { halterStruck } from "./halter-shot.js";
@@ -56,7 +55,7 @@ import type { World } from "./world.js";
  *
  * Every call below is a no-op unless its own boss is installed and its own
  * window is open. The bosses that hang above the field — THE VANE's bearing,
- * THE GORGE's sack, THE CURTAIN's fabric and the rest — are the things in
+ * THE CURTAIN's fabric and the rest — are the things in
  * the game that are not on the grid at all (docs/spec/bosses.md §11.5).
  *
  * **Each call says whether the bolt met anything up there**, which is what
@@ -78,8 +77,6 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   const taken = skyTaken(world);
   let met = false;
   met = vaneStruck(world, b) || met;
-  // THE GORGE's sack, which swallows the shot as a bead (`gorge-step.ts`).
-  met = gorgeStruck(world, b) || met;
   // THE CURTAIN's core, if the fabric is shoved clear of it (`curtain-shot.ts`).
   met = curtainStruck(world, b) || met;
   // THE TASTER's fan, where the colour that breaks a blade is the one it is
@@ -179,7 +176,6 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
  */
 export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "vane",
-  "gorge",
   "curtain",
   "taster",
   "ledger",

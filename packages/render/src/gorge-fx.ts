@@ -8,39 +8,28 @@ import { PALETTE } from "./palette.js";
 
 /**
  * What THE GORGE leaves behind a frame: the beads leaving at the end, and the
- * bursts its fourteen receipts throw on the way there.
+ * bursts its nine receipts throw on the way there.
  *
  * Everything else about the sack is drawn off the boss every frame
  * (`gorge-draw.ts`). The payoff is the exception, and it is the loudest frame
- * on the boss's page: the beam stands in the mouth, the sack splits along its
- * whole width, and **every bead it ever swallowed leaves at once**, straight
- * up through the top of the frame and gone. The world keeps the count
- * (`swallowed`) and nothing else — the beads it spat are bodies that were
- * broken on the field, and the ones still in the lobes are about to not be
- * there — so the moment is a transient, kept here and cleared in
- * `Effects.reset()` like everything that outlives its frame
- * (`restart.test.ts`).
- *
- * The colours are dealt, not remembered. The sack does not keep which colour
- * each bead was fired in over a fight of fifty shots, and a receipt that
- * carried fifty colours would be a receipt about nothing. Half go red and half
- * cyan by hash, which is what a sack fed from both hands looks like emptying.
+ * on the boss's page: the last level sated, the sack goes out, and **every
+ * bead it holds leaves at once**, straight up through the top of the frame and
+ * gone. The world keeps the count and nothing else, so the moment is a
+ * transient, kept here and cleared in `Effects.reset()` like everything that
+ * outlives its frame (`restart.test.ts`). Half go red and half cyan by hash,
+ * which is what a sack fed from both hands looks like emptying.
  *
  * The bursts go through `Sparks` like any other event's, and are here rather
- * than in `effects-spark.ts`'s table because that file is at its limit and the
- * fourteen are one family: read once, above the loop, the way THE MIRROR's are.
- * The first of two pierces and the first of two fills are the rupture's and
- * the payoff's first halves — a little of the rock, a little of the mouth's
- * colour — so a shot that landed and left a count owing is never silent.
- * The two thumbs' bursts are small and white — a thumb landing is the
- * handle's colour, not the sack's — and the clench is the sack's rock, a
- * mouth shutting on something. The same three are the rings' verdicts,
- * green for a thumb taken and red for the clench (`gorge-marks.ts`).
+ * than in `effects-spark.ts`'s table because the nine are one family: read
+ * once, above the loop, the way THE MIRROR's are. Each bursts on the bubble's
+ * own row (`row` on every event), so a ring's bottom bubble bursts where it
+ * hangs. A tap is small and white — a thumb landing is the handle's colour,
+ * not the sack's — and is the tap ring's verdict, keyed by column
+ * (`gorge-marks.ts`); a refused shot is the red one.
  *
- * **An intake ruptured is a sequence landed** — filled in one colour, then
- * pierced for the count — and so is the beam that ends it, so both deal the
- * sack the blow every boss takes (`boss-hurt.ts`). A nick that leaves a
- * count owing deals nothing.
+ * **A bubble sated is a sequence landed**, and so is the level, so both deal
+ * the sack the blow every boss takes (`boss-hurt.ts`); a shot that fills it a
+ * step is a jab.
  */
 
 /** Seconds a bead takes to leave the top of the frame. */
@@ -70,55 +59,40 @@ export class GorgeFx {
     l: Layout,
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
-    const top = tileCY(l, 0) - l.tile * 0.5;
     for (const e of events) {
+      if (!("row" in e)) continue;
+      const x = tileCX(l, e.col);
+      const y = tileCY(l, e.row);
       switch (e.type) {
         case "gorgeSwallow":
-          burst(tileCX(l, e.col), top, 3, e.color === "red" ? PALETTE.red : PALETTE.cyan);
+          burst(x, y, 3, e.color === "red" ? PALETTE.red : PALETTE.cyan);
           this.hurt.jab();
           break;
         case "gorgeEmptied":
-          burst(tileCX(l, e.col), top, 4, PALETTE.sparkDim);
+          burst(x, y, 4, PALETTE.sparkDim);
           break;
         case "gorgeFull":
-          burst(tileCX(l, e.col), top, 8, e.color === "red" ? PALETTE.redRim : PALETTE.cyanRim);
-          break;
-        case "gorgeRupture":
-          burst(tileCX(l, e.col), top, 16, PALETTE.rock);
+          burst(x, y, 10, e.color === "red" ? PALETTE.redRim : PALETTE.cyanRim);
           this.hurt.hit();
-          break;
-        case "gorgeNick":
-          burst(tileCX(l, e.col), top, 6, PALETTE.rock);
-          this.hurt.jab();
-          break;
-        case "gorgeVent":
-          burst(tileCX(l, e.col), top, 6, PALETTE.ember);
           break;
         case "gorgeSpit":
-          burst(tileCX(l, e.col), top, 4, e.color === "red" ? PALETTE.red : PALETTE.cyan);
+          burst(x, y, 4, e.color === "red" ? PALETTE.red : PALETTE.cyan);
+          this.verdicts.mark(e.col, false);
           break;
-        case "gorgeMouth":
-          burst(tileCX(l, e.col), top, 10, PALETTE.emberRim);
+        case "gorgeTap":
+          burst(x, y, 6, PALETTE.text);
+          this.verdicts.mark(e.col, true);
           break;
-        case "gorgeOut":
-          this.release(l, e.col, e.beads, top);
+        case "gorgeTurn":
+          burst(x, y, 4, PALETTE.sparkDim);
+          break;
+        case "gorgeCleared":
+          burst(x, y, 16, PALETTE.rock);
           this.hurt.hit();
           break;
-        case "gorgePinch":
-          burst(tileCX(l, e.col), top - l.tile * 0.5, 6, PALETTE.text);
-          this.verdicts.mark(e.col, true);
-          break;
-        case "gorgePry":
-          burst(tileCX(l, e.col), top - l.tile * 0.5, 8, PALETTE.text);
-          this.verdicts.mark(e.col, true);
-          break;
-        case "gorgePryFill":
-          burst(tileCX(l, e.col), top, 10, e.color === "red" ? PALETTE.redRim : PALETTE.cyanRim);
-          this.hurt.jab();
-          break;
-        case "gorgeClench":
-          burst(tileCX(l, e.col), top, 14, PALETTE.rock);
-          this.verdicts.mark(e.col, false);
+        case "gorgeOut":
+          this.release(l, e.col, e.beads, y);
+          this.hurt.hit();
           break;
         default:
           break;

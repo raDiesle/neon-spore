@@ -1,9 +1,11 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
+import { buildBoss, buildQueue, GORGE_LEVELS } from "@neon-spore/content";
 import {
   createWorld,
   type GorgeState,
   gorgeBoss,
+  gorgeOwed,
+  gorgeSated,
   startWave,
   step,
   ticksPerBeat,
@@ -28,11 +30,12 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * THE GORGE's sack, on both screens.
  *
- * The lobes' states are **set** rather than fed: `sim/test/gorge.test.ts` proves the swallow and the pierce,
- * and what this file asks is whether every branch of the picture is one a
- * canvas accepts — a lobe filling, full, ruptured, the mouth, the sack gone —
- * and the two things nothing else in the suite could catch: that the tally is
- * on the pilot's screen and the navigator's ring on hers and neither on the
+ * The bubbles' states are **set** rather than fed: `sim/test/gorge.test.ts`
+ * proves the swallow and the spit, and what this file asks is whether every
+ * branch of the picture is one a canvas accepts — a bubble empty, filling,
+ * sated, wanting both colours, round a ring, the sack gone — and the two
+ * things nothing else in the suite could catch: that the counts are on the
+ * pilot's screen and the colours on the navigator's and neither on the
  * other, and that the beads leaving at the end are a transient the next run
  * does not inherit.
  */
@@ -42,10 +45,13 @@ beforeAll(installCanvasGlobals);
 const TPB = ticksPerBeat(CFG);
 const L = computeLayout(VIEWPORT, CFG, "test");
 
-function opened(): World {
+/** The sack on the authored levels from `from` on, a beat in. */
+function opened(from = 0): World {
   const world = createWorld(CFG, 5);
   const index = waveWith("gorge");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+  if (from === 0)
+    startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+  else startWave(world, index, [], [], { kind: "gorge", levels: GORGE_LEVELS.slice(from) });
   for (let i = 0; i < TPB; i++) step(world, []);
   return world;
 }
@@ -56,26 +62,24 @@ function sack(world: World): GorgeState {
   return g;
 }
 
-/** Every lobe state at once: two filling, one full, one ruptured, the mouth. */
+/** Every bubble state at once: the first filling, the second sated, the rest empty. */
 function busy(world: World): GorgeState {
   const g = sack(world);
-  const set = (i: number, beads: number, color: "red" | "cyan" | null, fullBeat = -1) => {
-    const k = g.intakes[i];
-    if (k === undefined) throw new Error(`no intake ${i}`);
-    k.beads = beads;
-    k.color = color;
-    k.fullBeat = fullBeat;
-  };
-  set(0, 2, "red");
-  set(1, 3, "cyan");
-  set(2, CFG.gorgeFullBeads, "red", world.beat);
-  set(3, 0, null);
-  const torn = g.intakes[3];
-  if (torn) torn.ruptured = true;
-  set(5, 9, "cyan");
-  g.mouth = 5;
-  g.ruptures = 1;
+  const filling = g.intakes[0];
+  const full = g.intakes[1];
+  if (filling === undefined || full === undefined) throw new Error("the sack is short of bubbles");
+  filling.gotRed = Math.min(1, filling.needRed);
+  filling.gotCyan = filling.needRed === 0 ? 1 : 0;
+  full.gotRed = full.needRed;
+  full.gotCyan = full.needCyan;
   return g;
+}
+
+/** The numbers written on a screen. */
+function numbers(world: World, role: ViewRole): string[] {
+  return drawn(world, role, 3)
+    .texts.filter((t) => /^[0-9]+$/.test(t.text))
+    .map((t) => t.text);
 }
 
 function drawn(
@@ -100,71 +104,62 @@ function count(text: string, colour: string): number {
 }
 
 describe("THE GORGE's sack", () => {
-  it.each(ROLES)("draws the sack and every state of a lobe, on %s", (role) => {
-    const world = opened();
-    busy(world);
-    const frame = drawn(world, role, 2 * TPB);
-    expect(frame.calls).toBeGreaterThan(500);
-    // The sack's skin, the beads in both colours, the ruptured lobe's grey and
-    // the mouth's fire — each names its colour once at least.
-    expect(frame.text).toContain(PALETTE.dim);
-    expect(frame.text).toContain(PALETTE.redRim);
-    expect(frame.text).toContain(PALETTE.cyanRim);
-    expect(frame.text).toContain(PALETTE.rockDark);
-    expect(frame.text).toContain(PALETTE.emberRim);
+  it.each(ROLES)("draws the sack and every state of a bubble, on %s", (role) => {
+    for (const from of [0, 2, 3]) {
+      const world = opened(from);
+      busy(world);
+      const frame = drawn(world, role, 2 * TPB);
+      expect(frame.calls).toBeGreaterThan(500);
+      // The skin, and the beads in the colour they went in as.
+      expect(frame.text).toContain(PALETTE.dim);
+      const rims = count(frame.text, PALETTE.redRim) + count(frame.text, PALETTE.cyanRim);
+      expect(rims).toBeGreaterThan(0);
+    }
   });
 
-  it("writes the pilot's tally under every lobe that can still hold, and not the navigator's", () => {
+  it("writes the pilot a count under every bubble still wanting, and the navigator none", () => {
     const pilot = opened();
     const g = busy(pilot);
-    const standing = g.intakes.filter((k) => !k.ruptured).length;
-    const texts = drawn(pilot, "p1", 3).texts.filter((t) => /^\d+$/.test(t.text));
-    expect(texts.length).toBe(standing);
-    expect(texts.map((t) => t.text)).toContain("3");
+    const wanting = g.intakes.filter((k) => !gorgeSated(k));
+    const counts = wanting.map((k) => String(gorgeOwed(k))).sort();
+    expect(numbers(pilot, "p1").sort()).toEqual(counts);
     const alone = opened();
     busy(alone);
-    expect(drawn(alone, "test", 3).texts.filter((t) => /^\d+$/.test(t.text)).length).toBe(standing);
+    expect(numbers(alone, "test").sort()).toEqual(counts);
     const navigator = opened();
     busy(navigator);
-    expect(drawn(navigator, "p2", 3).texts.filter((t) => /^\d+$/.test(t.text)).length).toBe(0);
+    expect(numbers(navigator, "p2")).toEqual([]);
   });
 
-  it("rings the navigator's nearest lobe in its colour, and not the pilot's", () => {
-    // With the full lobe and the mouth set aside, the nearest is the cyan
-    // three; its ring is the one cyan rim on a screen with no cyan beads full.
-    const world = opened();
+  it("writes the pilot the order too, on an ordered level", () => {
+    const world = opened(1);
     const g = busy(world);
-    const full = g.intakes[2];
-    if (full) full.beads = 0;
-    if (full) full.color = null;
-    if (full) full.fullBeat = -1;
-    const mouth = g.intakes[5];
-    if (mouth) mouth.color = "red";
-    const p2 = count(drawn(world, "p2", 3).text, PALETTE.cyanRim);
-    const other = opened();
-    const h = busy(other);
-    for (const i of [2, 5]) {
-      const k = h.intakes[i];
-      if (k) {
-        k.beads = i === 2 ? 0 : k.beads;
-        k.color = i === 2 ? null : "red";
-        k.fullBeat = -1;
-      }
-    }
-    const p1 = count(drawn(other, "p1", 3).text, PALETTE.cyanRim);
-    expect(p2).toBeGreaterThan(p1);
+    const wanting = g.intakes.filter((k) => !gorgeSated(k)).length;
+    expect(numbers(world, "p1").length).toBe(wanting * 2);
+    expect(numbers(world, "p1")).toContain("1");
+    const navigator = opened(1);
+    busy(navigator);
+    expect(numbers(navigator, "p2")).toEqual([]);
   });
 
-  it("draws the skin alone once the beam has ended it, and the beads leaving as a transient", () => {
+  it("colours the floors on the navigator's screen, and not the pilot's", () => {
+    // Nothing fed, so no bead carries a colour: what is left is the floors.
+    const p2 = drawn(opened(), "p2", 3).text;
+    const p1 = drawn(opened(), "p1", 3).text;
+    const lit = (t: string) => count(t, PALETTE.red) + count(t, PALETTE.cyan);
+    expect(lit(p2)).toBeGreaterThan(lit(p1));
+  });
+
+  it("draws the skin alone once the last level is sated, and the beads leaving as a transient", () => {
     const world = opened();
     const g = busy(world);
     g.outBeat = world.beat;
     const gone = drawn(world, "p1", 3).text;
     expect(gone).toContain(PALETTE.rock);
-    expect(gone).not.toContain(PALETTE.emberRim);
+    expect(numbers(world, "p1")).toEqual([]);
 
     const fx = new Effects();
-    fx.ingest([{ type: "gorgeOut", col: 5, beads: 50 }], L, 0, () => 0, CFG);
+    fx.ingest([{ type: "gorgeOut", row: CFG.gorgeRow, col: 5, beads: 50 }], L, 0, () => 0, CFG);
     fx.update(1 / 60, L);
     expect(fx).not.toEqual(new Effects());
     fx.reset();

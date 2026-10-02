@@ -25,7 +25,7 @@ import { CURTAIN_HEM_DROP, CURTAIN_RAIL_RISE } from "./curtain-sheet.js";
 import { davitAngle } from "./davit-pose.js";
 import { DAVIT_SAG, davitHook, davitHookRadius, davitMast, davitTip } from "./davit-shape.js";
 import { drawnCol } from "./depth.js";
-import { gorgeSackBox } from "./gorge-draw.js";
+import { gorgeSackBox } from "./gorge-place.js";
 import { hiveBox } from "./hive-shape.js";
 import { keelSegs } from "./keel-pose.js";
 import { keelPlateHalf } from "./keel-shape.js";

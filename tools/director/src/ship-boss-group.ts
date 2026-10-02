@@ -33,7 +33,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   baton: "THE BATON — a bead passed down an arm, one seat a beat",
   throat: "THE THROAT — the boss you answer by feeding it",
   undertow: "THE UNDERTOW — the boss under the floor, answered downward",
-  gorge: "THE GORGE — the boss you hurt by not shooting",
+  gorge: "THE GORGE — bubbles one of you counts and the other colours",
   curtain: "THE CURTAIN — the boss that is in the way",
   taster: "THE TASTER — the boss that grows its armour in the colour you have been spending",
   sinew: "THE SINEW — the boss that asks how hard, not when",

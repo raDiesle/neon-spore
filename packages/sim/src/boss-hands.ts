@@ -189,8 +189,8 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // back on its ship lands when the thumb lifts, and the pin is where both
   // thumbs are now (`mirror-hand.ts`).
   for (const c of commands) mirrorLobeHeard(world, c.player, c.command);
-  // THE GORGE's pinch and pry, on the tick because a vent is on the beat and
-  // a pinch that waited for it would land on a column already torched
+  // THE GORGE's tap, on the tick because the ring turns on the beat and a tap
+  // that waited for it would land on a bubble already turned away
   // (`gorge-hand.ts`).
   for (const c of commands) gorgeHeard(world, c.player, c.command);
   // THE MAZE's heart under the navigator's thumb, on the tick because the

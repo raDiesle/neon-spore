@@ -131,8 +131,8 @@ describe("a bolt out of the top on HARD, under a boss", () => {
     });
   }
 
-  // A sack, a frame, a body: over the middle and not the edges.
-  for (const kind of ["gorge", "scuttle", "ledger"]) {
+  // A frame, a body: over the middle and not the edges.
+  for (const kind of ["scuttle", "ledger"]) {
     it(`${kind}: the body's columns are armour, the edges are sky`, () => {
       const out = lost(bare(kind));
       expect(out).toContain(0);

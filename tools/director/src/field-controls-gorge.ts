@@ -1,56 +1,33 @@
 import type { FieldControlDef } from "./field-control-def.js";
 
 /**
- * THE GORGE's two thumbs, in a file of their own — `field-controls-page.ts`
+ * THE GORGE's one thumb, in a file of its own — `field-controls-page.ts`
  * is at its limit, the split every boss since THE INSTAR has made.
  *
- * One target, `gorgeLobe`, with `id` the intake, and the seat says the
- * gesture (`sim/gorge-hand.ts`): player 1's thumb on a full intake is a
- * pinch, player 2's on the mouth is a pry. Two rows rather than one because
- * they are two rings on two screens, each with a pose of its own
+ * One target, `gorgeLobe`, with `id` the bubble, and one seat: player 1 taps
+ * the bottom bubble of a ring open (`sim/gorge-hand.ts`). A row level has no
+ * thumb on it at all — the cannon and the shot are the whole of it
  * (`render/gorge-grip.ts`, `docs/spec/bosses.md` §11.23).
  */
 export const GORGE_CONTROLS: readonly FieldControlDef[] = [
   {
-    name: "THE GORGE'S PINCH",
+    name: "THE GORGE'S TAP",
     where:
-      "a ring in every full intake that is not the mouth, over the top of the " +
-      "field on player 1's screen; nowhere on player 2's; on the test screen",
+      "a ring on the bottom bubble of a ring level while it is shut, on " +
+      "player 1's screen; nowhere on player 2's; on the test screen",
     seat:
-      "player 1 only — the seat shown the count and holding the cannon on the " +
-      "column. Each ring is haloed while no intake is pinched, and a pinch " +
-      "washes it green (render/gorge-marks.ts, sim/gorge-hand.ts gorgeAsks)",
-    gesture: "hold",
+      "player 1 only — the seat shown the order, who knows which bubble is " +
+      "worth opening. The ring is haloed while that bubble is due " +
+      "(render/gorge-marks.ts, sim/gorge-hand.ts gorgeAsks)",
+    gesture: "press",
     does:
-      "Holds the intake's vent off for as long as the thumb stays, so P2 can " +
-      "load the pierce in her own time. On the lift the vent count restarts " +
-      "from the lift: a pause and not a pardon (sim/gorge-hand.ts).",
+      "Each press is one tap; gorgeOpenTaps of them open the bubble to " +
+      "shots, a dial round the ring counting them down. The taps are lost " +
+      "when the ring turns the bubble away (sim/gorge-step.ts).",
     source: "touch.ts — gorgeGripUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "gorgeLobe",
     sends: ["drag"],
-    pose: "THE GORGE · SPITTING",
-  },
-  {
-    name: "THE GORGE'S PRY",
-    where:
-      "a ring in the mouth, over the top of the field on player 2's screen " +
-      "once the sack is gorged; nowhere on player 1's; on the test screen",
-    seat:
-      "player 2 only — the seat shown the mouth's colour and loading the beam. " +
-      "The ring is haloed until her thumb is on it, a pry washes it green and " +
-      "a clench red (render/gorge-marks.ts, sim/gorge-hand.ts gorgeAsks)",
-    gesture: "hold",
-    does:
-      "Pries the mouth open for gorgePryBeats, a dial round the ring running " +
-      "the window out; the beam in the mouth's colour ends the fight only " +
-      "inside it. Held past the window the mouth clenches: the thumb is thrown " +
-      "off and a bead spat. Taken late, with the beam already filling " +
-      "(sim/gorge-pry.ts).",
-    source: "touch.ts — gorgeGripUnder() under handleUnder()",
-    holdKind: "drag",
-    dragTarget: "gorgeLobe",
-    sends: ["drag"],
-    pose: "THE GORGE · GORGED",
+    pose: "THE GORGE · RING",
   },
 ];

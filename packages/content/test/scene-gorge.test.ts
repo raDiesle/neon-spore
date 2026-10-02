@@ -13,7 +13,7 @@ import { WAVES } from "../src/waves.js";
  */
 
 describe("the rehearsal for THE GORGE", () => {
-  it("swallows a stray, fills and pierces two intakes, and spits the stray back to be broken", () => {
+  it("feeds four bubbles their colour, loses a shot to the wrong one, and clears the level", () => {
     const wave = WAVES.findIndex((w) => w.guide?.scene === "theGorge");
     const run = new SceneRun(sceneScript("theGorge", wave, DEFAULT_CONFIG));
     const seen: string[] = [];
@@ -25,36 +25,29 @@ describe("the rehearsal for THE GORGE", () => {
         else if (e.type === "gorgeEmptied")
           seen.push(`emptied ${e.col} ${e.beads} @${run.world.beat}`);
         else if (e.type === "gorgeFull") seen.push(`full ${e.col} @${run.world.beat}`);
-        else if (e.type === "gorgeRupture")
-          seen.push(`rupture ${e.col} ${e.left} @${run.world.beat}`);
-        else if (e.type === "gorgeSpit") seen.push(`spit ${e.col} ${e.color} @${run.world.beat}`);
-        else if (e.type === "gorgeVent" || e.type === "gorgeMouth") seen.push(e.type);
-        else if (e.type === "destroy") seen.push(`destroy ${e.kind} ${e.col} @${run.world.beat}`);
+        else if (e.type === "gorgeCleared") seen.push(`cleared ${e.level} @${run.world.beat}`);
+        else if (e.type === "gorgeOut") seen.push(`out @${run.world.beat}`);
+        else if (e.type.startsWith("gorge")) seen.push(e.type);
       }
     }
-    // The stray red into the middle intake first; three cyan into the one
-    // player 1 picked, a red taking one back out, two more cyan to full and
-    // two more through it; four red into the next and two more through
-    // that; then the twice-pierced sack spits the stray down the middle,
-    // where its own colour breaks it. Nothing vents and the mouth never opens.
+    // A red into the left bubble, which wants two; a cyan into it, which takes
+    // the red back out; two reds to full; then one shot of its colour each
+    // into the other three, and the level is clear. The ring and its tap are
+    // later levels, never in the film.
     expect(seen).toEqual([
-      "swallow 5 red 1 @5",
-      "swallow 3 cyan 1 @14",
-      "swallow 3 cyan 2 @15",
-      "swallow 3 cyan 3 @16",
-      "emptied 3 2 @20",
-      "swallow 3 cyan 3 @23",
-      "swallow 3 cyan 4 @24",
-      "full 3 @24",
-      "rupture 3 6 @28",
-      "swallow 7 red 1 @34",
-      "swallow 7 red 2 @35",
-      "swallow 7 red 3 @36",
-      "swallow 7 red 4 @37",
-      "full 7 @37",
-      "rupture 7 5 @40",
-      "spit 5 red @41",
-      "destroy slick 5 @51",
+      "swallow 3 red 1 @14",
+      "emptied 3 0 @18",
+      "swallow 3 red 1 @21",
+      "swallow 3 red 2 @22",
+      "full 3 @22",
+      "swallow 4 red 1 @27",
+      "full 4 @27",
+      "swallow 5 cyan 1 @31",
+      "full 5 @31",
+      "swallow 6 cyan 1 @35",
+      "full 6 @35",
+      "cleared 0 @35",
+      "out @39",
     ]);
   });
 });

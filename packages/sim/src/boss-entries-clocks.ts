@@ -1,3 +1,5 @@
+import type { GorgeLevel } from "./gorge.js";
+
 /**
  * **What a wave authors when it wants a boss that is a clock** — the five
  * from `docs/spec/bosses-choreographed.md` and THE STARE before them, and
@@ -79,13 +81,15 @@ export interface UndertowEntry {
 }
 
 /**
- * What a wave authors when it wants THE GORGE, which is nothing at all — the
- * seventh. No column: the sack is seven intakes wide and centred. No health:
- * it starts empty, and the pair's own shots are what fill it
- * (`gorge.ts`, `config-gorge.ts`).
+ * What a wave authors when it wants THE GORGE — the seventh, and the one
+ * clock that authors something: its levels, the shape of each (how many
+ * bubbles, in order or not, a row or a ring, how many mixed). No column: each
+ * level is centred. What each bubble wants is rolled at install
+ * (`gorge.ts`, `GORGE_LEVELS` in content).
  */
 export interface GorgeEntry {
   kind: "gorge";
+  levels: readonly GorgeLevel[];
 }
 
 /**

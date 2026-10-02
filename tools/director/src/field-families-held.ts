@@ -36,12 +36,11 @@ export const HELD_FAMILIES: readonly FieldGroup[] = [
       "it stays. Nothing is carried; the only value is whether it is down.",
     suggest:
       "Make it one generic PIN: GRIP's own gesture and picture on a boss's " +
-      "part. Pick one answer for the lift — a pause, as THE GORGE's — per " +
+      "part. Pick one answer for the lift — a pause, or a pin — per " +
       "family, not per boss, and draw it.",
     members: [
       "THE SURGE'S BULB",
       "THE ANTIPHON'S ORGAN",
-      "THE GORGE'S PINCH",
       "THE GAUGE'S BAND",
       "THE WARDEN'S THUMB",
       "THE LEAD'S STALK",
@@ -87,7 +86,6 @@ export const HELD_FAMILIES: readonly FieldGroup[] = [
       "THE WARDEN'S TETHER",
       "THE WARDEN'S SWIPE",
       "THE ANTIPHON'S RAIL",
-      "THE GORGE'S PRY",
       "THE GAUGE'S TOOTH",
       "THE GAUGE'S TONGUE",
       "THE CURTAIN'S HEM",

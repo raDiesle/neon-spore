@@ -6,6 +6,7 @@ import {
   curtainBoss,
   type GorgeState,
   gorgeBoss,
+  gorgeColOf,
   startWave,
   step,
   tasterBoss,
@@ -94,8 +95,7 @@ describe("what a cue may say", () => {
     const worlds: World[] = [];
     const gorge = opened("gorge");
     const g = boss(gorgeBoss(gorge), "gorge");
-    g.mouth = 3;
-    g.ruptures = CFG.gorgeMouthRuptures;
+    gorge.cannonCol = gorgeColOf(CFG, g, 0);
     worlds.push(gorge);
     worlds.push(opened("curtain"));
     const taster = opened("taster");
@@ -155,8 +155,7 @@ describe("the cue on a real frame", () => {
   it("is painted over the boss, in the words the reading gave", () => {
     const world = opened("gorge");
     const g: GorgeState = boss(gorgeBoss(world), "gorge");
-    g.mouth = 3;
-    g.ruptures = CFG.gorgeMouthRuptures;
+    world.cannonCol = gorgeColOf(CFG, g, 0);
     const texts: TextBox[] = [];
     runFrames(world, "p2", 3, {
       every: 3,
@@ -165,8 +164,8 @@ describe("the cue on a real frame", () => {
       },
     });
     const said = texts.map((t) => t.text);
-    expect(said).toContain("HOLD");
-    expect(said).toContain("TO BURN IT");
+    expect(said).toContain("FIRE");
+    expect(said).toContain("TO FEED IT");
   });
 
   it("is on neither screen when the boss is asking for nothing", () => {
@@ -217,18 +216,16 @@ describe("the cue's kind line", () => {
   });
 
   it("is not drawn over a gesture, which is the word said twice", () => {
-    // A full intake, pinched, with the cannon under it: `TAP` alone, since
+    // A ring's shut bottom bubble, on the pilot's screen: `TAP` alone, since
     // 30 September 2026 — `PRESS` over it said the thumb's gesture twice.
-    const world = opened("gorge");
-    const g: GorgeState = boss(gorgeBoss(world), "gorge");
-    const k = g.intakes[2];
-    if (k === undefined) throw new Error("no intake 2");
-    k.beads = CFG.gorgeFullBeads;
-    k.color = "red";
-    k.fullBeat = world.beat;
-    g.pinch = 2;
-    world.cannonCol = g.col + 2;
-    const texts = drawn(world).map((t) => t.text);
+    const world = createWorld(CFG, 5);
+    const ring = { intakes: 5, ordered: false, ring: true, mixed: 0, needMin: 2, needMax: 3 };
+    startWave(world, waveWith("gorge"), [], [], { kind: "gorge", levels: [ring] });
+    const { ctx } = stubCanvas();
+    ctx.texts = [];
+    const l = computeLayout(VIEWPORT, CFG, "p1");
+    drawBossCue(ctx as unknown as CanvasRenderingContext2D, l, world, 0, 0, () => l.hullY);
+    const texts = ctx.texts.map((t) => t.text);
     expect(texts).toContain("TAP");
     expect(texts).not.toContain("PRESS");
   });

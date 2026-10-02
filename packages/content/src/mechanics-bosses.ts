@@ -109,7 +109,7 @@ export const BOSS_MECHANICS = {
     reach: "spawn",
   },
   gorge: {
-    what: "A sack swallows every shot that hits nothing. Four of one colour fill an intake. One more shot pierces it. Leave it full and it drops a torch.",
+    what: "Bubbles want shots. Player 1 sees how many, and which goes first. Player 2 sees the colour. On the ring, player 1 taps the bottom one open.",
     reach: "spawn",
   },
   curtain: {

@@ -64,21 +64,21 @@ export const FIELD_HAND_POSES: Pose[] = [
   ),
   bossPose(
     "gorge",
-    "spitting",
-    "Two intakes burst and spitting back. P1 pinches the next one full; P2 fires its own colour into it.",
-    { hand: gorgeHand, want: gorgeIs("spitting"), hold: 6 },
+    "clear",
+    "A level fed to the last bubble; the next hangs in a moment. P1 and P2 both wait.",
+    { hand: gorgeHand, want: gorgeIs("clear"), hold: 2 },
   ),
   bossPose(
     "gorge",
-    "gorged",
-    "The mouth is open and only the beam takes it. P1 aims under it; P2 holds the colour and pries the mouth.",
-    { hand: gorgeHand, want: gorgeIs("gorged"), hold: 6, budgetBeats: 80 },
+    "ring",
+    "The bubbles stand round a turning ring. P1 taps the bottom one open; P2 fires its colour into it.",
+    { hand: gorgeHand, want: gorgeIs("ring"), hold: 6, budgetBeats: 140 },
   ),
   bossPose(
     "gorge",
     "out",
-    "The beam went through the pried mouth and the gorge is out. P1 aims at the wave again; P2 fires.",
-    { hand: gorgeHand, want: gorgeIs("out"), hold: 6, budgetBeats: 80 },
+    "The last level fed and the gorge is out. P1 aims at the wave again; P2 fires.",
+    { hand: gorgeHand, want: gorgeIs("out"), hold: 6, budgetBeats: 600 },
   ),
   bossPose(
     "curtain",
@@ -212,5 +212,5 @@ export const FIELD_HAND_POSES: Pose[] = [
 
 /** THE GORGE in one of its named phases. */
 function gorgeIs(phase: string): (w: World) => boolean {
-  return (w) => w.boss?.kind === "gorge" && gorgePhase(w.boss, w.cfg) === phase;
+  return (w) => w.boss?.kind === "gorge" && gorgePhase(w.boss) === phase;
 }

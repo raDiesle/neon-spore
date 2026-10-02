@@ -40,7 +40,7 @@ boss.
 
 | Boss | Window now → doubled | Need now → raised |
 |---|---|---|
-| THE GORGE | `gorgeVentBeats` 4 → 8; `gorgePryBeats` 4 → 8 | the vent's one pierce shot → two (`gorgeVentShots`); the pry's fill → two fills (`gorgePryFills`) |
+| THE GORGE | the vent and the pry, 4 → 8 beats each — both gone on 1 October 2026, when the fight became its levels (`bosses.md` §11.23) | the pierce and the pry's fill, one → two each — gone with them |
 | THE TASTER | `tasterPryBeats` 6 → 12 | one fill → two (`tasterPryFills`) |
 | THE LEAD | `leadStillBeats` 4 → 8, and `leadHoldBeats` 8 → 16, argued as twice the still | one fill → two (`leadStillFills`) |
 | THE CURTAIN | `curtainSoftBeats` 6 → 12; `curtainPinBeats` 6 → 12 | `curtainSoftCount` 2 → 3; `curtainLiftMilli` 1250 → 2500 |

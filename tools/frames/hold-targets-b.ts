@@ -17,7 +17,7 @@
  *
  * - `seat` — 2 where the hand file refuses player 1. Absent is the pilot's.
  * - `as` — the wire name, where this row is a second seat's thumb on a target
- *   both seats send and so needs a name of its own (`gorgeLobe2`).
+ *   both seats send and so needs a name of its own (`gripBody2`).
  * - `id` — the hand file reads `command.id`: a body, a column, a socket or a
  *   lobe, and which one is the hand file's.
  * - `lift` — the gesture is spent on the lift: the hand file returns on
@@ -39,9 +39,8 @@ export const ROWS: Record<string, Row> = {
   gripBody2: { seat: 2, as: "gripBody", id: true },
   // `crank.ts`: a bearing, the pilot's.
   crank: {},
-  // `gorge-hand.ts`: the pilot pinches an intake, anyone else pries the mouth.
+  // `gorge-hand.ts`: the pilot taps the ring's bottom bubble open.
   gorgeLobe: { id: true },
-  gorgeLobe2: { seat: 2, as: "gorgeLobe", id: true },
   // `gauge-hand.ts`: his bearing on the needle, her thumb on the band.
   gaugeNeedle: {},
   gaugeBand: { seat: 2 },

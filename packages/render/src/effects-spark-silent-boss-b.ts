@@ -137,11 +137,6 @@ export const SILENT_BOSS_B = [
   "cairnHeld",
   // THE MIRROR's pin throws a ring off both lobes, not a burst: `mirror-grip-fx.ts`.
   "mirrorGrip",
-  // THE GORGE's two thumbs and the clench throw theirs from `gorge-fx.ts`,
-  // with the sack's other nine — one family, read above the loop.
-  "gorgePinch",
-  "gorgePry",
-  "gorgeClench",
   // THE MAZE's thumb on its heart throws a ring, not a burst: `maze-grip-fx.ts`.
   "mazeGrip",
   // THE WARDEN's thumb, throw and slam throw a ring off the eye, not a burst:

@@ -11,8 +11,8 @@ import {
 import type { AnchorPoint } from "./caption-anchor.js";
 import { bossAnchorE } from "./caption-anchor-boss-e.js";
 import { around, box } from "./caption-anchor-box.js";
-import { gorgeSackBox, gorgeTallyY } from "./gorge-draw.js";
-import { type Layout, tileCX } from "./layout.js";
+import { gorgeSackBox, gorgeTallyAt } from "./gorge-place.js";
+import type { Layout } from "./layout.js";
 import { mirrorHullY } from "./mirror.js";
 import { stareEye } from "./stare-shape.js";
 import { showsGorgeTally } from "./view-role-clocks.js";
@@ -64,9 +64,8 @@ function gorgePart(
 ): AnchorPoint | null {
   if (part === "tally") {
     if (!showsGorgeTally(l.role)) return null;
-    const y = gorgeTallyY(l, cfg, g);
     return around(
-      g.intakes.map((_, i) => ({ x: tileCX(l, g.col + i), y })),
+      g.intakes.map((_, i) => gorgeTallyAt(l, cfg, g, i)),
       l.tile * TALLY_R,
     );
   }

@@ -71,7 +71,7 @@ export const DECISIONS: readonly FieldDecision[] = [
       "names its own direction in prose. Suggest: one generic PULL whose " +
       "direction is a field (down · up · either · signed), drawn as one " +
       "arrow, refused the same way when it falls short.",
-    rows: ["THE WARDEN'S TETHER", "THE GORGE'S PRY", "PINBALL'S PLUNGER"],
+    rows: ["THE WARDEN'S TETHER", "THE ANTIPHON'S RAIL", "PINBALL'S PLUNGER"],
   },
 ];
 

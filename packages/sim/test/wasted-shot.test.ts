@@ -72,7 +72,7 @@ describe("a wasted shot on HARD", () => {
 
   it("costs nothing when a boss above the field met the bolt", () => {
     const world = createWorld(hard(), 1);
-    startWave(world, 9, [], [], { kind: "gorge" });
+    startWave(world, 9, [], [], { kind: "taster" });
     const out = outOf(climbOut(world));
     expect(out.taken).toBe(true);
     expect(out.wasted).toBe(false);

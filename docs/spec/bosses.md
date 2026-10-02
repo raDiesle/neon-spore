@@ -82,7 +82,7 @@ kinds each of them is.
 - **[THE BATON](#1118-the-baton--a-bead-passed-down-an-arm-one-seat-a-beat)** · 11.18 — a bead passed down an arm, one seat a beat
 - **[THE THROAT](#1119-the-throat--the-boss-you-answer-by-feeding-it)** · 11.19 — the boss you answer by feeding it
 - **[THE UNDERTOW](#1120-the-undertow--the-boss-under-the-floor-answered-downward)** · 11.20 — the boss under the floor, answered downward
-- **[THE GORGE](#1123-the-gorge--the-boss-you-hurt-by-not-shooting)** · 11.23 — the boss you hurt by not shooting
+- **[THE GORGE](#1123-the-gorge--bubbles-one-of-you-counts-and-the-other-colours)** · 11.23 — bubbles one of you counts and the other colours
 - **[THE CURTAIN](#1124-the-curtain--the-boss-that-is-in-the-way)** · 11.24 — the boss that is in the way
 - **[THE TASTER](#1125-the-taster--the-boss-that-grows-armour-in-the-colour-you-spend)** · 11.25 — the boss that grows armour in the colour you spend
 - **[THE SINEW](#1126-the-sinew--the-boss-that-asks-how-hard-not-when)** · 11.26 — the boss that asks how hard, not when
@@ -3607,267 +3607,100 @@ left alone bursts and loses the wave, the level's clock ebbs the lobes away and
 opens the next level, three levels end the boss, and the same run fingerprints
 the same way twice (`sim/test/undertow.test.ts`).
 
-## 11.23 THE GORGE — the boss you hurt by not shooting
+## 11.23 THE GORGE — bubbles one of you counts and the other colours
 
-> The one that eats your shots, and the only way to hurt it is to overfeed
-> exactly one part of it.
+> A sack of bubbles in the middle of the field. One of you can count what
+> each wants; the other can see what colour.
 
-Designed as §3 of [bosses-choreographed](bosses-choreographed.md), where the
-argument for it is: every other fight rewards a shot, and this is the one that
-asks *what not to do* — a sack under the top of the frame that swallows
-everything the pair fires, so that health runs backwards and the fight is
-won by the shot withheld and the one placed.
+**The owner, 1 October 2026**, and the fight is built to the letter of it:
+*player 1 sees number of required shots for each bubble and which one to shoot
+in first. The number is like random. Level 1 order does not matter. Also colour
+must match of each bubble to shoot inside. Level 2 matters. Move boss graphics
+more centered of game screen. Then in level 3 it starts to rotate in a circle
+and is not a horizontal line anylonger with the bubbles around the circle.
+Player 1 needs before shooting it to open it first at the bottom with a simple
+tap several times. Level 4 and 5 introduces mixed colours required inside of
+same bubble.* It replaced the pinch, the pry, the mouth and the vent, which
+were the sack's first design (§3 of [bosses-choreographed](bosses-choreographed.md)).
 
 **It is a fixture, not a body.** `bossFillsWave === false`, so the wave's own
-arrivals fall under it (`content/src/waves/act-7e.ts`, "THE GORGE") — rocks
-for the shield, a few shootable bodies, some of them in the sack's middle
-column where a *miss* feeds the mouth. What `packages/sim` holds is the sack
-(`sim/gorge.ts`, hashed in `sim/gorge-hash.ts`): `gorgeIntakes` (7) intakes
-centred on the field, each with a bead count, a colour, the beat it filled
-and whether it has ruptured; the running total of beads swallowed; how many
-intakes are gone; which is the mouth; and the four phases — `feeding`,
-`spitting`, `gorged`, `out` — **derived** from those counts rather than
-stored (`gorgePhase`), because each is a consequence of a number the pair
-can read off the sack.
+arrivals fall around it (`content/src/waves/act-7e.ts`, "THE GORGE"). What
+`packages/sim` holds is the sack (`sim/gorge.ts`, hashed in
+`sim/gorge-hash.ts`): the levels as authored, the level being fought, its
+bubbles — each with the red and cyan shots it wants, the ones it has, its
+place in the order and player 1's taps on it — the order place due next, how
+far a ring has turned and the beat it last turned on, and the beats a level
+and the last level were sated on. The four phases — `row`, `ring`, `clear`,
+`out` — are **derived** from those (`gorgePhase`), never stored.
 
-**The rule, in one sentence.** A shot that leaves the top of the field under
-an intake — a bullet in `bullets.ts`, or the beam burning its column in
-`lance-burn.ts`, both through `gorgeStruck` — is a **bead**: the intake's own
-colour, or its first, fills it a step and counts as a colour met; the other
-colour takes a bead back out and counts as one missed, so the balance reads a
-wrong bead as the wrong shot it was. At `gorgeFullBeads` (4) an intake is
-**full** (`gorgeFull`), and `gorgeVentShots` (2) more shots of any colour,
-bolt or beam, **rupture** it for good: it hangs open, shots pass through it,
-and nothing goes in again. A full intake nobody pierces within
-`gorgeVentBeats` (8) **vents** — a torch down its column and the intake empty. From
-`gorgeSpitRuptures` (2) ruptures the sack **spits**: every `gorgeSpitBeats`
-(3) one bead goes back down its own column as a body of its colour — a slick
-for red, a bulb for cyan — from the emptiest intake that holds one, so *what
-comes back is what the pair threw away*. At `gorgeMouthRuptures` (4)
-ruptures, or when one intake is all that stands, the whole intake nearest
-the centre becomes the **mouth** (`gorgeMouth`), in the colour it holds or one
-of the sack's own choosing: it feeds itself a bead every `gorgeSpitBeats`,
-is never pierced by a bolt, and never vents. **The beam in its colour, while
-it is full, `gorgePryFills` (2) times inside one pry, is the one thing that
-ends the fight** (`gorgeOut`); a beam in
-the other colour empties it a bead like any wrong shot. The boss stays
-installed `gorgeOutBeats` (2) more so the wave cannot end on the beat the sack
-does — the design's beads leaving upward.
+**The levels are content** (`content/src/gorge-levels.ts`, `GORGE_LEVELS`), five
+of them, each a shape the counts are rolled from at install with the world's
+seeded `Rng` (`sim/gorge-step.ts`): how many bubbles, whether they must be fed in
+order, whether they stand round a ring, how many want both colours, and the
+fewest and most shots a bubble wants.
 
-**Where this departs from the design, and why.** Five places, each argued
-by name. *A spat bead is a body of its own colour, broken by its own colour*:
-the design has it "broken only by the other colour", and the game has one
-colour rule (`docs/spec/systems.md`), which a second would contradict on the
-wave that most needs the pair reading colours right; the penalty for the
-wrong colour is that the intake refills instead. *The breach is not the
-correct play*: the design's step 7 has "a creature reaching the hull" as what
-the pair does instead of shooting, and every hull damage fails the wave
-(`wave-fail.ts`, the owner's rule of 12 September 2026), so restraint here is
-against the *miss* — the wave's arrivals are rocks for the shield and bodies
-to hit, and it is the shot that goes past one that feeds the sack. *Spitting
-comes from the emptiest intake*, never a full one: a spit from a full intake
-would close the window the fill just opened, and the fill is the whole
-mechanism. *The mouth is ended by the beam alone, in its colour, while full*:
-the design's "beam in the mouth's colour" said nothing about beads, and a
-mouth the beam could end while empty is a mouth with no reason to feed
-itself. *The sink is derived* (`gorgeSink`, a step per `gorgeSinkPer` beads
-held) and is no rule: it is the picture of the sack getting heavier, for
-render to ask for. And, small fields being a fact the config allows, *the
-mouth also opens when one intake is all that stands*.
+| Level | Bubbles | Order | Shape | Both colours | Shots each |
+|---|---|---|---|---|---|
+| 1 | 4 | any | row | none | 1–3 |
+| 2 | 5 | one | row | none | 1–3 |
+| 3 | 5 | one | ring | none | 2–3 |
+| 4 | 6 | one | ring | 2 | 2–4 |
+| 5 | 6 | one | ring | all | 2–4 |
 
-**The look** (`render/gorge-draw.ts`, `gorge-lobe.ts`, `gorge-fx.ts`, and
-what it is made of in `gorge-flesh.ts`). A sack of wet violet-grey membrane,
-veined, lit along its top and deep underneath, across the seven columns above row 0, THE
-DIASTOLE's arrangement, breathing a third of a tile on the beat and hanging a
-row lower for every four beads it holds (`gorgeSink`, read and never stored).
-A lobe of the same skin over every column with a puckered intake under it,
-the colour it fills with pooled in its floor, and the beads — wet drops —
-stacked up the lobe in that colour, drifting against each other
-so the body reads as fluid: the beads are the health bar, and both screens see
-the same ones. THE SLOW is the beat a lobe comes full — the wash goes off it
-and the stack rises to the top over three beats, the only warning before a
-one-beat pierce. A ruptured lobe is two flaps of torn grey skin hanging open; the mouth is
-ringed in the fire's colour; after the beam the skin alone is left, grey, going
-out over `gorgeOutBeats`. The split is in what is written about the beads
-(`showsGorgeTally`, `showsGorgeNearest`): the pilot's screen carries a violet
-count under every standing lobe, the navigator's a ring around the lobe
-nearest full in the colour it needs and no number. The nine events are one
-family read above `Effects`' loop the way THE MIRROR's are (`gorge-fx.ts`):
-each throws its burst there, and `gorgeOut` throws the payoff — up to eighty
-beads leaving straight up through the top of the frame, half red and half
-cyan by hash because the sack keeps a count and not fifty colours — the one
-thing about this boss that outlives a frame, cleared on restart.
-`render/test/gorge-frame.test.ts` proves every lobe state on all three
-screens, the tally on the pilot's alone, the ring on the navigator's alone,
-and the transient's reset.
+**The rule, in one sentence.** A shot meeting a bubble that is due and open
+fills it a step if it is a colour the bubble still wants, and takes a step
+back out if it is not; a shot meeting one out of turn, or a ring's bubble not
+yet opened, is **spat** back down its column as a body of the shot's colour
+(`gorgeStruck`, `gorgeSpit`). A bubble with every shot it wants is **sated**
+(`gorgeFull`) and shut for good — a shot flies on past it. The last bubble
+sated clears the level (`gorgeCleared`); `gorgeLevelGapBeats` (4) later the
+next level hangs, and after the fifth the sack goes out over `gorgeOutBeats`
+(2) (`gorgeOut`).
 
-**The rehearsal** (`content/src/scenes/the-gorge.ts`, 17 September 2026,
-thirteen pages over 3180 ticks): a shot at nothing, swallowed — the stray
-the rest of the film pays for; the count only player 1 is shown; a column
-picked and filled in cyan; a red taking a bead back out, the film's one
-authored mistake; four going clear and the fifth through; a second column
-filled in red and pierced; and the sack, twice pierced, spitting the stray
-back down the middle column, where player 1 slides under it and its own
-colour breaks it two thirds of the way down. It ends two ruptures short of
-the mouth: what it teaches is the restraint, and the mouth and the beam are
-the guide's prose. Every column is authored — the sack does not move — and
-the seed matters to nothing. No page is anchored at `hit` and the film
-takes no hit. Proved in `content/test/scene-gorge.test.ts` as the seventeen
-swallows, emptyings, fulls, ruptures, the spit and the break, beat by beat,
-with nothing venting and no mouth. One of its pages was rewritten on 19
-September 2026, when the field learnt to say the column: `ONE MORE · IT BURSTS`
-became `FOUR BEATS OR IT TORCHES`, because from the beat the fourth bead goes
-in the field says `PIERCE` on her screen and `PINCH` on his, and the four-beat
-vent is the half no word on the glass may carry ([briefings](briefings.md) §7).
-The other twelve had nothing to give up — they are the colour, the count, the
-wrong colour's cost and which screen holds which half.
+**Where it stands.** A row hangs across the field on `gorgeRow` (5), a bubble
+over each of its columns, centred, and a shot meets a bubble there as it
+would a body (`gorgeAlong`, beside the bodies in the same segment). A ring
+stands round a circle `gorgeRingRows` (2) tiles across, centred on the middle
+column at the same row, and takes shots **only at its bottom bubble**, in the
+middle column, `gorgeRingRows` rows lower (`gorgeColOf`, `gorgeRowOf`). Every
+`gorgeTurnBeats` (8) it turns one step, skipping sated bubbles (`gorgeTurn`),
+and the bubble it turns away loses its taps. THE SLOW is up while the bottom
+bubble is due and not yet sated, to the beat the ring next turns (`gorgeSlow`,
+`docs/decisions.md` #33).
 
-**Never watched at tempo.** What the tests say is the mechanism: it arrives
-centred and empty, swallows in its columns and nowhere else, lets a bead go
-for the wrong colour and counts the miss, is full at four once and holds no
-more, ruptures on its shots with shots passing through afterwards, vents a
-torch on its count, spits nothing before two ruptures and then one bead a
-count from the emptiest intake as a body of its colour, opens the mouth at
-four ruptures nearest the centre and feeds it to full without venting, is not
-pierced there by a bolt, is emptied a bead by the wrong beam and ended by the
-right one with the wave held two beats after, and the same run fingerprints
-the same way twice (`sim/test/gorge.test.ts`). The skin has been seen in one
-frame and never breathing.
+**Player 1's tap.** On a ring the bottom bubble is shut until player 1 has
+tapped it `gorgeOpenTaps` (3) times (`gorgeTap`, `sim/gorge-hand.ts`): one
+target, `gorgeLobe`, `id` the bubble, and each press is one tap. The seat is
+`gorgeTapSeat`; `gorgeOffers` is the bubble on offer, `gorgeAsks` the one on
+offer and due. The ring the thumb is answered at is the ring drawn
+(`render/gorge-grip.ts`), with a dial running out as the taps come.
 
-**The pinch and the pry — two thumbs, one name** (18 September 2026,
-`sim/gorge-hand.ts`, the queue's §6.2: a boss that changes state more than
-once should ask a different gesture in each). THE GORGE already changed state
-three times and asked for one gesture — a shot — in every one of them. It
-now asks for a thumb in two, and the thumb is a different seat's each time,
-on one `DragTarget`, `gorgeLobe`, whose `id` is the intake. **Player 1's
-thumb on a full intake is a pinch**: the intake does not vent while the thumb
-stays, and when it lifts the vent counts `gorgeVentBeats` again *from the
-lift* — a pause and not a pardon. The pilot's, because he is the seat holding
-the cannon on the column and watching the fill go transparent while the
-navigator is still loading the fifth shot; before the pinch the four-beat
-window was a race between a word and a reload, and the pinch is the pilot
-saying *I have it* with his other thumb. The pierce takes the pinch with it.
-**Player 2's thumb on the mouth is a pry**: a window of `gorgePryBeats`
-(four) from the beat the thumb comes down, and the beam in the mouth's colour
-ends the fight *only inside it* — on an unpried mouth it **clenches**, and
-the beam goes in as nothing, neither a hit nor a miss on the balance. Held
-past the window the mouth clenches on the thumb instead: the pry is thrown
-off, one bead is spat down the mouth's column as a body, the mouth's own
-count restarts, and the thumb has to lift and come down again for another
-window. A pry taken early costs a bead and a lift, so it is a thing to take
-late, with the beam already filling in the other hand — the fill is three
-beats and the window four. The design first had the pried mouth spit on
-every count instead of feeding, and the director's hand could not reach OUT
-under it: the spit came due on the beat the fill finished, every cycle, so
-the window is the rule the pose proved. The navigator's, because the mouth is the one
-intake he is shown the colour of and the pilot is not, and the pry is the
-seat that knows the colour committing to it under his thumb while the pilot
-fires. Every other press on the name is dropped without a sound, THE BULB
-QUEEN's way. Three events with three sounds (`boss.gorgePinch`, `gorgePry`,
-`gorgeClench`); both thumbs in `hashWorld`. Receipts in
-`sim/test/gorge-hand.test.ts`: the pinch holds the vent off and restarts the
-count from the lift, is dropped on a part-full intake, on the mouth and from
-the navigator, and goes with the rupture; the pry gates the beam with the
-clench on the wrong side of it, is thrown off past `gorgePryBeats` with a
-clench and one bead and owes a lift before a new window, costs nothing
-lifted inside it while the mouth feeds on, is dropped before there is a
-mouth, on any other intake and from the pilot; and the fingerprint carries
-both thumbs.
+**Two seats, two halves** (`render/gorge-draw.ts`, `render/gorge-place.ts`).
+The pilot is shown, under every bubble still wanting, the count it wants and,
+on an ordered level, its place in the order (`showsGorgeTally`); the
+navigator is shown the colour it wants, in the bubble's floor, and no number
+(`showsGorgeNearest`). A bubble wanting both is lit in both. The beads that
+went in hang in the bubble on both screens, in the colour they went in as.
+Neither seat can feed a bubble alone: he knows where and how many, she knows
+which colour.
 
-**The look of the two thumbs** (18 September 2026, `render/gorge-grip.ts`):
-a ring stands **in** every lobe a seat's thumb could take this beat, on that
-seat's screen alone — the pilot's in every full intake that is not the
-mouth, the navigator's in the mouth once there is one (`showsGorgePinch`,
-`showsGorgePry`), and `test` both. The ring is THE BULB QUEEN's and THE
-MIRROR's (`grip-rings.ts`): breathing until a thumb lands, filled once one
-has, so a held intake and a held mark read as one gesture. The pry's ring
-carries the dial, `gorgePryBeats` running out from the beat the thumb came
-down, the one readout of the window on the screen that has to fire inside
-it; the pinch has no dial because it has no window. The rings stand above
-the intake line rather than under it, where THE MIRROR's do, because row 0
-is under these lobes and a ring below them would sit on the first creature
-to fall. The press is answered at the circle the ring is drawn from,
-nearest first when two overlap, with the intake's index on the command and
-on the hold (`gorgeGripUnder`, under `handleUnder`). The three events throw
-their bursts with the sack's other nine (`gorge-fx.ts`): the two thumbs
-small and white, the clench in the sack's rock. The cue speaks to the seat
-that owes the gesture (`boss-cue-read-n.ts`): `PINCH` on the pilot over the
-intake come full until his thumb is down, beside `PIERCE` on the navigator;
-and on the mouth `BURN`, then `PRY` once a lobe is filling and no thumb is
-on it, then `BURN` again under the pry — the order the pry is meant to be
-taken in. Two rows on the director's CONTROLS tab (`field-controls-gorge.ts`,
-`docs/spec/controls.md`). `render/test/gorge-grip.test.ts` proves which
-intakes ring for which seat, the thumb answered and refused, the held ring
-heavier and the dial emptying, and all three screens drawn with a pinch and
-a pry on them. A look with no shipped alternative.
+**The cue** (`render/boss-cue-read-n.ts`). On a row in any order nothing is
+said to the pilot — which bubble is his to pick. On an ordered row, `MOVE` on
+the cannon while it is off the bubble due; on a ring, `MOVE` while it is off
+the middle column. `TAP` on a ring's shut bottom bubble, on his screen, ahead
+of the column. The navigator is told `FIRE` over the bubble up the cannon's
+column when it is due and open, and nothing otherwise; *which colour* is never
+written. Nothing between levels and nothing in `out`.
+`render/test/boss-cue-gorge.test.ts` holds the cases.
 
-**Both rings answer a touch the way every mark does** (28 September 2026, the
-owner's consistent visual; `render/gorge-marks.ts`). A ring that asks its seat
-for a thumb wears the halo on that seat's screen: every full intake on the
-pilot's while none is pinched, the mouth on the navigator's until her thumb is
-on it (`sim/gorge-hand.ts` `gorgeAsks`, which the press is gated on; the rings
-drawn are `gorgeOffers`, which the grip reads rather than re-deriving). A
-pinch and a pry wash their ring green (`gorgePinch`, `gorgePry`), and a pry
-held past its window washes the mouth red as the clench throws it off
-(`gorgeClench`). There is no partner's clock and no refusal, for THE GAUGE's
-reason: each ring is drawn on one screen alone, so the other seat's press
-finds no ring to be refused on. The verdicts are kept in `GorgeFx`, keyed by
-column, and drawn last inside the sack's shake. `render/test/gorge-verdict.test.ts`
-and `sim/test/gorge-asks.test.ts` hold it.
+**Sound** (`audio/src/bind-gorge.ts`): the sack settling as a level hangs, a swallow, a step back out, a spit, a
+bubble sated, a tap, a turn, a level cleared and the sack going out, each
+its own sound.
 
-**What the field says** (`render/src/boss-cue-read-n.ts`, 19 September 2026,
-[decisions](../decisions.md) #34). It shipped with every gesture the fight has
-and **no word at all about the column any of them is taken in**: `PIERCE` and
-`PINCH` over a full intake, `BURN` and `PRY` over the mouth, and nothing on the
-pilot's screen but a thumb that stops a clock. A bolt and the beam both leave
-the cannon's own column (`fire.ts`) and `gorgeStruck` is a no-op outside it, so
-a pierce fired from anywhere else does not land and the beam that ends the fight
-only ends it standing in the mouth's column — the one thing the fight cannot be
-finished without him doing, unsaid.
-
-`CARRY` / `MOVE` stands on his cannon, and **only where the column is not his
-own choice**. That is the reading's whole judgement. The fight is *stop
-shooting, except at one column, in one colour*, and which column is his to pick
-and say — he is the seat shown the bead tally under every lobe
-(`showsGorgeTally`) — so a word that sent him anywhere while an intake was
-merely filling would be the field overruling the one decision this boss exists
-to hand him. Twice the column is forced instead: a **full intake**, pierceable
-by any colour with `gorgeVentBeats` on it, and the **mouth**, which does not
-move and is the only place the fight ends. It never tells him to leave a column
-a shot is already owed in, so where both want him the pierce he can take now
-outranks the beam he cannot, and his pinch is holding the vent meanwhile. THE
-ORRERY's `MOVE` is a park and THE CANDLE's is a chase; this one is a park with
-a clock nowhere near it.
-
-**And her words go quiet while the cannon is elsewhere**, THE CANDLE's and THE
-THROAT's pairing: one gesture across two seats, so she is told nothing rather
-than told to `PIERCE` up a lane the shot cannot reach the intake from. It costs
-her nothing — the ring on the lobe nearest full stands either way.
-
-**Four silences, each a decision.** Nothing while it is being fed, because the
-restraint is the fight and a word over a sack that wants to be left alone would
-be the boss asking for its own dinner. **No `PRY` until the mouth is full**,
-which shipped and came out: `gorgeStruck` ends the fight on `bullet.lance &&
-gorgeFull` alone, and a pry taken short of that clenches at `gorgePryBeats` and
-spits a bead for nothing, so `BURN` stands in the meantime and is both the wait
-and the work. Nothing on a **spat body** — it is a body, broken by its own
-colour like anything else, and a frame on it and not on the wave's own arrivals
-falling beside it would say the sack's is the dangerous one when what is
-dangerous is that there are now two things to answer at once. And nothing on
-the **torch a vent throws**: the pinch is the answer to it and the pinch is
-cued. Nothing at all in `out`. `render/test/boss-cue-gorge.test.ts` proves the
-nine cases, among them the two the old reading had wrong and the full intake
-whose pinch and pierce the mouth's early return was eating.
-
-**Doubled on the owner's rule, 24 September 2026**
-(`docs/spec/choreographed-windows.md`): `gorgeVentBeats` and `gorgePryBeats`
-4 → 8, the pierce two shots (`gorgeVentShots`) and the pry two beams
-(`gorgePryFills`), and THE SLOW opened for the first time, spanning every ask
-the sack holds — up while any intake waits full or the mouth is pried, shut
-on the tick the last one is answered or runs out (`sim/gorge-slow.ts`). The
-first of two shots is said since the same day: a pierce short of the rupture
-is a `gorgeNick` and a beam short of the last a `gorgePryFill`, each with
-`owed`, a sound and a smaller burst of what the second will throw.
+**Tests.** `sim/test/gorge.test.ts` the levels, the swallow, the spit and the
+turn; `sim/test/gorge-hand.test.ts` the tap, the offers and the asks;
+`content/test/scene-gorge.test.ts` the film; the director's hand
+(`packages/hands/src/boss-hands-field.ts`) clears all five levels on its own.
 
 ## 11.24 THE CURTAIN — the boss that is in the way
 

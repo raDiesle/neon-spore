@@ -1,114 +1,75 @@
 import type { SimConfig } from "./config.js";
-import { type GorgeState, gorgeBoss, gorgeFull } from "./gorge.js";
-import { gorgeSlow } from "./gorge-slow.js";
+import { midCol } from "./config.js";
+import {
+  type GorgeState,
+  gorgeBoss,
+  gorgeBottom,
+  gorgeDue,
+  gorgePhase,
+  gorgeSated,
+} from "./gorge.js";
+import { gorgeRowOf } from "./gorge-ring.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * **The two hands on THE GORGE**: player 1's pinch on a full intake and
- * player 2's pry on the mouth, off the wire, on the tick.
+ * **Player 1's tap on THE GORGE's ring**, off the wire, on the tick.
  *
- * Cut off `gorge-step.ts` at the seam every boss's hand file cuts: next door is
- * what the *sack* does on the beat, and this is what the *thumbs* do, which
- * is the half with the coupling in it. On the tick rather than the beat
- * (`boss-hands.ts`), because a vent is on the beat and a pinch that waited
- * for the beat to land would land on the intake already torching its column.
+ * Cut off `gorge-step.ts` at the seam every boss's hand file cuts: next door
+ * is what the bubbles do on the beat, and this is what the thumb does. On the
+ * tick rather than the beat (`boss-hands.ts`), so a tap lands on the bubble
+ * the pilot saw at the bottom and not on the one the ring turned to since.
  *
- * **One name, and whose thumb it is says the gesture.** `gorgeLobe` with
- * `id` the intake, and the seat does the rest:
- *
- * - **Player 1 on a full, unruptured intake that is not the mouth** is a
- *   **pinch**: the intake does not vent while the thumb stays. His, because
- *   the pilot is the seat holding the cannon on the column and watching the
- *   fill go transparent, and the navigator is the seat still loading the
- *   shots that pierce it — the fight before the pinch was a four-beat window
- *   the pair had to beat with a word and a reload, and the pinch is the
- *   pilot saying *I have it, take your time* with his other thumb. When the
- *   thumb lifts, the vent count starts again **from the lift** (`vent()`),
- *   so a pinch is a pause and not a pardon: the intake still torches
- *   `gorgeVentBeats` after the pilot lets go.
- * - **Player 2 on the mouth, once there is one,** is a **pry**: the mouth is
- *   held open for `gorgePryBeats`, and `gorgePryFills` beams in its colour end
- *   the fight *only inside that window* (`gorgeStruck`) — without it the mouth
- *   **clenches** on the beam, which goes in as nothing. Held past the window
- *   the mouth clenches on the thumb instead: the pry is thrown off and a bead
- *   spat (`gorge-pry.ts`), so a pry is a thing to take *late*, with the beam
- *   already filling in the other hand. His, because the mouth is the one
- *   intake the navigator is shown the colour of and the pilot is not
- *   (`gorgeNearestFull`), and the pry is the seat that knows the colour
- *   committing to it under his thumb while the pilot fires.
+ * `gorgeLobe` with `id` the bubble. Only the pilot's press counts, and only
+ * on the bubble at the bottom of a ring while it is still shut: each press
+ * is one tap, and `gorgeOpenTaps` of them open it to shots. His, because the
+ * pilot is the seat shown the order — he knows which bubble is worth opening
+ * — and the navigator is loading the colour it will take. The taps are lost
+ * when the ring turns it away (`gorge-ring.ts`), so an opening is a thing to
+ * do on the bubble that is due, and quickly.
  *
  * Every other press on the name is dropped without a sound, as THE GAUGE's
  * hidden half is (`gauge-hand.ts`): the other seat's screen never draws that
- * ring, so there is nothing to refuse. Nothing here charges the hull or the balance: the cost of a pry
- * taken too soon is a bead back on the field and a lift, and the cost of a
- * pinch forgotten is the torch it was holding off.
+ * mark, so there is nothing to refuse.
  */
 
-export const gorgePinchSeat = 1;
-export const gorgePrySeat = 2;
+export const gorgeTapSeat = 1;
 
 /**
- * **The intakes a seat's thumb has a ring in** — nobody's once the sack is
- * out; the pinch's on every full, unruptured intake that is not the mouth;
- * the pry's on the mouth alone, once there is one. The ring stays up while
- * the thumb is on it, so this is what the picture draws
- * (`render/gorge-grip.ts`).
+ * **The bubbles a seat's thumb has a mark on**: the pilot's on the bottom
+ * bubble of a ring while it is shut and still wants shots; nobody's else.
+ * What the press is gated on and what the picture draws (`render/gorge-grip.ts`).
  */
 export function gorgeOffers(g: GorgeState, cfg: SimConfig, seat: 1 | 2): number[] {
-  if (g.outBeat >= 0) return [];
-  if (seat === gorgePrySeat) return g.mouth >= 0 ? [g.mouth] : [];
-  const out: number[] = [];
-  g.intakes.forEach((k, i) => {
-    if (i !== g.mouth && gorgeFull(k, cfg)) out.push(i);
-  });
-  return out;
+  if (seat !== gorgeTapSeat || gorgePhase(g) !== "ring") return [];
+  const i = gorgeBottom(g);
+  const k = g.intakes[i];
+  return k !== undefined && !gorgeSated(k) && k.taps < cfg.gorgeOpenTaps ? [i] : [];
 }
 
 /**
- * **The intakes that ask a seat for a thumb**: those on offer while that
- * seat's thumb is on none of them, since one pinch and one pry is all the
- * sack hears. What the press is gated on here, and what the halo reads
+ * **The bubbles that ask a seat for a thumb**: those on offer that are due,
+ * so the halo never asks for a bubble a shot would be refused by
  * (`render/gorge-marks.ts`).
  */
 export function gorgeAsks(g: GorgeState, cfg: SimConfig, seat: 1 | 2): number[] {
-  const held = seat === gorgePinchSeat ? g.pinch : g.pry;
-  return held >= 0 ? [] : gorgeOffers(g, cfg, seat);
+  return gorgeOffers(g, cfg, seat).filter((i) => gorgeDue(g, i));
 }
 
 export function gorgeHeard(world: World, player: 1 | 2, command: Command): void {
-  if (command.kind !== "drag" || command.target !== "gorgeLobe") return;
+  if (command.kind !== "drag" || command.target !== "gorgeLobe" || !command.on) return;
   const g = gorgeBoss(world);
-  if (g === null || g.outBeat >= 0) return;
-  if (player === gorgePinchSeat) pinch(world, g, command.id ?? -1, command.on);
-  else pry(world, g, command.id ?? -1, command.on);
-  gorgeSlow(world, g);
-}
-
-function pinch(world: World, g: GorgeState, i: number, on: boolean): void {
-  if (!on) {
-    // The lift restarts the count: the intake is as full as it was, and has
-    // `gorgeVentBeats` from here (`vent()` reads `fullBeat`).
-    const k = g.intakes[g.pinch];
-    if (k !== undefined && gorgeFull(k, world.cfg)) k.fullBeat = world.beat;
-    g.pinch = -1;
-    return;
-  }
-  if (!gorgeAsks(g, world.cfg, gorgePinchSeat).includes(i)) return;
-  g.pinch = i;
-  world.events.push({ type: "gorgePinch", col: g.col + i });
-}
-
-function pry(world: World, g: GorgeState, i: number, on: boolean): void {
-  if (!on) {
-    g.pry = -1;
-    g.pryBeat = -1;
-    g.pryFills = 0;
-    return;
-  }
-  if (!gorgeAsks(g, world.cfg, gorgePrySeat).includes(i)) return;
-  g.pry = i;
-  g.pryBeat = world.beat;
-  g.pryFills = 0;
-  world.events.push({ type: "gorgePry", col: g.col + i });
+  if (g === null) return;
+  const i = command.id ?? -1;
+  if (!gorgeOffers(g, world.cfg, player).includes(i)) return;
+  const k = g.intakes[i];
+  if (k === undefined) return;
+  k.taps += 1;
+  const left = world.cfg.gorgeOpenTaps - k.taps;
+  world.events.push({
+    type: "gorgeTap",
+    row: gorgeRowOf(world.cfg, g),
+    col: midCol(world.cfg),
+    left,
+  });
 }

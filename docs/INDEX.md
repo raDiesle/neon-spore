@@ -278,7 +278,7 @@ by hand never moves.
 | `packages/sim/src/lid.ts` | you are working on the armoured eye — the cord, how far the plates have parted, and what a shot into it does |
 | `packages/sim/src/config-ghost.ts` | THE GHOST's numbers: what one is worth, the row a crossing one prowls along, how far it goes each beat, how |
 | `packages/sim/src/config-gum.ts` | THE GUM's numbers: how far a swipe has to carry it, and how far it flies a beat once swiped |
-| `packages/sim/src/config-gorge.ts` | THE GORGE's numbers — how wide the sack is, how many beads fill an intake |
+| `packages/sim/src/config-gorge.ts` | THE GORGE's numbers — where the bubbles hang, how big the ring is |
 | `packages/sim/src/config-governor.ts` | THE GOVERNOR's tuning: the beats around its steps, how fast the needle idles, how near the mark a tap lands |
 | `packages/sim/src/config-gimbal.ts` | THE GIMBAL's tuning: how near a mark is near enough, how long an alignment has to be held |
 | `packages/sim/src/config-grindstone.ts` | THE GRINDSTONE's tuning: the rests around its steps, what a reversal shaves and a beat regrits |
@@ -445,6 +445,7 @@ by hand never moves.
 | `packages/sim/src/boss-off-beat.ts` | **The six bosses the field's beat never reaches**, and why each one is not an oversight |
 | `packages/sim/src/boss-union.ts` | The boss a wave installed, whichever one it is |
 | `packages/sim/src/boss-answer.ts` | **The column the boss is answered from, this beat** — or none |
+| `packages/sim/src/boss-along.ts` | **The bosses a shot meets in mid-field** rather than past the top: THE VANE's open bearing on the arm's row |
 | `packages/sim/src/boss-phases.ts` | **Every boss's phases, in one table**, for the director's STATES sheet |
 | `packages/sim/src/boss-hands.ts` | **The choreographed bosses' hands, read on the tick** |
 | `packages/sim/src/config-crawler.ts` | THE CRAWLER's five numbers: how long a worm is when the wave does not say, how fast it walks |
@@ -515,11 +516,9 @@ by hand never moves.
 | `packages/sim/src/grindstone-fade.ts` | **THE GRINDSTONE's fade** (§33 row 11): the last shot is in |
 | `packages/sim/src/grindstone.ts` | THE GRINDSTONE: a gritted wheel on a fixed axle mid-hull, each of its two flats ground clean by its own seat |
 | `packages/sim/src/gorge-hash.ts` | What THE GORGE puts into `hashWorld`, and nothing else |
-| `packages/sim/src/gorge-hand.ts` | **The two hands on THE GORGE**: player 1's pinch on a full intake and player 2's pry on the mouth |
-| `packages/sim/src/gorge-step.ts` | THE GORGE's clock — the vent, the spit, the mouth feeding itself and the beats after the beam |
-| `packages/sim/src/gorge-slow.ts` | **THE SLOW on THE GORGE spans its asks exactly** (`docs/decisions.md` #33) |
-| `packages/sim/src/gorge-pry.ts` | **The pry's own clock, and the bead a spit is**: what `gorge-step.ts` runs on the beat for player 2's thumb |
-| `packages/sim/src/gorge-mouth.ts` | **A bead in, a bead out, and THE GORGE's mouth**: what a shot does to an intake that takes it as a bead |
+| `packages/sim/src/gorge-hand.ts` | **Player 1's tap on THE GORGE's ring**, off the wire, on the tick |
+| `packages/sim/src/gorge-step.ts` | THE GORGE's clock — a level hung, the ring turning, the pause between levels and the beats after the last |
+| `packages/sim/src/gorge-ring.ts` | **Where THE GORGE takes a shot, and how its ring turns**: the column and row a bubble is met on |
 | `packages/sim/src/gorge.ts` | THE GORGE: what not to do |
 | `packages/sim/src/governor-hand.ts` | THE GOVERNOR's three handles: the two chords and the tap |
 | `packages/sim/src/governor-hash.ts` | What THE GOVERNOR puts into `hashWorld`, and nothing else |
@@ -852,6 +851,7 @@ by hand never moves.
 | `packages/content/src/waves/act-4b.ts` | The tail of act four, cut off `act-4.ts` at ten lines under the 250-line ceiling rather than at it |
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
 | `packages/content/src/gimbal-script.ts` | THE GIMBAL's three alignments: where each ring's mark sits on the true wheel |
+| `packages/content/src/gorge-levels.ts` | THE GORGE's levels: five rows or rings of bubbles, and the layout is the level |
 | `packages/content/src/snake-rounds.ts` | SNAKE's rounds: three maps, and the map is the fight |
 | `packages/content/src/creatures-worn.ts` | the five bestiary rows for bodies drawn as something else — a slick or a bulb under a disguise, plating, a membrane, weather or nothing but a smaller size |
 | `packages/content/src/controls-round.ts` | The buttons that belong to a round rather than to the ship |
@@ -977,7 +977,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-fence.ts` | THE FENCE's rehearsal: a wall the width of the field, and the one thing that has to be true when it lands |
 | `packages/content/src/scenes/the-gap.ts` | THE GAP's rehearsal: the wall moves its opening, and only one of them can see where it went |
 | `packages/content/src/scenes/the-gum.ts` | THE GUM's rehearsal: a still thumb moves nothing, a swipe flings it out, and one nobody takes splashes on the ship |
-| `packages/content/src/scenes/the-gorge.ts` | THE GORGE's rehearsal: the sack eats every shot, and the pair feeds one part of it on purpose |
+| `packages/content/src/scenes/the-gorge.ts` | THE GORGE's rehearsal: a row of bubbles, each wanting shots, and a pair that can only fill them by talking |
 | `packages/content/src/control-sets-keys.ts` | Whether a panel answers a command — what the desk keyboard is gated by |
 | `packages/content/src/control-sets-groups.ts` | **The panel half of the coverage rule**, and nothing else |
 | `packages/content/src/control-sender.ts` | **Which control sent this command** — the table next door read backwards |
@@ -2046,16 +2046,17 @@ by hand never moves.
 | `packages/render/src/grindstone-jaw.ts` | **THE GRINDSTONE's caliper jaws**: THE HOOD's two, trembling at the tip while they stand open |
 | `packages/render/src/grindstone-blow.ts` | **THE GRINDSTONE's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/grindstone-verdicts.ts` | **THE GRINDSTONE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
-| `packages/render/src/gorge-draw.ts` | THE GORGE, drawn: a translucent sack across seven columns above the top of the field, breathing on the beat |
+| `packages/render/src/gorge-draw.ts` | THE GORGE, drawn: a translucent sack in the middle of the field, breathing on the beat |
 | `packages/render/src/gorge-drift.ts` | **THE GORGE's lobes lean on their intakes** |
 | `packages/render/src/gorge-depth.ts` | **THE GORGE in depth**: the sack is not a strip painted across the top of the field but a body bowed round… |
 | `packages/render/src/gorge-fx.ts` | What THE GORGE leaves behind a frame: the beads leaving at the end |
-| `packages/render/src/gorge-flesh-torn.ts` | THE GORGE's openings: the intake puckered under every lobe, and the flaps of a lobe the beam has torn open |
+| `packages/render/src/gorge-flesh-torn.ts` | THE GORGE's opening: the intake puckered under every lobe |
 | `packages/render/src/gorge-flesh.ts` | **What THE GORGE is made of**: a sack of wet membrane, thin enough to see through, veined |
-| `packages/render/src/gorge-lobe.ts` | One lobe of THE GORGE: the intake puckered under it, the beads hanging in it |
+| `packages/render/src/gorge-lobe.ts` | One bubble of THE GORGE: the intake puckered under it and the shots it has swallowed hanging in it |
 | `packages/render/src/gorge-lobe-skin.ts` | **One lobe of THE GORGE's skin**: the wash over an empty one, the light across its top |
-| `packages/render/src/gorge-grip.ts` | **THE GORGE's two thumbs**: the pinch on a full intake and the pry on the mouth |
-| `packages/render/src/gorge-marks.ts` | **THE GORGE's pinch and pry answering a touch the way every mark does** (`mark-feedback.ts` |
+| `packages/render/src/gorge-grip.ts` | **THE GORGE's one thumb**: the pilot's tap that opens the bubble at the bottom of a ring |
+| `packages/render/src/gorge-marks.ts` | **THE GORGE's tap answering a touch the way every mark does** (`mark-feedback.ts` |
+| `packages/render/src/gorge-place.ts` | **Where THE GORGE's bubbles hang**, asked by the picture, the rings and the cues alike |
 | `packages/render/src/governor-draw.ts` | **THE GOVERNOR**: a flywheel whose needle sweeps on its own under a flyball governor, braked by one seat and tapped by the other |
 | `packages/render/src/governor-hub.ts` | **The hub the needle turns on**, THE VANE's bearing: dull until both runs are spent, lit in a shot's colour while one is owed |
 | `packages/render/src/governor-marks.ts` | **THE GOVERNOR's marks**: what says what a step asks and what is spent |
@@ -2467,7 +2468,7 @@ by hand never moves.
 | `packages/audio/src/bind-baton.ts` | THE BATON's sixteen, in a file of their own because `bind.ts` is at its limit |
 | `packages/audio/src/bind-burgee.ts` | Whether an event is THE BURGEE's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
-| `packages/audio/src/bind-gorge.ts` | THE GORGE's fourteen, in a file of their own because `bind.ts` is full |
+| `packages/audio/src/bind-gorge.ts` | THE GORGE's nine, in a file of their own because `bind.ts` is full |
 | `packages/audio/src/bind-governor.ts` | Whether an event is THE GOVERNOR's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-gauge.ts` | THE GAUGE's seven, in a file of their own for `bind-pulse-hand.ts`'s reason |
 | `packages/audio/src/bind-gall.ts` | Whether an event is THE GALL's, so a page of the chain can hand it over whole |
@@ -3345,7 +3346,7 @@ by hand never moves.
 | `tools/director/src/field-controls-bosses.ts` | **Every boss's own rows** on the ON THE FIELD tab, in the order they were built |
 | `tools/director/src/field-controls-burgee.ts` | THE BURGEE's two hands, as rows of the ON THE FIELD tab: the freeze ring and the draw's track |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
-| `tools/director/src/field-controls-gorge.ts` | THE GORGE's two thumbs, in a file of their own — `field-controls-page.ts` is at its limit |
+| `tools/director/src/field-controls-gorge.ts` | THE GORGE's one thumb, in a file of its own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-governor.ts` | THE GOVERNOR's brake and tap, as rows of the ON THE FIELD tab: a seat's chord on the works around the dial |
 | `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-gall.ts` | THE GALL's pinch, as a row of the ON THE FIELD tab |

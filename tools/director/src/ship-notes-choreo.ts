@@ -82,26 +82,19 @@ export const CHOREO_NOTES = {
     "with undertowRestBeats between lobes; at the clock the rest shrink " +
     "back over undertowEbbBeats. Lasting out the third clock wins. Nothing " +
     "about it is authored per wave. See sim/undertow.ts, sim/config-undertow.ts.",
-  "THE GORGE — the boss you hurt by not shooting":
-    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §3: " +
-    "the one boss whose health runs backwards. A sack gorgeIntakes wide sits " +
-    "under the top of the frame and swallows every shot that reaches it, one " +
-    "bead per shot, in the colour of the first; the wrong colour lets a bead " +
-    "go. At gorgeFullBeads an intake is full, and gorgeVentShots more shots " +
-    "into it rupture it for good — or, left gorgeVentBeats, it vents a torch down " +
-    "its column. From gorgeSpitRuptures ruptures it spits a swallowed bead " +
-    "back as a body every gorgeSpitBeats; at gorgeMouthRuptures the last " +
-    "whole intake becomes the mouth, fills itself, and only the beam in its " +
-    "colour while it is full ends it, holding the wave gorgeOutBeats more. " +
-    "Two thumbs on it since 18 September 2026 (sim/gorge-hand.ts): player 1's " +
-    "pinch on a full intake holds its vent off while it stays, the count " +
-    "restarting from the lift; player 2's pry on the mouth is a window of " +
-    "gorgePryBeats that gorgePryFills beams end it in — unpried it clenches on the beam, " +
-    "and held past the window it clenches on the thumb, throwing the pry off " +
-    "with a bead spat. Both windows doubled and both needs raised to two on " +
-    "24 September 2026, on the owner's rule; THE SLOW spans each ask (sim/gorge-slow.ts). " +
-    "gorgeSinkPer is the look's: a bead of sag per that many held. " +
-    "Nothing about it is authored per wave. See sim/gorge.ts, sim/config-gorge.ts.",
+  "THE GORGE — bubbles one of you counts and the other colours":
+    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §3, " +
+    "reworked on 1 October 2026 on the owner's words: a sack of bubbles " +
+    "hung mid-field on gorgeRow, five authored levels, and each bubble wants " +
+    "a rolled number of shots of a colour. Player 1 sees the numbers and, " +
+    "from level two, the order; player 2 sees the colours. A wrong colour " +
+    "takes a shot back out. From level three the bubbles stand round a ring " +
+    "gorgeRingRows tiles out that turns every gorgeTurnBeats, and only the " +
+    "bottom one takes a shot, once player 1 has tapped it gorgeOpenTaps " +
+    "times (sim/gorge-hand.ts); levels four and five ask for both colours " +
+    "in one bubble. gorgeLevelGapBeats between levels; the last one sated " +
+    "holds the wave gorgeOutBeats more. The levels are authored in " +
+    "content/gorge-levels.ts; see sim/gorge.ts, sim/config-gorge.ts.",
   "THE CURTAIN — the boss that is in the way":
     "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §6: " +
     "the boss that is not the threat but the thing hiding it. A sheet seven " +

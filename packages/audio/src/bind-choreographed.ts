@@ -105,16 +105,11 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue | nul
     case "gorgeSwallow":
     case "gorgeEmptied":
     case "gorgeFull":
-    case "gorgeRupture":
-    case "gorgeNick":
-    case "gorgeVent":
     case "gorgeSpit":
-    case "gorgeMouth":
+    case "gorgeTap":
+    case "gorgeTurn":
+    case "gorgeCleared":
     case "gorgeOut":
-    case "gorgePinch":
-    case "gorgePry":
-    case "gorgePryFill":
-    case "gorgeClench":
       return gorgeCue(e, cols);
     case "curtainUnroll":
     case "curtainShadow":

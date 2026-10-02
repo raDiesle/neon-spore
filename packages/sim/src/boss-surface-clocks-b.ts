@@ -119,12 +119,13 @@ export {
   filamentTiles,
   filamentTracing,
   filamentWalkable,
-  // THE GORGE's two thumbs: whose ring goes on the full intake, whose on the
-  // mouth, and which of them are on offer and asking.
+  // THE GORGE's tap: whose thumb opens the ring's bottom bubble, which
+  // bubbles are on offer and asking, and where a bubble can be shot.
   gorgeAsks,
+  gorgeColOf,
   gorgeOffers,
-  gorgePinchSeat,
-  gorgePrySeat,
+  gorgeRowOf,
+  gorgeTapSeat,
   // The underside the screens read different halves of: what colour each open
   // site is for the pilot, which site is swelling next for the navigator —
   // and the mass's own two states, which they answer with a thumb each.

@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { controlSet } from "@neon-spore/content";
+import { controlSet, GORGE_LEVELS } from "@neon-spore/content";
 import {
   type BossEntry,
   createWorld,
@@ -10,7 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { anchorPoint } from "../src/caption-anchor.js";
-import { gorgeSackBox, gorgeTallyY } from "../src/gorge-draw.js";
+import { gorgeSackBox, gorgeTallyAt } from "../src/gorge-place.js";
 import { computeLayout, tileCX } from "../src/layout.js";
 import { mirrorHullY } from "../src/mirror.js";
 import { stareEye } from "../src/stare-shape.js";
@@ -52,7 +52,7 @@ function withBoss(boss: BossEntry, ticks = 60): World {
 
 describe("a caption pointed at THE GORGE", () => {
   it("rings the sack where the skin hangs, on both screens", () => {
-    const world = withBoss({ kind: "gorge" });
+    const world = withBoss({ kind: "gorge", levels: GORGE_LEVELS });
     const g = gorgeBoss(world);
     if (g === null) throw new Error("no gorge");
     for (const l of BOTH) {
@@ -60,19 +60,19 @@ describe("a caption pointed at THE GORGE", () => {
       const sack = gorgeSackBox(l, CFG, g);
       expect(at?.x).toBeCloseTo(sack.x);
       expect(at?.y).toBeCloseTo(sack.y);
-      // Above the field, which is where the whole boss hangs — and so
-      // nowhere near the hull the page used to sit on.
-      expect(at?.y ?? 0).toBeLessThan(l.gridTop);
-      expect(at?.y ?? 0).toBeLessThan(l.hullY);
+      // In the field, where the bubbles are met (the owner, 1 October 2026:
+      // *more centered*) — and nowhere near the hull the page used to sit on.
+      expect(at?.y ?? 0).toBeGreaterThan(l.gridTop);
+      expect(at?.y ?? 0).toBeLessThan(l.hullY - l.tile * 3);
     }
   });
 
   it("rings the row of counts for `tally`, and nothing on the navigator's", () => {
-    const world = withBoss({ kind: "gorge" });
+    const world = withBoss({ kind: "gorge", levels: GORGE_LEVELS });
     const g = gorgeBoss(world);
     if (g === null) throw new Error("no gorge");
     const at = anchorPoint(PILOT, world, SET, { at: "boss", part: "tally" }, 0);
-    expect(at?.y).toBeCloseTo(gorgeTallyY(PILOT, CFG, g));
+    expect(at?.y).toBeCloseTo(gorgeTallyAt(PILOT, CFG, g, 0).y);
     expect(at?.x).toBeCloseTo(
       (tileCX(PILOT, g.col) + tileCX(PILOT, g.col + g.intakes.length - 1)) * 0.5,
     );

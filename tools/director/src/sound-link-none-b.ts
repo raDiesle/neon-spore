@@ -162,17 +162,11 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.stareVent": "the lid pulled in time and the charge let out to the sides. Same argument.",
   "boss.stareBlast": "the beam coming down onto the hull. Same argument.",
   "boss.stareOut": "the eye going out. An absence like ui.waveClear.",
-  // THE GORGE's two thumbs and the clench. The sack is the fixture the first
-  // page has no card for (`sound-link-none.ts`, boss.gorgeSettle).
-  "boss.gorgePinch":
-    "player 1's thumb closing on a full intake, its vent held off while the thumb stays. The sack's, and the sheet has no card for the sack (`sim/gorge-hand.ts`).",
-  "boss.gorgePry":
-    "player 2's thumb prying the mouth open — a window of gorgePryBeats the beam ends the fight in. Same argument.",
-  "boss.gorgeNick": "a full intake pricked and holding, one pierce still owed. Same argument.",
-  "boss.gorgePryFill":
-    "a beam into the pried mouth short of the last, one fill still owed. Same argument.",
-  "boss.gorgeClench":
-    "the mouth clenching on a beam nobody pried it open for, or on a thumb held past its window, thrown off with a bead. Same argument.",
+  // THE GORGE's tap and turn. The bubbles are the fixture the first page has
+  // no card for (`sound-link-none.ts`, boss.gorgeSettle).
+  "boss.gorgeTap":
+    "player 1's tap on the shut bubble at the bottom of the ring; the last one opens it. The bubble's, and the sheet has no card for a bubble (`sim/gorge-hand.ts`).",
+  "boss.gorgeTurn": "the ring of bubbles turning a step, a new one at the bottom. Same argument.",
   // THE WARDEN's second and third hands. The ring is a fixture the sheet has
   // a card for, but these are the hatch's, not the ring's (`sim/warden-hand.ts`).
   "boss.wardenHold":

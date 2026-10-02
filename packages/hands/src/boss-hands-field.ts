@@ -7,8 +7,13 @@ import {
   curtainCoreBare,
   curtainSoftAt,
   gorgeBoss,
-  gorgeFull,
+  gorgeBottom,
+  gorgeColOf,
+  gorgeDue,
+  gorgeOffers,
   gorgePhase,
+  gorgeSated,
+  gorgeTapSeat,
   type ScuttleState,
   scuttleBoss,
   scuttlePartCol,
@@ -52,48 +57,39 @@ const hemUp = (milli: number): Press => ({
   command: { kind: "drag", target: "curtainHem", on: true, fromMilli: 0, fromYMilli: -milli },
 });
 
-/** THE GORGE's intakes, outermost first: the order the sack is pierced in. */
-const GORGE_ORDER = [0, 6, 1, 5, 2, 4, 3];
-
-/** A thumb on intake `id` of THE GORGE: the pinch is player 1's, the pry player 2's. */
-const lobe = (player: 1 | 2, on: boolean, id: number): Press => ({
-  player,
-  command: { kind: "drag", target: "gorgeLobe", on, fromMilli: 0, fromYMilli: 0, id },
+/** A press of the pilot's thumb on bubble `id` of THE GORGE's ring: one tap. */
+const tap = (id: number): Press => ({
+  player: gorgeTapSeat,
+  command: { kind: "drag", target: "gorgeLobe", on: true, fromMilli: 0, fromYMilli: 0, id },
 });
 
 /**
- * THE GORGE: an intake fills with its own colour, four beads, and the next
- * `gorgeVentShots` shots rupture it (`gorgeStruck`) — so the hand feeds the
- * outermost unpierced intake its colour until it goes, pinching it the tick
- * it comes full so the vent waits (`gorge-hand.ts`), and moves in. Gorged,
- * the mouth takes only the lance in its colour under the pry, `gorgePryFills`
- * of it, and the pry's window holds two fills with a beat and more to spare:
- * the thumb goes over the colour first, then the pry, and the colour lifts
- * after each beam and comes straight back down for the next while the pry
- * stays (`gorge-pry.ts`).
+ * THE GORGE: each bubble wants so many shots of a colour, or of both, and a
+ * wrong one takes a shot back out (`gorgeStruck`) — so the hand never fires
+ * one. It feeds the bubble due: on a row in any order the first still
+ * wanting, on an ordered row the next in the order, on a ring the bottom one
+ * (`gorgeDue`) once the ring has turned it there, tapping it open first, a
+ * press a tick, for `gorgeOpenTaps` (`gorge-hand.ts`). A bubble wanting both takes its reds first. Between
+ * levels and once it is out, nothing.
  */
 export const gorgeHand: Hand = (w) => {
   const g = gorgeBoss(w);
-  if (g === null || g.outBeat >= 0) return [];
-  if (gorgePhase(g, w.cfg) === "gorged") {
-    const mouth = g.intakes[g.mouth];
-    if (mouth === undefined || mouth.color === null) return [];
-    // A pry thrown off spat a bead: the thumb comes off a short mouth, and
-    // goes back on with the fill, after the thumb is on the colour.
-    if (!gorgeFull(mouth, w.cfg)) return g.pry < 0 ? [] : [lobe(2, false, g.mouth)];
-    const col = g.col + g.mouth;
-    if (w.cannonCol !== col) return [aim(col)];
-    if (w.prime?.spent) return [thumb(false, w.prime.color)];
-    if (w.prime === null) return [thumb(true, mouth.color)];
-    return g.pry < 0 ? [lobe(2, true, g.mouth)] : [];
-  }
-  const i = GORGE_ORDER.find((k) => g.intakes[k]?.ruptured === false);
-  if (i === undefined) return [];
+  if (g === null) return [];
+  const phase = gorgePhase(g);
+  if (phase !== "row" && phase !== "ring") return [];
+  // On a ring only the bottom bubble is ever shot: the hand waits under it
+  // for the one due to turn round.
+  const i =
+    phase === "ring"
+      ? gorgeBottom(g)
+      : g.intakes.findIndex((k, n) => !gorgeSated(k) && gorgeDue(g, n));
   const k = g.intakes[i];
-  if (k !== undefined && gorgeFull(k, w.cfg) && g.pinch < 0) return [lobe(1, true, i)];
-  const col = g.col + i;
+  const col = gorgeColOf(w.cfg, g, i);
+  if (k === undefined || col < 0) return [];
   if (w.cannonCol !== col) return [aim(col)];
-  return free(w) ? [fire(k?.color ?? "red")] : [];
+  if (gorgeSated(k) || !gorgeDue(g, i)) return [];
+  if (gorgeOffers(g, w.cfg, gorgeTapSeat).includes(i)) return [tap(i)];
+  return free(w) ? [fire(k.gotRed < k.needRed ? "red" : "cyan")] : [];
 };
 
 /**

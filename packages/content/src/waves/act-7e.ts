@@ -1,3 +1,4 @@
+import { GORGE_LEVELS } from "../gorge-levels.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -118,7 +119,7 @@ export const WAVES_ACT_7E: Wave[] = [
       { beat: 74, col: 3, kind: "meteor", color: null },
       { beat: 82, col: 1, color: "cyan" },
     ],
-    boss: { kind: "gorge" },
+    boss: { kind: "gorge", levels: GORGE_LEVELS },
     bossType: "normal",
   },
   {

@@ -1,12 +1,14 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
+  type GorgeLevel,
   type GorgeState,
   gorgeBoss,
+  gorgeBottom,
+  gorgeColOf,
+  gorgeDue,
+  midCol,
   startWave,
-  step,
-  ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
@@ -22,43 +24,46 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE GORGE, and the column nobody was telling the pilot**
- * (`render/src/boss-cue-read-n.ts`).
+ * **THE GORGE's readings** (`render/src/boss-cue-read-n.ts`): which bubble is
+ * the pilot's to pick and say, so on a row in any order he is told nothing;
+ * where the column is not his choice — the one due on an ordered row, the
+ * middle on a ring — `MOVE` stands on the cannon; `TAP` stands on a ring's
+ * shut bottom bubble and outranks it; and the navigator is told `FIRE` only
+ * over the bubble the cannon's own column can feed.
  *
- * Three cases stood in `boss-cue.test.ts` until 19 September 2026 and between
- * them they said the fight was `PIERCE` and `PINCH` over a full intake and
- * `BURN` or `PRY` over the mouth. Every one of those words is right and stands
- * below; what was missing is that **a shot only counts from the cannon's own
- * column** (`fire.ts`, `gorgeStruck`), so the pilot held a whole fight with one
- * word on his screen and nothing at all on the two moments it cannot be
- * finished without him.
- *
- * Two of the old cases therefore assert something new. The pierce one had the
- * full intake over column 4 and the cannon at 5, so its `PIERCE` was a word
- * about a lane the shot could not reach the intake from; the pry one had the
- * mouth empty, and a pry taken there clenches at `gorgePryBeats` and spits a
- * bead for nothing (`gorge-pry.ts`).
- *
- * The states are set rather than played into:
- * the vent, the spit and the mouth's own clock are all proved in
- * `sim/test/gorge*.test.ts`, and a test that fed an intake through
- * `gorgeStruck` to find it full would be that suite's second copy.
+ * The states are set rather than played into: the swallow, the spit, the
+ * turn and the tap are proved in `sim/test/gorge*.test.ts`.
  */
 
 beforeAll(installCanvasGlobals);
 
-const TPB = ticksPerBeat(CFG);
 const LAYOUT: Record<ViewRole, Layout> = {
   p1: computeLayout(VIEWPORT, CFG, "p1"),
   p2: computeLayout(VIEWPORT, CFG, "p2"),
   test: computeLayout(VIEWPORT, CFG, "test"),
 };
 
-function opened(beats = 1): World {
+const ROW: GorgeLevel = {
+  intakes: 4,
+  ordered: false,
+  ring: false,
+  mixed: 0,
+  needMin: 1,
+  needMax: 3,
+};
+const ORDERED: GorgeLevel = { ...ROW, ordered: true };
+const RING: GorgeLevel = {
+  intakes: 5,
+  ordered: false,
+  ring: true,
+  mixed: 0,
+  needMin: 2,
+  needMax: 3,
+};
+
+function opened(level: GorgeLevel): World {
   const world = createWorld(CFG, 5);
-  const index = waveWith("gorge");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  for (let i = 0; i < beats * TPB; i++) step(world, []);
+  startWave(world, waveWith("gorge"), [], [], { kind: "gorge", levels: [level] });
   return world;
 }
 
@@ -71,146 +76,96 @@ function word(world: World, role: ViewRole): string | null {
   return cue(world, role)?.word ?? null;
 }
 
-/** The boss this wave installed. */
 function installed(world: World): GorgeState {
   const g = gorgeBoss(world);
   if (g === null) throw new Error("the gorge wave installed no gorge");
   return g;
 }
 
-/** Intake `i`, full in `color` on this beat. */
-function fill(world: World, g: GorgeState, i: number, color: "red" | "cyan" = "red"): number {
-  const k = g.intakes[i];
-  if (k === undefined) throw new Error(`no intake ${i}`);
-  k.beads = CFG.gorgeFullBeads;
-  k.color = color;
-  k.fullBeat = world.beat;
-  return g.col + i;
-}
-
-/** The mouth over intake `i`, with the sack gorged and the mouth's own colour. */
-function gorged(g: GorgeState, i: number, full = false): number {
-  const k = g.intakes[i];
-  if (k === undefined) throw new Error(`no intake ${i}`);
-  g.mouth = i;
-  g.ruptures = CFG.gorgeMouthRuptures;
-  k.color = "red";
-  k.beads = full ? CFG.gorgeFullBeads : 1;
-  return g.col + i;
-}
+/** The column bubble `i` is fed up. */
+const colOf = (g: GorgeState, i: number): number => gorgeColOf(CFG, g, i);
 
 /** A column that is not this one, wherever in the field it sits. */
 const other = (col: number): number => (col === 0 ? 1 : col - 1);
 
-describe("THE GORGE", () => {
-  it("is silent while it is being fed — the fight is not shooting", () => {
-    const world = opened();
-    installed(world);
+describe("THE GORGE on a row in any order", () => {
+  it("tells the pilot nothing: which bubble is his to pick", () => {
+    const world = opened(ROW);
+    const g = installed(world);
+    world.cannonCol = other(colOf(g, 0));
     expect(word(world, "p1")).toBeNull();
+    world.cannonCol = colOf(g, 2);
+    expect(word(world, "p1")).toBeNull();
+  });
+
+  it("tells the navigator to fire up the cannon's column while the bubble there wants", () => {
+    const world = opened(ROW);
+    const g = installed(world);
+    world.cannonCol = colOf(g, 2);
+    expect(word(world, "p2")).toBe("FIRE");
+    expect(cue(world, "p2")?.kind).toBe("PRESS");
+    const k = g.intakes[2];
+    if (k === undefined) throw new Error("no bubble 2");
+    k.gotRed = k.needRed;
+    k.gotCyan = k.needCyan;
     expect(word(world, "p2")).toBeNull();
   });
+});
 
-  it("asks the pilot for the pinch first, because the vent is the clock", () => {
-    const world = opened();
+describe("THE GORGE on an ordered row", () => {
+  it("moves the pilot to the bubble due, on the cannon, and tells her nothing till he is there", () => {
+    const world = opened(ORDERED);
     const g = installed(world);
-    world.cannonCol = fill(world, g, 2);
-    expect(word(world, "p1")).toBe("PINCH");
-    expect(cue(world, "p1")?.kind).toBe("HOLD");
-    g.pinch = 2;
-    expect(word(world, "p1")).toBeNull();
-  });
-
-  it("asks the navigator for the pierce once the cannon is under the intake", () => {
-    const world = opened();
-    const g = installed(world);
-    world.cannonCol = fill(world, g, 2);
-    g.pinch = 2;
-    expect(word(world, "p2")).toBe("TAP");
-    expect(cue(world, "p2")?.kind).toBe("PRESS");
-  });
-
-  it("asks him for the column instead, and says nothing to her, while he is off it", () => {
-    const world = opened();
-    const g = installed(world);
-    const col = fill(world, g, 2);
-    g.pinch = 2;
-    world.cannonCol = other(col);
+    const due = g.intakes.findIndex((_, i) => gorgeDue(g, i));
+    const off = g.intakes.findIndex((_, i) => !gorgeDue(g, i));
+    world.cannonCol = colOf(g, off);
     const his = cue(world, "p1");
     expect(his?.word).toBe("MOVE");
     expect(his?.kind).toBe("CARRY");
-    // On the cannon, on the hull — never on the intake, which would be the
-    // column read out to the seat whose own decision it is.
     expect(his?.y).toBe(LAYOUT.p1.hullY);
     expect(word(world, "p2")).toBeNull();
-  });
-
-  it("says nothing about the column while an intake is only filling", () => {
-    const world = opened();
-    const g = installed(world);
-    const k = g.intakes[2];
-    if (k === undefined) throw new Error("no intake 2");
-    k.beads = CFG.gorgeFullBeads - 1;
-    k.color = "red";
-    world.cannonCol = other(g.col + 2);
+    world.cannonCol = colOf(g, due);
     expect(word(world, "p1")).toBeNull();
+    expect(word(world, "p2")).toBe("FIRE");
+  });
+});
+
+describe("THE GORGE on a ring", () => {
+  it("asks the pilot to tap the shut bottom bubble, before the column", () => {
+    const world = opened(RING);
+    installed(world);
+    world.cannonCol = other(midCol(CFG));
+    expect(word(world, "p1")).toBe("TAP");
+    expect(cue(world, "p1")?.why).toBe("TO OPEN IT");
+    // Shut, it takes no shot: she is told nothing even with the cannon under it.
+    world.cannonCol = midCol(CFG);
     expect(word(world, "p2")).toBeNull();
   });
 
-  it("asks for the beam once it is gorged, and for the column before that", () => {
-    const world = opened();
+  it("moves him to the middle once it is open, and gives her the shot there", () => {
+    const world = opened(RING);
     const g = installed(world);
-    const col = gorged(g, 3);
-    world.cannonCol = other(col);
+    const k = g.intakes[gorgeBottom(g)];
+    if (k === undefined) throw new Error("the ring has no bottom");
+    k.taps = CFG.gorgeOpenTaps;
+    world.cannonCol = other(midCol(CFG));
     expect(word(world, "p1")).toBe("MOVE");
     expect(word(world, "p2")).toBeNull();
-    world.cannonCol = col;
-    expect(word(world, "p2")).toBe("HOLD");
-    expect(cue(world, "p2")?.why).toBe("TO BURN IT");
+    world.cannonCol = midCol(CFG);
     expect(word(world, "p1")).toBeNull();
+    expect(word(world, "p2")).toBe("FIRE");
+    expect(cue(world, "p2")?.why).toBe("TO FEED IT");
   });
+});
 
-  it("keeps the pry back until the mouth is full, and gives it back on the clench", () => {
-    const world = opened();
-    const g = installed(world);
-    world.cannonCol = gorged(g, 3);
-    world.prime = { tick: world.tick, color: "red", spent: false };
-    // A pry on a mouth short of full is a bead thrown away: `gorgeStruck` ends
-    // the fight on `bullet.lance && gorgeFull` and nothing else.
-    expect(cue(world, "p2")?.why).toBe("TO BURN IT");
-    gorged(g, 3, true);
-    expect(cue(world, "p2")?.why).toBe("TO PRY IT");
-    g.pry = 3;
-    g.pryBeat = world.beat;
-    expect(cue(world, "p2")?.why).toBe("TO BURN IT");
-  });
-
-  it("still asks for a full intake's pinch and pierce once the sack is gorged", () => {
-    const world = opened();
-    const g = installed(world);
-    gorged(g, 3, true);
-    // The reading returned the mouth's cue and nothing else until 19 September
-    // 2026, and `vent()` goes on torching a full intake in this phase: both
-    // seats lost the one answer to it.
-    world.cannonCol = fill(world, g, 0);
-    expect(word(world, "p1")).toBe("PINCH");
-    expect(word(world, "p2")).toBe("TAP");
-    // And he is never told to leave the column the pierce is owed in: the word
-    // comes back the beat she takes it and the mouth is all that is left.
-    g.pinch = 0;
-    expect(word(world, "p1")).toBeNull();
-    const k = g.intakes[0];
-    if (k === undefined) throw new Error("no intake 0");
-    k.ruptured = true;
-    k.beads = 0;
-    expect(word(world, "p1")).toBe("MOVE");
-  });
-
-  it("says nothing at all once the beam has ended it", () => {
-    const world = opened();
-    const g = installed(world);
-    world.cannonCol = gorged(g, 3, true);
-    g.outBeat = world.beat;
-    expect(word(world, "p1")).toBeNull();
-    expect(word(world, "p2")).toBeNull();
+describe("THE GORGE between levels and after", () => {
+  it("says nothing at all", () => {
+    for (const set of [(g: GorgeState) => (g.clearBeat = 0), (g: GorgeState) => (g.outBeat = 0)]) {
+      const world = opened(RING);
+      set(installed(world));
+      world.cannonCol = other(midCol(CFG));
+      expect(word(world, "p1")).toBeNull();
+      expect(word(world, "p2")).toBeNull();
+    }
   });
 });

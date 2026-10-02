@@ -97,15 +97,15 @@ export const SILENT_BOSS = [
   "fleetSunk",
   "fleetDown",
   // THE GORGE's nine: one family, read above the loop by `gorge-fx.ts` —
-  // the bursts are thrown there, and the beads leaving are its transient.
+  // the bursts are thrown there, and the bubbles leaving are its transient.
   "gorgeSettle",
   "gorgeSwallow",
   "gorgeEmptied",
   "gorgeFull",
-  "gorgeRupture",
-  "gorgeVent",
   "gorgeSpit",
-  "gorgeMouth",
+  "gorgeTap",
+  "gorgeTurn",
+  "gorgeCleared",
   "gorgeOut",
   // THE CURTAIN's thirteen: one family, read above the loop by `curtain-fx.ts`
   // the way THE GORGE's is.

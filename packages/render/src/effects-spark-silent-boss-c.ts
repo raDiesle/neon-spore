@@ -57,11 +57,9 @@ export const SILENT_BOSS_C = [
   "ratchetOpen",
   "ratchetJam",
   "ratchetOut",
-  // THE GORGE's and THE TASTER's first halves, landed after their pages
-  // filled: no burst from this table, because each boss's bursts are read
-  // above the loop by its own fx file (`gorge-fx.ts`, `taster-fx.ts`).
-  "gorgeNick",
-  "gorgePryFill",
+  // THE TASTER's first half, landed after its page filled: no burst from this
+  // table, because the boss's bursts are read above the loop by its own fx
+  // file (`taster-fx.ts`).
   "tasterPryFill",
   // THE MANTLE's ten, no burst from this table: each is thrown above the loop
   // by its own fx file (`mantle-fx.ts`).

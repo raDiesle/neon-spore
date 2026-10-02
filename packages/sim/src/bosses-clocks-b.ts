@@ -98,10 +98,11 @@ export * from "./filament-turn.js";
 // biome-ignore format: one line, so a reading added to the rings does not cost this page a row
 // biome-ignore format: and the readings, for the same reason
 export { GIMBAL_PHASES, GIMBAL_RINGS, type GimbalEntry, type GimbalMark, type GimbalPhase, type GimbalRing, type GimbalState, gimbalAligned, gimbalBoss, gimbalLeaking, gimbalMarkMilli, gimbalOpen, gimbalRingAsks, gimbalRingTrue, gimbalShownMilli, gimbalTeeth, gimbalTurning, INNER, NO_SEAM, OUTER } from "./gimbal.js";
-// THE GORGE's two thumbs (18 September 2026): whose the pinch and the pry are,
-// so the ring is drawn for the seat the sack will hear (`gorge-hand.ts`), and
-// which rings are on offer and asking, for the picture's rings and halo.
-export { gorgeAsks, gorgeOffers, gorgePinchSeat, gorgePrySeat } from "./gorge-hand.js";
+// THE GORGE's tap (1 October 2026): whose thumb opens the ring's bottom
+// bubble (`gorge-hand.ts`), which bubbles are on offer and asking, and where
+// a bubble can be shot, for the picture's marks and halo.
+export { gorgeAsks, gorgeOffers, gorgeTapSeat } from "./gorge-hand.js";
+export { gorgeColOf, gorgeRowOf } from "./gorge-ring.js";
 // THE HIVE's clock is the opening: a site every `hiveOpenBeats`, swelling
 // first on one screen and coloured on the other (`hive.ts`).
 export {

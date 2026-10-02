@@ -119,17 +119,15 @@ export const HURT_ROWS: Row[] = [
   },
   {
     boss: "gorge",
+    // A bubble sated, a level cleared, the last level done.
     land: [
-      { type: "gorgeRupture", left: 3, col: 3 },
-      { type: "gorgeOut", beads: 0, col: 3 },
+      { type: "gorgeFull", color: "red", row: 5, col: 3 },
+      { type: "gorgeCleared", level: 0, row: 5, col: 3 },
+      { type: "gorgeOut", beads: 0, row: 5, col: 3 },
     ],
-    part: [{ type: "gorgePinch", col: 3 }],
-    // A bead toward a full intake, a shot of the vent's need, a beam of the mouth's.
-    hit: [
-      { type: "gorgeSwallow", color: "red", beads: 1, col: 3 },
-      { type: "gorgeNick", color: "red", owed: 1, col: 3 },
-      { type: "gorgePryFill", color: "red", owed: 1, col: 3 },
-    ],
+    part: [{ type: "gorgeTap", left: 2, row: 7, col: 5 }],
+    // A shot of its colour into a bubble that still wants more.
+    hit: [{ type: "gorgeSwallow", color: "red", beads: 1, row: 5, col: 3 }],
     hurt: (fx) => fx.boss.gorge.hurt,
   },
   {

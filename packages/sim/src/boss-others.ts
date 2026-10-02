@@ -91,8 +91,9 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepUndertow(world, boss);
     return;
   }
-  // THE GORGE on the beat is the sack's clock: the vent, the spit, the mouth
-  // feeding itself; a shot meets it on the tick (`gorge-step.ts`).
+  // THE GORGE on the beat is the levels' clock: the ring turning, the pause
+  // between levels, the beats after the last; a shot meets it on the tick
+  // (`gorge-step.ts`).
   if (boss.kind === "gorge") {
     stepGorge(world, boss);
     return;

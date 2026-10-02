@@ -108,8 +108,8 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // drawn from the field being played, and the last one is `midCol` of it
   // (`sim/undertow-step.ts`).
   if (boss.kind === "undertow") return { ...boss };
-  // THE GORGE is centred on `midCol` of whatever field is played and is as
-  // wide as `gorgeIntakes` lets it be, so there is nothing to remap
+  // THE GORGE is centred on `midCol` of whatever field is played, each level
+  // as wide as it is authored, so there is nothing to remap
   // (`sim/gorge-step.ts`).
   if (boss.kind === "gorge") return { ...boss };
   // THE CURTAIN unrolls centred on whatever field is played and its core is

@@ -135,7 +135,7 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     // **The boss, whatever it is.** Most of them hang a handle on the field —
     // THE MAZE's string, THE WARDEN's rope, THE SINEW's two, THE SURGE's bulb,
     // THE ANTIPHON's organ, THE INSTAR's marks, THE FILAMENT's, THE STARE's
-    // lid, THE BULB QUEEN's, THE MIRROR's lobes, THE GORGE's intakes, and
+    // lid, THE BULB QUEEN's, THE MIRROR's lobes, THE GORGE's ring, and
     // more since — and each used to be named here, and three more times in
     // `input.ts`, as `world.boss?.kind === k ? world.boss : null`. The hit test
     // narrows it itself now, where it draws the handle (`render/touch-field.ts`

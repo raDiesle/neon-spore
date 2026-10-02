@@ -1,138 +1,84 @@
 import {
   type GorgeState,
-  gorgeFull,
-  gorgeNearestFull,
+  gorgeBottom,
+  gorgeColOf,
+  gorgeDue,
+  gorgeLevelOf,
   gorgePhase,
-  priming,
+  gorgeSated,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
-import { gorgeIntakeY } from "./gorge-draw.js";
+import { gorgeBubbleAt } from "./gorge-place.js";
 import { type Layout, tileCX } from "./layout.js";
 
 /**
- * **What THE GORGE is asking for** — page fourteen of the readings, and its
- * own page for page thirteen's reason: `boss-cue-read.ts` held three fights in
- * 199 lines of its 250, and this reading grew by half again when the column
- * went into it.
+ * **What THE GORGE is asking for** — page fourteen of the readings, its own
+ * page because `boss-cue-read.ts` held three fights in 199 lines of its 250.
  *
- * It said `PIERCE` and `PINCH` over a full intake and `BURN` or `PRY` over the
- * mouth, which is every gesture the fight has and **not one word about the
- * column any of them has to be taken in**. A bolt and the beam both leave the
- * cannon's own column (`bullets.ts`), and `gorgeStruck` is a no-op outside it: a
- * pierce fired from anywhere else does not land, and the beam that ends the
- * fight only ends it *standing in the mouth's column*. So the pilot held a
- * whole fight with one word on his screen — `PINCH`, which stops a clock — and
- * nothing at all on the two moments the fight cannot be finished without him.
- * The opposite defect would be a word that walked him off the only column a
- * shot lands from; here there was no word at all.
+ * The fight is *which bubble, how many, and in what colour*, and the pilot is
+ * the seat shown the counts and the order (`gorge-draw.ts`), so **which**
+ * bubble is his to pick and say. A word that sent him to a column while the
+ * choice was still his would be the field overruling the one decision this
+ * boss hands him — so on a row in any order the reading says nothing at all.
  *
- * **`MOVE` stands on the cannon, and only where the column is not his own
- * choice.** That line is the whole of this reading's judgement. The fight is
- * *stop shooting, except at one column, in one colour*, and **which** column
- * is his to pick and say — he is the seat shown the bead tally under every
- * lobe (`showsGorgeTally`), so a word that sent him anywhere while an intake
- * was merely filling would be the field overruling the one decision this boss
- * exists to hand him. Twice, though, the column is not a choice at all:
+ * **Where the column is not his choice, `MOVE` stands on the cannon**: on an
+ * ordered row, the one bubble due; on a ring, the middle column, the only
+ * one the bottom bubble can be shot up (`sim/gorge-step.ts`). Never when the
+ * cannon is already there.
  *
- * - **A full intake.** It is pierceable by any colour and it vents a torch
- *   down its own column `gorgeVentBeats` later (`gorge-step.ts`), so there is
- *   exactly one column worth a shot and a clock on it.
- * - **The mouth.** It is the unruptured intake nearest the centre, it does not
- *   move, and the beam in its colour standing in its column is the only thing
- *   that ends the fight (`gorge.ts`). Its `MOVE` is a park with a clock
- *   nowhere near it.
+ * **`TAP` stands on a ring's bottom bubble while it is shut and due**, on the
+ * pilot's screen: his thumb opens it (`sim/gorge-hand.ts`), and the ring will
+ * turn it away on its count, so it is the word with a clock on it.
  *
- * **And the navigator is told only what the cannon's own column can answer.**
- * THE THROAT's pairing: one gesture across two
- * seats, so while the cannon is elsewhere she is told nothing rather than told
- * to pierce up a lane the shot cannot reach the intake from. It costs her
- * nothing — the ring she is shown stays on the lobe nearest full either way
- * (`gorge-draw.ts`) — and it keeps the word honest, which is that a cue names
- * a thing to do *now*.
+ * **And the navigator is told only what the cannon's own column can
+ * answer**: `FIRE` over the bubble in the cannon's column, when it is due and
+ * open. THE THROAT's pairing — one gesture across two seats — so while the
+ * cannon is elsewhere she is told nothing rather than told to fire up a lane
+ * the shot cannot reach the bubble from. *Which colour* is never written: it
+ * is on her screen already, in the bubble's floor, and saying it is the
+ * sentence the fight is.
  *
- * **Four silences, and each is a decision.**
- *
- * - **While it is being fed.** Nothing is owed and nothing is said: a word
- *   over a sack that wants to be left alone would be the boss asking for its
- *   own dinner, and the restraint is the fight.
- * - **The pry until the mouth is full, which shipped and comes out.** A pry
- *   stood the moment the beam began filling, whatever the mouth held, and on a
- *   mouth short of full it is a bead thrown away for nothing: `gorgeStruck`
- *   only ends the fight on `bullet.lance && gorgeFull`, and a pry nobody could
- *   spend clenches on the thumb at `gorgePryBeats` and spits a bead down its
- *   own column (`gorge-pry.ts`). The mouth fills itself a bead a spit and
- *   holds at full, so the window always comes; asking for it early only costs
- *   the pair the bead. `HOLD` / `TO BURN IT` stands in the meantime, which is
- *   the honest word
- *   — a shot in the mouth's colour feeds it, so holding the trigger is both
- *   the wait and the work.
- * - **The spat body.** After `gorgeSpitRuptures` the sack returns a bead down
- *   its own column as a body of its colour, broken by its own colour like
- *   anything else on the field (`bosses.md` §11.23). It is a body, and no
- *   boss's reading cues an ordinary body — the wave's own arrivals are falling
- *   beside it, and a frame on one of them and not the others would say the
- *   sack's is the dangerous one when what is dangerous is that there are now
- *   two things to answer at once.
- * - **The torch a vent throws.** The pinch is the answer to it and the pinch
- *   is cued; a second word once the torch is already falling would be the
- *   field telling the pair what the thing coming at them is, which is the
- *   picture's job.
- *
- * Nothing at all in `out`: every bead it held is leaving and the boss stands
- * `gorgeOutBeats` only so the wave cannot end on the same beat.
+ * Nothing between levels and nothing in `out`.
  */
 
 /**
- * THE GORGE. Four moments, ordered per seat by what expires first.
- *
- * On the pilot's screen the **pinch** outranks the **column**, because the
- * vent is the only clock in this fight that reaches the hull and his thumb
- * stops it where it stands — the cannon can follow a beat later, and while he
- * holds the intake it is not going anywhere (`gorge-hand.ts`). On hers the two
- * words cannot both be true: the pierce and the mouth are different columns,
- * and the cannon is in one of them.
- *
- * The mouth is on both screens once there is one (`drawLobe`), so a frame on
- * it hands nobody the other's half; the cannon is the pilot's own ship; and
- * the lobe the pinch stands on is one he is already reading a count under.
+ * THE GORGE. Three moments: the tap on the pilot's screen outranks the
+ * column, because the ring is turning on it and the cannon can follow a beat
+ * later; on hers there is only the one.
  */
 export function gorgeCues(l: Layout, world: World, g: GorgeState): readonly BossCue[] {
   const cfg = world.cfg;
-  if (gorgePhase(g, cfg) === "out") return [];
-  const y = gorgeIntakeY(l, g, cfg);
+  const phase = gorgePhase(g);
+  if (phase !== "row" && phase !== "ring") return [];
+  const level = gorgeLevelOf(g);
   const out: BossCue[] = [];
 
-  const near = gorgeNearestFull(g);
-  const intake = near < 0 ? undefined : g.intakes[near];
-  const full = intake !== undefined && gorgeFull(intake, cfg);
-  const fullCol = g.col + near;
-  if (full && g.pinch < 0) out.push(markAt(1, "HOLD", "PINCH", tileCX(l, fullCol), y, l, 76));
+  // The bubble owed now, where there is exactly one.
+  let due = -1;
+  if (phase === "ring") due = gorgeBottom(g);
+  else if (level.ordered) due = g.intakes.findIndex((_, i) => gorgeDue(g, i));
+  const k = g.intakes[due];
+  const owed = k !== undefined && !gorgeSated(k) && gorgeDue(g, due);
+  const shut = phase === "ring" && k !== undefined && k.taps < cfg.gorgeOpenTaps;
 
-  // The columns a shot is owed in this beat. `MOVE` stands while the cannon is
-  // in none of them, and never tells him to leave one he is already holding —
-  // where the mouth and a full intake both want him, the pierce he can take
-  // now outranks the beam he cannot, and his pinch above is holding the vent.
-  const mouthCol = g.mouth >= 0 ? g.col + g.mouth : -1;
-  const owed: number[] = [];
-  if (mouthCol >= 0) owed.push(mouthCol);
-  if (full) owed.push(fullCol);
-  if (owed.length > 0 && !owed.includes(world.cannonCol)) {
+  if (owed && shut) {
+    const p = gorgeBubbleAt(l, cfg, g, due);
+    out.push({ ...markAt(1, "PRESS", "TAP", p.x, p.y - l.tile * 0.5, l, 76), why: "TO OPEN IT" });
+  }
+  const dueCol = owed ? gorgeColOf(cfg, g, due) : -1;
+  if (dueCol >= 0 && dueCol !== world.cannonCol) {
     out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 77));
   }
 
-  if (full && world.cannonCol === fullCol) {
-    out.push({ ...markAt(2, "PRESS", "TAP", tileCX(l, fullCol), y, l, 34), why: "TO PIERCE IT" });
-  }
-  const mouth = g.mouth < 0 ? undefined : g.intakes[g.mouth];
-  if (mouth !== undefined && world.cannonCol === mouthCol) {
-    const x = tileCX(l, mouthCol);
-    if (gorgeFull(mouth, cfg) && g.pry < 0 && priming(world)) {
-      out.push({ ...markAt(2, "HOLD", "HOLD", x, y, l, 75), why: "TO PRY IT" });
-    } else {
-      out.push({ ...markAt(2, "HOLD", "HOLD", x, y, l, 33), why: "TO BURN IT" });
-    }
+  // Hers: the bubble up the cannon's column, if a shot there would be taken.
+  const here = g.intakes.findIndex((_, i) => gorgeColOf(cfg, g, i) === world.cannonCol);
+  const h = g.intakes[here];
+  const open = phase !== "ring" || (h !== undefined && h.taps >= cfg.gorgeOpenTaps);
+  if (h !== undefined && !gorgeSated(h) && gorgeDue(g, here) && open) {
+    const p = gorgeBubbleAt(l, cfg, g, here);
+    out.push({ ...markAt(2, "PRESS", "FIRE", p.x, p.y - l.tile * 0.5, l, 34), why: "TO FEED IT" });
   }
   return out;
 }

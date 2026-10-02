@@ -46,10 +46,10 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // the floor and which falls nothing at all (`undertow.ts`). What comes down over it
   // is the wave's own.
   // THE GORGE is the eighth, and the one that sends bodies *because* of the
-  // wave's own: a sack that swallows every shot nobody aimed at a creature,
-  // and falls only what the pair overfed it with — a vented torch, a spat
-  // bead (`gorge-step.ts`). The arrivals the pair must not shoot at are
-  // authored, or there is nothing for the restraint to be against.
+  // pair's own shots: a row or ring of bubbles in mid-field that falls only
+  // what it refuses — a shot out of turn, or into a shut bubble, comes back
+  // as a body (`gorge-step.ts`). The arrivals around it are authored, or a
+  // column of bubbles would be the only thing on the field.
   // THE TASTER is the ninth, and the reason is the fight itself: what its fan
   // tastes is the colours the pair spend *answering the wave*, so a taster
   // that sent its own bodies would be a boss feeding the ledger it then reads

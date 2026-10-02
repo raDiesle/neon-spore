@@ -1,4 +1,4 @@
-import { gorgePinchSeat, gorgePrySeat, type InstarSeat } from "@neon-spore/sim";
+import { gorgeTapSeat, type InstarSeat } from "@neon-spore/sim";
 import type { ViewRole } from "./view-role.js";
 
 /**
@@ -111,15 +111,10 @@ export const showsFilamentAhead = (role: ViewRole): boolean => role !== "p2";
 export const showsFilamentBehind = (role: ViewRole): boolean => role !== "p1";
 
 /**
- * THE GORGE's two thumbs, each on the screen of the seat whose thumb it is,
- * and the boss says which (`gorgePinchSeat`, `gorgePrySeat`,
- * `sim/gorge-hand.ts`): the pinch is the pilot's, the seat holding the cannon
- * on the column and shown the count; the pry is the navigator's, the seat
- * shown the mouth's colour and loading the beam. The other seat's screen
- * draws no ring for it, so a press there has nothing to refuse
- * (`gorge-grip.ts`). `test` is both.
+ * THE GORGE's tap, on the screen of the seat whose thumb it is, and the boss
+ * says which (`gorgeTapSeat`, `sim/gorge-hand.ts`): the pilot's, the seat
+ * shown the counts and the order. The other seat's screen draws no mark for
+ * it, so a press there has nothing to refuse (`gorge-grip.ts`). `test` is both.
  */
-export const showsGorgePinch = (role: ViewRole): boolean =>
-  role === "test" || role === `p${gorgePinchSeat}`;
-export const showsGorgePry = (role: ViewRole): boolean =>
-  role === "test" || role === `p${gorgePrySeat}`;
+export const showsGorgeTap = (role: ViewRole): boolean =>
+  role === "test" || role === `p${gorgeTapSeat}`;

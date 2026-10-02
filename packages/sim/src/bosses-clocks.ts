@@ -52,20 +52,22 @@ export {
   curtainSoftAt,
   curtainStride,
 } from "./curtain.js";
-// THE GORGE keeps no clock of its own but the vent and the spit: what it
-// holds is the pair's own shots, seven tallies wide.
+// THE GORGE's levels: what each bubble wants and holds, which is due, and
+// which is at the bottom of a ring.
 export {
   GORGE_PHASES,
   type GorgeIntake,
+  type GorgeLevel,
   type GorgePhase,
   type GorgeState,
   gorgeBeads,
   gorgeBoss,
-  gorgeFull,
-  gorgeIntakeAt,
-  gorgeNearestFull,
+  gorgeBottom,
+  gorgeDue,
+  gorgeLevelOf,
+  gorgeOwed,
   gorgePhase,
-  gorgeSink,
+  gorgeSated,
 } from "./gorge.js";
 // THE CURTAIN keeps a clock for each of the roll-back, the soft set and the
 // core's fire, and the one number the pair wants off it is where the fabric

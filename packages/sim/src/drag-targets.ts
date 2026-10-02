@@ -190,14 +190,10 @@ export type DragTarget =
 /**
  * `gorgeLobe` is the twenty-first, and THE GORGE's — the fourth shipped boss
  * given a handle after shipping for the same ask, and the first with **a
- * gesture per seat on one name**: `id` is the intake, and which thumb it is
- * says what it does (`gorge-hand.ts`). Player 1's on a full intake is a
- * **pinch** — the vent held off for as long as the thumb stays, since the
- * pilot is the seat watching the column and the navigator the seat still
- * loading the shot that pierces it. Player 2's on the mouth is a **pry** —
- * a window of `gorgePryBeats` in which the beam ends the fight, and past
- * which the mouth clenches on the thumb and spits a bead. Neither seat's
- * press on the other's intake does anything, dropped without a sound.
+ * gesture per seat on one name** until the rework of 1 October 2026 made
+ * it one: `id` is the bubble, and player 1's press on a ring's shut bottom
+ * bubble is a **tap**, `gorgeOpenTaps` of which open it to shots
+ * (`gorge-hand.ts`). Any other press on the name is dropped without a sound.
  */
 
 /**

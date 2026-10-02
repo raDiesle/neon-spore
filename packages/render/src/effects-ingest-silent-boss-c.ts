@@ -100,12 +100,10 @@ export const INGEST_SILENT_BOSS_C = [
   "ratchetOpen",
   "ratchetJam",
   "ratchetOut",
-  // THE GORGE's and THE TASTER's first halves, which arrived on 24 September
-  // 2026 after their own pages had filled: a shot that landed with one more
-  // owed. Their bursts are `gorge-fx.ts`' and `taster-fx.ts`', read above the
-  // loop with the rest of each boss's; what is owed stays read off the state.
-  "gorgeNick",
-  "gorgePryFill",
+  // THE TASTER's first half, which arrived on 24 September 2026 after its own
+  // page had filled: a shot that landed with one more owed. Its burst is
+  // `taster-fx.ts`', read above the loop with the rest of the boss's; what is
+  // owed stays read off the state.
   "tasterPryFill",
   // THE MANTLE's ten: its kick, flare, shock and bursts are `mantle-fx.ts`',
   // read above the loop with the rest of each boss's; how far the shell is
