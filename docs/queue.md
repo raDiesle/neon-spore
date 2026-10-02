@@ -439,6 +439,7 @@ flat. `bun run check` proves the tests.
 ## The director has no pose of THE INSTAR mid-flight
 
 - **Found:** 2026-10-01, claude/queue-living-bosses-the-instars-serpentine-flight-as-a
+- **Taken:** 2026-10-02, claude/queue-the-director-has-no-pose-of-the-instar-mid-fligh
 - **Where:** local
 - **Files:** `tools/director/src/versus-pose.ts`, `tools/director/src/poses-instar-acts.ts`, `tools/director/src/poses-instar-spit.ts`, `packages/render/src/instar-serpent.ts`
 
