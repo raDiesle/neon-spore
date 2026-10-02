@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 7c29247d4 — THE GALL, GRINDSTONE and HALTER stop a bolt on what it meets
+
+A bolt up the middle column bursts on THE GALL's bared root, THE GRINDSTONE's locked axle and THE HALTER's core in its mouth, in their colour, and scuffs in the other; anywhere else it scuffs at the lowest of the body over it — the gall's seam edge to edge across the field, the wheel's ground edge squashed as it falls, the slab's lower teeth wherever each segment has dropped them. Exemption: a look the owner asked for by name (1 October 2026, "but also all other bosses").
+
 ## 2026-10-02 · 3deb55e23 — A boss beaten ends its wave, and what its script had left is dropped
 
 THE SINEW left on beat 42 and its wave went on sending the arrivals authored for beats 52 to 80. Now, on the tick a boss leaves, the arrivals and pods the script still had to send are dropped, and the wave clears once what is already on the field has been answered. This holds for every boss whose wave authors arrivals beside it. A boss that fills its wave had no script to drop. Exemption: asked for by the owner by name.

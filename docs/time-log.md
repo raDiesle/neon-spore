@@ -32634,3 +32634,5 @@ Bottleneck: reading the report as the opposite of what it asked for.
 
 Bottleneck: THE GALL's seam lies edge to edge, and the test's clear-sky
 column had to learn a body can span the field.
+
+*Measured: 25 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
