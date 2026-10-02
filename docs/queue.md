@@ -458,6 +458,7 @@ bolt stopped, and `bun run check` is green.
 ## Nothing holds a module-level `Map` of paths or canvases outside `bakedCache`
 
 - **Found:** 2026-10-02, claude/queue-living-bosses-ship-the-instars-picked-candidates
+- **Taken:** 2026-10-02, claude/queue-versus-adopt-reads-a-typed-records-annotation-as (claim: claude/queue-nothing-holds-a-module-level-map-of-paths-or-can)
 - **Where:** local
 - **Files:** `packages/render/src/baked.ts`, `packages/render/test/baked-growth.test.ts`
 
