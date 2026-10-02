@@ -475,6 +475,7 @@ bolt stopped, and `bun run check` is green.
 ## A boss's countdown ring is drawn by hand in seven files
 
 - **Found:** 2026-10-02, claude/queue-lit-from-inside
+- **Taken:** 2026-10-02, claude/queue-countdown-ring (claim: claude/queue-a-bosss-countdown-ring-is-drawn-by-hand-in-seven)
 - **Files:** `packages/render/src/lit-core.ts`, `packages/render/src/cyst-story.ts`, `packages/render/src/cyst-marks.ts`, `packages/render/src/seam-story.ts`, `packages/render/src/seam-marks.ts`, `packages/render/src/flue-marks.ts`, `packages/render/src/burgee-marks.ts`
 
 The arc that closes as a step's window runs out —
