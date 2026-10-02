@@ -32163,3 +32163,16 @@ Bottleneck: the jam could not be cut in half — its pose, its control row,
 its drag target and the codec each test the others, so it went in one lane.
 
 *Measured: 23 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — every boss audited against the rule that a miss fails the wave
+
+- reading: 5 min. Four read-only searches in parallel, fourteen bosses each,
+  every mistake traced to the line that answers it.
+- writing: 5 min. `docs/miss-rule-audit.md` in eleven kinds and a row a
+  boss; one entry asking which kinds the rule means.
+- looking: 0 min. No picture: nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the rule read literally rewrites 48 bosses, so the entries wait
+on the owner saying which kinds of mistake it means.
