@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 057a87372 — THE GAUGE: every mistake loses the round, and the jam is retired
+
+The owner's rule for every boss, 2 October 2026: a miss makes the boss wave fail and requires retry. A call that misses, a tooth pulled wrong, and a tooth or the tongue left in when its rest runs out now each count in `misses`, and the first ends the play on that tick: the round lost, the hull struck, the wave offered again. Only a level up opens the mouth a step; a miss no longer gulps the rim.
+
 ## 2026-10-02 · 14c6c09cf — THE STARE looks angrier each level, shows its turns left, and stands behind glass
 
 Each level now opens in a more dangerous colour: yellow, then orange, red, and a red gone violet. The ball's green fluid takes that colour too. A brow comes down over the eye in a V, lower every level. The beat lashes now stand on that brow, and they are the eye's only upper lashes. The lashes a charge asks the pair to pull stand in the same place. Under the eye a number counts the turns left before the next level. A dome of faint glass cells round the eye shows that it cannot be hurt. A bolt that meets the eye rings off the glass (`stareDeflect`), with sparks and the game's deflect sound.
