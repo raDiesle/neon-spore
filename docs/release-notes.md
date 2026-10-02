@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 774ff7bc4 — THE OCULUS in three levels: hold, tap, turn, with a wave round it
+
+The owner's rework of 2 October 2026. Nothing slows for the lens any more, and a wave falls round it, painted in the director. Each level shuts a pair of leaves: first both thumbs held together, then both seats tapping their own half, then a lever each carried round the rim like THE MAZE's, counted only while both pull. A count is kept when a hand comes off. A level's fuse run out springs it open back to nought, with no hull hit. After each level one shot at the core in its colour waits for the pair. The cue says HOLD, TAP or TURN on each seat's half. A look the owner asked for by name.
+
 ## 2026-10-02 · 2e9eb5695 — THE PLUMB, RIME and SLING stop a bolt on what it meets
 
 A bolt up the middle column bursts on THE PLUMB's lit core, THE RIME's bared core and THE SLING's rung cup, in their colour, and scuffs in the other; anywhere else it scuffs at the lowest of the body over it — the plumb's sac, beam, chains, stones and spirit levels, the rime's lens and a hanging icicle, the sling's cup, tines and drawn cords. Every boss whose shot is a core over the middle column now stops one. Exemption: a look the owner asked for by name (1 October 2026, "but also all other bosses").

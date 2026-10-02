@@ -32665,3 +32665,5 @@ had filled, and wanted its seam cut before the lane could go on.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: the rig's loops on a lit phase running into the next step's light.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
