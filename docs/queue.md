@@ -472,25 +472,6 @@ bares, and a bolt reaching the core is drawn through it.
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
 
-## `versus adopt` refuses a candidate whose function is named after the field
-
-- **Found:** 2026-10-01, claude/versus-feedback-comparison-6cf7e7
-- **Taken:** 2026-10-02, claude/queue-the-seams-false-point-says-nothing-about-holding (claim: claude/queue-versus-adopt-refuses-a-candidate-whose-function)
-- **Where:** local
-- **Files:** `tools/versus/take-record.ts`, `tools/versus/take-function.ts`, `tools/versus/test/take-function.test.ts`
-
-`pointRecord` refuses an ident the record file already uses, and the field's
-own name counts as a use. So a candidate that exports `paint` for a record's
-`paint` field is always refused, and that is the usual way to write one. Both
-of today's adoptions (`round:timeout-hit` / `window`, `stare:eye` / `globe`)
-hit this. The lane worked around it by renaming the exports to `paintWindow`
-and `paintGlobe` by hand. The fix: when the ident equals the field and
-appears only as that field's key, rename the moved export to `<field><Name>`
-(e.g. `paintGlobe`) in the moved file and in its index, then point the record
-at the new name. Done when a candidate exporting `paint` adopts with no hand
-edit, with a test beside "refuses a name the file already uses", and `bun run
-check` is green.
-
 ## THE STARE's struck eye no longer shudders
 
 - **Found:** 2026-10-01, claude/versus-feedback-comparison-6cf7e7

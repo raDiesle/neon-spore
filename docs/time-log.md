@@ -31955,3 +31955,16 @@ Bottleneck: reading — "the cryst" named two waves, and the wrong one was
 searched first.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-02 — `versus adopt` renames an export named after its field
+
+- reading: 5 min. The four take files, and how the STARE's globe was
+  renamed by hand.
+- writing: 5 min. `take-rename.ts`, the plan's one branch, a test file of
+  its own because the fs test stood at 225 lines.
+- looking: 0 min. A tool; nothing drawn.
+- friction: 0 min. The Bash guard refused two heredocs with doubled
+  backslashes; written with the Edit tool instead.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: none to speak of — the entry said what to do and where.

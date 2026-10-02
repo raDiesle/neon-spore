@@ -3126,6 +3126,7 @@ by hand never moves.
 | `tools/versus/take-function-fs.ts` | Taking a function-valued field, the half that looks at the tree: which sibling files move where, the plan `adopt` writes in one go, and whether anything still imports what the record used to point at |
 | `tools/versus/take-function.ts` | Taking a function-valued field, the text work: which identifier a candidate gives the field and which sibling it comes from, where the file lands, and its imports rewritten for the package it moves into |
 | `tools/versus/take-record.ts` | The record side of taking a function-valued field: the field pointed at the moved function, with its import added, and the old value taken out of the imports |
+| `tools/versus/take-rename.ts` | A moved export renamed, when its name is the field it fills |
 | `tools/versus/by-hand.ts` | The four steps `adopt` prints when it will not take a slot itself |
 | `tools/versus/pose-row.ts` | The row a slot has in the director's `SLOT_POSE` map, taken out with the slot |
 | `tools/index/drift.ts` | Whether a row in `docs/INDEX.md` still describes the file it names |

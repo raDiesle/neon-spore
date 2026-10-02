@@ -241,7 +241,10 @@ the moved function; and the module the record used to import, if nothing else
 in the tree imports it, is deleted. A function written **inline** in the
 candidate's `index.ts` is still a refusal, because there is no file to move —
 keep the implementation in `paint.ts` and import it. So is a name the record
-file already uses. Take those by hand and then `drop` the slot with a reason
+file already uses — except the field's own: an export called `paint` for the
+`paint` field, which the record names only as the key, moves as `paint` and the
+candidate's name, `paintGlobe` for `globe`, in every file that moves with it
+(`take-rename.ts`). Take the others by hand and then `drop` the slot with a reason
 saying so: **`drop` reads the slot off its directory names and imports nothing**,
 so it runs on the tree those steps leave behind — where the paint has moved out
 of the candidate that held it and the shipped module it came from no longer

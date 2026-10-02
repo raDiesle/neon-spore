@@ -22,6 +22,7 @@ import {
   siblingName,
 } from "./take-function.js";
 import { pointRecord, retireImport } from "./take-record.js";
+import { keyOnly, renamedFor, renameIdent, usesName } from "./take-rename.js";
 import type { Patch, Variant } from "./variant.js";
 
 /** One file that moves: where it was, where it lands, and its rewritten text. */
@@ -106,7 +107,7 @@ export function planFunctionTake(
     if (twin) return { why: `${s} and ${twin} would both land as ${to}; rename one of them` };
     moved.set(s, to);
   }
-  const moves: Moved[] = [...moved].map(([from, to]) => ({
+  let moves: Moved[] = [...moved].map(([from, to]) => ({
     from,
     to,
     text: rewriteSpecifiers(readFileSync(join(root, from), "utf8"), from, to, moved),
@@ -120,7 +121,23 @@ export function planFunctionTake(
     const to = moved.get(sibling);
     if (!to) return { why: `${sibling} is not beside ${indexFile}` };
     const spec = `./${posix.basename(to).replace(/\.ts$/, ".js")}`;
-    for (const { field, ident } of list) {
+    for (const { field, ident: given } of list) {
+      // An export named after its field, `paint` for `paint`, is the usual
+      // way to write a candidate; the record's key is then the only use of
+      // the name, so the moved export takes the candidate's name after it
+      // (`take-rename.ts`) rather than being refused.
+      let ident = given;
+      if (given === field && keyOnly(text, field)) {
+        ident = renamedFor(field, won.name);
+        const clash = moves.find((m) => usesName(m.text, ident));
+        if (clash)
+          return { why: `${clash.to} already uses \`${ident}\`; rename the export by hand` };
+        moves = moves.map((m) =>
+          m.from === sibling || m.text.includes(`"${spec}"`)
+            ? { ...m, text: renameIdent(m.text, given, ident) }
+            : m,
+        );
+      }
       const pointed = pointRecord(text, patch.where.symbol, field, ident, spec);
       if ("why" in pointed) return { why: `${patch.where.file} — ${pointed.why}` };
       text = pointed.text;
