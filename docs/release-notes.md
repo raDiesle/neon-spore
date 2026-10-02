@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-02 · 916af56a5 — THE CYST's freeze mark answers TEST's one mouse
+
+On THE CYST under TEST, the navigator's tap on the left freeze mark did nothing, while under PLAYER 2 it worked. The mark stands inside the pilot's pinch zone, and a press with no seat key is tried as player 1 first, so the pilot's pinch answered every point of it. `cystGripSeat` now names each mark's seat, the seventeenth entry in the desk's `markSeat`.
+
 ## 2026-10-02 · 1b05b4855 — A step answered by sending nothing burns its fuse grey
 
 THE SLOW's fuse in green, blue, orange and red says act before it runs out, and on THE SEAM's false point that is the wrong sentence. A window now opens as an ask, a show or a hold, and a hold's fuse burns in the shell's grey with a white core, never turning orange or red. Every boss's hold step opens one: THE SEAM's false point, THE KEEL's breath and cooldown, THE FLUE's damper, and the last beat of THE SLING, THE PLUMB, THE GRINDSTONE and THE RIME. Whether a window holds is in the world and its hash, since it is the fuse's colour on both screens.

@@ -31953,3 +31953,5 @@ about lives in THE SLOW, eight bosses wide.
 
 Bottleneck: reading — "the cryst" named two waves, and the wrong one was
 searched first.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
