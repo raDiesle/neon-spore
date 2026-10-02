@@ -37,11 +37,11 @@ import { chainAt } from "./solid-motion.js";
  * the marks are up — and none once the body is beaten, so a mark on a nest
  * stays where its circle is drawn.
  *
- * **It is offered, not shipped**: `amount` is 0 on the field and VERSUS's
- * candidate (`tools/versus/candidates/instar-flight/serpent`) sets it to 1.
- * At 0 `instarSerpent` answers `undefined` and the body is drawn as before.
+ * **It is shipped**: the owner picked it from VERSUS on 2 October 2026.
+ * `amount` scales the whole swim; at 0 `instarSerpent` answers `undefined`
+ * and the body is carried stiff, as it was before.
  */
-export const INSTAR_SERPENT: { amount: number } = { amount: 0 };
+export const INSTAR_SERPENT: { amount: number } = { amount: 1 };
 
 /** What the profile reads off the wave this frame. */
 export interface InstarSerpent {

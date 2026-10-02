@@ -24,6 +24,13 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * strokes 513 → 452, the roar's 524 → 463). The dive is a speck and lays no
  * scales, so only its irises moved.
  *
+ * On 2 October 2026 THE INSTAR's dragon body and serpent swim shipped: a
+ * deeper body is more slices on the screen and a swimming one more lights
+ * (coil fills 449 → 458, dive 287 → 302 and linear gradients 46 → 52, roar
+ * fills 456 → 457, its strokes 463 → 453). The gradients held because the
+ * tube's light cache grew to 2048 (`solid-tube-light.ts`); at 512 it filled
+ * through the turn and the coil made 157 in the frame after it emptied.
+ *
  * Each row is the worst of each op over one beat starting a third of the way
  * into the step's morph, on a phone. Set `MEASURE` to true and run this file
  * to print the rows as they are written below (`budget-row.ts`); never
@@ -41,7 +48,7 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "13 coil": {
     cursor: 13,
     budget: {
-      fill: 449,
+      fill: 458,
       stroke: 452,
       drawImage: 32,
       createLinearGradient: 74,
@@ -51,18 +58,18 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 287,
+      fill: 302,
       stroke: 237,
       drawImage: 32,
-      createLinearGradient: 46,
+      createLinearGradient: 52,
       createRadialGradient: 39,
     },
   },
   "20 roar": {
     cursor: 20,
     budget: {
-      fill: 456,
-      stroke: 463,
+      fill: 457,
+      stroke: 453,
       drawImage: 34,
       createLinearGradient: 91,
       createRadialGradient: 39,

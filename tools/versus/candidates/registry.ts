@@ -6,7 +6,5 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { INSTAR_BODY_WEIGHT } from "./instar-body/weight/index.js";
-import { INSTAR_FLIGHT_SERPENT } from "./instar-flight/serpent/index.js";
 
-export const VARIANTS: Variant[] = [INSTAR_BODY_WEIGHT, INSTAR_FLIGHT_SERPENT];
+export const VARIANTS: Variant[] = [];

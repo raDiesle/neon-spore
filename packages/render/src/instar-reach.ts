@@ -34,8 +34,10 @@ export interface Box {
 export const FRONT_REACH = 2;
 /** How far the side-on view's paint reaches past the figure's places, thousandths of the field's width.
  * The left was 360 until the side-on head grew (`instar-head-look.ts`, `SIDE_GROW`): its snout
- * reaches 371 at the loom's morph, and the down was 180 until its jaw reached 187 at the dive's. */
-export const PROFILE_REACH = { left: 380, right: 420, up: 640, down: 195 } as const;
+ * reaches 371 at the loom's morph, and the down was 180 until its jaw reached 187 at the dive's.
+ * The dragon's body (`instar-body-look.ts`, 2 October 2026) is deeper at the chest and haunches:
+ * the loom's morph now reaches 411 left and 242 down, so those were 380 and 195 before it. */
+export const PROFILE_REACH = { left: 430, right: 420, up: 640, down: 255 } as const;
 /** The measured margins are grown by this before a view is left undrawn. */
 const SAFETY = 1.15;
 

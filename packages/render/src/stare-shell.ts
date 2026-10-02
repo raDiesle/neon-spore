@@ -1,3 +1,4 @@
+import { bakedCache } from "./baked.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -40,7 +41,7 @@ function domePath(e: StareEye): Path2D {
  * the socket and nothing of the world, so there is nothing for a restart to
  * clear.
  */
-const CELLS = new Map<string, Path2D>();
+const CELLS = bakedCache<string, Path2D>();
 
 function cellsOf(e: StareEye): Path2D {
   const key = `${e.cx},${e.cy},${e.rx},${e.ry}`;

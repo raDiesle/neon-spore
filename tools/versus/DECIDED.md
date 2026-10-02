@@ -1499,3 +1499,19 @@ The other answer offered was `three`; it went with the slot.
 the owner, 2 October 2026: looks worse
 
 The other answer offered was `turn`; it went with the slot.
+
+## `instar:flight` — nothing taken, 2026-10-02
+
+Taken by hand: the owner, 2 October 2026, picked the slower, gentler serpent
+that swims through every step of the level; INSTAR_SERPENT.amount is 1. adopt
+read the record's type annotation as its value and refused.
+
+The other answer offered was `serpent`; it went with the slot.
+
+## `instar:body` — nothing taken, 2026-10-02
+
+Taken by hand: the owner, 2 October 2026, picked the dragon-shaped body;
+INSTAR_BODY holds its curves and drawBelly its band. adopt read the record's
+type annotation as its value and refused.
+
+The other answer offered was `weight`; it went with the slot.

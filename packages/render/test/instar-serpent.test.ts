@@ -33,11 +33,10 @@ function phaseOf(clock: number, u: number): number {
 
 describe("THE INSTAR's serpentine swim", () => {
   afterEach(() => {
-    INSTAR_SERPENT.amount = 0;
+    INSTAR_SERPENT.amount = 1;
   });
 
   it("carries what the neck does down to the rear, a crest every four beats", () => {
-    INSTAR_SERPENT.amount = 1;
     for (let k = 0; k < END * TPB; k++) {
       const t = k / TPB;
       // A crest comes round every four beats, at the neck as anywhere.
@@ -49,7 +48,6 @@ describe("THE INSTAR's serpentine swim", () => {
   });
 
   it("is the perch's swim grown in flight, with no jump at either end", () => {
-    INSTAR_SERPENT.amount = 1;
     expect(flightGrown(0, END)).toBe(0);
     expect(flightGrown(END, END)).toBe(0);
     expect(serpentAt(0, 0)?.env).toBe(REST);
@@ -66,7 +64,7 @@ describe("THE INSTAR's serpentine swim", () => {
       expect(Math.abs(serpentAt(k / TPB, 1)?.across(1) ?? 0)).toBeLessThanOrEqual(0.75 + 1e-9);
   });
 
-  it("swims on every step, beats the wings only in flight, and is off with the candidate off", () => {
+  it("swims on every step, beats the wings only in flight, and is off at nought", () => {
     const world = hung();
     const s = acting(world, 0);
     const flies = s.steps.findIndex((st) => st.arrive === "passes" || st.arrive === "cross");
@@ -79,6 +77,7 @@ describe("THE INSTAR's serpentine swim", () => {
       s.phaseBeat = world.beat - 2;
       return instarSerpent(s, world.cfg, NO_WINDOW, world.beat, 0);
     };
+    INSTAR_SERPENT.amount = 0;
     expect(at(flies)).toBeUndefined();
     INSTAR_SERPENT.amount = 1;
     expect(at(flies)?.fly).toBeGreaterThan(0.9);
@@ -93,7 +92,6 @@ describe("THE INSTAR's serpentine swim", () => {
   });
 
   it("holds still under THE SLOW, where the marks are up", () => {
-    INSTAR_SERPENT.amount = 1;
     const world = hung();
     const s = acting(world, 0);
     const open = { slowFromBeat: world.beat - 2, slowToBeat: world.beat + 4 };
@@ -102,7 +100,6 @@ describe("THE INSTAR's serpentine swim", () => {
   });
 
   it("swims face-on too: the tube rises and dips going back, the neck held under the head", () => {
-    INSTAR_SERPENT.amount = 1;
     const neck = { x: 0, y: 0 };
     const rear = { x: 0, y: -200 };
     const seen = (serpent: Look["serpent"]) =>

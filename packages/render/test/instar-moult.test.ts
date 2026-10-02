@@ -28,8 +28,10 @@ beforeAll(installCanvasGlobals);
 const L = computeLayout(VIEWPORT, CFG, "test");
 const MOULT = INSTAR_SCRIPT.findIndex((s) => s.pose === "moult");
 const COIL = INSTAR_SCRIPT.findIndex((s) => s.pose === "coil");
-/** The pale body's colour at any alpha, as the canvas is handed it. */
-const PALE = rgba(PALETTE.sheenRim, 0.5).replace(/[\d.]+\)$/, "");
+/** The torn lip's stroke round the split (`instar-moult-wound.ts`), as the
+ * canvas is handed it — the split's own strength of the pale, where the body's
+ * rims draw it at others. */
+const LIP = rgba(PALETTE.sheenRim, 0.55);
 
 describe("THE INSTAR's moult", () => {
   it("splits the back and peels each half by its own seat's swipes", () => {
@@ -57,9 +59,10 @@ describe("THE INSTAR's moult", () => {
         },
         onTick: (_, w) => step(w, []),
       });
-      return log.join("|").split(PALE).length - 1;
+      return log.join("|").split(LIP).length - 1;
     };
-    expect(pale(MOULT)).toBeGreaterThan(pale(COIL));
+    expect(pale(MOULT)).toBeGreaterThan(0);
+    expect(pale(COIL)).toBe(0);
   });
 
   it("hardens the split on a strike and keeps it set until the next morph", () => {

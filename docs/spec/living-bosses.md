@@ -1,7 +1,8 @@
 # Living bosses — motion, THE INSTAR's body, and the director's steps
 
-**Status: not built.** A concept, written 26 September 2026 from the owner's
-message of the same day. The work it implies is on `docs/queue.md`, in the
+**Status: in part built.** A concept, written 26 September 2026 from the owner's
+message of the same day. THE INSTAR's body with weight and its serpent swim
+are built (2 October 2026); the rest is not. The work it implies is on `docs/queue.md`, in the
 order given at the end of this page. Nothing here is a new boss.
 
 The owner asked for three things at once:
@@ -127,6 +128,9 @@ into the dark, the neck held under the head (`instar-front-body.ts` `dive`).
 It takes the weave's hush (`instar-sway.ts` `instarLive`), a twentieth while
 THE SLOW is open and none once the body is beaten, so a mark on a nest stays
 under its circle. The wings take the wave's beat only in flight.
+
+**Built (2 October 2026).** The owner picked the rework from VERSUS: *add to
+game "INSTAR:FLIGHT · SERPENT"*. `INSTAR_SERPENT.amount` is 1 on the field.
 
 ### How far it reaches, by kind of body
 
@@ -637,6 +641,14 @@ the haunches; 0.36 at the rear. The tail runs 0.34 at the root to 0.17 halfway
 and 0.05 at the blade, and the ridge stands tallest over the chest and lowers
 by a third toward the tail.
 
+**Built (2 October 2026).** The owner picked the reshape from VERSUS: *add to
+game "INSTAR:BODY · WEIGHT"*. `INSTAR_BODY` (`instar-body-look.ts`) holds the
+dragon's line and `drawBelly` (`instar-profile-surface.ts`) the belly band;
+`packages/render/test/instar-body.test.ts` holds the nests on the back and the
+tail's taper. The side-on view's reach grew to fit the deeper body
+(`instar-reach.ts`), and the tube light's gradient cache to fit its lights
+(`solid-tube-light.ts`).
+
 **The whole body keeps turning.** The profile goes through `view(yaw)`
 with the idle drift of section 1 on top of `SIDE`: the head turns toward the
 players and back, never away from them (section 1, "A face looks at the
@@ -734,10 +746,10 @@ about a tenth of a second.
 3. The idle drift helper, with the part drift in it, and its tests, drawing
    nothing.
 4. THE INSTAR's one head, a VERSUS candidate.
-5. THE INSTAR's body with weight, a VERSUS candidate.
+5. THE INSTAR's body with weight, a VERSUS candidate (built 2 October 2026).
 6. THE INSTAR turning on the idle drift, its parts moving on their own, a
    VERSUS candidate.
-7. THE INSTAR's serpentine flight, a VERSUS candidate.
+7. THE INSTAR's serpentine flight, a VERSUS candidate (built 2 October 2026).
 8. The four rig bosses, one lane each (their DEFERRED entries, un-deferred),
    each with its parts moving.
 9. The parts split out, where the part map says **split first**: the queen,

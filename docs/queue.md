@@ -392,24 +392,6 @@ already has a pattern for. Whoever takes this names it in the entry they
 leave behind, same as the four already listed, and it is a look:
 `tools/versus/candidates/`, never straight onto the field.
 
-## Living bosses — ship THE INSTAR's picked candidates
-
-- **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-10-02, claude/queue-countdown-ring (claim: claude/queue-living-bosses-ship-the-instars-picked-candidates)
-- **Where:** local
-- **Needs:** Living bosses — THE INSTAR's serpentine flight, as a VERSUS candidate
-- **Files:** `packages/render/src/instar-draw.ts`, `packages/render/src/instar-side-head.ts`, `packages/render/src/instar-turn.ts`, `tools/versus/candidates/registry.ts`, `docs/spec/living-bosses.md`
-- **Asks:** Of the four THE INSTAR candidates in VERSUS (one head, body with weight, turning, serpentine flight), which ship?
-- **Answered:** 2026-09-28, in part — not the one head as it stands. The owner: `INSTAR:HEAD · RIG` looks weird and has no good skin, but its facing toward the player is good and stays. Before this entry ships anything, the rig head needs a skin; the other three are judged once they are on VERSUS.
-- **Deferred:** 2026-10-02 — the owner judged three on 2 October 2026: `instar:drift` looks worse and was dropped; `instar:flight` serpent and `instar:body` weight look better, but the serpent is to be slower and gentler and swim through every step of the level, and the body more naturally dragon-shaped. Both are reworked on VERSUS first, and nothing here ships until he picks the reworks.
-- **Asked:** 2026-10-02 — both reworks are on VERSUS (`261fd4a52` the slower serpent, `b45757585` the dragon-shaped body); the owner was asked which of the two ship.
-
-Put the ones the owner picks on the field and retire what they replace:
-with the one head picked, `instar-side-head.ts` and the handover in
-`instar-turn.ts` go. Move the section in `docs/spec/living-bosses.md` to
-built. `frame.test.ts` draws THE INSTAR at side, three-quarter and front.
-`bun run check` proves it.
-
 ## Living bosses — the four rig bosses get the idle drift, one per lane
 
 - **Found:** 2026-09-26, claude/living-motion-spec
@@ -472,3 +454,37 @@ bares, and a bolt reaching the core is drawn through it.
 
 Done when every boss above calls `bolts.aim`, a test draws each one with a
 bolt stopped, and `bun run check` is green.
+
+## `versus adopt` reads a typed record's annotation as its value
+
+- **Found:** 2026-10-02, claude/queue-living-bosses-ship-the-instars-picked-candidates
+- **Where:** local
+- **Files:** `tools/versus/record-edit.ts`, `tools/versus/test/record-edit.test.ts`
+
+`bun run versus adopt instar:flight serpent` refused with
+*`INSTAR_SERPENT.amount` reads number in the file and 0 at runtime*, and
+`instar:body weight` the same way on its first field. Both records are written
+`export const X: { amount: number } = { amount: 0 }`: `literalSpan` takes the
+first `{` after the name, which is the type annotation's, so `fieldSpan`
+finds `amount: number` and the staleness refusal compares the type with the
+value. Both slots were taken by hand and closed with `drop`. Skip a type
+annotation — the literal is the brace after the `=` — and add a refusal test
+with a typed record whose file and runtime agree, which must adopt.
+`bun run check` proves it.
+
+## Nothing holds a module-level `Map` of paths or canvases outside `bakedCache`
+
+- **Found:** 2026-10-02, claude/queue-living-bosses-ship-the-instars-picked-candidates
+- **Where:** local
+- **Files:** `packages/render/src/baked.ts`, `packages/render/test/baked-growth.test.ts`
+
+`stare-shell.ts` kept THE STARE's lattice in a plain `new Map<string, Path2D>()`
+at module level. `installCanvasGlobals` and `installPixelGlobals` empty only
+the caches `bakedCache` registered, so a stub `Path2D` baked by a stub-canvas
+test survived into `pixel-frame.test.ts` on a real canvas and threw *Failed to
+recover `Path` type from napi value* — but only when the shards dealt the two
+files together, which a new test file elsewhere did. Fixed for THE STARE by
+making it a `bakedCache`. Write the guard: read `packages/render/src/*.ts`
+and refuse a top-level `new Map` whose value type names `Path2D`,
+`HTMLCanvasElement`, `OffscreenCanvas`, `CanvasGradient` or `CanvasPattern`,
+naming `bakedCache` as the fix. `bun run check` proves it.

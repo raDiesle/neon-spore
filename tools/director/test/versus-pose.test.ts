@@ -137,7 +137,6 @@ describe("poseForSlot", () => {
       "nosuch:slot has no row in SLOT_POSE (tools/director/src/versus-pose.ts)",
     );
     expect(poseForSlot("nosuch:slot").name).toBe("SLICK · FALLING");
-    expect(poseForSlot("instar:flight", { strict: true }).name).toBe("INSTAR · IN FLIGHT");
   });
 
   test("no open slot falls through to the default pose", () => {

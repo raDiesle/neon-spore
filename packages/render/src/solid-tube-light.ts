@@ -40,8 +40,14 @@ const KS = [-1, -0.88, -0.62, -0.3, 0, 0.3, 0.62, 0.88, 1] as const;
  * neighbouring slices share one.
  */
 const LIGHT_STEPS = 48;
-/** Held gradients before the cache starts again; a settled scene holds a few dozen. */
-const HELD = 512;
+/**
+ * Held gradients before the cache starts again; a settled scene holds a few
+ * dozen. It was 512 until THE INSTAR's dragon body and serpent swim shipped
+ * (2 October 2026): the deep, swimming body lights its sections at enough
+ * angles through a turn to fill 512, and the frame after each restart made
+ * 150 to 180 gradients at once, where it now makes about 60.
+ */
+const HELD = 2048;
 /** How far under the brightest stop a stop still takes some of the specular. */
 const NEAR = 0.06;
 /** The light at which the specular starts, and the light it is whole at. */

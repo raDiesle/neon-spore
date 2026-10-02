@@ -32365,3 +32365,17 @@ Bottleneck: nothing in the queue was workable — four entries wait on the
 owner's pick of THE INSTAR's reworks and the fifth is claimed live.
 
 *Measured: 27 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-02 — THE INSTAR's dragon body and serpent swim go into the game
+
+- reading: 10 min. The two candidates, the files still importing them, the
+  record-edit refusal.
+- writing: 15 min. Both records taken by hand, `drawBelly` out of the
+  candidate, the body test moved into render, two raster pages to one row.
+- looking: 0 min. The owner had the frame; nothing new was drawn.
+- friction: 20 min. `versus adopt` misread both typed records; the turn's
+  gradients doubled, traced to the tube light's cache filling.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the turn budget's gradient spike, which looked like the
+body's cost and was a cache emptying mid-run.

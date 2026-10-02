@@ -11,9 +11,8 @@
  * instead (`src/zdog-page.ts`); `--instar` draws THE INSTAR's rig head at
  * five yaws, jaw shut and open, beside the shipped face-on head
  * (`src/solid-instar-page.ts`); `--instar-body` draws its perched body at the
- * same five yaws, shipped above VERSUS's body with weight
- * (`src/solid-instar-body-page.ts`); `--instar-flight` draws one pass of its
- * flight, carried stiff above VERSUS's serpent (`src/solid-instar-flight-page.ts`).
+ * same five yaws (`src/solid-instar-body-page.ts`); `--instar-flight` draws
+ * one pass of its flight (`src/solid-instar-flight-page.ts`).
  */
 
 import { resolve } from "node:path";

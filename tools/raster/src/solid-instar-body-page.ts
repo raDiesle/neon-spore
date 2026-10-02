@@ -1,12 +1,12 @@
 import { FRONT, SIDE, see, view } from "@neon-spore/content";
 import { mixHex } from "../../../packages/render/src/hex.js";
-import { INSTAR_BODY } from "../../../packages/render/src/instar-body-look.js";
 import { instarHeadAt, type Point } from "../../../packages/render/src/instar-place.js";
 import type { Look } from "../../../packages/render/src/instar-plate.js";
 import { POSES } from "../../../packages/render/src/instar-poses.js";
 import { profileLines } from "../../../packages/render/src/instar-profile.js";
 import {
   bodyOf,
+  drawBelly,
   drawRidge,
   drawScales,
 } from "../../../packages/render/src/instar-profile-surface.js";
@@ -15,14 +15,10 @@ import { computeLayout } from "../../../packages/render/src/layout.js";
 import { PALETTE } from "../../../packages/render/src/palette.js";
 import { drawTube, rimTube } from "../../../packages/render/src/solid-tube-draw.js";
 import { DEFAULT_CONFIG } from "../../../packages/sim/src/index.js";
-import { INSTAR_BODY_WEIGHT } from "../../versus/candidates/instar-body/weight/index.js";
-import { apply, restore } from "../../versus/variant.js";
 
 /**
  * The INSTAR body sheet (`bun run solid --instar-body`): THE INSTAR's perched
- * body turned on the rig from face-on to the side in five steps, the shipped
- * body on the top row and VERSUS's body with weight below
- * (`tools/versus/candidates/instar-body/weight`). The girth is a radius round
+ * body turned on the rig from face-on to the side in five steps. The girth is a radius round
  * the spine, so a body that is only wide side-on shows here as a ribbon.
  */
 
@@ -73,7 +69,7 @@ function cell(ctx: CanvasRenderingContext2D, col: number, row: number, yaw: numb
   ctx.translate(col * W + W / 2, row * H + H * 0.55);
   drawRidge(ctx, body, r, 0, 1, true, 2);
   const hide = drawTube(ctx, body.seen, SKIN, 1);
-  INSTAR_BODY.belly(ctx, body, hide, 0, 1);
+  drawBelly(ctx, body, hide, 0, 1);
   drawScales(ctx, body, hide, r * 0.13, 0, 1);
   drawRidge(ctx, body, r, 0, 1, false, 2);
   rimTube(ctx, hide, PALETTE.sheenRim, r * 0.06, 1);
@@ -85,29 +81,18 @@ function cell(ctx: CanvasRenderingContext2D, col: number, row: number, yaw: numb
 function draw(): string {
   const canvas = document.createElement("canvas");
   canvas.width = W * YAWS.length;
-  canvas.height = H * 2;
+  canvas.height = H;
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("no 2d context");
   ctx.fillStyle = "#07060F";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ["shipped", "weight"].forEach((name, row) => {
-    const applied = row === 1 ? apply(INSTAR_BODY_WEIGHT) : null;
-    try {
-      YAWS.forEach((yaw, col) => {
-        cell(ctx, col, row, yaw);
-        ctx.strokeStyle = "#241B4F";
-        ctx.strokeRect(col * W + 0.5, row * H + 0.5, W - 1, H - 1);
-        ctx.fillStyle = "#7A6FA8";
-        ctx.font = "14px monospace";
-        ctx.fillText(
-          `${name}  yaw ${Math.round((yaw * 180) / Math.PI)}°`,
-          col * W + 10,
-          row * H + 20,
-        );
-      });
-    } finally {
-      if (applied) restore(applied);
-    }
+  YAWS.forEach((yaw, col) => {
+    cell(ctx, col, 0, yaw);
+    ctx.strokeStyle = "#241B4F";
+    ctx.strokeRect(col * W + 0.5, 0.5, W - 1, H - 1);
+    ctx.fillStyle = "#7A6FA8";
+    ctx.font = "14px monospace";
+    ctx.fillText(`yaw ${Math.round((yaw * 180) / Math.PI)}°`, col * W + 10, 20);
   });
   return canvas.toDataURL("image/png");
 }

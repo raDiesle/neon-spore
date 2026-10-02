@@ -8,7 +8,7 @@ import { drawMoult } from "./instar-moult.js";
 import { instarAt, instarFarEnd, type Point } from "./instar-place.js";
 import { drawSeam, faded, type Look } from "./instar-plate.js";
 import { BREATH_PERIOD, breathAt, headBob, rollAt, undulate } from "./instar-profile-life.js";
-import { bodyOf, drawLamps, drawRidge, drawScales } from "./instar-profile-surface.js";
+import { bodyOf, drawBelly, drawLamps, drawRidge, drawScales } from "./instar-profile-surface.js";
 import { drawScutes } from "./instar-scutes.js";
 import { swellAt, swimAt, swimLook } from "./instar-serpent.js";
 import { drawTail } from "./instar-tail.js";
@@ -145,7 +145,7 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, still: Loo
   const hide = drawTube(ctx, body.seen, SKIN, fade);
   strokeGlow(ctx, hide, faded(PALETTE.hull, fade), STROKE.inner, 0.5 * fade);
   drawHurt(ctx, hide, hurt * fade);
-  INSTAR_BODY.belly(ctx, body, hide, roll, fade);
+  drawBelly(ctx, body, hide, roll, fade);
   drawScales(ctx, body, hide, r * 0.13, roll, fade);
   const coarse = <T>(a: readonly T[]): T[] => a.filter((_, i) => i % EVERY === 0);
   drawScutes(ctx, coarse(bottom), coarse(spine), r, fade);

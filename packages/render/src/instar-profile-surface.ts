@@ -87,6 +87,38 @@ export function place(body: Body, i: number, a: number, lift = 0): Placed {
   return { x: p.x, y: p.y, near: turn(n, body.w).z, lit: litIn(n, body.w) };
 }
 
+/** The belly's paler band: from low on the near flank round under the belly, rolled with the body. */
+const BAND_FROM = 2.3;
+const BAND_TO = Math.PI + 0.3;
+
+/** The belly's paler band, a mark on the hide after the hurt and before the scales; `clip` is the hide. */
+export function drawBelly(
+  ctx: CanvasRenderingContext2D,
+  body: Body,
+  clip: Path2D,
+  roll: number,
+  fade: number,
+): void {
+  const n = body.rings.length;
+  if (fade <= 0 || n < 3) return;
+  ctx.save();
+  ctx.clip(clip);
+  ctx.fillStyle = rgba(PALETTE.hullRim, 0.16 * fade);
+  ctx.beginPath();
+  for (let i = 0; i < n; i++) {
+    const p = place(body, i, BAND_FROM + roll);
+    if (i === 0) ctx.moveTo(p.x, p.y);
+    else ctx.lineTo(p.x, p.y);
+  }
+  for (let i = n - 1; i >= 0; i--) {
+    const p = place(body, i, BAND_TO + roll);
+    ctx.lineTo(p.x, p.y);
+  }
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
 /** The screen direction the body runs at ring `i`, neck toward rear. */
 function along(body: Body, i: number): Point {
   const e = (body.seen[i] as SeenRing).e;
