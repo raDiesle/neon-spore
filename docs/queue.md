@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE ANTIPHON, HIVE, LEAD and LEDGER stop a bolt on what it meets
 
 - **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
+- **Taken:** 2026-10-03, claude/queue-the-cyst-oculus-trivet-and-vise-stop-a-bolt-on-w (claim: claude/queue-the-antiphon-hive-lead-and-ledger-stop-a-bolt-on)
 - **Where:** local
 - **Files:** `packages/render/src/boss-draw-clocks-b.ts`, `packages/render/src/core-stop.ts`, `packages/render/test/core-stop-rows.ts`
 
