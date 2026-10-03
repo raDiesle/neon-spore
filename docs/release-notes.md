@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 51ab014f9 — Take a press on THE GRINDSTONE's jaw as the jaw, not the flat under it
+
+By the first clamp both flats are ground deep, and the flat's face runs right under the jaw's pads. The hit test took whichever was nearer, so every press on a jaw was a rub and no pad ever went down: the HOLD could not be answered on any device. The flat now wins only while its pass is lit; any other time the jaw within reach is taken. A fix to something wrong, not a look.
+
 ## 2026-10-03 · b5c096fd0 — THE ANTIPHON, HIVE, LEAD and LEDGER judge a bolt through a verdict
 
 Each of the four bosses now says what a bolt meets through a pure verdict that its shot acts on, so the picture can stop a bolt on the same answer: `antiphonVerdict`, `hiveVerdict` and `ledgerVerdict` (the target in its colour, the wrong colour, armour, or nothing), and `leadVerdict`, which says whether a bolt is put in flight or meets the plating. A test runs each fight and holds every verdict to its shot on every column, colour and beat. Nothing drawn changes: the stoppers are the next half.

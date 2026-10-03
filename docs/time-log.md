@@ -32832,3 +32832,5 @@ Bottleneck: THE LEAD, whose verdict is about when rather than where, and which n
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: synthetic pointer presses failing silently, which looked like the fix not working.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
