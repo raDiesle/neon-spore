@@ -535,3 +535,36 @@ from `boss-draw.ts`.
 
 Done when each boss here calls `stops?.aim`, has its row in
 `core-stop-rows.ts`, and `bun run check` is green.
+
+## One mouse can never close a chord, so a desk cannot clamp THE GRINDSTONE
+
+- **Found:** 2026-10-03, claude/grindstone-hold-mechanic-0b555e
+- **Files:** `packages/render/src/chord-pads.ts`, `packages/render/src/desk-grab.ts`, `packages/render/src/grindstone-grip.ts`, `packages/render/src/trivet-grip.ts`, `packages/render/src/halter-grip.ts`, `packages/render/src/governor-grip.ts`
+- **Asks:** At a desk, should one held mouse on a jaw count as every pad of both jaws, as every pad of its own jaw with the `3` key adding the other seat's, or should pads get keys of their own?
+
+The owner, 3 October 2026, on THE GRINDSTONE in the director and on a PC:
+*the hold does not work for me.* It cannot. A clamp counts only while all
+four pads are down — `GRINDSTONE_PADS` on each jaw, both jaws
+(`sim/grindstone.ts` `grindstoneClamped`) — and `Chords` (`chord-pads.ts`)
+makes a pad of each *pointer*. A mouse is one pointer, so it is one pad on
+one jaw, and the clamp step runs out and springs every time. `deskDownAll`'s
+`3` key does not help: it adds the other seat only where that seat finds
+something under the *same* point, and the two jaws are a wheel apart.
+
+The same holds for every chord body: THE TRIVET's feet, THE HALTER's grips
+and THE GOVERNOR's chord. `test/desk-reach.test.ts` asks only whether a
+mouse *reaches* each control, never whether it can finish one, which is why
+nothing went red.
+
+The three answers, all desk-only — a phone keeps a pad a finger:
+
+1. A held mouse on any pad of a chord body says every pad down, for both
+   seats where the body's partner is the other seat's (the way INSTAR's
+   `HOLD BOTH` ring is both thumbs). Simplest, and one click clamps.
+2. A held mouse says every pad of the body it is on; the `3` key held adds
+   the other seat's body as well, wherever it is drawn.
+3. Keys for pads, so a desk plays a chord the way a pair does.
+
+Done when a desk's mouse can clamp THE GRINDSTONE and complete each other
+chord in the chosen way, `desk-reach.test.ts` (or a test beside it) asks
+that it can, and `bun run check` is green.

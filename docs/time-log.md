@@ -32740,3 +32740,14 @@ Bottleneck: the copies row's pattern, which had to both catch the four `&&` copi
 Bottleneck: the word "stepper" names nothing in the code, so the seam was found by grepping for ◀ ▶.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-03 — Why THE GRINDSTONE's hold never clamps at a desk
+
+- reading: 15 min. The clamp in `sim/grindstone*.ts`, the chord's pad
+  counting, the desk's mouse handling and what a held pad draws.
+- writing: 5 min. One queue entry with the owner's question.
+- looking: 0 min. Answered from the code; no picture.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: tracing a press from the mouse through the desk rig to the chord counter.
