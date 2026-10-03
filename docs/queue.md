@@ -416,6 +416,7 @@ Done when each boss here calls `stops?.aim`, has its row in
 ## THE GIMBAL, HASP and KEEL stop a bolt on what it meets
 
 - **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
+- **Taken:** 2026-10-03, claude/task-queue-work-e88ecc (claim: claude/queue-the-gimbal-hasp-and-keel-stop-a-bolt-on-what-it)
 - **Where:** local
 - **Files:** `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/core-stop.ts`, `packages/render/test/core-stop-rows.ts`
 
