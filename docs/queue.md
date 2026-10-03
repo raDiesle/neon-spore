@@ -552,3 +552,30 @@ The three answers, all desk-only — a phone keeps a pad a finger:
 Done when a desk's mouse can clamp THE GRINDSTONE and complete each other
 chord in the chosen way, `desk-reach.test.ts` (or a test beside it) asks
 that it can, and `bun run check` is green.
+
+## bosses-choreographed.md's contents and ledger say built bosses are unbuilt
+
+- **Found:** 2026-10-03, claude/antiphon-explanation-german-eb9d7c
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Asked which bosses still have designed work unbuilt, the page answered
+wrongly in two places. Its *Contents* puts §17 to §43 under **Not built —
+written and nobody has started it**, though every one of them has landed at
+least its simulation (§19 THE BELLOWS was built and retired), and its
+**Still in hand — the look is not written** list repeats most of them with
+looks the same lines call done, THE INSTAR among them. The ledger rows are
+behind the tree too: §23 THE MANTLE, §25 THE VALVE and §26 THE SEAM say
+*half two, the hands, is queued*, §39 THE BURGEE *the touch, the cue and
+AUTO queued*, §43 THE GOVERNOR *the receipts queued*, §35 THE DAVIT *still no
+autopilot hand* and §18 THE GIMBAL *lane two open* — yet
+a `boss-hands-<boss>.ts` for each of the six in `packages/hands/src`,
+`render/src/governor-receipts.ts` and the `gimbal-*` look all exist, and
+`docs/queue.md` holds no entry for any of them.
+
+Read each row against the tree and `git log --grep`, move every concept to
+the contents heading that is true of it — built, built but for a named
+departure, retired — and cut the *queued* clauses that nothing is queued
+for, keeping each departure argued in `bosses.md` named as a departure.
+Done when no row or contents line says *queued* or *not built* of a part
+the tree has, and `bun run check` is green (`tools/test/doc-drift.test.ts`
+reads the backticked paths).

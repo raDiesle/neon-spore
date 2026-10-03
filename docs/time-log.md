@@ -32979,3 +32979,16 @@ Bottleneck: removing a command touches every package that names it, and nothing 
 Bottleneck: pulling the shell, the bolt and the latch bar out of their drawers as figures so the stopper reads what is drawn rather than a copy.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — What THE ANTIPHON is, and which bosses have designed work unbuilt
+
+- reading: 15 min. §12 and §11.31 for the first question; the ledger rows,
+  the contents list, the `bosses.md` write-ups, the cinematic brief and the
+  queue for the second.
+- writing: 5 min. Two answers in German and one queue entry.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. The ledger's rows have no one format for what is left,
+  so it was read by script three times, and `====` in zsh is an expansion.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the page that should say what is unbuilt says it out of date, so the answer had to be checked against the tree row by row.
