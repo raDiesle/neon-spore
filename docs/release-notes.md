@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 915d840ac — A guide at a desk shows the keyboard key on each control
+
+On a device with a mouse, every page of a tutorial now draws a keycap on the controls the page's seat holds: the two step keys at the two ends of a strip (A and D on the cannon), and a lobe's key on its shoulder (Q on red, E on cyan). The keys are read from the same panel the band is drawn from, so a boss panel shows its own (THE CLAW: I and S). A phone never shows them. A look the owner asked for by name.
+
 ## 2026-10-03 · 6efc22ac1 — The rest of the bolt rule is six queue entries, one a lane
 
 The twenty-two bosses whose shot still has to be pulled out into a verdict before a bolt can stop on them are six entries now, three or four bosses each, grouped by the dispatcher page that draws them so two lanes rarely edit one file — THE CYST, OCULUS, TRIVET and VISE first among equals, since they may widen `coreVerdict` with a column. Each can be claimed, timed and closed on its own; the one entry for all of them held them under one claim.
