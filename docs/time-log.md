@@ -33022,3 +33022,5 @@ Bottleneck: the mimic's skin is two dark greens on a dark sky, so it took a pale
 - landing: 5 min. `check:fast`, the index, `land`.
 
 Bottleneck: three targets with three colour rules behind one verdict, and `keel-shape.ts` at the ceiling before the plate's points could go in.
+
+*Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · ad814c055 — THE KEEL stops a bolt on what it meets
+
+A bolt fired at THE KEEL is now drawn to end where it meets the spine instead of flying through it. Up the middle it bursts on the open socket in the socket's colour and scuffs there in the other, bursts on each unsealed half of the lit marrow in either colour, and scuffs on the lens once that half is in; the thrown rock bursts in either colour up its column. Anywhere else it scuffs on the plates and the tendons between them, laid where the jolt drops the spine. Exemption: a look the owner asked for by name (1 October 2026, "but also all other bosses").
+
 ## 2026-10-03 · 506ced8d0 — THE MIMIC holds its board up as a living crane
 
 While a picture is up, the mantle draws up small into the strip over the board, and two of its arms reach out and down to the board's top corners, curl round them and press a sucker on the frame, so the board hangs from the boss like a portrait on a crane. A pulse of pale light runs down the suckers toward the board on the beat, and a pale rim edges the crane so its dark skin reads on the dark sky. The tips stay put while the arms sway, so the board never moves. It goes up and down on the board's own veil.
