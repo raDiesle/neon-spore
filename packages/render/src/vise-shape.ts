@@ -44,6 +44,10 @@ const BURR = 12;
 const BURR_DEPTH = 0.035;
 /** Samples down one lobe's outer edge. */
 const N = 48;
+/** How much narrower toward the spine a lobe is drawn, pinched all the way. */
+export const VISE_PINCH_NARROW = 0.18;
+/** How much narrower than tall a kernel, or a seed, is drawn. */
+export const VISE_KERNEL_NARROW = 0.82;
 /** The hollow the kernel sits in, and the kernel at its fullest, as shares of the width. */
 const HOLLOW = 0.62;
 const KERNEL = 0.36;
@@ -101,6 +105,12 @@ function lobeEdge(l: Layout, side: 0 | 1): Point[] {
     pts.push({ x: p.x * flip, y: p.y });
   }
   return pts;
+}
+
+/** The points lobe `side`'s shell runs through: its outer edge, then down and up the spine. */
+export function viseLobePoints(l: Layout, side: 0 | 1): Point[] {
+  const { ry } = viseRadius(l);
+  return [...lobeEdge(l, side), { x: 0, y: ry }, { x: 0, y: -ry }];
 }
 
 /** Lobe `side`'s shell: its bristled outer edge, closed along the spine. */
@@ -163,7 +173,7 @@ export function viseKernelPath(l: Layout, size: number): Path2D {
   for (let i = 0; i < 16; i++) {
     const a = -Math.PI / 2 + (i * Math.PI * 2) / 16;
     const tip = 1 + 0.22 * Math.max(0, -Math.sin(a)) ** 3;
-    pts.push({ x: k.x + Math.cos(a) * r * 0.82, y: k.y + Math.sin(a) * r * tip });
+    pts.push({ x: k.x + Math.cos(a) * r * VISE_KERNEL_NARROW, y: k.y + Math.sin(a) * r * tip });
   }
   return splinePath(pts, true);
 }

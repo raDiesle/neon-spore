@@ -8,6 +8,7 @@ import {
   viseWindowBeats,
   type World,
 } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
 import { fieldX } from "./field-flip.js";
@@ -28,6 +29,7 @@ import {
   viseSqueeze,
 } from "./vise-pose.js";
 import {
+  VISE_PINCH_NARROW,
   viseCentre,
   viseHinge,
   viseHollowPath,
@@ -37,7 +39,15 @@ import {
   viseSeamPath,
   viseSpinePath,
 } from "./vise-shape.js";
-import { drawViseBiteBar, drawViseSeed, viseBite, viseLunge, viseSpit } from "./vise-story.js";
+import { type ViseStand, viseStopper } from "./vise-stop.js";
+import {
+  drawViseBiteBar,
+  drawViseSeed,
+  viseBite,
+  viseLunge,
+  viseSeedAt,
+  viseSpit,
+} from "./vise-story.js";
 import { drawViseMarkFeedback } from "./vise-verdicts.js";
 
 /**
@@ -70,6 +80,7 @@ export function drawVise(
   beatPhase: number,
   time: number,
   fx: ViseFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const arrived = viseArrived(s, cfg, beat, beatPhase);
@@ -81,7 +92,8 @@ export function drawVise(
 
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.7 * split);
-  ctx.translate(home.x + fx.hurt.shakeX(time, l.tile), y);
+  const x = home.x + fx.hurt.shakeX(time, l.tile);
+  ctx.translate(x, y);
 
   ctx.fillStyle = rgba(PALETTE.background, 0.92);
   ctx.fill(viseHollowPath(l));
@@ -99,9 +111,11 @@ export function drawVise(
   // seam by the spine on each lobe, the same word said to both seats at once.
   const both = step?.ask === "both";
   const litSide = viseLitSide(s);
+  const leans: [number, number] = [0, 0];
   for (const side of [0, 1] as const) {
     // A bite clamps both lobes shut on the kernel as it lunges.
     const lean = (viseOpenAngle(world, s, side, beat, beatPhase) + fx.spring(side)) * (1 - bite);
+    leans[side] = lean;
     drawLobe(ctx, l, s, side, lean, viseSqueeze(cfg, s, side), split, time, fx.hurt.value);
     if (both || litSide === side) {
       ctx.save();
@@ -121,10 +135,17 @@ export function drawVise(
   }
   drawViseBiteBar(ctx, l, bite, l.hullY - y, beatPhase);
   const spat = s.phase === "lit" ? s.steps[s.cursor] : s.steps[s.cursor - 1];
+  let seed: ViseStand["seed"] = null;
   if (spat?.ask === "spit") {
     const seedX = fieldX(l, viseSeedCol(midCol(cfg), spat)) - home.x;
     const spit = viseSpit(s, cfg, beat, beatPhase);
     drawViseSeed(ctx, l, spit, seedX, l.hullY - y, spat.color, beatPhase);
+    if (spit > 0) seed = viseSeedAt(l, spit, seedX);
+  }
+  // Splitting open, the case stops nothing.
+  if (split <= 0) {
+    const squeeze = [viseSqueeze(cfg, s, 0), viseSqueeze(cfg, s, 1)] as const;
+    stops?.aim(viseStopper(l, world, { x, y, leans, squeeze, kernel: hurt.size, seed }));
   }
   drawViseMarkFeedback(ctx, l, world, s, beat, beatPhase, time, l.hullY - y, fx.marks.verdicts);
   drawViseFlash(ctx, l, fx.flash, fx.split);
@@ -152,7 +173,7 @@ function lobeFrame(
   ctx.translate(hinge.x, hinge.y);
   ctx.rotate(-out * lean);
   ctx.translate(-hinge.x, -hinge.y);
-  ctx.scale(1 - 0.18 * squeeze, 1);
+  ctx.scale(1 - VISE_PINCH_NARROW * squeeze, 1);
 }
 
 /** One half-shell: tan fill, the key light on it, its bristled outline, the blow over it, and every seam already cracked. */

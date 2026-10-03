@@ -1488,6 +1488,7 @@ by hand never moves.
 | `packages/render/src/vise-pose.ts` | **The clock THE VISE is posed off** (§28, *Animation*): intact; a lobe cracked |
 | `packages/render/src/vise-shape.ts` | **THE VISE's geometry**: where the seed-case stands, and the paths it is made of |
 | `packages/render/src/vise-story.ts` | **THE VISE's two story steps, drawn** (§28's story item; the rules are `sim/vise-guard.ts` and… |
+| `packages/render/src/vise-stop.ts` | **Where a bolt meets THE VISE**, for `BoltStops` (`bolt-stop.ts`): the bared kernel, the seed on a spit, the swung lobes |
 | `packages/render/src/vise-grip.ts` | **The pinch on THE VISE** — the first of its hands lanes |
 | `packages/render/src/vise-fx.ts` | What THE VISE leaves behind a frame (§28, *Presentation*): the **dry thud** of a seam cracking |
 | `packages/render/src/vise-blow.ts` | THE VISE's timeout blow: the case spits a husk seed that cracks in two on the hull |
@@ -2289,6 +2290,7 @@ by hand never moves.
 | `packages/render/src/trivet-pose.ts` | **The clock THE TRIVET is posed off** (§30, *Animation*) |
 | `packages/render/src/trivet-shape.ts` | **THE TRIVET's geometry**: where the stand is, and the paths it is made of |
 | `packages/render/src/trivet-story.ts` | **THE TRIVET's lurch and needle, drawn**: the hub thrown over its column, the far foot up, the needle flung with its sight to the hull |
+| `packages/render/src/trivet-stop.ts` | **Where a bolt meets THE TRIVET**, for `BoltStops` (`bolt-stop.ts`): the hub's face, ahead or lurched, the legs and plates |
 | `packages/render/src/trivet-grip.ts` | **The pads on THE TRIVET** — each seat's zone, where its foot stands this frame, and the press that takes a chord finger |
 | `packages/render/src/trivet-blow.ts` | THE TRIVET's own blow at the hull: the middle needle stamps the stand's footprint into the skin |
 | `packages/render/src/trivet-fx.ts` | What THE TRIVET leaves behind a frame (§30, *Presentation*): the **thud** of a foot driven home |

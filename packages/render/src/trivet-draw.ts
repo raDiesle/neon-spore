@@ -7,6 +7,7 @@ import {
   trivetLitStep,
   type World,
 } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
 import { strokeGlow } from "./glow.js";
@@ -37,6 +38,7 @@ import {
   trivetPlatePath,
   trivetRoot,
 } from "./trivet-shape.js";
+import { trivetStopper } from "./trivet-stop.js";
 import {
   drawTrivetNeedle,
   trivetHubAt,
@@ -95,6 +97,7 @@ export function drawTrivet(
   beatPhase: number,
   time: number,
   fx: TrivetFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const arrived = trivetArrived(s, cfg, beat, beatPhase);
@@ -111,15 +114,15 @@ export function drawTrivet(
 
   ctx.save();
   ctx.globalAlpha = alpha;
-  ctx.translate(
-    home.x + fx.hurt.shakeX(time, l.tile),
-    home.y - trivetDrop(l, arrived) + fx.thud * l.tile,
-  );
+  const x = home.x + fx.hurt.shakeX(time, l.tile);
+  const y = home.y - trivetDrop(l, arrived) + fx.thud * l.tile;
+  ctx.translate(x, y);
   if (step?.ask === "fire" || step?.ask === "tip") fx.tell(stepColour(step.color).rim);
 
   // The middle leg first, behind the two a seat answers for; it never lifts.
-  drawLeg(ctx, l, root(2), lowered(trivetFoot(l, 2, 0, buckle), fall));
-  const feet: Point[] = [];
+  const legs: [Point, Point][] = [[root(2), lowered(trivetFoot(l, 2, 0, buckle), fall)]];
+  drawLeg(ctx, l, ...(legs[0] as [Point, Point]));
+  const feet: (Point & { turn: number })[] = [];
   for (const side of [0, 1] as const) {
     const up =
       trivetFootLift(world, s, side, beat, beatPhase) + trivetLurchLift(s, side, beat, beatPhase);
@@ -133,6 +136,7 @@ export function drawTrivet(
       time,
     );
     drawLeg(ctx, l, from, foot);
+    legs.push([from, foot]);
     drawPlate(ctx, l, s, step, side, foot, beatPhase, fx.snap(side));
     ctx.globalAlpha = alpha;
     feet.push(foot);
@@ -158,6 +162,9 @@ export function drawTrivet(
   const at = { hub, feet: [feet[0], feet[1]] as [Point, Point], needle: { x: dx, y: toHull } };
   drawTrivetMarkFeedback(ctx, l, s, time, at, fx.marks.verdicts);
   ctx.restore();
+  // Collapsing, the stand stops nothing.
+  if (buckle <= 0)
+    stops?.aim(trivetStopper(l, world, { x, y, hub, legs, plates: feet, face: hurt.size }));
 }
 
 /** A leg's root turned `tilt` about the standing hub at (0, `sink`) and carried to where the hub is now. */

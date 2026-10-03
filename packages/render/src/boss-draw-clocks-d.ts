@@ -83,7 +83,7 @@ export function drawLatePairBoss(
   // a plant's thud, a clamp's flare, the hub's flash, the hull's shudder — is
   // `effects.boss.trivet` (`trivet-fx.ts`).
   if (boss.kind === "trivet") {
-    drawTrivet(ctx, l, world, boss, beat, beatPhase, time, effects.boss.trivet);
+    drawTrivet(ctx, l, world, boss, beat, beatPhase, time, effects.boss.trivet, effects.bolts);
     effects.boss.trivet.plant.draw(ctx);
     return;
   }

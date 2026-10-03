@@ -80,11 +80,18 @@ function hubScale(l: Layout): number {
 
 /** SINKER's outline, its three underside roots the stand's sockets. */
 export function trivetHubPath(l: Layout): Path2D {
+  return splinePath(trivetHubPoints(l), true);
+}
+
+/** The points `trivetHubPath` runs through, about the hub's middle. */
+export function trivetHubPoints(l: Layout): Point[] {
   const k = hubScale(l);
-  return splinePath(
-    HUB_FORM.map((p) => ({ x: p.x * k, y: p.y * k })),
-    true,
-  );
+  return HUB_FORM.map((p) => ({ x: p.x * k, y: p.y * k }));
+}
+
+/** An outer foot's plate: its half-length and half-height, in pixels (`trivetPlatePath`). */
+export function trivetPlateHalf(l: Layout): { hx: number; hy: number } {
+  return { hx: PLATE_HALF * l.tile, hy: PLATE_HALF_H * l.tile };
 }
 
 /** The hub's half-width, in pixels. */
@@ -144,24 +151,34 @@ export function trivetFoot(
 
 /** CALTROP's needle from `from` to `to`: wide at the root, a point at the foot. */
 export function trivetLegPath(l: Layout, from: Point, to: Point): Path2D {
+  const [a, b, c, d] = trivetLegPoints(l, from, to) as [Point, Point, Point, Point];
+  const p = new Path2D();
+  p.moveTo(a.x, a.y);
+  p.lineTo(b.x, b.y);
+  p.lineTo(c.x, c.y);
+  p.lineTo(d.x, d.y);
+  p.closePath();
+  return p;
+}
+
+/** The four corners `trivetLegPath` joins: wide at the root, a point at the foot. */
+export function trivetLegPoints(l: Layout, from: Point, to: Point): Point[] {
   const len = Math.max(0.001, Math.hypot(to.x - from.x, to.y - from.y));
   const nx = -(to.y - from.y) / len;
   const ny = (to.x - from.x) / len;
   const b = NEEDLE_BASE * l.tile;
   const t = NEEDLE_TIP * l.tile;
-  const p = new Path2D();
-  p.moveTo(from.x + nx * b, from.y + ny * b);
-  p.lineTo(to.x + nx * t, to.y + ny * t);
-  p.lineTo(to.x - nx * t, to.y - ny * t);
-  p.lineTo(from.x - nx * b, from.y - ny * b);
-  p.closePath();
-  return p;
+  return [
+    { x: from.x + nx * b, y: from.y + ny * b },
+    { x: to.x + nx * t, y: to.y + ny * t },
+    { x: to.x - nx * t, y: to.y - ny * t },
+    { x: from.x - nx * b, y: from.y - ny * b },
+  ];
 }
 
 /** An outer foot's plate, laid flat round the foot at the origin: a capsule, the leg meeting its middle. */
 export function trivetPlatePath(l: Layout): Path2D {
-  const hx = PLATE_HALF * l.tile;
-  const hy = PLATE_HALF_H * l.tile;
+  const { hx, hy } = trivetPlateHalf(l);
   const p = new Path2D();
   p.moveTo(-hx + hy, -hy);
   p.lineTo(hx - hy, -hy);

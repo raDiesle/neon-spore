@@ -170,7 +170,7 @@ export function drawPairBoss(
   // a sprung lobe, the kernel's flash, the hull's shudder — is
   // `effects.boss.vise` (`vise-fx.ts`).
   if (boss.kind === "vise") {
-    drawVise(ctx, l, world, boss, beat, beatPhase, time, effects.boss.vise);
+    drawVise(ctx, l, world, boss, beat, beatPhase, time, effects.boss.vise, effects.bolts);
     return;
   }
 

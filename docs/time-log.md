@@ -32793,3 +32793,15 @@ Bottleneck: the candidate's tests compared it to the flat picture but never ran 
 Bottleneck: THE OCULUS's look column, where nothing is drawn to meet, so the row had to say it stops at row 0.
 
 *Measured: 27 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE TRIVET and VISE stop a bolt on what it meets
+
+- reading: 5 min. Both drawers, the lobes' hinge and pinch, the seed, the
+  hub's lurch, the legs and plates.
+- writing: 10 min. Two stoppers, the points the shapes hand out beside
+  their paths, two harnesses, two rows.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index's two lines, `land`.
+
+Bottleneck: reading the heights back, which showed the swung-wide lobes letting a bolt past the drawn kernel and the middle leg standing under THE TRIVET's face.
