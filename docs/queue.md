@@ -546,16 +546,3 @@ The three answers, all desk-only — a phone keeps a pad a finger:
 Done when a desk's mouse can clamp THE GRINDSTONE and complete each other
 chord in the chosen way, `desk-reach.test.ts` (or a test beside it) asks
 that it can, and `bun run check` is green.
-
-## Split hive-draw.ts before it passes 250 lines
-
-- **Found:** 2026-10-03, claude/queue-the-antiphon-hive-lead-and-ledger-stop-a-bolt-on
-- **Taken:** 2026-10-03, claude/task-queue-work-e88ecc (claim: claude/queue-split-hive-draw-ts-before-it-passes-250-lines)
-- **Files:** `packages/render/src/hive-draw.ts`
-
-Aiming THE HIVE's bolt stops took `hive-draw.ts` to 244 lines, and
-`packages/sim/test/limits.test.ts` fails a source file past 250. Move the
-per-site painters — `lobe`, `drawSwell`, `drawBreach` and `drawScar`, about
-110 lines that read nothing of `drawHive`'s but their arguments — into a
-`hive-sites.ts` beside it, leaving `drawHive` and `drawMass`. Nothing drawn
-changes; `bun run check` proves it, `render/test/frame.test.ts` among it.

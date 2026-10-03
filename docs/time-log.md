@@ -32906,3 +32906,13 @@ Bottleneck: none — the guard was one of the entry's named options and the smal
 Bottleneck: the thrown ring first hung on `gimbalTrue`, which waits for the beat, so the autopilot's let-go inside one beat never showed it — only a frame said so.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-03 — hive-draw.ts split, its sites in hive-sites.ts
+
+- reading: 5 min. The drawer, which painters read only their arguments.
+- writing: 5 min. Four painters moved, imports dealt between the two.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: none — the entry named the seam.
