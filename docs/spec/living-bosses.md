@@ -731,7 +731,8 @@ after, and a list of every step by number and pose name. Pressing one:
    (`tools/director/src/stage-step.ts` already steps AUTO's commands), until
    the boss's `cursor` reaches the step asked for and its phase is the start
    of that step's morph;
-2. pauses there, drawn, so the step can be looked at from its first frame.
+2. plays on from there, so ▶ goes straight into the step from its first
+   frame rather than stopping on a still of it (the owner, 3 October 2026).
 
 Replays are cheap — no frame is drawn — but a late step of THE INSTAR is
 thousands of ticks. So the first time a step is reached, the director

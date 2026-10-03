@@ -5,8 +5,8 @@ import { ackBriefing, bossScript, ticksPerBeat, type World } from "@neon-spore/s
  * §3): ◀ and ▶ beside the step readout, and a list of every step by number and
  * pose name. The world is rebuilt and replayed headless with AUTO on both
  * seats until the boss's `cursor` arrives on the step asked for — the tick it
- * arrives is the tick its morph begins (`instar-step.ts`) — and the stage is
- * paused there, drawn.
+ * arrives is the tick its morph begins (`instar-step.ts`) — and the stage
+ * plays on from there: ▶ is a way to the next step, not to a still of it.
  *
  * **Remembered.** Every step a replay passes is written down with the tick it
  * was first reached on, so a later jump to it replays straight to that tick
@@ -16,7 +16,7 @@ import { ackBriefing, bossScript, ticksPerBeat, type World } from "@neon-spore/s
  *
  * **Bounded.** A replay stops when the wave does, or after `JUMP_CAP_BEATS`
  * of a wave that never ends — a boss AUTO has no hand for, whose cursor never
- * moves. It then stands on the furthest step it reached and says so.
+ * moves. It then stands on the furthest step it reached, paused, and says so.
  *
  * Nothing here reads the DOM: the pieces arrive as calls, the way
  * `stage-step.ts` takes its own, so `bun test` drives it on a real world.
@@ -29,8 +29,8 @@ export interface StageJumpParts {
   stepOnce(): void;
   /** Put AUTO on both seats for the replay, and back on what it was after. */
   autoBoth(): () => void;
-  /** The stage is held where the jump left it. */
-  pause(): void;
+  /** The stage runs on from where the jump left it, or is held there. */
+  land(running: boolean): void;
 }
 
 export interface JumpResult {
@@ -101,8 +101,9 @@ export function stageJump(parts: StageJumpParts): StageJump {
       }
     }
     restore();
-    parts.pause();
-    return { asked: target, reached: Math.min(at, target), ticks };
+    const reached = Math.min(at, target);
+    parts.land(reached === target);
+    return { asked: target, reached, ticks };
   };
 
   const by = (d: -1 | 1): JumpResult | null => {

@@ -32726,3 +32726,15 @@ same seven fields of an opening by hand.
 Bottleneck: the copies row's pattern, which had to both catch the four `&&` copies and keep matching its widened owner.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — The director's jump to a step plays on
+
+- reading: 5 min. Finding the stepper among the director's files:
+  `stage-jump.ts`, its row, the spec's §3.
+- writing: 0 min. The `pause` part becomes `land(running)`, the test and
+  the spec's line follow.
+- looking: 0 min. No picture: what changed is whether the stage runs.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the word "stepper" names nothing in the code, so the seam was found by grepping for ◀ ▶.

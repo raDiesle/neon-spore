@@ -131,8 +131,8 @@ export function bindStage(
     restage,
     stepOnce: stepper.stepOnce,
     autoBoth: auto.playBoth,
-    pause: () => {
-      running = false;
+    land: (r) => {
+      running = r;
       paintPlay();
     },
   });

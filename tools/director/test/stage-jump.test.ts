@@ -21,7 +21,7 @@ function rig() {
   const field = (seat: 1 | 2): Field =>
     stageField(world, "test", controlSet("default"), world.cfg, seat, null);
   const auto = stageAutopilot({ layout: () => l, field });
-  let paused = false;
+  let running: boolean | null = null;
   const jump = stageJump({
     world: () => world,
     restage: () => {
@@ -30,24 +30,24 @@ function rig() {
     },
     stepOnce: () => step(world, auto.commands(world)),
     autoBoth: auto.playBoth,
-    pause: () => {
-      paused = true;
+    land: (r) => {
+      running = r;
     },
   });
-  return { jump, auto, world: () => world, paused: () => paused };
+  return { jump, auto, world: () => world, running: () => running };
 }
 
 const cursor = (w: World): number => bossScript(w)?.at ?? -1;
 
 describe("the jump to a step", () => {
-  test("goes to THE INSTAR's last step and back to its second, and pauses there", () => {
+  test("goes to THE INSTAR's last step and back to its second, and plays on from there", () => {
     const r = rig();
     const of = bossScript(r.world())?.of ?? 0;
     expect(of).toBeGreaterThan(2);
     const last = r.jump.to(of - 1);
     expect(last?.reached).toBe(of - 1);
     expect(cursor(r.world())).toBe(of - 1);
-    expect(r.paused()).toBe(true);
+    expect(r.running()).toBe(true);
     // AUTO goes back to what it was once the replay is done.
     expect(r.auto.mode()).toBe("off");
     const second = r.jump.to(1);
