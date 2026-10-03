@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 49b46ba7e — A rub shows a red line and two arrows coming in, a shot's word sits on its target, and THE GRINDSTONE takes three times the rubs
+
+The owner asked for all three by name. A RUB cue no longer has a scanner box: it shows a very visible red line where the thumb rubs, with an arrow sliding in from the left and one from the right, over and over. It is one reusable mark (`rub-mark.ts`) used by every RUB, so THE CAPSTAN and THE VALVE show it too. Every FIRE now shows a red crosshair instead of a white one, and its word and box sit on the target instead of on the cannon. THE GRINDSTONE's flat now takes about twenty-five reversals to clear, up from eight, and the film after it about thirteen, up from four.
+
 ## 2026-10-03 · 47313f1b3 — Queue the desk's one mouse never closing a chord
 
 THE GRINDSTONE's clamp needs both pads of both jaws down at once, and a mouse is one pointer and so one pad: at a desk the clamp always springs. The same holds for THE TRIVET, THE HALTER and THE GOVERNOR. Queued with the owner's choice of how a desk should make a chord.

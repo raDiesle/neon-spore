@@ -32763,3 +32763,5 @@ Bottleneck: tracing a press from the mouse through the desk rig to the chord cou
 - landing: 5 min. `check:fast`, the index, a ledger test the red crosshair reached, `land`.
 
 Bottleneck: the frame on the fire step, which needed the step's own event to land on rather than the bite before it.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
