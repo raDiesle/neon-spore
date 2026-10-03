@@ -32818,3 +32818,5 @@ Bottleneck: reading the heights back, which showed the swung-wide lobes letting 
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: THE LEAD, whose verdict is about when rather than where, and which no one at the controls ever stops.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

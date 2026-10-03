@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · b5c096fd0 — THE ANTIPHON, HIVE, LEAD and LEDGER judge a bolt through a verdict
+
+Each of the four bosses now says what a bolt meets through a pure verdict that its shot acts on, so the picture can stop a bolt on the same answer: `antiphonVerdict`, `hiveVerdict` and `ledgerVerdict` (the target in its colour, the wrong colour, armour, or nothing), and `leadVerdict`, which says whether a bolt is put in flight or meets the plating. A test runs each fight and holds every verdict to its shot on every column, colour and beat. Nothing drawn changes: the stoppers are the next half.
+
 ## 2026-10-03 · 41be3c8cb — THE TRIVET and VISE stop a bolt on what it meets
 
 A bolt fired at THE TRIVET or THE VISE is now drawn to end where it meets the boss instead of flying on through its body. It bursts on the part the step asks for, in that part's colour, and scuffs on anything else: THE TRIVET's hub face, ahead or thrown out over its column on a lurch, its legs and plates; THE VISE's kernel, the seed it spits over its own column, and its two lobes as they swing and pinch. Exemption: a look the owner asked for by name (1 October 2026, "but also all other bosses").
