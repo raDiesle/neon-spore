@@ -328,39 +328,206 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## Every other boss a bolt strikes, held to the lit-open-stopped rule
+## THE CYST, OCULUS, TRIVET and VISE stop a bolt on what it meets
 
-- **Found:** 2026-10-01, claude/boss-cannon-targeting-feedback-15f334
-- **Taken:** 2026-10-02, claude/queue-queue-release-of-a-lanes-own-claim-leaves-an-edi (claim: claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit)
+- **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
 - **Where:** local
-- **Files:** `packages/sim/src/shot-out.ts`, `packages/sim/src/core-verdict.ts`, `packages/render/src/core-stop.ts`, `packages/render/src/governor-stop.ts`, `packages/render/src/heartbeat.ts`, `packages/render/test/core-stop.test.ts`, `.claude/skills/new-boss/generic.md`
+- **Files:** `packages/sim/src/core-verdict.ts`, `packages/render/src/core-stop.ts`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/boss-draw-clocks-d.ts`, `packages/render/test/core-stop-rows.ts`
 
 The owner, 1 October 2026, on THE SEAM *but also all other bosses*: the part
 the cannon must hit is lit in its colour and beats like a heart, the bolt has a
-clear path to it, and a bolt stops on whatever it meets. On the right part it
-bursts; anywhere else it scuffs and does nothing. The rule is the last bullet
-of `generic.md`. THE SEAM keeps it, and every boss whose shot is
-`coreVerdict` (`sim/core-verdict.ts`): THE BURGEE, CAPSTAN, DAVIT, FLUE,
-GALL, GOVERNOR, GRINDSTONE, HALTER, PLUMB, RIME and SLING — a `…-stop.ts`
-each calling `coreStopper` with the core's near rim and the body's `Foot`
-(`render/core-stop.ts`: `roundFoot`, `outlineFoot` over a contour's points,
-which the shape file hands out beside its path, and `rodFoot`), and a row in
-`render/test/core-stop-rows.ts`.
+clear path to it, and a bolt stops on whatever it meets — bursting on the right
+part, scuffing anywhere else and doing nothing. The rule is the last bullet of
+`.claude/skills/new-boss/generic.md`. THE SEAM and the eleven bosses whose
+shot is `coreVerdict` keep it (`render/core-stop.ts`, `render/*-stop.ts`).
 
-**Twenty-two need their verdict pulled out first**, the way THE SEAM's was —
-a pure `…Verdict(world, col, color)` the `…Struck` acts on: THE ANTIPHON,
-CURTAIN, CYST, GIMBAL, GORGE, HASP, HIVE, KEEL, LEAD, LEDGER, MANTLE, OCULUS,
-RATCHET, INSTAR, NETTLE, SCUTTLE, STARE, TASTER, TRIVET, VALVE, VANE and VISE.
-THE CYST, OCULUS, TRIVET and VISE judge the middle column and one more, and
-may widen `coreVerdict` with a column rather than copy it.
+Each boss needs its shot's judgement pulled out of its `…Struck` into a pure
+`…Verdict(world, col, color)` the `…Struck` then acts on, as
+`sim/seam-shot.ts`'s `seamVerdict` was; then a `…-stop.ts` handing
+`BoltStops` (`render/bolt-stop.ts`) where a bolt in each column meets the
+picture — `coreStopper` with the core's near rim and the body's `Foot` where
+the shot is one part, a stopper of its own (`render/seam-stop.ts`) where it
+is not. The feet are `roundFoot`, `outlineFoot` over the points a shape file
+hands out beside its path (`capstanBodyPoints`) and `rodFoot`. The drawer
+takes `stops?: BoltStops` last and calls `stops?.aim(...)`; its dispatcher
+passes `effects.bolts`. A row goes in `render/test/core-stop-rows.ts` (its
+harness in `render/test/<boss>-harness.ts`). A target the bolt must be drawn
+through some other part of the body to reach is a look: say so in the
+stopper and leave it for VERSUS, as `flue-stop.ts` does.
 
-A boss whose target sits behind its own body in another colour is a look. Its
-fix goes to VERSUS, not onto the field, unless that is a clipping fault. THE
-FLUE is one: its damper drops *down* into the middle column under the core it
-bares, and a bolt reaching the core is drawn through it. So are THE BURGEE's
-flag, hanging and swinging under its spindle, THE CAPSTAN's cradle post under
-its core, THE DAVIT's mast socket under its hook, and THE HALTER's lower
-plate under the core in its mouth.
+These four judge the middle column and one more, so their lane may widen
+`coreVerdict` (`sim/core-verdict.ts`) with a column rather than copy it — and
+the bosses after them may then reuse it. THE OCULUS and VISE are drawn from
+`boss-draw-clocks-c.ts`, THE CYST and TRIVET from `boss-draw-clocks-d.ts`.
 
-Done when every boss above calls `bolts.aim`, a test draws each one with a
-bolt stopped, and `bun run check` is green.
+Done when each boss here calls `stops?.aim`, has its row in
+`core-stop-rows.ts`, and `bun run check` is green.
+
+## THE ANTIPHON, HIVE, LEAD and LEDGER stop a bolt on what it meets
+
+- **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
+- **Where:** local
+- **Files:** `packages/render/src/boss-draw-clocks-b.ts`, `packages/render/src/core-stop.ts`, `packages/render/test/core-stop-rows.ts`
+
+The owner, 1 October 2026, on THE SEAM *but also all other bosses*: the part
+the cannon must hit is lit in its colour and beats like a heart, the bolt has a
+clear path to it, and a bolt stops on whatever it meets — bursting on the right
+part, scuffing anywhere else and doing nothing. The rule is the last bullet of
+`.claude/skills/new-boss/generic.md`. THE SEAM and the eleven bosses whose
+shot is `coreVerdict` keep it (`render/core-stop.ts`, `render/*-stop.ts`).
+
+Each boss needs its shot's judgement pulled out of its `…Struck` into a pure
+`…Verdict(world, col, color)` the `…Struck` then acts on, as
+`sim/seam-shot.ts`'s `seamVerdict` was; then a `…-stop.ts` handing
+`BoltStops` (`render/bolt-stop.ts`) where a bolt in each column meets the
+picture — `coreStopper` with the core's near rim and the body's `Foot` where
+the shot is one part, a stopper of its own (`render/seam-stop.ts`) where it
+is not. The feet are `roundFoot`, `outlineFoot` over the points a shape file
+hands out beside its path (`capstanBodyPoints`) and `rodFoot`. The drawer
+takes `stops?: BoltStops` last and calls `stops?.aim(...)`; its dispatcher
+passes `effects.bolts`. A row goes in `render/test/core-stop-rows.ts` (its
+harness in `render/test/<boss>-harness.ts`). A target the bolt must be drawn
+through some other part of the body to reach is a look: say so in the
+stopper and leave it for VERSUS, as `flue-stop.ts` does.
+
+All four are drawn from `boss-draw-clocks-b.ts`, which page a lane passing
+each drawer `effects.bolts` edits; THE INSTAR, NETTLE, SCUTTLE and STARE are
+the other lane on that page.
+
+Done when each boss here calls `stops?.aim`, has its row in
+`core-stop-rows.ts`, and `bun run check` is green.
+
+## THE INSTAR, NETTLE, SCUTTLE and STARE stop a bolt on what it meets
+
+- **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
+- **Where:** local
+- **Files:** `packages/render/src/boss-draw-clocks-b.ts`, `packages/render/src/core-stop.ts`, `packages/render/test/core-stop-rows.ts`
+
+The owner, 1 October 2026, on THE SEAM *but also all other bosses*: the part
+the cannon must hit is lit in its colour and beats like a heart, the bolt has a
+clear path to it, and a bolt stops on whatever it meets — bursting on the right
+part, scuffing anywhere else and doing nothing. The rule is the last bullet of
+`.claude/skills/new-boss/generic.md`. THE SEAM and the eleven bosses whose
+shot is `coreVerdict` keep it (`render/core-stop.ts`, `render/*-stop.ts`).
+
+Each boss needs its shot's judgement pulled out of its `…Struck` into a pure
+`…Verdict(world, col, color)` the `…Struck` then acts on, as
+`sim/seam-shot.ts`'s `seamVerdict` was; then a `…-stop.ts` handing
+`BoltStops` (`render/bolt-stop.ts`) where a bolt in each column meets the
+picture — `coreStopper` with the core's near rim and the body's `Foot` where
+the shot is one part, a stopper of its own (`render/seam-stop.ts`) where it
+is not. The feet are `roundFoot`, `outlineFoot` over the points a shape file
+hands out beside its path (`capstanBodyPoints`) and `rodFoot`. The drawer
+takes `stops?: BoltStops` last and calls `stops?.aim(...)`; its dispatcher
+passes `effects.bolts`. A row goes in `render/test/core-stop-rows.ts` (its
+harness in `render/test/<boss>-harness.ts`). A target the bolt must be drawn
+through some other part of the body to reach is a look: say so in the
+stopper and leave it for VERSUS, as `flue-stop.ts` does.
+
+All four are drawn from `boss-draw-clocks-b.ts`, shared with the ANTIPHON
+lane. THE INSTAR's marks are only up while THE SLOW is open (`instarMarksUp`),
+and its body sways (`instar-sway.ts`): the stop is wherever the body is drawn
+that frame.
+
+Done when each boss here calls `stops?.aim`, has its row in
+`core-stop-rows.ts`, and `bun run check` is green.
+
+## THE GIMBAL, HASP and KEEL stop a bolt on what it meets
+
+- **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
+- **Where:** local
+- **Files:** `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/core-stop.ts`, `packages/render/test/core-stop-rows.ts`
+
+The owner, 1 October 2026, on THE SEAM *but also all other bosses*: the part
+the cannon must hit is lit in its colour and beats like a heart, the bolt has a
+clear path to it, and a bolt stops on whatever it meets — bursting on the right
+part, scuffing anywhere else and doing nothing. The rule is the last bullet of
+`.claude/skills/new-boss/generic.md`. THE SEAM and the eleven bosses whose
+shot is `coreVerdict` keep it (`render/core-stop.ts`, `render/*-stop.ts`).
+
+Each boss needs its shot's judgement pulled out of its `…Struck` into a pure
+`…Verdict(world, col, color)` the `…Struck` then acts on, as
+`sim/seam-shot.ts`'s `seamVerdict` was; then a `…-stop.ts` handing
+`BoltStops` (`render/bolt-stop.ts`) where a bolt in each column meets the
+picture — `coreStopper` with the core's near rim and the body's `Foot` where
+the shot is one part, a stopper of its own (`render/seam-stop.ts`) where it
+is not. The feet are `roundFoot`, `outlineFoot` over the points a shape file
+hands out beside its path (`capstanBodyPoints`) and `rodFoot`. The drawer
+takes `stops?: BoltStops` last and calls `stops?.aim(...)`; its dispatcher
+passes `effects.bolts`. A row goes in `render/test/core-stop-rows.ts` (its
+harness in `render/test/<boss>-harness.ts`). A target the bolt must be drawn
+through some other part of the body to reach is a look: say so in the
+stopper and leave it for VERSUS, as `flue-stop.ts` does.
+
+All three are drawn from `boss-draw-clocks-c.ts`, shared with the MANTLE lane.
+THE GIMBAL's drum may be drawn tilted under its VERSUS candidate
+(`gimbal-tilt.ts`, amount 0 as shipped): the stop is read off the flat picture
+the game draws.
+
+Done when each boss here calls `stops?.aim`, has its row in
+`core-stop-rows.ts`, and `bun run check` is green.
+
+## THE MANTLE, RATCHET and VALVE stop a bolt on what it meets
+
+- **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
+- **Where:** local
+- **Files:** `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/core-stop.ts`, `packages/render/test/core-stop-rows.ts`
+
+The owner, 1 October 2026, on THE SEAM *but also all other bosses*: the part
+the cannon must hit is lit in its colour and beats like a heart, the bolt has a
+clear path to it, and a bolt stops on whatever it meets — bursting on the right
+part, scuffing anywhere else and doing nothing. The rule is the last bullet of
+`.claude/skills/new-boss/generic.md`. THE SEAM and the eleven bosses whose
+shot is `coreVerdict` keep it (`render/core-stop.ts`, `render/*-stop.ts`).
+
+Each boss needs its shot's judgement pulled out of its `…Struck` into a pure
+`…Verdict(world, col, color)` the `…Struck` then acts on, as
+`sim/seam-shot.ts`'s `seamVerdict` was; then a `…-stop.ts` handing
+`BoltStops` (`render/bolt-stop.ts`) where a bolt in each column meets the
+picture — `coreStopper` with the core's near rim and the body's `Foot` where
+the shot is one part, a stopper of its own (`render/seam-stop.ts`) where it
+is not. The feet are `roundFoot`, `outlineFoot` over the points a shape file
+hands out beside its path (`capstanBodyPoints`) and `rodFoot`. The drawer
+takes `stops?: BoltStops` last and calls `stops?.aim(...)`; its dispatcher
+passes `effects.bolts`. A row goes in `render/test/core-stop-rows.ts` (its
+harness in `render/test/<boss>-harness.ts`). A target the bolt must be drawn
+through some other part of the body to reach is a look: say so in the
+stopper and leave it for VERSUS, as `flue-stop.ts` does.
+
+All three are drawn from `boss-draw-clocks-c.ts`, shared with the GIMBAL lane.
+
+Done when each boss here calls `stops?.aim`, has its row in
+`core-stop-rows.ts`, and `bun run check` is green.
+
+## THE CURTAIN, GORGE, TASTER and VANE stop a bolt on what it meets
+
+- **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
+- **Where:** local
+- **Files:** `packages/render/src/boss-draw-clocks.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/core-stop.ts`, `packages/render/test/core-stop-rows.ts`
+
+The owner, 1 October 2026, on THE SEAM *but also all other bosses*: the part
+the cannon must hit is lit in its colour and beats like a heart, the bolt has a
+clear path to it, and a bolt stops on whatever it meets — bursting on the right
+part, scuffing anywhere else and doing nothing. The rule is the last bullet of
+`.claude/skills/new-boss/generic.md`. THE SEAM and the eleven bosses whose
+shot is `coreVerdict` keep it (`render/core-stop.ts`, `render/*-stop.ts`).
+
+Each boss needs its shot's judgement pulled out of its `…Struck` into a pure
+`…Verdict(world, col, color)` the `…Struck` then acts on, as
+`sim/seam-shot.ts`'s `seamVerdict` was; then a `…-stop.ts` handing
+`BoltStops` (`render/bolt-stop.ts`) where a bolt in each column meets the
+picture — `coreStopper` with the core's near rim and the body's `Foot` where
+the shot is one part, a stopper of its own (`render/seam-stop.ts`) where it
+is not. The feet are `roundFoot`, `outlineFoot` over the points a shape file
+hands out beside its path (`capstanBodyPoints`) and `rodFoot`. The drawer
+takes `stops?: BoltStops` last and calls `stops?.aim(...)`; its dispatcher
+passes `effects.bolts`. A row goes in `render/test/core-stop-rows.ts` (its
+harness in `render/test/<boss>-harness.ts`). A target the bolt must be drawn
+through some other part of the body to reach is a look: say so in the
+stopper and leave it for VERSUS, as `flue-stop.ts` does.
+
+THE CURTAIN, GORGE and TASTER are drawn from `boss-draw-clocks.ts`, THE VANE
+from `boss-draw.ts`.
+
+Done when each boss here calls `stops?.aim`, has its row in
+`core-stop-rows.ts`, and `bun run check` is green.

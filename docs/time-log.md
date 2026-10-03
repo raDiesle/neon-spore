@@ -32680,3 +32680,15 @@ Bottleneck: the rig's loops on a lit phase running into the next step's light.
 Bottleneck: AUTO answering each level inside a second, so the frame had to be taken within a few ticks of the light.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-03 — The rest of the bolt rule, dealt into six entries
+
+- reading: 5 min. Which dispatcher page draws each of the twenty-two
+  bosses, and the queue's format for an entry.
+- writing: 5 min. Six entries, each standing alone: the rule, the recipe,
+  its own bosses and page; the umbrella entry closed.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: grouping by dispatcher page, so two lanes rarely edit one file.
