@@ -32805,3 +32805,5 @@ Bottleneck: THE OCULUS's look column, where nothing is drawn to meet, so the row
 - landing: 5 min. `check:fast`, the index's two lines, `land`.
 
 Bottleneck: reading the heights back, which showed the swung-wide lobes letting a bolt past the drawn kernel and the middle leg standing under THE TRIVET's face.
+
+*Measured: 34 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

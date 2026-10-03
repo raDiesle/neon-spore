@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 41be3c8cb — THE TRIVET and VISE stop a bolt on what it meets
+
+A bolt fired at THE TRIVET or THE VISE is now drawn to end where it meets the boss instead of flying on through its body. It bursts on the part the step asks for, in that part's colour, and scuffs on anything else: THE TRIVET's hub face, ahead or thrown out over its column on a lurch, its legs and plates; THE VISE's kernel, the seed it spits over its own column, and its two lobes as they swing and pinch. Exemption: a look the owner asked for by name (1 October 2026, "but also all other bosses").
+
 ## 2026-10-03 · 1f9c72018 — THE CYST and OCULUS stop a bolt on what it meets
 
 A bolt fired at THE CYST or THE OCULUS is now drawn to end where it meets the boss instead of flying on through its body. It bursts on the part the step asks for, in that part's colour, and scuffs on anything else: the core, THE CYST's bud up the column it swells over, the sac, and THE OCULUS's lens. THE OCULUS's look step asks for a column past its rim where nothing is drawn, so a bolt there stops at the top of the field, where it is judged.
