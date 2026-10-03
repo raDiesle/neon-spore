@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 1da82c9ab — hive-draw.ts split, THE HIVE's four site painters in hive-sites.ts
+
+Aiming THE HIVE's bolt stops took `hive-draw.ts` to 244 lines. The lobe, the swell, the breach and the scar read nothing of `drawHive` but their arguments and move to `hive-sites.ts`; `drawHive` and `drawMass` stay. Nothing drawn changes.
+
 ## 2026-10-03 · 4a85a8519 — THE GIMBAL lights when both rings are true
 
 Both rings standing true now throws a cross of light along both pivot axes, lights the drum from inside and sends a ring of light off it on the frame the pair comes true; the rims go white-hot. Every screen draws it, because both true is the one thing both seats are told, and it is the moment to count down and let go.
