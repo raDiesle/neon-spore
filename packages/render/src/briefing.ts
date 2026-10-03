@@ -78,6 +78,20 @@ export interface OpeningView {
   /** Whether this is a page of a rehearsal rather than the game, which is what
    * decides whether a lost wave gets its screen (`ViewState.rehearsal`). */
   rehearsal?: boolean;
+  /** Whether this device has a keyboard, so a guide's controls wear their
+   * keys (`ViewState.keys`, `guide-keycaps.ts`). */
+  keys?: boolean;
+}
+
+/** The part of an opening a host copies straight off what it was asked to
+ * draw. Picked rather than spread: a `ViewState` carries far more than this,
+ * and three hosts writing the same seven lines is where one of them forgets
+ * the eighth. */
+type Copied = "role" | "time" | "names" | "pointer" | "keys" | "guide" | "rehearsal";
+
+export function openingOf(view: Pick<OpeningView, Copied>): Pick<OpeningView, Copied> {
+  const { role, time, names, pointer, keys, guide, rehearsal } = view;
+  return { role, time, names, pointer, keys, guide, rehearsal };
 }
 
 export function drawWaveOpening(

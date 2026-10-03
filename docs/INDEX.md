@@ -1728,6 +1728,7 @@ by hand never moves.
 | `packages/render/src/guide-film.ts` | Where a rehearsal's film stands on its stage — phone-shaped and centred, less the nav bar — and the hands drawn on it |
 | `packages/render/src/guide-welcome.ts` | The page before a device's first tutorial: what the stepper is |
 | `packages/render/src/guide-look.ts` | The tutorial's furniture, as one record: the band across the top that says TUTORIAL and whose screen this is |
+| `packages/render/src/guide-keycaps.ts` | A keycap on each control a guide shows, at a desk only: a strip's two step keys at its ends, a lobe's key on its shoulder |
 | `packages/render/src/gum.ts` | THE GUM, drawn in its two states: a heavy drop coming down a lane |
 | `packages/render/src/gum-splash.ts` | **A gum landing on the ship, remembered.** One event — a `breach` carrying the gum's own kind |
 | `packages/render/src/baked.ts` | Every cache in render/ that holds baked work between frames, in one place that can empty them all |

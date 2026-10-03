@@ -32694,3 +32694,18 @@ Bottleneck: AUTO answering each level inside a second, so the frame had to be ta
 Bottleneck: grouping by dispatcher page, so two lanes rarely edit one file.
 
 *Measured: 1311 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — A guide at a desk shows the keyboard keys on its controls
+
+- reading: 10 min. `keys-desk.ts`, `key-hint.ts`, the guide's draw path
+  from `ViewState` down to `GuideStage.draw`, and where a lobe and a strip
+  are placed.
+- writing: 10 min. `guide-keycaps.ts`, `keyGlyph`, the `keys` flag through
+  three hosts, `openingOf`, two tests.
+- looking: 5 min. Four frames: before, FIRST STEP, CYAN, THE CLAW.
+- friction: 0 min.
+- landing: 5 min. `frame-ship.ts` one line past the limit and the index
+  line, then `check:fast`.
+
+Bottleneck: following one flag through three hosts that each copied the
+same seven fields of an opening by hand.

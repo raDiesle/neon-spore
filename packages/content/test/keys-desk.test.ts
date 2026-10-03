@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { CONTROL_SETS, controlSet, setControls } from "../src/control-sets.js";
-import { deskKey, deskKeys, deskStepSeats } from "../src/keys-desk.js";
+import { deskKey, deskKeys, deskStepSeats, keyGlyph } from "../src/keys-desk.js";
 
 /**
  * The desk keyboard is a panel, and this is what holds it to that.
@@ -150,5 +150,15 @@ describe("a strip key moves the seats it is supposed to", () => {
     const a = deskKey(claw, "KeyA");
     if (a === undefined) throw new Error("A is the arm's column on THE CLAW");
     expect(deskStepSeats(claw, a)).toEqual([a]);
+  });
+});
+
+describe("a keycap's face", () => {
+  it("is the letter, or the arrow itself — one character either way", () => {
+    expect(keyGlyph("KeyA")).toBe("A");
+    expect(keyGlyph("ArrowLeft")).toBe("←");
+    for (const set of CONTROL_SETS) {
+      for (const k of deskKeys(set)) expect([...keyGlyph(k.code)]).toHaveLength(1);
+    }
   });
 });

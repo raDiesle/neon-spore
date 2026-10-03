@@ -129,6 +129,13 @@ export interface ViewState {
    */
   pointer?: { x: number; y: number };
   /**
+   * Whether this device is played from a keyboard. A guide's rehearsal then
+   * puts the desk's key on each control it shows (`guide-keycaps.ts`); a
+   * phone leaves it unset and is never shown a key it has not got. Per device
+   * like `pointer`, and nothing the world knows.
+   */
+  keys?: boolean;
+  /**
    * What the two people are called, by seat, blank where nobody has said.
    *
    * The room carries them (`apps/game/src/link.ts`), and the only screens that

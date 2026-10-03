@@ -1,6 +1,7 @@
 import type { RunMark } from "@neon-spore/net";
 import type { Canvas2DRenderer } from "@neon-spore/render";
 import { failHolds, type SimEvent, slowing, step, ticksPerBeat, type World } from "@neon-spore/sim";
+import { atADesk } from "./at-a-desk.js";
 import type { GameAudio } from "./audio.js";
 import type { InputBuffer } from "./input.js";
 import { interpolatedBeatPhase } from "./interpolate.js";
@@ -103,6 +104,8 @@ export function startFrames(p: FrameParts): Frames {
   const tpb = ticksPerBeat(p.world.cfg);
   // Off unless the URL asked for it: unset, every frame is due.
   const idle = createMenuIdle(p.menuIdle ?? null);
+  // Asked once: a device does not stop being a desk between two frames.
+  const keys = atADesk();
 
   const paint = (dt: number): void => {
     const status = p.link.status();
@@ -139,6 +142,7 @@ export function startFrames(p: FrameParts): Frames {
       running: p.run.running(),
       hand: p.hand.current,
       pointer: p.pointer(),
+      keys,
       thumbs: p.thumbs(),
       names: status.names,
       // The one thing on this screen that has to be drawn ahead of the

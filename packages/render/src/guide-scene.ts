@@ -1,6 +1,7 @@
 import { framePhase, type World } from "@neon-spore/sim";
 import type { OpeningView } from "./briefing.js";
 import { drawHands, filmLayout, seatLayout } from "./guide-film.js";
+import { drawGuideKeycaps } from "./guide-keycaps.js";
 import { GUIDE_LOOK } from "./guide-look.js";
 import { ScenePlay, type Stated } from "./guide-play.js";
 import { SeatView } from "./guide-seat.js";
@@ -180,6 +181,9 @@ export class GuideStage {
     );
 
     const phase = framePhase(run.world);
+    // A desk's keys on the controls they press, under the words and the hand,
+    // and coming in with the screen they belong to (`guide-keycaps.ts`).
+    if (view.keys) drawGuideKeycaps(ctx, l, run.world, set, from === null ? 1 : k);
     GUIDE_LOOK.caption(ctx, l, run.world, set, step, run.tick, phase, names);
     drawHands(ctx, l, run, scene, set, shown, phase);
     ctx.restore();

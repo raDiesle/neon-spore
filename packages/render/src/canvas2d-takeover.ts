@@ -1,4 +1,4 @@
-import { drawWaveOpening } from "./briefing.js";
+import { drawWaveOpening, openingOf } from "./briefing.js";
 import type { Layout, Stage } from "./layout.js";
 import { openingKey } from "./opening-key.js";
 import type { RenderState } from "./render-state.js";
@@ -45,14 +45,9 @@ export function drawTakeover(
     ctx.fillStyle = "#05040B";
     ctx.fillRect(0, 0, stage.width, stage.height);
     drawWaveOpening(ctx, l, world, {
-      role: view.role,
+      ...openingOf(view),
       scene: held.guide,
-      time: view.time,
       fx: held.effects.opening,
-      names: view.names,
-      pointer: view.pointer,
-      guide: view.guide,
-      rehearsal: view.rehearsal,
     });
     return true;
   }
@@ -75,15 +70,7 @@ export function drawTakeover(
     held.effects.boss.hit.update(view.dt, l);
   }
   if (drawRound(ctx, l, view, held.effects)) {
-    drawWaveOpening(ctx, l, world, {
-      role: view.role,
-      time: view.time,
-      fx: held.effects.opening,
-      names: view.names,
-      pointer: view.pointer,
-      guide: view.guide,
-      rehearsal: view.rehearsal,
-    });
+    drawWaveOpening(ctx, l, world, { ...openingOf(view), fx: held.effects.opening });
     return true;
   }
   return false;

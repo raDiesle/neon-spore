@@ -179,6 +179,23 @@ export function keyLabel(code: string): string {
   return code.replace("Key", "").replace("Arrow", "").toUpperCase();
 }
 
+/** What is printed on an arrow key, which is a picture rather than a word. */
+const ARROW_GLYPH: Record<string, string> = {
+  ArrowLeft: "←",
+  ArrowRight: "→",
+  ArrowUp: "↑",
+  ArrowDown: "↓",
+};
+
+/**
+ * The key's face as a keycap drawn on screen shows it: `keyLabel`, except that
+ * an arrow is its arrow. A list can say LEFT; a keycap one letter wide cannot,
+ * and the guide's keycaps (`render/src/guide-keycaps.ts`) are that small.
+ */
+export function keyGlyph(code: string): string {
+  return ARROW_GLYPH[code] ?? keyLabel(code);
+}
+
 /**
  * Every key of one seat's sideways pair that this panel answers, both
  * directions of a strip included.

@@ -1187,6 +1187,14 @@ Keyboard: space, as both seats at once, for a desk — one person at a desk is
 both seats, so it fills both circles, which is the same answer the director's
 `TEST` role gives.
 
+**A film at a desk wears its keys** (3 October 2026, the owner: *on a
+non-touch device the guide should show the keyboard shortcuts*). Each control
+the page's seat carries has a keycap drawn on it — a strip's two step keys at
+its two ends, a lobe's key on its shoulder — read off `deskKeys` for the same
+set the band was drawn from (`render/src/guide-keycaps.ts`). The host says
+whether the device is a desk (`ViewState.keys`, from `atADesk`); a phone is
+never shown a key.
+
 There is no SKIP. A guide one player skips past is a sentence the pair never
 finished reading, so both seats have to hold their own circle and neither can
 do it for the other.

@@ -79,6 +79,7 @@ export {
   deskKeys,
   deskSlideKeys,
   deskStepSeats,
+  keyGlyph,
   keyLabel,
 } from "./keys-desk.js";
 export { KEY, LIGHT_HALF, type LightHalf } from "./light.js";

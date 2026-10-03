@@ -3,7 +3,7 @@ import type { World } from "@neon-spore/sim";
 import { faultsNow } from "@neon-spore/sim";
 import { bandControlSet, drawBand } from "./band.js";
 import { bandLobes } from "./band-lobes.js";
-import { drawWaveOpening } from "./briefing.js";
+import { drawWaveOpening, openingOf } from "./briefing.js";
 import type { Effects } from "./effects.js";
 import { faultBeamEnds } from "./fault-beam-ends.js";
 import { drawFaultBeam } from "./fault-emitter.js";
@@ -205,17 +205,7 @@ export function drawOverlays(
   // Over the pause overlay and everything else: while a wave's introduction or
   // its guide is up the world is not ticking, so nothing under it is doing
   // anything worth seeing.
-  drawWaveOpening(ctx, l, world, {
-    role: view.role,
-    surfaceY,
-    scene,
-    time: view.time,
-    fx,
-    names: view.names,
-    pointer: view.pointer,
-    guide: view.guide,
-    rehearsal: view.rehearsal,
-  });
+  drawWaveOpening(ctx, l, world, { ...openingOf(view), surfaceY, scene, fx });
 }
 
 /** The fault's beam ends are the band's own circles, read off the same set
