@@ -381,7 +381,6 @@ Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 ## THE INSTAR, NETTLE, SCUTTLE and STARE stop a bolt on what it meets
 
 - **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
-- **Taken:** 2026-10-03, claude/queue-work-cccabd (claim: claude/queue-the-instar-nettle-scuttle-and-stare-stop-a-bolt)
 - **Where:** local
 - **Files:** `packages/render/src/boss-draw-clocks-b.ts`, `packages/render/src/core-stop.ts`, `packages/render/test/core-stop-rows.ts`
 
