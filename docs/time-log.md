@@ -33079,3 +33079,5 @@ Bottleneck: `valve-shape.ts` was at its line ceiling, so sharing the pins' outli
 - landing: 5 min. `check:fast`, the index, `land`.
 
 Bottleneck: the slab and plate were drawn as quadratic paths with no points beside them, so the outlines had to become shared data before a bolt could meet them.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

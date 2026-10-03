@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 147d1d995 — THE SCUTTLE stops a bolt on what it meets
+
+A bolt fired at THE SCUTTLE is drawn stopping where the simulation says it landed: on the live part where it hangs — where the pilot swung it, if he did — bursting in its colour and scuffing in the other, and otherwise on the lowest of the slab and the loose parts hanging under it. The verdict is `scuttleVerdict`, which `scuttleStruck` now acts on; the slab's and the plate's outlines are laid once in `scuttle-outline.ts`, drawn and met alike, and the lock moved to `scuttle-lock.ts`.
+
 ## 2026-10-03 · 042b77194 — THE VALVE stops a bolt on what it meets
 
 A bolt fired at THE VALVE is drawn stopping where the simulation says it landed: on the leaking spark in its column, in either colour, and otherwise on the lowest of the drum — whole, or its two halves swung apart once it falls open — and the pins still hung under it, each swaying about its top, all laid through the drum's shake and list. The verdict is `valveVerdict`, which `valveStruck` now acts on; the pins' outlines moved from `valve-shape.ts` to `valve-pins.ts` to share them.
