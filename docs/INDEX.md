@@ -2140,7 +2140,7 @@ by hand never moves.
 | `packages/render/src/gimbal-blow.ts` | THE GIMBAL's timeout blow: the seam's bead pressed into the skin and the plating split open in its colour |
 | `packages/render/src/gimbal-marks.ts` | **THE GIMBAL's two rings answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/gimbal-tilt-draw.ts` | The solid half of THE GIMBAL's drifting candidate: yoke, drum and this seat's rings through the rig |
-| `packages/render/src/gimbal-tilt.ts` | THE GIMBAL's idle drift, a VERSUS seam (`GIMBAL_TILT`): hush by phase, and the ring plane's affine |
+| `packages/render/src/gimbal-tilt.ts` | THE GIMBAL's idle drift, in the game (`GIMBAL_TILT`): hush by phase, and the ring plane's affine |
 | `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
 | `packages/render/src/effects-round-marks.ts` | The rounds' mark verdicts (GAUGE, SNAKE, PINBALL), a base of the effects roster fed by the takeover because a round frame skips `Effects.ingest` |
 | `packages/render/src/strand-still.ts` | One live bead on the navigator's screen that **no shot can answer this instant**: the reel drawn as a grey outline |

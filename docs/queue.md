@@ -568,3 +568,17 @@ The three answers, all desk-only — a phone keeps a pad a finger:
 Done when a desk's mouse can clamp THE GRINDSTONE and complete each other
 chord in the chosen way, `desk-reach.test.ts` (or a test beside it) asks
 that it can, and `bun run check` is green.
+
+## THE GIMBAL's flat picture is dead code now the drift ships
+
+- **Found:** 2026-10-03, claude/gimbal-tilt-drift-styling-fc01cc
+- **Files:** `packages/render/src/gimbal-draw.ts`, `packages/render/src/gimbal-ring.ts`, `packages/render/src/gimbal-tilt.ts`, `packages/render/test/gimbal-tilt.test.ts`
+
+`gimbal:tilt` / `drift` was taken into the game on 3 October 2026, so
+`GIMBAL_TILT.amount` is 1 and every `rigged` branch is the only one the game
+reaches: `drawYoke`, the flat `drawDrum` call while the drum is shut, and the
+`!rigged` paths in `drawGimbalRing` (`paintHoop`, `drawTeethAndPins`). Delete
+the flat branches and the `rigged` parameter, keep `amount` only if a test still
+needs a level cradle (the hush tests can call `gimbalTilt` with a hush of 0),
+and drop the two tests that compare against the flat picture — or measure the
+cost against a fixed budget row instead. `bun run check` proves it.

@@ -32765,3 +32765,15 @@ Bottleneck: tracing a press from the mouse through the desk rig to the chord cou
 Bottleneck: the frame on the fire step, which needed the step's own event to land on rather than the bite before it.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE GIMBAL's drift taken into the game
+
+- reading: 5 min. The candidate, `gimbal-tilt.ts`, how `versus adopt` closes a slot.
+- writing: 5 min. `versus adopt`, the comments and spec rows that said "off in
+  the game", the shut drum's hurt wash on the rigged shell.
+- looking: 5 min. One frame of THE GIMBAL from this tree.
+- friction: 5 min. Five red frame tests found only by `check:fast`, one of
+  them a real loss (no red wash on a landed blow).
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the candidate's tests compared it to the flat picture but never ran the shared boss-hurt test with the seam on.

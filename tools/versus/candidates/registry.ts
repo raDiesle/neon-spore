@@ -6,6 +6,5 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { GIMBAL_DRIFT } from "./gimbal-tilt/drift/index.js";
 
-export const VARIANTS: Variant[] = [GIMBAL_DRIFT];
+export const VARIANTS: Variant[] = [];

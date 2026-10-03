@@ -1515,3 +1515,15 @@ INSTAR_BODY holds its curves and drawBelly its band. adopt read the record's
 type annotation as its value and refused.
 
 The other answer offered was `weight`; it went with the slot.
+
+## `gimbal:tilt` / `drift` — taken, 2026-10-03
+
+the owner, 3 October 2026: looks nice - apply it to game
+
+drift — THE GIMBAL is solid: a shaded drum, steel hoops and teeth, and the
+whole cradle slowly turns, tips and rolls in its yoke, steadying while a ring
+is being turned
+
+Written into `packages/render/src/gimbal-tilt.ts`, `GIMBAL_TILT`: `amount`.
+
+It was the only answer offered.

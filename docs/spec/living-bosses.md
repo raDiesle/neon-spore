@@ -425,7 +425,7 @@ with a joint, before it can move.
 | THE KEEL | each spine segment | ready |
 | THE CAIRN | each stone | ready |
 | THE FILAMENT | heart | ready |
-| THE GIMBAL | the drum, nodding in its rings | built, in VERSUS (`gimbal-tilt.ts`) |
+| THE GIMBAL | the drum, nodding in its rings | shipped 3 October 2026 (`gimbal-tilt.ts`) |
 | THE ANTIPHON, THE BATON, THE LEAD | none | decided 2 October 2026: their light turn is their drift |
 | THE NETTLE | its bell and each tentacle | not drawn yet: its body lane builds the parts separate from the start |
 
@@ -542,6 +542,7 @@ fit for the rig. This ask widens it to every visible boss. The order:
    *Built:* THE GIMBAL, offered in VERSUS as `gimbal:tilt` (2 October 2026):
    a shaded drum nodding inside steel rings, the cradle turning, tipping and
    rolling in its yoke, a third of it through a turn (`gimbal-tilt.ts`).
+   Taken into the game by the owner, 3 October 2026.
    *Decided, 2 October 2026:* the other three keep the turn in their light
    and get nothing more. Everything they say is read by column — THE
    ANTIPHON's pits, perches and rail, THE BATON's joints and knuckles, THE

@@ -23,9 +23,9 @@ import { fresh, type Pose, run, POSE_TPB as TPB } from "./pose-kit.js";
  * actually is. That second one is also what lights the knurl — `gimbalHeld`
  * is true from it on (`render/gimbal-grip.ts`).
  *
- * VERSUS's `gimbal:tilt` is judged on the outer one: a ring under a thumb is
- * where the fight spends nearly all its time, so it is where the drift has
- * to be seen and where it must not get in the hand's way.
+ * The drift (`gimbal-tilt.ts`) was judged in VERSUS on the outer one: a
+ * ring under a thumb is where the fight spends nearly all its time, so it is
+ * where the drift has to be seen and where it must not get in the hand's way.
  */
 
 /** One thumb going on one rim: the grab that turns nothing, then where it is. */

@@ -16,6 +16,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { STEEL } from "../src/gimbal-rig.js";
 import { gimbalFaceMilli } from "../src/gimbal-shape.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
@@ -173,10 +174,10 @@ describe("THE GIMBAL's cradle", () => {
   it.each(ROLES)("hangs the drum dark and still, on %s", (role) => {
     const dark = frame(role, still);
     expect(dark.calls).toBeGreaterThan(50);
-    // Rock, because neither ring is ever shot. The counts are relative
-    // throughout this file: the whole frame is logged, and the ship's own
-    // band carries both trigger colours whatever the boss is doing.
-    expect(count(dark.text, PALETTE.rock)).toBeGreaterThan(0);
+    // Steel, because neither ring is ever shot (`gimbal-rig.ts`). The counts
+    // are relative throughout this file: the whole frame is logged, and the
+    // ship's own band carries both trigger colours whatever the boss is doing.
+    expect(count(dark.text, STEEL.base)).toBeGreaterThan(0);
   });
 
   it.each(ROLES)("marks the ring once an alignment is up, on %s", (role) => {

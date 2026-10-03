@@ -105,7 +105,7 @@ export function drawGimbal(
     ctx.translate(at.x, at.y);
     ctx.rotate(tilt.roll);
     ctx.translate(-at.x, -at.y);
-    drawTiltedCradle(ctx, l, s, at, open, time, tilt);
+    drawTiltedCradle(ctx, l, s, at, open, time, tilt, fx.hurt.value);
     tiltPlane(ctx, at, tilt);
   } else drawYoke(ctx, l, at, lit);
   if (!rigged || open > 0) drawDrum(ctx, l, at, open, time, fx.hurt.value);

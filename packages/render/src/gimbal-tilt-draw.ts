@@ -1,5 +1,6 @@
 import { FRONT, view } from "@neon-spore/content";
 import { type GimbalRing, type GimbalState, gimbalTeeth, INNER, OUTER } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { gimbalSpinMilli } from "./gimbal-drum.js";
 import { gimbalPins, gimbalShell, gimbalYokeRods, HOOP, ROD, SEAM, STEEL } from "./gimbal-rig.js";
 import {
@@ -55,11 +56,12 @@ export function drawTiltedCradle(
   open: number,
   time: number,
   t: GimbalTilt,
+  hurt: number,
 ): void {
   const rings = ([OUTER, INNER] as GimbalRing[]).filter((ring) =>
     ring === OUTER ? showsGimbalOuter(l.role) : showsGimbalInner(l.role),
   );
-  if (open === 0) drawShell(ctx, l, at, t);
+  if (open === 0) drawShell(ctx, l, at, t, hurt);
   ctx.save();
   tiltPlane(ctx, at, t);
   const reach = gimbalRingR(l, OUTER);
@@ -101,9 +103,22 @@ export function drawTiltedCradle(
  * plus any yaw projects to an ellipse that stays level, as wide as the drum
  * and as tall as the sine of its tip — so face-on it is a line.
  */
-function drawShell(ctx: CanvasRenderingContext2D, l: Layout, at: Point, t: GimbalTilt): void {
+function drawShell(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  at: Point,
+  t: GimbalTilt,
+  hurt: number,
+): void {
   const pitch = t.pitch + t.drum;
   drawRig(ctx, [gimbalShell(l.tile)], view(FRONT + t.yaw, pitch), at.x, at.y, LOOK);
+  // A round shell's outline is its circle however it nods, so a landed blow
+  // washes that, as the flat drum washed its leaves (`boss-hurt.ts`).
+  if (hurt > 0) {
+    const outline = new Path2D();
+    outline.arc(at.x, at.y, gimbalDrumR(l), 0, Math.PI * 2);
+    drawHurt(ctx, outline, hurt);
+  }
   const r = gimbalDrumR(l) * 1.01;
   const sp = Math.sin(pitch);
   const from = sp >= 0 ? 0 : Math.PI;

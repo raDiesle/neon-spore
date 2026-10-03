@@ -30,7 +30,7 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE GIMBAL's drifting candidate** (`gimbal-tilt.ts`): off in the game,
+ * **THE GIMBAL's drift** (`gimbal-tilt.ts`): on in the game since 3 October 2026,
  * the flat furniture lands on the rig it is laid over, the drift steadies
  * for the hands, and at its widest it never moves the rim a thumb is measured
  * against out of reach — nor a ring out of the true band it is aligned in.
@@ -43,7 +43,7 @@ beforeAll(() => {
 });
 
 afterEach(() => {
-  GIMBAL_TILT.amount = 0;
+  GIMBAL_TILT.amount = 1;
 });
 
 const TPB = ticksPerBeat(CFG);
@@ -102,8 +102,9 @@ function drawn(world: World, role: (typeof ROLES)[number]): string {
 }
 
 describe("THE GIMBAL's drift", () => {
-  it("is level while the seam is off, which is the game", () => {
-    expect(GIMBAL_TILT.amount).toBe(0);
+  it("is on in the game, and level while the seam is off", () => {
+    expect(GIMBAL_TILT.amount).toBe(1);
+    GIMBAL_TILT.amount = 0;
     expect(gimbalTilt(13.7, 1)).toBe(LEVEL);
   });
 

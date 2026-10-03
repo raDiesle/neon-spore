@@ -11,11 +11,10 @@ import { type SlowSpan, slowHush } from "./slow-hush.js";
  * a little in its yoke, tipping toward the players and back, and rolling;
  * the drum nodding inside its rings on its own, the way a head leads a body.
  *
- * **A VERSUS seam, off in the game.** `amount` is 0 and the shipped flat
- * picture is drawn; the candidate `gimbal:tilt` sets it to 1
- * (`tools/versus/candidates/gimbal-tilt/`). The owner dropped THE INSTAR's
- * drift as looking worse, and answered 2 October 2026 that each rig boss is
- * offered it anyway and judged on its own.
+ * **In the game since 3 October 2026.** Offered in VERSUS as `gimbal:tilt`
+ * / `drift` and taken by the owner (`tools/versus/DECIDED.md`). `amount` is
+ * the seam it was judged through: 1 is the drift, 0 the flat picture the
+ * game drew before it.
  *
  * **What a thumb is measured against moves with what it is aligning.** The
  * rings are drawn through an affine of the plane they stand in
@@ -30,8 +29,8 @@ import { type SlowSpan, slowHush } from "./slow-hush.js";
  * and the true band.
  */
 
-/** The candidate's seam: 0 is the shipped picture, 1 the whole drift. */
-export const GIMBAL_TILT: { amount: number } = { amount: 0 };
+/** The drift's seam: 1 is the game, 0 the flat picture it replaced. */
+export const GIMBAL_TILT: { amount: number } = { amount: 1 };
 
 /** THE GIMBAL's own lattice, so it never wanders in step with another boss. */
 const SEED = 163;
