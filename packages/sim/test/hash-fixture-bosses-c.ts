@@ -93,8 +93,8 @@ export const BOSS_ENTRIES_C = {
   gimbal: {
     kind: "gimbal",
     marks: [
-      { outerMilli: 250, innerMilli: 250, creepMilli: 0 },
-      { outerMilli: 600, innerMilli: 400, creepMilli: 15 },
+      { outerMilli: 250, innerMilli: 500, creepMilli: 0, trueMilli: 45 },
+      { outerMilli: 600, innerMilli: 400, creepMilli: 15, trueMilli: 30 },
     ],
   },
   // THE SPOOL authors nothing at all, which is the entry (`SpoolEntry`): four
@@ -212,12 +212,14 @@ export function patchBossC(boss: BossState): void {
   }
   if (boss.kind === "gimbal") {
     // The first alignment up, both rings turned off rest and both thumbs down
-    // with a bearing remembered, the hold a beat in, and the seam open with a
-    // beat on it — every nullable field given a value, so the walk can tell a
+    // with a bearing remembered, the hold a beat in, a let-go window open, and
+    // the seam open with a beat on it — every nullable field given a value, so the walk can tell a
     // hashed one from a field it never sees change (`gimbal-hash.ts`).
     boss.phase = "turn";
     boss.phaseBeat = 3;
     boss.heldBeats = 1;
+    boss.letGoTick = 7;
+    boss.letGoRing = 1;
     boss.atMilli = [240, 260];
     boss.handMilli = [180, 820];
     boss.seamCol = 4;

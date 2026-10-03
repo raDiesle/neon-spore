@@ -6971,8 +6971,9 @@ boss nobody is playing.
 (`sim/test/gimbal.test.ts`, `gimbal-seam.test.ts`): the drum comes in still and
 lights its first marks; a ring turns the way its own hand turned and the inner
 one the other way on the wheel; a grab alone moves nothing; both rings true
-together for two beats shear a tooth pair under THE SLOW; either leaving its
-mark loses the hold and nothing else; a ring let go of drifts back to rest and a
+together light the pair, and both thumbs let go together shear a tooth pair
+under THE SLOW (`gimbal-let-go.test.ts`); either leaving its mark loses the
+pair and nothing else; the outer carries the inner (`gimbal-carry.test.ts`); a ring let go of drifts back to rest and a
 held one does not; no alignment ever times out; the seam opens with one pair
 left, goes out to a bolt of either colour in the middle, and fails the wave if
 nobody answers it; and the last pair takes the drum through the hatch and out.
@@ -6988,6 +6989,44 @@ drifts back to rest. Both come true together, so `gimbalTrue` washes both green;
 `gimbalSlip` now says which ring left its mark (`outer`, `inner`), and only that
 ring goes red. There is no partner's clock and no refusal: each ring is drawn on
 its own seat's screen alone.
+
+**Remade as a puzzle, 3 October 2026.** The owner played it and found it *too
+easy and too short*, and asked for a puzzle in which both have to align and let
+go in the same moment, with a bigger picture when it is right. What was wrong
+was that nothing made the pair talk: each seat could see its own mark and drag
+its own ring onto it, so the mirror never bit. Four changes, the owner choosing
+all four:
+
+- **The marks are swapped** (`render/gimbal-partner.ts`). Each screen shows the
+  *partner's* mark — on this seat's own face, over a faint track at the partner
+  ring's radius — and never its own. It fills when the partner's ring stands on
+  it, so the word *stop* is the seat that can see it. A rim no longer glows for
+  its own seat alone, and the cue never says `HOLD` for one ring: either would
+  be the hidden mark. Both rings true is the one thing both are shown — both
+  rims glow and the cue says `LET GO`.
+- **The outer ring carries the inner** (`sim/gimbal-turn.ts`,
+  `gimbalCarryPct`, a hundred): every turn of his, the drift's included, moves
+  hers as far, as a real gimbal's does. So she is knocked off whenever he moves,
+  an unheld inner rides his turn and then falls home, and what she has to turn
+  is `innerMilli - outerMilli` rather than `innerMilli`.
+- **A tooth shears on the let-go, not the hold** (`sim/gimbal-let-go.ts`).
+  `gimbalHoldBeats` is gone. Both hands off a true pair within
+  `gimbalLetGoTicks` (thirty, a quarter of a second) is the shear; a thumb late,
+  or a ring off its mark when the second lets go, is `gimbalSlip`, naming that
+  ring. The first ring let go of is latched against drift until the window
+  closes, so a beat falling between two thumbs does not decide it. A thumb put
+  back on calls its own let-go off, unbilled.
+- **Six alignments, and the window closes** (`content/src/gimbal-script.ts`).
+  `gimbalTrueMilli` is gone from the config: each alignment carries its own
+  `trueMilli`, 45 down to 20, so six teeth a ring and the last two creep.
+
+*Two stops in a row, like a safe dial, is not built.* An alignment that takes no
+tooth leaves the rim, which is the health, looking as it did before the pair
+landed it — a let-go that shows nothing on the boss reads as one that missed.
+Six that each take a tooth is the same length, said by the rim.
+
+The bigger picture when both are true — the beam through both rings — is the
+second lane, and lands separately.
 
 ## 11.36 THE SPOOL — the boss where the line runs out at the speed one of you reads
 

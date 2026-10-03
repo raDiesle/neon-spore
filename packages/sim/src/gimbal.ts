@@ -1,5 +1,4 @@
 import { bearingApart, NO_BEARING, TURN } from "./bearing.js";
-import type { SimConfig } from "./config.js";
 import type { World } from "./world.js";
 
 /**
@@ -16,9 +15,21 @@ import type { World } from "./world.js";
  * clockwise* called across a phone connection is the sentence this boss
  * exists to make the pair get wrong once.
  *
- * **The rule is one sentence**: each of you turns your own ring to your own
- * mark and holds it there, and when both sit true together a latch-tooth
- * shears off each ring.
+ * **The rule is one sentence**: each of you turns your own ring to the mark
+ * only the other can see, and when both sit true you let go together and a
+ * latch-tooth shears off each ring.
+ *
+ * Three things make that a puzzle rather than two people dragging to two
+ * wedges, on the owner's ask of 3 October 2026 (*too easy and too short*).
+ * **The marks are swapped**: each screen shows the partner's mark and never
+ * its own (`render/gimbal-partner.ts`), so a ring is brought true by being
+ * talked onto it — and the mirror means *it is on the left* is a different
+ * place on the other face. **The outer ring carries the inner**, as a real
+ * gimbal's does (`gimbalTurnRing`): every turn of his moves hers by
+ * `gimbalCarryPct`, so she is knocked off whenever he moves and the order
+ * the pair works in matters. **A tooth shears on the let-go, not the hold**:
+ * both hands off within `gimbalLetGoTicks` of each other while both rings sit
+ * true (`gimbal-let-go.ts`) — the count down out loud is the gesture.
  *
  * **Its health is six latch-teeth**, three to a ring, and they shear in
  * pairs — one from each ring, only ever together, because an alignment is
@@ -52,6 +63,9 @@ export const GIMBAL_RINGS: readonly GimbalRing[] = [OUTER, INNER];
 /** The seam shut, and the column value that says so. */
 export const NO_SEAM = -1;
 
+/** No hand let go of a true pair yet: no let-go window open. */
+export const NO_LET_GO = -1;
+
 /**
  * One alignment the pair has to find: where each ring's mark sits on the true
  * wheel, and how far the marks creep each beat.
@@ -69,6 +83,9 @@ export interface GimbalMark {
   innerMilli: number;
   /** How far both marks creep a beat, in thousandths. Nought is still. */
   creepMilli: number;
+  /** How near its mark a ring must sit to read as true, in thousandths — the
+   * wave's, alignment by alignment, so the window can close as the fight goes on. */
+  trueMilli: number;
 }
 
 /** What a wave authors: the alignments, in order, and nothing else. */
@@ -103,6 +120,11 @@ export interface GimbalState {
   handMilli: [number, number];
   /** Beats both rings have sat true together; nought the moment either slips. */
   heldBeats: number;
+  /** The tick the first hand left a true pair, `NO_LET_GO` while no let-go
+   * window is open (`gimbal-let-go.ts`). */
+  letGoTick: number;
+  /** The ring whose hand left first, `NO_LET_GO` with the window shut. */
+  letGoRing: number;
   /** The column the seam leaks in, `NO_SEAM` while it is shut. */
   seamCol: number;
   /** `world.beat` the seam opened. */
@@ -161,22 +183,25 @@ export function gimbalMarkMilli(s: GimbalState, beat: number, ring: GimbalRing):
 }
 
 /** Whether one ring sits on its own mark, within the tolerance a thumb has. */
-export function gimbalRingTrue(
-  s: GimbalState,
-  cfg: SimConfig,
-  beat: number,
-  ring: GimbalRing,
-): boolean {
+export function gimbalRingTrue(s: GimbalState, beat: number, ring: GimbalRing): boolean {
   const mark = gimbalMarkMilli(s, beat, ring);
   if (mark === NO_BEARING) return false;
-  return bearingApart(s.atMilli[ring], mark) <= cfg.gimbalTrueMilli;
+  return bearingApart(s.atMilli[ring], mark) <= gimbalTrueMilli(s);
+}
+
+/** How near is near enough for the alignment that is up; nought once all are spent. */
+export function gimbalTrueMilli(s: GimbalState): number {
+  return s.marks[s.cursor]?.trueMilli ?? 0;
+}
+
+/** Whether one hand has let go of a true pair and the other's is still awaited. */
+export function gimbalLettingGo(s: GimbalState): boolean {
+  return s.letGoTick !== NO_LET_GO;
 }
 
 /** Whether both rings sit true at once, which is the only thing that shears. */
-export function gimbalAligned(s: GimbalState, cfg: SimConfig, beat: number): boolean {
-  return (
-    gimbalTurning(s) && gimbalRingTrue(s, cfg, beat, OUTER) && gimbalRingTrue(s, cfg, beat, INNER)
-  );
+export function gimbalAligned(s: GimbalState, beat: number): boolean {
+  return gimbalTurning(s) && gimbalRingTrue(s, beat, OUTER) && gimbalRingTrue(s, beat, INNER);
 }
 
 /** Whether the seam is leaking and there is something to shoot at. */

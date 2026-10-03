@@ -30,9 +30,10 @@ import { NOT_FAILED } from "../src/wave-fail.js";
  * own ring and only its own. That the navigator's rim is **mirrored** — the
  * same drag that carries the pilot's ring clockwise carries hers the other
  * way round the wheel — which is the whole fight, and is one function rather
- * than a rule written twice (`gimbalShownMilli`). That nothing shears until
- * both rings sit true *together* for the hold, that either of them leaving
- * early is the slip, and that a ring nobody is holding drifts back to rest.
+ * than a rule written twice (`gimbalShownMilli`). That both rings true
+ * together lights the pair and takes no tooth on its own — the let-go does,
+ * `gimbal-let-go.test.ts` — that either of them leaving is the slip, and
+ * that a ring nobody is holding drifts back to rest.
  * That the last tooth pair leaves the seam leaking, that a bolt of either
  * colour shuts it, and that nobody's bolt is one strike on the hull. And
  * that no window ever closes on the pair: an alignment nobody finds is an
@@ -46,8 +47,11 @@ const CFG: SimConfig = { ...DEFAULT_CONFIG };
 const TPB = ticksPerBeat(CFG);
 
 /** Two alignments, so the first shear leaves one tooth pair and the seam. */
-const FIRST: GimbalMark = { outerMilli: 250, innerMilli: 250, creepMilli: 0 };
-const MARKS: GimbalMark[] = [FIRST, { outerMilli: 600, innerMilli: 400, creepMilli: 0 }];
+const FIRST: GimbalMark = { outerMilli: 250, innerMilli: 500, creepMilli: 0, trueMilli: 45 };
+const MARKS: GimbalMark[] = [
+  FIRST,
+  { outerMilli: 600, innerMilli: 400, creepMilli: 0, trueMilli: 30 },
+];
 
 function install(marks: readonly GimbalMark[] = MARKS, over: Partial<SimConfig> = {}): World {
   const world = createWorld({ ...CFG, ...over }, 0);
@@ -106,10 +110,11 @@ function carry(world: World, player: 1 | 2, to: number): void {
   runTo(world, t + 2, [grip(t, player, 0), grip(t + 1, player, to)]);
 }
 
-/** Both thumbs onto the first alignment: his mark, and hers the mirror of it. */
+/** Both thumbs onto the first alignment: his mark, then hers — what is left
+ * of it once his turn has carried her ring, mirrored onto her face. */
 function onFirstMarks(world: World): void {
   carry(world, 1, FIRST.outerMilli);
-  carry(world, 2, BEARING_TURN - FIRST.innerMilli);
+  carry(world, 2, BEARING_TURN - (FIRST.innerMilli - FIRST.outerMilli));
 }
 
 describe("THE GIMBAL comes in", () => {
@@ -142,18 +147,15 @@ describe("the navigator's rim is the mirror of the wheel", () => {
   it("and as a turn: the same drag carries the two rings opposite ways", () => {
     const world = install();
     lit(world);
-    carry(world, 1, 250);
     carry(world, 2, 250);
-    const s = gimbal(world);
-    expect(s.atMilli[OUTER]).toBe(250);
-    expect(s.atMilli[INNER]).toBe(BEARING_TURN - 250);
+    expect(gimbal(world).atMilli).toEqual([0, BEARING_TURN - 250]);
   });
 
   it("so her mark is reached by carrying to the far side of her own rim", () => {
     const world = install();
     lit(world);
     onFirstMarks(world);
-    expect(gimbal(world).atMilli).toEqual([250, 250]);
+    expect(gimbal(world).atMilli).toEqual([FIRST.outerMilli, FIRST.innerMilli]);
   });
 });
 
@@ -176,18 +178,14 @@ describe("a ring is one seat's and nobody else's", () => {
   });
 });
 
-describe("the hold", () => {
-  it("shears a tooth off each ring when both sit true together", () => {
+describe("both true", () => {
+  it("lights the pair and takes no tooth while the hands stay on", () => {
     const world = install();
     lit(world);
     onFirstMarks(world);
     expect(beat(world).has("gimbalTrue")).toBe(true);
-    const seen = beat(world, CFG.gimbalHoldBeats);
-    expect(seen.has("gimbalShear")).toBe(true);
-    const s = gimbal(world);
-    expect(gimbalTeeth(s)).toBe(1);
-    expect(s.phase).toBe("shear");
-    expect(world.slowToBeat).toBeGreaterThan(world.beat);
+    expect(beat(world, 6).has("gimbalShear")).toBe(false);
+    expect(gimbalTeeth(gimbal(world))).toBe(2);
   });
 
   it("and is lost the beat either ring leaves its mark", () => {
@@ -195,19 +193,18 @@ describe("the hold", () => {
     lit(world);
     onFirstMarks(world);
     expect(beat(world).has("gimbalTrue")).toBe(true);
+    // She turns off her mark; his ring is not carried by hers.
     const t = world.tick;
-    runTo(world, t + 1, [grip(t, 1, 600)]);
+    runTo(world, t + 1, [grip(t, 2, 600)]);
     const slips: SimEvent[] = [];
     while (world.tick < t + 1 + TPB) {
       step(world, []);
       slips.push(...world.events.filter((e) => e.type === "gimbalSlip"));
     }
-    // The ring he moved is the one that slipped; hers still stands on its mark.
     expect(slips).toEqual([
-      { type: "gimbalSlip", col: expect.any(Number), outer: true, inner: false },
+      { type: "gimbalSlip", col: expect.any(Number), outer: false, inner: true },
     ]);
     expect(gimbal(world).heldBeats).toBe(0);
-    expect(gimbalTeeth(gimbal(world))).toBe(2);
   });
 
   it("and nothing strikes the pair for taking as long as they like", () => {

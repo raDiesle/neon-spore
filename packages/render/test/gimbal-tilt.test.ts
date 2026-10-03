@@ -1,5 +1,5 @@
 import { afterEach, beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue, FRONT, see, view } from "@neon-spore/content";
+import { buildBoss, buildQueue, FRONT, GIMBAL_SCRIPT, see, view } from "@neon-spore/content";
 import {
   createWorld,
   type GimbalState,
@@ -149,7 +149,12 @@ describe("THE GIMBAL's drift", () => {
     // whole drift is what is measured.
     GIMBAL_TILT.amount = 1;
     const grab = gimbalGrabR(L) / L.tile;
-    const band = (CFG.gimbalTrueMilli / 1000) * Math.PI * 2;
+    // The band of the first alignment, the widest: since the marks were
+    // swapped (3 October 2026) no seat judges its own ring against a mark by
+    // eye — the partner says *stop* — so the tighter bands later in the wave
+    // bound nothing a thumb can see here, and the drift is measured against
+    // the band a pair first meets the rim in.
+    const band = ((GIMBAL_SCRIPT[0]?.trueMilli ?? 0) / 1000) * Math.PI * 2;
     let radial = 0;
     let turned = 0;
     for (const t of every(1))

@@ -1,8 +1,8 @@
 import type { GimbalMark } from "@neon-spore/sim";
 
 /**
- * THE GIMBAL's three alignments: where each ring's mark sits on the true
- * wheel, and how far the marks creep a beat.
+ * THE GIMBAL's six alignments: where each ring's mark sits on the true
+ * wheel, how far the marks creep a beat, and how near is near enough.
  *
  * Every figure here is a bearing in thousandths of a turn, clockwise from the
  * top of the **true** wheel — not of either face. The pilot's ring is drawn
@@ -13,33 +13,39 @@ import type { GimbalMark } from "@neon-spore/sim";
  * wheel, one number a ring, and the mirror said once in the one function that
  * draws it.
  *
- * **The three are the whole curve of the fight.**
+ * **The six are the whole curve of the fight**, and they were three until
+ * the owner found the wave too easy and too short (3 October 2026). Each
+ * screen shows the partner's mark and never its own, the outer ring carries
+ * the inner, and a tooth shears on a let-go together (`sim/gimbal.ts`) — so
+ * every figure below is chosen against those three.
  *
- * The **first** puts both marks at the same true bearing, a quarter turn
- * round, and holds them still. It is the easiest alignment to reach and the
- * one that teaches the boss: his mark is at a quarter, hers is drawn at three
- * quarters, and one of them says *a quarter* out loud and the other does not
- * find it there. Nothing is pressing while they work that out — a mark that
- * does not creep waits as long as it takes.
+ * **What the navigator turns is `innerMilli - outerMilli`**, not
+ * `innerMilli`: his quarter carries her ring a quarter before she touches it
+ * (`sim/gimbal-turn.ts`). No alignment puts the two marks within its own
+ * tolerance of each other, or she would have nothing to do but hold on.
  *
- * The **second** puts them at different true bearings, and the near side of
- * hers is the far side of his: a pair who came out of the first with *add
- * half a turn* still has it wrong, because the rule is a reflection and not
- * an offset, and a reflection only looks like an offset at one place on the
- * circle. Still nothing creeps.
+ * The **first** puts his mark at a quarter and hers at the bottom, where the
+ * mirror leaves it in place: she is told *the bottom* and it is the bottom,
+ * and he is told *the left* and it is not — the lesson, once, on the
+ * alignment with the widest window.
  *
- * The **third** creeps. Both marks run at `creepMilli` a beat in opposite
- * **true** senses, which on the two faces looks like both of them running the
- * same way — so the pair is chasing, and a ring let go of to think falls back
- * to rest at nearly twice the speed the mark is moving
- * (`gimbalDriftMilli`). It is the only alignment with a clock on it, and the
- * leaking seam of row 9 opens the moment it lights.
+ * The **second to fourth** are still marks scattered round the wheel, the
+ * window closing a step each time, so a pair that has found the mirror has to
+ * keep finding it with less room to be roughly right in.
  *
- * Three alignments is six latch-teeth, three to a ring, which is the health
+ * The **fifth and sixth** creep. Both marks run at `creepMilli` a beat in
+ * opposite **true** senses; his carries hers forward while hers runs back, so
+ * she is chasing at twice the creep. The seam leaks the moment the fifth
+ * shears, and the sixth is the tightest window on the wheel.
+ *
+ * Six alignments is twelve latch-teeth, six to a ring, which is the health
  * the rim is drawn with (`sim/gimbal.ts` `gimbalTeeth`).
  */
 export const GIMBAL_SCRIPT: readonly GimbalMark[] = [
-  { outerMilli: 250, innerMilli: 250, creepMilli: 0 },
-  { outerMilli: 120, innerMilli: 800, creepMilli: 0 },
-  { outerMilli: 600, innerMilli: 400, creepMilli: 15 },
+  { outerMilli: 250, innerMilli: 500, creepMilli: 0, trueMilli: 45 },
+  { outerMilli: 120, innerMilli: 800, creepMilli: 0, trueMilli: 40 },
+  { outerMilli: 850, innerMilli: 650, creepMilli: 0, trueMilli: 35 },
+  { outerMilli: 500, innerMilli: 100, creepMilli: 0, trueMilli: 30 },
+  { outerMilli: 600, innerMilli: 400, creepMilli: 10, trueMilli: 25 },
+  { outerMilli: 300, innerMilli: 700, creepMilli: 12, trueMilli: 20 },
 ];

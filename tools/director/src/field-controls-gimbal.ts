@@ -10,7 +10,7 @@ import type { FieldControlDef } from "./field-control-def.js";
  *
  * **Neither row says which way to turn**, because the game does not and the
  * fight is that it does not. The mark is a place, the knurl says the rim is
- * heard, and what *clockwise* means on the other phone is the sentence the
+ * heard, the mark a seat sees is the partner's, and what *clockwise* means on the other phone is the sentence the
  * pair has to get wrong once (`docs/spec/bosses.md` §11.34, §18).
  */
 export const GIMBAL_CONTROLS: readonly FieldControlDef[] = [
@@ -23,15 +23,18 @@ export const GIMBAL_CONTROLS: readonly FieldControlDef[] = [
     does:
       "Turns his ring to wherever his thumb is carried round it, a bearing " +
       "rather than a distance, so a finger four times round the rim is back " +
-      "where it grabbed. The wedge outside the rim is the mark it has to be " +
-      "brought to; standing on it makes the ring glow, and a tooth shears off " +
-      "**both** rims only while both rings sit true together for " +
-      "gimbalHoldBeats. Letting go is what costs: a ring with no hand on it " +
-      "drifts gimbalDriftMilli a beat back to the top, which is the price of " +
-      "taking a thumb off to talk (sim/gimbal-hand.ts, sim/gimbal-step.ts). " +
-      "The knurl across the rim lights while it is held, and the halo stands " +
-      "where the rim is met while it is not; both rims wash green at true, " +
-      "and a slip goes red on his only if his ring left its mark " +
+      "where it grabbed. **His own mark is not on his screen**: the wedge he " +
+      "sees, over a faint track at the inner rim, is the navigator's, and it " +
+      "fills when her ring stands on it (render/gimbal-partner.ts) — his own " +
+      "is on her screen, and she talks him onto it. Every turn of his " +
+      "carries her ring gimbalCarryPct of the way (sim/gimbal-turn.ts). " +
+      "Both true makes both rims glow; a tooth shears off **both** rims only " +
+      "when both thumbs come off within gimbalLetGoTicks of each other " +
+      "(sim/gimbal-let-go.ts). A ring with no hand on it otherwise drifts " +
+      "gimbalDriftMilli a beat back to the top, carrying hers. The knurl " +
+      "across the rim lights while it is held, and the halo stands where the " +
+      "rim is met while it is not; both rims wash green at true, and a slip " +
+      "goes red on his only if his ring left its mark or his thumb was late " +
       "(render/gimbal-marks.ts). At a desk it is T, with shift for the other " +
       "way round (gimbalTurnPerTickMilli).",
     source: "handles.ts — gimbalRingUnder() under handleUnder(); gimbal-grip.ts on the move",
@@ -53,8 +56,10 @@ export const GIMBAL_CONTROLS: readonly FieldControlDef[] = [
       "creeps the opposite true way from his. Nothing on either screen says " +
       "so — she finds it out by turning, and neither seat is ever shown the " +
       "other's rim (sim/gimbal.ts gimbalShownMilli, render/gimbal-shape.ts " +
-      "gimbalFaceMilli). Everything else is his row exactly: the mark, the " +
-      "glow at true, the shear that needs both, the drift back to rest, the " +
+      "gimbalFaceMilli). The mark she sees is his, drawn on her face, so it " +
+      "too is mirrored. Her turns carry nothing back to his ring. Everything " +
+      "else is his row exactly: the glow when both are true, the let-go that " +
+      "needs both, the drift back to rest, the " +
       "halo while no hand is on it and the verdict of the last. At a " +
       "desk it is Y, with shift for the other way round — and the key is not " +
       "mirrored to be helpful (apps/game/src/keys-turn.ts).",

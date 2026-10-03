@@ -1,4 +1,4 @@
-import { bearingToward, NO_BEARING } from "./bearing.js";
+import { bearingApart, bearingToward, NO_BEARING, TURN } from "./bearing.js";
 import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
 import {
@@ -10,15 +10,18 @@ import {
   gimbalRingTrue,
   gimbalTeeth,
   INNER,
+  NO_LET_GO,
   NO_SEAM,
   OUTER,
 } from "./gimbal.js";
+import { gimbalTurnRing } from "./gimbal-turn.js";
 import { openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
- * THE GIMBAL's clock: the marks lighting, the hold being counted, the shear,
- * the seam, and the hatch.
+ * THE GIMBAL's clock: the marks lighting, the pair coming true and slipping,
+ * the shear's beats, the seam, and the hatch. The shear itself is a let-go,
+ * on the tick (`gimbal-let-go.ts`).
  *
  * The beat owns more here than it does on THE FILAMENT, and for the opposite
  * reason: what the hands do is *turn*, which is a position rather than an
@@ -44,6 +47,8 @@ export function installGimbal(world: World, marks: readonly GimbalMark[]): Gimba
     atMilli: [0, 0],
     handMilli: [NO_BEARING, NO_BEARING],
     heldBeats: 0,
+    letGoTick: NO_LET_GO,
+    letGoRing: NO_LET_GO,
     seamCol: NO_SEAM,
     seamBeat: 0,
   };
@@ -79,19 +84,22 @@ export function stepGimbal(world: World, s: GimbalState): void {
     return;
   }
   drift(world, s);
-  if (gimbalAligned(s, cfg, world.beat)) {
+  // True together lights the pair and takes nothing off the rim: the tooth
+  // is the let-go's (`gimbal-let-go.ts`).
+  if (gimbalAligned(s, world.beat)) {
     s.heldBeats += 1;
     if (s.heldBeats === 1) world.events.push({ type: "gimbalTrue", col: mid });
-    if (s.heldBeats >= cfg.gimbalHoldBeats) shear(world, s);
     return;
   }
   if (s.heldBeats === 0) return;
   s.heldBeats = 0;
+  s.letGoTick = NO_LET_GO;
+  s.letGoRing = NO_LET_GO;
   world.events.push({
     type: "gimbalSlip",
     col: mid,
-    outer: !gimbalRingTrue(s, cfg, world.beat, OUTER),
-    inner: !gimbalRingTrue(s, cfg, world.beat, INNER),
+    outer: !gimbalRingTrue(s, world.beat, OUTER),
+    inner: !gimbalRingTrue(s, world.beat, INNER),
   });
 }
 
@@ -100,6 +108,8 @@ function lightMarks(world: World, s: GimbalState): void {
   s.phase = "turn";
   s.phaseBeat = world.beat;
   s.heldBeats = 0;
+  s.letGoTick = NO_LET_GO;
+  s.letGoRing = NO_LET_GO;
   world.events.push({ type: "gimbalMarks", index: s.cursor, col: midCol(world.cfg) });
 }
 
@@ -110,17 +120,24 @@ function lightMarks(world: World, s: GimbalState): void {
  * Rest is nought on both rings, and it is nought on the **true** wheel, so
  * both fall the same way and each seat sees their own ring come back toward
  * their own top. `bearingToward` homes the short way round and never past,
- * so a ring at rest stays there rather than jittering across it.
+ * so a ring at rest stays there rather than jittering across it. The outer
+ * falls first and carries the inner as any turn of it does (`gimbal-turn.ts`).
+ * A ring whose hand has just let go of a true pair is latched and does not
+ * fall while the other hand is awaited (`gimbal-let-go.ts`).
  */
 function drift(world: World, s: GimbalState): void {
   for (const ring of GIMBAL_RINGS) {
-    if (s.handMilli[ring] !== NO_BEARING) continue;
-    s.atMilli[ring] = bearingToward(s.atMilli[ring], 0, world.cfg.gimbalDriftMilli);
+    if (s.handMilli[ring] !== NO_BEARING || s.letGoRing === ring) continue;
+    const was = s.atMilli[ring];
+    const to = bearingToward(was, 0, world.cfg.gimbalDriftMilli);
+    const by = bearingApart(was, to);
+    // Toward nought the short way: down from the right half, up from the left.
+    gimbalTurnRing(s, world.cfg, ring, was < TURN / 2 ? -by : by);
   }
 }
 
-/** Both rings held true through the beat: a latch-tooth off each, under THE SLOW. */
-function shear(world: World, s: GimbalState): void {
+/** Both hands let go of a true pair together: a latch-tooth off each, under THE SLOW. */
+export function shearGimbal(world: World, s: GimbalState): void {
   const cfg = world.cfg;
   s.cursor += 1;
   s.phase = "shear";

@@ -2,6 +2,8 @@ import { MAX_BEARING_STEP, NO_BEARING, TURN } from "./bearing.js";
 import type { SimConfig } from "./config.js";
 import { ticksPerBeat } from "./config-derived.js";
 import { type GimbalRing, gimbalBoss, gimbalTurning, INNER, OUTER } from "./gimbal.js";
+import { gimbalGrabbed, gimbalLetGo } from "./gimbal-let-go.js";
+import { gimbalTurnRing } from "./gimbal-turn.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -56,7 +58,13 @@ export function gimbalHeard(world: World, player: 1 | 2, command: Command): void
   // every phase**: a hand lifted while the drum shears is off the ring all
   // the same, and a ring that kept its bearing through the shear would be
   // held, and drawn held, with no finger on it when the next marks lit.
+  //
+  // A hand coming *off* a held ring is also the let-go, the one gesture that
+  // shears a tooth (`gimbal-let-go.ts`), and a hand going back on closes a
+  // let-go it had opened.
+  if (command.on && s.handMilli[ring] === NO_BEARING) gimbalGrabbed(s, ring);
   if (!command.on || command.fromMilli < 0) {
+    if (!command.on && s.handMilli[ring] !== NO_BEARING) gimbalLetGo(world, s, ring);
     s.handMilli[ring] = NO_BEARING;
     return;
   }
@@ -72,10 +80,10 @@ export function gimbalHeard(world: World, player: 1 | 2, command: Command): void
   // the shorter way round is the way the finger actually went.
   const shown = step <= MAX_BEARING_STEP ? step : step - TURN;
   // And the same turn on the true wheel, mirrored for the ring gripped from
-  // the far face. Thousandths in and thousandths out, integers throughout —
-  // two devices cannot round this apart.
-  const turned = ring === OUTER ? shown : -shown;
-  s.atMilli[ring] = (((s.atMilli[ring] + turned) % TURN) + TURN) % TURN;
+  // the far face, the inner carried along with the outer (`gimbal-turn.ts`).
+  // Thousandths in and thousandths out, integers throughout — two devices
+  // cannot round this apart.
+  gimbalTurnRing(s, world.cfg, ring, ring === OUTER ? shown : -shown);
 }
 
 /**
@@ -86,9 +94,10 @@ export function gimbalHeard(world: World, player: 1 | 2, command: Command): void
  * beat is what a ring does to itself with no hand on it (`gimbal-step.ts`), so
  * a key that turned at exactly that would be a hand worth nothing at all.
  * Four is the smallest multiple that is still slow enough not to step a ring
- * over its own tolerance between two samples — `gimbalTrueMilli` is a window
- * 45 thousandths wide and four drifts is 240 thousandths spread across a
- * beat's ticks — and a window a desk cannot land in is a control the rig
+ * over its own tolerance between two samples — the tightest alignment's
+ * `trueMilli` is 20 thousandths either side and four drifts is 240
+ * thousandths spread across a beat's ticks, three a tick — and a window a
+ * desk cannot land in is a control the rig
  * cannot rehearse (`apps/game/src/keys-turn.ts`).
  */
 export function gimbalTurnPerTickMilli(cfg: SimConfig): number {

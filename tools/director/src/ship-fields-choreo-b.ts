@@ -209,8 +209,8 @@ export const CHOREO_FIELD_GROUP_B = {
   // GimbalConfig — how near a mark reads as true, how long both rings must
   // hold it, how fast a ring nobody holds falls back, and the five counts the
   // scene is paced by (`config-gimbal.ts`).
-  gimbalTrueMilli: "THE GIMBAL — the boss where the same turn is not the same turn",
-  gimbalHoldBeats: "THE GIMBAL — the boss where the same turn is not the same turn",
+  gimbalLetGoTicks: "THE GIMBAL — the boss where the same turn is not the same turn",
+  gimbalCarryPct: "THE GIMBAL — the boss where the same turn is not the same turn",
   gimbalDriftMilli: "THE GIMBAL — the boss where the same turn is not the same turn",
   gimbalStillBeats: "THE GIMBAL — the boss where the same turn is not the same turn",
   gimbalShearBeats: "THE GIMBAL — the boss where the same turn is not the same turn",

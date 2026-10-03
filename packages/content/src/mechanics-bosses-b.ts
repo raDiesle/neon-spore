@@ -59,7 +59,7 @@ export const BOSS_MECHANICS_B = {
     reach: "spawn",
   },
   gimbal: {
-    what: "A drum hangs in two rings, one ring each. Turn your ring to your mark and hold it. The inner rim runs backwards. Six latch-teeth.",
+    what: "A drum hangs in two rings, one each. You see the other's mark, not yours: talk them onto it. The outer ring turns the inner. Both on? Let go together.",
     reach: "spawn",
   },
   spool: {

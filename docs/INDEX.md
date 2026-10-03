@@ -285,7 +285,7 @@ by hand never moves.
 | `packages/sim/src/config-gum.ts` | THE GUM's numbers: how far a swipe has to carry it, and how far it flies a beat once swiped |
 | `packages/sim/src/config-gorge.ts` | THE GORGE's numbers — where the bubbles hang, how big the ring is |
 | `packages/sim/src/config-governor.ts` | THE GOVERNOR's tuning: the beats around its steps, how fast the needle idles, how near the mark a tap lands |
-| `packages/sim/src/config-gimbal.ts` | THE GIMBAL's tuning: how near a mark is near enough, how long an alignment has to be held |
+| `packages/sim/src/config-gimbal.ts` | THE GIMBAL's tuning: how close together two hands must let go |
 | `packages/sim/src/config-grindstone.ts` | THE GRINDSTONE's tuning: the rests around its steps, what a reversal shaves and a beat regrits |
 | `packages/sim/src/boss-surface.ts` | Every name the boss code puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/boss-surface-clocks.ts` | **The clock bosses' half of the surface**, written out the same way |
@@ -542,7 +542,9 @@ by hand never moves.
 | `packages/sim/src/gimbal-hand.ts` | Two hands on THE GIMBAL, one ring each, and **the same turn means two different things** |
 | `packages/sim/src/gimbal-hash.ts` | What THE GIMBAL puts into `hashWorld`, and nothing else |
 | `packages/sim/src/gimbal-shot.ts` | **THE GIMBAL's one target**: the spark leaking from the drum's seam once two tooth pairs are off (§18, row 9) |
-| `packages/sim/src/gimbal-step.ts` | THE GIMBAL's clock: the marks lighting, the hold being counted, the shear, the seam, and the hatch |
+| `packages/sim/src/gimbal-step.ts` | THE GIMBAL's clock: the marks lighting, the pair coming true and slipping, the shear's beats, the seam |
+| `packages/sim/src/gimbal-let-go.ts` | **THE GIMBAL's let-go**: the one gesture that shears a tooth |
+| `packages/sim/src/gimbal-turn.ts` | **Turn one ring by `by` thousandths on the true wheel, and the inner with the outer** |
 | `packages/sim/src/gimbal.ts` | THE GIMBAL: a sealed drum hung inside two nested rings set at right angles |
 | `packages/sim/src/geometry-seat.ts` | **Whose thumb a mark wants, read off where it is** |
 | `packages/sim/src/glyphs.ts` | **The five signs a thumb can draw**, each one stroke so that each is easy to say across a room and easy to… |
@@ -866,7 +868,7 @@ by hand never moves.
 | `packages/content/src/waves/act-4.ts` | act four, opening on THE WISP; filled the day THE GYRE was written |
 | `packages/content/src/waves/act-4b.ts` | The tail of act four, cut off `act-4.ts` at ten lines under the 250-line ceiling rather than at it |
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
-| `packages/content/src/gimbal-script.ts` | THE GIMBAL's three alignments: where each ring's mark sits on the true wheel |
+| `packages/content/src/gimbal-script.ts` | THE GIMBAL's six alignments: where each ring's mark sits on the true wheel, how far the marks creep a beat |
 | `packages/content/src/gorge-levels.ts` | THE GORGE's levels: five rows or rings of bubbles, and the layout is the level |
 | `packages/content/src/snake-rounds.ts` | SNAKE's rounds: three maps, and the map is the fight |
 | `packages/content/src/creatures-worn.ts` | the five bestiary rows for bodies drawn as something else — a slick or a bulb under a disguise, plating, a membrane, weather or nothing but a smaller size |
@@ -897,7 +899,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-limpet.ts` | THE LIMPET's rehearsal: the shield is held, and standing still is the mistake |
 | `packages/content/src/scenes/the-leech.ts` | THE LEECH's rehearsal: the cannon is held, and standing still is the mistake |
 | `packages/content/src/scenes/the-codex.ts` | THE CODEX's rehearsal: the button that works and lies, and the word that says which |
-| `packages/content/src/scenes/the-gimbal.ts` | THE GIMBAL's rehearsal: two rings, one each, turned to two marks and held |
+| `packages/content/src/scenes/the-gimbal.ts` | THE GIMBAL's rehearsal: two rings, one each, talked onto two marks and let go of together |
 | `packages/content/src/scenes/the-hasp.ts` | THE HASP's rehearsal: a wheel that turns only while the other player holds the latch |
 | `packages/content/src/scenes/the-haul.ts` | THE HAUL's rehearsal: THE SCOUT's round with a hold that fills, and the two hands a full hold asks for |
 | `packages/content/src/scenes/the-ratchet.ts` | THE RATCHET's rehearsal: a press that is clean only while the other player holds the catch |
@@ -2143,6 +2145,7 @@ by hand never moves.
 | `packages/render/src/gimbal-marks.ts` | **THE GIMBAL's two rings answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/gimbal-tilt-draw.ts` | The solid half of THE GIMBAL's drifting candidate: yoke, drum and this seat's rings through the rig |
 | `packages/render/src/gimbal-tilt.ts` | THE GIMBAL's idle drift, in the game (`GIMBAL_TILT`): hush by phase, and the ring plane's affine |
+| `packages/render/src/gimbal-partner.ts` | **The partner's mark, on this seat's screen** |
 | `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
 | `packages/render/src/effects-round-marks.ts` | The rounds' mark verdicts (GAUGE, SNAKE, PINBALL), a base of the effects roster fed by the takeover because a round frame skips `Effects.ingest` |
 | `packages/render/src/strand-still.ts` | One live bead on the navigator's screen that **no shot can answer this instant**: the reel drawn as a grey outline |
@@ -2620,7 +2623,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-well.ts` | **The pilot's thumb on THE WELL's seam** |
 | `packages/hands/src/boss-hands-gauge.ts` | **THE GAUGE's hands**, in a file of their own |
 | `packages/hands/src/boss-hands-gall.ts` | **THE GALL played right**, for the autopilot |
-| `packages/hands/src/boss-hands-gimbal.ts` | **THE GIMBAL played right**, for the STATES sheet: both rings carried onto their own marks and held there |
+| `packages/hands/src/boss-hands-gimbal.ts` | **THE GIMBAL played right**, for the STATES sheet: both rings carried onto their own marks |
 | `packages/hands/src/boss-hands-grindstone.ts` | **THE GRINDSTONE played right**, for the autopilot: the lit flat rubbed clean by its own seat |
 | `packages/hands/src/boss-hands-governor.ts` | **THE GOVERNOR played right**, for the autopilot |
 | `packages/hands/src/boss-hands-unseen.ts` | **The pair's hands on the two fights about what one of them cannot see** |

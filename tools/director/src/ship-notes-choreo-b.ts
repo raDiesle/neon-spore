@@ -204,19 +204,22 @@ export const CHOREO_NOTES_B = {
     "and docs/spec/bosses.md §11.34: one wheel gripped from its two opposite " +
     "faces. A sealed drum hangs in two nested rings set at right angles — the " +
     "outer is the pilot's, the inner is the navigator's — and its health is " +
-    "six latch-teeth, three to a ring. Three alignments " +
-    "(packages/content/src/gimbal-script.ts) come up gimbalStillBeats apart, " +
-    "each a bearing per ring; each seat drags round its own rim " +
-    "(gimbalOuter, gimbalInner, both BearingDrag) and holds inside " +
-    "gimbalTrueMilli of its mark. Both true together for gimbalHoldBeats " +
-    "shears a tooth off each; either ring leaving early is a slip and the " +
-    "hold starts over. A ring nobody is holding drifts back to the top at " +
-    "gimbalDriftMilli a beat. The inner ring is drawn mirrored on its own " +
-    "screen, so a turn called across the phone goes the wrong way until the " +
-    "pair finds it out — the one departure from the design's row 12, argued " +
-    "in §11.34. With gimbalTeeth down to one pair the drum swings loose and " +
-    "the seam leaks: a bolt of either colour shuts it, and gimbalSeamBeats " +
-    "unanswered is one strike on the hull, which is the wave. The last shear " +
-    "opens THE SLOW gimbalSlowBeats and the hatch hangs gimbalOpenBeats " +
-    "more. See sim/gimbal.ts, sim/gimbal-hand.ts, sim/config-gimbal.ts.",
+    "twelve latch-teeth, six to a ring. Six alignments " +
+    "(packages/content/src/gimbal-script.ts) come up one after another, " +
+    "each a bearing per ring and a tolerance that closes from 45 to 20; each " +
+    "seat drags round its own rim (gimbalOuter, gimbalInner, both " +
+    "BearingDrag) but is shown the partner's mark, never its own, so a ring " +
+    "is talked onto its mark. The outer ring carries the inner " +
+    "gimbalCarryPct of every turn. Both true together lights the pair; both " +
+    "thumbs off within gimbalLetGoTicks of each other shears a tooth off " +
+    "each, and a late thumb or a ring off its mark is a slip. A ring nobody " +
+    "is holding drifts back to the top at gimbalDriftMilli a beat. The inner " +
+    "ring is drawn mirrored on its own screen, so a turn called across the " +
+    "phone goes the wrong way until the pair finds it out — the one " +
+    "departure from the design's row 12, argued in §11.34. With gimbalTeeth " +
+    "down to one pair the drum swings loose and the seam leaks: a bolt of " +
+    "either colour shuts it, and gimbalSeamBeats unanswered is one strike on " +
+    "the hull, which is the wave. Each shear opens THE SLOW gimbalSlowBeats " +
+    "and the hatch hangs gimbalOpenBeats " +
+    "more. See sim/gimbal.ts, sim/gimbal-let-go.ts, sim/gimbal-turn.ts, sim/config-gimbal.ts.",
 } satisfies Partial<Record<GroupName, string>>;

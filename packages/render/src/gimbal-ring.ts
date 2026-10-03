@@ -1,6 +1,7 @@
 import {
   type GimbalRing,
   type GimbalState,
+  gimbalAligned,
   gimbalRingAsks,
   gimbalRingTrue,
   gimbalTeeth,
@@ -43,9 +44,9 @@ import { PALETTE, STROKE } from "./palette.js";
 
 /**
  * One ring, on the screen of the seat that grips it: the rim, its teeth and
- * the sockets of the ones already sheared, the two pins that say which ring
- * this is, and — while it is being turned — this seat's own mark outside the
- * rim. A ring standing at true glows; once every tooth is gone it spins free.
+ * the sockets of the ones already sheared, and the two pins that say which
+ * ring this is. Both rings standing true glow; once every tooth is gone they
+ * spin free. Its mark is the partner's to see (`gimbal-partner.ts`).
  */
 export function drawGimbalRing(
   ctx: CanvasRenderingContext2D,
@@ -67,7 +68,9 @@ export function drawGimbalRing(
   const face = gimbalRingFace(l, s, ring) + gimbalSpinMilli(open, time);
   const of = s.marks.length;
   const left = gimbalTeeth(s);
-  const at_true = gimbalTurning(s) && gimbalRingTrue(s, cfg, beat, ring);
+  // The rim glows for the pair, never for one ring: each seat is shown the
+  // partner's mark, and a rim that lit on its own mark would be that mark.
+  const at_true = gimbalAligned(s, beat);
 
   // Drawn through the rig (`gimbal-tilt-draw.ts`), the hoop, the teeth and the
   // pins are solid parts already, and only what is flat on them is drawn here.
@@ -96,8 +99,11 @@ export function drawGimbalRing(
   const grip = gimbalRingCircle(l, cfg, s, ring);
   if (grip !== null && gimbalRingAsks(s, ring)) drawMarkHalo(ctx, grip.x, grip.y, grip.r, time);
 
-  const mark = gimbalTurning(s) ? gimbalMarkFace(l, s, beat, ring) : NO_BEARING;
-  if (mark !== NO_BEARING) drawMark(ctx, l, at, r, mark, at_true, time);
+  // A ring's own mark is drawn only on the screen that shows both rings: on a
+  // seat's own it is the partner who sees it (`gimbal-partner.ts`).
+  const mark =
+    gimbalTurning(s) && l.role === "test" ? gimbalMarkFace(l, s, beat, ring) : NO_BEARING;
+  if (mark !== NO_BEARING) drawGimbalMark(ctx, l, at, r, mark, gimbalRingTrue(s, beat, ring), time);
   const v = verdicts.at(ring);
   if (grip !== null && v !== null) drawVerdictRing(ctx, grip.x, grip.y, grip.r, v);
 }
@@ -146,14 +152,14 @@ function drawShear(
 }
 
 /**
- * This seat's mark: a wedge outside the rim, pointing in at the bearing the
+ * A mark: a wedge outside the rim, pointing in at the bearing the
  * ring has to be brought to, filled once the ring is standing on it.
  *
  * It was a bare tick for one frame and read as a stray line off the edge of
  * the picture rather than as a thing being pointed at. A wedge has a
  * direction in it, which is the whole of what a mark on a circle has to say.
  */
-function drawMark(
+export function drawGimbalMark(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   at: Point,

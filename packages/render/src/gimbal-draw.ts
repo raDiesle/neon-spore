@@ -14,6 +14,7 @@ import {
   gimbalStillPhase,
 } from "./gimbal-drum.js";
 import type { GimbalFx } from "./gimbal-fx.js";
+import { drawGimbalPartnerMark } from "./gimbal-partner.js";
 import { drawGimbalRing } from "./gimbal-ring.js";
 import {
   gimbalCentre,
@@ -63,7 +64,8 @@ const DRUM_WOBBLE_PERIOD = 6.4;
  * with three, and nothing anywhere prints the number.
  *
  * **The reflection is not drawn — it is the one thing the picture hides.**
- * Each seat's ring is drawn true on its own face (`gimbalFaceMilli`), so the
+ * Each seat's ring is drawn true on its own face (`gimbalFaceMilli`), and
+ * the partner's mark beside it on the same face (`gimbal-partner.ts`), so the
  * pair is never shown that a turn one way is a turn the other way over
  * there. Finding that out is the fight.
  *
@@ -113,6 +115,7 @@ export function drawGimbal(
   for (const ring of [OUTER, INNER] as const)
     if (ring === OUTER ? showsGimbalOuter(l.role) : showsGimbalInner(l.role))
       drawGimbalRing(ctx, l, world, s, ring, at, beat, beatPhase, time, fx.marks.verdicts, rigged);
+  drawGimbalPartnerMark(ctx, l, s, at, beat, time);
   ctx.restore();
 }
 

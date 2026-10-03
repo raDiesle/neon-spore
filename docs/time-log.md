@@ -32848,3 +32848,16 @@ Bottleneck: synthetic pointer presses failing silently, which looked like the fi
 Bottleneck: finding that both bodies hang above the top row, and whether a drawn bolt ever climbs that far.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE GIMBAL is a puzzle: swapped marks, a carried ring, a let-go together
+
+- reading: 15 min. The boss's sim, step, hand, the render ring and grip, the
+  spec's §18 and §11.34, the rehearsal film and the hands.
+- writing: 20 min. The let-go and the carry in the simulation, the partner's
+  mark, six alignments, three test pages rewritten and two new, the words.
+- looking: 5 min. Three frames from this tree: both seats unlit, the pilot's lit.
+- friction: 0 min.
+- landing: 5 min. `check:fast` twice (the index and two unnamed config
+  fields), the commit, `land`.
+
+Bottleneck: the carry broke the rehearsal film in a way only a printed run showed — an unheld inner ring rides the outer and then falls home.

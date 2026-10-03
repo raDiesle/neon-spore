@@ -1,7 +1,7 @@
 import {
   type GimbalState,
+  gimbalAligned,
   gimbalLeaking,
-  gimbalRingTrue,
   gimbalTurning,
   INNER,
   OUTER,
@@ -82,8 +82,20 @@ export function gimbalCues(
   ] as const) {
     const on = gimbalRingCircle(l, world.cfg, s, ring);
     if (on === null) continue;
-    const t = gimbalRingTrue(s, world.cfg, world.beat, ring);
-    out.push(markAt(seat, t ? "HOLD" : "TURN", on.x, on.y, l, 92 + seat, t ? "HOLD" : "TURN"));
+    // Never *HOLD* for one ring alone: each seat is shown the partner's mark,
+    // so a word that said this ring sits true would be the mark it may not
+    // see. Both true is the one thing both are told — and it is the let-go.
+    const both = gimbalAligned(s, world.beat);
+    const cue = markAt(
+      seat,
+      both ? "LET GO" : "TURN",
+      on.x,
+      on.y,
+      l,
+      92 + seat,
+      both ? "CALL" : "TURN",
+    );
+    out.push(both ? { ...cue, why: "TOGETHER" } : cue);
   }
   return out;
 }

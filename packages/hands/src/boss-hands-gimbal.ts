@@ -2,6 +2,7 @@ import {
   BEARING_TURN,
   type GimbalRing,
   type GimbalState,
+  gimbalAligned,
   gimbalBoss,
   gimbalLeaking,
   gimbalMarkMilli,
@@ -15,7 +16,10 @@ import {
 
 /**
  * **THE GIMBAL played right**, for the STATES sheet: both rings carried onto
- * their own marks and held there, and the seam shot out when it leaks.
+ * their own marks, both thumbs let go on the same tick, and the seam shot out
+ * when it leaks. The hand reads the true marks a pair would have to say to
+ * each other, so it never needs the swap; the carry of the outer ring knocks
+ * the inner a tick behind, and the next tick's turn takes it back.
  *
  * The interesting part is that the hand cannot aim at a *bearing* — it aims
  * at a rim, and the rim it is turning may be the mirrored one. So it works
@@ -37,7 +41,15 @@ export const gimbalHand = (w: World): Press[] => {
   const s = gimbalBoss(w);
   if (s === null) return [];
   const out: Press[] = [];
-  if (gimbalTurning(s)) {
+  // Both true with both thumbs on: let go together, which is the shear
+  // (`sim/gimbal-let-go.ts`). Otherwise both thumbs work toward their marks.
+  if (
+    gimbalAligned(s, w.beat) &&
+    s.handMilli[OUTER] !== NO_BEARING &&
+    s.handMilli[INNER] !== NO_BEARING
+  ) {
+    out.push(letGo("gimbalOuter", 1), letGo("gimbalInner", 2));
+  } else if (gimbalTurning(s)) {
     out.push(rim(s, w.beat, OUTER, 1), rim(s, w.beat, INNER, 2));
   }
   // The one thing in this fight the cannon does, and either colour does it.
@@ -47,6 +59,14 @@ export const gimbalHand = (w: World): Press[] => {
   }
   return out;
 };
+
+/** A thumb coming off its rim. */
+function letGo(target: "gimbalOuter" | "gimbalInner", player: 1 | 2): Press {
+  return {
+    player,
+    command: { kind: "drag", target, on: false, fromMilli: NO_BEARING, fromYMilli: 0 },
+  };
+}
 
 /** One thumb on one rim: down where it is not, else carried onto its mark. */
 function rim(s: GimbalState, beat: number, ring: GimbalRing, player: 1 | 2): Press {

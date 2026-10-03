@@ -5,6 +5,7 @@ import { curtainHemHeard } from "./curtain-hand.js";
 import { filamentHeard } from "./filament-hand.js";
 import { fleetHandsHeard } from "./fleet-hand.js";
 import { gimbalHeard } from "./gimbal-hand.js";
+import { stepGimbalLetGo } from "./gimbal-let-go.js";
 import { gorgeHeard } from "./gorge-hand.js";
 import { haspHeard } from "./hasp-hand.js";
 import { hiveHeard } from "./hive-hand.js";
@@ -83,6 +84,7 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // on it (`gimbal-hand.ts`). Whether it sits true, and for how long, is the
   // beat's and nothing else is.
   for (const c of commands) gimbalHeard(world, c.player, c.command);
+  stepGimbalLetGo(world);
   // THE MANTLE's two handles and its bared core's tap, on the tick because a
   // handle's depth is where the thumb is now and a released handle has to
   // reach nought before the next beat judges the sum (`mantle-hand.ts`).

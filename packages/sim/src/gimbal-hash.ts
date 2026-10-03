@@ -25,6 +25,8 @@ export function gimbalHashParts(s: GimbalState): number[] {
     GIMBAL_PHASES.indexOf(s.phase) + 1,
     s.phaseBeat,
     s.heldBeats,
+    s.letGoTick,
+    s.letGoRing,
     s.seamCol,
     s.seamBeat,
     s.atMilli.length,
@@ -34,6 +36,6 @@ export function gimbalHashParts(s: GimbalState): number[] {
     s.handMilli[0],
     s.handMilli[1],
   ];
-  for (const m of s.marks) out.push(m.outerMilli, m.innerMilli, m.creepMilli);
+  for (const m of s.marks) out.push(m.outerMilli, m.innerMilli, m.creepMilli, m.trueMilli);
   return out;
 }
