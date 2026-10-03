@@ -32977,3 +32977,5 @@ Bottleneck: removing a command touches every package that names it, and nothing 
 - landing: 5 min. `check:fast`, the index, `land`.
 
 Bottleneck: pulling the shell, the bolt and the latch bar out of their drawers as figures so the stopper reads what is drawn rather than a copy.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
