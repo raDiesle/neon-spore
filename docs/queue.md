@@ -550,6 +550,7 @@ that it can, and `bun run check` is green.
 ## Split hive-draw.ts before it passes 250 lines
 
 - **Found:** 2026-10-03, claude/queue-the-antiphon-hive-lead-and-ledger-stop-a-bolt-on
+- **Taken:** 2026-10-03, claude/task-queue-work-e88ecc (claim: claude/queue-split-hive-draw-ts-before-it-passes-250-lines)
 - **Files:** `packages/render/src/hive-draw.ts`
 
 Aiming THE HIVE's bolt stops took `hive-draw.ts` to 244 lines, and
