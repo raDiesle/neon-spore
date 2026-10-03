@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · aea54ebf7 — THE ANTIPHON and HIVE stop a bolt on what it meets
+
+A bolt fired at THE ANTIPHON or THE HIVE is now drawn to end where it meets the body instead of vanishing at the top row past it. It bursts on the part its shot will take and scuffs on anything else. THE HIVE stops a bolt on the lobe at each site and the underside between them; THE ANTIPHON on what each screen draws over the column, a candidate on the rail for one seat, and the organ under the body's middle or the underside for the other. Exemption: a look the owner asked for by name (1 October 2026, "but also all other bosses").
+
 ## 2026-10-03 · 51ab014f9 — Take a press on THE GRINDSTONE's jaw as the jaw, not the flat under it
 
 By the first clamp both flats are ground deep, and the flat's face runs right under the jaw's pads. The hit test took whichever was nearer, so every press on a jaw was a rub and no pad ever went down: the HOLD could not be answered on any device. The flat now wins only while its pass is lit; any other time the jaw within reach is taken. A fix to something wrong, not a look.

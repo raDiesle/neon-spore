@@ -32846,3 +32846,5 @@ Bottleneck: synthetic pointer presses failing silently, which looked like the fi
 - landing: 5 min. `check:fast`, the index's two lines, `land`.
 
 Bottleneck: finding that both bodies hang above the top row, and whether a drawn bolt ever climbs that far.
+
+*Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
