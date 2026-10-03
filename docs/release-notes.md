@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 47313f1b3 — Queue the desk's one mouse never closing a chord
+
+THE GRINDSTONE's clamp needs both pads of both jaws down at once, and a mouse is one pointer and so one pad: at a desk the clamp always springs. The same holds for THE TRIVET, THE HALTER and THE GOVERNOR. Queued with the owner's choice of how a desk should make a chord.
+
 ## 2026-10-03 · b4abc5c49 — The director's jump to a step plays on instead of pausing
 
 ◀, ▶ and the list of steps under the boss's step readout now leave the stage running from the first frame of the step they reached, so ▶ goes straight into the next step rather than stopping on a still of it. A jump that cannot reach its step still stands paused on the furthest one, and says so.

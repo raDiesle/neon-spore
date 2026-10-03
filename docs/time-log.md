@@ -32751,3 +32751,5 @@ Bottleneck: the word "stepper" names nothing in the code, so the seam was found 
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: tracing a press from the mouse through the desk rig to the chord counter.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
