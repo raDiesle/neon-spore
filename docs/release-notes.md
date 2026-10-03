@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 17eec1e44 — THE CYST, OCULUS, TRIVET and VISE judge a bolt through one verdict
+
+Each of the four bosses whose shot answers a second ask in a column of its own — THE CYST's bud, THE OCULUS's look, THE TRIVET's tip, THE VISE's spit — now says what a bolt meets through `coreVerdict`, widened with an `aside` column, instead of carrying its own copy of the rule. `cystVerdict`, `oculusVerdict`, `trivetVerdict` and `viseVerdict` are pure, so the picture can stop a bolt on the same answer the shot acts on; a test holds each to its `…Struck` on every column and colour. THE TRIVET's autopilot asks its verdict before it fires. Nothing drawn changes: the stoppers are the next half.
+
 ## 2026-10-03 · 915d840ac — A guide at a desk shows the keyboard key on each control
 
 On a device with a mouse, every page of a tutorial now draws a keycap on the controls the page's seat holds: the two step keys at the two ends of a strip (A and D on the cannon), and a lobe's key on its shoulder (Q on red, E on cyan). The keys are read from the same panel the band is drawn from, so a boss panel shows its own (THE CLAW: I and S). A phone never shows them. A look the owner asked for by name.

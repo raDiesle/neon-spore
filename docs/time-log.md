@@ -32724,3 +32724,5 @@ same seven fields of an opening by hand.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: the copies row's pattern, which had to both catch the four `&&` copies and keep matching its widened owner.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
