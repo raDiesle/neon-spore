@@ -5,6 +5,7 @@ import { creatureAt } from "./creature-under.js";
 import { darkUnder } from "./dark-tap.js";
 import { handleUnder } from "./handles.js";
 import type { Layout } from "./layout.js";
+import { mimicUnder } from "./mimic-tap.js";
 import { mineUnder } from "./mine-tap.js";
 
 // What a hit test is handed, and what it hands back: both lifted out when this
@@ -63,6 +64,9 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
     // refuses a hand outright (`beatbox-tap.ts`) so `creatureAt` skips it.
     const tap = beatboxUnder(l, field, x, y);
     if (tap) return tap;
+    // THE MIMIC's board: a press on it paints a square (`mimic-tap.ts`).
+    const paint = mimicUnder(l, field, x, y);
+    if (paint) return paint;
     // THE DARK: a press on the field is a light, never a hand (`dark-tap.ts`).
     const light = darkUnder(l, field, x, y);
     if (light) return light;

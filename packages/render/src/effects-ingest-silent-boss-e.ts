@@ -133,13 +133,14 @@ export const INGEST_SILENT_BOSS_E = [
   "lampreyLunge",
   "lampreySpent",
   "lampreyOut",
-  // THE MIMIC's thirteen: the body is drawn off the world each frame, and
+  // THE MIMIC's fourteen: the body is drawn off the world each frame, and
   // what outlives a frame is `mimic-fx.ts`', read above the loop.
   "mimicEnter",
   "mimicSign",
   "mimicChange",
   "mimicPeel",
-  "mimicWrong",
+  "mimicBrush",
+  "mimicPaint",
   "mimicLapse",
   "mimicReach",
   "mimicRoll",

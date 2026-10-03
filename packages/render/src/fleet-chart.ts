@@ -1,4 +1,5 @@
 import { type FleetState, fleetCols, fleetRows, type SimConfig, type World } from "@neon-spore/sim";
+import { drawChartLattice } from "./chart-lattice.js";
 import { drawFleetClock } from "./fleet-clock.js";
 import { drawChartWater } from "./fleet-water.js";
 import type { Layout } from "./layout.js";
@@ -95,20 +96,6 @@ function gutter(c: Chart): number {
  * across a voice delay, so a pair counting squares to each other is counting
  * them in time.
  */
-/**
- * How wide the mark on a crossing is, at this much pulse.
- *
- * Exported because it is the condition the single fill rests on rather than a
- * number inside a loop: one `fill` of every mark is the picture 132 `fillRect`
- * calls made **only while no two marks touch**, since overlapping rects blend
- * twice under separate fills and once under one, and the mark carries alpha.
- * `test/fleet-frame.test.ts` holds the widest of them against the gap between
- * two crossings.
- */
-export function crossingSize(flash: number): number {
-  return 1.2 + 1.4 * flash;
-}
-
 export function drawFleetChart(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -136,50 +123,7 @@ export function drawFleetChart(
   ctx.fillRect(c.left, c.top, w, h);
   drawChartWater(ctx, c, time);
 
-  ctx.strokeStyle = `rgba(47,224,240,${0.1 + 0.16 * flash})`;
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  for (let col = 0; col <= c.cols; col++) {
-    const x = c.left + col * c.tile;
-    ctx.moveTo(x, c.top);
-    ctx.lineTo(x, c.top + h);
-  }
-  for (let row = 0; row <= c.rows; row++) {
-    const y = c.top + row * c.tile;
-    ctx.moveTo(c.left, y);
-    ctx.lineTo(c.left + w, y);
-  }
-  ctx.stroke();
-
-  // The crossings carry the pulse more strongly than the lines, the same way
-  // the field's lattice was written to.
-  //
-  // **One path, not one call each.** Twelve by eleven of them is 132
-  // `fillRect` every frame for the whole length of the fight, which was
-  // seventy per cent of every rectangle the game drew during it. They are
-  // never anywhere near each other — a crossing is `tile` apart and the square
-  // is at most 2.6 px — so a single `fill` of all of them is the same picture
-  // to the pixel, with no overlap for the alpha to double.
-  //
-  // Rebuilt every frame rather than cached, and that is the honest answer
-  // rather than a missed saving: the square's size is the pulse, and a path
-  // kept across frames would have to quantise `s` — which is a change to what
-  // the pair sees, and this is a speed fix.
-  ctx.fillStyle = `rgba(47,224,240,${0.16 + 0.44 * flash})`;
-  const s = crossingSize(flash);
-  const marks = new Path2D();
-  for (let col = 0; col <= c.cols; col++) {
-    for (let row = 0; row <= c.rows; row++) {
-      marks.rect(c.left + col * c.tile - s / 2, c.top + row * c.tile - s / 2, s, s);
-    }
-  }
-  ctx.fill(marks);
-
-  ctx.strokeStyle = PALETTE.shield;
-  ctx.globalAlpha = 0.55;
-  ctx.lineWidth = 1.5;
-  ctx.strokeRect(c.left + 0.75, c.top + 0.75, w - 1.5, h - 1.5);
-  ctx.globalAlpha = 1;
+  drawChartLattice(ctx, c, flash);
 
   drawAxis(ctx, c);
   drawFleetClock(ctx, c, world, boss, beatPhase);

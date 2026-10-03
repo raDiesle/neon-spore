@@ -310,8 +310,6 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
-  // THE MIMIC's sign, an index into the five (`sim/glyphs.ts`).
-  { kind: "glyph", sign: 3 },
   { kind: "restart" },
   { kind: "retry" },
   // The lost screen's third answer: the same wave with its tutorial put back
@@ -387,7 +385,6 @@ const EVERY_KIND: Record<Command["kind"], true> = {
   launch: true,
   drag: true,
   shake: true,
-  glyph: true,
   restart: true,
   retry: true,
   scoutTurn: true,

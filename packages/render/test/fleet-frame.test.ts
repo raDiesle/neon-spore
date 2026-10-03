@@ -1,7 +1,8 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import { createWorld, fleetRows, startWave, step, ticksPerBeat, type World } from "@neon-spore/sim";
-import { chartOf, chartX, chartY, crossingSize } from "../src/fleet-chart.js";
+import { crossingSize } from "../src/chart-lattice.js";
+import { chartOf, chartX, chartY } from "../src/fleet-chart.js";
 import type { ViewRole } from "../src/layout.js";
 import { computeLayout } from "../src/layout.js";
 import {

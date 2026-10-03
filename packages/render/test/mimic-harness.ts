@@ -41,8 +41,8 @@ export function stood(): World {
 }
 
 /**
- * `phase` a beat in on `lit` — a sign the pilot reads by default, the
- * navigator's to draw as the ring — nothing peeled, nothing drawn and no
+ * `phase` a beat in on `lit` — a picture the pilot reads by default, the
+ * navigator's to paint as the cross — nothing peeled, nothing painted and no
  * arm reached, unless `arrange` says otherwise.
  */
 export function posed(
@@ -59,7 +59,12 @@ export function posed(
   s.steps[0] = lit;
   s.signs = lit.ask === "split" ? [1, 3] : lit.ask === "sign" ? [-1, 0] : [-1, -1];
   if (lit.ask === "sign" && lit.reader === 2) s.signs = [0, -1];
-  s.drawn = [-1, -1];
+  // Two one-colour pictures, red for the pilot's and cyan for the
+  // navigator's, at column 1 and column 7 of row 2, and a bare board.
+  s.inks = [1, 2];
+  s.origins = [1 + 2 * CFG.cols, 7 + 2 * CFG.cols];
+  s.paint.fill(0);
+  s.brush = 1;
   s.peeled = [false, false];
   s.changed = false;
   s.reaches = 0;

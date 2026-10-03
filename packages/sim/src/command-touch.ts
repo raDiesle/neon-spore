@@ -80,17 +80,4 @@ export type TouchCommand =
    * tile and no pixel — and its own kind rather than that one, because a
    * light is dragged and a mine's press must not be.
    */
-  | { kind: "light"; col: number; row: number }
-  /**
-   * **A sign drawn on the glass**, THE MIMIC's answer (`mimic-hand.ts`): the
-   * index into the five of `glyphs.ts` that the stroke came nearest to.
-   *
-   * The shake's argument, for a gesture with a shape: what the thumb drew is
-   * judged on the phone it was drawn on, where milliseconds are allowed and
-   * the points are, and the other phone is told the result — an index, never
-   * a stroke, for a stroke is a reading only one side ever saw. It carries no
-   * place, because the pad is the whole lower field and where on it the sign
-   * was drawn means nothing. Whose sign it was is the boss's rule: the seat
-   * that can read the sign has no pad, and its glyph is dropped.
-   */
-  | { kind: "glyph"; sign: number };
+  | { kind: "light"; col: number; row: number };

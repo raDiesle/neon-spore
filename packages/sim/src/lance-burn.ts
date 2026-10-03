@@ -23,7 +23,6 @@ import { leadStruck } from "./lead-shot.js";
 import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
 import { mantleStruck } from "./mantle-shot.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
-import { mimicStruck } from "./mimic-shot.js";
 import { oculusStruck } from "./oculus-shot.js";
 import { plumbStruck } from "./plumb-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
@@ -225,8 +224,6 @@ function burnColumn(world: World, col: number, color: Color): number {
   governorStruck(world, b);
   // And THE LAMPREY's lit gullet (`lamprey-shot.ts`).
   lampreyStruck(world, b);
-  // And THE MIMIC's bare core (`mimic-shot.ts`).
-  mimicStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

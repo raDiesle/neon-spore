@@ -1,19 +1,21 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { rgba } from "../src/hex.js";
 import { PALETTE } from "../src/palette.js";
-import { showsMimicPad, showsMimicSign } from "../src/view-role-clocks-c.js";
-import { FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES } from "./frame-harness.js";
+import { throatHue } from "../src/throat-hue.js";
+import { showsMimicPaint, showsMimicSign } from "../src/view-role-clocks-c.js";
+import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES } from "./frame-harness.js";
 import { CORE, count, frame, posed, SPLIT } from "./mimic-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * THE MIMIC, drawn (`render/src/mimic-draw.ts`): the mantle and its mottle on
- * every screen; the sign on the reader's screen and never the drawer's, the
- * pad on the drawer's and never the reader's; a split's two signs one to
- * each screen; a mimicked sign in the hull's red on both; and the core lit
- * only while it is bare to be shot — set rather than played to;
- * `sim/test/mimic*.test.ts` prove the rules.
+ * THE MIMIC, drawn (`render/src/mimic-draw.ts`, `mimic-board.ts`): the mantle
+ * and its mottle on every screen; the picture's wanted squares on the
+ * reader's board and never the painter's; a painted square marked right or
+ * wrong on the reader's and bare of marks on the painter's; a split's two
+ * pictures one to each screen; and the core lit only while it is bare to be
+ * tapped — set rather than played to; `sim/test/mimic*.test.ts` prove the
+ * rules.
  */
 
 beforeAll(() => {
@@ -21,8 +23,13 @@ beforeAll(() => {
   for (const role of ROLES) frame(role, () => {});
 });
 
-/** The pad's faint ink: the sign's cyan, laid as `rgba` and so never the sign's own hex. */
-const PAD = rgba(PALETTE.mimicSign, 0).replace(/,0\)$/, "");
+/** A square the picture wants and nobody has painted: its colour, faint (`mimic-tile.ts`). */
+const wanted = (mode: "red" | "cyan") => rgba(throatHue(mode).hex, 0.28);
+/** The harness's pictures: the pilot's red at column 1, the navigator's cyan at column 7, both on row 2. */
+const tile = (col: number, row: number) => col + row * CFG.cols;
+/** A square of the navigator's cross that wants cyan, and one no picture stands on. */
+const RIGHT = tile(8, 2);
+const STRAY = tile(0, 10);
 
 describe("THE MIMIC's body", () => {
   it.each(ROLES)("draws the skin, the mottle and the outline, on %s", (role) => {
@@ -32,63 +39,63 @@ describe("THE MIMIC's body", () => {
     expect(count(drawn, PALETTE.mimicSkinDark)).toBeGreaterThan(0);
   });
 
-  it("shows the sign to the reader and the pad to the drawer, never the other way", () => {
-    // The pilot reads; the navigator draws.
+  it("shows the picture to the reader and never to the painter", () => {
+    // The pilot reads; the navigator paints a cyan cross.
     const reader = frame("p1", (w) => posed(w));
-    const drawer = frame("p2", (w) => posed(w));
-    expect(count(reader, PALETTE.mimicSign)).toBeGreaterThan(0);
-    expect(count(drawer, PALETTE.mimicSign)).toBe(0);
-    expect(count(drawer, PAD)).toBeGreaterThan(0);
-    expect(count(reader, PAD)).toBe(0);
-    const both = frame("test", (w) => posed(w));
-    expect(count(both, PALETTE.mimicSign)).toBeGreaterThan(0);
-    expect(count(both, PAD)).toBeGreaterThan(0);
+    const painter = frame("p2", (w) => posed(w));
+    expect(count(reader, wanted("cyan"))).toBeGreaterThan(0);
+    expect(count(painter, wanted("cyan"))).toBe(0);
+    expect(
+      count(
+        frame("test", (w) => posed(w)),
+        wanted("cyan"),
+      ),
+    ).toBeGreaterThan(0);
   });
 
-  it("gives each screen one sign of a split, and the test screen both", () => {
-    const p1 = count(
-      frame("p1", (w) => posed(w, "sign", SPLIT)),
-      PALETTE.mimicSign,
-    );
-    const p2 = count(
-      frame("p2", (w) => posed(w, "sign", SPLIT)),
-      PALETTE.mimicSign,
-    );
-    const test = count(
-      frame("test", (w) => posed(w, "sign", SPLIT)),
-      PALETTE.mimicSign,
-    );
-    expect(p1).toBeGreaterThan(0);
-    expect(p2).toBe(p1);
-    expect(test).toBe(p1 + p2);
+  it("ticks a right square and crosses a stray on the reader's board, and marks neither on the painter's", () => {
+    const right = (w: Parameters<typeof posed>[0]) =>
+      posed(w, "sign", undefined, (s) => {
+        s.paint[RIGHT] = 2;
+      });
+    const stray = (w: Parameters<typeof posed>[0]) =>
+      posed(w, "sign", undefined, (s) => {
+        s.paint[STRAY] = 2;
+      });
+    const bare = (role: "p1" | "p2", colour: string) =>
+      count(
+        frame(role, (w) => posed(w)),
+        colour,
+      );
+    expect(count(frame("p1", right), PALETTE.good)).toBeGreaterThan(bare("p1", PALETTE.good));
+    expect(count(frame("p1", stray), PALETTE.red)).toBeGreaterThan(bare("p1", PALETTE.red));
+    expect(count(frame("p2", right), PALETTE.good)).toBe(bare("p2", PALETTE.good));
+    expect(count(frame("p2", stray), PALETTE.red)).toBe(bare("p2", PALETTE.red));
+    // The painter still sees what was painted, solid in its colour.
+    const cyan = throatHue("cyan").hex;
+    expect(count(frame("p2", right), cyan)).toBeGreaterThan(bare("p2", cyan));
   });
 
-  it("takes a peeled half's sign off the screen that read it", () => {
+  it("gives each screen one picture of a split, and the test screen both", () => {
+    const p1 = frame("p1", (w) => posed(w, "sign", SPLIT));
+    const p2 = frame("p2", (w) => posed(w, "sign", SPLIT));
+    const test = frame("test", (w) => posed(w, "sign", SPLIT));
+    // Each seat reads the other's: the pilot the navigator's cyan, the navigator the pilot's red.
+    expect(count(p1, wanted("cyan"))).toBeGreaterThan(0);
+    expect(count(p1, wanted("red"))).toBe(0);
+    expect(count(p2, wanted("red"))).toBeGreaterThan(0);
+    expect(count(p2, wanted("cyan"))).toBe(0);
+    expect(count(test, wanted("red")) * count(test, wanted("cyan"))).toBeGreaterThan(0);
+  });
+
+  it("takes a peeled half's picture off the screen that read it", () => {
     const peeled = frame("p1", (w) =>
-      posed(w, "sign", SPLIT, (s) => {
-        s.peeled = [true, false];
-      }),
-    );
-    expect(count(peeled, PALETTE.mimicSign)).toBeGreaterThan(0);
-    const both = frame("p1", (w) =>
       posed(w, "sign", SPLIT, (s) => {
         s.peeled = [false, true];
       }),
     );
     // The pilot reads the navigator's half: with that half peeled, nothing is left to read.
-    expect(count(both, PALETTE.mimicSign)).toBe(0);
-  });
-
-  it.each(ROLES)("wears what was drawn wrong in the hull's red, on %s", (role) => {
-    const wrong = frame(role, (w) =>
-      posed(w, "mimicking", undefined, (s) => {
-        s.drawn = [-1, 3];
-      }),
-    );
-    const mottled = frame(role, (w) => posed(w, "mimicking"));
-    expect(count(wrong, rgba(PALETTE.red, 0.9))).toBeGreaterThan(0);
-    expect(count(mottled, rgba(PALETTE.red, 0.9))).toBe(0);
-    expect(count(wrong, PALETTE.mimicSign)).toBe(0);
+    expect(count(peeled, wanted("cyan"))).toBe(0);
   });
 
   it.each(ROLES)("lights the core in its colour only while it is bare, on %s", (role) => {
@@ -103,9 +110,9 @@ describe("THE MIMIC's split, by seat", () => {
   it("shows a seat's sign to the other seat and its pad to itself, and both to test", () => {
     expect(showsMimicSign("p1", 2)).toBe(true);
     expect(showsMimicSign("p2", 2)).toBe(false);
-    expect(showsMimicPad("p2", 2)).toBe(true);
-    expect(showsMimicPad("p1", 2)).toBe(false);
+    expect(showsMimicPaint("p2", 2)).toBe(true);
+    expect(showsMimicPaint("p1", 2)).toBe(false);
     expect(showsMimicSign("test", 1)).toBe(true);
-    expect(showsMimicPad("test", 1)).toBe(true);
+    expect(showsMimicPaint("test", 1)).toBe(true);
   });
 });

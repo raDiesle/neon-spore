@@ -1,9 +1,10 @@
+import { mimicShapeSize } from "@neon-spore/sim";
 import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import type { Peel } from "./mimic-fx.js";
 import { CORE, type MimicPose } from "./mimic-shape.js";
-import { glyphPath } from "./mimic-sign.js";
+import { drawMimicPicture } from "./mimic-tile.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -12,19 +13,19 @@ import { PALETTE, STROKE } from "./palette.js";
  * laid on the mantle `mimic-draw.ts` stands this frame, as the core is.
  */
 
-/** How far a peel falls and drifts aside, in tiles, how many times it turns over, and its size against the sign. */
+/** How far a peel falls and drifts aside, in tiles, how many times it turns over, and a square's size on it against the board's. */
 const FALL = 10;
 const DRIFT = 1.2;
 const TURNS = 1.5;
-const SCRAP = 0.5;
+const SCRAP = 0.6;
 /** How far past the core a flash rings, in core radii. */
 const FLASH_PAST = 0.6;
 
 /**
- * A sign peeled off: a scrap of skin with the sign still on it, lifting off
- * the mantle and drifting down the field, turning over as it falls so it
- * shows its blank underside every other half turn, its torn edge pale, fading
- * as it goes.
+ * A picture peeled off: a scrap of skin with the picture still on it,
+ * lifting off the board and drifting down the field, turning over as it falls
+ * so it shows its blank underside every other half turn, its edge in the
+ * good green that says it was right, fading as it goes.
  */
 export function drawMimicPeel(ctx: CanvasRenderingContext2D, l: Layout, f: Peel): void {
   if (f.now <= 0 || f.sign < 0) return;
@@ -37,22 +38,19 @@ export function drawMimicPeel(ctx: CanvasRenderingContext2D, l: Layout, f: Peel)
   ctx.translate(x, y);
   ctx.rotate(f.side * k * 0.6);
   ctx.scale(face, 1);
+  const { w, h } = mimicShapeSize(f.sign);
+  const cell = f.size * SCRAP;
+  const [hw, hh] = [(w / 2 + 0.3) * cell, (h / 2 + 0.3) * cell];
   const scrap = new Path2D();
-  const half = f.size * SCRAP * 0.62;
-  scrap.roundRect(-half, -half, half * 2, half * 2, half * 0.45);
-  ctx.fillStyle = rgba(turn >= 0 ? PALETTE.mimicSkin : PALETTE.mimicSkinDark, f.now);
+  scrap.roundRect(-hw, -hh, hw * 2, hh * 2, cell * 0.4);
+  ctx.globalAlpha *= f.now;
+  ctx.fillStyle = turn >= 0 ? PALETTE.mimicSkin : PALETTE.mimicSkinDark;
   ctx.fill(scrap);
-  // A pale torn edge, so the scrap reads against the mantle it came off.
-  ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = rgba(PALETTE.mimicSign, 0.7 * f.now);
+  // The good green round it, so the scrap says it was right as it falls.
+  ctx.lineWidth = STROKE.outline;
+  ctx.strokeStyle = PALETTE.good;
   ctx.stroke(scrap);
-  if (turn >= 0) {
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    ctx.lineWidth = STROKE.outline;
-    ctx.strokeStyle = rgba(PALETTE.mimicSign, f.now);
-    ctx.stroke(glyphPath(f.sign, 0, 0, f.size * SCRAP * 0.8, 1, 0, 0));
-  }
+  if (turn >= 0) drawMimicPicture(ctx, f.sign, f.ink, 0, 0, cell);
   ctx.restore();
 }
 

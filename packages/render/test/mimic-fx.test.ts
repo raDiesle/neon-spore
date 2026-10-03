@@ -2,8 +2,9 @@ import { beforeAll, describe, expect, it, setDefaultTimeout, spyOn } from "bun:t
 import { midCol, type SimEvent, type World } from "@neon-spore/sim";
 import { BossHurt, JAB_SHAKE } from "../src/boss-hurt.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
+import { mimicPictureBox } from "../src/mimic-board.js";
 import { MimicFx } from "../src/mimic-fx.js";
-import { mimicHang, mimicPose, mimicSignAt } from "../src/mimic-pose.js";
+import { mimicHang, mimicPose } from "../src/mimic-pose.js";
 import { PALETTE } from "../src/palette.js";
 import { stepColour } from "../src/step-colour.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, VIEWPORT } from "./frame-harness.js";
@@ -12,8 +13,8 @@ import { CORE, count, frame, posed, SIGN, SPLIT, stood } from "./mimic-harness.j
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * What THE MIMIC leaves behind a frame (`mimic-fx.ts`): the sign a peel
- * lifts off, from where it was worn; the core's flash in the colour it was
+ * What THE MIMIC leaves behind a frame (`mimic-fx.ts`): the picture a peel
+ * lifts off the board, from where it was painted; the core's flash in the colour it was
  * lit; the hull's shudder; the blow; and where its receipts are thrown. This
  * file has what the events add to the mantle `mimic-draw.ts` reads off the
  * world.
@@ -24,10 +25,14 @@ beforeAll(installCanvasGlobals);
 const L = computeLayout(VIEWPORT, CFG, "test");
 const col = midCol(CFG);
 const BEAT = 0.5;
+/** Where the harness puts each seat's picture (`mimic-harness.ts`). */
+const AT = [1 + 2 * CFG.cols, 7 + 2 * CFG.cols] as const;
 const peel = (side: 0 | 1, sign: number): SimEvent => ({
   type: "mimicPeel",
   side,
   sign,
+  ink: 1,
+  at: AT[side],
   peels: 1,
   col,
 });
@@ -63,27 +68,27 @@ function noted(fx: MimicFx, lit = SIGN) {
 }
 
 describe("THE MIMIC's transients", () => {
-  it("lifts a peeled sign off where it was worn, and deals the lighter blow", () => {
+  it("lifts a peeled picture off where it was painted, in the good green, and deals the lighter blow", () => {
     const fx = new MimicFx();
-    const p = noted(fx);
+    noted(fx);
     const [thrown] = said(fx, [peel(1, 3)]);
-    const at = mimicSignAt(L, p, false, 2);
-    expect(thrown).toMatchObject({ x: at.x, y: at.y, hex: PALETTE.mimicSign });
-    expect(fx.peel).toMatchObject({ now: 1, sign: 3, x: at.x, y: at.y, size: at.size });
+    const at = mimicPictureBox(L, CFG, 3, AT[1]);
+    expect(thrown).toMatchObject({ x: at?.x, y: at?.y, hex: PALETTE.good });
+    expect(fx.peel).toMatchObject({ now: 1, sign: 3, ink: 1, x: at?.x, y: at?.y, size: L.tile });
     expect(fx.hurt.value).toBe(1);
     expect(fx.hurt.shake).toBe(JAB_SHAKE);
     settle(fx);
     expect(fx.peel.now).toBe(0);
   });
 
-  it("on a split, lifts each seat's sign off its own half and drifts it outward", () => {
+  it("on a split, lifts each seat's picture off its own half and drifts it outward", () => {
     const fx = new MimicFx();
     const p = noted(fx, SPLIT);
     for (const side of [0, 1] as const) {
       said(fx, [peel(side, 1)]);
-      const at = mimicSignAt(L, p, true, (side + 1) as 1 | 2);
-      expect(fx.peel.x).toBe(at.x);
-      expect(fx.peel.side).toBe(at.x < p.x ? -1 : 1);
+      const at = mimicPictureBox(L, CFG, 1, AT[side]);
+      expect(fx.peel.x).toBe(at?.x ?? Number.NaN);
+      expect(fx.peel.side).toBe((at?.x ?? 0) < p.x ? -1 : 1);
     }
   });
 
@@ -120,12 +125,12 @@ describe("THE MIMIC's transients", () => {
     expect(slap.shock.now).toBe(0);
   });
 
-  it("throws a wrong sign in the hull's red, and deals nothing for it or the rest", () => {
+  it("deals nothing for a brush, a square painted, or the rest", () => {
     const fx = new MimicFx();
     noted(fx);
-    const [wrong] = said(fx, [{ type: "mimicWrong", side: 1, drawn: 2, sign: 0, col }]);
-    expect(wrong?.hex).toBe(PALETTE.red);
     said(fx, [
+      { type: "mimicBrush", brush: 2, col },
+      { type: "mimicPaint", side: 1, at: AT[1], paint: 2, col },
       { type: "mimicSign", signs: [-1, 0], col },
       { type: "mimicChange", signs: [-1, 1], col },
       { type: "mimicLapse", col },
@@ -171,7 +176,7 @@ describe("THE MIMIC's transients, drawn", () => {
     posed(w, "core", CORE);
   };
 
-  it.each(ROLES)("a peel draws its sign drifting off on the %s screen", (role) => {
+  it.each(ROLES)("a peel draws its picture drifting off on the %s screen", (role) => {
     expect(receipt(role, signing, peel(1, 0))).toBeGreaterThan(receipt(role, signing));
   });
 

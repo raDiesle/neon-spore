@@ -32948,3 +32948,18 @@ Bottleneck: laying each part where the shaken, rolled, tilted cradle is drawn, s
 Bottleneck: none worth the name; a single describe meant choosing the cut rather than following one.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE MIMIC is painted a tile at a time
+
+- reading: 30 min. The recogniser and its tolerance, why the director could
+  not draw, THE FLEET's chart, THE THROAT's four and their seats, the touch
+  path both hosts share.
+- writing: 120 min. The shapes, the board and the brush in the sim; the
+  board, tiles, tap and cue in render; AUTO's hand; the tests and §11.60.
+- looking: 10 min. The reader's and the painter's frame at one tick.
+- friction: 25 min. The `glyph` command's cascade through sim, net, render,
+  audio, the director, the frames tool and the docs, found one red check at
+  a time; a veil eased in `fx` that the marks walk never updated.
+- landing: 15 min. `check:fast` three times, the index, `land`.
+
+Bottleneck: removing a command touches every package that names it, and nothing lists them in one place.

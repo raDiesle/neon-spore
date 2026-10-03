@@ -1,26 +1,13 @@
 import { LIGHT_HALF } from "@neon-spore/content";
-import {
-  type MimicState,
-  mimicDraws,
-  mimicStep,
-  type SimConfig,
-  type World,
-} from "@neon-spore/sim";
+import { type MimicState, mimicStep, type World } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
+import { drawMimicBoard, mimicVeil } from "./mimic-board.js";
 import type { MimicFx } from "./mimic-fx.js";
-import { drawMimicPad } from "./mimic-pad.js";
-import {
-  mimicHalfSide,
-  mimicPose,
-  mimicRise,
-  mimicSignAt,
-  PART,
-  PEELED_BACK,
-} from "./mimic-pose.js";
+import { mimicHalfSide, mimicPose, PART, PEELED_BACK } from "./mimic-pose.js";
 import { drawMimicFlash, drawMimicPeel } from "./mimic-receipts.js";
 import {
   type MimicPose,
@@ -29,29 +16,28 @@ import {
   mimicMottle,
   mimicReachArm,
 } from "./mimic-shape.js";
-import { drawMimickedSign, drawSkinSign } from "./mimic-sign.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
-import { showsMimicPad, showsMimicSign } from "./view-role-clocks-c.js";
 
 /**
  * **THE MIMIC**: a soft round mantle with eight short arms hung over the top
  * of the field, its skin a mottle of two dark greens with a rim of marks
- * marching round its edge; a sign surfacing on it in pale cyan; then split
- * down the middle on a lit core (§42, `bosses-choreographed.md` §42).
+ * marching round its edge; then split down the middle on a lit core (§42,
+ * `bosses-choreographed.md` §42).
  *
- * **The screens are not drawn the same**, and that is the fight
- * (`showsMimicSign`, `showsMimicPad`): the sign a seat must draw is drawn on
- * the *other* seat's screen only, and that seat's own screen shows the
- * mottle where it would be, and the faint pad over the lower field. Every
- * other thing — the mantle, its arms and the arm reaching for the hull, the
- * roll, the split and the core — is the same on both.
+ * **While a picture is up the mantle is gone from both screens** and the
+ * board is there instead (`mimic-board.ts`; the owner, 3 October 2026: the
+ * one who does not paint sees no mantle, just the board). The two cross-fade
+ * on `mimicVeil`, so the mantle slips away as a picture goes up and comes
+ * back as it peels or its window runs out. The board is where the two screens
+ * differ, and that is the fight; everything the mantle does — its arms and
+ * the arm reaching for the hull, the roll, the split and the core — is the
+ * same on both.
  *
- * **A mimicked sign is on both screens**, in the hull's red, so the drawer
- * sees what was drawn. Everything is read off `world` each frame but its
- * receipts — the peel, the core's flash and the blow it takes — which are
- * `fx` (`mimic-fx.ts`, drawn by `mimic-receipts.ts`), and its own blow at the
- * hull, which is `mimic-blow.ts`.
+ * Everything is read off `world` each frame but its receipts — the peel, the
+ * core's flash and the blow it takes — which are `fx`
+ * (`mimic-fx.ts`, drawn by `mimic-receipts.ts`), and its own blow at the hull,
+ * which is `mimic-blow.ts`.
  */
 export function drawMimic(
   ctx: CanvasRenderingContext2D,
@@ -66,11 +52,12 @@ export function drawMimic(
   const cfg = world.cfg;
   const p = mimicPose(l, cfg, s, beat, beatPhase);
   fx.note(p);
+  const veil = mimicVeil(s, beat, beatPhase);
   const split = p.split > 0;
   const hurt = fx.hurt.value;
   ctx.save();
   // Every glow under the fade is `strokeGlowFaded`, which leaves it standing.
-  ctx.globalAlpha = 1 - 0.5 * p.spent;
+  ctx.globalAlpha = (1 - 0.5 * p.spent) * (1 - veil);
   // The mantle shakes with the blow it took.
   ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
 
@@ -89,20 +76,13 @@ export function drawMimic(
     }
   } else drawSkin(ctx, l, p, hurt);
   drawMimicFlash(ctx, p, fx.flash);
-  drawSigns(ctx, l, cfg, s, p, split, beat, beatPhase);
   ctx.restore();
+  drawMimicBoard(ctx, l, world, s, beatPhase, veil);
   // The peel drifts free of the shake, but not of the fade.
   ctx.save();
   ctx.globalAlpha = 1 - 0.5 * p.spent;
   drawMimicPeel(ctx, l, fx.peel);
   ctx.restore();
-
-  for (const seat of [1, 2] as const) {
-    if (mimicDraws(s, seat) && showsMimicPad(l.role, seat)) {
-      drawMimicPad(ctx, l, beatPhase);
-      break;
-    }
-  }
 }
 
 /** The arm reaching down toward the hull, behind the mantle it hangs from. */
@@ -161,32 +141,4 @@ function drawSkin(ctx: CanvasRenderingContext2D, l: Layout, p: MimicPose, hurt: 
   ctx.strokeStyle = PALETTE.mimicSkinDark;
   ctx.stroke(mantle);
   drawHurt(ctx, mantle, hurt);
-}
-
-/**
- * The signs: each seat's on this screen if this screen is shown it, rising
- * from the middle; or, while the skin is mimicking, what was drawn wrong in
- * the hull's red, on every screen.
- */
-function drawSigns(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  cfg: SimConfig,
-  s: MimicState,
-  p: MimicPose,
-  split: boolean,
-  beat: number,
-  beatPhase: number,
-): void {
-  const rise = mimicRise(cfg, s, beat, beatPhase);
-  for (const seat of [1, 2] as const) {
-    const i = seat - 1;
-    const at = mimicSignAt(l, p, split, seat);
-    if (s.phase === "mimicking") {
-      drawMimickedSign(ctx, s.drawn[i] ?? -1, at.x, at.y, at.size, p.wave * 3, 1);
-      continue;
-    }
-    if (!mimicDraws(s, seat) || !showsMimicSign(l.role, seat)) continue;
-    drawSkinSign(ctx, s.signs[i] ?? -1, at.x, at.y, at.size, rise);
-  }
 }

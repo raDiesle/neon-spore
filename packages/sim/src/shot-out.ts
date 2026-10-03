@@ -18,7 +18,6 @@ import { lampreyStruck } from "./lamprey-shot.js";
 import { leadStruck } from "./lead-shot.js";
 import { ledgerStruck } from "./ledger-shot.js";
 import { mantleStruck } from "./mantle-shot.js";
-import { mimicStruck } from "./mimic-shot.js";
 import { oculusStruck } from "./oculus-shot.js";
 import { plumbStruck } from "./plumb-shot.js";
 import { ratchetStruck } from "./ratchet-shot.js";
@@ -140,8 +139,6 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   met = governorStruck(world, b) || met;
   // THE LAMPREY's gullet, in its colour (`lamprey-shot.ts`).
   met = lampreyStruck(world, b) || met;
-  // THE MIMIC's bare core, in its colour (`mimic-shot.ts`).
-  met = mimicStruck(world, b) || met;
   // THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   met = haspStruck(world, b) || met;
@@ -206,7 +203,6 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "flue",
   "governor",
   "lamprey",
-  "mimic",
   "hasp",
   "ratchet",
   "hive",

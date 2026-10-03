@@ -1,6 +1,5 @@
 import { describe, expect, it } from "bun:test";
 import { midCol } from "../src/config.js";
-import { GLYPHS } from "../src/glyphs.js";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -18,21 +17,28 @@ import {
   mimicBoss,
   mimicDraws,
   mimicReadBy,
+  mimicRows,
+  mimicWants,
 } from "../src/mimic.js";
-import { mimicStruck } from "../src/mimic-shot.js";
+import { mimicPaintMode, mimicShapeSize } from "../src/mimic-shapes.js";
 import { slowing } from "../src/slow.js";
-import type { Bullet, Color } from "../src/types.js";
+import { THROAT_MODES } from "../src/throat.js";
+import { throatModeSeat } from "../src/throat-hand.js";
+import type { Color } from "../src/types.js";
 
 /**
- * THE MIMIC's rules: one of you sees the sign on its skin and says what it
- * is, and the other draws it (`docs/spec/bosses.md` §11.60). What a phone
- * cannot show: that the sign each seat must draw is on the *other* seat's
- * screen only; that only a seat with a sign to draw is heard; that a wrong
- * sign is worn and then an arm reaches, three reaches the hull; that a peel
- * draws the arms back; that a roll trades the seats; that a changing sign
- * changes on its beat; that a split wants both halves; that the core wants
- * its colour, and a core run out closes back to the split. AUTO playing it
- * through: `tools/director/test/autopilot-mimic.test.ts`.
+ * THE MIMIC's rules: one of you sees a picture of squares and says it, and
+ * the other paints it on the board a tile at a time (`docs/spec/bosses.md`
+ * §11.60). What a phone cannot show: that the picture each seat paints is on
+ * the *other* seat's screen only; that only a seat with a picture to paint is
+ * heard; that the brush is one for the pair and each colour is set by the seat
+ * whose button it is; that a tap in the brush's colour clears; that a picture
+ * peels only when every square under it is exact; that a window run out is
+ * worn and then an arm reaches, three reaches the hull; that a peel draws the
+ * arms back; that a roll trades the seats; that a changing picture changes on
+ * its beat; that a split wants both halves; that the core wants its colour,
+ * and a core run out closes back to the split. AUTO playing it through:
+ * `tools/director/test/autopilot-mimic.test.ts`.
  */
 
 const CFG: SimConfig = { ...DEFAULT_CONFIG };
@@ -89,15 +95,53 @@ function tick(world: World, cmds: TimedCommand[] = []): string[] {
   return world.events.map((e) => e.type);
 }
 
-function glyph(world: World, player: 1 | 2, sign: number): string[] {
-  return tick(world, [{ tick: world.tick, player, command: { kind: "glyph", sign } }]);
+function press(world: World, player: 1 | 2, command: TimedCommand["command"]): string[] {
+  return tick(world, [{ tick: world.tick, player, command }]);
 }
 
-/** The sign `player` must draw, which the other seat's screen shows. */
+/** A tap on the board, from `player`. */
+const tap = (world: World, player: 1 | 2, col: number, row: number) =>
+  press(world, player, { kind: "tapTile", col, row });
+
+/** The brush set to `paint` by the seat that owns its button. */
+function brush(world: World, paint: number): void {
+  const mode = mimicPaintMode(paint);
+  if (mode === null || mimic(world).brush === paint) return;
+  press(world, throatModeSeat(mode), { kind: "throatMode", mode });
+}
+
+/** The picture `player` must paint, which the other seat's screen shows. */
 const owed = (world: World, player: 1 | 2): number => mimic(world).signs[player - 1] ?? -1;
 
-/** One of the five that is not `n`. */
-const not = (n: number): number => (n + 1) % GLYPHS.length;
+/** Every square of seat `seat`'s picture, as `[col, row, wants]`. */
+function squares(world: World, seat: 1 | 2): [number, number, number][] {
+  const s = mimic(world);
+  const cols = world.cfg.cols;
+  const origin = s.origins[seat - 1] ?? 0;
+  const { w, h } = mimicShapeSize(owed(world, seat));
+  const out: [number, number, number][] = [];
+  for (let dr = 0; dr < h; dr++) {
+    for (let dc = 0; dc < w; dc++) {
+      const [col, row] = [(origin % cols) + dc, Math.floor(origin / cols) + dr];
+      out.push([col, row, mimicWants(world, s, seat, col, row)]);
+    }
+  }
+  return out;
+}
+
+/** Seat `seat` paints its picture, skipping the last `leave` squares it wants. */
+function paint(world: World, seat: 1 | 2, leave = 0): void {
+  const want = squares(world, seat).filter(([, , w]) => w > 0);
+  for (const [col, row, w] of want.slice(0, want.length - leave)) {
+    brush(world, w);
+    tap(world, seat, col, row);
+  }
+}
+
+/** Every picture up painted right by the seat that owes it. */
+function paintAll(world: World): void {
+  for (const seat of [1, 2] as const) if (mimicDraws(mimic(world), seat)) paint(world, seat);
+}
 
 function runUntil(world: World, until: (w: World) => boolean, beats = 60): Set<string> {
   const seen = new Set<string>();
@@ -113,19 +157,14 @@ const toSign = (world: World) => runUntil(world, (w) => mimic(w).phase === "sign
 const toCore = (world: World) => runUntil(world, (w) => mimic(w).phase === "core");
 const saw = (type: string) => (w: World) => w.events.some((e) => e.type === type);
 
-/** Every sign on the skin drawn right by the seat that owes it. */
-function drawAll(world: World): void {
-  for (const seat of [1, 2] as const) {
-    if (mimicDraws(mimic(world), seat)) glyph(world, seat, owed(world, seat));
-  }
+/** A tap on the core's tile, with the brush in `color`. */
+function strike(world: World, color: Color, col = MID): string[] {
+  brush(world, THROAT_MODES.indexOf(color) + 1);
+  return tap(world, 1, col, world.cfg.mimicCoreRow);
 }
 
-function shot(color: Color, col = MID): Bullet {
-  return { id: 999, col, row: 20, subMilli: 0, color, lance: false, driftMilli: 0, aimMilli: 0 };
-}
-
-describe("THE MIMIC's sign", () => {
-  it("slaps into shape, then shows the pilot a sign the navigator must draw, under THE SLOW", () => {
+describe("THE MIMIC's picture", () => {
+  it("slaps into shape, then shows the pilot a picture the navigator must paint, under THE SLOW", () => {
     const world = install();
     expect(mimic(world).phase).toBe("entering");
     const seen = toSign(world);
@@ -138,68 +177,108 @@ describe("THE MIMIC's sign", () => {
     expect(slowing(world)).toBe(true);
   });
 
-  it("peels to the drawer's right glyph, and drops the reader's", () => {
+  it("stands every picture on the board, above the clock's row", () => {
+    const world = install(Array.from({ length: 12 }, () => sign(1)));
+    for (let n = 0; n < 12; n++) {
+      toSign(world);
+      for (const [col, row] of squares(world, 2)) {
+        expect(col).toBeGreaterThanOrEqual(0);
+        expect(col).toBeLessThan(CFG.cols);
+        expect(row).toBeGreaterThanOrEqual(CFG.mimicBoardTop);
+        expect(row).toBeLessThan(mimicRows(CFG));
+      }
+      paintAll(world);
+    }
+  });
+
+  it("sets the brush only from the seat whose button it is", () => {
     const world = install();
     toSign(world);
-    const want = owed(world, 2);
-    expect(glyph(world, 1, want)).not.toContain("mimicPeel");
+    expect(mimic(world).brush).toBe(1);
+    expect(press(world, 1, { kind: "throatMode", mode: "cyan" })).not.toContain("mimicBrush");
+    expect(press(world, 2, { kind: "throatMode", mode: "cyan" })).toContain("mimicBrush");
+    expect(mimic(world).brush).toBe(2);
+    expect(press(world, 2, { kind: "throatMode", mode: "shield" })).not.toContain("mimicBrush");
+    expect(press(world, 1, { kind: "throatMode", mode: "shield" })).toContain("mimicBrush");
+    expect(mimic(world).brush).toBe(3);
+  });
+
+  it("hears the painter and not the reader, and clears a square tapped in its own colour", () => {
+    const world = install();
+    toSign(world);
+    const at = 3 + 5 * CFG.cols;
+    expect(tap(world, 1, 3, 5)).not.toContain("mimicPaint");
+    expect(mimic(world).paint[at]).toBe(0);
+    expect(tap(world, 2, 3, 5)).toContain("mimicPaint");
+    expect(mimic(world).paint[at]).toBe(mimic(world).brush);
+    tap(world, 2, 3, 5);
+    expect(mimic(world).paint[at]).toBe(0);
+  });
+
+  it("peels only once every square is exact, and a wrong colour in it holds the peel", () => {
+    const world = install();
+    toSign(world);
+    paint(world, 2, 1);
     expect(mimic(world).phase).toBe("sign");
-    expect(glyph(world, 2, want)).toContain("mimicPeel");
+    const want = squares(world, 2).filter(([, , w]) => w > 0);
+    const [col, row, w] = want[want.length - 1] ?? [0, 0, 1];
+    const other = (w % 4) + 1;
+    brush(world, other);
+    expect(tap(world, 2, col, row)).not.toContain("mimicPeel");
+    tap(world, 2, col, row);
+    brush(world, w);
+    expect(tap(world, 2, col, row)).toContain("mimicPeel");
     expect(mimic(world).phase).toBe("peeled");
     expect(mimic(world).peels).toBe(1);
     expect(slowing(world)).toBe(false);
-    toSign(world);
-    expect(owed(world, 2)).not.toBe(want);
   });
 
-  it("wears a wrong sign, then reaches; three reaches in a movement strike the hull", () => {
+  it("a stray square off the picture does not hold the peel", () => {
+    const world = install();
+    toSign(world);
+    const [c0] = squares(world, 2)[0] ?? [0];
+    const far = c0 < CFG.cols / 2 ? CFG.cols - 1 : 0;
+    tap(world, 2, far, mimicRows(CFG) - 1);
+    paint(world, 2);
+    expect(mimic(world).phase).toBe("peeled");
+  });
+
+  it("wears a window run out, then reaches; three reaches in a movement strike the hull", () => {
     const world = install();
     toSign(world);
     for (let r = 1; r <= CFG.mimicReaches; r++) {
-      const want = owed(world, 2);
-      expect(glyph(world, 2, not(want))).toContain("mimicWrong");
-      expect(mimic(world).drawn[1]).toBe(not(want));
+      runUntil(world, saw("mimicLapse"), 20);
+      expect(mimic(world).phase).toBe("mimicking");
       expect(slowing(world)).toBe(false);
       runUntil(world, saw("mimicReach"));
       if (r < CFG.mimicReaches) {
         expect(mimic(world).reaches).toBe(r);
-        expect(mimic(world).phase).toBe("sign");
+        toSign(world);
       }
     }
     expect(world.events.some((e) => e.type === "breach")).toBe(true);
     expect(mimic(world).reaches).toBe(0);
   });
 
-  it("reaches after a window run out with nothing drawn, the skin left mottled", () => {
-    const world = install();
-    toSign(world);
-    runUntil(world, saw("mimicLapse"), 20);
-    expect(mimic(world).phase).toBe("mimicking");
-    expect(mimic(world).drawn).toEqual([-1, -1]);
-    runUntil(world, saw("mimicReach"));
-    expect(mimic(world).reaches).toBe(1);
-  });
-
   it("draws every arm back a step with a peel", () => {
     const world = install();
     toSign(world);
-    glyph(world, 2, not(owed(world, 2)));
-    runUntil(world, saw("mimicReach"));
+    runUntil(world, saw("mimicReach"), 30);
     expect(mimic(world).reaches).toBe(1);
-    glyph(world, 2, owed(world, 2));
+    toSign(world);
+    paint(world, 2);
     expect(mimic(world).reaches).toBe(0);
   });
 });
 
 describe("the movements", () => {
-  it("rolls after three signs: the reaches start again and the navigator reads", () => {
+  it("rolls after three pictures: the reaches start again and the navigator reads", () => {
     const world = install();
     toSign(world);
-    glyph(world, 2, not(owed(world, 2)));
-    runUntil(world, saw("mimicReach"));
+    runUntil(world, saw("mimicReach"), 30);
     for (let n = 0; n < 3; n++) {
       toSign(world);
-      drawAll(world);
+      paintAll(world);
     }
     runUntil(world, saw("mimicRoll"));
     expect(mimic(world).reaches).toBe(0);
@@ -208,53 +287,55 @@ describe("the movements", () => {
     expect(owed(world, 2)).toBe(-1);
   });
 
-  it("changes a changing sign on its beat, and the old one is then wrong", () => {
+  it("changes a changing picture on its beat, and the paint stays where it was", () => {
     const world = install([sign(2, true)]);
     toSign(world);
-    const was = owed(world, 1);
-    const at = mimic(world).phaseBeat + CFG.mimicChangeBeats;
+    paint(world, 1, 1);
+    const s = mimic(world);
+    const was = [s.signs[0], s.inks[0], s.origins[0]];
+    const painted = [...s.paint];
+    const at = s.phaseBeat + CFG.mimicChangeBeats;
     runUntil(world, (w) => w.beat >= at);
     expect(mimic(world).changed).toBe(true);
-    expect(owed(world, 1)).not.toBe(was);
-    expect(glyph(world, 1, was)).toContain("mimicWrong");
+    expect([s.signs[0], s.inks[0], s.origins[0]]).not.toEqual(was);
+    expect(mimic(world).paint).toEqual(painted);
   });
 
-  it("splits for both seats: one peel waits for the other, and either wrong brings both back", () => {
+  it("splits for both seats, one half each side: one peel waits for the other", () => {
     const world = install([SPLIT, core("either")]);
     toSign(world);
     const [a, b] = [owed(world, 1), owed(world, 2)];
     expect(a).toBeGreaterThanOrEqual(0);
     expect(b).toBeGreaterThanOrEqual(0);
-    expect(a).not.toBe(b);
     expect(mimicReadBy(mimic(world), 1)).toBe(b);
     expect(mimicReadBy(mimic(world), 2)).toBe(a);
-    glyph(world, 1, a);
+    const mid = MID;
+    for (const [col] of squares(world, 1)) expect(col).toBeLessThan(mid);
+    for (const [col] of squares(world, 2)) expect(col).toBeGreaterThan(mid);
+    paint(world, 1);
     expect(mimic(world).phase).toBe("sign");
     expect(mimicDraws(mimic(world), 1)).toBe(false);
-    glyph(world, 2, not(b));
-    runUntil(world, saw("mimicReach"));
-    expect(mimic(world).peeled).toEqual([false, false]);
-    drawAll(world);
+    paint(world, 2);
     expect(mimic(world).phase).toBe("peeled");
     toCore(world);
   });
 });
 
 describe("the core", () => {
-  it("takes a shot in its colour, refuses the other, and closes back to the split when run out", () => {
+  it("takes a tap in its colour, refuses the other, and closes back to the split when run out", () => {
     const world = install([SPLIT, core("red"), SPLIT, core("cyan")]);
     toSign(world);
-    drawAll(world);
+    paintAll(world);
     toCore(world);
-    expect(mimicStruck(world, shot("cyan"))).toBe(true);
+    expect(strike(world, "cyan")).not.toContain("mimicHit");
     expect(mimic(world).hits).toBe(0);
     runUntil(world, saw("mimicClose"), 10);
     expect(mimic(world).cursor).toBe(0);
     expect(mimic(world).phase).toBe("sign");
-    drawAll(world);
+    paintAll(world);
     toCore(world);
-    expect(mimicStruck(world, shot("red", MID + 1))).toBe(false);
-    expect(mimicStruck(world, shot("red"))).toBe(true);
+    expect(strike(world, "red", MID + 2)).not.toContain("mimicHit");
+    expect(strike(world, "red", MID + 1)).toContain("mimicHit");
     expect(mimic(world).hits).toBe(1);
     expect(mimic(world).phase).toBe("clench");
   });
@@ -264,23 +345,21 @@ describe("the core", () => {
     const seen = new Set<string>();
     for (let i = 0; i < TPB * 400 && world.boss !== null; i++) {
       const s = mimicBoss(world);
-      if (s?.phase === "sign" && (!s.steps[s.cursor]?.changes || s.changed)) drawAll(world);
-      else if (s?.phase === "core") {
-        const color = s.steps[s.cursor]?.color;
-        mimicStruck(world, shot(color === "cyan" ? "cyan" : "red"));
-      } else for (const t of tick(world)) seen.add(t);
+      if (s?.phase === "sign" && (!s.steps[s.cursor]?.changes || s.changed)) paintAll(world);
+      else if (s?.phase === "core")
+        strike(world, s.steps[s.cursor]?.color === "cyan" ? "cyan" : "red");
+      else for (const t of tick(world)) seen.add(t);
       for (const e of world.events) seen.add(e.type);
     }
     expect(world.boss).toBeNull();
     for (const t of ["mimicChange", "mimicRoll", "mimicHit", "mimicSpent", "mimicOut"])
       expect(seen.has(t)).toBe(true);
-    for (const t of ["mimicWrong", "mimicLapse", "mimicReach", "breach"])
-      expect(seen.has(t)).toBe(false);
+    for (const t of ["mimicLapse", "mimicReach", "breach"]) expect(seen.has(t)).toBe(false);
   });
 });
 
-describe("the signs are the seeded Rng's", () => {
-  it("never wears the same sign twice running", () => {
+describe("the pictures are the seeded Rng's", () => {
+  it("never puts the same picture up twice running", () => {
     const world = install(Array.from({ length: 12 }, () => sign(1)));
     let last = -1;
     for (let n = 0; n < 12; n++) {
@@ -288,15 +367,16 @@ describe("the signs are the seeded Rng's", () => {
       const now = owed(world, 2);
       expect(now).not.toBe(last);
       last = now;
-      drawAll(world);
+      paintAll(world);
     }
   });
 
-  it("hashes the same for the same seed and the same glyphs", () => {
+  it("hashes the same for the same seed and the same taps", () => {
     const play = (seed: number) => {
       const world = install(SCRIPT, seed);
       toSign(world);
-      glyph(world, 2, not(owed(world, 2)));
+      paint(world, 2, 1);
+      tap(world, 2, 0, mimicRows(CFG) - 1);
       runUntil(world, saw("mimicReach"));
       return hashWorld(world);
     };

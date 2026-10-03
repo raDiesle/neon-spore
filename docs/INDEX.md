@@ -367,11 +367,11 @@ by hand never moves.
 | `packages/sim/src/lock.ts` | THE LOCK: the hand player 1 already has on the field, read a second way |
 | `packages/sim/src/mid-beat.ts` | **Where a thing stands between two beats**, in thousandths of a tile |
 | `packages/sim/src/mine.ts` | THE MINE: a wisp standing still, answered by a thumb instead of a bolt |
-| `packages/sim/src/mimic-hand.ts` | THE MIMIC's one hand: a sign drawn on the glass, heard as the `glyph` command the drawing phone recognised |
+| `packages/sim/src/mimic-hand.ts` | THE MIMIC's hands: the brush set from the panel, and a tile tapped on the board (`mimic.ts`) |
 | `packages/sim/src/mimic-hash.ts` | What THE MIMIC puts into `hashWorld`, and nothing else |
-| `packages/sim/src/mimic-shot.ts` | **THE MIMIC's shot**: the bare core, where a bolt leaves the top of the field in the middle column |
-| `packages/sim/src/mimic-step.ts` | THE MIMIC's clock, once a beat: the slap into shape, a sign's window and its change |
-| `packages/sim/src/mimic.ts` | THE MIMIC: a soft mantle with eight arms whose skin wears a sign that only one seat can see |
+| `packages/sim/src/mimic-step.ts` | THE MIMIC's clock, once a beat: the slap into shape, a picture's window and its change |
+| `packages/sim/src/mimic-shapes.ts` | **THE MIMIC's pictures**, painted a tile at a time on the field above the ship… |
+| `packages/sim/src/mimic.ts` | THE MIMIC: a picture only one seat can see |
 | `packages/sim/src/scene-aim.ts` | The three acts a film aims rather than writes down, resolved against a world |
 | `packages/sim/src/scene-panel.ts` | **The ship's own panel on a scene's body**: SHOOT, SHIELD and SUCK marks (`INSTAR_GESTURES`) |
 | `packages/sim/src/scout-arena.ts` | What the scout is touching, and the two ways an arena ends badly |
@@ -499,7 +499,7 @@ by hand never moves.
 | `packages/sim/src/config-maze-turn.ts` | THE MAZE's wheel under the hand: how fast it turns, how far a pull carries it, and how its click catches and lets go |
 | `packages/sim/src/config-mantle.ts` | THE MANTLE's tuning: how deep a floor either handle must clear before it counts toward the sum |
 | `packages/sim/src/config-mirror.ts` | THE MIRROR's tuning: how far a carry goes before it is one, how long the pin is held |
-| `packages/sim/src/config-mimic.ts` | THE MIMIC's tuning: the beats around its signs, how long a wrong sign is worn, when a changing sign changes |
+| `packages/sim/src/config-mimic.ts` | THE MIMIC's tuning: the beats around its pictures, how long the skin stays mottled after a window runs out |
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
 | `packages/sim/src/config-vise.ts` | THE VISE's tuning: the rests around its steps, the grace a pinch is given |
 | `packages/sim/src/config-vane.ts` | **THE VANE's second and third gestures**: how long a thumb may hold the arm before the sweep tears it free |
@@ -547,7 +547,6 @@ by hand never moves.
 | `packages/sim/src/gimbal-turn.ts` | **Turn one ring by `by` thousandths on the true wheel, and the inner with the outer** |
 | `packages/sim/src/gimbal.ts` | THE GIMBAL: a sealed drum hung inside two nested rings set at right angles |
 | `packages/sim/src/geometry-seat.ts` | **Whose thumb a mark wants, read off where it is** |
-| `packages/sim/src/glyphs.ts` | **The five signs a thumb can draw**, each one stroke so that each is easy to say across a room and easy to… |
 | `packages/sim/src/hash-creature-held.ts` | **The fields a hand writes**, folded into the fingerprint |
 | `packages/sim/src/config-claw.ts` | THE CLAW's numbers — the rail, the clock, and what a bad grab costs |
 | `packages/sim/src/config-cling.ts` | THE LIMPET's and THE LEECH's numbers: how many beats a control may stand still with one on it before it goes… |
@@ -1103,13 +1102,14 @@ by hand never moves.
 | `packages/render/src/mine-tap.ts` | **A finger on a bare square of the field**, from the seat that cannot see what is standing on it |
 | `packages/render/src/mine.ts` | THE MINE, drawn: the body on one seat, the **count** on both |
 | `packages/render/src/mimic-draw.ts` | **THE MIMIC**: a soft round mantle with eight short arms hung over the top of the field |
-| `packages/render/src/mimic-pad.ts` | **THE MIMIC's drawing pad** (§42, *Player 1 and Player 2*): the lower half of the play area |
 | `packages/render/src/mimic-pose.ts` | **The clock THE MIMIC is posed off** (§42, *Animation*), six poses |
 | `packages/render/src/mimic-shape.ts` | **THE MIMIC's shape** (§42, *Silhouette*): two drafts combined, named on the shape sheet **BLOOM · GLYPHED** |
-| `packages/render/src/mimic-sign.ts` | **A sign on THE MIMIC's skin** (§42, *Colour*): one of the five, from the recogniser's own templates |
 | `packages/render/src/mimic-blow.ts` | **THE MIMIC's own blow at the hull**: the arm already hung there slaps it and leaves sucker prints |
+| `packages/render/src/mimic-board.ts` | **THE MIMIC's board** (§42; the owner, 3 October 2026): the field above the ship as squares |
 | `packages/render/src/mimic-fx.ts` | **What THE MIMIC leaves behind a frame**: the peel drifting off, the core's flash, the hull's shudder, the blow it takes |
 | `packages/render/src/mimic-receipts.ts` | **THE MIMIC's receipts, drawn** — what `mimic-fx.ts` holds between frames |
+| `packages/render/src/mimic-tap.ts` | **A finger on THE MIMIC's board**: the square it came down on, as THE MINE's `tapTile` (`mine-tap.ts`) |
+| `packages/render/src/mimic-tile.ts` | **One square of THE MIMIC's board**, in one of the panel's four colours (`throat-hue.ts`): the red shot |
 | `packages/render/src/simon-fx.ts` | the count-in, the handover, and what the row is showing |
 | `packages/render/src/simon-row.ts` | the row of slots: a control, or a question mark |
 | `packages/render/src/simon-verdict.ts` | the sequence flying into whichever ship earned it |
@@ -1165,7 +1165,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zq.ts` | **What THE GOVERNOR is asking for**, page forty-three of the readings |
 | `packages/render/src/boss-cue-read-zr.ts` | **What THE SEAM is asking for**, page forty-four of the readings |
 | `packages/render/src/boss-cue-read-zs.ts` | **What THE LAMPREY is asking for**, page forty-five of the readings |
-| `packages/render/src/boss-cue-read-zt.ts` | **What THE MIMIC is asking for**: SIGN on the screen that reads, DRAW in the pad on the one that draws, FIRE on the bare core |
+| `packages/render/src/boss-cue-read-zt.ts` | **What THE MIMIC is asking for**: TILES round the picture on the screen that reads, TAP over the board on the one that paints, TAP on the bare core |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -1302,7 +1302,6 @@ by hand never moves.
 | `packages/render/src/gland-organ.ts` | A BUTTON GROWN AS AN ORGAN — the flesh it swells out of, the veins that feed it |
 | `packages/render/src/gland-tube.ts` | A TUBE AND A CURVE — the two pieces of vector arithmetic every grown thing on VERSUS is drawn out of |
 | `packages/render/src/gland-wet.ts` | WET SKIN — the ship as a clear, light-reflecting surface, with **no grain** |
-| `packages/render/src/glyph-shapes.ts` | **The five signs as they are drawn** — a ring, a triangle, a zigzag, a wave and a hook (`sim/glyphs.ts`) |
 | `packages/render/src/handles.ts` | The handles: the things drawn **on the field** that a hand takes hold of and carries, as opposed to the |
 | `packages/render/src/handles-pairs.ts` | **The two handles that come in pairs** — THE CHOIR's arrows against the two walls |
 | `packages/render/src/handles-cords.ts` | **The three cords**: THE MAZE's string, THE WARDEN's rope and THE LID's cord |
@@ -2236,6 +2235,7 @@ by hand never moves.
 | `packages/render/src/choke-hull.ts` | THE CHOKE's grip on the cannon over the finished hull — the loops round the swelling while the steer fault has it, and the pilot's light toward the next column |
 | `packages/render/src/chord.ts` | **`ChordHold` from several fingers** — the second gesture in the game read off more than one touch at once |
 | `packages/render/src/chord-pads.ts` | Each finger on the body and the pad it was counted as |
+| `packages/render/src/chart-lattice.ts` | **A chart's lattice**: the lines between the squares, a mark on every crossing pulsing on the beat |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
 | `packages/render/src/antiphon-draw.ts` | **THE ANTIPHON**: a smooth violet body hung over the top of the field above row 0 |
 | `packages/render/src/antiphon-depth.ts` | **THE ANTIPHON in depth**: the mantle is not a band painted across the top of the field but a long soft body… |
@@ -2689,8 +2689,6 @@ by hand never moves.
 | `apps/game/src/back-ask.ts` | **The phone's back gesture asks rather than leaves**: three answers over the field, on one history entry pushed back on every pop |
 | `apps/game/src/demo-menu.ts` | the DEMOS page: one row per mechanic, read out of `DEMONSTRATIONS` |
 | `apps/game/src/guide-swipe.ts` | a thumb dragged across a guide, read as a page turn: left is back, right is next |
-| `apps/game/src/glyph-pad.ts` | **THE MIMIC's pad**: a stroke on the lower field, sent as the `glyph` it was nearest, signed by the seat that owes a sign; and the desk's keys 1 to 5 |
-| `apps/game/src/glyph-stroke.ts` | **A stroke on the glass, judged as one of the five signs**, or none: resampled, boxed and matched to every way each can be drawn |
 | `apps/game/src/handle.ts` | `window.neonSpore` — the handle a headless check drives the game by |
 | `apps/game/src/handle-press.ts` | **The handle's two verbs about a press**: sending one, and asking first whether it would be heard |
 | `apps/game/src/key-hint.ts` | a keyboard hint for the player who sits at a PC with no panel to read the keys off |

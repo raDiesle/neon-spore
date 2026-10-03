@@ -184,7 +184,8 @@ export const HURT_ROWS_C: Row[] = [
     part: [
       { type: "mimicSign", signs: [-1, 0], col: 3 },
       { type: "mimicChange", signs: [-1, 1], col: 3 },
-      { type: "mimicWrong", side: 1, drawn: 2, sign: 0, col: 3 },
+      { type: "mimicBrush", brush: 2, col: 3 },
+      { type: "mimicPaint", side: 1, at: 40, paint: 2, col: 3 },
       { type: "mimicLapse", col: 3 },
       { type: "mimicReach", reaches: 1, col: 3 },
       { type: "mimicRoll", col: 3 },
@@ -192,7 +193,7 @@ export const HURT_ROWS_C: Row[] = [
       { type: "mimicClose", col: 3 },
     ],
     // A sign peeled, one step of the script that is its health.
-    hit: [{ type: "mimicPeel", side: 1, sign: 0, peels: 1, col: 3 }],
+    hit: [{ type: "mimicPeel", side: 1, sign: 0, ink: 1, at: 40, peels: 1, col: 3 }],
     hurt: (fx) => fx.boss.mimic.hurt,
   },
 ];

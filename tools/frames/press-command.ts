@@ -1,4 +1,4 @@
-import { GLYPHS, SNAKE_TURNS } from "@neon-spore/sim";
+import { SNAKE_TURNS } from "@neon-spore/sim";
 import { PICKS } from "./press.js";
 
 /**
@@ -134,18 +134,14 @@ export function commandFor(
       }
       return { kind, dir };
     }
-    case "glyph": {
-      // THE MIMIC's answer, a sign drawn on the pad: its index into the five,
-      // or the sign's own name (`sim/glyphs.ts`).
-      const said = needs();
-      const named = (GLYPHS as readonly string[]).indexOf(said);
-      const sign = named >= 0 ? named : Number(said);
-      if (!Number.isInteger(sign) || sign < 0 || sign >= GLYPHS.length) {
-        throw new Error(
-          `--press ${whole}: "${one}" — a sign is 0 to ${GLYPHS.length - 1}, or ${GLYPHS.join(", ")}`,
-        );
+    case "tapTile": {
+      // A square of the field, THE MINE's press and THE MIMIC's paint:
+      // `tapTile=3x5` is column 3, row 5 (`sim/command-touch.ts`).
+      const [col, row] = needs().split("x").map(Number);
+      if (!Number.isInteger(col) || !Number.isInteger(row)) {
+        throw new Error(`--press ${whole}: "${one}" — a tile is COLxROW, as tapTile=3x5`);
       }
-      return { kind, sign };
+      return { kind, col: col as number, row: row as number };
     }
     case "mawTake":
       // The same command the ship's own maw sends; only the seat differs, and

@@ -8,7 +8,7 @@ import { phaseInto } from "./phase-into.js";
 /**
  * **The clock THE MIMIC is posed off** (§42, *Animation*), six poses: flat
  * mottle pressed against the top of the field; the slap into a full round
- * mantle; rippling with a sign surfacing; the flinch as a sign peels, all
+ * mantle; rippling while a picture is up; the flinch as a picture peels, all
  * eight arms pulled in; split down the middle, two faces, the core between;
  * and shapeless, falling.
  *
@@ -26,9 +26,6 @@ const RING = 5;
 /** How far a split step parts the skin, and how much further a peeled half falls back, as shares of wide open. */
 const AJAR = 0.32;
 export const PEELED_BACK = 0.25;
-/** How long a sign takes to surface, and to sink when it changes, in beats. */
-export const SURFACE = 0.5;
-const SINK = 0.25;
 /** How far the halves part, wide open, in mantle radii. */
 export const PART = 1;
 
@@ -149,35 +146,7 @@ export function mimicPose(
 }
 
 /**
- * How far up a sign on the skin is, nought sunk to one surfaced: rising from
- * the middle outwards as the window opens, and — on a step that changes —
- * sinking back just before the change and rising again after it, so the
- * reader sees it change rather than finding it changed.
- */
-export function mimicRise(cfg: SimConfig, s: MimicState, beat: number, beatPhase: number): number {
-  if (s.phase !== "sign") return 0;
-  const into = phaseInto(s, beat, beatPhase);
-  const change = cfg.mimicChangeBeats;
-  if (s.changed) return smoothstep(clamp((into - change) / SURFACE));
-  const up = smoothstep(clamp(into / SURFACE));
-  if (mimicStep(s)?.changes !== true) return up;
-  return Math.min(up, smoothstep(clamp((change - into) / SINK)));
-}
-
-/** Where on the skin each seat's sign is worn: the middle, or its own half of a split. */
-export function mimicSignAt(
-  l: Layout,
-  p: MimicPose,
-  split: boolean,
-  seat: 1 | 2,
-): { x: number; y: number; size: number } {
-  if (!split) return { x: p.x, y: p.y, size: p.r * 0.95 };
-  const out = (0.48 + PART * p.split * 0.5) * p.r;
-  return { x: p.x + mimicHalfSide(l, seat) * out, y: p.y, size: p.r * 0.55 };
-}
-
-/**
- * Which way, on this screen, the half a seat draws lies from the middle: -1
+ * Which way, on this screen, the half of a split skin a seat paints lies from the middle: -1
  * left or 1 right. The pilot's half is the field's left, wherever this screen
  * puts it (`field-flip.ts`).
  */

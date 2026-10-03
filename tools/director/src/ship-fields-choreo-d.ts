@@ -123,6 +123,8 @@ export const CHOREO_FIELD_GROUP_D = {
   mimicMimicBeats: "THE MIMIC — a sign one of you reads for the other to draw",
   mimicPeelBeats: "THE MIMIC — a sign one of you reads for the other to draw",
   mimicChangeBeats: "THE MIMIC — a sign one of you reads for the other to draw",
+  mimicBoardTop: "THE MIMIC — a sign one of you reads for the other to draw",
+  mimicCoreRow: "THE MIMIC — a sign one of you reads for the other to draw",
   mimicReaches: "THE MIMIC — a sign one of you reads for the other to draw",
   mimicClenchBeats: "THE MIMIC — a sign one of you reads for the other to draw",
   mimicSpentBeats: "THE MIMIC — a sign one of you reads for the other to draw",

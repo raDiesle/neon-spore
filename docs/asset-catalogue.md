@@ -282,8 +282,8 @@ Said plainly, because a catalogue that oversells itself is worse than none.
   (11 September 2026): the marks are cut by the renderer on one screen off the
   world's beat, and the disc under them is the silhouette. THE MIMIC (2
   October 2026) cuts the same rim into a mantle's edge and leaves the reading
-  to a sign drawn on the skin inside it, one of the five a thumb can draw
-  (`render/mimic-sign.ts`): the rim is skin, and the key is elsewhere.
+  to a picture of squares on a board beside it
+  (`render/mimic-board.ts`): the rim is skin, and the key is elsewhere.
 - **The arms are single strokes.** THE CONDUCTOR and THE NEEDLE have no
   thickness of their own. A real one is a stroke width and a taper, which is
   what LIGHT TRACE got when THE LAMPREY took it (1 October 2026): a lobed

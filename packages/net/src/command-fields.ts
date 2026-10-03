@@ -1,7 +1,6 @@
 import {
   type Color,
   type DragTarget,
-  GLYPHS,
   PULSE_LANES,
   SNAKE_TURNS,
   THROAT_MODES,
@@ -122,10 +121,3 @@ export const isStep = (x: unknown): x is -1 | 0 | 1 => x === -1 || x === 0 || x 
 /** An optional field: either absent, or present and of the right shape. */
 export const optional = <T>(x: unknown, check: (v: unknown) => v is T): boolean =>
   x === undefined || check(x);
-
-/**
- * THE MIMIC's sign: an index into the five a thumb can draw (`sim/glyphs.ts`),
- * checked against the list's length for `pulseStep`'s reason — a sign the
- * skin cannot wear would be a peel nobody could ever earn.
- */
-export const isGlyphSign = (x: unknown): x is number => isNonNegInt(x) && x < GLYPHS.length;

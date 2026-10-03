@@ -56,7 +56,7 @@ export const NO_SUBJECT_E: Record<string, string> = {
   "boss.mimicSign": "a sign surfacing on the skin. Same argument.",
   "boss.mimicChange": "the sign sinking and another rising. Same argument.",
   "boss.mimicPeel": "a sign drawn right, peeling off. Same argument.",
-  "boss.mimicWrong": "the skin wearing a wrong sign. Same argument.",
+  "boss.mimicPaint": "a tile painted on the board, which is the field's own grid. Same argument.",
   "boss.mimicLapse": "a sign sinking back undrawn. Same argument.",
   "boss.mimicReach": "an arm reaching a step down. Same argument.",
   "boss.mimicRoll": "the mimic rolling its other face round. Same argument.",

@@ -11540,185 +11540,179 @@ two phones has never been played at tempo.
 
 ## 11.60 THE MIMIC — a skin only one of you can read, and only the other can answer
 
-> A sign comes up on its skin, and only one of you can see it. Say what it
-> is; the other draws it on the glass. A right sign peels off, a wrong one is
-> worn, and an arm reaches down. Then both at once, and shoot the core.
+> A picture of squares comes up, and only one of you can see it. Say which
+> squares, in which colour; the other taps them in on the board above the
+> ship. A picture painted exactly peels off; one not finished in time and an
+> arm reaches down. Then both at once, and tap the core.
 
 Designed as §42 of [bosses-choreographed](bosses-choreographed.md) — a
-choreographed scene, the third kind in `.claude/skills/new-boss`. **One new
-primitive, DRAWN GLYPH**: the `glyph` command, an index into the five signs
-of `sim/glyphs.ts` — a ring, a triangle, a zigzag, a wave and a hook — that
-the drawing phone recognised from the stroke. `PerSeatTruth` turned on its
-side: **the screen that can see is never the hand that can answer.**
+choreographed scene, the third kind in `.claude/skills/new-boss`.
+`PerSeatTruth` turned on its side: **the screen that can see is never the
+hand that can answer.** **Reworked on 3 October 2026** at the owner's word:
+the first cut had the answering seat draw one of five signs freehand and a
+recogniser guess it, and in the director nothing could be drawn at all.
+*Chess tiles like in THE FLEET, but without the alphabets … one touch fills
+the tile … not freestyle.* So the answer is now **painted, a tile at a
+time**, and nothing is guessed.
 
-**It is the signs, and they are its health.** The state (`sim/mimic.ts`,
+**It is the pictures, and they are its health.** The state (`sim/mimic.ts`,
 hashed in `sim/mimic-hash.ts`) is the **phase** and the beat it began, the
-**cursor** into the script, the **sign** each seat must draw (an index into
-the five, or -1), what each seat **drew** wrong, which seats have **peeled**
-in the step that is on, whether the step's sign has **changed**, the
-**reaches** in this movement, the **peels** in all and the **hits**. The
-script is the wave's (`MimicEntry.steps`), copied at install: each step
-asks `sign`, `split`, `core` or `roll`, names its **reader** (for a sign;
-the other seat draws), whether it **changes**, its **colour** for a core,
-and its **beats**.
+**cursor** into the script, the **picture** each seat must paint (an index
+into `MIMIC_SHAPES`, or -1), the **inks** each is painted in, the **origin**
+each stands at, the **paint** on every tile of the board, the pair's one
+**brush**, which seats have **peeled** in the step that is on, whether the
+step's picture has **changed**, the **reaches** in this movement, the
+**peels** in all and the **hits**. The script is the wave's
+(`MimicEntry.steps`), copied at install: each step asks `sign`, `split`,
+`core` or `roll`, names its **reader** (for a picture; the other seat
+paints), whether it **changes**, its **colour** for a core, and its
+**beats**.
 
-**The rule, in one sentence.** One of you sees the sign on its skin and says
-what it is, and the other draws it.
+**The rule, in one sentence.** One of you sees a picture of squares and says
+it, and the other paints it.
 
-**The split.** By the truth, not by geometry: the mantle is on both screens,
-and the sign seat *k* must draw is `signs[k - 1]`, shown on the **other**
-seat's screen only (`mimicReadBy`). In the first movement the pilot reads
-and the navigator draws; a roll trades them; in the third each half of a
-split skin is read by one seat and drawn by the other, both at once. The
-core is the ordinary shot — Player 1's cannon under the middle column,
-Player 2's trigger in its colour.
+**The board** is the field above the ship as tiles: every column, and the
+rows from the top down to the one over the hull (`mimicRows`), which is kept
+for the window's clock. A picture stands on the board from row
+`mimicBoardTop` down. **The pictures** (`sim/mimic-shapes.ts`) are twelve
+small grids of letters, `.` bare and `a`, `b`, `c` the first, second and
+third colour — a plus, an L, a T, a ring, stairs, a cross in two colours, two
+bars, a checker and more — and the colours are picked with each picture from
+**THE THROAT's four** (`THROAT_MODES`): the red shot, the cyan shot, the
+shield and the maw. The first pictures are one colour, then two, then three
+(`HUES_BY_PEELS`); a split's halves are two at most.
+
+**The brush is THE THROAT's panel** (`controls: "throat"`), and its rule
+(`throatModeSeat`): RED and CYAN are the navigator's buttons, SHIELD and SUCK
+the pilot's, and each sets the **one brush the pair share**, whoever is
+painting. So a painter who needs a colour off the other seat's buttons has
+to ask for it — the second thing said across the room.
+
+**The split.** By the truth, not by geometry: the board is on both screens,
+and the picture seat *k* must paint is `signs[k - 1]`, shown on the
+**other** seat's screen only (`mimicReadBy`). In the first movement the
+pilot reads and the navigator paints; a roll trades them; in the third each
+seat reads one half of a split board and paints the other, both at once —
+the pilot's half left of the middle column, the navigator's right of it.
 
 **The clock** (`sim/mimic-step.ts`) runs on the beat: the mottle slaps into
-shape for `mimicEnterBeats` (`mimicEnter`), then each sign surfaces under
-THE SLOW (`openSlow(…, "ask")`, for the window and a beat) with a sign
-picked by the seeded `Rng` from the five less the one that half wore last
-and the one the other half wears (`mimicSign`). A step that changes picks
-again `mimicChangeBeats` into its window (`mimicChange`). A window run out
-with nothing drawn is a lapse (`mimicLapse`). A lapse or a wrong sign is
-worn for `mimicMimicBeats`; then an arm reaches (`mimicReach`), and the
-`mimicReaches`-th reach in a movement strikes the hull (`bossStrikesHull`),
-which is the wave; the same step surfaces again with new signs. A step
-peeled flinches for `mimicPeelBeats`. A roll (`mimicRoll`) starts the
-reaches again for its beats. A core step bares the core, lit in its colour
-under THE SLOW (`mimicCore`); a hit clenches it (`mimicHit`) for
-`mimicClenchBeats`, and a core run out closes (`mimicClose`) and the split
-before it comes back. With the script done it loses its shape
-(`mimicSpent`) for `mimicSpentBeats` and falls away (`mimicOut`).
+shape for `mimicEnterBeats` (`mimicEnter`), then each picture goes up under
+THE SLOW (`openSlow(…, "ask")`, for the window and a beat), picked by the
+seeded `Rng` from the pictures its peel count allows less the one that half
+had last and the one the other half has, its colours shuffled and its
+origin picked inside its half (`mimicSign`); the board is wiped. A step that
+changes picks again `mimicChangeBeats` into its window (`mimicChange`) and
+leaves the paint where it was, so a half-painted picture has to be cleared.
+A window run out is a lapse (`mimicLapse`), worn for `mimicMimicBeats`; then
+an arm reaches (`mimicReach`), and the `mimicReaches`-th reach in a movement
+strikes the hull (`bossStrikesHull`), which is the wave; the same step goes
+up again with new pictures. A step peeled flinches for `mimicPeelBeats`. A
+roll (`mimicRoll`) starts the reaches again for its beats. A core step bares
+the core, lit in its colour under THE SLOW (`mimicCore`); a hit clenches it
+(`mimicHit`) for `mimicClenchBeats`, and a core run out closes
+(`mimicClose`) and the split before it comes back. With the script done it
+loses its shape (`mimicSpent`) for `mimicSpentBeats` and falls away
+(`mimicOut`).
 
-**The answers** (`sim/mimic-hand.ts`). Only a seat with a sign to draw is
-heard (`mimicDraws`): the reader has no pad, and a half already peeled has
-nothing left, so a glyph from either is dropped. The sign drawn is judged the
-instant it lands against the one the skin wears now. **Right**, that half
-peels (`mimicPeel`) and every arm draws back up a step; the step is done
-when every half that asked has peeled, which closes THE SLOW. **Wrong**, the
-skin wears the drawn sign (`mimicWrong`), THE SLOW closes, and every half
-comes back after the reach. The shot is judged where a bolt leaves the top
-of the field (`sim/mimic-shot.ts`): only while the core is bare, only in the
-middle column, and only in its colour unless it is `either`.
+**The answers** (`sim/mimic-hand.ts`). A brush button from its own seat sets
+the brush (`mimicBrush`). A tap on the board is THE MINE's `tapTile`, a
+column and a row, and only a seat with a picture to paint is heard
+(`mimicDraws`): the tile takes the brush, or goes bare if it was already in
+it (`mimicPaint`). **The picture is judged the instant a tap lands**: when
+every tile under its box is exactly what it wants, bare where it is bare,
+that half peels (`mimicPeel`) and every arm draws back up a step; the step
+is done when every half that asked has peeled, which closes THE SLOW. A
+tile painted off the picture holds nothing up. **The core is tapped**, by
+either seat, on its tile — the middle column, row `mimicCoreRow` — or the
+eight round it, with the brush in its colour unless it is `either`; a tap in
+another colour is a colour missed.
 
-**The wire** (`net/command-codec.ts`). `{ kind: "glyph", sign }`, and the
-sign must be a whole number under `GLYPHS.length` or the frame is dropped
-(`net/test/glyph-codec.test.ts`). It is never a panel's to refuse
-(`content/control-sets-keys.ts`): the pad is the lower field.
+**The wire.** No command of its own: `tapTile` and `throatMode` are
+already on it (`net/command-codec.ts`). The first cut's `glyph` command is
+gone from the sim, the wire and the panel lists.
 
-**Where this departs from the design, and why.** Six places.
+**Where this departs from the design, and why.**
 
-- **A window is ten beats, not six.** The owner's generic rule of 22
-  September 2026, a choreographed window long enough to talk in
-  (`new-boss/generic.md`). The need is already high: agreeing a word for a
-  shape across a room.
-- **THE SLOW opens at every sign and every core**, not only the first sign
-  of each movement. The owner's generic rule of the same day: the slow is
-  the window, and it stops the instant the step is answered or missed.
-- **A roll stands before movement 3 too.** §42 starts the third movement
-  with the split itself; a two-beat roll before it is where the reaches
-  start again, the way the roll before movement 2 does, and it is the split
-  pose's entrance.
-- **Every peel draws the arms back**, a split's two halves two steps. §42
-  says "a peel", and a split is two.
-- **A split never asks both seats for the same sign.** So "I drew the ring"
-  is never an answer to both halves.
-- **The design's `mimicGlyph` is the command, not a field.** The sign drawn
-  is not state: a right one becomes a peel and a wrong one `drawn`.
+- **The answer is painted, not drawn**, on the owner's word of 3 October
+  2026 (above). §42's DRAWN GLYPH primitive is not built.
+- **A window is twenty beats, a split's twenty-four, a core's six.** Long
+  enough to say a picture square by square across a room; the owner's
+  generic rule of 22 September 2026 is the floor (`new-boss/generic.md`).
+- **THE SLOW opens at every picture and every core**, not only the first of
+  each movement. The owner's generic rule of the same day.
+- **A roll stands before movement 3 too**, where the reaches start again,
+  and it is the split pose's entrance.
+- **Every peel draws the arms back**, a split's two halves two steps.
+- **No wrong answer is worn.** With nothing guessed there is nothing wrong
+  to wear: a tile in the wrong colour is just not yet right, and the reader
+  says so. Only a window run out reaches.
+- **The core is tapped, not shot**, on its tile in the brush's colour: the
+  panel is THE THROAT's, and has no cannon.
 
-**The recogniser** (`apps/game/src/glyph-stroke.ts`, landed 2 October
-2026). A stroke on the lower half of the play area, while this phone's seat
-owes a sign (`glyph-pad.ts`), is resampled to 32 points, boxed, and matched
-point for point with every way each of the five can be drawn — either
-direction, mirrored, and the ring and the triangle begun anywhere round
-them. The nearest wins; a stroke under 40 pixels long, or further than 0.2
-of its box from all five, sends nothing, so a miss is a try again rather
-than a wrong sign. **Its five templates are the picture of each sign**: a
-ring, a triangle on its base, a W for the zigzag, one lying sine period for
-the wave, and a J for the hook — the look draws these, from the one table
-both read (`render/src/glyph-shapes.ts`). At a desk, keys 1 to
-5 send the five, Shift for the navigator's half of a split on the test
-screen; `bun run frames --press <t>:2:glyph=<n|name>`.
+**The look.** **The body** (`render/src/mimic-draw.ts`, `mimic-shape.ts`,
+`mimic-pose.ts`) landed on 2 October 2026: BLOOM · GLYPHED, a soft round
+mantle hung over the middle column with eight round-ended arms, a rim of
+marks cut into its edge, a mottle of two dark greens; it slaps round,
+flinches on a peel, rolls between movements, parts down the middle on a
+split with the core between, and falls shapeless, spent. The arm that
+reaches is a lobed tentacle, a third of the way to the hull per reach.
+**While a picture is up the mantle gives way to the board** on both screens
+(`mimicVeil`, half a beat each way): the owner, *the one who does not need
+to draw does not see this green tree at all*. **The board**
+(`render/src/mimic-board.ts`, `mimic-tile.ts`, `chart-lattice.ts`) is THE
+FLEET's lattice without its letters, framed in the brush's colour. **The
+reader** sees every tile the picture wants, faint in its colour with THE
+THROAT's face on a shield or maw tile, and every tile painted marked as it
+lands: a tick in the good green on a right one, a cross in the hull's red on
+a wrong one or a stray (`showsMimicSign`, `view-role-clocks-c.ts`). **The
+painter** sees only what has been painted, solid, unmarked
+(`showsMimicPaint`) — what to fix is said out loud. **The clock** is THE
+FLEET's drain bar and seconds, in the row over the hull. The board's tiles
+are hit by the shared `render/touch.ts` (`mimic-tap.ts`), so the director's
+stage paints exactly as a phone does. **Lane B, not built**: a living alien
+crane that holds the board up, in place of the mantle while a picture is up.
 
-**The look.** **The body** landed on 2 October 2026 (`render/src/mimic-draw.ts`,
-`mimic-shape.ts`, `mimic-pose.ts`, `mimic-sign.ts`, `mimic-pad.ts`).
-BLOOM · GLYPHED: THE VESSEL's `bloom`, a soft round mantle hung over the
-middle column with eight round-ended arms of even length, each breathing a
-little out of step, and `glyphed`'s rim of marks cut shallow into its edge
-and marching as the skin ripples; a mottle of two dark greens close to the
-field's own dark, a different scatter for each face. It enters pressed flat
-against the top of the field and slaps round, ringing out; flinches small
-with its arms pulled in when a sign peels; rolls edge-on to turn its other
-face between movements; parts down the middle on a split, each half wearing
-its own face and drawing back further once peeled, the core between dull
-grey-green and lit in its cannon's colour only while it is bare to be shot;
-and falls shapeless down the field, spent, at half alpha. The arm that
-reaches is a lobed tentacle from under the mantle, a third of the way to the
-hull per reach, beginning to stretch in the last half beat of the mimicry.
-**The sign** is one of the five drawn from the recogniser's own templates in
-pale cyan, glowing — the only bright line on the body — rising from its
-middle over half a beat, and on a changing step sinking just before the
-change and rising again after it; it is drawn **only on the screen of the
-seat that does not draw it** (`showsMimicSign`, `view-role-clocks-c.ts`).
-**The pad** is a faint dashed frame over the lower half of the play area,
-breathing on the beat, **only on the screen of the seat that owes a sign**
-(`showsMimicPad`); its rectangle is the one the stroke is heard in
-(`mimicPad`, read by `apps/game/src/glyph-pad.ts` `inPad`). **A mimicked
-sign** is the template drawn shaken in the hull's red on every screen.
-
-**The hand** landed the same day. The eight STATES cards are posed on
-AUTO's hand (`tools/director/src/poses-bosses-hands-mimic.ts`); the
-mimicking card has P2 draw the wrong sign a beat in, so the skin wears it in
-red and the arm stretches. The field's words (`render/boss-cue-read-zt.ts`):
-**SIGN**, a CALL on the mantle, on the screen that reads it — a word to say,
-not a verb to do — and **DRAW**, a CARRY in the pad, on the screen that
-draws; on a split each stands over its own half. **FIRE** stands on the hull
-while the core is bare. THE SLOW aims round the whole mantle, arms and all
+**The hand.** The eight STATES cards are posed on AUTO's hand
+(`tools/director/src/poses-bosses-hands-mimic.ts`); the mimicking card lets
+the window run out. The field's words (`render/boss-cue-read-zt.ts`):
+**TILES**, a CALL framed round the picture with half a tile to spare on
+every side, on the screen that reads it; **TAP**, unframed over the top of
+the board, on the screen that paints, over its own half on a split; **TAP**
+on the core's tile while it is bare. THE SLOW aims round the whole mantle
 (`slow-boss-aim-d.ts`). The marks-window row (`marks-window-rows-c.ts`)
-holds the pad and the skin's sign open while a sign is owed; the mimicked
-sign is unreached on AUTO, which never draws a sign wrong. The hush test
-holds the two words still.
+holds the picture's wanted tiles to a window with a picture owed; the hush
+test holds the words still, a changed picture's frame being a new mark.
 
-**The receipts** landed the same day (`render/src/mimic-fx.ts`, drawn by
-`mimic-receipts.ts`). **A peel** lifts the sign off where it was worn as a
-scrap of skin with the sign still on it and a pale torn edge, drifting down
-the field and aside, turning over to show its blank underside, on both
-screens — by then the sign is answered — and deals the lighter blow. **A
-shot into the core** flashes a ring out past it in the colour it was lit and
-deals the whole blow; the mantle shakes and reddens with either
-(`boss-hurt.ts`). The slap into shape and the fall, spent, shudder the hull.
-A sign, a change, a wrong sign (in the hull's red), a lapse, a reach, a
-roll, the core bared and closed over each throw a burst and deal nothing.
-**Its own blow** (`mimic-blow.ts`): the third reach in a movement leaves the
-arm already hung at the hull, so the blow is the slap — the tip lifts off the
-plating, comes down on the column and is drawn back up under the mantle,
-leaving a ring of sucker prints in the hull's red.
-
-**What is not proven by eye.** AUTO draws every sign at once, so no frame
-it plays has a peel in open field, and it never lets three reaches land in
-one movement, so the slap is proven on a stub canvas only
-(`boss-strike.test.ts`). None of the look has been watched at tempo on two
-phones.
+**The receipts** (`render/src/mimic-fx.ts`, drawn by `mimic-receipts.ts`).
+**A peel** lifts the picture off the board as a scrap edged in the good
+green, drifting down and aside, turning over, on both screens, and deals
+the lighter blow. **A tap on the core** flashes a ring in the colour it was
+lit and deals the whole blow. The slap into shape and the fall shudder the
+hull. A picture, a change, a lapse, a reach, a roll, the core bared and
+closed over each throw a burst and deal nothing; a brush set or a tile
+painted throws nothing. **Its own blow** (`mimic-blow.ts`): the slap of the
+third reach, leaving sucker prints in the hull's red.
 
 **What is proven, and what is not.** `sim/test/mimic.test.ts` proves the
-rules: the mantle slaps into shape and the first sign surfaces under THE
-SLOW, on the pilot's screen and owed by the navigator; the drawer's right
-glyph peels and the reader's is dropped; a wrong sign is worn, then an arm
-reaches, and three in a movement strike the hull; a window run out is worn
-as mottle and reaches; a peel draws an arm back; a roll starts the reaches
-again and trades the seats; a changing sign changes on its beat and the old
-one is then wrong; a split wants both halves, never one sign for both, and
-either wrong brings both back; the core wants its colour and the middle
-column, and run out closes back to the split; the whole script ends spent
-and out; no sign is worn twice running; the same seed and glyphs hash the
-same. AUTO's hand (`hands/src/boss-hands-mimic.ts`) draws each owed sign,
-the changing ones only once they have changed, and shoots the core's
-colour; it plays the script through without a wrong sign, a lapse, a reach
-or a scar (`tools/director/test/autopilot-mimic.test.ts`). Its thirteen
-sounds are bound (`audio/src/bind-mimic.ts`), a reach deepening as the arms
-come down. Whether a pair can name five shapes across a room and draw them
-under a ten-beat window — §42's payoff — is the owner's eye, and it has
-never been watched at tempo.
+rules: the first picture goes up under THE SLOW on the pilot's screen and
+owed by the navigator; every picture stands on the board above the clock's
+row; the brush is set only from the seat whose button it is; the painter is
+heard and the reader not, and a tap in the brush's colour clears; a picture
+peels only when exact, a wrong colour in it holds the peel and a stray off
+it does not; a window run out is worn and reaches, three in a movement
+strike the hull; a peel draws an arm back; a roll starts the reaches again
+and trades the seats; a changing picture changes on its beat and leaves the
+paint; a split puts one half each side of the middle and wants both; the
+core wants its colour and its tile, and run out closes back to the split;
+the whole script ends spent and out; no picture twice running; the same seed
+and taps hash the same. AUTO's hand (`hands/src/boss-hands-mimic.ts`) sets
+the brush from the right seat and paints a tile a third of a beat, the
+changing pictures only once changed, and taps the core; it plays the script
+through without a lapse, a reach or a scar
+(`tools/director/test/autopilot-mimic.test.ts`). The board's two screens
+are proven on a stub canvas (`render/test/mimic-frame.test.ts`). Whether a
+pair can say a picture square by square across a room inside twenty beats —
+§42's payoff — is the owner's eye, and it has never been watched at tempo.
 
 ## Retired
 

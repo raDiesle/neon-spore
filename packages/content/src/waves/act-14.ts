@@ -18,13 +18,14 @@ import type { Wave } from "../wave-types.js";
  * navigator the second, from the two ends of the hull crawling inward; each
  * gullet's re-bite is the pilot's again, and the last shot is white.
  *
- * **THE MIMIC is the first boss answered by drawing** (§42, `sim/mimic.ts`):
- * a sign on its skin shows on one seat's screen only, and the other seat
- * draws it on the glass. The pilot reads three signs, the mantle rolls, and
- * the navigator reads three more, the last two changing on their third beat;
- * then the skin splits, each seat reads the half the other draws, and the
- * core it bares is shot — red, then cyan. A window is ten beats, THE SLOW's
- * time to agree a word for a shape (`new-boss/generic.md`).
+ * **THE MIMIC is the boss answered by painting** (§42, `sim/mimic.ts`): a
+ * picture of tiles shows on one seat's screen only, and the other seat taps
+ * it onto the field, the brush set from THE THROAT's four buttons. The pilot
+ * reads three pictures, the mantle rolls, and the navigator reads three
+ * more, the last two changing on their third beat; then the board splits,
+ * each seat reads the half the other paints, and the core it bares is tapped
+ * — red, then cyan. A window is twenty beats, a split's twenty-four: a
+ * picture is said tile by tile, and the brush often wants the other thumb.
  */
 export const WAVES_ACT_14: Wave[] = [
   {
@@ -102,28 +103,29 @@ export const WAVES_ACT_14: Wave[] = [
     id: "theMimic",
     name: "THE MIMIC",
     guide: {
-      both: "One of you sees a sign on its skin. Say what it is. The other draws it on the glass. A right sign peels off. Then shoot the core.",
-      p1: "1. First: you see the sign. Say it.\n2. Then: draw the sign your partner says.\n3. Last: you both see one and draw one. Shoot the core.",
-      p2: "1. First: draw the sign your partner says.\n2. Then: you see the sign. Say it. It can change.\n3. Last: you both see one and draw one. Shoot the core.",
+      both: "One of you sees a picture of tiles. Say which tiles, in which colour. The other taps them in. Tap again to clear. Then tap the core in its colour.",
+      p1: "1. First: you see the picture. Say it.\n2. Then: tap the tiles your partner says.\n3. SHIELD and SUCK set the brush. Ask for RED or CYAN.",
+      p2: "1. First: tap the tiles your partner says.\n2. Then: you see the picture. Say it. It can change.\n3. RED and CYAN set the brush. Ask for SHIELD or SUCK.",
     },
     entries: [],
     boss: {
       kind: "mimic",
       steps: [
-        { ask: "sign", reader: 1, changes: false, color: "either", beats: 10 },
-        { ask: "sign", reader: 1, changes: false, color: "either", beats: 10 },
-        { ask: "sign", reader: 1, changes: false, color: "either", beats: 10 },
+        { ask: "sign", reader: 1, changes: false, color: "either", beats: 20 },
+        { ask: "sign", reader: 1, changes: false, color: "either", beats: 20 },
+        { ask: "sign", reader: 1, changes: false, color: "either", beats: 20 },
         { ask: "roll", reader: 1, changes: false, color: "either", beats: 2 },
-        { ask: "sign", reader: 2, changes: false, color: "either", beats: 10 },
-        { ask: "sign", reader: 2, changes: true, color: "either", beats: 10 },
-        { ask: "sign", reader: 2, changes: true, color: "either", beats: 10 },
+        { ask: "sign", reader: 2, changes: false, color: "either", beats: 20 },
+        { ask: "sign", reader: 2, changes: true, color: "either", beats: 20 },
+        { ask: "sign", reader: 2, changes: true, color: "either", beats: 20 },
         { ask: "roll", reader: 2, changes: false, color: "either", beats: 2 },
-        { ask: "split", reader: 1, changes: false, color: "either", beats: 10 },
-        { ask: "core", reader: 1, changes: false, color: "red", beats: 4 },
-        { ask: "split", reader: 1, changes: false, color: "either", beats: 10 },
-        { ask: "core", reader: 1, changes: false, color: "cyan", beats: 4 },
+        { ask: "split", reader: 1, changes: false, color: "either", beats: 24 },
+        { ask: "core", reader: 1, changes: false, color: "red", beats: 6 },
+        { ask: "split", reader: 1, changes: false, color: "either", beats: 24 },
+        { ask: "core", reader: 1, changes: false, color: "cyan", beats: 6 },
       ],
     },
     bossType: "normal",
+    controls: "throat",
   },
 ];

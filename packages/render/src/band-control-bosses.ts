@@ -1,5 +1,11 @@
 import type { ControlDef } from "@neon-spore/content";
-import { throatBoss, type World } from "@neon-spore/sim";
+import {
+  mimicBoss,
+  mimicPaintMode,
+  type ThroatMode,
+  throatBoss,
+  type World,
+} from "@neon-spore/sim";
 import { drawActionButton, drawFireButton } from "./controls.js";
 import { drawAimButton, drawSalvoButton } from "./controls-fleet.js";
 import type { Circle } from "./layout.js";
@@ -32,7 +38,8 @@ export function drawBossFace(
   // one is set is the one thing a seat needs off its own two buttons.
   const mode = THROAT_LOBES[c.id];
   if (mode !== undefined) {
-    const lit = throatBoss(world)?.mode === mode;
+    // THE MIMIC's brush is set by the same four, and lit the same way.
+    const lit = (throatBoss(world)?.mode ?? mimicBrushMode(world)) === mode;
     if (mode === "shield") {
       drawActionButton(ctx, x, y, r, lit, PALETTE.shield, "#08131A", "guard", skin.dead[0]);
     } else if (mode === "suck") {
@@ -90,4 +97,10 @@ function salvoRest(world: World): number {
   const rest = world.cfg.fleetSalvoRestBeats;
   if (rest <= 0) return 0;
   return Math.max(0, Math.min(1, (rest - (world.beat - boss.firedBeat)) / rest));
+}
+
+/** THE MIMIC's brush as one of the four, or null with no mimic up (`sim/mimic-hand.ts`). */
+function mimicBrushMode(world: World): ThroatMode | null {
+  const s = mimicBoss(world);
+  return s === null ? null : mimicPaintMode(s.brush);
 }

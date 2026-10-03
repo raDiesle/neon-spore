@@ -3,29 +3,31 @@ import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { HullShock } from "./hull-shock.js";
 import type { Layout } from "./layout.js";
-import { mimicHang, mimicSignAt } from "./mimic-pose.js";
+import { mimicPictureBox } from "./mimic-board.js";
+import { mimicHang } from "./mimic-pose.js";
 import { MANTLE, type MimicPose } from "./mimic-shape.js";
 import { PALETTE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
 
 /**
  * What THE MIMIC leaves behind a frame (§11.60, *The receipts*): the **peel**,
- * a sign drawn right lifting off the skin like a sticker and drifting down
- * the field turning over; the **flash** of the core taking a shot, in the
- * colour it was lit; the hull's shudder as the mottle slaps into shape and
- * as it falls spent; the bursts its other receipts throw.
+ * a picture painted exactly lifting off the board like a sticker and
+ * drifting down the field turning over; the **flash** of the core taking a
+ * tap, in the colour it was lit; the hull's shudder as the mottle slaps into
+ * shape and as it falls spent; and the bursts its other receipts throw.
  *
  * Everything else — the flinch, the reach, the roll, the split, the clench —
  * is the pose, read off the boss every frame (`mimic-pose.ts`).
  *
- * **Both screens are thrown the same**, like the drawing: a peel shows the
- * sign that was drawn on the drawer's screen too, which by then is answered.
+ * **Both screens are thrown the same**: a peel shows the picture that was
+ * painted on the painter's screen too, which by then is answered.
  *
- * **A peel is one counted step** and deals the lighter blow; **a shot into
- * the core** deals the whole one (`boss-hurt.ts`). Nothing else deals any.
+ * **A peel is one counted step** and deals the lighter blow; **a tap on the
+ * core** deals the whole one (`boss-hurt.ts`). Nothing else deals any.
  *
  * The events carry the middle column and no place on the mantle, so the
- * drawer hands over the pose it drew each frame (`note`), THE LAMPREY's way.
+ * drawer hands over the pose it drew each frame (`note`), THE LAMPREY's way;
+ * a peel carries where its picture stood.
  * The third reach throws nothing here: the hull it breaks is the mimic's own
  * blow (`mimic-blow.ts`). Everything is cleared in `Effects.reset()`
  * (`restart.test.ts`).
@@ -40,10 +42,11 @@ const SPENT_BEATS = 1;
 const PEEL_DECAY = 0.6;
 const FLASH_DECAY = 3;
 
-/** A sign peeled off the skin: which, where it was worn and how big, and how much of its drift is left. */
+/** A picture peeled off the board: which, in what colours, where it stood, a square's size, and how much of its drift is left. */
 export interface Peel {
   now: number;
   sign: number;
+  ink: number;
   x: number;
   y: number;
   size: number;
@@ -53,7 +56,7 @@ export interface Peel {
 
 export class MimicFx {
   private pose: MimicPose | null = null;
-  private peelOf: Peel = { now: 0, sign: -1, x: 0, y: 0, size: 0, side: 1 };
+  private peelOf: Peel = { now: 0, sign: -1, ink: 0, x: 0, y: 0, size: 0, side: 1 };
   private flashNow = 0;
   private coreHex: string = PALETTE.hullRim;
   /** The hull's shudder as the mottle slaps into shape, and as it falls spent. */
@@ -97,23 +100,19 @@ export class MimicFx {
           burst(p.x, p.y, 3, PALETTE.mimicSign);
           break;
         case "mimicPeel": {
-          const seat = (e.side + 1) as 1 | 2;
-          const at = mimicSignAt(l, p, p.split > 0, seat);
+          const box = mimicPictureBox(l, cfg, e.sign, e.at);
+          if (box === null) break;
           this.peelOf = {
             now: 1,
             sign: e.sign,
-            x: at.x,
-            y: at.y,
-            size: at.size,
-            side: at.x < p.x ? -1 : 1,
+            ink: e.ink,
+            x: box.x,
+            y: box.y,
+            size: l.tile,
+            side: box.x < p.x ? -1 : 1,
           };
-          burst(at.x, at.y, 6, PALETTE.mimicSign);
+          burst(box.x, box.y, 10, PALETTE.good);
           this.hurt.jab();
-          break;
-        }
-        case "mimicWrong": {
-          const at = mimicSignAt(l, p, p.split > 0, (e.side + 1) as 1 | 2);
-          burst(at.x, at.y, 5, PALETTE.red);
           break;
         }
         case "mimicLapse":
@@ -182,7 +181,7 @@ export class MimicFx {
 
   clear(): void {
     this.pose = null;
-    this.peelOf = { now: 0, sign: -1, x: 0, y: 0, size: 0, side: 1 };
+    this.peelOf = { now: 0, sign: -1, ink: 0, x: 0, y: 0, size: 0, side: 1 };
     this.flashNow = 0;
     this.coreHex = PALETTE.hullRim;
     this.shock.clear();

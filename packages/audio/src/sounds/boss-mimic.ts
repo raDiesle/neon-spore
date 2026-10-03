@@ -5,7 +5,7 @@
  * damp: the enter is the wet slap of the mottle popping into shape; a sign
  * surfacing is a soft rising swell with a ring at the top, and a change the
  * same sinking and rising again. A peel is the spec's soft *thwip*, pitched
- * up as the signs come off; a wrong sign a low smear, and a lapse the skin
+ * up as the pictures come off; a tile painted a soft wet tick, and a lapse the skin
  * going back to mottle with a sigh. A reach is the low creak of an arm
  * stretching a step down, deeper as the arms near the hull. The roll is a
  * heavy wet turn, the core a ring with a pulse, the hit a shot into it, the
@@ -62,16 +62,13 @@ export const BOSS_MIMIC_SOUNDS: SoundDef[] = [
     layers: [air(900, 2800, 0.18, 0.12, 2.4), after(0.08, tick(0.14, 0, 3000))],
   },
   {
-    id: "boss.mimicWrong",
+    id: "boss.mimicPaint",
     family: "boss",
-    blurb: "A low smear: the skin wearing the wrong sign.",
+    blurb: "A soft wet tick: a tile painted, or wiped bare.",
     status: "bound",
-    use: "A wrong sign drawn: the skin wears it for two beats, on both screens.",
-    level: 0.4,
-    layers: [
-      metal(150, 0.3, 0.16, 200),
-      noise(500, { type: "lowpass", freq: 500, q: 1 }, 0.02, 0.25, 0.08),
-    ],
+    use: "A tap on THE MIMIC's board: the tile takes the brush, or goes bare.",
+    level: 0.3,
+    layers: [tick(0.2, 0, 2600), thud(420, 260, 0.004, 0.05)],
   },
   {
     id: "boss.mimicLapse",

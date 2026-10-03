@@ -18,7 +18,6 @@ import {
 } from "@neon-spore/render";
 import { briefingHolds, faultsNow, guideHolds, handedOver, type World } from "@neon-spore/sim";
 import { type BriefingBinding, bindBriefing } from "./briefing.js";
-import { bindGlyphPad } from "./glyph-pad.js";
 import { bindControls, type Controls, type InputBuffer } from "./input.js";
 import { bindLost } from "./lost.js";
 import type { RunState } from "./run-state.js";
@@ -193,17 +192,6 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
   });
   // And a lost wave's two, the same way (`lost.ts`).
   bindLost({ canvas, buffer, world, layout, inStage });
-  // And THE MIMIC's pad, a stroke on the lower field sent as a sign
-  // (`glyph-pad.ts`). Its seats are asked with none held: the digits that
-  // hold a seat for the mouse are the desk's five signs there.
-  bindGlyphPad({
-    canvas,
-    buffer,
-    world,
-    layout,
-    inStage,
-    seats: () => pointerSeats(o.role(), undefined),
-  });
 
   const shipGrab = (on: "cannon" | "shield"): Circle => {
     const l = layout();

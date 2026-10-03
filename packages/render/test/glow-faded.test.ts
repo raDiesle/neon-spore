@@ -126,7 +126,7 @@ describe("a spent boss at half alpha", () => {
     const thrown = [
       { type: "mimicCore", color: "red", col },
       { type: "mimicHit", hits: 1, col },
-      { type: "mimicPeel", side: 1, sign: 0, peels: 1, col },
+      { type: "mimicPeel", side: 1, sign: 0, ink: 1, at: 40, peels: 1, col },
     ] as const;
     fx.ingest(thrown, l, CFG, 0.5, () => {});
     const { at } = marks((c) => drawMimic(c, l, world, s, world.beat, 0, 0, fx));

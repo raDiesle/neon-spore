@@ -132,14 +132,19 @@ export function patchBossF(boss: BossState): void {
     boss.tapDown = [false, true];
   }
   if (boss.kind === "mimic") {
-    // A split on with both signs up, the pilot's drawn wrong and the
-    // navigator's peeled, the sign changed, two arms reached, three signs off
-    // and the core shot once — every field given a value (`mimic-hash.ts`).
+    // A split on with both pictures up, two tiles painted and the
+    // navigator's peeled, the brush on the shield, the picture changed, two
+    // arms reached, three pictures off and the core tapped once — every field
+    // given a value (`mimic-hash.ts`).
     boss.phase = "sign";
     boss.phaseBeat = 3;
     boss.cursor = 1;
     boss.signs = [2, 4];
-    boss.drawn = [1, -1];
+    boss.inks = [7, 3];
+    boss.origins = [12, 18];
+    boss.paint[12] = 2;
+    boss.paint[13] = 1;
+    boss.brush = 3;
     boss.peeled = [false, true];
     boss.changed = true;
     boss.reaches = 2;

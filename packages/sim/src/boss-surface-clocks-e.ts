@@ -114,10 +114,6 @@ export {
 export { flueVerdict } from "./flue-shot.js";
 export { gallVerdict } from "./gall-shot.js";
 export { gimbalVerdict } from "./gimbal-shot.js";
-// THE MIMIC's signs: the phase, the step, which seat sees which sign and which
-// draws, and the five a thumb can draw, for the picture, the pad and the
-// director's hand (§42).
-export { GLYPHS, type Glyph, isGlyph } from "./glyphs.js";
 // THE GOVERNOR's needle: the phase, the lit step, the needle and its speed,
 // whose chord brakes it and whose tap is heard, the runs and the hub, for the
 // picture, the cue and the director's hand. Straight off `governor.ts` (§43).
@@ -191,9 +187,24 @@ export {
   mimicDraws,
   mimicFiring,
   mimicMimicking,
+  mimicPainted,
   mimicReadBy,
+  mimicRows,
   mimicStep,
+  mimicTiles,
+  mimicWants,
 } from "./mimic.js";
+// THE MIMIC's pictures: the tile pictures and their colours, for the board,
+// the reader's screen and the director's hand (§42).
+export {
+  MIMIC_SHAPES,
+  mimicInk,
+  mimicPaintMode,
+  mimicShapeAt,
+  mimicShapeHues,
+  mimicShapeSize,
+  mimicShapesUpTo,
+} from "./mimic-shapes.js";
 export { oculusVerdict } from "./oculus-shot.js";
 export { plumbVerdict } from "./plumb-shot.js";
 export { rimeVerdict } from "./rime-shot.js";
