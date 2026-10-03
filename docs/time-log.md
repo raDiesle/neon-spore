@@ -32777,3 +32777,5 @@ Bottleneck: the frame on the fire step, which needed the step's own event to lan
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: the candidate's tests compared it to the flat picture but never ran the shared boss-hurt test with the seam on.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · afaa0900c — THE GIMBAL drifts in the game: a solid cradle that turns, tips and rolls
+
+The owner took `gimbal:tilt` / `drift` from VERSUS. THE GIMBAL is now drawn solid on the field: a shaded drum nodding inside steel rings with teeth and pins, the whole cradle slowly turning, tipping and rolling in its yoke. It steadies to a third while a ring is being turned, to a tenth of that under THE SLOW, and stops once the drum opens. A landed blow still washes the shut drum red, which the candidate had lost.
+
 ## 2026-10-03 · 49b46ba7e — A rub shows a red line and two arrows coming in, a shot's word sits on its target, and THE GRINDSTONE takes three times the rubs
 
 The owner asked for all three by name. A RUB cue no longer has a scanner box: it shows a very visible red line where the thumb rubs, with an arrow sliding in from the left and one from the right, over and over. It is one reusable mark (`rub-mark.ts`) used by every RUB, so THE CAPSTAN and THE VALVE show it too. Every FIRE now shows a red crosshair instead of a white one, and its word and box sit on the target instead of on the cannon. THE GRINDSTONE's flat now takes about twenty-five reversals to clear, up from eight, and the film after it about thirteen, up from four.
