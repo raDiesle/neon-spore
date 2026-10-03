@@ -12,6 +12,7 @@ import {
 } from "@neon-spore/sim";
 import { Effects } from "../src/effects.js";
 import { GripVerdicts } from "../src/grip-verdict.js";
+import { CROSSHAIR_LOOK } from "../src/instar-crosshair.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { LedgerFx } from "../src/ledger-fx.js";
 import { drawLedgerRoot } from "../src/ledger-root.js";
@@ -174,9 +175,16 @@ describe("THE LEDGER's cord", () => {
     t.seam = CFG.ledgerSeamHits - 1;
     // There is no bar: a body with nothing down it draws no slot at all, and
     // the split between the halves is lit the wider it gets (`ledger-draw.ts`).
-    const before = count(drawn(whole, role, 3).text, PALETTE.redRim);
-    const after = count(drawn(split, role, 3).text, PALETTE.redRim);
-    expect(after).toBeGreaterThan(before);
+    // The cue's crosshair is the same red rim (`cue-helper.ts`) and is not the seam.
+    const paint = CROSSHAIR_LOOK.paint;
+    CROSSHAIR_LOOK.paint = () => {};
+    try {
+      const before = count(drawn(whole, role, 3).text, PALETTE.redRim);
+      const after = count(drawn(split, role, 3).text, PALETTE.redRim);
+      expect(after).toBeGreaterThan(before);
+    } finally {
+      CROSSHAIR_LOOK.paint = paint;
+    }
   });
 
   it.each(ROLES)("lights the cut faces in the colour the seam is showing, on %s", (role) => {

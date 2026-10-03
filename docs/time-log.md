@@ -32753,3 +32753,13 @@ Bottleneck: the word "stepper" names nothing in the code, so the seam was found 
 Bottleneck: tracing a press from the mouse through the desk rig to the chord counter.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE GRINDSTONE's rub as a red line with arrows, the shot's word on its target, three times the rubs
+
+- reading: 5 min. The cue helper, the crosshair, the grindstone's rub and its tuning, the autopilot's pace.
+- writing: 5 min. `rub-mark.ts`, `cueDrawnAt`, the red crosshair, `rubHalf`, the shave and the tests.
+- looking: 5 min. Before and after frames of the rub and the fire step, cropped.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, a ledger test the red crosshair reached, `land`.
+
+Bottleneck: the frame on the fire step, which needed the step's own event to land on rather than the bite before it.

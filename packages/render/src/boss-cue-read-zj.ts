@@ -20,7 +20,8 @@ import type { Layout } from "./layout.js";
  * keeps each word to the thumb that can act on it.
  *
  * **`RUB` on the lit flat**, to its seat — the left flat is Player 1's and
- * the right Player 2's (`grindstone-grip.ts`). It is a `CARRY`, a thumb taken
+ * the right Player 2's (`grindstone-grip.ts`) — its red line the flat's whole
+ * face (`rubHalf`). It is a `CARRY`, a thumb taken
  * back and forth across the glass, and the verb is already the motion, so no
  * kind line is written over it (`saysKind`). It stays up for the whole pass:
  * the grit thinning under the thumb is what says it is working, and a word
@@ -56,7 +57,8 @@ export function grindstoneCues(
     const flat = at(side === 0 ? "grindFlatLeft" : "grindFlatRight");
     const seat = side === 0 ? 1 : 2;
     const seed = side === 0 ? 152 : 153;
-    return [{ seat, kind: "CARRY", word: "RUB", x: flat.x, y: flat.y, ...frame, seed }];
+    const { x, y, r: rubHalf } = flat;
+    return [{ seat, kind: "CARRY", word: "RUB", x, y, ...frame, rubHalf, seed }];
   }
   if (step.ask === "clamp") {
     const out: BossCue[] = [];

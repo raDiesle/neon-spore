@@ -17,9 +17,9 @@ import {
  *
  * **A rub is a thumb held down and turned back**: the drag's `id` is how many
  * reversals it has made since it went down (`sim/grindstone-hand.ts`), so the
- * seat whose flat is lit sends one more than the wheel last heard, four times
- * a beat — a human's pace, not a tick's — and lifts once its flat is no longer
- * asked for. Only the lit flat's seat ever touches its flat.
+ * seat whose flat is lit sends one more than the wheel last heard, eight times
+ * a beat — a human's pace at the slowed beat, not a tick's — and lifts once
+ * its flat is no longer asked for. Only the lit flat's seat ever touches its flat.
  *
  * **A pad is a level**, THE TRIVET's (`boss-hands-trivet.ts`): each seat puts
  * down its jaw's pads once on a clamp step and lifts them once the step is
@@ -31,7 +31,7 @@ import {
 type Press = Omit<TimedCommand, "tick">;
 
 /** Reversals a beat: about what a thumb rubbing back and forth manages. */
-const RUBS_PER_BEAT = 4;
+const RUBS_PER_BEAT = 8;
 
 export const grindstoneHand = (w: World): Press[] => {
   const s = grindstoneBoss(w);

@@ -125,10 +125,17 @@ export interface BossCue {
    * there by `cue-helper.ts`. The owner, 29 September 2026: *shooting with
    * cannon should have clear aim target*. The cue's own place is where the
    * thumb goes, often the cannon's column at the hull; this is where the
-   * eye goes. A crosshair inside the cue's frame replaces the frame.
+   * eye goes, and since 3 October 2026 where the word and its box are drawn
+   * too (`cueDrawnAt`).
    * `render/test/cue-aim.test.ts` holds every boss's `FIRE` to having one.
    */
   aim?: { x: number; y: number; r?: number };
+  /**
+   * **How long a `RUB`'s red line is**, half of it, in pixels: the face being
+   * rubbed, top to middle (`rub-mark.ts`). The frame's half-height when left
+   * out.
+   */
+  rubHalf?: number;
 }
 
 /** Whether this screen is the one being asked. */

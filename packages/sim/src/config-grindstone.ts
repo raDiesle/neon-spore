@@ -13,7 +13,14 @@ export interface GrindstoneConfig {
   grindstoneRestBeats: number;
   /** Beats the freed wheel spins away before the wave may end. */
   grindstoneFreeBeats: number;
-  /** Grit one reversal of a grinding thumb shaves off the lit flat, in thousandths of its face. */
+  /**
+   * Grit one reversal of a grinding thumb shaves off the lit flat, in
+   * thousandths of its face. 40 is twenty-five reversals for a solid flat and
+   * thirteen for the film — it was 125, eight and four, until the owner,
+   * 3 October 2026: *increase the number of rubs much more*. A slowed beat is
+   * two and a half seconds, so a thumb rubbing three or four times a second
+   * still clears a solid flat in a little over two beats of a six-beat pass.
+   */
   grindstoneShaveMilli: number;
   /** Grit a lit flat nobody rubbed grows back in a beat, in thousandths of its face. */
   grindstoneRegrowMilli: number;
@@ -31,7 +38,7 @@ export const GRINDSTONE_DEFAULTS: GrindstoneConfig = {
   grindstoneStillBeats: 2,
   grindstoneRestBeats: 1,
   grindstoneFreeBeats: 2,
-  grindstoneShaveMilli: 125,
+  grindstoneShaveMilli: 40,
   grindstoneRegrowMilli: 150,
   grindstoneFilmMilli: 500,
   grindstoneGraceBeats: 2,

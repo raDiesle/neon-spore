@@ -3,6 +3,7 @@ import type { BossCue } from "./boss-cue-shape.js";
 import { drawHoldMark, HOLD_MARK_R } from "./hold-mark.js";
 import { drawInstarCrosshair } from "./instar-crosshair.js";
 import { PALETTE } from "./palette.js";
+import { drawRubMark } from "./rub-mark.js";
 
 /**
  * **The helper a cue's word wears on the field**, the same on every boss —
@@ -14,14 +15,19 @@ import { PALETTE } from "./palette.js";
  * drawn (`boss-cue-draw.ts`), so no boss draws its own.
  *
  * - **`FIRE`, `SHOOT`**: THE INSTAR's crosshair **on what the shot is for**,
- *   `BossCue.aim`. The word may stand on the cannon's column at the hull —
- *   where the thumb goes — and the crosshair stands on the part the bolt
- *   must reach, so the pair can see what is being aimed at. A word standing
- *   off the hull already stands on its target (THE WARDEN's eye, THE
- *   BATON's bead), and is its own aim (`cueAim`); one at the hull with no
- *   `aim` draws no crosshair, and `test/cue-aim.test.ts` lists the bosses
- *   still owed one. Never in an ammunition colour (#34): the colour is the
- *   pair's to work out.
+ *   `BossCue.aim`, **in red, with the word and its scan box moved there**.
+ *   A reading may stand the word on the cannon's column at the hull, where
+ *   the thumb goes; it is drawn on the target instead (`cueDrawnAt`) — the
+ *   owner, 3 October 2026: *the aim in the middle to shoot with cannon
+ *   helper must be also in a cool red, not white. and the helper of text
+ *   with the box should be moved from cannon to the enemy only where to
+ *   shoot - that is enough.* A word standing off the hull already stands on
+ *   its target (THE WARDEN's eye, THE BATON's bead), and is its own aim
+ *   (`cueAim`); one at the hull with no `aim` stays there and draws no
+ *   crosshair, and `test/cue-aim.test.ts` lists the bosses still owed one.
+ *   The red is the red of every mark asking a thumb (`hold-mark.ts`), the
+ *   owner's call over #34's *never an ammunition colour*: the colour the
+ *   bolt wants is still never named.
  * - **`SHIELD`, `SUCK`**: the panel's own button face inside the scanner
  *   box (`action-face.ts`), the ward for one and the throat for the other —
  *   the button under the thumb, shown where the field wants it pressed.
@@ -29,12 +35,15 @@ import { PALETTE } from "./palette.js";
  *   **no scanner box** — the owner, 2 October 2026: *i expect some red circle
  *   like, no scan rectangle box*. The circle is the frame there, as the
  *   crosshair is a shot's (`holdIsHere`).
+ * - **`RUB`**: a red line with an arrow sliding in at it from each side
+ *   (`rub-mark.ts`), and no scanner box either — the owner, 3 October 2026,
+ *   on THE GRINDSTONE. The line is as long as the cue's `rubHalf` says.
  *
  * Pulls are not here: a pull is a handle, and its arrow is the knob's
  * (`pull-knob.ts`, `way-arrow.ts`).
  */
 
-export type CueHelper = "aim" | "guard" | "intake" | "hold";
+export type CueHelper = "aim" | "guard" | "intake" | "hold" | "rub";
 
 /** Which helper a word asks for, by its first word: `FIRE ON ZERO` still fires. */
 export function cueHelper(word: string): CueHelper | null {
@@ -43,6 +52,7 @@ export function cueHelper(word: string): CueHelper | null {
   if (verb === "SHIELD") return "guard";
   if (verb === "SUCK") return "intake";
   if (verb === "HOLD") return "hold";
+  if (verb === "RUB") return "rub";
   return null;
 }
 
@@ -62,19 +72,36 @@ export function cueAim(cue: BossCue, hullY: number): { x: number; y: number; r?:
   return Math.abs(cue.y - hullY) > cue.halfH ? { x: cue.x, y: cue.y } : null;
 }
 
+/** How far the crosshair's ticks reach, in its ring's radius (`instar-crosshair.ts`). */
+const AIM_TICKS = 1.75;
+/** Room between the ticks' ends and the scan box, in the ring's radius. */
+const AIM_ROOM = 0.15;
+
 /**
- * Whether the crosshair stands on the cue's own place, so it *is* the scan
- * frame there and the frame is not drawn round it a second time.
+ * **Where a cue is drawn**: its own place, or — for a shot with an `aim` —
+ * the target, the box grown to hold the crosshair. The reading's lines about
+ * clearing the hull (`roomBelow`, `wordFloor`) were written for the place it
+ * left, so they are left behind with it.
  */
-export function aimIsHere(cue: BossCue, hullY: number): boolean {
-  const aim = cueAim(cue, hullY);
-  if (aim === null) return false;
-  return Math.abs(aim.x - cue.x) <= cue.halfW && Math.abs(aim.y - cue.y) <= cue.halfH;
+export function cueDrawnAt(cue: BossCue): BossCue {
+  if (cueHelper(cue.word) !== "aim" || cue.aim === undefined) return cue;
+  const { x, y } = cue.aim;
+  const reach = aimR(cue, cue.aim) * (AIM_TICKS + AIM_ROOM);
+  const halfW = Math.max(cue.halfW, reach);
+  const halfH = Math.max(cue.halfH, reach);
+  const { roomBelow: _below, wordFloor: _floor, ...rest } = cue;
+  return { ...rest, x, y, halfW, halfH };
 }
 
-/** Whether the cue wears the hold's circle, which stands in the scan frame's place. */
-export function holdIsHere(cue: BossCue): boolean {
-  return cueHelper(cue.word) === "hold";
+/** The crosshair's ring for this cue: the aim's own, or one sized by the frame. */
+function aimR(cue: BossCue, aim: { r?: number }): number {
+  return aim.r ?? Math.min(cue.halfW, cue.halfH) * AIM_R;
+}
+
+/** Whether the cue wears a mark of its own that stands in the scan frame's place: a hold's circle or a rub's line. */
+export function markIsHere(cue: BossCue): boolean {
+  const helper = cueHelper(cue.word);
+  return helper === "hold" || helper === "rub";
 }
 
 export function drawCueHelper(
@@ -92,11 +119,15 @@ export function drawCueHelper(
   if (helper === "aim") {
     const aim = cueAim(cue, hullY);
     if (aim === null) return;
-    drawInstarCrosshair(ctx, aim.x, aim.y, aim.r ?? short * AIM_R, true, breath);
+    drawInstarCrosshair(ctx, aim.x, aim.y, aimR(cue, aim), true, breath, "red");
     return;
   }
   if (helper === "hold") {
     drawHoldMark(ctx, cue.x, cue.y, short * HOLD_MARK_R, time);
+    return;
+  }
+  if (helper === "rub") {
+    drawRubMark(ctx, cue.x, cue.y, cue.rubHalf ?? cue.halfH, time);
     return;
   }
   ctx.save();

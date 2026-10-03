@@ -1,8 +1,9 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import type { BossCue } from "../src/boss-cue-shape.js";
-import { aimIsHere, cueAim, cueHelper, drawCueHelper, holdIsHere } from "../src/cue-helper.js";
+import { cueAim, cueDrawnAt, cueHelper, drawCueHelper, markIsHere } from "../src/cue-helper.js";
 import { CROSSHAIR_LOOK } from "../src/instar-crosshair.js";
 import { drawPullKnob } from "../src/pull-knob.js";
+import { rubArrows } from "../src/rub-mark.js";
 import { drawWayArrow } from "../src/way-arrow.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
@@ -66,9 +67,31 @@ describe("the cue's helper", () => {
     expect(cueAim(cue("SHIELD", 120, 240), HULL)).toBeNull();
   });
 
-  it("draws no scan frame round a crosshair standing on the cue itself", () => {
-    expect(aimIsHere(cue("FIRE", 120, 240), HULL)).toBe(true);
-    expect(aimIsHere(cue("FIRE", 100, HULL, { aim: { x: 100, y: 200 } }), HULL)).toBe(false);
+  it("draws the word and its box on the target, not on the cannon", () => {
+    const moved = cueDrawnAt(cue("FIRE", 100, HULL, { aim: { x: 300, y: 150 }, roomBelow: 9 }));
+    expect([moved.x, moved.y, moved.roomBelow]).toEqual([300, 150, undefined]);
+    // The box grows to hold a big crosshair's ticks, and never shrinks.
+    const big = cueDrawnAt(cue("FIRE", 100, HULL, { aim: { x: 300, y: 150, r: 40 } }));
+    expect(big.halfW).toBeGreaterThan(40 * 1.75);
+    expect(big.halfH).toBeGreaterThan(40 * 1.75);
+    expect(cueDrawnAt(cue("FIRE", 100, HULL)).x).toBe(100);
+    expect(cueDrawnAt(cue("RUB", 100, 200, { aim: { x: 300, y: 150 } })).x).toBe(100);
+  });
+
+  it("draws the crosshair red", () => {
+    const paint = CROSSHAIR_LOOK.paint;
+    const colors: unknown[] = [];
+    CROSSHAIR_LOOK.paint = (_ctx, _x, _y, _r, _bright, _k, color) => {
+      colors.push(color);
+    };
+    try {
+      log((ctx) =>
+        drawCueHelper(ctx, cue("FIRE", 100, HULL, { aim: { x: 300, y: 150 } }), HULL, 0),
+      );
+    } finally {
+      CROSSHAIR_LOOK.paint = paint;
+    }
+    expect(colors).toEqual(["red"]);
   });
 
   it("draws the crosshair on the aim, not on the word", () => {
@@ -100,14 +123,39 @@ describe("the cue's helper", () => {
 
 describe("a hold's circle", () => {
   it("stands in the scan frame's place: a red circle with a thumbprint, and no box", () => {
-    expect(holdIsHere(cue("HOLD", 100, 200, { kind: "HOLD" }))).toBe(true);
-    expect(holdIsHere(cue("SHIELD", 100, 200))).toBe(false);
+    expect(markIsHere(cue("HOLD", 100, 200, { kind: "HOLD" }))).toBe(true);
+    expect(markIsHere(cue("SHIELD", 100, 200))).toBe(false);
+    expect(markIsHere(cue("FIRE", 100, 200))).toBe(false);
     const calls = log((ctx) =>
       drawCueHelper(ctx, cue("HOLD", 100, 200, { kind: "HOLD" }), HULL, 0),
     );
     // The ring, and the print's ridges inside it: arcs and ellipses, never a rectangle.
     expect(calls.some((c) => c.startsWith("ellipse("))).toBe(true);
     expect(calls.some((c) => c.startsWith("strokeRect(") || c.startsWith("rect("))).toBe(false);
+  });
+});
+
+describe("a rub's line", () => {
+  it("stands in the scan frame's place, with no box", () => {
+    expect(cueHelper("RUB")).toBe("rub");
+    expect(markIsHere(cue("RUB", 100, 200, { kind: "CARRY" }))).toBe(true);
+    const calls = log((ctx) =>
+      drawCueHelper(ctx, cue("RUB", 100, 200, { kind: "CARRY", rubHalf: 60 }), HULL, 0.2),
+    );
+    expect(calls.some((c) => c.startsWith("stroke("))).toBe(true);
+    expect(calls.some((c) => c.startsWith("strokeRect(") || c.startsWith("rect("))).toBe(false);
+  });
+
+  it("brings an arrow in from each side toward the line as time runs", () => {
+    const early = rubArrows(100, 60, 0.1);
+    const late = rubArrows(100, 60, 0.4);
+    expect(early.tips[0]).toBeLessThan(100);
+    expect(early.tips[1]).toBeGreaterThan(100);
+    expect(late.tips[0]).toBeGreaterThan(early.tips[0]);
+    expect(late.tips[1]).toBeLessThan(early.tips[1]);
+    // Never onto the line itself, and faded out at the loop's seam.
+    expect(late.tips[0]).toBeLessThan(100);
+    expect(rubArrows(100, 60, 0).alpha).toBeCloseTo(0);
   });
 });
 
