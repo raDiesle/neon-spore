@@ -32878,3 +32878,15 @@ Bottleneck: the carry broke the rehearsal film in a way only a printed run showe
 Bottleneck: a test that leaned on the one before it to warm the sprite cache.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — A press the browser will not capture is still answered
+
+- reading: 5 min. The `pointerdown` listener, the handle's press verbs and
+  how `input-pc.test.ts` holds a listener with no DOM.
+- writing: 5 min. `capture()`, the listener calling it, a test with a
+  refusing canvas.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: none — the guard was one of the entry's named options and the smallest.

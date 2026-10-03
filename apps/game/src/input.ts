@@ -14,6 +14,7 @@ import { samplesOf } from "./coalesced.js";
 import { type Bindings, fieldFrom } from "./input-bindings.js";
 import { showKeyHint } from "./key-hint.js";
 import { bindKeys } from "./keys.js";
+import { capture } from "./pointer-capture.js";
 import { ShipHandWatch } from "./ship-hand.js";
 
 export type { Bindings } from "./input-bindings.js";
@@ -156,7 +157,9 @@ export function bindControls(bindings: Bindings): Controls {
     e.preventDefault();
     const p = inStage(e);
     if (!p) return;
-    canvas.setPointerCapture(e.pointerId);
+    // Refused for a pointer the browser has no record of, a synthetic one:
+    // the press is answered all the same (`pointer-capture.ts`).
+    capture(canvas, e.pointerId);
     down(e.pointerId, p.x, p.y);
   });
   canvas.addEventListener("pointermove", (e) => {
