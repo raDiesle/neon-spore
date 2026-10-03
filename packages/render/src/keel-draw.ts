@@ -1,5 +1,6 @@
 import { blobPoints, LIGHT_HALF } from "@neon-spore/content";
 import { type KeelState, keelLit, NO_JOINT, type World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import type { KeelFx } from "./keel-fx.js";
@@ -11,16 +12,12 @@ import {
   keelPulse,
   keelRockNow,
   keelSegs,
+  keelTendons,
 } from "./keel-pose.js";
+import { KEEL_ROCK } from "./keel-rock.js";
 import { KEEL_SEAM } from "./keel-seam-look.js";
-import {
-  keelPlatePath,
-  keelRibsPath,
-  keelSeamPath,
-  keelSegEnd,
-  type Point,
-  type Seg,
-} from "./keel-shape.js";
+import { keelPlatePath, keelRibsPath, keelSeamPath, type Point, type Seg } from "./keel-shape.js";
+import { keelStopper } from "./keel-stop.js";
 import { drawKeelEnds, drawKeelMarrow } from "./keel-story.js";
 import { keelHeat } from "./keel-story-pose.js";
 import { drawKeelHalos, drawKeelVerdicts } from "./keel-verdicts.js";
@@ -52,7 +49,8 @@ import { splinePath } from "./spline.js";
  *
  * What outlives a frame — the jolt of a lock, the snap on its seam, the blow —
  * is `fx` (`keel-fx.ts`), told the socket's colour here because the event
- * that shuts it does not carry one.
+ * that shuts it does not carry one. A bolt stops on what it meets of the
+ * spine (`keel-stop.ts`), told to `stops`.
  */
 export function drawKeel(
   ctx: CanvasRenderingContext2D,
@@ -63,6 +61,7 @@ export function drawKeel(
   beatPhase: number,
   time: number,
   fx: KeelFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const n = s.locked.length;
@@ -71,7 +70,8 @@ export function drawKeel(
 
   fx.tell(PALETTE[s.socket]);
   ctx.save();
-  ctx.translate(fx.hurt.shakeX(time, l.tile), -fx.jolt * l.tile);
+  const shift = { x: fx.hurt.shakeX(time, l.tile), y: -fx.jolt * l.tile };
+  ctx.translate(shift.x, shift.y);
   ctx.globalAlpha = 0.2 + 0.8 * arrived;
   drawTendons(ctx, l, segs);
   segs.forEach((g, k) => {
@@ -102,17 +102,13 @@ export function drawKeel(
   const rock = keelRockNow(l, cfg, s, segs, beat, beatPhase);
   if (rock !== null) drawRock(ctx, l, rock, beat + beatPhase);
   ctx.restore();
+  stops?.aim(keelStopper(l, world, s, segs, rock, shift));
 }
 
 /** The tendons between neighbouring segments: one line from each end to the next one's start, which a loose pair stretches. */
 function drawTendons(ctx: CanvasRenderingContext2D, l: Layout, segs: Seg[]): void {
   const p = new Path2D();
-  for (let k = 0; k + 1 < segs.length; k++) {
-    const a = segs[k];
-    const b = segs[k + 1];
-    if (a === undefined || b === undefined) continue;
-    const from = keelSegEnd(l, a.centre, a.slope, a.pose, 1);
-    const to = keelSegEnd(l, b.centre, b.slope, b.pose, -1);
+  for (const [from, to] of keelTendons(l, segs)) {
     p.moveTo(from.x, from.y);
     p.lineTo(to.x, to.y);
   }
@@ -171,7 +167,7 @@ function drawSegment(
 /** The tail's rock, a lump of the same iron, falling. */
 function drawRock(ctx: CanvasRenderingContext2D, l: Layout, at: Point, t: number): void {
   const rock = splinePath(
-    blobPoints(at.x, at.y, l.tile * 0.34, l.tile * 0.3, 5, 0.14, 0.02, t, 41, 20),
+    blobPoints(at.x, at.y, l.tile * KEEL_ROCK.rx, l.tile * KEEL_ROCK.ry, 5, 0.14, 0.02, t, 41, 20),
     true,
   );
   ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);

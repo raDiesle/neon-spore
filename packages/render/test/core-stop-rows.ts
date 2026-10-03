@@ -15,6 +15,8 @@ import { drawGrindstone } from "../src/grindstone-draw.js";
 import { GrindstoneFx } from "../src/grindstone-fx.js";
 import { GripVerdicts } from "../src/grip-verdict.js";
 import { drawHalter } from "../src/halter-draw.js";
+import { drawKeel } from "../src/keel-draw.js";
+import { KeelFx } from "../src/keel-fx.js";
 import type { Layout } from "../src/layout.js";
 import { drawPlumb } from "../src/plumb-draw.js";
 import { PlumbFx } from "../src/plumb-fx.js";
@@ -31,6 +33,7 @@ import * as gall from "./gall-harness.js";
 import * as governor from "./governor-harness.js";
 import * as grindstone from "./grindstone-harness.js";
 import * as halter from "./halter-harness.js";
+import * as keel from "./keel-harness.js";
 import * as plumb from "./plumb-harness.js";
 import * as rime from "./rime-harness.js";
 import * as sling from "./sling-harness.js";
@@ -155,6 +158,19 @@ export const ROWS: Row[] = [
       drawHalter(paper(), l, world, s, world.beat, 0.5, 0, new GripVerdicts(), stops);
     },
     wide: true,
+  },
+  {
+    name: "THE KEEL",
+    // The socket is the one part of the spine with a colour; the marrow and
+    // the rock want either, and are `keel-stop.test.ts`'s.
+    draw(stops, l, open) {
+      const world = keel.stood();
+      const s = keel.body(world);
+      if (open) keel.socket(s, world);
+      drawKeel(paper(), l, world, s, world.beat, 0.5, 0, new KeelFx(), stops);
+    },
+    wide: true,
+    spans: true,
   },
   {
     name: "THE PLUMB",

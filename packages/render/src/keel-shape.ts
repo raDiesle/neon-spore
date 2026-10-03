@@ -5,9 +5,9 @@ import { STROKE } from "./palette.js";
 
 /**
  * **Where THE KEEL is**, in field pixels: six segments arched along the top of
- * the field, the ribs hung under them, the socket between the middle two and
- * the rock the tail throws. How far through a pose the spine is lives next
- * door (`keel-pose.ts`).
+ * the field, the ribs hung under them and the socket between the middle two;
+ * the rock the tail throws is `keel-rock.ts`. How far through a pose the
+ * spine is lives next door (`keel-pose.ts`).
  *
  * Its own file for THE GIMBAL's reason (`gimbal-shape.ts`): the thumb that
  * taps a joint will be answered at the segment this file puts on the screen,
@@ -145,19 +145,27 @@ export function put(
   return { x: ox + x * c - y * s, y: oy + x * s + y * c };
 }
 
-/** One segment's plate: THE BRISTLE's squared-off lozenge, placed through `put`. */
+/**
+ * One segment's plate: THE BRISTLE's squared-off lozenge, placed through
+ * `put` — its corners, drawn by `keelPlatePath` and met by a bolt
+ * (`keel-stop.ts`).
+ */
+export function keelPlatePoints(l: Layout, centre: Point, slope: number, pose: SegPose): Point[] {
+  return Array.from({ length: ROUND }, (_, i) => {
+    const c = Math.cos((i / ROUND) * Math.PI * 2);
+    const s = Math.sin((i / ROUND) * Math.PI * 2);
+    const u = Math.sign(c) * Math.abs(c) ** (2 / BOXY);
+    return put(l, centre, slope, pose, u, Math.sign(s) * Math.abs(s) ** (2 / BOXY));
+  });
+}
+
+/** One segment's plate as a path (`keelPlatePoints`). */
 export function keelPlatePath(l: Layout, centre: Point, slope: number, pose: SegPose): Path2D {
   const p = new Path2D();
-  for (let i = 0; i < ROUND; i++) {
-    const a = (i / ROUND) * Math.PI * 2;
-    const c = Math.cos(a);
-    const s = Math.sin(a);
-    const u = Math.sign(c) * Math.abs(c) ** (2 / BOXY);
-    const v = Math.sign(s) * Math.abs(s) ** (2 / BOXY);
-    const q = put(l, centre, slope, pose, u, v);
+  keelPlatePoints(l, centre, slope, pose).forEach((q, i) => {
     if (i === 0) p.moveTo(q.x, q.y);
     else p.lineTo(q.x, q.y);
-  }
+  });
   p.closePath();
   return p;
 }
@@ -233,17 +241,4 @@ export function keelFacePath(
     Math.PI * 2,
   );
   return p;
-}
-
-/**
- * Where the tail's rock is, `along` 0 at the tail to 1 on the hull, in the
- * column it was thrown down: drawn there, and the cannon's column is the same
- * one (`sim/keel-step.ts` `throwRock`).
- */
-export function keelRockPoint(l: Layout, tail: Point, col: number, along: number): Point {
-  const x = fieldX(l, col);
-  return {
-    x: tail.x + (x - tail.x) * Math.min(1, along * 4),
-    y: tail.y + (l.hullY - tail.y) * along,
-  };
 }

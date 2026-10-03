@@ -59,6 +59,9 @@ export function keelSocketAt(l: Layout, s: KeelState, segs: readonly Seg[]): Poi
   return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
 }
 
+/** The socket's radius, in tiles: drawn that size and met at its lower rim (`keel-stop.ts`). */
+export const KEEL_SOCKET_R = 0.24;
+
 /**
  * The socket between the cut faces, flashing the wave's colour on the beat —
  * drawn only while the socket's window is open, never faded in over the
@@ -75,7 +78,7 @@ export function drawKeelSocket(
   const colour = PALETTE[s.socket];
   const flash = 0.5 + 0.5 * Math.cos(beatPhase * Math.PI * 2);
   const socket = new Path2D();
-  socket.arc(at.x, at.y, l.tile * 0.24, 0, Math.PI * 2);
+  socket.arc(at.x, at.y, l.tile * KEEL_SOCKET_R, 0, Math.PI * 2);
   ctx.fillStyle = rgba(colour, 0.85);
   ctx.fill(socket);
   strokeGlow(ctx, socket, colour, STROKE.inner, 0.6 + 1.2 * flash);

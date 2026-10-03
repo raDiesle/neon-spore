@@ -6,8 +6,8 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { keelRockPoint } from "./keel-rock.js";
 import {
-  keelRockPoint,
   keelSegCentre,
   keelSegEnd,
   keelSegSlope,
@@ -209,4 +209,23 @@ export function keelRockNow(
   if (along < 0 || tail === undefined) return null;
   const from = keelSegEnd(l, tail.centre, tail.slope, tail.pose, 1);
   return keelRockPoint(l, from, s.rockCol, along);
+}
+
+/**
+ * The tendons between neighbouring segments: from each end to the next one's
+ * start, which a loose pair stretches. Drawn there (`keel-draw.ts`) and met by
+ * a bolt there (`keel-stop.ts`).
+ */
+export function keelTendons(l: Layout, segs: readonly Seg[]): [Point, Point][] {
+  const out: [Point, Point][] = [];
+  for (let k = 0; k + 1 < segs.length; k++) {
+    const a = segs[k];
+    const b = segs[k + 1];
+    if (a === undefined || b === undefined) continue;
+    out.push([
+      keelSegEnd(l, a.centre, a.slope, a.pose, 1),
+      keelSegEnd(l, b.centre, b.slope, b.pose, -1),
+    ]);
+  }
+  return out;
 }

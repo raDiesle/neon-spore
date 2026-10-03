@@ -71,6 +71,9 @@ export function drawKeelEnds(
   }
 }
 
+/** The marrow's lens: its half-height in tiles and its half-width as a share of that — drawn that size and met there (`keel-stop.ts`). */
+export const KEEL_MARROW = { r: 0.3, wide: 0.55 } as const;
+
 /**
  * Where the marrow's lens stands: where the middle two meet. Drawn there
  * (`drawKeelMarrow`) and aimed at there (`boss-cue-read-zd.ts`).
@@ -108,14 +111,14 @@ export function drawKeelMarrow(
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.hullRim, 0.12 + 0.18 * pulse);
   ctx.stroke(beam);
-  const r = l.tile * 0.3;
+  const r = l.tile * KEEL_MARROW.r;
   const sides = [
     [PALETTE.red, s.marrow[0], Math.PI / 2],
     [PALETTE.cyan, s.marrow[1], -Math.PI / 2],
   ] as const;
   for (const [colour, sealed, from] of sides) {
     const lens = new Path2D();
-    lens.ellipse(x, y, r * 0.55, r, 0, from, from + Math.PI);
+    lens.ellipse(x, y, r * KEEL_MARROW.wide, r, 0, from, from + Math.PI);
     lens.closePath();
     ctx.fillStyle = rgba(colour, sealed ? 0.9 : 0.2 + 0.2 * pulse);
     ctx.fill(lens);

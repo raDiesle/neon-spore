@@ -8,6 +8,8 @@ import { haspBoss } from "../src/hasp.js";
 import { haspStruck, haspVerdict } from "../src/hasp-shot.js";
 import { hiveStruck, hiveVerdict } from "../src/hive-shot.js";
 import { createWorld, startWave, step, ticksPerBeat } from "../src/index.js";
+import { type KeelState, keelBoss } from "../src/keel.js";
+import { keelStruck, keelVerdict } from "../src/keel-shot.js";
 import { leadBoss } from "../src/lead.js";
 import { leadStruck, leadVerdict } from "../src/lead-shot.js";
 import { ledgerStruck, ledgerVerdict } from "../src/ledger-shot.js";
@@ -17,9 +19,9 @@ import { MARKS } from "./gimbal-harness.js";
 
 /**
  * **A boss's verdict is its shot asked, not acted on**, for THE ANTIPHON,
- * GIMBAL, HASP, HIVE, LEAD and LEDGER: the picture stops a bolt where it meets the body
- * with the answer the shot will give it at row 0, so the two must never
- * disagree, and asking must change nothing. Each fight is left to run with
+ * GIMBAL, HASP, HIVE, KEEL, LEAD and LEDGER: the picture stops a bolt where
+ * it meets the body with the answer the shot will give it at row 0, so the
+ * two must never disagree, and asking must change nothing. Each fight is left to run with
  * no one at the controls and asked, every beat, about every column in both
  * colours, on a copy of the world.
  */
@@ -30,7 +32,7 @@ const BEATS = 48;
 
 interface Case {
   name: string;
-  kind: "antiphon" | "gimbal" | "hasp" | "hive" | "lead" | "ledger";
+  kind: "antiphon" | "gimbal" | "hasp" | "hive" | "keel" | "lead" | "ledger";
   /** What the wave authors for a boss that will not start without it. */
   authored?: object;
   /** Set before the fight is run, for a state no one at the controls would reach. */
@@ -44,6 +46,19 @@ const lead: Omit<Case, "name"> = {
   verdict: (w, col) => leadVerdict(w, col),
   struck: leadStruck,
 };
+
+/** THE KEEL, set as `arrange` says the beat the fight starts: no one at the controls reaches none of its targets. */
+const keel = (name: string, arrange: (s: KeelState, world: World) => void): Case => ({
+  name: `THE KEEL, ${name}`,
+  kind: "keel",
+  authored: { socket: "cyan", reprise: [4, 0] },
+  arrange: (world) => {
+    const s = keelBoss(world);
+    if (s !== null) arrange(s, world);
+  },
+  verdict: keelVerdict,
+  struck: keelStruck,
+});
 
 const CASES: Case[] = [
   { name: "THE ANTIPHON", kind: "antiphon", verdict: antiphonVerdict, struck: antiphonStruck },
@@ -87,6 +102,19 @@ const CASES: Case[] = [
     verdict: haspVerdict,
     struck: haspStruck,
   },
+  keel("its socket open", (s, world) => {
+    s.phase = "socket";
+    s.phaseBeat = world.beat;
+  }),
+  keel("its marrow lit, one half in", (s, world) => {
+    s.phase = "marrow";
+    s.phaseBeat = world.beat;
+    s.marrow = [true, false];
+  }),
+  keel("its rock thrown", (s, world) => {
+    s.rockCol = 2;
+    s.rockBeat = world.beat;
+  }),
 ];
 
 function bolt(col: number, color: Color): Bullet {

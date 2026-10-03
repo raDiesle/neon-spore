@@ -144,7 +144,9 @@ export {
 export { governorVerdict } from "./governor-shot.js";
 export { grindstoneVerdict } from "./grindstone-shot.js";
 export { halterVerdict } from "./halter-shot.js";
+export { haspVerdict } from "./hasp-shot.js";
 export { hiveVerdict } from "./hive-shot.js";
+export { keelVerdict } from "./keel-shot.js";
 // THE LAMPREY's jaw and teeth: the phase, the step, the seats, the ring and
 // the gullet, for the picture, the cue and the director's hand (§41).
 export {

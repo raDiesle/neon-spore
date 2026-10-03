@@ -33009,3 +33009,16 @@ Bottleneck: the page that should say what is unbuilt says it out of date, so the
 Bottleneck: the mimic's skin is two dark greens on a dark sky, so it took a pale rim and lit suckers before the arms read at all.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE KEEL stops a bolt on what it meets
+
+- reading: 10 min. The keel's shot, marrow and drawer, and where its socket,
+  lens and rock are laid.
+- writing: 20 min. `keelVerdict` and `keelStruck` acting on it, the plate's
+  points, the tendons, the rock cut to `keel-rock.ts`, `keel-stop.ts`, a
+  harness, a row and a test for the two either-colour targets.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: three targets with three colour rules behind one verdict, and `keel-shape.ts` at the ceiling before the plate's points could go in.

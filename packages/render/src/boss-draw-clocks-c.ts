@@ -127,7 +127,7 @@ export function drawPairBoss(
   // (`keel-draw.ts`). What outlives a frame — the jolt of a lock, each seam's
   // snap, the hull's shudder — is `effects.boss.keel` (`keel-fx.ts`).
   if (boss.kind === "keel") {
-    drawKeel(ctx, l, world, boss, beat, beatPhase, time, effects.boss.keel);
+    drawKeel(ctx, l, world, boss, beat, beatPhase, time, effects.boss.keel, effects.bolts);
     return;
   }
 
