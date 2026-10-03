@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · b4abc5c49 — The director's jump to a step plays on instead of pausing
+
+◀, ▶ and the list of steps under the boss's step readout now leave the stage running from the first frame of the step they reached, so ▶ goes straight into the next step rather than stopping on a still of it. A jump that cannot reach its step still stands paused on the furthest one, and says so.
+
 ## 2026-10-03 · 17eec1e44 — THE CYST, OCULUS, TRIVET and VISE judge a bolt through one verdict
 
 Each of the four bosses whose shot answers a second ask in a column of its own — THE CYST's bud, THE OCULUS's look, THE TRIVET's tip, THE VISE's spit — now says what a bolt meets through `coreVerdict`, widened with an `aside` column, instead of carrying its own copy of the rule. `cystVerdict`, `oculusVerdict`, `trivetVerdict` and `viseVerdict` are pure, so the picture can stop a bolt on the same answer the shot acts on; a test holds each to its `…Struck` on every column and colour. THE TRIVET's autopilot asks its verdict before it fires. Nothing drawn changes: the stoppers are the next half.
