@@ -32963,3 +32963,5 @@ Bottleneck: none worth the name; a single describe meant choosing the cut rather
 - landing: 15 min. `check:fast` three times, the index, `land`.
 
 Bottleneck: removing a command touches every package that names it, and nothing lists them in one place.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

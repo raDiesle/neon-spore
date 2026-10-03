@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 38589dc6a — THE MIMIC is painted a tile at a time
+
+The field above the ship is a board of tiles, THE FLEET's lattice without its letters. One player sees a picture of squares in up to three of THE THROAT's four colours and says it; the other taps the tiles in, one tap a tile, a tap in the brush's colour clearing it. The brush is one for the pair, set from THE THROAT's four buttons. The reader sees every painted tile ticked right or crossed wrong as it lands; the painter sees only the paint. A picture painted exactly peels; the core is tapped in its colour. The mantle gives way to the board while a picture is up, and the window's clock is the row over the hull. Tile taps go through the touch path the director shares, so the director can paint too. The freehand sign, its recogniser, the pad and the glyph command are gone.
+
 ## 2026-10-03 · 7c92f02ab — Split THE GIMBAL's frame test into two pages over one harness
 
 The cradle's poses move to gimbal-frame-harness.ts; gimbal-frame.test.ts keeps the six poses and gimbal-answer.test.ts takes the fold, the knurl, the word and the kicks. gimbal-beam.test.ts drops its own copy of the cradle-hanging helper for the harness. Nothing drawn changes.
