@@ -46,6 +46,8 @@ export interface MimicPose {
   spent: number;
   /** Which face is turned to the pair, for the mottle it wears. */
   face: 1 | 2;
+  /** How far it has drawn up into a crane holding the board, nought to one (`mimic-crane.ts`). */
+  held: number;
 }
 
 /** The mantle's radius at rest, in tiles. */

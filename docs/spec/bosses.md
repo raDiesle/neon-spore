@@ -11656,9 +11656,16 @@ marks cut into its edge, a mottle of two dark greens; it slaps round,
 flinches on a peel, rolls between movements, parts down the middle on a
 split with the core between, and falls shapeless, spent. The arm that
 reaches is a lobed tentacle, a third of the way to the hull per reach.
-**While a picture is up the mantle gives way to the board** on both screens
-(`mimicVeil`, half a beat each way): the owner, *the one who does not need
-to draw does not see this green tree at all*. **The board**
+**While a picture is up the mantle is a crane holding the board** on both
+screens (`mimicVeil`, half a beat each way; `render/src/mimic-crane.ts`):
+the owner, *the one who does not need to draw does not see this green tree
+at all*, and *a crane holding a portrait or a TV, but alien, living*. The
+mantle draws up small into the strip over the board, and two of its arms
+reach out and down to the board's top corners, curl round them and press a
+sucker on the frame; a pulse of pale light runs down the suckers on each arm
+toward the board on the beat, and a pale rim edges the whole crane so the
+dark skin reads on the dark sky. The tips stay put while the arms sway, so
+the board never moves. **The board**
 (`render/src/mimic-board.ts`, `mimic-tile.ts`, `chart-lattice.ts`) is THE
 FLEET's lattice without its letters, framed in the brush's colour. **The
 reader** sees every tile the picture wants, faint in its colour with THE
@@ -11669,8 +11676,7 @@ painter** sees only what has been painted, solid, unmarked
 (`showsMimicPaint`) — what to fix is said out loud. **The clock** is THE
 FLEET's drain bar and seconds, in the row over the hull. The board's tiles
 are hit by the shared `render/touch.ts` (`mimic-tap.ts`), so the director's
-stage paints exactly as a phone does. **Lane B, not built**: a living alien
-crane that holds the board up, in place of the mantle while a picture is up.
+stage paints exactly as a phone does.
 
 **The hand.** The eight STATES cards are posed on AUTO's hand
 (`tools/director/src/poses-bosses-hands-mimic.ts`); the mimicking card lets

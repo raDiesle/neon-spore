@@ -2,6 +2,7 @@ import { type MimicState, midCol, mimicStep, type SimConfig } from "@neon-spore/
 import { smoothstep } from "./ease.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
+import { mimicVeil } from "./mimic-board.js";
 import { ARMS, MANTLE, type MimicPose } from "./mimic-shape.js";
 import { phaseInto } from "./phase-into.js";
 
@@ -16,6 +17,13 @@ import { phaseInto } from "./phase-into.js";
  * the step and whether it is a split, how many arms have reached this
  * movement — so both phones draw it in one place. The ripple is the beat's,
  * never the wall clock's, so it stands still with the game paused.
+ *
+ * **While a picture is up it is a crane** (the owner, 3 October 2026: *like
+ * a crane holding a portrait or a TV, but alien, living*): the mantle draws
+ * up into the strip over the board and shrinks, its arms pulled in and its
+ * reach held back, and two arms hold the board by its top corners
+ * (`mimic-crane.ts`). It goes up and comes down on the board's own veil
+ * (`mimicVeil`), so the two are never out of step.
  */
 
 /** How far down the field the mantle hangs, its middle under the grid's top, in tiles. */
@@ -53,8 +61,34 @@ export function mimicHang(l: Layout, cfg: SimConfig): { x: number; y: number } {
   return { x: fieldX(l, midCol(cfg)), y: l.gridTop + HANG * l.tile };
 }
 
-/** The mantle's pose this frame. */
+/** How small the mantle is as a crane, and how far over the board's top its middle hangs, in tiles. */
+const CRANE_SIZE = 0.55;
+const CRANE_LIFT = 1.35;
+
+/** The mantle's pose this frame: its phase's, drawn up into a crane as far as the board is up. */
 export function mimicPose(
+  l: Layout,
+  cfg: SimConfig,
+  s: MimicState,
+  beat: number,
+  beatPhase: number,
+): MimicPose {
+  const p = phasePose(l, cfg, s, beat, beatPhase);
+  const held = mimicVeil(s, beat, beatPhase);
+  if (held <= 0) return p;
+  const r = p.r * lerp(1, CRANE_SIZE, held);
+  const y = Math.max(r * 1.1, l.gridTop - CRANE_LIFT * l.tile);
+  return {
+    ...p,
+    r,
+    y: lerp(p.y, y, held),
+    arms: p.arms.map((a) => a * lerp(1, 0.4, held)),
+    reach: p.reach * (1 - held),
+    held,
+  };
+}
+
+function phasePose(
   l: Layout,
   cfg: SimConfig,
   s: MimicState,
@@ -80,6 +114,7 @@ export function mimicPose(
     reach: reachOf(l, cfg, y, r, s.reaches),
     spent: 0,
     face,
+    held: 0,
   };
   if (s.phase === "entering") {
     const k = into / Math.max(1, cfg.mimicEnterBeats);

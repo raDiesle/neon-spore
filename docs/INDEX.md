@@ -1110,6 +1110,7 @@ by hand never moves.
 | `packages/render/src/mimic-receipts.ts` | **THE MIMIC's receipts, drawn** — what `mimic-fx.ts` holds between frames |
 | `packages/render/src/mimic-tap.ts` | **A finger on THE MIMIC's board**: the square it came down on, as THE MINE's `tapTile` (`mine-tap.ts`) |
 | `packages/render/src/mimic-tile.ts` | **One square of THE MIMIC's board**, in one of the panel's four colours (`throat-hue.ts`): the red shot |
+| `packages/render/src/mimic-crane.ts` | **THE MIMIC as a crane**: two arms holding the board up by its top corners |
 | `packages/render/src/simon-fx.ts` | the count-in, the handover, and what the row is showing |
 | `packages/render/src/simon-row.ts` | the row of slots: a control, or a question mark |
 | `packages/render/src/simon-verdict.ts` | the sequence flying into whichever ship earned it |

@@ -6,6 +6,7 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { drawMimicBoard, mimicVeil } from "./mimic-board.js";
+import { CRANE_RIM, drawMimicCraneArms, drawMimicCraneGrips } from "./mimic-crane.js";
 import type { MimicFx } from "./mimic-fx.js";
 import { mimicHalfSide, mimicPose, PART, PEELED_BACK } from "./mimic-pose.js";
 import { drawMimicFlash, drawMimicPeel } from "./mimic-receipts.js";
@@ -25,14 +26,14 @@ import { stepColour } from "./step-colour.js";
  * marching round its edge; then split down the middle on a lit core (§42,
  * `bosses-choreographed.md` §42).
  *
- * **While a picture is up the mantle is gone from both screens** and the
- * board is there instead (`mimic-board.ts`; the owner, 3 October 2026: the
- * one who does not paint sees no mantle, just the board). The two cross-fade
- * on `mimicVeil`, so the mantle slips away as a picture goes up and comes
- * back as it peels or its window runs out. The board is where the two screens
- * differ, and that is the fight; everything the mantle does — its arms and
- * the arm reaching for the hull, the roll, the split and the core — is the
- * same on both.
+ * **While a picture is up the mantle is a crane holding the board**
+ * (`mimic-crane.ts`; the owner, 3 October 2026: the one who does not paint
+ * sees no mantle over the field, just the board — and *a crane holding a
+ * portrait, but alien, living*). It draws up over the board as the board
+ * comes up on `mimicVeil`, and comes back down as it peels or its window runs
+ * out. The board is where the two screens differ, and that is the fight;
+ * everything the mantle does — the crane, its arms and the arm reaching for
+ * the hull, the roll, the split and the core — is the same on both.
  *
  * Everything is read off `world` each frame but its receipts — the peel, the
  * core's flash and the blow it takes — which are `fx`
@@ -57,10 +58,11 @@ export function drawMimic(
   const hurt = fx.hurt.value;
   ctx.save();
   // Every glow under the fade is `strokeGlowFaded`, which leaves it standing.
-  ctx.globalAlpha = (1 - 0.5 * p.spent) * (1 - veil);
+  ctx.globalAlpha = 1 - 0.5 * p.spent;
   // The mantle shakes with the blow it took.
   ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
 
+  drawMimicCraneArms(ctx, l, cfg, p);
   drawReach(ctx, l, p);
   if (split) drawCore(ctx, p, s);
   if (split) {
@@ -78,6 +80,7 @@ export function drawMimic(
   drawMimicFlash(ctx, p, fx.flash);
   ctx.restore();
   drawMimicBoard(ctx, l, world, s, beatPhase, veil);
+  drawMimicCraneGrips(ctx, l, cfg, p);
   // The peel drifts free of the shake, but not of the fade.
   ctx.save();
   ctx.globalAlpha = 1 - 0.5 * p.spent;
@@ -140,5 +143,7 @@ function drawSkin(ctx: CanvasRenderingContext2D, l: Layout, p: MimicPose, hurt: 
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = PALETTE.mimicSkinDark;
   ctx.stroke(mantle);
+  if (p.held > 0)
+    strokeGlowFaded(ctx, mantle, PALETTE.mimicSign, STROKE.outline, CRANE_RIM, p.held);
   drawHurt(ctx, mantle, hurt);
 }

@@ -168,6 +168,7 @@ export class MimicFx {
       reach: 0,
       spent: 0,
       face: 1,
+      held: 0,
     };
   }
 

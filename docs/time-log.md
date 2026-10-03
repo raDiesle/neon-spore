@@ -32994,3 +32994,16 @@ Bottleneck: pulling the shell, the bolt and the latch bar out of their drawers a
 Bottleneck: the page that should say what is unbuilt says it out of date, so the answer had to be checked against the tree row by row.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE MIMIC holds its board up as a living crane
+
+- reading: 10 min. The mantle's pose and paths, the drafts that are still
+  free, the board's veil.
+- writing: 25 min. The crane in the pose, the two holding arms, their
+  suckers and grips, the docs.
+- looking: 15 min. Three frames of the crane, toning a dark arm on a dark
+  sky until it read.
+- friction: 5 min. A catalogue test timed out under load and passed alone.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: the mimic's skin is two dark greens on a dark sky, so it took a pale rim and lit suckers before the arms read at all.
