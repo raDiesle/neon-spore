@@ -1,4 +1,9 @@
-import type { DragTarget, GrindstoneState, SimConfig } from "@neon-spore/sim";
+import {
+  type DragTarget,
+  type GrindstoneState,
+  grindstoneFlatAsks,
+  type SimConfig,
+} from "@neon-spore/sim";
 import {
   grindstoneArrived,
   grindstoneDepth,
@@ -35,7 +40,10 @@ import { bossOf } from "./touch-field.js";
  * through to whatever is behind it, as the simulation would refuse it anyway.
  *
  * **A press is whichever of the two it is nearer**, out to `REACH`: the flat's
- * face as a segment, the jaw as its two pads. The pads sit a quarter of a tile
+ * face as a segment, the jaw as its two pads — **while the flat's pass is
+ * lit**. Ground deep, the face runs right under the pads, and by the first
+ * clamp both flats are ground, so nearer alone took every press on a jaw as a
+ * rub and no pad ever went down. Any other time the jaw within reach wins. The pads sit a quarter of a tile
  * apart — a centimetre of glass would not hold two thumbs on them — so which
  * pad a finger is, is the order it landed in, THE TRIVET's chord
  * (`chord.ts`); and a thumb on the flat takes a rub, whose turns its host
@@ -128,7 +136,10 @@ export function grindstoneGripUnder(l: Layout, x: number, y: number, field: Fiel
   const toFlat = Math.hypot(x - flat.x, y - flat.y - along);
   const toJaw = Math.min(...pads.map((p) => Math.hypot(x - p.x, y - p.y)));
   if (Math.min(toFlat, toJaw) > REACH * l.tile) return null;
-  const jaw = toJaw < toFlat;
+  // Ground deep, the flat's face runs under the jaw's pads, so nearer alone
+  // hands every press on a jaw to the flat. The flat wins only while its pass
+  // is lit; any other time a rub there does nothing, and the jaw is taken.
+  const jaw = grindstoneFlatAsks(s, sideOf(seat)) ? toJaw < toFlat : toJaw <= REACH * l.tile;
   const hold = {
     kind: "drag",
     target: grindTarget(seat, jaw),

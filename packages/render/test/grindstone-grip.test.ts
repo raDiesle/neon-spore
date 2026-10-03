@@ -148,6 +148,17 @@ describe("thumbs on THE GRINDSTONE", () => {
     expect(s.padsDown[0]).toBe(0b11);
   });
 
+  it.each(ROLES)("takes a jaw over the ground flat under it on a lit clamp, on %s", (role) => {
+    // Both flats ground deep, the face runs under the pads: nearer alone was the flat.
+    const { world, s } = lit();
+    s.passes = [2, 2];
+    s.gritMilli = [0, 0];
+    s.locked = true;
+    s.steps[0] = { ask: "clamp", color: "either", beats: 3 };
+    expect(target(press(world, role, 1, at(world, role, "grindJawLeft")))).toBe("grindJawLeft");
+    expect(target(press(world, role, 2, at(world, role, "grindJawRight")))).toBe("grindJawRight");
+  });
+
   it("offers nothing once the wheel spins free", () => {
     const { world, s } = lit();
     const flat = at(world, "p1", "grindFlatLeft");

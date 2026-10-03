@@ -32820,3 +32820,15 @@ Bottleneck: reading the heights back, which showed the swung-wide lobes letting 
 Bottleneck: THE LEAD, whose verdict is about when rather than where, and which no one at the controls ever stops.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — A press on THE GRINDSTONE's jaw was taken as a rub
+
+- reading: 10 min. The grip's hit test, the probe against a clamp step.
+- writing: 5 min. The jaw preferred off its pass, a test with both flats ground.
+- looking: 25 min. The preview, a pad held with the mouse on a lit clamp.
+- friction: 15 min. Synthetic presses with any pointer id but 1 throw in
+  `setPointerCapture`, and `advance` stepping the world under the loop —
+  both read as the bug still there.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: synthetic pointer presses failing silently, which looked like the fix not working.

@@ -553,3 +553,22 @@ the flat branches and the `rigged` parameter, keep `amount` only if a test still
 needs a level cradle (the hush tests can call `gimbalTilt` with a hush of 0),
 and drop the two tests that compare against the flat picture — or measure the
 cost against a fixed budget row instead. `bun run check` proves it.
+
+## A synthetic press on the game's canvas is dropped without a word
+
+- **Found:** 2026-10-03, claude/grindstone-hold-mechanic-0b555e
+- **Files:** `apps/game/src/input.ts`, `apps/game/src/handle.ts`
+
+Verifying a hold in the preview, a lane dispatches `PointerEvent`s at the
+stage. Any `pointerId` but the mouse's own `1` makes the `pointerdown`
+listener's `canvas.setPointerCapture(e.pointerId)` throw, so the press never
+reaches `down()` and nothing says so. And a world stepped with the handle's
+`advance` runs ahead of the loop, so live presses afterwards are not heard
+either. A lane on THE GRINDSTONE spent fifteen minutes reading both as the
+fix not working.
+
+Either guard the capture (a `try`, or `hasPointerCapture`-style check) so a
+press is answered even when capture is refused, or give `window.neonSpore` a
+`press(x, y)` / `lift()` pair that goes through `down()` and `up()` the way a
+pointer does — or both. A test in `apps/game/test` that presses through the
+verb and sees the hold taken proves it.
