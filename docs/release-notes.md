@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 042b77194 — THE VALVE stops a bolt on what it meets
+
+A bolt fired at THE VALVE is drawn stopping where the simulation says it landed: on the leaking spark in its column, in either colour, and otherwise on the lowest of the drum — whole, or its two halves swung apart once it falls open — and the pins still hung under it, each swaying about its top, all laid through the drum's shake and list. The verdict is `valveVerdict`, which `valveStruck` now acts on; the pins' outlines moved from `valve-shape.ts` to `valve-pins.ts` to share them.
+
 ## 2026-10-03 · 99f6e87a5 — THE RATCHET stops a bolt on what it meets
 
 A bolt fired at THE RATCHET is now drawn to end where it meets the machine instead of flying through it. It bursts on the loose bolt in either colour up the column it falls in, and scuffs on the rack's plates, the pawl's arm and hub, the lock's jaws and, on the navigator's screen, the catch's bar, each laid through the jolt, the strut's fold about the lock and the bind's shake. While the loose bolt still hangs in front of the rack, a bolt is drawn reaching it through the plates; that is left as a look. THE VALVE stays in the queue. Exemption: a look the owner asked for by name (1 October 2026, "but also all other bosses").

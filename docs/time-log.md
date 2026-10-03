@@ -33064,3 +33064,5 @@ Bottleneck: the rack is drawn through three transforms — the jolt, the fold ab
 - landing: 5 min. `check:fast`, the index, `land`.
 
 Bottleneck: `valve-shape.ts` was at its line ceiling, so sharing the pins' outline with the stopper meant splitting the file first.
+
+*Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
