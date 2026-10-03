@@ -1,25 +1,9 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
-import {
-  createWorld,
-  type GimbalState,
-  gimbalBoss,
-  NO_BEARING,
-  startWave,
-  step,
-  ticksPerBeat,
-  type World,
-} from "@neon-spore/sim";
+import type { World } from "@neon-spore/sim";
 import { GimbalFx } from "../src/gimbal-fx.js";
 import type { ViewRole } from "../src/layout.js";
-import {
-  CFG,
-  FRAME_TIMEOUT_MS,
-  installCanvasGlobals,
-  ROLES,
-  runFrames,
-  waveWith,
-} from "./frame-harness.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES } from "./frame-harness.js";
+import { body, hung, frame as posed, turning } from "./gimbal-frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -29,50 +13,24 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * (`gimbal-partner.ts`), and both rings true throws the light of
  * `gimbal-beam.ts` across the cradle on every screen.
  *
- * `gimbal-frame.test.ts` holds the six poses and is past the length ceiling;
- * this page holds what the swap and the lock added to them.
+ * `gimbal-frame.test.ts` holds the six poses; this page holds what the swap
+ * and the lock added to them, set through the same `gimbal-frame-harness.ts`.
  */
 
 beforeAll(() => {
   installCanvasGlobals();
 });
 
-const TPB = ticksPerBeat(CFG);
-
 /** The first alignment up, the rings standing at `outer` and `inner`, true bearings. */
 function frame(role: ViewRole, outer: number, inner: number): { calls: number; text: string } {
-  const world = createWorld(CFG, 5);
-  const index = waveWith("gimbal");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  for (let i = 0; i < TPB * 4; i++) step(world, []);
-  const s = body(world);
-  s.phase = "turn";
-  s.phaseBeat = world.beat - 1;
-  s.cursor = 0;
-  s.atMilli = [outer, inner];
-  s.handMilli = [NO_BEARING, NO_BEARING];
-  const log: string[] = [];
-  const { ctx } = runFrames(world, role, 9, {
-    every: 3,
-    onCanvas: (c) => {
-      c.log = log;
-    },
+  return posed(role, (w: World) => {
+    turning(w, outer, inner);
   });
-  return { calls: ctx.calls, text: log.join("|") };
-}
-
-function body(world: World): GimbalState {
-  const s = gimbalBoss(world);
-  if (s === null) throw new Error("the gimbal wave hung no cradle");
-  return s;
 }
 
 /** The first alignment's true marks, read off the wave rather than written twice. */
 function firstMarks(): { outer: number; inner: number } {
-  const world = createWorld(CFG, 5);
-  const index = waveWith("gimbal");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  const m = body(world).marks[0];
+  const m = body(hung()).marks[0];
   if (m === undefined) throw new Error("the script has no first alignment");
   return { outer: m.outerMilli, inner: m.innerMilli };
 }

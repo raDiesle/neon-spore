@@ -32934,3 +32934,15 @@ Bottleneck: none — the entry named the seam.
 Bottleneck: laying each part where the shaken, rolled, tilted cradle is drawn, so the stop sits on the picture.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — gimbal-frame.test.ts split into two pages
+
+- reading: 5 min. The frame page, the beam page's own copy of the cradle, the
+  ANTIPHON harness to copy its shape.
+- writing: 5 min. `gimbal-frame-harness.ts`, the poses on one page and the
+  answers on `gimbal-answer.test.ts`, the beam page on the harness.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: none worth the name; a single describe meant choosing the cut rather than following one.

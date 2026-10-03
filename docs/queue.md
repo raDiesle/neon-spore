@@ -548,17 +548,3 @@ The three answers, all desk-only — a phone keeps a pad a finger:
 Done when a desk's mouse can clamp THE GRINDSTONE and complete each other
 chord in the chosen way, `desk-reach.test.ts` (or a test beside it) asks
 that it can, and `bun run check` is green.
-
-## Split gimbal-frame.test.ts, 340 lines, into two pages
-
-- **Found:** 2026-10-03, claude/gimbal-puzzle-mechanics-a4a2d8
-- **Taken:** 2026-10-03, claude/queue-work-cccabd (claim: claude/queue-split-gimbal-frame-test-ts-340-lines-into-two-pa)
-- **Files:** `packages/render/test/gimbal-frame.test.ts`, `packages/render/test/gimbal-beam.test.ts`
-
-THE GIMBAL's frame test is 340 lines, past the ~250 ceiling, and the swap and
-lock lane had to open `gimbal-beam.test.ts` beside it with its own copy of the
-cradle-hanging helper rather than add two cases. Move `hung`, `body`, `still`,
-`turning`, `aligned`, `shearing`, `leaking`, `opening`, `drawn` and `frame`
-into a gimbal frame harness file beside them, cut the poses into two pages
-along the existing `describe`s, and have `gimbal-beam.test.ts` use the harness
-instead of its own `frame`. Nothing drawn changes; `bun run check` proves it.
