@@ -550,6 +550,7 @@ that it can, and `bun run check` is green.
 ## A synthetic press on the game's canvas is dropped without a word
 
 - **Found:** 2026-10-03, claude/grindstone-hold-mechanic-0b555e
+- **Taken:** 2026-10-03, claude/task-queue-work-e88ecc (claim: claude/queue-a-synthetic-press-on-the-games-canvas-is-dropped)
 - **Files:** `apps/game/src/input.ts`, `apps/game/src/handle.ts`
 
 Verifying a hold in the preview, a lane dispatches `PointerEvent`s at the
