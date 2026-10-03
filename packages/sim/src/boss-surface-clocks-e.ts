@@ -17,6 +17,7 @@
  * is one something outside `packages/sim` imports.
  */
 
+export { antiphonVerdict } from "./antiphon-shot.js";
 // THE BURGEE's flag: the phase, the lit step, the swing and the freeze, the
 // lit column, whose tap stills it and whose draw looses at it, the catches
 // and the spindle, for the picture, the cue and the director's hand. Straight
@@ -146,6 +147,7 @@ export {
 export { governorVerdict } from "./governor-shot.js";
 export { grindstoneVerdict } from "./grindstone-shot.js";
 export { halterVerdict } from "./halter-shot.js";
+export { hiveVerdict } from "./hive-shot.js";
 // THE LAMPREY's jaw and teeth: the phase, the step, the seats, the ring and
 // the gullet, for the picture, the cue and the director's hand (§41).
 export {
@@ -171,6 +173,8 @@ export {
   lampreyTeethIn,
   lampreyToothIn,
 } from "./lamprey.js";
+export { type LeadVerdict, leadVerdict } from "./lead-shot.js";
+export { ledgerVerdict } from "./ledger-shot.js";
 export {
   freshMimic,
   MIMIC_ASKS,

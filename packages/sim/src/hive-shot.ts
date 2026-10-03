@@ -1,9 +1,10 @@
 import { midCol } from "./config.js";
+import type { CoreVerdict } from "./core-verdict.js";
 import { hiveBoss, hiveDown, hiveLeft, hiveOpenAt, hiveSealedCount } from "./hive.js";
 import { hiveClenched, hiveSealedBy } from "./hive-lobe.js";
 import { enterHivePhase } from "./hive-step.js";
 import { openSlow } from "./slow.js";
-import type { Bullet } from "./types.js";
+import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -35,23 +36,23 @@ import type { World } from "./world.js";
  * the design gives the breach nothing the lance is the sole answer to; a
  * beam standing in an open breach's column in its colour is a bolt held
  * there, and it is judged once, on the tick it burns the column.
+ *
+ * What it says of a bolt is `hiveVerdict`, which the picture asks too.
  */
 export function hiveStruck(world: World, b: Bullet): boolean {
   const s = hiveBoss(world);
-  if (s === null || hiveDown(s)) return false;
-  const i = hiveClenched(s) ? -1 : hiveOpenAt(s, b.col);
-  // The underside spans the field, so every bolt meets it: the skin is
-  // armour (`shot-out.ts`).
-  if (i < 0) {
+  const verdict = hiveVerdict(world, b.col, b.color);
+  if (s === null || verdict === null) return false;
+  if (verdict === "armour") {
     world.events.push({ type: "hiveSkin", col: b.col });
     return true;
   }
-  if (!hiveSealedBy(s, i, b.color)) {
+  if (verdict === "wrong") {
     s.spillBeat -= world.cfg.hiveProvokeBeats;
     world.events.push({ type: "hiveWrong", col: b.col });
     return true;
   }
-  s.sealed[i] = true;
+  s.sealed[hiveOpenAt(s, b.col)] = true;
   const left = hiveLeft(s);
   world.events.push({ type: "hiveSeal", col: b.col, left });
   if (left > 0) {
@@ -70,4 +71,18 @@ export function hiveStruck(world: World, b: Bullet): boolean {
   openSlow(world, world.cfg.hiveSlowBeats, "show");
   world.events.push({ type: "hiveDown", col: b.col });
   return true;
+}
+
+/**
+ * What a bolt of `color` in `col` meets, in `CoreVerdict`'s words: an open
+ * breach in its colour (`"target"`) or the other (`"wrong"`, the body
+ * provoked), or the skin (`"armour"`) anywhere else — the underside spans
+ * the field, so every bolt meets it (`shot-out.ts`).
+ */
+export function hiveVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const s = hiveBoss(world);
+  if (s === null || hiveDown(s)) return null;
+  const i = hiveClenched(s) ? -1 : hiveOpenAt(s, col);
+  if (i < 0) return "armour";
+  return hiveSealedBy(s, i, color) ? "target" : "wrong";
 }

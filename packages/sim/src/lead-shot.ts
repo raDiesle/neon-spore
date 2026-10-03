@@ -38,9 +38,26 @@ export function leadStruck(world: World, b: Bullet): boolean {
     if (leadPassing(s) && body) leadMet(world, s, b.col);
     return body;
   }
-  if (!leadShootable(s) || leadStill(s)) return body;
+  const verdict = leadVerdict(world, b.col);
+  if (verdict !== "flight") return verdict !== null;
   const dueBeat = world.beat + world.cfg.leadFlightBeats;
   s.flights.push({ col: b.col, dueBeat });
   world.events.push({ type: "leadFlight", col: b.col, dueBeat });
   return true;
+}
+
+/**
+ * What a bolt does under THE LEAD, whatever its colour: put in flight while
+ * the stalk paces with segments to shoot, judged when it comes due
+ * (`"flight"`); otherwise the plating in the body's own column (`"armour"`),
+ * and nothing anywhere else.
+ */
+export type LeadVerdict = "flight" | "armour";
+
+/** What a bolt in `col` does under THE LEAD now. `leadStruck` acts on it, and the picture asks it too. */
+export function leadVerdict(world: World, col: number): LeadVerdict | null {
+  const s = leadBoss(world);
+  if (s === null) return null;
+  if (leadShootable(s) && !leadStill(s)) return "flight";
+  return col === s.col ? "armour" : null;
 }

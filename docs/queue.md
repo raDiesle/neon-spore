@@ -356,12 +356,20 @@ harness in `render/test/<boss>-harness.ts`). A target the bolt must be drawn
 through some other part of the body to reach is a look: say so in the
 stopper and leave it for VERSUS, as `flue-stop.ts` does.
 
+Their verdicts are done, each its shot asked rather than acted on:
+`antiphonVerdict`, `hiveVerdict` and `ledgerVerdict` in `CoreVerdict`'s four
+words, and `leadVerdict`, whose `"flight"` is a bolt put in the air to be
+judged later and stopped by nothing now. `sim/test/shot-verdict.test.ts`
+holds each to its shot. None of the four is a core over the middle column,
+so each stopper is its own (`render/seam-stop.ts`'s way), and its rows will
+not fit `core-stop-rows.ts`' core-in-the-middle checks.
+
 All four are drawn from `boss-draw-clocks-b.ts`, which page a lane passing
 each drawer `effects.bolts` edits; THE INSTAR, NETTLE, SCUTTLE and STARE are
-the other lane on that page.
+the other lane on that page. Every drawer here is past 225 lines.
 
-Done when each boss here calls `stops?.aim`, has its row in
-`core-stop-rows.ts`, and `bun run check` is green.
+Done when each boss here calls `stops?.aim`, a test says where a bolt meets
+each, and `bun run check` is green.
 
 ## THE INSTAR, NETTLE, SCUTTLE and STARE stop a bolt on what it meets
 

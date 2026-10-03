@@ -1,7 +1,8 @@
 import { metColor, missedColor } from "./balance.js";
+import type { CoreVerdict } from "./core-verdict.js";
 import { ledgerBoss, ledgerCovers, ledgerPhase, ledgerSeamCol, ledgerWhips } from "./ledger.js";
 import { startBead, widenSeam } from "./ledger-bead.js";
-import type { Bullet } from "./types.js";
+import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -40,33 +41,41 @@ function refuse(world: World, col: number): void {
  */
 export function ledgerStruck(world: World, bullet: Bullet): boolean {
   const t = ledgerBoss(world);
-  if (t === null || t.outBeat >= 0) return false;
-  const cfg = world.cfg;
-  // Under the body, the bolt met it: the plating's refusal is armour
-  // (`shot-out.ts`).
-  if (!ledgerCovers(t, cfg, bullet.col)) return false;
-  // A cord still paying out has nothing rooted to bill down, so the body
-  // cannot be hurt yet: the design's step 1, which is a picture and not a
-  // window (`ledgerPhase`).
-  if (ledgerPhase(t, cfg, world.beat) === "rooting") {
-    refuse(world, bullet.col);
-    return true;
-  }
-  if (bullet.col !== ledgerSeamCol(t, cfg)) {
-    refuse(world, bullet.col);
-    return true;
-  }
-  if (bullet.color !== t.want) {
-    missedColor(world);
+  const verdict = ledgerVerdict(world, bullet.col, bullet.color);
+  if (t === null || verdict === null) return false;
+  if (verdict === "wrong") missedColor(world);
+  if (verdict !== "target") {
     refuse(world, bullet.col);
     return true;
   }
   metColor(world);
+  const cfg = world.cfg;
   // The bill is the muzzle's once the cord whips, so a hit that reaches
   // the body does not put a second return on the cord for the same bolt
   // (`ledgerBills`).
   widenSeam(world, t, !ledgerWhips(t, cfg, world.beat));
   return true;
+}
+
+/**
+ * What a bolt of `color` in `col` meets of the body, in `CoreVerdict`'s
+ * words: the seam in the colour it wants (`"target"`) or the other
+ * (`"wrong"`), the plating anywhere else under the body (`"armour"`), or
+ * nothing past it. `ledgerStruck` acts on it, and the picture asks it too.
+ */
+export function ledgerVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const t = ledgerBoss(world);
+  if (t === null || t.outBeat >= 0) return null;
+  const cfg = world.cfg;
+  // Under the body, the bolt met it: the plating's refusal is armour
+  // (`shot-out.ts`).
+  if (!ledgerCovers(t, cfg, col)) return null;
+  // A cord still paying out has nothing rooted to bill down, so the body
+  // cannot be hurt yet: the design's step 1, which is a picture and not a
+  // window (`ledgerPhase`).
+  if (ledgerPhase(t, cfg, world.beat) === "rooting") return "armour";
+  if (col !== ledgerSeamCol(t, cfg)) return "armour";
+  return color === t.want ? "target" : "wrong";
 }
 
 /**

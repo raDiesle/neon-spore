@@ -6,7 +6,8 @@ import {
   antiphonOrganAt,
 } from "./antiphon.js";
 import { antiphonHarden, antiphonPit } from "./antiphon-step.js";
-import type { Bullet } from "./types.js";
+import type { CoreVerdict } from "./core-verdict.js";
+import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -31,28 +32,39 @@ import type { World } from "./world.js";
  * Nothing counts until the organ has pushed all the way out: the rail is
  * laid the beat the growth begins, for the screens, but a bolt into a
  * contour still resolving is a guess.
+ *
+ * What it says of a bolt is `antiphonVerdict`, which the picture asks too.
  */
 export function antiphonStruck(world: World, b: Bullet): boolean {
   const s = antiphonBoss(world);
-  if (s === null || b.lance || s.downBeat >= 0) return false;
-  if (!standing(s, world)) return false;
+  if (s === null || b.lance) return false;
+  const verdict = antiphonVerdict(world, b.col, b.color);
   const o = antiphonOrganAt(s, b.col);
+  if (verdict === "target" && o !== null) antiphonPit(world, s, o);
+  if (verdict === "wrong") antiphonHarden(world, s, b.col);
+  return verdict !== null;
+}
+
+/**
+ * What a bolt of `color` in `col` meets, in `CoreVerdict`'s words: the
+ * organ in its colour (`"target"`) or the other (`"armour"`), a decoy's
+ * colour in the decoy's column (`"wrong"`, the cycle hardened), or nothing.
+ */
+export function antiphonVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const s = antiphonBoss(world);
+  if (s === null || s.downBeat >= 0 || !standing(s, world)) return null;
+  const o = antiphonOrganAt(s, col);
   // An organ over the column met the bolt in either colour: the wrong one is
   // armour (`shot-out.ts`).
-  if (o !== null) {
-    if (b.color === o.color) antiphonPit(world, s, o);
-    return true;
-  }
+  if (o !== null) return color === o.color ? "target" : "armour";
   // A candidate she has pulled off the rail is no longer a candidate: a bolt
   // into its column and colour is nothing, unsaid, as a bolt into an empty
   // column is. That is the whole of what the pull buys her — the column is
   // safe to be wrong in (`antiphon-hand.ts`).
   const decoy = s.rail.findIndex(
-    (c, i) => c.col === b.col && c.color === b.color && !antiphonCrossed(s, i),
+    (candidate, i) => candidate.col === col && candidate.color === color && !antiphonCrossed(s, i),
   );
-  if (decoy < 0) return false;
-  antiphonHarden(world, s, b.col);
-  return true;
+  return decoy < 0 ? null : "wrong";
 }
 
 /** Whether an organ stands, grown all the way out. */

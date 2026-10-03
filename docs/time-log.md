@@ -32807,3 +32807,14 @@ Bottleneck: THE OCULUS's look column, where nothing is drawn to meet, so the row
 Bottleneck: reading the heights back, which showed the swung-wide lobes letting a bolt past the drawn kernel and the middle leg standing under THE TRIVET's face.
 
 *Measured: 34 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE ANTIPHON, HIVE, LEAD and LEDGER judge a bolt through a verdict
+
+- reading: 0 min. The four shots, and how each sim test installs its boss.
+- writing: 5 min. Four verdicts pulled out of their shots, and a test that
+  runs each fight and asks every column on a copy of the world.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: THE LEAD, whose verdict is about when rather than where, and which no one at the controls ever stops.
