@@ -63,6 +63,11 @@ export function antiphonCentre(l: Layout, cfg: SimConfig): Point {
   return { x: (box.left + box.right) * 0.5, y: (box.top + box.bottom) * 0.5 };
 }
 
+/** A bud's radius as drawn, `rTiles` across and breathing with the clock. */
+export function antiphonBudR(l: Layout, rTiles: number, time: number): number {
+  return l.tile * rTiles * (1 + 0.03 * Math.sin(time * 4));
+}
+
 /** The perch an organ or a candidate hangs off the underside on, over `col`. */
 export function antiphonPerch(l: Layout, col: number): Point {
   return { x: tileCX(l, col), y: l.gridTop - l.tile * PERCH_RISE };

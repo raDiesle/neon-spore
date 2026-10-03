@@ -368,8 +368,15 @@ All four are drawn from `boss-draw-clocks-b.ts`, which page a lane passing
 each drawer `effects.bolts` edits; THE INSTAR, NETTLE, SCUTTLE and STARE are
 the other lane on that page. Every drawer here is past 225 lines.
 
-Done when each boss here calls `stops?.aim`, a test says where a bolt meets
-each, and `bun run check` is green.
+THE ANTIPHON and HIVE stop a bolt (`render/antiphon-stop.ts`,
+`render/hive-stop.ts`), held by `render/test/own-stop.test.ts`, which runs
+each fight and checks every screen and column against its verdict. Both hang
+above the top row, within the half tile a drawn bolt climbs past it. What is
+left is THE LEAD — whose `"flight"` stops nothing, so only the plating in its
+own column does — and THE LEDGER; each gets its row in `own-stop.test.ts`.
+
+Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
+`own-stop.test.ts`, and `bun run check` is green.
 
 ## THE INSTAR, NETTLE, SCUTTLE and STARE stop a bolt on what it meets
 
@@ -572,3 +579,15 @@ press is answered even when capture is refused, or give `window.neonSpore` a
 `press(x, y)` / `lift()` pair that goes through `down()` and `up()` the way a
 pointer does — or both. A test in `apps/game/test` that presses through the
 verb and sees the hold taken proves it.
+
+## Split hive-draw.ts before it passes 250 lines
+
+- **Found:** 2026-10-03, claude/queue-the-antiphon-hive-lead-and-ledger-stop-a-bolt-on
+- **Files:** `packages/render/src/hive-draw.ts`
+
+Aiming THE HIVE's bolt stops took `hive-draw.ts` to 244 lines, and
+`packages/sim/test/limits.test.ts` fails a source file past 250. Move the
+per-site painters — `lobe`, `drawSwell`, `drawBreach` and `drawScar`, about
+110 lines that read nothing of `drawHive`'s but their arguments — into a
+`hive-sites.ts` beside it, leaving `drawHive` and `drawMass`. Nothing drawn
+changes; `bun run check` proves it, `render/test/frame.test.ts` among it.

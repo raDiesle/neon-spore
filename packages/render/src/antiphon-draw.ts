@@ -16,6 +16,7 @@ import { drawAntiphonRailGrip } from "./antiphon-rail-grip.js";
 import {
   antiphonBodyPath,
   antiphonBox,
+  antiphonBudR,
   antiphonCentre,
   antiphonContourPath,
   antiphonDecoyLobes,
@@ -31,6 +32,8 @@ import {
   PIT_R,
   RAIL_R,
 } from "./antiphon-shape.js";
+import { antiphonStopper } from "./antiphon-stop.js";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
@@ -71,6 +74,7 @@ export function drawAntiphon(
   beatPhase: number,
   time: number,
   fx: AntiphonFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const fade = antiphonFade(s, cfg, beat, beatPhase);
@@ -79,8 +83,10 @@ export function drawAntiphon(
   const grow = antiphonGrowPhase(s, cfg, beat, beatPhase);
   fx.note(s.pits);
 
+  const shift = fx.hurt.shakeX(time, l.tile);
+  stops?.aim(antiphonStopper(l, world, s, { shift, fade, grow, time }));
   ctx.save();
-  ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
+  ctx.translate(shift, 0);
   const body = drawBody(ctx, l, cfg, time, fade, still, fx.hurt.value);
   for (let i = 0; i < s.pits.length; i++) {
     drawPit(ctx, l, cfg, i, s.pits[i] ?? 0, time, fade);
@@ -203,7 +209,7 @@ function drawContour(
   turn = 0,
 ): void {
   if (rTiles <= 0) return;
-  const r = l.tile * rTiles * (1 + 0.03 * Math.sin(time * 4));
+  const r = antiphonBudR(l, rTiles, time);
   const p = antiphonContourPath(c.shape, at, r, time * 0.3, lobes, turn);
   budContact(ctx, body, at.x, at.y, r, fade);
   paintBud(ctx, p, at.x, at.y, r, l.tile, hex, rim, fade, time);

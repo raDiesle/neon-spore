@@ -152,7 +152,7 @@ export function drawFxBoss(
   // which is the whole split. What outlives a frame — the eruption of every
   // pit — is `effects.boss.antiphon` (`antiphon-draw.ts`, `antiphon-fx.ts`).
   if (boss.kind === "antiphon") {
-    drawAntiphon(ctx, l, world, boss, beat, beatPhase, time, effects.boss.antiphon);
+    drawAntiphon(ctx, l, world, boss, beat, beatPhase, time, effects.boss.antiphon, effects.bolts);
     return;
   }
 
@@ -162,7 +162,7 @@ export function drawFxBoss(
   // clench of a wrong colour, the jolt of a seal — is `effects.boss.hive`
   // (`hive-draw.ts`, `hive-fx.ts`).
   if (boss.kind === "hive") {
-    drawHive(ctx, l, world, boss, beat, beatPhase, time, effects.boss.hive);
+    drawHive(ctx, l, world, boss, beat, beatPhase, time, effects.boss.hive, effects.bolts);
     // The ring after the body, over the wax it is on: the clenched underside
     // on his screen, a swelling lobe on hers (`hive-grip.ts`).
     drawHiveGrip(ctx, l, world.cfg, boss, beat, beatPhase, time, effects.boss.hive.marks.verdicts);

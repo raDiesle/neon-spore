@@ -2238,6 +2238,7 @@ by hand never moves.
 | `packages/render/src/antiphon-fx.ts` | What THE ANTIPHON leaves behind a frame |
 | `packages/render/src/antiphon-flesh.ts` | **What THE ANTIPHON is made of**: a long mantle of membrane |
 | `packages/render/src/antiphon-shape.ts` | **Where THE ANTIPHON is**, in field pixels: the body hung over the top of the field above row 0 |
+| `packages/render/src/antiphon-stop.ts` | **Where a bolt meets THE ANTIPHON**, for `BoltStops` (`bolt-stop.ts`): what each screen draws over the column — a rail bud, the organ, the underside |
 | `packages/render/src/antiphon-grip.ts` | **THE ANTIPHON's one handle: the organ, on the screen it is shown on** |
 | `packages/render/src/antiphon-rail-grip.ts` | **THE ANTIPHON's second handle: the rail, on the one screen it hangs on** — a ring on every candidate… |
 | `packages/render/src/antiphon-marks.ts` | **THE ANTIPHON's two handles answering a touch the way every mark does** (`mark-feedback.ts` |
@@ -2386,6 +2387,7 @@ by hand never moves.
 | `packages/render/src/hive-draw.ts` | **THE HIVE**: the waxen mass over row 0 with a site in every lobe of its underside — the breach's colour on the pilot's screen, the swell on the navigator's |
 | `packages/render/src/hive-fx.ts` | What THE HIVE leaves behind a frame: the clench of a wrong colour, the jolt of a seal, and its receipts' bursts |
 | `packages/render/src/hive-shape.ts` | Where THE HIVE is, in field pixels: the mass, its sites, the swell's drop, the fade, and every path the drawer strokes |
+| `packages/render/src/hive-stop.ts` | **Where a bolt meets THE HIVE**, for `BoltStops` (`bolt-stop.ts`): the underside and the lobe hanging at each site |
 | `packages/render/src/hive-grip.ts` | **THE HIVE's one handle, offered to whichever seat the mass's state is for** |
 | `packages/render/src/hive-hold.ts` | **THE HIVE's two held states, in field pixels**: how far a clench has drawn the mass up out of reach |
 | `packages/render/src/hive-cell.ts` | **THE HIVE's lobes and breaches, as wax** (`hive-wax.ts` is the mass) |

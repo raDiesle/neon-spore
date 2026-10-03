@@ -9,6 +9,7 @@ import {
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { paintBreach, paintLobe } from "./hive-cell.js";
@@ -27,6 +28,7 @@ import {
   type Point,
   SITE_R,
 } from "./hive-shape.js";
+import { type HiveHang, hiveStopper } from "./hive-stop.js";
 import { faded, paintWax } from "./hive-wax.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -69,6 +71,7 @@ export function drawHive(
   beatPhase: number,
   time: number,
   fx: HiveFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const fade = hiveFade(s, cfg, beat, beatPhase);
@@ -82,8 +85,10 @@ export function drawHive(
   const pinch = hivePinchPhase(s, cfg, beat, beatPhase);
   const rise = hiveClenchRise(s, cfg, beat, beatPhase);
 
+  const shift = { x: fx.hurt.shakeX(time, l.tile), y: -(fx.jolt + rise) * l.tile };
+  const hangs: HiveHang[] = [];
   ctx.save();
-  ctx.translate(fx.hurt.shakeX(time, l.tile), -(fx.jolt + rise) * l.tile);
+  ctx.translate(shift.x, shift.y);
   drawMass(ctx, l, cfg, s, open, time, fade, fx.hurt.value);
   for (let i = 0; i < s.cols.length; i++) {
     const c = hiveSite(l, s, i);
@@ -93,10 +98,11 @@ export function drawHive(
       const color = wrung || !coloured ? null : (s.colors[i] ?? "red");
       drawBreach(ctx, l, c, color, open, time, fade, wrung);
     } else if (swelling && (i === next || i === twin))
-      drawSwell(ctx, l, c, swell, open, time, fade, i === s.pinch ? pinch : -1);
+      hangs[i] = drawSwell(ctx, l, c, swell, open, time, fade, i === s.pinch ? pinch : -1);
     else lobe(ctx, l, c, 0, open, fade);
   }
   ctx.restore();
+  stops?.aim(hiveStopper(l, world, s, shift, open, hangs));
 }
 
 /** The mass: wax, pressed with comb, closing in on its middle on its way out (`hive-wax.ts`). */
@@ -156,7 +162,7 @@ function drawSwell(
   time: number,
   fade: number,
   held = -1,
-): void {
+): HiveHang {
   const squeeze = held < 0 ? 0 : held;
   const throb = held < 0 ? 1 + 0.08 * phase * Math.sin(time * 9) : 1 + 0.35 * squeeze;
   const drop = hiveSwellDrop(l, phase) * throb;
@@ -174,6 +180,7 @@ function drawSwell(
     PALETTE.bileRim,
     bright,
   );
+  return { drop, open: open * (1 - 0.3 * squeeze) };
 }
 
 /**

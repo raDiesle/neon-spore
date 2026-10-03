@@ -32834,3 +32834,15 @@ Bottleneck: THE LEAD, whose verdict is about when rather than where, and which n
 Bottleneck: synthetic pointer presses failing silently, which looked like the fix not working.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE ANTIPHON and HIVE stop a bolt on what it meets
+
+- reading: 5 min. Both drawers, the screens each shows, where a drawn bolt
+  climbs to past the top row.
+- writing: 5 min. Two stoppers, the bud's radius shared, a swell's hang
+  handed back, and a test over every screen, column and colour.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index's two lines, `land`.
+
+Bottleneck: finding that both bodies hang above the top row, and whether a drawn bolt ever climbs that far.
