@@ -27,16 +27,34 @@ export interface CoreStep {
   color: Color | "either";
 }
 
-/** The verdict for a bolt of `color` in `col`, with the core `open` and `step` lit. */
+/**
+ * A second ask a bolt answers besides fire, in a column of its own: THE
+ * CYST's bud, THE OCULUS's look, THE TRIVET's tip, THE VISE's spit.
+ */
+export interface CoreAside {
+  ask: string;
+  /** The column the step asking it is answered in. */
+  col: number;
+}
+
+/**
+ * The verdict for a bolt of `color` in `col`, with the core `open` and `step`
+ * lit. On a step asking `aside.ask` the answer is in `aside.col` rather than
+ * the middle; the middle column stays the core's armour all the same.
+ */
 export function coreVerdict(
   world: World,
   col: number,
   color: Color,
   open: boolean,
   step: CoreStep | null,
+  aside?: CoreAside,
 ): CoreVerdict {
-  if (col !== midCol(world.cfg)) return null;
-  if (!open || step === null || step.ask !== "fire") return "armour";
+  const mid = midCol(world.cfg);
+  const away = aside !== undefined && step !== null && step.ask === aside.ask;
+  const shut = col === mid ? "armour" : null;
+  if (col !== (away ? aside.col : mid)) return shut;
+  if (!open || step === null || (step.ask !== "fire" && !away)) return shut;
   return step.color === "either" || color === step.color ? "target" : "wrong";
 }
 

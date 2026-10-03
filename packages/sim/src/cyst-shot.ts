@@ -1,8 +1,8 @@
-import { metColor, missedColor } from "./balance.js";
 import { midCol } from "./config.js";
+import { type CoreVerdict, coreTaken, coreVerdict } from "./core-verdict.js";
 import { cystBoss, cystLitStep, cystStepCol } from "./cyst.js";
 import { cystAnswered } from "./cyst-step.js";
-import type { Bullet } from "./types.js";
+import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -16,32 +16,34 @@ import type { World } from "./world.js";
  *
  * **A bud** takes its shot up the column it swells over, in its colour, bared
  * core or not: it is a growth out of the flank, not the core.
+ *
+ * What it says of a bolt is `cystVerdict`, which the picture asks too
+ * (`core-verdict.ts`).
  */
 export function cystStruck(world: World, bullet: Bullet): boolean {
   const s = cystBoss(world);
-  if (s === null) return false;
-  // The core is in the middle column, bared or not: a bolt there met it,
-  // and while it is shut that is armour (`shot-out.ts`).
-  const core = bullet.col === midCol(world.cfg);
-  const step = cystLitStep(s);
-  if (step === null) return core;
-  const bud = step.ask === "bud";
-  if (!bud && (step.ask !== "fire" || !s.bared)) return core;
-  if (bullet.col !== cystStepCol(midCol(world.cfg), step)) return core;
-  if (step.color !== "either") {
-    if (bullet.color !== step.color) {
-      missedColor(world);
-      return true;
-    }
-    metColor(world);
+  const verdict = cystVerdict(world, bullet.col, bullet.color);
+  const step = s === null ? null : cystLitStep(s);
+  if (s === null || !coreTaken(world, verdict, step)) return verdict !== null;
+  if (step?.ask === "bud") world.events.push({ type: "cystPop", col: bullet.col });
+  else {
+    s.hits += 1;
+    world.events.push({ type: "cystHit", hits: s.hits, col: bullet.col });
   }
-  if (bud) {
-    world.events.push({ type: "cystPop", col: bullet.col });
-    cystAnswered(world, s);
-    return true;
-  }
-  s.hits += 1;
-  world.events.push({ type: "cystHit", hits: s.hits, col: bullet.col });
   cystAnswered(world, s);
   return true;
+}
+
+/**
+ * What a bolt of `color` in `col` meets of the core or a bud
+ * (`core-verdict.ts`). A bud is answered bared core or not.
+ */
+export function cystVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const s = cystBoss(world);
+  if (s === null) return null;
+  const step = cystLitStep(s);
+  const bud = step?.ask === "bud";
+  const aside =
+    step === null ? undefined : { ask: "bud", col: cystStepCol(midCol(world.cfg), step) };
+  return coreVerdict(world, col, color, s.bared || bud, step, aside);
 }

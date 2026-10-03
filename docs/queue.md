@@ -356,9 +356,12 @@ harness in `render/test/<boss>-harness.ts`). A target the bolt must be drawn
 through some other part of the body to reach is a look: say so in the
 stopper and leave it for VERSUS, as `flue-stop.ts` does.
 
-These four judge the middle column and one more, so their lane may widen
-`coreVerdict` (`sim/core-verdict.ts`) with a column rather than copy it — and
-the bosses after them may then reuse it. THE OCULUS and VISE are drawn from
+These four judge the middle column and one more. Their verdicts are done:
+`cystVerdict`, `oculusVerdict`, `trivetVerdict` and `viseVerdict`, each
+through `coreVerdict`'s `aside` column (`sim/core-verdict.ts`), held to their
+shots by `sim/test/aside-verdict.test.ts`. What is left is the picture: a
+stopper whose target is the aside part (the bud, the eye looking, the
+lurched hub, the seed) on its step and the core otherwise. THE OCULUS and VISE are drawn from
 `boss-draw-clocks-c.ts`, THE CYST and TRIVET from `boss-draw-clocks-d.ts`.
 
 Done when each boss here calls `stops?.aim`, has its row in

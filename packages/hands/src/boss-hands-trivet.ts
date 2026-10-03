@@ -7,6 +7,7 @@ import {
   trivetLitStep,
   trivetStepCol,
   trivetTipSide,
+  trivetVerdict,
   type World,
 } from "@neon-spore/sim";
 
@@ -57,10 +58,13 @@ function chord(s: TrivetState): Press[] {
 
 function shoot(w: World, s: TrivetState): Press[] {
   const step = trivetLitStep(s);
-  if (step === null || (step.ask !== "fire" && step.ask !== "tip") || !s.hubLit) return [];
+  if (step === null) return [];
+  const col = trivetStepCol(midCol(w.cfg), step);
+  const color = step.color === "either" ? "cyan" : step.color;
+  if (trivetVerdict(w, col, color) !== "target") return [];
   return [
-    { player: 1, command: { kind: "cannonCol", col: trivetStepCol(midCol(w.cfg), step) } },
-    { player: 2, command: { kind: "fire", color: step.color === "either" ? "cyan" : step.color } },
+    { player: 1, command: { kind: "cannonCol", col } },
+    { player: 2, command: { kind: "fire", color } },
   ];
 }
 

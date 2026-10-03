@@ -1,6 +1,6 @@
-import { metColor, missedColor } from "./balance.js";
 import { midCol } from "./config.js";
-import type { Bullet } from "./types.js";
+import { type CoreVerdict, coreTaken, coreVerdict } from "./core-verdict.js";
+import type { Bullet, Color } from "./types.js";
 import { viseBoss, viseLitStep, viseSeedCol } from "./vise.js";
 import { viseAnswered } from "./vise-step.js";
 import type { World } from "./world.js";
@@ -18,30 +18,30 @@ import type { World } from "./world.js";
  * seed that hangs over `viseSeedCol`, and a bolt up that column bursts it. It
  * is not a hit — the kernel was not struck — so the three hits stay the
  * fight's health.
+ *
+ * What it says of a bolt is `viseVerdict`, which the picture asks too
+ * (`core-verdict.ts`).
  */
 export function viseStruck(world: World, bullet: Bullet): boolean {
   const s = viseBoss(world);
-  if (s === null) return false;
-  // The core is in the middle column, bared or not: a bolt there met it,
-  // and while it is shut that is armour (`shot-out.ts`).
-  const core = bullet.col === midCol(world.cfg);
-  if (!s.bared) return core;
-  const step = viseLitStep(s);
-  if (step === null || (step.ask !== "fire" && step.ask !== "spit")) return core;
-  const col = step.ask === "spit" ? viseSeedCol(midCol(world.cfg), step) : midCol(world.cfg);
-  if (bullet.col !== col) return core;
-  if (step.color !== "either") {
-    if (bullet.color !== step.color) {
-      missedColor(world);
-      return true;
-    }
-    metColor(world);
-  }
-  if (step.ask === "spit") world.events.push({ type: "viseSeedBurst", col });
+  const verdict = viseVerdict(world, bullet.col, bullet.color);
+  const step = s === null ? null : viseLitStep(s);
+  if (s === null || !coreTaken(world, verdict, step)) return verdict !== null;
+  if (step?.ask === "spit") world.events.push({ type: "viseSeedBurst", col: bullet.col });
   else {
     s.hits += 1;
-    world.events.push({ type: "viseHit", hits: s.hits, col });
+    world.events.push({ type: "viseHit", hits: s.hits, col: bullet.col });
   }
   viseAnswered(world, s);
   return true;
+}
+
+/** What a bolt of `color` in `col` meets of the kernel or a seed (`core-verdict.ts`). */
+export function viseVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const s = viseBoss(world);
+  if (s === null) return null;
+  const step = viseLitStep(s);
+  const aside =
+    step === null ? undefined : { ask: "spit", col: viseSeedCol(midCol(world.cfg), step) };
+  return coreVerdict(world, col, color, s.bared, step, aside);
 }

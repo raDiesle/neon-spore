@@ -889,10 +889,12 @@ export const COPIES: Copy[] = [
     // is shut, the step's colour wanted while it is open on a fire step.
     // Eleven bosses carried the same seventeen lines until the picture had to
     // ask where a bolt stops and would have been the twelfth (2 October 2026,
-    // `render/core-stop.ts`). Unstripped, because the step it asks is a string.
+    // `render/core-stop.ts`). A second ask answered in a column of its own — a
+    // bud, a look, a tip, a spit — is its `aside`, never a copy with `&&`.
+    // Unstripped, because the step it asks is a string.
     call: "coreVerdict",
     owner: "packages/sim/src/core-verdict.ts",
-    pattern: /step\s*===\s*null\s*\|\|\s*step\.ask\s*!==\s*"fire"\s*(?:\|\||\))/,
+    pattern: /step\s*===\s*null\s*\|\|\s*\(?\s*step\.ask\s*!==\s*"fire"\s*(?:\|\||\)|&&)/,
     strip: false,
   },
 ];

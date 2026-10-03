@@ -1,8 +1,8 @@
-import { metColor, missedColor } from "./balance.js";
 import { midCol } from "./config.js";
+import { type CoreVerdict, coreTaken, coreVerdict } from "./core-verdict.js";
 import { oculusBoss, oculusLitStep, oculusLookCol } from "./oculus.js";
 import { oculusAnswered } from "./oculus-step.js";
-import type { Bullet } from "./types.js";
+import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -18,30 +18,30 @@ import type { World } from "./world.js";
  * its socket to look down `oculusLookCol`, and a bolt up that column answers
  * it. It is not a hit — the core was not struck, only met — so the three
  * hits stay the fight's health.
+ *
+ * What it says of a bolt is `oculusVerdict`, which the picture asks too
+ * (`core-verdict.ts`).
  */
 export function oculusStruck(world: World, bullet: Bullet): boolean {
   const s = oculusBoss(world);
-  if (s === null) return false;
-  // The core is in the middle column, bared or not: a bolt there met it,
-  // and while it is shut that is armour (`shot-out.ts`).
-  const core = bullet.col === midCol(world.cfg);
-  if (!s.socketOpen) return core;
-  const step = oculusLitStep(s);
-  if (step === null || (step.ask !== "fire" && step.ask !== "look")) return core;
-  const col = step.ask === "look" ? oculusLookCol(midCol(world.cfg), step) : midCol(world.cfg);
-  if (bullet.col !== col) return core;
-  if (step.color !== "either") {
-    if (bullet.color !== step.color) {
-      missedColor(world);
-      return true;
-    }
-    metColor(world);
-  }
-  if (step.ask === "look") world.events.push({ type: "oculusGlance", col });
+  const verdict = oculusVerdict(world, bullet.col, bullet.color);
+  const step = s === null ? null : oculusLitStep(s);
+  if (s === null || !coreTaken(world, verdict, step)) return verdict !== null;
+  if (step?.ask === "look") world.events.push({ type: "oculusGlance", col: bullet.col });
   else {
     s.hits += 1;
-    world.events.push({ type: "oculusHit", hits: s.hits, col });
+    world.events.push({ type: "oculusHit", hits: s.hits, col: bullet.col });
   }
   oculusAnswered(world, s);
   return true;
+}
+
+/** What a bolt of `color` in `col` meets of the eye, ahead or looking aside (`core-verdict.ts`). */
+export function oculusVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const s = oculusBoss(world);
+  if (s === null) return null;
+  const step = oculusLitStep(s);
+  const aside =
+    step === null ? undefined : { ask: "look", col: oculusLookCol(midCol(world.cfg), step) };
+  return coreVerdict(world, col, color, s.socketOpen, step, aside);
 }

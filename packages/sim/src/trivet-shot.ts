@@ -1,5 +1,5 @@
-import { metColor, missedColor } from "./balance.js";
 import { midCol } from "./config.js";
+import { type CoreVerdict, coreTaken, coreVerdict } from "./core-verdict.js";
 import {
   trivetBoss,
   trivetChordHeld,
@@ -8,7 +8,7 @@ import {
   trivetTipSide,
 } from "./trivet.js";
 import { trivetAnswered } from "./trivet-step.js";
-import type { Bullet } from "./types.js";
+import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -23,28 +23,31 @@ import type { World } from "./world.js";
  * **A lurch** takes its shot where the hub has swung to, and only while the
  * foot it leans on is held down by its own seat's chord: a hub shot off a
  * stand going over is a bolt into the dark.
+ *
+ * What it says of a bolt is `trivetVerdict`, which the picture asks too
+ * (`core-verdict.ts`).
  */
 export function trivetStruck(world: World, bullet: Bullet): boolean {
   const s = trivetBoss(world);
-  if (s === null) return false;
-  // The hub is in the middle column, lit or not: a bolt there met it, and
-  // while it is dark that is armour (`shot-out.ts`). So is a tipped leg's
-  // column with the chord not held.
-  const core = bullet.col === midCol(world.cfg);
-  if (!s.hubLit) return core;
-  const step = trivetLitStep(s);
-  if (step === null || (step.ask !== "fire" && step.ask !== "tip")) return core;
-  if (bullet.col !== trivetStepCol(midCol(world.cfg), step)) return core;
-  if (step.ask === "tip" && !trivetChordHeld(s, trivetTipSide(step), step.pads)) return true;
-  if (step.color !== "either") {
-    if (bullet.color !== step.color) {
-      missedColor(world);
-      return true;
-    }
-    metColor(world);
-  }
+  const verdict = trivetVerdict(world, bullet.col, bullet.color);
+  if (s === null || !coreTaken(world, verdict, trivetLitStep(s))) return verdict !== null;
   s.hits += 1;
   world.events.push({ type: "trivetHit", hits: s.hits, col: bullet.col });
   trivetAnswered(world, s);
   return true;
+}
+
+/**
+ * What a bolt of `color` in `col` meets of the hub (`core-verdict.ts`). A
+ * lurched hub with its foot's chord not held is armour wherever it hangs.
+ */
+export function trivetVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const s = trivetBoss(world);
+  if (s === null) return null;
+  const step = trivetLitStep(s);
+  const aside =
+    step === null ? undefined : { ask: "tip", col: trivetStepCol(midCol(world.cfg), step) };
+  const verdict = coreVerdict(world, col, color, s.hubLit, step, aside);
+  if (verdict === null || step?.ask !== "tip") return verdict;
+  return trivetChordHeld(s, trivetTipSide(step), step.pads) ? verdict : "armour";
 }

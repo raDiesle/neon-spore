@@ -80,6 +80,7 @@ export type { CoreVerdict } from "./core-verdict.js";
 // Whether THE CURTAIN's hem asks the pilot for his thumb
 // (`render/curtain-marks.ts`), because the page it would have joined was within twenty lines of its limit.
 export { curtainHemAsks } from "./curtain-hand.js";
+export { cystVerdict } from "./cyst-shot.js";
 export { davitVerdict } from "./davit-shot.js";
 // THE FLUE's ember: the phase, the lit step, the drift and the steadying,
 // whose rest is counted and whose tap is heard, the taps, the vents and the
@@ -188,9 +189,12 @@ export {
   mimicReadBy,
   mimicStep,
 } from "./mimic.js";
+export { oculusVerdict } from "./oculus-shot.js";
 export { plumbVerdict } from "./plumb-shot.js";
 export { rimeVerdict } from "./rime-shot.js";
 export { slingVerdict } from "./sling-shot.js";
+export { trivetVerdict } from "./trivet-shot.js";
+export { viseVerdict } from "./vise-shot.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),
 // the hit test that answers it (`render/touch-well.ts`) and the director's

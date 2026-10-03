@@ -32711,3 +32711,16 @@ Bottleneck: following one flag through three hosts that each copied the
 same seven fields of an opening by hand.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE CYST, OCULUS, TRIVET and VISE judge a bolt through one verdict
+
+- reading: 0 min. The four shots, their steps' offsets, the `coreVerdict`
+  copies row and its rigs.
+- writing: 5 min. `coreVerdict`'s `aside`, four `…Verdict`s, the trivet
+  hands asking theirs, `aside-verdict.test.ts`.
+- looking: 0 min.
+- friction: 0 min. A heredoc with doubled backslashes refused by the guard,
+  the copies row's regex rewritten through Edit.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the copies row's pattern, which had to both catch the four `&&` copies and keep matching its widened owner.
