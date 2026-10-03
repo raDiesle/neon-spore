@@ -32861,3 +32861,5 @@ Bottleneck: finding that both bodies hang above the top row, and whether a drawn
   fields), the commit, `land`.
 
 Bottleneck: the carry broke the rehearsal film in a way only a printed run showed — an unheld inner ring rides the outer and then falls home.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

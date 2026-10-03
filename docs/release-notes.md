@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · c96d3f493 — THE GIMBAL is a puzzle: swapped marks, a carried ring, a let-go together
+
+Each seat now sees the partner's mark and never its own, so a ring is talked onto its mark and the mirror finally bites; the outer ring carries the inner, so the pair have an order to find; and a tooth shears only when both thumbs let go of a true pair within a quarter of a second. Six alignments instead of three, the window closing from 45 to 20.
+
 ## 2026-10-03 · aea54ebf7 — THE ANTIPHON and HIVE stop a bolt on what it meets
 
 A bolt fired at THE ANTIPHON or THE HIVE is now drawn to end where it meets the body instead of vanishing at the top row past it. It bursts on the part its shot will take and scuffs on anything else. THE HIVE stops a bolt on the lobe at each site and the underside between them; THE ANTIPHON on what each screen draws over the column, a candidate on the rail for one seat, and the organ under the body's middle or the underside for the other. Exemption: a look the owner asked for by name (1 October 2026, "but also all other bosses").
