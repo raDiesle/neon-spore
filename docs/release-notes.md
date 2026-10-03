@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · f0a1ff8e6 — Queue: bosses-choreographed.md calls built bosses unbuilt
+
+Its contents list puts §17 to §43 under "not built" though each has landed, and seven ledger rows say hands, receipts or AUTO are queued that the tree already has. Found while answering which bosses still have designed work unbuilt.
+
 ## 2026-10-03 · 50b02a121 — THE HASP stops a bolt on what it meets
 
 A bolt fired at THE HASP is now drawn to end where it meets the door instead of flying through it. It bursts on the loose bolt in either colour up the column it falls in, and scuffs on the clasps' half-shells at the gape they are drawn at, the hub over each, and the latch's bar on the pilot's screen, all laid where the jolt drops the row. While the loose bolt still hangs inside the spent clasp, a bolt is drawn reaching it through the shell; that is left as a look. THE KEEL stays in the queue. Exemption: a look the owner asked for by name (1 October 2026, "but also all other bosses").
