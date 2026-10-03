@@ -176,18 +176,23 @@ export function mantlePlatePath(
 /**
  * The valve's rim: the frame the plates are laid in, which stays when every
  * plate has gone. A shell with its plates off is still a shell — the outline
- * alone says so — and that is what splits down the seam at the end.
+ * alone says so — and that is what splits down the seam at the end. Its
+ * corners, drawn by `mantleRimPath` and met by a bolt (`mantle-stop.ts`).
  */
+export function mantleRimPoints(l: Layout, at: Point, side: Side, pose: ValvePose): Point[] {
+  const out = [put(l, at, side, pose, 0, 0)];
+  for (let i = 0; i <= STEPS * 4; i++) out.push(put(l, at, side, pose, i / (STEPS * 4), 1));
+  out.push(put(l, at, side, pose, 1, 0));
+  return out;
+}
+
+/** The valve's rim as a closed path (`mantleRimPoints`). */
 export function mantleRimPath(l: Layout, at: Point, side: Side, pose: ValvePose): Path2D {
   const p = new Path2D();
-  const nose = put(l, at, side, pose, 0, 0);
-  p.moveTo(nose.x, nose.y);
-  for (let i = 0; i <= STEPS * 4; i++) {
-    const q = put(l, at, side, pose, i / (STEPS * 4), 1);
-    p.lineTo(q.x, q.y);
-  }
-  const tail = put(l, at, side, pose, 1, 0);
-  p.lineTo(tail.x, tail.y);
+  mantleRimPoints(l, at, side, pose).forEach((q, i) => {
+    if (i === 0) p.moveTo(q.x, q.y);
+    else p.lineTo(q.x, q.y);
+  });
   p.closePath();
   return p;
 }

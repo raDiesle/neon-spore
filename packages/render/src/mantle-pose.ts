@@ -1,7 +1,15 @@
+import { blobPoints } from "@neon-spore/content";
 import { type MantleState, mantleDone, mantleFinale, type SimConfig } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import type { Layout } from "./layout.js";
-import { mantleCentre, mantleSparkPoint, type Side, type ValvePose } from "./mantle-shape.js";
+import {
+  mantleCentre,
+  mantleReach,
+  mantleSparkPoint,
+  type Point,
+  type Side,
+  type ValvePose,
+} from "./mantle-shape.js";
 import { MANTLE_TURN_TOP, mantleBulge, mantleTurnOpen } from "./mantle-story.js";
 import { phaseInto } from "./phase-into.js";
 
@@ -142,6 +150,9 @@ export function mantleCoreLife(
   return 1;
 }
 
+/** The spark's bead, its half-width and half-height in tiles: drawn that size and met at its lower end (`mantle-stop.ts`). */
+export const MANTLE_SPARK = { rx: 0.18, ry: 0.26 } as const;
+
 /**
  * Where the leaking spark's bead is now, and how far along its fuse (eased):
  * drawn there (`mantle-draw.ts`) and aimed at there (`boss-cue-read-zc.ts`).
@@ -155,4 +166,36 @@ export function mantleSparkNow(
 ): { x: number; y: number; along: number } {
   const along = smoothstep((beat - s.sparkBeat + beatPhase) / Math.max(1, cfg.mantleSparkBeats));
   return { ...mantleSparkPoint(l, mantleCentre(l, cfg), s.sparkCol, along), along };
+}
+
+/**
+ * The soft core's outline about the shell's middle `at`, swelling on the
+ * finish's beat once the shell is open: drawn there (`mantle-draw.ts`) and
+ * met by a bolt there (`mantle-stop.ts`).
+ */
+export function mantleCorePoints(
+  l: Layout,
+  cfg: SimConfig,
+  s: MantleState,
+  at: Point,
+  beat: number,
+  beatPhase: number,
+): Point[] {
+  const { rx, ry } = mantleReach(l);
+  const open = mantleOpen(s, cfg, beat, beatPhase);
+  const pulse = mantleFinale(s) ? mantleCoreBeat(beatPhase) : 0;
+  const grow = 1 + 0.08 * pulse * open;
+  const t = beat + beatPhase;
+  return blobPoints(
+    at.x,
+    at.y + ry * 0.12,
+    rx * 0.66 * grow,
+    ry * 0.74 * grow,
+    5,
+    0.08,
+    0.04,
+    t,
+    23,
+    30,
+  );
 }

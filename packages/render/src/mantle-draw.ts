@@ -1,5 +1,6 @@
-import { blobPoints, LIGHT_HALF } from "@neon-spore/content";
+import { LIGHT_HALF } from "@neon-spore/content";
 import { type MantleState, mantleFinale, mantleLeaking, type World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
 import { strokeGlowFaded } from "./glow.js";
@@ -11,9 +12,11 @@ import type { MantleFx } from "./mantle-fx.js";
 import { drawMantleHandles, drawMantleRing } from "./mantle-handle.js";
 import { drawMantleHalos, drawMantleMarks } from "./mantle-marks.js";
 import {
+  MANTLE_SPARK,
   mantleArrived,
   mantleCoreBeat,
   mantleCoreLife,
+  mantleCorePoints,
   mantleHandlesLit,
   mantleOpen,
   mantleShed,
@@ -31,6 +34,7 @@ import {
   type Side,
   type ValvePose,
 } from "./mantle-shape.js";
+import { mantleStopper } from "./mantle-stop.js";
 import { drawMantleCrossCrack, drawMantleVent } from "./mantle-vent.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
@@ -65,7 +69,8 @@ const PLATES = PLATE_BOUNDS.length - 1;
  * (`mantle-pose.ts`): both flanks bow outward as the thumbs pull, and each
  * valve's tail drops under its own handle. The handles, the cord and the
  * finish's ring are `mantle-handle.ts`; what outlives a frame — the kick of
- * a shear, the blow, the core's flare — is `fx` (`mantle-fx.ts`).
+ * a shear, the blow, the core's flare — is `fx` (`mantle-fx.ts`). A bolt
+ * stops on what it meets of the shell (`mantle-stop.ts`), told to `stops`.
  */
 export function drawMantle(
   ctx: CanvasRenderingContext2D,
@@ -76,6 +81,7 @@ export function drawMantle(
   beatPhase: number,
   time: number,
   fx: MantleFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const arrived = mantleArrived(s, cfg, beat, beatPhase);
@@ -88,7 +94,11 @@ export function drawMantle(
   ctx.save();
   ctx.globalAlpha = 0.2 + 0.8 * arrived;
   const shudder = mantleShudder(l, world, s, beat, beatPhase, time);
-  ctx.translate(fx.hurt.shakeX(time, l.tile) + shudder, fx.kick * l.tile - mantleLift(l, arrived));
+  const shift = {
+    x: fx.hurt.shakeX(time, l.tile) + shudder,
+    y: fx.kick * l.tile - mantleLift(l, arrived),
+  };
+  ctx.translate(shift.x, shift.y);
   drawCore(ctx, l, world, s, at, beat, beatPhase, fx.flare);
   for (const side of [-1, 1] as const)
     drawValve(ctx, l, s, at, side, poses[side], beat, beatPhase, time, fx.hurt.value);
@@ -104,6 +114,7 @@ export function drawMantle(
   drawMantleMarks(ctx, l, cfg, s, at, time, fx.marks.verdicts);
   if (mantleLeaking(s)) drawSpark(ctx, l, world, s, beat, beatPhase);
   ctx.restore();
+  stops?.aim(mantleStopper(l, world, s, at, poses, shift, beat, beatPhase));
 }
 
 /**
@@ -121,26 +132,10 @@ function drawCore(
   beatPhase: number,
   flare: number,
 ): void {
-  const { rx, ry } = mantleReach(l);
   const open = mantleOpen(s, world.cfg, beat, beatPhase);
   const life = mantleCoreLife(s, world.cfg, beat, beatPhase);
   const pulse = mantleFinale(s) ? mantleCoreBeat(beatPhase) : 0;
-  const grow = 1 + 0.08 * pulse * open;
-  const core = splinePath(
-    blobPoints(
-      at.x,
-      at.y + ry * 0.12,
-      rx * 0.66 * grow,
-      ry * 0.74 * grow,
-      5,
-      0.08,
-      0.04,
-      beat + beatPhase,
-      23,
-      30,
-    ),
-    true,
-  );
+  const core = splinePath(mantleCorePoints(l, world.cfg, s, at, beat, beatPhase), true);
   const warm = life * (0.35 + 0.1 * s.cursor + 0.45 * open);
   ctx.fillStyle = rgba(life > 0.35 ? CORE : PALETTE.rockDark, Math.min(0.9, warm));
   ctx.fill(core);
@@ -225,7 +220,7 @@ function drawSpark(
 ): void {
   const { x, y, along } = mantleSparkNow(l, world.cfg, s, beat, beatPhase);
   const bead = new Path2D();
-  bead.ellipse(x, y, l.tile * 0.18, l.tile * 0.26, 0, 0, Math.PI * 2);
+  bead.ellipse(x, y, l.tile * MANTLE_SPARK.rx, l.tile * MANTLE_SPARK.ry, 0, 0, Math.PI * 2);
   ctx.fillStyle = rgba(CORE, 0.55 + 0.4 * along);
   ctx.fill(bead);
   strokeGlowFaded(ctx, bead, CORE, STROKE.inner, 1 + along);

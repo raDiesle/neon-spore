@@ -174,6 +174,7 @@ export {
 } from "./lamprey.js";
 export { type LeadVerdict, leadVerdict } from "./lead-shot.js";
 export { ledgerVerdict } from "./ledger-shot.js";
+export { mantleVerdict } from "./mantle-shot.js";
 export {
   freshMimic,
   MIMIC_ASKS,

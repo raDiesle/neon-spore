@@ -33024,3 +33024,14 @@ Bottleneck: the mimic's skin is two dark greens on a dark sky, so it took a pale
 Bottleneck: three targets with three colour rules behind one verdict, and `keel-shape.ts` at the ceiling before the plate's points could go in.
 
 *Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE MANTLE stops a bolt on what it meets
+
+- reading: 5 min. The mantle's shot, drawer, shape and pose.
+- writing: 10 min. `mantleVerdict`, the rim's and the core's points shared,
+  `mantle-stop.ts`, a test on the frame rig, the verdict row.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: none; THE HASP's lane had already set the shape this one followed.

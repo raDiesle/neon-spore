@@ -117,7 +117,7 @@ export function drawPairBoss(
   // frame — the kick of a shear, the core's flare, the hull's shudder — is
   // `effects.boss.mantle` (`mantle-fx.ts`).
   if (boss.kind === "mantle") {
-    drawMantle(ctx, l, world, boss, beat, beatPhase, time, effects.boss.mantle);
+    drawMantle(ctx, l, world, boss, beat, beatPhase, time, effects.boss.mantle, effects.bolts);
     return;
   }
 

@@ -13,17 +13,19 @@ import { keelStruck, keelVerdict } from "../src/keel-shot.js";
 import { leadBoss } from "../src/lead.js";
 import { leadStruck, leadVerdict } from "../src/lead-shot.js";
 import { ledgerStruck, ledgerVerdict } from "../src/ledger-shot.js";
+import { mantleBoss } from "../src/mantle.js";
+import { mantleStruck, mantleVerdict } from "../src/mantle-shot.js";
 import type { Bullet, Color } from "../src/types.js";
 import type { World } from "../src/world.js";
 import { MARKS } from "./gimbal-harness.js";
 
 /**
- * **A boss's verdict is its shot asked, not acted on**, for THE ANTIPHON,
- * GIMBAL, HASP, HIVE, KEEL, LEAD and LEDGER: the picture stops a bolt where
- * it meets the body with the answer the shot will give it at row 0, so the
- * two must never disagree, and asking must change nothing. Each fight is left to run with
- * no one at the controls and asked, every beat, about every column in both
- * colours, on a copy of the world.
+ * **A boss's verdict is its shot asked, not acted on**, for every boss in
+ * `CASES` whose shot is not `core-verdict.ts`'s: the picture stops a bolt
+ * where it meets the body with the answer the shot will give it at row 0, so
+ * the two must never disagree, and asking must change nothing. Each fight is
+ * left to run with no one at the controls and asked, every beat, about every
+ * column in both colours, on a copy of the world.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -32,7 +34,7 @@ const BEATS = 48;
 
 interface Case {
   name: string;
-  kind: "antiphon" | "gimbal" | "hasp" | "hive" | "keel" | "lead" | "ledger";
+  kind: "antiphon" | "gimbal" | "hasp" | "hive" | "keel" | "lead" | "ledger" | "mantle";
   /** What the wave authors for a boss that will not start without it. */
   authored?: object;
   /** Set before the fight is run, for a state no one at the controls would reach. */
@@ -115,6 +117,21 @@ const CASES: Case[] = [
     s.rockCol = 2;
     s.rockBeat = world.beat;
   }),
+  {
+    name: "THE MANTLE, leaking",
+    kind: "mantle",
+    authored: { thresholds: [1400, 1700] },
+    // No one at the controls never shears a pair, so the spark is leaked by
+    // hand, as a shear leaks it (`mantle-step.ts`).
+    arrange: (world) => {
+      const s = mantleBoss(world);
+      if (s === null) return;
+      s.sparkCol = midCol(world.cfg);
+      s.sparkBeat = world.beat;
+    },
+    verdict: mantleVerdict,
+    struck: mantleStruck,
+  },
 ];
 
 function bolt(col: number, color: Color): Bullet {
