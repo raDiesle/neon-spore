@@ -33037,3 +33037,15 @@ Bottleneck: three targets with three colour rules behind one verdict, and `keel-
 Bottleneck: none; THE HASP's lane had already set the shape this one followed.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE RATCHET stops a bolt on what it meets
+
+- reading: 5 min. The ratchet's shot, drawer, shape and fittings.
+- writing: 15 min. `ratchetVerdict`, the fold's scale, the plates' corners,
+  the pawl's arm, the jaws and the catch's bar pulled out of their drawers,
+  `ratchet-stop.ts` laying each through the jolt and the fold, a test.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: the rack is drawn through three transforms — the jolt, the fold about the lock and the bind's shake — and the stopper had to lay every part through the same ones.

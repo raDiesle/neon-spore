@@ -10,6 +10,7 @@ import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import {
+  type Point,
   ratchetBarAt,
   ratchetCatchRail,
   ratchetLock,
@@ -31,6 +32,9 @@ import {
  * pull down and hold.
  */
 
+/** The pawl's arm thickness and its hub's radius, in tiles. */
+const PAWL = { arm: 0.12, hub: 0.16 } as const;
+
 /**
  * The lock at the top of the strut, its five pins counting the clean
  * advances — **the progress read off the body**: every clean tooth drives a
@@ -46,11 +50,9 @@ export function drawRatchetLock(
 ): void {
   const at = ratchetLock(l, cfg);
   const h = at.half;
-  const gap = h * 0.9 * fold;
-  for (const side of [-1, 1]) {
+  for (const box of ratchetJaws(l, cfg, fold)) {
     const jaw = new Path2D();
-    const x = at.x + side * gap;
-    jaw.roundRect(side < 0 ? x - h : x, at.y - h * 0.62, h, h * 1.24, h * 0.3);
+    jaw.roundRect(box.x, box.y, box.w, box.h, h * 0.3);
     ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
     ctx.fill(jaw);
     ctx.lineWidth = STROKE.outline;
@@ -133,23 +135,17 @@ export function drawRatchetPawl(
   lift: number,
   pad: boolean,
 ): void {
-  const pivot = ratchetPawl(l, cfg);
-  const seam = ratchetPawlY(l);
-  const rest = ratchetShoulder(l, cfg, bears, seam - (bears + 1) * ratchetStep(l));
-  const side = Math.sign(pivot.x - rest.x) || 1;
-  const out = Math.min(1, lift);
-  const up = Math.max(0, lift - 1);
-  const tip = { x: rest.x + side * (out + 0.5 * up) * l.tile * 0.24, y: seam - up * l.tile * 0.5 };
+  const { pivot, tip } = ratchetPawlArm(l, cfg, bears, lift);
   const arm = new Path2D();
   arm.moveTo(pivot.x, pivot.y);
   arm.lineTo(tip.x, tip.y);
   ctx.lineCap = "round";
-  ctx.lineWidth = l.tile * 0.12;
+  ctx.lineWidth = l.tile * PAWL.arm;
   ctx.strokeStyle = rgba(PALETTE.rock, 0.9);
   ctx.stroke(arm);
   ctx.lineCap = "butt";
   const hub = new Path2D();
-  hub.arc(pivot.x, pivot.y, l.tile * 0.16, 0, Math.PI * 2);
+  hub.arc(pivot.x, pivot.y, l.tile * PAWL.hub, 0, Math.PI * 2);
   ctx.fillStyle = PALETTE.rockDark;
   ctx.fill(hub);
   ctx.lineWidth = STROKE.outline;
@@ -180,9 +176,9 @@ export function drawRatchetCatch(
   cfg: SimConfig,
   s: RatchetState,
 ): void {
-  if (s.phase === "open" || s.phase === "jam") return;
+  const bar = ratchetCatchBar(l, cfg, s);
+  if (bar === null) return;
   const rail = ratchetCatchRail(l, cfg);
-  const bar = ratchetBarAt(l, cfg, Math.max(0, s.catchMilli));
   const notch = ratchetBarAt(l, cfg, cfg.ratchetGripMilli);
   const held = ratchetHeld(s, cfg);
 
@@ -195,10 +191,55 @@ export function drawRatchetCatch(
   ctx.strokeStyle = rgba(PALETTE.rock, s.catchSpent ? 0.2 : 0.5);
   ctx.stroke(track);
 
-  const thick = l.tile * 0.14;
   const plate = new Path2D();
-  plate.roundRect(bar.x - bar.halfW, bar.y - thick, bar.halfW * 2, thick * 2, thick);
+  plate.roundRect(bar.x - bar.halfW, bar.y - bar.thick, bar.halfW * 2, bar.thick * 2, bar.thick);
   ctx.fillStyle = held ? PALETTE.pod : rgba(PALETTE.rock, s.catchSpent ? 0.35 : 0.7);
   ctx.fill(plate);
   if (held) strokeGlow(ctx, plate, PALETTE.pod, STROKE.inner, 1.4);
+}
+
+/** The lock's two jaws as boxes, sprung `fold` wide: drawn so and met so (`ratchet-stop.ts`). */
+export function ratchetJaws(
+  l: Layout,
+  cfg: SimConfig,
+  fold: number,
+): { x: number; y: number; w: number; h: number }[] {
+  const at = ratchetLock(l, cfg);
+  const h = at.half;
+  const gap = h * 0.9 * fold;
+  return [-1, 1].map((side) => {
+    const x = at.x + side * gap;
+    return { x: side < 0 ? x - h : x, y: at.y - h * 0.62, w: h, h: h * 1.24 };
+  });
+}
+
+/**
+ * The pawl's arm, from its pivot to the tip resting on tooth `bears`'s
+ * shoulder and `lift` off it, and the half-thickness it is drawn at and the
+ * hub's radius: drawn there and met there (`ratchet-stop.ts`).
+ */
+export function ratchetPawlArm(
+  l: Layout,
+  cfg: SimConfig,
+  bears: number,
+  lift: number,
+): { pivot: Point; tip: Point; half: number; hub: number } {
+  const pivot = ratchetPawl(l, cfg);
+  const seam = ratchetPawlY(l);
+  const rest = ratchetShoulder(l, cfg, bears, seam - (bears + 1) * ratchetStep(l));
+  const side = Math.sign(pivot.x - rest.x) || 1;
+  const out = Math.min(1, lift);
+  const up = Math.max(0, lift - 1);
+  const tip = { x: rest.x + side * (out + 0.5 * up) * l.tile * 0.24, y: seam - up * l.tile * 0.5 };
+  return { pivot, tip, half: (PAWL.arm / 2) * l.tile, hub: PAWL.hub * l.tile };
+}
+
+/** The catch's bar at the depth she has it and its half-thickness, or `null` once the rack is open or jammed. */
+export function ratchetCatchBar(
+  l: Layout,
+  cfg: SimConfig,
+  s: RatchetState,
+): { x: number; y: number; halfW: number; thick: number } | null {
+  if (s.phase === "open" || s.phase === "jam") return null;
+  return { ...ratchetBarAt(l, cfg, Math.max(0, s.catchMilli)), thick: l.tile * 0.14 };
 }

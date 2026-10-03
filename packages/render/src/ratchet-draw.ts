@@ -1,5 +1,6 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import { RATCHET_TEETH, type RatchetState, ratchetLoose, type World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { type BossHurt, drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
 import { strokeGlow } from "./glow.js";
@@ -18,11 +19,13 @@ import {
 import {
   ratchetDrive,
   ratchetFold,
+  ratchetFoldScale,
   ratchetPawlLift,
   ratchetRise,
   ratchetStillPhase,
 } from "./ratchet-pose.js";
 import {
+  RATCHET_BOLT,
   ratchetBoltAt,
   ratchetLock,
   ratchetPawlY,
@@ -32,6 +35,7 @@ import {
   ratchetStep,
   ratchetX,
 } from "./ratchet-shape.js";
+import { ratchetStopper } from "./ratchet-stop.js";
 import {
   drawRatchetSparks,
   ratchetCoils,
@@ -67,6 +71,9 @@ import { showsRatchetCatch, showsRatchetPawl } from "./view-role-clocks-c.js";
  * pilot's alone (`view-role-clocks-c.ts`), and neither is shown the other's.
  * A burnt tooth climbs the same rack with no glow and no shudder — §22's one
  * silence.
+ *
+ * A bolt stops on what it meets of the machine (`ratchet-stop.ts`), told to
+ * `stops`.
  */
 export function drawRatchet(
   ctx: CanvasRenderingContext2D,
@@ -77,6 +84,7 @@ export function drawRatchet(
   beatPhase: number,
   time: number,
   fx: RatchetFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const lit = smoothstep(ratchetStillPhase(s, cfg, beat, beatPhase));
@@ -96,13 +104,13 @@ export function drawRatchet(
   // The jolt of a clean tooth drops the whole strut in its mounting, applied
   // to the context so the rack, the pawl and the lock stay one machine.
   ctx.globalAlpha = (0.15 + 0.85 * lit) * (1 - 0.55 * fold);
-  ctx.translate(fx.hurt.shakeX(time, l.tile), fx.jolt * l.tile);
-  // **The perspective change**: once the lock gives, the strut tips down and
-  // away from the ship about the lock at its top — foreshortened toward it,
-  // and a little wider as its far end comes nearer the eye.
+  const shift = { x: fx.hurt.shakeX(time, l.tile), y: fx.jolt * l.tile };
+  ctx.translate(shift.x, shift.y);
+  // **The perspective change** (`ratchetFoldScale`).
   if (fold > 0) {
+    const k = ratchetFoldScale(fold);
     ctx.translate(lock.x, lock.y);
-    ctx.scale(1 + 0.12 * fold, 1 - 0.82 * fold);
+    ctx.scale(k.x, k.y);
     ctx.translate(-lock.x, -lock.y);
   }
   drawStrut(ctx, l, world);
@@ -126,6 +134,9 @@ export function drawRatchet(
   ctx.restore();
 
   if (ratchetLoose(s)) drawBolt(ctx, l, world, s, beat, beatPhase);
+  const rack = { top, shake, fold, bears, lift };
+  const shown = showsRatchetCatch(l.role);
+  stops?.aim(ratchetStopper(l, world, s, rack, shift, shown, beat, beatPhase));
 }
 
 /** What the drawer needs of the transients, taken as an interface so this page
@@ -221,7 +232,9 @@ function drawBolt(
 ): void {
   const { x, y, along } = ratchetBoltAt(l, world.cfg, s, beat, beatPhase);
   const bolt = new Path2D();
-  bolt.roundRect(x - l.tile * 0.12, y - l.tile * 0.3, l.tile * 0.24, l.tile * 0.6, l.tile * 0.1);
+  const w = RATCHET_BOLT.halfW * l.tile;
+  const h = RATCHET_BOLT.halfH * l.tile;
+  bolt.roundRect(x - w, y - h, w * 2, h * 2, l.tile * 0.1);
   ctx.fillStyle = rgba(PALETTE.hullRim, 0.55 + 0.35 * along);
   ctx.fill(bolt);
   strokeGlow(ctx, bolt, PALETTE.hullRim, STROKE.inner, 1 + along);

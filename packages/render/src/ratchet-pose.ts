@@ -99,3 +99,13 @@ export function ratchetDrive(s: RatchetState, beat: number, beatPhase: number): 
   // Heavy: it starts slow and lands hard, the opposite of the climb's ease.
   return t * t;
 }
+
+/**
+ * **The perspective change** as a scale about the lock: once the lock gives,
+ * the strut tips down and away from the ship — foreshortened toward it, and a
+ * little wider as its far end comes nearer the eye. Drawn so
+ * (`ratchet-draw.ts`) and met so (`ratchet-stop.ts`).
+ */
+export function ratchetFoldScale(fold: number): { x: number; y: number } {
+  return { x: 1 + 0.12 * fold, y: 1 - 0.82 * fold };
+}

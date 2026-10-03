@@ -70,6 +70,9 @@ export function ratchetLock(l: Layout, cfg: SimConfig): Point & { half: number }
   return { x: ratchetX(l, cfg), y: l.gridTop + LOCK_ROW * l.tile, half: LOCK_HALF * l.tile };
 }
 
+/** The loose bolt's half-width and half-length, in tiles: drawn that size and met at its lower end. */
+export const RATCHET_BOLT = { halfW: 0.12, halfH: 0.3 } as const;
+
 /**
  * Where the loose bolt is, fallen `along` (0..1) of the way from under the
  * lock down its column to the hull: drawn there (`ratchet-draw.ts`) and aimed
@@ -116,20 +119,28 @@ export function ratchetGirth(l: Layout, i: number): number {
  * fall back past it.
  */
 export function ratchetPlatePath(l: Layout, cfg: SimConfig, i: number, top: number): Path2D {
-  const x = ratchetX(l, cfg);
-  const side = ratchetSide(l, cfg);
-  const step = ratchetStep(l);
-  const w = ratchetGirth(l, i);
-  const y0 = top + i * step;
-  const y1 = y0 + step;
-  const lap = LAP * l.tile;
   const path = new Path2D();
-  path.moveTo(x - side * w, y0);
-  path.lineTo(x + side * w, y0);
-  path.lineTo(x + side * (w + lap), y1);
-  path.lineTo(x - side * w, y1);
+  ratchetPlatePoints(l, cfg, i, top).forEach((q, k) => {
+    if (k === 0) path.moveTo(q.x, q.y);
+    else path.lineTo(q.x, q.y);
+  });
   path.closePath();
   return path;
+}
+
+/** Plate `i`'s four corners (`ratchetPlatePath`), which a bolt meets (`ratchet-stop.ts`). */
+export function ratchetPlatePoints(l: Layout, cfg: SimConfig, i: number, top: number): Point[] {
+  const x = ratchetX(l, cfg);
+  const side = ratchetSide(l, cfg);
+  const w = ratchetGirth(l, i);
+  const y0 = top + i * ratchetStep(l);
+  const y1 = y0 + ratchetStep(l);
+  return [
+    { x: x - side * w, y: y0 },
+    { x: x + side * w, y: y0 },
+    { x: x + side * (w + LAP * l.tile), y: y1 },
+    { x: x - side * w, y: y1 },
+  ];
 }
 
 /** Plate `i`'s own box for `litBox` — the outline's bounding rectangle, top-left

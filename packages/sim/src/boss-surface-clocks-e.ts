@@ -210,6 +210,7 @@ export {
 } from "./mimic-shapes.js";
 export { oculusVerdict } from "./oculus-shot.js";
 export { plumbVerdict } from "./plumb-shot.js";
+export { ratchetVerdict } from "./ratchet-shot.js";
 export { rimeVerdict } from "./rime-shot.js";
 export { slingVerdict } from "./sling-shot.js";
 export { trivetVerdict } from "./trivet-shot.js";

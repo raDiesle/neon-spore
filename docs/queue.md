@@ -445,8 +445,8 @@ All three are drawn from `boss-draw-clocks-c.ts`, shared with the GIMBAL lane.
 
 Each wants either colour, so each is THE HASP's shape (`render/hasp-stop.ts`,
 `hasp-stop.test.ts`, its row in `sim/test/shot-verdict.test.ts`) rather than a
-row in `core-stop-rows.ts`. THE MANTLE stops one (`render/mantle-stop.ts`,
-`mantleVerdict`); THE RATCHET and THE VALVE are left.
+row in `core-stop-rows.ts`. THE MANTLE and THE RATCHET stop one
+(`render/mantle-stop.ts`, `render/ratchet-stop.ts`); THE VALVE is left.
 
 Done when each boss here calls `stops?.aim`, has its row in
 `core-stop-rows.ts`, and `bun run check` is green.

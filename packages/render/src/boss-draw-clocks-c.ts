@@ -106,7 +106,7 @@ export function drawPairBoss(
   // a clean tooth, the hull's shudder — is `effects.boss.ratchet`
   // (`ratchet-draw.ts`, `ratchet-fx.ts`).
   if (boss.kind === "ratchet") {
-    drawRatchet(ctx, l, world, boss, beat, beatPhase, time, effects.boss.ratchet);
+    drawRatchet(ctx, l, world, boss, beat, beatPhase, time, effects.boss.ratchet, effects.bolts);
     return;
   }
 

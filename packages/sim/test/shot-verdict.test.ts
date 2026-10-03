@@ -15,6 +15,8 @@ import { leadStruck, leadVerdict } from "../src/lead-shot.js";
 import { ledgerStruck, ledgerVerdict } from "../src/ledger-shot.js";
 import { mantleBoss } from "../src/mantle.js";
 import { mantleStruck, mantleVerdict } from "../src/mantle-shot.js";
+import { ratchetBoss } from "../src/ratchet.js";
+import { ratchetStruck, ratchetVerdict } from "../src/ratchet-shot.js";
 import type { Bullet, Color } from "../src/types.js";
 import type { World } from "../src/world.js";
 import { MARKS } from "./gimbal-harness.js";
@@ -34,7 +36,7 @@ const BEATS = 48;
 
 interface Case {
   name: string;
-  kind: "antiphon" | "gimbal" | "hasp" | "hive" | "keel" | "lead" | "ledger" | "mantle";
+  kind: "antiphon" | "gimbal" | "hasp" | "hive" | "keel" | "lead" | "ledger" | "mantle" | "ratchet";
   /** What the wave authors for a boss that will not start without it. */
   authored?: object;
   /** Set before the fight is run, for a state no one at the controls would reach. */
@@ -131,6 +133,20 @@ const CASES: Case[] = [
     },
     verdict: mantleVerdict,
     struck: mantleStruck,
+  },
+  {
+    name: "THE RATCHET, its bolt loose",
+    kind: "ratchet",
+    // No one at the controls never winds the spring, so the bolt is thrown by
+    // hand, as the half-wound spring throws it (`ratchet-step.ts`).
+    arrange: (world) => {
+      const s = ratchetBoss(world);
+      if (s === null) return;
+      s.boltCol = midCol(world.cfg);
+      s.boltBeat = world.beat;
+    },
+    verdict: ratchetVerdict,
+    struck: ratchetStruck,
   },
 ];
 
