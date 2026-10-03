@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 4a461413a — Queue: split gimbal-frame.test.ts, 340 lines
+
 ## 2026-10-03 · 1da82c9ab — hive-draw.ts split, THE HIVE's four site painters in hive-sites.ts
 
 Aiming THE HIVE's bolt stops took `hive-draw.ts` to 244 lines. The lobe, the swell, the breach and the scar read nothing of `drawHive` but their arguments and move to `hive-sites.ts`; `drawHive` and `drawMass` stay. Nothing drawn changes.
