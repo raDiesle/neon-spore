@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE CYST, OCULUS, TRIVET and VISE stop a bolt on what it meets
 
 - **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
+- **Taken:** 2026-10-03, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit (claim: claude/queue-the-cyst-oculus-trivet-and-vise-stop-a-bolt-on-w)
 - **Where:** local
 - **Files:** `packages/sim/src/core-verdict.ts`, `packages/render/src/core-stop.ts`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/boss-draw-clocks-d.ts`, `packages/render/test/core-stop-rows.ts`
 
