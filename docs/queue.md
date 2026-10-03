@@ -552,6 +552,7 @@ that it can, and `bun run check` is green.
 ## Split gimbal-frame.test.ts, 340 lines, into two pages
 
 - **Found:** 2026-10-03, claude/gimbal-puzzle-mechanics-a4a2d8
+- **Taken:** 2026-10-03, claude/queue-work-cccabd (claim: claude/queue-split-gimbal-frame-test-ts-340-lines-into-two-pa)
 - **Files:** `packages/render/test/gimbal-frame.test.ts`, `packages/render/test/gimbal-beam.test.ts`
 
 THE GIMBAL's frame test is 340 lines, past the ~250 ceiling, and the swap and
