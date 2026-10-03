@@ -138,7 +138,7 @@ export function drawPairBoss(
   // pulled pin's slot, the kick off a mark, the hull's shudder — is
   // `effects.boss.valve` (`valve-fx.ts`).
   if (boss.kind === "valve") {
-    drawValve(ctx, l, world, boss, beat, beatPhase, time, effects.boss.valve);
+    drawValve(ctx, l, world, boss, beat, beatPhase, time, effects.boss.valve, effects.bolts);
     return;
   }
 

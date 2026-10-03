@@ -13,7 +13,8 @@ import { splinePath } from "./spline.js";
  * a turned wheel runs the whole rim round and a frozen one stops it dead. **The
  * pins are THE TITHE's plates** (`drafts/collected.ts`, `plated` in
  * `forms/walked.ts`): squared tabs hung under the slab, pad cut off each side,
- * the live one reaching further than the rest.
+ * the live one reaching further than the rest; where they hang is
+ * `valve-pins.ts`.
  *
  * Every path here is laid round the drum's own middle at the origin; the
  * draw moves the canvas there and tilts it by the list, so the list is one
@@ -43,10 +44,6 @@ const WHEEL_R = 0.7;
 /** The pin socket beside it, and its radius, in tiles. */
 const SOCKET_X = 1.28;
 const SOCKET_R = 0.26;
-/** The three pins: the span of the underside they hang across, the plate's top inside the rim, and how far a plate hangs below, in tiles. */
-const PIN_SPAN = 1.5;
-const PIN_TOP = 0.55;
-const PIN_DROP = 0.5;
 
 /** The middle of the drum: the middle column, a couple of rows into the field. */
 export function valveCentre(l: Layout, cfg: SimConfig): Point {
@@ -80,6 +77,11 @@ export function onBearing(at: Point, r: number, milli: number): Point {
  * breathes the outline, a hundredth of the radius, which a stopped wheel keeps.
  */
 export function valveRimPath(l: Layout, wheelMilli: number, t: number): Path2D {
+  return splinePath(valveRimPoints(l, wheelMilli, t), true);
+}
+
+/** The rim's samples, which its spline runs through (`valveRimPath`) and a bolt meets (`valve-stop.ts`). */
+export function valveRimPoints(l: Layout, wheelMilli: number, t: number): Point[] {
   const scroll = (wheelMilli / 1000) * Math.PI * 2 * GEAR * TEETH;
   const pts: Point[] = [];
   for (let i = 0; i < N; i++) {
@@ -88,7 +90,7 @@ export function valveRimPath(l: Layout, wheelMilli: number, t: number): Path2D {
     const m = blobRadiusMul(a, 1, 0.04, 0.01, t, 4.3) * (1 + CUT * wave);
     pts.push({ x: Math.cos(a) * RX * l.tile * m, y: Math.sin(a) * RY * l.tile * m });
   }
-  return splinePath(pts, true);
+  return pts;
 }
 
 /** The face: a plain inset oval inside the notched rim, which the wheel and the socket sit on. */
@@ -172,70 +174,6 @@ export function valvePointerHeadPath(l: Layout, wheelMilli: number): Path2D {
   p.lineTo(neck.x - wx, neck.y - wy);
   p.closePath();
   return p;
-}
-
-/**
- * Pin `i` of three, left to right: THE TITHE's plate, squared, its pad cut
- * off each side, hanging from inside the rim. `reach` is how far below the
- * rim it hangs, 1 at rest; `out` slides it straight down and away as it comes
- * free.
- */
-export function valvePinPath(
-  l: Layout,
-  i: number,
-  pins: number,
-  reach: number,
-  out: number,
-): Path2D {
-  const w = (PIN_SPAN * 2 * l.tile) / pins;
-  const pad = w * 0.19;
-  const xL = -PIN_SPAN * l.tile + i * w + pad;
-  const xR = xL + w - pad * 2;
-  const down = out * 2.4 * l.tile;
-  const top = PIN_TOP * RY * l.tile + down;
-  const bottom = RY * l.tile + PIN_DROP * reach * l.tile + down;
-  const p = new Path2D();
-  p.moveTo(xL, top);
-  p.lineTo(xR, top);
-  p.lineTo(xR, bottom);
-  p.lineTo(xL, bottom);
-  p.closePath();
-  return p;
-}
-
-/** Where pin `i`'s plate hangs from, `out` of the way free: the middle of its top edge, inside the drum. */
-export function valvePinTop(l: Layout, i: number, pins: number, out: number): Point {
-  const w = (PIN_SPAN * 2 * l.tile) / pins;
-  return { x: -PIN_SPAN * l.tile + (i + 0.5) * w, y: PIN_TOP * RY * l.tile + out * 2.4 * l.tile };
-}
-
-/** The middle of pin `i`'s plate at `reach`, still in, and half its height: where a thumb takes hold of it. */
-export function valvePinCentre(
-  l: Layout,
-  i: number,
-  pins: number,
-  reach: number,
-): Point & { r: number } {
-  const top = valvePinTop(l, i, pins, 0);
-  const bottom = RY * l.tile + PIN_DROP * reach * l.tile;
-  return { x: top.x, y: (top.y + bottom) / 2, r: (bottom - top.y) / 2 };
-}
-
-/** The hole a spent pin leaves in the underside: a short dark slot where the plate went in. */
-export function valveHolePath(l: Layout, i: number, pins: number): Path2D {
-  const w = (PIN_SPAN * 2 * l.tile) / pins;
-  const pad = w * 0.19;
-  const xL = -PIN_SPAN * l.tile + i * w + pad;
-  const y = RY * l.tile * 0.78;
-  const p = new Path2D();
-  p.rect(xL, y - l.tile * 0.08, w - pad * 2, l.tile * 0.16);
-  return p;
-}
-
-/** The middle of the slot pin `i` leaves: where the jet blows from. */
-export function valveHoleCentre(l: Layout, i: number, pins: number): Point {
-  const w = (PIN_SPAN * 2 * l.tile) / pins;
-  return { x: -PIN_SPAN * l.tile + i * w + w / 2, y: RY * l.tile * 0.78 };
 }
 
 /** The spark's place, `along` of the way from under the drum to the hull, in its column — field coordinates, not the drum's. */

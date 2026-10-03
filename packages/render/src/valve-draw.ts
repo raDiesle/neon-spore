@@ -7,6 +7,7 @@ import {
   valveTurning,
   type World,
 } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
@@ -18,8 +19,16 @@ import { PULL_DOWN } from "./pull-line.js";
 import { drawValveFx, type ValveFx } from "./valve-fx.js";
 import { drawValveMark, drawValveSocket } from "./valve-marks.js";
 import {
+  VALVE_PIN,
+  valveHolePath,
+  valvePinCentre,
+  valvePinPath,
+  valvePinTop,
+} from "./valve-pins.js";
+import {
   pulled,
   valveArrived,
+  valveHalfSwing,
   valveList,
   valveLit,
   valveOpen,
@@ -29,10 +38,6 @@ import {
 } from "./valve-pose.js";
 import {
   valveFacePath,
-  valveHolePath,
-  valvePinCentre,
-  valvePinPath,
-  valvePinTop,
   valvePointerHeadPath,
   valvePointerPath,
   valveReach,
@@ -42,6 +47,7 @@ import {
   valveWheelPath,
 } from "./valve-shape.js";
 import { drawValveSpark, valveDrumAt } from "./valve-spark.js";
+import { valveStopper } from "./valve-stop.js";
 import { drawValveStory, valveShake } from "./valve-story.js";
 import { drawValveHalos, drawValvePinHalo, drawValveVerdicts } from "./valve-verdicts.js";
 
@@ -60,7 +66,8 @@ import { drawValveHalos, drawValvePinHalo, drawValveVerdicts } from "./valve-ver
  * colour-gated. **Its health is the pins**, and the list is how it shows: the
  * drum tilts a step further for each one out (`valve-pose.ts`), and a spent
  * pin is a dark slot in the underside. What outlives a frame — the clamp, a
- * pulled pin's slot, the kick, the blow a landed step deals — is `fx`.
+ * pulled pin's slot, the kick, the blow a landed step deals — is `fx`. A
+ * bolt stops on what it meets of the drum (`valve-stop.ts`), told to `stops`.
  */
 export function drawValve(
   ctx: CanvasRenderingContext2D,
@@ -71,6 +78,7 @@ export function drawValve(
   beatPhase: number,
   time: number,
   fx: ValveFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const arrived = valveArrived(s, cfg, beat, beatPhase);
@@ -80,16 +88,22 @@ export function drawValve(
 
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.5 * open);
-  ctx.translate(c.x + shake.x + fx.hurt.shakeX(time, l.tile), c.y + shake.y);
-  ctx.rotate(valveList(s, cfg, beat, beatPhase) + fx.kick);
+  const frame = {
+    x: c.x + shake.x + fx.hurt.shakeX(time, l.tile),
+    y: c.y + shake.y,
+    turn: valveList(s, cfg, beat, beatPhase) + fx.kick,
+  };
+  ctx.translate(frame.x, frame.y);
+  ctx.rotate(frame.turn);
   drawValvePinHalo(ctx, l, s, beatPhase, time);
   for (let i = 0; i < VALVE_PINS; i++) drawPin(ctx, l, world, s, i, beat, beatPhase, time);
   if (open <= 0) drawDrum(ctx, l, world, s, beat, beatPhase, time, fx);
   else {
     for (const side of [-1, 1] as const) {
       ctx.save();
-      ctx.translate(side * open * 0.8 * l.tile, open * 0.4 * l.tile);
-      ctx.rotate(side * open * 0.4);
+      const swing = valveHalfSwing(l, open, side);
+      ctx.translate(swing.x, swing.y);
+      ctx.rotate(swing.turn);
       const half = new Path2D();
       const w = valveReach(l).rx * 1.5;
       half.rect(side < 0 ? -w : 0, -w, w, w * 2);
@@ -100,6 +114,7 @@ export function drawValve(
   }
   ctx.restore();
   if (valveLeaking(s)) drawValveSpark(ctx, l, world, s, c, beat, beatPhase);
+  stops?.aim(valveStopper(l, world, s, c, frame, beat, beatPhase, time));
 }
 
 /** The drum itself: THE CODEX's notched rim in iron, the face, the spent pins' slots, the wheel and the marks on it. */
@@ -180,25 +195,6 @@ function drawWheel(ctx: CanvasRenderingContext2D, l: Layout, s: ValveState): voi
     strokeGlow(ctx, head, PALETTE.hullRim, STROKE.inner, 1);
   }
 }
-
-/** How far a pin swings each way, in radians — about three degrees, the least a plate reads at. */
-const SWAY = 0.05;
-/** The rate in radians a second, off the drum's 0.4. */
-const SWAY_RATE = 0.67;
-/** How far each pin's swing is out of step with the one before. */
-const SWAY_APART = 2.1;
-
-/**
- * How a hung pin swings about the top of its plate: an angle for pin `i`,
- * `going` of the way free, at `time` seconds. Each still-hung pin sways on a
- * slow period, out of step with the next, and stops as it slides free — the
- * owner's pick on VERSUS `valve:pin`, 27 September 2026: *a little bit
- * better*. A record, so a second answer can stand beside it.
- */
-export const VALVE_PIN: { sway: (i: number, going: number, time: number) => number } = {
-  sway: (i, going, time) =>
-    SWAY * (1 - Math.min(1, going)) * Math.sin(time * SWAY_RATE + i * SWAY_APART),
-};
 
 /**
  * Pin `i`: hung under the drum while it is in, reaching and edged in white

@@ -25,9 +25,8 @@ export const VALVE_SPARK: {
   paint: (ctx, l, at, along) => paintSpark(ctx, l, at, along),
 };
 
-/** The bead's half-width and half-height, in tiles. */
-const BEAD_RX = 0.26;
-const BEAD_RY = 0.32;
+/** The bead's half-width and half-height, in tiles: drawn that size and met at its lower end (`valve-stop.ts`). */
+export const VALVE_BEAD = { rx: 0.26, ry: 0.32 } as const;
 /** The hiss streaks trailing it, their spread and length in tiles. */
 const STREAKS = [-0.18, 0, 0.18];
 const STREAK_LEN = 0.7;
@@ -40,14 +39,14 @@ function paintSpark(
 ): void {
   const hiss = new Path2D();
   for (const dx of STREAKS) {
-    hiss.moveTo(x + dx * l.tile, y - BEAD_RY * 0.6 * l.tile);
-    hiss.lineTo(x + dx * 1.6 * l.tile, y - (BEAD_RY + STREAK_LEN) * l.tile);
+    hiss.moveTo(x + dx * l.tile, y - VALVE_BEAD.ry * 0.6 * l.tile);
+    hiss.lineTo(x + dx * 1.6 * l.tile, y - (VALVE_BEAD.ry + STREAK_LEN) * l.tile);
   }
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.emberRim, 0.5 + 0.3 * along);
   ctx.stroke(hiss);
   const bead = new Path2D();
-  bead.ellipse(x, y, l.tile * BEAD_RX, l.tile * BEAD_RY, 0, 0, Math.PI * 2);
+  bead.ellipse(x, y, l.tile * VALVE_BEAD.rx, l.tile * VALVE_BEAD.ry, 0, 0, Math.PI * 2);
   ctx.fillStyle = rgba(PALETTE.ember, 0.75 + 0.25 * along);
   ctx.fill(bead);
   strokeGlow(ctx, bead, PALETTE.emberRim, STROKE.outline, 2 + 2 * along);

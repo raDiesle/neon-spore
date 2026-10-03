@@ -3,7 +3,8 @@ import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { type Point, valveHoleCentre, valveSocket } from "./valve-shape.js";
+import { valveHoleCentre } from "./valve-pins.js";
+import { type Point, valveSocket } from "./valve-shape.js";
 
 /**
  * **What THE VALVE's story throws** (`sim/valve-story.ts`): the burst each of

@@ -9,8 +9,9 @@ import {
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
 import { type Circle, type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
+import { valvePinCentre } from "./valve-pins.js";
 import { pulled, valvePinReach } from "./valve-pose.js";
-import { valvePinCentre, valveSocket, valveWheel } from "./valve-shape.js";
+import { valveSocket, valveWheel } from "./valve-shape.js";
 
 /**
  * **THE VALVE's wheel and pin answering a touch the way every mark does**

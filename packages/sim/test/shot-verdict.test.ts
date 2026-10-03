@@ -18,6 +18,8 @@ import { mantleStruck, mantleVerdict } from "../src/mantle-shot.js";
 import { ratchetBoss } from "../src/ratchet.js";
 import { ratchetStruck, ratchetVerdict } from "../src/ratchet-shot.js";
 import type { Bullet, Color } from "../src/types.js";
+import { valveBoss } from "../src/valve.js";
+import { valveStruck, valveVerdict } from "../src/valve-shot.js";
 import type { World } from "../src/world.js";
 import { MARKS } from "./gimbal-harness.js";
 
@@ -36,7 +38,17 @@ const BEATS = 48;
 
 interface Case {
   name: string;
-  kind: "antiphon" | "gimbal" | "hasp" | "hive" | "keel" | "lead" | "ledger" | "mantle" | "ratchet";
+  kind:
+    | "antiphon"
+    | "gimbal"
+    | "hasp"
+    | "hive"
+    | "keel"
+    | "lead"
+    | "ledger"
+    | "mantle"
+    | "ratchet"
+    | "valve";
   /** What the wave authors for a boss that will not start without it. */
   authored?: object;
   /** Set before the fight is run, for a state no one at the controls would reach. */
@@ -147,6 +159,21 @@ const CASES: Case[] = [
     },
     verdict: ratchetVerdict,
     struck: ratchetStruck,
+  },
+  {
+    name: "THE VALVE, leaking",
+    kind: "valve",
+    authored: { marks: [250, 600] },
+    // No one at the controls never pulls a pin, so the spark is leaked by
+    // hand, as a pulled pin leaks it (`valve-step.ts`).
+    arrange: (world) => {
+      const s = valveBoss(world);
+      if (s === null) return;
+      s.sparkCol = midCol(world.cfg);
+      s.sparkBeat = world.beat;
+    },
+    verdict: valveVerdict,
+    struck: valveStruck,
   },
 ];
 

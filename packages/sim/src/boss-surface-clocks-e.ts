@@ -214,6 +214,7 @@ export { ratchetVerdict } from "./ratchet-shot.js";
 export { rimeVerdict } from "./rime-shot.js";
 export { slingVerdict } from "./sling-shot.js";
 export { trivetVerdict } from "./trivet-shot.js";
+export { valveVerdict } from "./valve-shot.js";
 export { viseVerdict } from "./vise-shot.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),

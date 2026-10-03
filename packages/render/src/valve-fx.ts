@@ -9,14 +9,8 @@ import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { valveStoryBurst } from "./valve-fx-story.js";
-import {
-  type Point,
-  valveCentre,
-  valveHoleCentre,
-  valveHolePath,
-  valveSparkPoint,
-  valveWheel,
-} from "./valve-shape.js";
+import { valveHoleCentre, valveHolePath } from "./valve-pins.js";
+import { type Point, valveCentre, valveSparkPoint, valveWheel } from "./valve-shape.js";
 import { ValveVerdicts } from "./valve-verdicts.js";
 
 /**

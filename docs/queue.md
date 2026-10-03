@@ -413,44 +413,6 @@ that frame.
 Done when each boss here calls `stops?.aim`, has its row in
 `core-stop-rows.ts`, and `bun run check` is green.
 
-## THE MANTLE, RATCHET and VALVE stop a bolt on what it meets
-
-- **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
-- **Taken:** 2026-10-03, claude/queue-work-cccabd (claim: claude/queue-the-mantle-ratchet-and-valve-stop-a-bolt-on-what)
-- **Where:** local
-- **Files:** `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/core-stop.ts`, `packages/render/test/core-stop-rows.ts`
-
-The owner, 1 October 2026, on THE SEAM *but also all other bosses*: the part
-the cannon must hit is lit in its colour and beats like a heart, the bolt has a
-clear path to it, and a bolt stops on whatever it meets — bursting on the right
-part, scuffing anywhere else and doing nothing. The rule is the last bullet of
-`.claude/skills/new-boss/generic.md`. THE SEAM and the eleven bosses whose
-shot is `coreVerdict` keep it (`render/core-stop.ts`, `render/*-stop.ts`).
-
-Each boss needs its shot's judgement pulled out of its `…Struck` into a pure
-`…Verdict(world, col, color)` the `…Struck` then acts on, as
-`sim/seam-shot.ts`'s `seamVerdict` was; then a `…-stop.ts` handing
-`BoltStops` (`render/bolt-stop.ts`) where a bolt in each column meets the
-picture — `coreStopper` with the core's near rim and the body's `Foot` where
-the shot is one part, a stopper of its own (`render/seam-stop.ts`) where it
-is not. The feet are `roundFoot`, `outlineFoot` over the points a shape file
-hands out beside its path (`capstanBodyPoints`) and `rodFoot`. The drawer
-takes `stops?: BoltStops` last and calls `stops?.aim(...)`; its dispatcher
-passes `effects.bolts`. A row goes in `render/test/core-stop-rows.ts` (its
-harness in `render/test/<boss>-harness.ts`). A target the bolt must be drawn
-through some other part of the body to reach is a look: say so in the
-stopper and leave it for VERSUS, as `flue-stop.ts` does.
-
-All three are drawn from `boss-draw-clocks-c.ts`, shared with the GIMBAL lane.
-
-Each wants either colour, so each is THE HASP's shape (`render/hasp-stop.ts`,
-`hasp-stop.test.ts`, its row in `sim/test/shot-verdict.test.ts`) rather than a
-row in `core-stop-rows.ts`. THE MANTLE and THE RATCHET stop one
-(`render/mantle-stop.ts`, `render/ratchet-stop.ts`); THE VALVE is left.
-
-Done when each boss here calls `stops?.aim`, has its row in
-`core-stop-rows.ts`, and `bun run check` is green.
-
 ## THE CURTAIN, GORGE, TASTER and VANE stop a bolt on what it meets
 
 - **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit

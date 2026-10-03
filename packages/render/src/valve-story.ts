@@ -5,7 +5,8 @@ import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { phaseInto } from "./phase-into.js";
 import { NO_SPAN, type SlowSpan, slowHush } from "./slow-hush.js";
-import { valveFacePath, valveHoleCentre, valveReach, valveSocket } from "./valve-shape.js";
+import { valveHoleCentre } from "./valve-pins.js";
+import { valveFacePath, valveReach, valveSocket } from "./valve-shape.js";
 
 /**
  * **THE VALVE's story between the pins, drawn** (§25 rows 5–6, 12–13, 17–19;

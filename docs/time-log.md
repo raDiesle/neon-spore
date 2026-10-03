@@ -33051,3 +33051,16 @@ Bottleneck: none; THE HASP's lane had already set the shape this one followed.
 Bottleneck: the rack is drawn through three transforms — the jolt, the fold about the lock and the bind's shake — and the stopper had to lay every part through the same ones.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE VALVE stops a bolt on what it meets
+
+- reading: 5 min. The valve's shot, drawer, shape, pins and spark.
+- writing: 20 min. `valveVerdict`, the rim's points, the pins moved out of
+  `valve-shape.ts` (at its ceiling) into `valve-pins.ts`, the halves' swing
+  shared, `valve-stop.ts` laying each through the sway, the swing and the
+  drum's list, a test.
+- looking: 0 min.
+- friction: 5 min. A context compaction mid-lane.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: `valve-shape.ts` was at its line ceiling, so sharing the pins' outline with the stopper meant splitting the file first.

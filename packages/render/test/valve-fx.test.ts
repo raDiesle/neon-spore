@@ -17,7 +17,8 @@ import { fieldX } from "../src/field-flip.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { ValveFx } from "../src/valve-fx.js";
-import { valveCentre, valveHoleCentre, valveSparkPoint } from "../src/valve-shape.js";
+import { valveHoleCentre } from "../src/valve-pins.js";
+import { valveCentre, valveSparkPoint } from "../src/valve-shape.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,

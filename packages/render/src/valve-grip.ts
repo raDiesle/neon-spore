@@ -10,15 +10,9 @@ import {
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
+import { valvePinCentre } from "./valve-pins.js";
 import { pulled, valveList, valvePinReach } from "./valve-pose.js";
-import {
-  onBearing,
-  type Point,
-  valveCentre,
-  valvePinCentre,
-  valveSocket,
-  valveWheel,
-} from "./valve-shape.js";
+import { onBearing, type Point, valveCentre, valveSocket, valveWheel } from "./valve-shape.js";
 
 /**
  * **The two thumbs on THE VALVE** — the grip of its hands lane, and the part

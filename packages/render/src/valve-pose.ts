@@ -1,5 +1,6 @@
 import { type SimConfig, VALVE_PINS, type ValvePhase, type ValveState } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import type { Layout } from "./layout.js";
 import { phaseInto } from "./phase-into.js";
 
 /**
@@ -104,4 +105,17 @@ export function valvePinOut(
   if (i >= out) return -1;
   if (s.phase !== "list" || i !== out - 1) return 2;
   return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.valveListBeats));
+}
+
+/**
+ * How far each half of the drum has swung once it opens, `open` 0 to 1:
+ * moved out and down and turned outward about its own seam. Drawn so
+ * (`valve-draw.ts`) and met so (`valve-stop.ts`).
+ */
+export function valveHalfSwing(
+  l: Layout,
+  open: number,
+  side: -1 | 1,
+): { x: number; y: number; turn: number } {
+  return { x: side * open * 0.8 * l.tile, y: open * 0.4 * l.tile, turn: side * open * 0.4 };
 }
