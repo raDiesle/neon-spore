@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 6c95ac1d6 — THE MANTLE stops a bolt on what it meets
+
+A bolt fired at THE MANTLE is now drawn to end where it meets the shell instead of flying through it. It bursts on the leaking spark in either colour up the column it runs down, and scuffs on either valve inside its rim and on the core while it still glows, laid where the shudder, the kick and the drop-in put the shell. THE RATCHET and THE VALVE stay in the queue.
+
 ## 2026-10-03 · ad814c055 — THE KEEL stops a bolt on what it meets
 
 A bolt fired at THE KEEL is now drawn to end where it meets the spine instead of flying through it. Up the middle it bursts on the open socket in the socket's colour and scuffs there in the other, bursts on each unsealed half of the lit marrow in either colour, and scuffs on the lens once that half is in; the thrown rock bursts in either colour up its column. Anywhere else it scuffs on the plates and the tendons between them, laid where the jolt drops the spine. Exemption: a look the owner asked for by name (1 October 2026, "but also all other bosses").

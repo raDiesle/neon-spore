@@ -33035,3 +33035,5 @@ Bottleneck: three targets with three colour rules behind one verdict, and `keel-
 - landing: 5 min. `check:fast`, the index, `land`.
 
 Bottleneck: none; THE HASP's lane had already set the shape this one followed.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
