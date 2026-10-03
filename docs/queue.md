@@ -416,6 +416,7 @@ Done when each boss here calls `stops?.aim`, has its row in
 ## THE MANTLE, RATCHET and VALVE stop a bolt on what it meets
 
 - **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
+- **Taken:** 2026-10-03, claude/queue-work-cccabd (claim: claude/queue-the-mantle-ratchet-and-valve-stop-a-bolt-on-what)
 - **Where:** local
 - **Files:** `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/core-stop.ts`, `packages/render/test/core-stop-rows.ts`
 
