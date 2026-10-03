@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · c7dc13273 — THE GIMBAL draws only the drift, its flat picture deleted
+
+The drift was taken into the game on 3 October, so every `rigged` branch was the only one reached. The flat yoke, hoop, teeth, pins and shut drum are gone with `GIMBAL_TILT`, `gimbal-depth.ts` and the two shape paths only they used; a level cradle is a hush of 0. The test that compared the drift's cost with the flat picture holds it to a fixed row of canvas calls per phase instead. Nothing the game draws changes.
+
 ## 2026-10-03 · c96d3f493 — THE GIMBAL is a puzzle: swapped marks, a carried ring, a let-go together
 
 Each seat now sees the partner's mark and never its own, so a ring is talked onto its mark and the mirror finally bites; the outer ring carries the inner, so the pair have an order to find; and a tooth shears only when both thumbs let go of a true pair within a quarter of a second. Six alignments instead of three, the window closing from 45 to 20.

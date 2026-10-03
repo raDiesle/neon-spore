@@ -32876,3 +32876,5 @@ Bottleneck: the carry broke the rehearsal film in a way only a printed run showe
 - landing: 5 min. `check:fast`, the index, `land`.
 
 Bottleneck: a test that leaned on the one before it to warm the sprite cache.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
