@@ -7,15 +7,21 @@ import {
   oculusWindowBeats,
   type World,
 } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { fieldX } from "./field-flip.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
-import type { Layout } from "./layout.js";
+import type { Circle, Layout } from "./layout.js";
 import { drawOculusFuse } from "./oculus-fuse.js";
 import type { OculusFx } from "./oculus-fx.js";
 import { drawOculusLevers } from "./oculus-levers.js";
-import { drawOculusCore, drawOculusFlash, drawOculusLitPair } from "./oculus-marks.js";
+import {
+  drawOculusCore,
+  drawOculusFlash,
+  drawOculusLitPair,
+  oculusCoreRadius,
+} from "./oculus-marks.js";
 import {
   oculusArrived,
   oculusHung,
@@ -36,6 +42,7 @@ import {
   oculusRimPath,
   oculusSocketPath,
 } from "./oculus-shape.js";
+import { oculusStopper } from "./oculus-stop.js";
 import {
   drawOculusGlare,
   drawOculusSight,
@@ -84,6 +91,7 @@ export function drawOculus(
   beatPhase: number,
   time: number,
   fx: OculusFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const arrived = oculusArrived(s, cfg, beat, beatPhase);
@@ -97,9 +105,12 @@ export function drawOculus(
   const aim: Aim = { toHull: l.hullY - y, lookX };
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.7 * shatter);
-  ctx.translate(home.x + fx.hurt.shakeX(time, l.tile), y);
-  if (shatter <= 0) drawLens(ctx, l, world, s, beat, beatPhase, time, fx, aim);
-  else {
+  const x = home.x + fx.hurt.shakeX(time, l.tile);
+  ctx.translate(x, y);
+  if (shatter <= 0) {
+    const core = drawLens(ctx, l, world, s, beat, beatPhase, time, fx, aim);
+    stops?.aim(oculusStopper(l, world, { x, y }, core));
+  } else {
     // The lens falls apart along its plates: six wedges, each thrown out
     // along its own middle and turned a little as it goes.
     const rim = oculusRadius(l).rim * 1.3;
@@ -126,7 +137,11 @@ export function drawOculus(
   drawOculusFuse(ctx, l, world, s, beat, beatPhase);
 }
 
-/** The lens whole: glass face, the leaves across it, the socket and core behind, the rim over their roots, the blow over the rim. */
+/**
+ * The lens whole: glass face, the leaves across it, the socket and core
+ * behind, the rim over their roots, the blow over the rim. Hands back the
+ * core as drawn, about the lens's middle.
+ */
 function drawLens(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -137,7 +152,7 @@ function drawLens(
   time: number,
   fx: OculusFx,
   aim: Aim,
-): void {
+): Circle {
   const face = oculusFacePath(l);
   ctx.fillStyle = rgba(PALETTE.background, 0.9);
   ctx.fill(face);
@@ -180,6 +195,7 @@ function drawLens(
   ctx.translate(core.x, core.y);
   drawOculusCore(ctx, l, open, s.hits, lit, beatPhase, core.scale);
   ctx.restore();
+  const eye = { x: core.x, y: core.y, r: oculusCoreRadius(l, open, s.hits, core.scale) };
 
   const { rim } = oculusRadius(l);
   const ring = oculusRimPath(l, time * 0.6);
@@ -200,7 +216,9 @@ function drawLens(
   const colour = stepColour(step?.ask === "look" ? step.color : "either");
   drawOculusSight(ctx, l, core, { x: aim.lookX, y: aim.toHull }, colour, gaze);
 
-  if (step === null || !oculusIsPair(step)) return;
-  const pair = oculusLitPair(s);
-  drawOculusLitPair(ctx, l, [pair, pair + OCULUS_LEAVES / 2], shut, beatPhase);
+  if (step !== null && oculusIsPair(step)) {
+    const pair = oculusLitPair(s);
+    drawOculusLitPair(ctx, l, [pair, pair + OCULUS_LEAVES / 2], shut, beatPhase);
+  }
+  return eye;
 }

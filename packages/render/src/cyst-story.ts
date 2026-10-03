@@ -29,6 +29,8 @@ const SINK = 0.45;
 /** The bud's radius, and how high over the sac's middle it grows, in tiles. */
 const BUD = 0.42;
 const BUD_RISE = 0.9;
+/** How much taller than wide the bud is drawn. */
+const BUD_TALL = 1.12;
 
 /**
  * The spore, `out` of the way let go from `tip` to hang `dx` across, `sink`
@@ -69,6 +71,17 @@ export function cystBudAt(l: Layout, grown: number, dx: number): Point & { r: nu
   };
 }
 
+/** The bud as drawn, `grown` of the way out: its middle, and its half-width and half-height. */
+export function cystBudRound(
+  l: Layout,
+  grown: number,
+  dx: number,
+): Point & { r: number; ry: number } {
+  const at = cystBudAt(l, grown, dx);
+  const r = Math.max(0.5, at.r * grown);
+  return { x: at.x, y: at.y, r, ry: Math.max(0.5, r * BUD_TALL) };
+}
+
 /**
  * The bud, `grown` of the way out on its stalk to hang `dx` across from the
  * sac's middle, ringed in `color` with `left` of its window still to run.
@@ -95,8 +108,9 @@ export function drawCystBud(
   ctx.strokeStyle = rgba(PALETTE.cystSacDark, 0.8);
   ctx.stroke(stalk);
   const r = at.r * grown;
+  const round = cystBudRound(l, grown, dx);
   const bud = new Path2D();
-  bud.ellipse(at.x, at.y, Math.max(0.5, r), Math.max(0.5, r * 1.12), 0, 0, Math.PI * 2);
+  bud.ellipse(round.x, round.y, round.r, round.ry, 0, 0, Math.PI * 2);
   const { body, rim } = stepColour(color);
   ctx.fillStyle = rgba(body, 0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2));
   ctx.fill(bud);

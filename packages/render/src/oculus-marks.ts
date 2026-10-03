@@ -38,6 +38,11 @@ export function drawOculusLitPair(
  * step's colour while one is owed, with a ring round it closing as the step's
  * beats run out. `scale` is how wide it stands: wider while it glares.
  */
+/** The core's radius, `open` of the way out of its socket, `hits` taken, `scale` wide for a glare. */
+export function oculusCoreRadius(l: Layout, open: number, hits: number, scale = 1): number {
+  return Math.max(0.5, oculusSocketRadius(l) * open * 0.72 * Math.max(0.3, 1 - 0.2 * hits) * scale);
+}
+
 export function drawOculusCore(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -48,9 +53,9 @@ export function drawOculusCore(
   scale = 1,
 ): void {
   if (open <= 0) return;
-  const r = oculusSocketRadius(l) * open * 0.72 * Math.max(0.3, 1 - 0.2 * hits) * scale;
+  const r = oculusCoreRadius(l, open, hits, scale);
   const core = new Path2D();
-  core.arc(0, 0, Math.max(0.5, r), 0, Math.PI * 2);
+  core.arc(0, 0, r, 0, Math.PI * 2);
   ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
   ctx.fill(core);
   if (lit !== null) {

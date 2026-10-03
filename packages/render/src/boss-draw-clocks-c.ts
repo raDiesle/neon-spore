@@ -159,7 +159,7 @@ export function drawPairBoss(
   // (`oculus-draw.ts`). What outlives a frame — the thud of a shut pair, the
   // core's flash, the hull's shudder — is `effects.boss.oculus` (`oculus-fx.ts`).
   if (boss.kind === "oculus") {
-    drawOculus(ctx, l, world, boss, beat, beatPhase, time, effects.boss.oculus);
+    drawOculus(ctx, l, world, boss, beat, beatPhase, time, effects.boss.oculus, effects.bolts);
     return;
   }
 

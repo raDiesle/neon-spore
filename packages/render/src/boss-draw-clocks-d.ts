@@ -114,7 +114,7 @@ export function drawLatePairBoss(
   // pinched shut by the other, a core both cannons hit (`cyst-draw.ts`); a
   // crack's thud, a sprung flank and the core's flash are `cyst-fx.ts`.
   if (boss.kind === "cyst") {
-    drawCyst(ctx, l, world, boss, beat, beatPhase, time, effects.boss.cyst);
+    drawCyst(ctx, l, world, boss, beat, beatPhase, time, effects.boss.cyst, effects.bolts);
     return;
   }
 

@@ -4,6 +4,7 @@ import { BoltStops } from "../src/bolt-stop.js";
 import { computeLayout, type Layout, tileCX } from "../src/layout.js";
 import { installCanvasGlobals } from "./canvas-stub.js";
 import { ROWS, type Row } from "./core-stop-rows.js";
+import { ASIDE_ROWS } from "./core-stop-rows-aside.js";
 import { CFG, FRAME_TIMEOUT_MS, ROLES, VIEWPORT } from "./frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -30,7 +31,7 @@ function aimed(row: Row, l: Layout, open: boolean): BoltStops {
 const meets = (stops: BoltStops, l: Layout, col: number, color: Color) =>
   stops.meets(col, tileCX(l, col), color);
 
-describe.each(ROWS)("$name stops a bolt", (row) => {
+describe.each([...ROWS, ...ASIDE_ROWS])("$name stops a bolt", (row) => {
   it.each(ROLES)(
     "bursting on the open core in its colour, scuffing in the other, on %s",
     (role) => {
@@ -68,6 +69,23 @@ describe.each(ROWS)("$name stops a bolt", (row) => {
     const below = (at?.y ?? 0) + l.tile;
     expect(stops.stopped(bolt(MID), x, below, "#fff")).toBe(false);
     expect(stops.stopped(bolt(MID), x, at?.y ?? 0, "#fff")).toBe(true);
+  });
+});
+
+describe.each(ASIDE_ROWS)("$name, on a step asking for a part aside", (row) => {
+  it.each(ROLES)("bursts on that part up its column, and scuffs on the core, on %s", (role) => {
+    const l = computeLayout(VIEWPORT, CFG, role);
+    const offset = row.aside?.offset ?? 0;
+    const stops = new BoltStops();
+    row.aside?.draw(stops, l);
+    const right = meets(stops, l, MID + offset, "cyan");
+    const wrong = meets(stops, l, MID + offset, "red");
+    expect(right?.hit).toBe("target");
+    expect(wrong?.hit).toBe("wrong");
+    if (row.aside?.unmet) expect(right?.y).toBe(l.gridTop);
+    else expect(right?.y ?? 0).toBeGreaterThan(l.gridTop);
+    expect(right?.y ?? 0).toBeLessThan(l.hullY);
+    expect(meets(stops, l, MID, "cyan")?.hit).toBe("body");
   });
 });
 

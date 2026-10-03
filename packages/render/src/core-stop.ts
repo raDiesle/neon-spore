@@ -12,17 +12,20 @@ import type { Stopper } from "./bolt-stop.js";
  *   the lowest edge of it over that x, as `body` — the shut core's armour
  *   among it.
  *
- * `verdict` is the boss's own, never a copy of it.
+ * `verdict` is the boss's own, never a copy of it. A boss whose step can ask
+ * for a part in another column (`sim/core-verdict.ts`'s `aside`) hands `core`
+ * as the rim's y in each column.
  */
 export function coreStopper(
   world: World,
   verdict: (world: World, col: number, color: Color) => CoreVerdict,
-  core: number,
+  core: number | ((col: number) => number),
   foot: Foot,
 ): Stopper {
   return (col, x, color) => {
     const v = verdict(world, col, color);
-    if (v === "target" || v === "wrong") return { y: core, hit: v };
+    if (v === "target" || v === "wrong")
+      return { y: typeof core === "number" ? core : core(col), hit: v };
     const y = foot(x);
     return y === null ? null : { y, hit: "body" };
   };

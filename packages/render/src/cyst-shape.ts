@@ -38,6 +38,8 @@ const WOBBLE = 0.045;
 const N = 72;
 /** The core at its fullest, as a share of the radius. */
 const CORE = 0.36;
+/** How much flatter than wide the core is, like a pip. */
+export const CYST_CORE_FLAT = 0.88;
 /** How far in a shut pinch draws its flank, and how far out the spit lobe bulges, as shares. */
 const PINCH_IN = 0.3;
 const BULGE_OUT = 0.32;
@@ -151,7 +153,7 @@ export function cystCoreR(l: Layout): number {
 export function cystCorePath(l: Layout, size: number): Path2D {
   const r = Math.max(0.5, cystCoreR(l) * size);
   const p = new Path2D();
-  p.ellipse(0, 0, r, r * 0.88, 0, 0, Math.PI * 2);
+  p.ellipse(0, 0, r, r * CYST_CORE_FLAT, 0, 0, Math.PI * 2);
   return p;
 }
 

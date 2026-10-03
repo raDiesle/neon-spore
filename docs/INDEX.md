@@ -1651,6 +1651,7 @@ by hand never moves.
 | `packages/render/src/oculus-pose.ts` | **The clock THE OCULUS is posed off** (§27, *Animation*): five poses — open, two leaves shut, four |
 | `packages/render/src/oculus-shape.ts` | **THE OCULUS's geometry**: where the lens stands, and the paths it is made of |
 | `packages/render/src/oculus-story.ts` | **THE OCULUS's two story steps, drawn** (§27's story item; the rules are `sim/oculus-guard.ts` and… |
+| `packages/render/src/oculus-stop.ts` | **Where a bolt meets THE OCULUS**, for `BoltStops` (`bolt-stop.ts`): the core, open on a fire step |
 | `packages/render/src/oculus-grip.ts` | **The thumbs on THE OCULUS** — the first of its hands lanes |
 | `packages/render/src/oculus-fx.ts` | What THE OCULUS leaves behind a frame (§27, *Presentation*) |
 | `packages/render/src/oculus-fuse.ts` | **THE OCULUS's time left, over the lens**: THE SLOW's fuse line counting the lit level's fuse, none over a shot |
@@ -2419,6 +2420,7 @@ by hand never moves.
 | `packages/render/src/cyst-pose.ts` | **THE CYST's pose, read off the state every frame** (§34): how far in the sac has dropped |
 | `packages/render/src/cyst-shape.ts` | **THE CYST's geometry**: where the sac stands, and the paths it is made of |
 | `packages/render/src/cyst-story.ts` | **THE CYST's three story steps, drawn** (§34; the rules are `sim/cyst-step.ts` and `sim/cyst-shot.ts`) |
+| `packages/render/src/cyst-stop.ts` | **Where a bolt meets THE CYST**, for `BoltStops` (`bolt-stop.ts`): the bared core, the bud on its own step, the sac |
 | `packages/render/src/cyst-blow.ts` | **THE CYST's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/cyst-verdicts.ts` | **THE CYST's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/splash-blob.ts` | ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down |

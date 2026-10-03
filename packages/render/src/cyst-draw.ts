@@ -8,6 +8,7 @@ import {
   midCol,
   type World,
 } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
 import type { CystFx } from "./cyst-fx.js";
@@ -29,7 +30,8 @@ import {
   cystSacPath,
   cystTip,
 } from "./cyst-shape.js";
-import { cystBudAt, drawCystBud, drawCystSpore } from "./cyst-story.js";
+import { type CystStand, cystStopper } from "./cyst-stop.js";
+import { cystBudAt, cystBudRound, drawCystBud, drawCystSpore } from "./cyst-story.js";
 import { drawCystMarkFeedback } from "./cyst-verdicts.js";
 import { fieldX } from "./field-flip.js";
 import { strokeGlow } from "./glow.js";
@@ -67,6 +69,7 @@ export function drawCyst(
   beatPhase: number,
   time: number,
   fx: CystFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const arrived = cystArrived(s, cfg.cystStillBeats, beat, beatPhase);
@@ -81,7 +84,8 @@ export function drawCyst(
 
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.7 * split);
-  ctx.translate(home.x + fx.hurt.shakeX(time, l.tile), y);
+  const x = home.x + fx.hurt.shakeX(time, l.tile);
+  ctx.translate(x, y);
 
   const side = cystSide(s);
   if (side !== null && split <= 0) {
@@ -116,6 +120,7 @@ export function drawCyst(
     s.phase === "lit" ? s.steps[s.cursor] : s.phase === "rest" ? s.steps[s.cursor - 1] : undefined;
   const rest = cfg.cystRestBeats;
   let bud: Circle | null = null;
+  let budRound: CystStand["bud"] = null;
   if (told?.ask === "spit") {
     const dx = fieldX(l, cystStepCol(midCol(cfg), told)) - home.x;
     const out = cystPosed(s, "spit", rest, beat, beatPhase);
@@ -128,7 +133,10 @@ export function drawCyst(
     const grown = cystPosed(s, "bud", rest, beat, beatPhase);
     drawCystBud(ctx, l, grown, dx, told.color, s.phase === "lit" ? left : 0, beatPhase);
     bud = cystBudAt(l, grown, dx);
+    if (grown > 0) budRound = cystBudRound(l, grown, dx);
   }
+  // Breaking open, the sac stops nothing.
+  if (split <= 0) stops?.aim(cystStopper(l, world, { x, y, pose, core: hurt.size, bud: budRound }));
   if (split <= 0) drawCystMarkFeedback(ctx, l, world, s, time, bud, fx.marks.verdicts);
   drawCystFlash(ctx, l, fx.flash, fx.split);
   ctx.restore();

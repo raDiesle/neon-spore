@@ -54,6 +54,16 @@ export interface Row {
   wide: boolean;
   /** Whether the body lies edge to edge across the field, so no column goes past it. */
   spans?: boolean;
+  /**
+   * A step that asks for a part `offset` columns off the middle instead of
+   * the core (`sim/core-verdict.ts`'s `aside`), drawn lit for a cyan bolt.
+   */
+  aside?: {
+    offset: number;
+    draw(stops: BoltStops, l: Layout): void;
+    /** Nothing is drawn in that column to meet, so the bolt stops at row 0, where it is judged: a look owed. */
+    unmet?: boolean;
+  };
 }
 
 export const ROWS: Row[] = [

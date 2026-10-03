@@ -32779,3 +32779,15 @@ Bottleneck: the frame on the fire step, which needed the step's own event to lan
 Bottleneck: the candidate's tests compared it to the flat picture but never ran the shared boss-hurt test with the seam on.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE CYST and OCULUS stop a bolt on what it meets
+
+- reading: 5 min. Both drawers, the sac's lobes, the bud, the lens and its
+  core, the look's sight line.
+- writing: 5 min. Two stoppers, `coreStopper`'s rim per column, two
+  harnesses, the aside rows and their test.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index's two lines, `land`.
+
+Bottleneck: THE OCULUS's look column, where nothing is drawn to meet, so the row had to say it stops at row 0.

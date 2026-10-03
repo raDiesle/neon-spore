@@ -359,13 +359,15 @@ stopper and leave it for VERSUS, as `flue-stop.ts` does.
 These four judge the middle column and one more. Their verdicts are done:
 `cystVerdict`, `oculusVerdict`, `trivetVerdict` and `viseVerdict`, each
 through `coreVerdict`'s `aside` column (`sim/core-verdict.ts`), held to their
-shots by `sim/test/aside-verdict.test.ts`. What is left is the picture: a
-stopper whose target is the aside part (the bud, the eye looking, the
-lurched hub, the seed) on its step and the core otherwise. THE OCULUS and VISE are drawn from
-`boss-draw-clocks-c.ts`, THE CYST and TRIVET from `boss-draw-clocks-d.ts`.
+shots by `sim/test/aside-verdict.test.ts`. THE CYST and OCULUS stop a bolt
+(`render/cyst-stop.ts`, `render/oculus-stop.ts`): `coreStopper` takes the
+target's rim per column, and their rows are in
+`render/test/core-stop-rows-aside.ts`, each with its `aside` step. What is
+left is THE TRIVET (the lurched hub, `boss-draw-clocks-d.ts`) and THE VISE
+(the seed, `boss-draw-clocks-c.ts`).
 
-Done when each boss here calls `stops?.aim`, has its row in
-`core-stop-rows.ts`, and `bun run check` is green.
+Done when THE TRIVET and VISE call `stops?.aim`, have their rows in
+`core-stop-rows-aside.ts`, and `bun run check` is green.
 
 ## THE ANTIPHON, HIVE, LEAD and LEDGER stop a bolt on what it meets
 
