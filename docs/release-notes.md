@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 99b20dc1b — THE GIMBAL stops a bolt on what it meets
+
+A bolt fired at THE GIMBAL is now drawn to end where it meets the cradle instead of flying through it. It bursts on the leaking bead in either colour up the seam's column, and scuffs on the yoke, the drum, and the hoops, teeth and pins of the rings that screen is shown, laid where the drifting, shaken cradle is drawn. While the bead is still inside the rings a bolt is drawn reaching it through the outer hoop; that is left as a look. HASP and KEEL go back to the queue. Exemption: a look the owner asked for by name (1 October 2026, "but also all other bosses").
+
 ## 2026-10-03 · 4a461413a — Queue: split gimbal-frame.test.ts, 340 lines
 
 ## 2026-10-03 · 1da82c9ab — hive-draw.ts split, THE HIVE's four site painters in hive-sites.ts

@@ -32932,3 +32932,5 @@ Bottleneck: none — the entry named the seam.
   and KEEL, `land`.
 
 Bottleneck: laying each part where the shaken, rolled, tilted cradle is drawn, so the stop sits on the picture.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
