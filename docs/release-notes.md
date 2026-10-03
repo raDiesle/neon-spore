@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 99f6e87a5 — THE RATCHET stops a bolt on what it meets
+
+A bolt fired at THE RATCHET is now drawn to end where it meets the machine instead of flying through it. It bursts on the loose bolt in either colour up the column it falls in, and scuffs on the rack's plates, the pawl's arm and hub, the lock's jaws and, on the navigator's screen, the catch's bar, each laid through the jolt, the strut's fold about the lock and the bind's shake. While the loose bolt still hangs in front of the rack, a bolt is drawn reaching it through the plates; that is left as a look. THE VALVE stays in the queue. Exemption: a look the owner asked for by name (1 October 2026, "but also all other bosses").
+
 ## 2026-10-03 · 6c95ac1d6 — THE MANTLE stops a bolt on what it meets
 
 A bolt fired at THE MANTLE is now drawn to end where it meets the shell instead of flying through it. It bursts on the leaking spark in either colour up the column it runs down, and scuffs on either valve inside its rim and on the core while it still glows, laid where the shudder, the kick and the drop-in put the shell. THE RATCHET and THE VALVE stay in the queue.

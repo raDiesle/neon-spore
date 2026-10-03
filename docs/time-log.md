@@ -33049,3 +33049,5 @@ Bottleneck: none; THE HASP's lane had already set the shape this one followed.
 - landing: 5 min. `check:fast`, the index, `land`.
 
 Bottleneck: the rack is drawn through three transforms — the jolt, the fold about the lock and the bind's shake — and the stopper had to lay every part through the same ones.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
