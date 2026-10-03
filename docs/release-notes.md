@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 6efc22ac1 — The rest of the bolt rule is six queue entries, one a lane
+
+The twenty-two bosses whose shot still has to be pulled out into a verdict before a bolt can stop on them are six entries now, three or four bosses each, grouped by the dispatcher page that draws them so two lanes rarely edit one file — THE CYST, OCULUS, TRIVET and VISE first among equals, since they may widen `coreVerdict` with a column. Each can be claimed, timed and closed on its own; the one entry for all of them held them under one claim.
+
 ## 2026-10-02 · b3fab5863 — THE OCULUS shows its time left over the lens, and its tap and turn on a ring
 
 Each level's time left is now THE SLOW's fuse line, the same width, colours and sparks, stood above the lens. A shot waits, so no fuse is drawn over one. The tap level puts a row of pips on each seat's side of a ring round the lens, and they go green per tap. The turn level puts a knob for each seat on that ring, as THE MAZE's lever does, and each knob moves round by its own count. A knob that stays still under a moving thumb means the partner is not pulling. A press is taken out to the knobs, and the lit pair glows white on all three levels. A look the owner asked for by name.
