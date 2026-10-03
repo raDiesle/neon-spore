@@ -32791,3 +32791,5 @@ Bottleneck: the candidate's tests compared it to the flat picture but never ran 
 - landing: 5 min. `check:fast`, the index's two lines, `land`.
 
 Bottleneck: THE OCULUS's look column, where nothing is drawn to meet, so the row had to say it stops at row 0.
+
+*Measured: 27 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
