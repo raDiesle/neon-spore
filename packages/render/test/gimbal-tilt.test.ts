@@ -1,4 +1,4 @@
-import { afterEach, beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue, FRONT, GIMBAL_SCRIPT, see, view } from "@neon-spore/content";
 import {
   createWorld,
@@ -14,7 +14,7 @@ import {
 import { bakedEntries, clearBakedCaches } from "../src/baked.js";
 import { gimbalGrabR } from "../src/gimbal-grip.js";
 import { onRim } from "../src/gimbal-rig.js";
-import { GIMBAL_TILT, gimbalHush, gimbalTilt, KEEP, LEVEL, tilted } from "../src/gimbal-tilt.js";
+import { gimbalHush, gimbalTilt, KEEP, LEVEL, tilted } from "../src/gimbal-tilt.js";
 import { computeLayout } from "../src/layout.js";
 import { NO_SPAN } from "../src/slow-hush.js";
 import {
@@ -40,10 +40,6 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 beforeAll(() => {
   installCanvasGlobals();
-});
-
-afterEach(() => {
-  GIMBAL_TILT.amount = 1;
 });
 
 const TPB = ticksPerBeat(CFG);
@@ -74,6 +70,15 @@ function hung(phase: GimbalState["phase"], beatsIn: number, cursor = 0): World {
   return world;
 }
 
+/**
+ * The most canvas calls one frame of each phase costs on any screen. It was
+ * held within a tenth of the flat picture's while that picture was still
+ * drawn to compare against; since that went, it is held to this row. Set
+ * `MEASURE` to print the calls; never committed as `true`.
+ */
+const MEASURE = false;
+const CALLS = { still: 367, turn: 397, shear: 375, open: 381 } as const;
+
 /** The canvas calls one frame of `world` costs on `role`'s screen. */
 function cost(world: World, role: (typeof ROLES)[number]): number {
   return runFrames(world, role, 1, { every: 1, onTick: (_tick, w) => step(w, []) }).ctx.calls;
@@ -102,14 +107,12 @@ function drawn(world: World, role: (typeof ROLES)[number]): string {
 }
 
 describe("THE GIMBAL's drift", () => {
-  it("is on in the game, and level while the seam is off", () => {
-    expect(GIMBAL_TILT.amount).toBe(1);
-    GIMBAL_TILT.amount = 0;
-    expect(gimbalTilt(13.7, 1)).toBe(LEVEL);
+  it("drifts, and is level at a hush of nothing", () => {
+    expect(gimbalTilt(13.7, 1)).not.toBe(LEVEL);
+    expect(gimbalTilt(13.7, 0)).toBe(LEVEL);
   });
 
   it("lays a flat point on the ring exactly where the rig draws the ring", () => {
-    GIMBAL_TILT.amount = 1;
     for (const time of [0.5, 4, 19, 77]) {
       const t = gimbalTilt(time, 1);
       const w = view(FRONT + t.yaw, t.pitch);
@@ -147,7 +150,6 @@ describe("THE GIMBAL's drift", () => {
     // The widest a ring is ever drifted while a hand can be on it is the
     // first beat of the first turn, eased down from the whole drift — so the
     // whole drift is what is measured.
-    GIMBAL_TILT.amount = 1;
     const grab = gimbalGrabR(L) / L.tile;
     // The band of the first alignment, the widest: since the marks were
     // swapped (3 October 2026) no seat judges its own ring against a mark by
@@ -171,24 +173,7 @@ describe("THE GIMBAL's drift", () => {
     expect(turned).toBeLessThan(band / 2);
   });
 
-  it("draws every phase on every screen through the rig, and changes the picture", () => {
-    for (const [phase, beatsIn, cursor] of [
-      ["still", 1, 0],
-      ["turn", 1, 1],
-      ["shear", 1, 1],
-      ["open", 1, 3],
-    ] as const)
-      for (const role of ROLES) {
-        GIMBAL_TILT.amount = 0;
-        const flat = drawn(hung(phase, beatsIn, cursor), role);
-        GIMBAL_TILT.amount = 1;
-        const solid = drawn(hung(phase, beatsIn, cursor), role);
-        expect(solid).not.toBe(flat);
-      }
-  });
-
   it("still shows neither seat the other's ring", () => {
-    GIMBAL_TILT.amount = 1;
     const p1 = (inner: number) => {
       const w = hung("turn", 1);
       (gimbalBoss(w) as GimbalState).atMilli = [120, inner];
@@ -199,23 +184,23 @@ describe("THE GIMBAL's drift", () => {
       (gimbalBoss(w) as GimbalState).atMilli = [outer, 640];
       return drawn(w, "p2");
     };
+    // The first frame on each screen bakes what every later one reads.
+    p1(0);
+    p2(0);
     expect(p1(0)).toBe(p1(700));
     expect(p2(0)).toBe(p2(700));
   });
 
-  it("costs no more than a tenth over the flat picture, in any phase on any screen", () => {
+  it("costs no more canvas calls than its row, in any phase on any screen", () => {
     for (const phase of ["still", "turn", "shear", "open"] as const)
       for (const role of ROLES) {
-        GIMBAL_TILT.amount = 0;
-        const flat = cost(hung(phase, 1, phase === "open" ? 3 : 1), role);
-        GIMBAL_TILT.amount = 1;
-        const solid = cost(hung(phase, 1, phase === "open" ? 3 : 1), role);
-        expect(solid).toBeLessThanOrEqual(flat * 1.1);
+        const calls = cost(hung(phase, 1, phase === "open" ? 3 : 1), role);
+        if (MEASURE) console.log(phase, role, calls);
+        else expect(calls).toBeLessThanOrEqual(CALLS[phase]);
       }
   });
 
   it("bakes nothing more the longer it runs", () => {
-    GIMBAL_TILT.amount = 1;
     expect(heldAfter(3200)).toBe(heldAfter(1600));
   });
 });

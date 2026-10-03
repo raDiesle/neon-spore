@@ -27,7 +27,7 @@ import type { Skin } from "./solid-tube-draw.js";
 /** Each ring's radius, the outer first, and the drum's — `gimbal-shape.ts`'s. */
 const RING_R = [3.4, 2.3] as const;
 const DRUM_R = 1.3;
-/** The hoop's half-thickness: half `gimbal-depth.ts`'s band. */
+/** The hoop's half-thickness, in tiles. */
 export const HOOP = 0.13;
 /** How far a latch-tooth stands out of its rim, and how wide it is in thousandths of a turn. */
 const TOOTH = 0.3;

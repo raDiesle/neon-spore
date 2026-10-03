@@ -6,7 +6,6 @@ import {
   gimbalShownMilli,
   midCol,
   NO_BEARING,
-  OUTER,
   type SimConfig,
 } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
@@ -51,8 +50,6 @@ const TOOTH = 0.3;
 const SOCKET = 0.14;
 /** How wide a tooth is, in thousandths of a turn. */
 const TOOTH_MILLI = 40;
-/** How far a pivot pin stands out past its rim, in tiles. */
-const PIN = 0.42;
 
 /** The middle of the cradle: the middle column, a few rows down from the top of the field. */
 export function gimbalCentre(l: Layout, cfg: SimConfig): Point {
@@ -159,54 +156,5 @@ export function gimbalTeethPath(
     if (i < gone !== sheared) continue;
     block(p, at, r, faceMilli + (i * BEARING_TURN) / Math.max(1, of), out);
   }
-  return p;
-}
-
-/**
- * A ring's two pivot pins, and **the only thing on either screen that says
- * which ring this is**: the outer ring is pinned at the top and the bottom,
- * the inner at its sides, which is the right angle the two are set at. They
- * do not turn with the rim — a pin is what the rim turns in.
- */
-export function gimbalPinPath(l: Layout, at: Point, r: number, ring: GimbalRing): Path2D {
-  const p = new Path2D();
-  const half = ring === OUTER ? 0 : BEARING_TURN / 4;
-  const pin = l.tile * PIN;
-  for (const side of [0, BEARING_TURN / 2]) {
-    const on = gimbalPoint(at, r, half + side);
-    const turn = ang(half + side);
-    // `block`'s reason: the two pins are one path, and without this they come
-    // out joined by a line straight through the drum.
-    p.moveTo(on.x + pin * 0.5 * Math.cos(turn), on.y + pin * 0.5 * Math.sin(turn));
-    p.ellipse(on.x, on.y, pin * 0.5, pin * 0.34, turn, 0, Math.PI * 2);
-  }
-  return p;
-}
-
-/**
- * What the cradle hangs from: one hanger up the middle from the outer ring's
- * top pin to a shoulder off the top edge of the field, and the stub the
- * bottom pin sits in.
- *
- * It was a three-sided frame around the whole boss for one frame, and that
- * read as a box drawn round a picture rather than as a thing bearing weight
- * — the rule against a filled rectangle with a stroke round it, arrived at
- * from the other side.
- */
-export function gimbalYokePath(l: Layout, at: Point, r: number): Path2D {
-  const p = new Path2D();
-  const pin = l.tile * PIN;
-  const top = l.gridTop - l.tile * 0.5;
-  const hw = l.tile * 0.7;
-  p.moveTo(at.x - hw, top);
-  p.lineTo(at.x + hw, top);
-  p.moveTo(at.x - pin * 0.34, top);
-  p.lineTo(at.x - pin * 0.34, at.y - r);
-  p.moveTo(at.x + pin * 0.34, top);
-  p.lineTo(at.x + pin * 0.34, at.y - r);
-  p.moveTo(at.x - pin * 0.34, at.y + r);
-  p.lineTo(at.x - pin * 0.34, at.y + r + l.tile * 0.5);
-  p.moveTo(at.x + pin * 0.34, at.y + r);
-  p.lineTo(at.x + pin * 0.34, at.y + r + l.tile * 0.5);
   return p;
 }

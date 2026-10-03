@@ -12,9 +12,8 @@ import { type SlowSpan, slowHush } from "./slow-hush.js";
  * the drum nodding inside its rings on its own, the way a head leads a body.
  *
  * **In the game since 3 October 2026.** Offered in VERSUS as `gimbal:tilt`
- * / `drift` and taken by the owner (`tools/versus/DECIDED.md`). `amount` is
- * the seam it was judged through: 1 is the drift, 0 the flat picture the
- * game drew before it.
+ * / `drift` and taken by the owner (`tools/versus/DECIDED.md`); the flat
+ * picture it was judged against is gone, and a level cradle is a hush of 0.
  *
  * **What a thumb is measured against moves with what it is aligning.** The
  * rings are drawn through an affine of the plane they stand in
@@ -28,9 +27,6 @@ import { type SlowSpan, slowHush } from "./slow-hush.js";
  * `gimbal-tilt.test.ts` measures the widest it gets against the grab radius
  * and the true band.
  */
-
-/** The drift's seam: 1 is the game, 0 the flat picture it replaced. */
-export const GIMBAL_TILT: { amount: number } = { amount: 1 };
 
 /** THE GIMBAL's own lattice, so it never wanders in step with another boss. */
 const SEED = 163;
@@ -80,7 +76,7 @@ export function gimbalHush(
 
 /** The cradle's angles at `time` seconds, `hush` of the way to the whole drift. */
 export function gimbalTilt(time: number, hush: number): GimbalTilt {
-  const k = hush * GIMBAL_TILT.amount * bodyLife();
+  const k = hush * bodyLife();
   if (k === 0) return LEVEL;
   const d = idleDrift(time, SEED, k);
   return { yaw: d.yaw, pitch: d.pitch, roll: d.roll, drum: d.headYaw };

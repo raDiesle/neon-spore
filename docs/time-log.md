@@ -32863,3 +32863,16 @@ Bottleneck: finding that both bodies hang above the top row, and whether a drawn
 Bottleneck: the carry broke the rehearsal film in a way only a printed run showed — an unheld inner ring rides the outer and then falls home.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE GIMBAL's flat picture goes, now the drift ships
+
+- reading: 5 min. The `rigged` branches, what else drew pins, the yoke and
+  the hoop.
+- writing: 5 min. The branches, `GIMBAL_TILT`, `gimbal-depth.ts` and two
+  shape paths out; the cost held to a fixed row.
+- looking: 0 min.
+- friction: 5 min. A seat's-ring test went red only because the deleted
+  test had baked the first frame's sprites for it.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: a test that leaned on the one before it to warm the sprite cache.

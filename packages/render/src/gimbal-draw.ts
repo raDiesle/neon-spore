@@ -16,14 +16,8 @@ import {
 import type { GimbalFx } from "./gimbal-fx.js";
 import { drawGimbalPartnerMark } from "./gimbal-partner.js";
 import { drawGimbalRing } from "./gimbal-ring.js";
-import {
-  gimbalCentre,
-  gimbalDrumR,
-  gimbalRingR,
-  gimbalYokePath,
-  type Point,
-} from "./gimbal-shape.js";
-import { GIMBAL_TILT, gimbalHush, gimbalTilt, tiltPlane } from "./gimbal-tilt.js";
+import { gimbalCentre, gimbalDrumR, type Point } from "./gimbal-shape.js";
+import { gimbalHush, gimbalTilt, tiltPlane } from "./gimbal-tilt.js";
 import { drawTiltedCradle } from "./gimbal-tilt-draw.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
@@ -99,37 +93,27 @@ export function drawGimbal(
   ctx.translate(at.x + fx.hurt.shakeX(time, l.tile), at.y + fx.kick * l.tile);
   ctx.rotate(fx.shake * 0.05 * Math.sin(time * 38));
   ctx.translate(-at.x, -at.y);
-  // The drifting candidate (`gimbal-tilt.ts`): the solid parts through the
-  // rig, then everything flat laid on through the same tilt.
-  const rigged = GIMBAL_TILT.amount > 0;
-  if (rigged) {
-    const tilt = gimbalTilt(time, gimbalHush(s, world, beat, beatPhase));
-    ctx.translate(at.x, at.y);
-    ctx.rotate(tilt.roll);
-    ctx.translate(-at.x, -at.y);
-    drawTiltedCradle(ctx, l, s, at, open, time, tilt, fx.hurt.value);
-    tiltPlane(ctx, at, tilt);
-  } else drawYoke(ctx, l, at, lit);
-  if (!rigged || open > 0) drawDrum(ctx, l, at, open, time, fx.hurt.value);
+  // The drift (`gimbal-tilt.ts`): the solid parts through the rig — the yoke,
+  // the hoops, the teeth, the pins and the shut drum — then everything flat
+  // laid on through the same tilt.
+  const tilt = gimbalTilt(time, gimbalHush(s, world, beat, beatPhase));
+  ctx.translate(at.x, at.y);
+  ctx.rotate(tilt.roll);
+  ctx.translate(-at.x, -at.y);
+  drawTiltedCradle(ctx, l, s, at, open, time, tilt, fx.hurt.value);
+  tiltPlane(ctx, at, tilt);
+  if (open > 0) drawDrum(ctx, l, at, open, time, fx.hurt.value);
   if (gimbalLeaking(s)) drawLeak(ctx, l, world, s, at, beat, beatPhase, open);
   for (const ring of [OUTER, INNER] as const)
     if (ring === OUTER ? showsGimbalOuter(l.role) : showsGimbalInner(l.role))
-      drawGimbalRing(ctx, l, world, s, ring, at, beat, beatPhase, time, fx.marks.verdicts, rigged);
+      drawGimbalRing(ctx, l, world, s, ring, at, beat, beatPhase, time, fx.marks.verdicts);
   drawGimbalPartnerMark(ctx, l, s, at, beat, time);
   ctx.restore();
 }
 
-/** The cradle the whole thing hangs in, off the top edge of the field. */
-function drawYoke(ctx: CanvasRenderingContext2D, l: Layout, at: Point, lit: number): void {
-  const yoke = gimbalYokePath(l, at, gimbalRingR(l, OUTER));
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = rgba(PALETTE.rockDark, 0.5 + 0.4 * lit);
-  ctx.stroke(yoke);
-}
-
 /**
- * The drum: two leaves shut on their seam until the last tooth goes, then
- * swinging apart on the core. The whole body tips toward the ship as they
+ * The drum once it opens: two leaves swinging apart on the core — shut, it
+ * is a solid part of the rig (`gimbal-tilt-draw.ts`). The whole body tips toward the ship as they
  * swing (`gimbalDrumFlat`), which is the one place on this boss a face the
  * pair has been reading goes away and another comes.
  */

@@ -2135,7 +2135,6 @@ by hand never moves.
 | `packages/render/src/governor-receipts.ts` | **THE GOVERNOR's receipts, drawn** — what `governor-fx.ts` holds between frames |
 | `packages/render/src/gimbal-draw.ts` | **THE GIMBAL**: a sealed drum hung in a yoke over the middle of the field inside two rings set at right… |
 | `packages/render/src/gimbal-drum.ts` | **The sealed drum the two rings hang round, and the clock the whole scene is posed off** (§18, *Animation*) |
-| `packages/render/src/gimbal-depth.ts` | **THE GIMBAL in depth**: a ring is not a line drawn round the drum but a hoop of metal with a body |
 | `packages/render/src/gimbal-ring.ts` | **The half of THE GIMBAL a hand is on**: one ring, drawn on the screen of the seat that grips it |
 | `packages/render/src/gimbal-rig.ts` | THE GIMBAL's drum, rings and yoke as tubes and balls for `drawRig`; the navigator's ring is the same wheel seen from behind |
 | `packages/render/src/gimbal-shape.ts` | **Where THE GIMBAL is**, in field pixels: the yoke it hangs from |
@@ -2144,7 +2143,7 @@ by hand never moves.
 | `packages/render/src/gimbal-blow.ts` | THE GIMBAL's timeout blow: the seam's bead pressed into the skin and the plating split open in its colour |
 | `packages/render/src/gimbal-marks.ts` | **THE GIMBAL's two rings answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/gimbal-tilt-draw.ts` | The solid half of THE GIMBAL's drifting candidate: yoke, drum and this seat's rings through the rig |
-| `packages/render/src/gimbal-tilt.ts` | THE GIMBAL's idle drift, in the game (`GIMBAL_TILT`): hush by phase, and the ring plane's affine |
+| `packages/render/src/gimbal-tilt.ts` | THE GIMBAL's idle drift, in the game (`gimbalTilt`): hush by phase, and the ring plane's affine |
 | `packages/render/src/gimbal-partner.ts` | **The partner's mark, on this seat's screen** |
 | `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
 | `packages/render/src/effects-round-marks.ts` | The rounds' mark verdicts (GAUGE, SNAKE, PINBALL), a base of the effects roster fed by the takeover because a round frame skips `Effects.ingest` |
