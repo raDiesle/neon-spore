@@ -32946,3 +32946,5 @@ Bottleneck: laying each part where the shaken, rolled, tilted cradle is drawn, s
 - landing: 5 min. `check:fast`, the index, `land`.
 
 Bottleneck: none worth the name; a single describe meant choosing the cut rather than following one.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

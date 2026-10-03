@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 7c92f02ab — Split THE GIMBAL's frame test into two pages over one harness
+
+The cradle's poses move to gimbal-frame-harness.ts; gimbal-frame.test.ts keeps the six poses and gimbal-answer.test.ts takes the fold, the knurl, the word and the kicks. gimbal-beam.test.ts drops its own copy of the cradle-hanging helper for the harness. Nothing drawn changes.
+
 ## 2026-10-03 · 99b20dc1b — THE GIMBAL stops a bolt on what it meets
 
 A bolt fired at THE GIMBAL is now drawn to end where it meets the cradle instead of flying through it. It bursts on the leaking bead in either colour up the seam's column, and scuffs on the yoke, the drum, and the hoops, teeth and pins of the rings that screen is shown, laid where the drifting, shaken cradle is drawn. While the bead is still inside the rings a bolt is drawn reaching it through the outer hoop; that is left as a look. HASP and KEEL go back to the queue. Exemption: a look the owner asked for by name (1 October 2026, "but also all other bosses").
