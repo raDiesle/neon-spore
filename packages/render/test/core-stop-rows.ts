@@ -36,6 +36,7 @@ import * as halter from "./halter-harness.js";
 import * as keel from "./keel-harness.js";
 import * as plumb from "./plumb-harness.js";
 import * as rime from "./rime-harness.js";
+import * as scuttle from "./scuttle-harness.js";
 import * as sling from "./sling-harness.js";
 
 /**
@@ -191,6 +192,17 @@ export const ROWS: Row[] = [
         r.bared = open;
       });
       drawRime(paper(), l, world, s, world.beat, 0.5, 0, new RimeFx(), stops);
+    },
+    wide: true,
+  },
+  {
+    name: "THE SCUTTLE",
+    // The live part is the core, and hangs wherever its socket is: here the
+    // middle column's, in cyan. Shut is nothing loose, the frame's armour.
+    draw(stops, l, open) {
+      const world = scuttle.stood();
+      if (open) scuttle.live(world);
+      scuttle.draw(world, stops, l);
     },
     wide: true,
   },

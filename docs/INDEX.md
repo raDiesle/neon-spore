@@ -1348,10 +1348,13 @@ by hand never moves.
 | `packages/render/src/scuttle-draw.ts` | What is left of the wind-up's shiver in an open window |
 | `packages/render/src/scuttle-fx.ts` | What THE SCUTTLE leaves behind a frame: the **jolt** a throw puts through the frame |
 | `packages/render/src/scuttle-shape.ts` | **Where THE SCUTTLE is**, in field pixels: the frame of sockets hung over the top of the field above row 0 |
+| `packages/render/src/scuttle-stop.ts` | **Where a bolt meets THE SCUTTLE**: the live part where it hangs, else the slab and the loose parts |
 | `packages/render/src/scuttle-grip.ts` | **THE SCUTTLE's hanging parts as controls**: a ring on each one a thumb may still carry |
 | `packages/render/src/scuttle-metal.ts` | **What THE SCUTTLE is made of**: a slab of dark rock |
 | `packages/render/src/scuttle-marks.ts` | **THE SCUTTLE's hanging parts answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/scuttle-plate.ts` | **THE SCUTTLE's parts** (`scuttle-metal.ts` has the slab they are seated in): a plate of rock |
+| `packages/render/src/scuttle-lock.ts` | **The lock on the next throw's column**: its box, for the cue, and its drawing |
+| `packages/render/src/scuttle-outline.ts` | **THE SCUTTLE's two outlines** — the slab and a plate |
 | `packages/render/src/scout-button.ts` | THE SCOUT's four presses, as faces on the band's own lobes |
 | `packages/render/src/scout-draw.ts` | THE SCOUT's arena, drawn: the little ship, what it is there to collect, what would end it |
 | `packages/render/src/scout-round.ts` | THE SCOUT over the whole stage |

@@ -1,3 +1,5 @@
+import type { SimConfig } from "./config.js";
+import type { CoreVerdict } from "./core-verdict.js";
 import {
   scuttleBoss,
   scuttleLeft,
@@ -7,7 +9,7 @@ import {
   scuttleWinding,
 } from "./scuttle.js";
 import { scuttleDown } from "./scuttle-step.js";
-import type { Bullet } from "./types.js";
+import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -41,21 +43,18 @@ export function scuttleStruck(world: World, b: Bullet): boolean {
   const s = scuttleBoss(world);
   if (s === null) return false;
   const cfg = world.cfg;
-  // The frame hangs over its own columns whatever its parts are doing, so a
-  // bolt into one of them met it: armour, if nothing more (`shot-out.ts`).
-  const frame =
-    b.col >= scuttleSocketCol(cfg, 0) && b.col <= scuttleSocketCol(cfg, cfg.scuttleCols - 1);
   if (b.lance) {
-    if (!scuttleWinding(s) || b.col !== scuttleSocketCol(cfg, s.live)) return frame;
+    if (!scuttleWinding(s) || b.col !== scuttleSocketCol(cfg, s.live))
+      return scuttleFramed(cfg, b.col);
     scuttleDown(world, s);
     return true;
   }
-  if (!scuttleShootable(s)) return frame;
+  const verdict = scuttleVerdict(world, b.col, b.color);
+  if (verdict === null) return false;
+  if (verdict === "armour") return true;
   const socket = s.live;
   const col = scuttlePartCol(s, cfg, socket);
-  const p = s.parts[socket];
-  if (b.col !== col || p === null || p === undefined) return frame;
-  if (b.color !== p.color) {
+  if (verdict === "wrong") {
     world.events.push({ type: "scuttleRebuff", col });
     return true;
   }
@@ -67,4 +66,30 @@ export function scuttleStruck(world: World, b: Bullet): boolean {
   if (s.held === socket) s.held = -1;
   world.events.push({ type: "scuttleStruck", col, socket, left: scuttleLeft(s) });
   return true;
+}
+
+/**
+ * **What a bolt of `color` in `col` meets of THE SCUTTLE**, pure, so the
+ * picture asks it where a bolt stops (`render/scuttle-stop.ts`) and
+ * `scuttleStruck` acts on the same answer: `"target"` the live part in its
+ * own colour where it hangs, `"wrong"` it in the other, `"armour"` the frame
+ * over any of its columns otherwise, and `null` anywhere else. A beam is
+ * judged apart, in `scuttleStruck`.
+ */
+export function scuttleVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const s = scuttleBoss(world);
+  if (s === null) return null;
+  const cfg = world.cfg;
+  // The frame hangs over its own columns whatever its parts are doing, so a
+  // bolt into one of them met it: armour, if nothing more (`shot-out.ts`).
+  const frame = scuttleFramed(cfg, col) ? "armour" : null;
+  if (!scuttleShootable(s)) return frame;
+  const p = s.parts[s.live];
+  if (col !== scuttlePartCol(s, cfg, s.live) || p === null || p === undefined) return frame;
+  return color === p.color ? "target" : "wrong";
+}
+
+/** Whether `col` is one of the frame's own. */
+function scuttleFramed(cfg: SimConfig, col: number): boolean {
+  return col >= scuttleSocketCol(cfg, 0) && col <= scuttleSocketCol(cfg, cfg.scuttleCols - 1);
 }

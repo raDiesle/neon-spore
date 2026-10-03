@@ -1,8 +1,7 @@
 import { rgba } from "./hex.js";
-import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { faded, glint } from "./scuttle-metal.js";
-import { type Point, SOCKET_HALF_H, SOCKET_HALF_W } from "./scuttle-shape.js";
+import type { Point } from "./scuttle-shape.js";
 
 /**
  * **THE SCUTTLE's parts** (`scuttle-metal.ts` has the slab they are seated
@@ -135,25 +134,4 @@ export function paintLiveRim(
   ctx.clip(body);
   band(ctx, body, x, y, y + tile, tile * 0.12, rim, a);
   ctx.restore();
-}
-
-/**
- * A socket's plate as a closed shape: a flat-topped lobe, wider than it is
- * tall, with its lower corners rounded off — a rock's outline squashed into
- * a slot, so that a row of them reads as plating and one hanging alone reads
- * as a thing that was plating a moment ago. `open` closes it inward, for the
- * frame on its way out; `half` is a hanging plate's slimmer half height.
- */
-export function scuttlePlatePath(l: Layout, c: Point, open = 1, half = SOCKET_HALF_H): Path2D {
-  const hw = l.tile * SOCKET_HALF_W * open;
-  const hh = l.tile * half;
-  const p = new Path2D();
-  p.moveTo(c.x - hw, c.y - hh);
-  p.lineTo(c.x + hw, c.y - hh);
-  p.lineTo(c.x + hw, c.y + hh * 0.2);
-  p.quadraticCurveTo(c.x + hw, c.y + hh, c.x + hw * 0.6, c.y + hh);
-  p.lineTo(c.x - hw * 0.6, c.y + hh);
-  p.quadraticCurveTo(c.x - hw, c.y + hh, c.x - hw, c.y + hh * 0.2);
-  p.closePath();
-  return p;
 }

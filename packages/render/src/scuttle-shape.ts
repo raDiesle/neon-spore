@@ -109,43 +109,6 @@ export function scuttleBox(
   return { left: first.x - padX, right: last.x + padX, top: first.y - padY, bottom: last.y + padY };
 }
 
-/**
- * The slab as a closed contour: an arched top, flanks that bulge out a
- * little and breathe, and an underside scalloped once a column — a jaw of
- * lobes over the sockets rather than a box round them, since a box over
- * the field is a panel and a lobed mass is a body (`CLAUDE.md`). `open`
- * closes it in on the middle column, for the frame on its way out.
- */
-export function scuttleSlabPath(
-  l: Layout,
-  cfg: SimConfig,
-  rise: number,
-  open: number,
-  time: number,
-): Path2D {
-  const box = scuttleBox(l, cfg);
-  const mid = (box.left + box.right) * 0.5;
-  const hw = (box.right - box.left) * 0.5 * open;
-  const top = box.top - rise;
-  const bottom = box.bottom - rise;
-  const flank = l.tile * (0.08 + 0.02 * Math.sin(time * 1.3));
-  const arch = l.tile * 0.12;
-  const lobe = l.tile * 0.1;
-  const p = new Path2D();
-  p.moveTo(mid - hw, top + arch);
-  p.quadraticCurveTo(mid, top - arch, mid + hw, top + arch);
-  p.quadraticCurveTo(mid + hw + flank, (top + bottom) * 0.5, mid + hw, bottom - lobe);
-  const n = Math.max(1, cfg.scuttleCols);
-  for (let i = n - 1; i >= 0; i--) {
-    const x0 = mid + hw - ((n - i) * hw * 2) / n;
-    const x1 = x0 + (hw * 2) / n;
-    p.quadraticCurveTo((x0 + x1) * 0.5, bottom + lobe, x0, bottom - lobe);
-  }
-  p.quadraticCurveTo(mid - hw - flank, (top + bottom) * 0.5, mid - hw, top + arch);
-  p.closePath();
-  return p;
-}
-
 /** How far through the cadence a loose part is, 0 at the detachment and 1 at the throw. */
 export function scuttleHangPhase(
   s: ScuttleState,

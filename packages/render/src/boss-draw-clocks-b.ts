@@ -129,7 +129,7 @@ export function drawFxBoss(
   // outlives a frame — the jolt of a throw, the plate that tumbles off on a
   // strike — is `effects.boss.scuttle` (`scuttle-draw.ts`, `scuttle-fx.ts`).
   if (boss.kind === "scuttle") {
-    drawScuttle(ctx, l, world, boss, beat, beatPhase, time, effects.boss.scuttle);
+    drawScuttle(ctx, l, world, boss, beat, beatPhase, time, effects.boss.scuttle, effects.bolts);
     // The rings on the hanging parts, the pilot's alone: he is the seat shown
     // every one of them uncoloured, so a ring on each says which may still be
     // carried and nothing about which is live (`scuttle-grip.ts`).

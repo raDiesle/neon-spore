@@ -4,7 +4,7 @@ import { rgba } from "./hex.js";
 import { type Layout, tileCX, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { ScuttleMarks } from "./scuttle-marks.js";
-import { scuttlePlatePath } from "./scuttle-plate.js";
+import { scuttlePlatePath } from "./scuttle-outline.js";
 import { PLATE_HALF_H, type Point, scuttleSocket, scuttleTop } from "./scuttle-shape.js";
 import { showsScuttleLive } from "./view-role-clocks-b.js";
 

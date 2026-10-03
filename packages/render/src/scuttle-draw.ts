@@ -2,25 +2,19 @@ import {
   type Color,
   type ScuttleState,
   type SimConfig,
-  scuttleNextCol,
   scuttlePartCol,
-  scuttleShootable,
   scuttleSocketCol,
-  scuttleWinding,
   type World,
 } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
-import { type Layout, tileCX } from "./layout.js";
+import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ScuttleFx } from "./scuttle-fx.js";
+import { drawScuttleLock } from "./scuttle-lock.js";
 import { faded, paintSlab } from "./scuttle-metal.js";
-import {
-  paintLiveRim,
-  paintPlate,
-  paintSocket,
-  paintThread,
-  scuttlePlatePath,
-} from "./scuttle-plate.js";
+import { scuttlePlatePath, scuttleSlabPath } from "./scuttle-outline.js";
+import { paintLiveRim, paintPlate, paintSocket, paintThread } from "./scuttle-plate.js";
 import {
   PLATE_HALF_H,
   type Point,
@@ -30,14 +24,12 @@ import {
   scuttleHangDrop,
   scuttleHangPhase,
   scuttleShiver,
-  scuttleSlabPath,
   scuttleSocket,
   scuttleThread,
-  scuttleTop,
   scuttleWindPhase,
   scuttleWindRise,
 } from "./scuttle-shape.js";
-import { drawTargetLock } from "./target-lock.js";
+import { scuttleStopper } from "./scuttle-stop.js";
 import { showsScuttleCount, showsScuttleLive } from "./view-role-clocks-b.js";
 
 /**
@@ -61,7 +53,8 @@ import { showsScuttleCount, showsScuttleLive } from "./view-role-clocks-b.js";
  * pilot's every socket is on the slab, plated or open, and every hanging
  * part is grey; on the navigator's the slab is blind — no socket on it but
  * the ones a part is leaving now — and the live part hangs in its colour
- * with the lock under it (`view-role-clocks-b.ts`).
+ * with the lock under it (`view-role-clocks-b.ts`). A bolt stops on what it
+ * meets of the frame (`scuttle-stop.ts`), told to `stops`.
  */
 export function drawScuttle(
   ctx: CanvasRenderingContext2D,
@@ -72,6 +65,7 @@ export function drawScuttle(
   beatPhase: number,
   time: number,
   fx: ScuttleFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const fade = scuttleFade(s, cfg, beat, beatPhase);
@@ -83,7 +77,8 @@ export function drawScuttle(
   const lively = showsScuttleLive(l.role);
 
   ctx.save();
-  ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
+  const shake = fx.hurt.shakeX(time, l.tile);
+  ctx.translate(shake, 0);
   drawSlab(ctx, l, cfg, rise, time, fade, fx.hurt.value);
   for (let i = 0; i < s.parts.length; i++) {
     const part = s.parts[i] ?? null;
@@ -111,8 +106,9 @@ export function drawScuttle(
       } else drawPlate(ctx, l, at, fade, PLATE_HALF_H);
     }
   }
-  if (lively) drawLock(ctx, l, cfg, s, time, fade);
+  if (lively) drawScuttleLock(ctx, l, cfg, s, time, fade);
   ctx.restore();
+  stops?.aim(scuttleStopper(l, world, s, { shake, rise, hang, wind, fade }, beat, beatPhase, time));
 }
 
 /** The slab: a lobed mass of dark rock over the violet of its inside, closing inward on its way out (`scuttle-metal.ts`). */
@@ -194,54 +190,4 @@ function drawLivePart(
   paintPlate(ctx, p, at, l.tile, PLATE_HALF_H, PALETTE[color], 0.85, fade);
   const rim = color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
   paintLiveRim(ctx, p, at.x, at.y, l.tile, faded(rim, fade), 0.6 + 0.3 * breath);
-}
-
-/**
- * **Where the lock on the next throw's column stands**, or null when nothing
- * hangs — the box, not the drawing.
- *
- * Exported because the cue hangs its word off this exact box (`boss-cue.ts`):
- * this screen already wears a frame around the place, and a second frame
- * around the same place is the mistake `target-lock.ts` records the owner
- * ending. So the cue draws no frame here and only says the verb, which means
- * it has to know where the frame it is borrowing actually is.
- */
-export function scuttleLockBox(
-  l: Layout,
-  cfg: SimConfig,
-  s: ScuttleState,
-): { x: number; y: number; halfW: number; halfH: number } | null {
-  const col = scuttleNextCol(s, cfg);
-  if (col < 0) return null;
-  return {
-    x: tileCX(l, col),
-    y: scuttleTop(l, cfg) - l.tile * 0.12,
-    halfW: l.tile * 0.46,
-    halfH: l.tile * 0.22,
-  };
-}
-
-/** The lock on the column the next throw lands in, dimmed while nothing hanging can be shot. */
-function drawLock(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  cfg: SimConfig,
-  s: ScuttleState,
-  time: number,
-  fade: number,
-): void {
-  const box = scuttleLockBox(l, cfg, s);
-  if (box === null) return;
-  const hot = scuttleShootable(s) && !scuttleWinding(s);
-  drawTargetLock(
-    ctx,
-    box.x,
-    box.y,
-    box.halfW,
-    box.halfH,
-    PALETTE.shieldRim,
-    time,
-    (hot ? 1 : 0.5) * fade,
-    scuttleNextCol(s, cfg) + 7,
-  );
 }

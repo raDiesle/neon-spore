@@ -33066,3 +33066,16 @@ Bottleneck: the rack is drawn through three transforms — the jolt, the fold ab
 Bottleneck: `valve-shape.ts` was at its line ceiling, so sharing the pins' outline with the stopper meant splitting the file first.
 
 *Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE SCUTTLE stops a bolt on what it meets
+
+- reading: 5 min. The scuttle's shot, drawer, shape and plate.
+- writing: 25 min. `scuttleVerdict`, the slab's and the plate's outlines
+  moved into `scuttle-outline.ts` as pieces both drawn and met, the lock
+  moved to `scuttle-lock.ts` for room, `scuttle-stop.ts`, a harness, a
+  `core-stop-rows.ts` row and a swung-part test.
+- looking: 0 min.
+- friction: 5 min. `bun run imports` could not parse a half-cut import and the unused ones were taken out by hand.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: the slab and plate were drawn as quadratic paths with no points beside them, so the outlines had to become shared data before a bolt could meet them.

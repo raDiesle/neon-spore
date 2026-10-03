@@ -13,7 +13,7 @@ import { burgeeSpindleAt } from "../../../packages/render/src/burgee-shape.js";
 import { davitAngle } from "../../../packages/render/src/davit-pose.js";
 import { DAVIT_SAG, davitHook, davitMast } from "../../../packages/render/src/davit-shape.js";
 import { tileCX } from "../../../packages/render/src/layout.js";
-import { scuttleLockBox } from "../../../packages/render/src/scuttle-draw.js";
+import { scuttleLockBox } from "../../../packages/render/src/scuttle-lock.js";
 import { scuttleRowY, scuttleShiver } from "../../../packages/render/src/scuttle-shape.js";
 import { sinewHandleCircle } from "../../../packages/render/src/sinew-handles.js";
 import { sinewLanded, sinewMassCentre } from "../../../packages/render/src/sinew-shape.js";

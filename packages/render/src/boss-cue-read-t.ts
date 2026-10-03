@@ -9,7 +9,7 @@ import {
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
 import { type Layout, tileCX } from "./layout.js";
-import { scuttleLockBox } from "./scuttle-draw.js";
+import { scuttleLockBox } from "./scuttle-lock.js";
 import { scuttleRowY } from "./scuttle-shape.js";
 
 /**

@@ -411,6 +411,9 @@ lane. THE INSTAR's marks are only up while THE SLOW is open (`instarMarksUp`),
 and its body sways (`instar-sway.ts`): the stop is wherever the body is drawn
 that frame.
 
+THE SCUTTLE stops one (`render/scuttle-stop.ts`, its row in
+`core-stop-rows.ts`); THE INSTAR, NETTLE and STARE are left.
+
 Done when each boss here calls `stops?.aim`, has its row in
 `core-stop-rows.ts`, and `bun run check` is green.
 
@@ -507,3 +510,17 @@ for, keeping each departure argued in `bosses.md` named as a departure.
 Done when no row or contents line says *queued* or *not built* of a part
 the tree has, and `bun run check` is green (`tools/test/doc-drift.test.ts`
 reads the backticked paths).
+
+## `sim/boss-surface-clocks-e.ts` is near its line ceiling
+
+- **Found:** 2026-10-03, claude/queue-work-cccabd
+- **Where:** local
+- **Files:** `packages/sim/src/boss-surface-clocks-e.ts`
+
+At 233 lines, and every `…Verdict` the bolt-stop lanes add is one more
+export line in it (the size hook warns on each). Split its verdict exports
+into a surface file of their own (`boss-surface-verdicts.ts`, alphabetical),
+re-exported from the package index as the others are, before a lane has to
+do it mid-task. Done when the file is well under the ceiling and
+`bun run check` is green.
+
