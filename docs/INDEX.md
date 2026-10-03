@@ -1558,6 +1558,7 @@ by hand never moves.
 | `packages/render/src/hasp-pose.ts` | **How far through a pose THE HASP is**, and how far each clasp stands open |
 | `packages/render/src/hasp-shape.ts` | **Where THE HASP is**: three clasps down the middle column, each a hinged shell over a hub |
 | `packages/render/src/hasp-story.ts` | **THE HASP's story between the hasps, drawn** (`sim/hasp-story.ts`, §20 S1–S4) |
+| `packages/render/src/hasp-stop.ts` | Where a bolt meets THE HASP: the loose bolt in either colour, else the clasps, hubs and latch bar as drawn |
 | `packages/render/src/hasp-grip.ts` | **The two thumbs on THE HASP** — half two of the look lane |
 | `packages/render/src/hasp-blow.ts` | **THE HASP's own blow at the hull** (`boss-strike-look.ts`): its falling bolt driven home into the plating |
 | `packages/render/src/hasp-marks.ts` | **THE HASP's halos and verdicts** — each seat's own mark answers a touch, and neither is shown the partner's ring |

@@ -32965,3 +32965,15 @@ Bottleneck: none worth the name; a single describe meant choosing the cut rather
 Bottleneck: removing a command touches every package that names it, and nothing lists them in one place.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE HASP stops a bolt on what it meets
+
+- reading: 10 min. THE GIMBAL's and THE CYST's lanes to copy, the hasp's
+  drawer, shape and latch.
+- writing: 15 min. `haspVerdict`, the shell's halves as points, the bolt's
+  size and the latch's bar shared, `hasp-stop.ts`, two tests.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: pulling the shell, the bolt and the latch bar out of their drawers as figures so the stopper reads what is drawn rather than a copy.

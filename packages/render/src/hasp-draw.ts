@@ -1,5 +1,6 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import { HASP_COUNT, type HaspState, haspLoose, type World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { type BossHurt, drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
 import { strokeGlow } from "./glow.js";
@@ -7,7 +8,8 @@ import type { GripVerdict } from "./grip-verdict.js";
 import { drawHaspHalos, drawHaspVerdicts } from "./hasp-marks.js";
 import { drawHaspCap, drawHaspLatch, drawHaspWheel } from "./hasp-parts.js";
 import { haspClearing, haspGape, haspOpened, haspStillPhase } from "./hasp-pose.js";
-import { haspBoltAt, haspCentre, haspShellPath, haspShellRadius } from "./hasp-shape.js";
+import { HASP_BOLT, haspBoltAt, haspCentre, haspShellPath, haspShellRadius } from "./hasp-shape.js";
+import { haspStopper } from "./hasp-stop.js";
 import { drawHaspSmear, drawHaspStory, haspStoryGape } from "./hasp-story.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
@@ -57,6 +59,9 @@ const HASP_SLACK_RATE = 1.4;
  * wheel and whether it is free on the navigator's, the row on both. The two
  * pictures of the same clasp differ exactly where the fight does
  * (`hasp-parts.ts`).
+ *
+ * A bolt stops on what it meets of the row (`hasp-stop.ts`), told to
+ * `stops`.
  */
 export function drawHasp(
   ctx: CanvasRenderingContext2D,
@@ -67,6 +72,7 @@ export function drawHasp(
   beatPhase: number,
   time: number,
   fx: HaspFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const lit = smoothstep(haspStillPhase(s, cfg, beat, beatPhase));
@@ -78,12 +84,14 @@ export function drawHasp(
   // The jolt of a hasp giving drops the whole row in its mounting — applied to
   // the context, so the clasps, the hubs and the latch stay one rigid door.
   ctx.globalAlpha = 0.15 + 0.85 * lit;
-  ctx.translate(fx.hurt.shakeX(time, l.tile), fx.jolt * l.tile);
+  const shift = { x: fx.hurt.shakeX(time, l.tile), y: fx.jolt * l.tile };
+  ctx.translate(shift.x, shift.y);
   if (clearing > 0) drawPassage(ctx, l, world, clearing);
+  const swung: number[] = [];
   for (let i = 0; i < HASP_COUNT; i++) {
     const rest = haspGape(s, cfg, i, beat, beatPhase, wheel);
     const gape = rest + haspStoryGape(s, cfg, i, beat, beatPhase, time, latch, rest);
-    drawClasp(ctx, l, world, s, i, gape, fx.hurt.value, time);
+    swung.push(drawClasp(ctx, l, world, s, i, gape, fx.hurt.value, time));
     drawHaspStory(ctx, l, cfg, s, i, gape, beat, beatPhase, time, latch, wheel);
   }
   // The halos go on the shells and under the marks they ask for.
@@ -98,6 +106,7 @@ export function drawHasp(
   drawHaspVerdicts(ctx, l, cfg, s, fx.verdicts);
   if (haspLoose(s)) drawBolt(ctx, l, world, s, beat, beatPhase);
   ctx.restore();
+  stops?.aim(haspStopper(l, world, s, swung, shift, wheel, latch, beat, beatPhase));
 
   // The seize, said as the design says it: the whole field dark for a beat,
   // on the screens that are shown a wheel to seize (§20, *Presentation*).
@@ -123,6 +132,7 @@ interface HaspFx {
  * One clasp's shell at the gape its pose gives it. A sealed clasp is drawn
  * whole and a swung one is drawn fainter, so the row reads as a count from
  * across a room: two bright shut lids and one gone slack is one hasp done.
+ * Returns the gape it was drawn at, slack and all, for where a bolt meets it.
  */
 function drawClasp(
   ctx: CanvasRenderingContext2D,
@@ -133,7 +143,7 @@ function drawClasp(
   gape: number,
   hurt: number,
   time: number,
-): void {
+): number {
   const spent = haspOpened(s, i) && s.phase !== "clear";
   // A swung clasp hangs slack on its hinge and sways there, each out of step
   // with the others — the part of this machine that has come loose.
@@ -153,6 +163,7 @@ function drawClasp(
   ctx.strokeStyle = spent ? rgba(PALETTE.rock, 0.45) : PALETTE.rock;
   ctx.stroke(shell);
   drawHurt(ctx, shell, hurt);
+  return gape * slack;
 }
 
 /**
@@ -198,7 +209,9 @@ function drawBolt(
 ): void {
   const { x, y, along } = haspBoltAt(l, world.cfg, s, beat, beatPhase);
   const bolt = new Path2D();
-  bolt.roundRect(x - l.tile * 0.12, y - l.tile * 0.3, l.tile * 0.24, l.tile * 0.6, l.tile * 0.1);
+  const w = HASP_BOLT.halfW * l.tile;
+  const h = HASP_BOLT.halfH * l.tile;
+  bolt.roundRect(x - w, y - h, w * 2, h * 2, l.tile * 0.1);
   ctx.fillStyle = rgba(PALETTE.hullRim, 0.55 + 0.35 * along);
   ctx.fill(bolt);
   strokeGlow(ctx, bolt, PALETTE.hullRim, STROKE.inner, 1 + along);

@@ -446,7 +446,10 @@ Both are drawn from `boss-draw-clocks-c.ts`, shared with the MANTLE lane.
 THE GIMBAL, the third of this entry, stops a bolt (`render/gimbal-stop.ts`,
 `gimbalVerdict`), held by `render/test/gimbal-stop.test.ts` and its row in
 `sim/test/shot-verdict.test.ts`: its target is either colour, so it has no
-`wrong` and no row in `core-stop-rows.ts`. THE HASP and THE KEEL are left.
+`wrong` and no row in `core-stop-rows.ts`. THE HASP stops one the same way
+(`render/hasp-stop.ts`, `haspVerdict`, `render/test/hasp-stop.test.ts`).
+THE KEEL is left: its socket wants a colour and has a `wrong`, so it takes a
+row; its marrow and its thrown rock want either and do not.
 
 Done when each boss here calls `stops?.aim`, has its row in
 `core-stop-rows.ts`, and `bun run check` is green.

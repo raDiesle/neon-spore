@@ -54,6 +54,9 @@ export function haspHubRadius(l: Layout): number {
   return HUB * l.tile;
 }
 
+/** The loose bolt's half-width and half-length, in tiles: drawn that size and met at its lower end. */
+export const HASP_BOLT = { halfW: 0.12, halfH: 0.3 } as const;
+
 /**
  * Where the loose bolt is, fallen `along` (0..1) of the way from the second
  * clasp's hub down its column to the hull: drawn there (`hasp-draw.ts`) and
@@ -108,19 +111,19 @@ function flank(f: number): number {
 
 /**
  * One clasp's shell, both halves, swung apart about the nose by `gape`
- * (0 shut, 1 swung; the row's clearing takes it past 1).
+ * (0 shut, 1 swung; the row's clearing takes it past 1): each half's corners
+ * on screen, drawn by `haspShellPath` and met by a bolt (`hasp-stop.ts`).
  *
  * Each half walks its own seam edge rather than leaving it to the closing
  * segment, so a shut clasp has a line down its middle — the tell that it is
  * two things pinned, and not a rock.
  */
-export function haspShellPath(l: Layout, cfg: SimConfig, i: number, gape: number): Path2D {
+export function haspShellHalves(l: Layout, cfg: SimConfig, i: number, gape: number): Point[][] {
   const at = haspCentre(l, cfg, i);
   const rx = SHELL_RX * l.tile;
   const ry = SHELL_RY * l.tile;
   const hingeY = at.y - ry;
-  const path = new Path2D();
-  for (const side of [1, -1]) {
+  return [1, -1].map((side) => {
     const raw: Point[] = [];
     for (let k = 0; k <= FACETS; k++) {
       const f = k / FACETS;
@@ -132,12 +135,20 @@ export function haspShellPath(l: Layout, cfg: SimConfig, i: number, gape: number
     // right half's tail across the seam rather than away from it.
     const c = Math.cos(-gape * SWING * side);
     const s = Math.sin(-gape * SWING * side);
-    raw.forEach((p, k) => {
+    return raw.map((p) => {
       const dy = p.y + ry;
-      const x = at.x + p.x * c - dy * s;
-      const y = hingeY + p.x * s + dy * c;
-      if (k === 0) path.moveTo(x, y);
-      else path.lineTo(x, y);
+      return { x: at.x + p.x * c - dy * s, y: hingeY + p.x * s + dy * c };
+    });
+  });
+}
+
+/** One clasp's shell as a path, both halves closed (`haspShellHalves`). */
+export function haspShellPath(l: Layout, cfg: SimConfig, i: number, gape: number): Path2D {
+  const path = new Path2D();
+  for (const half of haspShellHalves(l, cfg, i, gape)) {
+    half.forEach((p, k) => {
+      if (k === 0) path.moveTo(p.x, p.y);
+      else path.lineTo(p.x, p.y);
     });
     path.closePath();
   }

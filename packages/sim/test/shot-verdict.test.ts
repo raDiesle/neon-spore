@@ -4,6 +4,8 @@ import { DEFAULT_CONFIG, midCol } from "../src/config.js";
 import { gimbalBoss } from "../src/gimbal.js";
 import { gimbalStruck, gimbalVerdict } from "../src/gimbal-shot.js";
 import { hashWorld } from "../src/hash.js";
+import { haspBoss } from "../src/hasp.js";
+import { haspStruck, haspVerdict } from "../src/hasp-shot.js";
 import { hiveStruck, hiveVerdict } from "../src/hive-shot.js";
 import { createWorld, startWave, step, ticksPerBeat } from "../src/index.js";
 import { leadBoss } from "../src/lead.js";
@@ -15,7 +17,7 @@ import { MARKS } from "./gimbal-harness.js";
 
 /**
  * **A boss's verdict is its shot asked, not acted on**, for THE ANTIPHON,
- * GIMBAL, HIVE, LEAD and LEDGER: the picture stops a bolt where it meets the body
+ * GIMBAL, HASP, HIVE, LEAD and LEDGER: the picture stops a bolt where it meets the body
  * with the answer the shot will give it at row 0, so the two must never
  * disagree, and asking must change nothing. Each fight is left to run with
  * no one at the controls and asked, every beat, about every column in both
@@ -28,7 +30,7 @@ const BEATS = 48;
 
 interface Case {
   name: string;
-  kind: "antiphon" | "gimbal" | "hive" | "lead" | "ledger";
+  kind: "antiphon" | "gimbal" | "hasp" | "hive" | "lead" | "ledger";
   /** What the wave authors for a boss that will not start without it. */
   authored?: object;
   /** Set before the fight is run, for a state no one at the controls would reach. */
@@ -70,6 +72,20 @@ const CASES: Case[] = [
     },
     verdict: gimbalVerdict,
     struck: gimbalStruck,
+  },
+  {
+    name: "THE HASP, its bolt loose",
+    kind: "hasp",
+    // No one at the controls never swings the second hasp, so its spring is
+    // thrown by hand, as `hasp-step.ts` throws it.
+    arrange: (world) => {
+      const s = haspBoss(world);
+      if (s === null) return;
+      s.boltCol = midCol(world.cfg);
+      s.boltBeat = world.beat;
+    },
+    verdict: haspVerdict,
+    struck: haspStruck,
   },
 ];
 

@@ -139,11 +139,10 @@ export function drawHaspLatch(
   beatPhase: number,
   flare: number,
 ): void {
-  if (!haspLatchUp(s)) return;
+  const bar = haspLatchBar(l, cfg, s);
+  if (bar === null) return;
   const i = haspHandHasp(s);
   const rail = haspRail(l, cfg, i);
-  const depth = s.latchMilli === NO_LATCH ? 0 : s.latchMilli;
-  const bar = haspBarAt(l, cfg, i, depth);
   const notch = haspBarAt(l, cfg, i, cfg.haspGripMilli);
   const held = haspHeld(s, cfg);
   const hex = haspLatchHex(s, cfg, beat, beatPhase);
@@ -165,11 +164,25 @@ export function drawHaspLatch(
   ctx.strokeStyle = rgba(hex, 0.7);
   ctx.stroke(staple);
 
-  const thick = l.tile * 0.14;
   const plate = new Path2D();
-  plate.roundRect(bar.x - bar.halfW, bar.y - thick, bar.halfW * 2, thick * 2, thick);
+  plate.roundRect(bar.x - bar.halfW, bar.y - bar.thick, bar.halfW * 2, bar.thick * 2, bar.thick);
   ctx.fillStyle = hex;
   ctx.fill(plate);
   const glow = (held ? 1.2 : haspBurning(s) ? 0.8 : 0.35) + 1.4 * flare;
   strokeGlow(ctx, plate, hex, STROKE.inner, glow);
+}
+
+/**
+ * The latch's bar at the depth the pilot has it, and its half-thickness —
+ * drawn by `drawHaspLatch` and met by a bolt (`hasp-stop.ts`); `null` while
+ * no latch is up.
+ */
+export function haspLatchBar(
+  l: Layout,
+  cfg: SimConfig,
+  s: HaspState,
+): { x: number; y: number; halfW: number; thick: number } | null {
+  if (!haspLatchUp(s)) return null;
+  const depth = s.latchMilli === NO_LATCH ? 0 : s.latchMilli;
+  return { ...haspBarAt(l, cfg, haspHandHasp(s), depth), thick: l.tile * 0.14 };
 }
