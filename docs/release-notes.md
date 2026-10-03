@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 5dccf1f3f — Answer how a desk's mouse closes a chord
+
+The owner chose one held mouse as every pad of both seats, drawn exactly as THE INSTAR's HOLD BOTH ring is, since it is the same control.
+
 ## 2026-10-03 · afaa0900c — THE GIMBAL drifts in the game: a solid cradle that turns, tips and rolls
 
 The owner took `gimbal:tilt` / `drift` from VERSUS. THE GIMBAL is now drawn solid on the field: a shaded drum nodding inside steel rings with teeth and pins, the whole cradle slowly turning, tipping and rolling in its yoke. It steadies to a third while a ring is being turned, to a tenth of that under THE SLOW, and stops once the drum opens. A landed blow still washes the shut drum red, which the candidate had lost.
