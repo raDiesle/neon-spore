@@ -32892,3 +32892,15 @@ Bottleneck: a test that leaned on the one before it to warm the sprite cache.
 Bottleneck: none — the guard was one of the entry's named options and the smallest.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE GIMBAL lights when both rings are true
+
+- reading: 5 min. `gimbal-fx.ts`, `glow.ts`'s halo, where the rig's plane is
+  laid on in `gimbal-draw.ts`.
+- writing: 10 min. The cross of light, the drum's glow, the thrown ring, the
+  white-hot rims, a test page.
+- looking: 5 min. Three frames: the pilot's lock, the navigator's, the ring.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the thrown ring first hung on `gimbalTrue`, which waits for the beat, so the autopilot's let-go inside one beat never showed it — only a frame said so.

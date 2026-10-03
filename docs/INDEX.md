@@ -2141,6 +2141,7 @@ by hand never moves.
 | `packages/render/src/gimbal-fx.ts` | What THE GIMBAL leaves behind a frame: the **kick** of the whole cradle as a tooth shears off it |
 | `packages/render/src/gimbal-grip.ts` | **The ring under each thumb**: where a hand may take hold of it, what a turn of it says |
 | `packages/render/src/gimbal-blow.ts` | THE GIMBAL's timeout blow: the seam's bead pressed into the skin and the plating split open in its colour |
+| `packages/render/src/gimbal-beam.ts` | **THE GIMBAL locked** — the picture of both rings standing true, asked for by name (the owner |
 | `packages/render/src/gimbal-marks.ts` | **THE GIMBAL's two rings answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/gimbal-tilt-draw.ts` | The solid half of THE GIMBAL's drifting candidate: yoke, drum and this seat's rings through the rig |
 | `packages/render/src/gimbal-tilt.ts` | THE GIMBAL's idle drift, in the game (`gimbalTilt`): hush by phase, and the ring plane's affine |

@@ -9,7 +9,8 @@ import { PALETTE } from "./palette.js";
 /**
  * What THE GIMBAL leaves behind a frame: the **kick** of the whole cradle as
  * a tooth shears off it, the **shake** of a ring that had true and lost it,
- * the **glare** of the seam letting go into the hull, and the bursts its ten
+ * the ring of light **thrown** off the drum as the pair comes true, the
+ * **glare** of the seam letting go into the hull, and the bursts its ten
  * receipts throw.
  *
  * Everything else — where each ring stands, which teeth are left, how far the
@@ -24,8 +25,8 @@ import { PALETTE } from "./palette.js";
  * written over them). Everything is cleared in `Effects.reset()`
  * (`restart.test.ts`).
  *
- * **A tooth pair sheared is a sequence landed** — both rings held true for
- * the count — and so is the hatch, so both deal the drum the blow every boss
+ * **A tooth pair sheared is a sequence landed** — both rings true and both
+ * thumbs let go together — and so is the hatch, so both deal the drum the blow every boss
  * takes (`boss-hurt.ts`). Coming true deals nothing.
  */
 
@@ -33,11 +34,14 @@ const KICK_TILES = 0.2;
 const KICK_DECAY = 9;
 const SHAKE_DECAY = 5;
 const GLARE_DECAY = 4;
+const LOCK_DECAY = 3;
 
 export class GimbalFx {
   private kickNow = 0;
   private shakeNow = 0;
   private glareNow = 0;
+  private lockedNow = 0;
+  private wasLocked = false;
   /** The blow a tooth pair sheared deals the drum. */
   readonly hurt = new BossHurt();
   /** The verdicts on each ring (`gimbal-marks.ts`). */
@@ -56,6 +60,23 @@ export class GimbalFx {
   /** How much the seam's own light is washing the frame, 0..1. */
   get glare(): number {
     return this.glareNow;
+  }
+
+  /** How far the ring of light thrown off the drum as the pair came true has
+   * still to travel, 1..0 (`gimbal-beam.ts`). */
+  get locked(): number {
+    return this.lockedNow;
+  }
+
+  /**
+   * Whether the pair stands true this frame, from the drawer. The ring is
+   * thrown on the frame it starts rather than on `gimbalTrue`, which waits for
+   * the beat: a pair that counts down and lets go inside one beat would
+   * otherwise never see it.
+   */
+  see(locked: boolean): void {
+    if (locked && !this.wasLocked) this.lockedNow = 1;
+    this.wasLocked = locked;
   }
 
   ingest(events: readonly SimEvent[], l: Layout, cfg: SimConfig, burst: Burst): void {
@@ -78,6 +99,7 @@ export class GimbalFx {
         case "gimbalSlip":
           burst(at.x, at.y, 5, PALETTE.rockDark);
           this.shakeNow = 1;
+          this.lockedNow = 0;
           break;
         case "gimbalShear":
           burst(at.x, at.y, 16, PALETTE.hullRim);
@@ -119,6 +141,7 @@ export class GimbalFx {
     if (this.shakeNow < 0.002) this.shakeNow = 0;
     this.glareNow = Math.max(0, this.glareNow - this.glareNow * GLARE_DECAY * step);
     if (this.glareNow < 0.002) this.glareNow = 0;
+    this.lockedNow = Math.max(0, this.lockedNow - LOCK_DECAY * step);
     this.hurt.update(dt);
     this.marks.update(dt);
   }
@@ -127,6 +150,8 @@ export class GimbalFx {
     this.kickNow = 0;
     this.shakeNow = 0;
     this.glareNow = 0;
+    this.lockedNow = 0;
+    this.wasLocked = false;
     this.hurt.clear();
     this.marks.clear();
   }

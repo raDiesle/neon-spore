@@ -71,7 +71,11 @@ export function drawGimbalRing(
 
   // Drawn through the rig (`gimbal-tilt-draw.ts`), the hoop, the teeth and the
   // pins are solid parts already, and only what is flat on them is drawn here.
-  if (at_true) strokeGlow(ctx, gimbalRimPath(at, r), PALETTE.rock, STROKE.outline, 1.4);
+  // White-hot when the pair is locked, the rims standing on the light of
+  // `gimbal-beam.ts` — the owner's *increase the visual if it's correct*.
+  if (at_true) {
+    strokeGlow(ctx, gimbalRimPath(at, r), PALETTE.hullRim, STROKE.outline * 1.6, 2.4);
+  }
 
   const sockets = gimbalTeethPath(l, at, r, face, left, of, true);
   ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);

@@ -1,7 +1,15 @@
 import { LIGHT_HALF } from "@neon-spore/content";
-import { type GimbalState, gimbalLeaking, INNER, OUTER, type World } from "@neon-spore/sim";
+import {
+  type GimbalState,
+  gimbalAligned,
+  gimbalLeaking,
+  INNER,
+  OUTER,
+  type World,
+} from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
+import { drawGimbalBeam } from "./gimbal-beam.js";
 import {
   gimbalCorePath,
   gimbalHoopPath,
@@ -104,6 +112,8 @@ export function drawGimbal(
   tiltPlane(ctx, at, tilt);
   if (open > 0) drawDrum(ctx, l, at, open, time, fx.hurt.value);
   if (gimbalLeaking(s)) drawLeak(ctx, l, world, s, at, beat, beatPhase, open);
+  fx.see(gimbalAligned(s, beat));
+  drawGimbalBeam(ctx, l, s, at, beat, time, fx.locked);
   for (const ring of [OUTER, INNER] as const)
     if (ring === OUTER ? showsGimbalOuter(l.role) : showsGimbalInner(l.role))
       drawGimbalRing(ctx, l, world, s, ring, at, beat, beatPhase, time, fx.marks.verdicts);

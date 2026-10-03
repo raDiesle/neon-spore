@@ -7025,8 +7025,12 @@ tooth leaves the rim, which is the health, looking as it did before the pair
 landed it — a let-go that shows nothing on the boss reads as one that missed.
 Six that each take a tooth is the same length, said by the rim.
 
-The bigger picture when both are true — the beam through both rings — is the
-second lane, and lands separately.
+**Locked, it lights** (`render/gimbal-beam.ts`, the second lane the same day):
+both rings true throws a cross of light along both pivot axes — the outer's top
+and bottom, the inner's sides — lights the drum from inside, and sends a ring of
+light off the drum on the frame the pair comes true (`GimbalFx.see`, not
+`gimbalTrue`, which waits for the beat); the rims go white-hot. It is drawn on
+every screen, because both true is the one thing both seats are told.
 
 ## 11.36 THE SPOOL — the boss where the line runs out at the speed one of you reads
 
