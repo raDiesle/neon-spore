@@ -413,7 +413,7 @@ that frame.
 Done when each boss here calls `stops?.aim`, has its row in
 `core-stop-rows.ts`, and `bun run check` is green.
 
-## THE GIMBAL, HASP and KEEL stop a bolt on what it meets
+## THE HASP and KEEL stop a bolt on what it meets
 
 - **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
 - **Where:** local
@@ -440,10 +440,12 @@ harness in `render/test/<boss>-harness.ts`). A target the bolt must be drawn
 through some other part of the body to reach is a look: say so in the
 stopper and leave it for VERSUS, as `flue-stop.ts` does.
 
-All three are drawn from `boss-draw-clocks-c.ts`, shared with the MANTLE lane.
-THE GIMBAL's drum may be drawn tilted under its VERSUS candidate
-(`gimbal-tilt.ts`, amount 0 as shipped): the stop is read off the flat picture
-the game draws.
+Both are drawn from `boss-draw-clocks-c.ts`, shared with the MANTLE lane.
+
+THE GIMBAL, the third of this entry, stops a bolt (`render/gimbal-stop.ts`,
+`gimbalVerdict`), held by `render/test/gimbal-stop.test.ts` and its row in
+`sim/test/shot-verdict.test.ts`: its target is either colour, so it has no
+`wrong` and no row in `core-stop-rows.ts`. THE HASP and THE KEEL are left.
 
 Done when each boss here calls `stops?.aim`, has its row in
 `core-stop-rows.ts`, and `bun run check` is green.

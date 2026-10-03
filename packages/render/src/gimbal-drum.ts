@@ -146,6 +146,9 @@ export function gimbalSeamPhase(
   return Math.min(1, Math.max(0, done));
 }
 
+/** The leaking bead's half-width and half-height, in tiles. */
+export const GIMBAL_BEAD = { rx: 0.18, ry: 0.26 } as const;
+
 /**
  * Where the leak's bead is, run from the drum down its column toward the hull:
  * drawn there (`gimbal-draw.ts`) and aimed at there (`boss-cue-read-y.ts`).

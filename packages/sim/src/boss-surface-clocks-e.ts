@@ -113,6 +113,7 @@ export {
 } from "./flue.js";
 export { flueVerdict } from "./flue-shot.js";
 export { gallVerdict } from "./gall-shot.js";
+export { gimbalVerdict } from "./gimbal-shot.js";
 // THE MIMIC's signs: the phase, the step, which seat sees which sign and which
 // draws, and the five a thumb can draw, for the picture, the pad and the
 // director's hand (§42).

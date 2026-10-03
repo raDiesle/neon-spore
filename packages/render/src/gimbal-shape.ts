@@ -150,11 +150,41 @@ export function gimbalTeethPath(
   sheared: boolean,
 ): Path2D {
   const p = new Path2D();
-  const gone = Math.max(0, of - left);
   const out = l.tile * (sheared ? -SOCKET : TOOTH);
-  for (let i = 0; i < Math.max(1, of); i++) {
-    if (i < gone !== sheared) continue;
-    block(p, at, r, faceMilli + (i * BEARING_TURN) / Math.max(1, of), out);
-  }
+  for (const milli of gimbalBlocks(faceMilli, left, of, sheared)) block(p, at, r, milli, out);
   return p;
+}
+
+/** Where on the rim each block stands, in thousandths: the sockets if `sheared`, else the teeth. */
+function gimbalBlocks(faceMilli: number, left: number, of: number, sheared: boolean): number[] {
+  const gone = Math.max(0, of - left);
+  const out: number[] = [];
+  for (let i = 0; i < Math.max(1, of); i++)
+    if (i < gone === sheared) out.push(faceMilli + (i * BEARING_TURN) / Math.max(1, of));
+  return out;
+}
+
+/**
+ * The teeth still standing, each as the corners of its block and a point on
+ * either arc between them — the outline a bolt meets (`gimbal-stop.ts`), off
+ * the same bearings `gimbalTeethPath` draws them at.
+ */
+export function gimbalTeethPoints(
+  l: Layout,
+  at: Point,
+  r: number,
+  faceMilli: number,
+  left: number,
+  of: number,
+): Point[][] {
+  const far = r + l.tile * TOOTH;
+  const half = TOOTH_MILLI / 2;
+  return gimbalBlocks(faceMilli, left, of, false).map((m) => [
+    gimbalPoint(at, r, m - half),
+    gimbalPoint(at, r, m),
+    gimbalPoint(at, r, m + half),
+    gimbalPoint(at, far, m + half),
+    gimbalPoint(at, far, m),
+    gimbalPoint(at, far, m - half),
+  ]);
 }

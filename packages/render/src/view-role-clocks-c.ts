@@ -1,3 +1,4 @@
+import { type GimbalRing, INNER, OUTER } from "@neon-spore/sim";
 import type { ViewRole } from "./view-role.js";
 
 /**
@@ -32,6 +33,11 @@ import type { ViewRole } from "./view-role.js";
  */
 export const showsGimbalOuter = (role: ViewRole): boolean => role !== "p2";
 export const showsGimbalInner = (role: ViewRole): boolean => role !== "p1";
+/** The rings `role`'s screen is shown, the outer first: what the rig, the marks and a bolt's stop all draw on. */
+export const gimbalRingsShown = (role: ViewRole): GimbalRing[] =>
+  ([OUTER, INNER] as GimbalRing[]).filter((ring) =>
+    ring === OUTER ? showsGimbalOuter(role) : showsGimbalInner(role),
+  );
 
 /**
  * THE SPOOL's two halves of one sentence (§21). The pilot is shown **the

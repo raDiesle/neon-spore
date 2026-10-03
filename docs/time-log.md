@@ -32918,3 +32918,17 @@ Bottleneck: the thrown ring first hung on `gimbalTrue`, which waits for the beat
 Bottleneck: none — the entry named the seam.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-03 — THE GIMBAL stops a bolt on what it meets
+
+- reading: 15 min. The stop pattern, THE GIMBAL's shot, its rig, its tilt
+  and the leak's run down the field.
+- writing: 20 min. `gimbalVerdict`, a stopper laying every part through the
+  drawn tilt, the teeth's points off the path's own bearings, two tests.
+- looking: 0 min.
+- friction: 5 min. The verdict test's bare `startWave` installs no gimbal
+  without its marks.
+- landing: 5 min. `check:fast`, the index, the entry handed back with HASP
+  and KEEL, `land`.
+
+Bottleneck: laying each part where the shaken, rolled, tilted cradle is drawn, so the stop sits on the picture.

@@ -1,16 +1,11 @@
 import { LIGHT_HALF } from "@neon-spore/content";
-import {
-  type GimbalState,
-  gimbalAligned,
-  gimbalLeaking,
-  INNER,
-  OUTER,
-  type World,
-} from "@neon-spore/sim";
+import { type GimbalState, gimbalAligned, gimbalLeaking, type World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
 import { drawGimbalBeam } from "./gimbal-beam.js";
 import {
+  GIMBAL_BEAD,
   gimbalCorePath,
   gimbalHoopPath,
   gimbalLeafPath,
@@ -25,6 +20,7 @@ import type { GimbalFx } from "./gimbal-fx.js";
 import { drawGimbalPartnerMark } from "./gimbal-partner.js";
 import { drawGimbalRing } from "./gimbal-ring.js";
 import { gimbalCentre, gimbalDrumR, type Point } from "./gimbal-shape.js";
+import { gimbalStopper } from "./gimbal-stop.js";
 import { gimbalHush, gimbalTilt, tiltPlane } from "./gimbal-tilt.js";
 import { drawTiltedCradle } from "./gimbal-tilt-draw.js";
 import { strokeGlow } from "./glow.js";
@@ -32,7 +28,7 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { showsGimbalInner, showsGimbalOuter } from "./view-role-clocks-c.js";
+import { gimbalRingsShown } from "./view-role-clocks-c.js";
 
 /**
  * How far each leaf's own light idles off true, in radians, and how long one
@@ -83,6 +79,7 @@ export function drawGimbal(
   beatPhase: number,
   time: number,
   fx: GimbalFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const lit = smoothstep(gimbalStillPhase(s, cfg, beat, beatPhase));
@@ -98,8 +95,10 @@ export function drawGimbal(
   // mark that shook loose of its own rim would be the boss lying about the
   // one thing it may not lie about (`gimbal-fx.ts`).
   ctx.globalAlpha = Math.min(1, 0.15 + 0.85 * lit + 0.3 * fx.glare);
-  ctx.translate(at.x + fx.hurt.shakeX(time, l.tile), at.y + fx.kick * l.tile);
-  ctx.rotate(fx.shake * 0.05 * Math.sin(time * 38));
+  const shift = { x: fx.hurt.shakeX(time, l.tile), y: fx.kick * l.tile };
+  const sway = fx.shake * 0.05 * Math.sin(time * 38);
+  ctx.translate(at.x + shift.x, at.y + shift.y);
+  ctx.rotate(sway);
   ctx.translate(-at.x, -at.y);
   // The drift (`gimbal-tilt.ts`): the solid parts through the rig — the yoke,
   // the hoops, the teeth, the pins and the shut drum — then everything flat
@@ -114,11 +113,12 @@ export function drawGimbal(
   if (gimbalLeaking(s)) drawLeak(ctx, l, world, s, at, beat, beatPhase, open);
   fx.see(gimbalAligned(s, beat));
   drawGimbalBeam(ctx, l, s, at, beat, time, fx.locked);
-  for (const ring of [OUTER, INNER] as const)
-    if (ring === OUTER ? showsGimbalOuter(l.role) : showsGimbalInner(l.role))
-      drawGimbalRing(ctx, l, world, s, ring, at, beat, beatPhase, time, fx.marks.verdicts);
+  for (const ring of gimbalRingsShown(l.role))
+    drawGimbalRing(ctx, l, world, s, ring, at, beat, beatPhase, time, fx.marks.verdicts);
   drawGimbalPartnerMark(ctx, l, s, at, beat, time);
   ctx.restore();
+  const drawn = { ...tilt, roll: tilt.roll + sway };
+  stops?.aim(gimbalStopper(l, world, s, shift, drawn, open, beat, beatPhase, time));
 }
 
 /**
@@ -194,7 +194,7 @@ function drawLeak(
   strokeGlow(ctx, seam, colour, STROKE.outline, 1 + along);
   const { x, y } = gimbalLeakPoint(l, world.cfg, s, beat, beatPhase);
   const bead = new Path2D();
-  bead.ellipse(x, y, l.tile * 0.18, l.tile * 0.26, 0, 0, Math.PI * 2);
+  bead.ellipse(x, y, l.tile * GIMBAL_BEAD.rx, l.tile * GIMBAL_BEAD.ry, 0, 0, Math.PI * 2);
   ctx.fillStyle = rgba(colour, 0.5 + 0.4 * along);
   ctx.fill(bead);
   strokeGlow(ctx, bead, colour, STROKE.inner, 1 + along);

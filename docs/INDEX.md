@@ -2138,6 +2138,7 @@ by hand never moves.
 | `packages/render/src/gimbal-ring.ts` | **The half of THE GIMBAL a hand is on**: one ring, drawn on the screen of the seat that grips it |
 | `packages/render/src/gimbal-rig.ts` | THE GIMBAL's drum, rings and yoke as tubes and balls for `drawRig`; the navigator's ring is the same wheel seen from behind |
 | `packages/render/src/gimbal-shape.ts` | **Where THE GIMBAL is**, in field pixels: the yoke it hangs from |
+| `packages/render/src/gimbal-stop.ts` | How many points a hoop or the opened drum is taken at: a pixel off its circle at the outer ring's size |
 | `packages/render/src/gimbal-fx.ts` | What THE GIMBAL leaves behind a frame: the **kick** of the whole cradle as a tooth shears off it |
 | `packages/render/src/gimbal-grip.ts` | **The ring under each thumb**: where a hand may take hold of it, what a turn of it says |
 | `packages/render/src/gimbal-blow.ts` | THE GIMBAL's timeout blow: the seam's bead pressed into the skin and the plating split open in its colour |

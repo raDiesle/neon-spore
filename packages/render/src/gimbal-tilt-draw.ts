@@ -1,5 +1,5 @@
 import { FRONT, view } from "@neon-spore/content";
-import { type GimbalRing, type GimbalState, gimbalTeeth, INNER, OUTER } from "@neon-spore/sim";
+import { type GimbalState, gimbalTeeth, OUTER } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { gimbalSpinMilli } from "./gimbal-drum.js";
 import { gimbalPins, gimbalShell, gimbalYokeRods, HOOP, ROD, SEAM, STEEL } from "./gimbal-rig.js";
@@ -15,7 +15,7 @@ import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawRig, type RigLook } from "./solid-rig.js";
-import { showsGimbalInner, showsGimbalOuter } from "./view-role-clocks-c.js";
+import { gimbalRingsShown } from "./view-role-clocks-c.js";
 
 /**
  * The solid half of THE GIMBAL's drifting candidate (`gimbal-tilt.ts`), in
@@ -58,9 +58,7 @@ export function drawTiltedCradle(
   t: GimbalTilt,
   hurt: number,
 ): void {
-  const rings = ([OUTER, INNER] as GimbalRing[]).filter((ring) =>
-    ring === OUTER ? showsGimbalOuter(l.role) : showsGimbalInner(l.role),
-  );
+  const rings = gimbalRingsShown(l.role);
   if (open === 0) drawShell(ctx, l, at, t, hurt);
   ctx.save();
   tiltPlane(ctx, at, t);
