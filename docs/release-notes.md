@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · fa5c7b960 — A press the browser will not capture is still answered
+
+`setPointerCapture` throws for a pointer id the browser has no live pointer for — every synthetic `PointerEvent` but the mouse's `1` — and the bare call ended the `pointerdown` listener before the press reached `down()`, silently. `capture()` (`apps/game/src/pointer-capture.ts`) tries it and answers the press either way; a refusal costs only the follow off the canvas edge. The handle's `advance` running ahead of the loop, the entry's other half, is not touched.
+
 ## 2026-10-03 · c7dc13273 — THE GIMBAL draws only the drift, its flat picture deleted
 
 The drift was taken into the game on 3 October, so every `rigged` branch was the only one reached. The flat yoke, hoop, teeth, pins and shut drum are gone with `GIMBAL_TILT`, `gimbal-depth.ts` and the two shape paths only they used; a level cradle is a hush of 0. The test that compared the drift's cost with the flat picture holds it to a fixed row of canvas calls per phase instead. Nothing the game draws changes.
