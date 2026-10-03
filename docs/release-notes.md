@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-03 · 506ced8d0 — THE MIMIC holds its board up as a living crane
+
+While a picture is up, the mantle draws up small into the strip over the board, and two of its arms reach out and down to the board's top corners, curl round them and press a sucker on the frame, so the board hangs from the boss like a portrait on a crane. A pulse of pale light runs down the suckers toward the board on the beat, and a pale rim edges the crane so its dark skin reads on the dark sky. The tips stay put while the arms sway, so the board never moves. It goes up and down on the board's own veil.
+
 ## 2026-10-03 · f0a1ff8e6 — Queue: bosses-choreographed.md calls built bosses unbuilt
 
 Its contents list puts §17 to §43 under "not built" though each has landed, and seven ledger rows say hands, receipts or AUTO are queued that the tree already has. Found while answering which bosses still have designed work unbuilt.

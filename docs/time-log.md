@@ -33007,3 +33007,5 @@ Bottleneck: the page that should say what is unbuilt says it out of date, so the
 - landing: 5 min. `check:fast`, the index, `land`.
 
 Bottleneck: the mimic's skin is two dark greens on a dark sky, so it took a pale rim and lit suckers before the arms read at all.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
