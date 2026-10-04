@@ -198,7 +198,7 @@ export function drawFxBoss(
   // frame — the flash of a press it caught — is `effects.boss.stare`
   // (`stare-draw.ts`, `stare-fx.ts`).
   if (boss.kind === "stare") {
-    drawStare(ctx, l, world, boss, beat, beatPhase, time, effects.boss.stare);
+    drawStare(ctx, l, world, boss, beat, beatPhase, time, effects.boss.stare, effects.bolts);
     return;
   }
 

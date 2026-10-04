@@ -7,6 +7,7 @@ import {
   stareStepAt,
   type World,
 } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import type { EyeInk } from "./eye.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
@@ -28,6 +29,7 @@ import {
   swollenEye,
 } from "./stare-shape.js";
 import { drawStareShell } from "./stare-shell.js";
+import { stareStopper } from "./stare-stop.js";
 
 /**
  * THE STARE, drawn: the cowled eye over the top of the field, opening on the
@@ -52,7 +54,8 @@ import { drawStareShell } from "./stare-shell.js";
  * glass that says nothing the pair fires can hurt it (`stare-shell.ts`). The lens is drawn on the
  * beat clock, so the pupil is the same on both phones; the fluid and the
  * lashes on the wall clock, since nobody reads a number off a lash
- * (`content/own-motion.ts`).
+ * (`content/own-motion.ts`). A bolt stops on the glass (`stare-stop.ts`),
+ * told to `stops`.
  */
 
 export function drawStare(
@@ -64,6 +67,7 @@ export function drawStare(
   beatPhase: number,
   time: number,
   fx: StareFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const socket = stareEye(l, cfg);
@@ -135,6 +139,7 @@ export function drawStare(
     drawStareTurns(ctx, l, cfg, socket, boss, wash);
   }
   drawStareShell(ctx, socket, time, fx.ping);
+  stops?.aim(stareStopper(world, socket));
 }
 
 /** The eye's ink for each thing an open beat can cost but the level's own: nothing, the charge, or it is shut. */

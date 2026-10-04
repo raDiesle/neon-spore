@@ -412,7 +412,8 @@ and its body sways (`instar-sway.ts`): the stop is wherever the body is drawn
 that frame.
 
 THE SCUTTLE stops one (`render/scuttle-stop.ts`, its row in
-`core-stop-rows.ts`); THE INSTAR, NETTLE and STARE are left.
+`core-stop-rows.ts`), and THE STARE on its glass (`render/stare-stop.ts`,
+never a target, so no row); THE INSTAR and NETTLE are left.
 
 Done when each boss here calls `stops?.aim`, has its row in
 `core-stop-rows.ts`, and `bun run check` is green.

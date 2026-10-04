@@ -28,10 +28,16 @@ const SHELL_RY = 2.45;
 /** A cell's radius, in socket heights. */
 const CELL = 0.42;
 
+/** The dome round eye `e`: its middle and half-extents, drawn so here and met so (`stare-stop.ts`). */
+export function stareDome(e: StareEye): { cx: number; cy: number; rx: number; ry: number } {
+  return { cx: e.cx, cy: e.cy - e.ry * LIFT, rx: e.rx * SHELL_RX, ry: e.ry * SHELL_RY };
+}
+
 /** The dome's outline. */
 function domePath(e: StareEye): Path2D {
+  const d = stareDome(e);
   const p = new Path2D();
-  p.ellipse(e.cx, e.cy - e.ry * LIFT, e.rx * SHELL_RX, e.ry * SHELL_RY, 0, 0, Math.PI * 2);
+  p.ellipse(d.cx, d.cy, d.rx, d.ry, 0, 0, Math.PI * 2);
   return p;
 }
 
@@ -103,15 +109,8 @@ export function drawStareShell(
   strokeGlow(ctx, dome, pale, STROKE.inner * (1 + ping), 0.5 + 1.5 * ping, 0.35 + 0.5 * ping);
   // The glint, a short arc of the rim travelling over the top of the dome.
   const at = -Math.PI / 2 + Math.sin(time * 0.6) * 1.1;
+  const d = stareDome(e);
   const glint = new Path2D();
-  glint.ellipse(
-    e.cx,
-    e.cy - e.ry * LIFT,
-    e.rx * SHELL_RX,
-    e.ry * SHELL_RY,
-    0,
-    at - 0.18,
-    at + 0.18,
-  );
+  glint.ellipse(d.cx, d.cy, d.rx, d.ry, 0, at - 0.18, at + 0.18);
   strokeGlow(ctx, glint, PALETTE.text, STROKE.outline, 1.2, 0.8);
 }

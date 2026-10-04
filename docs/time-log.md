@@ -33081,3 +33081,14 @@ Bottleneck: `valve-shape.ts` was at its line ceiling, so sharing the pins' outli
 Bottleneck: the slab and plate were drawn as quadratic paths with no points beside them, so the outlines had to become shared data before a bolt could meet them.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-04 — THE STARE stops a bolt on what it meets
+
+- reading: 5 min. The stare's shot, drawer, shape and shell.
+- writing: 10 min. `stareVerdict`, the dome's box shared out of
+  `stare-shell.ts`, `stare-stop.ts`, a test and a `shot-verdict` row.
+- looking: 0 min.
+- friction: 5 min. The worktree's branch carried a duplicate of a queue release already on `origin/main`, and was moved onto it.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: none to speak of — the eye cannot be hurt, so the whole stop is the dome's lower edge.

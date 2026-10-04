@@ -214,6 +214,7 @@ export { ratchetVerdict } from "./ratchet-shot.js";
 export { rimeVerdict } from "./rime-shot.js";
 export { scuttleVerdict } from "./scuttle-shot.js";
 export { slingVerdict } from "./sling-shot.js";
+export { stareVerdict } from "./stare-shot.js";
 export { trivetVerdict } from "./trivet-shot.js";
 export { valveVerdict } from "./valve-shot.js";
 export { viseVerdict } from "./vise-shot.js";

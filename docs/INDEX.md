@@ -1750,6 +1750,7 @@ by hand never moves.
 | `packages/render/src/stare-fx.ts` | What THE STARE leaves behind a frame: the **flash** of a press it caught |
 | `packages/render/src/stare-shape.ts` | **Where THE STARE is, and how far it has turned** — the numbers the drawer |
 | `packages/render/src/stare-shell.ts` | **THE STARE's shell**: the glass the eye stands behind |
+| `packages/render/src/stare-stop.ts` | **Where a bolt meets THE STARE**, for `BoltStops` (`bolt-stop.ts`): the glass dome round the eye |
 | `packages/render/src/stare-blow.ts` | THE STARE's timeout blow: its gaze narrows to one ray that brands the eye into the hull |
 | `packages/render/src/stare-eye-look.ts` | THE STARE's eye as the one record its turn is painted through: a globe that rolls in its socket |
 | `packages/render/src/stare-eye-globe.ts` | **THE STARE's eye as a ball that turns**, where the game used to squash a flat eye to a sliver and shear it |
