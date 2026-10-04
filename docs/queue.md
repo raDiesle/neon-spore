@@ -413,7 +413,11 @@ that frame.
 
 THE SCUTTLE stops one (`render/scuttle-stop.ts`, its row in
 `core-stop-rows.ts`), and THE STARE on its glass (`render/stare-stop.ts`,
-never a target, so no row); THE INSTAR and NETTLE are left.
+never a target, so no row), and THE NETTLE on its SHOOT marks and its bell
+(`render/nettle-stop.ts` through `render/scene-stop.ts`, which THE INSTAR
+shares: its shot's verdict, `instarVerdict`, is already in `scene-panel.ts`,
+and `render/test/scene-harness.ts` puts either scene on a SHOOT step); THE
+INSTAR is left — its swaying body's foot and its wiring.
 
 Done when each boss here calls `stops?.aim`, has its row in
 `core-stop-rows.ts`, and `bun run check` is green.

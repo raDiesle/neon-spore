@@ -33094,3 +33094,16 @@ Bottleneck: the slab and plate were drawn as quadratic paths with no points besi
 Bottleneck: none to speak of — the eye cannot be hurt, so the whole stop is the dome's lower edge.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-04 — THE NETTLE stops a bolt on what it meets
+
+- reading: 10 min. The scene panel's shot, the nettle's drawer and body, the marks' placement.
+- writing: 20 min. `panelMark` pulled out of `panelHeard` as a pure choice
+  of mark, `nettleVerdict` and `instarVerdict` on it, `scene-stop.ts` for
+  both scenes, the bell's points and the sac shared, `nettle-stop.ts`, a
+  scene harness, a test and two `shot-verdict` rows.
+- looking: 0 min.
+- friction: 5 min. No one at the controls never reaches a SHOOT step, so the verdict rows author one.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: the target is a mark the script plants, not a part of the body, so the stop had to ask the panel which mark a bolt reaches before it could say where.

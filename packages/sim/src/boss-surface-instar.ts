@@ -58,3 +58,4 @@ export {
   type SceneStep,
   sceneBoss,
 } from "./instar.js";
+export { instarVerdict, nettleVerdict, panelMark } from "./scene-panel.js";

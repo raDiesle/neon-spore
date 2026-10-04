@@ -1363,6 +1363,7 @@ by hand never moves.
 | `packages/render/src/scout-marks.ts` | THE SCOUT's line and prime haloed while asked, the partner's clock on the prime, green on a reel and a prime, red on a refused press |
 | `packages/render/src/scout-alien.ts` | **What makes THE SCOUT's pacman alien** (`scout-ship.ts`): two feelers with lit tips off its back |
 | `packages/render/src/scout-look.ts` | **THE SCOUT's moments**, each asked for by the owner on 29 September 2026 and each drawn off the round and… |
+| `packages/render/src/scene-stop.ts` | **Where a bolt meets a scene** — THE INSTAR or THE NETTLE — for `BoltStops` (`bolt-stop.ts`) |
 | `packages/render/src/sheen.ts` | The light inside the membrane, and the film on top of it |
 | `packages/render/src/shell-draw.ts` | THE SHELL's plating: the picture the sim's own bitmask (`Creature.shell`) has no shape for |
 | `packages/render/src/shell-plate.ts` | WHAT A PLATE IS MADE OF — the paint over the geometry next door |
@@ -1470,6 +1471,7 @@ by hand never moves.
 | `packages/render/src/nettle-poses.ts` | **THE NETTLE's poses**, one `Figure` each: the bell as it drifts in, the eight the script names |
 | `packages/render/src/nettle-sway.ts` | **THE NETTLE pulses**, and the bell carries with it |
 | `packages/render/src/nettle-strike.ts` | **What THE NETTLE does when the pair do not stop it**, one picture per kind of part |
+| `packages/render/src/nettle-stop.ts` | **Where a bolt meets THE NETTLE**: a SHOOT mark over its column, else the bell and the brood sac |
 | `packages/render/src/effects-ingest.ts` | Everything `ingestOne` needs to act on a single event, gathered rather than passed one field at a time — the |
 | `packages/render/src/touch-lobe.ts` | What pressing a lobe says |
 | `packages/render/src/dart-query.ts` | Player 1's half of THE DART: two arrows and a question mark |

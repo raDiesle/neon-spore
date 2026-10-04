@@ -186,7 +186,7 @@ export function drawFxBoss(
   // frame — the jolt, the flinch, the hurt, the verdicts on its marks — is
   // `effects.boss.nettle` (`nettle-draw.ts`, `nettle-fx.ts`).
   if (boss.kind === "nettle") {
-    drawNettle(ctx, l, world, boss, beat, beatPhase, time, effects.boss.nettle);
+    drawNettle(ctx, l, world, boss, beat, beatPhase, time, effects.boss.nettle, effects.bolts);
     return;
   }
 

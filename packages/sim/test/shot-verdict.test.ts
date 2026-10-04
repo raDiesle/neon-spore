@@ -17,6 +17,7 @@ import { mantleBoss } from "../src/mantle.js";
 import { mantleStruck, mantleVerdict } from "../src/mantle-shot.js";
 import { ratchetBoss } from "../src/ratchet.js";
 import { ratchetStruck, ratchetVerdict } from "../src/ratchet-shot.js";
+import { instarStruck, instarVerdict, nettleStruck, nettleVerdict } from "../src/scene-panel.js";
 import { scuttleStruck, scuttleVerdict } from "../src/scuttle-shot.js";
 import { stareStruck, stareVerdict } from "../src/stare-shot.js";
 import type { Bullet, Color } from "../src/types.js";
@@ -45,10 +46,12 @@ interface Case {
     | "gimbal"
     | "hasp"
     | "hive"
+    | "instar"
     | "keel"
     | "lead"
     | "ledger"
     | "mantle"
+    | "nettle"
     | "ratchet"
     | "scuttle"
     | "stare"
@@ -78,6 +81,47 @@ const keel = (name: string, arrange: (s: KeelState, world: World) => void): Case
   },
   verdict: keelVerdict,
   struck: keelStruck,
+});
+
+/**
+ * A scene of one step with two SHOOT marks, one wanting cyan and one either
+ * colour, held up a long window: no one at the controls never reaches a
+ * SHOOT step of the real script, so the step is authored and its marks
+ * raised by hand, as the scene raises them (`instar-step.ts`).
+ */
+const scene = (kind: "instar" | "nettle", pose: string, part: string): Omit<Case, "name"> => ({
+  kind,
+  authored: {
+    steps: [
+      {
+        pose,
+        arrive: "stay",
+        morphBeats: 1,
+        windowBeats: 60,
+        landBeats: 2,
+        marks: [
+          {
+            seat: "both",
+            part,
+            gesture: "shoot",
+            xMilli: 318,
+            yMilli: 300,
+            need: 3,
+            color: "cyan",
+          },
+          { seat: "both", part, gesture: "shoot", xMilli: 681, yMilli: 300, need: 3 },
+        ],
+      },
+    ],
+  },
+  arrange: (world) => {
+    const s = world.boss;
+    if (s?.kind !== kind) return;
+    s.phase = "act";
+    s.phaseBeat = world.beat;
+  },
+  verdict: kind === "instar" ? instarVerdict : nettleVerdict,
+  struck: kind === "instar" ? instarStruck : nettleStruck,
 });
 
 const CASES: Case[] = [
@@ -164,6 +208,8 @@ const CASES: Case[] = [
     verdict: ratchetVerdict,
     struck: ratchetStruck,
   },
+  { name: "THE INSTAR, its SHOOT marks up", ...scene("instar", "breath", "jaw") },
+  { name: "THE NETTLE, its SHOOT marks up", ...scene("nettle", "gaze", "spot") },
   { name: "THE SCUTTLE", kind: "scuttle", verdict: scuttleVerdict, struck: scuttleStruck },
   {
     name: "THE STARE",

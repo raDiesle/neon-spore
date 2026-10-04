@@ -1,10 +1,12 @@
 import type { NettleState, World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawInstarMarks } from "./instar-marks.js";
 import { instarAt, instarLen } from "./instar-place.js";
 import { instarFade, instarThreat } from "./instar-shape.js";
 import type { Layout } from "./layout.js";
 import { drawNettleBody } from "./nettle-body.js";
 import type { NettleFx } from "./nettle-fx.js";
+import { nettleStopper } from "./nettle-stop.js";
 import { nettleBody } from "./nettle-sway.js";
 
 /**
@@ -27,7 +29,8 @@ import { nettleBody } from "./nettle-sway.js";
  * hurt, and the marks wash with its verdicts. The marks stay where the
  * script planted them — a thumb reaching for one is not shaken with the
  * bell — and the strike and the death are drawn with the other boss
- * transients, under the hull (`effects-boss.ts`).
+ * transients, under the hull (`effects-boss.ts`). A bolt stops on what it
+ * meets (`nettle-stop.ts`), told to `stops`.
  */
 export function drawNettle(
   ctx: CanvasRenderingContext2D,
@@ -38,6 +41,7 @@ export function drawNettle(
   beatPhase: number,
   time: number,
   fx: NettleFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const fade = instarFade(s, cfg, beat, beatPhase);
@@ -51,4 +55,6 @@ export function drawNettle(
   drawNettleBody(ctx, x, y, r, f, time, fade, fx.hurt.value);
   fx.place(l, s, sway, instarThreat(s, beat, beatPhase), { x, y }, r);
   drawInstarMarks(ctx, l, world, s, sway, beat, beatPhase, time, l.role, fx.verdicts);
+  const bell = { x, y, r };
+  stops?.aim(nettleStopper(l, world, s, sway, bell, f, fade, beat, beatPhase, time));
 }

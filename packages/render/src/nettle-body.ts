@@ -88,6 +88,11 @@ export function drawNettleBody(
   if (under > 0.01) drawUnderside(ctx, cx, cy, r, f, under);
 }
 
+/** The points round the bell's contour, drawn so here and met so (`nettle-stop.ts`). */
+export function nettleBellPoints(cx: number, cy: number, r: number, time: number) {
+  return blobPoints(cx, cy, r, r * BELL_SQUASH, BELL_LOBES, BELL_LOBE_DEPTH, 0.025, time, 11, 40);
+}
+
 /** The bell itself: a grown blob, not a circle, washed red while it is hurt. */
 function drawBell(
   ctx: CanvasRenderingContext2D,
@@ -98,10 +103,7 @@ function drawBell(
   fade: number,
   hurt: number,
 ): void {
-  const p = splinePath(
-    blobPoints(cx, cy, r, r * BELL_SQUASH, BELL_LOBES, BELL_LOBE_DEPTH, 0.025, time, 11, 40),
-    true,
-  );
+  const p = splinePath(nettleBellPoints(cx, cy, r, time), true);
   ctx.globalAlpha = fade;
   ctx.fillStyle = PALETTE.rockDark;
   ctx.fill(p);
@@ -143,8 +145,9 @@ function drawCrown(
     }
   }
   if (f.sac > 0) {
+    const sac = nettleSac(cx, cy, r, f);
     const p = new Path2D();
-    p.arc(cx, cy + r * 0.6, r * 0.22 * f.sac, 0, Math.PI * 2);
+    p.arc(sac.x, sac.y, sac.r, 0, Math.PI * 2);
     ctx.globalAlpha = alpha;
     ctx.fillStyle = PALETTE.rock;
     ctx.fill(p);
@@ -160,6 +163,16 @@ function drawCrown(
       ctx.globalAlpha = 1;
     }
   }
+}
+
+/** The brood sac's middle and radius, swollen by `f.sac`: drawn so (`drawCrown`) and met so (`nettle-stop.ts`). */
+export function nettleSac(
+  cx: number,
+  cy: number,
+  r: number,
+  f: Figure,
+): { x: number; y: number; r: number } {
+  return { x: cx, y: cy + r * 0.6, r: r * 0.22 * f.sac };
 }
 
 /** One stinging arm, drawn out from the rim by how far it is stung. */

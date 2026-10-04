@@ -1,3 +1,4 @@
+import type { CoreVerdict } from "./core-verdict.js";
 import { instarActing, instarMarkCol, instarMarkDone, instarStep, sceneBoss } from "./instar.js";
 import { answerMark } from "./instar-marks.js";
 import type { InstarGesture } from "./instar-words.js";
@@ -31,7 +32,31 @@ import type { World } from "./world.js";
 
 function panelHeard(world: World, verb: InstarGesture, col: number, color?: Color): boolean {
   const s = sceneBoss(world);
-  if (s === null || !instarActing(s)) return false;
+  const heard = panelMark(world, verb, col, color);
+  if (s === null || heard === null) return false;
+  if (!heard.refused) {
+    answerMark(world, s, heard.mark, 1);
+    return true;
+  }
+  // The bolt reached a mark that would not take it: met, and told so.
+  world.events.push({ type: "instarRefuse", mark: heard.mark, player: 2, col });
+  return true;
+}
+
+/**
+ * **Which mark a press of `verb` in `col` reaches**, pure: the first undone
+ * mark of that verb in that column that takes `color`, or, failing one, the
+ * first that refuses it (`refused`) — and `null` for none. `panelHeard` acts
+ * on it, and the picture stops a bolt on the same mark (`render/scene-stop.ts`).
+ */
+export function panelMark(
+  world: World,
+  verb: InstarGesture,
+  col: number,
+  color?: Color,
+): { mark: number; refused: boolean } | null {
+  const s = sceneBoss(world);
+  if (s === null || !instarActing(s)) return null;
   const marks = instarStep(s)?.marks ?? [];
   let refused = -1;
   for (let i = 0; i < marks.length; i++) {
@@ -42,13 +67,31 @@ function panelHeard(world: World, verb: InstarGesture, col: number, color?: Colo
       if (refused === -1) refused = i;
       continue;
     }
-    answerMark(world, s, i, 1);
-    return true;
+    return { mark: i, refused: false };
   }
-  if (refused === -1) return false;
-  // The bolt reached a mark that would not take it: met, and told so.
-  world.events.push({ type: "instarRefuse", mark: refused, player: 2, col });
-  return true;
+  return refused === -1 ? null : { mark: refused, refused: true };
+}
+
+/** What a bolt of `color` in `col` meets of a scene's SHOOT marks: one that takes it, one that refuses it, or none. */
+function sceneVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const heard = panelMark(world, "shoot", col, color);
+  return heard === null ? null : heard.refused ? "wrong" : "target";
+}
+
+/**
+ * **What a bolt meets of THE NETTLE**, pure, so the picture asks it where a
+ * bolt stops (`render/nettle-stop.ts`) and `nettleStruck` acts on the same
+ * answer: a SHOOT mark over its column, `target` in a colour it takes and
+ * `wrong` in one it refuses. The body is never met: the marks are the only
+ * thing up there a shot is for.
+ */
+export function nettleVerdict(world: World, col: number, color: Color): CoreVerdict {
+  return world.boss?.kind === "nettle" ? sceneVerdict(world, col, color) : null;
+}
+
+/** The same, for THE INSTAR (`instarStruck`). */
+export function instarVerdict(world: World, col: number, color: Color): CoreVerdict {
+  return world.boss?.kind === "instar" ? sceneVerdict(world, col, color) : null;
 }
 
 /**
