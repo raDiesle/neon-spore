@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-04 · 2155eb2ba — THE INSTAR stops a bolt on its marks and its body's tube
+
+A bolt fired at THE INSTAR is drawn stopping on the SHOOT mark over its column, bursting in a colour the mark takes and scuffing in one it refuses, and otherwise on the lowest of its body's tube in each view drawn — the face-on seen rings and the side-on hide — laid through the flight and the shake as the drawer lays them. Its heads, wings, tail and nests are not met yet; they are their own queue item.
+
 ## 2026-10-04 · 8aa025658 — THE NETTLE stops a bolt on what it meets
 
 A bolt fired at THE NETTLE is drawn stopping where the simulation says it landed: on the SHOOT mark over its column, bursting in a colour the mark takes and scuffing in one it refuses, and otherwise on the lowest of the bell and its brood sac. The panel's choice of mark is now `panelMark`, pure, which the shot acts on and the picture stops on (`scene-stop.ts`), with `nettleVerdict` and `instarVerdict` beside it; THE INSTAR's picture is the next lane.

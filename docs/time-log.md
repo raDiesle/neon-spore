@@ -33122,3 +33122,5 @@ Bottleneck: the target is a mark the script plants, not a part of the body, so t
 - landing: 5 min. `check:fast`, the index, `land`.
 
 Bottleneck: the body is drawn through a flight transform and in two crossfading views, so the stop had to take the drawer's own transform and view choice rather than re-derive them.
+
+*Measured: 18 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
