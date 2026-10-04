@@ -176,7 +176,7 @@ export function drawFxBoss(
   // the flinch at a wrong thumb, the lash of a strike — is
   // `effects.boss.instar` (`instar-draw.ts`, `instar-fx.ts`).
   if (boss.kind === "instar") {
-    drawInstar(ctx, l, world, boss, beat, beatPhase, time, effects.boss.instar);
+    drawInstar(ctx, l, world, boss, beat, beatPhase, time, effects.boss.instar, effects.bolts);
     return;
   }
 

@@ -378,50 +378,6 @@ own column does — and THE LEDGER; each gets its row in `own-stop.test.ts`.
 Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 `own-stop.test.ts`, and `bun run check` is green.
 
-## THE INSTAR, NETTLE, SCUTTLE and STARE stop a bolt on what it meets
-
-- **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
-- **Taken:** 2026-10-04, claude/queue-work-cccabd (claim: claude/queue-the-instar-nettle-scuttle-and-stare-stop-a-bolt)
-- **Where:** local
-- **Files:** `packages/render/src/boss-draw-clocks-b.ts`, `packages/render/src/core-stop.ts`, `packages/render/test/core-stop-rows.ts`
-
-The owner, 1 October 2026, on THE SEAM *but also all other bosses*: the part
-the cannon must hit is lit in its colour and beats like a heart, the bolt has a
-clear path to it, and a bolt stops on whatever it meets — bursting on the right
-part, scuffing anywhere else and doing nothing. The rule is the last bullet of
-`.claude/skills/new-boss/generic.md`. THE SEAM and the eleven bosses whose
-shot is `coreVerdict` keep it (`render/core-stop.ts`, `render/*-stop.ts`).
-
-Each boss needs its shot's judgement pulled out of its `…Struck` into a pure
-`…Verdict(world, col, color)` the `…Struck` then acts on, as
-`sim/seam-shot.ts`'s `seamVerdict` was; then a `…-stop.ts` handing
-`BoltStops` (`render/bolt-stop.ts`) where a bolt in each column meets the
-picture — `coreStopper` with the core's near rim and the body's `Foot` where
-the shot is one part, a stopper of its own (`render/seam-stop.ts`) where it
-is not. The feet are `roundFoot`, `outlineFoot` over the points a shape file
-hands out beside its path (`capstanBodyPoints`) and `rodFoot`. The drawer
-takes `stops?: BoltStops` last and calls `stops?.aim(...)`; its dispatcher
-passes `effects.bolts`. A row goes in `render/test/core-stop-rows.ts` (its
-harness in `render/test/<boss>-harness.ts`). A target the bolt must be drawn
-through some other part of the body to reach is a look: say so in the
-stopper and leave it for VERSUS, as `flue-stop.ts` does.
-
-All four are drawn from `boss-draw-clocks-b.ts`, shared with the ANTIPHON
-lane. THE INSTAR's marks are only up while THE SLOW is open (`instarMarksUp`),
-and its body sways (`instar-sway.ts`): the stop is wherever the body is drawn
-that frame.
-
-THE SCUTTLE stops one (`render/scuttle-stop.ts`, its row in
-`core-stop-rows.ts`), and THE STARE on its glass (`render/stare-stop.ts`,
-never a target, so no row), and THE NETTLE on its SHOOT marks and its bell
-(`render/nettle-stop.ts` through `render/scene-stop.ts`, which THE INSTAR
-shares: its shot's verdict, `instarVerdict`, is already in `scene-panel.ts`,
-and `render/test/scene-harness.ts` puts either scene on a SHOOT step); THE
-INSTAR is left — its swaying body's foot and its wiring.
-
-Done when each boss here calls `stops?.aim`, has its row in
-`core-stop-rows.ts`, and `bun run check` is green.
-
 ## THE CURTAIN, GORGE, TASTER and VANE stop a bolt on what it meets
 
 - **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
@@ -528,4 +484,28 @@ into a surface file of their own (`boss-surface-verdicts.ts`, alphabetical),
 re-exported from the package index as the others are, before a lane has to
 do it mid-task. Done when the file is well under the ceiling and
 `bun run check` is green.
+
+## THE INSTAR's heads, wings, tail and nests stop a bolt
+
+- **Found:** 2026-10-04, claude/queue-work-cccabd
+- **Where:** local
+- **Files:** `packages/render/src/instar-stop.ts`, `packages/render/src/instar-head.ts`, `packages/render/src/instar-wings.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/instar-eggs.ts`
+
+The second half of THE INSTAR's bolt stop (the owner, 1 October 2026, *but
+also all other bosses*; the rule is the last bullet of
+`.claude/skills/new-boss/generic.md`). `render/instar-stop.ts` stops a bolt
+on its SHOOT marks and on its body's tube in each view — the face-on seen
+rings, the side-on hide from `profileLines` — through the flight and the
+shake. The face-on and side-on heads (`INSTAR_HEAD.front`,
+`INSTAR_BODY.head`), the wings (`drawWing`), the tail (`drawTail`) and the
+nests are drawn but not met: a bolt passes them to the tube or the sky.
+
+Each needs its points handed out beside its path, the way `profileLines`
+and `seeFrontBody` hand out the tube's, and a foot pushed in
+`instarStopper` laid through the same `lay`. The heads first: they hang
+lowest face-on. `render/test/instar-stop.test.ts` and
+`render/test/scene-harness.ts` set a step; a test per part that a bolt
+under it stops on it.
+
+Done when each part named here is met, and `bun run check` is green.
 

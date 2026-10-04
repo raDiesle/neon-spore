@@ -1902,6 +1902,7 @@ by hand never moves.
 | `packages/render/src/instar-shove.ts` | **THE INSTAR's lips trembling under a shove** |
 | `packages/render/src/instar-sway.ts` | **THE INSTAR weaves**, and everything of it weaves together |
 | `packages/render/src/instar-strike.ts` | **What THE INSTAR does when the pair do not stop it**, one picture per part |
+| `packages/render/src/instar-stop.ts` | **Where a bolt meets THE INSTAR**: a SHOOT mark over its column, else its body's tube in each view drawn |
 | `packages/render/src/instar-side-head.ts` | **THE INSTAR's head side-on**, snout to the left: the skull and its horns, the socket and the eye in it |
 | `packages/render/src/instar-side-parts.ts` | **The parts a head in profile shares**, whichever skull carries them: the socket and the eye in it |
 | `packages/render/src/instar-scutes.ts` | THE INSTAR's belly plates side-on: a short dark notch in from the belly edge at each sample of the spine |

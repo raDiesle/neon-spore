@@ -33109,3 +33109,16 @@ Bottleneck: none to speak of — the eye cannot be hurt, so the whole stop is th
 Bottleneck: the target is a mark the script plants, not a part of the body, so the stop had to ask the panel which mark a bolt reaches before it could say where.
 
 *Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-04 — THE INSTAR stops a bolt on its marks and its body's tube
+
+- reading: 10 min. The instar's drawer, its flight, both views' tubes and their reach.
+- writing: 15 min. `instar-stop.ts` laying the front view's seen rings and
+  the side view's hide through the flight and the shake, on top of
+  `scene-stop.ts`; a test. The heads, wings, tail and nests split off as
+  their own queue item.
+- looking: 5 min. Probing where the body and the marks stand at every step of the script.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: the body is drawn through a flight transform and in two crossfading views, so the stop had to take the drawer's own transform and view choice rather than re-derive them.

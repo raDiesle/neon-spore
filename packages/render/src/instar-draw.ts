@@ -1,4 +1,5 @@
 import type { InstarState, World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { instarEbb, instarFire } from "./instar-ebb.js";
 import { instarFlight } from "./instar-flight.js";
 import { drawFront } from "./instar-front.js";
@@ -13,6 +14,7 @@ import { frontReach, onField, profileReach } from "./instar-reach.js";
 import { instarSerpent } from "./instar-serpent.js";
 import { instarFade, instarThreat } from "./instar-shape.js";
 import { drawInstarSpit } from "./instar-spit.js";
+import { instarStopper } from "./instar-stop.js";
 import { instarBody } from "./instar-sway.js";
 import { instarHandover, instarNeck, instarTurn } from "./instar-turn.js";
 import { instarWeak } from "./instar-weak.js";
@@ -48,7 +50,8 @@ import { tubesAt } from "./solid-tube-screen.js";
  * **Both screens see the same body.** This is the one boss whose split is
  * not in the eyes but in the hands: what a seat is told is which of the
  * marks on the body are its own (`view-role-clocks-b.ts`), so no predicate
- * reaches into the body itself.
+ * reaches into the body itself. A bolt stops on what it meets of it
+ * (`instar-stop.ts`), told to `stops`.
  */
 export function drawInstar(
   ctx: CanvasRenderingContext2D,
@@ -59,6 +62,7 @@ export function drawInstar(
   beatPhase: number,
   time: number,
   fx: InstarFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const fade = instarFade(s, cfg, beat, beatPhase);
@@ -128,4 +132,6 @@ export function drawInstar(
   drawInstarSpit(ctx, l, s, sway, threat, { x: head.x, y: head.y + r * 0.9 }, time);
   fx.place(l, s, sway, threat, head, r);
   drawInstarMarks(ctx, l, world, s, sway, beat, beatPhase, time, l.role, fx.verdicts);
+  const frame = { look, flight, flying, front, profile, shake: jolt };
+  stops?.aim(instarStopper(l, world, s, sway, frame, beat, beatPhase));
 }
