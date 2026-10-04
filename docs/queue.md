@@ -410,7 +410,12 @@ THE CURTAIN, GORGE and TASTER are drawn from `boss-draw-clocks.ts`, THE VANE
 from `boss-draw.ts`.
 
 THE CURTAIN stops one on its core (`render/curtain-stop.ts`, its row in
-`core-stop-rows.ts`); THE GORGE, TASTER and VANE are left.
+`core-stop-rows.ts`). THE GORGE needs none: it hangs mid-field (`gorgeRow`),
+and the simulation meets a bolt at its bubble there (`sim/boss-along.ts`),
+so the bolt is gone where it is drawn; a sated bubble is flown past by
+design, on to whatever stands in the rows above, so its sack must not stop
+one either. THE TASTER stops one on its crest's underside
+(`render/taster-stop.ts`, its row in `core-stop-rows.ts`). THE VANE is left.
 
 Done when each boss here calls `stops?.aim`, has its row in
 `core-stop-rows.ts`, and `bun run check` is green.

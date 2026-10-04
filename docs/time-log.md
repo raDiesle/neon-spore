@@ -33138,3 +33138,16 @@ Bottleneck: the body is drawn through a flight transform and in two crossfading 
 Bottleneck: the shake is the dispatcher's translate, not the drawer's, so the drawer had to be handed it to stop a bolt where the core is drawn.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-04 — THE TASTER stops a bolt on what it meets; THE GORGE needs no stop
+
+- reading: 10 min. The gorge's mid-field shot and sack, the taster's shot, drawer and crest.
+- writing: 15 min. `tasterVerdict`, the crest's points shared out of
+  `taster-crest.ts`, `taster-stop.ts` with the dispatcher's shake handed
+  in, a harness, a `core-stop-rows.ts` row and a `shot-verdict` row; the
+  queue entry says why THE GORGE is met on the field already.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: reading where each boss hangs — THE GORGE turned out to be mid-field, judged in flight, and needing nothing.

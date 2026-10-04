@@ -32,17 +32,35 @@ export function crestPath(
   tile: number,
   time: number,
 ): Path2D {
+  const [first, ...rest] = crestPoints(left, right, y, thick, tile, time);
   const p = new Path2D();
-  p.moveTo(left, y);
-  p.lineTo(right, y);
+  if (first === undefined) return p;
+  p.moveTo(first.x, first.y);
+  for (const q of rest) p.lineTo(q.x, q.y);
+  p.closePath();
+  return p;
+}
+
+/** The crest's corners in order: its flat top, then its wavering underside back. Drawn so and met so (`taster-stop.ts`). */
+export function crestPoints(
+  left: number,
+  right: number,
+  y: number,
+  thick: number,
+  tile: number,
+  time: number,
+): { x: number; y: number }[] {
+  const points = [
+    { x: left, y },
+    { x: right, y },
+  ];
   const steps = 12;
   for (let i = steps; i >= 0; i--) {
     const x = left + ((right - left) * i) / steps;
     const wave = Math.sin(time * 0.8 + i * 0.7) * tile * 0.04;
-    p.lineTo(x, y + thick + wave);
+    points.push({ x, y: y + thick + wave });
   }
-  p.closePath();
-  return p;
+  return points;
 }
 
 /**

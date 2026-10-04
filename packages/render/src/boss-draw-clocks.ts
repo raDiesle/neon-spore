@@ -192,9 +192,10 @@ export function drawClockBoss(
   // (`taster-draw.ts`, `taster-read.ts`).
   if (boss.kind === "taster") {
     const hurt = effects.boss.taster.hurt;
+    const shake = hurt.shakeX(view.time, l.tile);
     ctx.save();
-    ctx.translate(hurt.shakeX(view.time, l.tile), 0);
-    drawTaster(ctx, l, world, boss, view.beatPhase, view.time, hurt.value);
+    ctx.translate(shake, 0);
+    drawTaster(ctx, l, world, boss, view.beatPhase, view.time, hurt.value, shake, effects.bolts);
     drawTasterAsked(ctx, l, world.cfg, boss, world.beat, view.time);
     // And its three thumbs, over the fan for THE GORGE's reason eight branches
     // up: a ring is drawn on the thing it takes hold of, and one under a blade

@@ -1,10 +1,12 @@
 import { type SimConfig, type TasterState, tasterPhase, type World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { BLADE_TILES, type BladeLook, drawBlade } from "./taster-blade.js";
 import { crestPath, drawNotch, drawSeam } from "./taster-crest.js";
 import { paintGum } from "./taster-flesh.js";
 import { drawTasterNext, drawTasterTally } from "./taster-read.js";
+import { tasterStopper } from "./taster-stop.js";
 import { tasterSway } from "./taster-sway.js";
 
 /**
@@ -28,7 +30,7 @@ import { tasterSway } from "./taster-sway.js";
  *
  * **Two seats, two halves of one sentence**, and they are `taster-read.ts`'s:
  * the ledger on the navigator's screen, the column the crest opens next on the
- * pilot's.
+ * pilot's. A bolt stops on the crest (`taster-stop.ts`), told to `stops`.
  */
 
 /** How far above row 0 the crest's underside hangs, in tiles. */
@@ -131,10 +133,14 @@ export function drawTaster(
   time: number,
   /** The blow a blade struck off deals the crest, 0..1 (`boss-hurt.ts`). */
   hurt = 0,
+  /** How far the dispatcher has shaken it across, in pixels, for where a bolt stops. */
+  shake = 0,
+  stops?: BoltStops,
 ): void {
   if (l.tile <= 0) return;
   const { cfg } = world;
   const { y, breath, thick } = tasterRidge(l, t, cfg, beatPhase);
+  stops?.aim(tasterStopper(l, world, t, { y, thick }, time, shake));
   const left = tileCX(l, t.col) - l.tile * 0.5;
   const right = tileCX(l, t.col + t.blades.length - 1) + l.tile * 0.5;
 

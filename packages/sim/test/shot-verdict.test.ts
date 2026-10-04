@@ -21,6 +21,7 @@ import { ratchetStruck, ratchetVerdict } from "../src/ratchet-shot.js";
 import { instarStruck, instarVerdict, nettleStruck, nettleVerdict } from "../src/scene-panel.js";
 import { scuttleStruck, scuttleVerdict } from "../src/scuttle-shot.js";
 import { stareStruck, stareVerdict } from "../src/stare-shot.js";
+import { tasterStruck, tasterVerdict } from "../src/taster-shot.js";
 import type { Bullet, Color } from "../src/types.js";
 import { valveBoss } from "../src/valve.js";
 import { valveStruck, valveVerdict } from "../src/valve-shot.js";
@@ -57,6 +58,7 @@ interface Case {
     | "ratchet"
     | "scuttle"
     | "stare"
+    | "taster"
     | "valve";
   /** What the wave authors for a boss that will not start without it. */
   authored?: object;
@@ -221,6 +223,7 @@ const CASES: Case[] = [
     verdict: stareVerdict,
     struck: stareStruck,
   },
+  { name: "THE TASTER", kind: "taster", verdict: tasterVerdict, struck: tasterStruck },
   {
     name: "THE VALVE, leaking",
     kind: "valve",

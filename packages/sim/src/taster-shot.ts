@@ -1,4 +1,5 @@
 import { metColor, missedColor } from "./balance.js";
+import type { CoreVerdict } from "./core-verdict.js";
 import { closeSlow } from "./slow.js";
 import {
   type TasterBlade,
@@ -11,7 +12,7 @@ import {
   tasterStanding,
   tasterWeak,
 } from "./taster.js";
-import type { Bullet } from "./types.js";
+import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -96,12 +97,10 @@ export function tasterCut(world: World, t: TasterState, i: number): void {
  */
 export function tasterStruck(world: World, bullet: Bullet): boolean {
   const t = tasterBoss(world);
-  if (t === null || t.outBeat >= 0) return false;
+  const verdict = tasterVerdict(world, bullet.col, bullet.color);
+  if (t === null || verdict === null) return false;
   const i = tasterBladeAt(t, bullet.col);
-  const k = t.blades[i];
-  // A column with a blade over it met the fan, whatever the blade did with
-  // the bolt — an edge with no colour is armour (`shot-out.ts`).
-  if (k === undefined) return false;
+  const k = t.blades[i] as TasterBlade;
   const cfg = world.cfg;
   const col = t.col + i;
   if (tasterPhase(t, cfg) === "closed") {
@@ -112,8 +111,8 @@ export function tasterStruck(world: World, bullet: Bullet): boolean {
     tasterCut(world, t, i);
     return true;
   }
-  if (k.edge === null) return true;
-  if (bullet.color === k.edge) {
+  if (verdict === "armour") return true;
+  if (verdict === "wrong") {
     missedColor(world);
     if (k.layers < cfg.tasterThickMax) k.layers += 1;
     world.events.push({ type: "tasterThick", col, layers: k.layers });
@@ -127,6 +126,28 @@ export function tasterStruck(world: World, bullet: Bullet): boolean {
   }
   shear(world, t, i, k);
   return true;
+}
+
+/**
+ * **What a bolt of `color` in `col` meets of THE TASTER**, pure, so the
+ * picture asks it where a bolt stops (`render/taster-stop.ts`) and
+ * `tasterStruck` acts on the same answer: over a blade struck off, the soft
+ * crest, a `target` in either colour; over a standing blade, the colour it is
+ * not a `target` and the colour it is `wrong`, since it thickens; an edge with
+ * no colour yet, or the closed fan no bolt touches, `armour`; and nothing
+ * past the fan. A beam into the closed fan is judged apart (`interlock`).
+ */
+export function tasterVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const t = tasterBoss(world);
+  if (t === null || t.outBeat >= 0) return null;
+  // A column with a blade over it met the fan, whatever the blade did with
+  // the bolt — an edge with no colour is armour (`shot-out.ts`).
+  const k = t.blades[tasterBladeAt(t, col)];
+  if (k === undefined) return null;
+  if (tasterPhase(t, world.cfg) === "closed") return "armour";
+  if (k.shorn) return "target";
+  if (k.edge === null) return "armour";
+  return color === k.edge ? "wrong" : "target";
 }
 
 /**

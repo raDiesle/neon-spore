@@ -39,6 +39,7 @@ import * as plumb from "./plumb-harness.js";
 import * as rime from "./rime-harness.js";
 import * as scuttle from "./scuttle-harness.js";
 import * as sling from "./sling-harness.js";
+import * as taster from "./taster-harness.js";
 
 /**
  * The rows of `core-stop.test.ts`: every boss whose shot is a core over the
@@ -227,5 +228,17 @@ export const ROWS: Row[] = [
       drawSling(paper(), l, world, s, world.beat, 0.5, 0, new SlingFx(), stops);
     },
     wide: false,
+  },
+  {
+    name: "THE TASTER",
+    // Every blade stands up out of the crest, so the crest's underside is
+    // what a bolt meets up any column of the fan: the middle blade edged red
+    // is the core, an uncoloured edge its armour.
+    draw(stops, l, open) {
+      const world = taster.stood(open);
+      taster.draw(world, stops, l);
+    },
+    wide: true,
+    spans: true,
   },
 ];
