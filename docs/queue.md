@@ -381,6 +381,7 @@ Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 ## One mouse can never close a chord, so a desk cannot clamp THE GRINDSTONE
 
 - **Found:** 2026-10-03, claude/grindstone-hold-mechanic-0b555e
+- **Taken:** 2026-10-04, claude/queue-work-cccabd (claim: claude/queue-one-mouse-can-never-close-a-chord-so-a-desk-cann)
 - **Files:** `packages/render/src/chord-pads.ts`, `packages/render/src/desk-grab.ts`, `packages/render/src/grindstone-grip.ts`, `packages/render/src/trivet-grip.ts`, `packages/render/src/halter-grip.ts`, `packages/render/src/governor-grip.ts`
 - **Asks:** At a desk, should one held mouse on a jaw count as every pad of both jaws, as every pad of its own jaw with the `3` key adding the other seat's, or should pads get keys of their own?
 - **Answered:** 2026-10-03 — answer 1, over 2 and 3: a held mouse on a chord body is every pad of both seats, as INSTAR's `HOLD BOTH` ring is both thumbs. The owner: *if its same, it should be same control type used, which means exact same visuals* — so the chord at a desk is not a new control: it is drawn as `HOLD BOTH` is drawn (`render/instar-mark-grip.ts` `instarMarkBoth`), ring and fill, and a lane reuses that drawing rather than drawing its own.
