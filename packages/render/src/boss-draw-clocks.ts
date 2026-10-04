@@ -161,11 +161,26 @@ export function drawClockBoss(
   // The blow of a core hit shakes the sheet, the core and the ring as one.
   if (boss.kind === "curtain") {
     const hurt = effects.boss.curtain.hurt;
+    const shake = hurt.shakeX(view.time, l.tile);
     ctx.save();
-    ctx.translate(hurt.shakeX(view.time, l.tile), 0);
+    ctx.translate(shake, 0);
     const { beatPhase, time, names } = view;
     const { verdicts } = effects.boss.curtain.marks;
-    drawCurtain(ctx, l, world, boss, world.beat, beatPhase, time, names, hurt.value, verdicts);
+    const stops = effects.bolts;
+    drawCurtain(
+      ctx,
+      l,
+      world,
+      boss,
+      world.beat,
+      beatPhase,
+      time,
+      names,
+      hurt.value,
+      verdicts,
+      shake,
+      stops,
+    );
     ctx.restore();
     return;
   }

@@ -27,6 +27,7 @@ import { SlingFx } from "../src/sling-fx.js";
 import * as burgee from "./burgee-harness.js";
 import { stubCanvas } from "./canvas-stub.js";
 import * as capstan from "./capstan-harness.js";
+import * as curtain from "./curtain-harness.js";
 import * as davit from "./davit-harness.js";
 import * as flue from "./flue-harness.js";
 import * as gall from "./gall-harness.js";
@@ -115,6 +116,16 @@ export const ROWS: Row[] = [
       drawCapstan(paper(), l, world, s, world.beat, 0.5, 0, new CapstanFx(), stops);
     },
     wide: true,
+  },
+  {
+    name: "THE CURTAIN",
+    // The core hangs in the field's own rows; the sheet over the others is a
+    // creature, which the simulation stops a bolt on, so only the core is met.
+    draw(stops, l, open) {
+      const world = curtain.stood(open);
+      curtain.draw(world, stops, l);
+    },
+    wide: false,
   },
   {
     name: "THE DAVIT",

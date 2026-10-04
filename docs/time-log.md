@@ -33124,3 +33124,15 @@ Bottleneck: the target is a mark the script plants, not a part of the body, so t
 Bottleneck: the body is drawn through a flight transform and in two crossfading views, so the stop had to take the drawer's own transform and view choice rather than re-derive them.
 
 *Measured: 18 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-04 — THE CURTAIN stops a bolt on what it meets
+
+- reading: 5 min. The curtain's shot, drawer and core.
+- writing: 15 min. `curtainVerdict`, the core's radius and outline shared
+  out of `curtain-sheet.ts`, `curtain-stop.ts` with the dispatcher's shake
+  handed in, a harness, a `core-stop-rows.ts` row and a `shot-verdict` row.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: the shake is the dispatcher's translate, not the drawer's, so the drawer had to be handed it to stop a bolt where the core is drawn.

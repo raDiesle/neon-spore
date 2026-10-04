@@ -5,9 +5,11 @@ import {
   gripsCreature,
   type World,
 } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { curtainHemLift, curtainSheetMidX, drawCurtainHem } from "./curtain-grip.js";
 import { drawCurtainAsked, drawCurtainVerdicts } from "./curtain-marks.js";
 import { drawCurtainCore, drawCurtainJam, drawCurtainSheet } from "./curtain-sheet.js";
+import { curtainStopper } from "./curtain-stop.js";
 import { curtainSway } from "./curtain-sway.js";
 import { drawnCol } from "./depth.js";
 import { drawHandAt } from "./grip.js";
@@ -55,7 +57,8 @@ import { showsCurtainShadow, showsCurtainSoft } from "./view-role-clocks.js";
  * instead of the rail is the hem, and its ring — the one handle this boss has
  * — hangs in the middle of the sheet rather than over the core, because the
  * core is the navigator's to see and the pilot's own screen must not say where
- * it is (`curtain-grip.ts`).
+ * it is (`curtain-grip.ts`). A bolt stops on the core (`curtain-stop.ts`),
+ * told to `stops`, on every screen alike.
  */
 export function drawCurtain(
   ctx: CanvasRenderingContext2D,
@@ -71,9 +74,13 @@ export function drawCurtain(
   hurt = 0,
   /** The verdict of each touch, drawn over everything (`curtain-marks.ts`). */
   verdicts?: GripVerdicts,
+  /** How far the dispatcher has shaken it across, in pixels, for where a bolt stops. */
+  shake = 0,
+  stops?: BoltStops,
 ): void {
   if (l.tile <= 0) return;
   const { cfg } = world;
+  stops?.aim(curtainStopper(l, world, c, time, shake));
   const body = curtainBody(world, c);
   const bare = curtainCoreBare(world, c);
   const cy = tileCY(l, cfg.curtainRow);

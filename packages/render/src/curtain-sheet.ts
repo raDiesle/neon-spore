@@ -122,6 +122,17 @@ export function drawCurtainJam(
   strokeGlow(ctx, bar, PALETTE.rockDark, STROKE.inner, 0.4 * left);
 }
 
+/** The core's radius: shrunk behind the fabric, beating once it hangs naked. Drawn so and met so (`curtain-stop.ts`). */
+export function curtainCoreRadius(l: Layout, bare: boolean, naked: boolean, time: number): number {
+  const pulse = naked ? 1 + 0.08 * Math.sin(time * 9) : 1;
+  return l.tile * 0.3 * pulse * (bare ? 1 : 0.85);
+}
+
+/** The bare core's lobed outline about (`x`, `y`). */
+export function curtainCorePoints(x: number, y: number, r: number, time: number) {
+  return blobPoints(x, y, r, r, 5, 0.14, 0.05, time * 0.9, 47, 32);
+}
+
 /**
  * The core: a blob in its colour. Covered, it is a shadow — a halo and a
  * dimmed disc for the fabric to be drawn over; bare, a body of flesh
@@ -146,8 +157,7 @@ export function drawCurtainCore(
   const rimHex = color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
   const fade = Math.max(0, 1 - out);
   if (fade <= 0) return;
-  const pulse = naked ? 1 + 0.08 * Math.sin(time * 9) : 1;
-  const r = t * 0.3 * pulse * (bare ? 1 : 0.85);
+  const r = curtainCoreRadius(l, bare, naked, time);
   if (!bare) {
     // The shadow: what a colour looks like behind a grey.
     halo(ctx, x, y, t * 0.9, hex, 0.45 * fade);
@@ -161,7 +171,7 @@ export function drawCurtainCore(
     return;
   }
   halo(ctx, x, y, t * (naked ? 1.3 : 1), hex, (naked ? 0.8 : 0.6) * fade);
-  const path = splinePath(blobPoints(x, y, r, r, 5, 0.14, 0.05, time * 0.9, 47, 32), true);
+  const path = splinePath(curtainCorePoints(x, y, r, time), true);
   const dark = color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
   const beat = naked ? 0.5 + 0.5 * Math.sin(time * 9) : 0;
   paintCoreBody(ctx, path, x, y, r, t, hex, dark, rimHex, beat, fade, time);

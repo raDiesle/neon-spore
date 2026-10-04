@@ -81,6 +81,7 @@ export type { CoreVerdict } from "./core-verdict.js";
 // Whether THE CURTAIN's hem asks the pilot for his thumb
 // (`render/curtain-marks.ts`), because the page it would have joined was within twenty lines of its limit.
 export { curtainHemAsks } from "./curtain-hand.js";
+export { curtainVerdict } from "./curtain-shot.js";
 export { cystVerdict } from "./cyst-shot.js";
 export { davitVerdict } from "./davit-shot.js";
 // THE FLUE's ember: the phase, the lit step, the drift and the steadying,

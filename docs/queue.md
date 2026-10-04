@@ -409,6 +409,9 @@ stopper and leave it for VERSUS, as `flue-stop.ts` does.
 THE CURTAIN, GORGE and TASTER are drawn from `boss-draw-clocks.ts`, THE VANE
 from `boss-draw.ts`.
 
+THE CURTAIN stops one on its core (`render/curtain-stop.ts`, its row in
+`core-stop-rows.ts`); THE GORGE, TASTER and VANE are left.
+
 Done when each boss here calls `stops?.aim`, has its row in
 `core-stop-rows.ts`, and `bun run check` is green.
 

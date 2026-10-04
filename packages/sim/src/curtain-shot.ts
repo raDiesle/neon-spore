@@ -1,9 +1,10 @@
 import { metColor, missedColor } from "./balance.js";
+import type { CoreVerdict } from "./core-verdict.js";
 import { curtainBody, curtainBoss, curtainCoreBare } from "./curtain.js";
 import { curtainDrift, curtainFire, curtainLobeOff, enterCurtain } from "./curtain-step.js";
 import { creatureLane } from "./mid-beat.js";
 import { closeSlow, openSlow } from "./slow.js";
-import type { Bullet, Creature } from "./types.js";
+import type { Bullet, Color, Creature } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -32,6 +33,20 @@ export function curtainHemStruck(world: World, b: Bullet, hit: Creature): void {
 }
 
 /**
+ * **What a bolt of `color` in `col` meets of THE CURTAIN** leaving the top of
+ * the field, pure, so the picture asks it where a bolt stops
+ * (`render/curtain-stop.ts`) and `curtainStruck` acts on the same answer: the
+ * core in its own column — armour while the fabric covers it, `target` bare in
+ * its colour and `wrong` in the other — and nothing anywhere else.
+ */
+export function curtainVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const c = curtainBoss(world);
+  if (c === null || c.phase === "out" || col !== c.coreCol) return null;
+  if (!curtainCoreBare(world, c)) return "armour";
+  return color === c.coreColor ? "target" : "wrong";
+}
+
+/**
  * **A shot that nothing on the field stopped, leaving through the top** of
  * the core's column while the core is bare. Its own colour hurts it: the
  * lobe nearest it drops, it drifts, and the rail jams behind it. The other
@@ -41,9 +56,10 @@ export function curtainStruck(world: World, b: Bullet): boolean {
   const c = curtainBoss(world);
   // The fabric is a body on the field and stops a bolt there, so the core is
   // the one thing up here: covered, it is armour (`shot-out.ts`).
-  if (c === null || c.phase === "out" || b.col !== c.coreCol) return false;
-  if (!curtainCoreBare(world, c)) return true;
-  if (b.color !== c.coreColor) {
+  const verdict = curtainVerdict(world, b.col, b.color);
+  if (c === null || verdict === null) return false;
+  if (verdict === "armour") return true;
+  if (verdict === "wrong") {
     missedColor(world);
     curtainFire(world, c);
     return true;
