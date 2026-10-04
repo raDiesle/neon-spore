@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-04 · 73ca06bc8 — THE CURTAIN stops a bolt on what it meets
+
+A bolt fired up THE CURTAIN's core column is drawn stopping on the core, at its lower edge — bursting on it bare in its colour, scuffing in the other, and on its armour while the fabric covers it — shaken as the blow of a hit shakes it. The verdict is `curtainVerdict`, which `curtainStruck` now acts on; the core's radius and outline are shared out of `curtain-sheet.ts`. The fabric is a creature, already met on the field.
+
 ## 2026-10-04 · 2155eb2ba — THE INSTAR stops a bolt on its marks and its body's tube
 
 A bolt fired at THE INSTAR is drawn stopping on the SHOOT mark over its column, bursting in a colour the mark takes and scuffing in one it refuses, and otherwise on the lowest of its body's tube in each view drawn — the face-on seen rings and the side-on hide — laid through the flight and the shake as the drawer lays them. Its heads, wings, tail and nests are not met yet; they are their own queue item.

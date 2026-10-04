@@ -33136,3 +33136,5 @@ Bottleneck: the body is drawn through a flight transform and in two crossfading 
 - landing: 5 min. `check:fast`, the index, `land`.
 
 Bottleneck: the shake is the dispatcher's translate, not the drawer's, so the drawer had to be handed it to stop a bolt where the core is drawn.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
