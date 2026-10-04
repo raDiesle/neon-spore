@@ -378,48 +378,6 @@ own column does — and THE LEDGER; each gets its row in `own-stop.test.ts`.
 Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 `own-stop.test.ts`, and `bun run check` is green.
 
-## THE CURTAIN, GORGE, TASTER and VANE stop a bolt on what it meets
-
-- **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
-- **Taken:** 2026-10-04, claude/queue-work-cccabd (claim: claude/queue-the-curtain-gorge-taster-and-vane-stop-a-bolt-on)
-- **Where:** local
-- **Files:** `packages/render/src/boss-draw-clocks.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/core-stop.ts`, `packages/render/test/core-stop-rows.ts`
-
-The owner, 1 October 2026, on THE SEAM *but also all other bosses*: the part
-the cannon must hit is lit in its colour and beats like a heart, the bolt has a
-clear path to it, and a bolt stops on whatever it meets — bursting on the right
-part, scuffing anywhere else and doing nothing. The rule is the last bullet of
-`.claude/skills/new-boss/generic.md`. THE SEAM and the eleven bosses whose
-shot is `coreVerdict` keep it (`render/core-stop.ts`, `render/*-stop.ts`).
-
-Each boss needs its shot's judgement pulled out of its `…Struck` into a pure
-`…Verdict(world, col, color)` the `…Struck` then acts on, as
-`sim/seam-shot.ts`'s `seamVerdict` was; then a `…-stop.ts` handing
-`BoltStops` (`render/bolt-stop.ts`) where a bolt in each column meets the
-picture — `coreStopper` with the core's near rim and the body's `Foot` where
-the shot is one part, a stopper of its own (`render/seam-stop.ts`) where it
-is not. The feet are `roundFoot`, `outlineFoot` over the points a shape file
-hands out beside its path (`capstanBodyPoints`) and `rodFoot`. The drawer
-takes `stops?: BoltStops` last and calls `stops?.aim(...)`; its dispatcher
-passes `effects.bolts`. A row goes in `render/test/core-stop-rows.ts` (its
-harness in `render/test/<boss>-harness.ts`). A target the bolt must be drawn
-through some other part of the body to reach is a look: say so in the
-stopper and leave it for VERSUS, as `flue-stop.ts` does.
-
-THE CURTAIN, GORGE and TASTER are drawn from `boss-draw-clocks.ts`, THE VANE
-from `boss-draw.ts`.
-
-THE CURTAIN stops one on its core (`render/curtain-stop.ts`, its row in
-`core-stop-rows.ts`). THE GORGE needs none: it hangs mid-field (`gorgeRow`),
-and the simulation meets a bolt at its bubble there (`sim/boss-along.ts`),
-so the bolt is gone where it is drawn; a sated bubble is flown past by
-design, on to whatever stands in the rows above, so its sack must not stop
-one either. THE TASTER stops one on its crest's underside
-(`render/taster-stop.ts`, its row in `core-stop-rows.ts`). THE VANE is left.
-
-Done when each boss here calls `stops?.aim`, has its row in
-`core-stop-rows.ts`, and `bun run check` is green.
-
 ## One mouse can never close a chord, so a desk cannot clamp THE GRINDSTONE
 
 - **Found:** 2026-10-03, claude/grindstone-hold-mechanic-0b555e
@@ -517,4 +475,3 @@ lowest face-on. `render/test/instar-stop.test.ts` and
 under it stops on it.
 
 Done when each part named here is met, and `bun run check` is green.
-
