@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-04 · d8fd38ea8 — THE VANE needs no bolt stop, and the bolt-stop queue item is closed
+
+THE VANE's bearing and mouth hang on the arm's row, mid-field: the simulation meets a bolt at an open mouth there, and one past the shut housing flies on to whatever stands above, so the bolt is drawn where it is judged and nothing at the top is drawn to stop one on. THE CURTAIN, GORGE, TASTER and VANE are all answered.
+
 ## 2026-10-04 · b5077b2e3 — THE TASTER stops a bolt on what it meets
 
 A bolt fired up THE TASTER's fan is drawn stopping on the crest's underside, where every blade stands out of it — bursting where it pares a blade or cuts the soft crest, scuffing where it thickens one, and ringing off an uncoloured edge or the closed fan — shaken as the blow of a blade struck off shakes it. The verdict is `tasterVerdict`, which `tasterStruck` now acts on; the crest's points are shared out of `taster-crest.ts`. THE GORGE needs no stop: it is met mid-field, where it is drawn.

@@ -33163,3 +33163,5 @@ Bottleneck: reading where each boss hangs — THE GORGE turned out to be mid-fie
 - landing: 5 min. The queue entry out, `land`.
 
 Bottleneck: none — the bearing came down to the arm's row long ago, so a bolt is met mid-field where it is drawn, and nothing of the vane stands at the top to stop one on.
+
+*Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
