@@ -176,6 +176,12 @@ export type Hold =
        */
       chord?: true;
       /**
+       * A chord finger that is **every pad of its body at once**: the desk's
+       * one mouse, which can never be the second finger (`desk-chord.ts`).
+       * How many pads, so the pointers' owner says each down (`chord-pads.ts`).
+       */
+      pads?: number;
+      /**
        * One thumb **rubbing** — THE GRINDSTONE's flats: what it sends is how
        * many times it has turned back since it went down, so its press, its
        * move and its lift are counted by whoever owns the pointers (`rub.ts`,

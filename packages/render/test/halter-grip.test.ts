@@ -143,15 +143,14 @@ describe("thumbs on THE HALTER", () => {
       [7, 0],
       [8, 1],
     ] as const) {
-      const c = chords.down(id, [hold(side)]);
-      if (c) said.push(c.command);
+      for (const c of chords.down(id, [hold(side)])) said.push(c.command);
     }
     expect(said).toHaveLength(2);
     expect(said.map((c) => (c.kind === "drag" ? [c.target, c.on] : null))).toEqual([
       ["halterChordLeft", true],
       ["halterChordRight", true],
     ]);
-    expect(chords.up(8)?.command).toMatchObject({
+    expect(chords.up(8)[0]?.command).toMatchObject({
       kind: "drag",
       target: "halterChordRight",
       on: false,
@@ -166,9 +165,9 @@ describe("thumbs on THE HALTER", () => {
     const h2 = press(world, "test", 2, at)?.hold;
     if (!h1 || !h2 || !chordFinger(h1) || !chordFinger(h2)) throw new Error("no chord hold");
     // Each is its own body's first pad, so both say pad nought down.
-    expect(chords.down(1, [h1])).toMatchObject({ player: 1, command: { id: 0, on: true } });
-    expect(chords.down(2, [h2])).toMatchObject({ player: 2, command: { id: 0, on: true } });
-    expect(chords.up(1)?.player).toBe(1);
+    expect(chords.down(1, [h1])).toMatchObject([{ player: 1, command: { id: 0, on: true } }]);
+    expect(chords.down(2, [h2])).toMatchObject([{ player: 2, command: { id: 0, on: true } }]);
+    expect(chords.up(1)[0]?.player).toBe(1);
   });
 
   it("cracks the lit segment on a real chord with the resting seat sending nothing", () => {
@@ -177,8 +176,7 @@ describe("thumbs on THE HALTER", () => {
     const said = ([0, 1] as const).flatMap((side) => {
       const h = press(world, "p1", 1, grip(world, s, "p1", side))?.hold;
       if (!h || !chordFinger(h)) throw new Error("no chord hold");
-      const c = chords.down(10 + side, [h]);
-      return c ? [c] : [];
+      return chords.down(10 + side, [h]);
     });
     step(
       world,

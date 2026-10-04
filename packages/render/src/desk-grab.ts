@@ -2,6 +2,7 @@ import { batonGripSeat } from "./baton-grip.js";
 import { capstanGripSeat } from "./capstan-grip.js";
 import { curtainHemSeat } from "./curtain-grip.js";
 import { cystGripSeat } from "./cyst-grip.js";
+import { deskChord } from "./desk-chord.js";
 import { filamentGripSeat } from "./filament-grip.js";
 import { flueGripSeat } from "./flue-grip.js";
 import { halterGripSeat } from "./halter-grip.js";
@@ -112,12 +113,14 @@ export function deskDown(
  * players.* A mark that counts only while both thumbs are on it never starts
  * from one mouse signed with one seat.
  *
- * Two ways a press wants both, and only where the pointer may speak for both
+ * Three ways a press wants both, and only where the pointer may speak for both
  * seats — a phone has one seat and is never given a second hand:
  *
  * 1. **The control under it says so**: THE INSTAR's `HOLD BOTH` ring
  *    (`instarMarkBoth`), with no key held at all.
- * 2. **`both` — the `3` key held** (`desk-seat.ts`): every seat that finds
+ * 2. **A chord body** — THE GRINDSTONE's jaws and every other chord: the
+ *    whole chord, every pad of both bodies (`desk-chord.ts`), with no key held.
+ * 3. **`both` — the `3` key held** (`desk-seat.ts`): every seat that finds
  *    something there is on it. Not on a ring that names one seat, which the
  *    other would only be refused on (`sim/instar-hand.ts`), and not where the
  *    second hit test answers for the same player — a strip is signed by the
@@ -138,6 +141,8 @@ export function deskDownAll(
   if (first === null) return [];
   const other = first.player === 1 ? 2 : 1;
   if (!seats.includes(other)) return [first];
+  const chord = deskChord(first);
+  if (chord !== null) return chord;
   const field = fieldFor(first.player);
   const wants = instarMarkBoth(l, x, y, field) || (both && markSeat(l, x, y, field) === undefined);
   if (!wants) return [first];

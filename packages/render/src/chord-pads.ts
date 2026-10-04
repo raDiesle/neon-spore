@@ -6,8 +6,8 @@ type ChordHold = Extract<Hold, { kind: "drag" }>;
 
 interface Body {
   hold: ChordHold;
-  /** Each finger on the body and the pad it was counted as. */
-  pads: Map<number, number>;
+  /** Each finger on the body and the pads it was counted as: one, or every pad (`Hold.pads`). */
+  pads: Map<number, number[]>;
 }
 
 /**
@@ -28,33 +28,50 @@ interface Body {
  * press with the seat whose side it landed on. By seat as well since THE
  * HALTER, whose two grips are both seats' (`halter-grip.ts`): at the desk the
  * pilot's thumb and the navigator's on one grip are two bodies, not one.
+ *
+ * **A desk's mouse is every pad at once.** Its press carries a hold for each
+ * body of the chord, each flagged with its count of pads (`desk-chord.ts`),
+ * and each says every pad no finger is on down, and up again on the lift.
  */
 export class Chords {
   private readonly bodies = new Map<string, Body>();
 
   /** A finger down, with the holds its press took. */
-  down(id: number, holds: readonly Hold[]): Pinched | null {
-    const hold = holds.find(chordFinger);
-    if (!hold) return null;
-    const key = `${hold.player}:${hold.target}`;
-    const body = this.bodies.get(key) ?? { hold, pads: new Map() };
-    this.bodies.set(key, body);
-    const taken = new Set(body.pads.values());
-    let pad = 0;
-    while (taken.has(pad)) pad++;
-    body.pads.set(id, pad);
-    return { player: body.hold.player, command: chordSays(body.hold, pad, true) };
+  down(id: number, holds: readonly Hold[]): Pinched[] {
+    const said: Pinched[] = [];
+    for (const hold of holds) {
+      if (!chordFinger(hold)) continue;
+      const key = `${hold.player}:${hold.target}`;
+      const body = this.bodies.get(key) ?? { hold, pads: new Map() };
+      this.bodies.set(key, body);
+      const taken = new Set([...body.pads.values()].flat());
+      const free = (from: number): number => {
+        let pad = from;
+        while (taken.has(pad)) pad++;
+        return pad;
+      };
+      const mine =
+        hold.pads === undefined
+          ? [free(0)]
+          : Array.from({ length: hold.pads }, (_, pad) => pad).filter((pad) => !taken.has(pad));
+      body.pads.set(id, mine);
+      for (const pad of mine)
+        said.push({ player: body.hold.player, command: chordSays(body.hold, pad, true) });
+    }
+    return said;
   }
 
   /** A finger lifted, or lost. */
-  up(id: number): Pinched | null {
+  up(id: number): Pinched[] {
+    const said: Pinched[] = [];
     for (const [key, body] of this.bodies) {
-      const pad = body.pads.get(id);
-      if (pad === undefined) continue;
+      const pads = body.pads.get(id);
+      if (pads === undefined) continue;
       body.pads.delete(id);
       if (body.pads.size === 0) this.bodies.delete(key);
-      return { player: body.hold.player, command: chordSays(body.hold, pad, false) };
+      for (const pad of pads)
+        said.push({ player: body.hold.player, command: chordSays(body.hold, pad, false) });
     }
-    return null;
+    return said;
   }
 }

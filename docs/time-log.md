@@ -33165,3 +33165,13 @@ Bottleneck: reading where each boss hangs — THE GORGE turned out to be mid-fie
 Bottleneck: none — the bearing came down to the arm's row long ago, so a bolt is met mid-field where it is drawn, and nothing of the vane stands at the top to stop one on.
 
 *Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-04 — One mouse at the desk closes a chord
+
+- reading: 15 min. The chord's pad count, the desk's press, and what each of the four bosses' hands hears.
+- writing: 10 min. `desk-chord.ts`, the counter's every-pad hold, the test.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. The look split off into the queue, `land`.
+
+Bottleneck: THE HALTER — its chord is one seat's two grips while the other rests, so "both seats" had to mean the partner body's seat, not always the other one.

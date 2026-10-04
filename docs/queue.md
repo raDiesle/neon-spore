@@ -378,41 +378,6 @@ own column does — and THE LEDGER; each gets its row in `own-stop.test.ts`.
 Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 `own-stop.test.ts`, and `bun run check` is green.
 
-## One mouse can never close a chord, so a desk cannot clamp THE GRINDSTONE
-
-- **Found:** 2026-10-03, claude/grindstone-hold-mechanic-0b555e
-- **Taken:** 2026-10-04, claude/queue-work-cccabd (claim: claude/queue-one-mouse-can-never-close-a-chord-so-a-desk-cann)
-- **Files:** `packages/render/src/chord-pads.ts`, `packages/render/src/desk-grab.ts`, `packages/render/src/grindstone-grip.ts`, `packages/render/src/trivet-grip.ts`, `packages/render/src/halter-grip.ts`, `packages/render/src/governor-grip.ts`
-- **Asks:** At a desk, should one held mouse on a jaw count as every pad of both jaws, as every pad of its own jaw with the `3` key adding the other seat's, or should pads get keys of their own?
-- **Answered:** 2026-10-03 — answer 1, over 2 and 3: a held mouse on a chord body is every pad of both seats, as INSTAR's `HOLD BOTH` ring is both thumbs. The owner: *if its same, it should be same control type used, which means exact same visuals* — so the chord at a desk is not a new control: it is drawn as `HOLD BOTH` is drawn (`render/instar-mark-grip.ts` `instarMarkBoth`), ring and fill, and a lane reuses that drawing rather than drawing its own.
-
-The owner, 3 October 2026, on THE GRINDSTONE in the director and on a PC:
-*the hold does not work for me.* It cannot. A clamp counts only while all
-four pads are down — `GRINDSTONE_PADS` on each jaw, both jaws
-(`sim/grindstone.ts` `grindstoneClamped`) — and `Chords` (`chord-pads.ts`)
-makes a pad of each *pointer*. A mouse is one pointer, so it is one pad on
-one jaw, and the clamp step runs out and springs every time. `deskDownAll`'s
-`3` key does not help: it adds the other seat only where that seat finds
-something under the *same* point, and the two jaws are a wheel apart.
-
-The same holds for every chord body: THE TRIVET's feet, THE HALTER's grips
-and THE GOVERNOR's chord. `test/desk-reach.test.ts` asks only whether a
-mouse *reaches* each control, never whether it can finish one, which is why
-nothing went red.
-
-The three answers, all desk-only — a phone keeps a pad a finger:
-
-1. A held mouse on any pad of a chord body says every pad down, for both
-   seats where the body's partner is the other seat's (the way INSTAR's
-   `HOLD BOTH` ring is both thumbs). Simplest, and one click clamps.
-2. A held mouse says every pad of the body it is on; the `3` key held adds
-   the other seat's body as well, wherever it is drawn.
-3. Keys for pads, so a desk plays a chord the way a pair does.
-
-Done when a desk's mouse can clamp THE GRINDSTONE and complete each other
-chord in the chosen way, `desk-reach.test.ts` (or a test beside it) asks
-that it can, and `bun run check` is green.
-
 ## bosses-choreographed.md's contents and ledger say built bosses are unbuilt
 
 - **Found:** 2026-10-03, claude/antiphon-explanation-german-eb9d7c
@@ -476,3 +441,21 @@ lowest face-on. `render/test/instar-stop.test.ts` and
 under it stops on it.
 
 Done when each part named here is met, and `bun run check` is green.
+
+## A desk's chord body is drawn as `HOLD BOTH` is drawn
+
+- **Found:** 2026-10-04, claude/queue-work-cccabd
+- **Files:** `packages/render/src/desk-chord.ts`, `packages/render/src/instar-ring.ts`, `packages/render/src/grindstone-draw.ts`, `packages/render/src/trivet-draw.ts`, `packages/render/src/halter-draw.ts`, `packages/render/src/governor-draw.ts`
+
+The second half of *One mouse can never close a chord*, split off when the
+mechanic landed: a held mouse on any chord body at the desk is now the whole
+chord (`desk-chord.ts`), but nothing on the TEST screen says so. The owner's
+answer of 3 October 2026: *if its same, it should be same control type used,
+which means exact same visuals* — so on a screen whose pointer speaks for both
+seats (`desk-seat.ts` `pointerSeats`), each chord body that takes a hand
+(THE GRINDSTONE's jaws, THE TRIVET's feet, THE GOVERNOR's works, THE HALTER's
+lit grips) wears THE INSTAR's `HOLD BOTH` ring and fill, by calling
+`drawInstarRing` with the `hold` gesture and the `HOLD BOTH` word
+(`instar-marks.ts` `INSTAR_WORDS`), never a drawing of its own. A phone's
+screen is unchanged. A look the owner asked for by name; frames in
+`frame.test.ts`, and one PNG of THE GRINDSTONE on TEST to the owner.

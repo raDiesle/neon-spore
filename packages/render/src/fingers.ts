@@ -38,11 +38,11 @@ export class Fingers {
     onMark = false,
   ): Pinched[] {
     if (onMark) this.onMarks.set(id, { id, x, y });
-    return said(
-      this.pinches.down(l, id, holds, x, y),
-      this.chords.down(id, holds),
-      this.rubs.down(id, holds, x, y),
-    );
+    return [
+      ...said(this.pinches.down(l, id, holds, x, y)),
+      ...this.chords.down(id, holds),
+      ...said(this.rubs.down(id, holds, x, y)),
+    ];
   }
 
   /** A finger moved, one sample at a time. */
@@ -59,7 +59,7 @@ export class Fingers {
   /** A finger lifted, or lost. */
   up(id: number): Pinched[] {
     this.onMarks.delete(id);
-    return said(this.pinches.up(id), this.chords.up(id), this.rubs.up(id));
+    return [...said(this.pinches.up(id)), ...this.chords.up(id), ...said(this.rubs.up(id))];
   }
 }
 

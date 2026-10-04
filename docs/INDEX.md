@@ -1255,6 +1255,7 @@ by hand never moves.
 | `packages/render/src/depth.ts` | THE FIELD HAS A NEAR EDGE AND A FAR ONE |
 | `packages/render/src/debris.ts` | The pieces a broken body left, still in the air |
 | `packages/render/src/desk-seat.ts` | **Whose hand a desk's one mouse is**, on the screen that shows both seats |
+| `packages/render/src/desk-chord.ts` | **A desk press on a chord body is the whole chord** — every pad of it and of its partner |
 | `packages/render/src/desk-grab.ts` | **A press on the screen that shows both seats**, where the desk's one mouse has not been told whose hand it is |
 | `packages/render/src/effects-body.ts` | The transients that belong to **one body** and outlive it by less than a beat: a lure folding to a point, the |
 | `packages/render/src/effects-boss.ts` | The transients that belong to **one boss** and are read above the loop |
@@ -2249,7 +2250,7 @@ by hand never moves.
 | `packages/render/src/choke-strip.ts` | **Player 1's cannon strip while THE CHOKE has the cannon.** Drawn over the strip the band has just drawn |
 | `packages/render/src/choke-hull.ts` | THE CHOKE's grip on the cannon over the finished hull — the loops round the swelling while the steer fault has it, and the pilot's light toward the next column |
 | `packages/render/src/chord.ts` | **`ChordHold` from several fingers** — the second gesture in the game read off more than one touch at once |
-| `packages/render/src/chord-pads.ts` | Each finger on the body and the pad it was counted as |
+| `packages/render/src/chord-pads.ts` | **Which pad each finger is** — the pointers' half of a chord, and a desk's mouse every pad at once |
 | `packages/render/src/chart-lattice.ts` | **A chart's lattice**: the lines between the squares, a mark on every crossing pulsing on the beat |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
 | `packages/render/src/antiphon-draw.ts` | **THE ANTIPHON**: a smooth violet body hung over the top of the field above row 0 |
