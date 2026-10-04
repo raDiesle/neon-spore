@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-04 · 6e29979ea — THE STARE stops a bolt on what it meets
+
+A bolt fired at THE STARE is drawn stopping on the glass dome round the eye, at its lower edge, wherever the dome stands over it — up the middle, where the simulation rings it off, in either colour, open or shut. The eye is never a target. The verdict is `stareVerdict`, which `stareStruck` now acts on, and the dome's box is shared out of `stare-shell.ts`.
+
 ## 2026-10-03 · 147d1d995 — THE SCUTTLE stops a bolt on what it meets
 
 A bolt fired at THE SCUTTLE is drawn stopping where the simulation says it landed: on the live part where it hangs — where the pilot swung it, if he did — bursting in its colour and scuffing in the other, and otherwise on the lowest of the slab and the loose parts hanging under it. The verdict is `scuttleVerdict`, which `scuttleStruck` now acts on; the slab's and the plate's outlines are laid once in `scuttle-outline.ts`, drawn and met alike, and the lock moved to `scuttle-lock.ts`.
