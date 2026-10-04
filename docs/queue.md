@@ -381,6 +381,7 @@ Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 ## THE CURTAIN, GORGE, TASTER and VANE stop a bolt on what it meets
 
 - **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
+- **Taken:** 2026-10-04, claude/queue-work-cccabd (claim: claude/queue-the-curtain-gorge-taster-and-vane-stop-a-bolt-on)
 - **Where:** local
 - **Files:** `packages/render/src/boss-draw-clocks.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/core-stop.ts`, `packages/render/test/core-stop-rows.ts`
 
