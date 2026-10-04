@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-04 · b5077b2e3 — THE TASTER stops a bolt on what it meets
+
+A bolt fired up THE TASTER's fan is drawn stopping on the crest's underside, where every blade stands out of it — bursting where it pares a blade or cuts the soft crest, scuffing where it thickens one, and ringing off an uncoloured edge or the closed fan — shaken as the blow of a blade struck off shakes it. The verdict is `tasterVerdict`, which `tasterStruck` now acts on; the crest's points are shared out of `taster-crest.ts`. THE GORGE needs no stop: it is met mid-field, where it is drawn.
+
 ## 2026-10-04 · 73ca06bc8 — THE CURTAIN stops a bolt on what it meets
 
 A bolt fired up THE CURTAIN's core column is drawn stopping on the core, at its lower edge — bursting on it bare in its colour, scuffing in the other, and on its armour while the fabric covers it — shaken as the blow of a hit shakes it. The verdict is `curtainVerdict`, which `curtainStruck` now acts on; the core's radius and outline are shared out of `curtain-sheet.ts`. The fabric is a creature, already met on the field.

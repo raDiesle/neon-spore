@@ -33151,3 +33151,5 @@ Bottleneck: the shake is the dispatcher's translate, not the drawer's, so the dr
 - landing: 5 min. `check:fast`, the index, `land`.
 
 Bottleneck: reading where each boss hangs — THE GORGE turned out to be mid-field, judged in flight, and needing nothing.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
