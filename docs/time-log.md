@@ -33175,3 +33175,5 @@ Bottleneck: none — the bearing came down to the arm's row long ago, so a bolt 
 - landing: 5 min. The look split off into the queue, `land`.
 
 Bottleneck: THE HALTER — its chord is one seat's two grips while the other rests, so "both seats" had to mean the partner body's seat, not always the other one.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-04 · 4d5adee00 — One mouse at the desk closes a chord, so TEST can clamp THE GRINDSTONE
+
+On the screen whose pointer speaks for both seats, a held mouse on any chord body is now the whole chord: every pad of that body and of its partner (`render/desk-chord.ts`), the owner's first answer of 3 October 2026. THE GRINDSTONE's jaws, THE TRIVET's feet and THE GOVERNOR's chords take both seats' bodies; THE HALTER takes the pressing seat's two grips only, so its rester stays settled. A phone keeps one pad a finger.
+
 ## 2026-10-04 · d8fd38ea8 — THE VANE needs no bolt stop, and the bolt-stop queue item is closed
 
 THE VANE's bearing and mouth hang on the arm's row, mid-field: the simulation meets a bolt at an open mouth there, and one past the shut housing flies on to whatever stands above, so the bolt is drawn where it is judged and nothing at the top is drawn to stop one on. THE CURTAIN, GORGE, TASTER and VANE are all answered.
