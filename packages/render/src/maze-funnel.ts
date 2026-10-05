@@ -17,9 +17,10 @@ import { PALETTE } from "./palette.js";
  * click. What a pair sees is what catches, and the one number moves both.
  *
  * It changes no wall. The cut at the rim is still `mazeRimHalfGapMilli`, which
- * is where the shot goes in; the funnel is the bezel's (`maze-plate.ts`) and
- * the lit door's two cut ends (`maze-door.ts`), both of which ask this file
- * where the lips run rather than each working it out.
+ * is where the shot goes in; the funnel is the bezel's (`maze-plate.ts`), the
+ * lit door's two cut ends (`maze-door.ts`) and the gap in the lever's channel
+ * (`maze-string.ts`), all of which ask this file where the lips run rather
+ * than each working it out.
  */
 
 /** How far out from the rim the funnel's mouth stands, as a share of the drum's radius. */
@@ -77,9 +78,12 @@ export function mazeFunnelLips(
 }
 
 /**
- * The funnel at every cut in the rim: a faint floor between the lips, so the
- * shape reads as a mouth and not as two strokes, and the lips themselves in
- * the bezel's metal. `turn` is the rim's angle, spin included.
+ * The funnel at every cut in the rim: its two lips in the bezel's metal, and
+ * nothing between them. There was a faint floor across the mouth, so the
+ * shape read as a mouth and not as two strokes; the owner read it as a grey
+ * patch across the way in (5 October 2026: *must be removed to show as a
+ * cleaned free entrance*), so the mouth is open to the field now. `turn` is
+ * the rim's angle, spin included.
  */
 export function drawMazeFunnels(
   ctx: CanvasRenderingContext2D,
@@ -90,27 +94,43 @@ export function drawMazeFunnels(
 ): void {
   const cuts = wheel.openings[wheel.rings] ?? [];
   if (cuts.length === 0) return;
-  const floor = new Path2D();
   const lips = new Path2D();
   for (const cut of cuts) {
-    const [a, b] = mazeFunnelLips(cfg, wheel, c, turn + cut);
-    if (a === undefined || b === undefined) continue;
-    floor.moveTo(a.from.x, a.from.y);
-    floor.lineTo(a.to.x, a.to.y);
-    floor.lineTo(b.to.x, b.to.y);
-    floor.lineTo(b.from.x, b.from.y);
-    floor.closePath();
-    for (const lip of [a, b]) {
+    for (const lip of mazeFunnelLips(cfg, wheel, c, turn + cut)) {
       lips.moveTo(lip.from.x, lip.from.y);
       lips.lineTo(lip.to.x, lip.to.y);
     }
   }
   ctx.save();
-  ctx.fillStyle = rgba(PALETTE.hullRim, 0.14);
-  ctx.fill(floor);
   ctx.lineCap = "round";
   ctx.strokeStyle = rgba(PALETTE.hullRim, 0.85);
   ctx.lineWidth = 2.4;
   ctx.stroke(lips);
   ctx.restore();
+}
+
+/**
+ * Everything outside the drum but the ways in: the canvas with a wedge cut out
+ * at every gap in the rim, as wide as the funnel's mouth and reaching `reach`
+ * from the centre. Clipped to by the lever's channel (`maze-string.ts`), which
+ * runs round the rim and used to cross every way in as a grey band.
+ */
+export function mazeOutsideGaps(
+  cfg: SimConfig,
+  wheel: MazeWheel,
+  c: { cx: number; cy: number; r: number },
+  turn: number,
+  reach: number,
+): Path2D {
+  const p = new Path2D();
+  p.rect(c.cx - reach * 2, c.cy - reach * 2, reach * 4, reach * 4);
+  const half = mazeFunnelHalfMilli(cfg, wheel, c.r, 1);
+  for (const cut of wheel.openings[wheel.rings] ?? []) {
+    const from = mazeCanvasAngle(turn + cut + half);
+    const to = mazeCanvasAngle(turn + cut - half);
+    p.moveTo(c.cx, c.cy);
+    p.arc(c.cx, c.cy, reach, from, to);
+    p.closePath();
+  }
+  return p;
 }

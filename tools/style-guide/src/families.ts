@@ -53,6 +53,7 @@ export const FAMILIES: Family[] = [
       "emberRim",
       "blue",
       "blueRim",
+      "lamp",
       "bile",
       "bileRim",
       "bileDeep",

@@ -33573,3 +33573,13 @@ Bottleneck: the pips moved off `FIRE` and out of THE SLOW's sharp band in the sa
 Bottleneck: the registrations a reworked boss owes outside the simulation, found one red test at a time.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE MAZE's ways in: a yellow light out of each, blue on the column, and no grey across them
+
+- reading: 10 min. The door, the funnel, the bezel and the lever's channel, to find which grey was across the gap.
+- writing: 10 min. `maze-lamp.ts`, the blue door, the funnel floor out and the channel clipped at every way in.
+- looking: 10 min. Four frames: the grey at the gap close up, the channel cut, the light too faint and then brighter, a door locked on the column.
+- friction: 5 min. `timeout` is not on this Mac, and the locked frame needed a script to find the angle that puts a way in on the column.
+- landing: 5 min. A new palette colour owes the style-guide sheet and its specimen list.
+
+Bottleneck: telling the bezel, the funnel floor and the lever's channel apart in a frame, three greys on one rim.

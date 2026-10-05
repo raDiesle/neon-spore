@@ -38,6 +38,10 @@ export const PALETTE = {
    * fuse is not the shield, and the eye must not read it as one. */
   blue: "#3F7BFF",
   blueRim: "#C9D9FF",
+  /** The light that leans out of a way into THE MAZE that is not yet on the
+   * cannon's column (the owner, 5 October 2026): a warm lamp, so a lit room
+   * behind every gap reads before the one on the column turns `blue`. */
+  lamp: "#FFD45A",
   /** THE ANTIPHON's organ and every candidate for it: a green no control
    * wears, so nothing on the rail reads as a colour to fire (the owner,
    * 5 October 2026). Mossier than `good`, which is a verdict. */

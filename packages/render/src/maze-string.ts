@@ -1,8 +1,9 @@
 import type { Point } from "@neon-spore/content";
-import { type MazeState, mazeLeverRadiusMilli, type SimConfig } from "@neon-spore/sim";
+import { type MazeState, mazeCurrent, mazeLeverRadiusMilli, type SimConfig } from "@neon-spore/sim";
 import { handleRadius } from "./handle-draw.js";
 import { drawHandleHint, HINT_LOUD, handleIsMine } from "./handle-word.js";
 import type { Circle, Layout, ViewRole } from "./layout.js";
+import { mazeOutsideGaps } from "./maze-funnel.js";
 import { drawMazeLever } from "./maze-lever.js";
 import { mazeDrum } from "./maze-walls.js";
 import { PALETTE } from "./palette.js";
@@ -162,7 +163,16 @@ export function drawMazeString(
   const ring = knobRing(l, cfg);
   const track = mazeStringTrack(l, cfg, rest.r * PULL_TRACK_W);
   const at = knob.off / (2 * Math.PI * ring.r);
+  // The channel stops at every way in, so a gap opens onto the field rather
+  // than onto a grey band (the owner, 5 October 2026).
+  const wheel = mazeCurrent(m);
+  ctx.save();
+  if (wheel !== null) {
+    const drum = mazeDrum(l, cfg);
+    ctx.clip(mazeOutsideGaps(cfg, wheel, drum, m.angleMilli, ring.r * 1.6), "evenodd");
+  }
   drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at, time });
+  ctx.restore();
   // The arrow in the knob: round the rim, either way until the hand picks
   // one, and only on the seat that turns it.
   const mine = handleIsMine(role);

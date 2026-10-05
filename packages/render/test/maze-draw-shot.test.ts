@@ -82,7 +82,7 @@ describe("THE MAZE's shot", () => {
     expect(onCentre(stood.points) - onCentre(fell.points)).toBeGreaterThanOrEqual(pieces);
 
     // And there are no doors in a wall that is coming down.
-    expect(stood.colours).toContain(PALETTE.good);
-    expect(fell.colours).not.toContain(PALETTE.good);
+    expect(stood.colours).toContain(PALETTE.blue);
+    expect(fell.colours).not.toContain(PALETTE.blue);
   });
 });

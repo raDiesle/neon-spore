@@ -7,6 +7,7 @@ import {
 } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { mazeFunnelLips } from "./maze-funnel.js";
+import { drawLampOut } from "./maze-lamp.js";
 import { mazeCanvasAngle, mazeDrum, mazeRimHalfGapMilli } from "./maze-walls.js";
 import { PALETTE } from "./palette.js";
 
@@ -25,10 +26,16 @@ import { PALETTE } from "./palette.js";
  * it falls, with the two cut ends of the rim burning either side of it. That
  * is the invitation to fire, and it is on both screens.
  *
- * **Unlit, it is marked by its own cut ends and nothing else**, which is the
- * point: a pair looking for the way in has to find the break in the line. Two
- * pips on the ends are all it gets, so a gap on the far side of the drum can
- * be seen coming without being a lamp.
+ * **Unlit, a little warm light leans straight out of it** — the owner,
+ * 5 October 2026: *always shine some yellow light out of entrances*. A short
+ * wedge of `lamp`, fading within a fifth of the drum, with the two pips on the
+ * cut ends, so every gap reads as a room with a light on before any of them
+ * is on the column. It is drawn after the lever (`maze-draw.ts`), so a knob
+ * resting under a gap does not put the light out.
+ *
+ * **On the cannon's column it turns blue**, the light and the lips both (the
+ * owner, the same day, over the green it was): green is the verdict colour
+ * and the fill of the lever's channel, and a door is neither.
  *
  * **The whole thing is drawn at twice the size it was.** The owner asked for
  * the way in to be twice as wide and twice as visible, and both halves of that
@@ -94,10 +101,7 @@ export function mazeDoorMouth(
   return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
 }
 
-interface Point {
-  x: number;
-  y: number;
-}
+type Point = { x: number; y: number };
 
 /**
  * Every way in on the rim, and the one that has clicked onto the ship's column
@@ -124,8 +128,10 @@ export function drawMazeDoors(
     const { a, b } = doorEdges(l, cfg, m, wheel, way);
 
     if (!lit) {
-      // The cut ends of the rim, and nothing else. Enough to see a gap coming
-      // round; not enough to read as a thing sitting in the hole.
+      // A little light out of the gap, and the cut ends of the rim. Enough to
+      // see a gap coming round; not enough to read as a thing in the hole.
+      const at = mazeEntranceAngle(wheel, m.angleMilli, way);
+      drawLampOut(ctx, d, at, halfGap(wheel, d.r), a, b, pulse);
       ctx.fillStyle = PALETTE.hullRim;
       ctx.globalAlpha = 0.7;
       for (const p of [a, b]) {
@@ -146,9 +152,9 @@ export function drawMazeDoors(
     // Light spilling out and falling down the column, widening as it goes and
     // fading out before it reaches the hull — a door open on a lit room.
     const spill = ctx.createLinearGradient(mouth.x, mouth.y, mouth.x, foot);
-    spill.addColorStop(0, `${PALETTE.good}CC`);
-    spill.addColorStop(0.35, `${PALETTE.good}44`);
-    spill.addColorStop(1, `${PALETTE.good}00`);
+    spill.addColorStop(0, `${PALETTE.blue}EE`);
+    spill.addColorStop(0.35, `${PALETTE.blue}55`);
+    spill.addColorStop(1, `${PALETTE.blue}00`);
     ctx.save();
     ctx.globalCompositeOperation = "lighter";
     ctx.globalAlpha = 0.55 + 0.45 * pulse;
@@ -164,7 +170,7 @@ export function drawMazeDoors(
 
     // The funnel's two lips burn, from the cut ends out to its mouth: the
     // shape that caught the column, lit (`maze-funnel.ts`).
-    ctx.strokeStyle = PALETTE.good;
+    ctx.strokeStyle = PALETTE.blue;
     ctx.lineWidth = 4.2;
     ctx.globalAlpha = 0.95;
     const at = mazeEntranceAngle(wheel, m.angleMilli, way);

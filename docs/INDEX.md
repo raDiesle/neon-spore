@@ -2198,6 +2198,7 @@ by hand never moves.
 | `packages/render/src/maze-spill.ts` | What a shot the heart refuses throws back, and how far it gets |
 | `packages/render/src/maze-look.ts` | the one record a candidate MAZE patches — the drum standing still |
 | `packages/render/src/maze-lever.ts` | THE MAZE's lever, drawn: an arm bolted to the drum's rim with a knob on its end |
+| `packages/render/src/maze-lamp.ts` | **A way into THE MAZE with a light on behind it** — the owner, 5 October 2026 |
 | `packages/render/src/maze-relief.ts` | THE MAZE's drum given depth: a floor under every corridor, and a wall that stands on it |
 | `packages/render/src/maze-pulse.ts` | the numbers THE MAZE's heart runs on — which blood the round is on, the double thump, the tempo from whole to hurt, how long a wound lasts — beside `maze-heart.ts` |
 | `packages/render/src/maze-plate.ts` | THE MAZE's drum as a made thing: a bezel and bolts round the rim, gloss over the plate, and the socket the heart sits in |
