@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · d1cccdbe1 — THE HIVE hangs lower and larger, its drops longer and the next one lit
+
+The mass is more than twice as deep and its underside comes down into the field's top rows, so more of the body is on screen. Every lobe is a long drop nearly a column wide. An open breach's colour fills most of the drop. The next site to open swells further down, burns brighter and throws a beating glow round itself, so the navigator finds it at a glance. The navigator's hold ring moved to the middle of the drop, where it is drawn and where it is pressed. A look the owner asked for by name.
+
 ## 2026-10-05 · 9acc7a205 — THE ANTIPHON's answer is carried down a vein, not shot
 
 The chooser drags the candidate being described down the vein that joins it to the organ's place, two rows under the rail a third of the way down; there it is judged — the organ makes a pit, a decoy loses the wave. The organs are green and three times the size, the seats swap every level, and the director's stepper stands the fight on any level. Nothing on the boss is shot any more: the colours, columns, hardening, twins, spill and pull are gone.

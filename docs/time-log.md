@@ -33427,3 +33427,5 @@ Bottleneck: every file that knew the shot — fifty of them — found by the typ
 - landing: 5 min. `own-stop.test.ts` holds every boss above row 0 unless it says how far it reaches.
 
 Bottleneck: the hold ring sat on the site's old centre until a zoomed frame showed it, since nothing else reads the length of a drop.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
