@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 38743157e — THE ANTIPHON's levels have a stepper in the director's boss panel
+
+The boss panel for THE ANTIPHON is a row of tabs, LEVEL 1 to LEVEL 6 and SHIP, as THE MAZE's stages are: a click stands the field on that level, the pits before it taken and the seats as that level has them, and the tab marked is the level the field is held on. Under the tabs the panel says who explains and who chooses there, read off the simulation's own swap.
+
 ## 2026-10-05 · d4b95f7bf — THE ANTIPHON is green and flat, joined by veins, with the unknown on the chooser's screen
 
 Every organ is drawn flat in the organ's green with one light rim, and THE SLOW's prism leaves the rail, the veins and the organ's place whole, so the red and blue fringe is gone from the shapes. A vein of green ichor runs from every candidate to the organ's place on both screens; the chooser sees a turning green unknown where the organ stands, the explainer sees each vein end in a knot and the carried one come down as a bead. What arrives is shown at the organ's place on every screen for a moment, and the siren says EXPLAIN SHAPE and CHOOSE SHAPE, swapping with the seats each level. The window thread under the body is gone; the slow's fuse, standing under the organ's place, is the one clock.

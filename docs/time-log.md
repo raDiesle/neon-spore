@@ -33451,3 +33451,5 @@ Bottleneck: the red and blue the owner meant was THE SLOW's prism over the whole
 - landing: 10 min.
 
 Bottleneck: none; `setBossRound` already took the fight to any level, so the bar was all that was missing.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
