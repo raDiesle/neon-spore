@@ -1,5 +1,6 @@
 import type { CoreVerdict } from "./core-verdict.js";
 import { gimbalBoss, gimbalLeaking, NO_SEAM } from "./gimbal.js";
+import { gimbalBeadNowMilli } from "./gimbal-bead.js";
 import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
@@ -8,8 +9,11 @@ import type { World } from "./world.js";
  * two tooth pairs are off (§18, row 9).
  *
  * Its own file beside `gimbal-step.ts` for `ledger-shot.ts`' reason: next
- * door is the fight's clock, and this happens where a bolt leaves the top of
- * the field. Both rings are rock grey and neither is ever shot — the cannon
+ * door is the fight's clock, and this happens where a bolt meets the bead on
+ * its way up (`gimbal-bead.ts`, asked in `boss-along.ts`) — since 5 October
+ * 2026, when the owner asked for a hit to take effect where it is drawn — or,
+ * for a bolt fired from under a bead already at the hull, where it leaves the
+ * top of the field. Both rings are rock grey and neither is ever shot — the cannon
  * has nothing else to do in this wave, which is why the seam is the one
  * moment either seat can spend a shot on anything.
  *
@@ -24,8 +28,9 @@ import type { World } from "./world.js";
 export function gimbalStruck(world: World, bullet: Bullet): boolean {
   const s = gimbalBoss(world);
   if (s === null || gimbalVerdict(world, bullet.col, bullet.color) === null) return false;
+  const rowMilli = gimbalBeadNowMilli(world, s);
   s.seamCol = NO_SEAM;
-  world.events.push({ type: "gimbalSeamOut", col: bullet.col });
+  world.events.push({ type: "gimbalSeamOut", col: bullet.col, rowMilli });
   return true;
 }
 

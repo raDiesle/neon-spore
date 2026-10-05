@@ -33489,3 +33489,13 @@ Bottleneck: the rehearsal — traced beat by beat against one seed, so any chang
 Bottleneck: looking — the socket took three frames to find, each a minute's render and a crop.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE GIMBAL's leak is shot out where the bolt meets it, and the rig jolts
+
+- reading: 5 min. The bolt stops, `bossAlong`, the shot past the top, the bead's run and the fx.
+- writing: 10 min. `gimbal-bead.ts` shared by the sim and the picture, the meet in `boss-along.ts`, the row on the event, the burst and jolt, two tests.
+- looking: 0 min. One frame, four ticks after the hit.
+- friction: 0 min.
+- landing: 5 min. The margin past the bead's far rim found by a test drawing every third tick.
+
+Bottleneck: the margin — a bolt met on the bead's far rim was taken off the field before a frame drew it bursting, at one frame in three ticks.

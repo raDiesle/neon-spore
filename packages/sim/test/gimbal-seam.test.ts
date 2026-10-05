@@ -58,6 +58,22 @@ describe("the seam", () => {
     expect(world.failTick).toBe(NOT_FAILED);
   });
 
+  it("is shut where the bolt meets the bead, and the bolt goes no further", () => {
+    const world = install(MARKS, { gimbalSeamBeats: 24 });
+    lit(world);
+    shorn(world);
+    const t = world.tick;
+    const seen = runTo(world, t + TPB * 2, [
+      { tick: t, player: 1, command: { kind: "cannonCol", col: MID } },
+      { tick: t + 2, player: 2, command: { kind: "fire", color: "red" } },
+    ]);
+    const types = seen.map((e) => e.type);
+    expect(types).toContain("gimbalSeamOut");
+    // Met on its way up rather than past the top: no shot ever left it.
+    expect(types).not.toContain("shotOut");
+    expect(world.bullets).toHaveLength(0);
+  });
+
   it("and unanswered is one strike on the hull, which is the wave", () => {
     const world = install();
     lit(world);

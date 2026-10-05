@@ -214,6 +214,8 @@ export { FLEET_PHASES, type FleetPhase } from "./fleet-state.js";
 // biome-ignore format: one line, so a reading added to the rings does not cost a row
 // biome-ignore format: and the readings, for the same reason
 export { GIMBAL_PHASES, GIMBAL_RINGS, type GimbalEntry, type GimbalMark, type GimbalPhase, type GimbalRing, type GimbalState, gimbalAligned, gimbalBoss, gimbalLeaking, gimbalLettingGo, gimbalMarkMilli, gimbalOpen, gimbalRingAsks, gimbalRingTrue, gimbalShownMilli, gimbalTeeth, gimbalTrueMilli, gimbalTurning, INNER, NO_LET_GO, NO_SEAM, OUTER } from "./gimbal.js";
+// THE GIMBAL's leaking bead, where a bolt meets it and the picture lays it (`gimbal-bead.ts`).
+export { GIMBAL_BEAD_MILLI, GIMBAL_ROW_MILLI, gimbalBeadMilli } from "./gimbal-bead.js";
 // And the one figure off its hand: how far a desk key turns a ring in a tick,
 // asked for rather than chosen, THE CLAW's crank's arrangement exactly
 // (`gimbal-hand.ts`, `apps/game/src/keys-turn.ts`).

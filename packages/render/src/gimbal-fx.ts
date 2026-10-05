@@ -1,6 +1,7 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
+import { fieldX } from "./field-flip.js";
 import { GimbalMarks } from "./gimbal-marks.js";
 import { gimbalCentre } from "./gimbal-shape.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -27,7 +28,8 @@ import { PALETTE } from "./palette.js";
  *
  * **A tooth pair sheared is a sequence landed** — both rings true and both
  * thumbs let go together — and so is the hatch, so both deal the drum the blow every boss
- * takes (`boss-hurt.ts`). Coming true deals nothing.
+ * takes (`boss-hurt.ts`), and so does the leak shot out, the cannon's one
+ * landed hit in the fight. Coming true deals nothing.
  */
 
 const KICK_TILES = 0.2;
@@ -109,10 +111,14 @@ export class GimbalFx {
         case "gimbalLeak":
           burst(at.x, at.y, 10, PALETTE.red);
           break;
-        // The seam's own two: it leaves the drum at the drum, and it arrives
-        // at the hull in the column it has been running down all along.
+        // The seam's own two: shot out where the bolt met the bead, which
+        // bursts there and jolts the whole rig in the same frame — the owner,
+        // 5 October 2026, *an explosion the moment it hits, and the boss
+        // shakes* — and arriving at the hull in the column it ran down.
         case "gimbalSeamOut":
-          burst(at.x, at.y, 8, PALETTE.cyan);
+          burst(fieldX(l, e.col), tileCY(l, e.rowMilli / 1000), 18, PALETTE.cyan);
+          this.kickNow = KICK_TILES * 0.6;
+          this.hurt.hit();
           break;
         case "gimbalSeamHit":
           burst(tileCX(l, e.col), tileCY(l, cfg.rows - 1), 20, PALETTE.red);

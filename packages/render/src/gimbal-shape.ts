@@ -1,5 +1,6 @@
 import {
   BEARING_TURN,
+  GIMBAL_ROW_MILLI,
   type GimbalRing,
   type GimbalState,
   gimbalMarkMilli,
@@ -39,8 +40,12 @@ export interface Point {
   y: number;
 }
 
-/** The row the cradle's centre hangs in. The wave has no entries, so the rings may have the field. */
-const ROW = 3.6;
+/**
+ * The row the cradle's centre hangs in, off the simulation's, where the leak
+ * starts (`sim/gimbal-bead.ts`). The wave has no entries, so the rings may
+ * have the field.
+ */
+const ROW = GIMBAL_ROW_MILLI / 1000 + 0.5;
 /** Each ring's radius in tiles, the outer first — the order everything on this boss keeps them in. */
 const RING_R = [3.4, 2.3] as const;
 /** The sealed drum's radius, in tiles. */

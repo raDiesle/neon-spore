@@ -109,6 +109,8 @@ export * from "./filament-turn.js";
 // biome-ignore format: one line, so a reading added to the rings does not cost this page a row
 // biome-ignore format: and the readings, for the same reason
 export { GIMBAL_PHASES, GIMBAL_RINGS, type GimbalEntry, type GimbalMark, type GimbalPhase, type GimbalRing, type GimbalState, gimbalAligned, gimbalBoss, gimbalLeaking, gimbalLettingGo, gimbalMarkMilli, gimbalOpen, gimbalRingAsks, gimbalRingTrue, gimbalShownMilli, gimbalTeeth, gimbalTrueMilli, gimbalTurning, INNER, NO_LET_GO, NO_SEAM, OUTER } from "./gimbal.js";
+// THE GIMBAL's leaking bead, where a bolt meets it and the picture lays it (`gimbal-bead.ts`).
+export { GIMBAL_BEAD_MILLI, GIMBAL_ROW_MILLI, gimbalBeadMilli } from "./gimbal-bead.js";
 // THE GORGE's tap (1 October 2026): whose thumb opens the ring's bottom
 // bubble (`gorge-hand.ts`), which bubbles are on offer and asking, and where
 // a bubble can be shot, for the picture's marks and halo.

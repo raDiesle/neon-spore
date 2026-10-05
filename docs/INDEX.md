@@ -549,6 +549,7 @@ by hand never moves.
 | `packages/sim/src/gimbal-step.ts` | THE GIMBAL's clock: the marks lighting, the pair coming true and slipping, the shear's beats, the seam |
 | `packages/sim/src/gimbal-let-go.ts` | **THE GIMBAL's let-go**: the one gesture that shears a tooth |
 | `packages/sim/src/gimbal-turn.ts` | **Turn one ring by `by` thousandths on the true wheel, and the inner with the outer** |
+| `packages/sim/src/gimbal-bead.ts` | **Where THE GIMBAL's leak is**: the bead's row down the seam's column, shared with the picture, and where a bolt climbing to it meets it |
 | `packages/sim/src/gimbal.ts` | THE GIMBAL: a sealed drum hung inside two nested rings set at right angles |
 | `packages/sim/src/geometry-seat.ts` | **Whose thumb a mark wants, read off where it is** |
 | `packages/sim/src/hash-creature-held.ts` | **The fields a hand writes**, folded into the fingerprint |

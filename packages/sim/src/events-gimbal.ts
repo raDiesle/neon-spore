@@ -31,8 +31,9 @@ export type GimbalEvent =
   | ({ type: "gimbalShear"; teeth: number } & GimbalColEvent)
   /** The drum swings loose and a spark leaks from its seam. */
   | ({ type: "gimbalLeak" } & GimbalColEvent)
-  /** The leaking seam was shot out, in either colour, and the rings steady. */
-  | ({ type: "gimbalSeamOut" } & GimbalColEvent)
+  /** The leaking seam was shot out, in either colour, and the rings steady;
+   * `rowMilli` is where the bead was when the bolt met it. */
+  | ({ type: "gimbalSeamOut"; rowMilli: number } & GimbalColEvent)
   /** Nobody shot it: the spark reached the hull, which is the wave. */
   | ({ type: "gimbalSeamHit" } & GimbalColEvent)
   /** The last tooth pair gone: both rings spin free and the drum splits open. */

@@ -1,9 +1,9 @@
 import type { GimbalState, SimConfig } from "@neon-spore/sim";
-import { BEARING_TURN } from "@neon-spore/sim";
+import { BEARING_TURN, GIMBAL_BEAD_MILLI, gimbalBeadMilli, ticksPerBeat } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { fieldX } from "./field-flip.js";
-import { gimbalCentre, type Point } from "./gimbal-shape.js";
-import type { Layout } from "./layout.js";
+import type { Point } from "./gimbal-shape.js";
+import { type Layout, tileCY } from "./layout.js";
 
 /**
  * **The sealed drum the two rings hang round, and the clock the whole scene is
@@ -146,12 +146,14 @@ export function gimbalSeamPhase(
   return Math.min(1, Math.max(0, done));
 }
 
-/** The leaking bead's half-width and half-height, in tiles. */
-export const GIMBAL_BEAD = { rx: 0.18, ry: 0.26 } as const;
+/** The leaking bead's half-width and half-height, in tiles: as high as the simulation meets it. */
+export const GIMBAL_BEAD = { rx: 0.18, ry: GIMBAL_BEAD_MILLI / 1000 } as const;
 
 /**
  * Where the leak's bead is, run from the drum down its column toward the hull:
- * drawn there (`gimbal-draw.ts`) and aimed at there (`boss-cue-read-y.ts`).
+ * drawn there (`gimbal-draw.ts`), aimed at there (`boss-cue-read-y.ts`), and
+ * met there by a bolt — so it is laid off the simulation's own reckoning of
+ * it (`gimbalBeadMilli`), at this frame's fraction of a tick.
  */
 export function gimbalLeakPoint(
   l: Layout,
@@ -160,9 +162,8 @@ export function gimbalLeakPoint(
   beat: number,
   beatPhase: number,
 ): Point {
-  const at = gimbalCentre(l, cfg);
-  const along = smoothstep(gimbalSeamPhase(s, cfg, beat, beatPhase));
-  return { x: fieldX(l, s.seamCol), y: at.y + (l.hullY - at.y) * along };
+  const fuse = (beat - s.seamBeat + beatPhase) * ticksPerBeat(cfg);
+  return { x: fieldX(l, s.seamCol), y: tileCY(l, gimbalBeadMilli(cfg, fuse) / 1000) };
 }
 
 /**

@@ -6725,7 +6725,14 @@ hangs `gimbalOpenBeats` (3) before the wave may end. **A ring nobody is holding
 falls back to rest**, `gimbalDriftMilli` (60) a beat, and that is the whole of
 what letting go to talk costs. With two tooth pairs off, a spark leaks from the
 seam; either seat shoots it inside `gimbalSeamBeats` (4) or it reaches the hull,
-which is the wave (`sim/gimbal-shot.ts`).
+which is the wave (`sim/gimbal-shot.ts`). **The bolt meets the spark where it
+is** — the bead run from the drum down the seam's column (`gimbalBeadMilli`,
+`sim/gimbal-bead.ts`, which the picture lays it off too), asked beside the
+bodies in the bolt's own sweep (`boss-along.ts`) — so the seam is shut, the
+bead bursts and the whole rig jolts on the tick the bolt is drawn reaching it,
+not a quarter of a beat later when it would have left the top of the field (the
+owner, 5 October 2026: *the shot should hit it … took effect immediately it hit
+the right location*).
 
 **The split is the sense of the turn.** Both seats are looking at one object
 and neither can see the other's face of it. *Mine is at a quarter* is a

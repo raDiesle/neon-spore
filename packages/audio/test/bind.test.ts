@@ -337,7 +337,7 @@ const SAMPLES: Record<string, SimEvent> = {
   gimbalSlip: { type: "gimbalSlip", col: 3, outer: true, inner: false },
   gimbalShear: { type: "gimbalShear", col: 3, teeth: 2 },
   gimbalLeak: { type: "gimbalLeak", col: 3 },
-  gimbalSeamOut: { type: "gimbalSeamOut", col: 4 },
+  gimbalSeamOut: { type: "gimbalSeamOut", col: 4, rowMilli: 6000 },
   gimbalSeamHit: { type: "gimbalSeamHit", col: 4 },
   gimbalHatch: { type: "gimbalHatch", col: 3 },
   gimbalOut: { type: "gimbalOut", col: 3 },
