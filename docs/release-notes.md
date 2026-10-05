@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 0416e0acf — THE MIMIC holds its frame in its arms, and counts on THE SLOW's fuse
+
+The mantle's own skin is now a frame round each picture's square, the same on both screens, and the crane's two arms hold it by its top corners, low on the field. Only the frames are drawn, not the whole field; THE FLEET's drain bar and seconds are gone and the window burns on THE SLOW's fuse with no slow open. The words, the fight's only help now it has no tutorial, are framed round the frame: TILES / TELL P2 WHERE to the reader, TAP / WHERE P1 SAYS to the painter. A look the owner asked for by name.
+
 ## 2026-10-05 · 5272f971b — THE TRIVET's planted feet ring out under the spent hub, dying away
 
 Row 11's ring now has its picture. Each planted foot shivers on the field and throws rings of sound out from under its plate, both dying out across the phase, in the stand's own pale metal with no lit colour. A pad put down kicks its foot up off the field and it settles over a beat; a pad held down keeps it up. The STATES sheet has THE TRIVET · RING, played to by AUTO, and every choreographed design is now drawn whole.
