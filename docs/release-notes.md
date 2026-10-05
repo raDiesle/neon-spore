@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 0d1f06a3d — THE FLUE is an ember one seat sees and the other shoots
+
+The owner's rework of 5 October 2026. An ember runs end to end along a flue across the top of the field, drawn on the pilot's screen only; the cannon is held under the middle column, and the pilot says when. Six levels, each one weapon — a bolt or the beam — in one colour, with its own ember speed and THE SLOW at its own strength, and three shots: every shot stops at the flue and is judged there, and the third spent is the wave. The vents, the damper, the taps, the core and the `flueTap` drag are gone.
+
 ## 2026-10-05 · e09d90fe7 — THE ANTIPHON's veins carry the pull channel, further down, to CHOOSE
 
 The organ's place now stands five rows under the candidates instead of two, so the carry is a real pull. On the chooser's screen every vein is wide, and down its middle runs the same pull channel every pull in the game wears: arrows drifting toward the organ's place, and green behind the candidate as far as it has been carried. The explainer's veins stay thin, so the organ stays the thing to read. Where the veins end, the chooser reads CHOOSE, and the word stays up through the carry.

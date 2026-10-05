@@ -33547,3 +33547,5 @@ Bottleneck: finding a width at which the vein and the channel inside it both rea
 - landing: 5 min.
 
 Bottleneck: the game's half-beat shot grid, which the director's world does not have, so AUTO cleared every level there and none in the game.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
