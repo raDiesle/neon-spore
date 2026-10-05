@@ -223,10 +223,11 @@ describe("wave content", () => {
    * on 29 September 2026, when its eye learnt to teach its own rhythm in a
    * blue pass: *the guide is not required for this wave*. THE VANE's went on
    * 30 September 2026, its split already wearing `FIRE` in its colour:
-   * *remove the tutorial, not required*. A name goes here only on the
-   * owner's word.
+   * *remove the tutorial, not required*. THE MIMIC's went on 5 October
+   * 2026, its help said on the field to each seat instead: *I want this boss
+   * to have no tutorial*. A name goes here only on the owner's word.
    */
-  const SAYS_ITSELF = new Set(["THE INSTAR", "THE FILAMENT", "THE STARE", "THE VANE"]);
+  const SAYS_ITSELF = new Set(["THE INSTAR", "THE FILAMENT", "THE STARE", "THE VANE", "THE MIMIC"]);
 
   it("gives the first wave that carries anything new a guide", () => {
     const seen = new Set<string>();

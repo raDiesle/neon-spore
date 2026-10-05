@@ -4,7 +4,6 @@ import {
   gallBoss,
   halterBoss,
   lampreyBoss,
-  mimicBoss,
   sceneBoss,
   seamBoss,
   type World,
@@ -20,7 +19,6 @@ import { halterAt, halterBend, halterGap, halterSize } from "./halter-shape.js";
 import { instarAt, instarLen } from "./instar-place.js";
 import { lampreyPose } from "./lamprey-pose.js";
 import type { Layout } from "./layout.js";
-import { mimicPose } from "./mimic-pose.js";
 import { nettleReach } from "./nettle-body.js";
 import { nettleBody } from "./nettle-sway.js";
 import { seamArrived } from "./seam-pose.js";
@@ -39,9 +37,9 @@ import type { Aim } from "./slow-intake-aim.js";
  * THE NETTLE joined once its body was drawn: it shares THE INSTAR's engine
  * but not its body, so it is aimed here off its own bell and arms rather than
  * beside THE INSTAR in `aim()`. THE LAMPREY joined with its hand, since
- * THE SLOW opens at every bite, and THE MIMIC with its hand, round the skin
- * the sign is read off. A kind none of the four pages has is aimed at the
- * cannon.
+ * THE SLOW opens at every bite. THE MIMIC had a row until its rework of 5
+ * October 2026 took THE SLOW off it. A kind none of the four pages has is
+ * aimed at the cannon.
  */
 export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: number): Aim | null {
   const cfg = world.cfg;
@@ -125,15 +123,6 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       const reach = Math.max(p.r, (cfg.lampreyGripCols + 0.5) * l.tile);
       const bottom = Math.max(p.y + p.r * p.tilt, l.hullY);
       return capsule(sides(p.x - reach, p.x + reach, p.y - p.r * p.tilt, bottom));
-    }
-    // The mantle where it hangs, its arms out: the skin the sign is read off,
-    // which is what THE SLOW opens for at the first sign of each movement.
-    case "mimic": {
-      const s = mimicBoss(world);
-      if (s === null) return null;
-      const p = mimicPose(l, cfg, s, beat, beatPhase);
-      const r = p.r * 1.5;
-      return capsule(sides(p.x - r, p.x + r, p.y - r * p.squash, p.y + r * p.squash));
     }
     default:
       return null;

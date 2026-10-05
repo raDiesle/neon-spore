@@ -2,7 +2,6 @@ import {
   beatSeconds,
   type MimicState,
   mimicDraws,
-  mimicPaintMode,
   mimicRows,
   mimicShapeSize,
   mimicStep,
@@ -19,7 +18,6 @@ import { type Layout, tileCY } from "./layout.js";
 import { drawMimicTile, type TileLook } from "./mimic-tile.js";
 import { PALETTE } from "./palette.js";
 import { phaseInto } from "./phase-into.js";
-import { throatHue } from "./throat-hue.js";
 import { showsMimicPaint, showsMimicSign } from "./view-role-clocks-c.js";
 
 /**
@@ -33,9 +31,7 @@ import { showsMimicPaint, showsMimicSign } from "./view-role-clocks-c.js";
  * it is painted. The painter is shown only what has been painted: no
  * picture and no marks, so what to fix is said out loud. `test` is both.
  *
- * **The frame is the brush**: the lattice's border is the colour the pair's
- * one brush is set to, on both screens, so a painter whose brush is set by
- * the other thumb sees it change. The **clock** is the row just over the
+ * The lattice's border is the mantle's pale sign light, the tiles' own. The **clock** is the row just over the
  * hull, which no picture stands on (`sim/mimic.ts` `mimicRows`): THE FLEET's
  * drain bar and its seconds, the window's.
  */
@@ -115,12 +111,11 @@ export function drawMimicBoard(
   if (alpha <= 0) return;
   const cfg = world.cfg;
   const c = mimicChart(l, cfg);
-  const brush = throatHue(mimicPaintMode(s.brush) ?? "red");
   ctx.save();
   ctx.globalAlpha *= alpha;
   ctx.fillStyle = "rgba(4,8,20,.6)";
   ctx.fillRect(c.left, c.top, c.cols * c.tile, c.rows * c.tile);
-  drawChartLattice(ctx, c, Math.max(0, 1 - beatPhase * 4), brush.hex);
+  drawChartLattice(ctx, c, Math.max(0, 1 - beatPhase * 4), PALETTE.mimicSign);
 
   // What this screen reads, and whether it paints anything itself.
   const reads = ([1, 2] as const).filter((k) => mimicDraws(s, k) && showsMimicSign(l.role, k));

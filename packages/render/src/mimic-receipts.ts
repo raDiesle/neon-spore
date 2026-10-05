@@ -50,7 +50,7 @@ export function drawMimicPeel(ctx: CanvasRenderingContext2D, l: Layout, f: Peel)
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = PALETTE.good;
   ctx.stroke(scrap);
-  if (turn >= 0) drawMimicPicture(ctx, f.sign, f.ink, 0, 0, cell);
+  if (turn >= 0) drawMimicPicture(ctx, f.sign, 0, 0, cell);
   ctx.restore();
 }
 

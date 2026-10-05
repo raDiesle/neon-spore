@@ -63,14 +63,14 @@ export const BOSS_ENTRIES_F = {
     ],
   },
   // A sign and a split, the readers apart, the first one changing and its
-  // colour set off `either`, for the walk only changes element 0
+  // frame set off nought, for the walk only changes element 0
   // (`mimic-hash.ts`).
   mimic: {
     kind: "mimic",
     steps: [
-      { ask: "sign", reader: 2, changes: true, color: "cyan", beats: 10 },
-      { ask: "split", reader: 1, changes: false, color: "either", beats: 8 },
-      { ask: "core", reader: 1, changes: false, color: "red", beats: 4 },
+      { ask: "sign", reader: 2, changes: true, size: 5, beats: 10 },
+      { ask: "split", reader: 1, changes: false, size: 3, beats: 8 },
+      { ask: "core", reader: 1, changes: false, size: 0, beats: 4 },
     ],
   },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
@@ -133,18 +133,16 @@ export function patchBossF(boss: BossState): void {
   }
   if (boss.kind === "mimic") {
     // A split on with both pictures up, two tiles painted and the
-    // navigator's peeled, the brush on the shield, the picture changed, two
-    // arms reached, three pictures off and the core tapped once — every field
-    // given a value (`mimic-hash.ts`).
+    // navigator's peeled, the picture changed, two arms reached, three
+    // pictures off and the core tapped once — every field given a value
+    // (`mimic-hash.ts`).
     boss.phase = "sign";
     boss.phaseBeat = 3;
     boss.cursor = 1;
     boss.signs = [2, 4];
-    boss.inks = [7, 3];
     boss.origins = [12, 18];
-    boss.paint[12] = 2;
+    boss.paint[12] = 1;
     boss.paint[13] = 1;
-    boss.brush = 3;
     boss.peeled = [false, true];
     boss.changed = true;
     boss.reaches = 2;

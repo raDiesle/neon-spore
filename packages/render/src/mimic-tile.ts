@@ -1,21 +1,19 @@
-import { mimicPaintMode, mimicShapeAt, mimicShapeSize } from "@neon-spore/sim";
+import { mimicShapeAt, mimicShapeSize } from "@neon-spore/sim";
 import { rgba } from "./hex.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { drawModeFace, throatHue } from "./throat-hue.js";
 
 /**
- * **One square of THE MIMIC's board**, in one of the panel's four colours
- * (`throat-hue.ts`): the red shot, the cyan shot, the shield and the maw.
- * **The shield and the cyan shot are one hue in this game**, so a shield
- * square carries the panel's shield face and a maw square the maw's, as THE
- * THROAT's mouth does; a shot's square carries none.
+ * **One square of THE MIMIC's board**, and **the same square on every
+ * level** — the owner, 5 October 2026: *the visual of tiles should always be
+ * the same for every level and should not have an arrow*. One colour, the
+ * mantle's pale sign light, and no face: the shield's and the maw's faces the
+ * first cut carried read as arrows, and went with THE THROAT's panel.
  *
  * - `wanted` — a square the picture wants and nobody has painted: faint, on
  *   the reader's screen only.
  * - `paint` — painted, as the painter sees it: solid, and nothing more.
  * - `right`, `wrong` — painted, as the reader sees it: solid, with a tick in
- *   the good green, or crossed through in the hull's red over a dark edge so
- *   the cross reads on a red square too.
+ *   the good green, or crossed through in the hull's red over a dark edge.
  */
 export type TileLook = "wanted" | "paint" | "right" | "wrong";
 
@@ -31,29 +29,24 @@ export function drawMimicTile(
   paint: number,
   look: TileLook,
 ): void {
-  const mode = mimicPaintMode(paint);
-  if (mode === null) return;
-  const hue = throatHue(mode);
+  if (paint === 0) return;
   const half = tile * (0.5 - INSET);
   const square = new Path2D();
   square.roundRect(x - half, y - half, half * 2, half * 2, tile * ROUND);
+  ctx.lineWidth = STROKE.outline;
   if (look === "wanted") {
-    ctx.fillStyle = rgba(hue.hex, 0.28);
+    ctx.fillStyle = rgba(PALETTE.mimicSign, 0.22);
     ctx.fill(square);
     ctx.setLineDash([tile * 0.12, tile * 0.09]);
-    ctx.lineWidth = STROKE.outline;
-    ctx.strokeStyle = rgba(hue.rim, 0.9);
+    ctx.strokeStyle = rgba(PALETTE.mimicSign, 0.85);
     ctx.stroke(square);
     ctx.setLineDash([]);
-    drawModeFace(ctx, mode, x, y, half * 0.9);
     return;
   }
-  ctx.fillStyle = hue.hex;
+  ctx.fillStyle = PALETTE.mimicSign;
   ctx.fill(square);
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = hue.rim;
+  ctx.strokeStyle = PALETTE.mimicSkinDark;
   ctx.stroke(square);
-  drawModeFace(ctx, mode, x, y, half * 0.9);
   if (look === "right") drawTick(ctx, x, y, half);
   if (look === "wrong") drawCross(ctx, x, y, half);
 }
@@ -94,7 +87,6 @@ function drawCross(ctx: CanvasRenderingContext2D, x: number, y: number, half: nu
 export function drawMimicPicture(
   ctx: CanvasRenderingContext2D,
   sign: number,
-  ink: number,
   x: number,
   y: number,
   cell: number,
@@ -102,7 +94,7 @@ export function drawMimicPicture(
   const { w, h } = mimicShapeSize(sign);
   for (let dr = 0; dr < h; dr++) {
     for (let dc = 0; dc < w; dc++) {
-      const paint = mimicShapeAt(sign, ink, dc, dr);
+      const paint = mimicShapeAt(sign, dc, dr);
       if (paint === 0) continue;
       const cx = x + (dc - (w - 1) / 2) * cell;
       const cy = y + (dr - (h - 1) / 2) * cell;

@@ -33261,3 +33261,13 @@ Bottleneck: when a chord is asked lived only in the cue readings, so the ring ha
 Bottleneck: none to speak of. THE GRINDSTONE's fade commit was the complete list of registrations, so each one was copied rather than found by a red check.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE MIMIC with no panel, no SLOW and no tutorial
+
+- reading: 10 min. The spec, the step and hand files, the slow's rate, and every file that read the brush, the inks or a step's colour.
+- writing: 10 min. `mimic-frame.ts`, one-colour pictures in two sizes, the hand, the hash, the wave and the tests.
+- looking: 5 min. THE MIMIC's first picture on both screens, before and after.
+- friction: 0 min.
+- landing: 5 min. `check:fast` three times: the guided-wave counts, the hush list, an import sort.
+
+Bottleneck: the brush and the slow were named in a dozen files outside the simulation, and only the typecheck and two count tests found them all.

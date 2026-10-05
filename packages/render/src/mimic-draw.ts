@@ -99,14 +99,14 @@ function drawReach(ctx: CanvasRenderingContext2D, l: Layout, p: MimicPose): void
   ctx.stroke(arm);
 }
 
-/** The core between the halves: lit in its cannon's colour while it is bare to be shot, dull otherwise. */
+/** The core between the halves: lit while it is bare to be tapped, dull otherwise. */
 function drawCore(ctx: CanvasRenderingContext2D, p: MimicPose, s: MimicState): void {
   const core = mimicCore(p);
   ctx.fillStyle = PALETTE.mimicCore;
   ctx.fill(core);
   const step = mimicStep(s);
   if (p.core <= 0 || step === null) return;
-  const lit = stepColour(step.ask === "core" ? step.color : "either").rim;
+  const lit = stepColour("either").rim;
   ctx.fillStyle = rgba(lit, p.core);
   ctx.fill(core);
   strokeGlowFaded(ctx, core, lit, STROKE.outline, p.core, 1);

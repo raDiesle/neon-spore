@@ -20,12 +20,13 @@ import type { Wave } from "../wave-types.js";
  *
  * **THE MIMIC is the boss answered by painting** (§42, `sim/mimic.ts`): a
  * picture of tiles shows on one seat's screen only, and the other seat taps
- * it onto the field, the brush set from THE THROAT's four buttons. The pilot
- * reads three pictures, the mantle rolls, and the navigator reads three
- * more, the last two changing on their third beat; then the board splits,
- * each seat reads the half the other paints, and the core it bares is tapped
- * — red, then cyan. A window is twenty beats, a split's twenty-four: a
- * picture is said tile by tile, and the brush often wants the other thumb.
+ * it into the frame the mantle holds. The pilot reads three pictures three
+ * tiles square, the mantle rolls, and the navigator reads three five square,
+ * the last two changing; then the board splits, each seat reads the half the
+ * other paints, and the core it bares is tapped. **No panel, no SLOW and no
+ * tutorial** — the owner, 5 October 2026: the help is said on the field
+ * while it plays (`render/boss-cue-read-zt.ts`), so the windows are long in
+ * plain beats: a picture is said tile by tile across a room.
  */
 export const WAVES_ACT_14: Wave[] = [
   {
@@ -102,30 +103,25 @@ export const WAVES_ACT_14: Wave[] = [
   {
     id: "theMimic",
     name: "THE MIMIC",
-    guide: {
-      both: "One of you sees a picture of tiles. Say which tiles, in which colour. The other taps them in. Tap again to clear. Then tap the core in its colour.",
-      p1: "1. First: you see the picture. Say it.\n2. Then: tap the tiles your partner says.\n3. SHIELD and SUCK set the brush. Ask for RED or CYAN.",
-      p2: "1. First: tap the tiles your partner says.\n2. Then: you see the picture. Say it. It can change.\n3. RED and CYAN set the brush. Ask for SHIELD or SUCK.",
-    },
     entries: [],
     boss: {
       kind: "mimic",
       steps: [
-        { ask: "sign", reader: 1, changes: false, color: "either", beats: 20 },
-        { ask: "sign", reader: 1, changes: false, color: "either", beats: 20 },
-        { ask: "sign", reader: 1, changes: false, color: "either", beats: 20 },
-        { ask: "roll", reader: 1, changes: false, color: "either", beats: 2 },
-        { ask: "sign", reader: 2, changes: false, color: "either", beats: 20 },
-        { ask: "sign", reader: 2, changes: true, color: "either", beats: 20 },
-        { ask: "sign", reader: 2, changes: true, color: "either", beats: 20 },
-        { ask: "roll", reader: 2, changes: false, color: "either", beats: 2 },
-        { ask: "split", reader: 1, changes: false, color: "either", beats: 24 },
-        { ask: "core", reader: 1, changes: false, color: "red", beats: 6 },
-        { ask: "split", reader: 1, changes: false, color: "either", beats: 24 },
-        { ask: "core", reader: 1, changes: false, color: "cyan", beats: 6 },
+        { ask: "sign", reader: 1, changes: false, size: 3, beats: 36 },
+        { ask: "sign", reader: 1, changes: false, size: 3, beats: 36 },
+        { ask: "sign", reader: 1, changes: false, size: 3, beats: 36 },
+        { ask: "roll", reader: 1, changes: false, size: 0, beats: 2 },
+        { ask: "sign", reader: 2, changes: false, size: 5, beats: 56 },
+        { ask: "sign", reader: 2, changes: true, size: 5, beats: 56 },
+        { ask: "sign", reader: 2, changes: true, size: 5, beats: 56 },
+        { ask: "roll", reader: 2, changes: false, size: 0, beats: 2 },
+        { ask: "split", reader: 1, changes: false, size: 3, beats: 44 },
+        { ask: "core", reader: 1, changes: false, size: 0, beats: 10 },
+        { ask: "split", reader: 1, changes: false, size: 3, beats: 44 },
+        { ask: "core", reader: 1, changes: false, size: 0, beats: 10 },
       ],
     },
     bossType: "normal",
-    controls: "throat",
+    controls: "scene",
   },
 ];

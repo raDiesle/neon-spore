@@ -155,7 +155,7 @@ export const BOSS_MECHANICS_B = {
     reach: "spawn",
   },
   mimic: {
-    what: "One of you sees a sign on its skin and says it. The other draws it. A wrong sign makes an arm reach down. Then shoot the core.",
+    what: "One of you sees a picture of tiles and says it. The other taps it into the frame. Too slow and an arm reaches down. Then tap the core.",
     reach: "spawn",
   },
   vane: {

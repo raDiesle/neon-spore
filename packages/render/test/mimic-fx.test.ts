@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout, spyOn } from "bun:test";
-import { midCol, type SimEvent, type World } from "@neon-spore/sim";
+import { midCol, mimicFrame, type SimEvent, type World } from "@neon-spore/sim";
 import { BossHurt, JAB_SHAKE } from "../src/boss-hurt.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { mimicPictureBox } from "../src/mimic-board.js";
@@ -14,7 +14,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * What THE MIMIC leaves behind a frame (`mimic-fx.ts`): the picture a peel
- * lifts off the board, from where it was painted; the core's flash in the colour it was
+ * lifts off the board, from where it was painted; the core's flash in the light it was
  * lit; the hull's shudder; the blow; and where its receipts are thrown. This
  * file has what the events add to the mantle `mimic-draw.ts` reads off the
  * world.
@@ -25,19 +25,21 @@ beforeAll(installCanvasGlobals);
 const L = computeLayout(VIEWPORT, CFG, "test");
 const col = midCol(CFG);
 const BEAT = 0.5;
-/** Where the harness puts each seat's picture (`mimic-harness.ts`). */
-const AT = [1 + 2 * CFG.cols, 7 + 2 * CFG.cols] as const;
+/** Where a split stands each seat's picture: its frame (`mimic-harness.ts`). */
+const AT = ([1, 2] as const).map((seat) => {
+  const f = mimicFrame(CFG, SPLIT, seat);
+  return f.col + f.row * CFG.cols;
+}) as [number, number];
 const peel = (side: 0 | 1, sign: number): SimEvent => ({
   type: "mimicPeel",
   side,
   sign,
-  ink: 1,
   at: AT[side],
   peels: 1,
   col,
 });
 const hit = (hits: number): SimEvent => ({ type: "mimicHit", hits, col });
-const core: SimEvent = { type: "mimicCore", color: "cyan", col };
+const core: SimEvent = { type: "mimicCore", col };
 const enter: SimEvent = { type: "mimicEnter", col };
 const spent: SimEvent = { type: "mimicSpent", col };
 
@@ -74,7 +76,7 @@ describe("THE MIMIC's transients", () => {
     const [thrown] = said(fx, [peel(1, 3)]);
     const at = mimicPictureBox(L, CFG, 3, AT[1]);
     expect(thrown).toMatchObject({ x: at?.x, y: at?.y, hex: PALETTE.good });
-    expect(fx.peel).toMatchObject({ now: 1, sign: 3, ink: 1, x: at?.x, y: at?.y, size: L.tile });
+    expect(fx.peel).toMatchObject({ now: 1, sign: 3, x: at?.x, y: at?.y, size: L.tile });
     expect(fx.hurt.value).toBe(1);
     expect(fx.hurt.shake).toBe(JAB_SHAKE);
     settle(fx);
@@ -98,12 +100,12 @@ describe("THE MIMIC's transients", () => {
     expect(thrown).toMatchObject(mimicHang(L, CFG));
   });
 
-  it("flashes the core in the colour it was lit, harder for every hit, and deals the whole blow", () => {
+  it("flashes the core in its light, harder for every hit, and deals the whole blow", () => {
     const fx = new MimicFx();
     noted(fx);
     said(fx, [core]);
     const [first] = said(fx, [hit(1)]);
-    const lit = stepColour("cyan").rim;
+    const lit = stepColour("either").rim;
     expect(first?.hex).toBe(lit);
     expect(fx.flash).toEqual({ now: 1, hex: lit });
     expect(fx.hurt.shake).toBe(1);
@@ -125,12 +127,11 @@ describe("THE MIMIC's transients", () => {
     expect(slap.shock.now).toBe(0);
   });
 
-  it("deals nothing for a brush, a square painted, or the rest", () => {
+  it("deals nothing for a square painted, or the rest", () => {
     const fx = new MimicFx();
     noted(fx);
     said(fx, [
-      { type: "mimicBrush", brush: 2, col },
-      { type: "mimicPaint", side: 1, at: AT[1], paint: 2, col },
+      { type: "mimicPaint", side: 1, at: AT[1], paint: 1, col },
       { type: "mimicSign", signs: [-1, 0], col },
       { type: "mimicChange", signs: [-1, 1], col },
       { type: "mimicLapse", col },

@@ -1,4 +1,4 @@
-import type { Color, SimConfig, SimEvent } from "@neon-spore/sim";
+import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { HullShock } from "./hull-shock.js";
@@ -42,11 +42,10 @@ const SPENT_BEATS = 1;
 const PEEL_DECAY = 0.6;
 const FLASH_DECAY = 3;
 
-/** A picture peeled off the board: which, in what colours, where it stood, a square's size, and how much of its drift is left. */
+/** A picture peeled off the board: which, where it stood, a square's size, and how much of its drift is left. */
 export interface Peel {
   now: number;
   sign: number;
-  ink: number;
   x: number;
   y: number;
   size: number;
@@ -56,7 +55,7 @@ export interface Peel {
 
 export class MimicFx {
   private pose: MimicPose | null = null;
-  private peelOf: Peel = { now: 0, sign: -1, ink: 0, x: 0, y: 0, size: 0, side: 1 };
+  private peelOf: Peel = { now: 0, sign: -1, x: 0, y: 0, size: 0, side: 1 };
   private flashNow = 0;
   private coreHex: string = PALETTE.hullRim;
   /** The hull's shudder as the mottle slaps into shape, and as it falls spent. */
@@ -105,7 +104,6 @@ export class MimicFx {
           this.peelOf = {
             now: 1,
             sign: e.sign,
-            ink: e.ink,
             x: box.x,
             y: box.y,
             size: l.tile,
@@ -124,7 +122,7 @@ export class MimicFx {
           burst(p.x, p.y + p.r * p.squash + p.reach, 4, PALETTE.mimicSkinDark);
           break;
         case "mimicCore":
-          this.coreHex = this.lit(e.color);
+          this.coreHex = this.lit();
           burst(p.x, p.y, 8, this.coreHex);
           break;
         case "mimicHit":
@@ -147,8 +145,8 @@ export class MimicFx {
   }
 
   /** The core's lit colour, as `mimic-draw.ts` lights it. */
-  private lit(color: Color | "either"): string {
-    return stepColour(color).rim;
+  private lit(): string {
+    return stepColour("either").rim;
   }
 
   /** Where the mantle is: as last drawn, or hung at rest before the first frame. */
@@ -182,7 +180,7 @@ export class MimicFx {
 
   clear(): void {
     this.pose = null;
-    this.peelOf = { now: 0, sign: -1, ink: 0, x: 0, y: 0, size: 0, side: 1 };
+    this.peelOf = { now: 0, sign: -1, x: 0, y: 0, size: 0, side: 1 };
     this.flashNow = 0;
     this.coreHex = PALETTE.hullRim;
     this.shock.clear();

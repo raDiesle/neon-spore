@@ -1,6 +1,4 @@
 import { hullRow, type SimConfig } from "./config.js";
-import { mimicShapeAt, mimicShapeSize } from "./mimic-shapes.js";
-import type { Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -8,33 +6,35 @@ import type { World } from "./world.js";
  * the other (`docs/spec/bosses-choreographed.md` §42).
  *
  * **The rule is one sentence**: one of you sees the picture and says which
- * tiles, in which colour, and the other paints them.
+ * tiles, and the other paints them.
  *
  * Reworked on 3 October 2026, on the owner's word that a sign drawn freehand
  * on the glass could not be told right from wrong: the field above the ship
  * is a board of tiles, THE FLEET's chart without its letters, and a picture
- * is a few of them in the four colours of the standard panel
- * (`mimic-shapes.ts`).
+ * is a square of them in one colour (`mimic-shapes.ts`).
+ *
+ * **Reworked again on 5 October 2026**, on the owner's word: no panel at all
+ * (`controls: "scene"`), so no brush and one colour, the same tile on every
+ * level; no SLOW; and the picture stands in a **frame** the mantle holds,
+ * the same place every time — centred, low on the field — and as big as
+ * every picture of its step (`mimic-frame.ts`).
  *
  * `signs` is the truth the screens split (`PerSeatTruth`): the picture seat
- * *k* must paint is `signs[k - 1]`, in `inks[k - 1]`, with its top left on
- * the tile `origins[k - 1]`, and it is shown on the **other** seat's screen
- * only (`mimicReadBy`) — with every tile painted so far marked right or
- * wrong there, live, and on the painter's screen not at all.
+ * *k* must paint is `signs[k - 1]`, with its top left on the tile
+ * `origins[k - 1]`, the frame's, and it is shown on the **other** seat's
+ * screen only (`mimicReadBy`) — with every tile painted so far marked right
+ * or wrong there, live, and on the painter's screen not at all.
  *
- * **The brush is one for the pair**, THE THROAT's mouth (`throat.ts`): its
- * four buttons set it, and each seat keeps the two it has always had — the
- * shots are the navigator's, the shield and the maw the pilot's. So a
- * painter often needs the reader's thumb as well as the reader's words. A
- * tap paints the tile in the brush; a tap on a tile already in it clears it
- * (`mimic-hand.ts`). **A picture painted exactly peels**, and draws every
- * arm back up a step. A window run out leaves the skin mottled for
- * `mimicMimicBeats`, and then an arm reaches a step down toward the hull.
- * `mimicReaches` reaches in one movement strike the hull, which is the wave.
+ * A tap inside the painter's own frame paints the tile, and a tap on a tile
+ * already painted clears it (`mimic-hand.ts`). **A picture painted exactly
+ * peels**, and draws every arm back up a step. A window run out leaves the
+ * skin mottled for `mimicMimicBeats`, and then an arm reaches a step down
+ * toward the hull. `mimicReaches` reaches in one movement strike the hull,
+ * which is the wave.
  *
  * **Its health is its pictures**: six peeled one at a time over two
  * movements, then two split boards each peeled by both seats at once, each
- * baring a core that takes one tap in the colour it is lit.
+ * baring a core that takes one tap.
  */
 
 /**
@@ -58,7 +58,7 @@ export type MimicPhase = (typeof MIMIC_PHASES)[number];
 /**
  * What a step asks: one picture read by one seat and painted by the other; a
  * board split in two, each half read by one seat and painted by the other at
- * once; the bare core tapped in its colour; or a roll between movements,
+ * once; the bare core tapped; or a roll between movements,
  * which asks nothing.
  */
 export const MIMIC_ASKS = ["sign", "split", "core", "roll"] as const;
@@ -71,8 +71,12 @@ export interface MimicStep {
   reader: 1 | 2;
   /** Whether the picture changes to another `mimicChangeBeats` into its window, the paint left as it was. */
   changes: boolean;
-  /** The colour the brush must be in for a `core` step's tap, or `"either"`. */
-  color: Color | "either";
+  /**
+   * A picture's side in tiles, and its frame's: every picture of the step
+   * fills it (`mimicShapesOfSize`). Nought on a core or a roll, which hold
+   * no frame.
+   */
+  size: number;
   /** Beats the step's window stays open: a picture's to be painted, the core's to be tapped, a roll's to roll. */
   beats: number;
 }
@@ -94,18 +98,13 @@ export interface MimicState {
   cursor: number;
   /** The picture each seat must paint, an index into `MIMIC_SHAPES`, or -1 with nothing to paint. */
   signs: [number, number];
-  /** Each picture's colours, packed (`mimicInk`). */
-  inks: [number, number];
-  /** The tile each picture's top left stands on, `col + row * cols`. */
+  /** The tile each picture's top left stands on, `col + row * cols`: its frame's (`mimicFrame`). */
   origins: [number, number];
   /**
    * **The board**: every tile of it (`mimicRows`), `col + row * cols`, 0 bare or
-   * 1 to 4 the colour it is painted (`THROAT_MODES` index plus one). One for
-   * both seats, cleared when a picture surfaces.
+   * 1 painted. One for both seats, cleared when a picture surfaces.
    */
   paint: number[];
-  /** The colour the pair's one brush is set to, 1 to 4. Red to begin with. */
-  brush: number;
   /** Which seats have peeled their picture in the step that is on. */
   peeled: [boolean, boolean];
   /** Whether the step's picture has already changed. */
@@ -172,10 +171,8 @@ export function freshMimic(beat: number, steps: readonly MimicStep[], tiles: num
     phaseBeat: beat,
     cursor: 0,
     signs: [-1, -1],
-    inks: [0, 0],
     origins: [0, 0],
     paint: new Array<number>(tiles).fill(0),
-    brush: 1,
     peeled: [false, false],
     changed: false,
     reaches: 0,
@@ -186,7 +183,8 @@ export function freshMimic(beat: number, steps: readonly MimicStep[], tiles: num
 
 /**
  * How many rows the board has: every row above the hull but the one just
- * over it, which is the window's clock (`render/mimic-board.ts`).
+ * over it. A picture stands only in its frame (`mimic-frame.ts`), well clear
+ * of both ends.
  */
 export function mimicRows(cfg: SimConfig): number {
   return Math.max(1, hullRow(cfg) - 1);
@@ -195,46 +193,4 @@ export function mimicRows(cfg: SimConfig): number {
 /** How many tiles the board has: every column of every row of it. */
 export function mimicTiles(world: World): number {
   return world.cfg.cols * mimicRows(world.cfg);
-}
-
-/**
- * The colour seat `seat`'s picture wants on the tile at `col`, `row`, 1 to 4,
- * or 0 for bare — and 0 everywhere while it has none.
- */
-export function mimicWants(
-  world: World,
-  s: MimicState,
-  seat: 1 | 2,
-  col: number,
-  row: number,
-): number {
-  const i = seat - 1;
-  const shape = s.signs[i] ?? -1;
-  if (shape < 0) return 0;
-  const origin = s.origins[i] ?? 0;
-  const cols = world.cfg.cols;
-  return mimicShapeAt(
-    shape,
-    s.inks[i] ?? 0,
-    col - (origin % cols),
-    row - Math.floor(origin / cols),
-  );
-}
-
-/** Whether every tile under seat `seat`'s picture is painted exactly as it wants. */
-export function mimicPainted(world: World, s: MimicState, seat: 1 | 2): boolean {
-  const i = seat - 1;
-  const shape = s.signs[i] ?? -1;
-  if (shape < 0) return false;
-  const cols = world.cfg.cols;
-  const origin = s.origins[i] ?? 0;
-  const [c0, r0] = [origin % cols, Math.floor(origin / cols)];
-  const { w, h } = mimicShapeSize(shape);
-  for (let dr = 0; dr < h; dr++) {
-    for (let dc = 0; dc < w; dc++) {
-      const at = c0 + dc + (r0 + dr) * cols;
-      if ((s.paint[at] ?? 0) !== mimicWants(world, s, seat, c0 + dc, r0 + dr)) return false;
-    }
-  }
-  return true;
 }

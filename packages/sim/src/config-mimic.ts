@@ -1,12 +1,12 @@
 /**
  * THE MIMIC's tuning: the beats around its pictures, how long the skin stays
  * mottled after a window runs out, when a changing picture changes, how many
- * reaches strike the hull, and where on the board the pictures and the core
+ * reaches strike the hull, and where on the board the frame and the core
  * stand (`docs/spec/bosses-choreographed.md` §42).
  *
  * What is **not** here is the script — which seat reads, which pictures change,
- * how long each window is and which colour the core wants: that is the
- * wave's, authored on its entry.
+ * how big each frame is and how long each window is: that is the wave's,
+ * authored on its entry.
  */
 export interface MimicConfig {
   /** Beats the flattened mimic takes to slap into its round shape. */
@@ -23,8 +23,11 @@ export interface MimicConfig {
   mimicClenchBeats: number;
   /** Beats the spent mimic falls before the wave may end. */
   mimicSpentBeats: number;
-  /** The highest row a picture may stand on: the rows above it are the HUD's. */
-  mimicBoardTop: number;
+  /**
+   * The row a picture's frame is centred on, low on the field and the same
+   * for every frame (`mimic-frame.ts`): the mantle holds it from above.
+   */
+  mimicFrameRow: number;
   /** The row the bare core is on, in the middle column; a tap on it or the eight round it is a tap on the core. */
   mimicCoreRow: number;
 }
@@ -33,10 +36,10 @@ export const MIMIC_DEFAULTS: MimicConfig = {
   mimicEnterBeats: 4,
   mimicMimicBeats: 2,
   mimicPeelBeats: 1,
-  mimicChangeBeats: 6,
+  mimicChangeBeats: 10,
   mimicReaches: 3,
   mimicClenchBeats: 1,
   mimicSpentBeats: 3,
-  mimicBoardTop: 1,
+  mimicFrameRow: 8,
   mimicCoreRow: 3,
 };

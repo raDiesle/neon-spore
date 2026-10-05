@@ -66,7 +66,7 @@ export const BOSS_MIMIC_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "A soft wet tick: a tile painted, or wiped bare.",
     status: "bound",
-    use: "A tap on THE MIMIC's board: the tile takes the brush, or goes bare.",
+    use: "A tap on THE MIMIC's board: the tile is painted, or goes bare.",
     level: 0.3,
     layers: [tick(0.2, 0, 2600), thud(420, 260, 0.004, 0.05)],
   },

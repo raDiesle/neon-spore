@@ -4,6 +4,7 @@ import {
   type MimicState,
   type MimicStep,
   mimicBoss,
+  mimicFrame,
   type SimEvent,
   startWave,
   step,
@@ -24,13 +25,13 @@ export const SIGN: MimicStep = {
   ask: "sign",
   reader: 1,
   changes: false,
-  color: "either",
+  size: 3,
   beats: 10,
 };
 /** A split skin: each seat reads the other's half. */
 export const SPLIT: MimicStep = { ...SIGN, ask: "split" };
-/** The bare core, lit red. */
-export const CORE: MimicStep = { ...SIGN, ask: "core", color: "red", beats: 4 };
+/** The bare core. */
+export const CORE: MimicStep = { ...SIGN, ask: "core", size: 0, beats: 4 };
 
 export function stood(): World {
   const world = createWorld(CFG, 5);
@@ -59,12 +60,13 @@ export function posed(
   s.steps[0] = lit;
   s.signs = lit.ask === "split" ? [1, 3] : lit.ask === "sign" ? [-1, 0] : [-1, -1];
   if (lit.ask === "sign" && lit.reader === 2) s.signs = [0, -1];
-  // Two one-colour pictures, red for the pilot's and cyan for the
-  // navigator's, at column 1 and column 7 of row 2, and a bare board.
-  s.inks = [1, 2];
-  s.origins = [1 + 2 * CFG.cols, 7 + 2 * CFG.cols];
+  // Each picture in its own frame, as the simulation stands it, and a bare board.
+  const at = (seat: 1 | 2) => {
+    const f = mimicFrame(CFG, lit, seat);
+    return f.col + f.row * CFG.cols;
+  };
+  s.origins = [at(1), at(2)];
   s.paint.fill(0);
-  s.brush = 1;
   s.peeled = [false, false];
   s.changed = false;
   s.reaches = 0;

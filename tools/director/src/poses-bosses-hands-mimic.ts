@@ -45,7 +45,7 @@ export const MIMIC_POSES = [
   bossPose(
     "mimic",
     "sign",
-    "A picture of tiles, on P1's screen only. P1 says which tiles in which colour; P2 taps them in; both set the brush.",
+    "A picture of tiles in the frame, on P1's screen only. P1 says which tiles; P2 taps them into the frame.",
     { want: into("sign", 1) },
   ),
   bossPose(
@@ -69,7 +69,7 @@ export const MIMIC_POSES = [
   bossPose(
     "mimic",
     "core",
-    "Both halves peeled, the core bare between them, lit red. P2 sets the brush red; P1 or P2 taps the core.",
+    "Both halves peeled, the core bare and lit between them. P1 or P2 taps the core.",
     { hand: holdsFire, want: into("core", 1), budgetBeats: 160 },
   ),
   bossPose(

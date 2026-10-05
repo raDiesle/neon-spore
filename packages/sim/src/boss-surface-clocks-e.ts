@@ -174,23 +174,20 @@ export {
   mimicDraws,
   mimicFiring,
   mimicMimicking,
-  mimicPainted,
   mimicReadBy,
   mimicRows,
   mimicStep,
   mimicTiles,
-  mimicWants,
 } from "./mimic.js";
-// THE MIMIC's pictures: the tile pictures and their colours, for the board,
-// the reader's screen and the director's hand (§42).
+// THE MIMIC's frame and what it wants: where a picture stands, for the board,
+// the crane that holds it, the reader's screen and the director's hand (§42).
+export { mimicFrame, mimicInFrame, mimicPainted, mimicWants } from "./mimic-frame.js";
+// THE MIMIC's pictures, one colour each, for the board and the reader's screen.
 export {
   MIMIC_SHAPES,
-  mimicInk,
-  mimicPaintMode,
   mimicShapeAt,
-  mimicShapeHues,
   mimicShapeSize,
-  mimicShapesUpTo,
+  mimicShapesOfSize,
 } from "./mimic-shapes.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),

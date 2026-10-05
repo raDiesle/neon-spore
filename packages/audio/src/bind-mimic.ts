@@ -9,10 +9,10 @@ export function isMimicEvent(e: SimEvent): e is MimicSimEvent {
 }
 
 /**
- * THE MIMIC's fourteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE MIMIC's thirteen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * **Every one is in the middle**: the mantle hangs over the middle column and
- * its picture may stand anywhere on the field. **A peel rises as the
+ * its pictures stand in a frame under it. **A peel rises as the
  * signs come off**, a hit as the core takes them, and **a reach deepens** as
  * the arms come down toward the hull, so the painter hears how near it is
  * without looking up from the board.
@@ -28,9 +28,6 @@ export function mimicCue(e: MimicSimEvent, cols: number): Cue {
       return { id: "boss.mimicChange", pan };
     case "mimicPeel":
       return { id: "boss.mimicPeel", pan, pitch: 1 + Math.max(0, e.peels - 1) * 0.04 };
-    case "mimicBrush":
-      // THE THROAT's four buttons, so THE THROAT's sound for them.
-      return { id: "boss.throatCinch", pan };
     case "mimicPaint":
       // Higher for a tile painted than for one wiped bare.
       return { id: "boss.mimicPaint", pan, pitch: e.paint > 0 ? 1.1 : 0.85 };

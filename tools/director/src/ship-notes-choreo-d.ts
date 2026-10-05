@@ -149,16 +149,16 @@ export const CHOREO_NOTES_D = {
     "sim/config-lamprey.ts.",
   "THE MIMIC — a sign one of you reads for the other to draw":
     "Asked for in docs/spec/bosses-choreographed.md §42: a mantle with " +
-    "eight arms that holds up a picture of squares in the panel's four " +
-    "colours, on one seat's screen only. The other seat paints it on the " +
-    "board above the ship a tile at a time, rows mimicBoardTop down to the " +
-    "row over the hull, with one brush the pair share, set by the four " +
-    "buttons. Tapping a painted tile clears it. A whole, exact picture " +
+    "eight arms that holds a frame, and a picture of squares in it on one " +
+    "seat's screen only. The other seat taps it into the frame a tile at a " +
+    "time; the frame is centred on row mimicFrameRow and as big as the " +
+    "step's pictures. No panel, no brush, one colour, no SLOW. Tapping a " +
+    "painted tile clears it. A whole, exact picture " +
     "peels and draws the arms back up a step; one not finished in its " +
     "window is worn on the skin for mimicMimicBeats, then an arm reaches a " +
     "step down, and mimicReaches reaches in a movement strike the hull. " +
     "Pictures for the pilot, a roll, pictures for the navigator that change " +
     "mimicChangeBeats in, a roll, then split boards each seat reads for the " +
-    "other, each baring a core on row mimicCoreRow to tap in its colour. " +
-    "See sim/mimic.ts, sim/mimic-shapes.ts, sim/mimic-hand.ts.",
+    "other, each baring a core on row mimicCoreRow to tap. " +
+    "See sim/mimic.ts, sim/mimic-frame.ts, sim/mimic-shapes.ts, sim/mimic-hand.ts.",
 } satisfies Partial<Record<GroupName, string>>;

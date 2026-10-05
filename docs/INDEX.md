@@ -368,10 +368,11 @@ by hand never moves.
 | `packages/sim/src/lock.ts` | THE LOCK: the hand player 1 already has on the field, read a second way |
 | `packages/sim/src/mid-beat.ts` | **Where a thing stands between two beats**, in thousandths of a tile |
 | `packages/sim/src/mine.ts` | THE MINE: a wisp standing still, answered by a thumb instead of a bolt |
-| `packages/sim/src/mimic-hand.ts` | THE MIMIC's hands: the brush set from the panel, and a tile tapped on the board (`mimic.ts`) |
+| `packages/sim/src/mimic-hand.ts` | THE MIMIC's hand: a tile tapped on the board (`mimic.ts`) |
 | `packages/sim/src/mimic-hash.ts` | What THE MIMIC puts into `hashWorld`, and nothing else |
 | `packages/sim/src/mimic-step.ts` | THE MIMIC's clock, once a beat: the slap into shape, a picture's window and its change |
 | `packages/sim/src/mimic-shapes.ts` | **THE MIMIC's pictures**, painted a tile at a time on the field above the ship… |
+| `packages/sim/src/mimic-frame.ts` | **THE MIMIC's frame**: the square of the board a seat's picture stands in |
 | `packages/sim/src/mimic.ts` | THE MIMIC: a picture only one seat can see |
 | `packages/sim/src/scene-aim.ts` | The three acts a film aims rather than writes down, resolved against a world |
 | `packages/sim/src/scene-panel.ts` | **The ship's own panel on a scene's body**: SHOOT, SHIELD and SUCK marks (`INSTAR_GESTURES`) |
@@ -1111,7 +1112,7 @@ by hand never moves.
 | `packages/render/src/mimic-fx.ts` | **What THE MIMIC leaves behind a frame**: the peel drifting off, the core's flash, the hull's shudder, the blow it takes |
 | `packages/render/src/mimic-receipts.ts` | **THE MIMIC's receipts, drawn** — what `mimic-fx.ts` holds between frames |
 | `packages/render/src/mimic-tap.ts` | **A finger on THE MIMIC's board**: the square it came down on, as THE MINE's `tapTile` (`mine-tap.ts`) |
-| `packages/render/src/mimic-tile.ts` | **One square of THE MIMIC's board**, in one of the panel's four colours (`throat-hue.ts`): the red shot |
+| `packages/render/src/mimic-tile.ts` | **One square of THE MIMIC's board**, and **the same square on every level** — the owner, 5 October 2026 |
 | `packages/render/src/mimic-crane.ts` | **THE MIMIC as a crane**: two arms holding the board up by its top corners |
 | `packages/render/src/simon-fx.ts` | the count-in, the handover, and what the row is showing |
 | `packages/render/src/simon-row.ts` | the row of slots: a control, or a question mark |

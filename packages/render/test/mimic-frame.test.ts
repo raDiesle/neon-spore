@@ -1,10 +1,10 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
+import { mimicFrame } from "@neon-spore/sim";
 import { rgba } from "../src/hex.js";
 import { PALETTE } from "../src/palette.js";
-import { throatHue } from "../src/throat-hue.js";
 import { showsMimicPaint, showsMimicSign } from "../src/view-role-clocks-c.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES } from "./frame-harness.js";
-import { CORE, count, frame, posed, SPLIT } from "./mimic-harness.js";
+import { CORE, count, frame, posed, SIGN, SPLIT } from "./mimic-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -23,13 +23,14 @@ beforeAll(() => {
   for (const role of ROLES) frame(role, () => {});
 });
 
-/** A square the picture wants and nobody has painted: its colour, faint (`mimic-tile.ts`). */
-const wanted = (mode: "red" | "cyan") => rgba(throatHue(mode).hex, 0.28);
-/** The harness's pictures: the pilot's red at column 1, the navigator's cyan at column 7, both on row 2. */
+/** A square the picture wants and nobody has painted: the one tile colour, faint (`mimic-tile.ts`). */
+const WANTED = rgba(PALETTE.mimicSign, 0.22);
+/** The navigator's frame on a sign, where the harness stands its cross (`mimic-harness.ts`). */
+const NAV = mimicFrame(CFG, SIGN, 2);
 const tile = (col: number, row: number) => col + row * CFG.cols;
-/** A square of the navigator's cross that wants cyan, and one no picture stands on. */
-const RIGHT = tile(8, 2);
-const STRAY = tile(0, 10);
+/** The cross's top middle, which it wants, and its top left, which it wants bare. */
+const RIGHT = tile(NAV.col + 1, NAV.row);
+const STRAY = tile(NAV.col, NAV.row);
 
 describe("THE MIMIC's body", () => {
   it.each(ROLES)("draws the skin, the mottle and the outline, on %s", (role) => {
@@ -40,15 +41,15 @@ describe("THE MIMIC's body", () => {
   });
 
   it("shows the picture to the reader and never to the painter", () => {
-    // The pilot reads; the navigator paints a cyan cross.
+    // The pilot reads; the navigator paints a cross.
     const reader = frame("p1", (w) => posed(w));
     const painter = frame("p2", (w) => posed(w));
-    expect(count(reader, wanted("cyan"))).toBeGreaterThan(0);
-    expect(count(painter, wanted("cyan"))).toBe(0);
+    expect(count(reader, WANTED)).toBeGreaterThan(0);
+    expect(count(painter, WANTED)).toBe(0);
     expect(
       count(
         frame("test", (w) => posed(w)),
-        wanted("cyan"),
+        WANTED,
       ),
     ).toBeGreaterThan(0);
   });
@@ -56,11 +57,11 @@ describe("THE MIMIC's body", () => {
   it("ticks a right square and crosses a stray on the reader's board, and marks neither on the painter's", () => {
     const right = (w: Parameters<typeof posed>[0]) =>
       posed(w, "sign", undefined, (s) => {
-        s.paint[RIGHT] = 2;
+        s.paint[RIGHT] = 1;
       });
     const stray = (w: Parameters<typeof posed>[0]) =>
       posed(w, "sign", undefined, (s) => {
-        s.paint[STRAY] = 2;
+        s.paint[STRAY] = 1;
       });
     const bare = (role: "p1" | "p2", colour: string) =>
       count(
@@ -71,21 +72,19 @@ describe("THE MIMIC's body", () => {
     expect(count(frame("p1", stray), PALETTE.red)).toBeGreaterThan(bare("p1", PALETTE.red));
     expect(count(frame("p2", right), PALETTE.good)).toBe(bare("p2", PALETTE.good));
     expect(count(frame("p2", stray), PALETTE.red)).toBe(bare("p2", PALETTE.red));
-    // The painter still sees what was painted, solid in its colour.
-    const cyan = throatHue("cyan").hex;
-    expect(count(frame("p2", right), cyan)).toBeGreaterThan(bare("p2", cyan));
+    // The painter still sees what was painted, solid in the one tile colour.
+    const solid = PALETTE.mimicSign;
+    expect(count(frame("p2", right), solid)).toBeGreaterThan(bare("p2", solid));
   });
 
   it("gives each screen one picture of a split, and the test screen both", () => {
     const p1 = frame("p1", (w) => posed(w, "sign", SPLIT));
     const p2 = frame("p2", (w) => posed(w, "sign", SPLIT));
     const test = frame("test", (w) => posed(w, "sign", SPLIT));
-    // Each seat reads the other's: the pilot the navigator's cyan, the navigator the pilot's red.
-    expect(count(p1, wanted("cyan"))).toBeGreaterThan(0);
-    expect(count(p1, wanted("red"))).toBe(0);
-    expect(count(p2, wanted("red"))).toBeGreaterThan(0);
-    expect(count(p2, wanted("cyan"))).toBe(0);
-    expect(count(test, wanted("red")) * count(test, wanted("cyan"))).toBeGreaterThan(0);
+    // Each seat reads the other's half, one picture; the test screen reads both.
+    expect(count(p1, WANTED)).toBeGreaterThan(0);
+    expect(count(p2, WANTED)).toBeGreaterThan(0);
+    expect(count(test, WANTED)).toBe(count(p1, WANTED) + count(p2, WANTED));
   });
 
   it("takes a peeled half's picture off the screen that read it", () => {
@@ -95,13 +94,13 @@ describe("THE MIMIC's body", () => {
       }),
     );
     // The pilot reads the navigator's half: with that half peeled, nothing is left to read.
-    expect(count(peeled, wanted("cyan"))).toBe(0);
+    expect(count(peeled, WANTED)).toBe(0);
   });
 
-  it.each(ROLES)("lights the core in its colour only while it is bare, on %s", (role) => {
+  it.each(ROLES)("lights the core only while it is bare, on %s", (role) => {
     const bare = frame(role, (w) => posed(w, "core", CORE));
     const whole = frame(role, (w) => posed(w, "rolling", { ...CORE, ask: "roll", beats: 2 }));
-    expect(count(bare, PALETTE.redRim)).toBeGreaterThan(count(whole, PALETTE.redRim));
+    expect(count(bare, PALETTE.hullRim)).toBeGreaterThan(count(whole, PALETTE.hullRim));
     expect(count(bare, PALETTE.mimicCore)).toBeGreaterThan(0);
   });
 });
