@@ -33355,3 +33355,5 @@ Bottleneck: what the canvas stub logs, which a new frame test can only find out 
 - landing: 5 min. One red: the file map wanted the new file's row.
 
 Bottleneck: deciding what the green means on a wheel wound by distance rather than turned to a place.
+
+*Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

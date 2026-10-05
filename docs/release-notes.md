@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 952a20e4d — THE HASP's wheel turns with THE MAZE's knob, lever and channel
+
+The navigator's working wheel now wears THE MAZE's turn: a knob on a lever bolted to the hub, riding the spokes so it stops where the wheel seizes, in a closed channel round it, with the two-headed arrow in the knob and PULL under it. The knob is answered at PULL_GRAB as well as the rim. The green is the winding, not the place: the hasp opens by distance turned either way, so the ring fills by the share of this hasp's wind, the whole ring when it gives. The knurl is gone. The owner asked for this look by name (5 October 2026).
+
 ## 2026-10-05 · 07f5744d4 — THE SINEW hangs still, and its hold fills the empty glass
 
 The mass no longer comes down a row per fibre: it hangs on row 9, where the fourth part used to leave it, from the first fibre to the last, so a part is a string cut and nothing else. The glass in the middle of the tendon is empty now: the amber fluid is gone, and while the sum is held in the zone the glass fills from its foot with one green bar a beat, up to the zone on player 1's screen and the sum's line on player 2's, so the pair can count it. On every beat of the hold a green pulse runs out from the glass along the strings, up to the crown and down to the mass. The sum's line is thin and neon blue. The wave sends no arrivals for now: the tendon alone, and the rocks its own snap-backs shed.
