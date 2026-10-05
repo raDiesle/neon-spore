@@ -327,18 +327,3 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
-
-## THE GAUGE's wound band turns with THE MAZE's knob, if it is a turn
-
-- **Found:** 2026-10-05, claude/gimbal-turn-controls-aa1635
-- **Taken:** 2026-10-05, claude/task-queue-status-907163 (claim: claude/queue-the-gauges-wound-band-turns-with-the-mazes-knob)
-- **Files:** `packages/render/src/gauge-grip.ts`, `packages/render/src/gauge-tongue-grip.ts`
-
-The same ask THE GIMBAL, THE HASP and THE CLAW's crank have landed
-(`gimbal-knob.ts`, `hasp-knob.ts`, `crank-dial.ts`). THE GAUGE's band is read the crank's
-way about the dial (`hasp-grip.ts` says THE GAUGE did it first), so it is a
-turn and should wear `render/gimbal-knob.ts`'s knob, lever and channel; the
-tongue's `TWIST` (`boss-cue-read-w.ts`) is the same question. Read both
-first: a band or tongue that is not turned round a centre is not this entry's
-and is struck from it. Done when every turned control in the round draws
-THE MAZE's knob and `bun run check` is green.

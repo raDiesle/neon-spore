@@ -34,10 +34,10 @@ import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-c.js";
  * **The latch is carried; the wheel is turned.** His press is the bar at rest
  * and every move after it a depth down the rail in thousandths of a tile,
  * which is the rail's own length (`haspRail`), so the bar stays under the
- * thumb. Her press is anywhere on the working wheel or on its knob, and the hold carries the
- * hub's centre with `turns` set, so the move is read the crank's way about it
- * — THE GAUGE's dial did it first (`gauge-grip.ts`) and `touch.ts` needed no
- * new branch. There is no fold to undo, unlike THE GIMBAL's rims: the wheel is
+ * thumb. Her press is anywhere on the working wheel or on its knob, and the
+ * hold carries the hub's centre with `turns` set, so the move is read the
+ * crank's way about it — THE GAUGE's needle did it first, until its jam went
+ * on 2 October 2026, and `touch.ts` needed no new branch. There is no fold to undo, unlike THE GIMBAL's rims: the wheel is
  * wound by travel either way round, and the spokes are drawn turning the way
  * the thumb goes on whichever face it is.
  *

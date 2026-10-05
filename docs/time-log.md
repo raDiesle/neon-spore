@@ -33387,9 +33387,19 @@ Bottleneck: the 23 test cases, each with its own reason for a `MOVE`, read and r
 - reading: 5 min. The crank's drawing, the sim's wind and pay, the band's call and its labels.
 - writing: 10 min. `crank-dial.ts` redrawn with the shared parts, `crankPays` exported, the roll-out, the catalogue and two rows of the controls spec.
 - looking: 5 min. Four frames of the pilot's band: climbing dark, both ways lit, one way lit.
-- friction: 5 min. A `--press` the round refused made `frames` exit red after writing, which read as a failed render.
+- friction: 5 min. A `--press …:crank=2` ran past `--ticks`, which `frames` rightly refuses; with the output cut to one line it read as a failed render.
 - landing: 5 min.
 
 Bottleneck: where a word goes on a band button that has no Layout to size it by.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE GAUGE has no turn to give THE MAZE's knob
+
+- reading: 5 min. The band's, the tongue's and the valve's hands in the simulation and the grip files.
+- writing: 0 min. One stale comment in `hasp-grip.ts`.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: none; the entry's own test answered it.
