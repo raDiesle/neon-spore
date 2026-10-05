@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · fe8349a15 — THE FLUE numbers the ember's beats to the sight and names each level
+
+Under the flue's slot a scale ticks every half beat the ember has still to run to the sight, numbered at every whole beat, and laid from the lit level's own speed, so the spacing is the speed. Over the flue's left end a card names the weapon, SHOT or BEAM, in the level's colour, with SLOW ½ or SLOW ¼ under it when THE SLOW holds the level. Both are on both screens. The shot pips move down off the navigator's FIRE, and THE SLOW's sharp band grows to keep the card and the pips free of the colour split.
+
 ## 2026-10-05 · 0d1f06a3d — THE FLUE is an ember one seat sees and the other shoots
 
 The owner's rework of 5 October 2026. An ember runs end to end along a flue across the top of the field, drawn on the pilot's screen only; the cannon is held under the middle column, and the pilot says when. Six levels, each one weapon — a bolt or the beam — in one colour, with its own ember speed and THE SLOW at its own strength, and three shots: every shot stops at the flue and is judged there, and the third spent is the wave. The vents, the damper, the taps, the core and the `flueTap` drag are gone.
