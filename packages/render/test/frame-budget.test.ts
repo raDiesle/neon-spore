@@ -139,6 +139,9 @@ const MEASURE = false;
 // `fill` by nine: the spine's cord, its stations as one path and its node, and
 // each organ's bed, are held between frames the way the trough's channel was
 // (`gland-fluid.ts`, `gland-organ.ts`). Remeasured, not padded.
+// Frame 0's `createLinearGradient` up two in every row here on 5 October
+// 2026: the cannon's column is a gunsight in the seat's colour, a glow and a
+// path of rails and ticks under two more layout gradients (`cannon-column.ts`).
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
     {
@@ -157,7 +160,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       clip: 12,
       save: 49,
       drawImage: 47,
-      createLinearGradient: 19,
+      createLinearGradient: 21,
       createRadialGradient: 11,
       // Fourteen of these are the panel's own sheet, painted here and only
       // here: it depends on the size of the band and nothing else, so the
@@ -204,7 +207,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // stroke together where it used to be a fill and then a crosshair.
       save: 51,
       drawImage: 46,
-      createLinearGradient: 19,
+      createLinearGradient: 21,
       createRadialGradient: 11,
       // Two more than p1's frame 0: the sheet, and the fire buttons'
       // silhouettes, which are on this seat's panel alone.
@@ -370,6 +373,9 @@ function rope(fromYMilli: number) {
  * every plate plus the ship's own crown. THE LID is a different boss and takes
  * only the ship's share.
  */
+// Frame 0's `createLinearGradient` up two in every row here on 5 October
+// 2026: the cannon's column is a gunsight in the seat's colour, a glow and a
+// path of rails and ticks under two more layout gradients (`cannon-column.ts`).
 const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
   "THE WARDEN's eye": [
     {
@@ -425,7 +431,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // point is `halo`'s. Neither builds a gradient, which is why the two
       // gradient rows below did not move at all.
       drawImage: 29,
-      createLinearGradient: 19,
+      createLinearGradient: 21,
       createRadialGradient: 11,
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
       // the skin's, and there are four of them however much of it is showing.
@@ -472,7 +478,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       clip: 8,
       save: 44,
       drawImage: 29,
-      createLinearGradient: 20,
+      createLinearGradient: 22,
       createRadialGradient: 17,
       // Two more on 26 September 2026, when the cord's handle became the
       // pull channel every pulled handle wears (`lid-track.ts`): the channel,

@@ -33453,3 +33453,13 @@ Bottleneck: the red and blue the owner meant was THE SLOW's prism over the whole
 Bottleneck: none; `setBossRound` already took the fight to any level, so the bar was all that was missing.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — The cannon's column is a gunsight in the cannon's colour
+
+- reading: 5 min. THE HIVE's stopper and THE SLOW's aim before the column itself, in `field.ts`.
+- writing: 5 min. `cannon-column.ts` and the seat threaded through `drawGrid`.
+- looking: 0 min. Three frames of THE HIVE, both seats.
+- friction: 5 min. Six budget files moved by the same three ops, raised from their `MEASURE` output.
+- landing: 5 min.
+
+Bottleneck: the remeasure — every field frame in six op-count tables moved for one new path.

@@ -147,10 +147,14 @@ type Budget = Partial<
 // September 2026**, and its `save`, `createRadialGradient` and `new Path2D`:
 // the flood asks for both thumbs and neither is down, so each seat's ring
 // wears the halo under it, and a halo is one of each (`fleet-grip-marks.ts`).
+// From 5 October 2026 the cannon's column is a gunsight in the seat's colour
+// (`cannon-column.ts`): one more `fillRect` and one more `fill` on every
+// frame the field is drawn, and two more layout gradients on a cold frame.
+// Remeasured, not padded.
 const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budget>>>> = {
   p1: {
     mid: {
-      fillRect: 63,
+      fillRect: 64,
       // One more stroke and one more clip than before the hull's light became a
       // barrel: `hull-barrel.ts` strokes the contour with a crown ramp, clipped
       // to the body. Every row in this file carries the same two.
@@ -158,7 +162,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // One more than before 2 October 2026: an asked mark's light is a
       // colour pass and a glow pass inside it (`part-light.ts`), where the old
       // halo was one red cloud over everything round it. Both rows carry it.
-      fill: 56,
+      fill: 57,
       clip: 7,
       save: 46,
       drawImage: 16,
@@ -170,10 +174,10 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fillText: 28,
     },
     hit: {
-      fillRect: 86,
+      fillRect: 87,
       // Two more than mid: the shockwave ring and the fireball's own contour.
       stroke: 89,
-      fill: 55,
+      fill: 56,
       clip: 7,
       // Nine more: the burst opens one per shard it turns, and the shards are
       // the only thing in this picture drawn in a frame of its own.
@@ -198,7 +202,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // with a thumbprint (`hold-mark.ts`) — the ring's glow, five ridges and
       // the loop, one fill and one path — in place of the scan box.
       stroke: 84,
-      fill: 70,
+      fill: 71,
       clip: 7,
       save: 53,
       drawImage: 23,
@@ -211,7 +215,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fillRect: 89,
       // The hold's circle, as at mid.
       stroke: 85,
-      fill: 68,
+      fill: 69,
       clip: 7,
       save: 61,
       drawImage: 26,

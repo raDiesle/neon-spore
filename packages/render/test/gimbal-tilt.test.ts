@@ -79,7 +79,9 @@ function hung(phase: GimbalState["phase"], beatsIn: number, cursor = 0): World {
 const MEASURE = false;
 // `turn` moved from 397 on 5 October 2026: THE MAZE's knob, lever and channel
 // took the knurl's place on every ring, and the test screen draws two.
-const CALLS = { still: 367, turn: 437, shear: 375, open: 381 } as const;
+// Every phase up two the same day: the cannon's column became a gunsight in
+// the seat's colour, a glow and one path of rails and ticks (`cannon-column.ts`).
+const CALLS = { still: 369, turn: 439, shear: 377, open: 383 } as const;
 
 /** The canvas calls one frame of `world` costs on `role`'s screen. */
 function cost(world: World, role: (typeof ROLES)[number]): number {

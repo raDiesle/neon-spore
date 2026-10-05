@@ -140,6 +140,10 @@ interface Scene {
 // `clip` and `save` rose by one per living body the same day: an interior is
 // clipped to its body drawn a sixth smaller (`body-inset.ts`), so nothing
 // drawn inside a body touches its rim. Nothing else in any row moved.
+// From 5 October 2026 the cannon's column is a gunsight in the seat's colour
+// (`cannon-column.ts`): one more `fillRect` and one more `fill` on every
+// frame the field is drawn, and two more layout gradients on a cold frame.
+// Remeasured, not padded.
 const SCENES: readonly Scene[] = [
   {
     id: "theGhost",
@@ -157,7 +161,7 @@ const SCENES: readonly Scene[] = [
           clip: 10,
           save: 51,
           drawImage: 42,
-          createLinearGradient: 19,
+          createLinearGradient: 21,
           createRadialGradient: 11,
           "new Path2D": 46,
           fillText: 4,
@@ -187,7 +191,7 @@ const SCENES: readonly Scene[] = [
           clip: 14,
           save: 118,
           drawImage: 105,
-          createLinearGradient: 19,
+          createLinearGradient: 21,
           createRadialGradient: 13,
           "new Path2D": 59,
           fillText: 5,
@@ -329,21 +333,21 @@ const SCENES: readonly Scene[] = [
     rows: {
       p1: [
         {
-          fillRect: 65,
+          fillRect: 66,
           stroke: 150,
-          fill: 91,
+          fill: 92,
           clip: 7,
           save: 57,
           drawImage: 113,
-          createLinearGradient: 29,
+          createLinearGradient: 31,
           createRadialGradient: 13,
           "new Path2D": 83,
           fillText: 5,
         },
         {
-          fillRect: 65,
+          fillRect: 66,
           stroke: 152,
-          fill: 91,
+          fill: 92,
           clip: 7,
           save: 57,
           drawImage: 113,
@@ -355,21 +359,21 @@ const SCENES: readonly Scene[] = [
       ],
       p2: [
         {
-          fillRect: 65,
+          fillRect: 66,
           stroke: 141,
-          fill: 96,
+          fill: 97,
           clip: 7,
           save: 55,
           drawImage: 111,
-          createLinearGradient: 29,
+          createLinearGradient: 31,
           createRadialGradient: 13,
           "new Path2D": 77,
           fillText: 4,
         },
         {
-          fillRect: 65,
+          fillRect: 66,
           stroke: 143,
-          fill: 96,
+          fill: 97,
           clip: 7,
           save: 55,
           drawImage: 111,
@@ -400,7 +404,7 @@ const SCENES: readonly Scene[] = [
           clip: 36,
           save: 126,
           drawImage: 131,
-          createLinearGradient: 19,
+          createLinearGradient: 21,
           createRadialGradient: 21,
           "new Path2D": 59,
           fillText: 2,
@@ -426,7 +430,7 @@ const SCENES: readonly Scene[] = [
           clip: 36,
           save: 128,
           drawImage: 130,
-          createLinearGradient: 19,
+          createLinearGradient: 21,
           createRadialGradient: 21,
           "new Path2D": 57,
           fillText: 2,
@@ -465,7 +469,7 @@ const SCENES: readonly Scene[] = [
           clip: 25,
           save: 92,
           drawImage: 91,
-          createLinearGradient: 20,
+          createLinearGradient: 22,
           createRadialGradient: 11,
           "new Path2D": 65,
           fillText: 2,
@@ -491,7 +495,7 @@ const SCENES: readonly Scene[] = [
           clip: 25,
           save: 94,
           drawImage: 90,
-          createLinearGradient: 20,
+          createLinearGradient: 22,
           createRadialGradient: 11,
           "new Path2D": 63,
           fillText: 2,
@@ -550,21 +554,21 @@ const SCENES: readonly Scene[] = [
     rows: {
       p1: [
         {
-          fillRect: 64,
+          fillRect: 65,
           stroke: 180,
-          fill: 302,
+          fill: 303,
           clip: 14,
           save: 194,
           drawImage: 49,
-          createLinearGradient: 135,
+          createLinearGradient: 137,
           createRadialGradient: 83,
           "new Path2D": 79,
           fillText: 6,
         },
         {
-          fillRect: 64,
+          fillRect: 65,
           stroke: 182,
-          fill: 300,
+          fill: 301,
           clip: 14,
           save: 193,
           drawImage: 49,
@@ -576,21 +580,21 @@ const SCENES: readonly Scene[] = [
       ],
       p2: [
         {
-          fillRect: 63,
+          fillRect: 64,
           stroke: 183,
-          fill: 309,
+          fill: 310,
           clip: 14,
           save: 195,
           drawImage: 48,
-          createLinearGradient: 134,
+          createLinearGradient: 136,
           createRadialGradient: 83,
           "new Path2D": 77,
           fillText: 6,
         },
         {
-          fillRect: 63,
+          fillRect: 64,
           stroke: 185,
-          fill: 307,
+          fill: 308,
           clip: 14,
           save: 194,
           drawImage: 48,

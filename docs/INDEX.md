@@ -1237,6 +1237,7 @@ by hand never moves.
 | `packages/render/src/breach-either.ts` | **Which of the two pictures this breach gets.** The owner took `rend` and `hammer` together out of the three… |
 | `packages/render/src/breach-rend.ts` | The plating giving way |
 | `packages/render/src/cannon-maw.ts` | Laying the shot: `maw.ts` run backwards |
+| `packages/render/src/cannon-column.ts` | **The cannon's own column, straight up** — spec 5.8's one path marker left in the field |
 | `packages/render/src/clasp-break.ts` | THE CLASP's shield failing |
 | `packages/render/src/clasp-lattice.ts` | The honeycomb inside THE CLASP's bubble |
 | `packages/render/src/clasp-strike.ts` | The ward reaching up the column and taking a clasp's shield off it |

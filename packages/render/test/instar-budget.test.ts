@@ -31,6 +31,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * tube's light cache grew to 2048 (`solid-tube-light.ts`); at 512 it filled
  * through the turn and the coil made 157 in the frame after it emptied.
  *
+ * `fill` up one in every row on 5 October 2026: the cannon's column became a
+ * gunsight in the seat's colour, its rails and ticks one path (`cannon-column.ts`).
+ *
  * Each row is the worst of each op over one beat starting a third of the way
  * into the step's morph, on a phone. Set `MEASURE` to true and run this file
  * to print the rows as they are written below (`budget-row.ts`); never
@@ -48,7 +51,7 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "13 coil": {
     cursor: 13,
     budget: {
-      fill: 458,
+      fill: 459,
       stroke: 452,
       drawImage: 32,
       createLinearGradient: 74,
@@ -58,7 +61,7 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 302,
+      fill: 303,
       stroke: 237,
       drawImage: 32,
       createLinearGradient: 52,
@@ -68,7 +71,7 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "20 roar": {
     cursor: 20,
     budget: {
-      fill: 457,
+      fill: 458,
       stroke: 453,
       drawImage: 34,
       createLinearGradient: 91,

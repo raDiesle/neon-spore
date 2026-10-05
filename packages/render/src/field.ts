@@ -1,13 +1,15 @@
 import type { World } from "@neon-spore/sim";
 import { drawBackdrop } from "./backdrop-look.js";
+import { drawCannonColumn } from "./cannon-column.js";
 import { needsComms } from "./comms.js";
 import { drawEyeGlyph } from "./comms-glyphs.js";
 import { drawCoordGrid } from "./coord-grid.js";
 import { gradientSlot, slotGradient } from "./gradient-slot.js";
-import { type Layout, tileCX } from "./layout.js";
+import type { Layout, ViewRole } from "./layout.js";
 import { drawRadarLureMark } from "./lure-alarm.js";
 import { PALETTE } from "./palette.js";
 import { blipColor, radarBlips } from "./radar-blip.js";
+import { seatSkin } from "./seat-skin.js";
 import { drawRadarVeilMark } from "./veil-marks.js";
 
 /**
@@ -51,12 +53,7 @@ export function drawBackground(
 /**
  * `flash` is 1 on the beat and decays to 0 before the next one. It is derived
  * from `beatPhase`, never stored — the simulation has no notion of a fade.
- */
-/** Depends only on `l.gridTop` and `l.gridHeight` — the same gradient at
- * every column, so it is keyed on neither `cannonCol` nor `flash`. */
-const cannonColumnSlot = gradientSlot<CanvasGradient>();
-
-/**
+ *
  * `grid` is `CoordGrid.shown` — 0 while nothing on the field has to be named
  * by tile, easing to 1 while something does. It is passed in rather than read
  * off the world here, because it is a fade and a fade is state that outlives a
@@ -69,23 +66,15 @@ export function drawGrid(
   flash: number,
   beatPhase: number,
   grid = 0,
+  role: ViewRole = "p1",
 ): void {
   drawCoordGrid(ctx, l, flash, grid);
 
   // The travelling beat (`drawBeatSweep`) is off: see its note.
   void beatPhase;
 
-  // The cannon's own column, straight up. Spec 5.8: this is the only path
-  // marker left in the field — everything else is read off the radar.
-  const x = tileCX(l, cannonCol);
-  const cg = slotGradient(ctx, cannonColumnSlot, `${l.gridTop},${l.gridHeight}`, () => {
-    const grad = ctx.createLinearGradient(0, l.gridTop, 0, l.gridTop + l.gridHeight);
-    grad.addColorStop(0, "rgba(47,224,240,0)");
-    grad.addColorStop(1, "rgba(47,224,240,.16)");
-    return grad;
-  });
-  ctx.fillStyle = cg;
-  ctx.fillRect(x - l.tile / 2, l.gridTop, l.tile, l.gridHeight);
+  // The cannon's own column: the one path marker left (`cannon-column.ts`).
+  drawCannonColumn(ctx, l, cannonCol, flash, seatSkin(role));
 }
 
 /**

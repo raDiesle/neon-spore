@@ -46,6 +46,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * glint, and the dark rims under the turns count — less the seven upper
  * lashes the ball no longer draws.
  *
+ * `fill` up one in every row on 5 October 2026: the cannon's column became a
+ * gunsight in the seat's colour, its rails and ticks one path (`cannon-column.ts`).
+ *
  * Each row is the worst of each op over one beat, on a phone. Set `MEASURE`
  * to true and run this file to print the rows as they are written below
  * (`budget-row.ts`); never committed as `true`.
@@ -61,7 +64,7 @@ const BUDGETS: Record<string, { open: boolean; budget: Budget }> = {
   shut: {
     open: false,
     budget: {
-      fill: 54,
+      fill: 55,
       stroke: 133,
       drawImage: 30,
       createLinearGradient: 13,
@@ -71,7 +74,7 @@ const BUDGETS: Record<string, { open: boolean; budget: Budget }> = {
   open: {
     open: true,
     budget: {
-      fill: 55,
+      fill: 56,
       stroke: 136,
       drawImage: 30,
       createLinearGradient: 14,
