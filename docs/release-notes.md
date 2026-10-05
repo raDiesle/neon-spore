@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 6f185dbbc — PRISM's colour split is a third as wide
+
+In a boss's slowed window, the red and blue copies of the field now stand a third as far off the boss's own outline as they did, both the split held across the window and the kick on each beat. The owner asked for it by name: the red and green edges were too strong.
+
 ## 2026-10-05 · fa8cead0a — THE INSTAR stops a bolt on its heads
 
 A bolt under THE INSTAR's head now stops on it: face-on on the chin and the skull, through the same squeeze about the snout the head is drawn with, and side-on on the jaw and the skull, grown, swum and bobbing as the profile lays them. Up the middle at rest a bolt used to climb past the chin to the tube; now it bursts at the chin. The outlines are handed out beside the drawings (`frontJaws`, `sideHeadPoints`, `turnedHeadPoint`) rather than copied. The queue entry "THE INSTAR's heads, wings, tail and nests stop a bolt" is cut down to "THE INSTAR's wings, tail and nests stop a bolt". A look the owner asked for by name: a bolt stops on whatever it meets (1 October 2026).

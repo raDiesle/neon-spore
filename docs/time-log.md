@@ -33223,3 +33223,5 @@ Bottleneck: the face-on head is drawn a half at a time through a squeeze about t
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: finding the effect — it is only on boss waves, inside the slowed window, and nothing in the code calls it red and green.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
