@@ -33597,3 +33597,13 @@ Bottleneck: telling the bezel, the funnel floor and the lever's channel apart in
 Bottleneck: the four old wheel tests assumed the click landed in one tick, and each had to be taught to wait.
 
 *Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE MAZE's lever gearing tests, put back
+
+- reading: 0 min. `git status` named the file as modified rather than added.
+- writing: 0 min. The old file restored from the trunk, the new tests moved to `maze-coast.test.ts`.
+- looking: 0 min.
+- friction: 5 min. The Write tool overwrote a test file of the same name without a word.
+- landing: 5 min.
+
+Bottleneck: a new test file named without checking that the name was free.
