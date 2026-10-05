@@ -33609,3 +33609,13 @@ Bottleneck: the four old wheel tests assumed the click landed in one tick, and e
 Bottleneck: a new test file named without checking that the name was free.
 
 *Measured: 2 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE MAZE's heart shows the waiting clock while the partner's half is still to shake
+
+- reading: 5 min. The grip's words and the shared marks, which already had the waiting clock every partner's mark wears.
+- writing: 10 min. `mazeShakeSeatDone`, when a screen waits on the partner, the clock under the word, and one test of six cases.
+- looking: 5 min. One frame of the heart held by the pilot alone.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: deciding when a screen is waiting, so the clock is not on both screens all the while both are shaking.

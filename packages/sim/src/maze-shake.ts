@@ -43,6 +43,12 @@ export function mazeShakeSeatMilli(cfg: SimConfig, m: MazeState): number {
   return mazeRoomMilli(cfg, m) * cfg.mazeShakeWidths;
 }
 
+/** Whether `seat` has shaken its half: what a screen waits on the other seat for. */
+export function mazeShakeSeatDone(cfg: SimConfig, m: MazeState, seat: 1 | 2): boolean {
+  const need = mazeShakeSeatMilli(cfg, m);
+  return need > 0 && (m.gripShookMilli[seat - 1] ?? 0) >= need;
+}
+
 /** How far through the shake the pair is, 0..1000, each seat counted to its half. */
 export function mazeShakeThrough(cfg: SimConfig, m: MazeState): number {
   const need = mazeShakeSeatMilli(cfg, m);

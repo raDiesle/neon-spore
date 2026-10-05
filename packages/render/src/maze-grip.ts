@@ -4,6 +4,7 @@ import {
   mazeCircleMilli,
   mazeCurrent,
   mazeHeartAsks,
+  mazeShakeSeatDone,
   mazeShakeThrough,
   mazeStringAsks,
   type SimConfig,
@@ -13,6 +14,7 @@ import { strokeGlow } from "./glow.js";
 import { drawGripRing } from "./grip-rings.js";
 import { drawHandleHint, type HandleWords, HINT_LOUD } from "./handle-word.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
+import { drawMarkWait } from "./mark-feedback.js";
 import { drawShakeArrows } from "./maze-shake-arrows.js";
 import { mazeStringGrab } from "./maze-string.js";
 import { mazeDrum } from "./maze-walls.js";
@@ -45,9 +47,15 @@ import { seatOf, type ViewRole } from "./view-role.js";
  *    seat named until theirs does, because half the shake is theirs;
  *  - the ring under this seat's thumb, carried with the heart and **green**
  *    once the sim has it;
- *  - and round the room a **green count** filling as the pair shakes
+ *  - round the room a **green count** filling as the pair shakes
  *    (`mazeShakeThrough`). The time left is the fuse under the drum
- *    (`maze-fuse.ts`), the clock every boss wears, so it is not said twice.
+ *    (`maze-fuse.ts`), the clock every boss wears, so it is not said twice;
+ *  - and under the word, **the waiting clock** every partner's mark wears
+ *    (`drawMarkWait`), while this seat has shaken its half or is holding
+ *    alone and the partner has not finished theirs (the owner, 5 October
+ *    2026: *make clear that the other player is not finished yet and also
+ *    needs to act on the same control*). A seat whose half is done is told
+ *    P2 TOO rather than SHAKE once its thumb is off.
  */
 
 /** Inside the room, clear of the muscle at full swell. */
@@ -114,13 +122,28 @@ export function mazeGripSeat(l: Layout, x: number, y: number, field: Field): 1 |
   return undefined;
 }
 
-/** The word under the room, as this screen reads it. */
-function shakeWords(role: ViewRole, m: MazeState): HandleWords | null {
+/**
+ * Whether this screen is waiting on the partner: their half not shaken, and
+ * this seat either done with its own or holding the heart without them.
+ */
+function waitsOnPartner(cfg: SimConfig, m: MazeState, role: ViewRole): boolean {
+  if (role === "test") return false;
   const seat = seatOf(role);
+  const other = seat === 1 ? 2 : 1;
+  if (mazeShakeSeatDone(cfg, m, other)) return false;
+  if (mazeShakeSeatDone(cfg, m, seat)) return true;
+  return (m.gripSeats & seat) !== 0 && (m.gripSeats & other) === 0;
+}
+
+/** The word under the room, as this screen reads it. */
+function shakeWords(role: ViewRole, m: MazeState, waiting: boolean): HandleWords | null {
+  const seat = seatOf(role);
+  const too = { seat, mine: seat === 1 ? "P2 TOO" : "P1 TOO", theirs: "" };
+  if (waiting && (m.gripSeats & seat) === 0) return too;
   const mine = role === "test" ? m.gripSeats !== 0 : (m.gripSeats & seat) !== 0;
   if (!mine) return { seat, mine: "SHAKE", theirs: "SHAKE" };
   if (role === "test" || m.gripSeats === 3) return null;
-  return { seat, mine: seat === 1 ? "P2 TOO" : "P1 TOO", theirs: "" };
+  return too;
 }
 
 /**
@@ -145,11 +168,16 @@ export function drawMazeGrip(
   else drawGripRing(ctx, ring.x, ring.y, ring.r, false, time);
   drawShakeArrows(ctx, l, c, held, time);
   drawShakeCount(ctx, c, mazeShakeThrough(cfg, m) / 1000);
-  const words = shakeWords(role, m);
-  if (words !== null) {
-    drawHandleHint(ctx, l, role, c.x, c.y + c.r * COUNT_MUL + l.tile * 0.95, HINT_LOUD, words);
-  }
+  const waiting = waitsOnPartner(cfg, m, role);
+  const words = shakeWords(role, m, waiting);
+  const wordY = c.y + c.r * COUNT_MUL + l.tile * 0.95;
+  if (words !== null) drawHandleHint(ctx, l, role, c.x, wordY, HINT_LOUD, words);
+  if (waiting) drawMarkWait(ctx, c.x, wordY + l.tile * WAIT_BELOW, l.tile * WAIT_R, time);
 }
+
+/** The waiting clock: how far under the word it stands, and its size, in tiles. */
+const WAIT_BELOW = 1.05;
+const WAIT_R = 1.1;
 
 /** The ring under this seat's thumb once the sim has it: green, and steady. */
 function drawHeldRing(ctx: CanvasRenderingContext2D, ring: Circle): void {

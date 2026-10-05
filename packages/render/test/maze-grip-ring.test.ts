@@ -9,6 +9,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { rgba } from "../src/hex.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { drawMazeGrip } from "../src/maze-grip.js";
 import { MazeGripFx } from "../src/maze-grip-fx.js";
@@ -83,6 +84,36 @@ describe("the ring", () => {
     expect(held.words).toEqual(["P2 TOO"]);
     expect(held.good).toBeGreaterThan(green(grip()).good);
     expect(green(grip({ gripSeats: 3 })).words).toEqual([]);
+  });
+
+  it("shows the waiting clock while the partner's half is not done", () => {
+    // The clock's face sits on a dark disc no other part of the grip draws.
+    const DISC = rgba(PALETTE.background, 0.9);
+    const read = (role: ViewRole, m: MazeState) => {
+      const { ctx } = stubCanvas();
+      const log: string[] = [];
+      ctx.log = log;
+      ctx.texts = [];
+      drawMazeGrip(ctx as unknown as CanvasRenderingContext2D, layout(role), CFG, m, role, 1.2);
+      return {
+        clock: log.some((line) => line.includes(DISC)),
+        words: ctx.texts.map((t) => t.text),
+      };
+    };
+    const DONE = 1_000_000_000;
+    // Nobody on it, or both shaking with neither done: nothing to wait on.
+    expect(read("p1", grip()).clock).toBe(false);
+    expect(read("p1", grip({ gripSeats: 3 })).clock).toBe(false);
+    // Holding alone: the partner is waited on, on this screen only.
+    expect(read("p1", grip({ gripSeats: 1 })).clock).toBe(true);
+    expect(read("p2", grip({ gripSeats: 1 })).clock).toBe(false);
+    // Half shaken and let go: told the partner is still to come, not to shake.
+    const mineDone = grip({ gripShookMilli: [DONE, 0] });
+    expect(read("p1", mineDone)).toEqual({ clock: true, words: ["P2 TOO"] });
+    expect(read("p2", mineDone).clock).toBe(false);
+    // Their half done: this screen waits on nobody.
+    expect(read("p1", grip({ gripSeats: 1, gripShookMilli: [0, DONE] })).clock).toBe(false);
+    expect(read("test", grip({ gripSeats: 1 })).clock).toBe(false);
   });
 
   it("fills the green count as the pair shakes", () => {

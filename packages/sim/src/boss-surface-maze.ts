@@ -52,7 +52,7 @@ export { mazeStringAsks } from "./maze-controls.js";
 export { mazeHeartAsks } from "./maze-hand.js";
 // The heart's room and how far through the shake the pair is, which the
 // picture draws the heart and its green count from (`maze-grip.ts`).
-export { mazeShakeFreeMilli, mazeShakeThrough } from "./maze-shake.js";
+export { mazeShakeFreeMilli, mazeShakeSeatDone, mazeShakeThrough } from "./maze-shake.js";
 // Which losses bring the drum down on the ship, which `maze-fall.ts` drops.
 export { mazeFalls } from "./maze-verdict.js";
 // The gearing of a lever carried round a rim, THE MAZE's and THE OCULUS's (`rim-turn.ts`).
