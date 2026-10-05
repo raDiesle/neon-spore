@@ -3,6 +3,7 @@ import { bossAlong, bossAlongStruck } from "./boss-along.js";
 import { resolve } from "./bullet-hit.js";
 import { shotMeans } from "./codex.js";
 import { hullRow, ticksPerBeat } from "./config.js";
+import { coreAlong } from "./core-along.js";
 import { ledgerBills } from "./ledger-shot.js";
 import { steerShot } from "./lock.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
@@ -165,6 +166,13 @@ function sweep(world: World, b: Bullet): boolean {
       (!pod || mouth > pod.rowMilli)
     ) {
       bossAlongStruck(world, b);
+      return false;
+    }
+    // A boss's core where it hangs, judged there as it would be past the
+    // top, and by the same calls (`core-along.ts`).
+    const core = coreAlong(world, b, from, to);
+    if (core >= 0 && (!hit || core > creatureMilli(world, hit)) && (!pod || core > pod.rowMilli)) {
+      shotLeaves(world, b, core);
       return false;
     }
     if (pod && (!hit || pod.rowMilli > creatureMilli(world, hit))) {

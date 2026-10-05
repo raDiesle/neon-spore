@@ -33501,3 +33501,13 @@ Bottleneck: looking — the socket took three frames to find, each a minute's re
 Bottleneck: the margin — a bolt met on the bead's far rim was taken off the field before a frame drew it bursting, at one frame in three ticks.
 
 *Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE GRINDSTONE's axle takes a hit where the bolt meets it
+
+- reading: 5 min. The axle's row, the stopper, the hit's fx, the rig's lit step.
+- writing: 10 min. `core-along.ts`, a table of cores met where they hang, the sweep's call, the axle's row shared with the picture, two tests.
+- looking: 0 min. One frame, two ticks after the hit.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: none to speak of — the fx already burst and shook on the hit, so only the moment moved.

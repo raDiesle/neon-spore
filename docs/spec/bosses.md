@@ -9698,8 +9698,11 @@ flat's second pass starts from `grindstoneFilmMilli` rather than solid.
 Both flats clean bite the caliper shut (`grindstoneBite`). A jaw is heard
 as THE TRIVET hears a foot: one drag a pad by its `id`, kept whenever the
 wheel is present, and a pad lifting from a held clamp slips it
-(`grindstoneSlip`) and starts its count again. A shot is judged where a
-bolt leaves the top of the field (`sim/grindstone-shot.ts`): only with the
+(`grindstoneSlip`) and starts its count again. A shot is judged where the
+bolt meets the axle, on the tick it is drawn reaching it (`sim/core-along.ts`,
+the owner, 5 October 2026: *took effect immediately it hit the right
+location*), and no longer where it leaves the top of the field
+(`sim/grindstone-shot.ts`): only with the
 caliper locked, only while a fire step is lit, only in the middle column,
 and only in its colour unless it is `either`. A fresh reversal or a pad put
 down while the grind dies out jars the caliper loose: the first in a beat

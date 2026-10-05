@@ -5,8 +5,17 @@ import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * **THE GRINDSTONE's shot**: the lit axle, where a bolt leaves the top of the
- * field in the middle column.
+ * The axle's row, thousandths of a row down the field: where the picture
+ * stands it (`render/grindstone-shape.ts`) and where a bolt meets it
+ * (`core-along.ts`).
+ */
+export const GRINDSTONE_ROW_MILLI = 2000;
+
+/**
+ * **THE GRINDSTONE's shot**: the lit axle, where a bolt meets it in the
+ * middle column (`core-along.ts`) — since 5 October 2026, when the owner
+ * asked for a hit to take effect where it is drawn, rather than where the
+ * bolt leaves the top of the field.
  *
  * Only a lit fire step takes one, with the caliper locked. **A step with a
  * colour wants that colour**, THE SEAM's rule (`seam-shot.ts`): the other is a

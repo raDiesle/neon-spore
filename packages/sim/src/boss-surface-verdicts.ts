@@ -24,7 +24,7 @@ export { flueVerdict } from "./flue-shot.js";
 export { gallVerdict } from "./gall-shot.js";
 export { gimbalVerdict } from "./gimbal-shot.js";
 export { governorVerdict } from "./governor-shot.js";
-export { grindstoneVerdict } from "./grindstone-shot.js";
+export { GRINDSTONE_ROW_MILLI, grindstoneVerdict } from "./grindstone-shot.js";
 export { halterVerdict } from "./halter-shot.js";
 export { haspVerdict } from "./hasp-shot.js";
 export { hiveVerdict, hiveWallVerdict } from "./hive-shot.js";

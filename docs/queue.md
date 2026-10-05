@@ -345,3 +345,15 @@ seventh opening is a high cocoon and retrace from there. `scene-hive.test.ts`
 pins the event sequence, and `scene-pages.test.ts` reads every page's counts
 back. The tutorial skill (`.claude/skills/new-tutorial`) has the owner's rules
 for pages.
+
+## `grindstone-shape.ts` is 221 lines: cut the caliper off the wheel
+
+- **Found:** 2026-10-05, claude/grindstone-hit-at-axle
+- **Files:** `packages/render/src/grindstone-shape.ts`
+
+The size hook stopped an edit to it at 221 lines, 29 under the ceiling. The
+seam is already in the file: the wheel (its contour, its flats, the axle) and
+the caliper standing over it (THE HOOD's arc, the two jaws, their pads, the
+crown bolt). Move the caliper's constants and paths to a file of their own
+beside it and re-export nothing — the drawers import each from where it now
+lives.

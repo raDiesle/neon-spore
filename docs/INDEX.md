@@ -528,7 +528,7 @@ by hand never moves.
 | `packages/sim/src/grip-push-dir.ts` | **Which way a carried body has been earned a column** |
 | `packages/sim/src/grindstone-hand.ts` | Two grinding thumbs and two jaws on THE GRINDSTONE, one of each a seat |
 | `packages/sim/src/grindstone-hash.ts` | What THE GRINDSTONE puts into `hashWorld`, and nothing else |
-| `packages/sim/src/grindstone-shot.ts` | **THE GRINDSTONE's shot**: the lit axle, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/grindstone-shot.ts` | The axle's row, thousandths of a row down the field |
 | `packages/sim/src/grindstone-step.ts` | THE GRINDSTONE's clock: the wheel settling, each step lighting |
 | `packages/sim/src/grindstone-fade.ts` | **THE GRINDSTONE's fade** (§33 row 11): the last shot is in |
 | `packages/sim/src/grindstone.ts` | THE GRINDSTONE: a gritted wheel on a fixed axle mid-hull, each of its two flats ground clean by its own seat |
@@ -778,6 +778,7 @@ by hand never moves.
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
 | `packages/sim/src/core-verdict.ts` | **What a bolt in a column meets of a core hung over the middle one** |
+| `packages/sim/src/core-along.ts` | **A boss's core is met where it hangs**: one row per boss, and a bolt crossing it judged there rather than past the top |
 | `packages/sim/src/curtain-hash.ts` | What THE CURTAIN puts into `hashWorld`, and nothing else |
 | `packages/sim/src/curtain-hand.ts` | **The one hand on THE CURTAIN that is not the shove**: the hem |
 | `packages/sim/src/curtain-shot.ts` | The two moments a shot meets THE CURTAIN, both on the **tick**: a bolt into the fabric |
