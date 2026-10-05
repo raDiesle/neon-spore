@@ -130,21 +130,16 @@ export const CHOREO_NOTES_D = {
     "a tap here yet. Only the simulation lane has landed — see " +
     "sim/governor.ts, sim/governor-step.ts, sim/governor-hand.ts, " +
     "sim/governor-turn.ts, sim/governor-shot.ts, sim/config-governor.ts.",
-  "THE LAMPREY — a jaw one of you pins for the other to pull teeth from":
-    "Asked for in docs/spec/bosses-choreographed.md §41: a sucker mouth " +
-    "bitten onto the hull, crawling a column every few beats. One seat keeps " +
-    "a thumb on the jaw wherever it crawls to — FOLLOW A TARGET, within " +
-    "lampreyGripCols — and while it is let go the bite deepens by " +
-    "lampreyBiteStepMilli a beat; a full bite is a hull hit, which is the " +
-    "wave. The other seat taps the one lit tooth of seven before its window " +
-    "runs out, REPEATED TAP; a miss or a window run out snaps the last tooth " +
-    "back in, and the next tooth lit is two round the ring. Five teeth over " +
-    "two bites drop the mouth off; the gullet then takes three shots in the " +
-    "colour it shows, and a shot run out is a lunge, a re-bite with the two " +
-    "teeth left. Nothing on the phone sends a drag or a tap here yet. Only " +
-    "the simulation lane has landed — see sim/lamprey.ts, " +
-    "sim/lamprey-step.ts, sim/lamprey-hand.ts, sim/lamprey-shot.ts, " +
-    "sim/config-lamprey.ts.",
+  "THE LAMPREY — an eel one of you holds by the tail for the other to pull off":
+    "Asked for in docs/spec/bosses-choreographed.md §41, and rebuilt on the " +
+    "owner's word of 5 October 2026: an eel leaping across the field to a " +
+    "fresh tile a stay, further each stay, and biting into it under THE SLOW. " +
+    "One seat holds the tail; the other pulls the head up off the tile (a " +
+    "pull), taps the lit tooth (a teeth), or pulls the head while the holder " +
+    "drags the tail the other way at once (an apart). A gullet stay is shot " +
+    "in its colour. Any stay run out bites through to the hull, which is the " +
+    "wave. See sim/lamprey.ts, sim/lamprey-step.ts, sim/lamprey-leap.ts, " +
+    "sim/lamprey-hand.ts, sim/lamprey-shot.ts, sim/config-lamprey.ts.",
   "THE MIMIC — a sign one of you reads for the other to draw":
     "Asked for in docs/spec/bosses-choreographed.md §42: a mantle with " +
     "eight arms that holds a frame, and a picture of squares in it on one " +

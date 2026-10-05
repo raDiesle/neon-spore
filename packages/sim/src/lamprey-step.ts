@@ -4,35 +4,38 @@ import {
   freshLamprey,
   type LampreyState,
   type LampreyStep,
-  lampreyHeld,
   lampreyNextTooth,
   lampreyStep,
   lampreyTeethIn,
   lampreyToothIn,
 } from "./lamprey.js";
+import { lampreyLeapTo, lampreyTileIndex } from "./lamprey-leap.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
- * THE LAMPREY's clock, once a beat: the jaw held or chewing, the jaw
- * crawling, the lit tooth's window running out, the eel pulling loose,
- * rearing, recoiling, and falling away spent.
+ * THE LAMPREY's clock, once a beat: swimming in, landing on a tile, a stay's
+ * window running out, the leap to the next tile, the recoil from a hit, and
+ * falling away spent.
  *
- * The thumbs are heard on the tick (`lamprey-hand.ts`) and only *read* here,
- * so a jaw held at the beat's edge is held for that beat. The shot is judged
- * where a bolt leaves the top of the field (`lamprey-shot.ts`).
+ * The thumbs are heard on the tick (`lamprey-hand.ts`) and the shot where a
+ * bolt leaves the top of the field (`lamprey-shot.ts`); both call back here
+ * when a stay is answered, so the leap starts the tick it is won.
  *
- * **A full bite is the hull**, THE SEAM's rule: `biteMilli` reaching
- * `lampreyBiteFullMilli` strikes it and the depth starts again from nothing,
- * for the wave is lost anyway. **A gullet's window run out is a lunge**: the
- * eel bites again with the teeth it has left, and the gullet is lit again
- * once they are out — and they are not lost, so the next lunge has them too.
+ * **A window run out is the hull**, THE SEAM's rule: the bite goes through,
+ * the hull takes it at the tile's column, and the eel leaps on — for the wave
+ * is lost anyway (`wave-fail.ts`), and a stay asked again would strike again
+ * in a world nobody is playing any more.
  */
 
 export function installLamprey(world: World, steps: readonly LampreyStep[]): LampreyState {
-  const col = steps[0]?.col ?? midCol(world.cfg);
-  const s = freshLamprey(world.beat, col, steps);
-  world.events.push({ type: "lampreyEnter", col });
+  const cfg = world.cfg;
+  const from = { col: midCol(cfg), row: cfg.lampreyRowTop };
+  const s = freshLamprey(world.beat, from, from, steps);
+  const at = lampreyLeapTo(world, s, from, steps[0]?.jump ?? 1, -1);
+  s.col = at.col;
+  s.row = at.row;
+  world.events.push({ type: "lampreyEnter", col: s.col });
   return s;
 }
 
@@ -41,144 +44,139 @@ export function stepLamprey(world: World, s: LampreyState): void {
   const since = world.beat - s.phaseBeat;
   if (s.phase === "spent") {
     if (since >= cfg.lampreySpentBeats) {
-      world.events.push({ type: "lampreyOut", col: midCol(cfg) });
+      world.events.push({ type: "lampreyOut", col: s.col });
       world.boss = null;
     }
     return;
   }
-  if (s.phase === "entering" && since >= cfg.lampreyEnterBeats) next(world, s);
-  else if (s.phase === "loose" && since >= cfg.lampreyLooseBeats) next(world, s);
-  else if (s.phase === "recoil" && since >= cfg.lampreyRecoilBeats) next(world, s);
-  else if (s.phase === "bite") bite(world, s);
-  else if (s.phase === "rearing") rearing(world, s, since);
-}
-
-/** A beat of a bite: the chew, the crawl, and the lit tooth's window. */
-function bite(world: World, s: LampreyState): void {
-  const step = lampreyStep(s);
-  if (step === null) return;
-  if (!lampreyHeld(world, s)) chew(world, s);
-  if (world.beat - s.crawlBeat >= step.crawlBeats) crawl(world, s);
-  if (world.beat - s.toothBeat >= step.toothBeats) lampreySnapped(world, s, null);
-}
-
-/** The jaw not held: the bite a step deeper, and a full one the hull. */
-function chew(world: World, s: LampreyState): void {
-  const cfg = world.cfg;
-  s.biteMilli = Math.min(cfg.lampreyBiteFullMilli, s.biteMilli + cfg.lampreyBiteStepMilli);
-  world.events.push({ type: "lampreyGnaw", biteMilli: s.biteMilli, col: s.jawCol });
-  if (s.biteMilli < cfg.lampreyBiteFullMilli) return;
-  world.events.push({ type: "lampreyFull", col: s.jawCol });
-  s.biteMilli = 0;
-  bossStrikesHull(world, "lamprey", s.jawCol);
-}
-
-/** The jaw a column along the hull, turning back at either end. */
-function crawl(world: World, s: LampreyState): void {
-  const last = world.cfg.cols - 1;
-  if (s.jawCol + s.crawlDir < 0 || s.jawCol + s.crawlDir > last) {
-    s.crawlDir = s.crawlDir === 1 ? -1 : 1;
+  if (s.phase === "entering" && since >= cfg.lampreyEnterBeats) land(world, s);
+  else if (s.phase === "leap" && since >= cfg.lampreyLeapBeats) land(world, s);
+  else if (s.phase === "recoil" && since >= cfg.lampreyRecoilBeats) leapOn(world, s);
+  else if (s.phase === "bite" || s.phase === "rearing") {
+    const step = lampreyStep(s);
+    if (step !== null && since >= step.beats) bitThrough(world, s);
   }
-  s.jawCol += s.crawlDir;
-  s.crawlBeat = world.beat;
-  world.events.push({ type: "lampreyCrawl", dir: s.crawlDir, col: s.jawCol });
 }
 
 /**
- * The lit tooth knocked out by `side`: the next one two places on lights with
- * a fresh window, and the bite done once it has given up its teeth. Called by
- * the tap (`lamprey-hand.ts`).
+ * Down on the tile it leapt to: a bite under THE SLOW, or the gullet reared
+ * and lit — and the next tile drawn now, so the tail can lie away from it.
+ */
+function land(world: World, s: LampreyState): void {
+  const step = lampreyStep(s);
+  if (step === null) {
+    spend(world, s);
+    return;
+  }
+  const after = s.steps[s.cursor + 1];
+  const tail = world.cfg.lampreyTailTiles * 1000;
+  const reach = step.ask === "apart" ? tail + world.cfg.lampreyTailPullMilli : tail;
+  const next = after === undefined ? null : lampreyLeapTo(world, s, s, after.jump, reach);
+  s.nextCol = next?.col ?? -1;
+  s.nextRow = next?.row ?? -1;
+  s.phaseBeat = world.beat;
+  s.pulled = [];
+  s.tailDown = [false, false];
+  s.tailMilli = [0, 0];
+  s.headMilli = [0, 0];
+  s.slipped = [false, false];
+  openSlow(world, step.beats, "ask");
+  if (step.ask === "gullet") {
+    s.phase = "rearing";
+    world.events.push({ type: "lampreyRear", color: step.color, col: s.col });
+    return;
+  }
+  s.phase = "bite";
+  s.bitten.push(lampreyTileIndex(world, s.col, s.row));
+  if (!lampreyToothIn(s, s.litTooth)) s.litTooth = lampreyNextTooth(s, s.litTooth);
+  const side: 0 | 1 = step.holder === 1 ? 0 : 1;
+  world.events.push({ type: "lampreyBite", side, tooth: s.litTooth, col: s.col, row: s.row });
+}
+
+/** The window run out: the bite through and the hull struck, and the eel off to the next tile. */
+function bitThrough(world: World, s: LampreyState): void {
+  world.events.push({ type: "lampreyFull", col: s.col });
+  closeSlow(world);
+  bossStrikesHull(world, "lamprey", s.col, s.row);
+  s.pulled = [];
+  s.cursor += 1;
+  leapOn(world, s);
+}
+
+/**
+ * The lit tooth knocked out by `side`: the next one two places on lights, and
+ * the stay won once it has given up its teeth. Called by the tap
+ * (`lamprey-hand.ts`).
  */
 export function lampreyCracked(world: World, s: LampreyState, side: 0 | 1): void {
   const tooth = s.litTooth;
   s.pulled.push(tooth);
-  world.events.push({ type: "lampreyCrack", side, tooth, col: s.jawCol });
-  closeSlow(world);
+  world.events.push({ type: "lampreyCrack", side, tooth, col: s.col });
   const step = lampreyStep(s);
   if (step === null || s.pulled.length >= step.teeth || lampreyTeethIn(s) === 0) {
-    loose(world, s);
+    loose(world, s, -1);
     return;
   }
   s.litTooth = lampreyNextTooth(s, tooth);
-  s.toothBeat = world.beat;
 }
 
 /**
- * The lit tooth snapped back, by a wrong tap from `side` or its window run
- * out (`side` null): the last tooth this bite cracked goes back in, the same
- * tooth stays lit, and its window starts again.
+ * A tooth snapped back by a tap from `side` — on a dark tooth, or with the
+ * tail loose: the last tooth this stay cracked goes back in and the same
+ * tooth stays lit. The window runs on.
  */
-export function lampreySnapped(world: World, s: LampreyState, side: 0 | 1 | null): void {
+export function lampreySnapped(world: World, s: LampreyState, side: 0 | 1): void {
   s.pulled.pop();
-  const tooth = s.litTooth;
-  world.events.push(
-    side === null
-      ? { type: "lampreySnap", tooth, col: s.jawCol }
-      : { type: "lampreySnap", tooth, side, col: s.jawCol },
-  );
-  closeSlow(world);
-  s.toothBeat = world.beat;
+  world.events.push({ type: "lampreySnap", tooth: s.litTooth, side, col: s.col });
 }
 
-/** The bite given up: the teeth out for good, unless it was a re-bite, and the mouth off the hull. */
-function loose(world: World, s: LampreyState): void {
-  world.events.push({ type: "lampreyLoose", col: s.jawCol });
-  if (s.rebiting) s.rebiting = false;
-  else {
-    for (const t of s.pulled) s.teethOut |= 1 << t;
-    s.cursor += 1;
-  }
+/**
+ * The head pulled off the tile, by a `pull` or an `apart`: the lit tooth stays
+ * behind in the bite. Called by the hand (`lamprey-hand.ts`).
+ */
+export function lampreyFreed(world: World, s: LampreyState): void {
+  const tooth = lampreyToothIn(s, s.litTooth) ? s.litTooth : -1;
+  if (tooth !== -1) s.pulled.push(tooth);
+  loose(world, s, tooth);
+}
+
+/** The stay won: its teeth out for good, THE SLOW shut, and the eel off to the next tile. */
+function loose(world: World, s: LampreyState, tooth: number): void {
+  world.events.push({ type: "lampreyLoose", tooth, col: s.col });
+  for (const t of s.pulled) s.teethOut |= 1 << t;
   s.pulled = [];
-  s.phase = "loose";
-  s.phaseBeat = world.beat;
+  if (!lampreyToothIn(s, s.litTooth)) s.litTooth = lampreyNextTooth(s, s.litTooth);
+  closeSlow(world);
+  s.cursor += 1;
+  leapOn(world, s);
 }
 
-/** The gullet's window: a hit is the shot's, and the window run out a lunge. */
-function rearing(world: World, s: LampreyState, since: number): void {
-  const step = lampreyStep(s);
-  if (step === null || since < step.beats) return;
-  world.events.push({ type: "lampreyLunge", col: step.col });
-  s.rebiting = true;
-  beginBite(world, s, step);
-}
-
-/** The gullet shot in its colour: the eel recoils and the cursor moves on. Called by the shot. */
+/** The gullet shot in its colour: the eel recoils on its tile. Called by the shot. */
 export function lampreyRecoiled(world: World, s: LampreyState): void {
+  closeSlow(world);
   s.cursor += 1;
   s.phase = "recoil";
   s.phaseBeat = world.beat;
 }
 
-/** The next step: a bite onto the hull, the gullet lit, or, with none, the eel spent. */
-function next(world: World, s: LampreyState): void {
-  const step = lampreyStep(s);
-  const col = midCol(world.cfg);
-  if (step === null) {
-    s.phase = "spent";
-    s.phaseBeat = world.beat;
-    world.events.push({ type: "lampreySpent", col });
+/** Off the tile: a leap to the one drawn as it landed, or, with the script done, spent where it is. */
+function leapOn(world: World, s: LampreyState): void {
+  if (lampreyStep(s) === null || s.nextCol < 0) {
+    spend(world, s);
     return;
   }
-  if (step.ask === "bite") {
-    beginBite(world, s, step);
-    return;
-  }
-  s.phase = "rearing";
+  s.fromCol = s.col;
+  s.fromRow = s.row;
+  s.col = s.nextCol;
+  s.row = s.nextRow;
+  s.nextCol = -1;
+  s.nextRow = -1;
+  s.phase = "leap";
   s.phaseBeat = world.beat;
-  world.events.push({ type: "lampreyRear", color: step.color, col });
 }
 
-/** The mouth on the hull at the step's column, a tooth lit under THE SLOW. */
-function beginBite(world: World, s: LampreyState, step: LampreyStep): void {
-  s.phase = "bite";
+function spend(world: World, s: LampreyState): void {
+  s.phase = "spent";
   s.phaseBeat = world.beat;
-  s.jawCol = step.col;
-  s.crawlDir = step.crawl;
-  s.crawlBeat = world.beat;
-  s.pulled = [];
-  if (!lampreyToothIn(s, s.litTooth)) s.litTooth = lampreyNextTooth(s, s.litTooth);
-  s.toothBeat = world.beat;
-  openSlow(world, step.toothBeats + 1, "ask");
-  const side: 0 | 1 = step.pinner === 1 ? 0 : 1;
-  world.events.push({ type: "lampreyBite", side, tooth: s.litTooth, col: s.jawCol });
+  world.events.push({ type: "lampreySpent", col: s.col });
 }

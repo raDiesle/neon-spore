@@ -167,9 +167,9 @@ describe("a boss's blow at the hull", () => {
     expect(firstTranslate(look, { ...frame, reach: 1 })).toEqual(to);
   });
 
-  it("THE LAMPREY clamps its sucker shut on the hull, where its mouth already is", () => {
-    const from = strikeFrom(L, CFG, "lamprey", 4);
-    expect(from).toEqual({ x: tileCX(L, 4), y: L.hullY });
+  it("THE LAMPREY's teeth fly from the tile it bit down to the hull, clamping shut", () => {
+    const from = strikeFrom(L, CFG, "lamprey", 4, 6);
+    expect(from).toEqual({ x: tileCX(L, 4), y: tileCY(L, 6) });
     const look = strikeLook("lamprey");
     expect(look).not.toBe(lash);
     const to = { x: from.x, y: L.hullY + 2 };

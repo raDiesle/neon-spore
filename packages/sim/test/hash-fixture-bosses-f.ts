@@ -31,34 +31,14 @@ export const BOSS_ENTRIES_F = {
       { ask: "fire", tapper: 2, markMilli: 0, paceMilli: 0, color: "cyan", beats: 3 },
     ],
   },
-  // A bite and a gullet, the pinners apart, both crawls and the first step's
-  // colour set off `either`, for the walk only changes element 0
+  // A pull and a gullet, the holders apart, and the first step's colour set
+  // off `either`, for the walk only changes element 0
   // (`lamprey-hash.ts`).
   lamprey: {
     kind: "lamprey",
     steps: [
-      {
-        ask: "bite",
-        pinner: 1,
-        teeth: 3,
-        toothBeats: 3,
-        col: 2,
-        crawl: 1,
-        crawlBeats: 3,
-        color: "cyan",
-        beats: 0,
-      },
-      {
-        ask: "gullet",
-        pinner: 2,
-        teeth: 2,
-        toothBeats: 2,
-        col: 8,
-        crawl: -1,
-        crawlBeats: 2,
-        color: "either",
-        beats: 3,
-      },
+      { ask: "pull", holder: 1, teeth: 0, jump: 2, beats: 12, color: "cyan" },
+      { ask: "gullet", holder: 2, teeth: 2, jump: 3, beats: 9, color: "either" },
     ],
   },
   // A sign and a split, the readers apart, the first one changing and its
@@ -104,25 +84,29 @@ export function patchBossF(boss: BossState): void {
     boss.tapDown = [true, false];
   }
   if (boss.kind === "lamprey") {
-    // A re-bite on, crawling left off its column, half bitten, two teeth out
-    // for good and one cracked this bite, the gullet shot once, one thumb on
-    // the jaw and the other's down — every field given a value
-    // (`lamprey-hash.ts`).
-    boss.phase = "bite";
+    // Leaping from one tile to another with the next drawn, two teeth out for
+    // good and one cracked this stay, the gullet shot once, two tiles bitten,
+    // a thumb on the tail and the head half up, one slipped — every field
+    // given a value (`lamprey-hash.ts`).
+    boss.phase = "leap";
     boss.phaseBeat = 3;
     boss.cursor = 1;
-    boss.jawCol = 5;
-    boss.crawlDir = -1;
-    boss.crawlBeat = 4;
-    boss.biteMilli = 375;
+    boss.col = 5;
+    boss.row = 6;
+    boss.fromCol = 3;
+    boss.fromRow = 4;
+    boss.nextCol = 8;
+    boss.nextRow = 3;
     boss.teethOut = 0b101;
     boss.litTooth = 4;
-    boss.toothBeat = 5;
     boss.pulled = [3];
-    boss.rebiting = true;
     boss.hits = 1;
-    boss.holdCol = [4, -1];
+    boss.bitten = [47, 71];
+    boss.tailDown = [true, false];
+    boss.tailMilli = [300, 0];
+    boss.headMilli = [0, 700];
     boss.tapDown = [false, true];
+    boss.slipped = [false, true];
   }
   if (boss.kind === "mimic") {
     // A split on with both pictures up, two tiles painted and the

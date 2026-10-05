@@ -139,11 +139,10 @@ export const showsGovernorHand = (role: ViewRole, seat: 1 | 2): boolean =>
   role === "test" || role === `p${seat}`;
 
 /**
- * THE LAMPREY's two asks (§41). Both screens are shown the whole eel — the
- * jaw the pinner follows is the mouth the tapper's tooth is on — and the
- * hands are split by the step: **the jaw's band** full to the pinner and
- * faint to the tapper, **the lit tooth's ring** full to the tapper and faint
- * to the pinner. `test` is both at full.
+ * THE LAMPREY's two hands (§41). Both screens are shown the whole eel, its
+ * tail's knob and its head's — the tail the holder keeps is the body the
+ * worker's tooth is on — and **the lit tooth's ring** is full to the worker
+ * and faint to the holder. `test` is both at full.
  */
 export const showsLampreyHand = (role: ViewRole, seat: 1 | 2): boolean =>
   role === "test" || role === `p${seat}`;

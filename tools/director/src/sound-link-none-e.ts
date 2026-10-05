@@ -30,21 +30,20 @@ export const NO_SUBJECT_E: Record<string, string> = {
   // and the argument is theirs.
   "boss.haspRattle": "a door shaking on its hinge. Part of the fixture, like the clasps.",
   "boss.haspRust": "a clasp furred with rust. Same argument: a coat on the fixture.",
-  // THE LAMPREY's thirteen (`sim/events-lamprey.ts`). Its receipts are drawn
+  // THE LAMPREY's twelve (`sim/events-lamprey.ts`). Its receipts are drawn
   // (`lamprey-fx.ts`), but the eel is drawn from two drafts — LIGHT TRACE's
   // body and BULB · SPIKE's ring — and neither is a shape-sheet subject, so
   // there is no card on the sheet to point a sound at.
   "boss.lampreyEnter": "the eel swimming in. Drawn from two drafts; no shape-sheet subject.",
-  "boss.lampreyBite": "the mouth biting onto the hull, a tooth lit. Same argument.",
+  "boss.lampreyBite": "the mouth biting into a tile, a tooth lit. Same argument.",
+  "boss.lampreyGrip": "a thumb taking the tail. Same argument.",
   "boss.lampreyCrack": "the lit tooth knocked out. Same argument.",
   "boss.lampreySnap": "the lit tooth snapping a cracked one back in. Same argument.",
-  "boss.lampreyCrawl": "the jaw crawling a column along the hull. Same argument.",
-  "boss.lampreyGnaw": "the jaw let go, chewing a step deeper. Same argument.",
-  "boss.lampreyFull": "a full bite, on the hull, which the hull's own sounds have.",
-  "boss.lampreyLoose": "the mouth pulling off the hull. Same argument.",
+  "boss.lampreySlip": "the head slipping back into its bite, the tail loose. Same argument.",
+  "boss.lampreyFull": "a bite gone through, on the hull, which the hull's own sounds have.",
+  "boss.lampreyLoose": "the mouth pulling off its tile and leaping. Same argument.",
   "boss.lampreyRear": "the eel rearing, the gullet lit. Same argument.",
   "boss.lampreyHit": "a shot into the gullet. Same argument.",
-  "boss.lampreyLunge": "a gullet window run out, the eel lunging to bite again. Same argument.",
   "boss.lampreySpent": "the eel gone limp, falling away. Same argument.",
   "boss.lampreyOut": "the eel gone and the wave ending. Same argument, and an absence.",
   // THE MIMIC's thirteen (`sim/events-mimic.ts`): the same argument as THE

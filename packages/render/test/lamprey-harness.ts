@@ -20,17 +20,16 @@ import { CFG, runFrames, waveWith } from "./frame-harness.js";
 
 const TPB = ticksPerBeat(CFG);
 export const BITE: LampreyStep = {
-  ask: "bite",
-  pinner: 1,
+  ask: "teeth",
+  holder: 1,
   teeth: 3,
-  toothBeats: 3,
-  col: 3,
-  crawl: 1,
-  crawlBeats: 3,
+  jump: 1,
+  beats: 12,
   color: "either",
-  beats: 0,
 };
-export const GULLET: LampreyStep = { ...BITE, ask: "gullet", color: "red", beats: 4 };
+export const PULL: LampreyStep = { ...BITE, ask: "pull", teeth: 0 };
+export const APART: LampreyStep = { ...BITE, ask: "apart", teeth: 0 };
+export const GULLET: LampreyStep = { ...BITE, ask: "gullet", teeth: 0, color: "red" };
 
 export function stood(): World {
   const world = createWorld(CFG, 5);
@@ -41,9 +40,9 @@ export function stood(): World {
 }
 
 /**
- * `phase` a beat in on `lit` — a bite on column 3 by default, the jaw at its
- * first column, tooth 0 lit, every tooth in, nothing pulled and no thumb
- * down — unless `arrange` says otherwise.
+ * `phase` a beat in on `lit` — a `teeth` held by seat 1 by default, on column
+ * 3 of row 6, the tail laid off to the left, tooth 0 lit, every tooth in,
+ * nothing pulled and no thumb down — unless `arrange` says otherwise.
  */
 export function posed(
   world: World,
@@ -57,18 +56,21 @@ export function posed(
   s.phaseBeat = world.beat - 1;
   s.cursor = 0;
   s.steps[0] = lit;
-  s.jawCol = lit.col;
-  s.crawlDir = lit.crawl;
-  s.crawlBeat = world.beat - 1;
-  s.biteMilli = 0;
+  s.col = 3;
+  s.row = 6;
+  s.fromCol = 1;
+  s.fromRow = 4;
+  s.nextCol = 5;
+  s.nextRow = 6;
   s.teethOut = 0;
   s.litTooth = 0;
-  s.toothBeat = world.beat - 1;
   s.pulled = [];
-  s.rebiting = false;
   s.hits = 0;
-  s.holdCol = [-1, -1];
+  s.tailDown = [false, false];
+  s.tailMilli = [0, 0];
+  s.headMilli = [0, 0];
   s.tapDown = [false, false];
+  s.slipped = [false, false];
   arrange(s);
   return s;
 }

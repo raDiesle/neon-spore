@@ -10,7 +10,7 @@ import {
   type HalterState,
   halterLitStep,
   type LampreyState,
-  lampreyBiting,
+  lampreyAsks,
   type MimicState,
   mimicDraws,
   type PlumbState,
@@ -180,10 +180,7 @@ export const ROWS_C: readonly Row[] = [
   },
   {
     kind: "lamprey",
-    marks: [
-      mark(lampreyMarks, "drawLampreyJawMark", (w) => lampreyBiting(lamprey(w))),
-      mark(lampreyMarks, "drawLampreyToothMark", (w) => lampreyBiting(lamprey(w))),
-    ],
+    marks: [mark(lampreyMarks, "drawLampreyToothMark", (w) => lampreyAsks(lamprey(w)) === "teeth")],
   },
   {
     // THE MIMIC's picture, tile by tile on the reader's board, only while a

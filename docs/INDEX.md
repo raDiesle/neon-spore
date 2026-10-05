@@ -663,11 +663,12 @@ by hand never moves.
 | `packages/sim/src/pulse.ts` | THE PULSE: the same song on two screens, and neither of you can read all of it |
 | `packages/sim/src/pulse-open.ts` | Opening a stage, and opening the round — the two places a `PulseState` is written from nothing |
 | `packages/sim/src/lance-burn.ts` | **THE LANCE going off**: the lobe coming full, and the column burning on that tick |
-| `packages/sim/src/lamprey-hand.ts` | THE LAMPREY's two handles: the jaw and the teeth |
+| `packages/sim/src/lamprey-hand.ts` | THE LAMPREY's three handles: the tail, the head and the teeth, heard on the tick |
 | `packages/sim/src/lamprey-hash.ts` | What THE LAMPREY puts into `hashWorld`, and nothing else |
-| `packages/sim/src/lamprey-shot.ts` | **THE LAMPREY's shot**: the lit gullet, where a bolt leaves the top of the field in the middle column |
-| `packages/sim/src/lamprey-step.ts` | THE LAMPREY's clock, once a beat: the jaw held or chewing, the jaw crawling |
-| `packages/sim/src/lamprey.ts` | THE LAMPREY: a sucker mouth bitten onto the hull, crawling along it |
+| `packages/sim/src/lamprey-shot.ts` | **THE LAMPREY's shot**: the lit gullet |
+| `packages/sim/src/lamprey-step.ts` | THE LAMPREY's clock, once a beat: swimming in, landing on a tile, a stay's window running out |
+| `packages/sim/src/lamprey-leap.ts` | **Where THE LAMPREY leaps to**: a tile `jump` away from where it is |
+| `packages/sim/src/lamprey.ts` | THE LAMPREY: an eel that leaps from tile to tile across the field and bites into each one |
 | `packages/sim/src/ledger-bead.ts` | **What a bill is**: one hit down the seam, and one return on the cord |
 | `packages/sim/src/ledger-hash.ts` | What THE LEDGER puts into `hashWorld`, and nothing else |
 | `packages/sim/src/ledger-hand.ts` | **THE LEDGER's four hands on its own cord**, off the wire, on the tick |
@@ -767,7 +768,7 @@ by hand never moves.
 | `packages/sim/src/config-trivet.ts` | THE TRIVET's tuning: the rests around its steps, the grace a chord is given |
 | `packages/sim/src/config-ledger.ts` | THE LEDGER's numbers — how wide the body stands, how many hits part it |
 | `packages/sim/src/config-lead.ts` | THE LEAD's numbers — how many segments the stalk has, how far ahead of the body a shot has to be put |
-| `packages/sim/src/config-lamprey.ts` | THE LAMPREY's tuning: the beats around its bites and its gullet, how fast a jaw let go bites deeper |
+| `packages/sim/src/config-lamprey.ts` | THE LAMPREY's tuning: the beats around its stays, the rows it lands on |
 | `packages/sim/src/config-antiphon.ts` | THE ANTIPHON's numbers — how many contours the body can grow and how they fall into families |
 | `packages/sim/src/config-hive.ts` | THE HIVE's numbers — how many breach sites the underside has, how long it hangs before the first opens |
 | `packages/sim/src/config-hasp.ts` | THE HASP's tuning: how long a grip lasts before it burns the hand off, how long the burn holds |
@@ -2216,7 +2217,7 @@ by hand never moves.
 | `packages/render/src/label-box.ts` | The box a guide writes in: a solid ground, a two-pixel edge in the pod's colour, sixteen-point Courier |
 | `packages/render/src/last-chance.ts` | ONE LAST CHANCE over every body the shield has already pushed, on both screens, read straight off the world |
 | `packages/render/src/lamprey-draw.ts` | **THE LAMPREY** drawn: the eel, the sucker and its seven teeth, the scar, the gullet, both seats' marks |
-| `packages/render/src/lamprey-marks.ts` | **THE LAMPREY's marks**: what says which thumb goes where |
+| `packages/render/src/lamprey-marks.ts` | **THE LAMPREY's tooth mark**: the ring round the one lit tooth in a `teeth` |
 | `packages/render/src/lamprey-pose.ts` | **The clock THE LAMPREY is posed off** (§41, *Animation*), six poses |
 | `packages/render/src/lamprey-shape.ts` | **THE LAMPREY's shape** (§41, *The look*): two drafts combined, named on the shape sheet |
 | `packages/render/src/lamprey-verdicts.ts` | **THE LAMPREY's marks answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
@@ -2224,6 +2225,7 @@ by hand never moves.
 | `packages/render/src/lamprey-blow.ts` | **THE LAMPREY's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/lamprey-fx.ts` | What THE LAMPREY leaves behind a frame: the flung tooth, the snap, the gulp, the shudder and the blow |
 | `packages/render/src/lamprey-receipts.ts` | **THE LAMPREY's receipts, drawn** — what `lamprey-fx.ts` holds between frames |
+| `packages/render/src/lamprey-handles.ts` | **THE LAMPREY's handles**, in the field's one look for a thumb's control (`pull-knob.ts`, `pull-track.ts`) |
 | `packages/render/src/ledger-cord.ts` | **The cord**, and the one hole in the ship it goes into |
 | `packages/render/src/ledger-cord-shape.ts` | **Where THE LEDGER's cord is**, in field pixels: where it leaves the body and where it goes into the ship |
 | `packages/render/src/ledger-draw.ts` | **THE LEDGER**: a tall split body high in the field on a single thick cord running down into the pair's own… |
@@ -3002,7 +3004,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-burgee.ts` | THE BURGEE's two hands, **each photographed from the seat whose hand it is** |
 | `tools/director/src/poses-field-controls-bosses.ts` | Every boss's grips on the ON THE FIELD tab, in the tab's order: one file a boss |
 | `tools/director/src/poses-field-controls-plumb.ts` | THE PLUMB's pull: the left weight asked for, the bob skewed left |
-| `tools/director/src/poses-field-controls-lamprey.ts` | THE LAMPREY's two hands, **each photographed from the seat that presses it** |
+| `tools/director/src/poses-field-controls-lamprey.ts` | THE LAMPREY's hands, **each photographed from the seat that presses it**: the tail from the pilot's screen |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -3524,7 +3526,7 @@ by hand never moves.
 | `tools/director/src/field-controls-halter.ts` | THE HALTER's two grips, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-lead.ts` | **THE LEAD's stalk**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-ledger.ts` | **The navigator's two hands on THE LEDGER's root**, in a file of its own |
-| `tools/director/src/field-controls-lamprey.ts` | THE LAMPREY's jaw and teeth, as rows of the ON THE FIELD tab: the pinner's thumb on the crawling jaw |
+| `tools/director/src/field-controls-lamprey.ts` | THE LAMPREY's tail, head and teeth, as rows of the ON THE FIELD tab: the holder's thumb on the tail |
 | `tools/director/src/field-controls-vane.ts` | **THE VANE's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-valve.ts` | THE VALVE's two handles, as rows of the ON THE FIELD tab: the wheel, the pilot's |
 | `tools/director/src/field-controls-vise.ts` | THE VISE's two lobe pinches, as rows of the ON THE FIELD tab |

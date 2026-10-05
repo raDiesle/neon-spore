@@ -449,8 +449,9 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // (`sim/gauge-tooth.ts`).
   gaugeTooth: "field",
   gaugeTongue: "field",
-  // THE LAMPREY's jaw and its ring of teeth, on the hull (`sim/lamprey-hand.ts`).
-  lampreyJaw: "field",
+  // THE LAMPREY's tail, its head and its ring of teeth, on the field (`sim/lamprey-hand.ts`).
+  lampreyTail: "field",
+  lampreyHead: "field",
   lampreyTooth: "field",
 };
 

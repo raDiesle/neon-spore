@@ -9,14 +9,14 @@ export function isLampreyEvent(e: SimEvent): e is LampreySimEvent {
 }
 
 /**
- * THE LAMPREY's thirteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE LAMPREY's twelve, in a file of their own for `bind-gorge.ts`' reason.
  *
- * **The pan follows the jaw**: every event carries the column the mouth is on,
- * so a crawl is heard moving along the hull and the pinner can follow it with
- * an ear. **A gnaw is the one the pinner has to hear**, and it deepens as the
- * bite does; a snap is the one the tapper has to hear.
+ * **The pan follows the eel**: every event carries the column of the tile it
+ * is on, so a leap across the field is heard landing on the other side. **A
+ * slip is the one the holder has to hear**, and a snap the one the tapper has
+ * to hear.
  *
- * **A crack rises as the bite's teeth come out**, and so does a hit.
+ * **A crack rises as the teeth come out**, and so does a hit.
  */
 export function lampreyCue(e: LampreySimEvent, cols: number): Cue {
   const pan = panForCol(e.col, cols);
@@ -29,10 +29,10 @@ export function lampreyCue(e: LampreySimEvent, cols: number): Cue {
       return { id: "boss.lampreyCrack", pan, pitch: 1 + e.tooth * 0.04 };
     case "lampreySnap":
       return { id: "boss.lampreySnap", pan };
-    case "lampreyCrawl":
-      return { id: "boss.lampreyCrawl", pan };
-    case "lampreyGnaw":
-      return { id: "boss.lampreyGnaw", pan, pitch: 1 - e.biteMilli / 4000 };
+    case "lampreyGrip":
+      return { id: "boss.lampreyGrip", pan };
+    case "lampreySlip":
+      return { id: "boss.lampreySlip", pan };
     case "lampreyFull":
       return { id: "boss.lampreyFull", pan };
     case "lampreyLoose":
@@ -41,8 +41,6 @@ export function lampreyCue(e: LampreySimEvent, cols: number): Cue {
       return { id: "boss.lampreyRear", pan };
     case "lampreyHit":
       return { id: "boss.lampreyHit", pan, pitch: 1 + Math.max(0, e.hits - 1) * 0.08 };
-    case "lampreyLunge":
-      return { id: "boss.lampreyLunge", pan };
     case "lampreySpent":
       return { id: "boss.lampreySpent", pan };
     case "lampreyOut":

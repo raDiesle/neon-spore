@@ -1,21 +1,20 @@
 import { describe, expect, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import { computeLayout, type Viewport } from "@neon-spore/render";
-import { lampreyBoss, step, type World } from "@neon-spore/sim";
+import { lampreyBoss, lampreyTailHeld, step, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
 
 /**
  * **AUTO plays THE LAMPREY to the end** (`hands/boss-hands-lamprey.ts`): the
- * jaw pinned through both bites wherever it crawls, the lit tooth tapped each
- * time, and the gullet shot three times in its colour. No tooth snaps, the
- * jaw never chews, no gullet runs out into a lunge and the hull is never
- * struck.
+ * tail held every stay, the head pulled off in a pull, both ends pulled at
+ * once in an apart, the lit tooth tapped in a teeth, and the gullet shot in
+ * its colour. No tooth snaps, no head slips, no stay runs out and the hull is
+ * never struck.
  *
- * With both seats on it the teeth are out before the jaw has crawled once, so
- * following the crawl is the P1 case's: the pilot alone on the first bite,
- * nobody tapping, the jaw crawling on under a thumb that moves after it.
+ * The P1 case is the holder's thumb alone: the pilot on the tail in the
+ * first stay, nobody on the head.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
@@ -29,14 +28,15 @@ function rig(world: World, mode: "both" | "p1") {
   return auto;
 }
 
-const WRONG = ["lampreySnap", "lampreyGnaw", "lampreyFull", "lampreyLunge"];
+const WRONG = ["lampreySnap", "lampreySlip", "lampreyFull"];
 
 describe("AUTO on THE LAMPREY", () => {
-  test("BOTH pins, pulls five teeth over two bites and shoots the gullet out", () => {
+  test("BOTH answers every stay, pulls the teeth and shoots the gullet out", () => {
     const world: World = bossWorld("lamprey");
     const auto = rig(world, "both");
     const cracks: number[] = [];
     const hits: number[] = [];
+    let loose = 0;
     let out = false;
     const wrong: string[] = [];
     for (let i = 0; i < 40_000 && world.boss !== null; i++) {
@@ -44,35 +44,33 @@ describe("AUTO on THE LAMPREY", () => {
       for (const e of world.events) {
         if (e.type === "lampreyCrack") cracks.push(e.side);
         if (e.type === "lampreyHit") hits.push(e.hits);
+        if (e.type === "lampreyLoose") loose += 1;
         if (e.type === "lampreyOut") out = true;
         if (WRONG.includes(e.type)) wrong.push(e.type);
       }
     }
-    // The navigator taps the first bite and the pilot the second.
-    expect(cracks).toEqual([1, 1, 1, 0, 0]);
-    expect(hits).toEqual([1, 2, 3]);
+    // The pilot taps the first teeth and the navigator the second.
+    expect(cracks).toEqual([0, 0, 1, 1]);
+    expect(loose).toBe(5);
+    expect(hits).toEqual([1, 2]);
     expect(wrong).toEqual([]);
     expect(world.scars).toEqual([]);
     expect(out).toBe(true);
     expect(lampreyBoss(world)).toBeNull();
   });
 
-  test("P1 alone keeps the jaw pinned as it crawls, the teeth left to the person", () => {
+  test("P1 alone holds the tail through the first stay, the head left to the person", () => {
     const world: World = bossWorld("lamprey");
     const auto = rig(world, "p1");
-    const crawls: number[] = [];
-    const chews: number[] = [];
-    for (let i = 0; i < 6_000 && crawls.length < 3; i++) {
+    let held = 0;
+    for (let i = 0; i < 6_000 && held < 60; i++) {
       const sent = auto.commands(world);
       for (const c of sent) expect(c.player).toBe(1);
       step(world, sent);
-      for (const e of world.events) {
-        if (e.type === "lampreyCrawl") crawls.push(e.col);
-        if (e.type === "lampreyGnaw") chews.push(e.col);
-      }
+      const s = lampreyBoss(world);
+      if (s?.phase === "bite" && lampreyTailHeld(s)) held += 1;
     }
-    expect(crawls).toHaveLength(3);
-    expect(chews).toEqual([]);
-    expect(lampreyBoss(world)?.phase).toBe("bite");
+    expect(held).toBe(60);
+    expect(lampreyBoss(world)?.cursor).toBe(0);
   });
 });

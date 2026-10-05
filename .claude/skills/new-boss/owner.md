@@ -123,6 +123,14 @@ bosses* — are `generic.md`, next to this page.**
   a decoy losing the wave; the seats swap every level, the siren says whose
   job is which, and the second time indicator went for the standard slow
   meter.
+- **A boss that bites the field is seen on it, and its controls change
+  each stay**, 5 October 2026, on THE LAMPREY: *the boss head is not
+  visible and behind the ship, this looks weird. instead i suggest the boss
+  should jump across the full screen area in random positions … use the
+  default visuals for on screen controls we have … i suggest we change
+  controls for every jump.* The eel became a leap from tile to tile, each
+  further than the last, each stay a different ask under THE SLOW, with the
+  shipped pull knobs; its living look is a lane of its own.
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

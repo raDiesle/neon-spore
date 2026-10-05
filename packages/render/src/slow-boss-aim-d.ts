@@ -19,6 +19,7 @@ import { gallSeamY, gallSize } from "./gall-shape.js";
 import { halterArrived } from "./halter-pose.js";
 import { halterAt, halterBend, halterGap, halterSize } from "./halter-shape.js";
 import { instarAt, instarLen } from "./instar-place.js";
+import { lampreyTailRest } from "./lamprey-grip.js";
 import { lampreyPose } from "./lamprey-pose.js";
 import type { Layout } from "./layout.js";
 import { nettleReach } from "./nettle-body.js";
@@ -134,15 +135,18 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       const c = instarAt(l, f.bellX, f.bellY);
       return spreadCapsule(nettleReach(c.x, c.y, instarLen(l, f.bellR), f), 0);
     }
-    // The mouth where it is this frame, and the jaw's band on the hull under
-    // it, as wide as the grip reaches either side: the two things a bite asks.
+    // The mouth where it is this frame and the tail's rest: the two ends a
+    // stay asks for, the head and the tail.
     case "lamprey": {
       const s = lampreyBoss(world);
       if (s === null) return null;
       const p = lampreyPose(l, cfg, s, beat, beatPhase);
-      const reach = Math.max(p.r, (cfg.lampreyGripCols + 0.5) * l.tile);
-      const bottom = Math.max(p.y + p.r * p.tilt, l.hullY);
-      return capsule(sides(p.x - reach, p.x + reach, p.y - p.r * p.tilt, bottom));
+      const tail = lampreyTailRest(l, cfg, s);
+      const left = Math.min(p.x - p.r, tail.x - tail.r);
+      const right = Math.max(p.x + p.r, tail.x + tail.r);
+      const top = Math.min(p.y - p.r * p.tilt, tail.y - tail.r);
+      const bottom = Math.max(p.y + p.r * p.tilt, tail.y + tail.r);
+      return capsule(sides(left, right, top, bottom));
     }
     default:
       return null;

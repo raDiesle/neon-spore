@@ -18,7 +18,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * What THE LAMPREY leaves behind a frame (`lamprey-fx.ts`): the tooth a crack
  * knocks out, flung from where it stood; the ring snapping shut on a tooth
  * that went back in; the gullet's gulp in the colour it reared in; the
- * hull's shudder; the blow; and where its receipts are thrown. This file has
+ * hull's shudder as a bite goes through; the blow; and where its receipts
+ * are thrown. This file has
  * what the events add to the eel `lamprey-draw.ts` reads off the world.
  */
 
@@ -28,11 +29,11 @@ const L = computeLayout(VIEWPORT, CFG, "test");
 const col = midCol(CFG);
 const BEAT = 0.5;
 const crack = (tooth: number): SimEvent => ({ type: "lampreyCrack", side: 1, tooth, col });
-const snap = (tooth: number): SimEvent => ({ type: "lampreySnap", tooth, col });
+const snap = (tooth: number): SimEvent => ({ type: "lampreySnap", tooth, side: 1, col });
 const hit = (hits: number): SimEvent => ({ type: "lampreyHit", hits, col });
-const bite: SimEvent = { type: "lampreyBite", side: 0, tooth: 0, col };
+const bite: SimEvent = { type: "lampreyBite", side: 0, tooth: 0, row: 6, col };
 const full: SimEvent = { type: "lampreyFull", col };
-const loose: SimEvent = { type: "lampreyLoose", col };
+const loose: SimEvent = { type: "lampreyLoose", tooth: 0, col };
 const spent: SimEvent = { type: "lampreySpent", col };
 
 interface Thrown {
@@ -52,7 +53,7 @@ function settle(fx: LampreyFx): void {
   for (let i = 0; i < 180; i++) fx.update(1 / 60);
 }
 
-/** The eel bitten on at BITE's column, as the drawer would hand it over. */
+/** The eel bitten into BITE's tile, as the drawer would hand it over. */
 function noted(fx: LampreyFx) {
   const world = stood();
   const s = posed(world);
@@ -112,35 +113,35 @@ describe("THE LAMPREY's transients", () => {
     expect(fx.gulp.hits).toBe(0);
   });
 
-  it("deals the whole blow when the mouth comes loose", () => {
+  it("deals the whole blow when the head comes off its tile", () => {
     const fx = new LampreyFx();
     said(fx, [loose]);
     expect(fx.hurt.shake).toBe(1);
   });
 
-  it("shudders the hull as the mouth slams on, harder for a full bite, and deals nothing for either", () => {
-    const slam = new LampreyFx();
-    said(slam, [bite]);
+  it("shudders the hull as a bite goes through and as it is spent, and deals nothing for either", () => {
     const torn = new LampreyFx();
     said(torn, [full]);
-    expect(slam.shock.now).toBeGreaterThan(0);
-    expect(torn.shock.now).toBeGreaterThan(slam.shock.now);
-    expect(slam.hurt.value + torn.hurt.value).toBe(0);
-    said(slam, [spent]);
-    expect(slam.hurt.value).toBe(0);
-    settle(slam);
-    expect(slam.shock.now).toBe(0);
+    expect(torn.shock.now).toBeGreaterThan(0);
+    expect(torn.hurt.value).toBe(0);
+    const gone = new LampreyFx();
+    said(gone, [spent]);
+    expect(gone.shock.now).toBeGreaterThan(0);
+    expect(gone.hurt.value).toBe(0);
+    settle(torn);
+    expect(torn.shock.now).toBe(0);
   });
 
-  it("deals nothing for a crawl, a chew, a rear or a lunge", () => {
+  it("deals nothing for a bite, a grip, a slip or a rear", () => {
     const fx = new LampreyFx();
     said(fx, [
-      { type: "lampreyCrawl", dir: 1, col },
-      { type: "lampreyGnaw", biteMilli: 500, col },
+      bite,
+      { type: "lampreyGrip", side: 0, col },
+      { type: "lampreySlip", side: 1, col },
       { type: "lampreyRear", color: "red", col },
-      { type: "lampreyLunge", col },
     ]);
     expect(fx.hurt.value).toBe(0);
+    expect(fx.shock.now).toBe(0);
     expect(fx.flung.now + fx.snap.now + fx.gulp.now).toBe(0);
   });
 

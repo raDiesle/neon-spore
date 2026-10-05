@@ -1,11 +1,14 @@
 import {
   type LampreyState,
+  lampreyAsks,
   lampreyFiring,
-  lampreyPinner,
-  lampreyTapper,
+  lampreyHolder,
+  lampreyWorker,
+  type SimConfig,
   type SimEvent,
 } from "@neon-spore/sim";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
+import { lampreyTailRest } from "./lamprey-grip.js";
 import { type LampreyPose, lampreyToothAt } from "./lamprey-shape.js";
 import { type Circle, type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
@@ -16,28 +19,31 @@ import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
  * screens draw the one eel (`lamprey-draw.ts`). The marks themselves are
  * `lamprey-marks.ts`; this is what they say back.
  *
- * Three marks: **the jaw on the hull** asks the bite's pinner, **the lit
- * tooth** the other seat, and **the gullet** either seat while it is reared.
- * A mark that asks this screen's seat wears the halo; one that asks only the
- * partner's wears their ring and waiting clock.
+ * Four marks: **the tail** asks the stay's holder, **the head** the other
+ * seat in a `pull` or an `apart`, **the lit tooth** the other seat in a
+ * `teeth`, and **the gullet** either seat while it is reared. A mark that
+ * asks this screen's seat wears the halo; one that asks only the partner's
+ * wears their ring and waiting clock.
  *
- * The verdicts are the eel's own words: a crawl held through greens the jaw
- * and a chew reddens it; a crack greens the tooth and a snap reddens it; a
- * hit greens the gullet and a lunge reddens it.
+ * The verdicts are the eel's own words: a thumb taking the tail greens it;
+ * the head coming off greens the head, and a slip or a bite gone through
+ * reddens it; a crack greens the tooth and a snap reddens it; a hit greens
+ * the gullet.
  */
-export const LAMPREY_JAW = 0;
-export const LAMPREY_TOOTH = 1;
-export const LAMPREY_GULLET = 2;
+export const LAMPREY_TAIL = 0;
+export const LAMPREY_HEAD = 1;
+export const LAMPREY_TOOTH = 2;
+export const LAMPREY_GULLET = 3;
 
 /** Each word of the eel's that is a verdict: the mark it lands on, and which way. */
 const SAYS: Readonly<Record<string, readonly [number, boolean]>> = {
-  lampreyCrawl: [LAMPREY_JAW, true],
-  lampreyGnaw: [LAMPREY_JAW, false],
-  lampreyFull: [LAMPREY_JAW, false],
+  lampreyGrip: [LAMPREY_TAIL, true],
+  lampreyLoose: [LAMPREY_HEAD, true],
+  lampreySlip: [LAMPREY_HEAD, false],
+  lampreyFull: [LAMPREY_HEAD, false],
   lampreyCrack: [LAMPREY_TOOTH, true],
   lampreySnap: [LAMPREY_TOOTH, false],
   lampreyHit: [LAMPREY_GULLET, true],
-  lampreyLunge: [LAMPREY_GULLET, false],
 };
 
 export class LampreyVerdicts {
@@ -45,11 +51,7 @@ export class LampreyVerdicts {
   readonly verdicts = new GripVerdicts();
 
   ingest(events: readonly SimEvent[]): void {
-    let gnawed = false;
-    for (const e of events) if (e.type === "lampreyGnaw") gnawed = true;
     for (const e of events) {
-      // A crawl the jaw was let go through is not held: the chew's red stands.
-      if (e.type === "lampreyCrawl" && gnawed) continue;
       const said = SAYS[e.type];
       if (said !== undefined) this.verdicts.mark(said[0], said[1]);
     }
@@ -64,9 +66,9 @@ export class LampreyVerdicts {
   }
 }
 
-/** Where each mark is this frame: the jaw on the hull, the lit tooth, and the gullet. */
-function markAt(l: Layout, p: LampreyPose, s: LampreyState, mark: number): Circle {
-  if (mark === LAMPREY_JAW) return { x: p.x, y: l.hullY, r: l.tile * 0.9 };
+/** Where each mark is this frame: the tail's rest, the head, the lit tooth, and the gullet. */
+function markAt(l: Layout, cfg: SimConfig, p: LampreyPose, s: LampreyState, mark: number): Circle {
+  if (mark === LAMPREY_TAIL) return lampreyTailRest(l, cfg, s);
   if (mark === LAMPREY_TOOTH) {
     const at = lampreyToothAt(p, s.litTooth);
     return { x: at.x, y: at.y, r: p.r * 0.32 };
@@ -76,8 +78,11 @@ function markAt(l: Layout, p: LampreyPose, s: LampreyState, mark: number): Circl
 
 /** Whether `mark` asks `seat` this instant. */
 function asks(s: LampreyState, mark: number, seat: 1 | 2): boolean {
-  if (mark === LAMPREY_JAW) return lampreyPinner(s) === seat;
-  if (mark === LAMPREY_TOOTH) return lampreyTapper(s) === seat;
+  const ask = lampreyAsks(s);
+  if (mark === LAMPREY_TAIL) return lampreyHolder(s) === seat;
+  if (mark === LAMPREY_HEAD)
+    return lampreyWorker(s) === seat && (ask === "pull" || ask === "apart");
+  if (mark === LAMPREY_TOOTH) return lampreyWorker(s) === seat && ask === "teeth";
   return lampreyFiring(s);
 }
 
@@ -89,12 +94,13 @@ function asked(l: Layout, s: LampreyState, mark: number): "own" | "theirs" | nul
   return asks(s, mark, me === 1 ? 2 : 1) ? "theirs" : null;
 }
 
-const MARKS = [LAMPREY_JAW, LAMPREY_TOOTH, LAMPREY_GULLET] as const;
+const MARKS = [LAMPREY_TAIL, LAMPREY_HEAD, LAMPREY_TOOTH, LAMPREY_GULLET] as const;
 
 /** The halos under the marks this screen's seat is asked for, drawn before them. */
 export function drawLampreyHalos(
   ctx: CanvasRenderingContext2D,
   l: Layout,
+  cfg: SimConfig,
   p: LampreyPose,
   s: LampreyState,
   time: number,
@@ -102,7 +108,7 @@ export function drawLampreyHalos(
   const fade = ctx.globalAlpha;
   for (const mark of MARKS) {
     if (asked(l, s, mark) !== "own") continue;
-    const c = markAt(l, p, s, mark);
+    const c = markAt(l, cfg, p, s, mark);
     drawMarkHalo(ctx, c.x, c.y, c.r, time);
     ctx.globalAlpha = fade;
   }
@@ -112,6 +118,7 @@ export function drawLampreyHalos(
 export function drawLampreyVerdicts(
   ctx: CanvasRenderingContext2D,
   l: Layout,
+  cfg: SimConfig,
   p: LampreyPose,
   s: LampreyState,
   time: number,
@@ -119,7 +126,7 @@ export function drawLampreyVerdicts(
 ): void {
   const fade = ctx.globalAlpha;
   for (const mark of MARKS) {
-    const c = markAt(l, p, s, mark);
+    const c = markAt(l, cfg, p, s, mark);
     if (asked(l, s, mark) === "theirs") {
       drawMarkTheirs(ctx, c.x, c.y, c.r, time);
       drawMarkWait(ctx, c.x, c.y, c.r, time);

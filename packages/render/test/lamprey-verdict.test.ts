@@ -3,7 +3,8 @@ import type { SimEvent, World } from "@neon-spore/sim";
 import { rgba } from "../src/hex.js";
 import {
   LAMPREY_GULLET,
-  LAMPREY_JAW,
+  LAMPREY_HEAD,
+  LAMPREY_TAIL,
   LAMPREY_TOOTH,
   LampreyVerdicts,
 } from "../src/lamprey-verdicts.js";
@@ -16,9 +17,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **THE LAMPREY's marks answer a touch the way THE SINEW's do**
- * (`lamprey-verdicts.ts`, `.claude/skills/new-boss` §5): the jaw wears the
- * halo on the pinner's screen and the partner's ring and clock on the
- * tapper's, the lit tooth the other way round, the gullet on both while it is
+ * (`lamprey-verdicts.ts`, `.claude/skills/new-boss` §5): the tail wears the
+ * halo on the holder's screen and the partner's ring and clock on the
+ * worker's, the lit tooth the other way round, the gullet on both while it is
  * reared; each of the eel's words lands on the mark it names; and the verdict
  * reaches the field's frame on every screen.
  */
@@ -51,7 +52,7 @@ const count = (text: string, what: string) => text.split(what).length - 1;
 const halos = (role: ViewRole, arrange: (w: World) => void) => count(frame(role, arrange), HALO);
 const clocks = (role: ViewRole, arrange: (w: World) => void) => count(frame(role, arrange), CLOCK);
 const loose = (w: World) => {
-  posed(w, "loose");
+  posed(w, "leap");
 };
 const bite = (w: World) => {
   posed(w);
@@ -61,8 +62,8 @@ const reared = (w: World) => {
 };
 
 describe("THE LAMPREY's marks asking", () => {
-  it("haloes the jaw for the pinner and the tooth for the tapper, each the other's clock", () => {
-    // BITE is the pilot's to pin: the navigator taps.
+  it("haloes the tail for the holder and the tooth for the worker, each the other's clock", () => {
+    // BITE is the pilot's to hold: the navigator taps.
     for (const role of ["p1", "p2"] as const) {
       expect(halos(role, bite)).toBeGreaterThan(halos(role, loose));
       expect(clocks(role, bite)).toBeGreaterThan(clocks(role, loose));
@@ -82,37 +83,46 @@ describe("THE LAMPREY's verdict on a touch", () => {
   const on = (said: SimEvent[]) => {
     const v = new LampreyVerdicts();
     v.ingest(said);
-    return [LAMPREY_JAW, LAMPREY_TOOTH, LAMPREY_GULLET].map((m) => v.verdicts.at(m)?.good ?? null);
+    return [LAMPREY_TAIL, LAMPREY_HEAD, LAMPREY_TOOTH, LAMPREY_GULLET].map(
+      (m) => v.verdicts.at(m)?.good ?? null,
+    );
   };
 
   it("lands each of the eel's words on the mark it names", () => {
-    expect(on([{ type: "lampreyCrawl", dir: 1, col }])).toEqual([true, null, null]);
-    expect(on([{ type: "lampreyGnaw", biteMilli: 200, col }])).toEqual([false, null, null]);
-    expect(on([{ type: "lampreyFull", col }])).toEqual([false, null, null]);
-    expect(on([{ type: "lampreyCrack", side: 1, tooth: 2, col }])).toEqual([null, true, null]);
-    expect(on([{ type: "lampreySnap", tooth: 2, col }])).toEqual([null, false, null]);
-    expect(on([{ type: "lampreyHit", hits: 1, col }])).toEqual([null, null, true]);
-    expect(on([{ type: "lampreyLunge", col }])).toEqual([null, null, false]);
-    expect(on([{ type: "lampreyLoose", col }])).toEqual([null, null, null]);
-  });
-
-  it("keeps a chew's red over a crawl in the same tick", () => {
-    const both: SimEvent[] = [
-      { type: "lampreyGnaw", biteMilli: 200, col },
-      { type: "lampreyCrawl", dir: 1, col },
-    ];
-    expect(on(both)).toEqual([false, null, null]);
+    expect(on([{ type: "lampreyGrip", side: 0, col }])).toEqual([true, null, null, null]);
+    expect(on([{ type: "lampreyLoose", tooth: 0, col }])).toEqual([null, true, null, null]);
+    expect(on([{ type: "lampreySlip", side: 1, col }])).toEqual([null, false, null, null]);
+    expect(on([{ type: "lampreyFull", col }])).toEqual([null, false, null, null]);
+    expect(on([{ type: "lampreyCrack", side: 1, tooth: 2, col }])).toEqual([
+      null,
+      null,
+      true,
+      null,
+    ]);
+    expect(on([{ type: "lampreySnap", tooth: 2, side: 1, col }])).toEqual([
+      null,
+      null,
+      false,
+      null,
+    ]);
+    expect(on([{ type: "lampreyHit", hits: 1, col }])).toEqual([null, null, null, true]);
+    expect(on([{ type: "lampreyBite", side: 0, tooth: 0, row: 6, col }])).toEqual([
+      null,
+      null,
+      null,
+      null,
+    ]);
   });
 
   it("forgets on reset", () => {
     const v = new LampreyVerdicts();
-    v.ingest([{ type: "lampreySnap", tooth: 0, col }]);
+    v.ingest([{ type: "lampreySnap", tooth: 0, side: 1, col }]);
     v.clear();
     expect(v.verdicts.at(LAMPREY_TOOTH)).toBeNull();
   });
 
   it.each(ROLES)("reaches the field's frame, on %s", (role) => {
-    const snap: SimEvent[] = [{ type: "lampreySnap", tooth: 0, col }];
+    const snap: SimEvent[] = [{ type: "lampreySnap", tooth: 0, side: 1, col }];
     expect(count(frame(role, bite, snap), PALETTE.red)).toBeGreaterThan(
       count(frame(role, bite), PALETTE.red),
     );

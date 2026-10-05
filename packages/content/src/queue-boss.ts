@@ -220,9 +220,8 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   if (boss.kind === "governor") return { ...boss };
   // THE MIMIC hangs over `midCol` and authors no column at all.
   if (boss.kind === "mimic") return { ...boss };
-  // THE LAMPREY bites authored hull columns, one a step: each is remapped.
-  if (boss.kind === "lamprey")
-    return { ...boss, steps: boss.steps.map((s) => ({ ...s, col: mapCol(s.col, cols) })) };
+  // THE LAMPREY authors no column: it picks its tiles off the `Rng`, inside the field.
+  if (boss.kind === "lamprey") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

@@ -33561,3 +33561,13 @@ Bottleneck: the game's half-beat shot grid, which the director's world does not 
 Bottleneck: the pips moved off `FIRE` and out of THE SLOW's sharp band in the same step, so each fix showed the next fault.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE LAMPREY leaps about the field, and its controls change every stay
+
+- reading: 10 min. The shipped eel end to end — sim, hand, render, cue, director — and THE CURTAIN's pull and the shared knob to reuse.
+- writing: 30 min. The sim rewritten round stays and leaps, the hand and AUTO, the knobs and the cue, twelve render and director tests, §11.59.
+- looking: 0 min. One frame, after landing.
+- friction: 5 min. `Math.sqrt` is banned in sim, so the tail's way became one of eight in a table.
+- landing: 5 min. Eight reds on the first `check:fast`, each a registration somewhere else.
+
+Bottleneck: the registrations a reworked boss owes outside the simulation, found one red test at a time.

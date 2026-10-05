@@ -106,7 +106,7 @@ describe("a spent boss at half alpha", () => {
       { type: "lampreyRear", color: "red", col },
       { type: "lampreyHit", hits: 3, col },
       { type: "lampreyCrack", side: 1, tooth: 2, col },
-      { type: "lampreySnap", tooth: 4, col },
+      { type: "lampreySnap", tooth: 4, side: 1, col },
     ] as const;
     fx.ingest(thrown, l, CFG, 0.5, () => {});
     fx.verdicts.clear();

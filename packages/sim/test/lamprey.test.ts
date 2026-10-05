@@ -1,5 +1,4 @@
 import { describe, expect, it } from "bun:test";
-import { midCol } from "../src/config.js";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -14,77 +13,39 @@ import {
 import {
   type LampreyState,
   type LampreyStep,
+  lampreyAsks,
   lampreyBoss,
-  lampreyPinner,
-  lampreyTapper,
+  lampreyHolder,
+  lampreyWorker,
 } from "../src/lamprey.js";
+import { lampreyTailWay } from "../src/lamprey-leap.js";
 import { lampreyStruck } from "../src/lamprey-shot.js";
 import { slowing } from "../src/slow.js";
 import type { Bullet, Color } from "../src/types.js";
 
 /**
- * THE LAMPREY's rules: one seat keeps a thumb on the crawling jaw, and the
- * other taps the one lit tooth before it snaps back
- * (`docs/spec/bosses.md` §11.59). What a phone cannot show: that a jaw let go
- * bites deeper a step a beat and a full bite is the hull; that only the
- * pinner's thumb near the jaw holds it; that only the tapper's edge on the lit
- * tooth cracks it, the next lit two places on; that a gullet's shot run out
- * is a re-bite whose teeth are not lost. AUTO playing it through:
- * `tools/director/test/autopilot-lamprey.test.ts`.
+ * THE LAMPREY's rules: an eel that leaps from tile to tile, a tile further
+ * each leap, and a pair who free it from each bite before its fuse runs out
+ * (`docs/spec/bosses.md` §11.59). What a phone cannot show: that every leap
+ * lands the distance its step says, on a tile not bitten before and inside
+ * the rows it may land on; that only the holder's thumb on the tail lets the
+ * head come off, and a head pulled with the tail loose slips; that an `apart`
+ * wants both pulls out in one instant; that a run-out window is the hull.
+ * AUTO playing it through: `tools/director/test/autopilot-lamprey.test.ts`.
  */
 
 const CFG: SimConfig = { ...DEFAULT_CONFIG };
 const TPB = ticksPerBeat(CFG);
-const MID = midCol(CFG);
 
 /** The shipped wave's script, written out: sim tests do not read content. */
-const BITE = { teeth: 3, toothBeats: 3, crawl: 1, crawlBeats: 3, beats: 0 } as const;
 const SCRIPT: readonly LampreyStep[] = [
-  { ask: "bite", pinner: 1, col: 2, color: "either", ...BITE },
-  {
-    ...BITE,
-    ask: "bite",
-    pinner: 2,
-    teeth: 2,
-    toothBeats: 2,
-    col: 8,
-    crawl: -1,
-    crawlBeats: 2,
-    color: "either",
-  },
-  {
-    ...BITE,
-    ask: "gullet",
-    pinner: 1,
-    teeth: 2,
-    toothBeats: 2,
-    col: 2,
-    crawlBeats: 1,
-    color: "red",
-    beats: 3,
-  },
-  {
-    ...BITE,
-    ask: "gullet",
-    pinner: 1,
-    teeth: 2,
-    toothBeats: 2,
-    col: 2,
-    crawlBeats: 1,
-    color: "cyan",
-    beats: 3,
-  },
-  {
-    ...BITE,
-    ask: "gullet",
-    pinner: 1,
-    teeth: 2,
-    toothBeats: 2,
-    col: 2,
-    crawlBeats: 1,
-    color: "either",
-    beats: 3,
-  },
+  { ask: "pull", holder: 1, teeth: 0, jump: 1, beats: 12, color: "either" },
+  { ask: "teeth", holder: 2, teeth: 2, jump: 2, beats: 16, color: "either" },
+  { ask: "apart", holder: 1, teeth: 0, jump: 3, beats: 14, color: "either" },
+  { ask: "gullet", holder: 1, teeth: 0, jump: 4, beats: 12, color: "red" },
+  { ask: "pull", holder: 2, teeth: 0, jump: 5, beats: 12, color: "either" },
+  { ask: "teeth", holder: 1, teeth: 2, jump: 6, beats: 16, color: "either" },
+  { ask: "gullet", holder: 1, teeth: 0, jump: 7, beats: 12, color: "either" },
 ];
 
 function install(seed = 0): World {
@@ -104,26 +65,34 @@ function tick(world: World, cmds: TimedCommand[] = []): string[] {
   return world.events.map((e) => e.type);
 }
 
-function drag(world: World, player: 1 | 2, target: string, id: number, on: boolean): string[] {
-  const command = { kind: "drag", target, on, fromMilli: 0, id } as TimedCommand["command"];
+type Drag = { on: boolean; id?: number; x?: number; y?: number };
+
+function drag(world: World, player: 1 | 2, target: string, d: Drag): string[] {
+  const command = {
+    kind: "drag",
+    target,
+    on: d.on,
+    fromMilli: d.x ?? 0,
+    fromYMilli: d.y ?? 0,
+    ...(d.id === undefined ? {} : { id: d.id }),
+  } as TimedCommand["command"];
   return tick(world, [{ tick: world.tick, player, command }]);
 }
 
 /** A press on `tooth` from `player`, down and lifted; the event types of both ticks. */
 function tap(world: World, player: 1 | 2, tooth: number): string[] {
   return [
-    ...drag(world, player, "lampreyTooth", tooth, true),
-    ...drag(world, player, "lampreyTooth", tooth, false),
+    ...drag(world, player, "lampreyTooth", { on: true, id: tooth }),
+    ...drag(world, player, "lampreyTooth", { on: false, id: tooth }),
   ];
 }
 
-/** The pinner's thumb put down on the jaw's column. */
-function pin(world: World): void {
-  const s = eel(world);
-  drag(world, lampreyPinner(s) ?? 1, "lampreyJaw", s.jawCol, true);
-}
+const holder = (w: World): 1 | 2 => lampreyHolder(eel(w)) ?? 1;
+const worker = (w: World): 1 | 2 => lampreyWorker(eel(w)) ?? 2;
+const holdTail = (w: World) => drag(w, holder(w), "lampreyTail", { on: true });
+const pullHead = (w: World) => drag(w, worker(w), "lampreyHead", { on: true, y: -2000 });
 
-function runUntil(world: World, until: (w: World) => boolean, beats = 60): Set<string> {
+function runUntil(world: World, until: (w: World) => boolean, beats = 80): Set<string> {
   const seen = new Set<string>();
   const end = world.tick + TPB * beats;
   while (!until(world)) {
@@ -133,152 +102,204 @@ function runUntil(world: World, until: (w: World) => boolean, beats = 60): Set<s
   return seen;
 }
 
-const toBite = (world: World) => runUntil(world, (w) => eel(w).phase === "bite");
-const toRear = (world: World) => runUntil(world, (w) => eel(w).phase === "rearing");
+const toStay = (world: World) =>
+  runUntil(world, (w) => eel(w).phase === "bite" || eel(w).phase === "rearing");
 
-/** Every tooth the bite asks for, cracked by its tapper. */
-function pullBite(world: World): void {
-  const cursor = eel(world).cursor;
-  const rebiting = eel(world).rebiting;
-  while (eel(world).phase === "bite") {
+/** The stay on answered the right way, whatever it asks. */
+function answer(world: World): void {
+  const ask = lampreyAsks(eel(world));
+  if (ask === "gullet") {
     const s = eel(world);
-    tap(world, lampreyTapper(s) ?? 2, s.litTooth);
-    if (!rebiting && eel(world).cursor > cursor + 1) throw new Error("ran past the bite");
+    const color = s.steps[s.cursor]?.color ?? "red";
+    lampreyStruck(world, shot(color === "either" ? "cyan" : color, s.col));
+    return;
   }
+  if (ask === "apart") {
+    const way = lampreyTailWay(eel(world));
+    drag(world, holder(world), "lampreyTail", { on: true, x: way.x * 2, y: way.y * 2 });
+    pullHead(world);
+    return;
+  }
+  holdTail(world);
+  if (ask === "pull") pullHead(world);
+  while (lampreyAsks(eel(world)) === "teeth") tap(world, worker(world), eel(world).litTooth);
 }
 
-function shot(color: Color, col = MID): Bullet {
+function shot(color: Color, col: number): Bullet {
   return { id: 999, col, row: 20, subMilli: 0, color, lance: false, driftMilli: 0, aimMilli: 0 };
 }
 
-describe("THE LAMPREY bites", () => {
-  it("swims in, then bites the pilot's to pin and the navigator's to tap, under THE SLOW", () => {
+describe("THE LAMPREY leaps", () => {
+  it("swims in and bites a tile under THE SLOW, the pilot on the tail", () => {
     const world = install();
     expect(eel(world).phase).toBe("entering");
-    const seen = toBite(world);
-    const s = eel(world);
+    const seen = toStay(world);
     expect(seen.has("lampreyBite")).toBe(true);
-    expect([lampreyPinner(s), lampreyTapper(s)]).toEqual([1, 2]);
-    expect(s.jawCol).toBe(2);
+    expect([holder(world), worker(world)]).toEqual([1, 2]);
     expect(slowing(world)).toBe(true);
+    expect(eel(world).bitten).toHaveLength(1);
   });
 
-  it("chews a step a beat with the jaw let go, and a full bite is the hull", () => {
+  it("lands every leap its step's distance away, on a fresh tile inside the rows it may land on", () => {
+    const world = install(7);
+    const tiles: { col: number; row: number }[] = [];
+    for (let k = 0; k < SCRIPT.length; k++) {
+      toStay(world);
+      const s = eel(world);
+      tiles.push({ col: s.col, row: s.row });
+      expect(s.row).toBeGreaterThanOrEqual(CFG.lampreyRowTop);
+      expect(s.row).toBeLessThanOrEqual(CFG.lampreyRowBottom);
+      expect(s.col).toBeGreaterThanOrEqual(0);
+      expect(s.col).toBeLessThan(CFG.cols);
+      if (k < SCRIPT.length - 1) expect(s.nextCol).toBeGreaterThanOrEqual(0);
+      answer(world);
+    }
+    const keys = tiles.map((t) => t.row * CFG.cols + t.col);
+    expect(new Set(keys).size).toBe(keys.length);
+    for (let k = 1; k < tiles.length; k++) {
+      const [a, b] = [tiles[k - 1], tiles[k]];
+      if (a === undefined || b === undefined) continue;
+      const d = Math.max(Math.abs(a.col - b.col), Math.abs(a.row - b.row));
+      expect(d).toBeLessThanOrEqual(SCRIPT[k]?.jump ?? 0);
+      expect(d).toBeGreaterThanOrEqual(1);
+    }
+  });
+
+  it("leaps further every stay, on average over many seeds, where the field has room", () => {
+    const sum = SCRIPT.map(() => 0);
+    for (let seed = 0; seed < 20; seed++) {
+      const world = install(seed);
+      let last: { col: number; row: number } | null = null;
+      for (let k = 0; k < SCRIPT.length; k++) {
+        toStay(world);
+        const s = eel(world);
+        if (last !== null) {
+          sum[k] = (sum[k] ?? 0) + Math.max(Math.abs(s.col - last.col), Math.abs(s.row - last.row));
+        }
+        last = { col: s.col, row: s.row };
+        answer(world);
+      }
+    }
+    for (let k = 2; k < SCRIPT.length; k++) expect(sum[k] ?? 0).toBeGreaterThan(sum[k - 1] ?? 0);
+  });
+
+  it("lays its tail away from where it leaps next", () => {
     const world = install();
-    toBite(world);
-    const at = world.beat + 1;
-    runUntil(world, (w) => w.beat >= at);
-    expect(eel(world).biteMilli).toBe(CFG.lampreyBiteStepMilli);
+    toStay(world);
+    const s = eel(world);
+    const way = lampreyTailWay(s);
+    expect(Math.sign(way.x)).toBe(Math.sign(s.col - s.nextCol));
+    expect(Math.sign(way.y)).toBe(Math.sign(s.row - s.nextRow));
+  });
+
+  it("bites through to the hull when a stay's window runs out", () => {
+    const world = install();
+    toStay(world);
     const seen = runUntil(world, (w) => w.events.some((e) => e.type === "lampreyFull"), 30);
-    expect(seen.has("lampreyGnaw")).toBe(true);
+    expect(seen.has("lampreyLoose")).toBe(false);
     expect(world.events.some((e) => e.type === "breach")).toBe(true);
   });
+});
 
-  it("holds while the pinner's thumb follows the jaw, and not off it or from the tapper", () => {
+describe("a pull", () => {
+  it("comes off with the tail held, leaving the lit tooth in the tile, and THE SLOW shut", () => {
     const world = install();
-    toBite(world);
+    toStay(world);
+    const lit = eel(world).litTooth;
+    expect(holdTail(world)).toContain("lampreyGrip");
+    expect(pullHead(world)).toContain("lampreyLoose");
     const s = eel(world);
-    drag(world, 2, "lampreyJaw", s.jawCol, true);
-    runUntil(world, (w) => w.events.some((e) => e.type === "lampreyGnaw"));
-    const deep = eel(world).biteMilli;
-    pin(world);
-    const seen = new Set<string>();
-    for (let b = 0; b < 2; b++) {
-      for (const t of runUntil(world, (w) => w.events.some((e) => e.type === "lampreyCrawl")))
-        seen.add(t);
-      pin(world);
-    }
-    expect(seen.has("lampreyGnaw")).toBe(false);
-    expect(eel(world).biteMilli).toBe(deep);
-    drag(world, 1, "lampreyJaw", eel(world).jawCol + CFG.lampreyGripCols + 1, true);
-    runUntil(world, (w) => w.events.some((e) => e.type === "lampreyGnaw"));
+    expect([s.phase, s.cursor, s.teethOut]).toEqual(["leap", 1, 1 << lit]);
+    expect(slowing(world)).toBe(false);
+  });
+
+  it("slips with the tail loose, said once a press, and comes off the instant the tail is taken", () => {
+    const world = install();
+    toStay(world);
+    expect(pullHead(world)).toContain("lampreySlip");
+    expect(pullHead(world)).not.toContain("lampreySlip");
+    expect(eel(world).phase).toBe("bite");
+    expect(drag(world, 2, "lampreyTail", { on: true })).not.toContain("lampreyLoose");
+    expect(holdTail(world)).toContain("lampreyLoose");
   });
 });
 
 describe("the teeth", () => {
-  it("crack only the lit one from the tapper, and the next lit is two places on", () => {
+  function teethStay(): World {
     const world = install();
-    toBite(world);
+    toStay(world);
+    answer(world);
+    toStay(world);
+    expect(lampreyAsks(eel(world))).toBe("teeth");
+    return world;
+  }
+
+  it("crack only the lit one from the worker with the tail held, the next lit two places on", () => {
+    const world = teethStay();
     const lit = eel(world).litTooth;
-    expect(tap(world, 1, lit)).not.toContain("lampreyCrack");
-    expect(tap(world, 2, lit)).toContain("lampreyCrack");
-    expect(eel(world).litTooth).toBe((lit + 2) % 7);
+    expect(tap(world, 1, lit)).toContain("lampreySnap");
+    holdTail(world);
+    expect(tap(world, 2, lit)).not.toContain("lampreyCrack");
+    expect(tap(world, 1, lit)).toContain("lampreyCrack");
+    expect(eel(world).litTooth).not.toBe(lit);
   });
 
-  it("snap the last one back on a wrong tooth, and on a window run out", () => {
-    const world = install();
-    toBite(world);
-    tap(world, 2, eel(world).litTooth);
+  it("snap the last one back on a dark tooth, and count a thumb left down once", () => {
+    const world = teethStay();
+    holdTail(world);
+    tap(world, 1, eel(world).litTooth);
     const lit = eel(world).litTooth;
-    expect(tap(world, 2, (lit + 1) % 7)).toContain("lampreySnap");
+    expect(tap(world, 1, (lit + 1) % 7)).toContain("lampreySnap");
     expect(eel(world).pulled).toEqual([]);
-    expect(eel(world).litTooth).toBe(lit);
-    tap(world, 2, lit);
-    const seen = runUntil(world, (w) => w.events.some((e) => e.type === "lampreySnap"), 10);
-    expect(seen.has("lampreyCrack")).toBe(false);
-    expect(eel(world).pulled).toHaveLength(0);
-  });
-
-  it("count a thumb left down once", () => {
-    const world = install();
-    toBite(world);
-    drag(world, 2, "lampreyTooth", eel(world).litTooth, true);
-    const lit = eel(world).litTooth;
-    expect(drag(world, 2, "lampreyTooth", lit, true)).not.toContain("lampreyCrack");
+    drag(world, 1, "lampreyTooth", { on: true, id: lit });
+    expect(drag(world, 1, "lampreyTooth", { on: true, id: lit })).not.toContain("lampreyCrack");
     expect(eel(world).pulled).toHaveLength(1);
   });
+});
 
-  it("let the mouth go once the bite's teeth are out, and the second bite trades the seats", () => {
+describe("an apart", () => {
+  it("wants the tail pulled along the body and the head up, both out at once", () => {
     const world = install();
-    toBite(world);
-    pullBite(world);
-    expect(eel(world).phase).toBe("loose");
-    expect(eel(world).teethOut.toString(2).replaceAll("0", "")).toHaveLength(3);
-    toBite(world);
-    const s = eel(world);
-    expect([lampreyPinner(s), lampreyTapper(s), s.jawCol, s.crawlDir]).toEqual([2, 1, 8, -1]);
+    for (let k = 0; k < 2; k++) {
+      toStay(world);
+      answer(world);
+    }
+    toStay(world);
+    expect(lampreyAsks(eel(world))).toBe("apart");
+    const way = lampreyTailWay(eel(world));
+    expect(pullHead(world)).not.toContain("lampreyLoose");
+    const back = { on: true, x: -way.x * 2, y: -way.y * 2 };
+    expect(drag(world, 1, "lampreyTail", back)).not.toContain("lampreyLoose");
+    const out = { on: true, x: way.x * 2, y: way.y * 2 };
+    expect(drag(world, 1, "lampreyTail", out)).toContain("lampreyLoose");
   });
 });
 
 describe("the gullet", () => {
-  function reared(): World {
+  it("rears on its tile in its colour, and wants that colour up that column", () => {
     const world = install();
-    for (let b = 0; b < 2; b++) {
-      toBite(world);
-      pullBite(world);
+    for (let k = 0; k < 3; k++) {
+      toStay(world);
+      answer(world);
     }
-    toRear(world);
-    return world;
-  }
-
-  it("rears in its colour, wants that colour, and the middle column", () => {
-    const world = reared();
-    expect(lampreyStruck(world, shot("cyan"))).toBe(true);
-    expect(lampreyStruck(world, shot("red", MID + 1))).toBe(false);
+    toStay(world);
+    const s = eel(world);
+    expect(s.phase).toBe("rearing");
+    expect(lampreyStruck(world, shot("cyan", s.col))).toBe(true);
+    expect(lampreyStruck(world, shot("red", (s.col + 1) % CFG.cols))).toBe(false);
     expect(eel(world).hits).toBe(0);
-    expect(lampreyStruck(world, shot("red"))).toBe(true);
+    expect(lampreyStruck(world, shot("red", s.col))).toBe(true);
     expect([eel(world).hits, eel(world).phase]).toEqual([1, "recoil"]);
   });
 
-  it("lunges when the shot runs out, and the re-bite's teeth are not lost", () => {
-    const world = reared();
-    const out = eel(world).teethOut;
-    const seen = toBite(world);
-    expect(seen.has("lampreyLunge")).toBe(true);
-    expect(eel(world).rebiting).toBe(true);
-    pullBite(world);
-    expect(eel(world).teethOut).toBe(out);
-    expect(toRear(world).has("lampreyRear")).toBe(true);
-    expect(eel(world).cursor).toBe(2);
-  });
-
-  it("three hits and the eel is spent and out, the same twice from one seed", () => {
+  it("ends spent and out with every tooth gone, the same twice from one seed", () => {
     const play = () => {
-      const world = reared();
-      for (const color of ["red", "cyan", "red"] as const) {
-        toRear(world);
-        lampreyStruck(world, shot(color));
+      const world = install(3);
+      for (let k = 0; k < SCRIPT.length; k++) {
+        toStay(world);
+        answer(world);
       }
+      expect(eel(world).teethOut).toBe(0b1111111);
       runUntil(world, (w) => w.boss === null);
       return hashWorld(world);
     };

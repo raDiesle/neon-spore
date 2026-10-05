@@ -41,6 +41,7 @@ const PULL_HANDLES: Readonly<Record<string, string>> = {
   "capstan-marks.ts": "THE CAPSTAN",
   "throat-grip.ts": "THE THROAT",
   "oculus-levers.ts": "THE OCULUS",
+  "lamprey-handles.ts": "THE LAMPREY",
 };
 
 const TO_COME: Readonly<Record<string, string>> = {};

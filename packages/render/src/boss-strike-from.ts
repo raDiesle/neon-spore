@@ -111,7 +111,7 @@ const FROM: Partial<
   flue: flueBlowFrom,
   // The flywheel's near edge, where the shard shears off (`governor-blow.ts`).
   governor: governorBlowFrom,
-  // The mouth itself, flat on the hull over the jaw's column (`lamprey-blow.ts`).
+  // The mouth itself, on the tile it bit (`lamprey-blow.ts`).
   lamprey: lampreyBlowFrom,
   // Under the mantle, where the reaching arm roots (`mimic-blow.ts`).
   mimic: mimicBlowFrom,

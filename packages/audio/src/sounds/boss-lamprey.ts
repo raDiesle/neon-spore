@@ -1,16 +1,16 @@
 /**
- * THE LAMPREY's thirteen, in a file of their own for `boss-gorge.ts`' reason.
+ * THE LAMPREY's twelve, in a file of their own for `boss-gorge.ts`' reason.
  *
- * The boss is **a sucker mouth bitten onto the hull**, and everything here is
- * wet and close: the enter is something long swimming in, a low swell under a
- * hiss; a bite is a suck and a thud against the hull. A crack is a short high
- * tick, pitched up per tooth, and a snap the dry clack the tapper has to hear.
- * A crawl is a soft drag a column along, and a gnaw the low grind the pinner
- * has to hear, deepening as the bite does; a full bite is the hull's dull
- * strike. Loose is a wet pop, the rear a swell with a ring, the hit a shot
- * into the gullet, the lunge a rush of air, the spent a limp fall and the out
- * the field clearing. Low and soft under the band, or short and high above
- * it, as ever (`docs/spec/audio.md` §1).
+ * The boss is **an eel that leaps from tile to tile and bites in**, and
+ * everything here is wet and close: the enter is something long swimming in,
+ * a low swell under a hiss; a bite is a suck and a thud into the tile. The
+ * grip is a soft squeeze as a thumb takes the tail, and a slip the low grind
+ * of a head pulled with the tail loose. A crack is a short high tick, pitched
+ * up per tooth, and a snap the dry clack the tapper has to hear. A bite gone
+ * through is the hull's dull strike. Loose is a wet pop and a rush of air as
+ * it leaps, the rear a swell with a ring, the hit a shot into the gullet, the
+ * spent a limp fall and the out the field clearing. Low and soft under the
+ * band, or short and high above it, as ever (`docs/spec/audio.md` §1).
  */
 
 import { after, air, glint, metal, noise, sub, swell, thud, tick } from "../grain.js";
@@ -22,16 +22,16 @@ export const BOSS_LAMPREY_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "Something long swimming in: a low swell under a hiss.",
     status: "bound",
-    use: "THE LAMPREY arriving under the hull.",
+    use: "THE LAMPREY swimming into the field.",
     level: 0.42,
     layers: [swell(58, 1.2, 0.12), after(0.2, air(400, 1400, 0.7, 0.06, 2.2))],
   },
   {
     id: "boss.lampreyBite",
     family: "boss",
-    blurb: "A suck and a thud: the mouth on the hull.",
+    blurb: "A suck and a thud: the mouth into a tile.",
     status: "bound",
-    use: "A bite begun: one of you pins the jaw, the other taps the lit tooth.",
+    use: "A bite begun: one of you holds the tail, the other frees the head.",
     level: 0.46,
     layers: [
       noise(600, { type: "lowpass", freq: 600, q: 1 }, 0.02, 0.2, 0.1),
@@ -52,52 +52,52 @@ export const BOSS_LAMPREY_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "A dry clack: a tooth snapped back in.",
     status: "bound",
-    use: "A wrong tap, or a tooth's window run out: the last tooth goes back.",
+    use: "A dark tooth tapped, or one tapped with the tail loose: the last tooth goes back.",
     level: 0.4,
     layers: [noise(1100, { type: "bandpass", freq: 1100, q: 2 }, 0.005, 0.08, 0.08)],
   },
   {
-    id: "boss.lampreyCrawl",
+    id: "boss.lampreyGrip",
     family: "boss",
-    blurb: "A soft drag a column along the hull.",
+    blurb: "A soft squeeze: a thumb on the tail.",
     status: "bound",
-    use: "The jaw crawling; the pinner's thumb has to follow it.",
+    use: "The tail taken: the other seat can free the head now.",
     level: 0.26,
     layers: [noise(420, { type: "lowpass", freq: 420, q: 1 }, 0.02, 0.18, 0.12)],
   },
   {
-    id: "boss.lampreyGnaw",
+    id: "boss.lampreySlip",
     family: "boss",
-    blurb: "A low grind, deepening as the bite does.",
+    blurb: "A low grind: the head slipping back into its bite.",
     status: "bound",
-    use: "The jaw not held: the bite a step deeper.",
+    use: "The head pulled up with the tail loose: hold the tail first.",
     level: 0.36,
     layers: [metal(120, 0.25, 0.14, 180), sub(46, 0.25, 0.2)],
   },
   {
     id: "boss.lampreyFull",
     family: "boss",
-    blurb: "The hull's dull strike: the bite gone all the way in.",
+    blurb: "The hull's dull strike: the bite gone all the way through.",
     status: "bound",
-    use: "A full bite: the hull hit.",
+    use: "A stay's time run out: the hull hit.",
     level: 0.5,
     layers: [thud(260, 120, 0.04, 0.22), sub(40, 0.45, 0.32)],
   },
   {
     id: "boss.lampreyLoose",
     family: "boss",
-    blurb: "A wet pop: the mouth off the hull.",
+    blurb: "A wet pop and a rush of air: the mouth off its tile, leaping.",
     status: "bound",
-    use: "A bite given up: its teeth out, the mouth pulling away.",
+    use: "A bite freed: the eel leaps to its next tile.",
     level: 0.38,
-    layers: [thud(520, 300, 0.03, 0.1), after(0.06, air(900, 2400, 0.3, 0.05, 2))],
+    layers: [thud(520, 300, 0.03, 0.1), after(0.06, air(300, 2600, 0.4, 0.1, 1.6))],
   },
   {
     id: "boss.lampreyRear",
     family: "boss",
     blurb: "A swell with a ring: the gullet lit.",
     status: "bound",
-    use: "The eel reared over the hull: shoot the gullet in its colour.",
+    use: "The eel reared on its tile: shoot the gullet in its colour.",
     level: 0.4,
     layers: [swell(72, 0.8, 0.1), after(0.3, glint(2400, 0.4, 0.14))],
   },
@@ -111,18 +111,9 @@ export const BOSS_LAMPREY_SOUNDS: SoundDef[] = [
     layers: [thud(420, 260, 0.04, 0.12), metal(220, 0.35, 0.18, 280)],
   },
   {
-    id: "boss.lampreyLunge",
-    family: "boss",
-    blurb: "A rush of air: the eel lunging back onto the hull.",
-    status: "bound",
-    use: "A gullet's window run out: it bites again with the teeth it has left.",
-    level: 0.42,
-    layers: [air(300, 2600, 0.4, 0.12, 1.6), after(0.3, thud(180, 100, 0.04, 0.14))],
-  },
-  {
     id: "boss.lampreySpent",
     family: "boss",
-    blurb: "A limp fall away from the hull.",
+    blurb: "A limp fall down the field.",
     status: "bound",
     use: "THE LAMPREY beaten, falling away.",
     level: 0.44,

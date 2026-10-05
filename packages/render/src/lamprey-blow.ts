@@ -3,21 +3,19 @@ import type { Point, StrikeFrame } from "./boss-strike-look.js";
 import { fieldX } from "./field-flip.js";
 import { rgba } from "./hex.js";
 import { MOUTH } from "./lamprey-shape.js";
-import type { Layout } from "./layout.js";
+import { type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
- * **THE LAMPREY's own blow at the hull** (`boss-strike-look.ts`). The jaw was
- * let go for long enough that the bite went full (`lamprey-step.ts`'s
- * `lampreyFull`), and a sucker does what a sucker does with nobody pinning
- * it: it clamps. Its seven teeth, spread round the mouth bitten flat on the
- * plating, drive in and close to a tight ring at the column, and where each
- * went in a puncture is left, dark and bleeding the hull's red, with flecks of
- * plating thrown up off the bite.
+ * **THE LAMPREY's own blow at the hull** (`boss-strike-look.ts`). A stay ran
+ * out with nobody answering it and the bite went through (`lamprey-step.ts`'s
+ * `lampreyFull`): a sucker does what a sucker does, it clamps. Its seven
+ * teeth leave the tile spread round the mouth, fly down to the hull under the
+ * tile's column closing to a tight ring, and where each went in a puncture is
+ * left, dark and bleeding the hull's red, with flecks of plating thrown up off
+ * the bite.
  *
- * The blow leaves from the mouth itself, on the hull over the jaw's column —
- * the eel is already where it strikes, so the reach is the clamp's time and
- * not a distance.
+ * The blow leaves from the mouth itself, on the tile it bit.
  */
 
 /** How flat the ring lies on the plating, how far it spreads before it clamps, and how tight it closes, in tiles. */
@@ -32,9 +30,9 @@ const HOLE = 0.09;
 const FLECKS = 7;
 const THROW = 0.9;
 
-/** Where the blow leaves the body: the mouth, flat on the hull over the jaw's column. */
-export function lampreyBlowFrom(l: Layout, _cfg: SimConfig, col: number): Point {
-  return { x: fieldX(l, col), y: l.hullY };
+/** Where the blow leaves the body: the mouth, on the tile it bit. */
+export function lampreyBlowFrom(l: Layout, _cfg: SimConfig, col: number, row: number): Point {
+  return { x: fieldX(l, col), y: tileCY(l, row) };
 }
 
 /** Tooth `t`'s angle round the ring, the first at the top. */

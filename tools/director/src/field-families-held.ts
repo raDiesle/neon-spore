@@ -51,7 +51,7 @@ export const HELD_FAMILIES: readonly FieldGroup[] = [
       "THE SCOUT'S LINE",
       "THE LEDGER'S PLUG",
       "THE FLEET'S PLUME",
-      "THE LAMPREY'S JAW",
+      "THE LAMPREY'S TAIL",
     ],
   },
   {
@@ -88,6 +88,7 @@ export const HELD_FAMILIES: readonly FieldGroup[] = [
       "THE GAUGE'S TOOTH",
       "THE GAUGE'S TONGUE",
       "THE CURTAIN'S HEM",
+      "THE LAMPREY'S HEAD",
       "THE HIVE'S HAUL",
       "THE VANE'S HOUSING",
       "SNAKE'S JAWS",

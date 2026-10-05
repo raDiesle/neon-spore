@@ -5,8 +5,8 @@ import type { Color } from "./types.js";
  * sound answer.
  *
  * Every event carries `col`, the column it happened over, for the sounds to
- * pan to: the jaw's column while it is on the hull, the middle column while it
- * rears. A seat is `side`, nought the pilot.
+ * pan to: the tile's column while it is on one. A seat is `side`, nought the
+ * pilot.
  */
 
 interface LampreyColEvent {
@@ -15,28 +15,26 @@ interface LampreyColEvent {
 }
 
 export type LampreyEvent =
-  /** The eel swims into frame over the hull. */
+  /** The eel swims into frame. */
   | ({ type: "lampreyEnter" } & LampreyColEvent)
-  /** The mouth bites onto the hull; `side` pins, and `tooth` is lit for the other. */
-  | ({ type: "lampreyBite"; side: 0 | 1; tooth: number } & LampreyColEvent)
+  /** It bites into the tile at `col`, `row`; `side` is on the tail, and `tooth` is lit. */
+  | ({ type: "lampreyBite"; side: 0 | 1; tooth: number; row: number } & LampreyColEvent)
+  /** The holder's thumb came down on the tail. */
+  | ({ type: "lampreyGrip"; side: 0 | 1 } & LampreyColEvent)
   /** The lit tooth knocked out by `side`. */
   | ({ type: "lampreyCrack"; side: 0 | 1; tooth: number } & LampreyColEvent)
-  /** A tooth snapped back in: a wrong tap from `side`, or, without one, its window run out. */
-  | ({ type: "lampreySnap"; tooth: number; side?: 0 | 1 } & LampreyColEvent)
-  /** The jaw crawled a column along the hull, `dir` the way it went. */
-  | ({ type: "lampreyCrawl"; dir: -1 | 1 } & LampreyColEvent)
-  /** A beat with the jaw not pinned: the bite is `biteMilli` deep. */
-  | ({ type: "lampreyGnaw"; biteMilli: number } & LampreyColEvent)
-  /** A full bite: the hull takes it. */
+  /** A tooth snapped back in: a tap from `side` on a dark tooth, or with the tail loose. */
+  | ({ type: "lampreySnap"; tooth: number; side: 0 | 1 } & LampreyColEvent)
+  /** The head pulled up by `side` with the tail loose: it slipped back into the bite. */
+  | ({ type: "lampreySlip"; side: 0 | 1 } & LampreyColEvent)
+  /** The bite let go of its tile, leaving `tooth` in it, or -1 with none left behind. */
+  | ({ type: "lampreyLoose"; tooth: number } & LampreyColEvent)
+  /** The stay's window ran out: the bite went through, and the hull takes it. */
   | ({ type: "lampreyFull" } & LampreyColEvent)
-  /** The bite has given up its teeth: the mouth comes off the hull. */
-  | ({ type: "lampreyLoose" } & LampreyColEvent)
-  /** The eel rears over the hull with its gullet lit in `color`. */
+  /** The eel rears on its tile with its gullet lit in `color`. */
   | ({ type: "lampreyRear"; color: Color | "either" } & LampreyColEvent)
   /** The gullet shot in its colour; `hits` is how many it has taken. */
   | ({ type: "lampreyHit"; hits: number } & LampreyColEvent)
-  /** The gullet's window ran out: it lunges back onto the hull. */
-  | ({ type: "lampreyLunge" } & LampreyColEvent)
   /** The script is done: the eel goes limp. */
   | ({ type: "lampreySpent" } & LampreyColEvent)
   /** The spent eel has fallen away `lampreySpentBeats`; the wave may end. */

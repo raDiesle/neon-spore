@@ -60,7 +60,7 @@ export type GroupName =
   | "THE BURGEE — a flag stilled by one seat and caught by the other"
   | "THE FLUE — an ember one seat sees and the other shoots"
   | "THE GOVERNOR — a needle one seat brakes for the other to tap"
-  | "THE LAMPREY — a jaw one of you pins for the other to pull teeth from"
+  | "THE LAMPREY — an eel one of you holds by the tail for the other to pull off"
   | "THE MIMIC — a sign one of you reads for the other to draw"
   | "THE SPLICE — straws fed in the order the numbers say"
   | "THE REPRISE — the wave sent again unseen"
@@ -172,7 +172,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE BURGEE — a flag stilled by one seat and caught by the other",
   "THE FLUE — an ember one seat sees and the other shoots",
   "THE GOVERNOR — a needle one seat brakes for the other to tap",
-  "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
+  "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   "THE MIMIC — a sign one of you reads for the other to draw",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",

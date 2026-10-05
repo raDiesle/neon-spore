@@ -131,8 +131,8 @@ export {
   governorTapper,
   governorTapping,
 } from "./governor.js";
-// THE LAMPREY's jaw and teeth: the phase, the step, the seats, the ring and
-// the gullet, for the picture, the cue and the director's hand (§41).
+// THE LAMPREY's tail, head and teeth: the phase, the step, the seats, the
+// ring, the leap and the gullet, for the picture, the cue and the director's hand (§41).
 export {
   freshLamprey,
   LAMPREY_ASKS,
@@ -144,18 +144,22 @@ export {
   type LampreyPhase,
   type LampreyState,
   type LampreyStep,
+  lampreyAsks,
   lampreyBiting,
   lampreyBoss,
   lampreyDone,
   lampreyFiring,
-  lampreyHeld,
+  lampreyHeadPull,
+  lampreyHolder,
   lampreyNextTooth,
-  lampreyPinner,
   lampreyStep,
-  lampreyTapper,
+  lampreyTailHeld,
+  lampreyTailPull,
   lampreyTeethIn,
   lampreyToothIn,
+  lampreyWorker,
 } from "./lamprey.js";
+export { lampreyTailWay } from "./lamprey-leap.js";
 export {
   freshMimic,
   MIMIC_ASKS,

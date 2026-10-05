@@ -15,19 +15,19 @@ import { stepColour } from "./step-colour.js";
  * **tooth** a crack knocks out, flung off the ring and tumbling away; the
  * **snap**, a ring closing on the tooth that went back in; the **gulp**, the
  * gullet flashing in its colour as a shot goes down it; the hull's shudder
- * as the mouth slams on and as a full bite tears it; the bursts its other
+ * as a bite goes through it and as the eel is spent; the bursts its other
  * receipts throw; and its marks' verdicts on a touch (`lamprey-verdicts.ts`).
  *
- * Everything else — where the mouth is, which teeth are out, how deep the
- * scar — is read off the boss every frame (`lamprey-draw.ts`).
+ * Everything else — where the mouth is, which teeth are out — is read off
+ * the boss every frame (`lamprey-draw.ts`).
  *
- * **Both screens are thrown the same**, like the drawing: the jaw is one
- * seat's and the teeth the other's, and each has to see the other land.
+ * **Both screens are thrown the same**, like the drawing: the tail is one
+ * seat's and the head the other's, and each has to see the other land.
  *
- * **A crack is one counted hit** and deals the lighter blow; **a bite's teeth
- * all out** — the mouth let go — and **a shot down the gullet** are a
- * sequence landed and deal the whole one (`boss-hurt.ts`). A bite, a crawl,
- * a chew, a rear, a lunge and the spend deal nothing.
+ * **A crack is one counted hit** and deals the lighter blow; **a bite freed**
+ * — the mouth let go of its tile — and **a shot down the gullet** are a
+ * sequence landed and deal the whole one (`boss-hurt.ts`). A bite, a grip, a
+ * slip, a rear and the spend deal nothing.
  *
  * The events carry a column and a tooth and no place on the mouth, so the
  * drawer hands over the eel it drew each frame (`note`), THE GOVERNOR's way:
@@ -37,9 +37,7 @@ import { stepColour } from "./step-colour.js";
  * `Effects.reset()` (`restart.test.ts`).
  */
 
-/** How strong the hull's shudder is for the mouth slamming on, a full bite and the spend, and how long, in beats. */
-const SLAM_FORCE = 0.25;
-const SLAM_BEATS = 0.4;
+/** How strong the hull's shudder is for a bite gone through and the spend, and how long, in beats. */
 const FULL_FORCE = 0.7;
 const FULL_BEATS = 0.8;
 const SPENT_FORCE = 0.5;
@@ -67,13 +65,13 @@ export class LampreyFx {
   private gulpNow = 0;
   private gulpHits = 0;
   private rearHex: string = PALETTE.hullRim;
-  /** The hull's shudder as the mouth slams on, as a full bite tears it, and as the eel is spent. */
+  /** The hull's shudder as a bite goes through it, and as the eel is spent. */
   readonly shock = new HullShock();
-  /** The blow a bite's teeth all out and a shot down the gullet deal; a crack the lighter one. */
+  /** The blow a bite freed and a shot down the gullet deal; a crack the lighter one. */
   readonly hurt = new BossHurt();
   private readonly said = new LampreyVerdicts();
 
-  /** The jaw's, the tooth's and the gullet's verdicts on a touch. */
+  /** The tail's, the head's, the tooth's and the gullet's verdicts on a touch. */
   get verdicts(): GripVerdicts {
     return this.said.verdicts;
   }
@@ -114,10 +112,8 @@ export class LampreyFx {
           burst(mouth.x, mouth.y, 8, PALETTE.lampreyHide);
           break;
         case "lampreyBite":
-          // The sucker slammed flat onto the plating.
-          burst(mouth.x, l.hullY, 8, PALETTE.lampreyHide);
-          burst(mouth.x, l.hullY, 4, PALETTE.rockDark);
-          this.shock.strike(beatSeconds * SLAM_BEATS, SLAM_FORCE);
+          // The sucker slammed into the tile.
+          burst(mouth.x, mouth.y, 8, PALETTE.lampreyHide);
           break;
         case "lampreyCrack": {
           const at = this.tooth(mouth, e.tooth);
@@ -138,14 +134,11 @@ export class LampreyFx {
             burst(at.x, at.y, 3, PALETTE.rockDark);
           }
           break;
-        case "lampreyCrawl":
-          burst(mouth.x, l.hullY, 2, PALETTE.rockDark);
-          break;
-        case "lampreyGnaw":
-          burst(mouth.x, l.hullY, 3, PALETTE.red);
+        case "lampreySlip":
+          burst(mouth.x, mouth.y, 3, PALETTE.red);
           break;
         case "lampreyFull":
-          burst(mouth.x, l.hullY, 10, PALETTE.red);
+          burst(mouth.x, mouth.y, 10, PALETTE.red);
           this.shock.strike(beatSeconds * FULL_BEATS, FULL_FORCE);
           break;
         case "lampreyLoose":
@@ -162,9 +155,6 @@ export class LampreyFx {
           this.gulpHits = e.hits;
           this.hurt.hit();
           break;
-        case "lampreyLunge":
-          burst(mouth.x, mouth.y, 6, PALETTE.rockDark);
-          break;
         case "lampreySpent":
           burst(mouth.x, mouth.y, 20, PALETTE.lampreyHide);
           burst(mouth.x, mouth.y, 8, PALETTE.lampreyTooth);
@@ -176,7 +166,7 @@ export class LampreyFx {
     }
   }
 
-  /** Where the mouth is: as last drawn, or on the hull over the event's column before the first frame. */
+  /** Where the mouth is: as last drawn, or at the hull under the event's column before the first frame. */
   private mouth(l: Layout, col: number): Point {
     return this.pose ?? { x: fieldX(l, col), y: l.hullY };
   }

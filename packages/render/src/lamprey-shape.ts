@@ -4,7 +4,7 @@ import type { Layout } from "./layout.js";
 /**
  * **THE LAMPREY's shape** (§41, *The look*): two drafts combined, named on the
  * shape sheet. **LIGHT TRACE** is the body, a long lobed eel on a lagging
- * spine that trails up the field from the mouth and tapers to a tail; **BULB
+ * spine that trails from the mouth and tapers to a tail; **BULB
  * · SPIKE** is the mouth, a round sucker ringed with seven hooked teeth.
  *
  * Everything here is geometry in the field's pixels and nothing is read off
@@ -14,8 +14,8 @@ import type { Layout } from "./layout.js";
 
 /** The mouth's radius, in tiles. */
 export const MOUTH = 0.95;
-/** The body's length from the mouth to the tail, in tiles. */
-const LENGTH = 7.5;
+/** The body's length from the mouth to the tail, in tiles: short enough to leap about the field. */
+const LENGTH = 4.5;
 /** The body's half-width at the neck, in tiles, and what is left of it at the tail. */
 const NECK = 0.62;
 const TAIL = 0.12;
@@ -69,7 +69,11 @@ export interface LampreyPose {
  */
 export function lampreySpine(l: Layout, p: LampreyPose): Point[] {
   const seg = (LENGTH * l.tile) / SPINE;
-  const out: Point[] = [{ x: p.x, y: p.y - p.r * p.tilt * 0.6 }];
+  // The neck leaves the back of the mouth on the side the body lies.
+  const neck = p.r * 0.6;
+  const out: Point[] = [
+    { x: p.x + Math.sin(p.lean) * neck, y: p.y - Math.cos(p.lean) * neck * p.tilt },
+  ];
   let x = out[0]?.x ?? p.x;
   let y = out[0]?.y ?? p.y;
   for (let i = 1; i <= SPINE; i++) {
@@ -80,6 +84,11 @@ export function lampreySpine(l: Layout, p: LampreyPose): Point[] {
     out.push({ x, y });
   }
   return out;
+}
+
+/** The tail's tip: the spine's last point, where a thumb holds it. */
+export function lampreyTailTip(spine: readonly Point[]): Point {
+  return spine[spine.length - 1] ?? { x: 0, y: 0 };
 }
 
 /** The body's half-width at `f` along it, 0 the neck: tapering, swollen in lobes. */

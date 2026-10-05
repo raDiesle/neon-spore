@@ -56,7 +56,7 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "governorChordLeft", "governorChordRight", "governorTap",
   "gaugeTooth",
   "gaugeTongue",
-  "lampreyJaw", "lampreyTooth",
+  "lampreyTail", "lampreyHead", "lampreyTooth",
 ];
 
 export const isColor = (x: unknown): x is Color =>

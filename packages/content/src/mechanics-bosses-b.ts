@@ -151,7 +151,7 @@ export const BOSS_MECHANICS_B = {
     reach: "spawn",
   },
   lamprey: {
-    what: "One of you keeps a thumb on the mouth's crawling jaw. The other taps the lit tooth before it snaps back. Then shoot the gullet in its colour.",
+    what: "The eel jumps to a tile and bites in. One of you holds the tail. The other frees the head before time runs out. Then shoot the gullet.",
     reach: "spawn",
   },
   mimic: {

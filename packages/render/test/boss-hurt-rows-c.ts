@@ -151,19 +151,18 @@ export const HURT_ROWS_C: Row[] = [
   },
   {
     boss: "lamprey",
-    // A bite's teeth all out, the mouth let go, and a shot down the gullet.
+    // A bite freed, the head off its tile, and a shot down the gullet.
     land: [
-      { type: "lampreyLoose", col: 3 },
+      { type: "lampreyLoose", tooth: 0, col: 3 },
       { type: "lampreyHit", hits: 1, col: 3 },
     ],
-    // A bite, a crawl, a chew, a snap, a rear and a lunge only work toward one, or against it.
+    // A bite, a grip, a slip, a snap and a rear only work toward one, or against it.
     part: [
-      { type: "lampreyBite", side: 0, tooth: 0, col: 3 },
-      { type: "lampreyCrawl", dir: 1, col: 4 },
-      { type: "lampreyGnaw", biteMilli: 200, col: 3 },
-      { type: "lampreySnap", tooth: 0, col: 3 },
+      { type: "lampreyBite", side: 0, tooth: 0, row: 6, col: 3 },
+      { type: "lampreyGrip", side: 0, col: 3 },
+      { type: "lampreySlip", side: 1, col: 3 },
+      { type: "lampreySnap", tooth: 0, side: 1, col: 3 },
       { type: "lampreyRear", color: "red", col: 3 },
-      { type: "lampreyLunge", col: 3 },
     ],
     // A tooth knocked out, one of the five that are its health.
     hit: [{ type: "lampreyCrack", side: 1, tooth: 0, col: 3 }],

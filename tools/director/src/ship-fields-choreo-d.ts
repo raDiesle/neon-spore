@@ -107,16 +107,20 @@ export const CHOREO_FIELD_GROUP_D = {
   governorHotMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
   governorClimbMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
   governorEaseMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
-  // LampreyConfig — the swim in, the pull off between bites, the recoil and
-  // the fall, how deep a chew goes and how deep is full, and how near the
-  // jaw a thumb has to be (`config-lamprey.ts`).
-  lampreyEnterBeats: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
-  lampreyLooseBeats: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
-  lampreyRecoilBeats: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
-  lampreySpentBeats: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
-  lampreyBiteStepMilli: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
-  lampreyBiteFullMilli: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
-  lampreyGripCols: "THE LAMPREY — a jaw one of you pins for the other to pull teeth from",
+  // LampreyConfig — the swim in, the leap, the recoil and the fall, the rows
+  // it may land on, how long the tail lies, and how far the head and the tail
+  // are pulled (`config-lamprey.ts`).
+  lampreyEnterBeats: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyLeapBeats: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyRecoilBeats: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreySpentBeats: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyRowTop: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyRowBottom: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyTailTiles: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyHeadPullMilli:
+    "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyTailPullMilli:
+    "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   // MimicConfig — the slap into shape, how long a wrong sign is worn, the
   // flinch, when a changing sign changes, the reaches that strike the hull,
   // the clench and the fall (`config-mimic.ts`).

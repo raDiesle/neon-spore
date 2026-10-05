@@ -42,7 +42,8 @@ export type DragTargetE =
   | "governorTap"
   | "gaugeTooth"
   | "gaugeTongue"
-  | "lampreyJaw"
+  | "lampreyTail"
+  | "lampreyHead"
   | "lampreyTooth";
 
 /**
@@ -208,11 +209,12 @@ export type DragTargetE =
  */
 
 /**
- * `lampreyJaw` and `lampreyTooth` are the hundred-and-tenth and eleventh:
- * THE LAMPREY's jaw, under the pinner's thumb, and its ring of teeth, under
- * the tapper's.
+ * `lampreyTail`, `lampreyHead` and `lampreyTooth` are the hundred-and-tenth
+ * to twelfth: THE LAMPREY's tail, under the holder's thumb, and its head and
+ * ring of teeth, under the other's.
  *
- * No new reading. The jaw is `gallPinch`'s follow — `id` the
- * column under the thumb and `on` whether it is down — and the teeth are
- * `valvePin`'s edge with `id` the tooth (`lamprey-hand.ts`).
+ * No new reading. The tail is a level — `on` the thumb down — carried along
+ * the body in an `apart`; the head is THE CURTAIN's hem, `-fromYMilli` the
+ * pull up; and the teeth are `valvePin`'s edge with `id` the tooth
+ * (`lamprey-hand.ts`).
  */

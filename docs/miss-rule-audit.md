@@ -40,7 +40,7 @@ unasked (`.claude/skills/new-boss/generic.md`).
    a blade thickens, a flat regrits, the fleet's hull is plugged, the
    organs sink back healed.
 8. **A margin or a meter**: THE PULSE's meter, THE RATCHET's two free teeth,
-   THE MIMIC's three reaches, THE LAMPREY's bite eight beats deep.
+   THE MIMIC's three reaches.
 9. **A jam or a penalty timer**: PINBALL's tilt, THE HASP's burnt hand.
 10. **A wrong-seat press on a control drawn on both screens** answers with a
     refusal event and nothing else.
@@ -73,7 +73,7 @@ The kinds each breaks it with, and where. Paths are under `packages/sim/src`.
 | HIVE | 1, 2, 11 | `hive-shot.ts`, `hive-step.ts` (spills come sooner) |
 | INSTAR | 1, 5, 10 | `instar-step.ts`, `instar-hand.ts`, `scene-panel.ts` |
 | KEEL | 1, 4, 5, 6, 10 | `keel-step.ts`, `keel-story.ts`, `keel-hand.ts` |
-| LAMPREY | 1, 4, 8 | `lamprey-step.ts`, `lamprey-hand.ts` (wrong tooth snaps one back) |
+| LAMPREY | 1, 5 | `lamprey-shot.ts`, `lamprey-hand.ts` (wrong tooth snaps one back; a head pulled with the tail loose slips). **Every stay run out is the hull** since 5 October 2026 (`lamprey-step.ts` `bitThrough`), the gullet's included |
 | LEAD | 3, 4, 11 | `lead-step.ts` (last movement repeats without end) |
 | LEDGER | 1, 2, 4, 5 | `ledger-step.ts`, `ledger-shot.ts`, `ledger-hand.ts` |
 | MANTLE | 4, 5, 10 | `mantle-step.ts`, `mantle-story.ts`, `mantle-hand.ts` |

@@ -91,8 +91,8 @@ export function drawOnShip(
   // And THE GOVERNOR's: the hub lighting is a thud through the plating, the
   // governor flying apart for good a harder one (`governor-fx.ts`, §43).
   held.effects.boss.governor.shock.draw(ctx, l, surfaceY, view.time);
-  // And THE LAMPREY's: the sucker slamming on, a full bite tearing at it,
-  // and the eel spent and falling away (`lamprey-fx.ts`, §41).
+  // And THE LAMPREY's: a bite gone through to the hull, and the eel spent
+  // and falling away (`lamprey-fx.ts`, §41).
   held.effects.boss.lamprey.shock.draw(ctx, l, surfaceY, view.time);
   // And THE MIMIC's: the mottle slapping into shape, and its fall, spent
   // (`mimic-fx.ts`, §42).
