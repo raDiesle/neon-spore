@@ -2223,6 +2223,7 @@ by hand never moves.
 | `packages/render/src/ledger-read.ts` | **What is written about the cord, and which seat is shown it** — *his clock, her column* |
 | `packages/render/src/ledger-root.ts` | **The navigator's half of THE LEDGER, on the finished ship** |
 | `packages/render/src/ledger-shape.ts` | **Where THE LEDGER is**, in field pixels: the two halves of the body, the cord between it and the hull |
+| `packages/render/src/ledger-stop.ts` | **Where a bolt meets THE LEDGER**, for `BoltStops` (`bolt-stop.ts`): the halves' underside and the seam's mouth |
 | `packages/render/src/ledger-grip.ts` | **The navigator's two hands on THE LEDGER's root**: the foot of the cord while it is still paying out |
 | `packages/render/src/ledger-haul.ts` | **The pilot's carry on the taut cord** |
 | `packages/render/src/ledger-pull.ts` | **The pilot's two hands on THE LEDGER's cord**: his thumb on the soonest return |
@@ -2234,6 +2235,7 @@ by hand never moves.
 | `packages/render/src/lead-fx.ts` | What THE LEAD leaves behind a frame: the spring the lean rides, the whip, the tumbling bead, the bursts |
 | `packages/render/src/lead-flesh.ts` | **What THE LEAD is made of**, the living part |
 | `packages/render/src/lead-shape.ts` | Where THE LEAD is in field pixels: the ridge, the foot, the stalk's length and the angle each seat is asked for |
+| `packages/render/src/lead-stop.ts` | **Where a bolt meets THE LEAD**, for `BoltStops` (`bolt-stop.ts`): the ridge's underside |
 | `packages/render/src/lead-grip.ts` | **THE LEAD's stalk as a control**, for the one movement that asks a thumb for it: the still |
 | `packages/render/src/lead-word.ts` | **What THE LEAD is asking of the navigator's thumb while it stands still** |
 | `packages/render/src/lead-rock.ts` | **THE LEAD's ridge**: dark rock, lit along its top edge and gone to the deep under it |

@@ -14,14 +14,16 @@ import { PALETTE } from "./palette.js";
  * and what it meets there (`aim`), and `drawBullets` draws no bolt above that
  * line — bursting it once, the first frame it reaches it.
  *
- * Three meetings, and two pictures. `target` is the part the step asks for, in
- * the colour it asks: a burst in the bolt's colour and a ring opening round
+ * Four meetings, and three pictures. `target` is the part the step asks for,
+ * in the colour it asks: a burst in the bolt's colour and a ring opening round
  * it. `wrong` — the right part in the wrong colour, or a part that is not
  * asked for — and `body`, the shell itself, are a scuff of grey grit and
  * nothing more: the owner's "some damage visual but without any effect on the
- * boss".
+ * boss". `pass` is a bolt the boss takes on and draws itself from there —
+ * THE LEAD's flight, climbing out of the ridge (`lead-stop.ts`) — so it ends
+ * with no burst at all.
  */
-export type BoltHit = "target" | "wrong" | "body";
+export type BoltHit = "target" | "wrong" | "body" | "pass";
 
 export interface BoltStop {
   /** Screen y the bolt's head stops at. */
@@ -81,7 +83,8 @@ export class BoltStops {
     if (stop.hit === "target") {
       this.flashes.push({ x, y: stop.y, n: TARGET_SPARKS, hex });
       this.rings.push({ x, y: stop.y, hex, age: 0 });
-    } else this.flashes.push({ x, y: stop.y, n: SCUFF_SPARKS, hex: PALETTE.rock });
+    } else if (stop.hit !== "pass")
+      this.flashes.push({ x, y: stop.y, n: SCUFF_SPARKS, hex: PALETTE.rock });
     return true;
   }
 

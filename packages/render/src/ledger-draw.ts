@@ -1,4 +1,5 @@
 import { type LedgerState, ledgerPhase, type World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
@@ -20,6 +21,7 @@ import {
   ledgerSocketPoint,
   ledgerTaut,
 } from "./ledger-shape.js";
+import { ledgerStopper } from "./ledger-stop.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { showsLedgerSocket } from "./view-role-clocks.js";
 
@@ -114,6 +116,7 @@ export function drawLedger(
   beatPhase: number,
   time: number,
   fx: LedgerFx,
+  stops?: BoltStops,
 ): void {
   if (l.tile <= 0) return;
   const { cfg } = world;
@@ -131,6 +134,8 @@ export function drawLedger(
     ? Math.max(0, 1 - (beat - t.outBeat + beatPhase) / Math.max(1, cfg.ledgerOutBeats))
     : 1;
   if (fade <= 0) return;
+  const shake = fx.hurt.shakeX(time, l.tile);
+  stops?.aim(ledgerStopper(l, world, t, seamX, gap, shake, time));
 
   ctx.save();
   ctx.globalAlpha = fade;
@@ -153,7 +158,7 @@ export function drawLedger(
   // The blow of a widened seam shakes the halves and not the cord: its foot
   // is in the ship's plating, and the plating does not shake.
   ctx.save();
-  ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
+  ctx.translate(shake, 0);
   drawHalf(ctx, l, seamX, -1, gap, time, hex, lit, fx.hurt.value);
   drawHalf(ctx, l, seamX, 1, gap, time, hex, lit, fx.hurt.value);
   // And what is between them, once there is anything between them: the split

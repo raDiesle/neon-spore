@@ -1,4 +1,5 @@
 import { type LeadState, leadStill, type SimConfig, type World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
@@ -16,6 +17,7 @@ import {
   leadStalkLength,
   type Point,
 } from "./lead-shape.js";
+import { leadStopper } from "./lead-stop.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawContact } from "./solid-haze.js";
 import { drawTargetLock } from "./target-lock.js";
@@ -53,11 +55,13 @@ export function drawLead(
   beatPhase: number,
   time: number,
   fx: LeadFx,
+  stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
   const outBeats = Math.max(1, cfg.leadOutBeats);
   const fade = s.downBeat >= 0 ? Math.max(0, 1 - (beat - s.downBeat + beatPhase) / outBeats) : 1;
   if (fade <= 0) return;
+  stops?.aim(leadStopper(l, world, time));
   const foot = leadFoot(l, cfg, s);
   const placed = showsLeadCol(l.role);
   const still = leadStill(s);

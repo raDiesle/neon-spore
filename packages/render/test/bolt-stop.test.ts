@@ -65,6 +65,15 @@ describe("BoltStops", () => {
     expect(scuff?.[0] ?? 0).toBeLessThan(good?.[0] ?? 0);
   });
 
+  it("ends a bolt the boss takes on with no burst, and keeps it hidden", () => {
+    const stops = new BoltStops();
+    aimed(stops, "pass");
+    expect(stops.stopped(bolt(1), 50, 90, PALETTE.cyan)).toBe(true);
+    stops.end([bolt(1)]);
+    expect(bursts(stops)).toHaveLength(0);
+    expect(stops.stopped(bolt(1), 50, 40, PALETTE.cyan)).toBe(true);
+  });
+
   it("stops nothing when no boss has aimed it this frame", () => {
     const stops = new BoltStops();
     aimed(stops, "target");

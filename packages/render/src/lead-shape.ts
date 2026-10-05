@@ -99,18 +99,34 @@ export function leadAlong(foot: Point, angle: number, along: number): Point {
   return { x: foot.x + Math.sin(angle) * along, y: foot.y - Math.cos(angle) * along };
 }
 
-/** The ridge, left to right, as a closed shape: a flat top the stalk stands on and a slow swell along its underside. */
-export function leadRidgePath(l: Layout, cfg: SimConfig, time: number): Path2D {
+/**
+ * The ridge, left to right, as the corners of a closed shape: a flat top the
+ * stalk stands on and a slow swell along its underside, right to left. The
+ * path is drawn through them (`leadRidgePath`) and a bolt stops on them
+ * (`lead-stop.ts`).
+ */
+export function leadRidgePoints(l: Layout, cfg: SimConfig, time: number): Point[] {
   const { top, bottom } = leadRidgeY(l, cfg);
   const left = l.gridLeft;
   const right = l.gridLeft + l.cols * l.tile;
-  const p = new Path2D();
-  p.moveTo(left, top);
-  p.lineTo(right, top);
+  const pts: Point[] = [
+    { x: left, y: top },
+    { x: right, y: top },
+  ];
   const steps = 10;
   for (let i = steps; i >= 0; i--) {
     const x = left + ((right - left) * i) / steps;
-    p.lineTo(x, bottom + Math.sin(time * 0.6 + i * 0.9) * l.tile * 0.05);
+    pts.push({ x, y: bottom + Math.sin(time * 0.6 + i * 0.9) * l.tile * 0.05 });
+  }
+  return pts;
+}
+
+/** The ridge as a closed shape, through `leadRidgePoints`. */
+export function leadRidgePath(l: Layout, cfg: SimConfig, time: number): Path2D {
+  const p = new Path2D();
+  for (const [i, pt] of leadRidgePoints(l, cfg, time).entries()) {
+    if (i === 0) p.moveTo(pt.x, pt.y);
+    else p.lineTo(pt.x, pt.y);
   }
   p.closePath();
   return p;

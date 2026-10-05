@@ -33309,3 +33309,13 @@ Bottleneck: the core's bare frame cannot be taken under AUTO, which taps it on t
 Bottleneck: the first frame put the knob under the yoke, and seeing it cost a second round of frames.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE LEAD and LEDGER stop a bolt on what they meet
+
+- reading: 5 min. The queue entry re-claimed after it was given back, `lead-draw.ts`, `lead-shape.ts`, `ledger-draw.ts`, `ledger-shape.ts` and the stopper feet.
+- writing: 5 min. `lead-stop.ts`, `ledger-stop.ts`, `pass` in `bolt-stop.ts`, the shared ridge and half points, the two rows in `own-stop.test.ts`.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: THE LEAD's flight needed a meeting with no burst, which `BoltStops` did not have, and the test's bound assumed a body above the top row — THE LEDGER hangs into it, and THE LEAD's ridge comes down into it on a short stage.

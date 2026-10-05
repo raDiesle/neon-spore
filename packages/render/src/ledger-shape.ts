@@ -105,11 +105,22 @@ export function ledgerHalfPath(
   gap: number,
   time: number,
 ): Path2D {
+  return splinePath(ledgerHalfPoints(l, seamX, side, gap, time), true);
+}
+
+/** The points `ledgerHalfPath` is drawn through, for a bolt to stop on (`ledger-stop.ts`). */
+export function ledgerHalfPoints(
+  l: Layout,
+  seamX: number,
+  side: -1 | 1,
+  gap: number,
+  time: number,
+): Point[] {
   const { top, bottom, mid, ry } = ledgerBodyY(l);
   const inner = seamX + side * gap * 0.5;
   const w = l.tile * HALF_W;
   const breathe = 1 + 0.04 * Math.sin(time * 1.1 + (side > 0 ? 1.7 : 0));
-  const pts: Point[] = [
+  return [
     { x: inner, y: top },
     { x: inner + side * w * 0.72 * breathe, y: top + ry * 0.28 },
     { x: inner + side * w * breathe, y: mid - ry * 0.22 },
@@ -118,7 +129,6 @@ export function ledgerHalfPath(
     { x: inner + side * w * 0.3, y: bottom },
     { x: inner, y: bottom },
   ];
-  return splinePath(pts, true);
 }
 
 /**

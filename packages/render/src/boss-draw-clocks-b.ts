@@ -89,7 +89,7 @@ export function drawFxBoss(
   // outlives a frame — the whip back up the cord, the shock through the hull,
   // the flash of the tear — is `effects.boss.ledger` (`ledger-fx.ts`).
   if (boss.kind === "ledger") {
-    drawLedger(ctx, l, world, boss, beat, beatPhase, time, effects.boss.ledger);
+    drawLedger(ctx, l, world, boss, beat, beatPhase, time, effects.boss.ledger, effects.bolts);
     return;
   }
 
@@ -113,7 +113,7 @@ export function drawFxBoss(
   // the spring the lean rides, the whip, the bead that tumbles off — is
   // `effects.boss.lead` (`lead-draw.ts`, `lead-fx.ts`).
   if (boss.kind === "lead") {
-    drawLead(ctx, l, world, boss, beat, beatPhase, time, effects.boss.lead);
+    drawLead(ctx, l, world, boss, beat, beatPhase, time, effects.boss.lead, effects.bolts);
     // The ring on the stalk's organ, over the body rather than inside it: the
     // one movement of this fight a thumb may reach into, and the navigator's
     // alone (`lead-grip.ts`). It draws nothing outside the still.

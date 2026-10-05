@@ -328,56 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE ANTIPHON, HIVE, LEAD and LEDGER stop a bolt on what it meets
-
-- **Found:** 2026-10-02, claude/queue-every-other-boss-a-bolt-strikes-held-to-the-lit
-- **Taken:** 2026-10-05, claude/queue-the-antiphon-hive-lead-and-ledger-stop-a-bolt-on
-- **Where:** local
-- **Files:** `packages/render/src/boss-draw-clocks-b.ts`, `packages/render/src/core-stop.ts`, `packages/render/test/core-stop-rows.ts`
-
-The owner, 1 October 2026, on THE SEAM *but also all other bosses*: the part
-the cannon must hit is lit in its colour and beats like a heart, the bolt has a
-clear path to it, and a bolt stops on whatever it meets — bursting on the right
-part, scuffing anywhere else and doing nothing. The rule is the last bullet of
-`.claude/skills/new-boss/generic.md`. THE SEAM and the eleven bosses whose
-shot is `coreVerdict` keep it (`render/core-stop.ts`, `render/*-stop.ts`).
-
-Each boss needs its shot's judgement pulled out of its `…Struck` into a pure
-`…Verdict(world, col, color)` the `…Struck` then acts on, as
-`sim/seam-shot.ts`'s `seamVerdict` was; then a `…-stop.ts` handing
-`BoltStops` (`render/bolt-stop.ts`) where a bolt in each column meets the
-picture — `coreStopper` with the core's near rim and the body's `Foot` where
-the shot is one part, a stopper of its own (`render/seam-stop.ts`) where it
-is not. The feet are `roundFoot`, `outlineFoot` over the points a shape file
-hands out beside its path (`capstanBodyPoints`) and `rodFoot`. The drawer
-takes `stops?: BoltStops` last and calls `stops?.aim(...)`; its dispatcher
-passes `effects.bolts`. A row goes in `render/test/core-stop-rows.ts` (its
-harness in `render/test/<boss>-harness.ts`). A target the bolt must be drawn
-through some other part of the body to reach is a look: say so in the
-stopper and leave it for VERSUS, as `flue-stop.ts` does.
-
-Their verdicts are done, each its shot asked rather than acted on:
-`antiphonVerdict`, `hiveVerdict` and `ledgerVerdict` in `CoreVerdict`'s four
-words, and `leadVerdict`, whose `"flight"` is a bolt put in the air to be
-judged later and stopped by nothing now. `sim/test/shot-verdict.test.ts`
-holds each to its shot. None of the four is a core over the middle column,
-so each stopper is its own (`render/seam-stop.ts`'s way), and its rows will
-not fit `core-stop-rows.ts`' core-in-the-middle checks.
-
-All four are drawn from `boss-draw-clocks-b.ts`, which page a lane passing
-each drawer `effects.bolts` edits; THE INSTAR, NETTLE, SCUTTLE and STARE are
-the other lane on that page. Every drawer here is past 225 lines.
-
-THE ANTIPHON and HIVE stop a bolt (`render/antiphon-stop.ts`,
-`render/hive-stop.ts`), held by `render/test/own-stop.test.ts`, which runs
-each fight and checks every screen and column against its verdict. Both hang
-above the top row, within the half tile a drawn bolt climbs past it. What is
-left is THE LEAD — whose `"flight"` stops nothing, so only the plating in its
-own column does — and THE LEDGER; each gets its row in `own-stop.test.ts`.
-
-Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
-`own-stop.test.ts`, and `bun run check` is green.
-
 ## THE HASP's wheel turns with THE MAZE's knob, lever and channel
 
 - **Found:** 2026-10-05, claude/gimbal-turn-controls-aa1635
@@ -422,3 +372,16 @@ tongue's `TWIST` (`boss-cue-read-w.ts`) is the same question. Read both
 first: a band or tongue that is not turned round a centre is not this entry's
 and is struck from it. Done when every turned control in the round draws
 THE MAZE's knob and `bun run check` is green.
+
+## Split ledger-shape.ts before it passes 250 lines
+
+- **Found:** 2026-10-05, claude/queue-the-antiphon-hive-lead-and-ledger-stop-a-bolt-on
+- **Files:** `packages/render/src/ledger-shape.ts`
+
+`ledger-shape.ts` is at 249 lines, since `ledgerHalfPoints` was shared out
+of `ledgerHalfPath` so THE LEDGER's bolt stopper (`ledger-stop.ts`) stands on
+the same points the halves are drawn through. The cord's geometry —
+`ledgerSocketPoint`, `ledgerRootCircle`, `ledgerRootPoint`, `ledgerTaut`,
+`ledgerCordAt`, `ledgerBeadU` — is a whole of its own and can go to a
+`ledger-cord-shape.ts`, re-exported or with its importers moved. Nothing
+drawn changes; `bun run check` proves it.
