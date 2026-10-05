@@ -33177,3 +33177,13 @@ Bottleneck: none — the bearing came down to the arm's row long ago, so a bolt 
 Bottleneck: THE HALTER — its chord is one seat's two grips while the other rests, so "both seats" had to mean the partner body's seat, not always the other one.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-05 — bosses-choreographed.md's contents and ledger tell the truth
+
+- reading: 5 min. Each row against `git log --grep` and the files in `packages/*/src`.
+- writing: 5 min. The contents re-sorted by state, the ledger's stale *queued* clauses, the section bodies, two queue entries.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: THE TRIVET — its row 11 had been marked done in the queue with nothing written, so the one honest answer was to put it back rather than tidy the sentence.

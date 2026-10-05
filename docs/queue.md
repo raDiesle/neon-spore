@@ -378,34 +378,6 @@ own column does — and THE LEDGER; each gets its row in `own-stop.test.ts`.
 Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 `own-stop.test.ts`, and `bun run check` is green.
 
-## bosses-choreographed.md's contents and ledger say built bosses are unbuilt
-
-- **Found:** 2026-10-03, claude/antiphon-explanation-german-eb9d7c
-- **Taken:** 2026-10-05, claude/queue-tasks-status-bb9750 (claim: claude/queue-bosses-choreographed-mds-contents-and-ledger-say)
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-Asked which bosses still have designed work unbuilt, the page answered
-wrongly in two places. Its *Contents* puts §17 to §43 under **Not built —
-written and nobody has started it**, though every one of them has landed at
-least its simulation (§19 THE BELLOWS was built and retired), and its
-**Still in hand — the look is not written** list repeats most of them with
-looks the same lines call done, THE INSTAR among them. The ledger rows are
-behind the tree too: §23 THE MANTLE, §25 THE VALVE and §26 THE SEAM say
-*half two, the hands, is queued*, §39 THE BURGEE *the touch, the cue and
-AUTO queued*, §43 THE GOVERNOR *the receipts queued*, §35 THE DAVIT *still no
-autopilot hand* and §18 THE GIMBAL *lane two open* — yet
-a `boss-hands-<boss>.ts` for each of the six in `packages/hands/src`,
-`render/src/governor-receipts.ts` and the `gimbal-*` look all exist, and
-`docs/queue.md` holds no entry for any of them.
-
-Read each row against the tree and `git log --grep`, move every concept to
-the contents heading that is true of it — built, built but for a named
-departure, retired — and cut the *queued* clauses that nothing is queued
-for, keeping each departure argued in `bosses.md` named as a departure.
-Done when no row or contents line says *queued* or *not built* of a part
-the tree has, and `bun run check` is green (`tools/test/doc-drift.test.ts`
-reads the backticked paths).
-
 ## `sim/boss-surface-clocks-e.ts` is near its line ceiling
 
 - **Found:** 2026-10-03, claude/queue-work-cccabd
@@ -460,3 +432,33 @@ lit grips) wears THE INSTAR's `HOLD BOTH` ring and fill, by calling
 (`instar-marks.ts` `INSTAR_WORDS`), never a drawing of its own. A phone's
 screen is unchanged. A look the owner asked for by name; frames in
 `frame.test.ts`, and one PNG of THE GRINDSTONE on TEST to the owner.
+
+## §30 THE TRIVET — row 11's ring, the simulation
+
+- **Found:** 2026-10-05, claude/queue-bosses-choreographed-mds-contents-and-ledger-say
+- **Files:** `packages/sim/src/trivet-step.ts`, `packages/sim/src/trivet.ts`, `packages/sim/src/config-trivet.ts`, `docs/spec/bosses.md`
+
+`docs/spec/bosses-choreographed.md` §30 row 11, written 26 September 2026 at
+the owner's request (`e9d4a08ae`): after the third hit the planted feet ring
+loose under the spent hub, and both seats must send nothing for three beats; a
+reflex chord jolts a foot loose and costs one more beat. Its simulation lane
+was closed the same day (`16e41db11`) with nothing written — there is no ring
+phase in `TRIVET_PHASES` and no file for it. THE GRINDSTONE's fade
+(`sim/grindstone-fade.ts`), THE SLING's cool and THE PLUMB's bleed are the same
+shape and the model: a phase opened under THE SLOW when the script is done, a
+reflex counted at most a named number of times, its tunables in
+`config-trivet.ts`, a row in the hash and the replay tests, and a paragraph in
+`bosses.md` §11.47. Done when the ring plays out in a test and
+`bun run check` is green.
+
+## §30 THE TRIVET — row 11's ring, the look
+
+- **Found:** 2026-10-05, claude/queue-bosses-choreographed-mds-contents-and-ledger-say
+- **Where:** local
+- **Files:** `packages/render/src/trivet-draw.ts`, `packages/render/src/trivet-fx.ts`
+- **Needs:** §30 THE TRIVET — row 11's ring, the simulation
+
+The sixth pose §30 names: the feet ringing under the spent hub, unheld, and a
+jolted foot springing loose and settling again — drawn the way THE
+GRINDSTONE's fade (`b2d2f51a7`) and THE SLING's cool (`67506b8fb`) were, a
+frame in `frame.test.ts`. A look with no shipped alternative.
