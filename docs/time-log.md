@@ -33513,3 +33513,13 @@ Bottleneck: the margin — a bolt met on the bead's far rim was taken off the fi
 Bottleneck: none to speak of — the fx already burst and shook on the hit, so only the moment moved.
 
 *Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-05 — Ten more bosses take a hit where the bolt meets their core
+
+- reading: 5 min. Each boss's target row in its shape file, which of them move, which hang aside.
+- writing: 5 min. Ten rows on the table, the rows shared with the pictures, one test that plays every boss on it.
+- looking: 0 min. One frame, THE GOVERNOR on the tick of its hit.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: sorting — telling the eleven cores that hang still from the thirteen targets that move or hang aside, which the table cannot hold.

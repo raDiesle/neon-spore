@@ -1,4 +1,4 @@
-import { midCol, type SimConfig } from "@neon-spore/sim";
+import { coreRowMilli, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { rimeFacetPath } from "./rime-shape.js";
@@ -29,7 +29,7 @@ export interface Point {
 }
 
 /** The flue's middle, in tiles below the grid's top. */
-const ROW = 2.4;
+const ROW = coreRowMilli("flue") / 1000 + 0.5;
 /** The units, the middle one the damper, the tiles between their middles and their radius. */
 export const FLUE_UNITS = 7;
 export const FLUE_DAMPER = 3;

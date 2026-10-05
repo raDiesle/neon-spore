@@ -1,5 +1,5 @@
 import { blobRadiusMul, type Point } from "@neon-spore/content";
-import { GALL_POINTS, gallPointCol, midCol, type SimConfig } from "@neon-spore/sim";
+import { coreRowMilli, GALL_POINTS, gallPointCol, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -23,7 +23,7 @@ import { splinePath } from "./spline.js";
  */
 
 /** The row the seam runs along, in tiles below the grid's top. */
-const ROW = 3.4;
+const ROW = coreRowMilli("gall") / 1000 + 0.5;
 /** THE NEEDLE's bend, and how far it reaches, in tiles, at a bend of one. */
 const NEEDLE_BEND = 0.16;
 const REACH = 1.2;

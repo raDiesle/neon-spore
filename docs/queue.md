@@ -357,3 +357,53 @@ the caliper standing over it (THE HOOD's arc, the two jaws, their pads, the
 crown bolt). Move the caliper's constants and paths to a file of their own
 beside it and re-export nothing — the drawers import each from where it now
 lives.
+
+## THE MANTLE's and THE VALVE's moving sparks are judged at the field's top
+
+- **Found:** 2026-10-05, claude/cores-met-where-they-hang
+- **Files:** `packages/sim/src/mantle-shot.ts`, `packages/sim/src/valve-shot.ts`, `packages/sim/src/gimbal-bead.ts`, `packages/sim/src/boss-along.ts`, `packages/render/test/core-met.test.ts`
+
+The owner asked on 5 October 2026 for a hit to take effect the moment the bolt
+meets what it hits, not when it leaves the field. Eleven bosses whose target
+hangs on a fixed row do now (`core-along.ts`), and THE GIMBAL's moving bead does
+(`gimbal-bead.ts`, met in `boss-along.ts`). The mantle's and the valve's targets
+are sparks that travel, so they cannot go on the fixed-row table. Do what the
+gimbal does: write a `*SparkMilli(world, s, tick)` that both the sim and the
+picture read, meet it in `boss-along.ts` by the gap closing between ticks, and
+put the event's row on it so the burst lands where the hit was. Then add both
+kinds to the `it.each` in `core-met.test.ts`.
+
+## THE RATCHET's and THE HASP's moving bolts are judged at the top of the field
+
+- **Found:** 2026-10-05, claude/cores-met-where-they-hang
+- **Files:** `packages/sim/src/ratchet-shot.ts`, `packages/sim/src/hasp-shot.ts`, `packages/sim/src/boss-along.ts`, `packages/render/test/core-met.test.ts`
+
+This is the same as the mantle's entry above, for a target that rides the rig.
+THE GIMBAL's lane (`gimbal-bead.ts`) is the pattern: one function for the
+target's row at a tick, read by both sides, and the meet found by the gap
+closing between ticks.
+
+## THE KEEL, THE CYST and THE VISE: an aside target is judged at the field's top
+
+- **Found:** 2026-10-05, claude/cores-met-where-they-hang
+- **Files:** `packages/sim/src/keel-shot.ts`, `packages/sim/src/cyst-shot.ts`, `packages/sim/src/vise-shot.ts`, `packages/sim/src/core-along.ts`, `packages/render/test/core-met.test.ts`
+
+`core-along.ts` meets a core only in the middle column. These three hang their
+target in a column of its own, or in one that moves. Give a `CORES` row a column
+as well as a row, as a function of the world rather than `midCol`, and check
+that the picture's stopper reads the same row. Then add all three to
+`core-met.test.ts`.
+
+## Six more shot bosses' targets are judged at the field's top
+
+- **Found:** 2026-10-05, claude/cores-met-where-they-hang
+- **Files:** `packages/sim/src/oculus-shot.ts`, `packages/sim/src/taster-shot.ts`, `packages/sim/src/scuttle-shot.ts`, `packages/sim/src/curtain-shot.ts`, `packages/sim/src/stare-shot.ts`, `packages/sim/src/plumb-shot.ts`, `packages/sim/src/core-along.ts`
+
+Oculus, taster, scuttle, curtain, stare and plumb still judge a bolt when it leaves the field:
+- **Oculus, taster and scuttle:** a target in every column, each on its own row.
+- **Curtain:** the core's row is in `SimConfig`.
+- **Stare and plumb:** the target hangs at or above row 0, so the gain is small.
+
+Take them after the entry above has given a core a column. If plumb's gain
+measures under two ticks, take it off this list and say so in that lane's
+report.

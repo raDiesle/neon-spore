@@ -1,4 +1,4 @@
-import { midCol, type SimConfig } from "@neon-spore/sim";
+import { coreRowMilli, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -21,7 +21,7 @@ export interface Point {
 }
 
 /** The row the crotch sits at, in tiles below the grid's top. */
-const ROW = 2.3;
+const ROW = coreRowMilli("sling") / 1000 + 0.5;
 /** How far a tine's tip stands from the crotch, and how steep it rises. */
 const TINE_LEN = 1.05;
 const TINE_SPLAY = 0.62;

@@ -1,5 +1,5 @@
 import { rootedContour } from "@neon-spore/content";
-import { midCol, type SimConfig } from "@neon-spore/sim";
+import { coreRowMilli, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -36,7 +36,7 @@ export interface Point {
 export type TrivetLeg = 0 | 1 | 2;
 
 /** The row the hub stands at, in tiles below the grid's top. */
-const ROW = 2.2;
+const ROW = coreRowMilli("trivet") / 1000 + 0.5;
 /** SINKER at its own numbers; its 30-wide body is scaled to `HUB` tiles. */
 const HUB_FORM = rootedContour({ rx: 30, ry: 28, roots: 8, reach: 1, drift: 0.2, period: 6 })(0);
 const HUB_RX = 30;

@@ -1,4 +1,4 @@
-import { midCol, type SimConfig } from "@neon-spore/sim";
+import { coreRowMilli, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -26,7 +26,7 @@ export interface Point {
 }
 
 /** The row the mast's foot sits at, in tiles below the grid's top. */
-const ROW = 1.6;
+const ROW = coreRowMilli("davit") / 1000 + 0.5;
 /** How long the boom stands, mast to tip. */
 const BOOM_LEN = 1.9;
 /** How far the chain hangs from the tip when it sags all the way home. */

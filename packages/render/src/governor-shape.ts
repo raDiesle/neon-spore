@@ -1,4 +1,4 @@
-import { midCol, type SimConfig } from "@neon-spore/sim";
+import { coreRowMilli, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 
@@ -36,7 +36,7 @@ export interface Dial {
 }
 
 /** The dial's middle, in tiles below the grid's top, and its radius in tiles. */
-const ROW = 6.4;
+const ROW = coreRowMilli("governor") / 1000 + 0.5;
 const RADIUS = 2.45;
 /** The graduated track, as fractions of the radius, and the needle's reach. */
 export const TRACK_IN = 0.74;

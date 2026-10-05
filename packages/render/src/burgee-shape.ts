@@ -1,5 +1,5 @@
 import { blobRadiusMul } from "@neon-spore/content";
-import { midCol, type SimConfig } from "@neon-spore/sim";
+import { coreRowMilli, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -32,7 +32,7 @@ export interface Point {
 }
 
 /** The spindle's middle, in tiles below the grid's top. */
-const SPINDLE_ROW = 1.05;
+const SPINDLE_ROW = coreRowMilli("burgee") / 1000 + 0.5;
 /** REVERB stood on end: half its height and half its width, in tiles. */
 const SPINDLE_TALL = 0.62;
 const SPINDLE_WIDE = 0.34;

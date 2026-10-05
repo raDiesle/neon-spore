@@ -1,5 +1,5 @@
 import type { Point } from "@neon-spore/content";
-import { midCol, type SimConfig } from "@neon-spore/sim";
+import { coreRowMilli, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -25,7 +25,7 @@ import { splinePath } from "./spline.js";
  */
 
 /** The row the seam stands at, in tiles below the grid's top. */
-const ROW = 2.6;
+const ROW = coreRowMilli("halter") / 1000 + 0.5;
 /** THE TITHE at its own numbers, its half-width scaled to `HALF_W` tiles. */
 const TITHE = { rx: 124, ry: 30, drop: 9 };
 const HALF_W = 2.8;

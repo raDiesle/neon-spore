@@ -16,6 +16,7 @@
 
 export { burgeeVerdict } from "./burgee-shot.js";
 export { capstanVerdict } from "./capstan-shot.js";
+export { CORE_KINDS, coreRowMilli } from "./core-along.js";
 export type { CoreVerdict } from "./core-verdict.js";
 export { curtainVerdict } from "./curtain-shot.js";
 export { cystVerdict } from "./cyst-shot.js";

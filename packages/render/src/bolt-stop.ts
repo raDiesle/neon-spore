@@ -8,8 +8,11 @@ import { PALETTE } from "./palette.js";
  *
  * A boss hanging over the field is judged by the simulation only where a bolt
  * leaves row 0 (`sim/shot-out.ts`), and every pixel between the cannon and
- * that row was the bolt passing through the boss's body. The judgement stays
- * where it is; this is where the bolt is *drawn* to end. A boss's drawer says
+ * that row was the bolt passing through the boss's body. This is where the
+ * bolt is *drawn* to end; where it is *judged* is the simulation's, and since
+ * 5 October 2026 a core in the middle column is judged where it hangs, a
+ * moment after the burst here (`sim/core-along.ts`, `sim/gimbal-bead.ts`) —
+ * the owner: *took effect immediately it hit the right location*. A boss's drawer says
  * each frame where a bolt in a column, of a colour, first meets its picture
  * and what it meets there (`aim`), and `drawBullets` draws no bolt above that
  * line — bursting it once, the first frame it reaches it.

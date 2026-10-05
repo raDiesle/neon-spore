@@ -1,4 +1,4 @@
-import { midCol, type SimConfig } from "@neon-spore/sim";
+import { coreRowMilli, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -32,7 +32,7 @@ export interface Point {
 }
 
 /** The row the lens stands at, in tiles below the grid's top. */
-const ROW = 2.7;
+const ROW = coreRowMilli("rime") / 1000 + 0.5;
 /** The lens's half-width and half-height, in tiles: PEBBLE's 54 by 50. */
 const RX = 1.4;
 const RY = 1.3;
