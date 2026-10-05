@@ -33463,3 +33463,5 @@ Bottleneck: none; `setBossRound` already took the fight to any level, so the bar
 - landing: 5 min.
 
 Bottleneck: the remeasure — every field frame in six op-count tables moved for one new path.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

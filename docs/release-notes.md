@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 243f88357 — The cannon's column is a gunsight in the cannon's colour
+
+The cannon's aim marker was a cyan wash, and cyan is the shield; it is now the seat's colour, violet on player one's screen and amber on player two's, the same as the cannon. It is also a gunsight now: a wash, edge rails, a lit hairline and a range ladder of ticks, fading out upwards and brightening on the beat. Nothing travels up it, so it is never mistaken for a bolt. The marker is the same for every wave, so this covers every boss as well as THE HIVE.
+
 ## 2026-10-05 · 38743157e — THE ANTIPHON's levels have a stepper in the director's boss panel
 
 The boss panel for THE ANTIPHON is a row of tabs, LEVEL 1 to LEVEL 6 and SHIP, as THE MAZE's stages are: a click stands the field on that level, the pits before it taken and the seats as that level has them, and the tab marked is the level the field is held on. Under the tabs the panel says who explains and who chooses there, read off the simulation's own swap.
