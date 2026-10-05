@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE CLAW's crank turns with THE MAZE's knob, lever and channel
 
 - **Found:** 2026-10-05, claude/gimbal-turn-controls-aa1635
+- **Taken:** 2026-10-05, claude/task-queue-status-907163 (claim: claude/queue-the-claws-crank-turns-with-the-mazes-knob-lever)
 - **Files:** `packages/render/src/crank-dial.ts`, `packages/render/test/pull-way-roll-out.test.ts`
 
 The same ask THE GIMBAL and THE HASP have landed (`gimbal-knob.ts`,
