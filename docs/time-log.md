@@ -33225,3 +33225,13 @@ Bottleneck: the face-on head is drawn a half at a time through a squeeze about t
 Bottleneck: finding the effect — it is only on boss waves, inside the slowed window, and nothing in the code calls it red and green.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE INSTAR's wings, tail and nests stop a bolt
+
+- reading: 5 min. Both wing seats, the tail's curve and blades, the two nest drawers.
+- writing: 5 min. The wing rig, the seats, `tailShape`, `bladePoints`, `nestsAt`/`nestPool` cut out of the drawers, `instar-limb-stop.ts`, two tests.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: every part was laid inside its own drawer — the wing's anchor, the tail's rings, the nests' places — so each had to be cut into a shape the drawer and the stopper both call before a foot could be laid on it.

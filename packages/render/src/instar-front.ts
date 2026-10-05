@@ -4,6 +4,7 @@ import { drawFrontBody, seeFrontBody } from "./instar-front-body.js";
 import { INSTAR_HEAD } from "./instar-head-look.js";
 import { instarFarEnd } from "./instar-place.js";
 import { faded, type Look } from "./instar-plate.js";
+import type { WingSeat } from "./instar-profile.js";
 import { instarNeck, instarTurn } from "./instar-turn.js";
 import { drawWing } from "./instar-wings.js";
 import type { Layout } from "./layout.js";
@@ -34,14 +35,27 @@ export function drawFront(ctx: CanvasRenderingContext2D, l: Layout, look: Look):
   const seen = seeFrontBody(look, neck, instarFarEnd(l, f), turn);
   const end = seen[seen.length - 1];
   if (end) drawEngines(ctx, { x: neck.x + end.c.x, y: neck.y + end.c.y }, r, time, fade);
-  const shoulder = { x: neck.x, y: neck.y + r * 0.05 };
-  const w = view(FRONT - turn, 0, r * WING_LENS);
-  const wing = (s: 1 | -1, dark: number) =>
-    drawWing(ctx, look, shoulder, w, { x: 0, y: 0, z: s * r * 0.55 }, s, dark);
-  wing(-1, FAR_WING);
+  const [far, near] = frontWings(look);
+  drawWing(ctx, look, far.at, far.w, far.hinge, far.side, FAR_WING);
   drawFrontBody(ctx, look, neck, seen);
-  wing(1, 0);
+  drawWing(ctx, look, near.at, near.w, near.hinge, near.side);
   INSTAR_HEAD.front(ctx, look);
+}
+
+/** The two wings face-on, the far one first, off the shoulders behind the
+ * head — as `drawFront` draws them and a bolt meets them (`instar-limb-stop.ts`). */
+export function frontWings(look: Look): [WingSeat, WingSeat] {
+  const { f, head, r } = look;
+  const neck = instarNeck(head, r);
+  const at = { x: neck.x, y: neck.y + r * 0.05 };
+  const w = view(FRONT - instarTurn(f.side), 0, r * WING_LENS);
+  const seat = (side: 1 | -1): WingSeat => ({
+    at,
+    w,
+    hinge: { x: 0, y: 0, z: side * r * 0.55 },
+    side,
+  });
+  return [seat(-1), seat(1)];
 }
 
 /** The two engines at the far end: a steady burn, flickering. */

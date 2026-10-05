@@ -1,7 +1,6 @@
 import { drawBakedEgg } from "./instar-egg-baked.js";
-import { SPOTS, SPOTS_NEST } from "./instar-egg-spots.js";
-import { CLUTCH, NEST } from "./instar-eggs.js";
-import { instarAt, type Point } from "./instar-place.js";
+import { nestPool, nestsAt } from "./instar-nest-place.js";
+import type { Point } from "./instar-place.js";
 import { faded, type Look } from "./instar-plate.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -157,9 +156,7 @@ export const NEST_SPRITE: SpriteSpec = {
 
 /** The two nests, as `drawNests` places them, from the baked silk and eggs. */
 export function drawBakedNests(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
-  const { f } = look;
-  drawNest(ctx, l, look, instarAt(l, f.nestX, f.nestY), Math.round(f.nest * NEST), SPOTS_NEST, 3);
-  drawNest(ctx, l, look, instarAt(l, f.eggsX, f.eggsY), Math.round(f.eggs * CLUTCH), SPOTS, 7);
+  for (const n of nestsAt(l, look)) drawNest(ctx, l, look, n.at, n.n, n.spots, n.seed);
 }
 
 function drawNest(
@@ -175,7 +172,8 @@ function drawNest(
   const { r, time, fade, threat } = look;
   ctx.fillStyle = faded(PALETTE.venom, fade, 0.22);
   ctx.beginPath();
-  ctx.ellipse(at.x, at.y + r * 0.06, r * 0.62, r * 0.09, 0, 0, Math.PI * 2);
+  const pool = nestPool(at, r);
+  ctx.ellipse(pool.x, pool.y, pool.rx, pool.ry, 0, 0, Math.PI * 2);
   ctx.fill();
   const h = r * (TOP + BOTTOM);
   const cy = at.y + ((BOTTOM - TOP) / 2) * r;

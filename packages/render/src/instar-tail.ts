@@ -84,45 +84,8 @@ export function drawTail(
   rear: Point,
   heading: Point = { x: 1, y: 0 },
 ): void {
-  const { f, r, fade, hurt, time, threat } = look;
-  const rest = { x: rear.x + r * 0.9, y: rear.y - r * 1.3 };
-  const aimed = instarAt(l, f.tailX, f.tailY - FORK_RISE);
-  const shiver = r * 0.05 * threat;
-  const fork = toward(rest, aimed, f.tail);
-  fork.x += Math.sin(time * 23) * shiver + Math.sin(time * 1.9) * r * 0.06 * f.tail;
-  fork.y += Math.cos(time * 19) * shiver;
-  const rise = { x: rear.x + r * (0.4 + 0.9 * f.tail), y: rear.y - r * 1.5 };
-  // Carried on along the spine, the root is the body going on rather than a
-  // tube stood up off its end (`INSTAR_BODY.flow`).
-  const on = { x: rear.x + heading.x * r * FLOW_REACH, y: rear.y + heading.y * r * FLOW_REACH };
-  const c1 = toward(rise, on, INSTAR_BODY.flow);
-  const c2 = { x: fork.x + r * (0.4 + 1.2 * f.tail), y: fork.y - r * (0.3 + 0.9 * f.tail) };
-  const at = (u: number): Point => {
-    const v = 1 - u;
-    return {
-      x: v * v * v * rear.x + 3 * v * v * u * c1.x + 3 * v * u * u * c2.x + u * u * u * fork.x,
-      y: v * v * v * rear.y + 3 * v * v * u * c1.y + 3 * v * u * u * c2.y + u * u * u * fork.y,
-    };
-  };
-  const chord = Math.hypot(fork.x - rear.x, fork.y - rear.y) || 1;
-  const across = { x: -(fork.y - rear.y) / chord, y: (fork.x - rear.x) / chord };
-  const sway = (t: number) => breath(t, SWING_PERIOD, 0.35, 11);
-  const lens = r * LENS;
-  const rings: Ring[] = [];
-  for (let i = 0; i <= N; i++) {
-    const u = i / N;
-    const p = at(u);
-    const side = chainAt(sway, time, i, SWING_LAG, SWING_GROW) * SWING_ACROSS * r * 4 * u * (1 - u);
-    const z =
-      chainAt(sway, time - SWING_PERIOD / 4, i, SWING_LAG, SWING_GROW) * SWING_DEPTH * r * u;
-    // The lens divided back out of the centre, so the ring lands where the
-    // curve put it and only its girth and its light know how near it is.
-    const s = lens / (lens - z);
-    const x = (p.x - rear.x + across.x * side) / s;
-    const y = (p.y - rear.y + across.y * side) / s;
-    rings.push({ c: { x, y, z }, r: r * INSTAR_BODY.tail(u) });
-  }
-  const seen = seeTube(rings, tubeFrames(rings), lensView(lens));
+  const { r, fade, hurt } = look;
+  const { seen, fork, blades } = tailShape(l, look, rear, heading);
   const left: Point[] = [];
   const right: Point[] = [];
   const spikes: [Point, Point, number, number][] = [];
@@ -175,12 +138,66 @@ export function drawTail(
     }
   }
   ctx.restore();
-  for (const s of [-1, 1]) {
+  for (const b of blades) drawBlade(ctx, fork, b.tip, b.s, look);
+}
+
+/**
+ * The tail as `drawTail` lays it this frame: its tube's rings seen, about
+ * `rear`, and the fork with the tip of each blade off it — what it paints, and
+ * what a bolt meets (`instar-limb-stop.ts`).
+ */
+export function tailShape(
+  l: Layout,
+  look: Look,
+  rear: Point,
+  heading: Point = { x: 1, y: 0 },
+): { seen: SeenRing[]; fork: Point; blades: { tip: Point; s: 1 | -1 }[] } {
+  const { f, r, time, threat } = look;
+  const rest = { x: rear.x + r * 0.9, y: rear.y - r * 1.3 };
+  const aimed = instarAt(l, f.tailX, f.tailY - FORK_RISE);
+  const shiver = r * 0.05 * threat;
+  const fork = toward(rest, aimed, f.tail);
+  fork.x += Math.sin(time * 23) * shiver + Math.sin(time * 1.9) * r * 0.06 * f.tail;
+  fork.y += Math.cos(time * 19) * shiver;
+  const rise = { x: rear.x + r * (0.4 + 0.9 * f.tail), y: rear.y - r * 1.5 };
+  // Carried on along the spine, the root is the body going on rather than a
+  // tube stood up off its end (`INSTAR_BODY.flow`).
+  const on = { x: rear.x + heading.x * r * FLOW_REACH, y: rear.y + heading.y * r * FLOW_REACH };
+  const c1 = toward(rise, on, INSTAR_BODY.flow);
+  const c2 = { x: fork.x + r * (0.4 + 1.2 * f.tail), y: fork.y - r * (0.3 + 0.9 * f.tail) };
+  const at = (u: number): Point => {
+    const v = 1 - u;
+    return {
+      x: v * v * v * rear.x + 3 * v * v * u * c1.x + 3 * v * u * u * c2.x + u * u * u * fork.x,
+      y: v * v * v * rear.y + 3 * v * v * u * c1.y + 3 * v * u * u * c2.y + u * u * u * fork.y,
+    };
+  };
+  const chord = Math.hypot(fork.x - rear.x, fork.y - rear.y) || 1;
+  const across = { x: -(fork.y - rear.y) / chord, y: (fork.x - rear.x) / chord };
+  const sway = (t: number) => breath(t, SWING_PERIOD, 0.35, 11);
+  const lens = r * LENS;
+  const rings: Ring[] = [];
+  for (let i = 0; i <= N; i++) {
+    const u = i / N;
+    const p = at(u);
+    const side = chainAt(sway, time, i, SWING_LAG, SWING_GROW) * SWING_ACROSS * r * 4 * u * (1 - u);
+    const z =
+      chainAt(sway, time - SWING_PERIOD / 4, i, SWING_LAG, SWING_GROW) * SWING_DEPTH * r * u;
+    // The lens divided back out of the centre, so the ring lands where the
+    // curve put it and only its girth and its light know how near it is.
+    const s = lens / (lens - z);
+    const x = (p.x - rear.x + across.x * side) / s;
+    const y = (p.y - rear.y + across.y * side) / s;
+    rings.push({ c: { x, y, z }, r: r * INSTAR_BODY.tail(u) });
+  }
+  const seen = seeTube(rings, tubeFrames(rings), lensView(lens));
+  const blades = ([-1, 1] as const).map((s) => {
     const tip = instarAt(l, f.tailX + s * BLADE_SPREAD, f.tailY);
     const reach = { x: tip.x - aimed.x, y: tip.y - aimed.y };
     const k = 0.35 + 0.65 * f.tail;
-    drawBlade(ctx, fork, { x: fork.x + reach.x * k, y: fork.y + reach.y * k }, s, look);
-  }
+    return { tip: { x: fork.x + reach.x * k, y: fork.y + reach.y * k }, s };
+  });
+  return { seen, fork, blades };
 }
 
 /** The tail's rings from `from` to before `to`: a dark groove across it every

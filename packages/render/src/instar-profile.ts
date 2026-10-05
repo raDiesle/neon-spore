@@ -1,4 +1,4 @@
-import { SIDE, view } from "@neon-spore/content";
+import { SIDE, type Vec3, type View, view } from "@neon-spore/content";
 import { drawHurt } from "./boss-hurt.js";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
@@ -126,9 +126,8 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, still: Loo
   const look = swimLook(l, still);
   const { head, r, fade, hurt, time } = look;
   const back = (u: number): Point => top[Math.round(u * N)] ?? rear;
-  const W = view(SIDE);
-  const farRoot = { x: back(0.38).x - r * 0.25, y: back(0.38).y - r * 0.1 };
-  drawWing(ctx, look, farRoot, W, { x: 0, y: 0, z: -r * 0.3 }, -1, 1);
+  const [far, near] = profileWings(top, rear, r);
+  drawWing(ctx, look, far.at, far.w, far.hinge, far.side, 1);
   const flick = 0.75 + 0.25 * Math.sin(time * 21);
   halo(
     ctx,
@@ -167,13 +166,38 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, still: Loo
   rimTube(ctx, hide, PALETTE.sheenRim, r * 0.06, fade);
   drawMoult(ctx, coarse(top), coarse(bottom), look);
   drawTail(ctx, l, look, rear, heading(spine));
-  drawWing(ctx, look, back(0.42), W, { x: 0, y: 0, z: r * 0.3 }, 1);
+  drawWing(ctx, look, near.at, near.w, near.hinge, near.side);
   drawNests(ctx, l, look);
   INSTAR_BODY.head(ctx, { ...look, head: headBob(head, r, time) });
 }
 
+/** Where a wing hangs: its shoulder on the screen, the view it is seen in, its hinge in the rig, its flank. */
+export interface WingSeat {
+  at: Point;
+  w: View;
+  hinge: Vec3;
+  side: 1 | -1;
+}
+
+/** The two wings side-on, the far one first: off the back, as `drawProfile`
+ * draws them and a bolt meets them (`instar-limb-stop.ts`). */
+export function profileWings(top: readonly Point[], rear: Point, r: number): [WingSeat, WingSeat] {
+  const back = (u: number): Point => top[Math.round(u * N)] ?? rear;
+  const w = view(SIDE);
+  const root = back(0.38);
+  return [
+    {
+      at: { x: root.x - r * 0.25, y: root.y - r * 0.1 },
+      w,
+      hinge: { x: 0, y: 0, z: -r * 0.3 },
+      side: -1,
+    },
+    { at: back(0.42), w, hinge: { x: 0, y: 0, z: r * 0.3 }, side: 1 },
+  ];
+}
+
 /** The way the spine runs at its rear, a unit vector. */
-function heading(spine: readonly Point[]): Point {
+export function heading(spine: readonly Point[]): Point {
   const a = spine[N - 2] as Point;
   const b = spine[N] as Point;
   const len = Math.hypot(b.x - a.x, b.y - a.y) || 1;

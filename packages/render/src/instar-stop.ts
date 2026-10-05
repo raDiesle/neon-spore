@@ -4,6 +4,7 @@ import { type Foot, lowestFoot, outlineFoot, roundFoot } from "./core-stop.js";
 import type { Flight } from "./instar-flight.js";
 import { seeFrontBody } from "./instar-front-body.js";
 import { frontHeadFeet, sideHeadFeet } from "./instar-head-stop.js";
+import { frontLimbFeet, profileLimbFeet } from "./instar-limb-stop.js";
 import { instarAt, instarFarEnd, type Point } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
 import { profileLines } from "./instar-profile.js";
@@ -29,17 +30,16 @@ export interface InstarFrame {
  * **Where a bolt meets THE INSTAR**, for `BoltStops` (`bolt-stop.ts`): a
  * SHOOT mark over its column (`scene-stop.ts`, `instarVerdict`), and
  * otherwise the lowest of its body in each view drawn — face-on its seen
- * rings about the neck and its head (`instar-head-stop.ts`), side-on its hide
- * between the back and the belly and its head — each laid through the flight
+ * rings about the neck, its head (`instar-head-stop.ts`) and its wings
+ * (`instar-limb-stop.ts`), side-on its hide between the back and the belly,
+ * its head, its wings, its tail and its nests — each laid through the flight
  * and the shake as `drawInstar` lays them.
  *
  * Some steps plant their marks on the body above the tube's lower edge —
  * the perch's, the bared heart's — so a bolt the simulation says reached
  * one is drawn reaching it up through the tube. That is a look, and it is
  * not fixed here.
- *
- * The wings, the tail and the nests are not met here: a bolt passes them to
- * the tube, the head or the sky. They are their own queue item.
+
  */
 export function instarStopper(
   l: Layout,
@@ -68,12 +68,14 @@ export function instarStopper(
       const at = lay({ x: neck.x + ring.c.x, y: neck.y + ring.c.y });
       feet.push(roundFoot(at.x, at.y, ring.r * Math.abs(kx), ring.r * ky));
     }
-    feet.push(...frontHeadFeet(look, lay));
+    feet.push(...frontHeadFeet(look, lay), ...frontLimbFeet(look, lay));
   }
   if (frame.profile) {
-    const { top, bottom } = profileLines(l, look);
+    const lines = profileLines(l, look);
+    const { top, bottom } = lines;
     feet.push(outlineFoot([...top, ...[...bottom].reverse()].map(lay)));
     feet.push(...sideHeadFeet(l, look, lay));
+    feet.push(...profileLimbFeet(l, look, lines, lay, { x: Math.abs(kx), y: ky }));
   }
   return sceneStopper(l, world, s, sway, beat, beatPhase, instarVerdict, lowestFoot(feet));
 }

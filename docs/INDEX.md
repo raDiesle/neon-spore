@@ -1915,6 +1915,7 @@ by hand never moves.
 | `packages/render/src/instar-word.ts` | **The word over a mark, in a scanner box** — one or two words naming the gesture the ring under it wants |
 | `packages/render/src/instar-wings.ts` | **THE INSTAR's wings**: a bat's, membrane stretched between an arm and three long fingers — and solid |
 | `packages/render/src/instar-wing-baked.ts` | **THE INSTAR's wing membrane, baked** — the fourth example (`sprite-bake.ts`) |
+| `packages/render/src/instar-wing-rig.ts` | **THE INSTAR's wing as a rig**: the flat wing in head radii |
 | `packages/render/src/instar-weak.ts` | **The part to shoot glows red** — eyes, eggs, tail or heart stroked red along its own outline while a shoot mark on it is open |
 | `packages/render/src/instar-together.ts` | **The two clocks a mark lives under**, and the one of them the picture kept to itself |
 | `packages/render/src/instar-track.ts` | **A swipe is drawn as the way the thumb goes, not as a place to press.** The owner, 24 September 2026 |
@@ -1946,9 +1947,11 @@ by hand never moves.
 | `packages/render/src/instar-moult-flesh.ts` | The strokes THE INSTAR's wound tile is painted from, at load (`instar-moult-baked.ts`) |
 | `packages/render/src/instar-moult-wound.ts` | **The edges of THE INSTAR's wound**, drawn every frame |
 | `packages/render/src/instar-nest-baked.ts` | **THE INSTAR's nests, baked** — the second example (`sprite-bake.ts`) |
+| `packages/render/src/instar-nest-place.ts` | **Where THE INSTAR's two nests sit, and the slime under each** |
 | `packages/render/src/instar-between.ts` | **THE INSTAR between two poses**: the in-between motion of a morph, keyed on the pose it comes from |
 | `packages/render/src/instar-body-look.ts` | **THE INSTAR's side-on body, as the one record its widths are read from** |
 | `packages/render/src/instar-crosshair.ts` | **A shoot mark is a crosshair**: a violet ring with four ticks pointing in, and nothing over the part |
+| `packages/render/src/instar-limb-stop.ts` | **Where a bolt meets THE INSTAR's wings, tail and nests** (`instar-stop.ts`) |
 | `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
 | `packages/render/src/index-solid.ts` | **The solid half of the barrel**: a boss drawn from any side |
 | `packages/render/src/index-sprite.ts` | Sprites baked at load (`sprite-bake.ts`) and the examples offered on THE INSTAR beside the drawings they… |

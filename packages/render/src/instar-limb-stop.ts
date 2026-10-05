@@ -1,0 +1,61 @@
+import { type Foot, outlineFoot, roundFoot } from "./core-stop.js";
+import { frontWings } from "./instar-front.js";
+import { nestPool, nestsAt } from "./instar-nest-place.js";
+import type { Point } from "./instar-place.js";
+import type { Look } from "./instar-plate.js";
+import { heading, profileWings, type WingSeat } from "./instar-profile.js";
+import { swimLook } from "./instar-serpent.js";
+import { tailShape } from "./instar-tail.js";
+import { bladePoints } from "./instar-tail-blade.js";
+import { wingPoints } from "./instar-wing-rig.js";
+import type { Layout } from "./layout.js";
+
+/**
+ * **Where a bolt meets THE INSTAR's wings, tail and nests** (`instar-stop.ts`):
+ * face-on the two wings off the shoulders, side-on the two wings off the back,
+ * the tail's tube and the two blades of its fork, and the slime under each
+ * nest that holds an egg — every one laid where its drawing lays it, from the
+ * shapes the drawings hand out (`frontWings`, `profileWings`, `wingPoints`,
+ * `tailShape`, `bladePoints`, `nestsAt`, `nestPool`), and then through `lay`,
+ * the flight and the shake the stopper lays the tube through — `scale` its
+ * stretch, for what is met as a round.
+ *
+ * A wing is met on its membrane's outline, not its arm or fingers, which run
+ * inside it; the tail's spikes and the eggs stand above what is met.
+ */
+export function frontLimbFeet(look: Look, lay: (p: Point) => Point): Foot[] {
+  return frontWings(look).map((seat) => wingFoot(look, seat, lay));
+}
+
+/** The profile's wings, tail and nests, from the lines `profileLines` hands out. */
+export function profileLimbFeet(
+  l: Layout,
+  still: Look,
+  lines: { spine: readonly Point[]; top: readonly Point[]; rear: Point },
+  lay: (p: Point) => Point,
+  scale: Point,
+): Foot[] {
+  // The wings, the tail and the nests ride the wave the spine swims on, as `drawProfile` draws them.
+  const look = swimLook(l, still);
+  const { r } = look;
+  const feet = profileWings(lines.top, lines.rear, r).map((seat) => wingFoot(look, seat, lay));
+  const { rear } = lines;
+  const tail = tailShape(l, look, rear, heading(lines.spine));
+  for (const ring of tail.seen) {
+    const at = lay({ x: rear.x + ring.c.x, y: rear.y + ring.c.y });
+    feet.push(roundFoot(at.x, at.y, ring.r * scale.x, ring.r * scale.y));
+  }
+  for (const b of tail.blades)
+    feet.push(outlineFoot(bladePoints(tail.fork, b.tip, b.s, r).map(lay)));
+  for (const nest of nestsAt(l, look)) {
+    if (nest.n <= 0) continue;
+    const pool = nestPool(nest.at, r);
+    const at = lay(pool);
+    feet.push(roundFoot(at.x, at.y, pool.rx * scale.x, pool.ry * scale.y));
+  }
+  return feet;
+}
+
+function wingFoot(look: Look, seat: WingSeat, lay: (p: Point) => Point): Foot {
+  return outlineFoot(wingPoints(look, seat.at, seat.w, seat.hinge, seat.side).map(lay));
+}

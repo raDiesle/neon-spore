@@ -5,6 +5,7 @@ import { drawEggCrack } from "./instar-egg-crack.js";
 import { SPOTS, SPOTS_NEST } from "./instar-egg-spots.js";
 import { drawGlint } from "./instar-hide.js";
 import { drawBakedNests } from "./instar-nest-baked.js";
+import { nestPool, nestsAt } from "./instar-nest-place.js";
 import { instarAt, type Point } from "./instar-place.js";
 import { faded, type Look } from "./instar-plate.js";
 import { drawWeak } from "./instar-weak.js";
@@ -128,9 +129,7 @@ export const NEST_LOOK: {
 
 /** The nests as they were drawn before they were baked, strand by strand. */
 export function drawnNests(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
-  const { f } = look;
-  drawNest(ctx, look, instarAt(l, f.nestX, f.nestY), Math.round(f.nest * NEST), SPOTS_NEST, 3);
-  drawNest(ctx, look, instarAt(l, f.eggsX, f.eggsY), Math.round(f.eggs * CLUTCH), SPOTS, 7);
+  for (const n of nestsAt(l, look)) drawNest(ctx, look, n.at, n.n, n.spots, n.seed);
 }
 
 function drawNest(
@@ -148,7 +147,8 @@ function drawNest(
   ctx.save();
   ctx.fillStyle = faded(PALETTE.venom, fade, 0.22);
   ctx.beginPath();
-  ctx.ellipse(at.x, at.y + r * 0.06, r * 0.62, r * 0.09, 0, 0, Math.PI * 2);
+  const pool = nestPool(at, r);
+  ctx.ellipse(pool.x, pool.y, pool.rx, pool.ry, 0, 0, Math.PI * 2);
   ctx.fill();
   const silk = new Path2D();
   silk.ellipse(at.x, at.y + r * 0.05, r * 0.5, r * 0.26, 0, Math.PI, Math.PI * 2);
