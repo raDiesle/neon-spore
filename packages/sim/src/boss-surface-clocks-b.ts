@@ -52,6 +52,7 @@ export {
   antiphonChooser,
   antiphonDown,
   antiphonExplainer,
+  antiphonExplainerOn,
   antiphonFamilyOf,
   antiphonFull,
   antiphonGrown,

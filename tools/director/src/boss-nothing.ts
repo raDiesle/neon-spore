@@ -16,7 +16,6 @@ const AUTHORS_NOTHING = [
   "surge",
   "lead",
   "scuttle",
-  "antiphon",
   "hive",
   "instar",
   "nettle",
@@ -118,11 +117,6 @@ const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
  *   is no number, and which socket holds a pod and which a rock is the
  *   seed's — a wave that authored the frame would be a boss with its throws
  *   printed on it (`sim/config-scuttle.ts`).
- * - **THE ANTIPHON** asks for nothing for the same reason: the body rises
- *   over `midCol` so there is no column, the pits are the health so there
- *   is no number, and which contour grows where, in which colour, beside
- *   which decoys, is the seed's — a wave that authored the rail would be a
- *   boss with its answers printed on it (`sim/config-antiphon.ts`).
  * - **THE HIVE** asks for nothing for the same reason: the sites are sown
  *   across the inner columns by the seed so there is no column, the unsealed
  *   sites are the health so there is no number, and a wave that authored

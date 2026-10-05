@@ -33441,3 +33441,13 @@ Bottleneck: the hold ring sat on the site's old centre until a zoomed frame show
 Bottleneck: the red and blue the owner meant was THE SLOW's prism over the whole body, not the organ's own paint, and only a frame said so.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE ANTIPHON's levels have a stepper in the director
+
+- reading: 10 min. THE MAZE's stage bar, the boss panel and how the stage holds a round.
+- writing: 15 min. `antiphon-editor.ts`, `antiphonExplainerOn`, the panel's branch, the test.
+- looking: 0 min. A director panel, not a frame of the game.
+- friction: 5 min. The new sim name had two barrels to pass through.
+- landing: 10 min.
+
+Bottleneck: none; `setBossRound` already took the fight to any level, so the bar was all that was missing.

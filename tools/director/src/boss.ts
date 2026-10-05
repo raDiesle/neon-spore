@@ -1,5 +1,6 @@
 import { AUTHORED_COL_MAX, CREATURES } from "@neon-spore/content";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
+import { renderAntiphonEditor } from "./antiphon-editor.js";
 import { numberField, placementNote, renderVane, renderWarden } from "./boss-cycles.js";
 import { bossAuthorsNothing } from "./boss-nothing.js";
 import { renderFleetEditor } from "./fleet-editor.js";
@@ -87,8 +88,10 @@ export function bindBossPanel(
     // walks them rather than editing them — which is the thing an author
     // actually needs, the fifth stage being four stages of play away
     // (`maze-editor.ts`).
-    if (wave.boss.kind === "maze") {
-      renderMazeEditor(panel, onEdit, onStage, round);
+    if (wave.boss.kind === "maze" || wave.boss.kind === "antiphon") {
+      // THE ANTIPHON's levels the same way: a tab a level (`antiphon-editor.ts`).
+      const walk = wave.boss.kind === "maze" ? renderMazeEditor : renderAntiphonEditor;
+      walk(panel, onEdit, onStage, round);
       if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
       return;
     }

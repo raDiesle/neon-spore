@@ -5886,7 +5886,9 @@ and every end of a level shuts it (`sim/antiphon-step.ts`,
 `sim/test/antiphon-doubled.test.ts`); the standard slow meter is the
 window's only clock. **The director's stepper** stands the fight on any
 level through `setBossRound` (`antiphonOpenLevel`): that many pits taken,
-the seats as that level has them, the ship last.
+the seats as that level has them, the ship last. Its bar is the boss
+panel's, a tab a level and SHIP, with who explains and who chooses under
+it (`tools/director/src/antiphon-editor.ts`).
 
 **The look** (`render/antiphon-draw.ts`, `antiphon-flesh.ts`,
 `antiphon-shape.ts`, `antiphon-fx.ts`; the table

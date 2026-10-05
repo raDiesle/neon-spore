@@ -126,7 +126,12 @@ export function antiphonLevel(s: AntiphonState): number {
 
 /** The seat shown the organ this level: the pilot first, and the two swap every level. */
 export function antiphonExplainer(s: AntiphonState): 1 | 2 {
-  return antiphonLevel(s) % 2 === 0 ? 1 : 2;
+  return antiphonExplainerOn(antiphonLevel(s));
+}
+
+/** The seat shown the organ on level `level` — the director's stepper asks with no fight standing. */
+export function antiphonExplainerOn(level: number): 1 | 2 {
+  return level % 2 === 0 ? 1 : 2;
 }
 
 /** The seat shown the rail this level, whose thumb carries a candidate down. */
