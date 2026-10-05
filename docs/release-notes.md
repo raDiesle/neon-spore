@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 9acc7a205 — THE ANTIPHON's answer is carried down a vein, not shot
+
+The chooser drags the candidate being described down the vein that joins it to the organ's place, two rows under the rail a third of the way down; there it is judged — the organ makes a pit, a decoy loses the wave. The organs are green and three times the size, the seats swap every level, and the director's stepper stands the fight on any level. Nothing on the boss is shot any more: the colours, columns, hardening, twins, spill and pull are gone.
+
 ## 2026-10-05 · c7a8ddc43 — THE GAUGE has no turn to give THE MAZE's knob
 
 The queue asked for THE GAUGE's turned controls to wear THE MAZE's knob, lever and channel, if they are turns. None is: the navigator's band is a hold the simulation reads only as down, the tongue is a carry read sideways, and the pilot's left and right are held presses on the band. So the entry is struck with nothing drawn differently. THE HASP's grip no longer points at a GAUGE turn that went with the jam on 2 October 2026.

@@ -33415,3 +33415,5 @@ Bottleneck: none; the entry's own test answered it.
 - landing: 15 min. `check:fast` red three times on documents naming the old rule.
 
 Bottleneck: every file that knew the shot — fifty of them — found by the typecheck and the document tests one at a time.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
