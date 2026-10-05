@@ -33417,3 +33417,13 @@ Bottleneck: none; the entry's own test answered it.
 Bottleneck: every file that knew the shot — fifty of them — found by the typecheck and the document tests one at a time.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE HIVE hangs lower and larger, its drops longer and the next one lit
+
+- reading: 5 min. `hive-shape.ts` and everything that stands on its numbers: the sites, the stops, the rings, the captions.
+- writing: 5 min. The new depth, rise and drop, the breach filling the belly, the halo, the hold ring moved down the drop, the stop test given the hive's reach.
+- looking: 5 min. Five passes of pilot and navigator frames, and a spill strip to see a body still leaves the breach in view.
+- friction: 0 min.
+- landing: 5 min. `own-stop.test.ts` holds every boss above row 0 unless it says how far it reaches.
+
+Bottleneck: the hold ring sat on the site's old centre until a zoomed frame showed it, since nothing else reads the length of a drop.

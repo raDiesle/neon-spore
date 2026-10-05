@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { createCanvas } from "@napi-rs/canvas";
 import { DEFAULT_CONFIG, type HiveState } from "@neon-spore/sim";
-import { hiveBox, hiveLobes, hiveMassPath, hiveUnderY } from "../src/hive-shape.js";
+import { hiveBox, hiveLobes, hiveMassPath, hiveUnderY, lobeDepth } from "../src/hive-shape.js";
 import { computeLayout, type Layout, tileCX } from "../src/layout.js";
 import { installPixelGlobals, PIXEL_VIEWPORT } from "./pixel-harness.js";
 
@@ -30,8 +30,8 @@ function before(l: Layout, s: HiveState, open: number, time: number): Path2D {
   const top = box.top;
   const bottom = box.bottom;
   const flank = l.tile * (0.12 + 0.03 * Math.sin(time * 1.1));
-  const dome = l.tile * 0.35;
-  const lobe = l.tile * 0.14;
+  const dome = l.tile * 0.5;
+  const lobe = lobeDepth(l);
   const p = new Path2D();
   p.moveTo(mid - hw, top + dome);
   p.quadraticCurveTo(mid, top - dome * 0.6, mid + hw, top + dome);
@@ -81,7 +81,7 @@ describe("THE HIVE's lobes, split out", () => {
     const s = at(COLS);
     const lobes = hiveLobes(l, cfg, s, 1);
     expect(lobes.length).toBe(COLS.length);
-    const line = hiveBox(l, cfg).bottom - l.tile * 0.14;
+    const line = hiveBox(l, cfg).bottom - lobeDepth(l);
     const sites = [...COLS].sort((a, b) => b - a).map((c) => tileCX(l, c));
     lobes.forEach((b, i) => {
       expect(b.joint.y).toBeCloseTo(line, 6);

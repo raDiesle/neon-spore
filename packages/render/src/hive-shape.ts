@@ -3,7 +3,7 @@ import { type Layout, tileCX } from "./layout.js";
 
 /**
  * **Where THE HIVE is**, in field pixels: the mass hung over the top of the
- * field above row 0, nearly the width of it, every site's centre along its
+ * field and down into its top rows, nearly the width of it, every site's centre along its
  * underside, how far the swelling one has bulged, and how far the whole has
  * closed on its way out.
  *
@@ -23,15 +23,19 @@ export interface Point {
 }
 
 /**
- * The underside's height above the grid, in tiles, and the mass's depth over
- * it; a site's radius. The top sits 1.55 tiles up, under the HUD's pills —
- * THE SCUTTLE's frame reaches 1.6 for the same reason (`scuttle-shape.ts`).
+ * The underside's height above the grid, in tiles — below it, since the
+ * owner asked on 5 October 2026 for more of the body on the field — and the
+ * mass's depth over it; a site's radius, a bubble nearly a column wide. The
+ * top sits 1.1 tiles up, under the HUD's pills — THE SCUTTLE's frame
+ * reaches 1.6 for the same reason (`scuttle-shape.ts`); the body grew down.
  */
-const UNDER_RISE = 0.45;
-const DEPTH = 1.1;
-export const SITE_R = 0.3;
+const UNDER_RISE = -1.5;
+const DEPTH = 2.6;
+export const SITE_R = 0.46;
+/** How far a site hangs below its centre, in its own radii: a drop, longer than it is wide. */
+export const SITE_HANG = 2;
 /** How far a swelling site bulges below the underside at its fullest, in tiles. */
-const SWELL_DROP = 0.25;
+const SWELL_DROP = 0.6;
 /** How far the mass stands in from the field's two walls, in tiles. */
 const INSET = 0.35;
 
@@ -43,6 +47,11 @@ export function hiveUnderY(l: Layout): number {
 /** The centre of site `i`, on the underside. */
 export function hiveSite(l: Layout, s: HiveState, i: number): Point {
   return { x: tileCX(l, s.cols[i] ?? 0), y: hiveUnderY(l) };
+}
+
+/** How far below a site's centre the middle of its drop hangs, in pixels: where a thumb holds it. */
+export function hiveSiteBelly(l: Layout): number {
+  return l.tile * SITE_R * (SITE_HANG - 0.3) * 0.5;
 }
 
 /** The mass's box: its left, right, top and bottom, nearly the width of the field. */
@@ -66,7 +75,7 @@ function span(l: Layout, cfg: SimConfig, open: number): { mid: number; hw: numbe
 }
 
 /** How far a scallop dips below the underside and rises above it, in pixels. */
-const lobeDepth = (l: Layout): number => l.tile * 0.14;
+export const lobeDepth = (l: Layout): number => l.tile * 0.2;
 
 /**
  * **One of the mass's hanging lobes, as its own piece**: the scallop of the
@@ -126,7 +135,7 @@ export function hiveMassPath(
   const top = box.top;
   const bottom = box.bottom;
   const flank = l.tile * (0.12 + 0.03 * Math.sin(time * 1.1));
-  const dome = l.tile * 0.35;
+  const dome = l.tile * 0.5;
   const lobe = lobeDepth(l);
   const p = new Path2D();
   p.moveTo(mid - hw, top + dome);
@@ -182,17 +191,23 @@ export function hiveSitePath(l: Layout, c: Point, drop = 0, open = 1): Path2D {
   const p = new Path2D();
   p.moveTo(c.x - r, c.y - r * 0.3);
   p.lineTo(c.x + r, c.y - r * 0.3);
-  p.quadraticCurveTo(c.x + r * 1.05, y + r * 0.9, c.x, y + r);
-  p.quadraticCurveTo(c.x - r * 1.05, y + r * 0.9, c.x - r, c.y - r * 0.3);
+  const hang = r * SITE_HANG;
+  p.quadraticCurveTo(c.x + r * 1.05, y + hang * 0.9, c.x, y + hang);
+  p.quadraticCurveTo(c.x - r * 1.05, y + hang * 0.9, c.x - r, c.y - r * 0.3);
   p.closePath();
   return p;
 }
 
-/** The breach inside an open site: the aperture, a ring in from the lobe's edge. */
+/** How much of a site the open breach fills — most of it, so the colour is the bubble. */
+export const BREACH = 0.78;
+/** How far below the site's centre the breach sits, in its own radii: in the belly of the drop. */
+export const BREACH_DOWN = 1.1;
+
+/** The breach inside an open site: the aperture, a thin ring in from the lobe's edge. */
 export function hiveBreachPath(l: Layout, c: Point, open = 1): Path2D {
-  const r = l.tile * SITE_R * 0.55 * open;
+  const r = l.tile * SITE_R * BREACH * open;
   const p = new Path2D();
-  p.ellipse(c.x, c.y + r * 0.5, r, r * 0.8, 0, 0, Math.PI * 2);
+  p.ellipse(c.x, c.y + r * BREACH_DOWN, r, r * 1.2, 0, 0, Math.PI * 2);
   return p;
 }
 

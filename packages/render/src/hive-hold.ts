@@ -107,8 +107,8 @@ export function hivePinchPhase(
  * have to guess is which breach either bolt will seal (§11.14).
  */
 export function hiveWrungRingPath(l: Layout, c: Point, open = 1): Path2D {
-  const r = l.tile * SITE_R * 0.8 * open;
+  const r = l.tile * SITE_R * 1.02 * open;
   const p = new Path2D();
-  p.ellipse(c.x, c.y + r * 0.35, r, r * 0.7, 0, 0, Math.PI * 2);
+  p.ellipse(c.x, c.y + r * 0.84, r, r * 1.15, 0, 0, Math.PI * 2);
   return p;
 }

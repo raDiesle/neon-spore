@@ -1,13 +1,17 @@
 import type { Color } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
+import { rgba } from "./hex.js";
 import { paintBreach, paintLobe } from "./hive-cell.js";
 import { hiveWrungRingPath } from "./hive-hold.js";
 import {
+  BREACH,
+  BREACH_DOWN,
   hiveBreachPath,
   hiveScarPath,
   hiveSitePath,
   hiveSwellDrop,
   type Point,
+  SITE_HANG,
   SITE_R,
 } from "./hive-shape.js";
 import type { HiveHang } from "./hive-stop.js";
@@ -40,7 +44,19 @@ export function drawLobe(
 ): void {
   const r = l.tile * SITE_R * open;
   const p = hiveSitePath(l, c, drop, open);
-  paintLobe(ctx, p, c.x, c.y + (r + drop) * 0.4, r, l.tile, hex, fillA, rim, rimA, fade);
+  paintLobe(
+    ctx,
+    p,
+    c.x,
+    c.y + (r * SITE_HANG + drop) * 0.4,
+    r,
+    l.tile,
+    hex,
+    fillA,
+    rim,
+    rimA,
+    fade,
+  );
 }
 
 /**
@@ -66,8 +82,9 @@ export function drawSwell(
   const squeeze = held < 0 ? 0 : held;
   const throb = held < 0 ? 1 + 0.08 * phase * Math.sin(time * 9) : 1 + 0.35 * squeeze;
   const drop = hiveSwellDrop(l, phase) * throb;
-  const bright = Math.min(1, 0.4 + 0.6 * phase + squeeze);
-  const fill = 0.35 + 0.4 * phase;
+  const bright = Math.min(1, 0.6 + 0.4 * phase + squeeze);
+  const fill = 0.55 + 0.4 * phase;
+  drawHalo(ctx, l, c, drop, phase, time, fade);
   drawLobe(
     ctx,
     l,
@@ -81,6 +98,36 @@ export function drawSwell(
     bright,
   );
   return { drop, open: open * (1 - 0.3 * squeeze) };
+}
+
+/**
+ * The light the next site throws round itself before it opens — no line
+ * round the lobe (`hive-cell.ts`), a glow behind it that grows through the
+ * swell and beats with it, so the site to watch is found from across the
+ * screen rather than by comparing lobes (the owner, 5 October 2026).
+ */
+function drawHalo(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  c: Point,
+  drop: number,
+  phase: number,
+  time: number,
+  fade: number,
+): void {
+  const r = l.tile * (0.75 + 0.35 * phase);
+  const y = c.y + drop * 0.6;
+  const a = (0.35 + 0.4 * phase) * (0.8 + 0.2 * Math.sin(time * 9)) * fade;
+  const g = ctx.createRadialGradient(c.x, y, 0, c.x, y, r);
+  g.addColorStop(0, rgba(PALETTE.bileRim, a));
+  g.addColorStop(0.45, rgba(PALETTE.bile, a * 0.5));
+  g.addColorStop(1, rgba(PALETTE.bile, 0));
+  ctx.save();
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.arc(c.x, y, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
 }
 
 /**
@@ -107,13 +154,13 @@ export function drawBreach(
   const hex = color === null ? PALETTE.dim : PALETTE[color];
   const rim = color === null ? PALETTE.rock : color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
   const breath = 1 + 0.05 * Math.sin(time * 5);
-  const r = l.tile * SITE_R * 0.55 * open * breath;
+  const r = l.tile * SITE_R * BREACH * open * breath;
   const hole = hiveBreachPath(l, c, open * breath);
   paintBreach(
     ctx,
     hole,
     c.x,
-    c.y + r * 0.5,
+    c.y + r * BREACH_DOWN,
     r,
     l.tile,
     hex,

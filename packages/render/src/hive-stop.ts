@@ -1,7 +1,7 @@
 import { type HiveState, hiveVerdict, type World } from "@neon-spore/sim";
 import type { BoltHit, Stopper } from "./bolt-stop.js";
 import { type Foot, lowestFoot, roundFoot } from "./core-stop.js";
-import { hiveBox, hiveSite, SITE_R } from "./hive-shape.js";
+import { hiveBox, hiveSite, SITE_HANG, SITE_R } from "./hive-shape.js";
 import type { Layout } from "./layout.js";
 
 /** How a site's lobe hangs as drawn: `drop` below the underside, `open` of its width. */
@@ -38,7 +38,10 @@ export function hiveStopper(
     const c = hiveSite(l, s, i);
     const hang = hangs[i] ?? { drop: 0, open };
     const r = l.tile * SITE_R * hang.open;
-    if (r > 0) feet.push(roundFoot(c.x + shift.x, c.y + shift.y - r * 0.3, r, r * 1.3 + hang.drop));
+    if (r > 0)
+      feet.push(
+        roundFoot(c.x + shift.x, c.y + shift.y - r * 0.3, r, r * (0.3 + SITE_HANG) + hang.drop),
+      );
   }
   const foot = lowestFoot(feet);
   return (col, x, color) => {

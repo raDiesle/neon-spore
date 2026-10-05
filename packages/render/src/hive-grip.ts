@@ -17,7 +17,7 @@ import { drawVerdictRing, type GripVerdicts } from "./grip-verdict.js";
 import { handleRadius } from "./handle-draw.js";
 import { hiveClenchLeft, hiveClenchRise, hivePinchPhase } from "./hive-hold.js";
 import { HIVE_HAUL } from "./hive-marks.js";
-import { hiveSite, hiveUnderY, type Point } from "./hive-shape.js";
+import { hiveSite, hiveSiteBelly, hiveUnderY, type Point } from "./hive-shape.js";
 import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
 import { drawMarkHalo } from "./mark-feedback.js";
 import type { Field, Touch } from "./touch.js";
@@ -73,7 +73,7 @@ export function hiveHaulCircle(
   };
 }
 
-/** Where lobe `i` is held: its site, lifted with the mass if the mass is up. */
+/** Where lobe `i` is held: the middle of its drop, lifted with the mass if the mass is up. */
 export function hiveLobeCircle(
   l: Layout,
   cfg: SimConfig,
@@ -84,7 +84,7 @@ export function hiveLobeCircle(
 ): Circle {
   const at: Point = hiveSite(l, s, i);
   const rise = hiveClenchRise(s, cfg, beat, beatPhase);
-  return { x: at.x, y: at.y - rise * l.tile, r: handleRadius(l, cfg) };
+  return { x: at.x, y: at.y + hiveSiteBelly(l) - rise * l.tile, r: handleRadius(l, cfg) };
 }
 
 /**

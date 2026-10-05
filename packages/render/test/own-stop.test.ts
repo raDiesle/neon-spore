@@ -17,6 +17,7 @@ import { AntiphonFx } from "../src/antiphon-fx.js";
 import { type BoltHit, BoltStops } from "../src/bolt-stop.js";
 import { drawHive } from "../src/hive-draw.js";
 import { HiveFx } from "../src/hive-fx.js";
+import { hiveUnderY } from "../src/hive-shape.js";
 import { computeLayout, type Layout, tileCX } from "../src/layout.js";
 import { drawLead } from "../src/lead-draw.js";
 import { LeadFx } from "../src/lead-fx.js";
@@ -83,6 +84,8 @@ const ROWS: Row[] = [
     hit: spans(hiveVerdict),
     draw: (l, w, stops) =>
       drawHive(paper(), l, w, boss(w, "hive"), w.beat, 0.5, 0, new HiveFx(), stops),
+    // Hung down into the top rows since 5 October 2026; a swelling drop hangs lowest.
+    reach: (l) => hiveUnderY(l) + l.tile * 2,
     shows: "target",
   },
   {

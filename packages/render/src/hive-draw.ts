@@ -20,7 +20,7 @@ import type { Layout } from "./layout.js";
 import { showsHiveColor, showsHiveSwell } from "./view-role-clocks-b.js";
 
 /**
- * **THE HIVE**: a waxen mass hung over the top of the field above row 0,
+ * **THE HIVE**: a waxen mass hung over the top of the field, down into its top rows,
  * nearly the width of it, its underside scalloped into a row of hanging
  * lobes with a site in the belly of each — shut, swelling, open, or
  * scarred over — and, on one screen, every open breach in the colour a
