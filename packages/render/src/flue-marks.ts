@@ -21,15 +21,21 @@ import { stepColour } from "./step-colour.js";
  */
 
 /** The shot pips' radius and spacing, and how far under the flue they sit, in
- * tiles: under the pilot's `NOW` too, which stands under the sight. */
+ * tiles: under the pilot's `NOW` and the navigator's `FIRE` too, which stand
+ * under the sight. */
 const PIP = 0.1;
 const PIP_GAP = 0.32;
-const PIP_DOWN = 1.5;
+const PIP_DOWN = 1.85;
 /** The level studs' radius and spacing, and how far over the flue they sit, in
  * tiles: over the `CALL` standing over the sight. */
 const STUD = 0.08;
 const STUD_GAP = 0.3;
 const STUD_UP = 1.5;
+
+/** How far under the sight the shot pips stand, in pixels. */
+export function flueShotsDown(l: Layout): number {
+  return PIP_DOWN * l.tile;
+}
 
 /** The lit level's slot, glowing on its beat: *this one*. */
 export function drawFlueSlotGlow(
@@ -79,7 +85,7 @@ export function drawFlueShots(
   for (let i = 0; i < max; i++) {
     const x = at.x + (i - (max - 1) / 2) * PIP_GAP * l.tile;
     const pip = new Path2D();
-    pip.arc(x, at.y + PIP_DOWN * l.tile, r, 0, Math.PI * 2);
+    pip.arc(x, at.y + flueShotsDown(l), r, 0, Math.PI * 2);
     if (i < shots) {
       ctx.fillStyle = PALETTE.hullRim;
       ctx.fill(pip);

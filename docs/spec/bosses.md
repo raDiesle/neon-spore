@@ -11045,8 +11045,17 @@ while a level is lit; **the sight** over the cannon is a ring in the
 level's colour, with the beam's bar through it on a beam level, dim between
 levels in the next one's colour; **three pips** under it go dark a shot at a
 time; **a stud per level** over the flue lights as each is cleared, the
-flue's health read off the body. **The ember** is a warm-white glow in the
-slot, exactly where the simulation has it. **What outlives a frame**
+flue's health read off the body. **The scale** (`flue-scale.ts`) under the
+slot is a tick for every half beat the ember has still to run to the sight,
+out to either end, numbered at every whole beat — `1` is a beat away — and
+laid from the lit level's own speed, so a slow ember's numbers stand close
+round the sight and a fast one's far out: the scale is how the speed is
+shown, and since it counts beats it holds under any SLOW. **The card**
+(`flue-card.ts`) over the flue's left end names the weapon as the player
+says it, `SHOT` or `BEAM`, in the level's colour, and under it `SLOW ½` or
+`SLOW ¼` when THE SLOW holds the level; the card, the scale and the pips are
+on both screens and left whole by the split with the rest. **The ember** is
+a warm-white glow in the slot, exactly where the simulation has it. **What outlives a frame**
 (`flue-fx.ts`): a flash at the sight and the stud's flare for a level
 cleared, which deals the blow every boss takes; a scuff of grit under the
 flue for a shot spent; a thud through the plating as it goes cold. **Its
@@ -11065,10 +11074,9 @@ the weapon and colour clears the level and the next starts with three; a
 wide shot, a wrong colour and a wrong weapon each spend one, and the third
 is the wave; THE SLOW holds at the level's strength and closes between;
 the whole list ends spent and out. `tools/director/test/autopilot-flue.test.ts`
-has AUTO clear every level with its first shot. **Not built yet**: the
-numbered scale along the slot, and a card on both screens naming the
-level's weapon, colour, speed and slow — the second half of the rework.
-Whether the call can be made early enough on two real phones at tempo, and
+has AUTO clear every level with its first shot; `render/test/flue-scale.test.ts`
+that every authored level numbers a whole beat and that no word round the
+flue lands on another. Whether the call can be made early enough on two real phones at tempo, and
 whether the beam's prime is learnable, is the owner's eye.
 
 ## 11.58 THE GOVERNOR — a needle one seat brakes for the other to tap

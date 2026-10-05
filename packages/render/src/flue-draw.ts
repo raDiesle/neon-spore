@@ -1,5 +1,6 @@
 import { type FlueState, flueLitLevel, flueShownLevel, type World } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
+import { drawFlueCard } from "./flue-card.js";
 import type { FlueFx } from "./flue-fx.js";
 import {
   drawFlueEmber,
@@ -10,6 +11,7 @@ import {
   drawFlueSlotGlow,
 } from "./flue-marks.js";
 import { flueArrived, flueSpent } from "./flue-pose.js";
+import { drawFlueScale } from "./flue-scale.js";
 import {
   flueCentre,
   flueEmberAt,
@@ -40,7 +42,9 @@ const ARRIVE = 3;
  * has to be told when. Everything else is on both — the sight in the colour
  * the level asks, with the beam's bar through it on a beam level, the shots
  * left under it, and a stud for every level over the flue, lit as each is
- * cleared: the flue's health, read off the body.
+ * cleared: the flue's health, read off the body. Under the slot a scale
+ * counts the beats the ember has left to the sight (`flue-scale.ts`), and over
+ * the flue's left end a card names the weapon and THE SLOW (`flue-card.ts`).
  *
  * **It is drawn flat**: the units are soot with a dark outline and nothing
  * lighting them, and THE SLOW's colour split stands round the whole flue
@@ -81,8 +85,10 @@ export function drawFlue(
   const sight = flueSightAt(l, cfg);
   const level = flueShownLevel(s);
   if (level !== null) {
+    drawFlueScale(ctx, l, cfg, level, lit);
     drawFlueSight(ctx, l, sight, level, lit, beatPhase);
     drawFlueShots(ctx, l, sight, s.shots, cfg.flueShots);
+    drawFlueCard(ctx, l, centre.y, level, lit);
   }
   drawFlueLevels(ctx, l, centre, s.hits, s.levels.length, fx.flare);
   if (showsFlueEmber(l.role)) {

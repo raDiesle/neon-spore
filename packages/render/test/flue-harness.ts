@@ -11,6 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
+import type { TextBox } from "./canvas-stub-text.js";
 import { CFG, runFrames, waveWith } from "./frame-harness.js";
 
 /**
@@ -73,6 +74,20 @@ export function frame(role: ViewRole, arrange: (world: World) => void, thrown?: 
     },
   });
   return log.join("|");
+}
+
+/** The words a pose draws, every frame's, the world held where it was posed. */
+export function words(role: ViewRole, arrange: (world: World) => void): TextBox[] {
+  const world = stood();
+  arrange(world);
+  const texts: TextBox[] = [];
+  runFrames(world, role, 1, {
+    every: 1,
+    onCanvas: (c) => {
+      c.texts = texts;
+    },
+  });
+  return texts;
 }
 
 export function count(text: string, colour: string): number {

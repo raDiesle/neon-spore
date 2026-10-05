@@ -33549,3 +33549,13 @@ Bottleneck: finding a width at which the vein and the channel inside it both rea
 Bottleneck: the game's half-beat shot grid, which the director's world does not have, so AUTO cleared every level there and none in the game.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE FLUE numbers the ember's beats to the sight and names each level
+
+- reading: 5 min. The flue's drawer and marks, the text stub, THE STARE's numbers.
+- writing: 15 min. `flue-scale.ts`, `flue-card.ts`, the sharp band widened, two tests and §11.57.
+- looking: 5 min. Three frames: the navigator's pips on `FIRE`, then under it and fringed, then whole.
+- friction: 5 min. The text stub's boxes are in device pixels, so a filter near the flue's row matched nothing.
+- landing: 5 min.
+
+Bottleneck: the pips moved off `FIRE` and out of THE SLOW's sharp band in the same step, so each fix showed the next fault.

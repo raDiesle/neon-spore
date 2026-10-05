@@ -154,10 +154,11 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
  * (`gall-draw.ts`'s `lift`). */
 const GALL_STANDS = 1.6;
 
-/** How far THE FLUE's marks stand off its row, in tiles: the studs over it,
- * the pips under the sight and the words over and under it, with their glow
- * (`flue-marks.ts`, `boss-cue-read-zo.ts`). */
-const FLUE_MARKS = 1.75;
+/** How far THE FLUE's marks stand off its row, in tiles: the card and the
+ * studs over it, the pips and the scale under the sight and the words over
+ * and under it, with their glow (`flue-card.ts`, `flue-marks.ts`,
+ * `boss-cue-read-zo.ts`). */
+const FLUE_MARKS = 2.3;
 
 /**
  * The capsule round a box, along its longer side: the shorter half-axis is
