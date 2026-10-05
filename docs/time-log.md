@@ -33535,3 +33535,5 @@ Bottleneck: sorting — telling the eleven cores that hang still from the thirte
 - landing: 10 min.
 
 Bottleneck: finding a width at which the vein and the channel inside it both read.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
