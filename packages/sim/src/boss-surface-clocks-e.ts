@@ -17,7 +17,10 @@
  * is one something outside `packages/sim` imports.
  */
 
-export { antiphonVerdict } from "./antiphon-shot.js";
+// Every boss's shot asked rather than acted on, one line a boss — a page of
+// their own since 5 October 2026 (`boss-surface-verdicts.ts`).
+export * from "./boss-surface-verdicts.js";
+
 // THE BURGEE's flag: the phase, the lit step, the swing and the freeze, the
 // lit column, whose tap stills it and whose draw looses at it, the catches
 // and the spindle, for the picture, the cue and the director's hand. Straight
@@ -46,7 +49,6 @@ export {
   burgeeSwipe,
   freshBurgee,
 } from "./burgee.js";
-export { burgeeVerdict } from "./burgee-shot.js";
 // THE CAPSTAN's drum: the phase, the lit step, both bands' wear, which seat
 // steers and which rubs, and the face the cradle bares, for the picture, the
 // cue and the director's hand. Straight off `capstan.ts` (§37).
@@ -74,16 +76,9 @@ export {
   capstanWearer,
   freshCapstan,
 } from "./capstan.js";
-export { capstanVerdict } from "./capstan-shot.js";
-// The core verdict eleven bosses share, and each one's own, which the picture asks
-// where a bolt stops (`core-verdict.ts`).
-export type { CoreVerdict } from "./core-verdict.js";
 // Whether THE CURTAIN's hem asks the pilot for his thumb
 // (`render/curtain-marks.ts`), because the page it would have joined was within twenty lines of its limit.
 export { curtainHemAsks } from "./curtain-hand.js";
-export { curtainVerdict } from "./curtain-shot.js";
-export { cystVerdict } from "./cyst-shot.js";
-export { davitVerdict } from "./davit-shot.js";
 // THE FLUE's ember: the phase, the lit step, the drift and the steadying,
 // whose rest is counted and whose tap is heard, the taps, the vents and the
 // core, for the picture, the cue and the director's hand. Straight off
@@ -112,9 +107,6 @@ export {
   flueTapper,
   freshFlue,
 } from "./flue.js";
-export { flueVerdict } from "./flue-shot.js";
-export { gallVerdict } from "./gall-shot.js";
-export { gimbalVerdict } from "./gimbal-shot.js";
 // THE GOVERNOR's needle: the phase, the lit step, the needle and its speed,
 // whose chord brakes it and whose tap is heard, the runs and the hub, for the
 // picture, the cue and the director's hand. Straight off `governor.ts` (§43).
@@ -142,12 +134,6 @@ export {
   governorTapper,
   governorTapping,
 } from "./governor.js";
-export { governorVerdict } from "./governor-shot.js";
-export { grindstoneVerdict } from "./grindstone-shot.js";
-export { halterVerdict } from "./halter-shot.js";
-export { haspVerdict } from "./hasp-shot.js";
-export { hiveVerdict } from "./hive-shot.js";
-export { keelVerdict } from "./keel-shot.js";
 // THE LAMPREY's jaw and teeth: the phase, the step, the seats, the ring and
 // the gullet, for the picture, the cue and the director's hand (§41).
 export {
@@ -173,9 +159,6 @@ export {
   lampreyTeethIn,
   lampreyToothIn,
 } from "./lamprey.js";
-export { type LeadVerdict, leadVerdict } from "./lead-shot.js";
-export { ledgerVerdict } from "./ledger-shot.js";
-export { mantleVerdict } from "./mantle-shot.js";
 export {
   freshMimic,
   MIMIC_ASKS,
@@ -209,17 +192,6 @@ export {
   mimicShapeSize,
   mimicShapesUpTo,
 } from "./mimic-shapes.js";
-export { oculusVerdict } from "./oculus-shot.js";
-export { plumbVerdict } from "./plumb-shot.js";
-export { ratchetVerdict } from "./ratchet-shot.js";
-export { rimeVerdict } from "./rime-shot.js";
-export { scuttleVerdict } from "./scuttle-shot.js";
-export { slingVerdict } from "./sling-shot.js";
-export { stareVerdict } from "./stare-shot.js";
-export { tasterVerdict } from "./taster-shot.js";
-export { trivetVerdict } from "./trivet-shot.js";
-export { valveVerdict } from "./valve-shot.js";
-export { viseVerdict } from "./vise-shot.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),
 // the hit test that answers it (`render/touch-well.ts`) and the director's

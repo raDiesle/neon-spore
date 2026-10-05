@@ -378,20 +378,6 @@ own column does — and THE LEDGER; each gets its row in `own-stop.test.ts`.
 Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 `own-stop.test.ts`, and `bun run check` is green.
 
-## `sim/boss-surface-clocks-e.ts` is near its line ceiling
-
-- **Found:** 2026-10-03, claude/queue-work-cccabd
-- **Taken:** 2026-10-05, claude/queue-tasks-status-bb9750 (claim: claude/queue-sim-boss-surface-clocks-e-ts-is-near-its-line-ce)
-- **Where:** local
-- **Files:** `packages/sim/src/boss-surface-clocks-e.ts`
-
-At 233 lines, and every `…Verdict` the bolt-stop lanes add is one more
-export line in it (the size hook warns on each). Split its verdict exports
-into a surface file of their own (`boss-surface-verdicts.ts`, alphabetical),
-re-exported from the package index as the others are, before a lane has to
-do it mid-task. Done when the file is well under the ceiling and
-`bun run check` is green.
-
 ## THE INSTAR's heads, wings, tail and nests stop a bolt
 
 - **Found:** 2026-10-04, claude/queue-work-cccabd

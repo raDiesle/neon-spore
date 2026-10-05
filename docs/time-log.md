@@ -33189,3 +33189,13 @@ Bottleneck: THE HALTER — its chord is one seat's two grips while the other res
 Bottleneck: THE TRIVET — its row 11 had been marked done in the queue with nothing written, so the one honest answer was to put it back rather than tidy the sentence.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-05 — Every boss's verdict on a surface page of its own
+
+- reading: 5 min. The fifth clocks page and how the pages chain to the package index.
+- writing: 5 min. `boss-surface-verdicts.ts`, the page's re-export, the index row.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none — thirty one-line exports moved whole, and the chain from page four carries them to the index unchanged.
