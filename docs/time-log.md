@@ -33403,3 +33403,5 @@ Bottleneck: where a word goes on a band button that has no Layout to size it by.
 - landing: 5 min.
 
 Bottleneck: none; the entry's own test answered it.
+
+*Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · c7a8ddc43 — THE GAUGE has no turn to give THE MAZE's knob
+
+The queue asked for THE GAUGE's turned controls to wear THE MAZE's knob, lever and channel, if they are turns. None is: the navigator's band is a hold the simulation reads only as down, the tongue is a carry read sideways, and the pilot's left and right are held presses on the band. So the entry is struck with nothing drawn differently. THE HASP's grip no longer points at a GAUGE turn that went with the jam on 2 October 2026.
+
 ## 2026-10-05 · d67d74e69 — THE CLAW's crank turns with THE MAZE's knob, lever and channel
 
 The crank on the pilot's band is now drawn with the shared turn: a knob on a lever bolted to the middle, in a closed channel whose green runs from the top to the knob for the rope still out, the arrow in the knob for the way that bites (both heads while winding in and paying out both do), and PULL under the button until a hand lands. Dark, with no arrow, while the arm climbs on its own. The whole button is still the grab. The HASP's wheel row in the controls spec now names its knob too. The owner asked for this look by name (5 October 2026).
