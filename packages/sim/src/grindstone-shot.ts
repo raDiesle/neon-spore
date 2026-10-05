@@ -5,13 +5,6 @@ import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * The axle's row, thousandths of a row down the field: where the picture
- * stands it (`render/grindstone-shape.ts`) and where a bolt meets it
- * (`core-along.ts`).
- */
-export const GRINDSTONE_ROW_MILLI = 2000;
-
-/**
  * **THE GRINDSTONE's shot**: the lit axle, where a bolt meets it in the
  * middle column (`core-along.ts`) — since 5 October 2026, when the owner
  * asked for a hit to take effect where it is drawn, rather than where the

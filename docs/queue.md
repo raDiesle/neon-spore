@@ -431,3 +431,18 @@ Pass the world's pace to `ramp` from its callers and read it in the walk, and
 add a render test that a window opened at a quarter eases over the same wall
 seconds as one at the config's pace. Done when nothing outside `sim/slow.ts`
 reads `cfg.slowRateMilli` for a window's pace and `bun run check` is green.
+
+## The baked-cache guard timed out in a full `check:fast` beside a dev server
+
+- **Found:** 2026-10-05, claude/core-along-hmr
+- **Files:** `packages/render/test/baked-cache-guard.test.ts`
+
+With the director's dev server running (`bun --hot`, bundling), one
+`check:fast` went red on this test alone — *test timed out* — and it passed in
+182 ms when run by itself and in the next full run with the server stopped.
+It reads every file in `render/src` and runs a regex per declaration, all at
+the test's own pace on a machine the shards and the server were sharing.
+Find what in it can take five seconds under load (the per-file `new RegExp`
+inside the loop is a candidate; build the `HELD` pattern once), make it cheap,
+and give it an explicit timeout only if it still needs one. Done when the test
+runs in well under a second inside `bun run test` and `bun run check` is green.

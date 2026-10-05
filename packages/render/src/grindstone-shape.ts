@@ -1,5 +1,5 @@
 import { type Point, studdedContour } from "@neon-spore/content";
-import { GRINDSTONE_ROW_MILLI, midCol, type SimConfig } from "@neon-spore/sim";
+import { coreRowMilli, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -23,7 +23,7 @@ import { splinePath } from "./spline.js";
  */
 
 /** The row the axle stands at, in tiles below the grid's top: the simulation's, where a bolt meets it. */
-const ROW = GRINDSTONE_ROW_MILLI / 1000 + 0.5;
+const ROW = coreRowMilli("grindstone") / 1000 + 0.5;
 /** THE SMART at its own numbers; its 46-wide body is scaled to `WHEEL` tiles. */
 const SMART = studdedContour({
   rx: 46,

@@ -6,7 +6,7 @@ import type { CoreVerdict } from "./core-verdict.js";
 import { davitVerdict } from "./davit-shot.js";
 import { gallVerdict } from "./gall-shot.js";
 import { governorVerdict } from "./governor-shot.js";
-import { GRINDSTONE_ROW_MILLI, grindstoneVerdict } from "./grindstone-shot.js";
+import { grindstoneVerdict } from "./grindstone-shot.js";
 import { halterVerdict } from "./halter-shot.js";
 import { rimeVerdict } from "./rime-shot.js";
 import { slingVerdict } from "./sling-shot.js";
@@ -39,17 +39,23 @@ interface Core {
   verdict: (world: World, col: number, color: Color) => CoreVerdict;
 }
 
+/**
+ * Nothing imported is read while this module loads: it sits in a cycle with
+ * the shots (`burgee-shot` → … → `bullets` → here), and under Bun's HMR
+ * runtime — the director's dev server — a module still loading is `null`, so
+ * a verdict taken by name at load threw. Each is called through an arrow.
+ */
 const CORES: Partial<Record<BossKind, Core>> = {
-  grindstone: { milli: GRINDSTONE_ROW_MILLI, verdict: grindstoneVerdict },
-  burgee: { milli: 550, verdict: burgeeVerdict },
-  capstan: { milli: 2700, verdict: capstanVerdict },
-  davit: { milli: 1100, verdict: davitVerdict },
-  gall: { milli: 2900, verdict: gallVerdict },
-  governor: { milli: 5900, verdict: governorVerdict },
-  halter: { milli: 2100, verdict: halterVerdict },
-  rime: { milli: 2200, verdict: rimeVerdict },
-  sling: { milli: 1800, verdict: slingVerdict },
-  trivet: { milli: 1700, verdict: trivetVerdict },
+  grindstone: { milli: 2000, verdict: (w, c, k) => grindstoneVerdict(w, c, k) },
+  burgee: { milli: 550, verdict: (w, c, k) => burgeeVerdict(w, c, k) },
+  capstan: { milli: 2700, verdict: (w, c, k) => capstanVerdict(w, c, k) },
+  davit: { milli: 1100, verdict: (w, c, k) => davitVerdict(w, c, k) },
+  gall: { milli: 2900, verdict: (w, c, k) => gallVerdict(w, c, k) },
+  governor: { milli: 5900, verdict: (w, c, k) => governorVerdict(w, c, k) },
+  halter: { milli: 2100, verdict: (w, c, k) => halterVerdict(w, c, k) },
+  rime: { milli: 2200, verdict: (w, c, k) => rimeVerdict(w, c, k) },
+  sling: { milli: 1800, verdict: (w, c, k) => slingVerdict(w, c, k) },
+  trivet: { milli: 1700, verdict: (w, c, k) => trivetVerdict(w, c, k) },
 };
 
 /**

@@ -33621,3 +33621,13 @@ Bottleneck: a new test file named without checking that the name was free.
 Bottleneck: deciding when a screen is waiting, so the clock is not on both screens all the while both are shaking.
 
 *Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-05 — The director loads again: no shot read while `core-along` loads
+
+- reading: 5 min. The stack named the line; a scratch script found the cycle back through `bullets.ts`.
+- writing: 5 min. The table's verdicts behind arrows, grindstone's row moved into it.
+- looking: 5 min. The director on a free port, the error reproduced with the fix stashed and gone with it back.
+- friction: 5 min. A guard test timed out in `check:fast` beside the live dev server; queued.
+- landing: 5 min.
+
+Bottleneck: the tests run real ESM, where the cycle is harmless, so only a browser on the dev server showed it.
