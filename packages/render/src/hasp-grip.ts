@@ -11,8 +11,10 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { handleRadius } from "./handle-draw.js";
+import { haspKnobAt, haspKnobSize } from "./hasp-knob.js";
 import { haspBarAt, haspCentre, haspHubRadius } from "./hasp-shape.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
+import { PULL_GRAB } from "./pull-knob.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-c.js";
@@ -32,7 +34,7 @@ import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-c.js";
  * **The latch is carried; the wheel is turned.** His press is the bar at rest
  * and every move after it a depth down the rail in thousandths of a tile,
  * which is the rail's own length (`haspRail`), so the bar stays under the
- * thumb. Her press is anywhere on the working wheel, and the hold carries the
+ * thumb. Her press is anywhere on the working wheel or on its knob, and the hold carries the
  * hub's centre with `turns` set, so the move is read the crank's way about it
  * — THE GAUGE's dial did it first (`gauge-grip.ts`) and `touch.ts` needed no
  * new branch. There is no fold to undo, unlike THE GIMBAL's rims: the wheel is
@@ -46,7 +48,7 @@ import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-c.js";
  * already on the rim is what makes *go* one word rather than two.
  */
 
-/** A thumb's worth round the hub, past the knurl — the whole wheel is the handle. */
+/** A thumb's worth round the hub — the whole wheel is the handle, the knob as well. */
 const RIM_REACH = 1.35;
 
 /** Whether the latch will take a hand at all: `latchHeard`'s two refusals. */
@@ -107,7 +109,9 @@ export function haspHandleUnder(l: Layout, x: number, y: number, field: Field): 
 }
 
 /**
- * The navigator's press on the rim. The grab carries no bearing — the first
+ * The navigator's press on the rim, or on THE MAZE's knob bolted to it
+ * (`hasp-knob.ts`) — answered `PULL_GRAB` times wider than it is drawn, as
+ * every pull handle is, and turned about the hub either way. The grab carries no bearing — the first
  * sample is a starting point, and a grab claiming to be at the top would wind
  * the wheel by however far round the finger happened to land.
  */
@@ -115,7 +119,9 @@ export function haspRimUnder(l: Layout, x: number, y: number, field: Field): Tou
   const s = bossOf(field, "hasp");
   if (s === null || field.seat !== 2 || !showsHaspWheel(l.role) || !haspWheelUp(s)) return null;
   const wheel = haspWheelCircle(l, field.cfg, s);
-  if (!hitCircle(wheel, x, y)) return null;
+  const knob = haspKnobAt(l, field.cfg, s, s.wheelMilli / 1000);
+  const grab = { ...knob, r: haspKnobSize(l, field.cfg) * PULL_GRAB };
+  if (!hitCircle(wheel, x, y) && !hitCircle(grab, x, y)) return null;
   return {
     player: 2,
     command: { kind: "drag", target: "haspWheel", on: true, fromMilli: NO_BEARING },
@@ -134,7 +140,7 @@ export function haspRimUnder(l: Layout, x: number, y: number, field: Field): Tou
  * **Where her thumb is on the wheel's rim** — at the bearing her hand last
  * reported, not the one the wheel stands at, for the ghost hand of a
  * rehearsal. The two agree while the latch is held and part the moment it is
- * not: the hand goes on round and the knurl stays where it seized, which is
+ * not: the hand goes on round and the knob stays where it seized, which is
  * the page (`sim/hasp-hand.ts`). The same `cos`/`sin` the spokes are drawn
  * with (`hasp-parts.ts`), so a thumb at nought sits on a spoke at nought.
  * Null with no hand on it.

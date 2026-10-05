@@ -98,7 +98,7 @@ export function drawHasp(
   drawHaspHalos(ctx, l, cfg, s, time);
   for (let i = 0; i < HASP_COUNT; i++) {
     if (wheel) {
-      drawHaspWheel(ctx, l, cfg, s, i, beat, beatPhase);
+      drawHaspWheel(ctx, l, cfg, s, i, beat, beatPhase, time);
       drawHaspSmear(ctx, l, cfg, s, i, beat, beatPhase);
     } else drawHaspCap(ctx, l, cfg, i);
   }

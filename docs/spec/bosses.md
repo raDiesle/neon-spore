@@ -7382,8 +7382,10 @@ heat's own colour**, rock at a fresh grip drifting through amber to ember as
 his hand runs out (`haspLatchHex`), and a riveted cap where each hub is: never
 a wheel, whether it turns, or that there is one, and so never the creep either,
 which would be the wheel told in the shape of the lid. The navigator is shown
-the wheel — spoked, knurled on the working one, standing where her hand left
-it, lit while it is free and dark while it is seized — and the creep, and never
+the wheel — spoked, standing where her hand left it, lit while it is free and
+dark while it is seized, the working one turned by THE MAZE's knob, lever and
+channel (`hasp-knob.ts`), its green the share of the wind turned, since the
+wheel is wound by travel either way — and the creep, and never
 the latch, its depth or its heat. The receipts are split the same way
 (`hasp-fx.ts`): a grip, a let-go, a burn and a cooling burst on the latch's
 screens alone, a seize — which dims her whole field for a beat, as the design

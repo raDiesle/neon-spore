@@ -17,6 +17,7 @@ import { haspCues } from "../src/boss-cue-read-z.js";
 import { cueSeen } from "../src/boss-cue-shape.js";
 import { handleCircle } from "../src/handle-place.js";
 import { haspLatchCircle, haspWheelCircle } from "../src/hasp-grip.js";
+import { haspKnobAt, haspKnobSize } from "../src/hasp-knob.js";
 import { haspBoltAt } from "../src/hasp-shape.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { type Field, touchDown } from "../src/touch.js";
@@ -103,6 +104,26 @@ describe("a thumb on THE HASP", () => {
     expect(hold.originX).toBeCloseTo(wheel.x, 3);
     expect(hold.originY).toBeCloseTo(wheel.y, 3);
     expect(touch?.command).toMatchObject({ target: "haspWheel", fromMilli: NO_BEARING });
+  });
+
+  it("takes her press on THE MAZE's knob past the rim, and it rides the wheel", () => {
+    // The knob stands a lever's length off the hub (`hasp-knob.ts`), beyond
+    // the rim's own reach, and is answered `PULL_GRAB` wider than drawn: a
+    // press on its far side is still the wheel, turned about the hub.
+    const { world, s } = working();
+    const l = layout("p2");
+    const wheel = haspWheelCircle(l, CFG, s);
+    for (const turns of [0, 0.3]) {
+      s.wheelMilli = turns * 1000;
+      const knob = haspKnobAt(l, CFG, s, turns);
+      const out = Math.hypot(knob.x - wheel.x, knob.y - wheel.y);
+      const far = (out + haspKnobSize(l, CFG)) / out;
+      const at = { x: wheel.x + (knob.x - wheel.x) * far, y: wheel.y + (knob.y - wheel.y) * far };
+      expect(Math.hypot(at.x - wheel.x, at.y - wheel.y)).toBeGreaterThan(wheel.r);
+      const touch = grab(world, "p2", 2, at);
+      expect(target(touch)).toBe("haspWheel");
+      expect(touch?.hold?.kind === "drag" && touch.hold.originX).toBeCloseTo(wheel.x, 3);
+    }
   });
 
   it("answers neither seat on the other's half", () => {

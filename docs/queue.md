@@ -328,32 +328,14 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE HASP's wheel turns with THE MAZE's knob, lever and channel
-
-- **Found:** 2026-10-05, claude/gimbal-turn-controls-aa1635
-- **Taken:** 2026-10-05, claude/task-queue-status-907163 (claim: claude/queue-the-hasps-wheel-turns-with-the-mazes-knob-lever)
-- **Files:** `packages/render/src/hasp-parts.ts`, `packages/render/src/hasp-grip.ts`, `packages/render/test/pull-way-roll-out.test.ts`
-
-The owner, 5 October 2026: a turn is THE MAZE's turn on every wave — *a set
-of reusable consistent controls across all waves, which players can learn if
-they repeat and follow same visuals*. THE GIMBAL wears it now
-(`render/gimbal-knob.ts`): `drawMazeLever` from the rim to a `drawPullKnob`
-at handle radius, a `closed` `drawPullTrack` a lever's length out of the rim
-filling green from the knob's rest, the either-way arrow until a hand picks
-one, `PULL` under it. THE HASP's working wheel still says *turn me* with its
-own knurl (`hasp-parts.ts`, eighteen ticks) and is taken anywhere on the
-wheel. Give it the GIMBAL's knob in place of the knurl, answer the knob at
-`PULL_GRAB` as well as the wheel, register the file in
-`pull-way-roll-out.test.ts`, and move `docs/controls-catalogue.md`'s
-`drawMazeLever` row. Done when `bun run check` is green.
-
 ## THE CLAW's crank turns with THE MAZE's knob, lever and channel
 
 - **Found:** 2026-10-05, claude/gimbal-turn-controls-aa1635
 - **Files:** `packages/render/src/crank-dial.ts`, `packages/render/test/pull-way-roll-out.test.ts`
 
-The same ask as THE HASP's entry above (the owner, 5 October 2026: one turn,
-THE MAZE's, on every wave). The crank on the band is already a knob on a bar
+The same ask THE GIMBAL and THE HASP have landed (`gimbal-knob.ts`,
+`hasp-knob.ts`; the owner, 5 October 2026: one turn, THE MAZE's, on every
+wave). The crank on the band is already a knob on a bar
 round a circle (`crank-dial.ts`), but it is its own drawing: no channel, no
 green behind the hand, no arrow in the knob, no `PULL`. Draw it with
 `drawPullKnob`, `drawMazeLever` and a `closed` `drawPullTrack` as
@@ -366,7 +348,8 @@ check` is green.
 - **Found:** 2026-10-05, claude/gimbal-turn-controls-aa1635
 - **Files:** `packages/render/src/gauge-grip.ts`, `packages/render/src/gauge-tongue-grip.ts`
 
-The same ask as THE HASP's entry above. THE GAUGE's band is read the crank's
+The same ask THE GIMBAL and THE HASP have landed (`gimbal-knob.ts`,
+`hasp-knob.ts`). THE GAUGE's band is read the crank's
 way about the dial (`hasp-grip.ts` says THE GAUGE did it first), so it is a
 turn and should wear `render/gimbal-knob.ts`'s knob, lever and channel; the
 tongue's `TWIST` (`boss-cue-read-w.ts`) is the same question. Read both

@@ -33345,3 +33345,13 @@ Bottleneck: Biome's `--write` on the touched files did not apply `useImportType`
 Bottleneck: what the canvas stub logs, which a new frame test can only find out by printing it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE HASP's wheel turns with THE MAZE's knob, lever and channel
+
+- reading: 5 min. THE GIMBAL's landing, the hasp's parts, grip, pose and hand, and how its wheel is wound.
+- writing: 5 min. `hasp-knob.ts`, the knurl out, the knob answered, a test, the director's row, §20 and the catalogue.
+- looking: 5 min. Four frames of the navigator's screen: still, just lit, two mid-wind.
+- friction: 0 min.
+- landing: 5 min. One red: the file map wanted the new file's row.
+
+Bottleneck: deciding what the green means on a wheel wound by distance rather than turned to a place.

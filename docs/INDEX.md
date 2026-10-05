@@ -1580,6 +1580,7 @@ by hand never moves.
 | `packages/render/src/hasp-grip.ts` | **The two thumbs on THE HASP** — half two of the look lane |
 | `packages/render/src/hasp-blow.ts` | **THE HASP's own blow at the hull** (`boss-strike-look.ts`): its falling bolt driven home into the plating |
 | `packages/render/src/hasp-marks.ts` | **THE HASP's halos and verdicts** — each seat's own mark answers a touch, and neither is shown the partner's ring |
+| `packages/render/src/hasp-knob.ts` | **THE HASP's wheel turned the way THE MAZE's is**: a knob on a lever bolted to the hub's rim |
 | `packages/render/src/guard-lapse.ts` | How long the guard button (`band.ts`) keeps fading after its own window closes, in milliseconds |
 | `packages/render/src/handle-draw.ts` | you are changing the shape of a handle — the ring, the gauge, the rest mark and the sag, shared by every one of them |
 | `packages/render/src/gyre-core.ts` | you are drawing the surface in the middle of a gyre wheel — the organelle, its fluid and its nucleus |

@@ -52,7 +52,7 @@ export const HASP_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE HASP'S WHEEL",
     where:
-      "on the rim of the wheel across the door's face, on player 2's screen, whenever a clasp is lit — burnt latch or not, seized or free, because her place on the rim is what makes *go* one word",
+      "the knob on the lever bolted to the wheel — THE MAZE's knob, in a channel round the hub — or anywhere on the rim of the wheel across the door's face, on player 2's screen, whenever a clasp is lit — burnt latch or not, seized or free, because her place on the rim is what makes *go* one word",
     seat: "player 2 — the wheel is the navigator's, and she is never shown his latch nor he her rim",
     gesture: "grab and drag",
     does:
@@ -67,7 +67,10 @@ export const HASP_CONTROLS: readonly FieldControlDef[] = [
       "latch **seizes**, and the turning is lost rather than banked. Her " +
       "place on the rim is not: the hand is still read, so the instant he " +
       "takes hold again the wheel picks up exactly where it stopped and her " +
-      "thumb does not have to go back for it (sim/hasp-hand.ts). The rim " +
+      "thumb does not have to go back for it (sim/hasp-hand.ts). The knob is " +
+      "THE MAZE's (render/hasp-knob.ts): its channel fills green by the share " +
+      "of the wind turned, the whole ring when the clasp gives, with the " +
+      "two-headed arrow in it and PULL under it. The rim " +
       "has the halo round it while her hand is off it, and washes green as " +
       "it comes free under her hand and red as it seizes (hasp-marks.ts). " +
       "Neither seat is shown the other's mark, not even as a partner's " +

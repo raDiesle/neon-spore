@@ -5,11 +5,13 @@ import {
   haspHandHasp,
   haspHeld,
   haspLatchUp,
+  haspTurning,
   haspWheelUp,
   NO_LATCH,
   type SimConfig,
 } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
+import { drawHaspKnob } from "./hasp-knob.js";
 import { haspFree, haspLatchHex, haspSpokeTurns } from "./hasp-pose.js";
 import { haspBarAt, haspCentre, haspHubRadius, haspRail, haspStapleFoot } from "./hasp-shape.js";
 import { rgba } from "./hex.js";
@@ -24,17 +26,17 @@ import { PALETTE, STROKE } from "./palette.js";
  * thing both seats share and these are the two things neither does.
  *
  * Each carries the fifth standard — a mark saying which gesture it is for —
- * in its own shape rather than a word: a knurled rim is a thing to turn, and
- * a bar on a rail is a thing to pull down and hold.
+ * in its own shape rather than a word: a knob on a lever round a rim is a
+ * thing to turn (THE MAZE's, `hasp-knob.ts`), and a bar on a rail is a thing
+ * to pull down and hold.
  */
 
 const SPOKES = 5;
-const KNURL = 18;
 
 /**
  * Hub `i` as the navigator sees it: a spoked wheel standing where her hand
- * left it, its rim lit while it is free and dark while it is seized, and a
- * knurl round the working one. Rock grey throughout — it is never shot.
+ * left it, its rim lit while it is free and dark while it is seized, and
+ * THE MAZE's knob on the working one. Rock grey throughout — it is never shot.
  */
 export function drawHaspWheel(
   ctx: CanvasRenderingContext2D,
@@ -44,6 +46,7 @@ export function drawHaspWheel(
   i: number,
   beat: number,
   beatPhase: number,
+  time: number,
 ): void {
   const at = haspCentre(l, cfg, i);
   const r = haspHubRadius(l);
@@ -58,7 +61,7 @@ export function drawHaspWheel(
   // Lit by the same turn the spokes are drawn at: a hub genuinely spins, so
   // its own rotation is what feeds litRound's spin rather than an idle wobble
   // invented for it — and a seized wheel stopping the turn is the shading
-  // stopping with it, exactly the tell the knurl already gives.
+  // stopping with it, exactly the tell the knob already gives.
   ctx.save();
   ctx.clip(disc);
   litRound(ctx, at.x, at.y, r, LIGHT_HALF.rock, turn);
@@ -78,18 +81,10 @@ export function drawHaspWheel(
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = free || clearing ? PALETTE.rock : rgba(PALETTE.rock, 0.3);
   ctx.stroke(spokes);
-  if (!working) return;
-  // The knurl: the mark that this is the wheel to turn. It turns with the
-  // spokes, so a wheel that seized mid-turn is seen stopped *there*.
-  const knurl = new Path2D();
-  for (let k = 0; k < KNURL; k++) {
-    const a = turn + (k * Math.PI * 2) / KNURL;
-    knurl.moveTo(at.x + Math.cos(a) * r * 1.04, at.y + Math.sin(a) * r * 1.04);
-    knurl.lineTo(at.x + Math.cos(a) * r * 1.2, at.y + Math.sin(a) * r * 1.2);
-  }
-  ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = rgba(PALETTE.rock, free ? 0.85 : 0.3);
-  ctx.stroke(knurl);
+  // THE MAZE's knob, lever and channel: the mark that this is the wheel to
+  // turn (`hasp-knob.ts`). Bolted to the spokes, so a wheel that seized
+  // mid-turn is seen stopped *there*.
+  if (working) drawHaspKnob(ctx, l, cfg, s, turn / (Math.PI * 2), free, haspTurning(s), time);
 }
 
 /**
