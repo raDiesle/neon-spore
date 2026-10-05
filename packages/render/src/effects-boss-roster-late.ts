@@ -69,10 +69,9 @@ export class LateRoster extends RoundMarks {
    * place so a freeze slows it rather than snapping it, and the limp
    * flutter a swipe that caught nothing leaves (`burgee-fx.ts`). */
   readonly burgee = new BurgeeFx();
-  /** THE FLUE's tick through the slot for every tap, a vent notch's flare,
-   * the damper's thud, the core's flash, the hull shock, and its receipts'
-   * bursts — thrown the same on both screens, and told the core's colour by
-   * the drawer (`flue-fx.ts`, `flue-draw.ts`). */
+  /** THE FLUE's flash at the sight for every hit, a level stud's flare, the
+   * hull shock as it goes cold, and its receipts' bursts — thrown the same on
+   * both screens (`flue-fx.ts`, `flue-draw.ts`). */
   readonly flue = new FlueFx();
   /** THE GOVERNOR's flash on the rim for every tap, a skid's scrape, the
    * hub's flash, the hull shock, its receipts' bursts and its marks' verdicts

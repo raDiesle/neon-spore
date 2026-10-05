@@ -1,36 +1,35 @@
 /**
- * THE FLUE's tuning: the beats around its steps, how far and how fast the
- * ember drifts on its own, and how many beats of nothing steady it
- * (`docs/spec/bosses-choreographed.md` §40).
+ * THE FLUE's tuning: the beats around its levels, how far the ember runs,
+ * the row it runs on, how near the cannon's column a shot must meet it, and
+ * how many shots a level allows (`docs/spec/bosses.md` §11.57).
  *
- * What is **not** here is the script — which step asks what, of whom, which
- * notches the ember moves to, in which colour and for how many beats: that
- * is the wave's, authored on its entry.
- *
- * `fluePauseBeats` is the rest *between steps*, and it is not named for a
- * rest as the other bosses' are because on this one the rest is the
- * mechanic: that word is the per-seat count on the state, `restBeats`.
+ * What is **not** here is the levels — which weapon, which colour, how fast
+ * the ember runs and how slow THE SLOW plays: those are the wave's, authored
+ * on its entry, so the pair can be shown each level's whole combination.
  */
 export interface FlueConfig {
-  /** Beats the ember drifts loose before the first step lights. */
+  /** Beats the flue stands before the first level lights. */
   flueSlackBeats: number;
-  /** Beats the flue rests after a step before the next lights. */
+  /** Beats the flue rests after a level is cleared before the next lights. */
   fluePauseBeats: number;
-  /** Beats the open damper stands before the wave may end. */
+  /** Beats the spent flue stands before the wave may end. */
   flueSpentBeats: number;
-  /** How far either side of the middle column the ember drifts, thousandths of a column. */
+  /** How far either side of the middle column the ember runs, thousandths of a column. */
   flueSpanMilli: number;
-  /** How far it drifts a beat, thousandths of a column. */
-  flueDriftMilli: number;
-  /** Beats in a row with nothing sent that steady the ember or hold the damper. */
-  flueRestThreshold: number;
+  /** The row, from the top, the ember runs along and a shot meets it on. */
+  flueRow: number;
+  /** How far off the cannon's column the ember may be and still be met, thousandths of a column. */
+  flueHitMilli: number;
+  /** Shots a level allows; the last one missed is the wave. */
+  flueShots: number;
 }
 
 export const FLUE_DEFAULTS: FlueConfig = {
   flueSlackBeats: 2,
-  fluePauseBeats: 1,
+  fluePauseBeats: 2,
   flueSpentBeats: 2,
-  flueSpanMilli: 2000,
-  flueDriftMilli: 500,
-  flueRestThreshold: 3,
+  flueSpanMilli: 4500,
+  flueRow: 2,
+  flueHitMilli: 450,
+  flueShots: 3,
 };

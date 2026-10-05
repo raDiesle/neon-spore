@@ -1,5 +1,6 @@
 import { batonLocks } from "./baton-press.js";
 import { faultSwallows } from "./fault-swallow.js";
+import { flueHoldsCannon } from "./flue.js";
 import { mirrorHoldsControls } from "./mirror.js";
 import { stareBreaks } from "./stare-step.js";
 import type { TimedCommand } from "./types.js";
@@ -30,6 +31,10 @@ export function pressRefused(world: World, timed: TimedCommand): boolean {
   // button works, the pair was warned for four beats, and a watched seat that
   // pressed anyway breaks the hull — which is the wave lost (`stare-step.ts`).
   if (stareBreaks(world, timed)) return true;
+  // **THE FLUE holds the cannon under the middle column**: a cannon that slid
+  // under the ember would let the beam, which burns its column the instant it
+  // goes off, hit with nobody's timing at all (`flue.ts`).
+  if (flueHoldsCannon(world, timed.command)) return true;
   // **THE BATON swallows a press and says nothing**: the seat was told *not
   // yet*, and the grey panel is the whole of the telling (`baton-press.ts`).
   return batonLocks(world, timed);

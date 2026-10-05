@@ -1,106 +1,85 @@
-import { midCol, type SimConfig } from "./config.js";
-import type { Color } from "./types.js";
+import { midCol, type SimConfig, ticksPerBeat } from "./config.js";
+import type { Bullet, Color, Command } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * THE FLUE: a slotted exhaust flue mid-hull with an ember drifting inside it
- * on its own, steadied only while one seat sends nothing at all, and tapped
- * three times by the other while it stays steady; then a core bared under a
- * damper that stays open only while both hands are off
- * (`docs/spec/bosses-choreographed.md` §40).
+ * THE FLUE: a slotted flue across the top of the field, and an ember running
+ * along it from end to end and back, over the cannon held still under the
+ * middle column (`docs/spec/bosses.md` §11.57, the owner's rework of 5
+ * October 2026).
  *
- * **The rule is one sentence**: one of you keeps still until the ember
- * steadies, and the other taps it three times before the still one moves.
+ * **The rule is one sentence**: the one who sees the ember says *now*, and
+ * the other shoots it as it runs over the cannon.
+ *
+ * **The split is the eyes.** Only the pilot is shown the ember; the
+ * navigator, who has the trigger, is not (`render/view-role-clocks-c.ts`).
+ * A bolt takes about a beat to climb to the flue and a beam a whole fill to
+ * go off, so the word has to come early, by the shot's own delay and the
+ * pair's.
+ *
+ * **It is levels, and they are its health.** Each one asks one weapon in one
+ * colour, with the ember at its own speed and THE SLOW at its own strength,
+ * and gives three shots for it. A shot is judged as it reaches the flue,
+ * which no shot gets past: met over the ember in the asked weapon and colour,
+ * the level is cleared; anything else spends a shot, and the last one spent
+ * is the wave.
+ * The next level starts with three again.
  *
  * `emberMilli` is where the ember is, in thousandths of a column off the
- * middle one, and it is **nobody's to move**: the simulation drifts it
- * `flueDriftMilli` a beat, back and forth inside `flueSpanMilli` either side,
- * THE BURGEE's undriven sweep (`burgee.ts`). The rest is THE HALTER's
- * `RestraintGate` (`halter.ts`): every command a seat sends, of any kind,
- * zeroes its count, and a beat with nothing in it adds one. At
- * `flueRestThreshold` the ember stops dead on the nearest column.
- *
- * **The coupling is the boss.** A tap lands only while the ember is steady,
- * and on the column it sits over; each one moves it to the next notch the
- * step authors. The instant the resting seat sends anything, mid-count, the
- * taps already landed go back to nought with the rest — the whole three must
- * be spent inside one unbroken stillness.
- *
- * **Its health is two vents of three taps and three shots.** A vent or a
- * damper that runs out is tried again; a shot that runs out is a hull hit,
- * which is the wave.
+ * middle one, and it is **nobody's to move**: it is worked out every tick
+ * from the ticks the level has run (`flueEmberAlong`), so a level always
+ * starts it at the left end going right. The cannon is held on the middle
+ * column the whole fight, or the pilot could slide it under the ember and
+ * the beam, which burns the cannon's column the instant it goes off, would
+ * need nobody's timing at all.
  */
 
-/** Taps that spend one vent. */
-export const FLUE_TAPS = 3;
-/** Vents that bare the core — movements 1 and 2 of §40. */
-export const FLUE_VENTS = 2;
-
-/**
- * Where the scene is: the ember drifting loose before anything is asked, a
- * step lit and waiting, the flue resting between steps, and the damper
- * swung open for good, spent.
- */
 export const FLUE_PHASES = ["slack", "lit", "rest", "spent"] as const;
 export type FluePhase = (typeof FLUE_PHASES)[number];
 
-/**
- * What a step asks: one seat still while the other taps the steadied ember
- * three times, both seats still while the damper creeps shut, or a shot at
- * the bared core.
- */
-export const FLUE_ASKS = ["vent", "damper", "fire"] as const;
-export type FlueAsk = (typeof FLUE_ASKS)[number];
+/** The two shots the cannon has: a bolt that climbs, and the beam a held colour fills. */
+export const FLUE_WEAPONS = ["bolt", "beam"] as const;
+export type FlueWeapon = (typeof FLUE_WEAPONS)[number];
 
-/** One step of the script, authored on the wave. */
-export interface FlueStep {
-  ask: FlueAsk;
-  /** The seat that keeps still on a vent; the other taps. A damper and a shot read `"both"`. */
-  rester: 1 | 2 | "both";
-  /**
-   * Where the ember moves after the first and the second landed tap, as
-   * columns off the middle one. Only a vent reads it.
-   */
-  notches: readonly number[];
-  /** The colour a shot must be, or `"either"`. Only a fire step reads it. */
-  color: Color | "either";
-  /** Beats the step stays lit: a vent's or a damper's window, a fire step's wait for its shot. */
-  beats: number;
+/** Why a shot spent one of the level's three. */
+export const FLUE_MISSES = ["wide", "color", "weapon"] as const;
+export type FlueMissWhy = (typeof FLUE_MISSES)[number];
+
+/** One level, authored on the wave. */
+export interface FlueLevel {
+  weapon: FlueWeapon;
+  color: Color;
+  /** How far the ember runs a beat, thousandths of a column. */
+  speedMilli: number;
+  /** How fast THE SLOW plays the level, thousandths of the ordinary rate; 1000 is no slow at all. */
+  slowMilli: number;
 }
 
-/** What a wave authors: the whole script, in order. */
+/** What a wave authors: the levels, in order. */
 export interface FlueEntry {
   kind: "flue";
-  steps: readonly FlueStep[];
+  levels: readonly FlueLevel[];
 }
 
 export interface FlueState {
   kind: "flue";
   /** Copied at install and never written again. */
-  steps: FlueStep[];
+  levels: FlueLevel[];
   phase: FluePhase;
   /** `world.beat` the phase began. */
   phaseBeat: number;
-  /** The step lit, or the next to light. */
+  /** The level lit, or the next to light. */
   cursor: number;
+  /** Ticks the lit level's ember has run. */
+  rollTicks: number;
   /** Where the ember is, thousandths of a column off the middle column. */
   emberMilli: number;
-  /** Which way it drifts: 1 toward the right, -1 toward the left. */
+  /** Which way it runs: 1 toward the right, -1 toward the left. */
   emberDir: 1 | -1;
-  /** Taps landed in the vent lit, nought up to `FLUE_TAPS`. */
-  taps: number;
-  /** Vents spent: nought up to `FLUE_VENTS`. */
-  vents: number;
-  /** Shots the core has taken. */
+  /** Shots the lit level has left. */
+  shots: number;
+  /** Levels cleared. */
   hits: number;
-  /** Whether the core is bared to be shot. */
-  bared: boolean;
-  /** Beats in a row each seat has sent nothing, held at `flueRestThreshold`. */
-  restBeats: [number, number];
-  /** Whether each seat has sent a command since the last beat, so that beat is not counted. */
-  stirred: [boolean, boolean];
-  /** Whether each seat's thumb is down on the ember, so a tap is an edge. */
-  tapDown: [boolean, boolean];
 }
 
 export function flueBoss(world: World): FlueState | null {
@@ -108,90 +87,77 @@ export function flueBoss(world: World): FlueState | null {
   return boss !== null && boss.kind === "flue" ? boss : null;
 }
 
-/** The step lit, or null between steps. */
-export function flueLitStep(s: FlueState): FlueStep | null {
-  return s.phase === "lit" ? (s.steps[s.cursor] ?? null) : null;
+/** The level lit, or null between levels. */
+export function flueLitLevel(s: FlueState): FlueLevel | null {
+  return s.phase === "lit" ? (s.levels[s.cursor] ?? null) : null;
 }
 
-/** A seat, 1 or 2, as an index into the pairs. */
-export function flueSeatIndex(seat: 1 | 2): 0 | 1 {
-  return seat === 1 ? 0 : 1;
+/** The level lit, or the one the flue is waiting to light; null once spent. */
+export function flueShownLevel(s: FlueState): FlueLevel | null {
+  return s.phase === "spent" ? null : (s.levels[s.cursor] ?? null);
 }
 
-/** The seat that must keep still in the lit step: one on a vent, both on a damper, none otherwise. */
-export function flueResters(s: FlueState): readonly (1 | 2)[] {
-  const step = flueLitStep(s);
-  if (step === null || step.ask === "fire") return [];
-  if (step.ask === "damper" || step.rester === "both") return [1, 2];
-  return [step.rester];
-}
-
-/** The seat that taps the lit vent's ember, or null when no vent is lit. */
-export function flueTapper(s: FlueState): 1 | 2 | null {
-  const step = flueLitStep(s);
-  if (step?.ask !== "vent" || step.rester === "both") return null;
-  return step.rester === 1 ? 2 : 1;
-}
-
-/** Whether every seat the lit step asks to keep still has kept still to the threshold. */
-export function flueSettled(world: World, s: FlueState): boolean {
-  const resters = flueResters(s);
-  if (resters.length === 0) return false;
-  const threshold = world.cfg.flueRestThreshold;
-  return resters.every((seat) => s.restBeats[flueSeatIndex(seat)] >= threshold);
-}
-
-/** Whether the ember is steady — a vent lit and its rester settled — so a tap may land. */
-export function flueSteady(world: World, s: FlueState): boolean {
-  return flueLitStep(s)?.ask === "vent" && flueSettled(world, s);
+/** The column the cannon is held on, and the one the ember must be over. */
+export function flueCannonCol(cfg: SimConfig): number {
+  return midCol(cfg);
 }
 
 /**
- * Whether the ember asks a seat's tap, nought for the pilot: the lit vent's
- * tapper, once its rester has steadied it. The rester is never asked for
- * anything — keeping still is not a touch.
+ * Where the ember is after `ticks` of a level at `speedMilli` a beat: from
+ * the left end to the right and back, turned off either end of
+ * `flueSpanMilli`. Integers throughout, so both devices agree to the tick,
+ * and pure, so AUTO can ask where it will be when a shot gets there.
  */
-export function flueTapAsks(world: World, s: FlueState, side: 0 | 1): boolean {
-  const tapper = flueTapper(s);
-  return tapper !== null && flueSteady(world, s) && flueSeatIndex(tapper) === side;
+export function flueEmberAlong(
+  cfg: SimConfig,
+  speedMilli: number,
+  ticks: number,
+): { milli: number; dir: 1 | -1 } {
+  const span = cfg.flueSpanMilli;
+  const lap = 4 * span;
+  const run = Math.floor((ticks * speedMilli) / ticksPerBeat(cfg)) % lap;
+  return run < 2 * span
+    ? { milli: run - span, dir: 1 }
+    : { milli: span - (run - 2 * span), dir: -1 };
 }
 
-/** The column the ember sits over, rounded; the one a tap must name while it is steady. */
-export function flueEmberCol(cfg: SimConfig, s: FlueState): number {
-  return midCol(cfg) + Math.round(s.emberMilli / 1000);
+/** Whether the ember is over column `col`, near enough that a shot up it meets it. */
+export function flueOver(cfg: SimConfig, s: FlueState, col: number): boolean {
+  const at = (col - midCol(cfg)) * 1000;
+  return Math.abs(s.emberMilli - at) <= cfg.flueHitMilli;
 }
 
-/** Whether the ember drifts this beat: loose, and the fight not spent. */
-export function flueDrifts(world: World, s: FlueState): boolean {
-  return s.phase !== "spent" && !flueSteady(world, s);
+/** Whether a shot is the one the level asks: its weapon and its colour. */
+export function flueMissWhy(
+  level: FlueLevel,
+  shot: Pick<Bullet, "color" | "lance">,
+): FlueMissWhy | null {
+  if ((level.weapon === "beam") !== shot.lance) return "weapon";
+  return shot.color === level.color ? null : "color";
 }
 
-/** Whether a fire step is lit and the core bared, so a shot may land. */
-export function flueFiring(s: FlueState): boolean {
-  return s.bared && flueLitStep(s)?.ask === "fire";
+/** A slide of the cannon, refused while the flue is up: it is held under the middle. */
+export function flueHoldsCannon(world: World, command: Command): boolean {
+  return command.kind === "cannonCol" && flueBoss(world) !== null;
 }
 
-/** The damper swung open and the ember gone still: the fight is over. */
+/** The flue spent: the fight is over. */
 export function flueDone(s: FlueState): boolean {
   return s.phase === "spent";
 }
 
-/** A fresh flue: the ember over the middle drifting right, nothing spent, no thumb down. */
-export function freshFlue(beat: number, steps: readonly FlueStep[]): FlueState {
+/** A fresh flue: the ember at the left end, nothing cleared, a full level of shots. */
+export function freshFlue(cfg: SimConfig, beat: number, levels: readonly FlueLevel[]): FlueState {
   return {
     kind: "flue",
-    steps: steps.map((step) => ({ ...step, notches: [...step.notches] })),
+    levels: levels.map((level) => ({ ...level })),
     phase: "slack",
     phaseBeat: beat,
     cursor: 0,
-    emberMilli: 0,
+    rollTicks: 0,
+    emberMilli: -cfg.flueSpanMilli,
     emberDir: 1,
-    taps: 0,
-    vents: 0,
+    shots: cfg.flueShots,
     hits: 0,
-    bared: false,
-    restBeats: [0, 0],
-    stirred: [false, false],
-    tapDown: [false, false],
   };
 }

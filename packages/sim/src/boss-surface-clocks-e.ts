@@ -79,34 +79,31 @@ export {
 // Whether THE CURTAIN's hem asks the pilot for his thumb
 // (`render/curtain-marks.ts`), because the page it would have joined was within twenty lines of its limit.
 export { curtainHemAsks } from "./curtain-hand.js";
-// THE FLUE's ember: the phase, the lit step, the drift and the steadying,
-// whose rest is counted and whose tap is heard, the taps, the vents and the
-// core, for the picture, the cue and the director's hand. Straight off
-// `flue.ts` (§40).
+// THE FLUE's ember: the phase, the lit level, where the ember runs and
+// which column it must be over, why a shot was spent, and the cannon held,
+// for the picture, the cue and the director's hand. Straight off `flue.ts`
+// (§11.57).
 export {
-  FLUE_ASKS,
+  FLUE_MISSES,
   FLUE_PHASES,
-  FLUE_TAPS,
-  FLUE_VENTS,
-  type FlueAsk,
+  FLUE_WEAPONS,
   type FlueEntry,
+  type FlueLevel,
+  type FlueMissWhy,
   type FluePhase,
   type FlueState,
-  type FlueStep,
+  type FlueWeapon,
   flueBoss,
+  flueCannonCol,
   flueDone,
-  flueDrifts,
-  flueEmberCol,
-  flueFiring,
-  flueLitStep,
-  flueResters,
-  flueSeatIndex,
-  flueSettled,
-  flueSteady,
-  flueTapAsks,
-  flueTapper,
+  flueEmberAlong,
+  flueLitLevel,
+  flueMissWhy,
+  flueOver,
+  flueShownLevel,
   freshFlue,
 } from "./flue.js";
+export { flueEmberMet, flueEmberRun, flueEmberWait, flueShotTicks } from "./flue-lead.js";
 // THE GOVERNOR's needle: the phase, the lit step, the needle and its speed,
 // whose chord brakes it and whose tap is heard, the runs and the hub, for the
 // picture, the cue and the director's hand. Straight off `governor.ts` (§43).

@@ -26,8 +26,16 @@ function step(s: object): string {
   return `{ ${fields.join(", ")} }`;
 }
 
-/** A scripted boss written back out, its steps on the one line. */
+/**
+ * A scripted boss written back out, its steps on the one line. THE FLUE's
+ * list is its levels, since its rework of 5 October 2026, and is written the
+ * same way under its own name.
+ */
 export function serializeScripted(boss: ScriptedEntry): string {
+  if (boss.kind === "flue") {
+    const levels: readonly object[] = boss.levels;
+    return `{ kind: "flue", levels: [${levels.map(step).join(", ")}] }`;
+  }
   const steps: readonly object[] = boss.steps;
   return `{ kind: "${boss.kind}", steps: [${steps.map(step).join(", ")}] }`;
 }

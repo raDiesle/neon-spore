@@ -2,7 +2,6 @@ import { type DragTarget, valveTurning, type World } from "@neon-spore/sim";
 import { burgeeDrawCircle, burgeeFreezeCircle } from "./burgee-grip.js";
 import { capstanRubStanding, capstanSteerStanding, capstanTakesHand } from "./capstan-grip.js";
 import { davitLooseCircle, davitSteerCircle } from "./davit-grip.js";
-import { flueTapCircle } from "./flue-grip.js";
 import { gallPointCircle, gallTakesPinch } from "./gall-grip.js";
 import { governorChordsFor, governorTapCircle, governorYokeCircle } from "./governor-grip.js";
 import { grindstoneStanding, grindstoneTakesHand } from "./grindstone-grip.js";
@@ -121,13 +120,6 @@ export function laterBossHandleCircle(
     const b = world.boss?.kind === "gall" ? world.boss : null;
     if (b === null || !gallTakesPinch(b)) return null;
     return gallPointCircle(l, cfg, b.point);
-  }
-  if (target === "flueTap") {
-    // THE FLUE's ember, where the simulation holds it. Null while no vent is
-    // lit (`flue-grip.ts`).
-    const b = world.boss?.kind === "flue" ? world.boss : null;
-    if (b === null) return null;
-    return flueTapCircle(l, cfg, b);
   }
   if (
     target === "governorChordLeft" ||

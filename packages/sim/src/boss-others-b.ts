@@ -69,7 +69,7 @@ export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>)
     stepGovernor(world, boss);
     return;
   }
-  // THE FLUE: each seat's rest counted, the ember drifting or steadied, and the damper open (`flue-step.ts`).
+  // THE FLUE: each level lit, THE SLOW held open at its strength, and the flue spent (`flue-step.ts`).
   if (boss.kind === "flue") {
     stepFlue(world, boss);
     return;

@@ -10939,187 +10939,137 @@ Between steps the ring and the track stand at the last lit catch's column,
 so a verdict stays where it was earned. A wrong colour stays silent, as the
 simulation is.
 
-## 11.57 THE FLUE — an ember one seat keeps still for the other to tap
+## 11.57 THE FLUE — an ember one seat sees and the other shoots
 
-> An ember drifts along a slot mid-hull on its own. One of you sends
-> nothing at all until it stops dead; the other taps it three times as it
-> hops from notch to notch, before the still one moves. Twice, the seats
-> swapped. Then both hands off while the damper creeps, and shoot the core.
+> An ember runs along a flue across the top of the field, end to end and
+> back. One of you sees it; the other does not, and has the trigger. Say
+> when it will be over the cannon. Each level asks one shot in one colour,
+> and gives three tries.
 
-Designed as §40 of [bosses-choreographed](bosses-choreographed.md) — a
-choreographed scene, the third kind in `.claude/skills/new-boss`. No new
-primitive: THE HALTER's `SENDING NOTHING` and THE RATCHET's `TAPS ON A
-MOVING TARGET`, paired for the first time, the stillness gating **a whole
-count** rather than one instant, so a lapse costs every tap already landed.
+**Reworked by the owner, 5 October 2026.** The first FLUE (§40 of
+[bosses-choreographed](bosses-choreographed.md), built 27 September 2026)
+paired THE HALTER's `SENDING NOTHING` with THE RATCHET's `TAPS ON A MOVING
+TARGET`: one seat kept still until the ember stopped, the other tapped it
+three times. The owner's words, in German, translated: *it is boring when a
+player has nothing to do, and tapping three times is boring*; keep the ember
+running left to right across nearly the whole field; take the boss's
+pseudo-3D away so its green and red outlines can be seen; Player 2 does not
+see the ember, Player 1 has to time it and say when it is under the cannon;
+levels, three shots each, the third miss the wave; each level a plain shot
+or the beam in one colour, called early for the shot's own delay; a
+numbered scale to help them time it; levels that change THE SLOW's strength
+or the ember's speed; and what each level asks must be plain without a
+tutorial. Everything below is that, and the vents, the damper, the taps and
+the core are gone, with the drag `flueTap`, the simulation's hand for it and the render's grip.
 
-**It is two vents and three shots, and they are its health.** The state
-(`sim/flue.ts`, hashed in `sim/flue-hash.ts`) is the **phase** and the beat
-it began, the **cursor** into the script, the **ember** in thousandths of a
-column off the middle and the way it drifts, the **taps** landed in the lit
-vent, the **vents** spent, the **hits**, whether the core is **bared**, and
-for each seat its **rest** in beats, whether it has **stirred** since the
-last beat, and its **thumb** on the ember. The script is the wave's
-(`FlueEntry.steps`), copied at install: each step asks `vent`, `damper` or
-`fire`, names its **rester** (the pilot, the navigator, or `both`), the
-**notches** a landed tap moves the ember to, a colour or `either`, and its
-own beats.
+**The rule, in one sentence.** The one who sees the ember says *now*, and
+the other shoots it as it runs over the cannon.
 
-**The rule, in one sentence.** One of you keeps still until the ember
-stops, and the other taps it three times before the still one moves.
+**The split is the eyes** (`render/view-role-clocks-c.ts`,
+`showsFlueEmber`). The ember is drawn on the pilot's screen and on TEST's,
+and never on the navigator's. Everything else is on both: the sight, the
+shots left, the levels cleared. **The cannon is held** on the middle column
+the whole fight (`flueHoldsCannon`, refused in `command-locks.ts`): with it
+free the pilot would slide it under the ember, and the beam, which burns the
+cannon's column the tick it goes off, would need nobody's timing at all. So
+the pilot has the eyes and the mouth, and the navigator the colour, the
+trigger and the beam.
 
-**The split.** By the step, not by geometry: the ember is on both screens,
-and which seat rests and which taps swaps by vent, THE HALTER's trade. The
-first vent is the navigator's to keep still and the pilot's to tap, the
-second the other way about. A fire step is the ordinary shot — Player 1's
-cannon under the middle column, Player 2's trigger in its colour.
+**It is levels, and they are its health.** The state (`sim/flue.ts`, hashed
+in `sim/flue-hash.ts`) is the **phase** and the beat it began, the
+**cursor** into the levels, the **ticks** the lit level has run, the
+**ember** in thousandths of a column off the middle and the way it runs, the
+**shots** the lit level has left, and the **hits**. The levels are the
+wave's (`FlueEntry.levels`), copied at install; each names its **weapon**
+(`bolt` or `beam`), its **colour**, the ember's **speed** in thousandths of
+a column a beat, and THE SLOW's **strength** in thousandths of the ordinary
+rate, 1000 being none.
 
-**The clock** (`sim/flue-step.ts`). Every beat each seat's rest is counted
-first: one more for a seat that sent nothing in it, nought for one that
-did, held at `flueRestThreshold` — THE HALTER's count exactly. Then the
-ember **drifts on its own**, `flueDriftMilli` a beat, turned back off
-either end of `flueSpanMilli`, unless the lit vent's rester has come to the
-threshold: the beat that happens it stops dead on the nearest whole column
-(`flueSteady`). The flue is slack for `flueSlackBeats`, then the first vent
-lights under THE SLOW (`openSlow(…, "ask")`), with both seats' rest counted
-from nought. A damper is answered the beat **both** seats reach the
-threshold (`flueHeld`), the core staying bared. A vent run out chokes
-(`flueChoke`) and a damper run out shuts over the core (`flueShut`); THE
-SLOW closes, the flue rests `fluePauseBeats`, and the same step relights.
-With the script done the damper swings open wide (`flueSpent`) for
-`flueSpentBeats` before the wave may end.
+**The clock** (`sim/flue-step.ts`). The flue is slack for `flueSlackBeats`,
+then the first level lights with `flueShots` shots (`flueLight`). The ember
+is nobody's to move: every tick it is worked out from the ticks the level
+has run (`flueEmberAlong`), a triangle wave from the left end of
+`flueSpanMilli` going right, so a level always starts it in the same place
+and the pair can learn its rhythm. **It runs on the shot grid's beat**
+(`flueEmberWait`): the game lays every bolt on a half beat
+(`shotChargeBeats`), so a bolt only reaches the flue a climb after one, and
+an ember crossing the middle between two arrivals could not be met by any
+call — what AUTO found in `bun run frames`, THE WARDEN's lesson again. So
+the ember waits at the left end for under half a beat as a level lights, by
+as much as puts its crossing on an arrival, and every level's speed divides
+four spans so each crossing after it is on one too
+(`content/test/flue-levels.test.ts`). A beam is off the grid and meets it
+anywhere. On a level with a strength under 1000
+THE SLOW is held open every beat as a window that shows and fails nobody
+(`openSlow(…, "show", pace)`); the strength is a field of the world,
+`slowPaceMilli`, which `slowRateMilli` reads. A level cleared rests the
+flue `fluePauseBeats` and lights the next; the last cleared, it goes cold
+(`flueSpent`) for `flueSpentBeats` and the wave may end. There is no level
+timer.
 
-**The answers** (`sim/flue-hand.ts`). **Every command either seat sends is
-heard** — a drag, a press, the cannon slid, a colour primed — and zeroes
-that seat's rest, THE HALTER's reading. The lit vent's rester sending one
-with taps landed is a lapse (`flueLapse`): the taps go back to nought and
-the ember drifts on from where it sat; with none landed it is only a stir
-(`flueStir`). The tap is the drag `flueTap`, **an edge**, THE VALVE's pin,
-with `id` the column the thumb came down on. From the vent's tapper, on a
-steady ember, on its column, it lands (`flueTick`) and moves the ember to
-the step's next notch; anywhere else, or on a drifting ember, it skids
-(`flueSkid`); from the rester it counts nothing and stirs. The third tap
-spends the vent (`flueVent`), and the second vent spent bares the core
-(`flueBare`). A shot is judged where a bolt leaves the top of the field
-(`sim/flue-shot.ts`): only with the core bared, only while a fire step is
-lit, only in the middle column, and only in its colour unless it is
-`either`.
+**The answers** (`sim/flue-shot.ts`, `sim/boss-along.ts`). **No shot gets
+past the flue**: every bolt and every beam stops on its row, `flueRow`, and
+is judged there (`flueAlong`, `flueStruckEmber`). Within `flueHitMilli` of
+the ember, in the level's weapon and colour, the level is cleared
+(`flueHit`). Anything else spends a shot (`flueMiss`, with why: `wide`,
+`color` or `weapon`). The last shot spent is THE FLUE's own blow at the
+hull (`bossStrikesHull`), and a hull hit is the wave. A shot into the flue
+is never wasted on HARD, since the flue is over every column. The shot's
+own delay is the timing: a bolt climbs to the flue in about a beat, a beam
+goes off a whole prime after it is held (`sim/flue-lead.ts`,
+`flueShotTicks`, and `flueEmberMet`, where the ember will be when a shot
+pressed now arrives).
 
-**Where this departs from the design, and why.** Eight places.
+**The levels, as authored** (`content/src/waves/act-13.ts`): a red bolt at
+two columns a beat and a cyan one at three, a red beam at one and a cyan
+beam at one and a half under THE SLOW at half, then a red bolt at four and a
+half and a cyan beam at two under THE SLOW at a quarter. Six
+levels, each a stud over the flue.
 
-- **The eleven rows are seven steps.** Rows 2 and 3 are one vent and rows
-  4 and 5 another: the rest and the taps are one window, as §40's own
-  SLOW paragraph says — "one thing to watch rather than two". Rows 1 and
-  11 are the slack and the spent.
-- **A damper wants both hands off, not either seat's.** §40's rows 7 and
-  9 say "either seat, free to trade … alone this time". With every command
-  heard, a damper either seat could hold would be held by whichever seat
-  was not shooting, without anybody choosing to — a step that asks
-  nothing. Both seats is the one reading in which the damper is a thing
-  the pair does, and the guide says it: "both hands off".
-- **The notches are authored on the step.** §40 says a landed tap
-  "relocates the ember to a new resting notch". Two notches a vent, one
-  after each of the first two taps, written on the wave so the rehearsal
-  and the script agree and the pair can learn where it goes.
-- **The tap names its column.** `flueTap` carries `id`, `gallPinch`'s way
-  of naming the place, because the ember moves between taps and where the
-  thumb came down is the whole of the answer.
-- **Each step counts the rest from nought.** A stillness is proved inside
-  the step that asks for it: a seat that happened to be idle through the
-  pause does not walk into the vent already steady.
-- **A vent or a damper run out is tried again in place.** §40's "retry
-  from row 2" and "damper shuts … until rest reaches threshold again".
-  A vent relit starts its taps from nought; the first vent spent stays
-  spent. Row 9's "faster" is the shorter window: six beats against row
-  7's eight.
-- **A fire step lights without THE SLOW.** §40 opens it on the rest-and-tap
-  windows and the dampers; a fire step is neither. THE BURGEE's and every
-  choreographed body's shot are the same.
-- **A shot run out is a hull hit, and a hull hit is the wave.** §40's rows
-  6 and 8 say "ordinary hull hit", and row 10 "stays lit". This game has
-  no ordinary hit (`wave-fail.ts`) — THE SEAM's precedent and every
-  choreographed body's since.
+**The field says two words** (`render/boss-cue-read-zo.ts`), only while a
+level is lit: `CALL` over `NOW` at the sight, to the pilot; and `FIRE` on a
+bolt level or `HOLD` (*while the beam fills*) on a beam level, at the hull
+under the cannon, to the navigator, aimed at the sight. The colour and the
+count are never said: the sight is drawn in the colour, and the pips are
+the count. **AUTO plays it** (`packages/hands/src/boss-hands-flue.ts`): the
+navigator fires the level's colour, or primes it, the tick the ember will
+be met within half of `flueHitMilli`; the pilot sends nothing.
 
-The design's `flueRestBeats` and `flueTapsLanded` are the state's `restBeats`
-and `taps`; the pause between steps is `fluePauseBeats` so it does not read
-as the rest being counted.
+**The look** (`render/src/flue-draw.ts`). The units are the same row across
+the field (`flue-shape.ts`), drawn **flat**: soot with a dark outline and no
+light on them. **THE SLOW's colour split stands round the whole flue**
+(`slow-boss-aim-d.ts`) rather than fringing it, since with no row there it
+was aimed at the cannon and split the sight, which is the one mark the pair
+must read the colour of. **The marks** (`flue-marks.ts`): the slot glows
+while a level is lit; **the sight** over the cannon is a ring in the
+level's colour, with the beam's bar through it on a beam level, dim between
+levels in the next one's colour; **three pips** under it go dark a shot at a
+time; **a stud per level** over the flue lights as each is cleared, the
+flue's health read off the body. **The ember** is a warm-white glow in the
+slot, exactly where the simulation has it. **What outlives a frame**
+(`flue-fx.ts`): a flash at the sight and the stud's flare for a level
+cleared, which deals the blow every boss takes; a scuff of grit under the
+flue for a shot spent; a thud through the plating as it goes cold. **Its
+own blow at the hull** (`flue-blow.ts`) is the cinder coughed out under the
+sight and down the middle column.
+
+**Its mark answers a shot the way every mark does**
+(`render/flue-verdicts.ts`): one mark, the sight. While a level is lit it
+wears the halo on the navigator's screen and the partner's ring and clock
+on the pilot's; a hit greens it and a shot spent reddens it on both.
 
 **What is proven, and what is not.** `sim/test/flue.test.ts` and
-`flue-core.test.ts` prove the rules: the ember drifts its span and turns
-back; it stops dead on a whole column the beat the rester reaches the
-threshold, and the tapper's own commands do not loosen it; a tap lands on
-the steady ember and moves it to the step's notches in turn, the third
-spends the vent; a tap on another column or a drifting ember skids, one
-from the rester lands nothing and loosens it, and a thumb held down is one
-tap; a rester's command with taps landed costs all of them, and with none
-is a stir; a vent run out chokes and relights from nought; the second vent,
-seats swapped, bares the core; a shot wants its colour and the middle
-column; a damper is held only with both hands off, shuts while either
-moves, and is held the second time; a fire step run out is the wave; and
-the whole script ends spent and out. **The tap is sent from the glass**
-(`render/flue-grip.ts`, 27 September 2026): the flue's row, pressed while a
-vent is lit, carries the column under the thumb as `id`, from either seat.
-**The field says three words** (`render/boss-cue-read-zo.ts`, the same day):
-`STILL` at the flue's middle to the seats a step asks to keep still, `TAP` on
-the ember to the vent's tapper once it has stopped, `FIRE` under the middle
-column once the core is bared. **AUTO plays it** (`packages/hands/src/boss-hands-flue.ts`): the tapper taps the steadied ember and lifts, the rester sends nothing, and the cannon comes to the middle column for each shot.
-Whether three beats of doing
-nothing *reads* as a thing one seat is doing, on two real phones at tempo,
-is the owner's eye.
-
-**The look** (`render/src/flue-draw.ts`, 27 September 2026 — the body).
-**THE CAIRN · PULLED laid in a row** (`tools/shape-sheet/src/drafts/collected.ts`):
-its seven faceted units side by side across the middle of the field, each
-its own polygon so the seams crease and read as a flue's sections, a slot
-cut along the whole row near black, and the card's one unit dragged clear
-as **the damper** — the middle unit, dropped down out of the row to bare
-the core in its place (`flue-shape.ts`). THE RIME's frost is the same unit
-piled over a lens; `rimeFacetPath` is called, not copied. **The ember is a
-small warm-white glow in the slot**, laid over its column with `fieldX` so
-a turned field turns it; while it drifts it is drawn half a beat's drift
-either side of the simulation's place, THE BURGEE's spread, which makes the
-drift an even glide, and **a smear trails it — gone the instant it
-steadies**, drawn dead on its place with nothing eased (`flue-pose.ts`).
-**The marks** (`flue-marks.ts`): the slot glows on a lit vent; a ring round
-the steadied ember, breathing on its beat with a second arc running down
-the window, is *tap it* — full for the tapper, faint for the still seat
-(`showsFlueHand`); three studs over the middle light as a vent's taps land;
-a notch in each end unit lights as a vent is spent. **The damper** is shut
-over a core not bared, clear of the row while it is, creeps back up across
-a damper step's window, and drops further once spent. **The core** is a
-banked coal while no shot is owed, lit in `stepColour`'s colour with a ring
-closing while one is, a little smaller and brighter per hit (`coreHurt`).
-Soot, its shadow, the slot and the coal are four palette entries,
-`flueSoot` … `flueCore`; the ember and the marks are the rim's white.
-**What outlives a frame** (`flue-fx.ts`, 27 September 2026 — the receipts)
-is thrown the same on both screens: a short bright bar through the slot
-across the ember for every tap, THE RATCHET's click's weight; a ring thrown
-off the ember as a lapse costs the taps; the notch of the vent just spent
-flaring past lit; the damper knocked down a hair as the core is bared, held
-or shut over; the core's white flash, wider per hit, in the colour the
-drawer tells it; and a thud through the plating as the core is bared, a
-harder one as the flue swings open for good. A vent spent, a damper held
-and a hit deal the flue the blow every boss takes, red over every unit and
-a shake; a tap deals the lighter one (`boss-hurt-rows-c.ts`). **Its own
-blow at the hull** (`flue-blow.ts`): a fire step run out coughs a soot
-cinder with a white-hot heart from the damper's underside, trailing smoke
-down the middle column, slow off the flue and hard at the end; it leaves a
-scorch on the skin and a spray of the rim's white sparks. Whether a tick
-that small reads at tempo on a phone is the owner's eye.
-
-**Its marks answer a touch the way every mark does**
-(`render/flue-verdicts.ts`, `test/flue-verdict.test.ts`). Two marks: the
-ember and the core. The ember asks the lit vent's tapper once the rester has
-steadied it (`flueTapAsks`) — the halo on the tapper's screen and the
-partner's ring and clock on the rester's, so the still seat sees the taps are
-wanted of the other. Keeping still is never a mark's to ask, there being
-nothing to touch, so the tapper's screen waits on nothing and a damper step
-asks no mark at all. The core asks for the shot on a fire step once bared,
-which is either seat's, so it haloes on both screens with nobody's clock. A
-tap landed or a vent spent greens the ember; a skid, a lapse, or a vent's
-window run out reddens it; a hit greens the core and a shot run out reddens
-it. A stir before any tap, a damper held and a damper shut say nothing on a
-mark. The ember's circle follows the ember as it is drawn, so the last tap's
-verdict stays round it after the vent has gone to rest.
+`flue-shot.test.ts` prove the rules: the ember runs its span and back from
+the left end every level; the cannon is held; a shot met over the ember in
+the weapon and colour clears the level and the next starts with three; a
+wide shot, a wrong colour and a wrong weapon each spend one, and the third
+is the wave; THE SLOW holds at the level's strength and closes between;
+the whole list ends spent and out. `tools/director/test/autopilot-flue.test.ts`
+has AUTO clear every level with its first shot. **Not built yet**: the
+numbered scale along the slot, and a card on both screens naming the
+level's weapon, colour, speed and slow — the second half of the rework.
+Whether the call can be made early enough on two real phones at tempo, and
+whether the beam's prime is learnable, is the owner's eye.
 
 ## 11.58 THE GOVERNOR — a needle one seat brakes for the other to tap
 

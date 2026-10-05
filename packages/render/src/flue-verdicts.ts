@@ -1,66 +1,37 @@
-import {
-  type FlueState,
-  flueFiring,
-  flueTapAsks,
-  type SimEvent,
-  type World,
-} from "@neon-spore/sim";
-import { flueEmberDrawn, flueSpent } from "./flue-pose.js";
-import { FLUE_DAMPER, flueCoreR, flueEmberAt, flueEmberR, flueUnitAt } from "./flue-shape.js";
+import { type FlueState, flueLitLevel, type SimEvent, type World } from "@neon-spore/sim";
+import { flueSpent } from "./flue-pose.js";
+import { flueSightAt, flueSightR } from "./flue-shape.js";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
-import { type Circle, type Layout, seatOf } from "./layout.js";
+import { type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
 
 /**
- * **THE FLUE's marks answering a touch the way every mark does**
+ * **THE FLUE's mark answering a shot the way every mark does**
  * (`mark-feedback.ts`, `grip-verdict.ts`; the owner, 27 September 2026: *the
- * consistent visual across all waves*). Both screens draw the one flue
- * (`flue-draw.ts`), so this is THE HALTER's arrangement again: one seat keeps
- * still and the other works the thing the stillness holds.
+ * consistent visual across all waves*).
  *
- * Two marks. **The ember** is the tap: it asks the lit vent's tapper once the
- * rester has steadied it (`flueTapAsks`), and wears the halo on the tapper's
- * screen and the partner's ring and clock on the rester's, so the still one
- * sees the taps are wanted of the other. **The core** asks for a shot on a
- * fire step with the core bared (`flueFiring`); that is either seat's, and
- * wears the halo on both screens and nobody's clock. **Keeping still is never
- * asked by a mark** — there is nothing to touch, and a damper step asks only
- * that — so the rester's screen waits on the tapper's mark and nothing else.
+ * One mark: **the sight** over the held cannon, where the ember must be met.
+ * It asks the navigator, whose trigger it is, for as long as a level is lit:
+ * the halo on the navigator's screen, and the partner's ring and clock on the
+ * pilot's, whose part is to say when. A hit greens it and a shot spent
+ * reddens it, on both screens alike — the green and red outlines the owner
+ * asked to be able to see, 5 October 2026.
  *
- * The verdicts are the flue's own words: a tap landed or a vent spent greens
- * the ember, and a hit greens the core. A tap that skids, the taps thrown away
- * by a lapse, and a vent window run out redden the ember; a shot run out
- * reddens the core. A stir before any tap only loosens the ember, and a damper
- * held or shut is a stillness kept or broken, so none of them says anything
- * on a mark.
- *
- * The ember's circle follows the ember as it is drawn, steady or drifting, so
- * the verdict on the last tap is still round it after the vent has gone to
- * rest. Held in `FlueFx` (`flue-fx.ts`). Everything here is in canvas pixels.
+ * Held in `FlueFx` (`flue-fx.ts`). Everything here is in canvas pixels.
  */
-export const FLUE_TAP_MARK = 0;
-export const FLUE_CORE_MARK = 1;
+export const FLUE_SIGHT_MARK = 0;
 
-/** Each word of the flue's that answers or lapses: the marks it greens or reddens. */
-const SAYS: Readonly<Record<string, { marks: readonly number[]; right: boolean }>> = {
-  flueTick: { marks: [FLUE_TAP_MARK], right: true },
-  flueVent: { marks: [FLUE_TAP_MARK], right: true },
-  flueHit: { marks: [FLUE_CORE_MARK], right: true },
-  flueSkid: { marks: [FLUE_TAP_MARK], right: false },
-  flueLapse: { marks: [FLUE_TAP_MARK], right: false },
-  flueChoke: { marks: [FLUE_TAP_MARK], right: false },
-  flueMiss: { marks: [FLUE_CORE_MARK], right: false },
-};
+/** Each word of the flue's that answers: green for a hit, red for a shot spent. */
+const SAYS: Readonly<Record<string, boolean>> = { flueHit: true, flueMiss: false };
 
 export class FlueVerdicts {
-  /** Was the last touch on each mark right. */
+  /** Was the last shot at the sight right. */
   readonly verdicts = new GripVerdicts();
 
   ingest(events: readonly SimEvent[]): void {
     for (const e of events) {
-      const said = SAYS[e.type];
-      if (said === undefined) continue;
-      for (const k of said.marks) this.verdicts.mark(k, said.right);
+      const right = SAYS[e.type];
+      if (right !== undefined) this.verdicts.mark(FLUE_SIGHT_MARK, right);
     }
   }
 
@@ -73,20 +44,17 @@ export class FlueVerdicts {
   }
 }
 
-/** What a mark asks of this screen: `own` for the halo, `theirs` for the partner's ring and clock. */
-function asked(l: Layout, world: World, s: FlueState, mark: number): "own" | "theirs" | null {
-  if (mark === FLUE_CORE_MARK) return flueFiring(s) ? "own" : null;
-  const asks = (side: 0 | 1) => flueTapAsks(world, s, side);
-  if (l.role === "test") return asks(0) || asks(1) ? "own" : null;
-  const side = seatOf(l.role) === 1 ? 0 : 1;
-  if (asks(side)) return "own";
-  return asks(side === 0 ? 1 : 0) ? "theirs" : null;
+/** What the sight asks of this screen: `own` for the trigger's halo, `theirs` for the partner's ring and clock. */
+function asked(l: Layout, s: FlueState): "own" | "theirs" | null {
+  if (flueLitLevel(s) === null) return null;
+  if (l.role === "test") return "own";
+  return seatOf(l.role) === 2 ? "own" : "theirs";
 }
 
 /**
- * Over the flue, fading as it is spent: the halo on each mark that asks this screen, the
- * partner's ring and clock on each that asks only them, and every verdict
- * still showing.
+ * Over the flue, fading as it is spent: the halo on the sight while it asks
+ * this screen, the partner's ring and clock while it asks only the other, and
+ * the verdict still showing.
  */
 export function drawFlueMarkFeedback(
   ctx: CanvasRenderingContext2D,
@@ -98,27 +66,19 @@ export function drawFlueMarkFeedback(
   time: number,
   fx: FlueVerdicts,
 ): void {
-  const cfg = world.cfg;
-  const fade = 1 - flueSpent(s, cfg, beat, beatPhase);
-  const v = fx.verdicts;
-  const ember = flueEmberAt(l, cfg, flueEmberDrawn(world, s, beatPhase));
-  const core = flueUnitAt(l, cfg, FLUE_DAMPER);
-  const marks: Circle[] = [
-    { x: ember.x, y: ember.y, r: flueEmberR(l) * 3 },
-    { x: core.x, y: core.y, r: flueCoreR(l) * 1.6 },
-  ];
+  const fade = 1 - flueSpent(s, world.cfg, beat, beatPhase);
+  const at = flueSightAt(l, world.cfg);
+  const r = flueSightR(l) * 1.35;
   const before = ctx.globalAlpha;
-  marks.forEach((c, mark) => {
-    ctx.globalAlpha = fade;
-    const says = asked(l, world, s, mark);
-    if (says === "own") drawMarkHalo(ctx, c.x, c.y, c.r, time);
-    ctx.globalAlpha = fade;
-    if (says === "theirs") {
-      drawMarkTheirs(ctx, c.x, c.y, c.r, time);
-      drawMarkWait(ctx, c.x, c.y, c.r, time);
-    }
-    const verdict = v.at(mark);
-    if (verdict !== null) drawVerdictRing(ctx, c.x, c.y, c.r, verdict, fade);
-  });
+  ctx.globalAlpha = fade;
+  const says = asked(l, s);
+  if (says === "own") drawMarkHalo(ctx, at.x, at.y, r, time);
+  ctx.globalAlpha = fade;
+  if (says === "theirs") {
+    drawMarkTheirs(ctx, at.x, at.y, r, time);
+    drawMarkWait(ctx, at.x, at.y, r, time);
+  }
+  const verdict = fx.verdicts.at(FLUE_SIGHT_MARK);
+  if (verdict !== null) drawVerdictRing(ctx, at.x, at.y, r, verdict, fade);
   ctx.globalAlpha = before;
 }

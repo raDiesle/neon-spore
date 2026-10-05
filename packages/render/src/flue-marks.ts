@@ -1,35 +1,37 @@
-import { FLUE_TAPS, FLUE_VENTS } from "@neon-spore/sim";
-import { arcFromTop } from "./arc-from-top.js";
-import { FLUE_UNITS, flueCoreR, flueEmberR, type Point } from "./flue-shape.js";
+import type { FlueLevel } from "@neon-spore/sim";
+import { flueEmberR, flueSightR, type Point } from "./flue-shape.js";
 import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { stepColour } from "./step-colour.js";
 
 /**
- * **THE FLUE's marks**: what says what a step asks and what is spent. The
- * slot glowing is *a vent is lit*; a ring round the steadied ember is *tap
- * it*, full for the seat that taps and only faint for the other, so the
- * still one can see it is working without being handed a mark to look at;
- * three studs over the damper are the taps landed; and a vent spent is a
- * notch lit in an end unit. All in the white of the hull's rim, the one light
- * on a flue that is otherwise soot — the core is the only part in a
- * cannon's colour (`flue-draw.ts`).
+ * **THE FLUE's marks**: what says what a level asks and what it has left.
+ * The slot glowing is *a level is lit*; **the sight** over the cannon is
+ * where the ember must be met, drawn in the colour the level asks, a ring
+ * for a bolt and a ring with the beam's bar through it for a beam; **the
+ * shots** are three pips under the sight, one going dark for every shot
+ * spent; and **the levels** are a stud each over the flue, lit as each is
+ * cleared — the flue's health, read off the body.
  *
- * Nothing marks the seat that rests, THE HALTER's reason
- * (`halter-marks.ts`): what says it is resting is the ember stopping dead.
+ * Everything but the ember is on both screens: the navigator, who fires and
+ * cannot see the ember, has to see what the level asks and how many shots
+ * are left as well as the pilot does.
  */
 
-/** How faint the other seat's ring is. */
-const OTHER = 0.3;
-/** The ring's radius round the ember, in ember radii. */
-const RING = 2.6;
-/** The tap studs' radius and spacing, and how far over the flue's middle they sit, in tiles. */
-const STUD = 0.07;
-const STUD_GAP = 0.24;
-const STUD_UP = 0.78;
+/** The shot pips' radius and spacing, and how far under the flue they sit, in
+ * tiles: under the pilot's `NOW` too, which stands under the sight. */
+const PIP = 0.1;
+const PIP_GAP = 0.32;
+const PIP_DOWN = 1.5;
+/** The level studs' radius and spacing, and how far over the flue they sit, in
+ * tiles: over the `CALL` standing over the sight. */
+const STUD = 0.08;
+const STUD_GAP = 0.3;
+const STUD_UP = 1.5;
 
-/** The lit vent's slot, glowing on its beat: *this one*. */
+/** The lit level's slot, glowing on its beat: *this one*. */
 export function drawFlueSlotGlow(
   ctx: CanvasRenderingContext2D,
   slot: Path2D,
@@ -40,145 +42,115 @@ export function drawFlueSlotGlow(
 }
 
 /**
- * The ring round the steadied ember, *tap it*: breathing on its beat for the
- * tapper's screen, with an arc round it running down as the vent's window
- * does; a thin faint ring for the other seat's.
+ * The sight over the held cannon, in the level's colour: a ring breathing on
+ * its beat for a bolt, and for a beam the same ring with a bar down through
+ * it, the beam's own picture. Dim between levels, in the next one's colour.
  */
-export function drawFlueTapRing(
+export function drawFlueSight(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   at: Point,
-  left: number,
-  full: boolean,
+  level: FlueLevel,
+  lit: boolean,
   beatPhase: number,
 ): void {
-  const r = flueEmberR(l) * RING;
+  const r = flueSightR(l);
+  const hex = stepColour(level.color).rim;
+  const pulse = lit ? 0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2) : 0.35;
   const ring = new Path2D();
   ring.arc(at.x, at.y, r, 0, Math.PI * 2);
-  if (!full) {
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.hullRim, OTHER);
-    ctx.stroke(ring);
-    return;
-  }
-  const pulse = 0.65 + 0.35 * Math.cos(beatPhase * Math.PI * 2);
-  strokeGlowFaded(ctx, ring, PALETTE.hullRim, STROKE.outline, pulse, 1);
-  const time = new Path2D();
-  arcFromTop(time, at.x, at.y, r * 1.35, left);
-  strokeGlowFaded(ctx, time, PALETTE.hullRim, STROKE.inner, 0.6, 1);
+  strokeGlowFaded(ctx, ring, hex, STROKE.outline, pulse, 1);
+  if (level.weapon !== "beam") return;
+  const bar = new Path2D();
+  bar.moveTo(at.x, at.y - r * 1.5);
+  bar.lineTo(at.x, at.y + r * 1.5);
+  strokeGlowFaded(ctx, bar, hex, STROKE.outline, pulse, 1);
 }
 
-/** The three tap studs over the flue's middle, one lit for each tap landed in the vent lit. */
-export function drawFlueTapStuds(
+/** The level's shots under the sight: lit for every shot left, dark for every one spent. */
+export function drawFlueShots(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  at: Point,
+  shots: number,
+  max: number,
+): void {
+  const r = PIP * l.tile;
+  for (let i = 0; i < max; i++) {
+    const x = at.x + (i - (max - 1) / 2) * PIP_GAP * l.tile;
+    const pip = new Path2D();
+    pip.arc(x, at.y + PIP_DOWN * l.tile, r, 0, Math.PI * 2);
+    if (i < shots) {
+      ctx.fillStyle = PALETTE.hullRim;
+      ctx.fill(pip);
+      strokeGlowFaded(ctx, pip, PALETTE.hullRim, STROKE.inner, 1, 0.8);
+    } else {
+      ctx.fillStyle = PALETTE.flueSlot;
+      ctx.fill(pip);
+      ctx.lineWidth = STROKE.inner;
+      ctx.strokeStyle = rgba(PALETTE.hullRim, 0.35);
+      ctx.stroke(pip);
+    }
+  }
+}
+
+/** A stud over the flue for every level, lit for each one cleared and flaring as it is. */
+export function drawFlueLevels(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   centre: Point,
-  taps: number,
+  hits: number,
+  total: number,
+  flare: number,
 ): void {
   const r = STUD * l.tile;
-  for (let i = 0; i < FLUE_TAPS; i++) {
-    const x = centre.x + (i - (FLUE_TAPS - 1) / 2) * STUD_GAP * l.tile;
-    const y = centre.y - STUD_UP * l.tile;
+  for (let i = 0; i < total; i++) {
     const stud = new Path2D();
-    stud.arc(x, y, r, 0, Math.PI * 2);
-    if (i < taps) {
+    const x = centre.x + (i - (total - 1) / 2) * STUD_GAP * l.tile;
+    stud.arc(x, centre.y - STUD_UP * l.tile, r, 0, Math.PI * 2);
+    if (i < hits) {
       ctx.fillStyle = PALETTE.hullRim;
       ctx.fill(stud);
-      strokeGlowFaded(ctx, stud, PALETTE.hullRim, STROKE.inner, 1, 0.8);
+      const glow = i === hits - 1 ? 0.9 + 1.6 * flare : 0.9;
+      strokeGlowFaded(ctx, stud, PALETTE.hullRim, STROKE.inner, glow, 0.8);
     } else {
       ctx.fillStyle = PALETTE.flueSlot;
       ctx.fill(stud);
       ctx.lineWidth = STROKE.inner;
-      ctx.strokeStyle = rgba(PALETTE.hullRim, 0.35);
+      ctx.strokeStyle = rgba(PALETTE.hullRim, 0.3);
       ctx.stroke(stud);
     }
   }
 }
 
-/**
- * The vents spent: a notch in each end unit, dark until its vent is spent
- * and lit after — the first on the left end, the second on the right — and
- * flaring past lit the moment it is (`flue-fx.ts`).
- */
-export function drawFlueVents(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  ends: readonly [Point, Point],
-  vents: number,
-  flare: (i: 0 | 1) => number,
-): void {
-  const w = 0.09 * l.tile;
-  const h = 0.26 * l.tile;
-  for (let i = 0; i < FLUE_VENTS; i++) {
-    const at = ends[i] ?? ends[0];
-    const notch = new Path2D();
-    for (const dx of [-1, 1])
-      notch.rect(at.x + dx * 1.6 * w - w / 2, at.y - h - 0.3 * l.tile, w, h);
-    if (i < vents) {
-      ctx.fillStyle = PALETTE.hullRim;
-      ctx.fill(notch);
-      strokeGlowFaded(
-        ctx,
-        notch,
-        PALETTE.hullRim,
-        STROKE.inner,
-        0.9 + 1.6 * flare(i === 0 ? 0 : 1),
-        0.8,
-      );
-    } else {
-      ctx.fillStyle = PALETTE.flueSlot;
-      ctx.fill(notch);
-    }
-  }
-}
-
-/**
- * A tap's tick: a short bright bar through the slot across the ember, the
- * weight of THE RATCHET's click, gone in a sixth of a second.
- */
-export function drawFlueTick(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  at: Point,
-  tick: number,
-): void {
-  if (tick <= 0) return;
-  const h = flueEmberR(l) * (2.2 + 1.2 * (1 - tick));
-  const bar = new Path2D();
-  bar.moveTo(at.x, at.y - h);
-  bar.lineTo(at.x, at.y + h);
-  strokeGlowFaded(ctx, bar, PALETTE.hullRim, STROKE.outline, 1.6 * tick, 1);
-}
-
-/** A lapse's flash off the ember at `at`: a ring thrown out from it, fading as it widens. */
-export function drawFlueLapse(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  at: Point,
-  lapse: number,
-): void {
-  if (lapse <= 0) return;
-  const ring = new Path2D();
-  ring.arc(at.x, at.y, flueEmberR(l) * (1.2 + 2 * (1 - lapse)), 0, Math.PI * 2);
-  strokeGlowFaded(ctx, ring, PALETTE.hullRim, STROKE.inner, lapse, 0.9);
-}
-
-/** A core hit's flash over the core at `at`: white, and wider for every hit. */
+/** A hit's flash at the sight: white, opening as it fades. */
 export function drawFlueFlash(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   at: Point,
-  flash: { now: number; hits: number },
+  flash: number,
 ): void {
-  if (flash.now <= 0 || flash.hits <= 0) return;
-  const hits = Math.min(3, flash.hits);
-  const r = flueCoreR(l) * (0.6 + 0.5 * hits) * (1.4 - 0.4 * flash.now);
+  if (flash <= 0) return;
   const p = new Path2D();
-  p.arc(at.x, at.y, Math.max(0.5, r), 0, Math.PI * 2);
-  ctx.fillStyle = rgba(PALETTE.hullRim, flash.now * (0.35 + 0.2 * hits));
+  p.arc(at.x, at.y, flueSightR(l) * (0.6 + 0.9 * (1 - flash)), 0, Math.PI * 2);
+  ctx.fillStyle = rgba(PALETTE.hullRim, flash * 0.5);
   ctx.fill(p);
-  strokeGlowFaded(ctx, p, PALETTE.hullRim, STROKE.inner, flash.now * (0.6 + 0.4 * hits));
+  strokeGlowFaded(ctx, p, PALETTE.hullRim, STROKE.inner, flash);
 }
 
-/** The end units' indices, left and right. */
-export const FLUE_ENDS = [0, FLUE_UNITS - 1] as const;
+/**
+ * The ember in its slot: a warm-white glow, drawn only on the screens that
+ * are shown it (`showsFlueEmber`). Spent, it is dimmed.
+ */
+export function drawFlueEmber(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  at: Point,
+  dim: number,
+): void {
+  const ember = new Path2D();
+  ember.arc(at.x, at.y, flueEmberR(l), 0, Math.PI * 2);
+  ctx.fillStyle = rgba(PALETTE.hullRim, dim);
+  ctx.fill(ember);
+  strokeGlowFaded(ctx, ember, PALETTE.hullRim, STROKE.outline, dim * 1.4, 1);
+}

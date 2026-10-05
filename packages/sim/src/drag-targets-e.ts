@@ -37,7 +37,6 @@ export type DragTargetE =
   | "gallPinch"
   | "burgeeFreeze"
   | "burgeeDraw"
-  | "flueTap"
   | "governorChordLeft"
   | "governorChordRight"
   | "governorTap"
@@ -174,13 +173,9 @@ export type DragTargetE =
  */
 
 /**
- * `flueTap` is the hundred-and-fourth: THE FLUE's ember, on both screens and
- * heard only from the seat the lit vent says taps.
- *
- * No new reading. It is `valvePin`'s tap, an edge with `on` and nothing on
- * `fromMilli`, with `id` the column the thumb came down on — `gallPinch`'s
- * way of naming the place — because the ember moves between taps and a tap
- * counts only on the column it sits over (`flue-hand.ts`).
+ * `flueTap` stood here as the hundred-and-fourth, THE FLUE's ember tapped
+ * where it had stopped, until the owner's rework of 5 October 2026 made the
+ * ember a thing the cannon shoots and took the tap away.
  */
 
 /**
@@ -217,7 +212,7 @@ export type DragTargetE =
  * THE LAMPREY's jaw, under the pinner's thumb, and its ring of teeth, under
  * the tapper's.
  *
- * No new reading. The jaw is `flueTap`'s and `gallPinch`'s follow — `id` the
+ * No new reading. The jaw is `gallPinch`'s follow — `id` the
  * column under the thumb and `on` whether it is down — and the teeth are
  * `valvePin`'s edge with `id` the tooth (`lamprey-hand.ts`).
  */

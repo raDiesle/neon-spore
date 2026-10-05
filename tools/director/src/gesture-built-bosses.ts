@@ -46,7 +46,7 @@ export const BUILT_FOR_BOSSES: readonly Gesture[] = [
       beats: [2, 4, 6, 8],
       window: { from: 2, to: 8, label: "nothing, three beats" },
     },
-    where: ["packages/sim/src/halter-hand.ts", "packages/sim/src/flue-hand.ts"],
+    where: ["packages/sim/src/halter-hand.ts"],
   },
   {
     name: "TAPS ON A MOVING TARGET",
@@ -63,7 +63,7 @@ export const BUILT_FOR_BOSSES: readonly Gesture[] = [
         { event: "pointerup", marks: [2, 5, 8] },
       ],
     },
-    where: ["packages/sim/src/flue-hand.ts"],
+    where: ["packages/sim/src/ratchet-hand.ts"],
   },
   {
     name: "RUB",

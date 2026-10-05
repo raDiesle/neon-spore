@@ -85,8 +85,8 @@ export function drawOnShip(
   // And THE RIME's: the lens shattering is a shudder down the plating
   // (`rime-fx.ts`, §29).
   held.effects.boss.rime.shock.draw(ctx, l, surfaceY, view.time);
-  // And THE FLUE's: the core bared is a thud through the plating, the flue
-  // swinging open for good a harder one (`flue-fx.ts`, §40).
+  // And THE FLUE's: a thud through the plating as it goes cold for good
+  // (`flue-fx.ts`, §11.57).
   held.effects.boss.flue.shock.draw(ctx, l, surfaceY, view.time);
   // And THE GOVERNOR's: the hub lighting is a thud through the plating, the
   // governor flying apart for good a harder one (`governor-fx.ts`, §43).

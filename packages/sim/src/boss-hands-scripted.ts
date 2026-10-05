@@ -3,7 +3,7 @@ import { capstanHeard } from "./capstan-hand.js";
 import { cystGuarded } from "./cyst-guard.js";
 import { cystHeard } from "./cyst-hand.js";
 import { davitHeard } from "./davit-hand.js";
-import { flueHeard } from "./flue-hand.js";
+import { flueRolled } from "./flue-step.js";
 import { gallHeard } from "./gall-hand.js";
 import { governorHeard } from "./governor-hand.js";
 import { governorTurned } from "./governor-turn.js";
@@ -86,8 +86,9 @@ export function scriptedHandsHeard(world: World, commands: readonly TimedCommand
   for (const c of commands) gallHeard(world, c.player, c.command);
   // THE BURGEE's tap and draw: a freeze landing and a loose judged are the instant (`burgee-hand.ts`).
   for (const c of commands) burgeeHeard(world, c.player, c.command);
-  // THE FLUE's rest and tap: every command heard, a lapse costing the taps landed (`flue-hand.ts`).
-  for (const c of commands) flueHeard(world, c.player, c.command);
+  // THE FLUE hears no command of its own; its ember runs on the tick, so a
+  // shot is met where it really is (`flue-step.ts`).
+  flueRolled(world);
   // THE GOVERNOR's chords and tap, and its needle turned after them (`governor-hand.ts`, `governor-turn.ts`).
   for (const c of commands) governorHeard(world, c.player, c.command);
   governorTurned(world);

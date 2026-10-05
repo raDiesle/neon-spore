@@ -12,14 +12,13 @@ import type { BossState } from "../src/boss-union.js";
 
 /** THE FLUE on's share of `BOSS_ENTRIES`. */
 export const BOSS_ENTRIES_F = {
-  // A vent with its notches, a damper and the shot, the rester off `both`
-  // and the colour set off `either` (`flue-hash.ts`).
+  // A bolt level and a beam level, the colours apart, the speeds and the
+  // slows apart, so every figure of a level is varied (`flue-hash.ts`).
   flue: {
     kind: "flue",
-    steps: [
-      { ask: "vent", rester: 2, notches: [-2, 1], color: "red", beats: 12 },
-      { ask: "damper", rester: "both", notches: [], color: "either", beats: 8 },
-      { ask: "fire", rester: "both", notches: [], color: "cyan", beats: 3 },
+    levels: [
+      { weapon: "bolt", color: "red", speedMilli: 2000, slowMilli: 1000 },
+      { weapon: "beam", color: "cyan", speedMilli: 1500, slowMilli: 250 },
     ],
   },
   // A tap, a retap and the shot, each tapper named and the colour set off
@@ -78,22 +77,16 @@ export const BOSS_ENTRIES_F = {
 /** THE FLUE on's share of `patchBoss`. */
 export function patchBossF(boss: BossState): void {
   if (boss.kind === "flue") {
-    // Two taps landed on an ember steadied off the middle, drifting left when
-    // it goes, one vent spent and the core bared and shot once, the rests
-    // counted apart, one seat stirred and one thumb down — every field given a
-    // value (`flue-hash.ts`).
+    // The second level lit, the ember run part of the way back, a shot spent
+    // and one level cleared — every field given a value (`flue-hash.ts`).
     boss.phase = "lit";
     boss.phaseBeat = 3;
     boss.cursor = 1;
+    boss.rollTicks = 140;
     boss.emberMilli = -700;
     boss.emberDir = -1;
-    boss.taps = 2;
-    boss.vents = 1;
+    boss.shots = 2;
     boss.hits = 1;
-    boss.bared = true;
-    boss.restBeats = [1, 2];
-    boss.stirred = [true, false];
-    boss.tapDown = [false, true];
   }
   if (boss.kind === "governor") {
     // A tap step lit with the needle off the start and running hot, taps

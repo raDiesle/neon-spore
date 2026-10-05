@@ -321,6 +321,7 @@ describe("the fingerprint covers the world", () => {
         "slowAsks",
         "slowFromBeat",
         "slowHolds",
+        "slowPaceMilli",
         "slowToBeat",
         "spawned",
         "spend",

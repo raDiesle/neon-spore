@@ -1,25 +1,25 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { midCol } from "@neon-spore/sim";
 import { fieldX } from "../src/field-flip.js";
-import { flueDamperOpen, flueEmberDrawn, flueSmear } from "../src/flue-pose.js";
-import { flueDamperAt, flueEmberAt, flueUnitAt } from "../src/flue-shape.js";
+import { flueCentre, flueEmberAt, flueSightAt } from "../src/flue-shape.js";
 import { rgba } from "../src/hex.js";
 import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
-import { showsFlueHand } from "../src/view-role-clocks-c.js";
-import { count, DAMPER, FIRE, frame, posed, rested, stood, VENT } from "./flue-harness.js";
+import { lastBossAim } from "../src/slow-boss-aim-d.js";
+import { stepColour } from "../src/step-colour.js";
+import { showsFlueEmber } from "../src/view-role-clocks-c.js";
+import { BEAM, BOLT, count, frame, posed, stood } from "./flue-harness.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, VIEWPORT } from "./frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * THE FLUE, drawn (`render/src/flue-draw.ts`): the seven units across the
- * middle of the field, the ember in its slot over its column on either
- * screen, gliding with a smear while it drifts and stopped dead without one
- * once it steadies, the tap ring split by seat, the studs and the vents as
- * its health, and the damper dropping clear of a core lit in a shot's
- * colour — on all three screens, set rather than played to;
- * `sim/test/flue.test.ts` proves the rules.
+ * THE FLUE, drawn (`render/src/flue-draw.ts`): the units across the top of
+ * the field, flat, the ember in its slot on the pilot's screen and nowhere
+ * on the navigator's, the sight over the held cannon in the level's colour
+ * with the beam's bar on a beam level, the shots left under it and a stud
+ * for every level over the flue — on all three screens, set rather than
+ * played to; `sim/test/flue.test.ts` proves the rules.
  */
 
 beforeAll(() => {
@@ -28,118 +28,99 @@ beforeAll(() => {
 });
 
 const MID = midCol(CFG);
+/** Any alpha of a colour, as `rgba` writes it. */
+const anyAlpha = (hex: string) => rgba(hex, 0).slice(0, -2);
 
 describe("THE FLUE's body", () => {
-  it.each(ROLES)("draws the units, the slot and the ember, on %s", (role) => {
+  it.each(ROLES)("draws the units and the slot, on %s", (role) => {
     const drawn = frame(role, (w) => posed(w, null));
     expect(count(drawn, PALETTE.flueSoot)).toBeGreaterThan(0);
     expect(count(drawn, PALETTE.flueSlot)).toBeGreaterThan(0);
   });
 
-  it("lays the ember over its column, turned with the field", () => {
+  it("lays the ember over its column and the sight over the cannon, turned with the field", () => {
     for (const role of ROLES) {
       const l = computeLayout(VIEWPORT, CFG, role);
       expect(flueEmberAt(l, CFG, 1000).x).toBeCloseTo(fieldX(l, MID + 1), 6);
       expect(flueEmberAt(l, CFG, -2000).x).toBeCloseTo(fieldX(l, MID - 2), 6);
-      expect(flueEmberAt(l, CFG, 0).x).toBeCloseTo(fieldX(l, MID), 6);
+      expect(flueSightAt(l, CFG).x).toBeCloseTo(fieldX(l, MID), 6);
     }
   });
 
-  it.each(ROLES)("lights a stud for each tap landed in the vent, on %s", (role) => {
-    const none = frame(role, (w) => posed(w, VENT, 0, rested(2)));
+  it.each(ROLES)("darkens a pip for every shot spent, on %s", (role) => {
+    const all = frame(role, (w) => posed(w, BOLT));
+    const one = frame(role, (w) =>
+      posed(w, BOLT, 0, (s) => {
+        s.shots = 1;
+      }),
+    );
+    expect(count(one, PALETTE.flueSlot)).toBeGreaterThan(count(all, PALETTE.flueSlot));
+  });
+
+  it.each(ROLES)("lights a stud for every level cleared, on %s", (role) => {
+    const none = frame(role, (w) => posed(w, null));
     const two = frame(role, (w) =>
-      posed(w, VENT, 0, (s) => {
-        s.taps = 2;
-        rested(2)(s);
+      posed(w, null, 0, (s) => {
+        s.hits = 2;
       }),
     );
     expect(count(two, PALETTE.flueSlot)).toBeLessThan(count(none, PALETTE.flueSlot));
   });
+});
 
-  it.each(ROLES)("lights the core in a shot's colour only while one is owed, on %s", (role) => {
-    const bare = (s: { bared: boolean; vents: number }) => {
-      s.bared = true;
-      s.vents = 2;
-    };
-    const between = frame(role, (w) => posed(w, null, 0, bare));
-    const owed = frame(role, (w) => posed(w, FIRE, 0, bare));
-    // The navigator's panel is cyan by its hex on every screen; the core's
-    // light and its ring are cyan by `rgba`, and only while the shot is owed.
-    const cyan = rgba(PALETTE.cyan, 0).slice(0, -2);
-    expect(count(owed, cyan)).toBeGreaterThan(count(between, cyan));
-    expect(count(between, PALETTE.flueCore)).toBeGreaterThan(0);
-    // Lit from inside: the core's own soot and rim are still drawn under the light.
-    expect(count(owed, PALETTE.flueCore)).toBeGreaterThan(0);
-    expect(count(owed, rgba(PALETTE.flueSootDark, 0.9))).toBeGreaterThan(0);
+describe("THE FLUE's sight", () => {
+  it.each(ROLES)("is drawn in the colour the level asks, on %s", (role) => {
+    const red = anyAlpha(stepColour("red").rim);
+    const lit = frame(role, (w) => posed(w, BOLT));
+    const cyanLit = frame(role, (w) => posed(w, { ...BOLT, color: "cyan" }));
+    expect(count(lit, stepColour("red").rim) + count(lit, red)).toBeGreaterThan(
+      count(cyanLit, stepColour("red").rim) + count(cyanLit, red),
+    );
+  });
+
+  it.each(ROLES)("wears the beam's bar on a beam level and not a bolt one, on %s", (role) => {
+    const cyan = stepColour("cyan").rim;
+    const bolt = frame(role, (w) => posed(w, { ...BEAM, weapon: "bolt" }));
+    const beam = frame(role, (w) => posed(w, BEAM));
+    expect(count(beam, cyan)).toBeGreaterThan(count(bolt, cyan));
   });
 });
 
-describe("THE FLUE's ember", () => {
-  it("glides across the beat with a smear while it drifts", () => {
-    const world = stood();
-    const s = posed(world, VENT, 0);
-    expect(flueEmberDrawn(world, s, 0.5)).toBe(0);
-    expect(flueEmberDrawn(world, s, 1)).toBeGreaterThan(0);
-    expect(flueEmberDrawn(world, s, 0)).toBeLessThan(0);
-    expect(flueSmear(world, s)).toBeGreaterThan(0);
+describe("THE FLUE's split: the ember is the pilot's", () => {
+  it("shows the ember to the pilot and the test seat and never to the navigator", () => {
+    expect(showsFlueEmber("p1")).toBe(true);
+    expect(showsFlueEmber("test")).toBe(true);
+    expect(showsFlueEmber("p2")).toBe(false);
   });
 
-  it("stops dead on its place, and its smear with it, the instant it steadies", () => {
-    const world = stood();
-    const s = posed(world, VENT, 1000, rested(2));
-    for (const phase of [0, 0.3, 0.9]) expect(flueEmberDrawn(world, s, phase)).toBe(1000);
-    expect(flueSmear(world, s)).toBe(0);
-  });
-
-  it("turns back off either end of the slot rather than running past it", () => {
-    const world = stood();
-    const s = posed(world, VENT, CFG.flueSpanMilli);
-    for (const phase of [0, 0.25, 0.5, 0.75, 1]) {
-      expect(Math.abs(flueEmberDrawn(world, s, phase))).toBeLessThanOrEqual(CFG.flueSpanMilli);
-    }
+  it("draws the ember on the pilot's screen and not on the navigator's", () => {
+    // Between levels nothing asks, so the ember is the one thing of the
+    // flue's the two screens draw differently.
+    const ember = rgba(PALETTE.hullRim, 1);
+    const p1 = frame("p1", (w) => posed(w, null));
+    const p2 = frame("p2", (w) => posed(w, null));
+    expect(count(p1, ember)).toBeGreaterThan(count(p2, ember));
   });
 });
 
-describe("THE FLUE's hands, split by the step", () => {
-  it("shows each seat's own ring full, and both on test", () => {
-    expect(showsFlueHand("p1", 1)).toBe(true);
-    expect(showsFlueHand("p2", 1)).toBe(false);
-    expect(showsFlueHand("p2", 2)).toBe(true);
-    expect(showsFlueHand("test", 1) && showsFlueHand("test", 2)).toBe(true);
-  });
-
-  it.each(ROLES)("rings the ember once it steadies and not while it drifts, on %s", (role) => {
-    const loose = frame(role, (w) => posed(w, VENT));
-    const steady = frame(role, (w) => posed(w, VENT, 0, rested(2)));
-    expect(steady.length).toBeGreaterThan(loose.length);
-  });
-
-  it("draws the ring differently for the tapper and the still seat", () => {
-    const p1 = frame("p1", (w) => posed(w, VENT, 0, rested(2)));
-    const p2 = frame("p2", (w) => posed(w, VENT, 0, rested(2)));
-    expect(p1).not.toBe(p2);
-  });
-});
-
-describe("THE FLUE's damper", () => {
-  it("is shut over a core not bared, clear while it is, and creeps back up on a damper step", () => {
-    const s = posed(stood(), DAMPER, 0);
-    expect(flueDamperOpen(s, CFG, s.phaseBeat, 0)).toBe(0);
-    s.bared = true;
-    const early = flueDamperOpen(s, CFG, s.phaseBeat, 0.5);
-    const late = flueDamperOpen(s, CFG, s.phaseBeat + 3, 0.5);
-    expect(early).toBeGreaterThan(late);
-    s.phase = "rest";
-    expect(flueDamperOpen(s, CFG, s.phaseBeat, 0)).toBe(1);
-    s.phase = "spent";
-    expect(flueDamperOpen(s, CFG, s.phaseBeat + CFG.flueSpentBeats, 0)).toBeGreaterThan(1);
-  });
-
-  it("drops the damper out of the row as it opens, and further once spent", () => {
+describe("THE FLUE under THE SLOW", () => {
+  it("is aimed at as the whole row, and left whole by the split", () => {
+    const world = stood();
+    posed(world, BEAM);
     const l = computeLayout(VIEWPORT, CFG, "test");
-    const row = flueUnitAt(l, CFG, 3).y;
-    expect(flueDamperAt(l, CFG, 0).y).toBe(row);
-    expect(flueDamperAt(l, CFG, 1).y).toBeGreaterThan(row);
-    expect(flueDamperAt(l, CFG, 2).y).toBeGreaterThan(flueDamperAt(l, CFG, 1).y);
+    const aim = lastBossAim(world, l, world.beat, 0);
+    expect(aim).not.toBeNull();
+    if (aim === null) return;
+    const c = flueCentre(l, CFG);
+    expect(Math.abs(aim.y - c.y)).toBeLessThan(l.tile * 0.01);
+    expect(Math.abs(aim.ax - aim.x) + 2 * aim.r).toBeGreaterThan(l.cols * l.tile - 1);
+    // And left whole by the split, edge to edge, sight, pips and studs.
+    const sharp = aim.sharp;
+    expect(sharp).toBeDefined();
+    if (sharp === undefined) return;
+    expect(sharp.x).toBeLessThanOrEqual(l.gridLeft);
+    expect(sharp.x + sharp.w).toBeGreaterThanOrEqual(l.gridLeft + l.cols * l.tile);
+    expect(sharp.y).toBeLessThan(c.y - l.tile);
+    expect(sharp.y + sharp.h).toBeGreaterThan(c.y + l.tile);
   });
 });

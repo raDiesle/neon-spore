@@ -86,15 +86,16 @@ export const CHOREO_FIELD_GROUP_D = {
   burgeeMarkMilli: "THE BURGEE — a flag stilled by one seat and caught by the other",
   burgeeFreezeBeats: "THE BURGEE — a flag stilled by one seat and caught by the other",
   burgeeDrawBeats: "THE BURGEE — a flag stilled by one seat and caught by the other",
-  // FlueConfig — the slack before the first step, the pause between, the
-  // open damper, the span and the drift, and the beats of nothing that steady
-  // the ember (`config-flue.ts`).
-  flueSlackBeats: "THE FLUE — an ember one seat keeps still for the other to tap",
-  fluePauseBeats: "THE FLUE — an ember one seat keeps still for the other to tap",
-  flueSpentBeats: "THE FLUE — an ember one seat keeps still for the other to tap",
-  flueSpanMilli: "THE FLUE — an ember one seat keeps still for the other to tap",
-  flueDriftMilli: "THE FLUE — an ember one seat keeps still for the other to tap",
-  flueRestThreshold: "THE FLUE — an ember one seat keeps still for the other to tap",
+  // FlueConfig — the slack before the first level, the pause between, the
+  // fade once spent, the slot's span, the row, how near a shot must meet
+  // the ember, and the shots a level gives (`config-flue.ts`).
+  flueSlackBeats: "THE FLUE — an ember one seat sees and the other shoots",
+  fluePauseBeats: "THE FLUE — an ember one seat sees and the other shoots",
+  flueSpentBeats: "THE FLUE — an ember one seat sees and the other shoots",
+  flueSpanMilli: "THE FLUE — an ember one seat sees and the other shoots",
+  flueRow: "THE FLUE — an ember one seat sees and the other shoots",
+  flueHitMilli: "THE FLUE — an ember one seat sees and the other shoots",
+  flueShots: "THE FLUE — an ember one seat sees and the other shoots",
   // GovernorConfig — the slack before the first step, the rest between, the
   // spent hub, the idle pace, the mark's half-width, and how hot the needle
   // runs off the brake and how fast it climbs and eases (`config-governor.ts`).

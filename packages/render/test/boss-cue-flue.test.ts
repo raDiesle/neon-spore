@@ -3,7 +3,6 @@ import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
   type FlueState,
-  flueSteady,
   midCol,
   startWave,
   step,
@@ -12,7 +11,7 @@ import {
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { fieldX } from "../src/field-flip.js";
-import { FLUE_DAMPER, flueCentre, flueCoreR, flueEmberAt, flueUnitAt } from "../src/flue-shape.js";
+import { flueSightAt, flueSightR } from "../src/flue-shape.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import {
   CFG,
@@ -25,11 +24,11 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE FLUE, and the three words the field may say about it**
- * (`render/src/boss-cue-read-zo.ts`): `STILL` at the flue's middle to the
- * seats a step asks to keep still, `TAP` on the stopped ember to the vent's
- * tapper, and `FIRE` under the middle column once the core is bared. What is
- * *not* said: how many taps are left, or the shot's colour.
+ * **THE FLUE, and the words the field may say about it**
+ * (`render/src/boss-cue-read-zo.ts`): `CALL` over `NOW` at the sight to the
+ * pilot, who sees the ember, and `FIRE` on a bolt level or `HOLD` on a beam
+ * level at the hull under the held cannon to the navigator, who fires. What
+ * is *not* said: the level's colour, or how many shots are left.
  */
 
 beforeAll(installCanvasGlobals);
@@ -46,7 +45,7 @@ function cue(world: World, role: ViewRole): BossCue | null {
   return bossCue(l, world, 0, () => l.hullY);
 }
 
-/** THE FLUE's wave, stepped to its first vent: player 2 keeps still, player 1 taps. */
+/** THE FLUE's wave, stepped to its first level lighting. */
 function toLit(): { world: World; s: FlueState } {
   const world = createWorld(CFG, 5);
   const index = waveWith("flue");
@@ -59,63 +58,39 @@ function toLit(): { world: World; s: FlueState } {
 }
 
 describe("THE FLUE", () => {
-  it("says STILL at its middle to the vent's rester, and nothing to the tapper while the ember glides", () => {
-    const { world, s } = toLit();
-    expect(s.steps[s.cursor]).toMatchObject({ ask: "vent", rester: 2 });
-    expect(flueSteady(world, s)).toBe(false);
-    const still = cue(world, "p2");
-    const mid = flueCentre(LAYOUT.p2, CFG);
-    expect(still).toMatchObject({ word: "STILL", kind: "STILL" });
-    expect(still?.x).toBeCloseTo(mid.x);
-    expect(still?.y).toBeCloseTo(mid.y);
-    expect(cue(world, "p1")).toBeNull();
+  it("says CALL NOW at the sight to the pilot", () => {
+    const { world } = toLit();
+    const call = cue(world, "p1");
+    const sight = flueSightAt(LAYOUT.p1, CFG);
+    expect(call).toMatchObject({ seat: 1, word: "NOW", kind: "CALL" });
+    expect(call?.x).toBeCloseTo(sight.x);
+    expect(call?.y).toBeCloseTo(sight.y);
   });
 
-  it("says TAP on the ember to the tapper once it has stopped, and keeps the rester's STILL", () => {
+  it("says FIRE on a bolt level and HOLD on a beam one to the navigator, at the hull under the cannon", () => {
     const { world, s } = toLit();
-    s.restBeats[1] = CFG.flueRestThreshold;
-    s.emberMilli = -1000;
-    expect(flueSteady(world, s)).toBe(true);
-    const tap = cue(world, "p1");
-    const at = flueEmberAt(LAYOUT.p1, CFG, s.emberMilli);
-    expect(tap).toMatchObject({ word: "TAP", kind: "PRESS" });
-    expect(tap?.x).toBeCloseTo(at.x);
-    expect(tap?.y).toBeCloseTo(at.y);
-    expect(cue(world, "p2")?.word).toBe("STILL");
-  });
-
-  it("says STILL to both seats through a damper", () => {
-    const { world, s } = toLit();
-    s.cursor = s.steps.findIndex((k) => k.ask === "damper");
-    s.bared = true;
-    for (const role of ["p1", "p2"] as const) {
-      expect(cue(world, role)).toMatchObject({ word: "STILL", kind: "STILL" });
-    }
-  });
-
-  it("says FIRE under the middle column once the core is bared, and nothing before", () => {
-    const { world, s } = toLit();
-    s.cursor = s.steps.findIndex((k) => k.ask === "fire");
-    s.bared = false;
-    expect(cue(world, "p1")).toBeNull();
-    s.bared = true;
-    for (const role of ["p1", "p2"] as const) {
-      const said = cue(world, role);
-      expect(said).toMatchObject({ word: "FIRE", kind: "PRESS" });
-      expect(said?.x).toBeCloseTo(fieldX(LAYOUT[role], midCol(CFG)));
-      expect(said?.y).toBeCloseTo(LAYOUT[role].hullY);
+    for (const [weapon, word, kind] of [
+      ["bolt", "FIRE", "PRESS"],
+      ["beam", "HOLD", "HOLD"],
+    ] as const) {
+      const level = s.levels[s.cursor];
+      if (level === undefined) throw new Error("no level lit");
+      s.levels[s.cursor] = { ...level, weapon };
+      const said = cue(world, "p2");
+      expect(said).toMatchObject({ seat: 2, word, kind });
+      expect(said?.x).toBeCloseTo(fieldX(LAYOUT.p2, midCol(CFG)));
+      expect(said?.y).toBeCloseTo(LAYOUT.p2.hullY);
       // The owner, 29 September 2026, every boss: a shot cue carries a clear
       // aim target (`cue-helper.ts`). The word stays at the hull, where the
-      // cannon goes; the crosshair rides the thing it is fired at.
-      const want = { ...flueUnitAt(LAYOUT[role], CFG, FLUE_DAMPER), r: flueCoreR(LAYOUT[role]) };
-      expect(said?.aim?.x).toBeCloseTo(want.x, 5);
-      expect(said?.aim?.y).toBeCloseTo(want.y, 5);
-      expect(said?.aim?.r).toBeCloseTo(want.r, 5);
-      expect(said?.aim?.y).toBeLessThan(LAYOUT[role].hullY);
+      // cannon is; the crosshair rides the sight, where the shot is judged.
+      const sight = flueSightAt(LAYOUT.p2, CFG);
+      expect(said?.aim?.x).toBeCloseTo(sight.x, 5);
+      expect(said?.aim?.y).toBeCloseTo(sight.y, 5);
+      expect(said?.aim?.r).toBeCloseTo(flueSightR(LAYOUT.p2), 5);
     }
   });
 
-  it("says nothing between steps", () => {
+  it("says nothing between levels", () => {
     const { world, s } = toLit();
     s.phase = "rest";
     for (const role of ["p1", "p2"] as const) expect(cue(world, role)).toBeNull();

@@ -168,9 +168,6 @@ export const ROWS: Record<string, Row> = {
   // the lit step's, and the draw's lift carries the swipe on `fromMilli`.
   burgeeFreeze: {},
   burgeeDraw: {},
-  // `flue-hand.ts`: an edge from the vent's tapper, with the column it went
-  // down on as `id`.
-  flueTap: { id: true },
   // `governor-hand.ts`: a pad per drag, the pad as `id`, each seat's own
   // side; the tap an edge from the lit step's tapper.
   governorChordLeft: { id: true },

@@ -1,33 +1,48 @@
-import { type CoreVerdict, coreTaken, coreVerdict } from "./core-verdict.js";
-import { flueBoss, flueFiring, flueLitStep } from "./flue.js";
-import { flueAnswered } from "./flue-step.js";
-import type { Bullet, Color } from "./types.js";
-import type { World } from "./world.js";
+import { flueBoss, flueLitLevel, flueMissWhy, flueOver } from "./flue.js";
+import { flueCleared, flueSpentShot } from "./flue-step.js";
+import type { Bullet } from "./types.js";
+import { MILLI, type World } from "./world.js";
 
 /**
- * **THE FLUE's shot**: the bared core, where a bolt leaves the top of the
- * field in the middle column.
+ * **THE FLUE's shot**, met on the flue's row.
  *
- * Only a lit fire step takes one, with the core bared. **A step with a
- * colour wants that colour**, THE SEAM's rule (`seam-shot.ts`): the other is
- * a colour missed on the balance sheet and the step stays lit. The last step
- * is authored `"either"`, the white core, and takes both.
- *
- * What it says of a bolt is `flueVerdict`, which the picture asks too
- * (`core-verdict.ts`).
+ * A bolt climbing its column and the beam burning one are both asked here,
+ * beside the bodies and pods in the same sweep (`boss-along.ts`), and **every
+ * shot stops on the flue**: it lies across the whole field, so nothing climbs
+ * past it. That is where it is judged, the instant it gets there, so the pair
+ * sees the verdict on the shot rather than a beat later off the top. While a
+ * level is lit: over the ember, the level's weapon in its colour clears it,
+ * and the other weapon or the other colour spends a shot, the ember refusing
+ * it; anywhere else it is wide and spends one too. Between levels the flue
+ * takes a shot and nothing comes of it.
  */
-export function flueStruck(world: World, bullet: Bullet): boolean {
-  const s = flueBoss(world);
-  const verdict = flueVerdict(world, bullet.col, bullet.color);
-  if (s === null || !coreTaken(world, verdict, flueLitStep(s))) return verdict !== null;
-  s.hits += 1;
-  world.events.push({ type: "flueHit", hits: s.hits, col: bullet.col });
-  flueAnswered(world, s);
-  return true;
+
+/** Where the flue stands across this sweep of the shot's column, in thousandths of a row, or -1. */
+export function flueAlong(world: World, _bullet: Bullet, from: number, to: number): number {
+  if (flueBoss(world) === null) return -1;
+  const at = world.cfg.flueRow * MILLI;
+  return from < at || at < to ? -1 : at;
 }
 
-/** What a bolt of `color` in `col` meets of the core (`core-verdict.ts`). */
-export function flueVerdict(world: World, col: number, color: Color): CoreVerdict {
+/** The shot met the flue, once `flueAlong` said it would. */
+export function flueStruckEmber(world: World, bullet: Bullet): void {
   const s = flueBoss(world);
-  return s === null ? null : coreVerdict(world, col, color, flueFiring(s), flueLitStep(s));
+  const level = s === null ? null : flueLitLevel(s);
+  if (s === null || level === null) return;
+  if (!flueOver(world.cfg, s, bullet.col)) {
+    flueSpentShot(world, s, bullet.col, "wide");
+    return;
+  }
+  const why = flueMissWhy(level, bullet);
+  if (why === null) flueCleared(world, s, bullet.col);
+  else flueSpentShot(world, s, bullet.col, why);
+}
+
+/**
+ * A shot past the top of the field: none gets there while the flue is up,
+ * but one that did would be **taken**, so it is never a wasted one on HARD
+ * (`shot-out.ts`) — the sky is the flue's.
+ */
+export function flueStruck(world: World, _bullet: Bullet): boolean {
+  return flueBoss(world) !== null;
 }

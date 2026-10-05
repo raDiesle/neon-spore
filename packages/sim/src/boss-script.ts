@@ -7,11 +7,12 @@ import type { World } from "./world.js";
  * stage and the game's HUD alike, so the two can never count differently.
  *
  * A choreographed boss keeps its place as `cursor` on its state and its script
- * as one list beside it. The list goes by four names — `steps` (the asks of
+ * as one list beside it. The list goes by five names — `steps` (the asks of
  * THE CYST and its kind, the poses of THE INSTAR and THE NETTLE), `marks`
- * (THE GIMBAL), `tiles` (THE FILAMENT), `thresholds` (THE MANTLE) — and
+ * (THE GIMBAL), `tiles` (THE FILAMENT), `thresholds` (THE MANTLE), `levels`
+ * (THE FLUE, whose word is the level's weapon) — and
  * `SCRIPT_LISTS` is the one line each. A boss added later with its script under
- * a fifth name reads null here until it gains a line, and
+ * a sixth name reads null here until it gains a line, and
  * `packages/content/test/boss-script.test.ts` fails on every boss wave that
  * has a `cursor` and no script.
  *
@@ -27,7 +28,7 @@ export interface BossScript {
   name: string | null;
 }
 
-const SCRIPT_LISTS = ["steps", "marks", "tiles", "thresholds"] as const;
+const SCRIPT_LISTS = ["steps", "marks", "tiles", "thresholds", "levels"] as const;
 
 /** Bosses that keep a `cursor` which is not a place in a script. */
 export const NOT_A_SCRIPT: readonly BossState["kind"][] = ["reprise"];
@@ -61,9 +62,10 @@ export function bossScript(world: World): BossScript | null {
 
 function stepName(step: unknown): string | null {
   if (typeof step !== "object" || step === null) return null;
-  const s = step as { pose?: unknown; ask?: unknown };
+  const s = step as { pose?: unknown; ask?: unknown; weapon?: unknown };
   if (typeof s.pose === "string") return s.pose;
   if (typeof s.ask === "string") return s.ask;
+  if (typeof s.weapon === "string") return s.weapon;
   return null;
 }
 

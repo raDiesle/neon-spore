@@ -5,8 +5,6 @@ import { drawCapstan } from "../src/capstan-draw.js";
 import { CapstanFx } from "../src/capstan-fx.js";
 import { drawDavit } from "../src/davit-draw.js";
 import { DavitVerdicts } from "../src/davit-verdicts.js";
-import { drawFlue } from "../src/flue-draw.js";
-import { FlueFx } from "../src/flue-fx.js";
 import { drawGall } from "../src/gall-draw.js";
 import { GallFx } from "../src/gall-fx.js";
 import { drawGovernor } from "../src/governor-draw.js";
@@ -29,7 +27,6 @@ import { stubCanvas } from "./canvas-stub.js";
 import * as capstan from "./capstan-harness.js";
 import * as curtain from "./curtain-harness.js";
 import * as davit from "./davit-harness.js";
-import * as flue from "./flue-harness.js";
 import * as gall from "./gall-harness.js";
 import * as governor from "./governor-harness.js";
 import * as grindstone from "./grindstone-harness.js";
@@ -44,7 +41,9 @@ import * as taster from "./taster-harness.js";
 /**
  * The rows of `core-stop.test.ts`: every boss whose shot is a core over the
  * middle column, stood and drawn through its own drawer with the bolts'
- * stops, its core open on a cyan fire step or shut.
+ * stops, its core open on a cyan fire step or shut. THE FLUE had a row until
+ * its rework of 5 October 2026: it has no core now, and the simulation
+ * stops every shot at its row itself (`sim/flue-shot.ts`).
  */
 
 const paper = () => stubCanvas().ctx as unknown as CanvasRenderingContext2D;
@@ -73,18 +72,6 @@ export interface Row {
 }
 
 export const ROWS: Row[] = [
-  {
-    name: "THE FLUE",
-    draw(stops, l, open) {
-      const world = flue.stood();
-      const s = flue.posed(world, open ? flue.FIRE : flue.DAMPER, 0, (f) => {
-        f.bared = open;
-        f.vents = 2;
-      });
-      drawFlue(paper(), l, world, s, world.beat, 0.5, 0, new FlueFx(), stops);
-    },
-    wide: true,
-  },
   {
     name: "THE GOVERNOR",
     draw(stops, l, open) {

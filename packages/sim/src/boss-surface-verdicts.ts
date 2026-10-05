@@ -21,7 +21,6 @@ export type { CoreVerdict } from "./core-verdict.js";
 export { curtainVerdict } from "./curtain-shot.js";
 export { cystVerdict } from "./cyst-shot.js";
 export { davitVerdict } from "./davit-shot.js";
-export { flueVerdict } from "./flue-shot.js";
 export { gallVerdict } from "./gall-shot.js";
 export { gimbalVerdict } from "./gimbal-shot.js";
 export { governorVerdict } from "./governor-shot.js";

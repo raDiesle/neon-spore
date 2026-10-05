@@ -124,7 +124,6 @@ export const SHAPED_FAMILIES: readonly FieldGroup[] = [
       "THE CYST'S LEFT FREEZE MARK",
       "THE CYST'S RIGHT FREEZE MARK",
       "THE BURGEE'S FREEZE RING",
-      "THE FLUE'S EMBER",
       "THE GOVERNOR'S NEEDLE",
       "THE TASTER'S PIN",
       "THE LAMPREY'S TEETH",

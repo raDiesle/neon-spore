@@ -9,7 +9,6 @@ import { cystUnder } from "./cyst-grip.js";
 import { davitLooseUnder, davitSteerUnder } from "./davit-grip.js";
 import { filamentGrabUnder } from "./filament-grip.js";
 import { fleetGripUnder } from "./fleet-grip.js";
-import { flueTapUnder } from "./flue-grip.js";
 import { gallPinchUnder } from "./gall-grip.js";
 import { gaugeGripUnder } from "./gauge-grip.js";
 import { gimbalRingUnder } from "./gimbal-grip.js";
@@ -166,7 +165,6 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     davitLooseUnder(l, x, y, field) ?? // THE DAVIT's hook, held then loosed toward the lit column (`davit-grip.ts`).
     burgeeFreezeUnder(l, x, y, field) ?? // THE BURGEE's freeze ring, the lit step's freezer's tap (`burgee-grip.ts`).
     burgeeDrawUnder(l, x, y, field) ?? // And its track, the other seat's, held then swiped toward the ring (`burgee-grip.ts`).
-    flueTapUnder(l, x, y, field) ?? // THE FLUE's row while a vent is lit, either seat's tap, the column carried (`flue-grip.ts`).
     governorGripUnder(l, x, y, field) ?? // THE GOVERNOR's dial, the tapper's tap, and the works around it, a finger of the brake's chord (`governor-grip.ts`).
     lampreyGripUnder(l, x, y, field) // THE LAMPREY's mouth, the tapper's tap on a tooth, and the band round it, the pinner's thumb on the jaw (`lamprey-grip.ts`).
   );

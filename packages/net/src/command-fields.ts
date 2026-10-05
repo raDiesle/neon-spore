@@ -53,7 +53,6 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "capstanSteer", "capstanRub",
   "gallPinch",
   "burgeeFreeze", "burgeeDraw",
-  "flueTap",
   "governorChordLeft", "governorChordRight", "governorTap",
   "gaugeTooth",
   "gaugeTongue",

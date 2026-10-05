@@ -104,20 +104,18 @@ export const CHOREO_NOTES_D = {
     "Only the simulation lane has landed — see sim/burgee.ts, " +
     "sim/burgee-step.ts, sim/burgee-hand.ts, sim/burgee-shot.ts, " +
     "sim/config-burgee.ts.",
-  "THE FLUE — an ember one seat keeps still for the other to tap":
-    "Asked for in docs/spec/bosses-choreographed.md §40: an ember in a slot " +
-    "mid-hull that drifts on its own, flueDriftMilli a beat, never a " +
-    "player's to move. On a vent one seat sends nothing at all — THE " +
-    "HALTER's SENDING NOTHING, every command heard — and after " +
-    "flueRestThreshold beats the ember stops dead; the other seat taps it " +
-    "three times as it hops between the step's notches, TAPS ON A MOVING " +
-    "TARGET. One command from the still seat mid-count costs every tap " +
-    "landed. Two vents, seats swapped, bare the core; before the second and " +
-    "third shots both hands must come off while the damper creeps. A vent " +
-    "or a damper run out is tried again; a fire step run out is a hull hit, " +
-    "which is the wave. Nothing on the phone sends a tap here yet. Only the " +
-    "simulation lane has landed — see sim/flue.ts, sim/flue-step.ts, " +
-    "sim/flue-hand.ts, sim/flue-shot.ts, sim/config-flue.ts.",
+  "THE FLUE — an ember one seat sees and the other shoots":
+    "Reworked by the owner, 5 October 2026 (docs/spec/bosses.md §11.57): " +
+    "an ember runs end to end along a slot across the top of the field, " +
+    "flueSpanMilli either side of the middle, and only the pilot is drawn " +
+    "it. The cannon is held under the middle column. Each level asks one " +
+    "weapon — a bolt or the beam — in one colour, with its own ember speed " +
+    "and THE SLOW at its own strength; the pilot says when, early by the " +
+    "shot's own delay, and the navigator fires. A shot is judged at the " +
+    "flue, within flueHitMilli of the ember; anything else spends one of " +
+    "flueShots, and the last one spent is a hull hit, which is the wave. " +
+    "See sim/flue.ts, sim/flue-step.ts, sim/flue-shot.ts, sim/flue-lead.ts, " +
+    "sim/config-flue.ts.",
   "THE GOVERNOR — a needle one seat brakes for the other to tap":
     "Asked for in docs/spec/bosses-choreographed.md §43: a needle running " +
     "round a dial mid-hull on its own. On a tap step one seat holds both " +

@@ -1,5 +1,5 @@
 import type { WardenState } from "./boss-state.js";
-import { hullRow, ticksPerBeat } from "./config.js";
+import { hullRow, type SimConfig, ticksPerBeat } from "./config.js";
 import { chargeDueTick, chargePartTicks } from "./shot-charge.js";
 import { wardenPupilStep } from "./warden.js";
 import { wardenPhase } from "./warden-cycle.js";
@@ -31,12 +31,16 @@ function leavesTick(world: World): number {
   return chargeDueTick(world.cfg, world.tick);
 }
 
-/** The tick a shot pressed now reaches a body standing on `row`. */
-export function shotLandsTick(world: World, row: number): number {
-  const cfg = world.cfg;
+/** The ticks a shot takes from leaving the muzzle to reaching a body standing on `row`. */
+export function shotClimbTicks(cfg: SimConfig, row: number): number {
   const stepMilli = Math.round((cfg.bulletTilesPerBeat * MILLI) / ticksPerBeat(cfg));
   const climb = (hullRow(cfg) - 1 - row) * MILLI - Math.round(cfg.hitHeightMilli / 2);
-  return leavesTick(world) + Math.ceil(Math.max(0, climb) / Math.max(1, stepMilli));
+  return Math.ceil(Math.max(0, climb) / Math.max(1, stepMilli));
+}
+
+/** The tick a shot pressed now reaches a body standing on `row`. */
+export function shotLandsTick(world: World, row: number): number {
+  return leavesTick(world) + shotClimbTicks(world.cfg, row);
 }
 
 /**

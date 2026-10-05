@@ -84,7 +84,6 @@ describe("a bolt out of the top on HARD, under a boss", () => {
     capstan: () => capstan.install(),
     cyst: () => cyst.install(),
     davit: () => davit.install(),
-    flue: () => flue.install(),
     gall: () => gall.install(),
     governor: () => governor.install(),
     grindstone: () => grindstone.install(),
@@ -130,6 +129,13 @@ describe("a bolt out of the top on HARD, under a boss", () => {
       expect(lost(bare(kind))).toEqual([]);
     });
   }
+
+  // THE FLUE's row, edge to edge: every shot stops on it and is judged there
+  // (`flue-shot.ts`), so none goes on into the sky.
+  it("flue: the flue is over every column, so no bolt is wasted", () => {
+    expect(String(flue.install().boss?.kind)).toBe("flue");
+    expect(lost(() => flue.install())).toEqual([]);
+  });
 
   // A frame, a body: over the middle and not the edges.
   for (const kind of ["scuttle", "ledger"]) {

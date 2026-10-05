@@ -211,7 +211,7 @@ by hand never moves.
 | `packages/sim/src/ghost.ts` | THE GHOST: a body only one screen draws, and the first creature whose secret is **where it is** |
 | `packages/sim/src/bosses.ts` | every boss's vocabulary, re-exported by `index.ts` — the seam `hash-boss.ts` already cut |
 | `packages/sim/src/config-fleet.ts` | THE FLEET's numbers: how big the chart is, how long the pair has, and what running out costs |
-| `packages/sim/src/config-flue.ts` | THE FLUE's tuning: the beats around its steps, how far and how fast the ember drifts on its own |
+| `packages/sim/src/config-flue.ts` | THE FLUE's tuning: the beats around its levels, how far the ember runs, the row it runs on |
 | `packages/sim/src/fleet-board.ts` | THE FLEET's chart as arithmetic — where a ship stands, which squares are spent, what makes a fleet |
 | `packages/sim/src/fleet-flood.ts` | **THE FLEET's second and third states, on the beat** — the flood a hit opens |
 | `packages/sim/src/fleet-hand.ts` | **Three thumbs on THE FLEET's picture**, off the wire, on the tick |
@@ -219,11 +219,11 @@ by hand never moves.
 | `packages/sim/src/fleet-state.ts` | **THE FLEET's three states, and what the pair does in each.** Moved out of `boss-state.ts` with the second… |
 | `packages/sim/src/fleet.ts` | THE FLEET: one seat holds the map, the other holds the sights, and neither can reach the other's half |
 | `packages/sim/src/flip.ts` | THE FLIP: |
-| `packages/sim/src/flue-hand.ts` | Every command either seat sends while THE FLUE is up — **all of them** |
 | `packages/sim/src/flue-hash.ts` | What THE FLUE puts into `hashWorld`, and nothing else |
-| `packages/sim/src/flue-shot.ts` | **THE FLUE's shot**: the bared core, where a bolt leaves the top of the field in the middle column |
-| `packages/sim/src/flue-step.ts` | THE FLUE's clock: the rest counted for each seat, the ember drifting on its own or stopping dead |
-| `packages/sim/src/flue.ts` | THE FLUE: a slotted exhaust flue mid-hull with an ember drifting inside it on its own |
+| `packages/sim/src/flue-shot.ts` | **THE FLUE's shot**, met on the flue's row |
+| `packages/sim/src/flue-step.ts` | THE FLUE's clock: each level lighting, THE SLOW held open across it at the level's own strength |
+| `packages/sim/src/flue-lead.ts` | **Where THE FLUE's ember will be when a shot pressed now reaches it** — the lead the pilot has to call |
+| `packages/sim/src/flue.ts` | THE FLUE: a slotted flue across the top of the field, and an ember running along it from end to end and back |
 | `packages/sim/src/config-snake.ts` | SNAKE's numbers — the arena, the mouth's window, what starting over costs |
 | `packages/sim/src/snake-controls.ts` | The four verbs of the round, and the two seats they are split between |
 | `packages/sim/src/snake-move.ts` | One step of the body, and the four ways an attempt ends badly |
@@ -1170,7 +1170,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zl.ts` | **What THE CAPSTAN is asking for** — page thirty-eight of the readings |
 | `packages/render/src/boss-cue-read-zm.ts` | **What THE GALL is asking for** — page thirty-nine of the readings |
 | `packages/render/src/boss-cue-read-zn.ts` | **What THE BURGEE is asking for**: page forty of the readings |
-| `packages/render/src/boss-cue-read-zo.ts` | **What THE FLUE is asking for**: page forty-one of the readings |
+| `packages/render/src/boss-cue-read-zo.ts` | **What THE FLUE is asking for**: page forty-one of the readings, said only while a level is lit |
 | `packages/render/src/boss-cue-read-zp.ts` | **What THE VALVE is asking for**: page forty-two of the readings |
 | `packages/render/src/boss-cue-read-zq.ts` | **What THE GOVERNOR is asking for**, page forty-three of the readings |
 | `packages/render/src/boss-cue-read-zr.ts` | **What THE SEAM is asking for**, page forty-four of the readings |
@@ -1425,7 +1425,7 @@ by hand never moves.
 | `packages/render/src/slow-boss-aim.ts` | **Where a boss that opens THE SLOW stands, by kind** |
 | `packages/render/src/slow-boss-aim-b.ts` | **THE SLOW's aim, page two** — the rows `slow-boss-aim.ts` hands on when it has none of its own |
 | `packages/render/src/slow-boss-aim-c.ts` | **THE SLOW's aim, page three** — the bosses whose body is longer than it is round |
-| `packages/render/src/slow-boss-aim-d.ts` | **THE SLOW's aim, page four** — the five bosses that opened windows that ask and had no row on any page |
+| `packages/render/src/slow-boss-aim-d.ts` | **THE SLOW's aim, page four** — the bosses that opened windows that ask and had no row on any page |
 | `packages/render/src/slow-hush.ts` | **A boss's natural motion dies down while THE SLOW is open** — the owner, 27 September 2026 |
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
 | `packages/render/src/sprite-bake.ts` | **A SPRITE BAKED AT LOAD**: detail drawn by our own code, once, onto an offscreen canvas |
@@ -1999,15 +1999,12 @@ by hand never moves.
 | `packages/render/src/flip-seam.ts` | **THE FLIP's fold, drawn** — a pane of glass down the middle of the turned screen, and ⇄ across it |
 | `packages/render/src/flip-reveal.ts` | **THE FLIP's projection breaking up** — two tiles above the hull, the mirrored body tears into strips and the true one arrives in its own column |
 | `packages/render/src/flue-draw.ts` | **THE FLUE**: a slotted exhaust flue across the middle of the field, its ember stopped dead by one seat and tapped by the other |
-| `packages/render/src/flue-marks.ts` | **THE FLUE's marks**: what says what a step asks and what is spent |
-| `packages/render/src/flue-pose.ts` | **The clock THE FLUE is posed off** (§40, *Animation*), five poses: the ember drifting |
-| `packages/render/src/flue-shape.ts` | **THE FLUE's geometry**: where the flue lies, the units it is laid from, the slot the ember rides in |
-| `packages/render/src/flue-stop.ts` | **Where a bolt meets THE FLUE**: the bared core, or the row of units |
+| `packages/render/src/flue-marks.ts` | **THE FLUE's marks**: what says what a level asks and what it has left |
+| `packages/render/src/flue-pose.ts` | **The clock THE FLUE is posed off**: the flue sliding down into the field as it arrives |
+| `packages/render/src/flue-shape.ts` | **THE FLUE's geometry**: where the flue lies, the units it is laid from, the slot the ember runs in |
 | `packages/render/src/flue-blow.ts` | **THE FLUE's own blow at the hull** (`boss-strike-look.ts`) |
-| `packages/render/src/flue-fx.ts` | What THE FLUE leaves behind a frame (§40, *Presentation*) |
-| `packages/render/src/flue-grip.ts` | **THE FLUE's tap as a control**: `flueTap`, pressed anywhere along the flue's row while a vent is lit |
-| `packages/render/src/flue-verdicts.ts` | **THE FLUE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
-| `packages/render/src/flue-core.ts` | **THE FLUE's core**, in the damper's place in the row: dull while no shot is owed |
+| `packages/render/src/flue-fx.ts` | What THE FLUE leaves behind a frame: the **flash** at the sight as the ember is met |
+| `packages/render/src/flue-verdicts.ts` | **THE FLUE's mark answering a shot the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/frame-field.ts` | The two passes that are about the field: the empty board, and the bodies on it |
 | `packages/render/src/frame-ship.ts` | The two passes that are about the ship: the hull with its controls, and the overlays |
 | `packages/render/src/frame-on-ship.ts` | a body sticks to the finished ship — the fifth pass, between the ship and the overlays: the fence's burn, the gums, the choke's coils, the clingers, in that order |
@@ -2658,7 +2655,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-capstan.ts` | **THE CAPSTAN played right**, for the autopilot: the steering seat leans past the mark, the other rubs, the bared core shot |
 | `packages/hands/src/boss-hands-cyst.ts` | **THE CYST played right**, for the autopilot |
 | `packages/hands/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN, THE SCUTTLE |
-| `packages/hands/src/boss-hands-flue.ts` | **THE FLUE played right**, for the autopilot: on a vent the rester's phone sends nothing at all |
+| `packages/hands/src/boss-hands-flue.ts` | **THE FLUE played right**, for the autopilot: the navigator's thumb sent on the lead the pilot would call |
 | `packages/hands/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
 | `packages/hands/src/boss-hands-hasp.ts` | **THE HASP played right**, for the STATES sheet: the latch kept down and the wheel kept turning |
 | `packages/hands/src/boss-hands-halter.ts` | **THE HALTER played right**, for the STATES sheet and the autopilot |
@@ -3002,7 +2999,6 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-capstan.ts` | THE CAPSTAN's rub: the left band asked for, the pilot's thumb pulled over so its face is round |
 | `tools/director/src/poses-field-controls-burgee.ts` | THE BURGEE's two hands, **each photographed from the seat whose hand it is** |
 | `tools/director/src/poses-field-controls-bosses.ts` | Every boss's grips on the ON THE FIELD tab, in the tab's order: one file a boss |
-| `tools/director/src/poses-field-controls-flue.ts` | THE FLUE's tap, **photographed from the tapper's seat**, the screen it is pressed on |
 | `tools/director/src/poses-field-controls-plumb.ts` | THE PLUMB's pull: the left weight asked for, the bob skewed left |
 | `tools/director/src/poses-field-controls-lamprey.ts` | THE LAMPREY's two hands, **each photographed from the seat that presses it** |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
@@ -3512,7 +3508,6 @@ by hand never moves.
 | `tools/director/src/field-controls-instar.ts` | THE INSTAR's marks, in a file of their own |
 | `tools/director/src/field-controls-filament.ts` | THE FILAMENT's line, in a file of its own |
 | `tools/director/src/field-controls-fleet.ts` | **THE FLEET's three thumbs on the chart**, in a file of their own |
-| `tools/director/src/field-controls-flue.ts` | THE FLUE's tap, as a row of the ON THE FIELD tab |
 | `tools/director/src/field-controls-queen.ts` | THE BULB QUEEN's marks, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-mirror.ts` | THE MIRROR's lobes, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-maze.ts` | THE MAZE's two handles, in a file of their own — `field-controls-page.ts` is at its limit |

@@ -45,12 +45,12 @@ export function drawLatestPairBoss(
   const { beat } = world;
   const { beatPhase, time } = view;
 
-  // THE FLUE: a slotted flue across the field, its ember stopped dead by one
-  // seat sending nothing and tapped three times by the other, a core bared
-  // under a damper and shot (`flue-draw.ts`); a tap's tick, a notch's flare,
-  // the damper's thud and the core's flash are `flue-fx.ts`.
+  // THE FLUE: a slotted flue across the field, its ember running end to end
+  // on the pilot's screen alone, and a sight over the held cannon where the
+  // navigator's shot must meet it (`flue-draw.ts`); a hit's flash and a
+  // stud's flare are `flue-fx.ts`.
   if (boss.kind === "flue") {
-    drawFlue(ctx, l, world, boss, beat, beatPhase, time, effects.boss.flue, effects.bolts);
+    drawFlue(ctx, l, world, boss, beat, beatPhase, time, effects.boss.flue);
     return;
   }
 

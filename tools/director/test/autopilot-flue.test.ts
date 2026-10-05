@@ -1,17 +1,16 @@
 import { describe, expect, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import { computeLayout, type Viewport } from "@neon-spore/render";
-import { flueBoss, flueResters, step, type World } from "@neon-spore/sim";
+import { flueBoss, step, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
 
 /**
- * **AUTO plays THE FLUE to the end** (`hands/boss-hands-flue.ts`): each vent
- * spent with the rester's phone silent and three taps on the stopped ember,
- * both dampers held with nothing sent, every bared core shot in its colour —
- * with no tap skidded or lapsed, no rester stirred, no step run out and the
- * hull never struck.
+ * **AUTO plays THE FLUE to the end** (`hands/boss-hands-flue.ts`): every
+ * level's ember met over the cannon in its own weapon and colour, the first
+ * shot each time — with no shot spent, the cannon never slid and the hull
+ * never struck.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
@@ -25,56 +24,40 @@ function rig(world: World, mode: "both" | "p1") {
   return auto;
 }
 
-const WRONG = ["flueSkid", "flueLapse", "flueStir", "flueChoke", "flueShut", "flueMiss"];
-
 describe("AUTO on THE FLUE", () => {
-  test("BOTH spends both vents, holds both dampers and shoots the core out", () => {
+  test("BOTH meets every level's ember with its first shot and plays the flue out", () => {
     const world: World = bossWorld("flue");
     const auto = rig(world, "both");
-    const ticks: number[] = [];
-    const vents: number[] = [];
+    const levels = flueBoss(world)?.levels.length ?? 0;
     const hits: number[] = [];
-    let bared = false;
-    let held = 0;
+    const misses: string[] = [];
     let out = false;
-    const wrong: string[] = [];
-    for (let i = 0; i < 30_000 && world.boss !== null; i++) {
-      const s = flueBoss(world);
-      const quiet = s === null ? [] : flueResters(s);
+    for (let i = 0; i < 40_000 && world.boss !== null; i++) {
       const sent = auto.commands(world);
-      for (const c of sent) expect(quiet).not.toContain(c.player);
+      for (const c of sent) expect(c.command.kind).not.toBe("cannonCol");
       step(world, sent);
       for (const e of world.events) {
-        if (e.type === "flueTick") ticks.push(e.taps);
-        if (e.type === "flueVent") vents.push(e.vents);
-        if (e.type === "flueBare") bared = true;
-        if (e.type === "flueHeld") held++;
         if (e.type === "flueHit") hits.push(e.hits);
+        if (e.type === "flueMiss") misses.push(e.why);
         if (e.type === "flueOut") out = true;
-        if (WRONG.includes(e.type)) wrong.push(e.type);
       }
     }
-    expect(ticks).toEqual([1, 2, 3, 1, 2, 3]);
-    expect(vents).toEqual([1, 2]);
-    expect(bared).toBe(true);
-    expect(held).toBe(2);
-    expect(hits).toEqual([1, 2, 3]);
-    expect(wrong).toEqual([]);
+    expect(levels).toBeGreaterThan(0);
+    expect(hits).toEqual(Array.from({ length: levels }, (_, i) => i + 1));
+    expect(misses).toEqual([]);
     expect(world.scars).toEqual([]);
     expect(out).toBe(true);
     expect(flueBoss(world)).toBeNull();
   });
 
-  test("P1 alone spends the first vent, the silent navigator's rest stopping the ember", () => {
+  test("P1 alone sends nothing: the pilot only calls the shot, and the trigger is the navigator's", () => {
     const world: World = bossWorld("flue");
     const auto = rig(world, "p1");
-    const vents: number[] = [];
-    for (let i = 0; i < 4_000 && vents.length === 0; i++) {
+    for (let i = 0; i < 2_000; i++) {
       const sent = auto.commands(world);
-      for (const c of sent) expect(c.player).toBe(1);
+      expect(sent).toEqual([]);
       step(world, sent);
-      for (const e of world.events) if (e.type === "flueVent") vents.push(e.vents);
     }
-    expect(vents).toEqual([1]);
+    expect(flueBoss(world)?.hits).toBe(0);
   });
 });

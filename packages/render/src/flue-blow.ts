@@ -6,10 +6,10 @@ import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
- * **THE FLUE's own blow at the hull** (`boss-strike-look.ts`). A fire step
- * ran out unshot (`flue-step.ts`'s `miss`), and the flue does what a flue
- * does with nobody drawing on it: it coughs. A cinder is coughed out from
- * under the damper, soot outside and the rim's white hot at its heart
+ * **THE FLUE's own blow at the hull** (`boss-strike-look.ts`). A level's
+ * third shot was spent (`flue-step.ts`'s `flueSpentShot`), and the flue does
+ * what a flue does with nobody drawing on it: it coughs. A cinder is coughed
+ * out from under the sight, soot outside and the rim's white hot at its heart
  * (`flue-draw.ts`), and falls down the middle column trailing smoke, slow off
  * the flue and hard at the end, to the skin at `reach = 1`. There it bursts:
  * a scorch is left where it struck and sparks of the rim's white spray up off
@@ -28,7 +28,7 @@ const SPARKS = 8;
 const SPRAY = 1.1;
 const SPREAD = 1.2;
 
-/** Where the blow leaves the body: the damper's underside, under the flue's middle. */
+/** Where the blow leaves the body: the flue's underside, under the sight over the cannon. */
 export function flueBlowFrom(l: Layout, cfg: SimConfig): Point {
   const c = flueCentre(l, cfg);
   return { x: c.x, y: c.y + flueUnitR(l) };

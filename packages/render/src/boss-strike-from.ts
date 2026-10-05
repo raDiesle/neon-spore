@@ -107,7 +107,7 @@ const FROM: Partial<
   grindstone: grindstoneBlowFrom,
   // The underside of the cup at the crotch, where the ball is flung from (`sling-blow.ts`).
   sling: slingBlowFrom,
-  // The damper's underside, where the cinder is coughed out (`flue-blow.ts`).
+  // The flue's underside under the sight, where the cinder is coughed out (`flue-blow.ts`).
   flue: flueBlowFrom,
   // The flywheel's near edge, where the shard shears off (`governor-blow.ts`).
   governor: governorBlowFrom,

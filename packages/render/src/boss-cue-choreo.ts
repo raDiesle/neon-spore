@@ -64,7 +64,7 @@ export function choreoCues(
     // THE BURGEE's, a tap on the ring to the freezer until the flag is still, a swipe on the track to the seat that draws, and one under the lit spindle (`boss-cue-read-zn.ts`).
     case "burgee":
       return burgeeCues(l, world, boss);
-    // THE FLUE's, a word at its middle to each seat asked to keep still, a tap on the ember to the tapper once it has stopped, and one under the bared core (`boss-cue-read-zo.ts`).
+    // THE FLUE's, a call at the sight to the pilot who sees the ember, and a shot at it to the navigator who fires (`boss-cue-read-zo.ts`).
     case "flue":
       return flueCues(l, world, boss);
     // THE VALVE's, a turn on the wheel to the pilot, a freeze on the socket to the navigator, a pull on the live pin to either, and one under the spark (`boss-cue-read-zp.ts`).

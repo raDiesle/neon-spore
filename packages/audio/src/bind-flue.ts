@@ -9,15 +9,15 @@ export function isFlueEvent(e: SimEvent): e is FlueSimEvent {
 }
 
 /**
- * THE FLUE's sixteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE FLUE's six, in a file of their own for `bind-gorge.ts`' reason.
  *
- * **Heard where they happen**: a tap, a skid, a lapse and the steadying are
- * panned to the ember's column, so **the seat that taps hears where the
- * ember went**. The core, the damper and the flue as a whole are in the
- * middle.
+ * **Heard where they happen**, and never where the ember is: a hit and a
+ * miss are panned to the shot's column, which is the cannon's, and
+ * everything else to the middle. The navigator cannot see the ember, and a
+ * sound that followed it would show it.
  *
- * **A tap rises as the count adds up**, and so does a hit, so a lapse after
- * two is heard as the climb it cost.
+ * **A hit rises with the levels cleared**, and a miss falls as the level's
+ * shots run out, so the last one left is heard as the last.
  */
 export function flueCue(e: FlueSimEvent, cols: number): Cue {
   const pan = panForCol(e.col, cols);
@@ -26,30 +26,10 @@ export function flueCue(e: FlueSimEvent, cols: number): Cue {
       return { id: "boss.flueEnter", pan };
     case "flueLight":
       return { id: "boss.flueLight", pan };
-    case "flueSteady":
-      return { id: "boss.flueSteady", pan };
-    case "flueStir":
-      return { id: "boss.flueStir", pan };
-    case "flueTick":
-      return { id: "boss.flueTick", pan, pitch: 1 + Math.max(0, e.taps - 1) * 0.08 };
-    case "flueSkid":
-      return { id: "boss.flueSkid", pan };
-    case "flueLapse":
-      return { id: "boss.flueLapse", pan };
-    case "flueVent":
-      return { id: "boss.flueVent", pan };
-    case "flueBare":
-      return { id: "boss.flueBare", pan };
-    case "flueChoke":
-      return { id: "boss.flueChoke", pan };
-    case "flueHeld":
-      return { id: "boss.flueHeld", pan };
-    case "flueShut":
-      return { id: "boss.flueShut", pan };
     case "flueHit":
       return { id: "boss.flueHit", pan, pitch: 1 + Math.max(0, e.hits - 1) * 0.08 };
     case "flueMiss":
-      return { id: "boss.flueMiss", pan };
+      return { id: "boss.flueMiss", pan, pitch: 1 - (2 - Math.min(2, e.shots)) * 0.1 };
     case "flueSpent":
       return { id: "boss.flueSpent", pan };
     case "flueOut":

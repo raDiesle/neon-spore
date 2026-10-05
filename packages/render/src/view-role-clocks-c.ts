@@ -118,16 +118,14 @@ export const showsBurgeeHand = (role: ViewRole, seat: 1 | 2): boolean =>
   role === "test" || role === `p${seat}`;
 
 /**
- * THE FLUE's tap ring (§40). This boss splits the hands by the step and not
- * the eyes: both screens are shown the flue, the ember wherever it drifts
- * and the damper, because the still seat has to watch the ember stop to know
- * its stillness is counting, and the other has to see it stop to tap it.
- * What the tapper is shown full is **the ring round the steadied ember**;
- * the still seat sees it faint, so it can see the taps are its partner's to
- * spend and keep its hands off. `test` is both at full.
+ * THE FLUE's ember (§11.57, the owner's rework of 5 October 2026: *player 2
+ * does not see the ball*). **This boss splits the eyes**: the pilot is shown
+ * the ember running along the flue and the navigator is not, because the
+ * navigator has the trigger and the pilot has to say when. Everything else
+ * on the flue — the sight, the shots left, the levels — is on both screens.
+ * `test` is both.
  */
-export const showsFlueHand = (role: ViewRole, seat: 1 | 2): boolean =>
-  role === "test" || role === `p${seat}`;
+export const showsFlueEmber = (role: ViewRole): boolean => role === "test" || role === "p1";
 
 /**
  * THE GOVERNOR's two asks (§43). Both screens are shown the whole governor —

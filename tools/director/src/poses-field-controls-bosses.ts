@@ -3,7 +3,6 @@ import { BURGEE_GRIPS } from "./poses-field-controls-burgee.js";
 import { CAPSTAN_GRIPS } from "./poses-field-controls-capstan.js";
 import { CYST_GRIPS } from "./poses-field-controls-cyst.js";
 import { DAVIT_GRIPS } from "./poses-field-controls-davit.js";
-import { FLUE_GRIPS } from "./poses-field-controls-flue.js";
 import { GALL_GRIPS } from "./poses-field-controls-gall.js";
 import { GOVERNOR_GRIPS } from "./poses-field-controls-governor.js";
 import { GRINDSTONE_GRIPS } from "./poses-field-controls-grindstone.js";
@@ -43,7 +42,6 @@ export const BOSS_GRIPS: readonly Pose[] = [
   ...CYST_GRIPS,
   ...DAVIT_GRIPS,
   ...BURGEE_GRIPS,
-  ...FLUE_GRIPS,
   ...GOVERNOR_GRIPS,
   ...SLING_GRIPS,
   ...VALVE_GRIPS,

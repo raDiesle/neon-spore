@@ -4,7 +4,6 @@ import { capstanVerdict } from "./capstan-shot.js";
 import { midCol } from "./config.js";
 import type { CoreVerdict } from "./core-verdict.js";
 import { davitVerdict } from "./davit-shot.js";
-import { flueVerdict } from "./flue-shot.js";
 import { gallVerdict } from "./gall-shot.js";
 import { governorVerdict } from "./governor-shot.js";
 import { GRINDSTONE_ROW_MILLI, grindstoneVerdict } from "./grindstone-shot.js";
@@ -45,7 +44,6 @@ const CORES: Partial<Record<BossKind, Core>> = {
   burgee: { milli: 550, verdict: burgeeVerdict },
   capstan: { milli: 2700, verdict: capstanVerdict },
   davit: { milli: 1100, verdict: davitVerdict },
-  flue: { milli: 1900, verdict: flueVerdict },
   gall: { milli: 2900, verdict: gallVerdict },
   governor: { milli: 5900, verdict: governorVerdict },
   halter: { milli: 2100, verdict: halterVerdict },

@@ -1,7 +1,6 @@
 import {
   type FlueState,
-  flueLitStep,
-  flueSteady,
+  flueLitLevel,
   type GallState,
   type GrindstoneState,
   gallClosing,
@@ -169,8 +168,14 @@ export const ROWS_C: readonly Row[] = [
   {
     kind: "flue",
     marks: [
-      mark(flueMarks, "drawFlueSlotGlow", (w) => flueLitStep(flue(w))?.ask === "vent"),
-      mark(flueMarks, "drawFlueTapRing", (w) => flueSteady(w, flue(w))),
+      mark(flueMarks, "drawFlueSlotGlow", (w) => flueLitLevel(flue(w)) !== null),
+      // Drawn dim between levels in the next one's colour; lit only while one is.
+      mark(
+        flueMarks,
+        "drawFlueSight",
+        (w) => flueLitLevel(flue(w)) !== null,
+        (a) => a[4] === true,
+      ),
     ],
   },
   {

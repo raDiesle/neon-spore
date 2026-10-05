@@ -96,6 +96,12 @@ export interface World extends ShipState, FaultState {
    * starts whole on every ask (`render/slow-look.ts`).
    */
   slowAskBeat: number;
+  /**
+   * **How fast the window plays**, thousandths of the ordinary rate, set by
+   * every `openSlow` — `cfg.slowRateMilli` for every boss but THE FLUE, whose
+   * levels each name their own. Read through `slowRateMilli`.
+   */
+  slowPaceMilli: number;
 
   /**
    * **What the pair has spent, per colour, beat by beat** — the only thing in
@@ -190,6 +196,7 @@ export function createWorld(
     slowAsks: false,
     slowHolds: false,
     slowAskBeat: NO_SLOW,
+    slowPaceMilli: cfg.slowRateMilli,
     spend: newSpendLedger(),
     creatures: [],
     bullets: [],

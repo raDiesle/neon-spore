@@ -6,8 +6,9 @@ import type { World } from "./world.js";
 /**
  * **What a bolt in a column meets of a core hung over the middle one**, the
  * judgement ten bosses made in seventeen identical lines each — THE BURGEE,
- * CAPSTAN, DAVIT, FLUE, GALL, GOVERNOR, GRINDSTONE, HALTER, PLUMB, RIME and
- * SLING.
+ * CAPSTAN, DAVIT, GALL, GOVERNOR, GRINDSTONE, HALTER, PLUMB, RIME and SLING,
+ * and THE FLUE until its rework of 5 October 2026 gave it an ember to shoot
+ * in place of a core.
  *
  * - `null`: a column with none of the core in it.
  * - `"armour"`: the core's column while it is shut, or open on a step that is

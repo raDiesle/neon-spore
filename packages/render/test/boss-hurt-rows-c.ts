@@ -104,19 +104,13 @@ export const HURT_ROWS_C: Row[] = [
   },
   {
     boss: "flue",
-    // A vent spent, a damper held and the core hit; the ember steadying, a stir or a skid only works toward one.
-    land: [
-      { type: "flueVent", vents: 1, col: 3 },
-      { type: "flueHeld", col: 3 },
-      { type: "flueHit", hits: 1, col: 3 },
-    ],
+    // A level cleared; a level lighting or a shot spent only works toward one.
+    land: [{ type: "flueHit", hits: 1, col: 3 }],
     part: [
-      { type: "flueLight", ask: "vent", col: 3 },
-      { type: "flueSteady", col: 3 },
-      { type: "flueStir", side: 0, col: 3 },
-      { type: "flueSkid", side: 1, col: 3 },
+      { type: "flueLight", level: 1, col: 3 },
+      { type: "flueMiss", shots: 2, why: "wide", col: 3 },
     ],
-    hit: [{ type: "flueTick", side: 1, taps: 1, col: 3 }],
+    hit: "a level is one shot, and the shot is the level cleared",
     hurt: (fx) => fx.boss.flue.hurt,
   },
   {

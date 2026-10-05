@@ -108,7 +108,7 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   grindstone: grindstoneBlow,
   // A fire step let run: the lit cup flings its steel ball, which dents the skin.
   sling: slingBlow,
-  // A fire step let run: the bared flue coughs a cinder that scorches the skin.
+  // A level's third shot spent: the flue coughs a cinder that scorches the skin.
   flue: flueBlow,
   // A fire step let run: the ungoverned flywheel bursts, and a shard of its rim bites the skin.
   governor: governorBlow,

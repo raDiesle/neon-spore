@@ -45,14 +45,15 @@ import type { Wave } from "../wave-types.js";
  * shots at it, each after the flag has been caught back, the last one white.
  * Every catch's window outlasts a lap of the flag at its sweep.
  *
- * **THE FLUE is the first boss a stillness buys a whole count on.** An ember
- * drifts along a slot mid-hull on its own until one seat has sent nothing for
- * three beats; then it stops dead, and the other seat taps it three times as
- * it hops from notch to notch (§40, `sim/flue.ts`). One command from the still
- * seat mid-count costs every tap landed. Two vents, the seats swapped, bare the
- * core; before each shot after the first both hands must come off while the
- * damper creeps, and the last shot is white. Every vent's window holds the
- * three beats of stillness three times over.
+ * **THE FLUE is the first boss only one seat can see.** An ember runs along
+ * a flue across the top of the field, end to end and back, over the cannon
+ * held still under the middle (§11.57, `sim/flue.ts`). The pilot sees it and
+ * the navigator does not, so the pilot says when, early by the shot's own
+ * delay: a bolt climbs for most of a beat, a beam fills for three. Six
+ * levels, each one weapon in one colour, the ember at its own speed and THE
+ * SLOW at its own strength; three shots a level, and the third one missed is
+ * the wave. The levels climb from a slow bolt to a fast beam, and the slow
+ * comes in as the ember speeds up.
  *
  * **THE GOVERNOR is the first boss one seat's hold sets the other's pace.** A
  * needle runs round a dial mid-hull on its own; one seat holds both brake
@@ -195,21 +196,20 @@ export const WAVES_ACT_13: Wave[] = [
     id: "theFlue",
     name: "THE FLUE",
     guide: {
-      both: "One of you keeps still until the ember stops. The other taps it three times before the still one moves. Then both hands off. Shoot the core in its colour.",
-      p1: "1. First, tap the stopped ember three times as it moves.\n2. Next, keep still while your partner taps.\n3. Hands off while the damper creeps. Shoot the core.",
-      p2: "1. First, keep still while your partner taps.\n2. Next, tap the stopped ember three times as it moves.\n3. Hands off while the damper creeps. Shoot the core.",
+      both: "One of you sees the ember. The other fires. Say when it will be over the cannon. Each level shows its shot, colour and speed. Three shots a level.",
+      p1: "1. You see the ember. Your partner does not.\n2. Call the shot early: a fired shot takes time to climb, a beam longer to fill.\n3. The numbers on the flue help you count.",
+      p2: "1. You cannot see the ember.\n2. Fire when your partner calls it, in the shot and colour the level shows.\n3. A beam is a held colour: start it early.",
     },
     entries: [],
     boss: {
       kind: "flue",
-      steps: [
-        { ask: "vent", rester: 2, notches: [-2, 1], color: "either", beats: 12 },
-        { ask: "vent", rester: 1, notches: [2, -1], color: "either", beats: 12 },
-        { ask: "fire", rester: "both", notches: [], color: "red", beats: 3 },
-        { ask: "damper", rester: "both", notches: [], color: "either", beats: 8 },
-        { ask: "fire", rester: "both", notches: [], color: "cyan", beats: 3 },
-        { ask: "damper", rester: "both", notches: [], color: "either", beats: 6 },
-        { ask: "fire", rester: "both", notches: [], color: "either", beats: 3 },
+      levels: [
+        { weapon: "bolt", color: "red", speedMilli: 2000, slowMilli: 1000 },
+        { weapon: "bolt", color: "cyan", speedMilli: 3000, slowMilli: 1000 },
+        { weapon: "beam", color: "red", speedMilli: 1000, slowMilli: 500 },
+        { weapon: "beam", color: "cyan", speedMilli: 1500, slowMilli: 500 },
+        { weapon: "bolt", color: "red", speedMilli: 4500, slowMilli: 250 },
+        { weapon: "beam", color: "cyan", speedMilli: 2000, slowMilli: 250 },
       ],
     },
     bossType: "normal",

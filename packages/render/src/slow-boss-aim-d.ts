@@ -1,6 +1,7 @@
 import {
   burgeeBoss,
   capstanBoss,
+  flueBoss,
   gallBoss,
   halterBoss,
   lampreyBoss,
@@ -13,6 +14,7 @@ import { burgeeFlagLong, burgeeSpindleAt, burgeeSpindleTall, burgeeTip } from ".
 import { capstanArrived, capstanGone, capstanTurn } from "./capstan-pose.js";
 import { capstanAt, capstanOnScreen, capstanPivot, capstanSize } from "./capstan-shape.js";
 import { type Box, sides, spread } from "./caption-anchor-box.js";
+import { flueCentre, flueUnitR } from "./flue-shape.js";
 import { gallSeamY, gallSize } from "./gall-shape.js";
 import { halterArrived } from "./halter-pose.js";
 import { halterAt, halterBend, halterGap, halterSize } from "./halter-shape.js";
@@ -26,7 +28,7 @@ import { seamCentre, seamHalfHeight, seamHalfWidth, seamLift } from "./seam-shap
 import type { Aim } from "./slow-intake-aim.js";
 
 /**
- * **THE SLOW's aim, page four** — the five bosses that opened windows that
+ * **THE SLOW's aim, page four** — the bosses that opened windows that
  * ask and had no row on any page, so their light stood round the cannon and
  * their fuse dropped onto the hull under it (27 September 2026).
  *
@@ -38,8 +40,11 @@ import type { Aim } from "./slow-intake-aim.js";
  * but not its body, so it is aimed here off its own bell and arms rather than
  * beside THE INSTAR in `aim()`. THE LAMPREY joined with its hand, since
  * THE SLOW opens at every bite. THE MIMIC had a row until its rework of 5
- * October 2026 took THE SLOW off it. A kind none of the four pages has is
- * aimed at the cannon.
+ * October 2026 took THE SLOW off it. THE FLUE joined with its own rework
+ * that day, when THE SLOW came to its levels: with no row its split stood
+ * round the cannon and fringed the flue's sight, which is the one mark the
+ * pair must read the colour of; so its row is left whole by the split. A kind none of the four pages has is aimed
+ * at the cannon.
  */
 export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: number): Aim | null {
   const cfg = world.cfg;
@@ -105,6 +110,21 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       const tip = burgeeTip(l, cfg, burgeeAsked(s, cfg, beatPhase));
       return spreadCapsule([crown, tip], burgeeFlagLong(l));
     }
+    // The flue from one side of the field to the other, with the studs over
+    // it and the shot pips under the sight (`flue-marks.ts`) — and all of it
+    // left whole by the split, the sight's colour above all (`Aim.sharp`).
+    case "flue": {
+      if (flueBoss(world) === null) return null;
+      const y = flueCentre(l, cfg).y;
+      const reach = Math.max(flueUnitR(l), FLUE_MARKS * l.tile);
+      const left = l.gridLeft - l.tile;
+      const w = (l.cols + 2) * l.tile;
+      const sharp = { x: left, y: y - reach, w, h: reach * 2 };
+      return {
+        ...capsule(sides(l.gridLeft, l.gridLeft + l.cols * l.tile, y - reach, y + reach)),
+        sharp,
+      };
+    }
     // The bell, lobes and all, with the arms' tips and the curtain's foot
     // wherever this frame's figure has them (`nettle-body.ts`).
     case "nettle": {
@@ -133,6 +153,11 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
  * risen a little over half of one, and its crown a whole one above that
  * (`gall-draw.ts`'s `lift`). */
 const GALL_STANDS = 1.6;
+
+/** How far THE FLUE's marks stand off its row, in tiles: the studs over it,
+ * the pips under the sight and the words over and under it, with their glow
+ * (`flue-marks.ts`, `boss-cue-read-zo.ts`). */
+const FLUE_MARKS = 1.75;
 
 /**
  * The capsule round a box, along its longer side: the shorter half-axis is

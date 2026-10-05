@@ -74,7 +74,7 @@ export function installScripted(world: World, boss: ScriptedEntry): BossState {
   if (boss.kind === "capstan") return installCapstan(world, boss.steps);
   if (boss.kind === "gall") return installGall(world, boss.steps);
   if (boss.kind === "burgee") return installBurgee(world, boss.steps);
-  if (boss.kind === "flue") return installFlue(world, boss.steps);
+  if (boss.kind === "flue") return installFlue(world, boss.levels);
   if (boss.kind === "governor") return installGovernor(world, boss.steps);
   if (boss.kind === "lamprey") return installLamprey(world, boss.steps);
   return installMimic(world, boss.steps);

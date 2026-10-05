@@ -407,3 +407,27 @@ Oculus, taster, scuttle, curtain, stare and plumb still judge a bolt when it lea
 Take them after the entry above has given a core a column. If plumb's gain
 measures under two ticks, take it off this list and say so in that lane's
 report.
+The same ask THE GIMBAL, THE HASP and THE CLAW's crank have landed
+(`gimbal-knob.ts`, `hasp-knob.ts`, `crank-dial.ts`). THE GAUGE's band is read the crank's
+way about the dial (`hasp-grip.ts` says THE GAUGE did it first), so it is a
+turn and should wear `render/gimbal-knob.ts`'s knob, lever and channel; the
+tongue's `TWIST` (`boss-cue-read-w.ts`) is the same question. Read both
+first: a band or tongue that is not turned round a centre is not this entry's
+and is struck from it. Done when every turned control in the round draws
+THE MAZE's knob and `bun run check` is green.
+
+## THE SLOW's look reads a window's pace off the config, not the world
+
+- **Found:** 2026-10-05, claude/the-flue-game-mechanics-da88ed
+- **Files:** `packages/render/src/slow-intake-aim.ts`, `tools/director/test/boss-hush.test.ts`
+
+THE FLUE's rework gave each window its own pace: `openSlow` takes one and
+keeps it as `world.slowPaceMilli`, which `sim/slow.ts`'s `slowRateMilli(world)`
+reads, so a level can slow the field to a half or a quarter. Two readers still
+take `cfg.slowRateMilli` instead: the look's ease in and out (`ramp`, which
+works out how long a beat lasts in the hand) and `boss-hush.test.ts`'s wall
+clock (`tickSeconds`). Both are right for every window but THE FLUE's today.
+Pass the world's pace to `ramp` from its callers and read it in the walk, and
+add a render test that a window opened at a quarter eases over the same wall
+seconds as one at the config's pace. Done when nothing outside `sim/slow.ts`
+reads `cfg.slowRateMilli` for a window's pace and `bun run check` is green.

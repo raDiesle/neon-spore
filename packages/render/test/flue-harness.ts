@@ -1,8 +1,8 @@
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
+  type FlueLevel,
   type FlueState,
-  type FlueStep,
   flueBoss,
   type SimEvent,
   startWave,
@@ -14,26 +14,13 @@ import type { ViewRole } from "../src/layout.js";
 import { CFG, runFrames, waveWith } from "./frame-harness.js";
 
 /**
- * THE FLUE set rather than played to, for `flue-frame.test.ts`: the wave's
- * own boss stood a few beats in, then posed by writing its state.
+ * THE FLUE set rather than played to, for the flue's render tests: the
+ * wave's own boss stood a few beats in, then posed by writing its state.
  */
 
 const TPB = ticksPerBeat(CFG);
-export const VENT: FlueStep = {
-  ask: "vent",
-  rester: 2,
-  notches: [1, -1],
-  color: "either",
-  beats: 8,
-};
-export const DAMPER: FlueStep = {
-  ask: "damper",
-  rester: "both",
-  notches: [],
-  color: "either",
-  beats: 4,
-};
-export const FIRE: FlueStep = { ask: "fire", rester: "both", notches: [], color: "cyan", beats: 3 };
+export const BOLT: FlueLevel = { weapon: "bolt", color: "red", speedMilli: 2000, slowMilli: 1000 };
+export const BEAM: FlueLevel = { weapon: "beam", color: "cyan", speedMilli: 1000, slowMilli: 500 };
 
 export function stood(): World {
   const world = createWorld(CFG, 5);
@@ -44,12 +31,13 @@ export function stood(): World {
 }
 
 /**
- * The ember `emberMilli` off the middle, `lit` under the cursor a beat in,
- * nobody resting, nothing tapped, vented or bared unless `arrange` says so.
+ * `lit` lit a beat in under the cursor (or resting between levels when
+ * null), the ember `emberMilli` off the middle, every shot left and nothing
+ * cleared unless `arrange` says so.
  */
 export function posed(
   world: World,
-  lit: FlueStep | null,
+  lit: FlueLevel | null,
   emberMilli = 0,
   arrange: (s: FlueState) => void = () => {},
 ): FlueState {
@@ -60,23 +48,11 @@ export function posed(
   s.cursor = 0;
   s.emberMilli = emberMilli;
   s.emberDir = 1;
-  s.taps = 0;
-  s.vents = 0;
+  s.shots = CFG.flueShots;
   s.hits = 0;
-  s.bared = false;
-  s.restBeats = [0, 0];
-  s.stirred = [false, false];
-  s.tapDown = [false, false];
-  if (lit !== null) s.steps[0] = lit;
+  if (lit !== null) s.levels[0] = lit;
   arrange(s);
   return s;
-}
-
-/** Seat `seat` rested to the threshold, so a vent it rests on has steadied its ember. */
-export function rested(seat: 1 | 2) {
-  return (s: FlueState) => {
-    s.restBeats[seat - 1] = CFG.flueRestThreshold;
-  };
 }
 
 /**

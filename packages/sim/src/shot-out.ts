@@ -129,7 +129,7 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   met = gallStruck(world, b) || met;
   // THE BURGEE's lit spindle, in its colour (`burgee-shot.ts`).
   met = burgeeStruck(world, b) || met;
-  // THE FLUE's bared core, in its colour (`flue-shot.ts`).
+  // THE FLUE, which no bolt gets past: taken (`flue-shot.ts`).
   met = flueStruck(world, b) || met;
   // THE GOVERNOR's lit hub, in its colour (`governor-shot.ts`).
   met = governorStruck(world, b) || met;

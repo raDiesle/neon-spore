@@ -1,37 +1,35 @@
 import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
 import {
+  type FlueLevel,
+  type FlueMissWhy,
   type FlueState,
-  type FlueStep,
-  flueDrifts,
-  flueEmberCol,
-  flueSeatIndex,
-  flueSettled,
-  flueSteady,
+  flueBoss,
+  flueLitLevel,
   freshFlue,
 } from "./flue.js";
+import { flueEmberRun } from "./flue-lead.js";
 import { closeSlow, openSlow } from "./slow.js";
-import type { World } from "./world.js";
+import { MILLI, type World } from "./world.js";
 
 /**
- * THE FLUE's clock: the rest counted for each seat, the ember drifting on its
- * own or stopping dead, each step lighting, a window running out, and the
- * damper swung open for good.
+ * THE FLUE's clock: each level lighting, THE SLOW held open across it at the
+ * level's own strength, the ember run on the tick, and the flue spent.
  *
- * The commands are heard on the tick (`flue-hand.ts`) — every one of them,
- * THE HALTER's reason (`halter-hand.ts`) — and the taps judged there; the
- * rest is only *counted* here, on the beat, because a stillness is a number
- * of beats. The shot is judged where a bolt leaves the top of the field
- * (`flue-shot.ts`).
+ * The shot is judged where it reaches the ember's row (`flue-shot.ts`), and
+ * what it decides comes back here: a level cleared, or a shot spent and, the
+ * last one, the hull.
  *
- * **A vent or a damper that runs out is tried again**, the step relit after a
- * rest with the cursor where it was; a damper run out shuts over the core as
- * well, until it is held open. **A shot that runs out is the hull**, THE
- * SEAM's rule (`seam-step.ts`).
+ * **A level has no clock of its own.** It waits for its shot, the ember
+ * running end to end, for as long as the pair needs to agree on when; three
+ * shots are what it costs. THE SLOW is opened two beats at a time and moved
+ * on every beat, a `"show"` that fails nobody — a fuse would be a clock the
+ * level does not have.
  */
 
-export function installFlue(world: World, steps: readonly FlueStep[]): FlueState {
-  const s = freshFlue(world.beat, steps);
+export function installFlue(world: World, levels: readonly FlueLevel[]): FlueState {
+  const s = freshFlue(world.cfg, world.beat, levels);
+  world.cannonCol = midCol(world.cfg);
   world.events.push({ type: "flueEnter", col: midCol(world.cfg) });
   return s;
 }
@@ -39,8 +37,6 @@ export function installFlue(world: World, steps: readonly FlueStep[]): FlueState
 export function stepFlue(world: World, s: FlueState): void {
   const cfg = world.cfg;
   const since = world.beat - s.phaseBeat;
-  countRest(world, s);
-  drift(world, s);
   if (s.phase === "spent") {
     if (since >= cfg.flueSpentBeats) {
       world.events.push({ type: "flueOut", col: midCol(cfg) });
@@ -50,84 +46,51 @@ export function stepFlue(world: World, s: FlueState): void {
   }
   if (s.phase === "slack" && since >= cfg.flueSlackBeats) next(world, s);
   else if (s.phase === "rest" && since >= cfg.fluePauseBeats) next(world, s);
-  else if (s.phase === "lit") lit(world, s, since);
+  const level = flueLitLevel(s);
+  if (level !== null && level.slowMilli < MILLI) openSlow(world, 2, "show", level.slowMilli);
 }
 
 /**
- * One more beat of rest for every seat that sent nothing in it, held at the
- * threshold; nought for one that did (`halter-step.ts`). The beat a lit
- * vent's rester comes to the threshold, the ember stops dead on the column
- * nearest it and says so, once.
+ * **The ember run**, once a tick: where it is worked out afresh from the
+ * ticks the lit level has run, so it is never carried and never drifts.
+ * Between levels it waits at the left end, where the next one starts it.
  */
-function countRest(world: World, s: FlueState): void {
-  const threshold = world.cfg.flueRestThreshold;
-  const was = flueSteady(world, s);
-  for (const seat of [1, 2] as const) {
-    const i = flueSeatIndex(seat);
-    s.restBeats[i] = s.stirred[i] ? 0 : Math.min(s.restBeats[i] + 1, threshold);
-    s.stirred[i] = false;
-  }
-  if (was || !flueSteady(world, s)) return;
-  s.emberMilli = Math.round(s.emberMilli / 1000) * 1000;
-  world.events.push({ type: "flueSteady", col: flueEmberCol(world.cfg, s) });
+export function flueRolled(world: World): void {
+  const s = flueBoss(world);
+  const level = s === null ? null : flueLitLevel(s);
+  if (s === null || level === null) return;
+  s.rollTicks += 1;
+  const at = flueEmberRun(world.cfg, level, s.rollTicks);
+  s.emberMilli = at.milli;
+  s.emberDir = at.dir;
 }
 
-/** One beat of the ember loose: carried on along the slot, turned back off either end. */
-function drift(world: World, s: FlueState): void {
-  if (!flueDrifts(world, s)) return;
-  const span = world.cfg.flueSpanMilli;
-  let at = s.emberMilli + s.emberDir * world.cfg.flueDriftMilli;
-  if (at > span) {
-    at = 2 * span - at;
-    s.emberDir = -1;
-  } else if (at < -span) {
-    at = -2 * span - at;
-    s.emberDir = 1;
-  }
-  s.emberMilli = Math.max(-span, Math.min(span, at));
-}
-
-function lit(world: World, s: FlueState, since: number): void {
-  const step = s.steps[s.cursor];
-  if (step === undefined) return;
-  const col = midCol(world.cfg);
-  if (step.ask === "damper" && flueSettled(world, s)) {
-    s.bared = true;
-    world.events.push({ type: "flueHeld", col });
-    flueAnswered(world, s);
-    return;
-  }
-  if (since < step.beats) return;
-  if (step.ask === "fire") {
-    miss(world, s);
-    return;
-  }
-  if (step.ask === "damper") {
-    s.bared = false;
-    world.events.push({ type: "flueShut", col });
-  } else world.events.push({ type: "flueChoke", col });
-  closeSlow(world);
-  rest(world, s, false);
-}
-
-/**
- * The lit step has its answer: THE SLOW lets go, the cursor moves on and the
- * flue rests. Called by the third tap, by a damper held and by the shot.
- */
-export function flueAnswered(world: World, s: FlueState): void {
+/** The level met in its weapon and colour: THE SLOW lets go and the flue rests. */
+export function flueCleared(world: World, s: FlueState, col: number): void {
+  s.hits += 1;
+  world.events.push({ type: "flueHit", hits: s.hits, col });
   closeSlow(world);
   rest(world, s, true);
 }
 
 /**
- * The next step lights, a vent or a damper under THE SLOW, with every seat's
- * rest counted from nought — a stillness is proved inside the step that asks
- * for it; or, with the script done, the damper swings open for good.
+ * A shot spent: wide of the ember, or in the wrong colour or weapon. The last
+ * one is the hull, and the wave is lost; until then the ember runs on.
  */
+export function flueSpentShot(world: World, s: FlueState, col: number, why: FlueMissWhy): void {
+  s.shots = Math.max(0, s.shots - 1);
+  world.events.push({ type: "flueMiss", shots: s.shots, why, col });
+  if (s.shots > 0) return;
+  closeSlow(world);
+  rest(world, s, false);
+  bossStrikesHull(world, "flue", midCol(world.cfg), world.cfg.flueRow);
+}
+
+/** The next level lights with three shots and the ember at the left end; with none left, spent. */
 function next(world: World, s: FlueState): void {
-  const step = s.steps[s.cursor];
+  const level = s.levels[s.cursor];
   const col = midCol(world.cfg);
-  if (step === undefined) {
+  if (level === undefined) {
     s.phase = "spent";
     s.phaseBeat = world.beat;
     world.events.push({ type: "flueSpent", col });
@@ -135,27 +98,16 @@ function next(world: World, s: FlueState): void {
   }
   s.phase = "lit";
   s.phaseBeat = world.beat;
-  s.taps = 0;
-  s.restBeats = [0, 0];
-  s.stirred = [false, false];
-  const kind = step.ask === "damper" ? "hold" : "ask";
-  if (step.ask !== "fire") openSlow(world, step.beats + 1, kind);
-  const at = step.ask === "vent" ? flueEmberCol(world.cfg, s) : col;
-  world.events.push({ type: "flueLight", ask: step.ask, col: at });
+  s.shots = world.cfg.flueShots;
+  world.events.push({ type: "flueLight", level: s.cursor, col });
 }
 
-/** A fire step ran out with the core unshot: the hull takes it, and the wave is lost. */
-function miss(world: World, s: FlueState): void {
-  const col = midCol(world.cfg);
-  world.events.push({ type: "flueMiss", col });
-  rest(world, s, true);
-  bossStrikesHull(world, "flue", col);
-}
-
-/** Between steps: the taps of the step go with it, so a relit vent starts from nought. */
+/** Between levels: the ember parked at the left end for the next one. */
 function rest(world: World, s: FlueState, advance: boolean): void {
   s.phase = "rest";
   s.phaseBeat = world.beat;
-  s.taps = 0;
+  s.rollTicks = 0;
+  s.emberMilli = -world.cfg.flueSpanMilli;
+  s.emberDir = 1;
   if (advance) s.cursor += 1;
 }

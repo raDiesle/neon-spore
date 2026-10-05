@@ -136,20 +136,10 @@ export const SILENT_BOSS_D = [
   "burgeeMiss",
   "burgeeSpent",
   "burgeeOut",
-  // THE FLUE's sixteen, no burst from this table: each is thrown above the
+  // THE FLUE's six, no burst from this table: each is thrown above the
   // loop by its own fx file (`flue-fx.ts`).
   "flueEnter",
   "flueLight",
-  "flueSteady",
-  "flueStir",
-  "flueTick",
-  "flueSkid",
-  "flueLapse",
-  "flueVent",
-  "flueBare",
-  "flueChoke",
-  "flueHeld",
-  "flueShut",
   "flueHit",
   "flueMiss",
   "flueSpent",

@@ -41,7 +41,10 @@ import { DRAWN } from "./boss-hush-drawn.js";
  * its row the same way, to its rework in three levels of 2 October 2026,
  * and THE MIMIC to its rework of 5 October 2026 (*but no slow here*); its
  * frame hangs from the mantle's arm tips, which stay put by the rule
- * (`render/mimic-crane.ts`).
+ * (`render/mimic-crane.ts`). THE FLUE lost its row to its rework of the
+ * same day: THE SLOW on its levels is a window that shows and never asks,
+ * so the walk reads nothing, and its sight and its words stand fixed over
+ * the held cannon by construction (`render/boss-cue-read-zo.ts`).
  *
  * THE LAMPREY has none for a reason of the same kind: its window opens with
  * each bite's first lit tooth and closes on the first crack (§11.59), and
@@ -81,7 +84,6 @@ const STILL: readonly BossKind[] = [
   "antiphon",
   "burgee",
   "davit",
-  "flue",
 ];
 
 interface Reading {

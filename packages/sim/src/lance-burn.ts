@@ -214,7 +214,7 @@ function burnColumn(world: World, col: number, color: Color): number {
   gallStruck(world, b);
   // And THE BURGEE's lit spindle (`burgee-shot.ts`).
   burgeeStruck(world, b);
-  // And THE FLUE's bared core (`flue-shot.ts`).
+  // And THE FLUE, which no beam gets past (`flue-shot.ts`).
   flueStruck(world, b);
   // And THE GOVERNOR's lit hub (`governor-shot.ts`).
   governorStruck(world, b);

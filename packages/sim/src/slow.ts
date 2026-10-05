@@ -82,7 +82,7 @@ export function slowing(world: Pick<World, "slowFromBeat" | "slowToBeat" | "beat
  * acquires a rounding step it did not have.
  */
 export function slowRateMilli(world: World): number {
-  return slowing(world) ? world.cfg.slowRateMilli : MILLI;
+  return slowing(world) ? world.slowPaceMilli : MILLI;
 }
 
 /**
@@ -102,9 +102,20 @@ export function slowRateMilli(world: World): number {
  * window ends, and the beat it was made on (`slowAskBeat`): a measure of the
  * latest ask counts from there and not from the window's start, or THE
  * INSTAR's second step would open on a fuse already short.
+ *
+ * **`pace` is how slow**, in thousandths of the ordinary rate, and every
+ * boss but one leaves it at `cfg.slowRateMilli`. THE FLUE's levels each play
+ * at their own (`flue-step.ts`), because how much time the pair has to say
+ * *now* is one of the things a level is made of.
  */
-export function openSlow(world: World, beats: number, kind: SlowKind): void {
+export function openSlow(
+  world: World,
+  beats: number,
+  kind: SlowKind,
+  pace = world.cfg.slowRateMilli,
+): void {
   if (beats <= 0) return;
+  world.slowPaceMilli = pace;
   world.slowFromBeat = slowing(world) ? world.slowFromBeat : world.beat;
   world.slowToBeat = world.beat + beats;
   world.slowAsks = kind !== "show";
@@ -153,4 +164,5 @@ export function clearSlow(world: World): void {
   world.slowAsks = false;
   world.slowHolds = false;
   world.slowAskBeat = NO_SLOW;
+  world.slowPaceMilli = world.cfg.slowRateMilli;
 }
