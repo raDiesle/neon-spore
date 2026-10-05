@@ -128,7 +128,7 @@ describe("THE TASTER", () => {
     expect(word(world, "p1")).toBeNull();
   });
 
-  it("asks him for a column while his own has nothing that can be answered", () => {
+  it("tells him nothing while his own column has nothing that can be answered", () => {
     const world = opened();
     const t = installed(world);
     standing(world, t, 0);
@@ -138,8 +138,9 @@ describe("THE TASTER", () => {
     if (growing === undefined) throw new Error("no blade 4");
     growing.growBeat = world.beat;
     world.cannonCol = t.col + 4;
-    expect(word(world, "p1")).toBe("MOVE");
-    expect(cue(world, "p1")?.kind).toBe("CARRY");
+    // No MOVE on the cannon since 5 October 2026: the owner, the shoot
+    // indicator is enough, and hers stands only where his cannon can answer.
+    expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBeNull();
   });
 

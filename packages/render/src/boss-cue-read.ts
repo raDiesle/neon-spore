@@ -49,30 +49,21 @@ import { queenTurn } from "./queen-surface.js";
  * his band said nothing about it — it is the guide's third step for him, in
  * as many words: *put the cannon in the core's column*.
  *
- * `MOVE` stands on the cannon and is his, and which column it is for depends
- * on what the fight is asking:
- *
- * - **While the core is bare**, its own column, because that is the only lane
- *   a hit comes off it in and the fabric rolls back over it
- *   `curtainRerollBeats` after the last hand leaves. Her `FIRE` waits behind
- *   it, THE THROAT's pairing: off the column she is told nothing rather than
- *   told to fire up a lane the core cannot be reached in.
- * - **While it is covered**, a **soft** lobe's column. The hem is the health
- *   and a bolt into a soft lobe is what takes it (`curtainHemStruck`), and
- *   *which* lobes are soft is the pilot's picture alone (`showsCurtainSoft`)
- *   — so the word may stand on his own ship, where he is already reading
- *   them, and on her screen there is no mark and no word for the hem at all.
- *   That is BULB QUEEN's arrangement: the seat that cannot see the difference
- *   is told nothing and has to be told, which is the sentence the fight is
- *   made of.
+ **His cannon is told nothing.** Until 5 October 2026 a `MOVE` stood on it,
+ * toward the core's column while the core was bare and a soft lobe's while it
+ * was covered; then the owner, 5 October 2026: *we do not need to show helper to "move" for
+ * cannon to shoot* — the
+ * lane the core is bare in, and the soft lobes, are on his own glass already.
+ * Her `FIRE` still waits for his column, THE THROAT's pairing: off it she is
+ * told nothing rather than told to fire up a lane the core cannot be reached
+ * in. *Which* lobes are soft is the pilot's picture alone (`showsCurtainSoft`),
+ * and on her screen there is no mark and no word for the hem at all.
  *
  * `SHOVE` is **either seat's**, because the carry is (`grip-push.ts`): a
  * thumb on the fabric moves it whoever it belongs to, and the frame stands on
  * the sheet, which both screens are drawn. It is silent while the body is in
  * the beat of quiet a carry costs (`carryIsReady`), so the word appears only
- * on a beat a hand can actually spend. It stands **behind** his column, since
- * the cannon and the fabric are different thumbs: while he is lining up the
- * hem she is told to shove, and the pair spends both hands on the same beat.
+ * on a beat a hand can actually spend.
  *
  * `FIRE` is the navigator's, and it stands on the core — which is *her*
  * picture and not his (`showsCurtainShadow`). On the pilot's screen, where
@@ -102,17 +93,13 @@ import { queenTurn } from "./queen-surface.js";
 export function curtainCues(l: Layout, world: World, c: CurtainState): readonly BossCue[] {
   if (c.phase === "out") return [];
   const y = tileCY(l, world.cfg.curtainRow);
-  const at = (col: number) => markAt(1, "CARRY", "MOVE", tileCX(l, col), l.hullY, l, 43);
   if (curtainCoreBare(world, c)) {
-    if (world.cannonCol !== c.coreCol) return [at(world.cannonCol)];
+    if (world.cannonCol !== c.coreCol) return [];
     return [markAt(2, "PRESS", "FIRE", tileCX(l, c.coreCol), y, l, 35)];
   }
   const body = curtainBody(world, c);
   if (body === undefined) return [];
   const out: BossCue[] = [];
-  if (c.soft.length > 0 && !c.soft.some((i) => body.col + i === world.cannonCol)) {
-    out.push(at(world.cannonCol));
-  }
   const mid = tileCX(l, body.col + (CURTAIN_COLS - 1) / 2);
   if (c.phase === "pinned") {
     // The rail is jammed and no shove will move it: the word on the sheet is
@@ -138,11 +125,10 @@ export function curtainCues(l: Layout, world: World, c: CurtainState): readonly 
  * pilot's screen the same two marks are drawn with nothing to tell them apart,
  * and there is no word over either.
  *
- * `MOVE` stands on the **cannon**, on the hull, for the whole of the bloom —
- * from the announcement to the close — and it is the pilot's. It says the verb
- * and stops: which column is the sentence he has to ask her for, and a word
- * that vanished once he was under the real mark would answer it by
- * disappearing. So it does not, and it is not suppressed when he is right.
+ **Nothing stands on the cannon.** Until 5 October 2026 a `MOVE` stood on
+ * it for the whole of the bloom; then the owner, 5 October 2026: *we do not need to show helper to "move" for
+ * cannon to shoot*. Which
+ * column is still the sentence he has to ask her for.
  *
  * The torch is the second thing she does, and the ward is two hands: `MOVE` on
  * the **plate** is the navigator's, silent while the plate already stands in
@@ -153,8 +139,8 @@ export function curtainCues(l: Layout, world: World, c: CurtainState): readonly 
  * one sentence this fight is built to make them say.
  *
  * **The order is per seat, and it is what expires first.** She is open for two
- * beats and the pilot's `MOVE` goes with it, so the bloom outranks the torch
- * on his screen; the torch outranks the bloom on hers, because a torch that
+ * beats, so the bloom outranks the torch on his screen; the torch outranks
+ * the bloom on hers, because a torch that
  * lands is a hull breach and a hull breach fails the whole wave, while a mark
  * missed costs nothing but the beat.
  */
@@ -189,9 +175,6 @@ export function queenCues(
       ...markAt(1, "HOLD", "HOLD", tileCX(l, queen.col), y, l, 42),
       why: "TILL IT OPENS",
     });
-  }
-  if (q.openBeat !== -1) {
-    out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 38));
   }
   if (queen.color !== null) {
     const mark = queenMarkCenter(l, queen, q.weakSide, queenTurn(world.cfg, world.beat, beatPhase));

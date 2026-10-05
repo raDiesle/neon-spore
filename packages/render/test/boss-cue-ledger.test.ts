@@ -11,7 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
-import { computeLayout, type Layout, tileCX, type ViewRole } from "../src/layout.js";
+import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { ledgerSeamX } from "../src/ledger-shape.js";
 import {
   CFG,
@@ -102,14 +102,12 @@ describe("THE LEDGER's words", () => {
     expect(word(world, "p1")).toBe("SHIELD");
   });
 
-  it("asks him for the seam's column while the cord is empty", () => {
+  it("tells neither seat to move the cannon to the seam while the cord is empty", () => {
     const { world, t } = paying();
     world.cannonCol = ledgerSeamCol(t, CFG) === 0 ? 1 : 0;
-    const his = cue(world, "p1");
-    expect(his?.word).toBe("MOVE");
-    expect(his?.kind).toBe("CARRY");
-    // On the cannon, which is the thing that moves and his alone to see.
-    expect(his?.x).toBe(tileCX(LAYOUT.p1, world.cannonCol));
+    // No MOVE on the cannon since 5 October 2026 — the owner, the shoot
+    // indicator is enough.
+    expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBeNull();
   });
 

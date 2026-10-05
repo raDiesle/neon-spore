@@ -83,16 +83,15 @@ describe("THE VANE", () => {
     expect(quiet).toBeGreaterThan(VANE_CYCLE_BEATS / 2);
   });
 
-  it("asks the pilot to MOVE and the navigator to FIRE once the housing splits", () => {
+  it("asks the navigator to FIRE once the housing splits, and the pilot for nothing", () => {
     const { world } = opened();
     const beat = openBeat(world);
     const weak = vaneWeakCol(CFG, beat);
     world.cannonCol = weak === 0 ? CFG.cols - 1 : 0;
 
-    const his = cue(world, "p1");
-    expect(his?.word).toBe("MOVE");
-    expect(his?.kind).toBe("CARRY");
-    expect(his?.x).toBeCloseTo(tileCX(LAYOUT.p1, world.cannonCol), 6);
+    // No MOVE on the cannon since 5 October 2026 — the owner, the shoot
+    // indicator is enough.
+    expect(cue(world, "p1")).toBeNull();
 
     const hers = cue(world, "p2");
     expect(hers?.word).toBe("FIRE");
@@ -115,7 +114,7 @@ describe("THE VANE", () => {
     expect(aim?.r ?? 0).toBeGreaterThan(l.tile * 0.5);
   });
 
-  it("takes his word away when he arrives, and leaves hers standing", () => {
+  it("says nothing to him when he arrives, and leaves hers standing", () => {
     const { world } = opened();
     const beat = openBeat(world);
     world.cannonCol = vaneWeakCol(CFG, beat);
@@ -127,7 +126,7 @@ describe("THE VANE", () => {
     const { world, b } = opened();
     const beat = openBeat(world);
     world.cannonCol = 0;
-    expect(cue(world, "p1")).not.toBeNull();
+    expect(cue(world, "p2")).not.toBeNull();
     // A pin taken out of this opening: the housing is still split and the
     // fight has nothing left to ask for until the next one (`vane.ts`).
     b.spentOpening = vaneOpening(beat);
@@ -136,7 +135,7 @@ describe("THE VANE", () => {
     expect(cue(world, "p2")).toBeNull();
   });
 
-  it("never says the fold: two words, whatever the arm has just thrown", () => {
+  it("never says the fold: one word, whatever the arm has just thrown", () => {
     const { world, b } = opened();
     const seen = new Set<string>();
     for (let beat = 1; beat <= VANE_CYCLE_BEATS * 2; beat++) {
@@ -153,6 +152,6 @@ describe("THE VANE", () => {
         }
       }
     }
-    expect([...seen].sort()).toEqual(["CARRY·MOVE·1", "PRESS·FIRE·2"]);
+    expect([...seen].sort()).toEqual(["PRESS·FIRE·2"]);
   });
 });

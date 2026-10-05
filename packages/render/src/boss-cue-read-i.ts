@@ -12,7 +12,7 @@ import { socketPoint, socketRoomBelow } from "./baton-socket-draw.js";
 import type { BossCue } from "./boss-cue.js";
 import { cueFrame } from "./boss-cue-frame.js";
 import { batonPassingCues } from "./boss-cue-read-i-b.js";
-import { type Layout, tileCX } from "./layout.js";
+import type { Layout } from "./layout.js";
 import { podCenter } from "./pods.js";
 
 /**
@@ -139,9 +139,10 @@ function crossing(l: Layout, world: World, b: BatonState): readonly BossCue[] {
 function falling(l: Layout, world: World, b: BatonState): readonly BossCue[] {
   const pod = world.pods.find((p) => p.id === b.podId);
   if (pod === undefined) return [];
-  if (world.cannonCol !== Math.round(pod.colMilli / 1000)) {
-    return [markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 87)];
-  }
+  // No `MOVE` on the cannon while it is not under the pod — the owner,
+  // 5 October 2026, *we do not need to show helper to "move"*. The pod is
+  // drawn falling; the word comes once the cannon can take it.
+  if (world.cannonCol !== Math.round(pod.colMilli / 1000)) return [];
   const at = podCenter(l, pod);
   return [{ ...markAt(1, "PRESS", "TAP", at.x, at.y, l, 88), why: "TO OPEN THE MAW" }];
 }

@@ -11,7 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
-import { computeLayout, type Layout, tileCX, type ViewRole } from "../src/layout.js";
+import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { repriseTearCenter } from "../src/reprise-draw.js";
 import type { TextBox } from "./canvas-stub.js";
 import {
@@ -115,18 +115,13 @@ function installed(world: World): RepriseState {
 }
 
 describe("THE REPRISE", () => {
-  it("asks the pilot for the column and the navigator for the press, while the tear is open", () => {
+  it("asks the navigator for the press while the tear is open, and the pilot for nothing", () => {
     const world = until(opened(), repriseEchoing);
     expect(repriseLeft(world)).toBeGreaterThan(0);
 
-    const his = cue(world, "p1");
-    expect(his?.word).toBe("MOVE");
-    expect(his?.kind).toBe("CARRY");
-    expect(his?.seat).toBe(1);
-    // On his own cannon, at the hull: the one strip in the game that picks a
-    // column, and player 1's (`content/src/controls.ts`).
-    expect(his?.x).toBe(tileCX(LAYOUT.p1, world.cannonCol));
-    expect(his?.y).toBe(LAYOUT.p1.hullY);
+    // No MOVE on his cannon since 5 October 2026 — the owner, the shoot
+    // indicator is enough.
+    expect(word(world, "p1")).toBeNull();
 
     const hers = cue(world, "p2");
     expect(hers?.word).toBe("FIRE");
@@ -173,12 +168,10 @@ describe("THE REPRISE", () => {
     const hers = cue(world, "p2");
     for (let col = 0; col < CFG.cols; col++) {
       world.cannonCol = col;
-      // His word follows his own thumb and never goes out: the column he would
-      // be standing in is an unseen body's, so a word that vanished when he
-      // was right would be that body marked by its own absence (`unseen.ts`).
-      const his = cue(world, "p1");
-      expect(his?.word).toBe("MOVE");
-      expect(his?.x).toBe(tileCX(LAYOUT.p1, col));
+      // Nothing for him in any column: the column he would be standing in is
+      // an unseen body's, so a word that came or went with it would be that
+      // body marked by its own absence (`unseen.ts`).
+      expect(word(world, "p1")).toBeNull();
       // And hers does not move with him at all — she is not drawn the cannon
       // (`showsCannon`), so a mark that tracked it would be his strip on her
       // glass.
@@ -197,7 +190,7 @@ describe("THE REPRISE", () => {
     expect(word(world, "p2")).toBeNull();
   });
 
-  it("paints each word on its own seat's canvas and on neither other", () => {
+  it("paints her word on her canvas and on neither other", () => {
     const drawn = (role: ViewRole, world: World): string[] => {
       const texts: TextBox[] = [];
       runFrames(world, role, 3, {
@@ -213,8 +206,7 @@ describe("THE REPRISE", () => {
     };
     const echo = until(opened(), repriseEchoing);
     const his = drawn("p1", echo);
-    expect(his).toContain("MOVE");
-    expect(his).not.toContain("CARRY");
+    expect(his).not.toContain("MOVE");
     expect(his).not.toContain("FIRE");
     const hers = drawn("p2", echo);
     expect(hers).toContain("FIRE");

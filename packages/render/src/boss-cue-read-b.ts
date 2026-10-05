@@ -54,14 +54,12 @@ import { tasterCrestY } from "./taster-draw.js";
  * - **A blade still growing**, where the shot is simply spent — and spent is
  *   the trap, because the ledger counted the colour before the shot got here.
  *
- * **`MOVE` is his, and it is careful about the growing blade.** It stands while
- * the cannon is in a column nothing can be answered in *and* some other column
- * can — off the crest, or on a blade that has not decided. It does **not**
- * stand merely because his own blade is growing: that blade will stand in that
- * column, and a word that walked him off it would walk him off the only
- * column a shot lands from. At the top of the fight, with one blade
- * growing and nothing shorn, nothing can be answered anywhere and nothing is
- * said.
+ **Nothing stands on his cannon.** Until 5 October 2026 a `MOVE` stood on
+ * it while it was in a column nothing could be answered in and some other
+ * column could; then the owner, 5 October 2026: *we do not need to show helper to "move" for
+ * cannon to shoot*. Her
+ * `TAP` already stands only where his cannon is, so it says where the shot
+ * lands.
  *
  * **The mark is on the fan and never on a blade.** Which blade is not the
  * question — any standing one falls to the colour it did not grow toward — and
@@ -107,7 +105,6 @@ export function tasterCues(l: Layout, world: World, t: TasterState): readonly Bo
   if (phase === "out") return [];
   const x = tileCX(l, t.col + (t.blades.length - 1) / 2);
   const y = tasterCrestY(l);
-  const move = () => markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 43);
   const here = tasterBladeAt(t, world.cannonCol);
   if (phase === "closed") {
     // Shut, the fight is his carry and hers is refused; open, it is her beam
@@ -116,9 +113,7 @@ export function tasterCues(l: Layout, world: World, t: TasterState): readonly Bo
     // wrong column is one off the crest.
     if (!tasterPried(t, world.beat, world.cfg))
       return [{ ...markAt(1, "CARRY", "PULL", x, y, l, 45, 2), why: "TO PRY IT OPEN" }];
-    return here < 0
-      ? [move()]
-      : [{ ...markAt(2, "HOLD", "HOLD", x, y, l, 41, 2), why: "TO BURN IT" }];
+    return here < 0 ? [] : [{ ...markAt(2, "HOLD", "HOLD", x, y, l, 41, 2), why: "TO BURN IT" }];
   }
   const out: BossCue[] = [];
   const k = here < 0 ? undefined : t.blades[here];
@@ -141,11 +136,5 @@ export function tasterCues(l: Layout, world: World, t: TasterState): readonly Bo
   const growing = t.blades.some((b) => !b.shorn && b.growBeat >= 0 && b.setBeat < 0);
   if (phase === "fanning" && t.pin < 0 && growing)
     out.push({ ...markAt(1, "HOLD", "HOLD", x, y, l, 47, 2), why: "TO PIN IT" });
-  // His, unchanged: the column he is in answers nothing and some other one
-  // would. It is added rather than returned instead of hers, so a word for her
-  // never takes his away (`bossCue` shows each seat its own first cue).
-  const answerable = k?.shorn === true || (k !== undefined && k.setBeat >= 0);
-  const somewhere = t.blades.some((b) => b.shorn || b.setBeat >= 0);
-  if (!answerable && somewhere) out.push(move());
   return out;
 }

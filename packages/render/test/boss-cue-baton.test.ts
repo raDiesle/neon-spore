@@ -15,7 +15,7 @@ import { socketPoint, socketReach } from "../src/baton-socket-draw.js";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { batonCues } from "../src/boss-cue-read-i.js";
 import { cueWordY } from "../src/boss-cue-text.js";
-import { computeLayout, type Layout, tileCX, type ViewRole } from "../src/layout.js";
+import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { podCenter } from "../src/pods.js";
 import {
   CFG,
@@ -128,16 +128,12 @@ describe("the arm passing a bead", () => {
     expect(word(world, "p1")).toBeNull();
   });
 
-  it("tells the pilot to move while the flight is in a column he is not under", () => {
+  it("never tells the pilot to move, under the flight or not", () => {
+    // No MOVE on the cannon since 5 October 2026 — the owner, the shoot
+    // indicator is enough: her FIRE on the bead is the place.
     const { world, b } = opened();
     fly(world, only(b), elsewhere(world));
-    const his = cue(world, "p1");
-    expect(his?.word).toBe("MOVE");
-    expect(his?.kind).toBe("CARRY");
-    // On his own cannon, where it stands, and never on the column it is owed:
-    // which column is the sentence the pair has to say.
-    expect(his?.x).toBeCloseTo(tileCX(LAYOUT.p1, world.cannonCol), 6);
-
+    expect(word(world, "p1")).toBeNull();
     world.cannonCol = elsewhere(world);
     expect(word(world, "p1")).toBeNull();
   });
@@ -152,15 +148,14 @@ describe("the arm passing a bead", () => {
     expect(word(world, "p2")).toBe("FIRE");
   });
 
-  it("puts the flight above the socket on his screen, both being his", () => {
+  it("offers him the socket's launch while a flight is up, wherever he stands", () => {
     const { world, b } = opened();
     const flying = only(b);
     fly(world, flying, elsewhere(world));
     // The twin, sitting in the socket above and launchable (`batonLaunchable`).
     b.beads.push({ ...flying, flying: false, flightTick: -1, socket: 0, satBeat: world.beat - 1 });
-    // A three-beat window against a two-beat one: the flight is what expires
-    // first, and a bead nobody met lands back where it left.
-    expect(word(world, "p1")).toBe("MOVE");
+    // The flight has no word of his to outrank it with, so the launch stands.
+    expect(word(world, "p1")).toBe("TAP");
     world.cannonCol = elsewhere(world);
     expect(word(world, "p1")).toBe("TAP");
   });
@@ -216,12 +211,12 @@ describe("the drop, which is the fight", () => {
     return world;
   }
 
-  it("moves him under the pod, then offers him the maw", () => {
+  it("says nothing till he is under the pod, then offers him the maw", () => {
     const world = falling(0);
     const pod = world.pods[0];
     if (pod === undefined) throw new Error("the bead never dropped");
     world.cannonCol = elsewhere(world);
-    expect(word(world, "p1")).toBe("MOVE");
+    expect(word(world, "p1")).toBeNull();
 
     world.cannonCol = 0;
     const his = cue(world, "p1");
@@ -234,7 +229,7 @@ describe("the drop, which is the fight", () => {
 });
 
 describe("what the whole fight may say", () => {
-  it("is five verbs, and never a colour, a column or a count", () => {
+  it("is four verbs, and never a colour, a column or a count", () => {
     const seen = new Set<string>();
     const stages = ["passing", "merging", "crossing", "falling"] as const;
     for (const stage of stages) {
@@ -276,13 +271,7 @@ describe("what the whole fight may say", () => {
         }
       }
     }
-    expect([...seen].sort()).toEqual([
-      "CARRY·MOVE·1",
-      "HOLD·HOLD·1",
-      "HOLD·HOLD·2",
-      "PRESS·FIRE·2",
-      "PRESS·TAP·1",
-    ]);
+    expect([...seen].sort()).toEqual(["HOLD·HOLD·1", "HOLD·HOLD·2", "PRESS·FIRE·2", "PRESS·TAP·1"]);
   });
 
   it("puts TAP / TO STRIP IT on the seat the beat locked out, and on neither otherwise", () => {

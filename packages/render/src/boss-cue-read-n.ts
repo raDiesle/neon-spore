@@ -11,7 +11,7 @@ import {
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
 import { gorgeBubbleAt } from "./gorge-place.js";
-import { type Layout, tileCX } from "./layout.js";
+import type { Layout } from "./layout.js";
 
 /**
  * **What THE GORGE is asking for** — page fourteen of the readings, its own
@@ -23,10 +23,11 @@ import { type Layout, tileCX } from "./layout.js";
  * choice was still his would be the field overruling the one decision this
  * boss hands him — so on a row in any order the reading says nothing at all.
  *
- * **Where the column is not his choice, `MOVE` stands on the cannon**: on an
- * ordered row, the one bubble due; on a ring, the middle column, the only
- * one the bottom bubble can be shot up (`sim/gorge-step.ts`). Never when the
- * cannon is already there.
+ **Nor where the column is not his choice.** Until 5 October 2026 a `MOVE`
+ * stood on the cannon there — on an ordered row, the one bubble due; on a
+ * ring, the middle column (`sim/gorge-step.ts`) — and then
+ * the owner, 5 October 2026: *we do not need to show helper to "move" for
+ * cannon to shoot*.
  *
  * **`TAP` stands on a ring's bottom bubble while it is shut and due**, on the
  * pilot's screen: his thumb opens it (`sim/gorge-hand.ts`), and the ring will
@@ -66,10 +67,6 @@ export function gorgeCues(l: Layout, world: World, g: GorgeState): readonly Boss
   if (owed && shut) {
     const p = gorgeBubbleAt(l, cfg, g, due);
     out.push({ ...markAt(1, "PRESS", "TAP", p.x, p.y - l.tile * 0.5, l, 76), why: "TO OPEN IT" });
-  }
-  const dueCol = owed ? gorgeColOf(cfg, g, due) : -1;
-  if (dueCol >= 0 && dueCol !== world.cannonCol) {
-    out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 77));
   }
 
   // Hers: the bubble up the cannon's column, if a shot there would be taken.

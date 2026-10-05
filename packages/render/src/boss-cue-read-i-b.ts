@@ -1,7 +1,6 @@
 import {
   type BatonBead,
   type BatonState,
-  batonBeadCol,
   batonBeadRowMilli,
   batonLaunchable,
   batonLocked,
@@ -12,7 +11,7 @@ import { beadPoint } from "./baton-bead-draw.js";
 import { socketPoint } from "./baton-socket-draw.js";
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
-import { type Layout, tileCX } from "./layout.js";
+import type { Layout } from "./layout.js";
 
 /**
  * **THE BATON's `passing`** — the second half of page nine, and the readings'
@@ -55,13 +54,12 @@ function shotAt(world: World, b: BatonState): BatonBead | null {
  * (`batonTurnBeats`). So the flight outranks the socket on the pilot's screen
  * as well as the navigator's.
  *
- * **`MOVE` is his and it is the half of this fight the field never said.**
- * Her bolt goes up the column the cannon is standing in (`sim/bullets.ts`),
- * so a flight he is not under is a flight she cannot meet — and once four
- * sockets are dark the arm swings and the bead lands a column off the one it
- * left, which is his own guide's fourth line and was nowhere on the field.
- * The mark stands on the cannon where it is and says `MOVE`, never where to:
- * which column is the sentence they have to say.
+ **Nothing stands on his cannon.** Her bolt goes up the column the cannon
+ * is standing in (`sim/bullets.ts`), so a flight he is not under is a flight
+ * she cannot meet; until 5 October 2026 a `MOVE` on the cannon said so, and
+ * then the owner, 5 October 2026: *we do not need to show helper to "move" for
+ * cannon to shoot* — her `FIRE`
+ * on the bead is the place, and which column is the sentence they say.
  *
  * **`FIRE` does not wait for him.** It stands on the bead for as long as one
  * is in the air unstruck, whether or not the cannon is under it — THE VANE's
@@ -81,13 +79,6 @@ export function batonPassingCues(l: Layout, world: World, b: BatonState): readon
     if (!batonLocked(b, 2, world.beat)) {
       const { x, y } = beadPoint(l, cfg, b, flying, world.tick);
       out.push(markAt(2, "PRESS", "FIRE", x, y, l, 45 + flying.socket));
-    }
-    const met = b.beads.some(
-      (bead) =>
-        bead.flying && !bead.struck && batonBeadCol(cfg, b, bead, world.tick) === world.cannonCol,
-    );
-    if (!met && !batonLocked(b, 1, world.beat)) {
-      out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 84));
     }
   }
   const sitting = batonLaunchable(cfg, b);

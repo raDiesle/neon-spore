@@ -2238,7 +2238,7 @@ never the number.
 | THE THROAT | `PUMP` (carry) on the handle beside the root, while no stroke is running | `PULL` (carry) on the mouth, while it is not being carried |
 | THE LEDGER | `SHIELD` (press) on the return coming down the cord, which is his half of the picture | `MOVE` (carry) onto the socket, and only while the plate is not already there |
 | THE LEAD | nothing | `BURN` (hold) on the last pass, when the trigger has quietly stopped working |
-| THE SCUTTLE | `MOVE` (carry) on a hanging part one column off the cannon, and on the cannon itself on the wind-up | `FIRE` (press) on the live part, and `BURN` (hold) on the wind-up |
+| THE SCUTTLE | `MOVE` (carry) on a hanging part one column off the cannon (on the cannon itself on the wind-up until 5 October 2026) | `FIRE` (press) on the live part, and `BURN` (hold) on the wind-up |
 | THE DIASTOLE | nothing | `BURN` (hold) from the beat a single-chamber hit stops landing |
 | THE ORRERY | nothing | `BURN` (hold) once every ring is off |
 

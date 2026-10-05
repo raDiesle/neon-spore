@@ -101,12 +101,11 @@ export function mirrorCues(l: Layout, world: World, m: MirrorState): readonly Bo
  *   the pull, but only player 1 may turn it (`mazeStringHeard`), so the cue is
  *   seat 1's and the navigator's screen keeps the word `maze-string.ts`
  *   already gives it.
- * - `CARRY` / `MOVE` on the cannon where it stands, the pilot's, once a way in
- *   has clicked and the cannon is not under it. On the cannon and never on the
- *   lit column: the mark is on the thing that moves, which is also the only
- *   place the pilot can act, and the column is lit for both of them anyway.
- *   It goes out when the cannon arrives, which answers nothing — the door said
- *   where to go before the cue did.
+ * - Nothing on the cannon. Until 5 October 2026 a `CARRY` / `MOVE` stood on
+ *   it once a way in had clicked and the cannon was not under it; then
+ *   the owner, 5 October 2026: *we do not need to show helper to "move" for
+ *   cannon to shoot*. The column is lit for both of them,
+ *   and the door says where to go.
  * - `PRESS` / `FIRE` on the lit doorway, the navigator's, for as long as one
  *   stands. Not `once the cannon is under it`: the cannon is drawn on the
  *   pilot's screen and not on hers (`showsCannon`), so a word that came out at
@@ -137,9 +136,6 @@ export function mazeCues(l: Layout, world: World, m: MazeState): readonly BossCu
     return out;
   }
 
-  if (world.cannonCol !== m.lockedCol) {
-    out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 66));
-  }
   const mouth = mazeDoorMouth(l, world.cfg, m, wheel, m.lockedWay);
   out.push(markAt(2, "PRESS", "FIRE", mouth.x, mouth.y, l, 67));
   return out;

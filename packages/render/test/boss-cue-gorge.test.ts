@@ -113,16 +113,15 @@ describe("THE GORGE on a row in any order", () => {
 });
 
 describe("THE GORGE on an ordered row", () => {
-  it("moves the pilot to the bubble due, on the cannon, and tells her nothing till he is there", () => {
+  it("tells neither seat anything till the cannon is under the bubble due", () => {
     const world = opened(ORDERED);
     const g = installed(world);
     const due = g.intakes.findIndex((_, i) => gorgeDue(g, i));
     const off = g.intakes.findIndex((_, i) => !gorgeDue(g, i));
     world.cannonCol = colOf(g, off);
-    const his = cue(world, "p1");
-    expect(his?.word).toBe("MOVE");
-    expect(his?.kind).toBe("CARRY");
-    expect(his?.y).toBe(LAYOUT.p1.hullY);
+    // No MOVE on the cannon since 5 October 2026 — the owner, the shoot
+    // indicator is enough.
+    expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBeNull();
     world.cannonCol = colOf(g, due);
     expect(word(world, "p1")).toBeNull();
@@ -142,14 +141,14 @@ describe("THE GORGE on a ring", () => {
     expect(word(world, "p2")).toBeNull();
   });
 
-  it("moves him to the middle once it is open, and gives her the shot there", () => {
+  it("gives her the shot in the middle once it is open, and him no word to get there", () => {
     const world = opened(RING);
     const g = installed(world);
     const k = g.intakes[gorgeBottom(g)];
     if (k === undefined) throw new Error("the ring has no bottom");
     k.taps = CFG.gorgeOpenTaps;
     world.cannonCol = other(midCol(CFG));
-    expect(word(world, "p1")).toBe("MOVE");
+    expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBeNull();
     world.cannonCol = midCol(CFG);
     expect(word(world, "p1")).toBeNull();

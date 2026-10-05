@@ -133,17 +133,14 @@ describe("THE MAZE", () => {
     expect(cue(world, "p2")).toBeNull();
   });
 
-  it("moves to the cannon once a way in has clicked, and lights her door", () => {
+  it("lights her door once a way in has clicked, and tells him nothing", () => {
     const { world, m } = opened();
     lock(m, 0);
     world.cannonCol = 0;
 
-    const his = cue(world, "p1");
-    expect(his?.word).toBe("MOVE");
-    expect(his?.seat).toBe(1);
-    // On the cannon where it stands, never on the column it is wanted at.
-    expect(his?.x).toBe(tileCX(LAYOUT.p1, 0));
-    expect(his?.y).toBe(LAYOUT.p1.hullY);
+    // No MOVE on the cannon since 5 October 2026 — the owner, the shoot
+    // indicator is enough: the door is lit for both of them.
+    expect(cue(world, "p1")).toBeNull();
 
     const hers = cue(world, "p2");
     expect(hers?.word).toBe("FIRE");
@@ -166,7 +163,7 @@ describe("THE MAZE", () => {
     expect(cue(world, "p2")?.word).toBe("FIRE");
   });
 
-  it("never says a column, a colour or a way: three words, whatever the wheel is doing", () => {
+  it("never says a column, a colour or a way: two words, whatever the wheel is doing", () => {
     const { world, m } = opened();
     const seen = new Set<string>();
     const say = (role: ViewRole) => {
@@ -190,11 +187,7 @@ describe("THE MAZE", () => {
       m.phase = "read";
       say("p1");
     }
-    expect([...seen].sort()).toEqual([
-      "CARRY\u00b7MOVE\u00b71",
-      "CARRY\u00b7TURN\u00b71",
-      "PRESS\u00b7FIRE\u00b72",
-    ]);
+    expect([...seen].sort()).toEqual(["CARRY\u00b7TURN\u00b71", "PRESS\u00b7FIRE\u00b72"]);
   });
 
   it("reaches the first word by playing, on the beat the pair's turn begins", () => {

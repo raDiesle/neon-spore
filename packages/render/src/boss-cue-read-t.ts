@@ -93,13 +93,13 @@ function carryCues(l: Layout, world: World, s: ScuttleState): BossCue[] {
  *   column is the press this whole family exists to stop offering
  *   (`boss-cue.ts`'s first rule). The lock stays drawn throughout, so the
  *   window she is racing is never taken away — only the verb she cannot spend.
- * - **On the wind-up it must.** One part is left, and on his screen the slab is
- *   the count: every socket plated or open, the one hanging part on its thread
- *   (`scuttle-draw.ts`, `showsScuttleCount`). There is nothing to subtract — the
- *   last column is the only column, already drawn to him — and the window is
- *   `lancePrimeBeats` and a beat of slack, all of which her fill is spending.
- *   So `CARRY` / `MOVE` on the cannon, and it is the only word on this boss
- *   that decides the fight rather than a cycle of it.
+ * - **On the wind-up it still says nothing to him.** One part is left, and on
+ *   his screen the slab is the count: every socket plated or open, the one
+ *   hanging part on its thread (`scuttle-draw.ts`, `showsScuttleCount`). The
+ *   last column is the only column, already drawn to him, so until 5 October
+ *   2026 a `CARRY` / `MOVE` stood on the cannon there — and then the owner,
+ *   *we do not need to show helper to "move" for cannon to shoot*. Her `HOLD`
+ *   on the last part is the place.
  *
  * `s.live` rather than the first part still in a socket: they are the same
  * index while it winds up, because the wind-up is what one part left *is*
@@ -118,16 +118,12 @@ export function scuttleCues(l: Layout, world: World, s: ScuttleState): readonly 
   if (scuttleWinding(s)) {
     if (s.live < 0) return [];
     const col = scuttlePartCol(s, cfg, s.live);
-    const out: BossCue[] = [
+    return [
       {
         ...markAt(2, "HOLD", "HOLD", tileCX(l, col), scuttleRowY(l, cfg, s.live), l, 55),
         why: "TO BURN IT",
       },
     ];
-    if (world.cannonCol !== col) {
-      out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 96));
-    }
-    return out;
   }
   const carry = carryCues(l, world, s);
   if (!scuttleShootable(s)) return carry;

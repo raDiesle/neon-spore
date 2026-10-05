@@ -41,10 +41,10 @@ import { vaneArmCircle, vaneBearingY, vaneHousingCircle } from "./vane-grip.js";
  * **What is left is the shot at the bearing**, which is an ordinary two-seat
  * gesture with a narrow window:
  *
- * - `CARRY` / `MOVE` on the cannon where it stands, the pilot's, while the
- *   housing is split and he is not under it. On the cannon and never on the
- *   mouth: the mark is on the thing that moves, and the mouth is drawn on both
- *   screens in the colour it will take anyway. It goes out when he arrives.
+ * - Nothing on the cannon. Until 5 October 2026 a `CARRY` / `MOVE` stood on it
+ *   while the housing was split and he was not under it; then the owner, *we
+ *   do not need to show helper to "move" for cannon to shoot*. The mouth is
+ *   drawn on both screens, in the colour it will take, under the crosshair.
  * - `PRESS` / `FIRE` on the mouth of the split, the navigator's, for as long
  *   as the opening stands unspent. Not *once the cannon is under it*: the
  *   cannon is not drawn on her screen (`showsCannon`), so a word that waited
@@ -78,9 +78,6 @@ export function vaneCues(l: Layout, world: World): readonly BossCue[] {
   // thirds of the fight (`sim/vane-open.ts`, `docs/spec/bosses.md` §11.5).
   const weak = vaneSplitCol(world, b);
   if (weak === -1) return out;
-  if (world.cannonCol !== weak) {
-    out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 73));
-  }
   // The crosshair rings the mouth wider than a word's own (`VANE_AIM_R`): the
   // owner, 30 September 2026 — *make the area to damage with cannon more
   // visible with the crosshair indicator*.

@@ -102,18 +102,15 @@ describe("THE CURTAIN", () => {
     expect(cue(world, "p1")?.kind).toBe("CARRY");
   });
 
-  it("asks the pilot for the hem's column first, and never says which lobe to her", () => {
+  it("never tells the pilot to move the cannon to the hem, nor says which lobe", () => {
     const world = opened();
     const c = installed(world);
     world.cannonCol = other(softCol(world, c));
-    const his = cue(world, "p1");
-    expect(his?.word).toBe("MOVE");
-    expect(his?.kind).toBe("CARRY");
-    // On his own ship, on the hull: the soft set is his picture alone
-    // (`showsCurtainSoft`), and saying which lobe is the sentence the fight
-    // is made of.
-    expect(his?.y).toBe(LAYOUT.p1.hullY);
-    // Hers is the shove, on the same beat, because that is the other thumb.
+    // No MOVE on the cannon since 5 October 2026 — the owner, the shoot
+    // indicator is enough. The soft set is his picture alone
+    // (`showsCurtainSoft`), so both seats are asked for the shove and nothing
+    // else, wherever the cannon stands.
+    expect(word(world, "p1")).toBe("SHOVE");
     expect(word(world, "p2")).toBe("SHOVE");
   });
 
@@ -143,8 +140,9 @@ describe("THE CURTAIN", () => {
     c.phaseBeat = world.beat;
     world.cannonCol = other(c.coreCol);
     // THE THROAT's pairing: a `FIRE` up a lane `curtainStruck` refuses is
-    // worse than no word, so it waits behind his column.
-    expect(word(world, "p1")).toBe("MOVE");
+    // worse than no word, so it waits behind his column — and he is told
+    // nothing about the column either.
+    expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBeNull();
   });
 

@@ -111,7 +111,7 @@ describe("BULB QUEEN", () => {
       expect(his?.x).not.toBe(queenMarkCenter(LAYOUT.p1, her, side).x);
     }
     her.color = "cyan";
-    expect(word(world, "p1")).toBe("MOVE");
+    expect(word(world, "p1")).toBeNull();
     // SCREAM: a hold, from the tell through the bloom, so the thumb is there.
     q.phase = 2;
     her.color = null;
@@ -119,9 +119,9 @@ describe("BULB QUEEN", () => {
     expect(cue(world, "p1")?.kind).toBe("HOLD");
     her.color = "cyan";
     expect(cue(world, "p1")?.kind).toBe("HOLD");
-    // CROWN asks nothing of his thumb on her.
+    // CROWN asks nothing of his thumb on her, and his cannon is told nothing.
     q.phase = 0;
-    expect(word(world, "p1")).toBe("MOVE");
+    expect(word(world, "p1")).toBeNull();
   });
 
   it("never puts a mark on either of her marks on the pilot's screen", () => {
@@ -146,20 +146,19 @@ describe("BULB QUEEN", () => {
     }
   });
 
-  it("tells the pilot to move for the whole of the bloom, and not which way", () => {
+  it("never tells the pilot to move the cannon, in the bloom or out of it", () => {
     const world = opened();
     clearTorches(world);
     const q = queen(world);
+    q.phase = 0;
     q.openBeat = world.beat + 1;
-    expect(word(world, "p1")).toBe("MOVE");
-    expect(cue(world, "p1")?.kind).toBe("CARRY");
-    // Not suppressed when he happens to be under the real mark: a word that
-    // went away there would answer, by disappearing, the one question she is.
+    // No MOVE on the cannon since 5 October 2026 — the owner, the shoot
+    // indicator is enough — wherever he stands, so its absence answers nothing.
     const her = body(world);
-    q.weakSide = 1;
-    world.cannonCol = her.col + 1;
-    expect(word(world, "p1")).toBe("MOVE");
-    // And nothing at all between blooms.
+    for (const col of [her.col - 1, her.col + 1]) {
+      world.cannonCol = col;
+      expect(word(world, "p1")).toBeNull();
+    }
     q.openBeat = -1;
     expect(word(world, "p1")).toBeNull();
   });
@@ -200,9 +199,10 @@ describe("BULB QUEEN", () => {
     });
     expect(word(world, "p1")).toBe("SHIELD");
     expect(cue(world, "p1")?.kind).toBe("PRESS");
-    // The bloom outranks it on his screen: two beats against a whole fall.
+    // A bloom with nothing for his thumb leaves the torch his word.
+    q.phase = 0;
     q.openBeat = world.beat;
-    expect(word(world, "p1")).toBe("MOVE");
+    expect(word(world, "p1")).toBe("SHIELD");
   });
 
   it("says nothing about a colour, a column or a count", () => {

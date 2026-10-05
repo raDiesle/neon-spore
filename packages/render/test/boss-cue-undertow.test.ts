@@ -11,7 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
-import { computeLayout, type Layout, tileCX, type ViewRole } from "../src/layout.js";
+import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -87,17 +87,12 @@ describe("a yellow lobe", () => {
     expect(word(world, "p2")).toBeNull();
   });
 
-  it("asks him to move the cannon when it is away, and marks the cannon", () => {
+  it("tells neither seat to move the cannon when it is away", () => {
     const { world, u } = opened();
-    const col = elsewhere(world);
-    u.lobes.push(lobe(world, col));
-    expect(word(world, "p1")).toBe("MOVE");
-    const c = cue(world, "p1");
-    expect(c?.kind).toBe("CARRY");
-    const l = LAYOUT.p1;
-    // On the carriage and never on the lobe: the pair say the column (#34).
-    expect(Math.abs((c?.x ?? 0) - tileCX(l, world.cannonCol))).toBeLessThan(1);
-    expect(Math.abs((c?.x ?? 0) - tileCX(l, col))).toBeGreaterThan(l.tile / 2);
+    u.lobes.push(lobe(world, elsewhere(world)));
+    // No MOVE on the cannon since 5 October 2026 — the owner, the shoot
+    // indicator is enough: SUCK comes once the cannon is under the lobe.
+    expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBeNull();
   });
 });

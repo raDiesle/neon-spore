@@ -1,7 +1,7 @@
 import { type RepriseState, repriseEchoing, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
-import { type Layout, tileCX } from "./layout.js";
+import type { Layout } from "./layout.js";
 import { repriseTearCenter } from "./reprise-draw.js";
 
 /**
@@ -34,12 +34,13 @@ import { repriseTearCenter } from "./reprise-draw.js";
  */
 
 /**
- * THE REPRISE. **Two words, one per seat, and they stand for exactly as long
- * as the echo plays and not one beat longer.**
+ * THE REPRISE. **One word, hers, and it stands for exactly as long as the
+ * echo plays and not one beat longer.**
  *
- * `CARRY` / `MOVE` on the cannon where it stands, the pilot's; `PRESS` / `FIRE`
- * on the lens, the navigator's. Between them they are the whole of
- * what this fight is answered with, and the reading said nothing at all before
+ * `PRESS` / `FIRE` on the lens, the navigator's, and nothing on his cannon:
+ * until 5 October 2026 a `CARRY` / `MOVE` stood there too, and then the
+ * owner said *we do not need to show helper to "move" for cannon to shoot*.
+ * The reading said nothing at all before
  * 19 September 2026 — it fell through `cuesOf`'s default on the one wave where
  * the pair is asked to shoot at **an empty screen**. That is the failure a word
  * is for: a field with no body on it asks for nothing by its own picture, and a
@@ -60,14 +61,12 @@ import { repriseTearCenter } from "./reprise-draw.js";
  * has already said it.
  * Nothing here reads `left`, `cursor`, `from` or `held`.
  *
- * **`MOVE` is not suppressed when he is already in the right column**, and on
- * this boss that is not a nicety. BULB QUEEN's `MOVE` stands for the whole of a
- * bloom because *a word that vanished once he was under the real mark would
- * answer it by disappearing* (`boss-cue-read.ts`); here the column he would be
- * under is an **unseen** body's, so a word that went out on it would be the one
- * thing `unseen.ts` exists to make impossible — a mark put where a body neither
- * screen may draw is standing, made out of its own absence. The word is the
- * same word in every column, and a case asserts it in all eleven.
+ **`FIRE` is not gated on his column**, and on this boss that is not a
+ * nicety: the column he would be under is an **unseen** body's, so a word that
+ * came or went with it would be the one thing `unseen.ts` exists to make
+ * impossible — a mark put where a body neither screen may draw is standing,
+ * made out of its own absence. The word is the same word in every column, and
+ * a case asserts it in all eleven.
  *
  * **The seats are the panel's and not the picture's.** Only `cannon` picks the
  * column a bolt goes up and it is **player 1's** strip; only `fireRed` and
@@ -83,8 +82,7 @@ import { repriseTearCenter } from "./reprise-draw.js";
  *   `midCol` and *does not move sideways for anything* — the same picture
  *   whichever column the body it has just sent is falling down. A frame that
  *   followed an echoed body would be the answer in the purest form this game
- *   has, and #34 forbids a column outright. The pilot's mark is on his own
- *   cannon, which is where his thumb already is.
+ *   has, and #34 forbids a column outright.
  * - **The colour.** `FIRE`, never `RED` or `CYAN`. Half of what the pair had to
  *   remember is which of the two buttons each body takes, and the word is the
  *   verb alone — THE VANE's rule on a boss with nothing to read it off
@@ -106,8 +104,8 @@ import { repriseTearCenter } from "./reprise-draw.js";
  *
  * **And the sixth, which is the one a later lane will want to take away.**
  * `closeEcho` runs on the beat the echo's **last body is sent**, not on the
- * beat it lands (`sim/reprise.ts`), so the triangle goes out and these two
- * words with it while bodies nothing drew are still falling — fifteen beats of
+ * beat it lands (`sim/reprise.ts`), so the triangle goes out and the word
+ * with it while bodies nothing drew are still falling — fifteen beats of
  * it in the rehearsal, and the one that lands is the wave. Since 25 September
  * 2026 the boss counts those bodies itself, as dashed shells in the egg ring
  * (the owner: *as well with the remaining enemies on the screen, some kind of
@@ -131,14 +129,6 @@ export function repriseCues(l: Layout, world: World, _s: RepriseState): readonly
   if (!repriseEchoing(world)) return [];
   const tear = repriseTearCenter(l, world.cfg);
   return [
-    // His, on the cannon at the hull — the house's spelling of this mark, and
-    // the only strip in the game that picks a column. It is the fourth cue to
-    // stand on `hullY` and so the fourth to inherit the verb drawn under the
-    // plating (`docs/queue.md`, *a cue standing on the hull line*): the fix is
-    // one line in `frame-field.ts` or a floor in `boss-cue-text.ts`, and it is
-    // that entry's to make for all four at once rather than a fourth constant
-    // here.
-    markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 97),
     // Hers, on the lens and wide, THE CURTAIN's arrangement for a mark that is
     // a whole body rather than a tile. There is nowhere else honest for it to
     // stand: every other thing on this field is a body neither screen may draw.

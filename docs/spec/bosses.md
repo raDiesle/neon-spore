@@ -353,7 +353,8 @@ of them, because a frame is a place and the place is the answer this fight is
 about (`docs/decisions.md` #34, `packages/render/src/boss-cue-read.ts`). `MOVE`
 stands on the cannon on his hull line for the whole of a bloom, and is not
 taken away when he happens to be under the right one: a word that went away
-there would answer her by disappearing. The torch takes the other two — `MOVE`
+there would answer her by disappearing. **The cannon's `MOVE` went on 5 October 2026** — the owner: *just the "shoot"
+indicator is enough where to shoot*. The torch takes the other two — `MOVE`
 on the plate while it is not standing in the torch's columns, and `SHIELD`
 riding the torch down on the seat that holds the trigger, saying nothing at all
 about *when*. Her rehearsal lost the page that used to say *FIRE THE MARK SHE
@@ -1137,7 +1138,8 @@ discs punched on each screen.
 the fold**. `CARRY` / `MOVE` on the cannon where it stands, the pilot's, while
 the housing is split and he is not under it, out again the moment he arrives;
 `PRESS` / `FIRE` on the mouth of the split, the navigator's, for as long as the
-opening stands unspent. Hers does not wait for his cannon to get there — the
+opening stands unspent. **The cannon's `MOVE` went on 5 October 2026** — the owner: *just the "shoot"
+indicator is enough where to shoot*. Hers does not wait for his cannon to get there — the
 cannon is not drawn on her screen — so the timing stays where the fight put it,
 in his mouth.
 
@@ -1892,7 +1894,8 @@ the pair had just agreed on, and firm enough that the click is felt.
 during `read`: `CARRY` / `TURN` on the string's handle while nothing has
 clicked, the pilot's; `CARRY` / `MOVE` on the cannon where it stands once a way
 in has, also his, out again the moment it arrives; and `PRESS` / `FIRE` on the
-lit doorway for as long as one stands, the navigator's. The round has no secret
+lit doorway for as long as one stands, the navigator's. **The cannon's `MOVE` went on 5 October 2026** — the owner: *just the "shoot"
+indicator is enough where to shoot*. The round has no secret
 to protect — the lit door, the shot's walk and the heart's colour are on both
 screens — so a word naming a seat's own verb takes nothing from the sentence
 the pair has to say, which is *now*. Her `FIRE` deliberately does not wait for
@@ -2902,7 +2905,8 @@ kill and never by seeing the body (`body-hit.ts`).
 **The words** (`render/src/boss-cue-read-s.ts`, 19 September 2026, the readings'
 page `s`). Two, and they stand for exactly as long as the echo plays:
 `CARRY` / `MOVE` on the pilot's cannon where it stands, and `PRESS` / `FIRE` on
-the lens, the navigator's. The reading said nothing before that —
+the lens, the navigator's. **The cannon's `MOVE` went on 5 October 2026** — the owner: *just the "shoot"
+indicator is enough where to shoot*. The reading said nothing before that —
 this boss builds no cue in its own drawing either, so the absence was real — and
 it is the one fight in the game where that costs the most: **a field with no
 body drawn on it asks for nothing by its own picture**, and the instinct a pair
@@ -3312,7 +3316,8 @@ navigator's. `MOVE` is the half that was never on the field — her bolt goes up
 the column the cannon stands in, so a flight he is not under is a flight she
 cannot meet, and once four sockets are dark the arm swings the landing a column
 off the one it left. It stands on the cannon where it is and says `MOVE`, never
-where to. Hers does not wait for him to arrive, for THE VANE's reason: the
+where to. **The cannon's `MOVE` went on 5 October 2026** — the owner: *just the "shoot"
+indicator is enough where to shoot*. Hers does not wait for him to arrive, for THE VANE's reason: the
 cannon is not drawn on her screen. On the **crossing** there is one word and it
 is on the seat whose act is due (`batonActor`) — his is `SEND`, the same thumb
 on the same trigger with nothing left to launch out of a socket; no `MOVE`
@@ -3320,7 +3325,8 @@ stands there, because a seat is locked through the beat after its own act and
 the only beat he could move in is the beat his act is due in. **Falling**, the
 bead is a loose pod and the last two hands are his: `MOVE` until he is under
 it, then `PRESS` / `OPEN` on the pod for as long as he is — never at the moment
-it arrives, because that moment is the one clock this game leaves in a thumb.
+it arrives, because that moment is the one clock this game leaves in a thumb. **The cannon's `MOVE` went on 5 October 2026** — the owner: *just the "shoot"
+indicator is enough where to shoot*.
 
 Under **merging** each screen carries `HOLD` on its own bead, and it goes from
 a screen whose thumb is already down; neither says whether the other's is,
@@ -3627,7 +3633,8 @@ chrome. **Never red**: running out is the level won.
 cannon is in its column and `MOVE` on the cannon when it is not; a shield lobe
 is `SHIELD` on it when the shield is in its column and `MOVE` on the shield
 when it is not — `MOVE` always where the carriage stands, never where it is
-wanted, because *which column* is the sentence the pair says. A tall lobe is
+wanted, because *which column* is the sentence the pair says. **The cannon's `MOVE` went on 5 October 2026** — the owner: *just the "shoot"
+indicator is enough where to shoot*. A tall lobe is
 `TAP` on both screens. A bow says nothing, and neither does the ebb.
 
 **The rehearsal** (`content/src/scenes/the-undertow.ts`) is the four things
@@ -3731,7 +3738,8 @@ skipped (`render/gorge-place.ts`); the thumb's ring is carried with it.
 **The cue** (`render/boss-cue-read-n.ts`). On a row in any order nothing is
 said to the pilot — which bubble is his to pick. On an ordered row, `MOVE` on
 the cannon while it is off the bubble due; on a ring, `MOVE` while it is off
-the middle column. `TAP` on a ring's shut bottom bubble, on his screen, ahead
+the middle column. **The cannon's `MOVE` went on 5 October 2026** — the owner: *just the "shoot"
+indicator is enough where to shoot*. `TAP` on a ring's shut bottom bubble, on his screen, ahead
 of the column. The navigator is told `FIRE` over the bubble up the cannon's
 column when it is due and open, and nothing otherwise; *which colour* is never
 written. Nothing between levels and nothing in `out`.
@@ -3919,7 +3927,8 @@ his own band; it is the guide's third step for him in as many words, *put the
 cannon in the core's column*.
 
 `CARRY` / `MOVE` stands on his cannon now, and which column it is for is the
-fight's own answer. **While the core is bare**, its own column: the only lane
+fight's own answer. **The cannon's `MOVE` went on 5 October 2026** — the owner: *just the "shoot"
+indicator is enough where to shoot*. **While the core is bare**, its own column: the only lane
 a hit comes off it in, and the fabric rolls back over it `curtainRerollBeats`
 after the last hand leaves. **While it is covered**, a soft lobe's column: the
 hem is the health, a bolt into a soft lobe is what takes it, and which lobes
@@ -4325,7 +4334,8 @@ stands while his own has nothing that can be answered **and** some other column
 can — never merely because his blade is growing, since that blade will stand in
 his column and a word that walked him off it is THE CANDLE's defect a fourth
 time. At the top of the fight nothing can be answered anywhere and nothing is
-said. The words about the fan stand on the fan's middle and never on a blade
+said. **The cannon's `MOVE` went on 5 October 2026** — the owner: *just the "shoot"
+indicator is enough where to shoot*. The words about the fan stand on the fan's middle and never on a blade
 (*which* blade is the pair's own sentence); `CUT` stands on his own column,
 where the crest is already open and his cannon is already parked, so it names
 nothing he is not looking at. The colour is never said, and the colour the beam
@@ -4888,7 +4898,8 @@ column — the half of the fight that happens after a shot, and what shipped
 first. While the cord is **empty** a shot is owed instead: `CARRY MOVE` on the
 cannon while it is not under the seam, then `PRESS FIRE` on the seam once it
 is, which is THE CANDLE's pairing and the answer to the thing nothing on the
-field had ever said. The seam is one column of eleven, the two either side of
+field had ever said. **The cannon's `MOVE` went on 5 October 2026** — the owner: *just the "shoot"
+indicator is enough where to shoot*. The seam is one column of eleven, the two either side of
 it are the body's own plating, and a bolt leaves the cannon's own column — so a
 pair aiming at the silhouette got a refusal that looks exactly like a colour
 mistake, and *stand the cannon on the middle column* was the pilot's first
@@ -5732,7 +5743,8 @@ fight.** One part is left, which is what the wind-up *is*; the slab he is shown
 carries that one plate and the hanging part on its thread (`showsScuttleCount`),
 so there is nothing to subtract by naming its column; and the window is
 `lancePrimeBeats` and a beat of slack, every beat of which her fill is spending.
-So `CARRY` / `MOVE` on the cannon, his, until he is under it. Nothing is said for
+So `CARRY` / `MOVE` on the cannon, his, until he is under it. **The cannon's `MOVE` went on 5 October 2026** — the owner: *just the "shoot"
+indicator is enough where to shoot*. Nothing is said for
 a thrown part in either direction: a rock wants her plate and his guard and a pod
 his maw, and all three are the wave's ordinary answers to an ordinary arrival.
 Proved in `render/test/boss-cue-clocks.test.ts`, his silence through a cycle with

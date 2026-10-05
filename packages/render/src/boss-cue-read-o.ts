@@ -11,7 +11,7 @@ import {
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
 import { DIAL_RADII, handleRadius } from "./handle-draw.js";
-import { type Layout, tileCX } from "./layout.js";
+import type { Layout } from "./layout.js";
 import {
   ledgerBeadU,
   ledgerCordAt,
@@ -90,7 +90,8 @@ import { ledgerBodyY, ledgerSeamX } from "./ledger-shape.js";
  * **Every mark is on the half of the picture its own seat holds.** `SHIELD`
  * rides the bead, which is the pilot's (`showsLedgerBead`); the socket's `MOVE`
  * stands in the hole, which is the navigator's (`showsLedgerSocket`); the
- * cannon's `MOVE` stands on the cannon, which is his alone (`showsCannon`);
+ * cannon has no word since 5 October 2026 (the owner, 5 October 2026: *we do not need to show helper to "move" for
+ * cannon to shoot*);
  * and `FIRE` stands on the seam, which is the body and is drawn to both. *His
  * clock, her column* is the design's sentence for this fight, and the two new
  * words do not cross it (`view-role-clocks.ts`).
@@ -191,10 +192,7 @@ export function ledgerCues(
   }
   if (phase !== "paying") return [];
   const seam = ledgerSeamCol(t, cfg);
-  if (world.cannonCol !== seam) {
-    return [markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 91)];
-  }
-  if (priming(world)) return [];
+  if (world.cannonCol !== seam || priming(world)) return [];
   return [markAt(2, "PRESS", "FIRE", ledgerSeamX(l, cfg, t), ledgerBodyY(l).mid, l, 92)];
 }
 

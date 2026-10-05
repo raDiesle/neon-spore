@@ -25,15 +25,13 @@ import { type Layout, tileCX } from "./layout.js";
  */
 
 /**
- * **`MOVE`, on the carriage where it stands** — never on the place it is
+ * **`MOVE`, on the shield where it stands** — never on the place it is
  * wanted. The lobe is drawn on both screens, and a frame saying `MOVE` beside
  * it would be the field answering *which column*, the sentence the pair says
- * out loud (#34).
+ * out loud (#34). The cannon has none since 5 October 2026 — the owner, *we do
+ * not need to show helper to "move" for cannon to shoot*: `SUCK` comes once it
+ * is under the lobe.
  */
-function moveCannon(l: Layout, world: World, seed: number): BossCue {
-  return markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, seed);
-}
-
 function moveShield(l: Layout, world: World, seed: number): BossCue {
   return markAt(2, "CARRY", "MOVE", tileCX(l, world.shieldCol), l.hullY, l, seed);
 }
@@ -50,7 +48,10 @@ export function undertowCues(
     if (b.stage === "bowing") continue;
     // A tall one first: it is the one about to burst and take the level.
     if (b.stage === "tall") out.unshift(...tall(l, b, skinY));
-    else out.push(standing(l, world, b, skinY));
+    else {
+      const cue = standing(l, world, b, skinY);
+      if (cue !== null) out.push(cue);
+    }
   }
   return out;
 }
@@ -70,13 +71,11 @@ function tall(l: Layout, b: UndertowLobe, skinY: SurfaceY): BossCue[] {
  * skin the lobe comes through, which is the place the word is about
  * (`BossCue.wordFloor` keeps the verb out of the plating).
  */
-function standing(l: Layout, world: World, b: UndertowLobe, skinY: SurfaceY): BossCue {
+function standing(l: Layout, world: World, b: UndertowLobe, skinY: SurfaceY): BossCue | null {
   const x = tileCX(l, b.col);
   const y = skinY(x);
   if (b.answer === "maw") {
-    return world.cannonCol === b.col
-      ? markAt(1, "HOLD", "SUCK", x, y, l, 44 + b.col)
-      : moveCannon(l, world, 44 + b.col);
+    return world.cannonCol === b.col ? markAt(1, "HOLD", "SUCK", x, y, l, 44 + b.col) : null;
   }
   return world.shieldCol === b.col
     ? markAt(1, "PRESS", "SHIELD", x, y, l, 44 + b.col)

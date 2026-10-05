@@ -178,20 +178,13 @@ describe("THE SCUTTLE", () => {
     expect(word(world, "p1")).toBeNull();
   });
 
-  it("sends him to the last part's column, the only column his slab has left", () => {
+  it("tells him nothing on the wind-up, and her to hold on the last part", () => {
     const { world, s, col } = hanging(col0(scuttleSocketCol(CFG, 1)));
     s.windBeat = world.beat;
-    // One part left is what the wind-up *is*, so the slab he is shown has one
-    // plate on it and nothing is subtracted by naming its column
-    // (`showsScuttleCount`). The window is the fill and a beat of slack, all of
-    // which her beam is spending.
-    const his = cue(world, "p1");
-    expect(his?.word).toBe("MOVE");
-    expect(his?.kind).toBe("CARRY");
-    expect(his?.x).toBe(tileCX(LAYOUT.p1, world.cannonCol));
+    // No MOVE on the cannon since 5 October 2026 — the owner, the shoot
+    // indicator is enough: her HOLD on the last part is the place.
+    expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBe("HOLD");
-    // Standing there already, there is nothing to say to him and her fill is
-    // still the whole of what is left.
     world.cannonCol = col;
     expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBe("HOLD");
