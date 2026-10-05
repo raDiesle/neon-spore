@@ -381,6 +381,7 @@ Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 ## A desk's chord body is drawn as `HOLD BOTH` is drawn
 
 - **Found:** 2026-10-04, claude/queue-work-cccabd
+- **Taken:** 2026-10-05, claude/queue-tasks-status-bb9750 (claim: claude/queue-a-desks-chord-body-is-drawn-as-hold-both-is-draw)
 - **Files:** `packages/render/src/desk-chord.ts`, `packages/render/src/instar-ring.ts`, `packages/render/src/grindstone-draw.ts`, `packages/render/src/trivet-draw.ts`, `packages/render/src/halter-draw.ts`, `packages/render/src/governor-draw.ts`
 
 The second half of *One mouse can never close a chord*, split off when the
