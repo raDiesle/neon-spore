@@ -2,7 +2,8 @@ import { type LedgerBead, type LedgerState, ledgerWalk, type SimConfig } from "@
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
-import { ledgerBeadU, ledgerCordAt, type Point } from "./ledger-shape.js";
+import { ledgerBeadU, ledgerCordAt } from "./ledger-cord-shape.js";
+import type { Point } from "./ledger-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { showsLedgerBead, showsLedgerSocket } from "./view-role-clocks.js";
 

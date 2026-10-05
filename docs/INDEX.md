@@ -2218,11 +2218,12 @@ by hand never moves.
 | `packages/render/src/lamprey-fx.ts` | What THE LAMPREY leaves behind a frame: the flung tooth, the snap, the gulp, the shudder and the blow |
 | `packages/render/src/lamprey-receipts.ts` | **THE LAMPREY's receipts, drawn** — what `lamprey-fx.ts` holds between frames |
 | `packages/render/src/ledger-cord.ts` | **The cord**, and the one hole in the ship it goes into |
+| `packages/render/src/ledger-cord-shape.ts` | **Where THE LEDGER's cord is**, in field pixels: where it leaves the body and where it goes into the ship |
 | `packages/render/src/ledger-draw.ts` | **THE LEDGER**: a tall split body high in the field on a single thick cord running down into the pair's own… |
 | `packages/render/src/ledger-fx.ts` | What THE LEDGER leaves behind a frame: the pulse a warded return throws back **up** the cord |
 | `packages/render/src/ledger-read.ts` | **What is written about the cord, and which seat is shown it** — *his clock, her column* |
 | `packages/render/src/ledger-root.ts` | **The navigator's half of THE LEDGER, on the finished ship** |
-| `packages/render/src/ledger-shape.ts` | **Where THE LEDGER is**, in field pixels: the two halves of the body, the cord between it and the hull |
+| `packages/render/src/ledger-shape.ts` | **Where THE LEDGER is**, in field pixels: the two halves of the body |
 | `packages/render/src/ledger-stop.ts` | **Where a bolt meets THE LEDGER**, for `BoltStops` (`bolt-stop.ts`): the halves' underside and the seam's mouth |
 | `packages/render/src/ledger-grip.ts` | **The navigator's two hands on THE LEDGER's root**: the foot of the cord while it is still paying out |
 | `packages/render/src/ledger-haul.ts` | **The pilot's carry on the taut cord** |

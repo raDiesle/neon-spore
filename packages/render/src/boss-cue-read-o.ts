@@ -14,14 +14,13 @@ import { DIAL_RADII, handleRadius } from "./handle-draw.js";
 import { type Layout, tileCX } from "./layout.js";
 import {
   ledgerBeadU,
-  ledgerBodyY,
   ledgerCordAt,
   ledgerRootCircle,
   ledgerRootPoint,
-  ledgerSeamX,
   ledgerSocketPoint,
   ledgerTaut,
-} from "./ledger-shape.js";
+} from "./ledger-cord-shape.js";
+import { ledgerBodyY, ledgerSeamX } from "./ledger-shape.js";
 
 /**
  * **What THE LEDGER is asking for** — page fifteen of the readings, and its own

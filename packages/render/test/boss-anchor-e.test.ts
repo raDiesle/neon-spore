@@ -12,7 +12,8 @@ import {
 } from "@neon-spore/sim";
 import { anchorPoint } from "../src/caption-anchor.js";
 import { computeLayout } from "../src/layout.js";
-import { ledgerBodyBox, ledgerRootPoint, ledgerSocketPoint } from "../src/ledger-shape.js";
+import { ledgerRootPoint, ledgerSocketPoint } from "../src/ledger-cord-shape.js";
+import { ledgerBodyBox } from "../src/ledger-shape.js";
 import { spliceCurve, spliceMouthY, spliceTopY } from "../src/splice-straws.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals } from "./canvas-stub.js";
 

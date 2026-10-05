@@ -1,7 +1,7 @@
 import { type LedgerState, ledgerFootable, ledgerPlugs, type World } from "@neon-spore/sim";
 import { drawHandleRing } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
-import { ledgerRootCircle } from "./ledger-shape.js";
+import { ledgerRootCircle } from "./ledger-cord-shape.js";
 import { PALETTE } from "./palette.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";

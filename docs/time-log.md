@@ -33321,3 +33321,13 @@ Bottleneck: the first frame put the knob under the yoke, and seeing it cost a se
 Bottleneck: THE LEAD's flight needed a meeting with no burst, which `BoltStops` did not have, and the test's bound assumed a body above the top row — THE LEDGER hangs into it, and THE LEAD's ridge comes down into it on a short stage.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-05 — Split ledger-shape.ts before it passed 250 lines
+
+- reading: 0 min. The file and its importers, read in the lane that filed it.
+- writing: 5 min. `ledger-cord-shape.ts`, eleven importers moved, both headers.
+- looking: 0 min.
+- friction: 5 min. The scripted import split left `{ type X }` imports and unsorted lists, which lint took three rounds to clear.
+- landing: 5 min.
+
+Bottleneck: Biome's `--write` on the touched files did not apply `useImportType`, so the type-only imports were fixed by hand.

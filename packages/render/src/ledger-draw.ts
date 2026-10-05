@@ -5,6 +5,12 @@ import { strokeGlow } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { drawLedgerCord } from "./ledger-cord.js";
+import {
+  ledgerCordAt,
+  ledgerRootPoint,
+  ledgerSocketPoint,
+  ledgerTaut,
+} from "./ledger-cord-shape.js";
 import type { LedgerFx } from "./ledger-fx.js";
 import { drawLedgerPilotAsked, drawLedgerPilotVerdict } from "./ledger-marks.js";
 import { paintPlate } from "./ledger-metal.js";
@@ -13,13 +19,9 @@ import { drawLedgerBeads } from "./ledger-read.js";
 import {
   LEDGER_HALF_W,
   ledgerBodyY,
-  ledgerCordAt,
   ledgerGap,
   ledgerHalfPath,
-  ledgerRootPoint,
   ledgerSeamX,
-  ledgerSocketPoint,
-  ledgerTaut,
 } from "./ledger-shape.js";
 import { ledgerStopper } from "./ledger-stop.js";
 import { PALETTE, STROKE } from "./palette.js";

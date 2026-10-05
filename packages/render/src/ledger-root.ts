@@ -3,10 +3,10 @@ import type { GripVerdicts } from "./grip-verdict.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawLedgerSocket } from "./ledger-cord.js";
+import { ledgerTaut } from "./ledger-cord-shape.js";
 import { drawLedgerGrips } from "./ledger-grip.js";
 import { drawLedgerRootAsked, drawLedgerRootVerdict } from "./ledger-marks.js";
 import { drawLedgerLock } from "./ledger-read.js";
-import { ledgerTaut } from "./ledger-shape.js";
 import { showsLedgerSocket } from "./view-role-clocks.js";
 
 /**

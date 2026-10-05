@@ -9,9 +9,9 @@ import {
 } from "@neon-spore/sim";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
 import type { Circle, Layout } from "./layout.js";
+import { ledgerBeadU, ledgerRootCircle } from "./ledger-cord-shape.js";
 import { ledgerCordRing, ledgerHaulCircle } from "./ledger-haul.js";
 import { ledgerBeadCircle } from "./ledger-pull.js";
-import { ledgerBeadU, ledgerRootCircle } from "./ledger-shape.js";
 import { drawMarkHalo } from "./mark-feedback.js";
 import { showsLedgerBead, showsLedgerSocket } from "./view-role-clocks.js";
 

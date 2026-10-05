@@ -6,6 +6,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
+import { ledgerBeadU } from "./ledger-cord-shape.js";
 import {
   drawLedgerHaul,
   drawPilotRing,
@@ -14,7 +15,6 @@ import {
   ledgerHaulCircle,
   STILL,
 } from "./ledger-haul.js";
-import { ledgerBeadU } from "./ledger-shape.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import { showsLedgerBead } from "./view-role-clocks.js";

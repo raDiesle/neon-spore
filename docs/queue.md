@@ -372,17 +372,3 @@ tongue's `TWIST` (`boss-cue-read-w.ts`) is the same question. Read both
 first: a band or tongue that is not turned round a centre is not this entry's
 and is struck from it. Done when every turned control in the round draws
 THE MAZE's knob and `bun run check` is green.
-
-## Split ledger-shape.ts before it passes 250 lines
-
-- **Found:** 2026-10-05, claude/queue-the-antiphon-hive-lead-and-ledger-stop-a-bolt-on
-- **Taken:** 2026-10-05, claude/queue-the-antiphon-hive-lead-and-ledger-stop-a-bolt-on (claim: claude/queue-split-ledger-shape-ts-before-it-passes-250-lines)
-- **Files:** `packages/render/src/ledger-shape.ts`
-
-`ledger-shape.ts` is at 249 lines, since `ledgerHalfPoints` was shared out
-of `ledgerHalfPath` so THE LEDGER's bolt stopper (`ledger-stop.ts`) stands on
-the same points the halves are drawn through. The cord's geometry —
-`ledgerSocketPoint`, `ledgerRootCircle`, `ledgerRootPoint`, `ledgerTaut`,
-`ledgerCordAt`, `ledgerBeadU` — is a whole of its own and can go to a
-`ledger-cord-shape.ts`, re-exported or with its importers moved. Nothing
-drawn changes; `bun run check` proves it.
