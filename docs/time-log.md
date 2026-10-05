@@ -33607,3 +33607,5 @@ Bottleneck: the four old wheel tests assumed the click landed in one tick, and e
 - landing: 5 min.
 
 Bottleneck: a new test file named without checking that the name was free.
+
+*Measured: 2 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

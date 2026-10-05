@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 332974abe — THE MAZE's lever gearing tests are back, and the coast tests have a file of their own
+
+The landing before this one wrote its new tests over `maze-lever.test.ts`, which already held the lever's one-turn-a-lap gearing tests. Those are restored unchanged, and the tests for the knob staying, the coast and the eased catch move to `maze-coast.test.ts`.
+
 ## 2026-10-05 · f3f2c1828 — THE MAZE's lever stays where it is let go, coasts a little, and eases onto a column
 
 The knob no longer snaps back to its rest on release: it stays where the hand left it, and the next press is taken there. A release that is not in a click coasts on a little the way the hand was going, slowing, and catches a column it reaches. A way in coming near the cannon's column is caught from further off (the snap window is now just inside the column's half-width), and the wheel eases onto the column over a few ticks instead of jumping; a caught way in takes nearly half a tile of pull to come out of, so a lifting thumb no longer breaks it. A look the owner asked for by name.
