@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 8cc8bad03 — THE GIMBAL's leak is shot out where the bolt meets it, and the rig jolts
+
+A bolt up the seam's column now meets the leaking bead on its way up, on the tick it is drawn bursting on it. Before, the hit only counted when the bolt left the top of the field, so the seam shut and the rig reacted a quarter of a beat late. The simulation and the picture now take the bead's position from one function. The seam shot out bursts on the bead and knocks the rig with the blow every boss takes.
+
 ## 2026-10-05 · 32cc48b9f — THE HIVE's walls are an arch of its own wax, a cocoon on its side in every socket
 
 The mass now runs down both sides of the field in one contour with the top. The corners are filled and carry no cocoon, so the field is the hole in an arch. The inner face leaves each corner steep, narrows to a drip below the lowest cocoon, is lumped and breathes, and swells into lips on the shoulders of every cocoon. A wall's cocoon is the underside's drop laid on its side, drawn under the wax so it grows out of the socket. A bolt is drawn stopping on the corners and on a cocoon's side, never in the next column, and the pilot's ring stands beside the cocoon in the field.

@@ -33499,3 +33499,5 @@ Bottleneck: looking — the socket took three frames to find, each a minute's re
 - landing: 5 min. The margin past the bead's far rim found by a test drawing every third tick.
 
 Bottleneck: the margin — a bolt met on the bead's far rim was taken off the field before a frame drew it bursting, at one frame in three ticks.
+
+*Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
