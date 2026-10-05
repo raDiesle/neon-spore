@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · b2aadd40b — THE TRIVET's feet ring under the spent hub while both seats leave every pad up
+
+After the last shot, the planted feet now ring under the spent hub for three beats under THE SLOW. The fight's final beat asks both seats to put no pad down, after ten beats of chording and firing. A pad put down on either foot jolts it loose and adds a beat to the ring, at most two, and a pad left down costs a beat each turn up to the same cap. Nothing is lost either way.
+
 ## 2026-10-05 · a8d1c6c99 — A desk's chord body is drawn as HOLD BOTH is drawn
 
 On the TEST screen one held mouse is the whole chord, so every chord body a step asks for now looks like THE INSTAR's `HOLD BOTH`: the same ring, fill, halo and word, drawn by calling `drawInstarRing`. That covers THE GRINDSTONE's jaws, THE TRIVET's feet, THE GOVERNOR's works and THE HALTER's lit grips. The ring goes once the chord is held. A phone's screen is unchanged.

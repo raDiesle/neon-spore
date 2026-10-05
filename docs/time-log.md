@@ -33259,3 +33259,5 @@ Bottleneck: when a chord is asked lived only in the cue readings, so the ring ha
 - landing: 5 min.
 
 Bottleneck: none to speak of. THE GRINDSTONE's fade commit was the complete list of registrations, so each one was copied rather than found by a red check.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
