@@ -381,6 +381,7 @@ Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 ## bosses-choreographed.md's contents and ledger say built bosses are unbuilt
 
 - **Found:** 2026-10-03, claude/antiphon-explanation-german-eb9d7c
+- **Taken:** 2026-10-05, claude/queue-tasks-status-bb9750 (claim: claude/queue-bosses-choreographed-mds-contents-and-ledger-say)
 - **Files:** `docs/spec/bosses-choreographed.md`
 
 Asked which bosses still have designed work unbuilt, the page answered
