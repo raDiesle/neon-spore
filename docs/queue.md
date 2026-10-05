@@ -377,16 +377,3 @@ own column does — and THE LEDGER; each gets its row in `own-stop.test.ts`.
 
 Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 `own-stop.test.ts`, and `bun run check` is green.
-
-## §30 THE TRIVET — row 11's ring, the look
-
-- **Found:** 2026-10-05, claude/queue-bosses-choreographed-mds-contents-and-ledger-say
-- **Taken:** 2026-10-05, claude/queue-tasks-status-bb9750 (claim: claude/queue-30-the-trivet-row-11s-ring-the-look)
-- **Where:** local
-- **Files:** `packages/render/src/trivet-draw.ts`, `packages/render/src/trivet-fx.ts`
-- **Needs:** §30 THE TRIVET — row 11's ring, the simulation
-
-The sixth pose §30 names: the feet ringing under the spent hub, unheld, and a
-jolted foot springing loose and settling again — drawn the way THE
-GRINDSTONE's fade (`b2d2f51a7`) and THE SLING's cool (`67506b8fb`) were, a
-frame in `frame.test.ts`. A look with no shipped alternative.

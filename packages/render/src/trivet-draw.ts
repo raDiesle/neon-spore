@@ -26,6 +26,7 @@ import {
   trivetHubPress,
   trivetLeft,
 } from "./trivet-pose.js";
+import { drawTrivetRing, trivetRingFoot, trivetRingLift, trivetRung } from "./trivet-ring.js";
 import {
   type Point,
   trivetCentre,
@@ -108,6 +109,7 @@ export function drawTrivet(
   const fall = SINK * buckle * buckle * l.tile;
   const sink = trivetHubPress(s) * l.tile + fall;
   const step = trivetLitStep(s);
+  const ring = trivetRung(s, cfg, beat, beatPhase);
   // The lurch throws the hub out over its column and the roots go with it; the feet stay where they stand.
   const hub = trivetHubAt(l, world, s, beat, beatPhase, sink);
   const root = (leg: 0 | 1 | 2): Point => swung(trivetRoot(l, leg, sink), sink, hub.tilt, hub);
@@ -124,17 +126,20 @@ export function drawTrivet(
   drawLeg(ctx, l, ...(legs[0] as [Point, Point]));
   const feet: (Point & { turn: number })[] = [];
   for (const side of [0, 1] as const) {
+    const rung = ring === null ? 0 : trivetRingLift(s, side, fx.jolt(side));
     const up =
       trivetFootLift(world, s, side, beat, beatPhase) + trivetLurchLift(s, side, beat, beatPhase);
-    const lift = Math.min(1, up) * (1 - buckle);
+    const lift = Math.min(1, up + rung) * (1 - buckle);
     const from = root(side);
+    const at = lowered(trivetFoot(l, side, lift, buckle), fall);
     const foot = TRIVET_FOOT.hang(
       from,
-      lowered(trivetFoot(l, side, lift, buckle), fall),
+      ring === null ? at : trivetRingFoot(l, at, side, ring, time),
       side,
       lift,
       time,
     );
+    if (ring !== null) drawTrivetRing(ctx, l, foot, ring, time);
     drawLeg(ctx, l, from, foot);
     legs.push([from, foot]);
     drawPlate(ctx, l, s, step, side, foot, beatPhase, fx.snap(side));

@@ -9336,7 +9336,12 @@ its own (`render/trivet-fx.ts`).
   the cannon and the shield are not the stand's, and a shot there is
   answered as it always is. Nothing is lost — the hub is spent and the wave
   is won either way. **Row 11's ring landed in the simulation 5 October
-  2026**; its picture, the fifth pose, is queued.
+  2026**, and its picture, the fifth pose, the same day
+  (`render/trivet-ring.ts`): each planted foot shivers on the field and
+  throws rings of sound out from under its plate, both dying out across the
+  phase, in the stand's own pale metal with no lit colour; a pad put down
+  kicks its foot up off the field and it settles over a beat, and a pad held
+  down keeps it up.
 
 **The simulation, the body, the pads and AUTO's hand are in; the rest of the hands are not.** The body landed
 26 September 2026: SINKER's hub in dull gunmetal with one of CALTROP's

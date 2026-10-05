@@ -16,7 +16,8 @@ import { TrivetVerdicts } from "./trivet-verdicts.js";
  * plating; the **clamp** snapping shut across an ankle on its second plant, a
  * flare along it; the **flash** of a hub hit, wider for every hit it has
  * taken; the collapse's flash and the harder shudder of three feet buckling
- * at once; the bursts its twelve receipts throw; and, behind `?raster=1`, the
+ * at once; a foot jolted loose as the feet ring under the spent hub, springing
+ * up and settling again (`jolt`, §30 row 11); the bursts its receipts throw; and, behind `?raster=1`, the
  * painted plant — a slam's smear, shock and grit (`plant`, `docs/raster.md`),
  * which draws nothing until a host installs its atlas. It is painted for the
  * pilot's foot and mirrored for the navigator's; the middle foot never lifts,
@@ -56,12 +57,15 @@ const COLLAPSE_BEATS = 1.2;
 /** How fast a clamp's flare, a hub flash and the collapse's fade, per second. */
 const SNAP_DECAY = 4;
 const FLASH_DECAY = 3;
+/** How fast a jolted foot settles back down, per second. */
+const JOLT_DECAY = 2.5;
 /** How wide the painted plant is drawn, in tiles: a plate and its grit either side. */
 const PLANT_TILES = 2.6;
 
 export class TrivetFx {
   private thudNow = 0;
   private readonly snapNow: [number, number] = [0, 0];
+  private readonly joltNow: [number, number] = [0, 0];
   private flashNow = 0;
   private flashHits = 0;
   private collapseNow = 0;
@@ -83,6 +87,11 @@ export class TrivetFx {
   /** How bright the flare along foot `side`'s clamp still is, 0..1. */
   snap(side: 0 | 1): number {
     return this.snapNow[side];
+  }
+
+  /** How far foot `side` is still sprung loose by a jolt as the feet ring, 0..1 (`trivet-ring.ts`). */
+  jolt(side: 0 | 1): number {
+    return this.joltNow[side];
   }
 
   /** The hub hit's flash: how bright it still is, 0..1, and the hit it was (1, 2, 3). */
@@ -153,6 +162,11 @@ export class TrivetFx {
         case "trivetTurn":
           burst(fieldX(l, e.col), l.hullY - r, 10, PALETTE.trivetSocket);
           break;
+        case "trivetJolt":
+          // A foot kicked loose as the feet ring: dull grit, no lit colour (§30, *Colour*).
+          burst(...footAt(l, mid, e.side), 6, PALETTE.trivetMetalDark);
+          this.joltNow[e.side] = 1;
+          break;
         case "trivetCollapse":
           burst(mid.x, mid.y, 24, PALETTE.trivetMetal);
           this.collapseNow = 1;
@@ -170,6 +184,7 @@ export class TrivetFx {
     if (this.thudNow < 0.002) this.thudNow = 0;
     for (const side of [0, 1] as const) {
       this.snapNow[side] = Math.max(0, this.snapNow[side] - SNAP_DECAY * step);
+      this.joltNow[side] = Math.max(0, this.joltNow[side] - JOLT_DECAY * step);
     }
     this.flashNow = Math.max(0, this.flashNow - FLASH_DECAY * step);
     if (this.flashNow === 0) this.flashHits = 0;
@@ -184,6 +199,8 @@ export class TrivetFx {
     this.thudNow = 0;
     this.snapNow[0] = 0;
     this.snapNow[1] = 0;
+    this.joltNow[0] = 0;
+    this.joltNow[1] = 0;
     this.flashNow = 0;
     this.flashHits = 0;
     this.collapseNow = 0;

@@ -3,10 +3,11 @@ import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
 /**
- * **THE TRIVET's four states**, posed with a hand on the controls
+ * **THE TRIVET's five states**, posed with a hand on the controls
  * (`boss-hands-trivet.ts`): the still and the first lit foot arrive by
- * themselves, and the rest and the collapse are earned by each foot's chord
- * held down by its own seat and the lit hub shot in its colour.
+ * themselves, and the rest, the ring and the collapse are earned by each
+ * foot's chord held down by its own seat and the lit hub shot in its colour —
+ * the ring, row 11's, with every pad left up.
  *
  * `trivet:foot` is judged on the still, because both outer feet hang lifted
  * there and the hub is not lurching: a foot that dangles while it is lifted
@@ -34,6 +35,18 @@ export const TRIVET_POSES: Pose[] = [
     "rest",
     "A foot planted and the stand resting. P1 lifts; P2 waits for the rear foot.",
     { hand: trivetHand, hold: 6 },
+  ),
+  bossPose(
+    "trivet",
+    "ring",
+    "The hub is spent; the planted feet ring under it, dying out. P1 and P2 leave every pad up.",
+    {
+      hand: trivetHand,
+      hold: 6,
+      budgetBeats: 240,
+      lookAt:
+        "the rings under the planted feet — whether they read as a stand ringing out, or as a target",
+    },
   ),
   bossPose(
     "trivet",

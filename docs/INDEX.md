@@ -2324,6 +2324,7 @@ by hand never moves.
 | `packages/render/src/trivet-blow.ts` | THE TRIVET's own blow at the hull: the middle needle stamps the stand's footprint into the skin |
 | `packages/render/src/trivet-fx.ts` | What THE TRIVET leaves behind a frame (§30, *Presentation*): the **thud** of a foot driven home |
 | `packages/render/src/trivet-verdicts.ts` | **THE TRIVET's marks answering a touch the way every mark does** (`mark-feedback.ts` |
+| `packages/render/src/trivet-ring.ts` | **THE TRIVET's ring, drawn** (§30 row 11, the fifth pose): the last shot is in |
 | `packages/render/src/dart-torch.ts` | WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts` |
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |
 | `packages/render/src/dark-field.ts` | **THE DARK, as a screen sees it**: the field above the ship put out |
@@ -3322,7 +3323,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-handles.ts` | **The states a handle brings on** — THE SINEW's tendon pulled, THE SURGE's bulb held and let go |
 | `tools/director/src/poses-bosses-hands-hasp.ts` | **THE HASP's story between the hasps**, posed with a hand on the controls: the rattle, the backspin, the rust and the sway |
 | `tools/director/src/poses-bosses-hands-takes.ts` | **The states a taking brings on** — a rock out of THE CAIRN, a number down THE SPLICE's straw |
-| `tools/director/src/poses-bosses-hands-trivet.ts` | **THE TRIVET's four states**, posed with a hand on the controls (`boss-hands-trivet.ts`) |
+| `tools/director/src/poses-bosses-hands-trivet.ts` | **THE TRIVET's five states**, posed with a hand on the controls (`boss-hands-trivet.ts`) |
 | `tools/director/src/poses-bosses-hands-ratchet.ts` | **THE RATCHET's nine states**, posed with a hand on the controls (`boss-hands-ratchet.ts`) |
 | `tools/director/src/poses-bosses-hands-rime.ts` | **THE RIME's still**, the one of its four states posed so far: the pane dropped in and standing |
 | `tools/director/src/poses-bosses-hands-nettle.ts` | **THE NETTLE's four states**, THE INSTAR's four (`poses-bosses-clocks.ts` |

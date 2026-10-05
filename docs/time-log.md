@@ -33273,3 +33273,13 @@ Bottleneck: none to speak of. THE GRINDSTONE's fade commit was the complete list
 Bottleneck: the brush and the slow were named in a dozen files outside the simulation, and only the typecheck and two count tests found them all.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — §30 THE TRIVET — row 11's ring, the look
+
+- reading: 5 min. THE GRINDSTONE's fade look as the template, `trivet-draw.ts`, `trivet-fx.ts` and the director's poses.
+- writing: 5 min. `trivet-ring.ts`, the jolt in `trivet-fx.ts`, six lines in `trivet-draw.ts`, `trivet-ring-frame.test.ts`, the STATES pose, §11.47 and the status lines.
+- looking: 5 min. One frame of the ring.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: "lights nothing" can't be counted against zero, because the HUD draws red on every screen, so it is counted against the same ring once it has died out.
