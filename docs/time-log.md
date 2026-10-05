@@ -33235,3 +33235,5 @@ Bottleneck: finding the effect — it is only on boss waves, inside the slowed w
 - landing: 5 min.
 
 Bottleneck: every part was laid inside its own drawer — the wing's anchor, the tail's rings, the nests' places — so each had to be cut into a shape the drawer and the stopper both call before a foot could be laid on it.
+
+*Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 6ad0d736f — THE INSTAR stops a bolt on its wings, tail and nests
+
+A bolt now stops on whatever part of THE INSTAR it meets first. Face-on that can be either wing, spread off the shoulders. Side-on it can be either wing off the back, the tail's tube, the two blades of its fork, or the slime under a nest that still holds an egg. Each part is laid out by the same shape the drawing uses: `wingRig`/`wingPoints`, `frontWings`/`profileWings`, `tailShape`, `bladePoints`, `nestsAt`/`nestPool`. A struck tail therefore catches a bolt down where it lashed, not on the hide 2.6 head radii above.
+
 ## 2026-10-05 · 6f185dbbc — PRISM's colour split is a third as wide
 
 In a boss's slowed window, the red and blue copies of the field now stand a third as far off the boss's own outline as they did, both the split held across the window and the kick on each beat. The owner asked for it by name: the red and green edges were too strong.
