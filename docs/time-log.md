@@ -33343,3 +33343,5 @@ Bottleneck: Biome's `--write` on the touched files did not apply `useImportType`
 - landing: 5 min. Two reds from the emptied wave — the lesson-keeps row and a comment the editor's save can't carry.
 
 Bottleneck: what the canvas stub logs, which a new frame test can only find out by printing it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
