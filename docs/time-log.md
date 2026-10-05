@@ -33439,3 +33439,5 @@ Bottleneck: the hold ring sat on the site's old centre until a zoomed frame show
 - landing: 10 min.
 
 Bottleneck: the red and blue the owner meant was THE SLOW's prism over the whole body, not the organ's own paint, and only a frame said so.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
