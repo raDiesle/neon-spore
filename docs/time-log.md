@@ -33283,3 +33283,5 @@ Bottleneck: the brush and the slow were named in a dozen files outside the simul
 - landing: 5 min.
 
 Bottleneck: "lights nothing" can't be counted against zero, because the HUD draws red on every screen, so it is counted against the same ring once it has died out.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
