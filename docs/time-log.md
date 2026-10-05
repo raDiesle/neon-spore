@@ -33367,3 +33367,5 @@ Bottleneck: deciding what the green means on a wheel wound by distance rather th
 - landing: 5 min. Two reds: the tutorial's rock moved a column on the shift's dice, and the cue-verb scan read the labels as cues.
 
 Bottleneck: the registrations a new event needs, found by the typecheck one at a time.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

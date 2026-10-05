@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · fd9aeb351 — THE SINEW's third fibre shifts each hand's pull
+
+On the third fibre each hand's pull is worth more or less than it was: every three beats — two seconds at 96 bpm — each hand is rolled again as weak (0.6), normal or strong (1.4), never the pair already in force, so one hand changes, or both, the same way or opposite. The beat before every shift the hand about to change says what is coming on its handle — "▲ STRONG", "▼ WEAK" or "NORMAL", blinking, with a ring closing in over the beat — so the pair has one beat to say who eases off. While a power is in force the handle wears a gold ring and STRONG, or a broken grey ring and WEAK. The next fibre puts both hands back at their whole pull. The autopilot pulls for the called powers once a call is out.
+
 ## 2026-10-05 · 952a20e4d — THE HASP's wheel turns with THE MAZE's knob, lever and channel
 
 The navigator's working wheel now wears THE MAZE's turn: a knob on a lever bolted to the hub, riding the spokes so it stops where the wheel seizes, in a closed channel round it, with the two-headed arrow in the knob and PULL under it. The knob is answered at PULL_GRAB as well as the rim. The green is the winding, not the place: the hasp opens by distance turned either way, so the ring fills by the share of this hasp's wind, the whole ring when it gives. The knurl is gone. The owner asked for this look by name (5 October 2026).
