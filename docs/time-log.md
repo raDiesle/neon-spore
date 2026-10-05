@@ -33391,3 +33391,5 @@ Bottleneck: the 23 test cases, each with its own reason for a `MOVE`, read and r
 - landing: 5 min.
 
 Bottleneck: where a word goes on a band button that has no Layout to size it by.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

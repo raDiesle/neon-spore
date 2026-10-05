@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · d67d74e69 — THE CLAW's crank turns with THE MAZE's knob, lever and channel
+
+The crank on the pilot's band is now drawn with the shared turn: a knob on a lever bolted to the middle, in a closed channel whose green runs from the top to the knob for the rope still out, the arrow in the knob for the way that bites (both heads while winding in and paying out both do), and PULL under the button until a hand lands. Dark, with no arrow, while the arm climbs on its own. The whole button is still the grab. The HASP's wheel row in the controls spec now names its knob too. The owner asked for this look by name (5 October 2026).
+
 ## 2026-10-05 · 921406b86 — No boss tells the pilot to MOVE the cannon any more
 
 The owner asked for this by name, after THE HIVE: the shoot indicator already shows where to shoot, so the cannon needs no MOVE word to get there. The cannon's CARRY / MOVE mark is gone from BULB QUEEN, THE CURTAIN, THE TASTER, THE MAZE, THE BATON (in flight and on the drop), THE UNDERTOW, THE GORGE, THE LEDGER, THE REPRISE, THE SCUTTLE's wind-up and THE VANE. Each FIRE, TAP, HOLD or SUCK stands where it stood before. A shield's MOVE and a hanging part's MOVE on THE SCUTTLE stay, because neither is the cannon.
