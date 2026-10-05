@@ -11684,36 +11684,46 @@ marks cut into its edge, a mottle of two dark greens; it slaps round,
 flinches on a peel, rolls between movements, parts down the middle on a
 split with the core between, and falls shapeless, spent. The arm that
 reaches is a lobed tentacle, a third of the way to the hull per reach.
-**While a picture is up the mantle is a crane holding the board** on both
+**While a picture is up the mantle is a crane holding the frame** on both
 screens (`mimicVeil`, half a beat each way; `render/src/mimic-crane.ts`):
 the owner, *the one who does not need to draw does not see this green tree
-at all*, and *a crane holding a portrait or a TV, but alien, living*. The
-mantle draws up small into the strip over the board, and two of its arms
-reach out and down to the board's top corners, curl round them and press a
-sucker on the frame; a pulse of pale light runs down the suckers on each arm
-toward the board on the beat, and a pale rim edges the whole crane so the
-dark skin reads on the dark sky. The tips stay put while the arms sway, so
-the board never moves. **The board**
-(`render/src/mimic-board.ts`, `mimic-tile.ts`, `chart-lattice.ts`) is THE
-FLEET's lattice without its letters, framed in the mantle's pale sign
-light, and its tiles **one colour and one look on every level**, with no
-face (`mimic-tile.ts`). **The reader** sees every tile the picture wants,
-faint, and every tile painted marked as it
-lands: a tick in the good green on a right one, a cross in the hull's red on
-a wrong one or a stray (`showsMimicSign`, `view-role-clocks-c.ts`). **The
-painter** sees only what has been painted, solid, unmarked
-(`showsMimicPaint`) — what to fix is said out loud. **The clock** is THE
-FLEET's drain bar and seconds, in the row over the hull. The board's tiles
+at all*, *a crane holding a portrait or a TV, but alien, living*, and on 5
+October 2026 *the boss graphics should like hold the current area of tiles
+to be placed*. **The frame** (`render/src/mimic-frame-look.ts`) is a band of
+the mantle's own skin round each picture's square — one, or two on a split,
+the same on both screens — edged in its pale sign light, suckers along it
+pulsing on the beat. The mantle hangs over it, smaller, and two of its arms
+reach out and down to the top corners of everything the frames take
+(`mimicHold`), curl round them and press a sucker on the band; a pulse of
+pale light runs down the suckers on each arm toward the frame on the beat,
+and a pale rim edges the whole crane so the dark skin reads on the dark sky.
+The tips stay put while the arms sway, so the frame never moves. **Only the
+frames are drawn**: inside each, THE FLEET's lattice without its letters
+(`render/src/mimic-board.ts`, `chart-lattice.ts`); the rest of the field
+stays the field. Its tiles are **one colour and one look on every level**,
+with no face (`mimic-tile.ts`). **The reader** sees every tile the picture
+wants, faint, and every tile painted marked as it lands: a tick in the good
+green on a right one, a cross in the hull's red on a wrong one
+(`showsMimicSign`, `view-role-clocks-c.ts`). **The painter** sees only what
+has been painted, solid, unmarked (`showsMimicPaint`) — what to fix is said
+out loud. **The clock** is THE SLOW's fuse with no slow open
+(`render/src/mimic-fuse.ts`, the way THE REPRISE counts its own): one line
+over the hull, burning in from both ends over the step's own beats, under
+the frame and its words, or under the mantle while the core is bare. There
+is no drain bar and no seconds. The frame's tiles
 are hit by the shared `render/touch.ts` (`mimic-tap.ts`), so the director's
 stage paints exactly as a phone does.
 
 **The hand.** The eight STATES cards are posed on AUTO's hand
 (`tools/director/src/poses-bosses-hands-mimic.ts`); the mimicking card lets
 the window run out. The field's words (`render/boss-cue-read-zt.ts`):
-**TILES**, a CALL framed round the picture with half a tile to spare on
-every side, on the screen that reads it; **TAP**, unframed over the top of
-the board, on the screen that paints, over its own half on a split; **TAP**
-on the core's tile while it is bare. The marks-window row
+**the fight's only help, since it has no tutorial** (the owner, 5 October
+2026: *help text for every player during game play with the scanner box*).
+Both are framed round the frame, clear of its band, with a line under the
+verb saying whose turn it is: **TILES** / *TELL P2 WHERE*, a CALL, on the
+screen that reads the picture; **TAP** / *WHERE P1 SAYS* on the screen that
+paints it — P1 and P2 swapped as the reader is; one of each to each seat on
+a split. **TAP** on the core's tile while it is bare. The marks-window row
 (`marks-window-rows-c.ts`) holds the picture's wanted tiles to a window with
 a picture owed; with no SLOW the hush test has no window to hold the words
 still in, and they stand on the frame, which the arm tips hold still.

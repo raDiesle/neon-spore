@@ -1110,10 +1110,12 @@ by hand never moves.
 | `packages/render/src/mimic-blow.ts` | **THE MIMIC's own blow at the hull**: the arm already hung there slaps it and leaves sucker prints |
 | `packages/render/src/mimic-board.ts` | **THE MIMIC's board** (§42; the owner, 3 October 2026): the field above the ship as squares |
 | `packages/render/src/mimic-fx.ts` | **What THE MIMIC leaves behind a frame**: the peel drifting off, the core's flash, the hull's shudder, the blow it takes |
+| `packages/render/src/mimic-frame-look.ts` | **THE MIMIC's frame, as the mimic's own flesh**: a band of its skin round each picture's square of the board |
+| `packages/render/src/mimic-fuse.ts` | **THE MIMIC's clock: THE SLOW's fuse, with no slow** |
 | `packages/render/src/mimic-receipts.ts` | **THE MIMIC's receipts, drawn** — what `mimic-fx.ts` holds between frames |
 | `packages/render/src/mimic-tap.ts` | **A finger on THE MIMIC's board**: the square it came down on, as THE MINE's `tapTile` (`mine-tap.ts`) |
 | `packages/render/src/mimic-tile.ts` | **One square of THE MIMIC's board**, and **the same square on every level** — the owner, 5 October 2026 |
-| `packages/render/src/mimic-crane.ts` | **THE MIMIC as a crane**: two arms holding the board up by its top corners |
+| `packages/render/src/mimic-crane.ts` | **THE MIMIC as a crane**: two arms holding the frame up by its top corners |
 | `packages/render/src/simon-fx.ts` | the count-in, the handover, and what the row is showing |
 | `packages/render/src/simon-row.ts` | the row of slots: a control, or a question mark |
 | `packages/render/src/simon-verdict.ts` | the sequence flying into whichever ship earned it |

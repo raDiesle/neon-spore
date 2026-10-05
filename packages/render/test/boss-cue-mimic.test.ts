@@ -1,8 +1,9 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { midCol, type World } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
+import { MIMIC_CUE_SPARE } from "../src/boss-cue-read-zt.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
-import { mimicChart, mimicPictureBox, mimicTileAt } from "../src/mimic-board.js";
+import { mimicPictureBox, mimicTileAt } from "../src/mimic-board.js";
 import { mimicPose } from "../src/mimic-pose.js";
 import { CORE } from "../src/mimic-shape.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, VIEWPORT } from "./frame-harness.js";
@@ -12,9 +13,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **THE MIMIC, and the words the field may say about it**
- * (`render/src/boss-cue-read-zt.ts`): `TILES` round the picture to the seat
- * that sees it, `TAP` on the board's top row to the seat that owes it, and
- * `TAP` on the bare core's tile. What is *not* said: either word to the wrong
+ * (`render/src/boss-cue-read-zt.ts`): `TILES` round the frame to the seat
+ * that sees the picture and `TAP` round the same frame to the seat that owes
+ * it, each with the line saying whose turn it is, and `TAP` on the bare
+ * core's tile. What is *not* said: either word to the wrong
  * seat, the picture's colours, the core's colour, and anything between asks.
  */
 
@@ -37,25 +39,28 @@ describe("THE MIMIC", () => {
     [1, "p1", "p2"],
     [2, "p2", "p1"],
   ] as const)(
-    "calls the picture to the reader, seat %i, and says TAP on the board to the other",
+    "calls the picture to the reader, seat %i, and says TAP round the same frame to the other",
     (reader, reads, draws) => {
       const world = stood();
       const s = posed(world, "sign", { ...SIGN, reader });
       const drawer = reader === 1 ? 2 : 1;
-      const said = cue(world, reads);
-      const l = LAYOUT[reads];
-      const box = mimicPictureBox(l, CFG, s.signs[drawer - 1] ?? -1, s.origins[drawer - 1] ?? 0);
-      expect(said?.word).toBe("TILES");
-      expect(said?.kind).toBe("CALL");
-      expect(said?.x).toBeCloseTo(box?.x ?? Number.NaN);
-      expect(said?.y).toBeCloseTo(box?.y ?? Number.NaN);
-      // Half a tile of room round the picture, every side.
-      expect(said?.halfW ?? 0).toBeCloseTo((box?.w ?? 0) / 2 + l.tile / 2);
-      const paint = cue(world, draws);
-      const board = mimicChart(LAYOUT[draws], CFG);
-      expect(paint?.word).toBe("TAP");
-      expect(paint?.y ?? 0).toBeGreaterThan(board.top);
-      expect(paint?.y ?? 0).toBeLessThan(board.top + board.tile);
+      for (const [role, word, kind, why] of [
+        [reads, "TILES", "CALL", `TELL P${drawer} WHERE`],
+        [draws, "TAP", "PRESS", `WHERE P${reader} SAYS`],
+      ] as const) {
+        const said = cue(world, role);
+        const l = LAYOUT[role];
+        const box = mimicPictureBox(l, CFG, s.signs[drawer - 1] ?? -1, s.origins[drawer - 1] ?? 0);
+        expect(said?.word).toBe(word);
+        expect(said?.kind).toBe(kind);
+        expect(said?.why).toBe(why);
+        expect(said?.x).toBeCloseTo(box?.x ?? Number.NaN);
+        expect(said?.y).toBeCloseTo(box?.y ?? Number.NaN);
+        // Room round the squares, clear of the mantle's band, every side.
+        const room = l.tile * MIMIC_CUE_SPARE;
+        expect(said?.halfW ?? 0).toBeCloseTo((box?.w ?? 0) / 2 + room);
+        expect(said?.halfH ?? 0).toBeCloseTo((box?.h ?? 0) / 2 + room);
+      }
     },
   );
 

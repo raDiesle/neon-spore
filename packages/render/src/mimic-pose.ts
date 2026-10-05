@@ -3,6 +3,7 @@ import { smoothstep } from "./ease.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { mimicVeil } from "./mimic-board.js";
+import { mimicFrames, mimicHold } from "./mimic-frame-look.js";
 import { ARMS, MANTLE, type MimicPose } from "./mimic-shape.js";
 import { phaseInto } from "./phase-into.js";
 
@@ -20,8 +21,8 @@ import { phaseInto } from "./phase-into.js";
  *
  * **While a picture is up it is a crane** (the owner, 3 October 2026: *like
  * a crane holding a portrait or a TV, but alien, living*): the mantle draws
- * up into the strip over the board and shrinks, its arms pulled in and its
- * reach held back, and two arms hold the board by its top corners
+ * in over the frame and shrinks, its arms pulled in and its reach held back,
+ * and two arms hold the frame by its top corners
  * (`mimic-crane.ts`). It goes up and comes down on the board's own veil
  * (`mimicVeil`), so the two are never out of step.
  */
@@ -61,9 +62,9 @@ export function mimicHang(l: Layout, cfg: SimConfig): { x: number; y: number } {
   return { x: fieldX(l, midCol(cfg)), y: l.gridTop + HANG * l.tile };
 }
 
-/** How small the mantle is as a crane, and how far over the board's top its middle hangs, in tiles. */
-const CRANE_SIZE = 0.55;
-const CRANE_LIFT = 1.35;
+/** How small the mantle is as a crane, and how far over the frame's top its middle hangs, in tiles. */
+const CRANE_SIZE = 0.7;
+const CRANE_LIFT = 2.5;
 
 /** The mantle's pose this frame: its phase's, drawn up into a crane as far as the board is up. */
 export function mimicPose(
@@ -77,7 +78,11 @@ export function mimicPose(
   const held = mimicVeil(s, beat, beatPhase);
   if (held <= 0) return p;
   const r = p.r * lerp(1, CRANE_SIZE, held);
-  const y = Math.max(r * 1.1, l.gridTop - CRANE_LIFT * l.tile);
+  // Over the frame it holds, low on the field where the frame is; over the
+  // field's top with none, which only a frame between pictures can be.
+  const hold = mimicHold(l, mimicFrames(l, cfg, s));
+  const top = hold?.top ?? l.gridTop;
+  const y = Math.max(r * 1.1, top - CRANE_LIFT * l.tile);
   return {
     ...p,
     r,

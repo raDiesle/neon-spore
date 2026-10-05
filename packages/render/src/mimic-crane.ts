@@ -1,19 +1,21 @@
-import type { SimConfig } from "@neon-spore/sim";
 import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
+import type { FrameBox } from "./mimic-frame-look.js";
 import type { MimicPose, Point } from "./mimic-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 
 /**
- * **THE MIMIC as a crane**: two arms holding the board up by its top corners.
+ * **THE MIMIC as a crane**: two arms holding the frame up by its top corners.
  * The owner, 3 October 2026: *something which holds the area … like a crane
  * holding a portrait or a TV — but alien, living*. While a picture is up the
- * mantle hangs small over the board
- * (`mimic-pose.ts`) and two of its arms come down and out to the board's two
- * top corners and hold it there, each tip curled round its corner with a
- * sucker pressed on the frame.
+ * mantle hangs over the frame
+ * (`mimic-pose.ts`) and two of its arms come down and out to the top corners
+ * of everything the frames take (`mimicHold`) — the frame, or both on a split
+ * — and hold it there, each tip curled round its corner with a sucker pressed
+ * on the band (the owner, 5 October 2026: *the boss graphics should like hold
+ * the current area of tiles to be placed*).
  *
  * **The arms reach for the corners as the board comes up** — at `held` nought
  * they are still under the mantle, at one they have it — and sway with the
@@ -31,18 +33,15 @@ const LOBES = 5;
 export const CRANE_RIM = 0.15;
 /** Where along an arm its suckers are, root nought to tip one. */
 const SUCKERS = [0.3, 0.45, 0.6, 0.75, 0.9];
-/** How far in from the board's corner a grip sits, in tiles. */
-const GRIP_IN = 0.3;
+/** How far in from the hold's corner a grip sits, in tiles: the middle of the band. */
+const GRIP_IN = 0.15;
 
 /** Where each arm leaves the mantle and where it holds, this frame. */
-function ends(l: Layout, cfg: SimConfig, p: MimicPose, side: -1 | 1): { root: Point; tip: Point } {
-  const top = l.gridTop;
-  const left = l.gridLeft;
-  const right = left + cfg.cols * l.tile;
+function ends(l: Layout, hold: FrameBox, p: MimicPose, side: -1 | 1): { root: Point; tip: Point } {
   const root = { x: p.x + side * p.r * 0.55, y: p.y + p.r * p.squash * 0.45 };
   const corner = {
-    x: side < 0 ? left + GRIP_IN * l.tile : right - GRIP_IN * l.tile,
-    y: top + GRIP_IN * l.tile,
+    x: side < 0 ? hold.left + GRIP_IN * l.tile : hold.right - GRIP_IN * l.tile,
+    y: hold.top + GRIP_IN * l.tile,
   };
   const k = p.held;
   return {
@@ -69,8 +68,8 @@ function spineAt(l: Layout, p: MimicPose, root: Point, tip: Point, side: -1 | 1,
 }
 
 /** One arm, root to tip, swaying with the skin. */
-function arm(l: Layout, cfg: SimConfig, p: MimicPose, side: -1 | 1): Path2D {
-  const { root, tip } = ends(l, cfg, p, side);
+function arm(l: Layout, hold: FrameBox, p: MimicPose, side: -1 | 1): Path2D {
+  const { root, tip } = ends(l, hold, p, side);
   const steps = 22;
   const a: Point[] = [];
   const b: Point[] = [];
@@ -90,11 +89,11 @@ function arm(l: Layout, cfg: SimConfig, p: MimicPose, side: -1 | 1): Path2D {
 function drawSuckers(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  cfg: SimConfig,
+  hold: FrameBox,
   p: MimicPose,
   side: -1 | 1,
 ): void {
-  const { root, tip } = ends(l, cfg, p, side);
+  const { root, tip } = ends(l, hold, p, side);
   for (const u of SUCKERS) {
     const at = spineAt(l, p, root, tip, side, u);
     const pulse = 0.5 + 0.5 * Math.sin(p.wave * 2.4 - u * 7);
@@ -109,19 +108,19 @@ function drawSuckers(
 export function drawMimicCraneArms(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  cfg: SimConfig,
+  hold: FrameBox | null,
   p: MimicPose,
 ): void {
-  if (p.held <= 0) return;
+  if (p.held <= 0 || hold === null) return;
   for (const side of [-1, 1] as const) {
-    const path = arm(l, cfg, p, side);
+    const path = arm(l, hold, p, side);
     ctx.fillStyle = PALETTE.mimicSkin;
     ctx.fill(path);
     ctx.lineWidth = STROKE.outline;
     ctx.strokeStyle = PALETTE.mimicSkinDark;
     ctx.stroke(path);
     strokeGlowFaded(ctx, path, PALETTE.mimicSign, STROKE.outline, CRANE_RIM, p.held);
-    drawSuckers(ctx, l, cfg, p, side);
+    drawSuckers(ctx, l, hold, p, side);
   }
 }
 
@@ -129,13 +128,13 @@ export function drawMimicCraneArms(
 export function drawMimicCraneGrips(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  cfg: SimConfig,
+  hold: FrameBox | null,
   p: MimicPose,
 ): void {
-  if (p.held < 0.5) return;
+  if (p.held < 0.5 || hold === null) return;
   const grip = (p.held - 0.5) * 2;
   for (const side of [-1, 1] as const) {
-    const { tip } = ends(l, cfg, p, side);
+    const { tip } = ends(l, hold, p, side);
     const r = l.tile * 0.34 * grip;
     const curl = new Path2D();
     // The tip hooks round the corner: a short tapered crook toward the board's middle.

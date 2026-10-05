@@ -33285,3 +33285,13 @@ Bottleneck: the brush and the slow were named in a dozen files outside the simul
 Bottleneck: "lights nothing" can't be counted against zero, because the HUD draws red on every screen, so it is counted against the same ring once it has died out.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE MIMIC holds its frame, and counts on THE SLOW's fuse
+
+- reading: 5 min. The crane, the pose, the slow fuse and THE REPRISE's fuse, the cue text's layout.
+- writing: 5 min. `mimic-frame-look.ts`, `mimic-fuse.ts`, the crane's grip, the words, two tests, §11.60.
+- looking: 5 min. Six frames: both screens' first picture, the 5×5, the split, the core and a burned fuse.
+- friction: 5 min. A spec rewrite whose second anchor matched nothing, restored from the commit and redone.
+- landing: 0 min.
+
+Bottleneck: the core's bare frame cannot be taken under AUTO, which taps it on the tick it opens.

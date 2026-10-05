@@ -1,24 +1,20 @@
 import {
-  beatSeconds,
   type MimicState,
   mimicDraws,
   mimicRows,
   mimicShapeSize,
-  mimicStep,
   mimicWants,
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
-import { drawChartLattice } from "./chart-lattice.js";
 import { smoothstep } from "./ease.js";
 import { fieldX } from "./field-flip.js";
 import type { Chart } from "./fleet-chart.js";
-import { clockText, drawDrainBar, FLEET_LATE } from "./fleet-clock.js";
 import { type Layout, tileCY } from "./layout.js";
+import { drawMimicFrames, drawMimicGround, mimicFrames } from "./mimic-frame-look.js";
 import { drawMimicTile, type TileLook } from "./mimic-tile.js";
-import { PALETTE } from "./palette.js";
 import { phaseInto } from "./phase-into.js";
-import { showsMimicPaint, showsMimicSign } from "./view-role-clocks-c.js";
+import { showsMimicSign } from "./view-role-clocks-c.js";
 
 /**
  * **THE MIMIC's board** (§42; the owner, 3 October 2026): the field above the
@@ -26,14 +22,15 @@ import { showsMimicPaint, showsMimicSign } from "./view-role-clocks-c.js";
  * painted on it a tile at a time.
  *
  * **The two screens are not drawn the same.** The reader is shown the
- * picture — every tile it wants, faint, in its colour — and every tile
+ * picture — every tile it wants, faint — and every tile
  * painted so far, marked **right** with a tick or **wrong** with a cross, as
  * it is painted. The painter is shown only what has been painted: no
  * picture and no marks, so what to fix is said out loud. `test` is both.
  *
- * The lattice's border is the mantle's pale sign light, the tiles' own. The **clock** is the row just over the
- * hull, which no picture stands on (`sim/mimic.ts` `mimicRows`): THE FLEET's
- * drain bar and its seconds, the window's.
+ * **Only the frames are drawn** (`mimic-frame-look.ts`, the owner, 5 October
+ * 2026): the lattice inside each, and the mantle's band of skin round it, on
+ * both screens; the rest of the field stays the field. The window's clock is
+ * THE SLOW's fuse, drawn without a slow (`mimic-fuse.ts`).
  */
 
 /** How long the mantle and the board take to cross-fade, in beats. */
@@ -52,7 +49,7 @@ export function mimicVeil(s: MimicState, beat: number, beatPhase: number): numbe
   return 0;
 }
 
-/** Where the board is on this screen. */
+/** Where the whole board is on this screen: what a tap is read against (`mimic-tap.ts`). */
 export function mimicChart(l: Layout, cfg: SimConfig): Chart {
   return { left: l.gridLeft, top: l.gridTop, tile: l.tile, cols: cfg.cols, rows: mimicRows(cfg) };
 }
@@ -99,7 +96,7 @@ function pictureOf(world: World, s: MimicState, col: number, row: number): 1 | 2
   return null;
 }
 
-/** The board, `alpha` of the way in: lattice, pictures for the reader, paint, marks and the clock. */
+/** The board, `alpha` of the way in: each frame's lattice, pictures for the reader, paint, marks and the frames. */
 export function drawMimicBoard(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -111,15 +108,14 @@ export function drawMimicBoard(
   if (alpha <= 0) return;
   const cfg = world.cfg;
   const c = mimicChart(l, cfg);
+  const frames = mimicFrames(l, cfg, s);
   ctx.save();
   ctx.globalAlpha *= alpha;
-  ctx.fillStyle = "rgba(4,8,20,.6)";
-  ctx.fillRect(c.left, c.top, c.cols * c.tile, c.rows * c.tile);
-  drawChartLattice(ctx, c, Math.max(0, 1 - beatPhase * 4), PALETTE.mimicSign);
+  drawMimicGround(ctx, l, frames, beatPhase);
 
-  // What this screen reads, and whether it paints anything itself.
+  // What this screen reads: a tile in a picture it reads is marked, and only
+  // a frame's tiles can be painted at all (`sim/mimic-hand.ts`).
   const reads = ([1, 2] as const).filter((k) => mimicDraws(s, k) && showsMimicSign(l.role, k));
-  const paints = ([1, 2] as const).some((k) => mimicDraws(s, k) && showsMimicPaint(l.role, k));
   for (const k of reads) drawPicture(ctx, l, world, s, k);
   for (let row = 0; row < c.rows; row++) {
     for (let col = 0; col < c.cols; col++) {
@@ -129,18 +125,16 @@ export function drawMimicBoard(
       let look: TileLook = "paint";
       if (owner !== null && reads.includes(owner)) {
         look = mimicWants(world, s, owner, col, row) === paint ? "right" : "wrong";
-      } else if (owner === null && reads.length > 0 && (!paints || l.role === "test")) {
-        look = "wrong";
       }
       const at = mimicTileAt(l, col, row);
       drawMimicTile(ctx, at.x, at.y, l.tile, paint, look);
     }
   }
-  drawMimicClock(ctx, l, world, s, beatPhase);
+  drawMimicFrames(ctx, l, frames, beatPhase);
   ctx.restore();
 }
 
-/** Every tile seat `seat`'s picture wants, faint in its colour, for the reader to say. */
+/** Every tile seat `seat`'s picture wants, faint, for the reader to say. */
 function drawPicture(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -161,30 +155,4 @@ function drawPicture(
       drawMimicTile(ctx, at.x, at.y, l.tile, wants, "wanted");
     }
   }
-}
-
-/** The window's clock in the row over the hull: a drain bar, red at the end, and its seconds. */
-function drawMimicClock(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  world: World,
-  s: MimicState,
-  beatPhase: number,
-): void {
-  const step = mimicStep(s);
-  if (s.phase !== "sign" || step === null) return;
-  const total = Math.max(1, step.beats);
-  const beats = Math.max(0, total - phaseInto(s, world.beat, beatPhase));
-  const left = beats / total;
-  const late = left < FLEET_LATE * 2;
-  const c = mimicChart(l, world.cfg);
-  const y = c.top + c.rows * c.tile + c.tile * 0.62;
-  const h = Math.max(3, c.tile * 0.14);
-  const inset = c.tile * 0.3;
-  drawDrainBar(ctx, c.left + inset, y, c.cols * c.tile - inset * 2, h, left, late);
-  const size = Math.max(11, c.tile * 0.42);
-  ctx.font = `700 ${Math.round(size)}px "Courier New",monospace`;
-  ctx.textAlign = "center";
-  ctx.fillStyle = late ? PALETTE.redRim : PALETTE.text;
-  ctx.fillText(clockText(beats * beatSeconds(world.cfg)), c.left + (c.cols * c.tile) / 2, y - 3);
 }
