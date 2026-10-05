@@ -17,6 +17,7 @@ import {
   sinewZone,
 } from "./sinew.js";
 import { catchSinew, releaseSinew } from "./sinew-hand.js";
+import { seatShift, stepShift } from "./sinew-shift.js";
 import { rollZone } from "./sinew-zone.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
@@ -52,8 +53,14 @@ export function installSinew(world: World): SinewState {
     catchBeat: -1,
     fallBeat: -1,
     outBeat: -1,
+    powerP1Permille: 1000,
+    powerP2Permille: 1000,
+    callP1Permille: 0,
+    callP2Permille: 0,
+    shiftBeat: -1,
   };
   rollZone(world, s);
+  seatShift(world, s);
   world.events.push({
     type: "sinewSettle",
     col: s.massCol,
@@ -119,6 +126,7 @@ function part(world: World, s: SinewState): void {
   s.fibres -= 1;
   s.holdBeat = -1;
   s.slackMilli = 0;
+  seatShift(world, s);
   if (s.fibres <= 0) {
     openSlow(world, cfg.sinewFallBeats, "ask");
     s.fallBeat = world.beat;
@@ -198,6 +206,7 @@ export function stepSinew(world: World, s: SinewState): void {
     return;
   }
   if (sinewEntering(s, cfg, world.beat)) return;
+  stepShift(world, s);
   if (sinewSwinging(s, world)) {
     catchSinew(world, s);
     return;

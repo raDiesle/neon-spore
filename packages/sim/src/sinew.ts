@@ -83,6 +83,18 @@ export interface SinewState {
   fallBeat: number;
   /** `world.beat` the mass landed on; `-1` while it has not. */
   outBeat: number;
+  /**
+   * What each hand's pull is worth, in thousandths: `1000` but on the
+   * shifting fibre, where it is rolled weak, whole or strong every
+   * `sinewShiftBeats` (`sinew-shift.ts`).
+   */
+  powerP1Permille: number;
+  powerP2Permille: number;
+  /** The powers called for the next shift, a beat before it; `0` with none called. */
+  callP1Permille: number;
+  callP2Permille: number;
+  /** `world.beat` the next shift lands on; `-1` off the shifting fibre. */
+  shiftBeat: number;
 }
 
 /** The boss, if it is the one installed. Narrowing in one place rather than five. */
@@ -107,11 +119,20 @@ export function sinewBandMilli(cfg: SimConfig): number {
 }
 
 /**
- * **The sum**: both pulls together, less what the tendon has gone slack by.
- * What player 2 is shown, and what the zone is read against.
+ * What one hand's pull adds to the sum: its depth at the hand's power, which
+ * is the whole of it except on the shifting fibre (`sinew-shift.ts`).
+ */
+export function sinewPower(s: SinewState, player: 1 | 2): number {
+  const permille = player === 1 ? s.powerP1Permille : s.powerP2Permille;
+  return Math.floor((sinewPull(s, player) * permille) / 1000);
+}
+
+/**
+ * **The sum**: both pulls together at their power, less what the tendon has
+ * gone slack by. What player 2 is shown, and what the zone is read against.
  */
 export function sinewSum(s: SinewState): number {
-  return Math.max(0, sinewPull(s, 1) + sinewPull(s, 2) - s.slackMilli);
+  return Math.max(0, sinewPower(s, 1) + sinewPower(s, 2) - s.slackMilli);
 }
 
 /** Fibres parted so far. */

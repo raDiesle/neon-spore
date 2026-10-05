@@ -33357,3 +33357,13 @@ Bottleneck: what the canvas stub logs, which a new frame test can only find out 
 Bottleneck: deciding what the green means on a wheel wound by distance rather than turned to a place.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE SINEW's third fibre shifts each hand's pull
+
+- reading: 5 min. The new-boss-state list, the audio binder, the autopilot hand, the handle drawing.
+- writing: 10 min. `sinew-shift.ts`, the power in the sum, the config, hash and event, `sinew-power.ts`, the autopilot, two tests, §11.26.
+- looking: 5 min. Four frames: a call, both powers in force, a shift that snapped.
+- friction: 0 min.
+- landing: 5 min. Two reds: the tutorial's rock moved a column on the shift's dice, and the cue-verb scan read the labels as cues.
+
+Bottleneck: the registrations a new event needs, found by the typecheck one at a time.

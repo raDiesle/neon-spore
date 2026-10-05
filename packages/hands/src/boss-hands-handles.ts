@@ -73,9 +73,17 @@ export const sinewHand: Hand = (w) => {
     return [tendon(1, true, reach / 2, reach), tendon(2, true, reach / 2, reach)];
   }
   const zone = sinewZone(s, w.cfg);
-  const each = Math.floor((zone.low + zone.high) / 4) + Math.floor(s.slackMilli / 2);
-  if (each > reach) return [tendon(1, false), tendon(2, false)];
-  return [tendon(1, true, each), tendon(2, true, each)];
+  // Each hand brings half the sum at its power — the called one once a call
+  // is out, since the sum is next read on the shift's beat
+  // (`sim/sinew-shift.ts`) — and a hand that cannot reach its half leaves
+  // the rest to the other.
+  const half = Math.floor((zone.low + zone.high) / 4) + Math.floor(s.slackMilli / 2);
+  const g1 = s.callP1Permille > 0 ? s.callP1Permille : s.powerP1Permille;
+  const g2 = s.callP2Permille > 0 ? s.callP2Permille : s.powerP2Permille;
+  const p1 = Math.min(reach, Math.ceil((half * 1000) / g1));
+  const p2 = Math.ceil(((half * 2 - Math.floor((p1 * g1) / 1000)) * 1000) / g2);
+  if (p2 > reach) return [tendon(1, false), tendon(2, false)];
+  return [tendon(1, true, p1), tendon(2, true, p2)];
 };
 
 /** THE SINEW's hands pulled past the zone's top, for the snap-back. */

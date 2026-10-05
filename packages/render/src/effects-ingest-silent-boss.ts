@@ -174,7 +174,7 @@ export const INGEST_SILENT_BOSS = [
   "ledgerRoll",
   "ledgerPull",
   "ledgerHaul",
-  // THE SINEW's fifteen are read as one family above the loop by
+  // THE SINEW's sixteen are read as one family above the loop by
   // `sinew-fx.ts` (`Effects.sinew`), the way the two above are: a burst per
   // event at the mass or the handle, the flash on a snap, the hull's shock
   // on a landing.
@@ -193,6 +193,7 @@ export const INGEST_SILENT_BOSS = [
   "sinewSwing",
   "sinewOut",
   "sinewCrush",
+  "sinewPower",
   // THE SURGE's thirteen are read as one family above the loop by
   // `surge-fx.ts` (`Effects.surge`), the way THE SINEW's are: a burst per
   // event at the bulb or the grip, the sink and the jet on a vent, the jolt

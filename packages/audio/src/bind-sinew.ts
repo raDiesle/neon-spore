@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE SINEW's fifteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE SINEW's sixteen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * Every one of them is panned, and here the pan is the one thing the ear
  * can add to the picture: the mass hangs in one column and the two handles
@@ -30,11 +30,12 @@ export function sinewCue(
         | "sinewFall"
         | "sinewSwing"
         | "sinewOut"
-        | "sinewCrush";
+        | "sinewCrush"
+        | "sinewPower";
     }
   >,
   cols: number,
-): Cue {
+): Cue | null {
   const pan = panForCol(e.col, cols);
   switch (e.type) {
     case "sinewSettle":
@@ -71,5 +72,11 @@ export function sinewCue(
       return { id: "boss.sinewOut", pan };
     case "sinewCrush":
       return { id: "boss.sinewCrush", pan };
+    case "sinewPower":
+      // The call is the warning and is heard — the catch's cut-off rush,
+      // higher the stronger the two hands are about to be; the shift itself
+      // is the picture's, a beat later, and silent.
+      if (!e.called) return null;
+      return { id: "boss.sinewCatch", pan, pitch: (e.p1Permille + e.p2Permille) / 2000 };
   }
 }

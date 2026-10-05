@@ -241,6 +241,7 @@ const SAMPLES: Record<string, SimEvent> = {
   sinewSwing: { type: "sinewSwing", col: 4, dir: -1 },
   sinewOut: { type: "sinewOut", col: 2 },
   sinewCrush: { type: "sinewCrush", col: 5 },
+  sinewPower: { type: "sinewPower", col: 5, called: true, p1Permille: 1400, p2Permille: 600 },
   surgeSettle: { type: "surgeSettle", col: 5, row: 3 },
   surgeGrip: { type: "surgeGrip", col: 5, player: 1 },
   surgeRelease: { type: "surgeRelease", col: 5, player: 2 },

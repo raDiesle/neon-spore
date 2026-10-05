@@ -61,6 +61,16 @@ export interface SinewConfig {
    * the start of the fight: a hand may take hold, but nothing pulls yet.
    */
   sinewEnterBeats: number;
+  /**
+   * Fibres parted while each hand's pull power shifts (`sinew-shift.ts`):
+   * `2` is the third fibre. `-1` is no shifting fibre at all.
+   */
+  sinewShiftFibre: number;
+  /** Beats between two shifts of power; the call comes on the beat before each. */
+  sinewShiftBeats: number;
+  /** A weak hand's pull, and a strong one's, in thousandths of its depth. */
+  sinewShiftWeakPermille: number;
+  sinewShiftStrongPermille: number;
 }
 
 /**
@@ -117,4 +127,10 @@ export const SINEW_DEFAULTS: SinewConfig = {
   sinewClearCols: 4,
   sinewOutBeats: 2,
   sinewEnterBeats: 4,
+  // The owner's *every 2 seconds*, 5 October 2026: three beats at 96 bpm is
+  // 1.9 s, and under the four a hold takes, so every hold meets a shift.
+  sinewShiftFibre: 2,
+  sinewShiftBeats: 3,
+  sinewShiftWeakPermille: 600,
+  sinewShiftStrongPermille: 1400,
 };

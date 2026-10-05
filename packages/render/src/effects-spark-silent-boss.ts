@@ -165,6 +165,7 @@ export const SILENT_BOSS = [
   "sinewSwing",
   "sinewOut",
   "sinewCrush",
+  "sinewPower",
   // THE LEDGER's eleven, silent **here** because all eleven are thrown by
   // `ledger-fx.ts` instead: every one of them names a column, which is the boss
   // itself, so the family is read above the loop where one `burst` can be

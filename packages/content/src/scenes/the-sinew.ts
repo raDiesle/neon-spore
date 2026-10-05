@@ -33,7 +33,7 @@ import type { GuideScene } from "../scene-types.js";
  *
  * **What it shows of the rest is the snap, and what the snap costs.** The
  * third pull goes over the top on purpose, the hands are thrown off, the rock
- * comes down at the mass's right and the last two pages answer it with the
+ * comes down under the mass and the last two pages answer it with the
  * plate and the trigger — the one answer on this wave that is the ordinary
  * one. The fall and the sway after the last fibre are prose: a hand steering
  * a falling mass sideways is the drag's other axis, and a page about it would

@@ -15,6 +15,7 @@ import {
   drawSinewHandleMarks,
   sinewHandleAsks,
 } from "./sinew-marks.js";
+import { drawSinewPower } from "./sinew-power.js";
 import { type Point, sinewLanded, sinewMassCentre, sinewMassRx } from "./sinew-shape.js";
 import { sinewWord } from "./sinew-word.js";
 import { sinew } from "./tether-sinew.js";
@@ -212,6 +213,7 @@ export function drawSinewHandles(
       theirs: !mine,
     });
     drawHandleDial(ctx, head.x, head.y, head.r, rim, pull);
+    drawSinewPower(ctx, s, head, side, beatPhase);
     drawSinewHandleMarks(ctx, head, mine, asks, time, verdicts.at(player));
     // **The cue, and not a word of this file's own** (`decisions.md` #34,
     // `boss-cue-text.ts`). Which word, and the three silences, are

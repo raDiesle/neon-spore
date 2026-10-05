@@ -58,6 +58,10 @@ export const CHOREO_FIELD_GROUP_B = {
   sinewClearCols: "THE SINEW — the boss that asks how hard, not when",
   sinewOutBeats: "THE SINEW — the boss that asks how hard, not when",
   sinewEnterBeats: "THE SINEW — the boss that asks how hard, not when",
+  sinewShiftFibre: "THE SINEW — the boss that asks how hard, not when",
+  sinewShiftBeats: "THE SINEW — the boss that asks how hard, not when",
+  sinewShiftWeakPermille: "THE SINEW — the boss that asks how hard, not when",
+  sinewShiftStrongPermille: "THE SINEW — the boss that asks how hard, not when",
   // SurgeConfig — how many notches, what a thumb charges and a beat leaks,
   // where the top of the gauge is, where each notch sits and how wide its
   // band is, from which notch it holds, doubles and closes, what a burst

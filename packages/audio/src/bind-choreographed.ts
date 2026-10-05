@@ -142,6 +142,7 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue | nul
     case "sinewSwing":
     case "sinewOut":
     case "sinewCrush":
+    case "sinewPower":
       return sinewCue(e, cols);
     case "surgeSettle":
     case "surgeGrip":

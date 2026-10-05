@@ -49,4 +49,14 @@ export type SinewEvent =
   /** The mass landed at the wall, clear of the ship: the fight is over. */
   | ({ type: "sinewOut" } & SinewColEvent)
   /** The mass landed on the hull. */
-  | ({ type: "sinewCrush" } & SinewColEvent);
+  | ({ type: "sinewCrush" } & SinewColEvent)
+  /**
+   * On the shifting fibre: each hand's pull power, in thousandths — `called`,
+   * the powers coming on the next beat; not, the powers in force from this one.
+   */
+  | ({
+      type: "sinewPower";
+      called: boolean;
+      p1Permille: number;
+      p2Permille: number;
+    } & SinewColEvent);

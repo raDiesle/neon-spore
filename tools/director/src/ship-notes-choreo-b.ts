@@ -49,7 +49,10 @@ export const CHOREO_NOTES_B = {
     "the last. A hand may land on a whipping handle but cannot pull on it; " +
     "both carried sinewCatchMilli apart catch the tendon and end the swing " +
     "that beat. From sinewDecayFibres gone the rope creeps sinewDecayMilli " +
-    "slack a beat under a held hand until both come off. A part opens THE " +
+    "slack a beat under a held hand until both come off. While " +
+    "sinewShiftFibre fibres are parted each hand's pull is worth " +
+    "sinewShiftWeakPermille, 1000 or sinewShiftStrongPermille thousandths, " +
+    "rolled again every sinewShiftBeats and called a beat before. A part opens THE " +
     "SLOW sinewPartSlowBeats. The last part drops the mass over " +
     "sinewFallBeats; both handles swayed sinewSwayMilli the same way walk it " +
     "a column a beat, and sinewClearCols from the middle it lands clear, " +

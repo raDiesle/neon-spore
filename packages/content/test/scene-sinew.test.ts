@@ -36,7 +36,7 @@ describe("the rehearsal for THE SINEW", () => {
     // in, a fibre parts and the hands let go. Again against the rolled zone.
     // The third pull is both reaches at once, over the top of any zone the
     // band allows, and the snap throws both hands off on the beat it is read
-    // and sheds one rock at the mass's right — turned by the plate carried
+    // and sheds one rock under the mass — turned by the plate carried
     // under it and the trigger, on the shield's row. No fall, no crush, no
     // hull.
     expect(seen).toEqual([
@@ -57,8 +57,8 @@ describe("the rehearsal for THE SINEW", () => {
       "sinewRelease 1 @26",
       "sinewRelease 2 @26",
       "snap 1 @26",
-      "rock 6 @26",
-      "deflect 6 @32",
+      "rock 5 @26",
+      "deflect 5 @32",
     ]);
     expect(run.world.creatures).toHaveLength(0);
     expect(run.world.boss?.kind).toBe("sinew");

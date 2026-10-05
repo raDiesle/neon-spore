@@ -4397,7 +4397,19 @@ the owner's word of 5 October 2026, so a part is a string cut and nothing
 else. From `sinewDecayFibres` (4) gone the rope **creeps
 slack** under a held hand by `sinewDecayMilli` (180) a beat, so the same two
 thumbs read less every beat, until both hands come off and the slack is
-gone. The last fibre's zone is the one step under the band's top. When it
+gone. **The third fibre shifts** (`sinewShiftFibre` (2) gone, the owner's
+idea of 5 October 2026, `sim/sinew-shift.ts`): every `sinewShiftBeats` (3) —
+two seconds at 96 bpm — each hand's pull is rolled again as weak
+(`sinewShiftWeakPermille`, 600), whole or strong (`sinewShiftStrongPermille`,
+1400), never the pair already in force, and the sum is the two pulls at
+their power. The beat before every shift the coming powers are **called**
+(`sinewPower`, `called`), so the pair has one beat to say who eases off; the
+next part puts both hands back at their whole pull. On the handles
+(`render/sinew-power.ts`): a strong hand wears a gold ring and `STRONG`
+beside it, a weak one a broken grey ring and `WEAK`; on the call the hand
+about to change says `▲ STRONG`, `▼ WEAK` or `NORMAL`, blinking, with a ring
+closing in over the beat. The last fibre's zone is the one step under the
+band's top. When it
 parts the mass **falls** (`sinewFall`) over `sinewFallBeats` (8), and on every
 beat of the fall both handles swayed `sinewSwayMilli` (300) the same way walk
 it a column that way (`sinewSwing`); `sinewClearCols` (4) columns from the

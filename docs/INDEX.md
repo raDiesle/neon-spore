@@ -115,6 +115,7 @@ by hand never moves.
 | `packages/sim/src/sinew-hand.ts` | **The two hands on THE SINEW**, off the wire, on the tick |
 | `packages/sim/src/sinew-hash.ts` | What THE SINEW puts into `hashWorld`, and nothing else |
 | `packages/sim/src/sinew-step.ts` | THE SINEW's clock — the hold, the part, the snap-back, the slack, the fall |
+| `packages/sim/src/sinew-shift.ts` | **THE SINEW's shifting fibre**: one fibre of the fight on which each hand's pull is worth more or less than… |
 | `packages/sim/src/sinew-zone.ts` | Where the zone sits for the fibre now hanging by |
 | `packages/sim/src/sinew.ts` | THE SINEW: how hard, not when |
 | `packages/sim/src/mirror.ts` | THE MIRROR's choreography: count in, perform, listen |
@@ -1397,6 +1398,7 @@ by hand never moves.
 | `packages/render/src/sinew-arrive.ts` | **THE SINEW dropping in, and its rubber after**, as offsets in tiles off where the tendon hangs |
 | `packages/render/src/sinew-crown.ts` | **The crown**: the body THE SINEW's tendon hangs from, flying over the top of the field — the owner |
 | `packages/render/src/sinew-tear.ts` | **A fibre torn: the stage won, said so nobody can miss it** — the owner, 2 October 2026 |
+| `packages/render/src/sinew-power.ts` | **What a hand's pull is worth, on the handle it is worth it on** |
 | `packages/render/src/slime-look.ts` | WHAT HANGS OFF THE MEMBRANE INTO THE CHAMBER, AS A RECORD |
 | `packages/render/src/sling-draw.ts` | **THE SLING** (§32): a forked bracket over the middle column, folded until it swings into stand |
 | `packages/render/src/sling-grip.ts` | **THE SLING's two cords as controls**: `slingDrawLeft` is the pilot's (seat 1) |
