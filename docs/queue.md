@@ -381,6 +381,7 @@ Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 ## `sim/boss-surface-clocks-e.ts` is near its line ceiling
 
 - **Found:** 2026-10-03, claude/queue-work-cccabd
+- **Taken:** 2026-10-05, claude/queue-tasks-status-bb9750 (claim: claude/queue-sim-boss-surface-clocks-e-ts-is-near-its-line-ce)
 - **Where:** local
 - **Files:** `packages/sim/src/boss-surface-clocks-e.ts`
 
