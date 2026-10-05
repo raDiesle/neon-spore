@@ -130,64 +130,6 @@ export function paintPit(
   ctx.restore();
 }
 
-/**
- * The bud's light idling on its own, in radii and radians a second. Its
- * contour wobbles on `time * 0.3` and its size pulses on `time * 4`
- * (`antiphon-draw.ts`), and a gradient pinned a fixed share of the radius
- * toward the light is a still life over both (`docs/style-guide.md`'s "Depth
- * on a body that already ships"). On a rate of its own.
- */
-const BUD_LIT_WOBBLE = 0.06;
-const BUD_LIT_WOBBLE_RATE = 0.41;
-
-/**
- * A bud: an organ or a candidate, flesh of `hex` shaded, its lower wall lit
- * from inside in `rim`, a wet point on it.
- */
-export function paintBud(
-  ctx: CanvasRenderingContext2D,
-  bud: Path2D,
-  x: number,
-  y: number,
-  r: number,
-  tile: number,
-  hex: string,
-  rim: string,
-  fade: number,
-  time: number,
-): void {
-  ctx.save();
-  ctx.globalAlpha = 0.75;
-  ctx.fillStyle = faded(hex, fade);
-  ctx.fill(bud);
-  ctx.globalAlpha = 1;
-  ctx.clip(bud);
-  const drift = BUD_LIT_WOBBLE * Math.sin(time * BUD_LIT_WOBBLE_RATE);
-  const shade = ctx.createRadialGradient(
-    x - r * (0.35 + drift),
-    y - r * (0.4 + drift * 0.8),
-    0,
-    x,
-    y,
-    r * 1.2,
-  );
-  shade.addColorStop(0, rgba(PALETTE.sheenRim, 0.3 * fade));
-  shade.addColorStop(0.35, rgba(PALETTE.sheenRim, 0));
-  shade.addColorStop(0.6, rgba(PALETTE.sheenDeep, 0));
-  shade.addColorStop(1, rgba(PALETTE.sheenDeep, 0.5 * fade));
-  ctx.fillStyle = shade;
-  ctx.fill(bud);
-  ctx.lineJoin = "round";
-  cut(ctx, bud, y, y + r * 2, tile * 0.1, faded(rim, fade), 0.8);
-  ctx.restore();
-  ctx.save();
-  ctx.fillStyle = rgba(PALETTE.sheenRim, 0.85 * fade);
-  ctx.beginPath();
-  ctx.arc(x - r * 0.35, y - r * 0.35, Math.max(0.8, r * 0.12), 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-}
-
 /** The mantle stroked wide inside itself over the band from `from` to `to`. */
 function band(
   ctx: CanvasRenderingContext2D,

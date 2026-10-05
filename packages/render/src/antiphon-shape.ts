@@ -4,8 +4,6 @@ import {
   type AntiphonState,
   antiphonOrganCol,
   antiphonOrganRow,
-  antiphonSinkBeat,
-  antiphonWindow,
   type SimConfig,
 } from "@neon-spore/sim";
 import { type Circle, type Layout, tileCX, tileCY } from "./layout.js";
@@ -210,19 +208,6 @@ export function antiphonGrowPhase(
   const beats = Math.max(1, cfg.antiphonGrowBeats);
   const g = Math.min(1, Math.max(0, (beat - o.grownBeat + beatPhase) / beats));
   return g * (2 - g);
-}
-
-/** How much of the window is left, 1 as the organ grows and 0 as it sinks; 0 while none stands. */
-export function antiphonWindowLeft(
-  s: AntiphonState,
-  cfg: SimConfig,
-  beat: number,
-  beatPhase: number,
-): number {
-  const sinkBeat = antiphonSinkBeat(s, cfg);
-  if (sinkBeat < 0) return 0;
-  const window = Math.max(1, antiphonWindow(s, cfg));
-  return Math.min(1, Math.max(0, (sinkBeat - beat - beatPhase) / window));
 }
 
 /** What is left of the body on its way out, 1 while it stands and 0 when it is gone. */

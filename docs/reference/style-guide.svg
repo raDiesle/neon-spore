@@ -197,6 +197,11 @@
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">organRim</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#CFF2C8 110°</text>
     </g>
+    <g transform="translate(116 1648)">
+      <rect width="66" height="46" rx="4" fill="#2C6A3A" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">vein</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#2C6A3A 134°</text>
+    </g>
 <text x="40" y="1754" fill="#2FE0F0" font-family="Courier New, monospace" font-size="10" text-anchor="start">ONE THING EACH</text>
 <text x="150" y="1754" fill="#7A6FA8" font-family="Courier New, monospace" font-size="9" text-anchor="start">a hue spent on a single body or hazard, placed in a gap and touching neither neighbour.</text>
     <g transform="translate(40 1770)">

@@ -1,7 +1,6 @@
 import {
   type AntiphonState,
   antiphonChooser,
-  antiphonOrganCol,
   antiphonRailAsks,
   type SimConfig,
 } from "@neon-spore/sim";
@@ -48,8 +47,8 @@ import { showsAntiphonRail } from "./view-role-clocks-b.js";
  * (`drawAntiphonVerdict`).
  */
 
-/** How far below the rail the word sits, in tiles — clear of the candidates. */
-const WORD_DOWN = 1.15;
+/** How far below the organ's place the word sits, in tiles — clear of the unknown. */
+const WORD_DOWN = 0.5;
 /** The word's frame, in tiles. */
 const HALF_W = 0.62;
 const HALF_H = 0.4;
@@ -117,13 +116,14 @@ export function drawAntiphonRailGrip(
   // never the answer: one word under the middle of the rail rather than one
   // per candidate, so it names nothing on it. The seat is the chooser's twice
   // over: the rail is drawn to them alone, and `cueSeen` says so again.
-  const at = antiphonPerch(l, cfg, antiphonOrganCol(cfg));
+  // Under the organ's place, where every vein ends, clear of the rail and
+  // of the unknown turning there.
   const cue: BossCue = {
     seat: antiphonChooser(s),
     kind: "CARRY",
     word: "PULL",
-    x: at.x,
-    y: at.y + l.tile * WORD_DOWN,
+    x: organ.x,
+    y: organ.y + organ.r + l.tile * WORD_DOWN,
     halfW: l.tile * HALF_W,
     halfH: l.tile * HALF_H,
     seed: 96,

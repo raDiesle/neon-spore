@@ -23,7 +23,7 @@ import type { HoldSpec } from "./spec.js";
  *   --hold surgeBulb=0              THE SURGE: the pilot's thumb on the bulb
  *   --hold surgeBulb2=0             and the navigator's, on the same bulb
  *   --hold antiphonOrgan=0          THE ANTIPHON: the pilot's thumb on the organ
- *   --hold antiphonRail=0,y=500,id=0  the navigator's, pulling candidate 0 off the rail
+ *   --hold antiphonRail=0,y=1000,id=1  the chooser's, carrying the middle candidate half way down its vein
  *   --hold instarMark=0,y=-1000,id=1  THE INSTAR's first step: the pilot pulling mark 1 up
  *   --hold instarMark2=0,y=1000,id=0  and the navigator pulling mark 0 down
  *   --hold instarSwipe2=0,y=1600,id=1  its second step: the navigator's swipe, lifted

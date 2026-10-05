@@ -101,9 +101,10 @@ export interface Under {
   readonly bottom: number;
 }
 
-/** The aim's body, head to the far end of its axis. */
+/** The aim's body, head to the far end of its axis, or down to its `foot`. */
 export function underAim(at: Aim): Under {
-  return { top: Math.min(at.y, at.ay) - at.r, bottom: Math.max(at.y, at.ay) + at.r };
+  const bottom = Math.max(at.y, at.ay) + at.r;
+  return { top: Math.min(at.y, at.ay) - at.r, bottom: Math.max(bottom, at.foot ?? bottom) };
 }
 
 /** A box, stood by whole: THE REPRISE's sac. */

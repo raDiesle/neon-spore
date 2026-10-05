@@ -49,7 +49,7 @@ describe("THE ANTIPHON's rail", () => {
     }
   });
 
-  it("carries the candidate in hand down toward the organ, on the chooser's screen alone", () => {
+  it("carries the candidate in hand down toward the organ, and a bead with it on the explainer's", () => {
     const carried = (role: ViewRole, milli: number) =>
       frame(role, (w) => {
         const s = grown(w);
@@ -58,7 +58,18 @@ describe("THE ANTIPHON's rail", () => {
       }).text;
     expect(carried("p2", 500)).not.toBe(carried("p2", 0));
     expect(carried("p2", 500)).not.toBe(carried("p2", 800));
-    expect(carried("p1", 500)).toBe(carried("p1", 0));
+    // The explainer is shown no candidate, only a bead coming down the vein
+    // (`antiphon-veins.ts`): the same bead whichever candidate it is.
+    expect(carried("p1", 500)).not.toBe(carried("p1", 0));
+    const bead = (shape: number) =>
+      frame("p1", (w) => {
+        const s = grown(w);
+        const c = s.rail[0];
+        if (c !== undefined) c.shape = shape;
+        s.carried = 0;
+        s.carryMilli = 500;
+      }).text;
+    expect(bead(2)).toBe(bead(11));
   });
 
   it("says PULL once under the rail, and never on the explainer's screen", () => {

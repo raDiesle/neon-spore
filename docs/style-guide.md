@@ -448,8 +448,8 @@ it out (`DROP_LIT_WOBBLE`/`DROP_LIT_WOBBLE_RATE`). The same sweep on
 26 September 2026 folded it into THE BATON's socket knuckles
 (`KNUCKLE_LIT_WOBBLE`, phased by socket), THE GORGE's lobe skin
 (`gorge-flesh.ts`, `LOBE_LIT_WOBBLE`, phased by seed, on top of the slide the
-sack's turn already gives it), THE ANTIPHON's buds (`antiphon-flesh.ts`,
-`BUD_LIT_WOBBLE`) and THE CURTAIN's bare core (`curtain-flesh.ts`,
+sack's turn already gives it), THE ANTIPHON's buds (flat since 5 October
+2026, when the owner took their depth off) and THE CURTAIN's bare core (`curtain-flesh.ts`,
 `CORE_LIT_WOBBLE`). THE LEAD's mound and beads and THE CURTAIN's hem beads
 are plain ellipses and circles under the same kind of gradient. They are not
 the bug and were left alone.

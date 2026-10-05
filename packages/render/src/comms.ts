@@ -1,4 +1,5 @@
 import type { Creature, CreatureKind, World } from "@neon-spore/sim";
+import { bossCall } from "./comms-boss.js";
 import { TALKER } from "./comms-talker.js";
 import { torchWarning } from "./torch-alarm.js";
 
@@ -107,8 +108,10 @@ export interface CommsCall {
  * disagree about when a torch is worth talking about.
  */
 export function commsCall(world: World): CommsCall | null {
-  let p1 = false;
-  let p2 = false;
+  // A boss whose split is the whole fight lights it for itself (`comms-boss.ts`).
+  const boss = bossCall(world);
+  let p1 = boss?.p1 ?? false;
+  let p2 = boss?.p2 ?? false;
   for (const c of world.creatures) {
     const seat = talkerFor(c);
     if (seat === "both") {

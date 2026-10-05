@@ -21,6 +21,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { antiphonBox } from "../src/antiphon-shape.js";
+import { antiphonSharp } from "../src/antiphon-veins.js";
 import { socketPoint, socketReach } from "../src/baton-socket-draw.js";
 import { sides, spread } from "../src/caption-anchor-box.js";
 import { curtainSheetSpan } from "../src/curtain-grip.js";
@@ -165,10 +166,13 @@ const WANT: Record<string, (w: World) => Aim> = {
       ),
     );
   },
+  // The body, with the rail and the organ's place left whole and the fuse's
+  // foot under them (`antiphonSharp`).
   antiphon: (w) => {
-    need(antiphonBoss(w), "antiphon");
+    const s = need(antiphonBoss(w), "antiphon");
     const b = antiphonBox(L, CFG);
-    return capsule(sides(b.left, b.right, b.top, b.bottom));
+    const sharp = antiphonSharp(L, CFG, s);
+    return { ...capsule(sides(b.left, b.right, b.top, b.bottom)), sharp, foot: sharp.y + sharp.h };
   },
 };
 

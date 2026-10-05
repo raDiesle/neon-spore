@@ -40,7 +40,7 @@ export const SEAT: Record<string, 1 | 2> = {
   mirrorLobe2: 2,
   /** THE WARDEN's eye is player 2's alone (`sim/warden-hand.ts`). */
   wardenEye: 2,
-  /** THE ANTIPHON's rail is the navigator's alone (`sim/antiphon-hand.ts`). */
+  /** THE ANTIPHON's rail is the chooser's, the navigator on the first level (`sim/antiphon-hand.ts`). */
   antiphonRail: 2,
   /** THE FILAMENT: the pilot draws, the navigator follows (`filament-hand.ts`). */
   filament2: 2,

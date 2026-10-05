@@ -1,5 +1,6 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { AntiphonMarks } from "./antiphon-marks.js";
+import { AntiphonReveal } from "./antiphon-reveal.js";
 import {
   antiphonCentre,
   antiphonContourPath,
@@ -58,6 +59,8 @@ export class AntiphonFx {
   readonly hurt = new BossHurt();
   /** The organ's verdict on a carry (`antiphon-marks.ts`). */
   readonly marks = new AntiphonMarks();
+  /** What arrived, shown at the organ's place on every screen (`antiphon-reveal.ts`). */
+  readonly reveal = new AntiphonReveal();
 
   /** The pits on the body this frame, by shape, for the eruption. */
   note(pits: readonly number[]): void {
@@ -75,6 +78,7 @@ export class AntiphonFx {
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
     this.marks.ingest(events);
+    this.reveal.ingest(events, l, cfg);
     const at = (p: { x: number; y: number }, n: number, hex: string) => burst(p.x, p.y, n, hex);
     const centre = antiphonCentre(l, cfg);
     const organ = antiphonOrganCircle(l, cfg);
@@ -137,10 +141,12 @@ export class AntiphonFx {
     if (this.eruptions.length > 0 && this.eruptions.every((e) => e.left <= 0)) this.eruptions = [];
     this.hurt.update(dt);
     this.marks.update(dt);
+    this.reveal.update(dt);
   }
 
   /** Each erupting pit: its contour pushing out from pit size to `ERUPT_TILES`, thinning as it goes. */
   draw(ctx: CanvasRenderingContext2D, l: Layout): void {
+    this.reveal.draw(ctx, l);
     for (const e of this.eruptions) {
       if (e.left <= 0) continue;
       const gone = 1 - e.left / e.life;
@@ -166,5 +172,6 @@ export class AntiphonFx {
     this.eruptions = [];
     this.hurt.clear();
     this.marks.clear();
+    this.reveal.clear();
   }
 }

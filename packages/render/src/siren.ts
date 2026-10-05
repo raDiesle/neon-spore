@@ -1,5 +1,6 @@
 import type { World } from "@neon-spore/sim";
 import { type CommsCall, commsCall } from "./comms.js";
+import { bossDuty } from "./comms-boss.js";
 import { dutyWord } from "./duty.js";
 import type { Layout } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
@@ -104,7 +105,7 @@ export function drawCommsSiren(
   // And, under it, the word or words this seat owes the other about whatever
   // split body is on the field. Nothing else on the field writes a word here
   // (`duty.ts`).
-  drawSiren(ctx, l, call, dutyWord(l.role, world), time, names);
+  drawSiren(ctx, l, call, bossDuty(l.role, world) ?? dutyWord(l.role, world), time, names);
 }
 
 /**

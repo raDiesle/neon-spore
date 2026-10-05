@@ -77,6 +77,13 @@ export interface Aim {
    * band is the one so far (`slow-boss-aim-b.ts`).
    */
   readonly sharp?: SharpRect;
+  /**
+   * How far down the window's work reaches, in layout pixels, where it hangs
+   * below the body: the fuse stands under it rather than under the body
+   * (`slow-fuse-place.ts`). THE ANTIPHON's rail and organ are the one so far
+   * (`slow-boss-aim-c.ts`).
+   */
+  readonly foot?: number;
 }
 
 /** A rectangle the window's lens leaves alone, in layout pixels. */

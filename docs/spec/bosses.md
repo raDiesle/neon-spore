@@ -5897,15 +5897,32 @@ in four families — REVERB, SMOKE, PRISM and MOULT, each one draft off the
 shape sheet and three that differ from it by one thing a sentence can say.
 The **organ** is drawn at `ORGAN_R` on the explainer's screen at its place,
 the **rail** at `RAIL_R` on the chooser's at the slots, the candidate in
-hand moving along its vein (`antiphonCandidateAt`), every one in
-`PALETTE.organ` — the same green on both screens, and nothing marking which
-candidate is the organ. Their own **ship** is a closed hull contour drawn
+hand moving along its vein (`antiphonCandidateAt`), every one **flat** in
+`PALETTE.organ` with one light rim — no sheen and no shading, so the outline
+is the whole of what the eye reads — and nothing marking which candidate is
+the organ. The **veins** (`render/antiphon-veins.ts`) run from every perch
+to the organ's place on **both** screens, the organ's green gone deep
+(`PALETTE.vein`) with beads of ichor flowing down them, growing out with the
+organ: on the explainer's each ends in a closed knot and the candidate in
+hand is a shapeless bead coming down, so *how far* is theirs to call and
+*which* is not. On the chooser's screen the organ's place holds **the
+unknown**, a slow green vortex of turning arcs and circling motes. On
+arrival the **reveal** (`render/antiphon-reveal.ts`) stands what arrived
+at the organ's place on every screen for a moment, rimmed light for a pit
+and red for a decoy, beside the verdict ring. The siren lights the
+explainer's chip and says **EXPLAIN SHAPE** and **CHOOSE SHAPE** under the
+dial, swapping with the seats (`render/comms-boss.ts`). Under THE SLOW the
+prism leaves the rail, the veins and the organ's place whole
+(`antiphonSharp`), and the fuse stands under them (`Aim.foot`); the window
+thread that ran along the body's underside is gone, the fuse being the
+window's one clock. Their own **ship** is a closed hull contour drawn
 true for the organ, and every decoy hull has the *wrong number of lobes*
 (`antiphonDecoyLobes`). **Down**, the body closes in and fades while every
 pit erupts (`antiphon-fx.ts`). `render/test/antiphon-frame.test.ts` and
 `antiphon-rail-frame.test.ts` prove the body on all three screens, the
 organ on the explainer's and the rail on the chooser's, the swap a level
-on, the carry drawn, and the eruption's reset.
+on, the carry drawn, and the eruption's reset; `antiphon-look.test.ts` the
+veins, the slow's whole rectangle and foot, the reveal and the siren.
 
 **The turn under a hand.** `antiphonOrgan` is a `DragTarget` heard by
 `sim/antiphon-hand.ts` from either seat: while a thumb rests on the organ

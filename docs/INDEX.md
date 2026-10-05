@@ -2107,6 +2107,7 @@ by hand never moves.
 | `packages/render/src/rub-turns.ts` | Where it went down, and the way it is rubbing once it has gone far enough to say |
 | `packages/render/src/rub-mark.ts` | **The mark a rub asks with: a red line, and an arrow coming in at it from each side**, the same on every boss |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
+| `packages/render/src/comms-boss.ts` | The siren for a boss whose split is the whole fight: THE ANTIPHON's explainer lit, EXPLAIN SHAPE and CHOOSE SHAPE swapping every level |
 | `packages/render/src/corner-light.ts` | One rounded light in the bottom-right corner of the sky |
 | `packages/render/src/core-hurt.ts` | **A core's hurt**: a little smaller and brighter for every hit it has taken |
 | `packages/render/src/core-stop.ts` | **Where a bolt meets a core over the middle column**: `coreStopper`, and a body's `Foot` |
@@ -2278,7 +2279,9 @@ by hand never moves.
 | `packages/render/src/antiphon-stop.ts` | **Where a bolt meets THE ANTIPHON**, for `BoltStops` (`bolt-stop.ts`): what each screen draws over the column — a rail bud, the organ, the underside |
 | `packages/render/src/antiphon-grip.ts` | **THE ANTIPHON's first handle: the organ, on the screen it is shown on** |
 | `packages/render/src/antiphon-rail-grip.ts` | **THE ANTIPHON's second handle: the rail, on the one screen it hangs on** — a ring on every candidate… |
+| `packages/render/src/antiphon-reveal.ts` | THE ANTIPHON's reveal: the candidate carried home standing at the organ's place on every screen for a moment |
 | `packages/render/src/antiphon-marks.ts` | **THE ANTIPHON's two handles answering a touch the way every mark does** (`mark-feedback.ts` |
+| `packages/render/src/antiphon-veins.ts` | THE ANTIPHON's veins from each candidate to the organ's place, the bead in hand on the explainer's screen, and the unknown turning on the chooser's |
 | `packages/render/src/beatbox-marks.ts` | THE BEATBOX's two half-pictures: the **count** over the box on player 1's screen |
 | `packages/render/src/beatbox-tap.ts` | **Player 2's thumb on a soundbox**, and the first press in this game that lands on a *body* and is over the… |
 | `packages/render/src/beatbox-wave.ts` | **The wave of sound a miscounted box sends at the ship**, and the picture this creature is named for |

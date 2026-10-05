@@ -33429,3 +33429,13 @@ Bottleneck: every file that knew the shot — fifty of them — found by the typ
 Bottleneck: the hold ring sat on the site's old centre until a zoomed frame showed it, since nothing else reads the length of a drop.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE ANTIPHON is green and flat, with veins, the unknown and the siren's words
+
+- reading: 15 min. THE SLOW's prism and fuse, the siren's call and word, the reveal's events.
+- writing: 60 min. `antiphon-veins.ts`, `antiphon-reveal.ts`, `comms-boss.ts`, the flat contour, `Aim.foot`, the look test, §11.31's look.
+- looking: 20 min. Frames of both seats at tick 520, and the fringe tracked to THE SLOW's prism.
+- friction: 10 min. A frames hold at the wrong tempo; a compaction mid-lane.
+- landing: 10 min.
+
+Bottleneck: the red and blue the owner meant was THE SLOW's prism over the whole body, not the organ's own paint, and only a frame said so.

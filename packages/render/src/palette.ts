@@ -43,6 +43,10 @@ export const PALETTE = {
    * 5 October 2026). Mossier than `good`, which is a verdict. */
   organ: "#62C46A",
   organRim: "#CFF2C8",
+  /** The veins that join THE ANTIPHON's candidates to the organ's place: the
+   * organ's green gone deep, an ichor rather than a blood, so nothing on the
+   * way down is in a colour the cannon fires. */
+  vein: "#2C6A3A",
   sparkDim: "#8B85AB",
   ...CREATURE_HUES,
   ...LATE_CREATURE_HUES,

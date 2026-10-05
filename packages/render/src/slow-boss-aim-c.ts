@@ -18,6 +18,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { antiphonBox } from "./antiphon-shape.js";
+import { antiphonSharp } from "./antiphon-veins.js";
 import { socketPoint, socketReach } from "./baton-socket-draw.js";
 import { sides } from "./caption-anchor-box.js";
 import { curtainSheetSpan } from "./curtain-grip.js";
@@ -146,11 +147,21 @@ export function longBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       return edge === null ? null : capsule(edge);
     }
     // The body the width of the field: a disc round it would be the whole top
-    // of the screen, which is the case the capsule is for.
+    // of the screen, which is the case the capsule is for. Its foot is under
+    // the organ's place, so the fuse stands below where the carry ends
+    // (`slow-fuse-place.ts`), and the rail, its veins and the organ are left
+    // whole: a shape split into red and blue is a shape nobody can describe
+    // (the owner, 5 October 2026).
     case "antiphon": {
-      if (antiphonBoss(world) === null) return null;
+      const s = antiphonBoss(world);
+      if (s === null) return null;
       const b = antiphonBox(l, cfg);
-      return capsule(sides(b.left, b.right, b.top, b.bottom));
+      const sharp = antiphonSharp(l, cfg, s);
+      return {
+        ...capsule(sides(b.left, b.right, b.top, b.bottom)),
+        sharp,
+        foot: sharp.y + sharp.h,
+      };
     }
     // The yoke: the crotch, both tines as splayed as it has arrived, and both
     // cords as far drawn as their seat has them.
