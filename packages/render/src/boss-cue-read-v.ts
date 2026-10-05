@@ -2,7 +2,7 @@ import { type HiveState, hiveDown, hiveOpen, type World } from "@neon-spore/sim"
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
 import { hiveSite } from "./hive-shape.js";
-import { type Layout, tileCX } from "./layout.js";
+import type { Layout } from "./layout.js";
 
 /**
  * **What THE HIVE is asking for** — the readings' page `v`, a letter rather
@@ -22,15 +22,13 @@ import { type Layout, tileCX } from "./layout.js";
  * site's swell, hers alone (`hive.ts` §11.14) — and a cue that named either
  * would be the conversation the wave exists to cause.
  *
- * **`CARRY` / `MOVE` on the cannon where it stands, his — THE SCUTTLE's and
- * THE REPRISE's mark, not a new one.** It says his thumb has a breach to
- * reach and nothing about which one or which way: the destination is the
- * open, unsealed aperture already lit on his own glass, in the colour only he
- * is shown. Two open at once (`hiveTwins`) is the pair's own call, so the
- * reading always names the earliest of the two still open — the one that has
- * been spilling longest — and leaves the choice of which to prioritise a
- * word the pair may still overrule out loud; the cue is a floor, not the
- * whole of the fight.
+ * **Nothing for his cannon.** Until 5 October 2026 a `CARRY` / `MOVE` stood
+ * on it wherever it was, his, until it reached an open breach. The owner that
+ * day: *we do not need to show helper to "move" for cannon to shoot. just the
+ * "shoot" indicator is enough where to shoot* — THE PINBALL's verdict on the
+ * same word (`boss-cue-read-h.ts`). The open aperture is already lit on his
+ * glass, in the colour only he is shown, so a word that said *go* and not
+ * *where* told him nothing his screen did not.
  *
  * **`PRESS` / `FIRE` on the breach itself, hers — gated on his cannon, THE
  * SCUTTLE's second rule.** It stands only once `world.cannonCol` already
@@ -39,14 +37,13 @@ import { type Layout, tileCX } from "./layout.js";
  * no reading, only the moment. It never says `RED` or `CYAN`: which lobe her
  * thumb presses is the half of the puzzle his voice still has to cross,
  * THE VANE's and THE REPRISE's rule on a boss with two buttons and one word.
- *
- * **One at a time, and never both.** Unlike THE REPRISE's tear, which stands
- * for a pilot and a navigator to act on together, a breach takes its two
- * halves in order — reach it, then fire it — so the two marks never share a
- * frame: `PRESS` replaces `CARRY` the instant the cannon arrives, and neither
- * appears while nothing stands open and unsealed (`hiveOpenCount`, folded
- * into the loop below rather than called, since the loop already needs the
- * index and not the count).
+ * Two open at once (`hiveTwins`) is the pair's own call, so the reading
+ * always names the earliest of the two still open — the one that has been
+ * spilling longest — and leaves the choice of which to prioritise a word the
+ * pair may still overrule out loud; the cue is a floor, not the whole of the
+ * fight. Nothing stands while nothing is open and unsealed (`hiveOpenCount`,
+ * folded into the loop below rather than called, since the loop already needs
+ * the index and not the count).
  *
  * **Nothing for the swell, the plate or the rocks.** The swell is a warning
  * and not a gesture — nothing on the panel answers it, only a sentence said
@@ -66,10 +63,7 @@ export function hiveCues(l: Layout, world: World, s: HiveState): readonly BossCu
     }
   }
   if (target < 0) return [];
-  const col = s.cols[target] ?? 0;
-  if (world.cannonCol === col) {
-    const c = hiveSite(l, s, target);
-    return [markAt(2, "PRESS", "FIRE", c.x, c.y, l, 100)];
-  }
-  return [markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 99)];
+  if (world.cannonCol !== (s.cols[target] ?? 0)) return [];
+  const c = hiveSite(l, s, target);
+  return [markAt(2, "PRESS", "FIRE", c.x, c.y, l, 100)];
 }

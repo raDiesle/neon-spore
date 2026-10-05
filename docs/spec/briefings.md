@@ -1093,6 +1093,8 @@ whenever an open breach waits unsealed and he has not reached it yet;
 `PRESS` / `FIRE` replaces it on the breach itself, hers, the beat his cannon
 does. Neither word says the colour, nor which of two twinned breaches to take
 first — that pair of sentences is the fight, and stays his and hers to say.
+(`MOVE` came off his strip on 5 October 2026, the owner's word: the shoot
+indicator is enough. The lit breach on his own glass is still the place.)
 The step that named the breach for him is gone; the three that are still
 theirs — the colour as it opens, the swell three beats ahead, and getting
 there before it does — are unchanged, because none of them is a place the

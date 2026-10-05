@@ -2589,10 +2589,10 @@ say anything at all.
 **The field says the word too, since 19 September 2026** (`render/boss-cue-read-v.ts`).
 An open breach stands in the same column on both screens — nothing about
 its place is split, only its colour — so the column was never the secret a
-cue could leak. `CARRY` / `MOVE` marks the cannon, his, whenever an open
-breach stands unsealed and he has not yet reached it; `PRESS` / `FIRE`
-replaces it on the breach itself, hers, the instant `world.cannonCol`
-agrees with it. Neither word ever says which colour or which of two
+cue could leak. `PRESS` / `FIRE` stands on the breach itself, hers, the
+instant `world.cannonCol` agrees with it. Until 5 October 2026 a `CARRY` /
+`MOVE` marked the cannon, his, while he had not yet reached it; the owner
+that day: *just the "shoot" indicator is enough where to shoot*, so it went. Neither word ever says which colour or which of two
 twinned breaches to take first — that pair of sentences is still the
 fight's, said out loud (`docs/decisions.md` #34's second rule). The
 briefing came down with it: the pilot no longer has to be told which open

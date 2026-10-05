@@ -11,7 +11,7 @@ import {
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { hiveSite } from "../src/hive-shape.js";
-import { computeLayout, type Layout, tileCX, type ViewRole } from "../src/layout.js";
+import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -29,11 +29,12 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * split between them (`hive-shape.ts`, `hive-draw.ts`) — so *where* is never
  * the secret here, only *which colour* and *which one is next*.
  *
- * `CARRY` / `MOVE` is his, on the cannon where it stands, until the cannon
- * reaches the open breach's own column; then it is `PRESS` / `FIRE`, hers, on
- * the breach itself. Neither ever names the colour or the column out loud —
- * the mark's own place on the glass is the only thing it says, and that place
- * is one both seats already read off their own screen.
+ * His cannon is told nothing — no `MOVE` since 5 October 2026, when the
+ * owner said the shoot indicator is enough. Once the cannon reaches the open
+ * breach's own column it is `PRESS` / `FIRE`, hers, on the breach itself. It
+ * never names the colour or the column out loud — the mark's own place on the
+ * glass is the only thing it says, and that place is one both seats already
+ * read off their own screen.
  */
 
 beforeAll(installCanvasGlobals);
@@ -86,7 +87,7 @@ describe("THE HIVE", () => {
     expect(word(world, "p2")).toBeNull();
   });
 
-  it("asks the pilot to carry the cannon to an open breach", () => {
+  it("tells neither seat to move the cannon toward an open breach", () => {
     const world = untilOpen(installed());
     const s = boss(world);
     let target = -1;
@@ -98,13 +99,8 @@ describe("THE HIVE", () => {
     }
     world.cannonCol = (s.cols[target] ?? 0) === 0 ? 1 : 0;
 
-    const his = cue(world, "p1");
-    expect(his?.word).toBe("MOVE");
-    expect(his?.kind).toBe("CARRY");
-    expect(his?.seat).toBe(1);
-    // On his own strip, at the hull — never at the breach he has not reached.
-    expect(his?.x).toBe(tileCX(LAYOUT.p1, world.cannonCol));
-    expect(his?.y).toBe(LAYOUT.p1.hullY);
+    expect(word(world, "p1")).toBeNull();
+    expect(word(world, "p2")).toBeNull();
   });
 
   it("switches to the navigator's press once the cannon is under the breach", () => {
