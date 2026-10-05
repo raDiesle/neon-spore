@@ -3,6 +3,7 @@ import {
   ANTIPHON_SHIP,
   type AntiphonState,
   antiphonBoss,
+  antiphonSlotCol,
   createWorld,
   startWave,
   step,
@@ -10,6 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
+import { PALETTE } from "../src/palette.js";
 import type { TextBox } from "./canvas-stub.js";
 import { CFG, runFrames, waveWith } from "./frame-harness.js";
 
@@ -36,10 +38,12 @@ export function hung(): World {
 export function bare(world: World): AntiphonState {
   const s = antiphonBoss(world);
   if (s === null) throw new Error("the antiphon wave grew no body");
-  s.organs = [];
+  s.organ = null;
   s.rail = [];
+  s.answer = -1;
+  s.carried = -1;
+  s.carryMilli = 0;
   s.pits = [];
-  s.extra = 0;
   s.cycleBeat = world.beat;
   s.stillBeat = -1;
   s.downBeat = -1;
@@ -49,15 +53,12 @@ export function bare(world: World): AntiphonState {
   return s;
 }
 
-/** One organ grown over column 4, red, on a rail of three. */
+/** One organ grown, the middle of a rail of three. */
 export function grown(world: World, shape = 1): AntiphonState {
   const s = bare(world);
-  s.organs = [{ shape, col: 4, color: "red", grownBeat: world.beat - CFG.antiphonGrowBeats }];
-  s.rail = [
-    { shape: 0, col: 2, color: "cyan" },
-    { shape, col: 4, color: "red" },
-    { shape: 3, col: 6, color: "red" },
-  ];
+  s.organ = { shape, grownBeat: world.beat - CFG.antiphonGrowBeats };
+  s.rail = [0, shape, 3].map((c, i) => ({ shape: c, col: antiphonSlotCol(CFG, 3, i) }));
+  s.answer = 1;
   return s;
 }
 
@@ -72,7 +73,7 @@ export function ship(world: World): AntiphonState {
 /** The right ship was fired a beat ago. */
 export function down(world: World): AntiphonState {
   const s = ship(world);
-  s.organs = [];
+  s.organ = null;
   s.rail = [];
   s.downBeat = world.beat - 1;
   return s;
@@ -97,6 +98,9 @@ export function drawn(
 
 export const turnWord = (words: string[]): boolean => words.some((w) => w.includes("TURN"));
 export const pullWord = (words: string[]): string[] => words.filter((w) => w.includes("PULL"));
+
+/** Whether a frame's log holds the organs' green — the colour no control wears. */
+export const green = (text: string): boolean => text.includes(PALETTE.organ);
 
 export function count(text: string, colour: string): number {
   return text.split(colour).length - 1;

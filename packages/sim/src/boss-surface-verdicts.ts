@@ -14,7 +14,6 @@
  * is one something outside `packages/sim` imports.
  */
 
-export { antiphonVerdict } from "./antiphon-shot.js";
 export { burgeeVerdict } from "./burgee-shot.js";
 export { capstanVerdict } from "./capstan-shot.js";
 export type { CoreVerdict } from "./core-verdict.js";

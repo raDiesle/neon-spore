@@ -1,3 +1,4 @@
+import { antiphonOpenLevel } from "./antiphon-step.js";
 import { mazeOpenRound } from "./maze-verdict.js";
 import { mirrorOpenRound } from "./mirror-round.js";
 import { pinballOpenRound } from "./pinball-round.js";
@@ -52,6 +53,9 @@ export function setBossRound(world: World, round: number): boolean {
       return true;
     case "pulse":
       pulseOpenStage(world, boss, round);
+      return true;
+    case "antiphon":
+      antiphonOpenLevel(world, boss, round);
       return true;
     default:
       return false;

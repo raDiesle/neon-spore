@@ -59,8 +59,8 @@ export const INGEST_SILENT_BOSS_B = [
   // gauge that is already right. The green on the ring of the hand that
   // bought it is `cairn-marks.ts`'.
   "cairnHeld",
-  // THE ANTIPHON's eleven leave nothing behind for the next frame here: the
-  // body, the organs, the rail and the pits are read off the state every
+  // THE ANTIPHON's nine leave nothing behind for the next frame here: the
+  // body, the organ, the rail and the pits are read off the state every
   // frame, and what outlives a frame — the eruption of every pit — and the
   // bursts are one family read above the loop by `antiphon-fx.ts`, never
   // rows here (`docs/spec/bosses.md` §11.31).
@@ -68,9 +68,7 @@ export const INGEST_SILENT_BOSS_B = [
   "antiphonGrow",
   "antiphonPit",
   "antiphonHarden",
-  "antiphonPull",
   "antiphonSink",
-  "antiphonSpill",
   "antiphonStill",
   "antiphonShip",
   "antiphonBurst",

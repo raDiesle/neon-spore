@@ -1,4 +1,3 @@
-import { antiphonStruck } from "./antiphon-shot.js";
 import { batonBeadAlong, batonShotSpends, batonStruck } from "./baton-press.js";
 import { bossAlong, bossAlongStruck } from "./boss-along.js";
 import { resolve } from "./bullet-hit.js";
@@ -175,9 +174,6 @@ function burnColumn(world: World, col: number, color: Color): number {
   // And THE SCUTTLE's wind-up, which only a beam standing in the last part's
   // column ends (`scuttle-shot.ts`).
   scuttleStruck(world, b);
-  // And THE ANTIPHON, to which a beam is nothing — said there, once
-  // (`antiphon-shot.ts`).
-  antiphonStruck(world, b);
   // And THE HIVE's breach, which the beam seals like a bolt held there
   // (`hive-shot.ts`).
   // And THE GIMBAL's leaking seam, the one thing in that whole fight a

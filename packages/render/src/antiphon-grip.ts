@@ -1,5 +1,6 @@
 import {
   type AntiphonState,
+  antiphonExplainer,
   antiphonHeld,
   antiphonOrganAsks,
   type SimConfig,
@@ -17,19 +18,19 @@ import { bossOf } from "./touch-field.js";
 import { showsAntiphonOrgan } from "./view-role-clocks-b.js";
 
 /**
- * **THE ANTIPHON's one handle: the organ, on the screen it is shown on.**
+ * **THE ANTIPHON's first handle: the organ, on the screen it is shown on.**
  *
  * The design's *turn under a hand* (§11.31): a thumb resting on the organ
  * turns it slowly in place, a whole turn in `antiphonTurnBeats`, and it
  * stops the moment the thumb lifts. `antiphonOrgan` is one `DragTarget`
  * and a `drag` on it from either seat is that seat's thumb on the glass
  * (`sim/antiphon-hand.ts`), the way THE SURGE's bulb is — but where the bulb
- * is on both screens, the organ is on one: the navigator sees the rail and
- * nothing to hold, so on that screen the hit test answers nothing and a
- * thumb there falls through to the field, exactly as if no organ hung.
+ * is on both screens, the organ is on one: the chooser sees the rail and
+ * nothing to hold there, so on that screen the hit test answers nothing and
+ * a thumb there falls through, exactly as if no organ stood.
  *
  * The turn is not a receipt: it changes no window, sinks no organ, names no
- * shape. It is the pilot's way of *looking* — every candidate on the rail
+ * shape. It is the explainer's way of *looking* — every candidate on the rail
  * faces one way, and an organ turned a little may show its lobes where the
  * rail's decoys hide theirs — and the picture of the organ turning is the
  * only thing the mechanism draws. The hit test is the organ's circle at
@@ -53,11 +54,8 @@ const GRIP_R = 0.6;
  */
 export function antiphonOrganUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const s = bossOf(field, "antiphon");
-  if (s === null || !showsAntiphonOrgan(l.role)) return null;
-  const n = s.organs.length;
-  let on = false;
-  for (let i = 0; i < n && !on; i++) on = hitCircle(antiphonOrganCircle(l, field.cfg, i, n), x, y);
-  if (!on) return null;
+  if (s === null || s.organ === null || !showsAntiphonOrgan(l.role, s)) return null;
+  if (!hitCircle(antiphonOrganCircle(l, field.cfg), x, y)) return null;
   const target = "antiphonOrgan";
   return {
     player: field.seat,
@@ -66,7 +64,7 @@ export function antiphonOrganUnder(l: Layout, x: number, y: number, field: Field
   };
 }
 
-/** The grip marks: one on each standing organ, held while a thumb is on, with the word under it while none is. */
+/** The grip mark on the standing organ, held while a thumb is on, with the word under it while none is. */
 export function drawAntiphonGrip(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -79,45 +77,36 @@ export function drawAntiphonGrip(
   const held = antiphonHeld(s, 1) || antiphonHeld(s, 2);
   const asked = antiphonOrganAsks(s);
   const r = handleRadius(l, cfg) * GRIP_R;
-  const n = s.organs.length;
-  for (let i = 0; i < n; i++) {
-    const c = antiphonOrganCircle(l, cfg, i, n);
-    const y = c.y + c.r * GRIP_DOWN;
-    if (asked) drawMarkHalo(ctx, c.x, y, r, time);
-    drawHandleRing(ctx, {
-      x: c.x,
-      y,
-      r,
-      hex: PALETTE.rock,
-      rim: PALETTE.text,
-      held,
-      pull: 0,
-      time,
-    });
-    if (held) continue;
-    // **The cue** (`decisions.md` #34, `boss-cue-text.ts`). The seat is the
-    // pilot's: the organ hangs on his screen and the test screen alone
-    // (`showsAntiphonOrgan`), and `cueSeen` says so a second time rather than
-    // trusting the caller — a word on the phone whose thumb the game refuses
-    // is worse than none.
-    //
-    // **One word per standing organ, and they are one instruction.** A pit may
-    // grow twins (`antiphonTwinPits`) and a thumb on either turns both — the
-    // turn is `s.turnTicks`, one number for the pair of them — so two marks
-    // here are one thing to do in two places rather than two things at once.
-    // It names no candidate: the turn is how the pilot *looks*, it sinks
-    // nothing and answers nothing, and the answer is on the other screen.
-    const cue: BossCue = {
-      seat: 1,
-      kind: "TURN",
-      word: "TURN",
-      x: c.x,
-      y,
-      halfW: r,
-      halfH: r,
-      seed: 64 + i,
-      framed: false,
-    };
-    if (cueSeen(cue, l.role)) drawCueText(ctx, cue, time);
-  }
+  const c = antiphonOrganCircle(l, cfg);
+  const y = c.y + c.r * GRIP_DOWN;
+  if (asked) drawMarkHalo(ctx, c.x, y, r, time);
+  drawHandleRing(ctx, {
+    x: c.x,
+    y,
+    r,
+    hex: PALETTE.rock,
+    rim: PALETTE.text,
+    held,
+    pull: 0,
+    time,
+  });
+  if (held) return;
+  // **The cue** (`decisions.md` #34, `boss-cue-text.ts`). The seat is the
+  // explainer's: the organ stands on their screen and the test screen alone
+  // (`showsAntiphonOrgan`), and `cueSeen` says so a second time rather than
+  // trusting the caller — a word on the phone whose thumb the game refuses
+  // is worse than none. It names no candidate: the turn is how the explainer
+  // *looks*, it answers nothing, and the answer is on the other screen.
+  const cue: BossCue = {
+    seat: antiphonExplainer(s),
+    kind: "TURN",
+    word: "TURN",
+    x: c.x,
+    y,
+    halfW: r,
+    halfH: r,
+    seed: 64,
+    framed: false,
+  };
+  if (cueSeen(cue, l.role)) drawCueText(ctx, cue, time);
 }

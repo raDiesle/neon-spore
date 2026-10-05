@@ -102,10 +102,9 @@ function scuttlePart(
 }
 
 /**
- * THE ANTIPHON: the body with its pits; `organ`, what it has grown under the
- * middle — the perch it grows from while nothing stands — on the pilot's
- * screen; `rail`, every candidate hanging along the underside on the
- * navigator's, and the whole underside while the rail is empty.
+ * THE ANTIPHON: the body with its pits; `organ`, where the organ stands under
+ * the rail, on the explainer's screen; `rail`, every candidate on its row on
+ * the chooser's, and the row's width while the rail is empty.
  */
 function antiphonPart(
   l: Layout,
@@ -114,16 +113,14 @@ function antiphonPart(
   part: BossPart | undefined,
 ): AnchorPoint | null {
   if (part === "organ") {
-    if (!showsAntiphonOrgan(l.role)) return null;
-    const n = Math.max(1, s.organs.length);
-    const circles = Array.from({ length: n }, (_, i) => antiphonOrganCircle(l, cfg, i, n));
-    return around(circles, ORGAN_R * l.tile);
+    if (!showsAntiphonOrgan(l.role, s)) return null;
+    return around([antiphonOrganCircle(l, cfg)], ORGAN_R * l.tile);
   }
   if (part === "rail") {
-    if (!showsAntiphonRail(l.role)) return null;
+    if (!showsAntiphonRail(l.role, s)) return null;
     const cols = s.rail.length > 0 ? s.rail.map((c) => c.col) : [0, cfg.cols - 1];
     return around(
-      cols.map((col) => antiphonPerch(l, col)),
+      cols.map((col) => antiphonPerch(l, cfg, col)),
       RAIL_R * l.tile,
     );
   }

@@ -3,7 +3,7 @@ import { AntiphonMarks } from "./antiphon-marks.js";
 import {
   antiphonCentre,
   antiphonContourPath,
-  antiphonPerch,
+  antiphonOrganCircle,
   antiphonPitSpot,
   PIT_R,
 } from "./antiphon-shape.js";
@@ -11,12 +11,11 @@ import { BossHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { showsAntiphonRail } from "./view-role-clocks-b.js";
 
 /**
  * What THE ANTIPHON leaves behind a frame: the **eruption** of every pit
  * into the shape that made it once the right ship is named, and the bursts
- * its ten receipts throw.
+ * its receipts throw.
  *
  * Everything else about the boss is drawn off the world every frame
  * (`antiphon-draw.ts`). The eruption is here for THE LEAD's reason: the
@@ -29,16 +28,16 @@ import { showsAntiphonRail } from "./view-role-clocks-b.js";
  * `Effects.reset()` (`restart.test.ts`).
  *
  * The bursts go through `Sparks` like any other event's and are read here,
- * above the loop, for THE SINEW's reason. **A growth bursts where the organ
- * is drawn**: at its column on the screen shown the rail, and under the
- * middle of the body on the screen that is not — the organ's column is the
- * one thing the pilot's screen keeps from him, and a spark at it would say
- * it (`view-role-clocks-b.ts`). Everything after the shot is at the column
- * the shot went up, which both screens know.
+ * above the loop, for THE SINEW's reason. **Everything bursts where both
+ * screens draw the same thing**: the organ's place, which is the middle
+ * column on every screen, or the body. A burst
+ * at a candidate as the rail is laid would tell the explainer where the
+ * organ is hidden (`view-role-clocks-b.ts`), so the growth bursts at the
+ * organ's place.
  *
- * **A pit is a sequence landed** — the organ's colour brought to its column
- * — and so is the burst, so both deal the body the blow every boss takes
- * (`boss-hurt.ts`). A growth deals nothing.
+ * **A pit is a sequence landed** — the organ carried home — and so is the
+ * burst, so both deal the body the blow every boss takes (`boss-hurt.ts`).
+ * A growth deals nothing.
  */
 
 /** How far an erupting pit's contour reaches, in tiles, and how much longer than a pit it takes to get there. */
@@ -57,7 +56,7 @@ export class AntiphonFx {
   private eruptions: Eruption[] = [];
   /** The blow a pit or the burst deals the body. */
   readonly hurt = new BossHurt();
-  /** The rail's verdicts on a pull (`antiphon-marks.ts`). */
+  /** The organ's verdict on a carry (`antiphon-marks.ts`). */
   readonly marks = new AntiphonMarks();
 
   /** The pits on the body this frame, by shape, for the eruption. */
@@ -72,42 +71,37 @@ export class AntiphonFx {
     cfg: SimConfig,
     /** Seconds a beat lasts. */
     spb: number,
-    role: ViewRole,
+    _role: ViewRole,
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
     this.marks.ingest(events);
     const at = (p: { x: number; y: number }, n: number, hex: string) => burst(p.x, p.y, n, hex);
     const centre = antiphonCentre(l, cfg);
-    const perch = (col: number) => antiphonPerch(l, col);
-    const organ = (col: number) =>
-      showsAntiphonRail(role) ? perch(col) : { x: centre.x, y: perch(col).y };
+    const organ = antiphonOrganCircle(l, cfg);
     for (const e of events) {
       switch (e.type) {
         case "antiphonEnter":
           at(centre, 14, PALETTE.hull);
           break;
         case "antiphonGrow":
-          at(organ(e.col), e.organs > 1 ? 4 : 6, PALETTE.hullRim);
+          at(organ, 6, PALETTE.organRim);
           break;
         case "antiphonPit":
           this.hurt.hit();
-          at(perch(e.col), 10, PALETTE.hullRim);
+          at(organ, 10, PALETTE.organRim);
           at(antiphonPitSpot(l, cfg, e.pits - 1), 6, PALETTE.hull);
           break;
         case "antiphonHarden":
-          at(perch(e.col), 6, PALETTE.dim);
+          at(organ, 6, PALETTE.red);
           break;
         case "antiphonSink":
-          at(perch(e.col), e.fired ? 6 : 3, PALETTE.dim);
-          break;
-        case "antiphonSpill":
-          at({ x: perch(e.col).x, y: l.gridTop }, 5, PALETTE[e.color]);
+          at(organ, 4, PALETTE.dim);
           break;
         case "antiphonStill":
           at(centre, 10, PALETTE.hullRim);
           break;
         case "antiphonShip":
-          at(organ(e.col), 8, PALETTE.hullRim);
+          at(organ, 8, PALETTE.organRim);
           break;
         case "antiphonBurst":
           this.hurt.hit();

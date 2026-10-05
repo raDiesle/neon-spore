@@ -57,8 +57,8 @@ function ticks(world: World, n: number, commands: TimedCommand[] = []): void {
 /** Run until an organ stands. */
 function standing(world: World): AntiphonState {
   const s = body(world);
-  for (let n = 0; n < 40 * TPB && s.organs.length === 0; n++) step(world, []);
-  if (s.organs.length === 0) throw new Error("nothing grew");
+  for (let n = 0; n < 40 * TPB && s.organ === null; n++) step(world, []);
+  if (s.organ === null) throw new Error("nothing grew");
   return s;
 }
 
@@ -117,7 +117,7 @@ describe("a thumb on the organ", () => {
     const sa = body(a);
     const sb = body(b);
     expect(sa.rail).toEqual(sb.rail);
-    expect(sa.organs).toEqual(sb.organs);
+    expect(sa.organ).toEqual(sb.organ);
     expect(sa.pits).toEqual(sb.pits);
     expect(sa.cycleBeat).toBe(sb.cycleBeat);
     expect(a.events.length).toBe(b.events.length);

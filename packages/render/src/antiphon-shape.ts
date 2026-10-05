@@ -2,28 +2,31 @@ import { antiphonRadiusMul, HULL, hullRadiusMul, type Point } from "@neon-spore/
 import {
   ANTIPHON_SHIP,
   type AntiphonState,
+  antiphonOrganCol,
+  antiphonOrganRow,
   antiphonSinkBeat,
   antiphonWindow,
   type SimConfig,
 } from "@neon-spore/sim";
-import { type Circle, type Layout, tileCX } from "./layout.js";
+import { type Circle, type Layout, tileCX, tileCY } from "./layout.js";
 import { splineInto } from "./spline.js";
 
 /**
  * **Where THE ANTIPHON is**, in field pixels: the body hung over the top of
- * the field above row 0, the perch an organ pushes out of its underside
- * on, the spot each pit sits in on the body, how far out the organs are,
- * how far through the window, and how far the body has gone on its way out
- * — and what a contour on the table looks like at a size.
+ * the field above row 0, where each candidate hangs on the rail's row and
+ * where the organ stands under it (`sim/antiphon-vein.ts` says the same in
+ * tiles), where a carried candidate is on its vein, the spot each pit sits
+ * in on the body, how far out the organ is, how far through the window, and
+ * how far the body has gone on its way out — and what a contour on the
+ * table looks like at a size.
  *
  * Its own file for THE SCUTTLE's reason (`scuttle-shape.ts`): the drawer
  * hangs the body on these (`antiphon-draw.ts`), the transients throw their
  * bursts at them (`antiphon-fx.ts`), and a perch placed in two files would
  * be an organ drawn on one line and its receipts thrown at another.
  *
- * **Nothing here is per seat.** The body is in the same place on both
- * screens; the split is *where the organ is drawn* — the middle on the
- * pilot's, its column on the navigator's — and that is the drawer's
+ * **Nothing here is per seat.** Everything is in the same place on both
+ * screens; the split is *what is drawn there*, and that is the drawer's
  * (`view-role-clocks-b.ts`).
  */
 
@@ -31,14 +34,15 @@ import { splineInto } from "./spline.js";
 const BODY_TOP = 1.5;
 const BODY_BOTTOM = 0.4;
 const BODY_FLANK = 0.5;
-/** An organ's centre above the grid, in tiles, and its radius grown; a candidate's radius on the rail. */
-export const PERCH_RISE = 0.42;
-export const ORGAN_R = 0.4;
-export const RAIL_R = 0.27;
+/**
+ * The organ's radius grown and a candidate's on the rail, in tiles — the
+ * same, so the one carried down is the size of the place it is carried to,
+ * and three times what they were (the owner, 5 October 2026).
+ */
+export const ORGAN_R = 0.8;
+export const RAIL_R = 0.8;
 /** A pit's radius on the body, in tiles. */
 export const PIT_R = 0.2;
-/** How far apart twins stand on the pilot's screen, in tiles, each from the middle. */
-export const TWIN_GAP = 0.9;
 /** Columns under each of the underside's slow waves. */
 const COLS_PER_WAVE = 2;
 /** Points a contour is walked in. */
@@ -68,9 +72,23 @@ export function antiphonBudR(l: Layout, rTiles: number, time: number): number {
   return l.tile * rTiles * (1 + 0.03 * Math.sin(time * 4));
 }
 
-/** The perch an organ or a candidate hangs off the underside on, over `col`. */
-export function antiphonPerch(l: Layout, col: number): Point {
-  return { x: tileCX(l, col), y: l.gridTop - l.tile * PERCH_RISE };
+/** Where a candidate hangs on the rail, over `col` on `antiphonRailRow`. */
+export function antiphonPerch(l: Layout, cfg: SimConfig, col: number): Point {
+  return { x: tileCX(l, col), y: tileCY(l, cfg.antiphonRailRow) };
+}
+
+/**
+ * Where rail index `i` is drawn now: at its perch, or as far down its vein
+ * toward the organ as the chooser's thumb has carried it (`carryMilli`).
+ */
+export function antiphonCandidateAt(l: Layout, cfg: SimConfig, s: AntiphonState, i: number): Point {
+  const c = s.rail[i];
+  if (c === undefined) return antiphonOrganCircle(l, cfg);
+  const from = antiphonPerch(l, cfg, c.col);
+  if (s.carried !== i) return from;
+  const to = antiphonOrganCircle(l, cfg);
+  const k = s.carryMilli / 1000;
+  return { x: from.x + (to.x - from.x) * k, y: from.y + (to.y - from.y) * k };
 }
 
 /** Where pit `i` sits on the body: spread across it in the order taken, alternating a little up and down. */
@@ -168,29 +186,27 @@ export function antiphonDecoyLobes(i: number): number {
 }
 
 /**
- * Where organ `i` of `n` hangs on the screen shown the organ: under the
- * body's middle whatever its column, twins `TWIN_GAP` apart by index, at the
- * perch's height — one circle the drawing fills and the thumb is tested
- * against (`antiphon-draw.ts`, `antiphon-grip.ts`).
+ * Where the organ stands: the middle column, `antiphonVeinRows` under the
+ * rail — one circle the drawing fills, the thumb is tested against, and
+ * every vein ends at (`antiphon-draw.ts`, `antiphon-grip.ts`).
  */
-export function antiphonOrganCircle(l: Layout, cfg: SimConfig, i: number, n: number): Circle {
-  const c = antiphonCentre(l, cfg);
+export function antiphonOrganCircle(l: Layout, cfg: SimConfig): Circle {
   return {
-    x: c.x + (i - (n - 1) / 2) * TWIN_GAP * l.tile,
-    y: antiphonPerch(l, 0).y,
+    x: tileCX(l, antiphonOrganCol(cfg)),
+    y: tileCY(l, antiphonOrganRow(cfg)),
     r: ORGAN_R * l.tile,
   };
 }
 
-/** How far out the standing organs are, 0 at the push and 1 grown; 0 while none stands. */
+/** How far out the standing organ is, 0 at the push and 1 grown; 0 while none stands. */
 export function antiphonGrowPhase(
   s: AntiphonState,
   cfg: SimConfig,
   beat: number,
   beatPhase: number,
 ): number {
-  const o = s.organs[0];
-  if (o === undefined) return 0;
+  const o = s.organ;
+  if (o === null) return 0;
   const beats = Math.max(1, cfg.antiphonGrowBeats);
   const g = Math.min(1, Math.max(0, (beat - o.grownBeat + beatPhase) / beats));
   return g * (2 - g);
@@ -223,5 +239,5 @@ export function antiphonFade(
 
 /** Whether the surface is still: every pit there, nothing standing, not yet down. */
 export function antiphonStill(s: AntiphonState): boolean {
-  return s.stillBeat >= 0 && s.organs.length === 0 && s.downBeat < 0;
+  return s.stillBeat >= 0 && s.organ === null && s.downBeat < 0;
 }

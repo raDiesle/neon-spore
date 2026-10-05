@@ -92,6 +92,9 @@ export function dragSeat(target: DragTarget, hand?: 1 | 2): 1 | 2 {
   // line is the navigator's and the prime the pilot's when it does not.
   if (target === "scoutLine") return hand ?? 2;
   if (target === "scoutPrime") return hand ?? 1;
+  // THE ANTIPHON's rail is the chooser's, and the chooser swaps every level
+  // (`antiphonChooser`): the navigator's on the first.
+  if (target === "antiphonRail") return hand ?? 2;
   // And THE SINEW's right handle, the second: one handle per seat, each
   // pulled down, and the sum is the two of them (`sim/sinew-hand.ts`).
   // THE GIMBAL's inner ring, THE HASP's wheel and THE RATCHET's catch are the

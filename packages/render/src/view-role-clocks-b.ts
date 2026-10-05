@@ -1,4 +1,10 @@
-import { gorgeTapSeat, type InstarSeat } from "@neon-spore/sim";
+import {
+  type AntiphonState,
+  antiphonChooser,
+  antiphonExplainer,
+  gorgeTapSeat,
+  type InstarSeat,
+} from "@neon-spore/sim";
 import type { ViewRole } from "./view-role.js";
 
 /**
@@ -37,22 +43,21 @@ export const showsScuttleCount = (role: ViewRole): boolean => role !== "p2";
 export const showsScuttleLive = (role: ViewRole): boolean => role !== "p1";
 
 /**
- * THE ANTIPHON's two, and the split is the eyes again, each way, but on a
- * thing neither seat can point at: the pilot is shown **the organ** — the
- * contour the body has grown, hanging under the middle of the body in the
- * body's own violet, with no column under it and no colour on it, so what
- * it *is* is his to put into words; the navigator is shown **the rail** —
- * every candidate at its column in its colour, the organ among them
- * unmarked, and the beats left before it sinks — so which of them he is
- * describing, and the column and colour a bolt has to be, are hers. On her
- * screen the whole rail pushes out of the body together, so the organ is
- * not given away by being the one that grows; on his nothing stands at a
- * column at all. His *three lobes, the bottom one long* and her *column
- * four, red, six beats* are the fight (`antiphon-shape.ts`,
+ * THE ANTIPHON's two, and the split is the eyes, on a thing neither seat can
+ * point at — and **the seats swap every level** (`antiphonExplainer`, the
+ * owner, 5 October 2026: *every level the roles of p1 and p2 switch*). The
+ * explainer is shown **the organ**, standing under the rail in the middle,
+ * so what it *is* is theirs to put into words; the chooser is shown **the
+ * rail** — every candidate on its vein, the organ among them unmarked — and,
+ * where the organ stands, a shape that is no shape at all, so which of them
+ * is being described is theirs. The explainer's *three lobes, the bottom one
+ * long* and the chooser's *the left one?* are the fight (`antiphon-shape.ts`,
  * `antiphon-draw.ts`, `sim/antiphon.ts`). `test` is both.
  */
-export const showsAntiphonOrgan = (role: ViewRole): boolean => role !== "p2";
-export const showsAntiphonRail = (role: ViewRole): boolean => role !== "p1";
+export const showsAntiphonOrgan = (role: ViewRole, s: AntiphonState): boolean =>
+  role === "test" || role === (antiphonExplainer(s) === 1 ? "p1" : "p2");
+export const showsAntiphonRail = (role: ViewRole, s: AntiphonState): boolean =>
+  role === "test" || role === (antiphonChooser(s) === 1 ? "p1" : "p2");
 
 /**
  * THE HIVE's two, and the split is the eyes, each way — with each fact

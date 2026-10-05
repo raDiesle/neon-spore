@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import type { AntiphonState, SimEvent, World } from "@neon-spore/sim";
 import { drawAntiphonGrip } from "../src/antiphon-grip.js";
 import { AntiphonMarks } from "../src/antiphon-marks.js";
-import { drawAntiphonRailGrip } from "../src/antiphon-rail-grip.js";
+import { drawAntiphonRailGrip, drawAntiphonVerdict } from "../src/antiphon-rail-grip.js";
 import { GripVerdicts } from "../src/grip-verdict.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
@@ -21,10 +21,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * **THE ANTIPHON's two handles answer a touch the way THE GAUGE's do**
  * (`antiphon-marks.ts`, `.claude/skills/new-boss` §5): the organ's grip mark
- * stands on the pilot's screen alone and the rail on the navigator's, so
+ * stands on the explainer's screen alone and the rail on the chooser's, so
  * each asked mark wears the halo on its own screen and the other is shown
- * nothing — no partner's clock and no refusal; a pull washes the candidate
- * green; and the verdict reaches the field's frame.
+ * nothing — no partner's clock and no refusal; and the verdict on arrival is
+ * rung at the organ's place on both screens.
  *
  * The states are **set**, `antiphon-frame-harness.ts`' arrangement.
  */
@@ -38,8 +38,7 @@ const HALO = "createRadialGradient";
 function standing(): { world: World; s: AntiphonState } {
   const world = hung();
   const s = grown(world);
-  s.crossed = [];
-  s.heldRail = -1;
+  s.carried = -1;
   return { world, s };
 }
 
@@ -57,8 +56,12 @@ const organ = (s: AntiphonState, role: ViewRole) =>
     HALO,
   );
 
-function rail(world: World, s: AntiphonState, role: ViewRole, v = new GripVerdicts()): string {
-  return drawn(role, (ctx, l) => drawAntiphonRailGrip(ctx, l, CFG, s, world.beat, 1.2, 1, v));
+function rail(world: World, s: AntiphonState, role: ViewRole): string {
+  return drawn(role, (ctx, l) => drawAntiphonRailGrip(ctx, l, CFG, s, world.beat, 1.2, 1));
+}
+
+function verdict(role: ViewRole, v: GripVerdicts): string {
+  return drawn(role, (ctx, l) => drawAntiphonVerdict(ctx, l, CFG, v));
 }
 
 describe("THE ANTIPHON's handles asking", () => {
@@ -69,42 +72,42 @@ describe("THE ANTIPHON's handles asking", () => {
     expect(asked - organ(s, "p1")).toBe(1);
   });
 
-  it("halo every candidate a pull would take on", () => {
+  it("halo every candidate a carry would take on, and none while one is in hand", () => {
     const { world, s } = standing();
     expect(count(rail(world, s, "p2"), HALO)).toBe(3);
     expect(count(rail(world, s, "test"), HALO)).toBe(3);
-    s.heldRail = 0;
-    s.crossed = [2];
-    expect(count(rail(world, s, "p2"), HALO)).toBe(1);
+    s.carried = 0;
+    expect(count(rail(world, s, "p2"), HALO)).toBe(0);
   });
 
-  it("ask no pull while the organ is still growing, since the pull would be dropped", () => {
+  it("ask no carry while the organ is still growing, since the carry would be dropped", () => {
     const { world, s } = standing();
-    const o = s.organs[0];
-    if (o !== undefined) o.grownBeat = world.beat;
+    if (s.organ !== null) s.organ.grownBeat = world.beat;
     expect(count(rail(world, s, "p2"), HALO)).toBe(0);
     expect(rail(world, s, "p2")).not.toBe("");
   });
 });
 
-describe("THE ANTIPHON's verdict on a touch", () => {
-  it("washes a pulled candidate green by its column, and judges neither turn nor hardening", () => {
+describe("THE ANTIPHON's verdict on arrival", () => {
+  it("rings the organ green for the organ carried home or the ship burst, red for a decoy", () => {
     const marks = new AntiphonMarks();
-    marks.ingest([{ type: "antiphonHarden", col: 4, rail: 4 }]);
-    expect(marks.verdicts.at(4)).toBeNull();
-    marks.ingest([{ type: "antiphonPull", col: 2, left: 2 }]);
-    expect(marks.verdicts.at(2)?.good).toBe(true);
+    marks.ingest([{ type: "antiphonPit", col: 5, shape: 3, pits: 1 }]);
+    expect(marks.verdicts.at(0)?.good).toBe(true);
     marks.clear();
-    expect(marks.verdicts.at(2)).toBeNull();
+    marks.ingest([{ type: "antiphonHarden", col: 2, shape: 4 }]);
+    expect(marks.verdicts.at(0)?.good).toBe(false);
+    marks.clear();
+    marks.ingest([{ type: "antiphonBurst", col: 5, pits: 6 }]);
+    expect(marks.verdicts.at(0)?.good).toBe(true);
+    marks.clear();
+    expect(marks.verdicts.at(0)).toBeNull();
   });
 
-  it("rings the pulled candidate over its cross", () => {
-    const { world, s } = standing();
-    s.crossed = [0];
+  it("draws the verdict at the organ's place", () => {
     const v = new GripVerdicts();
-    v.mark(2, true);
-    const bare = count(rail(world, s, "p2"), PALETTE.good);
-    expect(count(rail(world, s, "p2", v), PALETTE.good)).toBeGreaterThan(bare);
+    const bare = count(verdict("p2", v), PALETTE.good);
+    v.mark(0, true);
+    expect(count(verdict("p2", v), PALETTE.good)).toBeGreaterThan(bare);
   });
 
   /** A beat of the organ standing, `said` on tick 2 and the world held still. */
@@ -124,15 +127,13 @@ describe("THE ANTIPHON's verdict on a touch", () => {
     return log.join("|");
   }
 
-  it.each(["p2", "test"] as const)("reaches the field's frame, on %s", (role) => {
-    const pulled: SimEvent[] = [{ type: "antiphonPull", col: 2, left: 2 }];
-    expect(count(frames(role, pulled), PALETTE.good)).toBeGreaterThan(
-      count(frames(role, []), PALETTE.good),
-    );
-  });
-
-  it("is not on his screen, which draws no rail", () => {
-    const pulled: SimEvent[] = [{ type: "antiphonPull", col: 2, left: 2 }];
-    expect(count(frames("p1", pulled), PALETTE.good)).toBe(count(frames("p1", []), PALETTE.good));
-  });
+  it.each(["p1", "p2", "test"] as const)(
+    "reaches the field's frame on every screen, on %s",
+    (role) => {
+      const pit: SimEvent[] = [{ type: "antiphonPit", col: 5, shape: 1, pits: 1 }];
+      expect(count(frames(role, pit), PALETTE.good)).toBeGreaterThan(
+        count(frames(role, []), PALETTE.good),
+      );
+    },
+  );
 });

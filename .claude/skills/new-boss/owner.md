@@ -114,6 +114,15 @@ bosses* — are `generic.md`, next to this page.**
   process indicator for bosses, to show above boss - but without slow for.*
   THE OCULUS became three levels (hold, tap, turn like THE MAZE's lever),
   each count kept when a hand comes off, with a wave fought round it.
+- **An answer is carried, not shot, when shooting would confuse; and a
+  thing to be described is never in a control's colour**, 5 October 2026,
+  on THE ANTIPHON: *the colours should be all green of organs, so it does
+  not confuse with colour of e.g. cannon which confuses and players think it
+  needs to be shot.* The candidates became three times the size, joined to
+  the organ's place by veins, and dragged down one — THE FILAMENT's path —
+  a decoy losing the wave; the seats swap every level, the siren says whose
+  job is which, and the second time indicator went for the standard slow
+  meter.
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

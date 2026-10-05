@@ -1,4 +1,3 @@
-import { antiphonStruck } from "./antiphon-shot.js";
 import { bulletShown } from "./bullet-types.js";
 import { burgeeStruck } from "./burgee-shot.js";
 import { capstanStruck } from "./capstan-shot.js";
@@ -91,9 +90,6 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   // THE SCUTTLE's live part, struck off its socket while it hangs if the bolt
   // is in its column and its colour (`scuttle-shot.ts`).
   met = scuttleStruck(world, b) || met;
-  // THE ANTIPHON's rail: a bolt out of the top is a colour in a column, which
-  // is one candidate or none (`antiphon-shot.ts`).
-  met = antiphonStruck(world, b) || met;
   // THE GIMBAL's leaking seam, the one thing in that whole fight a cannon has
   // to do, and either colour does it (`gimbal-shot.ts`).
   met = gimbalStruck(world, b) || met;
@@ -181,7 +177,6 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "ledger",
   "lead",
   "scuttle",
-  "antiphon",
   "gimbal",
   "mantle",
   "keel",

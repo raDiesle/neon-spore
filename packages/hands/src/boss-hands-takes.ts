@@ -1,9 +1,10 @@
 import {
+  type AntiphonState,
   antiphonBoss,
-  antiphonCrossed,
-  antiphonGrown,
+  antiphonChooser,
   antiphonIsOrgan,
-  type Color,
+  antiphonStanding,
+  antiphonVeinMilli,
   cairnState,
   spliceRound,
   spliceWantedAfterFlights,
@@ -26,11 +27,7 @@ import type { Hand } from "./hand.js";
 type Press = Omit<TimedCommand, "tick">;
 
 const aim = (col: number): Press => ({ player: 1, command: { kind: "cannonCol", col } });
-const fire = (color: Color): Press => ({ player: 2, command: { kind: "fire", color } });
 const intake = (): Press => ({ player: 1, command: { kind: "intake" } });
-
-/** The cannon is free: nothing of the pair's is on its way up. */
-const free = (w: World): boolean => w.bullets.length === 0 && w.beam === null;
 
 /**
  * THE CAIRN: the pilot's hand on the pile, carried a tile to the right — a
@@ -124,48 +121,50 @@ export const undertowHand: Hand = (w) => {
   return [intake()];
 };
 
+/** How far down its vein AUTO carries a candidate each tick, in thousandths of the vein. */
+const ANTIPHON_STEP = 250;
+
+/** The chooser's thumb on candidate `id`, carried `milli` of the way down its vein. */
+function carry(w: World, s: AntiphonState, id: number, milli: number): Press {
+  return {
+    player: antiphonChooser(s),
+    command: {
+      kind: "drag",
+      target: "antiphonRail",
+      on: true,
+      ...antiphonVeinMilli(w.cfg, s, id, milli),
+      id,
+    },
+  };
+}
+
 /**
- * THE ANTIPHON: the organ's own colour up the organ's own column once it
- * has pushed all the way out (`antiphonGrown`, `antiphonStruck`) pits it;
- * the ship, last of the organs, the same. The pair finds the organ on the
- * navigator's rail; the hand reads it off the surface, because the state
- * posed is the stillness after the sixth pit and the ship going down.
+ * THE ANTIPHON: the chooser carries the organ down its vein to the organ's
+ * place once it has pushed all the way out (`antiphonStanding`,
+ * `sim/antiphon-hand.ts`) — a quarter of the vein a tick, as a device
+ * reports where the finger *is* — and it pits; the ship, last of the
+ * organs, the same. It starts a beat into the window, the time a pair takes
+ * to say a shape, so the window's marks are up long enough to be read
+ * (`tools/director/test/boss-hush.test.ts`). The pair finds the organ by
+ * talking; the hand reads it off the state, because the state posed is the
+ * stillness after the sixth pit and the ship going down.
  */
 export const antiphonHand: Hand = (w) => {
   const s = antiphonBoss(w);
-  if (s === null || s.downBeat >= 0) return [];
-  const o = s.organs.find((x) => antiphonGrown(x, w.cfg, w.beat));
-  if (o === undefined) return [];
-  if (w.cannonCol !== o.col) return [aim(o.col)];
-  return free(w) ? [fire(o.color)] : [];
+  if (s === null || s.downBeat >= 0 || s.organ === null) return [];
+  if (w.beat < s.organ.grownBeat + w.cfg.antiphonGrowBeats + 1) return [];
+  const from = s.carried === s.answer ? s.carryMilli : 0;
+  return [carry(w, s, s.answer, Math.min(1000, from + ANTIPHON_STEP))];
 };
 
 /**
- * THE ANTIPHON's other hand, the navigator's: she carries a candidate down
- * off her rail and it stops counting (`sim/antiphon-hand.ts`). Nothing may be
- * pulled before the organ stands, so the hand waits the growth out, and it
- * takes the first candidate that is neither an organ nor already crossed —
- * a decoy, because pulling the organ off is the same mistake as firing at
- * one, and the pose wants the crossing rather than the punishment.
+ * THE ANTIPHON's carry held half way, for a pose of the gesture: the chooser
+ * has a decoy on its vein and has not let go — the pose wants the carry
+ * rather than the verdict, and a decoy carried home would strike the hull.
  */
-export const antiphonPullHand: Hand = (w) => {
+export const antiphonCarryHand: Hand = (w) => {
   const s = antiphonBoss(w);
-  if (s === null || s.downBeat >= 0) return [];
-  const o = s.organs[0];
-  if (o === undefined || !antiphonGrown(o, w.cfg, w.beat)) return [];
-  const id = s.rail.findIndex((c, i) => !antiphonIsOrgan(s, c) && !antiphonCrossed(s, i));
-  if (id < 0) return [];
-  return [
-    {
-      player: 2,
-      command: {
-        kind: "drag",
-        target: "antiphonRail",
-        on: true,
-        fromMilli: 0,
-        fromYMilli: w.cfg.antiphonPullMilli,
-        id,
-      },
-    },
-  ];
+  if (s === null || s.downBeat >= 0 || !antiphonStanding(s, w.cfg, w.beat)) return [];
+  const id = s.rail.findIndex((_, i) => !antiphonIsOrgan(s, i));
+  return id < 0 ? [] : [carry(w, s, id, 500)];
 };

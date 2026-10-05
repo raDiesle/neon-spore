@@ -1,3 +1,5 @@
+import { antiphonBoss } from "./antiphon.js";
+import { antiphonVeinMilli } from "./antiphon-vein.js";
 import { bossAnswerCol } from "./boss-answer.js";
 import { gripOf, NO_GRIP } from "./grip.js";
 import { hiveBoss, hiveNext } from "./hive.js";
@@ -126,6 +128,16 @@ export function aimed(world: World, c: SceneCommand): Command {
     const s = hiveBoss(world);
     const next = s === null ? -1 : hiveNext(s);
     return next < 0 ? c.command : { ...c.command, id: next };
+  }
+  if (c.command.kind === "drag" && c.command.target === "antiphonRail") {
+    // THE ANTIPHON's carry is the organ's candidate, by its index on a rail
+    // the seeded rng shuffled, down a vein whose way depends on its slot: an
+    // author knows how far along and nothing else, so the film writes the
+    // progress in `fromYMilli` and the world turns it into the displacement.
+    const s = antiphonBoss(world);
+    if (s === null || s.rail.length === 0) return c.command;
+    const way = antiphonVeinMilli(world.cfg, s, s.answer, c.command.fromYMilli ?? 0);
+    return { ...c.command, ...way, id: s.answer };
   }
   if (c.command.kind === "drag" && c.command.target === "undertowTap") {
     // THE UNDERTOW's tap is on a tall lobe, named by its column — and where a

@@ -25,7 +25,7 @@ export const FAMILIES: Family[] = [
   },
   {
     name: "THE GREENS",
-    rule: "`good` is the round answered in full. The other three were granted by name, and each is held apart by hue and by where it appears.",
+    rule: "`good` is the round answered in full. The other four were granted by name, and each is held apart by hue and by where it appears.",
     keys: [
       "good",
       "goodRim",
@@ -37,6 +37,8 @@ export const FAMILIES: Family[] = [
       "venom",
       "venomRim",
       "venomDeep",
+      "organ",
+      "organRim",
     ],
   },
   {

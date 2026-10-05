@@ -124,17 +124,11 @@ describe("the column a boss is answered from", () => {
     expect(bossAnswerCol(world)).toBeNull();
   });
 
-  it("is the column THE ANTIPHON's organ stands over from the beat it grows, and nothing between cycles or once it bursts", () => {
+  it("is nothing under THE ANTIPHON, whose answer is carried rather than shot", () => {
     const world = open({ kind: "antiphon" });
-    const a = antiphonBoss(world);
-    if (a === null) throw new Error("no body");
-    // The rise: nothing stands, so nothing is answered.
     expect(bossAnswerCol(world)).toBeNull();
-    beats(world, CFG.antiphonRestBeats);
-    const o = a.organs[0];
-    if (o === undefined) throw new Error("no organ");
-    expect(bossAnswerCol(world)).toBe(o.col);
-    a.downBeat = world.beat;
+    beats(world, CFG.antiphonRestBeats + CFG.antiphonGrowBeats);
+    expect(antiphonBoss(world)?.organ).not.toBeNull();
     expect(bossAnswerCol(world)).toBeNull();
   });
 });

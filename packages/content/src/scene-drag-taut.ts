@@ -77,5 +77,10 @@ export function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // end but the box it is kept in (`throatAimAt`): left out, a film carries it
   // one widest circle, which is a body reached from where it stood.
   if (target === "throatAim") return -cfg.throatMaxRadiusMilli;
+  // THE ANTIPHON's rail is carried down a vein whose length is the
+  // candidate's own, so a film writes progress along it, in thousandths, and
+  // the runner turns it into a displacement (`sim/scene-aim.ts`): left out,
+  // the whole vein, which is the candidate arriving.
+  if (target === "antiphonRail") return 1000;
   return cfg.mazeTurnMilli;
 }

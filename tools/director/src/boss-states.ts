@@ -67,10 +67,10 @@ const BY_HAND: Partial<Record<BossKind, readonly string[]>> = {
   // column along the frame, winding the last one back, down (`scuttleAttached`,
   // `ScuttleState.held`, `scuttleSwingable`, `scuttleWinding`, `scuttleDown`).
   scuttle: ["attached", "held", "swung", "winding", "down"],
-  // The organs cycling, a candidate crossed off her rail, the rail still for a
-  // pick, down (`antiphonStruck`, `antiphonCrossed`, `AntiphonState.crossed`,
+  // The organs cycling, a candidate carried down its vein, the surface still
+  // before the ship, down (`AntiphonState.organ`, `AntiphonState.carried`,
   // `AntiphonState.stillBeat`, `antiphonDown`).
-  antiphon: ["cycling", "pulled", "still", "down"],
+  antiphon: ["cycling", "carried", "still", "down"],
 };
 
 /** The states of every boss, `BOSS_KINDS`' order, a table's names where one exists. */

@@ -1,4 +1,4 @@
-import { antiphonHeard, antiphonPulled, stepAntiphonTurn } from "./antiphon-hand.js";
+import { antiphonCarried, antiphonHeard, stepAntiphonTurn } from "./antiphon-hand.js";
 import { batonHeard } from "./baton-hand.js";
 import { scriptedHandsHeard } from "./boss-hands-scripted.js";
 import { curtainHemHeard } from "./curtain-hand.js";
@@ -63,10 +63,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // turn a shape a finger is watching (`antiphon-hand.ts`).
   for (const c of commands) antiphonHeard(world, c.player, c.command);
   stepAntiphonTurn(world);
-  // Her pull on the rail, on the tick for `scuttle-hand.ts`' reason: the carry
-  // is where the thumb is now, and a pull answered on the next beat could be
-  // answered after the bolt it was meant to make safe (`antiphon-hand.ts`).
-  for (const c of commands) antiphonPulled(world, c.player, c.command);
+  // The chooser's carry down a vein, on the tick for `scuttle-hand.ts`'
+  // reason: the carry is where the thumb is now (`antiphon-hand.ts`).
+  for (const c of commands) antiphonCarried(world, c.player, c.command);
   // THE HIVE's two thumbs on the underside, on the tick because a haul is
   // where the thumb is now and a hold of two beats cannot afford a beat of
   // rounding (`hive-hand.ts`). The cannon and the trigger stay where they

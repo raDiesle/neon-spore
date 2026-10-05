@@ -24,8 +24,8 @@ export const HURT_ROWS_B: Row[] = [
       { type: "antiphonPit", shape: 0, pits: 1, col: 3 },
       { type: "antiphonBurst", pits: 4, col: 5 },
     ],
-    part: [{ type: "antiphonGrow", shape: 0, organs: 1, col: 3 }],
-    hit: "one pit is one colour arriving, and landed",
+    part: [{ type: "antiphonGrow", shape: 0, col: 3 }],
+    hit: "one pit is one organ carried home",
     hurt: (fx) => fx.boss.antiphon.hurt,
   },
   {

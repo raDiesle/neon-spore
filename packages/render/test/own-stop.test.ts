@@ -1,6 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import {
-  antiphonVerdict,
   type BossState,
   type Color,
   type CoreVerdict,
@@ -69,12 +68,14 @@ const spans =
 
 const ROWS: Row[] = [
   {
+    // Nothing on it is shot since the redesign of 5 October 2026: every
+    // column meets the body's underside, and nothing more.
     name: "THE ANTIPHON",
     kind: "antiphon",
-    hit: spans(antiphonVerdict),
+    hit: () => "body",
     draw: (l, w, stops) =>
       drawAntiphon(paper(), l, w, boss(w, "antiphon"), w.beat, 0.5, 0, new AntiphonFx(), stops),
-    shows: "target",
+    shows: "body",
   },
   {
     name: "THE HIVE",

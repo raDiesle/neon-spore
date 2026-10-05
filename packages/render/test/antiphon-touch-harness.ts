@@ -2,6 +2,7 @@ import { type ControlSet, controlSet } from "@neon-spore/content";
 import {
   type AntiphonState,
   antiphonBoss,
+  antiphonSlotCol,
   createWorld,
   DEFAULT_CONFIG,
   startWave,
@@ -23,15 +24,14 @@ const WAVE = 9;
 export const layout = (role: ViewRole = "p1"): Layout =>
   computeLayout({ width: 420, height: 900, dpr: 2 }, CFG, role);
 
-/** The body up with one organ standing — set, not grown to (`antiphon-frame.test.ts`). */
-export function hung(organs = 1): World {
+/** The body up with the organ standing and its rail of three hung — set, not grown to (`antiphon-frame.test.ts`). */
+export function hung(): World {
   const world = createWorld(CFG, 5);
   startWave(world, WAVE, [], [], { kind: "antiphon" });
   const s = organ(world);
-  s.organs = [];
-  for (let i = 0; i < organs; i++) {
-    s.organs.push({ shape: i + 1, col: 2 + i * 3, color: "red", grownBeat: world.beat });
-  }
+  s.organ = { shape: 1, grownBeat: world.beat - CFG.antiphonGrowBeats };
+  s.rail = [4, 1, 9].map((shape, i) => ({ shape, col: antiphonSlotCol(CFG, 3, i) }));
+  s.answer = 1;
   return world;
 }
 

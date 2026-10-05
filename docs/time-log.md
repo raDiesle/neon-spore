@@ -33405,3 +33405,13 @@ Bottleneck: where a word goes on a band button that has no Layout to size it by.
 Bottleneck: none; the entry's own test answered it.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE ANTIPHON's answer is carried down a vein, not shot
+
+- reading: 25 min. The whole boss across sim, render, audio, hands, director and content, and THE FILAMENT's drag.
+- writing: 90 min. The state and its rewrite, `antiphon-vein.ts`, the carry, the stepper's arm, three sim test files, the rehearsal, the render and director tests, §11.31.
+- looking: 0 min. No picture in this half: the look is the next lane.
+- friction: 10 min. A context compaction mid-lane; a hit test's finger slack read as a miss.
+- landing: 15 min. `check:fast` red three times on documents naming the old rule.
+
+Bottleneck: every file that knew the shot — fifty of them — found by the typecheck and the document tests one at a time.

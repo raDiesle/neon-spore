@@ -1,4 +1,3 @@
-import { antiphonBoss } from "./antiphon.js";
 import { leadBoss, leadLead, leadShootable, leadStill } from "./lead.js";
 import { ledgerBoss } from "./ledger.js";
 import { scuttleBoss, scuttleNextCol } from "./scuttle.js";
@@ -75,15 +74,6 @@ export function bossAnswerCol(world: World): number | null {
     if (s.downBeat >= 0) return null;
     const col = scuttleNextCol(s, world.cfg);
     return col < 0 ? null : col;
-  }
-  const a = antiphonBoss(world);
-  if (a !== null) {
-    // The column the organ stands over — the first of two while twins grow,
-    // which is the one left once the other is a pit — from the beat it begins
-    // pushing out, so the cannon is under it when it can be taken
-    // (`antiphonStruck`). Nothing between cycles and nothing once it bursts.
-    if (a.downBeat >= 0) return null;
-    return a.organs[0]?.col ?? null;
   }
   return null;
 }

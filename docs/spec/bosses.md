@@ -5816,342 +5816,139 @@ does not exist yet. The game never listens and never scores the words
 (`CLAUDE.md` rule 5, untouched): it arranges for the pair to have to build
 a vocabulary in real time and gives them nothing to build it out of.
 
+**Redesigned on 5 October 2026, on the owner's word**: *no shooting is
+required any longer.* The organ and its candidates are three times the
+size and all green — a colour no control wears, so nobody thinks they are
+to be shot — the candidates hang a third of the way down, the organ's own
+place two rows under them, each candidate joined to it by a vein, and the
+chooser **drags** the one being described down its vein to the organ's
+place, where it is judged: the organ makes a pit, a decoy loses the wave.
+THE FILAMENT's lesson, a path to drag along and a place to drop at. The
+seats swap every level, and the siren says which job is whose. What the
+first build had and this one does not — the colours and columns, the
+shot, the hardening that widened the rail, the twins, the spill, the
+organ that fired, the pull off the rail — is in the history of this page.
+
 **It is a fixture, not a body.** Nothing of it is in `world.creatures`: the
 state (`sim/antiphon.ts`, hashed in `sim/antiphon-hash.ts`) is the
-**organs** standing now — none between cycles, one, or two — each a shape
-index under `antiphonShapes` (16) with a colour, a column and the beat it
-began pushing out on; the **rail** of candidates, each a shape, a colour
-and a column, the organs among them in the seed's order; the **pits**, the
-shapes described so far, which are the health and the record; the
-**extra** candidates wrong answers have added to every rail since; the
-places on the rail the navigator has **crossed** off and the one her thumb
-rests on now (`heldRail`, -1 for none); and three beat stamps — the cycle
-began, the surface went still, the right ship was fired. Like THE SCUTTLE it **fills its wave** (`bossFillsWave`):
-`act-7g.ts`'s "THE ANTIPHON" has no entries at all, because every arrival
-in the fight is a candidate the pair rejected or an organ they left alone.
+**organ** standing now (a shape index under `antiphonShapes` (16) and the
+beat it began pushing out on, or none between levels); the **rail** of
+candidates, each a shape and the slot column it hangs at, and the
+**answer**, the organ's index on it; the **pits**, the shapes described so
+far, which are the health and the record; the candidate in hand
+(`carried`, -1 for none) and how far down its vein (`carryMilli`); the two
+thumbs on the organ and the turn under them; and three beat stamps — the
+level began, the surface went still, the ship was burst. Like THE SCUTTLE
+it **fills its wave** (`bossFillsWave`): `act-7g.ts`'s "THE ANTIPHON" has
+no entries at all.
 
 **The rule, in one sentence.** After `antiphonRestBeats` (2) with nothing
-standing, an organ pushes out of the surface (`antiphonGrow`, with its
-shape and how many grow) over `antiphonGrowBeats` (4), during which
-nothing counts, and then stands its window — `antiphonWindowBeats` (28),
-or `antiphonTightWindowBeats` (16) from `antiphonTightPits` (2) and for the
-ship — on a rail of `antiphonRail` (3) candidates laid the same beat
-(`sim/antiphon-rail.ts`: shapes, then columns, then colours, then the
-rail's own shuffle, all through `nextInt` in that order, with every column
-and every shape distinct across the rail so a column names one candidate
-and the contour he describes is on it once). A bolt that nothing on the
-field stopped and that leaves through the top (`sim/antiphon-shot.ts`,
-from `bullets.ts` and `lance-burn.ts` beside `scuttleStruck`) in the
-organ's column *and* its colour shrivels it to a pit (`antiphonPit`, with
-the count) and the cycle ends; a decoy's colour in the decoy's column
-**hardens** the cycle (`antiphonHarden`, with the next rail's width) — the
-organ sinks unpitted and every rail after is one candidate wider, to
-`antiphonRailMax` (6); the organ's column in the other colour, or a column
-that names no candidate, is nothing, unsaid. An organ whose window runs
-out **sinks back healed** (`antiphonSink`), and from `antiphonFirePits`
-(4) fires a body in its colour down its own column first (`spawnOne`,
-`livingKindForColor`). From `antiphonTightPits` (2) the decoys are the
-organ's own **family** — the `antiphonFamily` (4) consecutive indices a
-lobe apart, `antiphonFamilyOf` — so he describes a difference rather than
-a shape; from `antiphonSpillPits` (3) every candidate a pit rejected
-arrives as a body in its colour down its column (`antiphonSpill`), so a
-wrong description is also a wrong field read; from `antiphonTwinPits` (4)
-two organs grow at once on a rail two wider and the cycle ends with the
-second; from `antiphonEchoPits` (5) one organ a cycle is a shape already
-killed, and for once the pair has a name. At `antiphonPits` (6) the
-surface goes **still** once (`antiphonStill`) for `antiphonStillBeats`
-(4) and then grows the last organ, **their own ship** (`antiphonShip`,
-shape `ANTIPHON_SHIP`), on a rail of `antiphonShipRail` (3) ships; the
-right one **bursts** every pit at once (`antiphonBurst`, with the count)
-and the body is gone `antiphonOutBeats` (3) later (`antiphonOut`, the boss
-nulled, the wave allowed to end); a wrong ship hardens like any decoy and
-the ship grows again after the rest, with no second still.
+standing, an organ pushes out (`antiphonGrow`) over `antiphonGrowBeats`
+(4), during which nothing may be carried, and then stands its window —
+`antiphonWindowBeats` (28), or `antiphonTightWindowBeats` (16) from
+`antiphonTightPits` (2) and for the ship — on a rail of `antiphonRail` (3)
+candidates laid the same beat (`sim/antiphon-rail.ts`: the organ's shape,
+then the decoys, then the rail's own shuffle, all through `nextInt` in that
+order). The rail hangs on row `antiphonRailRow` (3), its slots
+`antiphonRailGap` (3) columns apart about the middle (`antiphonSlotCol`),
+and the organ's place is the middle column `antiphonVeinRows` (2) rows
+under it. Each candidate's **vein** runs from its slot to that place
+(`sim/antiphon-vein.ts`): the chooser's thumb grabs a candidate and its
+displacement is projected onto the vein in integers, the candidate moving
+down as far as the thumb has, back up if it goes back, and staying put
+while the thumb is more than `antiphonVeinSlackMilli` (1000) off the line.
+Let go short and it springs back, nothing said. Carried
+`antiphonReachMilli` (900) of the way it **arrives** (`antiphonArrive`):
+the organ shrivels to a pit (`antiphonPit`, with the count) and the level
+ends; a decoy hardens (`antiphonHarden`) and strikes the hull
+(`bossStrikesHull`) — the wave is lost, or on a hull that cannot be struck
+the level plays again. An organ whose window runs out sinks
+(`antiphonSink`) and strikes the hull too. From `antiphonTightPits` the
+decoys are the organ's own **family** — the `antiphonFamily` (4)
+consecutive indices a lobe apart, `antiphonFamilyOf` — so the explainer
+describes a difference rather than a shape; from `antiphonEchoPits` (5)
+one decoy is a shape already killed. At `antiphonPits` (6) the surface goes
+**still** once (`antiphonStill`) for `antiphonStillBeats` (4) and then
+grows the last organ, **their own ship** (`antiphonShip`, shape
+`ANTIPHON_SHIP`), on a rail of `antiphonShipRail` (3) ships; the right one
+carried home **bursts** every pit at once (`antiphonBurst`) and the body is
+gone `antiphonOutBeats` (3) later (`antiphonOut`).
 
-**The split is the eyes, and it is the look lane's.** Player 1 is to be
-shown the organ's shape and nothing of its colour or column; player 2 the
-rail — shapes, colours, columns — and never which is the organ. Nothing
-in the simulation depends on it: the organs and the rail are two fields on
-one state, and which screen draws which is `render/view-role-clocks-b.ts`'
-to say. The sentence between them is *three lobes, the bottom one long —
-four, red*, said in both directions at once.
+**The seats swap every level.** The explainer is shown the organ and the
+chooser the rail; on the first level the pilot explains, on the second the
+navigator, and so on (`antiphonExplainer`, `antiphonChooser`, read off how
+many pits there are). The carry is the chooser's alone, the other seat's
+press dropped without a sound. The sentence between them is *three lobes,
+the bottom one long*, and the game never hears it.
 
-**Where this departs from the design, and why.** Eight places, each argued
-by name. *An organ is an index and not a contour*: the simulation never
-sees a shape — the design's fresh contour from `tools/shape-sheet` is a
-table of `antiphonShapes` in `packages/content`, the look lane's, and a
-family is consecutive indices in it, so that *variants of one contour a
-lobe apart* (step 6) is a fact about the table's order and not about the
-rules. *There is no beam*: the design has none, and a beam that took an
-organ would take it without a colour, which is half the description; a
-beam up any column burns the column and touches nothing. *Nothing counts
-while it grows*: the rail is laid the beat the growth begins, for the
-screens, but a bolt into a contour still resolving is a guess and not a
-description, so the window opens when the organ is all the way out. *The
-window is one number a phase, not six beats called and six beats called
-and 900 ms and two beats*: steps 2 to 5 are one conversation with the cannon
-at the end of it, and the pair is given the whole of it at once — fourteen
-beats while the pits are few, eight once the rail has closed in — because
-a window cut into named pieces would be a rule table on the boss, which
-the owner does not like (§11.9). *An organ fires from the fourth pit, not
-"after eight beats"*: step 10's shot is the price of leaving an organ
-alone, and in the first phase — *generous time* — nothing falls at all; so
-the shot is the window running out, from `antiphonFirePits`, and the
-warded answer is the ordinary field's. *A wrong candidate widens the rail
-by one, capped*: step 5's *hardens all three, and the next cycle gives
-four* is kept whole for the first wrong answer, and a rail that grew
-without limit would be a rail nobody could read on a phone, so
-`antiphonRailMax` holds it. *The still happens once*: step 12 is a
-pause before the payoff, and a pause repeated after every wrong ship would
-be the payoff going flat; a wrong ship costs the rest and the rail's
-width, like any wrong answer. *The rotation under a hand is not built*:
-the design's one time effect is a second viewing angle, and a hand that
-turns the organ is a `Hold` the default set does not have yet — it is the
-look lane's to add, or the owner's to decline (`new-boss` skill §6, open).
+**THE SLOW** opens on the beat the organ stands, for the window's beats,
+and every end of a level shuts it (`sim/antiphon-step.ts`,
+`sim/test/antiphon-doubled.test.ts`); the standard slow meter is the
+window's only clock. **The director's stepper** stands the fight on any
+level through `setBossRound` (`antiphonOpenLevel`): that many pits taken,
+the seats as that level has them, the ship last.
 
 **The look** (`render/antiphon-draw.ts`, `antiphon-flesh.ts`,
-`antiphon-shape.ts`, `antiphon-fx.ts`; the table `content/antiphon-contours.ts`). A smooth
-violet **body** hangs above row 0 the whole width of the columns — its top
-arched, its flanks breathing, its underside swelling in slow waves one a
-pair of columns — a mantle of membrane in the hull's violet over the
-background, dark, lit along its top and gone to the deep at its hem, the
-hem lit from inside, creased where its lobes meet and wet with a streak of
-film, glassier when still, and never outlined (`antiphon-flesh.ts`,
-`new-boss-more` §6.3); a pit is a wet socket in it and an organ or a
-candidate a shaded bud lit inside its lower wall in its rim; not the rock of THE SCUTTLE's slab
-next door but the thing that is *soft*. The **table** is sixteen contours
-in four families, each family one draft off the shape sheet taken whole
-and three that differ from it by the one thing a sentence can say:
-REVERB (three lobes; the bottom one long; pinched; four), SMOKE (six soft
-lobes; five; cut deep; wide), PRISM (three facets; four; sharp; tall) and
-MOULT (eleven facets; nine; shallow; squat) — a radius multiplier at an
-angle like every body's, and an aspect for the tall and the wide, so the
-tight rail is a rail where the difference has to be described rather than
-the shape. An **organ** hangs off the underside at `PERCH_RISE` of a tile,
-its contour pushing out over `antiphonGrowBeats` (eased, so it slows as it
-arrives) and breathing once it is out. **Who is shown what is the split**
-(`showsAntiphonOrgan`, `showsAntiphonRail`, `view-role-clocks-b.ts`): the
-pilot's screen has the organ under the *middle* of the body whatever its
-column, in the body's own violet with the hull's rim — no column under it,
-no colour on it — and twins a `TWIN_GAP` apart by index; the navigator's
-has the **rail**, every candidate at its column at `RAIL_R` in its colour
-with that colour's rim, the whole rail pushing out together so the organ
-is not the one that grows, nothing marking it, and under them the
-**window**: a thread in the shield's rim along the underside, shortening
-from both ends as the beats run out — the count, hers; the test screen has
-both. A **pit** is the shape that made it sunk into the body small and
-dark at `PIT_R`, rimmed dim, spread across the body in the order taken.
-Their own **ship** is a closed hull contour — `HULL`'s twelve lobes with
-the cannon's bump on top — drawn true on the pilot's screen and true for
-the organ on the rail, while every decoy hull is drawn with the *wrong
-number of lobes* (`antiphonDecoyLobes`: ten, fourteen, nine…), subtly, so
-*ours has twelve* is a thing he can say and she can count. With every pit
-there the body goes **still**: the breathing stops, the fill and the rim
-go glassy-bright. **Down**, the body closes in on its middle and fades
-over `antiphonOutBeats` — in the colour, since `strokeGlow` owns the alpha
-— while the ten events, one family read above `Effects`' loop
-(`antiphon-fx.ts`), do the rest: the drawer tells the transient the pits
-every frame, and the burst makes every one an **eruption**, its contour
-pushing out from pit size to over a tile and thinning to nothing over the
-beats the body has left; and every burst is placed by what the screen is
-allowed to know — a growth and the ship burst at the organ's column on
-the screens shown the rail and under the middle on the pilot's, since his
-screen keeps the column from him, and everything after a shot at the
-column the shot went up, which both know. Nothing of it is a sprite.
-`render/test/antiphon-frame.test.ts` proves the body on all three screens,
-the organ drawn on the pilot's and not the navigator's — and the same
-picture there whichever column it stands over — the rail drawn on the
-navigator's and not the pilot's — and the same picture there whichever
-candidate is the organ — twins, the pits, the still, the ship, the fade,
-the gone, the rings and the strokes on the rail with the word under them,
-and the eruption's reset (twelve).
+`antiphon-shape.ts`, `antiphon-fx.ts`; the table
+`content/antiphon-contours.ts`). A smooth violet **body** hangs above row 0
+the whole width of the columns, a mantle of membrane breathing, glassier
+when still; a pit is a wet socket in it. The **table** is sixteen contours
+in four families — REVERB, SMOKE, PRISM and MOULT, each one draft off the
+shape sheet and three that differ from it by one thing a sentence can say.
+The **organ** is drawn at `ORGAN_R` on the explainer's screen at its place,
+the **rail** at `RAIL_R` on the chooser's at the slots, the candidate in
+hand moving along its vein (`antiphonCandidateAt`), every one in
+`PALETTE.organ` — the same green on both screens, and nothing marking which
+candidate is the organ. Their own **ship** is a closed hull contour drawn
+true for the organ, and every decoy hull has the *wrong number of lobes*
+(`antiphonDecoyLobes`). **Down**, the body closes in and fades while every
+pit erupts (`antiphon-fx.ts`). `render/test/antiphon-frame.test.ts` and
+`antiphon-rail-frame.test.ts` prove the body on all three screens, the
+organ on the explainer's and the rail on the chooser's, the swap a level
+on, the carry drawn, and the eruption's reset.
 
-**The turn under a hand.** The design's one concept that wants no time
-effect: *while either seat rests a hand on the organ, it turns slowly in
-place and stops when the hand lifts — a rotation, not a rate*, a second
-viewing angle bought rather than a second. Built as a third lane, and as
-the default set's first **turn**. `antiphonOrgan` is a `DragTarget`
-(`sim/drag-targets.ts`) heard by `sim/antiphon-hand.ts` from either seat:
-`on` is that seat's thumb on the glass (`heldP1`, `heldP2`), and while
-either is on and an organ stands, `turnTicks` counts — one whole turn in
-`antiphonTurnBeats` (8), read as `antiphonTurnMilli`, the angle in
-thousandths of a turn. A thumb lifted stops it where it is; the next organ
-grows upright, since `turnTicks` is zeroed on the grow; twins turn
-together; and nothing else reads it — the turn changes no window, sinks
-no organ, names no shape, and `sim/test/antiphon-hand.test.ts` proves it
-changes nothing about the fight and is in the hash. On the screen it is
-`antiphonContourPath`'s `turn`, the contour's own points faced another
-way so the lobes and the hull's cannon bump keep their count, drawn on
-the organ only (`render/antiphon-draw.ts`) and never on the rail — a rail
-that turned with his thumb would put his hand on her screen. The handle
-is the organ's own circle (`antiphonOrganCircle`, one place for the
-drawing and the hit test), a grip mark on its lower flank that fills
-while a thumb is on and the word TURN under it while none is
-(`render/antiphon-grip.ts`), and it is **on one screen only**: the
-navigator is shown the rail and nothing to hold, so her press falls
-through to the field as if no organ hung — the first handle in the game
-that is not on both screens, which is the one departure from the design's
-*either seat*: the simulation hears both, the picture offers one. The
-desk and a film reach it as `--hold antiphonOrgan=0` (`tools/frames/hold.ts`),
-and `FIELD_CONTROLS`, [controls](controls.md) and a gallery pose carry it.
-*Not built*: the design's step 8, where the organ begins turning **on its
-own** as an escalation so the description has to say which way up — that
-is a rate, and the one this paragraph refuses.
+**The turn under a hand.** `antiphonOrgan` is a `DragTarget` heard by
+`sim/antiphon-hand.ts` from either seat: while a thumb rests on the organ
+it turns slowly in place, one whole turn in `antiphonTurnBeats` (8), and
+stops where it is when the thumb lifts — a second viewing angle that
+changes nothing about the fight. The handle is the organ's own circle
+(`antiphonOrganCircle`) on the explainer's screen, with the word TURN
+under it while no thumb is on (`render/antiphon-grip.ts`).
 
-**The pull off the rail.** The second gesture, 19 September 2026, and the
-one that changes the fight: *pull off the ones you know are wrong.*
-`antiphonRail` is a `DragTarget` (`sim/drag-targets-c.ts`) carrying the
-place on the rail as its `id` — the rail is never re-ordered, so a
-crossing stays where it was made — heard by `sim/antiphon-hand.ts` from
-**player 2 alone**, the pilot's dropped without a sound as `queenMark`
-drops the other seat's. Her thumb on a candidate is `heldRail` and nothing
-else; carrying it `antiphonPullMilli` (800) of a tile down, with the organ
-all the way out, **crosses it off**: its place joins `crossed`, an
-`antiphonPull` event says its column and how many candidates are left, and
-from then a bolt in its column and its colour is nothing rather than a
-hardening (`sim/antiphon-shot.ts`) and it cannot fall on them when a pit
-ends the cycle (`antiphonSpillPits`, `sim/antiphon-step.ts`). Pull off
-**the one he is describing** and the cycle hardens exactly as firing at a
-decoy does, so three crossings are three risks where a bolt is one, and
-the gesture buys nothing free. Nothing may be pulled before the organ
-stands, a candidate crosses off once, and the next cycle gives the whole
-rail back — `crossed` and `heldRail` are cleared with the rest. All of it
-is in the hash, and in `sim/test/antiphon-pull.test.ts` (eleven).
+**The carry's handle** (`render/antiphon-rail-grip.ts`): a grip ring on
+**every** candidate, never on one, each with the way down its vein inside
+it (`drawPullArrow`), and the word PULL under the middle of the rail while
+nothing is in hand. The hit test is the candidate's resting circle at its
+perch, thumb-sized, nearest wins. The halo is on every candidate a carry
+would take on (`antiphonRailAsks`), and the verdict is rung at the organ's
+place on every screen — green for a pit or the ship burst, red for a decoy
+(`render/antiphon-marks.ts`).
 
-On the screen it is the rail's own handle (`render/antiphon-rail-grip.ts`),
-hers because `showsAntiphonRail` draws the rail to her alone and a handle a
-seat cannot see is not a handle: a grip ring on **every** candidate still
-in, never on one — a ring on the one she ought to cross off would be her
-own reading handed back to her — filling under her thumb while it rests,
-and a stroke through each one she has crossed, so a list read out loud
-shows where she is in it. The hit test is the candidate's resting circle at
-its perch, thumb-sized rather than contour-sized, nearest wins, which is
-`creatureAt`'s rule. Whether a pull *takes* is the simulation's to refuse,
-so a thumb may rest on a candidate while the rail is still growing and the
-ring fills under it, which is the picture of a hand held ready. The
-crossing's sound is **seated to her phone** (`audio/bind-antiphon.ts`,
-`boss.antiphonPull`): a pan on his would hand him a column she had
-eliminated without either of them saying it, which is the whole of what
-this boss is for. `FIELD_CONTROLS`' second ANTIPHON row, `render/handles.ts`
-and a gallery pose carry it. Never watched at tempo: the picture of a
-candidate coming off the rail is *unverified*.
+**No word names the shape**, and no word asks for a shot: there is no
+`MOVE` and no `FIRE` on this boss, and no `STILL` since the owner took it
+off on 25 September 2026 (`render/src/boss-cue-read-p.ts`,
+`render/test/boss-cue-antiphon.test.ts`).
 
-**Doubled on the owner's rule, 24 September 2026**
-(`docs/spec/choreographed-windows.md`): `antiphonWindowBeats` 14 → 28 and
-`antiphonTightWindowBeats` 8 → 16, with the pull carried twice as far
-(`antiphonPullMilli` 400 → 800). THE SLOW opens on this fight for the first
-time, over the window alone: on the beat the organs have pushed all the way
-out, for the window's beats, and every end of a cycle shuts it — a pit, a
-hardening, a pull off the organ, the window run out, the ship
-(`sim/antiphon-step.ts`, `sim/test/antiphon-doubled.test.ts`). The growth,
-the rest and the still ask nothing and are not slowed. The film answers every
-organ the beat it stands, so it replays unchanged; its page on the tight
-window says sixteen.
+**The rehearsal** (`content/src/scenes/the-antiphon.ts`, rewritten on 5
+October 2026, seed 1): six organs carried home with the seats swapping,
+each carry the organ's candidate found by the runner (`sim/scene-aim.ts`)
+twenty ticks after it stands, then the still and their own ship. It shows
+no mistake, since a decoy carried home ends the wave.
 
-**Never watched at tempo.** What the tests say is the mechanism: it rises
-smooth with nothing on the rail and nothing on the field; it holds its
-wave and fills it; it rests and grows one organ on a rail of distinct
-columns and shapes; nothing counts while the organ is still pushing out;
-the organ's colour in its column is a pit and the cycle ends with nothing
-falling; the other colour in its column is nothing; a decoy's colour in
-its column hardens, and the next rail is one wider, to the cap; a column
-that names no candidate is nothing, and so is the beam; the window runs
-out and the organ sinks with nothing falling in the first phase, and fires
-a body down its column from `antiphonFirePits`; the rail closes on the
-family from `antiphonTightPits`; every rejected candidate falls from
-`antiphonSpillPits`; two grow from `antiphonTwinPits` on a rail two wider
-and the cycle ends with the second; a pit grows again from
-`antiphonEchoPits`; with every pit taken it goes still, grows the ship on
-a rail of ships, and the right one bursts it; the wrong ship hardens and
-the ship grows again with no second still; a candidate carried down off
-the rail is crossed off on her seat and nobody else's, never before the
-organ stands, never twice, and once crossed it neither hardens the cycle
-nor spills on them, while the organ pulled off hardens like a decoy
-(`sim/test/antiphon-pull.test.ts`); and the same run fingerprints
-the same way twice (`sim/test/antiphon.test.ts`, nineteen). Nothing was
-drawn, nothing was watched, and whether fourteen beats is a conversation
-or a wait is the owner's.
-
-**The words** (`render/src/antiphon-grip.ts` and
-`render/src/boss-cue-read-p.ts`, 19 September 2026, page sixteen of the
-readings). Three, and every one of them is about a moment rather than a thing,
-because
-**no word here may name the shape, the colour or the column**. `TURN` on the
-organ's grip mark while no thumb rests on it, which shipped with the handle: the
-pilot's, because the organ hangs on his screen alone, and one word per standing
-organ because a thumb on either of a pit's twins turns both — the turn is
-`s.turnTicks`, one number for the pair. It names no candidate: turning is how he
-*looks*, it sinks nothing and answers nothing. `PULL` under the middle of her
-rail while no thumb rests on a candidate (`render/src/antiphon-rail-grip.ts`):
-hers, because the rail hangs on her screen alone, and one word for the whole
-rail rather than one per candidate, so it names no column and no colour. What
-it offers her is a candidate *she* has already ruled out by listening to him,
-and the crossing's sound is seated to her phone for the same reason, so the
-field says the verb and she keeps the answer.
-
-**No `MOVE`, and this is the boss the rule was written for.** The organ's shape
-is his and its colour and column are hers; she has to find the one he is
-describing and fire its colour into its column, and he has to put the cannon
-there, which he cannot see either. A `MOVE` on his hull would be her rail read
-out on his screen, and a `MOVE` that went out the beat he arrived would say he
-had arrived — the leak by subtraction §11.29 found. **And no `FIRE`, for the
-other reason: she is already told *when*, twice, on her own screen.** The rail's
-candidates are drawn at `RAIL_R * grow` and reach full size exactly as
-`antiphonGrowBeats` runs out, which is the beat a bolt stops being a guess
-(`antiphonStruck`'s `standing`), and the window gauge beside them sits full until
-that beat and falls from it. *Which* is the whole question, and the field says
-the verb and never the answer.
-
-**And no word on the still** (`boss-cue-read-p.ts`, its own page because page
-three is at 229 of 250). At `antiphonPits` the body stops breathing, rims bright
-and stands for `antiphonStillBeats` with nothing out of it at all, so every bolt
-is refused, and then grows their own ship. A `STILL` stood on the body's middle
-for those beats from 18 September until the owner took it off on 25 September
-2026: *for the player it is clear to wait*. The stilling is drawn to **both**
-screens — `drawBody` takes `still` whatever the role — so the picture says it.
-Nothing in the rest between cycles either, where her rail is empty and an empty
-rail says so, nor on a spilled candidate or a fired organ, which arrive as
-ordinary bodies down ordinary columns. Proved in
-`render/test/boss-cue-antiphon.test.ts`, the cannon walked across the field with
-an organ standing for the silence that matters.
-
-**The rehearsal** (`content/src/scenes/the-antiphon.ts`, 18 September
-2026, twenty pages over 3,720 ticks, seed 1): the wrong candidate first —
-a decoy's colour in the decoy's column, the body hardened and the rail
-four wide for the rest of the film — then six organs taken where they
-stand, every column an `atBoss` strip because the rail is laid on any of
-the eleven (`sim/boss-answer.ts` answers with the first organ's column
-from the beat it grows, nothing between cycles or once it bursts), the
-fire in the organ's colour the beat it has pushed all the way out. From
-the third pit what the rail rejected falls and is taken by `atBody` two
-beats apart, before the next organ's shot; the twins are taken one and
-then the other, the second strip after the first is a pit; the ship is
-found among ships and every pit erupts. The film showed a defect of the
-twins: the first twin taken, no longer an organ, was counted among the
-rejected when the second pitted and fell as a body — `antiphonPit` now
-reads a candidate whose shape is a pit as described, never rejected
-(`sim/test/antiphon.test.ts`, the nineteenth). Not shown: a sunk organ
-and the body it fires, and a pit grown again — the twins take the fight
-from four pits to six in one cycle. Every page is on a control or on the
-hull (`docs/queue.md`, the gauge item); the film takes no hit. Two of its
-pages moved on 19 September 2026: *two pits, now eight beats* was on the
-pilot's screen and the window is drawn beside the rail and nowhere else, so
-the page named a number its reader cannot see and the seat racing it was not
-told; and *six pits, it goes still* is drawn on both screens, so his page
-says the length instead. The film still never turns the organ, which is a
-queue entry rather than a page here.
-
-**Its two handles answer a touch as far as a split fight lets them**
-(`render/antiphon-marks.ts`; the owner, 27 September 2026: *the consistent
-visual across all waves*). THE GAUGE's case: the organ's grip mark wears the
-halo on the pilot's screen while one stands and no thumb rests on it
-(`antiphonOrganAsks`), and every candidate a pull would take on wears it on
-the navigator's once the organ stands grown (`antiphonRailAsks`, which reads
-the same `antiphonStanding` the pull does). A pull washes the candidate
-green over its cross (`antiphonPull`). No partner's ring and clock and no
-refusal, since each handle is on one screen. The turn has no verdict, since
-it answers nothing, and neither has a pull of the organ itself: it hardens
-the cycle in the same tick, and the hardening is the same event a bolt into
-a decoy says.
+**What the tests say** (`sim/test/antiphon.test.ts`,
+`antiphon-carry.test.ts`, `antiphon-hand.test.ts`,
+`antiphon-doubled.test.ts`): it rises smooth with nothing on the field; it
+rests and grows one organ on a rail of distinct shapes at their slots; the
+organ carried home is a pit and ends the level; a decoy carried home and a
+window run out each strike the hull; the seats swap every level; the rail
+closes on the family and the window tightens from `antiphonTightPits`; a
+pit grows again from `antiphonEchoPits`; with every pit taken it goes
+still, grows the ship and the right one bursts it; the stepper stands any
+level; the vein reads a displacement along it and nothing far off it; the
+carry is the chooser's alone, never before the organ stands, one at a
+time, springing back when let go short; and all of it is in the hash.
+*Unverified*: the carry watched at tempo, and whether twenty-eight beats
+is a conversation or a wait — the owner's eye.
 
 ## 11.32 THE INSTAR — the boss with no panel, marked where it will hurt you
 

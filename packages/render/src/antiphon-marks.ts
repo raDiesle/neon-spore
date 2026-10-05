@@ -9,34 +9,33 @@ import { GripVerdicts } from "./grip-verdict.js";
  *
  * Whether each is asked is the simulation's (`sim/antiphon.ts`): the organ's
  * grip mark while one stands and no thumb rests on it (`antiphonOrganAsks`),
- * and every candidate on the rail still to be pulled once the organ stands
- * grown, so a pull would take (`antiphonRailAsks`). On the screen that shows
- * it, each asked mark wears the halo under its ring (`antiphon-grip.ts`,
- * `antiphon-rail-grip.ts`) — every candidate, never the one she should pull,
- * for the reason the rings are all drawn.
+ * and every candidate on the rail once the organ stands grown and nothing is
+ * in hand (`antiphonRailAsks`). On the screen that shows it, each asked mark
+ * wears the halo under its ring (`antiphon-grip.ts`, `antiphon-rail-grip.ts`)
+ * — every candidate, never the one being described.
  *
- * **Half of the convention is missing on purpose.** The organ hangs on the
- * pilot's screen alone and the rail on the navigator's, and each would hand
- * the other the half the fight keeps from them — so there is no partner's
- * ring and clock, and a press from the seat without the rail is dropped
- * without a sound (`sim/antiphon-hand.ts`), so there is nothing to refuse red.
+ * **Half of the convention is missing on purpose.** The organ stands on the
+ * explainer's screen alone and the rail on the chooser's, and each would
+ * hand the other the half the fight keeps from them — so there is no
+ * partner's ring and clock, and a press from the wrong seat is dropped
+ * without a sound (`sim/antiphon-hand.ts`), so there is nothing to refuse.
  *
- * The one verdict is green, on a pull (`antiphonPull`), round the candidate
- * crossed off, keyed by its column — the rail's columns are distinct. **The
- * turn has none**: it is how the pilot looks and it answers nothing. **Nor
- * has a pull of the organ itself**: it hardens the cycle in the same tick,
- * the rail is gone with it, and the hardening is the same event a bolt into
- * a decoy says — the fight's own answer to both.
+ * **The one verdict is the carry's**, at the organ's place and on both
+ * screens, because both are waiting on it: green for the organ carried home
+ * (`antiphonPit`, `antiphonBurst`), red for a decoy (`antiphonHarden`). It is
+ * keyed `0` — there is one place to judge at. **The turn has none**: it is
+ * how the explainer looks and it answers nothing.
  *
  * Held in `AntiphonFx`, the boss's own (`antiphon-fx.ts`).
  */
 export class AntiphonMarks {
-  /** Was the last pull on each column right. */
+  /** Was the last carry right. */
   readonly verdicts = new GripVerdicts();
 
   ingest(events: readonly SimEvent[]): void {
     for (const e of events) {
-      if (e.type === "antiphonPull") this.verdicts.mark(e.col, true);
+      if (e.type === "antiphonPit" || e.type === "antiphonBurst") this.verdicts.mark(0, true);
+      if (e.type === "antiphonHarden") this.verdicts.mark(0, false);
     }
   }
 

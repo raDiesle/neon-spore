@@ -119,10 +119,8 @@ export function lateCue(e: LateEvent, cols: number): Cue | null {
     case "antiphonEnter":
     case "antiphonGrow":
     case "antiphonPit":
-    case "antiphonPull":
     case "antiphonHarden":
     case "antiphonSink":
-    case "antiphonSpill":
     case "antiphonStill":
     case "antiphonShip":
     case "antiphonBurst":

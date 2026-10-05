@@ -1,5 +1,4 @@
 import { describe, expect, it } from "bun:test";
-import { antiphonStruck, antiphonVerdict } from "../src/antiphon-shot.js";
 import { DEFAULT_CONFIG, midCol } from "../src/config.js";
 import { curtainStruck, curtainVerdict } from "../src/curtain-shot.js";
 import { gimbalBoss } from "../src/gimbal.js";
@@ -44,7 +43,6 @@ const BEATS = 48;
 interface Case {
   name: string;
   kind:
-    | "antiphon"
     | "curtain"
     | "gimbal"
     | "hasp"
@@ -129,7 +127,6 @@ const scene = (kind: "instar" | "nettle", pose: string, part: string): Omit<Case
 });
 
 const CASES: Case[] = [
-  { name: "THE ANTIPHON", kind: "antiphon", verdict: antiphonVerdict, struck: antiphonStruck },
   { name: "THE CURTAIN", kind: "curtain", verdict: curtainVerdict, struck: curtainStruck },
   { name: "THE HIVE", kind: "hive", verdict: hiveVerdict, struck: hiveStruck },
   { name: "THE LEAD, pacing", ...lead },

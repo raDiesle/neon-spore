@@ -38,6 +38,11 @@ export const PALETTE = {
    * fuse is not the shield, and the eye must not read it as one. */
   blue: "#3F7BFF",
   blueRim: "#C9D9FF",
+  /** THE ANTIPHON's organ and every candidate for it: a green no control
+   * wears, so nothing on the rail reads as a colour to fire (the owner,
+   * 5 October 2026). Mossier than `good`, which is a verdict. */
+  organ: "#62C46A",
+  organRim: "#CFF2C8",
   sparkDim: "#8B85AB",
   ...CREATURE_HUES,
   ...LATE_CREATURE_HUES,

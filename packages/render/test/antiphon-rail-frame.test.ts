@@ -2,15 +2,16 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import type { ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { count, drawn, frame, grown, hung, pullWord } from "./antiphon-frame-harness.js";
-import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES } from "./frame-harness.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES } from "./frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE ANTIPHON's rail, on all three screens — the mirror of the organ, at
  * `antiphon-frame.test.ts`: the same states, set rather than played to, but
- * read from her side, and the one thing nothing else in the suite could
- * catch, that the **rail** is on the navigator's screen and not the pilot's.
+ * read from the chooser's side, and the one thing nothing else in the suite
+ * could catch, that the **rail** is on the chooser's screen and not the
+ * explainer's — the navigator's on the first level.
  */
 
 beforeAll(() => {
@@ -18,69 +19,61 @@ beforeAll(() => {
   for (const role of ROLES) drawn(hung(), role, 3);
 });
 
+/** The organ grown with its rail, and the same organ with none: the difference is the rail's. */
+const railed = (role: ViewRole) => frame(role, (w) => void grown(w)).text;
+const none = (role: ViewRole) =>
+  frame(role, (w) => {
+    grown(w).rail = [];
+  }).text;
+
 describe("THE ANTIPHON's rail", () => {
-  it("puts the rail on the navigator's screen and not the pilot's", () => {
-    // A rail out is the candidates' rims in their colours where it is shown,
-    // and the window's thread under it; on the pilot's the same rail is nothing.
-    const railed = (role: ViewRole) => frame(role, (w) => void grown(w)).text;
-    const none = (role: ViewRole) => frame(role, () => {}).text;
-    const rim = (text: string, hex: string) => count(text, hex);
-    expect(rim(railed("p2"), PALETTE.redRim)).toBeGreaterThan(rim(none("p2"), PALETTE.redRim));
-    expect(rim(railed("p2"), PALETTE.cyanRim)).toBeGreaterThan(rim(none("p2"), PALETTE.cyanRim));
-    expect(rim(railed("test"), PALETTE.redRim)).toBeGreaterThan(rim(none("test"), PALETTE.redRim));
-    expect(rim(railed("p1"), PALETTE.redRim)).toBe(rim(none("p1"), PALETTE.redRim));
-    expect(count(railed("p2"), PALETTE.shieldRim)).toBeGreaterThan(
-      count(railed("p1"), PALETTE.shieldRim),
+  it("puts the rail on the chooser's screen and not the explainer's", () => {
+    expect(count(railed("p2"), PALETTE.organ)).toBeGreaterThan(count(none("p2"), PALETTE.organ));
+    expect(count(railed("test"), PALETTE.organ)).toBeGreaterThan(
+      count(none("test"), PALETTE.organ),
     );
-    // And nothing on her screen marks the organ: the organ moved to another
-    // candidate's place is the same picture.
-    const organIs = (col: number) =>
+    expect(count(railed("p1"), PALETTE.organ)).toBe(count(none("p1"), PALETTE.organ));
+    // And nothing on the chooser's screen marks the organ: the answer moved
+    // to another candidate is the same picture.
+    const answerIs = (i: number) =>
       frame("p2", (w) => {
+        grown(w).answer = i;
+      }).text;
+    expect(answerIs(0)).toBe(answerIs(2));
+  });
+
+  it("draws no red and no cyan on any candidate: a colour no control wears", () => {
+    for (const role of ["p2", "test"] as const) {
+      expect(count(railed(role), PALETTE.redRim)).toBe(count(none(role), PALETTE.redRim));
+      expect(count(railed(role), PALETTE.cyanRim)).toBe(count(none(role), PALETTE.cyanRim));
+    }
+  });
+
+  it("carries the candidate in hand down toward the organ, on the chooser's screen alone", () => {
+    const carried = (role: ViewRole, milli: number) =>
+      frame(role, (w) => {
         const s = grown(w);
-        const c = s.rail.find((r) => r.col === col);
-        if (c) s.organs = [{ ...c, grownBeat: w.beat - CFG.antiphonGrowBeats }];
+        s.carried = 0;
+        s.carryMilli = milli;
       }).text;
-    expect(organIs(4)).toBe(organIs(6));
+    expect(carried("p2", 500)).not.toBe(carried("p2", 0));
+    expect(carried("p2", 500)).not.toBe(carried("p2", 800));
+    expect(carried("p1", 500)).toBe(carried("p1", 0));
   });
 
-  it("rings the candidates she may still pull, and strokes the ones she has", () => {
-    // The ring and the stroke are both the dim tone, so a count cannot tell
-    // one from the other; what a crossing has to be is a *different picture*
-    // on her screen and the same one on his, which is the leak that matters.
-    const railed = (role: ViewRole) => frame(role, (w) => void grown(w)).text;
-    const crossed = (role: ViewRole) =>
-      frame(role, (w) => {
-        grown(w).crossed = [0];
-      }).text;
-    expect(crossed("p2")).not.toBe(railed("p2"));
-    expect(crossed("p1")).toBe(railed("p1"));
-  });
-
-  it("fills the ring under her thumb, and says nothing of it on his screen", () => {
-    const held = (role: ViewRole) =>
-      frame(role, (w) => {
-        grown(w).heldRail = 0;
-      });
-    const loose = (role: ViewRole) => frame(role, (w) => void grown(w));
-    expect(count(held("p2").text, PALETTE.text)).toBeGreaterThan(
-      count(loose("p2").text, PALETTE.text),
-    );
-    expect(held("p1").text).toBe(loose("p1").text);
-  });
-
-  it("says PULL once under her rail, and never on his screen", () => {
+  it("says PULL once under the rail, and never on the explainer's screen", () => {
     // One word under the middle of the rail rather than one per candidate: a
-    // word on the candidate she should cross off would be her own reading
-    // handed back to her (`boss-cue-read-p.ts`).
+    // word on the candidate being described would be the chooser's own
+    // reading handed back (`boss-cue-read-p.ts`).
     const world = hung();
     grown(world);
     expect(pullWord(drawn(world, "p2", 3).words).length).toBe(1);
     expect(pullWord(drawn(world, "p1", 3).words)).toEqual([]);
   });
 
-  it("takes the word away while her thumb is on a candidate", () => {
+  it("takes the word away while a candidate is in hand", () => {
     const world = hung();
-    grown(world).heldRail = 1;
+    grown(world).carried = 1;
     expect(pullWord(drawn(world, "p2", 3).words)).toEqual([]);
   });
 });

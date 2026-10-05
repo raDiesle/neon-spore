@@ -1,166 +1,120 @@
 import {
   ANTIPHON_SHIP,
-  type AntiphonOrgan,
   type AntiphonState,
-  antiphonCrossed,
   antiphonFull,
   antiphonIsOrgan,
-  antiphonRailSize,
-  antiphonShipUp,
+  antiphonOrganCol,
+  antiphonOrganRow,
   antiphonSinkBeat,
-  antiphonTwins,
   antiphonWindow,
 } from "./antiphon.js";
 import { growCycle } from "./antiphon-rail.js";
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { livingKindForColor } from "./kinds.js";
 import { closeSlow, openSlow } from "./slow.js";
-import { spawnOne } from "./spawn.js";
-import type { Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * THE ANTIPHON's clock — the rise, the growth, the window, the sinking,
- * the still and the ship, and the collapse. What takes an organ or hardens
- * it is `antiphon-shot.ts`, on the tick; what an organ is and what stands
+ * THE ANTIPHON's clock — the rise, the growth, the window, the verdict, the
+ * still and the ship, and the collapse. What carries a candidate down its
+ * vein is `antiphon-hand.ts`, on the tick; what an organ is and what stands
  * beside it on the rail is `antiphon-rail.ts`.
  *
- * Everything here runs on the **beat** from `stepBoss`, and a cycle is one
- * shape: a rest of `antiphonRestBeats` with nothing standing, then the
- * organs push out over `antiphonGrowBeats` and stand their window, and the
- * cycle ends one of three ways — a pit, a hardening, or the window run out.
- * The rest after is the same whichever it was, so the pair's time between
- * organs is one number they can learn.
- *
- * **What falls in its wave is what the pair got wrong** (`bossFillsWave`):
- * from `antiphonSpillPits` every candidate a pit rejected arrives as a body
- * in its colour down its column, so a wrong description is also a wrong
- * field read; from `antiphonFirePits` an organ left undescribed fires one
- * down its own column before it sinks. Nothing else arrives, and in the
- * first phase nothing at all: the design's *generous time*.
+ * Everything here runs on the **beat** from `stepBoss`, and a level is one
+ * shape: a rest of `antiphonRestBeats` with nothing standing, then the organ
+ * pushes out over `antiphonGrowBeats` and stands its window, and the level
+ * ends one of three ways — the organ carried to its place and a pit, a
+ * decoy carried there instead, or the window run out. The last two strike
+ * the hull (`bossStrikesHull`), which is the wave lost; a hull that cannot be
+ * struck plays the level again after the rest, so a rehearsal goes on.
  *
  * **The window is THE SLOW** (`docs/decisions.md` #33, doubled on the owner's
- * rule of 24 September 2026): it opens on the beat the organs have pushed all
- * the way out, which is the beat a bolt first counts, for the window's beats,
- * and every way a cycle ends shuts it — a pit, a hardening, the window run
- * out, the ship. The growth and the rest are not slowed: nothing is asked in
- * them.
+ * rule of 24 September 2026): it opens on the beat the organ has pushed all
+ * the way out, which is the beat a carry first counts, for the window's
+ * beats, and every way a level ends shuts it. The growth and the rest are
+ * not slowed: nothing is asked in them. Its meter is the one every slowed
+ * boss has; the body draws no clock of its own.
  */
 
 /** Install it from the wave's own `boss:` entry: the body risen, smooth, nothing on the rail. */
 export function installAntiphon(world: World): AntiphonState {
   const s: AntiphonState = {
     kind: "antiphon",
-    organs: [],
+    organ: null,
     rail: [],
+    answer: -1,
     pits: [],
-    extra: 0,
     cycleBeat: world.beat,
     stillBeat: -1,
     downBeat: -1,
     turnTicks: 0,
     heldP1: false,
     heldP2: false,
-    crossed: [],
-    heldRail: -1,
+    carried: -1,
+    carryMilli: 0,
   };
   world.events.push({ type: "antiphonEnter", col: midCol(world.cfg) });
   return s;
 }
 
-/** A body in `color` down `col`, at the top of the field: the price of a candidate. */
-function arrive(world: World, col: number, color: Color): void {
-  spawnOne(world, { beat: world.beat, col, kind: livingKindForColor(color), color });
-}
-
 /** Nothing standing, nothing on the rail, and the rest begins. */
 function endCycle(world: World, s: AntiphonState): void {
-  s.organs = [];
+  s.organ = null;
   s.rail = [];
-  // The crossings go with the rail they were made on: they are indices into
-  // it, and the next rail is a different length. A thumb still down is let
-  // go of for the same reason — what it was resting on no longer exists.
-  s.crossed = [];
-  s.heldRail = -1;
+  s.answer = -1;
+  // A thumb still carrying is let go of: what it held no longer exists.
+  s.carried = -1;
+  s.carryMilli = 0;
   s.cycleBeat = world.beat;
   closeSlow(world);
 }
 
-/** This cycle's organs push out, and the rail is laid. */
+/** This level's organ pushes out, and the rail is laid. */
 function grow(world: World, s: AntiphonState): void {
   s.cycleBeat = world.beat;
-  // A new organ pushes out the way up its contour was drawn; a thumb still
-  // resting from the last one goes on turning this one from there.
+  // A new organ pushes out the way up its contour was drawn.
   s.turnTicks = 0;
-  const organs = growCycle(world, s);
-  for (const o of organs) {
-    if (o.shape === ANTIPHON_SHIP) {
-      world.events.push({ type: "antiphonShip", col: o.col });
-    } else {
-      world.events.push({
-        type: "antiphonGrow",
-        col: o.col,
-        shape: o.shape,
-        organs: organs.length,
-      });
-    }
-  }
+  const o = growCycle(world, s);
+  const col = antiphonOrganCol(world.cfg);
+  if (o.shape === ANTIPHON_SHIP) world.events.push({ type: "antiphonShip", col });
+  else world.events.push({ type: "antiphonGrow", col, shape: o.shape });
 }
 
-/** The window ran out: the organs sink back healed — and from `antiphonFirePits`, fire first. */
+/** The window ran out with nothing carried home: the organ sinks, and the hull is struck. */
 function sink(world: World, s: AntiphonState): void {
-  const fires = s.pits.length >= world.cfg.antiphonFirePits && !antiphonShipUp(s);
-  for (const o of s.organs) {
-    if (fires) arrive(world, o.col, o.color);
-    world.events.push({ type: "antiphonSink", col: o.col, fired: fires });
-  }
+  const col = antiphonOrganCol(world.cfg);
+  world.events.push({ type: "antiphonSink", col });
   endCycle(world, s);
+  bossStrikesHull(world, "antiphon", col, antiphonOrganRow(world.cfg));
 }
 
-/** The right ship: every pit erupts, and the body is ending. */
-function burst(world: World, s: AntiphonState, o: AntiphonOrgan): void {
-  s.downBeat = world.beat;
-  world.events.push({ type: "antiphonBurst", col: o.col, pits: s.pits.length });
-  endCycle(world, s);
-}
-
-/** The organ's colour arrived in its column: it shrivels to a pit — and the last organ, theirs, bursts instead. Called by `antiphon-shot.ts`. */
-export function antiphonPit(world: World, s: AntiphonState, o: AntiphonOrgan): void {
-  if (o.shape === ANTIPHON_SHIP) {
-    burst(world, s, o);
+/**
+ * Rail index `i` has been carried all the way down its vein to the organ's
+ * place, and is judged. The organ shrivels to a pit — or, if it is their own
+ * ship, every pit bursts; anything else hardens the organ and strikes the
+ * hull. Called by `antiphon-hand.ts`.
+ */
+export function antiphonArrive(world: World, s: AntiphonState, i: number): void {
+  const cfg = world.cfg;
+  const c = s.rail[i];
+  const o = s.organ;
+  if (c === undefined || o === null) return;
+  const col = antiphonOrganCol(cfg);
+  if (!antiphonIsOrgan(s, i)) {
+    world.events.push({ type: "antiphonHarden", col: c.col, shape: c.shape });
+    endCycle(world, s);
+    bossStrikesHull(world, "antiphon", col, antiphonOrganRow(cfg));
     return;
   }
-  const cfg = world.cfg;
-  s.pits.push(o.shape);
-  // The candidates neither organ is, read before the rail goes: from
-  // `antiphonSpillPits` they are what falls when the cycle ends on a pit. A
-  // twin already taken this cycle is a pit and no organ, and is not rejected:
-  // shapes are distinct across a rail (`antiphon-rail.ts`), so a candidate
-  // whose shape is a pit is one the pair described, never one it turned down.
-  // A candidate she pulled off the rail is out of the cycle altogether: it
-  // does not fall on them when the cycle ends, which is what the pull buys.
-  const rejected = s.rail.filter(
-    (c, i) => !antiphonIsOrgan(s, c) && !s.pits.includes(c.shape) && !antiphonCrossed(s, i),
-  );
-  s.organs = s.organs.filter((x) => x !== o);
-  world.events.push({ type: "antiphonPit", col: o.col, shape: o.shape, pits: s.pits.length });
-  if (s.organs.length > 0) return;
-  if (s.pits.length >= cfg.antiphonSpillPits) {
-    for (const c of rejected) {
-      arrive(world, c.col, c.color);
-      world.events.push({ type: "antiphonSpill", col: c.col, color: c.color });
-    }
+  if (o.shape === ANTIPHON_SHIP) {
+    s.downBeat = world.beat;
+    world.events.push({ type: "antiphonBurst", col, pits: s.pits.length });
+    endCycle(world, s);
+    return;
   }
+  s.pits.push(o.shape);
+  world.events.push({ type: "antiphonPit", col, shape: o.shape, pits: s.pits.length });
   endCycle(world, s);
-}
-
-/** A decoy's colour arrived in the decoy's column: the organs harden, the cycle is lost, and the next rail is one wider. Called by `antiphon-shot.ts`. */
-export function antiphonHarden(world: World, s: AntiphonState, col: number): void {
-  const cfg = world.cfg;
-  s.extra += 1;
-  endCycle(world, s);
-  const next = antiphonFull(s, cfg) ? 1 : antiphonTwins(s, cfg) ? 2 : 1;
-  world.events.push({ type: "antiphonHarden", col, rail: antiphonRailSize(s, cfg, next) });
 }
 
 /** One beat of the body. */
@@ -176,8 +130,8 @@ export function stepAntiphon(world: World, s: AntiphonState): void {
     }
     return;
   }
-  if (s.organs.length > 0) {
-    const standUp = (s.organs[0]?.grownBeat ?? beat) + cfg.antiphonGrowBeats;
+  if (s.organ !== null) {
+    const standUp = s.organ.grownBeat + cfg.antiphonGrowBeats;
     if (beat >= antiphonSinkBeat(s, cfg)) sink(world, s);
     else if (beat === standUp) openSlow(world, antiphonWindow(s, cfg), "ask");
     return;
@@ -188,7 +142,7 @@ export function stepAntiphon(world: World, s: AntiphonState): void {
     return;
   }
   // The pits are all there: the surface goes still once, and then the ship
-  // — again after every ship hardened or sunk, with only the rest between.
+  // — again after a ship missed, with only the rest between.
   if (s.stillBeat < 0) {
     if (rested) {
       s.stillBeat = beat;
@@ -197,4 +151,22 @@ export function stepAntiphon(world: World, s: AntiphonState): void {
     return;
   }
   if (rested && beat >= s.stillBeat + cfg.antiphonStillBeats) grow(world, s);
+}
+
+/**
+ * **Stand the fight on level `level`** — the director's stepper and
+ * `bun run frames --boss-round`, through `setBossRound` (`boss-round.ts`).
+ * The pits a pair would have carried by then are the table's first shapes
+ * in order, the rest begins now and the level grows after it; the ship is
+ * `antiphonPits`, reached through its still.
+ */
+export function antiphonOpenLevel(world: World, s: AntiphonState, level: number): void {
+  const cfg = world.cfg;
+  const n = Math.max(0, Math.min(cfg.antiphonPits, level));
+  s.pits = [];
+  for (let i = 0; i < n; i++) s.pits.push(i % cfg.antiphonShapes);
+  s.stillBeat = -1;
+  s.downBeat = -1;
+  s.turnTicks = 0;
+  endCycle(world, s);
 }

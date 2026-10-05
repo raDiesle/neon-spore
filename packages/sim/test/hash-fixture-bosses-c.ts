@@ -165,16 +165,18 @@ export function patchBossC(boss: BossState): void {
     boss.downBeat = 8;
   }
   if (boss.kind === "antiphon") {
-    // One organ standing on a rail of three, one pit taken, one wrong answer
-    // on record, and every clock given a beat.
-    boss.organs = [{ shape: 5, color: "red", col: 3, grownBeat: 6 }];
+    // One organ standing on a rail of three, one pit taken, a candidate half
+    // way down its vein under a thumb, and every clock given a beat.
+    boss.organ = { shape: 5, grownBeat: 6 };
     boss.rail = [
-      { shape: 7, color: "cyan", col: 1 },
-      { shape: 5, color: "red", col: 3 },
-      { shape: 4, color: "red", col: 5 },
+      { shape: 7, col: 2 },
+      { shape: 5, col: 5 },
+      { shape: 4, col: 8 },
     ];
+    boss.answer = 1;
     boss.pits = [2];
-    boss.extra = 1;
+    boss.carried = 2;
+    boss.carryMilli = 500;
     boss.cycleBeat = 6;
     boss.stillBeat = 7;
     boss.downBeat = 8;

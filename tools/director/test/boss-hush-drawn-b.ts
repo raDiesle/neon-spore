@@ -1,5 +1,4 @@
 import {
-  antiphonCrossed,
   type BossKind,
   burgeeCatching,
   burgeeLitStep,
@@ -67,27 +66,22 @@ export const DRAWN_B: Partial<Record<BossKind, Drawn>> = {
       return { id: -1 - k - 10 * s.massCol, x: c.x, y: c.y - mass.y };
     });
   },
-  // The organ's ring under each twin on one screen, a ring on each
-  // candidate on the rail on the other. Nothing here is on a clock; a cycle
-  // lays a new rail and grows new twins, so a ring is keyed on its column
-  // (one candidate a column) and on how many twins stand.
+  // The organ's ring under it on the explainer's screen, a ring on each
+  // candidate's perch on the chooser's. Nothing here is on a clock; a level
+  // lays a new rail, so a ring is keyed on its column (one candidate a
+  // column). A candidate in hand moves with the thumb, which is the rule,
+  // so its ring is placed at the perch it was carried from.
   antiphon: (l, world) => {
     const s = world.boss;
     if (s?.kind !== "antiphon" || s.downBeat >= 0) return [];
     const cfg = world.cfg;
     const marks: Mark[] = [];
-    if (showsAntiphonOrgan(l.role)) {
-      const n = s.organs.length;
-      for (let i = 0; i < n; i++) {
-        const c = antiphonOrganCircle(l, cfg, i, n);
-        marks.push({ id: -1 - i - 10 * n, x: c.x, y: c.y + c.r * ORGAN_GRIP_DOWN });
-      }
+    if (s.organ !== null && showsAntiphonOrgan(l.role, s)) {
+      const c = antiphonOrganCircle(l, cfg);
+      marks.push({ id: -1, x: c.x, y: c.y + c.r * ORGAN_GRIP_DOWN });
     }
-    if (showsAntiphonRail(l.role)) {
-      s.rail.forEach((c, i) => {
-        if (antiphonCrossed(s, i)) return;
-        marks.push({ id: -100 - c.col, ...antiphonPerch(l, c.col) });
-      });
+    if (showsAntiphonRail(l.role, s)) {
+      for (const c of s.rail) marks.push({ id: -100 - c.col, ...antiphonPerch(l, cfg, c.col) });
     }
     return marks;
   },

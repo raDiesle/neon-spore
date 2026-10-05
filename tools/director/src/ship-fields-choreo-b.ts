@@ -126,11 +126,11 @@ export const CHOREO_FIELD_GROUP_B = {
   scuttleOutBeats: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
   scuttleSwingMilli: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
   // AntiphonConfig — the table of contours and the families it is cut into,
-  // how many pits end it, the growth and the two windows, the rail and its
-  // widest, the pit counts every escalation switches on, the rest, the still,
-  // the rail of ships, how long the wave holds after, how long a turn of the
-  // organ takes under a resting thumb, and how far down a candidate must be
-  // carried to be crossed off the rail (`config-antiphon.ts`).
+  // how many pits end it, the growth and the two windows, the rail and where
+  // it hangs, the veins down to the organ and how far a candidate is carried
+  // along one, the pit counts the escalations switch on, the rest, the still,
+  // the rail of ships, how long the wave holds after, and how long a turn of
+  // the organ takes under a resting thumb (`config-antiphon.ts`).
   antiphonShapes: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonFamily: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonPits: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
@@ -138,18 +138,18 @@ export const CHOREO_FIELD_GROUP_B = {
   antiphonWindowBeats: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonTightWindowBeats: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonRail: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
-  antiphonRailMax: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
+  antiphonRailRow: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
+  antiphonRailGap: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
+  antiphonVeinRows: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
+  antiphonReachMilli: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
+  antiphonVeinSlackMilli: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonTightPits: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
-  antiphonSpillPits: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
-  antiphonTwinPits: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
-  antiphonFirePits: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonEchoPits: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonRestBeats: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonStillBeats: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonShipRail: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonOutBeats: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonTurnBeats: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
-  antiphonPullMilli: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   // HiveConfig — how many sites, the look before the first opens and the
   // cadence after, the swell's warning, the spill's cadence, the opening
   // twins come from, what a wrong colour provokes, the clench's count and

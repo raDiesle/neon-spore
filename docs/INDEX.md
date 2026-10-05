@@ -825,9 +825,9 @@ by hand never moves.
 | `packages/sim/src/undertow.ts` | THE UNDERTOW: where you are being hit from |
 | `packages/sim/src/antiphon-hash.ts` | What THE ANTIPHON puts into `hashWorld`, and nothing else |
 | `packages/sim/src/antiphon-hand.ts` | **A thumb resting on THE ANTIPHON's organ**, off the wire, on the tick |
-| `packages/sim/src/antiphon-rail.ts` | **What grows and what she is shown beside it** — one cycle's organs and the rail they are hidden on |
-| `packages/sim/src/antiphon-shot.ts` | **A shot that nothing on the field stopped, leaving through the top** under THE ANTIPHON |
-| `packages/sim/src/antiphon-step.ts` | THE ANTIPHON's clock — the rise, the growth, the window, the sinking, the still and the ship, and the collapse |
+| `packages/sim/src/antiphon-rail.ts` | **What grows and what the chooser is shown beside it** — one level's organ and the rail it is hidden on |
+| `packages/sim/src/antiphon-step.ts` | THE ANTIPHON's clock — the rise, the growth, the window, the verdict, the still and the ship, and the collapse |
+| `packages/sim/src/antiphon-vein.ts` | **The veins**: where each candidate hangs on the rail's row |
 | `packages/sim/src/antiphon.ts` | THE ANTIPHON: describing a thing that has no name |
 | `packages/sim/src/nettle-words.ts` | **The words THE NETTLE's script is written in** — its parts and its poses |
 
@@ -1032,7 +1032,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-baton.ts` | THE BATON's rehearsal: a launch nobody answers, then three handovers |
 | `packages/content/src/scenes/the-beatbox.ts` | THE BEATBOX's rehearsal: the tap you do not make is the one that counts |
 | `packages/content/src/scenes/the-undertow.ts` | THE UNDERTOW's rehearsal: the floor bows, a lobe stands, and its colour says who answers it |
-| `packages/content/src/scenes/the-antiphon.ts` | THE ANTIPHON's rehearsal: a wrong candidate first, then six organs described across the two seats |
+| `packages/content/src/scenes/the-antiphon.ts` | THE ANTIPHON's rehearsal: six organs described across the two seats, the seats swapping every level |
 | `packages/content/src/scenes/one-last-chance.ts` | ONE LAST CHANCE's rehearsal: the shield pushes a slick back up once, and only the cannon kills it |
 | `packages/content/src/scenes-choreographed.ts` | The rehearsals of the bosses designed on `docs/spec/bosses-choreographed.md` |
 | `packages/content/src/scenes-faults.ts` | The rehearsals of the malfunctions — the waves whose lesson is a fault placed on the beat map rather than a… |
@@ -2276,7 +2276,7 @@ by hand never moves.
 | `packages/render/src/antiphon-flesh.ts` | **What THE ANTIPHON is made of**: a long mantle of membrane |
 | `packages/render/src/antiphon-shape.ts` | **Where THE ANTIPHON is**, in field pixels: the body hung over the top of the field above row 0 |
 | `packages/render/src/antiphon-stop.ts` | **Where a bolt meets THE ANTIPHON**, for `BoltStops` (`bolt-stop.ts`): what each screen draws over the column — a rail bud, the organ, the underside |
-| `packages/render/src/antiphon-grip.ts` | **THE ANTIPHON's one handle: the organ, on the screen it is shown on** |
+| `packages/render/src/antiphon-grip.ts` | **THE ANTIPHON's first handle: the organ, on the screen it is shown on** |
 | `packages/render/src/antiphon-rail-grip.ts` | **THE ANTIPHON's second handle: the rail, on the one screen it hangs on** — a ring on every candidate… |
 | `packages/render/src/antiphon-marks.ts` | **THE ANTIPHON's two handles answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/beatbox-marks.ts` | THE BEATBOX's two half-pictures: the **count** over the box on player 1's screen |

@@ -4,6 +4,7 @@ import {
   ANTIPHON_SHIP,
   type AntiphonState,
   antiphonBoss,
+  antiphonSlotCol,
   createWorld,
   startWave,
   step,
@@ -32,29 +33,24 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * stood on the organ's grip mark since the handle shipped — the third entry in
  * this family to miss a word a boss builds in its own drawing rather than in a
  * reading (`antiphon-grip.ts`, and `antiphon-frame.test.ts` draws it). `PULL`
- * under her rail is the second of those (`antiphon-rail-grip.ts`), drawn where
+ * under the rail is the second of those (`antiphon-rail-grip.ts`), drawn where
  * its handle is and asserted where the handle is asserted: what this page has
  * to keep saying is that the **reading** stays silent while both are up, since
  * a word from here would go out on a screen that has no handle to explain it.
  *
  * Most of this file is about **silence**, which on this boss is the design
- * rather than a caution. The organ's shape is the pilot's and its colour and
- * column are the navigator's; she has to find the one he is describing and fire
- * its colour into its column, and he has to put the cannon there, which he
- * cannot see either. So a `MOVE` on his hull would be her rail read out on his
- * screen, and a `MOVE` that went out the beat he arrived would say he had
- * arrived — the leak by subtraction THE LEAD's reading found. The case below
- * walks the cannon across the field with an organ standing and asserts that
- * nothing is drawn to him at any column, which is what would catch a lane making
- * this boss "clearer".
+ * rather than a caution. The organ's shape is the explainer's and the rail
+ * the chooser's; the chooser has to find the one being described and carry
+ * it down its vein. The cannon has nothing to do since the redesign of 5
+ * October 2026, and the reading must not start giving it something: the case
+ * below walks the cannon across the field with an organ standing and asserts
+ * that nothing is drawn at any column, which is what would catch a lane
+ * making this boss "clearer".
  *
- * There is no `FIRE` either, and for the other reason: she is already told *when*
- * twice on her own screen, by the rail's candidates reaching full size as
- * `antiphonGrowBeats` runs out and by the window gauge beginning to fall
- * (`antiphon-draw.ts`). And no `STILL` on the four beats at `antiphonPits` where
- * the body stops breathing and `antiphonStruck` refuses every bolt: it stood
- * there until 25 September 2026, when the owner took it off — *for the player
- * it is clear to wait*, and the stilling is drawn to both screens.
+ * No `STILL` on the four beats at `antiphonPits` where the body stops
+ * breathing: it stood there until 25 September 2026, when the owner took it
+ * off — *for the player it is clear to wait*, and the stilling is drawn to
+ * both screens.
  *
  * The states are set rather than played into, as `antiphon-frame.test.ts` sets
  * them: `sim/test/antiphon.test.ts` proves the cycle, the pit, the hardening and
@@ -77,10 +73,12 @@ function hung(): { world: World; s: AntiphonState } {
   for (let i = 0; i < TPB * (CFG.antiphonOutBeats + 2); i++) step(world, []);
   const s = antiphonBoss(world);
   if (s === null) throw new Error("the antiphon wave grew no body");
-  s.organs = [];
+  s.organ = null;
   s.rail = [];
+  s.answer = -1;
+  s.carried = -1;
+  s.carryMilli = 0;
   s.pits = [];
-  s.extra = 0;
   s.cycleBeat = world.beat;
   s.stillBeat = -1;
   s.downBeat = -1;
@@ -99,20 +97,17 @@ function word(world: World, role: ViewRole): string | null {
   return cue(world, role)?.word ?? null;
 }
 
-/** One organ grown over column 4, red, on a rail of three. */
+/** One organ grown, the middle of a rail of three. */
 function grown(world: World, s: AntiphonState, shape = 1): void {
-  s.organs = [{ shape, col: 4, color: "red", grownBeat: world.beat - CFG.antiphonGrowBeats }];
-  s.rail = [
-    { shape: 0, col: 2, color: "cyan" },
-    { shape, col: 4, color: "red" },
-    { shape: 3, col: 6, color: "red" },
-  ];
+  s.organ = { shape, grownBeat: world.beat - CFG.antiphonGrowBeats };
+  s.rail = [0, shape, 3].map((c, i) => ({ shape: c, col: antiphonSlotCol(CFG, 3, i) }));
+  s.answer = 1;
 }
 
 /** Every pit taken, nothing standing: the four beats before their own ship. */
 function stilled(world: World, s: AntiphonState): void {
   s.pits = [0, 5, 9, 12, 2, 7];
-  s.organs = [];
+  s.organ = null;
   s.rail = [];
   s.stillBeat = world.beat;
 }
@@ -130,27 +125,23 @@ describe("THE ANTIPHON's reading", () => {
     grown(world, s);
     for (let col = 0; col < CFG.cols; col++) {
       world.cannonCol = col;
-      // No `MOVE`: the column is on her rail alone, so the word would be her
-      // screen read out on his and its absence the same leak by subtraction.
+      // No `MOVE` and no `FIRE`: nothing is shot on this boss, and a word
+      // over the cannon would send a pair looking for something to shoot.
       expect(word(world, "p1")).toBeNull();
-      // No `FIRE`: the rail's candidates reach full size as the grow beats run
-      // out and the window gauge falls from that beat, so *when* is hers twice
-      // over and *which* is the question the field must not answer.
       expect(word(world, "p2")).toBeNull();
     }
   });
 
   it("is quiet between cycles, through the growth, and once the body is down", () => {
     const { world, s } = hung();
-    // Nothing standing and no pit yet: the rest, where her rail is empty and an
-    // empty rail says so itself.
+    // Nothing standing and no pit yet: the rest, where the rail is empty and
+    // an empty rail says so itself.
     expect(word(world, "p2")).toBeNull();
-    // An organ still pushing out, where a bolt is a guess and the rail growing
-    // to size is the clock.
+    // An organ still pushing out, where a carry is a guess and the rail
+    // growing to size is the clock.
     grown(world, s);
-    const o = s.organs[0];
-    if (o === undefined) throw new Error("no organ was grown");
-    o.grownBeat = world.beat;
+    if (s.organ === null) throw new Error("no organ was grown");
+    s.organ.grownBeat = world.beat;
     expect(word(world, "p2")).toBeNull();
     // And once the body is down.
     stilled(world, s);

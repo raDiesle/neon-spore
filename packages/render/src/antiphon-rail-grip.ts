@@ -1,22 +1,20 @@
 import {
   type AntiphonState,
-  antiphonCrossed,
+  antiphonChooser,
+  antiphonOrganCol,
   antiphonRailAsks,
   type SimConfig,
 } from "@neon-spore/sim";
-import { antiphonCentre, antiphonPerch } from "./antiphon-shape.js";
+import { antiphonCandidateAt, antiphonOrganCircle, antiphonPerch } from "./antiphon-shape.js";
 import type { BossCue } from "./boss-cue.js";
 import { cueSeen } from "./boss-cue.js";
 import { drawCueText } from "./boss-cue-text.js";
-import { strokeGlow } from "./glow.js";
 import { drawGripRing } from "./grip-rings.js";
 import { drawVerdictRing, type GripVerdicts } from "./grip-verdict.js";
 import { handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { drawMarkHalo } from "./mark-feedback.js";
-import { PALETTE, STROKE } from "./palette.js";
 import { drawPullArrow } from "./pull-knob.js";
-import { PULL_DOWN } from "./pull-line.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import { showsAntiphonRail } from "./view-role-clocks-b.js";
@@ -24,72 +22,57 @@ import { showsAntiphonRail } from "./view-role-clocks-b.js";
 /**
  * **THE ANTIPHON's second handle: the rail, on the one screen it hangs on.**
  *
- * The organ is the pilot's to turn (`antiphon-grip.ts`); this is the
- * navigator's, and the whole of it is one sentence — *pull off the ones you
- * know are wrong.* She carries a candidate down off the rail and it stops
- * counting: a bolt into that column and colour is nothing rather than a
- * hardening, and it cannot fall on them when the cycle ends
- * (`sim/antiphon-hand.ts`). Pull off the one he is describing and the cycle
- * hardens, exactly as firing at a decoy does, so three crossings are three
- * risks where a bolt is one and there is nothing to work out.
+ * The organ is the explainer's to turn (`antiphon-grip.ts`); this is the
+ * chooser's, and the whole of it is one sentence — *carry the one being
+ * described down to it.* A thumb grabs a candidate and carries it along its
+ * vein toward the organ's place; let go short and it springs back, carried
+ * all the way and it is judged there (`sim/antiphon-hand.ts`). THE
+ * FILAMENT's lesson, a path to drag along and a place to drop at.
  *
- * **Hers and only hers**, decided the way THE SCUTTLE's carry was, by what
- * each seat is drawn: `showsAntiphonRail` puts the rail on her screen alone,
- * and a handle a seat cannot see is not a handle. A press from his seat is
- * dropped without a sound in the simulation, as `queenMark` drops the other
- * seat's.
+ * **The chooser's and only theirs**, decided by what each seat is drawn:
+ * `showsAntiphonRail` puts the rail on one screen a level, and a handle a
+ * seat cannot see is not a handle. A press from the other seat is dropped
+ * without a sound in the simulation, as `queenMark` drops it.
  *
- * **A ring on every candidate that may still be pulled, never on one.** The
- * rings go up together on the whole rail: a ring on the one she *should*
- * cross off would be her own reading handed back to her, which is the leak
- * `boss-cue-read-p.ts` argues against at length for this boss above all
- * others. The crossed ones lose their ring and take a stroke through them
- * instead, so what she has already said stays said — she is reading a list
- * out loud and needs to see where she is in it.
- *
- * The hit test is the candidate's resting circle at its perch, thumb-sized
- * rather than contour-sized, and the nearest wins when two overlap, which is
- * `creatureAt`'s rule and `scuttle-grip.ts`' for its reason. Whether the
- * pull *takes* — not before the organ stands, not on one already crossed —
- * is the simulation's to refuse; a thumb may rest on a candidate while the
- * organ is still growing and the ring fills under it, which is the picture
- * of a hand held ready.
- *
- * **Each ring carries the way down inside it** (`drawPullArrow`, 30 September
- * 2026), and stays a ring rather than the shared knob: the knob's disc would
- * black out the candidate it stands on, and the candidate's shape and colour
- * are the whole reading.
+ * **A ring on every candidate, never on one**: a ring on the one being
+ * described would be the chooser's own reading handed back. Each carries
+ * the way down its vein inside it (`drawPullArrow`), and the one in hand
+ * moves with its ring. The hit test is the candidate's resting circle at its
+ * perch, thumb-sized, nearest wins — `creatureAt`'s rule. Whether the carry
+ * *takes* — not before the organ stands, not a second one at once — is the
+ * simulation's to refuse.
  *
  * Over the rings, the convention every mark answers a touch with
- * (`antiphon-marks.ts`): the halo under each candidate a pull would take on
- * (`antiphonRailAsks`), and the verdict round one pulled off, last.
+ * (`antiphon-marks.ts`): the halo under each candidate a carry would take
+ * on (`antiphonRailAsks`); the verdict is the organ's and drawn there
+ * (`drawAntiphonVerdict`).
  */
 
-/** How far below the perch the word sits, in tiles — clear of the candidates and of the window gauge. */
-const WORD_DOWN = 0.95;
+/** How far below the rail the word sits, in tiles — clear of the candidates. */
+const WORD_DOWN = 1.15;
 /** The word's frame, in tiles. */
 const HALF_W = 0.62;
 const HALF_H = 0.4;
-/** How far across a crossed candidate the stroke reaches, in handle radii. */
-const CROSS_R = 0.8;
 
 /**
  * A press on a candidate while the rail is up: a `drag` on `antiphonRail`
- * carrying the place on the rail as its `id`, because the rail is never
- * re-ordered and a crossing stays where it was made (`drag-targets-c.ts`).
+ * carrying the place on the rail as its `id` (`drag-targets-c.ts`). The
+ * move reports the thumb's displacement both ways (`touch-move.ts`), and
+ * the simulation reads it along the vein.
  */
 export function antiphonRailUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const s = bossOf(field, "antiphon");
-  if (s === null || field.seat !== 2 || !showsAntiphonRail(l.role)) return null;
+  if (s === null || !showsAntiphonRail(l.role, s)) return null;
+  if (field.seat !== antiphonChooser(s)) return null;
   if (s.downBeat >= 0 || s.rail.length === 0) return null;
   const r = handleRadius(l, field.cfg);
   let best: number | null = null;
   let bestDist = Number.POSITIVE_INFINITY;
   for (let i = 0; i < s.rail.length; i++) {
     const c = s.rail[i];
-    if (c === undefined || antiphonCrossed(s, i)) continue;
-    const at = antiphonPerch(l, c.col);
-    if (!hitCircle({ x: at.x, y: at.y, r }, x, y)) continue;
+    if (c === undefined) continue;
+    const at = antiphonPerch(l, field.cfg, c.col);
+    if (!hitCircle({ x: at.x, y: at.y, r: Math.max(r, l.tile * 0.8) }, x, y)) continue;
     const d = Math.hypot(x - at.x, y - at.y);
     if (d >= bestDist) continue;
     best = i;
@@ -97,14 +80,15 @@ export function antiphonRailUnder(l: Layout, x: number, y: number, field: Field)
   }
   if (best === null) return null;
   const target = "antiphonRail";
+  const player = field.seat;
   return {
-    player: 2,
+    player,
     command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0, id: best },
-    hold: { kind: "drag", target, player: 2, originX: x, originY: y, id: best },
+    hold: { kind: "drag", target, player, originX: x, originY: y, id: best },
   };
 }
 
-/** The rings, the strokes through what she has crossed off, and the one word under them. */
+/** The rings, each with the way down its vein, and the one word under them. */
 export function drawAntiphonRailGrip(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -113,40 +97,33 @@ export function drawAntiphonRailGrip(
   beat: number,
   time: number,
   fade: number,
-  verdicts: GripVerdicts,
 ): void {
   if (fade < 1 || s.downBeat >= 0 || s.rail.length === 0) return;
   const r = handleRadius(l, cfg);
+  const organ = antiphonOrganCircle(l, cfg);
   for (let i = 0; i < s.rail.length; i++) {
-    const c = s.rail[i];
-    if (c === undefined) continue;
-    const at = antiphonPerch(l, c.col);
-    if (antiphonCrossed(s, i)) drawCross(ctx, at.x, at.y, r * CROSS_R);
-    else {
-      if (antiphonRailAsks(s, cfg, beat, i)) drawMarkHalo(ctx, at.x, at.y, r, time);
-      const held = s.heldRail === i;
-      drawGripRing(ctx, at.x, at.y, r, held, time);
-      drawPullArrow(ctx, at, r, PULL_DOWN, time, { alpha: held ? 0.6 : 0.85 });
+    const at = antiphonCandidateAt(l, cfg, s, i);
+    if (antiphonRailAsks(s, cfg, beat, i)) drawMarkHalo(ctx, at.x, at.y, r, time);
+    const held = s.carried === i;
+    drawGripRing(ctx, at.x, at.y, r, held, time);
+    const len = Math.hypot(organ.x - at.x, organ.y - at.y);
+    if (len > 1) {
+      const way = { dx: (organ.x - at.x) / len, dy: (organ.y - at.y) / len };
+      drawPullArrow(ctx, at, r, way, time, { alpha: held ? 0.6 : 0.85 });
     }
-    const v = verdicts.at(c.col);
-    if (v !== null) drawVerdictRing(ctx, at.x, at.y, r, v);
   }
-  if (s.heldRail >= 0) return;
+  if (s.carried >= 0) return;
   // **The cue** (`decisions.md` #34, `boss-cue-text.ts`). It says the verb and
   // never the answer: one word under the middle of the rail rather than one
-  // per candidate, so it names nothing on it. The organ she is being
-  // described is still the only question, and it is still on the other
-  // screen — this word only says what her thumb may do with a candidate she
-  // has already ruled out, which is a thing she worked out herself
-  // (`boss-cue-read-p.ts`). The seat is hers twice over: the rail is drawn to
-  // her alone, and `cueSeen` says so again rather than trusting the caller.
-  const at = antiphonCentre(l, cfg);
+  // per candidate, so it names nothing on it. The seat is the chooser's twice
+  // over: the rail is drawn to them alone, and `cueSeen` says so again.
+  const at = antiphonPerch(l, cfg, antiphonOrganCol(cfg));
   const cue: BossCue = {
-    seat: 2,
+    seat: antiphonChooser(s),
     kind: "CARRY",
     word: "PULL",
     x: at.x,
-    y: antiphonPerch(l, 0).y + l.tile * WORD_DOWN,
+    y: at.y + l.tile * WORD_DOWN,
     halfW: l.tile * HALF_W,
     halfH: l.tile * HALF_H,
     seed: 96,
@@ -155,12 +132,15 @@ export function drawAntiphonRailGrip(
   if (cueSeen(cue, l.role)) drawCueText(ctx, cue, time);
 }
 
-/** A crossed candidate: two strokes over it, so a list read out loud shows where she is in it. */
-function drawCross(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): void {
-  const p = new Path2D();
-  p.moveTo(x - r, y - r);
-  p.lineTo(x + r, y + r);
-  p.moveTo(x + r, y - r);
-  p.lineTo(x - r, y + r);
-  strokeGlow(ctx, p, PALETTE.dim, STROKE.inner, 0.9);
+/** The organ's verdict, on every screen: green for the organ carried home, red for a decoy. */
+export function drawAntiphonVerdict(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  verdicts: GripVerdicts,
+): void {
+  const v = verdicts.at(0);
+  if (v === null) return;
+  const c = antiphonOrganCircle(l, cfg);
+  drawVerdictRing(ctx, c.x, c.y, c.r, v);
 }

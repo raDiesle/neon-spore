@@ -26,11 +26,12 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * The states are **set** rather than played to, `scuttle-frame.test.ts`'s
  * arrangement: `sim/test/antiphon.test.ts` proves the cycle, the pit, the
  * hardening and the ship, and what this file asks is whether every branch
- * of the picture is one a canvas accepts — bare, an organ up, twins, pitted,
- * still, the ship, down, gone — and the one thing nothing else in the suite
- * could catch: that the **organ** is on the pilot's screen and not the
- * navigator's; and that the eruption is a transient the next run does not
- * inherit. Her rail is the mirror of it, at `antiphon-rail-frame.test.ts`.
+ * of the picture is one a canvas accepts — bare, an organ up, pitted, still,
+ * the ship, down, gone — and the one thing nothing else in the suite could
+ * catch: that the **organ** is on the explainer's screen and not the
+ * chooser's, the pilot's on the first level and the navigator's on the next;
+ * and that the eruption is a transient the next run does not
+ * inherit. The rail is the mirror of it, at `antiphon-rail-frame.test.ts`.
  */
 
 beforeAll(() => {
@@ -47,43 +48,37 @@ describe("THE ANTIPHON's body", () => {
     expect(f.text).toContain(PALETTE.hull);
   });
 
-  it("puts the organ on the pilot's screen and not the navigator's", () => {
-    // An organ up, with nothing on the rail, is more of the hull's rim on the
-    // screen shown the organ, and the same rim count on the screen that is
-    // not — the window under it is hers, but it is drawn in the shield's tone.
+  it("puts the organ on the explainer's screen and not the chooser's", () => {
+    // An organ up, with nothing on the rail, is more of the organs' green on
+    // the screen shown the organ, and none of it on the screen that is not.
     const alone = (role: ViewRole) =>
       frame(role, (w) => {
         grown(w).rail = [];
       }).text;
     const none = (role: ViewRole) => frame(role, () => {}).text;
-    expect(count(alone("p1"), PALETTE.hullRim)).toBeGreaterThan(count(none("p1"), PALETTE.hullRim));
-    expect(count(alone("test"), PALETTE.hullRim)).toBeGreaterThan(
-      count(none("test"), PALETTE.hullRim),
-    );
-    expect(count(alone("p2"), PALETTE.hullRim)).toBe(count(none("p2"), PALETTE.hullRim));
-    // Nor is an organ's shape or column on his screen given away by the
-    // organ standing elsewhere: two shapes are two pictures, two columns one.
-    const at = (col: number) =>
-      frame("p1", (w) => {
-        const s = grown(w);
-        s.rail = [];
-        for (const o of s.organs) o.col = col;
-      }).text;
-    expect(at(2)).toBe(at(6));
+    expect(count(alone("p1"), PALETTE.organ)).toBeGreaterThan(count(none("p1"), PALETTE.organ));
+    expect(count(alone("test"), PALETTE.organ)).toBeGreaterThan(count(none("test"), PALETTE.organ));
+    expect(count(alone("p2"), PALETTE.organ)).toBe(count(none("p2"), PALETTE.organ));
+    // Two shapes are two pictures.
     expect(alone("p1")).not.toBe(frame("p1", (w) => (grown(w, 9).rail = [])).text);
   });
 
-  it("stands twins a gap apart on the pilot's screen", () => {
-    const one = frame("p1", (w) => void grown(w)).text;
-    const two = frame("p1", (w) => {
-      const s = grown(w);
-      s.organs.push({ shape: 2, col: 6, color: "cyan", grownBeat: s.organs[0]?.grownBeat ?? 0 });
-    }).text;
-    expect(two).not.toBe(one);
-    expect(count(two, PALETTE.hullRim)).toBeGreaterThan(count(one, PALETTE.hullRim));
+  it("moves the organ to the other screen when the seats swap, a level on", () => {
+    const swapped = (role: ViewRole) =>
+      frame(role, (w) => {
+        const s = grown(w);
+        s.rail = [];
+        s.pits = [4];
+      }).text;
+    const pitted = (role: ViewRole) =>
+      frame(role, (w) => {
+        bare(w).pits = [4];
+      }).text;
+    expect(count(swapped("p2"), PALETTE.organ)).toBeGreaterThan(count(pitted("p2"), PALETTE.organ));
+    expect(count(swapped("p1"), PALETTE.organ)).toBe(count(pitted("p1"), PALETTE.organ));
   });
 
-  it("draws the organ's grip with the word on the pilot's screen, and neither on the navigator's", () => {
+  it("draws the organ's grip with the word on the explainer's screen, and neither on the chooser's", () => {
     // The mark is drawn in the rock's grey whether or not a thumb holds it;
     // the word under it shares that same fill (`boss-cue-text.ts`) and shows
     // only while nothing holds the mark, so a count taken while the word can
@@ -100,18 +95,12 @@ describe("THE ANTIPHON's body", () => {
     expect(turnWord(held.words)).toBe(false);
     expect(held.text).not.toBe(up.text);
     expect(count(held.text, PALETTE.rock)).toBeGreaterThan(count(none.text, PALETTE.rock));
-    // Her screen never takes the organ's mark. Her own rail carries a word in
-    // that same grey (`antiphon-rail-grip.ts`), so the count is read with her
-    // thumb resting on a candidate, which takes PULL away and leaves behind
-    // only whatever the organ would have added.
-    const hers = frame("p2", (w) => {
-      grown(w).heldRail = 0;
-    });
-    expect(count(hers.text, PALETTE.rock)).toBe(count(frame("p2", () => {}).text, PALETTE.rock));
+    // The chooser's screen never takes the organ's mark or its word.
+    const hers = frame("p2", (w) => void grown(w));
     expect(turnWord(hers.words)).toBe(false);
   });
 
-  it("draws the organ turned as far as the thumb has turned it, on the pilot's screen only", () => {
+  it("draws the organ turned as far as the thumb has turned it, on the explainer's screen only", () => {
     const turned = (role: ViewRole, ticks: number) =>
       frame(role, (w) => {
         grown(w).turnTicks = ticks;
@@ -148,7 +137,11 @@ describe("THE ANTIPHON's body", () => {
   it.each(ROLES)("grows their own ship on a rail of hulls, on %s", (role) => {
     const f = frame(role, ship);
     expect(f.calls).toBeGreaterThan(200);
-    expect(f.text).not.toBe(frame(role, (w) => (ship(w).organs = [])).text);
+    expect(f.text).not.toBe(
+      frame(role, (w) => {
+        ship(w).organ = null;
+      }).text,
+    );
   });
 
   it.each(ROLES)("closes the body in and fades it once the right ship is named, on %s", (role) => {
@@ -179,12 +172,12 @@ describe("THE ANTIPHON's body", () => {
 /**
  * **The organ's word is the field's one cue** (`docs/decisions.md` #34,
  * `render/src/boss-cue-text.ts`), for `sinew-frame.test.ts`' reason. The seat
- * is the pilot's twice over: the organ hangs on his screen alone
+ * is the explainer's twice over: the organ hangs on their screen alone
  * (`showsAntiphonOrgan`) and the cue asks again before it is drawn, so a screen
  * that somehow got the body would still not get the instruction.
  */
 describe("THE ANTIPHON's word", () => {
-  it("says the verb once on the pilot's screen, in the cue's grey", () => {
+  it("says the verb once on the explainer's screen, in the cue's grey", () => {
     const world = hung();
     grown(world);
     const { words, text } = drawn(world, "p1", 3);
@@ -194,7 +187,7 @@ describe("THE ANTIPHON's word", () => {
     expect(text).toContain(PALETTE.rock);
   });
 
-  it("says nothing at all on the navigator's, who has no organ to turn", () => {
+  it("says nothing at all on the chooser's, who has no organ to turn", () => {
     const world = hung();
     grown(world);
     expect(turnWord(drawn(world, "p2", 3).words)).toBe(false);

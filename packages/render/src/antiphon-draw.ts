@@ -1,22 +1,21 @@
 import {
   ANTIPHON_SHIP,
-  type AntiphonCandidate,
   type AntiphonState,
   antiphonIsOrgan,
   antiphonTurnMilli,
-  type Color,
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
-import { budContact, mantleTurn, paintMantleDepth, paintPitLip } from "./antiphon-depth.js";
+import { mantleTurn, paintMantleDepth, paintPitLip } from "./antiphon-depth.js";
 import { faded, paintBud, paintMantle, paintPit } from "./antiphon-flesh.js";
 import type { AntiphonFx } from "./antiphon-fx.js";
 import { drawAntiphonGrip } from "./antiphon-grip.js";
-import { drawAntiphonRailGrip } from "./antiphon-rail-grip.js";
+import { drawAntiphonRailGrip, drawAntiphonVerdict } from "./antiphon-rail-grip.js";
 import {
   antiphonBodyPath,
   antiphonBox,
   antiphonBudR,
+  antiphonCandidateAt,
   antiphonCentre,
   antiphonContourPath,
   antiphonDecoyLobes,
@@ -24,7 +23,6 @@ import {
   antiphonGrowPhase,
   antiphonHemLobes,
   antiphonOrganCircle,
-  antiphonPerch,
   antiphonPitSpot,
   antiphonStill,
   antiphonWindowLeft,
@@ -43,27 +41,26 @@ import { showsAntiphonOrgan, showsAntiphonRail } from "./view-role-clocks-b.js";
 /**
  * **THE ANTIPHON**: a smooth violet body hung over the top of the field
  * above row 0, the pits of the shapes already named sunk into it in the
- * order they were taken, and — on one screen — the organ it has grown
- * hanging under its middle in the body's own violet, turned the way the
- * pilot's thumb has turned it with its grip under it, on the other every
- * candidate on the rail hanging under its column in its colour, with the
- * window running out along the underside (§11.31).
+ * order they were taken; under it, on the explainer's screen, the organ it
+ * has grown standing in the middle, turned the way their thumb has turned
+ * it with its grip under it, and on the chooser's every candidate on the
+ * rail a third of the way down, one of them carried down its vein toward
+ * the organ's place, with the window running out along the underside
+ * (§11.31). Organ and candidates alike are green, a colour no control wears.
  *
  * Read off the world every frame and drawn in the order the eye reads it:
- * the body, the pits, the organs or the rail, the window last. Its health
+ * the body, the pits, the organ or the rail, the window last. Its health
  * is its silhouette: a pit a shape named, and the body goes glassy and
  * still when they are all there. Down, the body closes in on its middle and
  * fades over `antiphonOutBeats` while the pits erupt. What outlives a frame
  * — the push of a growth, the shrivel to a pit, the eruption, the blow a
- * pit deals — is
- * `effects.boss.antiphon` (`antiphon-fx.ts`).
+ * pit deals — is `effects.boss.antiphon` (`antiphon-fx.ts`).
  *
  * **The organ is drawn on the screen shown the organ, the rail on the
- * screen shown the rail** (`view-role-clocks-b.ts`). On the pilot's the
- * organ hangs under the middle whatever its column, twins a gap apart by
- * index, and their own ship is drawn true; on the navigator's every
- * candidate hangs at its column, the ship's decoys with the wrong number of
- * lobes, and nothing says which is the organ.
+ * screen shown the rail** (`view-role-clocks-b.ts`), and which seat is which
+ * swaps every level. Their own ship is drawn true on the explainer's; on the
+ * chooser's the ship's decoys have the wrong number of lobes, and nothing
+ * says which is the organ.
  */
 export function drawAntiphon(
   ctx: CanvasRenderingContext2D,
@@ -84,65 +81,49 @@ export function drawAntiphon(
   fx.note(s.pits);
 
   const shift = fx.hurt.shakeX(time, l.tile);
-  stops?.aim(antiphonStopper(l, world, s, { shift, fade, grow, time }));
+  stops?.aim(antiphonStopper(l, world, s, { shift, fade }));
   ctx.save();
   ctx.translate(shift, 0);
-  const body = drawBody(ctx, l, cfg, time, fade, still, fx.hurt.value);
+  drawBody(ctx, l, cfg, time, fade, still, fx.hurt.value);
   for (let i = 0; i < s.pits.length; i++) {
     drawPit(ctx, l, cfg, i, s.pits[i] ?? 0, time, fade);
   }
-  if (showsAntiphonOrgan(l.role)) {
+  if (showsAntiphonOrgan(l.role, s) && s.organ !== null) {
     // The turn under a hand: the organ faces the way the thumb has turned
-    // it, the twins together, and never on the rail (`antiphon-grip.ts`).
+    // it, and never on the rail (`antiphon-grip.ts`).
     const turn = (antiphonTurnMilli(s, cfg) / 1000) * Math.PI * 2;
-    const n = s.organs.length;
-    for (let i = 0; i < n; i++) {
-      const o = s.organs[i];
-      if (o === undefined) continue;
-      const at = antiphonOrganCircle(l, cfg, i, n);
-      drawContour(
-        ctx,
-        l,
-        o,
-        at,
-        ORGAN_R * grow,
-        body,
-        PALETTE.hull,
-        PALETTE.hullRim,
-        time,
-        fade,
-        undefined,
-        turn,
-      );
-    }
-    if (n > 0) drawAntiphonGrip(ctx, l, cfg, s, time, fade);
+    const at = antiphonOrganCircle(l, cfg);
+    drawContour(ctx, l, s.organ.shape, at, ORGAN_R * grow, time, fade, undefined, turn);
+    drawAntiphonGrip(ctx, l, cfg, s, time, fade);
   }
-  if (showsAntiphonRail(l.role)) {
+  if (showsAntiphonRail(l.role, s)) {
     let decoy = 0;
-    for (const c of s.rail) {
-      const organ = antiphonIsOrgan(s, c);
-      const lobes = c.shape === ANTIPHON_SHIP && !organ ? antiphonDecoyLobes(decoy++) : undefined;
-      const [hex, rim] = tone(c.color);
-      const at = antiphonPerch(l, c.col);
-      drawContour(ctx, l, c, at, RAIL_R * grow, body, hex, rim, time, fade, lobes);
+    // The carried one last, so it passes over the rest on its way down.
+    const order = s.rail
+      .map((_, i) => i)
+      .sort((a, b) => (a === s.carried ? 1 : b === s.carried ? -1 : 0));
+    const lobesOf = s.rail.map((c, i) =>
+      c.shape === ANTIPHON_SHIP && !antiphonIsOrgan(s, i) ? antiphonDecoyLobes(decoy++) : undefined,
+    );
+    for (const i of order) {
+      const c = s.rail[i];
+      if (c === undefined) continue;
+      const at = antiphonCandidateAt(l, cfg, s, i);
+      drawContour(ctx, l, c.shape, at, RAIL_R * grow, time, fade, lobesOf[i]);
     }
     drawWindow(ctx, l, cfg, antiphonWindowLeft(s, cfg, beat, beatPhase), fade);
-    // Her rings on the rail, over the candidates so each stands on its own
+    // The rings on the rail, over the candidates so each stands on its own
     // (`antiphon-rail-grip.ts`).
-    drawAntiphonRailGrip(ctx, l, cfg, s, beat, time, fade, fx.marks.verdicts);
+    drawAntiphonRailGrip(ctx, l, cfg, s, beat, time, fade);
   }
+  drawAntiphonVerdict(ctx, l, cfg, fx.marks.verdicts);
   ctx.restore();
-}
-
-/** A colour's fill and rim. */
-function tone(color: Color): [string, string] {
-  return color === "red" ? [PALETTE.red, PALETTE.redRim] : [PALETTE.cyan, PALETTE.cyanRim];
 }
 
 /**
  * The body: a mantle of membrane breathing, glassier once it is still,
  * closing in on its way out (`antiphon-flesh.ts`), bowed and turning in
- * depth (`antiphon-depth.ts`). Returns its outline, for what grows out of it.
+ * depth (`antiphon-depth.ts`).
  */
 function drawBody(
   ctx: CanvasRenderingContext2D,
@@ -152,7 +133,7 @@ function drawBody(
   fade: number,
   still: boolean,
   hurt: number,
-): Path2D {
+): void {
   const box = antiphonBox(l, cfg);
   const mid = (box.left + box.right) * 0.5;
   const hw = (box.right - box.left) * 0.5 * fade;
@@ -169,7 +150,6 @@ function drawBody(
   paintMantle(ctx, path, mantle, fade, still, turn);
   paintMantleDepth(ctx, path, mantle, turn, fade);
   drawHurt(ctx, path, hurt * fade);
-  return path;
 }
 
 /** A pit: the shape that made it, sunk into the body small and dark, a wet socket. */
@@ -189,20 +169,13 @@ function drawPit(
   paintPitLip(ctx, pit, at.y, r, l.tile, fade);
 }
 
-/**
- * An organ or a candidate hanging off the underside: its contour, a bud of
- * `hex` lit inside in `rim`, breathing, in a contact shadow on the `body`
- * it grows out of.
- */
+/** An organ or a candidate: its contour, a green bud lit inside, breathing. */
 function drawContour(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  c: AntiphonCandidate,
+  shape: number,
   at: { x: number; y: number },
   rTiles: number,
-  body: Path2D,
-  hex: string,
-  rim: string,
   time: number,
   fade: number,
   lobes?: number,
@@ -210,9 +183,8 @@ function drawContour(
 ): void {
   if (rTiles <= 0) return;
   const r = antiphonBudR(l, rTiles, time);
-  const p = antiphonContourPath(c.shape, at, r, time * 0.3, lobes, turn);
-  budContact(ctx, body, at.x, at.y, r, fade);
-  paintBud(ctx, p, at.x, at.y, r, l.tile, hex, rim, fade, time);
+  const p = antiphonContourPath(shape, at, r, time * 0.3, lobes, turn);
+  paintBud(ctx, p, at.x, at.y, r, l.tile, PALETTE.organ, PALETTE.organRim, fade, time);
 }
 
 /** The window: a thread along the underside of the body, shortening from both ends as the beats run out. */

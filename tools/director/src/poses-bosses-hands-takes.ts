@@ -1,6 +1,6 @@
 import {
+  antiphonCarryHand,
   antiphonHand,
-  antiphonPullHand,
   cairnHand,
   cairnHoldHand,
   spliceHand,
@@ -87,12 +87,12 @@ export const TAKE_HAND_POSES: Pose[] = [
   ),
   bossPose(
     "antiphon",
-    "pulled",
-    "A candidate crossed off the rail. P2 drags one she is sure is wrong off it; P1 waits on the organ he can see.",
+    "carried",
+    "A candidate half way down its vein. P2 carries it to the organ's place; P1 describes the organ only P1 sees.",
     {
       crop: F,
-      hand: antiphonPullHand,
-      want: (w) => w.boss?.kind === "antiphon" && w.boss.crossed.length > 0,
+      hand: antiphonCarryHand,
+      want: (w) => w.boss?.kind === "antiphon" && w.boss.carried >= 0 && w.boss.carryMilli >= 500,
       hold: 6,
       budgetBeats: 100,
     },
@@ -100,7 +100,7 @@ export const TAKE_HAND_POSES: Pose[] = [
   bossPose(
     "antiphon",
     "still",
-    "The sixth organ pitted and the surface still. P1 aims where the last shape will push out; P2 waits.",
+    "The sixth organ pitted and the surface still. P1 and P2 wait for the last shape to push out.",
     {
       crop: F,
       hand: antiphonHand,
@@ -112,7 +112,7 @@ export const TAKE_HAND_POSES: Pose[] = [
   bossPose(
     "antiphon",
     "down",
-    "Their own ship fired at up its column and the antiphon is down. P1 aims at it; P2 fires its colour.",
+    "Their own ship carried home down its vein and the antiphon is down. P2 picked it; P1 described it.",
     {
       crop: F,
       hand: antiphonHand,

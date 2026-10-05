@@ -150,8 +150,8 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     return;
   }
   // THE ANTIPHON on the beat is the body's clock: the rest, the growth, the
-  // window run out, the still and the ship, the collapse. A shot naming an
-  // organ or a decoy is on the tick (`antiphon-shot.ts`).
+  // window run out, the still and the ship, the collapse. A candidate carried
+  // home is on the tick (`antiphon-hand.ts`).
   if (boss.kind === "antiphon") {
     stepAntiphon(world, boss);
     return;
