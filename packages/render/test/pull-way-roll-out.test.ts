@@ -28,6 +28,7 @@ const PULL_HANDLES: Readonly<Record<string, string>> = {
   "maze-string.ts": "THE MAZE",
   "gimbal-knob.ts": "THE GIMBAL",
   "hasp-knob.ts": "THE HASP",
+  "crank-dial.ts": "THE CLAW",
   "sinew-handles.ts": "THE SINEW",
   "balloon-handles.ts": "THE BALLOON",
   "antiphon-rail-grip.ts": "THE ANTIPHON",

@@ -328,29 +328,13 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE CLAW's crank turns with THE MAZE's knob, lever and channel
-
-- **Found:** 2026-10-05, claude/gimbal-turn-controls-aa1635
-- **Taken:** 2026-10-05, claude/task-queue-status-907163 (claim: claude/queue-the-claws-crank-turns-with-the-mazes-knob-lever)
-- **Files:** `packages/render/src/crank-dial.ts`, `packages/render/test/pull-way-roll-out.test.ts`
-
-The same ask THE GIMBAL and THE HASP have landed (`gimbal-knob.ts`,
-`hasp-knob.ts`; the owner, 5 October 2026: one turn, THE MAZE's, on every
-wave). The crank on the band is already a knob on a bar
-round a circle (`crank-dial.ts`), but it is its own drawing: no channel, no
-green behind the hand, no arrow in the knob, no `PULL`. Draw it with
-`drawPullKnob`, `drawMazeLever` and a `closed` `drawPullTrack` as
-`render/gimbal-knob.ts` does, keeping the knob where `crankTurnedMilli` puts
-it, and register the file in `pull-way-roll-out.test.ts`. Done when `bun run
-check` is green.
-
 ## THE GAUGE's wound band turns with THE MAZE's knob, if it is a turn
 
 - **Found:** 2026-10-05, claude/gimbal-turn-controls-aa1635
 - **Files:** `packages/render/src/gauge-grip.ts`, `packages/render/src/gauge-tongue-grip.ts`
 
-The same ask THE GIMBAL and THE HASP have landed (`gimbal-knob.ts`,
-`hasp-knob.ts`). THE GAUGE's band is read the crank's
+The same ask THE GIMBAL, THE HASP and THE CLAW's crank have landed
+(`gimbal-knob.ts`, `hasp-knob.ts`, `crank-dial.ts`). THE GAUGE's band is read the crank's
 way about the dial (`hasp-grip.ts` says THE GAUGE did it first), so it is a
 turn and should wear `render/gimbal-knob.ts`'s knob, lever and channel; the
 tongue's `TWIST` (`boss-cue-read-w.ts`) is the same question. Read both

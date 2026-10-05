@@ -33381,3 +33381,13 @@ Bottleneck: the registrations a new event needs, found by the typecheck one at a
 Bottleneck: the 23 test cases, each with its own reason for a `MOVE`, read and rewritten one at a time.
 
 *Measured: 15 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE CLAW's crank turns with THE MAZE's knob, lever and channel
+
+- reading: 5 min. The crank's drawing, the sim's wind and pay, the band's call and its labels.
+- writing: 10 min. `crank-dial.ts` redrawn with the shared parts, `crankPays` exported, the roll-out, the catalogue and two rows of the controls spec.
+- looking: 5 min. Four frames of the pilot's band: climbing dark, both ways lit, one way lit.
+- friction: 5 min. A `--press` the round refused made `frames` exit red after writing, which read as a failed render.
+- landing: 5 min.
+
+Bottleneck: where a word goes on a band button that has no Layout to size it by.

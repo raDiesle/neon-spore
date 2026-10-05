@@ -25,6 +25,7 @@ export { type BossKind, bossStrikesHull, type RoundKind } from "./boss-strike.js
 export { codexed, codexSwapped, shotMeans } from "./codex.js";
 export {
   crankBites,
+  crankPays,
   crankTurnedMilli,
   crankWinds,
   windPerTickMilli,
