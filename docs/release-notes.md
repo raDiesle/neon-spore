@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 670ab3cb5 — THE MAZE's heart shows the waiting clock while the partner still has to shake it
+
+When one seat has shaken its half of the heart, or is holding it alone, its screen now shows the waiting clock every partner's mark already wears, under P2 TOO (or P1 TOO), until the partner has shaken their half too. A seat whose half is done and whose thumb is off is told P2 TOO instead of SHAKE. A look the owner asked for by name.
+
 ## 2026-10-05 · 332974abe — THE MAZE's lever gearing tests are back, and the coast tests have a file of their own
 
 The landing before this one wrote its new tests over `maze-lever.test.ts`, which already held the lever's one-turn-a-lap gearing tests. Those are restored unchanged, and the tests for the knob staying, the coast and the eased catch move to `maze-coast.test.ts`.

@@ -33619,3 +33619,5 @@ Bottleneck: a new test file named without checking that the name was free.
 - landing: 5 min.
 
 Bottleneck: deciding when a screen is waiting, so the clock is not on both screens all the while both are shaking.
+
+*Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
