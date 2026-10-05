@@ -1,8 +1,22 @@
-import { type HiveState, hiveVerdict, hiveWallVerdict, type World } from "@neon-spore/sim";
+import {
+  type HiveState,
+  hiveOnWall,
+  hiveVerdict,
+  hiveWallVerdict,
+  type World,
+} from "@neon-spore/sim";
 import type { BoltHit, Stopper } from "./bolt-stop.js";
 import { type Foot, lowestFoot, roundFoot } from "./core-stop.js";
-import { hiveBox, hiveSite, SITE_HANG, SITE_R } from "./hive-shape.js";
-import type { Layout } from "./layout.js";
+import { hiveBox, hiveSite, type Point, SITE_HANG, SITE_R } from "./hive-shape.js";
+import {
+  hiveWallLay,
+  hiveWallSide,
+  hiveWallSpan,
+  WALL_SITE,
+  type WallSpan,
+  wallFace,
+} from "./hive-walls.js";
+import { type Layout, tileCX } from "./layout.js";
 
 /** How a site's lobe hangs as drawn: `drop` below the underside, `open` of its width. */
 export interface HiveHang {
@@ -35,14 +49,25 @@ export function hiveStopper(
   const hw = (box.right - box.left) * 0.5 * open;
   const under = box.bottom + shift.y;
   const feet: Foot[] = [(x) => (Math.abs(x - mid) < hw ? under : null)];
+  const walls = hiveWallSpan(l, s);
+  if (walls !== null) {
+    const xs = s.cols.filter((_, i) => !hiveOnWall(s, i)).map((c) => tileCX(l, c));
+    for (const f of hiveCornerFeet(l, world.cfg.cols, walls, box.bottom, xs, open))
+      feet.push((x) => {
+        const y = f(x - shift.x);
+        return y === null ? null : y + shift.y;
+      });
+  }
   for (let i = 0; i < s.cols.length; i++) {
     const c = hiveSite(l, s, i);
     const hang = hangs[i] ?? { drop: 0, open };
     const r = l.tile * SITE_R * hang.open;
-    if (r > 0)
-      feet.push(
-        roundFoot(c.x + shift.x, c.y + shift.y - r * 0.3, r, r * (0.3 + SITE_HANG) + hang.drop),
-      );
+    if (r <= 0) continue;
+    const at = { x: c.x + shift.x, y: c.y + shift.y };
+    // A wall's cocoon lies on its side, so its drop is a reach across, not down.
+    if (hiveOnWall(s, i))
+      feet.push(hiveWallFoot(at, s.cols[i] ?? 0, r, r * 0.3, r * SITE_HANG + hang.drop));
+    else feet.push(roundFoot(at.x, at.y - r * 0.3, r, r * (0.3 + SITE_HANG) + hang.drop));
   }
   const foot = lowestFoot(feet);
   return (col, x, color) => {
@@ -54,4 +79,44 @@ export function hiveStopper(
     const hit: BoltHit = v === "target" || v === "wrong" ? v : "body";
     return { y, hit };
   };
+}
+
+/**
+ * Where a bolt meets a wall cocoon hung at `c` off the wall in `col`, its drop
+ * `r` wide and `long` from its back to its tip in its own frame: the lower
+ * half of the ellipse it lies in on its side, `WALL_SITE` of the size.
+ */
+export function hiveWallFoot(c: Point, col: number, r: number, back: number, long: number): Foot {
+  const side = hiveWallSide(col);
+  const half = ((back + long) * WALL_SITE) / 2;
+  return roundFoot(c.x + side * (half - back * WALL_SITE), c.y, half, r * WALL_SITE);
+}
+
+/**
+ * Where a bolt meets the two corners at rest, under `under`: the fillet from
+ * the face down to the scallops is a quadratic with its control level with
+ * its end and plumb over its start, so its height over x is solved outright.
+ */
+export function hiveCornerFeet(
+  l: Layout,
+  cols: number,
+  w: WallSpan,
+  under: number,
+  siteXs: readonly number[],
+  open: number,
+): Foot[] {
+  const { e, X, y0, firstX, lastX } = hiveWallLay(l, cols, w, siteXs, open);
+  const level = under - l.tile * 0.2;
+  const corner =
+    (faceX: number, endX: number): Foot =>
+    (x) => {
+      const k = (x - faceX) / (endX - faceX);
+      if (k <= 0 || k >= 1) return null;
+      const u = 1 - Math.sqrt(k);
+      return u * u * y0 + (1 - u * u) * level;
+    };
+  return [
+    corner(X(e.right - wallFace(l, w, y0, 0, -1)), X(firstX)),
+    corner(X(e.left + wallFace(l, w, y0, 0, 1)), X(lastX)),
+  ];
 }

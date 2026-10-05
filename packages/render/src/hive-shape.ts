@@ -5,7 +5,8 @@ import {
   hiveOnWall,
   type SimConfig,
 } from "@neon-spore/sim";
-import { type Layout, tileCX, tileCY } from "./layout.js";
+import { hiveWalledPath, hiveWallSite, hiveWallSpan } from "./hive-walls.js";
+import { type Layout, tileCX } from "./layout.js";
 
 /**
  * **Where THE HIVE is**, in field pixels: the mass hung over the top of the
@@ -50,10 +51,11 @@ export function hiveUnderY(l: Layout): number {
   return l.gridTop - l.tile * UNDER_RISE;
 }
 
-/** The centre of site `i`: on the underside over its column, or a wall's cocoon on its own tile. */
+/** The centre of site `i`: on the underside over its column, or a wall's cocoon on its own row (`hive-walls.ts`). */
 export function hiveSite(l: Layout, s: HiveState, i: number): Point {
-  const x = tileCX(l, s.cols[i] ?? 0);
-  return hiveOnWall(s, i) ? { x, y: tileCY(l, s.rows[i] ?? 0) } : { x, y: hiveUnderY(l) };
+  const w = hiveOnWall(s, i) ? hiveWallSpan(l, s) : null;
+  if (w !== null) return hiveWallSite(l, s, i, w);
+  return { x: tileCX(l, s.cols[i] ?? 0), y: hiveUnderY(l) };
 }
 
 /** How far below a site's centre the middle of its drop hangs, in pixels: where a thumb holds it. */
@@ -129,7 +131,8 @@ export function hiveLobes(l: Layout, cfg: SimConfig, s: HiveState, open: number)
  * breathe, and an underside of hanging lobes, one a site (`hiveLobes`), with
  * a site in the belly of each, since a box across the field is a panel
  * and a lobed mass is a body (`CLAUDE.md`). `open` closes it in on the
- * middle, for the body on its way out.
+ * middle, for the body on its way out. A mass with cocoons on its walls is
+ * hung down both sides of the field as well (`hiveWalledPath`).
  */
 export function hiveMassPath(
   l: Layout,
@@ -139,6 +142,11 @@ export function hiveMassPath(
   time: number,
 ): Path2D {
   const box = hiveBox(l, cfg);
+  const walls = hiveWallSpan(l, s);
+  if (walls !== null) {
+    const xs = s.cols.filter((_, i) => !hiveOnWall(s, i)).map((c) => tileCX(l, c));
+    return hiveWalledPath(l, cfg.cols, walls, box.top, box.bottom, xs, open, time);
+  }
   const { mid, hw } = span(l, cfg, open);
   const top = box.top;
   const bottom = box.bottom;

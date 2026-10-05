@@ -19,6 +19,7 @@ import { handleRadius } from "./handle-draw.js";
 import { hiveClenchLeft, hiveClenchRise, hivePinchPhase } from "./hive-hold.js";
 import { HIVE_HAUL, hiveMarkKey } from "./hive-marks.js";
 import { hiveSite, hiveSiteBelly, hiveUnderY, type Point } from "./hive-shape.js";
+import { hiveWallSide, WALL_SITE } from "./hive-walls.js";
 import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
 import { drawMarkHalo } from "./mark-feedback.js";
 import type { Field, Touch } from "./touch.js";
@@ -85,7 +86,13 @@ export function hiveLobeCircle(
 ): Circle {
   const at: Point = hiveSite(l, s, i);
   const rise = hiveClenchRise(s, cfg, beat, beatPhase);
-  return { x: at.x, y: at.y + hiveSiteBelly(l) - rise * l.tile, r: handleRadius(l, cfg) };
+  const r = handleRadius(l, cfg);
+  // A wall's cocoon hangs across the field, so its belly is beside it (`hive-walls.ts`).
+  if (hiveOnWall(s, i)) {
+    const out = hiveWallSide(s.cols[i] ?? 0) * hiveSiteBelly(l) * WALL_SITE;
+    return { x: at.x + out, y: at.y - rise * l.tile, r };
+  }
+  return { x: at.x, y: at.y + hiveSiteBelly(l) - rise * l.tile, r };
 }
 
 /**

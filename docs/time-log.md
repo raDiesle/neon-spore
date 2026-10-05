@@ -33477,3 +33477,13 @@ Bottleneck: the remeasure — every field frame in six op-count tables moved for
 Bottleneck: the rehearsal — traced beat by beat against one seed, so any change to the sites' order meant finding a seed that played the same film.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE HIVE's walls are an arch of its own wax, a cocoon on its side in every socket
+
+- reading: 5 min. The wax, the sites' drawer, the stopper's feet, the grip's circle.
+- writing: 10 min. `hive-walls.ts`, the cocoon's frame, the comb on one grid over several boxes, the wall and corner feet, the test.
+- looking: 10 min. Four frames: a cocoon stuck on like a leaf, then a lip that hid its colour, then lips on its shoulders.
+- friction: 0 min.
+- landing: 5 min. A file four lines over the limit, its feet moved to the stopper.
+
+Bottleneck: looking — the socket took three frames to find, each a minute's render and a crop.

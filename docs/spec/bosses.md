@@ -2556,6 +2556,15 @@ breach spills sideways**, its colour, living, into the column next to the
 wall on its own row — a body falling down the wall's column would fall
 through every cocoon under it.
 
+**Drawn, the walls are the mass's own wax** (`render/hive-walls.ts`), laid
+into the one contour with the top: an arch whose inner face leaves each
+corner steep, narrows to a drip below the lowest cocoon, is lumped and
+breathes, and swells into two lips on the shoulders of every cocoon — the
+socket it grows out of. A wall's cocoon is the underside's drop laid on its
+side, hanging into the field and drawn under the wax so its back is hidden,
+and it never reaches the next column's middle, so the picture never stops a
+bolt there that the simulation lets through.
+
 **And the mass answers back, in two states the pair meets with two gestures
 of their own** — the §6.2 ask (`.claude/skills/new-boss-more`), built on 21
 September 2026, and both reached **on the picture** rather than on the panel,

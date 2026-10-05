@@ -40,7 +40,21 @@ export interface Wax {
 /** A comb cell's radius, in tiles. */
 const COMB = 0.2;
 
-export function paintWax(ctx: CanvasRenderingContext2D, body: Path2D, w: Wax, fade: number): void {
+/** A box the comb is pressed into. */
+export type CombBox = Omit<Wax, "tile">;
+
+/**
+ * `combs` presses the comb into those boxes rather than the whole of `w`, on
+ * one grid, so a mass of several limbs (`hive-walls.ts`) is combed where it
+ * is and its cells run on unbroken from one box into the next.
+ */
+export function paintWax(
+  ctx: CanvasRenderingContext2D,
+  body: Path2D,
+  w: Wax,
+  fade: number,
+  combs?: readonly CombBox[],
+): void {
   const { left, right, top, bottom, tile } = w;
   const h = bottom - top;
   ctx.save();
@@ -58,7 +72,17 @@ export function paintWax(ctx: CanvasRenderingContext2D, body: Path2D, w: Wax, fa
   ctx.fill(body);
   // The comb: one path of cells, stroked once as the groove and once, a
   // hair lower, as the lip the light catches.
-  const comb = combPath(left, right, top - tile, bottom + tile, tile * COMB);
+  const comb =
+    combs === undefined
+      ? combPath(left, right, top - tile, bottom + tile, tile * COMB)
+      : combPath(
+          Math.min(...combs.map((b) => b.left)),
+          Math.max(...combs.map((b) => b.right)),
+          top - tile,
+          Math.max(...combs.map((b) => b.bottom)),
+          tile * COMB,
+          (x, y) => combs.some((b) => x >= b.left && x <= b.right && y >= b.top && y <= b.bottom),
+        );
   ctx.save();
   ctx.lineJoin = "round";
   ctx.globalAlpha = 0.35;
@@ -100,8 +124,15 @@ export function paintWax(ctx: CanvasRenderingContext2D, body: Path2D, w: Wax, fa
   ctx.restore();
 }
 
-/** Hexagonal cells, flat side up, covering the box. */
-function combPath(left: number, right: number, top: number, bottom: number, r: number): Path2D {
+/** Hexagonal cells, flat side up, covering the box — those centred where `keep` says, given one. */
+function combPath(
+  left: number,
+  right: number,
+  top: number,
+  bottom: number,
+  r: number,
+  keep?: (x: number, y: number) => boolean,
+): Path2D {
   const p = new Path2D();
   const dx = r * 1.5;
   const dy = r * Math.sqrt(3);
@@ -109,6 +140,7 @@ function combPath(left: number, right: number, top: number, bottom: number, r: n
   for (let x = left; x <= right + r; x += dx, col++) {
     const shift = col % 2 === 0 ? 0 : dy * 0.5;
     for (let y = top + shift; y <= bottom + r; y += dy) {
+      if (keep !== undefined && !keep(x, y)) continue;
       for (let k = 0; k <= 6; k++) {
         const a = (k / 6) * Math.PI * 2;
         const px = x + r * 0.92 * Math.cos(a);

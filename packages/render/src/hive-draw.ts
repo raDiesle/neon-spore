@@ -1,6 +1,7 @@
 import {
   type HiveState,
   hiveNext,
+  hiveOnWall,
   hiveOpen,
   hiveSwelling,
   hiveTwins,
@@ -15,6 +16,7 @@ import { hiveClenchRise, hivePinchPhase } from "./hive-hold.js";
 import { hiveBox, hiveFade, hiveMassPath, hiveSite, hiveSwellPhase } from "./hive-shape.js";
 import { drawBreach, drawLobe, drawScar, drawSwell } from "./hive-sites.js";
 import { type HiveHang, hiveStopper } from "./hive-stop.js";
+import { hiveWallCombs, hiveWallFrame, hiveWallSpan, WALL_SITE } from "./hive-walls.js";
 import { paintWax } from "./hive-wax.js";
 import type { Layout } from "./layout.js";
 import { showsHiveColor, showsHiveSwell } from "./view-role-clocks-b.js";
@@ -74,9 +76,26 @@ export function drawHive(
   const hangs: HiveHang[] = [];
   ctx.save();
   ctx.translate(shift.x, shift.y);
-  drawMass(ctx, l, cfg, s, open, time, fade, fx.hurt.value);
-  for (let i = 0; i < s.cols.length; i++) {
-    const c = hiveSite(l, s, i);
+  // A wall's cocoon is drawn under the mass, so it grows out of the socket
+  // the face swells into round it; the underside's hang over it, as ever.
+  const order = s.cols.map((_, i) => i);
+  const walled = order.filter((i) => hiveOnWall(s, i));
+  for (const i of [...walled, -1, ...order.filter((i) => !hiveOnWall(s, i))]) {
+    if (i < 0) {
+      drawMass(ctx, l, cfg, s, open, time, fade, fx.hurt.value);
+      continue;
+    }
+    const at = hiveSite(l, s, i);
+    // The same drop laid on its side, drawn about its own centre in that
+    // frame (`hive-walls.ts`).
+    const wall = hiveOnWall(s, i);
+    const c = wall ? { x: 0, y: 0 } : at;
+    ctx.save();
+    if (wall) {
+      const [a, b, cc, d] = hiveWallFrame(s.cols[i] ?? 0);
+      ctx.translate(at.x, at.y);
+      ctx.transform(a * WALL_SITE, b * WALL_SITE, cc * WALL_SITE, d * WALL_SITE, 0, 0);
+    }
     if (s.sealed[i]) drawScar(ctx, l, c, open, fade);
     else if (hiveOpen(s, i)) {
       const wrung = hiveWrungAt(s, i);
@@ -85,6 +104,7 @@ export function drawHive(
     } else if (swelling && (i === next || i === twin))
       hangs[i] = drawSwell(ctx, l, c, swell, open, time, fade, i === s.pinch ? pinch : -1);
     else drawLobe(ctx, l, c, 0, open, fade);
+    ctx.restore();
   }
   ctx.restore();
   stops?.aim(hiveStopper(l, world, s, shift, open, hangs));
@@ -106,6 +126,8 @@ function drawMass(
   const hw = (box.right - box.left) * 0.5 * open;
   const wax = { ...box, left: mid - hw, right: mid + hw, tile: l.tile };
   const path = hiveMassPath(l, cfg, s, open, time);
-  paintWax(ctx, path, wax, fade);
+  const walls = hiveWallSpan(l, s);
+  const combs = walls === null ? undefined : hiveWallCombs(l, cfg.cols, walls, box.top, box.bottom);
+  paintWax(ctx, path, wax, fade, combs);
   drawHurt(ctx, path, hurt * fade);
 }
