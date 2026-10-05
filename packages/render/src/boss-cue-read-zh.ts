@@ -67,7 +67,16 @@ export function trivetCues(
     if (!asked || trivetChordHeld(s, side, step.pads)) continue;
     const foot = trivetFootStanding(l, world, s, seat, beatPhase);
     const seed = seat === 1 ? 142 : 143;
-    out.push({ seat, kind: "HOLD", word: "HOLD", x: foot.x, y: foot.y, ...frame, seed });
+    out.push({
+      seat,
+      kind: "HOLD",
+      word: "HOLD",
+      x: foot.x,
+      y: foot.y,
+      ...frame,
+      seed,
+      chord: true,
+    });
   }
   // After the holds: on a lurch the shot is not heard until the leaning foot is held.
   if ((step.ask === "fire" || step.ask === "tip") && s.hubLit) {

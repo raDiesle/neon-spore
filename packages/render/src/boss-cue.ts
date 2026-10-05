@@ -29,6 +29,7 @@ import { mantleCues } from "./boss-cue-read-zc.js";
 import { keelCues } from "./boss-cue-read-zd.js";
 import { oculusCues } from "./boss-cue-read-ze.js";
 import { type BossCue, cueSeen } from "./boss-cue-shape.js";
+import { deskChordRing } from "./desk-chord-ring.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 
@@ -221,6 +222,8 @@ export function bossCue(
   skinY: SurfaceY,
 ): BossCue | null {
   for (const cue of bossCues(l, world, beatPhase, skinY)) {
+    // A chord body on a desk is THE INSTAR's ring, drawn beside this (`desk-chord-ring.ts`).
+    if (deskChordRing(cue, l.role)) continue;
     // The membrane under the mark, stamped once here rather than by each of
     // the thirty readings: `skinY` is already this function's argument,
     // and a rule about where a word fits belongs to the one place every

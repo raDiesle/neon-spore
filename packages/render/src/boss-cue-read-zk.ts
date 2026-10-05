@@ -61,7 +61,7 @@ export function halterCues(
   if (held.some((k) => halterGripped(s, k))) return [];
   const x = (left.x + right.x) / 2;
   const y = (left.y + right.y) / 2;
-  return [{ seat, kind: "HOLD", word: "HOLD", x, y, ...frame, seed: 158 }];
+  return [{ seat, kind: "HOLD", word: "HOLD", x, y, ...frame, seed: 158, chord: true }];
 }
 
 /**

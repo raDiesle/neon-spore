@@ -68,6 +68,9 @@ import { instarMarkIsMine } from "./view-role-clocks-b.js";
  * wrong thumb and says so (`sim/instar-hand.ts`).
  */
 
+/** How far beside a ring its word hangs, in ring radii: clear of the window ring at its widest. */
+export const MARK_WORD_OFF = 3.1;
+
 /**
  * The gestures' verbs, and the `CueKind` each reduces to — #34's own
  * four (`boss-cue.ts`): a press of a button, a hold of one, a thumb carried,
@@ -137,7 +140,7 @@ export function drawInstarMarks(
   const along = instarThreat(s, beat, beatPhase);
   const left = 1 - along;
   // Beside the ring, clear of the window ring at its widest.
-  const off = r * 3.1;
+  const off = r * MARK_WORD_OFF;
   const rooms = step.marks.map((m) => markRoom(l, cfg, m, sway, along, r, off));
   step.marks.forEach((mark, i) => {
     const at = instarMarkPoint(l, mark, sway, along);

@@ -54,7 +54,16 @@ export function governorCues(
   const governor = governorGovernor(s);
   if (governor !== null && !governorChordWhole(s, governor === 1 ? 0 : 1)) {
     const at = governorYokeCircle(l, cfg, s, world.beat, beatPhase);
-    out.push({ seat: governor, kind: "HOLD", word: "HOLD", x: at.x, y: at.y, ...frame, seed: 188 });
+    out.push({
+      seat: governor,
+      kind: "HOLD",
+      word: "HOLD",
+      x: at.x,
+      y: at.y,
+      ...frame,
+      seed: 188,
+      chord: true,
+    });
   }
   const tapper = governorTapper(s);
   const mark = governorTapCircle(l, cfg, s, world.beat, beatPhase);

@@ -378,25 +378,6 @@ own column does — and THE LEDGER; each gets its row in `own-stop.test.ts`.
 Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 `own-stop.test.ts`, and `bun run check` is green.
 
-## A desk's chord body is drawn as `HOLD BOTH` is drawn
-
-- **Found:** 2026-10-04, claude/queue-work-cccabd
-- **Taken:** 2026-10-05, claude/queue-tasks-status-bb9750 (claim: claude/queue-a-desks-chord-body-is-drawn-as-hold-both-is-draw)
-- **Files:** `packages/render/src/desk-chord.ts`, `packages/render/src/instar-ring.ts`, `packages/render/src/grindstone-draw.ts`, `packages/render/src/trivet-draw.ts`, `packages/render/src/halter-draw.ts`, `packages/render/src/governor-draw.ts`
-
-The second half of *One mouse can never close a chord*, split off when the
-mechanic landed: a held mouse on any chord body at the desk is now the whole
-chord (`desk-chord.ts`), but nothing on the TEST screen says so. The owner's
-answer of 3 October 2026: *if its same, it should be same control type used,
-which means exact same visuals* — so on a screen whose pointer speaks for both
-seats (`desk-seat.ts` `pointerSeats`), each chord body that takes a hand
-(THE GRINDSTONE's jaws, THE TRIVET's feet, THE GOVERNOR's works, THE HALTER's
-lit grips) wears THE INSTAR's `HOLD BOTH` ring and fill, by calling
-`drawInstarRing` with the `hold` gesture and the `HOLD BOTH` word
-(`instar-marks.ts` `INSTAR_WORDS`), never a drawing of its own. A phone's
-screen is unchanged. A look the owner asked for by name; frames in
-`frame.test.ts`, and one PNG of THE GRINDSTONE on TEST to the owner.
-
 ## §30 THE TRIVET — row 11's ring, the simulation
 
 - **Found:** 2026-10-05, claude/queue-bosses-choreographed-mds-contents-and-ledger-say

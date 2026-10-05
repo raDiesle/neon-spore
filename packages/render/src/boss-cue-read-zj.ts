@@ -67,7 +67,16 @@ export function grindstoneCues(
       if (grindstoneJawHeld(s, jawSide)) continue;
       const jaw = at(seat === 1 ? "grindJawLeft" : "grindJawRight");
       const seed = seat === 1 ? 154 : 155;
-      out.push({ seat, kind: "HOLD", word: "HOLD", x: jaw.x, y: jaw.y, ...frame, seed });
+      out.push({
+        seat,
+        kind: "HOLD",
+        word: "HOLD",
+        x: jaw.x,
+        y: jaw.y,
+        ...frame,
+        seed,
+        chord: true,
+      });
     }
     return out;
   }

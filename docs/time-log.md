@@ -33237,3 +33237,13 @@ Bottleneck: finding the effect — it is only on boss waves, inside the slowed w
 Bottleneck: every part was laid inside its own drawer — the wing's anchor, the tail's rings, the nests' places — so each had to be cut into a shape the drawer and the stopper both call before a foot could be laid on it.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-05 — A desk's chord body is drawn as `HOLD BOTH` is drawn
+
+- reading: 5 min. The four drawers, their cue readings, `pointerSeats`, THE INSTAR's ring and word.
+- writing: 5 min. `chord` on the four `HOLD` cues, `desk-chord-ring.ts`, `bossCue` passing over them on a desk, the test.
+- looking: 0 min. One frame of THE GRINDSTONE on TEST.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: when a chord is asked lived only in the cue readings, so the ring had to be drawn off the cues rather than in the four drawers the entry named, or "asked" would have been written twice.

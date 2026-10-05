@@ -1257,6 +1257,7 @@ by hand never moves.
 | `packages/render/src/debris.ts` | The pieces a broken body left, still in the air |
 | `packages/render/src/desk-seat.ts` | **Whose hand a desk's one mouse is**, on the screen that shows both seats |
 | `packages/render/src/desk-chord.ts` | **A desk press on a chord body is the whole chord** — every pad of it and of its partner |
+| `packages/render/src/desk-chord-ring.ts` | **A desk's chord body is drawn as `HOLD BOTH` is drawn** |
 | `packages/render/src/desk-grab.ts` | **A press on the screen that shows both seats**, where the desk's one mouse has not been told whose hand it is |
 | `packages/render/src/effects-body.ts` | The transients that belong to **one body** and outlive it by less than a beat: a lure folding to a point, the |
 | `packages/render/src/effects-boss.ts` | The transients that belong to **one boss** and are read above the loop |
