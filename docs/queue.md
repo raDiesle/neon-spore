@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE HASP's wheel turns with THE MAZE's knob, lever and channel
 
 - **Found:** 2026-10-05, claude/gimbal-turn-controls-aa1635
+- **Taken:** 2026-10-05, claude/task-queue-status-907163 (claim: claude/queue-the-hasps-wheel-turns-with-the-mazes-knob-lever)
 - **Files:** `packages/render/src/hasp-parts.ts`, `packages/render/src/hasp-grip.ts`, `packages/render/test/pull-way-roll-out.test.ts`
 
 The owner, 5 October 2026: a turn is THE MAZE's turn on every wave — *a set
