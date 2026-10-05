@@ -33475,3 +33475,5 @@ Bottleneck: the remeasure — every field frame in six op-count tables moved for
 - landing: 10 min. A seed hunt for the rehearsal, three million installs in two seconds, then `check:fast`.
 
 Bottleneck: the rehearsal — traced beat by beat against one seed, so any change to the sites' order meant finding a seed that played the same film.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

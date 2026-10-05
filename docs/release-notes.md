@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 9013aa970 — THE HIVE hangs down both walls, and a held thumb reaches past the lowest cocoon
+
+The mass now carries three cocoons down each side of the field as well as seven sites along its underside, the corners left clear where it curves into the walls. A bolt fired straight up a wall meets the lowest cocoon on it; the pilot's thumb held on a higher one steers every shot he fires round the corner into it. A wall's breach spills sideways into the next column. The simulation half: the cocoons are drawn in place as the underside's drops until the walls' own look lands. The rehearsal moved to a seed that plays the same film.
+
 ## 2026-10-05 · 243f88357 — The cannon's column is a gunsight in the cannon's colour
 
 The cannon's aim marker was a cyan wash, and cyan is the shield; it is now the seat's colour, violet on player one's screen and amber on player two's, the same as the cannon. It is also a gunsight now: a wash, edge rails, a lit hairline and a range ladder of ticks, fading out upwards and brightening on the beat. Nothing travels up it, so it is never mistaken for a bolt. The marker is the same for every wave, so this covers every boss as well as THE HIVE.
