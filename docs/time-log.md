@@ -33211,3 +33211,5 @@ Bottleneck: none — thirty one-line exports moved whole, and the chain from pag
 - landing: 5 min. The entry cut down to the wings, tail and nests, `land`.
 
 Bottleneck: the face-on head is drawn a half at a time through a squeeze about the snout, so its outline had to come out of the same transform rather than a copy of it.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
