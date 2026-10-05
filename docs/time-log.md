@@ -33595,3 +33595,5 @@ Bottleneck: telling the bezel, the funnel floor and the lever's channel apart in
 - landing: 5 min. A new render test owes its own timeout, and the config rows owe the spec a sentence.
 
 Bottleneck: the four old wheel tests assumed the click landed in one tick, and each had to be taught to wait.
+
+*Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

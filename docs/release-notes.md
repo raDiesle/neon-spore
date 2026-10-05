@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · f3f2c1828 — THE MAZE's lever stays where it is let go, coasts a little, and eases onto a column
+
+The knob no longer snaps back to its rest on release: it stays where the hand left it, and the next press is taken there. A release that is not in a click coasts on a little the way the hand was going, slowing, and catches a column it reaches. A way in coming near the cannon's column is caught from further off (the snap window is now just inside the column's half-width), and the wheel eases onto the column over a few ticks instead of jumping; a caught way in takes nearly half a tile of pull to come out of, so a lifting thumb no longer breaks it. A look the owner asked for by name.
+
 ## 2026-10-05 · 39a820900 — THE MAZE's ways in shine a yellow light, the one on the column shines blue, and nothing grey crosses them
 
 Every way in that is not on the cannon's column now leans a short wedge of warm yellow light straight out of the drum, drawn over the lever's knob, so a pair sees every room with a light on before one is open. The one clicked onto the column shines blue instead of green, its light down the column and its lips both. The grey floor across each funnel's mouth is gone, and the lever's grey channel round the rim now stops at every way in, so a gap opens onto the field. A look the owner asked for by name.
