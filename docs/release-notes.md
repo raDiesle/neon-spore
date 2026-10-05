@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · e76ebd377 — Every boss's verdict has a surface page of its own
+
+The thirty one-line `…Verdict` exports leave `sim/boss-surface-clocks-e.ts` for `sim/boss-surface-verdicts.ts`, alphabetical, re-exported through the fifth page so `@neon-spore/sim` names them as before. The fifth page drops from 237 lines to 209, and a bolt-stop lane adding a verdict no longer grows it.
+
 ## 2026-10-05 · da58ff8db — bosses-choreographed.md says which bosses are built, and THE TRIVET's row 11 is queued again
 
 The page's contents now sort every concept by what is true of it: built, built but for a named part, or retired. The ledger rows and section bodies that still said a part was queued or open — THE GIMBAL's look, THE SPOOL's, MANTLE's and VALVE's hands, THE SEAM's poses, THE BURGEE's touch, THE GOVERNOR's receipts, THE CYST's blow and more — now say when each landed. THE TRIVET's row 11 ring had been closed in the queue with nothing written, so it is back as two entries, the simulation and then its look.
