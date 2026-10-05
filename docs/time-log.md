@@ -33271,3 +33271,5 @@ Bottleneck: none to speak of. THE GRINDSTONE's fade commit was the complete list
 - landing: 5 min. `check:fast` three times: the guided-wave counts, the hush list, an import sort.
 
 Bottleneck: the brush and the slow were named in a dozen files outside the simulation, and only the typecheck and two count tests found them all.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

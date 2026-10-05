@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 04b697bb0 — THE MIMIC has no panel, no SLOW and no tutorial
+
+THE MIMIC is played with taps alone now: no brush buttons, one tile colour on every level and no face on a tile, and no slowed window, so the red and green colour split no longer rings the tiles. Each picture stands in a fixed frame, centred and low on the field: three tiles square in the first movement, five in the second, three for each half of a split. A tap outside your own frame paints nothing. The core takes any tap on it. The wave opens with no tutorial. The windows are longer in plain beats to make up for the missing slow: 36 for a small picture, 56 for a large one, 44 for a split.
+
 ## 2026-10-05 · b2aadd40b — THE TRIVET's feet ring under the spent hub while both seats leave every pad up
 
 After the last shot, the planted feet now ring under the spent hub for three beats under THE SLOW. The fight's final beat asks both seats to put no pad down, after ten beats of chording and firing. A pad put down on either foot jolts it loose and adds a beat to the ring, at most two, and a pad left down costs a beat each turn up to the same cap. Nothing is lost either way.
