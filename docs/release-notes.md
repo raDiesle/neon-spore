@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 5d7d1e323 — The director loads again: no boss's shot is read while core-along loads
+
+The director's dev server threw "Cannot read properties of null (reading 'burgeeVerdict')" at load and drew nothing. `core-along.ts` sits in an import cycle with the shots (burgee-shot -> burgee-step -> slow -> world -> step -> bullets -> core-along), and under Bun's HMR runtime a module still loading is null, so the CORES table, built at load from the verdicts by name, read off nothing. Real ESM hoists the functions, which is why every test passed. Each verdict is now called through an arrow, and THE GRINDSTONE's row moves into the table beside the other nine, read by its picture through `coreRowMilli` like theirs; `GRINDSTONE_ROW_MILLI` is gone. Nothing the game draws changes.
+
 ## 2026-10-05 · 670ab3cb5 — THE MAZE's heart shows the waiting clock while the partner still has to shake it
 
 When one seat has shaken its half of the heart, or is holding it alone, its screen now shows the waiting clock every partner's mark already wears, under P2 TOO (or P1 TOO), until the partner has shaken their half too. A seat whose half is done and whose thumb is off is told P2 TOO instead of SHAKE. A look the owner asked for by name.

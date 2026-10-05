@@ -33631,3 +33631,5 @@ Bottleneck: deciding when a screen is waiting, so the clock is not on both scree
 - landing: 5 min.
 
 Bottleneck: the tests run real ESM, where the cycle is harmless, so only a browser on the dev server showed it.
+
+*Measured: 3 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
