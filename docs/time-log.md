@@ -33511,3 +33511,5 @@ Bottleneck: the margin — a bolt met on the bead's far rim was taken off the fi
 - landing: 5 min.
 
 Bottleneck: none to speak of — the fx already burst and shook on the hit, so only the moment moved.
+
+*Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
