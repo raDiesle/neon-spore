@@ -33571,3 +33571,5 @@ Bottleneck: the pips moved off `FIRE` and out of THE SLOW's sharp band in the sa
 - landing: 5 min. Eight reds on the first `check:fast`, each a registration somewhere else.
 
 Bottleneck: the registrations a reworked boss owes outside the simulation, found one red test at a time.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

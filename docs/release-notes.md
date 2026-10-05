@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · cb11a714f — THE LAMPREY leaps about the field, and its controls change every stay
+
+The eel no longer bites the hull behind the ship. It leaps to a tile anywhere on the field, each leap further than the last (1 tile, then 2, up to 7), bites in under THE SLOW, and asks for a different pair of hands each stay: hold the tail while the other pulls the head up; hold the tail while the other taps the lit tooth; or both pull at once, the tail one way and the head up (the added variation). Gullet stays are shot in their colour in the eel's own column. A stay that runs out bites through to the hull. The tail lies away from the next tile, and both ends wear the field's shipped pull knob and channel.
+
 ## 2026-10-05 · fe8349a15 — THE FLUE numbers the ember's beats to the sight and names each level
 
 Under the flue's slot a scale ticks every half beat the ember has still to run to the sight, numbered at every whole beat, and laid from the lit level's own speed, so the spacing is the speed. Over the flue's left end a card names the weapon, SHOT or BEAM, in the level's colour, with SLOW ½ or SLOW ¼ under it when THE SLOW holds the level. Both are on both screens. The shot pips move down off the navigator's FIRE, and THE SLOW's sharp band grows to keep the card and the pips free of the colour split.
