@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · cfa40a3a4 — THE LEDGER's cord geometry has a file of its own
+
+`ledger-shape.ts` had reached 249 lines. Where the cord leaves the body and goes into the ship, how taut it hangs, every point along it and how far down it a return has got are now `ledger-cord-shape.ts`, and its importers take them from there; the body's halves, gap and seam stay where they were. Nothing drawn changes.
+
 ## 2026-10-05 · 117c1bf51 — THE LEAD and LEDGER stop a bolt on what they meet
 
 A bolt fired up under THE LEAD is drawn stopping on the ridge's underside, which spans the field: while the stalk paces it ends there with no burst and is drawn on climbing out of the ridge as its flight, and any other time it scuffs on the plating or the rock. Under THE LEDGER it stops where the body hangs into the field — bursting at the seam's mouth in the colour the seam wants, scuffing in the other or while the cord roots, and scuffing on the plating up either flanking column. `BoltStops` gains `pass`, a meeting with no burst; the ridge's and the halves' points are shared out of their shape files.

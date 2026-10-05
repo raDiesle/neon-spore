@@ -33331,3 +33331,5 @@ Bottleneck: THE LEAD's flight needed a meeting with no burst, which `BoltStops` 
 - landing: 5 min.
 
 Bottleneck: Biome's `--write` on the touched files did not apply `useImportType`, so the type-only imports were fixed by hand.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
