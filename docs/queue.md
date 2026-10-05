@@ -381,6 +381,7 @@ Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 ## §30 THE TRIVET — row 11's ring, the look
 
 - **Found:** 2026-10-05, claude/queue-bosses-choreographed-mds-contents-and-ledger-say
+- **Taken:** 2026-10-05, claude/queue-tasks-status-bb9750 (claim: claude/queue-30-the-trivet-row-11s-ring-the-look)
 - **Where:** local
 - **Files:** `packages/render/src/trivet-draw.ts`, `packages/render/src/trivet-fx.ts`
 - **Needs:** §30 THE TRIVET — row 11's ring, the simulation
