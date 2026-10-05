@@ -11,6 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { Effects } from "../src/effects.js";
+import { rgba } from "../src/hex.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import type { TextBox } from "./canvas-stub.js";
@@ -74,7 +75,7 @@ function heldInZone(world: World): SinewState {
   return s;
 }
 
-/** Two fibres parted, the mass two rows lower. */
+/** Two fibres parted; the mass hangs where it always does. */
 function worn(world: World): SinewState {
   const s = tendon(world);
   s.fibres = CFG.sinewFibres - 2;
@@ -167,17 +168,17 @@ describe("THE SINEW's tendon", () => {
   });
 
   it("puts the sum on the navigator's screen and not the pilot's", () => {
-    // The sum's marker is stroked in the ember's rim, which nothing else on
-    // a hung field names until a rock is shed.
+    // The sum's line is stroked in neon blue, which nothing else on a hung
+    // field names.
     const navigator = hung();
     pulled(navigator);
-    const p2 = count(drawn(navigator, "p2", 3).text, PALETTE.emberRim);
+    const p2 = count(drawn(navigator, "p2", 3).text, PALETTE.blue);
     const pilot = hung();
     pulled(pilot);
-    const p1 = count(drawn(pilot, "p1", 3).text, PALETTE.emberRim);
+    const p1 = count(drawn(pilot, "p1", 3).text, PALETTE.blue);
     const both = hung();
     pulled(both);
-    const test = count(drawn(both, "test", 3).text, PALETTE.emberRim);
+    const test = count(drawn(both, "test", 3).text, PALETTE.blue);
     expect(p2).toBeGreaterThan(p1);
     expect(test).toBeGreaterThan(p1);
   });
@@ -198,17 +199,40 @@ describe("THE SINEW's tendon", () => {
   );
 
   it.each(ROLES)(
-    "hangs the mass lower with fibres parted, and greys the slack tendon, on %s",
+    "fills the empty glass a green bar a beat while the hold counts, on %s",
     (role) => {
-      const whole = hung();
-      const torn = hung();
-      worn(torn);
-      expect(drawn(torn, role, 3).text).not.toBe(drawn(whole, role, 3).text);
-      const gone = hung();
-      slack(gone);
-      expect(drawn(gone, role, 3).calls).toBeGreaterThan(0);
+      /** The sum in the middle of the zone, the hold `beats` old. */
+      const holding = (beats: number): World => {
+        const world = hung();
+        // Past the drop-in, so a hold three beats old is a beat the world has had.
+        for (let i = 0; i < CFG.sinewEnterBeats * TPB; i++) step(world, []);
+        const s = tendon(world);
+        s.pullP1Milli = CFG.sinewReachMilli;
+        s.pullP2Milli = 700;
+        s.zoneLowMilli = CFG.sinewReachMilli;
+        s.holdBeat = beats < 0 ? -1 : world.beat - beats;
+        return world;
+      };
+      // Nothing in the glass with no hold: the fluid is gone (5 October 2026),
+      // and the bars' outlined slots come with the hold.
+      const slots = (w: World) => count(drawn(w, role, 3).text, rgba(PALETTE.good, 0.45));
+      expect(slots(holding(-1))).toBe(0);
+      expect(slots(holding(0))).toBeGreaterThan(0);
+      // A filled bar is the saturated green: three beats in, three of them are.
+      const green = (w: World) => count(drawn(w, role, 3).text, PALETTE.good);
+      expect(green(holding(CFG.sinewHoldBeats - 1))).toBeGreaterThan(green(holding(0)));
     },
   );
+
+  it.each(ROLES)("draws parted fibres as stubs, and greys the slack tendon, on %s", (role) => {
+    const whole = hung();
+    const torn = hung();
+    worn(torn);
+    expect(drawn(torn, role, 3).text).not.toBe(drawn(whole, role, 3).text);
+    const gone = hung();
+    slack(gone);
+    expect(drawn(gone, role, 3).calls).toBeGreaterThan(0);
+  });
 
   it.each(ROLES)("draws the handles swinging after a snap, with no hint word, on %s", (role) => {
     const world = hung();

@@ -4391,8 +4391,10 @@ the navigator's right — **catch** the tendon (`sinewCatch`), which ends the
 swing on that beat and clears the slack with it, so the gesture only ever buys
 beats back and never costs any. A sum
 out of the zone the other way, or a hand lifted, restarts the count
-(`sinewLoose`). Each part sinks the mass a row and opens THE SLOW for
-`sinewPartSlowBeats` (2). From `sinewDecayFibres` (4) gone the rope **creeps
+(`sinewLoose`). Each part opens THE SLOW for `sinewPartSlowBeats` (2); the
+mass does not sink with it — it hangs on `sinewMassRow` (9) the whole fight,
+the owner's word of 5 October 2026, so a part is a string cut and nothing
+else. From `sinewDecayFibres` (4) gone the rope **creeps
 slack** under a held hand by `sinewDecayMilli` (180) a beat, so the same two
 thumbs read less every beat, until both hands come off and the slack is
 gone. The last fibre's zone is the one step under the band's top. When it
@@ -4462,8 +4464,8 @@ the line the game's top chrome stops at (`top-chrome.ts`; the owner, 2 October
 2026: not cut, the strings hung from something flying) — and from where it
 is flying now a fan of
 `sinewFibres` fibres in the hull's violet, in two runs through the band, down to a five-lobed mass
-(`blobPath`) three columns wide and a row deep, hung at `sinewMassRow` and a
-row lower per fibre parted, its sag capped at the hull's row. The fibres
+(`blobPath`) three columns wide and a row deep, hung at `sinewMassRow` however
+many fibres are parted, its sag capped at the hull's row. The fibres
 straighten and brighten toward the hull's rim with the sum — strain is a
 colour and a line, never a number — and ripple as a damped wave while the
 sum is low; a parted fibre is two curled stubs in grey, the outermost first
@@ -4479,16 +4481,20 @@ glass tube halfway down the tendon, a tile and a half wide and three and a
 half tall, the upper runs ending in its top and the lower ones leaving its
 foot: the pilot's screen washes the zone on it in the green the game already
 spends on *good*, with a bracket on each wall and no edge across the tube, and
-never the sum; the navigator's fills the sum up it as a bubbling amber fluid
-(`sinew-fluid.ts`) to one bright line standing out past both walls, and never
-the zone; the test screen has both (`showsSinewZone`, `showsSinewSum` — the
+never the sum; the navigator's draws the sum as one thin neon-blue line
+standing out past both walls, over an empty glass, and never the zone (the
+amber fluid that filled up to it went on 5 October 2026); the test screen has both (`showsSinewZone`, `showsSinewSum` — the
 split *is* the encounter). THE SLOW's colour split leaves the tube out
 (`Aim.sharp`), so the only line across it is the sum's. While the sum is in
-the zone the frame glows green and breathes on both screens, the sum's line
-goes green, and **the hold's count is the next fibre fraying** — lighting
-toward green, shivering, splitting into strands and hairs over
-`sinewHoldBeats` (`sinew-fray.ts`) — because the hold counting is the one fact
-of the band neither seat is denied. A part **tears** it (`sinew-tear.ts`):
+the zone the frame glows green and breathes on both screens, and **the hold
+is counted three ways at once**: the empty glass fills from its foot with one
+green bar a beat, up to the zone on the pilot's screen and the sum's line on
+the navigator's, every bar outlined from the first beat so the pair can count
+them (`sinew-hold.ts`); a green pulse leaves the band on every beat of the
+hold and runs out along each whole fibre, up to the crown and down to the
+mass; and the next fibre frays — lighting toward green, shivering, splitting
+into strands and hairs (`sinew-fray.ts`) — because the hold counting is the
+one fact of the band neither seat is denied (the owner, 5 October 2026). A part **tears** it (`sinew-tear.ts`):
 the tube flashes green, a ring goes out, the fibre's runs whip back to stubs.
 The boss **drops in** over `sinewEnterBeats` — the crown slides down, the mass
 falls past its row and rings back like a rubber band — then bobs on the

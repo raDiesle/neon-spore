@@ -33333,3 +33333,13 @@ Bottleneck: THE LEAD's flight needed a meeting with no burst, which `BoltStops` 
 Bottleneck: Biome's `--write` on the touched files did not apply `useImportType`, so the type-only imports were fixed by hand.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE SINEW hangs still, and its hold fills the empty glass
+
+- reading: 10 min. The sim's mass row, the band, the fluid, the fibres and the fray, the wave and its tests.
+- writing: 10 min. The fixed row, `sinew-hold.ts` (bars and the pulse), the thin blue line, the fluid gone, the wave emptied, the tests and §11.26.
+- looking: 5 min. Three frames: both screens holding, one before.
+- friction: 5 min. A new test counted a Path2D call the stub logs only sometimes, and a hold set before beat 3 read as no hold.
+- landing: 5 min. Two reds from the emptied wave — the lesson-keeps row and a comment the editor's save can't carry.
+
+Bottleneck: what the canvas stub logs, which a new frame test can only find out by printing it.

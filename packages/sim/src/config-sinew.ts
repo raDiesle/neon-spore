@@ -18,7 +18,7 @@
  * *less* and the other saying *that is where we are*.
  */
 export interface SinewConfig {
-  /** Fibres in the tendon. Each one parted lowers the mass a row; the last drops it. */
+  /** Fibres in the tendon. Each one parted is a string cut; the last drops the mass. */
   sinewFibres: number;
   /** How far down one hand can pull its handle, in thousandths of a tile. The band is twice this. */
   sinewReachMilli: number;
@@ -38,7 +38,7 @@ export interface SinewConfig {
   sinewSnapRocks: number;
   /** Rocks the snap-back on the last fibre shakes out — a mass that low, whipped, sheds more. */
   sinewSnapRocksLast: number;
-  /** Row the mass hangs at with every fibre whole. A fibre parted is a row lower. */
+  /** Row the mass hangs at, the whole fight: a fibre parted does not lower it. */
   sinewMassRow: number;
   /** Columns the mass spans, centred on `midCol`: where its rocks come from. */
   sinewMassCols: number;
@@ -71,9 +71,14 @@ export interface SinewConfig {
  * one hand at the limit and the other all but, and the top itself a snap. Four beats held parts one; a snap costs two
  * beats and a rock, three on the last, and those two beats are bought back by
  * both hands carried 400 outward — two fifths of a tile, far enough that it
- * is a gesture and not a wobble. The mass starts on row 5 and is on
- * row 10 by the last fibre, four rows over the hull; when it falls it has
- * eight beats to be walked four columns.
+ * is a gesture and not a wobble. The mass hangs on row 9, five rows over the
+ * hull, from the first fibre to the last; when it falls it has eight beats
+ * to be walked four columns.
+ *
+ * **Row 9 and still, on the owner's word, 5 October 2026**: the mass used to
+ * start on row 5 and come down a row per fibre, and the owner asked for it to
+ * hang where it was after the fourth one, all fight long, so that a fibre
+ * parting is a string cut and not the boss coming closer.
  *
  * **Doubled on the owner's rule, 24 September 2026** (`docs/spec/
  * choreographed-windows.md`): the fall 4 → 8 beats and the walk 3 → 4
@@ -102,7 +107,7 @@ export const SINEW_DEFAULTS: SinewConfig = {
   sinewCatchMilli: 400,
   sinewSnapRocks: 1,
   sinewSnapRocksLast: 3,
-  sinewMassRow: 5,
+  sinewMassRow: 9,
   sinewMassCols: 3,
   sinewDecayFibres: 4,
   sinewDecayMilli: 180,

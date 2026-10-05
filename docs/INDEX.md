@@ -1388,9 +1388,9 @@ by hand never moves.
 | `packages/render/src/sinew-fibres.ts` | **The tendon**: a bundle of fibres hung in two runs — from the crown down into the top of the strain band |
 | `packages/render/src/sinew-fx.ts` | What THE SINEW leaves behind a frame: the whip a snap-back puts through the mass and its handles |
 | `packages/render/src/sinew-flesh.ts` | **What THE SINEW is made of**: a tendon of wet cords, each lit along one side, in a sheath of membrane |
-| `packages/render/src/sinew-fluid.ts` | **The sum as a fluid**: what fills THE SINEW's strain band from its foot up to the sum |
 | `packages/render/src/sinew-fray.ts` | **The hold, counted on the fibre it is counting down to** |
 | `packages/render/src/sinew-handles.ts` | **THE SINEW's two handles**, one either side of the mass and one per seat |
+| `packages/render/src/sinew-hold.ts` | **The hold, counted where both players are already looking** — the owner, 5 October 2026 |
 | `packages/render/src/sinew-shape.ts` | **Where THE SINEW is**, in field pixels: the root the tendon hangs from, the mass on the end of it |
 | `packages/render/src/sinew-word.ts` | **What THE SINEW is asking of one hand**, and the three silences that are the fight |
 | `packages/render/src/sinew-marks.ts` | THE SINEW's handles answering a touch: the halo, the partner's ring and clock, the verdict |

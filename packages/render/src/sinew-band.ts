@@ -9,8 +9,8 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { drawSinewFluid } from "./sinew-fluid.js";
-import { type Point, sinewMassHung, sinewRoot, sinewSum01 } from "./sinew-shape.js";
+import { drawSinewHoldBars } from "./sinew-hold.js";
+import { type Point, sinewMassHung, sinewRoot } from "./sinew-shape.js";
 import { showsSinewSum, showsSinewZone } from "./view-role-clocks.js";
 
 /**
@@ -26,17 +26,21 @@ import { showsSinewSum, showsSinewZone } from "./view-role-clocks.js";
  *
  * **Rebuilt on the owner's notes of 2 October 2026.** The tube is three times
  * as wide and half again as tall, because it is the thing both players watch.
- * The sum is a bubbling fluid up to **one bright line** that stands out past
- * both walls (`sinew-fluid.ts`); the zone is a green wash with a bracket on
- * each wall and **no edge across the tube**, so the only line across it is
- * the sum's and a player never has to ask which line is the real one. While
- * the sum sits in the zone the frame goes green and breathes, on both
- * screens — *in* is a fact the simulation tells both seats (`sinewEnter`) —
- * and the line itself goes green on the screen that shows it. The count of
- * the hold is not pips beside the tube any more: it is the next fibre fraying
- * (`sinew-fray.ts`), which is what the count is counting down to.
+ * The sum is **one thin neon-blue line** that stands out past both walls; the
+ * zone is a green wash with a bracket on each wall and **no edge across the
+ * tube**, so the only line across it is the sum's and a player never has to
+ * ask which line is the real one. While the sum sits in the zone the frame
+ * goes green and breathes, on both screens — *in* is a fact the simulation
+ * tells both seats (`sinewEnter`).
  *
- * The zone is green and the sum is warm: two colours neither the mass nor
+ * **The glass is empty, and the hold fills it** (the owner, 5 October 2026):
+ * the amber fluid the sum used to stand in is gone, and while the hold runs
+ * the tube fills from its foot with one green bar a beat, up to the zone or
+ * the sum's line (`sinew-hold.ts`) — the count a pair can see and say. The
+ * next fibre fraying (`sinew-fray.ts`) and a pulse down the strings each beat
+ * are the same count on the tendon.
+ *
+ * The zone is green and the sum is blue: two colours neither the mass nor
  * the fibres use, so a screen can be asked which it was shown.
  */
 
@@ -45,9 +49,10 @@ const ALONG = 0.5;
 /** The tube's half-width and half-height, in tiles. */
 const HALF_W = 0.75;
 const HALF_H = 1.7;
-/** How far the sum's line stands out past each wall, in tiles, and how thick it is. */
+/** How far the sum's line stands out past each wall, in tiles, and how thick it is:
+ * thin, on the owner's word of 5 October 2026. */
 const LINE_OUT = 0.32;
-const LINE_W = 0.11;
+const LINE_W = 0.045;
 /** The zone's brackets: how far out of the wall they stand, and how thick, in tiles. */
 const BRACKET_OUT = 0.16;
 const BRACKET_W = 0.07;
@@ -114,7 +119,8 @@ export function drawSinewBand(
   s: SinewState,
   box: CollarBox,
   beatPhase: number,
-  time: number,
+  /** How far the hold has counted, 0..1; `-1` while the sum is not held in the zone. */
+  hold: number,
 ): void {
   const { x: cx, y: cy, rx: hw, ry: hh } = box;
   const band = Math.max(1, sinewBandMilli(cfg));
@@ -136,9 +142,11 @@ export function drawSinewBand(
     ctx.fillStyle = rgba(PALETTE.good, holding ? 0.34 + 0.12 * (1 - beatPhase) : 0.26);
     ctx.fillRect(cx - hw, top, hw * 2, Math.max(1, bottom - top));
   }
-  if (showsSinewSum(l.role)) {
-    const tube = { x: cx, y: cy, hw, hh, tile };
-    drawSinewFluid(ctx, tube, yOf(sinewSum(s)), sinewSum01(s, cfg), time);
+  if (hold >= 0) {
+    // Up to the zone where it is drawn, and to the sum's line where it is not.
+    const target = showsSinewZone(l.role) ? yOf(sinewZone(s, cfg).low) : yOf(sinewSum(s));
+    const glassBox = { x: cx, y: cy, hw, hh };
+    drawSinewHoldBars(ctx, glassBox, target, cfg.sinewHoldBeats, hold, tile);
   }
   ctx.restore();
 
@@ -170,12 +178,12 @@ export function drawSinewBand(
     strokeGlow(ctx, glass, PALETTE.dim, tile * 0.05, 0.5);
   }
 
-  // The sum's line: the one line across the tube, standing out past both
-  // walls with a point on each end aimed in at it.
+  // The sum's line: the one line across the tube, thin and neon blue,
+  // standing out past both walls with a point on each end aimed in at it.
   if (showsSinewSum(l.role)) {
     const y = yOf(sinewSum(s));
     const out = LINE_OUT * tile;
-    const hex = holding ? PALETTE.good : PALETTE.text;
+    const hex = PALETTE.blue;
     const mark = new Path2D();
     mark.moveTo(cx - hw - out, y);
     mark.lineTo(cx + hw + out, y);
@@ -185,9 +193,9 @@ export function drawSinewBand(
     for (const side of [-1, 1] as const) {
       const tip = cx + side * (hw + out);
       const point = new Path2D();
-      point.moveTo(tip + side * tile * 0.16, y - tile * 0.14);
+      point.moveTo(tip + side * tile * 0.14, y - tile * 0.1);
       point.lineTo(tip, y);
-      point.lineTo(tip + side * tile * 0.16, y + tile * 0.14);
+      point.lineTo(tip + side * tile * 0.14, y + tile * 0.1);
       point.closePath();
       ctx.fill(point);
     }

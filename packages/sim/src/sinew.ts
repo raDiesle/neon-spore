@@ -16,9 +16,10 @@ import type { World } from "./world.js";
  * zone. Hold the sum inside the zone for `sinewHoldBeats` and a **fibre**
  * parts (`docs/spec/bosses-choreographed.md` §8).
  *
- * **Health is the fibres.** The tendon has `sinewFibres`, the mass hangs a
- * row lower for every one parted, and the zone is re-rolled, narrower, after
- * each. Pull past the zone's top and the tendon **snaps back**: both hands
+ * **Health is the fibres.** The tendon has `sinewFibres`, and the zone is
+ * re-rolled, narrower, after each one parted. The mass does not come down as
+ * they go (the owner, 5 October 2026): it hangs at one height for the whole
+ * fight, `sinewMassRow`, so a fibre parting is a string cut and nothing else. Pull past the zone's top and the tendon **snaps back**: both hands
  * are thrown off for `sinewSnapBeats`, and the mass is whipped hard enough to
  * shed a rock into one of its own columns. **A whipping tendon can be
  * caught**: a hand may take hold of a swinging handle, but only sideways —
@@ -184,12 +185,12 @@ export function sinewCaught(s: SinewState, cfg: SimConfig, beat: number): boolea
 }
 
 /**
- * The row the mass hangs at: a row lower per fibre parted, and on its way
- * to the hull once it is falling — where a rock it sheds starts, and where
- * it lands from.
+ * The row the mass hangs at: `sinewMassRow` however many fibres are parted,
+ * and on its way to the hull once it is falling — where a rock it sheds
+ * starts, and where it lands from.
  */
 export function sinewMassRow(s: SinewState, cfg: SimConfig, beat: number): number {
-  const hung = cfg.sinewMassRow + sinewGone(s, cfg);
+  const hung = cfg.sinewMassRow;
   if (s.fallBeat < 0) return Math.min(hung, hullRow(cfg));
   const beats = Math.max(1, cfg.sinewFallBeats);
   const gone = Math.min(beats, Math.max(0, beat - s.fallBeat));

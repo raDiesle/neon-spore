@@ -5,6 +5,7 @@ import { PALETTE } from "./palette.js";
 import type { CollarBox } from "./sinew-band.js";
 import { paintCord, paintSheath } from "./sinew-flesh.js";
 import { drawFray } from "./sinew-fray.js";
+import { drawSinewPulse } from "./sinew-hold.js";
 import type { Point } from "./sinew-shape.js";
 import { sinewSum01 } from "./sinew-shape.js";
 import { splinePath } from "./spline.js";
@@ -27,8 +28,10 @@ import { splinePath } from "./spline.js";
  * is left always reads as one thinner cord down the centre rather than as a
  * comb with gaps in it. The order is this file's and nothing in the
  * simulation cares which fibre is which — it counts them (`sim/sinew.ts`).
- * The next to go **frays** while the sum is held in the zone, and that is
- * the hold's count (`sinew-fray.ts`).
+ * The next to go **frays** while the sum is held in the zone, and on every
+ * beat of the hold a green pulse runs out along the others from the band —
+ * up to the crown, down to the mass — which is the count (`sinew-fray.ts`,
+ * `sinew-hold.ts`).
  *
  * The strain is on the line itself: slack, each fibre carries a slow wave;
  * as the sum climbs the wave flattens, the fibres straighten, thin and
@@ -94,7 +97,10 @@ export function fibreEnds(
   };
 }
 
-/** One run of one fibre, `a` to `b`, waving with the slack. */
+/**
+ * One run of one fibre, `a` to `b`, waving with the slack. Returns the
+ * points it was drawn through, for the hold's pulse to run along.
+ */
 function whole(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -104,7 +110,7 @@ function whole(
   strain: number,
   time: number,
   hex: string,
-): void {
+): Point[] {
   const pts: Point[] = [];
   const amp = (1 - strain) * WAVE * l.tile;
   for (let k = 0; k <= SEGMENTS; k++) {
@@ -114,6 +120,7 @@ function whole(
     pts.push({ x: a.x + (b.x - a.x) * t + wave, y: a.y + (b.y - a.y) * t });
   }
   paintCord(ctx, splinePath(pts, false), hex, l.tile * CORD * (1.4 - 0.6 * strain), l.tile);
+  return pts;
 }
 
 /** A stub hanging off `from` toward `to`, curling out to `side`. */
@@ -178,6 +185,9 @@ export function drawSinewFibres(
   const gone = sinewGone(s, cfg);
   const strain = sinewSum01(s, cfg);
   const fraying = hold >= 0 && s.fibres > 0 ? partOrder(n)[gone] : -1;
+  // How far through the hold's current beat, for the pulse; `-1` with no hold.
+  const holds = Math.max(1, cfg.sinewHoldBeats);
+  const beatPhase = hold >= 0 && hold < 1 ? (hold * holds) % 1 : -1;
   // A tendon going slack under a hand is drawn greying: the pull is leaking.
   const hex = sinewDecaying(s, cfg)
     ? mixHex(PALETTE.hull, PALETTE.dim, 0.4)
@@ -200,8 +210,13 @@ export function drawSinewFibres(
       drawFray(ctx, r, t, hold, l.tile, time, i);
       drawFray(ctx, f, m, hold, l.tile, time, i + 7);
     } else if (fibreWhole(i, n, gone)) {
-      whole(ctx, l, r, t, i, strain, time, hex);
-      whole(ctx, l, f, m, i + 3, strain, time, hex);
+      const up = whole(ctx, l, r, t, i, strain, time, hex);
+      const down = whole(ctx, l, f, m, i + 3, strain, time, hex);
+      // The hold's beat, leaving the band both ways (`sinew-hold.ts`).
+      if (beatPhase >= 0) {
+        drawSinewPulse(ctx, up.reverse(), beatPhase, l.tile);
+        drawSinewPulse(ctx, down, beatPhase, l.tile);
+      }
     } else {
       const side = u === 0 ? 1 : Math.sign(u);
       stub(ctx, l, r, t, side, time);

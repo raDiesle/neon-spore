@@ -31,8 +31,8 @@ import {
  * that each seat has one handle and only its own; that a pull is its depth
  * and never its height, cut to the reach; that the two pulls **add** into
  * one sum on the band and the slack comes off it; that the sum held inside
- * the zone for `sinewHoldBeats` parts a fibre, drops the mass a row, rolls
- * the zone again narrower and opens THE SLOW; that leaving the zone starts
+ * the zone for `sinewHoldBeats` parts a fibre, leaves the mass where it
+ * hangs, rolls the zone again narrower and opens THE SLOW; that leaving the zone starts
  * the hold over; that the sum over the zone's top snaps the tendon back —
  * hands off, a rock out of the mass, nothing takes hold for two beats; that
  * from the fourth fibre the tendon goes slack under a hand and only both
@@ -214,7 +214,7 @@ describe("the two hands", () => {
 });
 
 describe("the hold", () => {
-  it("parts a fibre after the hold, drops the mass a row, narrows the zone and slows", () => {
+  it("parts a fibre after the hold, leaves the mass where it hangs, narrows the zone and slows", () => {
     const world = install();
     const s = sinew(world);
     const d = inZone(s);
@@ -224,7 +224,7 @@ describe("the hold", () => {
     expect(seen.has("sinewPart")).toBe(true);
     expect(seen.has("sinewSnap")).toBe(false);
     expect(s.fibres).toBe(CFG.sinewFibres - 1);
-    expect(sinewMassRow(s, CFG, world.beat)).toBe(CFG.sinewMassRow + 1);
+    expect(sinewMassRow(s, CFG, world.beat)).toBe(CFG.sinewMassRow);
     expect(sinewZoneWidth(s, CFG)).toBe(CFG.sinewZoneMilli - CFG.sinewZoneNarrowMilli);
     expect(world.slowToBeat).toBeGreaterThan(world.slowFromBeat);
   });
@@ -436,7 +436,7 @@ describe("the last fibre", () => {
     expect(sinewZoneWidth(s, CFG)).toBe(CFG.sinewZoneNarrowMilli);
   });
 
-  it("snaps three rocks when over-pulled, from four rows over the hull", () => {
+  it("snaps three rocks when over-pulled, from where the mass hangs", () => {
     const world = install();
     const s = sinew(world);
     s.fibres = 1;
@@ -444,7 +444,7 @@ describe("the last fibre", () => {
     const seen = runTo(world, TPB + 2, hold(1, TPB + 2, reach, reach));
     expect(seen.has("sinewSnap")).toBe(true);
     expect(rocks(world).length).toBe(CFG.sinewSnapRocksLast);
-    expect(rocks(world)[0]?.fromRow).toBe(hullRow(CFG) - 4);
+    expect(rocks(world)[0]?.fromRow).toBe(CFG.sinewMassRow);
   });
 
   it("parted, drops the mass, and the hands stay on", () => {

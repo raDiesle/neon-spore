@@ -30,6 +30,10 @@ import type { Wave } from "../wave-types.js";
  * wave makes for them. Nothing is placed against the fan's own count: which
  * beat a blade sets its edge on depends on when the pair sheared the last
  * one, a beat nobody can know at authoring time.
+ *
+ * **THE SINEW's wave authors nothing, for now** (the owner, 5 October 2026:
+ * *for the time being remove other enemies from this wave*): the tendon
+ * alone, and the rocks its own snap-backs shed.
  */
 export const WAVES_ACT_7F: Wave[] = [
   {
@@ -59,16 +63,7 @@ export const WAVES_ACT_7F: Wave[] = [
     guide: {
       scene: "theSinew",
     },
-    entries: [
-      { beat: 16, col: 1, color: "red" },
-      { beat: 24, col: 5, color: "cyan" },
-      { beat: 34, col: 2, kind: "meteor", color: null },
-      { beat: 42, col: 4, color: "red" },
-      { beat: 52, col: 0, color: "cyan" },
-      { beat: 60, col: 6, kind: "meteor", color: null },
-      { beat: 70, col: 1, color: "cyan" },
-      { beat: 80, col: 5, color: "red" },
-    ],
+    entries: [],
     boss: { kind: "sinew" },
     bossType: "normal",
   },

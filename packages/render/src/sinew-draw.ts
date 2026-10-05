@@ -81,7 +81,7 @@ export function drawSinew(
     const holds = Math.max(1, cfg.sinewHoldBeats);
     const hold = s.holdBeat >= 0 ? Math.min(1, (beat - s.holdBeat + beatPhase) / holds) : -1;
     drawSinewFibres(ctx, l, cfg, s, root, box, mass, rx, hold, time);
-    drawSinewBand(ctx, l, cfg, s, box, beatPhase, time);
+    drawSinewBand(ctx, l, cfg, s, box, beatPhase, hold);
   }
   drawMass(ctx, l, cfg, mass, rx, time, strain, sinewCrushed(s, cfg), fx.hurt.value);
   const tear = fx.tear;

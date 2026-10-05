@@ -88,7 +88,7 @@ function shedRock(world: World, s: SinewState): void {
 /**
  * The sum went over the zone's top. Both hands are thrown off, the slack is
  * gone with them, the hold starts over, and the mass is whipped hard enough
- * to shed a rock — three on the last fibre, where it hangs lowest.
+ * to shed a rock — three on the last fibre.
  */
 function snap(world: World, s: SinewState): void {
   const cfg = world.cfg;
@@ -105,8 +105,8 @@ function snap(world: World, s: SinewState): void {
 }
 
 /**
- * A fibre parts: the mass drops a row, the zone is rolled again for the next
- * one, and the tendon re-seats — no slack. Watched at the slow rate for
+ * A fibre parts: the zone is rolled again for the next one, and the tendon
+ * re-seats — no slack. The mass stays where it hangs (`sinewMassRow`). Watched at the slow rate for
  * `sinewPartSlowBeats`, a moment that asks nothing.
  *
  * The last one drops the mass, and the hands stay on for the fall — **the
