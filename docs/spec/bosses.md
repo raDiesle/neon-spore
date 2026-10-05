@@ -2501,11 +2501,14 @@ but closing something in it, and a breach closed is closed for good.
 
 **It is a fixture, not a body.** Nothing of it is in `world.creatures`: the
 state (`sim/hive.ts`, hashed in `sim/hive-hash.ts`) is a list of
-`hiveSites` (9) **sites** along the underside of a mass over the top of the
-field — each a distinct inner column (`hiveSiteCols`: never a wall column,
-so a shot into one is a shot the beam could not have been), in an order and
-with a colour the wave's seed sows at install (`installHive`, a Fisher–Yates
-over the columns and a coin per site) — with which of them are **sealed**,
+`hiveSites` (7) **sites** along the underside of a mass over the top of the
+field — each a distinct column between the corners (`hiveSiteCols`: never
+the `hiveCornerCols` (2) at either side, the wall's own and the corner's)
+— and `hiveWallSites` (3) **cocoons** down each of its two walls, in the
+wall's own column from row `hiveWallRow` (3), `hiveWallGap` (2) rows apart
+(`hiveWallPlaces`, `sim/hive-wall.ts`), all in one order and each with a
+colour the wave's seed sows at install (`installHive`, a Fisher–Yates over
+every site and a coin per site) — with which of them are **sealed**,
 how many have **opened** (the sites open in the seed's order, so *opened*
 is a count), the beat of the last opening, the beat of the last spill and
 the beat the last seal was made. It **fills its wave** (`bossFillsWave`, not
@@ -2535,6 +2538,23 @@ exactly as a bolt does. The last seal opens THE SLOW for `hiveSlowBeats`
 the boss nulled, the wave allowed to end). **Nothing slows the opening
 clock**: sealing a breach the beat it opens and sealing it seven beats later
 both leave the next opening where it was; the difference is fourteen bodies.
+
+**The walls, the owner's of 5 October 2026.** The mass hangs down both sides
+of the field as well as over the top, curving down at the corners with no
+site on the curve, so the field is the hole in it. A wall's cocoon is a site
+like any other — the same clock, the same order, the same colour, swell and
+wring — with two differences, both about where it is. **A bolt fired straight
+up a wall's column meets the lowest cocoon on it**, whatever that cocoon is,
+because it is the first thing in the way (`hiveWallAlong`, asked beside the
+bodies in the same sweep, `sim/boss-along.ts`): shut or scarred, it is skin.
+Every cocoon above it is reached only by **the pilot's thumb held on it**
+(`hiveLobe` with the site's id, player 1, while the mass is not clenched):
+every shot he fires while it is down steers into it round a corner, as
+THE LOCK steers a shot into a held body (`sim/lock.ts`), and arrives from the
+side, past the ones below (`hiveAim`, an open breach only). And **a wall's
+breach spills sideways**, its colour, living, into the column next to the
+wall on its own row — a body falling down the wall's column would fall
+through every cocoon under it.
 
 **And the mass answers back, in two states the pair meets with two gestures
 of their own** — the §6.2 ask (`.claude/skills/new-boss-more`), built on 21

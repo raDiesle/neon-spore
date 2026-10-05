@@ -1,8 +1,18 @@
 import { midCol } from "./config.js";
 import type { CoreVerdict } from "./core-verdict.js";
-import { hiveBoss, hiveDown, hiveLeft, hiveOpenAt, hiveSealedCount } from "./hive.js";
+import {
+  type HiveState,
+  hiveBoss,
+  hiveDown,
+  hiveEventRow,
+  hiveLeft,
+  hiveOpen,
+  hiveOpenAt,
+  hiveSealedCount,
+} from "./hive.js";
 import { hiveClenched, hiveSealedBy } from "./hive-lobe.js";
 import { enterHivePhase } from "./hive-step.js";
+import { hiveWallFront, hiveWallMet } from "./hive-wall.js";
 import { openSlow } from "./slow.js";
 import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
@@ -41,36 +51,60 @@ import type { World } from "./world.js";
  */
 export function hiveStruck(world: World, b: Bullet): boolean {
   const s = hiveBoss(world);
-  const verdict = hiveVerdict(world, b.col, b.color);
-  if (s === null || verdict === null) return false;
+  if (s === null || hiveDown(s)) return false;
+  hiveJudge(world, s, hiveOpenAt(s, b.col), b.col, b.color);
+  return true;
+}
+
+/**
+ * A shot that met a cocoon on a wall, once `hiveWallAlong` has said one was
+ * in its way (`boss-along.ts`) — the lowest in the column for a bolt fired
+ * straight up, the held one for a bolt the pilot's thumb steered round the
+ * corner into it (`hive-wall.ts`). Judged exactly as a bolt out of the top
+ * is, by the site it met.
+ */
+export function hiveWallStruck(world: World, b: Bullet): void {
+  const s = hiveBoss(world);
+  if (s === null || hiveDown(s)) return;
+  const i = hiveWallMet(s, b);
+  hiveJudge(world, s, i >= 0 && hiveOpen(s, i) ? i : -1, b.col, b.color, i);
+}
+
+/**
+ * What a shot of `color` does to open site `i` — or, with `-1`, to skin, a
+ * scar or a shut cocoon — said at `col` and, for a wall's, at the row of the
+ * cocoon it met (`at`, which is `i` when that one is open).
+ */
+function hiveJudge(world: World, s: HiveState, i: number, col: number, color: Color, at = i): void {
+  const row = at >= 0 ? hiveEventRow(s, at) : {};
+  const verdict = siteVerdict(s, i, color);
   if (verdict === "armour") {
-    world.events.push({ type: "hiveSkin", col: b.col });
-    return true;
+    world.events.push({ type: "hiveSkin", col, ...row });
+    return;
   }
   if (verdict === "wrong") {
     s.spillBeat -= world.cfg.hiveProvokeBeats;
-    world.events.push({ type: "hiveWrong", col: b.col });
-    return true;
+    world.events.push({ type: "hiveWrong", col, ...row });
+    return;
   }
-  s.sealed[hiveOpenAt(s, b.col)] = true;
+  s.sealed[i] = true;
   const left = hiveLeft(s);
-  world.events.push({ type: "hiveSeal", col: b.col, left });
+  world.events.push({ type: "hiveSeal", col, left, ...row });
   if (left > 0) {
     // Hurt on a count rather than on a clock: the underside draws up out of
     // reach on every `hiveClenchEvery`-th scar, and the openings go on
     // arriving behind it (`hive-step.ts`).
-    if (hiveSealedCount(s) % world.cfg.hiveClenchEvery !== 0) return true;
+    if (hiveSealedCount(s) % world.cfg.hiveClenchEvery !== 0) return;
     s.haulMilli = 0;
     enterHivePhase(s, "clench", world.beat);
     world.events.push({ type: "hiveClench", col: midCol(world.cfg) });
-    return true;
+    return;
   }
   // The last seal is the drama, and it is watched at the slow rate.
   s.downBeat = world.beat;
   enterHivePhase(s, "down", world.beat);
   openSlow(world, world.cfg.hiveSlowBeats, "show");
-  world.events.push({ type: "hiveDown", col: b.col });
-  return true;
+  world.events.push({ type: "hiveDown", col, ...row });
 }
 
 /**
@@ -82,7 +116,25 @@ export function hiveStruck(world: World, b: Bullet): boolean {
 export function hiveVerdict(world: World, col: number, color: Color): CoreVerdict {
   const s = hiveBoss(world);
   if (s === null || hiveDown(s)) return null;
-  const i = hiveClenched(s) ? -1 : hiveOpenAt(s, col);
-  if (i < 0) return "armour";
+  return siteVerdict(s, hiveOpenAt(s, col), color);
+}
+
+/**
+ * What a bolt of `color` fired straight up `col` meets on a wall: the lowest
+ * cocoon on it (`hiveWallFront`), in the same words — or null for a column
+ * with no wall in it, or a beaten mass. The picture asks it where the bolt
+ * is drawn stopping (`render/hive-stop.ts`).
+ */
+export function hiveWallVerdict(world: World, col: number, color: Color): CoreVerdict {
+  const s = hiveBoss(world);
+  if (s === null || hiveDown(s)) return null;
+  const i = hiveWallFront(s, col);
+  if (i < 0) return null;
+  return siteVerdict(s, hiveOpen(s, i) ? i : -1, color);
+}
+
+/** What a shot of `color` does to open site `i`, or to skin with `-1`; a clenched mass is skin everywhere. */
+function siteVerdict(s: HiveState, i: number, color: Color): "armour" | "target" | "wrong" {
+  if (hiveClenched(s) || i < 0) return "armour";
   return hiveSealedBy(s, i, color) ? "target" : "wrong";
 }

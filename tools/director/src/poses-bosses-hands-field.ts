@@ -15,6 +15,7 @@ import {
   hiveClenched,
   hiveOpenCount,
   hiveSealedCount,
+  NO_PINCH,
   scuttleWinding,
   type World,
 } from "@neon-spore/sim";
@@ -180,6 +181,17 @@ export const FIELD_HAND_POSES: Pose[] = [
       hand: hiveHand,
       want: (w) => w.boss?.kind === "hive" && hiveSealedCount(w.boss) > 0,
       hold: 4,
+    },
+  ),
+  bossPose(
+    "hive",
+    "aimed",
+    "A breach high on a wall, behind the lowest cocoon: P1 holds it, and every shot turns the corner into it; P2 fires.",
+    {
+      hand: hiveHand,
+      want: (w) => w.boss?.kind === "hive" && w.boss.aim !== NO_PINCH,
+      hold: 4,
+      budgetBeats: 120,
     },
   ),
   bossPose(

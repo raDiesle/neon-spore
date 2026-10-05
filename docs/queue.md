@@ -327,3 +327,21 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
+
+## THE HIVE's rehearsal never shows the pilot's hold on a wall's cocoon
+
+- **Found:** 2026-10-05, claude/hive-visuals-boss-positioning-6ae1a3
+- **Files:** `packages/content/src/scenes/the-hive.ts`, `packages/content/test/scene-hive.test.ts`, `packages/sim/src/hive-wall.ts`
+
+THE HIVE hangs down both walls since 5 October 2026, three cocoons a wall, and
+a bolt fired straight up a wall meets only the lowest one: every cocoon above
+it is reached by the pilot's thumb held on it, which steers his shots round
+the corner (`hive-wall.ts`, `lock.ts`). The rehearsal was moved to seed 675740
+in the same lane so that its traced acts kept their ticks — that seed opens all
+seven underside sites before any wall — so the film teaches the underside and
+never the hold. Give it a page and a ghost thumb for the hold: either extend
+the film past beat 48 until a high cocoon opens, or hunt a seed whose sixth or
+seventh opening is a high cocoon and retrace from there. `scene-hive.test.ts`
+pins the event sequence, and `scene-pages.test.ts` reads every page's counts
+back. The tutorial skill (`.claude/skills/new-tutorial`) has the owner's rules
+for pages.

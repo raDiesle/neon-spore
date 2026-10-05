@@ -21,8 +21,19 @@
  * and the spills they owe break over the pair the beat it relaxes.
  */
 export interface HiveConfig {
-  /** Breach sites along the underside. Never more than the inner columns (`hiveSiteCols`). */
+  /** Breach sites along the underside. Never more than the columns between the corners (`hiveSiteCols`). */
   hiveSites: number;
+  /**
+   * Columns at each side the underside keeps no site over: the wall's own
+   * and the corner's, where the mass curves down into the wall.
+   */
+  hiveCornerCols: number;
+  /** Cocoons down each of the two walls, one above the other in the wall's column (`hive-wall.ts`). */
+  hiveWallSites: number;
+  /** The row the highest cocoon on a wall sits on. */
+  hiveWallRow: number;
+  /** Rows from one cocoon on a wall to the next one down. */
+  hiveWallGap: number;
   /** Beats it hangs, whole, before the first site opens. */
   hiveLookBeats: number;
   /** Beats between one opening and the next. */
@@ -50,7 +61,15 @@ export interface HiveConfig {
 }
 
 /**
- * Nine sites on an eleven-column field is every inner column. Eight beats
+ * Seven sites on an eleven-column field is every column between the two
+ * corners, and three cocoons down each wall from row 3, two rows apart, is a
+ * wall that reaches the middle of the field: thirteen sites, the owner's
+ * mass of 5 October 2026 that hangs down both sides as well as over the top.
+ * The two lower cocoons on a wall hide behind the lowest one from a bolt
+ * fired straight up, which is what the pilot's held thumb is for
+ * (`hive-wall.ts`).
+ *
+ * Before the walls it was nine sites, every inner column. Eight beats
  * an opening with three of spill is two rocks a breach before the next
  * opens — the pair that seals each as it opens wards two rocks a cycle,
  * and the pair that does not is warding four, then six. Twins from the
@@ -66,7 +85,11 @@ export interface HiveConfig {
  * while the other hand is on the trigger.
  */
 export const HIVE_DEFAULTS: HiveConfig = {
-  hiveSites: 9,
+  hiveSites: 7,
+  hiveCornerCols: 2,
+  hiveWallSites: 3,
+  hiveWallRow: 3,
+  hiveWallGap: 2,
   hiveLookBeats: 4,
   hiveOpenBeats: 8,
   hiveSwellBeats: 3,

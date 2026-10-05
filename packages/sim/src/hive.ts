@@ -6,9 +6,10 @@ import type { World } from "./world.js";
  * THE HIVE: close the source, not the spill.
  *
  * **The question no other boss asks** — *whether to answer what is falling
- * or the hole it is falling out of.* One creature nearly the width of the
- * field hangs over row 0, with `hiveSites` **breach sites** along its
- * underside. They **open** on a clock, one at a time and then two, in an
+ * or the hole it is falling out of.* One creature the width of the field
+ * hangs over row 0 and down both walls, with `hiveSites` **breach sites**
+ * along its underside and `hiveWallSites` cocoons down each wall
+ * (`hive-wall.ts`). They **open** on a clock, one at a time and then two, in an
  * order the seed decided; every breach has a **colour** the seed decided
  * too. An open breach **spills** a body down its column on a cadence, and
  * goes on spilling until a bolt of its own colour leaves the top of the
@@ -79,6 +80,11 @@ export interface HiveState {
   phaseBeat: number;
   /** Every site's column, in the order the sites open. The seed's. */
   cols: number[];
+  /**
+   * Every site's row, by the same index: `HIVE_TOP` for a site on the
+   * underside, the row of the cocoon for one on a wall (`hive-wall.ts`).
+   */
+  rows: number[];
   /** Every site's colour, by the same index. The seed's, and the pilot's read. */
   colors: Color[];
   /** Whether each site is sealed for good, by the same index. */
@@ -95,6 +101,8 @@ export interface HiveState {
   pinch: number;
   /** `world.beat` that thumb came down; meaningless with no thumb down. */
   pinchBeat: number;
+  /** The wall cocoon the pilot's thumb is held on, steering his shots into it, or `NO_PINCH`. */
+  aim: number;
   /** Thousandths of a tile the mass has been hauled down in this clench. */
   haulMilli: number;
   /** `world.beat` the last site was sealed on; `-1` while any stands. */
@@ -107,18 +115,34 @@ export function hiveBoss(world: World): HiveState | null {
   return boss !== null && boss.kind === "hive" ? boss : null;
 }
 
+/** The row a site on the underside is given: it hangs over row 0, on no row of the grid. */
+export const HIVE_TOP = -1;
+
 /**
- * Where `count` sites sit along the underside: spread over the inner
- * columns, never the two at the walls — the body is *nearly* the width of
- * the field — and never two in one column, because a column is how a bolt
- * names a breach. More sites than inner columns is the inner columns.
+ * Where `count` sites sit along the underside: spread over the columns
+ * between the two corners, never the `hiveCornerCols` at either side — the
+ * wall's own column has its cocoons one above the other, and the corner's is
+ * the mass curving down into it, with nothing hanging off the curve — and
+ * never two in one column, because a column is how a bolt names a breach.
+ * More sites than columns is the columns.
  */
 export function hiveSiteCols(cfg: SimConfig, count: number): number[] {
-  const inner = Math.max(1, cfg.cols - 2);
+  const from = Math.max(0, Math.min(cfg.hiveCornerCols, Math.floor((cfg.cols - 1) / 2)));
+  const inner = Math.max(1, cfg.cols - 2 * from);
   const n = Math.max(1, Math.min(count, inner));
   const out: number[] = [];
-  for (let i = 0; i < n; i++) out.push(1 + Math.floor((i * inner) / n));
+  for (let i = 0; i < n; i++) out.push(from + Math.floor((i * inner) / n));
   return out;
+}
+
+/** Whether site `i` is a cocoon on a wall rather than a site on the underside. */
+export function hiveOnWall(s: HiveState, i: number): boolean {
+  return (s.rows[i] ?? HIVE_TOP) !== HIVE_TOP;
+}
+
+/** What an event about site `i` carries beside its column: the cocoon's row, for a wall's. */
+export function hiveEventRow(s: HiveState, i: number): { row?: number } {
+  return hiveOnWall(s, i) ? { row: s.rows[i] ?? 0 } : {};
 }
 
 /** Whether site `i` is open: it has opened and nothing has sealed it. */
@@ -126,9 +150,14 @@ export function hiveOpen(s: HiveState, i: number): boolean {
   return i < s.opened && s.sealed[i] === false;
 }
 
-/** The open site over `col`, or `-1` — skin, a sealed scar, or a site yet to open. */
+/**
+ * The open site on the underside over `col`, or `-1` — skin, a sealed scar,
+ * or a site yet to open. Never a wall's cocoon: a bolt in a wall's column
+ * meets the lowest of those long before the top (`hive-wall.ts`).
+ */
 export function hiveOpenAt(s: HiveState, col: number): number {
-  for (let i = 0; i < s.opened; i++) if (s.cols[i] === col && hiveOpen(s, i)) return i;
+  for (let i = 0; i < s.opened; i++)
+    if (s.cols[i] === col && !hiveOnWall(s, i) && hiveOpen(s, i)) return i;
   return -1;
 }
 

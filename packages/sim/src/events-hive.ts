@@ -22,6 +22,8 @@ import type { Color } from "./types.js";
 interface HiveColEvent {
   /** The column it happened over. */
   col: number;
+  /** The row of the wall cocoon it happened at; absent for a site on the underside (`hive-wall.ts`). */
+  row?: number;
 }
 
 export type HiveEvent =

@@ -1,5 +1,6 @@
 import { gripsCreature } from "./grip.js";
 import { handMeans } from "./hand.js";
+import { hiveAim } from "./hive-wall.js";
 import { bulletMilli, creatureLane, creatureMilli } from "./mid-beat.js";
 import { type Bullet, type Creature, spanOf } from "./types.js";
 import { MILLI, type World } from "./world.js";
@@ -119,11 +120,11 @@ export function isLockedOn(world: World, id: number): boolean {
  */
 export function steerShot(world: World, b: Bullet, stepMilli: number): number {
   b.aimMilli = 0;
-  const target = lockedBody(world);
+  const target = lockAim(world);
   // Nothing held: dumb again, and it climbs the whole step from wherever the
   // hand let go of it.
   if (!target) return stepMilli;
-  const gap = bulletMilli(b) - creatureMilli(world, target);
+  const gap = bulletMilli(b) - target.milli;
   // Still below it by more than this tick's travel — the first leg, and there
   // is nothing sideways in it.
   if (gap > stepMilli) return stepMilli;
@@ -131,8 +132,30 @@ export function steerShot(world: World, b: Bullet, stepMilli: number): number {
   // left of the step running across. A negative gap is a body that has sunk
   // below the bolt, and the bolt goes down with it.
   const climb = Math.min(gap, stepMilli);
-  slide(world, b, target, Math.max(0, stepMilli - Math.abs(climb)));
+  slide(b, target, Math.max(0, stepMilli - Math.abs(climb)));
   return climb;
+}
+
+/** What a locked shot is steered at: a level, and the lanes from `lane` across `span`. */
+interface LockAim {
+  milli: number;
+  lane: number;
+  span: number;
+}
+
+/**
+ * The thing player 1's hand is steering shots into: a held body, or — under
+ * THE HIVE, which has no body to hold — the wall cocoon his thumb is on
+ * (`hive-wall.ts`), one lane wide and standing still.
+ */
+function lockAim(world: World): LockAim | null {
+  const body = lockedBody(world);
+  if (body) {
+    const milli = creatureMilli(world, body);
+    return { milli, lane: creatureLane(world, body), span: spanOf(body) };
+  }
+  const wall = hiveAim(world);
+  return wall === null ? null : { ...wall, span: 1 };
 }
 
 /**
@@ -145,11 +168,11 @@ export function steerShot(world: World, b: Bullet, stepMilli: number): number {
  * two lanes the bolt is nearest, not dragged to a centre half a tile from
  * either.
  */
-function slide(world: World, b: Bullet, target: Creature, amount: number): void {
+function slide(b: Bullet, target: LockAim, amount: number): void {
   if (amount <= 0) return;
   const x = b.col * MILLI + b.driftMilli;
-  const lane = creatureLane(world, target);
-  const aimAt = Math.max(lane * MILLI, Math.min((lane + spanOf(target) - 1) * MILLI, x));
+  const lane = target.lane;
+  const aimAt = Math.max(lane * MILLI, Math.min((lane + target.span - 1) * MILLI, x));
   const left = aimAt - x;
   if (left === 0) return;
   const move = Math.abs(left) <= amount ? left : Math.sign(left) * amount;

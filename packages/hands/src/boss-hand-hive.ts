@@ -2,10 +2,12 @@ import {
   hiveBoss,
   hiveClenched,
   hiveNext,
+  hiveOnWall,
   hiveOpen,
   hivePinched,
   hiveSealedBy,
   hiveSwellingAt,
+  hiveWallFront,
   NO_PINCH,
   type TimedCommand,
   type World,
@@ -26,6 +28,12 @@ import type { Hand } from "./hand.js";
  * A wrung breach takes either colour (`hiveSealedBy`), so the hand fires
  * whatever that column's site already answers to. Sealed scars are left
  * alone: a bolt into one is skin.
+ *
+ * **A wall's cocoon above the lowest one is held**: a bolt fired straight up
+ * the wall meets the lowest first (`hiveWallFront`), so the pilot's thumb goes
+ * on the one wanted and the cannon fires from two columns in, where the shot
+ * turns the corner into it (`hive-wall.ts`). The thumb comes off the moment
+ * nothing held is wanted.
  *
  * **The pilot's haul comes before any of it**, because a clenched underside
  * is out of the cannon's reach as well as out of his thumb's: there is
@@ -54,6 +62,12 @@ const haul = (milli: number): Press => ({
   command: { kind: "drag", target: "hiveLobe", on: true, fromMilli: 0, fromYMilli: milli },
 });
 
+/** The pilot's thumb held on wall cocoon `id`, steering his shots into it, or lifted off. */
+const lock = (on: boolean, id: number): Press => ({
+  player: 1,
+  command: { kind: "drag", target: "hiveLobe", on, fromMilli: 0, fromYMilli: 0, id },
+});
+
 /** The navigator's thumb on swelling lobe `id`, or lifted off. */
 const hold = (on: boolean, id: number): Press => ({
   player: 2,
@@ -70,11 +84,15 @@ export const hiveHand: Hand = (w) => {
   for (let i = 0; i < s.opened; i++) {
     if (!hiveOpen(s, i)) continue;
     const col = s.cols[i] ?? 0;
-    if (w.cannonCol !== col) return [aim(col)];
+    const held = hiveOnWall(s, i) && hiveWallFront(s, col) !== i;
+    const from = !held ? col : col === 0 ? 2 : w.cfg.cols - 3;
+    const want = held ? i : NO_PINCH;
+    const thumb = s.aim === want ? [] : [want === NO_PINCH ? lock(false, s.aim) : lock(true, want)];
+    if (w.cannonCol !== from) return [...thumb, aim(from)];
     const color = hiveSealedBy(s, i, "red") ? "red" : "cyan";
-    return free(w) ? [fire(color)] : [];
+    return free(w) ? [...thumb, fire(color)] : thumb;
   }
-  return [];
+  return s.aim === NO_PINCH ? [] : [lock(false, s.aim)];
 };
 
 /**

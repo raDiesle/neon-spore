@@ -21,18 +21,23 @@ import { HIVE_PHASES, type HiveState } from "./hive.js";
  * device that disagreed about any one of them would spill where the other
  * sealed. The phase is hashed by its position in `HIVE_PHASES`, plus one so
  * that `hang` is never nought (`hash.ts`), and the wrung list gets its own
- * count for the same reason the other three have theirs.
+ * count for the same reason the other three have theirs. A site's row goes
+ * in two up, so the underside's `HIVE_TOP` is never nought either, and the
+ * pilot's held thumb beside the navigator's, since it decides where every
+ * shot of his goes (`hive-wall.ts`).
  */
 export function hiveHashParts(s: HiveState): number[] {
   const out = [
     HIVE_PHASES.indexOf(s.phase) + 1,
     s.phaseBeat,
     s.cols.length,
+    s.rows.length,
     s.colors.length,
     s.sealed.length,
     s.wrung.length,
     s.pinch,
     s.pinchBeat,
+    s.aim,
     s.haulMilli,
     s.opened,
     s.openBeat,
@@ -42,6 +47,7 @@ export function hiveHashParts(s: HiveState): number[] {
   for (let i = 0; i < s.cols.length; i++)
     out.push(
       s.cols[i] ?? 0,
+      (s.rows[i] ?? -1) + 2,
       s.colors[i] === "red" ? 1 : 2,
       s.sealed[i] === true ? 1 : 0,
       s.wrung[i] === true ? 1 : 0,

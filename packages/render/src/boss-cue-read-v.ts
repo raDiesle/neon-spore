@@ -1,4 +1,11 @@
-import { type HiveState, hiveDown, hiveOpen, type World } from "@neon-spore/sim";
+import {
+  type HiveState,
+  hiveDown,
+  hiveOnWall,
+  hiveOpen,
+  hiveWallFront,
+  type World,
+} from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
 import { hiveSite } from "./hive-shape.js";
@@ -63,7 +70,12 @@ export function hiveCues(l: Layout, world: World, s: HiveState): readonly BossCu
     }
   }
   if (target < 0) return [];
-  if (world.cannonCol !== (s.cols[target] ?? 0)) return [];
+  const col = s.cols[target] ?? 0;
+  // A cocoon up a wall behind the lowest one is reached by the pilot's held
+  // thumb and not by the column, and from any column but the wall's own,
+  // where the bolt would meet the lowest first (`sim/hive-wall.ts`).
+  const held = hiveOnWall(s, target) && hiveWallFront(s, col) !== target;
+  if (held ? s.aim !== target || world.cannonCol === col : world.cannonCol !== col) return [];
   const c = hiveSite(l, s, target);
   return [markAt(2, "PRESS", "FIRE", c.x, c.y, l, 100)];
 }

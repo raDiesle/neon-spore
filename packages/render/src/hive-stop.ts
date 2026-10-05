@@ -1,4 +1,4 @@
-import { type HiveState, hiveVerdict, type World } from "@neon-spore/sim";
+import { type HiveState, hiveVerdict, hiveWallVerdict, type World } from "@neon-spore/sim";
 import type { BoltHit, Stopper } from "./bolt-stop.js";
 import { type Foot, lowestFoot, roundFoot } from "./core-stop.js";
 import { hiveBox, hiveSite, SITE_HANG, SITE_R } from "./hive-shape.js";
@@ -15,7 +15,8 @@ export interface HiveHang {
  * lowest of the underside and the lobe hanging at each site, moved `shift`
  * as drawn, and what the simulation will say of it (`hiveVerdict`) — a burst
  * on an open breach in its colour, a scuff on one in the other, and the skin
- * anywhere else, which spans the field. `hangs` holds a swelling site's
+ * anywhere else, which spans the field — and the lowest cocoon on a wall,
+ * which stands in front of the rest of it. `hangs` holds a swelling site's
  * lobe; every other hangs `open` wide and no lower.
  *
  * A lobe is taken as half an ellipse from its shoulders to its tip, which is
@@ -47,7 +48,9 @@ export function hiveStopper(
   return (col, x, color) => {
     const y = foot(x);
     if (y === null) return null;
-    const v = hiveVerdict(world, col, color);
+    // A wall's column stops a bolt at the lowest cocoon on it, and that
+    // cocoon is what it is judged by (`sim/hive-wall.ts`).
+    const v = hiveWallVerdict(world, col, color) ?? hiveVerdict(world, col, color);
     const hit: BoltHit = v === "target" || v === "wrong" ? v : "body";
     return { y, hit };
   };

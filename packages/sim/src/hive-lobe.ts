@@ -21,13 +21,15 @@ import type { Color } from "./types.js";
  * What one lobe of the underside is, and the gesture that answers it: a
  * lobe **swelling** is held to wring the colour out of it, a **wrung**
  * breach is sealed by either colour, an **open** one by its own alone, and
- * a **sealed** one is a scar that swallows a bolt like skin.
+ * a **sealed** one is a scar that swallows a bolt like skin. An open breach
+ * up a wall the pilot's thumb is **aimed** at takes every shot he fires
+ * round the corner into it (`hive-wall.ts`).
  *
  * A lobe that has not swelled yet has no name here: its picture is the
  * mass's own `hang` (`HIVE_PHASES`), which is what the underside looks like
  * everywhere nothing is happening.
  */
-export const HIVE_LOBES = ["swelling", "wrung", "open", "sealed"] as const;
+export const HIVE_LOBES = ["swelling", "wrung", "open", "aimed", "sealed"] as const;
 export type HiveLobe = (typeof HIVE_LOBES)[number];
 
 /** No thumb on any lobe. A site index is never negative, so one number says both. */
@@ -89,7 +91,7 @@ export function hiveClenchUntil(s: HiveState, cfg: SimConfig): number {
 /** What one lobe is right now, or `null` for a site the underside has not raised yet. */
 export function hiveLobeAt(s: HiveState, cfg: SimConfig, beat: number, i: number): HiveLobe | null {
   if (s.sealed[i] === true) return "sealed";
-  if (i < s.opened) return hiveWrungAt(s, i) ? "wrung" : "open";
+  if (i < s.opened) return s.aim === i ? "aimed" : hiveWrungAt(s, i) ? "wrung" : "open";
   return hiveSwellingAt(s, cfg, beat, i) ? "swelling" : null;
 }
 

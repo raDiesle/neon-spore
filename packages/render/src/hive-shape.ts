@@ -1,5 +1,11 @@
-import { type HiveState, hiveNext, hiveNextBeat, type SimConfig } from "@neon-spore/sim";
-import { type Layout, tileCX } from "./layout.js";
+import {
+  type HiveState,
+  hiveNext,
+  hiveNextBeat,
+  hiveOnWall,
+  type SimConfig,
+} from "@neon-spore/sim";
+import { type Layout, tileCX, tileCY } from "./layout.js";
 
 /**
  * **Where THE HIVE is**, in field pixels: the mass hung over the top of the
@@ -44,9 +50,10 @@ export function hiveUnderY(l: Layout): number {
   return l.gridTop - l.tile * UNDER_RISE;
 }
 
-/** The centre of site `i`, on the underside. */
+/** The centre of site `i`: on the underside over its column, or a wall's cocoon on its own tile. */
 export function hiveSite(l: Layout, s: HiveState, i: number): Point {
-  return { x: tileCX(l, s.cols[i] ?? 0), y: hiveUnderY(l) };
+  const x = tileCX(l, s.cols[i] ?? 0);
+  return hiveOnWall(s, i) ? { x, y: tileCY(l, s.rows[i] ?? 0) } : { x, y: hiveUnderY(l) };
 }
 
 /** How far below a site's centre the middle of its drop hangs, in pixels: where a thumb holds it. */
@@ -102,7 +109,8 @@ export function hiveLobes(l: Layout, cfg: SimConfig, s: HiveState, open: number)
   const { mid, hw } = span(l, cfg, open);
   const bottom = hiveBox(l, cfg).bottom;
   const lobe = lobeDepth(l);
-  const xs = [...s.cols].sort((a, b) => a - b).map((c) => mid + (tileCX(l, c) - mid) * open);
+  const top = s.cols.filter((_, i) => !hiveOnWall(s, i));
+  const xs = top.sort((a, b) => a - b).map((c) => mid + (tileCX(l, c) - mid) * open);
   const lobes: HiveLobe[] = [];
   for (let i = xs.length - 1; i >= 0; i--) {
     const cx = xs[i] ?? mid;

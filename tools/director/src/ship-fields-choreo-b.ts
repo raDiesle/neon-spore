@@ -156,6 +156,12 @@ export const CHOREO_FIELD_GROUP_B = {
   // clock and the two thumbs that answer the mass itself, THE SLOW on the
   // last seal and how long the wave holds after (`config-hive.ts`).
   hiveSites: "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hiveCornerCols:
+    "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hiveWallSites:
+    "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hiveWallRow: "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hiveWallGap: "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
   hiveLookBeats:
     "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
   hiveOpenBeats:

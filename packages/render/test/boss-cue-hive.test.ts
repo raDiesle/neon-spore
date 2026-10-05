@@ -3,7 +3,10 @@ import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
   type HiveState,
+  hiveOnWall,
   hiveOpen,
+  hiveWallFront,
+  midCol,
   startWave,
   step,
   ticksPerBeat,
@@ -114,7 +117,15 @@ describe("THE HIVE", () => {
       }
     }
     const col = s.cols[target] ?? 0;
-    world.cannonCol = col;
+    // A cocoon high on a wall is reached by the pilot's held thumb, from off
+    // the wall, and not by the column (`sim/hive-wall.ts`); anything else by
+    // the cannon under it.
+    const held = hiveOnWall(s, target) && hiveWallFront(s, col) !== target;
+    world.cannonCol = held ? midCol(CFG) : col;
+    if (held) {
+      expect(word(world, "p2")).toBeNull();
+      s.aim = target;
+    }
 
     expect(word(world, "p1")).toBeNull();
     const hers = cue(world, "p2");

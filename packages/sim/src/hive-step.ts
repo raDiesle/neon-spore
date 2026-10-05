@@ -1,16 +1,20 @@
 import { midCol } from "./config.js";
 import {
+  HIVE_TOP,
   type HivePhase,
   type HiveState,
   hiveDown,
+  hiveEventRow,
   hiveNext,
   hiveNextBeat,
+  hiveOnWall,
   hiveOpen,
   hiveSiteCols,
   hiveSwelling,
   hiveTwins,
 } from "./hive.js";
 import { hiveClenched, hiveClenchUntil, hivePinchDone, NO_PINCH } from "./hive-lobe.js";
+import { hiveWallPlaces, spillFromWall } from "./hive-wall.js";
 import { livingKindForColor } from "./kinds.js";
 import { nextInt } from "./rng.js";
 import { spawnOne } from "./spawn.js";
@@ -51,17 +55,28 @@ export function enterHivePhase(s: HiveState, phase: HivePhase, beat: number): vo
   s.phaseBeat = beat;
 }
 
-/** Install it from the wave's own `boss:` entry: every site shut, the order and the colours sown by the seed. */
+/**
+ * Install it from the wave's own `boss:` entry: every site shut, the order
+ * and the colours sown by the seed. The underside's sites and the walls'
+ * cocoons are one list, shuffled together, so a wall opens whenever the
+ * seed says and not after the top is done.
+ */
 export function installHive(world: World): HiveState {
   const cfg = world.cfg;
-  const cols = hiveSiteCols(cfg, cfg.hiveSites);
-  // Fisher–Yates over the columns, so the order the sites open in is the
-  // seed's and not left to right; the colours are rolled site by site.
+  const walls = hiveWallPlaces(cfg);
+  const top = hiveSiteCols(cfg, cfg.hiveSites);
+  const cols = [...top, ...walls.map((w) => w.col)];
+  const rows = [...top.map(() => HIVE_TOP), ...walls.map((w) => w.row)];
+  // Fisher–Yates over the sites, so the order they open in is the seed's
+  // and not left to right; the colours are rolled site by site.
   for (let i = cols.length - 1; i > 0; i--) {
     const j = nextInt(world.rng, i + 1);
     const a = cols[i] ?? 0;
     cols[i] = cols[j] ?? 0;
     cols[j] = a;
+    const r = rows[i] ?? HIVE_TOP;
+    rows[i] = rows[j] ?? HIVE_TOP;
+    rows[j] = r;
   }
   const colors: Color[] = cols.map(() => (nextInt(world.rng, 2) === 0 ? "red" : "cyan"));
   const s: HiveState = {
@@ -69,6 +84,7 @@ export function installHive(world: World): HiveState {
     phase: "hang",
     phaseBeat: world.beat,
     cols,
+    rows,
     colors,
     sealed: cols.map(() => false),
     wrung: cols.map(() => false),
@@ -77,6 +93,7 @@ export function installHive(world: World): HiveState {
     spillBeat: world.beat,
     pinch: NO_PINCH,
     pinchBeat: 0,
+    aim: NO_PINCH,
     haulMilli: 0,
     downBeat: -1,
   };
@@ -89,7 +106,7 @@ function swell(world: World, s: HiveState): void {
   const cfg = world.cfg;
   const next = hiveNext(s);
   if (next < 0 || world.beat !== hiveNextBeat(s, cfg) - cfg.hiveSwellBeats) return;
-  world.events.push({ type: "hiveSwell", col: s.cols[next] ?? 0 });
+  world.events.push({ type: "hiveSwell", col: s.cols[next] ?? 0, ...hiveEventRow(s, next) });
 }
 
 /**
@@ -111,12 +128,13 @@ function open(world: World, s: HiveState): void {
   for (let n = 0; n < count && hiveNext(s) >= 0; n++) {
     const i = s.opened;
     s.opened += 1;
-    world.events.push({ type: "hiveOpen", col: s.cols[i] ?? 0, color: s.colors[i] ?? "red" });
+    const at = { col: s.cols[i] ?? 0, ...hiveEventRow(s, i) };
+    world.events.push({ type: "hiveOpen", ...at, color: s.colors[i] ?? "red" });
     if (i !== wrung) continue;
     s.wrung[i] = true;
     s.spillBeat -= cfg.hiveProvokeBeats;
     s.pinch = NO_PINCH;
-    world.events.push({ type: "hiveWrung", col: s.cols[i] ?? 0 });
+    world.events.push({ type: "hiveWrung", ...at });
   }
   s.openBeat = world.beat;
   if (s.phase === "hang") enterHivePhase(s, "spill", world.beat);
@@ -137,7 +155,10 @@ function relax(world: World, s: HiveState): void {
   s.spillBeat = world.beat - cfg.hiveSpillBeats;
 }
 
-/** The spill, on its cadence: the breach's own colour, living, at the top of every open column. */
+/**
+ * The spill, on its cadence: the breach's own colour, living, at the top of
+ * every open column — or, from a wall, out of its side (`hive-wall.ts`).
+ */
 function spill(world: World, s: HiveState): void {
   const cfg = world.cfg;
   // Clenched, the underside is up out of reach and nothing comes out of it.
@@ -151,6 +172,11 @@ function spill(world: World, s: HiveState): void {
   s.spillBeat = world.beat;
   for (let i = 0; i < s.opened; i++) {
     if (!hiveOpen(s, i)) continue;
+    if (hiveOnWall(s, i)) {
+      spillFromWall(world, s, i);
+      world.events.push({ type: "hiveSpill", col: s.cols[i] ?? 0, ...hiveEventRow(s, i) });
+      continue;
+    }
     const col = s.cols[i] ?? 0;
     const color = s.colors[i] ?? "red";
     spawnOne(world, { beat: world.beat, col, kind: livingKindForColor(color), color });

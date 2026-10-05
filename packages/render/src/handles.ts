@@ -21,6 +21,7 @@ import { lidCordUnder, mazeStringUnder, wardenRopeUnder } from "./handles-cords.
 import { balloonHandleUnder, choirArrowUnder } from "./handles-pairs.js";
 import { haspHandleUnder, haspRimUnder } from "./hasp-grip.js";
 import { hiveLobeUnder } from "./hive-grip.js";
+import { hiveLockUnder } from "./hive-lock.js";
 import { instarMarkUnder } from "./instar-mark-grip.js";
 import { keelJointUnder } from "./keel-grip.js";
 import { lampreyGripUnder } from "./lamprey-grip.js";
@@ -121,6 +122,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     leadStalkUnder(l, x, y, field) ?? // THE LEAD's stalk, while the body stands still (`lead-grip.ts`).
     scuttlePartUnder(l, x, y, field) ?? // THE SCUTTLE's hanging parts, while one may still be carried (`scuttle-grip.ts`).
     hiveLobeUnder(l, x, y, field) ?? // THE HIVE's clenched underside, or a swelling lobe (`hive-grip.ts`).
+    hiveLockUnder(l, x, y, field) ?? // THE HIVE's high cocoon up a wall, the pilot's held aim (`hive-lock.ts`).
     pulseMeterUnder(l, x, y, field) ?? // THE PULSE's own bar, while it is not steady (`pulse-grip.ts`).
     vaneGripUnder(l, x, y, field) ?? // THE VANE's swinging arm and the housing under its hub (`vane-grip.ts`).
     throatGripUnder(l, x, y, field) ?? // THE THROAT's mouth and its pump (`throat-grip.ts`).

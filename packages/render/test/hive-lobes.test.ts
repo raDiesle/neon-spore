@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { createCanvas } from "@napi-rs/canvas";
-import { DEFAULT_CONFIG, type HiveState } from "@neon-spore/sim";
+import { DEFAULT_CONFIG, HIVE_TOP, type HiveState } from "@neon-spore/sim";
 import { hiveBox, hiveLobes, hiveMassPath, hiveUnderY, lobeDepth } from "../src/hive-shape.js";
 import { computeLayout, type Layout, tileCX } from "../src/layout.js";
 import { installPixelGlobals, PIXEL_VIEWPORT } from "./pixel-harness.js";
@@ -19,8 +19,9 @@ const l = computeLayout(PIXEL_VIEWPORT, cfg, "p1");
 const W = Math.ceil(l.width);
 const H = Math.ceil(l.gridTop + l.tile);
 
-/** The mass reads nothing of the state but its columns. */
-const at = (cols: number[]): HiveState => ({ cols }) as unknown as HiveState;
+/** The mass reads nothing of the state but its columns, and which of them are on the underside. */
+const at = (cols: number[]): HiveState =>
+  ({ cols, rows: cols.map(() => HIVE_TOP) }) as unknown as HiveState;
 
 /** The contour before the split, verbatim. */
 function before(l: Layout, s: HiveState, open: number, time: number): Path2D {

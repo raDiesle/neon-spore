@@ -49,11 +49,12 @@ describe("the rehearsal for THE HIVE", () => {
         else if (e.type === "breach" || e.type === "waveFailed") seen.push(`${e.type} @${w.beat}`);
       }
     }
-    // Seed 6's order is `3c 6r 5c 1r 2r 7r 8c 4c 9r`. Column 3 is sealed by
-    // one bolt because it is sealed before its first spill; 6 takes two,
-    // because it spills on the beat it opens; 5 and 2 are sealed by a bolt
-    // already in the air when the breach opened; 1 is answered in cyan, which
-    // hurries its spill by a beat and costs the pair of shots after it. 2 is
+    // Seed 675740's underside opens `3c 4r 5c 2r 8r 6r 7c`, and its walls not
+    // until after. Column 3 is sealed by
+    // one bolt because it is sealed before its first spill; 4 takes two,
+    // because it spills on the beat it opens; 5 and 8 are sealed by a bolt
+    // already in the air when the breach opened; 2 is answered in cyan, which
+    // hurries its spill by a beat and costs the pair of shots after it. 8 is
     // **wrung** — the navigator's thumb on its swell for three beats — so it
     // opens with no colour, a cyan bolt seals a red site, and the hand costs
     // what a wrong bolt costs: a spill on the spot, and one more red shot. No
@@ -64,7 +65,7 @@ describe("the rehearsal for THE HIVE", () => {
     // underside's own answer to being sealed (`bosses.md` §11.14, 21 September
     // 2026), and the pair are the lesson: the first costs the film nothing —
     // every site is shut by the time it is up, so there is no spill for it to
-    // hold back — and the second would have cost it everything. Column 8 is
+    // hold back — and the second would have cost it everything. Column 7 is
     // open and spilling at beat 47, and the spill it owes at 48 is inside a
     // clench that outlasts the scene, so the film's last beats would teach
     // the pair that a breach left open goes harmless.
@@ -78,29 +79,29 @@ describe("the rehearsal for THE HIVE", () => {
     // shot and the haul after it (`scenes/the-hive.ts`).
     expect(seen).toEqual([
       "open 3 cyan @4",
-      "seal 3 left 8 @5",
-      "open 6 red @12",
-      "spill 6 @12",
-      "seal 6 left 7 @14",
+      "seal 3 left 12 @5",
+      "open 4 red @12",
+      "spill 4 @12",
+      "seal 4 left 11 @14",
       "open 5 cyan @20",
-      "seal 5 left 6 @20",
+      "seal 5 left 10 @20",
       "clench @20",
-      "open 1 red @28",
+      "open 2 red @28",
       "wrong @28",
-      "spill 1 @29",
-      "seal 1 left 5 @31",
-      "open 2 red @36",
-      "wrung 2 @36",
-      "spill 2 @36",
-      "seal 2 left 4 @36",
-      "open 7 red @44",
-      "open 8 cyan @44",
+      "spill 2 @29",
+      "seal 2 left 9 @31",
+      "open 8 red @36",
+      "wrung 8 @36",
+      "spill 8 @36",
+      "seal 8 left 8 @36",
+      "open 6 red @44",
+      "open 7 cyan @44",
+      "spill 6 @45",
       "spill 7 @45",
-      "spill 8 @45",
-      "seal 7 left 3 @47",
+      "seal 6 left 7 @47",
       "clench @47",
       "haul @47",
-      "spill 8 @48",
+      "spill 7 @48",
     ]);
   });
 });

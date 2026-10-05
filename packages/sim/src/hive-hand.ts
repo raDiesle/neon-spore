@@ -1,5 +1,5 @@
 import { midCol } from "./config.js";
-import { type HiveState, hiveBoss } from "./hive.js";
+import { type HiveState, hiveBoss, hiveOnWall } from "./hive.js";
 import { hiveClenched, hiveHauled, hiveSwellingAt, NO_PINCH } from "./hive-lobe.js";
 import { enterHivePhase } from "./hive-step.js";
 import type { Command } from "./types.js";
@@ -14,6 +14,9 @@ import type { World } from "./world.js";
  * THE WELL reads its seam: there is no new thing to find on the screen,
  * only a new moment to put the same thumb down in.
  *
+ * - **Open on a wall**, a cocoon is the handle and the **pilot** holds it:
+ *   every shot he fires while it is held steers into it, past the cocoons
+ *   below it that a straight bolt would meet first (`hive-wall.ts`).
  * - **Clenched**, the whole underside is the handle and the **pilot** drags
  *   it back down. `hiveHaulMilli` thousandths of a tile and it relaxes
  *   early, with none of the backlog a clench that runs out owes
@@ -38,7 +41,8 @@ export function hiveHeard(world: World, player: 1 | 2, command: Command): void {
   const s = hiveBoss(world);
   if (s === null) return;
   if (player === 1) {
-    haul(world, s, command);
+    if (hiveClenched(s)) haul(world, s, command);
+    else aim(s, command);
     return;
   }
   pinch(world, s, command);
@@ -56,6 +60,19 @@ function haul(world: World, s: HiveState, command: Command & { kind: "drag" }): 
   if (!hiveHauled(s, world.cfg)) return;
   enterHivePhase(s, "spill", world.beat);
   world.events.push({ type: "hiveHaul", col: midCol(world.cfg) });
+}
+
+/**
+ * The pilot's thumb held on a wall's cocoon: while it is down, his shots
+ * steer into that cocoon (`hive-wall.ts`, `lock.ts`). Lifted, or put on
+ * anything that is not a wall's cocoon, it steers nothing. Whether the
+ * cocoon is open is asked by the steer on every tick rather than here, so a
+ * thumb that lands on a cocoon a beat before it opens is already aiming when
+ * it does.
+ */
+function aim(s: HiveState, command: Command & { kind: "drag" }): void {
+  const i = command.id ?? NO_PINCH;
+  s.aim = command.on && i >= 0 && hiveOnWall(s, i) ? i : NO_PINCH;
 }
 
 /**

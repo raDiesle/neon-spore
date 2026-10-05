@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import { HiveMarks } from "./hive-marks.js";
 import { hiveUnderY, type Point } from "./hive-shape.js";
-import { type Layout, tileCX, type ViewRole } from "./layout.js";
+import { type Layout, tileCX, tileCY, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { showsHiveColor } from "./view-role-clocks-b.js";
 
@@ -78,62 +78,66 @@ export class HiveFx {
   ): void {
     this.marks.ingest(events);
     const at = (p: Point, n: number, hex: string) => burst(p.x, p.y, n, hex);
-    const site = (col: number, dy = 0): Point => ({
+    // A wall's cocoon bursts on its own tile; everything else on the
+    // underside over its column.
+    const site = (col: number, dy = 0, row?: number): Point => ({
       x: tileCX(l, col),
-      y: hiveUnderY(l) + dy * l.tile,
+      y: (row === undefined ? hiveUnderY(l) : tileCY(l, row)) + dy * l.tile,
     });
     for (const e of events) {
+      if (!e.type.startsWith("hive")) continue;
+      const row = "row" in e ? e.row : undefined;
       switch (e.type) {
         case "hiveEnter":
-          at(site(e.col, -0.5), 6, PALETTE.bile);
+          at(site(e.col, -0.5, row), 6, PALETTE.bile);
           break;
         case "hiveSwell":
-          at(site(e.col, 0.2), 3, PALETTE.bileRim);
+          at(site(e.col, 0.2, row), 3, PALETTE.bileRim);
           break;
         case "hiveOpen":
-          at(site(e.col, 0.2), 8, showsHiveColor(role) ? PALETTE[e.color] : PALETTE.bileRim);
+          at(site(e.col, 0.2, row), 8, showsHiveColor(role) ? PALETTE[e.color] : PALETTE.bileRim);
           break;
         case "hiveSpill":
-          at(site(e.col, 0.4), 3, PALETTE.rock);
+          at(site(e.col, 0.4, row), 3, PALETTE.rock);
           break;
         case "hiveSkin":
-          at(site(e.col, 0.1), 4, PALETTE.dim);
+          at(site(e.col, 0.1, row), 4, PALETTE.dim);
           break;
         case "hiveWrong":
-          at(site(e.col, 0.2), 10, PALETTE.bileRim);
+          at(site(e.col, 0.2, row), 10, PALETTE.bileRim);
           this.clenchNow = CLENCH;
           break;
         case "hiveClench":
           // The body's own answer to a third seal: it takes hold as a wrong
           // bolt makes it take hold, and then it is up for six beats, which
           // is the world's to draw and not this one's.
-          at(site(e.col, -0.2), 16, PALETTE.bile);
+          at(site(e.col, -0.2, row), 16, PALETTE.bile);
           this.clenchNow = CLENCH;
           break;
         case "hiveHaul":
           // The pilot's carry arriving: the mass back on the beat he got it
           // there, and it lands the way a seal lands.
-          at(site(e.col, 0.3), 14, PALETTE.bileRim);
+          at(site(e.col, 0.3, row), 14, PALETTE.bileRim);
           this.joltNow = JOLT_TILES;
           break;
         case "hiveWrung":
           // The colour squeezed out of a lobe — so the one burst under this
           // boss that is never red and never cyan on either screen, in the
           // pale the collar is drawn in (`hive-hold.ts`).
-          at(site(e.col, 0.2), 12, PALETTE.hullRim);
+          at(site(e.col, 0.2, row), 12, PALETTE.hullRim);
           break;
         case "hiveSeal":
-          at(site(e.col, 0.2), 14, PALETTE.hullRim);
+          at(site(e.col, 0.2, row), 14, PALETTE.hullRim);
           this.joltNow = JOLT_TILES;
           this.hurt.hit();
           break;
         case "hiveDown":
-          at(site(e.col, -0.3), 24, PALETTE.hullRim);
+          at(site(e.col, -0.3, row), 24, PALETTE.hullRim);
           this.joltNow = JOLT_TILES * 2;
           this.hurt.hit();
           break;
         case "hiveOut":
-          at(site(e.col, -0.6), 12, PALETTE.dim);
+          at(site(e.col, -0.6, row), 12, PALETTE.dim);
           break;
         default:
           break;

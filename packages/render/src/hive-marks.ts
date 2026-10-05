@@ -30,6 +30,15 @@ import { GripVerdicts } from "./grip-verdict.js";
  */
 export const HIVE_HAUL = -1;
 
+/**
+ * Which lobe a verdict stands on: the column, for a site on the underside,
+ * which has one a column — and the column and row together for a wall's
+ * cocoon, since a wall has three in one column.
+ */
+export function hiveMarkKey(col: number, row?: number): number {
+  return row === undefined ? col : 1000 + row * 100 + col;
+}
+
 export class HiveMarks {
   /** Was the last touch on each lobe, and on the mass, right. */
   readonly verdicts = new GripVerdicts();
@@ -37,7 +46,7 @@ export class HiveMarks {
   ingest(events: readonly SimEvent[]): void {
     for (const e of events) {
       if (e.type === "hiveHaul") this.verdicts.mark(HIVE_HAUL, true);
-      else if (e.type === "hiveWrung") this.verdicts.mark(e.col, true);
+      else if (e.type === "hiveWrung") this.verdicts.mark(hiveMarkKey(e.col, e.row), true);
     }
   }
 

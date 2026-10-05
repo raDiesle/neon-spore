@@ -51,7 +51,14 @@ import type { Bullet, Color } from "../src/types.js";
  * pinned (`docs/decisions.md` #19).
  */
 
-const CFG: SimConfig = DEFAULT_CONFIG;
+/**
+ * The underside alone, as it hung before the walls: nine sites, every inner
+ * column, and no cocoons down either side, so every site is one a bolt out of
+ * the top names by its column — which is what this file is about, and the
+ * nine are what its clench counts need. The walls, and the thumb that reaches
+ * past the lowest cocoon on one, are `hive-wall.test.ts`.
+ */
+const CFG: SimConfig = { ...DEFAULT_CONFIG, hiveSites: 9, hiveCornerCols: 1, hiveWallSites: 0 };
 const TPB = ticksPerBeat(CFG);
 const WAVE = 6;
 
@@ -102,12 +109,13 @@ function firstOpen(world: World): { i: number; col: number; color: Color } {
 }
 
 describe("the body coming in", () => {
-  it("comes in with every site shut, on distinct inner columns, and nothing on the field", () => {
+  it("comes in with every site shut, on distinct columns between the corners, and nothing on the field", () => {
     const world = open();
     const s = body(world);
     expect(s.cols).toHaveLength(CFG.hiveSites);
     expect(new Set(s.cols).size).toBe(CFG.hiveSites);
-    for (const col of s.cols) expect(col > 0 && col < CFG.cols - 1).toBe(true);
+    const corner = CFG.hiveCornerCols;
+    for (const col of s.cols) expect(col >= corner && col < CFG.cols - corner).toBe(true);
     expect(s.opened).toBe(0);
     expect(hiveLeft(s)).toBe(CFG.hiveSites);
     expect(world.creatures).toHaveLength(0);
@@ -126,10 +134,11 @@ describe("the body coming in", () => {
     expect(bossFillsWave("hive")).toBe(true);
   });
 
-  it("never puts more sites than inner columns", () => {
+  it("never puts more sites than the columns between the corners", () => {
     const cols = hiveSiteCols(CFG, CFG.cols * 2);
-    expect(cols).toHaveLength(CFG.cols - 2);
-    expect(new Set(cols).size).toBe(CFG.cols - 2);
+    const between = CFG.cols - 2 * CFG.hiveCornerCols;
+    expect(cols).toHaveLength(between);
+    expect(new Set(cols).size).toBe(between);
   });
 });
 

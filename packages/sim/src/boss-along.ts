@@ -1,11 +1,14 @@
 import { gorgeAlong, gorgeStruck } from "./gorge-step.js";
+import { hiveWallStruck } from "./hive-shot.js";
+import { hiveWallAlong } from "./hive-wall.js";
 import type { Bullet } from "./types.js";
 import { vaneMouthAlong, vaneMouthStruck } from "./vane.js";
 import type { World } from "./world.js";
 
 /**
  * **The bosses a shot meets in mid-field** rather than past the top: THE
- * VANE's open bearing on the arm's row, THE GORGE's bubble on its own. One
+ * VANE's open bearing on the arm's row, THE GORGE's bubble on its own, THE
+ * HIVE's cocoons down its two walls (`hive-wall.ts`). One
  * question for `bullets.ts` and `lance-burn.ts` to ask beside the bodies and
  * pods in the same sweep, so whichever stands lowest is met first and a body
  * on the same row is in front of it.
@@ -15,11 +18,14 @@ import type { World } from "./world.js";
  */
 export function bossAlong(world: World, bullet: Bullet, from: number, to: number): number {
   const mouth = vaneMouthAlong(world, bullet, from, to);
-  return mouth >= 0 ? mouth : gorgeAlong(world, bullet, from, to);
+  if (mouth >= 0) return mouth;
+  const wall = hiveWallAlong(world, bullet, from, to);
+  return wall >= 0 ? wall : gorgeAlong(world, bullet, from, to);
 }
 
 /** The shot met what `bossAlong` found. */
 export function bossAlongStruck(world: World, bullet: Bullet): void {
   if (world.boss?.kind === "gorge") gorgeStruck(world, bullet);
+  else if (world.boss?.kind === "hive") hiveWallStruck(world, bullet);
   else vaneMouthStruck(world, bullet);
 }

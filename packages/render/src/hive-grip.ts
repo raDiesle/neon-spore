@@ -4,6 +4,7 @@ import {
   hiveHaulAsks,
   hiveLobeAsks,
   hiveNext,
+  hiveOnWall,
   hivePinched,
   hiveSwellingAt,
   hiveTwins,
@@ -16,7 +17,7 @@ import { drawGripDial, drawGripRing } from "./grip-rings.js";
 import { drawVerdictRing, type GripVerdicts } from "./grip-verdict.js";
 import { handleRadius } from "./handle-draw.js";
 import { hiveClenchLeft, hiveClenchRise, hivePinchPhase } from "./hive-hold.js";
-import { HIVE_HAUL } from "./hive-marks.js";
+import { HIVE_HAUL, hiveMarkKey } from "./hive-marks.js";
 import { hiveSite, hiveSiteBelly, hiveUnderY, type Point } from "./hive-shape.js";
 import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
 import { drawMarkHalo } from "./mark-feedback.js";
@@ -199,7 +200,7 @@ export function drawHiveGrip(
     if (held) drawGripDial(ctx, c.x, c.y, c.r, phase);
   }
   s.cols.forEach((col, i) => {
-    const v = verdicts.at(col);
+    const v = verdicts.at(hiveMarkKey(col, hiveOnWall(s, i) ? s.rows[i] : undefined));
     if (v === null) return;
     const c = hiveLobeCircle(l, cfg, s, i, beat, beatPhase);
     drawVerdictRing(ctx, c.x, c.y, c.r, v);

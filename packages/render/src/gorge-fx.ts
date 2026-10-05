@@ -60,7 +60,7 @@ export class GorgeFx {
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
     for (const e of events) {
-      if (!("row" in e)) continue;
+      if (!("row" in e) || e.row === undefined) continue;
       const x = tileCX(l, e.col);
       const y = tileCY(l, e.row);
       switch (e.type) {

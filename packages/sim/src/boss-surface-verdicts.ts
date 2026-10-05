@@ -27,7 +27,7 @@ export { governorVerdict } from "./governor-shot.js";
 export { grindstoneVerdict } from "./grindstone-shot.js";
 export { halterVerdict } from "./halter-shot.js";
 export { haspVerdict } from "./hasp-shot.js";
-export { hiveVerdict } from "./hive-shot.js";
+export { hiveVerdict, hiveWallVerdict } from "./hive-shot.js";
 export { keelVerdict } from "./keel-shot.js";
 export { type LeadVerdict, leadVerdict } from "./lead-shot.js";
 export { ledgerVerdict } from "./ledger-shot.js";

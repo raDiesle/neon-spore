@@ -5,6 +5,7 @@ import {
   type CoreVerdict,
   createWorld,
   hiveVerdict,
+  hiveWallVerdict,
   leadVerdict,
   ledgerVerdict,
   startWave,
@@ -17,8 +18,7 @@ import { AntiphonFx } from "../src/antiphon-fx.js";
 import { type BoltHit, BoltStops } from "../src/bolt-stop.js";
 import { drawHive } from "../src/hive-draw.js";
 import { HiveFx } from "../src/hive-fx.js";
-import { hiveUnderY } from "../src/hive-shape.js";
-import { computeLayout, type Layout, tileCX } from "../src/layout.js";
+import { computeLayout, type Layout, tileCX, tileCY } from "../src/layout.js";
 import { drawLead } from "../src/lead-draw.js";
 import { LeadFx } from "../src/lead-fx.js";
 import { leadRidgeY } from "../src/lead-shape.js";
@@ -81,11 +81,14 @@ const ROWS: Row[] = [
   {
     name: "THE HIVE",
     kind: "hive",
-    hit: spans(hiveVerdict),
+    // A wall's column meets the lowest cocoon on it, and is judged by it.
+    hit: spans((w, col, color) => hiveWallVerdict(w, col, color) ?? hiveVerdict(w, col, color)),
     draw: (l, w, stops) =>
       drawHive(paper(), l, w, boss(w, "hive"), w.beat, 0.5, 0, new HiveFx(), stops),
-    // Hung down into the top rows since 5 October 2026; a swelling drop hangs lowest.
-    reach: (l) => hiveUnderY(l) + l.tile * 2,
+    // Hung down both walls since 5 October 2026: the lowest cocoon is lowest,
+    // a swelling one hanging a tile below its own.
+    reach: (l) =>
+      tileCY(l, CFG.hiveWallRow + (CFG.hiveWallSites - 1) * CFG.hiveWallGap) + l.tile * 1.5,
     shows: "target",
   },
   {

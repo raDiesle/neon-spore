@@ -4,6 +4,7 @@ import type { Effects } from "./effects.js";
 import { drawFilament } from "./filament-draw.js";
 import { drawHive } from "./hive-draw.js";
 import { drawHiveGrip } from "./hive-grip.js";
+import { drawHiveLocks } from "./hive-lock.js";
 import { drawInstar } from "./instar-draw.js";
 import type { Layout } from "./layout.js";
 import { drawLead } from "./lead-draw.js";
@@ -166,6 +167,9 @@ export function drawFxBoss(
     // The ring after the body, over the wax it is on: the clenched underside
     // on his screen, a swelling lobe on hers (`hive-grip.ts`).
     drawHiveGrip(ctx, l, world.cfg, boss, beat, beatPhase, time, effects.boss.hive.marks.verdicts);
+    // And on his screen, a ring on every high cocoon up a wall that only a
+    // held thumb reaches (`hive-lock.ts`).
+    drawHiveLocks(ctx, l, world.cfg, boss, beat, beatPhase, time);
     return;
   }
 

@@ -33465,3 +33465,13 @@ Bottleneck: none; `setBossRound` already took the fight to any level, so the bar
 Bottleneck: the remeasure — every field frame in six op-count tables moved for one new path.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE HIVE hangs down both walls, and a held thumb reaches past the lowest cocoon
+
+- reading: 20 min. THE HIVE's eleven files, THE LOCK's steer, `bossAlong`, the spawn's rows, the rehearsal and its test.
+- writing: 45 min. `hive-wall.ts`, the judgment shared by top and wall, the steer's target generalised, the autopilot's hold, `hive-lock.ts`, the walls' tests, §11.14.
+- looking: 0 min. The wall's look is the next lane.
+- friction: 5 min. The formatter rewrote a file between two scripted edits, and one of them missed.
+- landing: 10 min. A seed hunt for the rehearsal, three million installs in two seconds, then `check:fast`.
+
+Bottleneck: the rehearsal — traced beat by beat against one seed, so any change to the sites' order meant finding a seed that played the same film.

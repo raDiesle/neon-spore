@@ -626,6 +626,7 @@ by hand never moves.
 | `packages/sim/src/hive-shot.ts` | **A shot that nothing on the field stopped, leaving through the top** under THE HIVE |
 | `packages/sim/src/hive-step.ts` | THE HIVE's clock — the look, the swell, the openings and the spill |
 | `packages/sim/src/hive-lobe.ts` | **One lobe of THE HIVE's underside, and the two gestures it answers to.** `hive.ts` is the mass: where it is |
+| `packages/sim/src/hive-wall.ts` | **THE HIVE's two walls**: cocoons down both sides, the lowest in front of the rest, the pilot's held thumb steering past it, and the spill out sideways |
 | `packages/sim/src/hive.ts` | THE HIVE: close the source, not the spill |
 | `packages/sim/src/coil-state.ts` | **What a coil is right now**: which way it is going, whether it is still wearing its dome |
 | `packages/sim/src/config-rock-cross.ts` | **A crossing rock's two numbers**: how far along its row it goes each beat |
@@ -2437,6 +2438,7 @@ by hand never moves.
 | `packages/render/src/hive-cell.ts` | **THE HIVE's lobes and breaches, as wax** (`hive-wax.ts` is the mass) |
 | `packages/render/src/hive-wax.ts` | **What THE HIVE is made of**: wax — a dark mass of it, lit from the upper left and gone to the deep beneath |
 | `packages/render/src/hive-marks.ts` | **THE HIVE's one handle answering a touch the way every mark does** (`mark-feedback.ts` |
+| `packages/render/src/hive-lock.ts` | **The pilot's thumb on a wall's cocoon**: the ring on every high cocoon that only a held thumb reaches, and the press on it |
 | `packages/render/src/hit.ts` | **How far past its drawn edge a circle answers a thumb.** Every ring, lobe |
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |

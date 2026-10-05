@@ -118,6 +118,7 @@ export { gorgeColOf, gorgeRowOf } from "./gorge-ring.js";
 // first on one screen and coloured on the other (`hive.ts`).
 export {
   HIVE_PHASES,
+  HIVE_TOP,
   type HivePhase,
   type HiveState,
   hiveBoss,
@@ -125,6 +126,7 @@ export {
   hiveLeft,
   hiveNext,
   hiveNextBeat,
+  hiveOnWall,
   hiveOpen,
   hiveOpenAt,
   hiveOpenCount,
@@ -149,6 +151,9 @@ export {
   hiveWrungAt,
   NO_PINCH,
 } from "./hive-lobe.js";
+// And its two walls: where the cocoons are, and the one the pilot's thumb is
+// steering his shots into (`hive-wall.ts`).
+export { hiveAim, hiveWallFront, hiveWallPlaces } from "./hive-wall.js";
 export {
   type ScuttlePart,
   type ScuttlePartKind,

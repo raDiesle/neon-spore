@@ -38,7 +38,14 @@ import type { Bullet, Color } from "../src/types.js";
  * and that neither gesture can be made from the other's seat.
  */
 
-const CFG: SimConfig = DEFAULT_CONFIG;
+/**
+ * The underside alone, as it hung before the walls: nine sites, every inner
+ * column, and no cocoons down either side, so every site is one a bolt out of
+ * the top names by its column — which is what this file is about, and the
+ * nine are what its clench counts need. The walls, and the thumb that reaches
+ * past the lowest cocoon on one, are `hive-wall.test.ts`.
+ */
+const CFG: SimConfig = { ...DEFAULT_CONFIG, hiveSites: 9, hiveCornerCols: 1, hiveWallSites: 0 };
 const TPB = ticksPerBeat(CFG);
 const WAVE = 6;
 
