@@ -381,6 +381,7 @@ Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 ## THE INSTAR's wings, tail and nests stop a bolt
 
 - **Found:** 2026-10-04, claude/queue-work-cccabd
+- **Taken:** 2026-10-05, claude/queue-tasks-status-bb9750 (claim: claude/queue-the-instars-wings-tail-and-nests-stop-a-bolt)
 - **Where:** local
 - **Files:** `packages/render/src/instar-stop.ts`, `packages/render/src/instar-wings.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/instar-eggs.ts`
 
