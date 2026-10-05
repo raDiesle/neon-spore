@@ -29,7 +29,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * ring** — the pilot's screen identical whatever the inner ring is doing, the
  * navigator's whatever the outer is — and that the rim says how many teeth
  * are left without anything printing the number. What the cradle says back
- * — the fold, the knurl, the word, the kicks — is `gimbal-answer.test.ts`.
+ * — the fold, the knob, the word, the kicks — is `gimbal-answer.test.ts`.
  */
 
 beforeAll(() => {

@@ -10,8 +10,8 @@ import { GripVerdicts } from "./grip-verdict.js";
  * Whether a ring asks is the simulation's (`sim/gimbal.ts`
  * `gimbalRingAsks`): while the rings are being turned and no hand is on it,
  * true or not, since a ring let go drifts back to rest. The halo stands on
- * the rim where the ring is met (`gimbalRingCircle`), on the one screen that
- * ring is drawn on (`gimbal-ring.ts`).
+ * the ring's knob (`gimbalRingCircle`, `gimbal-knob.ts`), on the one screen
+ * that ring is drawn on (`gimbal-ring.ts`).
  *
  * **Half of the convention is missing on purpose.** Each ring is drawn for
  * its own seat alone (`view-role-clocks-c.ts`) — the reflection between the

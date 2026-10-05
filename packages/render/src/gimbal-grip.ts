@@ -8,16 +8,18 @@ import {
   OUTER,
   type SimConfig,
 } from "@neon-spore/sim";
-import { gimbalCentre, gimbalFaceMilli, gimbalPoint, gimbalRingR } from "./gimbal-shape.js";
-import { strokeGlow } from "./glow.js";
-import type { Layout } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { gimbalKnobAt, gimbalKnobSize } from "./gimbal-knob.js";
+import { gimbalCentre, gimbalRingR } from "./gimbal-shape.js";
+import { hitCircle, type Layout } from "./layout.js";
+import { PULL_GRAB } from "./pull-knob.js";
 import type { Field, Hold, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
 /**
- * **The ring under each thumb**: where a hand may take hold of it, what a turn
- * of it says, and the knurl that tells the seat it can be turned.
+ * **The ring under each thumb**: where a hand may take hold of it and what a
+ * turn of it says. What it looks like — THE MAZE's knob, lever and channel,
+ * the owner's one turn for every wave (5 October 2026) — is `gimbal-knob.ts`,
+ * and the knob is answered here at the place that file draws it.
  *
  * The drawing and the hit test are in one file, which is `layout.ts`'s
  * standing rule — a control is never drawn in one place and answered in
@@ -82,13 +84,10 @@ function bearing(l: Layout, cx: number, cy: number, x: number, y: number): numbe
 }
 
 /**
- * **Where the hand on this seat's ring is standing**, for the ghost thumb of a
- * rehearsal and for the cue word pointing at it (`handle-place.ts`).
- *
- * A ring has no place it hangs — the rim is the whole control — so what this
- * answers is the point on the rim at the bearing the ring itself is *at*,
- * drawn on the face of the seat that grips it. That is where the mark will be
- * met, which is where a thumb about to go on is about to go on.
+ * **Where the hand on this seat's ring is standing**, for the halo, the
+ * verdict, the ghost thumb of a rehearsal and the cue word pointing at it
+ * (`handle-place.ts`): the knob, at the bearing the ring itself is *at*, drawn
+ * on the face of the seat that grips it, at every pull handle's radius.
  *
  * **The ring is named rather than worked out from the role**, which every
  * other handle in the game could do without: a rig may ask for both seats'
@@ -103,13 +102,14 @@ export function gimbalRingCircle(
   ring: GimbalRing,
 ): { x: number; y: number; r: number } | null {
   if (!gimbalTurning(s)) return null;
-  const at = gimbalCentre(l, cfg);
-  const on = gimbalPoint(at, gimbalRingR(l, ring), gimbalFaceMilli(l, s.atMilli[ring], ring));
-  return { x: on.x, y: on.y, r: gimbalGrabR(l) };
+  const on = gimbalKnobAt(l, gimbalCentre(l, cfg), s, ring);
+  return { x: on.x, y: on.y, r: gimbalKnobSize(l, cfg) };
 }
 
 /**
- * A thumb going on the rim. The grab carries no bearing: the first sample is
+ * A thumb going on the knob — answered `PULL_GRAB` times wider than it is
+ * drawn, as every pull handle is — or anywhere on the rim, which is the older
+ * grab and still takes a thumb that lands there. The grab carries no bearing: the first sample is
  * a starting point, and a grab claiming to be at the top would turn the ring
  * by however far round the finger happened to land (`sim/gimbal-hand.ts`).
  */
@@ -120,7 +120,9 @@ export function gimbalRingUnder(l: Layout, x: number, y: number, field: Field): 
   const at = gimbalCentre(l, field.cfg);
   const r = gimbalRingR(l, ring);
   const d = Math.hypot(x - at.x, y - at.y);
-  if (Math.abs(d - r) > gimbalGrabR(l)) return null;
+  const knob = gimbalKnobAt(l, at, s, ring);
+  const grab = { ...knob, r: gimbalKnobSize(l, field.cfg) * PULL_GRAB };
+  if (Math.abs(d - r) > gimbalGrabR(l) && !hitCircle(grab, x, y)) return null;
   const target = targetOf(ring);
   return {
     player: field.seat,
@@ -149,37 +151,7 @@ export function gimbalRingTurn(
   return { player: hold.player, command, hold };
 }
 
-/**
- * The knurl: short ticks across this seat's own rim, so a thumb that has moved
- * the ring less than a tooth's width still sees that it was heard.
- *
- * It is worth more here than on any other handle: the rings are silent
- * until one sits true, and on this boss the pair is already being lied to
- * about direction. A rim with no texture on it would leave a navigator who has
- * turned the wrong way unable to tell that from a rim that is not hers.
- */
-export function drawGimbalKnurl(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  at: { x: number; y: number },
-  ring: GimbalRing,
-  faceMilli: number,
-  held: boolean,
-): void {
-  const r = gimbalRingR(l, ring);
-  const path = new Path2D();
-  const ticks = 24;
-  for (let i = 0; i < ticks; i++) {
-    const milli = (faceMilli + (i * BEARING_TURN) / ticks) % BEARING_TURN;
-    const inner = gimbalPoint(at, r - l.tile * 0.12, milli);
-    const outer = gimbalPoint(at, r + l.tile * 0.12, milli);
-    path.moveTo(inner.x, inner.y);
-    path.lineTo(outer.x, outer.y);
-  }
-  strokeGlow(ctx, path, held ? PALETTE.pod : PALETTE.hullRim, STROKE.inner, held ? 0.7 : 0.3);
-}
-
-/** Whether a hand is on the ring at all, which is what the knurl asks. */
+/** Whether a hand is on the ring at all, which is what the knob's light asks. */
 export function gimbalHeld(s: GimbalState, ring: GimbalRing): boolean {
   return s.handMilli[ring] !== NO_BEARING;
 }

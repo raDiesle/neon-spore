@@ -6938,12 +6938,17 @@ neither seat is ever shown the other's ring at all
 (`render/view-role-clocks-c.ts`, proved both ways in
 `render/test/gimbal-frame.test.ts`).
 
-*The handle is the rim itself* (`render/gimbal-grip.ts`, reached from
-`handles.ts`): a thumb within half a tile of the ring drawn on this seat's own
-screen takes hold of it, the bearing is read on the face the hand is on and no
-unsquashing is needed because the ring is a circle. The knurl — twenty-four
-ticks across the rim — lights while it is held, so a thumb that has moved the
-ring less than a tooth still sees it was heard. Both rings have rows on the
+*The handle is THE MAZE's* (`render/gimbal-knob.ts`; the owner, 5 October
+2026: *the one from the maze is preferred … a set of reusable consistent
+controls across all waves*): a knob on a lever bolted to the ring 40° left of
+its bearing, running in a closed channel a lever's length out of the rim that
+fills green from where the knob rests, the arrow of the way in the knob and
+PULL under it. The knob is answered at `PULL_GRAB` times its size, and a thumb
+within half a tile of the rim drawn on this seat's own screen still takes hold
+too (`render/gimbal-grip.ts`, reached from `handles.ts`); the bearing is read
+on the face the hand is on and no unsquashing is needed because the ring is a
+circle. The knurl that stood on the rim before is gone: the green and the knob
+moving are what say a thumb was heard. Both rings have rows on the
 director's ON THE FIELD tab (`tools/director/src/field-controls-gimbal.ts`) and
 a pose each, and `docs/spec/controls.md` carries them in sentences.
 

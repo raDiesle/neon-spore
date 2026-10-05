@@ -9,15 +9,15 @@ import type { FieldControlDef } from "./field-control-def.js";
  * direction instead.
  *
  * **Neither row says which way to turn**, because the game does not and the
- * fight is that it does not. The mark is a place, the knurl says the rim is
- * heard, the mark a seat sees is the partner's, and what *clockwise* means on the other phone is the sentence the
+ * fight is that it does not. The mark is a place, THE MAZE's knob and its
+ * green channel say the ring is heard, the mark a seat sees is the partner's, and what *clockwise* means on the other phone is the sentence the
  * pair has to get wrong once (`docs/spec/bosses.md` §11.34, §18).
  */
 export const GIMBAL_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE GIMBAL'S OUTER RING",
     where:
-      "anywhere on the outer rim of the cradle hung over the middle of the field, on player 1's screen, while an alignment is up",
+      "the knob on the lever bolted to the outer ring — THE MAZE's knob, in a channel round the rim — or anywhere on the rim, of the cradle hung over the middle of the field, on player 1's screen, while an alignment is up",
     seat: "player 1 — the outer ring is the pilot's, always, and the two pins at its top and bottom are what say so",
     gesture: "grab and drag",
     does:
@@ -31,9 +31,10 @@ export const GIMBAL_CONTROLS: readonly FieldControlDef[] = [
       "Both true makes both rims glow; a tooth shears off **both** rims only " +
       "when both thumbs come off within gimbalLetGoTicks of each other " +
       "(sim/gimbal-let-go.ts). A ring with no hand on it otherwise drifts " +
-      "gimbalDriftMilli a beat back to the top, carrying hers. The knurl " +
-      "across the rim lights while it is held, and the halo stands where the " +
-      "rim is met while it is not; both rims wash green at true, and a slip " +
+      "gimbalDriftMilli a beat back to the top, carrying hers. The knob is " +
+      "THE MAZE's (render/gimbal-knob.ts): lit while held, the channel " +
+      "filling green from where it rests, PULL under it and the halo on it " +
+      "while no hand is; both rims wash green at true, and a slip " +
       "goes red on his only if his ring left its mark or his thumb was late " +
       "(render/gimbal-marks.ts). At a desk it is T, with shift for the other " +
       "way round (gimbalTurnPerTickMilli).",
@@ -46,7 +47,7 @@ export const GIMBAL_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE GIMBAL'S INNER RING",
     where:
-      "anywhere on the inner rim of the same cradle, on player 2's screen, while an alignment is up",
+      "the knob on the inner ring's lever, or anywhere on the inner rim, of the same cradle, on player 2's screen, while an alignment is up",
     seat: "player 2 — the inner ring is the navigator's, and its pins stand at its sides rather than at its top and bottom",
     gesture: "grab and drag",
     does:
@@ -59,7 +60,7 @@ export const GIMBAL_CONTROLS: readonly FieldControlDef[] = [
       "gimbalFaceMilli). The mark she sees is his, drawn on her face, so it " +
       "too is mirrored. Her turns carry nothing back to his ring. Everything " +
       "else is his row exactly: the glow when both are true, the let-go that " +
-      "needs both, the drift back to rest, the " +
+      "needs both, the drift back to rest, THE MAZE's knob and channel, the " +
       "halo while no hand is on it and the verdict of the last. At a " +
       "desk it is Y, with shift for the other way round — and the key is not " +
       "mirrored to be helpful (apps/game/src/keys-turn.ts).",

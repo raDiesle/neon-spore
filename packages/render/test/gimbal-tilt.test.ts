@@ -77,7 +77,9 @@ function hung(phase: GimbalState["phase"], beatsIn: number, cursor = 0): World {
  * `MEASURE` to print the calls; never committed as `true`.
  */
 const MEASURE = false;
-const CALLS = { still: 367, turn: 397, shear: 375, open: 381 } as const;
+// `turn` moved from 397 on 5 October 2026: THE MAZE's knob, lever and channel
+// took the knurl's place on every ring, and the test screen draws two.
+const CALLS = { still: 367, turn: 437, shear: 375, open: 381 } as const;
 
 /** The canvas calls one frame of `world` costs on `role`'s screen. */
 function cost(world: World, role: (typeof ROLES)[number]): number {

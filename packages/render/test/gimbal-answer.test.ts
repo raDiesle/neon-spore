@@ -16,7 +16,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * What THE GIMBAL's cradle says back: the fold that keeps true true, the
- * knurl under a thumb, the one word to each seat, and the kicks a shear and
+ * knob under a thumb, the one word to each seat, and the kicks a shear and
  * a seam hit throw. The six poses themselves are `gimbal-frame.test.ts`;
  * both pages set them through `gimbal-frame-harness.ts`.
  */
@@ -48,10 +48,10 @@ describe("THE GIMBAL's cradle answering", () => {
     }
   });
 
-  it("lights the knurl under a thumb, on the rim that thumb is on and no other", () => {
-    // The knurl is the visible half of the hit test (`gimbal-grip.ts`): a rim
-    // is drawn with it whenever an alignment is up, and it is lit only while
-    // that seat's hand is reported on it. So the tell is a screen that changes
+  it("lights the knob under a thumb, on the ring that thumb is on and no other", () => {
+    // The knob is the visible half of the hit test (`gimbal-knob.ts`,
+    // `gimbal-grip.ts`): THE MAZE's, on every ring whenever an alignment is
+    // up, and lit only while that seat's hand is reported on it. So the tell is a screen that changes
     // when its own seat takes hold and does not when the other seat does.
     const held = (outer: number, inner: number) => (w: World) => {
       const s = turning(w, 200, 200);
@@ -77,9 +77,14 @@ describe("THE GIMBAL's cradle answering", () => {
     expect(words(frame("p1", up))).toBeGreaterThan(quiet);
     expect(words(frame("p2", up))).toBe(words(frame("p1", up)));
     // And the test screen, which is nobody's seat and holds both rings, still
-    // carries one: the drawer takes the first cue a screen may see and stops,
-    // so no screen ever says two things to do at once (`boss-cue.ts`).
-    expect(words(frame("test", up))).toBe(words(frame("p1", up)));
+    // carries one cue: the drawer takes the first cue a screen may see and
+    // stops, so no screen ever says two things to do at once (`boss-cue.ts`).
+    // What it adds is the second knob's own PULL, the word every pull handle
+    // wears (`gimbal-knob.ts`) — more than one seat's screen, and less than
+    // two seats' cues and words together.
+    const rig = words(frame("test", up));
+    expect(rig).toBeGreaterThan(words(frame("p1", up)));
+    expect(rig).toBeLessThan(words(frame("p1", up)) + words(frame("p2", up)));
     // And the leak is the one word with no seat on it: both screens get it.
     expect(words(frame("p1", leaking))).toBeGreaterThan(quiet);
     expect(words(frame("p2", leaking))).toBe(words(frame("p1", leaking)));

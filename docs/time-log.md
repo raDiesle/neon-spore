@@ -33297,3 +33297,13 @@ Bottleneck: "lights nothing" can't be counted against zero, because the HUD draw
 Bottleneck: the core's bare frame cannot be taken under AUTO, which taps it on the tick it opens.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE GIMBAL turns with THE MAZE's knob, lever and channel
+
+- reading: 5 min. THE MAZE's string, lever, knob and track; THE GIMBAL's grip, ring, partner mark and cues.
+- writing: 5 min. `gimbal-knob.ts`, the grip's knob grab, the knurl out, two tests moved, the controls rows.
+- looking: 5 min. THE MAZE at rest beside THE GIMBAL, and both seats with and without a thumb.
+- friction: 0 min.
+- landing: 0 min.
+
+Bottleneck: the first frame put the knob under the yoke, and seeing it cost a second round of frames.

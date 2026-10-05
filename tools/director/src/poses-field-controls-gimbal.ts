@@ -20,8 +20,8 @@ import { fresh, type Pose, run, POSE_TPB as TPB } from "./pose-kit.js";
  *
  * Two messages a thumb, the ring's own arrangement: the grab carries
  * `NO_BEARING` and turns nothing, and the sample after it is where the thumb
- * actually is. That second one is also what lights the knurl — `gimbalHeld`
- * is true from it on (`render/gimbal-grip.ts`).
+ * actually is. That second one is also what lights the knob — `gimbalHeld`
+ * is true from it on (`render/gimbal-grip.ts`, `render/gimbal-knob.ts`).
  *
  * The drift (`gimbal-tilt.ts`) was judged in VERSUS on the outer one: a
  * ring under a thumb is where the fight spends nearly all its time, so it is
@@ -45,9 +45,9 @@ function thumb(
 
 const GIMBAL_OUTER: Pose = {
   name: "GIMBAL · THE OUTER RING UNDER A THUMB",
-  note: "THE GIMBAL hung in its yoke over the middle of the field: a sealed drum inside the pilot's ring, pinned at the top and the bottom, with three latch-teeth standing out of its rim. The knurl is the ring of short ticks across the rim, lit because his thumb is on it, and the wedge outside the rim is his own mark. Player 1's screen: the navigator's ring is not drawn here at all.",
+  note: "THE GIMBAL hung in its yoke over the middle of the field: a sealed drum inside the pilot's ring, pinned at the top and the bottom, with three latch-teeth standing out of its rim. The knob on the lever bolted to the rim is THE MAZE's, lit because his thumb is on it, in a channel round the rim filling green from where it rests; the wedge over the faint inner track is the navigator's mark. Player 1's screen: the navigator's ring is not drawn here at all.",
   lookAt:
-    "whether the knurl reads as the part a hand answers rather than as more teeth, and whether the wedge reads as a place the rim has to be brought to",
+    "whether the knob reads as THE MAZE's turn, the same control in a second wave, and whether the wedge reads as a place a ring has to be brought to",
   crop: "field",
   role: "p1",
   build: () => {
@@ -60,7 +60,7 @@ const GIMBAL_OUTER: Pose = {
 
 const GIMBAL_INNER: Pose = {
   name: "GIMBAL · THE INNER RING UNDER A THUMB",
-  note: "The same cradle one beat later on the other phone: the navigator's ring, smaller and pinned at its sides rather than at its top and bottom, with her own mark outside it and the knurl lit under her thumb. Player 2's screen, and the pilot's ring is not drawn here — the two pins are the only thing on either screen that says which ring this is.",
+  note: "The same cradle one beat later on the other phone: the navigator's ring, smaller and pinned at its sides rather than at its top and bottom, with the pilot's mark outside it and THE MAZE's knob lit under her thumb. Player 2's screen, and the pilot's ring is not drawn here — the two pins are the only thing on either screen that says which ring this is.",
   lookAt:
     "whether the side pins make this read as a different ring from the pilot's rather than as the same picture smaller, and whether her mark sits somewhere his does not",
   crop: "field",

@@ -10,7 +10,8 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { gimbalOpenPhase, gimbalShearPhase, gimbalSpinMilli } from "./gimbal-drum.js";
-import { drawGimbalKnurl, gimbalHeld, gimbalRingCircle } from "./gimbal-grip.js";
+import { gimbalHeld, gimbalRingCircle } from "./gimbal-grip.js";
+import { drawGimbalKnob } from "./gimbal-knob.js";
 import {
   gimbalMarkFace,
   gimbalPoint,
@@ -82,15 +83,13 @@ export function drawGimbalRing(
   ctx.fill(sockets);
   if (shear > 0) drawShear(ctx, at, r, face, left, of, shear);
 
-  // The knurl last of the rim's own furniture and before the mark, so a thumb
-  // that has moved the ring less than a tooth still sees it was heard
-  // (`gimbal-grip.ts`, where the hit test this is the visible half of lives).
-  if (gimbalTurning(s)) drawGimbalKnurl(ctx, l, at, ring, face, gimbalHeld(s, ring));
-
-  // Where the ring is met: the halo while it asks for a hand, and the verdict
-  // of the last one (`gimbal-marks.ts`).
+  // Where the ring is met: the halo while it asks for a hand, under THE
+  // MAZE's knob, lever and channel (`gimbal-knob.ts`), drawn in that order as
+  // THE MAZE draws them (`maze-draw.ts`), and the verdict of the last hand
+  // over all of it (`gimbal-marks.ts`).
   const grip = gimbalRingCircle(l, cfg, s, ring);
   if (grip !== null && gimbalRingAsks(s, ring)) drawMarkHalo(ctx, grip.x, grip.y, grip.r, time);
+  if (grip !== null) drawGimbalKnob(ctx, l, cfg, s, ring, at, gimbalHeld(s, ring), time);
 
   // A ring's own mark is drawn only on the screen that shows both rings: on a
   // seat's own it is the partner who sees it (`gimbal-partner.ts`).
