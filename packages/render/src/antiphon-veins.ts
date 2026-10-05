@@ -1,6 +1,7 @@
 import { type AntiphonState, antiphonSlotCol, type SimConfig } from "@neon-spore/sim";
 import { faded } from "./antiphon-flesh.js";
 import { antiphonCandidateAt, antiphonOrganCircle, antiphonPerch } from "./antiphon-shape.js";
+import { drawAntiphonVeinTracks } from "./antiphon-vein-track.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -32,8 +33,14 @@ import type { SharpRect } from "./slow-intake-aim.js";
  * whole of the redesign was taking the cannon's colours off this fight.
  */
 
-/** How thick a vein is drawn, in tiles, and its bright core. */
-const VEIN_W = 0.2;
+/**
+ * How thick a vein is drawn, in tiles: on the chooser's screen wide enough
+ * to carry the pull's channel inside it, on the explainer's thin enough to
+ * leave the organ the thing to read. Its rim, and its bright core.
+ */
+const VEIN_W = 1.25;
+const VEIN_THIN_W = 0.45;
+const RIM_W = 0.05;
 const CORE_W = 0.07;
 /** How far a vein wobbles off its line, in tiles, and how many waves it has along its length. */
 const WOBBLE = 0.06;
@@ -103,14 +110,22 @@ export function drawAntiphonVeins(
   s.rail.forEach((c, i) => {
     const from = antiphonPerch(l, cfg, c.col);
     const path = veinPath(from, to, grow, l.tile, time, i * 2.1);
-    ctx.strokeStyle = faded(PALETTE.vein, fade);
-    ctx.lineWidth = l.tile * VEIN_W;
+    // The vein's wall, a lighter rim round dark flesh.
+    ctx.strokeStyle = faded(PALETTE.organRim, fade, 0.35);
+    const w = chooser ? VEIN_W : VEIN_THIN_W;
+    ctx.lineWidth = l.tile * (w + RIM_W * 2);
     ctx.stroke(path);
+    ctx.strokeStyle = faded(PALETTE.vein, fade);
+    ctx.lineWidth = l.tile * w;
+    ctx.stroke(path);
+    // On the chooser's screen the pull's channel runs down the middle
+    // (`antiphon-vein-track.ts`); elsewhere a bright core with the ichor
+    // running down it toward the organ, the vein's direction said by the
+    // vein itself.
+    if (chooser) return;
     ctx.strokeStyle = rgba(PALETTE.organ, 0.45 * fade);
     ctx.lineWidth = l.tile * CORE_W;
     ctx.stroke(path);
-    // The ichor running down, toward the organ: the vein's direction said
-    // by the vein itself, with no arrow on it.
     ctx.fillStyle = rgba(PALETTE.organRim, 0.7 * fade);
     for (let b = 0; b < BEADS; b++) {
       const k = (((time / RUN_S + b / BEADS + i * 0.13) % 1) + 1) % 1;
@@ -120,16 +135,10 @@ export function drawAntiphonVeins(
       ctx.arc(q.x, q.y, l.tile * CORE_W * 0.9, 0, Math.PI * 2);
       ctx.fill();
     }
-    if (!chooser)
-      knot(
-        ctx,
-        l,
-        s.carried === i ? antiphonCandidateAt(l, cfg, s, i) : from,
-        s.carried === i,
-        fade,
-      );
+    knot(ctx, l, s.carried === i ? antiphonCandidateAt(l, cfg, s, i) : from, s.carried === i, fade);
   });
   ctx.restore();
+  if (chooser) drawAntiphonVeinTracks(ctx, l, cfg, s, time, fade);
 }
 
 /** The end of a vein on the explainer's screen: a closed knot, or the candidate in hand as a bead. */

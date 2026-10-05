@@ -87,7 +87,7 @@ export function antiphonRailUnder(l: Layout, x: number, y: number, field: Field)
   };
 }
 
-/** The rings, each with the way down its vein, and the one word under them. */
+/** The rings, each with the way down its vein, and the one word where the veins end. */
 export function drawAntiphonRailGrip(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -111,17 +111,17 @@ export function drawAntiphonRailGrip(
       drawPullArrow(ctx, at, r, way, time, { alpha: held ? 0.6 : 0.85 });
     }
   }
-  if (s.carried >= 0) return;
-  // **The cue** (`decisions.md` #34, `boss-cue-text.ts`). It says the verb and
-  // never the answer: one word under the middle of the rail rather than one
-  // per candidate, so it names nothing on it. The seat is the chooser's twice
-  // over: the rail is drawn to them alone, and `cueSeen` says so again.
-  // Under the organ's place, where every vein ends, clear of the rail and
-  // of the unknown turning there.
+  // **The cue** (`decisions.md` #34, `boss-cue-text.ts`): CHOOSE, standing
+  // where the carry ends — the owner, 5 October 2026: *add some helper text
+  // where to pull* — so the word is the destination as well as the verb. It
+  // names nothing on the rail: one word under the organ's place, never one
+  // per candidate, and it stays through the carry because that is when the
+  // way to it is wanted. The seat is the chooser's twice over: the rail is
+  // drawn to them alone, and `cueSeen` says so again.
   const cue: BossCue = {
     seat: antiphonChooser(s),
     kind: "CARRY",
-    word: "PULL",
+    word: "CHOOSE",
     x: organ.x,
     y: organ.y + organ.r + l.tile * WORD_DOWN,
     halfW: l.tile * HALF_W,

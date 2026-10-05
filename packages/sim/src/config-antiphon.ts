@@ -61,10 +61,12 @@ export interface AntiphonConfig {
 /**
  * Sixteen contours in families of four, so a tight rail is one family;
  * six pits before the ship. Three on the rail, three columns apart about the
- * middle, on the row a third of the way down the phone, and the organ two
+ * middle, on the row a third of the way down the phone, and the organ five
  * rows under it (the owner, 5 October 2026: *the organ candidates … are
  * located in around ⅓ from top screen. then some tile rows below (2) there
- * is the original organ shape*). A candidate arrives nine tenths of the way
+ * is the original organ shape*, and later the same day, two rows being too
+ * short a carry: *the location to pull to should be more far away
+ * downwards*). A candidate arrives nine tenths of the way
  * down, and the thumb may stray a tile off the vein. The rail closes in on
  * the family from the second pit and a killed shape comes back from the
  * fifth.
@@ -83,7 +85,7 @@ export const ANTIPHON_DEFAULTS: AntiphonConfig = {
   antiphonRail: 3,
   antiphonRailRow: 3,
   antiphonRailGap: 3,
-  antiphonVeinRows: 2,
+  antiphonVeinRows: 5,
   antiphonReachMilli: 900,
   antiphonVeinSlackMilli: 1000,
   antiphonTightPits: 2,

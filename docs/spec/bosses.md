@@ -5849,7 +5849,9 @@ a vocabulary in real time and gives them nothing to build it out of.
 required any longer.* The organ and its candidates are three times the
 size and all green — a colour no control wears, so nobody thinks they are
 to be shot — the candidates hang a third of the way down, the organ's own
-place two rows under them, each candidate joined to it by a vein, and the
+place five rows under them (two at first; the owner, the same day: *the
+location to pull to should be more far away downwards*), each candidate
+joined to it by a vein, and the
 chooser **drags** the one being described down its vein to the organ's
 place, where it is judged: the organ makes a pit, a decoy loses the wave.
 THE FILAMENT's lesson, a path to drag along and a place to drop at. The
@@ -5936,8 +5938,16 @@ to the organ's place on **both** screens, the organ's green gone deep
 (`PALETTE.vein`) with beads of ichor flowing down them, growing out with the
 organ: on the explainer's each ends in a closed knot and the candidate in
 hand is a shapeless bead coming down, so *how far* is theirs to call and
-*which* is not. On the chooser's screen the organ's place holds **the
-unknown**, a slow green vortex of turning arcs and circling motes. On
+*which* is not. On the chooser's screen the veins are wide, and down each
+runs the shared **pull channel** (`render/antiphon-vein-track.ts`,
+`pull-track.ts`) — chevrons drifting toward the organ, green behind the
+candidate as far as it is carried, THE INSTAR's track in a vein (the owner:
+*the pull should be like regular pull across path like e.g. "the instar"
+with arrows inside the veil path*); the explainer's stay thin, so the
+organ is the thing to read. The organ's place there holds **the
+unknown**, a slow green vortex of turning arcs and circling motes, with
+**CHOOSE** under it — the cue, standing where the carry ends, up through
+the carry. On
 arrival the **reveal** (`render/antiphon-reveal.ts`) stands what arrived
 at the organ's place on every screen for a moment, rimmed light for a pit
 and red for a decoy, beside the verdict ring. The siren lights the

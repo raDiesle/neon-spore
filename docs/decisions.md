@@ -1221,7 +1221,10 @@ IT`, `TAP` over `WHEN P2 SAYS SET`. About forty words changed in one sweep
 `SHUT`, `ROOT`, `FREEZE` and more). A `CALL` is exempt, because its word is
 said out loud rather than done with a thumb. `render/test/cue-verbs.test.ts`
 reads every cue word in `render/src` and holds the rule, and a word that
-starts with something that is not in its gesture list fails it.
+starts with something that is not in its gesture list fails it. A word the
+owner asks for by name is the one other exemption, listed in that test with
+its day: THE ANTIPHON's `CHOOSE`, standing where the veins end, its gesture
+said by the pull channel's chevrons (5 October 2026).
 
 **Reconsider if:** a cue starts carrying a column, a colour or a count. That is
 the pair's own sentence, and a field that says it has taken the game's subject

@@ -97,7 +97,7 @@ export function drawn(
 }
 
 export const turnWord = (words: string[]): boolean => words.some((w) => w.includes("TURN"));
-export const pullWord = (words: string[]): string[] => words.filter((w) => w.includes("PULL"));
+export const chooseWord = (words: string[]): string[] => words.filter((w) => w === "CHOOSE");
 
 /** Whether a frame's log holds the organs' green — the colour no control wears. */
 export const green = (text: string): boolean => text.includes(PALETTE.organ);

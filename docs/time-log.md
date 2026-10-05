@@ -33525,3 +33525,13 @@ Bottleneck: none to speak of — the fx already burst and shook on the hit, so o
 Bottleneck: sorting — telling the eleven cores that hang still from the thirteen targets that move or hang aside, which the table cannot hold.
 
 *Measured: 12 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE ANTIPHON's veins carry the pull channel, further down, to CHOOSE
+
+- reading: 10 min. The shared pull track and THE INSTAR's swipe track.
+- writing: 20 min. `antiphon-vein-track.ts`, the wide and thin veins, the deeper drop, CHOOSE, the tests and §11.31.
+- looking: 15 min. Four frames: the channel first swallowed the vein, and the explainer's fat veins hid the organ.
+- friction: 5 min. The cue-verb rule refused CHOOSE; it is listed there as asked for by name.
+- landing: 10 min.
+
+Bottleneck: finding a width at which the vein and the channel inside it both read.

@@ -19,7 +19,7 @@ export const ANTIPHON_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE ANTIPHON'S ORGAN",
     where:
-      "the organ standing in the middle two rows under the rail, on the " +
+      "the organ standing in the middle five rows under the rail, on the " +
       "explainer's screen — player 1's on the first level, swapping every level",
     seat: "the explainer on their screen; either on the test screen — the same circle for each",
     gesture: "hold",

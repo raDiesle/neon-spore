@@ -58,6 +58,15 @@ const THUMB = new Set([
   "EAT",
 ]);
 
+/**
+ * Words the owner asked for by name where the rule above would have a
+ * gesture, each with its day. `CHOOSE` stands at the end of THE ANTIPHON's
+ * veins, where a candidate is carried to (5 October 2026: *add some helper
+ * text where to pull … choose*); the gesture is said by the chevrons running
+ * down the channel to it, so the word is left to say the decision.
+ */
+const ASKED_BY_NAME = new Set(["CHOOSE"]);
+
 function cueWords(): { file: string; word: string }[] {
   const out: { file: string; word: string }[] = [];
   for (const file of readdirSync(SRC).filter((f) => f.endsWith(".ts"))) {
@@ -79,7 +88,8 @@ describe("the words a cue says", () => {
 
   it("each begin with a gesture or a button, never with the effect", () => {
     const wrong = WORDS.filter(
-      ({ word }) => !THUMB.has((word.split(" ")[0] ?? "").replace(/!$/, "")),
+      ({ word }) =>
+        !ASKED_BY_NAME.has(word) && !THUMB.has((word.split(" ")[0] ?? "").replace(/!$/, "")),
     ).map(({ file, word }) => `${file}: ${word}`);
     expect(wrong).toEqual([]);
   });

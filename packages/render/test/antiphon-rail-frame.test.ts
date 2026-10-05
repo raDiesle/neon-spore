@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import type { ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
-import { count, drawn, frame, grown, hung, pullWord } from "./antiphon-frame-harness.js";
+import { chooseWord, count, drawn, frame, grown, hung } from "./antiphon-frame-harness.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES } from "./frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -72,19 +72,19 @@ describe("THE ANTIPHON's rail", () => {
     expect(bead(2)).toBe(bead(11));
   });
 
-  it("says PULL once under the rail, and never on the explainer's screen", () => {
-    // One word under the middle of the rail rather than one per candidate: a
+  it("says CHOOSE once where the veins end, and never on the explainer's screen", () => {
+    // One word under the organ's place rather than one per candidate: a
     // word on the candidate being described would be the chooser's own
     // reading handed back (`boss-cue-read-p.ts`).
     const world = hung();
     grown(world);
-    expect(pullWord(drawn(world, "p2", 3).words).length).toBe(1);
-    expect(pullWord(drawn(world, "p1", 3).words)).toEqual([]);
+    expect(chooseWord(drawn(world, "p2", 3).words).length).toBe(1);
+    expect(chooseWord(drawn(world, "p1", 3).words)).toEqual([]);
   });
 
-  it("takes the word away while a candidate is in hand", () => {
+  it("keeps the word up while a candidate is in hand, where it is carried to", () => {
     const world = hung();
     grown(world).carried = 1;
-    expect(pullWord(drawn(world, "p2", 3).words)).toEqual([]);
+    expect(chooseWord(drawn(world, "p2", 3).words).length).toBe(1);
   });
 });

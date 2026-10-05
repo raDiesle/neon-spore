@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { antiphonOrganCircle } from "../src/antiphon-shape.js";
+import { antiphonOrganCircle, antiphonPerch } from "../src/antiphon-shape.js";
+import { antiphonVeinTrack } from "../src/antiphon-vein-track.js";
 import { commsCall } from "../src/comms.js";
 import { bossDuty } from "../src/comms-boss.js";
 import { Effects } from "../src/effects.js";
@@ -37,6 +38,30 @@ describe("THE ANTIPHON's veins", () => {
     const up = frame(role, (w) => void grown(w)).text;
     const none = frame(role, () => {}).text;
     expect(count(up, PALETTE.shieldRim)).toBe(count(none, PALETTE.shieldRim));
+  });
+});
+
+describe("THE ANTIPHON's pull channel", () => {
+  it("runs each vein from the candidate's perch to the organ's place", () => {
+    const s = grown(hung());
+    const organ = antiphonOrganCircle(L, CFG);
+    s.rail.forEach((c, i) => {
+      const t = antiphonVeinTrack(L, CFG, s, i);
+      expect(t?.pts[0]).toEqual(antiphonPerch(L, CFG, c.col));
+      expect(t?.pts.at(-1)).toEqual({ x: organ.x, y: organ.y });
+    });
+  });
+
+  it("fills green behind the carry on the chooser's screen, and never on the explainer's", () => {
+    const carried = (role: "p1" | "p2") =>
+      frame(role, (w) => {
+        const s = grown(w);
+        s.carried = 1;
+        s.carryMilli = 500;
+      }).text;
+    const resting = (role: "p1" | "p2") => frame(role, (w) => void grown(w)).text;
+    expect(count(carried("p2"), PALETTE.good)).toBeGreaterThan(count(resting("p2"), PALETTE.good));
+    expect(count(carried("p1"), PALETTE.good)).toBe(count(resting("p1"), PALETTE.good));
   });
 });
 
