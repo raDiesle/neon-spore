@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE GAUGE's wound band turns with THE MAZE's knob, if it is a turn
 
 - **Found:** 2026-10-05, claude/gimbal-turn-controls-aa1635
+- **Taken:** 2026-10-05, claude/task-queue-status-907163 (claim: claude/queue-the-gauges-wound-band-turns-with-the-mazes-knob)
 - **Files:** `packages/render/src/gauge-grip.ts`, `packages/render/src/gauge-tongue-grip.ts`
 
 The same ask THE GIMBAL, THE HASP and THE CLAW's crank have landed
