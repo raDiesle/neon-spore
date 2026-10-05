@@ -33523,3 +33523,5 @@ Bottleneck: none to speak of — the fx already burst and shook on the hit, so o
 - landing: 5 min.
 
 Bottleneck: sorting — telling the eleven cores that hang still from the thirteen targets that move or hang aside, which the table cannot hold.
+
+*Measured: 12 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

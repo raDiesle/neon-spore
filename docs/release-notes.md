@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 99b859058 — Ten more bosses take a hit where the bolt meets their core
+
+THE BURGEE, THE CAPSTAN, THE DAVIT, THE FLUE, THE GALL, THE GOVERNOR, THE HALTER, THE RIME, THE SLING and THE TRIVET now judge a cannon bolt when it reaches the core they hang, as THE GRINDSTONE does. Until now they judged it when it left the top of the field, so the burst and the shake came up to six rows late. Each is one row on the `core-along.ts` table. Its picture reads that row from the sim, and one test plays every boss on the table with its autopilot hand and holds that the burst is drawn no later than the hit.
+
 ## 2026-10-05 · 903b8377a — THE GRINDSTONE's axle takes a hit where the bolt meets it
 
 A bolt up the middle into the lit axle now counts as a hit on the tick it reaches the axle. Before, it only counted when the bolt left the top of the field, so the wheel's flash, its jolt and the next step came a fifth of a beat after the bolt was drawn bursting there. `core-along.ts` holds one row per boss whose core is met where it hangs. The axle is its first row, and the picture stands the axle on the same row.
