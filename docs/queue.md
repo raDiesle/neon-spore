@@ -376,6 +376,7 @@ THE MAZE's knob and `bun run check` is green.
 ## Split ledger-shape.ts before it passes 250 lines
 
 - **Found:** 2026-10-05, claude/queue-the-antiphon-hive-lead-and-ledger-stop-a-bolt-on
+- **Taken:** 2026-10-05, claude/queue-the-antiphon-hive-lead-and-ledger-stop-a-bolt-on (claim: claude/queue-split-ledger-shape-ts-before-it-passes-250-lines)
 - **Files:** `packages/render/src/ledger-shape.ts`
 
 `ledger-shape.ts` is at 249 lines, since `ledgerHalfPoints` was shared out
