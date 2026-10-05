@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · ace19ce39 — THE GIMBAL turns with THE MAZE's knob, lever and channel
+
+Each ring is now turned the way THE MAZE's wheel is: a knob on a lever bolted to the ring, in a closed channel round the rim that fills green from where the knob rests, the either-way arrow until a hand picks one, and PULL under it. The knob rides the ring 40° left of its bearing, off the yoke, and is answered at PULL_GRAB; the rim still takes a thumb too. The knurl is gone. The owner asked for this look by name (5 October 2026): one turn, THE MAZE's, on every wave.
+
 ## 2026-10-05 · 0416e0acf — THE MIMIC holds its frame in its arms, and counts on THE SLOW's fuse
 
 The mantle's own skin is now a frame round each picture's square, the same on both screens, and the crane's two arms hold it by its top corners, low on the field. Only the frames are drawn, not the whole field; THE FLEET's drain bar and seconds are gone and the window burns on THE SLOW's fuse with no slow open. The words, the fight's only help now it has no tutorial, are framed round the frame: TILES / TELL P2 WHERE to the reader, TAP / WHERE P1 SAYS to the painter. A look the owner asked for by name.

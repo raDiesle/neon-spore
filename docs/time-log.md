@@ -33307,3 +33307,5 @@ Bottleneck: the core's bare frame cannot be taken under AUTO, which taps it on t
 - landing: 0 min.
 
 Bottleneck: the first frame put the knob under the yoke, and seeing it cost a second round of frames.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
