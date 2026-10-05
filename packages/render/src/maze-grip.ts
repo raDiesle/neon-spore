@@ -106,7 +106,7 @@ export function mazeHeartUnder(l: Layout, x: number, y: number, field: Field): T
 export function mazeGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
   const m = bossOf(field, "maze");
   if (m === null) return undefined;
-  if (mazeStringAsks(m) && hitCircle(mazeStringGrab(l, field.cfg), x, y)) return 1;
+  if (mazeStringAsks(m) && hitCircle(mazeStringGrab(l, field.cfg, m), x, y)) return 1;
   if (mazeHeartAsks(m) && hitCircle(mazeHeartCircle(l, field.cfg, m), x, y)) {
     const [p1 = 0, p2 = 0] = m.gripShookMilli;
     return p1 < p2 ? 1 : 2;

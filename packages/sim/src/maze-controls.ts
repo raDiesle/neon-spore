@@ -1,6 +1,12 @@
-import { mazeBottomCol, mazeClickAngle, mazeDragTurn, mazeEntranceCol, mazeWrap } from "./maze.js";
+import { mazeBottomCol, mazeDragTurn, mazeWrap } from "./maze.js";
+import {
+  mazeBreakDetent,
+  mazeClickIntoColumn,
+  mazeLetGo,
+  mazeSettleNow,
+  stepMazeCatch,
+} from "./maze-catch.js";
 import { enterMazePhase, type MazeState, mazeCurrent } from "./maze-state.js";
-import type { MazeWheel } from "./maze-wheel.js";
 import type { Color, Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -81,7 +87,7 @@ function valveHeard(m: MazeState, on: boolean, dir: -1 | 1): void {
     if (m.turn === dir) m.turn = 0;
     return;
   }
-  breakDetent(m);
+  mazeBreakDetent(m);
   m.turn = dir;
 }
 
@@ -107,6 +113,9 @@ function valveHeard(m: MazeState, on: boolean, dir: -1 | 1): void {
  */
 function dragHeard(world: World, m: MazeState, on: boolean, fromMilli: number): void {
   if (!on) {
+    // The knob stays where it was let go, and coasts on a little unless it
+    // is in a click (`maze-catch.ts`). Only a hand that was on it lets go.
+    if (m.dragging && m.phase === "read") mazeLetGo(world, m);
     m.dragging = false;
     m.dragFromMilli = 0;
     return;
@@ -117,9 +126,13 @@ function dragHeard(world: World, m: MazeState, on: boolean, fromMilli: number): 
   if (!m.dragging) {
     m.dragging = true;
     m.dragFromMilli = fromMilli;
-    // A hand on the string takes it off the thumb. Two pulls at once is not a
-    // thing either player can see, and the hand is the one they can point at.
+    m.leverGrabMilli = m.leverMilli;
+    m.leverVelMilli = 0;
+    // A hand on the string takes it off the thumb and stops a coast. Two
+    // pulls at once is not a thing either player can see, and the hand is
+    // the one they can point at.
     m.turn = 0;
+    m.glideMilli = 0;
     return;
   }
   const moved = fromMilli - m.dragFromMilli;
@@ -128,52 +141,19 @@ function dragHeard(world: World, m: MazeState, on: boolean, fromMilli: number): 
   // measurement is from the detent and not from wherever the hand has crept
   // to since. Without this a resting hand's own jitter took a pair's column
   // back off them between agreeing on it and saying it.
-  if (m.lockedWay >= 0 && Math.abs(moved) < world.cfg.mazeDragBreakMilli) return;
+  const locked = m.lockedWay >= 0;
+  if (locked && Math.abs(moved) < world.cfg.mazeDragBreakMilli) return;
   m.dragFromMilli = fromMilli;
+  m.leverMilli += moved;
+  m.leverVelMilli = moved;
   const turned = mazeDragTurn(world.cfg, moved);
   if (turned === 0) return;
-  breakDetent(m);
-  m.angleMilli = mazeWrap(m.angleMilli + turned);
-  clickIntoColumn(world, m, wheel);
-}
-
-/**
- * Coming out of a click. That is the whole of "pull again": the detent holds
- * until somebody pulls out of it, and the wheel is disarmed until the rim is
- * clear of every column, or it would click straight back into the one it was
- * just pulled out of.
- */
-function breakDetent(m: MazeState): void {
-  if (m.lockedWay >= 0) m.armed = false;
-  m.lockedCol = -1;
-  m.lockedWay = -1;
-}
-
-/**
- * A way in onto a column, if one has come round to one and the wheel is armed
- * for it. Called by both gestures rather than written twice: which angle counts
- * as *on* a column is one rule, and a second copy of it is how the thumb and
- * the hand come to stop in two different places.
- */
-function clickIntoColumn(world: World, m: MazeState, wheel: MazeWheel): boolean {
-  let clear = true;
-  for (const [way] of wheel.entrances.entries()) {
-    const col = mazeEntranceCol(world.cfg, wheel, m.angleMilli, way);
-    if (col < 0) continue;
-    clear = false;
-    if (!m.armed) continue;
-    // Pulled exactly onto the column rather than merely near it: the light has
-    // to read as standing *on* the column the pair is about to say out loud.
-    m.angleMilli = mazeClickAngle(world.cfg, wheel, m.angleMilli, way, col);
-    m.lockedWay = way;
-    m.lockedCol = col;
-    m.turn = 0;
-    world.events.push({ type: "mazeCommit", mouth: way, col });
-    return true;
-  }
-  // Between two columns the wheel is armed again, and the next one catches.
-  if (clear) m.armed = true;
-  return false;
+  mazeBreakDetent(m);
+  // Out of a click the wheel eases after the hand rather than jumping the
+  // whole break distance in a tick; anywhere else it is under the hand.
+  if (locked) m.settleMilli = turned;
+  else m.angleMilli = mazeWrap(m.angleMilli + turned);
+  mazeClickIntoColumn(world, m, wheel);
 }
 
 /**
@@ -187,12 +167,13 @@ function clickIntoColumn(world: World, m: MazeState, wheel: MazeWheel): boolean 
  */
 export function stepMazeTurn(world: World): void {
   const m = mazeRound(world);
-  if (m === null || m.phase !== "read" || m.turn === 0) return;
+  if (m === null || m.phase !== "read") return;
   const wheel = mazeCurrent(m);
   if (wheel === null) return;
-
+  stepMazeCatch(world, m, wheel);
+  if (m.turn === 0) return;
   m.angleMilli = mazeWrap(m.angleMilli + m.turn * world.cfg.mazeTurnMilli);
-  clickIntoColumn(world, m, wheel);
+  mazeClickIntoColumn(world, m, wheel);
 }
 
 /**
@@ -220,6 +201,9 @@ export function mazeHeard(world: World, color: Color): boolean {
   const wheel = mazeCurrent(m);
   const route = wheel?.entrances[m.lockedWay]?.route ?? [];
   if (route.length === 0) return false;
+  // A wheel still easing onto the column is put on it: the shot goes in at
+  // the angle the light is standing at, and nothing turns under it.
+  mazeSettleNow(m);
   m.way = m.lockedWay;
   m.shotColor = color === "red" ? 0 : 1;
   m.step = 0;

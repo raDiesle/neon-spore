@@ -1885,9 +1885,19 @@ is wide on purpose (the owner, 25 September 2026: *the entrance should snap a
 little, so it is easier to position*): the click centres the mouth wherever it
 caught, so the window only decides how near is near enough, and the way in's
 funnel is drawn to exactly that width (`packages/render/src/maze-funnel.ts`). `mazeDragBreakMilli` is how far the hand
-has to carry on past a click before it breaks — a fifth of a tile: the
-detent's hysteresis, so a thumb jittering on the handle does not undo a click
-the pair had just agreed on, and firm enough that the click is felt.
+has to carry on past a click before it breaks — nearly half a tile since
+5 October 2026, when the owner asked for a caught way in to *stay more locked*
+as the thumb lifts: the detent's hysteresis, so a thumb jittering on the handle
+does not undo a click the pair had just agreed on, and firm enough that the
+click is felt. **A catch eases and a release coasts** (`packages/sim/src/maze-catch.ts`,
+the same day): the lock is taken on the tick the way in comes within the
+window, and the wheel travels onto the column over a few ticks — a share
+`mazeEaseMilli` of what is left each tick, never less than
+`mazeEaseLeastMilli` — rather than in one jump; a broken detent eases after
+the hand the same way. The knob stays where it is let go (`leverMilli`), and a
+release out of a click coasts on by `mazeGlideTicks` of the hand's last speed,
+never more than `mazeGlideMaxMilli` of hand travel nor less than
+`mazeGlideLeastMilli` a tick, catching a column it reaches like a pull.
 
 **What the field says** (`render/src/boss-cue-read-e.ts`, 18 September 2026,
 `docs/decisions.md` #34). Three words, all of them a seat's own verb, and only

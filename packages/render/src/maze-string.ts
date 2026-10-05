@@ -68,7 +68,9 @@ function round(c: { cx: number; cy: number }, r: number, a: number): Point {
 
 /**
  * Where the knob actually stands: the rest carried round the ring by however
- * far the hand has taken it — any distance, since the ring has no ends.
+ * far hands have taken it — any distance, since the ring has no ends — and
+ * left there when they let go (`leverMilli`; the owner, 5 October 2026: *stay
+ * on its current position and not snap back*).
  *
  * The knob sits under the finger on **both** screens, so the navigator
  * watches the pilot pull rather than only the wheel's answer to it — and a
@@ -82,19 +84,18 @@ export function mazeStringHandle(
   m: MazeState,
 ): { x: number; y: number; off: number } {
   const ring = knobRing(l, cfg);
-  const off = (m.dragFromMilli * l.tile) / 1000;
+  const off = (m.leverMilli * l.tile) / 1000;
   return { ...round(ring, ring.r, STRING_ANGLE - off / ring.r), off };
 }
 
 /**
- * Where the handle rests, with no hand on it.
+ * Where the handle rests before any hand has moved it, and its size.
  *
- * **The one place it is written down.** `touch.ts` answers a press exactly
- * here and this file draws exactly here, for the reason `layout.ts` gives
- * about every other control: a button drawn in one place and answered in
- * another is a button that works until somebody moves one of them. It reads
- * the layout and the config and nothing in the round, so a press is tested
- * against the same circle whatever the wheel is doing.
+ * The knob does not come back here when it is let go, so a press is answered
+ * where the knob stands (`mazeStringGrab`) — the same `mazeStringHandle` this
+ * file draws it at, for the reason `layout.ts` gives about every other
+ * control: a button drawn in one place and answered in another is a button
+ * that works until somebody moves one of them.
  */
 export function mazeStringCircle(l: Layout, cfg: SimConfig): Circle {
   const ring = knobRing(l, cfg);
@@ -116,12 +117,13 @@ export function mazeStringRim(
 }
 
 /**
- * The circle a press is answered in: the knob widened by `PULL_GRAB`, since a
- * handle is hard to catch at the size it is drawn (the owner, generic).
+ * The circle a press is answered in: the knob where it stands, widened by
+ * `PULL_GRAB`, since a handle is hard to catch at the size it is drawn (the
+ * owner, generic).
  */
-export function mazeStringGrab(l: Layout, cfg: SimConfig): Circle {
-  const rest = mazeStringCircle(l, cfg);
-  return { ...rest, r: rest.r * PULL_GRAB };
+export function mazeStringGrab(l: Layout, cfg: SimConfig, m: MazeState): Circle {
+  const knob = mazeStringHandle(l, cfg, m);
+  return { x: knob.x, y: knob.y, r: mazeStringCircle(l, cfg).r * PULL_GRAB };
 }
 
 /**
@@ -162,7 +164,11 @@ export function drawMazeString(
   const held = m.dragging;
   const ring = knobRing(l, cfg);
   const track = mazeStringTrack(l, cfg, rest.r * PULL_TRACK_W);
-  const at = knob.off / (2 * Math.PI * ring.r);
+  const lap = 2 * Math.PI * ring.r;
+  const at = knob.off / lap;
+  // The channel fills from where this hand took the knob, which is no longer
+  // the rest once a knob has been let go anywhere else.
+  const origin = held ? (m.leverGrabMilli * l.tile) / 1000 / lap : at;
   // The channel stops at every way in, so a gap opens onto the field rather
   // than onto a grey band (the owner, 5 October 2026).
   const wheel = mazeCurrent(m);
@@ -171,13 +177,13 @@ export function drawMazeString(
     const drum = mazeDrum(l, cfg);
     ctx.clip(mazeOutsideGaps(cfg, wheel, drum, m.angleMilli, ring.r * 1.6), "evenodd");
   }
-  drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at, time });
+  drawPullTrack(ctx, track, { ...LOOK, held, origin, at, time });
   ctx.restore();
   // The arrow in the knob: round the rim, either way until the hand picks
   // one, and only on the seat that turns it.
   const mine = handleIsMine(role);
-  const way: PullWay | null = mine ? pullWay(track, at, at < 0 ? 0 : 1) : null;
-  const either = mine && at === 0;
+  const way: PullWay | null = mine ? pullWay(track, at, at < origin ? 0 : 1) : null;
+  const either = mine && at === origin;
   drawMazeLever(ctx, mazeDrum(l, cfg), knob, rest.r, held);
   drawPullKnob(ctx, knob, rest.r, { ...LOOK, held, time, way, either });
 

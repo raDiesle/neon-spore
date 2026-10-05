@@ -12,6 +12,7 @@ import {
   mazeOf,
   PAIR,
   send,
+  settle,
   THREE,
   TPB,
   untilReading,
@@ -126,7 +127,8 @@ test("a way in clicks onto a column and the wheel stops itself there", () => {
   expect(m.lockedWay).toBeGreaterThanOrEqual(0);
   expect(m.lockedCol).toBeGreaterThanOrEqual(0);
   expect(m.turn).toBe(0);
-  // Exactly on the column, not merely near it.
+  // Exactly on the column, not merely near it, once it has eased there.
+  settle(world);
   const x = mazeEntranceX(CFG, mazeOf(world).rounds[0]!, m.angleMilli, m.lockedWay);
   expect(Math.abs(x - (m.lockedCol * 1000 + 500))).toBeLessThanOrEqual(2);
   // And it stays there with the thumb still down: only a fresh pull moves on.
@@ -222,6 +224,8 @@ test("an entrance settles onto a column rather than drifting past it", () => {
   const wheel = mazeCurrent(m);
   if (wheel === null) throw new Error("no wheel");
   expect(mazeEntranceCol(CFG, wheel, m.angleMilli, m.lockedWay)).toBe(m.lockedCol);
+  settle(world);
+  expect(mazeEntranceCol(CFG, wheel, m.angleMilli, m.lockedWay)).toBe(m.lockedCol);
 
   // And it holds there while the hand carries on, instead of being pulled
   // straight off again by the very next message. The snapped angle is the new
@@ -248,13 +252,19 @@ test("carrying on past a detent pulls out of it and into the next", () => {
   const world = install();
   untilReading(world);
   let f = 0;
+  // A click is the moment the wheel goes from free to caught; the angle it is
+  // caught at is read once it has eased onto the column.
   const stopAt = (want: number): number => {
+    let was = mazeOf(world).lockedWay >= 0;
     for (let i = 0; i < 4000; i++) {
       f += 40;
       send(world, 1, { kind: "drag", target: "mazeString", on: true, fromMilli: f });
-      if (mazeOf(world).lockedWay >= 0 && mazeOf(world).angleMilli !== want) {
-        return mazeOf(world).angleMilli;
+      const now = mazeOf(world).lockedWay >= 0;
+      if (now && !was) {
+        settle(world);
+        if (mazeOf(world).angleMilli !== want) return mazeOf(world).angleMilli;
       }
+      was = now;
     }
     throw new Error("nothing clicked");
   };
@@ -290,8 +300,10 @@ test("a fresh grab measures from where the wheel now stands, not from the last o
   const world = install();
   untilReading(world);
   drag(world, 1000);
-  const after = mazeOf(world).angleMilli;
   send(world, 1, { kind: "drag", target: "mazeString", on: false, fromMilli: 0 });
+  // Whatever coast the release carried, run out before the hand comes back.
+  settle(world);
+  const after = mazeOf(world).angleMilli;
   // The hand comes back at the same displacement it let go at. Nothing should
   // move: a grab is its own origin.
   send(world, 1, { kind: "drag", target: "mazeString", on: true, fromMilli: 1000 });

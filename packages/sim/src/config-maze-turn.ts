@@ -46,6 +46,12 @@ export interface MazeTurnConfig {
    * pixels of thumb was a click nobody felt. Out of it, the wheel jumps the
    * whole distance at once — a detent letting go, about nine degrees, clear
    * of the snap window so it cannot catch straight back.
+   *
+   * **Nearly half a tile since 5 October 2026**, from 0.2: the owner asked for
+   * a way in caught under the cannon to *stay more locked to it* when the hand
+   * lets go — the last slip of a lifting thumb was breaking it. The wheel no
+   * longer jumps the distance when it does break: it eases after the hand
+   * (`maze-catch.ts`).
    */
   mazeDragBreakMilli: number;
   /**
@@ -62,13 +68,41 @@ export interface MazeTurnConfig {
    * it only means a pull that stops near enough is caught. It is also the
    * width the way in's funnel is drawn to (`maze-funnel.ts`), so what a pair
    * sees is what catches.
+   *
+   * **Widened again on 5 October 2026**, to just inside the column's own
+   * half-width (the owner: *increase the lock radius further*). The click no
+   * longer sets the wheel on the column in a tick — it eases there.
    */
   mazeSnapMilli: number;
+  /**
+   * The ease onto a caught column, and after a broken one: the share of what
+   * is left to turn that each tick takes, in thousandths, and the least it
+   * takes in thousandths of a degree so the tail does not crawl. The same
+   * share carries a coast. About a sixth of a second for a catch at the edge
+   * of the window (the owner, 5 October 2026: *smooth fast movement, not
+   * jumping*).
+   */
+  mazeEaseMilli: number;
+  mazeEaseLeastMilli: number;
+  /**
+   * The coast after a release out of a click: so many ticks of the hand's
+   * last speed, never more than the cap, in thousandths of a tile of hand
+   * travel, and the least a tick of it moves. *A little more*, the owner
+   * said, so a fling carries the wheel a few degrees and not a lap.
+   */
+  mazeGlideTicks: number;
+  mazeGlideMaxMilli: number;
+  mazeGlideLeastMilli: number;
 }
 
 export const MAZE_TURN_DEFAULTS: MazeTurnConfig = {
   mazeTurnMilli: 600,
   mazeLeverOutMilli: 450,
-  mazeDragBreakMilli: 200,
-  mazeSnapMilli: 450,
+  mazeDragBreakMilli: 450,
+  mazeSnapMilli: 490,
+  mazeEaseMilli: 350,
+  mazeEaseLeastMilli: 250,
+  mazeGlideTicks: 10,
+  mazeGlideMaxMilli: 900,
+  mazeGlideLeastMilli: 8,
 };

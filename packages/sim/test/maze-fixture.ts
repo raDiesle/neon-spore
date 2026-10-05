@@ -131,6 +131,16 @@ export function past(world: World, phase: string, ticks: number): SimEvent[] {
   return seen;
 }
 
+/** Run ticks until the wheel has eased onto its click and any coast has run out (`maze-catch.ts`). */
+export function settle(world: World): void {
+  for (let i = 0; i < 400; i++) {
+    const m = mazeOf(world);
+    if (m.settleMilli === 0 && m.glideMilli === 0) return;
+    step(world, []);
+  }
+  throw new Error("the wheel never came to rest");
+}
+
 /** Grab the handle, then report the hand at each of these displacements. */
 export function drag(world: World, ...fromMilli: number[]): void {
   send(world, 1, { kind: "drag", target: "mazeString", on: true, fromMilli: 0 });

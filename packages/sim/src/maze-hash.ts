@@ -36,6 +36,14 @@ export function mazeHashParts(m: MazeState): number[] {
     // WARDEN's rope is hashed for this reason, field for field.
     m.dragging ? 1 : 0,
     m.dragFromMilli,
+    // Where the knob stands, and the ease and coast still owed: the wheel is
+    // carried by the last two on every tick, so a disagreement about them is
+    // a disagreement about the angle a tick later.
+    m.leverMilli,
+    m.leverGrabMilli,
+    m.leverVelMilli,
+    m.glideMilli,
+    m.settleMilli,
     m.lockedCol,
     m.lockedWay,
     m.way,

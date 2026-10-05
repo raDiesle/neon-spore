@@ -179,6 +179,7 @@ by hand never moves.
 | `packages/sim/src/kinds.ts` | what a `CreatureKind` *means*: colour, fall speed, width, whether a hand may be put on it |
 | `packages/sim/src/maze-clock.ts` | THE MAZE's clock: how long each part of a round stands, in beats |
 | `packages/sim/src/maze-controls.ts` | THE MAZE's two verbs, and they are the whole of what the pair can do |
+| `packages/sim/src/maze-catch.ts` | **How THE MAZE's wheel catches, lets go and coasts** |
 | `packages/sim/src/maze-round.ts` | the round the pair plays against THE MAZE, and what it costs them |
 | `packages/sim/src/maze-wheel.ts` | THE MAZE's drum as a *written-down thing*: its circles, walls and openings, and what is wrong with them if they were typed wrong |
 | `packages/sim/src/maze.ts` | THE MAZE's wheel, as arithmetic |

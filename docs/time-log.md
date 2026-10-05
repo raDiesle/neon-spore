@@ -33585,3 +33585,13 @@ Bottleneck: the registrations a reworked boss owes outside the simulation, found
 Bottleneck: telling the bezel, the funnel floor and the lever's channel apart in a frame, three greys on one rim.
 
 *Measured: 10 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE MAZE's lever stays where it is let go, coasts a little, and eases onto a column
+
+- reading: 5 min. `maze-controls.ts`'s drag and click, the state's reset and hash, and every caller of the knob's circle.
+- writing: 20 min. `maze-catch.ts`, five state fields and seven config rows, the knob and the press read off `leverMilli`, six new tests and four old ones taught to wait for the ease.
+- looking: 5 min. One frame, which could not show a release: the frames tool holds the hand to the last tick.
+- friction: 5 min. A Python edit script that cut the old helpers twice and stopped on the second.
+- landing: 5 min. A new render test owes its own timeout, and the config rows owe the spec a sentence.
+
+Bottleneck: the four old wheel tests assumed the click landed in one tick, and each had to be taught to wait.

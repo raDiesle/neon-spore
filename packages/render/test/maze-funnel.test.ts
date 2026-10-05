@@ -112,7 +112,7 @@ describe("THE MAZE's lit way in and the lever's knob", () => {
     const rest = mazeStringCircle(l, CFG);
     const ringR = Math.hypot(rest.x - d.cx, rest.y - d.cy);
     const restAngle = Math.atan2(d.cx - rest.x, rest.y - d.cy);
-    m.dragFromMilli = Math.round((restAngle * ringR * 1000) / l.tile);
+    m.leverMilli = Math.round((restAngle * ringR * 1000) / l.tile);
     const knob = mazeStringHandle(l, CFG, m);
     const mouth = mazeDoorMouth(l, CFG, m, w, 0);
     expect(Math.hypot(knob.x - mouth.x, knob.y - mouth.y)).toBeLessThan(rest.r * 2);

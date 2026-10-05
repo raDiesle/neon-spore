@@ -47,6 +47,24 @@ export interface MazeState {
    */
   dragging: boolean;
   dragFromMilli: number;
+  /**
+   * Where the lever's knob stands round its ring, as hand travel from its
+   * rest in thousandths of a tile, and where it stood when the hand last took
+   * it. The knob stays where it was let go (the owner, 5 October 2026: *not
+   * snap back to original*), so the place a press is answered moves with it,
+   * and the channel fills from the grab. Back to the rest when a wheel is wiped.
+   */
+  leverMilli: number;
+  leverGrabMilli: number;
+  /** The hand's last speed round the ring, in thousandths of a tile a tick,
+   * halved every tick it is held, so a hand that stopped does not coast. */
+  leverVelMilli: number;
+  /** Hand travel still to coast after a release, in thousandths of a tile
+   * (`maze-catch.ts`). Never in a click. */
+  glideMilli: number;
+  /** Turn still to ease, in thousandths of a degree: onto a column just
+   * caught, or after a hand that pulled out of one. */
+  settleMilli: number;
   /** The column a way in has clicked onto, -1 for none. */
   lockedCol: number;
   /** Which way in is the one clicked, -1 for none. */
@@ -124,6 +142,11 @@ export function enterMazePhase(m: MazeState, phase: MazePhase, beat: number): vo
   m.armed = true;
   m.dragging = false;
   m.dragFromMilli = 0;
+  m.leverMilli = 0;
+  m.leverGrabMilli = 0;
+  m.leverVelMilli = 0;
+  m.glideMilli = 0;
+  m.settleMilli = 0;
   m.lockedCol = -1;
   m.lockedWay = -1;
   m.way = -1;
@@ -150,6 +173,11 @@ export function installMaze(world: World, rounds: MazeWheel[], upright = false):
     armed: true,
     dragging: false,
     dragFromMilli: 0,
+    leverMilli: 0,
+    leverGrabMilli: 0,
+    leverVelMilli: 0,
+    glideMilli: 0,
+    settleMilli: 0,
     lockedCol: -1,
     lockedWay: -1,
     way: -1,

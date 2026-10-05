@@ -27,7 +27,7 @@ import { bossOf } from "./touch-field.js";
 export function mazeStringUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const m = bossOf(field, "maze"); // under `grip` the hands are on the heart (`maze-grip.ts`)
   if (m === null || !mazeStringAsks(m)) return null;
-  if (!hitCircle(mazeStringGrab(l, field.cfg), x, y)) return null;
+  if (!hitCircle(mazeStringGrab(l, field.cfg, m), x, y)) return null;
   const command: Command = {
     kind: "drag",
     target: "mazeString",
