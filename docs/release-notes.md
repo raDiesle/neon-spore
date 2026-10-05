@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 117c1bf51 — THE LEAD and LEDGER stop a bolt on what they meet
+
+A bolt fired up under THE LEAD is drawn stopping on the ridge's underside, which spans the field: while the stalk paces it ends there with no burst and is drawn on climbing out of the ridge as its flight, and any other time it scuffs on the plating or the rock. Under THE LEDGER it stops where the body hangs into the field — bursting at the seam's mouth in the colour the seam wants, scuffing in the other or while the cord roots, and scuffing on the plating up either flanking column. `BoltStops` gains `pass`, a meeting with no burst; the ridge's and the halves' points are shared out of their shape files.
+
 ## 2026-10-05 · ace19ce39 — THE GIMBAL turns with THE MAZE's knob, lever and channel
 
 Each ring is now turned the way THE MAZE's wheel is: a knob on a lever bolted to the ring, in a closed channel round the rim that fills green from where the knob rests, the either-way arrow until a hand picks one, and PULL under it. The knob rides the ring 40° left of its bearing, off the yoke, and is answered at PULL_GRAB; the rim still takes a thumb too. The knurl is gone. The owner asked for this look by name (5 October 2026): one turn, THE MAZE's, on every wave.
