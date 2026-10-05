@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 39a820900 — THE MAZE's ways in shine a yellow light, the one on the column shines blue, and nothing grey crosses them
+
+Every way in that is not on the cannon's column now leans a short wedge of warm yellow light straight out of the drum, drawn over the lever's knob, so a pair sees every room with a light on before one is open. The one clicked onto the column shines blue instead of green, its light down the column and its lips both. The grey floor across each funnel's mouth is gone, and the lever's grey channel round the rim now stops at every way in, so a gap opens onto the field. A look the owner asked for by name.
+
 ## 2026-10-05 · cb11a714f — THE LAMPREY leaps about the field, and its controls change every stay
 
 The eel no longer bites the hull behind the ship. It leaps to a tile anywhere on the field, each leap further than the last (1 tile, then 2, up to 7), bites in under THE SLOW, and asks for a different pair of hands each stay: hold the tail while the other pulls the head up; hold the tail while the other taps the lit tooth; or both pull at once, the tail one way and the head up (the added variation). Gullet stays are shot in their colour in the eel's own column. A stay that runs out bites through to the hull. The tail lies away from the next tile, and both ends wear the field's shipped pull knob and channel.

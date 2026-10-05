@@ -33583,3 +33583,5 @@ Bottleneck: the registrations a reworked boss owes outside the simulation, found
 - landing: 5 min. A new palette colour owes the style-guide sheet and its specimen list.
 
 Bottleneck: telling the bezel, the funnel floor and the lever's channel apart in a frame, three greys on one rim.
+
+*Measured: 10 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
