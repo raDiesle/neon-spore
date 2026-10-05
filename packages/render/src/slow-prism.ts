@@ -21,11 +21,15 @@ import type { SlowWindow } from "./slow-look.js";
  * apart into three lines exactly while the pair read it (2 October 2026).
  */
 
-/** The split held for the whole window, as a share of each point's distance from the boss. */
-const HOLD = 0.018;
+/**
+ * The split held for the whole window, as a share of each point's distance
+ * from the boss. Cut to a third with `KICK` on 5 October 2026: the owner found
+ * the red and green edges stood too far off the boss's own outline.
+ */
+const HOLD = 0.006;
 
 /** What each beat adds on its downbeat, gone again before the next. */
-const KICK = 0.028;
+const KICK = 0.009;
 
 /** How fast a beat's kick dies, as a power of what is left of the beat. */
 const DECAY = 3;

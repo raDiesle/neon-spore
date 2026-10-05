@@ -33213,3 +33213,13 @@ Bottleneck: none — thirty one-line exports moved whole, and the chain from pag
 Bottleneck: the face-on head is drawn a half at a time through a squeeze about the snout, so its outline had to come out of the same transform rather than a copy of it.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-05 — PRISM's colour split cut to a third
+
+- reading: 15 min. Looking for "red and green edges" in render/ and the field before a boss wave showed it.
+- writing: 5 min. `HOLD` and `KICK` in `slow-prism.ts`, halved, then a third.
+- looking: 10 min. THE FLUE's window rendered before and after, three times.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: finding the effect — it is only on boss waves, inside the slowed window, and nothing in the code calls it red and green.
