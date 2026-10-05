@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 32cc48b9f — THE HIVE's walls are an arch of its own wax, a cocoon on its side in every socket
+
+The mass now runs down both sides of the field in one contour with the top. The corners are filled and carry no cocoon, so the field is the hole in an arch. The inner face leaves each corner steep, narrows to a drip below the lowest cocoon, is lumped and breathes, and swells into lips on the shoulders of every cocoon. A wall's cocoon is the underside's drop laid on its side, drawn under the wax so it grows out of the socket. A bolt is drawn stopping on the corners and on a cocoon's side, never in the next column, and the pilot's ring stands beside the cocoon in the field.
+
 ## 2026-10-05 · 9013aa970 — THE HIVE hangs down both walls, and a held thumb reaches past the lowest cocoon
 
 The mass now carries three cocoons down each side of the field as well as seven sites along its underside, the corners left clear where it curves into the walls. A bolt fired straight up a wall meets the lowest cocoon on it; the pilot's thumb held on a higher one steers every shot he fires round the corner into it. A wall's breach spills sideways into the next column. The simulation half: the cocoons are drawn in place as the underside's drops until the walls' own look lands. The rehearsal moved to a seed that plays the same film.
