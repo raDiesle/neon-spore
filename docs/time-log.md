@@ -33187,3 +33187,5 @@ Bottleneck: THE HALTER — its chord is one seat's two grips while the other res
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: THE TRIVET — its row 11 had been marked done in the queue with nothing written, so the one honest answer was to put it back rather than tidy the sentence.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
