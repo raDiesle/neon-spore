@@ -378,30 +378,33 @@ own column does — and THE LEDGER; each gets its row in `own-stop.test.ts`.
 Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 `own-stop.test.ts`, and `bun run check` is green.
 
-## THE INSTAR's heads, wings, tail and nests stop a bolt
+## THE INSTAR's wings, tail and nests stop a bolt
 
 - **Found:** 2026-10-04, claude/queue-work-cccabd
 - **Where:** local
-- **Files:** `packages/render/src/instar-stop.ts`, `packages/render/src/instar-head.ts`, `packages/render/src/instar-wings.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/instar-eggs.ts`
+- **Files:** `packages/render/src/instar-stop.ts`, `packages/render/src/instar-wings.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/instar-eggs.ts`
 
 The second half of THE INSTAR's bolt stop (the owner, 1 October 2026, *but
 also all other bosses*; the rule is the last bullet of
 `.claude/skills/new-boss/generic.md`). `render/instar-stop.ts` stops a bolt
-on its SHOOT marks and on its body's tube in each view — the face-on seen
-rings, the side-on hide from `profileLines` — through the flight and the
-shake. The face-on and side-on heads (`INSTAR_HEAD.front`,
-`INSTAR_BODY.head`), the wings (`drawWing`), the tail (`drawTail`) and the
-nests are drawn but not met: a bolt passes them to the tube or the sky.
+on its SHOOT marks, on its body's tube in each view — the face-on seen
+rings, the side-on hide from `profileLines` — and, since 5 October 2026, on
+both heads (`render/instar-head-stop.ts`: the face-on chin and skull through
+`turnedHeadPoint`, the side-on jaw and skull grown, swum and bobbing), all
+through the flight and the shake. The wings (`drawWing`, face-on off the
+shoulder and side-on off the back), the tail (`drawTail`) and the nests
+(`drawNests`, which ride `swimLook`) are drawn but not met: a bolt passes
+them to the tube, the head or the sky.
 
-Each needs its points handed out beside its path, the way `profileLines`
-and `seeFrontBody` hand out the tube's, and a foot pushed in
-`instarStopper` laid through the same `lay`. The heads first: they hang
-lowest face-on. `render/test/instar-stop.test.ts` and
-`render/test/scene-harness.ts` set a step; a test per part that a bolt
-under it stops on it.
+Each needs its points handed out beside its path, the way
+`frontJaws`/`UPPER`/`LOWER` and `sideHeadPoints` hand out the heads', and a
+foot pushed in `instarStopper` laid through the same `lay`. The wings are
+projected (`view`, `see`), so their points come out of the same projection
+`drawWing` calls. `render/test/instar-stop.test.ts`'s `landedSeen` finds a
+step seen face-on or side-on; a test per part that a bolt under it stops on
+it.
 
 Done when each part named here is met, and `bun run check` is green.
-
 ## A desk's chord body is drawn as `HOLD BOTH` is drawn
 
 - **Found:** 2026-10-04, claude/queue-work-cccabd

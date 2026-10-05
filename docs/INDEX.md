@@ -1931,6 +1931,7 @@ by hand never moves.
 | `packages/render/src/instar-head.ts` | **THE INSTAR's head, face-on**: a dragon's, the jaws wide at the ship |
 | `packages/render/src/instar-head-parts.ts` | **The small parts of THE INSTAR's face**: the horns, the eyes, the fangs and the sinew strung between the jaws |
 | `packages/render/src/instar-head-look.ts` | **THE INSTAR's head, as the one record every view draws it through** |
+| `packages/render/src/instar-head-stop.ts` | **Where a bolt meets THE INSTAR's heads** (`instar-stop.ts`): the chin and the skull face-on |
 | `packages/render/src/instar-heart.ts` | THE INSTAR's bare heart: a glow beating at the heart mark, put out by each shot |
 | `packages/render/src/instar-heart-baked.ts` | **THE INSTAR's heart, baked** — the tenth example (`sprite-bake.ts`) |
 | `packages/render/src/instar-hide.ts` | **What THE INSTAR's hide is made of**, over the dark plate `drawPlate` lays down |

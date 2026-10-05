@@ -13,6 +13,18 @@ import type { SceneStep } from "@neon-spore/sim";
  * behind a frame and was within a few lines of its limit. Cleared with it.
  */
 
+/** How far a lip shoved at full strength jumps outward, in head radii, and how fast it quivers. */
+const TREMBLE = 0.09;
+const TREMBLE_HZ = 13;
+
+/** A lip's outward offset under a shove of strength `k`, in pixels: most of
+ * it a jump open, the rest a quiver; `phase` so the two lips are not in step.
+ * Drawn by the face-on head (`instar-head.ts` `frontJaws`). */
+export function tremble(k: number, time: number, r: number, phase: number): number {
+  if (k <= 0) return 0;
+  return k * r * TREMBLE * (0.6 + 0.4 * Math.sin(time * Math.PI * 2 * TREMBLE_HZ + phase));
+}
+
 /** A shove of this many thousandths trembles its lip at full strength. */
 const FULL_MILLI = 500;
 const DECAY = 4;

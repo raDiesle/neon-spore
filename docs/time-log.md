@@ -33201,3 +33201,13 @@ Bottleneck: THE TRIVET — its row 11 had been marked done in the queue with not
 Bottleneck: none — thirty one-line exports moved whole, and the chain from page four carries them to the index unchanged.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-05 — THE INSTAR's heads stop a bolt
+
+- reading: 5 min. The stopper, both heads' drawings, the turn and the profile's swim and bob.
+- writing: 5 min. `instar-head-stop.ts`, the shared jaws, outlines and turn, two tests.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. The entry cut down to the wings, tail and nests, `land`.
+
+Bottleneck: the face-on head is drawn a half at a time through a squeeze about the snout, so its outline had to come out of the same transform rather than a copy of it.

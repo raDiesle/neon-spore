@@ -5,6 +5,7 @@ import { drawDrip, drawScales } from "./instar-hide.js";
 import type { Point } from "./instar-place.js";
 import { drawPlate, drawSeam, faded, type Look } from "./instar-plate.js";
 import type { Figure } from "./instar-shape.js";
+import { tremble } from "./instar-shove.js";
 import { drawWeak } from "./instar-weak.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -51,19 +52,8 @@ const JAW_WOBBLE_PERIOD = 4.7;
 const BROW_WOBBLE = 0.05;
 const BROW_WOBBLE_PERIOD = 8.6;
 
-/** How far a lip shoved at full strength jumps outward, in head radii, and how fast it quivers. */
-const TREMBLE = 0.09;
-const TREMBLE_HZ = 13;
-
-/** A lip's outward offset under a shove of strength `k`, in pixels: most of
- * it a jump open, the rest a quiver; `phase` so the two lips are not in step. */
-function tremble(k: number, time: number, r: number, phase: number): number {
-  if (k <= 0) return 0;
-  return k * r * TREMBLE * (0.6 + 0.4 * Math.sin(time * Math.PI * 2 * TREMBLE_HZ + phase));
-}
-
-/** The upper jaw and brow, from the lip up, in head radii. */
-const UPPER: readonly (readonly [number, number])[] = [
+/** The upper jaw and brow, from the lip up, in head radii — and where a bolt meets it (`instar-head-stop.ts`). */
+export const UPPER: readonly (readonly [number, number])[] = [
   [-0.64, 0.02],
   [-0.35, 0.09],
   [0, 0.11],
@@ -79,7 +69,7 @@ const UPPER: readonly (readonly [number, number])[] = [
 ];
 
 /** The lower jaw, from the lip down to the chin. */
-const LOWER: readonly (readonly [number, number])[] = [
+export const LOWER: readonly (readonly [number, number])[] = [
   [-0.62, -0.02],
   [0, -0.07],
   [0.62, -0.02],
@@ -118,6 +108,19 @@ export function frontEyeAt(f: Pick<Figure, "jawUp">, head: Point, r: number, s: 
 }
 
 /**
+ * Where the face-on head's jaws hang this frame, a shove's tremble in them:
+ * the whole top of the head hangs off the upper lip (`up`, off `top`), so a
+ * shove on it moves the skull and the eyes with it, and the chin off `down`.
+ */
+export function frontJaws(look: Look): { top: Point; up: Point; down: Point } {
+  const { f, head, r, time } = look;
+  const top = { x: head.x, y: head.y - tremble(look.shoveUp, time, r, 0) };
+  const lip = lowerLip(f, head, r);
+  const down = { x: lip.x, y: lip.y + tremble(look.shoveDown, time, r, 1.7) };
+  return { top, up: upperLip(f, top, r), down };
+}
+
+/**
  * The head face-on; it answers with its two plates, the chin and the skull,
  * for what is laid over them. With `half`, what sits wholly on the other side
  * of the snout — a horn, an eye, a nostril, a drip — is left out, for a head
@@ -130,12 +133,7 @@ export function drawFrontHead(
 ): readonly Path2D[] {
   const { f, head, r, fade, hurt, time } = look;
   const sides = half ? [half] : ([-1, 1] as const);
-  // The whole top of the head hangs off the upper lip, so a shove on it moves
-  // the skull and the eyes with it.
-  const top = { x: head.x, y: head.y - tremble(look.shoveUp, time, r, 0) };
-  const up = upperLip(f, top, r);
-  const lip = lowerLip(f, head, r);
-  const down = { x: lip.x, y: lip.y + tremble(look.shoveDown, time, r, 1.7) };
+  const { top, up, down } = frontJaws(look);
   const gap = (down.y - up.y) / r;
   // The horns turn with the brow's idle turn, one coming forward as the other goes back.
   const browWobble = BROW_WOBBLE * Math.sin((time * (Math.PI * 2)) / BROW_WOBBLE_PERIOD);

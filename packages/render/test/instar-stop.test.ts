@@ -3,6 +3,8 @@ import { type Bullet, instarMarkCol, midCol, type World } from "@neon-spore/sim"
 import { BoltStops } from "../src/bolt-stop.js";
 import { drawInstar } from "../src/instar-draw.js";
 import { InstarFx } from "../src/instar-fx.js";
+import { instarHeadAt, type Point } from "../src/instar-place.js";
+import { instarBody } from "../src/instar-sway.js";
 import { computeLayout, type Layout, tileCX } from "../src/layout.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 import { CFG, FRAME_TIMEOUT_MS, ROLES, VIEWPORT } from "./frame-harness.js";
@@ -13,7 +15,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * **A bolt stops on what it meets**, for THE INSTAR (`instar-stop.ts`,
  * `scene-stop.ts`): a SHOOT mark over its column, bursting in a colour it
- * takes and scuffing in one it refuses, and its body anywhere else it is drawn.
+ * takes and scuffing in one it refuses, and its body anywhere else it is drawn
+ * — its head among it (`instar-head-stop.ts`).
  */
 
 beforeAll(() => installCanvasGlobals());
@@ -62,6 +65,20 @@ describe("THE INSTAR stops a bolt", () => {
     expect(at?.y ?? 0).toBeGreaterThan(l.gridTop);
   });
 
+  it.each([
+    ["face-on", 0],
+    ["side-on", 1],
+  ] as const)("on its head %s, below where the tube alone would stop it", (_, side) => {
+    const l = computeLayout(VIEWPORT, CFG, "test");
+    const { world, head, r } = landedSeen(l, side);
+    const col = Math.floor((head.x - l.gridLeft) / l.tile);
+    const at = aimed(l, world).meets(col, tileCX(l, col), "cyan");
+    expect(at?.hit).toBe("body");
+    // Face-on the chin hangs under the head's middle; side-on the skull and jaw span it.
+    if (side === 0) expect(at?.y ?? 0).toBeGreaterThan(head.y);
+    else expect(Math.abs((at?.y ?? 0) - head.y)).toBeLessThan(r);
+  });
+
   it("drawn no further than the mark", () => {
     const l = computeLayout(VIEWPORT, CFG, "test");
     const { world, col } = shooting();
@@ -72,6 +89,19 @@ describe("THE INSTAR stops a bolt", () => {
     expect(stops.stopped(bolt(col), x, y, "#fff")).toBe(true);
   });
 });
+
+/** A step landed with its body seen wholly face-on (`side` 0) or side-on (1), and where its head is. */
+function landedSeen(l: Layout, side: 0 | 1): { world: World; head: Point; r: number } {
+  const world = hung("instar");
+  for (let c = 0; c < body(world).steps.length; c++) {
+    const s = acting(world, c);
+    s.phase = "land";
+    if (s.kind !== "instar") break;
+    const { f } = instarBody(s, world.cfg, world, world.beat, 0.5, 0);
+    if (f.side === side) return { world, ...instarHeadAt(l, f) };
+  }
+  throw new Error(`no step seen with side ${side}`);
+}
 
 function bolt(col: number): Bullet {
   return {

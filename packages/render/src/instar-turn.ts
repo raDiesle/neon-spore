@@ -88,6 +88,18 @@ export function instarEnginesAt(l: Layout, f: Figure): Point {
   return { x: t.x + (rear.x - t.x) * k, y: t.y + (rear.y - t.y) * k };
 }
 
+/** How half `s` of the head is turned: the snout's swing `m` and the squeeze `k` about it, each eye held. */
+function turnedHalf(r: number, side: number, s: -1 | 1): { k: number; m: number } {
+  const m = -(SNOUT + (SNOUT_FAR - SNOUT) * side) * r;
+  return { k: 1 - (s * m) / (EYE_X * r), m };
+}
+
+/** Where `drawTurnedHead` draws a point `p` of the head about `head` — a bolt meets it there (`instar-head-stop.ts`). */
+export function turnedHeadPoint(head: Point, r: number, side: number, p: Point): Point {
+  const { k, m } = turnedHalf(r, side, p.x < head.x ? -1 : 1);
+  return { x: head.x + m + k * (p.x - head.x), y: p.y };
+}
+
 /**
  * The head `draw` draws about `head`, turned: once for each half, clipped at
  * the snout and squeezed or opened about it, so each eye stays where it was.
@@ -102,9 +114,8 @@ export function drawTurnedHead(
   draw: (half: -1 | 1) => readonly Path2D[],
 ): void {
   const { fade, side } = look;
-  const m = -(SNOUT + (SNOUT_FAR - SNOUT) * side) * r;
   for (const s of [-1, 1] as const) {
-    const k = 1 - (s * m) / (EYE_X * r);
+    const { k, m } = turnedHalf(r, side, s);
     ctx.save();
     ctx.transform(k, 0, 0, 1, head.x + m - k * head.x, 0);
     ctx.beginPath();

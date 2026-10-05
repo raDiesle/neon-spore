@@ -36,10 +36,33 @@ const JAW_BREATH_PERIOD = 3.3;
 /** Where the eye sits, in head radii about `look.head`: what another head in profile lines up on. */
 export const SIDE_EYE = { x: -0.12, y: -0.27 } as const;
 
-/** The head in profile, snout to the left: the skull and its horns, the eye,
- * the lower jaw hinged open under it. */
-export function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
-  const { f, head, r, fade, hurt, time } = look;
+/** The lower jaw's outline, in head radii before its hinge turns it. */
+const LOWER_JAW = [
+  [0.3, 0.08],
+  [-0.3, 0.1],
+  [-0.95, 0.12],
+  [-0.9, 0.24],
+  [-0.3, 0.32],
+  [0.45, 0.3],
+] as const;
+
+/** The skull's outline, in head radii. */
+const SKULL = [
+  [0.62, -0.38],
+  [0.15, -0.56],
+  [-0.3, -0.4],
+  [-0.8, -0.24],
+  [-1.15, -0.08],
+  [-1.1, 0.05],
+  [-0.4, 0.08],
+  [0.35, 0.1],
+  [0.78, 0.02],
+] as const;
+
+/** Where a point in head radii lands in profile, how far the jaw is open on
+ * its hinge this frame, and where a point of the jaw lands with it. */
+function sideFrame(look: Look) {
+  const { f, head, r, time } = look;
   const at = (x: number, y: number): Point => ({ x: head.x + x * r, y: head.y + y * r });
   const hinge = at(0.3, 0.08);
   // The jaw breathes on its hinge, never quite the same twice: a body at rest, not a still.
@@ -47,18 +70,26 @@ export function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
     (0.15 + 0.55 * (f.jawUp + f.jawDown) * 0.5) * 0.8 +
     JAW_BREATH * (1 + breath(time, JAW_BREATH_PERIOD, 0.35, 5));
   const turn = hinged(hinge, open);
-  const jaw = (x: number, y: number): Point => turn(at(x, y));
-  const lower = splinePath(
-    [
-      jaw(0.3, 0.08),
-      jaw(-0.3, 0.1),
-      jaw(-0.95, 0.12),
-      jaw(-0.9, 0.24),
-      jaw(-0.3, 0.32),
-      jaw(0.45, 0.3),
-    ],
-    true,
-  );
+  return { at, hinge, open, jaw: (x: number, y: number): Point => turn(at(x, y)) };
+}
+
+/** The profile head's two plates as `drawSideHead` lays them — where a bolt meets it (`instar-head-stop.ts`). */
+export function sideHeadPoints(look: Look): { jaw: Point[]; skull: Point[] } {
+  return outlineOf(sideFrame(look));
+}
+
+function outlineOf({ at, jaw }: ReturnType<typeof sideFrame>): { jaw: Point[]; skull: Point[] } {
+  return { jaw: LOWER_JAW.map(([x, y]) => jaw(x, y)), skull: SKULL.map(([x, y]) => at(x, y)) };
+}
+
+/** The head in profile, snout to the left: the skull and its horns, the eye,
+ * the lower jaw hinged open under it. */
+export function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
+  const { r, fade, hurt, time } = look;
+  const frame = sideFrame(look);
+  const { at, hinge, open, jaw } = frame;
+  const { jaw: lowerJaw, skull: skullAt } = outlineOf(frame);
+  const lower = splinePath(lowerJaw, true);
   const mouth = new Path2D();
   for (const [i, p] of [at(0.3, 0.08), at(-1.1, 0.05), jaw(-0.95, 0.12), hinge].entries()) {
     if (i === 0) mouth.moveTo(p.x, p.y);
@@ -106,20 +137,7 @@ export function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
     };
     drawHorn(ctx, horn, r, fade, wobble);
   }
-  const skull = splinePath(
-    [
-      at(0.62, -0.38),
-      at(0.15, -0.56),
-      at(-0.3, -0.4),
-      at(-0.8, -0.24),
-      at(-1.15, -0.08),
-      at(-1.1, 0.05),
-      at(-0.4, 0.08),
-      at(0.35, 0.1),
-      at(0.78, 0.02),
-    ],
-    true,
-  );
+  const skull = splinePath(skullAt, true);
   const brow = at(-0.2, -0.2);
   const crown = { x: brow.x, y: brow.y, r: r * 0.95, ry: r * 0.3, angle: -0.2 + wobble };
   drawPlate(ctx, skull, fade, 0.7, hurt, crown);
