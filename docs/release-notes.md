@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · a8d1c6c99 — A desk's chord body is drawn as HOLD BOTH is drawn
+
+On the TEST screen one held mouse is the whole chord, so every chord body a step asks for now looks like THE INSTAR's `HOLD BOTH`: the same ring, fill, halo and word, drawn by calling `drawInstarRing`. That covers THE GRINDSTONE's jaws, THE TRIVET's feet, THE GOVERNOR's works and THE HALTER's lit grips. The ring goes once the chord is held. A phone's screen is unchanged.
+
 ## 2026-10-05 · 6ad0d736f — THE INSTAR stops a bolt on its wings, tail and nests
 
 A bolt now stops on whatever part of THE INSTAR it meets first. Face-on that can be either wing, spread off the shoulders. Side-on it can be either wing off the back, the tail's tube, the two blades of its fork, or the slime under a nest that still holds an egg. Each part is laid out by the same shape the drawing uses: `wingRig`/`wingPoints`, `frontWings`/`profileWings`, `tailShape`, `bladePoints`, `nestsAt`/`nestPool`. A struck tail therefore catches a bolt down where it lashed, not on the hide 2.6 head radii above.

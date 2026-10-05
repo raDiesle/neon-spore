@@ -33247,3 +33247,5 @@ Bottleneck: every part was laid inside its own drawer — the wing's anchor, the
 - landing: 5 min.
 
 Bottleneck: when a chord is asked lived only in the cue readings, so the ring had to be drawn off the cues rather than in the four drawers the entry named, or "asked" would have been written twice.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
