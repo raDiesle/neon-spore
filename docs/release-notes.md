@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-05 · 921406b86 — No boss tells the pilot to MOVE the cannon any more
+
+The owner asked for this by name, after THE HIVE: the shoot indicator already shows where to shoot, so the cannon needs no MOVE word to get there. The cannon's CARRY / MOVE mark is gone from BULB QUEEN, THE CURTAIN, THE TASTER, THE MAZE, THE BATON (in flight and on the drop), THE UNDERTOW, THE GORGE, THE LEDGER, THE REPRISE, THE SCUTTLE's wind-up and THE VANE. Each FIRE, TAP, HOLD or SUCK stands where it stood before. A shield's MOVE and a hanging part's MOVE on THE SCUTTLE stay, because neither is the cannon.
+
+## 2026-10-05 · 5417bba3d — THE HIVE no longer tells the pilot to MOVE
+
+The owner asked for this by name: the cannon does not need a MOVE word while it travels to an open breach, because the FIRE mark on the breach is enough to show where to shoot. The pilot's screen now shows nothing until his cannon is under the breach. Then FIRE appears on the breach, for the navigator, as before.
+
 ## 2026-10-05 · fd9aeb351 — THE SINEW's third fibre shifts each hand's pull
 
 On the third fibre each hand's pull is worth more or less than it was: every three beats — two seconds at 96 bpm — each hand is rolled again as weak (0.6), normal or strong (1.4), never the pair already in force, so one hand changes, or both, the same way or opposite. The beat before every shift the hand about to change says what is coming on its handle — "▲ STRONG", "▼ WEAK" or "NORMAL", blinking, with a ring closing in over the beat — so the pair has one beat to say who eases off. While a power is in force the handle wears a gold ring and STRONG, or a broken grey ring and WEAK. The next fibre puts both hands back at their whole pull. The autopilot pulls for the called powers once a call is out.

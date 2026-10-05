@@ -33379,3 +33379,5 @@ Bottleneck: the registrations a new event needs, found by the typecheck one at a
 - landing: 5 min. `check:fast`, the commits, `land`.
 
 Bottleneck: the 23 test cases, each with its own reason for a `MOVE`, read and rewritten one at a time.
+
+*Measured: 15 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
