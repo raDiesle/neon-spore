@@ -37,9 +37,11 @@ export const TRIVET_PLANTS_PER_FOOT = 2;
 
 /**
  * Where the scene is: settling, a step lit and waiting, the stand resting
- * between steps, and the stand collapsing.
+ * between steps, the stand collapsing, and the feet ringing under the spent
+ * hub before that (`trivet-ring.ts`) — appended last, so the hash's indices
+ * keep their places.
  */
-export const TRIVET_PHASES = ["still", "lit", "rest", "collapse"] as const;
+export const TRIVET_PHASES = ["still", "lit", "rest", "collapse", "ring"] as const;
 export type TrivetPhase = (typeof TRIVET_PHASES)[number];
 
 /**
@@ -97,6 +99,10 @@ export interface TrivetState {
   heldBeats: number;
   /** `world.tick` the lit step lit: a shield pressed before it turns no needle. */
   litTick: number;
+  /** Beats a reflex chord has added to the ring, up to `trivetRingJolts`. */
+  jolts: number;
+  /** Whether this beat of the ring has already been stirred by a pad put down. */
+  stirred: boolean;
 }
 
 export function trivetBoss(world: World): TrivetState | null {
@@ -188,5 +194,7 @@ export function freshTrivet(beat: number, steps: readonly TrivetStep[]): TrivetS
     padsDown: [0, 0],
     heldBeats: 0,
     litTick: 0,
+    jolts: 0,
+    stirred: false,
   };
 }

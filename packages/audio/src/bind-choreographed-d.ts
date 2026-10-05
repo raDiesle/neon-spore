@@ -10,7 +10,7 @@ import { isPlumbEvent, plumbCue } from "./bind-plumb.js";
 import { rimeCue } from "./bind-rime.js";
 import { seamCue } from "./bind-seam.js";
 import { isSlingEvent, slingCue } from "./bind-sling.js";
-import { trivetCue } from "./bind-trivet.js";
+import { isTrivetEvent, trivetCue } from "./bind-trivet.js";
 import { undertowCue } from "./bind-undertow.js";
 import { valveCue } from "./bind-valve.js";
 import { viseCue } from "./bind-vise.js";
@@ -50,8 +50,10 @@ type LaterEvent = Extract<
 export function laterCue(e: LaterEvent, cols: number): Cue | null {
   // THE HALTER whole, by its prefix: this page had no room for fourteen cases.
   // THE PLUMB the same, the day its bleed brought two more, and THE SLING and
-  // THE GRINDSTONE the days their cool and their fade did.
+  // THE GRINDSTONE the days their cool and their fade did, and THE TRIVET the
+  // day its ring did.
   if (isHalterEvent(e)) return halterCue(e, cols);
+  if (isTrivetEvent(e)) return trivetCue(e, cols);
   if (isPlumbEvent(e)) return plumbCue(e, cols);
   if (isSlingEvent(e)) return slingCue(e, cols);
   if (isGrindstoneEvent(e)) return grindstoneCue(e, cols);
@@ -169,20 +171,6 @@ export function laterCue(e: LaterEvent, cols: number): Cue | null {
     case "rimeShatter":
     case "rimeOut":
       return rimeCue(e, cols);
-    case "trivetEnter":
-    case "trivetLight":
-    case "trivetSlip":
-    case "trivetPlant":
-    case "trivetSpring":
-    case "trivetHub":
-    case "trivetHit":
-    case "trivetBrace":
-    case "trivetRock":
-    case "trivetMiss":
-    case "trivetTurn":
-    case "trivetCollapse":
-    case "trivetOut":
-      return trivetCue(e, cols);
     case "cystEnter":
     case "cystLight":
     case "cystStill":

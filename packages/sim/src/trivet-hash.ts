@@ -21,6 +21,8 @@ export function trivetHashParts(s: TrivetState): number[] {
     ...s.padsDown,
     s.heldBeats,
     s.litTick,
+    s.jolts,
+    s.stirred ? 1 : 0,
     s.steps.length,
   ];
   for (const step of s.steps) {

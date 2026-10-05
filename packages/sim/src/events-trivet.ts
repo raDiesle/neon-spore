@@ -39,7 +39,11 @@ export type TrivetEvent =
   | ({ type: "trivetMiss" } & TrivetColEvent)
   /** A needle turned by the shield under its column. */
   | ({ type: "trivetTurn" } & TrivetColEvent)
-  /** The script is done and all three feet buckle at once. */
+  /** The script is done: the planted feet ring under the spent hub, every pad to be left up. */
+  | ({ type: "trivetRing" } & TrivetColEvent)
+  /** A reflex chord while the feet ring jolts a foot loose: the ring takes a beat longer. */
+  | ({ type: "trivetJolt"; side: 0 | 1 } & TrivetColEvent)
+  /** The ring has died out and all three feet buckle at once. */
   | ({ type: "trivetCollapse" } & TrivetColEvent)
   /** The collapsed stand has fallen `trivetCollapseBeats`; the wave may end. */
   | ({ type: "trivetOut" } & TrivetColEvent);

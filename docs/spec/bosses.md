@@ -9244,8 +9244,11 @@ both chords at once, each seat on its own foot.
 step's own beats the foot plants, or under the hub the feet are braced. A
 chord step stays lit `trivetGraceBeats` past its count. The fourth plant
 lights the hub. An answered step closes THE SLOW and the stand rests
-`trivetRestBeats` before the next lights. With the script done the stand
-collapses, and falls `trivetCollapseBeats` before the wave may end.
+`trivetRestBeats` before the next lights. With the script done the planted
+feet ring under the spent hub for `trivetRingBeats` under THE SLOW, asking
+both seats to leave every pad up (§30 row 11, `sim/trivet-ring.ts`); then
+the stand collapses, and falls `trivetCollapseBeats` before the wave may
+end.
 
 **The answers.** A pad is heard on the tick (`sim/trivet-hand.ts`), and a
 lit pad lifting while the chord was held starts its count from nought. A
@@ -9254,7 +9257,9 @@ shot is judged where a bolt leaves the top of the field
 (`sim/trivet-shot.ts`): only with the hub lit, only while a fire step is
 lit, only in the middle column, and only in its colour unless it is
 `either`. The wrong colour is a colour missed on the balance sheet and
-nothing else, THE SEAM's rule.
+nothing else, THE SEAM's rule. A pad put down while the feet ring jolts a
+foot loose (`trivetJolt`): the first in a beat costs the ring a beat, and so
+does a pad still down as a beat turns.
 
 **Two story steps, 26 September 2026**, so the fight is more than plant and
 shoot (the owner's 13:12 brief: more states where the pair must act, told as
@@ -9286,7 +9291,7 @@ stands round the hub swung over while a lurch is lit, as wide as before
 shot in, and a needle turned throws the shield's sparks at the hull under
 its own (`render/trivet-fx.ts`).
 
-**Where this departs from the design, and why.** Eight places.
+**Where this departs from the design, and why.** Nine places.
 
 - **A fire step run out is a hull hit, and a hull hit is the wave.** §30's
   rows 6 and 8 say "ordinary hull hit" and row 10 says the hub "stays lit".
@@ -9323,6 +9328,15 @@ its own (`render/trivet-fx.ts`).
   lost until both feet replant" is written as the rule a `both` step run out
   already has: the hub rocks up and goes dark, the same `both` lights again,
   and no fire step lights until it is held.
+- **Row 11's reflex chord costs a beat, at most `trivetRingJolts`.** §30 has
+  a reflex chord jolt a foot loose for "one extra beat"; a pad left down
+  would keep it ringing forever, so it is THE GRINDSTONE's fade rule
+  (§11.50): a beat anyone put a pad down is a beat more, capped, and a lift
+  costs nothing. "Send nothing — no chord, no control" is read as no pad:
+  the cannon and the shield are not the stand's, and a shot there is
+  answered as it always is. Nothing is lost — the hub is spent and the wave
+  is won either way. **Row 11's ring landed in the simulation 5 October
+  2026**; its picture, the fifth pose, is queued.
 
 **The simulation, the body, the pads and AUTO's hand are in; the rest of the hands are not.** The body landed
 26 September 2026: SINKER's hub in dull gunmetal with one of CALTROP's

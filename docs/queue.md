@@ -378,25 +378,6 @@ own column does — and THE LEDGER; each gets its row in `own-stop.test.ts`.
 Done when THE LEAD and LEDGER call `stops?.aim`, have their rows in
 `own-stop.test.ts`, and `bun run check` is green.
 
-## §30 THE TRIVET — row 11's ring, the simulation
-
-- **Found:** 2026-10-05, claude/queue-bosses-choreographed-mds-contents-and-ledger-say
-- **Taken:** 2026-10-05, claude/queue-tasks-status-bb9750 (claim: claude/queue-30-the-trivet-row-11s-ring-the-simulation)
-- **Files:** `packages/sim/src/trivet-step.ts`, `packages/sim/src/trivet.ts`, `packages/sim/src/config-trivet.ts`, `docs/spec/bosses.md`
-
-`docs/spec/bosses-choreographed.md` §30 row 11, written 26 September 2026 at
-the owner's request (`e9d4a08ae`): after the third hit the planted feet ring
-loose under the spent hub, and both seats must send nothing for three beats; a
-reflex chord jolts a foot loose and costs one more beat. Its simulation lane
-was closed the same day (`16e41db11`) with nothing written — there is no ring
-phase in `TRIVET_PHASES` and no file for it. THE GRINDSTONE's fade
-(`sim/grindstone-fade.ts`), THE SLING's cool and THE PLUMB's bleed are the same
-shape and the model: a phase opened under THE SLOW when the script is done, a
-reflex counted at most a named number of times, its tunables in
-`config-trivet.ts`, a row in the hash and the replay tests, and a paragraph in
-`bosses.md` §11.47. Done when the ring plays out in a test and
-`bun run check` is green.
-
 ## §30 THE TRIVET — row 11's ring, the look
 
 - **Found:** 2026-10-05, claude/queue-bosses-choreographed-mds-contents-and-ledger-say

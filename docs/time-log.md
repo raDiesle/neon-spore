@@ -33249,3 +33249,13 @@ Bottleneck: every part was laid inside its own drawer — the wing's anchor, the
 Bottleneck: when a chord is asked lived only in the cue readings, so the ring had to be drawn off the cues rather than in the four drawers the entry named, or "asked" would have been written twice.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-05 — §30 THE TRIVET — row 11's ring, the simulation
+
+- reading: 5 min. §30 row 11, THE GRINDSTONE's fade commit as the template, THE TRIVET's clock and hand.
+- writing: 10 min. `trivet-ring.ts`, the phase, two events, two config fields, the hash, the hand's reflex, the audio, effects, ship-fields and owed-state registrations, seven tests, §11.47.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: none to speak of. THE GRINDSTONE's fade commit was the complete list of registrations, so each one was copied rather than found by a red check.

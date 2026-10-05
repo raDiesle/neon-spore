@@ -553,6 +553,8 @@ const SAMPLES: Record<string, SimEvent> = {
   trivetRock: { type: "trivetRock", col: 5 },
   trivetMiss: { type: "trivetMiss", col: 5 },
   trivetTurn: { type: "trivetTurn", col: 3 },
+  trivetRing: { type: "trivetRing", col: 5 },
+  trivetJolt: { type: "trivetJolt", col: 5, side: 0 },
   trivetCollapse: { type: "trivetCollapse", col: 5 },
   trivetOut: { type: "trivetOut", col: 5 },
   plumbEnter: { type: "plumbEnter", col: 5 },

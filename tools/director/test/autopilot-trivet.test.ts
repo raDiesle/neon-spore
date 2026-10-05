@@ -9,8 +9,10 @@ import { stageField } from "../src/stage-field.js";
 /**
  * **AUTO plays THE TRIVET to the end** (`hands/boss-hands-trivet.ts`): every
  * lit foot's chord held down by its own seat until it plants, both chords held
- * under the hub together, every lit hub shot in its colour — with no chord
- * slipped or sprung, the hub never rocked up, and the hull never struck.
+ * under the hub together, every lit hub shot in its colour, then every pad
+ * left up while the feet ring under the spent hub (§30 row 11) — with no
+ * chord slipped or sprung, the hub never rocked up, no foot jolted loose and
+ * the hull never struck.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
@@ -33,6 +35,7 @@ describe("AUTO on THE TRIVET", () => {
     const plants: string[] = [];
     const hits: number[] = [];
     let braces = 0;
+    let rings = 0;
     for (let i = 0; i < 30_000 && world.boss !== null; i++) {
       step(world, auto.commands(world));
       for (const e of world.events) {
@@ -40,12 +43,15 @@ describe("AUTO on THE TRIVET", () => {
         if (e.type === "trivetPlant") plants.push(`${e.side}:${e.level}`);
         if (e.type === "trivetHit") hits.push(e.hits);
         if (e.type === "trivetBrace") braces++;
-        if (["trivetSlip", "trivetSpring", "trivetRock", "trivetMiss"].includes(e.type)) wrong++;
+        if (e.type === "trivetRing") rings++;
+        const missed = ["trivetSlip", "trivetSpring", "trivetRock", "trivetMiss", "trivetJolt"];
+        if (missed.includes(e.type)) wrong++;
       }
     }
     expect(collapsed).toBe(true);
     expect(plants).toEqual(["0:1", "0:2", "1:1", "1:2"]);
     expect(braces).toBe(2);
+    expect(rings).toBe(1);
     expect(hits).toEqual([1, 2, 3, 4]);
     expect(wrong).toBe(0);
     expect(world.scars).toEqual([]);

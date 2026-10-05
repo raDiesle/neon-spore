@@ -228,11 +228,13 @@ describe("a both", () => {
 });
 
 describe("the end", () => {
-  it("answered whole, the stand collapses and the fight ends", () => {
+  it("answered whole, the feet ring out, the stand collapses and the fight ends", () => {
     const world = toStep(SCRIPT.length - 1);
     trivetStruck(world, shot("red"));
     expect(trivet(world).hits).toBe(4);
     const seen = runUntil(world, (w) => w.boss === null);
+    expect(seen.has("trivetRing")).toBe(true);
+    expect(seen.has("trivetJolt")).toBe(false);
     expect(seen.has("trivetCollapse")).toBe(true);
     expect(seen.has("trivetOut")).toBe(true);
     expect(world.failTick).toBe(NOT_FAILED);

@@ -9,11 +9,13 @@ import {
   trivetClosed,
   trivetStepCol,
 } from "./trivet.js";
+import { openRing, stepRing } from "./trivet-ring.js";
 import type { World } from "./world.js";
 
 /**
  * THE TRIVET's clock: the stand settling, each step lighting, the beats a
- * chord is held being counted, a window running out, and the collapse.
+ * chord is held being counted, a window running out, the feet ringing under
+ * the spent hub (`trivet-ring.ts`), and the collapse.
  *
  * The shot is judged where a bolt leaves the top of the field
  * (`trivet-shot.ts`) and calls `trivetAnswered` here; the pads are heard on
@@ -47,6 +49,7 @@ export function stepTrivet(world: World, s: TrivetState): void {
   if (s.phase === "still" && since >= cfg.trivetStillBeats) next(world, s);
   else if (s.phase === "rest" && since >= cfg.trivetRestBeats) next(world, s);
   else if (s.phase === "lit") lit(world, s, since);
+  else if (s.phase === "ring" && stepRing(world, s, since)) collapse(world, s);
 }
 
 /** Whether a step is a chord counted in held beats: one foot, or both. */
@@ -113,14 +116,12 @@ export function trivetAnswered(world: World, s: TrivetState): void {
   rest(world, s, true);
 }
 
-/** The next step lights under THE SLOW; or, with the script done, the stand collapses. */
+/** The next step lights under THE SLOW; or, with the script done, the feet ring under the spent hub. */
 function next(world: World, s: TrivetState): void {
   const step = s.steps[s.cursor];
   const col = midCol(world.cfg);
   if (step === undefined) {
-    s.phase = "collapse";
-    s.phaseBeat = world.beat;
-    world.events.push({ type: "trivetCollapse", col });
+    openRing(world, s);
     return;
   }
   s.phase = "lit";
@@ -137,6 +138,14 @@ function miss(world: World, s: TrivetState, col: number): void {
   closeSlow(world);
   rest(world, s, true);
   bossStrikesHull(world, "trivet", col);
+}
+
+/** The ring has died out: THE SLOW lets go and all three feet buckle at once. */
+function collapse(world: World, s: TrivetState): void {
+  closeSlow(world);
+  s.phase = "collapse";
+  s.phaseBeat = world.beat;
+  world.events.push({ type: "trivetCollapse", col: midCol(world.cfg) });
 }
 
 function rest(world: World, s: TrivetState, advance: boolean): void {

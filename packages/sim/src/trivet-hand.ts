@@ -1,5 +1,6 @@
 import { midCol } from "./config.js";
 import { chording, TRIVET_PADS, trivetBoss, trivetClosed } from "./trivet.js";
+import { trivetStirred } from "./trivet-ring.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -19,6 +20,9 @@ import type { World } from "./world.js";
  * What a chord is worth is counted on the beat (`trivet-step.ts`); what is
  * heard here is the one instant the beat cannot see — **a pad lifting** while
  * the lit chord step was counting, which starts its count again from nought.
+ *
+ * **A pad put down while the feet ring under the spent hub** is the reflex
+ * the ring asks the pair not to make (`trivet-ring.ts`); a lift costs nothing.
  */
 export function trivetHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag") return;
@@ -33,6 +37,7 @@ export function trivetHeard(world: World, player: 1 | 2, command: Command): void
   const was = trivetClosed(s);
   const bit = 1 << pad;
   s.padsDown[side] = command.on ? s.padsDown[side] | bit : s.padsDown[side] & ~bit;
+  if (command.on) trivetStirred(world, s, side);
   if (!was || trivetClosed(s) || !chording(s)) return;
   s.heldBeats = 0;
   world.events.push({ type: "trivetSlip", side, col: midCol(world.cfg) });

@@ -213,7 +213,7 @@ export const INGEST_SILENT_BOSS_C = [
   "rimeScatter",
   "rimeShatter",
   "rimeOut",
-  // THE TRIVET's thirteen: what outlives a frame is `trivet-fx.ts`', read above the loop.
+  // THE TRIVET's fifteen: what outlives a frame is `trivet-fx.ts`', read above the loop.
   "trivetEnter",
   "trivetLight",
   "trivetSlip",
@@ -225,6 +225,8 @@ export const INGEST_SILENT_BOSS_C = [
   "trivetRock",
   "trivetMiss",
   "trivetTurn",
+  "trivetRing",
+  "trivetJolt",
   "trivetCollapse",
   "trivetOut",
   // THE GAUGE's three, its first events: the needle, band and bind are world

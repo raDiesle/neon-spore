@@ -1,8 +1,15 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
+type TrivetSimEvent = Extract<SimEvent, { type: `trivet${string}` }>;
+
+/** Whether an event is THE TRIVET's, so a page of the chain can hand it over whole. */
+export function isTrivetEvent(e: SimEvent): e is TrivetSimEvent {
+  return e.type.startsWith("trivet");
+}
+
 /**
- * THE TRIVET's thirteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE TRIVET's fifteen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * **Heard where they happen**: the stand stands over `midCol`, so every one
  * of them is in the middle but a lurch's and a needle's.
@@ -12,8 +19,12 @@ import { type Cue, panForCol } from "./bind.js";
  *
  * **A plant and a hit are pitched up as they add up**, so how far the pair
  * are along can be heard without either of them counting.
+ *
+ * **Row 11's ring is the spring's metallic ring** (§30, *Presentation*),
+ * pitched down and quiet, dying across the window with no chord to answer
+ * it; a reflex chord that jolts a foot loose rings it again, pitched up.
  */
-export function trivetCue(e: Extract<SimEvent, { type: `trivet${string}` }>, cols: number): Cue {
+export function trivetCue(e: TrivetSimEvent, cols: number): Cue {
   const pan = panForCol(e.col, cols);
   switch (e.type) {
     case "trivetEnter":
@@ -39,6 +50,10 @@ export function trivetCue(e: Extract<SimEvent, { type: `trivet${string}` }>, col
       return { id: "boss.trivetMiss", pan };
     case "trivetTurn":
       return { id: "impact.deflect", pan };
+    case "trivetRing":
+      return { id: "boss.trivetSpring", pan, pitch: 0.8, gain: 0.6 };
+    case "trivetJolt":
+      return { id: "boss.trivetSpring", pan, pitch: 1.25 };
     case "trivetCollapse":
       return { id: "boss.trivetCollapse", pan };
     case "trivetOut":
