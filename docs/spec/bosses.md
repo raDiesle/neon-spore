@@ -10946,6 +10946,42 @@ is lit, only in the middle column, and only in its colour unless it is
   watch while the pair is aiming at the first, and rows 5 and 7 are the
   flag *creeping loose* — which reads only if it was still.
 
+**The worm on the field** (the owner, 6 October 2026, `sim/lamprey-roam.ts`):
+*let the enemy appear as an intro animation, eat its way through things that
+fall … leave crumbs … crawl out of the picture and back … between each slow
+it should crawl back and forth through the picture like a worm, and now and
+then eat things … it could poop, which has to be turned with the shield.*
+While it crawls, the eel's `col` and `row` are its head, in whole tiles, the
+columns running off the field either side, with the places it has been
+(`trailCol`, `trailRow`, `LAMPREY_TRAIL` of them) for the body to lie along
+— so both phones eat the same body on the same beat. The head moves
+`lampreyCrawlTiles` a beat each way, and `lampreyLungeTiles` while it goes
+for food.
+
+- **It arrives hungry.** It crawls in from `lampreyOutCols` off the side
+  nearer its meal to `lampreyFeedRow` (`entering`, `lampreyEnter`), and the
+  wave's `meal` falls for it one morsel at a time (`feeding`, `lampreyFeed`):
+  the shipped wave's is two rocks, a slick and two bulbs. Its head goes under
+  each and eats it (`lampreyEat`) — a body off the field through
+  `removeCreature`.
+- **It crawls out of the picture and back** (`away`, `lampreyAway`): off the
+  nearer side along `lampreyHighRow`, `lampreyAwayBeats` there, then straight
+  in to the first stay's tile, drawn at install (`roam`, `lampreyRoam`).
+- **Levels of three to five leaps, a crawl between them.** A step that says
+  `crawl` is not leapt to: the eel crawls across to the far side along
+  `lampreyHighRow`, back along `lampreyLowRow`, and onto the step's tile. A
+  step's `food` falls `lampreyFoodCols` ahead of it as it sets off and it
+  goes for it; anything edible its head passes is eaten too. The shipped
+  wave is three levels of three, four and five stays, each ended on a
+  gullet, the second and third crawled to.
+- **Its dung is a rock for the shield.** A step with `dung` lets one go under
+  its head at the far side (`lampreyDung`): an ordinary `meteor`, answered
+  by `resolveHull` like any rock, so a miss is the hull and the wave. Its ids
+  are `dung`, which the head never eats and the picture may draw as dung.
+- **A tooth is a run of taps**: three in the shipped wave's first two
+  levels, four in the last. The ring has nine teeth, one for each stay with
+  hands.
+
 **What is proven, and what is not.** `sim/test/burgee.test.ts` and
 `burgee-spindle.test.ts` prove the rules: the flag swings its span and
 turns back; a tap over the lit column from the step's seat freezes it, off
@@ -11372,7 +11408,8 @@ plays the script through (`tools/director/test/autopilot-governor.test.ts`).
 > An eel leaps about the field and bites into a tile. One of you holds its
 > tail; the other pulls its head off, or taps its lit tooth out, or you both
 > pull it apart at once. Each leap is longer than the last. Then shoot the
-> gullet in its colour.
+> gullet in its colour. Before the first bite and between levels it crawls
+> the field like a worm, eats what falls and drops dung for the shield.
 
 **Rebuilt on the owner's word, 5 October 2026.** The first build bit the
 hull and crawled along it; the owner: *the boss head is not visible and
@@ -11392,7 +11429,8 @@ frees the head, before THE SLOW runs out.
 **The state** (`sim/lamprey.ts`, hashed in `sim/lamprey-hash.ts`) is the
 **phase** and the beat it began, the **cursor** into the script, the tile
 it is on, the tile it leapt from and the tile it leaps to next, the teeth
-out for good as a mask of seven bits, the **lit tooth**, the teeth
+out for good as a mask of nine bits, the **lit tooth** and the taps it has
+taken, the teeth
 **pulled** this stay, the **hits**, every tile it has **bitten** (for the
 time rift the look will draw), and for each seat whether its thumb is on the
 tail and how far it has pulled it, how far it has pulled the head, whether
@@ -11400,7 +11438,13 @@ its thumb is down on the teeth, and whether its head slipped this press. The
 script is the wave's (`LampreyEntry.steps`), copied at install: each **stay**
 names its **ask** — `pull`, `teeth`, `apart` or `gullet` — its **holder**
 (the other seat is the worker), the **teeth** a `teeth` wants, the **jump**
-to its tile in tiles, its **beats**, and a gullet's **colour**.
+to its tile in tiles, its **beats**, and a gullet's **colour** — and, left
+out unless it says so, the **taps** a lit tooth wants, whether it **crawls**
+to its tile instead of leaping, and the **food** and **dung** of that
+crawl. The entry also authors the **meal** it arrives to. The worm on the
+field keeps the trail its head has left, the beat the head last moved, the
+leg of the crawl and its side, the morsels served, the body it is after and
+its dung still falling; and the way the tail lies, picked as it lands.
 
 **The leap** (`sim/lamprey-leap.ts`). Each tile is drawn from the seeded
 `Rng` among the tiles exactly `jump` tiles away (the larger of the column
@@ -11408,15 +11452,24 @@ and the row distance), on rows `lampreyRowTop` to `lampreyRowBottom`,
 preferring a tile not yet bitten and one where the tail — `lampreyTailTiles`
 long, laid away from the *next* tile, plus the pull in an `apart` — stays on
 the field; failing those it takes a nearer ring. **The next tile is drawn as
-the eel lands**, so the tail can lie opposite the way it will leap. The wave
-authors the jumps rising, one to seven: "every level increases the number
-of tile distance" read as every stay.
+the eel lands**, so the tail can lie opposite the way it will leap. It never
+lands in the outermost `lampreyEdgeCols`, so the whole mouth, wider than its
+tile, and every tooth are on the screen. **Where the tail would run off the
+field anyway, it is laid another way** (`lampreyTailFor`), the nearest of
+the eight to *away* that keeps it on — straight up or straight down always
+does — and that way is the state's (`tailX`, `tailY`), so the knob a thumb
+holds is never off the screen (the owner, 6 October 2026: *make sure the
+on-screen controls are visible at every position of the boss*). The wave
+authors the jumps rising within a level: "every level increases the number
+of tile distance".
 
-**The clock** (`sim/lamprey-step.ts`) runs on the beat: the eel swims in for
-`lampreyEnterBeats` and lands; each stay opens THE SLOW for its beats
+**The clock** (`sim/lamprey-step.ts`) runs on the beat: the eel crawls in,
+eats its meal, crawls out of the picture and back to its first tile (*The
+worm on the field*, below) and lands; each stay opens THE SLOW for its beats
 (`openSlow(…, "ask")`) and bites the tile (`lampreyBite`) or, for a gullet,
 rears lit in its colour (`lampreyRear`). A stay won closes THE SLOW and the
-eel leaps (`lampreyLeapBeats`); a hit recoils it first (`lampreyHit`,
+eel leaps (`lampreyLeapBeats`), or, before a step that says `crawl`, crawls
+the field to its tile; a hit recoils it first (`lampreyHit`,
 `lampreyRecoilBeats`). **A stay run out is the hull**, the owner's generic
 rule for bosses (`docs/miss-rule-audit.md`): the bite goes through
 (`lampreyFull`), the hull is struck at the tile's column, and the eel leaps
@@ -11435,10 +11488,12 @@ limp (`lampreySpent`) for `lampreySpentBeats` and falls away (`lampreyOut`).
   frees only with the tail pulled full at the same time — **the added
   variation**, the owner's *another idea like this*.
 - **The teeth**, the drag `lampreyTooth`, an edge, its `id` the tooth, the
-  worker's in a `teeth`: on the lit tooth with the tail held it cracks
+  worker's in a `teeth`: on the lit tooth with the tail held it is one of the
+  step's `taps` (`lampreyTap`), and the last of them cracks it
   (`lampreyCrack`) and the light jumps to the first tooth still in two places
   on; on any other tooth, or with the tail loose, the last cracked one snaps
-  back (`lampreySnap`). The stay's teeth out frees it.
+  back (`lampreySnap`) and the lit tooth's taps start again. The stay's
+  teeth out frees it.
 - **The gullet** is the ordinary shot (`sim/lamprey-shot.ts`): only while it
   is lit, only in the column of the eel's tile, and only in its colour unless
   `either`; the other colour is missed on the balance sheet and it stays lit.
@@ -11467,7 +11522,14 @@ a stay run out strikes the hull; each answer frees its stay and the wrong
 one does not; a slip counts once a press; the tail lies away from the next
 tile; the leaps lengthen; and the whole script ends spent, the same twice
 from one seed. AUTO (`hands/src/boss-hands-lamprey.ts`) plays it through
-without a snap, a slip or a scar (`tools/director/test/autopilot-lamprey.test.ts`).
+without a snap, a slip or a scar, its meal and both crawls' food eaten and
+both pieces of dung turned on the shield
+(`tools/director/test/autopilot-lamprey.test.ts`). `sim/test/lamprey-roam.test.ts`
+proves the worm: the meal eaten, out of the picture and back to a first
+stay under THE SLOW; the crawl to both sides with its food eaten and its
+dung turned, and the hull when it is not; a tooth's taps, started again by
+a wrong one; and over thirty seeds no tile at the edge and no tail, pulled
+out, off the field.
 **Still to come, as its own lane**: the eel made to feel alive — the tail
 whipping like a snake while the head stays, the bite in and the release,
 and a time rift left in space on every tile it bit. **Never watched at

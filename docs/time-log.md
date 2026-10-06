@@ -33920,3 +33920,13 @@ Bottleneck: the first drawings outlined every filled shape, which read as flat a
 Bottleneck: the briefings spec counts its prose guides in words in three places, and the test names one at a time.
 
 *Measured: 7 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE LAMPREY arrives hungry, crawls between levels and drops dung for the shield
+
+- reading: 25 min. The leaping redesign that had landed on the local `main` under the first attempt, its leap, hand, step and pose.
+- writing: 35 min. The worm's crawl ported onto the leaping eel, the taps, the tail laid where it fits, the wave in three levels, and the tests.
+- looking: 0 min. Nothing seen yet; the look is the next lane.
+- friction: 40 min. The first build was on the old design and met thirty conflicting files at landing; a heredoc with a backslash blocked twice.
+- landing: 5 min.
+
+Bottleneck: the lane started from `origin/main`, and the local `main` held the redesign it had to be built on.

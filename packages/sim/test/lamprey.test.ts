@@ -154,7 +154,9 @@ describe("THE LAMPREY leaps", () => {
       if (k < SCRIPT.length - 1) expect(s.nextCol).toBeGreaterThanOrEqual(0);
       answer(world);
     }
-    const keys = tiles.map((t) => t.row * CFG.cols + t.col);
+    // A gullet rears on its tile and never bites it, so only the bites must be fresh.
+    const bites = tiles.filter((_, k) => SCRIPT[k]?.ask !== "gullet");
+    const keys = bites.map((t) => t.row * CFG.cols + t.col);
     expect(new Set(keys).size).toBe(keys.length);
     for (let k = 1; k < tiles.length; k++) {
       const [a, b] = [tiles[k - 1], tiles[k]];
@@ -249,7 +251,7 @@ describe("the teeth", () => {
     holdTail(world);
     tap(world, 1, eel(world).litTooth);
     const lit = eel(world).litTooth;
-    expect(tap(world, 1, (lit + 1) % 7)).toContain("lampreySnap");
+    expect(tap(world, 1, (lit + 1) % 9)).toContain("lampreySnap");
     expect(eel(world).pulled).toEqual([]);
     drag(world, 1, "lampreyTooth", { on: true, id: lit });
     expect(drag(world, 1, "lampreyTooth", { on: true, id: lit })).not.toContain("lampreyCrack");
@@ -299,7 +301,8 @@ describe("the gullet", () => {
         toStay(world);
         answer(world);
       }
-      expect(eel(world).teethOut).toBe(0b1111111);
+      // Three pulls, an apart and two teeth twice: seven of the ring.
+      expect(eel(world).teethOut.toString(2).replaceAll("0", "")).toHaveLength(7);
       runUntil(world, (w) => w.boss === null);
       return hashWorld(world);
     };

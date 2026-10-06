@@ -1,6 +1,6 @@
 /**
- * THE LAMPREY's tuning: the beats around its stays, the rows it lands on,
- * and how far a thumb pulls the head and the tail to free it
+ * THE LAMPREY's tuning: the worm's crawl, the beats around its stays, the
+ * tiles it lands on, and how far a thumb pulls the head and the tail to free it
  * (`docs/spec/bosses-choreographed.md` §41).
  *
  * What is **not** here is the script — what each stay asks, which seat holds
@@ -8,8 +8,22 @@
  * wave's, authored on its entry.
  */
 export interface LampreyConfig {
-  /** Beats the eel swims in before its first bite. */
-  lampreyEnterBeats: number;
+  /** How far off the field's side it crawls in from and out to, in columns. */
+  lampreyOutCols: number;
+  /** The row its head eats its meal on as it arrives. */
+  lampreyFeedRow: number;
+  /** Beats it stays out of the picture before it crawls back in. */
+  lampreyAwayBeats: number;
+  /** The rows a crawl crosses the field along: out on the high one, back on the low one. */
+  lampreyHighRow: number;
+  lampreyLowRow: number;
+  /** Tiles its head crawls a beat each way, and while it goes for food. */
+  lampreyCrawlTiles: number;
+  lampreyLungeTiles: number;
+  /** How far ahead of its head a crawl's food falls, in columns. */
+  lampreyFoodCols: number;
+  /** Columns it never bites in at either side, so the whole mouth and its teeth are on the screen. */
+  lampreyEdgeCols: number;
   /** Beats a leap from one tile to the next takes. */
   lampreyLeapBeats: number;
   /** Beats it recoils from a hit before it leaps on. */
@@ -29,7 +43,15 @@ export interface LampreyConfig {
 }
 
 export const LAMPREY_DEFAULTS: LampreyConfig = {
-  lampreyEnterBeats: 4,
+  lampreyOutCols: 3,
+  lampreyFeedRow: 3,
+  lampreyAwayBeats: 2,
+  lampreyHighRow: 4,
+  lampreyLowRow: 8,
+  lampreyCrawlTiles: 1,
+  lampreyLungeTiles: 2,
+  lampreyFoodCols: 3,
+  lampreyEdgeCols: 1,
   lampreyLeapBeats: 1,
   lampreyRecoilBeats: 1,
   lampreySpentBeats: 2,

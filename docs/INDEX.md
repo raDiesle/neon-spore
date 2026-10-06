@@ -668,8 +668,10 @@ by hand never moves.
 | `packages/sim/src/lamprey-hand.ts` | THE LAMPREY's three handles: the tail, the head and the teeth, heard on the tick |
 | `packages/sim/src/lamprey-hash.ts` | What THE LAMPREY puts into `hashWorld`, and nothing else |
 | `packages/sim/src/lamprey-shot.ts` | **THE LAMPREY's shot**: the lit gullet |
-| `packages/sim/src/lamprey-step.ts` | THE LAMPREY's clock, once a beat: swimming in, landing on a tile, a stay's window running out |
+| `packages/sim/src/lamprey-step.ts` | THE LAMPREY's clock, once a beat: the worm crawling in, feeding |
 | `packages/sim/src/lamprey-leap.ts` | **Where THE LAMPREY leaps to**: a tile `jump` away from where it is |
+| `packages/sim/src/lamprey-roam.ts` | **THE LAMPREY as a worm on the field** (the owner, 6 October 2026) |
+| `packages/sim/src/lamprey-types.ts` | THE LAMPREY's shapes: the script a wave authors and the state the simulation keeps (`lamprey.ts` for what… |
 | `packages/sim/src/lamprey.ts` | THE LAMPREY: an eel that leaps from tile to tile across the field and bites into each one |
 | `packages/sim/src/ledger-bead.ts` | **What a bill is**: one hit down the seam, and one return on the cord |
 | `packages/sim/src/ledger-hash.ts` | What THE LEDGER puts into `hashWorld`, and nothing else |
@@ -774,7 +776,7 @@ by hand never moves.
 | `packages/sim/src/config-trivet.ts` | THE TRIVET's tuning: the rests around its steps, the grace a chord is given |
 | `packages/sim/src/config-ledger.ts` | THE LEDGER's numbers — how wide the body stands, how many hits part it |
 | `packages/sim/src/config-lead.ts` | THE LEAD's numbers — how many segments the stalk has, how far ahead of the body a shot has to be put |
-| `packages/sim/src/config-lamprey.ts` | THE LAMPREY's tuning: the beats around its stays, the rows it lands on |
+| `packages/sim/src/config-lamprey.ts` | THE LAMPREY's tuning: the worm's crawl, the beats around its stays, the tiles it lands on |
 | `packages/sim/src/config-antiphon.ts` | THE ANTIPHON's numbers — how many contours the body can grow and how they fall into families |
 | `packages/sim/src/config-hive.ts` | THE HIVE's numbers — how many breach sites the underside has, how long it hangs before the first opens |
 | `packages/sim/src/config-hasp.ts` | THE HASP's tuning: how long a grip lasts before it burns the hand off, how long the burn holds |
@@ -2236,7 +2238,7 @@ by hand never moves.
 | `packages/render/src/last-chance.ts` | ONE LAST CHANCE over every body the shield has already pushed, on both screens, read straight off the world |
 | `packages/render/src/lamprey-draw.ts` | **THE LAMPREY** drawn: the eel, the sucker and its seven teeth, the scar, the gullet, both seats' marks |
 | `packages/render/src/lamprey-marks.ts` | **THE LAMPREY's tooth mark**: the ring round the one lit tooth in a `teeth` |
-| `packages/render/src/lamprey-pose.ts` | **The clock THE LAMPREY is posed off** (§41, *Animation*), six poses |
+| `packages/render/src/lamprey-pose.ts` | **The clock THE LAMPREY is posed off** (§41, *Animation*), six poses: crawling as a worm |
 | `packages/render/src/lamprey-shape.ts` | **THE LAMPREY's shape** (§41, *The look*): two drafts combined, named on the shape sheet |
 | `packages/render/src/lamprey-verdicts.ts` | **THE LAMPREY's marks answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
 | `packages/render/src/lamprey-grip.ts` | **THE LAMPREY's hands**: the pinner's thumb on the jaw, following it, and the tapper's tap on the nearest tooth |
@@ -3376,7 +3378,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-vise.ts` | **THE VISE's four states**, posed with a hand on the controls (`boss-hands-vise.ts`) |
 | `tools/director/src/poses-bosses-hands-valve.ts` | **THE VALVE's ten states**, posed with a hand on the controls (`boss-hands-valve.ts`) |
 | `tools/director/src/poses-bosses-hands-grindstone.ts` | **THE GRINDSTONE's four states**, posed with a hand on the controls (`boss-hands-grindstone.ts`) |
-| `tools/director/src/poses-bosses-hands-lamprey.ts` | **THE LAMPREY's states**, posed with a hand on the controls (`boss-hands-lamprey.ts`) |
+| `tools/director/src/poses-bosses-hands-lamprey.ts` | **THE LAMPREY's states**, posed with a hand on the controls (`boss-hands-lamprey.ts`): the crawl in |
 | `tools/director/src/poses-bosses.ts` | **The BOSSES category of the STATES sheet**: one group per boss, in the order the simulation numbers them |
 | `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
 | `tools/director/src/poses-cage.ts` | The pose a candidate for THE RECOIL's cage is judged on |

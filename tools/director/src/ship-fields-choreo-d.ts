@@ -108,7 +108,15 @@ export const CHOREO_FIELD_GROUP_D = {
   // LampreyConfig — the swim in, the leap, the recoil and the fall, the rows
   // it may land on, how long the tail lies, and how far the head and the tail
   // are pulled (`config-lamprey.ts`).
-  lampreyEnterBeats: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyOutCols: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyFeedRow: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyAwayBeats: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyHighRow: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyLowRow: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyCrawlTiles: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyLungeTiles: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyFoodCols: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyEdgeCols: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreyLeapBeats: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreyRecoilBeats: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreySpentBeats: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",

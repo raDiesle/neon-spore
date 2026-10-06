@@ -2,19 +2,31 @@ import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
 import {
   freshLamprey,
+  type LampreyMorsel,
   type LampreyState,
   type LampreyStep,
   lampreyNextTooth,
   lampreyStep,
+  lampreyTapsWanted,
   lampreyTeethIn,
   lampreyToothIn,
 } from "./lamprey.js";
-import { lampreyLeapTo, lampreyTileIndex } from "./lamprey-leap.js";
+import { lampreyLeapTo, lampreyTailFor, lampreyTileIndex } from "./lamprey-leap.js";
+import {
+  lampreyAway,
+  lampreyEntering,
+  lampreyFeeding,
+  lampreyOutside,
+  lampreyRoaming,
+  lampreyRoams,
+  lampreySweepDung,
+} from "./lamprey-roam.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
- * THE LAMPREY's clock, once a beat: swimming in, landing on a tile, a stay's
+ * THE LAMPREY's clock, once a beat: the worm crawling in, feeding, out and
+ * back and across the field (`lamprey-roam.ts`), landing on a tile, a stay's
  * window running out, the leap to the next tile, the recoil from a hit, and
  * falling away spent.
  *
@@ -28,20 +40,31 @@ import type { World } from "./world.js";
  * in a world nobody is playing any more.
  */
 
-export function installLamprey(world: World, steps: readonly LampreyStep[]): LampreyState {
+/**
+ * In from off the field's side nearer its meal, at the row it feeds on, the
+ * first stay's tile drawn now — a leap of its `jump` from the top middle — so
+ * the crawl back in after the meal knows where it ends.
+ */
+export function installLamprey(
+  world: World,
+  steps: readonly LampreyStep[],
+  meal: readonly LampreyMorsel[] = [],
+): LampreyState {
   const cfg = world.cfg;
-  const from = { col: midCol(cfg), row: cfg.lampreyRowTop };
-  const s = freshLamprey(world.beat, from, from, steps);
-  const at = lampreyLeapTo(world, s, from, steps[0]?.jump ?? 1, -1);
-  s.col = at.col;
-  s.row = at.row;
-  world.events.push({ type: "lampreyEnter", col: s.col });
+  const top = { col: midCol(cfg), row: cfg.lampreyRowTop };
+  const side = lampreyOutside(world, meal[0]?.col ?? 0);
+  const s = freshLamprey(world.beat, { col: side, row: cfg.lampreyFeedRow }, top, steps, meal);
+  const first = lampreyLeapTo(world, s, top, steps[0]?.jump ?? 1, -1);
+  s.nextCol = first.col;
+  s.nextRow = first.row;
+  world.events.push({ type: "lampreyEnter", col: side < 0 ? 0 : cfg.cols - 1 });
   return s;
 }
 
 export function stepLamprey(world: World, s: LampreyState): void {
   const cfg = world.cfg;
   const since = world.beat - s.phaseBeat;
+  lampreySweepDung(world, s);
   if (s.phase === "spent") {
     if (since >= cfg.lampreySpentBeats) {
       world.events.push({ type: "lampreyOut", col: s.col });
@@ -49,8 +72,13 @@ export function stepLamprey(world: World, s: LampreyState): void {
     }
     return;
   }
-  if (s.phase === "entering" && since >= cfg.lampreyEnterBeats) land(world, s);
-  else if (s.phase === "leap" && since >= cfg.lampreyLeapBeats) land(world, s);
+  if (s.phase === "entering") lampreyEntering(world, s);
+  else if (s.phase === "feeding") lampreyFeeding(world, s);
+  else if (s.phase === "away") {
+    if (lampreyAway(world, s)) lampreyRoams(world, s, 2);
+  } else if (s.phase === "roam") {
+    if (lampreyRoaming(world, s)) land(world, s);
+  } else if (s.phase === "leap" && since >= cfg.lampreyLeapBeats) land(world, s);
   else if (s.phase === "recoil" && since >= cfg.lampreyRecoilBeats) leapOn(world, s);
   else if (s.phase === "bite" || s.phase === "rearing") {
     const step = lampreyStep(s);
@@ -74,8 +102,14 @@ function land(world: World, s: LampreyState): void {
   const next = after === undefined ? null : lampreyLeapTo(world, s, s, after.jump, reach);
   s.nextCol = next?.col ?? -1;
   s.nextRow = next?.row ?? -1;
+  const way = lampreyTailFor(world, s, reach);
+  s.tailX = way.x;
+  s.tailY = way.y;
   s.phaseBeat = world.beat;
   s.pulled = [];
+  s.toothTaps = 0;
+  s.trailCol = [];
+  s.trailRow = [];
   s.tailDown = [false, false];
   s.tailMilli = [0, 0];
   s.headMilli = [0, 0];
@@ -104,12 +138,26 @@ function bitThrough(world: World, s: LampreyState): void {
 }
 
 /**
- * The lit tooth knocked out by `side`: the next one two places on lights, and
- * the stay won once it has given up its teeth. Called by the tap
- * (`lamprey-hand.ts`).
+ * A right tap from `side` on the lit tooth: one of the step's `taps`, and the
+ * last of them cracks it. Called by the hand (`lamprey-hand.ts`).
  */
-export function lampreyCracked(world: World, s: LampreyState, side: 0 | 1): void {
+export function lampreyTapped(world: World, s: LampreyState, side: 0 | 1): void {
+  s.toothTaps += 1;
+  if (s.toothTaps >= lampreyTapsWanted(s)) {
+    lampreyCracked(world, s, side);
+    return;
+  }
+  const taps = s.toothTaps;
+  world.events.push({ type: "lampreyTap", side, tooth: s.litTooth, taps, col: s.col });
+}
+
+/**
+ * The lit tooth knocked out by `side`: the next one two places on lights, and
+ * the stay won once it has given up its teeth.
+ */
+function lampreyCracked(world: World, s: LampreyState, side: 0 | 1): void {
   const tooth = s.litTooth;
+  s.toothTaps = 0;
   s.pulled.push(tooth);
   world.events.push({ type: "lampreyCrack", side, tooth, col: s.col });
   const step = lampreyStep(s);
@@ -122,11 +170,12 @@ export function lampreyCracked(world: World, s: LampreyState, side: 0 | 1): void
 
 /**
  * A tooth snapped back by a tap from `side` — on a dark tooth, or with the
- * tail loose: the last tooth this stay cracked goes back in and the same
- * tooth stays lit. The window runs on.
+ * tail loose: the last tooth this stay cracked goes back in, the same tooth
+ * stays lit and its taps start again. The window runs on.
  */
 export function lampreySnapped(world: World, s: LampreyState, side: 0 | 1): void {
   s.pulled.pop();
+  s.toothTaps = 0;
   world.events.push({ type: "lampreySnap", tooth: s.litTooth, side, col: s.col });
 }
 
@@ -159,10 +208,20 @@ export function lampreyRecoiled(world: World, s: LampreyState): void {
   s.phaseBeat = world.beat;
 }
 
-/** Off the tile: a leap to the one drawn as it landed, or, with the script done, spent where it is. */
+/**
+ * Off the tile: a leap to the one drawn as it landed — or, for a step that
+ * crawls, the crawl across the field that ends on it — or, with the script
+ * done, spent where it is.
+ */
 function leapOn(world: World, s: LampreyState): void {
-  if (lampreyStep(s) === null || s.nextCol < 0) {
+  const step = lampreyStep(s);
+  if (step === null || s.nextCol < 0) {
     spend(world, s);
+    return;
+  }
+  s.toothTaps = 0;
+  if (step.crawl === true) {
+    lampreyRoams(world, s, 0);
     return;
   }
   s.fromCol = s.col;

@@ -19,7 +19,14 @@ import type { World } from "./world.js";
  * **A ring with no tile on it comes in a step**: a long leap from near a wall
  * may have nowhere that far left inside the field, so the leap is the
  * longest it can be rather than none at all. With nowhere left at any
- * distance, the tail's room goes first and then the fresh tile.
+ * distance, the tail's room goes first and then the fresh tile — and then
+ * **the tail is laid another way** (`lampreyTailFor`), the nearest of the
+ * eight to *away* that keeps it on the field, for a tail off the screen is a
+ * handle nobody can hold (the owner, 6 October 2026: *make sure the on-screen
+ * controls are visible at every position of the boss*).
+ *
+ * **It never lands in the outermost `lampreyEdgeCols`**, so the whole mouth
+ * — wider than its tile — and every tooth on it is on the screen.
  */
 export interface Tile {
   col: number;
@@ -56,8 +63,12 @@ const LOOSER = [
 
 /** Whether a tail `reach` long, laid away from `to`, stays inside the field from `from`. */
 function tailFits(world: World, from: Tile, to: Tile, reach: number): boolean {
+  return wayFits(world, from, lampreyWayMilli(from.col - to.col, from.row - to.row), reach);
+}
+
+/** Whether a tail `reach` long, laid along `way`, stays inside the field from `from`. */
+function wayFits(world: World, from: Tile, way: { x: number; y: number }, reach: number): boolean {
   const cfg = world.cfg;
-  const way = lampreyWayMilli(from.col - to.col, from.row - to.row);
   const col = from.col * 1000 + Math.trunc((way.x * reach) / 1000);
   const row = from.row * 1000 + Math.trunc((way.y * reach) / 1000);
   if (col < 0 || col > (cfg.cols - 1) * 1000) return false;
@@ -75,8 +86,9 @@ function ringAt(
 ): Tile[] {
   const cfg = world.cfg;
   const out: Tile[] = [];
+  const edge = cfg.lampreyEdgeCols;
   for (let row = cfg.lampreyRowTop; row <= cfg.lampreyRowBottom; row++) {
-    for (let col = 0; col < cfg.cols; col++) {
+    for (let col = edge; col < cfg.cols - edge; col++) {
       if (Math.max(Math.abs(col - from.col), Math.abs(row - from.row)) !== d) continue;
       if (fresh && s.bitten.includes(lampreyTileIndex(world, col, row))) continue;
       if (tailMilli >= 0 && !tailFits(world, from, { col, row }, tailMilli)) continue;
@@ -103,8 +115,44 @@ const DIAGONAL = 707;
  * `apart` is pulled along it, so the two are one direction.
  */
 export function lampreyTailWay(s: LampreyState): { x: number; y: number } {
-  if (s.nextCol < 0) return { x: 0, y: 1000 };
-  return lampreyWayMilli(s.col - s.nextCol, s.row - s.nextRow);
+  return { x: s.tailX, y: s.tailY };
+}
+
+/** The eight ways round, a unit long in thousandths, starting straight down and turning clockwise on screen. */
+const WAYS = [
+  [0, 1000],
+  [-DIAGONAL, DIAGONAL],
+  [-1000, 0],
+  [-DIAGONAL, -DIAGONAL],
+  [0, -1000],
+  [DIAGONAL, -DIAGONAL],
+  [1000, 0],
+  [DIAGONAL, DIAGONAL],
+] as const;
+
+/** Which of the eight it turns from: one away from the next tile, nearest first either side. */
+const TURNS = [0, 1, -1, 2, -2, 3, -3, 4];
+
+/**
+ * The way the tail lies on the tile the eel has landed on, `reach` long:
+ * away from the next tile — or straight down with none — so it leads with
+ * its mouth, and where that would run off the field, the nearest way round
+ * that does not. **There always is one**: the rows it lands on leave the
+ * longest tail room straight up or straight down.
+ */
+export function lampreyTailFor(
+  world: World,
+  s: LampreyState,
+  reach: number,
+): { x: number; y: number } {
+  const away =
+    s.nextCol < 0 ? { x: 0, y: 1000 } : lampreyWayMilli(s.col - s.nextCol, s.row - s.nextRow);
+  const at = WAYS.findIndex(([x, y]) => x === away.x && y === away.y);
+  for (const turn of TURNS) {
+    const [x, y] = WAYS[(((at + turn) % 8) + 8) % 8] ?? WAYS[0];
+    if (wayFits(world, s, { x, y }, reach)) return { x, y };
+  }
+  return away;
 }
 
 /** The nearest of the eight ways to `(dx, dy)`, a unit long in thousandths; straight down for none. */

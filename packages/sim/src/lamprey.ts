@@ -1,4 +1,11 @@
-import type { Color } from "./types.js";
+import {
+  LAMPREY_JUMP,
+  LAMPREY_TEETH,
+  type LampreyAsk,
+  type LampreyMorsel,
+  type LampreyState,
+  type LampreyStep,
+} from "./lamprey-types.js";
 import type { World } from "./world.js";
 
 /**
@@ -18,7 +25,7 @@ import type { World } from "./world.js";
  *
  * **Every stay asks for something else** (`LampreyAsk`):
  * - `teeth` — the holder's thumb on the tail, the other taps the one lit
- *   tooth, `teeth` times; the light jumps two places round the ring after
+ *   tooth `taps` times to crack it, `teeth` teeth; the light jumps two places round the ring after
  *   each, and a tap with the tail loose or on a dark tooth snaps the last
  *   one back in (`lamprey-hand.ts`).
  * - `pull` — the holder's thumb on the tail, the other pulls the head up off
@@ -35,88 +42,32 @@ import type { World } from "./world.js";
  * on a tile should have a slow with time indicator*). A stay whose window
  * runs out bites through, and the hull takes it.
  *
+ * **Before the first stay and between levels it is a worm on the field**
+ * (the owner, 6 October 2026, `lamprey-roam.ts`): it crawls in and eats the
+ * meal that falls for it, crawls out of the picture and back, and before a
+ * step that says `crawl` it crawls the field from side to side instead of
+ * leaping — eating what falls and dropping dung for the shield.
+ *
  * **Its health is the teeth.** A `pull` or an `apart` leaves the lit tooth in
  * the tile it let go of; a `teeth` stay knocks out as many as it asks. The
  * gullet shrinks a step per hit.
  */
 
-/** Teeth on the ring. */
-export const LAMPREY_TEETH = 7;
-/** How far round the ring the lit tooth jumps after a crack: never the one beside it. */
-export const LAMPREY_JUMP = 2;
-
-/**
- * Where the scene is: swimming in, bitten into a tile, leaping to the next,
- * reared on a tile with the gullet lit, recoiling from a hit, and limp,
- * falling away, spent.
- */
-export const LAMPREY_PHASES = ["entering", "bite", "leap", "rearing", "recoil", "spent"] as const;
-export type LampreyPhase = (typeof LAMPREY_PHASES)[number];
-
-/** What a stay asks: the teeth tapped, the head pulled, the two pulled apart, or the gullet shot. */
-export const LAMPREY_ASKS = ["teeth", "pull", "apart", "gullet"] as const;
-export type LampreyAsk = (typeof LAMPREY_ASKS)[number];
-
-/** One stay of the script, authored on the wave. */
-export interface LampreyStep {
-  ask: LampreyAsk;
-  /** The seat on the tail; the other works the head. A gullet reads nothing here. */
-  holder: 1 | 2;
-  /** Teeth a `teeth` stay asks to have knocked out. Nothing else reads it. */
-  teeth: number;
-  /** How far the leap onto this stay's tile goes, in tiles: authored rising. */
-  jump: number;
-  /** Beats the stay waits, under THE SLOW, before the bite goes through. */
-  beats: number;
-  /** The colour a gullet must be shot, or `"either"`. Only a gullet reads it. */
-  color: Color | "either";
-}
-
-/** What a wave authors: the whole script, in order. */
-export interface LampreyEntry {
-  kind: "lamprey";
-  steps: readonly LampreyStep[];
-}
-
-export interface LampreyState {
-  kind: "lamprey";
-  /** Copied at install and never written again. */
-  steps: LampreyStep[];
-  phase: LampreyPhase;
-  /** `world.beat` the phase began. */
-  phaseBeat: number;
-  /** The stay on, or the next to land. */
-  cursor: number;
-  /** The tile the eel is on, or is leaping to. */
-  col: number;
-  row: number;
-  /** The tile it leapt from: where a leap is drawn starting. */
-  fromCol: number;
-  fromRow: number;
-  /** The tile the next stay lands on, drawn as this one landed, or -1 with none to come. */
-  nextCol: number;
-  nextRow: number;
-  /** The teeth knocked out for good, a mask of `LAMPREY_TEETH` bits. */
-  teethOut: number;
-  /** The tooth lit: the one a tap must find, and the one a pull leaves behind. */
-  litTooth: number;
-  /** The teeth cracked in this stay, in order; a snap puts the last one back. */
-  pulled: number[];
-  /** Shots the gullet has taken. */
-  hits: number;
-  /** Every tile bitten so far, `row * cols + col`, in order: what the picture scars. */
-  bitten: number[];
-  /** Whether each seat's thumb is down on the tail. */
-  tailDown: [boolean, boolean];
-  /** How far each seat has pulled the tail away from the head, thousandths of a tile. */
-  tailMilli: [number, number];
-  /** How far each seat has pulled the head up, thousandths of a tile. */
-  headMilli: [number, number];
-  /** Whether each seat's thumb is down on the teeth, so a tap is an edge. */
-  tapDown: [boolean, boolean];
-  /** Whether each seat's slip has been said for the press it is on, so it is said once. */
-  slipped: [boolean, boolean];
-}
+export {
+  LAMPREY_ASKS,
+  LAMPREY_FOODS,
+  LAMPREY_JUMP,
+  LAMPREY_PHASES,
+  LAMPREY_TEETH,
+  LAMPREY_TRAIL,
+  type LampreyAsk,
+  type LampreyEntry,
+  type LampreyFood,
+  type LampreyMorsel,
+  type LampreyPhase,
+  type LampreyState,
+  type LampreyStep,
+} from "./lamprey-types.js";
 
 export function lampreyBoss(world: World): LampreyState | null {
   const boss = world.boss;
@@ -193,6 +144,18 @@ export function lampreyTailPull(s: LampreyState): number {
   return holder === null ? 0 : (s.tailMilli[holder - 1] ?? 0);
 }
 
+/** Whether it is a worm on the field: crawling in, eating its meal, out and back, or between levels. */
+export function lampreyCrawling(s: LampreyState): boolean {
+  return (
+    s.phase === "entering" || s.phase === "feeding" || s.phase === "away" || s.phase === "roam"
+  );
+}
+
+/** Taps a lit tooth wants in the stay on: the step's `taps`, one when it says none. */
+export function lampreyTapsWanted(s: LampreyState): number {
+  return Math.max(1, lampreyStep(s)?.taps ?? 1);
+}
+
 /** Whether the gullet is lit to be shot. */
 export function lampreyFiring(s: LampreyState): boolean {
   return s.phase === "rearing";
@@ -203,27 +166,43 @@ export function lampreyDone(s: LampreyState): boolean {
   return s.phase === "spent";
 }
 
-/** A fresh lamprey: swimming in to its first tile, every tooth in, no thumb down. */
+/**
+ * A fresh lamprey: its head `at`, outside the field, crawling in toward its
+ * meal, the first stay's tile drawn as `first`; every tooth in, no thumb down.
+ */
 export function freshLamprey(
   beat: number,
   at: { col: number; row: number },
-  from: { col: number; row: number },
+  first: { col: number; row: number },
   steps: readonly LampreyStep[],
+  meal: readonly LampreyMorsel[] = [],
 ): LampreyState {
   return {
     kind: "lamprey",
     steps: steps.map((step) => ({ ...step })),
+    meal: meal.map((m) => ({ ...m })),
     phase: "entering",
     phaseBeat: beat,
     cursor: 0,
     col: at.col,
     row: at.row,
-    fromCol: from.col,
-    fromRow: from.row,
-    nextCol: -1,
-    nextRow: -1,
+    fromCol: at.col,
+    fromRow: at.row,
+    nextCol: first.col,
+    nextRow: first.row,
+    tailX: 0,
+    tailY: 1000,
+    trailCol: [],
+    trailRow: [],
+    headBeat: beat,
+    leg: 0,
+    roamSide: 1,
+    served: 0,
+    prey: -1,
+    dung: [],
     teethOut: 0,
     litTooth: 0,
+    toothTaps: 0,
     pulled: [],
     hits: 0,
     bitten: [],

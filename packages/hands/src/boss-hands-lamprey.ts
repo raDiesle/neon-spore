@@ -1,4 +1,7 @@
 import {
+  beatPhaseTicks,
+  guardArmed,
+  guardWindowTicks,
   type LampreyState,
   lampreyAsks,
   lampreyBoss,
@@ -6,7 +9,9 @@ import {
   lampreyTailHeld,
   lampreyTailWay,
   lampreyWorker,
+  shieldRow,
   type TimedCommand,
+  ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
 
@@ -28,14 +33,29 @@ import {
  * never snaps one back; and it waits for the tail, so it never taps loose.
  *
  * **The shot** wants the step's colour; `"either"` is fired cyan.
+ *
+ * **Its dung is a rock**, turned the way the field's hand turns one
+ * (`autopilot-field-hand.ts`): the navigator carries the shield under it and
+ * the pilot raises it in the last stretch of the beat before it reaches the
+ * shield's row.
  */
 type Press = Omit<TimedCommand, "tick">;
 
 export const lampreyHand = (w: World): Press[] => {
   const s = lampreyBoss(w);
   if (s === null) return [];
-  return [...holdTail(w, s), ...freeHead(w, s), ...tap(s), ...shoot(w, s)];
+  return [...holdTail(w, s), ...freeHead(w, s), ...tap(s), ...shoot(w, s), ...shield(w, s)];
 };
+
+function shield(w: World, s: LampreyState): Press[] {
+  const dung = w.creatures.find((c) => s.dung.includes(c.id));
+  if (dung === undefined) return [];
+  if (w.shieldCol !== dung.col)
+    return [{ player: 2, command: { kind: "shieldCol", col: dung.col } }];
+  if (dung.row < shieldRow(w.cfg) - 1 || guardArmed(w)) return [];
+  const toBeat = ticksPerBeat(w.cfg) - beatPhaseTicks(w.cfg, w.tick);
+  return toBeat <= guardWindowTicks(w.cfg) / 2 ? [{ player: 1, command: { kind: "guard" } }] : [];
+}
 
 function holdTail(w: World, s: LampreyState): Press[] {
   const holder = lampreyHolder(s);

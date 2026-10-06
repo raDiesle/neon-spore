@@ -9,9 +9,10 @@ import { stageField } from "../src/stage-field.js";
 /**
  * **AUTO plays THE LAMPREY to the end** (`hands/boss-hands-lamprey.ts`): the
  * tail held every stay, the head pulled off in a pull, both ends pulled at
- * once in an apart, the lit tooth tapped in a teeth, and the gullet shot in
- * its colour. No tooth snaps, no head slips, no stay runs out and the hull is
- * never struck.
+ * once in an apart, the lit tooth tapped its taps in a teeth, the gullet shot
+ * in its colour and both pieces of dung turned on the shield, while the eel
+ * eats its meal and the food of both crawls. No tooth snaps, no head slips,
+ * no stay runs out and the hull is never struck.
  *
  * The P1 case is the holder's thumb alone: the pilot on the tail in the
  * first stay, nobody on the head.
@@ -37,6 +38,8 @@ describe("AUTO on THE LAMPREY", () => {
     const cracks: number[] = [];
     const hits: number[] = [];
     let loose = 0;
+    let eaten = 0;
+    let dung = 0;
     let out = false;
     const wrong: string[] = [];
     for (let i = 0; i < 40_000 && world.boss !== null; i++) {
@@ -45,14 +48,19 @@ describe("AUTO on THE LAMPREY", () => {
         if (e.type === "lampreyCrack") cracks.push(e.side);
         if (e.type === "lampreyHit") hits.push(e.hits);
         if (e.type === "lampreyLoose") loose += 1;
+        if (e.type === "lampreyEat") eaten += 1;
+        if (e.type === "lampreyDung") dung += 1;
+        if (e.type === "breach") wrong.push(e.type);
         if (e.type === "lampreyOut") out = true;
         if (WRONG.includes(e.type)) wrong.push(e.type);
       }
     }
-    // The pilot taps the first teeth and the navigator the second.
-    expect(cracks).toEqual([0, 0, 1, 1]);
-    expect(loose).toBe(5);
-    expect(hits).toEqual([1, 2]);
+    // The seats take the teeth in turn: the pilot first, then the navigator.
+    expect(cracks).toEqual([0, 1, 0, 1]);
+    expect(loose).toBe(9);
+    expect(hits).toEqual([1, 2, 3]);
+    // The meal of five and the food of both crawls; the dung turned, not eaten.
+    expect([eaten, dung]).toEqual([7, 2]);
     expect(wrong).toEqual([]);
     expect(world.scars).toEqual([]);
     expect(out).toBe(true);

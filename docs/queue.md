@@ -488,3 +488,18 @@ strip, for motion*. Advance the draw clock by the ticks a stride steps (a
 tick's seconds at the wave's tempo) before each frame's paint, and add a test
 that two frames of a strip with a time-driven look differ. Done when the
 recipe's strip of THE FLUE shows the fluid moving and `bun run check` is green.
+
+## "Bring the trunk up" misses landings on the local `main` that are not pushed
+
+- **Found:** 2026-10-06, claude/lamprey-boss-mechanics-662818
+- **Files:** `CLAUDE.md`, `tools/hooks/`
+
+`git fetch origin main && git merge --ff-only origin/main` is the step a lane
+starts with, but the local `main` held 88 landings `origin/main` did not —
+among them THE LAMPREY's rework — so a lane built for an hour on the old
+design and met thirty conflicting files at `bun run land`. It was worked
+around by resetting the branch onto the local `main` and building again. Make
+the start-of-lane step (or a SessionStart hook in a worktree) also say when
+`HEAD` is behind the local `main`, and fast-forward it there, and add a test.
+Done when a worktree behind the local `main` is told so at its first command
+and `bun run check` is green.

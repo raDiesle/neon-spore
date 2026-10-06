@@ -1,11 +1,12 @@
-import type { Color } from "./types.js";
+import type { LampreyFood } from "./lamprey-types.js";
+import type { Color, CreatureKind } from "./types.js";
 
 /**
  * What THE LAMPREY says as it happens, one line per thing the picture and the
  * sound answer.
  *
  * Every event carries `col`, the column it happened over, for the sounds to
- * pan to: the tile's column while it is on one. A seat is `side`, nought the
+ * pan to: the tile's column while it is on one, the head's while it crawls. A seat is `side`, nought the
  * pilot.
  */
 
@@ -15,12 +16,24 @@ interface LampreyColEvent {
 }
 
 export type LampreyEvent =
-  /** The eel swims into frame. */
+  /** The eel crawls into frame from off the field's side. */
   | ({ type: "lampreyEnter" } & LampreyColEvent)
+  /** Something dropped for it to eat, falling in `col`. */
+  | ({ type: "lampreyFeed"; food: LampreyFood } & LampreyColEvent)
+  /** It ate a body off the field at `col` and `row`, and leaves crumbs there. */
+  | ({ type: "lampreyEat"; food: CreatureKind; row: number } & LampreyColEvent)
+  /** It has crawled out of the picture, off the side by `col`. */
+  | ({ type: "lampreyAway" } & LampreyColEvent)
+  /** It sets off crawling across the field toward its next stay. */
+  | ({ type: "lampreyRoam" } & LampreyColEvent)
+  /** It let go of dung, a rock for the shield, at `col` and `row`. */
+  | ({ type: "lampreyDung"; row: number } & LampreyColEvent)
   /** It bites into the tile at `col`, `row`; `side` is on the tail, and `tooth` is lit. */
   | ({ type: "lampreyBite"; side: 0 | 1; tooth: number; row: number } & LampreyColEvent)
   /** The holder's thumb came down on the tail. */
   | ({ type: "lampreyGrip"; side: 0 | 1 } & LampreyColEvent)
+  /** A tap from `side` on the lit tooth that has not cracked it yet: `taps` of the step's taken. */
+  | ({ type: "lampreyTap"; side: 0 | 1; tooth: number; taps: number } & LampreyColEvent)
   /** The lit tooth knocked out by `side`. */
   | ({ type: "lampreyCrack"; side: 0 | 1; tooth: number } & LampreyColEvent)
   /** A tooth snapped back in: a tap from `side` on a dark tooth, or with the tail loose. */

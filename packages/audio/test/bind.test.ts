@@ -701,6 +701,12 @@ const SAMPLES: Record<string, SimEvent> = {
   governorSpent: { type: "governorSpent", col: 5 },
   governorOut: { type: "governorOut", col: 5 },
   lampreyEnter: { type: "lampreyEnter", col: 2 },
+  lampreyFeed: { type: "lampreyFeed", col: 3, food: "slick" },
+  lampreyEat: { type: "lampreyEat", col: 3, food: "slick", row: 3 },
+  lampreyAway: { type: "lampreyAway", col: 0 },
+  lampreyRoam: { type: "lampreyRoam", col: 0 },
+  lampreyDung: { type: "lampreyDung", col: 9, row: 5 },
+  lampreyTap: { type: "lampreyTap", col: 2, side: 1, tooth: 0, taps: 1 },
   lampreyBite: { type: "lampreyBite", col: 2, side: 0, tooth: 0, row: 4 },
   lampreyGrip: { type: "lampreyGrip", col: 2, side: 0 },
   lampreyCrack: { type: "lampreyCrack", col: 3, side: 1, tooth: 2 },
@@ -847,8 +853,13 @@ describe("bindings", () => {
   // `grindstoneFade` is the ninth, THE GRINDSTONE's: `grindstoneJar` is heard.
   // `rimeRefreeze` is the tenth, THE RIME's, for the ninth's reason:
   // `rimeScatter` is heard. (THE STARE's `stareAgain` was one until 2 October
-  // 2026, when its levels stopped starting over.)
+  // 2026, when its levels stopped starting over.) THE LAMPREY's food
+  // falling, its crawl out of the picture and its crawl across the field are
+  // silent: the crawl is seen, and the bodies falling have their own sounds.
   const SILENT_BY_DESIGN = new Set([
+    "lampreyFeed",
+    "lampreyAway",
+    "lampreyRoam",
     "needWave",
     "choirMerge",
     "shotOut",

@@ -9,7 +9,7 @@ export function isLampreyEvent(e: SimEvent): e is LampreySimEvent {
 }
 
 /**
- * THE LAMPREY's twelve, in a file of their own for `bind-gorge.ts`' reason.
+ * THE LAMPREY's eighteen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * **The pan follows the eel**: every event carries the column of the tile it
  * is on, so a leap across the field is heard landing on the other side. **A
@@ -17,12 +17,28 @@ export function isLampreyEvent(e: SimEvent): e is LampreySimEvent {
  * to hear.
  *
  * **A crack rises as the teeth come out**, and so does a hit.
+ *
+ * **The worm on the field has no new sound** (6 October 2026): a body eaten
+ * is the bite's chomp, high; a tap that has not cracked the tooth yet is the
+ * crack, low and rising with the taps; dung is the bite letting go, low. Food
+ * falling, out of the picture and the crawl across are silent — the crawl is
+ * seen, and the bodies falling have their own sounds.
  */
-export function lampreyCue(e: LampreySimEvent, cols: number): Cue {
+export function lampreyCue(e: LampreySimEvent, cols: number): Cue | null {
   const pan = panForCol(e.col, cols);
   switch (e.type) {
     case "lampreyEnter":
       return { id: "boss.lampreyEnter", pan };
+    case "lampreyFeed":
+    case "lampreyAway":
+    case "lampreyRoam":
+      return null;
+    case "lampreyEat":
+      return { id: "boss.lampreyBite", pan, pitch: 1.3 };
+    case "lampreyDung":
+      return { id: "boss.lampreyLoose", pan, pitch: 0.7 };
+    case "lampreyTap":
+      return { id: "boss.lampreyCrack", pan, pitch: 0.6 + e.taps * 0.08 };
     case "lampreyBite":
       return { id: "boss.lampreyBite", pan };
     case "lampreyCrack":

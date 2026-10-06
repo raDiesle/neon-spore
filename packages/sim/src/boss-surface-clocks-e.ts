@@ -140,21 +140,26 @@ export {
 } from "./governor-mark.js";
 export { governorFlightTicks, governorFlownTicks } from "./governor-shot.js";
 // THE LAMPREY's tail, head and teeth: the phase, the step, the seats, the
-// ring, the leap and the gullet, for the picture, the cue and the director's hand (§41).
+// ring, the leap, the worm's crawl and the gullet, for the picture, the cue and the director's hand (§41).
 export {
   freshLamprey,
   LAMPREY_ASKS,
+  LAMPREY_FOODS,
   LAMPREY_JUMP,
   LAMPREY_PHASES,
   LAMPREY_TEETH,
+  LAMPREY_TRAIL,
   type LampreyAsk,
   type LampreyEntry,
+  type LampreyFood,
+  type LampreyMorsel,
   type LampreyPhase,
   type LampreyState,
   type LampreyStep,
   lampreyAsks,
   lampreyBiting,
   lampreyBoss,
+  lampreyCrawling,
   lampreyDone,
   lampreyFiring,
   lampreyHeadPull,
@@ -163,6 +168,7 @@ export {
   lampreyStep,
   lampreyTailHeld,
   lampreyTailPull,
+  lampreyTapsWanted,
   lampreyTeethIn,
   lampreyToothIn,
   lampreyWorker,

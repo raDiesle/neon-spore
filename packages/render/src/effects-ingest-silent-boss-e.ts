@@ -116,7 +116,7 @@ export const INGEST_SILENT_BOSS_E = [
   // And THE THROAT's, on the ring or the tube: a red ring round the part,
   // `effects.boss.blows.throatMarks`' (`throat-marks.ts`).
   "throatRefuse",
-  // THE LAMPREY's twelve: what outlives a frame is `lamprey-fx.ts`',
+  // THE LAMPREY's eighteen: what outlives a frame is `lamprey-fx.ts`',
   // read above the loop, and seven of them its marks' verdicts with it.
   "lampreyEnter",
   "lampreyBite",
@@ -130,6 +130,12 @@ export const INGEST_SILENT_BOSS_E = [
   "lampreyHit",
   "lampreySpent",
   "lampreyOut",
+  "lampreyFeed",
+  "lampreyEat",
+  "lampreyAway",
+  "lampreyRoam",
+  "lampreyDung",
+  "lampreyTap",
   // THE MIMIC's thirteen: the body is drawn off the world each frame, and
   // what outlives a frame is `mimic-fx.ts`', read above the loop.
   "mimicEnter",

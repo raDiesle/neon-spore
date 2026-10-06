@@ -51,13 +51,28 @@ export const BOSS_ENTRIES_F = {
       { ask: "fire", marks: [], ordered: false, paceMilli: 4, color: "cyan", beats: 8 },
     ],
   },
-  // A pull and a gullet, the holders apart, and the first step's colour set
-  // off `either`, for the walk only changes element 0
-  // (`lamprey-hash.ts`).
+  // A teeth and a gullet, the holders apart, and the first step's colour,
+  // taps, crawl, food and dung all set off what is left out, for the walk
+  // only changes element 0; a meal of two (`lamprey-hash.ts`).
   lamprey: {
     kind: "lamprey",
+    meal: [
+      { kind: "slick", col: 3 },
+      { kind: "meteor", col: 6 },
+    ],
     steps: [
-      { ask: "pull", holder: 1, teeth: 0, jump: 2, beats: 12, color: "cyan" },
+      {
+        ask: "teeth",
+        holder: 1,
+        teeth: 1,
+        jump: 2,
+        beats: 12,
+        color: "cyan",
+        taps: 3,
+        crawl: true,
+        food: "bulb",
+        dung: true,
+      },
       { ask: "gullet", holder: 2, teeth: 2, jump: 3, beats: 9, color: "either" },
     ],
   },
@@ -126,6 +141,20 @@ export function patchBossF(boss: BossState): void {
     boss.headMilli = [0, 700];
     boss.tapDown = [false, true];
     boss.slipped = [false, true];
+    // Its tail laid up and to the left, two of its meal served, after a body,
+    // one dung rock falling, a trail behind it on the second leg of a crawl
+    // to the left, and two taps on the lit tooth.
+    boss.tailX = -707;
+    boss.tailY = -707;
+    boss.served = 2;
+    boss.prey = 41;
+    boss.dung = [42];
+    boss.headBeat = 7;
+    boss.trailCol = [4, 3];
+    boss.trailRow = [6, 7];
+    boss.leg = 1;
+    boss.roamSide = -1;
+    boss.toothTaps = 2;
   }
   if (boss.kind === "mimic") {
     // A split on with both pictures up, two tiles painted and the

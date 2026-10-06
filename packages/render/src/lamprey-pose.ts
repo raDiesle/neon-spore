@@ -1,8 +1,8 @@
 import {
   type LampreyState,
+  lampreyCrawling,
   lampreyHeadPull,
   lampreyTailWay,
-  midCol,
   type SimConfig,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
@@ -12,8 +12,9 @@ import { type Layout, tileCY } from "./layout.js";
 import { phaseInto } from "./phase-into.js";
 
 /**
- * **The clock THE LAMPREY is posed off** (§41, *Animation*), six poses: swum
- * in from the nearer side to its first tile; bitten into a tile, the mouth
+ * **The clock THE LAMPREY is posed off** (§41, *Animation*), six poses:
+ * crawling as a worm, its head a tile a beat along the simulation's own
+ * path, the body trailing back the way it came; bitten into a tile, the mouth
  * flattened onto it and the tail laid away from where it leaps next; leaping
  * in an arc to the next tile, the tail trailing the way it came; reared on a
  * tile full-face, the gullet showing; jerked up by a hit; and limp, falling
@@ -26,9 +27,6 @@ import { phaseInto } from "./phase-into.js";
  * the game paused.
  */
 
-/** How far outside the field it swims in from, in columns, and how high over its tile, in tiles. */
-const OUTSIDE = 4;
-const ABOVE = 2;
 /** How high a leap arcs over the straight line between two tiles, in tiles, at its longest. */
 const ARC = 1.2;
 /** The mouth's tilt bitten into a tile, in the air, and full-face. */
@@ -67,17 +65,7 @@ export function lampreyPose(
   const wave = (beat + beatPhase) * Math.PI * 0.8;
   const base = { r: MOUTH * l.tile, wave, curve: CURVE, lean: 0, spent: 0 };
   const here = at(l, s.col, s.row);
-  if (s.phase === "entering") {
-    const k = smoothstep(into / Math.max(1, cfg.lampreyEnterBeats));
-    const side = s.col < midCol(cfg) ? -OUTSIDE : cfg.cols - 1 + OUTSIDE;
-    const from = { x: fieldX(l, side), y: here.y - ABOVE * l.tile };
-    const sway = Math.sin(into * Math.PI) * 0.8 * l.tile * (1 - k);
-    const x = lerp(from.x, here.x, k);
-    const y = lerp(from.y, here.y, k) + sway;
-    const back = leanTo(from.x - here.x, from.y - here.y);
-    const lean = lerp(back, tailLean(l, s), k);
-    return { ...base, x, y, tilt: TILT_LEAP, lean, curve: CURVE * 2 - k * CURVE };
-  }
+  if (lampreyCrawling(s)) return crawlPose(l, s, beat, beatPhase, base);
   if (s.phase === "leap") {
     const k = smoothstep(Math.min(1, into / Math.max(1, cfg.lampreyLeapBeats)));
     const from = at(l, s.fromCol, s.fromRow);
@@ -109,4 +97,26 @@ export function lampreyPose(
   const k = Math.min(1, into / Math.max(1, cfg.lampreySpentBeats));
   const y = here.y + k * k * (l.hullY - here.y);
   return { ...base, x: here.x, y, tilt: 1, curve: CURVE * (1 - k), spent: k };
+}
+
+/**
+ * The head while it crawls: carried from the last place it was to where it is
+ * over the beat it moved in, and still between; the body back toward where it
+ * came from.
+ */
+function crawlPose(
+  l: Layout,
+  s: LampreyState,
+  beat: number,
+  beatPhase: number,
+  base: Omit<LampreyPose, "x" | "y" | "tilt">,
+): LampreyPose {
+  const here = at(l, s.col, s.row);
+  const prev = at(l, s.trailCol[0] ?? s.col, s.trailRow[0] ?? s.row);
+  const k = beat === s.headBeat ? smoothstep(beatPhase) : 1;
+  const x = lerp(prev.x, here.x, k);
+  const y = lerp(prev.y, here.y, k);
+  const back =
+    here.x === prev.x && here.y === prev.y ? Math.PI : leanTo(prev.x - here.x, prev.y - here.y);
+  return { ...base, x, y, tilt: TILT_LEAP, lean: back, curve: CURVE * 1.5 };
 }

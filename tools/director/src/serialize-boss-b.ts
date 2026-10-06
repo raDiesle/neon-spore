@@ -27,15 +27,14 @@ function step(s: object): string {
 }
 
 /**
- * A scripted boss written back out, its steps on the one line. THE FLUE's
- * list is its levels, since its rework of 5 October 2026, and is written the
- * same way under its own name.
+ * A scripted boss written back out, its steps on the one line — and any other
+ * list the entry authors, in the order the wave wrote them, the same way:
+ * THE FLUE's levels since its rework of 5 October 2026, and THE LAMPREY's
+ * meal ahead of its steps since 6 October.
  */
 export function serializeScripted(boss: ScriptedEntry): string {
-  if (boss.kind === "flue") {
-    const levels: readonly object[] = boss.levels;
-    return `{ kind: "flue", levels: [${levels.map(step).join(", ")}] }`;
-  }
-  const steps: readonly object[] = boss.steps;
-  return `{ kind: "${boss.kind}", steps: [${steps.map(step).join(", ")}] }`;
+  const lists = Object.entries(boss)
+    .filter(([k, v]) => k !== "kind" && Array.isArray(v))
+    .map(([k, v]) => `${k}: [${(v as readonly object[]).map(step).join(", ")}]`);
+  return `{ kind: "${boss.kind}", ${lists.join(", ")} }`;
 }

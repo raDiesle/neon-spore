@@ -10,7 +10,7 @@ import {
   lampreyWorker,
 } from "./lamprey.js";
 import { lampreyTailWay } from "./lamprey-leap.js";
-import { lampreyCracked, lampreyFreed, lampreySnapped } from "./lamprey-step.js";
+import { lampreyFreed, lampreySnapped, lampreyTapped } from "./lamprey-step.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -29,7 +29,7 @@ import type { World } from "./world.js";
  *
  * **The teeth are `lampreyTooth`**, an edge like THE VALVE's pin
  * (`valve-hand.ts`), its `id` the tooth: a thumb already resting has to lift
- * and come down again.
+ * and come down again. The step's `taps` of them on the lit tooth crack it.
  *
  * **A bite comes off the tile the instant both hands are where they need to
  * be**, whichever arrived last: so a head held all the way up comes off the
@@ -119,6 +119,6 @@ function tap(
   s.tapDown[side] = true;
   if (!edge || lampreyAsks(s) !== "teeth" || lampreyWorker(s) !== player) return;
   if (!Number.isInteger(id) || id < 0 || id >= LAMPREY_TEETH) return;
-  if (id === s.litTooth && lampreyTailHeld(s)) lampreyCracked(world, s, side);
+  if (id === s.litTooth && lampreyTailHeld(s)) lampreyTapped(world, s, side);
   else lampreySnapped(world, s, side);
 }
