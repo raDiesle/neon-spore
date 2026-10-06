@@ -62,8 +62,8 @@ export function socketX(l: Layout, cfg: SimConfig, b: BatonState, socket: number
 }
 
 /** The row a socket is drawn on: its place down its own arm. */
-function socketY(l: Layout, cfg: SimConfig, socket: number): number {
-  return tileCY(l, batonSocketRow(cfg, batonSlotSocket(cfg, socket)));
+function socketY(l: Layout, cfg: SimConfig, b: BatonState, socket: number): number {
+  return tileCY(l, batonSocketRow(cfg, b, batonSlotSocket(cfg, socket)));
 }
 
 /**
@@ -78,7 +78,7 @@ export function socketPoint(
   b: BatonState,
   socket: number,
 ): { x: number; y: number } {
-  return { x: socketX(l, cfg, b, socket), y: socketY(l, cfg, socket) };
+  return { x: socketX(l, cfg, b, socket), y: socketY(l, cfg, b, socket) };
 }
 
 /** The least white this arm leaves between a word and the ring under it. */

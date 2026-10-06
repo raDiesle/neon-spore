@@ -78,7 +78,7 @@ function letGo(world: World, b: BatonState, socket: number): void {
   b.swellBeat = -1;
   b.shedBeat = world.beat;
   // Down the column of the arm it came off, which with two is not `b.col`.
-  const row = batonSocketRow(cfg, batonSlotSocket(cfg, socket));
+  const row = batonSocketRow(cfg, b, batonSlotSocket(cfg, socket));
   const col = batonSlotCol(cfg, b, socket);
   world.creatures.push({
     id: world.nextId++,

@@ -7,7 +7,6 @@ import {
   batonFlip,
   batonLead,
   batonOneSegment,
-  batonSocketRow,
 } from "./baton.js";
 import { batonArmCol, batonBeadSlot } from "./baton-arm.js";
 import { batonLandTick, batonWaiting } from "./baton-bead.js";
@@ -226,7 +225,7 @@ function land(world: World, b: BatonState, bead: BatonBead): void {
 function settle(world: World, b: BatonState, bead: BatonBead): void {
   if (bead.socket === 0) return;
   bead.backTick = world.tick;
-  bead.backFromMilli = batonSocketRow(world.cfg, bead.socket) * MILLI;
+  bead.backFromMilli = bead.socket * MILLI;
   bead.socket -= 1;
   bead.satBeat = world.beat;
   b.settles += 1;

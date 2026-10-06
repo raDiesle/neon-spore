@@ -1,5 +1,5 @@
 import { circleSubpath } from "@neon-spore/content";
-import { type BatonBead, batonSocketRow, type SimConfig, ticksPerBeat } from "@neon-spore/sim";
+import { type BatonBead, type SimConfig, ticksPerBeat } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -43,12 +43,12 @@ export function batonThrown(cfg: SimConfig, bead: BatonBead, tick: number): numb
 /** Where a bead being thrown is, `f` of the way through, in pixels. `x` is its socket's. */
 export function throwPoint(
   l: Layout,
-  cfg: SimConfig,
+  _cfg: SimConfig,
   bead: BatonBead,
   x: number,
   f: number,
 ): { x: number; y: number } {
-  const to = batonSocketRow(cfg, bead.socket);
+  const to = bead.socket;
   const from = bead.backFromMilli / 1000;
   const out = 1 - (1 - f) ** 3;
   const row = from + (to - from) * out - LIFT * Math.sin(Math.PI * f);
@@ -78,7 +78,7 @@ export function drawThrow(
     const at = throwPoint(l, cfg, bead, x, back);
     halo(ctx, at.x, at.y, r * (1.6 - 0.25 * i), hex, (0.45 - 0.12 * i) * (1 - f));
   }
-  const rows = bead.backFromMilli / 1000 - batonSocketRow(cfg, bead.socket);
+  const rows = bead.backFromMilli / 1000 - bead.socket;
   if (rows <= 1.5) return;
   const hitY = l.gridTop + (bead.backFromMilli / 1000) * l.tile + l.tile / 2;
   // In the bolt's colour, which is the one the bead is not: the ring is the

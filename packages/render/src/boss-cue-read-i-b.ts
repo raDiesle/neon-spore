@@ -37,7 +37,7 @@ function shotAt(world: World, b: BatonState): BatonBead | null {
   let low = -1;
   for (const bead of b.beads) {
     if (!bead.flying || bead.struck) continue;
-    const milli = batonBeadRowMilli(world.cfg, bead, world.tick);
+    const milli = batonBeadRowMilli(world.cfg, b, bead, world.tick);
     if (milli <= low) continue;
     pick = bead;
     low = milli;

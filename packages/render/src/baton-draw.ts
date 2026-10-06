@@ -141,7 +141,7 @@ function drawSpine(
     // stays where the bead in it is drawn (`baton-bead-draw.ts`).
     const loose = i < last ? thread : 0;
     const sway = Math.sin(time * (0.9 + 1.2 * loose) + i * 0.5) * l.tile * 0.03 * (1 + 5 * loose);
-    pts.push({ x: socketX(l, cfg, b, first + i) + sway, y: tileCY(l, batonSocketRow(cfg, i)) });
+    pts.push({ x: socketX(l, cfg, b, first + i) + sway, y: tileCY(l, batonSocketRow(cfg, b, i)) });
   }
   const split = thread > 0 && pts.length > 2 ? pts.length - 2 : -1;
   const upper = split < 0 ? pts : pts.slice(0, split + 1);

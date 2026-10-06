@@ -1,8 +1,9 @@
 import { metColor, missedColor } from "./balance.js";
-import { type BatonBead, type BatonState, batonLead, batonLocked } from "./baton.js";
+import { type BatonBead, type BatonState, batonLocked } from "./baton.js";
 import { batonSwingCol } from "./baton-arm.js";
 import { batonBeadCol, batonBeadRowMilli, batonLaunchable, batonSocketCol } from "./baton-bead.js";
 import { batonAct, batonActor, batonCrossLaunch, batonCrossStruck } from "./baton-cross.js";
+import { batonKnock } from "./baton-knock.js";
 import { batonBoss } from "./baton-step.js";
 import { reachesShip } from "./ship-verbs.js";
 import type { Bullet, TimedCommand } from "./types.js";
@@ -54,7 +55,7 @@ export function batonLaunch(world: World, player: 1 | 2): void {
   if (b.stage !== "passing") return;
   const bead = batonLaunchable(cfg, b);
   if (bead === null) return;
-  bead.fromCol = batonSocketCol(b, bead.socket, bead.arm);
+  bead.fromCol = batonSocketCol(cfg, b, bead.socket, bead.arm);
   bead.col = bead.fromCol;
   // The merged bead's flight out of the last socket is the crossing.
   if (b.merged && bead.socket === cfg.batonSockets - 1) batonCrossLaunch(world, b, bead);
@@ -85,7 +86,7 @@ function beadAlong(
   for (const bead of b.beads) {
     if (!bead.flying || bead.struck || batonBeadCol(world.cfg, b, bead, world.tick) !== col)
       continue;
-    const milli = batonBeadRowMilli(world.cfg, bead, world.tick);
+    const milli = batonBeadRowMilli(world.cfg, b, bead, world.tick);
     if (milli < to || milli > from || milli <= pickMilli) continue;
     pick = bead;
     pickMilli = milli;
@@ -105,7 +106,7 @@ export function batonBeadAlong(world: World, bullet: Bullet, from: number, to: n
   const b = batonBoss(world);
   if (b === null || (b.stage !== "passing" && b.stage !== "crossing")) return -1;
   const bead = beadAlong(world, b, bullet.col, from, to);
-  return bead === null ? -1 : batonBeadRowMilli(world.cfg, bead, world.tick);
+  return bead === null ? -1 : batonBeadRowMilli(world.cfg, b, bead, world.tick);
 }
 
 /**
@@ -154,39 +155,6 @@ export function batonStruck(world: World, bullet: Bullet, milli: number): void {
   bead.struck = true;
   metColor(world);
   world.events.push({ type: "batonStruck", col: bullet.col, socket: bead.socket });
-}
-
-/**
- * A bead knocked back by the wrong colour: out of the air, two sockets up
- * from the one it left, in the column it left from — the arm swung *for* the
- * flight, and the flight did not take. `rowMilli` is where the bolt met it,
- * so the picture can throw it from there (`batonKicked`).
- */
-function batonKnock(world: World, b: BatonState, bead: BatonBead, rowMilli: number): void {
-  const from = bead.socket;
-  if (b.stage === "crossing") {
-    b.stage = "passing";
-    b.stageBeat = world.beat;
-    b.acts = 0;
-    b.actBeat = -1;
-  }
-  bead.flying = false;
-  bead.final = false;
-  bead.flightTick = -1;
-  bead.struck = false;
-  bead.socket = Math.max(0, from - 2);
-  bead.backTick = world.tick;
-  bead.backFromMilli = rowMilli;
-  bead.satBeat = world.beat;
-  bead.col = bead.fromCol;
-  b.stillBeat = world.beat;
-  b.col = batonLead(b)?.col ?? bead.col;
-  world.events.push({
-    type: "batonKicked",
-    col: bead.col,
-    socket: bead.socket,
-    rowMilli,
-  });
 }
 
 /**

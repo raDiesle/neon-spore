@@ -1,4 +1,6 @@
 import { type BatonBead, type BatonState, batonLead, batonSocketRow } from "./baton.js";
+import { batonAcrossCol } from "./baton-arm.js";
+import { batonAcross } from "./baton-level.js";
 import { beatStartTick } from "./beat-clock.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
 import { MILLI } from "./world.js";
@@ -27,15 +29,16 @@ export function batonLandTick(cfg: SimConfig, bead: BatonBead): number {
 }
 
 /**
- * Where a bead is, in thousandths of a row down from the top, on this tick.
- *
- * Sitting, it is on its socket's row. Flying, it is between the socket it left
- * and the one below, by how much of the flight has passed — a straight line,
+ * How far along its arm a bead is on this tick, in thousandths of a socket
+ * from the first: its socket's place, sitting; flying, between the socket it
+ * left and the next, by how much of the flight has passed — a straight line,
  * because a bead that eased would be a bead whose position on a given tick
- * the two seats could not both count out loud.
+ * the two seats could not both count out loud. On an arm hanging down a
+ * column this is its row; where a knocked bead was thrown from is kept in
+ * the same measure (`BatonBead.backFromMilli`).
  */
-export function batonBeadRowMilli(cfg: SimConfig, bead: BatonBead, tick: number): number {
-  const from = batonSocketRow(cfg, bead.socket) * MILLI;
+export function batonBeadAlongMilli(cfg: SimConfig, bead: BatonBead, tick: number): number {
+  const from = bead.socket * MILLI;
   if (!bead.flying) return from;
   const land = batonLandTick(cfg, bead);
   const span = Math.max(1, land - bead.flightTick);
@@ -44,14 +47,35 @@ export function batonBeadRowMilli(cfg: SimConfig, bead: BatonBead, tick: number)
 }
 
 /**
+ * Where a bead is, in thousandths of a row down from the top, on this tick —
+ * the row a bolt has to meet it on. Down a hanging arm, how far along it the
+ * bead is. Along the arm across it stays on the arm's row, flight and all,
+ * except the crossing's, which drops out of the last socket the way the
+ * hanging arm's does: a row in `batonFinalBeats`.
+ */
+export function batonBeadRowMilli(
+  cfg: SimConfig,
+  b: BatonState,
+  bead: BatonBead,
+  tick: number,
+): number {
+  const along = batonBeadAlongMilli(cfg, bead, tick);
+  if (!batonAcross(b)) return along;
+  const row = batonSocketRow(cfg, b, bead.socket) * MILLI;
+  return bead.final ? row + along - bead.socket * MILLI : row;
+}
+
+/**
  * The column a socket of `arm` hangs in. The arm bends at its lead bead:
  * sockets above its socket are where it left from and the rest are where it
  * is landing, so a swing is a lean in the arm and not a jump — and a bead
  * higher up rides the arm wherever the lead has taken it. With no bead left
- * the arm hangs where the last one dropped. Asked for the arm of a bead in
- * hand; for any entry of the sockets, on either arm, `batonSlotCol`.
+ * the arm hangs where the last one dropped. Along the arm across, a socket a
+ * column (`batonAcrossCol`). Asked for the arm of a bead in hand; for any
+ * entry of the sockets, on either arm, `batonSlotCol`.
  */
-export function batonSocketCol(b: BatonState, socket: number, arm = 0): number {
+export function batonSocketCol(cfg: SimConfig, b: BatonState, socket: number, arm = 0): number {
+  if (batonAcross(b)) return batonAcrossCol(cfg, socket);
   const lead = batonLead(b, arm);
   if (lead === null) return b.col;
   return socket <= lead.socket ? lead.fromCol : lead.col;
@@ -62,7 +86,7 @@ export function batonSocketCol(b: BatonState, socket: number, arm = 0): number {
  * `fromCol` for the first half of the flight and `col` after.
  */
 export function batonBeadCol(cfg: SimConfig, b: BatonState, bead: BatonBead, tick: number): number {
-  if (!bead.flying) return batonSocketCol(b, bead.socket, bead.arm);
+  if (!bead.flying) return batonSocketCol(cfg, b, bead.socket, bead.arm);
   if (bead.fromCol === bead.col) return bead.col;
   const land = batonLandTick(cfg, bead);
   return tick - bead.flightTick < (land - bead.flightTick) / 2 ? bead.fromCol : bead.col;

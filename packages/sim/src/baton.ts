@@ -1,5 +1,5 @@
 import { BATON_SOCKET_LIT, type BatonBead } from "./baton-bead-shape.js";
-import { batonArms } from "./baton-level.js";
+import { batonAcross, batonArms } from "./baton-level.js";
 import { midCol, type SimConfig } from "./config.js";
 import type { Color } from "./types.js";
 
@@ -173,10 +173,11 @@ export function batonBaseCol(cfg: SimConfig): number {
  * The row a socket sits on: socket 0 is the top row and the arm hangs down
  * from it, one socket a row, so the bead is passed *down* the arm and the
  * last socket is the one nearest the hull — which is where it has to be for
- * the bead to drop out of it into the maw (`baton-step.ts`).
+ * the bead to drop out of it into the maw (`baton-step.ts`). The last
+ * level's arm lies along one row instead (`batonAcrossRow`, `baton-arm.ts`).
  */
-export function batonSocketRow(_cfg: SimConfig, socket: number): number {
-  return socket;
+export function batonSocketRow(cfg: SimConfig, b: BatonState, socket: number): number {
+  return batonAcross(b) ? cfg.batonAcrossRow : socket;
 }
 
 /** Dark and shed sockets together: how far up the arm the pair has got. */

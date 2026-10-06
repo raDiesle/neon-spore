@@ -76,6 +76,7 @@ describe("THE BATON's merge and crossing", () => {
     expect(land - bead.flightTick).toBeGreaterThan((CFG.batonFinalBeats - 1) * TPB);
     const row = batonBeadRowMilli(
       CFG,
+      b,
       bead,
       bead.flightTick + Math.floor((land - bead.flightTick) / 2),
     );

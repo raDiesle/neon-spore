@@ -33800,3 +33800,13 @@ Bottleneck: the picture asked for a socket by its place down one arm in seven fi
 Bottleneck: finding the shot ticks — a film's acts are fixed ticks and the hit had to be read off a probe of the real world.
 
 *Measured: 10 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE BATON's last level lays the arm across the field
+
+- reading: 5 min. Where the arm's row and a bead's row are read, and how long a bolt takes to climb against a flight.
+- writing: 15 min. The level, the row, a socket a column, the flight's measure along the arm, the knock split into its own file, one test file.
+- looking: 0 min. The look is the next lane's.
+- friction: 5 min. A shell command waiting on stdin had to be stopped by hand.
+- landing: 5 min.
+
+Bottleneck: the row a socket sits on was a function of the socket alone, and every one of its eleven callers had to be handed the arm.

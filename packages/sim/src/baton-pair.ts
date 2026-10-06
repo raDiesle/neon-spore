@@ -5,7 +5,6 @@ import {
   type BatonState,
   batonDark,
   batonFlip,
-  batonSocketRow,
 } from "./baton.js";
 import { batonBeadSlot } from "./baton-arm.js";
 import { batonDrawn } from "./baton-hand.js";
@@ -121,7 +120,7 @@ function parted(world: World, b: BatonState): void {
   const last = waiter(world, b);
   if (last !== undefined) {
     last.backTick = world.tick;
-    last.backFromMilli = batonSocketRow(world.cfg, last.socket) * MILLI;
+    last.backFromMilli = last.socket * MILLI;
     last.socket -= 1;
     last.satBeat = world.beat;
     b.settles += 1;

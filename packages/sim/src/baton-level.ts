@@ -22,11 +22,15 @@ import type { BatonState } from "./baton.js";
  *   together across the gap once each sits in its arm's last socket — the
  *   pilot's thumb on the left, the navigator's on the right — and the
  *   crossing is the drop, as on `twin`.
+ * - `across` — the last: `twin` again on one arm, but **the arm lies along a
+ *   row** (`batonAcrossRow`), a socket a column from the left, and every
+ *   flight is a column to the right — so the cannon meets the bead column by
+ *   column, which on the hanging arm only the swing asked of it.
  *
  * A list rather than a bare union for `BATON_STAGES`' reason: a level goes
  * into `hashWorld` as its index.
  */
-export const BATON_LEVELS = ["single", "twin", "pair"] as const;
+export const BATON_LEVELS = ["single", "twin", "pair", "across"] as const;
 
 /** One pass of the arm. */
 export type BatonLevel = (typeof BATON_LEVELS)[number];
@@ -38,7 +42,12 @@ export function batonLevel(b: BatonState): BatonLevel {
 
 /** Whether this pass lights a second bead (`batonTwin`). */
 export function batonTwins(b: BatonState): boolean {
-  return batonLevel(b) === "twin";
+  return batonLevel(b) === "twin" || batonLevel(b) === "across";
+}
+
+/** Whether the arm lies along a row rather than hanging down a column. */
+export function batonAcross(b: BatonState): boolean {
+  return batonLevel(b) === "across";
 }
 
 /** How many arms hang on a level: two on `pair`, one on the rest. */

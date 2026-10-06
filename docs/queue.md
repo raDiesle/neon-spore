@@ -477,12 +477,15 @@ each building up slowly and adding one thing only. Built so far
 bead; a struck flight out of the last socket is the drop) and `twin` (the
 fight as it shipped), the arm folding and unfolding as the next level, and
 either seat's thumb sending a bead; then `pair` (`claude/baton-pair`,
-`claude/baton-pair-look`), two arms a column either side of the centre. Left,
+`claude/baton-pair-look`), two arms a column either side of the centre; then
+the rules of `across`. Left,
 in order, a lane each:
 
-1. **The arm across** (`across`): the last level, an arm along a row that the
-   bead runs left to right, the cannon meeting it column by column.
-   Simulation, then look.
+1. **The arm across, the look** (`across`): the simulation is in
+   (`claude/baton-across`). The picture still hangs the spine down from a root
+   above row 0 and throws a knocked bead up and down; draw the arm along
+   `batonAcrossRow` from a root at its left end, and the throw along it
+   (`render/baton-draw.ts`, `render/baton-knock.ts`).
 2. **The field explains each extra part**: two or three beats before the twin,
    the swing, the shed, the merge, the crossing, the second arm and the arm
    across first appear, words on the field say what is coming, and while it

@@ -68,7 +68,7 @@ export function beadPoint(
   bead: BatonBead,
   tick: number,
 ): { x: number; y: number } {
-  const rowMilli = batonBeadRowMilli(cfg, bead, tick);
+  const rowMilli = batonBeadRowMilli(cfg, b, bead, tick);
   const y = l.gridTop + (rowMilli / 1000) * l.tile + l.tile / 2;
   let x = tileCX(l, batonBeadCol(cfg, b, bead, tick));
   // Thrown back up the arm, it is on its way to the socket the rule already

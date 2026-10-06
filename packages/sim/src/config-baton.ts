@@ -135,6 +135,14 @@ export interface BatonConfig {
    * landing is seen in, so the thread is there by the time the bead is.
    */
   batonThreadBeats: number;
+  /**
+   * The row the last level's arm lies along, socket by socket left to right
+   * (`baton-arm.ts`). Three, near the top as the hanging arm's root is: a bolt
+   * fired as a bead leaves its socket climbs there in under half a flight, so
+   * a shot made at once meets it over the column it left, and one made late,
+   * after the lock, over the column it is landing in.
+   */
+  batonAcrossRow: number;
 }
 
 /**
@@ -163,4 +171,5 @@ export const BATON_DEFAULTS: BatonConfig = {
   batonFinalBeats: 22,
   batonDownBeats: 4,
   batonThreadBeats: 1,
+  batonAcrossRow: 3,
 };

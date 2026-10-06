@@ -56,6 +56,7 @@ export const CHOREO_FIELD_GROUP = {
   batonFinalBeats: "THE BATON — a bead passed down an arm, one seat a beat",
   batonDownBeats: "THE BATON — a bead passed down an arm, one seat a beat",
   batonThreadBeats: "THE BATON — a bead passed down an arm, one seat a beat",
+  batonAcrossRow: "THE BATON — a bead passed down an arm, one seat a beat",
   // ThroatConfig — five rings, where the mouth may be carried, and the pump:
   // a stroke, what it adds, what a tick takes back, and the circle it opens.
   // The three pump numbers are one sentence and change together

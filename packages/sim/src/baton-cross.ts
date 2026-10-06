@@ -1,4 +1,10 @@
-import { BATON_SOCKET_DARK, type BatonBead, type BatonState, batonFlip } from "./baton.js";
+import {
+  BATON_SOCKET_DARK,
+  type BatonBead,
+  type BatonState,
+  batonFlip,
+  batonSocketRow,
+} from "./baton.js";
 import { batonBeadSlot } from "./baton-arm.js";
 import { batonLandTick } from "./baton-bead.js";
 import { batonSlow } from "./baton-slow.js";
@@ -113,7 +119,8 @@ export function drop(world: World, b: BatonState, bead: BatonBead): void {
   world.pods.push({
     id,
     colMilli: bead.col * MILLI,
-    rowMilli: cfg.batonSockets * MILLI,
+    // Out of the bottom of the last socket: a row under it, on either arm.
+    rowMilli: (batonSocketRow(cfg, b, bead.socket) + 1) * MILLI,
     driftMilli: 0,
     loose: true,
     kind: "purge",

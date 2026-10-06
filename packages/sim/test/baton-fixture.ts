@@ -110,7 +110,10 @@ export function launch(world: World): BatonBead {
   const next = batonLaunchable(CFG, arm(world));
   if (next === null) throw new Error("nothing to launch");
   step(world, [
-    cmd(world, 1, { kind: "cannonCol", col: batonSocketCol(arm(world), next.socket, next.arm) }),
+    cmd(world, 1, {
+      kind: "cannonCol",
+      col: batonSocketCol(CFG, arm(world), next.socket, next.arm),
+    }),
     cmd(world, 1, { kind: "guard" }),
   ]);
   const bead = flying(world);
@@ -218,7 +221,7 @@ export function act(world: World): void {
     return;
   }
   step(world, [
-    cmd(world, 1, { kind: "cannonCol", col: batonSocketCol(b, bead.socket, bead.arm) }),
+    cmd(world, 1, { kind: "cannonCol", col: batonSocketCol(CFG, b, bead.socket, bead.arm) }),
     cmd(world, 1, { kind: "guard" }),
   ]);
 }

@@ -49,6 +49,10 @@ export interface BatonBead {
    * from here (`render/baton-knock.ts`).
    */
   backTick: number;
-  /** Where it was sent back from, in thousandths of a row down from the top. */
+  /**
+   * Where it was sent back from, in thousandths of a socket along its arm from
+   * the first — which, down a hanging arm, is thousandths of a row from the
+   * top (`batonBeadAlongMilli`).
+   */
   backFromMilli: number;
 }

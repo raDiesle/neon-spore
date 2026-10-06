@@ -3230,8 +3230,21 @@ column, unfolding with the other over the same beats; neither bead wears the
 twin's pupil, because neither rides the other; and every socket the picture
 names — the swelling shell's ring, the draw's two rings, the words under them
 — is an entry of the one list, found on whichever arm it is on
-(`render/baton-socket-draw.ts`). An arm across the field is the last level,
-queued (`docs/queue.md`).
+(`render/baton-socket-draw.ts`).
+
+`across` is the last level: `twin` again on one arm, but the arm **lies along
+a row** (`batonAcrossRow`, three), a socket a column from the left, and every
+flight is a column to the right — so the cannon meets the bead column by
+column, which on a hanging arm only the swing asked of it. A flight stays on
+the arm's row; over the column it left for the first half and the column it
+is landing in for the second (`batonBeadCol`, unchanged), and a bolt climbs to
+row three in under half a flight, so a shot made as the bead leaves is made
+under where it is, and one made after the pilot's lock under where it is
+going. It never swings. The merge, the crossing and the drop are the twin's;
+the crossing drops out of the last socket a row in its flight, and the pod
+falls from under it. How far along its arm a bead is (`batonBeadAlongMilli`)
+is its row on a hanging arm and between two columns on this one, and a bead
+knocked or shaken back is thrown from there (`BatonBead.backFromMilli`).
 
 **Either thumb sends** — the owner, the same day: *both players can tap.* The
 sitting bead answers either seat's tap (`render/baton-tap.ts`, `guard` signed

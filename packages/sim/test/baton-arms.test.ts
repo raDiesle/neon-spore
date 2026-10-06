@@ -125,7 +125,7 @@ describe("THE BATON's two arms drawn together", () => {
     expect(batonMergeSocket(CFG, b, 2)).toBe(batonSlot(CFG, 1, N - 1));
   });
 
-  it("merges into the bead that waited, and its crossing and catch end the wave's boss", () => {
+  it("merges into the bead that waited, and its crossing and catch fold the arm into the next level", () => {
     const world = open(QUIET, 3, PAIR);
     merging(world);
     const waited = [...arm(world).beads].sort((a, b) => a.satBeat - b.satBeat)[0];
@@ -140,7 +140,7 @@ describe("THE BATON's two arms drawn together", () => {
     catchIt(world);
     expect(arm(world).stage).toBe("down");
     beats(world, CFG.batonDownBeats + 1);
-    expect(world.boss).toBeNull();
+    expect(arm(world).level).toBe(PAIR + 1);
   });
 });
 

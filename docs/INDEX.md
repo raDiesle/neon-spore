@@ -709,6 +709,7 @@ by hand never moves.
 | `packages/sim/src/baton-cross.ts` | THE BATON's crossing: the merged bead's last flight |
 | `packages/sim/src/baton-level.ts` | THE BATON's levels: the passes of the arm inside its one wave, each adding one thing |
 | `packages/sim/src/baton-arm.ts` | THE BATON's second arm: where each arm hangs, which arm and socket an entry of the sockets is, and the outward swing |
+| `packages/sim/src/baton-knock.ts` | THE BATON's knock: the wrong colour through a bead in flight throws it back two sockets |
 | `packages/sim/src/baton.ts` | THE BATON: whose turn is it |
 | `packages/sim/src/config-balloon.ts` | THE BALLOON's numbers: how long one swells before it moves, how fast it climbs |
 | `packages/sim/src/config-baton.ts` | THE BATON's numbers — how many sockets the arm has, how long a bead is in the air |
