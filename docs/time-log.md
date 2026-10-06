@@ -33812,3 +33812,13 @@ Bottleneck: finding the shot ticks — a film's acts are fixed ticks and the hit
 Bottleneck: the row a socket sits on was a function of the socket alone, and every one of its eleven callers had to be handed the arm.
 
 *Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — A mark over a button's name drops its PRESS line
+
+- reading: 5 min. Where the small line over a cue is decided (`saysKind`) and which hands ask it.
+- writing: 5 min. One condition, the doc comment, the words skill and #34, four tests moved off `PRESS` as their example.
+- looking: 0 min. The frame is sent from the commit.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: three tests used `PRESS` over `FIRE` as their example of a drawn line, and one measured a box's height off it.

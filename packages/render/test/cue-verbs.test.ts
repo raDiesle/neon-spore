@@ -99,7 +99,7 @@ describe("the words a cue says", () => {
     expect(saysKind("HOLD", "PULL DOWN")).toBe(false);
     expect(saysKind("CARRY", "MOVE")).toBe(false);
     expect(saysKind("HOLD", "HOLD")).toBe(false);
-    expect(saysKind("PRESS", "FIRE")).toBe(true);
+    expect(saysKind("PRESS", "FIRE")).toBe(false);
     expect(saysKind("HOLD", "SHIELD")).toBe(true);
     expect(saysKind("CALL", "SET")).toBe(true);
   });

@@ -153,8 +153,8 @@ export function cueSeen(cue: BossCue, role: ViewRole): boolean {
 }
 
 /**
- * The buttons on the band a word may name instead of a gesture. A `PRESS`
- * over `FIRE` says how the button is used; over anything else the word is
+ * The buttons on the band a word may name instead of a gesture. A `HOLD`
+ * over `SHIELD` says how the button is used; over anything else the word is
  * already the gesture.
  */
 const BUTTONS = new Set(["FIRE", "SHOOT", "SHIELD", "SUCK", "EAT"]);
@@ -175,9 +175,14 @@ const BUTTONS = new Set(["FIRE", "SHOOT", "SHIELD", "SUCK", "EAT"]);
  * gestures. The kind stays on the cue as data: tests and the desk still read
  * which gesture a mark asks for. Both hands that write a cue ask here
  * (`boss-cue-text.ts`, `instar-word.ts`).
+ *
+ * **And, since 6 October 2026, never `PRESS`.** The owner: *helper of "press
+ * fire" we can skip "press" text*. A button's name already says to press it,
+ * so only `HOLD` — the one way of using a button the name does not say —
+ * keeps its line over one.
  */
 export function saysKind(kind: string | undefined, word: string): kind is string {
-  if (kind === undefined || kind === word || kind === "CARRY") return false;
+  if (kind === undefined || kind === word || kind === "CARRY" || kind === "PRESS") return false;
   if (kind === "CALL" || kind === "STILL") return true;
   return BUTTONS.has((word.split(" ")[0] ?? "").replace(/!$/, ""));
 }

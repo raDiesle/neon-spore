@@ -1169,7 +1169,9 @@ a carry, a turn or a hold. Nothing else, and never a sentence. **A carry's
 line is not drawn** (the owner, 24 September 2026: *"Pull up" its clear he has
 to take action, so "Carry" is not required at all*) — the verb under it is
 always the motion, so `CARRY` only said it again (`render/src/boss-cue-shape.ts`,
-`saysKind`).
+`saysKind`). **Nor is a press's** (the owner, 6 October 2026: *helper of
+"press fire" we can skip "press" text*) — a button's name already says to
+press it, so `HOLD` over `SHIELD` is the one line over a button left.
 
 **Three rules it inherits.**
 

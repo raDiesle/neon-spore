@@ -122,6 +122,11 @@ FREEZE THE WHEEL`, never `FREEZE`. That is the owner's rule, 30 September 2026,
 and it holds for every boss (`decisions.md` #34). `render/test/cue-verbs.test.ts`
 lists the gestures. A new one goes in that list, and an effect never does.
 
+**No `PRESS` over a button's name.** The owner, 6 October 2026: *helper of
+"press fire" we can skip "press" text*. `FIRE` already says to press it, so
+the small line over a mark is drawn only where it says what the word does
+not — `HOLD` over `SHIELD`, `CALL`, `STILL` (`saysKind`, `boss-cue-shape.ts`).
+
 **A `name` is a proper noun and no row in this table reaches it.** The wave
 `THE WARD` keeps its name: renaming one reaches the director, the perf rows and
 the baselines, and a title is not the word a player reads for the object.

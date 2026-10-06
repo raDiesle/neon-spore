@@ -47,13 +47,17 @@ describe("THE INSTAR's scanner box", () => {
   });
 
   it("draws the kind above a button's name", () => {
-    const texts = drawn("SHIELD", "PRESS");
-    expect(texts.map((t) => t.text).sort()).toEqual(["PRESS", "SHIELD"]);
-    const kind = texts.find((t) => t.text === "PRESS");
+    const texts = drawn("SHIELD", "HOLD");
+    expect(texts.map((t) => t.text).sort()).toEqual(["HOLD", "SHIELD"]);
+    const kind = texts.find((t) => t.text === "HOLD");
     const word = texts.find((t) => t.text === "SHIELD");
     expect(kind, "no kind line drawn").toBeTruthy();
     expect(word, "no verb drawn").toBeTruthy();
     expect((kind as TextBox).y).toBeLessThan((word as TextBox).y);
+  });
+
+  it("never draws PRESS over a button's name, which says it already — the owner's 6 October", () => {
+    expect(drawn("SHIELD", "PRESS").map((t) => t.text)).toEqual(["SHIELD"]);
   });
 
   it("never draws CARRY: the verb is the motion already, the owner's 24 September", () => {
@@ -98,7 +102,9 @@ describe("THE INSTAR's scanner box", () => {
       const { ctx } = stubCanvas();
       ctx.texts = [];
       const c = ctx as unknown as CanvasRenderingContext2D;
-      drawInstarWord(c, L, "SHIELD", own.left, p1.y, -1, true, "PRESS", { own, avoid });
+      // `HOLD` keeps its kind line, so the box is the tall one: a `PRESS`
+      // box, one line shorter since 6 October 2026, fits under its own ring.
+      drawInstarWord(c, L, "SHIELD", own.left, p1.y, -1, true, "HOLD", { own, avoid });
       return (ctx.texts as TextBox[]).find((t) => t.text === "SHIELD") as TextBox;
     };
     // With nothing else on the step the box flips across, level with its ring —

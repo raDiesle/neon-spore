@@ -210,7 +210,7 @@ describe("THE REPRISE", () => {
     expect(his).not.toContain("FIRE");
     const hers = drawn("p2", echo);
     expect(hers).toContain("FIRE");
-    expect(hers).toContain("PRESS");
+    expect(hers).not.toContain("PRESS");
     expect(hers).not.toContain("MOVE");
 
     // And nothing on either once the tear has shut, with an unseen body still

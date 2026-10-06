@@ -200,16 +200,35 @@ describe("the cue's kind line", () => {
   }
 
   it("stands over the mark", () => {
-    // THE CURTAIN's bared core with the cannon under it: `PRESS` over `FIRE`,
-    // a button's name, where the line says how the button is used.
+    // THE CURTAIN's bared core with the cannon under it: `FIRE` alone since
+    // 6 October 2026 — the owner, *we can skip "press" text*.
     const world = opened("curtain");
     const c = boss(curtainBoss(world), "curtain");
     c.phase = "torn";
     c.phaseBeat = world.beat;
     world.cannonCol = c.coreCol;
     const texts = drawn(world);
-    const kind = texts.find((t) => t.text === "PRESS");
-    const word = texts.find((t) => t.text === "FIRE");
+    expect(texts.map((t) => t.text)).not.toContain("PRESS");
+    expect(
+      texts.find((t) => t.text === "FIRE"),
+      "no verb drawn",
+    ).toBeTruthy();
+    // `HOLD` over `SHIELD` is the line that is still drawn, and it stands over.
+    const { ctx } = stubCanvas();
+    ctx.texts = [];
+    const cue: BossCue = {
+      seat: null,
+      kind: "HOLD",
+      word: "SHIELD",
+      x: 200,
+      y: 400,
+      halfW: 20,
+      halfH: 20,
+      seed: 1,
+    };
+    drawCueText(ctx as unknown as CanvasRenderingContext2D, cue, 0);
+    const kind = ctx.texts.find((t) => t.text === "HOLD");
+    const word = ctx.texts.find((t) => t.text === "SHIELD");
     expect(kind, "no kind line drawn").toBeTruthy();
     expect(word, "no verb drawn").toBeTruthy();
     expect((kind as TextBox).y).toBeLessThan((word as TextBox).y);
@@ -271,7 +290,11 @@ describe("a kind line that is the verb said twice", () => {
   });
 
   it("is drawn wherever it says something the verb does not", () => {
-    expect(lines("PRESS", "FIRE")).toEqual(["FIRE", "PRESS"]);
+    expect(lines("HOLD", "SHIELD")).toEqual(["SHIELD", "HOLD"]);
+  });
+
+  it("never says PRESS, which a button's name already says (the owner, 6 October 2026)", () => {
+    expect(lines("PRESS", "FIRE")).toEqual(["FIRE"]);
   });
 
   it("never says CARRY, whose verb is always the motion (the owner, 24 September 2026)", () => {
