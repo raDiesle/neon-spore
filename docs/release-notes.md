@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 529504c11 — THE GOVERNOR: a mark for each of you, numbered marks in order, and a shot aimed at the needle
+
+The owner's rework of THE GOVERNOR's rules. Every tap step now lights a mark for each seat, so both of you tap on the same lap, and the later steps light three and four marks, numbered, to be tapped in order. The needle runs more than twice as fast and the tap windows are half as long, with no slow-down on a tap. The shots get eight beats under THE SLOW, and a shot counts only if the needle pointed down at the cannon when it was fired. The two-pad brake is gone, because both thumbs are now tapping. The needle is drawn ahead by the input delay so a tap made on the mark lands on it.
+
 ## 2026-10-06 · 24c180516 — A boss's shot mark is offered in VERSUS in the cannon's colour, four ways
 
 `aim:cannon` puts four answers beside today's red crosshair with its grey box, all in the cannon's exact colour on this screen — violet #C05CFF for player 1, amber #FFAE3D for player 2, the colour of the cannon's column. SIGHT is the crosshair with four corner brackets and a slowly turning dashed ring. CLAMP is four solid arrowheads that keep closing in round a diamond. FLESH is a slime ring of the ship's own body round the target. TRACER is a dotted line from the muzzle up to a double-ringed crosshair. It is judged on THE GORGE · ROW.

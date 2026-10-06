@@ -33870,3 +33870,5 @@ Bottleneck: a shot that is its own aim never resized its frame, so a bigger mark
 - landing: 5 min.
 
 Bottleneck: taking the brake out reached thirty files outside the simulation — the wire, the sounds, the desk, the director's rows — each found by the typecheck.
+
+*Measured: 30 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
