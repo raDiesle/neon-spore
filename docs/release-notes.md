@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 0474b6441 — THE MIMIC: no picture twice in a fight, more levels up to seven tiles square, every window a third shorter
+
+THE MIMIC now remembers every picture it has put up and never shows one again until every picture of that size has been up — a window run out brings a new one too. Thirty-six new pictures in sizes four, five, six and seven join the eighteen there were, and the fight is twelve pictures where it was ten: a three and two fours for the pilot to read, two fives and a six for the navigator, a six and a seven one each, then the board splits at three and at four. Every window is two thirds of what it was. A split's two frames are mirrored across the middle column, so a four-square half stands as far from its edge as the other.
+
 ## 2026-10-06 · ff94ee7eb — THE GOVERNOR twice the size and rounder, a thumbprint on each mark, and the crosshair riding the needle
 
 The dial is twice as wide, nearly the field's width, and seen from higher so it reads nearly round; the works over it grow half as much again and the needle is a thick brass arm. A TAP on a mark wears HOLD's red circle and thumbprint in place of the scan box (`BossCue.print`), and the FIRE crosshair sits on the needle's tip where it is drawn, the input delay ahead, so a shot fired as it crosses the cannon's column leaves with the needle down. A look the owner asked for by name, 6 October 2026.
