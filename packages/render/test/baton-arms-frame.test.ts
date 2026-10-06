@@ -32,7 +32,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * THE BATON's `pair` level, drawn (`sim/baton-arm.ts`): two arms, each in its
  * own column, every socket of the second found on the second — the spine,
- * the rings the thumbs are asked for and the words hung under them.
+ * the rings the thumbs are asked for and the words hung under them. And the
+ * `across` level's one arm, laid along its row.
  */
 
 beforeAll(installCanvasGlobals);
@@ -107,6 +108,37 @@ describe("THE BATON's two arms, drawn", () => {
       b.sockets = b.sockets.slice(0, N);
       b.beads = b.beads.slice(0, 1);
       expect(calls).toBeGreaterThan(drawn(one, 3, role).calls * 1.3);
+    });
+  }
+});
+
+describe("THE BATON's arm across, drawn", () => {
+  const l = computeLayout(VIEWPORT, CFG, "test");
+
+  /** The wave opened, the arm unfolded, and then laid across as the last level lays it. */
+  function across(): World {
+    const world = paired();
+    const b = arm(world);
+    b.level = BATON_LEVELS.indexOf("across");
+    b.sockets = b.sockets.slice(0, N);
+    b.beads = b.beads.slice(0, 1);
+    return world;
+  }
+
+  it("finds every socket on the arm's row, a column each from the left", () => {
+    const b = arm(across());
+    for (let i = 0; i < N; i++)
+      expect(socketPoint(l, CFG, b, i)).toEqual({
+        x: tileCX(l, i),
+        y: tileCY(l, CFG.batonAcrossRow),
+      });
+  });
+
+  for (const role of ROLES) {
+    it(`draws the arm and its bead for ${role}`, () => {
+      const { calls, text } = drawn(across(), 3, role);
+      expect(calls).toBeGreaterThan(400);
+      expect(text).toContain(PALETTE.red);
     });
   }
 });

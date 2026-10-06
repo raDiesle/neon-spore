@@ -1,8 +1,10 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
+  BATON_LEVELS,
   type BatonBead,
   type BatonState,
+  batonAcrossCol,
   batonBoss,
   createWorld,
   startWave,
@@ -12,7 +14,7 @@ import {
 } from "@neon-spore/sim";
 import { beadPoint } from "../src/baton-bead-draw.js";
 import { batonThrown, throwPoint } from "../src/baton-knock.js";
-import { computeLayout } from "../src/layout.js";
+import { computeLayout, tileCX, tileCY } from "../src/layout.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -88,9 +90,9 @@ describe("THE BATON's bead thrown back", () => {
     expect(one.flying).toBe(false);
     const l = computeLayout(VIEWPORT, CFG, "test");
     const x = 100;
-    const start = throwPoint(l, CFG, one, x, 0);
-    const end = throwPoint(l, CFG, one, x, 1);
-    const mid = throwPoint(l, CFG, one, x, 0.7);
+    const start = throwPoint(l, CFG, arm(world), one, x, 0);
+    const end = throwPoint(l, CFG, arm(world), one, x, 1);
+    const mid = throwPoint(l, CFG, arm(world), one, x, 0.7);
     const socketY = l.gridTop + l.tile / 2;
     expect(start.y).toBeCloseTo(l.gridTop + (one.backFromMilli / 1000) * l.tile + l.tile / 2, 5);
     expect(end.y).toBeCloseTo(socketY, 5);
@@ -99,6 +101,26 @@ describe("THE BATON's bead thrown back", () => {
     // And the cue rides it: the point the bead is drawn at is the throw's.
     const at = beadPoint(l, CFG, arm(world), one, world.tick + 1);
     expect(at.y).toBeGreaterThan(socketY);
+  });
+
+  it("is lobbed back along the arm across, off its row and down into the socket", () => {
+    const world = opened();
+    const one = knocked(world);
+    const b = arm(world);
+    b.level = BATON_LEVELS.indexOf("across");
+    one.backFromMilli = 2400;
+    const l = computeLayout(VIEWPORT, CFG, "test");
+    const row = tileCY(l, CFG.batonAcrossRow);
+    const first = tileCX(l, batonAcrossCol(CFG, 0));
+    const start = throwPoint(l, CFG, b, one, first, 0);
+    const end = throwPoint(l, CFG, b, one, first, 1);
+    const mid = throwPoint(l, CFG, b, one, first, 0.5);
+    expect(start).toEqual({ x: first + 2.4 * l.tile, y: row });
+    expect(end.x).toBeCloseTo(first, 5);
+    expect(end.y).toBeCloseTo(row, 5);
+    expect(mid.x).toBeLessThan(start.x);
+    expect(mid.x).toBeGreaterThan(end.x);
+    expect(mid.y).toBeLessThan(row);
   });
 
   it("is over in under a beat, and the bead sits where the rule put it", () => {

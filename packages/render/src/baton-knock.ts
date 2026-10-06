@@ -1,7 +1,15 @@
 import { circleSubpath } from "@neon-spore/content";
-import { type BatonBead, type SimConfig, ticksPerBeat } from "@neon-spore/sim";
+import {
+  type BatonBead,
+  type BatonState,
+  batonAcross,
+  batonAcrossCol,
+  batonSocketRow,
+  type SimConfig,
+  ticksPerBeat,
+} from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
-import type { Layout } from "./layout.js";
+import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -40,22 +48,43 @@ export function batonThrown(cfg: SimConfig, bead: BatonBead, tick: number): numb
   return gone / span;
 }
 
-/** Where a bead being thrown is, `f` of the way through, in pixels. `x` is its socket's. */
+/**
+ * Where a bead `along` sockets down its arm is, in pixels — between two rows
+ * of a hanging arm in the column `x`, or between two columns of the arm
+ * across on its row (`batonBeadAlongMilli`, `BatonBead.backFromMilli`).
+ */
+function alongPoint(
+  l: Layout,
+  cfg: SimConfig,
+  b: BatonState,
+  x: number,
+  along: number,
+): { x: number; y: number } {
+  if (!batonAcross(b)) return { x, y: l.gridTop + along * l.tile + l.tile / 2 };
+  const first = tileCX(l, batonAcrossCol(cfg, 0));
+  return { x: first + along * l.tile, y: tileCY(l, batonSocketRow(cfg, b, 0)) };
+}
+
+/**
+ * Where a bead being thrown is, `f` of the way through, in pixels. `x` is its
+ * socket's. Back up a hanging arm it rises past the socket and swings out to
+ * the side; back along the arm across, it is lobbed — up off the row and down
+ * into the socket.
+ */
 export function throwPoint(
   l: Layout,
-  _cfg: SimConfig,
+  cfg: SimConfig,
+  b: BatonState,
   bead: BatonBead,
   x: number,
   f: number,
 ): { x: number; y: number } {
-  const to = bead.socket;
   const from = bead.backFromMilli / 1000;
   const out = 1 - (1 - f) ** 3;
-  const row = from + (to - from) * out - LIFT * Math.sin(Math.PI * f);
-  return {
-    x: x - SWING * l.tile * Math.sin(Math.PI * f),
-    y: l.gridTop + row * l.tile + l.tile / 2,
-  };
+  const arc = Math.sin(Math.PI * f);
+  const at = alongPoint(l, cfg, b, x, from + (bead.socket - from) * out);
+  if (batonAcross(b)) return { x: at.x, y: at.y - LIFT * 2 * l.tile * arc };
+  return { x: at.x - SWING * l.tile * arc, y: at.y - LIFT * l.tile * arc };
 }
 
 /**
@@ -66,6 +95,7 @@ export function drawThrow(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   cfg: SimConfig,
+  b: BatonState,
   bead: BatonBead,
   x: number,
   f: number,
@@ -75,15 +105,14 @@ export function drawThrow(
   for (let i = 1; i <= GHOSTS; i++) {
     const back = f - i * GHOST_STEP;
     if (back < 0) break;
-    const at = throwPoint(l, cfg, bead, x, back);
+    const at = throwPoint(l, cfg, b, bead, x, back);
     halo(ctx, at.x, at.y, r * (1.6 - 0.25 * i), hex, (0.45 - 0.12 * i) * (1 - f));
   }
-  const rows = bead.backFromMilli / 1000 - bead.socket;
-  if (rows <= 1.5) return;
-  const hitY = l.gridTop + (bead.backFromMilli / 1000) * l.tile + l.tile / 2;
+  if (bead.backFromMilli / 1000 - bead.socket <= 1.5) return;
+  const hit = alongPoint(l, cfg, b, x, bead.backFromMilli / 1000);
   // In the bolt's colour, which is the one the bead is not: the ring is the
   // wrong answer, said where it was given.
   const bolt = bead.color === "red" ? PALETTE.cyanRim : PALETTE.redRim;
-  const ring = new Path2D(circleSubpath(x, hitY, r * (1.2 + 2.2 * f)));
+  const ring = new Path2D(circleSubpath(hit.x, hit.y, r * (1.2 + 2.2 * f)));
   strokeGlow(ctx, ring, bolt, STROKE.inner, 0.8 * (1 - f));
 }

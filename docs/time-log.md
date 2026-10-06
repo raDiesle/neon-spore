@@ -33824,3 +33824,13 @@ Bottleneck: the row a socket sits on was a function of the socket alone, and eve
 Bottleneck: three tests used `PRESS` over `FIRE` as their example of a drawn line, and one measured a box's height off it.
 
 *Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE BATON's arm across comes in from the left, and a knocked bead is lobbed along it
+
+- reading: 5 min. The spine's root and sway, and the throw's measure.
+- writing: 10 min. The root and the sway turned for the row, the throw along the arm, two tests.
+- looking: 5 min. A frame of the arm across passing, and a crop of a knock mid-lob.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the arm drew itself through its sockets already, so the only wrong things were its two ends — the root and the throw.

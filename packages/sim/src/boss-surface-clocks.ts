@@ -27,6 +27,8 @@ export {
   type BatonLevel,
   type BatonStage,
   type BatonState,
+  batonAcross,
+  batonAcrossCol,
   batonActor,
   batonArmCol,
   batonArms,

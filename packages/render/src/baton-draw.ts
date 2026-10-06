@@ -1,16 +1,16 @@
 import type { Point } from "@neon-spore/content";
-import { type BatonState, batonSlot, batonSocketRow, type SimConfig } from "@neon-spore/sim";
+import { type BatonState, batonAcross, batonSlot, type SimConfig } from "@neon-spore/sim";
 import { drawBead } from "./baton-bead-draw.js";
 import { strokeTendon } from "./baton-flesh.js";
-import { drawSocket, socketX } from "./baton-socket-draw.js";
+import { drawSocket, socketPoint } from "./baton-socket-draw.js";
 import { drawArmTube } from "./baton-tube.js";
 import { type Layout, tileCY } from "./layout.js";
 import { splinePath } from "./spline.js";
 
 /**
  * THE BATON, drawn: an arm of sockets hanging down the middle column — two,
- * a column either side of it, on the `pair` level — and the bead being passed
- * down it one socket at a time.
+ * a column either side of it, on the `pair` level, and one laid along a row,
+ * on `across` — and the bead being passed down it one socket at a time.
  *
  * **The silhouette is the health bar** (`docs/spec/bosses.md` §11.0). A socket
  * the bead has left is dark and stays dark, so how much of the arm still
@@ -131,7 +131,14 @@ function drawSpine(
   time: number,
 ): void {
   if (shown <= 0) return;
-  const pts: Point[] = [{ x: socketX(l, cfg, b, first), y: tileCY(l, 0) - l.tile * ROOT }];
+  // Down a hanging arm the root is above the field; the arm across comes in
+  // from the left of its row, so it reads as laid along it and not bent.
+  const across = batonAcross(b);
+  const top = socketPoint(l, cfg, b, first);
+  const root = across
+    ? { x: top.x - l.tile * ROOT, y: top.y }
+    : { x: top.x, y: tileCY(l, 0) - l.tile * ROOT };
+  const pts: Point[] = [root];
   const last = Math.min(cfg.batonSockets - 1, Math.ceil(shown) - 1);
   for (let i = 0; i <= last; i++) {
     // A slow sway, a hair's width, so the arm is a hanging thing and not a
@@ -141,7 +148,9 @@ function drawSpine(
     // stays where the bead in it is drawn (`baton-bead-draw.ts`).
     const loose = i < last ? thread : 0;
     const sway = Math.sin(time * (0.9 + 1.2 * loose) + i * 0.5) * l.tile * 0.03 * (1 + 5 * loose);
-    pts.push({ x: socketX(l, cfg, b, first + i) + sway, y: tileCY(l, batonSocketRow(cfg, b, i)) });
+    // The sway is across the arm: sideways down a hanging one, up and down along a row.
+    const at = socketPoint(l, cfg, b, first + i);
+    pts.push(across ? { x: at.x, y: at.y + sway } : { x: at.x + sway, y: at.y });
   }
   const split = thread > 0 && pts.length > 2 ? pts.length - 2 : -1;
   const upper = split < 0 ? pts : pts.slice(0, split + 1);

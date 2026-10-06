@@ -3245,6 +3245,11 @@ the crossing drops out of the last socket a row in its flight, and the pod
 falls from under it. How far along its arm a bead is (`batonBeadAlongMilli`)
 is its row on a hanging arm and between two columns on this one, and a bead
 knocked or shaken back is thrown from there (`BatonBead.backFromMilli`).
+**Drawn**, the arm comes in from the left of its row rather than down from
+above the field, and sways across itself — up and down — as the hanging arm
+sways side to side; a bead knocked back along it is lobbed off the row and
+down into its socket, with the ring where the bolt met it
+(`render/baton-draw.ts`, `render/baton-knock.ts`).
 
 **Either thumb sends** — the owner, the same day: *both players can tap.* The
 sitting bead answers either seat's tap (`render/baton-tap.ts`, `guard` signed
