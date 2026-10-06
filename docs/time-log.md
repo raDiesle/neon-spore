@@ -33644,3 +33644,13 @@ Bottleneck: the tests run real ESM, where the cycle is harmless, so only a brows
 Bottleneck: reading 116 rows' prose to place each one under an action rather than a family.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-06 — Every card on ON THE FIELD says how it is found and what it does under the finger
+
+- reading: 15 min. Every row's WHERE, SEAT and DOES, dumped by card, read through once.
+- writing: 25 min. Eighty-three FIND IT and WHILE YOU MOVE pairs, the shared marks line, the test that holds each card to one.
+- looking: 5 min. THE WARDEN's card in the browser pane.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the rows' prose is written for a programmer, so each card's two lines had to be dug out of a paragraph about the simulation.

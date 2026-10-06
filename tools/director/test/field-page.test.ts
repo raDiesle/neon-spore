@@ -9,6 +9,7 @@ import {
   usersOf,
 } from "../src/field-actions.js";
 import { FIELD_CONTROLS } from "../src/field-controls-page.js";
+import { USE_LOOKS } from "../src/field-looks.js";
 import { DECISIONS, ROW_NOTES } from "../src/field-notes.js";
 import { GESTURE_NOTES, TRIED_NOTES } from "../src/field-notes-gestures.js";
 import { GESTURES } from "../src/gesture-catalogue.js";
@@ -68,6 +69,16 @@ describe("CONTROLS › ON THE FIELD", () => {
   test("every action and every type has a key of its own", () => {
     const keys = PLACES.map(([key]) => key);
     expect(new Set(keys).size).toBe(keys.length);
+  });
+
+  test("every card says how it is found and what it does under the finger, once", () => {
+    const cards = TYPES.flatMap((t) =>
+      usersOf(t.rows).map((u) => t.rows.filter((r) => usersOf([r])[0] === u)),
+    );
+    const wrong = cards.filter((rows) => rows.filter((r) => USE_LOOKS[r]).length !== 1);
+    expect(wrong).toEqual([]);
+    const onCards = new Set(cards.flat());
+    expect(Object.keys(USE_LOOKS).filter((k) => !onCards.has(k))).toEqual([]);
   });
 
   test("actions and types are drawn most used first", () => {

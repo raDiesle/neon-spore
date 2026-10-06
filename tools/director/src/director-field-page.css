@@ -106,6 +106,29 @@
   flex-wrap: wrap;
   gap: 6px;
 }
+.field-use dl {
+  margin: 6px 0 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+.field-use dt {
+  color: var(--cyan);
+  letter-spacing: 1px;
+  font-size: 0.7rem;
+}
+.field-use dd {
+  margin: 0 0 4px;
+  color: var(--ink);
+}
+.field-marks {
+  margin: 24px 0 0;
+  max-width: 700px;
+  padding: 6px 10px;
+  border-left: 2px solid var(--cyan);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
 .suggested {
   margin: 6px 0 12px;
   max-width: 700px;

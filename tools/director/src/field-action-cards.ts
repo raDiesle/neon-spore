@@ -1,5 +1,6 @@
 import { type ControlType, type FieldAction, typeUses, userOf, usersOf } from "./field-actions.js";
 import type { FieldControlDef } from "./field-control-def.js";
+import { lookOf } from "./field-looks.js";
 import { ROW_NOTES } from "./field-notes.js";
 import { text } from "./gestures-page.js";
 import { poseArt } from "./pose-art.js";
@@ -11,7 +12,8 @@ import { poseNamed } from "./poses.js";
  * type under it, and under each type **one card per enemy or boss wave** — the
  * same type drawn the way that wave draws it.
  *
- * A card is the picture and who uses it. The row's own prose (where, seat,
+ * A card is the picture, who uses it, how the player finds it and what the
+ * picture does while the finger moves (`field-looks.ts`). The row's own prose (where, seat,
  * does, source, pose) stays in `FIELD_CONTROLS` and off this page: the owner
  * asked for the action and its users, not the paragraph (6 October 2026).
  */
@@ -46,6 +48,17 @@ function useCard(user: string, rows: readonly FieldControlDef[]): HTMLElement {
     shots.appendChild(poseArt(poseNamed(pose), SHOT_WIDTH));
   }
   card.appendChild(shots);
+  const look = lookOf(rows.map((r) => r.name));
+  if (look) {
+    const dl = document.createElement("dl");
+    for (const [term, said] of [
+      ["FIND IT", look.find],
+      ["WHILE YOU MOVE", look.move],
+    ] as const) {
+      dl.append(text("dt", term), text("dd", said));
+    }
+    card.appendChild(dl);
+  }
   for (const r of rows) {
     const note = ROW_NOTES[r.name];
     if (note) card.appendChild(suggested(note));

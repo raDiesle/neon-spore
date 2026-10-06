@@ -3544,6 +3544,9 @@ by hand never moves.
 | `tools/director/src/field-actions-drag.ts` | GRAB AND DRAG's control types — a finger put on a thing and moved |
 | `tools/director/src/field-actions-other.ts` | Every action on CONTROLS › ON THE FIELD but GRAB AND DRAG (`field-actions-drag.ts`) |
 | `tools/director/src/field-actions.ts` | Where every row of `FIELD_CONTROLS` stands on the CONTROLS sheet — the owner's order of 6 October 2026 |
+| `tools/director/src/field-looks-drag.ts` | FIND IT and WHILE YOU MOVE for every GRAB AND DRAG card, keyed by one row of the card |
+| `tools/director/src/field-looks-other.ts` | FIND IT and WHILE YOU MOVE for every card but GRAB AND DRAG's (`field-looks-drag.ts`) |
+| `tools/director/src/field-looks.ts` | What a card on CONTROLS › ON THE FIELD says under its picture |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-boss.ts` | The `BossConfig` fields of every boss that is not choreographed — the queen, the warden, the cairn |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |

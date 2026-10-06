@@ -3,6 +3,7 @@ import { EVERY_WAVE_ROWS, sortedActions } from "./field-actions.js";
 import type { FieldControlDef } from "./field-control-def.js";
 import { FIELD_CONTROLS } from "./field-controls-page.js";
 import { fieldControlRow } from "./field-controls-rows.js";
+import { MARKS } from "./field-looks.js";
 import { DECISIONS, ROW_NOTES } from "./field-notes.js";
 import { GESTURE_NOTES, TRIED_NOTES } from "./field-notes-gestures.js";
 import { GESTURES } from "./gesture-catalogue.js";
@@ -117,6 +118,7 @@ export function renderFieldPage(): void {
   body.appendChild(partHead(PART.decide, "what this page suggests deciding, across types"));
   body.appendChild(decisions());
 
+  body.appendChild(text("p", MARKS, "field-marks"));
   for (const { action, uses, types } of sortedActions()) {
     body.appendChild(actionSection(action, uses, types, byName));
   }
