@@ -4,9 +4,10 @@ import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import type { GripVerdicts } from "./grip-verdict.js";
 import { HullShock } from "./hull-shock.js";
+import { LampreyCrumbs } from "./lamprey-crumbs.js";
 import { type LampreyPose, lampreyToothAt, type Point } from "./lamprey-shape.js";
 import { LampreyVerdicts } from "./lamprey-verdicts.js";
-import type { Layout } from "./layout.js";
+import { type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
 
@@ -15,8 +16,9 @@ import { stepColour } from "./step-colour.js";
  * **tooth** a crack knocks out, flung off the ring and tumbling away; the
  * **snap**, a ring closing on the tooth that went back in; the **gulp**, the
  * gullet flashing in its colour as a shot goes down it; the hull's shudder
- * as a bite goes through it and as the eel is spent; the bursts its other
- * receipts throw; and its marks' verdicts on a touch (`lamprey-verdicts.ts`).
+ * as a bite goes through it and as the eel is spent; the **crumbs** it
+ * leaves where it eats (`lamprey-crumbs.ts`); the bursts its other receipts
+ * throw; and its marks' verdicts on a touch (`lamprey-verdicts.ts`).
  *
  * Everything else — where the mouth is, which teeth are out — is read off
  * the boss every frame (`lamprey-draw.ts`).
@@ -70,6 +72,8 @@ export class LampreyFx {
   /** The blow a bite freed and a shot down the gullet deal; a crack the lighter one. */
   readonly hurt = new BossHurt();
   private readonly said = new LampreyVerdicts();
+  /** The crumbs left where it ate (`lamprey-crumbs.ts`). */
+  readonly crumbs = new LampreyCrumbs();
 
   /** The tail's, the head's, the tooth's and the gullet's verdicts on a touch. */
   get verdicts(): GripVerdicts {
@@ -110,6 +114,18 @@ export class LampreyFx {
       switch (e.type) {
         case "lampreyEnter":
           burst(mouth.x, mouth.y, 8, PALETTE.lampreyHide);
+          break;
+        case "lampreyEat": {
+          // Crumbs where the body was, in its colour.
+          const at = { x: fieldX(l, e.col), y: tileCY(l, e.row) };
+          const hex =
+            e.food === "slick" ? PALETTE.red : e.food === "bulb" ? PALETTE.cyan : PALETTE.rock;
+          this.crumbs.drop(at, hex);
+          burst(at.x, at.y, 5, hex);
+          break;
+        }
+        case "lampreyDung":
+          burst(fieldX(l, e.col), tileCY(l, e.row), 6, PALETTE.lampreyDung);
           break;
         case "lampreyBite":
           // The sucker slammed into the tile.
@@ -185,6 +201,7 @@ export class LampreyFx {
     this.shock.update(dt);
     this.hurt.update(dt);
     this.said.update(dt);
+    this.crumbs.update(dt);
   }
 
   clear(): void {
@@ -200,5 +217,6 @@ export class LampreyFx {
     this.shock.clear();
     this.hurt.clear();
     this.said.clear();
+    this.crumbs.clear();
   }
 }

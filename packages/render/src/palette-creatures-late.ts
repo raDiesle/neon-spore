@@ -100,6 +100,9 @@ export const LATE_CREATURE_HUES = {
   lampreyTooth: "#E8E2CC",
   lampreyMouth: "#0E0A0A",
   lampreyGullet: "#5A2A22",
+  /** Its dung: a warm brown over the rock it is, and the dark of its folds. */
+  lampreyDung: "#7A5530",
+  lampreyDungDark: "#2E1D0E",
   /**
    * THE MIMIC (§42, *Colour*): a mottle of two dark greens close to the
    * field's own dark, so it hides against it flattened; its outline darker

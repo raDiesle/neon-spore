@@ -9,6 +9,7 @@ import {
 } from "@neon-spore/sim";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
 import { lampreyTailRest } from "./lamprey-grip.js";
+import { LAMPREY_TOOTH_RING } from "./lamprey-marks.js";
 import { type LampreyPose, lampreyToothAt } from "./lamprey-shape.js";
 import { type Circle, type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
@@ -27,7 +28,7 @@ import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
  *
  * The verdicts are the eel's own words: a thumb taking the tail greens it;
  * the head coming off greens the head, and a slip or a bite gone through
- * reddens it; a crack greens the tooth and a snap reddens it; a hit greens
+ * reddens it; a tap and a crack green the tooth and a snap reddens it; a hit greens
  * the gullet.
  */
 export const LAMPREY_TAIL = 0;
@@ -41,6 +42,7 @@ const SAYS: Readonly<Record<string, readonly [number, boolean]>> = {
   lampreyLoose: [LAMPREY_HEAD, true],
   lampreySlip: [LAMPREY_HEAD, false],
   lampreyFull: [LAMPREY_HEAD, false],
+  lampreyTap: [LAMPREY_TOOTH, true],
   lampreyCrack: [LAMPREY_TOOTH, true],
   lampreySnap: [LAMPREY_TOOTH, false],
   lampreyHit: [LAMPREY_GULLET, true],
@@ -71,7 +73,7 @@ function markAt(l: Layout, cfg: SimConfig, p: LampreyPose, s: LampreyState, mark
   if (mark === LAMPREY_TAIL) return lampreyTailRest(l, cfg, s);
   if (mark === LAMPREY_TOOTH) {
     const at = lampreyToothAt(p, s.litTooth);
-    return { x: at.x, y: at.y, r: p.r * 0.32 };
+    return { x: at.x, y: at.y, r: p.r * LAMPREY_TOOTH_RING };
   }
   return { x: p.x, y: p.y, r: p.r * 0.6 };
 }
@@ -129,7 +131,8 @@ export function drawLampreyVerdicts(
     const c = markAt(l, cfg, p, s, mark);
     if (asked(l, s, mark) === "theirs") {
       drawMarkTheirs(ctx, c.x, c.y, c.r, time);
-      drawMarkWait(ctx, c.x, c.y, c.r, time);
+      // The tooth's ring draws its own waiting clock (`lamprey-marks.ts`).
+      if (mark !== LAMPREY_TOOTH) drawMarkWait(ctx, c.x, c.y, c.r, time);
     }
     const verdict = v.at(mark);
     if (verdict !== null) drawVerdictRing(ctx, c.x, c.y, c.r, verdict);

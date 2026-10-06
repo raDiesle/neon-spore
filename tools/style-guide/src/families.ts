@@ -120,6 +120,8 @@ export const FAMILIES: Family[] = [
       "lampreyTooth",
       "lampreyMouth",
       "lampreyGullet",
+      "lampreyDung",
+      "lampreyDungDark",
       "mimicSkin",
       "mimicMottle",
       "mimicSkinDark",

@@ -33932,3 +33932,13 @@ Bottleneck: the briefings spec counts its prose guides in words in three places,
 Bottleneck: the lane started from `origin/main`, and the local `main` held the redesign it had to be built on.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE LAMPREY drawn as a worm: its body along the trail, a tail that sweeps, crumbs, dung and THE INSTAR's tap ring
+
+- reading: 15 min. The eel's shape, pose and marks, THE INSTAR's ring, the rock under the dung, and the spline rule for a per-frame path.
+- writing: 30 min. The trail spine and its wriggle, the sweep, the crumbs, the dung heap, the tooth ring with its tap arc, and the dung moved to the tail's end.
+- looking: 15 min. Four frames: the crawl, the dung at the field's edge and then behind the tail, and the tooth ring from the worker's seat.
+- friction: 10 min. A text path refused by the render test, the palette's specimen sheet, and a summary-break mid-lane.
+- landing: 5 min.
+
+Bottleneck: the first dung frame showed it dropped in the edge column and cut by the screen, and fixing it went back into the simulation.

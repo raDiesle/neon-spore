@@ -14,6 +14,8 @@ export const LAMPREY_TEETH = 9;
 export const LAMPREY_JUMP = 2;
 /** Places the head has been that the body is laid along, the newest first. */
 export const LAMPREY_TRAIL = 8;
+/** The place in the trail the tail's end lies over, a crawl a tile a beat: the body is four and a half tiles long (`render/lamprey-shape.ts`). */
+export const LAMPREY_TAIL_END = 4;
 
 /**
  * Where the scene is: crawling in from the side, eating its meal, crawling

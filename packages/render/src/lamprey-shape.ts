@@ -60,6 +60,11 @@ export interface LampreyPose {
   wave: number;
   /** Limp and falling away: 0 alive, 1 spent. */
   spent: number;
+  /**
+   * While it crawls, the places its head has been, newest first, on the
+   * screen: the body is laid along them instead of along `lean`.
+   */
+  trail?: readonly Point[];
 }
 
 /**
@@ -68,6 +73,7 @@ export interface LampreyPose {
  * the head and a crawl ripples away from the mouth.
  */
 export function lampreySpine(l: Layout, p: LampreyPose): Point[] {
+  if (p.trail !== undefined && p.trail.length > 0) return trailSpine(l, p, p.trail);
   const seg = (LENGTH * l.tile) / SPINE;
   // The neck leaves the back of the mouth on the side the body lies.
   const neck = p.r * 0.6;
@@ -84,6 +90,60 @@ export function lampreySpine(l: Layout, p: LampreyPose): Point[] {
     out.push({ x, y });
   }
   return out;
+}
+
+/** How far a crawling body swings either side of its trail, in tiles: a worm's wriggle. */
+const WRIGGLE = 0.16;
+
+/**
+ * The spine of a worm crawling: from the neck back along the places the head
+ * has been, a piece at a time, and on past the last of them the way the trail
+ * was going — with a wriggle across it that travels down from the mouth.
+ */
+function trailSpine(l: Layout, p: LampreyPose, trail: readonly Point[]): Point[] {
+  const seg = (LENGTH * l.tile) / SPINE;
+  const path = [{ x: p.x, y: p.y }, ...trail];
+  const out: Point[] = [];
+  let leg = 0;
+  let from = path[0] ?? p;
+  for (let i = 0; i <= SPINE; i++) {
+    let want = i === 0 ? p.r * 0.6 : seg;
+    while (want > 0) {
+      const to = path[leg + 1];
+      if (to === undefined) {
+        // Past the trail: on along the way it was going.
+        const a = path[leg - 1] ?? { x: from.x, y: from.y + 1 };
+        const len = Math.hypot(from.x - a.x, from.y - a.y) || 1;
+        from = {
+          x: from.x + ((from.x - a.x) / len) * want,
+          y: from.y + ((from.y - a.y) / len) * want,
+        };
+        path[leg] = from;
+        want = 0;
+        break;
+      }
+      const left = Math.hypot(to.x - from.x, to.y - from.y);
+      if (left <= want) {
+        want -= left;
+        from = to;
+        leg += 1;
+        continue;
+      }
+      const k = want / left;
+      from = { x: from.x + (to.x - from.x) * k, y: from.y + (to.y - from.y) * k };
+      want = 0;
+    }
+    out.push(from);
+  }
+  // The wriggle: each point pushed across the body, a wave running tailward.
+  return out.map((at, i) => {
+    const a = out[Math.max(0, i - 1)] ?? at;
+    const b = out[Math.min(out.length - 1, i + 1)] ?? at;
+    const len = Math.hypot(b.x - a.x, b.y - a.y) || 1;
+    const f = i / SPINE;
+    const swing = Math.sin(p.wave * 2 - f * 9) * WRIGGLE * l.tile * Math.min(1, f * 4);
+    return { x: at.x - ((b.y - a.y) / len) * swing, y: at.y + ((b.x - a.x) / len) * swing };
+  });
 }
 
 /** The tail's tip: the spine's last point, where a thumb holds it. */

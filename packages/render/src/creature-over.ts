@@ -3,6 +3,7 @@ import { drawCaromCrust } from "./carom.js";
 import { drawChute } from "./chute.js";
 import { claspResonance, drawClaspShield } from "./clasp.js";
 import { coilCharge, drawCoilDome, showsCoilCharge } from "./coil.js";
+import { drawLampreyDung, isLampreyDung } from "./lamprey-dung.js";
 import type { Layout } from "./layout.js";
 import { drawRecoilCage } from "./recoil.js";
 import { drawVeerClown } from "./veer-clown.js";
@@ -87,6 +88,9 @@ export function drawOverBody(
   // the bolt from the last dome to fail has come — and that is passed as
   // zero on player 2's screen, because which dome opens next is the one fact
   // this creature keeps from the seat that can move the plate (`coil.ts`).
+  // THE LAMPREY's dung: a rock to the shield and a brown heap to the eye,
+  // laid over the stone `drawMeteor` put down (`lamprey-dung.ts`).
+  if (isLampreyDung(world, c)) drawLampreyDung(ctx, l, c, x, y, time);
   if (c.kind === "coil") {
     const charge = showsCoilCharge(l) ? coilCharge(world.cfg, world, c, beatPhase) : 0;
     drawCoilDome(ctx, l, world, c, x, y, time, near, charge, claspImage);

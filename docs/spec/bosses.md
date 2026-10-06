@@ -10974,10 +10974,12 @@ for food.
   goes for it; anything edible its head passes is eaten too. The shipped
   wave is three levels of three, four and five stays, each ended on a
   gullet, the second and third crawled to.
-- **Its dung is a rock for the shield.** A step with `dung` lets one go under
-  its head at the far side (`lampreyDung`): an ordinary `meteor`, answered
-  by `resolveHull` like any rock, so a miss is the hull and the wave. Its ids
-  are `dung`, which the head never eats and the picture may draw as dung.
+- **Its dung is a rock for the shield.** A step with `dung` lets one go from
+  its tail's end as the head reaches the far side (`lampreyDung`), in the
+  column `LAMPREY_TAIL_END` tiles back along the trail and never in an edge
+  column: an ordinary `meteor`, answered by `resolveHull` like any rock, so
+  a miss is the hull and the wave. Its ids are `dung`, which the head never
+  eats and the picture draws as dung.
 - **A tooth is a run of taps**: three in the shipped wave's first two
   levels, four in the last. The ring has nine teeth, one for each stay with
   hands.
@@ -11530,10 +11532,21 @@ stay under THE SLOW; the crawl to both sides with its food eaten and its
 dung turned, and the hull when it is not; a tooth's taps, started again by
 a wrong one; and over thirty seeds no tile at the edge and no tail, pulled
 out, off the field.
-**Still to come, as its own lane**: the eel made to feel alive — the tail
-whipping like a snake while the head stays, the bite in and the release,
-and a time rift left in space on every tile it bit. **Never watched at
-tempo.**
+**Still to come, as its own lane**: the bite in and the release, and a time
+rift left in space on every tile it bit. **Never watched at tempo.**
+
+**The worm drawn** (the owner, 6 October 2026). While it crawls, the body
+is laid along the trail (`trailSpine` in `render/lamprey-shape.ts`), a
+wriggle running down it. **On a tile the tail sweeps**: while the tail is
+free in a bite, and while it rears and recoils, the body swings a quarter
+turn either side of the way it lies, half a circle in all, over four beats,
+the head where it is (`render/lamprey-pose.ts`); the knob and its hit test
+stay at rest, so a thumb finds it, and holding it stills the sweep. **Where
+it eats, it leaves crumbs** in the colour of what it ate, falling and
+fading over two seconds (`lamprey-crumbs.ts`). **Its dung** is two BULB ·
+CLOVERs stacked, brown, stinking, laid over the rock (`lamprey-dung.ts`).
+**The lit tooth's mark is THE INSTAR's tap ring** (`lamprey-marks.ts`), its
+green arc filling a share for each of the step's taps.
 
 **The receipts** (`render/lamprey-fx.ts`, drawn by `lamprey-receipts.ts`):
 a crack flings the tooth off the ring and deals the lighter blow; a snap
@@ -11541,7 +11554,7 @@ closes a ring on the tooth that went back in; a shot down the gullet flares
 it in its colour and deals the whole blow, as a head freed does; a slip
 throws red at the mouth. The hull shudders as a bite goes through and as
 the eel is spent. **Its own blow** (`lamprey-blow.ts`) is the clamp: the
-seven teeth fly from the tile it bit down to the hull, closing to a ring,
+nine teeth fly from the tile it bit down to the hull, closing to a ring,
 and leave punctures bleeding the hull's red. Its twelve sounds are bound
 (`audio/src/bind-lamprey.ts`), panned after the tile's column.
 

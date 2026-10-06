@@ -1,7 +1,13 @@
 import { hullRow, midCol } from "./config.js";
 import { removeCreature } from "./field.js";
 import { isMeteorKind, livingKindForColor } from "./kinds.js";
-import { LAMPREY_TRAIL, type LampreyFood, type LampreyState, lampreyStep } from "./lamprey.js";
+import {
+  LAMPREY_TAIL_END,
+  LAMPREY_TRAIL,
+  type LampreyFood,
+  type LampreyState,
+  lampreyStep,
+} from "./lamprey.js";
 import { spawnOne } from "./spawn.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -197,9 +203,17 @@ export function lampreyRoaming(world: World, s: LampreyState): boolean {
   return s.leg > 2;
 }
 
-/** Dung let go under the head: a rock, one row below it, for the shield. */
+/**
+ * Dung let go from the tail's end: a rock, one row below the head, for the
+ * shield — in the column the tail's end lies over (`LAMPREY_TAIL_END`), kept out of the
+ * outermost `lampreyEdgeCols` like a stay, so the heap is never cut by the
+ * screen's edge while the head turns at the side.
+ */
 function dropDung(world: World, s: LampreyState): void {
-  const c = drop(world, "meteor", s.col);
+  const cfg = world.cfg;
+  const end = s.trailCol[Math.min(LAMPREY_TAIL_END, s.trailCol.length - 1)] ?? s.col;
+  const col = Math.max(cfg.lampreyEdgeCols, Math.min(cfg.cols - 1 - cfg.lampreyEdgeCols, end));
+  const c = drop(world, "meteor", col);
   if (c === null) return;
   c.row = Math.max(0, Math.min(hullRow(world.cfg) - 1, s.row + 1));
   c.fromRow = c.row;

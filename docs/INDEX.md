@@ -2237,6 +2237,7 @@ by hand never moves.
 | `packages/render/src/label-box.ts` | The box a guide writes in: a solid ground, a two-pixel edge in the pod's colour, sixteen-point Courier |
 | `packages/render/src/last-chance.ts` | ONE LAST CHANCE over every body the shield has already pushed, on both screens, read straight off the world |
 | `packages/render/src/lamprey-draw.ts` | **THE LAMPREY** drawn: the eel, the sucker and its seven teeth, the scar, the gullet, both seats' marks |
+| `packages/render/src/lamprey-dung.ts` | **THE LAMPREY's dung** (the owner, 6 October 2026: *it could poop |
 | `packages/render/src/lamprey-marks.ts` | **THE LAMPREY's tooth mark**: the ring round the one lit tooth in a `teeth` |
 | `packages/render/src/lamprey-pose.ts` | **The clock THE LAMPREY is posed off** (§41, *Animation*), six poses: crawling as a worm |
 | `packages/render/src/lamprey-shape.ts` | **THE LAMPREY's shape** (§41, *The look*): two drafts combined, named on the shape sheet |
@@ -2246,6 +2247,7 @@ by hand never moves.
 | `packages/render/src/lamprey-fx.ts` | What THE LAMPREY leaves behind a frame: the flung tooth, the snap, the gulp, the shudder and the blow |
 | `packages/render/src/lamprey-receipts.ts` | **THE LAMPREY's receipts, drawn** — what `lamprey-fx.ts` holds between frames |
 | `packages/render/src/lamprey-handles.ts` | **THE LAMPREY's handles**, in the field's one look for a thumb's control (`pull-knob.ts`, `pull-track.ts`) |
+| `packages/render/src/lamprey-crumbs.ts` | **The crumbs THE LAMPREY leaves where it eats** (the owner, 6 October 2026 |
 | `packages/render/src/ledger-cord.ts` | **The cord**, and the one hole in the ship it goes into |
 | `packages/render/src/ledger-cord-shape.ts` | **Where THE LEDGER's cord is**, in field pixels: where it leaves the body and where it goes into the ship |
 | `packages/render/src/ledger-draw.ts` | **THE LEDGER**: a tall split body high in the field on a single thick cord running down into the pair's own… |

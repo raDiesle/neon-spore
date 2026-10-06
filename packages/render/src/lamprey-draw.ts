@@ -6,6 +6,7 @@ import {
   lampreyBiting,
   lampreyFiring,
   lampreyStep,
+  lampreyTapsWanted,
   lampreyToothIn,
   lampreyWorker,
   type World,
@@ -41,7 +42,7 @@ const MOUTH_IN = 0.8;
 /**
  * **THE LAMPREY**: a dark olive eel with a round sucker mouth, leaping from
  * tile to tile across the field and biting into each, its tail laid away
- * from where it leaps next, a ring of seven bone teeth with one lit; or
+ * from where it leaps next, a ring of nine bone teeth with one lit; or
  * reared on a tile, its gullet lit in a cannon's colour (§11.59,
  * `bosses-choreographed.md` §41).
  *
@@ -86,7 +87,8 @@ export function drawLamprey(
   const worker = lampreyWorker(s);
   if (worker !== null && lampreyAsks(s) === "teeth") {
     const full = showsLampreyHand(l.role, worker);
-    drawLampreyToothMark(ctx, p, s.litTooth, full, beatPhase);
+    const along = s.toothTaps / lampreyTapsWanted(s);
+    drawLampreyToothMark(ctx, p, s.litTooth, full, along, time);
   }
   ctx.restore();
   drawLampreyHandles(ctx, l, cfg, s, time);
@@ -95,6 +97,7 @@ export function drawLamprey(
   drawLampreyVerdicts(ctx, l, cfg, p, s, time, fx.verdicts);
   ctx.restore();
   drawLampreyFlung(ctx, l, fx.flung);
+  fx.crumbs.draw(ctx, l.tile);
   ctx.restore();
 }
 

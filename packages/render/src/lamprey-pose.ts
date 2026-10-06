@@ -1,7 +1,9 @@
 import {
   type LampreyState,
+  lampreyAsks,
   lampreyCrawling,
   lampreyHeadPull,
+  lampreyTailHeld,
   lampreyTailWay,
   type SimConfig,
 } from "@neon-spore/sim";
@@ -36,6 +38,14 @@ const TILT_LEAP = 0.75;
 const CURVE = 0.35;
 /** How much of a beat a landing takes, the mouth settling into the tile. */
 const LAND = 0.4;
+/**
+ * How far the tail sweeps either side of the way it lies while the head
+ * stays on a tile, and the beats a sweep there and back takes: half a turn
+ * in all (the owner, 6 October 2026: *the tail moves in a radius of about
+ * 180 degrees, the head stays where it is*). A thumb on it stills it.
+ */
+const SWEEP = Math.PI / 2;
+const SWEEP_BEATS = 4;
 
 const lerp = (a: number, b: number, k: number): number => a + (b - a) * k;
 
@@ -52,6 +62,10 @@ function tailLean(l: Layout, s: LampreyState): number {
   const way = lampreyTailWay(s);
   return leanTo(l.flip ? -way.x : way.x, way.y);
 }
+
+/** The tail's sweep about the way it lies this instant, radians: off the beat, never the wall clock. */
+const sweep = (beat: number, beatPhase: number): number =>
+  SWEEP * Math.sin(((beat + beatPhase) * Math.PI * 2) / SWEEP_BEATS);
 
 /** The eel's pose this frame. */
 export function lampreyPose(
@@ -82,17 +96,21 @@ export function lampreyPose(
     const tilt = lerp(TILT_LEAP, TILT_BITE, land);
     // A head being pulled comes up off its tile with the thumb on it.
     const lift = (lampreyHeadPull(s) * l.tile) / 1000;
-    return { ...base, x: here.x, y: here.y - lift, tilt, lean: tailLean(l, s) };
+    const free = lampreyAsks(s) !== "apart" && !lampreyTailHeld(s);
+    const lean = tailLean(l, s) + (free ? sweep(beat, beatPhase) * land : 0);
+    return { ...base, x: here.x, y: here.y - lift, tilt, lean };
   }
   if (s.phase === "rearing") {
     const sway = Math.sin(wave * 0.5) * 0.15 * l.tile;
-    return { ...base, x: here.x + sway, y: here.y, tilt: 1, lean: tailLean(l, s) };
+    const lean = tailLean(l, s) + sweep(beat, beatPhase);
+    return { ...base, x: here.x + sway, y: here.y, tilt: 1, lean };
   }
   if (s.phase === "recoil") {
     const k = Math.min(1, into / Math.max(1, cfg.lampreyRecoilBeats));
     const jerk = Math.sin(k * Math.PI) * 1.2 * l.tile;
     const tilt = lerp(TILT_LEAP, 1, k);
-    return { ...base, x: here.x, y: here.y - jerk, tilt, lean: tailLean(l, s), curve: CURVE * 2 };
+    const lean = tailLean(l, s) + sweep(beat, beatPhase);
+    return { ...base, x: here.x, y: here.y - jerk, tilt, lean, curve: CURVE * 2 };
   }
   const k = Math.min(1, into / Math.max(1, cfg.lampreySpentBeats));
   const y = here.y + k * k * (l.hullY - here.y);
@@ -118,5 +136,6 @@ function crawlPose(
   const y = lerp(prev.y, here.y, k);
   const back =
     here.x === prev.x && here.y === prev.y ? Math.PI : leanTo(prev.x - here.x, prev.y - here.y);
-  return { ...base, x, y, tilt: TILT_LEAP, lean: back, curve: CURVE * 1.5 };
+  const trail = s.trailCol.map((col, i) => at(l, col, s.trailRow[i] ?? s.row));
+  return { ...base, x, y, tilt: TILT_LEAP, lean: back, curve: CURVE * 1.5, trail };
 }
