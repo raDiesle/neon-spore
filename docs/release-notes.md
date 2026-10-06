@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · e1d6ed7f5 — THE BATON says each new part on the field before it comes and while it runs
+
+THE BATON now explains each new part on the field instead of on a guide page. While a part is coming, a banner across the rows above the hull says what comes next, for example "NEXT: THE ARM SWINGS". While the part runs, a label beside it tells each screen its own job: player 1 reads "MOVE UNDER IT", player 2 reads "FIRE WHEN P1 IS UNDER IT". Each part is explained only on the level where it first appears. The swing and the shed are explained on the first level. The second bead, the draw and the crossing are explained on the second level. The second arm and the arm across are explained on their own levels. Exemption: a look the owner asked for by name.
+
 ## 2026-10-06 · b886c6945 — THE BATON's arm across comes in from the left, and a knocked bead is lobbed along it
 
 On the last level of THE BATON, the arm now comes in from the left of its row instead of hanging down from above the field. Along the row it sways up and down, the way the hanging arm sways side to side. A bead knocked back by the wrong colour, or shaken back by a slow socket, is lobbed back along the row and down into its socket. A knock leaves a ring where the bolt met it.
