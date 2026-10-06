@@ -33822,3 +33822,5 @@ Bottleneck: the row a socket sits on was a function of the socket alone, and eve
 - landing: 5 min.
 
 Bottleneck: three tests used `PRESS` over `FIRE` as their example of a drawn line, and one measured a box's height off it.
+
+*Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
