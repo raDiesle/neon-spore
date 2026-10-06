@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 24c180516 — A boss's shot mark is offered in VERSUS in the cannon's colour, four ways
+
+`aim:cannon` puts four answers beside today's red crosshair with its grey box, all in the cannon's exact colour on this screen — violet #C05CFF for player 1, amber #FFAE3D for player 2, the colour of the cannon's column. SIGHT is the crosshair with four corner brackets and a slowly turning dashed ring. CLAMP is four solid arrowheads that keep closing in round a diamond. FLESH is a slime ring of the ship's own body round the target. TRACER is a dotted line from the muzzle up to a double-ringed crosshair. It is judged on THE GORGE · ROW.
+
 ## 2026-10-06 · e1d6ed7f5 — THE BATON says each new part on the field before it comes and while it runs
 
 THE BATON now explains each new part on the field instead of on a guide page. While a part is coming, a banner across the rows above the hull says what comes next, for example "NEXT: THE ARM SWINGS". While the part runs, a label beside it tells each screen its own job: player 1 reads "MOVE UNDER IT", player 2 reads "FIRE WHEN P1 IS UNDER IT". Each part is explained only on the level where it first appears. The swing and the shed are explained on the first level. The second bead, the draw and the crossing are explained on the second level. The second arm and the arm across are explained on their own levels. Exemption: a look the owner asked for by name.

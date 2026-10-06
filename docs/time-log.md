@@ -33858,3 +33858,5 @@ Bottleneck: the owner's three answers on where, how often and for whom had to co
 - landing: 5 min.
 
 Bottleneck: a shot that is its own aim never resized its frame, so a bigger mark ran into its word until `cueDrawnAt` learned the reach.
+
+*Measured: 21 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
