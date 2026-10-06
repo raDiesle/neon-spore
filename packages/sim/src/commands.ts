@@ -85,9 +85,11 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     }
     case "guard":
       mirrorHeard(world, "guard", "panel");
-      // And THE BATON's launch, which is this trigger while the bead sits;
-      // the dome still comes up. A no-op unless that boss is installed.
-      batonLaunch(world);
+      // And THE BATON's launch, which is this trigger while the bead sits —
+      // from either seat since 6 October 2026, and the one who pressed is the
+      // one locked; the dome still comes up. A no-op unless that boss is
+      // installed.
+      batonLaunch(world, timed.player);
       // Everything the dome coming up means is one call, because a shield
       // malfunction arms it on the beat with nobody pressing anything and the
       // two paths must not drift (`armShield` in `hull-guard.ts`).

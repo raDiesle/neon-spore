@@ -82,7 +82,7 @@ export const CLOCK_BOSS_POSES: Pose[] = [
   bossPose(
     "baton",
     "passing",
-    "Beads pass down the arm. P1 triggers one sitting in a socket; P2 bolts one in the air.",
+    "Beads pass down the arm. P1 or P2 taps one sitting in a socket; P2 bolts one in the air.",
     { hold: 12 },
   ),
   bossPose(

@@ -94,6 +94,8 @@ export type BatonStage = (typeof BATON_STAGES)[number];
 /** Everything THE BATON remembers between beats. */
 export interface BatonState {
   kind: "baton";
+  /** Which pass of the arm this is, an index into `BATON_LEVELS` (`baton-level.ts`). */
+  level: number;
   stage: BatonStage;
   /** `world.beat` the current stage began on. */
   stageBeat: number;

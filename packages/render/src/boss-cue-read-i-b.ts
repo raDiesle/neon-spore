@@ -81,11 +81,17 @@ export function batonPassingCues(l: Layout, world: World, b: BatonState): readon
       out.push(markAt(2, "PRESS", "FIRE", x, y, l, 45 + flying.socket));
     }
   }
+  // `TAP` on the sitting bead for whichever seat is free to send it — both
+  // since 6 October 2026 (`sim/baton-press.ts` `batonLaunch`). His first, so
+  // on the desk's both-seats screen the word stays where it always stood.
   const sitting = batonLaunchable(cfg, b);
-  if (sitting !== null && !batonLocked(b, 1, world.beat)) {
-    const { x, y } = beadPoint(l, cfg, b, sitting, world.tick);
-    out.push({ ...markAt(1, "PRESS", "TAP", x, y, l, 48 + sitting.socket), why: "TO LAUNCH IT" });
-  }
+  if (sitting !== null)
+    for (const seat of [1, 2] as const) {
+      if (batonLocked(b, seat, world.beat)) continue;
+      const { x, y } = beadPoint(l, cfg, b, sitting, world.tick);
+      const mark = markAt(seat, "PRESS", "TAP", x, y, l, 48 + sitting.socket + (seat - 1) * 20);
+      out.push({ ...mark, why: "TO LAUNCH IT" });
+    }
   // **`TAP` / `TO STRIP IT` is the locked seat's, and it is last.** A shell coming away is
   // the only thing on this field that seat may touch, and it is also the least
   // urgent thing on the screen: a rock is warded, and a handover missed is a

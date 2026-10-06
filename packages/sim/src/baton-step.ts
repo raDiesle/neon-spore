@@ -10,7 +10,8 @@ import {
   batonSocketRow,
 } from "./baton.js";
 import { batonLandTick, batonWaiting } from "./baton-bead.js";
-import { batonCrossBeat } from "./baton-cross.js";
+import { batonCrossBeat, drop } from "./baton-cross.js";
+import { batonHasNextLevel } from "./baton-level.js";
 import { batonMerge, batonTwin, stepBatonMerge } from "./baton-pair.js";
 import { stepBatonShed } from "./baton-shed.js";
 import { batonSlow } from "./baton-slow.js";
@@ -51,12 +52,16 @@ export function bead(world: World, socket: number, color: BatonBead["color"]): B
   };
 }
 
-/** Install it from the wave's own `boss:` entry. There is nothing to author. */
-export function installBaton(world: World): BatonState {
+/**
+ * Install it from the wave's own `boss:` entry — there is nothing to author —
+ * or, once a level is beaten, as the next one (`baton-level.ts`).
+ */
+export function installBaton(world: World, level = 0): BatonState {
   const sockets: number[] = [];
   for (let i = 0; i < world.cfg.batonSockets; i++) sockets.push(BATON_SOCKET_LIT);
   return {
     kind: "baton",
+    level,
     stage: "unfolding",
     stageBeat: world.beat,
     col: batonBaseCol(world.cfg),
@@ -117,8 +122,10 @@ function beat(world: World, b: BatonState): void {
   const since = world.beat - b.stageBeat;
   if (b.stage === "down") {
     // Nulled here rather than at the take, so the picture has the whole fold
-    // to run before the wave is allowed to end under it (`bossHoldsWave`).
-    if (since >= cfg.batonDownBeats) world.boss = null;
+    // to run before the wave is allowed to end under it (`bossHoldsWave`) —
+    // and unfolded again as the next level, if there is one.
+    if (since >= cfg.batonDownBeats)
+      world.boss = batonHasNextLevel(b) ? installBaton(world, b.level + 1) : null;
     return;
   }
   if (b.stage === "unfolding") {
@@ -172,6 +179,13 @@ function land(world: World, b: BatonState, bead: BatonBead): void {
     bead.col = bead.fromCol;
     b.col = batonLead(b)?.col ?? bead.col;
     world.events.push({ type: "batonRelit", col: bead.col, socket: bead.socket });
+    return;
+  }
+  // Out of the last socket there is nothing to land in: on a level with one
+  // bead, a struck flight from there is the drop (`baton-level.ts`); with two,
+  // it is the merged bead's crossing, which never lands here.
+  if (bead.socket >= world.cfg.batonSockets - 1) {
+    drop(world, b, bead);
     return;
   }
   // Only a lit socket goes dark. A bead shaken or knocked back up the arm

@@ -1,5 +1,6 @@
 import { expect } from "bun:test";
 import {
+  BATON_LEVELS,
   type BatonBead,
   type BatonState,
   batonBoss,
@@ -30,10 +31,18 @@ import {
 export const CFG: SimConfig = DEFAULT_CONFIG;
 export const TPB = ticksPerBeat(CFG);
 
-/** The arm installed on its own wave. */
-export function open(cfg: SimConfig = CFG, seed = 3): World {
+/** The level the fight shipped as before the levels: two beads, the merge and the crossing. */
+export const TWIN = BATON_LEVELS.indexOf("twin");
+
+/**
+ * The arm installed on its own wave, on `level`. **The twin level by
+ * default**, because that is the fight every file of this rig was written
+ * against; the single level's own receipts are `baton-level.test.ts`.
+ */
+export function open(cfg: SimConfig = CFG, seed = 3, level = TWIN): World {
   const world = createWorld(cfg, seed);
   startWave(world, 6, [], [], { kind: "baton" });
+  arm(world).level = level;
   return world;
 }
 

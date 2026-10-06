@@ -110,12 +110,13 @@ function elsewhere(world: World): number {
 }
 
 describe("the arm passing a bead", () => {
-  it("gives the launch to the pilot and the shot to the navigator", () => {
+  it("gives the launch to either seat and the shot to the navigator", () => {
     const { world, b } = opened();
     const bead = only(b);
     bead.flying = false;
     expect(word(world, "p1")).toBe("TAP");
-    expect(word(world, "p2")).toBeNull();
+    // Both thumbs may send it since 6 October 2026 (`sim/baton-press.ts`).
+    expect(word(world, "p2")).toBe("TAP");
 
     fly(world, bead, world.cannonCol);
     expect(word(world, "p2")).toBe("FIRE");
@@ -271,7 +272,13 @@ describe("what the whole fight may say", () => {
         }
       }
     }
-    expect([...seen].sort()).toEqual(["HOLD·HOLD·1", "HOLD·HOLD·2", "PRESS·FIRE·2", "PRESS·TAP·1"]);
+    expect([...seen].sort()).toEqual([
+      "HOLD·HOLD·1",
+      "HOLD·HOLD·2",
+      "PRESS·FIRE·2",
+      "PRESS·TAP·1",
+      "PRESS·TAP·2",
+    ]);
   });
 
   it("puts TAP / TO STRIP IT on the seat the beat locked out, and on neither otherwise", () => {

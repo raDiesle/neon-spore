@@ -15,7 +15,7 @@ import { BATON_STAGES, type BatonState } from "./baton.js";
  * tightens and where the arm swings, so they are wire values too.
  */
 export function batonHashParts(b: BatonState): number[] {
-  const out = [BATON_STAGES.indexOf(b.stage), b.stageBeat, b.col, b.sockets.length];
+  const out = [b.level, BATON_STAGES.indexOf(b.stage), b.stageBeat, b.col, b.sockets.length];
   for (const s of b.sockets) out.push(s);
   // Every bead, length first: a second bead lighting on one device and not
   // the other is a whole colour the seats would disagree about.

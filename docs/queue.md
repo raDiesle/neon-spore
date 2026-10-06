@@ -467,23 +467,27 @@ than unseen. Done when THE GOVERNOR's frame shows no fringe on its body and
 ## THE BATON's levels: a second arm beside the first, an arm across at the end
 
 - **Found:** 2026-10-06, claude/baton-rules
-- **Files:** `packages/sim/src/baton.ts`, `packages/sim/src/baton-step.ts`, `packages/sim/src/baton-press.ts`, `packages/content/src/waves/act-7d.ts`
+- **Files:** `packages/sim/src/baton-level.ts`, `packages/sim/src/baton.ts`, `packages/sim/src/baton-step.ts`, `packages/sim/src/baton-press.ts`
 - **Asks:** What is a level of THE BATON, and what does each one add?
+- **Answered:** a level is a pass of the arm inside the one wave; one ball, then two balls, then two arms, then the arm across; every shipped part stays as it is; both seats may tap and whoever acts is still locked. And the extra parts are explained on the field itself, two or three beats before each arrives and while it runs, rather than on guide pages.
 
-The owner, 6 October 2026, asked for THE BATON to be made harder in *levels*,
-each building up slowly and each adding one thing only: a second arm right
-beside the first, an arm at the end that runs left to right, more beads running
-through at once, and both seats allowed to tap a bead to send it. The rules half
-of the same request has landed (`claude/baton-rules`: the turn is long at the top
-and short at the bottom, slow costs one socket, the wrong colour two, nothing is
-judged by the beat). What waits on the answer is the shape of a level:
-whether a level is one pass of the arm inside the one wave (the arm folds and
-comes back with one thing more), or a wave of its own after THE BATON; what
-becomes of the shipped twin, swing, shed, merge and crossing — kept as levels
-of their own, or retired; and whether both seats tapping keeps the TurnLock,
-which is what this boss is about. The options and the ladder go to the owner
-in the turn this is filed. `baton.ts` is at 244 lines: the levels lane splits
-the state's shape off it before it adds a field.
+The owner, 6 October 2026, asked for THE BATON to be made harder in levels,
+each building up slowly and adding one thing only. Built so far
+(`claude/baton-levels`): the level list (`baton-level.ts`) with `single` (one
+bead; a struck flight out of the last socket is the drop) and `twin` (the
+fight as it shipped), the arm folding and unfolding as the next level, and
+either seat's thumb sending a bead. Left, in order, a lane each:
+
+1. **Two arms side by side** (`pair`): a second arm in the column beside the
+   first, its own bead, the cannon between the two. Simulation, then look.
+2. **The arm across** (`across`): the last level, an arm along a row that the
+   bead runs left to right, the cannon meeting it column by column.
+   Simulation, then look.
+3. **The field explains each extra part**: two or three beats before the twin,
+   the swing, the shed, the merge, the crossing, the second arm and the arm
+   across first appear, words on the field say what is coming, and while it
+   runs, what each seat has to do. The owner's ask, over the rule that a cue
+   is one word (`.claude/skills/new-boss` §2) — confirm the wording with him.
 
 ## The two silent-event lists are eight lines off the ceiling
 

@@ -33728,3 +33728,13 @@ Bottleneck: the boss keeps nothing in render, so the throw had to be drawn from 
 Bottleneck: the owner's no-boss-above-the-chrome rule, which only the full pixel test said, after the strings were drawn from the screen's top edge.
 
 *Measured: 20 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE BATON comes in levels, and either seat sends the bead
+
+- reading: 5 min. The tap, the cue and the desk's reach test, which knew only player 1 on the bead.
+- writing: 15 min. The level list and the refold, the drop out of the last socket, the lock on whoever pressed, the second seat's tap and word, one test file and four updated.
+- looking: 0 min. The arm a level draws is the arm it always drew.
+- friction: 5 min. A test run past two minutes went to the background.
+- landing: 5 min.
+
+Bottleneck: the owner's four answers came while the lane before was landing, and each one changed which tests described "the fight".

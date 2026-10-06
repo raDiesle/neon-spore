@@ -1,4 +1,10 @@
-import { type BatonBead, batonActor, batonLaunchable, batonLead } from "@neon-spore/sim";
+import {
+  type BatonBead,
+  batonActor,
+  batonLaunchable,
+  batonLead,
+  batonLocked,
+} from "@neon-spore/sim";
 import { beadPoint } from "./baton-bead-draw.js";
 import { handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout } from "./layout.js";
@@ -20,27 +26,31 @@ import { bossOf } from "./touch-field.js";
  * the button already does, and a second command for the same act would be a
  * second thing for the lock and the replay to agree on.
  *
- * **His alone.** The mark is only ever on his screen; a navigator's thumb on
- * the bead falls through to whatever is behind it, which is also what lets
- * the desk's both-seats screen find it by asking the other seat
- * (`desk-grab.ts`, its second question).
+ * **Either seat's, since 6 October 2026** — the owner: *both players can
+ * tap.* A bead sitting in its socket answers whichever thumb is on it, signed
+ * with that screen's seat, and the simulation locks whoever pressed. The
+ * crossing's trigger is still his alone, as it shipped: a navigator's thumb
+ * on that bead falls through to whatever is behind it.
  */
 
-/** The bead the trigger would send now, or null while it would send none. */
+/** The bead this seat's thumb would send now, or null while it would send none. */
 function sendable(field: Field): BatonBead | null {
   const b = bossOf(field, "baton");
   if (b === null) return null;
+  // A locked seat's thumb falls through: the simulation would swallow it, and
+  // on the desk's both-seats screen the free seat is the one to sign it.
+  if (batonLocked(b, field.seat, field.beat)) return null;
   if (b.stage === "passing") return batonLaunchable(field.cfg, b);
-  if (b.stage === "crossing" && batonActor(b) === 1) return batonLead(b);
+  if (b.stage === "crossing" && field.seat === 1 && batonActor(b) === 1) return batonLead(b);
   return null;
 }
 
-/** A press on the bead the trigger would send: player 1's `guard`. */
+/** A press on the bead the trigger would send: this seat's `guard`. */
 export function batonBeadUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const b = bossOf(field, "baton");
   const bead = sendable(field);
-  if (field.seat !== 1 || b === null || bead === null) return null;
+  if (b === null || bead === null) return null;
   const at = beadPoint(l, field.cfg, b, bead, field.tick);
   if (!hitCircle({ ...at, r: handleRadius(l, field.cfg) }, x, y)) return null;
-  return { player: 1, command: { kind: "guard" }, hold: null };
+  return { player: field.seat, command: { kind: "guard" }, hold: null };
 }

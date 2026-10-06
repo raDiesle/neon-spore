@@ -1,5 +1,6 @@
 import { type BatonState, batonDark, batonFlip, batonSocketRow } from "./baton.js";
 import { batonDrawn } from "./baton-hand.js";
+import { batonTwins } from "./baton-level.js";
 import { bead } from "./baton-step.js";
 import { MILLI, type World } from "./world.js";
 
@@ -27,7 +28,8 @@ import { MILLI, type World } from "./world.js";
  */
 export function batonTwin(world: World, b: BatonState): void {
   const cfg = world.cfg;
-  if (b.beads.length !== 1 || b.merged || batonDark(b) < cfg.batonTwinAfter) return;
+  if (!batonTwins(b) || b.beads.length !== 1 || b.merged) return;
+  if (batonDark(b) < cfg.batonTwinAfter) return;
   const first = b.beads[0];
   if (first === undefined) return;
   b.beads.push(bead(world, 0, batonFlip(first.color)));

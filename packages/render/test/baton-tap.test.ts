@@ -86,10 +86,12 @@ describe("the bead under player 1's thumb", () => {
     expect(b.beads[0]?.flying).toBe(true);
   });
 
-  it("is not there for player 2, nor once the bead is in the air", () => {
+  it("is player 2's too, signed as hers, and nobody's once the bead is in the air", () => {
     const { world, b } = sitting();
     const at = beadAt(world, b, "p2");
-    expect(batonBeadUnder(layout("p2"), at.x, at.y, fieldWith(2, world, b))).toBeNull();
+    const hers = batonBeadUnder(layout("p2"), at.x, at.y, fieldWith(2, world, b));
+    expect(hers?.player).toBe(2);
+    expect(hers?.command).toEqual({ kind: "guard" });
     const p1 = beadAt(world, b, "p1");
     step(world, [{ tick: world.tick, player: 1, command: { kind: "guard" } }]);
     expect(batonBeadUnder(layout("p1"), p1.x, p1.y, fieldWith(1, world, b))).toBeNull();

@@ -31,24 +31,28 @@ function enter(world: World, b: BatonState, stage: BatonState["stage"]): void {
 }
 
 /**
- * **Player 1's trigger, while a bead sits.** Called from `commands.ts` on
- * the `guard` press beside `armShield`, which still runs — a dome coming up
- * under a bead in flight costs nothing and the trigger is the one verb that
- * seat has with nothing under it while the arm hangs. A no-op unless THE
- * BATON is installed and a bead is there to send (`batonLaunchable`).
+ * **The trigger, while a bead sits** — either seat's, since the owner, 6
+ * October 2026: *both players can tap, so that a shot travels.* Called from
+ * `commands.ts` on the `guard` press beside `armShield`, which still runs — a
+ * dome coming up under a bead in flight costs nothing. **Whoever pressed is
+ * the one locked out** for the beat after, so the turn is still a turn: the
+ * navigator who sends a bead waits a beat before she can shoot it, and the
+ * pilot who sends it cannot send the next. On the crossing the trigger is
+ * still his alone, as it shipped. A no-op unless THE BATON is installed and
+ * a bead is there to send (`batonLaunchable`).
  *
  * Once enough sockets are dark the arm swings: the bead lands a column off
  * the one it left, so the flight crosses a column and the cannon has to
  * follow it between player 1's own turns — which are the only beats he can.
  */
-export function batonLaunch(world: World): void {
+export function batonLaunch(world: World, player: 1 | 2): void {
   const b = batonBoss(world);
   if (b === null) return;
   const cfg = world.cfg;
   // On the crossing the trigger is his act, when it is his; out of turn it
   // is a press on nothing.
   if (b.stage === "crossing") {
-    if (batonActor(b) !== 1) return;
+    if (player !== 1 || batonActor(b) !== 1) return;
     batonAct(world, b);
     b.lockUntil[0] = world.beat + cfg.batonLockBeats;
     return;
@@ -74,7 +78,7 @@ export function batonLaunch(world: World): void {
   bead.flying = true;
   bead.flightTick = world.tick;
   bead.struck = false;
-  b.lockUntil[0] = world.beat + cfg.batonLockBeats;
+  b.lockUntil[player - 1] = world.beat + cfg.batonLockBeats;
   world.events.push({ type: "batonLaunch", col: bead.fromCol, socket: bead.socket });
 }
 

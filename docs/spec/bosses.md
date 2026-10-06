@@ -3206,6 +3206,24 @@ bead drops as a loose pod and the fight ends the way a pod does, in the maw
 with player 1 under it (`batonBeadTaken`). Then `batonDownBeats` (4) of the arm
 folding before the boss is nulled and the wave may close under it.
 
+**Levels** — the owner, 6 October 2026: *make the wave harder in levels; each
+builds up slowly and brings in only one new thing.* The arm is beaten once per
+level (`sim/baton-level.ts`, `BatonState.level`, hashed): the fold that ends a
+level unfolds the arm again as the next, every socket lit and one red bead at
+the top, and only the last level's fold ends the boss. `single` is one bead
+all the way down — the swing and the shed come as they always did, nothing
+lights beside it, and a struck flight out of the last socket is the drop.
+`twin` is the fight as it shipped, below. Two arms side by side and an arm
+across the field are the next two levels, queued (`docs/queue.md`).
+
+**Either thumb sends** — the owner, the same day: *both players can tap.* The
+sitting bead answers either seat's tap (`render/baton-tap.ts`, `guard` signed
+with that seat) and the field writes `TAP` on it for each seat not locked;
+whoever pressed is the one locked for `batonLockBeats`. On the crossing the
+trigger is still his alone. A bead she sends herself she cannot then strike:
+her lock outlasts the climb of a bolt to it, so the turn is still two people's
+(`sim/test/baton-level.test.ts`).
+
 **The shot is the act.** The design's step 7 — *answering one **is** the act;
 a shot at a creature is her turn spent* — is the rule as of 17 September 2026,
 and it is the shot *leaving* that spends the turn, not the hit: a bolt at a

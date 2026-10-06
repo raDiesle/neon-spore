@@ -79,6 +79,8 @@ const EITHER: Record<string, { as: string; when?: (w: World) => boolean }> = {
   // No step lit, so nobody steers and nobody wears (`sim/capstan.ts`).
   capstanRub: { as: "capstanRub", when: (w) => capstanUnlit(w) },
   capstanSteer: { as: "capstanSteer", when: (w) => capstanUnlit(w) },
+  // THE BATON's sitting bead sends for either free thumb (`baton-tap.ts`).
+  guard: { as: "batonSend", when: (w) => w.boss?.kind === "baton" },
 };
 
 function pulseAsksOne(w: World): 1 | 2 | undefined {

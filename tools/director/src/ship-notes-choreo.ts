@@ -27,7 +27,8 @@ export const CHOREO_NOTES = {
     "Designed on 16 September 2026 in docs/spec/bosses-choreographed.md §10: " +
     "an arm of batonSockets sockets hangs from the top of the middle column " +
     "with one bead in the topmost, and the bead is passed down it by strict " +
-    "alternation. Player 1's trigger launches it, and it is in the air for " +
+    "alternation. Either seat's tap launches it (the crossing's is player 1's " +
+    "alone), and it is in the air for " +
     "batonFlightBeats — THE DRAG, not THE SLOW: the clock never bends, the " +
     "bead is slow — during which a shot of its colour up its column from " +
     "player 2 lands it a socket lower and darkens the one it left. The seat " +
@@ -44,7 +45,9 @@ export const CHOREO_NOTES = {
     "at the top in the other colour, and the two merge in the last socket. " +
     "Down to one lit socket, the arm hangs by a thread — the picture thins " +
     "it over batonThreadBeats. " +
-    "The merged bead's flight out of it is the crossing, batonFinalBeats " +
+    "The fight is two levels, one pass of the arm each (sim/baton-level.ts): " +
+    "single, one bead whose struck flight out of the last socket is the drop, " +
+    "then twin, everything here. The merged bead's flight out of it is the crossing, batonFinalBeats " +
     "long, owing acts in turn on no beat in particular — a gap longer than " +
     "batonTurnBottomBeats puts it back in the last socket. Made whole, the bead falls as a pod, the maw takes it, and " +
     "the arm folds away in batonDownBeats. THE SLOW spans the asks alone: a " +

@@ -17,12 +17,14 @@
 export * from "./boss-surface-clocks-b.js";
 export * from "./boss-surface-ledger.js";
 export {
+  BATON_LEVELS,
   BATON_SOCKET_DARK,
   BATON_SOCKET_LIT,
   BATON_SOCKET_SHED,
   BATON_STAGES,
   type BatonBead,
   type BatonEntry,
+  type BatonLevel,
   type BatonStage,
   type BatonState,
   batonActor,
@@ -34,6 +36,7 @@ export {
   batonLandTick,
   batonLaunchable,
   batonLead,
+  batonLevel,
   batonLocked,
   batonOneSegment,
   batonSocketCol,
