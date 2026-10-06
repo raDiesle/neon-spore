@@ -1,11 +1,12 @@
 import type { World } from "@neon-spore/sim";
 import { bossCue, bossCues } from "./boss-cue.js";
 import { drawCueText } from "./boss-cue-text.js";
-import { cueDrawnAt, drawCueHelper, markIsHere } from "./cue-helper.js";
+import { cueBoxed, cueDrawnAt, drawCueHelper, markIsHere } from "./cue-helper.js";
 import { drawDeskChordRings, pointerSpeaksForBoth } from "./desk-chord-ring.js";
 import type { SurfaceY } from "./hull-frame.js";
-import type { Layout } from "./layout.js";
+import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { seatSkin } from "./seat-skin.js";
 import { drawTargetLock } from "./target-lock.js";
 
 /**
@@ -39,13 +40,14 @@ export function drawBossCue(
   const read = bossCue(l, world, beatPhase, skinY);
   if (read === null) return;
   // A shot is drawn on what it is for, not on the cannon (`cueDrawnAt`).
-  const cue = cueDrawnAt(read);
+  const cue = cueDrawnAt(read, l.hullY);
   // Only where nothing already marks the place: `BossCue.framed` — and not
   // where a hold's circle or a rub's line stands on it, which is the frame
   // there (`cue-helper.ts`). A shot's box stands round its crosshair.
-  if (cue.framed !== false && !markIsHere(cue)) {
+  if (cue.framed !== false && !markIsHere(cue) && cueBoxed(cue, l.hullY)) {
     drawTargetLock(ctx, cue.x, cue.y, cue.halfW, cue.halfH, PALETTE.rock, time, 0.85, cue.seed);
   }
-  drawCueHelper(ctx, cue, l.hullY, time);
+  const muzzle = { x: tileCX(l, world.cannonCol), y: l.hullY };
+  drawCueHelper(ctx, cue, l.hullY, time, seatSkin(l.role), muzzle);
   drawCueText(ctx, cue, time, l.width);
 }

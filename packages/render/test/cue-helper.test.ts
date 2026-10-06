@@ -1,9 +1,17 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import type { BossCue } from "../src/boss-cue-shape.js";
-import { cueAim, cueDrawnAt, cueHelper, drawCueHelper, markIsHere } from "../src/cue-helper.js";
+import {
+  AIM_LOOK,
+  cueAim,
+  cueDrawnAt,
+  cueHelper,
+  drawCueHelper,
+  markIsHere,
+} from "../src/cue-helper.js";
 import { CROSSHAIR_LOOK } from "../src/instar-crosshair.js";
 import { drawPullKnob } from "../src/pull-knob.js";
 import { rubArrows } from "../src/rub-mark.js";
+import { P2_SKIN } from "../src/seat-skin.js";
 import { drawWayArrow } from "../src/way-arrow.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
@@ -68,14 +76,43 @@ describe("the cue's helper", () => {
   });
 
   it("draws the word and its box on the target, not on the cannon", () => {
-    const moved = cueDrawnAt(cue("FIRE", 100, HULL, { aim: { x: 300, y: 150 }, roomBelow: 9 }));
+    const moved = cueDrawnAt(
+      cue("FIRE", 100, HULL, { aim: { x: 300, y: 150 }, roomBelow: 9 }),
+      HULL,
+    );
     expect([moved.x, moved.y, moved.roomBelow]).toEqual([300, 150, undefined]);
     // The box grows to hold a big crosshair's ticks, and never shrinks.
-    const big = cueDrawnAt(cue("FIRE", 100, HULL, { aim: { x: 300, y: 150, r: 40 } }));
+    const big = cueDrawnAt(cue("FIRE", 100, HULL, { aim: { x: 300, y: 150, r: 40 } }), HULL);
     expect(big.halfW).toBeGreaterThan(40 * 1.75);
     expect(big.halfH).toBeGreaterThan(40 * 1.75);
-    expect(cueDrawnAt(cue("FIRE", 100, HULL)).x).toBe(100);
-    expect(cueDrawnAt(cue("RUB", 100, 200, { aim: { x: 300, y: 150 } })).x).toBe(100);
+    expect(cueDrawnAt(cue("FIRE", 100, HULL), HULL).x).toBe(100);
+    expect(cueDrawnAt(cue("RUB", 100, 200, { aim: { x: 300, y: 150 } }), HULL).x).toBe(100);
+  });
+
+  it("hands the aim look this screen's seat, and moves no word until a look reaches further", () => {
+    const paint = AIM_LOOK.paint;
+    const tints: string[] = [];
+    AIM_LOOK.paint = (_ctx, _x, _y, _r, _k, _t, skin) => {
+      tints.push(skin.tint);
+    };
+    try {
+      log((ctx) => drawCueHelper(ctx, cue("FIRE", 120, 240), HULL, 0, P2_SKIN));
+    } finally {
+      AIM_LOOK.paint = paint;
+    }
+    expect(tints).toEqual([P2_SKIN.tint]);
+    // VERSUS's `aim:cannon` widens the reach; the shipped crosshair leaves the frame alone.
+    const own = cue("FIRE", 120, 240);
+    expect(cueDrawnAt(own, HULL)).toBe(own);
+    const reach = AIM_LOOK.reach;
+    AIM_LOOK.reach = reach + 1;
+    try {
+      const wide = cueDrawnAt(own, HULL);
+      expect(wide.halfH).toBeGreaterThan(own.halfH);
+      expect(wide.aim?.r).toBe(Math.min(own.halfW, own.halfH) * 0.55);
+    } finally {
+      AIM_LOOK.reach = reach;
+    }
   });
 
   it("draws the crosshair red", () => {

@@ -4,6 +4,7 @@ import { drawHoldMark, HOLD_MARK_R } from "./hold-mark.js";
 import { drawInstarCrosshair } from "./instar-crosshair.js";
 import { PALETTE } from "./palette.js";
 import { drawRubMark } from "./rub-mark.js";
+import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
 
 /**
  * **The helper a cue's word wears on the field**, the same on every boss —
@@ -76,17 +77,32 @@ export function cueAim(cue: BossCue, hullY: number): { x: number; y: number; r?:
 const AIM_TICKS = 1.75;
 /** Room between the ticks' ends and the scan box, in the ring's radius. */
 const AIM_ROOM = 0.15;
+/** How far the shipped crosshair reaches, ticks and room, in its ring's radius. */
+const CROSSHAIR_REACH = AIM_TICKS + AIM_ROOM;
 
 /**
  * **Where a cue is drawn**: its own place, or — for a shot with an `aim` —
  * the target, the box grown to hold the crosshair. The reading's lines about
  * clearing the hull (`roomBelow`, `wordFloor`) were written for the place it
  * left, so they are left behind with it.
+ *
+ * A shot that is its own aim keeps the reading's frame, pushed out only by how
+ * much further `AIM_LOOK` reaches than the crosshair shipped with — nothing,
+ * until a look that reaches further is taken.
  */
-export function cueDrawnAt(cue: BossCue): BossCue {
-  if (cueHelper(cue.word) !== "aim" || cue.aim === undefined) return cue;
+export function cueDrawnAt(cue: BossCue, hullY: number): BossCue {
+  if (cueHelper(cue.word) !== "aim") return cue;
+  if (cue.aim === undefined) {
+    const own = cueAim(cue, hullY);
+    if (own === null) return cue;
+    // The ring is pinned to the reading's frame, or it would grow with it.
+    const r = aimR(cue, own);
+    const more = r * (AIM_LOOK.reach - CROSSHAIR_REACH);
+    if (more <= 0) return cue;
+    return { ...cue, halfW: cue.halfW + more, halfH: cue.halfH + more, aim: { ...own, r } };
+  }
   const { x, y } = cue.aim;
-  const reach = aimR(cue, cue.aim) * (AIM_TICKS + AIM_ROOM);
+  const reach = aimR(cue, cue.aim) * AIM_LOOK.reach;
   const halfW = Math.max(cue.halfW, reach);
   const halfH = Math.max(cue.halfH, reach);
   const { roomBelow: _below, wordFloor: _floor, ...rest } = cue;
@@ -96,6 +112,39 @@ export function cueDrawnAt(cue: BossCue): BossCue {
 /** The crosshair's ring for this cue: the aim's own, or one sized by the frame. */
 function aimR(cue: BossCue, aim: { r?: number }): number {
   return aim.r ?? Math.min(cue.halfW, cue.halfH) * AIM_R;
+}
+
+/**
+ * **How a shot's aim is laid on its target**, and whether the cue's scan box
+ * stands round it. Swapped by VERSUS (`aim:cannon`), which asks whether the
+ * crosshair should wear the cannon's colour: `skin` is this screen's seat, so
+ * `skin.tint` is the exact colour the cannon and its column are drawn in here
+ * (`cannon-column.ts`). `from` is the cannon's muzzle, for a look that joins
+ * the two. `reach` is how far the look stands out from its target, in the
+ * ring's radius: the box and the word are hung off it (`cueDrawnAt`).
+ */
+export const AIM_LOOK: {
+  paint: (
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    r: number,
+    k: number,
+    time: number,
+    skin: SeatSkin,
+    from: { x: number; y: number },
+  ) => void;
+  boxed: boolean;
+  reach: number;
+} = {
+  paint: (ctx, x, y, r, k) => drawInstarCrosshair(ctx, x, y, r, true, k, "red"),
+  boxed: true,
+  reach: CROSSHAIR_REACH,
+};
+
+/** Whether the scan box stands round this cue: not where `AIM_LOOK` draws its own frame. */
+export function cueBoxed(cue: BossCue, hullY: number): boolean {
+  return AIM_LOOK.boxed || cueAim(cue, hullY) === null;
 }
 
 /** Whether the cue wears a mark of its own that stands in the scan frame's place: a hold's circle or a rub's line. */
@@ -109,6 +158,8 @@ export function drawCueHelper(
   cue: BossCue,
   hullY: number,
   time: number,
+  skin: SeatSkin = P1_SKIN,
+  from: { x: number; y: number } = { x: cue.x, y: hullY },
 ): void {
   const helper = cueHelper(cue.word);
   if (helper === null) return;
@@ -119,7 +170,7 @@ export function drawCueHelper(
   if (helper === "aim") {
     const aim = cueAim(cue, hullY);
     if (aim === null) return;
-    drawInstarCrosshair(ctx, aim.x, aim.y, aimR(cue, aim), true, breath, "red");
+    AIM_LOOK.paint(ctx, aim.x, aim.y, aimR(cue, aim), breath, time, skin, from);
     return;
   }
   if (helper === "hold") {

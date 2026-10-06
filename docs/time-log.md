@@ -33848,3 +33848,13 @@ Bottleneck: the arm drew itself through its sockets already, so the only wrong t
 Bottleneck: the owner's three answers on where, how often and for whom had to come before a word could be placed.
 
 *Measured: 12 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — A boss's shot mark is offered in the cannon's colour, four ways
+
+- reading: 10 min. VERSUS's README, the cue's helper and crosshair, the seat skins, and which boss pose holds a shot's mark whole.
+- writing: 10 min. `AIM_LOOK` lifted out of `cue-helper.ts`, four candidates, the slot's pose, one test.
+- looking: 15 min. Five poses tried, then each candidate shot twice: the word was in the way of the dots, then a frame grew with its own ring.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: a shot that is its own aim never resized its frame, so a bigger mark ran into its word until `cueDrawnAt` learned the reach.

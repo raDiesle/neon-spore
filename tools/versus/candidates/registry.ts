@@ -6,5 +6,9 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { AIM_CLAMP } from "./aim-cannon/clamp/index.js";
+import { AIM_FLESH } from "./aim-cannon/flesh/index.js";
+import { AIM_SIGHT } from "./aim-cannon/sight/index.js";
+import { AIM_TRACER } from "./aim-cannon/tracer/index.js";
 
-export const VARIANTS: Variant[] = [];
+export const VARIANTS: Variant[] = [AIM_CLAMP, AIM_FLESH, AIM_SIGHT, AIM_TRACER];

@@ -81,7 +81,13 @@ export const FIRST_BOSS_POSES: Pose[] = [
     "gorge",
     "row",
     "Four bubbles across the field, each wanting shots. P1 reads the counts and picks one; P2 fires its colour.",
-    { want: (w) => w.boss?.kind === "gorge" && gorgePhase(w.boss) === "row" && w.beat >= 2 },
+    {
+      want: (w) => w.boss?.kind === "gorge" && gorgePhase(w.boss) === "row" && w.beat >= 2,
+      // `aim:cannon` is judged here: the one boss pose whose shot's mark
+      // stands whole in the middle of the field, on the cannon's own column.
+      lookAt:
+        "the mark on the bubble to shoot — whether it reads as the cannon's, in the cannon's colour",
+    },
   ),
   bossPose(
     "curtain",
