@@ -33654,3 +33654,5 @@ Bottleneck: reading 116 rows' prose to place each one under an action rather tha
 - landing: 5 min.
 
 Bottleneck: the rows' prose is written for a programmer, so each card's two lines had to be dug out of a paragraph about the simulation.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

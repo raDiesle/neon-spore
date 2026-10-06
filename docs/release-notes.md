@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 3a80198a6 — Every card on ON THE FIELD says how it is found and what it does under the finger
+
+Each enemy's or boss wave's card under an action now carries two short lines: FIND IT — where the control is and what on the screen says it is asked — and WHILE YOU MOVE — what moves, fills or washes while the gesture is made. The marks most bosses share (the halo, the partner's ring and clock, green and red) are said once above the actions. A look the owner asked for by name.
+
 ## 2026-10-06 · b6869fd7d — CONTROLS › ON THE FIELD is sorted by action, and EVERY WAVE has its own tab
 
 The director's ON THE FIELD page is now laid out by what the finger does — GRAB AND DRAG, PRESS, HOLD, CHORD, PINCH, STEP BY STEP, SHAKE — then by control type, with one card per enemy or boss wave that uses it: its picture and who uses it, without the WHERE/SEAT/DOES/SOURCE/POSE prose. Actions and types are sorted by how many enemies and boss waves use them. The rows reached on every wave moved to a new EVERY WAVE tab beside it. THE CHOIR's two arrows are one SHAKE, pictured by a new pose with both SWIPE arrows; THE WARDEN's thumb is PULL IN ANY DIRECTION WITH A ROPE, THE HIVE's wring HOLD ENEMY FOR AUTO AIM CANNON, THE PULSE's brace a PRESS, THE VANE's arm a HOLD; THE SCOUT's line is off the page and stays in its wave. A look the owner asked for by name.
