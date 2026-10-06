@@ -33798,3 +33798,5 @@ Bottleneck: the picture asked for a socket by its place down one arm in seven fi
 - landing: 5 min. Content tests red on the prose list and the spec's counts in words, then green.
 
 Bottleneck: finding the shot ticks — a film's acts are fixed ticks and the hit had to be read off a probe of the real world.
+
+*Measured: 10 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

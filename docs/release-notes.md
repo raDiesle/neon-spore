@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · e2de9eb25 — THE FLUE has a film: say when, shoot when told, then swap
+
+The wave opens on a short tutorial in place of its three lines of text. Player 1 sees the spore and says when to shoot; player 2, who sees only the rainbow in the pipe, shoots when told; the next level swaps the roles, and the film's two phones swap halves on their own; player 1 shoots. Five pages, two slow bolt levels, no miss shown.
+
 ## 2026-10-06 · 5e97b269a — THE BATON's second arm is drawn in its own column
 
 On the pair level, both arms are now drawn. Each arm has its own spine in its own column, and the two unfold together. Neither bead wears the second bead's pupil, because neither rides the other. The shell's ring and the draw's two rings are found on whichever arm they belong to, and so are the words under them. When the two beads are drawn together, the bead that is drawn in leaves its socket dark, so the drop leaves neither arm lit. Exemption: this is a look with no shipped alternative, since the second arm was never drawn before.
