@@ -3,7 +3,7 @@ import { burgeeDrawCircle, burgeeFreezeCircle } from "./burgee-grip.js";
 import { capstanRubStanding, capstanSteerStanding, capstanTakesHand } from "./capstan-grip.js";
 import { davitLooseCircle, davitSteerCircle } from "./davit-grip.js";
 import { gallPointCircle, gallTakesPinch } from "./gall-grip.js";
-import { governorChordsFor, governorTapCircle, governorYokeCircle } from "./governor-grip.js";
+import { governorTapCircle } from "./governor-grip.js";
 import { grindstoneStanding, grindstoneTakesHand } from "./grindstone-grip.js";
 import { halterGripStanding } from "./halter-grip.js";
 import { lampreyHeadCircle, lampreyTailCircle, lampreyToothCircle } from "./lamprey-grip.js";
@@ -121,19 +121,10 @@ export function laterBossHandleCircle(
     if (b === null || !gallTakesPinch(b)) return null;
     return gallPointCircle(l, cfg, b.point);
   }
-  if (
-    target === "governorChordLeft" ||
-    target === "governorChordRight" ||
-    target === "governorTap"
-  ) {
-    // THE GOVERNOR's drum for a chord, while this seat may brake, and the lit
-    // mark for the tap while one is asked (`governor-grip.ts`).
+  if (target === "governorTap") {
+    // THE GOVERNOR's first open mark while a tap is asked (`governor-grip.ts`).
     const b = world.boss?.kind === "governor" ? world.boss : null;
-    if (b === null) return null;
-    if (target === "governorTap") return governorTapCircle(l, cfg, b, world.beat, beatPhase);
-    const seat = target === "governorChordLeft" ? 1 : 2;
-    if (!governorChordsFor(b, seat)) return null;
-    return governorYokeCircle(l, cfg, b, world.beat, beatPhase);
+    return b === null ? null : governorTapCircle(l, cfg, b, world.beat, beatPhase);
   }
   if (target === "valveWheel" || target === "valvePin") {
     // THE VALVE's wheel while it answers the pilot, and its pin — the live

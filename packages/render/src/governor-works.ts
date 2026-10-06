@@ -22,9 +22,9 @@ import { PALETTE, STROKE } from "./palette.js";
  * and dimmer, the one in front after it, so the pair are seen to turn round
  * it rather than slide past.
  *
- * **The yoke is the chord, drawn**: the left jaw is the first pad and the
- * right the second, each shut on the drum while its pad is down and swung
- * off it while it is up, and both half open while nobody is braking.
+ * The yoke hangs half open on the drum. It was the brake's chord, drawn,
+ * until the owner's rework of 6 October 2026 took the brake away
+ * (`sim/governor.ts`), and it is scenery now.
  */
 
 /** How the works stand this frame. */
@@ -33,13 +33,9 @@ export interface GovernorWorks {
   swing: number;
   /** The first flyweight's place round the spindle, in radians. */
   orbit: number;
-  /** The braking seat's pads down as a mask, or null while nobody brakes. */
-  pads: number | null;
 }
 
-/** A jaw's gap off the drum, in tiles: shut, swung off, and hanging while nobody brakes. */
-const SHUT = 0.03;
-const OFF = 0.22;
+/** A jaw's gap off the drum, in tiles, hanging half open. */
 const IDLE = 0.14;
 /** A jaw shoe's width, in tiles, and its height against the drum's. */
 const SHOE = 0.14;
@@ -51,13 +47,13 @@ const SHAFT = 1.4;
 /** The back flyweight's alpha, dimmed by the spindle's shadow. */
 const BACK = 0.7;
 
-/** Draws the works, and returns the two jaws' shoes, the first pad's first. */
+/** Draws the works. */
 export function drawGovernorWorks(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   d: Dial,
   w: GovernorWorks,
-): Path2D[] {
+): void {
   const head = headAt(l, d);
   const collar = collarAt(l, d, w.swing);
   const phis = [w.orbit, w.orbit + Math.PI];
@@ -77,11 +73,10 @@ export function drawGovernorWorks(
   ctx.strokeStyle = PALETTE.governorBrass;
   ctx.stroke(shaft);
 
-  const jaws = drawDrumAndYoke(ctx, l, d, w.pads);
+  drawDrumAndYoke(ctx, l, d);
   drawBoss(ctx, collar, 0.16 * l.tile, 0.08 * l.tile);
   drawBoss(ctx, head, 0.2 * l.tile, 0.12 * l.tile);
   for (const phi of front) drawFlyweight(ctx, l, d, w.swing, phi, head, collar, 1);
-  return jaws;
 }
 
 /** One flyweight: its arm from the head, its link down to the collar, and the ball. */
@@ -125,12 +120,7 @@ function drawFlyweight(
 }
 
 /** The brake drum, seen as a short cylinder, and the yoke's two shoes and levers on it. */
-function drawDrumAndYoke(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  d: Dial,
-  pads: number | null,
-): Path2D[] {
+function drawDrumAndYoke(ctx: CanvasRenderingContext2D, l: Layout, d: Dial): void {
   const drum = drumAt(l, d);
   const { x, y } = drum.at;
   const squash = drum.r * d.tilt;
@@ -149,12 +139,11 @@ function drawDrumAndYoke(
   ctx.strokeStyle = PALETTE.governorBrass;
   ctx.stroke(side);
 
-  const jaws: Path2D[] = [];
   const tall = drum.half * 2 * SHOE_TALL;
   const shoe = SHOE * l.tile;
   for (let bit = 0; bit < 2; bit++) {
     const out = bit === 0 ? -1 : 1;
-    const gap = (pads === null ? IDLE : (pads >> bit) & 1 ? SHUT : OFF) * l.tile;
+    const gap = IDLE * l.tile;
     const inner = x + out * (drum.r + gap);
     const jaw = new Path2D();
     jaw.roundRect(Math.min(inner, inner + out * shoe), y - tall / 2, shoe, tall, shoe / 2);
@@ -172,9 +161,7 @@ function drawDrumAndYoke(
     ctx.fill(jaw);
     ctx.strokeStyle = rgba(PALETTE.governorBrassDark, 0.95);
     ctx.stroke(jaw);
-    jaws.push(jaw);
   }
-  return jaws;
 }
 
 /** A small brass boss on the spindle: the collar, or the head the arms hang from. */

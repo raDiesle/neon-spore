@@ -115,19 +115,17 @@ export const HURT_ROWS_C: Row[] = [
   },
   {
     boss: "governor",
-    // A run's third tap, a retap and the hub hit; a chord planted, a slip or a skid only works toward one.
+    // A retap made and the hub hit; a step lighting, the hub lit or a skid only works toward one.
     land: [
-      { type: "governorTick", side: 0, taps: 3, col: 3 },
       { type: "governorRetap", side: 1, col: 3 },
       { type: "governorHit", hits: 1, col: 3 },
     ],
     part: [
-      { type: "governorLight", ask: "tap", markMilli: 250, col: 3 },
-      { type: "governorPlant", side: 1, col: 3 },
-      { type: "governorSlip", side: 1, col: 3 },
+      { type: "governorLight", ask: "tap", marks: 2, col: 3 },
+      { type: "governorHub", col: 3 },
       { type: "governorSkid", side: 0, col: 3 },
     ],
-    hit: [{ type: "governorTick", side: 0, taps: 1, col: 3 }],
+    hit: [{ type: "governorTick", side: 0, mark: 0, markMilli: 250, taps: 1, col: 3 }],
     hurt: (fx) => fx.boss.governor.hurt,
   },
   {

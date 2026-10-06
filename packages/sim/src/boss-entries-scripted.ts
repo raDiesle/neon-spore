@@ -60,7 +60,7 @@ export type ScriptedBossEntry =
   | BurgeeEntry
   // The one that authors levels of a weapon, a colour, a speed and a slow: an ember one seat sees and the other shoots (`flue.ts`).
   | FlueEntry
-  // The one that authors a pace as well as taps: a needle one seat brakes for the other to tap (`governor.ts`).
+  // The one that authors marks for both seats and a pace: a needle each of you taps on your own mark (`governor.ts`).
   | GovernorEntry
   // The one that authors a grip as well as taps: a jaw one seat pins for the other to pull its teeth (`lamprey.ts`).
   | LampreyEntry

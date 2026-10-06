@@ -97,16 +97,14 @@ export const CHOREO_FIELD_GROUP_D = {
   flueHitMilli: "THE FLUE — an ember one seat sees and the other shoots",
   flueShots: "THE FLUE — an ember one seat sees and the other shoots",
   // GovernorConfig — the slack before the first step, the rest between, the
-  // spent hub, the idle pace, the mark's half-width, and how hot the needle
-  // runs off the brake and how fast it climbs and eases (`config-governor.ts`).
-  governorSlackBeats: "THE GOVERNOR — a needle one seat brakes for the other to tap",
-  governorRestBeats: "THE GOVERNOR — a needle one seat brakes for the other to tap",
-  governorSpentBeats: "THE GOVERNOR — a needle one seat brakes for the other to tap",
-  governorIdleMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
-  governorMarkMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
-  governorHotMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
-  governorClimbMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
-  governorEaseMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
+  // spent hub, the idle pace, a mark's half-width and how near the bottom a
+  // shot's needle must be (`config-governor.ts`).
+  governorSlackBeats: "THE GOVERNOR — a needle each of you taps on your own mark",
+  governorRestBeats: "THE GOVERNOR — a needle each of you taps on your own mark",
+  governorSpentBeats: "THE GOVERNOR — a needle each of you taps on your own mark",
+  governorIdleMilli: "THE GOVERNOR — a needle each of you taps on your own mark",
+  governorMarkMilli: "THE GOVERNOR — a needle each of you taps on your own mark",
+  governorDownMilli: "THE GOVERNOR — a needle each of you taps on your own mark",
   // LampreyConfig — the swim in, the leap, the recoil and the fall, the rows
   // it may land on, how long the tail lies, and how far the head and the tail
   // are pulled (`config-lamprey.ts`).

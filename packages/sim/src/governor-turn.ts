@@ -1,37 +1,22 @@
-import {
-  GOVERNOR_TURN_MILLI,
-  governorBoss,
-  governorBraked,
-  governorDone,
-  governorLitStep,
-  governorTapping,
-} from "./governor.js";
+import { GOVERNOR_TURN_MILLI, governorBoss, governorDone, governorPace } from "./governor.js";
 import type { World } from "./world.js";
 
 /**
  * **THE GOVERNOR's needle, turned**, once a tick after the commands are
- * heard, so a pad lifted this tick is already speeding it.
+ * heard.
  *
  * On the tick and not the beat, unlike THE BURGEE's flag (`burgee-step.ts`):
- * a mark is crossed in half a beat at 1× and a quarter at 2×, and a needle
- * that jumped a beat's worth at a time would step clean over it on some laps
- * and not others, which is a rule nobody could learn.
+ * a mark is crossed in a fraction of a beat, and a needle that jumped a
+ * beat's worth at a time would step clean over it on some laps and not
+ * others, which is a rule nobody could learn.
  *
- * The speed first, then the turn. `speedMilli` eases back toward 1× while the
- * brake is shut (`governorBraked`) and climbs toward `governorHotMilli` while
- * it is off; the needle then turns the lit tap step's pace, or the idle pace
- * between steps, times it. Spent, it stalls where it is.
+ * It turns the lit step's pace, or the idle pace between steps. Spent, it
+ * stalls where it is. The pace does not change while a step is lit, which is
+ * what lets a shot be judged by where the needle was when it left the cannon
+ * (`governorDownAgo`).
  */
 export function governorTurned(world: World): void {
   const s = governorBoss(world);
   if (s === null || governorDone(s)) return;
-  const cfg = world.cfg;
-  s.speedMilli = governorBraked(s)
-    ? Math.max(1000, s.speedMilli - cfg.governorEaseMilli)
-    : Math.min(cfg.governorHotMilli, s.speedMilli + cfg.governorClimbMilli);
-  const pace = governorTapping(s)
-    ? (governorLitStep(s)?.paceMilli ?? cfg.governorIdleMilli)
-    : cfg.governorIdleMilli;
-  const turn = Math.floor((pace * s.speedMilli) / 1000);
-  s.needleMilli = (s.needleMilli + turn) % GOVERNOR_TURN_MILLI;
+  s.needleMilli = (s.needleMilli + governorPace(world, s)) % GOVERNOR_TURN_MILLI;
 }

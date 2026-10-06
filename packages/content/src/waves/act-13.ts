@@ -54,14 +54,6 @@ import type { Wave } from "../wave-types.js";
  * SLOW at its own strength; three shots a level, and the third one missed is
  * the wave. The levels climb from a slow bolt to a fast beam, and the slow
  * comes in as the ember speeds up.
- *
- * **THE GOVERNOR is the first boss one seat's hold sets the other's pace.** A
- * needle runs round a dial mid-hull on its own; one seat holds both brake
- * pads down and it turns slow, one pad off and it runs up to twice as fast
- * (§43, `sim/governor.ts`). The other taps as it crosses the lit mark. Three
- * marks each, the seats swapped, light the hub; before each shot after the
- * first a seat taps the mark again, faster, and the last shot is white.
- * Every tap's window holds two laps of the needle at its slowest.
  */
 export const WAVES_ACT_13: Wave[] = [
   {
@@ -208,33 +200,6 @@ export const WAVES_ACT_13: Wave[] = [
         { weapon: "beam", color: "cyan", speedMilli: 1500, slowMilli: 500 },
         { weapon: "bolt", color: "red", speedMilli: 4500, slowMilli: 250 },
         { weapon: "beam", color: "cyan", speedMilli: 2000, slowMilli: 250 },
-      ],
-    },
-    bossType: "normal",
-  },
-  {
-    id: "theGovernor",
-    name: "THE GOVERNOR",
-    guide: {
-      both: "One of you holds both brake pads to keep the needle slow. The other taps as it crosses the lit mark. Three taps each. Shoot the hub in its colour.",
-      p1: "1. First, tap as the needle crosses the lit mark. Three times.\n2. Next, hold both pads down while your partner taps.\n3. Shoot the hub. Between shots, tap the mark again.",
-      p2: "1. First, hold both pads down while your partner taps.\n2. Next, tap as the needle crosses the lit mark. Three times.\n3. Shoot the hub. Between shots, tap the mark again.",
-    },
-    entries: [],
-    boss: {
-      kind: "governor",
-      steps: [
-        { ask: "tap", tapper: 1, markMilli: 250, paceMilli: 3, color: "either", beats: 10 },
-        { ask: "tap", tapper: 1, markMilli: 500, paceMilli: 3, color: "either", beats: 10 },
-        { ask: "tap", tapper: 1, markMilli: 750, paceMilli: 3, color: "either", beats: 10 },
-        { ask: "tap", tapper: 2, markMilli: 125, paceMilli: 3, color: "either", beats: 10 },
-        { ask: "tap", tapper: 2, markMilli: 625, paceMilli: 3, color: "either", beats: 10 },
-        { ask: "tap", tapper: 2, markMilli: 375, paceMilli: 3, color: "either", beats: 10 },
-        { ask: "fire", tapper: 1, markMilli: 0, paceMilli: 0, color: "red", beats: 3 },
-        { ask: "retap", tapper: 1, markMilli: 875, paceMilli: 4, color: "either", beats: 8 },
-        { ask: "fire", tapper: 1, markMilli: 0, paceMilli: 0, color: "cyan", beats: 3 },
-        { ask: "retap", tapper: 2, markMilli: 500, paceMilli: 5, color: "either", beats: 6 },
-        { ask: "fire", tapper: 2, markMilli: 0, paceMilli: 0, color: "either", beats: 3 },
       ],
     },
     bossType: "normal",

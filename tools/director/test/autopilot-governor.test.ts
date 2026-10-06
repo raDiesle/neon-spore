@@ -8,9 +8,9 @@ import { stageField } from "../src/stage-field.js";
 
 /**
  * **AUTO plays THE GOVERNOR to the end** (`hands/boss-hands-governor.ts`):
- * both runs tapped on the lit mark with the other seat's chord planted, both
- * retaps made, and every lit hub shot in its colour. No tap skids, no chord
- * slips, no step runs out and the hull is never struck.
+ * every mark tapped by its own seat, the ordered ones in turn, both retaps
+ * made, and every lit hub shot in its colour as the needle points down. No
+ * tap skids, no step runs out and the hull is never struck.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
@@ -24,14 +24,13 @@ function rig(world: World, mode: "both" | "p1") {
   return auto;
 }
 
-const WRONG = ["governorSkid", "governorSlip", "governorSway", "governorDim", "governorMiss"];
+const WRONG = ["governorSkid", "governorSway", "governorDim", "governorMiss"];
 
 describe("AUTO on THE GOVERNOR", () => {
-  test("BOTH taps both runs, makes both retaps and shoots the hub out", () => {
+  test("BOTH taps every mark, makes both retaps and shoots the hub out", () => {
     const world: World = bossWorld("governor");
     const auto = rig(world, "both");
-    const ticks: [number, number][] = [];
-    const plants: number[] = [];
+    const ticks: number[] = [];
     const retaps: number[] = [];
     const hits: number[] = [];
     let out = false;
@@ -39,25 +38,19 @@ describe("AUTO on THE GOVERNOR", () => {
     for (let i = 0; i < 40_000 && world.boss !== null; i++) {
       step(world, auto.commands(world));
       for (const e of world.events) {
-        if (e.type === "governorTick") ticks.push([e.side, e.taps]);
-        if (e.type === "governorPlant") plants.push(e.side);
+        if (e.type === "governorTick") ticks.push(e.side);
         if (e.type === "governorRetap") retaps.push(e.side);
         if (e.type === "governorHit") hits.push(e.hits);
         if (e.type === "governorOut") out = true;
         if (WRONG.includes(e.type)) wrong.push(e.type);
       }
     }
-    expect(ticks).toEqual([
-      [0, 1],
-      [0, 2],
-      [0, 3],
-      [1, 1],
-      [1, 2],
-      [1, 3],
-    ]);
-    // The navigator brakes the pilot's run and the pilot the navigator's.
-    expect(plants).toEqual([1, 0]);
-    expect(retaps).toEqual([0, 1]);
+    // Three steps of a mark each, then three marks in order and four: the
+    // pilot's six and the navigator's seven.
+    expect(ticks.filter((side) => side === 0)).toHaveLength(6);
+    expect(ticks.filter((side) => side === 1)).toHaveLength(7);
+    // Both ordered steps end on the navigator's mark.
+    expect(retaps).toEqual([1, 1]);
     expect(hits).toEqual([1, 2, 3]);
     expect(wrong).toEqual([]);
     expect(world.scars).toEqual([]);
@@ -65,7 +58,7 @@ describe("AUTO on THE GOVERNOR", () => {
     expect(governorBoss(world)).toBeNull();
   });
 
-  test("P1 alone lands the pilot's first tap, the navigator's brake left to the person", () => {
+  test("P1 alone lands only the pilot's marks, the navigator's left to the person", () => {
     const world: World = bossWorld("governor");
     const auto = rig(world, "p1");
     const ticks: number[] = [];

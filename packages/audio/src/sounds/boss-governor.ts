@@ -1,12 +1,11 @@
 /**
- * THE GOVERNOR's fourteen, in a file of their own for `boss-gorge.ts`' reason.
+ * THE GOVERNOR's twelve, in a file of their own for `boss-gorge.ts`' reason.
  *
  * The boss is **a brass governor with a needle running round a dial**, and
  * everything here is brass and bearings: the enter is the flyweights spun up,
  * a low swell under a whirr; the light is a mark struck on the dial, one bright
- * tick. A pad planted is a soft brake shoe, a slip is a dry clack the tapper
- * has to hear, because the needle speeds from it. A tap landed on the mark is a
- * short high tick, pitched up per tap; a skid is a scrape of brass. The hub
+ * tick. A tap landed on a mark is a short high tick, pitched up through the
+ * step's marks; a skid is a scrape of brass. The hub
  * lighting is a ring, the retap a smaller one, the sway a wobble of air and
  * the dim a ring cut off. The hit is a shot into the hub, the miss the hull's
  * dull strike, the spent the flyweights falling, and the out the field
@@ -32,34 +31,16 @@ export const BOSS_GOVERNOR_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "One bright tick: a mark struck on the dial.",
     status: "bound",
-    use: "A step lit: a mark to tap, a mark to tap again, or the hub to shoot.",
+    use: "A step lit: marks to tap, marks to tap again, or the hub to shoot.",
     level: 0.34,
     layers: [tick(0.2, 0, 3100), after(0.06, tick(0.08, 0, 3600))],
-  },
-  {
-    id: "boss.governorPlant",
-    family: "boss",
-    blurb: "A soft brake shoe pressed on brass.",
-    status: "bound",
-    use: "The braking seat has both pads down; the needle slows.",
-    level: 0.28,
-    layers: [noise(900, { type: "bandpass", freq: 900, q: 2 }, 0.01, 0.12, 0.08)],
-  },
-  {
-    id: "boss.governorSlip",
-    family: "boss",
-    blurb: "A dry clack: a pad let go.",
-    status: "bound",
-    use: "The braking seat lifted a pad; the needle starts to run.",
-    level: 0.32,
-    layers: [thud(420, 260, 0.04, 0.12), after(0.03, tick(0.1, 0, 1900))],
   },
   {
     id: "boss.governorTick",
     family: "boss",
     blurb: "A short high tick on the mark.",
     status: "bound",
-    use: "A tap landed as the needle crossed the mark. Pitched up per tap.",
+    use: "A tap landed as the needle crossed a mark. Pitched up through the step's marks.",
     level: 0.38,
     layers: [tick(0.24, 0, 4600), after(0.02, glint(3600, 0.06, 0.08))],
   },

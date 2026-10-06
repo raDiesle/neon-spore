@@ -116,19 +116,19 @@ export const CHOREO_NOTES_D = {
     "flueShots, and the last one spent is a hull hit, which is the wave. " +
     "See sim/flue.ts, sim/flue-step.ts, sim/flue-shot.ts, sim/flue-lead.ts, " +
     "sim/config-flue.ts.",
-  "THE GOVERNOR — a needle one seat brakes for the other to tap":
-    "Asked for in docs/spec/bosses-choreographed.md §43: a needle running " +
-    "round a dial mid-hull on its own. On a tap step one seat holds both " +
-    "brake pads down — THE HALTER's CHORD — and the needle turns at the " +
-    "step's pace; a pad off and it climbs toward governorHotMilli, twice " +
-    "as fast. The other seat taps as it crosses the lit mark, within " +
-    "governorMarkMilli, TAPS ON A MOVING TARGET. Three marks each, seats " +
-    "swapped, light the hub; before the second and third shots a seat taps " +
-    "the mark again at a faster pace. A tap run out is tried again, a " +
-    "retap run out dims the hub until it is made, and a fire step run out " +
-    "is a hull hit, which is the wave. Nothing on the phone sends a pad or " +
-    "a tap here yet. Only the simulation lane has landed — see " +
-    "sim/governor.ts, sim/governor-step.ts, sim/governor-hand.ts, " +
+  "THE GOVERNOR — a needle each of you taps on your own mark":
+    "Asked for in docs/spec/bosses-choreographed.md §43 and reworked on the " +
+    "owner's word of 6 October 2026: a needle running round a dial mid-hull " +
+    "on its own, quick. Every tap step lights a mark for each seat, and " +
+    "each taps as the needle crosses its own, within governorMarkMilli — " +
+    "TAPS ON A MOVING TARGET, both seats at once. Later steps light three " +
+    "and four marks, numbered, to be tapped in order. The taps before the " +
+    "first shot light the hub; it is shot under THE SLOW, and only by a " +
+    "bolt that left the cannon with the needle within governorDownMilli of " +
+    "the bottom. A tap step run out is tried again with what was landed " +
+    "kept, a retap run out dims the hub until it is made, and a fire step " +
+    "run out is a hull hit, which is the wave. See sim/governor.ts, " +
+    "sim/governor-mark.ts, sim/governor-step.ts, sim/governor-hand.ts, " +
     "sim/governor-turn.ts, sim/governor-shot.ts, sim/config-governor.ts.",
   "THE LAMPREY — an eel one of you holds by the tail for the other to pull off":
     "Asked for in docs/spec/bosses-choreographed.md §41, and rebuilt on the " +

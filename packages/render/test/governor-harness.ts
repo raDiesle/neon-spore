@@ -1,9 +1,11 @@
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
+  GOVERNOR_DOWN_MILLI,
   type GovernorState,
   type GovernorStep,
   governorBoss,
+  governorFlightTicks,
   type SimEvent,
   startWave,
   step,
@@ -19,22 +21,38 @@ import { CFG, runFrames, waveWith } from "./frame-harness.js";
  */
 
 const TPB = ticksPerBeat(CFG);
+/** A tap step with the pilot's mark at three o'clock and the navigator's at nine. */
 export const TAP: GovernorStep = {
   ask: "tap",
-  tapper: 1,
-  markMilli: 250,
-  paceMilli: 3,
+  marks: [
+    { seat: 1, markMilli: 250 },
+    { seat: 2, markMilli: 750 },
+  ],
+  ordered: false,
+  paceMilli: 7,
   color: "either",
-  beats: 10,
+  beats: 5,
+};
+/** The same marks and one more, to be tapped in order. */
+export const ORDERED: GovernorStep = {
+  ...TAP,
+  ask: "retap",
+  marks: [...TAP.marks, { seat: 1, markMilli: 500 }],
+  ordered: true,
 };
 export const FIRE: GovernorStep = {
   ask: "fire",
-  tapper: 1,
-  markMilli: 0,
-  paceMilli: 3,
+  marks: [],
+  ordered: false,
+  paceMilli: 4,
   color: "cyan",
-  beats: 3,
+  beats: 8,
 };
+
+/** Where the needle is when a bolt met now left with it pointing straight down. */
+export function downNeedle(step: GovernorStep = FIRE): number {
+  return (GOVERNOR_DOWN_MILLI + step.paceMilli * governorFlightTicks(CFG)) % 1000;
+}
 
 export function stood(): World {
   const world = createWorld(CFG, 5);
@@ -45,8 +63,8 @@ export function stood(): World {
 }
 
 /**
- * The needle at `needleMilli` and slow, `lit` under the cursor a beat in,
- * nothing tapped, no pad down and the hub dark unless `arrange` says so.
+ * The needle at `needleMilli`, `lit` under the cursor a beat in, nothing
+ * tapped and the hub dark unless `arrange` says so.
  */
 export function posed(
   world: World,
@@ -60,11 +78,10 @@ export function posed(
   s.phaseBeat = world.beat - 1;
   s.cursor = 0;
   s.needleMilli = needleMilli;
-  s.speedMilli = 1000;
+  s.landed = 0;
   s.taps = [0, 0];
   s.hits = 0;
   s.hubLit = false;
-  s.padsDown = [0, 0];
   s.tapDown = [false, false];
   if (lit !== null) s.steps[0] = lit;
   arrange(s);

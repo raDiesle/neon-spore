@@ -4,6 +4,7 @@ import { curtainHemSeat } from "./curtain-grip.js";
 import { cystGripSeat } from "./cyst-grip.js";
 import { deskChord } from "./desk-chord.js";
 import { filamentGripSeat } from "./filament-grip.js";
+import { governorGripSeat } from "./governor-grip.js";
 import { halterGripSeat } from "./halter-grip.js";
 import { instarMarkBoth, instarMarkSeat } from "./instar-mark-grip.js";
 import { keelGripSeat } from "./keel-grip.js";
@@ -202,6 +203,7 @@ export function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 |
     keelGripSeat(l, x, y, field) ??
     filamentGripSeat(l, x, y, field) ??
     lampreyGripSeat(l, x, y, field) ??
+    governorGripSeat(l, x, y, field) ??
     capstanGripSeat(l, x, y, field) ??
     halterGripSeat(l, x, y, field) ??
     pulseGripSeat(l, x, y, field)

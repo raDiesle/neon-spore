@@ -78,6 +78,11 @@ export const CORE_KINDS = Object.keys(CORES) as BossKind[];
  */
 const MEET_MILLI = 500;
 
+/** Where a bolt is met by boss `kind`'s core, thousandths of a row down the field. */
+export function coreMeetMilli(kind: BossKind): number {
+  return coreRowMilli(kind) - MEET_MILLI;
+}
+
 /** Where a bolt sweeping from `from` to `to` meets the boss's core, or -1. */
 export function coreAlong(world: World, b: Bullet, from: number, to: number): number {
   const kind = world.boss?.kind;

@@ -34,8 +34,14 @@ export interface BoltStop {
   hit: BoltHit;
 }
 
-/** Where a bolt in `col`, drawn at screen `x`, first meets the boss — or `null` for clear air. */
-export type Stopper = (col: number, x: number, color: Color) => BoltStop | null;
+/**
+ * Where a bolt in `col`, drawn at screen `x`, first meets the boss — or
+ * `null` for clear air. `bullet` is the bolt itself, for a boss whose
+ * verdict depends on when it left the cannon (THE GOVERNOR's,
+ * `governor-stop.ts`); a stopper asked without one answers for a bolt as it
+ * arrives.
+ */
+export type Stopper = (col: number, x: number, color: Color, bullet?: Bullet) => BoltStop | null;
 
 type Burst = (x: number, y: number, n: number, hex: string) => void;
 
@@ -80,7 +86,7 @@ export class BoltStops {
   stopped(b: Bullet, x: number, y: number, hex: string): boolean {
     if (this.seen.has(b.id)) return true;
     if (this.stopper === null) return false;
-    const stop = this.stopper(b.col, x, b.color);
+    const stop = this.stopper(b.col, x, b.color, b);
     if (stop === null || y > stop.y) return false;
     this.seen.add(b.id);
     if (stop.hit === "target") {

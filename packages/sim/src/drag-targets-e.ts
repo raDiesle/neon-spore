@@ -37,8 +37,6 @@ export type DragTargetE =
   | "gallPinch"
   | "burgeeFreeze"
   | "burgeeDraw"
-  | "governorChordLeft"
-  | "governorChordRight"
   | "governorTap"
   | "gaugeTooth"
   | "gaugeTongue"
@@ -180,15 +178,11 @@ export type DragTargetE =
  */
 
 /**
- * `governorChordLeft` and `governorChordRight` are the hundred-and-fifth and
- * sixth: THE GOVERNOR's brake, two pads under the pilot's thumbs and two under
- * the navigator's; `governorTap` is the seventh, the needle, on both screens.
- *
- * No new reading. The chords are `trivetPadFront`'s and `halterChordLeft`'s —
- * one drag a pad, `id` the pad and `on` whether it is down — and the tap is
- * `valvePin`'s edge. What is new is only what the chord is worth: it never
- * decides whether the tap counts, only how fast the needle runs
- * (`governor-hand.ts`, `governor-turn.ts`).
+ * `governorTap` is the hundred-and-seventh: THE GOVERNOR's marks, on both
+ * screens, `valvePin`'s edge. `governorChordLeft` and `governorChordRight`
+ * stood before it as the hundred-and-fifth and sixth, the two seats' brake,
+ * until the owner's rework of 6 October 2026 gave each seat a mark of its own
+ * to tap and left no thumb for a pad (`governor.ts`).
  */
 
 /**

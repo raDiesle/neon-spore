@@ -170,10 +170,7 @@ export const ROWS: Record<string, Row> = {
   // the lit step's, and the draw's lift carries the swipe on `fromMilli`.
   burgeeFreeze: {},
   burgeeDraw: {},
-  // `governor-hand.ts`: a pad per drag, the pad as `id`, each seat's own
-  // side; the tap an edge from the lit step's tapper.
-  governorChordLeft: { id: true },
-  governorChordRight: { id: true },
+  // `governor-hand.ts`: the tap, an edge from a seat with a mark to land.
   governorTap: {},
   // `instar-hand.ts`: a swipe arms on the carry and counts on the lift. The
   // same wire name as `instarMark`, which holds rather than lets go.

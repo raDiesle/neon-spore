@@ -4,7 +4,7 @@ import { BossHurt, JAB_SHAKE } from "../src/boss-hurt.js";
 import { GovernorFx } from "../src/governor-fx.js";
 import { TILT_READ } from "../src/governor-pose.js";
 import { dialAt, governorDial, TRACK_OUT } from "../src/governor-shape.js";
-import { GOVERNOR_MARK } from "../src/governor-verdicts.js";
+import { GOVERNOR_PILOT_MARK } from "../src/governor-verdicts.js";
 import { GripVerdicts } from "../src/grip-verdict.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
@@ -27,13 +27,15 @@ const L = computeLayout(VIEWPORT, CFG, "test");
 const col = midCol(CFG);
 const BEAT = 0.5;
 const D = governorDial(L, CFG, TILT_READ);
-const light = (markMilli: number): SimEvent => ({
-  type: "governorLight",
-  ask: "tap",
+const light: SimEvent = { type: "governorLight", ask: "tap", marks: 2, col };
+const tick = (taps: number, markMilli = 250): SimEvent => ({
+  type: "governorTick",
+  side: 0,
+  mark: 0,
   markMilli,
+  taps,
   col,
 });
-const tick = (taps: number): SimEvent => ({ type: "governorTick", side: 0, taps, col });
 const skid: SimEvent = { type: "governorSkid", side: 0, col };
 const hit = (hits: number): SimEvent => ({ type: "governorHit", hits, col });
 const hub: SimEvent = { type: "governorHub", col };
@@ -57,9 +59,9 @@ function settle(fx: GovernorFx): void {
 }
 
 describe("THE GOVERNOR's transients", () => {
-  it("flashes the rim at the mark the step lit, and deals the lighter blow for a tap inside a run", () => {
+  it("flashes the rim at the mark the tap landed, and deals the lighter blow for it", () => {
     const fx = new GovernorFx();
-    said(fx, [light(250)]);
+    said(fx, [light]);
     const [thrown] = said(fx, [tick(1)]);
     const at = dialAt(D, 250, TRACK_OUT);
     expect(thrown).toMatchObject({ x: at.x, y: at.y, hex: PALETTE.hullRim });
@@ -70,13 +72,10 @@ describe("THE GOVERNOR's transients", () => {
     expect(fx.tap.now).toBe(0);
   });
 
-  it("deals the whole blow for a run's third tap and for a retap", () => {
-    for (const e of [tick(3), { type: "governorRetap", side: 1, col } as SimEvent]) {
-      const fx = new GovernorFx();
-      said(fx, [e]);
-      expect(fx.hurt.shake, e.type).toBe(1);
-      expect(fx.tap.now, e.type).toBe(1);
-    }
+  it("deals the whole blow for a retap made", () => {
+    const fx = new GovernorFx();
+    said(fx, [{ type: "governorRetap", side: 1, col }]);
+    expect(fx.hurt.shake).toBe(1);
   });
 
   it("scrapes the track where the needle was last drawn, dull, and deals nothing", () => {
@@ -87,7 +86,7 @@ describe("THE GOVERNOR's transients", () => {
     expect(thrown?.hex).toBe(PALETTE.rockDark);
     expect(fx.hurt.value).toBe(0);
     expect(fx.tap.now).toBe(0);
-    expect(fx.verdicts.at(GOVERNOR_MARK)?.good).toBe(false);
+    expect(fx.verdicts.at(GOVERNOR_PILOT_MARK)?.good).toBe(false);
     settle(fx);
     expect(fx.scrape.now).toBe(0);
   });
@@ -118,15 +117,9 @@ describe("THE GOVERNOR's transients", () => {
     expect(fx.shock.now).toBe(0);
   });
 
-  it("deals nothing for a step lighting, a chord planted or slipped, a sway or a dim", () => {
+  it("deals nothing for a step lighting, a sway or a dim", () => {
     const fx = new GovernorFx();
-    said(fx, [
-      light(250),
-      { type: "governorPlant", side: 1, col },
-      { type: "governorSlip", side: 1, col },
-      { type: "governorSway", col },
-      { type: "governorDim", col },
-    ]);
+    said(fx, [light, { type: "governorSway", col }, { type: "governorDim", col }]);
     expect(fx.hurt.value).toBe(0);
     expect(fx.tap.now).toBe(0);
     expect(fx.flash.now).toBe(0);
@@ -142,7 +135,7 @@ describe("THE GOVERNOR's transients", () => {
   it("forgets everything on a clear", () => {
     const fx = new GovernorFx();
     fx.note(640, PALETTE.red);
-    said(fx, [light(250), tick(2), skid, hub, hit(2), spent]);
+    said(fx, [light, tick(2), skid, hub, hit(2), spent]);
     fx.clear();
     expect(fx).toEqual(new GovernorFx());
   });

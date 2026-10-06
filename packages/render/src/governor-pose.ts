@@ -1,9 +1,11 @@
 import {
   GOVERNOR_TURN_MILLI,
   type GovernorState,
-  governorGovernor,
+  governorDone,
   governorLitStep,
+  governorPace,
   type SimConfig,
+  type World,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { type Dial, governorDial } from "./governor-shape.js";
@@ -11,20 +13,16 @@ import type { Layout } from "./layout.js";
 import { phaseInto } from "./phase-into.js";
 
 /**
- * **The clock THE GOVERNOR is posed off** (§43, *Animation*), five poses:
- * the flyweights slow and the needle idling; loose and the needle
- * sprinting; a chord replanted and the needle easing; the dial tipped up to
- * the hub while a shot is owed; and the flyweights flown wide for good, the
- * needle stalled.
+ * **The clock THE GOVERNOR is posed off** (§43, *Animation*), four poses:
+ * the flyweights low and the needle idling; flown up with a quick step's
+ * needle; the dial tipped up to the hub while a shot is owed; and the
+ * flyweights flown wide for good, the needle stalled.
  *
- * **The speed is drawn as the flyweights' height and nothing else**: the
- * arms' swing off the spindle is read straight off `speedMilli`, which the
- * simulation eases and climbs a tick at a time, so the weights rise as a
- * pad lifts and sink as the chord is made whole with no easing of their own
- * — the picture is exactly as late as the needle. **Their place round the
- * spindle is the needle's**, a whole number of turns to its one, so they
- * turn exactly as fast as it does, stop when it stalls, and stand the same
- * on both phones.
+ * **The pace is drawn as the flyweights' height and nothing else**: the
+ * arms' swing off the spindle is read straight off the lit step's pace.
+ * **Their place round the spindle is the needle's**, a whole number of turns
+ * to its one, so they turn exactly as fast as it does, stop when it stalls,
+ * and stand the same on both phones.
  */
 
 /** The arms' swing off the spindle, in radians: hanging at 1×, out at the hottest, flat out once spent. */
@@ -68,10 +66,33 @@ export function governorStanding(
   return { ...d, cy: d.cy - lowered };
 }
 
-/** How hot the needle runs, 0 at 1× and 1 at `governorHotMilli`. */
+/** The pace over the idle one at which the flyweights fly their highest, thousandths of a turn a tick. */
+const HOT_OVER = 6;
+
+/** How quick the needle runs, 0 at the idle pace and 1 at `HOT_OVER` over it. */
 export function governorHeat(s: GovernorState, cfg: SimConfig): number {
-  const span = Math.max(1, cfg.governorHotMilli - 1000);
-  return Math.min(1, Math.max(0, (s.speedMilli - 1000) / span));
+  const pace = governorLitStep(s)?.paceMilli ?? cfg.governorIdleMilli;
+  return Math.min(1, Math.max(0, (pace - cfg.governorIdleMilli) / HOT_OVER));
+}
+
+/**
+ * Where the needle is drawn: `lead` ticks of its pace ahead of the
+ * simulation, so a thumb that taps as it sees the needle on a mark is heard
+ * with the needle on it (`governor-draw.ts`). Spent, it stands where it
+ * stalled.
+ */
+export function governorNeedleShown(world: World, s: GovernorState, lead: number): number {
+  if (governorDone(s)) return s.needleMilli;
+  return (s.needleMilli + governorPace(world, s) * lead) % GOVERNOR_TURN_MILLI;
+}
+
+/** How many marks each seat is owed over the whole script: its studs. */
+export function governorOwed(s: GovernorState): [number, number] {
+  const owed: [number, number] = [0, 0];
+  for (const step of s.steps) {
+    for (const mark of step.marks) owed[mark.seat === 1 ? 0 : 1] += 1;
+  }
+  return owed;
 }
 
 /** The flyweights' swing off the spindle this frame, in radians. */
@@ -85,9 +106,9 @@ export function governorSwing(
   return running + (SWING_WIDE - running) * governorSpent(s, cfg, beat, beatPhase);
 }
 
-/** The first flyweight's place round the spindle, in radians; the second is opposite it. */
-export function governorOrbit(s: GovernorState): number {
-  return (s.needleMilli / GOVERNOR_TURN_MILLI) * Math.PI * 2 * ORBITS;
+/** The first flyweight's place round the spindle for a needle at `needleMilli`, in radians; the second is opposite it. */
+export function governorOrbit(needleMilli: number): number {
+  return (needleMilli / GOVERNOR_TURN_MILLI) * Math.PI * 2 * ORBITS;
 }
 
 /**
@@ -126,13 +147,4 @@ export function governorSpent(
 ): number {
   if (s.phase !== "spent") return 0;
   return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.governorSpentBeats));
-}
-
-/**
- * The pads the lit step's braking seat holds down, as its mask, or null
- * while nobody is asked to brake — the yoke then hangs half open.
- */
-export function governorJaws(s: GovernorState): number | null {
-  const seat = governorGovernor(s);
-  return seat === null ? null : (s.padsDown[seat - 1] ?? 0);
 }

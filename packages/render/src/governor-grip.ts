@@ -1,62 +1,42 @@
 import {
   type GovernorState,
+  governorAsksSeat,
   governorDone,
-  governorGovernor,
   governorLitStep,
-  governorTapper,
+  governorMarkLanded,
+  governorOff,
+  governorOpenMarks,
   governorTapping,
   type SimConfig,
 } from "@neon-spore/sim";
 import { governorStanding } from "./governor-pose.js";
-import { type Dial, dialAt, drumAt, headAt, hubR, TRACK_IN, TRACK_OUT } from "./governor-shape.js";
+import { type Dial, dialAt, hubR, TRACK_IN, TRACK_OUT } from "./governor-shape.js";
 import type { Circle, Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
 /**
- * **THE GOVERNOR's hands**: the brake's chord on the works and the tap on
- * the dial (`sim/governor-hand.ts`, `docs/spec/bosses.md` §11.58). Both are
- * answered on the governor `drawGovernor` puts on the screen this frame,
- * tipped and lowered as it is (`governorStanding`).
+ * **THE GOVERNOR's hand**: the tap on the dial (`sim/governor-hand.ts`,
+ * `docs/spec/bosses.md` §11.58), answered on the governor `drawGovernor` puts
+ * on the screen this frame, tipped and lowered as it is (`governorStanding`).
  *
- * **The chord is pressed on the works, not on a jaw.** The yoke's jaws are
- * a sixth of a tile wide and a finger's width apart, and two thumbs on them
- * would cover the drum they are shutting on. So the zone is THE TRIVET's
- * (`trivet-grip.ts`): the width of the field, from over the spindle's head
- * down past the dial's sides, and **only outside the dial**, which is the
- * tap's. Which pad a finger is, is the order it landed in (`chord.ts`). The
- * target names the seat — `governorChordLeft` the pilot's, `governorChordRight`
- * the navigator's — so a press on this phone is always this seat's chord.
- *
- * **The works are the braking seat's while a tap is asked**, and either
- * seat's otherwise. The simulation records a pad from either seat at any
- * time, so a chord already whole when a step lights brakes from its first
- * tick. But while a tap step is lit, the tapper's thumb on the works is
- * worth nothing. Refusing it here lets the desk's one mouse fall through to
- * the seat that can use it (`desk-grab.ts`).
- *
- * **The tap is anywhere on the dial's face**, and only the lit step's
- * tapper's. The simulation judges where the needle is, never where the thumb
- * is (`governorOnMark`), so the whole face answers, and a tap made early is
+ * **The tap is anywhere on the dial's face**, from a seat with a mark still
+ * to land. The simulation judges where the needle is, never where the thumb
+ * is (`governorMarkFor`), so the whole face answers, and a tap made early is
  * heard as a skid rather than falling through to nothing. **It is an edge**,
  * THE VALVE's pin: the press sends `on: true` and the lift `on: false`.
+ *
+ * Until 6 October 2026 the works round the dial were a two-pad brake's chord;
+ * the owner's rework gave each seat a mark of its own, and the works are
+ * scenery now.
  */
 
-/** Half a tile of zone over the spindle's head, and one under the dial's near rim. */
-const ABOVE = 0.5;
-const BELOW = 1;
 /** How far past the dial's drawn rim a tap still lands on it, in tiles. */
 const RIM_PAST = 0.25;
 
-/** Whether the governor is there to be braked: every phase but spent. */
+/** Whether the governor is there to be touched: every phase but spent. */
 export function governorTakesHand(s: GovernorState): boolean {
   return !governorDone(s);
-}
-
-/** Whether `seat`'s chord is answered now: the braking seat's while a tap is lit, either seat's otherwise. */
-export function governorChordsFor(s: GovernorState, seat: 1 | 2): boolean {
-  if (!governorTakesHand(s)) return false;
-  return !governorTapping(s) || governorGovernor(s) === seat;
 }
 
 /**
@@ -71,37 +51,36 @@ function onDial(l: Layout, d: Dial, x: number, y: number): boolean {
   return ((x - d.cx) / rx) ** 2 + ((y - d.cy) / ry) ** 2 <= 1;
 }
 
-/** The brake drum as a circle, where the ghost thumb stands for a chord and what `handleCircle` answers. */
-export function governorYokeCircle(
-  l: Layout,
-  cfg: SimConfig,
-  s: GovernorState,
-  beat: number,
-  beatPhase: number,
-): Circle {
-  const drum = drumAt(l, governorStanding(l, cfg, s, beat, beatPhase));
-  return { x: drum.at.x, y: drum.at.y, r: drum.r * 1.4 };
+/** Mark `i` of the lit step as a circle on the dial where it stands this frame. */
+export function governorMarkCircle(d: Dial, markMilli: number): Circle {
+  const at = dialAt(d, markMilli, (TRACK_IN + TRACK_OUT) / 2);
+  return { x: at.x, y: at.y, r: d.r * (TRACK_OUT - TRACK_IN) * 1.5 };
 }
 
-/** The lit mark as a circle while a tap is asked: where the ghost thumb taps, and nothing between. */
+/**
+ * The mark a seat's thumb is asked for, as a circle — the first of its own
+ * among those open — or, with no seat named, the first open mark of either.
+ * Null while no tap is asked of it.
+ */
 export function governorTapCircle(
   l: Layout,
   cfg: SimConfig,
   s: GovernorState,
   beat: number,
   beatPhase: number,
+  seat?: 1 | 2,
 ): Circle | null {
   const step = governorLitStep(s);
   if (step === null || !governorTapping(s)) return null;
-  const d = governorStanding(l, cfg, s, beat, beatPhase);
-  const at = dialAt(d, step.markMilli, (TRACK_IN + TRACK_OUT) / 2);
-  return { x: at.x, y: at.y, r: d.r * (TRACK_OUT - TRACK_IN) * 1.5 };
+  const i = governorOpenMarks(s).find((m) => seat === undefined || step.marks[m]?.seat === seat);
+  const mark = i === undefined ? undefined : step.marks[i];
+  if (mark === undefined) return null;
+  return governorMarkCircle(governorStanding(l, cfg, s, beat, beatPhase), mark.markMilli);
 }
 
 /**
  * The hub as a circle where it stands this frame, at the dial's middle — what
- * a shot is fired at while it is lit, and the circle the cue's crosshair
- * rides (`boss-cue-read-zq.ts`). Its size before the hits shrink it.
+ * a shot is fired at while it is lit. Its size before the hits shrink it.
  */
 export function governorHubCircle(
   l: Layout,
@@ -114,28 +93,44 @@ export function governorHubCircle(
   return { x: d.cx, y: d.cy, r: hubR(l) };
 }
 
-/** A press on the governor: the tap on the dial, or one finger of this seat's chord on the works. */
+/** A press on the governor: the tap on the dial, from a seat with a mark to land. */
 export function governorGripUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const s = bossOf(field, "governor");
   if (s === null || !governorTakesHand(s)) return null;
   const seat = field.seat;
+  if (!governorAsksSeat(s, seat)) return null;
   const d = governorStanding(l, field.cfg, s, field.beat, field.beatPhase);
-  if (onDial(l, d, x, y)) {
-    if (governorTapper(s) !== seat) return null;
-    return {
-      player: seat,
-      command: { kind: "drag", target: "governorTap", on: true, fromMilli: 0 },
-      hold: { kind: "drag", target: "governorTap", player: seat, originX: x, originY: y },
-    };
-  }
-  if (!governorChordsFor(s, seat)) return null;
-  const top = headAt(l, d).y - ABOVE * l.tile;
-  const bottom = d.cy + d.r * d.tilt + BELOW * l.tile;
-  if (y < top || y > bottom || x < l.gridLeft || x > l.gridLeft + l.gridWidth) return null;
-  const target = seat === 1 ? "governorChordLeft" : "governorChordRight";
+  if (!onDial(l, d, x, y)) return null;
   return {
     player: seat,
-    command: null,
-    hold: { kind: "drag", target, player: seat, originX: x, originY: y, chord: true },
+    command: { kind: "drag", target: "governorTap", on: true, fromMilli: 0 },
+    hold: { kind: "drag", target: "governorTap", player: seat, originX: x, originY: y },
   };
+}
+
+/**
+ * **Whose tap a press on the dial is, on the test screen**: the seat whose
+ * mark still to land is nearest round the dial to where the mouse came
+ * down. Both seats tap the same face, so the desk's one mouse is signed by
+ * the mark it is aimed at (`desk-grab.ts`); undefined off the dial or with
+ * no tap lit.
+ */
+export function governorGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const s = bossOf(field, "governor");
+  const step = s === null ? null : governorLitStep(s);
+  if (s === null || step === null || !governorTapping(s)) return undefined;
+  const d = governorStanding(l, field.cfg, s, field.beat, field.beatPhase);
+  if (!onDial(l, d, x, y)) return undefined;
+  const milli = (Math.atan2(x - d.cx, (d.cy - y) / d.tilt) / (Math.PI * 2)) * 1000;
+  let best: 1 | 2 | undefined;
+  let nearest = Number.POSITIVE_INFINITY;
+  step.marks.forEach((mark, i) => {
+    if (governorMarkLanded(s, i)) return;
+    const off = governorOff(milli, mark.markMilli);
+    if (off < nearest) {
+      nearest = off;
+      best = mark.seat;
+    }
+  });
+  return best;
 }

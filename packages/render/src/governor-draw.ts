@@ -1,11 +1,10 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import {
   type GovernorState,
-  governorChordWhole,
-  governorGovernor,
   governorLitStep,
-  governorOnMark,
-  governorTapper,
+  governorMarkLanded,
+  governorOff,
+  governorOpenMarks,
   governorTapping,
   type World,
 } from "@neon-spore/sim";
@@ -14,12 +13,18 @@ import { drawHurt } from "./boss-hurt.js";
 import { strokeGlowFaded } from "./glow.js";
 import type { GovernorFx } from "./governor-fx.js";
 import { drawGovernorHub } from "./governor-hub.js";
-import { drawGovernorMark, drawGovernorStuds, drawGovernorYokeAsk } from "./governor-marks.js";
+import {
+  drawGovernorMark,
+  drawGovernorStuds,
+  drawGovernorWindow,
+  type GovernorMarkLook,
+} from "./governor-marks.js";
 import {
   governorHeat,
-  governorJaws,
   governorLeft,
+  governorNeedleShown,
   governorOrbit,
+  governorOwed,
   governorSpent,
   governorStanding,
   governorSwing,
@@ -51,22 +56,33 @@ const LAG = 45;
 /** The needle's tail past the hub, in radii. */
 const TAIL = 0.16;
 
+/** The clock a frame of the governor is drawn on, and how far ahead of the world its needle is shown. */
+export interface GovernorClock {
+  beat: number;
+  beatPhase: number;
+  time: number;
+  /** This device's input delay, in ticks (`ViewState.leadTicks`). */
+  lead: number;
+}
+
 /**
  * **THE GOVERNOR**: a flywheel lying mid-field under a governor's spindle,
- * its needle sweeping a graduated track on its own, braked by one seat's
- * chord on the yoke and tapped by the other as it crosses the lit mark; then
- * the hub the needle turns on, lit and shot (§11.58,
- * `bosses-choreographed.md` §43).
+ * its needle sweeping a graduated track on its own, a mark lit on it for each
+ * seat to tap as the needle crosses; then the hub the needle turns on, lit
+ * and shot as the needle points down (§11.58, `bosses-choreographed.md` §43).
  *
- * **Both screens are drawn the same governor**, because the needle's pace is
- * the one number the pair share and neither is told it: it is the
- * flyweights, hanging slow by the spindle while the chord holds and flying
- * out and up — the collar climbing after them — the instant a pad lifts
- * (`governor-pose.ts`). Only the asks differ by seat (`showsGovernorHand`).
+ * **Both screens are drawn the same governor**, the marks included; each
+ * seat's own breathe on its screen and the partner's are faint
+ * (`showsGovernorHand`). **The needle is drawn `lead` ticks ahead** of the
+ * simulation, the input delay, THE PULSE's lead (`pulse-fall.ts`): a press is
+ * heard that many ticks after it is made, and a needle quick enough to cross
+ * a mark in a tenth of a second would otherwise be judged a mark past where
+ * the thumb saw it. The flyweights fly higher the quicker the step's pace
+ * (`governor-pose.ts`).
  *
- * **Its health is read off the body**, no bar: six studs on the face are the
- * two runs, the hub dark until both are spent and lit in a shot's colour
- * after, smaller and brighter per hit. Everything but what the events
+ * **Its health is read off the body**, no bar: studs on the face count each
+ * seat's taps, the hub dark until the first shot is owed and lit in a shot's
+ * colour after, smaller and brighter per hit. Everything but what the events
  * leave behind is read off `world` each frame: a tap's flash on the rim, a
  * skid's scrape, the hub's flash, the blow it takes and its marks' verdicts
  * are `fx` (`governor-fx.ts`, drawn by `governor-receipts.ts`); its own blow
@@ -77,14 +93,14 @@ export function drawGovernor(
   l: Layout,
   world: World,
   s: GovernorState,
-  beat: number,
-  beatPhase: number,
-  time: number,
+  clock: GovernorClock,
   fx: GovernorFx,
   stops?: BoltStops,
 ): void {
+  const { beat, beatPhase, time } = clock;
   const cfg = world.cfg;
   const d = governorStanding(l, cfg, s, beat, beatPhase);
+  const needle = governorNeedleShown(world, s, clock.lead);
   stops?.aim(governorStopper(l, world, s, d));
   const step = governorLitStep(s);
   fx.note(s.needleMilli, step?.ask === "fire" ? stepColour(step.color).rim : PALETTE.hullRim);
@@ -96,28 +112,31 @@ export function drawGovernor(
   drawWheel(ctx, l, d, fx.hurt.value);
   drawGovernorScrape(ctx, d, fx.scrape);
   drawGovernorHalos(ctx, l, d, s, time);
-  const tapper = governorTapper(s);
-  if (step !== null && tapper !== null) {
-    const full = showsGovernorHand(l.role, tapper);
-    const left = governorLeft(s, beat, beatPhase);
-    drawGovernorMark(ctx, d, step.markMilli, cfg.governorMarkMilli, left, full, beatPhase);
+  let hot = false;
+  if (step !== null && governorTapping(s)) {
+    const open = governorOpenMarks(s);
+    step.marks.forEach((mark, i) => {
+      const landed = governorMarkLanded(s, i);
+      const mine = showsGovernorHand(l.role, mark.seat) && open.includes(i);
+      const look: GovernorMarkLook = landed ? "landed" : mine ? "open" : "other";
+      const number = step.ordered ? i + 1 : null;
+      drawGovernorMark(ctx, l, d, mark.markMilli, cfg.governorMarkMilli, look, beatPhase, number);
+      if (!landed && open.includes(i)) {
+        hot ||= governorOff(needle, mark.markMilli) <= cfg.governorMarkMilli;
+      }
+    });
+    drawGovernorWindow(ctx, d, governorLeft(s, beat, beatPhase));
   }
   drawGovernorTap(ctx, d, fx.tap);
-  drawGovernorStuds(ctx, l, d, s.taps);
-  drawNeedle(ctx, d, s.needleMilli, governorHeat(s, cfg), governorOnMark(world, s));
+  drawGovernorStuds(ctx, l, d, s.taps, governorOwed(s));
+  drawNeedle(ctx, d, needle, governorHeat(s, cfg), hot);
   drawGovernorHub(ctx, l, d, s, beat, beatPhase);
   drawGovernorFlash(ctx, l, d, fx.flash);
 
-  const governor = governorGovernor(s);
-  const jaws = drawGovernorWorks(ctx, l, d, {
+  drawGovernorWorks(ctx, l, d, {
     swing: governorSwing(s, cfg, beat, beatPhase),
-    orbit: governorOrbit(s),
-    pads: governorJaws(s),
+    orbit: governorOrbit(needle),
   });
-  if (governor !== null && governorTapping(s)) {
-    const whole = governorChordWhole(s, governor === 1 ? 0 : 1);
-    drawGovernorYokeAsk(ctx, jaws, whole, showsGovernorHand(l.role, governor), beatPhase);
-  }
   drawGovernorVerdicts(ctx, l, d, s, time, fx.verdicts);
   ctx.restore();
 }
@@ -164,8 +183,9 @@ function drawWheel(ctx: CanvasRenderingContext2D, l: Layout, d: Dial, hurt: numb
 
 /**
  * The needle, THE VANE's arm laid on the face: from a short tail past the
- * hub out to the track, its tip lagging its root as it runs hot, so a needle
- * sprinting whips. Brass, and a hot pale amber while it is on the lit mark.
+ * hub out to the track, its tip lagging its root as it runs quick, so a
+ * needle sprinting whips. Brass, and a hot pale amber while it is on a mark
+ * open to a tap.
  */
 function drawNeedle(
   ctx: CanvasRenderingContext2D,

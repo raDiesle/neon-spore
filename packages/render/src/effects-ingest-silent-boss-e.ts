@@ -59,12 +59,10 @@ export const INGEST_SILENT_BOSS_E = [
   "plumbMiss",
   "plumbFree",
   "plumbOut",
-  // THE GOVERNOR's fourteen: what outlives a frame is `governor-fx.ts`',
+  // THE GOVERNOR's twelve: what outlives a frame is `governor-fx.ts`',
   // read above the loop.
   "governorEnter",
   "governorLight",
-  "governorPlant",
-  "governorSlip",
   "governorTick",
   "governorSkid",
   "governorHub",

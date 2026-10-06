@@ -76,10 +76,12 @@ export const ROWS: Row[] = [
     name: "THE GOVERNOR",
     draw(stops, l, open) {
       const world = governor.stood();
-      const s = governor.posed(world, open ? governor.FIRE : governor.TAP, 0, (g) => {
+      const needle = open ? governor.downNeedle() : 0;
+      const s = governor.posed(world, open ? governor.FIRE : governor.TAP, needle, (g) => {
         g.hubLit = open;
       });
-      drawGovernor(paper(), l, world, s, world.beat, 0.5, 0, new GovernorFx(), stops);
+      const clock = { beat: world.beat, beatPhase: 0.5, time: 0, lead: 0 };
+      drawGovernor(paper(), l, world, s, clock, new GovernorFx(), stops);
     },
     wide: true,
   },

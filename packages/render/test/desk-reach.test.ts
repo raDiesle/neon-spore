@@ -69,10 +69,6 @@ const EITHER: Record<string, { as: string; when?: (w: World) => boolean }> = {
   stareLash: { as: "stareLash" },
   // Either seat taps a tall lobe (`sim/undertow-press.ts`).
   undertowTap: { as: "undertowTap" },
-  // The works are one zone for both chords, and either brakes outside a tap;
-  // inside one only the governing seat's answers at all (`governor-grip.ts`).
-  governorChordLeft: { as: "governorChord" },
-  governorChordRight: { as: "governorChord" },
   // The bar asking both thumbs at once, or neither: one mouse is not two
   // thumbs, and `3` is the key that braces both (`desk-seat.ts`).
   pulseMeter: { as: "pulseMeter", when: (w) => pulseAsksOne(w) === undefined },

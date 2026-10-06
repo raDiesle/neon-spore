@@ -9,14 +9,13 @@ export function isGovernorEvent(e: SimEvent): e is GovernorSimEvent {
 }
 
 /**
- * THE GOVERNOR's fourteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE GOVERNOR's twelve, in a file of their own for `bind-gorge.ts`' reason.
  *
- * **All in the middle**: the dial, the pads and the hub stand in the middle
- * column, and the pan is the column (`bind.ts`). Which seat's hands made a
- * sound is told by the sound itself — **a slip is the one the tapper has to
- * hear**, a dry clack under the whirr, because the needle speeds from it.
+ * **All in the middle**: the dial and the hub stand in the middle column, and
+ * the pan is the column (`bind.ts`).
  *
- * **A tap rises as the run adds up**, and so does a hit.
+ * **A tap rises through the step's marks**, so an ordered step climbs as it
+ * is landed in turn, and a hit rises as the shots add up.
  */
 export function governorCue(e: GovernorSimEvent, cols: number): Cue {
   const pan = panForCol(e.col, cols);
@@ -25,12 +24,8 @@ export function governorCue(e: GovernorSimEvent, cols: number): Cue {
       return { id: "boss.governorEnter", pan };
     case "governorLight":
       return { id: "boss.governorLight", pan };
-    case "governorPlant":
-      return { id: "boss.governorPlant", pan };
-    case "governorSlip":
-      return { id: "boss.governorSlip", pan };
     case "governorTick":
-      return { id: "boss.governorTick", pan, pitch: 1 + Math.max(0, e.taps - 1) * 0.08 };
+      return { id: "boss.governorTick", pan, pitch: 1 + e.mark * 0.08 };
     case "governorSkid":
       return { id: "boss.governorSkid", pan };
     case "governorHub":

@@ -105,33 +105,40 @@ export {
   freshFlue,
 } from "./flue.js";
 export { flueEmberMet, flueEmberRun, flueEmberWait, flueShotTicks } from "./flue-lead.js";
-// THE GOVERNOR's needle: the phase, the lit step, the needle and its speed,
-// whose chord brakes it and whose tap is heard, the runs and the hub, for the
-// picture, the cue and the director's hand. Straight off `governor.ts` (§43).
+// THE GOVERNOR's needle: the phase, the lit step, the needle and its pace,
+// the marks and whose they are, the taps and the hub, for the picture, the cue
+// and the director's hand. Straight off `governor.ts` and `governor-mark.ts` (§43).
 export {
   freshGovernor,
   GOVERNOR_ASKS,
-  GOVERNOR_PADS,
+  GOVERNOR_DOWN_MILLI,
   GOVERNOR_PHASES,
-  GOVERNOR_RUN,
   GOVERNOR_TURN_MILLI,
   type GovernorAsk,
   type GovernorEntry,
+  type GovernorMark,
   type GovernorPhase,
   type GovernorState,
   type GovernorStep,
   governorBoss,
-  governorBraked,
-  governorChordWhole,
   governorDone,
+  governorDownAgo,
   governorFiring,
-  governorGovernor,
   governorLitStep,
-  governorOffMark,
-  governorOnMark,
-  governorTapper,
+  governorOff,
+  governorPace,
   governorTapping,
 } from "./governor.js";
+export {
+  governorAsksSeat,
+  governorMarkFor,
+  governorMarkLanded,
+  governorOnAnyMark,
+  governorOnMark,
+  governorOpenFor,
+  governorOpenMarks,
+} from "./governor-mark.js";
+export { governorFlightTicks, governorFlownTicks } from "./governor-shot.js";
 // THE LAMPREY's tail, head and teeth: the phase, the step, the seats, the
 // ring, the leap and the gullet, for the picture, the cue and the director's hand (§41).
 export {

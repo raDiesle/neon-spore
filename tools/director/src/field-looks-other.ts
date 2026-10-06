@@ -73,8 +73,8 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "A tap while the flag is over the column stills it, green; off the column it flaps on, red.",
   },
   "THE GOVERNOR'S NEEDLE": {
-    find: "Anywhere on the dial's face, while a tap is lit; the needle runs round to the lit mark.",
-    move: "A tap with the needle on the mark lands; anywhere else it skids and the needle goes round again.",
+    find: "Anywhere on the dial's face, while a mark of this seat's is lit; each seat has its own, numbered when there is an order.",
+    move: "A tap with the needle on the seat's open mark lands; anywhere else, or out of turn, it skids and the needle goes round again.",
   },
   "THE TASTER'S PIN": {
     find: "A ring on the root of a growing blade, leaving its lit edge bare, haloed on the pilot's screen while the fan is fanning.",
@@ -129,10 +129,6 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
   "THE GRINDSTONE'S LEFT JAW": {
     find: "Two pads on each jaw of the caliper — left the pilot's, right the navigator's — haloed while a clamp is lit.",
     move: "Both jaws held shut together count the clamp home, green; a pad lifted, red.",
-  },
-  "THE GOVERNOR'S BRAKE (PILOT)": {
-    find: "The works round the dial — over the spindle, by the flywheel, never on its face — for the seat braking this step.",
-    move: "Both pads down shut the yoke's jaws and the needle slows; lifting either lets it climb again.",
   },
   // PINCH
   "THE VISE'S LEFT LOBE": {

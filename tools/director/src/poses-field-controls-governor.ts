@@ -1,59 +1,56 @@
 import { type GovernorStep, governorLitStep, type World } from "@neon-spore/sim";
-import { fresh, type Pose, run, runUntil, POSE_TPB as TPB } from "./pose-kit.js";
+import { fresh, type Pose, runUntil } from "./pose-kit.js";
 
 /**
- * THE GOVERNOR's two hands, **each photographed from the seat that presses
- * it**: the brake from the navigator's screen, the tap from the pilot's. The
- * world is the same one, and a gallery pose is run to, never set
+ * THE GOVERNOR's tap, **photographed from the pilot's seat**: a step with a
+ * mark for each seat. The world is run to, never set
  * (`.claude/skills/new-boss` §4).
  */
 
-/** The pilot's first tap, with the navigator braking. */
+const mark = (seat: 1 | 2, markMilli: number) => ({ seat, markMilli });
+
+/** A mark each, then three in order, the pilot's first. */
 const STEPS: GovernorStep[] = [
-  { ask: "tap", tapper: 1, markMilli: 250, paceMilli: 3, color: "either", beats: 10 },
-  { ask: "fire", tapper: 1, markMilli: 0, paceMilli: 0, color: "red", beats: 3 },
+  {
+    ask: "tap",
+    marks: [mark(1, 250), mark(2, 750)],
+    ordered: false,
+    paceMilli: 7,
+    color: "either",
+    beats: 5,
+  },
+  {
+    ask: "tap",
+    marks: [mark(1, 625), mark(2, 125), mark(1, 375)],
+    ordered: true,
+    paceMilli: 8,
+    color: "either",
+    beats: 6,
+  },
+  { ask: "fire", marks: [], ordered: false, paceMilli: 4, color: "red", beats: 8 },
 ];
 
-/** The first tap lit, the navigator's two pads down on the yoke. */
-function braked(): World {
-  const w = fresh([], [], { kind: "governor", steps: STEPS });
-  runUntil(
-    w,
-    "the first mark lit",
-    [],
-    (x) => x.boss?.kind === "governor" && governorLitStep(x.boss) !== null,
-  );
-  const pad = (id: number) => ({
-    tick: w.tick,
-    player: 2 as const,
-    command: {
-      kind: "drag" as const,
-      target: "governorChordRight" as const,
-      on: true,
-      fromMilli: 0,
-      id,
-    },
-  });
-  run(w, TPB, [pad(0), pad(1)]);
-  return w;
+/** The governor run until step `n` is lit, the steps before it given up. */
+function lit(n: number): () => World {
+  return () => {
+    const w = fresh([], [], { kind: "governor", steps: STEPS });
+    runUntil(
+      w,
+      `step ${n} lit`,
+      [],
+      (x) => x.boss?.kind === "governor" && governorLitStep(x.boss) !== null && x.boss.cursor === n,
+    );
+    return w;
+  };
 }
 
-const GOVERNOR_BRAKE: Pose = {
-  name: "GOVERNOR · THE BRAKE HELD",
-  note: "THE GOVERNOR mid-field: a brass flywheel with a needle, a flyball governor standing behind it and a brake drum at its foot. The pilot's first mark is lit; player 2 has both pads down, the yoke's jaws are shut on the drum and the flyweights hang slow. Player 2's screen, the braking seat's.",
-  lookAt: "whether the shut jaws and hanging weights read as *the brake is holding*",
-  crop: "field",
-  role: "p2",
-  build: braked,
-};
-
-const GOVERNOR_TAP: Pose = {
-  name: "GOVERNOR · THE MARK LIT",
-  note: "The same moment on player 1's screen, the tapper's: the lit mark breathing on the track, the window running down round the rim, and the needle sweeping toward it slow, braked by the partner.",
-  lookAt: "whether the lit mark reads as *tap as the needle crosses here*",
+const GOVERNOR_BOTH: Pose = {
+  name: "GOVERNOR · BOTH MARKS LIT",
+  note: "THE GOVERNOR mid-field: a brass flywheel with a needle, a flyball governor standing behind it. The first step is lit: a mark for each seat on the track. Player 1's screen: its own mark breathing with TAP on it, the navigator's faint.",
+  lookAt: "whether the two marks read as *mine* and *my partner's*",
   crop: "field",
   role: "p1",
-  build: braked,
+  build: lit(0),
 };
 
-export const GOVERNOR_GRIPS: readonly Pose[] = [GOVERNOR_BRAKE, GOVERNOR_TAP];
+export const GOVERNOR_GRIPS: readonly Pose[] = [GOVERNOR_BOTH];

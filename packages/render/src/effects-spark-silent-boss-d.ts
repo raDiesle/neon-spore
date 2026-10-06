@@ -189,12 +189,10 @@ export const SILENT_BOSS_D = [
   "haspSway",
   "haspSteady",
   "haspRough",
-  // THE GOVERNOR's fourteen, no burst from this table: each is thrown above
+  // THE GOVERNOR's twelve, no burst from this table: each is thrown above
   // the loop by its own fx file (`governor-fx.ts`).
   "governorEnter",
   "governorLight",
-  "governorPlant",
-  "governorSlip",
   "governorTick",
   "governorSkid",
   "governorHub",

@@ -123,8 +123,6 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
           "THE HALTER'S RIGHT GRIP",
           "THE GRINDSTONE'S LEFT JAW",
           "THE GRINDSTONE'S RIGHT JAW",
-          "THE GOVERNOR'S BRAKE (PILOT)",
-          "THE GOVERNOR'S BRAKE (NAVIGATOR)",
         ],
       },
     ],

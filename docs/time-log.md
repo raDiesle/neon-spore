@@ -33860,3 +33860,13 @@ Bottleneck: the owner's three answers on where, how often and for whom had to co
 Bottleneck: a shot that is its own aim never resized its frame, so a bigger mark ran into its word until `cueDrawnAt` learned the reach.
 
 *Measured: 21 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE GOVERNOR: a mark for each seat, numbered marks in order, and a shot aimed at the needle
+
+- reading: 15 min. The governor's eighteen files, THE SLOW, where a bolt is met, the input delay's lead, and the cue's thumbprint mark.
+- writing: 25 min. The marks and the order in the simulation, the brake taken out of every layer, the script, the hand, and the tests.
+- looking: 5 min. A frame of the first step from the pilot's seat and of the first ordered step from the navigator's.
+- friction: 10 min. The script put on its own page broke the director's save, which writes wave pages as plain data, and the wave moved to an act page of its own; the full check then caught the picture judging a bolt in the air by the needle now rather than when it left.
+- landing: 5 min.
+
+Bottleneck: taking the brake out reached thirty files outside the simulation — the wire, the sounds, the desk, the director's rows — each found by the typecheck.

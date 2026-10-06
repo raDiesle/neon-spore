@@ -286,7 +286,7 @@ by hand never moves.
 | `packages/sim/src/config-ghost.ts` | THE GHOST's numbers: what one is worth, the row a crossing one prowls along, how far it goes each beat, how |
 | `packages/sim/src/config-gum.ts` | THE GUM's numbers: how far a swipe has to carry it, and how far it flies a beat once swiped |
 | `packages/sim/src/config-gorge.ts` | THE GORGE's numbers — where the bubbles hang, how big the ring is |
-| `packages/sim/src/config-governor.ts` | THE GOVERNOR's tuning: the beats around its steps, how fast the needle idles, how near the mark a tap lands |
+| `packages/sim/src/config-governor.ts` | THE GOVERNOR's tuning: the beats around its steps, how fast the needle idles |
 | `packages/sim/src/config-gimbal.ts` | THE GIMBAL's tuning: how close together two hands must let go |
 | `packages/sim/src/config-grindstone.ts` | THE GRINDSTONE's tuning: the rests around its steps, what a reversal shaves and a beat regrits |
 | `packages/sim/src/boss-surface.ts` | Every name the boss code puts on `@neon-spore/sim`'s surface, written out |
@@ -538,11 +538,12 @@ by hand never moves.
 | `packages/sim/src/gorge-step.ts` | THE GORGE's clock — a level hung, the ring turning, the pause between levels and the beats after the last |
 | `packages/sim/src/gorge-ring.ts` | **Where THE GORGE takes a shot, and how its ring turns**: the column and row a bubble is met on |
 | `packages/sim/src/gorge.ts` | THE GORGE: what not to do |
-| `packages/sim/src/governor-hand.ts` | THE GOVERNOR's three handles: the two chords and the tap |
+| `packages/sim/src/governor-hand.ts` | THE GOVERNOR's one handle: the tap |
 | `packages/sim/src/governor-hash.ts` | What THE GOVERNOR puts into `hashWorld`, and nothing else |
-| `packages/sim/src/governor-shot.ts` | **THE GOVERNOR's shot**: the lit hub, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/governor-shot.ts` | **THE GOVERNOR's shot**: the lit hub, met in the middle column |
 | `packages/sim/src/governor-step.ts` | THE GOVERNOR's clock: each step lighting, a window running out, and the flyweights flown spent |
 | `packages/sim/src/governor-turn.ts` | **THE GOVERNOR's needle, turned**, once a tick after the commands are heard |
+| `packages/sim/src/governor-mark.ts` | **THE GOVERNOR's marks**: which of the lit step's marks are landed, which a tap may land now |
 | `packages/sim/src/governor.ts` | THE GOVERNOR: a flywheel governor mid-hull with a needle sweeping its rim on its own |
 | `packages/sim/src/gimbal-hand.ts` | Two hands on THE GIMBAL, one ring each, and **the same turn means two different things** |
 | `packages/sim/src/gimbal-hash.ts` | What THE GIMBAL puts into `hashWorld`, and nothing else |
@@ -978,6 +979,7 @@ by hand never moves.
 | `packages/content/src/waves/act-11b.ts` | Act eleven's second page, opened for THE OCULUS on 2 October 2026 |
 | `packages/content/src/waves/act-12.ts` | Act twelve, opened for THE VISE on 26 September 2026 |
 | `packages/content/src/waves/act-13.ts` | Act thirteen, opened for THE DAVIT on 26 September 2026 |
+| `packages/content/src/waves/act-13b.ts` | Act thirteen's second page, opened for THE GOVERNOR on 6 October 2026 |
 | `packages/content/src/waves/act-14.ts` | Act fourteen, opened for THE LAMPREY on 1 October 2026 |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
 | `packages/content/src/body-path.ts` | one living body's contour — a blob, or the walk that puts clubs on its rim |
@@ -2171,12 +2173,12 @@ by hand never moves.
 | `packages/render/src/governor-draw.ts` | **THE GOVERNOR**: a flywheel whose needle sweeps on its own under a flyball governor, braked by one seat and tapped by the other |
 | `packages/render/src/governor-hub.ts` | **The hub the needle turns on**, THE VANE's bearing: dull until both runs are spent, lit in a shot's colour while one is owed |
 | `packages/render/src/governor-marks.ts` | **THE GOVERNOR's marks**: what says what a step asks and what is spent |
-| `packages/render/src/governor-pose.ts` | **The clock THE GOVERNOR is posed off** (§43, *Animation*), five poses |
+| `packages/render/src/governor-pose.ts` | **The clock THE GOVERNOR is posed off** (§43, *Animation*), four poses |
 | `packages/render/src/governor-shape.ts` | **THE GOVERNOR's geometry**: the dial as a disc seen from above, and the spindle, flyweights, drum and yoke over it |
 | `packages/render/src/governor-stop.ts` | **Where a bolt meets THE GOVERNOR**: the lit hub, or the flywheel's near edge |
 | `packages/render/src/governor-works.ts` | **THE GOVERNOR's works**: the spindle, the brake drum and the yoke's jaws, the collar and the two flyweights |
 | `packages/render/src/governor-verdicts.ts` | **THE GOVERNOR's marks answering a touch the way every mark does**: the mark's, the yoke's and the hub's halos and verdicts |
-| `packages/render/src/governor-grip.ts` | **THE GOVERNOR's hands**: the brake's chord on the works and the tap on the dial (`sim/governor-hand.ts` |
+| `packages/render/src/governor-grip.ts` | **THE GOVERNOR's hand**: the tap on the dial (`sim/governor-hand.ts`, `docs/spec/bosses.md` §11.58) |
 | `packages/render/src/governor-blow.ts` | **THE GOVERNOR's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/governor-fx.ts` | What THE GOVERNOR leaves behind a frame (§11.58, *The receipts*) |
 | `packages/render/src/governor-receipts.ts` | **THE GOVERNOR's receipts, drawn** — what `governor-fx.ts` holds between frames |
@@ -3004,7 +3006,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-grindstone.ts` | THE GRINDSTONE's four hands: a flat part ground, once a seat, and the caliper clamped by both seats |
 | `tools/director/src/poses-field-controls-gall.ts` | THE GALL's pinch: the first close lit with the gall on the seam's first point |
-| `tools/director/src/poses-field-controls-governor.ts` | THE GOVERNOR's two hands, **each photographed from the seat that presses it** |
+| `tools/director/src/poses-field-controls-governor.ts` | THE GOVERNOR's tap, **photographed from the pilot's seat**: a step with a mark for each seat |
 | `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-halter.ts` | THE HALTER's two grips: the left segment asked for |
 | `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
@@ -3506,7 +3508,7 @@ by hand never moves.
 | `tools/director/src/field-controls-burgee.ts` | THE BURGEE's two hands, as rows of the ON THE FIELD tab: the freeze ring and the draw's track |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-gorge.ts` | THE GORGE's one thumb, in a file of its own — `field-controls-page.ts` is at its limit |
-| `tools/director/src/field-controls-governor.ts` | THE GOVERNOR's brake and tap, as rows of the ON THE FIELD tab: a seat's chord on the works around the dial |
+| `tools/director/src/field-controls-governor.ts` | THE GOVERNOR's tap, as a row of the ON THE FIELD tab: a seat's tap on the dial |
 | `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-gall.ts` | THE GALL's pinch, as a row of the ON THE FIELD tab |
 | `tools/director/src/field-controls-gimbal.ts` | THE GIMBAL's two rings, as rows of the ON THE FIELD tab |

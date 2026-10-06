@@ -439,10 +439,8 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // step's seat's, pressed where they are drawn (`render/burgee-grip.ts`, §11.56).
   burgeeFreeze: "field",
   burgeeDraw: "field",
-  // THE GOVERNOR's pads on the works round the dial, a finger of this seat's
-  // chord each, and the tapper's tap on the dial's face (`render/governor-grip.ts`, §11.58).
-  governorChordLeft: "field",
-  governorChordRight: "field",
+  // THE GOVERNOR's tap on the dial's face, from a seat with a mark to land
+  // (`render/governor-grip.ts`, §11.58).
   governorTap: "field",
   // THE GAUGE's loose tooth under the navigator's hand between two levels
   // (`sim/gauge-tooth.ts`).

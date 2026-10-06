@@ -21,14 +21,34 @@ export const BOSS_ENTRIES_F = {
       { weapon: "beam", color: "cyan", speedMilli: 1500, slowMilli: 250 },
     ],
   },
-  // A tap, a retap and the shot, each tapper named and the colour set off
-  // `either` (`governor-hash.ts`).
+  // A tap, an ordered retap and the shot, each mark's seat named and the
+  // colour set off `either` (`governor-hash.ts`).
   governor: {
     kind: "governor",
     steps: [
-      { ask: "tap", tapper: 1, markMilli: 250, paceMilli: 3, color: "red", beats: 10 },
-      { ask: "retap", tapper: 2, markMilli: 500, paceMilli: 5, color: "either", beats: 6 },
-      { ask: "fire", tapper: 2, markMilli: 0, paceMilli: 0, color: "cyan", beats: 3 },
+      {
+        ask: "tap",
+        marks: [
+          { seat: 1, markMilli: 250 },
+          { seat: 2, markMilli: 750 },
+        ],
+        ordered: false,
+        paceMilli: 7,
+        color: "red",
+        beats: 5,
+      },
+      {
+        ask: "retap",
+        marks: [
+          { seat: 2, markMilli: 500 },
+          { seat: 1, markMilli: 125 },
+        ],
+        ordered: true,
+        paceMilli: 8,
+        color: "either",
+        beats: 6,
+      },
+      { ask: "fire", marks: [], ordered: false, paceMilli: 4, color: "cyan", beats: 8 },
     ],
   },
   // A pull and a gullet, the holders apart, and the first step's colour set
@@ -69,18 +89,17 @@ export function patchBossF(boss: BossState): void {
     boss.hits = 1;
   }
   if (boss.kind === "governor") {
-    // A tap step lit with the needle off the start and running hot, taps
-    // counted apart, the hub lit and shot once, one pad of each seat down and
-    // one thumb down — every field given a value (`governor-hash.ts`).
+    // A tap step lit with the needle off the start and one mark landed, taps
+    // counted apart, the hub lit and shot once, and one thumb down — every
+    // field given a value (`governor-hash.ts`).
     boss.phase = "lit";
     boss.phaseBeat = 3;
     boss.cursor = 1;
     boss.needleMilli = 430;
-    boss.speedMilli = 1500;
+    boss.landed = 1;
     boss.taps = [3, 2];
     boss.hits = 1;
     boss.hubLit = true;
-    boss.padsDown = [1, 2];
     boss.tapDown = [true, false];
   }
   if (boss.kind === "lamprey") {

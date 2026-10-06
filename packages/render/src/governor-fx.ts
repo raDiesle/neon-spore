@@ -1,8 +1,8 @@
-import { GOVERNOR_RUN, type SimConfig, type SimEvent } from "@neon-spore/sim";
+import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { TILT_READ } from "./governor-pose.js";
-import { dialAt, drumAt, governorDial, TRACK_OUT } from "./governor-shape.js";
+import { dialAt, governorDial, TRACK_OUT } from "./governor-shape.js";
 import { GovernorVerdicts } from "./governor-verdicts.js";
 import type { GripVerdicts } from "./grip-verdict.js";
 import { HullShock } from "./hull-shock.js";
@@ -56,7 +56,6 @@ export class GovernorFx {
   private scrapeMilli = 0;
   private flashNow = 0;
   private flashHits = 0;
-  private markMilli = 0;
   private needleMilli = 0;
   private hubHex: string = PALETTE.hullRim;
   /** The shudder down the plating as the hub lights and as the governor is spent. */
@@ -106,32 +105,18 @@ export class GovernorFx {
         case "governorEnter":
           burst(d.cx, d.cy, 12, PALETTE.governorBrass);
           break;
-        case "governorLight": {
-          this.markMilli = e.markMilli;
-          if (e.ask === "fire") break;
-          const at = dialAt(d, e.markMilli, TRACK_OUT);
-          burst(at.x, at.y, 4, PALETTE.hullRim);
-          break;
-        }
-        case "governorPlant":
-        case "governorSlip": {
-          const drum = drumAt(l, d);
-          const hex = e.type === "governorPlant" ? PALETTE.governorBrass : PALETTE.rockDark;
-          burst(drum.at.x, drum.at.y, 3, hex);
-          break;
-        }
-        case "governorTick":
-        case "governorRetap": {
+        case "governorTick": {
           // The needle caught on the mark: a flash of light off the rim there.
           this.tapNow = 1;
-          this.tapMilli = this.markMilli;
-          const at = dialAt(d, this.markMilli, TRACK_OUT);
+          this.tapMilli = e.markMilli;
+          const at = dialAt(d, e.markMilli, TRACK_OUT);
           burst(at.x, at.y, 6, PALETTE.hullRim);
-          const landed = e.type === "governorRetap" || e.taps >= GOVERNOR_RUN;
-          if (landed) this.hurt.hit();
-          else this.hurt.jab();
+          this.hurt.jab();
           break;
         }
+        case "governorRetap":
+          this.hurt.hit();
+          break;
         case "governorSkid": {
           // The thumb came down with the needle off the mark: it scrapes on past.
           this.scrapeNow = 1;
@@ -141,7 +126,7 @@ export class GovernorFx {
           break;
         }
         case "governorSway": {
-          const at = dialAt(d, this.markMilli, TRACK_OUT);
+          const at = dialAt(d, this.needleMilli, TRACK_OUT);
           burst(at.x, at.y, 3, PALETTE.rockDark);
           break;
         }
@@ -187,7 +172,6 @@ export class GovernorFx {
     this.scrapeMilli = 0;
     this.flashNow = 0;
     this.flashHits = 0;
-    this.markMilli = 0;
     this.needleMilli = 0;
     this.hubHex = PALETTE.hullRim;
     this.shock.clear();

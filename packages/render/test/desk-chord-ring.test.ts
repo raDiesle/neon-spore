@@ -1,8 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import type { GovernorStep, GrindstoneStep, HalterStep, TrivetStep, World } from "@neon-spore/sim";
+import type { GrindstoneStep, HalterStep, TrivetStep, World } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, runFrames } from "./frame-harness.js";
-import * as governor from "./governor-harness.js";
 import * as grindstone from "./grindstone-harness.js";
 import * as halter from "./halter-harness.js";
 import * as trivet from "./trivet-harness.js";
@@ -46,12 +45,6 @@ const BOSSES = [
   ["THE GRINDSTONE's jaws", grindstone.stood, (w: World) => grindstone.posed(w, CLAMP), 2],
   ["THE TRIVET's feet", trivet.stood, (w: World) => trivet.posed(w, BOTH, false), 2],
   ["THE HALTER's lit grips", halter.stood, (w: World) => halter.posed(w, LEFT), 1],
-  [
-    "THE GOVERNOR's works",
-    governor.stood,
-    (w: World) => governor.posed(w, governor.TAP as GovernorStep),
-    1,
-  ],
 ] as const;
 
 describe("a desk's chord body", () => {

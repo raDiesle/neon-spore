@@ -82,14 +82,15 @@ describe("a spent boss at half alpha", () => {
     const col = midCol(CFG);
     const thrown = [
       { type: "governorHit", hits: 3, col },
-      { type: "governorTick", side: 1, taps: 1, col },
+      { type: "governorTick", side: 1, mark: 1, markMilli: 750, taps: 1, col },
       { type: "governorHub", col },
     ] as const;
     fx.ingest(thrown, l, CFG, 0.5, () => {});
     // A touch's verdict ring is its receipt and stands whole over the fade
     // (`governor-verdicts.ts` puts the fade back after each), so it is not asked.
     fx.verdicts.clear();
-    const { at } = marks((c) => drawGovernor(c, l, world, s, world.beat, 0, 0, fx));
+    const clock = { beat: world.beat, beatPhase: 0, time: 0, lead: 0 };
+    const { at } = marks((c) => drawGovernor(c, l, world, s, clock, fx));
     expect(at.length).toBeGreaterThan(10);
     expect(Math.max(...at)).toBeLessThanOrEqual(0.5 + 1e-9);
   });

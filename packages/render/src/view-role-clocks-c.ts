@@ -130,12 +130,11 @@ export const showsBurgeeHand = (role: ViewRole, seat: 1 | 2): boolean =>
 export const showsFlueEmber = (role: ViewRole): boolean => role === "test" || role === "p1";
 
 /**
- * THE GOVERNOR's two asks (§43). Both screens are shown the whole governor —
- * the needle's true pace is the one thing both seats must read off the same
- * picture — and the hands are split by the step: **the lit mark** is shown
- * full to the seat that taps it and faint to the seat braking, and **the
- * yoke's jaws** full to the seat braking and faint to the tapper, so each
- * sees the other's job without being handed it. `test` is both at full.
+ * THE GOVERNOR's marks (§43). Both screens are shown the whole governor —
+ * the needle is the one thing both seats must read off the same picture —
+ * and **each mark** is shown full to the seat that taps it and faint to the
+ * other, so each sees the partner's mark without being handed it. `test` is
+ * both at full.
  */
 export const showsGovernorHand = (role: ViewRole, seat: 1 | 2): boolean =>
   role === "test" || role === `p${seat}`;

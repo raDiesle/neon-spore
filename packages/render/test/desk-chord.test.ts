@@ -2,7 +2,6 @@ import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import {
   type DragTarget,
-  governorBraked,
   grindstoneClamped,
   step,
   trivetClosed,
@@ -16,7 +15,6 @@ import { computeLayout } from "../src/layout.js";
 import type { Pinched } from "../src/pinch-pair.js";
 import type { Field } from "../src/touch.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT } from "./frame-harness.js";
-import * as governor from "./governor-harness.js";
 import * as grindstone from "./grindstone-harness.js";
 import * as halter from "./halter-harness.js";
 import * as trivet from "./trivet-harness.js";
@@ -96,13 +94,6 @@ describe("one mouse at the desk closes a chord", () => {
     s.padsDown = [0, 0];
     press(world, "trivetPadFront");
     expect(trivetClosed(s)).toBe(true);
-  });
-
-  it("brakes THE GOVERNOR from the works", () => {
-    const world = governor.stood();
-    const s = governor.posed(world, governor.TAP);
-    press(world, "governorChordRight");
-    expect(governorBraked(s)).toBe(true);
   });
 
   it("takes both of THE HALTER's grips for the chording seat, and none for the rester", () => {

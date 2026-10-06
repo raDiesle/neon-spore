@@ -1,14 +1,15 @@
 import { midCol } from "../src/config.js";
 import {
+  GOVERNOR_DOWN_MILLI,
   type GovernorState,
   type GovernorStep,
   governorBoss,
-  governorGovernor,
   governorLitStep,
-  governorOnMark,
-  governorTapper,
+  governorOff,
+  governorPace,
 } from "../src/governor.js";
-import { governorStruck } from "../src/governor-shot.js";
+import { governorOnMark, governorOpenMarks } from "../src/governor-mark.js";
+import { governorFlightTicks, governorStruck } from "../src/governor-shot.js";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -22,29 +23,45 @@ import {
 import type { Bullet, Color } from "../src/types.js";
 
 /**
- * THE GOVERNOR's test rig: a script installed, a pad pressed as a thumb would
- * press it — one drag per pad, the pad as `id`, on the seat's own side — and a
- * tap sent as an edge, down and lifted. Shared by `governor.test.ts` and
- * `governor-hub.test.ts`.
+ * THE GOVERNOR's test rig: a script installed, and a tap sent as a thumb
+ * would send it — an edge, down and lifted — on the mark it is for. Shared by
+ * `governor.test.ts` and `governor-hub.test.ts`.
  */
 
 export const CFG: SimConfig = { ...DEFAULT_CONFIG };
 export const TPB = ticksPerBeat(CFG);
 export const MID = midCol(CFG);
 
-/** The shipped wave's script, written out: sim tests do not read content. */
+const mark = (seat: 1 | 2, markMilli: number) => ({ seat, markMilli });
+
+/** A script of the shipped wave's shape, written out: sim tests do not read content. */
 export const SCRIPT: readonly GovernorStep[] = [
-  { ask: "tap", tapper: 1, markMilli: 250, paceMilli: 3, color: "either", beats: 10 },
-  { ask: "tap", tapper: 1, markMilli: 500, paceMilli: 3, color: "either", beats: 10 },
-  { ask: "tap", tapper: 1, markMilli: 750, paceMilli: 3, color: "either", beats: 10 },
-  { ask: "tap", tapper: 2, markMilli: 125, paceMilli: 3, color: "either", beats: 10 },
-  { ask: "tap", tapper: 2, markMilli: 625, paceMilli: 3, color: "either", beats: 10 },
-  { ask: "tap", tapper: 2, markMilli: 375, paceMilli: 3, color: "either", beats: 10 },
-  { ask: "fire", tapper: 1, markMilli: 0, paceMilli: 0, color: "red", beats: 3 },
-  { ask: "retap", tapper: 1, markMilli: 875, paceMilli: 4, color: "either", beats: 8 },
-  { ask: "fire", tapper: 1, markMilli: 0, paceMilli: 0, color: "cyan", beats: 3 },
-  { ask: "retap", tapper: 2, markMilli: 500, paceMilli: 5, color: "either", beats: 6 },
-  { ask: "fire", tapper: 2, markMilli: 0, paceMilli: 0, color: "either", beats: 3 },
+  {
+    ask: "tap",
+    marks: [mark(1, 250), mark(2, 750)],
+    ordered: false,
+    paceMilli: 7,
+    color: "either",
+    beats: 5,
+  },
+  {
+    ask: "tap",
+    marks: [mark(1, 625), mark(2, 125)],
+    ordered: false,
+    paceMilli: 8,
+    color: "either",
+    beats: 5,
+  },
+  { ask: "fire", marks: [], ordered: false, paceMilli: 4, color: "red", beats: 8 },
+  {
+    ask: "retap",
+    marks: [mark(2, 250), mark(1, 500), mark(2, 750)],
+    ordered: true,
+    paceMilli: 8,
+    color: "either",
+    beats: 6,
+  },
+  { ask: "fire", marks: [], ordered: false, paceMilli: 5, color: "either", beats: 8 },
 ];
 
 export function install(steps: readonly GovernorStep[] = SCRIPT, seed = 0): World {
@@ -87,23 +104,6 @@ export function beats(world: World, n: number): Set<string> {
   return runUntil(world, (w) => w.beat >= at);
 }
 
-/** One pad of `player`'s chord, `target` its own side unless a test says otherwise. */
-export function pad(
-  world: World,
-  player: 1 | 2,
-  id: number,
-  on: boolean,
-  target = player === 1 ? "governorChordLeft" : "governorChordRight",
-): string[] {
-  const command = { kind: "drag", target, on, fromMilli: 0, id } as TimedCommand["command"];
-  return tick(world, [{ tick: world.tick, player, command }]);
-}
-
-/** Both of `player`'s pads down, or both up; the event types of both ticks. */
-export function chord(world: World, player: 1 | 2, on: boolean): string[] {
-  return [...pad(world, player, 0, on), ...pad(world, player, 1, on)];
-}
-
 /** A tap from `player`, down and lifted on the next tick; the event types of both. */
 export function tap(world: World, player: 1 | 2): string[] {
   const down = { kind: "drag", target: "governorTap", on: true, fromMilli: 0 } as const;
@@ -114,33 +114,46 @@ export function tap(world: World, player: 1 | 2): string[] {
   ];
 }
 
-/** Until the needle is on the lit mark. */
-export function toMark(world: World): Set<string> {
-  return runUntil(world, (w) => governorOnMark(w, governor(w)));
+/** Until the needle is on mark `i` of the lit step. */
+export function toMark(world: World, i: number): Set<string> {
+  return runUntil(world, (w) => governorOnMark(w, governor(w), i));
 }
 
-/** The tap the lit step wants: the governing seat braking, then its tapper on the mark. */
+/** The next open mark landed by its own seat, on the mark; the event types of the tap. */
 export function tapMark(world: World): string[] {
   const s = governor(world);
-  const tapper = governorTapper(s);
-  const brake = governorGovernor(s);
-  if (tapper === null || brake === null) throw new Error("no tap is lit");
-  chord(world, brake, true);
-  toMark(world);
-  const events = tap(world, tapper);
-  chord(world, brake, false);
-  return events;
+  const i = governorOpenMarks(s)[0];
+  const seat = i === undefined ? undefined : governorLitStep(s)?.marks[i]?.seat;
+  if (i === undefined || seat === undefined) throw new Error("no mark is open");
+  toMark(world, i);
+  return tap(world, seat);
 }
 
-/** Answer the lit step, whichever it asks: a tap on the mark, or the colour it wants. */
+/** Until a bolt fired its flight ago left with the needle pointing straight down, give or take a tick's turn. */
+export function toDown(world: World): void {
+  const flight = governorFlightTicks(world.cfg);
+  runUntil(world, (w) => {
+    const g = governor(w);
+    const pace = governorPace(w, g);
+    return governorOff(g.needleMilli - pace * flight, GOVERNOR_DOWN_MILLI) <= pace;
+  });
+}
+
+/** Answer the lit step, whichever it asks: every mark tapped, or the colour it wants fired as the needle points down. */
 export function answer(world: World): Set<string> {
   const s = governor(world);
   const lit = governorLitStep(s);
   if (lit === null) throw new Error("nothing is lit");
   const cursor = s.cursor;
   const seen = new Set<string>();
-  if (lit.ask === "fire") governorStruck(world, shot(lit.color === "either" ? "red" : lit.color));
-  else for (const t of tapMark(world)) seen.add(t);
+  if (lit.ask === "fire") {
+    toDown(world);
+    governorStruck(world, shot(lit.color === "either" ? "red" : lit.color));
+  } else {
+    while (governor(world).cursor === cursor && governor(world).phase === "lit") {
+      for (const t of tapMark(world)) seen.add(t);
+    }
+  }
   for (const t of runUntil(world, (w) => governor(w).cursor > cursor)) seen.add(t);
   return seen;
 }

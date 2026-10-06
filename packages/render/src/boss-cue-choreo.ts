@@ -70,7 +70,7 @@ export function choreoCues(
     // THE VALVE's, a turn on the wheel to the pilot, a freeze on the socket to the navigator, a pull on the live pin to either, and one under the spark (`boss-cue-read-zp.ts`).
     case "valve":
       return valveCues(l, world, boss, beatPhase);
-    // THE GOVERNOR's, a hold on the drum to the braking seat until its chord is whole, a tap on the lit mark to the tapper, and one under the lit hub (`boss-cue-read-zq.ts`).
+    // THE GOVERNOR's, a tap on each seat's open mark to that seat, and one under the lit hub (`boss-cue-read-zq.ts`).
     case "governor":
       return governorCues(l, world, boss, beatPhase);
     // THE SEAM's, a shield under the ridge while grit falls and a fire under the lit point or the rock, and nothing on the false point or the dark (`boss-cue-read-zr.ts`).

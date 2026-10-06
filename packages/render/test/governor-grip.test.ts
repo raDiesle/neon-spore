@@ -3,21 +3,15 @@ import { buildBoss, buildQueue, controlSet } from "@neon-spore/content";
 import {
   createWorld,
   type GovernorState,
-  governorTapper,
+  governorTapping,
   startWave,
   step,
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
 import { bossCue } from "../src/boss-cue.js";
-import {
-  governorGripUnder,
-  governorHubCircle,
-  governorTapCircle,
-  governorYokeCircle,
-} from "../src/governor-grip.js";
+import { governorGripUnder, governorHubCircle, governorTapCircle } from "../src/governor-grip.js";
 import { governorStanding } from "../src/governor-pose.js";
-import { headAt } from "../src/governor-shape.js";
 import { handleCircle } from "../src/handles.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { type Field, type Hold, touchDown, touchUp } from "../src/touch.js";
@@ -28,14 +22,14 @@ import {
   VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
-import { FIRE, posed, stood } from "./governor-harness.js";
+import { FIRE, ORDERED, posed, stood } from "./governor-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * THE GOVERNOR's hands as controls (`governor-grip.ts`): the tap anywhere
- * on the dial's face, the tapper's only, and the braking seat's chord on the
- * works round it; and the two words the field says about them
+ * THE GOVERNOR's hand as a control (`governor-grip.ts`): the tap anywhere
+ * on the dial's face, from a seat with a mark to land; and the words the
+ * field says about it
  * (`boss-cue-read-zq.ts`). The rules are the simulation's
  * (`sim/test/governor*.test.ts`); this file proves the picture hands them a
  * thumb.
@@ -46,7 +40,7 @@ beforeAll(installCanvasGlobals);
 const layout = (role: ViewRole) => computeLayout(VIEWPORT, CFG, role);
 const TPB = ticksPerBeat(CFG);
 
-/** THE GOVERNOR's wave, stepped to its first lit tap: player 1 taps, player 2 brakes. */
+/** THE GOVERNOR's wave, stepped to its first lit tap: a mark for each seat. */
 function toLit(): { world: World; s: GovernorState } {
   const world = createWorld(CFG, 5);
   const index = waveWith("governor");
@@ -55,7 +49,7 @@ function toLit(): { world: World; s: GovernorState } {
   if (s === null || s.kind !== "governor")
     throw new Error("the governor's wave installed no governor");
   let guard = 0;
-  while (governorTapper(s) === null && guard++ < 60 * TPB) step(world, []);
+  while (!governorTapping(s) && guard++ < 60 * TPB) step(world, []);
   return { world, s };
 }
 
@@ -78,33 +72,27 @@ function fieldOf(world: World, seat: 1 | 2): Field {
   };
 }
 
-/** A point on the works beside the dial, clear of its face: over the spindle's head's foot. */
-function onWorks(role: ViewRole, world: World, s: GovernorState) {
-  const l = layout(role);
-  const d = governorStanding(l, CFG, s, world.beat, 0.5);
-  return { l, x: d.cx, y: headAt(l, d).y };
-}
-
 describe("the dial's face", () => {
-  it("sends the tapper's tap as an edge, and lets go on the lift", () => {
+  it.each([1, 2] as const)("sends seat %i's tap as an edge, and lets go on the lift", (seat) => {
     const { world, s } = toLit();
-    expect(governorTapper(s)).toBe(1);
-    const l = layout("p1");
+    const l = layout(seat === 1 ? "p1" : "p2");
     const d = governorStanding(l, CFG, s, world.beat, 0.5);
-    const down = touchDown(l, d.cx, d.cy, fieldOf(world, 1));
+    const down = touchDown(l, d.cx, d.cy, fieldOf(world, seat));
     expect(down?.command).toEqual({ kind: "drag", target: "governorTap", on: true, fromMilli: 0 });
     const up = touchUp(l, down?.hold as Hold, { x: d.cx, y: d.cy });
     expect(up?.command).toMatchObject({ target: "governorTap", on: false });
   });
 
-  it("does not answer the braking seat's thumb", () => {
+  it("does not answer a seat with nothing left to land", () => {
     const { world, s } = toLit();
-    const l = layout("p2");
+    s.landed = 1;
+    const l = layout("p1");
     const d = governorStanding(l, CFG, s, world.beat, 0.5);
-    expect(governorGripUnder(l, d.cx, d.cy, fieldOf(world, 2))).toBeNull();
+    expect(governorGripUnder(l, d.cx, d.cy, fieldOf(world, 1))).toBeNull();
+    expect(governorGripUnder(l, d.cx, d.cy, fieldOf(world, 2))).not.toBeNull();
   });
 
-  it("stands on the lit mark for the director's hand", () => {
+  it("stands on the first open mark for the director's hand", () => {
     const { world, s } = toLit();
     const l = layout("p1");
     expect(handleCircle(l, world, "governorTap", 0)).toEqual(
@@ -113,33 +101,26 @@ describe("the dial's face", () => {
   });
 });
 
-describe("the works", () => {
-  it("take the braking seat's finger as a chord, its target the seat's", () => {
-    const { world, s } = toLit();
-    const { l, x, y } = onWorks("p2", world, s);
-    const touch = governorGripUnder(l, x, y, fieldOf(world, 2));
-    expect(touch?.command).toBeNull();
-    expect(touch?.hold).toMatchObject({ kind: "drag", target: "governorChordRight", chord: true });
-  });
-
-  it("refuse the tapper's finger while its tap is lit", () => {
-    const { world, s } = toLit();
-    const { l, x, y } = onWorks("p1", world, s);
-    expect(governorGripUnder(l, x, y, fieldOf(world, 1))).toBeNull();
-    expect(handleCircle(l, world, "governorChordLeft", 0)).toBeNull();
-    expect(handleCircle(l, world, "governorChordRight", 0)).toEqual(
-      governorYokeCircle(l, CFG, s, world.beat, 0),
-    );
-  });
-});
-
 describe("the words", () => {
-  it("say HOLD on the drum to the braking seat and TAP on the mark to the tapper", () => {
-    const { world } = toLit();
+  it("say TAP on each seat's own mark, to that seat", () => {
+    const { world, s } = toLit();
+    for (const seat of [1, 2] as const) {
+      const l = layout(seat === 1 ? "p1" : "p2");
+      const said = bossCue(l, world, 0, () => l.hullY);
+      const mark = governorTapCircle(l, CFG, s, world.beat, 0, seat);
+      expect(said?.word).toBe("TAP");
+      expect(said?.x).toBeCloseTo(mark?.x ?? Number.NaN, 5);
+      expect(said?.y).toBeCloseTo(mark?.y ?? Number.NaN, 5);
+    }
+  });
+
+  it("say TAP on an ordered step only to the seat whose turn it is", () => {
+    const world = stood();
+    posed(world, ORDERED);
     const p1 = layout("p1");
     const p2 = layout("p2");
     expect(bossCue(p1, world, 0, () => p1.hullY)?.word).toBe("TAP");
-    expect(bossCue(p2, world, 0, () => p2.hullY)?.word).toBe("HOLD");
+    expect(bossCue(p2, world, 0, () => p2.hullY)).toBeNull();
   });
 
   it("say FIRE at the hull while the hub is lit, and ring the hub", () => {

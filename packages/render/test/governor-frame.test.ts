@@ -1,9 +1,9 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { midCol } from "@neon-spore/sim";
+import { governorBoss, midCol } from "@neon-spore/sim";
 import { fieldX } from "../src/field-flip.js";
 import {
   governorArrived,
-  governorJaws,
+  governorNeedleShown,
   governorOrbit,
   governorSwing,
   governorTilt,
@@ -16,16 +16,17 @@ import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { showsGovernorHand } from "../src/view-role-clocks-c.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, VIEWPORT } from "./frame-harness.js";
-import { count, FIRE, frame, posed, stood, TAP } from "./governor-harness.js";
+import { count, FIRE, frame, ORDERED, posed, stood, TAP } from "./governor-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE GOVERNOR, drawn (`render/src/governor-draw.ts`): the flywheel over the
- * middle column with its needle on the track, the flyweights rising with the
- * needle's speed and turning with it, the yoke's jaws on the drum as the
- * braking seat's chord, the lit mark split by seat, the studs as the runs,
- * and the hub lit in a shot's colour only while one is owed — on all three
+ * middle column with its needle on the track and drawn ahead by the input
+ * delay, the flyweights rising with the step's pace and turning with the
+ * needle, each seat's mark full on its own screen, an ordered step's marks
+ * numbered, the studs as each seat's taps, and the hub lit in a shot's colour
+ * only while one is owed — on all three
  * screens, set rather than played to; `sim/test/governor.test.ts` proves the
  * rules.
  */
@@ -84,17 +85,16 @@ describe("THE GOVERNOR's body", () => {
   });
 });
 
-describe("THE GOVERNOR's speed, drawn as the flyweights", () => {
-  it("swings them out as the needle runs hot, and flat out once spent", () => {
+describe("THE GOVERNOR's pace, drawn as the flyweights", () => {
+  it("swings them out for a quicker step, and flat out once spent", () => {
     const world = stood();
     const s = posed(world, TAP);
     const slow = governorSwing(s, CFG, world.beat, 0);
-    s.speedMilli = CFG.governorHotMilli;
-    const hot = governorSwing(s, CFG, world.beat, 0);
-    expect(hot).toBeGreaterThan(slow);
+    const quick = governorSwing(posed(world, { ...TAP, paceMilli: 10 }), CFG, world.beat, 0);
+    expect(quick).toBeGreaterThan(slow);
     s.phase = "spent";
     s.phaseBeat = world.beat - CFG.governorSpentBeats;
-    expect(governorSwing(s, CFG, world.beat, 0)).toBeGreaterThan(hot);
+    expect(governorSwing(s, CFG, world.beat, 0)).toBeGreaterThan(quick);
   });
 
   it("lifts a flyweight up the spindle as it swings out", () => {
@@ -103,13 +103,20 @@ describe("THE GOVERNOR's speed, drawn as the flyweights", () => {
     expect(flyweightAt(l, d, 1.05, 0).y).toBeLessThan(flyweightAt(l, d, 0.42, 0).y);
   });
 
-  it("turns them with the needle, and stops them when it stalls", () => {
-    const s = posed(stood(), TAP, 0);
-    expect(governorOrbit(s)).toBe(0);
-    s.needleMilli = 500;
-    const half = governorOrbit(s);
-    expect(half).toBeCloseTo(3 * Math.PI, 6);
-    expect(governorOrbit(s)).toBe(half);
+  it("turns them with the needle", () => {
+    expect(governorOrbit(0)).toBe(0);
+    expect(governorOrbit(500)).toBeCloseTo(3 * Math.PI, 6);
+  });
+});
+
+describe("THE GOVERNOR's needle, drawn ahead", () => {
+  it("by the input delay at the step's pace, and not once spent", () => {
+    const world = stood();
+    const s = posed(world, TAP, 990);
+    expect(governorNeedleShown(world, s, 0)).toBe(990);
+    expect(governorNeedleShown(world, s, 12)).toBe((990 + 12 * TAP.paceMilli) % 1000);
+    s.phase = "spent";
+    expect(governorNeedleShown(world, s, 12)).toBe(990);
   });
 });
 
@@ -145,28 +152,26 @@ describe("THE GOVERNOR's hands, split by the step", () => {
     expect(showsGovernorHand("test", 1) && showsGovernorHand("test", 2)).toBe(true);
   });
 
-  it("draws the mark and the yoke differently for the tapper and the braking seat", () => {
+  it("draws each seat's own mark full, so the two screens differ", () => {
     const p1 = frame("p1", (w) => posed(w, TAP));
     const p2 = frame("p2", (w) => posed(w, TAP));
     expect(p1).not.toBe(p2);
   });
 
-  it("reads the yoke's jaws off the braking seat's pads, and none between steps", () => {
-    const s = posed(stood(), TAP, 0, (g) => {
-      g.padsDown = [0, 2];
-    });
-    expect(governorJaws(s)).toBe(2);
-    s.phase = "rest";
-    expect(governorJaws(s)).toBeNull();
+  it.each(ROLES)("numbers an ordered step's marks, on %s", (role) => {
+    const plain = frame(role, (w) => posed(w, { ...ORDERED, ordered: false }));
+    const ordered = frame(role, (w) => posed(w, ORDERED));
+    expect(ordered).not.toBe(plain);
   });
 
-  it.each(ROLES)("draws the jaws shut on the drum differently from open, on %s", (role) => {
+  it.each(ROLES)("holds a landed mark lit, on %s", (role) => {
     const open = frame(role, (w) => posed(w, TAP));
-    const shut = frame(role, (w) =>
+    const landed = frame(role, (w) =>
       posed(w, TAP, 0, (s) => {
-        s.padsDown = [0, 3];
+        s.landed = 1;
       }),
     );
-    expect(shut).not.toBe(open);
+    expect(landed).not.toBe(open);
+    expect(governorBoss(stood())).not.toBeNull();
   });
 });

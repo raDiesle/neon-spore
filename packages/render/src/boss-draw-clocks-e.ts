@@ -55,11 +55,20 @@ export function drawLatestPairBoss(
   }
 
   // THE GOVERNOR: a flywheel's needle sweeping on its own under a flyball
-  // governor, braked by one seat's chord on the yoke and tapped by the other
-  // on the lit mark, the hub it turns on shot (`governor-draw.ts`); its
+  // governor, each seat tapping its own mark as the needle crosses it, the
+  // hub it turns on shot as it points down (`governor-draw.ts`); its
   // marks' verdicts on a touch are `governor-verdicts.ts`.
   if (boss.kind === "governor") {
-    drawGovernor(ctx, l, world, boss, beat, beatPhase, time, effects.boss.governor, effects.bolts);
+    const lead = view.leadTicks ?? 0;
+    drawGovernor(
+      ctx,
+      l,
+      world,
+      boss,
+      { beat, beatPhase, time, lead },
+      effects.boss.governor,
+      effects.bolts,
+    );
     return;
   }
 

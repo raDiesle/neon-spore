@@ -131,6 +131,17 @@ bosses* — are `generic.md`, next to this page.**
   controls for every jump.* The eel became a leap from tile to tile, each
   further than the last, each stay a different ask under THE SLOW, with the
   shipped pull knobs; its living look is a lane of its own.
+- **A shot gets time; a tap gets none of THE SLOW; and both seats work
+  at once**, 6 October 2026, on THE GOVERNOR: *there must be more time to
+  shoot with cannon controls — this is generic feedback for a good
+  default*; *apply no slow if tap control is required — only on action on
+  the top of boss or shooting with cannon*; *both players need to do
+  something at the same time*. So a fire step's default is eight beats
+  under THE SLOW, two chances at whatever it is aimed at, a tap step is
+  short and at the beat's own rate, and a boss with one seat holding while
+  the other acts is the shape he finds boring. THE GOVERNOR lost its brake
+  for a mark each, numbered later and taken in order, and its shot is aimed
+  at the needle rather than the body.
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

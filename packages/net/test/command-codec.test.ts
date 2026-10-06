@@ -291,10 +291,8 @@ const ACCEPTED: Command[] = [
   // the swipe's sign on `fromMilli` (`sim/burgee-hand.ts`).
   { kind: "drag", target: "burgeeFreeze", on: true, fromMilli: 0 },
   { kind: "drag", target: "burgeeDraw", on: false, fromMilli: -400 },
-  // THE GOVERNOR's pads name the pad as `id`, and its tap is an edge
+  // THE GOVERNOR's tap is an edge
   // (`sim/governor-hand.ts`).
-  { kind: "drag", target: "governorChordLeft", on: true, fromMilli: 0, id: 0 },
-  { kind: "drag", target: "governorChordRight", on: false, fromMilli: 0, id: 1 },
   { kind: "drag", target: "governorTap", on: true, fromMilli: 0 },
   // THE GAUGE's tooth names the tooth as `id` and is carried (`sim/gauge-tooth.ts`).
   { kind: "drag", target: "gaugeTooth", on: true, id: 4, fromMilli: 300, fromYMilli: -600 },
@@ -488,8 +486,6 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   gallPinch: true,
   burgeeFreeze: true,
   burgeeDraw: true,
-  governorChordLeft: true,
-  governorChordRight: true,
   governorTap: true,
   gaugeTooth: true,
   gaugeTongue: true,
