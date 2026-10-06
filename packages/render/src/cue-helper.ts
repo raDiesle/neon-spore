@@ -125,7 +125,8 @@ function aimR(cue: BossCue, aim: { r?: number }): number {
 /**
  * **How a shot's aim is laid on its target**, and whether the cue's scan box
  * stands round it. Swapped by VERSUS (`aim:cannon`), which asks whether the
- * crosshair should wear the cannon's colour: `skin` is this screen's seat, so
+ * crosshair should wear the cannon's colour — the fire buttons' red or cyan
+ * (`PALETTE`), or the seat's: `skin` is this screen's seat, so
  * `skin.tint` is the exact colour the cannon and its column are drawn in here
  * (`cannon-column.ts`). `from` is the cannon's muzzle, for a look that joins
  * the two. `reach` is how far the look stands out from its target, in the

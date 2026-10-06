@@ -86,7 +86,7 @@ export const FIRST_BOSS_POSES: Pose[] = [
       // `aim:cannon` is judged here: the one boss pose whose shot's mark
       // stands whole in the middle of the field, on the cannon's own column.
       lookAt:
-        "the mark on the bubble to shoot — whether it reads as the cannon's, in the cannon's colour",
+        "the mark on the bubble to shoot — whether it reads as the cannon's, in the fire button's red or cyan",
     },
   ),
   bossPose(

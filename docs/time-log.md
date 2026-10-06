@@ -33896,3 +33896,13 @@ Bottleneck: the input delay reached the cue through five signatures, because no 
 Bottleneck: finding the frame of a late level, which took three tries at `--until` before one landed inside a window.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-06 — Five living neon marks for a boss's shot, in the fire buttons' red and cyan
+
+- reading: 5 min. Where the fire buttons take their red and cyan, and the rule that the field never names the colour a bolt wants.
+- writing: 15 min. Five candidates, each drawn from uneven curves that move: a ring with thorns, a mouth of hooked teeth, a swarm of spores, tendrils, a ring of fire.
+- looking: 15 min. Each shot two or three times: outlined shapes read as a cartoon until they were filled with glow, and red on a red target needed a dark shadow under it.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the first drawings outlined every filled shape, which read as flat and geometric — the thing the owner asked to lose.
