@@ -33762,3 +33762,5 @@ Bottleneck: reading — finding that a panel trade already existed took longer t
 - landing: 5 min. `check:fast` red on import order and the index row, then green.
 
 Bottleneck: looking — the strip tool's held clock made a flowing look read as a still one until `--settle` was found.
+
+*Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

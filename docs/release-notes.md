@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 1b007a92a — THE FLUE shows the navigator a rainbow mirage in place of the spore
+
+The phone that is not shown the spore now sees a neon rainbow fluid flowing the whole length of the flue's gullet, and while a level is lit, now and then a spore that is not there: split in two, shivering, drifting for under a second. Like THE GAUGE's mirage it is drawn from the picture's clock and never from where the spore is, so the only way to find it is still the partner's call.
+
 ## 2026-10-06 · 831ac1c72 — THE FLUE swaps the seats every level, and lights the siren top right
 
 On the second, fourth and sixth levels the two panels trade phones, so the player who saw the spore now shoots it and the other one calls the shot. The siren is up for the whole fight, pinned top right clear of the flue's middle: it lights the mouth of whoever holds the panel with the spore, and says SAY WHEN TO SHOOT on that phone and SHOOT WHEN TOLD on the other. Under any panel trade the siren's chips now name the person holding the panel, and the ring says which person you are.
