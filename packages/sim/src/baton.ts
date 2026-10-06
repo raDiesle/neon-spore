@@ -1,5 +1,8 @@
+import { BATON_SOCKET_LIT, type BatonBead } from "./baton-bead-shape.js";
 import { midCol, type SimConfig } from "./config.js";
 import type { Color } from "./types.js";
+
+export * from "./baton-bead-shape.js";
 
 /**
  * THE BATON: whose turn is it.
@@ -87,39 +90,6 @@ export const BATON_STAGES = [
 
 /** Where the fight is. */
 export type BatonStage = (typeof BATON_STAGES)[number];
-
-/**
- * What a socket is. `lit` has not been passed yet, `dark` has, `swell` is a
- * dark one whose shell is coming away and has not let go yet, and `shed` is
- * one whose shell is gone — dropped down the arm as a rock (`batonShed`) or
- * taken off clean by a thumb (`baton-hand.ts`).
- */
-export const BATON_SOCKET_LIT = 0;
-export const BATON_SOCKET_DARK = 1;
-export const BATON_SOCKET_SHED = 2;
-export const BATON_SOCKET_SWELL = 3;
-
-/** One bead on the arm: sitting in a socket, or in the air below it. */
-export interface BatonBead {
-  /** In the air between two sockets. Otherwise sitting in `socket`. */
-  flying: boolean;
-  /** `world.beat` it last came to rest on — the settle clock counts from here. */
-  satBeat: number;
-  /** The socket it is in, or is flying out of. */
-  socket: number;
-  /** `world.tick` the flight began on, -1 while it is not in the air. */
-  flightTick: number;
-  /** Whether a shot of the right colour has gone through it this flight. */
-  struck: boolean;
-  /** The colour it carries, which is the colour that takes it. */
-  color: Color;
-  /** The column it is landing in. Read only while it flies: sitting, its column is its socket's (`batonSocketCol`). */
-  col: number;
-  /** The column it left from. The same as `col` unless the arm swung for this flight. */
-  fromCol: number;
-  /** On the crossing: this flight is `batonFinalBeats` long, not `batonFlightBeats`. */
-  final: boolean;
-}
 
 /** Everything THE BATON remembers between beats. */
 export interface BatonState {

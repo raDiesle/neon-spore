@@ -31,6 +31,8 @@ export function batonHashParts(b: BatonState): number[] {
       bead.col,
       bead.fromCol,
       bead.final ? 1 : 0,
+      bead.backTick,
+      bead.backFromMilli,
     );
   out.push(
     b.merged ? 1 : 0,

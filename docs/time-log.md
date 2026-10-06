@@ -33704,3 +33704,13 @@ Bottleneck: the first frame — the spore was drawn under the wait clock, which 
 Bottleneck: every rule this boss had was written down in five places — the sim, the director's notes, the tutorial's comment, two spec pages — and each had to be said again.
 
 *Measured: 12 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE BATON's bead is thrown back up the arm
+
+- reading: 5 min. The bead's drawing, the effects roster THE BATON was never on, and the frames tool's recipes.
+- writing: 10 min. Two fields on the bead, `baton.ts` split to make room, the throw and its trail, one test file.
+- looking: 5 min. A strip of the knock played in through `bun run frames`, cropped.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the boss keeps nothing in render, so the throw had to be drawn from the bead's own state — two fields in the simulation for a picture.

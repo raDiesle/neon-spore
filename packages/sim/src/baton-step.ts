@@ -7,6 +7,7 @@ import {
   batonFlip,
   batonLead,
   batonOneSegment,
+  batonSocketRow,
 } from "./baton.js";
 import { batonLandTick, batonWaiting } from "./baton-bead.js";
 import { batonCrossBeat } from "./baton-cross.js";
@@ -14,7 +15,7 @@ import { batonMerge, batonTwin, stepBatonMerge } from "./baton-pair.js";
 import { stepBatonShed } from "./baton-shed.js";
 import { batonSlow } from "./baton-slow.js";
 import type { SimConfig } from "./config.js";
-import type { World } from "./world.js";
+import { MILLI, type World } from "./world.js";
 
 /**
  * THE BATON's clock: the unfold, the landing, the settle and the fold. The
@@ -45,6 +46,8 @@ export function bead(world: World, socket: number, color: BatonBead["color"]): B
     col,
     fromCol: col,
     final: false,
+    backTick: -1,
+    backFromMilli: 0,
   };
 }
 
@@ -195,6 +198,8 @@ function land(world: World, b: BatonState, bead: BatonBead): void {
  */
 function settle(world: World, b: BatonState, bead: BatonBead): void {
   if (bead.socket === 0) return;
+  bead.backTick = world.tick;
+  bead.backFromMilli = batonSocketRow(world.cfg, bead.socket) * MILLI;
   bead.socket -= 1;
   bead.satBeat = world.beat;
   b.settles += 1;

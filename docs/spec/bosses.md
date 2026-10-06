@@ -3218,7 +3218,11 @@ bead sits is a launch watched through a grey panel. **A wrong colour through
 the bead knocks it back two sockets** (`batonKicked`, the owner, 6 October
 2026): out of the air at once, sitting two above the socket it left, the
 sockets it climbed past still dark — the cost is the climb, not the arm.
-Until then it was a miss like any other and the bead flew on. And the beam meets the bead the way
+Until then it was a miss like any other and the bead flew on. The picture
+throws it there, out of the hit, up past its socket and into it, with a ring
+in the bolt's colour where the bolt met it; a settle is the same throw over
+one socket, without the ring (`render/baton-knock.ts`, read off the bead's
+`backTick` and `backFromMilli`). And the beam meets the bead the way
 a bolt does (`burnColumn`), the third thing in a column a beam can stop at:
 struck or rejected, it ends there.
 

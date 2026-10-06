@@ -1,7 +1,7 @@
-import { type BatonState, batonDark, batonFlip } from "./baton.js";
+import { type BatonState, batonDark, batonFlip, batonSocketRow } from "./baton.js";
 import { batonDrawn } from "./baton-hand.js";
 import { bead } from "./baton-step.js";
-import type { World } from "./world.js";
+import { MILLI, type World } from "./world.js";
 
 /**
  * THE BATON's second bead: its lighting, and the drawing together that ends
@@ -86,6 +86,8 @@ function merged(world: World, b: BatonState): void {
 function parted(world: World, b: BatonState): void {
   const last = b.beads.find((bead) => bead.socket === world.cfg.batonSockets - 1);
   if (last !== undefined) {
+    last.backTick = world.tick;
+    last.backFromMilli = batonSocketRow(world.cfg, last.socket) * MILLI;
     last.socket -= 1;
     last.satBeat = world.beat;
     b.settles += 1;

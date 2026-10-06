@@ -9,6 +9,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { paintDrop } from "./baton-drop.js";
+import { batonThrown, drawThrow, throwPoint } from "./baton-knock.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { tileCX } from "./layout.js";
@@ -69,6 +70,10 @@ export function beadPoint(
   const rowMilli = batonBeadRowMilli(cfg, bead, tick);
   const y = l.gridTop + (rowMilli / 1000) * l.tile + l.tile / 2;
   let x = tileCX(l, batonBeadCol(cfg, b, bead, tick));
+  // Thrown back up the arm, it is on its way to the socket the rule already
+  // put it in (`baton-knock.ts`), and the cue rides it there.
+  const thrown = batonThrown(cfg, bead, tick);
+  if (thrown !== null) return throwPoint(l, cfg, bead, x, thrown);
   if (bead.flying) {
     const span = Math.max(1, batonLandTick(cfg, bead) - bead.flightTick);
     const f = Math.min(1, Math.max(0, (tick - bead.flightTick) / span));
@@ -112,6 +117,9 @@ export function drawBead(
   const pulse = flying ? 0 : (1 - beatPhase) * (1 - beatPhase);
   const size = twin ? TWIN : merged ? MERGED : 1;
   const r = l.tile * BEAD_R * size * (1 + 0.12 * pulse);
+  const thrown = batonThrown(cfg, bead, tick);
+  if (thrown !== null)
+    drawThrow(ctx, l, cfg, bead, tileCX(l, batonBeadCol(cfg, b, bead, tick)), thrown, r);
   const reach = bead.struck ? 4 : 2.6;
   halo(ctx, x, y, r * reach, hex, bead.struck ? 0.7 : 0.3 + 0.25 * pulse);
   if (merged) halo(ctx, x, y, r * reach * 2, hex, 0.35 + 0.2 * pulse);

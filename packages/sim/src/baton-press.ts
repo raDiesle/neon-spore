@@ -184,6 +184,8 @@ function batonKnock(world: World, b: BatonState, bead: BatonBead, rowMilli: numb
   bead.flightTick = -1;
   bead.struck = false;
   bead.socket = Math.max(0, from - 2);
+  bead.backTick = world.tick;
+  bead.backFromMilli = rowMilli;
   bead.satBeat = world.beat;
   bead.col = bead.fromCol;
   b.stillBeat = world.beat;

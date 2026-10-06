@@ -705,6 +705,7 @@ by hand never moves.
 | `packages/sim/src/baton-shed.ts` | **THE BATON's arm giving way** — the swell, the shell that drops and the rock it becomes |
 | `packages/sim/src/baton-slow.ts` | THE SLOW on THE BATON, spanning its asks: a swelling shell, the draw's window, the crossing |
 | `packages/sim/src/baton-bead.ts` | Where a bead of THE BATON is on a tick |
+| `packages/sim/src/baton-bead-shape.ts` | THE BATON's bead and its sockets, as data: what a socket can be and what a bead remembers |
 | `packages/sim/src/baton-cross.ts` | THE BATON's crossing: the merged bead's last flight |
 | `packages/sim/src/baton.ts` | THE BATON: whose turn is it |
 | `packages/sim/src/config-balloon.ts` | THE BALLOON's numbers: how long one swells before it moves, how fast it climbs |
@@ -2398,6 +2399,7 @@ by hand never moves.
 | `packages/render/src/baton-tube.ts` | **THE BATON's arm, as a tube of the rig** (`solid-tube.ts`): the tendon is a cord of flesh with a round back |
 | `packages/render/src/baton-tap.ts` | **Player 1's thumb on the bead is the trigger** |
 | `packages/render/src/baton-marks.ts` | THE BATON's shell and beads haloed while they ask a seat, green on a strip, a hold and the merge, red on a refused press — no partner's clock |
+| `packages/render/src/baton-knock.ts` | **THE BATON's bead thrown back up the arm** by the wrong colour or a slow socket: out of the hit, up past its socket and in |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pulse-grip.ts` | **THE PULSE's hand on the bar**: the rectangle the meter is drawn in, the box a thumb is answered in |
 | `packages/render/src/pull-track.ts` | **A pull is drawn as the way the hand goes, and a big circle where it starts** — every pull handle's thin channel, filling green behind the hand, closed round for a turn |
