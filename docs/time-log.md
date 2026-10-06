@@ -33908,3 +33908,13 @@ Bottleneck: finding the frame of a late level, which took three tries at `--unti
 Bottleneck: the first drawings outlined every filled shape, which read as flat and geometric — the thing the owner asked to lose.
 
 *Measured: 12 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE MIMIC opens on a guide, its words go to the siren top right, and the box round the picture goes
+
+- reading: 10 min. The siren and the bosses that already light it, the cue round the frame, and the worded guide's tests.
+- writing: 15 min. The mimic's call and duty, the cue cut to the core's TAP, the guide, and the tests.
+- looking: 5 min. A frame of the seven-square level from the reader's seat, and the guide's first page.
+- friction: 5 min. Two counts in words in `docs/spec/briefings.md` and the file map, each found by its own test.
+- landing: 5 min.
+
+Bottleneck: the briefings spec counts its prose guides in words in three places, and the test names one at a time.

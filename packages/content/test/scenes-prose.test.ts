@@ -128,8 +128,10 @@ const STILL_PROSE = [
   // And THE LAMPREY (§41), a twenty-sixth time: the jaw is undrawn, and the
   // guide says which seat pins and which taps, and when they swap.
   "THE LAMPREY",
-  // THE MIMIC (§42) is not here: the owner, 5 October 2026, *I want this boss
-  // to have no tutorial*, and its help is said on the field instead.
+  // And THE MIMIC (§42), a twenty-seventh time: the owner took its guide
+  // off on 5 October 2026 and asked for one back on the 6th, *briefly
+  // explains what has to be done*; the guide says who reads and who taps.
+  "THE MIMIC",
 ];
 
 const guided = WAVES.filter((w) => w.guide);

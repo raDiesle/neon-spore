@@ -30,7 +30,10 @@ import type { Wave } from "../wave-types.js";
  * thirds of what it was — a three square 24 beats where it was 36, a five
  * 37 where it was 56, a split three 29 where it was 44, the core 7 where it
  * was 10 — and the new sizes are cut to the same measure. No panel and no
- * SLOW: the windows are in plain beats.
+ * SLOW: the windows are in plain beats. **A worded guide opens it** (the
+ * owner, 6 October 2026: *add a tutorial guide at the start of the wave
+ * that briefly explains what has to be done*), and while it plays the
+ * siren top right says whose turn it is (`render/comms-mimic.ts`).
  */
 export const WAVES_ACT_14: Wave[] = [
   {
@@ -59,6 +62,11 @@ export const WAVES_ACT_14: Wave[] = [
   {
     id: "theMimic",
     name: "THE MIMIC",
+    guide: {
+      both: "One of you sees a picture of tiles. The other taps it into the frame. The siren top right says whose turn it is.",
+      p1: "1. First you see the picture: tell the other which tiles.\n2. Then tap the tiles the other tells you.\n3. Last, each of you sees one half and taps the other half.",
+      p2: "1. First tap the tiles the other tells you.\n2. Then you see the picture: tell the other which tiles.\n3. Last, each of you sees one half and taps the other half.",
+    },
     entries: [],
     boss: {
       kind: "mimic",

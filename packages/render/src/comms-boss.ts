@@ -1,5 +1,6 @@
 import { antiphonBoss, antiphonExplainer, flueBoss, type World } from "@neon-spore/sim";
 import type { CommsCall } from "./comms.js";
+import { mimicCall, mimicDuty, mimicSirenUp } from "./comms-mimic.js";
 import type { ViewRole } from "./view-role.js";
 
 /**
@@ -41,14 +42,16 @@ function flueUp(world: World): boolean {
 }
 
 /** Whether the siren stands top right for this boss rather than top centre:
- * THE FLUE's own picture holds the middle of the top (`siren.ts`). */
+ * THE FLUE's own picture holds the middle of the top (`siren.ts`), and THE
+ * MIMIC's body hangs there (`comms-mimic.ts`). */
 export function bossSirenRight(world: World): boolean {
-  return flueUp(world);
+  return flueUp(world) || mimicSirenUp(world);
 }
 
 /** The explainer's chip lit, or null with no such boss up. */
 export function bossCall(world: World): CommsCall | null {
   if (flueUp(world)) return { p1: true, p2: false };
+  if (mimicSirenUp(world)) return mimicCall(world);
   const e = explainer(world);
   return e === null ? null : { p1: e === 1, p2: e === 2 };
 }
@@ -59,6 +62,7 @@ export function bossDuty(role: ViewRole, world: World): string | null {
     if (role === "p1") return SAY_WHEN;
     return role === "p2" ? SHOOT_ON_IT : `${SAY_WHEN} · ${SHOOT_ON_IT}`;
   }
+  if (mimicSirenUp(world)) return mimicDuty(role, world);
   const e = explainer(world);
   if (e === null) return null;
   const p1 = e === 1 ? EXPLAIN : CHOOSE;

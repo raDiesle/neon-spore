@@ -2128,6 +2128,7 @@ by hand never moves.
 | `packages/render/src/rub-mark.ts` | **The mark a rub asks with: a red line, and an arrow coming in at it from each side**, the same on every boss |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
 | `packages/render/src/comms-boss.ts` | The siren for a boss whose split is the whole fight: THE ANTIPHON's explainer lit, EXPLAIN SHAPE and CHOOSE SHAPE swapping every level |
+| `packages/render/src/comms-mimic.ts` | THE MIMIC's siren, top right: the reader's chip lit and each seat's job under the dial |
 | `packages/render/src/corner-light.ts` | One rounded light in the bottom-right corner of the sky |
 | `packages/render/src/core-hurt.ts` | **A core's hurt**: a little smaller and brighter for every hit it has taken |
 | `packages/render/src/core-stop.ts` | **Where a bolt meets a core over the middle column**: `coreStopper`, and a body's `Foot` |
