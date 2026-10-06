@@ -33,7 +33,6 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
           "THE LEAD'S STALK",
           "THE WELL'S SEAM",
           "THE VANE'S ARM",
-          "SNAKE'S TAIL",
           "THE LEDGER'S PLUG",
           "THE FLEET'S PLUME",
           "THE LAMPREY'S TAIL",

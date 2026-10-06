@@ -147,7 +147,6 @@ export {
   // What the body has become, off its own length — read by the STATES sheet
   // and the picture, never re-derived from `body.length` (`snake.ts`).
   snakeGrip,
-  snakeLifted,
 } from "./snake.js";
 
 export { snakeCrashed, snakeEnemyAt, snakePointAt, snakeRockAt } from "./snake-arena.js";

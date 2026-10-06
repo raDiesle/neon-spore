@@ -660,7 +660,7 @@ its own. *Never watched at tempo*: whether a shove is a gesture a thumb can
 make on a phone while the other hand is nowhere, and whether one nudge is too
 few.
 
-### Three bodies, three gestures
+### Two bodies, two gestures
 
 The round as first built asked the same four things of the pair from the first
 tile to the last, and a pair that had learned it in round one had learned the
@@ -674,9 +674,8 @@ of beats. `SNAKE_GRIPS` in `snake.ts` is the table and `snakeGrip` reads it.
 
 | Body | Tiles | What is new | Whose hand |
 |---|---|---|---|
-| `crawl` | 3–5 | the four verbs as the round was built | both, on the panel |
-| `gorge` | 6–7 | **the jaws stick.** EAT is a dead button, and its face drops the light that says press me (`snakeMawLit`); player 1 prises them apart on the head itself (`snakeJaws`, `snakeJawsMilli`) | player 1, on the body |
-| `shed` | 8+ | **the tail drags.** Player 2 may lift its last `snakeTailTiles` clear with a thumb on it (`snakeTail`); the head passes through where they stood | player 2, on the body |
+| `crawl` | up to `snakeGorgeTiles` | the four verbs as the round was built | both, on the panel |
+| `gorge` | past it | **the jaws stick.** EAT is a dead button, and its face drops the light that says press me (`snakeMawLit`); player 1 prises them apart on the head itself (`snakeJaws`, `snakeJawsMilli`) | player 1, on the body |
 
 **The jaws are the same window under another hand.** A prise opens the mouth
 for `snakeMawTicks` and rests for `snakeMawRestTicks`, exactly as the press
@@ -684,65 +683,55 @@ did — what changes is the gesture, from a button on the band to a carry of a
 tile and a half on the head. It costs player 1 the thumb he fires with, so from
 `gorge` the two things he does stop being two taps and start being a choice.
 
-**The tail is the first thing in this round that makes the body less
-dangerous**, and it costs player 2 the hand she steers with. Her screen is the
-whole body and his is both ends of it, so the tiles she lifts are the ones she
-can see and he cannot — which is the round's own split used once more, in the
-direction it had never been used: everything else she does is on his word, and
-this is the one thing she can see and act on alone. Three tiles of eight, never
-more and never the head: a thumb that lifted the whole length would be a thumb
-that turned the round off.
+**The tail is no longer held, 6 October 2026** (the owner). A third body,
+`shed`, from eight tiles, let player 2 lift the tail's last tiles clear with a
+thumb on them (`snakeTail`, `tailHeld`, `snakeLifted`) so the head could pass
+through where they stood. The owner took the hold out of the round: past
+`snakeGorgeTiles` the body stays `gorge` however long it grows, the tail is
+always on the board, and a head driven into it is a crash like any other.
 
 **Nothing new can lose the round.** A prise too short, a prise while the mouth
-is still open, a thumb on the tail while the body is short — each does nothing
+is still open, a thumb on the neck from the driver — each does nothing
 at all. The four ways to crash are the four there were.
 
-**Where the hands live.** `snake-controls.ts` hears both, beside the four
-verbs, and refuses each to the seat it does not belong to — the same rule of
-the simulation, and for the same reason. `SnakeState` gained one field,
-`tailHeld`, hashed in `snake-hash.ts`; `snakeLifted` in `snake.ts` is the one
-place that turns it into a count of tiles, so the step and the picture cannot
-disagree about which tiles the head may pass through. The three events —
-`snakePrise`, `snakeLift`, `snakeDrop` — are `events-snake.ts`, the round's
-first, cued by `bind-snake-body.ts` and voiced by `sounds/boss-snake-body.ts`.
+**Where the hand lives.** `snake-controls.ts` hears the prise beside the four
+verbs, and refuses it to the driver — the same rule of the simulation, and
+for the same reason. Its events — `snakePrise`, and `snakeRefuse` for the
+driver's thumb — are `events-snake.ts`, the round's first; the prise is cued
+by `bind-snake-body.ts` and voiced by `sounds/boss-snake-body.ts`.
 
 **What is not built: the body under the hands** (read against the tree 23
-September 2026). The rings ship (below), each shown only while its grip is
-live, and the director's STATES sheet poses all three of `crawl`, `gorge` and
-`shed` — `OWED` is empty. Three things remain. The head's own jaws are drawn
-the same whether they stick or not — only the ring on the neck and the field's
-`CARRY` say so (`boss-cue-read-g.ts`); the
-lifted tiles are drawn on the arena where they no longer are, since nothing in
-`render/` reads `snakeLifted` or `tailHeld` but the ring; and `snakePrise`,
-`snakeLift` and `snakeDrop` are on both silent lists
+September 2026). The ring ships (below), shown only while its grip is live,
+and the director's STATES sheet poses both `crawl` and `gorge` — `OWED` is
+empty. Two things remain. The head's own jaws are drawn the same whether they
+stick or not — only the ring on the neck and the field's `CARRY` say so
+(`boss-cue-read-g.ts`); and `snakePrise` is on both silent lists
 (`effects-ingest-silent-boss-b.ts`, `effects-spark-silent-boss-b.ts`). *Never
 watched at tempo*: whether a carry on the head is a gesture a thumb can make
 while the body is moving at under half a second a tile.
 
-**Both rings ship, and the other seat's fills nothing, 22 September 2026**
-(`render/snake-grip.ts`). His on the neck one tile behind the head, hers on the
-last joint of the tail, both sliding with the body and both drawn on both
-screens — each of the two is a thing the *other* seat is waiting on, and
-neither can feel a thumb that is not theirs. What the dim copy may not do is
-**cut**: a ring fills its circle in the background colour before its own, so on
-a round whose handles are on the animal itself the copy came out a bite taken
-out of the snake, at the head or at the tail, which is the one thing a gap in
-this body could mean. It fills nothing now (`theirs`, `handle-draw.ts`), and
+**The ring ships, and the other seat's copy fills nothing, 22 September
+2026** (`render/snake-grip.ts`). His on the neck one tile behind the head,
+sliding with the body and drawn on both screens — the open mouth is a thing
+the driver is waiting on, and she cannot feel his thumb. (Hers on the tail's
+last joint went with the hold, 6 October 2026.) What the dim copy may not do
+is **cut**: a ring fills its circle in the background colour before its own,
+so on a round whose handle is on the animal itself the copy came out a bite
+taken out of the snake, which is the one thing a gap in this body could
+mean. It fills nothing now (`theirs`, `handle-draw.ts`), and
 `render/test/handle-hole-bosses.test.ts` counts the discs punched on each
 screen.
 
-**Both answer a touch the way THE INSTAR's marks do, 28 September 2026**
+**It answers a touch the way THE INSTAR's marks do, 28 September 2026**
 (`render/snake-marks.ts`; the owner, 27 September: *the consistent visual
-across all waves*). Whether each is asked is the simulation's —
-`snakeJawsAsks` past `crawl` with the mouth's rest run out, `snakeTailAsks`
-under `shed` — and whose it is never changes. The part asked of this seat
-wears the halo until it is taken (the prise, which starts the rest; her thumb,
-`tailHeld`); the part asked of the partner wears their turning ring and the
-clock. The prise and the lift wash the ring green, and a press from the other
-seat on an asked part is refused once (`snakeRefuse`, the press and never its
-lift) and washes it red — the one round whose rings are drawn on both screens,
-so the one where a thumb can land on the wrong one. A desk press is signed
-with the part's seat (`snakeGripSeat`). A round frame skips `Effects.ingest`,
+across all waves*). Whether the jaws are asked is the simulation's —
+`snakeJawsAsks`, past `crawl` with the mouth's rest run out — and they are
+always the pilot's. On his screen they wear the halo until the prise, which
+starts the rest; on hers his turning ring and the clock. The prise washes the
+ring green, and her press on it is refused once (`snakeRefuse`, the press and
+never its lift) and washes it red — the ring is drawn on both screens, so her
+thumb can land on it. A desk press is signed with the pilot's seat
+(`snakeGripSeat`). A round frame skips `Effects.ingest`,
 so the takeover feeds the verdicts (`effects-round-marks.ts`).
 
 **The look, rebuilt 18 September 2026.** SNAKE was the last round but THE
@@ -808,10 +797,9 @@ smaller share of a tile at a shorter step, so the mouth gets harder to time
 exactly as the body gets faster, with nothing authored to make it so.
 `snakeMawRestTicks` is the ticks between two openings, never shorter than the
 window, or a tapping thumb holds the jaws apart for the whole round.
-`snakeGorgeTiles` and `snakeShedTiles` are the lengths the second and third
-bodies begin at, `snakeJawsMilli` is how far a thumb has to carry the head for
-a prise to count, and `snakeTailTiles` is how much of the tail comes off the
-arena under her thumb.
+`snakeGorgeTiles` is the length the second body begins at, and
+`snakeJawsMilli` is how far a thumb has to carry the head for a prise to
+count.
 
 **A crash is the wave lost, and the round has no second try of its own.** A
 wall, its own body, a touched enemy or a point reached with the mouth shut is a

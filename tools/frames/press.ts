@@ -120,7 +120,6 @@ const PRESS_KINDS = [
   "snakeFire",
   "snakeMaw",
   "snakeJaws",
-  "snakeTail",
   "scoutTurnLeft",
   "scoutTurnRight",
   "scoutBurn",

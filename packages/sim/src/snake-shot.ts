@@ -1,5 +1,4 @@
 import type { SnakeState } from "./snake.js";
-import { snakeLifted } from "./snake.js";
 import { snakeEnemyAt, snakeOccupies, snakeOnBoard, snakeRockAt } from "./snake-arena.js";
 import type { World } from "./world.js";
 
@@ -66,10 +65,7 @@ export function snakeShotStop(
     // A meteor stops the shot and takes nothing from it. That is the whole of
     // what makes one worth *placing*: it is a wall between the trigger and its
     // target, and the only answer to it is the steering.
-    if (
-      snakeRockAt(snake, col, row) ||
-      snakeOccupies(snake, col, row, false, snakeLifted(world.cfg, snake))
-    ) {
+    if (snakeRockAt(snake, col, row) || snakeOccupies(snake, col, row)) {
       return { col, row, enemy: -1 };
     }
   }

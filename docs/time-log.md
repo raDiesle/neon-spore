@@ -33656,3 +33656,13 @@ Bottleneck: reading 116 rows' prose to place each one under an action rather tha
 Bottleneck: the rows' prose is written for a programmer, so each card's two lines had to be dug out of a paragraph about the simulation.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-06 — SNAKE's tail is no longer held: the round has two bodies, not three
+
+- reading: 10 min. The new-boss-state list read backwards, and every file `tsc` named once the state was gone.
+- writing: 30 min. The sim, render, net, audio, the frames tool, the director rows and pose, six test files, the spec.
+- looking: 0 min. Nothing new is drawn; the ring that went is checked by the frame and grip tests.
+- friction: 5 min. The guard hook refused biome's unsafe fix, and the app was quit mid-lane.
+- landing: 5 min. Two sound counts in `docs/spec/audio.md` were caught by `check:fast`.
+
+Bottleneck: a hold on one boss is registered in about twenty files across five packages, and only `tsc` finds them all.

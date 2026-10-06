@@ -2,20 +2,18 @@ import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import type { PressSpec } from "./spec.js";
 
 /**
- * **SNAKE's two hands on the body, written on the press line.**
+ * **SNAKE's hand on the body, written on the press line.**
  *
  * Past `snakeGorgeTiles` the jaws stick and the pilot prises them apart on the
- * head; past `snakeShedTiles` the tail drags and the navigator lifts it clear
- * (`sim/snake-controls.ts`, `dragHeard`). Neither is a button on anybody's
- * panel — both are a thumb on the body (`render/snake-grip.ts`) — so until 23
- * September 2026 neither could be sent from the command line, and the jaws
- * were only ever photographed shut.
+ * head (`sim/snake-controls.ts`, `dragHeard`). It is not a button on anybody's
+ * panel — it is a thumb on the body (`render/snake-grip.ts`) — so until 23
+ * September 2026 it could not be sent from the command line, and the jaws
+ * were only ever photographed shut. The navigator's tail, held up, was the
+ * second hand until the owner took it out on 6 October 2026.
  *
  *   --press 700:1:snakeJaws            the jaws prised open, on the lift
- *   --press 700:2:snakeTail=30         the tail held up for thirty ticks
- *   --press 700:2:snakeTail=on         held up, and still up in the picture
  *
- * Both are refused by the round outside the grip that has them, which a
+ * The prise is refused by the round outside the grip that has it, which a
  * capture has to reach first: a body grown past the tiles, driven or posed
  * with `--boss grow=…`. A prise on a body still in `crawl` is dropped, the
  * same as it is from a thumb, and the run's `unheard:` line names it.
@@ -32,20 +30,19 @@ import type { PressSpec } from "./spec.js";
  * nothing off the press and refuses a lift that moved less than
  * `snakeJawsMilli`, so the lift here says twice that — a director retune of
  * the threshold would otherwise turn every prise on this line into a thumb
- * resting on the head, with nothing in the frame to say so. The tail reads no
- * travel at all: it is up for exactly as long as the thumb is down.
+ * resting on the head, with nothing in the frame to say so.
  */
 
 const PRISE_MILLI = DEFAULT_CONFIG.snakeJawsMilli * 2;
 
-export function isSnakeHand(kind: string): kind is "snakeJaws" | "snakeTail" {
-  return kind === "snakeJaws" || kind === "snakeTail";
+export function isSnakeHand(kind: string): kind is "snakeJaws" {
+  return kind === "snakeJaws";
 }
 
 export function snakePresses(
   tick: number,
   player: 1 | 2,
-  kind: "snakeJaws" | "snakeTail",
+  kind: "snakeJaws",
   argument: string | undefined,
   one: string,
   whole: string,
@@ -55,20 +52,8 @@ export function snakePresses(
     player,
     command: { kind: "drag", target: kind, on, fromMilli: 0, fromYMilli },
   });
-  if (kind === "snakeJaws") {
-    if (argument !== undefined) {
-      throw new Error(`--press ${whole}: "${one}" — snakeJaws takes no value; a prise is one pull`);
-    }
-    return [drag(tick, true, 0), drag(tick + 1, false, PRISE_MILLI)];
+  if (argument !== undefined) {
+    throw new Error(`--press ${whole}: "${one}" — snakeJaws takes no value; a prise is one pull`);
   }
-  if (argument === "on") return [drag(tick, true, 0)];
-  if (argument === "off") return [drag(tick, false, 0)];
-  const ticks = Number(argument);
-  if (argument === undefined || !Number.isInteger(ticks) || ticks < 1) {
-    throw new Error(
-      `--press ${whole}: "${one}" — snakeTail takes the ticks the tail is held up, e.g. ` +
-        "snakeTail=30, or on and off to write the two halves yourself",
-    );
-  }
-  return [drag(tick, true, 0), drag(tick + ticks, false, 0)];
+  return [drag(tick, true, 0), drag(tick + 1, false, PRISE_MILLI)];
 }

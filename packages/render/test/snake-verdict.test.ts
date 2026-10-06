@@ -12,7 +12,7 @@ import { GripVerdicts } from "../src/grip-verdict.js";
 import { rgba } from "../src/hex.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
-import { snakeGripSeat, snakeJawsCircle, snakeTailCircle } from "../src/snake-grip.js";
+import { snakeGripSeat, snakeJawsCircle } from "../src/snake-grip.js";
 import { drawSnakeAsked, drawSnakeVerdicts, SnakeMarks } from "../src/snake-marks.js";
 import { type Field, touchDown } from "../src/touch.js";
 import {
@@ -28,12 +28,12 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **SNAKE's jaws and tail answer a touch the way THE INSTAR's marks do**
- * (`snake-marks.ts`, `.claude/skills/new-boss` §5): the part asked of this
- * seat wears the halo until it is taken, the part asked of the partner their
- * turning ring and a clock; the prise and the lift wash it green, the other
- * seat's press red; a desk press is signed with the seat the part is asked of;
- * and the verdict reaches the round's screen through the takeover.
+ * **SNAKE's jaws answer a touch the way THE INSTAR's marks do**
+ * (`snake-marks.ts`, `.claude/skills/new-boss` §5): on the pilot's screen they
+ * wear the halo until the prise, on the driver's his turning ring and a clock;
+ * the prise washes them green, her press red; a desk press is signed with the
+ * pilot's seat; and the verdict reaches the round's screen through the
+ * takeover.
  */
 
 beforeAll(installCanvasGlobals);
@@ -42,7 +42,6 @@ const layout = (role: ViewRole): Layout =>
   computeLayout({ width: 420, height: 900, dpr: 2 }, CFG, role);
 
 const GORGE = CFG.snakeGorgeTiles + 1;
-const SHED = CFG.snakeShedTiles + 2;
 
 /** A round in its play with a straight body `tiles` long, and the mouth rested. */
 function playing(tiles: number): { world: World; snake: SnakeState } {
@@ -83,7 +82,7 @@ describe("SNAKE's parts asking", () => {
   it("asks nothing while the body crawls, or once it is folded up", () => {
     for (const role of ROLES) {
       expect(asked(role, CFG.snakeGorgeTiles)).toBe("");
-      expect(asked(role, SHED, (s, w) => (s.crashTick = w.tick))).toBe("");
+      expect(asked(role, GORGE, (s, w) => (s.crashTick = w.tick))).toBe("");
     }
   });
 
@@ -99,18 +98,12 @@ describe("SNAKE's parts asking", () => {
     for (const role of ROLES) expect(asked(role, GORGE, (s, w) => (s.mawTick = w.tick))).toBe("");
   });
 
-  it("under shed: one part each, and the halo leaves the tail her thumb is on", () => {
-    for (const role of ["p1", "p2"] as const) {
-      expect(count(asked(role, SHED), HALO)).toBe(1);
-      expect(count(asked(role, SHED), CLOCK)).toBe(1);
-    }
-    expect(
-      count(
-        asked("p2", SHED, (s) => (s.tailHeld = true)),
-        HALO,
-      ),
-    ).toBe(0);
-    expect(count(asked("test", SHED), HALO)).toBe(2);
+  it("asks nothing of the tail, however long the body", () => {
+    const long = CFG.snakeGorgeTiles + 4;
+    expect(count(asked("p1", long), HALO)).toBe(1);
+    expect(count(asked("p2", long), HALO)).toBe(0);
+    expect(count(asked("p2", long), CLOCK)).toBe(1);
+    expect(count(asked("test", long), HALO)).toBe(1);
   });
 });
 
@@ -135,7 +128,7 @@ function field(world: World, seat: 1 | 2): Field {
 
 describe("a press on the wrong seat's part", () => {
   it("is handed through with no hold, so the simulation can refuse it", () => {
-    const { world, snake } = playing(SHED);
+    const { world, snake } = playing(GORGE);
     const l = layout("p2");
     const jaws = snakeJawsCircle(l, CFG, snake, world.tick);
     if (jaws === null) throw new Error("no neck");
@@ -145,32 +138,26 @@ describe("a press on the wrong seat's part", () => {
     expect(touch?.hold).toBeNull();
   });
 
-  it("at a desk is signed with the part's own seat instead", () => {
-    const { world, snake } = playing(SHED);
+  it("at a desk is signed with the pilot's seat instead", () => {
+    const { world, snake } = playing(GORGE);
     const l = layout("test");
-    const tail = snakeTailCircle(l, CFG, snake, world.tick);
     const jaws = snakeJawsCircle(l, CFG, snake, world.tick);
-    if (tail === null || jaws === null) throw new Error("no body");
-    expect(snakeGripSeat(l, tail.x, tail.y, field(world, 1))).toBe(2);
+    if (jaws === null) throw new Error("no body");
     expect(snakeGripSeat(l, jaws.x, jaws.y, field(world, 2))).toBe(1);
-    const touch = deskDown(l, tail.x, tail.y, [1, 2], (seat) => field(world, seat));
-    expect(touch?.player).toBe(2);
+    const touch = deskDown(l, jaws.x, jaws.y, [2, 1], (seat) => field(world, seat));
+    expect(touch?.player).toBe(1);
     expect(touch?.hold).not.toBeNull();
   });
 });
 
 const prised: SimEvent = { type: "snakePrise", col: 4, row: 3 };
-const lifted: SimEvent = { type: "snakeLift", col: 4, row: 3 + SHED - 1 };
 const refused: SimEvent = { type: "snakeRefuse", col: 4, row: 3, part: "jaws", player: 2 };
 
 describe("SNAKE's verdict on a touch", () => {
-  it("keeps each part's verdict under its key, fades it and forgets it on reset", () => {
+  it("keeps the jaws' verdict, fades it and forgets it on reset", () => {
     const marks = new SnakeMarks();
     marks.ingest([prised]);
     expect(marks.verdicts.at(0)?.good).toBe(true);
-    expect(marks.verdicts.at(1)).toBeNull();
-    marks.ingest([lifted]);
-    expect(marks.verdicts.at(1)?.good).toBe(true);
     marks.ingest([refused]);
     expect(marks.verdicts.at(0)?.good).toBe(false);
     marks.update(1);
@@ -181,19 +168,17 @@ describe("SNAKE's verdict on a touch", () => {
   });
 
   function verdicts(role: ViewRole, key: number, good: boolean, folded = false): string {
-    const { world, snake } = playing(SHED);
+    const { world, snake } = playing(GORGE);
     if (folded) snake.crashTick = world.tick;
     const v = new GripVerdicts();
     v.mark(key, good);
     return drawn(role, (ctx, l) => drawSnakeVerdicts(ctx, l, CFG, snake, world.tick, v));
   }
 
-  it("rings each part on every screen, since both screens draw both parts", () => {
+  it("rings the jaws on every screen, since both screens draw them", () => {
     for (const role of ROLES) {
-      for (const key of [0, 1]) {
-        expect(count(verdicts(role, key, true), PALETTE.good)).toBeGreaterThan(0);
-        expect(count(verdicts(role, key, false), PALETTE.red)).toBeGreaterThan(0);
-      }
+      expect(count(verdicts(role, 0, true), PALETTE.good)).toBeGreaterThan(0);
+      expect(count(verdicts(role, 0, false), PALETTE.red)).toBeGreaterThan(0);
     }
   });
 
@@ -203,7 +188,7 @@ describe("SNAKE's verdict on a touch", () => {
 
   /** Nine ticks of the round in its play, `said` thrown on the first. */
   function frames(role: ViewRole, said: SimEvent[]): string {
-    const { world } = playing(SHED);
+    const { world } = playing(GORGE);
     const log: string[] = [];
     runFrames(world, role, 9, {
       every: 3,

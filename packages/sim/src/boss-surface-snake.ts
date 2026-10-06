@@ -18,8 +18,7 @@ export {
   type SnakeRound,
   type SnakeState,
   type SnakeTile,
-  // What the body has become, and how much of its tail is off the arena while
-  // player 2's thumb is on it — read, never re-derived from `body.length`
+  // What the body has become — read, never re-derived from `body.length`
   // (`snake.ts`, `docs/spec/interludes.md`).
   snakeCrashed,
   // What is standing on a tile and where a shot would stop: the field's own
@@ -33,7 +32,6 @@ export {
   snakeGoingHome,
   snakeGrip,
   snakeHolds,
-  snakeLifted,
   snakePointAt,
   snakeResting,
   snakeRockAt,
@@ -41,9 +39,9 @@ export {
   snakeShotStop,
   snakeStepTicks,
 } from "./bosses.js";
-// Which of the body's two parts is asked of a hand, which its rings read
+// Whether the jaws are asked of the pilot's hand, which their ring reads
 // (`render/snake-marks.ts`).
-export { snakeJawsAsks, snakeTailAsks } from "./snake-controls.js";
+export { snakeJawsAsks } from "./snake-controls.js";
 // Whether a turn sent now is taken where the head stands or one tile on,
 // which a hand planning a corner has to know (`snake-move.ts`, `turnSnake`).
 export { snakeTurnsHere } from "./snake-move.js";

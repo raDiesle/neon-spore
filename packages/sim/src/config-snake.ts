@@ -39,15 +39,6 @@ export interface SnakeConfig {
    */
   snakeGorgeTiles: number;
   /**
-   * And the length `shed` begins at, where the tail starts dragging.
-   *
-   * 14, which is four points in. Round three authors five, so the last state of
-   * the body is on the way to winning the round rather than off the end of it
-   * — and the two rounds before it never reach it, which is what makes the
-   * third one feel like the third one.
-   */
-  snakeShedTiles: number;
-  /**
    * How far player 1's thumb has to carry the head, in thousandths of a tile,
    * for the lift to read as prising the jaws rather than brushing them.
    *
@@ -57,15 +48,6 @@ export interface SnakeConfig {
    * did not change when the arena's tiles halved.
    */
   snakeJawsMilli: number;
-  /**
-   * Tiles of the tail lifted clear while player 2's thumb is on it, under
-   * `shed`.
-   *
-   * 6, against a body of sixteen by then: enough that the corner she is about to
-   * cut is passable, and far short of the body — a thumb that lifted the whole
-   * length would be a thumb that turned the round off.
-   */
-  snakeTailTiles: number;
   /**
    * Ticks the mouth stands open on one press.
    *
@@ -133,9 +115,7 @@ export const SNAKE_DEFAULTS: SnakeConfig = {
   snakeStartTiles: 6,
   snakeGrowTiles: 2,
   snakeGorgeTiles: 10,
-  snakeShedTiles: 14,
   snakeJawsMilli: 1500,
-  snakeTailTiles: 6,
   // Fourteen tenths of a second, about four steps in the first round and six
   // by the last. It was half a second, then seven tenths, and the owner asked
   // each time for a mouth that stands open longer (last on 29 September 2026,

@@ -52,15 +52,4 @@ describe("--press, SNAKE's three and its two hands", () => {
     expect(() => parsePress("700:2:snakeJaws", SNAKE)).toThrow(/player 1's/);
     expect(() => parsePress("700:1:snakeJaws=3", SNAKE)).toThrow(/no value/);
   });
-
-  it("holds the tail up for the ticks asked, or leaves it up, from the navigator's seat", () => {
-    const held = parsePress("700:2:snakeTail=30", SNAKE);
-    expect(held.map((p) => [p.tick, p.command.on])).toEqual([
-      [700, true],
-      [730, false],
-    ]);
-    expect(parsePress("700:2:snakeTail=on", SNAKE)).toHaveLength(1);
-    expect(() => parsePress("700:1:snakeTail=30", SNAKE)).toThrow(/player 2's/);
-    expect(() => parsePress("700:2:snakeTail", SNAKE)).toThrow(/ticks the tail/);
-  });
 });

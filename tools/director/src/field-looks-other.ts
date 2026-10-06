@@ -31,10 +31,6 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "A ring on the tip of the sweeping arm, travelling with it, haloed on the pilot's screen from VEER on.",
     move: "The arm stops in its column under the thumb and the housing splits over that column; green as it lands, torn free after its count.",
   },
-  "SNAKE'S TAIL": {
-    find: "A ring on the last joint of the tail, sliding with the body, haloed on the navigator's screen.",
-    move: "The end of the body lifts clear of the board while she holds, so the head may cross it.",
-  },
   "THE LEDGER'S PLUG": {
     find: "A ring above the grommet once the cord is in, on the navigator's screen, with a breathing halo until her thumb is in.",
     move: "The plug goes in green; the ring's dial drains the fight's ration of plugging while the thumb stays.",

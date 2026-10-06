@@ -4,7 +4,7 @@ import { createWorld, snakeCrashed, startWave, ticksPerBeat } from "@neon-spore/
 import { computeLayout, computeStage, type ViewRole, worldLayout } from "../src/layout.js";
 import { snakeMawLit } from "../src/snake-button.js";
 import { snakeArena } from "../src/snake-draw.js";
-import { snakeJawsCircle, snakeTailCircle } from "../src/snake-grip.js";
+import { snakeJawsCircle } from "../src/snake-grip.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -97,8 +97,8 @@ describe("SNAKE draws on all three screens", () => {
   }
 
   /**
-   * **The two hands the body grows** (`snake-grip.ts`), in the frame they are
-   * drawn in.
+   * **The hand the body grows** (`snake-grip.ts`), in the frame it is drawn
+   * in.
    *
    * A held ring is the one thing in this picture with a dial on it, so what
    * this asks is not that the frame survived — every case above already asks
@@ -108,7 +108,7 @@ describe("SNAKE draws on all three screens", () => {
    * a layout taken from the window is a pixel and a half out, which is near
    * enough to look right in a picture and far enough to be a lie in a test.
    */
-  it("draws both rings on the body they are taken on", () => {
+  it("draws the ring on the body it is taken on", () => {
     const stage = computeStage(VIEWPORT);
     const world = createWorld(CFG, 7, []);
     startWave(world, index, [], [], buildBoss(index, CFG.cols));
@@ -121,17 +121,15 @@ describe("SNAKE draws on all three screens", () => {
     boss.phase = "play";
     boss.dirCol = 0;
     boss.dirRow = -1;
-    boss.body = Array.from({ length: CFG.snakeShedTiles + 2 }, (_, i) => ({ col: 4, row: 3 + i }));
+    boss.body = Array.from({ length: CFG.snakeGorgeTiles + 2 }, (_, i) => ({ col: 4, row: 3 + i }));
     boss.stepTick = world.tick;
-    // Both held, which is the only state either ring draws its dial in: the
-    // mouth **standing** open — half way through its window rather than on the
-    // tick it was opened, where the gape is still nought (`snake-clock.ts`) —
-    // and her thumb down on the tail.
+    // Held, which is the only state the ring draws its dial in: the mouth
+    // **standing** open — half way through its window rather than on the tick
+    // it was opened, where the gape is still nought (`snake-clock.ts`).
     boss.mawTick = world.tick - Math.floor(CFG.snakeMawTicks / 2);
-    boss.tailHeld = true;
     const log: string[] = [];
     // Nothing stepped between the arrangement and the picture: a body that
-    // moved would take both rings with it.
+    // moved would take the ring with it.
     runFrames(world, "test", 1, {
       every: 1,
       onTick: () => {},
@@ -139,18 +137,14 @@ describe("SNAKE draws on all three screens", () => {
         c.log = log;
       },
     });
-    for (const at of [
-      snakeJawsCircle(l, CFG, boss, world.tick),
-      snakeTailCircle(l, CFG, boss, world.tick),
-    ]) {
-      if (at === null) throw new Error("a body with no handle on it");
-      expect(dialAt(log, at)).toBe(true);
-    }
+    const at = snakeJawsCircle(l, CFG, boss, world.tick);
+    if (at === null) throw new Error("a body with no handle on it");
+    expect(dialAt(log, at)).toBe(true);
   });
 
   // MAW's face says *press me* only while the press is heard: past
-  // `snakeGorgeTiles` the jaws stick and `snakeHeard` refuses it, under
-  // `gorge` and `shed` alike.
+  // `snakeGorgeTiles` the jaws stick and `snakeHeard` refuses it, however
+  // long the body grows.
   it("darkens the MAW face once the jaws stick", () => {
     const world = createWorld(CFG, 7, []);
     startWave(world, index, [], [], buildBoss(index, CFG.cols));
@@ -163,7 +157,7 @@ describe("SNAKE draws on all three screens", () => {
     };
     expect(lit(CFG.snakeGorgeTiles)).toBe(true);
     expect(lit(CFG.snakeGorgeTiles + 1)).toBe(false);
-    expect(lit(CFG.snakeShedTiles + 1)).toBe(false);
+    expect(lit(CFG.snakeGorgeTiles + 20)).toBe(false);
   });
 
   // The arena is every pixel the round has: the field's own width, or the

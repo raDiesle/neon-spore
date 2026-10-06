@@ -158,12 +158,10 @@ export const INGEST_SILENT_BOSS_B = [
   // And the pin a shot knocks out: its blow is `BossBlows`', dealt above this
   // loop (`boss-blows.ts`), and the pins left are read off the world.
   "vaneKnock",
-  // SNAKE's two hands on its own body, silent until the look lane draws
-  // them: the jaws are the mouth's own window, read off `mawTick` every
-  // frame, and the lifted tail is `tailHeld` (`sim/snake-controls.ts`).
+  // SNAKE's hand on its own body, silent until the look lane draws it: the
+  // jaws are the mouth's own window, read off `mawTick` every frame
+  // (`sim/snake-controls.ts`).
   "snakePrise",
-  "snakeLift",
-  "snakeDrop",
   // PINBALL's two hands, drawn since 22 September 2026 and still silent: a
   // slack spring and a spent nudge are state, read off `slack` and `nudges`
   // every frame and put on the rings themselves (`pinball-grip.ts`).

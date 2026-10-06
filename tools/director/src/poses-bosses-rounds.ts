@@ -199,21 +199,6 @@ export const ROUND_BOSS_POSES: Pose[] = [
   ),
   bossPose(
     "snake",
-    "shed",
-    "Fifteen tiles of body and the tail is dragging. P1 still prises the jaws; P2 turns it at the wall.",
-    {
-      ...FULL,
-      hand: snakeHand,
-      want: (w) =>
-        w.boss?.kind === "snake" && w.boss.phase === "play" && snakeGrip(w.cfg, w.boss) === "shed",
-      hold: 12,
-      // Fifteen tiles is the third arena, and each arena ends with the body
-      // going home and coming out again (`sim/snake-home.ts`).
-      budgetBeats: 140,
-    },
-  ),
-  bossPose(
-    "snake",
     "verdict",
     "The snake is into a wall and the board holds the moment. P1 waits; P2 waits.",
     { ...FULL, hold: 6 },

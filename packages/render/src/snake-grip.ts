@@ -4,7 +4,6 @@ import {
   snakeCrashed,
   snakeGrip,
   snakeJawsAsks,
-  snakeTailAsks,
 } from "@neon-spore/sim";
 import { drawHandleRing, handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
@@ -16,31 +15,28 @@ import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
 /**
- * **SNAKE's two hands on its own body**: the pilot prising the stuck jaws open
- * and the driver holding the dragging tail clear (`sim/snake-controls.ts`,
- * `docs/spec/interludes.md`, SNAKE's *Three bodies, three gestures*).
+ * **SNAKE's hand on its own body**: the pilot prising the stuck jaws open
+ * (`sim/snake-controls.ts`, `docs/spec/interludes.md`, SNAKE's *Two bodies,
+ * two gestures*). The driver's thumb holding the tail clear was the second
+ * hand until the owner took it out on 6 October 2026.
  *
- * Both shipped in the simulation on 18 September 2026 with nothing on either
+ * It shipped in the simulation on 18 September 2026 with nothing on either
  * screen to take hold of: past `snakeGorgeTiles` the MAW press goes dead and
- * the mouth becomes a thing to be pulled open, past `snakeShedTiles` the tail
- * may be lifted — and neither the head nor the tail has carried a mark saying
- * so. The look is exempt under *a look with no shipped alternative*: there was
- * no drawing of either control to run a candidate against.
+ * the mouth becomes a thing to be pulled open, and the head carried no mark
+ * saying so. The look is exempt under *a look with no shipped alternative*.
  *
- * **The body grows its own controls**, which is what makes these two unlike
- * every handle on a field. A boss hands out a handle when it is losing; this
- * round hands them out when the pair is *winning* — the body is long because
- * it has eaten — so a frame with two rings on it is a frame of a round going
- * well and about to become unplayable without them.
+ * **The body grows its own control**, which is what makes it unlike every
+ * handle on a field. A boss hands out a handle when it is losing; this round
+ * hands it out when the pair is *winning* — the body is long because it has
+ * eaten.
  *
- * **Neither ring covers what the pair is reading.** `drawHandleRing` fills
+ * **The ring does not cover what the pair is reading.** `drawHandleRing` fills
  * opaquely, and the head is the muzzle, the mouth and the heading all at once —
  * the one thing on this arena both seats aim with. So the pilot's ring sits a
- * tile back, on the first segment of the neck: his thumb lands behind the jaws and pulls,
- * which is what prising them apart is. Hers is on the tail's last joint, where
- * there is nothing else drawn at all.
+ * tile back, on the first segment of the neck: his thumb lands behind the jaws
+ * and pulls, which is what prising them apart is.
  *
- * **Both ride the slide.** The body steps a whole tile at a time and the
+ * **It rides the slide.** The body steps a whole tile at a time and the
  * picture carries it the whole way there between steps (`snake-body.ts`), so a
  * circle placed on the stored tiles would be up to a tile behind the thing it
  * is drawn on — which is why `Field` carries a tick now and not only a beat.
@@ -79,18 +75,6 @@ export function snakeJawsCircle(
   return neck === undefined ? null : { x: neck.x, y: neck.y, r: ringRadius(l, cfg, arena) };
 }
 
-/** The driver's circle: on the last joint of the tail she is lifting. */
-export function snakeTailCircle(
-  l: Layout,
-  cfg: SimConfig,
-  snake: SnakeState,
-  tick: number,
-): Circle | null {
-  const { arena, at } = joints(l, cfg, snake, tick);
-  const tail = at[at.length - 1];
-  return tail === undefined ? null : { x: tail.x, y: tail.y, r: ringRadius(l, cfg, arena) };
-}
-
 /**
  * Whether there is a body on the arena at all: playing, and not folded up
  * against whatever stopped it. Nothing player 1 has works through a crash
@@ -102,13 +86,11 @@ export function snakeAfoot(snake: SnakeState): boolean {
 }
 
 /**
- * The press on whichever of the two is asked, from either seat. Which seat
- * each is asked of is the simulation's (`snakeJawsAsks`, `snakeTailAsks`): the
- * prise is the pilot's and the lift is the driver's, and the split is the
- * round's whole content. **A press from the other seat is handed through with
- * no hold**, so the sim can refuse it once and the ring wash red
- * (`snake-marks.ts`) — both rings are drawn on both screens, so a thumb can
- * land on the wrong one.
+ * The press on the jaws while they are asked, from either seat. Whether they
+ * are asked is the simulation's (`snakeJawsAsks`), and the prise is the
+ * pilot's. **A press from the other seat is handed through with no hold**, so
+ * the sim can refuse it once and the ring wash red (`snake-marks.ts`) — the
+ * ring is drawn on both screens, so her thumb can land on it.
  */
 export function snakeGripUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const snake = bossOf(field, "snake");
@@ -116,19 +98,14 @@ export function snakeGripUnder(l: Layout, x: number, y: number, field: Field): T
   const { cfg, seat, tick } = field;
   if (snakeJawsAsks(cfg, snake, tick)) {
     const at = snakeJawsCircle(l, cfg, snake, tick);
-    if (at !== null && hitCircle(at, x, y)) return grab("snakeJaws", seat, seat === 1, x, y);
-  }
-  if (snakeTailAsks(cfg, snake)) {
-    const at = snakeTailCircle(l, cfg, snake, tick);
-    if (at !== null && hitCircle(at, x, y)) return grab("snakeTail", seat, seat === 2, x, y);
+    if (at !== null && hitCircle(at, x, y)) return grab(seat, seat === 1, x, y);
   }
   return null;
 }
 
 /**
- * The seat a press on an asked part belongs to, so one mouse at a desk takes
- * the driver's tail rather than having it refused as the pilot's
- * (`desk-grab.ts` `markSeat`): the jaws are always his and the tail hers.
+ * The seat a press on the asked jaws belongs to, so one mouse at a desk takes
+ * them as the pilot's (`desk-grab.ts` `markSeat`): the jaws are always his.
  */
 export function snakeGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
   const snake = bossOf(field, "snake");
@@ -136,18 +113,11 @@ export function snakeGripSeat(l: Layout, x: number, y: number, field: Field): 1 
   const { cfg, tick } = field;
   const jaws = snakeJawsAsks(cfg, snake, tick) ? snakeJawsCircle(l, cfg, snake, tick) : null;
   if (jaws !== null && hitCircle(jaws, x, y)) return 1;
-  const tail = snakeTailAsks(cfg, snake) ? snakeTailCircle(l, cfg, snake, tick) : null;
-  if (tail !== null && hitCircle(tail, x, y)) return 2;
   return undefined;
 }
 
-function grab(
-  target: "snakeJaws" | "snakeTail",
-  player: 1 | 2,
-  owns: boolean,
-  x: number,
-  y: number,
-): Touch {
+function grab(player: 1 | 2, owns: boolean, x: number, y: number): Touch {
+  const target = "snakeJaws";
   return {
     player,
     command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 },
@@ -156,19 +126,19 @@ function grab(
 }
 
 /**
- * Both rings, drawn from the round with the body so the body and the hands on
- * it are one drawing.
+ * The ring, drawn from the round with the body so the body and the hand on it
+ * are one drawing.
  *
- * **Each is drawn on both screens, yours bright and theirs dim**, the bargain
- * `sinew-handles.ts` made: neither seat can feel the other's thumb, and each of
- * these two is a thing the other seat is waiting on.
+ * **It is drawn on both screens, his bright and hers dim**, the bargain
+ * `sinew-handles.ts` made: she cannot feel his thumb, and the open mouth is a
+ * thing she is waiting on.
  *
  * **The dim copy fills nothing** (`theirs`, `handle-draw.ts`, 22 September
  * 2026). A ring punches its circle out of the background before it draws its
- * own colour, so it reads over whatever it is standing on — and both of these
- * stand on the body. The seat that may not press one cannot see the wash
- * inside it, so the disc came out a bite taken out of the snake, at the head
- * or at the tail, which is the one thing on this field a bite means. Theirs is
+ * own colour, so it reads over whatever it is standing on — and this one
+ * stands on the body. The seat that may not press it cannot see the wash
+ * inside it, so the disc came out a bite taken out of the snake, which is the
+ * one thing on this field a bite means. Theirs is
  * its rim and its wash now, over the segment, and it cuts nothing.
  *
  * **The pilot's stays up through the mouth's rest**, drawn `held` for as long
@@ -186,16 +156,9 @@ export function drawSnakeGrips(
   tick: number,
   time: number,
 ): void {
-  if (!snakeAfoot(snake)) return;
-  const grip = snakeGrip(cfg, snake);
-  if (grip !== "crawl") {
-    const at = snakeJawsCircle(l, cfg, snake, tick);
-    if (at !== null) ring(ctx, at, l, 1, gape(cfg, tick, snake) > 0, time);
-  }
-  if (grip === "shed") {
-    const at = snakeTailCircle(l, cfg, snake, tick);
-    if (at !== null) ring(ctx, at, l, 2, snake.tailHeld, time);
-  }
+  if (!snakeAfoot(snake) || snakeGrip(cfg, snake) === "crawl") return;
+  const at = snakeJawsCircle(l, cfg, snake, tick);
+  if (at !== null) ring(ctx, at, l, 1, gape(cfg, tick, snake) > 0, time);
 }
 
 function ring(

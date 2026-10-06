@@ -43,10 +43,8 @@ export type AddedEvent = Extract<
       | "vaneRefuse"
       // And the pin a shot knocks out, which is not a hand but is this boss's.
       | "vaneKnock"
-      // And SNAKE's two, the first a *round* has had.
+      // And SNAKE's prise, the first a *round* has had.
       | "snakePrise"
-      | "snakeLift"
-      | "snakeDrop"
       // And PINBALL's two, the second round to get a hand on its picture.
       | "pinWind"
       | "pinNudge"
@@ -91,8 +89,6 @@ const ADDED_EVENTS = new Set<string>([
   "vaneRefuse",
   "vaneKnock",
   "snakePrise",
-  "snakeLift",
-  "snakeDrop",
   "pinWind",
   "pinNudge",
   "pinTilt",
@@ -134,8 +130,6 @@ export function addedCue(e: AddedEvent, cols: number): Cue {
     case "vaneKnock":
       return vaneCue(e, cols);
     case "snakePrise":
-    case "snakeLift":
-    case "snakeDrop":
       return snakeBodyCue(e, cols);
     case "pinWind":
     case "pinNudge":

@@ -38,10 +38,9 @@ import { CONTROLS, controlPress, controlSetForWave } from "@neon-spore/content";
  * - `tapTile` is a square of the field, THE MINE's and THE MIMIC's, and
  *   either seat's: who owes one moves with the script, and the simulation
  *   drops the press of a seat that does not (`sim/mimic-hand.ts`).
- * - `snakeJaws` and `snakeTail` are SNAKE's **hands on the body** — the head
- *   prised open, the tail lifted clear (`render/snake-grip.ts`) — and the
- *   round refuses each from the other seat (`sim/snake-controls.ts`): the
- *   jaws are the pilot's, the tail the navigator's.
+ * - `snakeJaws` is SNAKE's **hand on the body** — the head prised open
+ *   (`render/snake-grip.ts`) — and the round refuses it from the navigator's
+ *   seat (`sim/snake-controls.ts`): the jaws are the pilot's.
  *
  * SNAKE's two buttons are **not** here — `snakeFire` and `snakeMaw` are buttons on the
  * pilot's panel and `seatsOnPanel` finds them — but they were missing from the
@@ -59,7 +58,6 @@ const OFF_PANEL_SEAT: Record<string, 1 | 2 | "either"> = {
   shake: 1,
   tapTile: "either",
   snakeJaws: 1,
-  snakeTail: 2,
 };
 
 /**

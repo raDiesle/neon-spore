@@ -2,11 +2,9 @@ import { describe, expect, it } from "bun:test";
 import {
   createWorld,
   DEFAULT_CONFIG,
-  hashWorld,
   type SimConfig,
   type SnakeState,
   snakeGrip,
-  snakeLifted,
   snakeRound,
   startWave,
   step,
@@ -18,16 +16,16 @@ import { snakeMawOpen } from "../src/snake-arena.js";
 import { SNAKE_MORPH_BEATS } from "../src/snake-round.js";
 
 /**
- * **What SNAKE's body becomes as it grows**, and the two gestures that come
- * with it (`docs/spec/interludes.md`, SNAKE's *Three bodies, three gestures*).
+ * **What SNAKE's body becomes as it grows**, and the gesture that comes with
+ * it (`docs/spec/interludes.md`, SNAKE's *Two bodies, two gestures*).
  *
  * The body's length was already the difficulty and the health bar at once —
  * a tile per point, and the body is the obstacle. Since 18 September 2026 it
  * is the state as well: past `snakeGorgeTiles` the jaws stick and the MAW
- * press stops working, past `snakeShedTiles` the tail drags and player 2 may
- * lift it clear. Both new hands are on the body itself rather than on the
- * panel, and each is refused to the seat it does not belong to — the rule the
- * round's four verbs are already held to (`snake-controls.ts`).
+ * press stops working. The new hand is on the body itself rather than on the
+ * panel, and is refused to the seat it does not belong to — the rule the
+ * round's four verbs are already held to (`snake-controls.ts`). The tail
+ * player 2 could lift clear went on 6 October 2026.
  *
  * The bodies here are **set** rather than eaten to. That is the one thing this
  * file does that `snake.test.ts` does not: a body of eight tiles is four
@@ -71,7 +69,7 @@ function round(world: World): SnakeState {
 
 /**
  * Stand the body up at `tiles` long, straight down the column it opened in.
- * Head first, so the tail is the far end and `snakeLifted` counts from there.
+ * Head first, so the tail is the far end.
  */
 function lengthen(snake: SnakeState, tiles: number): void {
   const head = snake.body[0];
@@ -91,14 +89,6 @@ const jaws = (milli: number): TimedCommand["command"] => ({
   fromYMilli: milli,
 });
 
-const tail = (on: boolean): TimedCommand["command"] => ({
-  kind: "drag",
-  target: "snakeTail",
-  on,
-  fromMilli: 0,
-  fromYMilli: 0,
-});
-
 describe("what the body has become", () => {
   it("is crawl at the length a round opens on", () => {
     const world = open();
@@ -106,17 +96,15 @@ describe("what the body has become", () => {
     expect(snakeGrip(CFG, round(world))).toBe("crawl");
   });
 
-  it("is gorge past snakeGorgeTiles and shed past snakeShedTiles", () => {
+  it("is gorge past snakeGorgeTiles, and stays gorge however long it grows", () => {
     const world = open();
     const snake = round(world);
     lengthen(snake, CFG.snakeGorgeTiles);
     expect(snakeGrip(CFG, snake)).toBe("crawl");
     lengthen(snake, CFG.snakeGorgeTiles + 1);
     expect(snakeGrip(CFG, snake)).toBe("gorge");
-    lengthen(snake, CFG.snakeShedTiles);
+    lengthen(snake, CFG.snakeGorgeTiles + 20);
     expect(snakeGrip(CFG, snake)).toBe("gorge");
-    lengthen(snake, CFG.snakeShedTiles + 1);
-    expect(snakeGrip(CFG, snake)).toBe("shed");
   });
 });
 
@@ -168,83 +156,34 @@ describe("the jaws, under gorge", () => {
   });
 });
 
-describe("the tail, under shed", () => {
-  it("lifts its last tiles clear of the arena while her thumb is down", () => {
-    const world = open();
-    lengthen(round(world), CFG.snakeShedTiles + 1);
-    expect(snakeLifted(CFG, round(world))).toBe(0);
-    press(world, 2, tail(true));
-    expect(round(world).tailHeld).toBe(true);
-    expect(snakeLifted(CFG, round(world))).toBe(CFG.snakeTailTiles);
-    press(world, 2, tail(false));
-    expect(snakeLifted(CFG, round(world))).toBe(0);
-  });
-
-  it("is refused to the pilot, and to a body that is not shedding", () => {
-    const world = open();
-    lengthen(round(world), CFG.snakeShedTiles + 1);
-    press(world, 1, tail(true));
-    expect(round(world).tailHeld).toBe(false);
-    lengthen(round(world), CFG.snakeShedTiles);
-    press(world, 2, tail(true));
-    expect(round(world).tailHeld).toBe(false);
-  });
-
-  /** Never the whole body: a thumb that lifted all of it would turn the round off. */
-  it("never lifts more than the body has behind its head", () => {
+describe("the tail, which nobody holds", () => {
+  /**
+   * The driver's thumb that lifted the tail clear went on 6 October 2026, and
+   * with it the one way the head could cross the body. A body driven into its
+   * own tail is a crash, and a crash is the wave lost (`snake-move.ts`),
+   * however long the body has grown.
+   */
+  it("crashes a head driven into its own tail, however long the body", () => {
     const world = open();
     const snake = round(world);
-    lengthen(snake, CFG.snakeShedTiles + 1);
-    press(world, 2, tail(true));
-    snake.body = snake.body.slice(0, 1);
-    expect(snakeLifted(CFG, snake)).toBe(0);
-  });
-
-  /**
-   * And the whole of what it buys: the head goes through the tiles the lifted
-   * part is standing on. A body driven into its own tail is a crash, and a
-   * crash is the wave lost (`snake-move.ts`).
-   */
-  it("lets the head pass through where the lifted tail stood", () => {
-    const into = (held: boolean): boolean => {
-      const world = open();
-      const snake = round(world);
-      // A body curled so that the tile straight ahead of the head is near
-      // its own tail: head going up, the body down one column and back up
-      // the next, and the tail brought round in front.
-      const head = snake.body[0];
-      if (!head) throw new Error("a body with no head");
-      snake.dirCol = 0;
-      snake.dirRow = -1;
-      const { col, row } = head;
-      snake.body = [{ col, row }];
-      for (let r = row; r <= row + 4; r++) snake.body.push({ col: col + 1, row: r });
-      for (let r = row + 4; r >= row - 2; r--) snake.body.push({ col: col + 2, row: r });
-      snake.body.push({ col: col + 1, row: row - 2 });
-      snake.body.push({ col, row: row - 2 });
-      snake.body.push({ col, row: row - 1 });
-      snake.body.push({ col: col - 1, row: row - 1 });
-      snake.body.push({ col: col - 1, row });
-      expect(snakeGrip(CFG, snake)).toBe("shed");
-      if (held) press(world, 2, tail(true));
-      for (let i = 0; i < ROUNDS[0]!.stepTicks + 2; i++) step(world, []);
-      return round(world).crashTick >= 0;
-    };
-    // The tile straight ahead is the third from the tail, so it is among the
-    // last `snakeTailTiles` and her thumb takes it off the arena. Driven into
-    // with the tail down it is a crash and the wave lost; with the thumb on it
-    // the head goes through where the tail was standing.
-    expect(into(false)).toBe(true);
-    expect(into(true)).toBe(false);
-  });
-});
-
-describe("her thumb in the fingerprint", () => {
-  it("moves the hash, because it moves which tiles kill", () => {
-    const world = open();
-    lengthen(round(world), CFG.snakeShedTiles + 1);
-    const before = hashWorld(world);
-    press(world, 2, tail(true));
-    expect(hashWorld(world)).not.toBe(before);
+    // A body curled so that the tile straight ahead of the head is the third
+    // from its tail: head going up, the body down one column and back up the
+    // next, and the tail brought round in front.
+    const head = snake.body[0];
+    if (!head) throw new Error("a body with no head");
+    snake.dirCol = 0;
+    snake.dirRow = -1;
+    const { col, row } = head;
+    snake.body = [{ col, row }];
+    for (let r = row; r <= row + 4; r++) snake.body.push({ col: col + 1, row: r });
+    for (let r = row + 4; r >= row - 2; r--) snake.body.push({ col: col + 2, row: r });
+    snake.body.push({ col: col + 1, row: row - 2 });
+    snake.body.push({ col, row: row - 2 });
+    snake.body.push({ col, row: row - 1 });
+    snake.body.push({ col: col - 1, row: row - 1 });
+    snake.body.push({ col: col - 1, row });
+    expect(snakeGrip(CFG, snake)).toBe("gorge");
+    for (let i = 0; i < ROUNDS[0]!.stepTicks + 2; i++) step(world, []);
+    expect(round(world).crashTick).toBeGreaterThanOrEqual(0);
   });
 });

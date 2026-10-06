@@ -81,25 +81,24 @@ function vane(phase: string, pinned = false): World {
   return world;
 }
 
-describe("SNAKE's two rings, on the body they are standing on", () => {
+describe("SNAKE's ring, on the body it is standing on", () => {
   it("punches one for the seat that may press it, and none for the other", () => {
-    // Past `snakeShedTiles` both hands are on offer: his on the jaws, hers on
-    // the tail. A hole in either is a segment of the snake missing, which is
-    // the one thing a gap in this body could mean.
-    const { p1, p2, test } = added(snake(CFG.snakeGorgeTiles - 1), snake(CFG.snakeShedTiles + 2));
+    // Past `snakeGorgeTiles` his hand on the jaws is on offer. A hole in it on
+    // her screen would be a segment of the snake missing, which is the one
+    // thing a gap in this body could mean.
+    const { p1, p2, test } = added(snake(CFG.snakeGorgeTiles - 1), snake(CFG.snakeGorgeTiles + 2));
     expect(p1).toBe(1);
-    expect(p2).toBe(1);
-    expect(test).toBe(2);
+    expect(p2).toBe(0);
+    expect(test).toBe(1);
   });
 
-  it("still draws the other seat's, dimmed", () => {
-    // It stays: neither can feel the other's thumb and each of the two is a
-    // thing the other seat is waiting on (`snake-grip.ts`).
+  it("still draws it on the other seat's screen, dimmed", () => {
+    // It stays: she cannot feel his thumb and the open mouth is a thing she is
+    // waiting on (`snake-grip.ts`).
     const crawling = snake(CFG.snakeGorgeTiles - 1);
-    const shedding = snake(CFG.snakeShedTiles + 2);
+    const gorged = snake(CFG.snakeGorgeTiles + 2);
     const dim = (w: World, role: ViewRole) => drawn(w, role).split(PALETTE.dim).length - 1;
-    expect(dim(shedding, "p1")).toBeGreaterThan(dim(crawling, "p1"));
-    expect(dim(shedding, "p2")).toBeGreaterThan(dim(crawling, "p2"));
+    expect(dim(gorged, "p2")).toBeGreaterThan(dim(crawling, "p2"));
   });
 });
 

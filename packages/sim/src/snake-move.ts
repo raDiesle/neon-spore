@@ -1,6 +1,6 @@
 import { roundStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { type SnakeState, snakeCurrent, snakeLifted } from "./snake.js";
+import { type SnakeState, snakeCurrent } from "./snake.js";
 import {
   snakeCleared,
   snakeEnemyAt,
@@ -168,11 +168,7 @@ function advance(world: World, snake: SnakeState): false | null {
   // The tail is spared unless a point is still being paid out: it moves off
   // its tile on the same step the head arrives, so a body going round its own
   // end is a corner and not a bite.
-  // …and the last `snakeTailTiles` are spared outright while player 2's thumb
-  // is on the tail under `shed`: they are off the arena, and the head goes
-  // through where they were standing (`snakeLifted`).
-  if (snakeOccupies(snake, col, row, snake.grow === 0, snakeLifted(world.cfg, snake)))
-    return crash(world, snake, col, row);
+  if (snakeOccupies(snake, col, row, snake.grow === 0)) return crash(world, snake, col, row);
   // An enemy is a hazard as well as a target, and touching one is the same
   // mistake as a wall: the shot was player 1's to take and nobody took it.
   // A meteor is the same mistake with nobody to blame but the steering —

@@ -74,11 +74,11 @@ export type SnakePhase = (typeof SNAKE_PHASES)[number];
  * - `crawl`: the four verbs as the round was built.
  * - `gorge`: past `snakeGorgeTiles` the jaws stick. The MAW press does
  *   nothing; player 1 prises them apart on the head itself (`snakeJaws`).
- * - `shed`: past `snakeShedTiles` the tail drags, and it is the thing most
- *   likely to kill them. Player 2 may lift the last `snakeTailTiles` clear
- *   with a thumb on the tail (`snakeTail`) — with her steering hand.
+ *
+ * There was a third, `shed`, in which player 2 could hold the tail clear of
+ * the arena with a thumb on it; the owner took it out on 6 October 2026.
  */
-export const SNAKE_GRIPS = ["crawl", "gorge", "shed"] as const;
+export const SNAKE_GRIPS = ["crawl", "gorge"] as const;
 export type SnakeGrip = (typeof SNAKE_GRIPS)[number];
 
 /** One tile of the arena. Never a column of the field. */
@@ -164,15 +164,6 @@ export interface SnakeState {
   taken: number[];
   /** `world.tick` the mouth was last opened. It stands for `snakeMawTicks`. */
   mawTick: number;
-  /**
-   * Whether player 2's thumb is resting on the tail, under `shed`.
-   *
-   * While it is, the last `snakeTailTiles` of the body are lifted clear of the
-   * arena and the head may pass through them (`snake-arena.ts`). It is the one
-   * thing in the round that makes the body less dangerous, and it costs her
-   * the hand she steers with — which is the whole of the trade.
-   */
-  tailHeld: boolean;
   /** `world.beat` of the last shot, for the rest between two and for the picture. */
   shotBeat: number;
   /** Where that shot stopped, so the picture can draw the line it took. */
@@ -217,29 +208,13 @@ export interface SnakeState {
  * pins. The first row whose bound the body is still under.
  */
 export function snakeGrip(cfg: SnakeGripBounds, snake: SnakeState): SnakeGrip {
-  if (snake.body.length > cfg.snakeShedTiles) return "shed";
   if (snake.body.length > cfg.snakeGorgeTiles) return "gorge";
   return "crawl";
 }
 
-/** The two lengths `snakeGrip` reads, as little of `SimConfig` as it needs. */
+/** The length `snakeGrip` reads, as little of `SimConfig` as it needs. */
 export interface SnakeGripBounds {
   snakeGorgeTiles: number;
-  snakeShedTiles: number;
-}
-
-/**
- * How many tiles of the tail are off the arena this tick: the last
- * `snakeTailTiles` while her thumb is down under `shed`, and none otherwise.
- * One place, because the step and the picture must not disagree about which
- * tiles the head may pass through.
- */
-export function snakeLifted(
-  cfg: SnakeGripBounds & { snakeTailTiles: number },
-  snake: SnakeState,
-): number {
-  if (!snake.tailHeld || snakeGrip(cfg, snake) !== "shed") return 0;
-  return Math.min(cfg.snakeTailTiles, Math.max(0, snake.body.length - 1));
 }
 
 /** The round being played. Clamped, so a state read after the last one still answers. */

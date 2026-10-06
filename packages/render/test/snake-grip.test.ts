@@ -8,7 +8,9 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { computeLayout, hitReach, type Layout, type ViewRole } from "../src/layout.js";
-import { snakeJawsCircle, snakeTailCircle } from "../src/snake-grip.js";
+import { snakeJoints, snakeSlide } from "../src/snake-body.js";
+import { snakeArena } from "../src/snake-draw.js";
+import { snakeJawsCircle } from "../src/snake-grip.js";
 import { type Field, touchDown } from "../src/touch.js";
 import { FRAME_TIMEOUT_MS, waveWith } from "./frame-harness.js";
 
@@ -17,37 +19,38 @@ import { FRAME_TIMEOUT_MS, waveWith } from "./frame-harness.js";
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **Two real thumbs on SNAKE's own body.**
+ * **A real thumb on SNAKE's own body.**
  *
- * Both rules shipped on 18 September 2026 with nothing on either screen to
- * take hold of, and neither is one handle among many: past `snakeGorgeTiles`
+ * The rule shipped on 18 September 2026 with nothing on either screen to take
+ * hold of, and it is not one handle among many: past `snakeGorgeTiles`
  * the MAW press is a dead button, so prising the jaws is the only way a point
  * is swallowed from there to the end of the round.
  *
  * What this file asks is the half a simulation cannot. **The body moves
  * between beats** — it steps a whole tile on a tick and the picture carries it
- * the whole way there — so the load-bearing case is that both rings are
- * answered where the body has *slid* to and not on the tiles the round is
- * storing. That is the whole reason `Field` carries a tick. The rest is the
- * gates said in touches rather than in commands: a seat that owns neither, a
- * body too short for either, a mouth still resting, a body folded up.
+ * the whole way there — so the load-bearing case is that the ring is answered
+ * where the body has *slid* to and not on the tiles the round is storing. That
+ * is the whole reason `Field` carries a tick. The rest is the gates said in
+ * touches rather than in commands: a seat that does not own it, a body too
+ * short, a mouth still resting, a body folded up — and the tail, which since
+ * 6 October 2026 is no handle at all.
  */
 
 const CFG = DEFAULT_CONFIG;
 const STANDARD: ControlSet = controlSet("default");
 
-/** A body length in each of the three states (`snakeGrip`). */
+/** A body length in each of the two states (`snakeGrip`), and a long one. */
 const CRAWL = CFG.snakeGorgeTiles - 1;
 const GORGE = CFG.snakeGorgeTiles + 1;
-const SHED = CFG.snakeShedTiles + 2;
+const LONG = CFG.snakeGorgeTiles + 4;
 
 const layout = (role: ViewRole = "p1"): Layout =>
   computeLayout({ width: 420, height: 900, dpr: 2 }, CFG, role);
 
 /**
  * A round in play with a body of `tiles` laid out in one straight column,
- * head at the top and going up. The length is the whole of what decides which
- * of the two hands is on offer (`snakeGrip`), so it is what the cases below
+ * head at the top and going up. The length is the whole of what decides
+ * whether the hand is on offer (`snakeGrip`), so it is what the cases below
  * set.
  */
 function playing(tiles: number): { world: World; snake: SnakeState } {
@@ -99,9 +102,10 @@ function jaws(l: Layout, f: Field, s: SnakeState) {
   return at;
 }
 
-function tail(l: Layout, f: Field, s: SnakeState) {
-  const at = snakeTailCircle(l, CFG, s, f.tick);
-  if (at === null) throw new Error("a body with no tail to take hold of");
+/** Where the picture has joint `i` of the body this instant. */
+function joint(l: Layout, f: Field, s: SnakeState, i: number) {
+  const at = snakeJoints(snakeArena(l, CFG), s, snakeSlide(CFG, s, f.tick))[i];
+  if (at === undefined) throw new Error(`a body with no joint ${i}`);
   return at;
 }
 
@@ -191,71 +195,32 @@ describe("the pilot's pull on SNAKE's jaws", () => {
     const { world, snake } = playing(GORGE);
     const f = field(world, 1);
     const at = jaws(l, f, snake);
-    // Where the head itself is: a one-tile body's last joint is its first, so
-    // the head's own place comes out of the same function the ring does rather
-    // than out of a second copy of `snakeJoints`' arithmetic.
-    const head = snakeTailCircle(l, CFG, { ...snake, body: snake.body.slice(0, 1) }, f.tick);
-    if (head === null) throw new Error("a body with no head");
+    // Where the head itself is, out of the same `snakeJoints` the ring is.
+    const head = joint(l, f, snake, 0);
     expect(Math.hypot(at.x - head.x, at.y - head.y)).toBeGreaterThan(at.r * 1.3);
   });
 });
 
-describe("the driver's thumb on SNAKE's tail", () => {
-  it("takes hold of the tail once it drags", () => {
-    const l = layout("p2");
-    const { world, snake } = playing(SHED);
-    const f = field(world, 2);
-    const at = tail(l, f, snake);
-    const touch = touchDown(l, at.x, at.y, f);
-    expect(target(touch)).toBe("snakeTail");
-    expect(touch?.player).toBe(2);
-  });
-
-  it("is nothing while the body is only gorged", () => {
-    const l = layout("p2");
-    const { world, snake } = playing(GORGE);
-    const f = field(world, 2);
-    const at = tail(l, f, snake);
-    expect(target(touchDown(l, at.x, at.y, f))).not.toBe("snakeTail");
-  });
-
-  it("stays on offer while her thumb is already down", () => {
-    // The hold *is* the control and letting go is how it ends, so nothing
-    // about `tailHeld` closes the handle (`dragHeard`).
-    const l = layout("p2");
-    const { world, snake } = playing(SHED);
-    snake.tailHeld = true;
-    const f = field(world, 2);
-    const at = tail(l, f, snake);
-    expect(target(touchDown(l, at.x, at.y, f))).toBe("snakeTail");
-  });
-
-  it("is the driver's alone", () => {
-    const l = layout("p1");
-    const { world, snake } = playing(SHED);
-    const f = field(world, 1);
-    const at = tail(l, f, snake);
-    expect(target(touchDown(l, at.x, at.y, f))).not.toBe("snakeTail");
-  });
-
-  it("is nothing before the body is out of the ship", () => {
-    const l = layout("p2");
-    const { world, snake } = playing(SHED);
-    snake.phase = "morph";
-    const f = field(world, 2);
-    const at = tail(l, f, snake);
-    expect(target(touchDown(l, at.x, at.y, f))).not.toBe("snakeTail");
+describe("SNAKE's tail, which nobody holds", () => {
+  it("is no handle, however long the body and whichever seat", () => {
+    // The driver's thumb that lifted the tail clear went on 6 October 2026.
+    const { world, snake } = playing(LONG);
+    for (const seat of [1, 2] as const) {
+      const l = layout(seat === 1 ? "p1" : "p2");
+      const f = field(world, seat);
+      const at = joint(l, f, snake, snake.body.length - 1);
+      expect(touchDown(l, at.x, at.y, f)?.hold ?? null).toBeNull();
+    }
   });
 });
 
 describe("a field with no round on it", () => {
-  it("answers neither handle where they would have stood", () => {
+  it("answers no handle where it would have stood", () => {
     const l = layout("p1");
-    const { world, snake } = playing(SHED);
+    const { world, snake } = playing(GORGE);
     const f = field(world, 1);
     const at = jaws(l, f, snake);
     const none: Field = { ...f, boss: null };
     expect(target(touchDown(l, at.x, at.y, none))).not.toBe("snakeJaws");
-    expect(target(touchDown(l, at.x, at.y, { ...none, seat: 2 }))).not.toBe("snakeTail");
   });
 });

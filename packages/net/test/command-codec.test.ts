@@ -78,12 +78,10 @@ const ACCEPTED: Command[] = [
   // leave one device folding arrivals about a column the other has pinned.
   { kind: "drag", target: "vaneArm", on: true, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "vaneHousing", on: false, fromMilli: 0, fromYMilli: 1500 },
-  // SNAKE's two hands on its own body, and the first a round has had: player
-  // 1 prising the stuck jaws, player 2's thumb lifting the tail clear of the
-  // arena (`sim/snake-controls.ts`). A codec that dropped the second would
-  // leave one device driving through a tail the other one is standing on.
+  // SNAKE's hand on its own body, and the first a round has had: player 1
+  // prising the stuck jaws (`sim/snake-controls.ts`), whose travel is the
+  // whole of what the prise says.
   { kind: "drag", target: "snakeJaws", on: false, fromMilli: 0, fromYMilli: 1500 },
-  { kind: "drag", target: "snakeTail", on: true, fromMilli: 0, fromYMilli: 0 },
   // PINBALL's two hands on the table: player 1 winding the plunger, player 2
   // shoving the cabinet — and the shove's `fromMilli` is the one carry in
   // this list whose **sign** is the whole of what it says, so a codec that
@@ -424,7 +422,6 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   vaneArm: true,
   vaneHousing: true,
   snakeJaws: true,
-  snakeTail: true,
   pinPlunger: true,
   pinTable: true,
   scoutLine: true,

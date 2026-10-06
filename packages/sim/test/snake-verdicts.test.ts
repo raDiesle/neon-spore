@@ -7,7 +7,6 @@ import {
   type SnakeState,
   snakeJawsAsks,
   snakeRound,
-  snakeTailAsks,
   startWave,
   step,
   ticksPerBeat,
@@ -17,17 +16,15 @@ import { snakeHeard } from "../src/snake-controls.js";
 import { SNAKE_MORPH_BEATS } from "../src/snake-round.js";
 
 /**
- * SNAKE's jaws and tail answering a touch the way every mark does: which part
- * is asked of which seat (`snakeJawsAsks`, `snakeTailAsks`), and a press from
- * the other seat on an asked part said once as a refusal (`snakeRefuse`) and
- * doing nothing else. `snake-body.test.ts` holds the prise and the lift
- * themselves.
+ * SNAKE's jaws answering a touch the way every mark does: when they are asked
+ * of the pilot (`snakeJawsAsks`), and a press from the driver on them said
+ * once as a refusal (`snakeRefuse`) and doing nothing else.
+ * `snake-body.test.ts` holds the prise itself.
  */
 
 const CFG = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
 const GORGE = CFG.snakeGorgeTiles + 1;
-const SHED = CFG.snakeShedTiles + 1;
 
 const ROUNDS = [
   {
@@ -63,13 +60,6 @@ const jaws = (on: boolean): Command => ({
   fromMilli: 0,
   fromYMilli: on ? 0 : CFG.snakeJawsMilli,
 });
-const tail = (on: boolean): Command => ({
-  kind: "drag",
-  target: "snakeTail",
-  on,
-  fromMilli: 0,
-  fromYMilli: 0,
-});
 
 /** What one command says, and nothing said before it. */
 function said(world: World, snake: SnakeState, player: 1 | 2, command: Command): SimEvent[] {
@@ -78,20 +68,16 @@ function said(world: World, snake: SnakeState, player: 1 | 2, command: Command):
   return world.events.filter((e) => e.type.startsWith("snake"));
 }
 
-test("the jaws are asked past crawl with the mouth rested, the tail under shed", () => {
+test("the jaws are asked past crawl with the mouth rested, and not through a crash", () => {
   const short = playing(CFG.snakeGorgeTiles);
   expect(snakeJawsAsks(CFG, short.snake, short.world.tick)).toBe(false);
-  expect(snakeTailAsks(CFG, short.snake)).toBe(false);
   const gorged = playing(GORGE);
   expect(snakeJawsAsks(CFG, gorged.snake, gorged.world.tick)).toBe(true);
-  expect(snakeTailAsks(CFG, gorged.snake)).toBe(false);
   gorged.snake.mawTick = gorged.world.tick;
   expect(snakeJawsAsks(CFG, gorged.snake, gorged.world.tick)).toBe(false);
-  const shed = playing(SHED);
-  expect(snakeTailAsks(CFG, shed.snake)).toBe(true);
-  shed.snake.crashTick = shed.world.tick;
-  expect(snakeJawsAsks(CFG, shed.snake, shed.world.tick)).toBe(false);
-  expect(snakeTailAsks(CFG, shed.snake)).toBe(false);
+  const crashed = playing(GORGE);
+  crashed.snake.crashTick = crashed.world.tick;
+  expect(snakeJawsAsks(CFG, crashed.snake, crashed.world.tick)).toBe(false);
 });
 
 test("the driver's thumb on the asked jaws is refused once, on the press alone", () => {
@@ -107,25 +93,10 @@ test("the driver's thumb on the asked jaws is refused once, on the press alone",
   ]);
 });
 
-test("the pilot's thumb on the asked tail is refused once and lifts nothing", () => {
-  const { world, snake } = playing(SHED);
-  const end = snake.body[snake.body.length - 1];
-  expect(said(world, snake, 1, tail(true))).toEqual([
-    { type: "snakeRefuse", col: end?.col ?? -1, row: end?.row ?? -1, part: "tail", player: 1 },
-  ]);
-  expect(snake.tailHeld).toBe(false);
-  expect(said(world, snake, 1, tail(false))).toEqual([]);
-  expect(said(world, snake, 2, tail(true))).toEqual([
-    { type: "snakeLift", col: end?.col ?? -1, row: end?.row ?? -1 },
-  ]);
-});
-
-test("a part not asked refuses nobody", () => {
+test("jaws not asked refuse nobody", () => {
   const short = playing(CFG.snakeGorgeTiles);
   expect(said(short.world, short.snake, 2, jaws(true))).toEqual([]);
-  expect(said(short.world, short.snake, 1, tail(true))).toEqual([]);
   const resting = playing(GORGE);
   resting.snake.mawTick = resting.world.tick;
   expect(said(resting.world, resting.snake, 2, jaws(true))).toEqual([]);
-  expect(said(resting.world, resting.snake, 1, tail(true))).toEqual([]);
 });

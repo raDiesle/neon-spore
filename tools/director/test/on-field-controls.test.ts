@@ -198,7 +198,6 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // `field-controls-snake.ts`). The first two on this tab drawn on a thing
   // that moves *between* beats, which is why `Field` carries a tick.
   snakeJaws: "field",
-  snakeTail: "field",
   // PINBALL's two hands on its table — player 1 winding the plunger his own
   // hard launch left slack, player 2 shoving the cabinet through a flight
   // (`sim/pinball-hand.ts`). Drawn from 22 September 2026, and the only pair

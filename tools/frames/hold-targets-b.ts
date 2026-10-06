@@ -63,9 +63,8 @@ export const ROWS: Record<string, Row> = {
   // `vane-hand.ts`: the pin is held, the haul is read on the lift.
   vaneArm: {},
   vaneHousing: { seat: 2, lift: true },
-  // `snake-controls.ts`: the jaws are prised and let go, the tail is held.
+  // `snake-controls.ts`: the jaws are prised and let go.
   snakeJaws: { lift: true },
-  snakeTail: { seat: 2 },
   // `pinball-hand.ts`: the wind and the nudge are both spent on the lift.
   pinPlunger: { lift: true },
   pinTable: { lift: true },

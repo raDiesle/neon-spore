@@ -42,11 +42,9 @@ export function snakeResting(world: World, snake: SnakeState): boolean {
  * **And since 18 September 2026 the body asks for two more, on itself.** Past
  * `snakeGorgeTiles` the jaws stick: the MAW press does nothing at all and
  * player 1 has to prise them apart on the head (`snakeJaws`), a carry of at
- * least `snakeJawsMilli` that opens the same window the press used to. Past
- * `snakeShedTiles` the tail drags, and player 2 may lift its last
- * `snakeTailTiles` clear with a thumb on it (`snakeTail`) — with the hand she
- * steers with, which is the only reason it is not simply free
- * (`docs/spec/interludes.md`, SNAKE's *Three bodies, three gestures*).
+ * least `snakeJawsMilli` that opens the same window the press used to
+ * (`docs/spec/interludes.md`, SNAKE's *Two bodies, two gestures*). Player 2's
+ * thumb holding the tail clear went out on 6 October 2026, the owner.
  */
 
 export function snakeHeard(
@@ -109,24 +107,17 @@ export function snakeJawsAsks(cfg: SimConfig, snake: SnakeState, tick: number): 
   return tick - snake.mawTick >= cfg.snakeMawRestTicks;
 }
 
-/** Whether the tail asks the driver for a lift: `shed`, and a body to lift. */
-export function snakeTailAsks(cfg: SimConfig, snake: SnakeState): boolean {
-  return afoot(snake) && snakeGrip(cfg, snake) === "shed";
-}
-
 /**
- * The two hands on the body itself: player 1 prising the jaws and player 2
- * holding the tail off the arena.
+ * The hand on the body itself: player 1 prising the jaws.
  *
- * Both are refused outside the grip that has them, and each is refused to the
- * other seat — the same rule of the simulation the four verbs above are held
- * to, and for the same reason: two devices have to agree exactly which presses
- * counted, and a driver who could also open the mouth would be playing both
- * halves of a round whose whole content is that she cannot. **The other
- * seat's press on a part that is asked is said, once** — the press, never
- * its lift (`snakeRefuse`) — which is every mark's *not yours*: both rings
- * are drawn on both screens (`render/snake-grip.ts`), so a thumb can land on
- * the wrong one.
+ * Refused outside the grip that has it, and refused to the other seat — the
+ * same rule of the simulation the four verbs above are held to, and for the
+ * same reason: two devices have to agree exactly which presses counted, and a
+ * driver who could also open the mouth would be playing both halves of a
+ * round whose whole content is that she cannot. **The other seat's press on
+ * the jaws while they are asked is said, once** — the press, never its lift
+ * (`snakeRefuse`) — which is every mark's *not yours*: the ring is drawn on
+ * both screens (`render/snake-grip.ts`), so a thumb can land on it.
  */
 function dragHeard(
   world: World,
@@ -134,45 +125,33 @@ function dragHeard(
   player: 1 | 2,
   command: Extract<Command, { kind: "drag" }>,
 ): void {
-  const grip = snakeGrip(world.cfg, snake);
-  if (command.target === "snakeJaws") {
-    if (player !== 1) {
-      if (command.on && snakeJawsAsks(world.cfg, snake, world.tick))
-        refuse(world, snake, "jaws", player);
-      return;
-    }
-    if (grip === "crawl") return;
-    // The press says nothing; the prise is the lift, and only one that
-    // travelled — a thumb resting on the head is not a mouth being opened.
-    if (command.on) return;
-    if (Math.abs(command.fromYMilli ?? 0) < world.cfg.snakeJawsMilli) return;
-    // The same rest as the press it replaces. A mouth that could be hauled
-    // open again the tick it shut would be a mouth held open all round, which
-    // is the one thing `snakeMawRestTicks` exists to stop.
-    if (world.tick - snake.mawTick < world.cfg.snakeMawRestTicks) return;
-    snake.mawTick = world.tick;
-    const head = snake.body[0];
-    world.events.push({ type: "snakePrise", col: head?.col ?? 0, row: head?.row ?? 0 });
+  if (command.target !== "snakeJaws") return;
+  if (player !== 1) {
+    if (command.on && snakeJawsAsks(world.cfg, snake, world.tick)) refuse(world, snake, player);
     return;
   }
-  if (command.target !== "snakeTail") return;
-  if (player !== 2) {
-    if (command.on && snakeTailAsks(world.cfg, snake)) refuse(world, snake, "tail", player);
-    return;
-  }
-  if (grip !== "shed") return;
-  if (snake.tailHeld === command.on) return;
-  snake.tailHeld = command.on;
-  const tail = snake.body[snake.body.length - 1];
-  world.events.push({
-    type: command.on ? "snakeLift" : "snakeDrop",
-    col: tail?.col ?? 0,
-    row: tail?.row ?? 0,
-  });
+  if (snakeGrip(world.cfg, snake) === "crawl") return;
+  // The press says nothing; the prise is the lift, and only one that
+  // travelled — a thumb resting on the head is not a mouth being opened.
+  if (command.on) return;
+  if (Math.abs(command.fromYMilli ?? 0) < world.cfg.snakeJawsMilli) return;
+  // The same rest as the press it replaces. A mouth that could be hauled
+  // open again the tick it shut would be a mouth held open all round, which
+  // is the one thing `snakeMawRestTicks` exists to stop.
+  if (world.tick - snake.mawTick < world.cfg.snakeMawRestTicks) return;
+  snake.mawTick = world.tick;
+  const head = snake.body[0];
+  world.events.push({ type: "snakePrise", col: head?.col ?? 0, row: head?.row ?? 0 });
 }
 
-/** A press from the seat the part is not asked of, at the part's own tile. */
-function refuse(world: World, snake: SnakeState, part: "jaws" | "tail", player: 1 | 2): void {
-  const at = part === "jaws" ? snake.body[0] : snake.body[snake.body.length - 1];
-  world.events.push({ type: "snakeRefuse", col: at?.col ?? 0, row: at?.row ?? 0, part, player });
+/** A press on the jaws from the seat they are not asked of, at the head's tile. */
+function refuse(world: World, snake: SnakeState, player: 1 | 2): void {
+  const at = snake.body[0];
+  world.events.push({
+    type: "snakeRefuse",
+    col: at?.col ?? 0,
+    row: at?.row ?? 0,
+    part: "jaws",
+    player,
+  });
 }

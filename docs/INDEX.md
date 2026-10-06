@@ -1629,7 +1629,7 @@ by hand never moves.
 | `packages/render/src/snake-venom.ts` | What the acid does when it stops moving |
 | `packages/render/src/snake-emerge.ts` | The body coming out of the ship |
 | `packages/render/src/snake-jaw.ts` | What one of SNAKE's jaws is: its outline, what is marked on it |
-| `packages/render/src/snake-grip.ts` | **SNAKE's two hands on its own body** |
+| `packages/render/src/snake-grip.ts` | **SNAKE's hand on its own body**: the pilot prising the stuck jaws open (`sim/snake-controls.ts` |
 | `packages/render/src/snake-layout.ts` | **SNAKE's short hull and band.** While a snake round holds the world |
 | `packages/render/src/ship-hand.ts` | the ring round the swelling a finger has hold of, and which colour a lift would fire |
 | `packages/render/src/touch-hold.ts` | what a hit test hands back: what a drag and a lift go on meaning after the press |
@@ -2622,7 +2622,7 @@ by hand never moves.
 | `packages/audio/src/bind-scuttle.ts` | THE SCUTTLE's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-scout-hand.ts` | THE SCOUT's two hands on its picture, in a file of their own for `bind-pinball-hand.ts`' reason |
 | `packages/audio/src/bind-stare.ts` | THE STARE's, in a file of their own for `bind-gorge.ts`' reason, and with **no pan on any of them** |
-| `packages/audio/src/bind-snake-body.ts` | SNAKE's two hands on its own body, in a file of their own for `bind-vane.ts`' reason — `bind.ts` is full |
+| `packages/audio/src/bind-snake-body.ts` | SNAKE's hand on its own body, in a file of their own for `bind-vane.ts`' reason — `bind.ts` is full |
 | `packages/audio/src/bind-ship.ts` | **The ship's own six**: a bolt leaving the cannon, a lance filling or spilling |
 | `packages/audio/src/bind-seam.ts` | THE SEAM's nine, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-sling.ts` | Whether an event is THE SLING's, so a page of the chain can hand it over whole |
@@ -3507,7 +3507,7 @@ by hand never moves.
 | `tools/director/src/field-controls-stare.ts` | THE STARE's lashes, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-scuttle.ts` | **THE SCUTTLE's hanging part**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-scout.ts` | **THE SCOUT's two hands on its own picture**, in a file of its own |
-| `tools/director/src/field-controls-snake.ts` | **SNAKE's two hands on its own body**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-snake.ts` | **SNAKE's hand on its own body**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-spool.ts` | THE SPOOL's brake, as one row of the ON THE FIELD tab |
 | `tools/director/src/field-controls-ship.ts` | The ship's own handles on the field — the cannon, its maw, the shield's plate and trigger |
 | `tools/director/src/field-controls-sling.ts` | THE SLING's two cords, as rows of the ON THE FIELD tab: one a seat by geometry |
