@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · b6869fd7d — CONTROLS › ON THE FIELD is sorted by action, and EVERY WAVE has its own tab
+
+The director's ON THE FIELD page is now laid out by what the finger does — GRAB AND DRAG, PRESS, HOLD, CHORD, PINCH, STEP BY STEP, SHAKE — then by control type, with one card per enemy or boss wave that uses it: its picture and who uses it, without the WHERE/SEAT/DOES/SOURCE/POSE prose. Actions and types are sorted by how many enemies and boss waves use them. The rows reached on every wave moved to a new EVERY WAVE tab beside it. THE CHOIR's two arrows are one SHAKE, pictured by a new pose with both SWIPE arrows; THE WARDEN's thumb is PULL IN ANY DIRECTION WITH A ROPE, THE HIVE's wring HOLD ENEMY FOR AUTO AIM CANNON, THE PULSE's brace a PRESS, THE VANE's arm a HOLD; THE SCOUT's line is off the page and stays in its wave. A look the owner asked for by name.
+
 ## 2026-10-05 · 5d7d1e323 — The director loads again: no boss's shot is read while core-along loads
 
 The director's dev server threw "Cannot read properties of null (reading 'burgeeVerdict')" at load and drew nothing. `core-along.ts` sits in an import cycle with the shots (burgee-shot -> burgee-step -> slow -> world -> step -> bullets -> core-along), and under Bun's HMR runtime a module still loading is null, so the CORES table, built at load from the verdicts by name, read off nothing. Real ESM hoists the functions, which is why every test passed. Each verdict is now called through an arrow, and THE GRINDSTONE's row moves into the table beside the other nine, read by its picture through `coreRowMilli` like theirs; `GRINDSTONE_ROW_MILLI` is gone. Nothing the game draws changes.
