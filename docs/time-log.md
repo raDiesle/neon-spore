@@ -33918,3 +33918,5 @@ Bottleneck: the first drawings outlined every filled shape, which read as flat a
 - landing: 5 min.
 
 Bottleneck: the briefings spec counts its prose guides in words in three places, and the test names one at a time.
+
+*Measured: 7 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

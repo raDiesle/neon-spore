@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · db29007d1 — THE MIMIC opens on a guide, says whose turn it is on the siren top right, and the box round the picture goes
+
+THE MIMIC now opens on a short guide: one of you sees a picture of tiles, the other taps it into the frame, and the siren says whose turn it is. While it plays the siren stands top right with the reader's chip lit — both on a split — and each screen's job under it: TILES · TELL P2 WHERE to the reader, TAP WHERE P1 SAYS to the painter. The box with those words round the picture is gone, so the frame the mantle holds is all that stands round the tiles; the bare core still says TAP.
+
 ## 2026-10-06 · 2f309f997 — A boss's shot mark is offered as five living neon marks in the fire buttons' red and cyan
 
 `aim:cannon` now offers five marks drawn from uneven curves that move. Each glows in exactly the red (#FF3B6B) or cyan (#2FE0F0) of the fire buttons. EMBER is a wobbling red ring with four curved thorns swaying at it. IRIS is a cyan mouth of hooked teeth, each opening and biting on its own beat. SPORES is a red swarm circling the target, trailing light. TENDRILS is five cyan arms curling in, each tip a glowing bud. PLASMA is a ring of red fire flickering round the target. None of them has the grey box, and a dark shadow under each keeps red readable on a red target.
