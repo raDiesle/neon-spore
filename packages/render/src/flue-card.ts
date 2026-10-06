@@ -19,7 +19,7 @@ import { stepColour } from "./step-colour.js";
 
 /** The card's corner from the field's left edge and over the flue, its size and its words', in tiles. */
 const IN = 0.25;
-const UP = 2.1;
+const UP = 2.4;
 const W = 2.1;
 const H = 1.15;
 const WORD = 0.42;

@@ -33668,3 +33668,13 @@ Bottleneck: the rows' prose is written for a programmer, so each card's two line
 Bottleneck: a hold on one boss is registered in about twenty files across five packages, and only `tsc` finds them all.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE FLUE grown bigger and made of flesh
+
+- reading: 10 min. The flue's drawing files twice — before and after the owner's 5 October rework landed under this lane — the §6.3 brief, and the skin and film helpers to call.
+- writing: 15 min. The flesh and the spore, the shape's sizes, every mark moved clear of the taller body; done once on the old fight and again on the new one.
+- looking: 15 min. Frames at each step, the RGB tearing traced to THE SLOW's prism, the flesh lifted out of the background at phone size, the live build.
+- friction: 10 min. `bun run land` found 46 commits on local `main` that rewrote THE FLUE, so the first version was thrown away; the preview exited idle mid-check and came back blank.
+- landing: 5 min. The style guide and the index regenerated for the palette and the two new files.
+
+Bottleneck: the trunk had moved under the lane — `git fetch origin main` brought nothing because the rework was landed on local `main` and not pushed.

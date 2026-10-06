@@ -110,7 +110,6 @@ export const FAMILIES: Family[] = [
       "flueSoot",
       "flueSootDark",
       "flueSlot",
-      "flueCore",
       "governorBrass",
       "governorBrassDark",
       "governorFace",

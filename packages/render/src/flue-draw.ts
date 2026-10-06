@@ -1,9 +1,14 @@
-import { type FlueState, flueLitLevel, flueShownLevel, type World } from "@neon-spore/sim";
-import { drawHurt } from "./boss-hurt.js";
+import {
+  type FlueState,
+  flueCannonCol,
+  flueLitLevel,
+  flueShownLevel,
+  type World,
+} from "@neon-spore/sim";
 import { drawFlueCard } from "./flue-card.js";
+import { drawFlueCilia, drawFlueSegment } from "./flue-flesh.js";
 import type { FlueFx } from "./flue-fx.js";
 import {
-  drawFlueEmber,
   drawFlueFlash,
   drawFlueLevels,
   drawFlueShots,
@@ -18,10 +23,9 @@ import {
   flueSightAt,
   flueSlotPath,
   flueUnitAt,
-  flueUnitPath,
   flueUnits,
-  type Point,
 } from "./flue-shape.js";
+import { drawFlueSpore } from "./flue-spore.js";
 import { drawFlueMarkFeedback } from "./flue-verdicts.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -46,10 +50,13 @@ const ARRIVE = 3;
  * counts the beats the ember has left to the sight (`flue-scale.ts`), and over
  * the flue's left end a card names the weapon and THE SLOW (`flue-card.ts`).
  *
- * **It is drawn flat**: the units are soot with a dark outline and nothing
- * lighting them, and THE SLOW's colour split stands round the whole flue
- * rather than splitting it (`slow-boss-aim-d.ts`) — the owner, 5 October
- * 2026, so the sight's green and red can be seen. What outlives a frame — a
+ * **It is drawn dark**: the owner had it drawn flat on 5 October 2026 so the
+ * sight's colours can be seen, and THE SLOW's colour split stands round the
+ * whole flue rather than splitting it (`slow-boss-aim-d.ts`). On 6 October he
+ * asked for it bigger and *more alien living*, so the units are now dark
+ * flesh, the slot a gullet and the ember a spore (`flue-flesh.ts`,
+ * `flue-spore.ts`) — low in value and in neither cannon's colour, so the
+ * sight is still the brightest colour on the flue. What outlives a frame — a
  * hit's flash, a stud's flare, the red of a blow landed and its shake — is
  * `fx` (`flue-fx.ts`); the blow at the hull is `flue-blow.ts`.
  */
@@ -72,13 +79,15 @@ export function drawFlue(
   ctx.translate(fx.hurt.shakeX(time, l.tile), arrive);
 
   const hurt = fx.hurt.value;
-  for (let k = 0; k < flueUnits(cfg); k++) drawUnit(ctx, l, k, flueUnitAt(l, cfg, k), hurt);
+  const units = flueUnits(cfg);
+  const aimed = flueCannonCol(cfg);
+  for (let k = 0; k < units; k++) {
+    // The cilia stop short of the sight's own units, where the words stand.
+    if (Math.abs(k - aimed) > 1) drawFlueCilia(ctx, l, k, flueUnitAt(l, cfg, k), time);
+  }
+  for (let k = 0; k < units; k++) drawFlueSegment(ctx, l, k, flueUnitAt(l, cfg, k), hurt, time);
   const slot = flueSlotPath(l, cfg);
-  ctx.fillStyle = PALETTE.flueSlot;
-  ctx.fill(slot);
-  ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = rgba(PALETTE.flueSootDark, 0.9);
-  ctx.stroke(slot);
+  drawGullet(ctx, slot, l);
   const lit = flueLitLevel(s) !== null;
   if (lit) drawFlueSlotGlow(ctx, slot, beatPhase);
 
@@ -93,30 +102,32 @@ export function drawFlue(
   drawFlueLevels(ctx, l, centre, s.hits, s.levels.length, fx.flare);
   if (showsFlueEmber(l.role)) {
     const dim = s.phase === "spent" ? 0.45 : 1;
-    drawFlueEmber(ctx, l, flueEmberAt(l, cfg, s.emberMilli), dim);
+    drawFlueSpore(ctx, l, flueEmberAt(l, cfg, s.emberMilli), dim, beatPhase, time);
   }
   drawFlueFlash(ctx, l, sight, fx.flash);
   drawFlueMarkFeedback(ctx, l, world, s, beat, beatPhase, time, fx.verdicts);
   ctx.restore();
 }
 
-/** Unit `k` at `at`: flat soot with its seams in the dark soot, red with a blow landed. */
-function drawUnit(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  k: number,
-  at: Point,
-  hurt: number,
-): void {
+/**
+ * The slot as a gullet cut through the flesh: near black, its wall going down
+ * into it in the deep violet, a wet light along its lower lip, and a dark
+ * lip round it.
+ */
+function drawGullet(ctx: CanvasRenderingContext2D, slot: Path2D, l: Layout): void {
+  ctx.fillStyle = PALETTE.flueSlot;
+  ctx.fill(slot);
   ctx.save();
-  ctx.translate(at.x, at.y);
-  const unit = flueUnitPath(l, k);
-  ctx.fillStyle = PALETTE.flueSoot;
-  ctx.fill(unit);
-  drawHurt(ctx, unit, hurt);
-  ctx.lineWidth = STROKE.outline;
-  ctx.lineJoin = "round";
-  ctx.strokeStyle = rgba(PALETTE.flueSootDark, 0.95);
-  ctx.stroke(unit);
+  ctx.clip(slot);
+  ctx.lineWidth = l.tile * 0.2;
+  ctx.strokeStyle = rgba(PALETTE.sheenDeep, 0.9);
+  ctx.stroke(slot);
+  ctx.translate(0, -l.tile * 0.07);
+  ctx.lineWidth = l.tile * 0.045;
+  ctx.strokeStyle = rgba(PALETTE.sheenRim, 0.18);
+  ctx.stroke(slot);
   ctx.restore();
+  ctx.lineWidth = STROKE.outline;
+  ctx.strokeStyle = rgba(PALETTE.flueSootDark, 0.9);
+  ctx.stroke(slot);
 }

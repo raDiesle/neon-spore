@@ -1,5 +1,5 @@
 import type { FlueLevel } from "@neon-spore/sim";
-import { flueEmberR, flueSightR, type Point } from "./flue-shape.js";
+import { flueSightR, type Point } from "./flue-shape.js";
 import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -25,12 +25,12 @@ import { stepColour } from "./step-colour.js";
  * under the sight. */
 const PIP = 0.1;
 const PIP_GAP = 0.32;
-const PIP_DOWN = 1.85;
+const PIP_DOWN = 2.15;
 /** The level studs' radius and spacing, and how far over the flue they sit, in
  * tiles: over the `CALL` standing over the sight. */
 const STUD = 0.08;
 const STUD_GAP = 0.3;
-const STUD_UP = 1.5;
+const STUD_UP = 1.8;
 
 /** How far under the sight the shot pips stand, in pixels. */
 export function flueShotsDown(l: Layout): number {
@@ -142,21 +142,4 @@ export function drawFlueFlash(
   ctx.fillStyle = rgba(PALETTE.hullRim, flash * 0.5);
   ctx.fill(p);
   strokeGlowFaded(ctx, p, PALETTE.hullRim, STROKE.inner, flash);
-}
-
-/**
- * The ember in its slot: a warm-white glow, drawn only on the screens that
- * are shown it (`showsFlueEmber`). Spent, it is dimmed.
- */
-export function drawFlueEmber(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  at: Point,
-  dim: number,
-): void {
-  const ember = new Path2D();
-  ember.arc(at.x, at.y, flueEmberR(l), 0, Math.PI * 2);
-  ctx.fillStyle = rgba(PALETTE.hullRim, dim);
-  ctx.fill(ember);
-  strokeGlowFaded(ctx, ember, PALETTE.hullRim, STROKE.outline, dim * 1.4, 1);
 }

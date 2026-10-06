@@ -11046,8 +11046,13 @@ navigator fires the level's colour, or primes it, the tick the ember will
 be met within half of `flueHitMilli`; the pilot sends nothing.
 
 **The look** (`render/src/flue-draw.ts`). The units are the same row across
-the field (`flue-shape.ts`), drawn **flat**: soot with a dark outline and no
-light on them. **THE SLOW's colour split stands round the whole flue**
+the field (`flue-shape.ts`), drawn **dark**: flat soot on 5 October 2026,
+and since 6 October — the owner: *all boss graphics bigger, especially the
+ball, and more alien living* — taller lobed segments of dark plum flesh,
+breathing, with folds, pores, a vein, a wet film and cilia on the crown
+(`flue-flesh.ts`), the slot a gullet, and the ember a spore twice the size
+with a beating nucleus (`flue-spore.ts`). Low in value and in neither
+cannon's colour, so the sight stays the brightest colour on the row. **THE SLOW's colour split stands round the whole flue**
 (`slow-boss-aim-d.ts`) rather than fringing it, since with no row there it
 was aimed at the cannon and split the sight, which is the one mark the pair
 must read the colour of. **The marks** (`flue-marks.ts`): the slot glows

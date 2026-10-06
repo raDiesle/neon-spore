@@ -446,3 +446,20 @@ Find what in it can take five seconds under load (the per-file `new RegExp`
 inside the loop is a candidate; build the `HELD` pattern once), make it cheap,
 and give it an explicit timeout only if it still needs one. Done when the test
 runs in well under a second inside `bun run test` and `bun run check` is green.
+
+## THE GOVERNOR is torn by THE SLOW's prism: it has no aim row
+
+- **Found:** 2026-10-06, claude/boss-graphics-overhaul-d7066b
+- **Files:** `packages/render/src/slow-boss-aim*.ts`, `packages/render/test/slow-boss-aim.test.ts`
+
+PRISM promises *the room splits and the boss does not*, and a boss with no
+row in the four `slow-boss-aim*.ts` pages is aimed at the cannon at the
+hull, so a body high up the field is the thing split widest. THE FLUE had
+exactly that until its rework of 5 October 2026 gave it a row;
+`bun run frames . --wave "THE GOVERNOR" --ticks 1500 --seat p1` shows THE
+GOVERNOR's flywheel and flyweights torn into red, green and blue the same
+way. Give it a row off `governor-shape.ts` (and a `sharp` box if a part of
+it is read through the window), and while there list every boss kind that
+opens THE SLOW and has no row, in a test, so the next one goes red rather
+than unseen. Done when THE GOVERNOR's frame shows no fringe on its body and
+`bun run check` is green.

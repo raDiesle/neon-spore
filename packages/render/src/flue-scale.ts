@@ -20,10 +20,10 @@ import { PALETTE, STROKE } from "./palette.js";
  */
 
 /** The ticks, from the slot's underside, and the number under a whole beat, in tiles. */
-const TICK_FROM = 0.22;
-const TICK_BEAT = 0.52;
-const TICK_HALF = 0.38;
-const NUMBER_DOWN = 0.8;
+const TICK_FROM = 0.3;
+const TICK_BEAT = 0.62;
+const TICK_HALF = 0.48;
+const NUMBER_DOWN = 1.08;
 const NUMBER_SIZE = 0.38;
 
 export interface FlueTick {

@@ -64,15 +64,15 @@ export const LATE_CREATURE_HUES = {
   burgeeCanvasDark: "#43392A",
   burgeeCanvasCaught: "#E3CC98",
   /**
-   * THE FLUE's units (§40, *Colour*): a dull sooted grey, its seams' shadow,
-   * and the slot cut along it, near black, that the ember rides in. The
-   * ember is the rim's white and the core, lit, a cannon's colour; unlit,
-   * the core is a banked coal, dark and warm, so the soot is the only grey.
+   * THE FLUE's units (§40, *Colour*): a dark plum flesh since the owner
+   * asked for the flue *more alien living* on 6 October 2026, where it was a
+   * sooted grey — low in value so the sight's red and cyan stay the brightest
+   * colour on it; its creases' shadow, and the gullet cut along it, near
+   * black, that the spore rides in. The spore is the rim's white at its heart.
    */
-  flueSoot: "#58545B",
-  flueSootDark: "#1E1B20",
-  flueSlot: "#0C0A0E",
-  flueCore: "#4A3530",
+  flueSoot: "#6A4C7A",
+  flueSootDark: "#170C1E",
+  flueSlot: "#09050D",
   /** THE GRINDSTONE's spent axle as row 11's fade opens: a white with no cannon's in it. */
   grindstoneHeat: "#F6F3EC",
   /**

@@ -510,96 +510,91 @@
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#E3CC98 42°</text>
     </g>
     <g transform="translate(496 2200)">
-      <rect width="66" height="46" rx="4" fill="#58545B" stroke="#241B4F"/>
+      <rect width="66" height="46" rx="4" fill="#6A4C7A" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">flueSoot</text>
-      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#58545B 274°</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#6A4C7A 279°</text>
     </g>
     <g transform="translate(572 2200)">
-      <rect width="66" height="46" rx="4" fill="#1E1B20" stroke="#241B4F"/>
+      <rect width="66" height="46" rx="4" fill="#170C1E" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">flueSootDark</text>
-      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#1E1B20 276°</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#170C1E 277°</text>
     </g>
     <g transform="translate(648 2200)">
-      <rect width="66" height="46" rx="4" fill="#0C0A0E" stroke="#241B4F"/>
+      <rect width="66" height="46" rx="4" fill="#09050D" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">flueSlot</text>
-      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#0C0A0E 270°</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#09050D 270°</text>
     </g>
     <g transform="translate(724 2200)">
-      <rect width="66" height="46" rx="4" fill="#4A3530" stroke="#241B4F"/>
-      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">flueCore</text>
-      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#4A3530 12°</text>
-    </g>
-    <g transform="translate(800 2200)">
       <rect width="66" height="46" rx="4" fill="#A88B4E" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">governorBrass</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#A88B4E 41°</text>
     </g>
-    <g transform="translate(40 2286)">
+    <g transform="translate(800 2200)">
       <rect width="66" height="46" rx="4" fill="#33291A" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">governorBrassDark</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#33291A 36°</text>
     </g>
-    <g transform="translate(116 2286)">
+    <g transform="translate(40 2286)">
       <rect width="66" height="46" rx="4" fill="#15110C" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">governorFace</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#15110C 33°</text>
     </g>
-    <g transform="translate(192 2286)">
+    <g transform="translate(116 2286)">
       <rect width="66" height="46" rx="4" fill="#FFE0A8" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">governorHot</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#FFE0A8 39°</text>
     </g>
-    <g transform="translate(268 2286)">
+    <g transform="translate(192 2286)">
       <rect width="66" height="46" rx="4" fill="#5C4B31" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">governorHub</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#5C4B31 36°</text>
     </g>
-    <g transform="translate(344 2286)">
+    <g transform="translate(268 2286)">
       <rect width="66" height="46" rx="4" fill="#4E5A3A" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">lampreyHide</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#4E5A3A 83°</text>
     </g>
-    <g transform="translate(420 2286)">
+    <g transform="translate(344 2286)">
       <rect width="66" height="46" rx="4" fill="#1A2014" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">lampreyHideDark</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#1A2014 90°</text>
     </g>
-    <g transform="translate(496 2286)">
+    <g transform="translate(420 2286)">
       <rect width="66" height="46" rx="4" fill="#E8E2CC" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">lampreyTooth</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#E8E2CC 47°</text>
     </g>
-    <g transform="translate(572 2286)">
+    <g transform="translate(496 2286)">
       <rect width="66" height="46" rx="4" fill="#0E0A0A" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">lampreyMouth</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#0E0A0A 0°</text>
     </g>
-    <g transform="translate(648 2286)">
+    <g transform="translate(572 2286)">
       <rect width="66" height="46" rx="4" fill="#5A2A22" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">lampreyGullet</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#5A2A22 9°</text>
     </g>
-    <g transform="translate(724 2286)">
+    <g transform="translate(648 2286)">
       <rect width="66" height="46" rx="4" fill="#1D3326" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">mimicSkin</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#1D3326 145°</text>
     </g>
-    <g transform="translate(800 2286)">
+    <g transform="translate(724 2286)">
       <rect width="66" height="46" rx="4" fill="#243D2D" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">mimicMottle</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#243D2D 142°</text>
     </g>
-    <g transform="translate(40 2372)">
+    <g transform="translate(800 2286)">
       <rect width="66" height="46" rx="4" fill="#0A140E" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">mimicSkinDark</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#0A140E 144°</text>
     </g>
-    <g transform="translate(116 2372)">
+    <g transform="translate(40 2372)">
       <rect width="66" height="46" rx="4" fill="#C4F6FF" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">mimicSign</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#C4F6FF 189°</text>
     </g>
-    <g transform="translate(192 2372)">
+    <g transform="translate(116 2372)">
       <rect width="66" height="46" rx="4" fill="#33413A" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">mimicCore</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#33413A 150°</text>

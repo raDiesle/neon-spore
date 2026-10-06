@@ -162,7 +162,7 @@ const GALL_STANDS = 1.6;
  * studs over it, the pips and the scale under the sight and the words over
  * and under it, with their glow (`flue-card.ts`, `flue-marks.ts`,
  * `boss-cue-read-zo.ts`). */
-const FLUE_MARKS = 2.3;
+const FLUE_MARKS = 2.6;
 
 /**
  * The capsule round a box, along its longer side: the shorter half-axis is
