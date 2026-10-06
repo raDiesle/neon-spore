@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · ff94ee7eb — THE GOVERNOR twice the size and rounder, a thumbprint on each mark, and the crosshair riding the needle
+
+The dial is twice as wide, nearly the field's width, and seen from higher so it reads nearly round; the works over it grow half as much again and the needle is a thick brass arm. A TAP on a mark wears HOLD's red circle and thumbprint in place of the scan box (`BossCue.print`), and the FIRE crosshair sits on the needle's tip where it is drawn, the input delay ahead, so a shot fired as it crosses the cannon's column leaves with the needle down. A look the owner asked for by name, 6 October 2026.
+
 ## 2026-10-06 · 529504c11 — THE GOVERNOR: a mark for each of you, numbered marks in order, and a shot aimed at the needle
 
 The owner's rework of THE GOVERNOR's rules. Every tap step now lights a mark for each seat, so both of you tap on the same lap, and the later steps light three and four marks, numbered, to be tapped in order. The needle runs more than twice as fast and the tap windows are half as long, with no slow-down on a tap. The shots get eight beats under THE SLOW, and a shot counts only if the needle pointed down at the cannon when it was fired. The two-pad brake is gone, because both thumbs are now tapping. The needle is drawn ahead by the input delay so a tap made on the mark lands on it.

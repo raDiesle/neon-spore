@@ -33882,3 +33882,5 @@ Bottleneck: taking the brake out reached thirty files outside the simulation —
 - landing: 5 min.
 
 Bottleneck: the input delay reached the cue through five signatures, because no cue before this one rode something drawn ahead of the simulation.
+
+*Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
