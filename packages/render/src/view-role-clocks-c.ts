@@ -123,7 +123,9 @@ export const showsBurgeeHand = (role: ViewRole, seat: 1 | 2): boolean =>
  * the ember running along the flue and the navigator is not, because the
  * navigator has the trigger and the pilot has to say when. Everything else
  * on the flue — the sight, the shots left, the levels — is on both screens.
- * `test` is both.
+ * `test` is both. The role is the panel's, so on every other level, with the
+ * panels traded, the ember is on the navigator's phone (`sim/flue.ts`,
+ * `flueTraded`).
  */
 export const showsFlueEmber = (role: ViewRole): boolean => role === "test" || role === "p1";
 

@@ -11,8 +11,10 @@ import type { World } from "./world.js";
  * **The rule is one sentence**: the one who sees the ember says *now*, and
  * the other shoots it as it runs over the cannon.
  *
- * **The split is the eyes.** Only the pilot is shown the ember; the
- * navigator, who has the trigger, is not (`render/view-role-clocks-c.ts`).
+ * **The split is the eyes.** Only the pilot's panel is shown the ember; the
+ * navigator's, which has the trigger, is not (`render/view-role-clocks-c.ts`).
+ * The two panels trade phones every other level (`flueTraded`), so each person
+ * takes a turn at seeing and a turn at shooting.
  * A bolt takes about a beat to climb to the flue and a beam a whole fill to
  * go off, so the word has to come early, by the shot's own delay and the
  * pair's.
@@ -139,6 +141,25 @@ export function flueMissWhy(
 /** A slide of the cannon, refused while the flue is up: it is held under the middle. */
 export function flueHoldsCannon(world: World, command: Command): boolean {
   return command.kind === "cannonCol" && flueBoss(world) !== null;
+}
+
+/**
+ * **Whether the flue has the two panels traded**: on every other level, the
+ * second, the fourth and the sixth, from the rest that leads into it until the
+ * rest after it — so the swap is seen before the level lights, and the seats
+ * are their own again once the flue is spent (the owner, 6 October 2026:
+ * *every level, we can switch player roles*).
+ *
+ * A trade of panels, THE HANDOVER's (`handover.ts`, `handedOver`), and not of
+ * anything here: the screen shown the ember is the pilot's panel, and the
+ * trigger, the colours and the beam the navigator's, so trading the panels
+ * hands the eyes to one person and the trigger to the other without a rule of
+ * the fight knowing who is holding which. Read off the cursor, which is
+ * hashed, so both phones trade on the same tick.
+ */
+export function flueTraded(world: World): boolean {
+  const s = flueBoss(world);
+  return s !== null && s.phase !== "spent" && s.cursor % 2 === 1;
 }
 
 /** The flue spent: the fight is over. */

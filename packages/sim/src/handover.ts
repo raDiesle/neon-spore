@@ -1,5 +1,6 @@
 import { faultStep } from "./fault-clock.js";
 import { faultInWave, faultOn, faultWindow } from "./fault-placed.js";
+import { flueTraded } from "./flue.js";
 import type { World } from "./world.js";
 
 /**
@@ -67,12 +68,20 @@ export function handedWave(world: World): boolean {
 /**
  * Whether the panels are traded **right now**.
  *
+ * By this fault, or by THE FLUE, which trades them on every other level so
+ * the seat that sees the ember and the seat that shoots it swap (`flue.ts`,
+ * `flueTraded`; the owner, 6 October 2026: *every level, we can switch player
+ * roles*). The boss's trade has no window and no warning — the plate and the
+ * hull's lobes read `handoverLeft` and `handoverWarning`, which stay 0 for it —
+ * because the flue's rest between levels is the warning, and the siren says
+ * whose mouth the next one waits on (`render/comms-boss.ts`).
+ *
  * Counted in `faultStep`, the wave's own beat — zero on its first — so the
  * number an author places the pencil on is the number of beats the pair plays
  * with its own hands first.
  */
 export function handedOver(world: World): boolean {
-  return faultOn(world, "handover") !== null;
+  return faultOn(world, "handover") !== null || flueTraded(world);
 }
 
 /** Beats until the trade, or 0 once it has happened. */

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { flueEmberAlong } from "../src/flue.js";
-import { hashWorld, slowRateMilli } from "../src/index.js";
+import { handedOver, hashWorld, slowRateMilli } from "../src/index.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
 import {
   CFG,
@@ -52,6 +52,31 @@ describe("the cannon", () => {
     toLit(world);
     tick(world, [{ player: 1, command: { kind: "cannonCol", col: 1 } }]);
     expect(world.cannonCol).toBe(MID);
+  });
+});
+
+describe("the seats", () => {
+  it("trade the two panels every other level, from the rest before it, and give them back spent", () => {
+    const world = install();
+    expect(handedOver(world)).toBe(false);
+    toLit(world);
+    expect(handedOver(world)).toBe(false);
+    shoot(world);
+    // The rest that leads into the second level is already traded, so the
+    // swap is read before the level lights.
+    expect(flue(world).phase).toBe("rest");
+    expect(handedOver(world)).toBe(true);
+    toLit(world);
+    expect(handedOver(world)).toBe(true);
+    shoot(world);
+    expect(handedOver(world)).toBe(false);
+    for (let n = 2; n < LEVELS.length; n += 1) {
+      toLit(world);
+      expect(handedOver(world)).toBe(n % 2 === 1);
+      shoot(world);
+    }
+    runUntil(world, (w) => flue(w).phase === "spent");
+    expect(handedOver(world)).toBe(false);
   });
 });
 

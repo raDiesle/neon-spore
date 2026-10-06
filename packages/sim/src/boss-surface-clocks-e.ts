@@ -101,6 +101,7 @@ export {
   flueMissWhy,
   flueOver,
   flueShownLevel,
+  flueTraded,
   freshFlue,
 } from "./flue.js";
 export { flueEmberMet, flueEmberRun, flueEmberWait, flueShotTicks } from "./flue-lead.js";

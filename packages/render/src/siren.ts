@@ -1,7 +1,8 @@
-import type { World } from "@neon-spore/sim";
+import { handedOver, type World } from "@neon-spore/sim";
 import { type CommsCall, commsCall } from "./comms.js";
-import { bossDuty } from "./comms-boss.js";
+import { bossDuty, bossSirenRight } from "./comms-boss.js";
 import { dutyWord } from "./duty.js";
+import { handedLayout } from "./handover.js";
 import type { Layout } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
 import { DIAL_R, drawDial, TICK } from "./siren-dial.js";
@@ -70,6 +71,19 @@ export function sirenCentre(l: Layout, _names?: SeatNames): { x: number; y: numb
 }
 
 /**
+ * **Pinned right rather than centred, for a boss whose own picture holds the
+ * top middle** — THE FLUE's, whose sight, studs and middle tendon stand on
+ * the column the dial would cover (the owner, 6 October 2026: *show siren top
+ * right*). The same row, so nothing stacked under it moves; the cluster's
+ * right end held off the ☰ by `SIREN_PAD`, and never left of the middle, which
+ * is where long names would push it.
+ */
+function sirenRightX(l: Layout, names?: SeatNames): number {
+  const right = DIAL_R + GAP + pillWidth(seatChip("p2", names));
+  return Math.max(l.width / 2, l.width - SIREN_PAD - right);
+}
+
+/**
  * The lowest row the whole cluster claims — the duty word's, under the dial —
  * or null when no call is on and the siren is not drawn at all.
  */
@@ -104,8 +118,20 @@ export function drawCommsSiren(
   if (!call) return;
   // And, under it, the word or words this seat owes the other about whatever
   // split body is on the field. Nothing else on the field writes a word here
-  // (`duty.ts`).
-  drawSiren(ctx, l, call, bossDuty(l.role, world) ?? dutyWord(l.role, world), time, names);
+  // (`duty.ts`). The word is the panel's, which is what it is about.
+  const word = bossDuty(l.role, world) ?? dutyWord(l.role, world);
+  // **The chips are people, and a traded panel is not a traded person.** The
+  // call is worked out by panel — the pilot's panel sees through a veil, and
+  // THE FLUE's ember — so while the panels are traded (THE HANDOVER, or THE
+  // FLUE's every other level) the mouth it lights belongs to the other person,
+  // whose name the other chip carries; and the ring that says *you* goes round
+  // this device's own seat, which is the frame's role traded back
+  // (`handover.ts`). Without it the pilot holding the navigator's panel was
+  // circled on the navigator's name.
+  const x = bossSirenRight(world) ? sirenRightX(l, names) : undefined;
+  if (handedOver(world)) {
+    drawSiren(ctx, handedLayout(l, world), { p1: call.p2, p2: call.p1 }, word, time, names, x);
+  } else drawSiren(ctx, l, call, word, time, names, x);
 }
 
 /**
@@ -121,13 +147,17 @@ export function drawSiren(
   word: string | null,
   time: number,
   names?: SeatNames,
+  /** The dial's middle across, where a boss pins the cluster right; the
+   * middle of the screen otherwise. */
+  atX?: number,
 ): void {
   // P1 on the left of the dial and P2 on its right, which is the order the
   // band already reads in — the cannon strip above the shield strip, player 1
   // before player 2 everywhere else on the screen. Stacking both chips under
   // the dial put them in a column, and a column has no left and no right, so
   // there was nothing to line either of them up with.
-  const { x: cx, y: cy } = sirenCentre(l, names);
+  const { x: mid, y: cy } = sirenCentre(l, names);
+  const cx = atX ?? mid;
   // Each chip is as wide as the word in it, so the two reaches are worked out
   // one at a time rather than shared: a pair called Bo and Anne-Marie have
   // chips of two different widths and the dial stays between them.

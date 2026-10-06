@@ -11016,7 +11016,16 @@ the whole fight (`flueHoldsCannon`, refused in `command-locks.ts`): with it
 free the pilot would slide it under the ember, and the beam, which burns the
 cannon's column the tick it goes off, would need nobody's timing at all. So
 the pilot has the eyes and the mouth, and the navigator the colour, the
-trigger and the beam.
+trigger and the beam. **The seats swap every level** (the owner, 6 October
+2026: *every level, we can switch player roles*): on the second, fourth and
+sixth the two panels trade phones, THE HANDOVER's trade (`sim/flue.ts`,
+`flueTraded`, read by `handedOver`), from the rest that leads in, so each
+person takes a turn at seeing and a turn at shooting. The trade has no plate
+and no warning: the rest is the warning, and **the siren** says whose mouth
+the level waits on (`render/comms-boss.ts`) — lit for the panel shown the
+ember, turned onto the person holding it (`siren.ts`), with `SAY WHEN TO
+SHOOT` and `SHOOT WHEN TOLD` under the dial, and **pinned top right** for
+this boss, whose sight and middle tendon hold the top middle.
 
 **It is levels, and they are its health.** The state (`sim/flue.ts`, hashed
 in `sim/flue-hash.ts`) is the **phase** and the beat it began, the
