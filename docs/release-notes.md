@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 0c72f0cc9 — THE LAMPREY is drawn as a worm: its body along the trail, a tail that sweeps, crumbs where it eats, dung for the shield and THE INSTAR's tap ring
+
+While it crawls the eel's body lies along the tiles its head has been, with a wriggle running down it. On a tile the free tail sweeps half a circle over four beats while the head stays, and stills when held. Where it eats it leaves crumbs in the colour of what it ate. Its dung is a brown heap of two stacked BULB · CLOVERs, and now drops from the tail's end, never in an edge column, so the screen never cuts it. The lit tooth wears THE INSTAR's tap ring, its green arc filling for each of the tooth's taps.
+
 ## 2026-10-06 · 3bb4847e5 — THE LAMPREY arrives hungry, crawls the field between levels and drops dung for the shield
 
 THE LAMPREY now crawls in from the side and eats a meal that falls for it — two rocks, a slick and two bulbs — then crawls out of the picture and back to its first tile. The fight is three levels of three, four and five leaps, each ended on a gullet; before the second and third the eel crawls the field side to side like a worm, eats the food that falls for it and lets go of dung, a rock the shield has to turn. A lit tooth now takes three taps, four in the last level, and the ring has nine teeth. The eel never lands at the field's edge, and where its tail would run off the screen it is laid the nearest way round that stays on, so every control can be reached.
