@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 5e97b269a — THE BATON's second arm is drawn in its own column
+
+On the pair level, both arms are now drawn. Each arm has its own spine in its own column, and the two unfold together. Neither bead wears the second bead's pupil, because neither rides the other. The shell's ring and the draw's two rings are found on whichever arm they belong to, and so are the words under them. When the two beads are drawn together, the bead that is drawn in leaves its socket dark, so the drop leaves neither arm lit. Exemption: this is a look with no shipped alternative, since the second arm was never drawn before.
+
 ## 2026-10-06 · 2118d3bc0 — THE BATON's third level hangs a second arm beside the first
 
 The rules of THE BATON's third level, `pair`. After the twin level folds, two arms unfold a column either side of the centre, with a red bead at the top of the left arm and a cyan bead at the top of the right. The trigger sends whichever bead has sat longer, so it goes from arm to arm and the cannon has to cross the gap for every shot. Each arm swings outward only, so the column between them stays clear. The arms start shedding once the two together are as dark as one arm alone would be. When each bead sits in its own arm's last socket, the beads are drawn together: player 1's thumb goes on the left arm and player 2's on the right. The bead that got there first makes the crossing. This lane is the simulation only. The picture still draws one arm, and the second arm's look is the next lane.
