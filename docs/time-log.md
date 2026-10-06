@@ -33666,3 +33666,5 @@ Bottleneck: the rows' prose is written for a programmer, so each card's two line
 - landing: 5 min. Two sound counts in `docs/spec/audio.md` were caught by `check:fast`.
 
 Bottleneck: a hold on one boss is registered in about twenty files across five packages, and only `tsc` finds them all.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 442218b0c — SNAKE's tail is no longer held: the round has two bodies, not three
+
+The owner took the driver's thumb on the tail out of SNAKE. Past snakeGorgeTiles the body stays `gorge` however long it grows, the tail is always on the board, and a head driven into it is a crash like any other. The ring on the tail's last joint, its halo and verdicts, the lift and drop sounds, the `snakeTail` drag target, `tailHeld`, `snakeShedTiles` and `snakeTailTiles` are gone; the prise on the jaws is unchanged. Look exemption: a look the owner asked for by name.
+
 ## 2026-10-06 · 3a80198a6 — Every card on ON THE FIELD says how it is found and what it does under the finger
 
 Each enemy's or boss wave's card under an action now carries two short lines: FIND IT — where the control is and what on the screen says it is asked — and WHILE YOU MOVE — what moves, fills or washes while the gesture is made. The marks most bosses share (the halo, the partner's ring and clock, green and red) are said once above the actions. A look the owner asked for by name.
