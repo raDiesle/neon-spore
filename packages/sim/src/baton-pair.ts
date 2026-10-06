@@ -1,4 +1,13 @@
-import { type BatonBead, type BatonState, batonDark, batonFlip, batonSocketRow } from "./baton.js";
+import {
+  BATON_SOCKET_DARK,
+  BATON_SOCKET_LIT,
+  type BatonBead,
+  type BatonState,
+  batonDark,
+  batonFlip,
+  batonSocketRow,
+} from "./baton.js";
+import { batonBeadSlot } from "./baton-arm.js";
 import { batonDrawn } from "./baton-hand.js";
 import { batonArms, batonTwins } from "./baton-level.js";
 import { bead } from "./baton-step.js";
@@ -93,11 +102,18 @@ function waiter(world: World, b: BatonState): BatonBead | undefined {
 function merged(world: World, b: BatonState): void {
   const last = waiter(world, b);
   if (last === undefined) return;
+  // The bead drawn in has left its socket, and a socket a bead has left is
+  // dark — on one arm it already is; across two, it is the other arm's last.
+  for (const gone of b.beads) {
+    const slot = batonBeadSlot(world.cfg, gone);
+    if (gone !== last && b.sockets[slot] === BATON_SOCKET_LIT) b.sockets[slot] = BATON_SOCKET_DARK;
+  }
   b.beads = [last];
   b.merged = true;
   last.satBeat = world.beat;
   leave(world, b);
-  world.events.push({ type: "batonMerged", col: last.col, socket: last.socket });
+  const socket = batonBeadSlot(world.cfg, last);
+  world.events.push({ type: "batonMerged", col: last.col, socket });
 }
 
 /** Back to passing with both beads still on the arm, the waiting one a socket up. */

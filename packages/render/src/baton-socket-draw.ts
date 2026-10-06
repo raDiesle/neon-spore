@@ -4,7 +4,8 @@ import {
   BATON_SOCKET_SHED,
   BATON_SOCKET_SWELL,
   type BatonState,
-  batonSocketCol,
+  batonSlotCol,
+  batonSlotSocket,
   batonSocketRow,
   type SimConfig,
 } from "@neon-spore/sim";
@@ -45,12 +46,24 @@ const HUSK = 0.5;
 const SWOLLEN = 0.55;
 
 /**
- * The column a socket hangs in: the one the lead bead left from above it,
- * the one it lands in below. The arm bends at the bead furthest down it —
+ * **Every `socket` in this file is an entry of `BatonState.sockets`** — on the
+ * `pair` level the second arm's follow the first's (`sim/baton-arm.ts`) — so
+ * the ring on a swelling socket, the two the draw asks for and every caption
+ * hung off the arm are found on whichever arm they are on by one reading.
+ */
+
+/**
+ * The column a socket hangs in: the one its arm's lead bead left from above
+ * it, the one it lands in below. An arm bends at the bead furthest down it —
  * the second bead, higher up, rides the arm wherever the first has taken it.
  */
-export function socketX(l: Layout, b: BatonState, socket: number): number {
-  return tileCX(l, batonSocketCol(b, socket));
+export function socketX(l: Layout, cfg: SimConfig, b: BatonState, socket: number): number {
+  return tileCX(l, batonSlotCol(cfg, b, socket));
+}
+
+/** The row a socket is drawn on: its place down its own arm. */
+function socketY(l: Layout, cfg: SimConfig, socket: number): number {
+  return tileCY(l, batonSocketRow(cfg, batonSlotSocket(cfg, socket)));
 }
 
 /**
@@ -65,7 +78,7 @@ export function socketPoint(
   b: BatonState,
   socket: number,
 ): { x: number; y: number } {
-  return { x: socketX(l, b, socket), y: tileCY(l, batonSocketRow(cfg, socket)) };
+  return { x: socketX(l, cfg, b, socket), y: socketY(l, cfg, socket) };
 }
 
 /** The least white this arm leaves between a word and the ring under it. */
@@ -93,7 +106,8 @@ export function socketRoomBelow(
   socket: number,
 ): number | undefined {
   const next = socket + 1;
-  if (next >= cfg.batonSockets || b.sockets[next] === BATON_SOCKET_SHED) return undefined;
+  if (batonSlotSocket(cfg, socket) + 1 >= cfg.batonSockets) return undefined;
+  if (b.sockets[next] === BATON_SOCKET_SHED) return undefined;
   return l.tile - socketReach(l) - SOCKET_GAP;
 }
 
@@ -139,8 +153,7 @@ export function drawSocket(
 ): void {
   const state = b.sockets[socket];
   if (state === BATON_SOCKET_SHED) return;
-  const x = socketX(l, b, socket);
-  const y = tileCY(l, batonSocketRow(cfg, socket));
+  const { x, y } = socketPoint(l, cfg, b, socket);
   const lit = state === BATON_SOCKET_LIT;
   const swell = state === BATON_SOCKET_SWELL ? swellOf(cfg, b, beat, beatPhase) : 0;
   const breath = lit ? (1 - beatPhase) * (1 - beatPhase) : 0;

@@ -143,3 +143,16 @@ describe("THE BATON's two arms drawn together", () => {
     expect(world.boss).toBeNull();
   });
 });
+
+describe("THE BATON's two arms, after the draw", () => {
+  it("darkens the socket the drawn-in bead left, so the drop leaves no arm lit", () => {
+    const world = open(QUIET, 3, PAIR);
+    merging(world);
+    bothDown(world, CFG.batonMergeWindowBeats);
+    const b = arm(world);
+    const lit = b.sockets.filter((s) => s === BATON_SOCKET_LIT);
+    expect(lit).toHaveLength(1);
+    cross(world);
+    expect(arm(world).sockets.every((s) => s !== BATON_SOCKET_LIT)).toBe(true);
+  });
+});

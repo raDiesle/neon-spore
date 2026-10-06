@@ -3224,8 +3224,14 @@ draw comes when each bead sits in its own arm's last socket — the pilot's thum
 on the left, the navigator's on the right — and the bead that got there first
 takes the other in and makes the crossing. `BatonState.sockets` holds the left
 arm's sockets and then the right's, and a bead says which arm it is on
-(`BatonBead.arm`, hashed). An arm across the field is the last level, queued
-(`docs/queue.md`).
+(`BatonBead.arm`, hashed). The bead drawn in leaves its socket dark, so the
+drop leaves neither arm lit. **Drawn**, each arm is its own spine in its own
+column, unfolding with the other over the same beats; neither bead wears the
+twin's pupil, because neither rides the other; and every socket the picture
+names — the swelling shell's ring, the draw's two rings, the words under them
+— is an entry of the one list, found on whichever arm it is on
+(`render/baton-socket-draw.ts`). An arm across the field is the last level,
+queued (`docs/queue.md`).
 
 **Either thumb sends** — the owner, the same day: *both players can tap.* The
 sitting bead answers either seat's tap (`render/baton-tap.ts`, `guard` signed

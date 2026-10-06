@@ -101,7 +101,7 @@ export function drawBatonVerdicts(
 ): void {
   if (b.stage !== "passing" && b.stage !== "merging" && b.stage !== "crossing") return;
   const r = handleRadius(l, cfg);
-  for (let socket = 0; socket < cfg.batonSockets; socket++) {
+  for (let socket = 0; socket < b.sockets.length; socket++) {
     const v = verdicts.at(socket);
     if (v === null) continue;
     const at = socketPoint(l, cfg, b, socket);

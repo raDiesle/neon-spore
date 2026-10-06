@@ -27,7 +27,8 @@ import { splinePath } from "./spline.js";
  * smaller: *the one with the eye* is a thing a pilot can say in a beat, and
  * it reads the same in flight and sitting. Which is the second is the one
  * that is not the lead (`batonLead`), the way the arm bends: the bead lower
- * down the arm is the fight's, and the other is the one riding it.
+ * down the arm is the fight's, and the other is the one riding it. On two
+ * arms neither rides the other, and neither has the eye.
  *
  * **Merged, the bead is twice as bright** — the design's own words for step
  * 13 (`docs/spec/bosses-choreographed.md` §10): a wider body, a halo of
@@ -106,7 +107,8 @@ export function drawBead(
 ): void {
   const { x, y } = beadPoint(l, cfg, b, bead, tick);
   const flying = bead.flying;
-  const twin = b.beads.length > 1 && bead !== batonLead(b);
+  // Down its own arm: two arms' beads are each the lead of theirs.
+  const twin = b.beads.length > 1 && bead !== batonLead(b, bead.arm);
   const merged = b.merged && b.beads.length === 1;
   const hex = bead.color === "red" ? PALETTE.red : PALETTE.cyan;
   const rim = bead.color === "red" ? PALETTE.redRim : PALETTE.cyanRim;

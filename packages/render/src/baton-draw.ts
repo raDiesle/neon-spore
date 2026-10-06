@@ -1,5 +1,5 @@
 import type { Point } from "@neon-spore/content";
-import { type BatonState, batonSocketRow, type SimConfig } from "@neon-spore/sim";
+import { type BatonState, batonSlot, batonSocketRow, type SimConfig } from "@neon-spore/sim";
 import { drawBead } from "./baton-bead-draw.js";
 import { strokeTendon } from "./baton-flesh.js";
 import { drawSocket, socketX } from "./baton-socket-draw.js";
@@ -8,8 +8,9 @@ import { type Layout, tileCY } from "./layout.js";
 import { splinePath } from "./spline.js";
 
 /**
- * THE BATON, drawn: an arm of sockets hanging down the middle column, and the
- * bead being passed down it one socket at a time.
+ * THE BATON, drawn: an arm of sockets hanging down the middle column — two,
+ * a column either side of it, on the `pair` level — and the bead being passed
+ * down it one socket at a time.
  *
  * **The silhouette is the health bar** (`docs/spec/bosses.md` §11.0). A socket
  * the bead has left is dark and stays dark, so how much of the arm still
@@ -82,21 +83,24 @@ export function drawBaton(
   // How much of the arm is out yet. It unfolds over `batonUnfoldBeats`, top
   // socket first, and the newest one grows in as it comes so the unfolding
   // reads as a motion and not as a count appearing.
+  // With two arms both unfold together, each its own length in the time one
+  // took (`sim/baton-arm.ts`).
+  const length = cfg.batonSockets;
   const shown =
     b.stage === "unfolding"
-      ? Math.min(
-          b.sockets.length,
-          ((beat - b.stageBeat + beatPhase) * b.sockets.length) / cfg.batonUnfoldBeats,
-        )
-      : b.sockets.length;
+      ? Math.min(length, ((beat - b.stageBeat + beatPhase) * length) / cfg.batonUnfoldBeats)
+      : length;
   const thread = threadOf(cfg, b, beat, beatPhase);
   ctx.save();
   ctx.globalAlpha = alpha;
-  drawSpine(ctx, l, cfg, b, shown, thread, time);
-  for (let i = 0; i < b.sockets.length; i++) {
-    const grow = Math.max(0, Math.min(1, shown - i));
-    if (grow <= 0) break;
-    drawSocket(ctx, l, cfg, b, i, grow, thread, beat, beatPhase, time, hurt);
+  for (let arm = 0; arm < b.sockets.length / length; arm++) {
+    const first = batonSlot(cfg, arm, 0);
+    drawSpine(ctx, l, cfg, b, first, shown, thread, time);
+    for (let i = 0; i < length; i++) {
+      const grow = Math.max(0, Math.min(1, shown - i));
+      if (grow <= 0) break;
+      drawSocket(ctx, l, cfg, b, first + i, grow, thread, beat, beatPhase, time, hurt);
+    }
   }
   // The crossing is the last flight, and the bead is the whole of it.
   if (b.stage === "passing" || b.stage === "crossing")
@@ -105,8 +109,8 @@ export function drawBaton(
 }
 
 /**
- * The arm itself, from its root above the field down to the lowest socket
- * that is out. An open cord, for THE VANE's reason: a closed shape would
+ * One arm, from its root above the field down to the lowest socket that is
+ * out; `first` is its top socket's entry in `BatonState.sockets`. An open cord, for THE VANE's reason: a closed shape would
  * read as a body, and this is a mechanism — a tube of the rig, lit round its
  * back and swinging in depth (`baton-tube.ts`). When the arm has swung
  * the spine leans across the columns between the socket the bead left and
@@ -121,13 +125,14 @@ function drawSpine(
   l: Layout,
   cfg: SimConfig,
   b: BatonState,
+  first: number,
   shown: number,
   thread: number,
   time: number,
 ): void {
   if (shown <= 0) return;
-  const pts: Point[] = [{ x: socketX(l, b, 0), y: tileCY(l, 0) - l.tile * ROOT }];
-  const last = Math.min(b.sockets.length - 1, Math.ceil(shown) - 1);
+  const pts: Point[] = [{ x: socketX(l, cfg, b, first), y: tileCY(l, 0) - l.tile * ROOT }];
+  const last = Math.min(cfg.batonSockets - 1, Math.ceil(shown) - 1);
   for (let i = 0; i <= last; i++) {
     // A slow sway, a hair's width, so the arm is a hanging thing and not a
     // ruled line; the same amount on both screens because it is off `time`
@@ -136,7 +141,7 @@ function drawSpine(
     // stays where the bead in it is drawn (`baton-bead-draw.ts`).
     const loose = i < last ? thread : 0;
     const sway = Math.sin(time * (0.9 + 1.2 * loose) + i * 0.5) * l.tile * 0.03 * (1 + 5 * loose);
-    pts.push({ x: socketX(l, b, i) + sway, y: tileCY(l, batonSocketRow(cfg, i)) });
+    pts.push({ x: socketX(l, cfg, b, first + i) + sway, y: tileCY(l, batonSocketRow(cfg, i)) });
   }
   const split = thread > 0 && pts.length > 2 ? pts.length - 2 : -1;
   const upper = split < 0 ? pts : pts.slice(0, split + 1);

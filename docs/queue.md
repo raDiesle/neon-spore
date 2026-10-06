@@ -476,18 +476,14 @@ each building up slowly and adding one thing only. Built so far
 (`claude/baton-levels`): the level list (`baton-level.ts`) with `single` (one
 bead; a struck flight out of the last socket is the drop) and `twin` (the
 fight as it shipped), the arm folding and unfolding as the next level, and
-either seat's thumb sending a bead. Left, in order, a lane each:
+either seat's thumb sending a bead; then `pair` (`claude/baton-pair`,
+`claude/baton-pair-look`), two arms a column either side of the centre. Left,
+in order, a lane each:
 
-1. **Two arms side by side, the look** (`pair`): the simulation is in
-   (`sim/baton-arm.ts`, `claude/baton-pair`) — the picture still draws one
-   arm down `BatonState.sockets`, so the second arm's sockets fall below the
-   field. Draw each arm in its own column (`batonSlotCol`,
-   `batonSlotSocket`), the draw's two rings across the gap, the grip's hit
-   test by entry of the sockets.
-2. **The arm across** (`across`): the last level, an arm along a row that the
+1. **The arm across** (`across`): the last level, an arm along a row that the
    bead runs left to right, the cannon meeting it column by column.
    Simulation, then look.
-3. **The field explains each extra part**: two or three beats before the twin,
+2. **The field explains each extra part**: two or three beats before the twin,
    the swing, the shed, the merge, the crossing, the second arm and the arm
    across first appear, words on the field say what is coming, and while it
    runs, what each seat has to do. The owner's ask, over the rule that a cue

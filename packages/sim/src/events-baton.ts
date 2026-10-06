@@ -16,7 +16,12 @@
 interface BatonSocketEvent {
   /** The column the bead is over. */
   col: number;
-  /** The socket, base first: the one it left, landed in or was shaken back to. */
+  /**
+   * The socket, base first: the one it left, landed in or was shaken back to.
+   * On the thumbs' events — the swell, the strip, the refusal, the hold and
+   * the merge — an entry of `BatonState.sockets`, which with two arms runs on
+   * into the second (`baton-arm.ts`).
+   */
   socket: number;
 }
 

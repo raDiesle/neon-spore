@@ -33776,3 +33776,13 @@ Bottleneck: looking — the strip tool's held clock made a flowing look read as 
 Bottleneck: the shed's threshold and the test rig's QUIET both counted dark sockets on one arm, and two arms reached it at half the depth.
 
 *Measured: 13 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE BATON's second arm is drawn in its own column
+
+- reading: 5 min. Every caller of the socket's point and column in the picture, the marks, the grip and the cue.
+- writing: 10 min. One reading of a socket by its entry in the list, the spine and sockets drawn per arm, the bead's pupil per arm, the drawn-in bead's socket darkened, two tests.
+- looking: 5 min. Frames of the two arms passing and of the draw across the gap.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the picture asked for a socket by its place down one arm in seven files, and every one had to become an entry of the list.
