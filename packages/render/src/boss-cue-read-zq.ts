@@ -8,7 +8,7 @@ import {
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import { fieldX } from "./field-flip.js";
-import { governorHubCircle, governorTapCircle } from "./governor-grip.js";
+import { governorNeedleCircle, governorTapCircle } from "./governor-grip.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -22,11 +22,15 @@ import type { Layout } from "./layout.js";
  * would be the tap made for them. The mark stays where it is while the
  * needle sweeps, so the word holds still. On an ordered step only the next
  * mark is open, so only its seat is told, and the word moves on as each is
- * landed. Each mark gets its own seed.
+ * landed. Each mark gets its own seed. **It wears the thumbprint, not the
+ * scan box** (`BossCue.print`) — the owner, 6 October 2026: *instead of tap
+ * scanner square box use the thumb control visual.*
  *
  * **`FIRE` at the hull under the middle column while the hub is lit**, to
  * either seat. The step's colour is never named. Nothing is said between
- * steps. **It rings the hub** at the dial's middle (`governorHubCircle`).
+ * steps. **Its crosshair rides the needle's tip** (`governorNeedleCircle`),
+ * drawn `lead` ticks ahead as the needle is: the shot is aimed by the needle,
+ * and fired as the crosshair crosses the cannon's column.
  */
 
 export function governorCues(
@@ -34,12 +38,13 @@ export function governorCues(
   world: World,
   s: GovernorState,
   beatPhase: number,
+  lead = 0,
 ): readonly BossCue[] {
   const cfg: SimConfig = world.cfg;
   const frame = cueFrame(l, CUE_FRAME_WIDE);
   if (governorFiring(s)) {
     const x = fieldX(l, midCol(cfg));
-    const aim = governorHubCircle(l, cfg, s, world.beat, beatPhase);
+    const aim = governorNeedleCircle(l, world, s, beatPhase, lead);
     return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 189 }];
   }
   const out: BossCue[] = [];
@@ -47,7 +52,8 @@ export function governorCues(
     const mark = governorTapCircle(l, cfg, s, world.beat, beatPhase, seat);
     if (mark === null) continue;
     const seed = 190 + s.cursor * 2 + seat;
-    out.push({ seat, kind: "PRESS", word: "TAP", x: mark.x, y: mark.y, ...frame, seed });
+    const at = { x: mark.x, y: mark.y };
+    out.push({ seat, kind: "PRESS", word: "TAP", ...at, ...frame, print: true, seed });
   }
   return out;
 }

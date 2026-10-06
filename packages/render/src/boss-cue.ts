@@ -94,6 +94,8 @@ export function bossCues(
   world: World,
   beatPhase: number,
   skinY: SurfaceY,
+  /** This device's input delay, in ticks (`choreoCues`). */
+  lead = 0,
 ): readonly BossCue[] {
   const boss = world.boss;
   if (boss === null) return NONE;
@@ -189,7 +191,7 @@ export function bossCues(
     case "seam":
     case "lamprey":
     case "mimic":
-      return choreoCues(l, world, boss, beatPhase);
+      return choreoCues(l, world, boss, beatPhase, lead);
     // **THE WELL is read and silent, which is why it is a `case` and not a
     // fall-through.** Its answer is THE PULSE's below, but it gets a page of
     // its own (`boss-cue-read-r.ts`) because a boss sitting in the `default` is
@@ -220,8 +222,9 @@ export function bossCue(
   world: World,
   beatPhase: number,
   skinY: SurfaceY,
+  lead = 0,
 ): BossCue | null {
-  for (const cue of bossCues(l, world, beatPhase, skinY)) {
+  for (const cue of bossCues(l, world, beatPhase, skinY, lead)) {
     // A chord body on a desk is THE INSTAR's ring, drawn beside this (`desk-chord-ring.ts`).
     if (deskChordRing(cue, l.role)) continue;
     // The membrane under the mark, stamped once here rather than by each of

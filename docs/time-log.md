@@ -33872,3 +33872,13 @@ Bottleneck: a shot that is its own aim never resized its frame, so a bigger mark
 Bottleneck: taking the brake out reached thirty files outside the simulation — the wire, the sounds, the desk, the director's rows — each found by the typecheck.
 
 *Measured: 30 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE GOVERNOR twice the size and rounder, a thumbprint on each mark, and the crosshair riding the needle
+
+- reading: 5 min. The dial's geometry, the cue helpers and where a cue's word is drawn from.
+- writing: 10 min. The sizes and the eye's height, the needle's width, the print flag, the crosshair on the needle's tip and the input delay carried down to it.
+- looking: 5 min. A frame of a tap step, of the fire step tipping up, and of the moment before the first shot leaves.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the input delay reached the cue through five signatures, because no cue before this one rode something drawn ahead of the simulation.

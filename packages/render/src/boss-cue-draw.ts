@@ -34,10 +34,12 @@ export function drawBossCue(
   /** The plating without the cannon on it, for the one boss whose marks stand
    * on lobes coming up through it (`undertow-lobe.ts`). */
   skinY: SurfaceY = () => l.hullY,
+  /** This device's input delay, in ticks (`ViewState.leadTicks`), for a mark that rides a needle drawn ahead. */
+  lead = 0,
 ): void {
   if (pointerSpeaksForBoth(l.role))
-    drawDeskChordRings(ctx, l, world.cfg, bossCues(l, world, beatPhase, skinY), time);
-  const read = bossCue(l, world, beatPhase, skinY);
+    drawDeskChordRings(ctx, l, world.cfg, bossCues(l, world, beatPhase, skinY, lead), time);
+  const read = bossCue(l, world, beatPhase, skinY, lead);
   if (read === null) return;
   // A shot is drawn on what it is for, not on the cannon (`cueDrawnAt`).
   const cue = cueDrawnAt(read, l.hullY);

@@ -37,25 +37,25 @@ export interface Dial {
 
 /** The dial's middle, in tiles below the grid's top, and its radius in tiles. */
 const ROW = coreRowMilli("governor") / 1000 + 0.5;
-const RADIUS = 2.45;
+const RADIUS = 4.9;
 /** The graduated track, as fractions of the radius, and the needle's reach. */
 export const TRACK_IN = 0.74;
 export const TRACK_OUT = 0.94;
 export const NEEDLE_REACH = 0.9;
 /** How thick the flywheel is under its face, in tiles. */
-const RIM_DEPTH = 0.26;
+const RIM_DEPTH = 0.4;
 /** The hub's radius at its fullest, in tiles. */
-const HUB = 0.42;
+const HUB = 0.68;
 /** How far behind the dial's middle the spindle stands, in radii: just past the far rim. */
 const BEHIND = 1.08;
 /** The spindle's head, the drum's middle and its half-height, over the dial's plane, in tiles. */
-const HEAD = 3.2;
-const DRUM_AT = 0.5;
-const DRUM_HALF = 0.26;
+const HEAD = 4.4;
+const DRUM_AT = 0.7;
+const DRUM_HALF = 0.38;
 /** The drum's radius, a flyweight's arm and its radius, in tiles. */
-const DRUM_R = 0.34;
-const ARM = 1.35;
-const BALL = 0.4;
+const DRUM_R = 0.5;
+const ARM = 1.9;
+const BALL = 0.6;
 
 /** The dial for this frame, tipped between the two heights the eye stands at. */
 export function governorDial(l: Layout, cfg: SimConfig, tilt: number): Dial {

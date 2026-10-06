@@ -36,6 +36,9 @@ import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
  *   **no scanner box** — the owner, 2 October 2026: *i expect some red circle
  *   like, no scan rectangle box*. The circle is the frame there, as the
  *   crosshair is a shot's (`holdIsHere`).
+ *   A `TAP` with `BossCue.print` wears it too — THE GOVERNOR's marks, the
+ *   owner, 6 October 2026: *instead of tap scanner square box use the thumb
+ *   control visual.*
  * - **`RUB`**: a red line with an arrow sliding in at it from each side
  *   (`rub-mark.ts`), and no scanner box either — the owner, 3 October 2026,
  *   on THE GRINDSTONE. The line is as long as the cue's `rubHalf` says.
@@ -55,6 +58,11 @@ export function cueHelper(word: string): CueHelper | null {
   if (verb === "HOLD") return "hold";
   if (verb === "RUB") return "rub";
   return null;
+}
+
+/** The helper a cue wears: a `print` is the thumbprint whatever its word (`BossCue.print`). */
+function helperOf(cue: BossCue): CueHelper | null {
+  return cue.print === true ? "hold" : cueHelper(cue.word);
 }
 
 /** The crosshair's ring, in the cue frame's shorter half-extent. */
@@ -149,7 +157,7 @@ export function cueBoxed(cue: BossCue, hullY: number): boolean {
 
 /** Whether the cue wears a mark of its own that stands in the scan frame's place: a hold's circle or a rub's line. */
 export function markIsHere(cue: BossCue): boolean {
-  const helper = cueHelper(cue.word);
+  const helper = helperOf(cue);
   return helper === "hold" || helper === "rub";
 }
 
@@ -161,7 +169,7 @@ export function drawCueHelper(
   skin: SeatSkin = P1_SKIN,
   from: { x: number; y: number } = { x: cue.x, y: hullY },
 ): void {
-  const helper = cueHelper(cue.word);
+  const helper = helperOf(cue);
   if (helper === null) return;
   const short = Math.min(cue.halfW, cue.halfH);
   // The same breath as the word (`boss-cue-text.ts`), a little brighter: the

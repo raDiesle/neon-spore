@@ -10,7 +10,11 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { bossCue } from "../src/boss-cue.js";
-import { governorGripUnder, governorHubCircle, governorTapCircle } from "../src/governor-grip.js";
+import {
+  governorGripUnder,
+  governorNeedleCircle,
+  governorTapCircle,
+} from "../src/governor-grip.js";
 import { governorStanding } from "../src/governor-pose.js";
 import { handleCircle } from "../src/handles.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
@@ -123,7 +127,7 @@ describe("the words", () => {
     expect(bossCue(p2, world, 0, () => p2.hullY)).toBeNull();
   });
 
-  it("say FIRE at the hull while the hub is lit, and ring the hub", () => {
+  it("say FIRE at the hull while the hub is lit, the crosshair on the needle's tip", () => {
     const world = stood();
     const s = posed(world, FIRE, 0, (g) => {
       g.hubLit = true;
@@ -134,12 +138,30 @@ describe("the words", () => {
       expect(said).toMatchObject({ word: "FIRE", seat: null, y: l.hullY });
       // The owner, 29 September 2026, every boss: a shot cue carries a clear
       // aim target (`cue-helper.ts`). The word stays at the hull, where the
-      // cannon goes; the crosshair rides the thing it is fired at.
-      const want = governorHubCircle(l, CFG, s, world.beat, 0);
+      // cannon goes; the crosshair rides the needle, which aims the shot.
+      const want = governorNeedleCircle(l, world, s, 0, 0);
       expect(said?.aim?.x).toBeCloseTo(want.x, 5);
       expect(said?.aim?.y).toBeCloseTo(want.y, 5);
       expect(said?.aim?.r).toBeCloseTo(want.r, 5);
       expect(said?.aim?.y).toBeLessThan(l.hullY);
     }
+  });
+
+  it("put the crosshair where the needle is drawn, the input delay ahead", () => {
+    const world = stood();
+    const s = posed(world, FIRE, 0, (g) => {
+      g.hubLit = true;
+    });
+    const l = layout("p1");
+    const now = bossCue(l, world, 0, () => l.hullY)?.aim;
+    const ahead = bossCue(l, world, 0, () => l.hullY, 12)?.aim;
+    expect(ahead?.x).toBeCloseTo(governorNeedleCircle(l, world, s, 0, 12).x, 5);
+    expect(ahead?.x).not.toBeCloseTo(now?.x ?? Number.NaN, 1);
+  });
+
+  it("wear the thumbprint on a TAP, not the scan box", () => {
+    const { world } = toLit();
+    const l = layout("p1");
+    expect(bossCue(l, world, 0, () => l.hullY)?.print).toBe(true);
   });
 });

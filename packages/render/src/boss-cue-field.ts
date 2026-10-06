@@ -44,6 +44,6 @@ export function drawFieldBossCue(
   skinY?: SurfaceY,
 ): void {
   if (wellShown(l, world)) return;
-  drawBossCue(ctx, l, world, view.beatPhase, view.time, skinY);
+  drawBossCue(ctx, l, world, view.beatPhase, view.time, skinY, view.leadTicks ?? 0);
   drawBatonExplain(ctx, l, world, view.time);
 }

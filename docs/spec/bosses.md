@@ -11315,13 +11315,17 @@ the whole script ends spent and out, the same twice from one seed.
 the owner's eye.
 
 **The look** (`render/src/governor-draw.ts`, 29 September 2026, the marks
-redrawn 6 October). **THE VANE and INTERFERENCE, combined**
+redrawn 6 October, and the whole governor twice the size and seen from
+higher the same day — the owner: *increase the size of the boss graphic —
+maybe double or triple — also make it more round*). **THE VANE and INTERFERENCE, combined**
 (`tools/shape-sheet/src/drafts/`): THE VANE's arm on its bearing is the
 needle and the hub, laid on a brass flywheel over the middle column, and
 INTERFERENCE's two bodies are **the flyweights of a Watt governor** on a
 spindle behind the far rim, a brake drum and a yoke hanging half open at its
 foot. The dial is a disc seen from above (`governor-shape.ts`): graduations
-round a dark face, the needle's tip lagging its root on a quick step. **The
+round a dark face, nearly the field's width and nearly round, the needle a
+thick brass arm, its tip lagging its root on a quick tap step and never
+while a shot is owed, when the crosshair rides it. **The
 needle is drawn `leadTicks` ahead** of the simulation, THE PULSE's lead: a
 press is heard the input delay later, and at this pace that is most of a
 mark. **Each mark is a piece of the track**, breathing on its own seat's
@@ -11352,7 +11356,13 @@ shears off and bites a notch in the skin.
 dial's face**, a quarter tile past its rim, from a seat with a mark left to
 land: the simulation judges the needle, never the thumb. The words
 (`boss-cue-read-zq.ts`): `TAP` on each seat's open mark to that seat for the
-whole step, and `FIRE` under the middle column while the hub is lit. AUTO's
+whole step, wearing the thumbprint and not the scan box (`BossCue.print`,
+the owner: *instead of tap scanner square box use the thumb control
+visual*), and `FIRE` under the middle column while the hub is lit, **its
+crosshair on the needle's tip** where the needle is drawn, the input delay
+ahead (`governorNeedleCircle`) — *the aim for cannon indicator must rotate
+with the needle* — so a shot fired as it crosses the cannon's column leaves
+with the needle down. AUTO's
 hand (`hands/src/boss-hands-governor.ts`) taps each seat's open mark as the
 needle crosses it and fires the step's colour as the needle points down; it
 plays the script through (`tools/director/test/autopilot-governor.test.ts`).

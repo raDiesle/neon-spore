@@ -8,9 +8,10 @@ import {
   governorOpenMarks,
   governorTapping,
   type SimConfig,
+  type World,
 } from "@neon-spore/sim";
-import { governorStanding } from "./governor-pose.js";
-import { type Dial, dialAt, hubR, TRACK_IN, TRACK_OUT } from "./governor-shape.js";
+import { governorNeedleShown, governorStanding } from "./governor-pose.js";
+import { type Dial, dialAt, hubR, NEEDLE_REACH, TRACK_IN, TRACK_OUT } from "./governor-shape.js";
 import type { Circle, Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -33,6 +34,8 @@ import { bossOf } from "./touch-field.js";
 
 /** How far past the dial's drawn rim a tap still lands on it, in tiles. */
 const RIM_PAST = 0.25;
+/** The crosshair on the needle's tip, in the hub's radius. */
+const TIP = 0.75;
 
 /** Whether the governor is there to be touched: every phase but spent. */
 export function governorTakesHand(s: GovernorState): boolean {
@@ -79,18 +82,24 @@ export function governorTapCircle(
 }
 
 /**
- * The hub as a circle where it stands this frame, at the dial's middle — what
- * a shot is fired at while it is lit. Its size before the hits shrink it.
+ * **The needle's tip as a circle**, where it is drawn this frame, `lead`
+ * ticks ahead (`governorNeedleShown`) — what a shot is aimed by. The owner,
+ * 6 October 2026: *cannon must hit needle … so the aim for cannon indicator
+ * must rotate with the needle.* A shot counts when the needle pointed down
+ * as it left the cannon (`sim/governor-shot.ts`), and the drawn needle is
+ * where the simulation's will be when a press made now is heard, so a
+ * thumb that fires as this crosses the cannon's column fires in time.
  */
-export function governorHubCircle(
+export function governorNeedleCircle(
   l: Layout,
-  cfg: SimConfig,
+  world: World,
   s: GovernorState,
-  beat: number,
   beatPhase: number,
+  lead: number,
 ): Circle {
-  const d = governorStanding(l, cfg, s, beat, beatPhase);
-  return { x: d.cx, y: d.cy, r: hubR(l) };
+  const d = governorStanding(l, world.cfg, s, world.beat, beatPhase);
+  const at = dialAt(d, governorNeedleShown(world, s, lead), NEEDLE_REACH);
+  return { x: at.x, y: at.y, r: hubR(l) * TIP };
 }
 
 /** A press on the governor: the tap on the dial, from a seat with a mark to land. */

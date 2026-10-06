@@ -1,6 +1,7 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import {
   type GovernorState,
+  governorFiring,
   governorLitStep,
   governorMarkLanded,
   governorOff,
@@ -53,8 +54,9 @@ import { showsGovernorHand } from "./view-role-clocks-c.js";
 const GRADUATIONS = 16;
 /** How far the needle's tip lags its root at the hottest, in thousandths of a lap. */
 const LAG = 45;
-/** The needle's tail past the hub, in radii. */
+/** The needle's tail past the hub, and its width, in radii. */
 const TAIL = 0.16;
+const NEEDLE_WIDE = 0.045;
 
 /** The clock a frame of the governor is drawn on, and how far ahead of the world its needle is shown. */
 export interface GovernorClock {
@@ -129,7 +131,8 @@ export function drawGovernor(
   }
   drawGovernorTap(ctx, d, fx.tap);
   drawGovernorStuds(ctx, l, d, s.taps, governorOwed(s));
-  drawNeedle(ctx, d, needle, governorHeat(s, cfg), hot);
+  // No whip while a shot is owed: the crosshair rides the tip (`governorNeedleCircle`).
+  drawNeedle(ctx, d, needle, governorFiring(s) ? 0 : governorHeat(s, cfg), hot);
   drawGovernorHub(ctx, l, d, s, beat, beatPhase);
   drawGovernorFlash(ctx, l, d, fx.flash);
 
@@ -206,13 +209,14 @@ function drawNeedle(
   ctx.save();
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
-  ctx.lineWidth = STROKE.outline * 1.6;
+  ctx.lineWidth = Math.max(STROKE.outline * 1.6, d.r * NEEDLE_WIDE);
   ctx.strokeStyle = PALETTE.governorBrassDark;
   ctx.stroke(arm);
   ctx.restore();
-  if (hot) strokeGlowFaded(ctx, arm, PALETTE.governorHot, STROKE.outline, 1.2, 1);
+  const core = Math.max(STROKE.inner, d.r * NEEDLE_WIDE * 0.4);
+  if (hot) strokeGlowFaded(ctx, arm, PALETTE.governorHot, core, 1.2, 1);
   else {
-    ctx.lineWidth = STROKE.inner;
+    ctx.lineWidth = core;
     ctx.strokeStyle = PALETTE.governorBrass;
     ctx.stroke(arm);
   }

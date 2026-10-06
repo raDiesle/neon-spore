@@ -144,6 +144,13 @@ export interface BossCue {
    * not as this cue (`desk-chord-ring.ts`).
    */
   chord?: boolean;
+  /**
+   * **A `TAP` that wears the thumbprint** in place of the scan box: `HOLD`'s
+   * red circle (`hold-mark.ts`), drawn by `cue-helper.ts`. THE GOVERNOR's
+   * marks, the owner, 6 October 2026: *instead of tap scanner square box use
+   * the thumb control visual.*
+   */
+  print?: boolean;
 }
 
 /** Whether this screen is the one being asked. */

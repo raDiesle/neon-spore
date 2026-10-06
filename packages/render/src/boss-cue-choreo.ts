@@ -30,6 +30,8 @@ export function choreoCues(
   world: World,
   boss: BossState,
   beatPhase: number,
+  /** This device's input delay, in ticks, for a cue that rides something drawn ahead (`ViewState.leadTicks`). */
+  lead = 0,
 ): readonly BossCue[] {
   switch (boss.kind) {
     // THE VISE's, a word on each lobe a lit pinch asks for, gone once it is shut, and one under the lit kernel (`boss-cue-read-zf.ts`).
@@ -72,7 +74,7 @@ export function choreoCues(
       return valveCues(l, world, boss, beatPhase);
     // THE GOVERNOR's, a tap on each seat's open mark to that seat, and one under the lit hub (`boss-cue-read-zq.ts`).
     case "governor":
-      return governorCues(l, world, boss, beatPhase);
+      return governorCues(l, world, boss, beatPhase, lead);
     // THE SEAM's, a shield under the ridge while grit falls and a fire under the lit point or the rock, and nothing on the false point or the dark (`boss-cue-read-zr.ts`).
     case "seam":
       return seamCues(l, world, boss, beatPhase);

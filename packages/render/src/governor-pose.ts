@@ -32,8 +32,8 @@ const SWING_WIDE = 1.42;
 /** The flyweights' turns to one of the needle's. */
 const ORBITS = 3;
 /** The eye's height as a sine: over the dial while it is read, and risen over the hub while it is shot. */
-export const TILT_READ = 0.56;
-export const TILT_HUB = 0.84;
+export const TILT_READ = 0.82;
+export const TILT_HUB = 0.95;
 
 /** The governor lowered onto the field as it arrives: 0 above it, 1 in place. */
 export function governorArrived(
