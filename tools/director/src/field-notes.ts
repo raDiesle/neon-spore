@@ -4,9 +4,9 @@
  * turn round. Nothing here changes a control; each line is a proposal, and
  * the owner's answer is what a later lane builds.
  *
- * `DECISIONS` are the ones that cut across families and stand at the top of
- * the page. `ROW_NOTES` are for the rows that differ from their family's own
- * suggestion (`field-families.ts`); a row without one takes the family's.
+ * `DECISIONS` are the ones that cut across types and stand at the top of
+ * the page. `ROW_NOTES` are for the rows that differ from their type's own
+ * suggestion (`field-actions.ts`); a row without one takes its type's.
  * Every gesture in the catalogue has a note: `field-notes-gestures.ts`.
  */
 
@@ -86,14 +86,12 @@ export const ROW_NOTES: Readonly<Record<string, string>> = {
     "THE WARDEN's tether made generic already — a creature's cord pulled " +
     "as a level. The model for the LEVER.",
   "THE CHOIR'S LEFT ARROW":
-    "The fallback for a phone with no motion. Keep, and keep it for every " +
-    "sensor the game ever reads.",
-  "THE CHOIR'S RIGHT ARROW": "As the left arrow.",
+    "The fallback for a phone with no motion, one at each wall. Keep, and " +
+    "keep it for every sensor the game ever reads.",
   "THE LIGHT": "Keep. The only generic press that is on both screens at once.",
   "THE PLUMB'S LEFT STONE":
     "Was TILT until the owner's ruling. Keep as a LEVER; say in the row " +
     "that no sensor is read.",
-  "THE PLUMB'S RIGHT STONE": "As the left stone.",
   "THE CAPSTAN'S PULL":
     "Steers a band rather than pulling past a depth — a LEVER, but the " +
     "seat changes by step. Keep the per-step seat; it is the point.",
@@ -106,7 +104,7 @@ export const ROW_NOTES: Readonly<Record<string, string>> = {
     "A press taken in turn by the locked seat. The halo on that screen is " +
     "the ASKED mark; make it the generic one.",
   "THE PULSE'S BRACE":
-    "Either seat, one at a time — the only hold that is a choice of who. Keep specific.",
+    "Either seat, one at a time — the only press that is a choice of who. Keep specific.",
   "THE SURGE'S BULB":
     "Held by both, and the answer is the letting go. Keep specific; it is " +
     "the only release the game grades.",

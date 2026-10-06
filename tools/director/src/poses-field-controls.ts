@@ -21,6 +21,7 @@ import {
 } from "./pose-kit.js";
 import { ANTIPHON_CARRY, ANTIPHON_TURN } from "./poses-field-controls-antiphon.js";
 import { BOSS_GRIPS } from "./poses-field-controls-bosses.js";
+import { CHOIR_SWIPE } from "./poses-field-controls-choir.js";
 import { DARK_LIGHT } from "./poses-field-controls-dark.js";
 import { GIMBAL_GRIPS } from "./poses-field-controls-gimbal.js";
 import { INSTAR_PULL } from "./poses-field-controls-instar.js";
@@ -179,6 +180,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     SPOOL_BRAKE,
     ...BOSS_GRIPS,
     DARK_LIGHT,
+    CHOIR_SWIPE,
     GUIDE_HOLD,
   ],
 };

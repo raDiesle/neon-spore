@@ -416,16 +416,18 @@
           <p class="pagewhat">
             How the pair touches the game — both kinds. PANELS is the strip
             below the field: what the WAVE tab's own CONTROL SET picker means
-            by a name. ON THE FIELD is everything touched on the field itself,
-            generic first and each boss's own after, grouped by what the thumb
-            does; then every gesture a phone offers, the ones the game reads
-            and the ones it does not yet, with what was tried and set aside.
-            Every item carries a SUGGESTED line for the owner to accept or
-            strike. See `docs/spec/controls.md`.
+            by a name. ON THE FIELD is everything an enemy or a boss wave
+            brings onto the field, by action — grab and drag, hold, press —
+            then by type, with a card for each enemy or boss wave that uses
+            it, most used first; then every gesture a phone offers, the ones
+            the game reads and the ones it does not yet, with what was tried
+            and set aside. EVERY WAVE is what is touched on every wave,
+            whatever the wave is. See `docs/spec/controls.md`.
           </p>
           <div id="controlsInnerTabs" class="ctltabs">
             <button type="button" data-tab="panels" class="on">PANELS</button>
             <button type="button" data-tab="field">ON THE FIELD</button>
+            <button type="button" data-tab="every">EVERY WAVE</button>
           </div>
           <div class="ctlpage on" id="ctl-panels">
             <div id="controlSetsBody"></div>
@@ -440,12 +442,21 @@
               it) — `tools/director/test/on-field-controls.test.ts` fails to
               typecheck if `touch.ts` gains a `Hold` kind or a `DragTarget`
               this list does not cover, and `test/field-page.test.ts` fails
-              if a row is in no group. The gestures in prose are §4 of
+              if a row is in no place. The gestures in prose are §4 of
               `docs/spec/transfers-touch.md`; a tried control's write-up stays
               in the spec, named under its row.
             </p>
             <nav class="contents" data-contents="fieldControlsBody"></nav>
             <div id="fieldControlsBody"></div>
+          </div>
+          <div class="ctlpage" id="ctl-every">
+            <p class="note">
+              Reached on every wave, whatever the wave is: the ship's own lobes,
+              the grip on a falling thing and the guide. Nothing here is named
+              by a wave; the muzzle swipe is the one row a control set switches
+              on.
+            </p>
+            <div id="everyWaveBody"></div>
           </div>
         </div>
         <div class="sheetpage" id="mech-style">

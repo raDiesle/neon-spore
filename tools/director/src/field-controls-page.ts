@@ -96,7 +96,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "choirLeft",
     sends: ["drag"],
-    pose: "CHOIR · TWO VOICES",
+    pose: "CHOIR · SWIPE OR SHAKE",
   },
   {
     name: "THE CHOIR'S RIGHT ARROW",
@@ -112,7 +112,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "choirRight",
     sends: ["drag"],
-    pose: "CHOIR · TWO VOICES",
+    pose: "CHOIR · SWIPE OR SHAKE",
   },
   // Every boss's own rows, in the order they were built, next door:
   // `field-controls-bosses.ts`.

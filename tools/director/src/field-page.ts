@@ -1,7 +1,8 @@
+import { actionSection, suggested } from "./field-action-cards.js";
+import { EVERY_WAVE_ROWS, sortedActions } from "./field-actions.js";
 import type { FieldControlDef } from "./field-control-def.js";
 import { FIELD_CONTROLS } from "./field-controls-page.js";
 import { fieldControlRow } from "./field-controls-rows.js";
-import { BOSS_FAMILIES, EVERY_WAVE, type FieldGroup, ONE_CREATURE } from "./field-families.js";
 import { DECISIONS, ROW_NOTES } from "./field-notes.js";
 import { GESTURE_NOTES, TRIED_NOTES } from "./field-notes-gestures.js";
 import { GESTURES } from "./gesture-catalogue.js";
@@ -14,15 +15,15 @@ import { TRIED_CONTROLS, triedControlRow } from "./tried-controls-page.js";
  * every gesture it could be built from (30 September 2026, the owner: the
  * old ON THE FIELD, TRIED AND SET ASIDE and GESTURES tabs merged).
  *
- * In order: the decisions that cut across families; the generic rows, every
- * wave's and one creature's; each boss's own rows grouped by what the thumb
- * does (`field-families.ts`); the gestures the game reads; the ones it does
- * not, with the controls tried and set aside; and the raw events.
+ * In order: the decisions that cut across types; every action the field
+ * answers, most used first, each with its control types and a card per enemy
+ * or boss wave that uses it (`field-actions.ts`, 6 October 2026, the owner);
+ * the gestures the game reads; the ones it does not, with the controls tried
+ * and set aside; and the raw events. The rows every wave has are drawn on
+ * their own tab, EVERY WAVE, in the long form they always had.
  *
- * Every item carries a SUGGESTED line (`field-notes.ts`,
- * `field-notes-gestures.ts`) — a proposal for the owner to accept or strike,
- * never a change. The rows and cards are drawn by the helpers the old tabs
- * used, so a row here is the row it always was.
+ * The SUGGESTED lines (`field-notes.ts`, `field-notes-gestures.ts`) are
+ * proposals for the owner to accept or strike, never a change.
  */
 
 /** A part of the page; its h2 is what the CONTENTS list above it jumps to
@@ -34,22 +35,12 @@ interface Part {
 
 const PART = {
   decide: { id: "fp-decisions", title: "DECISIONS" },
-  every: { id: "fp-every", title: "GENERIC — EVERY WAVE" },
-  creature: { id: "fp-creature", title: "GENERIC — ONE CREATURE OR WAVE" },
-  boss: { id: "fp-boss", title: "BOSS-SPECIFIC" },
   built: { id: "fp-built", title: "GESTURES THE GAME READS" },
   ideas: { id: "fp-ideas", title: "NOT USED YET — IDEAS" },
   events: { id: "fp-events", title: "THE RAW EVENTS" },
 } satisfies Record<string, Part>;
 
 const IDEA_STATES: readonly GestureState[] = ["specd", "consider", "missed"];
-
-function suggested(line: string): HTMLElement {
-  const p = text("p", "", "suggested");
-  p.appendChild(text("b", "SUGGESTED "));
-  p.appendChild(document.createTextNode(line));
-  return p;
-}
 
 function partHead(part: Part, sub: string): HTMLElement {
   const head = document.createElement("div");
@@ -74,23 +65,20 @@ function decisions(): HTMLElement {
   return box;
 }
 
-function group(g: FieldGroup, byName: ReadonlyMap<string, FieldControlDef>): HTMLElement {
-  const box = document.createElement("div");
-  box.className = `field-group field-group-${g.key}`;
-  const h = text("h3", g.title, "field-group-title");
-  h.appendChild(text("span", `${g.members.length}`, "count"));
-  box.appendChild(h);
-  box.appendChild(text("p", g.shared, "shared"));
-  box.appendChild(suggested(g.suggest));
-  for (const name of g.members) {
+/** The EVERY WAVE tab: its rows in full, as they were drawn before the
+ * sheet was sorted by action. */
+function renderEveryWave(byName: ReadonlyMap<string, FieldControlDef>): void {
+  const body = document.getElementById("everyWaveBody");
+  if (!body) return;
+  body.replaceChildren();
+  for (const name of EVERY_WAVE_ROWS) {
     const c = byName.get(name);
     if (!c) continue;
     const row = fieldControlRow(c);
     const own = ROW_NOTES[name];
-    row.appendChild(suggested(own ?? `as its family, ${g.title}.`));
-    box.appendChild(row);
+    if (own) row.appendChild(suggested(own));
+    body.appendChild(row);
   }
-  return box;
 }
 
 function gestureGrid(state: GestureState): HTMLElement {
@@ -124,23 +112,14 @@ export function renderFieldPage(): void {
   drawn = true;
   const byName = new Map(FIELD_CONTROLS.map((c) => [c.name, c]));
   body.replaceChildren();
+  renderEveryWave(byName);
 
-  body.appendChild(partHead(PART.decide, "what this page suggests deciding, across families"));
+  body.appendChild(partHead(PART.decide, "what this page suggests deciding, across types"));
   body.appendChild(decisions());
 
-  body.appendChild(partHead(PART.every, "reached on every wave, whatever the wave is"));
-  body.appendChild(group(EVERY_WAVE, byName));
-  body.appendChild(partHead(PART.creature, "no boss owns it; one creature or one wave brings it"));
-  body.appendChild(group(ONE_CREATURE, byName));
-
-  body.appendChild(
-    partHead(
-      PART.boss,
-      "one boss's own, grouped by what the thumb does — the same verb under two " +
-        "bosses' words sits side by side, a candidate for one generic control",
-    ),
-  );
-  for (const g of BOSS_FAMILIES) body.appendChild(group(g, byName));
+  for (const { action, uses, types } of sortedActions()) {
+    body.appendChild(actionSection(action, uses, types, byName));
+  }
 
   body.appendChild(partHead(PART.built, "the vocabulary: every gesture a row above is made of"));
   body.appendChild(legend());

@@ -33633,3 +33633,12 @@ Bottleneck: deciding when a screen is waiting, so the clock is not on both scree
 Bottleneck: the tests run real ESM, where the cycle is harmless, so only a browser on the dev server showed it.
 
 *Measured: 3 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+## 2026-10-06 — CONTROLS › ON THE FIELD is sorted by action, and EVERY WAVE has its own tab
+
+- reading: 20 min. The field page, its families, the row files, the two tests that hold the rows, and the sim for the four rows the owner renamed.
+- writing: 20 min. `field-actions*.ts`, the use cards, the CHOIR pose with its SWIPE arrows, the tab, the test.
+- looking: 10 min. The page in the browser pane: SHAKE, GRAB AND DRAG, EVERY WAVE.
+- friction: 5 min. The desktop app was quit mid-lane; the session picked up where it was.
+- landing: 5 min. `bun run index`, `imports:sort`, `check:fast`.
+
+Bottleneck: reading 116 rows' prose to place each one under an action rather than a family.

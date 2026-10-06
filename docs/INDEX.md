@@ -3003,6 +3003,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-trivet.ts` | THE TRIVET's two hands: a chord of two on each foot, both seats keeping the stand planted together |
 | `tools/director/src/poses-field-controls-cyst.ts` | THE CYST's four hands: a flank tapped still by one seat and pinched shut by the other |
 | `tools/director/src/poses-field-controls-capstan.ts` | THE CAPSTAN's rub: the left band asked for, the pilot's thumb pulled over so its face is round |
+| `tools/director/src/poses-field-controls-choir.ts` | THE CHOIR's SHAKE as the pilot is offered it: a membrane on the field and the two arrows against its walls |
 | `tools/director/src/poses-field-controls-burgee.ts` | THE BURGEE's two hands, **each photographed from the seat whose hand it is** |
 | `tools/director/src/poses-field-controls-bosses.ts` | Every boss's grips on the ON THE FIELD tab, in the tab's order: one file a boss |
 | `tools/director/src/poses-field-controls-plumb.ts` | THE PLUMB's pull: the left weight asked for, the bob skewed left |
@@ -3536,12 +3537,13 @@ by hand never moves.
 | `tools/director/src/field-controls-keel.ts` | THE KEEL's one control, as a row of the ON THE FIELD tab: a tap on the lit joint |
 | `tools/director/src/field-controls-oculus.ts` | THE OCULUS's two leaf holds, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-davit.ts` | THE DAVIT's two steers and two looses, as rows of the ON THE FIELD tab |
-| `tools/director/src/field-families-held.ts` | A boss's own controls that are held or carried along one axis: a lever, a pin, a pair, a pull |
-| `tools/director/src/field-families-shaped.ts` | A boss's own controls that have a shape: a place, a bearing, a line, a draw, a rub, a squeeze, a chord |
-| `tools/director/src/field-families.ts` | Where every row of CONTROLS › ON THE FIELD stands: generic to every wave, generic to one creature or wave |
 | `tools/director/src/field-notes-gestures.ts` | A suggestion for every gesture in the catalogue (`gesture-catalogue.ts`), keyed by its name |
 | `tools/director/src/field-notes.ts` | The suggestions on CONTROLS › ON THE FIELD — what this lane would decide about each thing on the page |
 | `tools/director/src/field-page.ts` | CONTROLS › ON THE FIELD — one page for every touch the field answers and every gesture it could be built from… |
+| `tools/director/src/field-action-cards.ts` | How CONTROLS › ON THE FIELD draws one action (`field-page.ts` lays them out) |
+| `tools/director/src/field-actions-drag.ts` | GRAB AND DRAG's control types — a finger put on a thing and moved |
+| `tools/director/src/field-actions-other.ts` | Every action on CONTROLS › ON THE FIELD but GRAB AND DRAG (`field-actions-drag.ts`) |
+| `tools/director/src/field-actions.ts` | Where every row of `FIELD_CONTROLS` stands on the CONTROLS sheet — the owner's order of 6 October 2026 |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-boss.ts` | The `BossConfig` fields of every boss that is not choreographed — the queen, the warden, the cairn |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |

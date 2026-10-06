@@ -1,6 +1,6 @@
 /* CONTROLS › ON THE FIELD as one page (`field-page.ts`, 30 September 2026):
-   its parts, the decisions at the top, a family's heading over its rows, and
-   the SUGGESTED line under every item. The rows and cards themselves keep
+   its parts, the decisions at the top, an action's heading over its types,
+   a card per enemy or boss wave under each type, and the SUGGESTED lines. The rows and cards themselves keep
    their own sheets, `director-controls.css` and `director-gestures.css`. */
 
 .field-part h2 {
@@ -46,27 +46,65 @@
   color: var(--cyan);
   font-size: 0.75rem;
 }
-.field-group {
+.field-part .count {
+  margin-right: 8px;
+  color: var(--cyan);
+  letter-spacing: 1px;
+}
+.field-type {
   margin: 0 0 18px;
 }
-.field-group-title {
+.field-type-title {
   margin: 18px 0 2px;
   font-size: 0.95rem;
   font-weight: 400;
   letter-spacing: 2px;
   color: var(--cyan);
 }
-.field-group-title .count {
+.field-type-title .count {
   margin-left: 8px;
   color: var(--dim);
   font-size: 0.75rem;
 }
-.field-group .shared {
+.field-type .says,
+.field-type .users {
   margin: 0 0 4px;
   max-width: 700px;
   font-size: 0.85rem;
   line-height: 1.5;
   color: var(--dim);
+}
+.field-type .users {
+  color: var(--ink);
+  letter-spacing: 1px;
+}
+.field-uses {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+.field-use {
+  padding: 8px 10px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.field-use h4 {
+  margin: 0 0 2px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: var(--gold);
+}
+.field-use .rows {
+  margin: 0 0 6px;
+  font-size: 0.7rem;
+  color: var(--dim);
+}
+.field-use-shots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 .suggested {
   margin: 6px 0 12px;

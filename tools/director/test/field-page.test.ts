@@ -1,6 +1,14 @@
 import { describe, expect, test } from "bun:test";
+import { WAVES } from "@neon-spore/content";
+import {
+  EVERY_WAVE_ROWS,
+  FIELD_ACTIONS,
+  OFF_THE_PAGE,
+  sortedActions,
+  typeUses,
+  usersOf,
+} from "../src/field-actions.js";
 import { FIELD_CONTROLS } from "../src/field-controls-page.js";
-import { FIELD_GROUPS } from "../src/field-families.js";
 import { DECISIONS, ROW_NOTES } from "../src/field-notes.js";
 import { GESTURE_NOTES, TRIED_NOTES } from "../src/field-notes-gestures.js";
 import { GESTURES } from "../src/gesture-catalogue.js";
@@ -8,11 +16,12 @@ import { TRIED_CONTROLS } from "../src/tried-controls-page.js";
 
 /**
  * CONTROLS › ON THE FIELD names its rows rather than holding them: the
- * families and the suggestions are keyed by a row's name, and the rows
+ * actions, their types and the suggestions are keyed by a row's name, and the rows
  * themselves stay in `FIELD_CONTROLS`. A name is a promise nothing else
  * checks — a row renamed, added or cut would leave the page silently short or
- * pointing at nothing. So every row is in exactly one group, every name the
- * page uses is a row, and every gesture and tried control has its SUGGESTED
+ * pointing at nothing. So every row is in exactly one place — EVERY WAVE, one
+ * type of one action, or off the page with a reason — every name the page
+ * uses is a row, every row belongs to a wave that exists, and every gesture and tried control has its SUGGESTED
  * line.
  */
 
@@ -23,10 +32,19 @@ describe("CONTROLS › ON THE FIELD", () => {
     expect(ROWS.size).toBe(FIELD_CONTROLS.length);
   });
 
-  test("every row is in exactly one group", () => {
+  const TYPES = FIELD_ACTIONS.flatMap((a) => a.types);
+  const PLACES: [string, readonly string[]][] = [
+    ["every", EVERY_WAVE_ROWS],
+    ["off", Object.keys(OFF_THE_PAGE)],
+    ...FIELD_ACTIONS.flatMap((a) =>
+      a.types.map((t): [string, readonly string[]] => [`${a.key}/${t.key}`, t.rows]),
+    ),
+  ];
+
+  test("every row is in exactly one place", () => {
     const seen = new Map<string, string[]>();
-    for (const g of FIELD_GROUPS)
-      for (const name of g.members) seen.set(name, [...(seen.get(name) ?? []), g.key]);
+    for (const [key, rows] of PLACES)
+      for (const name of rows) seen.set(name, [...(seen.get(name) ?? []), key]);
     const twice = [...seen].filter(([, keys]) => keys.length > 1).map(([n]) => n);
     const nowhere = [...ROWS].filter((n) => !seen.has(n));
     expect({ twice, nowhere }).toEqual({ twice: [], nowhere: [] });
@@ -34,16 +52,32 @@ describe("CONTROLS › ON THE FIELD", () => {
 
   test("every name the page uses is a row", () => {
     const named = [
-      ...FIELD_GROUPS.flatMap((g) => g.members),
+      ...PLACES.flatMap(([, rows]) => rows),
       ...Object.keys(ROW_NOTES),
       ...DECISIONS.flatMap((d) => d.rows ?? []),
     ];
     expect(named.filter((n) => !ROWS.has(n))).toEqual([]);
   });
 
-  test("every group key is its own", () => {
-    const keys = FIELD_GROUPS.map((g) => g.key);
+  test("every row on an action belongs to a wave that exists", () => {
+    const waves = new Set(WAVES.map((w) => w.name));
+    const users = usersOf(TYPES.flatMap((t) => t.rows));
+    expect(users.filter((u) => !waves.has(u))).toEqual([]);
+  });
+
+  test("every action and every type has a key of its own", () => {
+    const keys = PLACES.map(([key]) => key);
     expect(new Set(keys).size).toBe(keys.length);
+  });
+
+  test("actions and types are drawn most used first", () => {
+    const sorted = sortedActions();
+    const uses = sorted.map((s) => s.uses);
+    expect(uses).toEqual([...uses].sort((a, b) => b - a));
+    for (const s of sorted) {
+      const t = s.types.map(typeUses);
+      expect(t).toEqual([...t].sort((a, b) => b - a));
+    }
   });
 
   test("every gesture has a suggestion, and every suggestion a gesture", () => {
