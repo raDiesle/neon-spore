@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 2f53f321a — THE FLUE is bigger, and made of living flesh
+
+The flue's units are taller lobed segments of dark plum flesh that breathe, with folds, pores, a vein, a wet film and cilia stirring on their crowns; the slot is a gullet; and the ball is a spore twice the size it was, warm white at its heart with a nucleus beating on the beat and motes turning inside it. The sight grows to hold it, and the cue words, studs, pips, scale and card stand further out to clear the taller body.
+
 ## 2026-10-06 · 442218b0c — SNAKE's tail is no longer held: the round has two bodies, not three
 
 The owner took the driver's thumb on the tail out of SNAKE. Past snakeGorgeTiles the body stays `gorge` however long it grows, the tail is always on the board, and a head driven into it is a crash like any other. The ring on the tail's last joint, its halo and verdicts, the lift and drop sounds, the `snakeTail` drag target, `tailHeld`, `snakeShedTiles` and `snakeTailTiles` are gone; the prise on the jaws is unchanged. Look exemption: a look the owner asked for by name.

@@ -33678,3 +33678,5 @@ Bottleneck: a hold on one boss is registered in about twenty files across five p
 - landing: 5 min. The style guide and the index regenerated for the palette and the two new files.
 
 Bottleneck: the trunk had moved under the lane — `git fetch origin main` brought nothing because the rework was landed on local `main` and not pushed.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
