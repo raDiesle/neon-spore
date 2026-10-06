@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 2118d3bc0 — THE BATON's third level hangs a second arm beside the first
+
+The rules of THE BATON's third level, `pair`. After the twin level folds, two arms unfold a column either side of the centre, with a red bead at the top of the left arm and a cyan bead at the top of the right. The trigger sends whichever bead has sat longer, so it goes from arm to arm and the cannon has to cross the gap for every shot. Each arm swings outward only, so the column between them stays clear. The arms start shedding once the two together are as dark as one arm alone would be. When each bead sits in its own arm's last socket, the beads are drawn together: player 1's thumb goes on the left arm and player 2's on the right. The bead that got there first makes the crossing. This lane is the simulation only. The picture still draws one arm, and the second arm's look is the next lane.
+
 ## 2026-10-06 · 1b007a92a — THE FLUE shows the navigator a rainbow mirage in place of the spore
 
 The phone that is not shown the spore now sees a neon rainbow fluid flowing the whole length of the flue's gullet, and while a level is lit, now and then a spore that is not there: split in two, shivering, drifting for under a second. Like THE GAUGE's mirage it is drawn from the picture's clock and never from where the spore is, so the only way to find it is still the partner's call.

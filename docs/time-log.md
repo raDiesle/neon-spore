@@ -33774,3 +33774,5 @@ Bottleneck: looking — the strip tool's held clock made a flowing look read as 
 - landing: 5 min.
 
 Bottleneck: the shed's threshold and the test rig's QUIET both counted dark sockets on one arm, and two arms reached it at half the depth.
+
+*Measured: 13 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
