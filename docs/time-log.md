@@ -33810,3 +33810,5 @@ Bottleneck: finding the shot ticks — a film's acts are fixed ticks and the hit
 - landing: 5 min.
 
 Bottleneck: the row a socket sits on was a function of the socket alone, and every one of its eleven callers had to be handed the arm.
+
+*Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · fe6d10830 — THE BATON's last level lays the arm across the field
+
+The rules of THE BATON's fourth and last level, `across`, which follows the two arms. It is the twin fight again on a single arm, but the arm lies along row three with one socket per column. Every flight moves the bead one column to the right, so the cannon follows it column by column. A shot made as the bead leaves its socket meets it over the column it left. A shot made after the pilot's lock meets it over the column it is landing in. The arm never swings. The second bead, the merge and the crossing are the same as on the twin level, and the pod falls from under the last socket. This lane is the simulation only. The picture still hangs the arm down, and the look is the next lane.
+
 ## 2026-10-06 · e2de9eb25 — THE FLUE has a film: say when, shoot when told, then swap
 
 The wave opens on a short tutorial in place of its three lines of text. Player 1 sees the spore and says when to shoot; player 2, who sees only the rainbow in the pipe, shoots when told; the next level swaps the roles, and the film's two phones swap halves on their own; player 1 shoots. Five pages, two slow bolt levels, no miss shown.
