@@ -1,5 +1,5 @@
 import { bossStrikesHull } from "./boss-strike.js";
-import { midCol } from "./config.js";
+import { midCol, ticksPerBeat } from "./config.js";
 import {
   type FlueLevel,
   type FlueMissWhy,
@@ -8,7 +8,8 @@ import {
   flueLitLevel,
   freshFlue,
 } from "./flue.js";
-import { flueEmberRun } from "./flue-lead.js";
+import { flueEmberRun, flueEmberWait } from "./flue-lead.js";
+import { chargePartTicks } from "./shot-charge.js";
 import { closeSlow, openSlow } from "./slow.js";
 import { MILLI, type World } from "./world.js";
 
@@ -68,19 +69,25 @@ export function flueRolled(world: World): void {
 /** The level met in its weapon and colour: THE SLOW lets go and the flue rests. */
 export function flueCleared(world: World, s: FlueState, col: number): void {
   s.hits += 1;
-  world.events.push({ type: "flueHit", hits: s.hits, col });
+  world.events.push({ type: "flueHit", hits: s.hits, col, emberMilli: s.emberMilli });
   closeSlow(world);
   rest(world, s, true);
 }
 
 /**
  * A shot spent: wide of the ember, or in the wrong colour or weapon. The last
- * one is the hull, and the wave is lost; until then the ember runs on.
+ * one is the hull, and the wave is lost; until then the ember is beamed back
+ * to the left end and runs the level again (`rewind`).
  */
 export function flueSpentShot(world: World, s: FlueState, col: number, why: FlueMissWhy): void {
   s.shots = Math.max(0, s.shots - 1);
-  world.events.push({ type: "flueMiss", shots: s.shots, why, col });
-  if (s.shots > 0) return;
+  const late = s.emberMilli * s.emberDir > 0;
+  world.events.push({ type: "flueMiss", shots: s.shots, why, late, col, emberMilli: s.emberMilli });
+  if (s.shots > 0) {
+    const level = flueLitLevel(s);
+    if (level !== null) rewind(world, s, level);
+    return;
+  }
   closeSlow(world);
   rest(world, s, false);
   bossStrikesHull(world, "flue", midCol(world.cfg), world.cfg.flueRow);
@@ -100,6 +107,28 @@ function next(world: World, s: FlueState): void {
   s.phaseBeat = world.beat;
   s.shots = world.cfg.flueShots;
   world.events.push({ type: "flueLight", level: s.cursor, col });
+}
+
+/**
+ * **The ember beamed back to the left end** after a shot spent (the owner, 6
+ * October 2026), held there `flueBeamBeats` and then run again from the top.
+ *
+ * It sets off again on the shot grid's own phase, not the miss's: the level
+ * started it so that its crossings fall on a bolt's arrival
+ * (`flueEmberWait`), and a run restarted on the tick of the miss would throw
+ * that away. So the ticks it is held are as many as bring the run back to
+ * the same place on the grid's half beat, and never fewer than the beats it
+ * is held — its run moved back by a whole number of grid points.
+ */
+function rewind(world: World, s: FlueState, level: FlueLevel): void {
+  const cfg = world.cfg;
+  const part = Math.max(1, chargePartTicks(cfg));
+  const run = s.rollTicks - flueEmberWait(cfg, level.speedMilli);
+  const hold = Math.ceil((cfg.flueBeamBeats * ticksPerBeat(cfg)) / part) * part;
+  const back = (((-run % part) + part) % part) + hold;
+  s.rollTicks = flueEmberWait(cfg, level.speedMilli) - back;
+  s.emberMilli = -cfg.flueSpanMilli;
+  s.emberDir = 1;
 }
 
 /** Between levels: the ember parked at the left end for the next one. */

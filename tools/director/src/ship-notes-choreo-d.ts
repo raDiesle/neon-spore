@@ -113,7 +113,8 @@ export const CHOREO_NOTES_D = {
     "and THE SLOW at its own strength; the pilot says when, early by the " +
     "shot's own delay, and the navigator fires. A shot is judged at the " +
     "flue, within flueHitMilli of the ember; anything else spends one of " +
-    "flueShots, and the last one spent is a hull hit, which is the wave. " +
+    "flueShots and beams the ember back to the left end, held flueBeamBeats; " +
+    "the last one spent is a hull hit, which is the wave. " +
     "See sim/flue.ts, sim/flue-step.ts, sim/flue-shot.ts, sim/flue-lead.ts, " +
     "sim/config-flue.ts.",
   "THE GOVERNOR — a needle each of you taps on your own mark":

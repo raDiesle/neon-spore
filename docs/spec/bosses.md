@@ -11160,10 +11160,15 @@ timer.
 **The answers** (`sim/flue-shot.ts`, `sim/boss-along.ts`). **No shot gets
 past the flue**: every bolt and every beam stops on its row, `flueRow`, and
 is judged there (`flueAlong`, `flueStruckEmber`). Within `flueHitMilli` of
-the ember, in the level's weapon and colour, the level is cleared
-(`flueHit`). Anything else spends a shot (`flueMiss`, with why: `wide`,
-`color` or `weapon`). The last shot spent is THE FLUE's own blow at the
-hull (`bossStrikesHull`), and a hull hit is the wave. A shot into the flue
+the ember — the sight's radius, so a spore half inside the sight ring is met
+(the owner, 6 October 2026) — in the level's weapon and colour, the level is
+cleared (`flueHit`). Anything else spends a shot (`flueMiss`, with why:
+`wide`, `color` or `weapon`, and `late` for which side of the cannon the
+ember was on), and the ember is beamed back to the left end and held
+`flueBeamBeats` before it runs the level again, set off on the shot grid's
+own phase so the level's crossings still fall on a bolt's arrival
+(`rewind`, `sim/flue-step.ts`). The last shot spent is THE FLUE's own blow
+at the hull (`bossStrikesHull`), and a hull hit is the wave. A shot into the flue
 is never wasted on HARD, since the flue is over every column. The shot's
 own delay is the timing: a bolt climbs to the flue in about a beat, a beam
 goes off a whole prime after it is held (`sim/flue-lead.ts`,
@@ -11222,7 +11227,15 @@ on both screens and left whole by the split with the rest. **The ember** is
 a warm-white glow in the slot, exactly where the simulation has it. **What outlives a frame**
 (`flue-fx.ts`): a flash at the sight and the stud's flare for a level
 cleared, which deals the blow every boss takes; a red sting at the sight,
-a spray where the string parted and the swing it sets going for a shot spent; a thud through the plating as it goes cold. **Its
+a spray where the string parted and the swing it sets going for a shot spent; a thud through the plating as it goes cold.
+**A shot met, hit or spent, beams the spore away** (`flue-beam.ts`; the
+owner, 6 October 2026): pulled thin into a shaft of light where the shot
+met it, then drawn back out of a shaft at the left end — on the screen shown
+the spore only. **A shot spent stamps MISS** under the sight on both
+screens (`flue-word.ts`), split in the two cannon colours as it lands, with
+what to change under it: `TOO EARLY`, `TOO LATE`, `WRONG COLOUR` or
+`WRONG SHOT`. The flue hangs on row 4 since that day, two rows lower than
+it first did, so it is clear of the game's chrome. **Its
 own blow at the hull** (`flue-blow.ts`) is the cinder coughed out under the
 sight and down the middle column.
 

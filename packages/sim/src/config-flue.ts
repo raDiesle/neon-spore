@@ -18,10 +18,16 @@ export interface FlueConfig {
   flueSpanMilli: number;
   /** The row, from the top, the ember runs along and a shot meets it on. */
   flueRow: number;
-  /** How far off the cannon's column the ember may be and still be met, thousandths of a column. */
+  /**
+   * How far off the cannon's column the ember may be and still be met,
+   * thousandths of a column: the sight's radius, so a spore half inside the
+   * sight ring is met (the owner, 6 October 2026).
+   */
   flueHitMilli: number;
   /** Shots a level allows; the last one missed is the wave. */
   flueShots: number;
+  /** Beats the ember is held at the left end after a shot spent, beamed back there, before it runs again. */
+  flueBeamBeats: number;
 }
 
 export const FLUE_DEFAULTS: FlueConfig = {
@@ -29,7 +35,8 @@ export const FLUE_DEFAULTS: FlueConfig = {
   fluePauseBeats: 2,
   flueSpentBeats: 2,
   flueSpanMilli: 4500,
-  flueRow: 2,
-  flueHitMilli: 450,
+  flueRow: 4,
+  flueHitMilli: 740,
   flueShots: 3,
+  flueBeamBeats: 1,
 };

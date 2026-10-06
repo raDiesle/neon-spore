@@ -2,9 +2,11 @@ import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
+import { FlueBeam } from "./flue-beam.js";
 import { flueCentre } from "./flue-shape.js";
 import { FLUE_STRINGS, flueDroop, flueStringFoot } from "./flue-strings.js";
 import { FlueVerdicts } from "./flue-verdicts.js";
+import { FlueWord } from "./flue-word.js";
 import { HullShock } from "./hull-shock.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -27,7 +29,9 @@ import { PALETTE } from "./palette.js";
  * **A level cleared is a step landed**, and deals the flue the blow every
  * boss takes (`boss-hurt.ts`). A shot spent deals nothing to it; the third
  * one's blow at the hull is the boss's own (`flue-blow.ts`). Which shot was
- * right is `verdicts` (`flue-verdicts.ts`). Everything is cleared in
+ * right is `verdicts` (`flue-verdicts.ts`); the spore beamed away and back
+ * after either is `beam` (`flue-beam.ts`), and MISS stamped under the sight
+ * is `word` (`flue-word.ts`). Everything is cleared in
  * `Effects.reset()` (`restart.test.ts`).
  */
 
@@ -54,6 +58,10 @@ export class FlueFx {
   readonly hurt = new BossHurt();
   /** Was the last shot at the sight right (`flue-verdicts.ts`). */
   readonly verdicts = new FlueVerdicts();
+  /** The spore beamed out where a shot met it and back in at the left end (`flue-beam.ts`). */
+  readonly beam = new FlueBeam();
+  /** MISS and what to change, under the sight (`flue-word.ts`). */
+  readonly word = new FlueWord();
 
   /** How bright the flash at the sight a hit left still is, 0..1. */
   get flash(): number {
@@ -90,6 +98,8 @@ export class FlueFx {
     burst: Burst,
   ): void {
     this.verdicts.ingest(events);
+    this.beam.ingest(events);
+    this.word.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("flue")) continue;
       const mid = flueCentre(l, cfg);
@@ -142,6 +152,8 @@ export class FlueFx {
     this.shock.update(dt);
     this.hurt.update(dt);
     this.verdicts.update(dt);
+    this.beam.update(dt);
+    this.word.update(dt);
   }
 
   clear(): void {
@@ -153,5 +165,7 @@ export class FlueFx {
     this.shock.clear();
     this.hurt.clear();
     this.verdicts.clear();
+    this.beam.clear();
+    this.word.clear();
   }
 }

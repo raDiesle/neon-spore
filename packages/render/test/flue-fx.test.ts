@@ -22,8 +22,15 @@ beforeAll(installCanvasGlobals);
 const L = computeLayout(VIEWPORT, CFG, "test");
 const MID = midCol(CFG);
 const BEAT = 0.5;
-const hit = (hits: number): SimEvent => ({ type: "flueHit", hits, col: MID });
-const miss = (shots: number): SimEvent => ({ type: "flueMiss", shots, why: "wide", col: MID });
+const hit = (hits: number): SimEvent => ({ type: "flueHit", hits, col: MID, emberMilli: 0 });
+const miss = (shots: number): SimEvent => ({
+  type: "flueMiss",
+  shots,
+  why: "wide",
+  col: MID,
+  late: false,
+  emberMilli: 0,
+});
 const spent: SimEvent = { type: "flueSpent", col: MID };
 
 interface Thrown {

@@ -2021,11 +2021,13 @@ by hand never moves.
 | `packages/render/src/flue-strings.ts` | **THE FLUE hangs on its shots** (the owner, 6 October 2026: *let the boss hang down on three strings |
 | `packages/render/src/flue-blow.ts` | **THE FLUE's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/flue-bare.ts` | **THE FLUE's spore bare and red over the cannon, shielded elsewhere**: the shield breaking, the red heat, the shield closing, read off the world |
+| `packages/render/src/flue-beam.ts` | **The spore beamed away and back** (the owner, 6 October 2026: *when a miss or a hit is done |
 | `packages/render/src/flue-fx.ts` | What THE FLUE leaves behind a frame: the **flash** at the sight as the ember is met |
 | `packages/render/src/flue-flesh.ts` | **What THE FLUE is made of**: dark flesh segments with folds, pores, a vein and a wet film, and cilia on the row |
 | `packages/render/src/flue-verdicts.ts` | **THE FLUE's mark answering a shot the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/flue-card.ts` | **THE FLUE's card**: what the lit level asks, in two words, on both screens |
 | `packages/render/src/flue-cords.ts` | **The strings THE FLUE hangs on, drawn** (`flue-strings.ts` says how it hangs) |
+| `packages/render/src/flue-word.ts` | **MISS, in so many letters** (the owner, 6 October 2026: *when it's a failure shot |
 | `packages/render/src/frame-field.ts` | The two passes that are about the field: the empty board, and the bodies on it |
 | `packages/render/src/frame-ship.ts` | The two passes that are about the ship: the hull with its controls, and the overlays |
 | `packages/render/src/frame-on-ship.ts` | a body sticks to the finished ship — the fifth pass, between the ship and the overlays: the fence's burn, the gums, the choke's coils, the clingers, in that order |

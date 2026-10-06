@@ -6,6 +6,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { drawFlueBareHeat, drawFlueShield, flueBareness } from "./flue-bare.js";
+import { drawFlueBeamed } from "./flue-beam.js";
 import { drawFlueCard } from "./flue-card.js";
 import { drawFlueStrings } from "./flue-cords.js";
 import { drawFlueCilia, drawFlueSegment } from "./flue-flesh.js";
@@ -26,6 +27,7 @@ import { drawFlueSpore } from "./flue-spore.js";
 import { drawFlueSting } from "./flue-sting.js";
 import { flueHang } from "./flue-strings.js";
 import { drawFlueMarkFeedback } from "./flue-verdicts.js";
+import { drawFlueWord } from "./flue-word.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -125,10 +127,30 @@ export function drawFlue(
   } else {
     const at = flueEmberAt(l, cfg, s.emberMilli);
     const bare = flueBareness(cfg, s);
-    drawFlueBareHeat(ctx, l, at, bare, time);
-    drawFlueSpore(ctx, l, at, spent ? 0.45 : 1, bare.red, beatPhase, time, s.hits, fx.flash);
-    if (!spent) drawFlueShield(ctx, l, at, bare, time);
+    const dim = spent ? 0.45 : 1;
+    // A shot met, the spore beams out where it was and back in at the left
+    // end, where the simulation already has it (`flue-beam.ts`).
+    const out = fx.beam.out;
+    if (out !== null) {
+      const was = flueEmberAt(l, cfg, out.milli);
+      drawFlueBeamed(ctx, l, was, out.gone, () =>
+        drawFlueSpore(ctx, l, was, dim, 0, beatPhase, time, s.hits, fx.flash),
+      );
+    }
+    const back = fx.beam.present;
+    const spore = (): void => {
+      drawFlueBareHeat(ctx, l, at, bare, time);
+      drawFlueSpore(ctx, l, at, dim, bare.red, beatPhase, time, s.hits, fx.flash);
+      if (!spent) drawFlueShield(ctx, l, at, bare, time);
+    };
+    if (back >= 1) spore();
+    else if (out === null) drawFlueBeamed(ctx, l, at, 1 - back, spore);
   }
+  ctx.restore();
+  // MISS stands level under the sight, however the flue hangs (`flue-word.ts`).
+  ctx.save();
+  ctx.globalAlpha = fade;
+  drawFlueWord(ctx, l, { x: sight.x + shake, y: sight.y + arrive }, fx.word);
   ctx.restore();
 }
 

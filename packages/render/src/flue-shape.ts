@@ -41,7 +41,10 @@ const SEG_DEPTH = 0.07;
 const SEG_WOBBLE = 0.035;
 /** How far past the ember's ends the slot runs, in tiles. */
 const SLOT_OVER = 0.3;
-/** The sight's radius, in tiles. */
+/**
+ * The sight's radius, in tiles: a shot's reach, `flueHitMilli`, so a spore
+ * half inside the ring is met (`flue-beam.test.ts` holds the two together).
+ */
 const SIGHT = 0.74;
 /** THE CAIRN's own seed, spread along the row so no two units are cut alike. */
 const SEED = 4.0;

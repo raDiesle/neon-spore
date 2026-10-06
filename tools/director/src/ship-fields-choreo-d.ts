@@ -96,6 +96,7 @@ export const CHOREO_FIELD_GROUP_D = {
   flueRow: "THE FLUE — an ember one seat sees and the other shoots",
   flueHitMilli: "THE FLUE — an ember one seat sees and the other shoots",
   flueShots: "THE FLUE — an ember one seat sees and the other shoots",
+  flueBeamBeats: "THE FLUE — an ember one seat sees and the other shoots",
   // GovernorConfig — the slack before the first step, the rest between, the
   // spent hub, the idle pace, a mark's half-width and how near the bottom a
   // shot's needle must be (`config-governor.ts`).

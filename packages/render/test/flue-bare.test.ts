@@ -84,7 +84,14 @@ describe("THE FLUE's spore, bare or shielded", () => {
 
 describe("THE FLUE's shot spent", () => {
   it("stings red at the sight on both screens", () => {
-    const miss: SimEvent = { type: "flueMiss", shots: 2, why: "wide", col: midCol(CFG) };
+    const miss: SimEvent = {
+      type: "flueMiss",
+      shots: 2,
+      why: "wide",
+      col: midCol(CFG),
+      late: false,
+      emberMilli: 0,
+    };
     for (const role of ["p1", "p2"] as const) {
       const calm = frame(role, (w) => posed(w, CYAN, -3000));
       const stung = frame(role, (w) => posed(w, CYAN, -3000), miss);

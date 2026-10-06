@@ -6,13 +6,20 @@ import type { FlueMissWhy } from "./flue.js";
  *
  * Every event carries `col`, the column it happened over, for the sounds to
  * pan to: the shot's column for a hit and a miss, the middle for the rest.
- * **Nothing says where the ember is**: the navigator is not shown it, and a
- * sound panned to it would show it to the navigator's ear.
+ * **No column says where the ember is**: the navigator is not shown it, and
+ * a sound panned to it would show it to the navigator's ear. A hit and a
+ * miss carry `emberMilli`, where the shot met it, for the screen that is
+ * shown the ember to beam it out from there (`render/flue-beam.ts`).
  */
 
 interface FlueColEvent {
   /** The column it happened over. */
   col: number;
+}
+
+interface FlueMetEvent extends FlueColEvent {
+  /** Where the ember was as the shot met its row, thousandths of a column off the middle. */
+  emberMilli: number;
 }
 
 export type FlueEvent =
@@ -21,9 +28,12 @@ export type FlueEvent =
   /** Level `level` lit, counted from nought: the ember sets off with a full level of shots. */
   | ({ type: "flueLight"; level: number } & FlueColEvent)
   /** The ember met in the level's weapon and colour; `hits` is the levels cleared. */
-  | ({ type: "flueHit"; hits: number } & FlueColEvent)
-  /** A shot spent, and why; `shots` is what the level has left, nought being the wave. */
-  | ({ type: "flueMiss"; shots: number; why: FlueMissWhy } & FlueColEvent)
+  | ({ type: "flueHit"; hits: number } & FlueMetEvent)
+  /**
+   * A shot spent, and why; `shots` is what the level has left, nought being
+   * the wave. `late` is whether the ember had already run past the cannon.
+   */
+  | ({ type: "flueMiss"; shots: number; why: FlueMissWhy; late: boolean } & FlueMetEvent)
   /** The last level cleared: the flue goes cold. */
   | ({ type: "flueSpent" } & FlueColEvent)
   /** The spent flue has stood `flueSpentBeats`; the wave may end. */

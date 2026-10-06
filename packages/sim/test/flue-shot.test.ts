@@ -27,13 +27,29 @@ describe("a bolt", () => {
     expect(flue(world).cursor).toBe(1);
   });
 
-  it("wide of the ember spends a shot, and the ember runs on", () => {
+  it("wide of the ember spends a shot, and the ember is beamed back to the left end", () => {
     const world = toLevel(0);
     const seen = wide(world);
     expect(seen.has("flueMiss")).toBe(true);
     expect(whys(world)).toEqual(["wide"]);
     expect(flue(world).shots).toBe(CFG.flueShots - 1);
     expect(flue(world).phase).toBe("lit");
+    expect(flue(world).emberMilli).toBe(-CFG.flueSpanMilli);
+    runUntil(world, (w) => flue(w).emberMilli !== -CFG.flueSpanMilli);
+    expect(flue(world).emberMilli).toBeGreaterThan(-CFG.flueSpanMilli);
+  });
+
+  it("holds the beamed-back ember at the left end for flueBeamBeats", () => {
+    const world = toLevel(0);
+    wide(world);
+    for (let i = 0; i < CFG.flueBeamBeats * TPB; i += 1) tick(world);
+    expect(flue(world).emberMilli).toBe(-CFG.flueSpanMilli);
+  });
+
+  it("met on its lead after a miss, still on the grid, clears the level", () => {
+    const world = toLevel(0);
+    wide(world);
+    expect(shoot(world).has("flueHit")).toBe(true);
   });
 
   it("in the other colour is refused on the ember and spends a shot", () => {
@@ -59,6 +75,13 @@ describe("a beam", () => {
     const seen = shoot(world);
     expect(seen.has("flueHit")).toBe(true);
     expect(flue(world).hits).toBe(3);
+  });
+
+  it("meets an ember half inside the sight, and not one outside it", () => {
+    const half = toLevel(2);
+    expect(shoot(half, { offMilli: CFG.flueHitMilli - 60 }).has("flueHit")).toBe(true);
+    const out = toLevel(2);
+    expect(shoot(out, { offMilli: CFG.flueHitMilli + 120 }).has("flueMiss")).toBe(true);
   });
 
   it("gone off with the ember elsewhere spends a shot", () => {

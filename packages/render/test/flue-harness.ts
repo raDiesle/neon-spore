@@ -76,15 +76,22 @@ export function frame(role: ViewRole, arrange: (world: World) => void, thrown?: 
   return log.join("|");
 }
 
-/** The words a pose draws, every frame's, the world held where it was posed. */
-export function words(role: ViewRole, arrange: (world: World) => void): TextBox[] {
+/** The words a pose draws, every frame's, the world held where it was posed, `thrown` as in `frame`. */
+export function words(
+  role: ViewRole,
+  arrange: (world: World) => void,
+  thrown?: SimEvent,
+): TextBox[] {
   const world = stood();
   arrange(world);
   const texts: TextBox[] = [];
-  runFrames(world, role, 1, {
+  runFrames(world, role, thrown ? 3 : 1, {
     every: 1,
     onCanvas: (c) => {
       c.texts = texts;
+    },
+    onTick: (tick, w) => {
+      if (tick === 0 && thrown) w.events.push(thrown);
     },
   });
   return texts;

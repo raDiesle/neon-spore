@@ -71,9 +71,11 @@ describe("THE FLUE's verdict on a shot", () => {
   const col = 5;
 
   it("greens the sight for a hit and reddens it for a shot spent, whatever spent it", () => {
-    expect(on([{ type: "flueHit", hits: 1, col }])).toBe(true);
+    expect(on([{ type: "flueHit", hits: 1, col, emberMilli: 0 }])).toBe(true);
     for (const why of ["wide", "color", "weapon"] as const) {
-      expect(on([{ type: "flueMiss", shots: 2, why, col }])).toBe(false);
+      expect(on([{ type: "flueMiss", shots: 2, why, late: false, emberMilli: 0, col }])).toBe(
+        false,
+      );
     }
     expect(on([{ type: "flueLight", level: 1, col }])).toBeNull();
     expect(on([{ type: "flueSpent", col }])).toBeNull();
@@ -81,13 +83,15 @@ describe("THE FLUE's verdict on a shot", () => {
 
   it("forgets on reset", () => {
     const v = new FlueVerdicts();
-    v.ingest([{ type: "flueMiss", shots: 2, why: "wide", col }]);
+    v.ingest([{ type: "flueMiss", shots: 2, why: "wide", late: false, emberMilli: 0, col }]);
     v.clear();
     expect(v.verdicts.at(FLUE_SIGHT_MARK)).toBeNull();
   });
 
   it.each(ROLES)("reaches the field's frame, on %s", (role) => {
-    const missed: SimEvent[] = [{ type: "flueMiss", shots: 2, why: "color", col }];
+    const missed: SimEvent[] = [
+      { type: "flueMiss", shots: 2, why: "color", late: false, emberMilli: 0, col },
+    ];
     expect(count(frame(role, rest, missed), PALETTE.red)).toBeGreaterThan(
       count(frame(role, rest), PALETTE.red),
     );

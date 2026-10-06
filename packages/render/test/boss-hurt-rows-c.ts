@@ -105,10 +105,10 @@ export const HURT_ROWS_C: Row[] = [
   {
     boss: "flue",
     // A level cleared; a level lighting or a shot spent only works toward one.
-    land: [{ type: "flueHit", hits: 1, col: 3 }],
+    land: [{ type: "flueHit", hits: 1, col: 3, emberMilli: 0 }],
     part: [
       { type: "flueLight", level: 1, col: 3 },
-      { type: "flueMiss", shots: 2, why: "wide", col: 3 },
+      { type: "flueMiss", shots: 2, why: "wide", col: 3, late: false, emberMilli: 0 },
     ],
     hit: "a level is one shot, and the shot is the level cleared",
     hurt: (fx) => fx.boss.flue.hurt,

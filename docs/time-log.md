@@ -33944,3 +33944,17 @@ Bottleneck: the lane started from `origin/main`, and the local `main` held the r
 Bottleneck: the first dung frame showed it dropped in the edge column and cut by the screen, and fixing it went back into the simulation.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE FLUE hangs lower, meets a spore half in the sight, says MISS and beams the spore home
+
+- reading: 15 min. The branch was 92 commits behind the local `main`, so
+  the first read was of a FLUE that no longer exists; then the rework.
+- writing: 25 min. The rewind on the shot grid's phase, the tolerance, the
+  row, the event fields; the beam and the word, and their tests.
+- looking: 10 min. `bun run frames` for the row, a miss strip and a hit
+  strip — the hit trades the panels, so its spore is on the other seat.
+- friction: 5 min. A `destination-out` fade that would have punched the
+  flue, caught before a frame; the perl fixture edit needed two passes.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: starting from a worktree branch far behind the local trunk.

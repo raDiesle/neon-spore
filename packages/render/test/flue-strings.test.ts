@@ -87,7 +87,14 @@ describe("THE FLUE's strings", () => {
 });
 
 describe("THE FLUE's swing", () => {
-  const miss = (shots: number): SimEvent => ({ type: "flueMiss", shots, why: "wide", col: MID });
+  const miss = (shots: number): SimEvent => ({
+    type: "flueMiss",
+    shots,
+    why: "wide",
+    col: MID,
+    late: false,
+    emberMilli: 0,
+  });
 
   it("sets the flue swinging from its old hang as a string is cut, and lets it settle", () => {
     const fx = new FlueFx();
