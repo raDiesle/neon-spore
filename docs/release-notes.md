@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 2ffe6c12c — THE FLUE hangs on its three shots, and its spore cracks a level cleared
+
+The flue now hangs from under the game's chrome on three living strings, one for each shot a level allows, in place of the three dots under the sight. A miss cuts the left string and the flue droops that side; the second cuts the right and it swings off the middle one alone; the third drops it. Between levels the cut strings grow back down. The spore cracks a little more for every level cleared, the newest crack running in from its edge, and the scale under the slot keeps its ticks but no longer shows numbers.
+
 ## 2026-10-06 · 94d04d013 — THE BATON's bead is thrown back up the arm when the wrong colour hits it
 
 The bead the wrong colour knocks back two sockets is now thrown there: out of the hit, up past its socket and down into it, over three quarters of a beat, with a short trail and a ring in the bolt's colour where the bolt met it. A bead shaken back one socket for sitting too long makes the same throw over one socket, without the ring. The picture reads two new fields on the bead (`backTick`, `backFromMilli`), so it keeps nothing; `baton.ts` gave the bead's shape to `baton-bead-shape.ts` to make room.

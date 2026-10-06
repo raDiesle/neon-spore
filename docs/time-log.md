@@ -33726,3 +33726,5 @@ Bottleneck: the boss keeps nothing in render, so the throw had to be drawn from 
 - landing: 5 min. `check:fast` red four ways — the guide's added clause over budget, the index, a test's timeout, and strings past the chrome — then green.
 
 Bottleneck: the owner's no-boss-above-the-chrome rule, which only the full pixel test said, after the strings were drawn from the screen's top edge.
+
+*Measured: 20 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
