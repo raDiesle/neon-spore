@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 94d04d013 — THE BATON's bead is thrown back up the arm when the wrong colour hits it
+
+The bead the wrong colour knocks back two sockets is now thrown there: out of the hit, up past its socket and down into it, over three quarters of a beat, with a short trail and a ring in the bolt's colour where the bolt met it. A bead shaken back one socket for sitting too long makes the same throw over one socket, without the ring. The picture reads two new fields on the bead (`backTick`, `backFromMilli`), so it keeps nothing; `baton.ts` gave the bead's shape to `baton-bead-shape.ts` to make room.
+
 ## 2026-10-06 · 6d5336017 — THE BATON forgives the beat: a slow bead goes back one, the wrong colour two
 
 The owner, 6 October 2026. The arm unfolds in six beats, not eleven. A bead may sit four beats in the top socket and two in the bottom, counted down evenly between, and one that sits longer goes back one socket rather than to the top. A bolt of the wrong colour knocks the bead out of the air, two sockets back (new event `batonKicked`). No press is judged by the beat: the crossing forgives an act off the beat and misses only after a gap longer than the bottom socket's turn, and the miss puts the bead back in the last socket rather than relighting the whole arm. A merge window closing short also costs one socket now. THE BATON's wave carries no other enemies.

@@ -33714,3 +33714,5 @@ Bottleneck: every rule this boss had was written down in five places — the sim
 - landing: 5 min.
 
 Bottleneck: the boss keeps nothing in render, so the throw had to be drawn from the bead's own state — two fields in the simulation for a picture.
+
+*Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
