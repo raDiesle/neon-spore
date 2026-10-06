@@ -33750,3 +33750,5 @@ Bottleneck: the owner's four answers came while the lane before was landing, and
 - landing: 5 min. `check:fast` green first time.
 
 Bottleneck: reading — finding that a panel trade already existed took longer than the change it made possible.
+
+*Measured: 6 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

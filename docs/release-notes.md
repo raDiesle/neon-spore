@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 831ac1c72 — THE FLUE swaps the seats every level, and lights the siren top right
+
+On the second, fourth and sixth levels the two panels trade phones, so the player who saw the spore now shoots it and the other one calls the shot. The siren is up for the whole fight, pinned top right clear of the flue's middle: it lights the mouth of whoever holds the panel with the spore, and says SAY WHEN TO SHOOT on that phone and SHOOT WHEN TOLD on the other. Under any panel trade the siren's chips now name the person holding the panel, and the ring says which person you are.
+
 ## 2026-10-06 · 929c25436 — THE BATON comes in levels, and either seat may send the bead
 
 THE BATON is now beaten once per level, inside its one wave. The first level has one bead all the way down, with no second bead, and a struck flight out of the last socket drops it into the maw. The arm then folds and unfolds again as the second level, which is the full fight as it shipped (the second bead, the merge, the crossing). Either player's tap now sends a sitting bead, and whoever tapped is the one greyed for a beat. The field writes TAP on the bead for each player who is free. On the crossing, only player 1 sends.
