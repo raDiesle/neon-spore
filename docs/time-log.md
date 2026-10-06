@@ -33834,3 +33834,5 @@ Bottleneck: three tests used `PRESS` over `FIRE` as their example of a drawn lin
 - landing: 5 min.
 
 Bottleneck: the arm drew itself through its sockets already, so the only wrong things were its two ends — the root and the throw.
+
+*Measured: 7 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

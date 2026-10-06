@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · b886c6945 — THE BATON's arm across comes in from the left, and a knocked bead is lobbed along it
+
+On the last level of THE BATON, the arm now comes in from the left of its row instead of hanging down from above the field. Along the row it sways up and down, the way the hanging arm sways side to side. A bead knocked back by the wrong colour, or shaken back by a slow socket, is lobbed back along the row and down into its socket. A knock leaves a ring where the bolt met it.
+
 ## 2026-10-06 · f65cd1369 — A mark over a button's name says FIRE, not PRESS over FIRE
 
 The small line over a cue on the field is no longer drawn when it would say
