@@ -11025,7 +11025,15 @@ and no warning: the rest is the warning, and **the siren** says whose mouth
 the level waits on (`render/comms-boss.ts`) — lit for the panel shown the
 ember, turned onto the person holding it (`siren.ts`), with `SAY WHEN TO
 SHOOT` and `SHOOT WHEN TOLD` under the dial, and **pinned top right** for
-this boss, whose sight and middle tendon hold the top middle.
+this boss, whose sight and middle tendon hold the top middle. **The screen
+not shown the ember is shown a mirage** in its gullet (`render/flue-mirage.ts`;
+the owner, 6 October 2026: *some visual, that it's unclear where ball is*):
+a neon rainbow fluid flowing the flue's whole length, low between levels,
+and while a level is lit, now and then a spore that is not there — split in
+two, shivering, on a shadow cut out of the fluid, drifting for under a
+second. THE GAUGE's mirage again: it is drawn from the render clock and
+never handed the flue's state, so the frame is the same wherever the ember
+is (`render/test/flue-mirage.test.ts`).
 
 **It is levels, and they are its health.** The state (`sim/flue.ts`, hashed
 in `sim/flue-hash.ts`) is the **phase** and the beat it began, the

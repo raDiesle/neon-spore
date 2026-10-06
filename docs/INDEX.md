@@ -2004,6 +2004,7 @@ by hand never moves.
 | `packages/render/src/flip-reveal.ts` | **THE FLIP's projection breaking up** — two tiles above the hull, the mirrored body tears into strips and the true one arrives in its own column |
 | `packages/render/src/flue-draw.ts` | **THE FLUE**: a slotted exhaust flue across the middle of the field, its ember stopped dead by one seat and tapped by the other |
 | `packages/render/src/flue-marks.ts` | **THE FLUE's marks**: what says what a level asks and what it has left |
+| `packages/render/src/flue-mirage.ts` | **What the screen without the spore sees in the gullet**: a rainbow fluid and spores that are not there, never the real one |
 | `packages/render/src/flue-pose.ts` | **The clock THE FLUE is posed off**: the flue sliding down into the field as it arrives |
 | `packages/render/src/flue-shape.ts` | **THE FLUE's geometry**: where the flue lies, the units it is laid from, the slot the ember runs in |
 | `packages/render/src/flue-scale.ts` | **THE FLUE's scale**: a tick under the slot for every half beat the ember has still to run to the sight |

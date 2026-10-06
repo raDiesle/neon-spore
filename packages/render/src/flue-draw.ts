@@ -11,6 +11,7 @@ import { drawFlueStrings } from "./flue-cords.js";
 import { drawFlueCilia, drawFlueSegment } from "./flue-flesh.js";
 import type { FlueFx } from "./flue-fx.js";
 import { drawFlueFlash, drawFlueLevels, drawFlueSight, drawFlueSlotGlow } from "./flue-marks.js";
+import { drawFlueMirageFluid, drawFlueMiragePhantoms } from "./flue-mirage.js";
 import { flueArrived, flueSpent } from "./flue-pose.js";
 import { drawFlueScale } from "./flue-scale.js";
 import {
@@ -42,7 +43,8 @@ const ARRIVE = 3;
  *
  * **The split is the ember.** The pilot's screen is drawn it and the
  * navigator's is not (`showsFlueEmber`): the navigator has the trigger and
- * has to be told when. Everything else is on both — the sight in the colour
+ * has to be told when, and is shown a mirage in the gullet instead — a
+ * rainbow fluid and spores that are not there (`flue-mirage.ts`). Everything else is on both — the sight in the colour
  * the level asks, with the beam's bar through it on a beam level, the strings
  * it hangs on, one cut for every shot spent, and a stud for every level over the flue, lit as each is
  * cleared: the flue's health, read off the body. Under the slot a scale
@@ -100,7 +102,11 @@ export function drawFlue(
   const slot = flueSlotPath(l, cfg);
   drawGullet(ctx, slot, l);
   const lit = flueLitLevel(s) !== null;
+  const sees = showsFlueEmber(l.role);
+  const spent = s.phase === "spent";
   if (lit) drawFlueSlotGlow(ctx, slot, beatPhase);
+  // The screen not shown the spore is shown a mirage in its place (`flue-mirage.ts`).
+  if (!sees && !spent) drawFlueMirageFluid(ctx, l, cfg, slot, lit, time);
 
   const level = flueShownLevel(s);
   if (level !== null) {
@@ -114,8 +120,9 @@ export function drawFlue(
   drawFlueMarkFeedback(ctx, l, world, s, beat, beatPhase, time, fx.verdicts);
   // The spore over the marks: the partner's clock fills the sight on the
   // pilot's screen, and drawn under it the spore vanished just where it is met.
-  if (showsFlueEmber(l.role)) {
-    const spent = s.phase === "spent";
+  if (!sees) {
+    if (lit) drawFlueMiragePhantoms(ctx, l, cfg, time);
+  } else {
     const at = flueEmberAt(l, cfg, s.emberMilli);
     const bare = flueBareness(cfg, s);
     drawFlueBareHeat(ctx, l, at, bare, time);

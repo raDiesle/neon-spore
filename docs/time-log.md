@@ -33752,3 +33752,13 @@ Bottleneck: the owner's four answers came while the lane before was landing, and
 Bottleneck: reading — finding that a panel trade already existed took longer than the change it made possible.
 
 *Measured: 6 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE FLUE shows the navigator a rainbow mirage in place of the spore
+
+- reading: 5 min. THE GAUGE's mirage, the precedent the owner pointed at, the flue's draw order and slot geometry.
+- writing: 10 min. `flue-mirage.ts`, the two calls in `flue-draw.ts`, three tests.
+- looking: 10 min. Strips of the navigator's gullet: the first fluid outshone the sight, the first phantoms vanished into it until they got a shadow.
+- friction: 5 min. `frames` holds the picture's clock still across a strip unless `--settle` paints it on; the canvas stub logs no `scale`, so the test's first marker counted nothing.
+- landing: 5 min. `check:fast` red on import order and the index row, then green.
+
+Bottleneck: looking — the strip tool's held clock made a flowing look read as a still one until `--settle` was found.

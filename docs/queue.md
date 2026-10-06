@@ -499,3 +499,17 @@ next boss event that leaves nothing behind for the next frame will push one
 over 250. Split each the way `-b.ts` already splits it, a whole boss's block at
 a time (the choreographed bosses to a page of their own), and keep the union
 both are read through. Done when both are under 200 and `bun run check` is green.
+
+## `bun run frames` holds the picture's clock still across a `--stride` strip
+
+- **Found:** 2026-10-06, claude/flue-blind
+- **Files:** `tools/frames/capture.ts`, `tools/frames/run.ts`
+
+`--frames 6 --stride 5` stepped the world five ticks a frame but painted every
+frame at the same draw time, so THE FLUE's flowing rainbow came out identical in
+all six and the strip said nothing moved; only `--stride 0 --settle 9` advanced
+the picture's clock. The recipe `--frames 6 --stride 4` is listed as *a short
+strip, for motion*. Advance the draw clock by the ticks a stride steps (a
+tick's seconds at the wave's tempo) before each frame's paint, and add a test
+that two frames of a strip with a time-driven look differ. Done when the
+recipe's strip of THE FLUE shows the fluid moving and `bun run check` is green.
