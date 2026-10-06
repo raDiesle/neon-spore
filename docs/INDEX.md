@@ -2006,7 +2006,9 @@ by hand never moves.
 | `packages/render/src/flue-shape.ts` | **THE FLUE's geometry**: where the flue lies, the units it is laid from, the slot the ember runs in |
 | `packages/render/src/flue-scale.ts` | **THE FLUE's scale**: a tick under the slot for every half beat the ember has still to run to the sight |
 | `packages/render/src/flue-spore.ts` | **THE FLUE's ember, grown into a spore**: membrane, beating nucleus, motes and film, in neither cannon's colour |
+| `packages/render/src/flue-sting.ts` | **THE FLUE's shot spent, drawn as a hurt**: the sight flashing red, red cracks out of it, the spent pip flaring red |
 | `packages/render/src/flue-blow.ts` | **THE FLUE's own blow at the hull** (`boss-strike-look.ts`) |
+| `packages/render/src/flue-bare.ts` | **THE FLUE's spore bare and red over the cannon, shielded elsewhere**: the shield breaking, the red heat, the shield closing, read off the world |
 | `packages/render/src/flue-fx.ts` | What THE FLUE leaves behind a frame: the **flash** at the sight as the ember is met |
 | `packages/render/src/flue-flesh.ts` | **What THE FLUE is made of**: dark flesh segments with folds, pores, a vein and a wet film, and cilia on the row |
 | `packages/render/src/flue-verdicts.ts` | **THE FLUE's mark answering a shot the way every mark does** (`mark-feedback.ts` |

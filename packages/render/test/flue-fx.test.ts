@@ -11,7 +11,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * What THE FLUE leaves behind a frame (`flue-fx.ts`): the flash at the sight
- * as the ember is met, the flare of the level's stud, a scuff where a shot
+ * as the ember is met, the flare of the level's stud, the red sting where a shot
  * was spent, the hull's shudder as it goes cold, and where its receipts are
  * thrown. `flue-frame.test.ts` has the poses read off the world; this file
  * has what the events add to them, on every screen.
@@ -57,13 +57,16 @@ describe("THE FLUE's transients", () => {
     expect(fx.hurt.value).toBe(0);
   });
 
-  it("scuffs the flue's underside for a shot spent, and deals it nothing", () => {
+  it("stings red under the flue for a shot spent, and deals the flue nothing", () => {
     const fx = new FlueFx();
-    const [scuff] = said(fx, [miss(2)]);
-    expect(scuff?.hex).toBe(PALETTE.rockDark);
-    expect(scuff?.y ?? 0).toBeGreaterThan(L.tile * CFG.flueRow);
+    const [sting] = said(fx, [miss(2)]);
+    expect(sting?.hex).toBe(PALETTE.red);
+    expect(sting?.y ?? 0).toBeGreaterThan(L.tile * CFG.flueRow);
+    expect(fx.sting).toBe(1);
     expect(fx.hurt.value).toBe(0);
     expect(fx.flash).toBe(0);
+    settle(fx);
+    expect(fx.sting).toBe(0);
   });
 
   it("deals nothing for the flue entering or a level lighting", () => {

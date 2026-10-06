@@ -5,6 +5,7 @@ import {
   flueShownLevel,
   type World,
 } from "@neon-spore/sim";
+import { drawFlueBareHeat, drawFlueShield, flueBareness } from "./flue-bare.js";
 import { drawFlueCard } from "./flue-card.js";
 import { drawFlueCilia, drawFlueSegment } from "./flue-flesh.js";
 import type { FlueFx } from "./flue-fx.js";
@@ -26,6 +27,7 @@ import {
   flueUnits,
 } from "./flue-shape.js";
 import { drawFlueSpore } from "./flue-spore.js";
+import { drawFlueSting } from "./flue-sting.js";
 import { drawFlueMarkFeedback } from "./flue-verdicts.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -56,7 +58,9 @@ const ARRIVE = 3;
  * asked for it bigger and *more alien living*, so the units are now dark
  * flesh, the slot a gullet and the ember a spore (`flue-flesh.ts`,
  * `flue-spore.ts`) — low in value and in neither cannon's colour, so the
- * sight is still the brightest colour on the flue. What outlives a frame — a
+ * sight is still the brightest colour on the flue. Later that day he asked
+ * for it to show when it can be hurt: shielded away from the sight, bare and
+ * red over it (`flue-bare.ts`). What outlives a frame — a
  * hit's flash, a stud's flare, the red of a blow landed and its shake — is
  * `fx` (`flue-fx.ts`); the blow at the hull is `flue-blow.ts`.
  */
@@ -96,16 +100,23 @@ export function drawFlue(
   if (level !== null) {
     drawFlueScale(ctx, l, cfg, level, lit);
     drawFlueSight(ctx, l, sight, level, lit, beatPhase);
-    drawFlueShots(ctx, l, sight, s.shots, cfg.flueShots);
+    drawFlueShots(ctx, l, sight, s.shots, cfg.flueShots, fx.sting);
     drawFlueCard(ctx, l, centre.y, level, lit);
   }
   drawFlueLevels(ctx, l, centre, s.hits, s.levels.length, fx.flare);
-  if (showsFlueEmber(l.role)) {
-    const dim = s.phase === "spent" ? 0.45 : 1;
-    drawFlueSpore(ctx, l, flueEmberAt(l, cfg, s.emberMilli), dim, beatPhase, time);
-  }
   drawFlueFlash(ctx, l, sight, fx.flash);
+  drawFlueSting(ctx, l, sight, fx.sting);
   drawFlueMarkFeedback(ctx, l, world, s, beat, beatPhase, time, fx.verdicts);
+  // The spore over the marks: the partner's clock fills the sight on the
+  // pilot's screen, and drawn under it the spore vanished just where it is met.
+  if (showsFlueEmber(l.role)) {
+    const spent = s.phase === "spent";
+    const at = flueEmberAt(l, cfg, s.emberMilli);
+    const bare = flueBareness(cfg, s);
+    drawFlueBareHeat(ctx, l, at, bare, time);
+    drawFlueSpore(ctx, l, at, spent ? 0.45 : 1, bare.red, beatPhase, time);
+    if (!spent) drawFlueShield(ctx, l, at, bare, time);
+  }
   ctx.restore();
 }
 

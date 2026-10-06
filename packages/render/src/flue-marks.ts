@@ -73,13 +73,17 @@ export function drawFlueSight(
   strokeGlowFaded(ctx, bar, hex, STROKE.outline, pulse, 1);
 }
 
-/** The level's shots under the sight: lit for every shot left, dark for every one spent. */
+/**
+ * The level's shots under the sight: lit for every shot left, dark for every
+ * one spent, and the one just spent flaring red while `sting` lasts.
+ */
 export function drawFlueShots(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   at: Point,
   shots: number,
   max: number,
+  sting = 0,
 ): void {
   const r = PIP * l.tile;
   for (let i = 0; i < max; i++) {
@@ -96,6 +100,8 @@ export function drawFlueShots(
       ctx.lineWidth = STROKE.inner;
       ctx.strokeStyle = rgba(PALETTE.hullRim, 0.35);
       ctx.stroke(pip);
+      if (i === shots && sting > 0)
+        strokeGlowFaded(ctx, pip, PALETTE.red, STROKE.outline, 2 * sting, sting);
     }
   }
 }

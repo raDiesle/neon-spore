@@ -10,7 +10,7 @@ import { PALETTE } from "./palette.js";
 
 /**
  * What THE FLUE leaves behind a frame: the **flash** at the sight as the
- * ember is met, the **flare** of the level's stud lighting, a scuff of grit
+ * ember is met, the **flare** of the level's stud lighting, the red **sting**
  * where a shot was spent on the flue, the plating's shudder as the flue goes
  * cold, and the bursts its other receipts throw.
  *
@@ -32,13 +32,15 @@ import { PALETTE } from "./palette.js";
 /** How strong the plating's shudder is as the flue goes cold, and how long, in beats. */
 const SPENT_FORCE = 0.8;
 const SPENT_BEATS = 1.2;
-/** How fast a hit's flash and a stud's flare fade, per second. */
+/** How fast a hit's flash, a stud's flare and a miss's sting fade, per second. */
 const FLASH_DECAY = 3;
 const FLARE_DECAY = 2;
+const STING_DECAY = 1.6;
 
 export class FlueFx {
   private flashNow = 0;
   private flareNow = 0;
+  private stingNow = 0;
   /** The shudder down the plating as the flue is spent. */
   readonly shock = new HullShock();
   /** The blow a level cleared deals the flue. */
@@ -54,6 +56,11 @@ export class FlueFx {
   /** How bright the flare on the stud of the level just cleared still is, 0..1. */
   get flare(): number {
     return this.flareNow;
+  }
+
+  /** How sharp the red sting at the sight a shot spent left still is, 0..1 (`flue-sting.ts`). */
+  get sting(): number {
+    return this.stingNow;
   }
 
   ingest(
@@ -81,8 +88,9 @@ export class FlueFx {
           this.hurt.hit();
           break;
         case "flueMiss":
-          // The shot spent on the flue's underside: a scuff of grit, nothing more.
-          burst(fieldX(l, e.col), mid.y + 0.4 * l.tile, 5, PALETTE.rockDark);
+          // The shot spent: a hurt, red at the sight (`flue-sting.ts`).
+          burst(fieldX(l, e.col), mid.y + 0.4 * l.tile, 10, PALETTE.red);
+          this.stingNow = 1;
           break;
         case "flueSpent":
           burst(mid.x, mid.y, 24, PALETTE.flueSoot);
@@ -99,6 +107,7 @@ export class FlueFx {
     const step = Math.min(dt, 1 / 30);
     this.flashNow = Math.max(0, this.flashNow - FLASH_DECAY * step);
     this.flareNow = Math.max(0, this.flareNow - FLARE_DECAY * step);
+    this.stingNow = Math.max(0, this.stingNow - STING_DECAY * step);
     this.shock.update(dt);
     this.hurt.update(dt);
     this.verdicts.update(dt);
@@ -107,6 +116,7 @@ export class FlueFx {
   clear(): void {
     this.flashNow = 0;
     this.flareNow = 0;
+    this.stingNow = 0;
     this.shock.clear();
     this.hurt.clear();
     this.verdicts.clear();

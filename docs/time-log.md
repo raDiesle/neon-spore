@@ -33680,3 +33680,13 @@ Bottleneck: a hold on one boss is registered in about twenty files across five p
 Bottleneck: the trunk had moved under the lane — `git fetch origin main` brought nothing because the rework was landed on local `main` and not pushed.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE FLUE's spore bare and red over the cannon, shielded away from it
+
+- reading: 5 min. The flue's sim and drawing files, the split that keeps the spore the pilot's, the palette's red and shield.
+- writing: 5 min. `flue-bare.ts` read off the world, the spore's red, `flue-sting.ts`, the tests.
+- looking: 5 min. Frames of the pass, the hit, a miss on both seats — the first showed the spore hidden under the partner's clock at the sight.
+- friction: 0 min. Test counts confused by the shield's cyan being the cyan cannon's, and by marks only one seat draws.
+- landing: 5 min. The index rows, `check:fast`, `land`.
+
+Bottleneck: the first frame — the spore was drawn under the wait clock, which no test of the flue's could have said.
