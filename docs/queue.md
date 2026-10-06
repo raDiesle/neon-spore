@@ -463,3 +463,35 @@ it is read through the window), and while there list every boss kind that
 opens THE SLOW and has no row, in a test, so the next one goes red rather
 than unseen. Done when THE GOVERNOR's frame shows no fringe on its body and
 `bun run check` is green.
+
+## THE BATON's levels: a second arm beside the first, an arm across at the end
+
+- **Found:** 2026-10-06, claude/baton-rules
+- **Files:** `packages/sim/src/baton.ts`, `packages/sim/src/baton-step.ts`, `packages/sim/src/baton-press.ts`, `packages/content/src/waves/act-7d.ts`
+- **Asks:** What is a level of THE BATON, and what does each one add?
+
+The owner, 6 October 2026, asked for THE BATON to be made harder in *levels*,
+each building up slowly and each adding one thing only: a second arm right
+beside the first, an arm at the end that runs left to right, more beads running
+through at once, and both seats allowed to tap a bead to send it. The rules half
+of the same request has landed (`claude/baton-rules`: the turn is long at the top
+and short at the bottom, slow costs one socket, the wrong colour two, nothing is
+judged by the beat). What waits on the answer is the shape of a level:
+whether a level is one pass of the arm inside the one wave (the arm folds and
+comes back with one thing more), or a wave of its own after THE BATON; what
+becomes of the shipped twin, swing, shed, merge and crossing — kept as levels
+of their own, or retired; and whether both seats tapping keeps the TurnLock,
+which is what this boss is about. The options and the ladder go to the owner
+in the turn this is filed. `baton.ts` is at 244 lines: the levels lane splits
+the state's shape off it before it adds a field.
+
+## The two silent-event lists are eight lines off the ceiling
+
+- **Found:** 2026-10-06, claude/baton-rules
+- **Files:** `packages/render/src/effects-ingest-silent-boss.ts`, `packages/render/src/effects-spark-silent-boss.ts`
+
+Both lists took THE BATON's `batonKicked` and stand at 242 and 243 lines. The
+next boss event that leaves nothing behind for the next frame will push one
+over 250. Split each the way `-b.ts` already splits it, a whole boss's block at
+a time (the choreographed bosses to a page of their own), and keep the union
+both are read through. Done when both are under 200 and `bun run check` is green.

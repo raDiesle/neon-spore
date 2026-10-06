@@ -137,11 +137,13 @@ export function batonShotSpends(world: World): void {
 /**
  * **Player 2's shot, through a bead in flight.** The bolt is spent either
  * way, and so was her turn when it left (`batonShotSpends`); the bead's
- * colour decides whether it took — and with two in the air, *which* bead the
- * bolt met decides which colour was right. Right, and the handover is made. Wrong,
- * and it is a miss like any other: the bead is still in the air, player 1 is
- * still locked, and the flight is longer than her lock, so the next shot is
- * still hers.
+ * colour decides what it does — and with two in the air, *which* bead the
+ * bolt met decides which colour was right. Right, and the handover is made.
+ * **Wrong, and the shot knocks the bead back two sockets** (the owner, 6
+ * October 2026): it is out of the air at once and sitting where the knock
+ * put it, so the cost of the wrong colour is a climb the pair can see. On the
+ * crossing the knock is out of the last socket, so the arm is two sockets
+ * from the drop again (`batonKnock`).
  */
 export function batonStruck(world: World, bullet: Bullet, milli: number): void {
   const b = batonBoss(world);
@@ -151,6 +153,7 @@ export function batonStruck(world: World, bullet: Bullet, milli: number): void {
   if (bullet.color !== bead.color) {
     missedColor(world);
     world.events.push({ type: "reject", col: bullet.col, row: Math.round(milli / MILLI) });
+    batonKnock(world, b, bead, milli);
     return;
   }
   if (b.stage === "crossing") {
@@ -160,6 +163,37 @@ export function batonStruck(world: World, bullet: Bullet, milli: number): void {
   bead.struck = true;
   metColor(world);
   world.events.push({ type: "batonStruck", col: bullet.col, socket: bead.socket });
+}
+
+/**
+ * A bead knocked back by the wrong colour: out of the air, two sockets up
+ * from the one it left, in the column it left from — the arm swung *for* the
+ * flight, and the flight did not take. `rowMilli` is where the bolt met it,
+ * so the picture can throw it from there (`batonKicked`).
+ */
+function batonKnock(world: World, b: BatonState, bead: BatonBead, rowMilli: number): void {
+  const from = bead.socket;
+  if (b.stage === "crossing") {
+    b.stage = "passing";
+    b.stageBeat = world.beat;
+    b.acts = 0;
+    b.actBeat = -1;
+  }
+  bead.flying = false;
+  bead.final = false;
+  bead.flightTick = -1;
+  bead.struck = false;
+  bead.socket = Math.max(0, from - 2);
+  bead.satBeat = world.beat;
+  bead.col = bead.fromCol;
+  b.stillBeat = world.beat;
+  b.col = batonLead(b)?.col ?? bead.col;
+  world.events.push({
+    type: "batonKicked",
+    col: bead.col,
+    socket: bead.socket,
+    rowMilli,
+  });
 }
 
 /**

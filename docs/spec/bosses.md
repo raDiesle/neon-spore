@@ -3162,8 +3162,11 @@ only thing left to do.
 **The shape.** An arm of `batonSockets` (11) sockets hangs down the middle
 column from the top row, one socket a row, with a bead in the topmost. It is a
 fixture, not a body (`bossFillsWave === false`): the fall loop, the hull and a
-hand find nothing of it, and the arrivals around it are the wave's own
-(`content/src/waves/act-7d.ts`, kept off the arm's column and its neighbours).
+hand find nothing of it, and since 6 October 2026 the wave has no arrivals
+of its own at all (`content/src/waves/act-7d.ts`; the owner: *remove every
+other enemy from the wave*). It unfolds, top socket to bottom, over
+`batonUnfoldBeats` (6) — it took eleven, one a socket, until the owner found
+it slow to sit through.
 The bead's own drop out of the bottom is a loose purge pod, and a segment the
 arm sheds is a meteor — everything it ever puts on the field is a thing a rule
 that already exists knows how to meet.
@@ -3180,10 +3183,15 @@ and swallowing rather than charging: the seat was told *not yet*, not warned
 off). The bead flips colour on every landing, so the colour language teaches
 the alternation for free.
 
-**The clock tightens and the arm moves.** A bead that sits `batonTurnBeats`
-(2) is shaken back to the top socket by the arm, and after `batonTightenAfter`
-(4) handovers that is `batonTightTurnBeats` (1) — one beat, which is no time to
-argue. After `batonSwingAfter` (4) dark sockets the arm swings the landing a
+**The clock tightens and the arm moves.** A bead that sits longer than its
+socket's turn is shaken back **one** socket by the arm (`batonSettled`): the
+turn is `batonTurnTopBeats` (4) in the top socket and `batonTurnBottomBeats`
+(2) in the bottom one, counted down evenly between (`batonTurnBeats` in
+`sim/baton-step.ts`), so the first holes are long and the last are short.
+**No press is judged by the beat** — the owner, 6 October 2026: *if you don't
+press on the beat it is not a mistake; only too much time may not pass with
+the ball sitting in a hole.* Until then a slow bead went back to the top and
+the turn was two beats everywhere, one once four handovers were made. After `batonSwingAfter` (4) dark sockets the arm swings the landing a
 column off the base, right, back, left, back, so the cannon has to follow the
 bead between player 1's own turns. After `batonShedAfter` (6) dark sockets the
 topmost dark socket the bead is not sitting in lets go every `batonShedBeats`
@@ -3206,9 +3214,11 @@ she filled all lock player 2 for `batonLockBeats` from the tick the shot goes
 out (`batonShotSpends` in `sim/baton-press.ts`, called from `bullets.ts` and
 `lance-burn.ts`), and nothing before the bead first sits or after the arm is
 down. That is the choice the field puts to her: a creature answered while the
-bead sits is a launch watched through a grey panel. The lock is shorter than
-the flight, so a wrong colour is still a miss like any other — the next shot
-is still hers, one beat later than it was. And the beam meets the bead the way
+bead sits is a launch watched through a grey panel. **A wrong colour through
+the bead knocks it back two sockets** (`batonKicked`, the owner, 6 October
+2026): out of the air at once, sitting two above the socket it left, the
+sockets it climbed past still dark — the cost is the climb, not the arm.
+Until then it was a miss like any other and the bead flew on. And the beam meets the bead the way
 a bolt does (`burnColumn`), the third thing in a column a beam can stop at:
 struck or rejected, it ends there.
 
@@ -3225,9 +3235,7 @@ won. *The turn is counted from the arm going still* (`stillBeat`): a bead's
 `batonTurnBeats` run from the last landing and never while the other is in
 the air, or the pilot's turn with one would shake the other home every
 handover. *A bead in the top socket is not shaken* — there is nowhere to
-shake it to. *The tightening waits*: `batonTightTurnBeats` applies while
-there is one bead only; a one-beat turn with two beads to send is a turn the
-pilot cannot see. The swing is counted in dark sockets rather than handovers,
+shake it to. The swing is counted in dark sockets rather than handovers,
 because only the lead darkens a new one. Reaching the last socket, the lead
 waits there (`batonWaiting`) while the second catches up to the one above it,
 and the two become one bead (`batonMerged`), which is the one that drops.
@@ -3235,16 +3243,19 @@ and the two become one bead (`batonMerged`), which is the one that drops.
 **The crossing** — the design's step 13, as of 17 September 2026. The merged
 bead's one flight out of the last socket is `batonFinalBeats` (22) long, the
 length of the whole arm in one crossing (`sim/baton-cross.ts`, the stage
-`crossing`), and it owes an act a beat: player 1's trigger is act 0 and the
+`crossing`), and it owes acts in turn: player 1's trigger is act 0 and the
 launch, her shot of the bead's colour act 1, his trigger act 2, and so on,
 `acts` counting up and `batonActor` saying whose the next is — his when the
 count is even, hers when it is odd. Each act flips the bead's colour and the
 beat lock is the alternation: the seat that acted is locked for the beat the
-other's act is due in. On every beat `batonCrossBeat` asks whether the act
-due inside the beat before was made; one not made is a miss (`batonMissed`),
-and the bead is back at the top of an arm every socket of which is lit again
-— the whole descent to earn back, as the page says. Every act made and the
-bead drops out of the last socket as a pod (`drop`), `handovers` kept. Three
+other's act is due in. No act is due on a particular beat (6 October 2026):
+`batonCrossBeat` asks only whether more than `batonTurnBottomBeats` have gone
+by since the last one (`actBeat`), and such a gap is a miss (`batonMissed`)
+that puts the bead back in the last socket to be sent again, the arm as the
+pair left it. Until then an act was due inside each beat and a miss relit the
+whole arm with the bead at the top. A wrong colour on the crossing knocks the
+bead back two sockets, as anywhere on the arm. The flight run out, the bead
+drops out of the last socket as a pod (`drop`), `handovers` kept. Three
 departures from the page. *The two beads become one at the merge* (§ above),
 not at the top of the crossing: the design has step 12 and 13 as one moment,
 and the shipped merge is the beat the second bead catches up. *The arm does
@@ -3252,13 +3263,12 @@ not shed during the crossing*, because a rock down the bead's own column
 inside a beat the pair has to act in would be the fight lost by the arm and
 not by them. *Both locks open at the drop*: the last act is his and would
 have locked him through the beat the pod falls in, and the catch under it is
-his (step 14). A shed socket grows back with the rest on a miss, which the
-page does not say and the line *grown its sockets back* allows.
+his (step 14).
 
 **The thread** — the design's step 12, as of 17 September 2026. The beat a
 landing leaves one socket lit — every other gone dark or shed — the sim
-remembers as `threadBeat` (`batonOneSegment`), and a miss, which relights the
-arm, clears it. The picture reads it and nothing else: over
+remembers as `threadBeat` (`batonOneSegment`); since a miss no longer relights
+the arm (6 October 2026), nothing clears it. The picture reads it and nothing else: over
 `batonThreadBeats` (1) everything above the last socket thins to a thread a
 fifth of the spine's width, sways more than the arm did, loses its glow, and
 every dark socket on it shrinks to half — a husk on a string — while the last
@@ -3297,8 +3307,9 @@ colour. The count runs only while **both** are down and goes back to nought the
 moment either lifts (`batonMergeBeats`, 4): THE INSTAR's *together means
 together*, arriving in the one fight whose whole content is that the two of
 them may never act on the same beat. The window closing short shakes the bead
-that waited back to the top socket (`batonParted`) and the dark sockets stay
-dark, so what a failed draw costs is one bead's run and not the arm. It is put
+that waited back a socket (`batonParted`; to the top until 6 October 2026)
+and the dark sockets stay dark, so what a failed draw costs is one hop and not
+the arm. It is put
 exactly where the design hangs the arm by a thread (step 12), and it is the one
 beat of this fight the pair may act on together.
 

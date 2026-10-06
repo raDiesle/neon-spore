@@ -41,9 +41,9 @@ export const CHOREO_FIELD_GROUP = {
   // look and a word, and a lock is *not you, not this beat* (`config-baton.ts`).
   batonSockets: "THE BATON — a bead passed down an arm, one seat a beat",
   batonFlightBeats: "THE BATON — a bead passed down an arm, one seat a beat",
-  batonTurnBeats: "THE BATON — a bead passed down an arm, one seat a beat",
-  batonTightTurnBeats: "THE BATON — a bead passed down an arm, one seat a beat",
-  batonTightenAfter: "THE BATON — a bead passed down an arm, one seat a beat",
+  batonUnfoldBeats: "THE BATON — a bead passed down an arm, one seat a beat",
+  batonTurnTopBeats: "THE BATON — a bead passed down an arm, one seat a beat",
+  batonTurnBottomBeats: "THE BATON — a bead passed down an arm, one seat a beat",
   batonLockBeats: "THE BATON — a bead passed down an arm, one seat a beat",
   batonSwingAfter: "THE BATON — a bead passed down an arm, one seat a beat",
   batonShedAfter: "THE BATON — a bead passed down an arm, one seat a beat",

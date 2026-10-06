@@ -34,14 +34,26 @@ export interface BatonConfig {
    */
   batonFlightBeats: number;
   /**
-   * Beats a bead may sit in a socket before the arm shakes it back to the
-   * base. Two, at first: one to see where it is and one to say so.
+   * Beats the arm takes to unfold, top socket to bottom, before the first
+   * bead may be sent. Six, about half a socket a beat: the owner, 6 October
+   * 2026, found the eleven-beat unfold slow to sit through, and the arm is
+   * the same arm whether it takes six beats to arrive or eleven.
    */
-  batonTurnBeats: number;
-  /** The same, once the arm has tightened: one beat, which is no time to argue. */
-  batonTightTurnBeats: number;
-  /** Handovers before the turn tightens. Four is a pair who have found the rhythm. */
-  batonTightenAfter: number;
+  batonUnfoldBeats: number;
+  /**
+   * Beats a bead may sit in the **top** socket before the arm shakes it back
+   * a socket. Four: the first holes are where the pair is still finding out
+   * whose thumb goes first, so they are given room to say it.
+   */
+  batonTurnTopBeats: number;
+  /**
+   * The same in the **bottom** socket. The sockets between are counted down
+   * from the top's to this, evenly (`batonTurnBeats` in `baton-step.ts`), so
+   * the arm gets harder the further down the bead is and not on a count the
+   * pair never sees. The owner, 6 October 2026: *the first holes longer, and
+   * only later, lower down, shorter.*
+   */
+  batonTurnBottomBeats: number;
   /**
    * Beats the seat that just acted may not touch the ship — the TurnLock.
    *
@@ -89,7 +101,7 @@ export interface BatonConfig {
   batonMergeBeats: number;
   /**
    * Beats the pair has to find that hold before the bead that waited is shaken
-   * back to the top socket — the same price a bead that sat too long pays
+   * back a socket — the same price a bead that sat too long pays
    * anywhere else on the arm (`settle`). Twelve: still two goes at the
    * doubled hold, and six until the doubling.
    */
@@ -103,10 +115,12 @@ export interface BatonConfig {
   batonTwinAfter: number;
   /**
    * Beats the merged bead's last flight takes, out of the last socket — and
-   * the acts the pair owe it, one a beat, alternating, with no miss: the
-   * design's step 13, *the length of the whole arm in one crossing*.
-   * Twenty-two, two for each socket the arm had — eleven, one each, until the
-   * doubling.
+   * the acts the pair owe it, alternating, none of them on any particular
+   * beat: the design's step 13, *the length of the whole arm in one
+   * crossing*. Twenty-two, two for each socket the arm had — eleven, one
+   * each, until the doubling. What the crossing will not forgive is a gap: a
+   * stretch of `batonTurnBottomBeats` with no act puts the bead back in the
+   * last socket (`baton-cross.ts`).
    */
   batonFinalBeats: number;
   /**
@@ -126,16 +140,17 @@ export interface BatonConfig {
 /**
  * The defaults, spread into `DEFAULT_CONFIG`.
  *
- * Read as one handover: three beats in the air, two to see where it landed,
- * one locked out — six beats a socket, eleven sockets, which is about a
- * minute of play if nothing goes wrong, and something always does.
+ * Read as one handover: three beats in the air, four to see where it landed
+ * at the top and two at the bottom, one locked out — about six beats a
+ * socket, eleven sockets, which is about a minute of play if nothing goes
+ * wrong, and something always does.
  */
 export const BATON_DEFAULTS: BatonConfig = {
   batonSockets: 11,
   batonFlightBeats: 3,
-  batonTurnBeats: 2,
-  batonTightTurnBeats: 1,
-  batonTightenAfter: 4,
+  batonUnfoldBeats: 6,
+  batonTurnTopBeats: 4,
+  batonTurnBottomBeats: 2,
   batonLockBeats: 1,
   batonSwingAfter: 4,
   batonShedAfter: 6,

@@ -55,8 +55,8 @@ export function batonMerge(world: World, b: BatonState): void {
  * One beat of the drawing together. The count runs only while both thumbs are
  * down and goes back to nought the moment either lifts — *together means
  * together*, THE INSTAR's rule (`sim/instar.ts`) — and the window closing
- * short of `batonMergeBeats` shakes the bead that waited back to the top
- * socket, which is the price a bead that sat too long pays anywhere else here.
+ * short of `batonMergeBeats` shakes the bead that waited back one socket,
+ * which is the price a bead that sat too long pays anywhere else here.
  */
 export function stepBatonMerge(world: World, b: BatonState): void {
   const cfg = world.cfg;
@@ -82,16 +82,16 @@ function merged(world: World, b: BatonState): void {
   world.events.push({ type: "batonMerged", col: last.col, socket: last.socket });
 }
 
-/** Back to passing with both beads still on the arm, the waiting one home. */
+/** Back to passing with both beads still on the arm, the waiting one a socket up. */
 function parted(world: World, b: BatonState): void {
   const last = b.beads.find((bead) => bead.socket === world.cfg.batonSockets - 1);
   if (last !== undefined) {
-    last.socket = 0;
+    last.socket -= 1;
     last.satBeat = world.beat;
     b.settles += 1;
   }
   leave(world, b);
-  world.events.push({ type: "batonParted", col: b.col, socket: 0 });
+  world.events.push({ type: "batonParted", col: b.col, socket: last?.socket ?? 0 });
 }
 
 /** What both endings share: the arm passing again, still, and no thumbs on it. */

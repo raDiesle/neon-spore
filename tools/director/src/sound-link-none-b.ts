@@ -228,5 +228,5 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.batonHeld":
     "a thumb landing on one of the two beads the pair is drawing together. Same argument.",
   "boss.batonParted":
-    "the drawing-together window closed short, and the bead that waited shaken back to the top of the arm. Same argument.",
+    "the drawing-together window closed short, and the bead that waited shaken back a socket. Same argument.",
 };

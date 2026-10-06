@@ -45,7 +45,7 @@ export const SILENT_BOSS = [
   "stareVent",
   "stareBlast",
   "stareOut",
-  // THE BATON's eleven: the arm, the bead and the locked seat's grey are drawn
+  // THE BATON's twelve: the arm, the bead and the locked seat's grey are drawn
   // from the boss's state every frame (`baton-draw.ts`, `band-lock.ts`), and
   // a spark on a landing would be a look on top of a shipped one. A shed
   // socket is a meteor and the last drop is a pod, and both burst on their own.
@@ -54,6 +54,7 @@ export const SILENT_BOSS = [
   "batonLanded",
   "batonRelit",
   "batonSettled",
+  "batonKicked",
   "batonTwin",
   "batonMerged",
   "batonAct",

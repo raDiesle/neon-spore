@@ -58,8 +58,8 @@ export const BATON_CONTROLS: readonly FieldControlDef[] = [
       "Draws the two beads into one. The count runs only while both thumbs are " +
       "down and goes back to nought the moment either lifts, and it takes " +
       "batonMergeBeats of both; a dial runs the batonMergeWindowBeats out, and " +
-      "the window closing short shakes the bead that waited back to the top " +
-      "socket. Neither ring says whether the other is down: that is the " +
+      "the window closing short shakes the bead that waited back a socket. " +
+      "Neither ring says whether the other is down: that is the " +
       "sentence, and it is the only beat of this fight the pair may act on " +
       "together (sim/baton-pair.ts).",
     source: "touch.ts — batonSocketUnder() under handleUnder()",

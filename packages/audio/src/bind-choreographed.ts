@@ -90,6 +90,7 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue | nul
     case "batonLanded":
     case "batonRelit":
     case "batonSettled":
+    case "batonKicked":
     case "batonTwin":
     case "batonMerged":
     case "batonAct":

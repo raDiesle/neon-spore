@@ -54,9 +54,10 @@ describe("THE BATON", () => {
     expect(world.cannonCol).toBe(1);
   });
 
-  it("unfolds one socket a beat and then sits", () => {
+  it("unfolds the whole arm in its unfold beats, quicker than a socket a beat, and then sits", () => {
     const world = open();
-    expect(until(world, "passing")).toBe(CFG.batonSockets);
+    expect(CFG.batonUnfoldBeats).toBeLessThan(CFG.batonSockets);
+    expect(until(world, "passing")).toBe(CFG.batonUnfoldBeats);
     expect(lead(world).flying).toBe(false);
   });
 
@@ -117,13 +118,9 @@ describe("THE BATON", () => {
     expect(world.events.some((e) => e.type === "batonLanded")).toBe(true);
   });
 
-  it("rejects the wrong colour, and the bead lands back where it was", () => {
+  it("lands an unanswered bead back where it was", () => {
     const world = open();
     const bead = launch(world);
-    shoot(world, "cyan");
-    expect(bead.struck).toBe(false);
-    expect(world.balance.colorMisses).toBe(1);
-    expect(world.events.some((e) => e.type === "reject")).toBe(true);
     landed(world);
     const b = arm(world);
     expect(bead.socket).toBe(0);
@@ -131,6 +128,36 @@ describe("THE BATON", () => {
     expect(bead.color).toBe("red");
     expect(b.handovers).toBe(0);
     expect(world.events.some((e) => e.type === "batonRelit")).toBe(true);
+  });
+
+  it("knocks the bead back two sockets on the wrong colour, out of the air at once", () => {
+    const world = open();
+    for (let i = 0; i < 3; i++) handover(world);
+    const bead = launch(world);
+    expect(bead.socket).toBe(3);
+    shoot(world, bead.color === "red" ? "cyan" : "red");
+    const b = arm(world);
+    expect(bead.flying).toBe(false);
+    expect(bead.socket).toBe(1);
+    expect(world.balance.colorMisses).toBe(1);
+    expect(world.events.some((e) => e.type === "reject")).toBe(true);
+    expect(world.events.some((e) => e.type === "batonKicked" && e.socket === 1)).toBe(true);
+    // The sockets it climbed past stay dark: the cost is the climb, not the arm.
+    expect(b.sockets.slice(0, 3)).toEqual([
+      BATON_SOCKET_DARK,
+      BATON_SOCKET_DARK,
+      BATON_SOCKET_DARK,
+    ]);
+    expect(b.handovers).toBe(3);
+  });
+
+  it("knocks a bead near the top no further than the top socket", () => {
+    const world = open();
+    const bead = launch(world);
+    shoot(world, "cyan");
+    expect(bead.flying).toBe(false);
+    expect(bead.socket).toBe(0);
+    expect(bead.color).toBe("red");
   });
 
   it("spends her turn on a shot at anything, not only one through the bead", () => {
@@ -156,17 +183,13 @@ describe("THE BATON", () => {
     expect(batonLocked(arm(world), 2, world.beat)).toBe(false);
   });
 
-  it("costs her the beat on the wrong colour too, and gives it back before the bead lands", () => {
+  it("costs her the beat on the wrong colour too, and gives it back after", () => {
     const world = open();
-    const bead = launch(world);
-    const launchBeat = world.beat;
+    launch(world);
     step(world, [cmd(world, 2, { kind: "fire", color: "cyan" })]);
     const b = arm(world);
     expect(batonLocked(b, 2, world.beat)).toBe(true);
-    // Her lock is shorter than the flight, so the next shot is still hers.
     beats(world, CFG.batonLockBeats + 1);
-    expect(bead.flying).toBe(true);
-    expect(world.beat).toBeLessThan(launchBeat + CFG.batonFlightBeats);
     expect(batonLocked(b, 2, world.beat)).toBe(false);
   });
 

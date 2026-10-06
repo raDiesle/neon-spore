@@ -14,7 +14,10 @@ import type { Color } from "./types.js";
  * (`docs/spec/bosses-choreographed.md` §10) — and while it is in the air
  * player 2 has to put a shot of the bead's colour through it. A bead struck
  * lands and the socket it left goes dark; a bead not struck lands back where
- * it was; a bead that sits too long is shaken back to the base. **Whoever
+ * it was; a bead that sits too long is shaken back a socket, and one struck
+ * with the wrong colour is knocked back two. **Nothing here is judged by the
+ * beat** (the owner, 6 October 2026): a press may come on any tick, and the
+ * one clock the pair can lose to is how long a bead sits. **Whoever
  * acted is locked out for a beat** (`batonLocks`), so no seat can do both
  * halves — the turn is real because the rule takes the other half away.
  *
@@ -38,10 +41,10 @@ import type { Color } from "./types.js";
  * is the design's step 9 (`docs/spec/bosses-choreographed.md` §10). The
  * bead that reaches the last socket first **waits** there, unlaunchable and
  * unsettling, until the other lands in the socket above it; then the two
- * merge into one, and that one's next flight is **the crossing**: eleven
- * beats long, an act a beat, alternating — his trigger, her shot, his
- * trigger — and one beat missed puts the bead back at the top of an arm
- * whose sockets have all grown back (step 13, `baton-cross.ts`).
+ * merge into one, and that one's next flight is **the crossing**: a long
+ * flight of acts, alternating — his trigger, her shot, his trigger — on no
+ * beat in particular, and a gap too long between two of them puts the bead
+ * back in the last socket (step 13, `baton-cross.ts`).
  *
  * **Two of its states ask for a thumb on the arm itself** rather than on the
  * panel (`.claude/skills/new-boss` §6.2, `baton-hand.ts`): a dead socket
@@ -61,7 +64,7 @@ import type { Color } from "./types.js";
  * A list rather than a bare union for `STARE_PHASES`' reason: a stage goes
  * into `hashWorld` as its index, so the order is a wire value.
  *
- * - `unfolding` — the arm unfolds downward, one socket a beat. Nothing to press yet.
+ * - `unfolding` — the arm unfolds downward over `batonUnfoldBeats`. Nothing to press yet.
  * - `passing` — beads are being passed down the arm: each is sitting in a
  *   socket, where player 1 may launch it, or in the air between two, where
  *   player 2 may strike it (`BatonBead.flying`).
@@ -69,7 +72,7 @@ import type { Color } from "./types.js";
  *   is drawing them together, a thumb each, the one beat of this fight that
  *   asks for both at once (`baton-hand.ts`).
  * - `crossing` — the merged bead is on its last flight, out of the last
- *   socket, and the pair owe it an act a beat (`BatonState.acts`).
+ *   socket, and the pair owe it acts, in turn (`BatonState.acts`).
  * - `falling` — the bead has dropped out of the last socket as a loose pod.
  * - `down` — the pod was taken. The arm folds away and the boss is spent.
  */
@@ -138,9 +141,12 @@ export interface BatonState {
   /**
    * Acts made on the crossing so far, the launch being the first. Act `n` is
    * player 1's when `n` is even and player 2's when it is odd, and it is due
-   * inside beat `n` of the crossing (`baton-cross.ts`). 0 off the crossing.
+   * before the gap since the last one runs out (`baton-cross.ts`). 0 off
+   * the crossing.
    */
   acts: number;
+  /** `world.beat` of the crossing's last act, which its gap is counted from. -1 off the crossing. */
+  actBeat: number;
   /**
    * `world.beat` the arm last went still on — the last landing, or the end
    * of the unfold. A sitting bead's turn is counted from here or from its own
@@ -179,7 +185,7 @@ export interface BatonState {
    * `world.beat` the arm came down to one segment on — every socket but the
    * last gone dark or shed, the design's step 12 — and -1 while it is
    * longer. The picture hangs that last segment by a thread from here
-   * (`render/baton-draw.ts`); a miss grows the arm back and clears it.
+   * (`render/baton-draw.ts`). Nothing grows the arm back, so nothing clears it.
    */
   threadBeat: number;
 }

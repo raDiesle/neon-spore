@@ -58,7 +58,7 @@ boss.
 | THE THROAT | none since the rework of 1 October 2026 | it has no window at all: a body is swallowed the tick it is inside the circle in the right colour, and the only clock is the falling field's own (`config-throat.ts`) |
 | THE LEDGER | `ledgerCadenceBeats` 5 → 2 | the returns are the fight's tempo, and their falling is the fight getting harder |
 | THE SCUTTLE | `scuttleThrowBeats` 3, `scuttleFastBeats` 2 | a boss racing the pair to its own death; the cadence is the race |
-| THE BATON | `batonFlightBeats` 3, `batonTurnBeats` 2 / 1 | measured against the wire's latency (`latency.md`), not authored |
+| THE BATON | `batonFlightBeats` 3, `batonTurnTopBeats` 4 down to `batonTurnBottomBeats` 2 | measured against the wire's latency (`latency.md`), not authored |
 | THE ORRERY, THE DIASTOLE | — | the alignment and the coincidence are arithmetic off the rings and the cadences, not a figure; there is nothing to double |
 | THE SURGE | `surgeWindowMilli` 250 | half the band's width — a tolerance, not a time |
 | THE FILAMENT, THE GIMBAL | — | no deadline: the line is drawn a tile a beat, and the alignments wait as long as it takes |

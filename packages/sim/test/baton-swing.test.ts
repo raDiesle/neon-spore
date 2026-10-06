@@ -6,6 +6,7 @@ import {
   type BatonBead,
   batonBaseCol,
   batonDark,
+  batonTurnBeats,
   step,
 } from "../src/index.js";
 import {
@@ -31,18 +32,30 @@ import {
 const MID = batonBaseCol(CFG);
 
 describe("THE BATON's swing, shed and twin", () => {
-  it("shakes a bead that sat too long back to the base, and the dark sockets stay dark", () => {
+  it("shakes a bead that sat too long back one socket, and the dark sockets stay dark", () => {
     const world = open();
     handover(world);
-    expect(lead(world).socket).toBe(1);
+    handover(world);
+    expect(lead(world).socket).toBe(2);
     const sat = world.beat;
-    beats(world, CFG.batonTurnBeats);
+    const turn = batonTurnBeats(CFG, 2);
+    beats(world, turn);
     const b = arm(world);
-    expect(lead(world).socket).toBe(0);
+    expect(lead(world).socket).toBe(1);
     expect(b.settles).toBe(1);
     expect(b.sockets[0]).toBe(BATON_SOCKET_DARK);
-    expect(world.beat - sat).toBe(CFG.batonTurnBeats);
-    expect(world.events.some((e) => e.type === "batonSettled")).toBe(true);
+    expect(b.sockets[1]).toBe(BATON_SOCKET_DARK);
+    expect(world.beat - sat).toBe(turn);
+    expect(world.events.some((e) => e.type === "batonSettled" && e.socket === 1)).toBe(true);
+  });
+
+  it("gives the top sockets the long turn and the bottom ones the short", () => {
+    const last = CFG.batonSockets - 1;
+    expect(batonTurnBeats(CFG, 0)).toBe(CFG.batonTurnTopBeats);
+    expect(batonTurnBeats(CFG, last)).toBe(CFG.batonTurnBottomBeats);
+    expect(CFG.batonTurnTopBeats).toBeGreaterThan(CFG.batonTurnBottomBeats);
+    for (let s = 1; s <= last; s++)
+      expect(batonTurnBeats(CFG, s)).toBeLessThanOrEqual(batonTurnBeats(CFG, s - 1));
   });
 
   it("swings the arm once enough sockets are dark, and the bead lands a column off", () => {
@@ -142,22 +155,19 @@ describe("THE BATON's swing, shed and twin", () => {
     expect(first.flying && twin.flying).toBe(true);
     // The first is lower: a bolt up the column meets it, not the twin, and
     // the twin's colour is the wrong one for it.
-    shoot(world, twin.color === first.color ? first.color : twin.color);
-    if (twin.color === first.color) expect(first.struck).toBe(true);
-    else {
-      expect(first.struck).toBe(false);
-      expect(world.events.some((e) => e.type === "reject")).toBe(true);
-      beats(world, CFG.batonLockBeats + 1);
-      shoot(world, first.color);
-      expect(first.struck).toBe(true);
-    }
+    expect(twin.color).not.toBe(first.color);
+    shoot(world, twin.color);
+    expect(world.events.some((e) => e.type === "reject")).toBe(true);
+    // Knocked back two, out of the air; the twin above it is untouched.
+    expect(first.flying).toBe(false);
+    expect(first.socket).toBe(CFG.batonTwinAfter - 2);
+    expect(twin.flying).toBe(true);
     expect(twin.struck).toBe(false);
-    // Then the twin, still above it in the air.
+    // Then the twin, still in the air, with the colour that is its own.
     beats(world, CFG.batonLockBeats + 1);
     shoot(world, twin.color);
     expect(twin.struck).toBe(true);
     landed(world);
-    expect(first.socket).toBe(CFG.batonTwinAfter + 1);
     expect(twin.socket).toBe(1);
   });
 
@@ -189,24 +199,10 @@ describe("THE BATON's swing, shed and twin", () => {
     shoot(world, twin.color);
     landed(world);
     expect(first.socket).toBe(CFG.batonTwinAfter + 1);
-    beats(world, CFG.batonTurnBeats - 1);
+    const turn = batonTurnBeats(CFG, first.socket);
+    beats(world, turn - 1);
     expect(first.socket).toBe(CFG.batonTwinAfter + 1);
     beats(world, 1);
-    expect(first.socket).toBe(0);
-  });
-
-  it("keeps the two-beat turn while there are two beads, tight only when one is left", () => {
-    const world = open();
-    for (let i = 0; i < CFG.batonTightenAfter; i++) handover(world);
-    const b = arm(world);
-    expect(b.beads).toHaveLength(2);
-    expect(b.handovers).toBe(CFG.batonTightenAfter);
-    const bead = lead(world);
-    const sat = world.beat;
-    beats(world, CFG.batonTightTurnBeats);
-    expect(bead.socket).toBe(CFG.batonTightenAfter);
-    beats(world, CFG.batonTurnBeats - CFG.batonTightTurnBeats);
-    expect(bead.socket).toBe(0);
-    expect(world.beat - sat).toBe(CFG.batonTurnBeats);
+    expect(first.socket).toBe(CFG.batonTwinAfter);
   });
 });

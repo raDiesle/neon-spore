@@ -34,18 +34,19 @@ export const CHOREO_NOTES = {
     "that acted is locked out of every control for batonLockBeats: his on the " +
     "trigger, hers on any shot that leaves — at the bead, at a creature, at " +
     "nothing, or the beam, which meets the bead the way a bolt does. A bead " +
-    "nobody hits lands back where it was and relights the socket; a bead left " +
-    "sitting batonTurnBeats (batonTightTurnBeats once batonTightenAfter " +
-    "handovers are made) settles back to the top. After batonSwingAfter dark " +
+    "nobody hits lands back where it was and relights the socket; one hit with " +
+    "the wrong colour is knocked back two sockets; a bead left sitting longer " +
+    "than its socket's turn — batonTurnTopBeats at the top, down to " +
+    "batonTurnBottomBeats at the bottom — settles back one. After batonSwingAfter dark " +
     "sockets the arm swings a column either side of the middle; after " +
     "batonShedAfter it sheds its topmost dark socket as a rock every " +
     "batonShedBeats. After batonTwinAfter dark sockets a second bead lights " +
     "at the top in the other colour, and the two merge in the last socket. " +
     "Down to one lit socket, the arm hangs by a thread — the picture thins " +
-    "it over batonThreadBeats, and a miss grows it back. " +
+    "it over batonThreadBeats. " +
     "The merged bead's flight out of it is the crossing, batonFinalBeats " +
-    "long, owing an act a beat in turn — a miss sends it back to the top of " +
-    "a relit arm. Made whole, the bead falls as a pod, the maw takes it, and " +
+    "long, owing acts in turn on no beat in particular — a gap longer than " +
+    "batonTurnBottomBeats puts it back in the last socket. Made whole, the bead falls as a pod, the maw takes it, and " +
     "the arm folds away in batonDownBeats. THE SLOW spans the asks alone: a " +
     "shell swelling for its batonSwellStrips, the draw's " +
     "batonMergeWindowBeats and the crossing, each shut on its own end " +

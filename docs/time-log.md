@@ -33692,3 +33692,13 @@ Bottleneck: the trunk had moved under the lane — `git fetch origin main` broug
 Bottleneck: the first frame — the spore was drawn under the wait clock, which no test of the flue's could have said.
 
 *Measured: 12 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE BATON forgives the beat: a slow bead goes back one, the wrong colour two
+
+- reading: 5 min. The eleven sim files of the boss, the scene, and where its numbers are named in the director.
+- writing: 10 min. The config, the settle, the knock, the crossing's gap, the unfold, one new event through audio and the silent lists, five test files, the spec.
+- looking: 0 min. Nothing new is drawn; the unfold's pace is not a frame.
+- friction: 0 min.
+- landing: 5 min. The wave editor's save test refused a comment inside the entries, so it moved to the file's header.
+
+Bottleneck: every rule this boss had was written down in five places — the sim, the director's notes, the tutorial's comment, two spec pages — and each had to be said again.

@@ -60,7 +60,7 @@ export const INGEST_SILENT_BOSS = [
   "stareVent",
   "stareBlast",
   "stareOut",
-  // THE BATON's eleven, silent because its picture is read off its state
+  // THE BATON's twelve, silent because its picture is read off its state
   // every frame rather than off an event: the arm, a socket going dark, the
   // bead in flight and the grey panel under the seat whose turn it is not are
   // all in `baton-draw.ts` and `band-lock.ts` already, and a burst on top of
@@ -71,6 +71,7 @@ export const INGEST_SILENT_BOSS = [
   "batonLanded",
   "batonRelit",
   "batonSettled",
+  "batonKicked",
   "batonTwin",
   "batonMerged",
   "batonAct",

@@ -35,7 +35,7 @@ export {
 // biome-ignore format: one line, so a reading added to the arm does not cost this page a row
 export { batonBeadCol, batonBeadRowMilli, batonLandTick, batonLaunchable, batonSocketCol, batonWaiting } from "./baton-bead.js";
 export { batonActor } from "./baton-cross.js";
-export { batonBoss } from "./baton-step.js";
+export { batonBoss, batonTurnBeats } from "./baton-step.js";
 // From THE SCUTTLE on, the second page (`bosses-clocks-b.ts`).
 export * from "./bosses-clocks-b.js";
 // THE LEDGER is a clock too, and it has a page of its own: the one boss here

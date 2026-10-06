@@ -47,7 +47,7 @@ describe("THE BATON's merge and crossing", () => {
     expect(b.beads).toHaveLength(2);
     expect(batonWaiting(CFG, b, wait)).toBe(true);
     // Left for longer than any turn, it stays put; the trigger sends the other.
-    beats(world, CFG.batonTurnBeats * 3);
+    beats(world, CFG.batonTurnTopBeats * 3);
     expect(wait.socket).toBe(LAST);
     const other = launch(world);
     expect(other).not.toBe(wait);
@@ -82,7 +82,7 @@ describe("THE BATON's merge and crossing", () => {
     expect(row).toBeLessThan(LAST * 1000 + 600);
   });
 
-  it("comes down to one segment on the landing that leaves one socket lit, and grows back on a miss", () => {
+  it("comes down to one segment on the landing that leaves one socket lit, and stays so through a miss", () => {
     const world = open(QUIET);
     handover(world);
     expect(batonOneSegment(arm(world))).toBe(false);
@@ -97,15 +97,14 @@ describe("THE BATON's merge and crossing", () => {
     expect(b.threadBeat).toBe(on);
     expect(batonOneSegment(b)).toBe(true);
     launch(world);
-    nextBeat(world);
-    nextBeat(world);
-    nextBeat(world);
+    for (let i = 0; i <= CFG.batonTurnBottomBeats; i++) nextBeat(world);
     expect(b.stage).toBe("passing");
-    expect(batonOneSegment(b)).toBe(false);
-    expect(b.threadBeat).toBe(-1);
+    // A miss costs the crossing, not the arm.
+    expect(batonOneSegment(b)).toBe(true);
+    expect(b.threadBeat).toBe(on);
   });
 
-  it("owes an act a beat on the crossing, in turn, and drops the bead once every one is made", () => {
+  it("owes acts on the crossing, in turn, and drops the bead once the flight is over", () => {
     const world = open(QUIET);
     cross(world);
     const b = arm(world);
@@ -127,39 +126,47 @@ describe("THE BATON's merge and crossing", () => {
     expect(arm(world).acts).toBe(2);
     expect(bead.color).not.toBe(before);
     expect(bead.flying).toBe(true);
-    // And the wrong colour now is the colour that was right a beat ago.
+    // And the wrong colour now is the colour that was right a beat ago, and
+    // it knocks the bead out of the crossing, two sockets up the arm.
     nextBeat(world);
     act(world);
     nextBeat(world);
     shoot(world, before);
-    expect(arm(world).acts).toBe(3);
     expect(world.events.some((e) => e.type === "reject")).toBe(true);
+    expect(arm(world).stage).toBe("passing");
+    expect(bead.flying).toBe(false);
+    expect(bead.final).toBe(false);
+    expect(bead.socket).toBe(LAST - 2);
+    expect(world.events.some((e) => e.type === "batonKicked")).toBe(true);
   });
 
-  it("sends the bead back to the top of a whole arm when a beat goes by without its act", () => {
+  it("forgives an act off the beat, and puts the bead back in the last socket only after a long gap", () => {
     const world = open(QUIET);
     merged(world);
     const bead = launch(world);
     nextBeat(world);
     shoot(world, bead.color);
-    // Her act made; his is due this beat, and nobody presses.
-    nextBeat(world);
-    expect(arm(world).stage).toBe("crossing");
+    // Her act made; his is next, and nobody presses — for as long as the
+    // bottom socket's turn, the crossing waits.
+    for (let i = 0; i < CFG.batonTurnBottomBeats; i++) {
+      nextBeat(world);
+      expect(arm(world).stage).toBe("crossing");
+    }
     nextBeat(world);
     const b = arm(world);
     expect(b.stage).toBe("passing");
     expect(b.acts).toBe(0);
     expect(bead.flying).toBe(false);
     expect(bead.final).toBe(false);
-    expect(bead.socket).toBe(0);
-    expect(b.sockets.every((s) => s === BATON_SOCKET_LIT)).toBe(true);
+    expect(bead.socket).toBe(LAST);
+    // The arm the pair darkened stays dark: one lit socket, the one it sits in.
+    expect(b.sockets.filter((s) => s === BATON_SOCKET_LIT)).toHaveLength(1);
     expect(b.merged).toBe(true);
     expect(world.events.some((e) => e.type === "batonMissed")).toBe(true);
-    // One bead, and it is passed down the arm again; no second one relights.
-    handover(world);
+    // One bead, and its next flight is the crossing again.
+    launch(world);
     expect(b.beads).toHaveLength(1);
-    expect(bead.socket).toBe(1);
-    expect(b.sockets[0]).toBe(BATON_SOCKET_DARK);
+    expect(b.stage).toBe("crossing");
   });
 
   it("swallows the seat that just acted, so his trigger cannot make her act for her", () => {
@@ -172,7 +179,7 @@ describe("THE BATON's merge and crossing", () => {
     step(world, [cmd(world, 1, { kind: "guard" })]);
     expect(arm(world).acts).toBe(1);
     expect(bead.flying).toBe(true);
-    nextBeat(world);
+    for (let i = 1; i <= CFG.batonTurnBottomBeats; i++) nextBeat(world);
     expect(arm(world).stage).toBe("passing");
     expect(world.events.some((e) => e.type === "batonMissed")).toBe(true);
   });

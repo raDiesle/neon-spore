@@ -38,6 +38,7 @@ export {
   batonOneSegment,
   batonSocketCol,
   batonSocketRow,
+  batonTurnBeats,
   batonWaiting,
   type CurtainEntry,
   type CurtainState,

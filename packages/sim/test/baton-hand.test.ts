@@ -155,7 +155,7 @@ describe("THE BATON's draw", () => {
     expect(world.events.some((e) => e.type === "batonRefused")).toBe(true);
   });
 
-  it("shakes the bead that waited home when the window closes short", () => {
+  it("shakes the bead that waited back a socket when the window closes short", () => {
     const world = open(QUIET);
     merging(world);
     const heard = said(world, CFG.batonMergeWindowBeats + 1);
@@ -164,8 +164,9 @@ describe("THE BATON's draw", () => {
     expect(b.stage).toBe("passing");
     expect(b.merged).toBe(false);
     expect(b.beads).toHaveLength(2);
-    expect(b.beads.some((bead) => bead.socket === 0)).toBe(true);
-    expect(b.beads.some((bead) => bead.socket === CFG.batonSockets - 2)).toBe(true);
+    // Both now sit in the socket above the last: the one that waited is a
+    // socket up, beside the one that never arrived.
+    expect(b.beads.every((bead) => bead.socket === CFG.batonSockets - 2)).toBe(true);
   });
 
   it("keeps every socket it had darkened: what is lost is one bead's run", () => {

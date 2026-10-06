@@ -118,8 +118,7 @@ describe("THE BATON, doubled", () => {
   it("shuts it on the crossing's miss", () => {
     const world = open(QUIET);
     crossing(world);
-    nextBeat(world);
-    nextBeat(world);
+    for (let i = 0; i <= CFG.batonTurnBottomBeats; i++) nextBeat(world);
     expect(arm(world).stage).toBe("passing");
     expect(slowing(world)).toBe(false);
   });

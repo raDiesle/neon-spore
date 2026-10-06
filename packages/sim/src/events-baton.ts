@@ -12,7 +12,7 @@
  * asked to become.
  */
 
-/** A socket's worth of THE BATON, for the twelve events that name one. */
+/** A socket's worth of THE BATON, for the thirteen events that name one. */
 interface BatonSocketEvent {
   /** The column the bead is over. */
   col: number;
@@ -29,15 +29,20 @@ export type BatonEvent =
   | ({ type: "batonLanded" } & BatonSocketEvent)
   /** An unstruck bead came down where it left, and the socket relit. */
   | ({ type: "batonRelit" } & BatonSocketEvent)
-  /** A bead that sat too long was shaken back to the top socket. */
+  /** A bead that sat too long was shaken back a socket, to `socket`. */
   | ({ type: "batonSettled" } & BatonSocketEvent)
+  /**
+   * A bolt of the wrong colour knocked the bead out of the air, back to
+   * `socket` — two up from the one it left. `rowMilli` is where the bolt met it.
+   */
+  | ({ type: "batonKicked"; rowMilli: number } & BatonSocketEvent)
   /** The second bead lit in the top socket, wearing the other colour. */
   | ({ type: "batonTwin" } & BatonSocketEvent)
   /** The two beads became one, in the last socket. Its next flight is the crossing. */
   | ({ type: "batonMerged" } & BatonSocketEvent)
   /** An act made on the crossing, in turn: `act` is its number, the launch being 0. */
   | { type: "batonAct"; col: number; act: number }
-  /** A beat of the crossing went by without its act. The bead is back in the top socket and every socket is lit. */
+  /** The crossing went too long without an act. The bead is back in the last socket. */
   | ({ type: "batonMissed" } & BatonSocketEvent)
   /** A dead socket let go of its shell, which is now a rock at `col`, `row`. */
   | { type: "batonShed"; col: number; row: number }

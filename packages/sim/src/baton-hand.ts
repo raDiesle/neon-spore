@@ -36,7 +36,7 @@ import type { World } from "./world.js";
  * down, and either letting go puts the count back to nought: THE INSTAR's
  * *together means together*, arriving in the one fight whose whole content is
  * that the two of them may never act on the same beat. The window closing
- * short of it shakes the bead that waited back to the top socket, which is the
+ * short of it shakes the bead that waited back a socket, which is the
  * price a bead that sat too long pays anywhere else on this arm.
  *
  * Both are read **on the tick**, from `boss-hands.ts`: a strip is a press when

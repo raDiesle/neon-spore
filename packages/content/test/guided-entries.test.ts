@@ -52,12 +52,6 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // against: every arrival on an empty field would be a thing that turns over,
   // and the pair would read that as the game rather than as the creature.
   "THE MOULT": ["meteor"],
-  // THE BATON introduces no creature either — what is new is that a seat is
-  // locked out of its own phone for the beat after it acts — so every arrival
-  // on it is a kept kind. The rock is what puts the lockout on the *shared*
-  // control: a ward needs her plate and his trigger, and on this wave one of
-  // them is always a beat behind the other.
-  "THE BATON": ["meteor"],
   // THE THROAT introduces no creature at all — what is new is a mouth set to
   // the colour of what it may eat — so every arrival on it is a kept kind.
   // The rock is the one body no colour answers: it is the SHIELD setting's,

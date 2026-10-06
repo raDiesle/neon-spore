@@ -1,11 +1,4 @@
-import {
-  BATON_SOCKET_DARK,
-  BATON_SOCKET_LIT,
-  type BatonBead,
-  type BatonState,
-  batonBaseCol,
-  batonFlip,
-} from "./baton.js";
+import { BATON_SOCKET_DARK, type BatonBead, type BatonState, batonFlip } from "./baton.js";
 import { batonLandTick } from "./baton-bead.js";
 import { batonSlow } from "./baton-slow.js";
 import { MILLI, type World } from "./world.js";
@@ -15,15 +8,15 @@ import { MILLI, type World } from "./world.js";
  * (`docs/spec/bosses-choreographed.md` §10).
  *
  * Out of the last socket the merged bead does not cross one socket in three
- * beats; it crosses to the drop in `batonFinalBeats`, and every one of those
- * beats the pair owe it an act, in turn — his trigger sent it, so her shot
- * is due in the next beat, his trigger in the one after, and so on to the
- * end. Act `n` is due inside beat `n` of the crossing: the launch is act 0
- * in beat 0, and a beat that ends one act short is **the miss**, which puts
- * the bead back in the top socket of an arm whose every socket has grown
- * back. It is the same alternation the arm taught, at the tight cadence,
- * with nothing to land in between — the whole fight said once, without a
- * mistake. What the acts are is unchanged: the trigger is the trigger
+ * beats; it crosses to the drop in `batonFinalBeats`, and all the way the
+ * pair owe it acts, in turn — his trigger sent it, so her shot is next, then
+ * his trigger, and so on to the end. **No act is due on a beat** (the owner,
+ * 6 October 2026: *if you don't press on the beat it is not a mistake*); what
+ * the crossing will not forgive is a gap, more than `batonTurnBottomBeats`
+ * since the last act, which is **the miss** and puts the bead back in the
+ * last socket to be sent again — a step back, as a slow socket costs, and
+ * not the whole arm grown back. It is the same alternation the arm taught,
+ * with nothing to land in between. What the acts are is unchanged: the trigger is the trigger
  * (`batonLaunch`) and the shot is a bolt of the bead's colour through it
  * (`batonStruck`), which flips the bead as a landing would, so the colour
  * language runs on to the end.
@@ -42,6 +35,7 @@ export function batonCrossLaunch(world: World, b: BatonState, bead: BatonBead): 
   b.stage = "crossing";
   b.stageBeat = world.beat;
   b.acts = 0;
+  b.actBeat = world.beat;
   bead.final = true;
   batonAct(world, b);
   batonSlow(world, b);
@@ -50,6 +44,7 @@ export function batonCrossLaunch(world: World, b: BatonState, bead: BatonBead): 
 /** An act made in turn: counted, and said. */
 export function batonAct(world: World, b: BatonState): void {
   b.acts += 1;
+  b.actBeat = world.beat;
   world.events.push({ type: "batonAct", col: b.col, act: b.acts - 1 });
 }
 
@@ -65,13 +60,12 @@ export function batonCrossStruck(world: World, b: BatonState, bead: BatonBead): 
 }
 
 /**
- * One beat of the crossing. A beat that ended without its act is the miss;
- * the last beat, with every act made, is the drop.
+ * One beat of the crossing. A gap since the last act longer than the bottom
+ * socket's turn is the miss; the flight run out is the drop.
  */
 export function batonCrossBeat(world: World, b: BatonState, bead: BatonBead): void {
   const cfg = world.cfg;
-  const due = world.beat - b.stageBeat;
-  if (b.acts < due) {
+  if (world.beat - b.actBeat > cfg.batonTurnBottomBeats) {
     miss(world, b, bead);
     return;
   }
@@ -79,37 +73,22 @@ export function batonCrossBeat(world: World, b: BatonState, bead: BatonBead): vo
 }
 
 /**
- * The bead goes back to the top socket and the arm grows every socket back
- * — the shed ones too, because what the design regrows is the arm and not
- * its rocks, which are on the field already. The handovers made stay made:
- * the turn stays tight, and the arm swings and sheds again as soon as the
- * bead has darkened as many sockets as it takes.
+ * The bead comes back into the last socket, the one it left, and sits there
+ * to be sent again. The arm stays as it is: the sockets the pair darkened are
+ * still dark, and the bead's turn in that socket starts now.
  */
 function miss(world: World, b: BatonState, bead: BatonBead): void {
-  const col = batonBaseCol(world.cfg);
   b.stage = "passing";
   b.stageBeat = world.beat;
   b.acts = 0;
+  b.actBeat = -1;
   b.stillBeat = world.beat;
-  b.col = col;
-  for (let i = 0; i < b.sockets.length; i++) b.sockets[i] = BATON_SOCKET_LIT;
-  b.threadBeat = -1;
-  // And any shell that was coming away when the crossing began goes with them:
-  // the socket under it is lit again, and a swell left pointing at a lit socket
-  // would drop a shell off a part of the arm the bead has yet to pass
-  // (`baton-shed.ts`).
-  b.swellSocket = -1;
-  b.swellBeat = -1;
-  b.stripped = 0;
   bead.flying = false;
   bead.final = false;
   bead.flightTick = -1;
   bead.struck = false;
-  bead.socket = 0;
   bead.satBeat = world.beat;
-  bead.col = col;
-  bead.fromCol = col;
-  world.events.push({ type: "batonMissed", col, socket: 0 });
+  world.events.push({ type: "batonMissed", col: bead.col, socket: bead.socket });
 }
 
 /**

@@ -14,6 +14,11 @@ import type { Wave } from "../wave-types.js";
  * **`7d` and not `9`, for the reason `act-7c.ts` gives about `7c`**: an act
  * file is a page and not a chapter, and the order of the waves is the order
  * of the game.
+ *
+ * **THE BATON has no entries** (the owner, 6 October 2026: *remove every
+ * other enemy from the wave*). The rocks and creatures that stood on it gave
+ * the gunner something else to shoot while the bead sat; the arm is the whole
+ * fight now, and its own shed shells are the only rocks.
  */
 export const WAVES_ACT_7D: Wave[] = [
   {
@@ -22,26 +27,7 @@ export const WAVES_ACT_7D: Wave[] = [
     guide: {
       scene: "theBaton",
     },
-    entries: [
-      { beat: 14, col: 0, color: "red" },
-      { beat: 19, col: 6, color: "cyan" },
-      { beat: 25, col: 1, color: "red" },
-      { beat: 31, col: 5, kind: "meteor", color: null },
-      { beat: 36, col: 6, color: "cyan" },
-      { beat: 42, col: 0, color: "red" },
-      { beat: 47, col: 1, kind: "meteor", color: null },
-      { beat: 52, col: 5, color: "cyan" },
-      { beat: 57, col: 6, color: "red" },
-      { beat: 62, col: 0, kind: "meteor", color: null },
-      { beat: 67, col: 1, color: "cyan" },
-      { beat: 72, col: 5, color: "red" },
-      { beat: 77, col: 6, kind: "meteor", color: null },
-      { beat: 82, col: 0, color: "cyan" },
-      { beat: 87, col: 1, color: "red" },
-      { beat: 92, col: 5, kind: "meteor", color: null },
-      { beat: 97, col: 6, color: "cyan" },
-      { beat: 102, col: 0, color: "red" },
-    ],
+    entries: [],
     boss: { kind: "baton" },
     bossType: "normal",
   },

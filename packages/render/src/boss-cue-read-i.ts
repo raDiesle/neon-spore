@@ -38,7 +38,7 @@ import { podCenter } from "./pods.js";
  *   half a page on its own and is the next file over (`boss-cue-read-i-b.ts`),
  *   which is the readings' only cut *within* a boss.
  * - `merging` — a thumb each on the two beads, and neither of them the ship's.
- * - `crossing` — one act a beat, in turn, and the turn is `batonActor`.
+ * - `crossing` — acts in turn, on no beat in particular, and the turn is `batonActor`.
  * - `falling` — the bead is a pod, the catch is his, and both locks are open
  *   (`sim/baton-cross.ts`, `drop`).
  *

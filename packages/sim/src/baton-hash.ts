@@ -36,6 +36,7 @@ export function batonHashParts(b: BatonState): number[] {
     b.merged ? 1 : 0,
     // The crossing's count: a device one act behind would lock the wrong seat.
     b.acts,
+    b.actBeat,
     b.stillBeat,
     b.handovers,
     b.settles,

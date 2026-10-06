@@ -79,12 +79,15 @@ export function drawBaton(
   const gone = b.stage === "down" ? (beat - b.stageBeat + beatPhase) / cfg.batonDownBeats : 0;
   const alpha = Math.max(0, 1 - gone);
   if (alpha <= 0) return;
-  // How much of the arm is out yet. It unfolds one socket a beat, and the
-  // newest one grows in over its beat so the unfolding reads as a motion and
-  // not as a count appearing.
+  // How much of the arm is out yet. It unfolds over `batonUnfoldBeats`, top
+  // socket first, and the newest one grows in as it comes so the unfolding
+  // reads as a motion and not as a count appearing.
   const shown =
     b.stage === "unfolding"
-      ? Math.min(b.sockets.length, beat - b.stageBeat + beatPhase)
+      ? Math.min(
+          b.sockets.length,
+          ((beat - b.stageBeat + beatPhase) * b.sockets.length) / cfg.batonUnfoldBeats,
+        )
       : b.sockets.length;
   const thread = threadOf(cfg, b, beat, beatPhase);
   ctx.save();
