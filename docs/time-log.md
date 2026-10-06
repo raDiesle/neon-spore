@@ -33738,3 +33738,5 @@ Bottleneck: the owner's no-boss-above-the-chrome rule, which only the full pixel
 - landing: 5 min.
 
 Bottleneck: the owner's four answers came while the lane before was landing, and each one changed which tests described "the fight".
+
+*Measured: 12 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

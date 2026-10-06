@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 929c25436 — THE BATON comes in levels, and either seat may send the bead
+
+THE BATON is now beaten once per level, inside its one wave. The first level has one bead all the way down, with no second bead, and a struck flight out of the last socket drops it into the maw. The arm then folds and unfolds again as the second level, which is the full fight as it shipped (the second bead, the merge, the crossing). Either player's tap now sends a sitting bead, and whoever tapped is the one greyed for a beat. The field writes TAP on the bead for each player who is free. On the crossing, only player 1 sends.
+
 ## 2026-10-06 · 2ffe6c12c — THE FLUE hangs on its three shots, and its spore cracks a level cleared
 
 The flue now hangs from under the game's chrome on three living strings, one for each shot a level allows, in place of the three dots under the sight. A miss cuts the left string and the flue droops that side; the second cuts the right and it swings off the middle one alone; the third drops it. Between levels the cut strings grow back down. The spore cracks a little more for every level cleared, the newest crack running in from its edge, and the scale under the slot keeps its ticks but no longer shows numbers.
