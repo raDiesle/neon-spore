@@ -11,7 +11,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * What says which level is lit (`flue-scale.ts`, `flue-card.ts`): the scale
- * under the slot counting the ember's beats to the sight, laid from the
+ * under the slot ticking the ember's beats to the sight, with no numbers, laid from the
  * level's own speed, and the card naming the weapon and THE SLOW — both on
  * every screen, and neither standing on a word the cue draws.
  */
@@ -31,14 +31,14 @@ describe("THE FLUE's scale", () => {
     expect(ticks.map((t) => t.halves)).toEqual([1, 2, 3, 4]);
   });
 
-  it("numbers at least one whole beat on every level the wave authors", () => {
+  it("ticks at least one whole beat on every level the wave authors", () => {
     expect(authored().length).toBeGreaterThan(0);
     for (const level of authored()) {
       expect(flueScaleTicks(CFG, level).some((t) => t.halves % 2 === 0)).toBe(true);
     }
   });
 
-  it("lays a faster ember's numbers further out", () => {
+  it("lays a faster ember's whole beats further out", () => {
     const first = (speedMilli: number) =>
       flueScaleTicks(CFG, { ...BOLT, speedMilli }).find((t) => t.halves === 2)?.milli ?? 0;
     expect(first(3000)).toBeGreaterThan(first(1000));
@@ -64,24 +64,24 @@ describe("THE FLUE's card", () => {
 });
 
 describe("THE FLUE's level, drawn", () => {
-  it.each(ROLES)("writes the card and the scale's numbers on the %s screen", (role) => {
+  it.each(ROLES)("writes the card, and no number on the scale, on the %s screen", (role) => {
     const drawn = words(role, (w) => {
       posed(w, BEAM);
     }).map((t) => t.text);
     expect(drawn).toContain("BEAM");
     expect(drawn).toContain("SLOW ½");
-    expect(drawn).toContain("1");
-    expect(drawn).toContain("2");
+    expect(drawn).not.toContain("1");
+    expect(drawn).not.toContain("2");
   });
 
   // The boxes are the canvas's own pixels, and the only words a posed frame
-  // draws are the flue's: the card, the scale's numbers and the cue.
+  // draws are the flue's: the card and the cue.
   it.each(ROLES)("lays no word on another round the flue, every level, on %s", (role) => {
     for (const level of authored()) {
       const near = words(role, (w) => {
         posed(w, level);
       });
-      expect(near.length).toBeGreaterThan(3);
+      expect(near.length).toBeGreaterThan(1);
       for (const [i, a] of near.entries()) {
         for (const b of near.slice(i + 1)) {
           const apart =

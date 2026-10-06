@@ -34,6 +34,7 @@ const NOT_MARKS: Readonly<Record<string, string>> = {
   "ease.ts": "a curve",
   "key-light.ts": "a body's light",
   "field-flip.ts": "which way up the field is",
+  "top-chrome.ts": "how far down the game's own chrome reaches, not what is drawn",
   "heartbeat.ts": "a curve",
   "bolt-stop.ts": "where a bolt is drawn to end, not what a thumb is asked",
   "core-stop.ts": "where a bolt meets a core and its body, not what a thumb is asked",

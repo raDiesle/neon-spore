@@ -2,7 +2,6 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { midCol } from "@neon-spore/sim";
 import { fieldX } from "../src/field-flip.js";
 import { flueCardRect } from "../src/flue-card.js";
-import { flueShotsDown } from "../src/flue-marks.js";
 import { flueCentre, flueEmberAt, flueSightAt } from "../src/flue-shape.js";
 import { rgba } from "../src/hex.js";
 import { computeLayout } from "../src/layout.js";
@@ -19,8 +18,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * THE FLUE, drawn (`render/src/flue-draw.ts`): the units across the top of
  * the field, flat, the ember in its slot on the pilot's screen and nowhere
  * on the navigator's, the sight over the held cannon in the level's colour
- * with the beam's bar on a beam level, the shots left under it and a stud
- * for every level over the flue — on all three screens, set rather than
+ * with the beam's bar on a beam level, the strings it hangs on cut one a
+ * shot spent, the spore cracking a level cleared, and a stud for every level
+ * over the flue — on all three screens, set rather than
  * played to; `sim/test/flue.test.ts` proves the rules.
  */
 
@@ -49,14 +49,37 @@ describe("THE FLUE's body", () => {
     }
   });
 
-  it.each(ROLES)("darkens a pip for every shot spent, on %s", (role) => {
+  it.each(ROLES)("cuts a string, raw red, for every shot spent, on %s", (role) => {
+    const raw = anyAlpha(PALETTE.red);
     const all = frame(role, (w) => posed(w, BOLT));
+    const two = frame(role, (w) =>
+      posed(w, BOLT, 0, (s) => {
+        s.shots = 2;
+      }),
+    );
     const one = frame(role, (w) =>
       posed(w, BOLT, 0, (s) => {
         s.shots = 1;
       }),
     );
-    expect(count(one, PALETTE.flueSlot)).toBeGreaterThan(count(all, PALETTE.flueSlot));
+    expect(count(two, raw)).toBeGreaterThan(count(all, raw));
+    expect(count(one, raw)).toBeGreaterThan(count(two, raw));
+  });
+
+  it("cracks the spore a level cleared, on the pilot's screen only", () => {
+    const crack = rgba(PALETTE.flueSlot, 0.9);
+    const cracked = (role: "p1" | "p2", hits: number) =>
+      count(
+        frame(role, (w) =>
+          posed(w, BOLT, 2000, (s) => {
+            s.hits = hits;
+          }),
+        ),
+        crack,
+      );
+    expect(cracked("p1", 1)).toBeGreaterThan(cracked("p1", 0));
+    expect(cracked("p1", 3)).toBeGreaterThan(cracked("p1", 1));
+    expect(cracked("p2", 3)).toBe(cracked("p2", 0));
   });
 
   it.each(ROLES)("lights a stud for every level cleared, on %s", (role) => {
@@ -116,13 +139,13 @@ describe("THE FLUE under THE SLOW", () => {
     const c = flueCentre(l, CFG);
     expect(Math.abs(aim.y - c.y)).toBeLessThan(l.tile * 0.01);
     expect(Math.abs(aim.ax - aim.x) + 2 * aim.r).toBeGreaterThan(l.cols * l.tile - 1);
-    // And left whole by the split, edge to edge, the card over it and the pips under it.
+    // And left whole by the split, edge to edge, the card over it and the `NOW` under it.
     const sharp = aim.sharp;
     expect(sharp).toBeDefined();
     if (sharp === undefined) return;
     expect(sharp.x).toBeLessThanOrEqual(l.gridLeft);
     expect(sharp.x + sharp.w).toBeGreaterThanOrEqual(l.gridLeft + l.cols * l.tile);
     expect(sharp.y).toBeLessThan(flueCardRect(l, c.y).y);
-    expect(sharp.y + sharp.h).toBeGreaterThan(c.y + flueShotsDown(l) + l.tile * 0.2);
+    expect(sharp.y + sharp.h).toBeGreaterThan(c.y + l.tile * 2);
   });
 });

@@ -8,8 +8,8 @@ import { PALETTE, STROKE } from "./palette.js";
  * **A shot spent, drawn as the hurt it is** (the owner, 6 October 2026: *when
  * the cannon did not hit … the visual should be more clear that it's
  * damaging*). Where a miss was a scuff of grit, the sight now flashes red,
- * red cracks split out of it, and the pip the shot cost flares red as it goes
- * dark (`drawFlueShots`), so a pair sees the shot cost them one before the
+ * red cracks split out of it, and the string the shot cost parts
+ * (`flue-strings.ts`), so a pair sees the shot cost them one before the
  * verdict ring has settled.
  *
  * On both screens, like every other receipt of a shot: it says nothing of

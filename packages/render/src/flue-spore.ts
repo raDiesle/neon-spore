@@ -1,6 +1,7 @@
 import { blobPoints } from "@neon-spore/content";
 import { paintFilm } from "./baton-flesh.js";
 import { flueEmberR, type Point } from "./flue-shape.js";
+import { drawFlueSporeCracks } from "./flue-spore-cracks.js";
 import { haloSprite, strokeGlowFaded } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -19,6 +20,10 @@ import { splinePath } from "./spline.js";
  * Where it is drawn is the simulation's place and nothing else; what moves
  * inside the membrane moves round its own middle. Spent, it is dimmed and its
  * nucleus stops beating.
+ *
+ * **It cracks a little more with every level cleared**
+ * (`flue-spore-cracks.ts`), `hits` of them, the newest running in as the
+ * hit's flash (`fresh`) fades.
  *
  * **Over the cannon it goes red** (`red`, out of `flue-bare.ts`): the one
  * place a shot can hurt it, the owner's ask of 6 October 2026 by name, so
@@ -49,6 +54,8 @@ export function drawFlueSpore(
   red: number,
   beatPhase: number,
   time: number,
+  hits = 0,
+  fresh = 0,
 ): void {
   const r = flueEmberR(l);
   const alive = dim >= 1;
@@ -105,6 +112,10 @@ export function drawFlueSpore(
   ctx.fill(nucleus);
   strokeGlowFaded(ctx, nucleus, heart, STROKE.inner, dim, 0.7);
 
+  ctx.save();
+  ctx.clip(skin);
+  drawFlueSporeCracks(ctx, l, at, hits, fresh, dim);
+  ctx.restore();
   strokeGlowFaded(ctx, skin, flesh, STROKE.outline, dim * (1 + red), 0.9);
   paintFilm(ctx, at.x, at.y, r, 0.55 * dim);
 }

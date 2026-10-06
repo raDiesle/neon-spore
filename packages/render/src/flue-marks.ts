@@ -10,32 +10,22 @@ import { stepColour } from "./step-colour.js";
  * **THE FLUE's marks**: what says what a level asks and what it has left.
  * The slot glowing is *a level is lit*; **the sight** over the cannon is
  * where the ember must be met, drawn in the colour the level asks, a ring
- * for a bolt and a ring with the beam's bar through it for a beam; **the
- * shots** are three pips under the sight, one going dark for every shot
- * spent; and **the levels** are a stud each over the flue, lit as each is
- * cleared — the flue's health, read off the body.
+ * for a bolt and a ring with the beam's bar through it for a beam; and **the
+ * levels** are a stud each over the flue, lit as each is cleared — the
+ * flue's health, read off the body. The shots a level has left are the
+ * strings the flue hangs on (`flue-strings.ts`), where three pips under the
+ * sight were until the owner had them taken off on 6 October 2026.
  *
  * Everything but the ember is on both screens: the navigator, who fires and
- * cannot see the ember, has to see what the level asks and how many shots
- * are left as well as the pilot does.
+ * cannot see the ember, has to see what the level asks as well as the pilot
+ * does.
  */
 
-/** The shot pips' radius and spacing, and how far under the flue they sit, in
- * tiles: under the pilot's `NOW` and the navigator's `FIRE` too, which stand
- * under the sight. */
-const PIP = 0.1;
-const PIP_GAP = 0.32;
-const PIP_DOWN = 2.15;
 /** The level studs' radius and spacing, and how far over the flue they sit, in
  * tiles: over the `CALL` standing over the sight. */
 const STUD = 0.08;
 const STUD_GAP = 0.3;
 const STUD_UP = 1.8;
-
-/** How far under the sight the shot pips stand, in pixels. */
-export function flueShotsDown(l: Layout): number {
-  return PIP_DOWN * l.tile;
-}
 
 /** The lit level's slot, glowing on its beat: *this one*. */
 export function drawFlueSlotGlow(
@@ -71,39 +61,6 @@ export function drawFlueSight(
   bar.moveTo(at.x, at.y - r * 1.5);
   bar.lineTo(at.x, at.y + r * 1.5);
   strokeGlowFaded(ctx, bar, hex, STROKE.outline, pulse, 1);
-}
-
-/**
- * The level's shots under the sight: lit for every shot left, dark for every
- * one spent, and the one just spent flaring red while `sting` lasts.
- */
-export function drawFlueShots(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  at: Point,
-  shots: number,
-  max: number,
-  sting = 0,
-): void {
-  const r = PIP * l.tile;
-  for (let i = 0; i < max; i++) {
-    const x = at.x + (i - (max - 1) / 2) * PIP_GAP * l.tile;
-    const pip = new Path2D();
-    pip.arc(x, at.y + flueShotsDown(l), r, 0, Math.PI * 2);
-    if (i < shots) {
-      ctx.fillStyle = PALETTE.hullRim;
-      ctx.fill(pip);
-      strokeGlowFaded(ctx, pip, PALETTE.hullRim, STROKE.inner, 1, 0.8);
-    } else {
-      ctx.fillStyle = PALETTE.flueSlot;
-      ctx.fill(pip);
-      ctx.lineWidth = STROKE.inner;
-      ctx.strokeStyle = rgba(PALETTE.hullRim, 0.35);
-      ctx.stroke(pip);
-      if (i === shots && sting > 0)
-        strokeGlowFaded(ctx, pip, PALETTE.red, STROKE.outline, 2 * sting, sting);
-    }
-  }
 }
 
 /** A stud over the flue for every level, lit for each one cleared and flaring as it is. */

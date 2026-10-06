@@ -11055,7 +11055,7 @@ levels, each a stud over the flue.
 level is lit: `CALL` over `NOW` at the sight, to the pilot; and `FIRE` on a
 bolt level or `HOLD` (*while the beam fills*) on a beam level, at the hull
 under the cannon, to the navigator, aimed at the sight. The colour and the
-count are never said: the sight is drawn in the colour, and the pips are
+count are never said: the sight is drawn in the colour, and the strings are
 the count. **AUTO plays it** (`packages/hands/src/boss-hands-flue.ts`): the
 navigator fires the level's colour, or primes it, the tick the ember will
 be met within half of `flueHitMilli`; the pilot sends nothing.
@@ -11073,22 +11073,31 @@ was aimed at the cannon and split the sight, which is the one mark the pair
 must read the colour of. **The marks** (`flue-marks.ts`): the slot glows
 while a level is lit; **the sight** over the cannon is a ring in the
 level's colour, with the beam's bar through it on a beam level, dim between
-levels in the next one's colour; **three pips** under it go dark a shot at a
-time; **a stud per level** over the flue lights as each is cleared, the
-flue's health read off the body. **The scale** (`flue-scale.ts`) under the
+levels in the next one's colour; **a stud per level** over the flue lights
+as each is cleared, the flue's health read off the body. **The strings**
+(`flue-strings.ts`, `flue-cords.ts`; the owner, 6 October 2026, in place of
+three pips under the sight): the flue hangs from the dark on three tendons,
+one a shot; a miss cuts the left one and the flue droops that side, the
+second the right and it swings off the middle one alone, the third drops it.
+It turns round the sight, so the sight never moves. The cut ones grow back
+over the rest after a level is cleared. **The spore cracks** a little more
+for every level cleared (`flue-spore-cracks.ts`), the newest running in from
+its edge as the hit's flash fades — the pilot's, since the spore is.
+**The scale** (`flue-scale.ts`) under the
 slot is a tick for every half beat the ember has still to run to the sight,
-out to either end, numbered at every whole beat — `1` is a beat away — and
-laid from the lit level's own speed, so a slow ember's numbers stand close
+out to either end, longer at every whole beat, with no numbers since the
+owner's ask of 6 October 2026, and
+laid from the lit level's own speed, so a slow ember's ticks stand close
 round the sight and a fast one's far out: the scale is how the speed is
 shown, and since it counts beats it holds under any SLOW. **The card**
 (`flue-card.ts`) over the flue's left end names the weapon as the player
 says it, `SHOT` or `BEAM`, in the level's colour, and under it `SLOW ½` or
-`SLOW ¼` when THE SLOW holds the level; the card, the scale and the pips are
+`SLOW ¼` when THE SLOW holds the level; the card, the scale and the strings are
 on both screens and left whole by the split with the rest. **The ember** is
 a warm-white glow in the slot, exactly where the simulation has it. **What outlives a frame**
 (`flue-fx.ts`): a flash at the sight and the stud's flare for a level
-cleared, which deals the blow every boss takes; a scuff of grit under the
-flue for a shot spent; a thud through the plating as it goes cold. **Its
+cleared, which deals the blow every boss takes; a red sting at the sight,
+a spray where the string parted and the swing it sets going for a shot spent; a thud through the plating as it goes cold. **Its
 own blow at the hull** (`flue-blow.ts`) is the cinder coughed out under the
 sight and down the middle column.
 
@@ -11105,8 +11114,10 @@ wide shot, a wrong colour and a wrong weapon each spend one, and the third
 is the wave; THE SLOW holds at the level's strength and closes between;
 the whole list ends spent and out. `tools/director/test/autopilot-flue.test.ts`
 has AUTO clear every level with its first shot; `render/test/flue-scale.test.ts`
-that every authored level numbers a whole beat and that no word round the
-flue lands on another. Whether the call can be made early enough on two real phones at tempo, and
+that every authored level ticks a whole beat, that the scale writes no
+number and that no word round the flue lands on another;
+`render/test/flue-strings.test.ts` that a string goes a shot and grows back
+after a clear, and that the sight never moves however the flue hangs. Whether the call can be made early enough on two real phones at tempo, and
 whether the beam's prime is learnable, is the owner's eye.
 
 ## 11.58 THE GOVERNOR — a needle one seat brakes for the other to tap

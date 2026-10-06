@@ -6,25 +6,23 @@ import { PALETTE, STROKE } from "./palette.js";
 
 /**
  * **THE FLUE's scale**: a tick under the slot for every half beat the ember
- * has still to run to the sight, out to either end, and a number under every
- * whole one — `1` is a beat away, `2` two. The owner asked for a numbered
- * scale to time the call by (5 October 2026), and it is counted in beats
+ * has still to run to the sight, out to either end, a whole beat's longer.
+ * The owner asked for a numbered scale to time the call by (5 October 2026)
+ * and had the numbers taken off it the next day; it is counted in beats
  * rather than columns because a beat is what the pair can count aloud and
  * what a call has to lead by: whatever the level's speed or THE SLOW, the
  * ember at `1` meets the sight one beat later.
  *
  * **It is laid per level**, from the level's own speed, so the scale is how
- * the speed is shown: a slow ember's numbers stand close round the sight, a
+ * the speed is shown: a slow ember's ticks stand close round the sight, a
  * fast one's far out at the ends. It is on both screens, because the ticks
  * say nothing about where the ember is.
  */
 
-/** The ticks, from the slot's underside, and the number under a whole beat, in tiles. */
+/** The ticks, from the slot's underside, a whole beat's and a half's, in tiles. */
 const TICK_FROM = 0.3;
-const TICK_BEAT = 0.62;
+const TICK_BEAT = 0.7;
 const TICK_HALF = 0.48;
-const NUMBER_DOWN = 1.08;
-const NUMBER_SIZE = 0.38;
 
 export interface FlueTick {
   /** How far the ember is from the sight, in thousandths of a column. */
@@ -56,9 +54,6 @@ export function drawFlueScale(
   ctx.lineWidth = STROKE.inner;
   ctx.lineCap = "round";
   ctx.strokeStyle = rgba(PALETTE.hullRim, alpha);
-  ctx.font = `700 ${Math.round(l.tile * NUMBER_SIZE)}px "Courier New",monospace`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
   for (const tick of flueScaleTicks(cfg, level)) {
     const whole = tick.halves % 2 === 0;
     for (const side of [-1, 1]) {
@@ -67,9 +62,6 @@ export function drawFlueScale(
       ctx.moveTo(x, y + TICK_FROM * l.tile);
       ctx.lineTo(x, y + (whole ? TICK_BEAT : TICK_HALF) * l.tile);
       ctx.stroke();
-      if (!whole) continue;
-      ctx.fillStyle = rgba(PALETTE.text, alpha);
-      ctx.fillText(String(tick.halves / 2), x, y + NUMBER_DOWN * l.tile);
     }
   }
   ctx.restore();

@@ -33716,3 +33716,13 @@ Bottleneck: every rule this boss had was written down in five places — the sim
 Bottleneck: the boss keeps nothing in render, so the throw had to be drawn from the bead's own state — two fields in the simulation for a picture.
 
 *Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE FLUE hangs on its three shots, and its spore cracks a level cleared
+
+- reading: 5 min. The flue's draw, marks, scale, fx and pose files, the sim's rest and relight, the crack an egg already draws.
+- writing: 5 min. `flue-strings.ts`, `flue-cords.ts`, `flue-spore-cracks.ts`, the swing in `FlueFx`, the pips and numbers out, the tests.
+- looking: 5 min. Frames of three, two and one strings, the regrow, and the cracks at one, three and five — the first strings were too thin to read and the cracks stopped short of the rim.
+- friction: 0 min. `--boss` lands before `--ticks`, so a rest set by it was over before the first frame; caught the regrow from tick 18 instead.
+- landing: 5 min. `check:fast` red four ways — the guide's added clause over budget, the index, a test's timeout, and strings past the chrome — then green.
+
+Bottleneck: the owner's no-boss-above-the-chrome rule, which only the full pixel test said, after the strings were drawn from the screen's top edge.

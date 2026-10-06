@@ -7,15 +7,10 @@ import {
 } from "@neon-spore/sim";
 import { drawFlueBareHeat, drawFlueShield, flueBareness } from "./flue-bare.js";
 import { drawFlueCard } from "./flue-card.js";
+import { drawFlueStrings } from "./flue-cords.js";
 import { drawFlueCilia, drawFlueSegment } from "./flue-flesh.js";
 import type { FlueFx } from "./flue-fx.js";
-import {
-  drawFlueFlash,
-  drawFlueLevels,
-  drawFlueShots,
-  drawFlueSight,
-  drawFlueSlotGlow,
-} from "./flue-marks.js";
+import { drawFlueFlash, drawFlueLevels, drawFlueSight, drawFlueSlotGlow } from "./flue-marks.js";
 import { flueArrived, flueSpent } from "./flue-pose.js";
 import { drawFlueScale } from "./flue-scale.js";
 import {
@@ -28,6 +23,7 @@ import {
 } from "./flue-shape.js";
 import { drawFlueSpore } from "./flue-spore.js";
 import { drawFlueSting } from "./flue-sting.js";
+import { flueHang } from "./flue-strings.js";
 import { drawFlueMarkFeedback } from "./flue-verdicts.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -41,15 +37,16 @@ const ARRIVE = 3;
  * **THE FLUE**: a slotted flue laid across the top of the field, an ember
  * running along its slot end to end and back, and a sight on it over the
  * cannon held still under the middle column (§11.57, the owner's rework of
- * 5 October 2026).
+ * 5 October 2026), hung from the dark on three strings that are the level's
+ * shots (`flue-strings.ts`, `flue-cords.ts`).
  *
  * **The split is the ember.** The pilot's screen is drawn it and the
  * navigator's is not (`showsFlueEmber`): the navigator has the trigger and
  * has to be told when. Everything else is on both — the sight in the colour
- * the level asks, with the beam's bar through it on a beam level, the shots
- * left under it, and a stud for every level over the flue, lit as each is
+ * the level asks, with the beam's bar through it on a beam level, the strings
+ * it hangs on, one cut for every shot spent, and a stud for every level over the flue, lit as each is
  * cleared: the flue's health, read off the body. Under the slot a scale
- * counts the beats the ember has left to the sight (`flue-scale.ts`), and over
+ * ticks the beats the ember has left to the sight (`flue-scale.ts`), and over
  * the flue's left end a card names the weapon and THE SLOW (`flue-card.ts`).
  *
  * **It is drawn dark**: the owner had it drawn flat on 5 October 2026 so the
@@ -80,7 +77,17 @@ export function drawFlue(
   ctx.save();
   ctx.globalAlpha = fade;
   const arrive = -(1 - flueArrived(s, cfg, beat, beatPhase)) * ARRIVE * l.tile;
-  ctx.translate(fx.hurt.shakeX(time, l.tile), arrive);
+  const shake = fx.hurt.shakeX(time, l.tile);
+  const hang = flueHang(l, cfg, s, beat, beatPhase, time, fx.swing);
+  // The strings hang from under the chrome and stay there as the flue comes down.
+  drawFlueStrings(ctx, l, cfg, hang, { x: shake, y: arrive }, time);
+  ctx.translate(shake, arrive);
+  // Everything else hangs off the strings, turned round the sight, where
+  // every shot is met and which therefore never moves.
+  const sight = flueSightAt(l, cfg);
+  ctx.translate(sight.x, sight.y + hang.drop);
+  ctx.rotate(hang.tilt);
+  ctx.translate(-sight.x, -sight.y);
 
   const hurt = fx.hurt.value;
   const units = flueUnits(cfg);
@@ -95,12 +102,10 @@ export function drawFlue(
   const lit = flueLitLevel(s) !== null;
   if (lit) drawFlueSlotGlow(ctx, slot, beatPhase);
 
-  const sight = flueSightAt(l, cfg);
   const level = flueShownLevel(s);
   if (level !== null) {
     drawFlueScale(ctx, l, cfg, level, lit);
     drawFlueSight(ctx, l, sight, level, lit, beatPhase);
-    drawFlueShots(ctx, l, sight, s.shots, cfg.flueShots, fx.sting);
     drawFlueCard(ctx, l, centre.y, level, lit);
   }
   drawFlueLevels(ctx, l, centre, s.hits, s.levels.length, fx.flare);
@@ -114,7 +119,7 @@ export function drawFlue(
     const at = flueEmberAt(l, cfg, s.emberMilli);
     const bare = flueBareness(cfg, s);
     drawFlueBareHeat(ctx, l, at, bare, time);
-    drawFlueSpore(ctx, l, at, spent ? 0.45 : 1, bare.red, beatPhase, time);
+    drawFlueSpore(ctx, l, at, spent ? 0.45 : 1, bare.red, beatPhase, time, s.hits, fx.flash);
     if (!spent) drawFlueShield(ctx, l, at, bare, time);
   }
   ctx.restore();
