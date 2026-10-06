@@ -41,7 +41,7 @@ describe("THE BATON's draw asks", () => {
     merging(world);
     expect(batonDrawAsks(b, 1)).toBe(true);
     expect(batonDrawAsks(b, 2)).toBe(true);
-    step(world, [thumb(world, 1, batonMergeSocket(CFG, 1), true)]);
+    step(world, [thumb(world, 1, batonMergeSocket(CFG, b, 1), true)]);
     expect(batonDrawAsks(b, 1)).toBe(false);
     expect(batonDrawAsks(b, 2)).toBe(true);
   });

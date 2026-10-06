@@ -74,7 +74,7 @@ function draws(w: World, seats: readonly (1 | 2)[]): Press[] {
         on: true,
         fromMilli: 0,
         fromYMilli: 0,
-        id: batonMergeSocket(w.cfg, player),
+        id: batonMergeSocket(w.cfg, b, player),
       },
     }));
   }
@@ -89,14 +89,14 @@ function draws(w: World, seats: readonly (1 | 2)[]): Press[] {
     // Her act is the bolt through the bead in the air; his is the trigger
     // under the socket it left (`batonActor`, `baton.test.ts`'s `act`).
     if (b.acts % 2 === 1) return shot(w, b, bead);
-    return [aim(batonSocketCol(b, bead.socket)), trigger()];
+    return [aim(batonSocketCol(b, bead.socket, bead.arm)), trigger()];
   }
   const out: Press[] = strip(w, b);
   const flying = b.beads.find((bead) => bead.flying && !bead.struck);
   if (flying !== undefined) return [...out, ...shot(w, b, flying)];
   const next = batonLaunchable(w.cfg, b);
   if (next === null) return out;
-  return [...out, aim(batonSocketCol(b, next.socket)), trigger()];
+  return [...out, aim(batonSocketCol(b, next.socket, next.arm)), trigger()];
 }
 
 /**

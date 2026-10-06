@@ -9,9 +9,10 @@ import {
   batonOneSegment,
   batonSocketRow,
 } from "./baton.js";
+import { batonArmCol, batonBeadSlot } from "./baton-arm.js";
 import { batonLandTick, batonWaiting } from "./baton-bead.js";
 import { batonCrossBeat, drop } from "./baton-cross.js";
-import { batonHasNextLevel } from "./baton-level.js";
+import { batonArmsAt, batonHasNextLevel } from "./baton-level.js";
 import { batonMerge, batonTwin, stepBatonMerge } from "./baton-pair.js";
 import { stepBatonShed } from "./baton-shed.js";
 import { batonSlow } from "./baton-slow.js";
@@ -34,10 +35,16 @@ import { MILLI, type World } from "./world.js";
  * going.
  */
 
-/** A bead at rest in `socket`, the colour it starts in. */
-export function bead(world: World, socket: number, color: BatonBead["color"]): BatonBead {
-  const col = batonBaseCol(world.cfg);
+/** A bead at rest in `socket` of the arm hanging in `col`, the colour it starts in. */
+export function bead(
+  world: World,
+  socket: number,
+  color: BatonBead["color"],
+  arm = 0,
+  col = batonBaseCol(world.cfg),
+): BatonBead {
   return {
+    arm,
     flying: false,
     satBeat: world.beat,
     socket,
@@ -57,18 +64,23 @@ export function bead(world: World, socket: number, color: BatonBead["color"]): B
  * or, once a level is beaten, as the next one (`baton-level.ts`).
  */
 export function installBaton(world: World, level = 0): BatonState {
+  const cfg = world.cfg;
+  const arms = batonArmsAt(level);
   const sockets: number[] = [];
-  for (let i = 0; i < world.cfg.batonSockets; i++) sockets.push(BATON_SOCKET_LIT);
+  for (let i = 0; i < arms * cfg.batonSockets; i++) sockets.push(BATON_SOCKET_LIT);
+  // Red first, and it alternates from there: the colour language teaches
+  // the alternation for free (`docs/spec/bosses-choreographed.md` §10). A
+  // second arm's bead wears the other colour, as the twin does.
+  const beads = [bead(world, 0, "red", 0, batonArmCol(cfg, arms, 0))];
+  if (arms > 1) beads.push(bead(world, 0, "cyan", 1, batonArmCol(cfg, arms, 1)));
   return {
     kind: "baton",
     level,
     stage: "unfolding",
     stageBeat: world.beat,
-    col: batonBaseCol(world.cfg),
+    col: batonArmCol(cfg, arms, 0),
     sockets,
-    // Red first, and it alternates from there: the colour language teaches
-    // the alternation for free (`docs/spec/bosses-choreographed.md` §10).
-    beads: [bead(world, 0, "red")],
+    beads,
     merged: false,
     acts: 0,
     actBeat: -1,
@@ -191,7 +203,8 @@ function land(world: World, b: BatonState, bead: BatonBead): void {
   // Only a lit socket goes dark. A bead shaken or knocked back up the arm
   // passes sockets it already darkened, and some of those have shed their
   // shells since — a landing that relit them as dark would grow the arm back.
-  if (b.sockets[bead.socket] === BATON_SOCKET_LIT) b.sockets[bead.socket] = BATON_SOCKET_DARK;
+  const slot = batonBeadSlot(world.cfg, bead);
+  if (b.sockets[slot] === BATON_SOCKET_LIT) b.sockets[slot] = BATON_SOCKET_DARK;
   // The landing that leaves one socket lit is the arm come down to one
   // segment, and the picture counts its thread from this beat (step 12).
   if (b.threadBeat < 0 && batonOneSegment(b)) b.threadBeat = world.beat;

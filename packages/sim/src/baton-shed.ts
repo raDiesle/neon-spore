@@ -6,6 +6,8 @@ import {
   batonDark,
   batonSocketRow,
 } from "./baton.js";
+import { batonBeadSlot, batonSlotCol, batonSlotSocket } from "./baton-arm.js";
+import { batonArms } from "./baton-level.js";
 import { NO_SHELL } from "./shell.js";
 import type { World } from "./world.js";
 
@@ -28,7 +30,7 @@ import type { World } from "./world.js";
 
 /**
  * A dead segment begins to let go: the topmost dark socket no bead is sitting
- * in swells, and `batonSwellBeats` later its shell drops down the arm's own
+ * in swells — the first arm's before the second's, when there are two — and `batonSwellBeats` later its shell drops down the arm's own
  * column as a rock — unless the seat the beat has locked out takes it off
  * clean first (`baton-hand.ts`).
  *
@@ -46,7 +48,8 @@ import type { World } from "./world.js";
  */
 export function stepBatonShed(world: World, b: BatonState): void {
   const cfg = world.cfg;
-  if (batonDark(b) < cfg.batonShedAfter) return;
+  // As far down the arms as one arm alone would be, with two.
+  if (batonDark(b) < cfg.batonShedAfter * batonArms(b)) return;
   if (b.swellSocket >= 0) {
     // A bead shaken home into it in the meantime changes nothing: the shell is
     // the socket's and not the bead's, and this arm already stands beads in
@@ -54,7 +57,8 @@ export function stepBatonShed(world: World, b: BatonState): void {
     if (world.beat - b.swellBeat >= cfg.batonSwellBeats) letGo(world, b, b.swellSocket);
     return;
   }
-  const sat = (i: number): boolean => b.beads.some((bead) => !bead.flying && bead.socket === i);
+  const sat = (i: number): boolean =>
+    b.beads.some((bead) => !bead.flying && batonBeadSlot(cfg, bead) === i);
   if (b.shedBeat >= 0 && world.beat - b.shedBeat < cfg.batonShedBeats - cfg.batonSwellBeats) return;
   const socket = b.sockets.findIndex((s, i) => s === BATON_SOCKET_DARK && !sat(i));
   if (socket < 0) return;
@@ -63,7 +67,7 @@ export function stepBatonShed(world: World, b: BatonState): void {
   b.swellBeat = world.beat;
   b.stripped = 0;
   b.stripThumbs = 0;
-  world.events.push({ type: "batonSwell", col: b.col, socket });
+  world.events.push({ type: "batonSwell", col: batonSlotCol(cfg, b, socket), socket });
 }
 
 /** The shell nobody took: off the arm and down its column as a rock. */
@@ -73,12 +77,14 @@ function letGo(world: World, b: BatonState, socket: number): void {
   b.swellSocket = -1;
   b.swellBeat = -1;
   b.shedBeat = world.beat;
-  const row = batonSocketRow(cfg, socket);
+  // Down the column of the arm it came off, which with two is not `b.col`.
+  const row = batonSocketRow(cfg, batonSlotSocket(cfg, socket));
+  const col = batonSlotCol(cfg, b, socket);
   world.creatures.push({
     id: world.nextId++,
     kind: "meteor",
     span: 1,
-    col: b.col,
+    col,
     row,
     fromRow: row,
     color: null,
@@ -87,5 +93,5 @@ function letGo(world: World, b: BatonState, socket: number): void {
     dragMilli: 0,
     shell: NO_SHELL,
   });
-  world.events.push({ type: "batonShed", col: b.col, row });
+  world.events.push({ type: "batonShed", col, row });
 }

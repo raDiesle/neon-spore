@@ -478,8 +478,12 @@ bead; a struck flight out of the last socket is the drop) and `twin` (the
 fight as it shipped), the arm folding and unfolding as the next level, and
 either seat's thumb sending a bead. Left, in order, a lane each:
 
-1. **Two arms side by side** (`pair`): a second arm in the column beside the
-   first, its own bead, the cannon between the two. Simulation, then look.
+1. **Two arms side by side, the look** (`pair`): the simulation is in
+   (`sim/baton-arm.ts`, `claude/baton-pair`) — the picture still draws one
+   arm down `BatonState.sockets`, so the second arm's sockets fall below the
+   field. Draw each arm in its own column (`batonSlotCol`,
+   `batonSlotSocket`), the draw's two rings across the gap, the grip's hit
+   test by entry of the sockets.
 2. **The arm across** (`across`): the last level, an arm along a row that the
    bead runs left to right, the cannon meeting it column by column.
    Simulation, then look.

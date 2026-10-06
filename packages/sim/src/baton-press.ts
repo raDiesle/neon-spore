@@ -1,16 +1,9 @@
 import { metColor, missedColor } from "./balance.js";
-import {
-  type BatonBead,
-  type BatonState,
-  batonBaseCol,
-  batonDark,
-  batonLead,
-  batonLocked,
-} from "./baton.js";
+import { type BatonBead, type BatonState, batonLead, batonLocked } from "./baton.js";
+import { batonSwingCol } from "./baton-arm.js";
 import { batonBeadCol, batonBeadRowMilli, batonLaunchable, batonSocketCol } from "./baton-bead.js";
 import { batonAct, batonActor, batonCrossLaunch, batonCrossStruck } from "./baton-cross.js";
 import { batonBoss } from "./baton-step.js";
-import { clampCol } from "./config-derived.js";
 import { reachesShip } from "./ship-verbs.js";
 import type { Bullet, TimedCommand } from "./types.js";
 import { MILLI, type World } from "./world.js";
@@ -41,9 +34,10 @@ function enter(world: World, b: BatonState, stage: BatonState["stage"]): void {
  * still his alone, as it shipped. A no-op unless THE BATON is installed and
  * a bead is there to send (`batonLaunchable`).
  *
- * Once enough sockets are dark the arm swings: the bead lands a column off
- * the one it left, so the flight crosses a column and the cannon has to
- * follow it between player 1's own turns — which are the only beats he can.
+ * Once enough sockets are dark the arm swings (`batonSwingCol`): the bead
+ * lands a column off the one it left, so the flight crosses a column and the
+ * cannon has to follow it between player 1's own turns — which are the only
+ * beats he can.
  */
 export function batonLaunch(world: World, player: 1 | 2): void {
   const b = batonBoss(world);
@@ -60,20 +54,13 @@ export function batonLaunch(world: World, player: 1 | 2): void {
   if (b.stage !== "passing") return;
   const bead = batonLaunchable(cfg, b);
   if (bead === null) return;
-  bead.fromCol = batonSocketCol(b, bead.socket);
+  bead.fromCol = batonSocketCol(b, bead.socket, bead.arm);
   bead.col = bead.fromCol;
   // The merged bead's flight out of the last socket is the crossing.
   if (b.merged && bead.socket === cfg.batonSockets - 1) batonCrossLaunch(world, b, bead);
-  // Only the lead bead swings the arm: the other flies straight down the
-  // column of the socket it sat in, riding the arm wherever the lead is.
-  else if (bead === batonLead(b) && batonDark(b) >= cfg.batonSwingAfter) {
-    // Right, back, left, back — from the first swung flight on, so the first
-    // one *is* a swing and the pair meets it the beat the arm starts moving.
-    // Counted in dark sockets rather than handovers: only the lead darkens a
-    // new one, so the twin's turns in between do not skip the arm a step.
-    const swing = [1, 0, -1, 0][(batonDark(b) - cfg.batonSwingAfter) % 4] ?? 0;
-    bead.col = clampCol(cfg, batonBaseCol(cfg) + swing);
-    b.col = bead.col;
+  else {
+    bead.col = batonSwingCol(cfg, b, bead);
+    if (bead.col !== bead.fromCol) b.col = bead.col;
   }
   bead.flying = true;
   bead.flightTick = world.tick;

@@ -1,4 +1,5 @@
 import { BATON_SOCKET_DARK, type BatonBead, type BatonState, batonFlip } from "./baton.js";
+import { batonBeadSlot } from "./baton-arm.js";
 import { batonLandTick } from "./baton-bead.js";
 import { batonSlow } from "./baton-slow.js";
 import { MILLI, type World } from "./world.js";
@@ -104,7 +105,7 @@ export function drop(world: World, b: BatonState, bead: BatonBead): void {
   b.stage = "falling";
   b.stageBeat = world.beat;
   b.lockUntil = [-1, -1];
-  b.sockets[bead.socket] = BATON_SOCKET_DARK;
+  b.sockets[batonBeadSlot(cfg, bead)] = BATON_SOCKET_DARK;
   b.handovers += 1;
   b.beads = [];
   const id = world.nextId++;

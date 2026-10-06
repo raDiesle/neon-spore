@@ -194,14 +194,14 @@ describe("the draw's two rings", () => {
     const mine = batonDrawRest(l, CFG, b, 2);
     if (mine === null) throw new Error("no ring on the bead that waited");
     expect(batonSocketUnder(l, mine.x, mine.y, fieldWith(2, world, b))?.command).toMatchObject({
-      id: batonMergeSocket(CFG, 2),
+      id: batonMergeSocket(CFG, b, 2),
     });
     // Player 1's thumb there is not his ring: his own is a socket higher, and
     // the simulation refuses a thumb on the other seat's bead out loud
     // (`sim/baton-hand.ts`). The picture sends her socket with no hold, since
     // a held drag repeats its press and would be refused on every move.
     const theirs = batonSocketUnder(l, mine.x, mine.y, fieldWith(1, world, b));
-    expect(theirs?.command).toMatchObject({ id: batonMergeSocket(CFG, 2) });
+    expect(theirs?.command).toMatchObject({ id: batonMergeSocket(CFG, b, 2) });
     expect(theirs?.hold).toBeNull();
     expect(batonGripSeat(l, mine.x, mine.y, fieldWith(1, world, b))).toBe(2);
   });

@@ -108,7 +108,7 @@ describe("THE BATON's draw", () => {
   it("takes both thumbs: one alone never counts, however long it is held", () => {
     const world = open(QUIET);
     merging(world);
-    const socket = batonMergeSocket(CFG, 1);
+    const socket = batonMergeSocket(CFG, arm(world), 1);
     for (let i = 0; i < CFG.batonMergeBeats * TPB * 2; i++) {
       step(world, [thumb(world, 1, socket, true)]);
     }
@@ -137,7 +137,7 @@ describe("THE BATON's draw", () => {
     merging(world);
     bothDown(world, 1);
     expect(arm(world).mergeHeld).toBeGreaterThan(0);
-    const socket = batonMergeSocket(CFG, 2);
+    const socket = batonMergeSocket(CFG, arm(world), 2);
     for (let i = 0; i < TPB * 2; i++) {
       step(world, [thumb(world, 2, socket, false)]);
     }
@@ -150,7 +150,7 @@ describe("THE BATON's draw", () => {
   it("refuses a thumb on the other seat's bead", () => {
     const world = open(QUIET);
     merging(world);
-    step(world, [thumb(world, 1, batonMergeSocket(CFG, 2), true)]);
+    step(world, [thumb(world, 1, batonMergeSocket(CFG, arm(world), 2), true)]);
     expect(arm(world).mergeThumbs).toBe(0);
     expect(world.events.some((e) => e.type === "batonRefused")).toBe(true);
   });

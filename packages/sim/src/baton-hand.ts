@@ -1,4 +1,6 @@
 import { BATON_SOCKET_SHED, BATON_SOCKET_SWELL, type BatonState, batonLocked } from "./baton.js";
+import { batonSlot } from "./baton-arm.js";
+import { batonArms } from "./baton-level.js";
 import { batonSlow } from "./baton-slow.js";
 import { batonBoss } from "./baton-step.js";
 import type { SimConfig } from "./config.js";
@@ -43,8 +45,14 @@ import type { World } from "./world.js";
  * it lands, and a hold is where the thumb is now.
  */
 
-/** The socket whose bead is this seat's to draw, under `merging`. */
-export function batonMergeSocket(cfg: SimConfig, player: 1 | 2): number {
+/**
+ * The entry of the sockets whose bead is this seat's to draw, under
+ * `merging`: on one arm the pilot's is the upper and the navigator's the one
+ * that waited; on two, the pilot's is the left arm's last and the
+ * navigator's the right's — by geometry either way, never by colour.
+ */
+export function batonMergeSocket(cfg: SimConfig, b: BatonState, player: 1 | 2): number {
+  if (batonArms(b) > 1) return batonSlot(cfg, player - 1, cfg.batonSockets - 1);
   return cfg.batonSockets - (player === 1 ? 2 : 1);
 }
 
@@ -133,7 +141,7 @@ function strip(world: World, b: BatonState, player: 1 | 2, command: Command): vo
  */
 function draw(world: World, b: BatonState, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag") return;
-  const mine = batonMergeSocket(world.cfg, player);
+  const mine = batonMergeSocket(world.cfg, b, player);
   if (command.id !== mine) {
     if (command.on) refuse(world, b, command.id ?? mine);
     return;

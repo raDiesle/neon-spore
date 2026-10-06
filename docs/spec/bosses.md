@@ -3213,8 +3213,19 @@ level unfolds the arm again as the next, every socket lit and one red bead at
 the top, and only the last level's fold ends the boss. `single` is one bead
 all the way down — the swing and the shed come as they always did, nothing
 lights beside it, and a struck flight out of the last socket is the drop.
-`twin` is the fight as it shipped, below. Two arms side by side and an arm
-across the field are the next two levels, queued (`docs/queue.md`).
+`twin` is the fight as it shipped, below. `pair` gives the second bead **an
+arm of its own** (`sim/baton-arm.ts`): two arms hang a column either side of
+the centre, red lit at the top of the left and cyan at the top of the right,
+and the one trigger sends whichever has sat longest — so the trigger goes arm
+to arm and the cannon crosses the gap for every shot. Each arm swings by its
+own dark sockets and outward only, so the column between them stays clear; the
+arms shed once they are as dark between them as one arm alone would be. The
+draw comes when each bead sits in its own arm's last socket — the pilot's thumb
+on the left, the navigator's on the right — and the bead that got there first
+takes the other in and makes the crossing. `BatonState.sockets` holds the left
+arm's sockets and then the right's, and a bead says which arm it is on
+(`BatonBead.arm`, hashed). An arm across the field is the last level, queued
+(`docs/queue.md`).
 
 **Either thumb sends** — the owner, the same day: *both players can tap.* The
 sitting bead answers either seat's tap (`render/baton-tap.ts`, `guard` signed

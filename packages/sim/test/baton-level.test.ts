@@ -81,8 +81,9 @@ describe("THE BATON's levels", () => {
     expect(next.lockUntil).toEqual([-1, -1]);
   });
 
-  it("ends the wave's boss only after the last level folds", () => {
-    expect(TWIN).toBe(BATON_LEVELS.length - 1);
+  it("ladders one ball, two balls, two arms", () => {
+    expect(BATON_LEVELS.slice(0, 3)).toEqual(["single", "twin", "pair"]);
+    expect(TWIN).toBe(1);
   });
 });
 

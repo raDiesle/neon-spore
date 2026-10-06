@@ -26,6 +26,7 @@ import {
   QUIET,
   shoot,
   TPB,
+  TWIN,
 } from "./baton-fixture.js";
 
 /**
@@ -207,9 +208,11 @@ describe("THE BATON's merge and crossing", () => {
     expect(b.stage).toBe("down");
     expect(world.events.some((e) => e.type === "batonDown")).toBe(true);
     expect(failHolds(world)).toBe(false);
-    // The arm folds for its beats, then the boss is gone and the wave may end.
+    // The arm folds for its beats, then unfolds as the level after this one;
+    // the last level's fold is the wave's end (`baton-arms.test.ts`).
     expect(world.boss).not.toBeNull();
     beats(world, CFG.batonDownBeats + 1);
-    expect(world.boss).toBeNull();
+    expect(arm(world).level).toBe(TWIN + 1);
+    expect(arm(world).stage).toBe("unfolding");
   });
 });

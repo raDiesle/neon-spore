@@ -45,9 +45,11 @@ export const CHOREO_NOTES = {
     "at the top in the other colour, and the two merge in the last socket. " +
     "Down to one lit socket, the arm hangs by a thread — the picture thins " +
     "it over batonThreadBeats. " +
-    "The fight is two levels, one pass of the arm each (sim/baton-level.ts): " +
+    "The fight is three levels, one pass of the arm each (sim/baton-level.ts): " +
     "single, one bead whose struck flight out of the last socket is the drop, " +
-    "then twin, everything here. The merged bead's flight out of it is the crossing, batonFinalBeats " +
+    "then twin, everything here, then pair: two arms a column either side of " +
+    "the middle, a bead lit in each, swinging outward only, and the two drawn " +
+    "together from each arm's last socket (sim/baton-arm.ts). The merged bead's flight out of it is the crossing, batonFinalBeats " +
     "long, owing acts in turn on no beat in particular — a gap longer than " +
     "batonTurnBottomBeats puts it back in the last socket. Made whole, the bead falls as a pod, the maw takes it, and " +
     "the arm folds away in batonDownBeats. THE SLOW spans the asks alone: a " +

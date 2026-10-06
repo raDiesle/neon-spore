@@ -32,10 +32,13 @@ export {
   batonOneSegment,
   batonSocketRow,
 } from "./baton.js";
+// The second arm's: where each hangs, and which arm and socket an entry of the sockets is.
+// biome-ignore format: one line, so the pair level does not cost this page a row
+export { batonArmCol, batonSlot, batonSlotArm, batonSlotCol, batonSlotSocket } from "./baton-arm.js";
 // biome-ignore format: one line, so a reading added to the arm does not cost this page a row
 export { batonBeadCol, batonBeadRowMilli, batonLandTick, batonLaunchable, batonSocketCol, batonWaiting } from "./baton-bead.js";
 export { batonActor } from "./baton-cross.js";
-export { BATON_LEVELS, type BatonLevel, batonLevel } from "./baton-level.js";
+export { BATON_LEVELS, type BatonLevel, batonArms, batonLevel } from "./baton-level.js";
 export { batonBoss, batonTurnBeats } from "./baton-step.js";
 // From THE SCUTTLE on, the second page (`bosses-clocks-b.ts`).
 export * from "./bosses-clocks-b.js";

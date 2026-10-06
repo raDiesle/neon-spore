@@ -44,14 +44,15 @@ export function batonBeadRowMilli(cfg: SimConfig, bead: BatonBead, tick: number)
 }
 
 /**
- * The column a socket hangs in. The arm bends at the lead bead: sockets
- * above its socket are where it left from and the rest are where it is
- * landing, so a swing is a lean in the arm and not a jump — and a bead
+ * The column a socket of `arm` hangs in. The arm bends at its lead bead:
+ * sockets above its socket are where it left from and the rest are where it
+ * is landing, so a swing is a lean in the arm and not a jump — and a bead
  * higher up rides the arm wherever the lead has taken it. With no bead left
- * the arm hangs where the last one dropped.
+ * the arm hangs where the last one dropped. Asked for the arm of a bead in
+ * hand; for any entry of the sockets, on either arm, `batonSlotCol`.
  */
-export function batonSocketCol(b: BatonState, socket: number): number {
-  const lead = batonLead(b);
+export function batonSocketCol(b: BatonState, socket: number, arm = 0): number {
+  const lead = batonLead(b, arm);
   if (lead === null) return b.col;
   return socket <= lead.socket ? lead.fromCol : lead.col;
 }
@@ -61,7 +62,7 @@ export function batonSocketCol(b: BatonState, socket: number): number {
  * `fromCol` for the first half of the flight and `col` after.
  */
 export function batonBeadCol(cfg: SimConfig, b: BatonState, bead: BatonBead, tick: number): number {
-  if (!bead.flying) return batonSocketCol(b, bead.socket);
+  if (!bead.flying) return batonSocketCol(b, bead.socket, bead.arm);
   if (bead.fromCol === bead.col) return bead.col;
   const land = batonLandTick(cfg, bead);
   return tick - bead.flightTick < (land - bead.flightTick) / 2 ? bead.fromCol : bead.col;

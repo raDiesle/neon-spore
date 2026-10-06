@@ -22,6 +22,7 @@ export function batonHashParts(b: BatonState): number[] {
   out.push(b.beads.length);
   for (const bead of b.beads)
     out.push(
+      bead.arm,
       bead.flying ? 1 : 0,
       bead.satBeat,
       bead.socket,

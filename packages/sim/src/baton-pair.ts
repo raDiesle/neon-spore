@@ -1,6 +1,6 @@
-import { type BatonState, batonDark, batonFlip, batonSocketRow } from "./baton.js";
+import { type BatonBead, type BatonState, batonDark, batonFlip, batonSocketRow } from "./baton.js";
 import { batonDrawn } from "./baton-hand.js";
-import { batonTwins } from "./baton-level.js";
+import { batonArms, batonTwins } from "./baton-level.js";
 import { bead } from "./baton-step.js";
 import { MILLI, type World } from "./world.js";
 
@@ -37,16 +37,19 @@ export function batonTwin(world: World, b: BatonState): void {
 }
 
 /**
- * Two beads at rest in the last two sockets: the arm stops passing and hangs
- * them, and the pair is asked for a thumb each. The design's step 12
+ * Two beads at rest in the last two sockets — or, with two arms, one in the
+ * last socket of each: the arm stops passing and hangs them, and the pair is
+ * asked for a thumb each. The design's step 12
  * (`docs/spec/bosses-choreographed.md` §10).
  */
 export function batonMerge(world: World, b: BatonState): void {
   const cfg = world.cfg;
   if (b.stage !== "passing" || b.beads.length !== 2 || b.beads.some((bead) => bead.flying)) return;
-  const last = b.beads.find((bead) => bead.socket === cfg.batonSockets - 1);
-  const above = b.beads.find((bead) => bead.socket === cfg.batonSockets - 2);
-  if (last === undefined || above === undefined) return;
+  // One arm: the last socket and the one above it. Two: each arm's last.
+  const want = batonArms(b) > 1 ? [cfg.batonSockets - 1] : [cfg.batonSockets - 2];
+  const last = waiter(world, b);
+  const other = b.beads.find((bead) => bead !== last);
+  if (last === undefined || other === undefined || !want.includes(other.socket)) return;
   b.stage = "merging";
   b.stageBeat = world.beat;
   b.mergeThumbs = 0;
@@ -71,11 +74,24 @@ export function stepBatonMerge(world: World, b: BatonState): void {
   if (world.beat - b.stageBeat >= cfg.batonMergeWindowBeats) parted(world, b);
 }
 
+/**
+ * The bead that waited: the one in the last socket, and with one in each
+ * arm's, the one that got there first — the left arm's on a tie.
+ */
+function waiter(world: World, b: BatonState): BatonBead | undefined {
+  let pick: BatonBead | undefined;
+  for (const bead of b.beads) {
+    if (bead.flying || bead.socket !== world.cfg.batonSockets - 1) continue;
+    if (pick === undefined || bead.satBeat < pick.satBeat) pick = bead;
+  }
+  return pick;
+}
+
 /** Back to passing, the two now one: the one that waited took the other in,
  * and its next flight — the only one left out of that socket — is the
- * crossing (`baton-cross.ts`). */
+ * crossing (`baton-cross.ts`). With two arms the other arm is left empty. */
 function merged(world: World, b: BatonState): void {
-  const last = b.beads.find((bead) => bead.socket === world.cfg.batonSockets - 1);
+  const last = waiter(world, b);
   if (last === undefined) return;
   b.beads = [last];
   b.merged = true;
@@ -86,7 +102,7 @@ function merged(world: World, b: BatonState): void {
 
 /** Back to passing with both beads still on the arm, the waiting one a socket up. */
 function parted(world: World, b: BatonState): void {
-  const last = b.beads.find((bead) => bead.socket === world.cfg.batonSockets - 1);
+  const last = waiter(world, b);
   if (last !== undefined) {
     last.backTick = world.tick;
     last.backFromMilli = batonSocketRow(world.cfg, last.socket) * MILLI;

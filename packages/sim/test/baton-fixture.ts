@@ -1,8 +1,10 @@
 import { expect } from "bun:test";
+import { installBaton } from "../src/baton-step.js";
 import {
   BATON_LEVELS,
   type BatonBead,
   type BatonState,
+  batonArms,
   batonBoss,
   batonDark,
   batonLaunchable,
@@ -34,15 +36,20 @@ export const TPB = ticksPerBeat(CFG);
 /** The level the fight shipped as before the levels: two beads, the merge and the crossing. */
 export const TWIN = BATON_LEVELS.indexOf("twin");
 
+/** The level with a second arm (`baton-arm.ts`). */
+export const PAIR = BATON_LEVELS.indexOf("pair");
+
 /**
  * The arm installed on its own wave, on `level`. **The twin level by
  * default**, because that is the fight every file of this rig was written
- * against; the single level's own receipts are `baton-level.test.ts`.
+ * against; the single level's own receipts are `baton-level.test.ts`, and
+ * the pair's `baton-arms.test.ts`. Installed again rather than relabelled,
+ * so a level with two arms has both.
  */
 export function open(cfg: SimConfig = CFG, seed = 3, level = TWIN): World {
   const world = createWorld(cfg, seed);
   startWave(world, 6, [], [], { kind: "baton" });
-  arm(world).level = level;
+  world.boss = installBaton(world, level);
   return world;
 }
 
@@ -103,7 +110,7 @@ export function launch(world: World): BatonBead {
   const next = batonLaunchable(CFG, arm(world));
   if (next === null) throw new Error("nothing to launch");
   step(world, [
-    cmd(world, 1, { kind: "cannonCol", col: batonSocketCol(arm(world), next.socket) }),
+    cmd(world, 1, { kind: "cannonCol", col: batonSocketCol(arm(world), next.socket, next.arm) }),
     cmd(world, 1, { kind: "guard" }),
   ]);
   const bead = flying(world);
@@ -142,7 +149,8 @@ export function thumb(world: World, player: 1 | 2, socket: number, on: boolean):
 
 /** Handovers until a shell is coming away, and the socket it is coming off. */
 export function swelling(world: World): number {
-  for (let i = 0; i < 30 && batonDark(arm(world)) < CFG.batonShedAfter; i++) handover(world);
+  const after = CFG.batonShedAfter * batonArms(arm(world));
+  for (let i = 0; i < 30 && batonDark(arm(world)) < after; i++) handover(world);
   for (let i = 0; i < 40 * TPB && arm(world).swellSocket < 0; i++) step(world, []);
   const socket = arm(world).swellSocket;
   expect(socket).toBeGreaterThanOrEqual(0);
@@ -177,8 +185,8 @@ export function merging(world: World): void {
 
 /** Both thumbs down, for `n` beats or until the arm is done with them. */
 export function bothDown(world: World, n: number): void {
-  const p1 = batonMergeSocket(CFG, 1);
-  const p2 = batonMergeSocket(CFG, 2);
+  const p1 = batonMergeSocket(CFG, arm(world), 1);
+  const p2 = batonMergeSocket(CFG, arm(world), 2);
   for (let i = 0; i < n * TPB && arm(world).stage === "merging"; i++) {
     step(world, [thumb(world, 1, p1, true), thumb(world, 2, p2, true)]);
   }
@@ -210,7 +218,7 @@ export function act(world: World): void {
     return;
   }
   step(world, [
-    cmd(world, 1, { kind: "cannonCol", col: batonSocketCol(b, bead.socket) }),
+    cmd(world, 1, { kind: "cannonCol", col: batonSocketCol(b, bead.socket, bead.arm) }),
     cmd(world, 1, { kind: "guard" }),
   ]);
 }

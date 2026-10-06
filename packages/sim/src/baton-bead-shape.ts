@@ -21,11 +21,13 @@ export const BATON_SOCKET_SWELL = 3;
 
 /** One bead on the arm: sitting in a socket, or in the air below it. */
 export interface BatonBead {
+  /** Which arm it is on: 0, or 1 for the second arm of the `pair` level (`baton-arm.ts`). */
+  arm: number;
   /** In the air between two sockets. Otherwise sitting in `socket`. */
   flying: boolean;
   /** `world.beat` it last came to rest on — the settle clock counts from here. */
   satBeat: number;
-  /** The socket it is in, or is flying out of. */
+  /** The socket it is in, or is flying out of, counted down its own arm from 0. */
   socket: number;
   /** `world.tick` the flight began on, -1 while it is not in the air. */
   flightTick: number;

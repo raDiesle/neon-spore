@@ -33764,3 +33764,13 @@ Bottleneck: reading — finding that a panel trade already existed took longer t
 Bottleneck: looking — the strip tool's held clock made a flowing look read as a still one until `--settle` was found.
 
 *Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE BATON's third level hangs a second arm beside the first
+
+- reading: 10 min. Every place a socket's entry is read or written, in the simulation, the hands and the picture, before choosing one list of sockets over two.
+- writing: 15 min. `baton-arm.ts`, the bead's arm, the merge across two arms, the shed's threshold and column, the seat's merge socket, one test file.
+- looking: 0 min. The look is the next lane's; nothing this lane draws changed.
+- friction: 5 min. A shed shell in the pair's tests turned out to be the threshold counting both arms' dark sockets as one.
+- landing: 5 min.
+
+Bottleneck: the shed's threshold and the test rig's QUIET both counted dark sockets on one arm, and two arms reached it at half the depth.

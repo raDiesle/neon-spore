@@ -55,7 +55,7 @@ export function batonDrawRest(
   player: 1 | 2,
 ): Circle | null {
   if (b.stage !== "merging") return null;
-  const at = socketPoint(l, cfg, b, batonMergeSocket(cfg, player));
+  const at = socketPoint(l, cfg, b, batonMergeSocket(cfg, b, player));
   return { x: at.x, y: at.y, r: handleRadius(l, cfg) };
 }
 
@@ -101,7 +101,7 @@ export function batonGripSeat(l: Layout, x: number, y: number, field: Field): 1 
   if (b === null) return undefined;
   const hit = socketAt(l, field, b, x, y, 1);
   if (hit === null) return undefined;
-  if (b.stage === "merging") return hit.socket === batonMergeSocket(field.cfg, 1) ? 1 : 2;
+  if (b.stage === "merging") return hit.socket === batonMergeSocket(field.cfg, b, 1) ? 1 : 2;
   if (batonMayStrip(b, 1, field.beat)) return 1;
   return batonMayStrip(b, 2, field.beat) ? 2 : undefined;
 }
@@ -120,7 +120,7 @@ function socketAt(
     for (const seat of first === 1 ? ([1, 2] as const) : ([2, 1] as const)) {
       const rest = batonDrawRest(l, field.cfg, b, seat);
       if (rest === null || !hitCircle(rest, x, y)) continue;
-      return { socket: batonMergeSocket(field.cfg, seat), held: seat === field.seat };
+      return { socket: batonMergeSocket(field.cfg, b, seat), held: seat === field.seat };
     }
     return null;
   }

@@ -1,4 +1,5 @@
 import { BATON_SOCKET_LIT, type BatonBead } from "./baton-bead-shape.js";
+import { batonArms } from "./baton-level.js";
 import { midCol, type SimConfig } from "./config.js";
 import type { Color } from "./types.js";
 
@@ -103,7 +104,8 @@ export interface BatonState {
   col: number;
   /**
    * One entry per socket, base first: `BATON_SOCKET_LIT`, `_DARK`, `_SWELL`
-   * or `_SHED`. The silhouette is the health bar.
+   * or `_SHED`. The silhouette is the health bar. With two arms, the first
+   * arm's sockets and then the second's (`batonSlot`).
    */
   sockets: number[];
   /** The beads on the arm, in the order they lit: one, then two, then the merged one. */
@@ -141,7 +143,7 @@ export interface BatonState {
   podId: number;
   /** `world.beat` the arm last shed a shell on, -1 before the first. */
   shedBeat: number;
-  /** The socket whose shell is coming away, or -1 while none is (`baton-hand.ts`). */
+  /** The entry of `sockets` whose shell is coming away, or -1 while none is (`baton-hand.ts`). */
   swellSocket: number;
   /** `world.beat` that swell began on, -1 while there is none. */
   swellBeat: number;
@@ -186,11 +188,12 @@ export function batonDark(b: BatonState): number {
 
 /**
  * Whether the arm is one segment long: one socket still lit and every other
- * gone. The moment of the design's step 12, remembered in `threadBeat` so
- * the picture can thin the arm over a beat rather than on a frame.
+ * gone — one an arm, with two. The moment of the design's step 12,
+ * remembered in `threadBeat` so the picture can thin the arm over a beat
+ * rather than on a frame.
  */
 export function batonOneSegment(b: BatonState): boolean {
-  return b.sockets.length - batonDark(b) <= 1;
+  return b.sockets.length - batonDark(b) <= batonArms(b);
 }
 
 /** Whether that seat may touch the ship on this beat. */
@@ -200,13 +203,17 @@ export function batonLocked(b: BatonState, player: 1 | 2, beat: number): boolean
 
 /**
  * The bead furthest down the arm — the one the fight is about, and the one
- * the picture bends the arm at. The first lit wins a tie, so with one bead it
- * is that bead and with two in the top socket it is the original. `null`
- * only once the last one has dropped.
+ * the picture bends the arm at — or down that `arm`, when there are two. The
+ * first lit wins a tie, so with one bead it is that bead and with two in the
+ * top socket it is the original. `null` once the last one has dropped, and
+ * for an arm whose bead was drawn into the other's.
  */
-export function batonLead(b: BatonState): BatonBead | null {
+export function batonLead(b: BatonState, arm?: number): BatonBead | null {
   let lead: BatonBead | null = null;
-  for (const bead of b.beads) if (lead === null || bead.socket > lead.socket) lead = bead;
+  for (const bead of b.beads) {
+    if (arm !== undefined && bead.arm !== arm) continue;
+    if (lead === null || bead.socket > lead.socket) lead = bead;
+  }
   return lead;
 }
 

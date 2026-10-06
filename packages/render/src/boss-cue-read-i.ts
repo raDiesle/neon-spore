@@ -80,7 +80,7 @@ function merging(l: Layout, world: World, b: BatonState): readonly BossCue[] {
   const out: BossCue[] = [];
   for (const seat of [1, 2] as const) {
     if (batonDrawing(b, seat)) continue;
-    const socket = batonMergeSocket(world.cfg, seat);
+    const socket = batonMergeSocket(world.cfg, b, seat);
     const at = socketPoint(l, world.cfg, b, socket);
     out.push(
       markAt(
