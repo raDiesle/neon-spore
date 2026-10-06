@@ -196,9 +196,7 @@ export const WAVES_ACT_13: Wave[] = [
     id: "theFlue",
     name: "THE FLUE",
     guide: {
-      both: "One of you sees the ember. The other fires. Say when it will be over the cannon. Each level shows its shot, colour and speed. Three shots a level.",
-      p1: "1. You see the ember. Your partner does not.\n2. Call the shot early: a fired shot takes time to climb, a beam longer to fill.\n3. The marks under the flue help you count.",
-      p2: "1. You cannot see the ember.\n2. Fire when your partner calls it, in the shot and colour the level shows.\n3. A beam is a held colour: start it early.",
+      scene: "theFlue",
     },
     entries: [],
     boss: {

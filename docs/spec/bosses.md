@@ -11050,7 +11050,12 @@ and while a level is lit, now and then a spore that is not there — split in
 two, shivering, on a shadow cut out of the fluid, drifting for under a
 second. THE GAUGE's mirage again: it is drawn from the render clock and
 never handed the flue's state, so the frame is the same wherever the ember
-is (`render/test/flue-mirage.test.ts`).
+is (`render/test/flue-mirage.test.ts`). **The guide is a film**
+(`content/src/scenes/the-flue.ts`, 6 October 2026, in place of the three
+strings): five pages — player 1 sees the spore and says when, player 2
+shoots when told, the next level swaps the roles and player 1 shoots — on
+two slow bolt levels, the second traded by the boss's own rule, so the film's
+phones swap halves on their own.
 
 **It is levels, and they are its health.** The state (`sim/flue.ts`, hashed
 in `sim/flue-hash.ts`) is the **phase** and the beat it began, the

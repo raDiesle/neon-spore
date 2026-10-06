@@ -33788,3 +33788,13 @@ Bottleneck: the shed's threshold and the test rig's QUIET both counted dark sock
 Bottleneck: the picture asked for a socket by its place down one arm in seven files, and every one had to become an entry of the list.
 
 *Measured: 6 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE FLUE has a film: say when, shoot when told, then swap
+
+- reading: 10 min. The tutorial skill, THE ANTIPHON's and THE BATON's films, how a film seats a traded panel, and the caption anchors.
+- writing: 10 min. `scenes/the-flue.ts`, the row's anchor, the wave's guide, the prose list and the briefings counts.
+- looking: 5 min. All five pages: the swap shows on both phones without a hand, and the mirage is under player 2's words.
+- friction: 5 min. A scratch probe to find the ticks the spore crosses the sight; the guard hook refused a heredoc carrying `\n`.
+- landing: 5 min. Content tests red on the prose list and the spec's counts in words, then green.
+
+Bottleneck: finding the shot ticks — a film's acts are fixed ticks and the hit had to be read off a probe of the real world.

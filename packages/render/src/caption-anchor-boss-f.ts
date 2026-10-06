@@ -2,6 +2,7 @@ import type { BossPart } from "@neon-spore/content";
 import type { SimConfig, SpoolState, World } from "@neon-spore/sim";
 import type { AnchorPoint } from "./caption-anchor.js";
 import { box } from "./caption-anchor-box.js";
+import { flueCentre, flueSlotHalf, flueUnitR } from "./flue-shape.js";
 import { gaugeDial } from "./gauge-round.js";
 import type { Layout } from "./layout.js";
 import { mazeDrum } from "./maze-walls.js";
@@ -12,7 +13,8 @@ import { spoolGaugeAt } from "./spool-shape.js";
 /**
  * **Where the fixtures of THE GAUGE, THE MAZE and THE REPRISE are** — the
  * sixth of `caption-anchor-boss.ts`, split off `-e` on line count — and THE
- * SPOOL's gauge, the newest boss whose film asked, because this file had room.
+ * SPOOL's gauge and THE FLUE's row, the newest bosses whose films asked,
+ * because this file had room.
  *
  * **These three are rounds and not bosses**, and that was the question the
  * queue entry left open: a round is its own picture, and one that throws the
@@ -42,6 +44,7 @@ export function bossAnchorF(
   if (kind === "maze") return mazeWheel(l, cfg);
   if (kind === "reprise") return box(repriseTearBox(l, cfg));
   if (world.boss?.kind === "spool") return spoolGauge(l, world, world.boss, beatPhase);
+  if (kind === "flue") return flueRow(l, cfg);
   return null;
 }
 
@@ -81,4 +84,16 @@ function spoolGauge(l: Layout, world: World, s: SpoolState, beatPhase: number): 
   const pose = spoolPlaced(l, world.cfg, s, world.beat, beatPhase);
   const { mid, half } = spoolGaugeAt(l, pose);
   return box({ x: mid.x, y: mid.y, rx: half, ry: l.tile * 0.3 });
+}
+
+/**
+ * THE FLUE: the row of flesh the spore runs in, end to end. Every page of
+ * its film is about the spore and the sight on that row — seen, called, shot
+ * at blind — so the box is the row and the caption stands clear under it.
+ * The flue's sway on its strings is a tilt round the sight, too small to
+ * walk a caption off it.
+ */
+function flueRow(l: Layout, cfg: SimConfig): AnchorPoint {
+  const c = flueCentre(l, cfg);
+  return box({ x: c.x, y: c.y, rx: flueSlotHalf(l, cfg), ry: flueUnitR(l) });
 }
