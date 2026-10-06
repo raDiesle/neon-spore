@@ -33930,3 +33930,5 @@ Bottleneck: the briefings spec counts its prose guides in words in three places,
 - landing: 5 min.
 
 Bottleneck: the lane started from `origin/main`, and the local `main` held the redesign it had to be built on.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

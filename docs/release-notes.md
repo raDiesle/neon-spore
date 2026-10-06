@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 3bb4847e5 — THE LAMPREY arrives hungry, crawls the field between levels and drops dung for the shield
+
+THE LAMPREY now crawls in from the side and eats a meal that falls for it — two rocks, a slick and two bulbs — then crawls out of the picture and back to its first tile. The fight is three levels of three, four and five leaps, each ended on a gullet; before the second and third the eel crawls the field side to side like a worm, eats the food that falls for it and lets go of dung, a rock the shield has to turn. A lit tooth now takes three taps, four in the last level, and the ring has nine teeth. The eel never lands at the field's edge, and where its tail would run off the screen it is laid the nearest way round that stays on, so every control can be reached.
+
 ## 2026-10-06 · db29007d1 — THE MIMIC opens on a guide, says whose turn it is on the siren top right, and the box round the picture goes
 
 THE MIMIC now opens on a short guide: one of you sees a picture of tiles, the other taps it into the frame, and the siren says whose turn it is. While it plays the siren stands top right with the reader's chip lit — both on a split — and each screen's job under it: TILES · TELL P2 WHERE to the reader, TAP WHERE P1 SAYS to the painter. The box with those words round the picture is gone, so the frame the mantle holds is all that stands round the tiles; the bare core still says TAP.
