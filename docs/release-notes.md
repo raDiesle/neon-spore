@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 69276d8e7 — THE FLUE hangs lower, meets a spore half in the sight, says MISS and beams the spore home
+
+The flue now hangs two rows lower, clear of the game's chrome. A shot meets the spore while at least half of it is inside the sight ring, where it used to need it nearly centred. A shot spent stamps MISS under the sight on both screens, split in the two cannon colours, with what to change under it: TOO EARLY, TOO LATE, WRONG COLOUR or WRONG SHOT. After any shot, hit or spent, the spore is pulled into a shaft of light where it was met and beamed back to the left end; after a miss it now restarts the level's run from there, held a beat, on the shot grid's own phase so every call can still land.
+
 ## 2026-10-06 · 0c72f0cc9 — THE LAMPREY is drawn as a worm: its body along the trail, a tail that sweeps, crumbs where it eats, dung for the shield and THE INSTAR's tap ring
 
 While it crawls the eel's body lies along the tiles its head has been, with a wriggle running down it. On a tile the free tail sweeps half a circle over four beats while the head stays, and stills when held. Where it eats it leaves crumbs in the colour of what it ate. Its dung is a brown heap of two stacked BULB · CLOVERs, and now drops from the tail's end, never in an edge column, so the screen never cuts it. The lit tooth wears THE INSTAR's tap ring, its green arc filling for each of the tooth's taps.

@@ -33958,3 +33958,5 @@ Bottleneck: the first dung frame showed it dropped in the edge column and cut by
 - landing: 5 min. `bun run index`, `check:fast`, `land`.
 
 Bottleneck: starting from a worktree branch far behind the local trunk.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
