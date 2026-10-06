@@ -4,7 +4,7 @@ import { MIMIC_ASKS, MIMIC_PHASES, type MimicState } from "./mimic.js";
  * What THE MIMIC puts into `hashWorld`, and nothing else.
  *
  * **The authored script goes in whole**, THE SEAM's reason (`seam-hash.ts`),
- * with its length ahead of it. The pictures and where they stand go in
+ * with its length ahead of it. The pictures, every one shown so far and where they stand go in
  * because the pictures are the simulation's own pick from the seeded `Rng`
  * and decide what peels; the board because both screens draw it — each array
  * with its length ahead of it, THE CAPSTAN's way (`capstan-hash.ts`).
@@ -18,6 +18,8 @@ export function mimicHashParts(s: MimicState): number[] {
     ...s.signs,
     s.origins.length,
     ...s.origins,
+    s.shown.length,
+    ...s.shown,
     s.paint.length,
     ...s.paint,
     s.peeled.length,

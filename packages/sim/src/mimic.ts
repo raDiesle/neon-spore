@@ -101,6 +101,13 @@ export interface MimicState {
   /** The tile each picture's top left stands on, `col + row * cols`: its frame's (`mimicFrame`). */
   origins: [number, number];
   /**
+   * **Every picture put up this fight, in the order it went up** — the owner,
+   * 6 October 2026: *make sure no pattern repeats*. A picture is picked from
+   * those not in it, and only once every picture of a size has been up does
+   * the one up longest ago come back (`mimic-step.ts`).
+   */
+  shown: number[];
+  /**
    * **The board**: every tile of it (`mimicRows`), `col + row * cols`, 0 bare or
    * 1 painted. One for both seats, cleared when a picture surfaces.
    */
@@ -172,6 +179,7 @@ export function freshMimic(beat: number, steps: readonly MimicStep[], tiles: num
     cursor: 0,
     signs: [-1, -1],
     origins: [0, 0],
+    shown: [],
     paint: new Array<number>(tiles).fill(0),
     peeled: [false, false],
     changed: false,

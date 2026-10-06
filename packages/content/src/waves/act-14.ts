@@ -19,13 +19,18 @@ import type { Wave } from "../wave-types.js";
  *
  * **THE MIMIC is the boss answered by painting** (§42, `sim/mimic.ts`): a
  * picture of tiles shows on one seat's screen only, and the other seat taps
- * it into the frame the mantle holds. The pilot reads three pictures three
- * tiles square, the mantle rolls, and the navigator reads three five square,
- * the last two changing; then the board splits, each seat reads the half the
- * other paints, and the core it bares is tapped. **No panel, no SLOW and no
- * tutorial** — the owner, 5 October 2026: the help is said on the field
- * while it plays (`render/boss-cue-read-zt.ts`), so the windows are long in
- * plain beats: a picture is said tile by tile across a room.
+ * it into the frame the mantle holds. The pilot reads a picture three tiles
+ * square and two four square, the last changing; the mantle rolls, and the
+ * navigator reads two five square, the second changing, and one six; it
+ * rolls again and the seats take one each, a six and a seven; then the board
+ * splits, three and then four, each seat reads the half the other paints,
+ * and the core it bares is tapped. **No picture comes up twice in a fight**
+ * (`MimicState.shown`). The owner, 6 October 2026: *add more levels with more
+ * tiles … reduce the available time by a third*, so every window is two
+ * thirds of what it was — a three square 24 beats where it was 36, a five
+ * 37 where it was 56, a split three 29 where it was 44, the core 7 where it
+ * was 10 — and the new sizes are cut to the same measure. No panel and no
+ * SLOW: the windows are in plain beats.
  */
 export const WAVES_ACT_14: Wave[] = [
   {
@@ -58,18 +63,21 @@ export const WAVES_ACT_14: Wave[] = [
     boss: {
       kind: "mimic",
       steps: [
-        { ask: "sign", reader: 1, changes: false, size: 3, beats: 36 },
-        { ask: "sign", reader: 1, changes: false, size: 3, beats: 36 },
-        { ask: "sign", reader: 1, changes: false, size: 3, beats: 36 },
+        { ask: "sign", reader: 1, changes: false, size: 3, beats: 24 },
+        { ask: "sign", reader: 1, changes: false, size: 4, beats: 30 },
+        { ask: "sign", reader: 1, changes: true, size: 4, beats: 30 },
         { ask: "roll", reader: 1, changes: false, size: 0, beats: 2 },
-        { ask: "sign", reader: 2, changes: false, size: 5, beats: 56 },
-        { ask: "sign", reader: 2, changes: true, size: 5, beats: 56 },
-        { ask: "sign", reader: 2, changes: true, size: 5, beats: 56 },
+        { ask: "sign", reader: 2, changes: false, size: 5, beats: 37 },
+        { ask: "sign", reader: 2, changes: true, size: 5, beats: 37 },
+        { ask: "sign", reader: 2, changes: false, size: 6, beats: 44 },
         { ask: "roll", reader: 2, changes: false, size: 0, beats: 2 },
-        { ask: "split", reader: 1, changes: false, size: 3, beats: 44 },
-        { ask: "core", reader: 1, changes: false, size: 0, beats: 10 },
-        { ask: "split", reader: 1, changes: false, size: 3, beats: 44 },
-        { ask: "core", reader: 1, changes: false, size: 0, beats: 10 },
+        { ask: "sign", reader: 1, changes: false, size: 6, beats: 44 },
+        { ask: "sign", reader: 2, changes: false, size: 7, beats: 50 },
+        { ask: "roll", reader: 1, changes: false, size: 0, beats: 2 },
+        { ask: "split", reader: 1, changes: false, size: 3, beats: 29 },
+        { ask: "core", reader: 1, changes: false, size: 0, beats: 7 },
+        { ask: "split", reader: 1, changes: false, size: 4, beats: 37 },
+        { ask: "core", reader: 1, changes: false, size: 0, beats: 7 },
       ],
     },
     bossType: "normal",

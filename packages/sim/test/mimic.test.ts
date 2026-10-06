@@ -20,7 +20,7 @@ import {
   mimicRows,
 } from "../src/mimic.js";
 import { mimicFrame, mimicWants } from "../src/mimic-frame.js";
-import { mimicShapeSize } from "../src/mimic-shapes.js";
+import { MIMIC_SHAPES, mimicShapeSize, mimicShapesOfSize } from "../src/mimic-shapes.js";
 import { slowing } from "../src/slow.js";
 
 /**
@@ -157,8 +157,9 @@ describe("THE MIMIC's picture", () => {
   });
 
   it("stands every picture in its frame, centred and low, and filling it", () => {
-    const world = install(Array.from({ length: 12 }, (_, n) => sign(1, false, n < 6 ? 3 : 5)));
-    for (let n = 0; n < 12; n++) {
+    const sizes = [3, 3, 3, 5, 5, 5, 7, 7, 7];
+    const world = install(sizes.map((size) => sign(1, false, size)));
+    for (let n = 0; n < sizes.length; n++) {
       toSign(world);
       const s = mimic(world);
       const step = s.steps[s.cursor] ?? SPLIT;
@@ -280,6 +281,35 @@ describe("the movements", () => {
   });
 });
 
+describe("the frames and the pictures", () => {
+  it("mirrors a split's two frames across the middle column, an even side too", () => {
+    for (const size of [3, 4]) {
+      const step: MimicStep = { ...SPLIT, size };
+      const [a, b] = [mimicFrame(CFG, step, 1), mimicFrame(CFG, step, 2)];
+      expect(a.col).toBeGreaterThan(0);
+      expect(a.col + size - 1).toBeLessThan(MID);
+      expect(b.col).toBeGreaterThan(MID);
+      expect(a.col + size - 1 + b.col).toBe(CFG.cols - 1);
+    }
+  });
+
+  it("stands an even frame half a tile off the middle, every tile on the board", () => {
+    for (const size of [4, 6]) {
+      const frame = mimicFrame(CFG, sign(1, false, size), 2);
+      expect(frame.col + size / 2).toBe(MID);
+      expect(frame.row + size).toBeLessThanOrEqual(mimicRows(CFG));
+    }
+  });
+
+  it("keeps every picture square, none the same as another, and eight or more of each side", () => {
+    const keys = MIMIC_SHAPES.map((rows) => rows.join("/"));
+    expect(new Set(keys).size).toBe(keys.length);
+    for (const rows of MIMIC_SHAPES) for (const r of rows) expect(r.length).toBe(rows.length);
+    for (const size of [3, 4, 5, 6, 7])
+      expect(mimicShapesOfSize(size).length).toBeGreaterThanOrEqual(8);
+  });
+});
+
 describe("the core", () => {
   it("takes a tap on its tile or beside it, and closes back to the split when run out", () => {
     const world = install([SPLIT, CORE, SPLIT, CORE]);
@@ -327,6 +357,30 @@ describe("the pictures are the seeded Rng's", () => {
       last = now;
       paintAll(world);
     }
+  });
+
+  it("never puts a picture up twice in a fight until every one of its size has been up", () => {
+    const n = mimicShapesOfSize(3).length;
+    const world = install(Array.from({ length: n + 2 }, () => sign(1)));
+    const seen: number[] = [];
+    for (let k = 0; k < n + 2; k++) {
+      toSign(world);
+      seen.push(owed(world, 2));
+      paintAll(world);
+    }
+    expect(new Set(seen.slice(0, n)).size).toBe(n);
+    // Then the one up longest ago, and the one after it.
+    expect(seen.slice(n)).toEqual(seen.slice(0, 2));
+  });
+
+  it("puts up a new picture after a window run out, not the one it wore", () => {
+    const world = install([sign(1), sign(1)]);
+    toSign(world);
+    const first = owed(world, 2);
+    runUntil(world, saw("mimicReach"));
+    toSign(world);
+    expect(owed(world, 2)).not.toBe(first);
+    expect(mimic(world).shown).toEqual([first, owed(world, 2)]);
   });
 
   it("hashes the same for the same seed and the same taps", () => {

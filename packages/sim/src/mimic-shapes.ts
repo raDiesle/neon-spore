@@ -13,6 +13,7 @@
  * (`mimicShapesOfSize`), and a step names which (`MimicStep.size`).
  */
 export const MIMIC_SHAPES: readonly (readonly string[])[] = [
+  // Three on a side.
   [".a.", "aaa", ".a."],
   ["a..", "a..", "aaa"],
   ["aaa", ".a.", ".a."],
@@ -23,6 +24,7 @@ export const MIMIC_SHAPES: readonly (readonly string[])[] = [
   ["a.a", "aaa", "a.a"],
   ["aa.", ".a.", ".aa"],
   ["a.a", "...", "a.a"],
+  // Five on a side.
   ["aaaaa", "a...a", "a...a", "a...a", "aaaaa"],
   ["..a..", "..a..", "aaaaa", "..a..", "..a.."],
   ["a...a", ".a.a.", "..a..", ".a.a.", "a...a"],
@@ -31,6 +33,47 @@ export const MIMIC_SHAPES: readonly (readonly string[])[] = [
   ["a.a.a", ".a.a.", "a.a.a", ".a.a.", "a.a.a"],
   ["a....", "aaa..", "..a..", "..aaa", "....a"],
   ["aa.aa", "a...a", ".....", "a...a", "aa.aa"],
+  // Four on a side, added on 6 October 2026 with the six and the seven: the
+  // owner, *add more levels with more tiles*.
+  ["aaaa", "a..a", "a..a", "aaaa"],
+  ["a..a", ".aa.", ".aa.", "a..a"],
+  ["aaaa", "a...", "a...", "a..."],
+  [".aa.", "aaaa", "aaaa", ".aa."],
+  ["a...", "aa..", "aaa.", "aaaa"],
+  ["a.a.", ".a.a", "a.a.", ".a.a"],
+  ["aa..", "aa..", "..aa", "..aa"],
+  [".aa.", "a..a", "a..a", ".aa."],
+  ["aaaa", ".aa.", ".aa.", ".aa."],
+  ["a..a", "aaaa", "a..a", "a..a"],
+  ["...a", "..a.", ".a..", "a..."],
+  ["a..a", "....", "....", "a..a"],
+  // More five on a side.
+  [".a.a.", "aaaaa", "aaaaa", ".aaa.", "..a.."],
+  ["..a..", ".aaa.", "a.a.a", "..a..", "..a.."],
+  [".a.a.", ".a.a.", ".....", "a...a", ".aaa."],
+  ["..a..", ".a.a.", "a...a", "a...a", "aaaaa"],
+  ["aaaaa", "....a", "aaaaa", "a....", "aaaaa"],
+  ["a...a", "aaaaa", "a...a", "aaaaa", "a...a"],
+  // Six on a side.
+  ["aaaaaa", "a....a", "a....a", "a....a", "a....a", "aaaaaa"],
+  ["a....a", ".a..a.", "..aa..", "..aa..", ".a..a.", "a....a"],
+  ["..aa..", "..aa..", "aaaaaa", "aaaaaa", "..aa..", "..aa.."],
+  ["aa..aa", "aa..aa", "..aa..", "..aa..", "aa..aa", "aa..aa"],
+  ["a....a", "a....a", "a....a", "a....a", ".a..a.", "..aa.."],
+  ["..aa..", ".a..a.", "a....a", "a....a", ".a..a.", "..aa.."],
+  ["aa..aa", "a....a", "......", "......", "a....a", "aa..aa"],
+  ["aa....", "aa....", "..aa..", "..aa..", "....aa", "....aa"],
+  ["aaaaaa", "......", "aaaaaa", "......", "aaaaaa", "......"],
+  ["a.....", "a.....", "a.....", "a.....", "a.....", "aaaaaa"],
+  // Seven on a side.
+  ["a.....a", ".a...a.", "..a.a..", "...a...", "..a.a..", ".a...a.", "a.....a"],
+  ["...a...", "...a...", "...a...", "aaaaaaa", "...a...", "...a...", "...a..."],
+  ["...a...", "..a.a..", ".a...a.", "a.....a", ".a...a.", "..a.a..", "...a..."],
+  ["...a...", "..aaa..", ".a.a.a.", "a..a..a", "...a...", "...a...", "...a..."],
+  ["aaaaaaa", ".a...a.", "..a.a..", "...a...", "..a.a..", ".a...a.", "aaaaaaa"],
+  ["aa...aa", "a.....a", ".......", "...a...", ".......", "a.....a", "aa...aa"],
+  ["aaaaaaa", "a.....a", "a.aaa.a", "a.a.a.a", "a.aaa.a", "a.....a", "aaaaaaa"],
+  ["a.a.a.a", ".......", "a.a.a.a", ".......", "a.a.a.a", ".......", "a.a.a.a"],
 ];
 
 /** A picture's width and height, in tiles. */

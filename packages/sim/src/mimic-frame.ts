@@ -27,16 +27,14 @@ export function mimicFrame(
 ): { col: number; row: number; size: number } {
   const size = step.size;
   const mid = midCol(cfg);
-  // A split's halves leave the middle column between them, each frame
-  // centred in its own.
-  const centre =
-    step.ask !== "split"
-      ? mid
-      : seat === 1
-        ? Math.floor((mid - 1) / 2)
-        : mid + 1 + Math.floor((cfg.cols - mid - 2) / 2);
   const half = Math.floor(size / 2);
-  return { col: centre - half, row: cfg.mimicFrameRow - half, size };
+  const row = cfg.mimicFrameRow - half;
+  if (step.ask !== "split") return { col: mid - half, row, size };
+  // A split's halves leave the middle column between them, each frame
+  // centred in its own and the two mirrored across it, so an even side
+  // stands as far in from its edge as the other half's.
+  const left = Math.ceil((mid - size) / 2);
+  return { col: seat === 1 ? left : cfg.cols - left - size, row, size };
 }
 
 /** Whether `col`, `row` is inside seat `seat`'s picture, which is its frame, while it has one. */

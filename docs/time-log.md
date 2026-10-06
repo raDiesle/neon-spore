@@ -33884,3 +33884,13 @@ Bottleneck: taking the brake out reached thirty files outside the simulation —
 Bottleneck: the input delay reached the cue through five signatures, because no cue before this one rode something drawn ahead of the simulation.
 
 *Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE MIMIC: no picture twice in a fight, four more levels up to seven tiles square, and every window a third shorter
+
+- reading: 15 min. The mimic's simulation, frame, hand and hash, the wave's script, the autopilot and the cue round the frame.
+- writing: 15 min. Thirty-six new pictures in sizes four to seven, the pictures shown remembered and hashed, a split's frames mirrored, the script, and the tests.
+- looking: 10 min. A frame of the seven-square level from the reader's seat and of the four-square split from the pilot's.
+- friction: 5 min. `bun run frames` needs `--until-ticks` past its 3000-tick default to reach a late level of a long boss.
+- landing: 5 min.
+
+Bottleneck: finding the frame of a late level, which took three tries at `--until` before one landed inside a window.

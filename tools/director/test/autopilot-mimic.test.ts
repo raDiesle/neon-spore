@@ -50,9 +50,10 @@ describe("AUTO on THE MIMIC", () => {
         if (WRONG.includes(e.type)) wrong.push(e.type);
       }
     }
-    // The navigator draws the first three, the pilot the next three, then both twice.
-    expect(peels.slice(0, 6)).toEqual([1, 1, 1, 0, 0, 0]);
-    expect(peels).toHaveLength(10);
+    // The navigator draws the first three, the pilot the next three, one
+    // each, then both twice.
+    expect(peels.slice(0, 8)).toEqual([1, 1, 1, 0, 0, 0, 1, 0]);
+    expect(peels).toHaveLength(12);
     expect(changes).toBe(2);
     expect(hits).toEqual([1, 2]);
     expect(wrong).toEqual([]);

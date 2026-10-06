@@ -129,7 +129,7 @@ export function patchBossF(boss: BossState): void {
   }
   if (boss.kind === "mimic") {
     // A split on with both pictures up, two tiles painted and the
-    // navigator's peeled, the picture changed, two arms reached, three
+    // navigator's peeled, three pictures shown, the picture changed, two arms reached, three
     // pictures off and the core tapped once — every field given a value
     // (`mimic-hash.ts`).
     boss.phase = "sign";
@@ -137,6 +137,7 @@ export function patchBossF(boss: BossState): void {
     boss.cursor = 1;
     boss.signs = [2, 4];
     boss.origins = [12, 18];
+    boss.shown = [3, 2, 4];
     boss.paint[12] = 1;
     boss.paint[13] = 1;
     boss.peeled = [false, true];

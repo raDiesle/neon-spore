@@ -15,8 +15,8 @@ import type { World } from "./world.js";
  * back in here.
  *
  * **Every picture is picked by the seeded `Rng`** from the pictures that
- * fill its step's frame, less the one the half wore last and the one the
- * other half wears now; where it stands is the frame's, never picked
+ * fill its step's frame and have not been up this fight, less the one the
+ * half wore last and the one the other half wears now; where it stands is the frame's, never picked
  * (`mimic-frame.ts`). The fight climbs by the frame the wave authors.
  *
  * **No SLOW** — the owner, 5 October 2026, *but no slow here*: the field's
@@ -176,7 +176,9 @@ function surface(world: World, s: MimicState, step: MimicStep): void {
 
 /**
  * Seat `seat`'s picture, by the seeded `Rng`: one that fills the step's
- * frame and is never one of `avoid`, standing in that frame.
+ * frame, has not been up this fight (`MimicState.shown`) and is never one of
+ * `avoid`, standing in that frame. With every picture of the size already
+ * up, the one up longest ago comes back.
  */
 function place(
   world: World,
@@ -185,11 +187,18 @@ function place(
   seat: 1 | 2,
   avoid: readonly number[],
 ): void {
-  const fits = mimicShapesOfSize(step.size);
-  const free = fits.filter((i) => !avoid.includes(i));
-  const pool = free.length > 0 ? free : fits;
+  const fits = mimicShapesOfSize(step.size).filter((i) => !avoid.includes(i));
+  const fresh = fits.filter((i) => !s.shown.includes(i));
   const frame = mimicFrame(world.cfg, step, seat);
   const i = seat - 1;
-  s.signs[i] = pool[nextInt(world.rng, pool.length)] ?? 0;
+  const pick =
+    fresh.length > 0
+      ? fresh[nextInt(world.rng, fresh.length)]
+      : fits.reduce<number | undefined>(
+          (a, b) => (a === undefined || s.shown.lastIndexOf(b) < s.shown.lastIndexOf(a) ? b : a),
+          undefined,
+        );
+  s.signs[i] = pick ?? mimicShapesOfSize(step.size)[0] ?? 0;
+  s.shown.push(s.signs[i]);
   s.origins[i] = frame.col + frame.row * world.cfg.cols;
 }
