@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · f7c08357b — THE FLUE's spore goes red over the cannon, and a miss stings
+
+On the pilot's screen the spore now wears a faint shield everywhere except over the cannon. As it comes over the sight the shield breaks, a red shock opens round it, and the spore turns red for its whole stay there, reddest at the middle. As it leaves, the shield closes back round it. A shot spent now flashes the sight red, splits red cracks out of it and flares the spent pip red, on both screens. The spore is also drawn above the partner's clock now: before, that clock hid it exactly when it was over the cannon.
+
 ## 2026-10-06 · 2f53f321a — THE FLUE is bigger, and made of living flesh
 
 The flue's units are taller lobed segments of dark plum flesh that breathe, with folds, pores, a vein, a wet film and cilia stirring on their crowns; the slot is a gullet; and the ball is a spore twice the size it was, warm white at its heart with a nucleus beating on the beat and motes turning inside it. The sight grows to hold it, and the cue words, studs, pips, scale and card stand further out to clear the taller body.
