@@ -33906,3 +33906,5 @@ Bottleneck: finding the frame of a late level, which took three tries at `--unti
 - landing: 5 min.
 
 Bottleneck: the first drawings outlined every filled shape, which read as flat and geometric — the thing the owner asked to lose.
+
+*Measured: 12 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
