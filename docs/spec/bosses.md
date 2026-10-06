@@ -3251,6 +3251,18 @@ sways side to side; a bead knocked back along it is lobbed off the row and
 down into its socket, with the ring where the bolt met it
 (`render/baton-draw.ts`, `render/baton-knock.ts`).
 
+**The field says each new part** — the owner, the same day: *better than a
+guide page is to explain in game, two or three beats before the new part
+happens, and while it is happening what the players need to do.* His three
+answers: a banner across the clear rows over the hull while a part is coming,
+then a label beside the part while it runs; the first time per wave only; each
+screen its own job. The swing and the shed are said on `single`, the second
+bead, the draw and the crossing on `twin`, the second arm and the arm across on
+their own levels, and nowhere else (`render/baton-explain-when.ts`). Coming is
+the handover before the part — a flight and a sit, three beats to seven — or
+the unfold of a new arm. The words are `render/baton-explain.ts`, drawn after
+the boss cue.
+
 **Either thumb sends** — the owner, the same day: *both players can tap.* The
 sitting bead answers either seat's tap (`render/baton-tap.ts`, `guard` signed
 with that seat) and the field writes `TAP` on it for each seat not locked;

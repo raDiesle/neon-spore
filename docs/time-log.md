@@ -33836,3 +33836,13 @@ Bottleneck: three tests used `PRESS` over `FIRE` as their example of a drawn lin
 Bottleneck: the arm drew itself through its sockets already, so the only wrong things were its two ends — the root and the throw.
 
 *Measured: 7 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-06 — THE BATON says each new part on the field before it comes and while it runs
+
+- reading: 10 min. The boss cue's layer, the reason line's rim, the canvas stub's text boxes, and the words rules.
+- writing: 15 min. When each part is coming and running, read off the arm; the words for each screen; the banner and the label; one test file.
+- looking: 5 min. Frames of the swing coming and running, the draw on player 2's screen, and the second arm's banner.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the owner's three answers on where, how often and for whom had to come before a word could be placed.

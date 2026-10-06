@@ -464,28 +464,6 @@ opens THE SLOW and has no row, in a test, so the next one goes red rather
 than unseen. Done when THE GOVERNOR's frame shows no fringe on its body and
 `bun run check` is green.
 
-## THE BATON's levels: a second arm beside the first, an arm across at the end
-
-- **Found:** 2026-10-06, claude/baton-rules
-- **Files:** `packages/sim/src/baton-level.ts`, `packages/sim/src/baton.ts`, `packages/sim/src/baton-step.ts`, `packages/sim/src/baton-press.ts`
-- **Asks:** What is a level of THE BATON, and what does each one add?
-- **Answered:** a level is a pass of the arm inside the one wave; one ball, then two balls, then two arms, then the arm across; every shipped part stays as it is; both seats may tap and whoever acts is still locked. And the extra parts are explained on the field itself, two or three beats before each arrives and while it runs, rather than on guide pages.
-
-The owner, 6 October 2026, asked for THE BATON to be made harder in levels,
-each building up slowly and adding one thing only. Built so far
-(`claude/baton-levels`): the level list (`baton-level.ts`) with `single` (one
-bead; a struck flight out of the last socket is the drop) and `twin` (the
-fight as it shipped), the arm folding and unfolding as the next level, and
-either seat's thumb sending a bead; then `pair` (`claude/baton-pair`,
-`claude/baton-pair-look`), two arms a column either side of the centre; then
-`across`, the arm along a row. Left:
-
-1. **The field explains each extra part**: two or three beats before the twin,
-   the swing, the shed, the merge, the crossing, the second arm and the arm
-   across first appear, words on the field say what is coming, and while it
-   runs, what each seat has to do. The owner's ask, over the rule that a cue
-   is one word (`.claude/skills/new-boss` §2) — confirm the wording with him.
-
 ## The two silent-event lists are eight lines off the ceiling
 
 - **Found:** 2026-10-06, claude/baton-rules

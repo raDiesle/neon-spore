@@ -31,6 +31,7 @@ export {
   batonAcrossCol,
   batonActor,
   batonArmCol,
+  batonArmDark,
   batonArms,
   batonBaseCol,
   batonBeadCol,
