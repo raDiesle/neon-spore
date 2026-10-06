@@ -33702,3 +33702,5 @@ Bottleneck: the first frame — the spore was drawn under the wait clock, which 
 - landing: 5 min. The wave editor's save test refused a comment inside the entries, so it moved to the file's header.
 
 Bottleneck: every rule this boss had was written down in five places — the sim, the director's notes, the tutorial's comment, two spec pages — and each had to be said again.
+
+*Measured: 12 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

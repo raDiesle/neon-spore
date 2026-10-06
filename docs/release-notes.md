@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-06 · 6d5336017 — THE BATON forgives the beat: a slow bead goes back one, the wrong colour two
+
+The owner, 6 October 2026. The arm unfolds in six beats, not eleven. A bead may sit four beats in the top socket and two in the bottom, counted down evenly between, and one that sits longer goes back one socket rather than to the top. A bolt of the wrong colour knocks the bead out of the air, two sockets back (new event `batonKicked`). No press is judged by the beat: the crossing forgives an act off the beat and misses only after a gap longer than the bottom socket's turn, and the miss puts the bead back in the last socket rather than relighting the whole arm. A merge window closing short also costs one socket now. THE BATON's wave carries no other enemies.
+
 ## 2026-10-06 · f7c08357b — THE FLUE's spore goes red over the cannon, and a miss stings
 
 On the pilot's screen the spore now wears a faint shield everywhere except over the cannon. As it comes over the sight the shield breaks, a red shock opens round it, and the spore turns red for its whole stay there, reddest at the middle. As it leaves, the shield closes back round it. A shot spent now flashes the sight red, splits red cracks out of it and flares the spent pip red, on both screens. The spore is also drawn above the partner's clock now: before, that clock hid it exactly when it was over the cannon.
