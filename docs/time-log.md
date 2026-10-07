@@ -34754,3 +34754,15 @@ Bottleneck: landing — the reach test stops at its first side, so the other
 three had to be read off a second run with `REACH=1`.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE INSTAR's fly-in queued with the owner's question
+
+- reading: 5 min. The approach in frames, at two strides, and a crop of the
+  face-on body mid-flight.
+- writing: 0 min. One queue entry.
+- looking: 5 min. Two strips of the fly-in and one magnified crop.
+- friction: 0 min.
+- landing: 0 min.
+
+Bottleneck: reading — *ugly* names no part, and only a strip shows which
+one it might be.

@@ -413,3 +413,22 @@ and gone before the next draw is asked for, since a tine is a seat's draw
 handle. The 27 September `sling:tine` swing was dropped as too small
 (`DECIDED.md`); this one is an event, not an idle drift. Test, two frames
 paired, the spec's *as built* paragraph.
+
+## THE INSTAR's fly-in gets a body that matches its side view
+
+- **Found:** 2026-10-07, claude/instar-boss-graphics-3d-b0ba0a
+- **Files:** `packages/render/src/instar-flight.ts`, `packages/render/src/instar-front-body.ts`, `packages/render/src/instar-turn.ts`, `packages/render/src/instar-legs.ts`
+- **Asks:** Should THE INSTAR fly in seen from the side (A), keep coming in face-on but with a new body (B), or should both go to VERSUS (C)?
+
+The owner, 7 October 2026: *it looks ugly when it flies in*. The scale
+strips on the growing body are fixed (`instar-front-body.ts`), and side-on the
+dragon now has a turned head and four legs. Face-on, the fly-in is still a
+flat mask with a lumpy, segmented tube trailing up and to the right, with no
+legs, and its wings are small at that size. Options:
+(A) fly in side-on: the approach is drawn in the profile, so the turned head,
+legs and raised wings grow in from far away, and it turns face-on only when it
+arrives;
+(B) stay face-on, but the trailing tube becomes a smooth tapered body seen
+a third of the way round (`instar-turn.ts`'s `TURN`), with the legs
+hanging off it and the wings spread;
+(C) build A and B as VERSUS candidates (`instar:flight`) beside what ships.
