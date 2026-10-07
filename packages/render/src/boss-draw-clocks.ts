@@ -180,6 +180,7 @@ export function drawClockBoss(
       verdicts,
       shake,
       stops,
+      effects.boss.curtain.scorch,
     );
     ctx.restore();
     return;

@@ -4,6 +4,7 @@ import { drawHurt } from "./boss-hurt.js";
 import { paintBead, paintCoreBody, paintSheet } from "./curtain-flesh.js";
 import { type CurtainGive, giveReach, NO_GIVE } from "./curtain-give.js";
 import { CURTAIN_HEM_DROP, CURTAIN_RAIL_RISE, curtainSheetPath } from "./curtain-hem.js";
+import type { CurtainThin } from "./curtain-thin.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -58,7 +59,9 @@ export function drawCurtainSheet(
   hurt = 0,
   /** The cloth's give under a hand (`curtain-give.ts`): carried towards it and dipped. */
   give: CurtainGive = NO_GIVE,
-): void {
+  /** Where the jammed sheet is strained thin under a hand (`curtain-thin.ts`). */
+  thin: CurtainThin | null = null,
+): { railY: number; hemY: number } {
   const t = l.tile;
   const railY = cy - t * CURTAIN_RAIL_RISE;
   const hemY = cy + t * CURTAIN_HEM_DROP - lift;
@@ -81,7 +84,7 @@ export function drawCurtainSheet(
     shadows.moveTo(x + t * 0.07, railY);
     shadows.quadraticCurveTo(x + t * 0.08 + ripple, waist, x + t * 0.07 + hang, foot);
   }
-  paintSheet(ctx, path, folds, shadows, { x0, x1, railY, hemY, tile: t });
+  paintSheet(ctx, path, folds, shadows, { x0, x1, railY, hemY, tile: t, thin });
   drawHurt(ctx, path, hurt);
   // The lobes along the hem: the boss's health, and the pilot's soft ones lit.
   for (let i = 0; i < CURTAIN_COLS; i++) {
@@ -93,6 +96,7 @@ export function drawCurtainSheet(
     if (lit) halo(ctx, x, y, t * 0.5, PALETTE.hull, 0.55 + 0.25 * Math.sin(time * 5 + i));
     paintBead(ctx, x, y, t * LOBE_R, lit);
   }
+  return { railY, hemY };
 }
 
 /**

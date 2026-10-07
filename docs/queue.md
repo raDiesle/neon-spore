@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE CURTAIN's fabric shows where a shot struck it and thins under the hands
-
-- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
-- **Files:** `packages/render/src/curtain-sheet.ts`, `packages/render/src/curtain-fx.ts`, `packages/render/src/curtain-give.ts`, `docs/spec/bosses-choreographed.md`
-
-Two parts of §6's look are not drawn (its ledger row, *Not drawn still*). **A bolt into the cloth leaves a mark**: a bolt into the fabric is stopped in the simulation (`bullet-refused.ts`, `curtainHemStruck`) and the hem bounces it, and nothing stays on the cloth. Draw a scorched pucker or tear that heals over a few beats, held in `Effects` and cleared in `Effects.reset()`. It must **not** open: §11.24 argues against a hole you can see the core through. **The cloth thins where the hands are** (§6's THE SLOW): while the rail is jammed and a hand strains the sheet (`curtainGive`), the membrane gets more see-through around the hand. The pilot is never shown a covered core, so this gives him nothing. The decoy stays out, as argued in §11.24. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
-
-
 ## THE TASTER's SLOW beat gets a picture of its own
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11

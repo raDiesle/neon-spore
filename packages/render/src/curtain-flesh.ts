@@ -1,3 +1,4 @@
+import { type CurtainThin, drawThinFibres, thinFill } from "./curtain-thin.js";
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
 
@@ -31,6 +32,8 @@ export interface Drape {
   railY: number;
   hemY: number;
   tile: number;
+  /** Where a strained hand thins it, or nothing (`curtain-thin.ts`). */
+  thin?: CurtainThin | null;
 }
 
 /**
@@ -47,8 +50,11 @@ export function paintSheet(
 ): void {
   const { tile } = d;
   ctx.save();
-  ctx.globalAlpha = SHEET_ALPHA;
-  ctx.fillStyle = PALETTE.hull;
+  if (d.thin) ctx.fillStyle = thinFill(ctx, d.thin, SHEET_ALPHA);
+  else {
+    ctx.globalAlpha = SHEET_ALPHA;
+    ctx.fillStyle = PALETTE.hull;
+  }
   ctx.fill(body);
   ctx.globalAlpha = 1;
   ctx.clip(body);
@@ -70,6 +76,7 @@ export function paintSheet(
   ctx.strokeStyle = PALETTE.hullRim;
   ctx.globalAlpha = 0.35;
   ctx.stroke(folds);
+  if (d.thin) drawThinFibres(ctx, d.thin, tile);
   // The gathered top edge, thick and lit from inside. The hem is left to the
   // deep: stroked wide along it, the hem read as the outline this replaced.
   band(ctx, body, d, d.railY - tile, d.railY + tile * 0.12, tile * 0.14, PALETTE.hull, 0.55);

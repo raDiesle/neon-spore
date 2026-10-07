@@ -15,9 +15,11 @@ import {
 } from "./curtain-grip.js";
 import { curtainHandWordY } from "./curtain-hand-word.js";
 import { drawCurtainAsked, drawCurtainVerdicts } from "./curtain-marks.js";
+import type { CurtainScorch } from "./curtain-scorch.js";
 import { drawCurtainCore, drawCurtainJam, drawCurtainSheet } from "./curtain-sheet.js";
 import { curtainStopper } from "./curtain-stop.js";
 import { curtainSway } from "./curtain-sway.js";
+import { curtainThin } from "./curtain-thin.js";
 import { drawnCol } from "./depth.js";
 import { drawHandAt, gripLabel, handWordY } from "./grip.js";
 import type { GripVerdicts } from "./grip-verdict.js";
@@ -84,6 +86,8 @@ export function drawCurtain(
   /** How far the dispatcher has shaken it across, in pixels, for where a bolt stops. */
   shake = 0,
   stops?: BoltStops,
+  /** The marks bolts have left in the cloth (`curtain-scorch.ts`). */
+  scorch?: CurtainScorch,
 ): void {
   if (l.tile <= 0) return;
   const { cfg } = world;
@@ -115,7 +119,25 @@ export function drawCurtain(
   // And gives where a hand holds it, rather than sliding whole (`curtain-give.ts`).
   const mid = curtainSheetMidX(l, cfg, at);
   const give = curtainGive(l, world, c, body, beatPhase, mid, curtainHemPull(cfg, c));
-  drawCurtainSheet(ctx, l, x0, cy, c.lobes, soft, lag, sway, lift, time, hurt, give);
+  // And thins round the hand while the jammed rail holds against it (`curtain-thin.ts`).
+  const thin = curtainThin(l, c, give, cy);
+  const hung = drawCurtainSheet(
+    ctx,
+    l,
+    x0,
+    cy,
+    c.lobes,
+    soft,
+    lag,
+    sway,
+    lift,
+    time,
+    hurt,
+    give,
+    thin,
+  );
+  // Where a bolt struck the cloth, healing (`curtain-scorch.ts`).
+  scorch?.draw(ctx, l.tile, { col: body.col, x0, ...hung, lag, give });
 
   // The jam, over the sheet's own rail, and the hem's ring over the sheet: both
   // are the `pinned` state and nothing else, and both draw on both screens —
