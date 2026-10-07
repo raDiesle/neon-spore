@@ -34053,3 +34053,16 @@ Bottleneck: reading which of four marks round the sight was the "scanner
 box" the owner meant.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE FLUE is played on SHOTS, red and cyan only
+
+- reading: 5 min. The control sets, how a seat's half is chosen, and
+  whether the shield ever stopped the flue's blow (it does not).
+- writing: 5 min. The SHOTS set, the wave naming it, the one test that
+  wanted both seats to hold a button.
+- looking: 5 min. Both phones' bands on the first two levels.
+- friction: 0 min.
+- landing: 0 min.
+
+Bottleneck: none — the level trade already swaps whole panels, so a set
+with one seat empty was the whole change.

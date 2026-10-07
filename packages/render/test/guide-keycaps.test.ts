@@ -1,5 +1,13 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { controlSetForWave, deskKeys, keyGlyph, WAVES, waveGuideSteps } from "@neon-spore/content";
+import {
+  controlSetForWave,
+  deskKeys,
+  guideScene,
+  keyGlyph,
+  setControls,
+  WAVES,
+  waveGuideSteps,
+} from "@neon-spore/content";
 import { createWorld, DEFAULT_CONFIG, startWave } from "@neon-spore/sim";
 import { drawWaveOpening } from "../src/briefing.js";
 import { GuideStage } from "../src/guide-scene.js";
@@ -74,7 +82,13 @@ describe("the guide's keycaps", () => {
           if (c > (phone.get(t) ?? 0))
             expect(glyphs.has(t), `${WAVES[wave]!.name}: ${t}`).toBe(true);
         }
-        expect(extra, `${WAVES[wave]!.name} shows no key`).toBeGreaterThan(0);
+        // A page whose seat holds nothing on the band owes no key: THE FLUE's
+        // first page is player 1's, who only sees and speaks (SHOTS).
+        const scene = WAVES[wave]!.guide?.scene;
+        const seat = scene === undefined ? 1 : (guideScene(scene).steps[0]?.seat ?? 1);
+        const holds = setControls(controlSetForWave(wave), seat === 2 ? 2 : 1).length > 0;
+        if (holds) expect(extra, `${WAVES[wave]!.name} shows no key`).toBeGreaterThan(0);
+        else expect(extra, `${WAVES[wave]!.name} shows a key on an empty band`).toBe(0);
       }
     });
   }

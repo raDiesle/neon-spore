@@ -11101,7 +11101,11 @@ the whole fight (`flueHoldsCannon`, refused in `command-locks.ts`): with it
 free the pilot would slide it under the ember, and the beam, which burns the
 cannon's column the tick it goes off, would need nobody's timing at all. So
 the pilot has the eyes and the mouth, and the navigator the colour, the
-trigger and the beam. **The seats swap every level** (the owner, 6 October
+trigger and the beam. **The panel is SHOTS**
+(`content/control-sets-table.ts`; the owner, 7 October 2026: *apply a
+control set, where only cannon shot is visible*): red and cyan on the
+navigator's half and nothing on the pilot's, so the screen that shoots holds
+both colours and the other only sees and speaks. **The seats swap every level** (the owner, 6 October
 2026: *every level, we can switch player roles*): on every even level, the
 second, fourth and on, the two panels trade phones, THE HANDOVER's trade (`sim/flue.ts`,
 `flueTraded`, read by `handedOver`), from the rest that leads in, so each

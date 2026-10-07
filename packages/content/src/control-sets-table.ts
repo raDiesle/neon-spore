@@ -192,6 +192,21 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     controls: ["throatShield", "throatSuck", "throatRed", "throatCyan"],
   },
   {
+    id: "shots",
+    name: "SHOTS",
+    why: "Red and cyan and nothing else: the screen that shoots holds both colours, and the other screen only sees and speaks.",
+    // **THE FLUE's panel** (the owner, 7 October 2026: *apply a control set,
+    // where only cannon shot is visible. each level the player will switch
+    // the control set of both cannon shots*). The cannon is held on the
+    // middle column all fight, so a strip there was a button that did
+    // nothing; the shield and the maw answer nothing the flue throws. The two
+    // colours stand where they stand on STANDARD, held for the beam as they
+    // are there, and the flue's level trade hands both to the other phone
+    // each level (`sim/flue.ts`, `flueTraded`).
+    reduces: "default",
+    controls: ["fireRed", "fireCyan"],
+  },
+  {
     id: "scene",
     name: "THE SCENE",
     why: "Nothing on the band at all: the boss's own body carries every mark a thumb answers, and where a mark sits says whose thumb it is.",

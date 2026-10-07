@@ -46,6 +46,14 @@ describe("control sets", () => {
         expect(set.controls.length).toBe(0);
         continue;
       }
+      // SHOTS gives one seat both colours and the other nothing: THE FLUE's
+      // level trade hands the pair to the other phone every level, so each
+      // person still takes a turn at the trigger (`control-sets-table.ts`).
+      if (set.id === "shots") {
+        expect(setControls(set, 1).length).toBe(0);
+        expect(setControls(set, 2).map((c) => c.id)).toEqual(["fireRed", "fireCyan"]);
+        continue;
+      }
       expect(setControls(set, 1).length).toBeGreaterThan(0);
       expect(setControls(set, 2).length).toBeGreaterThan(0);
     }

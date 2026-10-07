@@ -229,5 +229,6 @@ export const WAVES_ACT_13: Wave[] = [
       ],
     },
     bossType: "normal",
+    controls: "shots",
   },
 ];

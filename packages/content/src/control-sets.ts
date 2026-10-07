@@ -86,6 +86,7 @@ export type ControlSetId =
   | "claw"
   | "scout"
   | "throat"
+  | "shots"
   | "scene";
 
 export interface ControlSet {
