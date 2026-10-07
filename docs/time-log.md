@@ -34918,3 +34918,15 @@ frames, which swing as the spine bends through the turn; it took three tries
 to find that each ring's frame has to be turned as a rotation.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE BURGEE explained, a misplaced LAMPREY block queued
+
+- reading: 10 min. THE BURGEE's §39 design and §11.56 write-up, its wave
+  in `act-13.ts`, its two controls' rows.
+- writing: 5 min. The explanation, in German, and one queue entry.
+- looking: 0 min.
+- friction: 0 min. A zsh glob in a `grep --include` refused; quoted away.
+- landing: 5 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: reading — the boss's story is split across a design section and
+a write-up four thousand lines apart in two files.

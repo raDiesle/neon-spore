@@ -463,3 +463,16 @@ Likely `signature` hashes the difference too coarsely to tell two shapes in
 the same place apart. Find out why, and make a seat-split candidate show both
 seats; a test with two patches drawing different shapes in one rectangle
 proves it.
+
+## THE LAMPREY's "worm on the field" sits inside THE BURGEE's write-up
+
+- **Found:** 2026-10-07, claude/burgee-boss-wave-fd8568
+- **Files:** `docs/spec/bosses.md`
+
+The block that opens **The worm on the field** (the owner, 6 October 2026,
+`sim/lamprey-roam.ts`) and its five bullets stand in §11.56 THE BURGEE,
+between *Where this departs from the design* and *What is proven*, though
+every word of it is THE LAMPREY's. §11.59 THE LAMPREY's clock paragraph
+points to it as "*The worm on the field*, below", so a reader of either
+section is sent the wrong way. Move the block, whole, into §11.59 below that
+paragraph, and check that nothing else in `docs/` links to it by its old place.
