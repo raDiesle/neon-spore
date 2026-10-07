@@ -34526,3 +34526,14 @@ machines the part that hinges is the part a thumb or a cannon is asked for.
 Bottleneck: none worth the name — the decision was already written down.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE GRINDSTONE's jaw pad is placed by one function
+
+- reading: 5 min. The caliper, the grip's standing and the verdicts' marks.
+- writing: 5 min. `grindstonePadPlaced`, the two callers, a `COPIES` row.
+- looking: 0 min. Nothing the game draws changed.
+- friction: 0 min. A heredoc with a doubled backslash was refused by the
+  guard hook; rewritten as a raw string at once.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: `check:fast` — the COPIES table reaches every test in the tree.
