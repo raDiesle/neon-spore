@@ -4716,11 +4716,13 @@ screens, the zone on the pilot's alone, the sum on the navigator's alone,
 and the flash's reset; `sinew-touch.test.ts` proves the handles are answered
 where they are drawn, by their own seat only, and that a hand carried down a
 tile reports the reach. *Not built of the design's look*: the band is a
-collar on the tendon rather than a white bar half on each screen — the
-tendon is what strains, so the strain is drawn on it; the mass's swing has
-no lag or overshoot beyond the snap's whip, its sag is a curve of the sum;
-THE SLOW on a part is wired by the simulation and nothing in the look marks
-it beyond the hull's shock. The owner's eye decides all three.
+glass tube on the tendon with a green zone and a blue sum line rather than a
+white bar half on each screen — the owner's own ask by name, 2 and
+5 October 2026; the mass's swing has no lag or overshoot beyond the snap's
+whip, its sag is a curve of the sum; and THE SLOW on a part is marked by its
+prism standing round the mass (`slow-boss-aim-b.ts`, 26 September 2026) but
+not by the design's fibres going half-transparent through it. Whether any of
+the three is still wanted is the owner's question (`docs/queue.md`).
 
 **The rehearsal** (`content/src/scenes/the-sinew.ts`, 17 September 2026,
 ten pages over 2160 ticks): each seat's handle, then the zone on the pilot's

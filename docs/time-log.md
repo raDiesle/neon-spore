@@ -34768,3 +34768,18 @@ Bottleneck: reading — *ugly* names no part, and only a strip shows which
 one it might be.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE SINEW's three unbuilt looks, put to the owner
+
+- reading: 15 min. The SINEW's sway, band, fibres and fx; the design's
+  presentation; the band's history, which the owner redesigned by name on
+  2 and 5 October.
+- writing: 5 min. The spec's stale line corrected, the entry rewritten as a
+  question with its three options.
+- looking: 5 min. One `bun run frames` inside a part's SLOW, to see whether
+  anything marks it — the prism does.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the entry was filed from a write-up three weeks older than the
+owner's own redesign, and only the band's commit history said so.

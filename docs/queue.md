@@ -328,14 +328,29 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE SINEW's mass swings with weight, and THE SLOW is marked on it
+## THE SINEW: a white band, a weighty swing, fibres clear in THE SLOW?
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
-- **Taken:** 2026-10-07, claude/tasks-form-queue-9a5f8c (claim: claude/queue-the-sinews-mass-swings-with-weight-and-the-slow)
-- **Files:** `packages/render/src/sinew-sway.ts`, `packages/render/src/sinew-band.ts`, `packages/render/src/sinew-draw.ts`
+- **Files:** `packages/render/src/sinew-band.ts`, `packages/render/src/sinew-sway.ts`, `packages/render/src/sinew-fibres.ts`
+- **Asks:** Which of the three, if any, should be offered in VERSUS?
 
-bosses.md §11 THE SINEW, *Not built of the design's look*: the mass's swing has no lag or overshoot beyond the snap's whip; nothing in the look marks THE SLOW on a part beyond the hull's shock; and the band is a collar on the tendon, where the design wanted a white bar split across the two screens. Offer each one as its own VERSUS candidate. The write-up leaves all three to the owner's eye. Step 8's lobes and step 11's halved ward window are argued against there and stay out. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
+The design's look for THE SINEW has three parts the game does not draw
+(bosses.md §11.26, *Not built of the design's look*), and on 7 October 2026
+each turned out to sit against something the owner has since decided:
 
+1. **The band as a white bar, half on each screen.** The owner asked by name
+   for the glass tube with a green zone and a blue sum line on 2 and 5 October
+   2026; a white bar would undo that. Option: drop it, or offer it anyway.
+2. **The mass swinging with lag and overshoot** as the sum changes. The
+   difference is about a third of a tile and only in motion, so it would be
+   judged as an animated pair and fails *seen at a glance* (docs/versus.md,
+   27 September 2026). It also needs memory across frames held in the
+   renderer, since nothing in the world keeps the sag's last value. Option:
+   offer it animated, or drop it.
+3. **The fibres going half-transparent through THE SLOW.** THE SLOW is
+   already marked on the mass by its prism (26 September 2026); see-through
+   fibres would be a second mark, plainly visible in a still. Option: offer
+   it, or call the prism enough.
 
 ## THE LEDGER's cord lights the ship's nerves, its back off the shape sheet
 
