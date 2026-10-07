@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · b0fefc14f — Time log for THE GRINDSTONE's jaw pad
+
+## 2026-10-07 · e4fc9cfe1 — THE GRINDSTONE's jaw pad is placed by one function
+
+`grindstonePadPlaced` in `grindstone-caliper.ts` lays a pad on its jaw and swings it about the bolt; the verdict ring and the hit test both call it instead of each writing the turn out, so a jaw that rocks is taught once. A `COPIES` row holds it. Nothing on the field moves.
+
 ## 2026-10-07 · 4fc4bb4f4 — Time log for THE TRIVET's foot seam
 
 ## 2026-10-07 · 3acb78cc9 — THE TRIVET's foot seam is gone
