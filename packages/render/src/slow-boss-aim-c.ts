@@ -95,7 +95,7 @@ export function longBossAim(world: World, l: Layout, beat: number, beatPhase: nu
     case "keel": {
       const s = keelBoss(world);
       if (s === null) return null;
-      const segs = keelSegs(l, cfg, s, beat, beatPhase);
+      const segs = keelSegs(l, cfg, s, beat, beatPhase, world);
       return spreadCapsule(
         segs.map((seg) => seg.centre),
         keelPlateHalf(l),

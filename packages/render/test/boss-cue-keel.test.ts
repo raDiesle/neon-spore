@@ -86,7 +86,7 @@ describe("THE KEEL", () => {
       const c = cue(world, seat);
       expect(c?.word).toBe("TAP");
       expect(c?.kind).toBe("PRESS");
-      const ring = keelJointCircle(LAYOUT[seat], CFG, s, world.beat, 0);
+      const ring = keelJointCircle(LAYOUT[seat], CFG, s, world.beat, 0, world);
       expect(c?.x).toBeCloseTo(ring?.x ?? Number.NaN, 5);
       expect(c?.y).toBeCloseTo(ring?.y ?? Number.NaN, 5);
       expect(cue(world, other)).toBeNull();
@@ -114,7 +114,7 @@ describe("THE KEEL", () => {
       expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], midCol(CFG)), 5);
       expect(c?.y).toBe(LAYOUT[role].hullY);
       // The crosshair rides the socket between the cut faces, not the hull.
-      const segs = keelSegs(LAYOUT[role], CFG, s, world.beat, 0);
+      const segs = keelSegs(LAYOUT[role], CFG, s, world.beat, 0, world);
       const socket = keelSocketAt(LAYOUT[role], s, segs);
       expect(socket).not.toBeNull();
       expect(c?.aim?.x).toBeCloseTo(socket?.x ?? Number.NaN, 5);
@@ -134,7 +134,7 @@ describe("THE KEEL", () => {
       expect(c?.seat).toBeNull();
       expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], 2), 5);
       // The crosshair rides the rock as it falls (`keelRockNow`).
-      const segs = keelSegs(LAYOUT[role], CFG, s, world.beat, 0);
+      const segs = keelSegs(LAYOUT[role], CFG, s, world.beat, 0, world);
       const rock = keelRockNow(LAYOUT[role], CFG, s, segs, world.beat, 0);
       expect(rock).not.toBeNull();
       expect(c?.aim?.x).toBeCloseTo(rock?.x ?? Number.NaN, 5);

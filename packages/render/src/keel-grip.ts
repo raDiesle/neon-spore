@@ -12,6 +12,7 @@ import { keelRingCircle } from "./keel-marks.js";
 import { keelSegs } from "./keel-pose.js";
 import { keelEndCircle } from "./keel-story.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
+import { NO_SPAN, type SlowSpan } from "./slow-hush.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
@@ -45,9 +46,10 @@ export function keelJointCircle(
   s: KeelState,
   beat: number,
   beatPhase: number,
+  slow: SlowSpan = NO_SPAN,
 ): Circle | null {
   if (!keelLit(s) || s.joint === NO_JOINT) return null;
-  const seg = keelSegs(l, cfg, s, beat, beatPhase)[s.joint];
+  const seg = keelSegs(l, cfg, s, beat, beatPhase, slow)[s.joint];
   return seg === undefined ? null : keelRingCircle(l, seg.centre);
 }
 
@@ -60,7 +62,7 @@ export function keelJointCircle(
 export function keelJointUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const s = bossOf(field, "keel");
   if (s === null) return null;
-  if (!keelTakes(l, field.cfg, s, field.seat, field.beat, field.beatPhase, x, y)) return null;
+  if (!keelTakes(l, field, s, field.seat, x, y)) return null;
   const seat = field.seat;
   return {
     player: seat,
@@ -79,9 +81,9 @@ export function keelJointUnder(l: Layout, x: number, y: number, field: Field): T
 export function keelGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
   const s = bossOf(field, "keel");
   if (s === null) return undefined;
-  const { cfg, beat, beatPhase } = field;
+  const { cfg, beat, beatPhase, slow } = field;
   if (keelFlipping(s)) {
-    const segs = keelSegs(l, cfg, s, beat, beatPhase);
+    const segs = keelSegs(l, cfg, s, beat, beatPhase, slow);
     let best: { seat: 1 | 2; d: number } | undefined;
     for (const seat of [1, 2] as const) {
       const end = keelEndCircle(segs, l, s, seat);
@@ -91,7 +93,7 @@ export function keelGripSeat(l: Layout, x: number, y: number, field: Field): 1 |
     }
     return best?.seat;
   }
-  const ring = keelJointCircle(l, cfg, s, beat, beatPhase);
+  const ring = keelJointCircle(l, cfg, s, beat, beatPhase, slow);
   if (ring === null || !hitCircle(ring, x, y)) return undefined;
   return keelSeat(s, cfg.cols) ?? undefined;
 }
@@ -99,22 +101,21 @@ export function keelGripSeat(l: Layout, x: number, y: number, field: Field): 1 |
 /** Whether a thumb at (x, y) from `seat` lands on a ring the spine has out this frame. */
 function keelTakes(
   l: Layout,
-  cfg: SimConfig,
+  field: Field,
   s: KeelState,
   seat: 1 | 2,
-  beat: number,
-  beatPhase: number,
   x: number,
   y: number,
 ): boolean {
+  const { cfg, beat, beatPhase, slow } = field;
+  const segs = () => keelSegs(l, cfg, s, beat, beatPhase, slow);
   if (keelFlipping(s)) {
-    const end = keelEndCircle(keelSegs(l, cfg, s, beat, beatPhase), l, s, seat);
+    const end = keelEndCircle(segs(), l, s, seat);
     return end !== null && hitCircle(end, x, y);
   }
   if (keelBreathing(s) || keelCooling(s)) {
-    const segs = keelSegs(l, cfg, s, beat, beatPhase);
-    return segs.some((g) => hitCircle(keelRingCircle(l, g.centre), x, y));
+    return segs().some((g) => hitCircle(keelRingCircle(l, g.centre), x, y));
   }
-  const ring = keelJointCircle(l, cfg, s, beat, beatPhase);
+  const ring = keelJointCircle(l, cfg, s, beat, beatPhase, slow);
   return ring !== null && hitCircle(ring, x, y);
 }

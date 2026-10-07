@@ -284,6 +284,17 @@ game "INSTAR:FLIGHT · SERPENT"*. `INSTAR_SERPENT.amount` is 1 on the field.
   the valves swing open. On the field under *a look with no shipped
   alternative*.
 
+  *THE KEEL, as built, 7 October 2026* (`keel-sway.ts`): one swell runs
+  along the spine, head to tail, and each segment still loose rises and
+  falls on it a moment after the one before, up to six tenths of a tile,
+  on top of the small rock it already had. A locked segment is rigid and
+  does not heave, so the spine stills a joint at a time as the pair lock
+  it. Up and down only, so every segment stays over its column. Every
+  reader takes the segments from `keelSegs`, so the rings ride the heave;
+  a third is left under THE SLOW, the middle two still as they hinge
+  apart, and nothing once the spine is done. On the field under *a look
+  with no shipped alternative*.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair

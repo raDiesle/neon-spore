@@ -19,8 +19,10 @@ import {
   type SegPose,
 } from "./keel-shape.js";
 import { keelBreathSwell, keelFlipRise } from "./keel-story-pose.js";
+import { keelHeave } from "./keel-sway.js";
 import type { Layout } from "./layout.js";
 import { phaseInto } from "./phase-into.js";
+import { NO_SPAN, type SlowSpan } from "./slow-hush.js";
 
 /**
  * **The clock THE KEEL is posed off** (§24, *Animation*): a loose, faintly
@@ -173,7 +175,7 @@ export function keelRockAlong(
 
 /**
  * Every segment as it stands this frame: its place on the arch, lifted while
- * the spine drops in, and its pose. The one copy the drawing and the thumb
+ * the spine drops in and heaved on the swell (`keel-sway.ts`), and its pose. The one copy the drawing and the thumb
  * both read (`keel-draw.ts`, `keel-grip.ts`).
  */
 export function keelSegs(
@@ -182,12 +184,17 @@ export function keelSegs(
   s: KeelState,
   beat: number,
   beatPhase: number,
+  slow: SlowSpan = NO_SPAN,
 ): Seg[] {
   const n = s.locked.length;
   const rise = keelRise(s, cfg, beat, beatPhase);
   const lift = (1 - keelArrived(s, cfg, beat, beatPhase)) * 3 * l.tile;
+  const open = keelOpen(s, cfg, beat, beatPhase);
+  // The swell along the loose ones (`keel-sway.ts`), down positive, against a lift up.
+  const heave = (k: number) =>
+    keelHeave(cfg, s, k, keelMiddle(s, k) === 0 ? 0 : open, beat, beatPhase, slow) * l.tile;
   return s.locked.map((_, k) => ({
-    centre: keelSegCentre(l, cfg, k, n, rise, lift),
+    centre: keelSegCentre(l, cfg, k, n, rise, lift - heave(k)),
     slope: keelSegSlope(l, cfg, k, n, rise),
     pose: keelSegPose(s, cfg, k, beat, beatPhase),
   }));

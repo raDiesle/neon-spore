@@ -144,7 +144,7 @@ export function bossHandleCircle(
     // THE KEEL's ring round the lit joint, round the segment as it hangs this
     // frame. Null between joints, where no ring is drawn (`keel-grip.ts`).
     const b = world.boss?.kind === "keel" ? world.boss : null;
-    return b === null ? null : keelJointCircle(l, cfg, b, world.beat, beatPhase);
+    return b === null ? null : keelJointCircle(l, cfg, b, world.beat, beatPhase, world);
   }
   if (target === "oculusLeafLeft" || target === "oculusLeafRight") {
     // THE OCULUS's two halves, the middle of each seat's side of the lens as

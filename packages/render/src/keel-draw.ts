@@ -66,7 +66,7 @@ export function drawKeel(
   const cfg = world.cfg;
   const n = s.locked.length;
   const arrived = keelArrived(s, cfg, beat, beatPhase);
-  const segs = keelSegs(l, cfg, s, beat, beatPhase);
+  const segs = keelSegs(l, cfg, s, beat, beatPhase, world);
 
   fx.tell(PALETTE[s.socket]);
   ctx.save();

@@ -61,7 +61,7 @@ export function keelCues(
   const out: BossCue[] = [];
   const cfg = world.cfg;
   const frame = cueFrame(l, CUE_FRAME_WIDE);
-  const segs = keelSegs(l, cfg, s, world.beat, beatPhase);
+  const segs = keelSegs(l, cfg, s, world.beat, beatPhase, world);
   const fire = (col: number, on: { x: number; y: number } | null, seed: number): void => {
     const aim = on === null ? undefined : cueAimAt(l, on);
     const x = fieldX(l, col);
@@ -78,7 +78,7 @@ export function keelCues(
     }
   }
   if (keelMarrowLit(s)) fire(midCol(cfg), keelMarrowAt(l, s, segs), 139);
-  const ring = keelLit(s) ? keelJointCircle(l, cfg, s, world.beat, beatPhase) : null;
+  const ring = keelLit(s) ? keelJointCircle(l, cfg, s, world.beat, beatPhase, world) : null;
   if (ring !== null) {
     const seat = keelSeat(s, cfg.cols);
     out.push({ seat, kind: "PRESS", word: "TAP", x: ring.x, y: ring.y, ...frame, seed: 121 });
