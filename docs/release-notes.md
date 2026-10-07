@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 9a70578dc — THE CURTAIN's core is struck where the shot meets it
+
+The core is met where it hangs, up the column it has drifted to on `curtainRow`, rather than when the bolt leaves the top of the field: a `CORES` row in `core-along.ts` may now have nothing in the middle column and only a part up a column of its own. The picture already hung the core on that row. THE TASTER comes off the queue's item, because its crest hangs above row 0's centre and gains nothing. THE SCUTTLE is queued with a question, because its frame stands where the screen has room. The table's own description now says what an aside is.
+
 ## 2026-10-07 · b2f59cc8a — THE OCULUS's core is struck where the shot meets it
 
 The open socket is met where the lens hangs, in the middle column, rather than when the bolt leaves the top of the field: THE OCULUS is on `core-along.ts`'s table, and the lens is drawn at the simulation's row. A look step has nothing drawn up its column to meet and stays at the top, and the shattering lens stops nothing in either. The other five bosses of the queue's item stay on it, split into lanes of their own.
