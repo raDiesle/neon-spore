@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 23d5d2da0 — THE INSTAR side-on grows four legs, the far pair behind the body
+
+Seen from the side, THE INSTAR now has four dangling legs: a foreleg under the chest with its elbow back, and a hind leg under the haunches with its knee forward. Each is a lit tube with three hooked claws. The far pair hangs behind the body, higher on it and darkened toward the background, so one leg crossing over another gives the side view the depth it lacked. A bolt stops on a leg.
+
 ## 2026-10-07 · 918fbd778 — THE TASTER's notch at its own depth is offered in VERSUS
 
 The game draws every gap in THE TASTER's crest the same, brightened by the cuts into all of them. A candidate, `taster:notch` · deep, draws each gap as deep as the pair has cut it: an uncut gap looks as the game's notch does today, and a gap cut four times is a wet hole through the crest. It is judged on THE TASTER · CLOSED, where one gap is cut four times and eight never. The notch's depth and paint are lifted into `NOTCH_LOOK` so a candidate can patch them; the frame the game draws is unchanged.

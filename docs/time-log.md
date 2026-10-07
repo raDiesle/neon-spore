@@ -34752,3 +34752,5 @@ showed CLOSED has one gap cut four times and eight never.
 
 Bottleneck: landing — the reach test stops at its first side, so the other
 three had to be read off a second run with `REACH=1`.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
