@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · da8219245 — Living bosses step 11: the machines left still, and three queued
+
+THE VALVE and THE DAVIT get no swing: the valve's drum carries the wheel and the socket, its pins are thumb-held and already sway as the owner picked, and the davit's hook is the loose handle and the fire target. THE SPOOL's barrel, THE GRINDSTONE's caliper and THE SLING's tines are queued, one lane each. The rollout list and the time log say so.
+
+## 2026-10-07 · b5e8acd3b — THE PLUMB's loose stones swing on the beat, past half a tile
+
+A loose stone of THE PLUMB swung on each phone's own wall clock, so the two stones the pair compare swung out of step between the screens, and by 0.4 of a tile, under what is seen. It now swings on the beat clock, 0.42 of a radian on its 1.25-tile chain, just over half a tile each way. A locked stone hangs still and an asked one steadies as it is held, as before; the press's reach covers the swing. Living bosses, step 11. Exemption: a look the owner asked for by name (step 11, 7 October 2026), and a fix — the screens disagreed.
+
+## 2026-10-07 · a3985a3cb — A spent clasp of THE HASP swings on its hinge
+
+A spent clasp's two half-shells turn together about the pin at the nose, up to a quarter of a radian, so the pair swings like a gate left open, its tail travelling more than half a tile. It replaces the slack the halves breathed by on the wall clock, so both screens now see one swing. Sealed clasps are still, and a bolt meets the halves as they swing. Step 11 of the living-bosses rollout, on the field under "a look the owner asked for by name".
+
 ## 2026-10-07 · 183d6193b — The shipped bosses' unbuilt parts are queued, one lane each
 
 Nine entries from the *Not built* clauses of the choreographed ledger: THE CURTAIN's struck and thinning cloth, THE TASTER's SLOW picture and its per-notch depth, THE SINEW's weighted swing, THE LEDGER's lit nerves and back, THE SURGE's gaping slits and eversion, THE LEAD's arrow and falls, THE SCUTTLE's parts in its body, and THE ANTIPHON's turning organ. The looks go to VERSUS. Parts the write-ups argue against, or that an owner's rule settled, are left out; two stale clauses in the ledger are corrected.

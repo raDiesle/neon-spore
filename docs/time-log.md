@@ -34511,3 +34511,5 @@ apart, so each gap had to be checked against the write-up by hand.
 
 Bottleneck: deciding which hinged parts may swing at all — on most
 machines the part that hinges is the part a thumb or a cannon is asked for.
+
+*Measured: 14 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
