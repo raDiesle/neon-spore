@@ -34932,3 +34932,18 @@ Bottleneck: reading — the boss's story is split across a design section and
 a write-up four thousand lines apart in two files.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE CAPSTAN's pull says which way, then that it is right
+
+- reading: 15 min. The drum's sim, draw, grip, marks and verdicts; the
+  shared halo, clock, verdict ring, pull arrow and THE INSTAR's arc.
+- writing: 15 min. `mark-progress.ts`, the CAPSTAN's arrow, green hold ring,
+  rub count and `HOLD` cue, two tests, two queue entries.
+- looking: 15 min. Four rounds of `bun run frames` on both seats: the count
+  ring moved in off the partner's dashed ring, the side arrow moved over the
+  drum and thickened.
+- friction: 0 min. `timeout` is not on macOS; ran the check without it.
+- landing: 5 min. `bun run index` for the new file, `check:fast`, `land`.
+
+Bottleneck: looking — the first arrow and ring were placed by reading the
+shape code, and both landed under something else on the screen.

@@ -45,8 +45,9 @@ import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
 
-// How faint the lean's mark is on a hold, which either horn answers.
-const EITHER = 0.5;
+// How lit the lean's mark is on a hold, which either way answers: less than a
+// band's one way, and still plain to read.
+const EITHER = 0.75;
 
 const SIDES = [0, 1] as const;
 

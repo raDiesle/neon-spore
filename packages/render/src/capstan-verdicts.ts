@@ -1,15 +1,23 @@
 import {
   type CapstanState,
+  capstanBand,
   capstanCoreAsks,
+  capstanFace,
+  capstanLitStep,
   capstanRubAsks,
   capstanSteerAsks,
   type SimConfig,
   type SimEvent,
 } from "@neon-spore/sim";
 import { capstanCoreStanding, capstanRubStanding, capstanSteerStanding } from "./capstan-grip.js";
+import { capstanHeldShare, capstanWorn } from "./capstan-pose.js";
+import { capstanSize } from "./capstan-shape.js";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
 import { type Circle, type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
+import { drawMarkHeld, drawMarkProgress } from "./mark-progress.js";
+import { PALETTE } from "./palette.js";
+import { drawPullArrow } from "./pull-knob.js";
 
 /**
  * **THE CAPSTAN's marks answering a touch the way every mark does**
@@ -36,6 +44,15 @@ import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
  * drift is a pause, so neither says anything. **Neither a wrong seat's touch
  * nor a wrong colour is refused red**: the simulation says nothing of either
  * (`sim/capstan-hand.ts`, `sim/capstan-shot.ts`).
+ *
+ * **The pull says which way, then that it is right** (the owner, 7 October
+ * 2026): the steering seat's middle carries the way arrow every pull mark
+ * carries (`way-arrow.ts`), two-headed on a hold either way takes; once the
+ * pull has the right face round it wears the steady green ring of a part
+ * held where it is wanted, on both screens, and the halo goes. **The rub's
+ * count rides its end on both screens** — one green segment a reversal, or a
+ * beat of a hold, over a dim track of all it needs (`mark-progress.ts`) — so
+ * the seat holding the pull sees the partner still at it, and how far.
  *
  * Held in `CapstanFx` (`capstan-fx.ts`), as THE GRINDSTONE's are in its own.
  * Everything here is in canvas pixels, where the drum stands this frame.
@@ -92,8 +109,8 @@ function asked(l: Layout, cfg: SimConfig, s: CapstanState, mark: number): "own" 
 
 /**
  * Over the drum, at `fade`: the halo on each mark that asks this screen, the
- * partner's ring and clock on each that asks only them, and every verdict
- * still showing.
+ * partner's ring and clock on each that asks only them, the pull's arrow or
+ * its green ring, the rub's count, and every verdict still showing.
  */
 export function drawCapstanMarkFeedback(
   ctx: CanvasRenderingContext2D,
@@ -111,18 +128,73 @@ export function drawCapstanMarkFeedback(
     capstanRubStanding(l, cfg, s, beat, beatPhase),
     capstanCoreStanding(l, cfg, s, beat, beatPhase),
   ];
+  const held = capstanPullHeld(cfg, s);
   const before = ctx.globalAlpha;
   marks.forEach((c, mark) => {
     ctx.globalAlpha = fade;
     const says = asked(l, cfg, s, mark);
-    if (says === "own") drawMarkHalo(ctx, c.x, c.y, c.r, time);
+    const steer = mark === CAPSTAN_STEER_MARK;
+    if (steer && held) drawMarkHeld(ctx, c.x, c.y, c.r, time);
+    else if (says === "own") drawMarkHalo(ctx, c.x, c.y, c.r, time);
     ctx.globalAlpha = fade;
+    if (steer && says === "own" && !held) drawPullWay(ctx, s, c, time, fade);
     if (says === "theirs") {
       drawMarkTheirs(ctx, c.x, c.y, c.r, time);
       drawMarkWait(ctx, c.x, c.y, c.r, time);
+    }
+    ctx.globalAlpha = fade;
+    if (mark === CAPSTAN_RUB_MARK) {
+      const count = capstanRubCount(cfg, s, beatPhase);
+      // Hugging the face, inside the reach a press is taken at.
+      const R = capstanSize(l).ry * 1.3;
+      if (count !== null) drawMarkProgress(ctx, c.x, c.y, R, count.share, count.segments);
     }
     const verdict = v.at(mark);
     if (verdict !== null) drawVerdictRing(ctx, c.x, c.y, c.r, verdict);
   });
   ctx.globalAlpha = before;
+}
+
+/** Whether the steering pull has the face the lit step wants round: its band's, or either on a hold. */
+export function capstanPullHeld(cfg: SimConfig, s: CapstanState): boolean {
+  const ask = capstanLitStep(s)?.ask;
+  const face = capstanFace({ cfg }, s);
+  if (face === null) return false;
+  return ask === "hold" || capstanBand(s) === face;
+}
+
+/**
+ * How far the lit step's rubbing has got, and in how many parts: a band's
+ * reversals out of `capstanWearThreshold`, a hold's beats out of
+ * `capstanHoldBeats`. Null on a shot and between steps.
+ */
+export function capstanRubCount(
+  cfg: SimConfig,
+  s: CapstanState,
+  beatPhase: number,
+): { share: number; segments: number } | null {
+  const ask = capstanLitStep(s)?.ask;
+  const band = capstanBand(s);
+  if (band !== null) {
+    return { share: capstanWorn({ cfg }, s, band), segments: cfg.capstanWearThreshold };
+  }
+  if (ask !== "hold") return null;
+  return { share: capstanHeldShare({ cfg }, s, beatPhase), segments: cfg.capstanHoldBeats };
+}
+
+/** The steering seat's arrow inside the middle: the band's way, or both ways on a hold. */
+function drawPullWay(
+  ctx: CanvasRenderingContext2D,
+  s: CapstanState,
+  c: Circle,
+  time: number,
+  fade: number,
+): void {
+  const band = capstanBand(s);
+  const way = { dx: band === 0 ? -1 : 1, dy: 0 };
+  drawPullArrow(ctx, c, c.r, way, time, {
+    alpha: 0.95 * fade,
+    either: band === null,
+    hex: PALETTE.text,
+  });
 }

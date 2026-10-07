@@ -25,9 +25,10 @@ import type { Layout } from "./layout.js";
  * press takes the pull (`capstanSteerUnder`); the horn the band asks toward
  * is inside an end's rub zone, and a thumb put down on a word there was
  * handed a rub. Which way to carry is the arrow's, on that horn
- * (`capstan-marks.ts`). It goes once that band's face is bared — a word over
- * a pull held could only say *keep going* — and a pull let go is owed it
- * again. **`RUB` on the bared face, to the other
+ * (`capstan-marks.ts`). It goes once that band's face is bared, and
+ * **`HOLD` takes its place** — the owner, 7 October 2026: the seat pulling
+ * has to know its pull is right and to keep it there while the other rubs —
+ * and a pull let go is owed `PULL` again. **`RUB` on the bared face, to the other
  * seat**, from the moment it is round: the seat the pull is not asked of is
  * the only one whose reversals wear (`capstan-hand.ts`).
  *
@@ -66,5 +67,10 @@ export function capstanCues(
   }
   const at = capstanRubStanding(l, cfg, s, world.beat, beatPhase);
   const seat = capstanWearer(world, s);
-  return [{ seat, kind: "CARRY", word: "RUB", x: at.x, y: at.y, ...frame, seed: 161 }];
+  const mid = capstanSteerStanding(l, cfg, s, world.beat, beatPhase);
+  const steer = capstanSteerer(world, s);
+  return [
+    { seat, kind: "CARRY", word: "RUB", x: at.x, y: at.y, ...frame, seed: 161 },
+    { seat: steer, kind: "HOLD", word: "HOLD", x: mid.x, y: mid.y, ...frame, seed: 232 },
+  ];
 }

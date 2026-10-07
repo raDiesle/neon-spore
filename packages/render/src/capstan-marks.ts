@@ -5,7 +5,7 @@ import {
   capstanCapR,
   capstanCoreR,
   capstanFacePath,
-  capstanHornAt,
+  capstanSize,
 } from "./capstan-shape.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
@@ -82,8 +82,8 @@ export function drawCapstanFace(
 }
 
 /**
- * The lean's mark on horn `side`: the shared pull arrow (`drawPullArrow`,
- * 30 September 2026) pointing out, the way the phone goes — lit and
+ * The lean's mark on side `side`: the shared pull arrow (`drawPullArrow`,
+ * 30 September 2026) over the drum toward that end, pointing out — lit and
  * breathing on the side the step asks for, faint on both while a hold takes
  * either. On the screen of the seat that steers alone (`mine`): a gesture on
  * a mark reads as *your next move*, and the other seat's is the rub.
@@ -98,17 +98,33 @@ export function drawCapstanHorn(
   time: number,
 ): void {
   if (strength <= 0 || !mine) return;
-  const at = capstanHornAt(l, side);
+  const at = capstanWayAt(l, side);
   const pulse = 0.7 + 0.3 * Math.cos(beatPhase * Math.PI * 2);
   const way = { dx: side === 0 ? -1 : 1, dy: 0 };
   drawPullArrow(ctx, at, HORN_R * l.tile, way, time, {
     alpha: pulse * strength,
     hex: PALETTE.hullRim,
+    width: STROKE.outline * 2.4,
   });
 }
 
-/** The horn's arrow, in tiles: the chevron's reach it replaces. */
-const HORN_R = 0.16;
+/**
+ * The lean's arrow, in tiles: big enough to read across a table — the owner,
+ * 7 October 2026: *first it must make clear visual with arrows to pull either
+ * left side or right side*. It was 0.16 on the horn, under the end it points
+ * past, and could not be seen.
+ */
+const HORN_R = 0.85;
+
+/**
+ * Where the lean's arrow stands: over the drum, toward its own end — clear of
+ * both ends, whose rub and partner's clock would cover it there.
+ */
+function capstanWayAt(l: Layout, side: 0 | 1): { x: number; y: number } {
+  const { rx, ry } = capstanSize(l);
+  const x = rx * 0.55;
+  return { x: side === 0 ? -x : x, y: -(ry + 0.7 * l.tile) };
+}
 
 /**
  * The core and its cap, at the drum's middle. The core is soft and dull

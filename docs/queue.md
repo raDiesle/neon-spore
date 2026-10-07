@@ -476,3 +476,33 @@ every word of it is THE LAMPREY's. §11.59 THE LAMPREY's clock paragraph
 points to it as "*The worm on the field*, below", so a reader of either
 section is sent the wrong way. Move the block, whole, into §11.59 below that
 paragraph, and check that nothing else in `docs/` links to it by its old place.
+
+## A held mark shows it is right: THE DAVIT, THE LAMPREY, THE HALTER
+
+- **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
+- **Files:** `packages/render/src/davit-verdicts.ts`, `packages/render/src/lamprey-verdicts.ts`, `packages/render/src/halter-verdicts.ts`, `packages/render/src/mark-progress.ts`
+
+The owner, 7 October 2026, on THE CAPSTAN and *generic for on-screen
+events*: a seat holding its part has to see that the hold is right, that the
+partner is still busy, and how far the partner has got, *so that he knows to
+keep pulling and holding*. THE CAPSTAN is the worked example
+(`capstan-verdicts.ts`): its held pull wears `drawMarkHeld`'s steady green
+ring in place of the halo, the cue says `HOLD` to that seat, and the
+partner's mark carries `drawMarkProgress`'s segments on both screens. Give
+the same to each boss here wherever one seat holds while the other works —
+THE DAVIT's boom held on the lit side while the partner swipes, THE
+LAMPREY's tail held while the head is freed, THE HALTER's two grips held —
+with a test beside `capstan-held.test.ts` for each. A boss whose hold has no
+count the simulation keeps gets the green ring and no arc.
+
+## A held mark shows it is right: THE KEEL, THE CYST, THE BURGEE
+
+- **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
+- **Files:** `packages/render/src/keel-verdicts.ts`, `packages/render/src/cyst-verdicts.ts`, `packages/render/src/burgee-verdicts.ts`, `packages/render/src/mark-progress.ts`
+
+The same rule and recipe as the entry for THE DAVIT, THE LAMPREY and THE
+HALTER above (`capstan-verdicts.ts` is the worked example): THE KEEL's two
+ends held through a flip, THE CYST's flank tapped still while the partner
+pinches, THE BURGEE's flag held still while the partner draws. Each held
+part wears `drawMarkHeld` on both screens, the holder's cue reads `HOLD`, and
+the partner's work carries `drawMarkProgress` where the simulation counts it.

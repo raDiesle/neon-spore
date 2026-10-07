@@ -1,10 +1,10 @@
 import { circleSubpath } from "@neon-spore/content";
 import type { SceneMark } from "@neon-spore/sim";
-import { arcFromTop } from "./arc-from-top.js";
 import { strokeGlow } from "./glow.js";
 import { drawInstarCrosshair } from "./instar-crosshair.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
 import { drawMarkWait } from "./mark-feedback.js";
+import { drawMarkProgress, MARK_PROGRESS_R } from "./mark-progress.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /** How far past its radius a ring breathes out: harder while its seat is awaited. */
@@ -42,7 +42,7 @@ export function drawInstarRing(
     // A crosshair and not a ring, and nothing over the part (`instar-crosshair.ts`).
     drawInstarCrosshair(ctx, x, y, r * breathe, held || awaited, glow, mark.color);
     if (!mine) drawMarkWait(ctx, x, y, r, time);
-    drawProgress(ctx, x, y, r, along);
+    drawMarkProgress(ctx, x, y, r * MARK_PROGRESS_R, along);
     return;
   }
   const p = new Path2D(circleSubpath(x, y, r * breathe));
@@ -60,26 +60,8 @@ export function drawInstarRing(
   if (mine) drawInstarGlyph(ctx, gesture, x, y, r, time);
   ctx.restore();
   if (!mine) drawMarkWait(ctx, x, y, r, time);
-  drawProgress(ctx, x, y, r, along);
-}
-
-/** The arc round the mark that fills as the part gives. */
-function drawProgress(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  along: number,
-): void {
-  if (along <= 0) return;
   // Green: the part is giving, so the carry is going the right way — the
   // simulation holds a pull the wrong way at nought, so an arc at all is
-  // already the answer to *am I doing it right* (`mark-feedback.ts`).
-  ctx.save();
-  ctx.strokeStyle = PALETTE.good;
-  ctx.lineWidth = STROKE.outline * 1.6;
-  ctx.beginPath();
-  arcFromTop(ctx, x, y, r * 1.55, along);
-  ctx.stroke();
-  ctx.restore();
+  // already the answer to *am I doing it right* (`mark-progress.ts`).
+  drawMarkProgress(ctx, x, y, r * MARK_PROGRESS_R, along);
 }

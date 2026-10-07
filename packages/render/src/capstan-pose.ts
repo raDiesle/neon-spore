@@ -83,12 +83,16 @@ export function capstanTurn(world: Pick<World, "cfg">, s: CapstanState): number 
 }
 
 /** Face `side`'s wear as a share of bright: 1 worn bright for good. */
-export function capstanWorn(world: World, s: CapstanState, side: 0 | 1): number {
+export function capstanWorn(world: Pick<World, "cfg">, s: CapstanState, side: 0 | 1): number {
   return Math.min(1, s.wear[side] / Math.max(1, world.cfg.capstanWearThreshold));
 }
 
 /** The share of the lit hold's beats kept, this beat's fraction included while a rub has landed in it. */
-export function capstanHeldShare(world: World, s: CapstanState, beatPhase: number): number {
+export function capstanHeldShare(
+  world: Pick<World, "cfg">,
+  s: CapstanState,
+  beatPhase: number,
+): number {
   if (capstanLitStep(s)?.ask !== "hold") return 0;
   const running = s.rubbed ? beatPhase : 0;
   return Math.min(1, (s.heldBeats + running) / Math.max(1, world.cfg.capstanHoldBeats));

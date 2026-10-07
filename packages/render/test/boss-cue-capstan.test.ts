@@ -12,7 +12,11 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
-import { capstanCoreStanding, capstanRubStanding } from "../src/capstan-grip.js";
+import {
+  capstanCoreStanding,
+  capstanRubStanding,
+  capstanSteerStanding,
+} from "../src/capstan-grip.js";
 import { fieldX } from "../src/field-flip.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { touchDown } from "../src/touch.js";
@@ -27,11 +31,12 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE CAPSTAN, and the three words the field may say about it**
+ * **THE CAPSTAN, and the four words the field may say about it**
  * (`render/src/boss-cue-read-zl.ts`): `PULL` to the seat that steers until
- * the band's face is round, `RUB` on that face to the other seat once it is;
- * on a hold `PULL` to both until somebody pulls, then `RUB` to the seat that
- * is not pulling; and `FIRE` under the middle column on a bared core. What is
+ * the band's face is round, then `HOLD` on the middle to that seat and `RUB`
+ * on that face to the other; on a hold `PULL` to both until somebody pulls,
+ * then `HOLD` to that seat and `RUB` to the other; and `FIRE` under the
+ * middle column on a bared core. What is
  * *not* said: nothing between steps, and never the shot's colour. And a
  * word is where the thumb goes: a press on `PULL` takes the pull.
  */
@@ -76,7 +81,7 @@ describe("THE CAPSTAN", () => {
     ["left", "p1", "p2", 0, -PULL],
     ["right", "p2", "p1", 1, PULL],
   ] as const)(
-    "says PULL on a %s band to the steerer, then RUB to the other",
+    "says PULL on a %s band to the steerer, then HOLD to it and RUB to the other",
     (ask, steerer, wearer, i, tilt) => {
       const { world, s } = lit(ask);
       expect(cue(world, steerer)?.word).toBe("PULL");
@@ -85,7 +90,11 @@ describe("THE CAPSTAN", () => {
       s.pullMilli[i] = -tilt;
       expect(cue(world, steerer)?.word).toBe("PULL");
       s.pullMilli[i] = tilt;
-      expect(cue(world, steerer)).toBeNull();
+      const held = cue(world, steerer);
+      const mid = capstanSteerStanding(LAYOUT[steerer], CFG, s, world.beat, 0);
+      expect(held?.word).toBe("HOLD");
+      expect(held?.x).toBeCloseTo(mid.x);
+      expect(held?.y).toBeCloseTo(mid.y);
       const said = cue(world, wearer);
       const at = capstanRubStanding(LAYOUT[wearer], CFG, s, world.beat, 0);
       expect(said?.word).toBe("RUB");
@@ -123,12 +132,12 @@ describe("THE CAPSTAN", () => {
     expect(touch?.hold?.kind === "drag" ? touch.hold.target : null).toBe("capstanSteer");
   });
 
-  it("says PULL on a hold to both until one pulls, then RUB to the other", () => {
+  it("says PULL on a hold to both until one pulls, then HOLD to it and RUB to the other", () => {
     const { world, s } = lit("hold");
     expect(cue(world, "p1")?.word).toBe("PULL");
     expect(cue(world, "p2")?.word).toBe("PULL");
     s.pullMilli = [0, PULL];
-    expect(cue(world, "p2")).toBeNull();
+    expect(cue(world, "p2")?.word).toBe("HOLD");
     expect(cue(world, "p1")?.word).toBe("RUB");
   });
 

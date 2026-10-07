@@ -96,10 +96,16 @@ export function drawPullArrow(
   r: number,
   way: PullWay,
   time: number,
-  o: { alpha: number; either?: boolean; hex?: string },
+  o: {
+    alpha: number;
+    either?: boolean;
+    hex?: string;
+    /** The stroke, where a mark's arrow has to read from across a table: `STROKE.outline` otherwise. */
+    width?: number;
+  },
 ): void {
   ctx.save();
-  strokeWay(ctx, at, r, way, time, o.alpha, o.either, o.hex ?? PALETTE.text);
+  strokeWay(ctx, at, r, way, time, o.alpha, o.either, o.hex ?? PALETTE.text, o.width);
   ctx.restore();
 }
 
@@ -112,9 +118,10 @@ function strokeWay(
   alpha: number,
   either: boolean | undefined,
   hex: string,
+  width: number = STROKE.outline,
 ): void {
   ctx.strokeStyle = hex;
-  ctx.lineWidth = STROKE.outline;
+  ctx.lineWidth = width;
   ctx.globalAlpha = alpha;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";

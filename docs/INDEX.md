@@ -2443,6 +2443,7 @@ by hand never moves.
 | `packages/render/src/mantle-marks.ts` | **THE MANTLE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/mark-feedback.ts` | **Which mark is wanted, and by whom**, on every boss with a mark: the halo on this seat's open mark, the turning ring and the waiting clock on the partner's |
 | `packages/render/src/mark-spots.ts` | **Where each boss's marks were drawn this frame, on the screen** |
+| `packages/render/src/mark-progress.ts` | **A held part is right, and how far the partner has got**, for any boss: the steady green ring on a mark held where it is wanted, and a mark's progress as a green arc or segments |
 | `packages/render/src/mount-look.ts` | THE ONE RECORD A CANDIDATE **MOUNT** PATCHES |
 | `packages/render/src/mount-bearing.ts` | Where on its wheel a mount stands, for a look that turns with it |
 | `packages/render/src/mount-rasp.ts` | RASP — a kept look for THE GYRE's mounts, drawn only on the GRAPHICS page's LIBRARY |
