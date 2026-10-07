@@ -240,9 +240,14 @@ misunderstanding, and it is withdrawn.**
 - **Between two views a body keeps turning; it is never two ghosts.** A
   crossfade of a still face-on view into a still profile shows one body twice.
   Instead the face-on body, wings and snout go on round the way the profile
-  faces as the figure runs toward it, still drawn solid, and the profile takes
-  over only across the middle of the turn, where the two nearly agree
-  (`instarTurn`, `instarHandover`). Where a fire is aimed at the body's far
+  faces as the figure runs toward it, still drawn solid (`instarTurn`), and
+  across the middle of the turn (`instarHandover`) it is one body: each ring
+  part of the way from where face-on has it to where side-on has it, seen
+  through a view yawed the same share round, with the wings, the tail and the
+  legs going with it (`instar-turning.ts`, 7 October 2026 — before it, two
+  drawings crossed, and the owner saw the dragon *replaced*). The back rolls
+  from one view's to the other's as a rotation of each ring's frame, never by
+  a flip (`instar-roll.ts`); only the head is still crossed. Where a fire is aimed at the body's far
   end, that end is read from whichever view has the body, so the aim moves
   with the turn and not by a cut.
 - **A body on the field never jumps to a speck.** When a boss must come in

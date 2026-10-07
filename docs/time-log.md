@@ -34898,3 +34898,21 @@ Bottleneck: friction — VERSUS chose one seat for a patch that draws each
 seat differently, so the navigator's half could not be photographed.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE INSTAR turns as one body between its views
+
+- reading: 5 min. The draw's handover, the stops, the reach test, and the
+  two bodies' frames.
+- writing: 20 min. `turnedLines` mixing the two bodies' rings, view and
+  limbs; the side-on draw split out to take it; the stops and the reach on
+  it; `instar-roll.ts` and two tests.
+- looking: 10 min. The step-5 turn three times at 3×, and a walk of every
+  pose's turn in fortieths, then four-hundredths, for jumps.
+- friction: 5 min. `bun run sheet` wants the prefix without its dash, and
+  `--ticks 0` is refused; both read from the error.
+- landing: 5 min. Three budget rows moved, the style guide's turn paragraph,
+  `check:fast`.
+
+Bottleneck: writing — the back could not be read as an angle off the tube's
+frames, which swing as the spine bends through the turn; it took three tries
+to find that each ring's frame has to be turned as a rotation.

@@ -50,6 +50,9 @@ export interface Body {
   /** Whether the frames' own `0` is the back, or the belly: it starts from "up",
    * and a spine that leaves the neck running backward has its back underneath. */
   readonly upright: boolean;
+  /** Where the back is round each ring, off the frames' own `0`, when that is not `upright`'s
+   * either way: a body part of the way round between two views rolls it (`instar-turning.ts`). */
+  readonly back?: readonly number[];
   /** The view it is seen through: side-on on the field, any yaw on the rig's sheet. */
   readonly w: View;
 }
@@ -80,7 +83,8 @@ export function bodyOf(top: readonly Point[], bottom: readonly Point[], W = SIDE
 
 /** Where angle `a` from the back round ring `i` lands, `lift` radii out from the surface. */
 export function place(body: Body, i: number, a: number, lift = 0): Placed {
-  const ang = body.upright ? a * body.side : Math.PI - a * body.side;
+  const from = body.back?.[i] ?? (body.upright ? 0 : Math.PI);
+  const ang = from + (body.upright ? a : -a) * body.side;
   const frame = body.frames[i] as Frame;
   const p = see(onRing(body.rings[i] as Ring, frame, ang, lift), body.w);
   const n = ringNormal(frame, ang);

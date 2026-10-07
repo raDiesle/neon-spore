@@ -8,8 +8,8 @@ import type { Layout } from "./layout.js";
  * **How far each of THE INSTAR's views reaches, and whether any of it is on
  * the field.** The flight carries the body out past the edge and back in
  * (`instar-flight.ts`), and its turn between the two views mostly happens out
- * there — the one stretch of the script where both views are drawn whole
- * (`instarHandover`). A view that lands entirely off the canvas is not drawn,
+ * there — where the body is part of the way round (`instar-turning.ts`) and
+ * is culled on both views' boxes at once. A view that lands entirely off the canvas is not drawn,
  * which changes no pixel and spares most of a turn's frames.
  *
  * Each box is the view's own geometry, grown by how far its paint was measured

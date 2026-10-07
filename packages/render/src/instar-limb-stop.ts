@@ -5,10 +5,11 @@ import { type Leg, legRings, profileLegs } from "./instar-legs.js";
 import { nestPool, nestsAt } from "./instar-nest-place.js";
 import type { Point } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
-import { heading, profileWings, type WingSeat } from "./instar-profile.js";
+import type { WingSeat } from "./instar-profile.js";
 import { swimLook } from "./instar-serpent.js";
 import { tailShape } from "./instar-tail.js";
 import { bladePoints } from "./instar-tail-blade.js";
+import type { Turned } from "./instar-turning.js";
 import { wingPoints } from "./instar-wing-rig.js";
 import type { Layout } from "./layout.js";
 
@@ -41,26 +42,23 @@ export function frontLimbFeet(
   ];
 }
 
-/** The profile's wings, tail and nests, from the lines `profileLines` hands out. */
+/** The profile's wings, legs, tail and nests, on the body `turnedLines` hands out — side-on, or part of the way round. */
 export function profileLimbFeet(
   l: Layout,
   still: Look,
-  lines: {
-    spine: readonly Point[];
-    top: readonly Point[];
-    bottom: readonly Point[];
-    rear: Point;
-  },
+  t: Turned,
+  k: number,
   lay: (p: Point) => Point,
   scale: Point,
 ): Foot[] {
   // The wings, the tail and the nests ride the wave the spine swims on, as `drawProfile` draws them.
   const look = swimLook(l, still);
   const { r } = look;
-  const feet = profileWings(lines.top, lines.rear, r).map((seat) => wingFoot(look, seat, lay));
-  const legs = profileLegs(lines.spine, lines.bottom, r, look.time);
-  const { rear } = lines;
-  feet.push(...tailAndLegFeet(l, look, rear, heading(lines.spine), legs, lay, scale));
+  const feet = t.wings.map((seat) => wingFoot(look, seat, lay));
+  const legs = profileLegs(t.spine, t.bottom, r, look.time, t.near);
+  const tailLook = { ...look, r: r * t.tailNear };
+  feet.push(...tailAndLegFeet(l, tailLook, t.rear, t.heading, legs, lay, scale));
+  if (k <= 0) return feet;
   for (const nest of nestsAt(l, look)) {
     if (nest.n <= 0) continue;
     const pool = nestPool(nest.at, r);

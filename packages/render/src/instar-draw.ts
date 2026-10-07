@@ -9,7 +9,7 @@ import { drawInstarHeart } from "./instar-heart.js";
 import { drawInstarMarks } from "./instar-marks.js";
 import { instarAt, instarFarEnd, instarHeadAt } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
-import { drawProfile } from "./instar-profile.js";
+import { drawProfile } from "./instar-profile-draw.js";
 import { frontReach, onField, profileReach } from "./instar-reach.js";
 import { instarSerpent } from "./instar-serpent.js";
 import { instarFade, instarThreat } from "./instar-shape.js";
@@ -32,8 +32,8 @@ import { tubesAt } from "./solid-tube-screen.js";
  * it flies off and passes and comes back side-on, the nests on its back
  * (`instar-profile.ts`, `instar-eggs.ts`); it crosses out and in from the
  * other side and swings its tail at the ship (`instar-tail.ts`). Between the
- * two views the body turns on round, and the profile takes over across the
- * middle of the turn (`instar-turn.ts`).
+ * two views the body turns on round (`instar-turn.ts`), and across the middle
+ * of the turn it is one body seen part of the way round (`instar-turning.ts`).
  *
  * Read off the world every frame; what outlives a frame — the jolt of a
  * landing, the flinch at a wrong thumb, the strike of a part not stopped —
@@ -106,24 +106,24 @@ export function drawInstar(
     weak,
     serpent: instarSerpent(s, cfg, world, beat, beatPhase),
   };
+  // Across the middle of a turn the side-on drawing has the whole body, part
+  // of the way round (`instar-turning.ts`); before it, the face-on one has it.
   const side = instarHandover(f.side);
   // Most of a turn is flown off the field, where a view is not drawn at all
   // (`instar-reach.ts`); at rest the body is always on it.
   const jolt = { x: shake, y: -fx.jolt * l.tile };
   const neck = instarNeck(head, r);
+  const seen = () => seeFrontBody(look, neck, instarFarEnd(l, f), instarTurn(f.side));
   const front =
-    side < 0.99 &&
+    side <= 0 && (!flying || onField(l, frontReach(head, r, neck, seen()), flight, jolt));
+  const profile =
+    side > 0 &&
     (!flying ||
-      onField(
-        l,
-        frontReach(head, r, neck, seeFrontBody(look, neck, instarFarEnd(l, f), instarTurn(f.side))),
-        flight,
-        jolt,
-      ));
-  const profile = side > 0.01 && (!flying || onField(l, profileReach(l, f), flight, jolt));
+      onField(l, profileReach(l, f), flight, jolt) ||
+      (side < 1 && onField(l, frontReach(head, r, neck, seen()), flight, jolt)));
   tubesAt(flight.scale, flying, () => {
-    if (front) drawFront(ctx, l, { ...look, fade: look.fade * (1 - side) });
-    if (profile) drawProfile(ctx, l, { ...look, fade: look.fade * side });
+    if (front) drawFront(ctx, l, look);
+    if (profile) drawProfile(ctx, l, look, side);
   });
   ctx.restore();
   // The second act's own things: the heart lit in the bare body, and what the
@@ -132,6 +132,6 @@ export function drawInstar(
   drawInstarSpit(ctx, l, s, sway, threat, { x: head.x, y: head.y + r * 0.9 }, time);
   fx.place(l, s, sway, threat, head, r);
   drawInstarMarks(ctx, l, world, s, sway, beat, beatPhase, time, l.role, fx.verdicts);
-  const frame = { look, flight, flying, front, profile, shake: jolt };
+  const frame = { look, flight, flying, front, profile, turn: side, shake: jolt };
   stops?.aim(instarStopper(l, world, s, sway, frame, beat, beatPhase));
 }

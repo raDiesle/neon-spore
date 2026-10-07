@@ -5,13 +5,15 @@ import { drawFront } from "../src/instar-front.js";
 import { seeFrontBody } from "../src/instar-front-body.js";
 import { instarAt, instarFarEnd, instarHeadAt } from "../src/instar-place.js";
 import type { Look } from "../src/instar-plate.js";
-import { drawProfile } from "../src/instar-profile.js";
+import { drawProfile } from "../src/instar-profile-draw.js";
 import {
   type Box,
   FRONT_REACH,
   frontCore,
+  frontReach,
   PROFILE_REACH,
   profileCore,
+  profileReach,
 } from "../src/instar-reach.js";
 import { instarThreat } from "../src/instar-shape.js";
 import { instarBody } from "../src/instar-sway.js";
@@ -84,6 +86,7 @@ const past = (p: Box, b: Box) => ({
 describe("THE INSTAR's reach", () => {
   it("stays inside each view's box over the whole script", () => {
     const front = { worst: 0, at: "" };
+    const turning = { worst: Number.NEGATIVE_INFINITY, at: "" };
     const side = { left: 0, right: 0, up: 0, down: 0 };
     const sideAt: Record<string, string> = {};
     const s0 = acting(world, 0);
@@ -131,6 +134,24 @@ describe("THE INSTAR's reach", () => {
               if (worst > front.worst) Object.assign(front, { worst, at });
             }
           }
+          if (h > 0 && h < 1) {
+            // Part of the way round it is one body (`instar-turning.ts`), culled on both boxes at once.
+            const p = painted(() => drawProfile(ctx, l, look, h));
+            if (p) {
+              const neck = instarNeck(head, r);
+              const seen = seeFrontBody(look, neck, instarFarEnd(l, f), instarTurn(f.side));
+              const a = frontReach(head, r, neck, seen);
+              const b = profileReach(l, f);
+              const m = past(p, {
+                x0: Math.min(a.x0, b.x0),
+                y0: Math.min(a.y0, b.y0),
+                x1: Math.max(a.x1, b.x1),
+                y1: Math.max(a.y1, b.y1),
+              });
+              const worst = Math.max(m.left, m.right, m.up, m.down);
+              if (worst > turning.worst) Object.assign(turning, { worst, at });
+            }
+          }
           if (h > 0.01) {
             const p = painted(() => drawProfile(ctx, l, look));
             if (p) {
@@ -148,7 +169,8 @@ describe("THE INSTAR's reach", () => {
         }
       }
     }
-    if (process.env.REACH) console.log(front, side, sideAt, instarAt(l, 0, 0));
+    if (process.env.REACH) console.log(front, side, sideAt, turning, instarAt(l, 0, 0));
+    expect(turning.worst, `the turning body's reach, ${turning.at}`).toBeLessThan(0);
     expect(front.worst, `the face-on view's reach, ${front.at}`).toBeLessThan(FRONT_REACH);
     for (const k of ["left", "right", "up", "down"] as const)
       expect(side[k], `the side-on view's reach ${k}, ${sideAt[k]}`).toBeLessThan(PROFILE_REACH[k]);

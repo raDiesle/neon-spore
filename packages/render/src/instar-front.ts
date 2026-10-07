@@ -89,7 +89,7 @@ export function frontWings(look: Look): [WingSeat, WingSeat] {
 }
 
 /** The two engines at the far end: a steady burn, flickering. */
-function drawEngines(
+export function drawEngines(
   ctx: CanvasRenderingContext2D,
   rear: { x: number; y: number },
   r: number,

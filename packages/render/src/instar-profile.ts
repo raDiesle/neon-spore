@@ -1,23 +1,10 @@
 import { SIDE, type Vec3, type View, view } from "@neon-spore/content";
-import { drawHurt } from "./boss-hurt.js";
-import { halo, strokeGlow } from "./glow.js";
-import { mixHex } from "./hex.js";
 import { INSTAR_BODY } from "./instar-body-look.js";
-import { drawNests } from "./instar-eggs.js";
-import { drawLegs, profileLegs } from "./instar-legs.js";
-import { drawMoult } from "./instar-moult.js";
 import { instarAt, instarFarEnd, type Point } from "./instar-place.js";
-import { drawSeam, faded, type Look } from "./instar-plate.js";
-import { BREATH_PERIOD, breathAt, headBob, rollAt, undulate } from "./instar-profile-life.js";
-import { bodyOf, drawBelly, drawLamps, drawRidge, drawScales } from "./instar-profile-surface.js";
-import { drawScutes } from "./instar-scutes.js";
-import { swellAt, swimAt, swimLook } from "./instar-serpent.js";
-import { drawTail } from "./instar-tail.js";
-import { drawWing } from "./instar-wings.js";
+import type { Look } from "./instar-plate.js";
+import { breathAt, undulate } from "./instar-profile-life.js";
+import { swellAt, swimAt } from "./instar-serpent.js";
 import type { Layout } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
-import { drawContact } from "./solid-haze.js";
-import { drawTube, rimTube } from "./solid-tube-draw.js";
 import { splineAt } from "./spline.js";
 
 /**
@@ -39,40 +26,12 @@ import { splineAt } from "./spline.js";
  * What sits on it is placed round those rings (`instar-profile-surface.ts`),
  * and it breathes, swims and rolls on its own clock (`instar-profile-life.ts`).
  * Four legs hang under it, the far pair behind the body (`instar-legs.ts`).
+ *
+ * This file lays the lines; `instar-profile-draw.ts` draws them.
  */
 
-/** Samples along the spine, and how many of them one seam, lamp or spine spans. */
+/** Samples along the spine. */
 const N = 32;
-const EVERY = 2;
-
-/** The body's skin on the rig: the hide's own deep violet, lit toward the hull's. */
-const SKIN = {
-  base: mixHex(PALETTE.sheenDeep, PALETTE.hull, 0.2),
-  lift: PALETTE.hull,
-  sheen: PALETTE.sheenRim,
-};
-
-/** How far into the body the inner ember glow sits: the lung a dragon's fire
- * comes from, showing through the hide as a soft pulse rather than a lit
- * surface — the "glow inside of body" the owner asked for on 26 September
- * 2026. It breathes with the chest (`instar-profile-life.ts`). */
-const EMBER_GLOW_AT = 0.22;
-
-/** One ring round the body, where two segments meet: from the back's edge to the belly's. */
-export interface BodyRing {
-  top: Point;
-  bottom: Point;
-  r: number;
-  fade: number;
-  /** The body's outline, for a look that must stay on it. */
-  hide: Path2D;
-}
-
-/** The seam drawn at each ring, bowed toward the rear; VERSUS offers another. */
-export const RING_LOOK: { paint: (ctx: CanvasRenderingContext2D, ring: BodyRing) => void } = {
-  paint: (ctx, { top: a, bottom: b, r, fade }) =>
-    drawSeam(ctx, a, { x: (a.x + b.x) / 2 + r * 0.12, y: (a.y + b.y) / 2 }, b, fade, 0.35),
-};
 
 /** The body's lines for one frame: the spine through the nests, and the hide's two edges. */
 export function profileLines(l: Layout, look: Look) {
@@ -121,60 +80,6 @@ function seated(p: Point, from: Point, to: Point, r: number, u: number): Point {
   if (!INSTAR_BODY.across) return { x: p.x, y: p.y + s };
   const len = Math.hypot(to.x - from.x, to.y - from.y) || 1;
   return { x: p.x - ((to.y - from.y) / len) * s, y: p.y + ((to.x - from.x) / len) * s };
-}
-
-export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, still: Look): void {
-  const { spine, top, bottom, rear, seats } = profileLines(l, still);
-  // The head and the nests ride the wave the spine swims on, if it swims.
-  const look = swimLook(l, still);
-  const { head, r, fade, hurt, time } = look;
-  const back = (u: number): Point => top[Math.round(u * N)] ?? rear;
-  const [far, near] = profileWings(top, rear, r);
-  drawWing(ctx, look, far.at, far.w, far.hinge, far.side, 1);
-  const legs = profileLegs(spine, bottom, r, time);
-  drawLegs(ctx, legs, true, SKIN, r, fade);
-  const flick = 0.75 + 0.25 * Math.sin(time * 21);
-  halo(
-    ctx,
-    rear.x + r * 0.1,
-    rear.y,
-    Math.max(4, Math.round((r * 0.4) / 4) * 4),
-    PALETTE.ember,
-    0.7 * flick * fade,
-  );
-  const body = bodyOf(top, bottom);
-  // Tipped toward the player, the back comes round into view: the rows walk with it.
-  const roll = rollAt(time);
-  drawRidge(ctx, body, r, roll, fade, true, EVERY);
-  const hide = drawTube(ctx, body.seen, SKIN, fade);
-  strokeGlow(ctx, hide, faded(PALETTE.hull, fade), STROKE.inner, 0.5 * fade);
-  drawHurt(ctx, hide, hurt * fade);
-  drawBelly(ctx, body, hide, roll, fade);
-  drawScales(ctx, body, hide, r * 0.13, roll, fade);
-  const coarse = <T>(a: readonly T[]): T[] => a.filter((_, i) => i % EVERY === 0);
-  drawScutes(ctx, coarse(bottom), coarse(spine), r, fade);
-  const glowAt = spine[Math.round(EMBER_GLOW_AT * N)] as Point;
-  const breathe = 0.55 + 0.45 * Math.sin((time * (Math.PI * 2)) / BREATH_PERIOD);
-  halo(ctx, glowAt.x, glowAt.y, r * 0.5, PALETTE.ember, 0.45 * breathe * fade);
-  for (let i = EVERY * 2; i < N - 1; i += EVERY * 2) {
-    const a = top[i] as Point;
-    const b = bottom[i] as Point;
-    RING_LOOK.paint(ctx, { top: a, bottom: b, r, fade, hide });
-  }
-  drawLamps(ctx, body, r, roll, time, fade, EVERY * 2);
-  drawRidge(ctx, body, r, roll, fade, false, EVERY);
-  // Where the nests, the near wing and the head bear on the body.
-  for (const p of seats) drawContact(ctx, hide, p.x, p.y, r * 0.5, fade);
-  const root = back(0.42);
-  drawContact(ctx, hide, root.x, root.y, r * 0.3, 0.8 * fade);
-  drawContact(ctx, hide, (spine[0] as Point).x, (spine[0] as Point).y, r * 0.45, fade);
-  rimTube(ctx, hide, PALETTE.sheenRim, r * 0.06, fade);
-  drawLegs(ctx, legs, false, SKIN, r, fade);
-  drawMoult(ctx, coarse(top), coarse(bottom), look);
-  drawTail(ctx, l, look, rear, heading(spine));
-  drawWing(ctx, look, near.at, near.w, near.hinge, near.side);
-  drawNests(ctx, l, look);
-  INSTAR_BODY.head(ctx, { ...look, head: headBob(head, r, time) });
 }
 
 /** Where a wing hangs: its shoulder on the screen, the view it is seen in, its hinge in the rig, its flank. */

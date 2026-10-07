@@ -7,7 +7,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * An op-count budget for **THE INSTAR's turn between its two views** — the
- * stretch of a morph where both `drawFront` and `drawProfile` are drawn
+ * stretch of a morph where the body is part of the way round
  * (`instarHandover`). It cost two to five times a still frame until the tubes
  * were sliced by their size on the screen and a view flown off the field was
  * left undrawn (`solid-tube-screen.ts`, `instar-reach.ts`); these rows hold it
@@ -54,6 +54,14 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * 552 → 704 and 499 → 556, dive 369 → 433 and 271 → 312, with two or three
  * gradients more each.
  *
+ * Then the turn became one body turning instead of the two views crossed
+ * (`instar-turning.ts`): one body drawn where there were two, so coil fills
+ * 706 → 469 and strokes 560 → 433, roar 704 → 474 and 556 → 434, dive
+ * 433 → 296 and 312 → 236. The roar's linear gradients are the one row that
+ * rose, 91 → 117: the body really yaws round now,
+ * so its sections are lit at angles the tube's light cache has not held yet
+ * (`solid-tube-light.ts`), each baked once as the turn first reaches it.
+ *
  * Each row is the worst of each op over one beat starting a third of the way
  * into the step's morph, on a phone. Set `MEASURE` to true and run this file
  * to print the rows as they are written below (`budget-row.ts`); never
@@ -71,31 +79,31 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "13 coil": {
     cursor: 13,
     budget: {
-      fill: 706,
-      stroke: 560,
+      fill: 469,
+      stroke: 433,
       drawImage: 34,
-      createLinearGradient: 76,
-      createRadialGradient: 45,
+      createLinearGradient: 73,
+      createRadialGradient: 41,
     },
   },
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 433,
-      stroke: 312,
+      fill: 296,
+      stroke: 236,
       drawImage: 34,
-      createLinearGradient: 58,
-      createRadialGradient: 43,
+      createLinearGradient: 49,
+      createRadialGradient: 40,
     },
   },
   "20 roar": {
     cursor: 20,
     budget: {
-      fill: 704,
-      stroke: 556,
+      fill: 474,
+      stroke: 434,
       drawImage: 34,
-      createLinearGradient: 91,
-      createRadialGradient: 43,
+      createLinearGradient: 117,
+      createRadialGradient: 39,
     },
   },
 };

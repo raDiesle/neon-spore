@@ -7,9 +7,9 @@ import { frontHeadFeet, sideHeadFeet } from "./instar-head-stop.js";
 import { frontLimbFeet, profileLimbFeet } from "./instar-limb-stop.js";
 import { instarAt, instarFarEnd, type Point } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
-import { profileLines } from "./instar-profile.js";
 import type { Sway } from "./instar-sway.js";
 import { instarNeck, instarTurn } from "./instar-turn.js";
+import { sideHead, turnedLines } from "./instar-turning.js";
 import type { Layout } from "./layout.js";
 import { sceneStopper } from "./scene-stop.js";
 
@@ -22,6 +22,8 @@ export interface InstarFrame {
   /** Which views were drawn: face-on, side-on, or both across a turn. */
   front: boolean;
   profile: boolean;
+  /** How far the side-on drawing's body is turned round from face-on (`instar-turning.ts`). */
+  turn: number;
   /** The flinch and the hurt across, the jolt up, in pixels. */
   shake: Point;
 }
@@ -73,11 +75,15 @@ export function instarStopper(
     feet.push(...frontHeadFeet(look, lay), ...frontLimbFeet(l, look, neck, seen, lay, scale));
   }
   if (frame.profile) {
-    const lines = profileLines(l, look);
-    const { top, bottom } = lines;
+    const t = turnedLines(l, look, frame.turn);
+    const { top, bottom } = t;
+    const scale = { x: Math.abs(kx), y: ky };
     feet.push(outlineFoot([...top, ...[...bottom].reverse()].map(lay)));
-    feet.push(...sideHeadFeet(l, look, lay));
-    feet.push(...profileLimbFeet(l, look, lines, lay, { x: Math.abs(kx), y: ky }));
+    // Across the middle of the turn both heads are drawn.
+    const h = sideHead(frame.turn);
+    if (h < 1) feet.push(...frontHeadFeet(look, lay));
+    if (h > 0) feet.push(...sideHeadFeet(l, look, lay));
+    feet.push(...profileLimbFeet(l, look, t, frame.turn, lay, scale));
   }
   return sceneStopper(l, world, s, sway, beat, beatPhase, instarVerdict, lowestFoot(feet));
 }

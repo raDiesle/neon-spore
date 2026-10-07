@@ -1944,6 +1944,7 @@ by hand never moves.
 | `packages/render/src/instar-profile.ts` | **THE INSTAR side-on**: the perspective the owner asked to change to on 25 September 2026 |
 | `packages/render/src/instar-profile-life.ts` | **THE INSTAR side-on, alive**: what the long body does on its own clock while the script holds it in a pose |
 | `packages/render/src/instar-profile-surface.ts` | **What sits on THE INSTAR's long body, placed round it** — the owner, 26 September 2026 |
+| `packages/render/src/instar-profile-draw.ts` | **THE INSTAR side-on, drawn** (`instar-profile.ts` lays its lines) — and, with `k` under 1 |
 | `packages/render/src/instar-shape.ts` | **Where THE INSTAR is**, as one figure of numbers: the head and its two jaws, the eyes |
 | `packages/render/src/instar-shove.ts` | **THE INSTAR's lips trembling under a shove** |
 | `packages/render/src/instar-sway.ts` | **THE INSTAR weaves**, and everything of it weaves together |
@@ -1966,6 +1967,7 @@ by hand never moves.
 | `packages/render/src/instar-tail-blade.ts` | **THE INSTAR's tail ends in a fork of two of these** (`instar-tail.ts`) |
 | `packages/render/src/instar-tail-lens.ts` | Two measures of THE INSTAR's tail, cut off `instar-tail.ts` when the body's record (`instar-body-look.ts`)… |
 | `packages/render/src/instar-turn.ts` | THE INSTAR seen a third of the way round: the body yawed, the head as two fitted planes |
+| `packages/render/src/instar-turning.ts` | **THE INSTAR turning between its two views is one body turning** — the owner, 7 October 2026 |
 | `packages/render/src/instar-eggs.ts` | THE INSTAR's clutch, one egg per swipe, and the egg each counted swipe drops to the hull |
 | `packages/render/src/instar-egg-spots.ts` | **Where THE INSTAR's eggs sit in their two nests**, in head radii from the nest's middle |
 | `packages/render/src/instar-egg-crack.ts` | **An egg nobody has taken yet, cracking as the window runs**: a hairline at a quarter of it, a split with an eye moving inside at three quarters |
@@ -1985,6 +1987,7 @@ by hand never moves.
 | `packages/render/src/instar-rig-head-draw.ts` | **THE INSTAR's rig head, drawn** (`instar-rig-head.ts` is the model): the parts through `drawRig` |
 | `packages/render/src/instar-rig-head.ts` | **THE INSTAR's one head, modelled once** (`docs/spec/living-bosses.md` §2) |
 | `packages/render/src/instar-reach.ts` | **How far each of THE INSTAR's views reaches, and whether any of it is on the field** |
+| `packages/render/src/instar-roll.ts` | **Where THE INSTAR's back is, part of the way round between its views** (`instar-turning.ts`) |
 | `packages/render/src/instar-moult.ts` | **THE INSTAR's moult**: the old hide split open along the back, and the next body pale in the split |
 | `packages/render/src/instar-moult-baked.ts` | **THE INSTAR's moult as a wound, baked** — the fifth example (`sprite-bake.ts`) |
 | `packages/render/src/instar-moult-flesh.ts` | The strokes THE INSTAR's wound tile is painted from, at load (`instar-moult-baked.ts`) |
