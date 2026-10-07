@@ -34621,3 +34621,17 @@ Bottleneck: looking — each correction was only visible in a frame, and
 finding a bolt that bounces rather than takes a lobe cost a run.
 
 *Measured: 20 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE INSTAR's face-on body is scaled all over, not in strips
+
+- reading: 10 min. `instar-draw.ts`, the flight, `instar-front-body.ts`'s
+  bands, `drawBakedScales`' one rectangle under its clip.
+- writing: 5 min. `plateForm`, `PLATE_ENDS`, the clip to each plate's own
+  stretch of tube, and a test that fails on the sliver.
+- looking: 10 min. `bun run frames` across the approach, then crops of the
+  growing body before and after.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the strips only show while the body is a third to
+two thirds grown, so the frames had to be found by walking the flight.

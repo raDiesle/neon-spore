@@ -2,13 +2,13 @@ import { FRONT, type Ring, type SeenRing, seeTube, tubeFrames, view } from "@neo
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
-import { drawScales } from "./instar-hide.js";
+import { drawScales, type Form } from "./instar-hide.js";
 import type { Point } from "./instar-place.js";
 import { drawLamp, drawSeam, faded, type Look } from "./instar-plate.js";
 import { swimAt } from "./instar-serpent.js";
 import { BODY_DEPTH as DEPTH, BODY_LENS as LENS } from "./instar-turn.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { drawTube, rimTube } from "./solid-tube-draw.js";
+import { drawTube, rimTube, tubePath } from "./solid-tube-draw.js";
 
 /**
  * **THE INSTAR's body face-on, as a tube of the rig**: the long body seen
@@ -81,26 +81,63 @@ export function drawFrontBody(
   const hide = drawTube(ctx, seen, SKIN, fade);
   strokeGlow(ctx, hide, faded(PALETTE.hull, fade), STROKE.inner, 0.5 * fade);
   drawHurt(ctx, hide, hurt * fade);
-  for (let i = EVERY; i < N; i += EVERY) drawBand(ctx, seen, i, hide, look);
+  for (const i of PLATE_ENDS) drawPlateScales(ctx, seen, i, hide, fade);
+  for (let i = EVERY; i < N; i += EVERY) drawBand(ctx, seen, i, look);
   rimTube(ctx, hide, PALETTE.sheenRim, r * 0.05, fade);
   ctx.restore();
 }
 
-/** One plate's worth at ring `i`: scales down to the next ring, its seam, its two lamps. */
-function drawBand(
+/**
+ * The box one plate's scales are laid in, from ring `i - EVERY` to ring `i`:
+ * round every ring of that stretch of tube. It used to be as tall as the two
+ * rings' centres are apart, which end-on is a sliver, so a growing body
+ * showed strips of scales across its middle and bare hide round them.
+ */
+export function plateForm(seen: readonly SeenRing[], i: number): Form {
+  let x0 = Infinity;
+  let y0 = Infinity;
+  let x1 = -Infinity;
+  let y1 = -Infinity;
+  for (const g of seen.slice(i - EVERY, i + 1)) {
+    x0 = Math.min(x0, g.c.x - g.r);
+    y0 = Math.min(y0, g.c.y - g.r);
+    x1 = Math.max(x1, g.c.x + g.r);
+    y1 = Math.max(y1, g.c.y + g.r);
+  }
+  return { x: (x0 + x1) / 2, y: (y0 + y1) / 2, r: (x1 - x0) / 2, ry: (y1 - y0) / 2 };
+}
+
+/** The ring each plate ends at, the far one first so a nearer plate laps over one it hides. */
+export const PLATE_ENDS: readonly number[] = Array.from(
+  { length: N / EVERY },
+  (_, k) => N - k * EVERY,
+);
+
+/** One plate's scales, clipped to its own stretch of tube and sized by its far ring. */
+function drawPlateScales(
   ctx: CanvasRenderingContext2D,
   seen: readonly SeenRing[],
   i: number,
   hide: Path2D,
+  fade: number,
+): void {
+  ctx.save();
+  ctx.clip(hide);
+  const span = tubePath(seen.slice(i - EVERY, i + 1));
+  drawScales(ctx, span, plateForm(seen, i), (seen[i] as SeenRing).r * 0.24, fade);
+  ctx.restore();
+}
+
+/** One plate's seam and its two lamps, at ring `i`. */
+function drawBand(
+  ctx: CanvasRenderingContext2D,
+  seen: readonly SeenRing[],
+  i: number,
   look: Look,
 ): void {
   const { fade, time } = look;
   const ring = seen[i] as SeenRing;
-  const prev = seen[i - EVERY] as SeenRing;
   const rad = ring.r;
-  const half = Math.abs(prev.c.y - ring.c.y) / 2;
-  const form = { x: ring.c.x, y: ring.c.y + half, r: rad, ry: half };
-  drawScales(ctx, hide, form, rad * 0.24, fade);
   const y = ring.c.y + rad * 0.15;
   const c = ring.c;
   drawSeam(
