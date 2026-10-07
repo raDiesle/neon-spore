@@ -54,6 +54,12 @@ import type { Wave } from "../wave-types.js";
  * SLOW at its own strength; three shots a level, and the third one missed is
  * the wave. The levels climb from a slow bolt to a fast beam, and the slow
  * comes in as the ember speeds up.
+ *
+ * **Every shot in this act waits six beats**, 3.75 seconds at 96 bpm. It was
+ * three, which left little over a second once the cannon was under the core
+ * and the bolt had climbed, and a shot run out is the wave; the owner, 7
+ * October 2026: *when in boss sequences player needs to shoot cannon, we must
+ * give players more time to shoot and hit.*
  */
 export const WAVES_ACT_13: Wave[] = [
   {
@@ -72,11 +78,11 @@ export const WAVES_ACT_13: Wave[] = [
         { ask: "left", leanMilli: 15000, rangeMilli: 8000, color: "either", beats: 4 },
         { ask: "right", leanMilli: 20000, rangeMilli: 8000, color: "either", beats: 6 },
         { ask: "right", leanMilli: -15000, rangeMilli: 8000, color: "either", beats: 4 },
-        { ask: "fire", leanMilli: 0, rangeMilli: 0, color: "red", beats: 3 },
+        { ask: "fire", leanMilli: 0, rangeMilli: 0, color: "red", beats: 6 },
         { ask: "reland", leanMilli: -10000, rangeMilli: 8000, color: "either", beats: 3 },
-        { ask: "fire", leanMilli: 0, rangeMilli: 0, color: "cyan", beats: 3 },
+        { ask: "fire", leanMilli: 0, rangeMilli: 0, color: "cyan", beats: 6 },
         { ask: "reland", leanMilli: 10000, rangeMilli: 8000, color: "either", beats: 3 },
-        { ask: "fire", leanMilli: 0, rangeMilli: 0, color: "either", beats: 3 },
+        { ask: "fire", leanMilli: 0, rangeMilli: 0, color: "either", beats: 6 },
       ],
     },
     bossType: "normal",
@@ -95,11 +101,11 @@ export const WAVES_ACT_13: Wave[] = [
       steps: [
         { ask: "left", color: "either", beats: 10 },
         { ask: "right", color: "either", beats: 10 },
-        { ask: "fire", color: "red", beats: 3 },
+        { ask: "fire", color: "red", beats: 6 },
         { ask: "guard", color: "either", beats: 8 },
-        { ask: "fire", color: "cyan", beats: 3 },
+        { ask: "fire", color: "cyan", beats: 6 },
         { ask: "guard", color: "either", beats: 6 },
-        { ask: "fire", color: "either", beats: 3 },
+        { ask: "fire", color: "either", beats: 6 },
       ],
     },
     bossType: "normal",
@@ -118,11 +124,11 @@ export const WAVES_ACT_13: Wave[] = [
       steps: [
         { ask: "left", color: "either", beats: 12 },
         { ask: "right", color: "either", beats: 12 },
-        { ask: "fire", color: "red", beats: 3 },
+        { ask: "fire", color: "red", beats: 6 },
         { ask: "hold", color: "either", beats: 8 },
-        { ask: "fire", color: "cyan", beats: 3 },
+        { ask: "fire", color: "cyan", beats: 6 },
         { ask: "hold", color: "either", beats: 6 },
-        { ask: "fire", color: "either", beats: 3 },
+        { ask: "fire", color: "either", beats: 6 },
       ],
     },
     bossType: "normal",
@@ -142,7 +148,7 @@ export const WAVES_ACT_13: Wave[] = [
         { ask: "close", color: "either", beats: 6 },
         { ask: "close", color: "either", beats: 5 },
         { ask: "close", color: "either", beats: 5 },
-        { ask: "fire", color: "red", beats: 3 },
+        { ask: "fire", color: "red", beats: 6 },
       ],
     },
     bossType: "normal",
@@ -161,7 +167,7 @@ export const WAVES_ACT_13: Wave[] = [
       steps: [
         { ask: "catch", freezer: 1, offset: -1, sweepMilli: 1000, color: "either", beats: 6 },
         { ask: "catch", freezer: 2, offset: 1, sweepMilli: 1000, color: "either", beats: 5 },
-        { ask: "fire", freezer: "either", offset: 0, sweepMilli: 0, color: "red", beats: 3 },
+        { ask: "fire", freezer: "either", offset: 0, sweepMilli: 0, color: "red", beats: 6 },
         {
           ask: "recatch",
           freezer: "either",
@@ -170,7 +176,7 @@ export const WAVES_ACT_13: Wave[] = [
           color: "either",
           beats: 7,
         },
-        { ask: "fire", freezer: "either", offset: 0, sweepMilli: 0, color: "cyan", beats: 3 },
+        { ask: "fire", freezer: "either", offset: 0, sweepMilli: 0, color: "cyan", beats: 6 },
         {
           ask: "recatch",
           freezer: "either",
@@ -179,7 +185,7 @@ export const WAVES_ACT_13: Wave[] = [
           color: "either",
           beats: 5,
         },
-        { ask: "fire", freezer: "either", offset: 0, sweepMilli: 0, color: "either", beats: 3 },
+        { ask: "fire", freezer: "either", offset: 0, sweepMilli: 0, color: "either", beats: 6 },
       ],
     },
     bossType: "normal",

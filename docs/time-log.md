@@ -34949,3 +34949,17 @@ Bottleneck: looking — the first arrow and ring were placed by reading the
 shape code, and both landed under something else on the screen.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — Scripted boss shots wait six beats, not three
+
+- reading: 10 min. Every `fire` step in the acts, the config windows that
+  might be shots, and the director's act writer.
+- writing: 5 min. Thirty-four steps, two act headers, one queue entry.
+- looking: 0 min. A timing change; nothing drawn moved.
+- friction: 5 min. A named constant went in and came out again: the
+  director writes boss steps back as numbers, and it pushed `act-13.ts` past
+  250 lines.
+- landing: 5 min. `check:fast`, the full suite, `land`.
+
+Bottleneck: friction — the wave editor owns the act files' shape, which no
+file next to them says.
