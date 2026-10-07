@@ -11158,8 +11158,9 @@ flue `fluePauseBeats` and lights the next; the last cleared, it goes cold
 timer.
 
 **The answers** (`sim/flue-shot.ts`, `sim/boss-along.ts`). **No shot gets
-past the flue**: every bolt and every beam stops on its row, `flueRow`, and
-is judged there (`flueAlong`, `flueStruckEmber`). Within `flueHitMilli` of
+past the flue**: every bolt and every beam stops on its row, `flueRow` — 6,
+two lower than the 4 of 6 October (the owner, 7 October 2026: *move the
+boss visuals some more down*) — and is judged there (`flueAlong`, `flueStruckEmber`). Within `flueHitMilli` of
 the ember — the sight's radius, so a spore half inside the sight ring is met
 (the owner, 6 October 2026) — in the level's weapon and colour, the level is
 cleared (`flueHit`). Anything else spends a shot (`flueMiss`, with why:

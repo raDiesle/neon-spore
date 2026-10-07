@@ -16,7 +16,10 @@ export interface FlueConfig {
   flueSpentBeats: number;
   /** How far either side of the middle column the ember runs, thousandths of a column. */
   flueSpanMilli: number;
-  /** The row, from the top, the ember runs along and a shot meets it on. */
+  /**
+   * The row, from the top, the ember runs along and a shot meets it on: 6
+   * since the owner asked for it lower again, 7 October 2026.
+   */
   flueRow: number;
   /**
    * How far off the cannon's column the ember may be and still be met,
@@ -35,7 +38,7 @@ export const FLUE_DEFAULTS: FlueConfig = {
   fluePauseBeats: 2,
   flueSpentBeats: 2,
   flueSpanMilli: 4500,
-  flueRow: 4,
+  flueRow: 6,
   flueHitMilli: 740,
   flueShots: 3,
   flueBeamBeats: 1,

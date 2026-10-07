@@ -33978,3 +33978,14 @@ Bottleneck: the report named the symptom, and nothing in the simulation could
 produce it with the colour the player thought they pressed.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE FLUE hangs two rows lower again
+
+- reading: 0 min. The last move was the same field, two rows.
+- writing: 0 min. One number, its comment and the spec's sentence.
+- looking: 5 min. One frame from the pilot's seat: the strings stretch and
+  the words under the sight still clear the hull.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: none — the flue reads its row everywhere from the config.
