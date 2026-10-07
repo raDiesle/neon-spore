@@ -100,6 +100,17 @@ export const LATE_CREATURE_HUES = {
   lampreyTooth: "#E8E2CC",
   lampreyMouth: "#0E0A0A",
   lampreyGullet: "#5A2A22",
+  /**
+   * Its skin's detail (`lamprey-skin.ts`, `lamprey-disc.ts`): a paler olive
+   * for the fin's membrane, the dark red of its gill pores and the ribs down
+   * its throat — darker than the gullet, so the gullet unlit is still the one
+   * meat on the disc — the gums the teeth stand in, and the eye's pale ring.
+   */
+  lampreyFin: "#7D8A5A",
+  lampreyGill: "#2A1012",
+  lampreyThroat: "#3A1816",
+  lampreyGum: "#6E3A34",
+  lampreyEye: "#B8BC8E",
   /** Its dung: a warm brown over the rock it is, and the dark of its folds. */
   lampreyDung: "#7A5530",
   lampreyDungDark: "#2E1D0E",

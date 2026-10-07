@@ -34368,3 +34368,16 @@ Bottleneck: the tail's end breathes, so no fixed row is exactly where it
 is drawn; the blend over the first quarter is what answered it.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE LAMPREY gets a skin: fin, gills, eyes, a fringed sucker
+
+- reading: 5 min. `lamprey-draw.ts`, `lamprey-shape.ts`, `lamprey-pose.ts`,
+  `new-boss-more` §6.3 and the depth skill.
+- writing: 5 min. `lamprey-skin.ts`, `lamprey-gills.ts`, `lamprey-disc.ts`,
+  five palette entries and one frame test.
+- looking: 5 min. `bun run frames` before and after, close crops of the
+  crawl and the reared gullet; the throat's rings toned down once.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none to speak of — the frame and crop tools answered first time.

@@ -15,7 +15,14 @@ import { drawHurt } from "./boss-hurt.js";
 import { strokeGlowFaded } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
+import {
+  drawLampreyFringe,
+  drawLampreyGums,
+  drawLampreyLipGloss,
+  drawLampreyThroat,
+} from "./lamprey-disc.js";
 import type { LampreyFx } from "./lamprey-fx.js";
+import { drawLampreyGills } from "./lamprey-gills.js";
 import { drawLampreyHandles } from "./lamprey-handles.js";
 import { drawLampreyToothMark } from "./lamprey-marks.js";
 import { lampreyPose } from "./lamprey-pose.js";
@@ -28,8 +35,8 @@ import {
   lampreySocket,
   lampreySpine,
   lampreyTooth,
-  type Point,
 } from "./lamprey-shape.js";
+import { drawLampreyFin, drawLampreyHide } from "./lamprey-skin.js";
 import { drawLampreyHalos, drawLampreyVerdicts } from "./lamprey-verdicts.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -78,7 +85,7 @@ export function drawLamprey(
   // The eel shakes with the blow it took; its handles are the thumbs', and stay.
   ctx.save();
   ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
-  drawBody(ctx, l, p, fx.hurt.value);
+  drawBody(ctx, l, p, s.phase === "bite", fx.hurt.value);
   drawLampreyHalos(ctx, l, cfg, p, s, time);
   drawMouth(ctx, p, s);
   drawLampreyGulp(ctx, p, fx.gulp);
@@ -101,12 +108,23 @@ export function drawLamprey(
   ctx.restore();
 }
 
-/** The body and the mouth's lip: its shadow under it, lit from the key, a dark line down the spine, and the blow's red. */
-function drawBody(ctx: CanvasRenderingContext2D, l: Layout, p: LampreyPose, hurt: number): void {
+/**
+ * The body and the mouth's lip: the fin round the tail under it, its shadow,
+ * lit from the key, the skin's detail (`lamprey-skin.ts`), the fringe round
+ * the lip (`lamprey-disc.ts`), and the blow's red.
+ */
+function drawBody(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  p: LampreyPose,
+  sucking: boolean,
+  hurt: number,
+): void {
   const spine = lampreySpine(l, p);
   const body = lampreyBody(l, spine);
   const lip = lampreyRing(p, 1);
   const drop = l.tile * 0.1;
+  drawLampreyFin(ctx, l, spine, p.wave);
   ctx.save();
   ctx.translate(0, drop);
   ctx.fillStyle = PALETTE.lampreyHideDark;
@@ -115,7 +133,6 @@ function drawBody(ctx: CanvasRenderingContext2D, l: Layout, p: LampreyPose, hurt
   ctx.restore();
   ctx.fillStyle = PALETTE.lampreyHide;
   ctx.fill(body);
-  ctx.fill(lip);
 
   const mid = spine[Math.floor(spine.length / 3)] ?? p;
   const reach = Math.hypot(mid.x - p.x, mid.y - p.y) + p.r;
@@ -123,32 +140,27 @@ function drawBody(ctx: CanvasRenderingContext2D, l: Layout, p: LampreyPose, hurt
   ctx.clip(body);
   litRound(ctx, mid.x, mid.y, reach + 2, LIGHT_HALF.rock);
   ctx.restore();
+  drawLampreyHide(ctx, l, spine, body);
+  ctx.lineWidth = STROKE.outline;
+  ctx.strokeStyle = rgba(PALETTE.lampreyHideDark, 0.95);
+  ctx.stroke(body);
+  drawLampreyGills(ctx, l, spine, p.wave);
+
+  drawLampreyFringe(ctx, p, p.wave, sucking, drop);
+  ctx.fillStyle = PALETTE.lampreyHide;
+  ctx.fill(lip);
   ctx.save();
   ctx.clip(lip);
   ctx.translate(p.x, p.y);
   ctx.scale(1, p.tilt);
   litRound(ctx, 0, 0, p.r + 2, LIGHT_HALF.rock);
   ctx.restore();
-
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.lampreyHideDark, 0.95);
-  ctx.stroke(body);
   ctx.stroke(lip);
-  ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = rgba(PALETTE.lampreyHideDark, 0.6);
-  ctx.stroke(line(spine.slice(2, -3)));
+  drawLampreyLipGloss(ctx, p);
   drawHurt(ctx, body, hurt);
   drawHurt(ctx, lip, hurt);
-}
-
-/** A polyline through `points`. */
-function line(points: readonly Point[]): Path2D {
-  const path = new Path2D();
-  points.forEach((at, i) => {
-    if (i === 0) path.moveTo(at.x, at.y);
-    else path.lineTo(at.x, at.y);
-  });
-  return path;
 }
 
 /**
@@ -159,6 +171,7 @@ function line(points: readonly Point[]): Path2D {
 function drawMouth(ctx: CanvasRenderingContext2D, p: LampreyPose, s: LampreyState): void {
   ctx.fillStyle = PALETTE.lampreyMouth;
   ctx.fill(lampreyRing(p, MOUTH_IN));
+  drawLampreyThroat(ctx, p, p.wave);
   if (s.phase !== "rearing" && s.phase !== "recoil" && s.phase !== "spent") return;
   const gullet = lampreyRing(p, lampreyGulletReach(s.hits));
   const step = lampreyStep(s);
@@ -177,6 +190,7 @@ function drawMouth(ctx: CanvasRenderingContext2D, p: LampreyPose, s: LampreyStat
 function drawTeeth(ctx: CanvasRenderingContext2D, p: LampreyPose, s: LampreyState): void {
   const dull = mixHex(PALETTE.lampreyTooth, PALETTE.lampreyHide, 0.35);
   const lit = lampreyBiting(s) ? s.litTooth : -1;
+  drawLampreyGums(ctx, p, (t) => lampreyToothIn(s, t));
   ctx.lineWidth = STROKE.inner;
   for (let t = 0; t < LAMPREY_TEETH; t++) {
     if (!lampreyToothIn(s, t)) {

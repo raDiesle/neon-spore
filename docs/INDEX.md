@@ -2250,11 +2250,14 @@ by hand never moves.
 | `packages/render/src/last-chance.ts` | ONE LAST CHANCE over every body the shield has already pushed, on both screens, read straight off the world |
 | `packages/render/src/lamprey-draw.ts` | **THE LAMPREY** drawn: the eel, the sucker and its seven teeth, the scar, the gullet, both seats' marks |
 | `packages/render/src/lamprey-dung.ts` | **THE LAMPREY's dung** (the owner, 6 October 2026: *it could poop |
+| `packages/render/src/lamprey-disc.ts` | **THE LAMPREY's sucker, in detail**: the fleshy fringe of papillae round the lip, the gloss along its rim |
 | `packages/render/src/lamprey-marks.ts` | **THE LAMPREY's tooth mark**: the ring round the one lit tooth in a `teeth` |
 | `packages/render/src/lamprey-pose.ts` | **The clock THE LAMPREY is posed off** (§41, *Animation*), six poses: crawling as a worm |
 | `packages/render/src/lamprey-shape.ts` | **THE LAMPREY's shape** (§41, *The look*): two drafts combined, named on the shape sheet |
+| `packages/render/src/lamprey-skin.ts` | **THE LAMPREY's skin**: what makes the olive tube read as an eel |
 | `packages/render/src/lamprey-verdicts.ts` | **THE LAMPREY's marks answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
 | `packages/render/src/lamprey-grip.ts` | **THE LAMPREY's hands**: the pinner's thumb on the jaw, following it, and the tapper's tap on the nearest tooth |
+| `packages/render/src/lamprey-gills.ts` | **THE LAMPREY's gills and eyes**: a row of seven pores down each flank behind the head |
 | `packages/render/src/lamprey-blow.ts` | **THE LAMPREY's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/lamprey-fx.ts` | What THE LAMPREY leaves behind a frame: the flung tooth, the snap, the gulp, the shudder and the blow |
 | `packages/render/src/lamprey-receipts.ts` | **THE LAMPREY's receipts, drawn** — what `lamprey-fx.ts` holds between frames |

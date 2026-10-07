@@ -28,6 +28,17 @@ describe("THE LAMPREY's body", () => {
     expect(count(drawn, PALETTE.lampreyMouth)).toBeGreaterThan(0);
   });
 
+  it.each(ROLES)(
+    "draws its skin: the gills, the fin and fringe, the eyes, the gums, on %s",
+    (role) => {
+      const drawn = frame(role, (w) => posed(w));
+      expect(count(drawn, PALETTE.lampreyGill)).toBeGreaterThan(0);
+      expect(count(drawn, PALETTE.lampreyFin)).toBeGreaterThan(0);
+      expect(count(drawn, PALETTE.lampreyEye)).toBeGreaterThan(0);
+      expect(count(drawn, PALETTE.lampreyGum)).toBeGreaterThan(0);
+    },
+  );
+
   it.each(ROLES)("leaves a socket for each tooth knocked out, on %s", (role) => {
     const all = frame(role, (w) => posed(w));
     const gapped = frame(role, (w) =>
