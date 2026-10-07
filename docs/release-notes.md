@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · e6e9437f7 — THE INSTAR's head side-on turns three quarters to the ship and snarls
+
+Seen from the side, THE INSTAR no longer shows a flat profile head. The head is now a solid skull, snout and hinged jaw, turned half way toward the ship and tipped down at it. Both eyes show, narrowed under heavy brows, with both nostrils flared, folds across the bridge of the snout, teeth on both lips and a frill of spines. The body stays in profile. Every mark stays clear of the head with the jaw wide open.
+
 ## 2026-10-07 · e6de1a870 — THE SCOUT's little ship is a living nautilus, not a pacman
 
 The scout is now a small nautilus grown by the mother ship: a coiled, ridged violet shell lit like the hull, a soft body with the green slit eye at its opening, six tentacles that grasp open and shut where the mouth used to chomp (two are the green-tipped feelers, and the motes aboard are held in them), a drop of slime hanging under it, and a jet of bubbles for the burn. The pilot sees the tentacles reach along the heading; the navigator sees it hang at rest with them dangling, so that screen still gives no heading.

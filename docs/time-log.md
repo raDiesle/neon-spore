@@ -34688,3 +34688,5 @@ magnified crop of a real frame, one run per heading.
 
 Bottleneck: looking — whether a brow reads angry or startled only shows in
 the picture, and it took three rounds.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
