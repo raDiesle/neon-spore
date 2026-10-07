@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · e9ff654e7 — THE SINEW's mass swings with weight, offered in VERSUS
+
+The drawn mass now passes through `SINEW_WEIGHT.carry`, which today hands back the hung centre unchanged, so the game's frame is the same. The `sinew:weight · heavy` candidate hangs it on a damped spring instead, so it trails the pull and overshoots before it settles. It is judged on THE SINEW · HELD, the one SINEW pose where the mass is still moving as it lands. Only the drawn mass moves; the handles' hit test is untouched.
+
 ## 2026-10-07 · 04915ee80 — THE SINEW's see-through fibres in THE SLOW are offered in VERSUS
 
 While THE SLOW is open over a part, the game draws THE SINEW's strings whole and marks the window only by its prism round the mass. A candidate, `sinew:fibres` · veiled, lays the strings down half see-through for the length of the window, the design's own word for it. It is judged on a new pose, SINEW · PARTING, the one moment with strings standing and a window open. The fibres' laying is lifted into `FIBRE_LOOK` so a candidate can patch it; the frame the game draws is unchanged. The owner asked for it on 7 October 2026.

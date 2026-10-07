@@ -34881,3 +34881,5 @@ layer, and a layer had to be handed the context.
 Bottleneck: looking — the slot's first pose had already settled by the
 time it was built, so the spring showed nothing until a probe found the
 pose where the mass is still moving.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
