@@ -377,6 +377,7 @@ Name one function for a pad where it stands, call it from both, and add a
 ## THE KEEL's ribs re-derive the segment's sway
 
 - **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
+- **Taken:** 2026-10-07, claude/queue-tasks-a07ff0 (claim: claude/queue-the-keels-ribs-re-derive-the-segments-sway)
 - **Files:** `packages/render/src/keel-draw.ts`, `packages/render/src/keel-pose.ts`
 
 The ribs' lag in `keel-draw.ts` (about line 79) is
