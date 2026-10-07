@@ -6,13 +6,20 @@ import { haspLatchBar } from "./hasp-parts.js";
 import { haspCentre, haspHubRadius, haspShellHalves, type Point } from "./hasp-shape.js";
 import type { Layout } from "./layout.js";
 
+/** How a clasp is drawn this frame: its gape, and how far it swings on its pin (`hasp-sway.ts`). */
+export interface HaspSwung {
+  gape: number;
+  swing: number;
+}
+
 /**
  * **Where a bolt meets THE HASP**, for `BoltStops` (`bolt-stop.ts`): the
  * loose bolt in its own column, in either colour (`haspVerdict`), at its
  * lower end; and otherwise the lowest of what this screen draws over that x
- * — each clasp's two half-shells at the gape they are drawn at (`swung`),
- * the hub, wheel or cap, over each, and the latch's bar on a screen shown
- * the latch — all `shift` off where they stand, as the jolt lays them.
+ * — each clasp's two half-shells at the gape and the swing they are drawn at
+ * (`swung`), the hub, wheel or cap, over each, and the latch's bar on a
+ * screen shown the latch — all `shift` off where they stand, as the jolt lays
+ * them.
  *
  * The loose bolt falls from the second clasp's hub, so for the first of its
  * fall it hangs inside that spent clasp and above the first one's nose, and a
@@ -23,7 +30,7 @@ export function haspStopper(
   l: Layout,
   world: World,
   s: HaspState,
-  swung: readonly number[],
+  swung: readonly HaspSwung[],
   shift: Point,
   wheel: boolean,
   latch: boolean,
@@ -34,10 +41,11 @@ export function haspStopper(
   const hub = haspHubRadius(l) * (wheel ? 1 : CAP);
   const feet: Foot[] = [];
   for (let i = 0; i < HASP_COUNT; i++) {
-    for (const half of haspShellHalves(l, cfg, i, swung[i] ?? 0))
+    const at = swung[i] ?? { gape: 0, swing: 0 };
+    for (const half of haspShellHalves(l, cfg, i, at.gape, at.swing))
       feet.push(outlineFoot(half, shift.x, shift.y));
-    const at = haspCentre(l, cfg, i);
-    feet.push(roundFoot(at.x + shift.x, at.y + shift.y, hub));
+    const hubAt = haspCentre(l, cfg, i);
+    feet.push(roundFoot(hubAt.x + shift.x, hubAt.y + shift.y, hub));
   }
   const bar = latch ? haspLatchBar(l, cfg, s) : null;
   if (bar !== null) {

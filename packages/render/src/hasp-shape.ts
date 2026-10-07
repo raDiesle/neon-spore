@@ -91,14 +91,21 @@ function flank(f: number): number {
 
 /**
  * One clasp's shell, both halves, swung apart about the nose by `gape`
- * (0 shut, 1 swung; the row's clearing takes it past 1): each half's corners
- * on screen, drawn by `haspShellPath` and met by a bolt (`hasp-stop.ts`).
+ * (0 shut, 1 swung; the row's clearing takes it past 1), and both turned
+ * `swing` together about it (`hasp-sway.ts`): each half's corners on screen,
+ * drawn by `haspShellPath` and met by a bolt (`hasp-stop.ts`).
  *
  * Each half walks its own seam edge rather than leaving it to the closing
  * segment, so a shut clasp has a line down its middle — the tell that it is
  * two things pinned, and not a rock.
  */
-export function haspShellHalves(l: Layout, cfg: SimConfig, i: number, gape: number): Point[][] {
+export function haspShellHalves(
+  l: Layout,
+  cfg: SimConfig,
+  i: number,
+  gape: number,
+  swing = 0,
+): Point[][] {
   const at = haspCentre(l, cfg, i);
   const rx = SHELL_RX * l.tile;
   const ry = SHELL_RY * l.tile;
@@ -113,8 +120,8 @@ export function haspShellHalves(l: Layout, cfg: SimConfig, i: number, gape: numb
     raw.push({ x: 0, y: -ry });
     // Negated for a page whose y runs down: a positive turn would carry the
     // right half's tail across the seam rather than away from it.
-    const c = Math.cos(-gape * SWING * side);
-    const s = Math.sin(-gape * SWING * side);
+    const c = Math.cos(-gape * SWING * side + swing);
+    const s = Math.sin(-gape * SWING * side + swing);
     return raw.map((p) => {
       const dy = p.y + ry;
       return { x: at.x + p.x * c - dy * s, y: hingeY + p.x * s + dy * c };
@@ -123,9 +130,15 @@ export function haspShellHalves(l: Layout, cfg: SimConfig, i: number, gape: numb
 }
 
 /** One clasp's shell as a path, both halves closed (`haspShellHalves`). */
-export function haspShellPath(l: Layout, cfg: SimConfig, i: number, gape: number): Path2D {
+export function haspShellPath(
+  l: Layout,
+  cfg: SimConfig,
+  i: number,
+  gape: number,
+  swing = 0,
+): Path2D {
   const path = new Path2D();
-  for (const half of haspShellHalves(l, cfg, i, gape)) {
+  for (const half of haspShellHalves(l, cfg, i, gape, swing)) {
     half.forEach((p, k) => {
       if (k === 0) path.moveTo(p.x, p.y);
       else path.lineTo(p.x, p.y);

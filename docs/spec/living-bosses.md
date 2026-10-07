@@ -323,6 +323,21 @@ game "INSTAR:FLIGHT · SERPENT"*. `INSTAR_SERPENT.amount` is 1 on the field.
   (`shornFoot`, `hive-stop.ts`). A tenth under THE SLOW. On the field under
   *a look with no shipped alternative*.
 
+  *Step 11, the mechanisms' hinged parts, 7 October 2026.* A machine's
+  hinged part swings on its own pin, on the beat clock, so both screens
+  see one swing, and by more than half a tile at its far end. A part a
+  thumb holds or a cannon is judged by is not one of them.
+
+  *THE HASP, as built* (`hasp-sway.ts`): a spent clasp's two half-shells
+  turn together about the pin at the nose, up to a quarter of a radian,
+  so the pair swings like a gate left open and its tail travels by more
+  than half a tile, each clasp on its own wander. It replaces the slack
+  the halves breathed by on the wall clock. A sealed clasp is still; a
+  bolt meets the halves as they swing; gone as the row clears and hushed
+  under THE SLOW. On the field under *a look the owner asked for by name*:
+  he asked for step 11 on 7 October 2026, and the slack it replaces was on
+  the wall clock, so the two screens disagreed.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair

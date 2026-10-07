@@ -10,8 +10,9 @@ import { drawHaspHalos, drawHaspVerdicts } from "./hasp-marks.js";
 import { drawHaspCap, drawHaspLatch, drawHaspWheel } from "./hasp-parts.js";
 import { haspClearing, haspGape, haspOpened, haspStillPhase } from "./hasp-pose.js";
 import { haspCentre, haspShellPath, haspShellRadius } from "./hasp-shape.js";
-import { haspStopper } from "./hasp-stop.js";
+import { type HaspSwung, haspStopper } from "./hasp-stop.js";
 import { drawHaspSmear, drawHaspStory, haspStoryGape } from "./hasp-story.js";
+import { haspSwing } from "./hasp-sway.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -28,16 +29,6 @@ import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-c.js";
  */
 const HASP_WOBBLE = 0.05;
 const HASP_WOBBLE_PERIOD = 6.9;
-
-/**
- * How far a swung clasp's halves sway on their hinge, as a share of the gape
- * they hang at, and how fast in radians a second. Only a spent clasp: a sealed
- * one is shut and says so, a hub is §20's secret on one screen and the seized
- * tell on the other, so the loose half-shells are the one part free to move
- * on a clock of their own (`docs/style-guide.md`, *Motion*).
- */
-const HASP_SLACK = 0.12;
-const HASP_SLACK_RATE = 1.4;
 
 /**
  * **THE HASP**: three sealed clasps down the middle of the field, each two
@@ -88,11 +79,13 @@ export function drawHasp(
   const shift = { x: fx.hurt.shakeX(time, l.tile), y: fx.jolt * l.tile };
   ctx.translate(shift.x, shift.y);
   if (clearing > 0) drawPassage(ctx, l, world, clearing);
-  const swung: number[] = [];
+  const swung: HaspSwung[] = [];
   for (let i = 0; i < HASP_COUNT; i++) {
     const rest = haspGape(s, cfg, i, beat, beatPhase, wheel);
     const gape = rest + haspStoryGape(s, cfg, i, beat, beatPhase, time, latch, rest);
-    swung.push(drawClasp(ctx, l, world, s, i, gape, fx.hurt.value, time));
+    const swing = haspSwing(world, s, i, beat, beatPhase);
+    drawClasp(ctx, l, world, s, i, gape, swing, fx.hurt.value, time);
+    swung.push({ gape, swing });
     drawHaspStory(ctx, l, cfg, s, i, gape, beat, beatPhase, time, latch, wheel);
   }
   // The halos go on the shells and under the marks they ask for.
@@ -130,10 +123,10 @@ interface HaspFx {
 }
 
 /**
- * One clasp's shell at the gape its pose gives it. A sealed clasp is drawn
- * whole and a swung one is drawn fainter, so the row reads as a count from
- * across a room: two bright shut lids and one gone slack is one hasp done.
- * Returns the gape it was drawn at, slack and all, for where a bolt meets it.
+ * One clasp's shell at the gape its pose gives it, swung `swing` on its pin
+ * (`hasp-sway.ts`). A sealed clasp is drawn whole and a swung one is drawn
+ * fainter, so the row reads as a count from across a room: two bright shut
+ * lids and one gone slack is one hasp done.
  */
 function drawClasp(
   ctx: CanvasRenderingContext2D,
@@ -142,14 +135,12 @@ function drawClasp(
   s: HaspState,
   i: number,
   gape: number,
+  swing: number,
   hurt: number,
   time: number,
-): number {
+): void {
   const spent = haspOpened(s, i) && s.phase !== "clear";
-  // A swung clasp hangs slack on its hinge and sways there, each out of step
-  // with the others — the part of this machine that has come loose.
-  const slack = spent ? 1 + HASP_SLACK * Math.sin(time * HASP_SLACK_RATE + i * 1.9) : 1;
-  const shell = haspShellPath(l, world.cfg, i, gape * slack);
+  const shell = haspShellPath(l, world.cfg, i, gape, swing);
   ctx.fillStyle = rgba(PALETTE.rockDark, spent ? 0.5 : 0.88);
   ctx.fill(shell);
   if (!spent) {
@@ -164,7 +155,6 @@ function drawClasp(
   ctx.strokeStyle = spent ? rgba(PALETTE.rock, 0.45) : PALETTE.rock;
   ctx.stroke(shell);
   drawHurt(ctx, shell, hurt);
-  return gape * slack;
 }
 
 /**

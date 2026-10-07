@@ -1598,6 +1598,7 @@ by hand never moves.
 | `packages/render/src/hasp-shape.ts` | **Where THE HASP is**: three clasps down the middle column, each a hinged shell over a hub |
 | `packages/render/src/hasp-story.ts` | **THE HASP's story between the hasps, drawn** (`sim/hasp-story.ts`, §20 S1–S4) |
 | `packages/render/src/hasp-stop.ts` | Where a bolt meets THE HASP: the loose bolt in either colour, else the clasps, hubs and latch bar as drawn |
+| `packages/render/src/hasp-sway.ts` | **A spent clasp of THE HASP swings on its hinge** (`docs/spec/living-bosses.md`, step 11) |
 | `packages/render/src/hasp-grip.ts` | **The two thumbs on THE HASP** — half two of the look lane |
 | `packages/render/src/hasp-blow.ts` | **THE HASP's own blow at the hull** (`boss-strike-look.ts`): its falling bolt driven home into the plating |
 | `packages/render/src/hasp-bolt.ts` | **THE HASP's loose bolt**, thrown from under the second clasp's hub and falling down its column to the hull |
