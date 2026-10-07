@@ -34458,3 +34458,5 @@ widest the noise can.
 Bottleneck: THE VISE spends nearly all its fight inside THE SLOW, so a
 swing that stopped for every ask would hardly have been seen; it keeps a
 third and its marks ride it.
+
+*Measured: 11 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

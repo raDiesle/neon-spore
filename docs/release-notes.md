@@ -9,6 +9,20 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 811168050 — Time log for living-bosses step 10, CYST, VISE and MANTLE
+
+## 2026-10-07 · 851b208c7 — THE MANTLE leans on its straps
+
+The shell, its core, seam, crack and vent are sheared together about the line the two straps are tied on, so the nose wanders up to eight tenths of a tile while the ties and the knobs a thumb drags stay put. The rings stay where they are answered, and a bolt meets the shell as it leans. The lean drops to a tenth under THE SLOW and is gone as the valves swing open. On the field under "a look with no shipped alternative".
+
+## 2026-10-07 · 5858c120b — THE VISE's case swings from its hinge
+
+Both lobes and the spine turn together about the hinge, up to 0.24 of a radian, so the case's foot wanders across by more than half a tile and the gap between the lobes holds. The kernel hangs still over the middle column. Every lit step opens THE SLOW and a rest is one beat, so the swing keeps a third under it, and the two lobe marks ride it in every reader. On the field under "a look with no shipped alternative".
+
+## 2026-10-07 · a3fb510cb — THE CYST's lobes swing about their waists
+
+Each of THE CYST's four lobes turns about the sac's middle by its own angle, up to 0.4 of a radian at the tip and none at the waists, so the lobes sway out of step and the ring never tears. The flanks and the spit lobe go still as THE SLOW opens, the top lobe keeps a third, and all of it stops through the split. The outline tier's boss list moves to outline-bosses.ts so outline-drift.ts stays under its size. On the field under "a look with no shipped alternative".
+
 ## 2026-10-07 · 1eb144e05 — Time log for living-bosses step 10, first four
 
 ## 2026-10-07 · 4f6b7b9c1 — THE LEDGER leans on its root and THE STARE rolls in its socket
