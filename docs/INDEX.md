@@ -3089,6 +3089,7 @@ by hand never moves.
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
 | `tools/director/src/poses-struck.ts` | A living body over the ship with a matching bolt still climbing at it: the kill itself, replayed |
 | `tools/director/src/poses-slow.ts` | THE INSTAR's wave run until THE SLOW opens a window — the `slow:window` slot's pose, and the only card where `slowing` is true |
+| `tools/director/src/poses-sinew-parting.ts` | THE SINEW just after a hold parts a fibre, THE SLOW open: `sinew:fibres`'s pose |
 | `tools/director/src/poses.ts` | Every state the STATES sheet draws, in reading order |
 | `tools/director/src/query.ts` | What is in a wave: the questions, with no answer that changes anything |
 | `tools/director/src/rail.ts` | The wave list and the fields every wave must carry |

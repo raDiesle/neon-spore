@@ -9,6 +9,7 @@ import { INSTAR_BROOD_POSE } from "./poses-instar-brood.js";
 import { INSTAR_FLIGHT_POSE } from "./poses-instar-flight.js";
 import { INSTAR_REAR_POSE, INSTAR_SPREAD_POSE } from "./poses-instar-spit.js";
 import { ROUND_TIMEOUT_POSE } from "./poses-round-timeout.js";
+import { SINEW_PARTING_POSE } from "./poses-sinew-parting.js";
 import { SLOW_RUNS_OUT_POSE, SLOW_WINDOW_POSE } from "./poses-slow.js";
 import { BREAK_POSE, BULB_STRUCK_POSE } from "./poses-struck.js";
 
@@ -74,4 +75,5 @@ export const VERSUS_STATE_POSES: Pose[] = [
   INSTAR_SPREAD_POSE,
   ...INSTAR_ACT_POSES,
   VALVE_SECOND_SPARK_POSE,
+  SINEW_PARTING_POSE,
 ];

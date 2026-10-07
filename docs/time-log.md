@@ -34849,3 +34849,18 @@ Bottleneck: writing — the tail and the legs were each built for one view,
 so their stops had to be pulled out into one helper both views call.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE SINEW's see-through fibres in THE SLOW, offered in VERSUS
+
+- reading: 5 min. The fibres' paint, `slowing`, which SINEW pose has a
+  window open with strings still standing — none did.
+- writing: 10 min. `FIBRE_LOOK` lifted with the frame unchanged, the
+  `SINEW · PARTING` pose, the `veiled` candidate painting on a layer.
+- looking: 5 min. One `versus:shot`.
+- friction: 5 min. The first lift handed `paint` a closed-over context, so
+  the layer could not be drawn on; and the tests' canvas has no
+  `OffscreenCanvas`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the fibres set their own alpha outright, so a fade had to be a
+layer, and a layer had to be handed the context.

@@ -1,11 +1,17 @@
-import { type SimConfig, type SinewState, sinewSwinging, type World } from "@neon-spore/sim";
+import {
+  type SimConfig,
+  type SinewState,
+  sinewSwinging,
+  slowing,
+  type World,
+} from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawSinewBand, sinewCollarBox } from "./sinew-band.js";
 import { drawSinewCrown, sinewCrownRoot } from "./sinew-crown.js";
-import { drawSinewFibres } from "./sinew-fibres.js";
+import { drawSinewFibres, FIBRE_LOOK } from "./sinew-fibres.js";
 import { paintMass } from "./sinew-flesh.js";
 import type { SinewFx } from "./sinew-fx.js";
 import { drawSinewHandles } from "./sinew-handles.js";
@@ -80,7 +86,9 @@ export function drawSinew(
     drawSinewCrown(ctx, l, root, strain, time);
     const holds = Math.max(1, cfg.sinewHoldBeats);
     const hold = s.holdBeat >= 0 ? Math.min(1, (beat - s.holdBeat + beatPhase) / holds) : -1;
-    drawSinewFibres(ctx, l, cfg, s, root, box, mass, rx, hold, time);
+    FIBRE_LOOK.lay(ctx, slowing(world), (on) =>
+      drawSinewFibres(on, l, cfg, s, root, box, mass, rx, hold, time),
+    );
     drawSinewBand(ctx, l, cfg, s, box, beatPhase, hold);
   }
   drawMass(ctx, l, cfg, mass, rx, time, strain, sinewCrushed(s, cfg), fx.hurt.value);

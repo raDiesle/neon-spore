@@ -328,20 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE SINEW's fibres go half-transparent through THE SLOW, in VERSUS
-
-- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
-- **Taken:** 2026-10-07, claude/tasks-form-queue-9a5f8c (claim: claude/queue-the-sinews-fibres-go-half-transparent-through-th)
-- **Files:** `packages/render/src/sinew-fibres.ts`, `tools/versus/candidates/`
-
-The design: *the fibres go half-transparent and part one at a time at a third
-rate* while THE SLOW is open (bosses-choreographed.md §8). The game marks THE
-SLOW only by its prism round the mass. Offer the fibres see-through while a
-window is open, on a pose with fibres standing and THE SLOW open (a part's
-`show` window) — add one if no pose has both. The owner asked for it on 7 October 2026, with the other two of THE SINEW's
-unbuilt looks (bosses.md §11.26, *Not built of the design's look*), each its
-own VERSUS slot (`tools/versus/candidates/`, `docs/versus.md`).
-
 ## THE SINEW's mass swings with weight, in VERSUS
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11

@@ -168,6 +168,23 @@ function sheath(
   paintSheath(ctx, path, left, right, tint, 0.1 + 0.12 * strain);
 }
 
+/**
+ * **How the fibres are laid on the frame, as a record**, so VERSUS can offer
+ * another answer beside it (`tools/versus/`): `slow` is whether THE SLOW is
+ * open this beat, and `paint` draws them on the context it is handed. The game
+ * paints them on the frame as they are,
+ * window or none — THE SLOW is marked by its prism round the mass.
+ */
+export interface FibreLook {
+  lay: (
+    ctx: CanvasRenderingContext2D,
+    slow: boolean,
+    paint: (on: CanvasRenderingContext2D) => void,
+  ) => void;
+}
+
+export const FIBRE_LOOK: FibreLook = { lay: (ctx, _slow, paint) => paint(ctx) };
+
 export function drawSinewFibres(
   ctx: CanvasRenderingContext2D,
   l: Layout,
