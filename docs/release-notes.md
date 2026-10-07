@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 183d6193b — The shipped bosses' unbuilt parts are queued, one lane each
+
+Nine entries from the *Not built* clauses of the choreographed ledger: THE CURTAIN's struck and thinning cloth, THE TASTER's SLOW picture and its per-notch depth, THE SINEW's weighted swing, THE LEDGER's lit nerves and back, THE SURGE's gaping slits and eversion, THE LEAD's arrow and falls, THE SCUTTLE's parts in its body, and THE ANTIPHON's turning organ. The looks go to VERSUS. Parts the write-ups argue against, or that an owner's rule settled, are left out; two stale clauses in the ledger are corrected.
+
 ## 2026-10-07 · 6d933d699 — Time log for living-bosses step 10, KEEL, SPLICE and HIVE
 
 Step 10 of the living-bosses rollout is marked landed in its spec.
