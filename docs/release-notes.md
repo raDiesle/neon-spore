@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 463b0f69f — THE SLOW's crawl gathers on the middle of THE FLUE, not its left end
+
+The crawl's rays gathered on the aim's head. A boss whose aim is a box run the long way as a capsule has no head, and the head it was given was the capsule's first end, so on THE FLUE the light streamed in to the left end of the flue, where the spore starts. Such a capsule is now marked whole: its rays gather on its middle and each comes to rest a tenth clear of its skin, flank or round end. Every boss aimed through a capsule gathers on its middle the same way; THE INSTAR still gathers on its head.
+
 ## 2026-10-07 · 1c7d95814 — THE FLUE counts its levels on its lobes
 
 The flue's eleven lobes are its eleven levels, counted from the left of the screen: a cleared level's lobe is lit pale and flares as it clears, the level lit breathes in its colour with its rim drawn in it, and the ones still to play stay dark. The row of studs over the flue is gone. A level that asks to be met twice says so on its card, SHOT ×2, counting down.
