@@ -12,6 +12,7 @@ import {
   keelPulse,
   keelRockNow,
   keelSegs,
+  keelSway,
   keelTendons,
 } from "./keel-pose.js";
 import { KEEL_ROCK } from "./keel-rock.js";
@@ -76,9 +77,7 @@ export function drawKeel(
   drawTendons(ctx, l, segs);
   segs.forEach((g, k) => {
     const inward = (n - 1) / 2 - k > 0 ? 1 : -1;
-    const lag = s.locked[k]
-      ? 0
-      : 0.25 * Math.sin((beat + beatPhase) * Math.PI * 0.5 + k * 1.7 - 0.8);
+    const lag = s.locked[k] ? 0 : 0.25 * keelSway(k, beat, beatPhase, 0.8);
     ctx.lineWidth = STROKE.inner;
     ctx.strokeStyle = rgba(PALETTE.rock, 0.3 + 0.4 * keelBright(s, cfg, k, beat, beatPhase));
     ctx.stroke(keelRibsPath(l, g.centre, g.slope, g.pose, inward, lag));

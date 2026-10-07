@@ -97,6 +97,15 @@ export function keelMiddle(s: KeelState, k: number): -1 | 0 | 1 {
   return 0;
 }
 
+/**
+ * Where a loose segment `k` is in its sway, -1..1: a quarter turn a beat, each
+ * segment 1.7 radians on from the last. `behind` holds the phase back by that
+ * many radians, for a part that follows the segment late (the ribs).
+ */
+export function keelSway(k: number, beat: number, beatPhase: number, behind = 0): number {
+  return Math.sin((beat + beatPhase) * Math.PI * 0.5 + k * 1.7 - behind);
+}
+
 /** One segment's pose: its sway if loose, its hinge if it is one of the middle two, its whip if it is the tail. */
 export function keelSegPose(
   s: KeelState,
@@ -106,7 +115,7 @@ export function keelSegPose(
   beatPhase: number,
 ): SegPose {
   const loose = !s.locked[k] && !keelDone(s) && s.phase !== "rigid";
-  const swing = loose ? Math.sin((beat + beatPhase) * Math.PI * 0.5 + k * 1.7) : 0;
+  const swing = loose ? keelSway(k, beat, beatPhase) : 0;
   const side = keelMiddle(s, k);
   const open = side === 0 ? 0 : keelOpen(s, cfg, beat, beatPhase);
   return {

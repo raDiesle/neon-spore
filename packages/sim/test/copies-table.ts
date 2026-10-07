@@ -907,4 +907,13 @@ export const COPIES: Copy[] = [
     owner: "packages/render/src/grindstone-caliper.ts",
     pattern: /turnedAbout\(\s*grindstonePadAt\(/,
   },
+  {
+    // **Where a loose KEEL segment is in its sway.** The ribs wrote the
+    // segment's sine out again with a lag until 7 October 2026; a change to
+    // the rate or the per-segment offset would have left them out of step
+    // with the bone they hang from.
+    call: "keelSway",
+    owner: "packages/render/src/keel-pose.ts",
+    pattern: /Math\.PI\s*\*\s*0\.5\s*\+\s*k\s*\*\s*1\.7\b/,
+  },
 ];

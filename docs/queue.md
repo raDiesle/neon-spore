@@ -345,19 +345,6 @@ the give did not cause it. Stack the two words, or let one give way while
 the other is up. A test that the two labels' boxes do not overlap belongs
 with the fix.
 
-## THE KEEL's ribs re-derive the segment's sway
-
-- **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
-- **Taken:** 2026-10-07, claude/queue-tasks-a07ff0 (claim: claude/queue-the-keels-ribs-re-derive-the-segments-sway)
-- **Files:** `packages/render/src/keel-draw.ts`, `packages/render/src/keel-pose.ts`
-
-The ribs' lag in `keel-draw.ts` (about line 79) is
-`0.25 * Math.sin((beat + beatPhase) * Math.PI * 0.5 + k * 1.7 - 0.8)`: the
-loose segment's sway from `keelSegPose` in `keel-pose.ts`, written out again
-with a phase offset. A change to the sway's rate or its per-segment offset
-leaves the ribs out of step. Export the sway's phase from `keel-pose.ts` and
-have the ribs call it with their lag.
-
 ## THE CURTAIN's fabric shows where a shot struck it and thins under the hands
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
