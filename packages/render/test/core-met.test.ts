@@ -11,6 +11,7 @@ import {
   ticksPerBeat,
 } from "@neon-spore/sim";
 import { AUTOPILOT_HANDS } from "../../hands/src/autopilot-hands.js";
+import type { Hand } from "../../hands/src/hand.js";
 import { drawBoss } from "../src/boss-draw.js";
 import { drawBullets } from "../src/bullets.js";
 import { Effects } from "../src/effects.js";
@@ -66,6 +67,23 @@ const FALLING: Partial<Record<BossKind, SimEvent["type"]>> = {
 /** The bosses with a part a step asks for aside of the middle column. */
 const ASIDE: readonly BossKind[] = ["cyst", "vise"];
 
+/**
+ * THE STARE played right never shoots, because the eye cannot be hurt
+ * (`hands/boss-hands-stare.ts`). Its dome is still met, so this hand fires up
+ * the middle once a beat as well.
+ */
+const HANDS: Partial<Record<BossKind, Hand>> = {
+  stare: (w) => [
+    ...(AUTOPILOT_HANDS.stare?.(w) ?? []),
+    ...(w.tick % TPB === 0
+      ? [
+          { player: 1 as const, command: { kind: "cannonCol" as const, col: midCol(CFG) } },
+          { player: 2 as const, command: { kind: "fire" as const, color: "red" as const } },
+        ]
+      : []),
+  ],
+};
+
 /** Whether `e` is a bolt judged in the field rather than past the top, under `kind`. */
 function metInField(kind: BossKind, e: SimEvent): boolean {
   if (e.type === "shotOut") return e.atMilli > 0;
@@ -78,7 +96,7 @@ interface Burst {
 }
 
 function played(kind: BossKind): { met: number[]; bursts: Burst[]; aside: boolean } {
-  const hand = AUTOPILOT_HANDS[kind];
+  const hand = HANDS[kind] ?? AUTOPILOT_HANDS[kind];
   if (hand === undefined) throw new Error(`no hand plays ${kind}`);
   const l = computeLayout(VIEWPORT, CFG, "test");
   const world = createWorld({ ...CFG }, 5);

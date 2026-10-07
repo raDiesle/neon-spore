@@ -5,8 +5,8 @@ import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * **THE STARE's shot**: the eye in the middle column, where a bolt leaves the
- * top of the field — and meets an eye that cannot be hurt.
+ * **THE STARE's shot**: the eye in the middle column, met at its dome's lower
+ * edge (`core-along.ts`) — an eye that cannot be hurt.
  *
  * The owner, 2 October 2026: *the eye cannot be shot or destroyed.* Until that
  * day a bolt into the shut eye ended a level; now every bolt up the middle,

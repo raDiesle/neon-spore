@@ -34190,3 +34190,16 @@ Bottleneck: none — THE CYST's lane had laid it down.
 Bottleneck: the record merge — two adjacent, agreeing edits stopped `land`.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE STARE's dome and THE PLUMB's core are shot where they hang
+
+- reading: 0 min. Both pictures' rows, read off the shapes by a scratch
+  script.
+- writing: 5 min. Both on the `CORES` table, THE STARE met at its dome's
+  lower edge, both pictures laid off the simulation's rows, and a hand in
+  `core-met.test.ts` that fires at the eye, because the right play never does.
+- looking: 0 min. `core-met.test.ts` is the look.
+- friction: 0 min.
+- landing: 0 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none.

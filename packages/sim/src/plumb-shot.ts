@@ -5,8 +5,8 @@ import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * **THE PLUMB's shot**: the lit core, where a bolt leaves the top of the
- * field in the middle column.
+ * **THE PLUMB's shot**: the lit core in the middle column, met where it
+ * hangs in the bob's belly (`core-along.ts`).
  *
  * Only a lit fire step takes one, with the core lit. **A step with a colour
  * wants that colour**, THE SEAM's rule (`seam-shot.ts`): the other is a

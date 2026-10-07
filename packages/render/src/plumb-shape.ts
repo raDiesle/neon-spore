@@ -1,5 +1,5 @@
 import { sacPoints } from "@neon-spore/content";
-import { midCol, type SimConfig } from "@neon-spore/sim";
+import { coreRowMilli, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -28,8 +28,6 @@ export interface Point {
   y: number;
 }
 
-/** The row the hook hangs at, in tiles below the grid's top. */
-const ROW = 0.35;
 /** Hook to the beam's middle, in tiles. */
 const STEM = 1;
 /** The beam's half-length and half-thickness, in tiles. */
@@ -54,6 +52,12 @@ const NECK = 0.06;
 /** Where the core sits in the sac's belly, as a share of its half-height, and its radius. */
 const CORE_AT = 0.5;
 const CORE = 0.3;
+/**
+ * The row the hook hangs at, in tiles below the grid's top: the core's — the
+ * simulation's, where a bolt meets it (`sim/core-along.ts`) — less the bob's
+ * drop from the hook to the core, hanging straight.
+ */
+const ROW = coreRowMilli("plumb") / 1000 + 0.5 - (STEM + BAR + NECK + (SAC_TOP + CORE_AT) * SAC_RY);
 /** A level glass: under each ball's rest, this far below the hook, this wide and tall. */
 const GLASS_Y = 3.75;
 const GLASS_W = 1.7;

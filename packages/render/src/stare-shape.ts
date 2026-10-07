@@ -1,4 +1,10 @@
-import { midCol, type SimConfig, type StareState, stareChargeLength } from "@neon-spore/sim";
+import {
+  coreRowMilli,
+  midCol,
+  type SimConfig,
+  type StareState,
+  stareChargeLength,
+} from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { type Layout, tileCX } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -32,9 +38,10 @@ import { splinePath } from "./spline.js";
  * 29 September 2026: *any boss should not touch top of game screen* — so the
  * eye hangs inside the field, the cowl's crown under row 0's top edge, and
  * the phone's own bar and the switcher above it stand clear. Nothing falls in
- * this wave (`bossFillsWave`), so the rows it covers are the eye's.
+ * this wave (`bossFillsWave`), so the rows it covers are the eye's. The
+ * simulation's row, where a bolt up the middle is met (`sim/core-along.ts`).
  */
-const EYE_DROP = 2.05;
+const EYE_DROP = coreRowMilli("stare") / 1000 + 0.5;
 /** The socket's half-extents in tiles: an almond, a little under half as tall as it is wide — bigger since the same day, *make eye some bigger*. */
 const EYE_RX = 1.75;
 const EYE_RY = 0.72;

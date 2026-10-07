@@ -328,20 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## Six more shot bosses' targets are judged at the field's top
-
-- **Found:** 2026-10-05, claude/cores-met-where-they-hang
-- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-six-more-shot-bosses-targets-are-judged-at-the-f)
-- **Files:** `packages/sim/src/stare-shot.ts`, `packages/sim/src/plumb-shot.ts`, `packages/sim/src/core-along.ts`
-
-Stare and plumb still judge a bolt when it leaves the field. Measured on
-7 October, from the burst drawn on the target to the judgment at the top:
-THE PLUMB's lit core 13 ticks, THE STARE's dome (armour only, drawn down to
-row 2.9) about 14. THE OCULUS and THE CURTAIN are on the `CORES` table now.
-Two came off: THE TASTER's crest hangs above row 0's centre, so a bolt meets
-it on the tick it leaves (a gain of nothing), and THE SCUTTLE is its own
-entry below.
-
 ## THE SCUTTLE's frame stands where the screen has room, not on a field row
 
 - **Found:** 2026-10-07, claude/queue-tasks-ab3705

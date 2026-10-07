@@ -10,7 +10,7 @@ import type { World } from "./world.js";
 /**
  * The two moments a shot meets THE CURTAIN, both on the **tick**: a bolt
  * into the fabric, from the refuse path (`bullet-refused.ts`), and a shot
- * leaving the top of the core's column while the core is bare, from
+ * meeting the core where it hangs in its column (`core-along.ts`), from
  * `bullets.ts` and `lance-burn.ts` beside `gorgeStruck`. The beat's work is
  * `curtain-step.ts`; this file is split off it at the 250-line limit, along
  * the one seam the two halves already had.
