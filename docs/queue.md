@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run frames --boss` cannot set a beat some way into a window
 
 - **Found:** 2026-10-07, claude/queue-tasks-a07ff0
+- **Taken:** 2026-10-07, claude/tasks-form-queue-9a5f8c (claim: claude/queue-bun-run-frames-boss-cannot-set-a-beat-some-way-i)
 - **Files:** `tools/frames/boss.ts`, `tools/frames/boss-install.ts`, `tools/frames/page.ts`
 
 `--boss pryBeat=now` writes the wave's *first* beat, because the boss's fields
