@@ -332,18 +332,45 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 - **Found:** 2026-10-05, claude/cores-met-where-they-hang
 - **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-six-more-shot-bosses-targets-are-judged-at-the-f)
-- **Files:** `packages/sim/src/taster-shot.ts`, `packages/sim/src/scuttle-shot.ts`, `packages/sim/src/curtain-shot.ts`, `packages/sim/src/stare-shot.ts`, `packages/sim/src/plumb-shot.ts`, `packages/sim/src/core-along.ts`
+- **Files:** `packages/sim/src/stare-shot.ts`, `packages/sim/src/plumb-shot.ts`, `packages/sim/src/core-along.ts`
 
-Taster, scuttle, curtain, stare and plumb still judge a bolt when it leaves
-the field (THE OCULUS's core went on the table on 7 October; its look step
-has nothing drawn to meet, and stays at the top):
-- **Taster and scuttle:** a target in every column, each on its own row.
-- **Curtain:** the core's row is in `SimConfig`.
-- **Stare and plumb:** the target hangs at or above row 0, so the gain is small.
+Stare and plumb still judge a bolt when it leaves the field. Measured on
+7 October, from the burst drawn on the target to the judgment at the top:
+THE PLUMB's lit core 13 ticks, THE STARE's dome (armour only, drawn down to
+row 2.9) about 14. THE OCULUS and THE CURTAIN are on the `CORES` table now.
+Two came off: THE TASTER's crest hangs above row 0's centre, so a bolt meets
+it on the tick it leaves (a gain of nothing), and THE SCUTTLE is its own
+entry below.
 
-Take them after the entry above has given a core a column. If plumb's gain
-measures under two ticks, take it off this list and say so in that lane's
-report.
+## THE SCUTTLE's frame stands where the screen has room, not on a field row
+
+- **Found:** 2026-10-07, claude/queue-tasks-ab3705
+- **Files:** `packages/render/src/scuttle-shape.ts`, `packages/sim/src/scuttle-shot.ts`, `packages/sim/src/core-along.ts`
+- **Asks:** Should THE SCUTTLE's frame be laid on a field row, so its live part can be met where it hangs?
+
+A bolt into THE SCUTTLE's live part is judged when it leaves the top of the
+field, 4–5 ticks after it is drawn bursting on the part. It cannot be met
+where it hangs, because the frame stands where `scuttleTop` puts it: above row 0,
+lowered by `headroomDrop` by however much the screen is short of room. The
+simulation cannot know that. The options: (a) lay the frame on field rows
+(the drop becomes a constant), which moves what is drawn on tall screens and
+is a look, so it goes to VERSUS first; (b) leave it judged at the top.
+
+## `land` stops on a queue entry its own lane's claim touched
+
+- **Found:** 2026-10-07, claude/queue-tasks-ab3705
+- **Files:** `tools/land/queue-merge.ts`, `tools/land/record-merge.ts`, `tools/land/replay.ts`
+
+A lane that drains several entries in one sitting claims each with
+`bun run queue take`, which commits the `Taken:` line on `main`. If the lane
+then edits that entry's `Files:` line (narrowing it as it lands a half) and
+appends to `docs/time-log.md` before fast-forwarding past the claim and the
+release note, `land` stops with conflicts in `docs/queue.md` and
+`docs/time-log.md` instead of merging them. In both files the two sides are
+adjacent lines that do not disagree: `Taken:` against `Files:`, and the
+`Measured:` footnote against a new entry under it. Teach the record merge
+both shapes, with a test for each in `tools/land/test/`. Worked around by
+hand on 7 October.
 
 ## THE SLOW's look reads a window's pace off the config, not the world
 

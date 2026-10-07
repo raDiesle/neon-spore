@@ -3,6 +3,7 @@ import { burgeeVerdict } from "./burgee-shot.js";
 import { capstanVerdict } from "./capstan-shot.js";
 import { midCol } from "./config.js";
 import type { CoreVerdict } from "./core-verdict.js";
+import { curtainCoreAside, curtainVerdict } from "./curtain-shot.js";
 import { cystBudAside, cystVerdict } from "./cyst-shot.js";
 import { davitVerdict } from "./davit-shot.js";
 import { gallVerdict } from "./gall-shot.js";
@@ -29,20 +30,23 @@ import type { World } from "./world.js";
  * One row per boss, in the field's thousandths of a row — the body's centre,
  * which its picture is laid off too — beside the verdict its shot already
  * has. A bolt that `bullets.ts` sweeps across it in the middle column, where
- * every core hangs, and that the verdict says anything of, is judged there by
- * the same calls as at the top (`shotLeaves`) and goes no further. Any other
- * column — a part a step asks for aside, or one the verdict is silent on —
- * flies on to the top as it always did. The beam is not asked: it stands in
+ * nearly every core hangs, and that the verdict says anything of, is judged
+ * there by the same calls as at the top (`shotLeaves`) and goes no further.
+ * **A part met up a column of its own** is met the same way at its own row:
+ * a part a step asks for aside — THE CYST's bud, THE VISE's seed — for as
+ * long as that step is lit, and a core that hangs over a column of its own,
+ * THE CURTAIN's, which drifts. Any other column, or one the verdict is silent
+ * on, flies on to the top as it always did. The beam is not asked: it stands in
  * the whole column on the tick it lights, so it has nothing to be late for.
  */
 
 interface Core {
-  /** The core's centre, thousandths of a row down the field. */
-  milli: number;
+  /** The core's centre in the middle column, thousandths of a row down the field; none where nothing hangs there. */
+  milli?: number;
   /** Where a bolt is met, if not `MEET_MILLI` past the centre: a core that is not in the middle of its body. */
   meet?: number;
   verdict: (world: World, col: number, color: Color) => CoreVerdict;
-  /** The part a lit step asks for aside of the middle, its column and row, or null. */
+  /** A part met up a column of its own, the column and row the world puts it at this tick, or null. */
   aside?: (world: World) => { col: number; milli: number } | null;
 }
 
@@ -56,6 +60,7 @@ const CORES: Partial<Record<BossKind, Core>> = {
   grindstone: { milli: 2000, verdict: (w, c, k) => grindstoneVerdict(w, c, k) },
   burgee: { milli: 550, verdict: (w, c, k) => burgeeVerdict(w, c, k) },
   capstan: { milli: 2700, verdict: (w, c, k) => capstanVerdict(w, c, k) },
+  curtain: { verdict: (w, c, k) => curtainVerdict(w, c, k), aside: (w) => curtainCoreAside(w) },
   cyst: {
     milli: 2200,
     verdict: (w, c, k) => cystVerdict(w, c, k),
@@ -84,9 +89,9 @@ const CORES: Partial<Record<BossKind, Core>> = {
  * stands it at (`render/*-shape.ts`), so the two cannot drift apart.
  */
 export function coreRowMilli(kind: BossKind): number {
-  const core = CORES[kind];
-  if (core === undefined) throw new Error(`${kind} has no core met where it hangs`);
-  return core.milli;
+  const milli = CORES[kind]?.milli;
+  if (milli === undefined) throw new Error(`${kind} has no core met where it hangs`);
+  return milli;
 }
 
 /** The bosses on the table, for the test that plays each (`render/test/core-met.test.ts`). */
@@ -110,10 +115,11 @@ export function coreAlong(world: World, b: Bullet, from: number, to: number): nu
   const core = kind === undefined ? undefined : CORES[kind];
   if (core === undefined || b.lance) return -1;
   const aside = core.aside?.(world);
-  const mid = b.col === midCol(world.cfg);
-  if (aside?.col !== b.col && !mid) return -1;
-  const meet =
-    aside?.col === b.col ? aside.milli - MEET_MILLI : (core.meet ?? core.milli - MEET_MILLI);
-  if (meet > from || meet < to) return -1;
+  let meet = -1;
+  if (aside?.col === b.col) meet = aside.milli - MEET_MILLI;
+  else if (b.col === midCol(world.cfg) && core.milli !== undefined) {
+    meet = core.meet ?? core.milli - MEET_MILLI;
+  }
+  if (meet < 0 || meet > from || meet < to) return -1;
   return core.verdict(world, b.col, b.color) === null ? -1 : meet;
 }

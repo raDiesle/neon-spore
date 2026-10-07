@@ -34174,3 +34174,17 @@ climbs to the gap decided the fire steps' pace and window before any code.
 Bottleneck: none — THE CYST's lane had laid it down.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE CURTAIN's core is shot where it hangs
+
+- reading: 5 min. The five bosses left: each stopper's row, and the gain
+  measured off `core-met.test.ts`'s harness, which took THE TASTER off and
+  sent THE SCUTTLE to a question.
+- writing: 0 min. A `CORES` row with no middle, THE CURTAIN's drifting core
+  as its aside.
+- looking: 0 min. `core-met.test.ts` is the look.
+- friction: 5 min. `land` stopped on the queue and the time log, which the
+  claim had touched beside this lane's edits; merged by hand and queued.
+- landing: 0 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the record merge — two adjacent, agreeing edits stopped `land`.

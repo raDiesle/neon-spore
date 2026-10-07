@@ -109,3 +109,14 @@ export function curtainStruck(world: World, b: Bullet): boolean {
   }
   return true;
 }
+
+/**
+ * The core where it hangs — its column, which drifts, and `curtainRow` — or
+ * null once it is out: where a bolt up its column is met (`core-along.ts`),
+ * and the row the picture hangs it on (`render/curtain-stop.ts`).
+ */
+export function curtainCoreAside(world: World): { col: number; milli: number } | null {
+  const c = curtainBoss(world);
+  if (c === null || c.phase === "out") return null;
+  return { col: c.coreCol, milli: world.cfg.curtainRow * 1000 };
+}
