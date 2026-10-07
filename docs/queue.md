@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE SINEW's mass swings with weight, in VERSUS
-
-- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
-- **Taken:** 2026-10-07, claude/tasks-form-queue-9a5f8c (claim: claude/queue-the-sinews-mass-swings-with-weight-in-versus)
-- **Files:** `packages/render/src/sinew-draw.ts`, `packages/render/src/sinew-shape.ts`, `packages/render/src/sinew-fx.ts`
-
-The design: *the mass swinging with real lag and overshoot*. Today its sag is
-a curve of the sum and follows it exactly. The lag needs memory across
-frames, which nothing in the world keeps: hold it in `SinewFx` (as the
-snap's whip is) and add it to the drawn mass only, so the handles' hit test
-is untouched. It differs only in motion, so it is judged as an animated pair;
-the owner asked for it knowing that. The owner asked for it on 7 October 2026, with the other two of THE SINEW's
-unbuilt looks (bosses.md §11.26, *Not built of the design's look*), each its
-own VERSUS slot (`tools/versus/candidates/`, `docs/versus.md`).
-
 ## THE SINEW's strain band as a white bar, in VERSUS
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11

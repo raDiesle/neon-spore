@@ -1,4 +1,5 @@
 import {
+  beatSeconds,
   type SimConfig,
   type SinewState,
   sinewSwinging,
@@ -25,6 +26,7 @@ import {
   sinewRoot,
   sinewSum01,
 } from "./sinew-shape.js";
+import { SINEW_WEIGHT } from "./sinew-sway.js";
 import { drawSinewTear } from "./sinew-tear.js";
 
 /**
@@ -64,7 +66,12 @@ export function drawSinew(
   const root = sinewCrownRoot(l, sinewRoot(l, cfg, s, beat, beatPhase), time);
   // A fibre parted shakes the mass and not the root: the fibres and the
   // handles' cords follow it, the way they follow the swing (`boss-hurt.ts`).
-  const hung = sinewMassCentre(l, cfg, s, beat, beatPhase, swing);
+  const seconds = (beat + beatPhase) * beatSeconds(cfg);
+  const hung = SINEW_WEIGHT.carry(
+    sinewMassCentre(l, cfg, s, beat, beatPhase, swing),
+    seconds,
+    l.tile,
+  );
   const mass = { x: hung.x + fx.hurt.shakeX(time, l.tile), y: hung.y };
   const box = sinewCollarBox(l, cfg, s, beat, beatPhase, swing);
   fx.note(mass.x, mass.y, box);

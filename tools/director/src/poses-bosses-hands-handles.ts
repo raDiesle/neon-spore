@@ -53,6 +53,9 @@ const filamentIn =
     w.boss?.kind === "filament" && w.boss.phase === phase && w.boss.head >= head;
 
 export const HANDLE_HAND_POSES: Pose[] = [
+  // VERSUS judges `sinew:weight` here: of every SINEW pose, this is the one
+  // where the mass is still travelling as the pose lands. It lags the sum by
+  // a tile and a half, against an eighth of a tile while swinging (7 October 2026).
   bossPose(
     "sinew",
     "held",
@@ -62,6 +65,8 @@ export const HANDLE_HAND_POSES: Pose[] = [
       hand: sinewHand,
       want: sinew((_, s) => sinewHeld(s, 1) && sinewHeld(s, 2)),
       hold: TPB,
+      lookAt:
+        "the mass under the fibres — whether it trails the pull and overshoots before it settles",
     },
   ),
   bossPose(

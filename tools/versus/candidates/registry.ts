@@ -12,6 +12,7 @@ import { AIM_PLASMA } from "./aim-cannon/plasma/index.js";
 import { AIM_SPORES } from "./aim-cannon/spores/index.js";
 import { AIM_TENDRILS } from "./aim-cannon/tendrils/index.js";
 import { SINEW_VEILED } from "./sinew-fibres/veiled/index.js";
+import { SINEW_HEAVY } from "./sinew-weight/heavy/index.js";
 import { TASTER_DEEP } from "./taster-notch/deep/index.js";
 
 export const VARIANTS: Variant[] = [
@@ -21,5 +22,6 @@ export const VARIANTS: Variant[] = [
   AIM_SPORES,
   AIM_TENDRILS,
   SINEW_VEILED,
+  SINEW_HEAVY,
   TASTER_DEEP,
 ];

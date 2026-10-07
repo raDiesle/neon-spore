@@ -45,3 +45,23 @@ export function sinewSway(
     k * ease * SINEW_SWAY * noise1((seconds * 2) / IDLE_DRIFT.roll.period, OUTLINE_SEED.sinew);
   return { x, y: -(TENDON - Math.sqrt(TENDON * TENDON - x * x)) };
 }
+
+/** A point on the screen. */
+interface At {
+  readonly x: number;
+  readonly y: number;
+}
+
+/**
+ * **Where the mass is drawn, given where it hangs**, as a record so VERSUS can
+ * offer another answer beside it (`tools/versus/`). The game draws it exactly
+ * where it hangs, so its sag follows the sum with no lag; a mass with weight
+ * would trail and overshoot, which wants memory across frames. Only the drawn
+ * mass reads this: the handles rest off `sinewMassCentre` itself, so a thumb
+ * is answered where it always was.
+ */
+export interface SinewWeight {
+  carry: (hung: At, seconds: number, tile: number) => At;
+}
+
+export const SINEW_WEIGHT: SinewWeight = { carry: (hung) => hung };

@@ -37,6 +37,7 @@ const SLOT_POSE: Record<string, string> = {
   "aim:cannon": "THE GORGE · ROW",
   "taster:notch": "THE TASTER · CLOSED",
   "sinew:fibres": "SINEW · PARTING",
+  "sinew:weight": "THE SINEW · HELD",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

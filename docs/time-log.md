@@ -34866,3 +34866,18 @@ Bottleneck: the fibres set their own alpha outright, so a fade had to be a
 layer, and a layer had to be handed the context.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE SINEW's mass swings with weight, offered in VERSUS
+
+- reading: 5 min. `sinewMassCentre`, how the snap's whip is kept, which
+  clock the frame has.
+- writing: 10 min. `SINEW_WEIGHT` lifted with the frame unchanged, the
+  `heavy` candidate's spring, its memory reset on a jump.
+- looking: 15 min. On SWINGING the pair was identical; a probe measured
+  every SINEW pose's lag and moved the slot to HELD, then three shots.
+- friction: 5 min. The formatter reflowed an import a script then missed.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the slot's first pose had already settled by the
+time it was built, so the spring showed nothing until a probe found the
+pose where the mass is still moving.
