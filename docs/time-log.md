@@ -34441,3 +34441,20 @@ cap has to be set from the widest the fight actually shows, not the
 widest the noise can.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — Living bosses step 10: THE CYST, THE VISE and THE MANTLE sway
+
+- reading: 5 min. Each boss's draw, its hit tests and the windows its
+  steps open THE SLOW for, from the reports already in hand.
+- writing: 10 min. Three `*-sway.ts`; the outline tier's boss list split
+  out to `outline-bosses.ts`; THE VISE's lobe marks turned in every reader,
+  THE MANTLE's bolt stops sheared as drawn; a test each.
+- looking: 5 min. A scan of each fight for its widest ticks, and the two
+  frames there side by side.
+- friction: 5 min. THE VISE's first frames caught an ask in its first half
+  beat, and its rests turned out to be one beat long.
+- landing: 5 min. `bun run index`, `check:fast`, three commits, `land`.
+
+Bottleneck: THE VISE spends nearly all its fight inside THE SLOW, so a
+swing that stopped for every ask would hardly have been seen; it keeps a
+third and its marks ride it.
