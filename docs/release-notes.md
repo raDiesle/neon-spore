@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · d161b2595 — THE HIVE's rehearsal shows the pilot's hold on a high cocoon
+
+The film moves to seed 853589, which opens the same first five sites on the same beats and then puts the left wall's top cocoon among the twins. The pilot's thumb goes on it, the red bolt fired from column 6 turns the corner and seals it, and the film ends with seven scars and nothing open. A hold in a film finds its cocoon the way the pilot's ring does (`hiveHoldable`, moved into the simulation), and the ghost thumb is drawn on it. A look exemption: a fix to something wrong — the film never taught the hold.
+
 ## 2026-10-07 · c4c4316fa — THE FLUE is played on SHOTS: red and cyan, and only on the screen that shoots
 
 THE FLUE now has a panel of its own, SHOTS, with nothing on it but the red and cyan fire buttons. The screen that shoots holds both colours, holding one still fills the beam, and the screen that sees the spore has an empty band. Every level, as the two of you trade roles, both colours move to the other phone. The cannon strip and the shield buttons, which did nothing here because the cannon is held, are gone.
