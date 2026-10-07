@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · e2fed1980 — `bun run frames` moves a strip's draw clock by what each paint is worth
+
+The frozen clock a capture paints against went on a sixtieth of a second per paint, whatever the paint was worth, so a `--stride 30` strip moved everything drawn on time by a sixtieth a frame where the game moves it a quarter of a second. The clock now moves by the paint's own `dt`, which the driver already sets to the ticks a stride stepped, and `--time` pins the next paint exactly instead of assuming it is a sixtieth on.
+
 ## 2026-10-07 · 1993bec72 — The silent-event lists give their last bosses a sixth page
 
 Both first pages of the bosses' silent lists stood within eight lines of the 250-line ceiling. THE SURGE, THE LEAD and THE SCUTTLE, the last bosses on them by build order and all choreographed, now have a page of their own in each list, spread in place after page five, so `isSilent` and `isIngestSilent` still narrow exactly as before. The first pages are at 196 and 199 lines.

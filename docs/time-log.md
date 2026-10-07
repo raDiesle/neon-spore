@@ -34315,3 +34315,5 @@ Bottleneck: none.
 Bottleneck: the entry's "identical in all six" did not reproduce at
 `--stride 4`, where a sixtieth a paint happens to be close to right; it
 is the long strides that were wrong.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
