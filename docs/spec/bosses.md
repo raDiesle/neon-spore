@@ -10607,12 +10607,17 @@ nobody steering by whichever phone is leaning further, so a phone tilted
 slowly rocks it slowly. **The turn is a yaw**: as it rocks, the bar narrows,
 the face it is turned toward comes round from a sliver to most of a disc and
 the other goes behind — a centred drum shows both as slivers, neither
-bared. Each face carries a band of eight marks (`capstanWearThreshold`),
+bared. Each face carries a band of twelve marks (`capstanWearThreshold`, eight
+until 7 October 2026, when the owner asked every rub for more rubs),
 scrubbed from grate to bare metal one per reversal worn and its rim turning a
 tooth with each; worn bright the rim goes white for good (`capstan-marks.ts`).
+**Every reversal shows** (the owner, the same day): the face jumps and flares
+under the thumb, its rust thins a step, and a ring of twelve green segments
+round the face fills one a reversal on both screens (`mark-progress.ts`).
 **The marks say which gesture**, in the hull's rim-white and nothing else: a
-pull arrow on the horn the lit band asks the lean toward (`drawPullArrow`,
-30 September 2026), on the steering seat's screen alone, going dark as its
+pull arrow over the drum toward the end the lit band asks the lean toward, and
+another inside the drum's middle (`drawPullArrow`, 30 September 2026, both
+made big and bold on 7 October), on the steering seat's screen alone, going dark as its
 face comes round, and on a hold faint on both, on both screens; the bared face's rim lit on
 the beat while it is the one to rub; the core in the drum's middle, under a
 riveted cap hinged along its top, lit in a fire step's colour with a ring

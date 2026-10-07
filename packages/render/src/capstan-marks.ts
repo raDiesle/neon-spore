@@ -46,15 +46,27 @@ export function drawCapstanFace(
 ): void {
   const bright = worn >= 1;
   const spin = worn * marks * ((Math.PI * 2) / 12);
+  // Every reversal shows on the face (the owner, 7 October 2026: *visual
+  // should change on any rub*): it jumps under the thumb as the scrub flares,
+  // and the rust over it thins a step a reversal, not only once bright.
+  ctx.save();
+  ctx.scale(1 + POP * thrown.scrub, 1 + POP * thrown.scrub);
   const face = capstanFacePath(l, w, spin);
   ctx.fillStyle = PALETTE.capstanRustDark;
   ctx.fill(face);
-  ctx.fillStyle = rgba(PALETTE.capstanRust, bright ? 0.5 : 0.85);
+  ctx.fillStyle = rgba(PALETTE.capstanRust, 0.85 - 0.35 * Math.min(1, worn));
   ctx.fill(face);
+  if (!bright && worn > 0) {
+    ctx.fillStyle = rgba(PALETTE.capstanWorn, 0.4 * worn);
+    ctx.fill(face);
+  }
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = bright ? PALETTE.capstanWorn : rgba(PALETTE.capstanRustDark, 0.95);
   ctx.stroke(face);
-  if (w < l.tile * 0.12) return;
+  if (w < l.tile * 0.12) {
+    ctx.restore();
+    return;
+  }
   const scrubbed = Math.round(worn * marks);
   ctx.lineCap = "round";
   ctx.lineWidth = STROKE.inner;
@@ -71,7 +83,7 @@ export function drawCapstanFace(
     strokeGlow(ctx, face, PALETTE.hullRim, STROKE.outline, pulse, 0.9);
   }
   if (thrown.scrub > 0) {
-    ctx.fillStyle = rgba(PALETTE.capstanWorn, 0.45 * thrown.scrub);
+    ctx.fillStyle = rgba(PALETTE.capstanWorn, 0.65 * thrown.scrub);
     ctx.fill(face);
   }
   if (thrown.ring > 0) {
@@ -79,7 +91,11 @@ export function drawCapstanFace(
     const ring = capstanFacePath(l, w * grow, spin);
     strokeGlow(ctx, ring, PALETTE.capstanWorn, STROKE.outline, thrown.ring, thrown.ring);
   }
+  ctx.restore();
 }
+
+/** How much bigger a face jumps as a reversal's scrub flares on it, at the flare's height. */
+const POP = 0.14;
 
 /**
  * The lean's mark on side `side`: the shared pull arrow (`drawPullArrow`,

@@ -34979,3 +34979,17 @@ Bottleneck: reading — the rework touches about 115 files, and finding which
 of them carry a look and which only a name took longest.
 
 *Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE CAPSTAN asks twelve rubs a band, and shows every one
+
+- reading: 5 min. The four rub bosses' counts in their configs.
+- writing: 10 min. The count, the face's pop and thinning rust, the
+  write-up's paragraph, two queue entries.
+- looking: 10 min. Two rounds of `bun run frames` at one, seven and eleven
+  rubs, and an AUTO run to the fifth reversal for the flare.
+- friction: 5 min. A full `bun run test` red on a doc-drift hook's timeout
+  that passes alone; queued.
+- landing: 5 min. Format, the full suite, `land`.
+
+Bottleneck: looking — the first rust thinning was too faint to tell one rub
+from seven, which only a frame showed.

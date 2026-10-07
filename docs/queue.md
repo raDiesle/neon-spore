@@ -522,3 +522,34 @@ window in their own config instead and were not touched: THE KEEL's
 wave — a window under THE SLOW is already stretched, and a rock's is timed
 against its fall — double the ones that are a plain wait for a shot, and move
 the sim tests that pin them.
+
+## doc-drift-names' beforeAll timed out under a full `bun run test`
+
+- **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
+- **Files:** `tools/test/doc-drift-names.test.ts`, `tools/test/repo-time.ts`
+
+A full `bun run test` on 7 October 2026 went red on one case, reported as
+`a comment naming something in its own file's subject > (unnamed)` at
+6651 ms: the `beforeAll` that reads `declaredNames()` and the whole tree's
+text, given `loadedTimeout(150)`. Run alone it passed in seconds, so the
+run was retried and nothing was fixed. Find out why the loaded timeout came
+out short of the walk at that load — the figure, or how the load is read
+when 135 shards start at once — and give the hook a figure that holds.
+
+## More rubs, counted in green, each one seen: THE RIME, THE GRINDSTONE, THE VALVE
+
+- **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
+- **Files:** `packages/sim/src/config-rime.ts`, `packages/sim/src/config-grindstone.ts`, `packages/sim/src/config-valve.ts`, `packages/render/src/rime-verdicts.ts`, `packages/render/src/grindstone-verdicts.ts`, `packages/render/src/valve-verdicts.ts`, `packages/render/src/mark-progress.ts`
+
+The owner, 7 October 2026: *every "Rub" should require more rubs, and how
+much rubs required again should be indicated by green circle around and also
+visual should change on any rub of boss.* THE CAPSTAN is the worked example:
+`capstanWearThreshold` went from 8 to 12, the band being rubbed carries
+`drawMarkProgress`'s green segments, one a reversal, on both screens
+(`capstan-verdicts.ts`), and every reversal pops the face, flares it and
+thins the rust (`capstan-marks.ts`). Do the same for the other three rubs:
+THE RIME's `rimeShaveMilli` (125, eight reversals a half), THE GRINDSTONE's
+`grindstoneShaveMilli` (40, twenty-five) and THE VALVE's `valveWipeRubs` (3).
+A rub against regrowth counts down a share, not whole reversals, so its ring
+is a plain arc, not segments. Check each step's window still holds the new
+count at a thumb's pace, and move the sim tests that pin the old one.

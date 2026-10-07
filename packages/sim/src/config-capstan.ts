@@ -29,7 +29,7 @@ export const CAPSTAN_DEFAULTS: CapstanConfig = {
   capstanRustBeats: 2,
   capstanRestBeats: 1,
   capstanPullMilli: 600,
-  capstanWearThreshold: 8,
+  capstanWearThreshold: 12,
   capstanHoldBeats: 3,
   capstanOpenBeats: 2,
 };
