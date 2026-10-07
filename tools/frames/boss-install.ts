@@ -85,10 +85,12 @@ export async function installBoss(page: Page, fields: BossSpec): Promise<void> {
     };
     const boss = world.boss;
     const body = (world.creatures ?? []).find((c) => c.id === boss.creatureId);
-    // `now` at any depth of `--boss-json` is the beat (`boss.ts`). Spelled out
-    // here rather than imported: this function crosses into the page as text.
+    // `now` at any depth of `--boss-json` is the beat, and `now-4` four beats
+    // before it (`nowShift`, `boss.ts`). Spelled out here rather than
+    // imported: this function crosses into the page as text.
     const resolve = (v: unknown): unknown => {
-      if (v === "now") return world.beat;
+      const m = typeof v === "string" ? /^now(?:([+-])(\d+))?$/.exec(v) : null;
+      if (m) return (world.beat as number) + (m[1] === "-" ? -1 : 1) * Number(m[2] ?? 0);
       if (Array.isArray(v)) return v.map(resolve);
       if (v === null || typeof v !== "object") return v;
       const out: Record<string, unknown> = {};

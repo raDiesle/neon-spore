@@ -34690,3 +34690,18 @@ Bottleneck: looking — whether a brow reads angry or startled only shows in
 the picture, and it took three rounds.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — `bun run frames --boss` takes `now-N` and `now+N`
+
+- reading: 5 min. The queue entry, `boss.ts`, the page's copy of the
+  resolver in `boss-install.ts`, `boss-check.ts`'s three places a `now` is
+  recognised.
+- writing: 5 min. `nowShift`, the page's resolver, the check, five tests,
+  the THROAT recipe that says what `now` is.
+- looking: 0 min. One capture of THE TASTER with `pryBeat=now-4`, to see
+  the page take it.
+- friction: 0 min.
+- landing: 5 min. `queue done`, `check:fast`, the commit, `land`.
+
+Bottleneck: none to speak of — the rule lived in four places, and each was
+named in the entry.

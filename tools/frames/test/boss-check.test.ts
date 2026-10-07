@@ -111,6 +111,14 @@ describe("the fields of the boss and its body", () => {
     expect(refusal([{ key: "phaseBeat", value: null }], { phaseBeat: 0 })).toBe("");
   });
 
+  it("takes `now-N` for a number field and in a list, as it takes `now`", () => {
+    expect(refusal([{ key: "pryBeat", value: "now-4" }], { pryBeat: 0 })).toBe("");
+    expect(refusal([{ key: "beats", value: ["now+2", 3] }], { beats: [1] })).toBe("");
+    const list: BossSpec = [{ key: "pryBeat", value: "now-4" }];
+    const blind = { ...seen(list, { pryBeat: 0 }), beatIsNumber: false };
+    expect(bossRefusal(list, blind)).toMatch(/no world\.beat to read/);
+  });
+
   it("takes a nested `now` as a number in a list, and only where there is a beat", () => {
     const intakes: BossSpec = [{ key: "intakes", value: [{ side: 0, fullBeat: "now" }] }];
     expect(refusal(intakes, { intakes: [{ side: 1, fullBeat: 4 }] })).toBe("");

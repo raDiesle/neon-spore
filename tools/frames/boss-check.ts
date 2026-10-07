@@ -22,7 +22,7 @@
  * so it takes anything.
  */
 
-import { type BossSpec, hasNow, NOW } from "./boss.js";
+import { type BossSpec, hasNow, nowShift } from "./boss.js";
 
 /** What the page read off the boss for one field of the list. */
 export interface FieldSeen {
@@ -146,7 +146,8 @@ function valueRefusal(
     return `--boss-json ${key}: that field holds ${typeof was}, not a list or a shape`;
   }
   const shown = `${flag} ${key}=${String(want)}`;
-  if (typeof was === "number" && want !== null && typeof want !== "number") {
+  const now = want === null || nowShift(want) !== undefined;
+  if (typeof was === "number" && !now && typeof want !== "number") {
     return `${shown}: that field holds a number`;
   }
   if (typeof was === "string" && typeof want !== "string") {
@@ -155,8 +156,7 @@ function valueRefusal(
   if (typeof was === "boolean" && typeof want !== "boolean") {
     return `${shown}: that field holds true or false`;
   }
-  if (want === null && !beatIsNumber)
-    return `${flag} ...=now: this build has no world.beat to read`;
+  if (now && !beatIsNumber) return `${flag} ...=now: this build has no world.beat to read`;
   return "";
 }
 
@@ -168,7 +168,7 @@ function itemRefusal(key: string, was: unknown[], want: unknown[]): string {
   const known = new Set(shapes.flatMap((s) => Object.keys(s)));
   for (const [n, item] of want.entries()) {
     // A `now` is the beat it will be by the time it is written, not a word.
-    const kind = item === NOW ? "number" : kindOf(item);
+    const kind = nowShift(item) !== undefined ? "number" : kindOf(item);
     const at = `--boss-json ${key}[${n}]`;
     if (!kinds.has(kind)) {
       const holds = [...kinds].join(" or ");

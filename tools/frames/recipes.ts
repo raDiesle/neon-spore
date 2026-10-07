@@ -82,8 +82,8 @@ export const RECIPES: readonly Recipe[] = [
   { argv: '. --wave "THE HANDOVER" --fault handover:4,3,6', what: "a fault no wave names" },
   { argv: ". --wave 3 --fault cannon:alternating,2", what: "a runaway cannon, twice as slow" },
   {
-    argv: '. --wave "THE THROAT" --boss slack=5,phase=everts,phaseBeat=now',
-    what: "a boss's last phase",
+    argv: '. --wave "THE THROAT" --boss slack=5,phase=everts,phaseBeat=now-2',
+    what: "a boss's last phase, two beats in — now is the wave's first beat, not --ticks'",
   },
   {
     argv: '. --wave "THE INSTAR" --boss cursor=10,phase=act,phaseBeat=now --ticks 200',

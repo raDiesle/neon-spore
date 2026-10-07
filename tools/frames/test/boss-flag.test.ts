@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { bossSpec, hasNow, parseBoss, parseBossJson } from "../boss.js";
+import { bossSpec, hasNow, nowShift, parseBoss, parseBossJson } from "../boss.js";
 import { parseFrameSpec } from "../flags.js";
 
 /**
@@ -46,6 +46,28 @@ describe("parseBoss", () => {
     // began on is `world.beat` at the moment the fields are written, which is
     // a number this process has no way of knowing (`installBoss`).
     expect(parseBoss("phaseBeat=now")).toEqual([{ key: "phaseBeat", value: null }]);
+  });
+
+  it("carries `now-N` and `now+N` as the word, and refuses a part of a beat", () => {
+    // `now` is the wave's first beat, so a moment four beats into a window
+    // is said against it rather than worked out from `--ticks` afterwards.
+    expect(parseBoss("pryBeat=now-4,fullBeat=now+2")).toEqual([
+      { key: "pryBeat", value: "now-4" },
+      { key: "fullBeat", value: "now+2" },
+    ]);
+    expect(() => parseBoss("pryBeat=now-1.5")).toThrow(/now-N or now\+N, in whole beats/);
+    expect(parseBoss("phase=nowhere")).toEqual([{ key: "phase", value: "nowhere" }]);
+  });
+
+  it("reads a shift off a `now` word and nothing off anything else", () => {
+    expect(["now", "now-4", "now+2"].map(nowShift)).toEqual([0, -4, 2]);
+    expect(["nowhere", "now-", "now-1.5", 4, null].map(nowShift)).toEqual([
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ]);
   });
 
   it("ignores the spaces a shell leaves behind", () => {
@@ -128,6 +150,7 @@ describe("parseBossJson", () => {
     expect(hasNow({ a: { b: ["now"] } })).toBe(true);
     expect(hasNow([{ side: 0, fullBeat: 3 }])).toBe(false);
     expect(hasNow("nowhere")).toBe(false);
+    expect(hasNow({ a: ["now-3"] })).toBe(true);
     expect(hasNow(null)).toBe(false);
   });
 

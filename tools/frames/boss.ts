@@ -50,13 +50,21 @@
  * boss field holds the word `now` as a word, so the rule has no exception to
  * hide. The top level crosses as `null`, as `--boss`'s does; a nested one
  * crosses as the word and the page resolves it (`boss-install.ts`).
+ *
+ * **`now-N` and `now+N` are the beat give or take whole beats**, wherever
+ * `now` is taken (7 October 2026). `now` is the wave's *first* beat, not the
+ * `--ticks` one: the fields are written straight after the jump, before the
+ * opening lets go (`page.ts`), so `--ticks 340` is that many ticks past it.
+ * Picturing THE TASTER's pried interlock four beats into its window wanted
+ * `pryBeat=now-4`, and it was refused. Either sign crosses as the word.
  */
 
 /** One field of the installed boss, or of its body, as it crosses into the page. */
 export interface BossField {
   key: string;
   /**
-   * `null` is the literal `now` — `world.beat`, resolved in the page. A list or
+   * `null` is the literal `now` — `world.beat`, resolved in the page; `now-4`
+   * crosses as the word and is resolved there too (`nowShift`). A list or
    * a plain object arrives only from `--boss-json`; the other two make scalars.
    */
   value: unknown;
@@ -118,9 +126,24 @@ function scalars(
 /** The word that means `world.beat`, on any flag and at any depth. */
 export const NOW = "now";
 
+/** `now`, `now-4`, `now+2`: the beat, give or take whole beats. */
+const NOW_WORD = /^now(?:([+-])(\d+))?$/;
+
+/**
+ * How many beats from `world.beat` a `now` word says, or `undefined` for
+ * anything that is not one. The page spells the same rule out in
+ * `boss-install.ts`, because what crosses into it crosses as text.
+ */
+export function nowShift(value: unknown): number | undefined {
+  if (typeof value !== "string") return undefined;
+  const m = NOW_WORD.exec(value);
+  if (!m) return undefined;
+  return m[1] === "-" ? -Number(m[2]) : Number(m[2] ?? 0);
+}
+
 /** Whether `value` holds a `now` anywhere down, which the page resolves. */
 export function hasNow(value: unknown): boolean {
-  if (value === NOW) return true;
+  if (nowShift(value) !== undefined) return true;
   if (value === null || typeof value !== "object") return false;
   return Object.values(value as Record<string, unknown>).some(hasNow);
 }
@@ -178,6 +201,10 @@ export function bossSpec(
 /** A value's own kind, off how it is written. Everything else is a string. */
 function read(flag: string, key: string, text: string): number | string | boolean | null {
   if (text === NOW) return null;
+  if (nowShift(text) !== undefined) return text;
+  if (/^now[+-]/.test(text)) {
+    throw new Error(`${flag} ${key}=${text}: now, now-N or now+N, in whole beats`);
+  }
   if (text === "true") return true;
   if (text === "false") return false;
   if (/^-?\d+(\.\d+)?$/.test(text)) {
