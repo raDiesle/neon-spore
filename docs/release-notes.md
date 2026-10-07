@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 60a3a3191 — A worktree behind the local main is brought up to it at session start
+
+Landings wait on the local `main` until the owner pushes, so a lane that brought the trunk up from `origin/main` could build for an hour on a design the local `main` had already replaced. The session-start hook now asks how far a worktree's HEAD is behind the local `main`: a clean one with no commits of its own is fast-forwarded, and any other is told how many commits it lacks and to rebase before building on the old trunk.
+
 ## 2026-10-07 · e2fed1980 — `bun run frames` moves a strip's draw clock by what each paint is worth
 
 The frozen clock a capture paints against went on a sixtieth of a second per paint, whatever the paint was worth, so a `--stride 30` strip moved everything drawn on time by a sixtieth a frame where the game moves it a quarter of a second. The clock now moves by the paint's own `dt`, which the driver already sets to the ticks a stride stepped, and `--time` pins the next paint exactly instead of assuming it is a sixtieth on.
