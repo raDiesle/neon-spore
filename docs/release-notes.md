@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 1d0207917 — THE INSTAR face-on is the same drake as side-on
+
+Seen face-on, THE INSTAR now has the same tail as side-on, coming out of the far end of its body with its two fins, and the same four legs, smaller with distance. Its body now has the side-on skin too: the rows of scales, the paler belly, the lamps and the two rows of spines along the back. Before, the face-on body was a pale grey bag of the head's scales, with no tail or legs. A bolt stops on the face-on tail and legs.
+
 ## 2026-10-07 · 5f6f4614f — Queued: THE SINEW's three looks for VERSUS; THE LEDGER's wait on the boss
 
 The owner answered both questions on 7 October 2026. "THE SINEW: a white band, a weighty swing, fibres clear in THE SLOW?" is closed into three entries, one per lane: the see-through fibres in THE SLOW, the weighty swing and the white strain band, each offered in VERSUS. THE LEDGER's lit nerves and new back wait until the owner has decided whether to keep the boss.
