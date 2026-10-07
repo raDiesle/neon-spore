@@ -9,6 +9,26 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 6d933d699 — Time log for living-bosses step 10, KEEL, SPLICE and HIVE
+
+Step 10 of the living-bosses rollout is marked landed in its spec.
+
+## 2026-10-07 · d63920ecc — THE HIVE's drops sway on their sites
+
+One gust runs along the underside, column by column, and each shut drop leans on it about the site it hangs from, its tip swinging across by more than half a tile. Breaches, scars and wall cocoons hang still. The next site and its twin ease plumb over the beat before they swell, and a bolt meets each drop as it leans. On the field under "a look with no shipped alternative".
+
+## 2026-10-07 · 9792972ca — THE SPLICE's eater rears its head and swings its back end
+
+The eater's neck lifts its head out of its hang by up to seven tenths of a tile, and only ever up, off the numbers under it. The sac from the lower hole swings at its fat end by more than half a tile. Both tendrils are bent from roots that stay in their holes. The sway goes through the bite and the chew, comes back after the swallow, and goes as the beaten eater pulls back. THE FILAMENT gets nothing added; its heart's turn as an organ is its sway, and the spec says so. On the field under "a look with no shipped alternative".
+
+## 2026-10-07 · 5a6f8c568 — Queue three findings from the living-bosses sway lanes
+
+THE TRIVET's foot seam patches no candidate, THE GRINDSTONE's jaw pads are placed in two places, and THE KEEL's ribs re-derive the segment's sway.
+
+## 2026-10-07 · df88f5949 — THE KEEL's loose segments heave on a swell
+
+One swell runs along the spine, head to tail. Each loose segment rises and falls on it a moment after the one before, up to six tenths of a tile, on top of its own small rock. A locked segment does not heave, so the spine stills a joint at a time as the pair lock it. The heave is up and down only, and every reader takes it from keelSegs, which is now handed the slow span, so the rings ride it. A third is left under THE SLOW. On the field under "a look with no shipped alternative".
+
 ## 2026-10-07 · 811168050 — Time log for living-bosses step 10, CYST, VISE and MANTLE
 
 ## 2026-10-07 · 851b208c7 — THE MANTLE leans on its straps

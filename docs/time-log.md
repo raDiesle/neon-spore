@@ -34477,3 +34477,5 @@ third and its marks ride it.
 Bottleneck: THE KEEL's segments are read by seven callers, each of which
 had to be handed THE SLOW's span so the rings and the drawing stay one
 point.
+
+*Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
