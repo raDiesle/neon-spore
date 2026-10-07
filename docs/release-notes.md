@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · a03afecb7 — THE INSTAR turns as one body between face-on and side-on
+
+Across the middle of a turn the face-on drawing used to fade out while the side-on one faded in, two ghosts of one dragon going different ways. Now it is one body: each ring sits part of the way from where face-on has it to where side-on has it, seen through a view yawed the same share round, and the wings, tail and legs go with it. The back rolls from one view's to the other's as a rotation of each ring's frame, never by a flip. Only the head is still crossed, over the middle of the turn. One body drawn instead of two also cuts the turn's fills and strokes by about a third.
+
 ## 2026-10-07 · c6321b7e9 — THE SINEW's strain band as a white bar is offered in VERSUS
 
 The band is now drawn through `BAND_LOOK.draw`, which is still the game's own glass tube, so the game's frame is the same. The `sinew:band · white` candidate draws the design's white bar instead, and each seat keeps its half: the zone is a white block on the pilot's screen, and the sum is a white fill on the navigator's. It is judged on THE SINEW · HELD.

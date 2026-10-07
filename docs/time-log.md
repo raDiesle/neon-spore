@@ -34916,3 +34916,5 @@ seat differently, so the navigator's half could not be photographed.
 Bottleneck: writing — the back could not be read as an angle off the tube's
 frames, which swing as the spine bends through the turn; it took three tries
 to find that each ring's frame has to be turned as a rotation.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
