@@ -383,3 +383,74 @@ loose segment's sway from `keelSegPose` in `keel-pose.ts`, written out again
 with a phase offset. A change to the sway's rate or its per-segment offset
 leaves the ribs out of step. Export the sway's phase from `keel-pose.ts` and
 have the ribs call it with their lag.
+
+## THE CURTAIN's fabric shows where a shot struck it and thins under the hands
+
+- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Files:** `packages/render/src/curtain-sheet.ts`, `packages/render/src/curtain-fx.ts`, `packages/render/src/curtain-give.ts`, `docs/spec/bosses-choreographed.md`
+
+Two parts of §6's look are not drawn (its ledger row, *Not drawn still*). **A bolt into the cloth leaves a mark**: a bolt into the fabric is stopped in the simulation (`bullet-refused.ts`, `curtainHemStruck`) and the hem bounces it, and nothing stays on the cloth. Draw a scorched pucker or tear that heals over a few beats, held in `Effects` and cleared in `Effects.reset()`. It must **not** open: §11.24 argues against a hole you can see the core through. **The cloth thins where the hands are** (§6's THE SLOW): while the rail is jammed and a hand strains the sheet (`curtainGive`), the membrane gets more see-through around the hand. The pilot is never shown a covered core, so this gives him nothing. The decoy stays out, as argued in §11.24. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
+
+
+## THE TASTER's SLOW beat gets a picture of its own
+
+- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Files:** `packages/render/src/taster-draw.ts`, `packages/render/src/taster-fx.ts`, `packages/render/src/slow-hush.ts`
+
+bosses.md §11 THE TASTER, *Not built*: THE SLOW's beat has no picture beyond the glint the edge throws as it sets. Give the slowed beat its own picture on the fan, drawn from THE SLOW's window (`slowHush`, `world.slowFromBeat`) and read off the world each frame. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
+
+
+## THE TASTER keeps a depth for each notch
+
+- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Files:** `packages/sim/src/taster.ts`, `packages/sim/src/taster-shot.ts`, `packages/sim/src/taster-hash.ts`, `packages/render/src/taster-blade.ts`
+
+bosses.md §11 THE TASTER: the notch is one sheen for every gap, brightened by `crest`, because the simulation keeps no depth per gap. Two lanes, the simulation then the look. First a per-gap count, stored as integers and hashed (`hashWorld`, `hash-coverage.test.ts`), that changes no rule. Then the notch drawn at its own depth. The look half goes to VERSUS (CLAUDE.md, *A look is offered*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued.
+
+
+## THE SINEW's mass swings with weight, and THE SLOW is marked on it
+
+- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Files:** `packages/render/src/sinew-sway.ts`, `packages/render/src/sinew-band.ts`, `packages/render/src/sinew-draw.ts`
+
+bosses.md §11 THE SINEW, *Not built of the design's look*: the mass's swing has no lag or overshoot beyond the snap's whip; nothing in the look marks THE SLOW on a part beyond the hull's shock; and the band is a collar on the tendon, where the design wanted a white bar split across the two screens. Offer each one as its own VERSUS candidate. The write-up leaves all three to the owner's eye. Step 8's lobes and step 11's halved ward window are argued against there and stay out. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
+
+
+## THE LEDGER's cord lights the ship's nerves, its back off the shape sheet
+
+- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Files:** `packages/render/src/ledger-cord.ts`, `packages/render/src/ledger-shape.ts`, `packages/render/src/ship-nerves.ts`
+
+bosses.md §11 THE LEDGER, *Not built of the design's look*: `ship-nerves.ts` is not lit along the cord's line, and the body's lobed back is `ledgerHalfPath`'s own rather than a silhouette from `tools/shape-sheet/src/drafts/`. THE SLOW's beat has no mark beyond the strain running up the cord. Offer each as a candidate. The halves firing down their own columns, and the beads travelling both ways, are dropped by the owner's rule and stay out. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
+
+
+## THE SURGE's slits gape with the pressure and its eversion turns the body out
+
+- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Files:** `packages/render/src/surge-shape.ts`, `packages/render/src/surge-flesh.ts`, `packages/render/src/surge-fx.ts`
+
+bosses.md §11 THE SURGE, *Not built of the design's look*: the slits do not gape wider as the pressure rises; the eversion is a fold of the outline, where the design wanted a second body turned out of the first; and a burst's spray across the whole ship is three gums and a jolt. Offer each as a candidate; the write-up leaves all three to the owner's eye. The inner body stays out: §11 argues it is a second boss. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
+
+
+## THE LEAD's lean is an arrow, and its torch and rock fall out of the body
+
+- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Files:** `packages/render/src/lead-draw.ts`, `packages/render/src/lead-rock.ts`, `packages/render/src/lead-fx.ts`
+
+bosses.md §11 THE LEAD, *Not built of the design's look*: the lean is a tilt of the stalk, where the design wanted an arrow with a length to it; the ridge does not show the walls the pass turns at; and the torch and the rock are the field's own creatures with a burst over the column, with no fall drawn out of the body. Offer each as a candidate; the write-up leaves all three to the owner's eye. The pass to the farther wall, and bolts doing nothing from the last segment on, are argued in §11 and stay out. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
+
+
+## THE SCUTTLE's parts are drawn as part of its body, not as a grid of sockets
+
+- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Files:** `packages/render/src/scuttle-shape.ts`, `packages/render/src/scuttle-draw.ts`, `packages/render/src/scuttle-plate.ts`
+
+bosses-choreographed.md ledger row §15, *Not built*: a part sits in a socket list rather than in the frame's body. Offer a candidate where each part is a lobe of the one frame and leaves a wound in it when it goes. The pod that is not taken losing the wave is the owner's rule of 12 September 2026 (`scuttle-step.ts`) and stays as it is. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
+
+
+## THE ANTIPHON's organ turns slowly in place, so the pilot has to say which way up
+
+- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Files:** `packages/sim/src/antiphon.ts`, `packages/sim/src/antiphon-step.ts`, `packages/sim/src/antiphon-hash.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/antiphon-shape.ts`
+
+bosses-choreographed.md §12 step 8, never built: the organ starts turning slowly in place, so the pilot's description has to include which way up it stands, and a candidate on the rail matches only at the right turn. This is a new state on a shipped boss: `.claude/skills/new-boss-state` lists the registrations outside the simulation. Two lanes, the simulation then the look, and the look goes to VERSUS. The 900 ms call windows stay out (the game never evaluates speech). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued.

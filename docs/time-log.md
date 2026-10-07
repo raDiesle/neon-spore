@@ -34479,3 +34479,17 @@ had to be handed THE SLOW's span so the rings and the drawing stay one
 point.
 
 *Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — The shipped bosses' unbuilt parts are queued
+
+- reading: 15 min. Every *Not built* clause in the choreographed ledger,
+  checked against each §11 write-up for the parts argued against on
+  purpose or settled by an owner's rule.
+- writing: 10 min. Nine queue entries, one a lane, and two stale clauses
+  in the ledger corrected (THE CURTAIN's SLOW, THE HIVE's insect).
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: a clause in the ledger and its §11 departure live 3,000 lines
+apart, so each gap had to be checked against the write-up by hand.
