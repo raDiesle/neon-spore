@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 544fdd466 — THE GAUGE's alien in depth: lit flesh, a throat, shaded teeth, eyes in sockets
+
+The alien was a flat dark sheet with a hole in it. Its body is now lit as a dome off the key light, with a raised tendon up each arm and pores placed on a ball. The mouth is a gullet that falls away to black, with rings of gristle stepping down it. Each tooth is shaded as a cone and stands in a band of gum. The eyes sit in sockets under a lit brow, with a rounded eyeball and a ringed iris, and the tongue is rounded. The wound, the aim and the gashes are unchanged and keep their colours to themselves.
+
 ## 2026-10-07 · b0fefc14f — Time log for THE GRINDSTONE's jaw pad
 
 ## 2026-10-07 · e4fc9cfe1 — THE GRINDSTONE's jaw pad is placed by one function

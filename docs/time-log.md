@@ -34554,3 +34554,5 @@ Bottleneck: `check:fast` — the COPIES table reaches every test in the tree.
 
 Bottleneck: the tendons first drawn as strokes read as wires laid on the
 body, and only filled lenses, embossed, read as raised.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
