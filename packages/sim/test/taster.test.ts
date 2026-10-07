@@ -245,6 +245,9 @@ describe("the soft crest", () => {
     tasterStruck(world, shot(world, t.col, "red"));
     tasterStruck(world, shot(world, t.col, "cyan"));
     expect(t.crest).toBe(2);
+    // Each gap keeps its own depth, and the gaps sum to the one count.
+    expect(t.blades[0]?.cuts).toBe(2);
+    expect(t.blades.reduce((n, k) => n + k.cuts, 0)).toBe(t.crest);
     // The one target in this fight with no colour: it is not a colour moment,
     // so the balance sheet says nothing either way.
     expect(world.balance.colorHits).toBe(0);

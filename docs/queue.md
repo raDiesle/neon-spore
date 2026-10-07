@@ -328,14 +328,17 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE TASTER keeps a depth for each notch
+## THE TASTER's notch is drawn at its own depth
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
-- **Taken:** 2026-10-07, claude/tasks-form-queue-9a5f8c (claim: claude/queue-the-taster-keeps-a-depth-for-each-notch)
-- **Files:** `packages/sim/src/taster.ts`, `packages/sim/src/taster-shot.ts`, `packages/sim/src/taster-hash.ts`, `packages/render/src/taster-blade.ts`
+- **Files:** `packages/render/src/taster-blade.ts`, `tools/versus/candidates/`
 
-bosses.md §11 THE TASTER: the notch is one sheen for every gap, brightened by `crest`, because the simulation keeps no depth per gap. Two lanes, the simulation then the look. First a per-gap count, stored as integers and hashed (`hashWorld`, `hash-coverage.test.ts`), that changes no rule. Then the notch drawn at its own depth. The look half goes to VERSUS (CLAUDE.md, *A look is offered*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued.
-
+The look half of *THE TASTER keeps a depth for each notch*, whose simulation
+half landed on 7 October 2026: every blade now carries `cuts`, the shots into
+the soft crest at its own gap, and they sum to `crest`. Draw each notch as deep
+as its `cuts` say rather than one sheen for every gap brightened by `crest`
+(bosses.md §11.25, *The crest carries the damage*). It is a look with one
+shipped in its place, so it goes to VERSUS (CLAUDE.md, *A look is offered*).
 
 ## THE SINEW's mass swings with weight, and THE SLOW is marked on it
 

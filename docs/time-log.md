@@ -34707,3 +34707,15 @@ Bottleneck: none to speak of — the rule lived in four places, and each was
 named in the entry.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE TASTER keeps a depth for each notch (the simulation)
+
+- reading: 5 min. `taster.ts`, the one cut in `taster-shot.ts` both the
+  bolt and the wipe go through, the hash, the spec's two notch passages.
+- writing: 5 min. `cuts` on a blade, counted in `tasterCut`, hashed; one
+  assertion that the gaps sum to `crest`; the look half queued for VERSUS.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none — the cut had one entrance, so the count had one place to go.

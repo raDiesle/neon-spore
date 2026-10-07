@@ -71,9 +71,15 @@ function shear(world: World, t: TasterState, i: number, k: TasterBlade): void {
  * (`taster-hand.ts`). Two counts of `tasterCrestCuts` would be two answers to
  * *is the crest through yet*, which is the one thing both seats read off the
  * same picture — so there is one, and it lives on the side that shipped first.
+ *
+ * **Each gap keeps its own count as well** (7 October 2026), so the notch can
+ * be drawn as deep as it has been cut rather than one sheen for every gap. It
+ * decides nothing: `crest` is still the one answer, and the gaps sum to it.
  */
 export function tasterCut(world: World, t: TasterState, i: number): void {
   t.crest += 1;
+  const k = t.blades[i];
+  if (k) k.cuts += 1;
   world.events.push({ type: "tasterCrest", col: t.col + i, cuts: t.crest });
   if (t.crest >= world.cfg.tasterCrestCuts && !tasterLifted(t)) {
     t.liftBeat = world.beat;

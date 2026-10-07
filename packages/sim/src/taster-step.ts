@@ -35,7 +35,7 @@ export function installTaster(world: World): TasterState {
   const col = Math.max(0, Math.min(cfg.cols - width, midCol(cfg) - Math.floor(width / 2)));
   const blades: TasterBlade[] = [];
   for (let i = 0; i < width; i++)
-    blades.push({ edge: null, layers: 0, growBeat: -1, setBeat: -1, shorn: false });
+    blades.push({ edge: null, layers: 0, growBeat: -1, setBeat: -1, shorn: false, cuts: 0 });
   world.events.push({ type: "tasterRise", col, width });
   return {
     kind: "taster",

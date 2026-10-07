@@ -47,6 +47,7 @@ export function tasterHashParts(t: TasterState): number[] {
       k.growBeat,
       k.setBeat,
       k.shorn ? 1 : 0,
+      k.cuts,
     );
   }
   return out;

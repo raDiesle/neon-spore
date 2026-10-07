@@ -89,6 +89,8 @@ export interface TasterBlade {
   setBeat: number;
   /** Struck off. Gone for good, and the crest under it soft. */
   shorn: boolean;
+  /** Cuts into the soft crest at this gap, which `crest` is the sum of: how deep its notch is. */
+  cuts: number;
 }
 
 /** Everything THE TASTER remembers between beats. */
