@@ -344,3 +344,42 @@ gripBody2=800,id=1`. It shows before and after the sheet's give landed, so
 the give did not cause it. Stack the two words, or let one give way while
 the other is up. A test that the two labels' boxes do not overlap belongs
 with the fix.
+
+## THE TRIVET's foot seam patches nothing
+
+- **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
+- **Files:** `packages/render/src/trivet-draw.ts`
+
+`TRIVET_FOOT` and its type `TrivetFootHang` (`trivet-draw.ts`, about lines
+55–71) are a VERSUS seam whose doc names a candidate under
+tools/versus/candidates/trivet-foot, and no such candidate is in the tree:
+the seam is called once, at draw time, with the identity. Drop the seam and
+its type and draw the foot where it stands, or, if the owner's decision on
+that candidate is recorded in `tools/versus/DECIDED.md`, follow what it
+says. `bun run check` holds the frame tests either way.
+
+## THE GRINDSTONE's jaw pads are placed in two places
+
+- **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
+- **Files:** `packages/render/src/grindstone-verdicts.ts`, `packages/render/src/grindstone-grip.ts`, `packages/sim/test/copies-table.ts`
+
+`marksAt` in `grindstone-verdicts.ts` and the grip's pad placement in
+`grindstone-grip.ts` each compute a pad as
+`turnedAbout(grindstonePadAt(l, side, k, shut), grindstoneBolt(l, shut),
+grindstoneJawTurn(side, shut))`. The verdict ring and the hit test must agree
+on that point, and a change to how the jaw turns (step 11 of
+`docs/spec/living-bosses.md` rocks the caliper) would have to be made twice.
+Name one function for a pad where it stands, call it from both, and add a
+`COPIES` row for it.
+
+## THE KEEL's ribs re-derive the segment's sway
+
+- **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
+- **Files:** `packages/render/src/keel-draw.ts`, `packages/render/src/keel-pose.ts`
+
+The ribs' lag in `keel-draw.ts` (about line 79) is
+`0.25 * Math.sin((beat + beatPhase) * Math.PI * 0.5 + k * 1.7 - 0.8)`: the
+loose segment's sway from `keelSegPose` in `keel-pose.ts`, written out again
+with a phase offset. A change to the sway's rate or its per-segment offset
+leaves the ribs out of step. Export the sway's phase from `keel-pose.ts` and
+have the ribs call it with their lag.
