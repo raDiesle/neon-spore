@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · ea02feabc — THE LEDGER's two unbuilt looks are put to the owner rather than offered
+
+The queue asked for three VERSUS candidates for THE LEDGER. THE SLOW has been marked by its prism round the body since 26 September, and the spec now says so. The ship's nerves lit along the cord are argued against in the write-up as a second picture of one hit, and no free drafted shape fits a new back for the body, so both are a question for the owner naming the options.
+
 ## 2026-10-07 · 9315c4de4 — THE SINEW's three unbuilt looks are put to the owner rather than offered
 
 The queue asked for three VERSUS candidates for THE SINEW: a white strain band, a mass that swings with lag and overshoot, and THE SLOW marked on the body. The owner asked for the glass tube with its green zone and blue sum line by name on 2 and 5 October, THE SLOW has been marked by its prism round the mass since 26 September, and the swing differs only in motion. The spec now says so, and the entry is a question for the owner naming the three options.

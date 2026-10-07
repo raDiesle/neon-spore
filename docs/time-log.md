@@ -34797,3 +34797,5 @@ owner's own redesign, and only the band's commit history said so.
 
 Bottleneck: the drafts — finding that no closed boss shape is free took a
 script over every catalogue file.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
