@@ -328,6 +328,22 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
+## `bun run frames --boss` cannot set a beat some way into a window
+
+- **Found:** 2026-10-07, claude/queue-tasks-a07ff0
+- **Files:** `tools/frames/boss.ts`, `tools/frames/boss-install.ts`, `tools/frames/page.ts`
+
+`--boss pryBeat=now` writes the wave's *first* beat, because the boss's fields
+are installed straight after the jump and before the opening lets go
+(`page.ts`, on purpose), so a frame taken with `--ticks 340` is four and a half
+beats into the window rather than at its start; and `pryBeat=now-4` is refused
+outright. Picturing THE TASTER's pried interlock at a chosen moment of its
+twelve-beat window took a strip whose times had to be worked out afterwards.
+Accept `now-N` and `now+N` (whole beats) wherever `now` is accepted, resolved
+against the same beat, and say in `--help` that `now` is the wave's first beat
+and not the `--ticks` one. The resolver lives twice, once in `boss.ts` and once
+spelled out inside the page in `boss-install.ts`; both move together.
+
 ## THE TASTER keeps a depth for each notch
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
