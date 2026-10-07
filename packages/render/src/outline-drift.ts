@@ -31,7 +31,9 @@ import { slowHush } from "./slow-hush.js";
  * top, swings at its hem (`curtain-sway.ts`), and THE TASTER's blades each
  * lean on their own root (`taster-sway.ts`), and THE SINEW's mass swings
  * under its held collar (`sinew-sway.ts`), and THE SURGE rocks about its
- * own middle (`surge-sway.ts`).
+ * own middle (`surge-sway.ts`), and THE LEDGER's plating leans on its
+ * underside (`ledger-sway.ts`), and THE STARE rolls about its eye
+ * (`stare-sway.ts`).
  */
 
 export type OutlineBoss =
@@ -45,7 +47,9 @@ export type OutlineBoss =
   | "curtain"
   | "taster"
   | "sinew"
-  | "surge";
+  | "surge"
+  | "ledger"
+  | "stare";
 
 /** How much of its pose each boss takes: 0 dead still, 1 the whole. Never past 1 — the cap is at 1. */
 export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
@@ -60,6 +64,8 @@ export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
   taster: 1,
   sinew: 1,
   surge: 1,
+  ledger: 1,
+  stare: 1,
 };
 
 /** How much of its pose `boss` takes on this device: its seam, times the motion setting's (`motion-life.ts`). */
@@ -80,6 +86,8 @@ export const OUTLINE_SEED: Readonly<Record<OutlineBoss, number>> = {
   taster: 157,
   sinew: 163,
   surge: 167,
+  ledger: 173,
+  stare: 179,
 };
 
 export const OUTLINE = {

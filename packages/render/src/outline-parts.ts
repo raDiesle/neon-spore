@@ -44,7 +44,9 @@ import { OUTLINE_SEED, type OutlineBoss, outlinePose, type Point } from "./outli
  * whose hem swings whole (`curtain-sway.ts`), nor THE TASTER, whose blades
  * sway by the lean they already had (`taster-sway.ts`), nor THE SINEW, whose
  * mass swings whole on its tendon (`sinew-sway.ts`), nor THE SURGE, which
- * rocks whole (`surge-sway.ts`).
+ * rocks whole (`surge-sway.ts`), nor THE LEDGER, whose halves lean as one
+ * (`ledger-sway.ts`), nor THE STARE, which rolls whole about its eye
+ * (`stare-sway.ts`).
  */
 export const OUTLINE_PARTS: Record<OutlineBoss, number> = {
   queen: 1,
@@ -58,6 +60,8 @@ export const OUTLINE_PARTS: Record<OutlineBoss, number> = {
   taster: 0,
   sinew: 0,
   surge: 0,
+  ledger: 0,
+  stare: 0,
 };
 
 export const PART = {

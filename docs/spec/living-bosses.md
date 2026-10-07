@@ -238,6 +238,23 @@ game "INSTAR:FLIGHT · SERPENT"*. `INSTAR_SERPENT.amount` is 1 on the field.
   roll. Eased out as it everts, hushed under THE SLOW. On the field under
   *a look with no shipped alternative*.
 
+  *THE LEDGER, as built, 7 October 2026* (`ledger-sway.ts`): both halves
+  sheared together about the underside, where the cord is rooted and the
+  seam's mouth opens, so the top of the plating wanders up to nine tenths
+  of a tile and nothing goes up or down. One lean for both, so the gap, the
+  readout, stays the same width all the way up. A bolt meets the plating
+  as it leans; the FIRE word stays over the seam's column. Paid in as the
+  cord roots, hushed under THE SLOW, eased out over the first beat of `out`. On
+  the field under *a look with no shipped alternative*.
+
+  *THE STARE, as built, 7 October 2026* (`stare-sway.ts`): the cowl, the
+  eye, the lashes and the glass roll together about the eye's middle, up to
+  0.3 of a radian, so the cowl's horns lift and dip by more than half a
+  tile and the pupil does not move. The count of turns is drawn level,
+  outside the roll; a bolt meets the rolled glass. Gone as the charge opens
+  THE SLOW, still through the rise and the calm, back over the first beat
+  of each rest. On the field under *a look with no shipped alternative*.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair

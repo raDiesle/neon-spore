@@ -3,6 +3,7 @@ import type { BoltHit, Stopper } from "./bolt-stop.js";
 import { lowestFoot, outlineFoot } from "./core-stop.js";
 import type { Layout } from "./layout.js";
 import { ledgerBodyY, ledgerHalfPoints } from "./ledger-shape.js";
+import { ledgerLeaned } from "./ledger-sway.js";
 
 /**
  * **Where a bolt meets THE LEDGER**, for `BoltStops` (`bolt-stop.ts`): the
@@ -16,7 +17,8 @@ import { ledgerBodyY, ledgerHalfPoints } from "./ledger-shape.js";
  * the colour it wants, a scuff in the other, and a scuff while the cord is
  * still rooting. Up a flanking column it meets the plating: a scuff. Past
  * the plating it meets nothing, though a bolt up the cord's column is drawn
- * across the cord on its way: a look, and not fixed here.
+ * across the cord on its way: a look, and not fixed here. The plating is
+ * met as it leans (`ledger-sway.ts`); the mouth, on the underside, does not.
  */
 export function ledgerStopper(
   l: Layout,
@@ -26,12 +28,12 @@ export function ledgerStopper(
   gap: number,
   shake: number,
   time: number,
+  lean = 0,
 ): Stopper {
-  const foot = lowestFoot([
-    outlineFoot(ledgerHalfPoints(l, seamX, -1, gap, time), shake),
-    outlineFoot(ledgerHalfPoints(l, seamX, 1, gap, time), shake),
-  ]);
   const mouth = ledgerBodyY(l).bottom;
+  const half = (side: -1 | 1) =>
+    ledgerHalfPoints(l, seamX, side, gap, time).map((p) => ledgerLeaned(p, lean, mouth));
+  const foot = lowestFoot([outlineFoot(half(-1), shake), outlineFoot(half(1), shake)]);
   const seam = ledgerSeamCol(t, world.cfg);
   return (col, x, color) => {
     const v = ledgerVerdict(world, col, color);

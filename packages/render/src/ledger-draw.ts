@@ -24,6 +24,7 @@ import {
   ledgerSeamX,
 } from "./ledger-shape.js";
 import { ledgerStopper } from "./ledger-stop.js";
+import { ledgerLean } from "./ledger-sway.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { showsLedgerSocket } from "./view-role-clocks.js";
 
@@ -137,7 +138,8 @@ export function drawLedger(
     : 1;
   if (fade <= 0) return;
   const shake = fx.hurt.shakeX(time, l.tile);
-  stops?.aim(ledgerStopper(l, world, t, seamX, gap, shake, time));
+  const lean = ledgerLean(world, t, beat, beatPhase);
+  stops?.aim(ledgerStopper(l, world, t, seamX, gap, shake, time, lean));
 
   ctx.save();
   ctx.globalAlpha = fade;
@@ -161,6 +163,8 @@ export function drawLedger(
   // is in the ship's plating, and the plating does not shake.
   ctx.save();
   ctx.translate(shake, 0);
+  // Both halves lean on the underside together (`ledger-sway.ts`).
+  ctx.transform(1, 0, -lean, 1, lean * root.y, 0);
   drawHalf(ctx, l, seamX, -1, gap, time, hex, lit, fx.hurt.value);
   drawHalf(ctx, l, seamX, 1, gap, time, hex, lit, fx.hurt.value);
   // And what is between them, once there is anything between them: the split

@@ -1786,6 +1786,7 @@ by hand never moves.
 | `packages/render/src/stare-shape.ts` | **Where THE STARE is, and how far it has turned** — the numbers the drawer |
 | `packages/render/src/stare-shell.ts` | **THE STARE's shell**: the glass the eye stands behind |
 | `packages/render/src/stare-stop.ts` | **Where a bolt meets THE STARE**, for `BoltStops` (`bolt-stop.ts`): the glass dome round the eye |
+| `packages/render/src/stare-sway.ts` | **THE STARE rolls in its socket** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/stare-blow.ts` | THE STARE's timeout blow: its gaze narrows to one ray that brands the eye into the hull |
 | `packages/render/src/stare-eye-look.ts` | THE STARE's eye as the one record its turn is painted through: a globe that rolls in its socket |
 | `packages/render/src/stare-eye-globe.ts` | **THE STARE's eye as a ball that turns**, where the game used to squash a flat eye to a sliver and shear it |
@@ -2275,6 +2276,7 @@ by hand never moves.
 | `packages/render/src/ledger-root.ts` | **The navigator's half of THE LEDGER, on the finished ship** |
 | `packages/render/src/ledger-shape.ts` | **Where THE LEDGER is**, in field pixels: the two halves of the body |
 | `packages/render/src/ledger-stop.ts` | **Where a bolt meets THE LEDGER**, for `BoltStops` (`bolt-stop.ts`): the halves' underside and the seam's mouth |
+| `packages/render/src/ledger-sway.ts` | **THE LEDGER leans on its root** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/ledger-grip.ts` | **The navigator's two hands on THE LEDGER's root**: the foot of the cord while it is still paying out |
 | `packages/render/src/ledger-haul.ts` | **The pilot's carry on the taut cord** |
 | `packages/render/src/ledger-pull.ts` | **The pilot's two hands on THE LEDGER's cord**: his thumb on the soonest return |
