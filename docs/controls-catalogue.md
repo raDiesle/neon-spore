@@ -102,7 +102,7 @@ Taught once, by the guide; **no helper on the field** (above).
 | Piece | Shared | Says | Who |
 |---|---|---|---|
 | `drawFireButton`, `drawActionButton`, `drawStripMark` | `controls.ts` | the band: the fire button, the action buttons wearing their faces, where the strip has the cannon | every wave |
-| `drawGrips`, `drawHandAt`, `gripLabel` | `grip.ts` | THE GRIP: a hand closed on a falling body, whose it is, and a beam from the ship where it is a pull — the partner's hand shown, never an instruction | every body a hand can take |
+| `drawGrips`, `drawHandAt`, `gripLabel`, `handWordY` | `grip.ts` | THE GRIP: a hand closed on a falling body, whose it is (the word a line under the ring, moved off a cue verb where one stands there), and a beam from the ship where it is a pull — the partner's hand shown, never an instruction | every body a hand can take |
 | `drawCarryArrows` | `grip-arrows.ts` | THE PUSH's pause, not its offer: two arrows fading out over the beat a carried rock must stand still, a side with a wall not drawn | a hand on a rock just carried |
 | `drawLockMarks`, `lockLink`, `wellLockLink` | `lock-mark.ts` | THE LOCK: the route a shot steers along to a held body | player 1's hand |
 

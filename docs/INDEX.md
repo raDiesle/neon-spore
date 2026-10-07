@@ -2525,6 +2525,7 @@ by hand never moves.
 | `packages/render/src/curtain-grip.ts` | **THE CURTAIN's hem**: the one part of this boss a single thumb takes hold of |
 | `packages/render/src/curtain-give.ts` | **THE CURTAIN gives under a hand** rather than sliding whole |
 | `packages/render/src/curtain-hem.ts` | **THE CURTAIN's membrane as an outline**: the rail, the right edge and the hem, a scallop a column |
+| `packages/render/src/curtain-hand-word.ts` | **Where the hand ring's word goes under THE CURTAIN's sheet**, so it is never written over the cue's |
 | `packages/render/src/curtain-marks.ts` | **THE CURTAIN's hem and sheet answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/cue-helper.ts` | **The helper a cue's word wears on the field**: a crosshair on a shot's aim, the panel's face for SHIELD and SUCK |
 | `packages/render/src/cyst-draw.ts` | **THE CYST**: a four-lobed sac over the middle column (BULB · CLOVER) |

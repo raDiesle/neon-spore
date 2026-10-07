@@ -328,24 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE CURTAIN's cue word and the hand ring's word are drawn on top of each other
-
-- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
-- **Taken:** 2026-10-07, claude/queue-tasks-a07ff0 (claim: claude/queue-the-curtains-cue-word-and-the-hand-rings-word-ar)
-- **Files:** `packages/render/src/curtain-draw.ts`, `packages/render/src/grip.ts`, `packages/render/src/boss-cue-read.ts`
-
-With a hand on THE CURTAIN's sheet, the hand ring's label (`YOU`, `PULL`,
-`BOTH PULL`, drawn by `drawLabel` at `y + r + 12` under the ring in
-`grip.ts`) and the boss's cue word `SHOVE` (`boss-cue-read.ts`) land on the
-same spot under the sheet's middle, and read as one jumbled word —
-`SHOVEPULL`, `BOSHOVULL`. Seen on the navigator's screen at THE CURTAIN,
-tick 230, with either or both hands on the sheet: `bun run frames HEAD
---wave "THE CURTAIN" --seat p2 --ticks 200 --press 120:2:grip=first --hold
-gripBody2=800,id=1`. It shows before and after the sheet's give landed, so
-the give did not cause it. Stack the two words, or let one give way while
-the other is up. A test that the two labels' boxes do not overlap belongs
-with the fix.
-
 ## THE CURTAIN's fabric shows where a shot struck it and thins under the hands
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11

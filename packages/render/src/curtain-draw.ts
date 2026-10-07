@@ -13,12 +13,13 @@ import {
   curtainSheetMidX,
   drawCurtainHem,
 } from "./curtain-grip.js";
+import { curtainHandWordY } from "./curtain-hand-word.js";
 import { drawCurtainAsked, drawCurtainVerdicts } from "./curtain-marks.js";
 import { drawCurtainCore, drawCurtainJam, drawCurtainSheet } from "./curtain-sheet.js";
 import { curtainStopper } from "./curtain-stop.js";
 import { curtainSway } from "./curtain-sway.js";
 import { drawnCol } from "./depth.js";
-import { drawHandAt } from "./grip.js";
+import { drawHandAt, gripLabel, handWordY } from "./grip.js";
 import type { GripVerdicts } from "./grip-verdict.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
@@ -134,7 +135,11 @@ export function drawCurtain(
   // the cloth the hand has carried ahead of the rail.
   if ((p1 || p2) && mid !== null) {
     const ringX = mid + give.across;
-    drawHandAt(ctx, l, world, body, "pull", p1, p2, ringX, cy, l.tile * 0.8, time, names);
+    const r = l.tile * 0.8;
+    // A line under the cue's verb when the two would meet (`curtain-hand-word.ts`).
+    const text = gripLabel(l.role, "pull", p1, p2, names);
+    const wordY = curtainHandWordY(l, world, c, text, ringX, handWordY(cy, r));
+    drawHandAt(ctx, l, world, body, "pull", p1, p2, ringX, cy, r, time, names, wordY);
   }
   if (verdicts) drawCurtainVerdicts(ctx, l, world, c, body, beatPhase, verdicts);
 }
