@@ -34418,3 +34418,5 @@ hold flags reach it, but the sheet's id had to be probed first.
 
 Bottleneck: reading anatomy off a painter that sorts parts, not pixels —
 every fix to the base was a change of which part covers which.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

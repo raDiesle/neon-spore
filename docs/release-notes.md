@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 2f9a5d201 — THE FILAMENT's heart is an organ, modelled and turned
+
+The flat two-lobed card over the field is now an alien heart built as a rig: a conical left ventricle to a leaning apex where the veins go in, the right ventricle bulging on its front and running up into the trunk, two atria, and the arch, its stumps and the cava rising toward the body and tapering to threads short of the seat switcher. It sways slowly in three dimensions, beats in two strokes (the atria and their glowing node on the lub, the ventricles lit from inside on the dub), carries a helical grain and one raised vessel per filament left with a pulse running up from the apex each beat, and flushes red when struck. Exemption: a look the owner asked for by name (7 October 2026, "more like a real hearth organ not for kids"). `bun run solid --filament` is its sheet.
+
 ## 2026-10-07 · e4ad92131 — THE CURTAIN gives under a hand rather than sliding whole
 
 The cloth where a hand holds the sheet goes ahead of the rail by the part of a column the hand has carried and not been paid for, and the rail catches it up when the column is paid, so it never snaps back; the hem dips under each hand, deeper when two hands pull apart and the sheet holds — the cancel's first picture. Against a jammed rail it strains as far as it can, which is the design's THE SLOW on the shove, since on this boss the jam is THE SLOW. The beads dip and stay over their columns, and the trailing edge never uncovers a core. A look the owner asked for by name: the *Not built* parts of the shipped bosses. The rule is untouched.
