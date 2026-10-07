@@ -355,6 +355,7 @@ each turned out to sit against something the owner has since decided:
 ## THE LEDGER's cord lights the ship's nerves, its back off the shape sheet
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Taken:** 2026-10-07, claude/tasks-form-queue-9a5f8c (claim: claude/queue-the-ledgers-cord-lights-the-ships-nerves-its-bac)
 - **Files:** `packages/render/src/ledger-cord.ts`, `packages/render/src/ledger-shape.ts`, `packages/render/src/ship-nerves.ts`
 
 bosses.md §11 THE LEDGER, *Not built of the design's look*: `ship-nerves.ts` is not lit along the cord's line, and the body's lobed back is `ledgerHalfPath`'s own rather than a silhouette from `tools/shape-sheet/src/drafts/`. THE SLOW's beat has no mark beyond the strain running up the cord. Offer each as a candidate. The halves firing down their own columns, and the beads travelling both ways, are dropped by the owner's rule and stay out. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
