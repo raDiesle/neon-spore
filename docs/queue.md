@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE TASTER's notch is drawn at its own depth
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Taken:** 2026-10-07, claude/tasks-form-queue-9a5f8c (claim: claude/queue-the-tasters-notch-is-drawn-at-its-own-depth)
 - **Files:** `packages/render/src/taster-blade.ts`, `tools/versus/candidates/`
 
 The look half of *THE TASTER keeps a depth for each notch*, whose simulation
