@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `grindstone-shape.ts` is 221 lines: cut the caliper off the wheel
 
 - **Found:** 2026-10-05, claude/grindstone-hit-at-axle
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-grindstone-shape-ts-is-221-lines-cut-the-caliper)
 - **Files:** `packages/render/src/grindstone-shape.ts`
 
 The size hook stopped an edit to it at 221 lines, 29 under the ceiling. The
