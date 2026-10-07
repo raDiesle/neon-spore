@@ -4721,8 +4721,8 @@ white bar half on each screen — the owner's own ask by name, 2 and
 5 October 2026; the mass's swing has no lag or overshoot beyond the snap's
 whip, its sag is a curve of the sum; and THE SLOW on a part is marked by its
 prism standing round the mass (`slow-boss-aim-b.ts`, 26 September 2026) but
-not by the design's fibres going half-transparent through it. Whether any of
-the three is still wanted is the owner's question (`docs/queue.md`).
+not by the design's fibres going half-transparent through it. The owner
+asked on 7 October 2026 for all three to be offered in VERSUS (`docs/queue.md`).
 
 **The rehearsal** (`content/src/scenes/the-sinew.ts`, 17 September 2026,
 ten pages over 2160 ticks): each seat's handle, then the zone on the pilot's
@@ -5030,8 +5030,8 @@ one would be two pictures of one hit; the halves do not fire down their own
 columns, which the simulation dropped for the owner's rule; and the body's
 lobed back is `ledgerHalfPath`'s own rather than a silhouette off the sheet.
 THE SLOW is marked by its prism standing round the body
-(`slow-boss-aim-c.ts`, 26 September 2026). Whether the nerves or a new back
-are still wanted is the owner's question (`docs/queue.md`).
+(`slow-boss-aim-c.ts`, 26 September 2026). The nerves and a new back wait on
+whether the owner keeps THE LEDGER at all (7 October 2026, `docs/queue.md`).
 
 **The words** (`render/src/boss-cue-read-o.ts`, 19 September 2026, its own
 page). Four, and the cord's own state picks the pair of them. While a return is

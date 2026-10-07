@@ -328,35 +328,51 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE SINEW: a white band, a weighty swing, fibres clear in THE SLOW?
+## THE SINEW's fibres go half-transparent through THE SLOW, in VERSUS
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
-- **Files:** `packages/render/src/sinew-band.ts`, `packages/render/src/sinew-sway.ts`, `packages/render/src/sinew-fibres.ts`
-- **Asks:** Which of the three, if any, should be offered in VERSUS?
+- **Files:** `packages/render/src/sinew-fibres.ts`, `tools/versus/candidates/`
 
-The design's look for THE SINEW has three parts the game does not draw
-(bosses.md §11.26, *Not built of the design's look*), and on 7 October 2026
-each turned out to sit against something the owner has since decided:
+The design: *the fibres go half-transparent and part one at a time at a third
+rate* while THE SLOW is open (bosses-choreographed.md §8). The game marks THE
+SLOW only by its prism round the mass. Offer the fibres see-through while a
+window is open, on a pose with fibres standing and THE SLOW open (a part's
+`show` window) — add one if no pose has both. The owner asked for it on 7 October 2026, with the other two of THE SINEW's
+unbuilt looks (bosses.md §11.26, *Not built of the design's look*), each its
+own VERSUS slot (`tools/versus/candidates/`, `docs/versus.md`).
 
-1. **The band as a white bar, half on each screen.** The owner asked by name
-   for the glass tube with a green zone and a blue sum line on 2 and 5 October
-   2026; a white bar would undo that. Option: drop it, or offer it anyway.
-2. **The mass swinging with lag and overshoot** as the sum changes. The
-   difference is about a third of a tile and only in motion, so it would be
-   judged as an animated pair and fails *seen at a glance* (docs/versus.md,
-   27 September 2026). It also needs memory across frames held in the
-   renderer, since nothing in the world keeps the sag's last value. Option:
-   offer it animated, or drop it.
-3. **The fibres going half-transparent through THE SLOW.** THE SLOW is
-   already marked on the mass by its prism (26 September 2026); see-through
-   fibres would be a second mark, plainly visible in a still. Option: offer
-   it, or call the prism enough.
+## THE SINEW's mass swings with weight, in VERSUS
+
+- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Files:** `packages/render/src/sinew-draw.ts`, `packages/render/src/sinew-shape.ts`, `packages/render/src/sinew-fx.ts`
+
+The design: *the mass swinging with real lag and overshoot*. Today its sag is
+a curve of the sum and follows it exactly. The lag needs memory across
+frames, which nothing in the world keeps: hold it in `SinewFx` (as the
+snap's whip is) and add it to the drawn mass only, so the handles' hit test
+is untouched. It differs only in motion, so it is judged as an animated pair;
+the owner asked for it knowing that. The owner asked for it on 7 October 2026, with the other two of THE SINEW's
+unbuilt looks (bosses.md §11.26, *Not built of the design's look*), each its
+own VERSUS slot (`tools/versus/candidates/`, `docs/versus.md`).
+
+## THE SINEW's strain band as a white bar, in VERSUS
+
+- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Files:** `packages/render/src/sinew-band.ts`
+
+The design: the strain band is **white**, the objective, half drawn on each
+phone. The game draws the glass tube with a green zone and a blue sum line
+the owner asked for by name on 2 and 5 October 2026; offer the white bar
+beside it, keeping each seat's half (the zone on the pilot's, the sum on the
+navigator's). The owner asked for it on 7 October 2026, with the other two of THE SINEW's
+unbuilt looks (bosses.md §11.26, *Not built of the design's look*), each its
+own VERSUS slot (`tools/versus/candidates/`, `docs/versus.md`).
 
 ## THE LEDGER: lit nerves along the cord, and a new back for its body?
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
 - **Files:** `packages/render/src/ship-nerves.ts`, `packages/render/src/ledger-cord.ts`, `packages/render/src/ledger-shape.ts`
-- **Asks:** Should either of the two be built, and if the back, from which shapes?
+- **Asks:** Is THE LEDGER kept? Both looks wait on it (the owner, 7 October 2026: skip what is only visual until he has decided whether to keep the boss)
 
 The design's look for THE LEDGER has three parts the game does not draw
 (bosses.md §11.27, *Not built of the design's look*). On 7 October 2026 one
