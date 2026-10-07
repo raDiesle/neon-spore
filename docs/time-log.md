@@ -34021,3 +34021,5 @@ typecheck one file at a time.
 
 Bottleneck: a test that counts gradients as a proxy for the mirage, found
 only by running it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
