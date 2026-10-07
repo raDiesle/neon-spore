@@ -34603,3 +34603,19 @@ Bottleneck: reading — the two drops were each derived in a different file
 from a different radius, and only the arithmetic side by side showed they met.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE CURTAIN's cloth keeps a shot's scorch and thins under a straining hand
+
+- reading: 15 min. The sheet's paint and give, the fx and its events, the
+  bounce a bolt into cloth sends, the rule that a look with nothing shipped
+  goes straight in rather than to VERSUS.
+- writing: 20 min. `curtain-scorch.ts`, `curtain-thin.ts`, the plumbing
+  through the fx and the drawer, nine tests.
+- looking: 15 min. Two `bun run frames` set-ups — a bolt aimed off the soft
+  lobes, the jam with a hand on — and two corrections each seen: the scorch
+  moved onto its column, the spokes redrawn as grain.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — each correction was only visible in a frame, and
+finding a bolt that bounces rather than takes a lobe cost a run.
