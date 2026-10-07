@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE TASTER's SLOW beat gets a picture of its own
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Taken:** 2026-10-07, claude/queue-tasks-a07ff0 (claim: claude/queue-the-tasters-slow-beat-gets-a-picture-of-its-own)
 - **Files:** `packages/render/src/taster-draw.ts`, `packages/render/src/taster-fx.ts`, `packages/render/src/slow-hush.ts`
 
 bosses.md §11 THE TASTER, *Not built*: THE SLOW's beat has no picture beyond the glint the edge throws as it sets. Give the slowed beat its own picture on the fan, drawn from THE SLOW's window (`slowHush`, `world.slowFromBeat`) and read off the world each frame. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
