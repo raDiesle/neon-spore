@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE SINEW's strain band as a white bar, in VERSUS
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Taken:** 2026-10-07, claude/tasks-form-queue-9a5f8c (claim: claude/queue-the-sinews-strain-band-as-a-white-bar-in-versus)
 - **Files:** `packages/render/src/sinew-band.ts`
 
 The design: the strain band is **white**, the objective, half drawn on each
