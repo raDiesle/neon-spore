@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · c4c4316fa — THE FLUE is played on SHOTS: red and cyan, and only on the screen that shoots
+
+THE FLUE now has a panel of its own, SHOTS, with nothing on it but the red and cyan fire buttons. The screen that shoots holds both colours, holding one still fills the beam, and the screen that sees the spore has an empty band. Every level, as the two of you trade roles, both colours move to the other phone. The cannon strip and the shield buttons, which did nothing here because the cannon is held, are gone.
+
 ## 2026-10-07 · c39528a80 — THE FLUE's sight is a glass pipe as wide as a shot's reach, and says the level under it
 
 A spore is now met anywhere its middle is in the coloured glass over the cannon, 1.2 columns either side where it was 0.74, so a shot has much more room. The ring over the cannon is a length of glass pipe in the level's colour, a rounded rectangle collared into the flue's flesh, with a gloss over the spore inside it; a hit greens it and a miss reddens it. The scan box, CALL NOW and FIRE are gone, and so are the halo and the partner's clock round the sight. What the level asks is now one sentence under the flue on both screens: SHOOT RED or BEAM CYAN in its colour, and under it when.

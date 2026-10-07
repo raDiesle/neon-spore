@@ -34066,3 +34066,5 @@ box" the owner meant.
 
 Bottleneck: none — the level trade already swaps whole panels, so a set
 with one seat empty was the whole change.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
