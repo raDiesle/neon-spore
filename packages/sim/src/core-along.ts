@@ -89,6 +89,11 @@ const CORES: Partial<Record<BossKind, Core>> = {
     verdict: (w, c, k) => viseVerdict(w, c, k),
     aside: (w) => viseSeedAside(w),
   },
+  // THE SCUTTLE is left off on purpose, and its live part judged at the top,
+  // four or five ticks after the bolt is drawn bursting on it: the frame
+  // stands where the screen has room (`render/scuttle-shape.ts`'
+  // `headroomDrop`), which the simulation cannot know. Laying it on a field
+  // row would move it on tall screens, a look; decided 7 October 2026.
 };
 
 /**

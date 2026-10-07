@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE SCUTTLE's frame stands where the screen has room, not on a field row
-
-- **Found:** 2026-10-07, claude/queue-tasks-ab3705
-- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-scuttles-frame-stands-where-the-screen-has-r)
-- **Files:** `packages/render/src/scuttle-shape.ts`, `packages/sim/src/scuttle-shot.ts`, `packages/sim/src/core-along.ts`
-- **Asks:** Should THE SCUTTLE's frame be laid on a field row, so its live part can be met where it hangs?
-
-A bolt into THE SCUTTLE's live part is judged when it leaves the top of the
-field, 4–5 ticks after it is drawn bursting on the part. It cannot be met
-where it hangs, because the frame stands where `scuttleTop` puts it: above row 0,
-lowered by `headroomDrop` by however much the screen is short of room. The
-simulation cannot know that. The options: (a) lay the frame on field rows
-(the drop becomes a constant), which moves what is drawn on tall screens and
-is a look, so it goes to VERSUS first; (b) leave it judged at the top.
-
 ## `land` stops on a queue entry its own lane's claim touched
 
 - **Found:** 2026-10-07, claude/queue-tasks-ab3705

@@ -34235,3 +34235,16 @@ Bottleneck: none — the read, not the regex, was the cost, and one timing
 said so.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE SCUTTLE stays judged at the top
+
+- reading: 5 min. The entry, `core-along.ts`' table and how the other
+  bosses are met where they hang.
+- writing: 0 min. A comment in the table saying THE SCUTTLE is left off on
+  purpose, and why.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. The owner's answer ("you decide"), `check:fast`, `land`.
+
+Bottleneck: the question itself — the cheaper option needed only a
+sentence once it was decided.
