@@ -34619,3 +34619,5 @@ from a different radius, and only the arithmetic side by side showed they met.
 
 Bottleneck: looking — each correction was only visible in a frame, and
 finding a bolt that bounces rather than takes a lobe cost a run.
+
+*Measured: 20 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

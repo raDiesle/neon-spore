@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · ff14fbba8 — Time log for THE CURTAIN's scorch and thinning
+
+## 2026-10-07 · d7fd4547b — THE CURTAIN's cloth keeps a shot's scorch and thins under a straining hand
+
+A bolt spent on THE CURTAIN's cloth now leaves a scorched pucker over the column it came up, hot at the rim and healing over four beats — darker than the cloth and never a hole, so no covered core is ever shown through it (`curtain-scorch.ts`). While a hit jams the rail and a hand strains the sheet, the cloth goes thinner round the hand with its grain drawn taut towards it (`curtain-thin.ts`): the navigator's shadow reads plainer there and the pilot is shown nothing new. Exemption: a look with no shipped alternative — the game drew neither (`docs/looks.md`, 27 September 2026), so they land on the field rather than in VERSUS as the queue entry proposed.
+
 ## 2026-10-07 · fb47a24a1 — Time log for THE CURTAIN's hand word
 
 ## 2026-10-07 · 0a0e89792 — THE CURTAIN's hand word steps a line under the cue word
