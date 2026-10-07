@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 73118049e — Time log for THE THROAT's graft
+
+## 2026-10-07 · c2bb0137c — THE THROAT grows out of the ship, and the cannon is gone from its wave
+
+The gullet used to stand behind the cannon's swelling like a pipe planted behind a hill, with the gunsight column still running up past it. Now the hull's own skin flares up round the root and climbs the tube: violet (amber on player two's screen) going to the gullet's grey, the membrane's lit outline running on up both flanks, and the ship's veins climbing the tube, lit as a gulp passes down into the hull. It follows the tube's sway and lean, and sinks back into the hull as the eversion pulls the root out. The cannon's swelling and its gunsight column are not drawn on this wave.
+
 ## 2026-10-07 · 60069296a — Time log for THE KEEL's sway
 
 ## 2026-10-07 · e8463097e — THE KEEL's ribs follow the segment's sway by calling it
