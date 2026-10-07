@@ -4395,8 +4395,12 @@ that hang over the field with nothing on the grid moved into
 `render/src/boss-draw-clocks.ts` — the seam `packages/sim` already cuts three
 files along, and the half of that dispatch that grows.
 
-**What the look does not have.** THE SLOW's beat has no picture of its own
-beyond the glint the edge throws as it sets; the notch is one sheen for all the
+**What the look does not have.** THE SLOW's beat had no picture of its own
+beyond the glint the edge throws as it sets until 7 October 2026: since then the
+interlock parts under the pilot's haul, springs open past upright when it gives,
+and closes over THE SLOW's window until it crosses again as the window shuts,
+with a white sliver lit in the lock's column while it stands open
+(`render/src/taster-pry.ts`). The notch is one sheen for all the
 gaps rather than a depth each; and the wave's guide is prose rather than a film
 (`content/test/scenes-prose.test.ts`). **And the three hands are not drawn at
 all yet**: the pin, the wipe and the pry are heard and hashed, and nothing on

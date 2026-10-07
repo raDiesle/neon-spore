@@ -1,10 +1,17 @@
-import { type SimConfig, type TasterState, tasterPhase, type World } from "@neon-spore/sim";
+import {
+  type SimConfig,
+  type TasterState,
+  tasterLockCol,
+  tasterPhase,
+  type World,
+} from "@neon-spore/sim";
 import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { BLADE_TILES, type BladeLook, drawBlade } from "./taster-blade.js";
 import { crestPath, drawNotch, drawSeam } from "./taster-crest.js";
 import { paintGum } from "./taster-flesh.js";
+import { drawTasterPryLight, pryLean, tasterPryOpen } from "./taster-pry.js";
 import { drawTasterNext, drawTasterTally } from "./taster-read.js";
 import { tasterStopper } from "./taster-stop.js";
 import { tasterSway } from "./taster-sway.js";
@@ -76,6 +83,8 @@ function grownOf(growBeat: number, beat: number, beatPhase: number, cfg: SimConf
 function looks(world: World, t: TasterState, tile: number, beatPhase: number): BladeLook[] {
   const { cfg, beat } = world;
   const phase = tasterPhase(t, cfg);
+  // Pried open under THE SLOW, and closing as it runs out (`taster-pry.ts`).
+  const pried = tasterPryOpen(world, t, beatPhase);
   const out =
     phase === "out" ? (beat - t.outBeat + beatPhase) / Math.max(1, cfg.tasterOutBeats) : 0;
   const mid = (t.blades.length - 1) / 2;
@@ -91,7 +100,7 @@ function looks(world: World, t: TasterState, tile: number, beatPhase: number): B
       phase === "out"
         ? -side * OUT_LEAN * Math.min(1, out)
         : phase === "closed" && k.setBeat >= 0
-          ? side * LOCK_LEAN
+          ? pryLean(side, LOCK_LEAN, pried)
           : 0;
     const grown = k.setBeat >= 0 ? 1 : grownOf(k.growBeat, beat, beatPhase, cfg);
     // And the gust across the fan while it is fed, as far as it has grown (`taster-sway.ts`).
@@ -165,6 +174,11 @@ export function drawTaster(
   // Cut through, for good: a lit seam the width of the crest, and the fan can
   // never taste again (`tasterLift`).
   if (t.liftBeat >= 0) drawSeam(ctx, left, right, y, l.tile, time);
+
+  // The gap the beams go up, lit while the interlock stands pried, behind the blades that frame it.
+  const reach = l.tile * BLADE_TILES;
+  const open = tasterPryOpen(world, t, beatPhase);
+  drawTasterPryLight(ctx, tileCX(l, tasterLockCol(t)), y, reach, l.tile, open, time);
 
   const fan = looks(world, t, l.tile, beatPhase);
   for (let i = 0; i < fan.length; i++) {
