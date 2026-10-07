@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · d94790d2c — THE FLUE hangs two rows lower again
+
+The flue, its spore and its sight now stand on the sixth row from the top, two lower than yesterday, and a shot is judged there. The strings it hangs on are longer, and a bolt reaches it a little sooner.
+
 ## 2026-10-07 · 67aa5e346 — THE FLUE's crosshair and HOLD circle wear the level's colour, not red
 
 On a level that asks for cyan, the crosshair over the sight, the HOLD circle at the hull and the glow inside the sight were all drawn in the red every boss's mark uses. A player going by them fired red, and with the spore in the sight the flue refused the shot as WRONG COLOUR, which read as a timing mistake. All three are now drawn in the level's colour. The simulation was already right: a mistimed shot in the level's colour is judged TOO EARLY or TOO LATE.
