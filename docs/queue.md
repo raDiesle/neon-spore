@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run frames` holds the picture's clock still across a `--stride` strip
 
 - **Found:** 2026-10-06, claude/flue-blind
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-bun-run-frames-holds-the-pictures-clock-still-ac)
 - **Files:** `tools/frames/capture.ts`, `tools/frames/run.ts`
 
 `--frames 6 --stride 5` stepped the world five ticks a frame but painted every
