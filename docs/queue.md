@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `land` stops on a queue entry its own lane's claim touched
 
 - **Found:** 2026-10-07, claude/queue-tasks-ab3705
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-land-stops-on-a-queue-entry-its-own-lanes-claim)
 - **Files:** `tools/land/queue-merge.ts`, `tools/land/record-merge.ts`, `tools/land/replay.ts`
 
 A lane that drains several entries in one sitting claims each with
