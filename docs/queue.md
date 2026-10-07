@@ -361,6 +361,7 @@ hand on 7 October.
 ## THE SLOW's look reads a window's pace off the config, not the world
 
 - **Found:** 2026-10-05, claude/the-flue-game-mechanics-da88ed
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-slows-look-reads-a-windows-pace-off-the-conf)
 - **Files:** `packages/render/src/slow-intake-aim.ts`, `tools/director/test/boss-hush.test.ts`
 
 THE FLUE's rework gave each window its own pace: `openSlow` takes one and
