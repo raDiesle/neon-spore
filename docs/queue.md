@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE RATCHET's and THE HASP's moving bolts are judged at the top of the field
 
 - **Found:** 2026-10-05, claude/cores-met-where-they-hang
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-ratchets-and-the-hasps-moving-bolts-are-judg)
 - **Files:** `packages/sim/src/ratchet-shot.ts`, `packages/sim/src/hasp-shot.ts`, `packages/sim/src/boss-along.ts`, `packages/render/test/core-met.test.ts`
 
 This is the same as the mantle's entry above, for a target that rides the rig.
