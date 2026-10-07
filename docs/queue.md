@@ -328,20 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE SINEW's strain band as a white bar, in VERSUS
-
-- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
-- **Taken:** 2026-10-07, claude/tasks-form-queue-9a5f8c (claim: claude/queue-the-sinews-strain-band-as-a-white-bar-in-versus)
-- **Files:** `packages/render/src/sinew-band.ts`
-
-The design: the strain band is **white**, the objective, half drawn on each
-phone. The game draws the glass tube with a green zone and a blue sum line
-the owner asked for by name on 2 and 5 October 2026; offer the white bar
-beside it, keeping each seat's half (the zone on the pilot's, the sum on the
-navigator's). The owner asked for it on 7 October 2026, with the other two of THE SINEW's
-unbuilt looks (bosses.md §11.26, *Not built of the design's look*), each its
-own VERSUS slot (`tools/versus/candidates/`, `docs/versus.md`).
-
 ## THE LEDGER: lit nerves along the cord, and a new back for its body?
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
@@ -464,3 +450,16 @@ sprite` neither shows them nor prints their code bytes, bake time and the
 memory a 2× disc takes. Add the demo (play height the dial's diameter, one
 state), the `BYTES` row and the `baked-parts.md` line; `bun run sprite
 governor-alloy` should print both.
+
+## VERSUS shows one seat for a patch that draws each seat differently
+
+- **Found:** 2026-10-07, claude/tasks-form-queue-9a5f8c
+- **Files:** `tools/director/src/versus-seat.ts`, `tools/director/src/versus-diff.ts`
+
+`sinew:band · white` paints the zone as a white block on the pilot's screen
+and the sum as a white fill on the navigator's, yet `seatPlan` gave the page
+only P1'S SCREEN on THE SINEW · HELD, so the navigator's half is never seen.
+Likely `signature` hashes the difference too coarsely to tell two shapes in
+the same place apart. Find out why, and make a seat-split candidate show both
+seats; a test with two patches drawing different shapes in one rectangle
+proves it.

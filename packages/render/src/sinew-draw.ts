@@ -10,7 +10,7 @@ import { drawHurt } from "./boss-hurt.js";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { drawSinewBand, sinewCollarBox } from "./sinew-band.js";
+import { BAND_LOOK, sinewCollarBox } from "./sinew-band.js";
 import { drawSinewCrown, sinewCrownRoot } from "./sinew-crown.js";
 import { drawSinewFibres, FIBRE_LOOK } from "./sinew-fibres.js";
 import { paintMass } from "./sinew-flesh.js";
@@ -96,7 +96,7 @@ export function drawSinew(
     FIBRE_LOOK.lay(ctx, slowing(world), (on) =>
       drawSinewFibres(on, l, cfg, s, root, box, mass, rx, hold, time),
     );
-    drawSinewBand(ctx, l, cfg, s, box, beatPhase, hold);
+    BAND_LOOK.draw(ctx, l, cfg, s, box, beatPhase, hold);
   }
   drawMass(ctx, l, cfg, mass, rx, time, strain, sinewCrushed(s, cfg), fx.hurt.value);
   const tear = fx.tear;

@@ -34883,3 +34883,16 @@ time it was built, so the spring showed nothing until a probe found the
 pose where the mass is still moving.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE SINEW's strain band as a white bar, offered in VERSUS
+
+- reading: 5 min. `sinew-band.ts`, the hold bars, which seat sees what.
+- writing: 10 min. `BAND_LOOK` lifted with the frame unchanged, the
+  `white` candidate.
+- looking: 5 min. One `versus:shot`, on THE SINEW · HELD.
+- friction: 10 min. The page drew only the pilot's screen; tracing
+  `seatPlan` to see why, filed rather than fixed.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — VERSUS chose one seat for a patch that draws each
+seat differently, so the navigator's half could not be photographed.

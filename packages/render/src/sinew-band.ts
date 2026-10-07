@@ -202,3 +202,13 @@ export function drawSinewBand(
   }
   ctx.restore();
 }
+
+/**
+ * What draws the strain band, read every frame, so VERSUS can offer another
+ * picture of it without touching the game's (`tools/versus/`).
+ */
+export interface BandLook {
+  draw: typeof drawSinewBand;
+}
+
+export const BAND_LOOK: BandLook = { draw: drawSinewBand };

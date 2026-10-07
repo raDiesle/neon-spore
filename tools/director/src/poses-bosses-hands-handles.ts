@@ -54,7 +54,8 @@ const filamentIn =
 
 export const HANDLE_HAND_POSES: Pose[] = [
   // VERSUS judges `sinew:weight` here: of every SINEW pose, this is the one
-  // where the mass is still travelling as the pose lands. It lags the sum by
+  // where the mass is still travelling as the pose lands. `sinew:band` too:
+  // the band stands with the sum in the zone on both seats. It lags the sum by
   // a tile and a half, against an eighth of a tile while swinging (7 October 2026).
   bossPose(
     "sinew",
@@ -66,7 +67,7 @@ export const HANDLE_HAND_POSES: Pose[] = [
       want: sinew((_, s) => sinewHeld(s, 1) && sinewHeld(s, 2)),
       hold: TPB,
       lookAt:
-        "the mass under the fibres — whether it trails the pull and overshoots before it settles",
+        "the band on the tendon and the mass under it — the band's colour, and whether the mass trails the pull",
     },
   ),
   bossPose(
