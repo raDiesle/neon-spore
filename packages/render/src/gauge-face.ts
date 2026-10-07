@@ -1,7 +1,7 @@
-import type { Point } from "@neon-spore/content";
+import { KEY, type Point } from "@neon-spore/content";
 import type { Dial } from "./gauge.js";
 import { rimPoint } from "./gauge-alien.js";
-import { halo } from "./glow.js";
+import { drawGaugeEye } from "./gauge-eye.js";
 import { mixHex, rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
@@ -42,9 +42,7 @@ const TONGUE_ROOT = 0.16;
 const TONGUE_TIP = 0.1;
 const TONGUE_DARK = "#2E0D22";
 const TONGUE_LIT = "#8A4760";
-
-const EYE_DEEP = "#1A0F08";
-const SLIT = "#050308";
+const TONGUE_SHADOW = "#0B1024";
 
 /** The tongue, in the mouth and behind everything our ship stands in front of. */
 export function drawGaugeTongue(ctx: CanvasRenderingContext2D, dial: Dial, time: number): void {
@@ -83,6 +81,7 @@ export function drawGaugeTongue(ctx: CanvasRenderingContext2D, dial: Dial, time:
   g.addColorStop(1, TONGUE_LIT);
   ctx.fillStyle = g;
   ctx.fill(path);
+  roundTongue(ctx, path, dial.r * 0.05);
   ctx.strokeStyle = mixHex(TONGUE_LIT, PALETTE.venom, 0.25);
   ctx.lineWidth = 1.6;
   ctx.stroke(path);
@@ -107,6 +106,28 @@ export function drawGaugeTongue(ctx: CanvasRenderingContext2D, dial: Dial, time:
 }
 
 /**
+ * The tongue made round rather than cut out of card (the owner, 7 October
+ * 2026: *3d depth*): inside its own edge, a shadow along the side away from
+ * the key and a lit band along the side toward it. Each is the outline
+ * stroked a little shifted, so only the part still inside the tongue shows.
+ */
+function roundTongue(ctx: CanvasRenderingContext2D, path: Path2D, off: number): void {
+  ctx.save();
+  ctx.clip(path);
+  ctx.lineWidth = off * 2.2;
+  ctx.save();
+  ctx.translate(KEY.x * off, KEY.y * off);
+  ctx.strokeStyle = rgba(TONGUE_SHADOW, 0.85);
+  ctx.stroke(path);
+  ctx.restore();
+  ctx.translate(-KEY.x * off * 0.8, -KEY.y * off * 0.8);
+  ctx.lineWidth = off;
+  ctx.strokeStyle = rgba(TONGUE_LIT, 0.55);
+  ctx.stroke(path);
+  ctx.restore();
+}
+
+/**
  * The eyes over the mouth, looking where the cannon points. `flinch` is how
  * hard it is recoiling from a hit, 0..1.
  */
@@ -127,65 +148,6 @@ export function drawGaugeEyes(
       x: dial.cx + Math.cos(a) * dial.r * EYE_OUT,
       y: dial.cy + Math.sin(a) * dial.r * EYE_OUT,
     };
-    drawEye(ctx, dial, at, side * EYE_TILT, look, open, time);
+    drawGaugeEye(ctx, dial.r * EYE_W, dial.r * EYE_H, at, side * EYE_TILT, look, open, time);
   }
-}
-
-function drawEye(
-  ctx: CanvasRenderingContext2D,
-  dial: Dial,
-  at: Point,
-  tilt: number,
-  look: Point,
-  open: number,
-  time: number,
-): void {
-  const w = dial.r * EYE_W;
-  const h = dial.r * EYE_H * open;
-  const pulse = 0.5 + 0.5 * Math.sin(time * 2.3);
-  halo(ctx, at.x, at.y, w * 1.9, PALETTE.venom, 0.18 + 0.1 * pulse);
-  ctx.save();
-  ctx.translate(at.x, at.y);
-  ctx.rotate(tilt);
-  const lid = almond(w, h);
-  ctx.fillStyle = EYE_DEEP;
-  ctx.fill(lid);
-  ctx.save();
-  ctx.clip(lid);
-  // The iris slides a little towards where the cannon points.
-  const dx = look.x - at.x;
-  const dy = look.y - at.y;
-  const d = Math.hypot(dx, dy) || 1;
-  const cos = Math.cos(-tilt);
-  const sin = Math.sin(-tilt);
-  const ix = ((dx * cos - dy * sin) / d) * w * 0.4;
-  const iy = ((dx * sin + dy * cos) / d) * dial.r * EYE_H * 0.3;
-  const ir = dial.r * EYE_H * 0.85;
-  ctx.fillStyle = PALETTE.venom;
-  ctx.beginPath();
-  ctx.arc(ix, iy, ir, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = SLIT;
-  ctx.beginPath();
-  ctx.ellipse(ix, iy, ir * 0.24, ir * 0.9, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = rgba(PALETTE.hullRim, 0.8);
-  ctx.beginPath();
-  ctx.arc(ix - ir * 0.35, iy - ir * 0.4, ir * 0.16, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-  ctx.strokeStyle = PALETTE.venom;
-  ctx.lineWidth = 1.8;
-  ctx.stroke(lid);
-  ctx.restore();
-}
-
-/** A pointed eye shape, `w` from the middle to either corner and `h` high. */
-function almond(w: number, h: number): Path2D {
-  const p = new Path2D();
-  p.moveTo(-w, 0);
-  p.quadraticCurveTo(0, -h * 2, w, 0);
-  p.quadraticCurveTo(0, h * 2, -w, 0);
-  p.closePath();
-  return p;
 }

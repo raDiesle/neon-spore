@@ -34539,3 +34539,18 @@ Bottleneck: none worth the name — the decision was already written down.
 Bottleneck: `check:fast` — the COPIES table reaches every test in the tree.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE GAUGE in depth: lit flesh, a throat, shaded teeth, eyes in sockets
+
+- reading: 5 min. THE GAUGE's twenty draw files, the depth skill and
+  `surface.ts`'s projection.
+- writing: 5 min. `gauge-flesh.ts`, `gauge-throat.ts`, `gauge-eye.ts`;
+  the teeth shaded as cones over a gum band; the tongue rounded.
+- looking: 5 min. Before, two rounds of corrections (tendons as wires,
+  pores too small, a red gum line), and both seats late in the round.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, a tooth test that found the gum by its
+  colour, `check:fast`, `land`.
+
+Bottleneck: the tendons first drawn as strokes read as wires laid on the
+body, and only filled lenses, embossed, read as raised.

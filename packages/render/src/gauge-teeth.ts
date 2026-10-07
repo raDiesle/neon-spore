@@ -1,7 +1,9 @@
+import { KEY } from "@neon-spore/content";
 import { GAUGE_FULL, GAUGE_TEETH } from "@neon-spore/sim";
 import type { Dial } from "./gauge.js";
-import { rimPoint, rimRadius } from "./gauge-alien.js";
+import { rimLoop, rimPoint, rimRadius } from "./gauge-alien.js";
 import { strokeGlow } from "./glow.js";
+import { splinePath } from "./spline.js";
 
 /**
  * **THE GAUGE's teeth**, out of `gauge-alien.ts` once they stopped being a
@@ -29,8 +31,16 @@ import { strokeGlow } from "./glow.js";
 export const TOOTH_DEPTH = 0.1;
 const BONE = "#D8CCAA";
 const BONE_DARK = "#5E5645";
+/** The far side of a tooth from the light: bone in the cool shadow. */
+const BONE_SHADE = "#2A2533";
+const ENAMEL = "#F4ECD6";
 const GUM = "#3A0F22";
 const GUM_EDGE = "#8A2A4A";
+/** The band of gum the whole row stands in: darker and more violet than a
+ * socket's, so an empty socket is still told apart from it. */
+const GUM_BAND = "#2A0D26";
+/** The gum's lit crown: mauve, never the wound's red. */
+const GUM_LIT = "#6E3A6E";
 
 /** What this screen shows of the teeth. Pixels, not thousandths. */
 export interface TeethView {
@@ -67,6 +77,7 @@ export function drawTeeth(
 ): void {
   ctx.save();
   ctx.lineJoin = "round";
+  drawGums(ctx, dial);
   for (let k = -1; k <= GAUGE_TEETH + 1; k++) {
     const lo = k * TOOTH_STEP;
     // The two past the ends are jaw, never a tooth the round counts: `-1` is
@@ -77,19 +88,57 @@ export function drawTeeth(
       drawSocket(ctx, dial, lo);
       continue;
     }
-    drawBone(ctx, toothPath(dial, lo, lo + TOOTH_STEP, depthOf(dial, k)));
+    drawBone(ctx, dial, lo, toothPath(dial, lo, lo + TOOTH_STEP, depthOf(dial, k)));
   }
   if (teeth.loose !== -1 && teeth.loose !== teeth.hold) drawLoose(ctx, dial, teeth.loose, time);
   if (teeth.hold !== -1) drawHeld(ctx, dial, teeth);
   ctx.restore();
 }
 
-function drawBone(ctx: CanvasRenderingContext2D, path: Path2D): void {
-  ctx.fillStyle = BONE_DARK;
+/**
+ * One tooth, shaded as a cone under the key light — the owner, 7 October
+ * 2026, *more details and 3d depth*. Across its root, from the side that faces
+ * the light to the side that does not: a bright enamel streak a quarter of the
+ * way in, the bone, then the cool shadow. `lo` is where it starts on the dial,
+ * which is all the light needs to know which side that is.
+ */
+function drawBone(ctx: CanvasRenderingContext2D, dial: Dial, lo: number, path: Path2D): void {
+  const a = rimPoint(dial, lo);
+  const b = rimPoint(dial, lo + TOOTH_STEP);
+  // Whichever end of the root faces the light is where the light comes in.
+  const litB = (b.x - a.x) * KEY.x + (b.y - a.y) * KEY.y > 0;
+  const [from, to] = litB ? [b, a] : [a, b];
+  const g = ctx.createLinearGradient(from.x, from.y, to.x, to.y);
+  g.addColorStop(0, BONE_DARK);
+  g.addColorStop(0.22, ENAMEL);
+  g.addColorStop(0.42, BONE);
+  g.addColorStop(0.75, BONE_DARK);
+  g.addColorStop(1, BONE_SHADE);
+  ctx.fillStyle = g;
   ctx.fill(path);
-  ctx.strokeStyle = BONE;
-  ctx.lineWidth = 1.4;
+  ctx.strokeStyle = BONE_DARK;
+  ctx.lineWidth = 1.2;
   ctx.stroke(path);
+}
+
+/**
+ * The gum the teeth stand in: a swollen band round the rim, dark where it
+ * meets the bone and lit along its outer crown, so the teeth come *out of*
+ * something rather than being stuck on a line.
+ */
+function drawGums(ctx: CanvasRenderingContext2D, dial: Dial): void {
+  const depth = dial.r * TOOTH_DEPTH;
+  const k = 1 + (depth * 0.25) / rimRadius(dial, GAUGE_FULL / 2);
+  const band = splinePath(rimLoop(dial, k), true);
+  ctx.strokeStyle = GUM_BAND;
+  ctx.lineWidth = depth * 0.75;
+  ctx.stroke(band);
+  ctx.strokeStyle = GUM_LIT;
+  ctx.lineWidth = Math.max(1.2, depth * 0.14);
+  ctx.save();
+  ctx.translate(KEY.x * depth * 0.18, KEY.y * depth * 0.18);
+  ctx.stroke(splinePath(rimLoop(dial, k + (depth * 0.3) / dial.r), true));
+  ctx.restore();
 }
 
 /** The gum a tooth stood in: a short dark stump with a raw edge. */
@@ -109,7 +158,7 @@ function drawLoose(ctx: CanvasRenderingContext2D, dial: Dial, k: number, time: n
   const lo = k * TOOTH_STEP + rock;
   const path = toothPath(dial, lo, lo + TOOTH_STEP, depthOf(dial, k) * bob);
   strokeGlow(ctx, path, BONE, 2, 0.9 + 0.3 * Math.sin(time * 6));
-  drawBone(ctx, path);
+  drawBone(ctx, dial, lo, path);
 }
 
 /** The one in her hand, carried off its socket by the drag. */
@@ -119,7 +168,7 @@ function drawHeld(ctx: CanvasRenderingContext2D, dial: Dial, teeth: TeethView): 
   ctx.save();
   ctx.translate(teeth.dx, teeth.dy);
   strokeGlow(ctx, path, BONE, 2, 0.7);
-  drawBone(ctx, path);
+  drawBone(ctx, dial, lo, path);
   ctx.restore();
 }
 

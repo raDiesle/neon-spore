@@ -1305,10 +1305,13 @@ by hand never moves.
 | `packages/render/src/gauge-mirage.ts` | **What the pilot sees while he waits for her call** |
 | `packages/render/src/gauge-hurt.ts` | **What the alien has taken**: one torn gash in its flesh for every mark the pair has landed |
 | `packages/render/src/gauge-face.ts` | **THE GAUGE's face**: two eyes on the crown over the open mouth, and a tongue lolling in it |
+| `packages/render/src/gauge-flesh.ts` | **THE GAUGE's flesh, lit**: the body as a dome off the key light, a raised tendon up every arm and pores placed on a ball |
 | `packages/render/src/gauge-teeth.ts` | **THE GAUGE's teeth**: the jaw, a socket where one is out, the loose one rocking on his screen and the held one on her thumb |
 | `packages/render/src/gauge-tooth-grip.ts` | **The navigator's hand on the teeth**, in the rest after the first level (`sim/gauge-tooth.ts`) |
 | `packages/render/src/gauge-tongue-grip.ts` | **Both hands on the tongue**: each seat's ring and press on its own place, while the tongue is out |
 | `packages/render/src/gauge-tongue.ts` | **THE GAUGE's tongue out**: a ribbon each seat's drag turns, wrung between the two hands |
+| `packages/render/src/gauge-throat.ts` | **THE GAUGE's throat**: the mouth as a gullet, lit inside the lip and falling to black, rings of gristle stepping down it |
+| `packages/render/src/gauge-eye.ts` | **One of THE GAUGE's eyes**: socket, lit brow, rounded eyeball shaded under the lid, iris ringed dark with two catchlights |
 | `packages/render/src/gauge.ts` | THE GAUGE's picture: the order the ship, the pod, the line and the claw go down in, and which screen sees the pod |
 | `packages/render/src/gall-draw.ts` | **THE GALL**: a soft nodule riding a raised seam the width of the field |
 | `packages/render/src/gall-marks.ts` | **THE GALL's marks**: what says what a step asks — two chevrons closing on the nodule from either side |

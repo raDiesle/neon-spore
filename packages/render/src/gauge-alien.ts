@@ -1,8 +1,9 @@
 import { blobRadiusMul, type Point } from "@neon-spore/content";
 import { GAUGE_FULL } from "@neon-spore/sim";
 import type { Dial } from "./gauge.js";
+import { drawGaugeFlesh } from "./gauge-flesh.js";
 import { strokeGlow } from "./glow.js";
-import { mixHex } from "./hex.js";
+import { mixHex, rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
 
@@ -94,11 +95,13 @@ function outline(dial: Dial, t: number, flinch: number): Point[] {
   return pts;
 }
 
-function rimLoop(dial: Dial): Point[] {
+/** The rim as a closed loop, scaled by `k` toward the pivot for the throat's
+ * rings (`gauge-throat.ts`); `1` is the rim itself. */
+export function rimLoop(dial: Dial, k = 1): Point[] {
   const pts: Point[] = [];
   for (let i = 0; i < N; i++) {
     const a = (i / N) * Math.PI * 2;
-    const d = dial.r * (dial.rim ?? RIM) * rimMul(a);
+    const d = dial.r * (dial.rim ?? RIM) * k * rimMul(a);
     pts.push({ x: dial.cx + Math.cos(a) * d, y: dial.cy + Math.sin(a) * d });
   }
   return pts;
@@ -107,6 +110,7 @@ function rimLoop(dial: Dial): Point[] {
 /** The alien's flesh with the light off it, and its own edge. */
 const FLESH = "#120B1E";
 const SKIN = PALETTE.venom;
+const LIP_LIT = mixHex(PALETTE.venomRim, "#C9A0E0", 0.5);
 
 /**
  * The alien, its mouth and the armour round the mouth. Drawn before the hull,
@@ -118,21 +122,33 @@ export function drawGaugeAlien(
   time: number,
   flinch: number,
 ): void {
+  const edge = splinePath(outline(dial, time, flinch), true);
   const body = new Path2D();
-  body.addPath(splinePath(outline(dial, time, flinch), true));
+  body.addPath(edge);
   const rim = splinePath(rimLoop(dial), true);
   body.addPath(rim);
 
   ctx.save();
   ctx.fillStyle = FLESH;
   ctx.fill(body, "evenodd");
-  // A deeper band just outside the mouth, so the rim reads as a lip the body
-  // folds over and not as a hole punched in a flat sheet.
+  ctx.save();
   ctx.clip(body, "evenodd");
-  ctx.strokeStyle = mixHex(FLESH, SKIN, 0.18);
+  // Lit as a dome, with tendons up the arms and pores (`gauge-flesh.ts`).
+  drawGaugeFlesh(ctx, dial);
+  // The lip: a lit roll of flesh just outside the mouth, so the rim reads as
+  // a lip the body folds over and not as a hole punched in a flat sheet —
+  // dark in the crease where it turns down into the throat, lit on its crown.
+  ctx.strokeStyle = mixHex(FLESH, SKIN, 0.16);
   ctx.lineWidth = dial.r * 0.34;
   ctx.stroke(rim);
+  ctx.strokeStyle = mixHex(FLESH, SKIN, 0.3);
+  ctx.lineWidth = dial.r * 0.12;
+  ctx.stroke(splinePath(rimLoop(dial, 1.09), true));
+  ctx.strokeStyle = rgba(LIP_LIT, 0.45);
+  ctx.lineWidth = Math.max(1.5, dial.r * 0.02);
+  ctx.stroke(splinePath(rimLoop(dial, 1.13), true));
+  ctx.restore();
   ctx.restore();
 
-  strokeGlow(ctx, splinePath(outline(dial, time, flinch), true), SKIN, 2, 0.55 + 0.4 * flinch);
+  strokeGlow(ctx, edge, SKIN, 2, 0.55 + 0.4 * flinch);
 }

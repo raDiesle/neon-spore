@@ -21,6 +21,7 @@ import {
   shotClock,
 } from "./gauge-shot.js";
 import { drawTeeth, type TeethView } from "./gauge-teeth.js";
+import { drawGaugeThroat } from "./gauge-throat.js";
 import { drawGaugeTongueOut } from "./gauge-tongue.js";
 import { drawGaugeScar, drawGaugeWound } from "./gauge-wound.js";
 import type { ViewRole } from "./layout.js";
@@ -100,6 +101,7 @@ export function drawGaugeFoe(
   const c = shotClock(cfg, gauge, view.tick, view.beat, view.beatPhase);
   const flinch = gaugeFlinch(gauge, c);
   drawGaugeAlien(ctx, dial, view.time, flinch);
+  drawGaugeThroat(ctx, dial);
   drawTeeth(ctx, dial, gaugeTeethView(gauge, view), view.time);
   // His screen alone, while the round waits on her call (`gauge-mirage.ts`).
   if (view.showValve && !view.showMarks && gaugeMirageShown(gauge)) {
