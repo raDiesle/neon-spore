@@ -33976,3 +33976,5 @@ Bottleneck: starting from a worktree branch far behind the local trunk.
 
 Bottleneck: the report named the symptom, and nothing in the simulation could
 produce it with the colour the player thought they pressed.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
