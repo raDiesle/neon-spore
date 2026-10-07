@@ -34085,3 +34085,13 @@ Bottleneck: retracing — every act after the twins had to be found against
 the simulation, a bolt at a time.
 
 *Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE GRINDSTONE's caliper has a file of its own
+
+- reading: 0 min. The file, and who imports which name.
+- writing: 5 min. `grindstone-caliper.ts`, seven importers split.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 0 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none — the seam was already in the file.

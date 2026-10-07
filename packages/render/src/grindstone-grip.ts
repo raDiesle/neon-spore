@@ -5,6 +5,13 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import {
+  grindstoneBolt,
+  grindstoneJawTurn,
+  grindstonePadAt,
+  grindstonePadR,
+  turnedAbout,
+} from "./grindstone-caliper.js";
+import {
   grindstoneArrived,
   grindstoneDepth,
   grindstoneFree,
@@ -13,13 +20,8 @@ import {
 import {
   grindstoneAxleAt,
   grindstoneAxleR,
-  grindstoneBolt,
   grindstoneCut,
   grindstoneFlatHalf,
-  grindstoneJawTurn,
-  grindstonePadAt,
-  grindstonePadR,
-  turnedAbout,
 } from "./grindstone-shape.js";
 import type { Circle, Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";

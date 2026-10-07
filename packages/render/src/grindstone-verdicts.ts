@@ -7,13 +7,13 @@ import {
   type SimEvent,
 } from "@neon-spore/sim";
 import {
-  grindstoneAxleR,
   grindstoneBolt,
   grindstoneJawTurn,
   grindstonePadAt,
   grindstonePadR,
   turnedAbout,
-} from "./grindstone-shape.js";
+} from "./grindstone-caliper.js";
+import { grindstoneAxleR } from "./grindstone-shape.js";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
 import { type Circle, type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";

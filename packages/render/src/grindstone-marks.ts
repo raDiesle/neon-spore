@@ -1,6 +1,7 @@
 import type { Color } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
-import { grindstoneAxleR, grindstonePadAt, grindstonePadR } from "./grindstone-shape.js";
+import { grindstonePadAt, grindstonePadR } from "./grindstone-caliper.js";
+import { grindstoneAxleR } from "./grindstone-shape.js";
 import { mixHex, rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { drawLitCore } from "./lit-core.js";

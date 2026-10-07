@@ -1,12 +1,8 @@
 import { GRINDSTONE_PASSES_PER_FLAT, type SimConfig, type SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
-import {
-  grindstoneBolt,
-  grindstoneCentre,
-  grindstoneCut,
-  grindstonePadAt,
-} from "./grindstone-shape.js";
+import { grindstoneBolt, grindstonePadAt } from "./grindstone-caliper.js";
+import { grindstoneCentre, grindstoneCut } from "./grindstone-shape.js";
 import { GrindstoneVerdicts } from "./grindstone-verdicts.js";
 import { HullShock } from "./hull-shock.js";
 import type { Layout } from "./layout.js";

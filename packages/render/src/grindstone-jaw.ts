@@ -1,7 +1,7 @@
 import { GRINDSTONE_PADS } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
+import { grindstoneBolt, grindstoneJawPath, grindstoneJawTurn } from "./grindstone-caliper.js";
 import { drawGrindstonePads } from "./grindstone-marks.js";
-import { grindstoneBolt, grindstoneJawPath, grindstoneJawTurn } from "./grindstone-shape.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";

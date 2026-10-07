@@ -12,8 +12,9 @@ import {
 } from "@neon-spore/sim";
 import { filamentHeart } from "../src/filament-heart.js";
 import { filamentStrands } from "../src/filament-shape.js";
+import { grindstoneReach } from "../src/grindstone-caliper.js";
 import { grindstoneArrived, grindstoneFree, grindstoneShut } from "../src/grindstone-pose.js";
-import { grindstoneAxleAt, grindstoneReach } from "../src/grindstone-shape.js";
+import { grindstoneAxleAt } from "../src/grindstone-shape.js";
 import { computeLayout } from "../src/layout.js";
 import { rimeCentre, rimeRadius } from "../src/rime-shape.js";
 import { sinewCollarBox } from "../src/sinew-band.js";

@@ -328,19 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `grindstone-shape.ts` is 221 lines: cut the caliper off the wheel
-
-- **Found:** 2026-10-05, claude/grindstone-hit-at-axle
-- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-grindstone-shape-ts-is-221-lines-cut-the-caliper)
-- **Files:** `packages/render/src/grindstone-shape.ts`
-
-The size hook stopped an edit to it at 221 lines, 29 under the ceiling. The
-seam is already in the file: the wheel (its contour, its flats, the axle) and
-the caliper standing over it (THE HOOD's arc, the two jaws, their pads, the
-crown bolt). Move the caliper's constants and paths to a file of their own
-beside it and re-export nothing — the drawers import each from where it now
-lives.
-
 ## THE MANTLE's and THE VALVE's moving sparks are judged at the field's top
 
 - **Found:** 2026-10-05, claude/cores-met-where-they-hang
