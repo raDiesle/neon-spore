@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 6f73a7dc8 — THE GRINDSTONE's caliper has a file of its own
+
+`grindstone-shape.ts` was 221 lines. The caliper — THE HOOD's arc, the two jaws, their pads and the crown bolt — moves to `grindstone-caliper.ts`, and each drawer imports a name from where it now lives. Nothing drawn changes.
+
 ## 2026-10-07 · d161b2595 — THE HIVE's rehearsal shows the pilot's hold on a high cocoon
 
 The film moves to seed 853589, which opens the same first five sites on the same beats and then puts the left wall's top cocoon among the twins. The pilot's thumb goes on it, the red bolt fired from column 6 turns the corner and seals it, and the film ends with seven scars and nothing open. A hold in a film finds its cocoon the way the pilot's ring does (`hiveHoldable`, moved into the simulation), and the ghost thumb is drawn on it. A look exemption: a fix to something wrong — the film never taught the hold.
