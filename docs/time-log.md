@@ -34832,3 +34832,18 @@ Bottleneck: looking — whether a vein reads as grown or as a spark only shows
 at 3× on a real frame.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE INSTAR face-on is the same drake as side-on
+
+- reading: 5 min. The face-on body, the turn's handover, how the stops and
+  the reach are built for each view.
+- writing: 10 min. `frontLimbs`, the face-on body as a `Body` the side
+  view's surface paints, the shared feet for the tail and the legs, a test.
+- looking: 5 min. Six face-on poses twice, and the body behind the head
+  magnified.
+- friction: 0 min.
+- landing: 5 min. The face-on reach and three budget rows moved,
+  `check:fast`.
+
+Bottleneck: writing — the tail and the legs were each built for one view,
+so their stops had to be pulled out into one helper both views call.

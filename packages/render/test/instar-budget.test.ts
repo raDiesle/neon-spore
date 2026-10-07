@@ -47,6 +47,13 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * (`instar-tail-blade.ts`), three strokes each: coil 492 → 498, roar
  * 493 → 499, dive 265 → 271.
  *
+ * Then the face-on view became the same drake (`instar-front.ts`): the tail
+ * with its fins out of the far end, the legs, and the side view's hide — scale
+ * rows, belly, lamps, two rows of spines — on its tube. Across a turn both
+ * views are drawn, so coil fills 553 → 706 and strokes 498 → 560, roar
+ * 552 → 704 and 499 → 556, dive 369 → 433 and 271 → 312, with two or three
+ * gradients more each.
+ *
  * Each row is the worst of each op over one beat starting a third of the way
  * into the step's morph, on a phone. Set `MEASURE` to true and run this file
  * to print the rows as they are written below (`budget-row.ts`); never
@@ -64,31 +71,31 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "13 coil": {
     cursor: 13,
     budget: {
-      fill: 553,
-      stroke: 498,
+      fill: 706,
+      stroke: 560,
       drawImage: 34,
-      createLinearGradient: 74,
-      createRadialGradient: 42,
+      createLinearGradient: 76,
+      createRadialGradient: 45,
     },
   },
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 369,
-      stroke: 271,
+      fill: 433,
+      stroke: 312,
       drawImage: 34,
-      createLinearGradient: 55,
-      createRadialGradient: 41,
+      createLinearGradient: 58,
+      createRadialGradient: 43,
     },
   },
   "20 roar": {
     cursor: 20,
     budget: {
-      fill: 552,
-      stroke: 499,
+      fill: 704,
+      stroke: 556,
       drawImage: 34,
       createLinearGradient: 91,
-      createRadialGradient: 41,
+      createRadialGradient: 43,
     },
   },
 };

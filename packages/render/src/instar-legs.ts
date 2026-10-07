@@ -67,17 +67,23 @@ export interface Leg {
   readonly radii: readonly number[];
 }
 
-/** The four legs, far pair first, under the body whose centre runs along `spine` and belly along `bottom`. */
+/**
+ * The four legs, far pair first, under the body whose centre runs along
+ * `spine` and belly along `bottom`. `near` is how large the body is drawn `u`
+ * of the way along it, for a body going away into depth (`instar-front.ts`).
+ */
 export function profileLegs(
   spine: readonly Point[],
   bottom: readonly Point[],
   r: number,
   time: number,
+  near: (u: number) => number = () => 1,
 ): Leg[] {
   const legs: Leg[] = [];
   for (const far of [true, false])
     [FORE, HIND].forEach((shape, k) => {
-      legs.push(hang(shape, spine, bottom, r, time + k * 1.7 + (far ? 0.9 : 0), far));
+      const t = time + k * 1.7 + (far ? 0.9 : 0);
+      legs.push(hang(shape, spine, bottom, r * near(shape.at), t, far));
     });
   return legs;
 }

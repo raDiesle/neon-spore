@@ -64,11 +64,13 @@ export function instarStopper(
   if (frame.front) {
     const { f, head, r } = look;
     const neck = instarNeck(head, r);
-    for (const ring of seeFrontBody(look, neck, instarFarEnd(l, f), instarTurn(f.side))) {
+    const seen = seeFrontBody(look, neck, instarFarEnd(l, f), instarTurn(f.side));
+    for (const ring of seen) {
       const at = lay({ x: neck.x + ring.c.x, y: neck.y + ring.c.y });
       feet.push(roundFoot(at.x, at.y, ring.r * Math.abs(kx), ring.r * ky));
     }
-    feet.push(...frontHeadFeet(look, lay), ...frontLimbFeet(look, lay));
+    const scale = { x: Math.abs(kx), y: ky };
+    feet.push(...frontHeadFeet(look, lay), ...frontLimbFeet(l, look, neck, seen, lay, scale));
   }
   if (frame.profile) {
     const lines = profileLines(l, look);

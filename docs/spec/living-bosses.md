@@ -123,6 +123,16 @@ shears, are fins now (`instar-tail-blade.ts`): skin stretched over three bony
 rays, lit through toward its scalloped free edge, which ripples, and a hooked
 barb of bone at the tip, where the crescent's point was, over the mark.
 
+And: *can you make it that from any angle view, it's identified to be the same
+drake? e.g. the tail looks different from front perspective and side*. Face-on
+the body now carries the same tail out of its far end, fins and all, and the
+same four legs, each sized against the girth it hangs from so the far ones are
+smaller by the body's own perspective (`instar-front.ts`, `frontLimbs`). Its
+tube wears the side view's hide — the rows of scales, the paler belly, the
+lamps and the two rows of spines, placed round its own rings and seen from the
+front (`instar-front-body.ts`) — where it used to wear the head's baked scales,
+a pale grey body face-on against a violet one side-on.
+
 **Offered (1 October 2026, VERSUS `instar:flight` / `serpent`).** While THE
 INSTAR flies in, passes or crosses, a wave runs down its side-on body from
 the neck to the engines: one and a half crests along it, a third of a head

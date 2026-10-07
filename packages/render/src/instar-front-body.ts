@@ -1,14 +1,30 @@
-import { FRONT, type Ring, type SeenRing, seeTube, tubeFrames, view } from "@neon-spore/content";
+import {
+  FRONT,
+  type Frame,
+  type Ring,
+  type SeenRing,
+  seeTube,
+  tubeFrames,
+  turn as turn3,
+  view,
+} from "@neon-spore/content";
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
-import { drawScales, type Form } from "./instar-hide.js";
 import type { Point } from "./instar-place.js";
-import { drawLamp, drawSeam, faded, type Look } from "./instar-plate.js";
+import { drawSeam, faded, type Look } from "./instar-plate.js";
+import { rollAt } from "./instar-profile-life.js";
+import {
+  type Body,
+  drawBelly,
+  drawLamps,
+  drawRidge,
+  drawScales,
+} from "./instar-profile-surface.js";
 import { swimAt } from "./instar-serpent.js";
 import { BODY_DEPTH as DEPTH, BODY_LENS as LENS } from "./instar-turn.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { drawTube, rimTube, tubePath } from "./solid-tube-draw.js";
+import { drawTube, rimTube } from "./solid-tube-draw.js";
 
 /**
  * **THE INSTAR's body face-on, as a tube of the rig**: the long body seen
@@ -34,7 +50,8 @@ const PINCH = 0.16;
 const SWIM = 0.14;
 const SWIM_PERIOD = 4.2;
 
-const SKIN = {
+/** The body's skin, which the legs hung off it wear too (`instar-front.ts`). */
+export const BODY_SKIN = {
   base: mixHex(PALETTE.sheenDeep, PALETTE.hull, 0.2),
   lift: PALETTE.hull,
   sheen: PALETTE.sheenRim,
@@ -42,10 +59,11 @@ const SKIN = {
 
 /**
  * The body from `neck` back to `rear`, seen from `turn` radians round off
- * face-on: its rings, about the neck. At `0` every ring lands where the old
- * plates sat; turned, the far end swings out to the side the head turns from.
+ * face-on, as the rig has it: rings, frames and what is seen of them, about
+ * the neck. At `0` every ring lands where the old plates sat; turned, the far
+ * end swings out to the side the head turns from.
  */
-export function seeFrontBody(look: Look, neck: Point, rear: Point, turn: number): SeenRing[] {
+export function frontBody(look: Look, neck: Point, rear: Point, turn: number): Body {
   const { r, time } = look;
   const w = view(FRONT - turn, 0, r * LENS);
   const rings: Ring[] = [];
@@ -59,7 +77,15 @@ export function seeFrontBody(look: Look, neck: Point, rear: Point, turn: number)
     const at = { x: (rear.x - neck.x) * u + swim, y: (rear.y - neck.y) * u + dive(look, u) };
     rings.push({ c: { x, y: at.y / s, z: at.x / s }, r: (r * (0.7 - 0.5 * u) * plate(i)) / s });
   }
-  return seeTube(rings, tubeFrames(rings), w);
+  const frames = tubeFrames(rings);
+  const side = turn3((frames[0] as Frame).b, w).z >= 0 ? 1 : -1;
+  // Authored lying down, the first frame's normal is the back.
+  return { rings, frames, seen: seeTube(rings, frames, w), side, upright: true, w };
+}
+
+/** The rings `frontBody` sees: what is met and what reaches. */
+export function seeFrontBody(look: Look, neck: Point, rear: Point, turn: number): SeenRing[] {
+  return [...frontBody(look, neck, rear, turn).seen];
 }
 
 /** The serpent's wave seen from the head end (`instar-serpent.ts`): the tube rising and
@@ -68,74 +94,38 @@ function dive(look: Look, u: number): number {
   return swimAt(look, u) * u;
 }
 
-/** The body `seeFrontBody` saw, the far end first under everything. */
+/** The body `frontBody` made, the far end first under everything, in the side view's hide. */
 export function drawFrontBody(
   ctx: CanvasRenderingContext2D,
   look: Look,
   neck: Point,
-  seen: readonly SeenRing[],
+  body: Body,
 ): void {
-  const { r, fade, hurt } = look;
+  const { r, fade, hurt, time } = look;
+  const roll = rollAt(time);
   ctx.save();
   ctx.translate(neck.x, neck.y);
-  const hide = drawTube(ctx, seen, SKIN, fade);
+  drawRidge(ctx, body, r, roll, fade, true, EVERY / 2);
+  const hide = drawTube(ctx, body.seen, BODY_SKIN, fade);
   strokeGlow(ctx, hide, faded(PALETTE.hull, fade), STROKE.inner, 0.5 * fade);
   drawHurt(ctx, hide, hurt * fade);
-  for (const i of PLATE_ENDS) drawPlateScales(ctx, seen, i, hide, fade);
-  for (let i = EVERY; i < N; i += EVERY) drawBand(ctx, seen, i, look);
+  drawBelly(ctx, body, hide, roll, fade);
+  drawScales(ctx, body, hide, r * 0.1, roll, fade);
+  for (let i = EVERY; i < N; i += EVERY) drawBand(ctx, body.seen, i, look);
+  drawLamps(ctx, body, r, roll, time, fade, EVERY / 2);
+  drawRidge(ctx, body, r, roll, fade, false, EVERY / 2);
   rimTube(ctx, hide, PALETTE.sheenRim, r * 0.05, fade);
   ctx.restore();
 }
 
-/**
- * The box one plate's scales are laid in, from ring `i - EVERY` to ring `i`:
- * round every ring of that stretch of tube. It used to be as tall as the two
- * rings' centres are apart, which end-on is a sliver, so a growing body
- * showed strips of scales across its middle and bare hide round them.
- */
-export function plateForm(seen: readonly SeenRing[], i: number): Form {
-  let x0 = Infinity;
-  let y0 = Infinity;
-  let x1 = -Infinity;
-  let y1 = -Infinity;
-  for (const g of seen.slice(i - EVERY, i + 1)) {
-    x0 = Math.min(x0, g.c.x - g.r);
-    y0 = Math.min(y0, g.c.y - g.r);
-    x1 = Math.max(x1, g.c.x + g.r);
-    y1 = Math.max(y1, g.c.y + g.r);
-  }
-  return { x: (x0 + x1) / 2, y: (y0 + y1) / 2, r: (x1 - x0) / 2, ry: (y1 - y0) / 2 };
-}
-
-/** The ring each plate ends at, the far one first so a nearer plate laps over one it hides. */
-export const PLATE_ENDS: readonly number[] = Array.from(
-  { length: N / EVERY },
-  (_, k) => N - k * EVERY,
-);
-
-/** One plate's scales, clipped to its own stretch of tube and sized by its far ring. */
-function drawPlateScales(
-  ctx: CanvasRenderingContext2D,
-  seen: readonly SeenRing[],
-  i: number,
-  hide: Path2D,
-  fade: number,
-): void {
-  ctx.save();
-  ctx.clip(hide);
-  const span = tubePath(seen.slice(i - EVERY, i + 1));
-  drawScales(ctx, span, plateForm(seen, i), (seen[i] as SeenRing).r * 0.24, fade);
-  ctx.restore();
-}
-
-/** One plate's seam and its two lamps, at ring `i`. */
+/** One plate's seam, at ring `i`. */
 function drawBand(
   ctx: CanvasRenderingContext2D,
   seen: readonly SeenRing[],
   i: number,
   look: Look,
 ): void {
-  const { fade, time } = look;
+  const { fade } = look;
   const ring = seen[i] as SeenRing;
   const rad = ring.r;
   const y = ring.c.y + rad * 0.15;
@@ -148,10 +138,6 @@ function drawBand(
     fade,
     0.4,
   );
-  const k = i / EVERY;
-  const pulse = 0.6 + 0.4 * Math.sin(time * 2.4 - k * 0.8);
-  for (const s of [-1, 1])
-    drawLamp(ctx, { x: c.x + s * rad * 0.7, y: c.y }, rad * 0.06, fade, pulse);
 }
 
 /** A ring's girth by where it sits in its plate: full across the middle, pinched at the seam. */

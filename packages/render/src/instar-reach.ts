@@ -30,8 +30,10 @@ export interface Box {
   y1: number;
 }
 
-/** How far the face-on view's paint reaches past its head and its rings, in head radii. */
-export const FRONT_REACH = 2;
+/** How far the face-on view's paint reaches past its head and its rings, in head radii.
+ * It was 2 until the tail went on out of the far end face-on (`instar-front.ts`,
+ * 7 October 2026): the hover's morph reaches 2.19. */
+export const FRONT_REACH = 2.3;
 /** How far the side-on view's paint reaches past the figure's places, thousandths of the field's width.
  * The left was 360 until the side-on head grew (`instar-head-look.ts`, `SIDE_GROW`): its snout
  * reaches 371 at the loom's morph, and the down was 180 until its jaw reached 187 at the dive's.
