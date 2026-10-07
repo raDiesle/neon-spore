@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 9315c4de4 — THE SINEW's three unbuilt looks are put to the owner rather than offered
+
+The queue asked for three VERSUS candidates for THE SINEW: a white strain band, a mass that swings with lag and overshoot, and THE SLOW marked on the body. The owner asked for the glass tube with its green zone and blue sum line by name on 2 and 5 October, THE SLOW has been marked by its prism round the mass since 26 September, and the swing differs only in motion. The spec now says so, and the entry is a question for the owner naming the three options.
+
 ## 2026-10-07 · c58ac2e03 — Queue THE INSTAR's fly-in with the question of which view it flies in
 
 Face-on, THE INSTAR still flies in as a flat mask trailing a lumpy tube. The owner is asked whether the approach should be seen side-on, rebuilt face-on, or offered both ways in VERSUS.
