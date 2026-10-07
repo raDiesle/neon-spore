@@ -34513,3 +34513,14 @@ Bottleneck: deciding which hinged parts may swing at all — on most
 machines the part that hinges is the part a thumb or a cannon is asked for.
 
 *Measured: 14 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE TRIVET's foot seam is gone
+
+- reading: 5 min. The queue's three refactors read as a set; the seam, its
+  one call site and `trivet:foot` in DECIDED.md.
+- writing: 0 min. The seam and its type out, the call inlined.
+- looking: 0 min. Nothing the game draws changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name — the decision was already written down.
