@@ -34568,3 +34568,20 @@ body, and only filled lenses, embossed, read as raised.
 Bottleneck: `check:fast` again — a `COPIES` row reaches every test.
 
 *Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE THROAT grows out of the ship, and the cannon is gone from its wave
+
+- reading: 10 min. The gullet's eight render files, the hull's crown, the
+  cannon's sight column and where the ship pass draws THE CLAW's arm.
+- writing: 15 min. `throat-graft.ts`, `HullMood.root`, `gunsightCol`, a
+  test file, the spec's look paragraph.
+- looking: 25 min. About a dozen rounds of `bun run frames`: the graft first
+  stood off the swaying tube, then showed the old swelling's outline through
+  its foot, then a box under the membrane, until the swelling went too.
+- friction: 5 min. `frame-field.ts` at its 250-line ceiling, so the sight's
+  decision moved into `field.ts` to join an import already there.
+- landing: 5 min. `bun run index`, `check:fast`, the commit, `land`.
+
+Bottleneck: matching a fill to the hull's own paint at the join — it was
+never matched, it was removed: taking the cannon's swelling off the hull
+left nothing under the graft's foot to show through.
