@@ -34587,3 +34587,17 @@ never matched, it was removed: taking the cannon's swelling off the hull
 left nothing under the graft's foot to show through.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE CURTAIN's hand word steps a line under the cue word
+
+- reading: 10 min. `grip.ts`'s ring and word, the cue's verb drop in
+  `boss-cue-text.ts`, `bossCue`'s one-per-screen pick, the text-box stub.
+- writing: 10 min. `curtain-hand-word.ts`, `handWordY`, the test drawing
+  both words and comparing their boxes, proved red without the fix.
+- looking: 5 min. `bun run frames` at the entry's tick, and a crop.
+- friction: 0 min.
+- landing: 5 min. `check:fast` red once on the controls catalogue for the
+  new export, the commit, `land`.
+
+Bottleneck: reading — the two drops were each derived in a different file
+from a different radius, and only the arithmetic side by side showed they met.
