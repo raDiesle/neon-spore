@@ -34160,3 +34160,15 @@ Bottleneck: working out the timing — how far the needle turns while a bolt
 climbs to the gap decided the fire steps' pace and window before any code.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE OCULUS's core is shot where it hangs
+
+- reading: 0 min. The verdict, the stopper and the lens's row.
+- writing: 5 min. The lens on the `CORES` table, its row laid off the
+  simulation's, the shattering lens stopping nothing; the other five split
+  off in the queue's entry.
+- looking: 0 min. `core-met.test.ts` is the look.
+- friction: 0 min.
+- landing: 0 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none — THE CYST's lane had laid it down.

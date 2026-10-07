@@ -332,10 +332,12 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 - **Found:** 2026-10-05, claude/cores-met-where-they-hang
 - **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-six-more-shot-bosses-targets-are-judged-at-the-f)
-- **Files:** `packages/sim/src/oculus-shot.ts`, `packages/sim/src/taster-shot.ts`, `packages/sim/src/scuttle-shot.ts`, `packages/sim/src/curtain-shot.ts`, `packages/sim/src/stare-shot.ts`, `packages/sim/src/plumb-shot.ts`, `packages/sim/src/core-along.ts`
+- **Files:** `packages/sim/src/taster-shot.ts`, `packages/sim/src/scuttle-shot.ts`, `packages/sim/src/curtain-shot.ts`, `packages/sim/src/stare-shot.ts`, `packages/sim/src/plumb-shot.ts`, `packages/sim/src/core-along.ts`
 
-Oculus, taster, scuttle, curtain, stare and plumb still judge a bolt when it leaves the field:
-- **Oculus, taster and scuttle:** a target in every column, each on its own row.
+Taster, scuttle, curtain, stare and plumb still judge a bolt when it leaves
+the field (THE OCULUS's core went on the table on 7 October; its look step
+has nothing drawn to meet, and stays at the top):
+- **Taster and scuttle:** a target in every column, each on its own row.
 - **Curtain:** the core's row is in `SimConfig`.
 - **Stare and plumb:** the target hangs at or above row 0, so the gain is small.
 

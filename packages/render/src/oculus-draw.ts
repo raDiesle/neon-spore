@@ -2,6 +2,7 @@ import { LIGHT_HALF } from "@neon-spore/content";
 import {
   OCULUS_LEAVES,
   type OculusState,
+  oculusDone,
   oculusIsPair,
   oculusLitStep,
   oculusWindowBeats,
@@ -109,7 +110,8 @@ export function drawOculus(
   ctx.translate(x, y);
   if (shatter <= 0) {
     const core = drawLens(ctx, l, world, s, beat, beatPhase, time, fx, aim);
-    stops?.aim(oculusStopper(l, world, { x, y }, core));
+    // From the beat it shatters, as the simulation says (`sim/oculus-shot.ts`).
+    if (!oculusDone(s)) stops?.aim(oculusStopper(l, world, { x, y }, core));
   } else {
     // The lens falls apart along its plates: six wedges, each thrown out
     // along its own middle and turned a little as it goes.

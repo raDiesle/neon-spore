@@ -1,4 +1,4 @@
-import { midCol, OCULUS_LEAVES, type SimConfig } from "@neon-spore/sim";
+import { coreRowMilli, midCol, OCULUS_LEAVES, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -28,8 +28,8 @@ export interface Point {
   y: number;
 }
 
-/** The row the lens stands at, in tiles below the grid's top. */
-const ROW = 2.7;
+/** The row the lens stands at, in tiles below the grid's top: the simulation's, where a bolt meets the core. */
+const ROW = coreRowMilli("oculus") / 1000 + 0.5;
 /** The rim's outer radius, and the face's inside it, in tiles. */
 const RADIUS = 1.45;
 const FACE = 0.84;

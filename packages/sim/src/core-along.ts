@@ -9,6 +9,7 @@ import { gallVerdict } from "./gall-shot.js";
 import { governorVerdict } from "./governor-shot.js";
 import { grindstoneVerdict } from "./grindstone-shot.js";
 import { halterVerdict } from "./halter-shot.js";
+import { oculusVerdict } from "./oculus-shot.js";
 import { rimeVerdict } from "./rime-shot.js";
 import { slingVerdict } from "./sling-shot.js";
 import { trivetVerdict } from "./trivet-shot.js";
@@ -67,6 +68,7 @@ const CORES: Partial<Record<BossKind, Core>> = {
   // edge (`governor-shot.ts`, `render/governor-shape.ts`).
   governor: { milli: 5900, meet: 9600, verdict: (w, c, k) => governorVerdict(w, c, k) },
   halter: { milli: 2100, verdict: (w, c, k) => halterVerdict(w, c, k) },
+  oculus: { milli: 2200, verdict: (w, c, k) => oculusVerdict(w, c, k) },
   rime: { milli: 2200, verdict: (w, c, k) => rimeVerdict(w, c, k) },
   sling: { milli: 1800, verdict: (w, c, k) => slingVerdict(w, c, k) },
   trivet: { milli: 1700, verdict: (w, c, k) => trivetVerdict(w, c, k) },
