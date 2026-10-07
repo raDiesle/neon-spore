@@ -42,7 +42,9 @@ import { OUTLINE_SEED, type OutlineBoss, outlinePose, type Point } from "./outli
  * nor THE UNDERTOW, whose every lobe leans whole (`undertow-drift.ts`), nor
  * THE GORGE, whose lobes do the same (`gorge-drift.ts`), nor THE CURTAIN,
  * whose hem swings whole (`curtain-sway.ts`), nor THE TASTER, whose blades
- * sway by the lean they already had (`taster-sway.ts`).
+ * sway by the lean they already had (`taster-sway.ts`), nor THE SINEW, whose
+ * mass swings whole on its tendon (`sinew-sway.ts`), nor THE SURGE, which
+ * rocks whole (`surge-sway.ts`).
  */
 export const OUTLINE_PARTS: Record<OutlineBoss, number> = {
   queen: 1,
@@ -54,6 +56,8 @@ export const OUTLINE_PARTS: Record<OutlineBoss, number> = {
   gorge: 0,
   curtain: 0,
   taster: 0,
+  sinew: 0,
+  surge: 0,
 };
 
 export const PART = {

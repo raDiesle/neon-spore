@@ -12,6 +12,7 @@ import {
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { sinewCrownDrop, sinewMassBob, sinewMassRing } from "./sinew-arrive.js";
 import { CROWN_HEADROOM } from "./sinew-crown.js";
+import { sinewSway } from "./sinew-sway.js";
 import { splinePath } from "./spline.js";
 import { TOP_CHROME_PX } from "./top-chrome.js";
 
@@ -129,8 +130,8 @@ export function sinewMassHung(
 
 /**
  * The mass's centre. `swingTiles` is the whip a snap-back leaves in it,
- * kept by `sinew-fx.ts` because nothing in the world remembers it. The sag
- * and the beat's bounce are on it here, and the handles rest off it — so
+ * kept by `sinew-fx.ts` because nothing in the world remembers it. The sag,
+ * the beat's bounce and the idle swing (`sinew-sway.ts`) are on it here, and the handles rest off it — so
  * the ring a thumb is answered at bounces with the ring that is drawn.
  */
 export function sinewMassCentre(
@@ -145,8 +146,13 @@ export function sinewMassCentre(
   if (sinewLanded(s)) return hung;
   const sag = sinewSum01(s, cfg) * SAG * l.tile;
   const bob = sinewMassBob(s, cfg, beat, beatPhase) * l.tile;
+  // And the swing on its tendon, which the collar above it does not take (`sinew-sway.ts`).
+  const sway = sinewSway(cfg, s, beat, beatPhase);
   // Never below where it lands: the last row of the fall is the hull's.
-  return { x: hung.x, y: Math.min(hung.y + sag + bob, tileCY(l, hullRow(cfg))) };
+  return {
+    x: hung.x + sway.x * l.tile,
+    y: Math.min(hung.y + sag + bob + sway.y * l.tile, tileCY(l, hullRow(cfg))),
+  };
 }
 
 /** The mass itself: a five-lobed blob the width of its columns, wobbling on

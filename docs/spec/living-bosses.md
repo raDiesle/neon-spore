@@ -222,6 +222,22 @@ game "INSTAR:FLIGHT · SERPENT"*. `INSTAR_SERPENT.amount` is 1 on the field.
   nothing pressed moves. Still in `closed` and `out`. On the field under
   *a look with no shipped alternative*.
 
+  *THE SINEW, as built, 7 October 2026* (`sinew-sway.ts`): the crown and
+  the collar hold still, the collar being the gauge, and the mass under it
+  swings across like a weight on a rope, up to nine tenths of a tile and
+  rising a little at either end. The handles ride the mass, and their hit
+  test reads the same centre (`sinewMassCentre`), on the beat. Still half a
+  beat into the fall, where THE SLOW asks for the handles, and once landed.
+  On the field under *a look with no shipped alternative*.
+
+  *THE SURGE, as built, 7 October 2026* (`surge-sway.ts`): the bulb rocks
+  about its own middle, up to half a radian, so a flank lifts and dips by
+  more than half a tile and the bulb never leaves its columns, which judge
+  what it takes in and throws. The seam and its gauge roll with it; the
+  grip marks ride the flanks and every reader of them is handed the same
+  roll. Eased out as it everts, hushed under THE SLOW. On the field under
+  *a look with no shipped alternative*.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair

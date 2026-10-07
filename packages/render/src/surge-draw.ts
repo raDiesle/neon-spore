@@ -25,6 +25,7 @@ import {
   surgeEvert01,
   surgePressure01,
 } from "./surge-shape.js";
+import { surgeRoll } from "./surge-sway.js";
 import { showsSurgePressure } from "./view-role-clocks.js";
 
 /**
@@ -85,10 +86,16 @@ export function drawSurge(
     surgeBulbRy(l) * swell * pinch * (1 - fx.jolt) * Math.abs(fold),
   );
   const inside = fold < 0;
+  // The bulb rocks about its middle, seam and grips with it (`surge-sway.ts`).
+  const roll = surgeRoll(cfg, s, beat, beatPhase, world);
 
   ctx.save();
   ctx.globalAlpha = fade;
   ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
+  ctx.save();
+  ctx.translate(c.x, c.y);
+  ctx.rotate(roll);
+  ctx.translate(-c.x, -c.y);
   drawBody(
     ctx,
     cfg,
@@ -105,10 +112,11 @@ export function drawSurge(
     fx.hurt.value,
   );
   drawSurgeGauge(ctx, l, cfg, s, c, rx, ry, time, everting);
+  ctx.restore();
   if (!everting) {
-    drawSurgeAsked(ctx, l, world, s, c, rx, ry, time);
-    drawSurgeGrips(ctx, l, world, s, c, rx, ry, time, sealing);
-    drawSurgeVerdicts(ctx, l, world, c, rx, ry, fx.marks.verdicts);
+    drawSurgeAsked(ctx, l, world, s, c, rx, ry, time, roll);
+    drawSurgeGrips(ctx, l, world, s, c, rx, ry, time, sealing, roll);
+    drawSurgeVerdicts(ctx, l, world, c, rx, ry, fx.marks.verdicts, roll);
   }
   ctx.restore();
 }

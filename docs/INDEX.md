@@ -1409,6 +1409,7 @@ by hand never moves.
 | `packages/render/src/sinew-handles.ts` | **THE SINEW's two handles**, one either side of the mass and one per seat |
 | `packages/render/src/sinew-hold.ts` | **The hold, counted where both players are already looking** — the owner, 5 October 2026 |
 | `packages/render/src/sinew-shape.ts` | **Where THE SINEW is**, in field pixels: the root the tendon hangs from, the mass on the end of it |
+| `packages/render/src/sinew-sway.ts` | **THE SINEW's mass swings on its tendon like a weight on a rope** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/sinew-word.ts` | **What THE SINEW is asking of one hand**, and the three silences that are the fight |
 | `packages/render/src/sinew-marks.ts` | THE SINEW's handles answering a touch: the halo, the partner's ring and clock, the verdict |
 | `packages/render/src/sinew-arrive.ts` | **THE SINEW dropping in, and its rubber after**, as offsets in tiles off where the tendon hangs |
@@ -2541,6 +2542,7 @@ by hand never moves.
 | `packages/render/src/surge-gauge.ts` | **THE SURGE's seam**: the dark line round the bulb's equator, and the gauge read along it by seat (§11.28) |
 | `packages/render/src/surge-grip.ts` | **THE SURGE's one handle, taken by both seats**: the bulb itself |
 | `packages/render/src/surge-shape.ts` | **Where THE SURGE is**, in field pixels: the bulb's centre, its two radii, its outline |
+| `packages/render/src/surge-sway.ts` | **THE SURGE rocks where it hangs** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/surge-word.ts` | **What THE SURGE is asking of one thumb**, and the three silences beside the one that shipped |
 | `packages/render/src/surge-marks.ts` | **THE SURGE's two grip marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/solid-ball.ts` | A ROUND PART OF A RIG — a head, a knuckle, an eye, a nest — lit once and stamped |

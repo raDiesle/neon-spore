@@ -19,6 +19,7 @@ import {
   surgeBulbRx,
   surgeBulbRy,
 } from "./surge-shape.js";
+import { surgeRoll } from "./surge-sway.js";
 import { SHIELD, surgeWord } from "./surge-word.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -101,7 +102,7 @@ export function surgeGripSeat(side: -1 | 1): 1 | 2 {
   return side === -1 ? 1 : 2;
 }
 
-/** Where one seat's grip mark sits on a bulb drawn at `c`, `rx`, `ry`. */
+/** Where one seat's grip mark sits on a bulb drawn at `c`, `rx`, `ry`, rolled by `roll` (`surge-sway.ts`). */
 export function surgeGripCircle(
   l: Layout,
   cfg: SimConfig,
@@ -109,9 +110,14 @@ export function surgeGripCircle(
   rx: number,
   ry: number,
   side: -1 | 1,
+  roll = 0,
 ): Circle {
   const r = handleRadius(l, cfg) * GRIP_R;
-  return { x: c.x + side * rx * GRIP_OUT, y: c.y + ry * GRIP_DOWN, r };
+  const dx = side * rx * GRIP_OUT;
+  const dy = ry * GRIP_DOWN;
+  const cos = Math.cos(roll);
+  const sin = Math.sin(roll);
+  return { x: c.x + dx * cos - dy * sin, y: c.y + dx * sin + dy * cos, r };
 }
 
 /**
@@ -126,8 +132,10 @@ export function surgeMarkSeat(l: Layout, x: number, y: number, field: Field): 1 
   const c = surgeBulbCentre(l, field.cfg, s);
   const rx = surgeBulbRx(l, field.cfg);
   const ry = surgeBulbRy(l);
+  const roll = surgeRoll(field.cfg, s, field.beat, field.beatPhase, field.slow);
   for (const side of [-1, 1] as const) {
-    if (hitCircle(surgeGripCircle(l, field.cfg, c, rx, ry, side), x, y)) return surgeGripSeat(side);
+    const at = surgeGripCircle(l, field.cfg, c, rx, ry, side, roll);
+    if (hitCircle(at, x, y)) return surgeGripSeat(side);
   }
   return undefined;
 }
@@ -160,13 +168,14 @@ export function drawSurgeGrips(
   time: number,
   /** Whether the bulb takes no thumb now — sealing or everting: a dimmed ring. */
   refusing: boolean,
+  roll = 0,
 ): void {
   const cfg = world.cfg;
   for (const side of [-1, 1] as const) {
     const player = surgeGripSeat(side);
     const held = surgeHeld(s, player);
     const mine = l.role === "test" || (l.role === "p1") === (player === 1);
-    const { x, y, r } = surgeGripCircle(l, cfg, c, rx, ry, side);
+    const { x, y, r } = surgeGripCircle(l, cfg, c, rx, ry, side, roll);
     drawHandleRing(ctx, {
       x,
       y,

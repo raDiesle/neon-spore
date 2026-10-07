@@ -29,7 +29,9 @@ import { slowHush } from "./slow-hush.js";
  * takes the seam and the seed but not the pose: a body held at both ends
  * bows rather than leans (`throat-sway.ts`), and THE CURTAIN, held along its
  * top, swings at its hem (`curtain-sway.ts`), and THE TASTER's blades each
- * lean on their own root (`taster-sway.ts`).
+ * lean on their own root (`taster-sway.ts`), and THE SINEW's mass swings
+ * under its held collar (`sinew-sway.ts`), and THE SURGE rocks about its
+ * own middle (`surge-sway.ts`).
  */
 
 export type OutlineBoss =
@@ -41,7 +43,9 @@ export type OutlineBoss =
   | "undertow"
   | "gorge"
   | "curtain"
-  | "taster";
+  | "taster"
+  | "sinew"
+  | "surge";
 
 /** How much of its pose each boss takes: 0 dead still, 1 the whole. Never past 1 — the cap is at 1. */
 export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
@@ -54,6 +58,8 @@ export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
   gorge: 1,
   curtain: 1,
   taster: 1,
+  sinew: 1,
+  surge: 1,
 };
 
 /** How much of its pose `boss` takes on this device: its seam, times the motion setting's (`motion-life.ts`). */
@@ -72,6 +78,8 @@ export const OUTLINE_SEED: Readonly<Record<OutlineBoss, number>> = {
   gorge: 149,
   curtain: 151,
   taster: 157,
+  sinew: 163,
+  surge: 167,
 };
 
 export const OUTLINE = {

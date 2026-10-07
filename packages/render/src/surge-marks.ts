@@ -65,12 +65,13 @@ export function drawSurgeAsked(
   rx: number,
   ry: number,
   time: number,
+  roll = 0,
 ): void {
   const seat = seatOf(l.role);
   for (const side of [-1, 1] as const) {
     const owner = surgeGripSeat(side);
     if (!surgeAsks(s, world, owner)) continue;
-    const at = surgeGripCircle(l, world.cfg, c, rx, ry, side);
+    const at = surgeGripCircle(l, world.cfg, c, rx, ry, side, roll);
     if (owner === seat) {
       drawMarkHalo(ctx, at.x, at.y, at.r, time);
       continue;
@@ -89,11 +90,12 @@ export function drawSurgeVerdicts(
   rx: number,
   ry: number,
   verdicts: GripVerdicts,
+  roll = 0,
 ): void {
   for (const side of [-1, 1] as const) {
     const v = verdicts.at(surgeGripSeat(side));
     if (v === null) continue;
-    const at = surgeGripCircle(l, world.cfg, c, rx, ry, side);
+    const at = surgeGripCircle(l, world.cfg, c, rx, ry, side, roll);
     drawVerdictRing(ctx, at.x, at.y, at.r, v);
   }
 }
