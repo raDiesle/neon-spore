@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE SCUTTLE's frame stands where the screen has room, not on a field row
 
 - **Found:** 2026-10-07, claude/queue-tasks-ab3705
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-scuttles-frame-stands-where-the-screen-has-r)
 - **Files:** `packages/render/src/scuttle-shape.ts`, `packages/sim/src/scuttle-shot.ts`, `packages/sim/src/core-along.ts`
 - **Asks:** Should THE SCUTTLE's frame be laid on a field row, so its live part can be met where it hangs?
 
