@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 5842d2ba5 — THE SCUTTLE's live part stays judged at the top of the field
+
+The owner left the choice to the lane, and the cheaper option won: THE SCUTTLE's frame stands where the screen has room, which the simulation cannot know, so a bolt into its live part is still judged as it leaves the field, four or five ticks after it is drawn bursting there. Laying the frame on a field row would move it on tall screens, which is a look. The core table now says why THE SCUTTLE is not on it.
+
 ## 2026-10-07 · 2e8b75174 — The baked-cache guard reads render's sources at once, in a sixth of the time
 
 `baked-cache-guard.test.ts` read fourteen hundred files one at a time, two tenths of a second on a quiet machine, and once more than its five-second timeout under a full `check:fast` beside the director's bundler. It reads them in parallel now, scans only a file that says `new Map`, and builds its `HELD` pattern once: 34 ms. The sample test checks that pattern too.
