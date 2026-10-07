@@ -34023,3 +34023,14 @@ Bottleneck: a test that counts gradients as a proxy for the mirage, found
 only by running it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE SLOW's crawl gathers on the middle of a body alike at both ends
+
+- reading: 5 min. The crawl, the aim's capsule and the keep-out it clips to.
+- writing: 5 min. The hub and the skin along each ray, the flag on the
+  capsule, a test of both.
+- looking: 5 min. Before and after frames of the sixth level, SLOW ½.
+- friction: 0 min.
+- landing: 0 min.
+
+Bottleneck: none — the cause was found while the earlier lanes were read.

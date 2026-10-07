@@ -212,6 +212,7 @@ describe("THE SLOW's aim at a boss, page three", () => {
       r: 10,
       ax: 130,
       ay: 50,
+      whole: true,
     });
     expect(capsule({ x: 100, y: 50, rx: 10, ry: 40 })).toEqual({
       x: 100,
@@ -219,7 +220,15 @@ describe("THE SLOW's aim at a boss, page three", () => {
       r: 10,
       ax: 100,
       ay: 80,
+      whole: true,
     });
-    expect(capsule({ x: 5, y: 5, rx: 3, ry: 3 })).toEqual({ x: 5, y: 5, r: 3, ax: 5, ay: 5 });
+    expect(capsule({ x: 5, y: 5, rx: 3, ry: 3 })).toEqual({
+      x: 5,
+      y: 5,
+      r: 3,
+      ax: 5,
+      ay: 5,
+      whole: true,
+    });
   });
 });

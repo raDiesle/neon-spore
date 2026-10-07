@@ -167,11 +167,12 @@ const FLUE_MARKS = 2.6;
 /**
  * The capsule round a box, along its longer side: the shorter half-axis is
  * the radius and the two ends stand that far in from the box's ends, so the
- * capsule holds the whole oval and no more of the field than it must.
+ * capsule holds the whole oval and no more of the field than it must. The
+ * two ends are alike, so it is `whole` and the crawl gathers on its middle.
  */
 export function capsule({ x, y, rx, ry }: Box): Aim {
-  if (rx >= ry) return { x: x - (rx - ry), y, r: ry, ax: x + (rx - ry), ay: y };
-  return { x, y: y - (ry - rx), r: rx, ax: x, ay: y + (ry - rx) };
+  if (rx >= ry) return { x: x - (rx - ry), y, r: ry, ax: x + (rx - ry), ay: y, whole: true };
+  return { x, y: y - (ry - rx), r: rx, ax: x, ay: y + (ry - rx), whole: true };
 }
 
 /** The capsule round a set of points, each `r` round — the extent a caption rings. */

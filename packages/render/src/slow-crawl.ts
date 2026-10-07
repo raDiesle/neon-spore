@@ -26,7 +26,7 @@ const TRIP = 1.6;
 /** How hard a spark brakes: the larger, the sooner it is crawling. */
 const BRAKE = 4.2;
 
-/** Where a spark comes to rest, in body radii from the centre: a tenth clear of the skin. */
+/** Where a spark comes to rest, in body radii from the axis: a tenth clear of the skin. */
 const NEAR = 1.12;
 
 /** A spark's length at full speed, in body radii, and its width. */
@@ -36,9 +36,42 @@ const WIDTH = 0.06;
 /** How far out of the keep-out a spark takes to reach its brightness, in body radii. */
 const FEATHER = 0.35;
 
-/** From the boss to the furthest corner of the field above the hull, in layout pixels. */
-export function reach(l: Layout, at: Aim): number {
+/** From `at` to the furthest corner of the field above the hull, in layout pixels. */
+export function reach(l: Layout, at: { x: number; y: number }): number {
   return Math.hypot(Math.max(at.x, l.width - at.x), Math.max(at.y, l.hullY - at.y));
+}
+
+/**
+ * Where the rays gather, and the axis they measure the skin along: a head's
+ * centre, or a `whole` body's middle with its axis's half-length `h` and
+ * direction `ux`/`uy`.
+ */
+export function crawlHub(at: Aim): { x: number; y: number; ux: number; uy: number; h: number } {
+  if (at.whole !== true) return { x: at.x, y: at.y, ux: 1, uy: 0, h: 0 };
+  const dx = at.ax - at.x;
+  const dy = at.ay - at.y;
+  const run = Math.hypot(dx, dy);
+  const mid = { x: (at.x + at.ax) / 2, y: (at.y + at.ay) / 2 };
+  if (run <= 0) return { ...mid, ux: 1, uy: 0, h: 0 };
+  return { ...mid, ux: dx / run, uy: dy / run, h: run / 2 };
+}
+
+/**
+ * How far out from the hub the skin stands along the ray `cos`/`sin`: the
+ * radius for a head, and for a capsule its flank or its round end,
+ * whichever the ray leaves by.
+ */
+export function crawlSkin(
+  hub: { ux: number; uy: number; h: number },
+  r: number,
+  cos: number,
+  sin: number,
+): number {
+  if (hub.h <= 0) return r;
+  const c = Math.abs(cos * hub.ux + sin * hub.uy);
+  const s = Math.abs(sin * hub.ux - cos * hub.uy);
+  if (s > 0 && (r * c) / s <= hub.h) return r / s;
+  return hub.h * c + Math.sqrt(Math.max(0, r * r - hub.h * hub.h * s * s));
 }
 
 /** Beats the window has run, fractional. */
@@ -94,8 +127,8 @@ export function drawCrawl(
 ): void {
   const floor = l.hullY;
   if (floor <= 0 || at.r <= 0) return;
-  const far = reach(l, at);
-  const near = at.r * NEAR;
+  const hub = crawlHub(at);
+  const far = reach(l, hub);
   const now = spent(win);
 
   ctx.save();
@@ -106,6 +139,8 @@ export function drawCrawl(
     const angle = (r / RAYS) * Math.PI * 2 + sinHash(r) * 0.2;
     const cos = Math.cos(angle);
     const sin = Math.sin(angle);
+    const near = crawlSkin(hub, at.r, cos, sin) + at.r * (NEAR - 1);
+    const out = Math.max(far, near);
     for (let s = 0; s < CRAWL_SPARKS; s++) {
       // How far through its trip this spark stands; each one on a ray starts
       // a share of a trip after the last, so light keeps arriving.
@@ -113,13 +148,13 @@ export function drawCrawl(
       // The distance still to go falls away as an exponential: fast out at
       // the edge, a crawl at the skin, and never quite nothing.
       const speed = Math.exp(-BRAKE * t);
-      const rad = near + (far - near) * speed;
-      const x = at.x + cos * rad;
-      const y = at.y + sin * rad;
+      const rad = near + (out - near) * speed;
+      const x = hub.x + cos * rad;
+      const y = hub.y + sin * rad;
       // Its length is its speed, so a fast spark is a streak and a slow one a point.
       const len = at.r * STREAK * speed + at.r * WIDTH * 0.5;
-      const bx = at.x + cos * (rad + len);
-      const by = at.y + sin * (rad + len);
+      const bx = hub.x + cos * (rad + len);
+      const by = hub.y + sin * (rad + len);
       // Cold while it is fast and warming only once it is crawling: a spark
       // that went red halfway in would be red everywhere.
       const colour = mixHex(PALETTE.arcRim, PALETTE.red, smoothstep(1 - speed ** 0.4));

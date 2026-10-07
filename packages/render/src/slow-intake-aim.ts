@@ -84,6 +84,15 @@ export interface Aim {
    * (`slow-boss-aim-c.ts`).
    */
   readonly foot?: number;
+  /**
+   * The body is the whole axis, alike at both ends — a box run the long way
+   * as a capsule (`slow-boss-aim-d.ts`'s `capsule`) — so the crawl gathers on
+   * the axis's middle. Left off, `x`/`y` is a head and the axis what it hangs
+   * from, and the crawl gathers on the head. THE FLUE's light stood round its
+   * left end until 7 October 2026, the owner: *the center of slow visual
+   * should be in the center of boss flue*.
+   */
+  readonly whole?: boolean;
 }
 
 /** A rectangle the window's lens leaves alone, in layout pixels. */
