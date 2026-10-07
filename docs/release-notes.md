@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 032457da3 — THE MANTLE's and THE VALVE's sparks are shot out where the bolt meets them
+
+A bolt up a falling spark's column now meets it on the way up, on the tick it is drawn bursting on it, as THE GIMBAL's bead already was; before, the hit only counted when the bolt left the top of the field. All three sparks fall by one reckoning in the simulation (`spark-fall.ts`), the picture lays them off it, and the spark put out bursts where it was met. Exemption: a fix to something wrong — the hit landed late.
+
 ## 2026-10-07 · 6f73a7dc8 — THE GRINDSTONE's caliper has a file of its own
 
 `grindstone-shape.ts` was 221 lines. The caliper — THE HOOD's arc, the two jaws, their pads and the crown bolt — moves to `grindstone-caliper.ts`, and each drawer imports a name from where it now lives. Nothing drawn changes.
