@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE GOVERNOR is torn by THE SLOW's prism: it has no aim row
 
 - **Found:** 2026-10-06, claude/boss-graphics-overhaul-d7066b
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-governor-is-torn-by-the-slows-prism-it-has-n)
 - **Files:** `packages/render/src/slow-boss-aim*.ts`, `packages/render/test/slow-boss-aim.test.ts`
 
 PRISM promises *the room splits and the boss does not*, and a boss with no
