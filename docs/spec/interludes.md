@@ -900,9 +900,13 @@ carry one mote more each, from one, and **all four have the same clock** —
 (`packages/content/src/scout-arenas.ts`).
 
 **How it looks** (`packages/render/src/scout-look.ts`, `scout-ship.ts`). The
-little ship is an alien pacman — a lobed violet round with a chomping mouth, a
-slit-pupilled green eye and two feelers — and the mouth, which is the heading,
-is drawn only on the pilot's screen. Two rings come off it each time it is let
+little ship is a living nautilus (`scout-shell.ts`, the owner, 7 October
+2026, in place of the alien pacman of 29 September) — a coiled, ridged violet
+shell lit like the hull, a soft body with a slit-pupilled green eye at its
+opening, six tentacles that grasp open and shut, two of them green-tipped
+feelers, and a drop of the ship's slime hanging under it. The tentacles reach
+along the heading only on the pilot's screen; on the navigator's the ship
+hangs at rest with them dangling, whichever way it points. Two rings come off it each time it is let
 go. The mouth's reach is dashed round home while a mote is aboard, and a
 stream of amber runs into the mouth while it sucks. The pilot's glimpse tears
 in and out with THE FLIP's projection tear, and the hazard that caught the

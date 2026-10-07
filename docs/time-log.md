@@ -34656,3 +34656,18 @@ Bottleneck: looking — no way to put a boss in a mid-fight state at a chosen
 beat without hand-writing its blades as JSON.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE SCOUT's little ship is a living nautilus
+
+- reading: 5 min. `scout-ship.ts`, `scout-alien.ts`, the hull's palette and
+  key light, the depth skill's pose-versus-place rule.
+- writing: 5 min. The shell, its coil and ribs, the soft body, six
+  tentacles, the drip, the jet wake; split into four files on line count.
+- looking: 5 min. `bun run frames` on both seats at three headings, and two
+  rounds of correcting the body hidden inside the shell.
+- friction: 0 min.
+- landing: 5 min. Two red frame tests (a colour and a bead's call order),
+  imports sorted, `check:fast`, the commit, `land`.
+
+Bottleneck: looking — a 30-pixel body only shows what is wrong with it in a
+magnified crop of a real frame, one run per heading.
