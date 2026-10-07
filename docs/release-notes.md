@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · f2376ae10 — THE RATCHET's and THE HASP's loose bolts are knocked out where the shot meets them
+
+A shot up a loose bolt's column now meets it on the way up, on the tick it is drawn bursting on it, rather than when the shot leaves the top of the field. Both bolts fall by the sparks' one reckoning (`spark-fall.ts`), the picture lays them off it, and the bolt knocked out bursts where it was met instead of at the bottom clasp or the pawl. Each loose bolt moves to a file of its own beside its boss's shape. Exemption: a fix to something wrong — the hit landed late and burst in the wrong place.
+
 ## 2026-10-07 · 032457da3 — THE MANTLE's and THE VALVE's sparks are shot out where the bolt meets them
 
 A bolt up a falling spark's column now meets it on the way up, on the tick it is drawn bursting on it, as THE GIMBAL's bead already was; before, the hit only counted when the bolt left the top of the field. All three sparks fall by one reckoning in the simulation (`spark-fall.ts`), the picture lays them off it, and the spark put out bursts where it was met. Exemption: a fix to something wrong — the hit landed late.
