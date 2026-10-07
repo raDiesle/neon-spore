@@ -1,4 +1,5 @@
 import { circleSubpath } from "@neon-spore/content";
+import type { Color } from "@neon-spore/sim";
 import { rgba } from "./hex.js";
 import { noteMark } from "./mark-spots.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -53,7 +54,8 @@ export const MARK_LIGHT = { low: 0.14, high: 0.3 } as const;
  * circle and gone at its ring (`part-light.ts`). Until 2 October 2026 it was
  * a red cloud reaching 2.6 radii out at 0.85, laid over whatever stood there;
  * the owner: *not so heavy and no glowing outside … the graphics around red
- * light or below should still be good visible*.
+ * light or below should still be good visible*. `tint` is for a mark whose
+ * colour is the ask — THE FLUE's sight (`flue-verdicts.ts`) — red otherwise.
  */
 export function drawMarkHalo(
   ctx: CanvasRenderingContext2D,
@@ -61,9 +63,11 @@ export function drawMarkHalo(
   y: number,
   r: number,
   time: number,
+  tint: Color = "red",
 ): void {
   noteMark(ctx, x, y, r);
-  lightWithin(ctx, new Path2D(circleSubpath(x, y, r)), PALETTE.red, markLightAt(time), { x, y, r });
+  const light = markLightAt(time);
+  lightWithin(ctx, new Path2D(circleSubpath(x, y, r)), PALETTE[tint], light, { x, y, r });
 }
 
 /** How lit this seat's open mark is at `time`: `MARK_LIGHT`, breathing. A mark

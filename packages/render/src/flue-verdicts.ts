@@ -72,7 +72,10 @@ export function drawFlueMarkFeedback(
   const before = ctx.globalAlpha;
   ctx.globalAlpha = fade;
   const says = asked(l, s);
-  if (says === "own") drawMarkHalo(ctx, at.x, at.y, r, time);
+  // In the level's colour, not the red of every other mark: here the colour
+  // is the ask (`boss-cue-read-zo.ts`).
+  const tint = flueLitLevel(s)?.color;
+  if (says === "own") drawMarkHalo(ctx, at.x, at.y, r, time, tint);
   ctx.globalAlpha = fade;
   if (says === "theirs") {
     drawMarkTheirs(ctx, at.x, at.y, r, time);

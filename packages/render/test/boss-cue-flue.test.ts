@@ -28,7 +28,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * (`render/src/boss-cue-read-zo.ts`): `CALL` over `NOW` at the sight to the
  * pilot, who sees the ember, and `FIRE` on a bolt level or `HOLD` on a beam
  * level at the hull under the held cannon to the navigator, who fires. What
- * is *not* said: the level's colour, or how many shots are left.
+ * is *not* said: the level's colour, or how many shots are left — but the
+ * mark is drawn in that colour, never the red of every other boss's.
  */
 
 beforeAll(installCanvasGlobals);
@@ -87,6 +88,18 @@ describe("THE FLUE", () => {
       expect(said?.aim?.x).toBeCloseTo(sight.x, 5);
       expect(said?.aim?.y).toBeCloseTo(sight.y, 5);
       expect(said?.aim?.r).toBeCloseTo(flueSightR(LAYOUT.p2), 5);
+    }
+  });
+
+  it("draws the navigator's mark in the level's colour, so a cyan level never says red", () => {
+    const { world, s } = toLit();
+    for (const color of ["red", "cyan"] as const) {
+      const level = s.levels[s.cursor];
+      if (level === undefined) throw new Error("no level lit");
+      for (const weapon of ["bolt", "beam"] as const) {
+        s.levels[s.cursor] = { ...level, weapon, color };
+        expect(cue(world, "p2")?.tint).toBe(color);
+      }
     }
   });
 

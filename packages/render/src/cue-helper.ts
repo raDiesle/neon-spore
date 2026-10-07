@@ -1,3 +1,4 @@
+import type { Color } from "@neon-spore/sim";
 import { emblem } from "./action-face.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import { drawHoldMark, HOLD_MARK_R } from "./hold-mark.js";
@@ -142,11 +143,13 @@ export const AIM_LOOK: {
     time: number,
     skin: SeatSkin,
     from: { x: number; y: number },
+    tint?: Color,
   ) => void;
   boxed: boolean;
   reach: number;
 } = {
-  paint: (ctx, x, y, r, k) => drawInstarCrosshair(ctx, x, y, r, true, k, "red"),
+  paint: (ctx, x, y, r, k, _time, _skin, _from, tint) =>
+    drawInstarCrosshair(ctx, x, y, r, true, k, tint ?? "red"),
   boxed: true,
   reach: CROSSHAIR_REACH,
 };
@@ -179,11 +182,11 @@ export function drawCueHelper(
   if (helper === "aim") {
     const aim = cueAim(cue, hullY);
     if (aim === null) return;
-    AIM_LOOK.paint(ctx, aim.x, aim.y, aimR(cue, aim), breath, time, skin, from);
+    AIM_LOOK.paint(ctx, aim.x, aim.y, aimR(cue, aim), breath, time, skin, from, cue.tint);
     return;
   }
   if (helper === "hold") {
-    drawHoldMark(ctx, cue.x, cue.y, short * HOLD_MARK_R, time);
+    drawHoldMark(ctx, cue.x, cue.y, short * HOLD_MARK_R, time, cue.tint);
     return;
   }
   if (helper === "rub") {

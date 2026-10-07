@@ -103,10 +103,16 @@ describe("THE FLUE's sight", () => {
     );
   });
 
+  // Between levels, where the sight stands for the next one and no cue is up:
+  // the navigator's crosshair and HOLD circle are in the level's colour too
+  // (`boss-cue-read-zo.ts`), and would be counted with the bar.
   it.each(ROLES)("wears the beam's bar on a beam level and not a bolt one, on %s", (role) => {
     const cyan = stepColour("cyan").rim;
-    const bolt = frame(role, (w) => posed(w, { ...BEAM, weapon: "bolt" }));
-    const beam = frame(role, (w) => posed(w, BEAM));
+    const resting = (s: { phase: string }) => {
+      s.phase = "rest";
+    };
+    const bolt = frame(role, (w) => posed(w, { ...BEAM, weapon: "bolt" }, 0, resting));
+    const beam = frame(role, (w) => posed(w, BEAM, 0, resting));
     expect(count(beam, cyan)).toBeGreaterThan(count(bolt, cyan));
   });
 });

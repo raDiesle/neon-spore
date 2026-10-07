@@ -33960,3 +33960,19 @@ Bottleneck: the first dung frame showed it dropped in the edge column and cut by
 Bottleneck: starting from a worktree branch far behind the local trunk.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE FLUE's crosshair and HOLD circle wear the level's colour
+
+- reading: 5 min. Hunting where WRONG COLOUR came from: the simulation
+  judges every mistimed shot in the level's colour as wide, from either seat
+  and any hold, so the cause had to be on the screen.
+- writing: 5 min. `BossCue.tint`, the crosshair, the HOLD circle and the
+  sight's halo, a test, and the beam-bar test moved between levels.
+- looking: 5 min. `bun run frames` on the cyan levels — from the other
+  seat, since those levels trade the panels.
+- friction: 0 min. The game in the browser pane held on its tutorial and
+  would not run a tick; abandoned for `bun run frames`.
+- landing: 5 min.
+
+Bottleneck: the report named the symptom, and nothing in the simulation could
+produce it with the colour the player thought they pressed.

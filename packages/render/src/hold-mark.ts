@@ -1,3 +1,4 @@
+import type { Color } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -14,7 +15,8 @@ import { PALETTE, STROKE } from "./palette.js";
  * (`mark-feedback.ts`), drawn as a ring that can be seen from across a table,
  * and the print of the thumb that goes on it — the one picture of *keep your
  * thumb here* that needs no word. The ring breathes with the cue's word; the
- * print stands still, as a thumb pressed down does.
+ * print stands still, as a thumb pressed down does. `tint` is a cue's own
+ * colour where the colour is the ask (`BossCue.tint`), red otherwise.
  */
 
 /** The ring's radius, in the cue frame's shorter half-extent. */
@@ -29,14 +31,15 @@ export function drawHoldMark(
   y: number,
   r: number,
   time: number,
+  tint: Color = "red",
 ): void {
   const breath = (Math.sin(time * 4.4) + 1) / 2;
   const ring = new Path2D();
   ring.arc(x, y, r, 0, Math.PI * 2);
   ctx.save();
-  ctx.fillStyle = rgba(PALETTE.red, 0.16 + 0.12 * breath);
+  ctx.fillStyle = rgba(PALETTE[tint], 0.16 + 0.12 * breath);
   ctx.fill(ring);
-  strokeGlow(ctx, ring, PALETTE.red, STROKE.outline * 1.6, 0.7 + 0.3 * breath);
+  strokeGlow(ctx, ring, PALETTE[tint], STROKE.outline * 1.6, 0.7 + 0.3 * breath);
   drawThumbprint(ctx, x, y, r);
   ctx.restore();
 }

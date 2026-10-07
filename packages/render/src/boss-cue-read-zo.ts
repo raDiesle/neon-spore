@@ -16,8 +16,11 @@ import type { Layout } from "./layout.js";
  *
  * **`FIRE` at the hull under the held cannon on a bolt level, `HOLD` on a
  * beam level**, to the navigator, whose trigger it is. Both aim at the sight,
- * where the shot is judged. The level's colour is never named — the sight is
- * drawn in it — and nor is the count, which the pips under it are.
+ * where the shot is judged. The level's colour is never named, but the
+ * crosshair and the `HOLD` circle are drawn in it (`BossCue.tint`): in the
+ * red of every other boss's mark they told the pair *red* on a cyan level,
+ * and the flue refused the shot as the wrong colour (the owner, 7 October
+ * 2026).
  */
 
 /** A beam level's word: hold the prime, and the beam goes when it is full. */
@@ -34,6 +37,6 @@ export function flueCues(l: Layout, world: World, s: FlueState): readonly BossCu
   const fire = level.weapon === "beam" ? FILL : BOLT;
   return [
     markAt(1, "CALL", "NOW", sight.x, sight.y, l, 168),
-    { seat: 2, ...fire, x, y: l.hullY, ...frame, aim, seed: 167 },
+    { seat: 2, ...fire, x, y: l.hullY, ...frame, aim, seed: 167, tint: level.color },
   ];
 }

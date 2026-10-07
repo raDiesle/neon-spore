@@ -1,3 +1,4 @@
+import type { Color } from "@neon-spore/sim";
 import type { ViewRole } from "./view-role.js";
 import { showsCannon, showsShield } from "./view-role.js";
 
@@ -151,6 +152,14 @@ export interface BossCue {
    * the thumb control visual.*
    */
   print?: boolean;
+  /**
+   * **The colour a shot's mark is drawn in**, where the colour is the ask:
+   * THE FLUE's levels each want one colour, and a red crosshair or `HOLD`
+   * circle over a sight asking cyan was read as *fire red*, which the flue
+   * then refused as the wrong colour (the owner, 7 October 2026). Red, the
+   * mark's own, when left out — every other boss.
+   */
+  tint?: Color;
 }
 
 /** Whether this screen is the one being asked. */
