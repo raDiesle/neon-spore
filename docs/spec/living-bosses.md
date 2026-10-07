@@ -869,7 +869,9 @@ about a tenth of a second.
    THE CYST. These change no frame and can run any time after three.
    All five landed on 27 September 2026; the part map says **ready** for each.
 10. The outline tier for every other creature, six a lane, body and parts
-    together.
+    together. Landed 7 October 2026, the last ten that day: THE SINEW,
+    SURGE, LEDGER, STARE, CYST, VISE, MANTLE, KEEL, SPLICE and HIVE; THE
+    FILAMENT's organ turn was taken as its sway.
 11. The mechanisms' hinged parts, six a lane.
 12. What sets the `life` level lower: the motion setting (landed 29 September 2026).
 

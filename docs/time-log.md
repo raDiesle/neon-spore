@@ -34460,3 +34460,20 @@ swing that stopped for every ask would hardly have been seen; it keeps a
 third and its marks ride it.
 
 *Measured: 11 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — Living bosses step 10: THE KEEL, THE SPLICE and THE HIVE sway, THE FILAMENT left as it turns
+
+- reading: 5 min. Each boss's draw and its readers; THE FILAMENT's heart
+  found already turning as an organ, and left so.
+- writing: 10 min. Three `*-sway.ts`; `keelSegs` handed the slow span at
+  its seven readers; a sheared-ellipse bolt foot for THE HIVE's drops; a
+  test each; three findings queued.
+- looking: 5 min. A scan of each fight for its widest ticks and the two
+  frames there side by side, THE SPLICE on the navigator's screen where
+  its head is drawn.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, `check:fast`, four commits, `land`.
+
+Bottleneck: THE KEEL's segments are read by seven callers, each of which
+had to be handed THE SLOW's span so the rings and the drawing stay one
+point.
