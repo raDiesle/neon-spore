@@ -34439,3 +34439,5 @@ every fix to the base was a change of which part covers which.
 Bottleneck: value noise rarely reaches its cap inside one fight, so a
 cap has to be set from the widest the fight actually shows, not the
 widest the noise can.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

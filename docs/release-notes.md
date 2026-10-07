@@ -9,6 +9,16 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 1eb144e05 — Time log for living-bosses step 10, first four
+
+## 2026-10-07 · 4f6b7b9c1 — THE LEDGER leans on its root and THE STARE rolls in its socket
+
+THE LEDGER's two halves now lean together about their underside, so the top of the plating wanders up to nine tenths of a tile while the cord's root, the seam's mouth and the width of the gap stay exactly where they were; a bolt meets the plating as it leans. THE STARE's cowl, eye, lashes and glass roll together about the eye's middle, so its horns lift and dip by more than half a tile while the pupil and its beam stay put and the count of turns is drawn level; it holds still through the charge, the rise and the calm. On the field under "a look with no shipped alternative" (living-bosses step 10).
+
+## 2026-10-07 · b8902b974 — THE SINEW swings on its tendon and THE SURGE rocks where it hangs
+
+THE SINEW's mass now swings across under its held collar like a weight on a rope, up to nine tenths of a tile, and its handles go with it and are answered where they are drawn. It is still once the mass falls and once it lands. THE SURGE's bulb rocks about its own middle, its seam and grip marks with it, so a flank lifts and dips by more than half a tile while the bulb stays over its columns; it settles as it everts and while THE SLOW is open. On the field under "a look with no shipped alternative" (living-bosses step 10).
+
 ## 2026-10-07 · 2f9a5d201 — THE FILAMENT's heart is an organ, modelled and turned
 
 The flat two-lobed card over the field is now an alien heart built as a rig: a conical left ventricle to a leaning apex where the veins go in, the right ventricle bulging on its front and running up into the trunk, two atria, and the arch, its stumps and the cava rising toward the body and tapering to threads short of the seat switcher. It sways slowly in three dimensions, beats in two strokes (the atria and their glowing node on the lub, the ventricles lit from inside on the dub), carries a helical grain and one raised vessel per filament left with a pulse running up from the apex each beat, and flushes red when struck. Exemption: a look the owner asked for by name (7 October 2026, "more like a real hearth organ not for kids"). `bun run solid --filament` is its sheet.
