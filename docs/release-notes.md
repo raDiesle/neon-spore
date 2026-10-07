@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 0ba58c3d6 — THE INSTAR's face-on body is scaled all over, not in strips
+
+As THE INSTAR flew in and grew, its body showed small rectangles of scales across the middle and bare hide round them. Each plate's scales were laid in a box as tall as two rings' centres are apart, which is a sliver once the body runs back into depth, and the last plate had none. Each plate's scales now cover every ring of its own stretch of tube, the far plate first, from the neck to the engines. A fix to something wrong rather than unlovely.
+
 ## 2026-10-07 · ff14fbba8 — Time log for THE CURTAIN's scorch and thinning
 
 ## 2026-10-07 · d7fd4547b — THE CURTAIN's cloth keeps a shot's scorch and thins under a straining hand

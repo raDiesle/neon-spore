@@ -34635,3 +34635,5 @@ finding a bolt that bounces rather than takes a lobe cost a run.
 
 Bottleneck: looking — the strips only show while the body is a third to
 two thirds grown, so the frames had to be found by walking the flight.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
