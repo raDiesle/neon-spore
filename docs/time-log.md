@@ -34735,3 +34735,5 @@ Bottleneck: none — the cut had one entrance, so the count had one place to go.
 
 Bottleneck: finding a pose whose gaps differ — a probe of the poses' worlds
 showed CLOSED has one gap cut four times and eight never.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 918fbd778 — THE TASTER's notch at its own depth is offered in VERSUS
+
+The game draws every gap in THE TASTER's crest the same, brightened by the cuts into all of them. A candidate, `taster:notch` · deep, draws each gap as deep as the pair has cut it: an uncut gap looks as the game's notch does today, and a gap cut four times is a wet hole through the crest. It is judged on THE TASTER · CLOSED, where one gap is cut four times and eight never. The notch's depth and paint are lifted into `NOTCH_LOOK` so a candidate can patch them; the frame the game draws is unchanged.
+
 ## 2026-10-07 · 2a3f32a18 — THE TASTER keeps a depth for each notch
 
 Every blade now counts the shots into the soft crest at its own gap (`cuts`), whether a bolt or the navigator's wipe made them; the gaps sum to `crest`, which is still the one count the fight reads, so no rule changes. The count is hashed. Drawing each notch at its own depth is the look half, queued for VERSUS.
