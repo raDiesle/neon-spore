@@ -362,6 +362,7 @@ says. `bun run check` holds the frame tests either way.
 ## THE GRINDSTONE's jaw pads are placed in two places
 
 - **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
+- **Taken:** 2026-10-07, claude/queue-tasks-a07ff0 (claim: claude/queue-the-grindstones-jaw-pads-are-placed-in-two-place)
 - **Files:** `packages/render/src/grindstone-verdicts.ts`, `packages/render/src/grindstone-grip.ts`, `packages/sim/test/copies-table.ts`
 
 `marksAt` in `grindstone-verdicts.ts` and the grip's pad placement in
