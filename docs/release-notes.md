@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 04915ee80 — THE SINEW's see-through fibres in THE SLOW are offered in VERSUS
+
+While THE SLOW is open over a part, the game draws THE SINEW's strings whole and marks the window only by its prism round the mass. A candidate, `sinew:fibres` · veiled, lays the strings down half see-through for the length of the window, the design's own word for it. It is judged on a new pose, SINEW · PARTING, the one moment with strings standing and a window open. The fibres' laying is lifted into `FIBRE_LOOK` so a candidate can patch it; the frame the game draws is unchanged. The owner asked for it on 7 October 2026.
+
 ## 2026-10-07 · 1d0207917 — THE INSTAR face-on is the same drake as side-on
 
 Seen face-on, THE INSTAR now has the same tail as side-on, coming out of the far end of its body with its two fins, and the same four legs, smaller with distance. Its body now has the side-on skin too: the rows of scales, the paler belly, the lamps and the two rows of spines along the back. Before, the face-on body was a pale grey bag of the head's scales, with no tail or legs. A bolt stops on the face-on tail and legs.

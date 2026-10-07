@@ -34864,3 +34864,5 @@ so their stops had to be pulled out into one helper both views call.
 
 Bottleneck: the fibres set their own alpha outright, so a fade had to be a
 layer, and a layer had to be handed the context.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
