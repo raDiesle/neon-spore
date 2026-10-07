@@ -34268,3 +34268,18 @@ Bottleneck: finding that one of the two conflicts reported was never a
 conflict at all.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE GOVERNOR is left whole by THE SLOW's prism
+
+- reading: 10 min. The four aim pages, the prism, THE GOVERNOR's shape
+  and pose, and which bosses open THE SLOW.
+- writing: 10 min. A row on page four, its whole body a `sharp` box like
+  THE FLUE's; a test reading every boss that calls `openSlow(` off the
+  simulation's sources and standing each one.
+- looking: 10 min. Finding a tick the window is open under AUTO (650),
+  the frame, and the before and after.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: finding a tick inside a window — the entry's tick 1500 had
+none any more.

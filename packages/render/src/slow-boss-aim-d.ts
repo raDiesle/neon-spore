@@ -3,6 +3,7 @@ import {
   capstanBoss,
   flueBoss,
   gallBoss,
+  governorBoss,
   halterBoss,
   lampreyBoss,
   sceneBoss,
@@ -16,6 +17,8 @@ import { capstanAt, capstanOnScreen, capstanPivot, capstanSize } from "./capstan
 import { type Box, sides, spread } from "./caption-anchor-box.js";
 import { flueCentre, flueUnitR } from "./flue-shape.js";
 import { gallSeamY, gallSize } from "./gall-shape.js";
+import { governorStanding, governorSwing } from "./governor-pose.js";
+import { ballR, flyweightAt, headAt, rimDepth } from "./governor-shape.js";
 import { halterArrived } from "./halter-pose.js";
 import { halterAt, halterBend, halterGap, halterSize } from "./halter-shape.js";
 import { instarAt, instarLen } from "./instar-place.js";
@@ -44,8 +47,11 @@ import type { Aim } from "./slow-intake-aim.js";
  * October 2026 took THE SLOW off it. THE FLUE joined with its own rework
  * that day, when THE SLOW came to its levels: with no row its split stood
  * round the cannon and fringed the flue's sight, which is the one mark the
- * pair must read the colour of; so its row is left whole by the split. A kind none of the four pages has is aimed
- * at the cannon.
+ * pair must read the colour of; so its row is left whole by the split.
+ * THE GOVERNOR joined on 7 October 2026, torn into three by a split about
+ * the cannon; it is left whole the same way, being as tall as half the
+ * field. A kind none of the four pages has is aimed at the cannon, and
+ * `slow-boss-aim.test.ts` names any that opens THE SLOW with no row.
  */
 export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: number): Aim | null {
   const cfg = world.cfg;
@@ -125,6 +131,26 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
         ...capsule(sides(l.gridLeft, l.gridLeft + l.cols * l.tile, y - reach, y + reach)),
         sharp,
       };
+    }
+    // The flywheel as it stands this frame, from its rim's underside to the
+    // flyweight flung furthest up behind the spindle — and all of it left
+    // whole by the split: a body half the field tall is torn at both ends
+    // by a split about any one point in it.
+    case "governor": {
+      const s = governorBoss(world);
+      if (s === null) return null;
+      const d = governorStanding(l, cfg, s, beat, beatPhase);
+      const far = flyweightAt(l, d, governorSwing(s, cfg, beat, beatPhase), -Math.PI / 2);
+      const top = Math.min(headAt(l, d).y, far.y - ballR(l, -Math.PI / 2));
+      const bottom = d.cy + d.r * d.tilt + rimDepth(l, d);
+      const glow = l.tile * 0.25;
+      const sharp = {
+        x: d.cx - d.r - glow,
+        y: top - glow,
+        w: (d.r + glow) * 2,
+        h: bottom - top + glow * 2,
+      };
+      return { ...capsule(sides(d.cx - d.r, d.cx + d.r, top, bottom)), sharp };
     }
     // The bell, lobes and all, with the arms' tips and the curtain's foot
     // wherever this frame's figure has them (`nettle-body.ts`).

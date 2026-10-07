@@ -1,7 +1,12 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import { buildBoss, buildQueue, WAVES } from "@neon-spore/content";
 import {
+  BOSS_KINDS,
+  type BossKind,
   createWorld,
+  governorBoss,
   HASP_COUNT,
   haspBoss,
   OUTER,
@@ -13,6 +18,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { gimbalCentre, gimbalRingR } from "../src/gimbal-shape.js";
+import { governorStanding } from "../src/governor-pose.js";
 import { haspCentre, haspShellRadius } from "../src/hasp-shape.js";
 import { computeLayout } from "../src/layout.js";
 import { mantleCentre, mantleReach } from "../src/mantle-shape.js";
@@ -124,5 +130,49 @@ describe("THE SLOW's aim at a boss", () => {
     const world = createWorld(CFG, 5);
     expect(bossAim(world, L)).toBeNull();
     expect(aim(world, L, world.beat, 0).y).toBe(L.hullY);
+  });
+});
+
+/**
+ * The boss kinds whose simulation opens THE SLOW: a kind with a file of its
+ * own (`governor-step.ts`, `lead.ts`) that calls `openSlow(`, read off the
+ * sources so a new boss is on this list the day it opens a window.
+ */
+function opensSlow(): BossKind[] {
+  const src = join(import.meta.dir, "../../sim/src");
+  const kinds = new Set<string>(BOSS_KINDS);
+  const out = new Set<BossKind>();
+  for (const file of readdirSync(src)) {
+    const kind = file.replace(/[-.].*$/, "");
+    if (!kinds.has(kind)) continue;
+    if (readFileSync(join(src, file), "utf8").includes("openSlow(")) out.add(kind as BossKind);
+  }
+  return [...out].sort();
+}
+
+describe("every boss that opens THE SLOW has a row", () => {
+  const playable = opensSlow().filter((kind) => WAVES.some((w) => w.boss?.kind === kind));
+
+  it("reads the list off the simulation, THE GOVERNOR on it", () => {
+    expect(playable).toContain("governor");
+    expect(playable.length).toBeGreaterThan(30);
+  });
+
+  it.each(playable)("aims THE %s's light at its body, not the cannon at the hull", (kind) => {
+    const at = aim(stood(kind as Parameters<typeof waveWith>[0]), L, 0, 0);
+    expect(at.y).toBeLessThan(L.hullY - L.tile);
+  });
+
+  it("leaves THE GOVERNOR's whole flywheel out of the split", () => {
+    const world = stood("governor");
+    const s = governorBoss(world);
+    if (s === null) throw new Error("the governor wave stood no flywheel");
+    const d = governorStanding(L, CFG, s, 0, 0);
+    const sharp = aim(world, L, 0, 0).sharp;
+    if (sharp === undefined) throw new Error("THE GOVERNOR's light leaves nothing whole");
+    expect(sharp.x).toBeLessThan(d.cx - d.r);
+    expect(sharp.x + sharp.w).toBeGreaterThan(d.cx + d.r);
+    expect(sharp.y + sharp.h).toBeGreaterThan(d.cy + d.r * d.tilt);
+    expect(sharp.y).toBeLessThan(d.cy - d.r * d.tilt);
   });
 });
