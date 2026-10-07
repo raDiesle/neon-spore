@@ -1,42 +1,18 @@
-import { type FlueState, flueLitLevel, midCol, type World } from "@neon-spore/sim";
-import { CUE_FRAME_WIDE, cueFrame, markAt } from "./boss-cue-frame.js";
+import type { FlueState, World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue-shape.js";
-import { fieldX } from "./field-flip.js";
-import { flueSightAt, flueSightR } from "./flue-shape.js";
 import type { Layout } from "./layout.js";
 
 /**
- * **What THE FLUE is asking for**: page forty-one of the readings, said only
- * while a level is lit, and to one seat each (`cueSeen`).
+ * **What THE FLUE is asking for**: page forty-one of the readings, **read and
+ * silent** since 7 October 2026.
  *
- * **`CALL` over `NOW` at the sight, to the pilot**, who alone is drawn the
- * ember (`showsFlueEmber`): the pilot's part is to say when, early enough
- * for the shot to get there. The word stands still on the sight rather than
- * riding the ember, so it never says *now* on its own.
- *
- * **`FIRE` at the hull under the held cannon on a bolt level, `HOLD` on a
- * beam level**, to the navigator, whose trigger it is. Both aim at the sight,
- * where the shot is judged. The level's colour is never named, but the
- * crosshair and the `HOLD` circle are drawn in it (`BossCue.tint`): in the
- * red of every other boss's mark they told the pair *red* on a cyan level,
- * and the flue refused the shot as the wrong colour (the owner, 7 October
- * 2026).
+ * It said `CALL` over `NOW` at the sight to the pilot and `FIRE` (or `HOLD`
+ * on a beam level) in a scan box at the hull to the navigator. The owner had
+ * the box and the words taken off when the sight became glass: *remove the
+ * scanner box and the text*. What a level asks is now one sentence under the
+ * flue on both screens (`flue-card.ts`), and whose mouth it waits on is the
+ * siren's, `SAY WHEN TO SHOOT` and `SHOOT WHEN TOLD` (`comms-boss.ts`).
  */
-
-/** A beam level's word: hold the prime, and the beam goes when it is full. */
-const FILL = { kind: "HOLD", word: "HOLD", why: "WHILE THE BEAM FILLS" } as const;
-const BOLT = { kind: "PRESS", word: "FIRE" } as const;
-
-export function flueCues(l: Layout, world: World, s: FlueState): readonly BossCue[] {
-  const level = flueLitLevel(s);
-  if (level === null) return [];
-  const frame = cueFrame(l, CUE_FRAME_WIDE);
-  const sight = flueSightAt(l, world.cfg);
-  const aim = { ...sight, r: flueSightR(l) };
-  const x = fieldX(l, midCol(world.cfg));
-  const fire = level.weapon === "beam" ? FILL : BOLT;
-  return [
-    markAt(1, "CALL", "NOW", sight.x, sight.y, l, 168),
-    { seat: 2, ...fire, x, y: l.hullY, ...frame, aim, seed: 167, tint: level.color },
-  ];
+export function flueCues(_l: Layout, _world: World, _s: FlueState): readonly BossCue[] {
+  return [];
 }

@@ -1181,7 +1181,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zl.ts` | **What THE CAPSTAN is asking for** — page thirty-eight of the readings |
 | `packages/render/src/boss-cue-read-zm.ts` | **What THE GALL is asking for** — page thirty-nine of the readings |
 | `packages/render/src/boss-cue-read-zn.ts` | **What THE BURGEE is asking for**: page forty of the readings |
-| `packages/render/src/boss-cue-read-zo.ts` | **What THE FLUE is asking for**: page forty-one of the readings, said only while a level is lit |
+| `packages/render/src/boss-cue-read-zo.ts` | **What THE FLUE is asking for**: page forty-one of the readings, **read and silent** since 7 October 2026 |
 | `packages/render/src/boss-cue-read-zp.ts` | **What THE VALVE is asking for**: page forty-two of the readings |
 | `packages/render/src/boss-cue-read-zq.ts` | **What THE GOVERNOR is asking for**, page forty-three of the readings |
 | `packages/render/src/boss-cue-read-zr.ts` | **What THE SEAM is asking for**, page forty-four of the readings |
@@ -2025,10 +2025,11 @@ by hand never moves.
 | `packages/render/src/flue-fx.ts` | What THE FLUE leaves behind a frame: the **flash** at the sight as the ember is met |
 | `packages/render/src/flue-flesh.ts` | **What THE FLUE is made of**: dark flesh segments with folds, pores, a vein and a wet film, and cilia on the row |
 | `packages/render/src/flue-verdicts.ts` | **THE FLUE's mark answering a shot the way every mark does** (`mark-feedback.ts` |
-| `packages/render/src/flue-card.ts` | **THE FLUE's card**: what the lit level asks, in two words, on both screens |
+| `packages/render/src/flue-card.ts` | **THE FLUE's card**: what the lit level asks, said in a sentence under the flue on both screens |
 | `packages/render/src/flue-cords.ts` | **The strings THE FLUE hangs on, drawn** (`flue-strings.ts` says how it hangs) |
 | `packages/render/src/flue-word.ts` | **MISS, in so many letters** (the owner, 6 October 2026: *when it's a failure shot |
 | `packages/render/src/flue-tally.ts` | **THE FLUE's levels, told on its lobes**: one lobe a level, cleared ones lit pale, the current one in its colour |
+| `packages/render/src/flue-glass.ts` | **THE FLUE's sight as a length of glass pipe**: tinted in the level's colour, as wide as a shot's reach, collared into the flesh |
 | `packages/render/src/frame-field.ts` | The two passes that are about the field: the empty board, and the bodies on it |
 | `packages/render/src/frame-ship.ts` | The two passes that are about the ship: the hull with its controls, and the overlays |
 | `packages/render/src/frame-on-ship.ts` | a body sticks to the finished ship — the fifth pass, between the ship and the overlays: the fence's burn, the gums, the choke's coils, the clingers, in that order |

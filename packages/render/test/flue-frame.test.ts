@@ -147,13 +147,14 @@ describe("THE FLUE under THE SLOW", () => {
     const c = flueCentre(l, CFG);
     expect(Math.abs(aim.y - c.y)).toBeLessThan(l.tile * 0.01);
     expect(Math.abs(aim.ax - aim.x) + 2 * aim.r).toBeGreaterThan(l.cols * l.tile - 1);
-    // And left whole by the split, edge to edge, the card over it and the `NOW` under it.
+    // And left whole by the split, edge to edge, the strings over it and the card under it.
     const sharp = aim.sharp;
     expect(sharp).toBeDefined();
     if (sharp === undefined) return;
     expect(sharp.x).toBeLessThanOrEqual(l.gridLeft);
     expect(sharp.x + sharp.w).toBeGreaterThanOrEqual(l.gridLeft + l.cols * l.tile);
-    expect(sharp.y).toBeLessThan(flueCardRect(l, c.y).y);
-    expect(sharp.y + sharp.h).toBeGreaterThan(c.y + l.tile * 2);
+    const card = flueCardRect(l, c.y);
+    expect(sharp.y).toBeLessThan(c.y - l.tile * 2);
+    expect(sharp.y + sharp.h).toBeGreaterThan(card.y + card.h);
   });
 });

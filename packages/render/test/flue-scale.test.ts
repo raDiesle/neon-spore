@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { flueBoss } from "@neon-spore/sim";
-import { flueCardRect, flueCardSlow, flueCardWord } from "../src/flue-card.js";
+import { flueCardLines, flueCardRect, flueCardSlow } from "../src/flue-card.js";
 import { flueScaleTicks } from "../src/flue-scale.js";
 import { flueCentre } from "../src/flue-shape.js";
 import { computeLayout } from "../src/layout.js";
@@ -46,20 +46,25 @@ describe("THE FLUE's scale", () => {
 });
 
 describe("THE FLUE's card", () => {
-  it("names the weapon as the player says it, and THE SLOW only when it holds", () => {
-    expect(flueCardWord(BOLT)).toBe("SHOT");
-    expect(flueCardWord(BEAM)).toBe("BEAM");
+  it("names the shot and its colour as the player says it, and THE SLOW only when it holds", () => {
+    expect(flueCardLines(BOLT).say).toBe(`SHOOT ${BOLT.color.toUpperCase()}`);
+    expect(flueCardLines(BEAM).say).toBe(`BEAM ${BEAM.color.toUpperCase()}`);
+    expect(flueCardLines(BOLT).when).toBe("WHEN THE SPORE IS IN THE MIDDLE");
+    expect(flueCardLines(BOLT).more).toBeNull();
+    expect(flueCardLines(BEAM).more).toBe("SLOW ½");
+    expect(flueCardLines({ ...BOLT, needs: 2 }).more).toBe("2 TIMES");
+    expect(flueCardLines({ ...BOLT, needs: 2 }, 1).more).toBe("ONCE MORE");
     expect(flueCardSlow(BOLT)).toBeNull();
     expect(flueCardSlow(BEAM)).toBe("SLOW ½");
     expect(flueCardSlow({ ...BEAM, slowMilli: 250 })).toBe("SLOW ¼");
   });
 
-  it("stands over the flue, inside the field", () => {
+  it("stands under the flue, clear of its scale, inside the field", () => {
     const c = flueCentre(L, CFG);
     const card = flueCardRect(L, c.y);
     expect(card.x).toBeGreaterThanOrEqual(L.gridLeft);
-    expect(card.y + card.h).toBeLessThan(c.y - L.tile * 0.6);
-    expect(card.y).toBeGreaterThan(L.gridTop);
+    expect(card.y).toBeGreaterThan(c.y + L.tile * 1.1);
+    expect(card.y + card.h).toBeLessThan(L.hullY);
   });
 });
 
@@ -68,14 +73,14 @@ describe("THE FLUE's level, drawn", () => {
     const drawn = words(role, (w) => {
       posed(w, BEAM);
     }).map((t) => t.text);
-    expect(drawn).toContain("BEAM");
+    expect(drawn).toContain(flueCardLines(BEAM).say);
     expect(drawn).toContain("SLOW ½");
     expect(drawn).not.toContain("1");
     expect(drawn).not.toContain("2");
   });
 
   // The boxes are the canvas's own pixels, and the only words a posed frame
-  // draws are the flue's: the card and the cue.
+  // draws are the flue's: the card.
   it.each(ROLES)("lays no word on another round the flue, every level, on %s", (role) => {
     for (const level of authored()) {
       const near = words(role, (w) => {

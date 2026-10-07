@@ -1,4 +1,4 @@
-import { flueSightR, type Point } from "./flue-shape.js";
+import { flueGlassPath, flueSightH, type Point } from "./flue-shape.js";
 import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -7,7 +7,7 @@ import { PALETTE, STROKE } from "./palette.js";
 /**
  * **A shot spent, drawn as the hurt it is** (the owner, 6 October 2026: *when
  * the cannon did not hit … the visual should be more clear that it's
- * damaging*). Where a miss was a scuff of grit, the sight now flashes red,
+ * damaging*). Where a miss was a scuff of grit, the glass now flashes red,
  * red cracks split out of it, and the string the shot cost parts
  * (`flue-strings.ts`), so a pair sees the shot cost them one before the
  * verdict ring has settled.
@@ -17,7 +17,7 @@ import { PALETTE, STROKE } from "./palette.js";
  * `FlueFx`'s, 1 as the shot is spent and fading to 0.
  */
 
-/** How many cracks split out of the sight, and how far, against its radius. */
+/** How many cracks split out of the glass, and how far, against its half-height. */
 const CRACKS = 7;
 const CRACK_OUT = 1.9;
 
@@ -28,9 +28,8 @@ export function drawFlueSting(
   sting: number,
 ): void {
   if (sting <= 0) return;
-  const r = flueSightR(l);
-  const disc = new Path2D();
-  disc.arc(at.x, at.y, r * (0.7 + 0.6 * (1 - sting)), 0, Math.PI * 2);
+  const r = flueSightH(l) * 1.3;
+  const disc = flueGlassPath(l, at, (1 - sting) * 0.5 * flueSightH(l));
   ctx.fillStyle = rgba(PALETTE.red, 0.45 * sting);
   ctx.fill(disc);
   strokeGlowFaded(ctx, disc, PALETTE.red, STROKE.outline, 1.6 * sting, sting);

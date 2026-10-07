@@ -111,8 +111,8 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       const tip = burgeeTip(l, cfg, burgeeAsked(s, cfg, beatPhase));
       return spreadCapsule([crown, tip], burgeeFlagLong(l));
     }
-    // The flue from one side of the field to the other, with the card over
-    // it and the scale under the sight (`flue-marks.ts`) — and all of it
+    // The flue from one side of the field to the other, with the scale and
+    // the card under the sight (`flue-scale.ts`, `flue-card.ts`) — and all of it
     // left whole by the split, the sight's colour above all (`Aim.sharp`).
     case "flue": {
       if (flueBoss(world) === null) return null;
@@ -162,7 +162,7 @@ const GALL_STANDS = 1.6;
  * strings over it, the scale under the sight and the words over
  * and under it, with their glow (`flue-card.ts`, `flue-marks.ts`,
  * `boss-cue-read-zo.ts`). */
-const FLUE_MARKS = 2.6;
+const FLUE_MARKS = 2.9;
 
 /**
  * The capsule round a box, along its longer side: the shorter half-axis is

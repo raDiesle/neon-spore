@@ -11,16 +11,15 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **THE FLUE's mark answers a shot the way every mark does**
- * (`flue-verdicts.ts`, `.claude/skills/new-boss` §5): while a level is lit
- * the sight wears the halo on the navigator's screen, whose trigger it is,
- * and the partner's ring and clock on the pilot's, whose part is to say
- * when; between levels it asks nobody; a hit greens it and a shot spent
- * reddens it, and the verdict reaches the field's frame on every screen.
+ * (`flue-verdicts.ts`, `.claude/skills/new-boss` §5): a hit greens the glass
+ * and a shot spent reddens it, and the verdict reaches the field's frame on
+ * every screen. Since 7 October 2026 nothing else stands round the glass —
+ * no halo, no partner's ring and clock (the owner: *remove the scanner box
+ * and the text*).
  */
 
 beforeAll(installCanvasGlobals);
 
-const HALO = "createRadialGradient";
 /** The partner's waiting clock's face, as `drawMarkWait` strokes it. */
 const CLOCK = rgba(PALETTE.text, 0.85);
 
@@ -42,7 +41,6 @@ function frame(role: ViewRole, arrange: (world: World) => void, said: SimEvent[]
 }
 
 const count = (text: string, what: string) => text.split(what).length - 1;
-const halos = (role: ViewRole, arrange: (w: World) => void) => count(frame(role, arrange), HALO);
 const clocks = (role: ViewRole, arrange: (w: World) => void) => count(frame(role, arrange), CLOCK);
 
 const rest = (w: World) => void posed(w, null);
@@ -50,16 +48,9 @@ const bolt = (w: World) => void posed(w, BOLT);
 const beam = (w: World) => void posed(w, BEAM);
 
 describe("THE FLUE's sight asking", () => {
-  it.each([bolt, beam])(
-    "haloes the sight on the navigator's screen and waits on it on the pilot's",
-    (lit) => {
-      expect(halos("p2", lit)).toBeGreaterThan(halos("p2", rest));
-      expect(clocks("p2", lit)).toBe(clocks("p2", rest));
-      expect(clocks("p1", lit)).toBeGreaterThan(clocks("p1", rest));
-      expect(halos("test", lit)).toBeGreaterThan(halos("test", rest));
-      expect(clocks("test", lit)).toBe(clocks("test", rest));
-    },
-  );
+  it.each([bolt, beam])("stands no partner's clock round the glass on any screen", (lit) => {
+    for (const role of ROLES) expect(clocks(role, lit)).toBe(clocks(role, rest));
+  });
 });
 
 describe("THE FLUE's verdict on a shot", () => {

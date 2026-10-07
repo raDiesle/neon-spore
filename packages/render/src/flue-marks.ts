@@ -1,5 +1,6 @@
 import type { FlueLevel } from "@neon-spore/sim";
-import { flueSightR, type Point } from "./flue-shape.js";
+import { drawFlueGlass } from "./flue-glass.js";
+import { flueGlassPath, flueSightH, type Point } from "./flue-shape.js";
 import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -9,8 +10,8 @@ import { stepColour } from "./step-colour.js";
 /**
  * **THE FLUE's marks**: what says what a level asks and what it has left.
  * The slot glowing is *a level is lit*; **the sight** over the cannon is
- * where the ember must be met, drawn in the colour the level asks, a ring
- * for a bolt and a ring with the beam's bar through it for a beam. The
+ * where the ember must be met, a length of glass in the colour the level
+ * asks, with the beam's bar through it for a beam. The
  * levels are the flue's own lobes, one each (`flue-tally.ts`), where a stud
  * each stood over the flue until 7 October 2026. The shots a level has left are the
  * strings the flue hangs on (`flue-strings.ts`), where three pips under the
@@ -32,9 +33,10 @@ export function drawFlueSlotGlow(
 }
 
 /**
- * The sight over the held cannon, in the level's colour: a ring breathing on
- * its beat for a bolt, and for a beam the same ring with a bar down through
- * it, the beam's own picture. Dim between levels, in the next one's colour.
+ * The sight over the held cannon, in the level's colour: a length of glass
+ * pipe as wide as a shot's reach, breathing on its beat (`flue-glass.ts`),
+ * and on a beam level a bar down through it, the beam's own picture. Dim
+ * between levels, in the next one's colour.
  */
 export function drawFlueSight(
   ctx: CanvasRenderingContext2D,
@@ -44,20 +46,17 @@ export function drawFlueSight(
   lit: boolean,
   beatPhase: number,
 ): void {
-  const r = flueSightR(l);
-  const hex = stepColour(level.color).rim;
   const pulse = lit ? 0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2) : 0.35;
-  const ring = new Path2D();
-  ring.arc(at.x, at.y, r, 0, Math.PI * 2);
-  strokeGlowFaded(ctx, ring, hex, STROKE.outline, pulse, 1);
+  drawFlueGlass(ctx, l, at, level.color, pulse);
   if (level.weapon !== "beam") return;
+  const h = flueSightH(l) * 1.5;
   const bar = new Path2D();
-  bar.moveTo(at.x, at.y - r * 1.5);
-  bar.lineTo(at.x, at.y + r * 1.5);
-  strokeGlowFaded(ctx, bar, hex, STROKE.outline, pulse, 1);
+  bar.moveTo(at.x, at.y - h);
+  bar.lineTo(at.x, at.y + h);
+  strokeGlowFaded(ctx, bar, stepColour(level.color).rim, STROKE.outline, pulse, 1);
 }
 
-/** A hit's flash at the sight: white, opening as it fades. */
+/** A hit's flash in the glass: white, opening out of it as it fades. */
 export function drawFlueFlash(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -65,8 +64,7 @@ export function drawFlueFlash(
   flash: number,
 ): void {
   if (flash <= 0) return;
-  const p = new Path2D();
-  p.arc(at.x, at.y, flueSightR(l) * (0.6 + 0.9 * (1 - flash)), 0, Math.PI * 2);
+  const p = flueGlassPath(l, at, (1 - flash) * flueSightH(l));
   ctx.fillStyle = rgba(PALETTE.hullRim, flash * 0.5);
   ctx.fill(p);
   strokeGlowFaded(ctx, p, PALETTE.hullRim, STROKE.inner, flash);

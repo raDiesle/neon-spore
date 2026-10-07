@@ -11,18 +11,12 @@ import { drawFlueCard } from "./flue-card.js";
 import { drawFlueStrings } from "./flue-cords.js";
 import { drawFlueCilia, drawFlueSegment } from "./flue-flesh.js";
 import type { FlueFx } from "./flue-fx.js";
+import { drawFlueGlassGloss } from "./flue-glass.js";
 import { drawFlueFlash, drawFlueSight, drawFlueSlotGlow } from "./flue-marks.js";
 import { drawFlueMirageFluid, drawFlueMiragePhantoms } from "./flue-mirage.js";
 import { flueArrived, flueSpent } from "./flue-pose.js";
 import { drawFlueScale } from "./flue-scale.js";
-import {
-  flueCentre,
-  flueEmberAt,
-  flueSightAt,
-  flueSlotPath,
-  flueUnitAt,
-  flueUnits,
-} from "./flue-shape.js";
+import { flueEmberAt, flueSightAt, flueSlotPath, flueUnitAt, flueUnits } from "./flue-shape.js";
 import { drawFlueSpore } from "./flue-spore.js";
 import { drawFlueSting } from "./flue-sting.js";
 import { flueHang } from "./flue-strings.js";
@@ -48,11 +42,13 @@ const ARRIVE = 3;
  * navigator's is not (`showsFlueEmber`): the navigator has the trigger and
  * has to be told when, and is shown a mirage in the gullet instead — a
  * rainbow fluid and spores that are not there (`flue-mirage.ts`). Everything else is on both — the sight in the colour
- * the level asks, with the beam's bar through it on a beam level, the strings
+ * the level asks, a length of glass pipe (`flue-glass.ts`), with the beam's
+ * bar through it on a beam level, the strings
  * it hangs on, one cut for every shot spent, and a lobe for every level, lit as each is
  * cleared: the flue's health, read off the body (`flue-tally.ts`). Under the slot a scale
- * ticks the beats the ember has left to the sight (`flue-scale.ts`), and over
- * the flue's left end a card names the weapon and THE SLOW (`flue-card.ts`).
+ * ticks the beats the ember has left to the sight (`flue-scale.ts`), and under
+ * the flue's middle a sentence says the shot, its colour and THE SLOW
+ * (`flue-card.ts`).
  *
  * **It is drawn dark**: the owner had it drawn flat on 5 October 2026 so the
  * sight's colours can be seen, and THE SLOW's colour split stands round the
@@ -77,7 +73,6 @@ export function drawFlue(
   fx: FlueFx,
 ): void {
   const cfg = world.cfg;
-  const centre = flueCentre(l, cfg);
   const fade = 1 - 0.5 * flueSpent(s, cfg, beat, beatPhase);
   ctx.save();
   ctx.globalAlpha = fade;
@@ -120,13 +115,11 @@ export function drawFlue(
   if (level !== null) {
     drawFlueScale(ctx, l, cfg, level, lit);
     drawFlueSight(ctx, l, sight, level, lit, beatPhase);
-    drawFlueCard(ctx, l, centre.y, level, lit, level.needs - (lit ? s.met : 0));
   }
   drawFlueFlash(ctx, l, sight, fx.flash);
   drawFlueSting(ctx, l, sight, fx.sting);
-  drawFlueMarkFeedback(ctx, l, world, s, beat, beatPhase, time, fx.verdicts);
-  // The spore over the marks: the partner's clock fills the sight on the
-  // pilot's screen, and drawn under it the spore vanished just where it is met.
+  drawFlueMarkFeedback(ctx, l, world, s, beat, beatPhase, fx.verdicts);
+  // The spore over the marks, inside the glass, and the glass's gloss over it.
   if (!sees) {
     if (lit) drawFlueMiragePhantoms(ctx, l, cfg, time);
   } else {
@@ -151,11 +144,15 @@ export function drawFlue(
     if (back >= 1) spore();
     else if (out === null) drawFlueBeamed(ctx, l, at, 1 - back, spore);
   }
+  if (level !== null) drawFlueGlassGloss(ctx, l, sight);
   ctx.restore();
-  // MISS stands level under the sight, however the flue hangs (`flue-word.ts`).
+  // MISS, or else what the level asks, stands level under the sight however
+  // the flue hangs (`flue-word.ts`, `flue-card.ts`).
   ctx.save();
   ctx.globalAlpha = fade;
-  drawFlueWord(ctx, l, { x: sight.x + shake, y: sight.y + arrive }, fx.word);
+  const under = { x: sight.x + shake, y: sight.y + arrive };
+  if (fx.word.shown !== null) drawFlueWord(ctx, l, under, fx.word);
+  else if (level !== null) drawFlueCard(ctx, l, under, level, lit, level.needs - (lit ? s.met : 0));
   ctx.restore();
 }
 

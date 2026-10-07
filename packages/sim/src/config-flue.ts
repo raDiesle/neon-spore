@@ -23,8 +23,10 @@ export interface FlueConfig {
   flueRow: number;
   /**
    * How far off the cannon's column the ember may be and still be met,
-   * thousandths of a column: the sight's radius, so a spore half inside the
-   * sight ring is met (the owner, 6 October 2026).
+   * thousandths of a column: the glass's half-width, so a spore whose middle
+   * is anywhere in the coloured glass over the cannon is met. 740 on 6 October
+   * 2026, a spore half inside a ring; 1200 since the owner asked for more
+   * room, 7 October 2026.
    */
   flueHitMilli: number;
   /** Shots a level allows; the last one missed is the wave. */
@@ -39,7 +41,7 @@ export const FLUE_DEFAULTS: FlueConfig = {
   flueSpentBeats: 2,
   flueSpanMilli: 4500,
   flueRow: 6,
-  flueHitMilli: 740,
+  flueHitMilli: 1200,
   flueShots: 3,
   flueBeamBeats: 1,
 };

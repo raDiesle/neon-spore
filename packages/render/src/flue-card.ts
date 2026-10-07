@@ -1,39 +1,53 @@
 import type { FlueLevel } from "@neon-spore/sim";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { PALETTE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
 
 /**
- * **THE FLUE's card**: what the lit level asks, in two words, on both
- * screens — `SHOT` or `BEAM` in the colour it must be, and under it how hard
- * THE SLOW holds the level, `SLOW ½`, when it does. The owner, 5 October
- * 2026: which combination a level is must be plain without a tutorial. The
- * sight says the colour and the weapon as a picture, the scale says the
- * speed, the strings the shots and the lobes the level; the card says the two
- * of them a picture cannot, by name, where both players read the same words.
- * On a level that needs the ember met more than once the word carries the
- * meetings still owed, `SHOT ×2` (7 October 2026).
+ * **THE FLUE's card**: what the lit level asks, said in a sentence under the
+ * flue on both screens. The owner, 5 October 2026: which combination a level
+ * is must be plain without a tutorial; and 7 October 2026: the text should
+ * stand *below the boss in the center* and say *something like "shoot ball in
+ * the center in the right colour"*. So it is written under the glass, in the
+ * level's colour: the shot and its colour by name, `SHOOT RED` or `BEAM
+ * CYAN`, and under it when, or how a beam is fired; and under that, on a
+ * level that needs the spore met more than once, how many meetings are still
+ * owed, and how hard THE SLOW holds the level, `SLOW ½`, when it does.
  *
- * It stands over the flue's left end, clear of the `CALL` over the sight,
- * and is faint between levels, naming the next.
+ * It stood in a plate over the flue's left end until then. It gives way to
+ * MISS, which stands in the same place (`flue-word.ts`), and is faint between
+ * levels, naming the next.
  */
 
-/** The card's corner from the field's left edge and over the flue, its size and its words', in tiles. */
-const IN = 0.25;
-const UP = 2.4;
-const W = 2.1;
-const H = 1.15;
-const WORD = 0.42;
-const SLOW_WORD = 0.3;
+/** How far under the flue's middle each line stands, and its size, in tiles. */
+const SAY_AT = 1.7;
+const WHEN_AT = 2.22;
+const MORE_AT = 2.62;
+const SAY = 0.56;
+const WHEN = 0.3;
 
-/**
- * The weapon's name, the one the player reads — a bolt is a shot — and on a
- * level that needs more than one meeting, how many are still owed, `left`.
- */
-export function flueCardWord(level: FlueLevel, left = level.needs): string {
-  const word = level.weapon === "beam" ? "BEAM" : "SHOT";
-  return level.needs > 1 ? `${word} ×${left}` : word;
+/** The card's three lines: the ask, how to answer it, and what else holds the level. */
+export interface FlueCardLines {
+  say: string;
+  when: string;
+  more: string | null;
+}
+
+/** What `level` asks, with `left` meetings still owed. */
+export function flueCardLines(level: FlueLevel, left = level.needs): FlueCardLines {
+  const colour = level.color.toUpperCase();
+  const beam = level.weapon === "beam";
+  const more: string[] = [];
+  if (left > 1) more.push(`${left} TIMES`);
+  else if (level.needs > 1) more.push("ONCE MORE");
+  const slow = flueCardSlow(level);
+  if (slow !== null) more.push(slow);
+  return {
+    say: `${beam ? "BEAM" : "SHOOT"} ${colour}`,
+    when: beam ? "HOLD IT. IT HITS THE MIDDLE WHEN FULL" : "WHEN THE SPORE IS IN THE MIDDLE",
+    more: more.length > 0 ? more.join(" · ") : null,
+  };
 }
 
 /** THE SLOW's strength as the card writes it, or null when the level is not slowed. */
@@ -43,45 +57,42 @@ export function flueCardSlow(level: FlueLevel): string | null {
   return `SLOW ${known[level.slowMilli] ?? String(level.slowMilli / 1000)}`;
 }
 
-/** The card's plate over the flue at `flueY`, in field pixels. */
+/** The band the card's lines take under the flue's middle at `flueY`, in field pixels. */
 export function flueCardRect(
   l: Layout,
   flueY: number,
 ): { x: number; y: number; w: number; h: number } {
-  return { x: l.gridLeft + IN * l.tile, y: flueY - UP * l.tile, w: W * l.tile, h: H * l.tile };
+  const top = flueY + (SAY_AT - SAY / 2) * l.tile;
+  const bottom = flueY + (MORE_AT + WHEN / 2) * l.tile;
+  return { x: l.gridLeft, y: top, w: l.cols * l.tile, h: bottom - top };
 }
 
-/** The card over the flue at `flueY`. */
+/** The card under the flue's middle `at`, level however the flue hangs. */
 export function drawFlueCard(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  flueY: number,
+  at: { x: number; y: number },
   level: FlueLevel,
   lit: boolean,
   left = level.needs,
 ): void {
-  const { x, y, w, h } = flueCardRect(l, flueY);
+  const lines = flueCardLines(level, left);
   const alpha = lit ? 1 : 0.45;
+  const shadow = rgba(PALETTE.flueSlot, 0.9 * alpha);
   ctx.save();
-  const plate = new Path2D();
-  plate.roundRect(x, y, w, h, 0.2 * l.tile);
-  ctx.fillStyle = rgba(PALETTE.flueSlot, 0.85);
-  ctx.fill(plate);
-  ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = rgba(PALETTE.hullRim, 0.35 * alpha);
-  ctx.stroke(plate);
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  const cx = x + w / 2;
-  const slow = flueCardSlow(level);
-  const wordY = slow === null ? y + h / 2 : y + 0.38 * l.tile;
-  ctx.font = `700 ${Math.round(l.tile * WORD)}px "Courier New",monospace`;
-  ctx.fillStyle = rgba(stepColour(level.color).rim, alpha);
-  ctx.fillText(flueCardWord(level, left), cx, wordY);
-  if (slow !== null) {
-    ctx.font = `700 ${Math.round(l.tile * SLOW_WORD)}px "Courier New",monospace`;
-    ctx.fillStyle = rgba(PALETTE.text, alpha);
-    ctx.fillText(slow, cx, y + 0.85 * l.tile);
-  }
+  ctx.lineJoin = "round";
+  const line = (text: string, y: number, size: number, fill: string): void => {
+    ctx.font = `700 ${Math.round(l.tile * size)}px "Courier New",monospace`;
+    ctx.lineWidth = l.tile * size * 0.28;
+    ctx.strokeStyle = shadow;
+    ctx.strokeText(text, at.x, at.y + y * l.tile);
+    ctx.fillStyle = fill;
+    ctx.fillText(text, at.x, at.y + y * l.tile);
+  };
+  line(lines.say, SAY_AT, SAY, rgba(stepColour(level.color).rim, alpha));
+  line(lines.when, WHEN_AT, WHEN, rgba(PALETTE.text, 0.8 * alpha));
+  if (lines.more !== null) line(lines.more, MORE_AT, WHEN, rgba(PALETTE.text, 0.8 * alpha));
   ctx.restore();
 }

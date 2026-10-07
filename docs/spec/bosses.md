@@ -11165,8 +11165,11 @@ timer.
 past the flue**: every bolt and every beam stops on its row, `flueRow` — 6,
 two lower than the 4 of 6 October (the owner, 7 October 2026: *move the
 boss visuals some more down*) — and is judged there (`flueAlong`, `flueStruckEmber`). Within `flueHitMilli` of
-the ember — the sight's radius, so a spore half inside the sight ring is met
-(the owner, 6 October 2026) — in the level's weapon and colour, the ember is
+the ember — the glass's half-width, 1.2 columns, so a spore whose middle is
+anywhere in the coloured glass over the cannon is met (the owner, 6 October
+2026, a spore half inside a ring; 7 October 2026, *increase the fault
+tolerance … if cannon hits middle it still counts the extended red/cyan
+area*) — in the level's weapon and colour, the ember is
 met (`flueHit`, with `left`, the meetings still needed): once as often as the
 level needs, it is cleared; short of that it is beamed home and runs again,
 no shot spent. Anything else spends a shot (`flueMiss`, with why:
@@ -11192,12 +11195,14 @@ bolt from the right at two and a quarter, a cyan beam at two, a cyan bolt at
 three met twice, a red bolt from the right at three and three fifths, and a
 red beam at two and a quarter met twice.
 
-**The field says two words** (`render/boss-cue-read-zo.ts`), only while a
-level is lit: `CALL` over `NOW` at the sight, to the pilot; and `FIRE` on a
-bolt level or `HOLD` (*while the beam fills*) on a beam level, at the hull
-under the cannon, to the navigator, aimed at the sight. The colour and the
-count are never said: the sight is drawn in the colour, and the strings are
-the count. **AUTO plays it** (`packages/hands/src/boss-hands-flue.ts`): the
+**The field says no cue** (`render/boss-cue-read-zo.ts`): `CALL` over
+`NOW` at the sight and `FIRE` or `HOLD` in a scan box at the hull came off
+on 7 October 2026 (the owner: *remove the scanner box and the text*). What
+a level asks is **one sentence under the flue** on both screens
+(`flue-card.ts`): `SHOOT RED` or `BEAM CYAN` in the level's colour, under it
+`WHEN THE SPORE IS IN THE MIDDLE` or, for a beam, `HOLD IT. IT HITS THE
+MIDDLE WHEN FULL`, and under that `2 TIMES`, `ONCE MORE` and `SLOW ½` where
+they hold. It gives way to MISS, which stands in the same place. **AUTO plays it** (`packages/hands/src/boss-hands-flue.ts`): the
 navigator fires the level's colour, or primes it, the tick the ember will
 be met within half of `flueHitMilli`; the pilot sends nothing.
 
@@ -11212,9 +11217,11 @@ cannon's colour, so the sight stays the brightest colour on the row. **THE SLOW'
 (`slow-boss-aim-d.ts`) rather than fringing it, since with no row there it
 was aimed at the cannon and split the sight, which is the one mark the pair
 must read the colour of. **The marks** (`flue-marks.ts`): the slot glows
-while a level is lit; **the sight** over the cannon is a ring in the
-level's colour, with the beam's bar through it on a beam level, dim between
-levels in the next one's colour; **a stud per level** over the flue lights
+while a level is lit; **the sight** over the cannon is
+a length of glass pipe in the level's colour (`flue-glass.ts`, 7 October
+2026), a rounded rectangle exactly as wide as a shot's reach, collared into
+the flesh at each end, with a gloss over the spore inside it and the beam's
+bar through it on a beam level, dim between levels in the next one's colour; **a stud per level** over the flue lights
 as each is cleared, the flue's health read off the body. **The strings**
 (`flue-strings.ts`, `flue-cords.ts`; the owner, 6 October 2026, in place of
 three pips under the sight): the flue hangs from the dark on three tendons,
@@ -11231,9 +11238,7 @@ owner's ask of 6 October 2026, and
 laid from the lit level's own speed, so a slow ember's ticks stand close
 round the sight and a fast one's far out: the scale is how the speed is
 shown, and since it counts beats it holds under any SLOW. **The card**
-(`flue-card.ts`) over the flue's left end names the weapon as the player
-says it, `SHOT` or `BEAM`, in the level's colour, and under it `SLOW ½` or
-`SLOW ¼` when THE SLOW holds the level; the card, the scale and the strings are
+(`flue-card.ts`) is the sentence under the flue's middle, above; the card, the scale and the strings are
 on both screens and left whole by the split with the rest. **The ember** is
 a warm-white glow in the slot, exactly where the simulation has it. **What outlives a frame**
 (`flue-fx.ts`): a flash at the sight and the stud's flare for a level
@@ -11251,9 +11256,9 @@ own blow at the hull** (`flue-blow.ts`) is the cinder coughed out under the
 sight and down the middle column.
 
 **Its mark answers a shot the way every mark does**
-(`render/flue-verdicts.ts`): one mark, the sight. While a level is lit it
-wears the halo on the navigator's screen and the partner's ring and clock
-on the pilot's; a hit greens it and a shot spent reddens it on both.
+(`render/flue-verdicts.ts`): one mark, the glass. A hit greens it and a
+shot spent reddens it on both screens. The halo and the partner's ring and
+clock it wore came off with the scan box, 7 October 2026.
 
 **What is proven, and what is not.** `sim/test/flue.test.ts` and
 `flue-shot.test.ts` prove the rules: the ember runs its span and back from

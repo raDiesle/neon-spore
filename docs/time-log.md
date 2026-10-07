@@ -34036,3 +34036,18 @@ only by running it.
 Bottleneck: none — the cause was found while the earlier lanes were read.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE FLUE's sight is a glass pipe as wide as a shot's reach
+
+- reading: 10 min. The flue's sight, its cue, its mark feedback and the
+  card, and the eighteen landings the branch was behind the local `main`.
+- writing: 10 min. The reach, the glass, the sentence under the flue, the
+  cue and the clock taken off, the tests that held the old ones.
+- looking: 5 min. Before and after on both screens, a beam level, a MISS
+  and a hit.
+- friction: 5 min. The branch started behind the local `main`, and
+  `--auto-miss` never misses on THE FLUE (queued).
+- landing: 0 min.
+
+Bottleneck: reading which of four marks round the sight was the "scanner
+box" the owner meant.

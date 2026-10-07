@@ -6,7 +6,8 @@ import { splinePath } from "./spline.js";
 
 /**
  * **THE FLUE's geometry**: where the flue lies, the units it is laid from,
- * the slot the ember runs in, and the sight over the cannon.
+ * the slot the ember runs in, and the sight over the cannon, a length of
+ * glass pipe since 7 October 2026.
  *
  * **The flue is THE CAIRN · PULLED laid out in a row, grown as THE
  * CRAWLER's chain** (`tools/shape-sheet/src/drafts/collected.ts`,
@@ -42,10 +43,14 @@ const SEG_WOBBLE = 0.035;
 /** How far past the ember's ends the slot runs, in tiles. */
 const SLOT_OVER = 0.3;
 /**
- * The sight's radius, in tiles: a shot's reach, `flueHitMilli`, so a spore
- * half inside the ring is met (`flue-beam.test.ts` holds the two together).
+ * The sight's half-width, in tiles: a shot's reach, `flueHitMilli`, so a
+ * spore whose middle is in the glass is met (`flue-beam.test.ts` holds the
+ * two together). Its half-height holds the whole spore, and its corners are
+ * rounded by `GLASS_ROUND` of a tile.
  */
-const SIGHT = 0.74;
+const SIGHT = 1.2;
+const GLASS_HIGH = 0.62;
+const GLASS_ROUND = 0.3;
 /** THE CAIRN's own seed, spread along the row so no two units are cut alike. */
 const SEED = 4.0;
 
@@ -117,7 +122,24 @@ export function flueSightAt(l: Layout, cfg: SimConfig): Point {
   return { x: fieldX(l, flueCannonCol(cfg)), y: flueCentre(l, cfg).y };
 }
 
-/** The sight's radius, in pixels. */
+/** The sight's half-width, in pixels: how far either side of it a spore is met. */
 export function flueSightR(l: Layout): number {
   return SIGHT * l.tile;
+}
+
+/** The sight's half-height, in pixels. */
+export function flueSightH(l: Layout): number {
+  return GLASS_HIGH * l.tile;
+}
+
+/**
+ * The sight as the glass it is drawn (`flue-glass.ts`): a rounded rectangle
+ * round `at`, grown by `grow` pixels every way.
+ */
+export function flueGlassPath(l: Layout, at: Point, grow = 0): Path2D {
+  const w = flueSightR(l) + grow;
+  const h = flueSightH(l) + grow;
+  const p = new Path2D();
+  p.roundRect(at.x - w, at.y - h, w * 2, h * 2, GLASS_ROUND * l.tile + grow);
+  return p;
 }
