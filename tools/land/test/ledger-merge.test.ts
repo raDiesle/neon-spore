@@ -43,6 +43,14 @@ describe("the ledger's own merge", () => {
     expect((out as string).indexOf("their-lane")).toBeLessThan((out as string).indexOf("my-lane"));
   });
 
+  test("keeps the trunk's Measured: footnote under the entry the lane wrote under", () => {
+    // The shape of 7 October 2026: `land` stamped the last entry on main while
+    // the lane, kept, appended its next entry straight under that one.
+    const measured = "\n*Measured: 4 min from this lane's queue claim to the trunk moving.*\n";
+    const out = mergeLedger(BASE, BASE + measured, `${BASE}\n${entry("my-lane", 15)}`);
+    expect(out).toBe(`${BASE}${measured}\n${entry("my-lane", 15)}`);
+  });
+
   test("keeps every trunk entry when the lane wrote nothing new", () => {
     const trunk = `${BASE}\n${entry("their-lane", 10)}`;
     const out = mergeLedger(BASE, trunk, BASE);

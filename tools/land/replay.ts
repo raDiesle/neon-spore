@@ -57,7 +57,7 @@ import { mergeQueue } from "./queue-merge.js";
 
 export interface Replay {
   ok: boolean;
-  /** Files whose conflict stopped the replay; empty when git failed some other way. */
+  /** Files whose conflict stopped the replay, never one it settled; empty when git failed some other way. */
   conflicted: string[];
   /** Files this settled by itself, in the order they came up. */
   resolved: string[];
@@ -147,16 +147,19 @@ export async function replay(root: string, trunk: string): Promise<Replay> {
   while (step.code !== 0) {
     const listed = await git(["diff", "--name-only", "--diff-filter=U"], root);
     const conflicted = listed ? listed.split("\n") : [];
-    const stop = async (): Promise<Replay> => {
+    const stop = async (unsettled: string[]): Promise<Replay> => {
       await run(["rebase", "--abort"], root);
-      return { ok: false, conflicted, resolved, said: step.err.trim().split("\n")[0] ?? "" };
+      const said = step.err.trim().split("\n")[0] ?? "";
+      return { ok: false, conflicted: unsettled, resolved, said };
     };
-    if (conflicted.length === 0 || conflicted.some((file) => RESOLVERS[file] === undefined)) {
-      return stop();
-    }
+    if (conflicted.length === 0) return stop([]);
+    const unsettled = conflicted.filter((file) => RESOLVERS[file] === undefined);
+    if (unsettled.length > 0) return stop(unsettled);
+    // Every file is tried before stopping, so the landing names only the ones
+    // that refused: on 7 October 2026 a refused queue stopped a landing that
+    // named the ledger beside it, and the ledger would have merged.
     for (const file of conflicted) {
-      const settle = RESOLVERS[file];
-      if (settle === undefined) return stop();
+      const settle = RESOLVERS[file] as Resolver;
       const merged = await settle({
         root,
         file,
@@ -164,11 +167,15 @@ export async function replay(root: string, trunk: string): Promise<Replay> {
         trunk: await stage(root, 2, file),
         lane: await stage(root, 3, file),
       });
-      if (merged === null) return stop();
+      if (merged === null) {
+        unsettled.push(file);
+        continue;
+      }
       await Bun.write(joinPath(root, file), merged);
       await run(["add", "--", file], root);
       resolved.push(file);
     }
+    if (unsettled.length > 0) return stop(unsettled);
     step = await run(["rebase", "--continue"], root);
   }
   // Asked of the result and not only of a conflict: git merges two rows for

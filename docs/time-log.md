@@ -34250,3 +34250,19 @@ Bottleneck: the question itself — the cheaper option needed only a
 sentence once it was decided.
 
 *Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — `land` merges a claim and a narrowed entry line by line
+
+- reading: 10 min. The queue, record and ledger merges and the replay;
+  the ledger turned out to merge already, named only because the replay
+  listed every conflicted file once the queue refused.
+- writing: 15 min. `line-merge.ts`, a three-way merge inside one queue
+  entry; the replay names only the files that refused; five tests, one a
+  real rebase in the shape of the morning's.
+- looking: 0 min.
+- friction: 0 min. Two heredocs with doubled backslashes refused by the
+  guard, written with Edit instead.
+- landing: 5 min. `bun run index`, `check:fast`, the commit, `land`.
+
+Bottleneck: finding that one of the two conflicts reported was never a
+conflict at all.

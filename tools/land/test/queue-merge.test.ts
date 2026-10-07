@@ -73,8 +73,28 @@ describe("merging a queue file", () => {
     expect(merged).toBe(file(D));
   });
 
-  test("both sides rewriting one entry is not merged", () => {
+  test("the trunk's Taken: line and the lane's narrowed Files: line are both kept", () => {
+    // 7 October 2026: a lane claimed its second half on main, then narrowed
+    // the same entry's `Files:` line one line below the claim.
+    const narrowed = A.replace("`a.ts`", "`a.ts`, `a2.ts`");
+    const both = A_TAKEN.replace("`a.ts`", "`a.ts`, `a2.ts`");
+    expect(mergeQueue(file(A, B), file(A_TAKEN, B), file(narrowed, B))).toBe(file(both, B));
+  });
+
+  test("a paragraph the lane added and the trunk's Taken: line are both kept", () => {
     const mine = `${A}\n\nAnd a paragraph the lane added.`;
+    const both = `${A_TAKEN}\n\nAnd a paragraph the lane added.`;
+    expect(mergeQueue(file(A, B), file(A_TAKEN, B), file(mine, B))).toBe(file(both, B));
+  });
+
+  test("both sides rewriting the same line of one entry is not merged", () => {
+    const theirs = A.replace("What to do.", "What the trunk says to do.");
+    const mine = A.replace("What to do.", "What the lane says to do.");
+    expect(mergeQueue(file(A, B), file(theirs, B), file(mine, B))).toBeNull();
+  });
+
+  test("both sides putting a different line at one point is not merged", () => {
+    const mine = A.replace("- **Files:**", "- **Taken:** 2026-09-09, claude/b\n- **Files:**");
     expect(mergeQueue(file(A, B), file(A_TAKEN, B), file(mine, B))).toBeNull();
   });
 
@@ -130,6 +150,53 @@ describe("replaying a lane that drained an item", () => {
         expect(out.ok).toBe(true);
         expect(out.resolved).toEqual(["docs/queue.md"]);
         expect(await Bun.file(join(root, "docs", "queue.md")).text()).toBe(file(B));
+      } finally {
+        await rm(root, { recursive: true, force: true });
+      }
+    },
+    repoTimeout(16),
+  );
+
+  test(
+    "a kept lane's second half lands over its claim and the first half's stamp",
+    async () => {
+      // 7 October 2026, settled by hand: the claim's `Taken:` and the stamp's
+      // `Measured:` on main, a narrowed `Files:` and a new ledger entry here.
+      const log = (md: string) => writeFile(join(root, "docs", "time-log.md"), md);
+      const first = "# Log\n\n## First half\n\nBottleneck: none.\n";
+      const measured = "\n*Measured: 5 min.*\n";
+      const second = "\n## Second half\n\nBottleneck: none.\n";
+      const narrowed = A.replace("`a.ts`", "`a2.ts`");
+      root = await mkdtemp(join(tmpdir(), "queue-merge-"));
+      try {
+        await run(["init", "-b", "main"]);
+        await run(["config", "user.email", "t@t"]);
+        await run(["config", "user.name", "t"]);
+        await Bun.write(join(root, "docs", "parked.md"), "# Parked\n");
+        await write(file(A, B));
+        await log(first);
+        await run(["add", "-A"]);
+        await run(["commit", "-m", "the first half"]);
+
+        await run(["checkout", "-b", "lane"]);
+        await write(file(narrowed, B));
+        await log(first + second);
+        await run(["commit", "-am", "the second half"]);
+
+        await run(["checkout", "main"]);
+        await log(first + measured);
+        await run(["commit", "-am", "the first half's stamp"]);
+        await write(file(A_TAKEN, B));
+        await run(["commit", "-am", "the second half taken"]);
+
+        await run(["checkout", "lane"]);
+        const out = await replay(root, "main");
+        expect(out.conflicted).toEqual([]);
+        expect(out.ok).toBe(true);
+        const queue = await Bun.file(join(root, "docs", "queue.md")).text();
+        expect(queue).toBe(file(A_TAKEN.replace("`a.ts`", "`a2.ts`"), B));
+        const ledger = await Bun.file(join(root, "docs", "time-log.md")).text();
+        expect(ledger).toBe(first + measured + second);
       } finally {
         await rm(root, { recursive: true, force: true });
       }

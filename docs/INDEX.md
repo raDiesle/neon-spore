@@ -2921,6 +2921,7 @@ by hand never moves.
 | `tools/land/land.ts` | whether a lane can land on a linear trunk, and what that would do |
 | `tools/land/lane-start.ts` | Where a lane started, as git remembers it — the impure half of `stamp.ts`'s `laneStart` |
 | `tools/land/ledger-merge.ts` | merging the ledger when a lane and the trunk both appended; a record loses no row |
+| `tools/land/line-merge.ts` | a three-way merge inside one queue entry, so a `Taken:` line and a narrowed `Files:` line both land |
 | `tools/land/notes.ts` | a landed commit turned into a release note, and where it goes in the file |
 | `tools/land/notes-merge.ts` | Merging `docs/release-notes.md` when two trunks both moved This conflict is not between two lanes and the… |
 | `tools/land/note-commit.ts` | The two files a landing writes at the moment `main` moves, and the one commit that carries them |

@@ -328,23 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `land` stops on a queue entry its own lane's claim touched
-
-- **Found:** 2026-10-07, claude/queue-tasks-ab3705
-- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-land-stops-on-a-queue-entry-its-own-lanes-claim)
-- **Files:** `tools/land/queue-merge.ts`, `tools/land/record-merge.ts`, `tools/land/replay.ts`
-
-A lane that drains several entries in one sitting claims each with
-`bun run queue take`, which commits the `Taken:` line on `main`. If the lane
-then edits that entry's `Files:` line (narrowing it as it lands a half) and
-appends to `docs/time-log.md` before fast-forwarding past the claim and the
-release note, `land` stops with conflicts in `docs/queue.md` and
-`docs/time-log.md` instead of merging them. In both files the two sides are
-adjacent lines that do not disagree: `Taken:` against `Files:`, and the
-`Measured:` footnote against a new entry under it. Teach the record merge
-both shapes, with a test for each in `tools/land/test/`. Worked around by
-hand on 7 October.
-
 ## THE GOVERNOR is torn by THE SLOW's prism: it has no aim row
 
 - **Found:** 2026-10-06, claude/boss-graphics-overhaul-d7066b

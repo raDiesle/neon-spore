@@ -17,10 +17,14 @@
  * this merge.
  *
  * The one thing it will not do is decide. If both sides rewrote the same
- * entry's body, or both rewrote the preamble, the merge returns `null` and the
- * landing refuses the way it always did. That is rare and it is a real
- * disagreement; the tax this removes is the one nobody authored.
+ * lines of one entry, or both rewrote the preamble, the merge returns `null`
+ * and the landing refuses the way it always did. That is rare and it is a real
+ * disagreement; the tax this removes is the one nobody authored. Both sides
+ * editing *different* lines of one entry — a `Taken:` line on the trunk, a
+ * narrowed `Files:` line in the lane — is merged line by line (`line-merge.ts`).
  */
+
+import { mergeLines } from "./line-merge.js";
 
 /** One `##` entry: its heading text, and the whole block including the heading. */
 export interface Entry {
@@ -126,7 +130,11 @@ export function mergeQueue(base: string, trunk: string, lane: string): string | 
     if (was === undefined) return null; // both sides filed it, differently
     if (entry.block === was) merged.push({ title: entry.title, block: mine });
     else if (mine === was) merged.push(entry);
-    else return null; // both sides rewrote the same entry
+    else {
+      const block = mergeLines(was, entry.block, mine);
+      if (block === null) return null; // both sides rewrote the same lines
+      merged.push({ title: entry.title, block });
+    }
   }
   // Entries this lane filed, in the order it filed them.
   for (const entry of laneParts.entries) {
