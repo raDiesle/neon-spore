@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · c6c9d05b1 — A queue entry names THE TRAPEZE's verdicts file by its new name
+
+## 2026-10-07 · 81384eccf — Time log for the TRAPEZE rename
+
+## 2026-10-07 · af68eae02 — THE BURGEE is renamed THE TRAPEZE, ahead of its rework as a swing
+
+Every file, type, event, drag target and config field of the boss is named trapeze now; nothing it does or draws has changed yet. The owner asked for the name by name on 7 October 2026, with the flag to become a swing.
+
 ## 2026-10-07 · eed34ba6a — Scripted boss shots wait six beats, not three
 
 Every shot step of THE VISE, THE RIME, THE TRIVET, THE PLUMB, THE SLING, THE GRINDSTONE, THE CYST, THE DAVIT, THE HALTER, THE CAPSTAN, THE GALL and THE BURGEE now waits 3.75 seconds for its shot instead of 1.9, so there is time to move the cannon under the core, pick the colour and let the bolt land — the owner asked for more time to shoot and hit, 7 October 2026. THE KEEL and THE SEAM keep their shot windows in their own config, and are queued.
