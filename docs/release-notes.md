@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 435af1789 — THE INSTAR's tail ends in two living fins, not two crescents
+
+The fork at the end of THE INSTAR's tail used to be two crescents of bone that looked like shears. Each prong is now a fin: skin stretched over three bony rays, lit through toward a scalloped edge that ripples, with a hooked barb of bone at the tip. The barb is where the crescent's point was, so the mark stays under it, and a bolt stops on the fin's outline.
+
 ## 2026-10-07 · ea02feabc — THE LEDGER's two unbuilt looks are put to the owner rather than offered
 
 The queue asked for three VERSUS candidates for THE LEDGER. THE SLOW has been marked by its prism round the body since 26 September, and the spec now says so. The ship's nerves lit along the cord are argued against in the write-up as a second picture of one hit, and no free drafted shape fits a new back for the body, so both are a question for the owner naming the options.
