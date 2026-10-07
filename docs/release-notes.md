@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 0a24b1f27 — THE LAMPREY gets a skin: a fin round its tail, gills that breathe, eyes, and a fringed sucker
+
+THE LAMPREY now reads as an eel and not an olive tube. A see-through fin flares round its tail and wraps the tip, with rays, and its edge ripples toward the tail. A dark ridge runs down its back, with mottling and the rings of its segments, and a wet streak shines on the side the light reaches. Seven gill pores on each flank open and shut once a beat, in a ripple from the head, and an eye sits on each side of the neck. A fringe of fleshy bumps rims the sucker: it pulls in all together while the eel is bitten into a tile and ripples round it everywhere else. The lip is glossy, each tooth stands in a gum, and ribs run down the dark throat and swallow inward a beat at a time. The teeth, the sockets and the lit gullet are as they were, so the gaps still count its health. Every motion runs off the beat, so it stands still while the game is paused.
+
 ## 2026-10-07 · bc60fe8a4 — THE KEEL's rock is shot out where the shot meets it
 
 A shot up the thrown rock's column now meets it on its way down, on the tick it is drawn bursting on it, rather than when the shot leaves the top of the field. The rock falls by the sparks' one reckoning (`spark-fall.ts`) from the tail's end, and the picture leaves the drawn tail onto the simulation's row over the first quarter of the fall, as it already left it for the column; the rock shot out bursts where it was met. The socket and the marrow's lens stay judged at the top: they stand where the spine's pose puts them, and a fixed row would redraw the spine. Exemption: a fix to something wrong — the hit landed late.

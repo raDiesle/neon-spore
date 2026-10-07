@@ -34381,3 +34381,5 @@ is drawn; the blend over the first quarter is what answered it.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: none to speak of — the frame and crop tools answered first time.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
