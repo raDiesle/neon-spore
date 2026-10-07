@@ -361,6 +361,7 @@ hand on 7 October.
 ## The baked-cache guard timed out in a full `check:fast` beside a dev server
 
 - **Found:** 2026-10-05, claude/core-along-hmr
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-baked-cache-guard-timed-out-in-a-full-check)
 - **Files:** `packages/render/test/baked-cache-guard.test.ts`
 
 With the director's dev server running (`bun --hot`, bundling), one
