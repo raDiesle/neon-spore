@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · eed34ba6a — Scripted boss shots wait six beats, not three
+
+Every shot step of THE VISE, THE RIME, THE TRIVET, THE PLUMB, THE SLING, THE GRINDSTONE, THE CYST, THE DAVIT, THE HALTER, THE CAPSTAN, THE GALL and THE BURGEE now waits 3.75 seconds for its shot instead of 1.9, so there is time to move the cannon under the core, pick the colour and let the bolt land — the owner asked for more time to shoot and hit, 7 October 2026. THE KEEL and THE SEAM keep their shot windows in their own config, and are queued.
+
 ## 2026-10-07 · d08c855eb — THE CAPSTAN's pull says which way, then that it is right
 
 The seat that steers sees a big arrow over the drum and one in its middle pointing the way to pull, both ways on a hold. Once the pull has the right face round, the middle turns a steady green ring and the word reads HOLD, and the band being rubbed carries a ring of green segments on both screens — one for each reversal it needs, or each beat of a hold — so the seat holding the pull sees that the partner is still at it, and how far. The owner asked for this look by name, 7 October 2026; the green ring and the count are shared pieces in mark-progress.ts, and their roll-out to six more bosses is queued.
