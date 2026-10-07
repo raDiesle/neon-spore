@@ -34333,3 +34333,16 @@ is the long strides that were wrong.
 Bottleneck: none.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — `--auto-miss` spends a shot wide on THE FLUE
+
+- reading: 5 min. The misser, THE FLUE's hand and step: its SLOW is a
+  show and an ember left alone only runs the level again.
+- writing: 10 min. The misser holds AUTO off every other try and fires a
+  bolt of the level's colour while the ember is far off the middle; the
+  test plays THE FLUE through the game's tick to a `flueMiss`.
+- looking: 5 min. The entry's own command, stopping at tick 794.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none.

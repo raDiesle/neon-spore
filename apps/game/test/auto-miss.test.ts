@@ -29,8 +29,20 @@ function readThrough(world: World, buffer: InputBuffer): void {
   }
 }
 
+type Heard = World["events"][number];
+
 /** The first breach the boss itself lands, as `by`, or null inside the look. */
 function bossBlow(name: string, miss: boolean): { by: string; kind: string } | null {
+  const e = firstHeard(name, miss, (e, kind) => e.type === "breach" && e.by === kind);
+  return e?.type === "breach" && e.by !== undefined ? { by: e.by, kind: e.by } : null;
+}
+
+/** The first event `wanted` picks under the wave's own boss, or null inside the look. */
+function firstHeard(
+  name: string,
+  miss: boolean,
+  wanted: (e: Heard, kind: string) => boolean,
+): Heard | null {
   const cfg = playConfig();
   const world = createWorld(cfg, 0);
   const buffer = new InputBuffer();
@@ -53,9 +65,7 @@ function bossBlow(name: string, miss: boolean): { by: string; kind: string } | n
     if (!(miss && misser.withholds(world))) auto.press(world, buffer);
     else for (const c of misser.presses(world)) buffer.push(c.player, c.command);
     step(world, buffer.drain(world.tick));
-    for (const e of world.events) {
-      if (e.type === "breach" && e.by === kind) return { by: e.by, kind };
-    }
+    for (const e of world.events) if (wanted(e, kind)) return e;
     if (world.events.length) progression.handle(world.events);
   }
   return null;
@@ -78,6 +88,16 @@ describe("--auto-miss", () => {
       expect(bossBlow(name, true)).not.toBeNull();
     });
   }
+});
+
+describe("--auto-miss on THE FLUE", () => {
+  // Its SLOW is a show and an ember left alone runs the level again, so
+  // holding AUTO off was never a miss: the misser fires wide itself.
+  it("spends a shot wide, which AUTO alone never does", () => {
+    const missed = (e: Heard) => e.type === "flueMiss";
+    expect(firstHeard("THE FLUE", false, missed)).toBeNull();
+    expect(firstHeard("THE FLUE", true, missed)).not.toBeNull();
+  });
 });
 
 describe("askMisser", () => {

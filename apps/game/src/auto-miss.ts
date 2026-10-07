@@ -2,10 +2,14 @@ import {
   type Command,
   filamentBoss,
   filamentTracing,
+  flueBoss,
+  flueEmberMet,
+  flueLitLevel,
   gallBoss,
   gallLitStep,
   midCol,
   slowing,
+  ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
 
@@ -45,6 +49,13 @@ import {
  * clock, it strikes (`filament-step.ts` `late`). So the lines alternate as
  * windows do, by the one they are on: the first is let run out, and its
  * strike is the wave (`wave-fail.ts`).
+ *
+ * **THE FLUE's levels are a third**: its SLOW is a show, and an ember left
+ * alone is never a miss — it runs the level again. Its miss is a shot spent
+ * wide. So the misser holds AUTO off every other try, counted by what the
+ * flue has already settled (a level cleared, a shot spent), and fires a bolt
+ * of the level's colour itself while the ember is far from the middle
+ * (`wideFlue`). The last shot spent is the hull.
  */
 export interface AskMisser {
   /** Whether AUTO keeps its hands off this tick. */
@@ -66,12 +77,32 @@ function unwindowedShot(w: World): number | null {
   return midCol(w.cfg);
 }
 
+/** How far off the middle the ember must be for a shot to be wide: three hits' reach. */
+const WIDE = 3;
+
+/**
+ * THE FLUE's try to be spent wide, as the bolt to fire this tick: null when
+ * this try is AUTO's, and an empty list while the bolt must wait — on the
+ * cannon's own pace, a shot in flight, or the ember near the middle.
+ */
+function wideFlue(w: World): Command[] | null {
+  const s = flueBoss(w);
+  const level = s === null ? null : flueLitLevel(s);
+  if (s === null || level === null) return null;
+  if ((s.hits + w.cfg.flueShots - s.shots) % 2 === 1) return null;
+  if (w.prime !== null || w.bullets.length > 0) return [];
+  if (w.tick - w.lastFireTick < w.cfg.fireEveryBeats * ticksPerBeat(w.cfg)) return [];
+  const at = flueEmberMet(w, s, "bolt");
+  if (at === null || Math.abs(at) < w.cfg.flueHitMilli * WIDE) return [];
+  return [{ kind: "fire", color: level.color }];
+}
+
 export function askMisser(): AskMisser {
   let window = -1;
   let seen = 0;
   return {
     withholds(w) {
-      if (unwindowedShot(w) !== null || unansweredLine(w)) return true;
+      if (unwindowedShot(w) !== null || unansweredLine(w) || wideFlue(w) !== null) return true;
       if (!slowing(w) || !w.slowAsks) return false;
       if (w.slowFromBeat !== window) {
         window = w.slowFromBeat;
@@ -80,6 +111,8 @@ export function askMisser(): AskMisser {
       return seen % 2 === 1;
     },
     presses(w) {
+      const wide = wideFlue(w);
+      if (wide !== null) return wide.map((command) => ({ player: 2 as const, command }));
       const col = unwindowedShot(w);
       if (col === null || w.cannonCol !== col) return [];
       const off = col > 0 ? col - 1 : col + 1;

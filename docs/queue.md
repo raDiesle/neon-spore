@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `--auto-miss` never misses on THE FLUE
-
-- **Found:** 2026-10-07, claude/the-flue-cannon-updates-a48153
-- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-auto-miss-never-misses-on-the-flue)
-- **Files:** `apps/game/src/auto-miss.ts`, `packages/hands/src/boss-hands-flue.ts`, `tools/frames/auto.ts`
-
-`bun run frames . --wave "THE FLUE" --auto both --auto-miss --until flueMiss`
-ran 4000 ticks and AUTO met the spore ten times out of ten: AUTO's flue hand
-fires on its own shot, which `--auto-miss` (holding off every *other* ask)
-does not reach, so a MISS frame has to be built by hand with `--press
-200:2:fire=red`. Teach the flue's hand to fire wide under AUTO-miss (or say
-in `auto.ts` that it cannot, and refuse the flag for that wave), with a test.
-Done when the command above stops on a `flueMiss` and `bun run check` is
-green.
-
 ## THE KEEL's rock and socket are judged at the field's top
 
 - **Found:** 2026-10-07, claude/queue-tasks-ab3705
