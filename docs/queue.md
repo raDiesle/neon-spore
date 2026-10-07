@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Six more shot bosses' targets are judged at the field's top
 
 - **Found:** 2026-10-05, claude/cores-met-where-they-hang
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-six-more-shot-bosses-targets-are-judged-at-the-f)
 - **Files:** `packages/sim/src/oculus-shot.ts`, `packages/sim/src/taster-shot.ts`, `packages/sim/src/scuttle-shot.ts`, `packages/sim/src/curtain-shot.ts`, `packages/sim/src/stare-shot.ts`, `packages/sim/src/plumb-shot.ts`, `packages/sim/src/core-along.ts`
 
 Oculus, taster, scuttle, curtain, stare and plumb still judge a bolt when it leaves the field:
