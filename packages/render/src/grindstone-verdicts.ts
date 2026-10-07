@@ -6,13 +6,7 @@ import {
   grindstoneJawAsks,
   type SimEvent,
 } from "@neon-spore/sim";
-import {
-  grindstoneBolt,
-  grindstoneJawTurn,
-  grindstonePadAt,
-  grindstonePadR,
-  turnedAbout,
-} from "./grindstone-caliper.js";
+import { grindstonePadPlaced, grindstonePadR } from "./grindstone-caliper.js";
 import { grindstoneAxleR } from "./grindstone-shape.js";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
 import { type Circle, type Layout, seatOf } from "./layout.js";
@@ -118,11 +112,8 @@ export class GrindstoneVerdicts {
 /** The axle, the two flats cut `cuts` deep and the two jaws `shut` of the way, as the drawer puts them. */
 function marksAt(l: Layout, cuts: readonly [number, number], shut: number): Circle[] {
   const flatR = FLAT_R * l.tile;
-  const bolt = grindstoneBolt(l, shut);
   const jaw = (side: 0 | 1): Circle => {
-    const turn = grindstoneJawTurn(side, shut);
-    const pad = (k: 0 | 1) => turnedAbout(grindstonePadAt(l, side, k, shut), bolt, turn);
-    const [a, b] = [pad(0), pad(1)];
+    const [a, b] = [grindstonePadPlaced(l, side, 0, shut), grindstonePadPlaced(l, side, 1, shut)];
     return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2, r: grindstonePadR(l) * 2 };
   };
   return [

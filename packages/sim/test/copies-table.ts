@@ -897,4 +897,14 @@ export const COPIES: Copy[] = [
     pattern: /step\s*===\s*null\s*\|\|\s*\(?\s*step\.ask\s*!==\s*"fire"\s*(?:\|\||\)|&&)/,
     strip: false,
   },
+  {
+    // **Where a GRINDSTONE jaw pad stands**: laid on the jaw, then swung with
+    // it about the bolt. The verdict ring and the hit test each wrote the
+    // turn out until 7 October 2026, and they must agree on the point — a
+    // jaw that rocks would have had to be taught to rock twice, and a ring
+    // drawn off where a thumb is taken is the copy that drifted.
+    call: "grindstonePadPlaced",
+    owner: "packages/render/src/grindstone-caliper.ts",
+    pattern: /turnedAbout\(\s*grindstonePadAt\(/,
+  },
 ];

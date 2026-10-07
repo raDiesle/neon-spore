@@ -87,6 +87,19 @@ export function grindstonePadAt(l: Layout, side: 0 | 1, k: number, shut: number)
   return { x: Math.cos(a) * r, y: Math.sin(a) * r };
 }
 
+/**
+ * Pad `k` of jaw `side` where it stands, `shut` of the way bitten: laid on the
+ * jaw, then swung with it about the bolt. The verdict ring and the hit test both
+ * call this, so the ring is drawn where a thumb is taken.
+ */
+export function grindstonePadPlaced(l: Layout, side: 0 | 1, k: number, shut: number): Point {
+  return turnedAbout(
+    grindstonePadAt(l, side, k, shut),
+    grindstoneBolt(l, shut),
+    grindstoneJawTurn(side, shut),
+  );
+}
+
 /** A jaw pad's radius, in pixels. */
 export function grindstonePadR(l: Layout): number {
   return PAD_R * l.tile;

@@ -345,21 +345,6 @@ the give did not cause it. Stack the two words, or let one give way while
 the other is up. A test that the two labels' boxes do not overlap belongs
 with the fix.
 
-## THE GRINDSTONE's jaw pads are placed in two places
-
-- **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
-- **Taken:** 2026-10-07, claude/queue-tasks-a07ff0 (claim: claude/queue-the-grindstones-jaw-pads-are-placed-in-two-place)
-- **Files:** `packages/render/src/grindstone-verdicts.ts`, `packages/render/src/grindstone-grip.ts`, `packages/sim/test/copies-table.ts`
-
-`marksAt` in `grindstone-verdicts.ts` and the grip's pad placement in
-`grindstone-grip.ts` each compute a pad as
-`turnedAbout(grindstonePadAt(l, side, k, shut), grindstoneBolt(l, shut),
-grindstoneJawTurn(side, shut))`. The verdict ring and the hit test must agree
-on that point, and a change to how the jaw turns (step 11 of
-`docs/spec/living-bosses.md` rocks the caliper) would have to be made twice.
-Name one function for a pad where it stands, call it from both, and add a
-`COPIES` row for it.
-
 ## THE KEEL's ribs re-derive the segment's sway
 
 - **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77

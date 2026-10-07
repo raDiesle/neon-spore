@@ -4,13 +4,7 @@ import {
   grindstoneFlatAsks,
   type SimConfig,
 } from "@neon-spore/sim";
-import {
-  grindstoneBolt,
-  grindstoneJawTurn,
-  grindstonePadAt,
-  grindstonePadR,
-  turnedAbout,
-} from "./grindstone-caliper.js";
+import { grindstonePadPlaced, grindstonePadR } from "./grindstone-caliper.js";
 import {
   grindstoneArrived,
   grindstoneDepth,
@@ -114,10 +108,8 @@ function standing(
   );
   const cut = grindstoneCut(l, grindstoneDepth(s, side));
   const shut = grindstoneShut(field, s, beat, beatPhase);
-  const bolt = grindstoneBolt(l, shut);
-  const turn = grindstoneJawTurn(side, shut);
   const pads = [0, 1].map((k) => {
-    const p = turnedAbout(grindstonePadAt(l, side, k, shut), bolt, turn);
+    const p = grindstonePadPlaced(l, side, k, shut);
     return { x: at.x + p.x, y: at.y + p.y };
   });
   const flat = { x: at.x + (side === 0 ? -cut : cut), y: at.y, half: grindstoneFlatHalf(l, cut) };
