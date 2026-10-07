@@ -34556,3 +34556,13 @@ Bottleneck: the tendons first drawn as strokes read as wires laid on the
 body, and only filled lenses, embossed, read as raised.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE KEEL's ribs follow the segment's sway by calling it
+
+- reading: 5 min. `keelSegPose` and the ribs' lag.
+- writing: 5 min. `keelSway`, the two callers, a `COPIES` row.
+- looking: 0 min. Nothing the game draws changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: `check:fast` again — a `COPIES` row reaches every test.
