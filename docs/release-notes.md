@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · b2f59cc8a — THE OCULUS's core is struck where the shot meets it
+
+The open socket is met where the lens hangs, in the middle column, rather than when the bolt leaves the top of the field: THE OCULUS is on `core-along.ts`'s table, and the lens is drawn at the simulation's row. A look step has nothing drawn up its column to meet and stays at the top, and the shattering lens stops nothing in either. The other five bosses of the queue's item stay on it, split into lanes of their own.
+
 ## 2026-10-07 · cc31dd0a2 — THE GOVERNOR is shot at its needle's tip, through a gap in the rim
 
 A slot is cut through the bottom of the flywheel's rim over the cannon, and the needle carries a plate on its end, lit in the step's colour while a shot is owed. A bolt up the middle column goes through the gap and is judged as it meets the tip, not at the hub; the shot steps' needle turns slowly so a bolt fired as the tip comes to the gap meets it there. Every window is longer, and a tap step's time left is the bosses' fuse with no slow.
