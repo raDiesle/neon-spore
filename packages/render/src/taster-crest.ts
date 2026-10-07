@@ -1,3 +1,4 @@
+import type { TasterState } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -68,9 +69,9 @@ export function crestPoints(
  * wet — the design's own words, and player 1's target.
  *
  * `wet` is the fight's progress toward cutting the crest through rather than
- * this gap's own depth: the count is one number for all of them
- * (`TasterState.crest`), and a picture that showed a per-gap depth would be
- * inventing a number the simulation does not keep.
+ * this gap's own depth: one number for all of them (`TasterState.crest`),
+ * read through `NOTCH_LOOK`. Each blade has kept its own `cuts` since
+ * 7 October 2026, and a gap drawn at its own depth is offered in VERSUS.
  */
 export function drawNotch(
   ctx: CanvasRenderingContext2D,
@@ -108,6 +109,22 @@ export function drawNotch(
   ctx.fill();
   ctx.restore();
 }
+
+/**
+ * **How a gap is drawn, as a record**, so VERSUS can offer another answer
+ * beside it (`tools/versus/`). `wet` says how far on gap `i` is drawn, 0..1,
+ * out of the cuts that open the crest (`tasterCrestCuts`); `paint` is `drawNotch` or its
+ * stand-in. `taster-draw.ts` reads both off this object on every frame.
+ */
+export interface NotchLook {
+  wet: (t: TasterState, i: number, crestCuts: number) => number;
+  paint: typeof drawNotch;
+}
+
+export const NOTCH_LOOK: NotchLook = {
+  wet: (t, _i, crestCuts) => Math.min(1, t.crest / Math.max(1, crestCuts)),
+  paint: drawNotch,
+};
 
 /**
  * The crest cut through: a lit seam the whole width of it, and from here the

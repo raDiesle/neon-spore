@@ -34721,3 +34721,17 @@ named in the entry.
 Bottleneck: none — the cut had one entrance, so the count had one place to go.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE TASTER's notch at its own depth, offered in VERSUS
+
+- reading: 5 min. `taster-crest.ts`'s notch, `docs/versus.md`, an open
+  candidate for its shape, which pose has gaps cut to different depths.
+- writing: 10 min. `NOTCH_LOOK` lifted out of the draw with no change to
+  the frame, the `deep` candidate, its pose row and the pose's note.
+- looking: 5 min. Two `versus:shot`s: the first left the uncut gaps too
+  faint to read as the target they still are.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: finding a pose whose gaps differ — a probe of the poses' worlds
+showed CLOSED has one gap cut four times and eight never.

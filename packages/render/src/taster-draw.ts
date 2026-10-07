@@ -9,7 +9,7 @@ import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { BLADE_TILES, type BladeLook, drawBlade } from "./taster-blade.js";
-import { crestPath, drawNotch, drawSeam } from "./taster-crest.js";
+import { crestPath, drawSeam, NOTCH_LOOK } from "./taster-crest.js";
 import { paintGum } from "./taster-flesh.js";
 import { drawTasterPryLight, pryLean, tasterPryOpen } from "./taster-pry.js";
 import { drawTasterNext, drawTasterTally } from "./taster-read.js";
@@ -163,13 +163,11 @@ export function drawTaster(
   drawHurt(ctx, crest, hurt);
 
   // The gaps, and how wet they are: one notch per blade struck off, brighter
-  // the nearer the pair is to cutting the crest through. `t.crest` counts the
-  // shots into all of them, so the sheen is the fight's own progress rather
-  // than any one gap's.
-  const wet = Math.min(1, t.crest / Math.max(1, cfg.tasterCrestCuts));
+  // the nearer the pair is to cutting the crest through (`NOTCH_LOOK`).
   for (let i = 0; i < t.blades.length; i++) {
     if (t.blades[i]?.shorn !== true) continue;
-    drawNotch(ctx, tileCX(l, t.col + i), y, l.tile, thick, wet, breath);
+    const wet = NOTCH_LOOK.wet(t, i, cfg.tasterCrestCuts);
+    NOTCH_LOOK.paint(ctx, tileCX(l, t.col + i), y, l.tile, thick, wet, breath);
   }
   // Cut through, for good: a lit seam the width of the crest, and the fan can
   // never taste again (`tasterLift`).

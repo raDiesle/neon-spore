@@ -87,7 +87,14 @@ export const CLOCK_HAND_POSES: Pose[] = [
     "taster",
     "closed",
     "The fan is closed and only the colour spent least opens it. P1 aims at the crest; P2 holds that colour down.",
-    { hand: tasterHand, want: tasterIs("closed"), hold: 6 },
+    {
+      hand: tasterHand,
+      want: tasterIs("closed"),
+      hold: 6,
+      // `taster:notch` is judged here: nine gaps, one cut four times and
+      // eight never, so a notch drawn at its own depth differs at a glance.
+      lookAt: "the gaps in the crest — whether the one the pair cut reads deeper than the rest",
+    },
   ),
   bossPose(
     "taster",

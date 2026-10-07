@@ -35,6 +35,7 @@ import { POSE_GROUPS } from "./poses.js";
  */
 const SLOT_POSE: Record<string, string> = {
   "aim:cannon": "THE GORGE · ROW",
+  "taster:notch": "THE TASTER · CLOSED",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

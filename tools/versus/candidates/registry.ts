@@ -11,5 +11,13 @@ import { AIM_IRIS } from "./aim-cannon/iris/index.js";
 import { AIM_PLASMA } from "./aim-cannon/plasma/index.js";
 import { AIM_SPORES } from "./aim-cannon/spores/index.js";
 import { AIM_TENDRILS } from "./aim-cannon/tendrils/index.js";
+import { TASTER_DEEP } from "./taster-notch/deep/index.js";
 
-export const VARIANTS: Variant[] = [AIM_EMBER, AIM_IRIS, AIM_PLASMA, AIM_SPORES, AIM_TENDRILS];
+export const VARIANTS: Variant[] = [
+  AIM_EMBER,
+  AIM_IRIS,
+  AIM_PLASMA,
+  AIM_SPORES,
+  AIM_TENDRILS,
+  TASTER_DEEP,
+];

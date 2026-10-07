@@ -4357,7 +4357,7 @@ inside in the hull's violet and a drop standing in the bottom of it, because the
 colour of its own, and the sheen brightens with `crest` — the count of shots
 into all of them, so the picture is the fight's progress. Since 7 October 2026
 each blade keeps its own `cuts` as well, which sum to `crest` and decide
-nothing (`sim/taster-shot.ts`); no picture reads them yet. The crest cut through is a lit seam the
+nothing (`sim/taster-shot.ts`); the game's picture does not read them yet. The crest cut through is a lit seam the
 whole width of it, drawn for the rest of the fight rather than thrown as a
 transient: the pair bought that with four shots and has to be able to see at
 any later moment that the shiver is not coming back. The interlock is the last
@@ -4402,8 +4402,9 @@ interlock parts under the pilot's haul, springs open past upright when it gives,
 and closes over THE SLOW's window until it crosses again as the window shuts,
 with a white sliver lit in the lock's column while it stands open
 (`render/src/taster-pry.ts`). The notch is one sheen for all the
-gaps rather than a depth each, though the simulation now keeps one (`cuts`);
-and the wave's guide is prose rather than a film
+gaps rather than a depth each, though the simulation now keeps one (`cuts`)
+and a notch drawn at it is offered in VERSUS (`taster:notch`, on THE TASTER ·
+CLOSED); and the wave's guide is prose rather than a film
 (`content/test/scenes-prose.test.ts`). **And the three hands are not drawn at
 all yet**: the pin, the wipe and the pry are heard and hashed, and nothing on
 either screen shows a held blade, a thumb crossing a gap or a half-opened
