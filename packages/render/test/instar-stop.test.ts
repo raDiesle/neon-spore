@@ -3,6 +3,7 @@ import { type Bullet, instarMarkCol, midCol, type World } from "@neon-spore/sim"
 import { BoltStops } from "../src/bolt-stop.js";
 import { drawInstar } from "../src/instar-draw.js";
 import { InstarFx } from "../src/instar-fx.js";
+import { SIDE_GROW } from "../src/instar-head-look.js";
 import { instarAt, instarHeadAt, type Point } from "../src/instar-place.js";
 import type { Figure } from "../src/instar-shape.js";
 import { instarBody } from "../src/instar-sway.js";
@@ -76,9 +77,10 @@ describe("THE INSTAR stops a bolt", () => {
     const col = Math.floor((head.x - l.gridLeft) / l.tile);
     const at = aimed(l, world).meets(col, tileCX(l, col), "cyan");
     expect(at?.hit).toBe("body");
-    // Face-on the chin hangs under the head's middle; side-on the skull and jaw span it.
+    // Face-on the chin hangs under the head's middle; side-on the skull and jaw span it,
+    // drawn `SIDE_GROW` larger than the body's head radius.
     if (side === 0) expect(at?.y ?? 0).toBeGreaterThan(head.y);
-    else expect(Math.abs((at?.y ?? 0) - head.y)).toBeLessThan(r);
+    else expect(Math.abs((at?.y ?? 0) - head.y)).toBeLessThan(r * SIDE_GROW);
   });
 
   it("on a wing face-on, out past the head and the tube", () => {

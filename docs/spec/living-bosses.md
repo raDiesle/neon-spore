@@ -96,6 +96,19 @@ far as the turn has reached (`packages/render/src/instar-head-look.ts`); the
 body, the wings and the tail keep the radius they are measured in, and the
 face-on head keeps its size, for its eye and fire marks are pinned to it.
 
+**Decided (7 October 2026, asked for by name).** The owner: *from the side
+still looks ugly, it should look more 3d and head natural — overall like a
+dragon — and head should look half way to player perspective and look angry.*
+Side-on the head is now turned three quarters to the ship while the body
+stays in profile: a skull, a snout and a jaw on its hinge modelled in three
+dimensions, seen once at the turn and painted with the shipped hide, scales,
+eye and horns (`instar-quarter-model.ts`, `instar-quarter-head.ts`). Both
+eyes and both nostrils show, the near ones larger; the upper lids are driven
+down at the snout under heavy brows, and the bridge is rucked in a snarl. It
+stays a mark's ring clear of every nest, blade and patch of hide it is drawn
+over (`instar-quarter-head.test.ts`). `bun run solid --instar-quarter` draws
+it beside the profile head it replaced.
+
 **Offered (1 October 2026, VERSUS `instar:flight` / `serpent`).** While THE
 INSTAR flies in, passes or crosses, a wave runs down its side-on body from
 the neck to the engines: one and a half crests along it, a third of a head

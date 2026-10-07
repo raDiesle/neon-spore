@@ -34624,14 +34624,14 @@ finding a bolt that bounces rather than takes a lobe cost a run.
 
 ## 2026-10-07 — THE INSTAR's face-on body is scaled all over, not in strips
 
-- reading: 10 min. `instar-draw.ts`, the flight, `instar-front-body.ts`'s
+- reading: 5 min. `instar-draw.ts`, the flight, `instar-front-body.ts`'s
   bands, `drawBakedScales`' one rectangle under its clip.
 - writing: 5 min. `plateForm`, `PLATE_ENDS`, the clip to each plate's own
   stretch of tube, and a test that fails on the sliver.
-- looking: 10 min. `bun run frames` across the approach, then crops of the
-  growing body before and after.
+- looking: 0 min. `bun run frames` across the approach, then crops of the
+  growing body before and after — under five.
 - friction: 0 min.
-- landing: 5 min. `check:fast`, the commit, `land`.
+- landing: 0 min. `check:fast`, the commit, `land` — under five.
 
 Bottleneck: looking — the strips only show while the body is a third to
 two thirds grown, so the frames had to be found by walking the flight.
@@ -34673,3 +34673,18 @@ Bottleneck: looking — a 30-pixel body only shows what is wrong with it in a
 magnified crop of a real frame, one run per heading.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE INSTAR's head side-on turns three quarters to the ship and snarls
+
+- reading: 5 min. The side head, its stops, the marks every side-on step
+  lays, the reach margins, the sway that swings the head to the edge.
+- writing: 10 min. A three-dimensional head model seen once at load — skull,
+  snout, jaw on a hinge — its painter, eyes under brows, teeth, frill, and
+  three tests holding the marks clear.
+- looking: 10 min. Five rounds of the comparison sheet: a goat's snout made
+  long, a jaw that hid the mouth, brows from goggles to a squint.
+- friction: 0 min.
+- landing: 5 min. Reach, stop and budget rows moved, `check:fast`, `land`.
+
+Bottleneck: looking — whether a brow reads angry or startled only shows in
+the picture, and it took three rounds.

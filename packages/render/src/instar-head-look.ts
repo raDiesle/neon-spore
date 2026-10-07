@@ -1,12 +1,12 @@
 import { drawFrontHead } from "./instar-head.js";
 import type { Look } from "./instar-plate.js";
-import { drawSideHead } from "./instar-side-head.js";
+import { drawQuarterHead } from "./instar-quarter-head.js";
 import { drawTurnedHead } from "./instar-turn.js";
 
 /**
  * **THE INSTAR's head, as the one record every view draws it through**: the
  * face-on view's turned head (`drawTurnedHead` over `drawFrontHead`'s two
- * halves) and the profile's (`drawSideHead`). A record so VERSUS can offer
+ * halves) and the profile's (`drawQuarterHead`). A record so VERSUS can offer
  * another head in both at once; the draw paths call `INSTAR_HEAD.front` and
  * `.side` every frame and never the drawings directly.
  *
@@ -18,13 +18,19 @@ import { drawTurnedHead } from "./instar-turn.js";
  * the face-on head keeps its size, for the eye and fire marks are pinned to
  * it (`instar-eye.test.ts`), and through the cross-fade the two heads are
  * the same size where they meet.
+ *
+ * **Side-on the head is turned three quarters to the ship**, scowling — the
+ * owner, 7 October 2026: *head should look half way to player perspective and
+ * look angry* (`instar-quarter-head.ts`). The body stays in profile. The
+ * profile head it replaced is kept for the comparison sheet
+ * (`bun run solid --instar-quarter`).
  */
 export const INSTAR_HEAD: {
   front: (ctx: CanvasRenderingContext2D, look: Look) => void;
   side: (ctx: CanvasRenderingContext2D, look: Look) => void;
 } = {
   front: drawInstarFront,
-  side: (ctx, look) => drawSideHead(ctx, grown(look)),
+  side: (ctx, look) => drawQuarterHead(ctx, grown(look)),
 };
 
 /** How much bigger the head is side-on than the body's head radius. */

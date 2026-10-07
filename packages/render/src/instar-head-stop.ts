@@ -5,8 +5,8 @@ import { r2 } from "./instar-head-parts.js";
 import type { Point } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
 import { headBob } from "./instar-profile-life.js";
+import { quarterHeadPoints } from "./instar-quarter-head.js";
 import { swimLook } from "./instar-serpent.js";
-import { sideHeadPoints } from "./instar-side-head.js";
 import { turnedHeadPoint } from "./instar-turn.js";
 import type { Layout } from "./layout.js";
 
@@ -34,7 +34,7 @@ export function frontHeadFeet(look: Look, lay: (p: Point) => Point): Foot[] {
 /** The profile head's two plates, laid where `drawProfile` draws them. */
 export function sideHeadFeet(l: Layout, look: Look, lay: (p: Point) => Point): Foot[] {
   const swum = swimLook(l, look);
-  const { jaw, skull } = sideHeadPoints(
+  const { jaw, skull } = quarterHeadPoints(
     grown({ ...swum, head: headBob(swum.head, swum.r, swum.time) }),
   );
   return [outlineFoot(jaw.map(lay)), outlineFoot(skull.map(lay))];

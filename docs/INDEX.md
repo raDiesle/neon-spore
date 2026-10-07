@@ -1821,6 +1821,7 @@ by hand never moves.
 | `packages/render/src/carom-marks.ts` | A rescue capsule's markings on those faces: rivets, chevrons, a beacon on the beat, a scorched shield |
 | `packages/render/src/carom-capsule.ts` | THE CAROM's shipped crust: the rescue capsule the owner picked — stripe on the rear faces, rivets, scorched nose, beacon on the tail |
 | `packages/render/src/controls-fleet.ts` | THE FLEET's own two controls, and the crosshair only they still wear |
+| `packages/render/src/convex-hull.ts` | The convex hull of `pts`, round from the leftmost (Andrew's monotone chain) |
 | `packages/render/src/ship-air.ts` | THE AIR THE SHIP IS SITTING IN |
 | `packages/render/src/ship-nerves.ts` | what runs from a control to the organ it drives, as a record — drawn under the controls and across the membrane; ships empty, a candidate ship wires it |
 | `packages/render/src/ship-gland.ts` | GLAND's parts: EMBEDDED's arrangement with everything the owner asked for laid over it |
@@ -1994,6 +1995,9 @@ by hand never moves.
 | `packages/render/src/instar-body-look.ts` | **THE INSTAR's side-on body, as the one record its widths are read from** |
 | `packages/render/src/instar-crosshair.ts` | **A shoot mark is a crosshair**: a violet ring with four ticks pointing in, and nothing over the part |
 | `packages/render/src/instar-limb-stop.ts` | **Where a bolt meets THE INSTAR's wings, tail and nests** (`instar-stop.ts`) |
+| `packages/render/src/instar-quarter-head.ts` | **THE INSTAR's head side-on, turned three quarters to the ship and snarling** (`instar-quarter-model.ts` is… |
+| `packages/render/src/instar-quarter-model.ts` | **THE INSTAR's side-on head, modelled in three dimensions and seen three quarters round** — the owner |
+| `packages/render/src/instar-quarter-parts.ts` | **The small parts of THE INSTAR's head turned to the ship** (`instar-quarter-head.ts` lays them): its teeth |
 | `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
 | `packages/render/src/index-solid.ts` | **The solid half of the barrel**: a boss drawn from any side |
 | `packages/render/src/index-sprite.ts` | Sprites baked at load (`sprite-bake.ts`) and the examples offered on THE INSTAR beside the drawings they… |
@@ -3222,6 +3226,7 @@ by hand never moves.
 | `tools/raster/src/solid-instar-page.ts` | The INSTAR head sheet (`bun run solid --instar`) |
 | `tools/raster/src/solid-instar-body-page.ts` | The INSTAR body sheet (`bun run solid --instar-body`) |
 | `tools/raster/src/solid-instar-flight-page.ts` | The INSTAR flight strip (`bun run solid --instar-flight`) |
+| `tools/raster/src/solid-instar-quarter-page.ts` | The INSTAR side-on head sheet (`bun run solid --instar-quarter`) |
 | `tools/raster/src/solid-gimbal-page.ts` | `bun run solid --gimbal`: THE GIMBAL's rig at five turns, the pilot's ring and the navigator's |
 | `tools/raster/src/solid-filament-page.ts` | The FILAMENT sheet (`bun run solid --filament`) |
 | `tools/raster/src/strip-bake.ts` | One painted strip, baked and packed: the atlas the field fetches (`<name>-strip.webp`) |

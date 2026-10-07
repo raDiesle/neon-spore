@@ -59,23 +59,25 @@ const SKULL = [
   [0.78, 0.02],
 ] as const;
 
+/** How far a head side-on has its jaw open on its hinge, in radians: by
+ * the pose's two jaws, and breathing, never quite the same twice — a body
+ * at rest, not a still. */
+export function sideJawOpen(f: Look["f"], time: number): number {
+  return (
+    (0.15 + 0.55 * (f.jawUp + f.jawDown) * 0.5) * 0.8 +
+    JAW_BREATH * (1 + breath(time, JAW_BREATH_PERIOD, 0.35, 5))
+  );
+}
+
 /** Where a point in head radii lands in profile, how far the jaw is open on
  * its hinge this frame, and where a point of the jaw lands with it. */
 function sideFrame(look: Look) {
   const { f, head, r, time } = look;
   const at = (x: number, y: number): Point => ({ x: head.x + x * r, y: head.y + y * r });
   const hinge = at(0.3, 0.08);
-  // The jaw breathes on its hinge, never quite the same twice: a body at rest, not a still.
-  const open =
-    (0.15 + 0.55 * (f.jawUp + f.jawDown) * 0.5) * 0.8 +
-    JAW_BREATH * (1 + breath(time, JAW_BREATH_PERIOD, 0.35, 5));
+  const open = sideJawOpen(f, time);
   const turn = hinged(hinge, open);
   return { at, hinge, open, jaw: (x: number, y: number): Point => turn(at(x, y)) };
-}
-
-/** The profile head's two plates as `drawSideHead` lays them — where a bolt meets it (`instar-head-stop.ts`). */
-export function sideHeadPoints(look: Look): { jaw: Point[]; skull: Point[] } {
-  return outlineOf(sideFrame(look));
 }
 
 function outlineOf({ at, jaw }: ReturnType<typeof sideFrame>): { jaw: Point[]; skull: Point[] } {

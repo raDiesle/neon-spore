@@ -34,6 +34,12 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * `fill` up one in every row on 5 October 2026: the cannon's column became a
  * gunsight in the seat's colour, its rails and ticks one path (`cannon-column.ts`).
  *
+ * On 7 October 2026 the head side-on turned three quarters to the ship
+ * (`instar-quarter-head.ts`): two eyes and two brows where the profile had one,
+ * two nostrils, the snarl's folds and the frill. Coil fills 459 → 481 and
+ * strokes 452 → 480, roar 458 → 480 and 453 → 481, dive 303 → 324 and
+ * 237 → 253; a second iris is two blits more and two radial gradients.
+ *
  * Each row is the worst of each op over one beat starting a third of the way
  * into the step's morph, on a phone. Set `MEASURE` to true and run this file
  * to print the rows as they are written below (`budget-row.ts`); never
@@ -51,31 +57,31 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "13 coil": {
     cursor: 13,
     budget: {
-      fill: 459,
-      stroke: 452,
-      drawImage: 32,
+      fill: 481,
+      stroke: 480,
+      drawImage: 34,
       createLinearGradient: 74,
-      createRadialGradient: 40,
+      createRadialGradient: 42,
     },
   },
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 303,
-      stroke: 237,
-      drawImage: 32,
-      createLinearGradient: 52,
-      createRadialGradient: 39,
+      fill: 324,
+      stroke: 253,
+      drawImage: 34,
+      createLinearGradient: 53,
+      createRadialGradient: 41,
     },
   },
   "20 roar": {
     cursor: 20,
     budget: {
-      fill: 458,
-      stroke: 453,
+      fill: 480,
+      stroke: 481,
       drawImage: 34,
       createLinearGradient: 91,
-      createRadialGradient: 39,
+      createRadialGradient: 41,
     },
   },
 };
