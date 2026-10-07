@@ -257,6 +257,7 @@ by hand never moves.
 | `packages/sim/src/spawn.ts` | you are giving a new creature a field it is born with — one queue entry becoming a body, and the only place one does |
 | `packages/sim/src/spawn-companions.ts` | a creature is meant to bring bodies with it — the gyre's rim, the strand's beads, the crawler's links, built off the body just pushed |
 | `packages/sim/src/spawn-fields.ts` | you are giving a new creature a field it is born with — the per-kind spread, in the order the rolls come off `world.rng` |
+| `packages/sim/src/spark-fall.ts` | **A spark falling down one column to the hull**, eased in and out, in the field's own thousandths of a row |
 | `packages/sim/src/splice-hash.ts` | What THE SPLICE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/splice-round.ts` | THE SPLICE's clock, its one verb and what a feed costs |
 | `packages/sim/src/splice-tangle.ts` | Laying THE SPLICE's straws: three integer arrays and a permutation |

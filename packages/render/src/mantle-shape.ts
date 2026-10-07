@@ -1,6 +1,6 @@
-import { midCol, type SimConfig } from "@neon-spore/sim";
+import { MANTLE_SPARK_FROM_MILLI, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
-import type { Layout } from "./layout.js";
+import { type Layout, tileCY } from "./layout.js";
 
 /**
  * **Where THE MANTLE is**, in field pixels: the two valves of its shell, the
@@ -43,11 +43,14 @@ export interface ValvePose {
   open: number;
 }
 
-/** The row the shell's middle hangs in. */
-const ROW = 3.1;
 /** Half the shut shell's width, and half its length nose to tail, in tiles. */
 const RX = 2.0;
 const RY = 2.3;
+/**
+ * The row the shell's middle hangs in: its length over where the simulation
+ * leaks the spark from, the gap under its tail (`sim/mantle-shot.ts`).
+ */
+const ROW = MANTLE_SPARK_FROM_MILLI / 1000 + 0.5 - RY;
 /** How far each valve's seam edge stands off the middle while shut, in tiles. */
 const GAP = 0.05;
 /** Where one plate ends and the next begins, nose to tail. Four plates a valve. */
@@ -96,13 +99,13 @@ export function mantleRing(l: Layout, at: Point): Point & { r: number } {
 }
 
 /**
- * Where the leaking spark's bead is, `along` 0 at the gap under the shell to 1
- * on the hull: drawn there (`mantle-draw.ts`) and put out there
- * (`mantle-fx.ts`), one place.
+ * Where the leaking spark's bead is, `milli` thousandths of a row down the
+ * field in its column — the simulation's own reckoning of it
+ * (`mantleSparkMilli`): drawn there (`mantle-draw.ts`), met there by a bolt,
+ * and put out there (`mantle-fx.ts`), one place.
  */
-export function mantleSparkPoint(l: Layout, at: Point, col: number, along: number): Point {
-  const from = at.y + RY * l.tile;
-  return { x: fieldX(l, col), y: from + (l.hullY - from) * along };
+export function mantleSparkPoint(l: Layout, col: number, milli: number): Point {
+  return { x: fieldX(l, col), y: tileCY(l, milli / 1000) };
 }
 
 /**

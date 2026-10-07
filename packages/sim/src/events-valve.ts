@@ -30,8 +30,8 @@ export type ValveEvent =
   | ({ type: "valvePull"; pins: number } & ValveColEvent)
   /** The first pin out leaked a spark down the drum's column. */
   | ({ type: "valveSpark" } & ValveColEvent)
-  /** The spark was shot out, in either colour. */
-  | ({ type: "valveSparkOut" } & ValveColEvent)
+  /** The spark was shot out, in either colour; `rowMilli` is where it was when the bolt met it. */
+  | ({ type: "valveSparkOut"; rowMilli: number } & ValveColEvent)
   /** Nobody shot it: the spark reached the hull. */
   | ({ type: "valveSparkHit" } & ValveColEvent)
   /** The first pin's empty socket blows back: a tap on the pin caps it. */

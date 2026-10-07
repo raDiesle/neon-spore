@@ -1,6 +1,5 @@
-import type { SimConfig, SimEvent } from "@neon-spore/sim";
+import { MANTLE_SPARK_FROM_MILLI, type SimConfig, type SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
-import { smoothstep } from "./ease.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import { HullShock } from "./hull-shock.js";
@@ -39,10 +38,9 @@ import { PALETTE } from "./palette.js";
  * deal the shell the blow every boss takes (`boss-hurt.ts`). The handles
  * lighting, and a single finishing tap, deal nothing.
  *
- * The one clock kept here is the spark's: a shot puts it out wherever it had
- * run to, and the event says only the column, so the fuse is timed from the
- * leak on this side too and the burst thrown at the bead's place on it
- * (`mantleSparkPoint`, the drawing's own). Read above the loop like THE
+ * A shot puts the spark out wherever the bolt met it, and the event says
+ * where (`rowMilli`), so the burst is thrown on the bead the drawing had
+ * there (`mantleSparkPoint`, the drawing's own). Read above the loop like THE
  * RATCHET's; everything is cleared in `Effects.reset()` (`restart.test.ts`).
  */
 
@@ -61,8 +59,6 @@ export class MantleFx {
   private flareNow = 0;
   /** The shudder down the plating as a pair shears and as the core goes out (`frame-on-ship.ts`). */
   readonly shock = new HullShock();
-  private sparkAge = 0;
-  private sparkFuse = 0;
   /** The blow a shear deals the shell. */
   readonly hurt = new BossHurt();
   /** The verdict on each of the shell's marks (`mantle-marks.ts`). */
@@ -114,22 +110,17 @@ export class MantleFx {
           this.kickNow = KICK_TILES * 1.5;
           break;
         case "mantleLeak": {
-          const gap = mantleSparkPoint(l, at, e.col, 0);
+          const gap = mantleSparkPoint(l, e.col, MANTLE_SPARK_FROM_MILLI);
           burst(gap.x, gap.y, 8, PALETTE.red);
-          this.sparkAge = 0;
-          this.sparkFuse = Math.max(1, cfg.mantleSparkBeats) * beatSeconds;
           break;
         }
         case "mantleSparkOut": {
-          const along = smoothstep(Math.min(1, this.sparkAge / Math.max(1e-6, this.sparkFuse)));
-          const bead = mantleSparkPoint(l, at, e.col, along);
+          const bead = mantleSparkPoint(l, e.col, e.rowMilli);
           burst(bead.x, bead.y, 12, PALETTE.hullRim);
-          this.sparkFuse = 0;
           break;
         }
         case "mantleSparkHit":
           burst(fieldX(l, e.col), tileCY(l, cfg.rows - 1), 20, PALETTE.red);
-          this.sparkFuse = 0;
           break;
         case "mantleBeat":
           burst(at.x, at.y + ry * 0.12, 6, PALETTE.red);
@@ -158,7 +149,6 @@ export class MantleFx {
     this.flareNow = Math.max(0, this.flareNow - this.flareNow * FLARE_DECAY * step);
     if (this.flareNow < 0.002) this.flareNow = 0;
     this.shock.update(dt);
-    if (this.sparkFuse > 0) this.sparkAge += dt;
     this.hurt.update(dt);
     this.marks.update(dt);
   }
@@ -167,8 +157,6 @@ export class MantleFx {
     this.kickNow = 0;
     this.flareNow = 0;
     this.shock.clear();
-    this.sparkAge = 0;
-    this.sparkFuse = 0;
     this.hurt.clear();
     this.marks.clear();
   }

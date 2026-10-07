@@ -113,10 +113,7 @@ describe("THE VALVE", () => {
       // The owner, 29 September 2026, every boss: a shot cue carries a clear
       // aim target (`cue-helper.ts`). The word stays at the hull, where the
       // cannon goes; the crosshair rides the thing it is fired at.
-      const want = cueAimAt(
-        LAYOUT[role],
-        valveSparkNow(LAYOUT[role], world, s, drum, world.beat, 0),
-      );
+      const want = cueAimAt(LAYOUT[role], valveSparkNow(LAYOUT[role], world, s, world.beat, 0));
       expect(c?.aim?.x).toBeCloseTo(want.x, 5);
       expect(c?.aim?.y).toBeCloseTo(want.y, 5);
       expect(c?.aim?.r).toBeCloseTo(want.r, 5);

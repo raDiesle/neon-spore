@@ -1,6 +1,5 @@
-import { type SimConfig, type SimEvent, VALVE_PINS } from "@neon-spore/sim";
+import { type SimConfig, type SimEvent, VALVE_PINS, VALVE_SPARK_FROM_MILLI } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
-import { smoothstep } from "./ease.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import { strokeGlow } from "./glow.js";
@@ -35,9 +34,9 @@ import { ValveVerdicts } from "./valve-verdicts.js";
  * (`boss-hurt.ts`). A slip, a lapse or a thaw is the wheel thrown back and
  * deals nothing: it kicks.
  *
- * The spark is shot out wherever it had fallen to and the event says only the
- * column, so its fall is timed from the leak on this side too, THE KEEL's
- * rock, and the burst thrown where the drawing had it (`valveSparkPoint`).
+ * The spark is shot out wherever the bolt met it, and the event says where
+ * (`rowMilli`), so the burst is thrown where the drawing had it
+ * (`valveSparkPoint`).
  * Points on the drum are taken at rest, unlisted. Everything is cleared in
  * `Effects.reset()` (`restart.test.ts`).
  */
@@ -58,8 +57,6 @@ export class ValveFx {
   private clampNow = 0;
   private slotNow = 0;
   private slotAt = 0;
-  private sparkAge = 0;
-  private sparkFall = 0;
   /** The shudder down the plating as the spark lands and the face falls open (`frame-on-ship.ts`). */
   readonly shock = new HullShock();
   /** The blow a freeze and a pull deal the drum. */
@@ -127,23 +124,18 @@ export class ValveFx {
           break;
         }
         case "valveSpark": {
-          this.sparkAge = 0;
-          this.sparkFall = Math.max(1, cfg.valveSparkBeats) * beatSeconds;
-          const at = valveSparkPoint(l, c, e.col, 0);
+          const at = valveSparkPoint(l, e.col, VALVE_SPARK_FROM_MILLI);
           burst(at.x, at.y, 6, PALETTE.emberRim);
           break;
         }
         case "valveSparkOut": {
-          const along = smoothstep(Math.min(1, this.sparkAge / Math.max(1e-6, this.sparkFall)));
-          const at = valveSparkPoint(l, c, e.col, along);
+          const at = valveSparkPoint(l, e.col, e.rowMilli);
           burst(at.x, at.y, 12, PALETTE.ember);
-          this.sparkFall = 0;
           break;
         }
         case "valveSparkHit":
           burst(fieldX(l, e.col), tileCY(l, cfg.rows - 1), 20, PALETTE.red);
           this.shock.strike(SPARK_BEATS * beatSeconds, 1);
-          this.sparkFall = 0;
           break;
         case "valveOpen":
           burst(c.x, c.y, 20, PALETTE.rock);
@@ -166,7 +158,6 @@ export class ValveFx {
     this.clampNow = Math.max(0, this.clampNow - CLAMP_DECAY * step);
     this.slotNow = Math.max(0, this.slotNow - SLOT_DECAY * step);
     this.shock.update(dt);
-    if (this.sparkFall > 0) this.sparkAge += dt;
     this.hurt.update(dt);
     this.marks.update(dt);
   }
@@ -176,8 +167,6 @@ export class ValveFx {
     this.clampNow = 0;
     this.slotNow = 0;
     this.slotAt = 0;
-    this.sparkAge = 0;
-    this.sparkFall = 0;
     this.shock.clear();
     this.hurt.clear();
     this.marks.clear();

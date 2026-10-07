@@ -1,7 +1,7 @@
 import { blobRadiusMul } from "@neon-spore/content";
-import { midCol, type SimConfig } from "@neon-spore/sim";
+import { midCol, type SimConfig, VALVE_SPARK_FROM_MILLI } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
-import type { Layout } from "./layout.js";
+import { type Layout, tileCY } from "./layout.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -26,11 +26,14 @@ export interface Point {
   y: number;
 }
 
-/** The row the drum's middle hangs in. */
-const ROW = 2.6;
 /** Half the drum's width and half its height, in tiles — THE CODEX's 96 by 54, near enough. */
 const RX = 2.3;
 const RY = 1.3;
+/**
+ * The row the drum's middle hangs in: its height over where the simulation
+ * leaks the spark from, its lower rim (`sim/valve-shot.ts`).
+ */
+const ROW = VALVE_SPARK_FROM_MILLI / 1000 + 0.5 - RY;
 /** Notches round the rim (THE CODEX's thirteen), and how far each is cut, as a share of the radius. */
 const TEETH = 13;
 const CUT = 0.11;
@@ -176,8 +179,11 @@ export function valvePointerHeadPath(l: Layout, wheelMilli: number): Path2D {
   return p;
 }
 
-/** The spark's place, `along` of the way from under the drum to the hull, in its column — field coordinates, not the drum's. */
-export function valveSparkPoint(l: Layout, at: Point, col: number, along: number): Point {
-  const from = at.y + RY * l.tile;
-  return { x: fieldX(l, col), y: from + (l.hullY - from) * along };
+/**
+ * The spark's place, `milli` thousandths of a row down the field in its
+ * column — the simulation's own reckoning of it (`valveSparkMilli`), so it is
+ * met where it is drawn. Field coordinates, not the drum's.
+ */
+export function valveSparkPoint(l: Layout, col: number, milli: number): Point {
+  return { x: fieldX(l, col), y: tileCY(l, milli / 1000) };
 }

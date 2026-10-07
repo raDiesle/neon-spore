@@ -1,9 +1,15 @@
 import { blobPoints } from "@neon-spore/content";
-import { type MantleState, mantleDone, mantleFinale, type SimConfig } from "@neon-spore/sim";
+import {
+  type MantleState,
+  mantleDone,
+  mantleFinale,
+  mantleSparkMilli,
+  type SimConfig,
+  ticksPerBeat,
+} from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import type { Layout } from "./layout.js";
 import {
-  mantleCentre,
   mantleReach,
   mantleSparkPoint,
   type Point,
@@ -155,7 +161,9 @@ export const MANTLE_SPARK = { rx: 0.18, ry: 0.26 } as const;
 
 /**
  * Where the leaking spark's bead is now, and how far along its fuse (eased):
- * drawn there (`mantle-draw.ts`) and aimed at there (`boss-cue-read-zc.ts`).
+ * drawn there (`mantle-draw.ts`), aimed at there (`boss-cue-read-zc.ts`), and
+ * met there by a bolt — so it is laid off the simulation's own reckoning of it
+ * (`mantleSparkMilli`), at this frame's fraction of a tick.
  */
 export function mantleSparkNow(
   l: Layout,
@@ -164,8 +172,10 @@ export function mantleSparkNow(
   beat: number,
   beatPhase: number,
 ): { x: number; y: number; along: number } {
-  const along = smoothstep((beat - s.sparkBeat + beatPhase) / Math.max(1, cfg.mantleSparkBeats));
-  return { ...mantleSparkPoint(l, mantleCentre(l, cfg), s.sparkCol, along), along };
+  const fuse = beat - s.sparkBeat + beatPhase;
+  const along = smoothstep(fuse / Math.max(1, cfg.mantleSparkBeats));
+  const milli = mantleSparkMilli(cfg, fuse * ticksPerBeat(cfg));
+  return { ...mantleSparkPoint(l, s.sparkCol, milli), along };
 }
 
 /**

@@ -1,7 +1,9 @@
+import type { SimConfig } from "./config.js";
 import type { CoreVerdict } from "./core-verdict.js";
 import { NO_SPARK } from "./mantle.js";
+import { sparkFallMilli, sparkFuseTicks, sparkMeets } from "./spark-fall.js";
 import type { Bullet, Color } from "./types.js";
-import { valveBoss, valveLeaking } from "./valve.js";
+import { type ValveState, valveBoss, valveLeaking } from "./valve.js";
 import type { World } from "./world.js";
 
 /**
@@ -19,8 +21,9 @@ import type { World } from "./world.js";
 export function valveStruck(world: World, bullet: Bullet): boolean {
   const s = valveBoss(world);
   if (s === null || valveVerdict(world, bullet.col, bullet.color) === null) return false;
+  const rowMilli = valveSparkNowMilli(world, s);
   s.sparkCol = NO_SPARK;
-  world.events.push({ type: "valveSparkOut", col: bullet.col });
+  world.events.push({ type: "valveSparkOut", col: bullet.col, rowMilli });
   return true;
 }
 
@@ -32,4 +35,30 @@ export function valveStruck(world: World, bullet: Bullet): boolean {
 export function valveVerdict(world: World, col: number, _color: Color): CoreVerdict {
   const s = valveBoss(world);
   return s !== null && valveLeaking(s) && col === s.sparkCol ? "target" : null;
+}
+
+/** Where the spark leaks from: the drum's lower rim, three rows and nine tenths down the field. */
+export const VALVE_SPARK_FROM_MILLI = 3400;
+
+/** The spark's centre `fuseTicks` after it leaked, falling to the hull (`spark-fall.ts`). */
+export function valveSparkMilli(cfg: SimConfig, fuseTicks: number): number {
+  return sparkFallMilli(cfg, VALVE_SPARK_FROM_MILLI, cfg.valveSparkBeats, fuseTicks);
+}
+
+/** The spark's centre on this tick, or `back` ticks before it. */
+export function valveSparkNowMilli(world: World, s: ValveState, back = 0): number {
+  return Math.floor(
+    valveSparkMilli(world.cfg, sparkFuseTicks(world, s.sparkBeat, world.tick) - back),
+  );
+}
+
+/**
+ * Where a bolt in its column sweeping from `from` to `to` meets the spark,
+ * or -1 — asked in `boss-along.ts`, so the spark is put out where it is drawn
+ * put out rather than when the bolt leaves the top of the field.
+ */
+export function valveSparkAlong(world: World, b: Bullet, from: number, to: number): number {
+  const s = valveBoss(world);
+  if (s === null || valveVerdict(world, b.col, b.color) === null) return -1;
+  return sparkMeets(valveSparkNowMilli(world, s), valveSparkNowMilli(world, s, 1), from, to);
 }

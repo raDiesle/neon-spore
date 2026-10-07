@@ -8,6 +8,7 @@ import {
   step,
   ticksPerBeat,
   VALVE_PINS,
+  VALVE_SPARK_FROM_MILLI,
   type ValvePhase,
   valveBoss,
   valveMark,
@@ -18,7 +19,7 @@ import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { ValveFx } from "../src/valve-fx.js";
 import { valveHoleCentre } from "../src/valve-pins.js";
-import { valveCentre, valveSparkPoint } from "../src/valve-shape.js";
+import { valveCentre, valveReach, valveSparkPoint } from "../src/valve-shape.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -113,13 +114,19 @@ describe("THE VALVE's transients", () => {
     expect(fx.shock.now).toBe(0);
   });
 
-  it("shoots the spark out where it had fallen to, not where it leaked", () => {
+  it("shoots the spark out where the bolt met it, not where it leaked", () => {
     const fx = new ValveFx();
-    said(fx, [at("valveSpark")]);
-    for (let i = 0; i < 30; i++) fx.update(1 / 60);
-    const [out] = said(fx, [at("valveSparkOut")]);
-    const leak = valveSparkPoint(L, valveCentre(L, CFG), MID, 0);
-    expect(out?.y ?? 0).toBeGreaterThan(leak.y);
+    const [leaked] = said(fx, [at("valveSpark")]);
+    const rowMilli = VALVE_SPARK_FROM_MILLI + 4000;
+    const [out] = said(fx, [{ type: "valveSparkOut", col: MID, rowMilli }]);
+    expect(leaked?.y ?? 0).toBeCloseTo(valveSparkPoint(L, MID, VALVE_SPARK_FROM_MILLI).y, 5);
+    expect(out?.y ?? 0).toBeCloseTo(valveSparkPoint(L, MID, rowMilli).y, 5);
+    expect(out?.y ?? 0).toBeGreaterThan(leaked?.y ?? 0);
+  });
+
+  it("leaks the spark from the drum's lower rim", () => {
+    const leak = valveSparkPoint(L, MID, VALVE_SPARK_FROM_MILLI);
+    expect(leak.y).toBeCloseTo(valveCentre(L, CFG).y + valveReach(L).ry, 5);
   });
 
   it("shudders the hull harder as the face falls open than as the spark lands", () => {
@@ -137,7 +144,7 @@ describe("THE VALVE's transients", () => {
       { type: "valveLight", movement: 1, col: MID },
       at("valveHold"),
       at("valveSpark"),
-      at("valveSparkOut"),
+      { type: "valveSparkOut", col: MID, rowMilli: 6000 },
       at("valveOut"),
     ]);
     expect(fx.hurt.value).toBe(0);

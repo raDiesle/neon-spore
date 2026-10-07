@@ -113,8 +113,8 @@ export function drawValve(
     }
   }
   ctx.restore();
-  if (valveLeaking(s)) drawValveSpark(ctx, l, world, s, c, beat, beatPhase);
-  stops?.aim(valveStopper(l, world, s, c, frame, beat, beatPhase, time));
+  if (valveLeaking(s)) drawValveSpark(ctx, l, world, s, beat, beatPhase);
+  stops?.aim(valveStopper(l, world, s, frame, beat, beatPhase, time));
 }
 
 /** The drum itself: THE CODEX's notched rim in iron, the face, the spent pins' slots, the wheel and the marks on it. */

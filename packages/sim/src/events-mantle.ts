@@ -49,8 +49,8 @@ export type MantleEvent =
   | ({ type: "mantleTurned" } & MantleColEvent)
   /** The core's spark leaks, unanswered. */
   | ({ type: "mantleLeak" } & MantleColEvent)
-  /** The leaking spark was shot out, in either colour. */
-  | ({ type: "mantleSparkOut" } & MantleColEvent)
+  /** The leaking spark was shot out, in either colour; `rowMilli` is where it was when the bolt met it. */
+  | ({ type: "mantleSparkOut"; rowMilli: number } & MantleColEvent)
   /** Nobody shot it: the spark reached the hull, which is the wave. */
   | ({ type: "mantleSparkHit" } & MantleColEvent)
   /** A correct alternating tap landed; `left` is how many the finish still needs. */

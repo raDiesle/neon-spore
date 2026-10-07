@@ -34097,3 +34097,17 @@ the simulation, a bolt at a time.
 Bottleneck: none — the seam was already in the file.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE MANTLE's and THE VALVE's sparks are shot out where they are met
+
+- reading: 5 min. THE GIMBAL's bead, `boss-along.ts`, both sparks' drawings,
+  stoppers, cues and receipts.
+- writing: 5 min. `spark-fall.ts` for all three, both sparks met on the way
+  up with their row on the event, the picture laid off the simulation's
+  number, five tests moved.
+- looking: 0 min. `core-met.test.ts` is the look: the bolt drawn bursting
+  on the spark before it is judged.
+- friction: 0 min.
+- landing: 0 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none — THE GIMBAL had already laid the pattern down.

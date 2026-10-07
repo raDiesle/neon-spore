@@ -1,4 +1,10 @@
-import type { SimConfig, ValveState, World } from "@neon-spore/sim";
+import {
+  type SimConfig,
+  ticksPerBeat,
+  type ValveState,
+  valveSparkMilli,
+  type World,
+} from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
@@ -70,30 +76,31 @@ function sparkAlong(world: World, s: ValveState, beat: number, beatPhase: number
 }
 
 /**
- * The spark loose this frame, falling from the drum at `at`: where it is
- * drawn, and the point the cue's crosshair rides (`boss-cue-read-zp.ts`).
+ * The spark loose this frame, falling from under the drum: where it is drawn,
+ * the point the cue's crosshair rides (`boss-cue-read-zp.ts`), and where a
+ * bolt meets it — laid off the simulation's own reckoning of it
+ * (`valveSparkMilli`), at this frame's fraction of a tick.
  */
 export function valveSparkNow(
   l: Layout,
   world: World,
   s: ValveState,
-  at: Point,
   beat: number,
   beatPhase: number,
 ): Point {
-  return valveSparkPoint(l, at, s.sparkCol, sparkAlong(world, s, beat, beatPhase));
+  const fuse = (beat - s.sparkBeat + beatPhase) * ticksPerBeat(world.cfg);
+  return valveSparkPoint(l, s.sparkCol, valveSparkMilli(world.cfg, fuse));
 }
 
-/** The spark loose this frame, `along` the way down its fall from the drum at `at`. */
+/** The spark loose this frame, glowing hotter the further down its fall it is. */
 export function drawValveSpark(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
   s: ValveState,
-  at: Point,
   beat: number,
   beatPhase: number,
 ): void {
   const along = sparkAlong(world, s, beat, beatPhase);
-  VALVE_SPARK.paint(ctx, l, valveSparkNow(l, world, s, at, beat, beatPhase), along);
+  VALVE_SPARK.paint(ctx, l, valveSparkNow(l, world, s, beat, beatPhase), along);
 }

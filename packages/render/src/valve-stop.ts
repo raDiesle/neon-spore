@@ -30,13 +30,11 @@ function turned(p: Point, a: number, about: Point = { x: 0, y: 0 }): Point {
  * the drum inside its notched rim, split into its two swung halves once it
  * opens, and each pin still hung under it, swaying about its top — all laid
  * where `drawValve` lays them, through the drum's middle and its list.
- * `drum` is the middle before the shake, which the spark falls from.
  */
 export function valveStopper(
   l: Layout,
   world: World,
   s: ValveState,
-  drum: Point,
   frame: ValveFrame,
   beat: number,
   beatPhase: number,
@@ -72,6 +70,6 @@ export function valveStopper(
       feet.push(outlineFoot(half));
     }
   }
-  const spark = valveSparkNow(l, world, s, drum, beat, beatPhase).y + VALVE_BEAD.ry * l.tile;
+  const spark = valveSparkNow(l, world, s, beat, beatPhase).y + VALVE_BEAD.ry * l.tile;
   return coreStopper(world, valveVerdict, spark, lowestFoot(feet));
 }

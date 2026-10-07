@@ -328,22 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE MANTLE's and THE VALVE's moving sparks are judged at the field's top
-
-- **Found:** 2026-10-05, claude/cores-met-where-they-hang
-- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-mantles-and-the-valves-moving-sparks-are-jud)
-- **Files:** `packages/sim/src/mantle-shot.ts`, `packages/sim/src/valve-shot.ts`, `packages/sim/src/gimbal-bead.ts`, `packages/sim/src/boss-along.ts`, `packages/render/test/core-met.test.ts`
-
-The owner asked on 5 October 2026 for a hit to take effect the moment the bolt
-meets what it hits, not when it leaves the field. Eleven bosses whose target
-hangs on a fixed row do now (`core-along.ts`), and THE GIMBAL's moving bead does
-(`gimbal-bead.ts`, met in `boss-along.ts`). The mantle's and the valve's targets
-are sparks that travel, so they cannot go on the fixed-row table. Do what the
-gimbal does: write a `*SparkMilli(world, s, tick)` that both the sim and the
-picture read, meet it in `boss-along.ts` by the gap closing between ticks, and
-put the event's row on it so the burst lands where the hit was. Then add both
-kinds to the `it.each` in `core-met.test.ts`.
-
 ## THE RATCHET's and THE HASP's moving bolts are judged at the top of the field
 
 - **Found:** 2026-10-05, claude/cores-met-where-they-hang
@@ -378,14 +362,6 @@ Oculus, taster, scuttle, curtain, stare and plumb still judge a bolt when it lea
 Take them after the entry above has given a core a column. If plumb's gain
 measures under two ticks, take it off this list and say so in that lane's
 report.
-The same ask THE GIMBAL, THE HASP and THE CLAW's crank have landed
-(`gimbal-knob.ts`, `hasp-knob.ts`, `crank-dial.ts`). THE GAUGE's band is read the crank's
-way about the dial (`hasp-grip.ts` says THE GAUGE did it first), so it is a
-turn and should wear `render/gimbal-knob.ts`'s knob, lever and channel; the
-tongue's `TWIST` (`boss-cue-read-w.ts`) is the same question. Read both
-first: a band or tongue that is not turned round a centre is not this entry's
-and is struck from it. Done when every turned control in the round draws
-THE MAZE's knob and `bun run check` is green.
 
 ## THE SLOW's look reads a window's pace off the config, not the world
 

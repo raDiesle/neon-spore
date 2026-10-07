@@ -4,7 +4,9 @@ import { gimbalStruck, gimbalVerdict } from "./gimbal-shot.js";
 import { gorgeAlong, gorgeStruck } from "./gorge-step.js";
 import { hiveWallStruck } from "./hive-shot.js";
 import { hiveWallAlong } from "./hive-wall.js";
+import { mantleSparkAlong, mantleStruck } from "./mantle-shot.js";
 import type { Bullet } from "./types.js";
+import { valveSparkAlong, valveStruck } from "./valve-shot.js";
 import { vaneMouthAlong, vaneMouthStruck } from "./vane.js";
 import type { World } from "./world.js";
 
@@ -12,7 +14,8 @@ import type { World } from "./world.js";
  * **The bosses a shot meets in mid-field** rather than past the top: THE
  * VANE's open bearing on the arm's row, THE GORGE's bubble on its own, THE
  * HIVE's cocoons down its two walls (`hive-wall.ts`), THE GIMBAL's leaking
- * bead on its way down its column (`gimbal-bead.ts`), THE FLUE's row, which
+ * bead, THE MANTLE's spark and THE VALVE's, each on its way down its column
+ * (`spark-fall.ts`), THE FLUE's row, which
  * stops every shot to judge it against the ember (`flue-shot.ts`). One
  * question for `bullets.ts` and `lance-burn.ts` to ask beside the bodies and
  * pods in the same sweep, so whichever stands lowest is met first and a body
@@ -30,7 +33,11 @@ export function bossAlong(world: World, bullet: Bullet, from: number, to: number
   if (ember >= 0) return ember;
   const leak = gimbalVerdict(world, bullet.col, bullet.color) !== null;
   const bead = leak ? gimbalBeadAlong(world, from, to) : -1;
-  return bead >= 0 ? bead : gorgeAlong(world, bullet, from, to);
+  if (bead >= 0) return bead;
+  const spark = mantleSparkAlong(world, bullet, from, to);
+  if (spark >= 0) return spark;
+  const fall = valveSparkAlong(world, bullet, from, to);
+  return fall >= 0 ? fall : gorgeAlong(world, bullet, from, to);
 }
 
 /** The shot met what `bossAlong` found. */
@@ -39,5 +46,7 @@ export function bossAlongStruck(world: World, bullet: Bullet): void {
   else if (world.boss?.kind === "hive") hiveWallStruck(world, bullet);
   else if (world.boss?.kind === "gimbal") gimbalStruck(world, bullet);
   else if (world.boss?.kind === "flue") flueStruckEmber(world, bullet);
+  else if (world.boss?.kind === "mantle") mantleStruck(world, bullet);
+  else if (world.boss?.kind === "valve") valveStruck(world, bullet);
   else vaneMouthStruck(world, bullet);
 }

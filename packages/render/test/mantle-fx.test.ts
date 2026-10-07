@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
+  MANTLE_SPARK_FROM_MILLI,
   mantleBoss,
   midCol,
   type SimEvent,
@@ -98,19 +99,16 @@ describe("THE MANTLE's transients", () => {
     expect(fx.hurt.value).toBe(1);
   });
 
-  it("puts the spark out where it had run to, not where it started", () => {
+  it("puts the spark out where the bolt met it, not where it started", () => {
     const at = mantleCentre(L, CFG);
     const gapY = at.y + mantleReach(L).ry;
-    const early = new MantleFx();
-    said(early, [{ type: "mantleLeak", col: MID }]);
-    const late = new MantleFx();
-    said(late, [{ type: "mantleLeak", col: MID }]);
-    for (let i = 0; i < 60 * CFG.mantleSparkBeats * BEAT * 0.75; i++) late.update(1 / 60);
-    const out: SimEvent = { type: "mantleSparkOut", col: MID };
-    const [first] = said(early, [out]);
-    const [second] = said(late, [out]);
+    const [leaked] = said(new MantleFx(), [{ type: "mantleLeak", col: MID }]);
+    const out = (rowMilli: number): SimEvent => ({ type: "mantleSparkOut", col: MID, rowMilli });
+    const [first] = said(new MantleFx(), [out(MANTLE_SPARK_FROM_MILLI)]);
+    const [second] = said(new MantleFx(), [out(MANTLE_SPARK_FROM_MILLI + 4000)]);
+    expect(leaked?.y ?? 0).toBeCloseTo(gapY, 5);
     expect(first?.y ?? 0).toBeCloseTo(gapY, 5);
-    expect(second?.y ?? 0).toBeGreaterThan(gapY + L.tile);
+    expect(second?.y ?? 0).toBeCloseTo(gapY + 4 * L.tile, 5);
     expect(second?.y ?? 0).toBeLessThan(L.hullY);
   });
 });

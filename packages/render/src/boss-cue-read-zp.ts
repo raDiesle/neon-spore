@@ -4,7 +4,7 @@ import type { BossCue } from "./boss-cue-shape.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { valveLivePinCircle, valveSocketCircle, valveWheelCircle } from "./valve-grip.js";
-import { valveDrumAt, valveSparkNow } from "./valve-spark.js";
+import { valveSparkNow } from "./valve-spark.js";
 
 /**
  * **What THE VALVE is asking for**: page forty-two of the readings. Both
@@ -58,8 +58,7 @@ export function valveCues(
   const out: BossCue[] = [];
   if (valveLeaking(s)) {
     const x = fieldX(l, s.sparkCol);
-    const drum = valveDrumAt(l, cfg, s, beat, beatPhase);
-    const aim = cueAimAt(l, valveSparkNow(l, world, s, drum, beat, beatPhase));
+    const aim = cueAimAt(l, valveSparkNow(l, world, s, beat, beatPhase));
     out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 180 });
   }
   if (s.phase === "turn") {

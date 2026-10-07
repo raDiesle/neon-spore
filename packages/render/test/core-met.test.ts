@@ -1,6 +1,14 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
-import { CORE_KINDS, createWorld, startWave, step, ticksPerBeat } from "@neon-spore/sim";
+import {
+  type BossKind,
+  CORE_KINDS,
+  createWorld,
+  type SimEvent,
+  startWave,
+  step,
+  ticksPerBeat,
+} from "@neon-spore/sim";
 import { AUTOPILOT_HANDS } from "../../hands/src/autopilot-hands.js";
 import { drawBoss } from "../src/boss-draw.js";
 import { drawBullets } from "../src/bullets.js";
@@ -20,6 +28,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * would be a bolt vanishing in the air, and never long after it, which would
  * be the hit landing late. A row put on the table at the wrong height is red
  * here.
+ *
+ * **And the two sparks that fall**, THE MANTLE's and THE VALVE's: met by the
+ * gap closing between ticks (`sim/spark-fall.ts`) rather than on a row of the
+ * table, and judged by the boss's own call rather than `shotLeaves`, so the
+ * spark going out is the receipt rather than a `shotOut`.
  */
 
 beforeAll(() => installCanvasGlobals());
@@ -38,12 +51,24 @@ const UNSEEN = 16;
 /** More sparks than a scuff throws (`bolt-stop.ts`): the burst on a target. */
 const SCUFF = 5;
 
+/** The bosses whose target falls, and the event that says a bolt met it in the field. */
+const FALLING: Partial<Record<BossKind, SimEvent["type"]>> = {
+  mantle: "mantleSparkOut",
+  valve: "valveSparkOut",
+};
+
+/** Whether `e` is a bolt judged in the field rather than past the top, under `kind`. */
+function metInField(kind: BossKind, e: SimEvent): boolean {
+  if (e.type === "shotOut") return e.atMilli > 0;
+  return e.type === FALLING[kind] && "rowMilli" in e && e.rowMilli > 0;
+}
+
 interface Burst {
   tick: number;
   target: boolean;
 }
 
-function played(kind: (typeof CORE_KINDS)[number]): { met: number[]; bursts: Burst[] } {
+function played(kind: BossKind): { met: number[]; bursts: Burst[] } {
   const hand = AUTOPILOT_HANDS[kind];
   if (hand === undefined) throw new Error(`no hand plays ${kind}`);
   const l = computeLayout(VIEWPORT, CFG, "test");
@@ -59,7 +84,7 @@ function played(kind: (typeof CORE_KINDS)[number]): { met: number[]; bursts: Bur
       world,
       hand(world).map((p) => ({ ...p, tick: world.tick })),
     );
-    for (const e of world.events) if (e.type === "shotOut" && e.atMilli > 0) met.push(world.tick);
+    for (const e of world.events) if (metInField(kind, e)) met.push(world.tick);
     if (n % EVERY !== 0) continue;
     const view = {
       world,
@@ -79,16 +104,19 @@ function played(kind: (typeof CORE_KINDS)[number]): { met: number[]; bursts: Bur
 }
 
 describe("a core met where it hangs", () => {
-  it.each([...CORE_KINDS])("is drawn met there first, under %s", (kind) => {
-    const { met, bursts } = played(kind);
-    expect(met.length).toBeGreaterThan(0);
-    for (const tick of met) {
-      const before = bursts.filter((b) => b.tick <= tick && tick - b.tick <= UNSEEN);
-      // Never taken off the field before it was drawn reaching the boss.
-      expect(before.length).toBeGreaterThan(0);
-      // And a hit on the target lands with the burst on it.
-      const hit = before.filter((b) => b.target).at(-1);
-      if (hit !== undefined) expect(tick - hit.tick).toBeLessThanOrEqual(LATE);
-    }
-  });
+  it.each([...CORE_KINDS, ...(Object.keys(FALLING) as BossKind[])])(
+    "is drawn met there first, under %s",
+    (kind) => {
+      const { met, bursts } = played(kind);
+      expect(met.length).toBeGreaterThan(0);
+      for (const tick of met) {
+        const before = bursts.filter((b) => b.tick <= tick && tick - b.tick <= UNSEEN);
+        // Never taken off the field before it was drawn reaching the boss.
+        expect(before.length).toBeGreaterThan(0);
+        // And a hit on the target lands with the burst on it.
+        const hit = before.filter((b) => b.target).at(-1);
+        if (hit !== undefined) expect(tick - hit.tick).toBeLessThanOrEqual(LATE);
+      }
+    },
+  );
 });
