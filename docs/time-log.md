@@ -34814,3 +34814,19 @@ Bottleneck: reading — finding which morph crosses the turn took a probe of
 every step's `side`.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE GOVERNOR's face, baked: an iris of blades, glyphs and veins
+
+- reading: 15 min. The governor's fourteen render files, the 6.3 brief, the
+  depth and sprite skills, `sprite-bake.ts` and the palette's neighbours.
+- writing: 25 min. The baked alloy and veins, the ribbed edge, the works'
+  collars, crown and pod seams, two tests, and the splits under 250 lines.
+- looking: 15 min. Four frames and three crops: the veins first read as
+  lightning and the face went olive, and both were taken back.
+- friction: 5 min. `bun run frames` needed an event name to reach a shot;
+  `--events` over 3000 ticks found `governorHub`.
+- landing: 10 min. Two palette colours missing from the style-guide sheet,
+  the sheet regenerated, the index's rows, `check:fast`, `land`.
+
+Bottleneck: looking — whether a vein reads as grown or as a spark only shows
+at 3× on a real frame.

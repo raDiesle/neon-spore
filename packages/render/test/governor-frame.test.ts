@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { governorBoss, midCol } from "@neon-spore/sim";
 import { coreHurt } from "../src/core-hurt.js";
 import { fieldX } from "../src/field-flip.js";
+import { governorVeinPulse } from "../src/governor-face-baked.js";
 import {
   governorArrived,
   governorNeedleShown,
@@ -43,6 +44,19 @@ describe("THE GOVERNOR's body", () => {
     expect(count(drawn, PALETTE.governorBrass)).toBeGreaterThan(0);
     expect(count(drawn, PALETTE.governorFace)).toBeGreaterThan(0);
     expect(count(drawn, PALETTE.governorHub)).toBeGreaterThan(0);
+  });
+
+  it.each(ROLES)("lays the baked alloy and the veins' light over the face, on %s", (role) => {
+    const drawn = frame(role, (w) => posed(w, null));
+    // The alloy and the veins are two blits a frame; the vents and the pods' seams are the veins' light drawn.
+    expect(count(drawn, "drawImage")).toBeGreaterThanOrEqual(2);
+    expect(count(drawn, rgba(PALETTE.governorGlow, 0).slice(0, -2))).toBeGreaterThan(0);
+  });
+
+  it("breathes the veins on the beat and never puts them out", () => {
+    const pulses = [0, 0.25, 0.5, 0.75].map(governorVeinPulse);
+    expect(Math.min(...pulses)).toBeGreaterThan(0.3);
+    expect(Math.max(...pulses) - Math.min(...pulses)).toBeGreaterThan(0.25);
   });
 
   it("lays the dial over the middle column, turned with the field", () => {

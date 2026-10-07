@@ -2213,13 +2213,18 @@ by hand never moves.
 | `packages/render/src/governor-shape.ts` | **THE GOVERNOR's geometry**: the dial as a disc seen from above, and the spindle, flyweights, drum and yoke over it |
 | `packages/render/src/governor-stop.ts` | **Where a bolt meets THE GOVERNOR**: the lit hub, or the flywheel's near edge |
 | `packages/render/src/governor-works.ts` | **THE GOVERNOR's works**: the spindle, the brake drum and the yoke's jaws, the collar and the two flyweights |
+| `packages/render/src/governor-wheel.ts` | THE GOVERNOR's flywheel: the ribbed, vented edge, the lit rim, the face, the baked alloy and veins laid over it, the graduations |
 | `packages/render/src/governor-verdicts.ts` | **THE GOVERNOR's marks answering a touch the way every mark does**: the mark's, the yoke's and the hub's halos and verdicts |
 | `packages/render/src/governor-grip.ts` | **THE GOVERNOR's hand**: the tap on the dial (`sim/governor-hand.ts`, `docs/spec/bosses.md` §11.58) |
 | `packages/render/src/governor-blow.ts` | **THE GOVERNOR's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/governor-fx.ts` | What THE GOVERNOR leaves behind a frame (§11.58, *The receipts*) |
 | `packages/render/src/governor-fuse.ts` | **THE GOVERNOR's tap window: THE SLOW's fuse, with no slow** |
+| `packages/render/src/governor-face-baked.ts` | **THE GOVERNOR's face, baked** (`sprite-bake.ts`) |
+| `packages/render/src/governor-face-geom.ts` | **Where THE GOVERNOR's baked face puts things**, in reaches of the radius from straight above |
+| `packages/render/src/governor-face-paint.ts` | **THE GOVERNOR's alloy, painted** once for `governor-face-baked.ts`: the brass layer in greys |
 | `packages/render/src/governor-receipts.ts` | **THE GOVERNOR's receipts, drawn** — what `governor-fx.ts` holds between frames |
 | `packages/render/src/governor-tip.ts` | **What THE GOVERNOR is shot at, and the way a bolt gets to it** |
+| `packages/render/src/governor-trim.ts` | **THE GOVERNOR's works, made strange** (`governor-works.ts`): the collars cased round the shaft |
 | `packages/render/src/gimbal-draw.ts` | **THE GIMBAL**: a sealed drum hung in a yoke over the middle of the field inside two rings set at right… |
 | `packages/render/src/gimbal-drum.ts` | **The sealed drum the two rings hang round, and the clock the whole scene is posed off** (§18, *Animation*) |
 | `packages/render/src/gimbal-ring.ts` | **The half of THE GIMBAL a hand is on**: one ring, drawn on the screen of the seat that grips it |

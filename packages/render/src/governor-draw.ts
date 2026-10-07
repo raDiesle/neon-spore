@@ -1,4 +1,3 @@
-import { LIGHT_HALF } from "@neon-spore/content";
 import {
   type GovernorState,
   governorFiring,
@@ -10,8 +9,8 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BoltStops } from "./bolt-stop.js";
-import { drawHurt } from "./boss-hurt.js";
 import { strokeGlowFaded } from "./glow.js";
+import { governorVeinPulse } from "./governor-face-baked.js";
 import { drawGovernorFuse } from "./governor-fuse.js";
 import type { GovernorFx } from "./governor-fx.js";
 import { drawGovernorHub } from "./governor-hub.js";
@@ -26,28 +25,17 @@ import {
   governorSwing,
 } from "./governor-pose.js";
 import { drawGovernorFlash, drawGovernorScrape, drawGovernorTap } from "./governor-receipts.js";
-import {
-  type Dial,
-  dialAt,
-  dialRing,
-  NEEDLE_REACH,
-  rimDepth,
-  TRACK_IN,
-  TRACK_OUT,
-} from "./governor-shape.js";
+import { type Dial, dialAt, NEEDLE_REACH } from "./governor-shape.js";
 import { governorStopper } from "./governor-stop.js";
 import { drawGovernorGap, drawGovernorTip } from "./governor-tip.js";
 import { drawGovernorHalos, drawGovernorVerdicts } from "./governor-verdicts.js";
+import { drawGovernorWheel } from "./governor-wheel.js";
 import { drawGovernorWorks } from "./governor-works.js";
-import { rgba } from "./hex.js";
-import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
 import { showsGovernorHand } from "./view-role-clocks-c.js";
 
-/** The graduations round the track: a long one every other. */
-const GRADUATIONS = 16;
 /** How far the needle's tip lags its root at the hottest, in thousandths of a lap. */
 const LAG = 45;
 /** The needle's tail past the hub, and its width, in radii. */
@@ -110,7 +98,7 @@ export function drawGovernor(
   // Every glow under the fade is `strokeGlowFaded`, which leaves it standing.
   ctx.globalAlpha = 1 - 0.5 * governorSpent(s, cfg, beat, beatPhase);
 
-  drawWheel(ctx, l, d, fx.hurt.value);
+  drawGovernorWheel(ctx, l, d, fx.hurt.value, beatPhase);
   drawGovernorGap(ctx, l, d, s);
   drawGovernorScrape(ctx, d, fx.scrape);
   drawGovernorHalos(ctx, l, d, s, time);
@@ -139,50 +127,11 @@ export function drawGovernor(
   drawGovernorWorks(ctx, l, d, {
     swing: governorSwing(s, cfg, beat, beatPhase),
     orbit: governorOrbit(needle),
+    pulse: governorVeinPulse(beatPhase),
   });
   drawGovernorVerdicts(ctx, l, d, s, time, fx.verdicts);
   ctx.restore();
   drawGovernorFuse(ctx, l, world, s, beatPhase);
-}
-
-/**
- * The flywheel: its brass edge showing under the face, the rim lit from the
- * key over the whole disc and red with a blow taken, the dark face inside
- * it, and the graduations round the track.
- */
-function drawWheel(ctx: CanvasRenderingContext2D, l: Layout, d: Dial, hurt: number): void {
-  const drop = rimDepth(l, d);
-  ctx.fillStyle = PALETTE.governorBrassDark;
-  ctx.fill(dialRing(d, 1, drop));
-  ctx.fillRect(d.cx - d.r, d.cy, d.r * 2, drop);
-  const rim = dialRing(d, 1);
-  ctx.save();
-  ctx.fillStyle = PALETTE.governorBrass;
-  ctx.fill(rim);
-  ctx.clip(rim);
-  ctx.translate(d.cx, d.cy);
-  ctx.scale(1, d.tilt);
-  litRound(ctx, 0, 0, d.r + 2, LIGHT_HALF.rock);
-  ctx.restore();
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = rgba(PALETTE.governorBrassDark, 0.95);
-  ctx.stroke(rim);
-  drawHurt(ctx, rim, hurt);
-
-  ctx.fillStyle = PALETTE.governorFace;
-  ctx.fill(dialRing(d, TRACK_OUT + 0.02));
-  const ticks = new Path2D();
-  for (let i = 0; i < GRADUATIONS; i++) {
-    const milli = (1000 * i) / GRADUATIONS;
-    const from = dialAt(d, milli, i % 2 === 0 ? TRACK_IN : (TRACK_IN + TRACK_OUT) / 2);
-    const to = dialAt(d, milli, TRACK_OUT);
-    ticks.moveTo(from.x, from.y);
-    ticks.lineTo(to.x, to.y);
-  }
-  ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = rgba(PALETTE.governorBrass, 0.8);
-  ctx.stroke(ticks);
-  ctx.stroke(dialRing(d, TRACK_IN));
 }
 
 /**

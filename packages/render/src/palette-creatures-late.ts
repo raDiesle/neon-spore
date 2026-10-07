@@ -81,13 +81,17 @@ export const LATE_CREATURE_HUES = {
    * needle is read off. The needle runs a hot pale amber while it crosses a
    * lit mark — paler than a pod's, so it never reads as one — and the hub,
    * unlit, is a dull boss of the same brass gone brown: the hub lit is the
-   * only cannon's colour on the body.
+   * only cannon's colour on the body. The face's alloy is that brass with a
+   * cool film of gloss over it, and the veins under its seams a faint acid
+   * green no cannon, the shield or the hull carries (`governor-face-baked.ts`).
    */
   governorBrass: "#A88B4E",
   governorBrassDark: "#33291A",
   governorFace: "#15110C",
   governorHot: "#FFE0A8",
   governorHub: "#5C4B31",
+  governorSheen: "#DCEBFF",
+  governorGlow: "#B4F25A",
   /**
    * THE LAMPREY (§41, *Colour*): a dark wet olive for the body and its
    * shadow, a pale bone white for the teeth — the lit one the only bright
