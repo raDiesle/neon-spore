@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE KEEL's rock and socket are judged at the field's top
 
 - **Found:** 2026-10-07, claude/queue-tasks-ab3705
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-keels-rock-and-socket-are-judged-at-the-fiel)
 - **Files:** `packages/sim/src/keel-shot.ts`, `packages/sim/src/core-along.ts`, `packages/sim/src/spark-fall.ts`, `packages/render/src/keel-rock.ts`, `packages/render/src/keel-stop.ts`, `packages/render/test/core-met.test.ts`
 
 The half of "THE KEEL, THE CYST and THE VISE" that was split off: THE CYST's
