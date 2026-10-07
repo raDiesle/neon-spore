@@ -1,5 +1,4 @@
-import { HASP_COUNT, type HaspState, midCol, type SimConfig } from "@neon-spore/sim";
-import { smoothstep } from "./ease.js";
+import { HASP_BOLT_FROM_MILLI, HASP_COUNT, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 
@@ -27,8 +26,14 @@ export interface Point {
   y: number;
 }
 
-/** The clasps' centres, in tiles below the top of the grid, bottom first. */
-const ROWS: readonly number[] = [8.6, 5.4, 2.2];
+/** The hub's radius, in tiles. */
+const HUB = 0.62;
+/**
+ * The clasps' centres, in tiles below the top of the grid, bottom first — the
+ * second's hub foot where the simulation throws the loose bolt from
+ * (`sim/hasp-shot.ts`).
+ */
+const ROWS: readonly number[] = [8.6, HASP_BOLT_FROM_MILLI / 1000 + 0.5 - HUB, 2.2];
 /** Half-width and half-length of a shut shell, in tiles. */
 const SHELL_RX = 1.5;
 const SHELL_RY = 1.35;
@@ -36,8 +41,6 @@ const SHELL_RY = 1.35;
 const FACETS = 5;
 /** How far one half swings at a gape of 1, in radians. */
 const SWING = 0.5;
-/** The hub's radius, in tiles. */
-const HUB = 0.62;
 /** The latch's rail: how far beside the shell's centre, and the bar's half-width.
  * How long it is is not a constant: see `haspRail`. */
 const RAIL_OFF = 2.35;
@@ -52,29 +55,6 @@ export function haspCentre(l: Layout, cfg: SimConfig, i: number): Point {
 /** The hub's radius on this screen. */
 export function haspHubRadius(l: Layout): number {
   return HUB * l.tile;
-}
-
-/** The loose bolt's half-width and half-length, in tiles: drawn that size and met at its lower end. */
-export const HASP_BOLT = { halfW: 0.12, halfH: 0.3 } as const;
-
-/**
- * Where the loose bolt is, fallen `along` (0..1) of the way from the second
- * clasp's hub down its column to the hull: drawn there (`hasp-draw.ts`) and
- * aimed at there (`boss-cue-read-z.ts`).
- */
-export function haspBoltAt(
-  l: Layout,
-  cfg: SimConfig,
-  s: HaspState,
-  beat: number,
-  beatPhase: number,
-): Point & { along: number } {
-  const along = Math.min(
-    1,
-    Math.max(0, (beat - s.boltBeat + beatPhase) / Math.max(1, cfg.haspBoltBeats)),
-  );
-  const from = haspCentre(l, cfg, 1).y + haspHubRadius(l);
-  return { x: fieldX(l, s.boltCol), y: from + (l.hullY - from) * smoothstep(along), along };
 }
 
 /**

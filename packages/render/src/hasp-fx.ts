@@ -3,6 +3,7 @@ import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import { GripVerdicts } from "./grip-verdict.js";
+import { haspBoltPoint } from "./hasp-bolt.js";
 import { haspStoryBurst } from "./hasp-fx-story.js";
 import { haspBarAt, haspCentre } from "./hasp-shape.js";
 import { HullShock } from "./hull-shock.js";
@@ -153,9 +154,12 @@ export class HaspFx {
         case "haspBolt":
           burst(fieldX(l, e.col), haspCentre(l, cfg, 1).y, 10, PALETTE.hullRim);
           break;
-        case "haspBoltOut":
-          burst(fieldX(l, e.col), haspCentre(l, cfg, 0).y, 12, PALETTE.hullRim);
+        case "haspBoltOut": {
+          // Where the shot met it on its fall (`haspBoltPoint`, the drawing's own).
+          const bolt = haspBoltPoint(l, e.col, e.rowMilli);
+          burst(bolt.x, bolt.y, 12, PALETTE.hullRim);
           break;
+        }
         case "haspBoltHit":
           burst(fieldX(l, e.col), tileCY(l, cfg.rows - 1), 20, PALETTE.red);
           this.joltNow = JOLT_TILES;

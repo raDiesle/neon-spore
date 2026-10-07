@@ -10,8 +10,8 @@ import type { BossCue } from "./boss-cue.js";
 import { CUE_FRAME_WIDE, cueAimAt, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
+import { ratchetBoltAt } from "./ratchet-bolt.js";
 import { ratchetCatchCircle, ratchetPadCircle, ratchetTakesHand } from "./ratchet-grip.js";
-import { ratchetBoltAt } from "./ratchet-shape.js";
 
 /**
  * **What THE RATCHET is asking for**: page twenty-eight of the readings, and

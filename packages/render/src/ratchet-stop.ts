@@ -9,15 +9,10 @@ import {
   roundFoot,
 } from "./core-stop.js";
 import type { Layout } from "./layout.js";
+import { RATCHET_BOLT, ratchetBoltAt } from "./ratchet-bolt.js";
 import { ratchetCatchBar, ratchetJaws, ratchetPawlArm } from "./ratchet-parts.js";
 import { ratchetFoldScale } from "./ratchet-pose.js";
-import {
-  type Point,
-  RATCHET_BOLT,
-  ratchetBoltAt,
-  ratchetLock,
-  ratchetPlatePoints,
-} from "./ratchet-shape.js";
+import { type Point, ratchetLock, ratchetPlatePoints } from "./ratchet-shape.js";
 
 /** Where the rack stands this frame, as `drawRatchet` lays it. */
 export interface RatchetRack {

@@ -32,8 +32,8 @@ export type RatchetEvent =
   | ({ type: "ratchetBurn"; teeth: number; late: boolean } & RatchetColEvent)
   /** The second clean advance shakes a bolt loose — the fight's one hazard. */
   | ({ type: "ratchetBolt" } & RatchetColEvent)
-  /** The bolt was shot out, in either colour. */
-  | ({ type: "ratchetBoltOut" } & RatchetColEvent)
+  /** The bolt was shot out, in either colour; `rowMilli` is where it was when the shot met it. */
+  | ({ type: "ratchetBoltOut"; rowMilli: number } & RatchetColEvent)
   /** Nobody shot it: the bolt reached the hull, which is the wave. */
   | ({ type: "ratchetBoltHit" } & RatchetColEvent)
   /** Five clean: the catch at the top gives and the rack folds away. */

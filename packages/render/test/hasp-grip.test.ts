@@ -16,9 +16,9 @@ import {
 import { haspCues } from "../src/boss-cue-read-z.js";
 import { cueSeen } from "../src/boss-cue-shape.js";
 import { handleCircle } from "../src/handle-place.js";
+import { haspBoltAt } from "../src/hasp-bolt.js";
 import { haspLatchCircle, haspWheelCircle } from "../src/hasp-grip.js";
 import { haspKnobAt, haspKnobSize } from "../src/hasp-knob.js";
-import { haspBoltAt } from "../src/hasp-shape.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { type Field, touchDown } from "../src/touch.js";
 import { FRAME_TIMEOUT_MS, waveWith } from "./frame-harness.js";

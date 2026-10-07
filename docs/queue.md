@@ -328,17 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE RATCHET's and THE HASP's moving bolts are judged at the top of the field
-
-- **Found:** 2026-10-05, claude/cores-met-where-they-hang
-- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-ratchets-and-the-hasps-moving-bolts-are-judg)
-- **Files:** `packages/sim/src/ratchet-shot.ts`, `packages/sim/src/hasp-shot.ts`, `packages/sim/src/boss-along.ts`, `packages/render/test/core-met.test.ts`
-
-This is the same as the mantle's entry above, for a target that rides the rig.
-THE GIMBAL's lane (`gimbal-bead.ts`) is the pattern: one function for the
-target's row at a tick, read by both sides, and the meet found by the gap
-closing between ticks.
-
 ## THE KEEL, THE CYST and THE VISE: an aside target is judged at the field's top
 
 - **Found:** 2026-10-05, claude/cores-met-where-they-hang

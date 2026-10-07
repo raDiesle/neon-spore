@@ -29,10 +29,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * be the hit landing late. A row put on the table at the wrong height is red
  * here.
  *
- * **And the two sparks that fall**, THE MANTLE's and THE VALVE's: met by the
- * gap closing between ticks (`sim/spark-fall.ts`) rather than on a row of the
+ * **And what falls**, THE MANTLE's and THE VALVE's sparks and THE RATCHET's
+ * and THE HASP's loose bolts: met by the gap closing between ticks (`sim/spark-fall.ts`) rather than on a row of the
  * table, and judged by the boss's own call rather than `shotLeaves`, so the
- * spark going out is the receipt rather than a `shotOut`.
+ * target going out is the receipt rather than a `shotOut`.
  */
 
 beforeAll(() => installCanvasGlobals());
@@ -55,6 +55,8 @@ const SCUFF = 5;
 const FALLING: Partial<Record<BossKind, SimEvent["type"]>> = {
   mantle: "mantleSparkOut",
   valve: "valveSparkOut",
+  ratchet: "ratchetBoltOut",
+  hasp: "haspBoltOut",
 };
 
 /** Whether `e` is a bolt judged in the field rather than past the top, under `kind`. */

@@ -1,5 +1,7 @@
+import type { SimConfig } from "./config.js";
 import type { CoreVerdict } from "./core-verdict.js";
-import { haspBoss, haspLoose, NO_BOLT } from "./hasp.js";
+import { type HaspState, haspBoss, haspLoose, NO_BOLT } from "./hasp.js";
+import { sparkFallMilli, sparkFuseTicks, sparkMeets } from "./spark-fall.js";
 import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
@@ -24,8 +26,9 @@ import type { World } from "./world.js";
 export function haspStruck(world: World, bullet: Bullet): boolean {
   const s = haspBoss(world);
   if (s === null || haspVerdict(world, bullet.col, bullet.color) === null) return false;
+  const rowMilli = haspBoltNowMilli(world, s);
   s.boltCol = NO_BOLT;
-  world.events.push({ type: "haspBoltOut", col: bullet.col });
+  world.events.push({ type: "haspBoltOut", col: bullet.col, rowMilli });
   return true;
 }
 
@@ -37,4 +40,28 @@ export function haspStruck(world: World, bullet: Bullet): boolean {
 export function haspVerdict(world: World, col: number, _color: Color): CoreVerdict {
   const s = haspBoss(world);
   return s !== null && haspLoose(s) && col === s.boltCol ? "target" : null;
+}
+
+/** Where the loose bolt falls from: under the second clasp's hub. */
+export const HASP_BOLT_FROM_MILLI = 5520;
+
+/** The loose bolt's centre `fuseTicks` after it was thrown, falling to the hull (`spark-fall.ts`). */
+export function haspBoltMilli(cfg: SimConfig, fuseTicks: number): number {
+  return sparkFallMilli(cfg, HASP_BOLT_FROM_MILLI, cfg.haspBoltBeats, fuseTicks);
+}
+
+/** The loose bolt's centre on this tick, or `back` ticks before it. */
+export function haspBoltNowMilli(world: World, s: HaspState, back = 0): number {
+  return Math.floor(haspBoltMilli(world.cfg, sparkFuseTicks(world, s.boltBeat, world.tick) - back));
+}
+
+/**
+ * Where a shot in its column sweeping from `from` to `to` meets the loose
+ * bolt, or -1 — asked in `boss-along.ts`, so it is knocked out where it is
+ * drawn knocked out rather than when the shot leaves the top of the field.
+ */
+export function haspBoltAlong(world: World, b: Bullet, from: number, to: number): number {
+  const s = haspBoss(world);
+  if (s === null || haspVerdict(world, b.col, b.color) === null) return -1;
+  return sparkMeets(haspBoltNowMilli(world, s), haspBoltNowMilli(world, s, 1), from, to);
 }

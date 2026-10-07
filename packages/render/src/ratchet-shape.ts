@@ -1,5 +1,4 @@
-import { midCol, RATCHET_TEETH, type RatchetState, type SimConfig } from "@neon-spore/sim";
-import { smoothstep } from "./ease.js";
+import { midCol, RATCHET_BOLT_FROM_MILLI, RATCHET_TEETH, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 
@@ -39,9 +38,12 @@ const TAPER = 0.58;
 const LAP = 0.2;
 /** The pawl's row: the seam it bears on, in tiles below the top of the grid. */
 const PAWL_ROW = 5.5;
-/** The lock at the top of the strut: its centre, and its half-size, in tiles. */
-const LOCK_ROW = 0.35;
+/**
+ * The lock at the top of the strut: its centre, and its half-size, in tiles —
+ * its foot where the simulation throws the loose bolt from (`sim/ratchet-shot.ts`).
+ */
 const LOCK_HALF = 0.62;
+const LOCK_ROW = RATCHET_BOLT_FROM_MILLI / 1000 + 0.5 - LOCK_HALF;
 /** How far the strut's rails stand off the rack's middle, in tiles. */
 const RAIL_OFF = 0.95;
 /** The catch's rail: how far beside the rack's middle, and the bar's half-width. */
@@ -68,30 +70,6 @@ export function ratchetPawlY(l: Layout): number {
 /** The lock at the top of the strut, and its half-size. */
 export function ratchetLock(l: Layout, cfg: SimConfig): Point & { half: number } {
   return { x: ratchetX(l, cfg), y: l.gridTop + LOCK_ROW * l.tile, half: LOCK_HALF * l.tile };
-}
-
-/** The loose bolt's half-width and half-length, in tiles: drawn that size and met at its lower end. */
-export const RATCHET_BOLT = { halfW: 0.12, halfH: 0.3 } as const;
-
-/**
- * Where the loose bolt is, fallen `along` (0..1) of the way from under the
- * lock down its column to the hull: drawn there (`ratchet-draw.ts`) and aimed
- * at there (`boss-cue-read-zb.ts`).
- */
-export function ratchetBoltAt(
-  l: Layout,
-  cfg: SimConfig,
-  s: RatchetState,
-  beat: number,
-  beatPhase: number,
-): Point & { along: number } {
-  const along = Math.min(
-    1,
-    Math.max(0, (beat - s.boltBeat + beatPhase) / Math.max(1, cfg.ratchetBoltBeats)),
-  );
-  const lock = ratchetLock(l, cfg);
-  const from = lock.y + lock.half;
-  return { x: fieldX(l, s.boltCol), y: from + (l.hullY - from) * smoothstep(along), along };
 }
 
 /**

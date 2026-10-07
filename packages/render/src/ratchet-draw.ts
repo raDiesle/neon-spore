@@ -9,6 +9,7 @@ import { rgba } from "./hex.js";
 import { litBox } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { RATCHET_BOLT, ratchetBoltAt } from "./ratchet-bolt.js";
 import { drawRatchetHalos, drawRatchetVerdicts } from "./ratchet-marks.js";
 import {
   drawRatchetCatch,
@@ -25,8 +26,6 @@ import {
   ratchetStillPhase,
 } from "./ratchet-pose.js";
 import {
-  RATCHET_BOLT,
-  ratchetBoltAt,
   ratchetLock,
   ratchetPawlY,
   ratchetPlateBox,

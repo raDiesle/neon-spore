@@ -1597,6 +1597,7 @@ by hand never moves.
 | `packages/render/src/hasp-stop.ts` | Where a bolt meets THE HASP: the loose bolt in either colour, else the clasps, hubs and latch bar as drawn |
 | `packages/render/src/hasp-grip.ts` | **The two thumbs on THE HASP** — half two of the look lane |
 | `packages/render/src/hasp-blow.ts` | **THE HASP's own blow at the hull** (`boss-strike-look.ts`): its falling bolt driven home into the plating |
+| `packages/render/src/hasp-bolt.ts` | **THE HASP's loose bolt**, thrown from under the second clasp's hub and falling down its column to the hull |
 | `packages/render/src/hasp-marks.ts` | **THE HASP's halos and verdicts** — each seat's own mark answers a touch, and neither is shown the partner's ring |
 | `packages/render/src/hasp-knob.ts` | **THE HASP's wheel turned the way THE MAZE's is**: a knob on a lever bolted to the hub's rim |
 | `packages/render/src/guard-lapse.ts` | How long the guard button (`band.ts`) keeps fading after its own window closes, in milliseconds |
@@ -1746,6 +1747,7 @@ by hand never moves.
 | `packages/render/src/ratchet-stop.ts` | Where a bolt meets THE RATCHET: the loose bolt in either colour, else the rack, pawl, jaws and catch through the fold |
 | `packages/render/src/ratchet-grip.ts` | **The two thumbs on THE RATCHET**: half two of the look lane |
 | `packages/render/src/ratchet-blow.ts` | **THE RATCHET's own blows at the hull** (`boss-strike-look.ts`): the jam shoots the rack's head plate down the strut; the loose bolt is driven home |
+| `packages/render/src/ratchet-bolt.ts` | **THE RATCHET's loose bolt**, thrown from under the lock and falling down its column to the hull: its size |
 | `packages/render/src/ratchet-marks.ts` | **THE RATCHET's catch and pawl answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/caption-anchor.ts` | Where a caption's subject is on the screen |
 | `packages/render/src/caption-anchor-boss.ts` | **Where a boss's own fixture is** — the one anchor `caption-anchor.ts` answers per boss rather than per kind… |

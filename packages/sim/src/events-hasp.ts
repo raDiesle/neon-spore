@@ -40,8 +40,8 @@ export type HaspEvent =
   | ({ type: "haspOpen"; hasps: number } & HaspColEvent)
   /** The second hasp's spring throws a bolt loose — the fight's one hazard. */
   | ({ type: "haspBolt" } & HaspColEvent)
-  /** The bolt was shot out, in either colour. */
-  | ({ type: "haspBoltOut" } & HaspColEvent)
+  /** The bolt was shot out, in either colour; `rowMilli` is where it was when the shot met it. */
+  | ({ type: "haspBoltOut"; rowMilli: number } & HaspColEvent)
   /** Nobody shot it: the bolt reached the hull, which is the wave. */
   | ({ type: "haspBoltHit" } & HaspColEvent)
   /** All three: the row swings clear together and the passage behind it lights. */

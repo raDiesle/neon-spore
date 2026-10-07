@@ -1,15 +1,9 @@
 import { HASP_COUNT, type HaspState, haspVerdict, type World } from "@neon-spore/sim";
 import type { Stopper } from "./bolt-stop.js";
 import { coreStopper, type Foot, lowestFoot, outlineFoot, roundFoot } from "./core-stop.js";
+import { HASP_BOLT, haspBoltAt } from "./hasp-bolt.js";
 import { haspLatchBar } from "./hasp-parts.js";
-import {
-  HASP_BOLT,
-  haspBoltAt,
-  haspCentre,
-  haspHubRadius,
-  haspShellHalves,
-  type Point,
-} from "./hasp-shape.js";
+import { haspCentre, haspHubRadius, haspShellHalves, type Point } from "./hasp-shape.js";
 import type { Layout } from "./layout.js";
 
 /**

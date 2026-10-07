@@ -5,6 +5,7 @@ import { fieldX } from "./field-flip.js";
 import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCY, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { ratchetBoltPoint } from "./ratchet-bolt.js";
 import { ratchetStoryBurst } from "./ratchet-fx-story.js";
 import { RatchetMarks } from "./ratchet-marks.js";
 import { ratchetBarAt, ratchetLock, ratchetPawl, ratchetPawlY, ratchetX } from "./ratchet-shape.js";
@@ -114,9 +115,12 @@ export class RatchetFx {
           burst(fieldX(l, e.col), lock.y + lock.half, 10, PALETTE.hullRim);
           break;
         }
-        case "ratchetBoltOut":
-          burst(fieldX(l, e.col), ratchetPawlY(l), 12, PALETTE.hullRim);
+        case "ratchetBoltOut": {
+          // Where the shot met it on its fall (`ratchetBoltPoint`, the drawing's own).
+          const bolt = ratchetBoltPoint(l, e.col, e.rowMilli);
+          burst(bolt.x, bolt.y, 12, PALETTE.hullRim);
           break;
+        }
         case "ratchetBoltHit":
           burst(fieldX(l, e.col), tileCY(l, cfg.rows - 1), 20, PALETTE.red);
           this.joltNow = JOLT_TILES;

@@ -34113,3 +34113,15 @@ Bottleneck: none — the seam was already in the file.
 Bottleneck: none — THE GIMBAL had already laid the pattern down.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE RATCHET's and THE HASP's loose bolts are knocked out where they are met
+
+- reading: 0 min. Both bolts fall as the sparks do; the receipts burst at a
+  fixed place.
+- writing: 5 min. Both met on the way up off `spark-fall.ts`, their row on
+  the event, the picture laid off it, each bolt cut into a file of its own.
+- looking: 0 min. `core-met.test.ts` is the look.
+- friction: 0 min.
+- landing: 0 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none — the lane before laid the shape down.

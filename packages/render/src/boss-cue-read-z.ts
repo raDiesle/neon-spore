@@ -2,9 +2,9 @@ import { type HaspState, haspLoose, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { CUE_FRAME_WIDE, cueAimAt, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
+import { haspBoltAt } from "./hasp-bolt.js";
 import { haspLatchAsks, haspLatchCircle, haspWheelAsks, haspWheelCircle } from "./hasp-grip.js";
 import { haspFree } from "./hasp-pose.js";
-import { haspBoltAt } from "./hasp-shape.js";
 import type { Layout } from "./layout.js";
 
 /**

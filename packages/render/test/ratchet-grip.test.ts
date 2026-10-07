@@ -17,8 +17,8 @@ import { ratchetCues } from "../src/boss-cue-read-zb.js";
 import { cueSeen } from "../src/boss-cue-shape.js";
 import { handleCircle } from "../src/handle-place.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
+import { ratchetBoltAt } from "../src/ratchet-bolt.js";
 import { ratchetCatchCircle, ratchetPadCircle } from "../src/ratchet-grip.js";
-import { ratchetBoltAt } from "../src/ratchet-shape.js";
 import { type Field, touchDown, touchMove, touchUp } from "../src/touch.js";
 import { FRAME_TIMEOUT_MS, waveWith } from "./frame-harness.js";
 
