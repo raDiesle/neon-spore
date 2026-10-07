@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 4fc4bb4f4 — Time log for THE TRIVET's foot seam
+
+## 2026-10-07 · 3acb78cc9 — THE TRIVET's foot seam is gone
+
+`TRIVET_FOOT` was a VERSUS seam for a candidate the owner closed with nothing taken on 27 September 2026 (`trivet:foot` in DECIDED.md), and the game called it with the identity. The foot is drawn where it stands; nothing on the field changes.
+
 ## 2026-10-07 · da8219245 — Living bosses step 11: the machines left still, and three queued
 
 THE VALVE and THE DAVIT get no swing: the valve's drum carries the wheel and the socket, its pins are thumb-held and already sway as the owner picked, and the davit's hook is the loose handle and the fire target. THE SPOOL's barrel, THE GRINDSTONE's caliper and THE SLING's tines are queued, one lane each. The rollout list and the time log say so.
