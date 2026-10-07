@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · c58ac2e03 — Queue THE INSTAR's fly-in with the question of which view it flies in
+
+Face-on, THE INSTAR still flies in as a flat mask trailing a lumpy tube. The owner is asked whether the approach should be seen side-on, rebuilt face-on, or offered both ways in VERSUS.
+
 ## 2026-10-07 · 23d5d2da0 — THE INSTAR side-on grows four legs, the far pair behind the body
 
 Seen from the side, THE INSTAR now has four dangling legs: a foreleg under the chest with its elbow back, and a hind leg under the haunches with its knee forward. Each is a lit tube with three hooked claws. The far pair hangs behind the body, higher on it and darkened toward the background, so one leg crossing over another gives the side view the depth it lacked. A bolt stops on a leg.
