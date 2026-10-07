@@ -1,7 +1,15 @@
 import { describe, expect, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import { computeLayout, type Viewport } from "@neon-spore/render";
-import { type BossKind, beatPhase, slowing, step, ticksPerBeat, type World } from "@neon-spore/sim";
+import {
+  type BossKind,
+  beatPhase,
+  slowing,
+  slowRateMilli,
+  step,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
 import { bossCues, cueSeen } from "../../../packages/render/src/boss-cue.js";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
@@ -100,7 +108,7 @@ function walk(kind: BossKind): Reading {
   const field = (seat: 1 | 2) => stageField(world, "test", controlSet("default"), cfg, seat, null);
   const auto = stageAutopilot({ layout: () => test, field });
   auto.setMode("both");
-  const tickSeconds = 1000 / cfg.tickHz / cfg.slowRateMilli;
+  const tickSeconds = () => 1000 / cfg.tickHz / slowRateMilli(world);
   const drawn = DRAWN[kind] ?? (() => []);
   const last = seats.map(() => new Map<number, { x: number; y: number }>());
   let time = 0;
@@ -108,7 +116,7 @@ function walk(kind: BossKind): Reading {
   let samples = 0;
   for (let i = 0; i < 40_000 && world.boss !== null; i++) {
     step(world, auto.commands(world));
-    time += slowing(world) ? tickSeconds : 1 / cfg.tickHz;
+    time += slowing(world) ? tickSeconds() : 1 / cfg.tickHz;
     const settled =
       slowing(world) && world.slowAsks && world.tick >= (world.slowFromBeat + 0.5) * tpb;
     const phase = beatPhase(cfg, world.tick);
@@ -120,7 +128,7 @@ function walk(kind: BossKind): Reading {
         const was = last[k]?.get(mark.id);
         if (was !== undefined) {
           const tiles = Math.hypot(mark.x - was.x, mark.y - was.y) / l.tile;
-          fastest = Math.max(fastest, tiles / tickSeconds);
+          fastest = Math.max(fastest, tiles / tickSeconds());
           samples++;
         }
         now.set(mark.id, { x: mark.x, y: mark.y });

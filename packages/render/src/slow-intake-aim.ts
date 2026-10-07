@@ -1,5 +1,11 @@
-import type { SimConfig } from "@neon-spore/sim";
-import { beatSeconds, gripsCreature, instarBoss, MILLI, type World } from "@neon-spore/sim";
+import {
+  beatSeconds,
+  gripsCreature,
+  instarBoss,
+  MILLI,
+  slowRateMilli,
+  type World,
+} from "@neon-spore/sim";
 import { flatCenter, flatRadius } from "./creature-place.js";
 import { smoothstep } from "./ease.js";
 import { instarAt, instarLen } from "./instar-place.js";
@@ -43,11 +49,13 @@ const EASE_SECONDS = 0.4;
  * at `slowRateMilli` and wall seconds would be a second clock disagreeing with
  * the one the pair are hearing (`slow-look.ts`) — but a *transition* is a thing
  * an eye judges in seconds, and the eye is watching the hand, where a beat is
- * three of them. `beatSeconds` and `slowRateMilli` are called rather than
- * re-derived; nothing here writes a tempo down.
+ * several of them. `beatSeconds` and `slowRateMilli` are called rather than
+ * re-derived; nothing here writes a tempo down. The pace is the world's, not
+ * the config's: THE FLUE's levels each open a window at their own
+ * (`sim/slow.ts` `openSlow`).
  */
-export function ramp(win: SlowWindow, cfg: SimConfig): number {
-  const inHand = beatSeconds(cfg) * (MILLI / cfg.slowRateMilli);
+export function ramp(win: SlowWindow, world: World): number {
+  const inHand = beatSeconds(world.cfg) * (MILLI / slowRateMilli(world));
   const ease = inHand <= 0 ? 0 : EASE_SECONDS / inHand;
   if (ease <= 0) return 1;
   return Math.min(smoothstep((win.beats - win.left) / ease), smoothstep(win.left / ease));

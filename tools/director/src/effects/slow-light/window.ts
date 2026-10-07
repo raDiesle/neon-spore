@@ -30,7 +30,7 @@ export type Light = (
 export function withLight(light: Light): SlowLook["paint"] {
   return (ctx, l, world, view, win) => {
     const at = aim(world, l, world.beat, view.beatPhase);
-    const up = ramp(win, world.cfg);
+    const up = ramp(win, world);
     if (up > 0) {
       drawPrism(ctx, l, at, up, win);
       light(ctx, l, at, up, win);

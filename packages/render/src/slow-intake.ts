@@ -47,7 +47,7 @@ import { drawPrism } from "./slow-prism.js";
  */
 export const intakeWindow: SlowLook["paint"] = (ctx, l, world, view, win) => {
   const at = aim(world, l, world.beat, view.beatPhase);
-  const up = ramp(win, world.cfg);
+  const up = ramp(win, world);
   if (up > 0) {
     drawPrism(ctx, l, at, up, win);
     drawCrawl(ctx, l, at, up, win);

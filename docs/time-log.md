@@ -34205,3 +34205,16 @@ Bottleneck: the record merge — two adjacent, agreeing edits stopped `land`.
 Bottleneck: none.
 
 *Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE SLOW's look eases at the window's own pace
+
+- reading: 0 min. `ramp`, its two callers and the hush test's clock.
+- writing: 5 min. Both read `slowRateMilli(world)`; a render test that a
+  window at a quarter, a half and the full rate is halfway up at the same
+  wall second.
+- looking: 0 min. Nothing drawn moved at the config's pace; THE FLUE's
+  other levels ease over the owner's four tenths now.
+- friction: 0 min.
+- landing: 0 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none.

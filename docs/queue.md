@@ -358,23 +358,6 @@ adjacent lines that do not disagree: `Taken:` against `Files:`, and the
 both shapes, with a test for each in `tools/land/test/`. Worked around by
 hand on 7 October.
 
-## THE SLOW's look reads a window's pace off the config, not the world
-
-- **Found:** 2026-10-05, claude/the-flue-game-mechanics-da88ed
-- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-slows-look-reads-a-windows-pace-off-the-conf)
-- **Files:** `packages/render/src/slow-intake-aim.ts`, `tools/director/test/boss-hush.test.ts`
-
-THE FLUE's rework gave each window its own pace: `openSlow` takes one and
-keeps it as `world.slowPaceMilli`, which `sim/slow.ts`'s `slowRateMilli(world)`
-reads, so a level can slow the field to a half or a quarter. Two readers still
-take `cfg.slowRateMilli` instead: the look's ease in and out (`ramp`, which
-works out how long a beat lasts in the hand) and `boss-hush.test.ts`'s wall
-clock (`tickSeconds`). Both are right for every window but THE FLUE's today.
-Pass the world's pace to `ramp` from its callers and read it in the walk, and
-add a render test that a window opened at a quarter eases over the same wall
-seconds as one at the config's pace. Done when nothing outside `sim/slow.ts`
-reads `cfg.slowRateMilli` for a window's pace and `bun run check` is green.
-
 ## The baked-cache guard timed out in a full `check:fast` beside a dev server
 
 - **Found:** 2026-10-05, claude/core-along-hmr
