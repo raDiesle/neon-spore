@@ -34285,3 +34285,15 @@ Bottleneck: finding a tick inside a window — the entry's tick 1500 had
 none any more.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — The silent-event lists open a sixth page
+
+- reading: 5 min. Both lists, their pages and the two unions.
+- writing: 5 min. THE SURGE, THE LEAD and THE SCUTTLE — the last bosses
+  on both first pages, all choreographed — moved to a page of their own,
+  spread in place after page five; the first pages at 199 and 196.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, `check:fast`, the commit, `land`.
+
+Bottleneck: none.

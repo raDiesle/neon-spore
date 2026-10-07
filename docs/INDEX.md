@@ -1990,6 +1990,7 @@ by hand never moves.
 | `packages/render/src/effects-spark-silent-boss-c.ts` | **The bosses' half of the not-a-burst list, the third page** — THE GAUGE's four and THE WELL's four |
 | `packages/render/src/effects-spark-silent-boss-d.ts` | **The bosses' half of the not-a-burst list, the fourth page** — THE CYST's seventeen, THE DAVIT's thirteen |
 | `packages/render/src/effects-spark-silent-boss-e.ts` | **The bosses' half of the not-a-burst list, the fifth page** |
+| `packages/render/src/effects-spark-silent-boss-f.ts` | **The bosses' half of the not-a-burst list, the sixth page** — THE SURGE, THE LEAD, THE SCUTTLE |
 | `packages/render/src/effects-spark-handed.ts` | The bursts for the bodies answered by hands alone (`creatures-handed.ts`) |
 | `packages/render/src/effects-spark-hole.ts` | **A crater's puffs, thrown from the rock rather than from its row.** A rock's last six rows are drawn higher… |
 | `packages/render/src/effects-spark-worn.ts` | The bursts for a covering coming off a body that is still there (shell, clasp, coil, carom, crystal, volley), each colour argued against the others |
@@ -2095,6 +2096,7 @@ by hand never moves.
 | `packages/render/src/effects-ingest-silent-boss-c.ts` | **The bosses' half of the silent list, the third page** — THE WELL's four and THE GIMBAL's ten |
 | `packages/render/src/effects-ingest-silent-boss-d.ts` | **The bosses' half of the silent list, the fourth page** — THE SLING's twelve, and the bosses after it |
 | `packages/render/src/effects-ingest-silent-boss-e.ts` | **The bosses' half of the silent list, the fifth page** — THE HASP's story, THE SPOOL's |
+| `packages/render/src/effects-ingest-silent-boss-f.ts` | **The bosses' half of the silent list, the sixth page** — THE SURGE, THE LEAD |
 | `packages/render/src/effects-ingest-pod.ts` | **What the mouth leaves on screen**, for the two cargoes that leave anything |
 | `packages/render/src/malfunction-look.ts` | **What a broken control looks like**, and what the button that holds it off looks like beside it |
 | `packages/render/src/magnet-break.ts` | A magnet coming apart: the two arms thrown the way the bolt was going, and the plate falling loose |

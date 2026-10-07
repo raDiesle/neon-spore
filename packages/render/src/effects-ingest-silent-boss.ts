@@ -21,7 +21,8 @@ import type { SimEvent } from "@neon-spore/sim";
  * boundary moved a boss earlier when one boss's two new rows put this page
  * over its limit, and again when THE CURTAIN's three did: the seam is build
  * order, so it is the *last* boss here that goes next door, never the one
- * being worked on.
+ * being worked on. THE SURGE and THE LEAD went to the sixth page on 7
+ * October 2026 (`effects-ingest-silent-boss-f.ts`).
  */
 export const INGEST_SILENT_BOSS = [
   // THE MIRROR's four, read above the loop by an `ingest` of their own before
@@ -195,49 +196,4 @@ export const INGEST_SILENT_BOSS = [
   "sinewOut",
   "sinewCrush",
   "sinewPower",
-  // THE SURGE's thirteen are read as one family above the loop by
-  // `surge-fx.ts` (`Effects.surge`), the way THE SINEW's are: a burst per
-  // event at the bulb or the grip, the sink and the jet on a vent, the jolt
-  // on a burst.
-  "surgeSettle",
-  "surgeGrip",
-  "surgeRelease",
-  "surgeNear",
-  "surgeVent",
-  "surgeBurst",
-  "surgeGum",
-  "surgeRock",
-  "surgeLost",
-  "surgeAbsorb",
-  "surgeClose",
-  "surgeEvert",
-  "surgeOut",
-  // THE LEAD's seventeen are read as one family above the loop by
-  // `lead-fx.ts` (`Effects.lead`), the way THE SURGE's are: a burst per
-  // event at the foot or the column, the whip on a doubling back, the bead
-  // that tumbles off on a hit (`docs/spec/bosses.md` §11.29).
-  "leadEnter",
-  "leadPace",
-  "leadTurn",
-  "leadFlight",
-  "leadHit",
-  "leadMiss",
-  "leadReverse",
-  "leadTorch",
-  "leadRock",
-  "leadStill",
-  "leadGrip",
-  "leadRelease",
-  "leadTear",
-  "leadPass",
-  "leadWall",
-  "leadDown",
-  "leadOut",
-  "tether",
-  "eyeOpen",
-  "wardenDown",
-  "mazeCommit",
-  "mazeProbe",
-  "mazeVerdict",
-  "mazeDown",
 ] as const satisfies readonly SimEvent["type"][];

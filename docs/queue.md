@@ -328,18 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## The two silent-event lists are eight lines off the ceiling
-
-- **Found:** 2026-10-06, claude/baton-rules
-- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-two-silent-event-lists-are-eight-lines-off-t)
-- **Files:** `packages/render/src/effects-ingest-silent-boss.ts`, `packages/render/src/effects-spark-silent-boss.ts`
-
-Both lists took THE BATON's `batonKicked` and stand at 242 and 243 lines. The
-next boss event that leaves nothing behind for the next frame will push one
-over 250. Split each the way `-b.ts` already splits it, a whole boss's block at
-a time (the choreographed bosses to a page of their own), and keep the union
-both are read through. Done when both are under 200 and `bun run check` is green.
-
 ## `bun run frames` holds the picture's clock still across a `--stride` strip
 
 - **Found:** 2026-10-06, claude/flue-blind

@@ -23,7 +23,8 @@ import type { SimEvent } from "@neon-spore/sim";
  * exactly 250 lines, the ceiling and not under it, so the next boss to land
  * here was already going to go over (`docs/queue.md`): the seam is build
  * order, so it is the *last* boss here that goes next door, never the one
- * being worked on.
+ * being worked on. THE SURGE, THE LEAD and THE SCUTTLE went to the sixth
+ * page on 7 October 2026 (`effects-spark-silent-boss-f.ts`).
  * The property that had to survive the split is the same one that file explains
  * — `SILENT` keeps its literal member types through the spread, so `isSilent`
  * still narrows and `burstFor`'s `assertNever` still catches an event named
@@ -192,51 +193,4 @@ export const SILENT_BOSS = [
   "ledgerRoll",
   "ledgerPull",
   "ledgerHaul",
-  // THE SURGE's thirteen are one family read above the loop by
-  // `surge-fx.ts`, never rows here (`docs/spec/bosses.md` §11.28).
-  "surgeSettle",
-  "surgeGrip",
-  "surgeRelease",
-  "surgeNear",
-  "surgeVent",
-  "surgeBurst",
-  "surgeGum",
-  "surgeRock",
-  "surgeLost",
-  "surgeAbsorb",
-  "surgeClose",
-  "surgeEvert",
-  "surgeOut",
-  // THE LEAD's seventeen are one family read above the loop by
-  // `lead-fx.ts`, never rows here (`docs/spec/bosses.md` §11.29).
-  "leadEnter",
-  "leadPace",
-  "leadTurn",
-  "leadFlight",
-  "leadHit",
-  "leadMiss",
-  "leadReverse",
-  "leadTorch",
-  "leadRock",
-  "leadStill",
-  "leadGrip",
-  "leadRelease",
-  "leadTear",
-  "leadPass",
-  "leadWall",
-  "leadDown",
-  "leadOut",
-  // THE SCUTTLE's ten are one family read above the loop by
-  // `scuttle-fx.ts`, never rows here (`docs/spec/bosses.md` §11.30).
-  "scuttleEnter",
-  "scuttleLoose",
-  "scuttleThrow",
-  "scuttleStruck",
-  "scuttleSwing",
-  "scuttleRebuff",
-  "scuttleSlack",
-  "scuttleWind",
-  "scuttleLast",
-  "scuttleDown",
-  "scuttleOut",
 ] as const satisfies readonly SimEvent["type"][];
