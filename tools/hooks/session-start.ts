@@ -30,6 +30,11 @@
  *
  * Once bun is already new enough it costs one version comparison and stops.
  * `test/session-start.test.ts` holds the comparison.
+ *
+ * **And a worktree behind the local `main` is brought up to it**, or told
+ * why it was not, before anything else (`trunk-behind.ts`, since 7 October
+ * 2026): landings wait on the local `main` until the owner pushes, so the
+ * step that merges `origin/main` cannot see them.
  */
 
 import { spawn } from "node:child_process";
@@ -42,6 +47,7 @@ import {
   readFileSync,
 } from "node:fs";
 import { belowPin, needsUpgrade, WANTED } from "./bun-pin.js";
+import { bringUp } from "./trunk-behind.js";
 
 /** The version a bun binary reports, or `null` if it will not run here. */
 function versionOf(binary: string): string | null {
@@ -97,6 +103,14 @@ function mayPin(): string | null {
 }
 
 async function main(): Promise<void> {
+  // A worktree behind the local `main` first, whatever the bun: it is the
+  // first thing a lane builds on (`trunk-behind.ts`).
+  try {
+    const trunk = bringUp(process.cwd());
+    if (trunk !== null) process.stdout.write(`session-start: ${trunk}\n`);
+  } catch {
+    // A hook that cannot ask git says nothing rather than stop the session.
+  }
   const said = belowPin(Bun.version, WANTED);
   if (said === null) return;
 

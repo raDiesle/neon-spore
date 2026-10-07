@@ -328,22 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## "Bring the trunk up" misses landings on the local `main` that are not pushed
-
-- **Found:** 2026-10-06, claude/lamprey-boss-mechanics-662818
-- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-bring-the-trunk-up-misses-landings-on-the-local)
-- **Files:** `CLAUDE.md`, `tools/hooks/`
-
-`git fetch origin main && git merge --ff-only origin/main` is the step a lane
-starts with, but the local `main` held 88 landings `origin/main` did not —
-among them THE LAMPREY's rework — so a lane built for an hour on the old
-design and met thirty conflicting files at `bun run land`. It was worked
-around by resetting the branch onto the local `main` and building again. Make
-the start-of-lane step (or a SessionStart hook in a worktree) also say when
-`HEAD` is behind the local `main`, and fast-forward it there, and add a test.
-Done when a worktree behind the local `main` is told so at its first command
-and `bun run check` is green.
-
 ## `--auto-miss` never misses on THE FLUE
 
 - **Found:** 2026-10-07, claude/the-flue-cannon-updates-a48153

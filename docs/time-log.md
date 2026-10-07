@@ -34317,3 +34317,17 @@ Bottleneck: the entry's "identical in all six" did not reproduce at
 is the long strides that were wrong.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — A worktree behind the local `main` is told at session start
+
+- reading: 5 min. The session-start hook and the entry.
+- writing: 15 min. `trunk-behind.ts`: a clean worktree with no commits
+  of its own fast-forwarded to the local `main`, any other told how far
+  behind it is; the decision tested on its own and through a real
+  worktree. `CLAUDE.md` left alone: the hook covers it, and an edit there
+  empties every session's prompt cache.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, `check:fast`, the commit, `land`.
+
+Bottleneck: none.
