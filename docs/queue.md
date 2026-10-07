@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE CURTAIN's cue word and the hand ring's word are drawn on top of each other
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Taken:** 2026-10-07, claude/queue-tasks-a07ff0 (claim: claude/queue-the-curtains-cue-word-and-the-hand-rings-word-ar)
 - **Files:** `packages/render/src/curtain-draw.ts`, `packages/render/src/grip.ts`, `packages/render/src/boss-cue-read.ts`
 
 With a hand on THE CURTAIN's sheet, the hand ring's label (`YOU`, `PULL`,
