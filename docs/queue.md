@@ -348,6 +348,7 @@ with the fix.
 ## THE TRIVET's foot seam patches nothing
 
 - **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
+- **Taken:** 2026-10-07, claude/queue-tasks-a07ff0 (claim: claude/queue-the-trivets-foot-seam-patches-nothing)
 - **Files:** `packages/render/src/trivet-draw.ts`
 
 `TRIVET_FOOT` and its type `TrivetFootHang` (`trivet-draw.ts`, about lines
