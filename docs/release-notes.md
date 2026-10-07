@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · c6321b7e9 — THE SINEW's strain band as a white bar is offered in VERSUS
+
+The band is now drawn through `BAND_LOOK.draw`, which is still the game's own glass tube, so the game's frame is the same. The `sinew:band · white` candidate draws the design's white bar instead, and each seat keeps its half: the zone is a white block on the pilot's screen, and the sum is a white fill on the navigator's. It is judged on THE SINEW · HELD.
+
 ## 2026-10-07 · e9ff654e7 — THE SINEW's mass swings with weight, offered in VERSUS
 
 The drawn mass now passes through `SINEW_WEIGHT.carry`, which today hands back the hung centre unchanged, so the game's frame is the same. The `sinew:weight · heavy` candidate hangs it on a damped spring instead, so it trails the pull and overshoots before it settles. It is judged on THE SINEW · HELD, the one SINEW pose where the mass is still moving as it lands. Only the drawn mass moves; the handles' hit test is untouched.
