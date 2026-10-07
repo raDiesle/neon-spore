@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 1993bec72 — The silent-event lists give their last bosses a sixth page
+
+Both first pages of the bosses' silent lists stood within eight lines of the 250-line ceiling. THE SURGE, THE LEAD and THE SCUTTLE, the last bosses on them by build order and all choreographed, now have a page of their own in each list, spread in place after page five, so `isSilent` and `isIngestSilent` still narrow exactly as before. The first pages are at 196 and 199 lines.
+
 ## 2026-10-07 · 0c60bbb68 — THE GOVERNOR stays whole under THE SLOW's prism
 
 THE GOVERNOR had no row in THE SLOW's aim, so its light stood round the cannon at the hull and the prism tore its flywheel and flyweights into red, green and blue. It has a row now, built from the dial it stands on this frame, and the whole body is left out of the split, as THE FLUE is. A test reads every boss whose simulation calls `openSlow(` and stands each one, so the next boss without a row fails the test instead of going unseen.

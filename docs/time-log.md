@@ -34297,3 +34297,5 @@ none any more.
 - landing: 5 min. `bun run index`, `check:fast`, the commit, `land`.
 
 Bottleneck: none.
+
+*Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
