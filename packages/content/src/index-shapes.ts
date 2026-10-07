@@ -42,9 +42,6 @@ export {
 export {
   FILAMENT_CORONA,
   FILAMENT_RASP,
-  HEART_POINT,
-  HEART_TOP,
-  heartPoints,
 } from "./filament-look.js";
 export {
   GHOST,

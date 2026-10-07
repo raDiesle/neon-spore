@@ -550,11 +550,12 @@ no brightening, ever, only `shadeAt`'s darkening. THE FILAMENT's heart
 flat fill (`PALETTE.sheenDeep`, already close to black) — and came out reading
 just as flat as before, because a ramp that can only darken has nothing to show
 against a floor it is already standing on. The fix is not a different half; the
-rule about hue is the reason the effect exists. It is a brighter base
-(`HEART_LIT`, `sheenDeep` mixed toward `sheenWarm`) so the same darkening-only
-ramp has a range to move through. Any other creature body this dark before
-`litRound` is added needs the same check: does the flat fill sit far enough
-above the ramp's floor for `shade` alone to read?
+rule about hue is the reason the effect exists. It was a brighter base
+(`sheenDeep` mixed toward `sheenWarm`) so the same darkening-only ramp had a
+range to move through. Any other creature body this dark before `litRound` is
+added needs the same check: does the flat fill sit far enough above the ramp's
+floor for `shade` alone to read? (The heart itself is a rig since 7 October
+2026, `filament-heart-rig.ts`; the lesson stands for every flat body left.)
 
 **A boss can hide more than one flat-fill body, and each gets its own read.**
 THE HASP had three: the sealed clasp shell, the navigator's wheel disc and the

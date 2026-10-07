@@ -34402,3 +34402,19 @@ Bottleneck: finding a frame with a hand carrying the sheet — the press and
 hold flags reach it, but the sheet's id had to be probed first.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE FILAMENT's heart is an organ, modelled and turned
+
+- reading: 10 min. The flat heart and what stands on it (the lead, the
+  strike, the aim), the `depth` skill, and THE GIMBAL's rig as the pattern.
+- writing: 25 min. The rig (ventricles, atria, arch, trunk, cava), the
+  muscle's grain and vessels placed on its rings, the two-stroke beat and
+  the flush, a `--filament` sheet for `bun run solid`, the tests pointed
+  at the vessels' cords.
+- looking: 20 min. Seven sheets: pipes, a cabbage, a tulip, then one base
+  with the right ventricle running up into the trunk; two game frames.
+- friction: 0 min.
+- landing: 10 min. `imports:sort`, `check:fast`, the commit, `land`.
+
+Bottleneck: reading anatomy off a painter that sorts parts, not pixels —
+every fix to the base was a change of which part covers which.

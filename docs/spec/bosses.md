@@ -6670,13 +6670,20 @@ pair earned.
 `filament-tools.ts`, `content/filament-look.ts`) was the owner's on 25
 September 2026 — *its the inner of its body and the vene to travel with some
 weapon … the other player needs some other tool … the hearth inside*. **The
-body is the alien's heart**, hung over the top of the field with its point in
-rows 0 to 3, where no filament reaches: THE WEIGHT's sac at a lighter sag,
-turned over, with the slumped draft's crown dent centred as the notch between
-the lobes (`heartPoints`). It beats on the beat, a lub and a softer dub, and
-wears a `wisp` vessel on its face for each filament still in it, the last at
-the fraction of a pull it has left, so it is a vessel fewer and smaller every
-pull and the count is the silhouette. **Each filament is a vein** into its
+body is the alien's heart**, hung over the top of the field with its apex in
+rows 0 to 3, where no filament reaches. Since 7 October 2026 it is an organ
+and not a card — the owner: *more like a real hearth organ not for kids …
+like a 3d alien organ*. It is a rig (`filament-heart-rig.ts`): a conical left
+ventricle down to an apex that leans, the right ventricle a bulge on its front
+tapering up into the trunk, two atria, and the arch, its stumps and the cava
+rising off the top of the field into the body it hangs in, all turned through
+a slow idle sway, looked at a little from below (`filament-heart-look.ts`). It
+beats in two strokes, the atria and their glowing node on the lub and the
+ventricles, lit from inside, on the dub, and it flushes red when struck. The
+muscle carries a helical grain and a raised vessel for each filament still in
+it, the last at the fraction of a pull it has left, with a pulse running up
+each from the apex every beat (`filament-heart-surface.ts`), so it is a vessel
+fewer and smaller every pull. **Each filament is a vein** into its
 point: a spline through its tiles' centres (`filamentRunPath`), and on the
 pilot's screen a lead from its root into the heart's point
 (`filamentLeadPath`). The lit run is drawn as a tube — a dark wall, a magenta

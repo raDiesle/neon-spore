@@ -54,6 +54,7 @@ const NOT_MARKS: Readonly<Record<string, string>> = {
   "solid-motion.ts": "a body's depth",
   "solid-haze.ts": "the same",
   "solid-tube-draw.ts": "the same",
+  "solid-rig.ts": "the same: a body modelled and turned",
   "seat-skin.ts": "the ship's seat colour",
   "band.ts": "the band, whose buttons are `controls.ts`",
   "field.ts": "the field",

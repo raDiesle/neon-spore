@@ -1656,6 +1656,9 @@ by hand never moves.
 | `packages/render/src/filament-turn-marks.ts` | **The small marks round THE FILAMENT's thumbs**: the arrows that march the way a thumb goes next |
 | `packages/render/src/filament-tools.ts` | **The two tools the thumbs carry up the vein** — the owner, 25 September 2026: *player 1 … with some weapon |
 | `packages/render/src/filament-heart.ts` | **Where THE FILAMENT's heart is**, in field pixels — the owner, 25 September 2026 |
+| `packages/render/src/filament-heart-look.ts` | **THE FILAMENT's heart, drawn**: the organ (`filament-heart-rig.ts`) with its muscle's grain and its vessels… |
+| `packages/render/src/filament-heart-rig.ts` | **THE FILAMENT's heart, modelled** — the owner, 7 October 2026: *the hearth looks weird |
+| `packages/render/src/filament-heart-surface.ts` | **What is on the heart's muscle**, placed rather than posed (the `depth` skill's one rule) |
 | `packages/render/src/filament-vein.ts` | **The lit run as a vein** — the owner, 25 September 2026: *the vene to travel with some weapon* |
 | `packages/render/src/filament-marks.ts` | **THE FILAMENT's two thumbs answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/filament-blow.ts` | **THE FILAMENT's own blow at the hull**: the vein snaps where the line stood and whips down to the column |
@@ -3197,6 +3200,7 @@ by hand never moves.
 | `tools/raster/src/solid-instar-body-page.ts` | The INSTAR body sheet (`bun run solid --instar-body`) |
 | `tools/raster/src/solid-instar-flight-page.ts` | The INSTAR flight strip (`bun run solid --instar-flight`) |
 | `tools/raster/src/solid-gimbal-page.ts` | `bun run solid --gimbal`: THE GIMBAL's rig at five turns, the pilot's ring and the navigator's |
+| `tools/raster/src/solid-filament-page.ts` | The FILAMENT sheet (`bun run solid --filament`) |
 | `tools/raster/src/strip-bake.ts` | One painted strip, baked and packed: the atlas the field fetches (`<name>-strip.webp`) |
 | `tools/raster/src/sling-draw-art.ts` | One frame of THE SLING's arm drawing home, drawn into a 2D context |
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |

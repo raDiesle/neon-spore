@@ -20,11 +20,14 @@ beforeAll(() => {
 });
 
 describe("THE FILAMENT's heart, vein and tools", () => {
-  it.each(ROLES)("hangs a heart rimmed in the sheen's warm end, on %s", (role) => {
-    const arm = frame(role, (w) => armed(w, 0));
-    expect(count(arm.text, BODY)).toBeGreaterThan(0);
-    expect(count(arm.text, PALETTE.sheenWarm)).toBeGreaterThan(0);
-  });
+  it.each(ROLES)(
+    "hangs a heart with its vessels on it, rimmed in the sheen's light, on %s",
+    (role) => {
+      const arm = frame(role, (w) => armed(w, 0));
+      expect(count(arm.text, BODY)).toBeGreaterThan(0);
+      expect(count(arm.text, tint(PALETTE.sheenRim))).toBeGreaterThan(0);
+    },
+  );
 
   it.each(ROLES)("draws the lit run as a vein, with a wall the arm has not, on %s", (role) => {
     const arm = frame(role, (w) => armed(w, 0));

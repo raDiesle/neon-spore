@@ -10,7 +10,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import { HEART_LIT } from "../src/filament-draw.js";
+import { CORD, CORD_ALPHA } from "../src/filament-heart-surface.js";
 import { rgba } from "../src/hex.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { CFG, runFrames, VIEWPORT, waveWith } from "./frame-harness.js";
@@ -113,5 +113,9 @@ export function frame(
   return drawn(world, role, 9);
 }
 
-/** The heart's own fill: `HEART_LIT` at nine tenths (`filament-draw.ts`). */
-export const BODY = rgba(HEART_LIT, 0.9);
+/**
+ * The heart standing: the cord of a vessel on its muscle at full strength
+ * (`filament-heart-surface.ts`). The muscle's own fill is hazed by how far
+ * back it sits, so it is not one colour from frame to frame.
+ */
+export const BODY = rgba(CORD, CORD_ALPHA);

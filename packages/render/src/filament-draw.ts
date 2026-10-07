@@ -1,12 +1,8 @@
 import { type FilamentState, filamentTiles, filamentTracing, type World } from "@neon-spore/sim";
-import { drawHurt, hurtShake } from "./boss-hurt.js";
+import { hurtShake } from "./boss-hurt.js";
 import type { FilamentFx } from "./filament-fx.js";
-import {
-  filamentHeart,
-  filamentHeartPath,
-  filamentHeartVessel,
-  type Heart,
-} from "./filament-heart.js";
+import { filamentHeart, type Heart } from "./filament-heart.js";
+import { drawFilamentHeart } from "./filament-heart-look.js";
 import { drawFilamentVerdicts } from "./filament-marks.js";
 import {
   filamentArmPhase,
@@ -26,37 +22,10 @@ import {
 import { drawFilamentTool } from "./filament-tools.js";
 import { drawFilamentClock, drawFilamentOwn, drawFilamentTheirs } from "./filament-turn-draw.js";
 import { drawFilamentVein } from "./filament-vein.js";
-import { strokeGlow } from "./glow.js";
-import { mixHex, rgba } from "./hex.js";
 import { drawInstarWord } from "./instar-word.js";
-import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { splinePath } from "./spline.js";
 import { showsFilamentAhead, showsFilamentBehind } from "./view-role-clocks-b.js";
-
-/**
- * The heart's own idle turn, wall-clock seconds there and back — the same
- * reasoning as `gimbal-draw.ts`'s `DRUM_WOBBLE`: the heartbeat swells and
- * settles it, but never turns it, so `litRound`'s shading would otherwise sit
- * on the same shoulder every frame. Feeds `litRound`'s own `spin` rather than
- * a second mechanism (`docs/style-guide.md`, "Depth on a body that already
- * ships").
- */
-const HEART_WOBBLE = 0.06;
-const HEART_WOBBLE_PERIOD = 5.8;
-
-/**
- * The heart's own lit floor: `sheenDeep` toward `sheenWarm`, a shade brighter
- * than the flat fill it replaces. `LIGHT_HALF.creature` is `"value"` — no
- * lift, ever, so the whole ramp on this body is `shadeAt`'s darkening alone
- * (`docs/alive.md`'s hue-lock). Painted straight over `sheenDeep`, that
- * darkening had nowhere to go: the fill was already close to the ramp's own
- * floor, so a body clipped and lit exactly like the drum came out reading as
- * flat as before. Brightening the base gives the same shading room a lighter
- * rock already has, without moving its hue.
- */
-export const HEART_LIT = mixHex(PALETTE.sheenDeep, PALETTE.sheenWarm, 0.22);
 
 /**
  * **THE FILAMENT**: the inside of an alien — its heart over the top of the
@@ -66,7 +35,7 @@ export const HEART_LIT = mixHex(PALETTE.sheenDeep, PALETTE.sheenWarm, 0.22);
  * rasp, and one on the tail for hers and her corona (§11.33).
  *
  * Read off the world every frame and drawn in the order the eye reads it:
- * the heart and a vessel on it for each vein still to go, the lead from the
+ * the heart and a vessel on its muscle for each vein still to go, the lead from the
  * root, the unlit path, the lit vein, the two tools, the two rings and their
  * words. Its health is the heart: a filament traced end to end slides up out
  * of the field and the heart is a vessel fewer and smaller; after the seventh
@@ -107,7 +76,7 @@ export function drawFilament(
   const hurt = Math.max(fx.hurt.value, strike);
   const heart = struckHeart(filamentHeart(l, cfg, strands, beatPhase), strike);
   ctx.translate(hurtShake(hurt, time, l.tile), -fx.jolt * l.tile);
-  drawHeart(ctx, heart, strands, time, fade, hurt);
+  drawFilamentHeart(ctx, heart, strands, time, beatPhase, fade, hurt);
   ctx.restore();
   if (filamentTiles(s) === null) return;
   const ahead = showsFilamentAhead(l.role);
@@ -136,43 +105,6 @@ export function drawFilament(
   }
   drawFilamentVerdicts(ctx, l, s, fx.marks.verdicts);
   ctx.restore();
-}
-
-/** A colour at the fade: the hex itself while the body hangs, so the frame tests can count it (`hive-draw.ts`). */
-function faded(hex: string, fade: number, alpha = 1): string {
-  return fade >= 1 && alpha >= 1 ? hex : rgba(hex, alpha * fade);
-}
-
-/** The heart: dark, rimmed in the sheen's warm end, a vessel on its face for each filament still to be traced. */
-function drawHeart(
-  ctx: CanvasRenderingContext2D,
-  h: Heart,
-  strands: number,
-  time: number,
-  fade: number,
-  hurt: number,
-): void {
-  const p = filamentHeartPath(h, time);
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.background, fade);
-  ctx.fill(p);
-  ctx.fillStyle = faded(HEART_LIT, fade, 0.9);
-  ctx.fill(p);
-  ctx.save();
-  ctx.clip(p);
-  ctx.globalAlpha = fade;
-  const wobble = HEART_WOBBLE * Math.sin((time * (Math.PI * 2)) / HEART_WOBBLE_PERIOD);
-  litRound(ctx, h.x, h.y, Math.max(h.rx, h.ry), "value", wobble);
-  ctx.restore();
-  ctx.restore();
-  strokeGlow(ctx, p, faded(PALETTE.sheenWarm, fade), STROKE.inner, 0.6 * fade);
-  drawHurt(ctx, p, hurt * fade);
-  const n = Math.ceil(strands);
-  for (let i = 0; i < n; i++) {
-    const last = i === n - 1 ? strands - (n - 1) : 1;
-    const vessel = splinePath(filamentHeartVessel(h, i, n, time), false);
-    strokeGlow(ctx, vessel, faded(PALETTE.wisp, fade), STROKE.inner, 0.5 * last * fade);
-  }
 }
 
 /**
