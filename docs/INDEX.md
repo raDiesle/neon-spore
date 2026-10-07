@@ -2028,6 +2028,7 @@ by hand never moves.
 | `packages/render/src/flue-card.ts` | **THE FLUE's card**: what the lit level asks, in two words, on both screens |
 | `packages/render/src/flue-cords.ts` | **The strings THE FLUE hangs on, drawn** (`flue-strings.ts` says how it hangs) |
 | `packages/render/src/flue-word.ts` | **MISS, in so many letters** (the owner, 6 October 2026: *when it's a failure shot |
+| `packages/render/src/flue-tally.ts` | **THE FLUE's levels, told on its lobes**: one lobe a level, cleared ones lit pale, the current one in its colour |
 | `packages/render/src/frame-field.ts` | The two passes that are about the field: the empty board, and the bodies on it |
 | `packages/render/src/frame-ship.ts` | The two passes that are about the ship: the hull with its controls, and the overlays |
 | `packages/render/src/frame-on-ship.ts` | a body sticks to the finished ship — the fifth pass, between the ship and the overlays: the fence's burn, the gums, the choke's coils, the clingers, in that order |

@@ -10,9 +10,9 @@ import { stepColour } from "./step-colour.js";
  * **THE FLUE's marks**: what says what a level asks and what it has left.
  * The slot glowing is *a level is lit*; **the sight** over the cannon is
  * where the ember must be met, drawn in the colour the level asks, a ring
- * for a bolt and a ring with the beam's bar through it for a beam; and **the
- * levels** are a stud each over the flue, lit as each is cleared — the
- * flue's health, read off the body. The shots a level has left are the
+ * for a bolt and a ring with the beam's bar through it for a beam. The
+ * levels are the flue's own lobes, one each (`flue-tally.ts`), where a stud
+ * each stood over the flue until 7 October 2026. The shots a level has left are the
  * strings the flue hangs on (`flue-strings.ts`), where three pips under the
  * sight were until the owner had them taken off on 6 October 2026.
  *
@@ -20,12 +20,6 @@ import { stepColour } from "./step-colour.js";
  * cannot see the ember, has to see what the level asks as well as the pilot
  * does.
  */
-
-/** The level studs' radius and spacing, and how far over the flue they sit, in
- * tiles: over the `CALL` standing over the sight. */
-const STUD = 0.08;
-const STUD_GAP = 0.3;
-const STUD_UP = 1.8;
 
 /** The lit level's slot, glowing on its beat: *this one*. */
 export function drawFlueSlotGlow(
@@ -61,35 +55,6 @@ export function drawFlueSight(
   bar.moveTo(at.x, at.y - r * 1.5);
   bar.lineTo(at.x, at.y + r * 1.5);
   strokeGlowFaded(ctx, bar, hex, STROKE.outline, pulse, 1);
-}
-
-/** A stud over the flue for every level, lit for each one cleared and flaring as it is. */
-export function drawFlueLevels(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  centre: Point,
-  hits: number,
-  total: number,
-  flare: number,
-): void {
-  const r = STUD * l.tile;
-  for (let i = 0; i < total; i++) {
-    const stud = new Path2D();
-    const x = centre.x + (i - (total - 1) / 2) * STUD_GAP * l.tile;
-    stud.arc(x, centre.y - STUD_UP * l.tile, r, 0, Math.PI * 2);
-    if (i < hits) {
-      ctx.fillStyle = PALETTE.hullRim;
-      ctx.fill(stud);
-      const glow = i === hits - 1 ? 0.9 + 1.6 * flare : 0.9;
-      strokeGlowFaded(ctx, stud, PALETTE.hullRim, STROKE.inner, glow, 0.8);
-    } else {
-      ctx.fillStyle = PALETTE.flueSlot;
-      ctx.fill(stud);
-      ctx.lineWidth = STROKE.inner;
-      ctx.strokeStyle = rgba(PALETTE.hullRim, 0.3);
-      ctx.stroke(stud);
-    }
-  }
 }
 
 /** A hit's flash at the sight: white, opening as it fades. */

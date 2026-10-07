@@ -10,11 +10,13 @@ import { stepColour } from "./step-colour.js";
  * THE SLOW holds the level, `SLOW ½`, when it does. The owner, 5 October
  * 2026: which combination a level is must be plain without a tutorial. The
  * sight says the colour and the weapon as a picture, the scale says the
- * speed, the pips the shots and the studs the level; the card says the two
+ * speed, the strings the shots and the lobes the level; the card says the two
  * of them a picture cannot, by name, where both players read the same words.
+ * On a level that needs the ember met more than once the word carries the
+ * meetings still owed, `SHOT ×2` (7 October 2026).
  *
- * It stands over the flue's left end, clear of the studs over the middle and
- * of the `CALL` over the sight, and is faint between levels, naming the next.
+ * It stands over the flue's left end, clear of the `CALL` over the sight,
+ * and is faint between levels, naming the next.
  */
 
 /** The card's corner from the field's left edge and over the flue, its size and its words', in tiles. */
@@ -25,9 +27,13 @@ const H = 1.15;
 const WORD = 0.42;
 const SLOW_WORD = 0.3;
 
-/** The weapon's name, the one the player reads: a bolt is a shot. */
-export function flueCardWord(level: FlueLevel): string {
-  return level.weapon === "beam" ? "BEAM" : "SHOT";
+/**
+ * The weapon's name, the one the player reads — a bolt is a shot — and on a
+ * level that needs more than one meeting, how many are still owed, `left`.
+ */
+export function flueCardWord(level: FlueLevel, left = level.needs): string {
+  const word = level.weapon === "beam" ? "BEAM" : "SHOT";
+  return level.needs > 1 ? `${word} ×${left}` : word;
 }
 
 /** THE SLOW's strength as the card writes it, or null when the level is not slowed. */
@@ -52,6 +58,7 @@ export function drawFlueCard(
   flueY: number,
   level: FlueLevel,
   lit: boolean,
+  left = level.needs,
 ): void {
   const { x, y, w, h } = flueCardRect(l, flueY);
   const alpha = lit ? 1 : 0.45;
@@ -70,7 +77,7 @@ export function drawFlueCard(
   const wordY = slow === null ? y + h / 2 : y + 0.38 * l.tile;
   ctx.font = `700 ${Math.round(l.tile * WORD)}px "Courier New",monospace`;
   ctx.fillStyle = rgba(stepColour(level.color).rim, alpha);
-  ctx.fillText(flueCardWord(level), cx, wordY);
+  ctx.fillText(flueCardWord(level, left), cx, wordY);
   if (slow !== null) {
     ctx.font = `700 ${Math.round(l.tile * SLOW_WORD)}px "Courier New",monospace`;
     ctx.fillStyle = rgba(PALETTE.text, alpha);

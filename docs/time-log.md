@@ -34008,3 +34008,16 @@ Bottleneck: an event shape changed under nine fixtures, found by the
 typecheck one file at a time.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE FLUE counts its levels on its lobes
+
+- reading: 0 min. The segment loop and the studs it replaces.
+- writing: 5 min. The tally, the card's `×2`, the studs taken out, tests.
+- looking: 0 min. One frame of the fifth level: four lobes pale, the fifth
+  rimmed cyan.
+- friction: 5 min. A radial light on the lobes added to the gradients the
+  mirage's test counts; the lobes are lit evenly instead.
+- landing: 0 min.
+
+Bottleneck: a test that counts gradients as a proxy for the mirage, found
+only by running it.

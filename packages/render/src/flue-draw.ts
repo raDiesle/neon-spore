@@ -11,7 +11,7 @@ import { drawFlueCard } from "./flue-card.js";
 import { drawFlueStrings } from "./flue-cords.js";
 import { drawFlueCilia, drawFlueSegment } from "./flue-flesh.js";
 import type { FlueFx } from "./flue-fx.js";
-import { drawFlueFlash, drawFlueLevels, drawFlueSight, drawFlueSlotGlow } from "./flue-marks.js";
+import { drawFlueFlash, drawFlueSight, drawFlueSlotGlow } from "./flue-marks.js";
 import { drawFlueMirageFluid, drawFlueMiragePhantoms } from "./flue-mirage.js";
 import { flueArrived, flueSpent } from "./flue-pose.js";
 import { drawFlueScale } from "./flue-scale.js";
@@ -26,6 +26,7 @@ import {
 import { drawFlueSpore } from "./flue-spore.js";
 import { drawFlueSting } from "./flue-sting.js";
 import { flueHang } from "./flue-strings.js";
+import { drawFlueTally } from "./flue-tally.js";
 import { drawFlueMarkFeedback } from "./flue-verdicts.js";
 import { drawFlueWord } from "./flue-word.js";
 import { rgba } from "./hex.js";
@@ -48,8 +49,8 @@ const ARRIVE = 3;
  * has to be told when, and is shown a mirage in the gullet instead — a
  * rainbow fluid and spores that are not there (`flue-mirage.ts`). Everything else is on both — the sight in the colour
  * the level asks, with the beam's bar through it on a beam level, the strings
- * it hangs on, one cut for every shot spent, and a stud for every level over the flue, lit as each is
- * cleared: the flue's health, read off the body. Under the slot a scale
+ * it hangs on, one cut for every shot spent, and a lobe for every level, lit as each is
+ * cleared: the flue's health, read off the body (`flue-tally.ts`). Under the slot a scale
  * ticks the beats the ember has left to the sight (`flue-scale.ts`), and over
  * the flue's left end a card names the weapon and THE SLOW (`flue-card.ts`).
  *
@@ -62,7 +63,7 @@ const ARRIVE = 3;
  * sight is still the brightest colour on the flue. Later that day he asked
  * for it to show when it can be hurt: shielded away from the sight, bare and
  * red over it (`flue-bare.ts`). What outlives a frame — a
- * hit's flash, a stud's flare, the red of a blow landed and its shake — is
+ * hit's flash, a lobe's flare, the red of a blow landed and its shake — is
  * `fx` (`flue-fx.ts`); the blow at the hull is `flue-blow.ts`.
  */
 export function drawFlue(
@@ -100,7 +101,12 @@ export function drawFlue(
     // The cilia stop short of the sight's own units, where the words stand.
     if (Math.abs(k - aimed) > 1) drawFlueCilia(ctx, l, k, flueUnitAt(l, cfg, k), time);
   }
-  for (let k = 0; k < units; k++) drawFlueSegment(ctx, l, k, flueUnitAt(l, cfg, k), hurt, time);
+  for (let k = 0; k < units; k++) {
+    const at = flueUnitAt(l, cfg, k);
+    const unit = drawFlueSegment(ctx, l, k, at, hurt, time);
+    // The levels, one a lobe: cleared, lit now, or still to come (`flue-tally.ts`).
+    drawFlueTally(ctx, l, cfg, s, k, unit, at, beatPhase, fx.flare);
+  }
   const slot = flueSlotPath(l, cfg);
   drawGullet(ctx, slot, l);
   const lit = flueLitLevel(s) !== null;
@@ -114,9 +120,8 @@ export function drawFlue(
   if (level !== null) {
     drawFlueScale(ctx, l, cfg, level, lit);
     drawFlueSight(ctx, l, sight, level, lit, beatPhase);
-    drawFlueCard(ctx, l, centre.y, level, lit);
+    drawFlueCard(ctx, l, centre.y, level, lit, level.needs - (lit ? s.met : 0));
   }
-  drawFlueLevels(ctx, l, centre, s.hits, s.levels.length, fx.flare);
   drawFlueFlash(ctx, l, sight, fx.flash);
   drawFlueSting(ctx, l, sight, fx.sting);
   drawFlueMarkFeedback(ctx, l, world, s, beat, beatPhase, time, fx.verdicts);

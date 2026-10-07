@@ -13,12 +13,12 @@ import { PALETTE } from "./palette.js";
 
 /**
  * What THE FLUE leaves behind a frame: the **flash** at the sight as the
- * ember is met, the **flare** of the level's stud lighting, the red **sting**
+ * ember is met, the **flare** of the level's lobe lighting, the red **sting**
  * where a shot was spent on the flue, the **swing** a string cut sets the
  * flue into (`flue-strings.ts`), the plating's shudder as the flue goes
  * cold, and the bursts its other receipts throw.
  *
- * Everything else — where the ember is, which studs are lit, how many shots
+ * Everything else — where the ember is, which lobes are lit, how many shots
  * are left — is read off the boss every frame (`flue-draw.ts`).
  *
  * **Both screens are thrown the same**: the pilot calls and the navigator
@@ -38,7 +38,7 @@ import { PALETTE } from "./palette.js";
 /** How strong the plating's shudder is as the flue goes cold, and how long, in beats. */
 const SPENT_FORCE = 0.8;
 const SPENT_BEATS = 1.2;
-/** How fast a hit's flash, a stud's flare and a miss's sting fade, per second. */
+/** How fast a hit's flash, a lobe's flare and a miss's sting fade, per second. */
 const FLASH_DECAY = 3;
 const FLARE_DECAY = 2;
 const STING_DECAY = 1.6;
@@ -68,7 +68,7 @@ export class FlueFx {
     return this.flashNow;
   }
 
-  /** How bright the flare on the stud of the level just cleared still is, 0..1. */
+  /** How bright the flare on the lobe of the level just cleared still is, 0..1. */
   get flare(): number {
     return this.flareNow;
   }

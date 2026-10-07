@@ -19,8 +19,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * the field, flat, the ember in its slot on the pilot's screen and nowhere
  * on the navigator's, the sight over the held cannon in the level's colour
  * with the beam's bar on a beam level, the strings it hangs on cut one a
- * shot spent, the spore cracking a level cleared, and a stud for every level
- * over the flue — on all three screens, set rather than
+ * shot spent, the spore cracking a level cleared, and a lobe lit for every
+ * level cleared — on all three screens, set rather than
  * played to; `sim/test/flue.test.ts` proves the rules.
  */
 
@@ -82,14 +82,16 @@ describe("THE FLUE's body", () => {
     expect(cracked("p2", 3)).toBe(cracked("p2", 0));
   });
 
-  it.each(ROLES)("lights a stud for every level cleared, on %s", (role) => {
+  it.each(ROLES)("lights a lobe for every level cleared, on %s", (role) => {
+    const pale = anyAlpha(PALETTE.hullRim);
     const none = frame(role, (w) => posed(w, null));
     const two = frame(role, (w) =>
       posed(w, null, 0, (s) => {
         s.hits = 2;
+        s.cursor = 2;
       }),
     );
-    expect(count(two, PALETTE.flueSlot)).toBeLessThan(count(none, PALETTE.flueSlot));
+    expect(count(two, pale)).toBeGreaterThan(count(none, pale));
   });
 });
 
