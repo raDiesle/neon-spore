@@ -1,7 +1,4 @@
 import {
-  type BurgeeState,
-  burgeeCatching,
-  burgeeLitStep,
   type CapstanState,
   type CystState,
   capstanBand,
@@ -14,18 +11,21 @@ import {
   type FilamentState,
   type FleetState,
   filamentTracing,
+  type TrapezeState,
+  trapezeCatching,
+  trapezeLitStep,
   type World,
 } from "@neon-spore/sim";
-import * as burgeeMarks from "../../../packages/render/src/burgee-marks.js";
 import * as capstanMarks from "../../../packages/render/src/capstan-marks.js";
 import * as cystMarks from "../../../packages/render/src/cyst-marks.js";
 import * as davitMarks from "../../../packages/render/src/davit-marks.js";
 import * as filamentMarks from "../../../packages/render/src/filament-turn-marks.js";
 import * as fleetGrip from "../../../packages/render/src/fleet-grip-draw.js";
+import * as trapezeMarks from "../../../packages/render/src/trapeze-marks.js";
 import { mark, type Row } from "./marks-window-kit.js";
 
 /**
- * **The second six bosses' rows** of `marks-window.test.ts`. THE BURGEE's
+ * **The second six bosses' rows** of `marks-window.test.ts`. THE TRAPEZE's
  * studs glow white once both catches are in, before a fire step is lit:
  * that is the spindle's state and its health, the colour and the closing
  * ring are the ask, and only those count as lit.
@@ -35,7 +35,7 @@ import { mark, type Row } from "./marks-window-kit.js";
  * where the flood and the wreck ask.
  */
 
-const burgee = (w: World) => w.boss as BurgeeState;
+const trapeze = (w: World) => w.boss as TrapezeState;
 const capstan = (w: World) => w.boss as CapstanState;
 const cyst = (w: World) => w.boss as CystState;
 const davit = (w: World) => w.boss as DavitState;
@@ -44,14 +44,14 @@ const fleet = (w: World) => w.boss as FleetState;
 
 export const ROWS_B: readonly Row[] = [
   {
-    kind: "burgee",
+    kind: "trapeze",
     marks: [
-      mark(burgeeMarks, "drawBurgeeRing", (w) => burgeeCatching(burgee(w))),
-      mark(burgeeMarks, "drawBurgeeTrack", (w) => burgeeCatching(burgee(w))),
+      mark(trapezeMarks, "drawTrapezeRing", (w) => trapezeCatching(trapeze(w))),
+      mark(trapezeMarks, "drawTrapezeTrack", (w) => trapezeCatching(trapeze(w))),
       mark(
-        burgeeMarks,
-        "drawBurgeeStuds",
-        (w) => burgee(w).spindleLit && burgeeLitStep(burgee(w))?.ask === "fire",
+        trapezeMarks,
+        "drawTrapezeStuds",
+        (w) => trapeze(w).spindleLit && trapezeLitStep(trapeze(w))?.ask === "fire",
         (a) => a[5] !== null,
       ),
     ],

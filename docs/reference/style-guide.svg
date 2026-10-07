@@ -486,27 +486,27 @@
     </g>
     <g transform="translate(116 2200)">
       <rect width="66" height="46" rx="4" fill="#8E98A3" stroke="#241B4F"/>
-      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">burgeeSteel</text>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">trapezeSteel</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#8E98A3 211°</text>
     </g>
     <g transform="translate(192 2200)">
       <rect width="66" height="46" rx="4" fill="#2B3139" stroke="#241B4F"/>
-      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">burgeeSteelDark</text>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">trapezeSteelDark</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#2B3139 214°</text>
     </g>
     <g transform="translate(268 2200)">
       <rect width="66" height="46" rx="4" fill="#A28E6C" stroke="#241B4F"/>
-      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">burgeeCanvas</text>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">trapezeCanvas</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#A28E6C 38°</text>
     </g>
     <g transform="translate(344 2200)">
       <rect width="66" height="46" rx="4" fill="#43392A" stroke="#241B4F"/>
-      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">burgeeCanvasDark</text>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">trapezeCanvasDark</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#43392A 36°</text>
     </g>
     <g transform="translate(420 2200)">
       <rect width="66" height="46" rx="4" fill="#E3CC98" stroke="#241B4F"/>
-      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">burgeeCanvasCaught</text>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">trapezeCanvasCaught</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#E3CC98 42°</text>
     </g>
     <g transform="translate(496 2200)">

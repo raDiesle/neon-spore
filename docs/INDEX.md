@@ -295,7 +295,7 @@ by hand never moves.
 | `packages/sim/src/boss-surface-clocks-b.ts` | **The clock bosses' half of the surface, the second page** — from THE ANTIPHON on |
 | `packages/sim/src/boss-surface-clocks-c.ts` | **The clock bosses' half of the surface, the third page** — THE KEEL's spine to THE VISE's seed-case |
 | `packages/sim/src/boss-surface-clocks-d.ts` | **The clock bosses' half of the surface, the fourth page** — THE WELL's face and the thumb on its seam |
-| `packages/sim/src/boss-surface-clocks-e.ts` | **The clock bosses' half of the surface, the fifth page** — THE BURGEE's flag, and whatever comes after it |
+| `packages/sim/src/boss-surface-clocks-e.ts` | **The clock bosses' half of the surface, the fifth page** — THE TRAPEZE's flag, and whatever comes after it |
 | `packages/sim/src/boss-surface-snake.ts` | **SNAKE's names on `@neon-spore/sim`'s surface** |
 | `packages/sim/src/boss-surface-splice.ts` | **THE SPLICE's names on `@neon-spore/sim`'s surface**, cut off `boss-surface.ts` on 25 September 2026 |
 | `packages/sim/src/boss-surface-pinball.ts` | **PINBALL's names on `@neon-spore/sim`'s surface** |
@@ -591,11 +591,11 @@ by hand never moves.
 | `packages/sim/src/bullet-hit-lure.ts` | What a shot does when it meets THE LURE |
 | `packages/sim/src/bullet-hit-shut.ts` | **The bodies a bolt never kills**, and what each of them does with one instead |
 | `packages/sim/src/bullet-refused.ts` | **A body the cannon cannot answer still stops the bolt**, and what each of them does with it |
-| `packages/sim/src/burgee-hand.ts` | THE BURGEE's two handles: the freeze mark `burgeeFreeze` and the draw `burgeeDraw` |
-| `packages/sim/src/burgee-hash.ts` | What THE BURGEE puts into `hashWorld`, and nothing else |
-| `packages/sim/src/burgee-shot.ts` | **THE BURGEE's shot**: the lit spindle, where a bolt leaves the top of the field in the middle column |
-| `packages/sim/src/burgee-step.ts` | THE BURGEE's clock: the flag swinging on its own, a freeze running out |
-| `packages/sim/src/burgee.ts` | THE BURGEE: a pennant on a free-swinging boom mid-hull, swinging across the middle columns on its own |
+| `packages/sim/src/trapeze-hand.ts` | THE TRAPEZE's two handles: the freeze mark `trapezeFreeze` and the draw `trapezeDraw` |
+| `packages/sim/src/trapeze-hash.ts` | What THE TRAPEZE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/trapeze-shot.ts` | **THE TRAPEZE's shot**: the lit spindle, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/trapeze-step.ts` | THE TRAPEZE's clock: the flag swinging on its own, a freeze running out |
+| `packages/sim/src/trapeze.ts` | THE TRAPEZE: a pennant on a free-swinging boom mid-hull, swinging across the middle columns on its own |
 | `packages/sim/src/creature-kinds-many.ts` | the five kinds that are more than one body, answered a part at a time |
 | `packages/sim/src/creature-kinds-handed.ts` | **The two bodies answered by a hand from each seat at once** |
 | `packages/sim/src/creature-kinds-fixtures.ts` | The four bodies a wave never sends: the queen, the ring, the line it lowers and the pile, installed where they stand rather than queued |
@@ -717,7 +717,7 @@ by hand never moves.
 | `packages/sim/src/baton.ts` | THE BATON: whose turn is it |
 | `packages/sim/src/config-balloon.ts` | THE BALLOON's numbers: how long one swells before it moves, how fast it climbs |
 | `packages/sim/src/config-baton.ts` | THE BATON's numbers — how many sockets the arm has, how long a bead is in the air |
-| `packages/sim/src/config-burgee.ts` | THE BURGEE's tuning: the beats around its steps, how far and how fast the flag swings on its own |
+| `packages/sim/src/config-trapeze.ts` | THE TRAPEZE's tuning: the beats around its steps, how far and how fast the flag swings on its own |
 | `packages/sim/src/creature-state-balloon.ts` | **THE BALLOON's six**, and the seventh group carried out of `creature-state.ts` along the seam that file's… |
 | `packages/sim/src/creature-state-mine.ts` | **THE MINE's two fields**, a count and a seat, and between them they are the whole of a body that never moves |
 | `packages/sim/src/creature-state-push.ts` | **The shield's push, as two fields**, and `shield-push.ts` is the whole of what they mean |
@@ -730,7 +730,7 @@ by hand never moves.
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 | `packages/sim/src/events-baton.ts` | **Everything THE BATON does that neither screen already says**, as events |
 | `packages/sim/src/events-bosses.ts` | **The choreographed bosses' arms of `SimEvent`**, as one union |
-| `packages/sim/src/events-burgee.ts` | What THE BURGEE says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-trapeze.ts` | What THE TRAPEZE says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-undertow.ts` | **Everything THE UNDERTOW does that neither screen already says**, as events |
 | `packages/sim/src/events-taster.ts` | **Everything THE TASTER does that neither screen already says**, as events |
 | `packages/sim/src/events-throat.ts` | **What THE THROAT's two hands do that neither screen already says**, as three events (`throat-hand.ts`) |
@@ -1181,7 +1181,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zk.ts` | **What THE HALTER is asking for** — page thirty-seven of the readings |
 | `packages/render/src/boss-cue-read-zl.ts` | **What THE CAPSTAN is asking for** — page thirty-eight of the readings |
 | `packages/render/src/boss-cue-read-zm.ts` | **What THE GALL is asking for** — page thirty-nine of the readings |
-| `packages/render/src/boss-cue-read-zn.ts` | **What THE BURGEE is asking for**: page forty of the readings |
+| `packages/render/src/boss-cue-read-zn.ts` | **What THE TRAPEZE is asking for**: page forty of the readings |
 | `packages/render/src/boss-cue-read-zo.ts` | **What THE FLUE is asking for**: page forty-one of the readings, **read and silent** since 7 October 2026 |
 | `packages/render/src/boss-cue-read-zp.ts` | **What THE VALVE is asking for**: page forty-two of the readings |
 | `packages/render/src/boss-cue-read-zq.ts` | **What THE GOVERNOR is asking for**, page forty-three of the readings |
@@ -1216,17 +1216,17 @@ by hand never moves.
 | `packages/render/src/torch-ball.ts` | THE BALL OF FIRE A TORCH FALLS INSIDE — everything outside the stone |
 | `packages/render/src/torch-veil.ts` | THE ONE RECORD A CANDIDATE **VEIL** PATCHES |
 | `packages/render/src/bullets.ts` | shots and their tails |
-| `packages/render/src/burgee-draw.ts` | **THE BURGEE**: a canvas pennant on a steel boom hanging from a turned spindle over the middle column |
-| `packages/render/src/burgee-fx.ts` | What THE BURGEE keeps between frames (§11.56): the eased flag, its receipts' snap, flap, crack, light and flash, and the blow it takes |
-| `packages/render/src/burgee-flag.ts` | **THE BURGEE's flag where it is drawn**, eased toward where the simulation says it is (§11.56) |
-| `packages/render/src/burgee-marks.ts` | **THE BURGEE's marks**: what says what a step asks |
-| `packages/render/src/burgee-pose.ts` | **The clock THE BURGEE is posed off** (§39, *Animation*), four poses: the flag sweeping loose |
-| `packages/render/src/burgee-shape.ts` | **THE BURGEE's geometry**: where the spindle stands, where the boom hangs and the paths the three are made of |
-| `packages/render/src/burgee-stop.ts` | **Where a bolt meets THE BURGEE**: the lit spindle, or the lowest of spindle, boom and flag |
-| `packages/render/src/burgee-blow.ts` | **THE BURGEE's own blow at the hull** (`boss-strike-look.ts`) |
-| `packages/render/src/burgee-receipts.ts` | **What THE BURGEE's receipts are drawn as**, off the numbers `burgee-fx.ts` keeps: a freeze's snap |
-| `packages/render/src/burgee-grip.ts` | **THE BURGEE's two hands as controls**: the freeze ring `burgeeFreeze` and the draw's track `burgeeDraw` |
-| `packages/render/src/burgee-verdicts.ts` | **THE BURGEE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
+| `packages/render/src/trapeze-draw.ts` | **THE TRAPEZE**: a canvas pennant on a steel boom hanging from a turned spindle over the middle column |
+| `packages/render/src/trapeze-fx.ts` | What THE TRAPEZE keeps between frames (§11.56): the eased flag, its receipts' snap, flap, crack, light and flash, and the blow it takes |
+| `packages/render/src/trapeze-flag.ts` | **THE TRAPEZE's flag where it is drawn**, eased toward where the simulation says it is (§11.56) |
+| `packages/render/src/trapeze-marks.ts` | **THE TRAPEZE's marks**: what says what a step asks |
+| `packages/render/src/trapeze-pose.ts` | **The clock THE TRAPEZE is posed off** (§39, *Animation*), four poses: the flag sweeping loose |
+| `packages/render/src/trapeze-shape.ts` | **THE TRAPEZE's geometry**: where the spindle stands, where the boom hangs and the paths the three are made of |
+| `packages/render/src/trapeze-stop.ts` | **Where a bolt meets THE TRAPEZE**: the lit spindle, or the lowest of spindle, boom and flag |
+| `packages/render/src/trapeze-blow.ts` | **THE TRAPEZE's own blow at the hull** (`boss-strike-look.ts`) |
+| `packages/render/src/trapeze-receipts.ts` | **What THE TRAPEZE's receipts are drawn as**, off the numbers `trapeze-fx.ts` keeps: a freeze's snap |
+| `packages/render/src/trapeze-grip.ts` | **THE TRAPEZE's two hands as controls**: the freeze ring `trapezeFreeze` and the draw's track `trapezeDraw` |
+| `packages/render/src/trapeze-verdicts.ts` | **THE TRAPEZE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/effects.ts` | every transient the field keeps past its frame, and where each one is kept |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/sparks.ts` | the particles every impact spends, thrown out or drawn in |
@@ -2679,7 +2679,7 @@ by hand never moves.
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-baton.ts` | THE BATON's sixteen, in a file of their own because `bind.ts` is at its limit |
-| `packages/audio/src/bind-burgee.ts` | Whether an event is THE BURGEE's, so a page of the chain can hand it over whole |
+| `packages/audio/src/bind-trapeze.ts` | Whether an event is THE TRAPEZE's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
 | `packages/audio/src/bind-gorge.ts` | THE GORGE's nine, in a file of their own because `bind.ts` is full |
 | `packages/audio/src/bind-governor.ts` | Whether an event is THE GOVERNOR's, so a page of the chain can hand it over whole |
@@ -2726,7 +2726,7 @@ by hand never moves.
 | Path | One line |
 |---|---|
 | `packages/hands/src/boss-hands-beats.ts` | **The pair's hands on the bosses a beat answers** — THE BATON and THE THROAT |
-| `packages/hands/src/boss-hands-burgee.ts` | **THE BURGEE played right**, for the autopilot |
+| `packages/hands/src/boss-hands-trapeze.ts` | **THE TRAPEZE played right**, for the autopilot |
 | `packages/hands/src/boss-hands-shots.ts` | **The pair's hands on the bosses a shot answers** — THE WARDEN and THE VANE |
 | `packages/hands/src/boss-hands-snake.ts` | **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or THE SCOUT's kind |
 | `packages/hands/src/boss-hands-snake-grid.ts` | SNAKE's arena as the hand's search sees it (`boss-hands-snake.ts`): four headings |
@@ -3084,7 +3084,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-cyst.ts` | THE CYST's four hands: a flank tapped still by one seat and pinched shut by the other |
 | `tools/director/src/poses-field-controls-capstan.ts` | THE CAPSTAN's rub: the left band asked for, the pilot's thumb pulled over so its face is round |
 | `tools/director/src/poses-field-controls-choir.ts` | THE CHOIR's SHAKE as the pilot is offered it: a membrane on the field and the two arrows against its walls |
-| `tools/director/src/poses-field-controls-burgee.ts` | THE BURGEE's two hands, **each photographed from the seat whose hand it is** |
+| `tools/director/src/poses-field-controls-trapeze.ts` | THE TRAPEZE's two hands, **each photographed from the seat whose hand it is** |
 | `tools/director/src/poses-field-controls-bosses.ts` | Every boss's grips on the ON THE FIELD tab, in the tab's order: one file a boss |
 | `tools/director/src/poses-field-controls-plumb.ts` | THE PLUMB's pull: the left weight asked for, the bob skewed left |
 | `tools/director/src/poses-field-controls-lamprey.ts` | THE LAMPREY's hands, **each photographed from the seat that presses it**: the tail from the pilot's screen |
@@ -3570,7 +3570,7 @@ by hand never moves.
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
 | `tools/director/src/field-controls-baton.ts` | THE BATON's two thumbs on its own arm, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-bosses.ts` | **Every boss's own rows** on the ON THE FIELD tab, in the order they were built |
-| `tools/director/src/field-controls-burgee.ts` | THE BURGEE's two hands, as rows of the ON THE FIELD tab: the freeze ring and the draw's track |
+| `tools/director/src/field-controls-trapeze.ts` | THE TRAPEZE's two hands, as rows of the ON THE FIELD tab: the freeze ring and the draw's track |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-gorge.ts` | THE GORGE's one thumb, in a file of its own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-governor.ts` | THE GOVERNOR's tap, as a row of the ON THE FIELD tab: a seat's tap on the dial |

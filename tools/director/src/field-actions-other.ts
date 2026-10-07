@@ -80,7 +80,7 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
           "THE VALVE'S PIN",
           "THE CYST'S LEFT FREEZE MARK",
           "THE CYST'S RIGHT FREEZE MARK",
-          "THE BURGEE'S FREEZE RING",
+          "THE TRAPEZE'S FREEZE RING",
           "THE GOVERNOR'S NEEDLE",
           "THE TASTER'S PIN",
           "THE LAMPREY'S TEETH",

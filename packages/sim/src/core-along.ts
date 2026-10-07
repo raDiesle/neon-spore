@@ -1,5 +1,4 @@
 import type { BossKind } from "./boss-strike.js";
-import { burgeeVerdict } from "./burgee-shot.js";
 import { capstanVerdict } from "./capstan-shot.js";
 import { midCol } from "./config.js";
 import type { CoreVerdict } from "./core-verdict.js";
@@ -15,6 +14,7 @@ import { plumbVerdict } from "./plumb-shot.js";
 import { rimeVerdict } from "./rime-shot.js";
 import { slingVerdict } from "./sling-shot.js";
 import { stareVerdict } from "./stare-shot.js";
+import { trapezeVerdict } from "./trapeze-shot.js";
 import { trivetVerdict } from "./trivet-shot.js";
 import type { Bullet, Color } from "./types.js";
 import { viseSeedAside, viseVerdict } from "./vise-shot.js";
@@ -54,13 +54,13 @@ interface Core {
 
 /**
  * Nothing imported is read while this module loads: it sits in a cycle with
- * the shots (`burgee-shot` → … → `bullets` → here), and under Bun's HMR
+ * the shots (`trapeze-shot` → … → `bullets` → here), and under Bun's HMR
  * runtime — the director's dev server — a module still loading is `null`, so
  * a verdict taken by name at load threw. Each is called through an arrow.
  */
 const CORES: Partial<Record<BossKind, Core>> = {
   grindstone: { milli: 2000, verdict: (w, c, k) => grindstoneVerdict(w, c, k) },
-  burgee: { milli: 550, verdict: (w, c, k) => burgeeVerdict(w, c, k) },
+  trapeze: { milli: 550, verdict: (w, c, k) => trapezeVerdict(w, c, k) },
   capstan: { milli: 2700, verdict: (w, c, k) => capstanVerdict(w, c, k) },
   curtain: { verdict: (w, c, k) => curtainVerdict(w, c, k), aside: (w) => curtainCoreAside(w) },
   cyst: {

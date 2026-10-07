@@ -1,5 +1,4 @@
 import { bulletShown } from "./bullet-types.js";
-import { burgeeStruck } from "./burgee-shot.js";
 import { capstanStruck } from "./capstan-shot.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { cystStruck } from "./cyst-shot.js";
@@ -28,6 +27,7 @@ import { shotWasted } from "./shot-wasted.js";
 import { slingStruck } from "./sling-shot.js";
 import { stareStruck } from "./stare-shot.js";
 import { tasterStruck } from "./taster-shot.js";
+import { trapezeStruck } from "./trapeze-shot.js";
 import { trivetStruck } from "./trivet-shot.js";
 import type { Bullet } from "./types.js";
 import { valveStruck } from "./valve-shot.js";
@@ -127,8 +127,8 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   met = capstanStruck(world, b) || met;
   // THE GALL's bared root, in its colour (`gall-shot.ts`).
   met = gallStruck(world, b) || met;
-  // THE BURGEE's lit spindle, in its colour (`burgee-shot.ts`).
-  met = burgeeStruck(world, b) || met;
+  // THE TRAPEZE's lit spindle, in its colour (`trapeze-shot.ts`).
+  met = trapezeStruck(world, b) || met;
   // THE FLUE, which no bolt gets past: taken (`flue-shot.ts`).
   met = flueStruck(world, b) || met;
   // THE GOVERNOR's lit hub, in its colour (`governor-shot.ts`).
@@ -194,7 +194,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "halter",
   "capstan",
   "gall",
-  "burgee",
+  "trapeze",
   "flue",
   "governor",
   "lamprey",

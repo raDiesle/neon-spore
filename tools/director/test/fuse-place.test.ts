@@ -63,7 +63,7 @@ const crosses = (a: Box, b: Box): boolean =>
   a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
 
 /** The bosses that must be walked, and the ones that must leave a gap on every tick. */
-const GAPPED: readonly string[] = ["seam", "halter", "capstan", "gall", "burgee", "nettle"];
+const GAPPED: readonly string[] = ["seam", "halter", "capstan", "gall", "trapeze", "nettle"];
 const WALKED: readonly string[] = ["instar", "reprise", ...GAPPED];
 
 interface Walked {

@@ -5,7 +5,7 @@ import type { World } from "./world.js";
  * **THE GOVERNOR's needle, turned**, once a tick after the commands are
  * heard.
  *
- * On the tick and not the beat, unlike THE BURGEE's flag (`burgee-step.ts`):
+ * On the tick and not the beat, unlike THE TRAPEZE's flag (`trapeze-step.ts`):
  * a mark is crossed in a fraction of a beat, and a needle that jumped a
  * beat's worth at a time would step clean over it on some laps and not
  * others, which is a rule nobody could learn.

@@ -1,6 +1,4 @@
 import type { BoltStops } from "../src/bolt-stop.js";
-import { drawBurgee } from "../src/burgee-draw.js";
-import { BurgeeFx } from "../src/burgee-fx.js";
 import { drawCapstan } from "../src/capstan-draw.js";
 import { CapstanFx } from "../src/capstan-fx.js";
 import { drawDavit } from "../src/davit-draw.js";
@@ -22,7 +20,8 @@ import { drawRime } from "../src/rime-draw.js";
 import { RimeFx } from "../src/rime-fx.js";
 import { drawSling } from "../src/sling-draw.js";
 import { SlingFx } from "../src/sling-fx.js";
-import * as burgee from "./burgee-harness.js";
+import { drawTrapeze } from "../src/trapeze-draw.js";
+import { TrapezeFx } from "../src/trapeze-fx.js";
 import { stubCanvas } from "./canvas-stub.js";
 import * as capstan from "./capstan-harness.js";
 import * as curtain from "./curtain-harness.js";
@@ -37,6 +36,7 @@ import * as rime from "./rime-harness.js";
 import * as scuttle from "./scuttle-harness.js";
 import * as sling from "./sling-harness.js";
 import * as taster from "./taster-harness.js";
+import * as trapeze from "./trapeze-harness.js";
 
 /**
  * The rows of `core-stop.test.ts`: every boss whose shot is a core over the
@@ -86,13 +86,13 @@ export const ROWS: Row[] = [
     wide: true,
   },
   {
-    name: "THE BURGEE",
+    name: "THE TRAPEZE",
     draw(stops, l, open) {
-      const world = burgee.stood();
-      const s = burgee.posed(world, open ? burgee.FIRE : burgee.CATCH, 0, (b) => {
+      const world = trapeze.stood();
+      const s = trapeze.posed(world, open ? trapeze.FIRE : trapeze.CATCH, 0, (b) => {
         b.spindleLit = open;
       });
-      drawBurgee(paper(), l, world, s, world.beat, 0.5, 0, new BurgeeFx(), stops);
+      drawTrapeze(paper(), l, world, s, world.beat, 0.5, 0, new TrapezeFx(), stops);
     },
     wide: false,
   },

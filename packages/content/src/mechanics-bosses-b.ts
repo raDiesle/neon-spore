@@ -27,7 +27,7 @@ type BossIdB = Extract<
   | "mimic"
   | "capstan"
   | "gall"
-  | "burgee"
+  | "trapeze"
   | "flue"
   | "governor"
   | "vane"
@@ -138,7 +138,7 @@ export const BOSS_MECHANICS_B = {
     what: "Pinch the gall shut where it sits, on your half. It jumps: find it and pinch it there. Three closes bare the root. Shoot it in its colour.",
     reach: "spawn",
   },
-  burgee: {
+  trapeze: {
     what: "One of you taps the flag still over the lit column. The other holds a draw and swipes toward it. Two catches light the spindle. Shoot it in its colour.",
     reach: "spawn",
   },

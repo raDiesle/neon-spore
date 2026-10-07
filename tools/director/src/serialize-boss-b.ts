@@ -5,7 +5,7 @@ import type { ScriptedEntry } from "@neon-spore/sim";
  * it — the kinds `sim/wave-boss-scripted.ts` installs (`isScriptedEntry`), so
  * the next one is written back out the day it is installed.
  *
- * Cut out of `serialize-boss.ts` when THE BURGEE took it to its 250-line
+ * Cut out of `serialize-boss.ts` when THE TRAPEZE took it to its 250-line
  * limit, along the one seam that file had: next door, a boss is a name or a
  * list named; here, a boss is a list of steps written out whole, because the
  * list *is* the fight and each step is short enough to read on one line.

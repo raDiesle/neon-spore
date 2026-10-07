@@ -68,7 +68,7 @@ export const BOSS_FLUE_SOUNDS: SoundDef[] = [
     status: "bound",
     use: "THE FLUE gone — then the wave-end light.",
     level: 0.5,
-    // The same shape as THE BURGEE's own out (`sounds/boss-burgee.ts`).
+    // The same shape as THE TRAPEZE's own out (`sounds/boss-trapeze.ts`).
     layers: [
       sub(48, 0.5, 0.35),
       after(0.1, air(4000, 6800, 0.6, 0.14, 1.5)),

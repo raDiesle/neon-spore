@@ -2,7 +2,6 @@ import { antiphonOrganUnder } from "./antiphon-grip.js";
 import { antiphonRailUnder } from "./antiphon-rail-grip.js";
 import { batonSocketUnder } from "./baton-grip.js";
 import { batonBeadUnder } from "./baton-tap.js";
-import { burgeeDrawUnder, burgeeFreezeUnder } from "./burgee-grip.js";
 import { capstanRubUnder, capstanSteerUnder } from "./capstan-grip.js";
 import { curtainHemUnder } from "./curtain-grip.js";
 import { cystUnder } from "./cyst-grip.js";
@@ -49,6 +48,7 @@ import { surgeBulbUnder } from "./surge-grip.js";
 import { tasterGripUnder } from "./taster-grip.js";
 import { throatGripUnder } from "./throat-grip.js";
 import type { Field, Touch } from "./touch.js";
+import { trapezeDrawUnder, trapezeFreezeUnder } from "./trapeze-grip.js";
 import { trivetPadUnder } from "./trivet-grip.js";
 import { undertowTapUnder } from "./undertow-tap.js";
 import { valvePinUnder, valveWheelUnder } from "./valve-grip.js";
@@ -163,8 +163,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     gallPinchUnder(l, x, y, field) ?? // THE GALL's seam, one finger of this seat's pinch on the point it is nearest (`gall-grip.ts`).
     davitSteerUnder(l, x, y, field) ?? // THE DAVIT's boom, carried to steer it onto the lit side (`davit-grip.ts`).
     davitLooseUnder(l, x, y, field) ?? // THE DAVIT's hook, held then loosed toward the lit column (`davit-grip.ts`).
-    burgeeFreezeUnder(l, x, y, field) ?? // THE BURGEE's freeze ring, the lit step's freezer's tap (`burgee-grip.ts`).
-    burgeeDrawUnder(l, x, y, field) ?? // And its track, the other seat's, held then swiped toward the ring (`burgee-grip.ts`).
+    trapezeFreezeUnder(l, x, y, field) ?? // THE TRAPEZE's freeze ring, the lit step's freezer's tap (`trapeze-grip.ts`).
+    trapezeDrawUnder(l, x, y, field) ?? // And its track, the other seat's, held then swiped toward the ring (`trapeze-grip.ts`).
     governorGripUnder(l, x, y, field) ?? // THE GOVERNOR's dial, the tap of a seat with a mark to land (`governor-grip.ts`).
     lampreyGripUnder(l, x, y, field) // THE LAMPREY's mouth, the tapper's tap on a tooth, and the band round it, the pinner's thumb on the jaw (`lamprey-grip.ts`).
   );

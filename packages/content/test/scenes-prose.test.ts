@@ -117,9 +117,9 @@ const STILL_PROSE = [
   // And THE GALL (§38), a twenty-second time: the seam is undrawn, and the
   // guide says whose half of it each seat pinches on.
   "THE GALL",
-  // And THE BURGEE (§39), a twenty-third time: the flag is undrawn, and the
+  // And THE TRAPEZE (§39), a twenty-third time: the flag is undrawn, and the
   // guide says which seat taps and which draws, and when they swap.
-  "THE BURGEE",
+  "THE TRAPEZE",
   // THE FLUE (§40) left this list on 6 October 2026, at the owner's word:
   // `scenes/the-flue.ts` is one level called and shot, and the seats swapped.
   // And THE GOVERNOR (§43), a twenty-fifth time: the dial is undrawn, and the

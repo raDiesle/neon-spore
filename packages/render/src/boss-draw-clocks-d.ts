@@ -1,5 +1,4 @@
 import type { World } from "@neon-spore/sim";
-import { drawBurgee } from "./burgee-draw.js";
 import { drawCapstan } from "./capstan-draw.js";
 import { drawCyst } from "./cyst-draw.js";
 import { drawDavit } from "./davit-draw.js";
@@ -11,6 +10,7 @@ import type { Layout } from "./layout.js";
 import { drawPlumb } from "./plumb-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawSling } from "./sling-draw.js";
+import { drawTrapeze } from "./trapeze-draw.js";
 import { drawTrivet } from "./trivet-draw.js";
 
 /**
@@ -20,7 +20,7 @@ import { drawTrivet } from "./trivet-draw.js";
  * Cut from `boss-draw-clocks-c.ts` on 26 September 2026, when THE CYST and
  * THE GRINDSTONE landing side by side had put that page at 254 lines. There
  * is no seam in the bosses here the way there was at page three; the cut is
- * where the page was full. It filled again with THE GALL and THE BURGEE, and
+ * where the page was full. It filled again with THE GALL and THE TRAPEZE, and
  * from THE FLUE on is page five (`boss-draw-clocks-e.ts`).
  *
  * **The order inside is the order they were built in** and nothing depends on
@@ -41,7 +41,7 @@ export const LATE_PAIR_KINDS = [
   "halter",
   "capstan",
   "gall",
-  "burgee",
+  "trapeze",
 ] as const;
 
 export type LatePairBoss = Extract<Installed, { kind: (typeof LATE_PAIR_KINDS)[number] }>;
@@ -173,9 +173,9 @@ export function drawLatePairBoss(
     return;
   }
 
-  // THE BURGEE: a canvas pennant on a boom hanging from a turned spindle,
+  // THE TRAPEZE: a canvas pennant on a boom hanging from a turned spindle,
   // tapped still over the lit column by one seat and caught by the other's
-  // swipe, the spindle shot (`burgee-draw.ts`); the flag's eased place and
-  // a mistimed swipe's limp flutter are `burgee-fx.ts`.
-  drawBurgee(ctx, l, world, boss, beat, beatPhase, time, effects.boss.burgee, effects.bolts);
+  // swipe, the spindle shot (`trapeze-draw.ts`); the flag's eased place and
+  // a mistimed swipe's limp flutter are `trapeze-fx.ts`.
+  drawTrapeze(ctx, l, world, boss, beat, beatPhase, time, effects.boss.trapeze, effects.bolts);
 }

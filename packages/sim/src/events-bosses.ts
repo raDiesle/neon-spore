@@ -1,6 +1,5 @@
 import type { AntiphonEvent } from "./events-antiphon.js";
 import type { BatonEvent } from "./events-baton.js";
-import type { BurgeeEvent } from "./events-burgee.js";
 import type { CapstanEvent } from "./events-capstan.js";
 import type { CurtainEvent } from "./events-curtain.js";
 import type { CystEvent } from "./events-cyst.js";
@@ -42,6 +41,7 @@ import type { StareEvent } from "./events-stare.js";
 import type { SurgeEvent } from "./events-surge.js";
 import type { TasterEvent } from "./events-taster.js";
 import type { ThroatEvent } from "./events-throat.js";
+import type { TrapezeEvent } from "./events-trapeze.js";
 import type { TrivetEvent } from "./events-trivet.js";
 import type { UndertowEvent } from "./events-undertow.js";
 import type { ValveEvent } from "./events-valve.js";
@@ -104,7 +104,7 @@ export type BossEvent =
   | HalterEvent
   | CapstanEvent
   | GallEvent
-  | BurgeeEvent
+  | TrapezeEvent
   | FlueEvent
   | GovernorEvent
   | LampreyEvent
@@ -125,7 +125,6 @@ export type BossEvent =
 
 export type { AntiphonEvent } from "./events-antiphon.js";
 export type { BatonEvent } from "./events-baton.js";
-export type { BurgeeEvent } from "./events-burgee.js";
 export type { CapstanEvent } from "./events-capstan.js";
 export type { CurtainEvent } from "./events-curtain.js";
 export type { CystEvent } from "./events-cyst.js";
@@ -167,6 +166,7 @@ export type { StareEvent } from "./events-stare.js";
 export type { SurgeEvent } from "./events-surge.js";
 export type { TasterEvent } from "./events-taster.js";
 export type { ThroatEvent } from "./events-throat.js";
+export type { TrapezeEvent } from "./events-trapeze.js";
 export type { TrivetEvent } from "./events-trivet.js";
 export type { UndertowEvent } from "./events-undertow.js";
 export type { ValveEvent } from "./events-valve.js";

@@ -34,7 +34,7 @@ export const GESTURE_NOTES: Readonly<Record<string, string>> = {
     "Keep, with its arrows always. The owner's tilt ruling says no wave may " +
     "need a sensor — the arrows are why THE CHOIR does not.",
   "FREEZE TAP":
-    "Stamped SPEC'D but built: THE VALVE, THE BURGEE, THE CYST, THE FLUE, " +
+    "Stamped SPEC'D but built: THE VALVE, THE TRAPEZE, THE CYST, THE FLUE, " +
     "THE GOVERNOR. Move to BUILT; make THE VALVE's pin the generic one.",
   "SENDING NOTHING":
     "Stamped SPEC'D but built: `RestraintGate` in THE FLUE and THE HALTER. " + "Move to BUILT.",
@@ -49,7 +49,7 @@ export const GESTURE_NOTES: Readonly<Record<string, string>> = {
   "TILT, AS A LEVEL":
     "Ruled out by the owner on 27 September 2026: no wave may need a tilt " +
     "sensor, and THE PLUMB became drag stones. Move to MISSED with the ruling.",
-  "HOLD, THEN SWIPE": "Stamped SPEC'D but built: THE SLING, THE DAVIT, THE BURGEE. Move to BUILT.",
+  "HOLD, THEN SWIPE": "Stamped SPEC'D but built: THE SLING, THE DAVIT, THE TRAPEZE. Move to BUILT.",
   "A DRAWN GLYPH":
     "Worth a boss: describing a shape is exactly the talking the game is. " +
     "Recognise on the drawing phone, send one command.",

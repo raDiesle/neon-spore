@@ -1,4 +1,3 @@
-import { burgeeHeard } from "./burgee-hand.js";
 import { capstanHeard } from "./capstan-hand.js";
 import { cystGuarded } from "./cyst-guard.js";
 import { cystHeard } from "./cyst-hand.js";
@@ -19,6 +18,7 @@ import { rimeGuarded } from "./rime-guard.js";
 import { rimeHeard } from "./rime-hand.js";
 import { seamGuarded } from "./seam-guard.js";
 import { slingHeard } from "./sling-hand.js";
+import { trapezeHeard } from "./trapeze-hand.js";
 import { trivetGuarded } from "./trivet-guard.js";
 import { trivetHeard } from "./trivet-hand.js";
 import type { TimedCommand } from "./types.js";
@@ -84,8 +84,8 @@ export function scriptedHandsHeard(world: World, commands: readonly TimedCommand
   for (const c of commands) capstanHeard(world, c.player, c.command);
   // THE GALL's pinch: coming shut and widening back are the instant (`gall-hand.ts`).
   for (const c of commands) gallHeard(world, c.player, c.command);
-  // THE BURGEE's tap and draw: a freeze landing and a loose judged are the instant (`burgee-hand.ts`).
-  for (const c of commands) burgeeHeard(world, c.player, c.command);
+  // THE TRAPEZE's tap and draw: a freeze landing and a loose judged are the instant (`trapeze-hand.ts`).
+  for (const c of commands) trapezeHeard(world, c.player, c.command);
   // THE FLUE hears no command of its own; its ember runs on the tick, so a
   // shot is met where it really is (`flue-step.ts`).
   flueRolled(world);

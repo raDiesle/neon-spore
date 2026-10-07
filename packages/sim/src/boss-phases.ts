@@ -1,6 +1,5 @@
 import { BATON_STAGES } from "./baton.js";
 import type { BossEntry } from "./boss-entries.js";
-import { BURGEE_PHASES } from "./burgee.js";
 import { CAPSTAN_PHASES } from "./capstan.js";
 import { CYST_PHASES } from "./cyst.js";
 import { DAVIT_PHASES } from "./davit.js";
@@ -40,6 +39,7 @@ import { SPOOL_PHASES } from "./spool.js";
 import { STARE_PHASES } from "./stare.js";
 import { TASTER_PHASES } from "./taster.js";
 import { THROAT_PHASES } from "./throat.js";
+import { TRAPEZE_PHASES } from "./trapeze.js";
 import { TRIVET_PHASES } from "./trivet.js";
 import { UNDERTOW_PHASES } from "./undertow.js";
 import { VALVE_PHASES } from "./valve.js";
@@ -146,7 +146,7 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   halter: HALTER_PHASES,
   capstan: CAPSTAN_PHASES,
   gall: GALL_PHASES,
-  burgee: BURGEE_PHASES,
+  trapeze: TRAPEZE_PHASES,
   flue: FLUE_PHASES,
   governor: GOVERNOR_PHASES,
   lamprey: LAMPREY_PHASES,

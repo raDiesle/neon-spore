@@ -1,5 +1,4 @@
 import type { BossKind } from "@neon-spore/sim";
-import { burgeeBlow } from "./burgee-blow.js";
 import { capstanBlow } from "./capstan-blow.js";
 import { cystBlow } from "./cyst-blow.js";
 import { davitBlow } from "./davit-blow.js";
@@ -24,6 +23,7 @@ import { rimeBlow } from "./rime-blow.js";
 import { seamBlow } from "./seam-blow.js";
 import { slingBlow } from "./sling-blow.js";
 import { stareBlow } from "./stare-blow.js";
+import { trapezeBlow } from "./trapeze-blow.js";
 import { trivetBlow } from "./trivet-blow.js";
 import { valveBlow } from "./valve-blow.js";
 import { viseBlow } from "./vise-blow.js";
@@ -101,7 +101,7 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   // A root left unshot: it seeds, a piece of the nodule torn off that takes root in the skin.
   gall: gallBlow,
   // A spindle left unshot: a scrap of the flag's fly tears away and falls flat on the skin.
-  burgee: burgeeBlow,
+  trapeze: trapezeBlow,
   // A step let run: the bottom lobe spits a spore that bursts on the skin.
   cyst: cystBlow,
   // A fire step let run: the wheel throws a chip that shatters to grit on the skin.

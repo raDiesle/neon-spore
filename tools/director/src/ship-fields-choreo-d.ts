@@ -4,7 +4,7 @@ import type { GroupName } from "./ship-groups.js";
  * **The choreographed bosses' dials, the fourth page** — THE CYST, THE
  * DAVIT, THE HALTER, THE CAPSTAN and every boss built after them.
  *
- * Cut on 27 September 2026, when THE BURGEE's eight numbers would have taken
+ * Cut on 27 September 2026, when THE TRAPEZE's eight numbers would have taken
  * `ship-fields-choreo-c.ts` past the 250-line wall. The seam is page three's:
  * **the order they were built in**. Spread into `CHOREO_FIELD_GROUP_C` in
  * place, so the exhaustiveness check over `ROUND_FIELD_GROUP` is unchanged
@@ -75,17 +75,17 @@ export const CHOREO_FIELD_GROUP_D = {
   gallOpenMilli: "THE GALL — the boss that moves the moment it is closed",
   gallShutMilli: "THE GALL — the boss that moves the moment it is closed",
   gallFlatBeats: "THE GALL — the boss that moves the moment it is closed",
-  // BurgeeConfig — the slack before the first step, the rest between, the
+  // TrapezeConfig — the slack before the first step, the rest between, the
   // spent flag, the span and the default sweep, how near the column a tap
-  // lands, and how long a freeze and a draw last (`config-burgee.ts`).
-  burgeeSlackBeats: "THE BURGEE — a flag stilled by one seat and caught by the other",
-  burgeeRestBeats: "THE BURGEE — a flag stilled by one seat and caught by the other",
-  burgeeSpentBeats: "THE BURGEE — a flag stilled by one seat and caught by the other",
-  burgeeSpanMilli: "THE BURGEE — a flag stilled by one seat and caught by the other",
-  burgeeSweepMilli: "THE BURGEE — a flag stilled by one seat and caught by the other",
-  burgeeMarkMilli: "THE BURGEE — a flag stilled by one seat and caught by the other",
-  burgeeFreezeBeats: "THE BURGEE — a flag stilled by one seat and caught by the other",
-  burgeeDrawBeats: "THE BURGEE — a flag stilled by one seat and caught by the other",
+  // lands, and how long a freeze and a draw last (`config-trapeze.ts`).
+  trapezeSlackBeats: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
+  trapezeRestBeats: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
+  trapezeSpentBeats: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
+  trapezeSpanMilli: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
+  trapezeSweepMilli: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
+  trapezeMarkMilli: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
+  trapezeFreezeBeats: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
+  trapezeDrawBeats: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
   // FlueConfig — the slack before the first level, the pause between, the
   // fade once spent, the slot's span, the row, how near a shot must meet
   // the ember, and the shots a level gives (`config-flue.ts`).

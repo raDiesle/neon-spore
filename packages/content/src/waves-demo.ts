@@ -181,7 +181,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   halter: { wave: "theHalter" },
   capstan: { wave: "theCapstan" },
   gall: { wave: "theGall" },
-  burgee: { wave: "theBurgee" },
+  trapeze: { wave: "theTrapeze" },
   flue: { wave: "theFlue" },
   governor: { wave: "theGovernor" },
   lamprey: { wave: "theLamprey" },

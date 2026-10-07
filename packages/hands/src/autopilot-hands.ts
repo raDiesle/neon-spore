@@ -3,7 +3,6 @@ import { fieldHand } from "./autopilot-field-hand.js";
 import { fleetHand } from "./boss-hand-fleet.js";
 import { hiveHand } from "./boss-hand-hive.js";
 import { batonHand, throatHand } from "./boss-hands-beats.js";
-import { burgeeHand } from "./boss-hands-burgee.js";
 import { capstanHand } from "./boss-hands-capstan.js";
 import { leadHand, ledgerHand, tasterHand } from "./boss-hands-clocks.js";
 import { cystHand } from "./boss-hands-cyst.js";
@@ -37,6 +36,7 @@ import { snakeHand } from "./boss-hands-snake.js";
 import { spoolHand } from "./boss-hands-spool.js";
 import { stareHand } from "./boss-hands-stare.js";
 import { antiphonHand, cairnHand, spliceHand, undertowHand } from "./boss-hands-takes.js";
+import { trapezeHand } from "./boss-hands-trapeze.js";
 import { trivetHand } from "./boss-hands-trivet.js";
 import { pulseHand, repriseHand } from "./boss-hands-unseen.js";
 import { valveHand } from "./boss-hands-valve.js";
@@ -71,7 +71,7 @@ const either =
 export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   antiphon: antiphonHand,
   baton: batonHand,
-  burgee: burgeeHand,
+  trapeze: trapezeHand,
   cairn: cairnHand,
   capstan: capstanHand,
   curtain: curtainHand,

@@ -1,6 +1,5 @@
 import { ANTIPHON_DEFAULTS, type AntiphonConfig } from "./config-antiphon.js";
 import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
-import { BURGEE_DEFAULTS, type BurgeeConfig } from "./config-burgee.js";
 import { CAIRN_DEFAULTS, type CairnConfig } from "./config-cairn.js";
 import { CAPSTAN_DEFAULTS, type CapstanConfig } from "./config-capstan.js";
 import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
@@ -39,6 +38,7 @@ import { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
 import { SURGE_DEFAULTS, type SurgeConfig } from "./config-surge.js";
 import { TASTER_DEFAULTS, type TasterConfig } from "./config-taster.js";
 import { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
+import { TRAPEZE_DEFAULTS, type TrapezeConfig } from "./config-trapeze.js";
 import { TRIVET_DEFAULTS, type TrivetConfig } from "./config-trivet.js";
 import { UNDERTOW_DEFAULTS, type UndertowConfig } from "./config-undertow.js";
 import { VALVE_DEFAULTS, type ValveConfig } from "./config-valve.js";
@@ -110,7 +110,7 @@ export interface BossClockConfig
     HalterConfig,
     CapstanConfig,
     GallConfig,
-    BurgeeConfig,
+    TrapezeConfig,
     FlueConfig,
     GovernorConfig,
     LampreyConfig,
@@ -160,7 +160,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...HALTER_DEFAULTS,
   ...CAPSTAN_DEFAULTS,
   ...GALL_DEFAULTS,
-  ...BURGEE_DEFAULTS,
+  ...TRAPEZE_DEFAULTS,
   ...FLUE_DEFAULTS,
   ...GOVERNOR_DEFAULTS,
   ...LAMPREY_DEFAULTS,

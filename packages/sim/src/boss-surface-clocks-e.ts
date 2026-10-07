@@ -1,11 +1,11 @@
 /**
- * **The clock bosses' half of the surface, the fifth page** — THE BURGEE's
+ * **The clock bosses' half of the surface, the fifth page** — THE TRAPEZE's
  * flag, whatever comes after it, and THE WELL's face, the fourth page's last
  * row, moved across on 1 October 2026 when THE HALTER's asking predicates
  * took that page past the limit, and THE CAPSTAN's drum, the same day, when
  * its own asking predicates took the fourth page within ten lines of it.
  *
- * Cut on 27 September 2026, when THE BURGEE's block would have taken
+ * Cut on 27 September 2026, when THE TRAPEZE's block would have taken
  * `boss-surface-clocks-d.ts` to the 250-line limit. Unlike the cuts before
  * it, the new boss starts the page rather than the full page's last rows
  * coming across: the fourth page was not over, only about to be, and a page
@@ -20,35 +20,6 @@
 // Every boss's shot asked rather than acted on, one line a boss — a page of
 // their own since 5 October 2026 (`boss-surface-verdicts.ts`).
 export * from "./boss-surface-verdicts.js";
-
-// THE BURGEE's flag: the phase, the lit step, the swing and the freeze, the
-// lit column, whose tap stills it and whose draw looses at it, the catches
-// and the spindle, for the picture, the cue and the director's hand. Straight
-// off `burgee.ts` (§39).
-export {
-  BURGEE_ASKS,
-  BURGEE_CATCHES,
-  BURGEE_PHASES,
-  type BurgeeAsk,
-  type BurgeeEntry,
-  type BurgeePhase,
-  type BurgeeState,
-  type BurgeeStep,
-  burgeeAims,
-  burgeeBoss,
-  burgeeCatching,
-  burgeeDone,
-  burgeeFreezeAsks,
-  burgeeFreezes,
-  burgeeFrozen,
-  burgeeHeld,
-  burgeeLitStep,
-  burgeeMarkCol,
-  burgeeOnMark,
-  burgeeSpindleAsks,
-  burgeeSwipe,
-  freshBurgee,
-} from "./burgee.js";
 // THE CAPSTAN's drum: the phase, the lit step, both bands' wear, which seat
 // steers and which rubs, and the face the cradle bares, for the picture, the
 // cue and the director's hand. Straight off `capstan.ts` (§37).
@@ -204,6 +175,34 @@ export {
   mimicShapeSize,
   mimicShapesOfSize,
 } from "./mimic-shapes.js";
+// THE TRAPEZE's flag: the phase, the lit step, the swing and the freeze, the
+// lit column, whose tap stills it and whose draw looses at it, the catches
+// and the spindle, for the picture, the cue and the director's hand. Straight
+// off `trapeze.ts` (§39).
+export {
+  freshTrapeze,
+  TRAPEZE_ASKS,
+  TRAPEZE_CATCHES,
+  TRAPEZE_PHASES,
+  type TrapezeAsk,
+  type TrapezeEntry,
+  type TrapezePhase,
+  type TrapezeState,
+  type TrapezeStep,
+  trapezeAims,
+  trapezeBoss,
+  trapezeCatching,
+  trapezeDone,
+  trapezeFreezeAsks,
+  trapezeFreezes,
+  trapezeFrozen,
+  trapezeHeld,
+  trapezeLitStep,
+  trapezeMarkCol,
+  trapezeOnMark,
+  trapezeSpindleAsks,
+  trapezeSwipe,
+} from "./trapeze.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),
 // the hit test that answers it (`render/touch-well.ts`) and the director's

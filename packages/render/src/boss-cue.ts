@@ -184,7 +184,7 @@ export function bossCues(
     case "halter":
     case "capstan":
     case "gall":
-    case "burgee":
+    case "trapeze":
     case "flue":
     case "valve":
     case "governor":

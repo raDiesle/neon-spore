@@ -1,4 +1,3 @@
-import type { BurgeeEntry } from "./burgee.js";
 import type { CapstanEntry } from "./capstan.js";
 import type { CystEntry } from "./cyst.js";
 import type { DavitEntry } from "./davit.js";
@@ -14,6 +13,7 @@ import type { PlumbEntry } from "./plumb.js";
 import type { RimeEntry } from "./rime.js";
 import type { SeamEntry } from "./seam.js";
 import type { SlingEntry } from "./sling.js";
+import type { TrapezeEntry } from "./trapeze.js";
 import type { TrivetEntry } from "./trivet.js";
 import type { ViseEntry } from "./vise.js";
 
@@ -56,8 +56,8 @@ export type ScriptedBossEntry =
   | CapstanEntry
   // The one that authors closes as well as shots: a nodule pinched where it sits and moved (`gall.ts`).
   | GallEntry
-  // The one that authors catches as well as shots: a flag one seat taps still for the other to catch (`burgee.ts`).
-  | BurgeeEntry
+  // The one that authors catches as well as shots: a flag one seat taps still for the other to catch (`trapeze.ts`).
+  | TrapezeEntry
   // The one that authors levels of a weapon, a colour, a speed and a slow: an ember one seat sees and the other shoots (`flue.ts`).
   | FlueEntry
   // The one that authors marks for both seats and a pace: a needle each of you taps on your own mark (`governor.ts`).
@@ -67,7 +67,6 @@ export type ScriptedBossEntry =
   // The one answered by drawing: a sign one seat reads for the other to draw (`mimic.ts`).
   | MimicEntry;
 
-export type { BurgeeEntry, BurgeeStep } from "./burgee.js";
 export type { CapstanEntry, CapstanStep } from "./capstan.js";
 export type { CystEntry, CystStep } from "./cyst.js";
 export type { DavitEntry, DavitStep } from "./davit.js";
@@ -83,5 +82,6 @@ export type { PlumbEntry, PlumbStep } from "./plumb.js";
 export type { RimeEntry, RimeStep } from "./rime.js";
 export type { SeamEntry, SeamStep } from "./seam.js";
 export type { SlingEntry, SlingStep } from "./sling.js";
+export type { TrapezeEntry, TrapezeStep } from "./trapeze.js";
 export type { TrivetEntry, TrivetStep } from "./trivet.js";
 export type { ViseEntry, ViseStep } from "./vise.js";

@@ -7,7 +7,7 @@ import { grindstoneCues } from "./boss-cue-read-zj.js";
 import { halterCues } from "./boss-cue-read-zk.js";
 import { capstanCues } from "./boss-cue-read-zl.js";
 import { gallCues } from "./boss-cue-read-zm.js";
-import { burgeeCues } from "./boss-cue-read-zn.js";
+import { trapezeCues } from "./boss-cue-read-zn.js";
 import { flueCues } from "./boss-cue-read-zo.js";
 import { valveCues } from "./boss-cue-read-zp.js";
 import { governorCues } from "./boss-cue-read-zq.js";
@@ -20,7 +20,7 @@ import { plumbCues } from "./plumb-marks.js";
 
 /**
  * **The choreographed bosses' half of `bossCue`'s switch**, from THE VISE on.
- * Cut out of `boss-cue.ts` on 27 September 2026, when THE BURGEE's page would
+ * Cut out of `boss-cue.ts` on 27 September 2026, when THE TRAPEZE's page would
  * have taken it past 250 lines. Every kind here is still named in that switch,
  * because a boss left to its `default` is a boss nobody has read; this file
  * only holds the pages each one is sent to.
@@ -63,9 +63,9 @@ export function choreoCues(
     // THE GALL's, a pinch on the nodule to the seat whose half it sits on, jumping with it, gone once it is shut, and one under the bared root (`boss-cue-read-zm.ts`).
     case "gall":
       return gallCues(l, world, boss);
-    // THE BURGEE's, a tap on the ring to the freezer until the flag is still, a swipe on the track to the seat that draws, and one under the lit spindle (`boss-cue-read-zn.ts`).
-    case "burgee":
-      return burgeeCues(l, world, boss);
+    // THE TRAPEZE's, a tap on the ring to the freezer until the flag is still, a swipe on the track to the seat that draws, and one under the lit spindle (`boss-cue-read-zn.ts`).
+    case "trapeze":
+      return trapezeCues(l, world, boss);
     // THE FLUE's, a call at the sight to the pilot who sees the ember, and a shot at it to the navigator who fires (`boss-cue-read-zo.ts`).
     case "flue":
       return flueCues(l, world, boss);

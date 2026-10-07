@@ -26,7 +26,7 @@ import type { World } from "./world.js";
  * **A tap or a retap that runs out is tried again**, the step relit after a
  * rest with the cursor where it was and every mark already landed kept; a
  * retap run out dims the hub as well, so no fire step lights until it is made
- * — THE BURGEE's recatch (`burgee-step.ts`). **A shot that runs out is the
+ * — THE TRAPEZE's recatch (`trapeze-step.ts`). **A shot that runs out is the
  * hull**, THE SEAM's rule.
  */
 

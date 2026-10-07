@@ -1,5 +1,4 @@
 import {
-  burgeeBoss,
   capstanBoss,
   flueBoss,
   gallBoss,
@@ -8,10 +7,9 @@ import {
   lampreyBoss,
   sceneBoss,
   seamBoss,
+  trapezeBoss,
   type World,
 } from "@neon-spore/sim";
-import { burgeeAsked } from "./burgee-pose.js";
-import { burgeeFlagLong, burgeeSpindleAt, burgeeSpindleTall, burgeeTip } from "./burgee-shape.js";
 import { capstanArrived, capstanGone, capstanTurn } from "./capstan-pose.js";
 import { capstanAt, capstanOnScreen, capstanPivot, capstanSize } from "./capstan-shape.js";
 import { type Box, sides, spread } from "./caption-anchor-box.js";
@@ -30,6 +28,13 @@ import { nettleBody } from "./nettle-sway.js";
 import { seamArrived } from "./seam-pose.js";
 import { seamCentre, seamHalfHeight, seamHalfWidth, seamLift } from "./seam-shape.js";
 import type { Aim } from "./slow-intake-aim.js";
+import { trapezeAsked } from "./trapeze-pose.js";
+import {
+  trapezeFlagLong,
+  trapezeSpindleAt,
+  trapezeSpindleTall,
+  trapezeTip,
+} from "./trapeze-shape.js";
 
 /**
  * **THE SLOW's aim, page four** — the bosses that opened windows that
@@ -109,13 +114,13 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
     }
     // The spindle's crown down to the boom's tip where the flag is asked to
     // be, and the flag's length round both: it streams off the tip any way.
-    case "burgee": {
-      const s = burgeeBoss(world);
+    case "trapeze": {
+      const s = trapezeBoss(world);
       if (s === null) return null;
-      const spindle = burgeeSpindleAt(l, cfg);
-      const crown = { x: spindle.x, y: spindle.y - burgeeSpindleTall(l) };
-      const tip = burgeeTip(l, cfg, burgeeAsked(s, cfg, beatPhase));
-      return spreadCapsule([crown, tip], burgeeFlagLong(l));
+      const spindle = trapezeSpindleAt(l, cfg);
+      const crown = { x: spindle.x, y: spindle.y - trapezeSpindleTall(l) };
+      const tip = trapezeTip(l, cfg, trapezeAsked(s, cfg, beatPhase));
+      return spreadCapsule([crown, tip], trapezeFlagLong(l));
     }
     // The flue from one side of the field to the other, with the scale and
     // the card under the sight (`flue-scale.ts`, `flue-card.ts`) — and all of it

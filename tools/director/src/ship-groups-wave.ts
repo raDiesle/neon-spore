@@ -74,7 +74,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE HALTER — the boss one hand keeps still for the other to open",
   "THE CAPSTAN — the boss one hand rocks for the other to wear",
   "THE GALL — the boss that moves the moment it is closed",
-  "THE BURGEE — a flag stilled by one seat and caught by the other",
+  "THE TRAPEZE — a flag stilled by one seat and caught by the other",
   "THE FLUE — an ember one seat sees and the other shoots",
   "THE GOVERNOR — a needle each of you taps on your own mark",
   "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",

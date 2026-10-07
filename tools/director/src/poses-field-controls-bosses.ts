@@ -1,5 +1,4 @@
 import type { Pose } from "./pose-kit.js";
-import { BURGEE_GRIPS } from "./poses-field-controls-burgee.js";
 import { CAPSTAN_GRIPS } from "./poses-field-controls-capstan.js";
 import { CYST_GRIPS } from "./poses-field-controls-cyst.js";
 import { DAVIT_GRIPS } from "./poses-field-controls-davit.js";
@@ -16,6 +15,7 @@ import { PLUMB_GRIPS } from "./poses-field-controls-plumb.js";
 import { RATCHET_GRIPS } from "./poses-field-controls-ratchet.js";
 import { RIME_GRIPS } from "./poses-field-controls-rime.js";
 import { SLING_GRIPS } from "./poses-field-controls-sling.js";
+import { TRAPEZE_GRIPS } from "./poses-field-controls-trapeze.js";
 import { TRIVET_GRIPS } from "./poses-field-controls-trivet.js";
 import { VALVE_GRIPS } from "./poses-field-controls-valve.js";
 import { VISE_GRIPS } from "./poses-field-controls-vise.js";
@@ -41,7 +41,7 @@ export const BOSS_GRIPS: readonly Pose[] = [
   ...RIME_GRIPS,
   ...CYST_GRIPS,
   ...DAVIT_GRIPS,
-  ...BURGEE_GRIPS,
+  ...TRAPEZE_GRIPS,
   ...GOVERNOR_GRIPS,
   ...SLING_GRIPS,
   ...VALVE_GRIPS,

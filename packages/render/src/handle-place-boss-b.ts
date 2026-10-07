@@ -1,5 +1,4 @@
 import { type DragTarget, valveTurning, type World } from "@neon-spore/sim";
-import { burgeeDrawCircle, burgeeFreezeCircle } from "./burgee-grip.js";
 import { capstanRubStanding, capstanSteerStanding, capstanTakesHand } from "./capstan-grip.js";
 import { davitLooseCircle, davitSteerCircle } from "./davit-grip.js";
 import { gallPointCircle, gallTakesPinch } from "./gall-grip.js";
@@ -17,6 +16,7 @@ import {
   scoutPrimeGrippable,
 } from "./scout-grip.js";
 import { slingDrawCircle } from "./sling-grip.js";
+import { trapezeDrawCircle, trapezeFreezeCircle } from "./trapeze-grip.js";
 import { trivetFootStanding, trivetTakesChord } from "./trivet-grip.js";
 import { valvePinHandle, valveWheelCircle } from "./valve-grip.js";
 
@@ -85,12 +85,14 @@ export function laterBossHandleCircle(
     if (b === null) return null;
     return davitLooseCircle(l, cfg, b, target === "davitLooseLeft" ? 0 : 1, world.beat, beatPhase);
   }
-  if (target === "burgeeFreeze" || target === "burgeeDraw") {
-    // THE BURGEE's ring over the lit column and the tail of its track, where
-    // the fixture hangs still to be caught. Null between catches (`burgee-grip.ts`).
-    const b = world.boss?.kind === "burgee" ? world.boss : null;
+  if (target === "trapezeFreeze" || target === "trapezeDraw") {
+    // THE TRAPEZE's ring over the lit column and the tail of its track, where
+    // the fixture hangs still to be caught. Null between catches (`trapeze-grip.ts`).
+    const b = world.boss?.kind === "trapeze" ? world.boss : null;
     if (b === null) return null;
-    return target === "burgeeFreeze" ? burgeeFreezeCircle(l, cfg, b) : burgeeDrawCircle(l, cfg, b);
+    return target === "trapezeFreeze"
+      ? trapezeFreezeCircle(l, cfg, b)
+      : trapezeDrawCircle(l, cfg, b);
   }
   if (target === "plumbLevelLeft" || target === "plumbLevelRight") {
     // THE PLUMB's two stones, each hanging where the beam holds it this

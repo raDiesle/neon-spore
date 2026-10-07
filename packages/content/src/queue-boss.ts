@@ -212,8 +212,8 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   if (boss.kind === "capstan") return { ...boss };
   // THE GALL the same: its points are the seam's own, spread across the hull.
   if (boss.kind === "gall") return { ...boss };
-  // THE BURGEE the same: its columns are offsets from `midCol`.
-  if (boss.kind === "burgee") return { ...boss };
+  // THE TRAPEZE the same: its columns are offsets from `midCol`.
+  if (boss.kind === "trapeze") return { ...boss };
   // THE FLUE the same: its cannon is `midCol` and its ember's span is tuning.
   if (boss.kind === "flue") return { ...boss };
   // THE GOVERNOR the same: its dial is `midCol` and its marks are thousandths of a lap.

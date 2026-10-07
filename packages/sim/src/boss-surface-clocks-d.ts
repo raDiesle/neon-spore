@@ -16,7 +16,7 @@
  * is one something outside `packages/sim` imports.
  */
 
-// THE BURGEE and after, on the fifth page (`boss-surface-clocks-e.ts`).
+// THE TRAPEZE and after, on the fifth page (`boss-surface-clocks-e.ts`).
 export * from "./boss-surface-clocks-e.js";
 // THE CYST's sac: the phase, the lit step, the flanks, their gaps and taps,
 // and whose hand is on which, for the picture, the cue and the director's

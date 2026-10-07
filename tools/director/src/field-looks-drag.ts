@@ -159,7 +159,7 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "Anywhere on the field; the hook wears the halo on the drawer's screen.",
     move: "The draw counts while the partner holds the boom on the lit column; the lift's swipe towards the target looses it.",
   },
-  "THE BURGEE'S DRAW": {
+  "THE TRAPEZE'S DRAW": {
     find: "A track under the ring, from the pivot towards the lit column, haloed on the drawer's screen.",
     move: "The draw counts its beats; a swipe towards the lit column on the lift catches the frozen flag, green, or flutters, red.",
   },

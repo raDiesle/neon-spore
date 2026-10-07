@@ -4,7 +4,6 @@ import { Arrivals } from "../src/arrivals.js";
 import { strikeFrom } from "../src/boss-strike-from.js";
 import { BossStrikeFx } from "../src/boss-strike-fx.js";
 import { lash, type StrikeFrame, type StrikeLook, strikeLook } from "../src/boss-strike-look.js";
-import { burgeeSpindleAt } from "../src/burgee-shape.js";
 import { capstanCentre } from "../src/capstan-shape.js";
 import { cystCentre } from "../src/cyst-shape.js";
 import { ingestBreach } from "../src/effects-breach.js";
@@ -18,6 +17,7 @@ import { computeLayout, tileCX, tileCY } from "../src/layout.js";
 import { mimicHang } from "../src/mimic-pose.js";
 import { RockImpactFx } from "../src/rock-impact.js";
 import { slingCentre } from "../src/sling-shape.js";
+import { trapezeSpindleAt } from "../src/trapeze-shape.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -96,7 +96,7 @@ describe("a boss's blow at the hull", () => {
     const bosses = [
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
       ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "davit", "halter"],
-      ...["capstan", "gall", "burgee", "cyst", "grindstone", "sling", "flue", "governor"],
+      ...["capstan", "gall", "trapeze", "cyst", "grindstone", "sling", "flue", "governor"],
       ...["filament", "lamprey", "mimic"],
     ] as const;
     for (const by of bosses) {
@@ -148,7 +148,7 @@ describe("a boss's blow at the hull", () => {
     ["THE HALTER sheds a plate from under its centre", "halter", halterCentre],
     ["THE CAPSTAN throws a cog off its cradle's foot", "capstan", capstanCentre],
     ["THE GALL drops a seed off its root's underside", "gall", gallRootAt],
-    ["THE BURGEE tears a scrap off its flag's fly", "burgee", burgeeSpindleAt],
+    ["THE TRAPEZE tears a scrap off its flag's fly", "trapeze", trapezeSpindleAt],
     ["THE CYST spits a spore out of its bottom lobe", "cyst", cystCentre],
     ["THE GRINDSTONE throws a chip off its wheel", "grindstone", grindstoneCentre],
     ["THE SLING flings a ball out of its cup", "sling", slingCentre],

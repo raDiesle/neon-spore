@@ -37,11 +37,11 @@ import type { Wave } from "../wave-types.js";
  * the seam's four points, for whichever seat is nearer there (§38,
  * `sim/gall.ts`). Three closes bare the root, and one shot in red ends it.
  *
- * **THE BURGEE is the first boss the simulation keeps moving for a seat to
+ * **THE TRAPEZE is the first boss the simulation keeps moving for a seat to
  * still.** A pennant on a free boom mid-hull swings across the three middle
  * columns on its own: one seat taps it still over the lit column, the other
  * holds a draw and lets go toward it while it is still held (§39,
- * `sim/burgee.ts`). Two catches, the seats swapped, light the spindle; three
+ * `sim/trapeze.ts`). Two catches, the seats swapped, light the spindle; three
  * shots at it, each after the flag has been caught back, the last one white.
  * Every catch's window outlasts a lap of the flag at its sweep.
  *
@@ -154,8 +154,8 @@ export const WAVES_ACT_13: Wave[] = [
     bossType: "normal",
   },
   {
-    id: "theBurgee",
-    name: "THE BURGEE",
+    id: "theTrapeze",
+    name: "THE TRAPEZE",
     guide: {
       both: "One of you taps the flag still over the lit column. The other holds a draw and swipes toward it. Two catches light the spindle. Shoot it in its colour.",
       p1: "1. First, tap the flag still when it swings over the lit column.\n2. Next, hold a draw and swipe toward the column once it stops.\n3. Shoot the spindle. Catch the flag back when it creeps loose.",
@@ -163,7 +163,7 @@ export const WAVES_ACT_13: Wave[] = [
     },
     entries: [],
     boss: {
-      kind: "burgee",
+      kind: "trapeze",
       steps: [
         { ask: "catch", freezer: 1, offset: -1, sweepMilli: 1000, color: "either", beats: 6 },
         { ask: "catch", freezer: 2, offset: 1, sweepMilli: 1000, color: "either", beats: 5 },

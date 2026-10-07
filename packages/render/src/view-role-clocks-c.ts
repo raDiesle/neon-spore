@@ -105,7 +105,7 @@ export const showsGallReach = (role: ViewRole, seat: 1 | 2): boolean =>
   role === "test" || role === `p${seat}`;
 
 /**
- * THE BURGEE's two hands (§39). This boss splits the hands by the step and
+ * THE TRAPEZE's two hands (§39). This boss splits the hands by the step and
  * not the eyes: both screens are shown the boom, the flag wherever it
  * swings and the spindle, because the tap is timed off the flag and the
  * swipe is aimed at it, and a flag one seat could not see would be a flag
@@ -114,7 +114,7 @@ export const showsGallReach = (role: ViewRole, seat: 1 | 2): boolean =>
  * for the other seat — and the other seat's only faint, so each can say
  * what its partner is asked for. `test` is both at full.
  */
-export const showsBurgeeHand = (role: ViewRole, seat: 1 | 2): boolean =>
+export const showsTrapezeHand = (role: ViewRole, seat: 1 | 2): boolean =>
   role === "test" || role === `p${seat}`;
 
 /**

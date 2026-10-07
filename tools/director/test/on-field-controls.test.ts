@@ -435,10 +435,10 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE GALL's pinch: a point of this seat's half of the seam, the point sent
   // as its id, on both screens (`render/gall-grip.ts`, §11.55).
   gallPinch: "field",
-  // THE BURGEE's tap on the freeze ring and draw on the track, each the lit
-  // step's seat's, pressed where they are drawn (`render/burgee-grip.ts`, §11.56).
-  burgeeFreeze: "field",
-  burgeeDraw: "field",
+  // THE TRAPEZE's tap on the freeze ring and draw on the track, each the lit
+  // step's seat's, pressed where they are drawn (`render/trapeze-grip.ts`, §11.56).
+  trapezeFreeze: "field",
+  trapezeDraw: "field",
   // THE GOVERNOR's tap on the dial's face, from a seat with a mark to land
   // (`render/governor-grip.ts`, §11.58).
   governorTap: "field",

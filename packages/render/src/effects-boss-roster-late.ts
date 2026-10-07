@@ -1,4 +1,3 @@
-import { BurgeeFx } from "./burgee-fx.js";
 import { CapstanFx } from "./capstan-fx.js";
 import { CystFx } from "./cyst-fx.js";
 import { DavitVerdicts } from "./davit-verdicts.js";
@@ -13,6 +12,7 @@ import { MimicFx } from "./mimic-fx.js";
 import { PlumbFx } from "./plumb-fx.js";
 import { SeamFx } from "./seam-fx.js";
 import { SlingFx } from "./sling-fx.js";
+import { TrapezeFx } from "./trapeze-fx.js";
 import { TrivetFx } from "./trivet-fx.js";
 
 /**
@@ -65,10 +65,10 @@ export class LateRoster extends RoundMarks {
    * flash, and its receipts' bursts — thrown the same on both screens, and
    * told the root's colour by the drawer (`gall-fx.ts`, `gall-draw.ts`). */
   readonly gall = new GallFx();
-  /** THE BURGEE's flag where it is drawn, eased toward the simulation's
+  /** THE TRAPEZE's flag where it is drawn, eased toward the simulation's
    * place so a freeze slows it rather than snapping it, and the limp
-   * flutter a swipe that caught nothing leaves (`burgee-fx.ts`). */
-  readonly burgee = new BurgeeFx();
+   * flutter a swipe that caught nothing leaves (`trapeze-fx.ts`). */
+  readonly trapeze = new TrapezeFx();
   /** THE FLUE's flash at the sight for every hit, a level stud's flare, the
    * hull shock as it goes cold, and its receipts' bursts — thrown the same on
    * both screens (`flue-fx.ts`, `flue-draw.ts`). */

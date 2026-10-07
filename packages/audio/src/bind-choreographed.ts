@@ -63,7 +63,7 @@ type ChoreographedEvent =
           | `halter${string}`
           | `capstan${string}`
           | `gall${string}`
-          | `burgee${string}`
+          | `trapeze${string}`
           | `flue${string}`
           | `governor${string}`
           | `lamprey${string}`

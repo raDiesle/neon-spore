@@ -40,7 +40,7 @@ const AUTHORS_NOTHING = [
   "halter",
   "capstan",
   "gall",
-  "burgee",
+  "trapeze",
   "flue",
   "governor",
   "lamprey",
@@ -175,7 +175,7 @@ const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
  *   THE VISE's, THE RIME's, THE TRIVET's, THE PLUMB's, THE SLING's, THE
  *   GRINDSTONE's, THE CYST's, THE DAVIT's, THE HALTER's and THE CAPSTAN's
  *   too: all `midCol`. THE GALL's points are the seam's own (`gallPointCol`),
- *   and THE BURGEE's columns and THE FLUE's notches are offsets from `midCol`;
+ *   and THE TRAPEZE's columns and THE FLUE's notches are offsets from `midCol`;
  *   THE GOVERNOR's dial is `midCol` and its marks are thousandths of a lap.
  * - **THE LAMPREY**'s script is one list of steps too, and each step names
  *   the column its bite lands on — a field of the step, not a form's. No

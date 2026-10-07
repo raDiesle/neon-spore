@@ -1,5 +1,4 @@
 import type { BossState } from "./boss-union.js";
-import { installBurgee } from "./burgee-step.js";
 import { installCapstan } from "./capstan-step.js";
 import { installCyst } from "./cyst-step.js";
 import { installDavit } from "./davit-step.js";
@@ -15,6 +14,7 @@ import { installPlumb } from "./plumb-step.js";
 import { installRime } from "./rime-step.js";
 import { installSeam } from "./seam-step.js";
 import { installSling } from "./sling-step.js";
+import { installTrapeze } from "./trapeze-step.js";
 import { installTrivet } from "./trivet-step.js";
 import { installVise } from "./vise-step.js";
 import type { BossEntry, World } from "./world.js";
@@ -46,7 +46,7 @@ export const SCRIPTED_KINDS = [
   "halter",
   "capstan",
   "gall",
-  "burgee",
+  "trapeze",
   "flue",
   "governor",
   "lamprey",
@@ -73,7 +73,7 @@ export function installScripted(world: World, boss: ScriptedEntry): BossState {
   if (boss.kind === "halter") return installHalter(world, boss.steps);
   if (boss.kind === "capstan") return installCapstan(world, boss.steps);
   if (boss.kind === "gall") return installGall(world, boss.steps);
-  if (boss.kind === "burgee") return installBurgee(world, boss.steps);
+  if (boss.kind === "trapeze") return installTrapeze(world, boss.steps);
   if (boss.kind === "flue") return installFlue(world, boss.levels);
   if (boss.kind === "governor") return installGovernor(world, boss.steps);
   if (boss.kind === "lamprey") return installLamprey(world, boss.steps, boss.meal);

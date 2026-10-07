@@ -1,7 +1,6 @@
 import type { AntiphonState } from "./antiphon.js";
 import type { BatonState } from "./baton.js";
 import type { FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
-import type { BurgeeState } from "./burgee.js";
 import type { CairnState } from "./cairn.js";
 import type { CapstanState } from "./capstan.js";
 import type { CurtainState } from "./curtain.js";
@@ -46,6 +45,7 @@ import type { StareState } from "./stare.js";
 import type { SurgeState } from "./surge.js";
 import type { TasterState } from "./taster.js";
 import type { ThroatState } from "./throat.js";
+import type { TrapezeState } from "./trapeze.js";
 import type { TrivetState } from "./trivet.js";
 import type { UndertowState } from "./undertow.js";
 import type { ValveState } from "./valve.js";
@@ -133,7 +133,7 @@ export type BossState =
   | HalterState
   | CapstanState
   | GallState
-  | BurgeeState
+  | TrapezeState
   | FlueState
   | GovernorState
   | LampreyState

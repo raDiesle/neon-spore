@@ -1,7 +1,6 @@
 import { offBeat } from "./boss-off-beat.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
-import { stepBurgee } from "./burgee-step.js";
 import { stepCairn } from "./cairn.js";
 import { stepCapstan } from "./capstan-step.js";
 import { stepCyst } from "./cyst-step.js";
@@ -18,6 +17,7 @@ import { stepMimic } from "./mimic-step.js";
 import { stepRatchet } from "./ratchet-step.js";
 import { stepSplice } from "./splice-round.js";
 import { stepSpool } from "./spool-step.js";
+import { stepTrapeze } from "./trapeze-step.js";
 import { stepVane } from "./vane.js";
 import { stepWell } from "./well-step.js";
 import type { World } from "./world.js";
@@ -74,9 +74,9 @@ export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>)
     stepFlue(world, boss);
     return;
   }
-  // THE BURGEE: the flag's swing, a freeze run out, draws counted, and the flag spent (`burgee-step.ts`).
-  if (boss.kind === "burgee") {
-    stepBurgee(world, boss);
+  // THE TRAPEZE: the flag's swing, a freeze run out, draws counted, and the flag spent (`trapeze-step.ts`).
+  if (boss.kind === "trapeze") {
+    stepTrapeze(world, boss);
     return;
   }
   // THE GALL: shut beats counted, the jump, and the seam gone flat (`gall-step.ts`).

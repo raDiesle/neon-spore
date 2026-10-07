@@ -14,7 +14,6 @@
  * is one something outside `packages/sim` imports.
  */
 
-export { burgeeVerdict } from "./burgee-shot.js";
 export { capstanVerdict } from "./capstan-shot.js";
 export { CORE_KINDS, coreRowMilli } from "./core-along.js";
 export type { CoreVerdict } from "./core-verdict.js";
@@ -40,6 +39,7 @@ export { scuttleVerdict } from "./scuttle-shot.js";
 export { slingVerdict } from "./sling-shot.js";
 export { stareVerdict } from "./stare-shot.js";
 export { tasterVerdict } from "./taster-shot.js";
+export { trapezeVerdict } from "./trapeze-shot.js";
 export { trivetVerdict } from "./trivet-shot.js";
 export { VALVE_SPARK_FROM_MILLI, valveSparkMilli, valveVerdict } from "./valve-shot.js";
 export { VISE_SEED_MILLI, viseVerdict } from "./vise-shot.js";

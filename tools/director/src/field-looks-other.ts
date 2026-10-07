@@ -68,7 +68,7 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "A mark standing off each flank of the sac, haloed on the screen of the seat that taps it.",
     move: "A tap in time stills the shuddering flank, green; a flank left shuddering, red.",
   },
-  "THE BURGEE'S FREEZE RING": {
+  "THE TRAPEZE'S FREEZE RING": {
     find: "A ring over the lit column, where the boom's tip would be, haloed on the freezer's screen.",
     move: "A tap while the flag is over the column stills it, green; off the column it flaps on, red.",
   },

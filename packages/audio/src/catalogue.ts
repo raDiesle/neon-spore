@@ -15,7 +15,6 @@ import { BOSS_SOUNDS } from "./sounds/boss.js";
 import { BOSS_ANTIPHON_SOUNDS } from "./sounds/boss-antiphon.js";
 import { BOSS_BATON_SOUNDS } from "./sounds/boss-baton.js";
 import { BOSS_BATON_HAND_SOUNDS } from "./sounds/boss-baton-hand.js";
-import { BOSS_BURGEE_SOUNDS } from "./sounds/boss-burgee.js";
 import { BOSS_CAPSTAN_SOUNDS } from "./sounds/boss-capstan.js";
 import { BOSS_CURTAIN_SOUNDS } from "./sounds/boss-curtain.js";
 import { BOSS_CYST_SOUNDS } from "./sounds/boss-cyst.js";
@@ -57,6 +56,7 @@ import { BOSS_STARE_SOUNDS } from "./sounds/boss-stare.js";
 import { BOSS_SURGE_SOUNDS } from "./sounds/boss-surge.js";
 import { BOSS_TASTER_SOUNDS } from "./sounds/boss-taster.js";
 import { BOSS_THROAT_SOUNDS } from "./sounds/boss-throat.js";
+import { BOSS_TRAPEZE_SOUNDS } from "./sounds/boss-trapeze.js";
 import { BOSS_TRIVET_SOUNDS } from "./sounds/boss-trivet.js";
 import { BOSS_UNDERTOW_SOUNDS } from "./sounds/boss-undertow.js";
 import { BOSS_VALVE_SOUNDS } from "./sounds/boss-valve.js";
@@ -129,7 +129,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_HALTER_SOUNDS,
   ...BOSS_CAPSTAN_SOUNDS,
   ...BOSS_GALL_SOUNDS,
-  ...BOSS_BURGEE_SOUNDS,
+  ...BOSS_TRAPEZE_SOUNDS,
   ...BOSS_FLUE_SOUNDS,
   ...BOSS_GOVERNOR_SOUNDS,
   ...BOSS_LAMPREY_SOUNDS,

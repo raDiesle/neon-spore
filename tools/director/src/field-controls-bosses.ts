@@ -2,7 +2,6 @@ import type { FieldControlDef } from "./field-control-def.js";
 import { ANTIPHON_CONTROLS } from "./field-controls-antiphon.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { BATON_CONTROLS } from "./field-controls-baton.js";
-import { BURGEE_CONTROLS } from "./field-controls-burgee.js";
 import { CAPSTAN_CONTROLS } from "./field-controls-capstan.js";
 import { CURTAIN_CONTROLS } from "./field-controls-curtain.js";
 import { CYST_CONTROLS } from "./field-controls-cyst.js";
@@ -43,6 +42,7 @@ import { STARE_CONTROLS } from "./field-controls-stare.js";
 import { SURGE_CONTROLS } from "./field-controls-surge.js";
 import { TASTER_CONTROLS } from "./field-controls-taster.js";
 import { THROAT_CONTROLS } from "./field-controls-throat.js";
+import { TRAPEZE_CONTROLS } from "./field-controls-trapeze.js";
 import { TRIVET_CONTROLS } from "./field-controls-trivet.js";
 import { UNDERTOW_CONTROLS } from "./field-controls-undertow.js";
 import { VALVE_CONTROLS } from "./field-controls-valve.js";
@@ -191,9 +191,9 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE DAVIT's steers and looses, the only pair here **judged against the
   // partner's carry** of one boom (`field-controls-davit.ts`).
   ...DAVIT_CONTROLS,
-  // THE BURGEE's ring and track, the only pair here **one seat's tap answered
-  // by the other's swipe** on one swinging flag (`field-controls-burgee.ts`).
-  ...BURGEE_CONTROLS,
+  // THE TRAPEZE's ring and track, the only pair here **one seat's tap answered
+  // by the other's swipe** on one swinging flag (`field-controls-trapeze.ts`).
+  ...TRAPEZE_CONTROLS,
   // THE FLUE has no row since its rework of 5 October 2026: it is answered
   // with the cannon's own trigger and beam, held still under the middle.
   // THE GOVERNOR's brake and needle, the only pair here where **the chord

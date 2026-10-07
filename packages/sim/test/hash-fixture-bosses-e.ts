@@ -2,7 +2,7 @@ import type { BossEntry } from "../src/boss-entries.js";
 import type { BossState } from "../src/boss-union.js";
 
 /**
- * **THE TRIVET to THE BURGEE: the fifth page of `hash-fixture.ts`**, cut off
+ * **THE TRIVET to THE TRAPEZE: the fifth page of `hash-fixture.ts`**, cut off
  * `-d.ts` on 27 September 2026, when that page stood at 483 lines, at the
  * boundary between THE RIME and THE TRIVET. Nothing new goes here: the
  * newest boss goes on `-f.ts`, the last page, because `BOSS_KINDS` is
@@ -93,10 +93,10 @@ export const BOSS_ENTRIES_E = {
       { ask: "fire", color: "cyan", beats: 3 },
     ],
   },
-  // THE BURGEE the same, a catch and the shot, the colour set off `either`
-  // and the freezer off `either` (`burgee-hash.ts`).
-  burgee: {
-    kind: "burgee",
+  // THE TRAPEZE the same, a catch and the shot, the colour set off `either`
+  // and the freezer off `either` (`trapeze-hash.ts`).
+  trapeze: {
+    kind: "trapeze",
     steps: [
       { ask: "catch", freezer: 1, offset: -1, sweepMilli: 1000, color: "red", beats: 6 },
       { ask: "fire", freezer: 2, offset: 0, sweepMilli: 0, color: "cyan", beats: 3 },
@@ -104,7 +104,7 @@ export const BOSS_ENTRIES_E = {
   },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
-/** THE TRIVET to THE BURGEE's share of `patchBoss`. */
+/** THE TRIVET to THE TRAPEZE's share of `patchBoss`. */
 export function patchBossE(boss: BossState): void {
   if (boss.kind === "trivet") {
     // The front foot planted once and the rear home, the hub lit, pads down
@@ -234,10 +234,10 @@ export function patchBossE(boss: BossState): void {
     boss.gapMilli = 1300;
     boss.heldBeats = 1;
   }
-  if (boss.kind === "burgee") {
+  if (boss.kind === "trapeze") {
     // One catch landed and the flag frozen off the middle by the navigator,
     // swinging left when it goes, the spindle lit and shot once, both thumbs
-    // down and a draw counted — every field given a value (`burgee-hash.ts`).
+    // down and a draw counted — every field given a value (`trapeze-hash.ts`).
     boss.phase = "lit";
     boss.phaseBeat = 3;
     boss.cursor = 1;

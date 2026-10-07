@@ -1,6 +1,5 @@
 import { type BossKind, midCol, type SimConfig } from "@neon-spore/sim";
 import type { Point } from "./boss-strike-look.js";
-import { burgeeBlowFrom } from "./burgee-blow.js";
 import { capstanBlowFrom } from "./capstan-blow.js";
 import { cystBlowFrom } from "./cyst-blow.js";
 import { davitHook, davitMast } from "./davit-shape.js";
@@ -24,6 +23,7 @@ import { seamCentre, seamHalfHeight } from "./seam-shape.js";
 import { slingBlowFrom } from "./sling-blow.js";
 import { spoolHome } from "./spool-shape.js";
 import { stareEye } from "./stare-shape.js";
+import { trapezeBlowFrom } from "./trapeze-blow.js";
 import { trivetCentre, trivetFoot } from "./trivet-shape.js";
 import { valveCentre } from "./valve-shape.js";
 import { viseCentre, viseRadius } from "./vise-shape.js";
@@ -99,8 +99,8 @@ const FROM: Partial<
   capstan: capstanBlowFrom,
   // The root's underside in the peeled seam, where the seed tears off (`gall-blow.ts`).
   gall: gallBlowFrom,
-  // The fly of the flag held over the middle, where the scrap tears off (`burgee-blow.ts`).
-  burgee: burgeeBlowFrom,
+  // The fly of the flag held over the middle, where the scrap tears off (`trapeze-blow.ts`).
+  trapeze: trapezeBlowFrom,
   // The bottom lobe's tip, the one that spits (`cyst-blow.ts`).
   cyst: cystBlowFrom,
   // The bottom of the wheel, where the chip breaks off (`grindstone-blow.ts`).

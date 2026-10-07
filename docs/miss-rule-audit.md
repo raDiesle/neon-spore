@@ -56,7 +56,7 @@ The kinds each breaks it with, and where. Paths are under `packages/sim/src`.
 |---|---|---|
 | ANTIPHON | 1, 7 | `antiphon-step.ts` (a decoy carried home or a lapse strikes the hull, since 5 October 2026) |
 | BATON | 1, 4, 7, 10, 11 | `baton-press.ts`, `baton-step.ts`, `baton-cross.ts`, `baton-hand.ts` |
-| BURGEE | 1, 4 | `burgee-step.ts`, `burgee-hand.ts` (off-mark tap, bad draw: event only) |
+| TRAPEZE | 1, 4 | `trapeze-step.ts`, `trapeze-hand.ts` (off-mark tap, bad draw: event only) |
 | CAPSTAN | 1, 4 | `capstan-step.ts`, `capstan-hand.ts` |
 | CURTAIN | 1, 4 | `curtain-shot.ts`, `curtain-step.ts` (jam lapse back to hung) |
 | CYST | 1, 4, 5 | `cyst-step.ts`, `cyst-hand.ts` |

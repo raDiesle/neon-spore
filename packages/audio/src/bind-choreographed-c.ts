@@ -1,6 +1,5 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { antiphonCue } from "./bind-antiphon.js";
-import { burgeeCue, isBurgeeEvent } from "./bind-burgee.js";
 import { capstanCue, isCapstanEvent } from "./bind-capstan.js";
 import { laterCue } from "./bind-choreographed-d.js";
 import type { Cue } from "./bind-cue.js";
@@ -18,6 +17,7 @@ import { isMimicEvent, mimicCue } from "./bind-mimic.js";
 import { ratchetCue } from "./bind-ratchet.js";
 import { scuttleCue } from "./bind-scuttle.js";
 import { isSpoolEvent, spoolCue } from "./bind-spool.js";
+import { isTrapezeEvent, trapezeCue } from "./bind-trapeze.js";
 
 /**
  * **The tail of `bind-choreographed.ts`**, cut off it the day THE SCUTTLE's
@@ -78,7 +78,7 @@ type LateEvent = Extract<
       | `halter${string}`
       | `capstan${string}`
       | `gall${string}`
-      | `burgee${string}`
+      | `trapeze${string}`
       | `flue${string}`
       | `governor${string}`
       | `lamprey${string}`
@@ -88,7 +88,7 @@ type LateEvent = Extract<
 >;
 
 export function lateCue(e: LateEvent, cols: number): Cue | null {
-  // THE CAPSTAN, THE GALL, THE BURGEE, THE FLUE, THE GOVERNOR, THE LAMPREY and THE MIMIC are bound here and not on `bind-choreographed-d.ts`,
+  // THE CAPSTAN, THE GALL, THE TRAPEZE, THE FLUE, THE GOVERNOR, THE LAMPREY and THE MIMIC are bound here and not on `bind-choreographed-d.ts`,
   // which is two lines from the limit: handed over whole, before the switch.
   // THE HASP joined them when its story brought twelve more (`bind-hasp.ts`),
   // and THE SPOOL when its story brought nine (`bind-spool.ts`).
@@ -96,7 +96,7 @@ export function lateCue(e: LateEvent, cols: number): Cue | null {
   if (isSpoolEvent(e)) return spoolCue(e, cols);
   if (isCapstanEvent(e)) return capstanCue(e, cols);
   if (isGallEvent(e)) return gallCue(e, cols);
-  if (isBurgeeEvent(e)) return burgeeCue(e, cols);
+  if (isTrapezeEvent(e)) return trapezeCue(e, cols);
   if (isFlueEvent(e)) return flueCue(e, cols);
   if (isGovernorEvent(e)) return governorCue(e, cols);
   if (isLampreyEvent(e)) return lampreyCue(e, cols);

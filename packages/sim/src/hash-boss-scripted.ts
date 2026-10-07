@@ -1,5 +1,4 @@
 import type { BossState } from "./boss-union.js";
-import { burgeeHashParts } from "./burgee-hash.js";
 import { capstanHashParts } from "./capstan-hash.js";
 import { cystHashParts } from "./cyst-hash.js";
 import { davitHashParts } from "./davit-hash.js";
@@ -15,6 +14,7 @@ import { plumbHashParts } from "./plumb-hash.js";
 import { rimeHashParts } from "./rime-hash.js";
 import { seamHashParts } from "./seam-hash.js";
 import { slingHashParts } from "./sling-hash.js";
+import { trapezeHashParts } from "./trapeze-hash.js";
 import { trivetHashParts } from "./trivet-hash.js";
 import { viseHashParts } from "./vise-hash.js";
 
@@ -97,10 +97,10 @@ export function scriptedHashParts(boss: BossState): number[] {
   if (boss.kind === "gall") {
     for (const n of gallHashParts(boss)) out.push(n);
   }
-  // THE BURGEE: the phase, the cursor, the swing, the freeze, the catches, the
-  // hits, the spindle, the thumbs and the draws, and the script (`burgee-hash.ts`).
-  if (boss.kind === "burgee") {
-    for (const n of burgeeHashParts(boss)) out.push(n);
+  // THE TRAPEZE: the phase, the cursor, the swing, the freeze, the catches, the
+  // hits, the spindle, the thumbs and the draws, and the script (`trapeze-hash.ts`).
+  if (boss.kind === "trapeze") {
+    for (const n of trapezeHashParts(boss)) out.push(n);
   }
   // THE FLUE: the phase, the cursor, the ember and its ticks, the shots, the
   // hits, and the levels (`flue-hash.ts`).

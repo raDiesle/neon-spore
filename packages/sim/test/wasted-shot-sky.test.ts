@@ -8,7 +8,6 @@ import type { Bullet } from "../src/types.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
 import { startWave } from "../src/wave-start.js";
 import { createWorld, type World } from "../src/world.js";
-import * as burgee from "./burgee-rig.js";
 import * as capstan from "./capstan-rig.js";
 import * as cyst from "./cyst-rig.js";
 import * as davit from "./davit-rig.js";
@@ -26,6 +25,7 @@ import * as ratchet from "./ratchet-rig.js";
 import * as rime from "./rime-rig.js";
 import * as seam from "./seam-rig.js";
 import * as sling from "./sling-rig.js";
+import * as trapeze from "./trapeze-rig.js";
 import * as trivet from "./trivet-rig.js";
 import * as valve from "./valve-rig.js";
 import * as vise from "./vise-rig.js";
@@ -80,7 +80,7 @@ const everyColumn = Array.from({ length: COLS }, (_, i) => i);
 describe("a bolt out of the top on HARD, under a boss", () => {
   // The core stands in the middle column whether it is lit or shut.
   const CORED: Record<string, () => World> = {
-    burgee: () => burgee.install(),
+    trapeze: () => trapeze.install(),
     capstan: () => capstan.install(),
     cyst: () => cyst.install(),
     davit: () => davit.install(),

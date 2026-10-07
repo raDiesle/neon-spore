@@ -287,10 +287,10 @@ const ACCEPTED: Command[] = [
   // THE GALL's pinch carries the gap on `fromMilli` and the point it went down
   // on as `id` (`sim/gall-hand.ts`).
   { kind: "drag", target: "gallPinch", on: true, fromMilli: 600, id: 2 },
-  // THE BURGEE's tap is an edge from either seat, and its draw's lift carries
-  // the swipe's sign on `fromMilli` (`sim/burgee-hand.ts`).
-  { kind: "drag", target: "burgeeFreeze", on: true, fromMilli: 0 },
-  { kind: "drag", target: "burgeeDraw", on: false, fromMilli: -400 },
+  // THE TRAPEZE's tap is an edge from either seat, and its draw's lift carries
+  // the swipe's sign on `fromMilli` (`sim/trapeze-hand.ts`).
+  { kind: "drag", target: "trapezeFreeze", on: true, fromMilli: 0 },
+  { kind: "drag", target: "trapezeDraw", on: false, fromMilli: -400 },
   // THE GOVERNOR's tap is an edge
   // (`sim/governor-hand.ts`).
   { kind: "drag", target: "governorTap", on: true, fromMilli: 0 },
@@ -484,8 +484,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   capstanSteer: true,
   capstanRub: true,
   gallPinch: true,
-  burgeeFreeze: true,
-  burgeeDraw: true,
+  trapezeFreeze: true,
+  trapezeDraw: true,
   governorTap: true,
   gaugeTooth: true,
   gaugeTongue: true,

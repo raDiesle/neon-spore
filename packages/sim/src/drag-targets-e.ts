@@ -8,7 +8,7 @@
  * whole, so the set being written keeps the comment that explains it and the
  * one being moved keeps its own. THE TRIVET's pads came over with this file;
  * THE PLUMB's levels were written on it, and THE SLING's draws and THE
- * GRINDSTONE's flats and jaws after them, THE CYST's marks and flanks, THE DAVIT's leans and draws, THE HALTER's grips, THE CAPSTAN's steer and rub, THE GALL's pinch, and THE BURGEE's tap and draw. `drag-targets.ts` unions the pages
+ * GRINDSTONE's flats and jaws after them, THE CYST's marks and flanks, THE DAVIT's leans and draws, THE HALTER's grips, THE CAPSTAN's steer and rub, THE GALL's pinch, and THE TRAPEZE's tap and draw. `drag-targets.ts` unions the pages
  * together, so `DragTarget` is one name.
  */
 export type DragTargetE =
@@ -35,8 +35,8 @@ export type DragTargetE =
   | "capstanSteer"
   | "capstanRub"
   | "gallPinch"
-  | "burgeeFreeze"
-  | "burgeeDraw"
+  | "trapezeFreeze"
+  | "trapezeDraw"
   | "governorTap"
   | "gaugeTooth"
   | "gaugeTongue"
@@ -161,14 +161,14 @@ export type DragTargetE =
  */
 
 /**
- * `burgeeFreeze` and `burgeeDraw` are the hundred-and-second and third: THE
- * BURGEE's two handles, both on both screens and either seat's to press, the
+ * `trapezeFreeze` and `trapezeDraw` are the hundred-and-second and third: THE
+ * TRAPEZE's two handles, both on both screens and either seat's to press, the
  * lit step saying whose is live.
  *
- * No new reading. `burgeeFreeze` is `valvePin`'s tap, an edge with `on` and
- * nothing on `fromMilli`; `burgeeDraw` is `slingDrawLeft`'s draw, the finger
+ * No new reading. `trapezeFreeze` is `valvePin`'s tap, an edge with `on` and
+ * nothing on `fromMilli`; `trapezeDraw` is `slingDrawLeft`'s draw, the finger
  * down and the lift carrying the swipe's sign on `fromMilli`
- * (`burgee-hand.ts`).
+ * (`trapeze-hand.ts`).
  */
 
 /**
