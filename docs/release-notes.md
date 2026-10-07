@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 02e6ab633 — Queued: `bun run frames --boss` cannot set a beat some way into a window
+
+`now` is the wave's first beat and `now-N` is refused, which cost a strip of THE TASTER's pried interlock whose times had to be worked out afterwards.
+
 ## 2026-10-07 · 6f0350d5a — Time log for THE TASTER's pried interlock
 
 ## 2026-10-07 · 8bca9eec7 — THE TASTER's interlock is pried open and closes over THE SLOW
