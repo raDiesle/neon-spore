@@ -10,6 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { CystPose } from "./cyst-shape.js";
+import { cystSwing } from "./cyst-sway.js";
 import { smoothstep } from "./ease.js";
 import { phaseInto } from "./phase-into.js";
 
@@ -85,7 +86,7 @@ export function cystPosed(
   return 0;
 }
 
-/** The bend for this frame: both pinches, the lit flank's shake, the swell and the spit lobe. */
+/** The bend for this frame: both pinches, the lit flank's shake, the swell, the spit lobe and the lobes' sway. */
 export function cystPose(
   world: World,
   s: CystState,
@@ -110,6 +111,7 @@ export function cystPose(
     shake,
     swell: swelling * (1 - SINK * held),
     bulge: cystPosed(s, "spit", rest, beat, beatPhase),
+    swing: cystSwing(world, s, beat, beatPhase),
     time,
   };
 }

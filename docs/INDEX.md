@@ -1705,6 +1705,7 @@ by hand never moves.
 | `packages/render/src/oculus-levers.ts` | **THE OCULUS's tap and turn levels, drawn on the lens**: pips per tap, a knob each on a ring carried by its count |
 | `packages/render/src/outline-drift.ts` | **The outline tier** (`docs/spec/living-bosses.md` §1, "How far it reaches, by kind of body") |
 | `packages/render/src/outline-parts.ts` | **The outline tier's parts** (`docs/spec/living-bosses.md` §1, "How an outline boss gets it") |
+| `packages/render/src/outline-bosses.ts` | **Which bosses take the outline tier's pose, and on which seed** (`outline-drift.ts`) |
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
 | `packages/render/src/ready-words.ts` | **The words on the ready page**: what a circle is called, the question over them |
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the press into its hole, the waiting and the rolling |
@@ -2524,6 +2525,7 @@ by hand never moves.
 | `packages/render/src/cyst-shape.ts` | **THE CYST's geometry**: where the sac stands, and the paths it is made of |
 | `packages/render/src/cyst-story.ts` | **THE CYST's three story steps, drawn** (§34; the rules are `sim/cyst-step.ts` and `sim/cyst-shot.ts`) |
 | `packages/render/src/cyst-stop.ts` | **Where a bolt meets THE CYST**, for `BoltStops` (`bolt-stop.ts`): the bared core, the bud on its own step, the sac |
+| `packages/render/src/cyst-sway.ts` | **THE CYST's lobes swing about their waists** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/cyst-blow.ts` | **THE CYST's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/cyst-verdicts.ts` | **THE CYST's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/splash-blob.ts` | ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down |

@@ -51,16 +51,28 @@ const MARK_R = 0.42;
 export const FLANK_ANGLE = [Math.PI, 0] as const;
 const DOWN = Math.PI / 2;
 
-/** How the outline is bent this frame: each flank's pinch and shake, the swell, the spit lobe's bulge. */
+/**
+ * How the outline is bent this frame: each flank's pinch and shake, the swell,
+ * the spit lobe's bulge, and each lobe's swing about its waist, in radians,
+ * right first and on round (`cyst-sway.ts`).
+ */
 export interface CystPose {
   pinch: [number, number];
   shake: [number, number];
   swell: number;
   bulge: number;
+  swing: readonly [number, number, number, number];
   time: number;
 }
 
-export const RESTING: CystPose = { pinch: [0, 0], shake: [0, 0], swell: 0, bulge: 0, time: 0 };
+export const RESTING: CystPose = {
+  pinch: [0, 0],
+  shake: [0, 0],
+  swell: 0,
+  bulge: 0,
+  swing: [0, 0, 0, 0],
+  time: 0,
+};
 
 /** The middle of the sac: over the middle column, near the top of the field. */
 export function cystCentre(l: Layout, cfg: SimConfig): Point {
@@ -80,6 +92,21 @@ export function cystR(l: Layout): number {
 /** How much of lobe `at` angle `a` is: one on its tip, nought a quarter-turn away. */
 function lobeWeight(a: number, at: number): number {
   return Math.max(0, Math.cos(a - at)) ** 4;
+}
+
+/**
+ * Where the outline at angle `a` is drawn once each lobe has swung about its
+ * waist: turned by its lobe's swing, all of it at the tip and none at either
+ * waist, so the ring never parts and a lobe's joint never moves. The weight's
+ * slope is at most two, so a swing under half a radian never folds it.
+ */
+export function cystBent(a: number, pose: CystPose): number {
+  let out = a;
+  for (let k = 0; k < LOBES; k++) {
+    const swing = pose.swing[k] ?? 0;
+    if (swing !== 0) out += swing * Math.max(0, Math.cos(2 * (a - (k * Math.PI * 2) / LOBES))) ** 2;
+  }
+  return out;
 }
 
 /** The outline's radius at angle `a` (0 to the right, `π/2` down), bent by `pose`. */
@@ -121,7 +148,8 @@ export function cystLobes(l: Layout, pose: CystPose): CystLobe[] {
     for (let j = 0; j < per; j++) {
       const a = (((k * per - per / 2 + j + N) % N) * Math.PI * 2) / N;
       const r = cystRadius(l, a, pose);
-      points.push({ x: Math.cos(a) * r, y: Math.sin(a) * r });
+      const at = cystBent(a, pose);
+      points.push({ x: Math.cos(at) * r, y: Math.sin(at) * r });
     }
     const half = Math.PI / LOBES;
     const waist = (cystRadius(l, at - half, pose) + cystRadius(l, at + half, pose)) / 2;
@@ -141,7 +169,8 @@ export function cystSacPath(l: Layout, pose: CystPose): Path2D {
 /** The tip of the lobe at angle `a`, bent by `pose`. */
 export function cystTip(l: Layout, a: number, pose: CystPose): Point {
   const r = cystRadius(l, a, pose);
-  return { x: Math.cos(a) * r, y: Math.sin(a) * r };
+  const at = cystBent(a, pose);
+  return { x: Math.cos(at) * r, y: Math.sin(at) * r };
 }
 
 /** The core's radius at its fullest, in pixels. */
@@ -172,8 +201,9 @@ export function cystCrackPath(l: Layout, side: 0 | 1, pose: CystPose, along = 1)
     const t = (i / steps) * upto;
     const r = from + (to - from) * t;
     const jag = (i % 2 === 0 ? 1 : -1) * 0.16 * Math.sin(t * Math.PI + 0.4);
-    const x = Math.cos(a + jag) * r;
-    const y = Math.sin(a + jag) * r;
+    const at = cystBent(a, pose) + jag;
+    const x = Math.cos(at) * r;
+    const y = Math.sin(at) * r;
     if (i === 0) p.moveTo(x, y);
     else p.lineTo(x, y);
   }

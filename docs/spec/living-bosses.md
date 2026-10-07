@@ -255,6 +255,16 @@ game "INSTAR:FLIGHT · SERPENT"*. `INSTAR_SERPENT.amount` is 1 on the field.
   THE SLOW, still through the rise and the calm, back over the first beat
   of each rest. On the field under *a look with no shipped alternative*.
 
+  *THE CYST, as built, 7 October 2026* (`cyst-sway.ts`): each of the four
+  lobes turns about the sac's middle by its own angle, up to 0.4 of a
+  radian at the tip and none at the waists between neighbours
+  (`cystBent`), so they sway out of step and the ring never tears; a tip
+  moves by more than half a tile. The core, the freeze marks, the bud and
+  the pinch zones do not move; a bolt meets the lobes as drawn. As THE SLOW
+  opens the flanks and the spit lobe go still, being the step, and the top
+  lobe keeps a third. Still through the split. On the field under *a look
+  with no shipped alternative*.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair

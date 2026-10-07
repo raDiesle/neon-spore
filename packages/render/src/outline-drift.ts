@@ -1,7 +1,10 @@
 import type { World } from "@neon-spore/sim";
 import { DEG, HUSH, IDLE_DRIFT, idleDrift } from "./idle-drift.js";
 import { bodyLife } from "./motion-life.js";
+import { OUTLINE_DRIFT, OUTLINE_SEED, type OutlineBoss } from "./outline-bosses.js";
 import { slowHush } from "./slow-hush.js";
+
+export { OUTLINE_DRIFT, OUTLINE_SEED, type OutlineBoss } from "./outline-bosses.js";
 
 /**
  * **The outline tier** (`docs/spec/living-bosses.md` §1, "How far it reaches,
@@ -20,75 +23,14 @@ import { slowHush } from "./slow-hush.js";
  *
  * The pose is one matrix (`poseMatrix`), which the canvas takes and which
  * `posePoint` applies to a point — the test's way of measuring what the
- * canvas will draw. `OUTLINE_DRIFT` is how much of it each boss takes; a 0
- * draws no transform at all; THE QUEEN takes the whole since 1 October 2026,
- * and THE REPRISE since 2 October 2026, with its skin (`reprise-surface.ts`). `queen:shell`, `cairn:pile` and
- * `reprise:sac` were dropped on 27 September 2026 (`tools/versus/DECIDED.md`),
- * and the seam stays for the outline drift the queue still owes the next six
- * bosses, which re-aims it at a movement big enough to be seen. THE THROAT
- * takes the seam and the seed but not the pose: a body held at both ends
- * bows rather than leans (`throat-sway.ts`), and THE CURTAIN, held along its
- * top, swings at its hem (`curtain-sway.ts`), and THE TASTER's blades each
- * lean on their own root (`taster-sway.ts`), and THE SINEW's mass swings
- * under its held collar (`sinew-sway.ts`), and THE SURGE rocks about its
- * own middle (`surge-sway.ts`), and THE LEDGER's plating leans on its
- * underside (`ledger-sway.ts`), and THE STARE rolls about its eye
- * (`stare-sway.ts`).
+ * canvas will draw. Which bosses take it, and how much, is
+ * `outline-bosses.ts`.
  */
-
-export type OutlineBoss =
-  | "queen"
-  | "cairn"
-  | "reprise"
-  | "warden"
-  | "throat"
-  | "undertow"
-  | "gorge"
-  | "curtain"
-  | "taster"
-  | "sinew"
-  | "surge"
-  | "ledger"
-  | "stare";
-
-/** How much of its pose each boss takes: 0 dead still, 1 the whole. Never past 1 — the cap is at 1. */
-export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
-  queen: 1,
-  cairn: 0,
-  reprise: 1,
-  warden: 1,
-  throat: 1,
-  undertow: 1,
-  gorge: 1,
-  curtain: 1,
-  taster: 1,
-  sinew: 1,
-  surge: 1,
-  ledger: 1,
-  stare: 1,
-};
 
 /** How much of its pose `boss` takes on this device: its seam, times the motion setting's (`motion-life.ts`). */
 export function outlineDrift(boss: OutlineBoss): number {
   return OUTLINE_DRIFT[boss] * bodyLife();
 }
-
-/** Each boss's seed, so no two on one screen lean in step; its parts hash theirs from it (`outline-parts.ts`). */
-export const OUTLINE_SEED: Readonly<Record<OutlineBoss, number>> = {
-  queen: 101,
-  cairn: 113,
-  reprise: 127,
-  warden: 131,
-  throat: 137,
-  undertow: 139,
-  gorge: 149,
-  curtain: 151,
-  taster: 157,
-  sinew: 163,
-  surge: 167,
-  ledger: 173,
-  stare: 179,
-};
 
 export const OUTLINE = {
   /** The most any point within reach moves from its rest, in tiles. */
