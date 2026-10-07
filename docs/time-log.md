@@ -34299,3 +34299,19 @@ none any more.
 Bottleneck: none.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — A strip's draw clock moves by the ticks it stepped
+
+- reading: 10 min. `capture.ts`, `drive.ts` and `draw-clock.ts`: the
+  driver already painted a stride worth its ticks, and the frozen clock
+  went on a sixtieth whatever a paint was worth.
+- writing: 5 min. The clock moves by a paint's `dt`, and `--time` is
+  pinned rather than assumed a sixtieth ahead; two tests.
+- looking: 15 min. THE FLUE's strip on both seats, the mirage only on
+  p2, with the old clock and the new, and the pipe cropped and compared.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the entry's "identical in all six" did not reproduce at
+`--stride 4`, where a sixtieth a paint happens to be close to right; it
+is the long strides that were wrong.

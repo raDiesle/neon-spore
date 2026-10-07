@@ -39,18 +39,26 @@ export async function freezeClocks(page: Page): Promise<boolean> {
       return false;
     }
     let now = 0;
+    let pinned: number | null = null;
     performance.now = () => now;
     // `--time`'s way in: the next paint sees exactly `ms` (`clockTo`).
     (window as unknown as { __clockTo?: (ms: number) => void }).__clockTo = (ms) => {
-      now = ms - step;
+      pinned = ms;
     };
     const painted = ns.paint.bind(ns);
     // The frame's `dt` goes through. A rehearsal is run off it — one film tick
     // per `paint(1 / tickHz)` (`guide-film.ts`) — and the wrapper used to drop
     // it, so every count of a guide capture was a sixtieth of a second and two
     // film ticks, and `--ticks 80` on a page photographed its tick 160.
+    //
+    // **And the clock moves by it.** A paint after a run of ticks is worth
+    // the run (`drive.ts`), and the clock went on a sixtieth a paint whatever
+    // it was worth, so a `--stride 5` strip of THE FLUE's flowing rainbow was
+    // six pictures of one instant (6 October 2026). A paint with no `dt` is
+    // a sixtieth, as the game's own default is.
     ns.paint = (dt?: number) => {
-      now += step;
+      now = pinned ?? now + (typeof dt === "number" ? dt * 1000 : step);
+      pinned = null;
       painted(dt);
     };
     return true;

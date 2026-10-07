@@ -5,7 +5,7 @@ import { parseFrameSpec, parseTime } from "../flags.js";
 
 /**
  * `--time` (`draw-clock.ts`): the paint after `clockTo(12.5)` reads 12500 ms
- * off `performance.now`, the paints after it carry on a sixtieth at a time, and
+ * off `performance.now`, the paints after it carry on by what each is worth, and
  * a build that kept its own clock says so instead of pretending.
  */
 
@@ -47,10 +47,35 @@ describe("clockTo", () => {
     expect((seen[3] as number) - (seen[2] as number)).toBeCloseTo(1000 / 60, 9);
   });
 
+  it("puts a paint worth a film tick at the time asked for, too", async () => {
+    const seen: number[] = [];
+    const w = stubGame(seen);
+    await freezeClocks(page);
+    await clockTo(page, 3);
+    w.neonSpore.paint(1 / 30);
+    expect(seen[0]).toBeCloseTo(3000, 9);
+  });
+
   it("is refused on a build whose clock is still its own", async () => {
     stubGame([], false);
     expect(await freezeClocks(page)).toBe(false);
     expect(await clockTo(page, 3)).toBe(false);
+  });
+});
+
+describe("a strip's clock", () => {
+  it("moves each frame on by the ticks its stride stepped, not a sixtieth", async () => {
+    // `drive.ts` paints a stride's run once, worth `stepped / tickHz`: two
+    // frames of a `--stride 5` strip at 120 Hz are a twenty-fourth apart, so
+    // a look drawn on time has moved between them.
+    const seen: number[] = [];
+    const w = stubGame(seen);
+    await freezeClocks(page);
+    w.neonSpore.paint(5 / 120);
+    w.neonSpore.paint(5 / 120);
+    w.neonSpore.paint();
+    expect((seen[1] as number) - (seen[0] as number)).toBeCloseTo(1000 / 24, 9);
+    expect((seen[2] as number) - (seen[1] as number)).toBeCloseTo(1000 / 60, 9);
   });
 });
 

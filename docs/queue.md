@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `bun run frames` holds the picture's clock still across a `--stride` strip
-
-- **Found:** 2026-10-06, claude/flue-blind
-- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-bun-run-frames-holds-the-pictures-clock-still-ac)
-- **Files:** `tools/frames/capture.ts`, `tools/frames/run.ts`
-
-`--frames 6 --stride 5` stepped the world five ticks a frame but painted every
-frame at the same draw time, so THE FLUE's flowing rainbow came out identical in
-all six and the strip said nothing moved; only `--stride 0 --settle 9` advanced
-the picture's clock. The recipe `--frames 6 --stride 4` is listed as *a short
-strip, for motion*. Advance the draw clock by the ticks a stride steps (a
-tick's seconds at the wave's tempo) before each frame's paint, and add a test
-that two frames of a strip with a time-driven look differ. Done when the
-recipe's strip of THE FLUE shows the fluid moving and `bun run check` is green.
-
 ## "Bring the trunk up" misses landings on the local `main` that are not pushed
 
 - **Found:** 2026-10-06, claude/lamprey-boss-mechanics-662818
