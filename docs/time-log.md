@@ -34830,3 +34830,5 @@ every step's `side`.
 
 Bottleneck: looking — whether a vein reads as grown or as a spark only shows
 at 3× on a real frame.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

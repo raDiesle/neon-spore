@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · d379e3753 — THE GOVERNOR's face is an iris of armour blades, engraved glyphs and living veins
+
+The flat brass ring round a black disc is now a made thing from somewhere else: the face sunk as a dish and cut into seven curved blades, a riveted bezel round the hub, a ring of engraved glyphs, a grooved track with fine graduations, the rim as riveted segments each with its own wear, and a film of gloss over the far side — baked once and blitted under the dial's own tilt. Faint acid-green veins grow beside the seams and under the glyphs and breathe on the beat, glowing too in vents along the ribbed edge, in the flyweights' seams and at the tips of a crown on the spindle's head. Nothing the pair reads moved: the marks, studs, needle, tip, gap and hub draw as before over it.
+
 ## 2026-10-07 · 435af1789 — THE INSTAR's tail ends in two living fins, not two crescents
 
 The fork at the end of THE INSTAR's tail used to be two crescents of bone that looked like shears. Each prong is now a fin: skin stretched over three bony rays, lit through toward a scalloped edge that ripples, with a hooked barb of bone at the tip. The barb is where the crescent's point was, so the mark stays under it, and a bolt stops on the fin's outline.
