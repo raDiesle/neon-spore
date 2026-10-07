@@ -498,7 +498,7 @@ count the simulation keeps gets the green ring and no arc.
 ## A held mark shows it is right: THE KEEL, THE CYST, THE BURGEE
 
 - **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
-- **Files:** `packages/render/src/keel-verdicts.ts`, `packages/render/src/cyst-verdicts.ts`, `packages/render/src/burgee-verdicts.ts`, `packages/render/src/mark-progress.ts`
+- **Files:** `packages/render/src/keel-verdicts.ts`, `packages/render/src/cyst-verdicts.ts`, `packages/render/src/trapeze-verdicts.ts`, `packages/render/src/mark-progress.ts`
 
 The same rule and recipe as the entry for THE DAVIT, THE LAMPREY and THE
 HALTER above (`capstan-verdicts.ts` is the worked example): THE KEEL's two
