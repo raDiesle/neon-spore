@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · e4ad92131 — THE CURTAIN gives under a hand rather than sliding whole
+
+The cloth where a hand holds the sheet goes ahead of the rail by the part of a column the hand has carried and not been paid for, and the rail catches it up when the column is paid, so it never snaps back; the hem dips under each hand, deeper when two hands pull apart and the sheet holds — the cancel's first picture. Against a jammed rail it strains as far as it can, which is the design's THE SLOW on the shove, since on this boss the jam is THE SLOW. The beads dip and stay over their columns, and the trailing edge never uncovers a core. A look the owner asked for by name: the *Not built* parts of the shipped bosses. The rule is untouched.
+
 ## 2026-10-07 · 0a24b1f27 — THE LAMPREY gets a skin: a fin round its tail, gills that breathe, eyes, and a fringed sucker
 
 THE LAMPREY now reads as an eel and not an olive tube. A see-through fin flares round its tail and wraps the tip, with rays, and its edge ripples toward the tail. A dark ridge runs down its back, with mottling and the rings of its segments, and a wet streak shines on the side the light reaches. Seven gill pores on each flank open and shut once a beat, in a ripple from the head, and an eye sits on each side of the neck. A fringe of fleshy bumps rims the sucker: it pulls in all together while the eel is bitten into a tile and ripples round it everywhere else. The lip is glossy, each tooth stands in a gum, and ribs run down the dark throat and swallow inward a beat at a time. The teeth, the sockets and the lit gullet are as they were, so the gaps still count its health. Every motion runs off the beat, so it stands still while the game is paused.
