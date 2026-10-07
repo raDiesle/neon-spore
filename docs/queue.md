@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `--auto-miss` never misses on THE FLUE
 
 - **Found:** 2026-10-07, claude/the-flue-cannon-updates-a48153
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-auto-miss-never-misses-on-the-flue)
 - **Files:** `apps/game/src/auto-miss.ts`, `packages/hands/src/boss-hands-flue.ts`, `tools/frames/auto.ts`
 
 `bun run frames . --wave "THE FLUE" --auto both --auto-miss --until flueMiss`
