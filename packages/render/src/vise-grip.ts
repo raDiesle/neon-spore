@@ -9,11 +9,13 @@ import {
 } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Circle, Layout } from "./layout.js";
+import { NO_SPAN, type SlowSpan } from "./slow-hush.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import { viseArrived } from "./vise-pose.js";
 import { viseCentre, viseKernel, viseLift, viseRadius } from "./vise-shape.js";
 import { viseBite, viseLunge, viseSeedAt, viseSpit } from "./vise-story.js";
+import { viseSwing, viseSwung } from "./vise-sway.js";
 
 /**
  * **The pinch on THE VISE** — the first of its hands lanes, and the one that
@@ -75,10 +77,13 @@ export function viseLobeCircle(
   seat: 1 | 2,
   beat: number,
   beatPhase: number,
+  slow: SlowSpan = NO_SPAN,
 ): Circle {
   const at = caseAt(l, cfg, s, beat, beatPhase);
   const { rx } = viseRadius(l);
-  return { x: at.x + (viseSide(seat) * rx) / 2, y: at.y, r: rx / 2 };
+  const swing = viseSwing(cfg, s, beat, beatPhase, slow);
+  const c = viseSwung(l, { x: (viseSide(seat) * rx) / 2, y: 0 }, swing);
+  return { x: at.x + c.x, y: at.y + c.y, r: rx / 2 };
 }
 
 /** The same for the world as it stands, for the placement and the ghost hand. */
@@ -89,7 +94,7 @@ export function viseLobeStanding(
   seat: 1 | 2,
   beatPhase: number,
 ): Circle {
-  return viseLobeCircle(l, world.cfg, s, seat, world.beat, beatPhase);
+  return viseLobeCircle(l, world.cfg, s, seat, world.beat, beatPhase, world);
 }
 
 /**

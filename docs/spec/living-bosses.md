@@ -265,6 +265,16 @@ game "INSTAR:FLIGHT · SERPENT"*. `INSTAR_SERPENT.amount` is 1 on the field.
   lobe keeps a third. Still through the split. On the field under *a look
   with no shipped alternative*.
 
+  *THE VISE, as built, 7 October 2026* (`vise-sway.ts`): both lobes and
+  the spine turn together about the hinge, up to 0.24 of a radian, so the
+  case's foot wanders across by more than half a tile and the gap between
+  the lobes does not change. The kernel hangs still over the middle
+  column, where a shot at it is judged. Every lit step opens THE SLOW and
+  a rest is a beat, so the swing keeps a third under it rather than
+  stopping, and the two lobe marks ride it: every reader turns them about
+  the same hinge (`viseSwung`). Clamped through a bite, still through the
+  split. On the field under *a look with no shipped alternative*.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair

@@ -1526,6 +1526,7 @@ by hand never moves.
 | `packages/render/src/vise-shape.ts` | **THE VISE's geometry**: where the seed-case stands, and the paths it is made of |
 | `packages/render/src/vise-story.ts` | **THE VISE's two story steps, drawn** (§28's story item; the rules are `sim/vise-guard.ts` and… |
 | `packages/render/src/vise-stop.ts` | **Where a bolt meets THE VISE**, for `BoltStops` (`bolt-stop.ts`): the bared kernel, the seed on a spit, the swung lobes |
+| `packages/render/src/vise-sway.ts` | **THE VISE's case swings from its hinge** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/vise-grip.ts` | **The pinch on THE VISE** — the first of its hands lanes |
 | `packages/render/src/vise-fx.ts` | What THE VISE leaves behind a frame (§28, *Presentation*): the **dry thud** of a seam cracking |
 | `packages/render/src/vise-blow.ts` | THE VISE's timeout blow: the case spits a husk seed that cracks in two on the hull |

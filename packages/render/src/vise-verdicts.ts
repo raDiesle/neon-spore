@@ -1,6 +1,5 @@
 import {
   midCol,
-  type SimConfig,
   type SimEvent,
   type ViseAsk,
   type ViseState,
@@ -18,6 +17,7 @@ import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
 import { viseSide } from "./vise-grip.js";
 import { viseCentre, viseKernel, viseRadius } from "./vise-shape.js";
 import { viseSeedAt, viseSpit } from "./vise-story.js";
+import { viseSwing, viseSwung } from "./vise-sway.js";
 
 /**
  * **THE VISE's marks answering a touch the way every mark does**
@@ -114,14 +114,18 @@ export class ViseVerdicts {
 /** Where each mark stands this frame, in the case's frame; `toHull` is how far below it the hull is. */
 function marksAt(
   l: Layout,
-  cfg: SimConfig,
+  world: World,
   s: ViseState,
   beat: number,
   beatPhase: number,
   toHull: number,
 ): Circle[] {
+  const { cfg } = world;
   const { rx } = viseRadius(l);
-  const lobe = (seat: 1 | 2): Circle => ({ x: (viseSide(seat) * rx) / 2, y: 0, r: rx / 2 });
+  // The lobes' marks ride the case's swing, as their hit test does (`viseLobeCircle`).
+  const swing = viseSwing(cfg, s, beat, beatPhase, world);
+  const lobe = (seat: 1 | 2): Circle =>
+    viseSwung(l, { x: (viseSide(seat) * rx) / 2, y: 0, r: rx / 2 }, swing);
   // The seed of the step lit, or of the one just past, as the drawer hangs it.
   const spat = s.phase === "lit" ? s.steps[s.cursor] : s.steps[s.cursor - 1];
   const seedX =
@@ -161,7 +165,7 @@ export function drawViseMarkFeedback(
   v: GripVerdicts,
 ): void {
   const fade = ctx.globalAlpha;
-  marksAt(l, world.cfg, s, beat, beatPhase, toHull).forEach((c, mark) => {
+  marksAt(l, world, s, beat, beatPhase, toHull).forEach((c, mark) => {
     const says = asked(l, world, s, mark);
     if (says === "own") drawMarkHalo(ctx, c.x, c.y, c.r, time);
     ctx.globalAlpha = fade;

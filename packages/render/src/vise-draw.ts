@@ -49,6 +49,7 @@ import {
   viseSeedAt,
   viseSpit,
 } from "./vise-story.js";
+import { viseSwing } from "./vise-sway.js";
 import { drawViseMarkFeedback } from "./vise-verdicts.js";
 
 /**
@@ -96,8 +97,10 @@ export function drawVise(
   const x = home.x + fx.hurt.shakeX(time, l.tile);
   ctx.translate(x, y);
 
+  // The case swings from its hinge (`vise-sway.ts`); the kernel hangs still.
+  const swing = viseSwing(cfg, s, beat, beatPhase, world);
   ctx.fillStyle = rgba(PALETTE.background, 0.92);
-  ctx.fill(viseHollowPath(l));
+  swungFrom(ctx, l, swing, () => ctx.fill(viseHollowPath(l)));
   const step = viseLitStep(s);
   if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
   const firing = step !== null && step.ask === "fire" && s.bared;
@@ -115,7 +118,9 @@ export function drawVise(
   const leans: [number, number] = [0, 0];
   for (const side of [0, 1] as const) {
     // A bite clamps both lobes shut on the kernel as it lunges.
-    const lean = (viseOpenAngle(world, s, side, beat, beatPhase) + fx.spring(side)) * (1 - bite);
+    const open = (viseOpenAngle(world, s, side, beat, beatPhase) + fx.spring(side)) * (1 - bite);
+    // A lobe's lean opens it outward, so the same turn on screen is + on the left and - on the right.
+    const lean = open + (side === 0 ? swing : -swing);
     leans[side] = lean;
     drawLobe(ctx, l, s, side, lean, viseSqueeze(cfg, s, side), split, time, fx.hurt.value);
     if (both || litSide === side) {
@@ -132,7 +137,7 @@ export function drawVise(
   if (split <= 0) {
     ctx.lineWidth = STROKE.inner;
     ctx.strokeStyle = rgba(PALETTE.viseCrack, 0.35);
-    ctx.stroke(viseSpinePath(l));
+    swungFrom(ctx, l, swing, () => ctx.stroke(viseSpinePath(l)));
   }
   drawViseBiteBar(ctx, l, bite, l.hullY - y, beatPhase);
   const spat = s.phase === "lit" ? s.steps[s.cursor] : s.steps[s.cursor - 1];
@@ -154,6 +159,22 @@ export function drawVise(
   ctx.restore();
   // In field pixels, not the case's frame: the crack stays where the kernel broke.
   fx.crack.draw(ctx);
+}
+
+/** Draws `draw` turned `swing` about the hinge, as the lobes are turned. */
+function swungFrom(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  swing: number,
+  draw: () => void,
+): void {
+  const hinge = viseHinge(l);
+  ctx.save();
+  ctx.translate(hinge.x, hinge.y);
+  ctx.rotate(swing);
+  ctx.translate(-hinge.x, -hinge.y);
+  draw();
+  ctx.restore();
 }
 
 /**
