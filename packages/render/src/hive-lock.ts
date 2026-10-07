@@ -1,11 +1,4 @@
-import {
-  type HiveState,
-  hiveClenched,
-  hiveOnWall,
-  hiveOpen,
-  hiveWallFront,
-  type SimConfig,
-} from "@neon-spore/sim";
+import { type HiveState, hiveHoldable, type SimConfig } from "@neon-spore/sim";
 import { drawGripRing } from "./grip-rings.js";
 import { hiveLobeCircle } from "./hive-grip.js";
 import { hitCircle, type Layout } from "./layout.js";
@@ -28,23 +21,12 @@ import { showsHiveColor } from "./view-role-clocks-b.js";
  * colour is his to say while her thumbs fire it.
  */
 
-/** The wall cocoons a held thumb is worth something on right now. */
-export function hiveLockLobes(s: HiveState): number[] {
-  if (s.downBeat >= 0 || hiveClenched(s)) return [];
-  const out: number[] = [];
-  for (let i = 0; i < s.opened; i++) {
-    if (!hiveOnWall(s, i) || !hiveOpen(s, i)) continue;
-    if (hiveWallFront(s, s.cols[i] ?? 0) !== i) out.push(i);
-  }
-  return out;
-}
-
 /** A press of the pilot's on one of those: a `drag` on `hiveLobe` carrying the cocoon, held until the lift. */
 export function hiveLockUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const s = bossOf(field, "hive");
   if (s === null || field.seat !== 1) return null;
   const { cfg, beat, beatPhase } = field;
-  for (const i of hiveLockLobes(s)) {
+  for (const i of hiveHoldable(s)) {
     if (!hitCircle(hiveLobeCircle(l, cfg, s, i, beat, beatPhase), x, y)) continue;
     return {
       player: 1,
@@ -66,7 +48,7 @@ export function drawHiveLocks(
   time: number,
 ): void {
   if (!showsHiveColor(l.role)) return;
-  for (const i of hiveLockLobes(s)) {
+  for (const i of hiveHoldable(s)) {
     const c = hiveLobeCircle(l, cfg, s, i, beat, beatPhase);
     const held = s.aim === i;
     if (!held) drawMarkHalo(ctx, c.x, c.y, c.r, time);

@@ -11,6 +11,9 @@ import { computeLayout } from "../src/layout.js";
  * (`content/scenes/the-hive.ts`). The haul's thumb is proved beside it in
  * `hive-frame.test.ts`; this is the other reading of the same handle, and
  * before it `handleThumb` answered nothing for her seat at all.
+ *
+ * And the pilot's third reading of it, the hold on a high cocoon up a wall,
+ * from beat 46 until the red bolt it steers seals the cocoon at 47.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -38,5 +41,23 @@ describe("THE HIVE's film, her hand on a swelling lobe", () => {
     const world = at(2170);
     expect(hiveBoss(world)?.wrung[4]).toBe(true);
     expect(handleThumb(L, world, 2, 0.5)).toBeNull();
+  });
+});
+
+describe("THE HIVE's film, his hand on a high cocoon", () => {
+  it("puts his thumb on the cocoon his shots are steering into", () => {
+    const world = at(2800);
+    const s = hiveBoss(world);
+    expect(s?.aim).toBe(6);
+    expect(s?.rows[6]).toBe(3);
+    const thumb = handleThumb(L, world, 1, 0.5);
+    const cocoon = s && hiveLobeCircle(L, CFG, s, 6, world.beat, 0.5);
+    expect(thumb).toEqual(cocoon);
+  });
+
+  it("lifts it once the cocoon is sealed", () => {
+    const world = at(2850);
+    expect(hiveBoss(world)?.sealed[6]).toBe(true);
+    expect(handleThumb(L, world, 1, 0.5)).toBeNull();
   });
 });

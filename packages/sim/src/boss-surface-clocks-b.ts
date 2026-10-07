@@ -151,6 +151,7 @@ export {
   hiveClenchUntil,
   hiveDown,
   hiveHaulAsks,
+  hiveHoldable,
   hiveLeft,
   hiveLobeAsks,
   hiveLobeAt,

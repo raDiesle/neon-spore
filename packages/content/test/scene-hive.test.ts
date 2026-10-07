@@ -14,9 +14,9 @@ import { WAVES } from "../src/waves.js";
  * beat earlier, or a cannon a beat later, would turn a seal into a wasted
  * bolt and the film would go on looking right, so the sequence is held here.
  * It is also the receipt that the fight can be won at all, which it could not
- * be before 20 September 2026 (`bosses.md` §11.14): five sites sealed, and
- * the only breach still open at the end is the twin the film says it is
- * leaving.
+ * be before 20 September 2026 (`bosses.md` §11.14): seven sites sealed, the
+ * last of them up a wall where only the pilot's held thumb reaches it, and
+ * nothing open or falling at the end.
  *
  * **`DEFAULT_CONFIG` here, and the film still plays on the game's shot grid**,
  * because it carries `chargeBeats: 0.5` itself and `sceneScript` lays that
@@ -28,8 +28,13 @@ import { WAVES } from "../src/waves.js";
  * below is therefore the same twenty-four events in the browser, and
  * `scene-grid.test.ts` asks the same question of every other film.
  */
+/** A site by its column, and a wall's cocoon by its column and row. */
+function at(e: { col: number; row?: number }): string {
+  return e.row === undefined ? `${e.col}` : `${e.col}:${e.row}`;
+}
+
 describe("the rehearsal for THE HIVE", () => {
-  it("seals five breaches, one of them wrung, spends a bolt on each spill, and leaves the twin open", () => {
+  it("seals five breaches, one of them wrung, spends a bolt on each spill, and holds the high one", () => {
     const wave = WAVES.findIndex((w) => w.guide?.scene === "theHive");
     const run = new SceneRun(sceneScript("theHive", wave, DEFAULT_CONFIG));
     const seen: string[] = [];
@@ -38,9 +43,9 @@ describe("the rehearsal for THE HIVE", () => {
       run.advance(events);
       const w = run.world;
       for (const e of events) {
-        if (e.type === "hiveOpen") seen.push(`open ${e.col} ${e.color} @${w.beat}`);
-        else if (e.type === "hiveSeal") seen.push(`seal ${e.col} left ${e.left} @${w.beat}`);
-        else if (e.type === "hiveSpill") seen.push(`spill ${e.col} @${w.beat}`);
+        if (e.type === "hiveOpen") seen.push(`open ${at(e)} ${e.color} @${w.beat}`);
+        else if (e.type === "hiveSeal") seen.push(`seal ${at(e)} left ${e.left} @${w.beat}`);
+        else if (e.type === "hiveSpill") seen.push(`spill ${at(e)} @${w.beat}`);
         else if (e.type === "hiveWrong") seen.push(`wrong @${w.beat}`);
         else if (e.type === "hiveSkin") seen.push(`skin @${w.beat}`);
         else if (e.type === "hiveClench") seen.push(`clench @${w.beat}`);
@@ -49,8 +54,9 @@ describe("the rehearsal for THE HIVE", () => {
         else if (e.type === "breach" || e.type === "waveFailed") seen.push(`${e.type} @${w.beat}`);
       }
     }
-    // Seed 675740's underside opens `3c 4r 5c 2r 8r 6r 7c`, and its walls not
-    // until after. Column 3 is sealed by
+    // Seed 853589's underside opens `3c 4r 5c 2r 8r` as 675740's did, and
+    // its twins are `6c` and the left wall's top cocoon, red (`scenes/the-hive.ts`).
+    // Column 3 is sealed by
     // one bolt because it is sealed before its first spill; 4 takes two,
     // because it spills on the beat it opens; 5 and 8 are sealed by a bolt
     // already in the air when the breach opened; 2 is answered in cyan, which
@@ -63,20 +69,19 @@ describe("the rehearsal for THE HIVE", () => {
     //
     // **It clenches twice**, on the third seal and on the sixth, which is the
     // underside's own answer to being sealed (`bosses.md` §11.14, 21 September
-    // 2026), and the pair are the lesson: the first costs the film nothing —
-    // every site is shut by the time it is up, so there is no spill for it to
-    // hold back — and the second would have cost it everything. Column 7 is
-    // open and spilling at beat 47, and the spill it owes at 48 is inside a
-    // clench that outlasts the scene, so the film's last beats would teach
-    // the pair that a breach left open goes harmless.
+    // 2026). The first costs the film nothing — every site is shut by the time
+    // it is up. The second goes up on column 6's seal with the wall's cocoon
+    // still open, and the pilot hauls it down inside the beat, so the hold
+    // after it has something to steer into and the spill it owes at 45 is not
+    // carried along.
     //
-    // **So the pilot hauls the second one down**, inside the beat it went up
-    // — which is what the `haul` below is, and why the spill at 48 is back.
-    // The window is the beat: the cadence rides along with the mass while it
-    // is up (`hive-step.ts`), so a haul finished before beat 48's step leaves
-    // `spillBeat` at 45 and the spill falls on 48 as it always would have.
-    // The wring moved the twins' spills from 44 to 45, and with them every
-    // shot and the haul after it (`scenes/the-hive.ts`).
+    // **The hold is the seal at `0:3`.** Row 3 is the top cocoon of the left
+    // wall, behind two shut ones under it, and the cannon is in column 6: a
+    // straight bolt cannot meet it from anywhere. It is met only because the
+    // pilot's thumb is on it, and the red bolt climbs its own column and turns
+    // the corner into it (`sim/hive-wall.ts`). The wall's spill at 45 is the
+    // body a bolt fired straight up column 1 takes after, which is why there
+    // is no `breach`.
     expect(seen).toEqual([
       "open 3 cyan @4",
       "seal 3 left 12 @5",
@@ -94,14 +99,13 @@ describe("the rehearsal for THE HIVE", () => {
       "wrung 8 @36",
       "spill 8 @36",
       "seal 8 left 8 @36",
-      "open 6 red @44",
-      "open 7 cyan @44",
-      "spill 6 @45",
-      "spill 7 @45",
-      "seal 6 left 7 @47",
-      "clench @47",
-      "haul @47",
-      "spill 7 @48",
+      "open 6 cyan @44",
+      "open 0:3 red @44",
+      "seal 6 left 7 @44",
+      "clench @44",
+      "haul @44",
+      "spill 0:3 @45",
+      "seal 0:3 left 6 @47",
     ]);
   });
 });

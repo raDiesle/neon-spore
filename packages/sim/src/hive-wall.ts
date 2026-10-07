@@ -70,6 +70,23 @@ export function hiveWallFront(s: HiveState, col: number): number {
 }
 
 /**
+ * The wall cocoons a held thumb is worth something on right now: every open
+ * breach up a wall behind the lowest cocoon on it, which a straight bolt meets
+ * first. None while the mass is clenched up out of reach or once it is beaten. The ring
+ * the pilot is offered (`render/hive-lock.ts`) and the cocoon a rehearsal's
+ * hold lands on (`scene-aim.ts`) are both this list.
+ */
+export function hiveHoldable(s: HiveState): number[] {
+  if (s.downBeat >= 0 || hiveClenched(s)) return [];
+  const out: number[] = [];
+  for (let i = 0; i < s.opened; i++) {
+    if (!hiveOnWall(s, i) || !hiveOpen(s, i)) continue;
+    if (hiveWallFront(s, s.cols[i] ?? 0) !== i) out.push(i);
+  }
+  return out;
+}
+
+/**
  * Where a shot sweeping `from` up to `to` in its column meets a wall cocoon,
  * in thousandths of a row, or `-1` — `bossAlong`'s question (`boss-along.ts`).
  * A beaten mass stops nothing.

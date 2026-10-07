@@ -34068,3 +34068,18 @@ Bottleneck: none — the level trade already swaps whole panels, so a set
 with one seat empty was the whole change.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE HIVE's rehearsal shows the pilot's hold on a high cocoon
+
+- reading: 5 min. The film, its pinned events, how a scene finds the lobe
+  a hand is on, the steer round a corner, the ghost thumb's placement.
+- writing: 5 min. The seed hunt, the retrace from beat 41, the hold found
+  by the runner, the thumb on the cocoon, two pages rewritten, the tests.
+- looking: 0 min. The hold page on the pilot's screen, once.
+- friction: 0 min. The worktree began on `origin/main`, 108 landings behind
+  the local `main` (already queued), and a probe read its own path as an
+  argument.
+- landing: 0 min. `check:fast`, the commit, `land`.
+
+Bottleneck: retracing — every act after the twins had to be found against
+the simulation, a bolt at a time.

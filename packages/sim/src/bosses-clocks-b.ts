@@ -155,7 +155,7 @@ export {
 } from "./hive-lobe.js";
 // And its two walls: where the cocoons are, and the one the pilot's thumb is
 // steering his shots into (`hive-wall.ts`).
-export { hiveAim, hiveWallFront, hiveWallPlaces } from "./hive-wall.js";
+export { hiveAim, hiveHoldable, hiveWallFront, hiveWallPlaces } from "./hive-wall.js";
 export {
   type ScuttlePart,
   type ScuttlePartKind,

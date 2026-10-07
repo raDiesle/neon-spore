@@ -3,6 +3,7 @@ import { antiphonVeinMilli } from "./antiphon-vein.js";
 import { bossAnswerCol } from "./boss-answer.js";
 import { gripOf, NO_GRIP } from "./grip.js";
 import { hiveBoss, hiveNext } from "./hive.js";
+import { hiveHoldable } from "./hive-wall.js";
 import { bodyCenterCol, occupiesCol } from "./span.js";
 import type { Command, Creature } from "./types.js";
 import { undertowBoss } from "./undertow.js";
@@ -128,6 +129,15 @@ export function aimed(world: World, c: SceneCommand): Command {
     const s = hiveBoss(world);
     const next = s === null ? -1 : hiveNext(s);
     return next < 0 ? c.command : { ...c.command, id: next };
+  }
+  if (c.player === 1 && c.command.kind === "drag" && c.command.target === "hiveLobe") {
+    // And in the pilot's, while the mass hangs, a hold on a cocoon up a wall —
+    // named by its index too, and the author knows only that it is the high
+    // one open. The world knows which (`hiveHoldable`). Clenched, the same
+    // carry is a haul and wants no index; none to hold leaves it as written.
+    const s = hiveBoss(world);
+    const held = s === null ? undefined : hiveHoldable(s)[0];
+    return held === undefined ? c.command : { ...c.command, id: held };
   }
   if (c.command.kind === "drag" && c.command.target === "antiphonRail") {
     // THE ANTIPHON's carry is the organ's candidate, by its index on a rail

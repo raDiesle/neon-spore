@@ -14,22 +14,23 @@ import type { GuideScene } from "../scene-types.js";
  * so the split is the one thing a film has to carry, and every page here is
  * one seat's screen showing what only that seat has.
  *
- * **Seed 675740, for two accidents worth a page.** The sites open
- * `3c 4r 5c 2r 8r 6r 7c` along the underside before any wall opens at all —
- * the film is the underside's, and the walls hang shut through it: the
- * first two breaches are different colours, so the second cannot be
- * answered by repeating the first; and the twins at the fifth opening land
- * on columns 6 and 7, adjacent, one red and one cyan — one cannon, two
- * colours, which is the fight's last lesson in one frame. It was seed 6 until
- * the walls (5 October 2026), and this one was hunted for opening the same
- * colours on the same beats, so every act kept its tick and only its column
- * moved.
+ * **Seed 853589, for three accidents worth a page.** The sites open
+ * `3c 4r 5c 2r 8r` along the underside before any wall: the first two
+ * breaches are different colours, so the second cannot be answered by
+ * repeating the first. Then the twins at beat 44 are column 6 in cyan and the
+ * left wall's **top** cocoon in red — two colours, one cannon, and one of
+ * them where no column reaches, which is the pilot's hold (`sim/hive-wall.ts`)
+ * and the fight's last lesson in one frame. It was seed 6 until the walls
+ * (5 October 2026), then 675740, which opened every underside site before
+ * any wall and so never showed the hold; this one was hunted out of three
+ * million for opening the same first five on the same beats, so every act
+ * before the twins kept its tick.
  *
  * **Why a spill is not a failure here.** A breach spills a living body, and a
  * bolt of the breach's colour kills a living body of that colour — so a bolt
  * fired into a spilling column is spent on the spill and never reaches the
  * top. That is the whole of *clear it, then seal it*, and it is why the film
- * fires twice into column 4 and twice into the twins. It is also why the first
+ * fires twice into column 4, and why the wall's spill costs a shot of its own. It is also why the first
  * site is sealed before it ever spills: one shot, if the cannon is already
  * there. The acts below were traced against the simulation beat by beat — a
  * bolt takes 72 ticks to cross fifteen rows, and a body falls one row every
@@ -52,20 +53,24 @@ import type { GuideScene } from "../scene-types.js";
  *
  * **It clenches twice, and the hand is the difference.** Every third seal
  * draws the whole underside up out of a bolt's reach for six beats, and while
- * it is up nothing spills — the cadence rides along and falls all at once on
- * the beat it lets go (`sim/hive-step.ts`). The third seal clenches it at beat
- * 20 with every site shut, so nothing is owed and nobody need touch it: that
- * one is the state shown costing nothing. The sixth clenches it at beat 47
- * with column 7 open, and *that* one is hauled — the pilot's palm on the mass
- * the tick after it goes up, and down again inside the beat, which is the
- * whole window. Finished before beat 48's step, the spill that beat owes
- * arrives on it; a beat later and it is simply gone.
- * Unhauled, the film's last beats say a breach left open costs nothing,
- * which is the opposite of the sentence it exists to say. **There is no page
- * for it** and there is no room for one: the twins' two pages are 180 ticks
- * apart already (`test/scene-pages.test.ts`), and both are true. The gesture is
- * shown rather than captioned — the ghost thumb rides the mass down
- * (`render/guide-hand.ts`), which is what §11.14 promises of this film.
+ * it is up nothing spills and no hold steers — the cadence rides along and
+ * falls all at once on the beat it lets go (`sim/hive-step.ts`). The third
+ * seal clenches it at beat 20 with every site shut, so nothing is owed and
+ * nobody need touch it: that one is the state shown costing nothing. The
+ * sixth is column 6's, sealed at beat 44 by a cyan bolt already in the air,
+ * and it goes up with the wall's cocoon open — so *that* one is hauled, the
+ * pilot's palm on the mass the moment it goes up and down again inside the
+ * beat. **There is no page for it**: the gesture is shown rather than
+ * captioned — the ghost thumb rides the mass down (`render/guide-hand.ts`) —
+ * and the page standing over it is the hold it makes room for.
+ *
+ * **The hold is his last gesture and the film's last lesson.** The cannon stays
+ * in column 6; the pilot's thumb goes on the cocoon up the wall, and the red
+ * bolt she fires climbs its own column and turns the corner into it, past the
+ * two shut cocoons under it a straight bolt would meet. The wall had spilled
+ * a beat before — sideways, into column 1 — and the bolt passes over it; the
+ * cannon goes to column 1 for the last shot and takes it, so the film ends
+ * with seven scars, nothing open and nothing falling.
  *
  * **Her hand is in it too.** The fifth site is wrung: the navigator's thumb
  * is on its swell from beat 33 until it opens at 36, under her own page, so
@@ -74,17 +79,12 @@ import type { GuideScene } from "../scene-types.js";
  * shot, and the twins spill a beat later than they would have — every act
  * after it was traced again for that. It has no page either, for the reason
  * the haul has none; the ghost thumb squeezes the lobe.
- *
- * **It ends unfinished, on purpose.** Column 7 is left open and spilling with
- * column 6 sealed beside it, because a bolt cannot pass a falling body and so
- * no film can both clear a column and seal another in the same beats. The pair
- * leave with the split, the seal and the double, and the rest is the fight.
  */
 export const THE_HIVE: GuideScene = {
   ticks: 3060,
   bpm: 120,
   chargeBeats: 0.5,
-  seed: 675740,
+  seed: 853589,
   entries: [],
   boss: { kind: "hive" },
   acts: [
@@ -116,16 +116,22 @@ export const THE_HIVE: GuideScene = {
     { tick: 2010, control: "cannon", worldCol: 8 },
     { tick: 2085, control: "fireCyan" },
     { tick: 2205, control: "fireRed" },
-    // The twins at beat 44: column 6 red and column 7 cyan, adjacent, both
-    // spilling a beat after they open — the wring moved the cadence by one.
-    // The cannon can only be in one of them.
+    // The twins at beat 44: column 6 cyan, and red at the top of the left
+    // wall. Column 6 is sealed by a bolt already in the air, which is the
+    // sixth seal, so the underside clenches on it — and the pilot's palm is on
+    // it at once, and has it down before beat 45's spill is due.
     { tick: 2500, control: "cannon", worldCol: 6 },
-    { tick: 2685, control: "fireRed" },
+    { tick: 2565, control: "fireCyan" },
+    { tick: 2648, drag: "hiveLobe", by: 2692, until: 2700 },
+    // The hold: his thumb on the high cocoon while her red bolt is climbing
+    // column 6, so it turns the corner into the cocoon and seals it at 47.
+    // Nothing is carried — a hold is where the thumb is, not how far it goes.
     { tick: 2745, control: "fireRed" },
-    // The seal on column 6 is the sixth, so the underside clenches on it — and
-    // the pilot's palm is on it the tick after, and has it back down inside
-    // the beat.
-    { tick: 2827, drag: "hiveLobe", by: 2879, until: 2920 },
+    { tick: 2775, drag: "hiveLobe", toMilli: 0, until: 2860 },
+    // The wall spilled sideways into column 1 at beat 45, and the held bolt
+    // ran over it: the cannon goes under it for the last shot.
+    { tick: 2850, control: "cannon", worldCol: 1 },
+    { tick: 2905, control: "fireRed" },
   ],
   steps: [
     { tick: 0, seat: 2, text: "PLAYER 2 SEES IT SWELL", anchor: { at: "boss", part: "swell" } },
@@ -183,31 +189,26 @@ export const THE_HIVE: GuideScene = {
     {
       tick: 2400,
       seat: 2,
-      text: "SAY BOTH · HE PICKS ONE",
-      anchor: { at: "control", control: "fireRed" },
+      text: "TWO SWELL · ONE ON A WALL",
+      anchor: { at: "boss", part: "swell" },
     },
-    // The two pages the twins are for open on the beat the twins open and ten
-    // ticks before the first is sealed (on 2830). A page stands on the next
-    // one's first tick, so the second opening *on* the seal left the first
-    // standing in front of one open with TWO OPEN over it; now the second
-    // plays into the seal it names (`played`, `test/scene-pages.test.ts`).
-    // The loop runs a beat past the last page so the second gets its two
-    // seconds.
+    // By the time the hold goes down the cocoon up the wall is the only breach
+    // open — column 6 was sealed by the bolt already in the air — so the
+    // caption stands on it.
     {
       tick: 2640,
       seat: 1,
-      text: "TWO OPEN · TWO COLOURS",
+      text: "PLAYER 1 HOLDS THE HIGH ONE",
       anchor: { at: "boss", part: "breach" },
-      counts: [{ of: "hiveOpen", is: 2 }],
     },
     {
-      tick: 2820,
+      tick: 2860,
       seat: 2,
-      text: "ONE SEALED · ONE SPILLING",
-      anchor: { at: "boss", part: "breach" },
+      text: "SEVEN SCARS · SIX TO GO",
+      anchor: { at: "boss" },
       counts: [
-        { of: "hiveScars", is: 6, played: true },
-        { of: "hiveOpen", is: 1, played: true },
+        { of: "hiveScars", is: 7 },
+        { of: "hiveLeft", is: 6 },
       ],
     },
   ],

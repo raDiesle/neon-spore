@@ -1,9 +1,16 @@
 import { actCol, control, type GuideScene } from "@neon-spore/content";
-import { type Creature, gripsCreature, lidIsHeld, occupiesCol, type World } from "@neon-spore/sim";
+import {
+  type Creature,
+  gripsCreature,
+  hiveHoldable,
+  lidIsHeld,
+  occupiesCol,
+  type World,
+} from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
 import { bossThumb } from "./guide-boss-hand.js";
 import { handleCircle } from "./handles.js";
-import { hivePinchCircle } from "./hive-grip.js";
+import { hiveLobeCircle, hivePinchCircle } from "./hive-grip.js";
 import { fieldX, type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { shipCircle } from "./touch-ship.js";
@@ -221,6 +228,12 @@ export function handleThumb(
   }
   if (world.boss?.kind === "warden" && world.boss.pulling) {
     return handleCircle(l, world, "wardenTether", beatPhase);
+  }
+  // His hold on a high cocoon up a wall, on the cocoon, for as long as it
+  // steers his shots (`hive-lock.ts`). Asked before the haul: nothing is
+  // holdable while the mass is clenched, and a haul's carry outlives it.
+  if (world.boss?.kind === "hive" && hiveHoldable(world.boss).includes(world.boss.aim)) {
+    return hiveLobeCircle(l, world.cfg, world.boss, world.boss.aim, world.beat, beatPhase);
   }
   // THE HIVE's clenched underside, held for as long as the haul is under way.
   // What the thumb has carried is a number in the simulation and the clench
