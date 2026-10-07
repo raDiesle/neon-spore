@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · f516083d7 — THE FLUE has eleven levels, starts slower, and some come from the right or ask twice
+
+THE FLUE now has eleven levels, one for each lobe of the flue. The first two run the spore at one column a beat, half the old speed, and the speed climbs from there under THE SLOW to the last. Two new kinds of level join the weapon, the colour and the speed: on some the spore sets off from the right end and runs left, so the call is the mirror of the one learned, and some need the spore met twice, the first hit beaming it home with no shot spent. A miss in between keeps the hit already landed.
+
 ## 2026-10-07 · d94790d2c — THE FLUE hangs two rows lower again
 
 The flue, its spore and its sight now stand on the sixth row from the top, two lower than yesterday, and a shot is judged there. The strings it hangs on are longer, and a bolt reaches it a little sooner.
