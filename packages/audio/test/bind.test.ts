@@ -445,7 +445,7 @@ const SAMPLES: Record<string, SimEvent> = {
   keelDim: { type: "keelDim", col: 5 },
   keelRigid: { type: "keelRigid", col: 5 },
   keelThrow: { type: "keelThrow", col: 10 },
-  keelRockOut: { type: "keelRockOut", col: 10 },
+  keelRockOut: { type: "keelRockOut", col: 10, rowMilli: 6000 },
   keelRockHit: { type: "keelRockHit", col: 10 },
   keelStraight: { type: "keelStraight", col: 5 },
   keelFlip: { type: "keelFlip", col: 5 },

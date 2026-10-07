@@ -483,7 +483,7 @@ by hand never moves.
 | `packages/sim/src/kind-code.ts` | **A kind as a number**, and the compile-time proof that every kind has one |
 | `packages/sim/src/keel-hand.ts` | THE KEEL's one thumb: a tap on the lit joint, from the seat whose half of the screen it sits over |
 | `packages/sim/src/keel-hash.ts` | What THE KEEL puts into `hashWorld`, and nothing else |
-| `packages/sim/src/keel-shot.ts` | **THE KEEL's two targets**: the midpoint's socket (movement 2) and the tail's rock (movement 3) |
+| `packages/sim/src/keel-shot.ts` | **THE KEEL's two targets**: the midpoint's socket (movement 2), where a bolt leaves the top of the field |
 | `packages/sim/src/keel-step.ts` | THE KEEL's clock: every row of §24's beat list that is a beat's question — a joint lighting |
 | `packages/sim/src/keel-story.ts` | **THE KEEL's story between the last lock and the end** (§24 rows 9, 10 and 15) |
 | `packages/sim/src/keel.ts` | THE KEEL: a six-segment spine arched along the top of the field |

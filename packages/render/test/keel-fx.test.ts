@@ -2,7 +2,9 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
+  KEEL_ROCK_FROM_MILLI,
   keelBoss,
+  keelRockMilli,
   midCol,
   NO_ROCK,
   type SimEvent,
@@ -142,9 +144,9 @@ describe("THE KEEL's transients", () => {
     const late = new KeelFx();
     said(late, [{ type: "keelThrow", col: 1 }]);
     for (let i = 0; i < 60 * CFG.keelRockBeats * BEAT * 0.75; i++) late.update(1 / 60);
-    const out: SimEvent = { type: "keelRockOut", col: 1 };
-    const [first] = said(early, [out]);
-    const [second] = said(late, [out]);
+    const fell = keelRockMilli(CFG, CFG.keelRockBeats * TPB * 0.75);
+    const [first] = said(early, [{ type: "keelRockOut", col: 1, rowMilli: KEEL_ROCK_FROM_MILLI }]);
+    const [second] = said(late, [{ type: "keelRockOut", col: 1, rowMilli: fell }]);
     const tail = keelSegCentre(L, CFG, N - 1, N, RISE, 0);
     expect(first?.y ?? 0).toBeCloseTo(tail.y, 5);
     expect(second?.y ?? 0).toBeGreaterThan(tail.y + L.tile);

@@ -327,21 +327,3 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
-
-## THE KEEL's rock and socket are judged at the field's top
-
-- **Found:** 2026-10-07, claude/queue-tasks-ab3705
-- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-keels-rock-and-socket-are-judged-at-the-fiel)
-- **Files:** `packages/sim/src/keel-shot.ts`, `packages/sim/src/core-along.ts`, `packages/sim/src/spark-fall.ts`, `packages/render/src/keel-rock.ts`, `packages/render/src/keel-stop.ts`, `packages/render/test/core-met.test.ts`
-
-The half of "THE KEEL, THE CYST and THE VISE" that was split off: THE CYST's
-bud and THE VISE's seed are met where they hang now, through a `CORES` row's
-`aside`, and THE KEEL is not. Its two targets are not a row. The thrown rock
-falls from the tail to the hull, laid off the *drawn* tail
-(`keelRockPoint(l, tail, col, along)`), so it wants `spark-fall.ts`'s shape:
-a sim row a beat after `rockBeat`, met by `sparkMeets`, its row on
-`keelRockOut`, the picture laid off the same number. The socket and the lens
-stand where the segments' pose puts them (`keelSocketAt`, `keelMarrowAt`,
-render-side), so either give the middle a fixed sim row that the pose is
-drawn from, or leave the middle at the top and say so. Then add THE KEEL to
-`core-met.test.ts` (as `FALLING` for the rock).

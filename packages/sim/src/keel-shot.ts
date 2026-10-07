@@ -1,15 +1,17 @@
 import { metColor, missedColor } from "./balance.js";
-import { midCol } from "./config.js";
+import { midCol, type SimConfig } from "./config.js";
 import type { CoreVerdict } from "./core-verdict.js";
-import { keelBoss, keelMarrowLit, keelThrown, NO_JOINT, NO_ROCK } from "./keel.js";
+import { type KeelState, keelBoss, keelMarrowLit, keelThrown, NO_JOINT, NO_ROCK } from "./keel.js";
 import { keelMarrowStruck } from "./keel-story.js";
 import { closeSlow } from "./slow.js";
+import { sparkFallMilli, sparkFuseTicks, sparkMeets } from "./spark-fall.js";
 import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * **THE KEEL's two targets**: the midpoint's socket (movement 2) and the
- * tail's rock (movement 3), both where a bolt leaves the top of the field.
+ * **THE KEEL's two targets**: the midpoint's socket (movement 2), where a
+ * bolt leaves the top of the field, and the tail's rock (movement 3), where
+ * the bolt meets it on its fall (`keelRockAlong`).
  *
  * **The socket wants its colour.** It flashes the wave's `socket`, and only
  * that cannon's bolt up the middle column shuts it — which locks the
@@ -31,8 +33,9 @@ export function keelStruck(world: World, bullet: Bullet): boolean {
   const v = keelVerdict(world, bullet.col, bullet.color);
   if (s === null || v === null) return false;
   if (keelThrown(s) && bullet.col === s.rockCol) {
+    const rowMilli = keelRockNowMilli(world, s);
     s.rockCol = NO_ROCK;
-    world.events.push({ type: "keelRockOut", col: bullet.col });
+    world.events.push({ type: "keelRockOut", col: bullet.col, rowMilli });
     return true;
   }
   if (keelMarrowStruck(world, s, bullet)) return true;
@@ -68,4 +71,34 @@ export function keelVerdict(world: World, col: number, color: Color): CoreVerdic
   if (keelMarrowLit(s)) return s.marrow[color === "red" ? 0 : 1] ? "armour" : "target";
   if (s.phase !== "socket") return "armour";
   return color === s.socket ? "target" : "wrong";
+}
+
+/**
+ * Where the rock falls from: the tail's end, in the middle of the breath it
+ * rocks through while the rock is in the air (`render/keel-rock.ts` eases the
+ * rock off the drawn end onto this row, and a test holds the end near it).
+ */
+export const KEEL_ROCK_FROM_MILLI = 1440;
+
+/** The rock's centre `fuseTicks` after it was thrown, falling to the hull (`spark-fall.ts`). */
+export function keelRockMilli(cfg: SimConfig, fuseTicks: number): number {
+  return sparkFallMilli(cfg, KEEL_ROCK_FROM_MILLI, cfg.keelRockBeats, fuseTicks);
+}
+
+/** The rock's centre on this tick, or `back` ticks before it. */
+export function keelRockNowMilli(world: World, s: KeelState, back = 0): number {
+  return Math.floor(keelRockMilli(world.cfg, sparkFuseTicks(world, s.rockBeat, world.tick) - back));
+}
+
+/**
+ * Where a shot in the rock's column sweeping from `from` to `to` meets the
+ * rock, or -1 — asked in `boss-along.ts`, so it is shot out where it is drawn
+ * shot out rather than when the shot leaves the top of the field. The socket
+ * and the marrow's lens are not met here: they stand where the segments' pose
+ * puts them, which the simulation does not know (`core-along.ts`).
+ */
+export function keelRockAlong(world: World, b: Bullet, from: number, to: number): number {
+  const s = keelBoss(world);
+  if (s === null || !keelThrown(s) || b.col !== s.rockCol) return -1;
+  return sparkMeets(keelRockNowMilli(world, s), keelRockNowMilli(world, s, 1), from, to);
 }

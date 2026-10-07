@@ -158,7 +158,7 @@ export class KeelFx {
           break;
         case "keelRockOut": {
           const along = Math.min(1, this.rockAge / Math.max(1e-6, this.rockFall));
-          const rock = keelRockPoint(l, seg(n - 1), e.col, along);
+          const rock = keelRockPoint(l, seg(n - 1), e.col, along, e.rowMilli);
           burst(rock.x, rock.y, 12, PALETTE.rock);
           this.rockFall = 0;
           break;

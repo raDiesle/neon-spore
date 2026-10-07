@@ -28,7 +28,7 @@ export { grindstoneVerdict } from "./grindstone-shot.js";
 export { halterVerdict } from "./halter-shot.js";
 export { HASP_BOLT_FROM_MILLI, haspBoltMilli, haspVerdict } from "./hasp-shot.js";
 export { hiveVerdict, hiveWallVerdict } from "./hive-shot.js";
-export { keelVerdict } from "./keel-shot.js";
+export { KEEL_ROCK_FROM_MILLI, keelRockMilli, keelVerdict } from "./keel-shot.js";
 export { type LeadVerdict, leadVerdict } from "./lead-shot.js";
 export { ledgerVerdict } from "./ledger-shot.js";
 export { MANTLE_SPARK_FROM_MILLI, mantleSparkMilli, mantleVerdict } from "./mantle-shot.js";

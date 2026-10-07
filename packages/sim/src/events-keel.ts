@@ -61,8 +61,8 @@ export type KeelEvent =
   | ({ type: "keelRigid" } & KeelColEvent)
   /** The tail whips and throws one rock down its column. */
   | ({ type: "keelThrow" } & KeelColEvent)
-  /** The rock was shot out, in either colour. */
-  | ({ type: "keelRockOut" } & KeelColEvent)
+  /** The rock was shot out, in either colour; `rowMilli` is where it was when the shot met it. */
+  | ({ type: "keelRockOut"; rowMilli: number } & KeelColEvent)
   /** Nobody shot it: the rock reached the hull. */
   | ({ type: "keelRockHit" } & KeelColEvent)
   /** The spine snaps straight: the fight is over. */

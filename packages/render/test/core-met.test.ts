@@ -31,8 +31,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * be the hit landing late. A row put on the table at the wrong height is red
  * here.
  *
- * **And what falls**, THE MANTLE's and THE VALVE's sparks and THE RATCHET's
- * and THE HASP's loose bolts: met by the gap closing between ticks (`sim/spark-fall.ts`) rather than on a row of the
+ * **And what falls**, THE MANTLE's and THE VALVE's sparks, THE RATCHET's
+ * and THE HASP's loose bolts and THE KEEL's rock: met by the gap closing between ticks (`sim/spark-fall.ts`) rather than on a row of the
  * table, and judged by the boss's own call rather than `shotLeaves`, so the
  * target going out is the receipt rather than a `shotOut`.
  *
@@ -62,6 +62,7 @@ const FALLING: Partial<Record<BossKind, SimEvent["type"]>> = {
   valve: "valveSparkOut",
   ratchet: "ratchetBoltOut",
   hasp: "haspBoltOut",
+  keel: "keelRockOut",
 };
 
 /** The bosses with a part a step asks for aside of the middle column. */

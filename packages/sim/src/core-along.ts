@@ -94,6 +94,11 @@ const CORES: Partial<Record<BossKind, Core>> = {
   // stands where the screen has room (`render/scuttle-shape.ts`'
   // `headroomDrop`), which the simulation cannot know. Laying it on a field
   // row would move it on tall screens, a look; decided 7 October 2026.
+  // THE KEEL's socket and marrow lens are left off the same way: they stand
+  // where the segments' pose puts them (`render/keel-marks.ts`,
+  // `keel-story.ts`), hinged, breathing and swung, and a fixed row would
+  // redraw the spine. Its thrown rock falls, and is met on its fall
+  // (`keel-shot.ts`, `boss-along.ts`).
 };
 
 /**

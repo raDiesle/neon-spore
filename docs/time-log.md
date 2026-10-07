@@ -34348,3 +34348,21 @@ Bottleneck: none.
 Bottleneck: none.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE KEEL's rock is shot out where the shot meets it
+
+- reading: 15 min. The rock's drawn fall, the sparks' reckoning, THE
+  HASP's lane as the pattern, and a probe of where the tail's end stands
+  while a rock is in the air (rows 1.22 to 1.66 on every screen).
+- writing: 20 min. The rock falls in the simulation from row 1.44 and is
+  met by `sparkMeets`; the picture leaves the drawn tail onto that row
+  over the first quarter of the fall; `keelRockOut` carries its row; the
+  socket and the lens left judged at the top, said in `core-along.ts`;
+  THE KEEL on `core-met.test.ts` and a test holding the tail near the row.
+- looking: 5 min. The receipt under AUTO, and a frame mid-fall before
+  and after.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, `check:fast`, the commit, `land`.
+
+Bottleneck: the tail's end breathes, so no fixed row is exactly where it
+is drawn; the blend over the first quarter is what answered it.

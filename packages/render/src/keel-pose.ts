@@ -2,8 +2,10 @@ import {
   type KeelState,
   keelDone,
   keelFlipping,
+  keelRockMilli,
   keelThrown,
   type SimConfig,
+  ticksPerBeat,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { keelRockPoint } from "./keel-rock.js";
@@ -208,7 +210,8 @@ export function keelRockNow(
   const tail = segs[segs.length - 1];
   if (along < 0 || tail === undefined) return null;
   const from = keelSegEnd(l, tail.centre, tail.slope, tail.pose, 1);
-  return keelRockPoint(l, from, s.rockCol, along);
+  const fuse = (beat - s.rockBeat + beatPhase) * ticksPerBeat(cfg);
+  return keelRockPoint(l, from, s.rockCol, along, keelRockMilli(cfg, fuse));
 }
 
 /**
