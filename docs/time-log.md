@@ -34566,3 +34566,5 @@ body, and only filled lenses, embossed, read as raised.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: `check:fast` again — a `COPIES` row reaches every test.
+
+*Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

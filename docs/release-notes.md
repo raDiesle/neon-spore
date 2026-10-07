@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 60069296a — Time log for THE KEEL's sway
+
+## 2026-10-07 · e8463097e — THE KEEL's ribs follow the segment's sway by calling it
+
+`keelSway` in `keel-pose.ts` is where a loose segment is in its sway, with a phase held back for a part that follows late; the segment's pose and the ribs' lag in `keel-draw.ts` both call it instead of each writing the sine out. A `COPIES` row holds it. Nothing on the field moves.
+
 ## 2026-10-07 · 544fdd466 — THE GAUGE's alien in depth: lit flesh, a throat, shaded teeth, eyes in sockets
 
 The alien was a flat dark sheet with a hole in it. Its body is now lit as a dome off the key light, with a raised tendon up each arm and pores placed on a ball. The mouth is a gullet that falls away to black, with rings of gristle stepping down it. Each tooth is shaded as a cone and stands in a band of gum. The eyes sit in sockets under a lit brow, with a rounded eyeball and a ringed iris, and the tongue is rounded. The wound, the aim and the gashes are unchanged and keep their colours to themselves.
