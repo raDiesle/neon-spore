@@ -1,5 +1,6 @@
 import { type Foot, outlineFoot, roundFoot } from "./core-stop.js";
 import { frontWings } from "./instar-front.js";
+import { legRings, profileLegs } from "./instar-legs.js";
 import { nestPool, nestsAt } from "./instar-nest-place.js";
 import type { Point } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
@@ -11,8 +12,9 @@ import { wingPoints } from "./instar-wing-rig.js";
 import type { Layout } from "./layout.js";
 
 /**
- * **Where a bolt meets THE INSTAR's wings, tail and nests** (`instar-stop.ts`):
- * face-on the two wings off the shoulders, side-on the two wings off the back,
+ * **Where a bolt meets THE INSTAR's wings, legs, tail and nests** (`instar-stop.ts`):
+ * face-on the two wings off the shoulders, side-on the two wings off the back
+ * and the four legs under the belly (`profileLegs`),
  * the tail's tube and the two blades of its fork, and the slime under each
  * nest that holds an egg — every one laid where its drawing lays it, from the
  * shapes the drawings hand out (`frontWings`, `profileWings`, `wingPoints`,
@@ -31,7 +33,12 @@ export function frontLimbFeet(look: Look, lay: (p: Point) => Point): Foot[] {
 export function profileLimbFeet(
   l: Layout,
   still: Look,
-  lines: { spine: readonly Point[]; top: readonly Point[]; rear: Point },
+  lines: {
+    spine: readonly Point[];
+    top: readonly Point[];
+    bottom: readonly Point[];
+    rear: Point;
+  },
   lay: (p: Point) => Point,
   scale: Point,
 ): Foot[] {
@@ -47,6 +54,11 @@ export function profileLimbFeet(
   }
   for (const b of tail.blades)
     feet.push(outlineFoot(bladePoints(tail.fork, b.tip, b.s, r).map(lay)));
+  for (const leg of profileLegs(lines.spine, lines.bottom, r, look.time))
+    for (const ring of legRings(leg)) {
+      const at = lay(ring.c);
+      feet.push(roundFoot(at.x, at.y, ring.r * scale.x, ring.r * scale.y));
+    }
   for (const nest of nestsAt(l, look)) {
     if (nest.n <= 0) continue;
     const pool = nestPool(nest.at, r);

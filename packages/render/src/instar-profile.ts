@@ -4,6 +4,7 @@ import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { INSTAR_BODY } from "./instar-body-look.js";
 import { drawNests } from "./instar-eggs.js";
+import { drawLegs, profileLegs } from "./instar-legs.js";
 import { drawMoult } from "./instar-moult.js";
 import { instarAt, instarFarEnd, type Point } from "./instar-place.js";
 import { drawSeam, faded, type Look } from "./instar-plate.js";
@@ -17,6 +18,7 @@ import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawContact } from "./solid-haze.js";
 import { drawTube, rimTube } from "./solid-tube-draw.js";
+import { splineAt } from "./spline.js";
 
 /**
  * **THE INSTAR side-on**: the perspective the owner asked to change to on 25
@@ -36,6 +38,7 @@ import { drawTube, rimTube } from "./solid-tube-draw.js";
  * rim along its edge and a contact shadow wherever something bears on it.
  * What sits on it is placed round those rings (`instar-profile-surface.ts`),
  * and it breathes, swims and rolls on its own clock (`instar-profile-life.ts`).
+ * Four legs hang under it, the far pair behind the body (`instar-legs.ts`).
  */
 
 /** Samples along the spine, and how many of them one seam, lamp or spine spans. */
@@ -84,7 +87,7 @@ export function profileLines(l: Layout, look: Look) {
   const end = instarFarEnd(l, f);
   const seats = [seated(near, neck, far, r, 1 / 3), seated(far, near, end, r, 2 / 3)] as const;
   const knots = [neck, ...seats, end];
-  const spine = Array.from({ length: N + 1 }, (_, i) => along(knots, i / N));
+  const spine = Array.from({ length: N + 1 }, (_, i) => splineAt(knots, i / N));
   undulate(spine, r, time);
   // A wave swims down it from the neck, grown in flight (`instar-serpent.ts`).
   spine.forEach((p, i) => {
@@ -128,6 +131,8 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, still: Loo
   const back = (u: number): Point => top[Math.round(u * N)] ?? rear;
   const [far, near] = profileWings(top, rear, r);
   drawWing(ctx, look, far.at, far.w, far.hinge, far.side, 1);
+  const legs = profileLegs(spine, bottom, r, time);
+  drawLegs(ctx, legs, true, SKIN, r, fade);
   const flick = 0.75 + 0.25 * Math.sin(time * 21);
   halo(
     ctx,
@@ -164,6 +169,7 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, still: Loo
   drawContact(ctx, hide, root.x, root.y, r * 0.3, 0.8 * fade);
   drawContact(ctx, hide, (spine[0] as Point).x, (spine[0] as Point).y, r * 0.45, fade);
   rimTube(ctx, hide, PALETTE.sheenRim, r * 0.06, fade);
+  drawLegs(ctx, legs, false, SKIN, r, fade);
   drawMoult(ctx, coarse(top), coarse(bottom), look);
   drawTail(ctx, l, look, rear, heading(spine));
   drawWing(ctx, look, near.at, near.w, near.hinge, near.side);
@@ -202,23 +208,4 @@ export function heading(spine: readonly Point[]): Point {
   const b = spine[N] as Point;
   const len = Math.hypot(b.x - a.x, b.y - a.y) || 1;
   return { x: (b.x - a.x) / len, y: (b.y - a.y) / len };
-}
-
-/** A point `u` of the way along a Catmull-Rom spline through `k`. */
-function along(k: readonly Point[], u: number): Point {
-  const n = k.length - 1;
-  const s = Math.min(n - 1e-6, u * n);
-  const i = Math.floor(s);
-  const t = s - i;
-  const p0 = k[Math.max(0, i - 1)] as Point;
-  const p1 = k[i] as Point;
-  const p2 = k[i + 1] as Point;
-  const p3 = k[Math.min(n, i + 2)] as Point;
-  const c = (a: number, b: number, c2: number, d: number) =>
-    0.5 *
-    (2 * b +
-      (-a + c2) * t +
-      (2 * a - 5 * b + 4 * c2 - d) * t * t +
-      (-a + 3 * b - 3 * c2 + d) * t * t * t);
-  return { x: c(p0.x, p1.x, p2.x, p3.x), y: c(p0.y, p1.y, p2.y, p3.y) };
 }

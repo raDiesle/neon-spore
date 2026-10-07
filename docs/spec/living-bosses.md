@@ -109,6 +109,14 @@ stays a mark's ring clear of every nest, blade and patch of hide it is drawn
 over (`instar-quarter-head.test.ts`). `bun run solid --instar-quarter` draws
 it beside the profile head it replaced.
 
+The same day, for *I most concern about body shape and 3d perspective*, the
+side-on body grew four legs (`instar-legs.ts`): a foreleg under the chest
+with its elbow back, a hind leg under the haunches with its knee forward,
+each a lit tube with three hooked claws, dangling as a flying dragon's do.
+The far pair hangs behind the body, higher on it and hazed toward the field,
+so one leg over another gives the side view a depth it lacked. A bolt meets
+them (`instar-limb-stop.ts`).
+
 **Offered (1 October 2026, VERSUS `instar:flight` / `serpent`).** While THE
 INSTAR flies in, passes or crosses, a wave runs down its side-on body from
 the neck to the engines: one and a half crests along it, a third of a head

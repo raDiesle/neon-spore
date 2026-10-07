@@ -40,6 +40,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * strokes 452 → 480, roar 458 → 480 and 453 → 481, dive 303 → 324 and
  * 237 → 253; a second iris is two blits more and two radial gradients.
  *
+ * The same day the side-on body grew four legs (`instar-legs.ts`), each a lit
+ * tube with three claws: coil fills 481 → 553 and strokes 480 → 492, roar
+ * 480 → 552 and 481 → 493, dive 324 → 369, 253 → 265 and two linear gradients.
+ *
  * Each row is the worst of each op over one beat starting a third of the way
  * into the step's morph, on a phone. Set `MEASURE` to true and run this file
  * to print the rows as they are written below (`budget-row.ts`); never
@@ -57,8 +61,8 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "13 coil": {
     cursor: 13,
     budget: {
-      fill: 481,
-      stroke: 480,
+      fill: 553,
+      stroke: 492,
       drawImage: 34,
       createLinearGradient: 74,
       createRadialGradient: 42,
@@ -67,18 +71,18 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 324,
-      stroke: 253,
+      fill: 369,
+      stroke: 265,
       drawImage: 34,
-      createLinearGradient: 53,
+      createLinearGradient: 55,
       createRadialGradient: 41,
     },
   },
   "20 roar": {
     cursor: 20,
     budget: {
-      fill: 480,
-      stroke: 481,
+      fill: 552,
+      stroke: 493,
       drawImage: 34,
       createLinearGradient: 91,
       createRadialGradient: 41,

@@ -1994,7 +1994,8 @@ by hand never moves.
 | `packages/render/src/instar-between.ts` | **THE INSTAR between two poses**: the in-between motion of a morph, keyed on the pose it comes from |
 | `packages/render/src/instar-body-look.ts` | **THE INSTAR's side-on body, as the one record its widths are read from** |
 | `packages/render/src/instar-crosshair.ts` | **A shoot mark is a crosshair**: a violet ring with four ticks pointing in, and nothing over the part |
-| `packages/render/src/instar-limb-stop.ts` | **Where a bolt meets THE INSTAR's wings, tail and nests** (`instar-stop.ts`) |
+| `packages/render/src/instar-limb-stop.ts` | **Where a bolt meets THE INSTAR's wings, legs, tail and nests** (`instar-stop.ts`) |
+| `packages/render/src/instar-legs.ts` | **THE INSTAR's legs side-on** — the owner, 7 October 2026: *overall like a dragon* |
 | `packages/render/src/instar-quarter-head.ts` | **THE INSTAR's head side-on, turned three quarters to the ship and snarling** (`instar-quarter-model.ts` is… |
 | `packages/render/src/instar-quarter-model.ts` | **THE INSTAR's side-on head, modelled in three dimensions and seen three quarters round** — the owner |
 | `packages/render/src/instar-quarter-parts.ts` | **The small parts of THE INSTAR's head turned to the ship** (`instar-quarter-head.ts` lays them): its teeth |

@@ -34737,3 +34737,18 @@ Bottleneck: finding a pose whose gaps differ — a probe of the poses' worlds
 showed CLOSED has one gap cut four times and eight never.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE INSTAR side-on grows four legs, the far pair behind the body
+
+- reading: 5 min. The profile's draw order, the body's tube and its surface,
+  the wings' carriages, what a bolt meets side-on.
+- writing: 5 min. `instar-legs.ts` — two pairs hung off the belly, lit tubes,
+  hooked claws — the Catmull-Rom point moved to `spline.ts`, four tests.
+- looking: 5 min. Six side-on poses before and after, and a crop of the legs:
+  the hip's cut end showed through a rim, the claws were specks.
+- friction: 0 min.
+- landing: 5 min. The reach margins and budget rows moved, a gradient count
+  kept by dropping two hip shadows, `check:fast`, `land`.
+
+Bottleneck: landing — the reach test stops at its first side, so the other
+three had to be read off a second run with `REACH=1`.

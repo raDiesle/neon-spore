@@ -38,8 +38,11 @@ export const FRONT_REACH = 2;
  * The dragon's body (`instar-body-look.ts`, 2 October 2026) is deeper at the chest and haunches:
  * the loom's morph now reaches 411 left and 242 down, so those were 380 and 195 before it.
  * The head turned to the ship (`instar-quarter-head.ts`, 7 October 2026) hangs its snout and
- * opens its jaw at the hull: the dive's morph reaches 338 down, so the down was 255 before it. */
-export const PROFILE_REACH = { left: 430, right: 420, up: 640, down: 345 } as const;
+ * opens its jaw at the hull: the dive's morph reaches 338 down, so the down was 255 before it.
+ * The legs (`instar-legs.ts`, 7 October 2026) hang off the belly wherever the spine folds: the
+ * loom's morph reaches 684 left and 413 down and the dive's 587 right, so those were 430, 345
+ * and 420 before them. */
+export const PROFILE_REACH = { left: 700, right: 600, up: 640, down: 430 } as const;
 /** The measured margins are grown by this before a view is left undrawn. */
 const SAFETY = 1.15;
 

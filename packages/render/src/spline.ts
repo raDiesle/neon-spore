@@ -78,3 +78,22 @@ export function splineSkirt(
   path.closePath();
   return path;
 }
+
+/** A point `u` (0..1) of the way along a Catmull-Rom spline through `k`, open at both ends. */
+export function splineAt(k: readonly Point[], u: number): Point {
+  const n = k.length - 1;
+  const s = Math.min(n - 1e-6, u * n);
+  const i = Math.floor(s);
+  const t = s - i;
+  const p0 = k[Math.max(0, i - 1)] as Point;
+  const p1 = k[i] as Point;
+  const p2 = k[i + 1] as Point;
+  const p3 = k[Math.min(n, i + 2)] as Point;
+  const c = (a: number, b: number, c2: number, d: number) =>
+    0.5 *
+    (2 * b +
+      (-a + c2) * t +
+      (2 * a - 5 * b + 4 * c2 - d) * t * t +
+      (-a + 3 * b - 3 * c2 + d) * t * t * t);
+  return { x: c(p0.x, p1.x, p2.x, p3.x), y: c(p0.y, p1.y, p2.y, p3.y) };
+}
