@@ -53,7 +53,7 @@ export function profileLimbFeet(
     feet.push(roundFoot(at.x, at.y, ring.r * scale.x, ring.r * scale.y));
   }
   for (const b of tail.blades)
-    feet.push(outlineFoot(bladePoints(tail.fork, b.tip, b.s, r).map(lay)));
+    feet.push(outlineFoot(bladePoints(tail.fork, b.tip, b.s, r, look.time).map(lay)));
   for (const leg of profileLegs(lines.spine, lines.bottom, r, look.time))
     for (const ring of legRings(leg)) {
       const at = lay(ring.c);

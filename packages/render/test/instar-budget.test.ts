@@ -43,6 +43,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * The same day the side-on body grew four legs (`instar-legs.ts`), each a lit
  * tube with three claws: coil fills 481 → 553 and strokes 480 → 492, roar
  * 480 → 552 and 481 → 493, dive 324 → 369, 253 → 265 and two linear gradients.
+ * The tail's two crescents then became fins on bone rays with a barb
+ * (`instar-tail-blade.ts`), three strokes each: coil 492 → 498, roar
+ * 493 → 499, dive 265 → 271.
  *
  * Each row is the worst of each op over one beat starting a third of the way
  * into the step's morph, on a phone. Set `MEASURE` to true and run this file
@@ -62,7 +65,7 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
     cursor: 13,
     budget: {
       fill: 553,
-      stroke: 492,
+      stroke: 498,
       drawImage: 34,
       createLinearGradient: 74,
       createRadialGradient: 42,
@@ -72,7 +75,7 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
     cursor: 15,
     budget: {
       fill: 369,
-      stroke: 265,
+      stroke: 271,
       drawImage: 34,
       createLinearGradient: 55,
       createRadialGradient: 41,
@@ -82,7 +85,7 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
     cursor: 20,
     budget: {
       fill: 552,
-      stroke: 493,
+      stroke: 499,
       drawImage: 34,
       createLinearGradient: 91,
       createRadialGradient: 41,

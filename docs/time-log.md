@@ -34799,3 +34799,16 @@ Bottleneck: the drafts — finding that no closed boss shape is free took a
 script over every catalogue file.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE INSTAR's tail ends in two living fins, not two crescents
+
+- reading: 5 min. The tail, its blades and what a bolt meets of them; both
+  views of the turn, in frames, to plan the three asks in order.
+- writing: 5 min. The fin — rays, scalloped rippling edge, barb — and its
+  outline for the stops.
+- looking: 5 min. The lash and the coil, magnified.
+- friction: 0 min.
+- landing: 0 min. Three strokes a fin onto the budget rows, `check:fast`.
+
+Bottleneck: reading — finding which morph crosses the turn took a probe of
+every step's `side`.

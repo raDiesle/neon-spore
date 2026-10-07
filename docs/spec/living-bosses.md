@@ -117,6 +117,12 @@ The far pair hangs behind the body, higher on it and hazed toward the field,
 so one leg over another gives the side view a depth it lacked. A bolt meets
 them (`instar-limb-stop.ts`).
 
+The owner again, the same evening: *improve the tail end visual to look more
+cool and natural living*. The fork's two crescents of bone, which read as
+shears, are fins now (`instar-tail-blade.ts`): skin stretched over three bony
+rays, lit through toward its scalloped free edge, which ripples, and a hooked
+barb of bone at the tip, where the crescent's point was, over the mark.
+
 **Offered (1 October 2026, VERSUS `instar:flight` / `serpent`).** While THE
 INSTAR flies in, passes or crosses, a wave runs down its side-on body from
 the neck to the engines: one and a half crests along it, a third of a head
