@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 6407fb2db — Queue the LAMPREY block misplaced in THE BURGEE's write-up
+
+THE LAMPREY's "worm on the field" paragraphs stand in §11.56 THE BURGEE of docs/spec/bosses.md, while §11.59 points to them as "below"; queued to move.
+
 ## 2026-10-07 · a03afecb7 — THE INSTAR turns as one body between face-on and side-on
 
 Across the middle of a turn the face-on drawing used to fade out while the side-on one faded in, two ghosts of one dragon going different ways. Now it is one body: each ring sits part of the way from where face-on has it to where side-on has it, seen through a view yawed the same share round, and the wings, tail and legs go with it. The back rolls from one view's to the other's as a rotation of each ring's frame, never by a flip. Only the head is still crossed, over the middle of the turn. One body drawn instead of two also cuts the turn's fills and strokes by about a third.

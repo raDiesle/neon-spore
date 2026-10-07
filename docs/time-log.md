@@ -34930,3 +34930,5 @@ to find that each ring's frame has to be turned as a rotation.
 
 Bottleneck: reading — the boss's story is split across a design section and
 a write-up four thousand lines apart in two files.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
