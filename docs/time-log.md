@@ -34654,3 +34654,5 @@ two thirds grown, so the frames had to be found by walking the flight.
 
 Bottleneck: looking — no way to put a boss in a mid-fight state at a chosen
 beat without hand-writing its blades as JSON.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

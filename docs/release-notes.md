@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 6f0350d5a — Time log for THE TASTER's pried interlock
+
+## 2026-10-07 · 8bca9eec7 — THE TASTER's interlock is pried open and closes over THE SLOW
+
+THE SLOW the pry opens had no picture on THE TASTER's fan: the last two blades stood crossed through the whole window. Now the interlock parts a little under the pilot's haul, springs past upright when it gives, and leans back in over THE SLOW's own window until it crosses again on the beat it locks — the blades are the clock — with a white sliver lit in the lock's column while it stands open, never the colour the beam needs (`taster-pry.ts`). Exemption: a look with no shipped alternative — movement given to blades that stood still (`docs/looks.md`, 27 September 2026), so it lands on the field rather than in VERSUS.
+
 ## 2026-10-07 · 0ba58c3d6 — THE INSTAR's face-on body is scaled all over, not in strips
 
 As THE INSTAR flew in and grew, its body showed small rectangles of scales across the middle and bare hide round them. Each plate's scales were laid in a box as tall as two rings' centres are apart, which is a sliver once the body runs back into depth, and the last plate had none. Each plate's scales now cover every ring of its own stretch of tube, the far plate first, from the neck to the engines. A fix to something wrong rather than unlovely.
