@@ -34420,3 +34420,22 @@ Bottleneck: reading anatomy off a painter that sorts parts, not pixels —
 every fix to the base was a change of which part covers which.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — Living bosses step 10: THE SINEW, THE SURGE, THE LEDGER and THE STARE sway
+
+- reading: 10 min. The spec's rollout list against the files that sway
+  already, and five read-only reports run side by side, one per pair of
+  bosses, naming each one's hit tests, its still phases and the line the
+  sway goes in.
+- writing: 10 min. Four `*-sway.ts`, each on the beat so a hit test reads
+  the drawn pose; the SURGE's grips and the STARE's and LEDGER's bolt stops
+  handed the same pose; a test each.
+- looking: 5 min. A scan of each boss's widest ticks, and the two frames
+  there side by side; the SINEW's cap raised once it read small.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, a FIRE word put back over its column
+  for the test that holds it there, `check:fast`, two commits, `land`.
+
+Bottleneck: value noise rarely reaches its cap inside one fight, so a
+cap has to be set from the widest the fight actually shows, not the
+widest the noise can.
