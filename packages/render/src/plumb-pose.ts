@@ -1,4 +1,5 @@
 import {
+  beatSeconds,
   PLUMB_SETTLES_PER_WEIGHT,
   type PlumbState,
   plumbLitStep,
@@ -24,8 +25,12 @@ import { phaseInto } from "./phase-into.js";
 
 /** The beam's lean with nothing settled, in radians: the pilot's heavier ball pulls its end down. */
 const SKEW = 0.2;
-/** A loose weight's swing on its chain, in radians, and how fast it swings. */
-const LOOSE = 0.32;
+/**
+ * A loose weight's swing on its chain, in radians, and how fast it swings: on
+ * the 1.25-tile chain the stone travels just over half a tile each way, which
+ * is seen (*Big enough to be seen*, `docs/looks.md`; the rollout's step 11).
+ */
+export const LOOSE = 0.42;
 const SWING_RATE = 2.1;
 /** How far a stone's pull swings it over on its chain, in radians, pulled as far as a pull goes. */
 const PULL = 0.45;
@@ -97,6 +102,10 @@ export function plumbSkew(s: PlumbState, bp: number): number {
  * locked one hangs still. A pulled stone swings the way the thumb carries it,
  * so the seat sees its own hand on it; and through a `both`
  * step both sway back off true as the window runs out unheld.
+ *
+ * **On the beat clock**, so both screens see one swing: until 7 October 2026
+ * it ran on each phone's own wall clock, and the two stones the pair compare
+ * swung out of step between the screens.
  */
 export function plumbSwing(
   s: PlumbState,
@@ -104,7 +113,6 @@ export function plumbSwing(
   side: 0 | 1,
   beat: number,
   bp: number,
-  time: number,
 ): number {
   const loose = 1 - Math.min(PLUMB_SETTLES_PER_WEIGHT, s.weights[side]) / PLUMB_SETTLES_PER_WEIGHT;
   const asked = plumbAsked(s, side);
@@ -115,7 +123,8 @@ export function plumbSwing(
   }
   const reach = Math.max(1, world.cfg.plumbPullReachMilli);
   const pull = PULL * Math.max(-1, Math.min(1, s.pullMilli[side] / reach));
-  return amp * Math.sin(time * SWING_RATE + side * 1.9) + pull;
+  const seconds = (beat + bp) * beatSeconds(world.cfg);
+  return amp * Math.sin(seconds * SWING_RATE + side * 1.9) + pull;
 }
 
 /**

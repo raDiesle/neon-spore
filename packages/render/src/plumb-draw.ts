@@ -101,7 +101,7 @@ export function drawPlumb(
   const stones: Circle[] = [];
   for (const side of [0, 1] as const) {
     const end = plumbBeamEnd(l, side, skew);
-    const swing = plumbSwing(s, world, side, beat, beatPhase, time);
+    const swing = plumbSwing(s, world, side, beat, beatPhase);
     const reach = plumbChain(l);
     const fall = free * free * 6 * l.tile;
     const ball = {

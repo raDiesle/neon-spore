@@ -338,6 +338,15 @@ game "INSTAR:FLIGHT · SERPENT"*. `INSTAR_SERPENT.amount` is 1 on the field.
   he asked for step 11 on 7 October 2026, and the slack it replaces was on
   the wall clock, so the two screens disagreed.
 
+  *THE PLUMB, as built* (`plumbSwing`, `plumb-pose.ts`): a loose stone
+  already swung on its chain as the readout of what is still owed; it now
+  swings 0.42 of a radian, so on the 1.25-tile chain it travels just over
+  half a tile each way, and on the beat clock rather than each phone's wall
+  clock, so the two stones the pair compare swing in step on both screens.
+  A locked stone still hangs still, an asked one still steadies as it is
+  held, and the press still takes a stone 0.6 of a tile past its rim, which
+  covers the swing. Under *a look the owner asked for by name*.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair
