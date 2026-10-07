@@ -38,6 +38,8 @@ import type { World } from "./world.js";
 interface Core {
   /** The core's centre, thousandths of a row down the field. */
   milli: number;
+  /** Where a bolt is met, if not `MEET_MILLI` past the centre: a core that is not in the middle of its body. */
+  meet?: number;
   verdict: (world: World, col: number, color: Color) => CoreVerdict;
   /** The part a lit step asks for aside of the middle, its column and row, or null. */
   aside?: (world: World) => { col: number; milli: number } | null;
@@ -60,7 +62,10 @@ const CORES: Partial<Record<BossKind, Core>> = {
   },
   davit: { milli: 1100, verdict: (w, c, k) => davitVerdict(w, c, k) },
   gall: { milli: 2900, verdict: (w, c, k) => gallVerdict(w, c, k) },
-  governor: { milli: 5900, verdict: (w, c, k) => governorVerdict(w, c, k) },
+  // THE GOVERNOR's target is its needle's tip in the gap at the bottom of the
+  // dial, four and a half rows under the hub, and a bolt is met past its far
+  // edge (`governor-shot.ts`, `render/governor-shape.ts`).
+  governor: { milli: 5900, meet: 9600, verdict: (w, c, k) => governorVerdict(w, c, k) },
   halter: { milli: 2100, verdict: (w, c, k) => halterVerdict(w, c, k) },
   rime: { milli: 2200, verdict: (w, c, k) => rimeVerdict(w, c, k) },
   sling: { milli: 1800, verdict: (w, c, k) => slingVerdict(w, c, k) },
@@ -94,7 +99,7 @@ const MEET_MILLI = 500;
 
 /** Where a bolt is met by boss `kind`'s core, thousandths of a row down the field. */
 export function coreMeetMilli(kind: BossKind): number {
-  return coreRowMilli(kind) - MEET_MILLI;
+  return CORES[kind]?.meet ?? coreRowMilli(kind) - MEET_MILLI;
 }
 
 /** Where a bolt sweeping from `from` to `to` meets the boss's core, or -1. */
@@ -103,9 +108,10 @@ export function coreAlong(world: World, b: Bullet, from: number, to: number): nu
   const core = kind === undefined ? undefined : CORES[kind];
   if (core === undefined || b.lance) return -1;
   const aside = core.aside?.(world);
-  const row = aside?.col === b.col ? aside.milli : b.col === midCol(world.cfg) ? core.milli : -1;
-  if (row < 0) return -1;
-  const meet = row - MEET_MILLI;
+  const mid = b.col === midCol(world.cfg);
+  if (aside?.col !== b.col && !mid) return -1;
+  const meet =
+    aside?.col === b.col ? aside.milli - MEET_MILLI : (core.meet ?? core.milli - MEET_MILLI);
   if (meet > from || meet < to) return -1;
   return core.verdict(world, b.col, b.color) === null ? -1 : meet;
 }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { governorFiring } from "../src/governor.js";
-import { governorFlightTicks, governorFlownTicks, governorStruck } from "../src/governor-shot.js";
+import { governorFlightTicks, governorStruck, governorTicksToTip } from "../src/governor-shot.js";
 import { hashWorld } from "../src/index.js";
 import { slowing } from "../src/slow.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
@@ -9,6 +9,7 @@ import {
   beats,
   CFG,
   governor,
+  governorTicksDown,
   install,
   MID,
   runUntil,
@@ -21,9 +22,9 @@ import {
 } from "./governor-rig.js";
 
 /**
- * THE GOVERNOR, the hub: the taps before the first shot light it, and it is
- * shot in the step's colour as the needle points down at the cannon, each
- * shot after the first earned back by a retap. The needle and the taps:
+ * THE GOVERNOR, the shot: the taps before the first shot light the hub, and
+ * the needle's tip is shot in the step's colour as it passes the gap at the
+ * bottom of the rim, each shot after the first earned back by a retap. The needle and the taps:
  * `governor.test.ts`.
  */
 
@@ -53,11 +54,11 @@ describe("the hub", () => {
     expect(governor(world).hits).toBe(1);
   });
 
-  it("takes a bolt only if it left with the needle pointing down", () => {
+  it("takes a bolt only if the tip is in the gap as the bolt meets it", () => {
     const world = toStep(2);
     toDown(world);
-    // Eighty ticks on, a bolt met now left a third of a lap past the bottom.
-    for (let i = 0; i < 80; i += 1) tick(world);
+    // Forty ticks on, the tip has run out of the gap.
+    for (let i = 0; i < 40; i += 1) tick(world);
     governorStruck(world, shot("red"));
     expect(governor(world).hits).toBe(0);
     toDown(world);
@@ -65,14 +66,26 @@ describe("the hub", () => {
     expect(governor(world).hits).toBe(1);
   });
 
-  it("counts a bolt's flight from the muzzle, up to where the hub meets it", () => {
+  it("counts the ticks a bolt has left to climb to the tip", () => {
     const flight = governorFlightTicks(CFG);
-    const at = (row: number) => governorFlownTicks(CFG, { ...shot("red"), row });
-    expect(at(CFG.rows - 2)).toBe(0);
-    expect(at(8)).toBeGreaterThan(0);
-    expect(at(8)).toBeLessThan(flight);
-    expect(at(0)).toBe(flight);
-    expect(governorFlownTicks(CFG, { ...shot("red"), lance: true })).toBe(0);
+    const at = (row: number) => governorTicksToTip(CFG, { ...shot("red"), row });
+    expect(at(CFG.rows - 2)).toBe(flight);
+    expect(at(12)).toBeGreaterThan(0);
+    expect(at(12)).toBeLessThan(flight);
+    expect(at(0)).toBe(0);
+    expect(governorTicksToTip(CFG, { ...shot("red"), lance: true })).toBe(0);
+  });
+
+  it("fired as the tip comes to the gap, meets it there", () => {
+    const world = toStep(2);
+    const flight = governorFlightTicks(CFG);
+    const pace = SCRIPT[2]?.paceMilli ?? 0;
+    // The tip will be in the middle of the gap as a bolt fired now arrives.
+    runUntil(world, (w) => governorTicksDown(w, flight * pace));
+    expect(governor(world).needleMilli).not.toBe(500);
+    for (let i = 0; i < flight; i += 1) tick(world);
+    governorStruck(world, shot("red"));
+    expect(governor(world).hits).toBe(1);
   });
 
   it("takes a shot only in the middle column", () => {

@@ -1,4 +1,4 @@
-import { coreRowMilli, midCol, type SimConfig } from "@neon-spore/sim";
+import { coreRowMilli, GOVERNOR_DOWN_MILLI, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 
@@ -42,6 +42,20 @@ const RADIUS = 4.9;
 export const TRACK_IN = 0.74;
 export const TRACK_OUT = 0.94;
 export const NEEDLE_REACH = 0.9;
+/**
+ * The lit tip on the needle's end, as reaches of the radius: a plate on the
+ * track that a bolt through the gap meets (`sim/governor-shot.ts`).
+ */
+export const TIP_IN = 0.8;
+export const TIP_OUT = 0.95;
+/**
+ * Half a column, in thousandths of a lap at the track's outer edge: what the
+ * tip's half-width and the gap's are laid off, so a bolt up the middle column
+ * is taken exactly while the tip overlaps it.
+ */
+export const COLUMN_MILLI = (1000 * 0.5) / (2 * Math.PI * RADIUS * TRACK_OUT);
+/** The gap cut in the rim at the bottom, half its width in thousandths of a lap: two columns wide, so it reads at a glance. */
+export const GAP_MILLI = COLUMN_MILLI * 2;
 /** How thick the flywheel is under its face, in tiles. */
 const RIM_DEPTH = 0.4;
 /** The hub's radius at its fullest, in tiles. */
@@ -99,6 +113,16 @@ export function trackBand(d: Dial, from: number, to: number, inner: number, oute
   }
   p.closePath();
   return p;
+}
+
+/** The lit tip's half-width, thousandths of a lap: as wide as the shot's window less half a column. */
+export function tipHalfMilli(cfg: SimConfig): number {
+  return Math.max(GAP_MILLI, cfg.governorDownMilli - COLUMN_MILLI);
+}
+
+/** Where a bolt meets the tip: the middle of the plate's band, in the gap at the bottom. */
+export function gapAt(d: Dial): Point {
+  return dialAt(d, GOVERNOR_DOWN_MILLI, (TIP_IN + TIP_OUT) / 2);
 }
 
 /** The hub's radius at its fullest, in pixels. */

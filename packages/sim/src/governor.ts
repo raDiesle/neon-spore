@@ -4,12 +4,12 @@ import type { World } from "./world.js";
 /**
  * THE GOVERNOR: a flywheel governor mid-hull with a needle sweeping its rim
  * on its own, a mark on the rim for each of you to tap as the needle crosses
- * it; then a hub that has to be shot as the needle points down at the cannon
- * (`docs/spec/bosses-choreographed.md` §43, reworked by the owner on
- * 6 October 2026).
+ * it; then the needle's tip, lit, shot through a gap in the bottom of the
+ * rim as it passes (`docs/spec/bosses-choreographed.md` §43, reworked by the
+ * owner on 6 and 7 October 2026).
  *
  * **The rule is one sentence**: tap as the needle crosses your mark, and
- * shoot when it points down.
+ * shoot its tip as it passes the gap.
  *
  * `needleMilli` is where the needle is, in thousandths of a turn from the
  * top of the rim, and it is **nobody's to move**: it turns on the tick, the
@@ -29,6 +29,14 @@ import type { World } from "./world.js";
  * on both screens and either seat's to press; it lands on the seat's own mark
  * while the needle is within `governorMarkMilli` of it.
  *
+ * **The shot hits the tip, not the hub.** The owner, 7 October 2026: *there
+ * must be a visual openness at bottom of boss visual, otherwise its not
+ * logical that shot can hit the rotating target with cannon. and the cannon
+ * should hit the needle, not the center.* So a bolt up the middle column goes
+ * through the gap and is judged where it meets the tip, on the tick it gets
+ * there (`governor-shot.ts`); `hubLit` is still the shot earned, and the hub
+ * still shows it, but nothing is fired at the hub.
+ *
  * **Its health is the taps and three shots.** A tap step or a retap that runs
  * out is tried again with what was landed kept, and a retap run out dims the
  * hub until it is made; a shot that runs out is a hull hit, which is the wave.
@@ -36,7 +44,7 @@ import type { World } from "./world.js";
 
 /** A turn of the rim, in thousandths. */
 export const GOVERNOR_TURN_MILLI = 1000;
-/** Where the needle points down at the cannon, thousandths of a turn from the top. */
+/** Where the needle points down at the cannon, its tip in the gap: thousandths of a turn from the top. */
 export const GOVERNOR_DOWN_MILLI = 500;
 
 /**
@@ -128,7 +136,7 @@ export function governorOff(needleMilli: number, markMilli: number): number {
   return Math.min(apart, GOVERNOR_TURN_MILLI - apart);
 }
 
-/** Whether a fire step is lit and the hub lit, so a shot may land. */
+/** Whether a fire step is lit and the shot earned, so a bolt may land on the tip. */
 export function governorFiring(s: GovernorState): boolean {
   return s.hubLit && governorLitStep(s)?.ask === "fire";
 }
@@ -139,13 +147,13 @@ export function governorPace(world: World, s: GovernorState): number {
 }
 
 /**
- * Whether the needle pointed down at the cannon `ago` ticks back — within
- * `governorDownMilli` of the bottom. The pace is the lit step's and does not
- * change while it is lit, so where the needle was is where it is less the
- * turns since.
+ * Whether the needle will point down at the cannon `ticks` ticks from now —
+ * its tip in the gap in the rim, within `governorDownMilli` of the bottom.
+ * The pace is the lit step's and does not change while it is lit, so where
+ * the needle will be is where it is plus the turns between.
  */
-export function governorDownAgo(world: World, s: GovernorState, ago: number): boolean {
-  const then = s.needleMilli - governorPace(world, s) * ago;
+export function governorDownIn(world: World, s: GovernorState, ticks: number): boolean {
+  const then = s.needleMilli + governorPace(world, s) * ticks;
   return governorOff(then, GOVERNOR_DOWN_MILLI) <= world.cfg.governorDownMilli;
 }
 

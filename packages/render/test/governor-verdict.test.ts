@@ -59,6 +59,12 @@ const tap = (w: World) => {
 const ordered = (w: World) => {
   posed(w, ORDERED);
 };
+/** ORDERED with every mark landed: nothing open to halo, and its fuse still burning (`governor-fuse.ts`). */
+const landed = (w: World) => {
+  posed(w, ORDERED, 0, (s) => {
+    s.landed = 0b111;
+  });
+};
 const fire = (w: World) => {
   posed(w, FIRE, 0, (s) => {
     s.hubLit = true;
@@ -78,7 +84,9 @@ describe("THE GOVERNOR's marks asking", () => {
   it("on an ordered step haloes only the seat whose turn it is, and the other waits", () => {
     // ORDERED's first mark is the pilot's.
     expect(halos("p1", ordered)).toBeGreaterThan(halos("p1", rest));
-    expect(halos("p2", ordered)).toBe(halos("p2", rest));
+    // The tap step's fuse has a spark at each end; a step with every mark landed burns it too.
+    expect(halos("p2", ordered)).toBe(halos("p2", landed));
+    expect(halos("p1", ordered)).toBeGreaterThan(halos("p1", landed));
     expect(clocks("p2", ordered)).toBeGreaterThan(clocks("p2", rest));
   });
 

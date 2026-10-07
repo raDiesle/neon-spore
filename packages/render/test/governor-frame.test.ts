@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { governorBoss, midCol } from "@neon-spore/sim";
+import { coreHurt } from "../src/core-hurt.js";
 import { fieldX } from "../src/field-flip.js";
 import {
   governorArrived,
@@ -25,8 +26,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * middle column with its needle on the track and drawn ahead by the input
  * delay, the flyweights rising with the step's pace and turning with the
  * needle, each seat's mark full on its own screen, an ordered step's marks
- * numbered, the studs as each seat's taps, and the hub lit in a shot's colour
- * only while one is owed — on all three
+ * numbered, the studs as each seat's taps, and the needle's tip lit in a
+ * shot's colour only while one is owed — on all three
  * screens, set rather than played to; `sim/test/governor.test.ts` proves the
  * rules.
  */
@@ -64,25 +65,33 @@ describe("THE GOVERNOR's body", () => {
     expect(count(some, PALETTE.hullRim)).toBeGreaterThan(count(none, PALETTE.hullRim));
   });
 
-  it.each(ROLES)("lights the hub in a shot's colour only while one is owed, on %s", (role) => {
-    const lit = (s: { hubLit: boolean; taps: [number, number] }) => {
-      s.hubLit = true;
-      s.taps = [3, 3];
-    };
-    const between = frame(role, (w) => posed(w, null, 0, lit));
-    const owed = frame(role, (w) => posed(w, FIRE, 0, lit));
-    // The hub's light and its ring are the shot's colour by `rgba`, only while it is owed,
-    // and its brass rim stays brass: lit from inside, never outlined in the colour.
-    const cyan = rgba(PALETTE.cyan, 0).slice(0, -2);
-    expect(count(owed, cyan)).toBeGreaterThan(count(between, cyan));
-    expect(count(owed, rgba(PALETTE.governorBrassDark, 0.95))).toBeGreaterThan(0);
-    expect(count(between, PALETTE.governorHub)).toBeLessThan(
-      count(
-        frame(role, (w) => posed(w, null)),
-        PALETTE.governorHub,
-      ),
-    );
-  });
+  it.each(ROLES)(
+    "lights the needle's tip, not the hub, only while a shot is owed, on %s",
+    (role) => {
+      const lit = (s: { hubLit: boolean; taps: [number, number] }) => {
+        s.hubLit = true;
+        s.taps = [3, 3];
+      };
+      const between = frame(role, (w) => posed(w, null, 0, lit));
+      const owed = frame(role, (w) => posed(w, FIRE, 0, lit));
+      // Owed, the tip is dark glass lit from inside (a radial light, `lit-core.ts`) and
+      // no longer brass; its brass rim stays brass, never outlined in the colour.
+      const light = "createRadialGradient";
+      expect(count(owed, light)).toBeGreaterThan(count(between, light));
+      expect(count(owed, PALETTE.governorHub)).toBeLessThan(count(between, PALETTE.governorHub));
+      expect(count(owed, rgba(PALETTE.governorBrassDark, 0.95))).toBeGreaterThan(0);
+      // The hub is lit softly once a shot is earned, and is the same whether one is owed or not.
+      const hub = rgba(PALETTE.hullRim, 0.25 + 0.3 * coreHurt(0).bright);
+      expect(count(owed, hub)).toBeGreaterThan(0);
+      expect(count(owed, hub)).toBe(count(between, hub));
+      expect(count(between, PALETTE.governorHub)).toBeLessThan(
+        count(
+          frame(role, (w) => posed(w, null)),
+          PALETTE.governorHub,
+        ),
+      );
+    },
+  );
 });
 
 describe("THE GOVERNOR's pace, drawn as the flyweights", () => {

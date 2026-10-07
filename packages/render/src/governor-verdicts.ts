@@ -6,7 +6,7 @@ import {
   governorOpenFor,
   type SimEvent,
 } from "@neon-spore/sim";
-import { type Dial, dialAt, hubR, TRACK_IN, TRACK_OUT } from "./governor-shape.js";
+import { type Dial, dialAt, gapAt, hubR, TRACK_IN, TRACK_OUT } from "./governor-shape.js";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
 import { type Circle, type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
@@ -19,14 +19,15 @@ import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
  * are `governor-marks.ts`; this is what they say back.
  *
  * Three marks: **each seat's mark on the track**, where its next open mark
- * is, asking that seat; and **the hub**, asking either seat while a shot is
+ * is, asking that seat; and **the gap** the tip is shot in (still named
+ * `GOVERNOR_HUB`, the mark it was until 7 October 2026), asking either seat while a shot is
  * owed. A mark that asks this screen's seat wears the halo; one that asks
  * only the partner's wears their ring and waiting clock — so on an ordered
  * step the seat whose turn it is not sees whose it is.
  *
  * The verdicts are the governor's own words: a mark landed greens the
  * seat's mark and a skid reddens it; a window run out reddens both; a hit
- * greens the hub and a shot run out reddens it. Held in
+ * greens the gap and a shot run out reddens it. Held in
  * `effects.boss.governor` and drawn in the field's pixels, as the drawer has
  * them.
  */
@@ -59,7 +60,7 @@ function says(e: SimEvent): readonly (readonly [number, boolean])[] {
 }
 
 export class GovernorVerdicts {
-  /** Was the last touch on each seat's mark and on the hub right. */
+  /** Was the last touch on each seat's mark and on the gap right. */
   readonly verdicts = new GripVerdicts();
 
   ingest(events: readonly SimEvent[]): void {
@@ -86,13 +87,14 @@ function seatMilli(s: GovernorState, seat: 1 | 2): number | null {
   return step.marks[i]?.markMilli ?? null;
 }
 
-/** Where each mark is this frame: a seat's mark's middle on the track, or the hub. */
+/** Where each mark is this frame: a seat's mark's middle on the track, or the gap the tip is shot in. */
 function markAt(l: Layout, d: Dial, s: GovernorState, mark: number): Circle {
   if (mark !== GOVERNOR_HUB) {
     const at = dialAt(d, seatMilli(s, seatFor(mark)) ?? 0, (TRACK_IN + TRACK_OUT) / 2);
     return { x: at.x, y: at.y, r: d.r * (TRACK_OUT - TRACK_IN) };
   }
-  return { x: d.cx, y: d.cy, r: hubR(l) * 1.3 };
+  const gap = gapAt(d);
+  return { x: gap.x, y: gap.y, r: hubR(l) * 1.3 };
 }
 
 /** Whether `mark` asks `seat` this instant. */

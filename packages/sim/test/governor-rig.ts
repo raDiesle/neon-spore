@@ -9,7 +9,7 @@ import {
   governorPace,
 } from "../src/governor.js";
 import { governorOnMark, governorOpenMarks } from "../src/governor-mark.js";
-import { governorFlightTicks, governorStruck } from "../src/governor-shot.js";
+import { governorStruck } from "../src/governor-shot.js";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -42,7 +42,7 @@ export const SCRIPT: readonly GovernorStep[] = [
     ordered: false,
     paceMilli: 7,
     color: "either",
-    beats: 5,
+    beats: 7,
   },
   {
     ask: "tap",
@@ -50,18 +50,18 @@ export const SCRIPT: readonly GovernorStep[] = [
     ordered: false,
     paceMilli: 8,
     color: "either",
-    beats: 5,
+    beats: 7,
   },
-  { ask: "fire", marks: [], ordered: false, paceMilli: 4, color: "red", beats: 8 },
+  { ask: "fire", marks: [], ordered: false, paceMilli: 3, color: "red", beats: 10 },
   {
     ask: "retap",
     marks: [mark(2, 250), mark(1, 500), mark(2, 750)],
     ordered: true,
     paceMilli: 8,
     color: "either",
-    beats: 6,
+    beats: 8,
   },
-  { ask: "fire", marks: [], ordered: false, paceMilli: 5, color: "either", beats: 8 },
+  { ask: "fire", marks: [], ordered: false, paceMilli: 4, color: "either", beats: 10 },
 ];
 
 export function install(steps: readonly GovernorStep[] = SCRIPT, seed = 0): World {
@@ -129,14 +129,18 @@ export function tapMark(world: World): string[] {
   return tap(world, seat);
 }
 
-/** Until a bolt fired its flight ago left with the needle pointing straight down, give or take a tick's turn. */
+/** Until the needle points straight down, give or take a tick's turn: the tip in the middle of the gap, for a bolt meeting it now. */
 export function toDown(world: World): void {
-  const flight = governorFlightTicks(world.cfg);
   runUntil(world, (w) => {
     const g = governor(w);
-    const pace = governorPace(w, g);
-    return governorOff(g.needleMilli - pace * flight, GOVERNOR_DOWN_MILLI) <= pace;
+    return governorOff(g.needleMilli, GOVERNOR_DOWN_MILLI) <= governorPace(w, g);
   });
+}
+
+/** Whether the needle will point straight down, give or take a tick's turn, once it has turned `ahead` more thousandths. */
+export function governorTicksDown(world: World, ahead: number): boolean {
+  const g = governor(world);
+  return governorOff(g.needleMilli + ahead, GOVERNOR_DOWN_MILLI) <= governorPace(world, g);
 }
 
 /** Answer the lit step, whichever it asks: every mark tapped, or the colour it wants fired as the needle points down. */

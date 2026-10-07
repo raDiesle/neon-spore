@@ -12,7 +12,7 @@ import { PALETTE, STROKE } from "./palette.js";
  * each sees the partner's mark without being handed it to tap. A mark landed
  * stays lit, steady, until the step is answered. On an ordered step each mark
  * is **numbered** outside the rim, and one waiting its turn is faint on every
- * screen. The step's window runs down round the dial, once.
+ * screen.
  *
  * **Studs on the face** count each seat's taps over the fight, the pilot's on
  * the left of the hub and the navigator's on the right, lit as each lands.
@@ -26,8 +26,6 @@ const STUDS_AT = [750, 250] as const;
 const STUD_GAP = 38;
 const STUD_REACH = 0.55;
 const STUD = 0.07;
-/** How far out the window's arc runs, in radii. */
-const WINDOW = 1.1;
 /** How far out a mark's number stands, in radii. */
 const NUMBER_AT = 1.22;
 
@@ -67,18 +65,6 @@ export function drawGovernorMark(
   ctx.fillStyle = rgba(PALETTE.hullRim, look === "other" ? 0.55 : 1);
   ctx.fillText(String(number), at.x, at.y);
   ctx.restore();
-}
-
-/** The lit step's window, an arc outside the rim running down as `left` goes from 1 to 0. */
-export function drawGovernorWindow(ctx: CanvasRenderingContext2D, d: Dial, left: number): void {
-  const arc = new Path2D();
-  const n = 32;
-  for (let i = 0; i <= n; i++) {
-    const at = dialAt(d, (1000 * left * i) / n, WINDOW);
-    if (i === 0) arc.moveTo(at.x, at.y);
-    else arc.lineTo(at.x, at.y);
-  }
-  strokeGlowFaded(ctx, arc, PALETTE.hullRim, STROKE.inner, 0.55, 1);
 }
 
 /** Each seat's studs on the face, `owed` of them, one lit for each tap the seat has landed. */

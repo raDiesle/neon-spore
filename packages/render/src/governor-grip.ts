@@ -11,7 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { governorNeedleShown, governorStanding } from "./governor-pose.js";
-import { type Dial, dialAt, hubR, NEEDLE_REACH, TRACK_IN, TRACK_OUT } from "./governor-shape.js";
+import { type Dial, dialAt, hubR, TIP_IN, TIP_OUT, TRACK_IN, TRACK_OUT } from "./governor-shape.js";
 import type { Circle, Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -85,10 +85,10 @@ export function governorTapCircle(
  * **The needle's tip as a circle**, where it is drawn this frame, `lead`
  * ticks ahead (`governorNeedleShown`) — what a shot is aimed by. The owner,
  * 6 October 2026: *cannon must hit needle … so the aim for cannon indicator
- * must rotate with the needle.* A shot counts when the needle pointed down
- * as it left the cannon (`sim/governor-shot.ts`), and the drawn needle is
- * where the simulation's will be when a press made now is heard, so a
- * thumb that fires as this crosses the cannon's column fires in time.
+ * must rotate with the needle.* It stands on the lit plate on the needle's
+ * end (`governor-tip.ts`), which a bolt meets as it comes through the gap
+ * in the rim (`sim/governor-shot.ts`); the drawn needle is where the
+ * simulation's will be when a press made now is heard.
  */
 export function governorNeedleCircle(
   l: Layout,
@@ -98,7 +98,7 @@ export function governorNeedleCircle(
   lead: number,
 ): Circle {
   const d = governorStanding(l, world.cfg, s, world.beat, beatPhase);
-  const at = dialAt(d, governorNeedleShown(world, s, lead), NEEDLE_REACH);
+  const at = dialAt(d, governorNeedleShown(world, s, lead), (TIP_IN + TIP_OUT) / 2);
   return { x: at.x, y: at.y, r: hubR(l) * TIP };
 }
 

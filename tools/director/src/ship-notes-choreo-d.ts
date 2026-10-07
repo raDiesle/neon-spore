@@ -125,9 +125,9 @@ export const CHOREO_NOTES_D = {
     "each taps as the needle crosses its own, within governorMarkMilli — " +
     "TAPS ON A MOVING TARGET, both seats at once. Later steps light three " +
     "and four marks, numbered, to be tapped in order. The taps before the " +
-    "first shot light the hub; it is shot under THE SLOW, and only by a " +
-    "bolt that left the cannon with the needle within governorDownMilli of " +
-    "the bottom. A tap step run out is tried again with what was landed " +
+    "first shot light the hub; then the needle's lit tip is shot under THE " +
+    "SLOW, through a gap in the bottom of the rim, by a bolt that meets it " +
+    "there within governorDownMilli of the bottom (7 October 2026). A tap step run out is tried again with what was landed " +
     "kept, a retap run out dims the hub until it is made, and a fire step " +
     "run out is a hull hit, which is the wave. See sim/governor.ts, " +
     "sim/governor-mark.ts, sim/governor-step.ts, sim/governor-hand.ts, " +

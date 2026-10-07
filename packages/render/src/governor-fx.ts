@@ -13,7 +13,7 @@ import { PALETTE } from "./palette.js";
  * What THE GOVERNOR leaves behind a frame (§11.58, *The receipts*): the
  * **flash on the rim** where a tap or a retap landed, the lit mark's place;
  * the **scrape** a skid leaves along the track behind the needle, where the
- * thumb came down with the needle off the mark; the **hub's flash**, bigger
+ * thumb came down with the needle off the mark; the **hit's flash** in the gap, bigger
  * for every hit; the plating's shudder as the hub lights and as the governor
  * flies apart for good; the bursts its other receipts throw; and its three
  * marks' verdicts on a touch (`governor-verdicts.ts`).

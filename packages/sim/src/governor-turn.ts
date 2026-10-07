@@ -12,8 +12,8 @@ import type { World } from "./world.js";
  *
  * It turns the lit step's pace, or the idle pace between steps. Spent, it
  * stalls where it is. The pace does not change while a step is lit, which is
- * what lets a shot be judged by where the needle was when it left the cannon
- * (`governorDownAgo`).
+ * what lets the picture say where the needle will be when a bolt still
+ * climbing meets its tip (`governorDownIn`).
  */
 export function governorTurned(world: World): void {
   const s = governorBoss(world);

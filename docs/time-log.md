@@ -34142,3 +34142,19 @@ Bottleneck: none — the lane before laid the shape down.
 Bottleneck: THE KEEL — its targets stand where the drawn pose puts them.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE GOVERNOR is shot at its needle's tip, through a gap in the rim
+
+- reading: 20 min. The governor's sim, picture, stopper and cue; how the
+  core-meet row, the slow fuse and THE MIMIC's fuse without a slow work.
+- writing: 35 min. The verdict on arrival at the tip, the meet row, the
+  script retuned, AUTO's lead, the gap, the tip, the tap step's fuse, the
+  hub's halo and flash moved to the gap, the tests and §11.58.
+- looking: 10 min. Four frames: the shot step, the bolt meeting the tip,
+  the gap close up (widened after it), a tap step's fuse.
+- friction: 0 min.
+- landing: 5 min. `check:fast` twice — the words budget, the index and two
+  frame tests that counted the old hub ring — the commit, `land`.
+
+Bottleneck: working out the timing — how far the needle turns while a bolt
+climbs to the gap decided the fire steps' pace and window before any code.

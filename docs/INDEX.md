@@ -541,7 +541,7 @@ by hand never moves.
 | `packages/sim/src/gorge.ts` | THE GORGE: what not to do |
 | `packages/sim/src/governor-hand.ts` | THE GOVERNOR's one handle: the tap |
 | `packages/sim/src/governor-hash.ts` | What THE GOVERNOR puts into `hashWorld`, and nothing else |
-| `packages/sim/src/governor-shot.ts` | **THE GOVERNOR's shot**: the lit hub, met in the middle column |
+| `packages/sim/src/governor-shot.ts` | **THE GOVERNOR's shot**: the needle's tip, lit |
 | `packages/sim/src/governor-step.ts` | THE GOVERNOR's clock: each step lighting, a window running out, and the flyweights flown spent |
 | `packages/sim/src/governor-turn.ts` | **THE GOVERNOR's needle, turned**, once a tick after the commands are heard |
 | `packages/sim/src/governor-mark.ts` | **THE GOVERNOR's marks**: which of the lit step's marks are landed, which a tap may land now |
@@ -2192,7 +2192,9 @@ by hand never moves.
 | `packages/render/src/governor-grip.ts` | **THE GOVERNOR's hand**: the tap on the dial (`sim/governor-hand.ts`, `docs/spec/bosses.md` §11.58) |
 | `packages/render/src/governor-blow.ts` | **THE GOVERNOR's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/governor-fx.ts` | What THE GOVERNOR leaves behind a frame (§11.58, *The receipts*) |
+| `packages/render/src/governor-fuse.ts` | **THE GOVERNOR's tap window: THE SLOW's fuse, with no slow** |
 | `packages/render/src/governor-receipts.ts` | **THE GOVERNOR's receipts, drawn** — what `governor-fx.ts` holds between frames |
+| `packages/render/src/governor-tip.ts` | **What THE GOVERNOR is shot at, and the way a bolt gets to it** |
 | `packages/render/src/gimbal-draw.ts` | **THE GIMBAL**: a sealed drum hung in a yoke over the middle of the field inside two rings set at right… |
 | `packages/render/src/gimbal-drum.ts` | **The sealed drum the two rings hang round, and the clock the whole scene is posed off** (§18, *Animation*) |
 | `packages/render/src/gimbal-ring.ts` | **The half of THE GIMBAL a hand is on**: one ring, drawn on the screen of the seat that grips it |

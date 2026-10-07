@@ -122,7 +122,7 @@ export {
   type GovernorStep,
   governorBoss,
   governorDone,
-  governorDownAgo,
+  governorDownIn,
   governorFiring,
   governorLitStep,
   governorOff,
@@ -138,7 +138,7 @@ export {
   governorOpenFor,
   governorOpenMarks,
 } from "./governor-mark.js";
-export { governorFlightTicks, governorFlownTicks } from "./governor-shot.js";
+export { governorFlightTicks, governorTicksToTip } from "./governor-shot.js";
 // THE LAMPREY's tail, head and teeth: the phase, the step, the seats, the
 // ring, the leap, the worm's crawl and the gullet, for the picture, the cue and the director's hand (§41).
 export {

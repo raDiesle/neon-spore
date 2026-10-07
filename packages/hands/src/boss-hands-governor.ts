@@ -3,6 +3,7 @@ import {
   type GovernorState,
   governorBoss,
   governorFiring,
+  governorFlightTicks,
   governorLitStep,
   governorMarkFor,
   governorPace,
@@ -15,8 +16,8 @@ import {
  * **THE GOVERNOR played right**, for the autopilot. On a tap step each seat
  * taps the moment the needle is on a mark of its own that is open — on an
  * ordered step only the next — so both seats work the same lap. On a fire
- * step, with the hub lit, the cannon goes to the middle and the step's colour
- * goes up it as the needle points down.
+ * step, with the shot earned, the cannon goes to the middle and the step's
+ * colour goes up it as the needle's tip comes to the gap.
  *
  * **A tap is an edge**, THE VALVE's pin (`boss-hands-valve.ts`): a thumb still
  * down is lifted the tick after it came down, so the next tap is a new press
@@ -24,12 +25,12 @@ import {
  * will judge it, because the commands are heard before the needle turns
  * (`sim/governor-turn.ts`).
  *
- * **The shot** wants the step's colour; `"either"` is fired cyan. The hub
- * judges a bolt by where the needle was when it left (`sim/governor-shot.ts`),
- * so it goes **as the needle comes into the window** a tick's turn inside its
- * edge, as a tap does: AUTO on the phone presses through the input buffer
- * (`apps/game/src/autopilot.ts`), and a press heard a few ticks late is then
- * nearer the bottom rather than past it.
+ * **The shot** wants the step's colour; `"either"` is fired cyan. The tip
+ * takes a bolt that meets it in the gap (`sim/governor-shot.ts`), so it goes
+ * **when the needle will come into the window as the bolt arrives**, a tick's
+ * turn inside its edge, as a tap does: AUTO on the phone presses through the
+ * input buffer (`apps/game/src/autopilot.ts`), and a press heard a few ticks
+ * late then meets the tip nearer the middle of the gap rather than past it.
  */
 type Press = Omit<TimedCommand, "tick">;
 
@@ -55,7 +56,8 @@ function shoot(w: World, s: GovernorState): Press[] {
   const col = midCol(w.cfg);
   if (w.cannonCol !== col) return [{ player: 1, command: { kind: "cannonCol", col } }];
   const pace = governorPace(w, s);
-  const ahead = (GOVERNOR_DOWN_MILLI - s.needleMilli + 1000) % 1000;
+  const arrives = s.needleMilli + pace * governorFlightTicks(w.cfg);
+  const ahead = (((GOVERNOR_DOWN_MILLI - arrives) % 1000) + 1000) % 1000;
   const edge = w.cfg.governorDownMilli - pace;
   if (ahead > edge || ahead <= edge - pace) return [];
   const color = step.color === "either" ? "cyan" : step.color;

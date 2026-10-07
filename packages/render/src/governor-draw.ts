@@ -12,17 +12,12 @@ import {
 import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlowFaded } from "./glow.js";
+import { drawGovernorFuse } from "./governor-fuse.js";
 import type { GovernorFx } from "./governor-fx.js";
 import { drawGovernorHub } from "./governor-hub.js";
-import {
-  drawGovernorMark,
-  drawGovernorStuds,
-  drawGovernorWindow,
-  type GovernorMarkLook,
-} from "./governor-marks.js";
+import { drawGovernorMark, drawGovernorStuds, type GovernorMarkLook } from "./governor-marks.js";
 import {
   governorHeat,
-  governorLeft,
   governorNeedleShown,
   governorOrbit,
   governorOwed,
@@ -41,6 +36,7 @@ import {
   TRACK_OUT,
 } from "./governor-shape.js";
 import { governorStopper } from "./governor-stop.js";
+import { drawGovernorGap, drawGovernorTip } from "./governor-tip.js";
 import { drawGovernorHalos, drawGovernorVerdicts } from "./governor-verdicts.js";
 import { drawGovernorWorks } from "./governor-works.js";
 import { rgba } from "./hex.js";
@@ -70,8 +66,10 @@ export interface GovernorClock {
 /**
  * **THE GOVERNOR**: a flywheel lying mid-field under a governor's spindle,
  * its needle sweeping a graduated track on its own, a mark lit on it for each
- * seat to tap as the needle crosses; then the hub the needle turns on, lit
- * and shot as the needle points down (§11.58, `bosses-choreographed.md` §43).
+ * seat to tap as the needle crosses; then the plate on the needle's end, lit
+ * and shot through a gap cut in the bottom of the rim as it passes
+ * (§11.58, `bosses-choreographed.md` §43; the tip and the gap are
+ * `governor-tip.ts`).
  *
  * **Both screens are drawn the same governor**, the marks included; each
  * seat's own breathe on its screen and the partner's are faint
@@ -83,8 +81,9 @@ export interface GovernorClock {
  * (`governor-pose.ts`).
  *
  * **Its health is read off the body**, no bar: studs on the face count each
- * seat's taps, the hub dark until the first shot is owed and lit in a shot's
- * colour after, smaller and brighter per hit. Everything but what the events
+ * seat's taps, the hub dark until the first shot is earned and lit after,
+ * smaller and brighter per hit, and the tip lit in a shot's colour while one
+ * is owed. A tap step's time left is the bosses' fuse (`governor-fuse.ts`). Everything but what the events
  * leave behind is read off `world` each frame: a tap's flash on the rim, a
  * skid's scrape, the hub's flash, the blow it takes and its marks' verdicts
  * are `fx` (`governor-fx.ts`, drawn by `governor-receipts.ts`); its own blow
@@ -112,6 +111,7 @@ export function drawGovernor(
   ctx.globalAlpha = 1 - 0.5 * governorSpent(s, cfg, beat, beatPhase);
 
   drawWheel(ctx, l, d, fx.hurt.value);
+  drawGovernorGap(ctx, l, d, s);
   drawGovernorScrape(ctx, d, fx.scrape);
   drawGovernorHalos(ctx, l, d, s, time);
   let hot = false;
@@ -127,13 +127,13 @@ export function drawGovernor(
         hot ||= governorOff(needle, mark.markMilli) <= cfg.governorMarkMilli;
       }
     });
-    drawGovernorWindow(ctx, d, governorLeft(s, beat, beatPhase));
   }
   drawGovernorTap(ctx, d, fx.tap);
   drawGovernorStuds(ctx, l, d, s.taps, governorOwed(s));
   // No whip while a shot is owed: the crosshair rides the tip (`governorNeedleCircle`).
   drawNeedle(ctx, d, needle, governorFiring(s) ? 0 : governorHeat(s, cfg), hot);
-  drawGovernorHub(ctx, l, d, s, beat, beatPhase);
+  drawGovernorTip(ctx, cfg, d, s, needle, beatPhase);
+  drawGovernorHub(ctx, l, d, s);
   drawGovernorFlash(ctx, l, d, fx.flash);
 
   drawGovernorWorks(ctx, l, d, {
@@ -142,6 +142,7 @@ export function drawGovernor(
   });
   drawGovernorVerdicts(ctx, l, d, s, time, fx.verdicts);
   ctx.restore();
+  drawGovernorFuse(ctx, l, world, s, beatPhase);
 }
 
 /**

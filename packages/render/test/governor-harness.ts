@@ -5,7 +5,6 @@ import {
   type GovernorState,
   type GovernorStep,
   governorBoss,
-  governorFlightTicks,
   type SimEvent,
   startWave,
   step,
@@ -49,9 +48,9 @@ export const FIRE: GovernorStep = {
   beats: 8,
 };
 
-/** Where the needle is when a bolt met now left with it pointing straight down. */
-export function downNeedle(step: GovernorStep = FIRE): number {
-  return (GOVERNOR_DOWN_MILLI + step.paceMilli * governorFlightTicks(CFG)) % 1000;
+/** Where the needle is when a bolt meeting the tip now finds it in the middle of the gap. */
+export function downNeedle(_step: GovernorStep = FIRE): number {
+  return GOVERNOR_DOWN_MILLI;
 }
 
 export function stood(): World {

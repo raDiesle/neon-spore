@@ -1,5 +1,13 @@
 import { strokeGlowFaded } from "./glow.js";
-import { type Dial, dialAt, hubR, TRACK_IN, TRACK_OUT, trackBand } from "./governor-shape.js";
+import {
+  type Dial,
+  dialAt,
+  gapAt,
+  hubR,
+  TRACK_IN,
+  TRACK_OUT,
+  trackBand,
+} from "./governor-shape.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -73,7 +81,7 @@ export function drawGovernorScrape(
   ctx.restore();
 }
 
-/** A hub hit's flash over the hub: white, and wider for every hit. */
+/** A hit's flash in the gap, where the bolt met the tip: white, and wider for every hit. */
 export function drawGovernorFlash(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -84,7 +92,8 @@ export function drawGovernorFlash(
   const hits = Math.min(3, flash.hits);
   const r = Math.max(0.5, hubR(l) * (0.6 + 0.5 * hits) * (1.4 - 0.4 * flash.now));
   const p = new Path2D();
-  p.ellipse(d.cx, d.cy, r, r * (0.5 + 0.5 * d.tilt), 0, 0, Math.PI * 2);
+  const at = gapAt(d);
+  p.ellipse(at.x, at.y, r, r * (0.5 + 0.5 * d.tilt), 0, 0, Math.PI * 2);
   ctx.fillStyle = rgba(PALETTE.hullRim, flash.now * (0.35 + 0.2 * hits));
   ctx.fill(p);
   strokeGlowFaded(ctx, p, PALETTE.hullRim, STROKE.inner, flash.now * (0.6 + 0.4 * hits));

@@ -147,7 +147,7 @@ export const BOSS_MECHANICS_B = {
     reach: "spawn",
   },
   governor: {
-    what: "One of you holds both brake pads to keep the needle slow. The other taps as it crosses the lit mark. Three taps each. Shoot the hub in its colour.",
+    what: "A needle turns on a dial. Each of you taps as it crosses your own mark. Then shoot its lit tip as it passes the gap, in its colour.",
     reach: "spawn",
   },
   lamprey: {
