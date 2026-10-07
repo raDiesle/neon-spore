@@ -34965,3 +34965,15 @@ Bottleneck: friction — the wave editor owns the act files' shape, which no
 file next to them says.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE BURGEE renamed THE TRAPEZE
+
+- reading: 15 min. The boss's sim, its shot and lock hooks, the registrations
+  table, and a real frame of the wave as the owner sees it.
+- writing: 5 min. The rename by `git mv` and `sed`, then format and sort.
+- looking: 5 min. One frame of the shipped wave, sent.
+- friction: 5 min. Two specs named the old paths and fields; `doc-drift` said so.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: reading — the rework touches about 115 files, and finding which
+of them carry a look and which only a name took longest.
