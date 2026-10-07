@@ -1,5 +1,6 @@
 import type { Point } from "@neon-spore/content";
 import { CURTAIN_COLS } from "@neon-spore/sim";
+import { type CurtainGive, giveReach, NO_GIVE } from "./curtain-give.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -45,7 +46,8 @@ export interface CurtainScallop {
  * row's centre at `cy`. `sway` is the draught's swing (`curtain-sway.ts`):
  * every joint takes it, but only the edge it swings toward reaches out — the
  * trailing edge stays over its column, so a core under the end column is
- * never uncovered by the wind.
+ * never uncovered by the wind. `give` is a hand's (`curtain-give.ts`): the
+ * cloth near it carried across and dipped, by the same edge rule.
  */
 export function curtainHem(
   l: Layout,
@@ -56,16 +58,27 @@ export function curtainHem(
   lift: number,
   time: number,
   sway = 0,
+  give: CurtainGive = NO_GIVE,
 ): CurtainScallop[] {
   const t = l.tile;
   const hemY = cy + t * HEM_DROP - lift;
   const out: CurtainScallop[] = [];
+  // Where the cloth at rest-x `x` is carried across, and how far it dips.
+  const across = (x: number) => sway + give.across * giveReach(give, x);
+  const dip = (x: number) => give.sag * giveReach(give, x);
   for (let i = CURTAIN_COLS - 1; i >= 0; i--) {
     const y = hemY - ((lobes[i] ?? false) ? 0 : t * HEM_LIFT) + Math.sin(time * 1.7 + i) * t * 0.02;
-    const xr = x0 + (i + 1) * t + lag + (i === CURTAIN_COLS - 1 ? Math.max(0, sway) : sway);
-    const xl = x0 + i * t + lag + (i === 0 ? Math.min(0, sway) : sway);
+    const r = x0 + (i + 1) * t + lag;
+    const left = x0 + i * t + lag;
+    const xr = r + (i === CURTAIN_COLS - 1 ? Math.max(0, across(r)) : across(r));
+    const xl = left + (i === 0 ? Math.min(0, across(left)) : across(left));
     const mid = (xl + xr) / 2;
-    out.push({ joint: { x: mid, y }, bend: { x: mid, y: y + t * 0.12 }, to: { x: xl, y } });
+    const sag = dip((left + r) / 2);
+    out.push({
+      joint: { x: mid, y: y + sag },
+      bend: { x: mid, y: y + sag + t * 0.12 },
+      to: { x: xl, y: y + dip(left) },
+    });
   }
   return out;
 }
@@ -83,14 +96,16 @@ export function curtainSheetPath(
   lift: number,
   time: number,
   sway = 0,
+  give: CurtainGive = NO_GIVE,
 ): Path2D {
   const railY = cy - l.tile * RAIL_RISE;
   const x1 = x0 + CURTAIN_COLS * l.tile;
-  const hem = curtainHem(l, x0, cy, lobes, lag, lift, time, sway);
+  const hem = curtainHem(l, x0, cy, lobes, lag, lift, time, sway, give);
+  const right = sway + give.across * giveReach(give, x1 + lag);
   const path = new Path2D();
   path.moveTo(x0, railY);
   path.lineTo(x1, railY);
-  path.lineTo(x1 + lag + Math.max(0, sway), hem[0]?.to.y ?? railY);
+  path.lineTo(x1 + lag + Math.max(0, right), hem[0]?.to.y ?? railY);
   for (const b of hem) path.quadraticCurveTo(b.bend.x, b.bend.y, b.to.x, b.to.y);
   path.closePath();
   return path;

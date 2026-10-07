@@ -6,7 +6,13 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BoltStops } from "./bolt-stop.js";
-import { curtainHemLift, curtainSheetMidX, drawCurtainHem } from "./curtain-grip.js";
+import { curtainGive } from "./curtain-give.js";
+import {
+  curtainHemLift,
+  curtainHemPull,
+  curtainSheetMidX,
+  drawCurtainHem,
+} from "./curtain-grip.js";
 import { drawCurtainAsked, drawCurtainVerdicts } from "./curtain-marks.js";
 import { drawCurtainCore, drawCurtainJam, drawCurtainSheet } from "./curtain-sheet.js";
 import { curtainStopper } from "./curtain-stop.js";
@@ -105,7 +111,10 @@ export function drawCurtain(
   const lift = curtainHemLift(l, cfg, c);
   // And swings in a draught, held along the rail (`curtain-sway.ts`).
   const sway = curtainSway(l, cfg, c, beat, beatPhase);
-  drawCurtainSheet(ctx, l, x0, cy, c.lobes, soft, lag, sway, lift, time, hurt);
+  // And gives where a hand holds it, rather than sliding whole (`curtain-give.ts`).
+  const mid = curtainSheetMidX(l, cfg, at);
+  const give = curtainGive(l, world, c, body, beatPhase, mid, curtainHemPull(cfg, c));
+  drawCurtainSheet(ctx, l, x0, cy, c.lobes, soft, lag, sway, lift, time, hurt, give);
 
   // The jam, over the sheet's own rail, and the hem's ring over the sheet: both
   // are the `pinned` state and nothing else, and both draw on both screens —
@@ -121,10 +130,11 @@ export function drawCurtain(
 
   const p1 = gripsCreature(world, 1, body.id);
   const p2 = gripsCreature(world, 2, body.id);
-  // The ring closes on the part of the sheet that is on the field.
-  const mid = curtainSheetMidX(l, cfg, at);
+  // The ring closes on the part of the sheet that is on the field, and rides
+  // the cloth the hand has carried ahead of the rail.
   if ((p1 || p2) && mid !== null) {
-    drawHandAt(ctx, l, world, body, "pull", p1, p2, mid, cy, l.tile * 0.8, time, names);
+    const ringX = mid + give.across;
+    drawHandAt(ctx, l, world, body, "pull", p1, p2, ringX, cy, l.tile * 0.8, time, names);
   }
   if (verdicts) drawCurtainVerdicts(ctx, l, world, c, body, beatPhase, verdicts);
 }

@@ -2506,6 +2506,7 @@ by hand never moves.
 | `packages/render/src/curtain-sway.ts` | **THE CURTAIN sways in a draught** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/curtain-stop.ts` | **Where a bolt meets THE CURTAIN**, for `BoltStops` (`bolt-stop.ts`): the core in its own column |
 | `packages/render/src/curtain-grip.ts` | **THE CURTAIN's hem**: the one part of this boss a single thumb takes hold of |
+| `packages/render/src/curtain-give.ts` | **THE CURTAIN gives under a hand** rather than sliding whole |
 | `packages/render/src/curtain-hem.ts` | **THE CURTAIN's membrane as an outline**: the rail, the right edge and the hem, a scallop a column |
 | `packages/render/src/curtain-marks.ts` | **THE CURTAIN's hem and sheet answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/cue-helper.ts` | **The helper a cue's word wears on the field**: a crosshair on a shot's aim, the panel's face for SHIELD and SUCK |

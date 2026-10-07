@@ -3945,7 +3945,11 @@ name. *A held curtain does not sag*: step 3's "pulling opposite ways holds it,
 and a held curtain sags a row" would be a second rule on a cancel that is
 already the mechanic ([assists](assists.md) 6.5), and a row of sag on a
 seven-column body is a row the fall loop would have to know about; the cancel
-holds it, and that is the whole coupling. *There is no decoy*: step 9's second
+holds it, and that is the whole coupling. The sag is **drawn** instead
+(`render/curtain-give.ts`, 7 October 2026): the hem dips under every hand on
+the sheet, deeper when two pull apart, and the cloth under a hand goes ahead
+of the rail by the carry not yet paid in a column — a picture of the rule,
+never a row the simulation knows. *There is no decoy*: step 9's second
 shadow is a rule table drawn on the boss — the pair would be told to tell a
 core from a decoy by how each moves, which is exactly the kind of symbol THE
 TELL was removed for (§11.9); the core's own drift after every hit already

@@ -34383,3 +34383,20 @@ is drawn; the blend over the first quarter is what answered it.
 Bottleneck: none to speak of — the frame and crop tools answered first time.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE CURTAIN gives under a hand
+
+- reading: 10 min. The choreographed ledger's *Not built* clauses, THE
+  CURTAIN's §6 design and §11.24 write-up, the sheet, hem, sway and grip
+  files, and the carry's arithmetic in `grip-push-dir.ts`.
+- writing: 10 min. `curtain-give.ts` — the carry not yet paid plus the
+  rail still to catch up, the dip a hand and deeper apart — threaded
+  through the hem, the folds, the beads and the ring; its test.
+- looking: 10 min. One hand and two hands apart, before and after, on the
+  navigator's screen; the dip deepened once it was seen to be too small.
+- friction: 0 min.
+- landing: 5 min. The ledger and §11.24, a queue entry for the label
+  overlap, `check:fast`, the commit, `land`.
+
+Bottleneck: finding a frame with a hand carrying the sheet — the press and
+hold flags reach it, but the sheet's id had to be probed first.

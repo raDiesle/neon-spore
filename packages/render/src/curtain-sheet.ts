@@ -2,6 +2,7 @@ import { blobPoints } from "@neon-spore/content";
 import { type Color, CURTAIN_COLS } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { paintBead, paintCoreBody, paintSheet } from "./curtain-flesh.js";
+import { type CurtainGive, giveReach, NO_GIVE } from "./curtain-give.js";
 import { CURTAIN_HEM_DROP, CURTAIN_RAIL_RISE, curtainSheetPath } from "./curtain-hem.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
@@ -55,24 +56,30 @@ export function drawCurtainSheet(
   time: number,
   /** How hard the blow of a core hit still shows (`curtain-fx.ts`). */
   hurt = 0,
+  /** The cloth's give under a hand (`curtain-give.ts`): carried towards it and dipped. */
+  give: CurtainGive = NO_GIVE,
 ): void {
   const t = l.tile;
   const railY = cy - t * CURTAIN_RAIL_RISE;
   const hemY = cy + t * CURTAIN_HEM_DROP - lift;
   const x1 = x0 + CURTAIN_COLS * t;
-  const hang = lag + sway;
-  const path = curtainSheetPath(l, x0, cy, lobes, lag, lift, time, sway);
+  const path = curtainSheetPath(l, x0, cy, lobes, lag, lift, time, sway, give);
   // Folds: one a column, swaying, from the rail to the hem's trail — each a
   // lit line and, just to its right, the side of it turned from the light.
+  // Under a hand they lean in towards it, which is the give read as cloth.
   const folds = new Path2D();
   const shadows = new Path2D();
   for (let i = 1; i < CURTAIN_COLS; i++) {
     const x = x0 + i * t;
-    const ripple = Math.sin(time * 2.1 + i * 1.3) * t * 0.04;
+    const reach = giveReach(give, x + lag);
+    const hang = lag + sway + give.across * reach;
+    const foot = hemY + give.sag * reach;
+    const ripple = Math.sin(time * 2.1 + i * 1.3) * t * 0.04 + give.across * reach * 0.4;
+    const waist = (railY + foot) / 2;
     folds.moveTo(x, railY);
-    folds.quadraticCurveTo(x + ripple, (railY + hemY) / 2, x + hang, hemY - t * 0.05);
+    folds.quadraticCurveTo(x + ripple, waist, x + hang, foot - t * 0.05);
     shadows.moveTo(x + t * 0.07, railY);
-    shadows.quadraticCurveTo(x + t * 0.08 + ripple, (railY + hemY) / 2, x + t * 0.07 + hang, hemY);
+    shadows.quadraticCurveTo(x + t * 0.08 + ripple, waist, x + t * 0.07 + hang, foot);
   }
   paintSheet(ctx, path, folds, shadows, { x0, x1, railY, hemY, tile: t });
   drawHurt(ctx, path, hurt);
@@ -80,7 +87,8 @@ export function drawCurtainSheet(
   for (let i = 0; i < CURTAIN_COLS; i++) {
     if (!(lobes[i] ?? false)) continue;
     const x = x0 + (i + 0.5) * t + lag;
-    const y = hemY + t * LOBE_R * 0.6;
+    // A bead dips with the hem under a hand and stays over its column.
+    const y = hemY + t * LOBE_R * 0.6 + give.sag * giveReach(give, x);
     const lit = soft.includes(i);
     if (lit) halo(ctx, x, y, t * 0.5, PALETTE.hull, 0.55 + 0.25 * Math.sin(time * 5 + i));
     paintBead(ctx, x, y, t * LOBE_R, lit);
