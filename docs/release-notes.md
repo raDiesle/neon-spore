@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 1985cd55e — THE STARE's dome and THE PLUMB's core stop a shot where they hang
+
+A bolt up the middle meets THE PLUMB's lit core in the bob's belly, and THE STARE's dome at its lower edge, rather than when the bolt leaves the top of the field: 13 and 14 ticks sooner. Both are on `core-along.ts`'s table, and both pictures are placed off the simulation's rows. The core-met test gains a hand that fires at THE STARE's eye, because the right play never does. This closes the queue's "six more shot bosses" item.
+
 ## 2026-10-07 · 9a70578dc — THE CURTAIN's core is struck where the shot meets it
 
 The core is met where it hangs, up the column it has drifted to on `curtainRow`, rather than when the bolt leaves the top of the field: a `CORES` row in `core-along.ts` may now have nothing in the middle column and only a part up a column of its own. The picture already hung the core on that row. THE TASTER comes off the queue's item, because its crest hangs above row 0's centre and gains nothing. THE SCUTTLE is queued with a question, because its frame stands where the screen has room. The table's own description now says what an aside is.
