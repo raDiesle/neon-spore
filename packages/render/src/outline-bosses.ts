@@ -18,8 +18,9 @@
  * THE CYST's lobes each swing about their waists (`cyst-sway.ts`) and THE
  * VISE's case swings from its hinge (`vise-sway.ts`), THE MANTLE leans on
  * its straps (`mantle-sway.ts`), THE KEEL's loose segments heave on a
- * swell (`keel-sway.ts`) and THE SPLICE's eater rears its head and swings
- * its back end (`splice-sway.ts`).
+ * swell (`keel-sway.ts`), THE SPLICE's eater rears its head and swings
+ * its back end (`splice-sway.ts`) and THE HIVE's drops sway on their sites
+ * (`hive-sway.ts`).
  */
 
 export type OutlineBoss =
@@ -40,7 +41,8 @@ export type OutlineBoss =
   | "vise"
   | "mantle"
   | "keel"
-  | "splice";
+  | "splice"
+  | "hive";
 
 /** How much of its pose each boss takes: 0 dead still, 1 the whole. Never past 1 — the cap is at 1. */
 export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
@@ -62,6 +64,7 @@ export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
   mantle: 1,
   keel: 1,
   splice: 1,
+  hive: 1,
 };
 
 /** Each boss's seed, so no two on one screen lean in step; its parts hash theirs from it (`outline-parts.ts`). */
@@ -84,4 +87,5 @@ export const OUTLINE_SEED: Readonly<Record<OutlineBoss, number>> = {
   mantle: 193,
   keel: 197,
   splice: 199,
+  hive: 211,
 };

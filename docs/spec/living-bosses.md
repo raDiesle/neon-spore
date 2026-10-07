@@ -313,6 +313,16 @@ game "INSTAR:FLIGHT · SERPENT"*. `INSTAR_SERPENT.amount` is 1 on the field.
   light turn was taken as their drift. A pendulum on top of it would move
   the apex every vein goes in at.
 
+  *THE HIVE, as built, 7 October 2026* (`hive-sway.ts`): one gust runs
+  along the underside, column by column, and each shut drop leans on it
+  about the site it hangs from, its tip swinging across by more than half
+  a tile. A breach, shot up its own column, and a scar, the count of what
+  is sealed, hang still, as does a cocoon on a wall. The next site and its
+  twin ease plumb over the beat before they swell, so a drop is still by
+  the time a thumb is asked to pinch it. A bolt meets each drop as it leans
+  (`shornFoot`, `hive-stop.ts`). A tenth under THE SLOW. On the field under
+  *a look with no shipped alternative*.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair

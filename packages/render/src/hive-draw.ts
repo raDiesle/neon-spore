@@ -16,6 +16,7 @@ import { hiveClenchRise, hivePinchPhase } from "./hive-hold.js";
 import { hiveBox, hiveFade, hiveMassPath, hiveSite, hiveSwellPhase } from "./hive-shape.js";
 import { drawBreach, drawLobe, drawScar, drawSwell } from "./hive-sites.js";
 import { type HiveHang, hiveStopper } from "./hive-stop.js";
+import { hiveLean } from "./hive-sway.js";
 import { hiveWallCombs, hiveWallFrame, hiveWallSpan, WALL_SITE } from "./hive-walls.js";
 import { paintWax } from "./hive-wax.js";
 import type { Layout } from "./layout.js";
@@ -90,11 +91,16 @@ export function drawHive(
     // frame (`hive-walls.ts`).
     const wall = hiveOnWall(s, i);
     const c = wall ? { x: 0, y: 0 } : at;
+    // A shut drop leans on its site in the gust (`hive-sway.ts`).
+    const lean = hiveLean(world, s, i, beat, beatPhase);
     ctx.save();
     if (wall) {
       const [a, b, cc, d] = hiveWallFrame(s.cols[i] ?? 0);
       ctx.translate(at.x, at.y);
       ctx.transform(a * WALL_SITE, b * WALL_SITE, cc * WALL_SITE, d * WALL_SITE, 0, 0);
+    } else if (lean !== 0) {
+      ctx.transform(1, 0, lean, 1, -lean * c.y, 0);
+      hangs[i] = { drop: 0, open, lean };
     }
     if (s.sealed[i]) drawScar(ctx, l, c, open, fade);
     else if (hiveOpen(s, i)) {

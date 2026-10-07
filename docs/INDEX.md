@@ -2488,6 +2488,7 @@ by hand never moves.
 | `packages/render/src/hive-shape.ts` | Where THE HIVE is, in field pixels: the mass, its sites, the swell's drop, the fade, and every path the drawer strokes |
 | `packages/render/src/hive-stop.ts` | **Where a bolt meets THE HIVE**, for `BoltStops` (`bolt-stop.ts`): the underside and the lobe hanging at each site |
 | `packages/render/src/hive-sites.ts` | **THE HIVE's sites**: one lobe of its underside each, in whichever of its four states it is in — shut |
+| `packages/render/src/hive-sway.ts` | **THE HIVE's drops sway on their sites** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/hive-grip.ts` | **THE HIVE's one handle, offered to whichever seat the mass's state is for** |
 | `packages/render/src/hive-hold.ts` | **THE HIVE's two held states, in field pixels**: how far a clench has drawn the mass up out of reach |
 | `packages/render/src/hive-cell.ts` | **THE HIVE's lobes and breaches, as wax** (`hive-wax.ts` is the mass) |

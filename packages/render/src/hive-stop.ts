@@ -18,10 +18,11 @@ import {
 } from "./hive-walls.js";
 import { type Layout, tileCX } from "./layout.js";
 
-/** How a site's lobe hangs as drawn: `drop` below the underside, `open` of its width. */
+/** How a site's lobe hangs as drawn: `drop` below the underside, `open` of its width, and leaning `lean` across per pixel down (`hive-sway.ts`). */
 export interface HiveHang {
   drop: number;
   open: number;
+  lean?: number;
 }
 
 /**
@@ -67,7 +68,12 @@ export function hiveStopper(
     // A wall's cocoon lies on its side, so its drop is a reach across, not down.
     if (hiveOnWall(s, i))
       feet.push(hiveWallFoot(at, s.cols[i] ?? 0, r, r * 0.3, r * SITE_HANG + hang.drop));
-    else feet.push(roundFoot(at.x, at.y - r * 0.3, r, r * (0.3 + SITE_HANG) + hang.drop));
+    else {
+      const lean = hang.lean ?? 0;
+      const top = at.y - r * 0.3;
+      const ry = r * (0.3 + SITE_HANG) + hang.drop;
+      feet.push(lean === 0 ? roundFoot(at.x, top, r, ry) : shornFoot(at, top, r, ry, lean));
+    }
   }
   const foot = lowestFoot(feet);
   return (col, x, color) => {
@@ -119,4 +125,24 @@ export function hiveCornerFeet(
     corner(X(e.right - wallFace(l, w, y0, 0, -1)), X(firstX)),
     corner(X(e.left + wallFace(l, w, y0, 0, 1)), X(lastX)),
   ];
+}
+
+/**
+ * The lower edge of a drop leaning `lean` about its site `at`, as
+ * `drawHive` shears it: the half ellipse `roundFoot` takes, centred `top`,
+ * with each point moved `lean` across per pixel below the site. Its lowest
+ * point over x is the larger root of the sheared ellipse's quadratic.
+ */
+function shornFoot(at: Point, top: number, rx: number, ry: number, lean: number): Foot {
+  const cx = at.x + lean * (top - at.y);
+  const a = (lean * lean) / (rx * rx) + 1 / (ry * ry);
+  return (x) => {
+    const dx = x - cx;
+    const b = (-2 * lean * dx) / (rx * rx);
+    const c = (dx * dx) / (rx * rx) - 1;
+    const disc = b * b - 4 * a * c;
+    if (disc <= 0) return null;
+    const v = (-b + Math.sqrt(disc)) / (2 * a);
+    return v <= 0 ? null : top + v;
+  };
 }
