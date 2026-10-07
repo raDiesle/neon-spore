@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The two silent-event lists are eight lines off the ceiling
 
 - **Found:** 2026-10-06, claude/baton-rules
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-two-silent-event-lists-are-eight-lines-off-t)
 - **Files:** `packages/render/src/effects-ingest-silent-boss.ts`, `packages/render/src/effects-spark-silent-boss.ts`
 
 Both lists took THE BATON's `batonKicked` and stand at 242 and 243 lines. The
