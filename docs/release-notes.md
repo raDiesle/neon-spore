@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 0c60bbb68 — THE GOVERNOR stays whole under THE SLOW's prism
+
+THE GOVERNOR had no row in THE SLOW's aim, so its light stood round the cannon at the hull and the prism tore its flywheel and flyweights into red, green and blue. It has a row now, built from the dial it stands on this frame, and the whole body is left out of the split, as THE FLUE is. A test reads every boss whose simulation calls `openSlow(` and stands each one, so the next boss without a row fails the test instead of going unseen.
+
 ## 2026-10-07 · 423e3d0eb — `land` merges a claim and a narrowed queue entry line by line
 
 A lane that claims its second half with `bun run queue take` and then narrows the same entry's `Files:` line no longer stops its landing: the queue merge now takes both sides' edits to one entry when they change different lines (`line-merge.ts`), and refuses only when both changed the same line or put different lines at one point. The replay also names only the files that refused — the ledger reported beside the queue on 7 October would have merged on its own.
