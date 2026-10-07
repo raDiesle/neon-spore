@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## "Bring the trunk up" misses landings on the local `main` that are not pushed
 
 - **Found:** 2026-10-06, claude/lamprey-boss-mechanics-662818
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-bring-the-trunk-up-misses-landings-on-the-local)
 - **Files:** `CLAUDE.md`, `tools/hooks/`
 
 `git fetch origin main && git merge --ff-only origin/main` is the step a lane
