@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 3ab638488 — `bun run frames --boss` takes now-N and now+N, in whole beats
+
+`--boss pryBeat=now-4` was refused, so a boss could only be pictured at the wave's first beat or at a moment worked out from `--ticks` afterwards. `now-N` and `now+N` are now taken wherever `now` is — `--boss`, `--creature`, and at any depth of `--boss-json` — and resolved in the page against the same beat; a part of a beat is refused at the command line. `--help` says that `now` is the wave's first beat, not the `--ticks` one.
+
 ## 2026-10-07 · e6e9437f7 — THE INSTAR's head side-on turns three quarters to the ship and snarls
 
 Seen from the side, THE INSTAR no longer shows a flat profile head. The head is now a solid skull, snout and hinged jaw, turned half way toward the ship and tipped down at it. Both eyes show, narrowed under heavy brows, with both nostrils flared, folds across the bridge of the snout, teeth on both lips and a frill of spines. The body stays in profile. Every mark stays clear of the head with the jaw wide open.
