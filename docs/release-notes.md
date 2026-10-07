@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 5143ea4b7 — THE SLOW's light eases in and out over four tenths of a second at every pace
+
+The look's ease (`ramp`) and the hush test's wall clock read the window's own pace (`slowRateMilli(world)`) rather than the config's. THE FLUE's levels open windows at a half and at the ordinary rate, and there the light took a half or a quarter of the owner's four tenths to arrive. A render test checks that the light is halfway up at the same wall second at each pace.
+
 ## 2026-10-07 · 1985cd55e — THE STARE's dome and THE PLUMB's core stop a shot where they hang
 
 A bolt up the middle meets THE PLUMB's lit core in the bob's belly, and THE STARE's dome at its lower edge, rather than when the bolt leaves the top of the field: 13 and 14 ticks sooner. Both are on `core-along.ts`'s table, and both pictures are placed off the simulation's rows. The core-met test gains a hand that fires at THE STARE's eye, because the right play never does. This closes the queue's "six more shot bosses" item.
