@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE TASTER keeps a depth for each notch
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Taken:** 2026-10-07, claude/tasks-form-queue-9a5f8c (claim: claude/queue-the-taster-keeps-a-depth-for-each-notch)
 - **Files:** `packages/sim/src/taster.ts`, `packages/sim/src/taster-shot.ts`, `packages/sim/src/taster-hash.ts`, `packages/render/src/taster-blade.ts`
 
 bosses.md §11 THE TASTER: the notch is one sheen for every gap, brightened by `crest`, because the simulation keeps no depth per gap. Two lanes, the simulation then the look. First a per-gap count, stored as integers and hashed (`hashWorld`, `hash-coverage.test.ts`), that changes no rule. Then the notch drawn at its own depth. The look half goes to VERSUS (CLAUDE.md, *A look is offered*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued.
