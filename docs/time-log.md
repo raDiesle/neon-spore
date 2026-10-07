@@ -34719,3 +34719,5 @@ named in the entry.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: none — the cut had one entrance, so the count had one place to go.
+
+*Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

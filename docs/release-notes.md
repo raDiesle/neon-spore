@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 2a3f32a18 — THE TASTER keeps a depth for each notch
+
+Every blade now counts the shots into the soft crest at its own gap (`cuts`), whether a bolt or the navigator's wipe made them; the gaps sum to `crest`, which is still the one count the fight reads, so no rule changes. The count is hashed. Drawing each notch at its own depth is the look half, queued for VERSUS.
+
 ## 2026-10-07 · 3ab638488 — `bun run frames --boss` takes now-N and now+N, in whole beats
 
 `--boss pryBeat=now-4` was refused, so a boss could only be pictured at the wave's first beat or at a moment worked out from `--ticks` afterwards. `now-N` and `now+N` are now taken wherever `now` is — `--boss`, `--creature`, and at any depth of `--boss-json` — and resolved in the page against the same beat; a part of a beat is refused at the command line. `--help` says that `now` is the wave's first beat, not the `--ticks` one.
