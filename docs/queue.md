@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE SINEW's mass swings with weight, in VERSUS
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Taken:** 2026-10-07, claude/tasks-form-queue-9a5f8c (claim: claude/queue-the-sinews-mass-swings-with-weight-in-versus)
 - **Files:** `packages/render/src/sinew-draw.ts`, `packages/render/src/sinew-shape.ts`, `packages/render/src/sinew-fx.ts`
 
 The design: *the mass swinging with real lag and overshoot*. Today its sag is
