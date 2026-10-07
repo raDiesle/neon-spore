@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { readdirSync, readFileSync } from "node:fs";
+import { readdirSync } from "node:fs";
 import { join } from "node:path";
 
 /**
@@ -16,32 +16,44 @@ import { join } from "node:path";
  * So a top-level `Map` whose type names one of `HELD` is refused, by its
  * text. A `WeakMap` is not: its keys are objects, and what it holds goes with
  * them.
+ *
+ * **It reads fourteen hundred files, so it reads them at once.** One at a time
+ * it took two tenths of a second on a quiet machine, and once, under a full
+ * `check:fast` beside the director's bundler, more than the five-second
+ * timeout (5 October 2026). Read together it is a sixth of that. Only a file
+ * that says `new Map` is scanned, and `HELD` is one pattern, built once.
  */
 
 const SRC = join(import.meta.dir, "..", "src");
 const HELD = ["Path2D", "HTMLCanvasElement", "OffscreenCanvas", "CanvasGradient", "CanvasPattern"];
+const NAMES_HELD = new RegExp(`\\b(?:${HELD.join("|")})\\b`);
 const TOP_MAP = /^(?:export\s+)?(?:const|let)\s+(\w+)[^=\n]*=\s*new\s+Map\s*<([^\n]*)/gm;
 
 /** Every top-level `Map` in `src` whose declaration names a canvas thing, as `file: NAME`. */
-function unregistered(): string[] {
+async function unregistered(): Promise<string[]> {
+  const files = readdirSync(SRC).filter((f) => f.endsWith(".ts"));
+  const texts = await Promise.all(files.map((f) => Bun.file(join(SRC, f)).text()));
   const found: string[] = [];
-  for (const file of readdirSync(SRC).filter((f) => f.endsWith(".ts"))) {
-    const text = readFileSync(join(SRC, file), "utf8");
+  files.forEach((file, i) => {
+    const text = texts[i] ?? "";
+    if (!text.includes("new Map")) return;
     for (const m of text.matchAll(TOP_MAP)) {
-      const decl = m[0];
-      if (HELD.some((h) => new RegExp(`\\b${h}\\b`).test(decl))) found.push(`${file}: ${m[1]}`);
+      if (NAMES_HELD.test(m[0])) found.push(`${file}: ${m[1]}`);
     }
-  }
+  });
   return found;
 }
 
 describe("a module-level cache of paths or canvases", () => {
-  it("is a bakedCache, so a test's canvas swap empties it", () => {
-    expect(unregistered(), "hold it in bakedCache() from baked.ts instead of new Map").toEqual([]);
+  it("is a bakedCache, so a test's canvas swap empties it", async () => {
+    const found = await unregistered();
+    expect(found, "hold it in bakedCache() from baked.ts instead of new Map").toEqual([]);
   });
 
   it("is found by the scan when it is a plain Map", () => {
     const sample = "const CELLS = new Map<string, Path2D>();\n";
     expect([...sample.matchAll(TOP_MAP)].map((m) => m[1])).toEqual(["CELLS"]);
+    expect(NAMES_HELD.test(sample)).toBe(true);
+    expect(NAMES_HELD.test("const CELLS = new Map<string, Path2DLike>();")).toBe(false);
   });
 });

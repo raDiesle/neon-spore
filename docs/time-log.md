@@ -34220,3 +34220,16 @@ Bottleneck: none.
 Bottleneck: none.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — The baked-cache guard reads its files at once
+
+- reading: 0 min. The guard, and a timing of its read against its scan.
+- writing: 5 min. Fourteen hundred files read together rather than one at a
+  time, only a file with `new Map` scanned, `HELD` one pattern: the scan
+  from 200 ms to 34 on a quiet machine.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 0 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none — the read, not the regex, was the cost, and one timing
+said so.

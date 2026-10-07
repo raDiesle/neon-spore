@@ -358,22 +358,6 @@ adjacent lines that do not disagree: `Taken:` against `Files:`, and the
 both shapes, with a test for each in `tools/land/test/`. Worked around by
 hand on 7 October.
 
-## The baked-cache guard timed out in a full `check:fast` beside a dev server
-
-- **Found:** 2026-10-05, claude/core-along-hmr
-- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-baked-cache-guard-timed-out-in-a-full-check)
-- **Files:** `packages/render/test/baked-cache-guard.test.ts`
-
-With the director's dev server running (`bun --hot`, bundling), one
-`check:fast` went red on this test alone — *test timed out* — and it passed in
-182 ms when run by itself and in the next full run with the server stopped.
-It reads every file in `render/src` and runs a regex per declaration, all at
-the test's own pace on a machine the shards and the server were sharing.
-Find what in it can take five seconds under load (the per-file `new RegExp`
-inside the loop is a candidate; build the `HELD` pattern once), make it cheap,
-and give it an explicit timeout only if it still needs one. Done when the test
-runs in well under a second inside `bun run test` and `bun run check` is green.
-
 ## THE GOVERNOR is torn by THE SLOW's prism: it has no aim row
 
 - **Found:** 2026-10-06, claude/boss-graphics-overhaul-d7066b
