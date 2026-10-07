@@ -275,6 +275,15 @@ game "INSTAR:FLIGHT · SERPENT"*. `INSTAR_SERPENT.amount` is 1 on the field.
   the same hinge (`viseSwung`). Clamped through a bite, still through the
   split. On the field under *a look with no shipped alternative*.
 
+  *THE MANTLE, as built, 7 October 2026* (`mantle-sway.ts`): the shell,
+  the core, the seam, the crack and the vent sheared together about the
+  line the two straps are tied on, so the nose wanders up to eight tenths
+  of a tile and the ties, and the knobs under them, do not move. The rings
+  stand where they are answered; a bolt meets the shell as it leans. A
+  tenth under THE SLOW, which every step of its story opens, and gone as
+  the valves swing open. On the field under *a look with no shipped
+  alternative*.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair

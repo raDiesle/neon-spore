@@ -210,6 +210,11 @@ export function mantleHandleRest(l: Layout, at: Point, side: Side, pose: ValvePo
   return { x: tie.x + side * OUTBOARD * l.tile, y: tie.y + HANG * l.tile };
 }
 
+/** The height the straps are tied at on a shut, unpulled shell: what it leans about (`mantle-sway.ts`). */
+export function mantleTieY(l: Layout, at: Point): number {
+  return mantleTie(l, at, 1, { bow: 0, drop: 0, open: 0 }).y;
+}
+
 /** Where the strap is tied to the valve. */
 function mantleTie(l: Layout, at: Point, side: Side, pose: ValvePose): Point {
   return put(l, at, side, pose, HANDLE_F, 1);

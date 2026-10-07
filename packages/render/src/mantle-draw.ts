@@ -35,6 +35,7 @@ import {
   type ValvePose,
 } from "./mantle-shape.js";
 import { mantleStopper } from "./mantle-stop.js";
+import { mantleLean, withMantleLean } from "./mantle-sway.js";
 import { drawMantleCrossCrack, drawMantleVent } from "./mantle-vent.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
@@ -99,12 +100,16 @@ export function drawMantle(
     y: fx.kick * l.tile - mantleLift(l, arrived),
   };
   ctx.translate(shift.x, shift.y);
-  drawCore(ctx, l, world, s, at, beat, beatPhase, fx.flare);
-  for (const side of [-1, 1] as const)
-    drawValve(ctx, l, s, at, side, poses[side], beat, beatPhase, time, fx.hurt.value);
-  drawMantleSeam(ctx, l, world, s, at, beatPhase);
-  drawMantleCrossCrack(ctx, l, world, s, at, beat, beatPhase);
-  drawMantleVent(ctx, l, world, s, beat, beatPhase, time);
+  // The shell leans on its straps (`mantle-sway.ts`); the knobs and rings stand still.
+  const lean = mantleLean(world, s, beat, beatPhase);
+  withMantleLean(ctx, l, at, lean, () => {
+    drawCore(ctx, l, world, s, at, beat, beatPhase, fx.flare);
+    for (const side of [-1, 1] as const)
+      drawValve(ctx, l, s, at, side, poses[side], beat, beatPhase, time, fx.hurt.value);
+    drawMantleSeam(ctx, l, world, s, at, beatPhase);
+    drawMantleCrossCrack(ctx, l, world, s, at, beat, beatPhase);
+    drawMantleVent(ctx, l, world, s, beat, beatPhase, time);
+  });
   drawMantleBraceRings(ctx, l, world, s, beatPhase);
   const lit = mantleHandlesLit(s, beat, beatPhase);
   drawMantleHalos(ctx, l, cfg, s, at, time);
@@ -114,7 +119,7 @@ export function drawMantle(
   drawMantleMarks(ctx, l, cfg, s, at, time, fx.marks.verdicts);
   if (mantleLeaking(s)) drawSpark(ctx, l, world, s, beat, beatPhase);
   ctx.restore();
-  stops?.aim(mantleStopper(l, world, s, at, poses, shift, beat, beatPhase));
+  stops?.aim(mantleStopper(l, world, s, at, poses, shift, beat, beatPhase, lean));
 }
 
 /**

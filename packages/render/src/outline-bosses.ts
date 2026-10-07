@@ -16,7 +16,8 @@
  * middle (`surge-sway.ts`), THE LEDGER's plating leans on its underside
  * (`ledger-sway.ts`), THE STARE rolls about its eye (`stare-sway.ts`) and
  * THE CYST's lobes each swing about their waists (`cyst-sway.ts`) and THE
- * VISE's case swings from its hinge (`vise-sway.ts`).
+ * VISE's case swings from its hinge (`vise-sway.ts`) and THE MANTLE leans on
+ * its straps (`mantle-sway.ts`).
  */
 
 export type OutlineBoss =
@@ -34,7 +35,8 @@ export type OutlineBoss =
   | "ledger"
   | "stare"
   | "cyst"
-  | "vise";
+  | "vise"
+  | "mantle";
 
 /** How much of its pose each boss takes: 0 dead still, 1 the whole. Never past 1 — the cap is at 1. */
 export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
@@ -53,6 +55,7 @@ export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
   stare: 1,
   cyst: 1,
   vise: 1,
+  mantle: 1,
 };
 
 /** Each boss's seed, so no two on one screen lean in step; its parts hash theirs from it (`outline-parts.ts`). */
@@ -72,4 +75,5 @@ export const OUTLINE_SEED: Readonly<Record<OutlineBoss, number>> = {
   stare: 179,
   cyst: 181,
   vise: 191,
+  mantle: 193,
 };

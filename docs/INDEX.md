@@ -2410,6 +2410,7 @@ by hand never moves.
 | `packages/render/src/mantle-shape.ts` | **Where THE MANTLE is**, in field pixels: the two valves of its shell, the plates they are laid in |
 | `packages/render/src/mantle-story.ts` | **How far along THE MANTLE's four story beats are** — the buckle's bulge, the vent's gape, the cross crack and the turn's swing |
 | `packages/render/src/mantle-stop.ts` | **Where a bolt meets THE MANTLE**, for `BoltStops` (`bolt-stop.ts`): the leaking spark in its column |
+| `packages/render/src/mantle-sway.ts` | **THE MANTLE leans on its straps** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/mantle-grip.ts` | **The thumbs on THE MANTLE** — half two of the look lane |
 | `packages/render/src/mantle-fx.ts` | What THE MANTLE leaves behind a frame: the **kick** of the shell as a plate-pair shears |
 | `packages/render/src/mantle-brace.ts` | **THE MANTLE's brace, drawn**: the seam's crack and glow, the shudder, and each knob's hold ring |
