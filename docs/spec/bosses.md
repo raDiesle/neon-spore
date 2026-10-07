@@ -5029,7 +5029,9 @@ not lit along the cord's line — the shock is the plating's answer and a second
 one would be two pictures of one hit; the halves do not fire down their own
 columns, which the simulation dropped for the owner's rule; and the body's
 lobed back is `ledgerHalfPath`'s own rather than a silhouette off the sheet.
-The owner's eye decides all three.
+THE SLOW is marked by its prism standing round the body
+(`slow-boss-aim-c.ts`, 26 September 2026). Whether the nerves or a new back
+are still wanted is the owner's question (`docs/queue.md`).
 
 **The words** (`render/src/boss-cue-read-o.ts`, 19 September 2026, its own
 page). Four, and the cord's own state picks the pair of them. While a return is

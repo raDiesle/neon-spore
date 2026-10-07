@@ -352,14 +352,27 @@ each turned out to sit against something the owner has since decided:
    fibres would be a second mark, plainly visible in a still. Option: offer
    it, or call the prism enough.
 
-## THE LEDGER's cord lights the ship's nerves, its back off the shape sheet
+## THE LEDGER: lit nerves along the cord, and a new back for its body?
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
-- **Taken:** 2026-10-07, claude/tasks-form-queue-9a5f8c (claim: claude/queue-the-ledgers-cord-lights-the-ships-nerves-its-bac)
-- **Files:** `packages/render/src/ledger-cord.ts`, `packages/render/src/ledger-shape.ts`, `packages/render/src/ship-nerves.ts`
+- **Files:** `packages/render/src/ship-nerves.ts`, `packages/render/src/ledger-cord.ts`, `packages/render/src/ledger-shape.ts`
+- **Asks:** Should either of the two be built, and if the back, from which shapes?
 
-bosses.md §11 THE LEDGER, *Not built of the design's look*: `ship-nerves.ts` is not lit along the cord's line, and the body's lobed back is `ledgerHalfPath`'s own rather than a silhouette from `tools/shape-sheet/src/drafts/`. THE SLOW's beat has no mark beyond the strain running up the cord. Offer each as a candidate. The halves firing down their own columns, and the beads travelling both ways, are dropped by the owner's rule and stay out. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
+The design's look for THE LEDGER has three parts the game does not draw
+(bosses.md §11.27, *Not built of the design's look*). On 7 October 2026 one
+turned out to be built already: THE SLOW is marked by its prism round the
+body since 26 September. The other two:
 
+1. **The ship's nerves lit along the cord's line** when a return comes down
+   it. The write-up argues against it on purpose: the hull's shock is the
+   plating's answer to a return, and lit nerves would be a second picture of
+   one hit. Option: drop it, or offer it in VERSUS anyway.
+2. **The body's lobed back off the shape sheet** rather than
+   `ledgerHalfPoints`' own seven points, under the riveted plating the owner
+   asked for on 23 September. No free boss draft fits: THE CONDUCTOR is an
+   open arm with no inside, and every closed boss shape is taken. Option:
+   combine two drafted shapes into a new one and offer it in VERSUS, or keep
+   the back as it is.
 
 ## THE SURGE's slits gape with the pressure and its eversion turns the body out
 

@@ -34785,3 +34785,15 @@ Bottleneck: the entry was filed from a write-up three weeks older than the
 owner's own redesign, and only the band's commit history said so.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE LEDGER's two unbuilt looks, put to the owner
+
+- reading: 10 min. The design and the write-up's departures, the slow
+  aims, the shape drafts for a free closed boss shape — there is none.
+- writing: 5 min. The spec's stale SLOW line, the entry as a question.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the drafts — finding that no closed boss shape is free took a
+script over every catalogue file.
