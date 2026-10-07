@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 2e8b75174 — The baked-cache guard reads render's sources at once, in a sixth of the time
+
+`baked-cache-guard.test.ts` read fourteen hundred files one at a time, two tenths of a second on a quiet machine, and once more than its five-second timeout under a full `check:fast` beside the director's bundler. It reads them in parallel now, scans only a file that says `new Map`, and builds its `HELD` pattern once: 34 ms. The sample test checks that pattern too.
+
 ## 2026-10-07 · 5143ea4b7 — THE SLOW's light eases in and out over four tenths of a second at every pace
 
 The look's ease (`ramp`) and the hush test's wall clock read the window's own pace (`slowRateMilli(world)`) rather than the config's. THE FLUE's levels open windows at a half and at the ordinary rate, and there the light took a half or a quarter of the owner's four tenths to arrive. A render test checks that the light is halfway up at the same wall second at each pace.
