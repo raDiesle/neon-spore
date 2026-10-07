@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 839103bd6 — THE CYST's bud and THE VISE's seed are burst where the shot meets them
+
+A part a step asks for aside of the middle column is met where it hangs, up its own column, rather than when the bolt leaves the top of the field: a `CORES` row in `core-along.ts` takes an `aside`, the column and row the lit step names, and THE CYST and THE VISE are on the table with their cores. The bud and the seed are drawn grown out to the simulation's row, and a split sac or case stops nothing in either, from the beat it splits. THE KEEL, the third of the item, is queued on its own: its rock falls off the drawn tail.
+
 ## 2026-10-07 · f2376ae10 — THE RATCHET's and THE HASP's loose bolts are knocked out where the shot meets them
 
 A shot up a loose bolt's column now meets it on the way up, on the tick it is drawn bursting on it, rather than when the shot leaves the top of the field. Both bolts fall by the sparks' one reckoning (`spark-fall.ts`), the picture lays them off it, and the bolt knocked out bursts where it was met instead of at the bottom clasp or the pawl. Each loose bolt moves to a file of its own beside its boss's shape. Exemption: a fix to something wrong — the hit landed late and burst in the wrong place.
