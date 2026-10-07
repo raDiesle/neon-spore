@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE SINEW's mass swings with weight, and THE SLOW is marked on it
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Taken:** 2026-10-07, claude/tasks-form-queue-9a5f8c (claim: claude/queue-the-sinews-mass-swings-with-weight-and-the-slow)
 - **Files:** `packages/render/src/sinew-sway.ts`, `packages/render/src/sinew-band.ts`, `packages/render/src/sinew-draw.ts`
 
 bosses.md §11 THE SINEW, *Not built of the design's look*: the mass's swing has no lag or overshoot beyond the snap's whip; nothing in the look marks THE SLOW on a part beyond the hull's shock; and the band is a collar on the tendon, where the design wanted a white bar split across the two screens. Offer each one as its own VERSUS candidate. The write-up leaves all three to the owner's eye. Step 8's lobes and step 11's halved ward window are argued against there and stay out. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
