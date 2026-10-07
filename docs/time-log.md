@@ -34601,3 +34601,5 @@ left nothing under the graft's foot to show through.
 
 Bottleneck: reading — the two drops were each derived in a different file
 from a different radius, and only the arithmetic side by side showed they met.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

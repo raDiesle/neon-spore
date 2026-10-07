@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · fb47a24a1 — Time log for THE CURTAIN's hand word
+
+## 2026-10-07 · 0a0e89792 — THE CURTAIN's hand word steps a line under the cue word
+
+With a thumb on THE CURTAIN's sheet the hand ring's `PULL` and the cue's `SHOVE` or `LIFT` hung the same distance under the sheet's middle and read as one jumbled word, `SHOVEPULL`. The cue's verb keeps its place, and the hand's word now stands a line under it whenever the two would meet (`curtain-hand-word.ts`); with no cue up it stays where it always was. A test draws both as the game does and holds their boxes apart. Exemption: a fix to something wrong rather than unlovely.
+
 ## 2026-10-07 · 73118049e — Time log for THE THROAT's graft
 
 ## 2026-10-07 · c2bb0137c — THE THROAT grows out of the ship, and the cannon is gone from its wave
