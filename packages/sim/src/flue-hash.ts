@@ -1,4 +1,4 @@
-import { FLUE_PHASES, FLUE_WEAPONS, type FlueState } from "./flue.js";
+import { FLUE_ENDS, FLUE_PHASES, FLUE_WEAPONS, type FlueState } from "./flue.js";
 
 /**
  * What THE FLUE puts into `hashWorld`, and nothing else.
@@ -16,6 +16,7 @@ export function flueHashParts(s: FlueState): number[] {
     s.emberMilli,
     s.emberDir,
     s.shots,
+    s.met,
     s.hits,
     s.levels.length,
   ];
@@ -24,6 +25,8 @@ export function flueHashParts(s: FlueState): number[] {
     out.push(level.color === "red" ? 1 : 2);
     out.push(level.speedMilli);
     out.push(level.slowMilli);
+    out.push(FLUE_ENDS.indexOf(level.from) + 1);
+    out.push(level.needs);
   }
   return out;
 }

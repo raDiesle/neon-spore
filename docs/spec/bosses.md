@@ -11102,8 +11102,8 @@ free the pilot would slide it under the ember, and the beam, which burns the
 cannon's column the tick it goes off, would need nobody's timing at all. So
 the pilot has the eyes and the mouth, and the navigator the colour, the
 trigger and the beam. **The seats swap every level** (the owner, 6 October
-2026: *every level, we can switch player roles*): on the second, fourth and
-sixth the two panels trade phones, THE HANDOVER's trade (`sim/flue.ts`,
+2026: *every level, we can switch player roles*): on every even level, the
+second, fourth and on, the two panels trade phones, THE HANDOVER's trade (`sim/flue.ts`,
 `flueTraded`, read by `handedOver`), from the rest that leads in, so each
 person takes a turn at seeing and a turn at shooting. The trade has no plate
 and no warning: the rest is the warning, and **the siren** says whose mouth
@@ -11129,23 +11129,27 @@ phones swap halves on their own.
 in `sim/flue-hash.ts`) is the **phase** and the beat it began, the
 **cursor** into the levels, the **ticks** the lit level has run, the
 **ember** in thousandths of a column off the middle and the way it runs, the
-**shots** the lit level has left, and the **hits**. The levels are the
-wave's (`FlueEntry.levels`), copied at install; each names its **weapon**
-(`bolt` or `beam`), its **colour**, the ember's **speed** in thousandths of
-a column a beat, and THE SLOW's **strength** in thousandths of the ordinary
-rate, 1000 being none.
+**shots** the lit level has left, the times it has been **met**, and the
+**hits**. The levels are the wave's (`FlueEntry.levels`), copied at install;
+each names its **weapon** (`bolt` or `beam`), its **colour**, the ember's
+**speed** in thousandths of a column a beat, THE SLOW's **strength** in
+thousandths of the ordinary rate, 1000 being none, the **end** the ember
+sets off from (`from`, left or right), and how many times it **needs** to
+be met to clear (the owner, 7 October 2026: *add some more ideas and more
+levels*).
 
 **The clock** (`sim/flue-step.ts`). The flue is slack for `flueSlackBeats`,
 then the first level lights with `flueShots` shots (`flueLight`). The ember
 is nobody's to move: every tick it is worked out from the ticks the level
-has run (`flueEmberAlong`), a triangle wave from the left end of
-`flueSpanMilli` going right, so a level always starts it in the same place
-and the pair can learn its rhythm. **It runs on the shot grid's beat**
+has run (`flueEmberAlong`), a triangle wave from the level's end of
+`flueSpanMilli` — the left going right, or mirrored, the right going left —
+so a level always starts it in the same place and the pair can learn its
+rhythm. **It runs on the shot grid's beat**
 (`flueEmberWait`): the game lays every bolt on a half beat
 (`shotChargeBeats`), so a bolt only reaches the flue a climb after one, and
 an ember crossing the middle between two arrivals could not be met by any
 call — what AUTO found in `bun run frames`, THE WARDEN's lesson again. So
-the ember waits at the left end for under half a beat as a level lights, by
+the ember waits at its end for under half a beat as a level lights, by
 as much as puts its crossing on an arrival, and every level's speed divides
 four spans so each crossing after it is on one too
 (`content/test/flue-levels.test.ts`). A beam is off the grid and meets it
@@ -11162,10 +11166,12 @@ past the flue**: every bolt and every beam stops on its row, `flueRow` — 6,
 two lower than the 4 of 6 October (the owner, 7 October 2026: *move the
 boss visuals some more down*) — and is judged there (`flueAlong`, `flueStruckEmber`). Within `flueHitMilli` of
 the ember — the sight's radius, so a spore half inside the sight ring is met
-(the owner, 6 October 2026) — in the level's weapon and colour, the level is
-cleared (`flueHit`). Anything else spends a shot (`flueMiss`, with why:
+(the owner, 6 October 2026) — in the level's weapon and colour, the ember is
+met (`flueHit`, with `left`, the meetings still needed): once as often as the
+level needs, it is cleared; short of that it is beamed home and runs again,
+no shot spent. Anything else spends a shot (`flueMiss`, with why:
 `wide`, `color` or `weapon`, and `late` for which side of the cannon the
-ember was on), and the ember is beamed back to the left end and held
+ember was on), and the ember is beamed back to its end and held
 `flueBeamBeats` before it runs the level again, set off on the shot grid's
 own phase so the level's crossings still fall on a bolt's arrival
 (`rewind`, `sim/flue-step.ts`). The last shot spent is THE FLUE's own blow
@@ -11176,11 +11182,15 @@ goes off a whole prime after it is held (`sim/flue-lead.ts`,
 `flueShotTicks`, and `flueEmberMet`, where the ember will be when a shot
 pressed now arrives).
 
-**The levels, as authored** (`content/src/waves/act-13.ts`): a red bolt at
-two columns a beat and a cyan one at three, a red beam at one and a cyan
-beam at one and a half under THE SLOW at half, then a red bolt at four and a
-half and a cyan beam at two under THE SLOW at a quarter. Six
-levels, each a stud over the flue.
+**The levels, as authored** (`content/src/waves/act-13.ts`): eleven, one for
+each lobe of the flue (the owner, 7 October 2026: *the ball should start
+moving slower … the number of levels is equal to the visual bumps of the
+pipe*). A red bolt at one column a beat, a cyan one from the right at the
+same, a red bolt at one and a half, a cyan beam at one, a cyan bolt at one
+and a half met twice; then under THE SLOW a red beam from the right, a red
+bolt from the right at two and a quarter, a cyan beam at two, a cyan bolt at
+three met twice, a red bolt from the right at three and three fifths, and a
+red beam at two and a quarter met twice.
 
 **The field says two words** (`render/boss-cue-read-zo.ts`), only while a
 level is lit: `CALL` over `NOW` at the sight, to the pilot; and `FIRE` on a

@@ -65,7 +65,7 @@ describe("a spent boss at half alpha", () => {
     const fx = new FlueFx();
     const col = midCol(CFG);
     const thrown = [
-      { type: "flueHit", hits: 3, col, emberMilli: 0 },
+      { type: "flueHit", hits: 3, left: 0, col, emberMilli: 0 },
       { type: "flueMiss", shots: 1, why: "wide", late: false, emberMilli: 0, col },
     ] as const;
     fx.ingest(thrown, l, CFG, 0.5, () => {});

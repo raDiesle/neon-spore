@@ -20,8 +20,22 @@ import { CFG, runFrames, waveWith } from "./frame-harness.js";
  */
 
 const TPB = ticksPerBeat(CFG);
-export const BOLT: FlueLevel = { weapon: "bolt", color: "red", speedMilli: 2000, slowMilli: 1000 };
-export const BEAM: FlueLevel = { weapon: "beam", color: "cyan", speedMilli: 1000, slowMilli: 500 };
+export const BOLT: FlueLevel = {
+  weapon: "bolt",
+  color: "red",
+  speedMilli: 2000,
+  slowMilli: 1000,
+  from: "left",
+  needs: 1,
+};
+export const BEAM: FlueLevel = {
+  weapon: "beam",
+  color: "cyan",
+  speedMilli: 1000,
+  slowMilli: 500,
+  from: "left",
+  needs: 1,
+};
 
 export function stood(): World {
   const world = createWorld(CFG, 5);

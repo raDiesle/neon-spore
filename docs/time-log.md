@@ -33991,3 +33991,18 @@ produce it with the colour the player thought they pressed.
 Bottleneck: none — the flue reads its row everywhere from the config.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE FLUE has eleven levels, starts slower, and some come from the right or ask twice
+
+- reading: 5 min. The level's run, the rewind and the rest, the hash, and
+  every file that writes a level or a hit.
+- writing: 10 min. `from` and `needs` on a level, `met` on the state, the
+  mirrored run, the meeting that beams the ember home, eleven levels, tests.
+- looking: 5 min. One frame of the second level, the spore beamed in at the
+  right end.
+- friction: 5 min. A stray `cat` in a shell line waited on input and looked
+  like a hung test; the wave editor's save refused a comment in the levels.
+- landing: 5 min.
+
+Bottleneck: an event shape changed under nine fixtures, found by the
+typecheck one file at a time.

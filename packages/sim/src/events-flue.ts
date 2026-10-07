@@ -27,8 +27,12 @@ export type FlueEvent =
   | ({ type: "flueEnter" } & FlueColEvent)
   /** Level `level` lit, counted from nought: the ember sets off with a full level of shots. */
   | ({ type: "flueLight"; level: number } & FlueColEvent)
-  /** The ember met in the level's weapon and colour; `hits` is the levels cleared. */
-  | ({ type: "flueHit"; hits: number } & FlueMetEvent)
+  /**
+   * The ember met in the level's weapon and colour; `hits` is the levels
+   * cleared, and `left` the meetings the lit level still needs — nought when
+   * this one cleared it, more on a level that asks for it again.
+   */
+  | ({ type: "flueHit"; hits: number; left: number } & FlueMetEvent)
   /**
    * A shot spent, and why; `shots` is what the level has left, nought being
    * the wave. `late` is whether the ember had already run past the cannon.

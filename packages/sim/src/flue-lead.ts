@@ -58,12 +58,12 @@ export function flueEmberWait(cfg: SimConfig, speedMilli: number): number {
   return Math.round(wait / MILLI);
 }
 
-/** The ember `ticks` into a level: held at the left end for its wait, then running. */
+/** The ember `ticks` into a level: held at its own end for its wait, then running. */
 export function flueEmberRun(
   cfg: SimConfig,
   level: FlueLevel,
   ticks: number,
 ): { milli: number; dir: 1 | -1 } {
   const wait = flueEmberWait(cfg, level.speedMilli);
-  return flueEmberAlong(cfg, level.speedMilli, Math.max(0, ticks - wait));
+  return flueEmberAlong(cfg, level.speedMilli, Math.max(0, ticks - wait), level.from);
 }

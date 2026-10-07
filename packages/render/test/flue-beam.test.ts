@@ -18,7 +18,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 beforeAll(installCanvasGlobals);
 
 const MID = midCol(CFG);
-const hit: SimEvent = { type: "flueHit", hits: 1, col: MID, emberMilli: 300 };
+const hit: SimEvent = { type: "flueHit", hits: 1, left: 0, col: MID, emberMilli: 300 };
 const miss = (why: "wide" | "color" | "weapon", late = false): SimEvent => ({
   type: "flueMiss",
   shots: 2,

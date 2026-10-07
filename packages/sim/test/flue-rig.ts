@@ -31,12 +31,12 @@ export const MID = midCol(CFG);
 
 /** The shipped wave's levels, written out: sim tests do not read content. */
 export const LEVELS: readonly FlueLevel[] = [
-  { weapon: "bolt", color: "red", speedMilli: 2000, slowMilli: 1000 },
-  { weapon: "bolt", color: "cyan", speedMilli: 3000, slowMilli: 1000 },
-  { weapon: "beam", color: "red", speedMilli: 1000, slowMilli: 500 },
-  { weapon: "beam", color: "cyan", speedMilli: 1500, slowMilli: 500 },
-  { weapon: "bolt", color: "red", speedMilli: 4000, slowMilli: 250 },
-  { weapon: "beam", color: "cyan", speedMilli: 2000, slowMilli: 250 },
+  { weapon: "bolt", color: "red", speedMilli: 2000, slowMilli: 1000, from: "left", needs: 1 },
+  { weapon: "bolt", color: "cyan", speedMilli: 3000, slowMilli: 1000, from: "left", needs: 1 },
+  { weapon: "beam", color: "red", speedMilli: 1000, slowMilli: 500, from: "left", needs: 1 },
+  { weapon: "beam", color: "cyan", speedMilli: 1500, slowMilli: 500, from: "left", needs: 1 },
+  { weapon: "bolt", color: "red", speedMilli: 4000, slowMilli: 250, from: "left", needs: 1 },
+  { weapon: "beam", color: "cyan", speedMilli: 2000, slowMilli: 250, from: "left", needs: 1 },
 ];
 
 export function install(levels: readonly FlueLevel[] = LEVELS, seed = 0): World {
@@ -105,11 +105,17 @@ export function shoot(
   const weapon = opts.weapon ?? level.weapon;
   const color = opts.color ?? level.color;
   toLead(world, weapon, opts.offMilli ?? 0);
-  const before = { hits: flue(world).hits, shots: flue(world).shots };
+  const before = { hits: flue(world).hits, shots: flue(world).shots, met: flue(world).met };
   const seen = new Set(tick(world, [press(weapon, color)]));
   for (const t of runUntil(world, (w) => {
     const s = flueBoss(w);
-    return s === null || s.hits !== before.hits || s.shots !== before.shots || s.phase !== "lit";
+    return (
+      s === null ||
+      s.hits !== before.hits ||
+      s.shots !== before.shots ||
+      s.met !== before.met ||
+      s.phase !== "lit"
+    );
   }))
     seen.add(t);
   if (world.prime !== null)

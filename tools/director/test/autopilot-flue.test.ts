@@ -9,8 +9,8 @@ import { stageField } from "../src/stage-field.js";
 /**
  * **AUTO plays THE FLUE to the end** (`hands/boss-hands-flue.ts`): every
  * level's ember met over the cannon in its own weapon and colour, the first
- * shot each time — with no shot spent, the cannon never slid and the hull
- * never struck.
+ * shot each time and as often as the level needs — with no shot spent, the
+ * cannon never slid and the hull never struck.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
@@ -28,8 +28,10 @@ describe("AUTO on THE FLUE", () => {
   test("BOTH meets every level's ember with its first shot and plays the flue out", () => {
     const world: World = bossWorld("flue");
     const auto = rig(world, "both");
-    const levels = flueBoss(world)?.levels.length ?? 0;
+    const authored = flueBoss(world)?.levels ?? [];
+    const levels = authored.length;
     const hits: number[] = [];
+    let again = 0;
     const misses: string[] = [];
     let out = false;
     for (let i = 0; i < 40_000 && world.boss !== null; i++) {
@@ -37,13 +39,15 @@ describe("AUTO on THE FLUE", () => {
       for (const c of sent) expect(c.command.kind).not.toBe("cannonCol");
       step(world, sent);
       for (const e of world.events) {
-        if (e.type === "flueHit") hits.push(e.hits);
+        if (e.type === "flueHit" && e.left === 0) hits.push(e.hits);
+        if (e.type === "flueHit" && e.left > 0) again += 1;
         if (e.type === "flueMiss") misses.push(e.why);
         if (e.type === "flueOut") out = true;
       }
     }
     expect(levels).toBeGreaterThan(0);
     expect(hits).toEqual(Array.from({ length: levels }, (_, i) => i + 1));
+    expect(again).toBe(authored.reduce((n, level) => n + level.needs - 1, 0));
     expect(misses).toEqual([]);
     expect(world.scars).toEqual([]);
     expect(out).toBe(true);

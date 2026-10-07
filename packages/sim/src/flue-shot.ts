@@ -1,5 +1,5 @@
 import { flueBoss, flueLitLevel, flueMissWhy, flueOver } from "./flue.js";
-import { flueCleared, flueSpentShot } from "./flue-step.js";
+import { flueMet, flueSpentShot } from "./flue-step.js";
 import type { Bullet } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -11,7 +11,7 @@ import { MILLI, type World } from "./world.js";
  * shot stops on the flue**: it lies across the whole field, so nothing climbs
  * past it. That is where it is judged, the instant it gets there, so the pair
  * sees the verdict on the shot rather than a beat later off the top. While a
- * level is lit: over the ember, the level's weapon in its colour clears it,
+ * level is lit: over the ember, the level's weapon in its colour meets it,
  * and the other weapon or the other colour spends a shot, the ember refusing
  * it; anywhere else it is wide and spends one too. Between levels the flue
  * takes a shot and nothing comes of it.
@@ -34,7 +34,7 @@ export function flueStruckEmber(world: World, bullet: Bullet): void {
     return;
   }
   const why = flueMissWhy(level, bullet);
-  if (why === null) flueCleared(world, s, bullet.col);
+  if (why === null) flueMet(world, s, level, bullet.col);
   else flueSpentShot(world, s, bullet.col, why);
 }
 

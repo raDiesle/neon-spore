@@ -21,16 +21,17 @@ import type { World } from "./world.js";
  *
  * **It is levels, and they are its health.** Each one asks one weapon in one
  * colour, with the ember at its own speed and THE SLOW at its own strength,
- * and gives three shots for it. A shot is judged as it reaches the flue,
- * which no shot gets past: met over the ember in the asked weapon and colour,
- * the level is cleared; anything else spends a shot, and the last one spent
- * is the wave.
+ * setting off from its own end of the flue, and gives three shots for it. A
+ * shot is judged as it reaches the flue, which no shot gets past: met over
+ * the ember in the asked weapon and colour, it counts towards the level, which
+ * is cleared once it has been met as often as it `needs`; anything else
+ * spends a shot, and the last one spent is the wave.
  * The next level starts with three again.
  *
  * `emberMilli` is where the ember is, in thousandths of a column off the
  * middle one, and it is **nobody's to move**: it is worked out every tick
  * from the ticks the level has run (`flueEmberAlong`), so a level always
- * starts it at the left end going right. The cannon is held on the middle
+ * starts it at the same end, going the same way. The cannon is held on the middle
  * column the whole fight, or the pilot could slide it under the ember and
  * the beam, which burns the cannon's column the instant it goes off, would
  * need nobody's timing at all.
@@ -42,6 +43,10 @@ export type FluePhase = (typeof FLUE_PHASES)[number];
 /** The two shots the cannon has: a bolt that climbs, and the beam a held colour fills. */
 export const FLUE_WEAPONS = ["bolt", "beam"] as const;
 export type FlueWeapon = (typeof FLUE_WEAPONS)[number];
+
+/** The end of the flue a level's ember sets off from. */
+export const FLUE_ENDS = ["left", "right"] as const;
+export type FlueEnd = (typeof FLUE_ENDS)[number];
 
 /** Why a shot spent one of the level's three. */
 export const FLUE_MISSES = ["wide", "color", "weapon"] as const;
@@ -55,6 +60,14 @@ export interface FlueLevel {
   speedMilli: number;
   /** How fast THE SLOW plays the level, thousandths of the ordinary rate; 1000 is no slow at all. */
   slowMilli: number;
+  /**
+   * The end the ember sets off from, and is beamed back to after a shot: from
+   * the right it runs the other way, and the call is the mirror of the one
+   * the pair has learned (the owner, 7 October 2026: *add some more ideas*).
+   */
+  from: FlueEnd;
+  /** How many times the ember must be met to clear the level: one, or more on a level that asks it again. */
+  needs: number;
 }
 
 /** What a wave authors: the levels, in order. */
@@ -80,6 +93,8 @@ export interface FlueState {
   emberDir: 1 | -1;
   /** Shots the lit level has left. */
   shots: number;
+  /** Times the ember has been met in the lit level, nought up to its `needs`. */
+  met: number;
   /** Levels cleared. */
   hits: number;
 }
@@ -114,13 +129,24 @@ export function flueEmberAlong(
   cfg: SimConfig,
   speedMilli: number,
   ticks: number,
+  from: FlueEnd = "left",
 ): { milli: number; dir: 1 | -1 } {
   const span = cfg.flueSpanMilli;
   const lap = 4 * span;
   const run = Math.floor((ticks * speedMilli) / ticksPerBeat(cfg)) % lap;
-  return run < 2 * span
-    ? { milli: run - span, dir: 1 }
-    : { milli: span - (run - 2 * span), dir: -1 };
+  const at: { milli: number; dir: 1 | -1 } =
+    run < 2 * span ? { milli: run - span, dir: 1 } : { milli: span - (run - 2 * span), dir: -1 };
+  return from === "left" ? at : { milli: -at.milli, dir: at.dir === 1 ? -1 : 1 };
+}
+
+/** Where a level's ember waits before it sets off, and is beamed back to: its own end. */
+export function flueStartMilli(cfg: SimConfig, level: FlueLevel | undefined): number {
+  return level?.from === "right" ? cfg.flueSpanMilli : -cfg.flueSpanMilli;
+}
+
+/** Which way a level's ember sets off. */
+export function flueStartDir(level: FlueLevel | undefined): 1 | -1 {
+  return level?.from === "right" ? -1 : 1;
 }
 
 /** Whether the ember is over column `col`, near enough that a shot up it meets it. */
@@ -145,7 +171,7 @@ export function flueHoldsCannon(world: World, command: Command): boolean {
 
 /**
  * **Whether the flue has the two panels traded**: on every other level, the
- * second, the fourth and the sixth, from the rest that leads into it until the
+ * second, the fourth, the sixth and on, from the rest that leads into it until the
  * rest after it — so the swap is seen before the level lights, and the seats
  * are their own again once the flue is spent (the owner, 6 October 2026:
  * *every level, we can switch player roles*).
@@ -167,7 +193,7 @@ export function flueDone(s: FlueState): boolean {
   return s.phase === "spent";
 }
 
-/** A fresh flue: the ember at the left end, nothing cleared, a full level of shots. */
+/** A fresh flue: the ember at the first level's end, nothing cleared, a full level of shots. */
 export function freshFlue(cfg: SimConfig, beat: number, levels: readonly FlueLevel[]): FlueState {
   return {
     kind: "flue",
@@ -176,9 +202,10 @@ export function freshFlue(cfg: SimConfig, beat: number, levels: readonly FlueLev
     phaseBeat: beat,
     cursor: 0,
     rollTicks: 0,
-    emberMilli: -cfg.flueSpanMilli,
-    emberDir: 1,
+    emberMilli: flueStartMilli(cfg, levels[0]),
+    emberDir: flueStartDir(levels[0]),
     shots: cfg.flueShots,
+    met: 0,
     hits: 0,
   };
 }

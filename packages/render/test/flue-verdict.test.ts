@@ -71,7 +71,7 @@ describe("THE FLUE's verdict on a shot", () => {
   const col = 5;
 
   it("greens the sight for a hit and reddens it for a shot spent, whatever spent it", () => {
-    expect(on([{ type: "flueHit", hits: 1, col, emberMilli: 0 }])).toBe(true);
+    expect(on([{ type: "flueHit", hits: 1, left: 0, col, emberMilli: 0 }])).toBe(true);
     for (const why of ["wide", "color", "weapon"] as const) {
       expect(on([{ type: "flueMiss", shots: 2, why, late: false, emberMilli: 0, col }])).toBe(
         false,

@@ -684,7 +684,7 @@ const SAMPLES: Record<string, SimEvent> = {
   burgeeOut: { type: "burgeeOut", col: 5 },
   flueEnter: { type: "flueEnter", col: 5 },
   flueLight: { type: "flueLight", col: 5, level: 0 },
-  flueHit: { type: "flueHit", col: 5, hits: 1, emberMilli: 0 },
+  flueHit: { type: "flueHit", col: 5, hits: 1, left: 0, emberMilli: 0 },
   flueMiss: { type: "flueMiss", col: 5, shots: 2, why: "wide", late: false, emberMilli: 0 },
   flueSpent: { type: "flueSpent", col: 5 },
   flueOut: { type: "flueOut", col: 5 },

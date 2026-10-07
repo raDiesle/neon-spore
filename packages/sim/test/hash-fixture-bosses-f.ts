@@ -17,8 +17,8 @@ export const BOSS_ENTRIES_F = {
   flue: {
     kind: "flue",
     levels: [
-      { weapon: "bolt", color: "red", speedMilli: 2000, slowMilli: 1000 },
-      { weapon: "beam", color: "cyan", speedMilli: 1500, slowMilli: 250 },
+      { weapon: "bolt", color: "red", speedMilli: 2000, slowMilli: 1000, from: "left", needs: 1 },
+      { weapon: "beam", color: "cyan", speedMilli: 1500, slowMilli: 250, from: "left", needs: 1 },
     ],
   },
   // A tap, an ordered retap and the shot, each mark's seat named and the

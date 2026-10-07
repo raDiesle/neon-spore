@@ -113,7 +113,8 @@ export class FlueFx {
         case "flueHit":
           burst(fieldX(l, e.col), mid.y, 16, PALETTE.hullRim);
           this.flashNow = 1;
-          this.flareNow = 1;
+          // A meeting a level asks again leaves nothing cleared to flare.
+          if (e.left === 0) this.flareNow = 1;
           this.hurt.hit();
           break;
         case "flueMiss":

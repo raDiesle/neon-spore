@@ -32,8 +32,8 @@ export const THE_FLUE: GuideScene = {
   boss: {
     kind: "flue",
     levels: [
-      { weapon: "bolt", color: "red", speedMilli: 2000, slowMilli: 1000 },
-      { weapon: "bolt", color: "cyan", speedMilli: 2000, slowMilli: 1000 },
+      { weapon: "bolt", color: "red", speedMilli: 2000, slowMilli: 1000, from: "left", needs: 1 },
+      { weapon: "bolt", color: "cyan", speedMilli: 2000, slowMilli: 1000, from: "left", needs: 1 },
     ],
   },
   acts: [

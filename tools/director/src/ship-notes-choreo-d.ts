@@ -109,11 +109,12 @@ export const CHOREO_NOTES_D = {
     "an ember runs end to end along a slot across the top of the field, " +
     "flueSpanMilli either side of the middle, and only the pilot is drawn " +
     "it. The cannon is held under the middle column. Each level asks one " +
-    "weapon — a bolt or the beam — in one colour, with its own ember speed " +
-    "and THE SLOW at its own strength; the pilot says when, early by the " +
+    "weapon — a bolt or the beam — in one colour, with its own ember speed, " +
+    "THE SLOW at its own strength and the end it sets off from, and is met " +
+    "once or more; the pilot says when, early by the " +
     "shot's own delay, and the navigator fires. A shot is judged at the " +
     "flue, within flueHitMilli of the ember; anything else spends one of " +
-    "flueShots and beams the ember back to the left end, held flueBeamBeats; " +
+    "flueShots and beams the ember back to its end, held flueBeamBeats; " +
     "the last one spent is a hull hit, which is the wave. " +
     "See sim/flue.ts, sim/flue-step.ts, sim/flue-shot.ts, sim/flue-lead.ts, " +
     "sim/config-flue.ts.",
