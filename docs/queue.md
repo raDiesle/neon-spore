@@ -454,3 +454,41 @@ bosses-choreographed.md ledger row §15, *Not built*: a part sits in a socket li
 - **Files:** `packages/sim/src/antiphon.ts`, `packages/sim/src/antiphon-step.ts`, `packages/sim/src/antiphon-hash.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/antiphon-shape.ts`
 
 bosses-choreographed.md §12 step 8, never built: the organ starts turning slowly in place, so the pilot's description has to include which way up it stands, and a candidate on the rail matches only at the right turn. This is a new state on a shipped boss: `.claude/skills/new-boss-state` lists the registrations outside the simulation. Two lanes, the simulation then the look, and the look goes to VERSUS. The 900 ms call windows stay out (the game never evaluates speech). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued.
+
+## THE SPOOL's barrel rolls on its flange (living bosses, step 11)
+
+- **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
+- **Files:** `packages/render/src/spool-draw.ts`, `packages/render/src/spool-pose.ts`, `packages/render/src/spool-grip.ts`
+
+Step 11 of `docs/spec/living-bosses.md`: roll the barrel about the
+brake-side flange, about 5.5 degrees, so its far end moves more than half
+a tile, on the beat clock (`hasp-sway.ts` is the pattern: a local seed,
+`bodyLife()`, `slowHush`). The gauge and the brake knob a thumb holds stay
+fixed, and the line stays taut to the hull. Write a `spool-sway.ts`, a test
+for its reach and its stillness under a hand, two frames paired, and the
+spec's *as built* paragraph.
+
+## THE GRINDSTONE's caliper rocks on its axle (living bosses, step 11)
+
+- **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
+- **Files:** `packages/render/src/grindstone-caliper.ts`, `packages/render/src/grindstone-grip.ts`, `packages/render/src/grindstone-verdicts.ts`
+
+Step 11 of `docs/spec/living-bosses.md`: rock the open caliper about the
+axle, about 0.3 of a radian times how far it is from shut, on the beat
+clock with `slowHush`, and still once shut. The jaw pads are marks, so do
+*THE GRINDSTONE's jaw pads are placed in two places* first and have the
+one pad function take the rock, or the hit test leaves the drawing. Test,
+two frames paired, the spec's *as built* paragraph.
+
+## THE SLING's tines twang after a true loose (living bosses, step 11)
+
+- **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
+- **Files:** `packages/render/src/sling-draw.ts`, `packages/render/src/sling-pose.ts`, `packages/render/src/sling-grip.ts`
+
+Step 11 of `docs/spec/living-bosses.md`: after a true loose, the two tines
+ring out — a decaying swing about the crotch, its tips moving more than
+half a tile at the start, read off the loose's beat so both screens agree,
+and gone before the next draw is asked for, since a tine is a seat's draw
+handle. The 27 September `sling:tine` swing was dropped as too small
+(`DECIDED.md`); this one is an event, not an idle drift. Test, two frames
+paired, the spec's *as built* paragraph.

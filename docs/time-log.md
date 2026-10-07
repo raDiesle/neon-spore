@@ -34495,3 +34495,19 @@ Bottleneck: a clause in the ledger and its §11 departure live 3,000 lines
 apart, so each gap had to be checked against the write-up by hand.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — Living bosses step 11: THE HASP and THE PLUMB swing; three machines queued
+
+- reading: 5 min. Each machine's hinged part against the step's rule that
+  nothing a thumb holds or a cannon is judged by swings; THE VALVE and THE
+  DAVIT found to be all marks, and left still.
+- writing: 5 min. `hasp-sway.ts` in place of the wall-clock slack;
+  `plumbSwing` onto the beat and widened; a test each; the spec's
+  paragraphs and three queue entries.
+- looking: 5 min. A scan for each fight's widest ticks and two frames
+  there side by side.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, three commits, `land`.
+
+Bottleneck: deciding which hinged parts may swing at all — on most
+machines the part that hinges is the part a thumb or a cannon is asked for.
