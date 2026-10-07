@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE MANTLE's and THE VALVE's moving sparks are judged at the field's top
 
 - **Found:** 2026-10-05, claude/cores-met-where-they-hang
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-mantles-and-the-valves-moving-sparks-are-jud)
 - **Files:** `packages/sim/src/mantle-shot.ts`, `packages/sim/src/valve-shot.ts`, `packages/sim/src/gimbal-bead.ts`, `packages/sim/src/boss-along.ts`, `packages/render/test/core-met.test.ts`
 
 The owner asked on 5 October 2026 for a hit to take effect the moment the bolt
