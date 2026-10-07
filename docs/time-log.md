@@ -34366,3 +34366,5 @@ Bottleneck: none.
 
 Bottleneck: the tail's end breathes, so no fixed row is exactly where it
 is drawn; the blend over the first quarter is what answered it.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

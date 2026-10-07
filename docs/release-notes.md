@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · bc60fe8a4 — THE KEEL's rock is shot out where the shot meets it
+
+A shot up the thrown rock's column now meets it on its way down, on the tick it is drawn bursting on it, rather than when the shot leaves the top of the field. The rock falls by the sparks' one reckoning (`spark-fall.ts`) from the tail's end, and the picture leaves the drawn tail onto the simulation's row over the first quarter of the fall, as it already left it for the column; the rock shot out bursts where it was met. The socket and the marrow's lens stay judged at the top: they stand where the spine's pose puts them, and a fixed row would redraw the spine. Exemption: a fix to something wrong — the hit landed late.
+
 ## 2026-10-07 · 32db059ea — `--auto-miss` spends a shot wide on THE FLUE
 
 THE FLUE's SLOW is a show, not an ask, and an ember left alone only runs the level again, so holding AUTO off never produced a miss: `--until flueMiss` ran four thousand ticks and AUTO met the ember every time. The misser now holds AUTO off every other try, counted by the levels cleared and shots spent, and fires a bolt of the level's colour itself while the ember is far from the middle. The entry's own command now stops on a `flueMiss` at tick 794.
