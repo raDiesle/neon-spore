@@ -34051,3 +34051,5 @@ Bottleneck: none — the cause was found while the earlier lanes were read.
 
 Bottleneck: reading which of four marks round the sight was the "scanner
 box" the owner meant.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

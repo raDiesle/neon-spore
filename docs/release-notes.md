@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · c39528a80 — THE FLUE's sight is a glass pipe as wide as a shot's reach, and says the level under it
+
+A spore is now met anywhere its middle is in the coloured glass over the cannon, 1.2 columns either side where it was 0.74, so a shot has much more room. The ring over the cannon is a length of glass pipe in the level's colour, a rounded rectangle collared into the flue's flesh, with a gloss over the spore inside it; a hit greens it and a miss reddens it. The scan box, CALL NOW and FIRE are gone, and so are the halo and the partner's clock round the sight. What the level asks is now one sentence under the flue on both screens: SHOOT RED or BEAM CYAN in its colour, and under it when.
+
 ## 2026-10-07 · 463b0f69f — THE SLOW's crawl gathers on the middle of THE FLUE, not its left end
 
 The crawl's rays gathered on the aim's head. A boss whose aim is a box run the long way as a capsule has no head, and the head it was given was the capsule's first end, so on THE FLUE the light streamed in to the left end of the flue, where the spore starts. Such a capsule is now marked whole: its rays gather on its middle and each comes to rest a tenth clear of its skin, flank or round end. Every boss aimed through a capsule gathers on its middle the same way; THE INSTAR still gathers on its head.
