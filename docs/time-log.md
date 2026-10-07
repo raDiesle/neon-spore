@@ -34637,3 +34637,20 @@ Bottleneck: looking — the strips only show while the body is a third to
 two thirds grown, so the frames had to be found by walking the flight.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE TASTER's interlock is pried open and closes over THE SLOW
+
+- reading: 15 min. When THE SLOW opens on this boss (the pry, and only it),
+  the shared SLOW look already drawn round every boss, the fan's lean.
+- writing: 15 min. `taster-pry.ts`, the lean and the light wired into the
+  fan, nine tests.
+- looking: 15 min. AUTO never reaches the pry, so the fan was set by
+  `--boss-json`; one strip spent on a three-blade fan that is not closed,
+  which found the light drawing outside the closed phase; the swing widened.
+- friction: 5 min. `--boss pryBeat=now-4` is refused, and `now` is the
+  wave's first beat rather than the `--ticks` one, so the strip's times had
+  to be worked out after the fact.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — no way to put a boss in a mid-fight state at a chosen
+beat without hand-writing its blades as JSON.
