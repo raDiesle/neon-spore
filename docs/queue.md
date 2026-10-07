@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE HIVE's rehearsal never shows the pilot's hold on a wall's cocoon
 
 - **Found:** 2026-10-05, claude/hive-visuals-boss-positioning-6ae1a3
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-hives-rehearsal-never-shows-the-pilots-hold)
 - **Files:** `packages/content/src/scenes/the-hive.ts`, `packages/content/test/scene-hive.test.ts`, `packages/sim/src/hive-wall.ts`
 
 THE HIVE hangs down both walls since 5 October 2026, three cocoons a wall, and
