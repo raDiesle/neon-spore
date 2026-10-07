@@ -34158,3 +34158,5 @@ Bottleneck: THE KEEL — its targets stand where the drawn pose puts them.
 
 Bottleneck: working out the timing — how far the needle turns while a bolt
 climbs to the gap decided the fire steps' pace and window before any code.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

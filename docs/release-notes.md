@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · cc31dd0a2 — THE GOVERNOR is shot at its needle's tip, through a gap in the rim
+
+A slot is cut through the bottom of the flywheel's rim over the cannon, and the needle carries a plate on its end, lit in the step's colour while a shot is owed. A bolt up the middle column goes through the gap and is judged as it meets the tip, not at the hub; the shot steps' needle turns slowly so a bolt fired as the tip comes to the gap meets it there. Every window is longer, and a tap step's time left is the bosses' fuse with no slow.
+
 ## 2026-10-07 · 839103bd6 — THE CYST's bud and THE VISE's seed are burst where the shot meets them
 
 A part a step asks for aside of the middle column is met where it hangs, up its own column, rather than when the bolt leaves the top of the field: a `CORES` row in `core-along.ts` takes an `aside`, the column and row the lit step names, and THE CYST and THE VISE are on the table with their cores. The bud and the seed are drawn grown out to the simulation's row, and a split sac or case stops nothing in either, from the beat it splits. THE KEEL, the third of the item, is queued on its own: its rock falls off the drawn tail.
