@@ -2090,6 +2090,7 @@ by hand never moves.
 | `packages/render/src/splinter.ts` | The splinters a break throws off the faces it opened |
 | `packages/render/src/splice-draw.ts` | THE SPLICE, drawn — and drawn differently on each screen, which is the fight |
 | `packages/render/src/splice-straws.ts` | THE SPLICE's straws, as geometry and as lines |
+| `packages/render/src/splice-sway.ts` | **THE SPLICE's eater rears its head and swings its back end** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/splice-flesh.ts` | What THE SPLICE's straws and mouths are made of: ringed tubes and puckered lips |
 | `packages/render/src/splice-ball.ts` | **THE SPLICE's numbers, as something to collect**: an amber drop of slime with the digit in it, a halo |
 | `packages/render/src/splice-eater-body.ts` | THE SPLICE eater's body (`splice-eater.ts` says when and where): the shape sheet's TENDRIL draft |

@@ -6,6 +6,7 @@ import { drawSlimeBall } from "./splice-ball.js";
 import { drawEaterBody, drawEaterRear, type EaterPose } from "./splice-eater-body.js";
 import { drawLump, drawTongue, drawVenom, snap } from "./splice-eater-venom.js";
 import { splicePipeTopY, spliceTopY } from "./splice-straws.js";
+import { spliceSway } from "./splice-sway.js";
 
 /**
  * **THE SPLICE's clock, as the thing that eats the number** (the owner,
@@ -85,6 +86,19 @@ function ballAt(l: Layout, cfg: SimConfig, s: SpliceState, e: number) {
 }
 
 /**
+ * How much of the eater's sway is left (`splice-sway.ts`): all of it while it
+ * waits, none half a beat into the bite and through the chew, back over the
+ * beat after the swallow, and gone over the half beat the beaten eater
+ * starts back into the wall in. `e` is beats since the bite, -1 before one.
+ */
+function spliceCalm(s: SpliceState, b: number, e: number): number {
+  if (s.passBeat !== -1) return Math.max(0, Math.min(1, 1 - (b - s.passBeat) / 0.5));
+  if (e < 0) return 1;
+  if (e < SWALLOW_BEATS) return Math.max(0, 1 - e / 0.5);
+  return Math.min(1, e - SWALLOW_BEATS);
+}
+
+/**
  * The eater, wherever it is. `b` is the beat and its phase. The clock only
  * ever shows on her screen, so on his the head is not drawn until it has bitten.
  */
@@ -103,10 +117,11 @@ export function drawEater(
   const e = s.eatBeat === -1 ? -1 : b - s.eatBeat;
   const swell =
     e < CHEW_BEATS ? 0 : e < SWALLOW_BEATS ? (e - CHEW_BEATS) / (SWALLOW_BEATS - CHEW_BEATS) : 1;
-  const vent = drawEaterRear(ctx, rear.x, rear.y, t, swell, b);
+  const sway = spliceSway(cfg, b, spliceCalm(s, b, e), swell);
+  const vent = drawEaterRear(ctx, rear.x, rear.y, t, swell, b, sway.rear * t);
   const target = spliceEaterTarget(s);
   const look = target === -1 ? { x: o.x - t * 3, y: o.y + t * 2 } : ballAt(l, cfg, s, target);
-  const sag = t * (0.35 + 0.1 * Math.sin(b * Math.PI * 0.5));
+  const sag = t * (0.35 + 0.1 * Math.sin(b * Math.PI * 0.5) - sway.lift);
   const pose = (reach: number, open: number, hunger: number): EaterPose => ({
     len: t * (REACH_FROM + (REACH_TO - REACH_FROM) * reach),
     wide: t * (1.9 + 0.25 * reach),

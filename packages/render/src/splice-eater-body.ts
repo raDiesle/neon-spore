@@ -130,7 +130,8 @@ export function drawEaterBody(
 /**
  * The back end, out of the lower hole: a TENDRIL whose fat end is a swollen
  * sac with a vent in it. `swell` 0 to 1 is what it has swallowed coming down
- * to it. Returns the vent, which is where the poison comes out.
+ * to it; `swing` is how far its fat end hangs off its rest, in pixels
+ * (`splice-sway.ts`). Returns the vent, which is where the poison comes out.
  */
 export function drawEaterRear(
   ctx: CanvasRenderingContext2D,
@@ -139,10 +140,11 @@ export function drawEaterRear(
   t: number,
   swell: number,
   b: number,
+  swing = 0,
 ): { x: number; y: number } {
   const len = t * (1.6 + 0.2 * swell);
   const thick = t * (0.95 + 0.35 * swell);
-  const body = tendril(x, y, len, thick, t * 0.15, b);
+  const body = tendril(x, y, len, thick, t * 0.15 + swing, b);
   ctx.fillStyle = skin(ctx, x, len, rgba(PALETTE.red, 0.9));
   ctx.fill(body.path);
   ctx.strokeStyle = rgba(PALETTE.redRim, 0.4);

@@ -50,7 +50,8 @@ import { OUTLINE_SEED, type OutlineBoss, outlinePose, type Point } from "./outli
  * (`cyst-sway.ts`), nor THE VISE, whose case swings whole from its hinge
  * (`vise-sway.ts`), nor THE MANTLE, whose shell leans whole on its straps
  * (`mantle-sway.ts`), nor THE KEEL, whose segments are its parts already
- * (`keel-sway.ts`).
+ * (`keel-sway.ts`), nor THE SPLICE, whose neck and back end are bent rather
+ * than turned (`splice-sway.ts`).
  */
 export const OUTLINE_PARTS: Record<OutlineBoss, number> = {
   queen: 1,
@@ -70,6 +71,7 @@ export const OUTLINE_PARTS: Record<OutlineBoss, number> = {
   vise: 0,
   mantle: 0,
   keel: 0,
+  splice: 0,
 };
 
 export const PART = {

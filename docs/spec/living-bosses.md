@@ -295,6 +295,24 @@ game "INSTAR:FLIGHT · SERPENT"*. `INSTAR_SERPENT.amount` is 1 on the field.
   apart, and nothing once the spine is done. On the field under *a look
   with no shipped alternative*.
 
+  *THE SPLICE, as built, 7 October 2026* (`splice-sway.ts`): the eater's
+  neck lifts its head out of its hang by up to seven tenths of a tile, and
+  only ever up, off the straws' top ends and the numbers under it; the sac
+  out of the lower hole swings at its fat end by more than half a tile
+  each way. Both roots stay in their holes, the tendrils bent and not
+  moved. Nothing is pressed or shot on the eater, and the tongue starts
+  from the mouth as drawn. Gone through the bite and the chew, back after
+  the swallow, gone as the beaten eater pulls back; the back end's swing
+  goes as its sac swells. On the field under *a look with no shipped
+  alternative*.
+
+  *THE FILAMENT, 7 October 2026*: nothing added. Its one part is the
+  heart, and the heart already turns as an organ, modelled in three
+  dimensions (`heartYaw`, `filament-heart-look.ts`), its face moving by
+  about half a tile, the way THE ANTIPHON's, THE BATON's and THE LEAD's
+  light turn was taken as their drift. A pendulum on top of it would move
+  the apex every vein goes in at.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair
@@ -480,7 +498,7 @@ with a joint, before it can move.
 | THE INSTAR | head, jaw, eyes, horns, both wings and their claws, tail links, blade | ready (jaw, horns, wings and tail are already anchored) |
 | the queen (a kind, several waves) | shell, both wings, both crane arms, both claws and their fingers | ready — each wing is a run of the shell's vertices with its joint at the root (`queenShellParts`, `queen-shell.ts`), laid into the one contour; each arm has its shoulder, elbow and wrist (`craneJoints`), and the claw hangs from the wrist |
 | the warden (a kind) | body, eye, both hatch lids, cilia | ready — each lid is a piece with its hinge on its outer rim (`hatchLids`, `warden-eye.ts`); the two creases stay one path, stroked after both |
-| THE SPLICE (the eater) | head, eyes, jaw, neck, body, rear | ready, but no part rotates yet — add the joint |
+| THE SPLICE (the eater) | head, eyes, jaw, neck, body, rear | the neck lifts the head and the rear swings, each tendril bent from its root (`splice-sway.ts`, 7 October 2026) |
 | THE REPRISE | sac, both cords, lens eye | ready |
 | THE THROAT | skin, each muscle ring, mouth | ready |
 | THE UNDERTOW | body, each lobe | ready |
