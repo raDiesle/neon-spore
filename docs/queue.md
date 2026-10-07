@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE SINEW's fibres go half-transparent through THE SLOW, in VERSUS
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Taken:** 2026-10-07, claude/tasks-form-queue-9a5f8c (claim: claude/queue-the-sinews-fibres-go-half-transparent-through-th)
 - **Files:** `packages/render/src/sinew-fibres.ts`, `tools/versus/candidates/`
 
 The design: *the fibres go half-transparent and part one at a time at a third
