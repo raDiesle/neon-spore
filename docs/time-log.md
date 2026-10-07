@@ -34947,3 +34947,5 @@ a write-up four thousand lines apart in two files.
 
 Bottleneck: looking — the first arrow and ring were placed by reading the
 shape code, and both landed under something else on the screen.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

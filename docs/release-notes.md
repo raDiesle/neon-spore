@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · d08c855eb — THE CAPSTAN's pull says which way, then that it is right
+
+The seat that steers sees a big arrow over the drum and one in its middle pointing the way to pull, both ways on a hold. Once the pull has the right face round, the middle turns a steady green ring and the word reads HOLD, and the band being rubbed carries a ring of green segments on both screens — one for each reversal it needs, or each beat of a hold — so the seat holding the pull sees that the partner is still at it, and how far. The owner asked for this look by name, 7 October 2026; the green ring and the count are shared pieces in mark-progress.ts, and their roll-out to six more bosses is queued.
+
 ## 2026-10-07 · 6407fb2db — Queue the LAMPREY block misplaced in THE BURGEE's write-up
 
 THE LAMPREY's "worm on the field" paragraphs stand in §11.56 THE BURGEE of docs/spec/bosses.md, while §11.59 points to them as "below"; queued to move.
