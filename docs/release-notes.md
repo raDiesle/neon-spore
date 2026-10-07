@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 423e3d0eb — `land` merges a claim and a narrowed queue entry line by line
+
+A lane that claims its second half with `bun run queue take` and then narrows the same entry's `Files:` line no longer stops its landing: the queue merge now takes both sides' edits to one entry when they change different lines (`line-merge.ts`), and refuses only when both changed the same line or put different lines at one point. The replay also names only the files that refused — the ledger reported beside the queue on 7 October would have merged on its own.
+
 ## 2026-10-07 · 5842d2ba5 — THE SCUTTLE's live part stays judged at the top of the field
 
 The owner left the choice to the lane, and the cheaper option won: THE SCUTTLE's frame stands where the screen has room, which the simulation cannot know, so a bolt into its live part is still judged as it leaves the field, four or five ticks after it is drawn bursting there. Laying the frame on a field row would move it on tall screens, which is a look. The core table now says why THE SCUTTLE is not on it.

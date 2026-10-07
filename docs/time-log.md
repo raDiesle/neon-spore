@@ -34266,3 +34266,5 @@ sentence once it was decided.
 
 Bottleneck: finding that one of the two conflicts reported was never a
 conflict at all.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
