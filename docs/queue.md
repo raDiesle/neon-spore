@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE KEEL, THE CYST and THE VISE: an aside target is judged at the field's top
 
 - **Found:** 2026-10-05, claude/cores-met-where-they-hang
+- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-keel-the-cyst-and-the-vise-an-aside-target-i)
 - **Files:** `packages/sim/src/keel-shot.ts`, `packages/sim/src/cyst-shot.ts`, `packages/sim/src/vise-shot.ts`, `packages/sim/src/core-along.ts`, `packages/render/test/core-met.test.ts`
 
 `core-along.ts` meets a core only in the middle column. These three hang their
