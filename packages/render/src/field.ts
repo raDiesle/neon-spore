@@ -5,6 +5,7 @@ import { needsComms } from "./comms.js";
 import { drawEyeGlyph } from "./comms-glyphs.js";
 import { drawCoordGrid } from "./coord-grid.js";
 import { gradientSlot, slotGradient } from "./gradient-slot.js";
+import { hullCrown } from "./hull-crown.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { drawRadarLureMark } from "./lure-alarm.js";
 import { PALETTE } from "./palette.js";
@@ -62,7 +63,8 @@ export function drawBackground(
 export function drawGrid(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  cannonCol: number,
+  /** The column the cannon's sight stands in, or null for none (`gunsightCol`). */
+  cannonCol: number | null,
   flash: number,
   beatPhase: number,
   grid = 0,
@@ -74,7 +76,16 @@ export function drawGrid(
   void beatPhase;
 
   // The cannon's own column: the one path marker left (`cannon-column.ts`).
-  drawCannonColumn(ctx, l, cannonCol, flash, seatSkin(role));
+  if (cannonCol !== null) drawCannonColumn(ctx, l, cannonCol, flash, seatSkin(role));
+}
+
+/**
+ * Where the cannon's sight stands: its column, or none on a wave where the
+ * swelling is THE THROAT's root — nothing is fired there, and a gunsight up
+ * the gullet was the last of the cannon left on the field (`hull-crown.ts`).
+ */
+export function gunsightCol(world: World): number | null {
+  return hullCrown(world, false) === "root" ? null : world.cannonCol;
 }
 
 /**

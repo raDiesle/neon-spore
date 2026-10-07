@@ -3610,10 +3610,19 @@ other. After a right swallow `SWALLOWED` stands under the mouth for two beats
 
 Landed 2 October 2026, the second lane of the rework.
 
-- **The root, not the gun.** On this wave the hull's swelling carries no
-  muzzle, no inhale and no charge: the gullet grows out of it where the
-  muzzle was (`render/hull-crown.ts`, `HullCrown` `"root"`). The cannon's
-  light column still stands over the swelling's column.
+- **The root, not the gun.** On this wave the hull carries no muzzle, no
+  inhale and no charge, and no cannon at all: the gullet grows out of the
+  membrane where the muzzle was (`render/hull-crown.ts`, `HullCrown`
+  `"root"`). **Grown, not planted** — the owner, 7 October 2026: *the throat
+  is connected with the ship and looks natural grown together, and we do not
+  need the cannon visual.* The cannon's swelling and its gunsight column are
+  gone from the wave (`HullMood.root`, `drawGrid`'s `sight`), and the hull's
+  own skin flares up round the root in their place: a fillet leaving the
+  membrane flat and climbing flush with the tube, violet (or amber) going to
+  the gullet's grey, the membrane's lit outline running on up both flanks and
+  the ship's veins up the tube, lit by a gulp on its way into the hull. It
+  follows the tube's sway and lean, and sinks back as the eversion pulls the
+  root out (`render/throat-graft.ts`).
 - **The mouth wears its colour.** The lip, its halo and a swallow's flare are
   in the colour the mouth is set to: red, cyan, the shield's colour, or the
   pod's amber for SUCK (`render/throat-hue.ts`). **The shield's colour and the

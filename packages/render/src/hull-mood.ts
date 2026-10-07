@@ -91,4 +91,10 @@ export interface HullMood {
    * count (`sim/harpoon.ts`).
    */
   danger?: HarpoonDanger;
+  /**
+   * The cannon's swelling is not there: THE THROAT's gullet is rooted in the
+   * membrane in its place, and the graft round its root is the only swelling
+   * (`hull-crown.ts`, `throat-graft.ts`). Absent everywhere else.
+   */
+  root?: boolean;
 }

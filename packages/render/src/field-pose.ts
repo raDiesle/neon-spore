@@ -4,6 +4,7 @@ import type { Effects } from "./effects.js";
 import { type Glide, glideTo } from "./glide.js";
 import { harpoonDanger } from "./harpoon-danger.js";
 import type { HullMood, LobePositions } from "./hull.js";
+import { hullCrown } from "./hull-crown.js";
 import { ShieldBody } from "./shield.js";
 
 /**
@@ -99,6 +100,7 @@ export class FieldPose {
       // field: the tick the count runs out is fixed for both devices
       // (`harpoon-danger.ts`).
       danger: harpoonDanger(world),
+      root: hullCrown(world, false) === "root",
     };
   }
 }

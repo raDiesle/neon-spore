@@ -28,6 +28,7 @@ import type { ViewState } from "./renderer.js";
 import { seatSkin } from "./seat-skin.js";
 import { drawShipHand } from "./ship-hand.js";
 import { drawCommsSiren } from "./siren.js";
+import { drawThroatGraft } from "./throat-graft.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
 import type { ShipHand } from "./touch-hand.js";
 import { showsCannon, showsShield } from "./view-role.js";
@@ -116,6 +117,9 @@ export function drawShip(
   // ship on this panel, and an arm drawn under the membrane would come out
   // from behind the thing it is part of (`reach-arm.ts`).
   drawReachArm(ctx, l, world, surfaceSampler(f), arm, f.cannonX);
+  // THE THROAT's root, grown out of the membrane round the gullet — after the
+  // hull for the same reason as the arm: it is the ship (`throat-graft.ts`).
+  drawThroatGraft(ctx, l, world, surfaceSampler(f), seatSkin(view.role), view.beatPhase, view.time);
   // A hand on the lance, read straight off the world both devices share (other-hand.ts).
   drawOtherHand(ctx, l, world, view.time, mood, at, f);
   // In front of the hull, unlike the rest of Effects.draw(): a rock's last step, a ricochet.

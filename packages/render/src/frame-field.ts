@@ -13,7 +13,7 @@ import type { Effects } from "./effects.js";
 import { drawFaultEmitter } from "./fault-emitter.js";
 import { drawFaultLabels } from "./fault-label.js";
 import { drawFences } from "./fence.js";
-import { drawBackground, drawGrid, drawRadar } from "./field.js";
+import { drawBackground, drawGrid, drawRadar, gunsightCol } from "./field.js";
 import { drawFlipSeam } from "./flip-seam.js";
 import { drawGhostRows } from "./ghost-row.js";
 import { drawGhostTrails } from "./ghost-trail.js";
@@ -83,7 +83,7 @@ export function drawFieldBack(
   // and under everything a player has to read (`ship-air.ts`).
   drawShipAir(ctx, l, view.time, seatSkin(view.role));
   drawRadar(ctx, l, world, view.time);
-  drawGrid(ctx, l, world.cannonCol, flash, view.beatPhase, grid, view.role);
+  drawGrid(ctx, l, gunsightCol(world), flash, view.beatPhase, grid, view.role);
 }
 
 /** Everything that lives on the field between the two hulls. */

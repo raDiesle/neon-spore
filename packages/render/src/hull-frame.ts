@@ -92,7 +92,8 @@ export function frame(l: Layout, time: number, mood: HullMood, at: LobePositions
   // The maw is the cannon lobe with the sign of its lift taken away from it: at
   // full intake the same swelling has passed through flat into a throat. One
   // lobe, two directions — see `MAW`.
-  const cannonScale = 1 + (MAW.scale - 1) * mood.intake;
+  // No lobe at all under THE THROAT's root: the graft is the swelling there.
+  const cannonScale = mood.root ? 0 : 1 + (MAW.scale - 1) * mood.intake;
   const cannonHalf = 1 + (MAW.halfMul - 1) * mood.intake;
   const cannon = lobe(CANNON_LOBE, toAngle(cannonX), l.tile, ry, rx, time, cannonScale, cannonHalf);
   const skinBumps: Bump[] = [];

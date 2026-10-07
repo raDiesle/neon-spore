@@ -2069,6 +2069,7 @@ by hand never moves.
 | `packages/render/src/throat-sway.ts` | **THE THROAT sways where it hangs free** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/throat-evert.ts` | **The eversion**: with every ring slack the tube can no longer hold its own shape |
 | `packages/render/src/throat-grip.ts` | **THE THROAT's two hands**, and the two circles the drawing and the hit test share |
+| `packages/render/src/throat-graft.ts` | **Where THE THROAT and the ship are one body** |
 | `packages/render/src/throat-flesh-lip.ts` | **What THE THROAT's mouth is made of**, and the inside it turns out through it at the end |
 | `packages/render/src/throat-flesh.ts` | **What THE THROAT is made of**: a wet gullet of ring muscle, lit from above and to the left |
 | `packages/render/src/throat-receipt.ts` | What the last thing into the mouth did, for two beats: `RING DOWN` or `SWALLOWED · RING HEALS` |

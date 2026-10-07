@@ -14,6 +14,9 @@ import type { World } from "@neon-spore/sim";
  *   swelling a gun is left out and the swelling is only the place the tube is
  *   rooted (`throat-draw.ts`). The owner, 1 October 2026: *instead of cannon
  *   the visual of the throat, connected with the ship like the cannon is.*
+ *   Since 7 October there is no swelling either (`HullMood.root`) and no
+ *   gunsight: the graft round the root is the ship's only bump there
+ *   (`throat-graft.ts`).
  *
  * Not a field of `HullMood`: nothing about it is eased or transient. It is a
  * fact about the panel, asked once a frame by `frame-ship.ts`.
