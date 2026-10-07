@@ -345,20 +345,6 @@ the give did not cause it. Stack the two words, or let one give way while
 the other is up. A test that the two labels' boxes do not overlap belongs
 with the fix.
 
-## THE TRIVET's foot seam patches nothing
-
-- **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
-- **Taken:** 2026-10-07, claude/queue-tasks-a07ff0 (claim: claude/queue-the-trivets-foot-seam-patches-nothing)
-- **Files:** `packages/render/src/trivet-draw.ts`
-
-`TRIVET_FOOT` and its type `TrivetFootHang` (`trivet-draw.ts`, about lines
-55–71) are a VERSUS seam whose doc names a candidate under
-tools/versus/candidates/trivet-foot, and no such candidate is in the tree:
-the seam is called once, at draw time, with the identity. Drop the seam and
-its type and draw the foot where it stands, or, if the owner's decision on
-that candidate is recorded in `tools/versus/DECIDED.md`, follow what it
-says. `bun run check` holds the frame tests either way.
-
 ## THE GRINDSTONE's jaw pads are placed in two places
 
 - **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
