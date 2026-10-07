@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-07 · 6974a4246 — THE CAPSTAN asks twelve rubs a band, and shows every one
+
+A band now needs twelve reversals to crack bright, not eight, and the green ring of segments round the face being rubbed counts them, one a reversal, on both screens. Every rub shows on the drum: the face jumps and flares under the thumb, sparks fly off it, and its rust thins a step, so seven rubs look different from one. The owner asked for all three by name, 7 October 2026; THE RIME, THE GRINDSTONE and THE VALVE get the same next, queued.
+
 ## 2026-10-07 · c6c9d05b1 — A queue entry names THE TRAPEZE's verdicts file by its new name
 
 ## 2026-10-07 · 81384eccf — Time log for the TRAPEZE rename
