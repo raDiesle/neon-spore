@@ -1,6 +1,7 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import {
   type CystState,
+  cystDone,
   cystGuarding,
   cystLitStep,
   cystSide,
@@ -135,8 +136,10 @@ export function drawCyst(
     bud = cystBudAt(l, grown, dx);
     if (grown > 0) budRound = cystBudRound(l, grown, dx);
   }
-  // Breaking open, the sac stops nothing.
-  if (split <= 0) stops?.aim(cystStopper(l, world, { x, y, pose, core: hurt.size, bud: budRound }));
+  // Breaking open, the sac stops nothing — from the beat it splits, as the
+  // simulation says (`sim/cyst-shot.ts`).
+  if (!cystDone(s))
+    stops?.aim(cystStopper(l, world, { x, y, pose, core: hurt.size, bud: budRound }));
   if (split <= 0) drawCystMarkFeedback(ctx, l, world, s, time, bud, fx.marks.verdicts);
   drawCystFlash(ctx, l, fx.flash, fx.split);
   ctx.restore();

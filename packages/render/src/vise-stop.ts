@@ -1,7 +1,7 @@
-import { midCol, viseVerdict, type World } from "@neon-spore/sim";
+import { midCol, VISE_SEED_MILLI, viseVerdict, type World } from "@neon-spore/sim";
 import type { Stopper } from "./bolt-stop.js";
 import { coreStopper, lowestFoot, outlineFoot, roundFoot } from "./core-stop.js";
-import type { Circle, Layout } from "./layout.js";
+import { type Circle, type Layout, tileCY } from "./layout.js";
 import {
   type Point,
   VISE_KERNEL_NARROW,
@@ -43,8 +43,8 @@ export function viseStopper(l: Layout, world: World, at: ViseStand): Stopper {
     outlineFoot(lobe(l, side as 0 | 1, at.leans, at.squeeze), at.x, at.y),
   );
   feet.push(roundFoot(at.x + k.x, at.y + k.y, r * VISE_KERNEL_NARROW, r));
-  // A seed not yet out is judged where the simulation judges it, at row 0.
-  let seedY = l.gridTop;
+  // A seed not yet out is judged where the simulation judges it, on its row.
+  let seedY = tileCY(l, VISE_SEED_MILLI / 1000);
   if (at.seed !== null) {
     const { x, y, r } = at.seed;
     feet.push(roundFoot(at.x + x, at.y + y, r * VISE_KERNEL_NARROW, r));

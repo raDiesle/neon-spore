@@ -34127,3 +34127,16 @@ Bottleneck: none — THE GIMBAL had already laid the pattern down.
 Bottleneck: none — the lane before laid the shape down.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-07 — THE CYST's bud and THE VISE's seed are shot where they hang
+
+- reading: 5 min. The three shots, their stoppers, where the bud, the seed
+  and the rock are laid; THE KEEL's rock is off the drawn tail, so it was
+  split off and queued.
+- writing: 5 min. A `CORES` row's `aside`, both bosses on the table, the
+  picture's rows laid off the simulation's, a split boss stopping nothing.
+- looking: 0 min. `core-met.test.ts` is the look, played on to the aside.
+- friction: 0 min.
+- landing: 0 min. `check:fast`, the commit, `land`.
+
+Bottleneck: THE KEEL — its targets stand where the drawn pose puts them.

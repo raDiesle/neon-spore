@@ -1,4 +1,4 @@
-import type { SimConfig, ViseAsk, ViseState } from "@neon-spore/sim";
+import { type SimConfig, VISE_SEED_MILLI, type ViseAsk, type ViseState } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
@@ -7,7 +7,7 @@ import { drawOculusSight } from "./oculus-story.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { phaseInto } from "./phase-into.js";
 import { stepColour } from "./step-colour.js";
-import { viseKernel, viseKernelPath } from "./vise-shape.js";
+import { VISE_ROW, viseKernel, viseKernelPath } from "./vise-shape.js";
 
 /**
  * **THE VISE's two story steps, drawn** (§28's story item; the rules are
@@ -30,6 +30,8 @@ import { viseKernel, viseKernelPath } from "./vise-shape.js";
 const LUNGE = 0.3;
 /** How big the spat seed is beside the kernel. */
 const SEED = 0.55;
+/** How far below the case's centre the seed hangs thrown all the way out, in tiles: the simulation's row, where a bolt meets it. */
+const SEED_HANG = VISE_SEED_MILLI / 1000 + 0.5 - VISE_ROW;
 
 /** 0 to 1: how far into the pose `ask` names the case is — in while lit, back out over the rest after. */
 function posed(s: ViseState, cfg: SimConfig, ask: ViseAsk, beat: number, beatPhase: number) {
@@ -79,7 +81,7 @@ export function viseSeedAt(
   seedX: number,
 ): { x: number; y: number; r: number } {
   const k = viseKernel(l);
-  const y = k.y + k.r * 1.5 * Math.sin(spit * Math.PI * 0.5);
+  const y = k.y + (SEED_HANG * l.tile - k.y) * Math.sin(spit * Math.PI * 0.5);
   return { x: k.x + (seedX - k.x) * spit, y, r: k.r * SEED };
 }
 

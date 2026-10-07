@@ -1,4 +1,4 @@
-import { midCol, type SimConfig } from "@neon-spore/sim";
+import { coreRowMilli, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -32,8 +32,8 @@ export interface Point {
   y: number;
 }
 
-/** The row the case stands at, in tiles below the grid's top. */
-const ROW = 2.7;
+/** The row the case stands at, in tiles below the grid's top: the simulation's, where a bolt meets the kernel. */
+export const VISE_ROW = coreRowMilli("vise") / 1000 + 0.5;
 /** The case's half-height, and its half-width at the widest, in tiles. */
 const RY = 1.45;
 const RX = 1.1;
@@ -56,7 +56,7 @@ const KERNEL_Y = 0.22;
 
 /** The middle of the case: over the middle column, near the top of the field. */
 export function viseCentre(l: Layout, cfg: SimConfig): Point {
-  return { x: fieldX(l, midCol(cfg)), y: l.gridTop + ROW * l.tile };
+  return { x: fieldX(l, midCol(cfg)), y: l.gridTop + VISE_ROW * l.tile };
 }
 
 /** How far above its place the case still is, `arrived` of the way in. */

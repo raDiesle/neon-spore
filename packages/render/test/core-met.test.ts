@@ -4,6 +4,7 @@ import {
   type BossKind,
   CORE_KINDS,
   createWorld,
+  midCol,
   type SimEvent,
   startWave,
   step,
@@ -33,6 +34,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * and THE HASP's loose bolts: met by the gap closing between ticks (`sim/spark-fall.ts`) rather than on a row of the
  * table, and judged by the boss's own call rather than `shotLeaves`, so the
  * target going out is the receipt rather than a `shotOut`.
+ *
+ * **And what a step asks for aside**, THE CYST's bud and THE VISE's seed: each
+ * is played on until a bolt has met it up its own column too.
  */
 
 beforeAll(() => installCanvasGlobals());
@@ -59,6 +63,9 @@ const FALLING: Partial<Record<BossKind, SimEvent["type"]>> = {
   hasp: "haspBoltOut",
 };
 
+/** The bosses with a part a step asks for aside of the middle column. */
+const ASIDE: readonly BossKind[] = ["cyst", "vise"];
+
 /** Whether `e` is a bolt judged in the field rather than past the top, under `kind`. */
 function metInField(kind: BossKind, e: SimEvent): boolean {
   if (e.type === "shotOut") return e.atMilli > 0;
@@ -70,7 +77,7 @@ interface Burst {
   target: boolean;
 }
 
-function played(kind: BossKind): { met: number[]; bursts: Burst[] } {
+function played(kind: BossKind): { met: number[]; bursts: Burst[]; aside: boolean } {
   const hand = AUTOPILOT_HANDS[kind];
   if (hand === undefined) throw new Error(`no hand plays ${kind}`);
   const l = computeLayout(VIEWPORT, CFG, "test");
@@ -81,12 +88,18 @@ function played(kind: BossKind): { met: number[]; bursts: Burst[] } {
   const ctx = stubCanvas().ctx as unknown as CanvasRenderingContext2D;
   const met: number[] = [];
   const bursts: Burst[] = [];
-  for (let n = 0; n < TPB * 120 && met.length < 3 && world.boss !== null; n++) {
+  let aside = !ASIDE.includes(kind);
+  const more = () => met.length < 3 || !aside;
+  for (let n = 0; n < TPB * 120 && more() && world.boss !== null; n++) {
     step(
       world,
       hand(world).map((p) => ({ ...p, tick: world.tick })),
     );
-    for (const e of world.events) if (metInField(kind, e)) met.push(world.tick);
+    for (const e of world.events) {
+      if (!metInField(kind, e)) continue;
+      met.push(world.tick);
+      if (e.type === "shotOut" && e.col !== midCol(CFG)) aside = true;
+    }
     if (n % EVERY !== 0) continue;
     const view = {
       world,
@@ -102,15 +115,16 @@ function played(kind: BossKind): { met: number[]; bursts: Burst[] } {
     fx.bolts.end(world.bullets);
     fx.bolts.update(0, (_x, _y, k) => bursts.push({ tick: world.tick, target: k > SCUFF }));
   }
-  return { met, bursts };
+  return { met, bursts, aside };
 }
 
 describe("a core met where it hangs", () => {
   it.each([...CORE_KINDS, ...(Object.keys(FALLING) as BossKind[])])(
     "is drawn met there first, under %s",
     (kind) => {
-      const { met, bursts } = played(kind);
+      const { met, bursts, aside } = played(kind);
       expect(met.length).toBeGreaterThan(0);
+      expect(aside).toBe(true);
       for (const tick of met) {
         const before = bursts.filter((b) => b.tick <= tick && tick - b.tick <= UNSEEN);
         // Never taken off the field before it was drawn reaching the boss.

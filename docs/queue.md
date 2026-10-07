@@ -328,18 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE KEEL, THE CYST and THE VISE: an aside target is judged at the field's top
-
-- **Found:** 2026-10-05, claude/cores-met-where-they-hang
-- **Taken:** 2026-10-07, claude/queue-tasks-ab3705 (claim: claude/queue-the-keel-the-cyst-and-the-vise-an-aside-target-i)
-- **Files:** `packages/sim/src/keel-shot.ts`, `packages/sim/src/cyst-shot.ts`, `packages/sim/src/vise-shot.ts`, `packages/sim/src/core-along.ts`, `packages/render/test/core-met.test.ts`
-
-`core-along.ts` meets a core only in the middle column. These three hang their
-target in a column of its own, or in one that moves. Give a `CORES` row a column
-as well as a row, as a function of the world rather than `midCol`, and check
-that the picture's stopper reads the same row. Then add all three to
-`core-met.test.ts`.
-
 ## Six more shot bosses' targets are judged at the field's top
 
 - **Found:** 2026-10-05, claude/cores-met-where-they-hang
@@ -455,3 +443,20 @@ does not reach, so a MISS frame has to be built by hand with `--press
 in `auto.ts` that it cannot, and refuse the flag for that wave), with a test.
 Done when the command above stops on a `flueMiss` and `bun run check` is
 green.
+
+## THE KEEL's rock and socket are judged at the field's top
+
+- **Found:** 2026-10-07, claude/queue-tasks-ab3705
+- **Files:** `packages/sim/src/keel-shot.ts`, `packages/sim/src/core-along.ts`, `packages/sim/src/spark-fall.ts`, `packages/render/src/keel-rock.ts`, `packages/render/src/keel-stop.ts`, `packages/render/test/core-met.test.ts`
+
+The half of "THE KEEL, THE CYST and THE VISE" that was split off: THE CYST's
+bud and THE VISE's seed are met where they hang now, through a `CORES` row's
+`aside`, and THE KEEL is not. Its two targets are not a row. The thrown rock
+falls from the tail to the hull, laid off the *drawn* tail
+(`keelRockPoint(l, tail, col, along)`), so it wants `spark-fall.ts`'s shape:
+a sim row a beat after `rockBeat`, met by `sparkMeets`, its row on
+`keelRockOut`, the picture laid off the same number. The socket and the lens
+stand where the segments' pose puts them (`keelSocketAt`, `keelMarrowAt`,
+render-side), so either give the middle a fixed sim row that the pose is
+drawn from, or leave the middle at the top and say so. Then add THE KEEL to
+`core-met.test.ts` (as `FALLING` for the rock).

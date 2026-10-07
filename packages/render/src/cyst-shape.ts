@@ -1,5 +1,5 @@
 import { blobRadiusMul } from "@neon-spore/content";
-import { midCol, type SimConfig } from "@neon-spore/sim";
+import { coreRowMilli, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -26,8 +26,8 @@ export interface Point {
   y: number;
 }
 
-/** The row the sac stands at, in tiles below the grid's top. */
-const ROW = 2.7;
+/** The row the sac stands at, in tiles below the grid's top: the simulation's, where a bolt meets the core. */
+export const CYST_ROW = coreRowMilli("cyst") / 1000 + 0.5;
 /** The sac's radius at rest, before its lobes, in tiles. */
 const R = 1.3;
 /** CLOVER: four lobes this deep, this much wobble. Seed 0 puts a lobe at each compass point. */
@@ -64,7 +64,7 @@ export const RESTING: CystPose = { pinch: [0, 0], shake: [0, 0], swell: 0, bulge
 
 /** The middle of the sac: over the middle column, near the top of the field. */
 export function cystCentre(l: Layout, cfg: SimConfig): Point {
-  return { x: fieldX(l, midCol(cfg)), y: l.gridTop + ROW * l.tile };
+  return { x: fieldX(l, midCol(cfg)), y: l.gridTop + CYST_ROW * l.tile };
 }
 
 /** How far above its place the sac still is, `arrived` of the way in. */

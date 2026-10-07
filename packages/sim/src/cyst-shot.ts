@@ -1,13 +1,13 @@
 import { midCol } from "./config.js";
 import { type CoreVerdict, coreTaken, coreVerdict } from "./core-verdict.js";
-import { cystBoss, cystLitStep, cystStepCol } from "./cyst.js";
+import { cystBoss, cystDone, cystLitStep, cystStepCol } from "./cyst.js";
 import { cystAnswered } from "./cyst-step.js";
 import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * **THE CYST's shot**: the bared core, where a bolt leaves the top of the
- * field in the middle column.
+ * **THE CYST's shot**: the bared core in the middle column, and the bud in
+ * its own, each met where it hangs (`core-along.ts`).
  *
  * Only a lit fire step takes one, with the core bare. **A step with a colour
  * wants that colour**, THE SEAM's rule (`seam-shot.ts`): the other is a
@@ -36,14 +36,30 @@ export function cystStruck(world: World, bullet: Bullet): boolean {
 
 /**
  * What a bolt of `color` in `col` meets of the core or a bud
- * (`core-verdict.ts`). A bud is answered bared core or not.
+ * (`core-verdict.ts`). A bud is answered bared core or not. The sac split
+ * stops nothing, as it is drawn stopping nothing (`render/cyst-draw.ts`).
  */
 export function cystVerdict(world: World, col: number, color: Color): CoreVerdict {
   const s = cystBoss(world);
-  if (s === null) return null;
+  if (s === null || cystDone(s)) return null;
   const step = cystLitStep(s);
   const bud = step?.ask === "bud";
   const aside =
     step === null ? undefined : { ask: "bud", col: cystStepCol(midCol(world.cfg), step) };
   return coreVerdict(world, col, color, s.bared || bud, step, aside);
+}
+
+/**
+ * The bud's centre grown all the way out, thousandths of a row down the
+ * field: where a bolt up its column is met (`core-along.ts`), and what the
+ * picture grows it to (`render/cyst-story.ts`), so the two cannot drift apart.
+ */
+export const CYST_BUD_MILLI = 645;
+
+/** The bud a lit step asks for — the column it swells over and its row — or null. */
+export function cystBudAside(world: World): { col: number; milli: number } | null {
+  const s = cystBoss(world);
+  const step = s === null ? null : cystLitStep(s);
+  if (step?.ask !== "bud") return null;
+  return { col: cystStepCol(midCol(world.cfg), step), milli: CYST_BUD_MILLI };
 }

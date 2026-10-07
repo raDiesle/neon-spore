@@ -1,8 +1,8 @@
-import { cystVerdict, midCol, type World } from "@neon-spore/sim";
+import { CYST_BUD_MILLI, cystVerdict, midCol, type World } from "@neon-spore/sim";
 import type { Stopper } from "./bolt-stop.js";
 import { coreStopper, type Foot, lowestFoot, outlineFoot, roundFoot } from "./core-stop.js";
 import { CYST_CORE_FLAT, type CystPose, cystCoreR, cystLobes, type Point } from "./cyst-shape.js";
-import type { Layout } from "./layout.js";
+import { type Layout, tileCY } from "./layout.js";
 
 /**
  * Where the sac stands this frame: its middle on screen, its pose, the
@@ -34,8 +34,8 @@ export function cystStopper(l: Layout, world: World, at: CystStand): Stopper {
       at.y,
     ),
   ];
-  // A bud not yet out is judged where the simulation judges it, at row 0.
-  let budY = l.gridTop;
+  // A bud not yet out is judged where the simulation judges it, on its row.
+  let budY = tileCY(l, CYST_BUD_MILLI / 1000);
   if (at.bud !== null) {
     feet.push(roundFoot(at.x + at.bud.x, at.y + at.bud.y, at.bud.r, at.bud.ry));
     budY = at.y + at.bud.y + at.bud.ry;

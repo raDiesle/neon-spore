@@ -1,6 +1,6 @@
-import type { Color } from "@neon-spore/sim";
+import { type Color, CYST_BUD_MILLI } from "@neon-spore/sim";
 import { arcFromTop } from "./arc-from-top.js";
-import { cystCoreR, type Point } from "./cyst-shape.js";
+import { CYST_ROW, cystCoreR, type Point } from "./cyst-shape.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -26,9 +26,10 @@ import { stepColour } from "./step-colour.js";
 /** The spore's radius, and how far toward the hull it sinks by the time its step runs out. */
 const SPORE = 0.3;
 const SINK = 0.45;
-/** The bud's radius, and how high over the sac's middle it grows, in tiles. */
+/** The bud's radius, in tiles. */
 const BUD = 0.42;
-const BUD_RISE = 0.9;
+/** How far below the sac's middle the bud hangs grown all the way out, in tiles: the simulation's row, where a bolt meets it. */
+const BUD_HANG = CYST_BUD_MILLI / 1000 + 0.5 - CYST_ROW;
 /** How much taller than wide the bud is drawn. */
 const BUD_TALL = 1.12;
 
@@ -66,7 +67,7 @@ export function cystBudAt(l: Layout, grown: number, dx: number): Point & { r: nu
   const root = { x: Math.sign(dx) * cystCoreR(l) * 1.8, y: -cystCoreR(l) * 1.4 };
   return {
     x: root.x + (dx - root.x) * grown,
-    y: -BUD_RISE * l.tile * grown + root.y,
+    y: root.y + (BUD_HANG * l.tile - root.y) * grown,
     r: BUD * l.tile,
   };
 }

@@ -3,6 +3,7 @@ import {
   midCol,
   VISE_SEAMS_PER_LOBE,
   type ViseState,
+  viseDone,
   viseLitStep,
   viseSeedCol,
   viseWindowBeats,
@@ -142,8 +143,9 @@ export function drawVise(
     drawViseSeed(ctx, l, spit, seedX, l.hullY - y, spat.color, beatPhase);
     if (spit > 0) seed = viseSeedAt(l, spit, seedX);
   }
-  // Splitting open, the case stops nothing.
-  if (split <= 0) {
+  // Splitting open, the case stops nothing — from the beat it splits, as the
+  // simulation says (`sim/vise-shot.ts`).
+  if (!viseDone(s)) {
     const squeeze = [viseSqueeze(cfg, s, 0), viseSqueeze(cfg, s, 1)] as const;
     stops?.aim(viseStopper(l, world, { x, y, leans, squeeze, kernel: hurt.size, seed }));
   }

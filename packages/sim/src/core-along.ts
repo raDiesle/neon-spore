@@ -3,6 +3,7 @@ import { burgeeVerdict } from "./burgee-shot.js";
 import { capstanVerdict } from "./capstan-shot.js";
 import { midCol } from "./config.js";
 import type { CoreVerdict } from "./core-verdict.js";
+import { cystBudAside, cystVerdict } from "./cyst-shot.js";
 import { davitVerdict } from "./davit-shot.js";
 import { gallVerdict } from "./gall-shot.js";
 import { governorVerdict } from "./governor-shot.js";
@@ -12,6 +13,7 @@ import { rimeVerdict } from "./rime-shot.js";
 import { slingVerdict } from "./sling-shot.js";
 import { trivetVerdict } from "./trivet-shot.js";
 import type { Bullet, Color } from "./types.js";
+import { viseSeedAside, viseVerdict } from "./vise-shot.js";
 import type { World } from "./world.js";
 
 /**
@@ -37,6 +39,8 @@ interface Core {
   /** The core's centre, thousandths of a row down the field. */
   milli: number;
   verdict: (world: World, col: number, color: Color) => CoreVerdict;
+  /** The part a lit step asks for aside of the middle, its column and row, or null. */
+  aside?: (world: World) => { col: number; milli: number } | null;
 }
 
 /**
@@ -49,6 +53,11 @@ const CORES: Partial<Record<BossKind, Core>> = {
   grindstone: { milli: 2000, verdict: (w, c, k) => grindstoneVerdict(w, c, k) },
   burgee: { milli: 550, verdict: (w, c, k) => burgeeVerdict(w, c, k) },
   capstan: { milli: 2700, verdict: (w, c, k) => capstanVerdict(w, c, k) },
+  cyst: {
+    milli: 2200,
+    verdict: (w, c, k) => cystVerdict(w, c, k),
+    aside: (w) => cystBudAside(w),
+  },
   davit: { milli: 1100, verdict: (w, c, k) => davitVerdict(w, c, k) },
   gall: { milli: 2900, verdict: (w, c, k) => gallVerdict(w, c, k) },
   governor: { milli: 5900, verdict: (w, c, k) => governorVerdict(w, c, k) },
@@ -56,6 +65,11 @@ const CORES: Partial<Record<BossKind, Core>> = {
   rime: { milli: 2200, verdict: (w, c, k) => rimeVerdict(w, c, k) },
   sling: { milli: 1800, verdict: (w, c, k) => slingVerdict(w, c, k) },
   trivet: { milli: 1700, verdict: (w, c, k) => trivetVerdict(w, c, k) },
+  vise: {
+    milli: 2200,
+    verdict: (w, c, k) => viseVerdict(w, c, k),
+    aside: (w) => viseSeedAside(w),
+  },
 };
 
 /**
@@ -87,8 +101,11 @@ export function coreMeetMilli(kind: BossKind): number {
 export function coreAlong(world: World, b: Bullet, from: number, to: number): number {
   const kind = world.boss?.kind;
   const core = kind === undefined ? undefined : CORES[kind];
-  if (core === undefined || b.lance || b.col !== midCol(world.cfg)) return -1;
-  const meet = core.milli - MEET_MILLI;
+  if (core === undefined || b.lance) return -1;
+  const aside = core.aside?.(world);
+  const row = aside?.col === b.col ? aside.milli : b.col === midCol(world.cfg) ? core.milli : -1;
+  if (row < 0) return -1;
+  const meet = row - MEET_MILLI;
   if (meet > from || meet < to) return -1;
   return core.verdict(world, b.col, b.color) === null ? -1 : meet;
 }
