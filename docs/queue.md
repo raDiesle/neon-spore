@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE BLISTER, lane 2: its body, its pore, the bulge and the tap help
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Taken:** 2026-10-08, claude/task-queue-work-e99d1a (claim: claude/queue-the-blister-lane-2-its-body-its-pore-the-bulge-a)
 - **Files:** `packages/content/src/living-look.ts`, `packages/render/src/instar-glyphs.ts`, `packages/render/src/mark-feedback.ts`, `packages/render/src/grip-verdict.ts`, `packages/render/test/frame.test.ts`
 - **Needs:** THE BLISTER, lane 1
 
