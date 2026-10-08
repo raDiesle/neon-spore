@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 7183fe63f — THE LEAD's walls on the ridge, offered in VERSUS
+
+THE LEAD's walls have a candidate, `lead:walls` / CRAGS. In the game, the ridge runs out to the field's edges with no wall drawn at all, so the turn comes out of nothing. CRAGS stands a crag of the ridge's rock on each end. Its inner face is lit, and a hook cut into it curls back into the field where the body turns. It is drawn on both screens, because the field's edge is no secret from either seat. Shipped picture unchanged: `paintRidge` calls `RIDGE_WALLS` in `lead-rock.ts`, which draws nothing.
+
 ## 2026-10-08 · 8e0310740 — THE LEAD's lean as an arrow, offered in VERSUS
 
 THE LEAD's lean has a candidate, `lead:lean` / ARROW. In the game, the lean is only a tilt of the stalk on a spring. ARROW draws an arrow out of the stalk's tip the way the body goes, with a length to it: one chevron for each column it moves a beat (one at the walk, two at the run). It shows the pace, not the lead, so the sum stays the pair's. It is drawn on the pilot's screen alone, behind the same gate as the lean. Shipped picture unchanged: `drawLead` calls `LEAN_LOOK` in `lead-lean.ts`, which draws nothing.

@@ -35442,3 +35442,5 @@ the lead itself would have been the arithmetic done for them.
 - landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
 
 Bottleneck: looking — dark rock on a dark sky vanished at phone size.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
