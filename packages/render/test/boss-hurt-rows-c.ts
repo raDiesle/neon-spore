@@ -32,7 +32,7 @@ export const HURT_ROWS_C: Row[] = [
     ],
     part: [
       { type: "gallLight", ask: "close", point: 0, col: 0 },
-      { type: "gallPinch", point: 0, col: 0 },
+      { type: "gallPress", point: 0, col: 0 },
       { type: "gallSlip", point: 0, col: 0 },
       { type: "gallSwell", point: 0, col: 0 },
     ],

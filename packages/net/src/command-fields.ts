@@ -51,7 +51,7 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "davitSteerLeft", "davitSteerRight", "davitLooseLeft", "davitLooseRight",
   "halterChordLeft", "halterChordRight",
   "capstanSteer", "capstanRub",
-  "gallPinch",
+  "gallPress",
   "trapezeFreeze", "trapezeDraw",
   "governorTap",
   "gaugeTooth",

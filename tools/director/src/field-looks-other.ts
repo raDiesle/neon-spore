@@ -135,7 +135,7 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "Each seat's half of the seed-case — left the pilot's, right the navigator's — haloed while a pinch on that lobe is lit.",
     move: "Two fingers closing shut the lobe; held shut through the count a seam cracks, green.",
   },
-  "THE GALL'S PINCH": {
+  "THE GALL'S PRESS": {
     find: "The point on the seam's row the gall is on, haloed on the pincher's screen.",
     move: "A pinch held shut there jumps the gall to another point, green.",
   },

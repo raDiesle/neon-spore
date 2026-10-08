@@ -140,7 +140,7 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
         rows: [
           "THE VISE'S LEFT LOBE",
           "THE VISE'S RIGHT LOBE",
-          "THE GALL'S PINCH",
+          "THE GALL'S PRESS",
           "THE CYST'S LEFT FLANK",
           "THE CYST'S RIGHT FLANK",
         ],

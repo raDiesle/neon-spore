@@ -3,7 +3,7 @@ import {
   type GallState,
   gallClosing,
   gallLitStep,
-  gallPincher,
+  gallPresser,
   type SimConfig,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
@@ -13,7 +13,7 @@ import { NO_SPAN, type SlowSpan, slowHush } from "./slow-hush.js";
 /**
  * **The clock THE GALL is posed off** (§38, *Animation*): the nodule rising
  * out of the seam as it settles in; swelling on its beat while a close is
- * lit; squeezed narrow by the gap between the two touches on it and sunk
+ * lit; squeezed narrow by the press on it and sunk
  * into the seam by the beats it has been kept shut; a lobe fewer and smaller
  * for every close; gone once three have landed, and the seam peeled open
  * over the root; and the seam smoothed flat as the root is shot — each read
@@ -51,11 +51,11 @@ export function gallLeft(s: GallState, beat: number, beatPhase: number): number 
 }
 
 /**
- * How far the pinch on the gall has closed it: 0 wide open or no pinch on
+ * How far the press on the gall has closed it: 0 wide open or no press on
  * it, 1 at the gap that counts as shut and under. Read on a lit close only —
- * a pinch at rest squeezes nothing, because nothing is asked of it.
+ * a press at rest squeezes nothing, because nothing is asked of it.
  */
-export function gallPinch(s: GallState, cfg: SimConfig): number {
+export function gallPress(s: GallState, cfg: SimConfig): number {
   if (!gallClosing(s)) return 0;
   const span = Math.max(1, cfg.gallOpenMilli - cfg.gallShutMilli);
   return Math.max(0, Math.min(1, 1 - (s.gapMilli - cfg.gallShutMilli) / span));
@@ -125,11 +125,11 @@ function rippling(s: GallState, cfg: SimConfig, beat: number, beatPhase: number)
   return 1;
 }
 
-/** The swell on its beat while a close is lit, a breath the pinch presses flat. */
+/** The swell on its beat while a close is lit, a breath the press presses flat. */
 export function gallSwell(s: GallState, cfg: SimConfig, beatPhase: number): number {
   if (!gallClosing(s)) return 1;
   const breath = 0.5 + 0.5 * Math.cos(beatPhase * Math.PI * 2);
-  return 1 + 0.08 * breath * (1 - gallPinch(s, cfg));
+  return 1 + 0.08 * breath * (1 - gallPress(s, cfg));
 }
 
 /**
@@ -138,6 +138,6 @@ export function gallSwell(s: GallState, cfg: SimConfig, beatPhase: number): numb
  * over with the field under THE FLIP so it leans the way it is drawn.
  */
 export function gallBearing(s: GallState, flip: boolean): number {
-  const left = gallPincher(s) === 1;
+  const left = gallPresser(s) === 1;
   return left !== flip ? Math.PI : 0;
 }

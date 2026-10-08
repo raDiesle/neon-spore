@@ -5,7 +5,7 @@ import {
   gallHeld,
   gallLobes,
   gallPart,
-  gallPinch,
+  gallPress,
   gallSpent,
 } from "../src/gall-pose.js";
 import { gallPointAt } from "../src/gall-shape.js";
@@ -25,7 +25,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE GALL, drawn (`render/src/gall-draw.ts`): the seam and its four scars,
- * the nodule on its point heeled toward its pincher's end, the pinch's
+ * the nodule on its point heeled toward its presser's end, the press's
  * chevrons full on that seat's screen and faint on the other's, the nodule
  * squeezed by the gap and pressed down by the beats kept shut, a lobe fewer
  * for every close, the seam peeled open over the root and the root lit in a
@@ -59,7 +59,7 @@ describe("THE GALL's seam", () => {
     expect(there).not.toBe(here);
   });
 
-  it("heels the nodule toward its pincher's end, and turns the heel over with the field", () => {
+  it("heels the nodule toward its presser's end, and turns the heel over with the field", () => {
     const world = stood();
     const s = posed(world, CLOSE, 0);
     expect(gallBearing(s, false)).toBe(Math.PI);
@@ -70,7 +70,7 @@ describe("THE GALL's seam", () => {
   });
 });
 
-describe("THE GALL's pinch mark, split by seat", () => {
+describe("THE GALL's press mark, split by seat", () => {
   it("is full on the screen of the seat whose half the gall is on, and on test", () => {
     expect(showsGallReach("p1", 1)).toBe(true);
     expect(showsGallReach("p2", 1)).toBe(false);
@@ -110,21 +110,21 @@ describe("THE GALL's body, deformed by the answer", () => {
   it("squeezes by the gap, from nought wide open to one at shut", () => {
     const world = stood();
     const s = posed(world, CLOSE);
-    expect(gallPinch(s, world.cfg)).toBe(0);
+    expect(gallPress(s, world.cfg)).toBe(0);
     s.gapMilli = world.cfg.gallShutMilli;
-    expect(gallPinch(s, world.cfg)).toBe(1);
+    expect(gallPress(s, world.cfg)).toBe(1);
     s.gapMilli = (world.cfg.gallShutMilli + world.cfg.gallOpenMilli) / 2;
-    expect(gallPinch(s, world.cfg)).toBeCloseTo(0.5);
+    expect(gallPress(s, world.cfg)).toBeCloseTo(0.5);
     posed(world, null).gapMilli = world.cfg.gallShutMilli;
-    expect(gallPinch(s, world.cfg)).toBe(0);
+    expect(gallPress(s, world.cfg)).toBe(0);
   });
 
-  it.each(ROLES)("draws a pinched gall narrower than an open one, on %s", (role) => {
+  it.each(ROLES)("draws a pressed gall narrower than an open one, on %s", (role) => {
     const open = frame(role, (w) => posed(w, CLOSE));
-    const pinched = frame(role, (w) => {
+    const pressed = frame(role, (w) => {
       posed(w, CLOSE).gapMilli = w.cfg.gallShutMilli;
     });
-    expect(pinched).not.toBe(open);
+    expect(pressed).not.toBe(open);
   });
 
   it("presses the nodule down by the beats kept shut, and not while the gap is open", () => {

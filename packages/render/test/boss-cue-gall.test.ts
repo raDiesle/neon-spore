@@ -12,7 +12,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **THE GALL, and the two words the field may say about it**
- * (`render/src/boss-cue-read-zm.ts`): `PINCH` on the nodule to the seat whose
+ * (`render/src/boss-cue-read-zm.ts`): `HOLD` on the nodule to the seat whose
  * half it sits on, gone once it is shut and jumping with it, and `FIRE` under
  * the middle column on the bared root. What is *not* said: nothing to the
  * other seat, nothing between steps, and never the shot's colour.
@@ -37,25 +37,25 @@ describe("THE GALL", () => {
     [1, "p1", "p2"],
     [2, "p2", "p1"],
     [3, "p2", "p1"],
-  ] as const)("says PINCH on point %i to %s, and nothing to %s", (point, pincher, other) => {
+  ] as const)("says HOLD on point %i to %s, and nothing to %s", (point, presser, other) => {
     const world = stood();
     posed(world, CLOSE, point);
-    const said = cue(world, pincher);
-    const at = gallPointCircle(LAYOUT[pincher], CFG, point);
-    expect(said?.word).toBe("PINCH");
+    const said = cue(world, presser);
+    const at = gallPointCircle(LAYOUT[presser], CFG, point);
+    expect(said?.word).toBe("HOLD");
     expect(said?.kind).toBe("HOLD");
     expect(said?.x).toBeCloseTo(at.x);
     expect(said?.y).toBeCloseTo(at.y);
     expect(cue(world, other)).toBeNull();
   });
 
-  it("goes once the pinch is shut, is owed again on a slip, and jumps with the gall", () => {
+  it("goes once the press is shut, is owed again on a slip, and jumps with the gall", () => {
     const world = stood();
     const s = posed(world, CLOSE, 1);
     s.gapMilli = CFG.gallShutMilli;
     expect(cue(world, "p1")).toBeNull();
     s.gapMilli = CFG.gallShutMilli + 1;
-    expect(cue(world, "p1")?.word).toBe("PINCH");
+    expect(cue(world, "p1")?.word).toBe("HOLD");
     s.point = 3;
     expect(cue(world, "p1")).toBeNull();
     expect(cue(world, "p2")?.x).toBeCloseTo(gallPointCircle(LAYOUT.p2, CFG, 3).x);

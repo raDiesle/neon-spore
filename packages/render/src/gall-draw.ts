@@ -1,10 +1,10 @@
 import { LIGHT_HALF } from "@neon-spore/content";
-import { type GallState, gallClosing, gallLitStep, gallPincher, type World } from "@neon-spore/sim";
+import { type GallState, gallClosing, gallLitStep, gallPresser, type World } from "@neon-spore/sim";
 import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
 import type { GallFx } from "./gall-fx.js";
-import { drawGallPinch, drawGallRoot, drawGallScar } from "./gall-marks.js";
+import { drawGallPress, drawGallRoot, drawGallScar } from "./gall-marks.js";
 import {
   gallArrived,
   gallBearing,
@@ -13,7 +13,7 @@ import {
   gallLeft,
   gallLobes,
   gallPart,
-  gallPinch,
+  gallPress,
   gallRippling,
   gallSpent,
   gallSunk,
@@ -48,22 +48,22 @@ const BULGE = 0.22;
 
 /**
  * **THE GALL**: a soft nodule riding a raised seam the width of the field,
- * pinched shut by the seat nearer it and jumping, the instant a close lands,
+ * pressed shut by the seat nearer it and jumping, the instant a close lands,
  * to another of the seam's four points (§11.55, `bosses-choreographed.md`
  * §38).
  *
  * **Both screens are drawn the same body.** The seam, its scars and the gall
  * where it sits are on both, because finding it after a jump is the fight;
- * only the pinch's chevrons differ, full for the seat whose half the gall is
+ * only the press's chevrons differ, full for the seat whose half the gall is
  * on (`showsGallReach`).
  *
  * **Its health is read off the nodule** — no bar: a lobe fewer and a sixth
- * smaller for every close, squeezed narrow by the gap between the fingers on
+ * smaller for every close, squeezed narrow by the press on
  * it and pressed down into the seam by the beats they keep it shut. After the
  * third close **the view goes into the hull**: the nodule is pulled under,
  * the seam's two lips peel back over the middle column, and what they were
  * hiding is the root, the only part ever shot. Everything is read off
- * `world` each frame but what outlives one — a pinch's flare, a slip's
+ * `world` each frame but what outlives one — a press's flare, a slip's
  * shudder, a swell's bulge, the ghost a close leaves, the lips tearing, the
  * root's flash and the blow the gall takes — which is `fx` (`gall-fx.ts`),
  * told the root's colour here.
@@ -147,8 +147,8 @@ function drawSeam(
 }
 
 /**
- * NOTCH 2's heeled mass at the gall's point, heeled toward its pincher's
- * end, lit off the key light, and the pinch's chevrons round it while a
+ * NOTCH 2's heeled mass at the gall's point, heeled toward its presser's
+ * end, lit off the key light, and the press's chevrons round it while a
  * close is lit.
  */
 function drawNodule(
@@ -162,7 +162,7 @@ function drawNodule(
   fx: GallFx,
 ): void {
   const cfg = world.cfg;
-  const pinch = gallPinch(s, cfg);
+  const press = gallPress(s, cfg);
   const size = gallSpent(s) * gallSwell(s, cfg, beatPhase) * (1 + BULGE * fx.bulge);
   const { rx, ry } = gallSize(l);
   // It rises out of the seam: its middle stands above the seam's top by as much as it is up.
@@ -175,7 +175,7 @@ function drawNodule(
     bearing: gallBearing(s, l.flip),
     heel: 1,
     size,
-    pinch,
+    press,
     sunk,
   });
   ctx.fillStyle = PALETTE.gallFlesh;
@@ -187,16 +187,16 @@ function drawNodule(
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.gallFleshDark, 0.95);
   ctx.stroke(body);
-  // A pinch come shut lights its rim; a close or a hit reddens it.
+  // A press come shut lights its rim; a close or a hit reddens it.
   if (fx.flare > 0) strokeGlow(ctx, body, PALETTE.hullRim, STROKE.outline, fx.flare);
   drawHurt(ctx, body, fx.hurt.value);
   ctx.restore();
 
   if (!gallClosing(s)) return;
-  const full = showsGallReach(l.role, gallPincher(s));
-  const across = rx * size * (1 - 0.45 * pinch);
+  const full = showsGallReach(l.role, gallPresser(s));
+  const across = rx * size * (1 - 0.45 * press);
   ctx.save();
   ctx.translate(0, lift * 0.6);
-  drawGallPinch(ctx, l, across, pinch, gallLeft(s, world.beat, beatPhase), full, beatPhase);
+  drawGallPress(ctx, l, across, press, gallLeft(s, world.beat, beatPhase), full, beatPhase);
   ctx.restore();
 }

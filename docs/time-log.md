@@ -35009,3 +35009,20 @@ Bottleneck: writing — the explanation had to keep the shipped rules apart
 from §37's first design, which still describes a tilt.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE GALL is pressed and held, not pinched
+
+- reading: 15 min. The gall's hand, grip, rig and tests, how a plain drag
+  hold sends its press, move and lift, and every file naming `gallPinch`.
+- writing: 30 min. The press in the simulation and the grip, the rename
+  across forty-odd files, the rig and two tests rewritten, the cue word,
+  the guide, the director's row and the spec.
+- looking: 0 min. Nothing drawn changed but the cue's word.
+- friction: 10 min. zsh does not split an unquoted list, BSD `sed` has no
+  `\b`, and the guard refuses a heredoc with a doubled backslash; perl and
+  the Edit tool instead.
+- landing: 10 min. `format`, `imports:sort`, `bun run index`, two runs of
+  `check:fast` for a cue test the rename had turned the wrong way.
+
+Bottleneck: the rename — one identifier in forty files, and prose in a
+dozen more that still said two fingers.

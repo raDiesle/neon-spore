@@ -7,8 +7,8 @@ import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
- * What THE GALL leaves behind a frame (§11.55): the **flare** of a pinch come
- * shut — the nodule's rim lit white; the **shudder** of a shut pinch let slip;
+ * What THE GALL leaves behind a frame (§11.55): the **flare** of a press come
+ * shut — the nodule's rim lit white; the **shudder** of a shut press let slip;
  * the **puff** of a close — a ghost of the nodule left on the point it jumped
  * off, rising and gone; the **bulge** of a close window run out, the gall
  * swelling back; the **tear** of the seam's lips as the root is bared, the
@@ -20,12 +20,12 @@ import { PALETTE } from "./palette.js";
  *
  * **Both screens are thrown the same**, like the drawing. A close and a hit
  * are a step landed, so each deals the gall the blow every boss takes
- * (`boss-hurt.ts`); a pinch come shut is only a part of one. The root's
+ * (`boss-hurt.ts`); a press come shut is only a part of one. The root's
  * colour is the lit step's and not in `gallHit`, so the drawer tells it every
  * frame (`tell`). Cleared in `Effects.reset()`.
  */
 
-/** How fast a pinch's flare fades, a slip's shudder, a swell's bulge and a close's puff, per second. */
+/** How fast a press's flare fades, a slip's shudder, a swell's bulge and a close's puff, per second. */
 const FLARE_DECAY = 4;
 const SHUDDER_DECAY = 3;
 const BULGE_DECAY = 2.5;
@@ -53,12 +53,12 @@ export class GallFx {
   /** Whether the last touch on each of the seam's marks was right (`gall-verdicts.ts`). */
   readonly verdicts = new GallVerdicts();
 
-  /** How bright the nodule's rim still flares for a pinch come shut, 0..1. */
+  /** How bright the nodule's rim still flares for a press come shut, 0..1. */
   get flare(): number {
     return this.flareNow;
   }
 
-  /** The nodule's sideways shudder this frame for a pinch let slip, in pixels. */
+  /** The nodule's sideways shudder this frame for a press let slip, in pixels. */
   shudderX(time: number, tile: number): number {
     return this.shudderNow * SHUDDER_TILES * tile * Math.sin(time * SHUDDER_RATE);
   }
@@ -105,7 +105,7 @@ export class GallFx {
           burst(at.x, at.y, 10, PALETTE.gallSeam);
           break;
         }
-        case "gallPinch": {
+        case "gallPress": {
           const at = gallPointAt(l, cfg, e.point);
           burst(at.x, at.y, 5, PALETTE.hullRim);
           this.flareNow = 1;

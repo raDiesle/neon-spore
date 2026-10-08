@@ -3,7 +3,7 @@ import {
   type BossKind,
   gallClosing,
   gallLitStep,
-  gallPincher,
+  gallPresser,
   halterLitStep,
   instarStep,
   mantleBracing,
@@ -181,7 +181,7 @@ export const DRAWN: Partial<Record<BossKind, Drawn>> = {
       1 - gallArrived(s, cfg, b, phase),
       0.45 * gallHeld(s, cfg, phase),
     );
-    if (gallClosing(s) && sunk < 1 && showsGallReach(l.role, gallPincher(s))) {
+    if (gallClosing(s) && sunk < 1 && showsGallReach(l.role, gallPresser(s))) {
       const here = gallPointAt(l, cfg, s.point);
       const lift = -gallSize(l).ry * 0.55 * gallSpent(s) * gallSwell(s, cfg, phase) * (1 - sunk);
       marks.push({

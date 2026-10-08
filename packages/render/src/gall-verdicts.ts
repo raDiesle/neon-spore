@@ -15,7 +15,7 @@ import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
  * (`mark-feedback.ts`, `grip-verdict.ts`; the owner, 27 September 2026: *the
  * consistent visual across all waves*). Both screens draw the whole seam and
  * the gall where it sits (`gall-draw.ts`), so this is THE VISE's arrangement
- * on a body that moves: geometry says whose the pinch is.
+ * on a body that moves: geometry says whose the press is.
  *
  * Two marks, the places a thumb answers it (`gall-grip.ts`). **The point**
  * the gall sits on asks a close of the seat whose half it is on
@@ -26,10 +26,10 @@ import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
  * seat's, and wears the halo on both screens and nobody's clock.
  *
  * The verdicts are the seam's own words: a close landed greens the point and
- * a hit greens the root. A pinch let slip and a close run out — the gall
+ * a hit greens the root. A press let slip and a close run out — the gall
  * swelling back where it was — redden the point, and a shot run out reddens
- * the root. A pinch come shut is only a part of a close, so it says nothing.
- * **Neither a pinch on bare seam nor a wrong colour is refused red**: the
+ * the root. A press come shut is only a part of a close, so it says nothing.
+ * **Neither a press on bare seam nor a wrong colour is refused red**: the
  * simulation says nothing of either (`sim/gall-hand.ts`, `sim/gall-shot.ts`).
  *
  * Held in `GallFx` (`gall-fx.ts`), as THE CAPSTAN's are in its own.

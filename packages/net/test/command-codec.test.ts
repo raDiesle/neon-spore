@@ -286,7 +286,7 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "capstanRub", on: true, fromMilli: 0, id: 3 },
   // THE GALL's pinch carries the gap on `fromMilli` and the point it went down
   // on as `id` (`sim/gall-hand.ts`).
-  { kind: "drag", target: "gallPinch", on: true, fromMilli: 600, id: 2 },
+  { kind: "drag", target: "gallPress", on: true, fromMilli: 600, id: 2 },
   // THE TRAPEZE's tap is an edge from either seat, and its draw's lift carries
   // the swipe's sign on `fromMilli` (`sim/trapeze-hand.ts`).
   { kind: "drag", target: "trapezeFreeze", on: true, fromMilli: 0 },
@@ -483,7 +483,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   halterChordRight: true,
   capstanSteer: true,
   capstanRub: true,
-  gallPinch: true,
+  gallPress: true,
   trapezeFreeze: true,
   trapezeDraw: true,
   governorTap: true,

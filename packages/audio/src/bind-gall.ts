@@ -25,8 +25,8 @@ export function gallCue(e: GallSimEvent, cols: number): Cue {
       return { id: "boss.gallEnter", pan };
     case "gallLight":
       return { id: "boss.gallLight", pan };
-    case "gallPinch":
-      return { id: "boss.gallPinch", pan };
+    case "gallPress":
+      return { id: "boss.gallPress", pan };
     case "gallSlip":
       return { id: "boss.gallSlip", pan };
     case "gallClose":

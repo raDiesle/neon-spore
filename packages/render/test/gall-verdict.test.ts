@@ -117,7 +117,7 @@ describe("THE GALL's marks asking", () => {
   });
 
   it.each([0, 3])(
-    "haloes the pincher's screen and waits on the other's, the gall on point %i",
+    "haloes the presser's screen and waits on the other's, the gall on point %i",
     (point) => {
       const close = as("lit", "close", point);
       const [own, other]: [ViewRole, ViewRole] = point === 0 ? ["p1", "p2"] : ["p2", "p1"];
@@ -152,7 +152,7 @@ describe("THE GALL's verdict on a touch", () => {
     expect(on([{ type: "gallSlip", point: 0, col }])).toEqual([false, n]);
     expect(on([{ type: "gallSwell", point: 0, col }])).toEqual([false, n]);
     expect(on([{ type: "gallMiss", col }])).toEqual([n, false]);
-    expect(on([{ type: "gallPinch", point: 0, col }])).toEqual([n, n]);
+    expect(on([{ type: "gallPress", point: 0, col }])).toEqual([n, n]);
     expect(on([{ type: "gallBare", col }])).toEqual([n, n]);
   });
 

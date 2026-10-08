@@ -165,7 +165,7 @@ export const ROWS: Record<string, Row> = {
   capstanRub: { id: true },
   // `gall-hand.ts`: the pinch's gap on `fromMilli` and the point it went down
   // on as `id`; the seat is the one nearer that point.
-  gallPinch: { id: true },
+  gallPress: { id: true },
   // `trapeze-hand.ts`: the tap and the draw are both seats'; which is live is
   // the lit step's, and the draw's lift carries the swipe on `fromMilli`.
   trapezeFreeze: {},

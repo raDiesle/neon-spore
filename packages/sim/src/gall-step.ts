@@ -14,17 +14,17 @@ import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
- * THE GALL's clock: the seam rising, each step lighting, the beats a pinch is
+ * THE GALL's clock: the seam rising, each step lighting, the beats a press is
  * kept shut being counted, a window running out, and the seam smoothing flat.
  *
- * The pinch is heard on the tick (`gall-hand.ts`) and only *counted* here, on
+ * The press is heard on the tick (`gall-hand.ts`) and only *counted* here, on
  * the beat, THE VISE's split (`vise-step.ts`): what a close asks is a number
  * of beats shut. The shot is judged where a bolt leaves the top of the field
  * (`gall-shot.ts`).
  *
  * **A close landed jumps the gall** to one of the other three points, drawn
- * off the seeded `Rng`, and the pinch that closed it is left on nothing: the
- * gap is open again until a pinch goes down where the gall now sits.
+ * off the seeded `Rng`, and the press that closed it is left on nothing: the
+ * gap is open again until a press goes down where the gall now sits.
  *
  * **A close that runs out is tried again**, the step relit after a rest with
  * the gall where it was. **A shot that runs out is the hull**, THE SEAM's rule

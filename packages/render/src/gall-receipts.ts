@@ -108,7 +108,7 @@ export function drawGallPuff(
     bearing: 0,
     heel: 0,
     size: gallSpent(was) * (1 + PUFF_SPREAD * gone),
-    pinch: 0,
+    press: 0,
     sunk: 0,
   });
   ctx.fillStyle = rgba(PALETTE.gallFlesh, 0.45 * puff.now);

@@ -4,23 +4,24 @@ import type { World } from "./world.js";
 
 /**
  * THE GALL: a soft nodule riding a raised seam the width of the hull, closed
- * by a pinch and moved the instant a close lands (`docs/spec/bosses-
+ * by a press and moved the instant a close lands (`docs/spec/bosses-
  * choreographed.md` §38).
  *
- * **The rule is one sentence**: pinch the gall shut where it sits, and when
- * it jumps, find it and pinch it there.
+ * **The rule is one sentence**: press the gall shut where it sits, and when
+ * it jumps, find it and press it there.
  *
  * The seam has **four points**, and the gall sits on one. The two nearer the
- * left end are the pilot's to pinch and the two nearer the right the
+ * left end are the pilot's to press and the two nearer the right the
  * navigator's — geometry says whose, THE VISE's rule — and both screens show
  * the gall where it is, because finding it is the whole difficulty rather
- * than a secret one seat keeps. What a thumb and finger send is the **gap**
- * between them, `SqueezeGap` read exactly as THE VISE reads it, with the
- * point the pinch went down on as its `id`: a pinch counts only on the point
- * the gall is on, so a pinch left where the gall was never follows it.
+ * than a secret one seat keeps. What a finger sends is a **press**, held down
+ * on the nodule — THE VISE's two-finger pinch until 7 October 2026, when the
+ * owner swapped it for one pointer a desk can make — with the point it went
+ * down on as its `id`: a press counts only on the point the gall is on, so a
+ * press left where the gall was never follows it.
  *
- * A close step counts the beats the gap sits at or under `gallShutMilli`; the
- * gap widening back past it starts the count again, and a window run out is
+ * A close step counts the beats the gall is held shut; a lift before they
+ * run out starts the count again, and a window run out is
  * tried again with the gall where it was. A close landed **jumps the gall** to
  * one of the other three points, drawn off the seeded `Rng`. Three closes
  * spend it and bare its root.
@@ -43,7 +44,7 @@ export const GALL_CLOSES = 3;
 export const GALL_PHASES = ["slack", "lit", "rest", "flat"] as const;
 export type GallPhase = (typeof GALL_PHASES)[number];
 
-/** What a step asks: the gall pinched shut where it sits, or a shot at the bared root. */
+/** What a step asks: the gall pressed shut where it sits, or a shot at the bared root. */
 export const GALL_ASKS = ["close", "fire"] as const;
 export type GallAsk = (typeof GALL_ASKS)[number];
 
@@ -80,8 +81,8 @@ export interface GallState {
   /** Whether the root lies bare to be shot. */
   bared: boolean;
   /**
-   * The pinch on the gall's point, in thousandths of a tile: the distance
-   * between the two touches, or `gallOpenMilli` with no pinch on it.
+   * How far the gall's lips stand open on its point, in thousandths of a
+   * tile: nought while a press holds it shut, `gallOpenMilli` with none.
    */
   gapMilli: number;
   /** Beats of the lit close its gap has been kept shut. */
@@ -117,14 +118,14 @@ export function gallSeatAt(point: number): 1 | 2 {
   return point < GALL_POINTS / 2 ? 1 : 2;
 }
 
-/** The seat nearer the gall where it sits now: the one whose pinch closes it. */
-export function gallPincher(s: GallState): 1 | 2 {
+/** The seat nearer the gall where it sits now: the one whose press closes it. */
+export function gallPresser(s: GallState): 1 | 2 {
   return gallSeatAt(s.point);
 }
 
-/** Whether the gall's point asks a seat's pinch, nought for the pilot: a close lit, and the gall on that seat's half. */
+/** Whether the gall's point asks a seat's press, nought for the pilot: a close lit, and the gall on that seat's half. */
 export function gallPointAsks(s: GallState, side: 0 | 1): boolean {
-  return gallClosing(s) && gallPincher(s) === side + 1;
+  return gallClosing(s) && gallPresser(s) === side + 1;
 }
 
 /** Whether the root asks for a shot: a fire step lit with the root bared. */
@@ -132,7 +133,7 @@ export function gallRootAsks(s: GallState): boolean {
   return s.bared && gallLitStep(s)?.ask === "fire";
 }
 
-/** Whether the gall is pinched shut this instant. */
+/** Whether the gall is pressed shut this instant. */
 export function gallShut(world: World, s: GallState): boolean {
   return s.gapMilli <= world.cfg.gallShutMilli;
 }
@@ -142,7 +143,7 @@ export function gallDone(s: GallState): boolean {
   return s.phase === "flat";
 }
 
-/** A fresh gall: slack on the seam's first point, unclosed, no pinch on it. */
+/** A fresh gall: slack on the seam's first point, unclosed, no press on it. */
 export function freshGall(beat: number, steps: readonly GallStep[], openMilli: number): GallState {
   return {
     kind: "gall",

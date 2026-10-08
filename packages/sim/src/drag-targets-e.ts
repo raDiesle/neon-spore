@@ -34,7 +34,7 @@ export type DragTargetE =
   | "halterChordRight"
   | "capstanSteer"
   | "capstanRub"
-  | "gallPinch"
+  | "gallPress"
   | "trapezeFreeze"
   | "trapezeDraw"
   | "governorTap"
@@ -151,13 +151,13 @@ export type DragTargetE =
  */
 
 /**
- * `gallPinch` is the hundred-and-first: THE GALL's one pinch, on whichever
+ * `gallPress` is the hundred-and-first: THE GALL's one press, on whichever
  * point of the seam it goes down on, heard from the seat nearer that point.
  *
- * No new reading: `viseLobeLeft`'s `SqueezeGap`, `fromMilli` the gap between
- * the two touches and a lift the gall open again. `id` is the point, nought
- * at the left end, and a pinch counts only on the point the gall is on
- * (`gall-hand.ts`).
+ * `on` the finger down and the gall shut, a lift the gall open again;
+ * `fromMilli` is not read. It was `viseLobeLeft`'s two-finger `SqueezeGap`
+ * until 7 October 2026. `id` is the point, nought at the left end, and a
+ * press counts only on the point the gall is on (`gall-hand.ts`).
  */
 
 /**

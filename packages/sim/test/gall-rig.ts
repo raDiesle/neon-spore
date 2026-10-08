@@ -13,18 +13,14 @@ import {
 import type { Bullet, Color } from "../src/types.js";
 
 /**
- * THE GALL's test rig: a script installed and a pinch sent as a thumb and
- * finger would send it — its gap and the point it went down on. Shared by
+ * THE GALL's test rig: a script installed and a press sent as a finger
+ * would send it — down or lifted, and the point it went down on. Shared by
  * `gall.test.ts`.
  */
 
 export const CFG: SimConfig = { ...DEFAULT_CONFIG };
 export const TPB = ticksPerBeat(CFG);
 export const MID = midCol(CFG);
-/** A gap well under shut. */
-export const SHUT = CFG.gallShutMilli - 300;
-/** A gap well over shut, short of open. */
-export const WIDE = CFG.gallShutMilli + 900;
 
 /** The shipped wave's script, written out: sim tests do not read content. */
 export const SCRIPT: readonly GallStep[] = [
@@ -75,27 +71,21 @@ export function beats(world: World, n: number): Set<string> {
   return runUntil(world, (w) => w.beat >= at);
 }
 
-/** A pinch from `player` on `point` with `gap` between the touches, or lifted (`on` false). */
-export function pinch(
-  world: World,
-  player: 1 | 2,
-  point: number,
-  gap: number,
-  on = true,
-): string[] {
+/** A press from `player` on `point`, or lifted (`on` false). */
+export function press(world: World, player: 1 | 2, point: number, on = true): string[] {
   return tick(world, [
     {
       tick: world.tick,
       player,
-      command: { kind: "drag", target: "gallPinch", on, fromMilli: gap, id: point },
+      command: { kind: "drag", target: "gallPress", on, fromMilli: 0, id: point },
     },
   ]);
 }
 
-/** The pinch the pair would make: the nearer seat, shut, on the gall where it sits. */
-export function pinchHere(world: World, gap = SHUT): string[] {
+/** The press a pair would make: the nearer seat, on the gall where it sits. */
+export function pressHere(world: World): string[] {
   const at = gall(world).point;
-  return pinch(world, gallSeatAt(at), at, gap);
+  return press(world, gallSeatAt(at), at);
 }
 
 export function shot(color: Color, col = MID): Bullet {

@@ -1,7 +1,7 @@
 import { type DragTarget, valveTurning, type World } from "@neon-spore/sim";
 import { capstanRubStanding, capstanSteerStanding, capstanTakesHand } from "./capstan-grip.js";
 import { davitLooseCircle, davitSteerCircle } from "./davit-grip.js";
-import { gallPointCircle, gallTakesPinch } from "./gall-grip.js";
+import { gallPointCircle, gallTakesPress } from "./gall-grip.js";
 import { governorTapCircle } from "./governor-grip.js";
 import { grindstoneStanding, grindstoneTakesHand } from "./grindstone-grip.js";
 import { halterGripStanding } from "./halter-grip.js";
@@ -116,11 +116,11 @@ export function laterBossHandleCircle(
     if (b === null || !capstanTakesHand(b)) return null;
     return capstanSteerStanding(l, cfg, b, world.beat, beatPhase);
   }
-  if (target === "gallPinch") {
+  if (target === "gallPress") {
     // THE GALL's nodule on the point it sits on. Null once the third close
     // pulls it under (`gall-grip.ts`).
     const b = world.boss?.kind === "gall" ? world.boss : null;
-    if (b === null || !gallTakesPinch(b)) return null;
+    if (b === null || !gallTakesPress(b)) return null;
     return gallPointCircle(l, cfg, b.point);
   }
   if (target === "governorTap") {

@@ -5,7 +5,7 @@ import { GALL_ASKS, GALL_PHASES, type GallState } from "./gall.js";
  *
  * **The authored script goes in whole**, THE SEAM's reason (`seam-hash.ts`),
  * with its length ahead of it. The point goes in because it was drawn off the
- * `Rng` and decides which pinch counts, and the gap because it is heard on
+ * `Rng` and decides which press counts, and the gap because it is heard on
  * the tick and counted on the beat.
  */
 export function gallHashParts(s: GallState): number[] {

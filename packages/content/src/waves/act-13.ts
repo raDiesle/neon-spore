@@ -32,8 +32,8 @@ import type { Wave } from "../wave-types.js";
  * shots at the core, the last one white.
  *
  * **THE GALL is the first boss that moves when it is answered.** A soft
- * nodule on a raised seam across the hull: the seat nearer it pinches it
- * shut and keeps it shut, and the instant it closes it jumps to another of
+ * nodule on a raised seam across the hull: the seat nearer it presses it
+ * shut and holds it shut, and the instant it closes it jumps to another of
  * the seam's four points, for whichever seat is nearer there (§38,
  * `sim/gall.ts`). Three closes bare the root, and one shot in red ends it.
  *
@@ -137,9 +137,9 @@ export const WAVES_ACT_13: Wave[] = [
     id: "theGall",
     name: "THE GALL",
     guide: {
-      both: "Pinch the gall shut where it sits, on your half. It jumps: find it and pinch it there. Three closes bare the root. Shoot it in its colour.",
-      p1: "1. When the gall sits on your half, the left, pinch it shut and keep it shut.\n2. When it jumps, say where it went.\n3. After three closes, shoot the root in its colour.",
-      p2: "1. When the gall sits on your half, the right, pinch it shut and keep it shut.\n2. When it jumps, say where it went.\n3. After three closes, shoot the root in its colour.",
+      both: "Press and hold the gall where it sits, on your half. It jumps: find it and press it there. Three closes bare the root. Shoot it in its colour.",
+      p1: "1. The gall starts on your half, the left. Press it and hold until it jumps.\n2. Say where it went. Press it again when it is on your half.\n3. After three closes, move the cannon to the middle.",
+      p2: "1. When the gall jumps to your half, the right, press it and hold until it jumps.\n2. Say where it went.\n3. After three closes, shoot the root in its colour.",
     },
     entries: [],
     boss: {

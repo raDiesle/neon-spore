@@ -173,7 +173,7 @@ export const NO_SUBJECT_D: Record<string, string> = {
   // THE GALL's eleven: a seam over the field, the same argument.
   "boss.gallEnter": "the seam rising over the field. A fixture, not a body on a grid.",
   "boss.gallLight": "a step lighting on the seam. Same argument.",
-  "boss.gallPinch": "the gall pinched shut. Same argument.",
+  "boss.gallPress": "the gall pinched shut. Same argument.",
   "boss.gallSlip": "the pinch widening back before the count was done. Same argument.",
   "boss.gallClose": "a close landed and the gall jumping. Same argument.",
   "boss.gallSwell": "a close window run out, the gall swelling back. Same argument.",

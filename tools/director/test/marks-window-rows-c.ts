@@ -69,7 +69,7 @@ export const ROWS_C: readonly Row[] = [
   {
     kind: "gall",
     marks: [
-      mark(gallMarks, "drawGallPinch", (w) => gallClosing(gall(w))),
+      mark(gallMarks, "drawGallPress", (w) => gallClosing(gall(w))),
       mark(
         gallMarks,
         "drawGallRoot",

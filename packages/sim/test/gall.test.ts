@@ -10,32 +10,30 @@ import {
   gall,
   install,
   MID,
-  pinch,
-  pinchHere,
+  press,
+  pressHere,
   runUntil,
   SCRIPT,
-  SHUT,
   shot,
   toLit,
-  WIDE,
 } from "./gall-rig.js";
 
 /**
- * THE GALL: pinch the gall shut where it sits, and when it jumps, find it and
- * pinch it there.
+ * THE GALL: press the gall shut where it sits, and when it jumps, find it and
+ * press it there.
  *
- * What these pin is what a phone cannot show: that a pinch counts only on
+ * What these pin is what a phone cannot show: that a press counts only on
  * the point the gall is on and only from the seat nearer it; that a close
  * jumps the gall to a point it was not on, off the seeded `Rng`, and leaves
- * the pinch that closed it on nothing; that widening starts the count again;
+ * the press that closed it on nothing; that a lift starts the count again;
  * that a close run out is tried again with the gall where it was; that three
  * closes bare the root; and that a shot run out is the wave.
  */
 
-/** Keep the gall pinched shut where it sits until the lit close lands; the event types seen. */
+/** Keep the gall pressed shut where it sits until the lit close lands; the event types seen. */
 function close(world: World): Set<string> {
   const seen = new Set<string>();
-  for (const t of pinchHere(world)) seen.add(t);
+  for (const t of pressHere(world)) seen.add(t);
   const cursor = gall(world).cursor;
   for (const t of runUntil(world, (w) => gall(w).cursor > cursor)) seen.add(t);
   return seen;
@@ -90,18 +88,18 @@ describe("the seam's four points", () => {
   });
 });
 
-describe("the pinch", () => {
+describe("the press", () => {
   it("shut on the gall's point, from the nearer seat, counts the beats it stays shut", () => {
     const world = toStep(0);
-    const heard = pinch(world, 1, 0, SHUT);
-    expect(heard).toContain("gallPinch");
+    const heard = press(world, 1, 0);
+    expect(heard).toContain("gallPress");
     beats(world, 1);
     expect(gall(world).heldBeats).toBe(1);
   });
 
   it("from the seat that is not nearer does nothing", () => {
     const world = toStep(0);
-    pinch(world, 2, 0, SHUT);
+    press(world, 2, 0);
     expect(gall(world).gapMilli).toBe(CFG.gallOpenMilli);
     beats(world, 1);
     expect(gall(world).heldBeats).toBe(0);
@@ -109,23 +107,23 @@ describe("the pinch", () => {
 
   it("on another point is on bare seam", () => {
     const world = toStep(0);
-    pinch(world, 1, 1, SHUT);
+    press(world, 1, 1);
     expect(gall(world).gapMilli).toBe(CFG.gallOpenMilli);
   });
 
-  it("widened back past shut before the count is done slips, and starts it again", () => {
+  it("lifted before the count is done slips, and starts it again", () => {
     const world = toStep(0);
-    pinch(world, 1, 0, SHUT);
+    press(world, 1, 0);
     beats(world, 1);
-    const heard = pinch(world, 1, 0, WIDE);
+    const heard = press(world, 1, 0, false);
     expect(heard).toContain("gallSlip");
     expect(gall(world).heldBeats).toBe(0);
   });
 
   it("lifted is the gall open again", () => {
     const world = toStep(0);
-    pinch(world, 1, 0, SHUT);
-    pinch(world, 1, 0, 0, false);
+    press(world, 1, 0);
+    press(world, 1, 0, false);
     expect(gall(world).gapMilli).toBe(CFG.gallOpenMilli);
   });
 });
@@ -143,14 +141,14 @@ describe("a close", () => {
     expect(slowing(world)).toBe(false);
   });
 
-  it("leaves the pinch that closed it on nothing: it must be found again", () => {
+  it("leaves the press that closed it on nothing: it must be found again", () => {
     const world = toStep(1);
     const s = gall(world);
     const was = s.point === 0 ? 1 : 0;
-    pinch(world, gallSeatAt(was), was, SHUT);
+    press(world, gallSeatAt(was), was);
     beats(world, 2);
     expect(s.heldBeats).toBe(0);
-    pinchHere(world);
+    pressHere(world);
     beats(world, 1);
     expect(s.heldBeats).toBe(1);
   });
@@ -238,14 +236,14 @@ describe("the end", () => {
 });
 
 describe("two devices", () => {
-  it("agree while their commands do, and part over a single gap", () => {
+  it("agree while their commands do, and part over a single press", () => {
     const a = toStep(0);
     const b = toStep(0);
-    pinch(a, 1, 0, WIDE);
-    pinch(b, 1, 0, WIDE);
+    press(a, 1, 1);
+    press(b, 1, 1);
     expect(hashWorld(a)).toBe(hashWorld(b));
-    pinch(a, 1, 0, SHUT);
-    pinch(b, 1, 0, SHUT + 1);
+    press(a, 1, 0);
+    press(b, 1, 1);
     expect(hashWorld(a)).not.toBe(hashWorld(b));
   });
 });

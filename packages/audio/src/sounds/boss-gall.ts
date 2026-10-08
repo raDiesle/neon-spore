@@ -1,11 +1,11 @@
 /**
  * THE GALL's eleven, in a file of their own for `boss-gorge.ts`' reason.
  *
- * The boss is **a soft nodule on a seam, pinched shut and moving**, and
+ * The boss is **a soft nodule on a seam, pressed shut and moving**, and
  * everything here is wet and elastic: the enter is the seam rising, a low
  * swell under a damp hiss; the light is a step waking, one soft tick. The
- * pinch is the gall squeezed shut, a short squelch; the slip is it bulging
- * back out between the fingers, a rising puff. The close is the gall
+ * press is the gall squeezed shut, a short squelch; the slip is it bulging
+ * back out from under the finger, a rising puff. The close is the gall
  * popping loose and landing on another point, a pop and a soft knock, pitched
  * up per close; the swell is a window run out, the gall filling back. The
  * bare is the root showing, a hum with a glint; the hit is a shot into it, a
@@ -35,25 +35,25 @@ export const BOSS_GALL_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "One soft tick: a step on the seam waking.",
     status: "bound",
-    use: "A step lit: the gall to pinch shut where it sits, or the root to shoot.",
+    use: "A step lit: the gall to press shut where it sits, or the root to shoot.",
     level: 0.34,
     layers: [tick(0.2, 0, 2700), after(0.06, tick(0.08, 0, 3100))],
   },
   {
-    id: "boss.gallPinch",
+    id: "boss.gallPress",
     family: "boss",
     blurb: "A short squelch: the gall squeezed shut.",
     status: "bound",
-    use: "The pinch on the gall's point came shut; the count of beats begins.",
+    use: "The press on the gall's point came shut; the count of beats begins.",
     level: 0.32,
     layers: [spore(420, 0.12, 0.18, 40), after(0.02, thud(300, 180, 0.04, 0.08))],
   },
   {
     id: "boss.gallSlip",
     family: "boss",
-    blurb: "A rising puff: the gall bulging back out between the fingers.",
+    blurb: "A rising puff: the gall bulging back out from under the finger.",
     status: "bound",
-    use: "The shut pinch widened before the count was done; it starts again.",
+    use: "The press lifted before the count was done; it starts again.",
     level: 0.3,
     layers: [air(500, 1400, 0.18, 0.1, 2)],
   },

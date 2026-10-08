@@ -164,7 +164,7 @@ export const INGEST_SILENT_BOSS_D = [
   // loop; the point, the gap and the part stay read off the state.
   "gallEnter",
   "gallLight",
-  "gallPinch",
+  "gallPress",
   "gallSlip",
   "gallClose",
   "gallSwell",

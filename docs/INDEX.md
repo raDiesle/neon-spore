@@ -143,7 +143,7 @@ by hand never moves.
 | `packages/sim/src/config-boss-clocks.ts` | **The bosses that are a clock**, as one block of `SimConfig` |
 | `packages/sim/src/config-creatures.ts` | how long one creature's own clock runs, and the shapes it moves |
 | `packages/sim/src/config-gauge.ts` | THE GAUGE's numbers — the first of the twelve rounds, and its whole difficulty |
-| `packages/sim/src/config-gall.ts` | THE GALL's tuning: the beats around its steps, how wide a pinch opens and how shut it must be |
+| `packages/sim/src/config-gall.ts` | THE GALL's tuning: the beats around its steps, how wide the gall stands open and how shut a press holds it |
 | `packages/sim/src/config-pair.ts` | the switch that exists because the game has two people in front of it |
 | `packages/sim/src/config-shot.ts` | everything about a shot, as numbers: speed, rate, hold value, which moments it may leave on |
 | `packages/sim/src/creature-kinds.ts` | every body that can stand on the field, as a name, in the fixed order the world fingerprint writes it in |
@@ -166,10 +166,10 @@ by hand never moves.
 | `packages/sim/src/gauge-tongue.ts` | **THE GAUGE's twisted tongue**: the rest after the second level, wrung by both hands opposite ways |
 | `packages/sim/src/gauge-gape.ts` | **How far THE GAUGE's mouth is open**, and the one number that makes the round harder as it goes |
 | `packages/sim/src/gauge.ts` | THE GAUGE: one needle, two marks, one of you reading and the other turning |
-| `packages/sim/src/gall-hand.ts` | A pinch on THE GALL: `gallPinch`, `fromMilli` the gap between the two touches in thousandths of a tile |
+| `packages/sim/src/gall-hand.ts` | A press on THE GALL: `gallPress`, one finger — or one mouse button — held down on the nodule |
 | `packages/sim/src/gall-hash.ts` | What THE GALL puts into `hashWorld`, and nothing else |
 | `packages/sim/src/gall-shot.ts` | **THE GALL's shot**: the bared root, where a bolt leaves the top of the field in the middle column |
-| `packages/sim/src/gall-step.ts` | THE GALL's clock: the seam rising, each step lighting, the beats a pinch is kept shut being counted |
+| `packages/sim/src/gall-step.ts` | THE GALL's clock: the seam rising, each step lighting, the beats a press is kept shut being counted |
 | `packages/sim/src/gall.ts` | THE GALL: a soft nodule riding a raised seam the width of the hull |
 | `packages/sim/src/hash-boss.ts` | the boss half of the world fingerprint |
 | `packages/sim/src/hash-boss-clocks.ts` | The fingerprint's share of **the bosses that are a clock** — THE STARE, THE BATON, THE THROAT and THE UNDERTOW |
@@ -1319,7 +1319,7 @@ by hand never moves.
 | `packages/render/src/gall-shape.ts` | **THE GALL's geometry**: where the seam runs, where its four points sit, and what the nodule on it is made of |
 | `packages/render/src/gall-stop.ts` | **Where a bolt meets THE GALL**: the bared root, or the seam's underside across the field |
 | `packages/render/src/gall-blow.ts` | **THE GALL's own blow at the hull** (`boss-strike-look.ts`) |
-| `packages/render/src/gall-fx.ts` | What THE GALL leaves behind a frame (§11.55): the **flare** of a pinch come shut |
+| `packages/render/src/gall-fx.ts` | What THE GALL leaves behind a frame (§11.55): the **flare** of a press come shut |
 | `packages/render/src/gall-receipts.ts` | **What THE GALL's receipts are drawn as**, off the numbers `gall-fx.ts` keeps |
 | `packages/render/src/gall-grip.ts` | **The pinch on THE GALL** — the hands lane that makes the nodule answer two fingers at all |
 | `packages/render/src/gall-verdicts.ts` | **THE GALL's marks answering a touch the way every mark does** (`mark-feedback.ts` |
@@ -3067,7 +3067,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-instar.ts` | THE INSTAR in its first pose, the gape, with the pilot's thumb halfway down the lower jaw |
 | `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-grindstone.ts` | THE GRINDSTONE's four hands: a flat part ground, once a seat, and the caliper clamped by both seats |
-| `tools/director/src/poses-field-controls-gall.ts` | THE GALL's pinch: the first close lit with the gall on the seam's first point |
+| `tools/director/src/poses-field-controls-gall.ts` | THE GALL's press: the first close lit with the gall on the seam's first point |
 | `tools/director/src/poses-field-controls-governor.ts` | THE GOVERNOR's tap, **photographed from the pilot's seat**: a step with a mark for each seat |
 | `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-halter.ts` | THE HALTER's two grips: the left segment asked for |
@@ -3575,7 +3575,7 @@ by hand never moves.
 | `tools/director/src/field-controls-gorge.ts` | THE GORGE's one thumb, in a file of its own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-governor.ts` | THE GOVERNOR's tap, as a row of the ON THE FIELD tab: a seat's tap on the dial |
 | `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |
-| `tools/director/src/field-controls-gall.ts` | THE GALL's pinch, as a row of the ON THE FIELD tab |
+| `tools/director/src/field-controls-gall.ts` | THE GALL's press, as a row of the ON THE FIELD tab |
 | `tools/director/src/field-controls-gimbal.ts` | THE GIMBAL's two rings, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-grindstone.ts` | THE GRINDSTONE's flats and jaws, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn (`field-page.ts` lays them out) |

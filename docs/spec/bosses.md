@@ -10695,7 +10695,7 @@ simulation is.
 ## 11.55 THE GALL — the boss that moves the moment it is closed
 
 > A soft nodule on a raised seam across the hull. The seat nearer it
-> pinches it shut and keeps it shut; the instant it closes it jumps to
+> presses it shut and holds it shut; the instant it closes it jumps to
 > another point on the seam, for whichever seat is nearer there. Three
 > closes bare its root: shoot it in its colour.
 
@@ -10703,23 +10703,25 @@ Designed as §38 of [bosses-choreographed](bosses-choreographed.md) — a
 choreographed scene, the third kind in `.claude/skills/new-boss`. No new
 primitive: THE VISE's `SqueezeGap`, read against a mark that **moves on
 the gesture's own completion** — THE RATCHET's anti-camping shape moved
-from a tap to a continuous pinch.
+from a tap to a continuous pinch. **The pinch became a one-finger press on
+7 October 2026**, the owner's call: the director on a desk has one pointer,
+and the difficulty is the finding, never the fingers.
 
 **It is three closes and one shot, and they are its health.** The state
 (`sim/gall.ts`, hashed in `sim/gall-hash.ts`) is the **phase** and the
 beat it began, the **cursor** into the script, the **point** on the seam
 the gall sits on, the **closes** landed, the **hits**, whether the root is
-**bared**, the **gap** of the pinch on its point in thousandths of a tile,
+**bared**, the **gap** the gall stands open by on its point in thousandths of a tile,
 and the beats of the lit close it has been **kept shut**. The script is
 the wave's (`GallEntry.steps`), copied at install: each step asks `close`
 or `fire`, with a colour or `either` and its own beats.
 
-**The rule, in one sentence.** Pinch the gall shut where it sits, and when
-it jumps, find it and pinch it there.
+**The rule, in one sentence.** Press the gall shut where it sits, and when
+it jumps, find it and press it there.
 
 **The split.** By geometry, THE VISE's rule: the seam's four points stand
 over four columns mirrored about the middle (`gallPointCol`), the two on
-the left the pilot's to pinch and the two on the right the navigator's
+the left the pilot's to press and the two on the right the navigator's
 (`gallSeatAt`). Both screens show the gall where it is — finding it is the
 whole difficulty, not a secret — and a jump across the middle hands the
 next close to the other seat, which is the thing the pair has to notice
@@ -10736,11 +10738,11 @@ the root (`gallBare`). An answered step closes THE SLOW and the seam rests
 `gallRestBeats` before the next lights. With the script done the seam goes
 flat, and stands `gallFlatBeats` before the wave may end.
 
-**The answers** (`sim/gall-hand.ts`). A pinch is the drag `gallPinch`,
-`fromMilli` the gap and `id` the point it went down on. It counts only on
-the point the gall is on and only from that point's seat; lifted, the gap
-is open. The gap widening back past shut before the count is done is a
-slip (`gallSlip`) and starts the count again. A shot is judged where a
+**The answers** (`sim/gall-hand.ts`). A press is the drag `gallPress`, one
+finger held down, `on` the gall shut and `id` the point it went down on;
+`fromMilli` is not read. It counts only on the point the gall is on and only
+from that point's seat; lifted, the gall stands open. A lift before the
+count is done is a slip (`gallSlip`) and starts the count again. A shot is judged where a
 bolt leaves the top of the field (`sim/gall-shot.ts`): only with the root
 bared, only while a fire step is lit, only in the middle column, and only
 in its colour unless it is `either`.
@@ -10756,10 +10758,10 @@ in its colour unless it is `either`.
   is a single frame, never a slide, so the state holds `point`, nought to
   three, and the column is derived (`gallPointCol`). A `Milli` field that
   can only take four values would be a position pretending.
-- **One pinch target, with the point as its `id`.** §38 gives the gap one
+- **One press target, with the point as its `id`.** §38 gives the gap one
   field. The seat changes with the point, so the target is the gesture
-  (`gallPinch`), heard from either seat, and the point the fingers went
-  down on travels as `id`: a pinch left where the gall was is on bare seam
+  (`gallPress`), heard from either seat, and the point the finger went
+  down on travels as `id`: a press left where the gall was is on bare seam
   and never follows it. That is the anti-camping rule, in the wire.
 - **The shot is a fifth row.** §38's four rows end with the gall spent
   and the seam flat; the skill's *every boss is shot at the end* and every
@@ -10792,8 +10794,8 @@ point until the close lands and on the next from that frame, §38's single
 frame, and a nodule seen sliding would be one the pair could follow with
 their eyes instead of their words. **The answer deforms the body**
 (`gall-pose.ts`): it rises out of the seam as it settles in, swells on its
-beat while a close is lit, is squeezed narrow and pushed up by the gap
-between the fingers (nought open, one at `gallShutMilli`), pressed down
+beat while a close is lit, is squeezed narrow and pushed up by the press on
+it, pressed down
 into the seam by the beats it is kept shut, and has a lobe fewer and a
 sixth less size for every close. **The perspective changes** after the
 third: the nodule is pulled under, the seam's two lips peel back over the
@@ -10803,7 +10805,7 @@ the fire step's colour with a ring closing as its window runs, and smaller
 and brighter per hit (`coreHurt`). Shot, the seam closes over it and
 smooths flat and fades. **The marks say which gesture** (`gall-marks.ts`):
 two chevrons pointing in at the nodule from either side, closing as the
-fingers do, glowing and breathing with a window ring round them **on the
+press takes it, glowing and breathing with a window ring round them **on the
 screen of the seat whose half the gall is on**, and a faint plain line with
 no ring on the other's (`showsGallReach`) — *yours*, and *not yours, look*.
 The seam, its scars and the gall are on both screens: finding it is the
@@ -10816,7 +10818,7 @@ lash: **the root seeds**. A seed of the nodule, three lobes at a third of
 its size, tears off the root's underside on a strand of flesh that snaps
 halfway down the middle column, splats on the skin and takes root there,
 three tendrils creeping into the plating the way the root's own go into the
-hull, then withers. What outlives a frame is `GallFx`: a pinch come shut
+hull, then withers. What outlives a frame is `GallFx`: a press come shut
 lights the nodule's rim white; a slip shudders it; a close leaves a **ghost
 of the nodule on the point it jumped off**, rising and spreading as it
 fades — a moment of *it was here* beside the single frame of the jump; a
@@ -10829,18 +10831,18 @@ has not, because no play lets a fire step run with the closes made.
 
 **AUTO plays it** (`hands/boss-hands-gall.ts`,
 `tools/director/test/autopilot-gall.test.ts`): the seat whose half the
-gall sits on pinches it shut, sends the pinch again on the point it jumps
+gall sits on presses it shut, sends the press again on the point it jumps
 to, and lets go once the step is answered; the bared root is shot up the
 middle in the step's colour.
 
-**The pinch's touch** (`render/gall-grip.ts`): two fingers of one seat on
-the seam's row, THE VISE's pair and gap (`pinch-pair.ts`, `pinch.ts`), taken
-on the point of that seat's half nearest the first finger and sent with the
-point as its `id` — on the squeeze and on the lift, so a pinch left where the
-gall was stays there when it jumps. Every point of the seat's half takes one,
-the gall on it or not: *find it* is the simulation's to judge, and a pinch on
-bare seam is heard and does nothing. The seam takes a pinch until the third
-close pulls the nodule under. **The cue** (`boss-cue-read-zm.ts`): `PINCH` on
+**The press's touch** (`render/gall-grip.ts`): one finger of one seat — or
+the mouse — on the seam's row, taken on the point of that seat's half nearest
+it and sent with the point as its `id` — as it lands and on the lift, so a
+press left where the gall was stays there when it jumps. Every point of the
+seat's half takes one, the gall on it or not: *find it* is the simulation's
+to judge, and a press on bare seam is heard and does nothing. The seam takes
+a press until the third close pulls the nodule under. **The cue**
+(`boss-cue-read-zm.ts`): `HOLD` on
 the nodule to the seat whose half it sits on, gone once it is shut, jumping
 with it; `FIRE` under the middle column on the bared root. The guide is
 prose.
@@ -10848,20 +10850,19 @@ prose.
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/gall.test.ts`): the gall comes in slack on the first point
 with the root covered and takes no shot, and lights its first close under
-THE SLOW; the four points stand mirrored, two to each seat; a pinch shut
-on the gall's point from its seat counts beats, from the other seat or on
-another point does nothing, widened slips and starts again, and lifted is
-open; a close kept its beats jumps the gall to a point it was not on, off
-the seeded `Rng`, and leaves the pinch that closed it on nothing; the
+THE SLOW; the four points stand mirrored, two to each seat; a press on the
+gall's point from its seat counts beats, from the other seat or on another
+point does nothing, and lifted early slips and starts again; a close kept its beats jumps the gall to a point it was not on, off
+the seeded `Rng`, and leaves the press that closed it on nothing; the
 third close bares the root; a close window run out swells and relights on
 the same point with no hull hit; a fire step lights without THE SLOW,
 wants its colour and the middle column, and run out is the wave; shot
 whole, the seam goes flat and the fight ends; and two devices part over a
-single thousandth of gap. Whether any of it *reads* — whether a pair
+single press. Whether any of it *reads* — whether a pair
 notices together which of them the gall is nearer — is the owner's eye,
 on two real phones. And of the body: whether the heel reads as
-*whose* at a glance at tempo, and whether the pinch's two chevrons read as a
-pinch before anybody has been told.
+*whose* at a glance at tempo, and whether the two chevrons read as *hold it*
+before anybody has been told.
 
 **Its marks answer a touch the way every mark does**
 (`render/gall-verdicts.ts`, `test/gall-verdict.test.ts`). Two marks: the
@@ -10871,9 +10872,9 @@ that seat's screen and the partner's ring and clock on the other's — so when
 the gall jumps across the middle the halo goes over to the other screen with
 it. On a fire step with the root bared the root asks for the shot, which is
 either seat's, so it haloes on both screens with nobody's clock. A close
-landed greens the point and a hit greens the root; a pinch let slip or a
-close run out reddens the point, and a shot run out the root. A pinch come
-shut says nothing, and a pinch on bare seam and a wrong colour stay silent,
+landed greens the point and a hit greens the root; a press let slip or a
+close run out reddens the point, and a shot run out the root. A press come
+shut says nothing, and a press on bare seam and a wrong colour stay silent,
 as the simulation is.
 
 ## 11.56 THE BURGEE — a flag stilled by one seat and caught by the other

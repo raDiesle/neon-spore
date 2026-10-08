@@ -434,7 +434,7 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   capstanRub: "field",
   // THE GALL's pinch: a point of this seat's half of the seam, the point sent
   // as its id, on both screens (`render/gall-grip.ts`, §11.55).
-  gallPinch: "field",
+  gallPress: "field",
   // THE TRAPEZE's tap on the freeze ring and draw on the track, each the lit
   // step's seat's, pressed where they are drawn (`render/trapeze-grip.ts`, §11.56).
   trapezeFreeze: "field",

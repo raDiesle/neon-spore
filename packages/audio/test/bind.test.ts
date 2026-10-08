@@ -658,7 +658,7 @@ const SAMPLES: Record<string, SimEvent> = {
   capstanOut: { type: "capstanOut", col: 5 },
   gallEnter: { type: "gallEnter", col: 1, point: 0 },
   gallLight: { type: "gallLight", col: 1, ask: "close", point: 0 },
-  gallPinch: { type: "gallPinch", col: 1, point: 0 },
+  gallPress: { type: "gallPress", col: 1, point: 0 },
   gallSlip: { type: "gallSlip", col: 1, point: 0 },
   gallClose: { type: "gallClose", col: 9, from: 0, to: 3, closes: 1 },
   gallSwell: { type: "gallSwell", col: 4, point: 1 },

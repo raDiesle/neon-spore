@@ -110,7 +110,7 @@ export const SILENT_BOSS_D = [
   // loop by its own fx file (`gall-fx.ts`).
   "gallEnter",
   "gallLight",
-  "gallPinch",
+  "gallPress",
   "gallSlip",
   "gallClose",
   "gallSwell",

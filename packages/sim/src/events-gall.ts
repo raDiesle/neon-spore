@@ -17,15 +17,15 @@ interface GallColEvent {
 export type GallEvent =
   /** The seam rises into frame with the gall slack on its first point. */
   | ({ type: "gallEnter"; point: number } & GallColEvent)
-  /** A step lit: the gall to be pinched shut where it sits, or the root to shoot. */
+  /** A step lit: the gall to be pressed shut where it sits, or the root to shoot. */
   | ({ type: "gallLight"; ask: GallAsk; point: number } & GallColEvent)
-  /** A pinch on the gall's point came shut: the count begins. */
-  | ({ type: "gallPinch"; point: number } & GallColEvent)
-  /** The shut pinch widened before the count was done: it starts again. */
+  /** A press on the gall's point came shut: the count begins. */
+  | ({ type: "gallPress"; point: number } & GallColEvent)
+  /** The shut press widened before the count was done: it starts again. */
   | ({ type: "gallSlip"; point: number } & GallColEvent)
   /** A close landed and the gall jumped `from` one point `to` another; `closes` so far. */
   | ({ type: "gallClose"; from: number; to: number; closes: number } & GallColEvent)
-  /** A close window ran out: the gall swells back, to be pinched again where it sits. */
+  /** A close window ran out: the gall swells back, to be pressed again where it sits. */
   | ({ type: "gallSwell"; point: number } & GallColEvent)
   /** The last close landed and the root lies bare. */
   | ({ type: "gallBare" } & GallColEvent)

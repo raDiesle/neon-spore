@@ -5,38 +5,38 @@ import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
 /**
- * **The pinch on THE GALL** — the hands lane that makes the nodule answer two
- * fingers at all (§11.55, `bosses-choreographed.md` §38).
+ * **The press on THE GALL** — the hands lane that makes the nodule answer a
+ * finger at all (§11.55, `bosses-choreographed.md` §38).
  *
  * Its own page for `vise-grip.ts`' reason: the seam a finger is answered on
  * is the one `drawGall` puts on the screen this frame, at the same row and
  * the same four points, and all this file adds is *which* point a press is
- * on. The pair is THE VISE's too — whoever owns the pointers makes it
- * (`pinch-pair.ts`) and the gap is the space between the fingertips
- * (`pinch.ts`) — and the point the first finger went down on goes out as the
- * pinch's `id`.
+ * on. **One finger, or one mouse button**: it was THE VISE's two-finger pinch
+ * until the owner swapped it on 7 October 2026, because the director on a
+ * desk has one pointer. The press goes out the moment it lands, the point it
+ * landed on as its `id`, and the lift is the ordinary drag's lift
+ * (`touch.ts`), carrying the same `id`.
  *
- * **A point is pinched in its share of the seam, not on the nodule.** The
- * nodule is under two tiles wide and a pinch is two fingertips landing apart,
- * so a press is taken anywhere on the seam's row, half a tile more than the
+ * **A point is pressed in its share of the seam, not only on the nodule**: a
+ * press is taken anywhere on the seam's row, half a tile more than the
  * nodule's height either way, and named for the point it is nearest. **Every
  * point on this seat's half takes one**, the gall on it or not: the
- * simulation hears a pinch on bare seam and does nothing with it
- * (`sim/gall-hand.ts`), which is the whole of *find it*, and a pinch left
+ * simulation hears a press on bare seam and does nothing with it
+ * (`sim/gall-hand.ts`), which is the whole of *find it*, and a press left
  * where the gall was stays on that point when the gall jumps. A press nearest
  * a point on the other seat's half falls through to whatever is behind it, as
  * the simulation would refuse it anyway.
  *
- * **The gall takes a pinch while the nodule stands**, from its rise out of
+ * **The gall takes a press while the nodule stands**, from its rise out of
  * the seam until the third close pulls it under; the root is shot, never
- * pinched.
+ * pressed.
  */
 
 /** Half a tile of row above and below the nodule, so a fingertip at its top is not refused on a pixel. */
 const MARGIN = 0.5;
 
-/** Whether the nodule is there to be pinched: until the root is bared, and never once the seam is flat. */
-export function gallTakesPinch(s: GallState): boolean {
+/** Whether the nodule is there to be pressed: until the root is bared, and never once the seam is flat. */
+export function gallTakesPress(s: GallState): boolean {
   return !s.bared && s.phase !== "flat";
 }
 
@@ -63,14 +63,13 @@ function nearestPoint(l: Layout, cfg: SimConfig, x: number): number {
 }
 
 /**
- * A press on this seat's half of the seam: one finger of a pinch on the point
- * it is nearest, held and **saying nothing** — a finger alone is not a pinch,
- * and the gap goes out once a second finger is down (`pinch.ts`).
- * `bossOf(field, "gall")` is `null` on every wave without it.
+ * A press on this seat's half of the seam, on the point it is nearest, sent
+ * as it lands and held until the lift. `bossOf(field, "gall")` is `null` on
+ * every wave without it.
  */
-export function gallPinchUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
+export function gallPressUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const s = bossOf(field, "gall");
-  if (s === null || !gallTakesPinch(s)) return null;
+  if (s === null || !gallTakesPress(s)) return null;
   const cfg = field.cfg;
   const point = nearestPoint(l, cfg, x);
   const at = gallPointAt(l, cfg, point);
@@ -80,15 +79,14 @@ export function gallPinchUnder(l: Layout, x: number, y: number, field: Field): T
   if (gallSeatAt(point) !== seat) return null;
   return {
     player: seat,
-    command: null,
+    command: { kind: "drag", target: "gallPress", on: true, fromMilli: 0, id: point },
     hold: {
       kind: "drag",
-      target: "gallPinch",
+      target: "gallPress",
       player: seat,
       originX: x,
       originY: y,
       id: point,
-      pinch: true,
     },
   };
 }

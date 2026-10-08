@@ -143,8 +143,8 @@ export function gallSize(l: Layout): { rx: number; ry: number } {
 /**
  * NOTCH 2's heeled mass, round its own middle: `lobes` lobes breathing on
  * `time`, heeled toward `bearing` (nought the right, π the left) by `heel` of
- * the draft's own, `size` of its fullest, and pinched `pinch` of the way —
- * squeezed across the way two fingers close on it and pushed up out of the
+ * the draft's own, `size` of its fullest, and pressed `press` of the way —
+ * squeezed across the way a press shuts it and pushed up out of the
  * seam — then `sunk` of the way down into it.
  */
 export function gallNodulePath(
@@ -155,13 +155,13 @@ export function gallNodulePath(
     bearing: number;
     heel: number;
     size: number;
-    pinch: number;
+    press: number;
     sunk: number;
   },
 ): Path2D {
   const { rx, ry } = gallSize(l);
-  const across = opts.size * (1 - 0.45 * opts.pinch);
-  const up = opts.size * (1 + 0.3 * opts.pinch) * (1 - 0.7 * opts.sunk);
+  const across = opts.size * (1 - 0.45 * opts.press);
+  const up = opts.size * (1 + 0.3 * opts.press) * (1 - 0.7 * opts.sunk);
   const pts: Point[] = [];
   for (let i = 0; i < N; i++) {
     const a = (i / N) * Math.PI * 2;

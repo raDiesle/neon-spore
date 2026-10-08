@@ -1,6 +1,6 @@
 /**
- * THE GALL's tuning: the beats around its steps, how wide a pinch opens and
- * how shut it must be, and how long it must be kept shut to close
+ * THE GALL's tuning: the beats around its steps, how wide the gall stands
+ * open and how shut a press holds it, and how long it must be kept shut to close
  * (`docs/spec/bosses-choreographed.md` §38).
  *
  * What is **not** here is the script — which step asks what, in which colour,
@@ -11,11 +11,11 @@ export interface GallConfig {
   gallSlackBeats: number;
   /** Beats the seam rests after a step before the next lights. */
   gallRestBeats: number;
-  /** Beats a pinch must be kept shut on the gall's point to close it. */
+  /** Beats a press must be kept shut on the gall's point to close it. */
   gallShutBeats: number;
-  /** The gap with no pinch on the gall, in thousandths of a tile: wide open. */
+  /** How far the gall stands open with no press on it, in thousandths of a tile. */
   gallOpenMilli: number;
-  /** The gap at or under which the gall is pinched shut, in thousandths of a tile. */
+  /** The gap at or under which the gall counts as shut, in thousandths of a tile; a press holds it at nought. */
   gallShutMilli: number;
   /** Beats the flat seam stands with the root shot before the wave may end. */
   gallFlatBeats: number;

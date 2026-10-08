@@ -8,9 +8,9 @@ import { stageField } from "../src/stage-field.js";
 
 /**
  * **AUTO plays THE GALL to the end** (`hands/boss-hands-gall.ts`): each close
- * pinched shut by the seat whose half the gall sits on, the gall found and
- * pinched again wherever it jumps, and the bared root shot in its colour —
- * with no window run out, no pinch let slip and the hull never struck.
+ * pressed shut by the seat whose half the gall sits on, the gall found and
+ * pressed again wherever it jumps, and the bared root shot in its colour —
+ * with no window run out, no press let slip and the hull never struck.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };

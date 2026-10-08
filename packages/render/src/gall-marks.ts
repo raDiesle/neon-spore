@@ -8,7 +8,7 @@ import { PALETTE, STROKE } from "./palette.js";
 
 /**
  * **THE GALL's marks**: what says what a step asks — two chevrons closing on
- * the nodule from either side, which is *pinch here*; and the bared root lit,
+ * the nodule from either side, which is *press here*; and the bared root lit,
  * which is *shoot here, in this colour*. The chevrons are the white of the
  * hull's rim, the one light on a growth that is otherwise the hull's own
  * violet gone dull; the root is the only part in a cannon's colour,
@@ -20,7 +20,7 @@ import { PALETTE, STROKE } from "./palette.js";
  * fight (§38). The scar under the gall is hidden by the gall.
  */
 
-/** How strong the pinch mark is on the screen of the seat it is not for. */
+/** How strong the press mark is on the screen of the seat it is not for. */
 const OTHER = 0.35;
 
 /** A scar where point `at` sits on the seam: a short dark crease across it. */
@@ -36,26 +36,26 @@ export function drawGallScar(ctx: CanvasRenderingContext2D, l: Layout, x: number
 }
 
 /**
- * The pinch's mark round the nodule, `rx` pixels to either side of its
- * middle: two chevrons pointing in at it that close the way the fingers do
- * — `pinch` of the way from open to shut. On the screen of the seat whose
- * pinch it is (`full`) they glow and breathe on the beat, with a ring round
+ * The press's mark round the nodule, `rx` pixels to either side of its
+ * middle: two chevrons pointing in at it that close as the press takes it
+ * — `press` of the way from open to shut. On the screen of the seat whose
+ * press it is (`full`) they glow and breathe on the beat, with a ring round
  * them closing as the window runs out, `left` of it still to go; on the
  * other screen they are a faint plain line and no ring — *not yours* —
  * which still says where the gall is for the seat that has to say it.
  */
-export function drawGallPinch(
+export function drawGallPress(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   rx: number,
-  pinch: number,
+  press: number,
   left: number,
   full: boolean,
   beatPhase: number,
 ): void {
   const pulse = 0.7 + 0.3 * Math.cos(beatPhase * Math.PI * 2);
   const r = 0.16 * l.tile;
-  const reach = rx + (0.55 - 0.4 * pinch) * l.tile;
+  const reach = rx + (0.55 - 0.4 * press) * l.tile;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
   for (const side of [-1, 1] as const) {

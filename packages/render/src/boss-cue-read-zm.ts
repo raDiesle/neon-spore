@@ -1,7 +1,7 @@
 import {
   type GallState,
   gallLitStep,
-  gallPincher,
+  gallPresser,
   gallShut,
   midCol,
   type World,
@@ -15,15 +15,16 @@ import type { Layout } from "./layout.js";
 
 /**
  * **What THE GALL is asking for** — page thirty-nine of the readings, THE
- * VISE's (`boss-cue-read-zf.ts`) with the pinch moving. Both screens draw the
+ * VISE's (`boss-cue-read-zf.ts`) with the hand on it moving. Both screens draw the
  * whole seam and the gall where it sits (`gall-draw.ts`), so nothing a word
  * could stand on is a secret, and `cueSeen` keeps it to the thumb that can
  * act on it.
  *
- * **`PINCH` on the nodule, to the seat whose half it sits on**, while a close
- * is lit, on the point's round where the ghost thumb stands. It goes the
- * moment the gap is under the shut line — a word over a pinch already shut
- * could only say *keep going* — and a pinch let slip is owed it again. **When
+ * **`HOLD` on the nodule, to the seat whose half it sits on**, while a close
+ * is lit, on the point's round where the ghost thumb stands — `PINCH` until
+ * the pinch became a press on 7 October 2026. It goes the moment the press
+ * shuts it — a word over a gall already held could only say *keep going* —
+ * and a press let slip is owed it again. **When
  * the gall jumps the word jumps with it**, on the frame it lands, to whichever
  * seat is nearer there: *where did it go* is the pair's to say out loud, and
  * the word is only ever on the screen of the one who has to move. The kind is
@@ -47,6 +48,6 @@ export function gallCues(l: Layout, world: World, s: GallState): readonly BossCu
   }
   if (gallShut(world, s)) return [];
   const at = gallPointCircle(l, world.cfg, s.point);
-  const seat = gallPincher(s);
-  return [{ seat, kind: "HOLD", word: "PINCH", x: at.x, y: at.y, ...frame, seed: 163 }];
+  const seat = gallPresser(s);
+  return [{ seat, kind: "HOLD", word: "HOLD", x: at.x, y: at.y, ...frame, seed: 163 }];
 }

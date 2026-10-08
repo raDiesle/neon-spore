@@ -8,7 +8,7 @@ import { cystUnder } from "./cyst-grip.js";
 import { davitLooseUnder, davitSteerUnder } from "./davit-grip.js";
 import { filamentGrabUnder } from "./filament-grip.js";
 import { fleetGripUnder } from "./fleet-grip.js";
-import { gallPinchUnder } from "./gall-grip.js";
+import { gallPressUnder } from "./gall-grip.js";
 import { gaugeGripUnder } from "./gauge-grip.js";
 import { gimbalRingUnder } from "./gimbal-grip.js";
 import { gorgeGripUnder } from "./gorge-grip.js";
@@ -160,7 +160,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     halterGripUnder(l, x, y, field) ?? // THE HALTER's two lit grips, either seat's, a finger of a chord each (`halter-grip.ts`).
     capstanRubUnder(l, x, y, field) ?? // THE CAPSTAN's drum, either end rubbed from either seat (`capstan-grip.ts`).
     capstanSteerUnder(l, x, y, field) ?? // THE CAPSTAN's middle, pulled to steer the cradle (`capstan-grip.ts`).
-    gallPinchUnder(l, x, y, field) ?? // THE GALL's seam, one finger of this seat's pinch on the point it is nearest (`gall-grip.ts`).
+    gallPressUnder(l, x, y, field) ?? // THE GALL's seam, one finger of this seat's pinch on the point it is nearest (`gall-grip.ts`).
     davitSteerUnder(l, x, y, field) ?? // THE DAVIT's boom, carried to steer it onto the lit side (`davit-grip.ts`).
     davitLooseUnder(l, x, y, field) ?? // THE DAVIT's hook, held then loosed toward the lit column (`davit-grip.ts`).
     trapezeFreezeUnder(l, x, y, field) ?? // THE TRAPEZE's freeze ring, the lit step's freezer's tap (`trapeze-grip.ts`).

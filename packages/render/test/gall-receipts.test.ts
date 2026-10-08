@@ -10,7 +10,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * What THE GALL's receipts leave for a moment after (`render/src/gall-fx.ts`,
- * drawn by `gall-draw.ts` and `gall-receipts.ts`): a pinch's flare, a slip's
+ * drawn by `gall-draw.ts` and `gall-receipts.ts`): a press's flare, a slip's
  * shudder, a swell's bulge, the ghost a close leaves on the point it left,
  * the lips tearing as the root is bared, and the root's flash — on all three
  * screens, each against the same pose with no receipt thrown.
@@ -30,9 +30,9 @@ function bared(w: World): void {
 }
 
 describe("THE GALL's receipts", () => {
-  it.each(ROLES)("lights the nodule's rim white for a pinch come shut, on %s", (role) => {
+  it.each(ROLES)("lights the nodule's rim white for a press come shut, on %s", (role) => {
     const plain = frame(role, (w) => posed(w, CLOSE));
-    const shut = frame(role, (w) => posed(w, CLOSE), { type: "gallPinch", point: 0, col: 0 });
+    const shut = frame(role, (w) => posed(w, CLOSE), { type: "gallPress", point: 0, col: 0 });
     expect(count(shut, PALETTE.hullRim)).toBeGreaterThan(count(plain, PALETTE.hullRim));
   });
 
@@ -77,7 +77,7 @@ describe("THE GALL's receipts", () => {
     const burst = () => {};
     fx.ingest(
       [
-        { type: "gallPinch", point: 0, col: 0 },
+        { type: "gallPress", point: 0, col: 0 },
         { type: "gallClose", from: 0, to: 1, closes: 1, col: 0 },
         { type: "gallBare", col: 3 },
         { type: "gallHit", hits: 1, col: 3 },
