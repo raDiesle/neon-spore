@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 8e0310740 — THE LEAD's lean as an arrow, offered in VERSUS
+
+THE LEAD's lean has a candidate, `lead:lean` / ARROW. In the game, the lean is only a tilt of the stalk on a spring. ARROW draws an arrow out of the stalk's tip the way the body goes, with a length to it: one chevron for each column it moves a beat (one at the walk, two at the run). It shows the pace, not the lead, so the sum stays the pair's. It is drawn on the pilot's screen alone, behind the same gate as the lean. Shipped picture unchanged: `drawLead` calls `LEAN_LOOK` in `lead-lean.ts`, which draws nothing.
+
 ## 2026-10-08 · d7a7be2f9 — THE SURGE's burst spraying the whole ship, offered in VERSUS
 
 THE SURGE's burst has a candidate, `surge:spray` / SPLATTER. In the game, a burst is three gums down the bulb's own columns, a puff of sparks and the jolt. SPLATTER throws gobs of the bulb on arcs to every column of the field, wall to wall, and leaves them on the hull as splats that sag and fade over two and a half beats. It is judged on a new pose, THE SURGE · BURST, which stops on the burst's own tick. Shipped picture unchanged: `SurgeFx` keeps the spray's clock and draws through `SPRAY_LOOK` in `surge-spray.ts`, which draws nothing. This closes the queue entry for THE SURGE's three unbuilt looks.
