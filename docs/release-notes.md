@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · afa684dab — THE LATCH's simulation: a rope hauled hand over hand, never both let go
+
+Wave 124 THE LATCH, §2 of the cinematic brief, built as a tug of war: a slime has hooked the hull with a rope and each seat has one grip on it. Only the grip whose turn it is hauls the rope down, a real pull let go passes the turn, and both thumbs off at once slips the rope back to the last knot. Yank levels rear before they yank and want both hands on; a cross level swaps the grips; a level run out tears the hull. Sound, AUTO's hand and the director's rows are in; the look is the next lane, and every latch event is silent on the field until then.
+
 ## 2026-10-08 · c710964b2 — THE INSTAR's fly-in is offered face-on with a tapered body
 
 `instar:flight` gets its second candidate, TAPER, the owner's option B: the approach stays face-on, but the seamed tube behind the head is drawn as one smooth taper from a deep chest to a fine end, with the wings spread full. The plates come back and the wings settle over the last 30% of the approach. The new `INSTAR_FLIGHT_LOOK.body` field ships at 0, and SIDE leaves it there, so no shipped frame changes.
