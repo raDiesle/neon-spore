@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 9b41d6d29 — THE LAMPREY's worm on the field is written in THE LAMPREY's section
+
+The block on the worm crawling the field, eating and dropping dung stood in §11.56 THE TRAPEZE; it now follows §11.59's clock paragraph, which points to it as below.
+
+## 2026-10-08 · e05fbebb0 — Two owner answers in the queue: THE LEDGER is kept, THE INSTAR's fly-in goes to VERSUS
+
+THE LEDGER's look entry and THE INSTAR's fly-in entry each carry the owner's answer of 8 October 2026, so `next` hands them out again.
+
 ## 2026-10-08 · 6b3a1cb65 — THE TRAPEZE's guide is a film: the swing pushed from both sides to its gong
 
 The wave opens on its own rehearsal now, not three lines of prose. Player 1 swipes on the left and player 2 on the right, each as the swing comes back toward the middle, until the alien kicks the gong. Four pages: whose side, when, the partner's side, and what the pushing is for. A film can now spell THE TRAPEZE's swipe and lock, and its captions stand at the bottom of the swing.
