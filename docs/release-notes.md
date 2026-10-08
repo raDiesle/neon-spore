@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 5e799da1e — THE LEAD's torch and rock torn out of the ridge, offered in VERSUS
+
+THE LEAD's drops have a candidate, `lead:drop` / TORN. In the game, a run's torch and rock arrive under the ridge as the field's own creatures, with a puff of sparks. TORN tears the ridge's underside open over the column, and an ember sac or a grey lump hangs from it on a strand of flesh that stretches and parts. On the navigator's screen alone, a cord runs from the mound to the tear. It is judged on a new pose, THE LEAD · DROPPING, which stops on the drop's own tick. Shipped picture unchanged: `LeadFx` holds the drops in `lead-drop.ts` and draws them through `DROP_LOOK`, which draws nothing. This closes the queue entry for THE LEAD's three unbuilt looks.
+
 ## 2026-10-08 · 7183fe63f — THE LEAD's walls on the ridge, offered in VERSUS
 
 THE LEAD's walls have a candidate, `lead:walls` / CRAGS. In the game, the ridge runs out to the field's edges with no wall drawn at all, so the turn comes out of nothing. CRAGS stands a crag of the ridge's rock on each end. Its inner face is lit, and a hook cut into it curls back into the field where the body turns. It is drawn on both screens, because the field's edge is no secret from either seat. Shipped picture unchanged: `paintRidge` calls `RIDGE_WALLS` in `lead-rock.ts`, which draws nothing.
