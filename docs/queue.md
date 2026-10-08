@@ -328,28 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE LEDGER: lit nerves along the cord, and a new back for its body?
-
-- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
-- **Taken:** 2026-10-08, claude/queue-tasks-3078fe (claim: claude/queue-the-ledger-lit-nerves-along-the-cord-and-a-new-b)
-- **Files:** `packages/render/src/ship-nerves.ts`, `packages/render/src/ledger-cord.ts`, `packages/render/src/ledger-shape.ts`
-- **Asks:** Is THE LEDGER kept? Both looks wait on it (the owner, 7 October 2026: skip what is only visual until he has decided whether to keep the boss)
-- **Answered:** 2026-10-08 — THE LEDGER is kept, over cutting it; both looks are workable, each still a VERSUS offer, never straight onto the field
-
-The design's look for THE LEDGER has three parts the game does not draw
-(bosses.md §11.27, *Not built of the design's look*). On 7 October 2026 one
-turned out to be built already: THE SLOW is marked by its prism round the
-body since 26 September. The other two:
-
-1. **The ship's nerves lit along the cord's line** — offered in VERSUS on
-   8 October 2026 as `ledger:nerves` / `lit`, on THE LEDGER · BILLED.
-2. **The body's lobed back off the shape sheet** rather than
-   `ledgerHalfPoints`' own seven points, under the riveted plating the owner
-   asked for on 23 September. No free boss draft fits: THE CONDUCTOR is an
-   open arm with no inside, and every closed boss shape is taken. Option:
-   combine two drafted shapes into a new one and offer it in VERSUS, or keep
-   the back as it is.
-
 ## THE SURGE's slits gape with the pressure and its eversion turns the body out
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
@@ -616,3 +594,15 @@ one sentence fits, then a later wave that mixes the five gestures on one
 body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
+
+## BULB · CLOVER says free while its own note says THE CYST took it
+
+- **Found:** 2026-10-08, claude/queue-tasks-3078fe
+- **Files:** `tools/shape-sheet/src/drafts/offered.ts`
+
+BULB · CLOVER's card carries `status: "free"` and an `owner` that begins
+*THE CYST, taken 26 September 2026*. A lane looking for a free shape to
+combine (CLAUDE.md, *a new shape is never one the game already draws*) reads
+the status and would take a shape the game already draws. Check
+`render/cyst-shape.ts` against the card, set the status to `taken` if it is,
+and add a test that a card whose `owner` starts with a taker is not `free`.

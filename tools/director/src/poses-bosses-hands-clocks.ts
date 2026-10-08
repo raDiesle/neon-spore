@@ -106,7 +106,14 @@ export const CLOCK_HAND_POSES: Pose[] = [
     "ledger",
     "paying",
     "The cord is rooted and the seam paying out. P1 aims at the seam; P2 stands the plate on the socket and fires.",
-    { hand: ledgerHand, want: ledgerIs("paying"), hold: 6 },
+    {
+      hand: ledgerHand,
+      want: ledgerIs("paying"),
+      hold: 6,
+      // `ledger:back` is judged here: the body whole and still closed, so the
+      // outline of each half is all there is to read.
+      lookAt: "the outline of the body's two halves — the back of each, down its outer side",
+    },
   ),
   bossPose(
     "ledger",

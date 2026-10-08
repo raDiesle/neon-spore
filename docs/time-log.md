@@ -35353,3 +35353,16 @@ Bottleneck: looking — the tree's depth was only known from a frame: the
 panel draws over the ship below the plating, which no file says.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE LEDGER's new back offered in VERSUS
+
+- reading: 5 min. The shape sheet's drafts for a free closed shape, the
+  cluster and slab forms, and who reads the half's points.
+- writing: 10 min. `LEDGER_BACK` as the one route the drawing and the bolt
+  stop take, COLONY · PLATED as an analytic outline, the slot's pose row.
+- looking: 5 min. Two stills of each side, the lobes deepened once.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: reading — the only free closed drafts were three, and one of
+them, BULB · CLOVER, is marked free while its note says it is taken.

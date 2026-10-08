@@ -40,6 +40,7 @@ const SLOT_POSE: Record<string, string> = {
   "sinew:weight": "THE SINEW · HELD",
   "sinew:band": "THE SINEW · HELD",
   "ledger:nerves": "THE LEDGER · BILLED",
+  "ledger:back": "THE LEDGER · PAYING",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

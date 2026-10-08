@@ -100,6 +100,23 @@ export function ledgerHalfPoints(
   gap: number,
   time: number,
 ): Point[] {
+  return LEDGER_BACK.points(l, seamX, side, gap, time);
+}
+
+/**
+ * **The half's outline, as a record**, so the drawing and the bolt that stops
+ * on it read one answer and a candidate can offer another (`ledger:back` in
+ * VERSUS, 8 October 2026). The design asks for a lobed back off the shape
+ * sheet; what ships is this file's own seven points.
+ */
+export interface LedgerBack {
+  points(l: Layout, seamX: number, side: -1 | 1, gap: number, time: number): Point[];
+}
+
+export const LEDGER_BACK: LedgerBack = { points: sevenPoints };
+
+/** The shipped back: seven points, three swells down the outer side. */
+function sevenPoints(l: Layout, seamX: number, side: -1 | 1, gap: number, time: number): Point[] {
   const { top, bottom, mid, ry } = ledgerBodyY(l);
   const inner = seamX + side * gap * 0.5;
   const w = l.tile * HALF_W;

@@ -5032,7 +5032,9 @@ columns, which the simulation dropped for the owner's rule; and the body's
 lobed back is `ledgerHalfPath`'s own rather than a silhouette off the sheet.
 THE SLOW is marked by its prism standing round the body
 (`slow-boss-aim-c.ts`, 26 September 2026). The owner kept THE LEDGER on
-8 October 2026; a new back is still to be offered (`docs/queue.md`).
+8 October 2026, and a new back is offered in VERSUS beside the seven points
+(`ledger:back`, COLONY · PLATED — CODE PLATE's slab with COLONY's five lobes
+down its back, `render/ledger-shape.ts`'s `LEDGER_BACK`).
 
 **The words** (`render/src/boss-cue-read-o.ts`, 19 September 2026, its own
 page). Four, and the cord's own state picks the pair of them. While a return is
