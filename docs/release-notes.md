@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · c4ed9a926 — controls.md says who taps THE GOVERNOR's dial now: the seat each lit mark names
+
+The `THE GOVERNOR'S NEEDLE` row still talked about a braking seat, from before the owner's rework took the brake out. It now says what `sim/governor-hand.ts` does. Each mark of the lit step names the seat that lands it, and a step may hold marks for both seats. A press from a seat with nothing left to land is not heard. A tap lands when the needle is on one of that seat's open marks: any mark not yet landed, or only the next one on an ordered step. Any other tap is a skid, and it costs nothing already landed.
+
 ## 2026-10-08 · a7b44b157 — `bun run frames --entry 0:gesture=hold`: photograph an arrival no shipped wave sends
 
 `--entry <n>:<key>=<value>[,…]` merges fields into the wave's nth arrival, counted from 0 in the order they arrive. The fields are written right after the jump to the wave and before the opening lets go, so the body spawns carrying them. A gesture no wave sends yet, like THE BLISTER's HOLD and the SWIPE, TURN and RUB still to come, can now be photographed without editing a shipped wave and reverting it by hand. Values are read the way `--boss` reads them; `now` is refused, and so are an arrival the wave does not have and one already arrived.
