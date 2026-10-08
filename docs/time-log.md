@@ -35828,3 +35828,16 @@ Bottleneck: friction — `land`'s queue guard reads a heading cut to a prefix
 of itself as finished work put back.
 
 *Measured: 23 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — Marks-window rows for THE HIVE, THE GIMBAL, THE HASP, THE RATCHET
+
+- reading: 10 min. Where each boss calls the shared halo, and which sim
+  predicates its render gates are made of — THE HIVE's three, THE HASP's
+  composed in `hasp-grip.ts`.
+- writing: 5 min. Four rows in `marks-window-rows-d.ts`, four lines struck.
+- looking: 0 min. Nothing drawn; each row seen red with its window emptied.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — a render gate built from sim pieces has to be taken
+apart to find the window to hold it to.

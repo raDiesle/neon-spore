@@ -1,12 +1,27 @@
 import {
+  type GimbalState,
   type GovernorState,
+  gimbalRingAsks,
   governorFiring,
   governorOpenFor,
   governorOpenMarks,
+  type HaspState,
+  type HiveState,
+  haspBurning,
+  haspLatchUp,
+  haspWheelUp,
+  hiveHaulAsks,
+  hiveHoldable,
+  hiveSwelling,
+  INNER,
   type MantleState,
   mantleCoreAsks,
   mantleKnobAsks,
   mantleVenting,
+  OUTER,
+  type RatchetState,
+  ratchetCatchAsks,
+  ratchetPawlAsks,
   type World,
 } from "@neon-spore/sim";
 import * as governorMarks from "../../../packages/render/src/governor-marks.js";
@@ -26,10 +41,22 @@ import { mark, type Row } from "./marks-window-kit.js";
  * land now. One landed stays lit, steady, until its step is answered, which is
  * the answer rather than the ask. Its halos are the seats' open marks and the
  * gap while the hub fires.
+ *
+ * THE HIVE, THE GIMBAL, THE HASP and THE RATCHET draw every mark that asks as
+ * the shared halo too, each behind a gate of its own, so each row is that halo
+ * and the union of the boss's windows. THE HIVE's are three — a site on the
+ * wall the pilot may hold, the clenched underside he may haul, and a lobe
+ * swelling for the navigator. THE HASP's are the latch while it will take his
+ * hand and the wheel while it is up for hers; its halo is narrower, never
+ * drawn past the grip or with her hand already on the rim.
  */
 
 const mantle = (w: World) => w.boss as MantleState;
 const governor = (w: World) => w.boss as GovernorState;
+const hive = (w: World) => w.boss as HiveState;
+const gimbal = (w: World) => w.boss as GimbalState;
+const hasp = (w: World) => w.boss as HaspState;
+const ratchet = (w: World) => w.boss as RatchetState;
 
 export const ROWS_D: readonly Row[] = [
   {
@@ -60,6 +87,45 @@ export const ROWS_D: readonly Row[] = [
         const s = governor(w);
         return governorOpenFor(s, 1) || governorOpenFor(s, 2) || governorFiring(s);
       }),
+    ],
+  },
+  {
+    kind: "hive",
+    marks: [
+      mark(markFeedback, "drawMarkHalo", (w) => {
+        const s = hive(w);
+        const swelling = s.downBeat < 0 && hiveSwelling(s, w.cfg, w.beat);
+        return hiveHoldable(s).length > 0 || hiveHaulAsks(s) || swelling;
+      }),
+    ],
+  },
+  {
+    kind: "gimbal",
+    marks: [
+      mark(
+        markFeedback,
+        "drawMarkHalo",
+        (w) => gimbalRingAsks(gimbal(w), INNER) || gimbalRingAsks(gimbal(w), OUTER),
+      ),
+    ],
+  },
+  {
+    kind: "hasp",
+    marks: [
+      mark(markFeedback, "drawMarkHalo", (w) => {
+        const s = hasp(w);
+        return (haspLatchUp(s) && !haspBurning(s)) || haspWheelUp(s);
+      }),
+    ],
+  },
+  {
+    kind: "ratchet",
+    marks: [
+      mark(
+        markFeedback,
+        "drawMarkHalo",
+        (w) => ratchetCatchAsks(ratchet(w), w.cfg) || ratchetPawlAsks(ratchet(w)),
+      ),
     ],
   },
 ];
