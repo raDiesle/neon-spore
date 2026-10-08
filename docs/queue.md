@@ -499,24 +499,6 @@ Proven by `bun run check` (the scene's own test, `scenes-prose.test.ts`, the
 caption-subject test); move *What is not built* in `bosses.md` to say it is
 built.
 
-## `marks-window.test.ts` says every boss has a row, and 22 do
-
-- **Found:** 2026-10-08, claude/parked-boss-concept-d88325
-- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-marks-window-test-ts-says-every-boss-has-a-row-a)
-- **Files:** `tools/director/test/marks-window.test.ts`, `tools/director/test/marks-window-rows-a.ts`, `tools/director/test/marks-window-rows-b.ts`, `tools/director/test/marks-window-rows-c.ts`
-
-The preamble reads *Every boss but THE QUEEN has a row, in
-marks-window-rows-a.ts, -b.ts and -c.ts; a boss added later gets one there
-too*, and nothing holds it: THE LATCH's lane added a row because it read the
-sentence, but THE SINEW, THE ANTIPHON, THE HIVE and most of the bosses with
-marks have none, and the test is green. Add an allowance in the shape of
-`boss-states.test.ts`'s `OWED` — a `NO_ROW` list of the kinds without one,
-each with a reason (no marks at all, a round with no body, owed) — and a test
-that every `BossKind` is in a row or on the list, and that nothing on the
-list has a row, so the list can only shrink. Then make the preamble say
-that. Writing the missing rows is not this entry: each owed one is a later
-lane of its own.
-
 ## `marks-window.test.ts` walks TEST's screen only: no partner's ring is checked
 
 - **Found:** 2026-10-08, claude/parked-boss-concept-d88325
@@ -533,3 +515,94 @@ reason (its comment says so). Give a `Row` an optional list of roles to walk
 `drawMarkTheirs` back on its row with both seats. Then do the same for one
 more boss that draws the partner's ring (`grep -l drawMarkTheirs
 packages/render/src`), to show the option carries.
+
+## Marks-window rows owed: THE MIRROR, THE VANE, THE MAZE, THE GAUGE
+
+- **Found:** 2026-10-08, claude/task-queue-work-e71746
+- **Files:** `tools/director/test/marks-window-no-row.ts`, `tools/director/test/marks-window-rows-c.ts`, `packages/render/src/mirror-marks.ts`, `packages/render/src/vane-marks.ts`, `packages/render/src/maze-marks.ts`, `packages/render/src/gauge-marks.ts`
+
+`marks-window-no-row.ts` lists these as `owed`: each has a `*-marks.ts` and no
+row in `marks-window.test.ts`. Write a row for each — every function in its
+marks file that draws a mark lit, held to the window the simulation's own
+predicate in `sim/` says it is answered in, never the render's gate re-read
+(`marks-window-kit.ts`) — and strike its line from `NO_ROW`. A mark AUTO cannot
+reach is `unreached` with its reason; a mark found lit outside its window is a
+render fix in the same lane. A row file past ~250 lines splits into a fourth.
+
+## Marks-window rows owed: THE SNAKE, THE PINBALL, THE PULSE, THE CAIRN
+
+- **Found:** 2026-10-08, claude/task-queue-work-e71746
+- **Files:** `tools/director/test/marks-window-no-row.ts`, `tools/director/test/marks-window-rows-c.ts`, `packages/render/src/snake-marks.ts`, `packages/render/src/pinball-marks.ts`, `packages/render/src/pulse-marks.ts`, `packages/render/src/cairn-marks.ts`
+
+`marks-window-no-row.ts` lists these as `owed`: each has a `*-marks.ts` and no
+row in `marks-window.test.ts`. Write a row for each — every function in its
+marks file that draws a mark lit, held to the window the simulation's own
+predicate in `sim/` says it is answered in, never the render's gate re-read
+(`marks-window-kit.ts`) — and strike its line from `NO_ROW`. A mark AUTO cannot
+reach is `unreached` with its reason; a mark found lit outside its window is a
+render fix in the same lane. A row file past ~250 lines splits into a fourth.
+
+## Marks-window rows owed: THE SCOUT, THE BATON, THE THROAT, THE GORGE
+
+- **Found:** 2026-10-08, claude/task-queue-work-e71746
+- **Files:** `tools/director/test/marks-window-no-row.ts`, `tools/director/test/marks-window-rows-c.ts`, `packages/render/src/scout-marks.ts`, `packages/render/src/baton-marks.ts`, `packages/render/src/throat-marks.ts`, `packages/render/src/gorge-marks.ts`
+
+`marks-window-no-row.ts` lists these as `owed`: each has a `*-marks.ts` and no
+row in `marks-window.test.ts`. Write a row for each — every function in its
+marks file that draws a mark lit, held to the window the simulation's own
+predicate in `sim/` says it is answered in, never the render's gate re-read
+(`marks-window-kit.ts`) — and strike its line from `NO_ROW`. A mark AUTO cannot
+reach is `unreached` with its reason; a mark found lit outside its window is a
+render fix in the same lane. A row file past ~250 lines splits into a fourth.
+
+## Marks-window rows owed: THE CURTAIN, THE TASTER, THE SINEW, THE LEDGER
+
+- **Found:** 2026-10-08, claude/task-queue-work-e71746
+- **Files:** `tools/director/test/marks-window-no-row.ts`, `tools/director/test/marks-window-rows-c.ts`, `packages/render/src/curtain-marks.ts`, `packages/render/src/taster-marks.ts`, `packages/render/src/sinew-marks.ts`, `packages/render/src/ledger-marks.ts`
+
+`marks-window-no-row.ts` lists these as `owed`: each has a `*-marks.ts` and no
+row in `marks-window.test.ts`. Write a row for each — every function in its
+marks file that draws a mark lit, held to the window the simulation's own
+predicate in `sim/` says it is answered in, never the render's gate re-read
+(`marks-window-kit.ts`) — and strike its line from `NO_ROW`. A mark AUTO cannot
+reach is `unreached` with its reason; a mark found lit outside its window is a
+render fix in the same lane. A row file past ~250 lines splits into a fourth.
+
+## Marks-window rows owed: THE SURGE, THE LEAD, THE SCUTTLE, THE ANTIPHON
+
+- **Found:** 2026-10-08, claude/task-queue-work-e71746
+- **Files:** `tools/director/test/marks-window-no-row.ts`, `tools/director/test/marks-window-rows-c.ts`, `packages/render/src/surge-marks.ts`, `packages/render/src/lead-marks.ts`, `packages/render/src/scuttle-marks.ts`, `packages/render/src/antiphon-marks.ts`
+
+`marks-window-no-row.ts` lists these as `owed`: each has a `*-marks.ts` and no
+row in `marks-window.test.ts`. Write a row for each — every function in its
+marks file that draws a mark lit, held to the window the simulation's own
+predicate in `sim/` says it is answered in, never the render's gate re-read
+(`marks-window-kit.ts`) — and strike its line from `NO_ROW`. A mark AUTO cannot
+reach is `unreached` with its reason; a mark found lit outside its window is a
+render fix in the same lane. A row file past ~250 lines splits into a fourth.
+
+## Marks-window rows owed: THE HIVE, THE GIMBAL, THE HASP, THE RATCHET
+
+- **Found:** 2026-10-08, claude/task-queue-work-e71746
+- **Files:** `tools/director/test/marks-window-no-row.ts`, `tools/director/test/marks-window-rows-c.ts`, `packages/render/src/hive-marks.ts`, `packages/render/src/gimbal-marks.ts`, `packages/render/src/hasp-marks.ts`, `packages/render/src/ratchet-marks.ts`
+
+`marks-window-no-row.ts` lists these as `owed`: each has a `*-marks.ts` and no
+row in `marks-window.test.ts`. Write a row for each — every function in its
+marks file that draws a mark lit, held to the window the simulation's own
+predicate in `sim/` says it is answered in, never the render's gate re-read
+(`marks-window-kit.ts`) — and strike its line from `NO_ROW`. A mark AUTO cannot
+reach is `unreached` with its reason; a mark found lit outside its window is a
+render fix in the same lane. A row file past ~250 lines splits into a fourth.
+
+## Marks-window rows owed: THE MANTLE, THE GOVERNOR
+
+- **Found:** 2026-10-08, claude/task-queue-work-e71746
+- **Files:** `tools/director/test/marks-window-no-row.ts`, `tools/director/test/marks-window-rows-c.ts`, `packages/render/src/mantle-marks.ts`, `packages/render/src/governor-marks.ts`
+
+`marks-window-no-row.ts` lists these as `owed`: each has a `*-marks.ts` and no
+row in `marks-window.test.ts`. Write a row for each — every function in its
+marks file that draws a mark lit, held to the window the simulation's own
+predicate in `sim/` says it is answered in, never the render's gate re-read
+(`marks-window-kit.ts`) — and strike its line from `NO_ROW`. A mark AUTO cannot
+reach is `unreached` with its reason; a mark found lit outside its window is a
+render fix in the same lane. A row file past ~250 lines splits into a fourth.

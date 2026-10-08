@@ -35780,3 +35780,17 @@ Bottleneck: tuning how near a misspelling has to be before naming a flag
 helps more than it misleads.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — `marks-window.test.ts`'s *every boss has a row* is held
+
+- reading: 5 min. The test, its kit and rows, `boss-states.test.ts`'s `OWED`,
+  and which of the 36 rowless bosses have a `*-marks.ts`.
+- writing: 10 min. `NO_ROW` with four reasons, the coverage test checking each
+  reason against the tree, the preamble, and seven lane-sized queue entries for
+  the 26 rows owed.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — telling a boss with no marks from one whose row was
+never written, settled by whether a `*-marks.ts` exists to spy on.

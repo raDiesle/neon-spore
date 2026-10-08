@@ -35,8 +35,12 @@ import { ROWS_C } from "./marks-window-rows-c.js";
  * rings from the announcement onward are her mechanic — P1 is shown both
  * marks (`docs/spec/controls.md`).
  *
- * Every boss but THE QUEEN has a row, in `marks-window-rows-a.ts`, `-b.ts`
- * and `-c.ts`; a boss added later gets one there too.
+ * A boss has a row in `marks-window-rows-a.ts`, `-b.ts` or `-c.ts`, or a line
+ * in `marks-window-no-row.ts` saying why it has none — THE QUEEN never, a boss
+ * with a test of its own, one with no `*-marks.ts` to spy on, and the rows
+ * still owed. `marks-window-coverage.test.ts` holds every boss to one or the
+ * other, so a boss added later goes red until it has either, and a row written
+ * strikes its line.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
