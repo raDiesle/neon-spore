@@ -35560,3 +35560,16 @@ Bottleneck: reading — seventy-seven INSTAR files, and the seam had to sit
 where only the drawing reads it, never a mark.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE INSTAR's fly-in, candidate TAPER (option B) on VERSUS
+
+- reading: 5 min. The front body, the front draw, the turn and the slot's
+  distinctness test.
+- writing: 10 min. `FlightLook.body`, `smooth` on the look, `girthAt`, the
+  TAPER candidate, SIDE's new field, the test and the spec paragraph.
+- looking: 5 min. `versus:shot` at two moments, the shipped beside it, cropped.
+- friction: 0 min.
+- landing: 5 min. An import sort, `check:fast`, the commit, the land.
+
+Bottleneck: writing — the seam had to reach the face-on body through the
+look, since `frontBody` is handed no flight.

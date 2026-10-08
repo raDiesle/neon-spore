@@ -38,7 +38,9 @@ import { drawTube, rimTube } from "./solid-tube-draw.js";
  * is that it is round. It swims: a slow wave runs down it, the neck and the
  * engines held where they are and the middle swinging, as the side view
  * undulates (`instar-profile-life.ts`); and with VERSUS's serpent on, its
- * wave rides down the tube as well (`dive`).
+ * wave rides down the tube as well (`dive`). While it flies, a look's
+ * `smooth` (`instar-flight-look.ts`) takes the pinch and the seams away and
+ * draws it as one taper from a deep chest to a fine end (`girthAt`).
  */
 
 /** Rings along the body, and how many of them one plate of seam and lamps spans. */
@@ -49,6 +51,9 @@ const PINCH = 0.16;
 /** The swim: how far the middle swings, in head radii, and its period in seconds. */
 const SWIM = 0.14;
 const SWIM_PERIOD = 4.2;
+/** The smooth body's girth at the neck, and how far it thins by the far end, in head radii. */
+const SMOOTH_GIRTH = 0.82;
+const SMOOTH_THIN = 0.7;
 
 /** The body's skin, which the legs hung off it wear too (`instar-front.ts`). */
 export const BODY_SKIN = {
@@ -75,7 +80,7 @@ export function frontBody(look: Look, neck: Point, rear: Point, turn: number): B
     const swim =
       SWIM * r * 4 * u * (1 - u) * Math.sin((time * Math.PI * 2) / SWIM_PERIOD - u * 2.5);
     const at = { x: (rear.x - neck.x) * u + swim, y: (rear.y - neck.y) * u + dive(look, u) };
-    rings.push({ c: { x, y: at.y / s, z: at.x / s }, r: (r * (0.7 - 0.5 * u) * plate(i)) / s });
+    rings.push({ c: { x, y: at.y / s, z: at.x / s }, r: (r * girthAt(look, i)) / s });
   }
   const frames = tubeFrames(rings);
   const side = turn3((frames[0] as Frame).b, w).z >= 0 ? 1 : -1;
@@ -111,7 +116,8 @@ export function drawFrontBody(
   drawHurt(ctx, hide, hurt * fade);
   drawBelly(ctx, body, hide, roll, fade);
   drawScales(ctx, body, hide, r * 0.1, roll, fade);
-  for (let i = EVERY; i < N; i += EVERY) drawBand(ctx, body.seen, i, look);
+  const seams = fade * (1 - (look.smooth ?? 0));
+  if (seams > 0) for (let i = EVERY; i < N; i += EVERY) drawBand(ctx, body.seen, i, seams);
   drawLamps(ctx, body, r, roll, time, fade, EVERY / 2);
   drawRidge(ctx, body, r, roll, fade, false, EVERY / 2);
   rimTube(ctx, hide, PALETTE.sheenRim, r * 0.05, fade);
@@ -123,9 +129,8 @@ function drawBand(
   ctx: CanvasRenderingContext2D,
   seen: readonly SeenRing[],
   i: number,
-  look: Look,
+  fade: number,
 ): void {
-  const { fade } = look;
   const ring = seen[i] as SeenRing;
   const rad = ring.r;
   const y = ring.c.y + rad * 0.15;
@@ -141,6 +146,16 @@ function drawBand(
 }
 
 /** A ring's girth by where it sits in its plate: full across the middle, pinched at the seam. */
-function plate(i: number): number {
-  return 1 - PINCH * (1 - Math.sin((Math.PI * (i % EVERY)) / EVERY));
+function plate(i: number, pinch: number): number {
+  return 1 - pinch * (1 - Math.sin((Math.PI * (i % EVERY)) / EVERY));
+}
+
+/** Ring `i`'s girth in head radii: plated and straight-tapered, or `look.smooth` of the way to one smooth taper. */
+function girthAt(look: Look, i: number): number {
+  const u = i / N;
+  const k = look.smooth ?? 0;
+  const plated = (0.7 - 0.5 * u) * plate(i, PINCH);
+  if (k <= 0) return plated;
+  const smooth = SMOOTH_GIRTH * (1 - SMOOTH_THIN * u ** 1.4);
+  return plated + (smooth * plate(i, PINCH * (1 - k)) - plated) * k;
 }

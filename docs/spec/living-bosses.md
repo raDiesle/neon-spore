@@ -169,6 +169,18 @@ under its circle. The wings take the wave's beat only in flight.
 **Built (2 October 2026).** The owner picked the rework from VERSUS: *add to
 game "INSTAR:FLIGHT · SERPENT"*. `INSTAR_SERPENT.amount` is 1 on the field.
 
+**Offered (8 October 2026, VERSUS `instar:flight`, the owner's *it looks
+ugly when it flies in*).** Two answers for the first approach, both through
+`INSTAR_FLIGHT_LOOK` (`packages/render/src/instar-flight-look.ts`), which
+ships as the identity, and judged on the director's `INSTAR · FLYING IN`.
+**SIDE** flies the approach in profile — the turned head, the legs under it,
+the wings up — and turns face-on only over its last third. **TAPER** keeps it
+face-on, but the seamed tube behind the head is one smooth taper from a deep
+chest to a fine end (`instar-front-body.ts`, `smooth`), with the wings spread
+full; the plates come back and the wings settle over the last 30%. Neither
+reaches a mark: the flight is over before any is up. Test:
+`packages/render/test/instar-flight-look.test.ts`.
+
 ### How far it reaches, by kind of body
 
 - **A body on the rig** (`packages/render/src/solid-rig.ts`) takes all four

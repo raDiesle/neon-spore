@@ -539,11 +539,3 @@ sets `data-frozen`. Have the shot fail at once, naming the error, when the
 page reports a bundle or runtime error (console error, or no `#versus`
 mounted after the settle), and add a test with a candidate that throws at
 import.
-
-## THE INSTAR's fly-in, candidate B: face-on with a tapered body behind
-
-- **Found:** 2026-10-08, claude/task-queue-work-8b2adc
-- **Taken:** 2026-10-08, claude/task-queue-work-8b2adc (claim: claude/queue-the-instars-fly-in-candidate-b-face-on-with-a-ta)
-- **Files:** `packages/render/src/instar-flight-look.ts`, `packages/render/src/instar-front-body.ts`, `packages/render/src/instar-turn.ts`, `packages/render/src/instar-legs.ts`, `tools/versus/candidates/instar-flight/side/index.ts`
-
-The second half of the owner's (C) of 8 October 2026 (*it looks ugly when it flies in*, 7 October): `instar:flight` is open with candidate SIDE, option (A), the approach flown in profile through `INSTAR_FLIGHT_LOOK.figure`, judged on the director's `INSTAR · FLYING IN`. Option (B) is still to build beside it: the approach stays face-on, but the lumpy segmented tube trailing up and right becomes a smooth tapered body seen a third of the way round (`instar-turn.ts`'s `TURN`), with the legs hanging off it and the wings spread. It needs a seam the front body's drawing reads while flying — a field on the same record, so every candidate in the slot patches the same record and fields (`tools/versus/test/distinct.test.ts`): SIDE then patches the new field to the shipped drawing. `bun run versus:shot instar:flight <name> --freeze 5.5` shows both mid-approach.

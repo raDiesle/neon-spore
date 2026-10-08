@@ -11,13 +11,17 @@ import type { Figure } from "./instar-shape.js";
  * the flight under way (`instarFlightAt`) and gives back the pose to draw —
  * only while the body flies, which is over before any mark is up
  * (`instar-flight.ts`), so no mark or hit test reads what it returns.
+ * `body` is how far the face-on body behind the head is drawn as one smooth
+ * taper rather than its seamed plates (`instar-front-body.ts`), 0 shipped.
  */
 export type FlightFigure = (f: Figure, at: FlightAt) => Figure;
 
 export interface FlightLook {
   figure: FlightFigure;
+  body: (at: FlightAt) => number;
 }
 
 export const INSTAR_FLIGHT_LOOK: FlightLook = {
   figure: (f) => f,
+  body: () => 0,
 };

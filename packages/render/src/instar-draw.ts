@@ -109,6 +109,7 @@ export function drawInstar(
     shoveDown: fx.shove.down,
     weak,
     serpent: instarSerpent(s, cfg, world, beat, beatPhase),
+    smooth: flightAt === null ? 0 : INSTAR_FLIGHT_LOOK.body(flightAt),
   };
   // Across the middle of a turn the side-on drawing has the whole body, part
   // of the way round (`instar-turning.ts`); before it, the face-on one has it.

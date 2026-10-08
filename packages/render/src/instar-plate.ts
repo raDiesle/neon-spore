@@ -44,6 +44,8 @@ export interface Look {
   weak?: InstarWeak;
   /** The wave down the body, grown in flight, when VERSUS turns it on (`instar-serpent.ts`). */
   serpent?: InstarSerpent | undefined;
+  /** How far the face-on body is one smooth taper rather than plates, 0..1, while it flies (`instar-flight-look.ts`). */
+  smooth?: number;
 }
 
 /** A colour at the fade: the hex itself while the body is whole, so the frame

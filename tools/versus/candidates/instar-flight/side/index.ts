@@ -5,8 +5,8 @@ import { flySideOn } from "./paint.js";
 /**
  * SIDE — offered 8 October 2026, option (A) of the owner's (C): THE INSTAR
  * flies in side-on, so the turned head, the legs and the raised wings grow
- * in from far away, and it turns face-on only as it arrives. Beside it in
- * the slot, (B) keeps the face-on approach with a body behind it.
+ * in from far away, and it turns face-on only as it arrives; the body keeps
+ * its plates. Beside it in the slot, TAPER keeps the face-on approach.
  */
 export const INSTAR_SIDE: Variant = {
   slot: "instar:flight",
@@ -23,7 +23,7 @@ export const INSTAR_SIDE: Variant = {
         symbol: "INSTAR_FLIGHT_LOOK",
         type: "FlightLook",
       },
-      fields: { figure: flySideOn },
+      fields: { figure: flySideOn, body: () => 0 },
     }),
   ],
 };
