@@ -35688,3 +35688,5 @@ directory walk that both pass alone.
 
 Bottleneck: friction — the hush walk's rule that a cue goes once obeyed was
 written in its preamble, not in THE KEEL's cue.
+
+*Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

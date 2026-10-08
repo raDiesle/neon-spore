@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 5990a28a3 — THE KEEL's and THE CYST's held parts show they are right, and how far
+
+THE CAPSTAN's rule, rolled out to two more bosses.
+
 ## 2026-10-08 · 7902b60f4 — Five queue entries from THE LATCH's lanes, each its own session
 
 THE LATCH's guide film is the one thing its write-up still lists as not built. `marks-window.test.ts` claims every boss has a row, and only 22 do; it also walks TEST's screen only, so no partner's ring is checked. `bun run frames` accepts a flag it does not know. And a `Needs:` line that quotes a title with a code span never matches it.
