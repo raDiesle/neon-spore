@@ -36037,3 +36037,5 @@ new count against the window was the only real question.
 
 Bottleneck: landing — two lanes deleting neighbouring bosses at once
 conflict on every list both were struck from.
+
+*Measured: 27 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

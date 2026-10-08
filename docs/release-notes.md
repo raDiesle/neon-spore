@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · b7e743357 — THE CYST is taken out of the game, whole
+
+The owner asked for it gone: he does not like it, and it is now very close to THE HALTER, which is being worked on elsewhere. Its simulation, drawing, seventeen sounds, autopilot hand, wave, four drag targets and director cards are deleted rather than switched off, as THE BELLOWS's were; `git log -S cystFreezeLeft` finds them. The design stays in bosses.md §11.51, now under Retired with his reason, and its shape, BULB · CLOVER, is free on the shape sheet again. The waves after it move up one; with THE DAVIT gone the same day, the game has a hundred and twenty-two.
+
 ## 2026-10-08 · 66a6ab560 — THE GRINDSTONE's flats take thirty-eight rubs, with a green arc filling round each
 
 Each reversal now shaves 27 grit instead of 40. A flat takes thirty-eight reversals from solid and nineteen from the film, where it took twenty-five and thirteen: half as many again, as THE CAPSTAN's went. The flat being ground wears a plain green arc on both screens, filling as its grit comes off. Every reversal throws twice the grains and flashes the face white. A pass is lit under THE SLOW, so the shipped six and four beats still hold the new count at three reversals a second. This finishes the rubs entry; THE RIME and THE VALVE landed earlier the same day.
