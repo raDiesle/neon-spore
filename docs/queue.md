@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE BLISTER, lane 4: HOLD
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-the-blister-lane-4-hold)
 - **Files:** `packages/sim/src/hand.ts`, `packages/render/src/touch-hold.ts`, `packages/render/src/hold-mark.ts`, `packages/render/src/grip-rings.ts`
 - **Needs:** THE BLISTER, lane 2
 
