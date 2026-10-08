@@ -2,6 +2,7 @@ import type { CreatureKind } from "@neon-spore/sim";
 import type { CreatureDef } from "./creatures.js";
 import { BARE_CREATURES } from "./creatures-bare.js";
 import { BEATBOX_CREATURE } from "./creatures-beatbox.js";
+import { BLISTER_CREATURE } from "./creatures-blister.js";
 import { CLING_CREATURES } from "./creatures-cling.js";
 import { FIXTURE_CREATURES } from "./creatures-fixtures.js";
 import { HANDED_CREATURES } from "./creatures-handed.js";
@@ -230,4 +231,6 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "One body wearing both ends of the game by turns. For five beats it is a rock the shield has to turn; for the next five it is a supply cargo the maw has to swallow, and a cargo nobody swallows loses the wave. Nothing kills it either way — a shot leaves a crater on the rock half and is simply spent on the other. What it is on the beat it reaches the ship is the whole of what happens, so the call is a count and not a colour. On the last two rows it steers at whatever column the cannon is holding, which is the catch a freed pod already has. Every one on the field turns over on the same beat, and only the navigator is shown the form that is coming.",
   },
+  // THE BLISTER, named alone for THE BEATBOX's reason (`creatures-blister.ts`).
+  blister: BLISTER_CREATURE,
 };

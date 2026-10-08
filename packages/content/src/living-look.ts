@@ -155,6 +155,9 @@ const LIVING_LOOK = {
   // the one drawing that made this creature unanswerable
   // (`render/moult.ts`).
   moult: null,
+  // THE BLISTER's body is lane 2's (`docs/queue.md`): until then it is drawn
+  // as a plain disc by `render/blister.ts`, which asks for no contour.
+  blister: null,
 } as const satisfies Record<CreatureKind, { shape: CreatureSilhouette; motion: OwnMotion } | null>;
 
 /**

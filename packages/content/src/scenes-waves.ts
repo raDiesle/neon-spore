@@ -9,6 +9,7 @@ import { SALVAGE } from "./scenes/salvage.js";
 import { SNAKE } from "./scenes/snake.js";
 import { THE_BALLOON } from "./scenes/the-balloon.js";
 import { THE_BEATBOX } from "./scenes/the-beatbox.js";
+import { THE_BLISTER } from "./scenes/the-blister.js";
 import { THE_CAIRN } from "./scenes/the-cairn.js";
 import { THE_CAROM } from "./scenes/the-carom.js";
 import { THE_CHOIR } from "./scenes/the-choir.js";
@@ -129,7 +130,8 @@ export type WaveSceneId =
   | "theWell"
   | "theSplice"
   | "theMoult"
-  | "theMine";
+  | "theMine"
+  | "theBlister";
 
 export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -191,4 +193,5 @@ export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
   theSplice: THE_SPLICE,
   theMoult: THE_MOULT,
   theMine: THE_MINE,
+  theBlister: THE_BLISTER,
 };

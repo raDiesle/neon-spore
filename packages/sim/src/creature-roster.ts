@@ -76,4 +76,5 @@ export const CREATURE_KINDS = [
   "curtain",
   "mine",
   "moult",
+  "blister",
 ] as const satisfies readonly CreatureKind[];

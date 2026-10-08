@@ -1,6 +1,7 @@
 import { controlPress, type Point } from "@neon-spore/content";
 import { NO_GRIP } from "@neon-spore/sim";
 import { beatboxUnder } from "./beatbox-tap.js";
+import { blisterUnder } from "./blister-tap.js";
 import { creatureAt } from "./creature-under.js";
 import { darkUnder } from "./dark-tap.js";
 import { handleUnder } from "./handles.js";
@@ -64,6 +65,9 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
     // refuses a hand outright (`beatbox-tap.ts`) so `creatureAt` skips it.
     const tap = beatboxUnder(l, field, x, y);
     if (tap) return tap;
+    // THE BLISTER's tap, the same press on a body that is up (`blister-tap.ts`).
+    const blow = blisterUnder(l, field, x, y);
+    if (blow) return blow;
     // THE MIMIC's board: a press on it paints a square (`mimic-tap.ts`).
     const paint = mimicUnder(l, field, x, y);
     if (paint) return paint;

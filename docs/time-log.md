@@ -36039,3 +36039,21 @@ Bottleneck: landing — two lanes deleting neighbouring bosses at once
 conflict on every list both were struck from.
 
 *Measured: 27 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE BLISTER, lane 1: the simulation, knocked down by taps
+
+- reading: 5 min. THE MINE's commit as the file-set, the soundbox's tap from
+  command to hit test, and how a bolt and the hull find a body.
+- writing: 15 min. The kind, its four fields and four tunables, the
+  surface / up / sink cycle, the tap, `by` and `count` from wave to body,
+  the hash, a plain disc and its hit test, a plain wave and film, the test.
+- looking: 0 min. A placeholder disc; the body is lane 2's.
+- friction: 20 min. The hull row: the ordinary breach took it a beat after it
+  sank there, and the arrival rule froze its clock once that was stopped. Then
+  fourteen tests across the tree, each wanting one more row: AUTO's tap, the
+  palette's note and card, `LOOK_PENDING`, two counts in `briefings.md`, a
+  word budget, a film page too short, two hand-kept kind lists.
+- landing: 5 min. `check:fast` twice, format and the export sort, `land`.
+
+Bottleneck: friction — a new creature is a row in far more places than the
+six the skill lists, and most of them are only found by the full check.

@@ -41,4 +41,11 @@ export const HIDDEN_NOTES = {
     "*across*: it prowls one row sideways, turns at each wall, gets visibly " +
     "angrier each time, and after the last turn comes straight down at the " +
     "hull head first. See ghost.ts.",
+  // THE BLISTER hides *when and where next* rather than where now: the seat
+  // that may knock it down is not shown the pore swelling (`blister.ts`).
+  "THE BLISTER — a body one of you knocks down where the other says":
+    "It comes up out of a pore, stays up this many beats, and sinks — and " +
+    "comes up again this many rows nearer, somewhere else, until the hand " +
+    "the wave named has tapped it out or it comes up on the hull. The other " +
+    "seat sees the pore swell a beat before; the hand does not. See blister.ts.",
 } satisfies Partial<Record<GroupName, string>>;

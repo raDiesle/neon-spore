@@ -81,6 +81,15 @@ export function resolveHull(world: World): void {
       continue;
     }
 
+    // **THE BLISTER breaks the hull by coming up on it**, never by being on
+    // its row: under its pore it is membrane, and the beat it surfaces is the
+    // beat the pair watches it land (`stepBlister`). Left to the breach below
+    // it would go through a beat after it sank, unseen.
+    if (c.kind === "blister") {
+      survivors.push(c);
+      continue;
+    }
+
     // **THE MOULT has two answers and neither of them is the ordinary one.**
     // It is a rock for `moultBeats` and a cargo for `moultBeats`, so which of
     // the two rows below reaches it, and what happens when one does, changes

@@ -328,30 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE BLISTER, lane 1: the simulation, knocked down by taps
-
-- **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
-- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-the-blister-lane-1-the-simulation-knocked-down-b)
-- **Files:** `packages/sim/src/creature-kinds.ts`, `packages/content/src/creatures-table.ts`, `packages/content/src/mechanics-table.ts`, `packages/content/src/living-look.ts`, `packages/render/src/comms.ts`, `docs/spec/bestiary.md`, `packages/sim/src/commands.ts`, `packages/sim/src/types.ts`, `packages/sim/src/hash-creature-tail.ts`, `packages/content/src/wave-entry.ts`, `packages/sim/src/entries.ts`, `packages/content/src/queue.ts`, `packages/sim/src/spawn-fields.ts`
-
-The owner's whack-a-mole creature, designed in `docs/spec/blister.md` —
-read it first. This lane is its simulation with the TAP gesture only, by
-`.claude/skills/new-creature`: the kind `blister` in the six tables; the
-surface / up / sink cycle on the beat (`blisterUpBeats`, `blisterSinkRows`
-in `SimConfig`), the next pore picked by the seeded `Rng`, the hull scar
-when it surfaces on the hull row; `tap {id}` routed to it in
-`commands.ts` the way the soundbox's is, counted only while it is up and
-only from a seat its `by` allows; the count kept across surfacings. The
-entry fields `by` (1, 2 or both) and `count` go on `WaveEntry` and
-`SpawnEntry` exactly as the ghost's `path` does, and every new
-`Creature` field is hashed. The hit test in `packages/render/src/creature-under.ts`
-answers it only for a seat `by` allows and only while it is up. Whatever
-`packages/content/test/waves.test.ts` asks of a new creature — its own wave
-with a guide — lands here at its plainest; lane 8 makes the guide good. A
-replay test in `packages/sim/test/`: three taps knock it out, a tap from
-the wrong seat or while it is down counts nothing, an unanswered blister
-scars the hull.
-
 ## THE BLISTER, lane 2: its body, its pore, the bulge and the tap help
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
@@ -457,3 +433,37 @@ one sentence fits, then a later wave that mixes the five gestures on one
 body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
+
+## The new-creature skill says six tables; a kind is a row in more
+
+- **Found:** 2026-10-08, claude/task-queue-work-e71746
+- **Files:** `.claude/skills/new-creature/SKILL.md`, `packages/render/src/duty.ts`, `packages/content/src/waves-demo.ts`, `tools/director/src/ship-fields.ts`, `packages/render/src/creature-body.ts`, `packages/sim/src/hull.ts`, `packages/sim/src/beat.ts`
+
+The skill's table says *every one of them is enforced … so this list is
+complete*, and THE BLISTER's lane met more: `DUTY_WORD` in `duty.ts`,
+`DEMONSTRATIONS` in `waves-demo.ts` (both compile errors), a new `SimConfig`
+field's card in `ship-fields.ts` with its group and note, an `EXCLUSIVE` row
+in `creature-body.ts` when `living-look.ts` answers `null` (a runtime ask for
+a missing contour, not a compile error), and — for a kind that stands rather
+than falls — `resolveHull` and `beat.ts`' arrival rule, which breach a body on
+the hull row a beat later and freeze its clock. Then the tests that each keep
+a list of their own: AUTO's hands (`hands/autopilot-touch.ts`,
+`autopilot-field.test.ts`), the palette's `SHORT_NOTE` and `cardSubjects`
+(`brushes.test.ts`), `LOOK_PENDING` (`pixel-frame.test.ts`), the counts in
+`docs/spec/briefings.md` §1 and §3.2, `categoryOf`'s special list
+(`creatures.test.ts`), the nameable kinds (`mechanics.test.ts`) and a new
+`SimConfig` field named in a document (`doc-drift.test.ts`). Add the
+compile-checked ones to the table and the rest as a second list; prove it
+complete by adding a throwaway kind on a scratch branch and running
+`bun run check`.
+
+## `render/duty.ts` is at 250 lines: cut `DUTY_WORD` out
+
+- **Found:** 2026-10-08, claude/task-queue-work-e71746
+- **Files:** `packages/render/src/duty.ts`
+
+THE BLISTER's row took it to the limit exactly, and its comment had to go on
+the row's own line to fit. Every new kind adds a row here, so the next one
+cannot. Move the `DUTY_WORD` table and its per-row arguments into
+`duty-words.ts` beside it, re-exported so no caller moves, and give THE
+BLISTER's row a comment above it like the others.

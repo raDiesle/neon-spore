@@ -3,17 +3,20 @@ import {
   beatboxIsBox,
   beatboxWanted,
   beatPhaseTicks,
+  blisterByOf,
+  blisterIsUp,
   type Creature,
   gripsCreature,
   gumIsFlung,
   midCol,
   mineSeenBy,
   type TimedCommand,
+  ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
 
 /**
- * **THE WEIGHT, THE MINE, THE BEATBOX and THE GUM, on AUTO**: four bodies
+ * **THE WEIGHT, THE MINE, THE BEATBOX, THE GUM and THE BLISTER, on AUTO**: five bodies
  * answered by a finger on the body rather than by the cannon or the shield.
  *
  * A weight is crushed by a hand from each seat on it at once, held for
@@ -26,7 +29,9 @@ import {
  * itself, the middle of the window a tap counts in. A gum is swiped out of the
  * air by either seat (`gum.ts`): player 2 grips the lowest one still falling,
  * which leaves player 1's hands on the cannon, and carries it a swipe's worth
- * toward the nearer wall.
+ * toward the nearer wall. A blister is tapped by the seat its `by` names —
+ * player 2 when both may — once a beat while it is up, half a beat in, so the
+ * tap never meets the beat it surfaces or sinks on (`blister.ts`).
  */
 
 type Press = Omit<TimedCommand, "tick">;
@@ -70,6 +75,14 @@ function countBoxes(w: World): Press[] {
     .map((c) => ({ player: 2, command: { kind: "tap", id: c.id } }));
 }
 
+/** The named seat's tap on every blister that is up, half a beat in. */
+function tapBlisters(w: World): Press[] {
+  if (beatPhaseTicks(w.cfg, w.tick) !== Math.floor(ticksPerBeat(w.cfg) / 2)) return [];
+  return w.creatures
+    .filter(blisterIsUp)
+    .map((c) => ({ player: blisterByOf(c) === 1 ? 1 : 2, command: { kind: "tap", id: c.id } }));
+}
+
 /** Player 2's grip on the lowest gum still falling, then the swipe. */
 function swipeGum(w: World): Press[] {
   const body = lowestOf(w, "gum", (c) => !gumIsFlung(c));
@@ -88,5 +101,5 @@ function swipeGum(w: World): Press[] {
 
 /** Both seats' fingers on the bodies they answer by touch. */
 export function touchBodies(w: World): Press[] {
-  return [...crushWeight(w), ...pressMine(w), ...countBoxes(w), ...swipeGum(w)];
+  return [...crushWeight(w), ...pressMine(w), ...countBoxes(w), ...swipeGum(w), ...tapBlisters(w)];
 }

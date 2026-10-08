@@ -594,7 +594,7 @@ by hand never moves.
 | `packages/sim/src/creature-kinds-many.ts` | the five kinds that are more than one body, answered a part at a time |
 | `packages/sim/src/creature-kinds-handed.ts` | **The two bodies answered by a hand from each seat at once** |
 | `packages/sim/src/creature-kinds-fixtures.ts` | The four bodies a wave never sends: the queen, the ring, the line it lowers and the pile, installed where they stand rather than queued |
-| `packages/sim/src/creature-kinds-standing.ts` | **The two bodies that stand on a tile**, and the only two whose answer is a square rather than a column |
+| `packages/sim/src/creature-kinds-standing.ts` | **The bodies that stand on a tile**, and the only ones whose answer is a square rather than a column |
 | `packages/sim/src/creature-state-heading.ts` | the four kinds that carry a direction, and the beats attached to it |
 | `packages/sim/src/events-veil.ts` | THE VEIL's three events: the turn, the rebuff and the tear |
 | `packages/sim/src/events-vane.ts` | **What THE VANE's second and third hands do that neither screen already says** |
@@ -714,8 +714,10 @@ by hand never moves.
 | `packages/sim/src/baton.ts` | THE BATON: whose turn is it |
 | `packages/sim/src/config-balloon.ts` | THE BALLOON's numbers: how long one swells before it moves, how fast it climbs |
 | `packages/sim/src/config-baton.ts` | THE BATON's numbers — how many sockets the arm has, how long a bead is in the air |
+| `packages/sim/src/config-blister.ts` | THE BLISTER's numbers: how long it stays up, how long it is under, how much nearer each surfacing comes |
 | `packages/sim/src/config-trapeze.ts` | THE TRAPEZE's tuning: where the swing hangs and how long its ropes are, how fast it swings |
 | `packages/sim/src/creature-state-balloon.ts` | **THE BALLOON's six**, and the seventh group carried out of `creature-state.ts` along the seam that file's… |
+| `packages/sim/src/creature-state-blister.ts` | **THE BLISTER's four fields**: whose blow counts, how many are owed, whether it is up, and how long it stays |
 | `packages/sim/src/creature-state-mine.ts` | **THE MINE's two fields**, a count and a seat, and between them they are the whole of a body that never moves |
 | `packages/sim/src/creature-state-push.ts` | **The shield's push, as two fields**, and `shield-push.ts` is the whole of what they mean |
 | `packages/sim/src/drag-targets.ts` | **Every thing on this field a hand may take hold of**, as a closed list of names |
@@ -824,6 +826,7 @@ by hand never moves.
 | `packages/sim/src/beatbox-picture.ts` | **THE BEATBOX's readings that decide nothing**: how long ago a thumb counted, how long ago one missed |
 | `packages/sim/src/beat-clock.ts` | Converting between the tick line and the beat, in the one place that may |
 | `packages/sim/src/bearing.ts` | **A bearing**: where a hand is round a circle, in thousandths of a turn clockwise from the top |
+| `packages/sim/src/blister.ts` | THE BLISTER: a body you knock back down (`docs/spec/blister.md`) |
 | `packages/sim/src/undertow-hash.ts` | What THE UNDERTOW puts into `hashWorld`, and nothing else |
 | `packages/sim/src/undertow-press.ts` | THE UNDERTOW's answers, and the tap, all on the **tick** |
 | `packages/sim/src/undertow-step.ts` | THE UNDERTOW's clock: the bow, the lobe standing, the lobe growing, the burst |
@@ -1042,6 +1045,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-balloon.ts` | THE BALLOON's rehearsal: two hands on one body, or nothing at all |
 | `packages/content/src/scenes/the-baton.ts` | THE BATON's rehearsal: a launch nobody answers, then three handovers |
 | `packages/content/src/scenes/the-beatbox.ts` | THE BEATBOX's rehearsal: the tap you do not make is the one that counts |
+| `packages/content/src/scenes/the-blister.ts` | THE BLISTER's rehearsal, at its plainest: one blister, the navigator's to knock down |
 | `packages/content/src/scenes/the-undertow.ts` | THE UNDERTOW's rehearsal: the floor bows, a lobe stands, and its colour says who answers it |
 | `packages/content/src/scenes/the-antiphon.ts` | THE ANTIPHON's rehearsal: six organs described across the two seats, the seats swapping every level |
 | `packages/content/src/scenes/one-last-chance.ts` | ONE LAST CHANCE's rehearsal: the shield pushes a slick back up once, and only the cannon kills it |
@@ -1062,7 +1066,9 @@ by hand never moves.
 | `packages/content/src/scout-haul-arenas.ts` | THE HAUL's arenas: THE SCOUT again, with a hold that takes every mote on the level at once |
 | `packages/content/src/screen-words.ts` | The sentences a player reads outside a wave: the card a bad line puts up |
 | `packages/content/src/creatures-beatbox.ts` | THE BEATBOX's row, cut out of `creatures-table.ts` when it took that file past its 250-line limit |
+| `packages/content/src/creatures-blister.ts` | THE BLISTER's row, in a file of its own for `creatures-beatbox.ts`' reason |
 | `packages/content/src/mechanics-beatbox.ts` | THE BEATBOX's row, cut out of `mechanics-table.ts` when it took that file past its 250-line limit |
+| `packages/content/src/mechanics-blister.ts` | THE BLISTER's row, beside `mechanics-beatbox.ts` and for its reason: `mechanics-table.ts` is near its limit |
 | `packages/content/src/silhouettes-beatbox.ts` | Beatbox: a rounded cabinet, and the one body on this roster whose contour is *architecture* rather than an… |
 | `packages/content/src/silhouettes-gum.ts` | **THE GUM in the air: THE WEIGHT's sac**, taken off the shape sheet whole |
 | `packages/content/src/silhouettes-weight.ts` | **THE WEIGHT: the slumped sac**, the louder of the two hanging drafts, taken off the shape sheet whole |
@@ -2529,6 +2535,8 @@ by hand never moves.
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
+| `packages/render/src/blister-tap.ts` | **A tap on THE BLISTER**, answered only where the simulation would count it: on a blister that is up |
+| `packages/render/src/blister.ts` | THE BLISTER, drawn at its plainest: a disc while it is up and nothing while it is under (`sim/blister.ts`) |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/canvas2d-held.ts` | **What a host may reach of the renderer's state**, as the class `Canvas2DRenderer` stands on |
 | `packages/render/src/cairn-settle.ts` | The lane THE CAIRN is about to drop a rock into, drawn on player 1's screen and on nothing player 2 is shown |

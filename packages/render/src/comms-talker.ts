@@ -49,6 +49,11 @@ export const TALKER = {
   // with no seat named falls back to. It is the navigator's, because that is
   // the seat the wisp's sight is on and a mine is a wisp standing still.
   mine: "p2",
+  // THE BLISTER, a default for the mine's reason: whose hand knocks it down is
+  // the wave's (`SpawnEntry.by`), and the seat that talks is the other one —
+  // the one shown the pore swelling. `talkerFor` reads it off the body; this
+  // is the navigator's hand, so the pilot talks.
+  blister: "p1",
   // THE MOULT: both screens carry the body and the form it is in now, and the
   // navigator alone is shown the one that is coming. So the split is not
   // *what is there* — it is **when what is there stops being that**, which is

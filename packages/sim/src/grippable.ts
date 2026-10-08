@@ -82,6 +82,10 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   // a finger on its tile, and a hand that could also *hold* it would make a
   // thumb that rested a fraction too long the other gesture entirely.
   "mine",
+  // And a blister, for the mine's reason: what answers one is a tap, and a
+  // hand that could also hold it would make a tap that rested too long the
+  // other gesture (`blister.ts`).
+  "blister",
   "gyre",
   "mount",
   "carom",

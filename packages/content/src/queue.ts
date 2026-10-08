@@ -173,6 +173,10 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
       // cargo and never goes through `mapCol`, for the seat's reason one line
       // up.
       ...(e.cargo === undefined ? {} : { cargo: e.cargo }),
+      // Whose hand knocks a blister down and how many blows it takes, on the
+      // same terms: absent is the default `blisterOnSpawn` reads.
+      ...(e.by === undefined ? {} : { by: e.by }),
+      ...(e.count === undefined ? {} : { count: e.count }),
     });
   }
   return queue.sort((a, b) => a.beat - b.beat);

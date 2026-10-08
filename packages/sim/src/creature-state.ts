@@ -1,5 +1,6 @@
 import type { BalloonState } from "./creature-state-balloon.js";
 import type { BeatboxState } from "./creature-state-beatbox.js";
+import type { BlisterState } from "./creature-state-blister.js";
 import type { CrawlerState } from "./creature-state-crawler.js";
 import type { FenceState } from "./creature-state-fence.js";
 import type { GyreState } from "./creature-state-gyre.js";
@@ -49,6 +50,7 @@ import type { PodKind } from "./pod-types.js";
 export interface CreatureState
   extends BalloonState,
     BeatboxState,
+    BlisterState,
     CrawlerState,
     FenceState,
     GyreState,

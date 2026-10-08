@@ -1,5 +1,6 @@
 import { BALLOON_DEFAULTS, type BalloonConfig } from "./config-balloon.js";
 import { BEATBOX_DEFAULTS, type BeatboxConfig } from "./config-beatbox.js";
+import { BLISTER_DEFAULTS, type BlisterConfig } from "./config-blister.js";
 import { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 import { BOSS_CLOCK_DEFAULTS, type BossClockConfig } from "./config-boss-clocks.js";
 import { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
@@ -32,47 +33,12 @@ import { VIEW_DEFAULTS, type ViewConfig } from "./config-view.js";
 import { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
 import { WEIGHT_DEFAULTS, type WeightConfig } from "./config-weight.js";
 
-export { BALLOON_DEFAULTS, type BalloonConfig } from "./config-balloon.js";
-export { BEATBOX_DEFAULTS, type BeatboxConfig } from "./config-beatbox.js";
-export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
-// The five bosses that are a clock are one block now, the way the rounds
-// are: `config-boss-clocks.ts` is where a sixth is added, and nothing
-// outside this package has ever asked for one of them by name.
-export { BOSS_CLOCK_DEFAULTS, type BossClockConfig } from "./config-boss-clocks.js";
-export { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
-export { CHOIR_DEFAULTS, type ChoirConfig } from "./config-choir.js";
-export { CHOKE_DEFAULTS, type ChokeConfig } from "./config-choke.js";
-export { CLAW_DEFAULTS, type ClawConfig } from "./config-claw.js";
-export { CLING_DEFAULTS, type ClingConfig } from "./config-cling.js";
-export { COIL_DEFAULTS, type CoilConfig } from "./config-coil.js";
-export { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
-export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
-export { CRYSTAL_DEFAULTS, type CrystalConfig } from "./config-crystal.js";
-export { FENCE_DEFAULTS, type FenceConfig } from "./config-fence.js";
-export { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
-export { GUM_DEFAULTS, type GumConfig } from "./config-gum.js";
-export { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
-export { MALFUNCTION_DEFAULTS, type MalfunctionConfig } from "./config-malfunction.js";
-export { PAIR_ON, type PairConfig } from "./config-pair.js";
-export { POD_DEFAULTS, type PodConfig } from "./config-pod.js";
-export { PUSH_DEFAULTS, type PushConfig } from "./config-push.js";
-export { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
-export { ROCK_CROSS_DEFAULTS, type RockCrossConfig } from "./config-rock-cross.js";
-// The rounds are one block now, and only the block is re-exported here: the
-// six sets behind it are reached through `config-rounds.ts` itself, which is
-// where a seventh will be added. Nothing outside this package ever asked for
-// one by name — `FLEET_SHELL_BEATS` is the exception, and `bind-fleet.ts`
-// needs it to delay a splash.
-export { FLEET_SHELL_BEATS, ROUND_DEFAULTS, type RoundConfig } from "./config-rounds.js";
-export { RUN_DEFAULTS, type RunConfig } from "./config-run.js";
-export { SCOUT_DEFAULTS, type ScoutConfig, type ScoutHandConfig } from "./config-scout.js";
-export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
-export { SLOW_DEFAULTS, type SlowConfig } from "./config-slow.js";
-export { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
-export { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
-export { VIEW_DEFAULTS, type ViewConfig } from "./config-view.js";
-export { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
-export { WEIGHT_DEFAULTS, type WeightConfig } from "./config-weight.js";
+// The two names any caller reaches for through this file rather than through
+// the set they belong to: `bind-fleet.ts` delays a splash by the one, and the
+// game turns the pair's gates on with the other. Every set's own name was
+// re-exported here too, and nothing read one by this road (8 October 2026).
+export { PAIR_ON } from "./config-pair.js";
+export { FLEET_SHELL_BEATS } from "./config-rounds.js";
 
 /**
  * Every tunable number of the simulation. Named values, never loose literals —
@@ -82,6 +48,7 @@ export interface SimConfig
   extends CoilConfig,
     BalloonConfig,
     BeatboxConfig,
+    BlisterConfig,
     BossConfig,
     CaromConfig,
     ChoirConfig,
@@ -200,6 +167,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...CHOKE_DEFAULTS,
   ...CLING_DEFAULTS,
   ...BEATBOX_DEFAULTS,
+  ...BLISTER_DEFAULTS,
   ...CHOIR_DEFAULTS,
   ...CRAWLER_DEFAULTS,
   ...STRAND_DEFAULTS,

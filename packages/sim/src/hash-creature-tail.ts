@@ -83,6 +83,14 @@ export function tailHashParts(c: Creature): number[] {
   // crosses, a value no count can take, so "not a crystal" and "the first beat
   // of a fall" are never the same number in the fingerprint.
   out.push(c.crystalLeg ?? -1);
+  // THE BLISTER: whose blow counts, blows owed, up or under, and beats left
+  // where it is. Two devices that disagreed about any one would have one
+  // seat's tap counted on one phone and refused on the other. `0` and `-1`
+  // for a body that is not a blister, which no live one can be.
+  out.push(c.blisterBy === undefined ? 0 : c.blisterBy === "both" ? 3 : c.blisterBy);
+  out.push(c.blisterLeft ?? -1);
+  out.push(c.blisterUp ? 1 : 0);
+  out.push(c.blisterClock ?? -1);
   return out;
 }
 

@@ -1,3 +1,4 @@
+import { blisterIsUp } from "./blister.js";
 import { fenceIsOpen } from "./fence.js";
 import { creatureLane, creatureMilli } from "./mid-beat.js";
 import { queenOccupiesCol } from "./queen-mark.js";
@@ -62,6 +63,9 @@ export function firstAlong(
     // paragraphs is overruled: a body a shot cannot answer still stops the
     // shot. What each of them does with it is `bullet-hit.ts`'s `resolve`.
     if (c.kind === "gyre") continue;
+    // THE BLISTER while it is under: there is nothing on the pore but
+    // membrane, so a bolt passes over it (`blister.ts`).
+    if (c.kind === "blister" && !blisterIsUp(c)) continue;
     // THE FENCE stops a bolt in every column it is still **shut** in, and in
     // none of the ones it is open in: a hole is a hole, so a shot fired up a
     // way through reaches whatever is above it rather than dying on a gap the

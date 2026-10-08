@@ -1,4 +1,5 @@
 import { balloonEntryCol, balloonEntryRow, balloonEntrySide } from "./balloon-entry.js";
+import { blisterPlaceRow } from "./blister.js";
 import { minePlaceRow } from "./mine.js";
 import { rockCrossRowFor, rockEntryCol, rockMayCross } from "./rock-cross.js";
 import { shellOnSpawn } from "./shell.js";
@@ -90,6 +91,9 @@ export function spawnOne(world: World, entry: SpawnEntry): void {
   // `minePlaceRow` pulls that row into the band and steps it clear of any
   // mine already standing (`mine.ts`).
   const stands = entry.kind === "mine";
+  // A blister too, on its first pore: the authored row, pulled clear of the
+  // hull (`blisterPlaceRow`). The pores after it are the rng's.
+  const pore = entry.kind === "blister";
   // **THE BALLOON comes in at a wall and glides to the middle**, which is the
   // owner's rule of 14 September 2026: it used to appear out of nothing one
   // row above the ship and swell there, which made the arrival a place the
@@ -109,9 +113,11 @@ export function spawnOne(world: World, entry: SpawnEntry): void {
     ? balloonEntryRow(world.cfg, world.rng)
     : stands
       ? minePlaceRow(world, col, entry.row)
-      : across === undefined
-        ? 0
-        : rockCrossRowFor(world.cfg, entry.row);
+      : pore
+        ? blisterPlaceRow(world.cfg, entry.row)
+        : across === undefined
+          ? 0
+          : rockCrossRowFor(world.cfg, entry.row);
   // Said once, at the top of the field, so player 2's ear has the column
   // before the eye has found the ring — haste, never surprise.
   if (entry.kind === "lure") world.events.push({ type: "lureSeen", col });
@@ -132,8 +138,9 @@ export function spawnOne(world: World, entry: SpawnEntry): void {
     // down from off the top edge into the middle of the field would be a
     // picture of the arrival it deliberately is not.
     // A mine has no entrance at all: it is on its tile from the first frame,
-    // which is the only arrival a thing that was *placed* can have.
-    fromRow: rises || stands || across !== undefined ? row : -fallTilesPerBeat(entry.kind),
+    // which is the only arrival a thing that was *placed* can have — and a
+    // blister, which comes up out of its pore rather than in from the top.
+    fromRow: rises || stands || pore || across !== undefined ? row : -fallTilesPerBeat(entry.kind),
     // A balloon glides in **sideways out of a wall**, which is a crossing
     // rock's own arrangement one creature along: `fromCol` is the wall and
     // `col` is where it stops, so the picture carries it in along the row it

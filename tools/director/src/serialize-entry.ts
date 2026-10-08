@@ -71,6 +71,11 @@ export function serializeEntry(entry: WaveEntry): string {
   // fact. Absent is a ward, which is the default the rule already reads
   // (`sim/moult.ts`), so there is no "nothing" here to preserve either.
   if (entry.cargo !== undefined) parts.push(`cargo: "${entry.cargo}"`);
+  // And whose hand knocks a blister down and how many blows it takes — the
+  // fifth time: dropped, a blister for the pilot's hand would come back the
+  // navigator's after one save (`sim/blister.ts`).
+  if (entry.by !== undefined) parts.push(`by: ${entry.by === "both" ? '"both"' : entry.by}`);
+  if (entry.count !== undefined) parts.push(`count: ${entry.count}`);
   return `{ ${parts.join(", ")} }`;
 }
 

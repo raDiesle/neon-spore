@@ -54,6 +54,7 @@ describe("categoryOf", () => {
     // THE MINE is the eighth: what answers it is a finger on a bare square of
     // the field, which is not a control on either panel and so is not a
     // `ControlGroup` either — THE BEATBOX's own entry one creature along.
+    // THE BLISTER is the ninth: a tap on the body, the box's again.
     expect(special).toEqual([
       "tether",
       "mount",
@@ -63,6 +64,7 @@ describe("categoryOf", () => {
       "gum",
       "weight",
       "mine",
+      "blister",
     ]);
   });
 });

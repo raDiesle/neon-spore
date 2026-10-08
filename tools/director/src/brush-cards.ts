@@ -128,6 +128,9 @@ export function cardSubjects(kind: CreatureKind): string[] {
   // tells this brush apart in the strip is its colour and its note, and what
   // is worth knowing about one on the field is a gesture no silhouette shows.
   if (kind === "balloon") return [];
+  // THE BLISTER has no contour on the sheet until lane 2 gives it a body
+  // (`docs/queue.md`), so its card is its word, as the choir's is.
+  if (kind === "blister") return [];
   return [kind.toUpperCase()];
 }
 
@@ -170,6 +173,7 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   veil: "p2 does not see what is inside",
   wisp: "p1 cannot see it; hops tiles and never falls",
   mine: "one of you sees it; the other taps that exact tile",
+  blister: "the hand taps it while up; the other says where next",
   moult: "rock five beats, cargo five — it lands as one of them",
   ghost: "p1 cannot see it — say the column",
   echo: "splits",

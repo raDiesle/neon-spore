@@ -1,5 +1,6 @@
 import { batonLaunch } from "./baton-press.js";
 import { beatboxTapped } from "./beatbox-round.js";
+import { blisterTapped } from "./blister.js";
 import { fire } from "./bullets.js";
 import { choirShaken } from "./choir-gesture.js";
 import { leaveHeard } from "./command-leave.js";
@@ -162,7 +163,9 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       // is a press on a body. Which seat may send it is `beatbox-round.ts`'s
       // rule and not this file's, on `valve`'s terms: the command is what was
       // pressed, and whose press counts belongs to the creature.
-      beatboxTapped(world, timed.player, c.id);
+      // THE BLISTER takes the same press, asked first: a blister answers for
+      // every tap on its id, counted or not (`blister.ts`).
+      if (!blisterTapped(world, timed.player, c.id)) beatboxTapped(world, timed.player, c.id);
       break;
     case "tapTile":
       // A blind finger on a square of the field, and the one press in this

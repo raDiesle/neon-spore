@@ -1,4 +1,5 @@
 import type { CrawlerSide } from "./crawler.js";
+import type { BlisterBy } from "./creature-state-blister.js";
 import type { GhostPath } from "./ghost.js";
 import type { RockSize } from "./span.js";
 import type { Color, CreatureKind, PodKind } from "./types.js";
@@ -198,6 +199,13 @@ export interface SpawnEntry {
    * before it decides whether to stand under it.
    */
   cargo?: PodKind;
+  /** Whose hand knocks a **blister** down — 1, 2 or both — and absent on every
+   * other kind; absent on a blister means 2 (`blisterOnSpawn`). The wave's,
+   * for `sees`' reason: the other seat is the one shown the pore. */
+  by?: BlisterBy;
+  /** How many blows a **blister** takes, kept across its surfacings; absent
+   * means `blisterBlows`. Meaningless on any other kind. */
+  count?: number;
 }
 
 // **What a wave authors when it wants a boss** is `boss-entries.ts` next door,

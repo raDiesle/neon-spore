@@ -38,6 +38,9 @@ const BOUNCES_A_BOLT: ReadonlySet<Creature["kind"]> = new Set([
   // draws it to the pilot a bolt that killed one would hand the seat holding
   // the cannon both halves of the sentence at once (`mine.ts`).
   "mine",
+  // And a blister while it is up — a bolt never meets one that is under
+  // (`shot-reach.ts`). It is a hand's, not the cannon's (`blister.ts`).
+  "blister",
 ]);
 
 /** Whether a bolt that meets this kind is spent on it with no effect. */

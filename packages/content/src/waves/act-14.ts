@@ -39,6 +39,12 @@ import type { Wave } from "../wave-types.js";
  * owner, 6 October 2026: *add a tutorial guide at the start of the wave
  * that briefly explains what has to be done*), and while it plays the
  * siren top right says whose turn it is (`render/comms-mimic.ts`).
+ *
+ * **THE BLISTER is here at its plainest** (`docs/spec/blister.md`): two of
+ * them, the navigator's hand, three taps each, and the pilot the seat that
+ * sees where they come up. *The one where the hand that waits to see it is
+ * late.* Lane 8 moves it to the act its sentence fits and writes its real
+ * guide (`docs/queue.md`).
  */
 export const WAVES_ACT_14: Wave[] = [
   {
@@ -145,5 +151,16 @@ export const WAVES_ACT_14: Wave[] = [
     },
     bossType: "normal",
     controls: "scene",
+  },
+  {
+    id: "theBlister",
+    name: "THE BLISTER",
+    guide: {
+      scene: "theBlister",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "blister", color: null, row: 2, by: 2, count: 3 },
+      { beat: 12, col: 1, kind: "blister", color: null, row: 3, by: 2, count: 3 },
+    ],
   },
 ];

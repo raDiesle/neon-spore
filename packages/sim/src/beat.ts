@@ -125,8 +125,10 @@ export function onBeat(world: World): void {
     // would take one more stride during the beat it is being drawn landing and
     // breach a column it was never drawn in. For everything that falls
     // straight down the line costs nothing and says the same thing: the fall
-    // is over.
-    if (c.row >= hullRow(world.cfg)) continue;
+    // is over. THE BLISTER is the one body on that row that has not arrived:
+    // it is under its pore there, and breaks the hull by coming up
+    // (`stepBlister`), so its clock still runs.
+    if (c.row >= hullRow(world.cfg) && c.kind !== "blister") continue;
     // **Everything that moves by a rule of its own instead of falling**: the
     // dart's diagonal, the carom's, THE COIL's crossing and the dome coming
     // off it, the chute's climb, a volley a ward has just sent back up, the

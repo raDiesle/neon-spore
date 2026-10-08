@@ -1,4 +1,12 @@
-import type { Color, CrawlerSide, GhostPath, PodKind, RockCross, RockSize } from "@neon-spore/sim";
+import type {
+  BlisterBy,
+  Color,
+  CrawlerSide,
+  GhostPath,
+  PodKind,
+  RockCross,
+  RockSize,
+} from "@neon-spore/sim";
 import type { WaveKind } from "./mechanics.js";
 import type { FenceEntry } from "./wave-entry-fence.js";
 
@@ -227,4 +235,11 @@ export interface WaveEntry extends FenceEntry {
    * of them is one sentence to say rather than one per body (`sim/moult.ts`).
    */
   cargo?: PodKind;
+  /** Whose hand knocks THE BLISTER down: 1, 2 or both, absent 2. The other
+   * seat is shown where it comes up, so this turns the exchange round, as
+   * `sees` does a mine's (`sim/blister.ts`). */
+  by?: BlisterBy;
+  /** How many blows THE BLISTER takes, kept across surfacings; absent is the
+   * director's default of three. */
+  count?: number;
 }

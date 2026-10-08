@@ -1,6 +1,7 @@
 /**
- * **The two bodies that stand on a tile**, and the only two whose answer is a
- * square rather than a column.
+ * **The bodies that stand on a tile**, and the only ones whose answer is a
+ * square rather than a column — the wisp and the mine, and THE BLISTER, which
+ * stands on a tile it was not on a beat ago.
  *
  * Cut out of `creature-kinds.ts` for `creature-kinds-handed.ts`' reason and at
  * the moment that file predicted once more: the roster was left with room for
@@ -42,4 +43,14 @@ export type StandingKind =
    * is the wave's to choose, not this file's. `Creature.mineFuse` and
    * `Creature.mineSees` are its state, and `mine.ts` is the whole of it.
    */
-  | "mine";
+  | "mine"
+  /**
+   * A body that comes up out of a pore, stays up for `blisterUpBeats` and
+   * sinks again — and surfaces `blisterSinkRows` nearer the hull in a column
+   * the seeded rng picks, until a hand has knocked it down `count` times or it
+   * comes up on the hull row and breaks it. Only the seat its `by` names may
+   * knock it, and only while it is up; the other seat is the one shown where it
+   * will come up. `Creature.blisterBy`, `blisterLeft`, `blisterUp` and
+   * `blisterClock` are its state, and `blister.ts` is the whole of it.
+   */
+  | "blister";

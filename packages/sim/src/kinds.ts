@@ -145,6 +145,9 @@ export function fallTilesPerBeat(kind: CreatureKind): number {
   // in from off the top edge would tell the seat that can see it to wait, and
   // the fuse is already counting on the beat it appeared.
   if (kind === "mine") return 0;
+  // And a blister, which moves only between surfacings and never by gliding:
+  // it sinks at one pore and comes up at another (`blister.ts`).
+  if (kind === "blister") return 0;
   // THE GYRE, both halves of it: the hub walks its own route and the six on
   // its rim are carried by it (`stepGyre`), so neither has a fall for a number
   // here to describe.

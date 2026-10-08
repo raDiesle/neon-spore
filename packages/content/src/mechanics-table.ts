@@ -1,5 +1,6 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
 import { BEATBOX_MECHANIC } from "./mechanics-beatbox.js";
+import { BLISTER_MECHANIC } from "./mechanics-blister.js";
 import { BOSS_MECHANICS, BOSS_MECHANICS_B } from "./mechanics-bosses.js";
 import { HANDED_MECHANICS } from "./mechanics-handed.js";
 import { ROCK_MECHANICS } from "./mechanics-rocks.js";
@@ -228,4 +229,6 @@ export const MECHANICS = {
     // say rather than one per body (`sim/moult.ts`).
     waveNames: true,
   },
+  // THE BLISTER, in `mechanics-blister.ts` next door for THE BEATBOX's reason.
+  blister: BLISTER_MECHANIC,
 } as const satisfies Record<MechanicId, Mechanic>;

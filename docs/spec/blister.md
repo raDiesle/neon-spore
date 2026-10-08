@@ -99,6 +99,8 @@ from end to end.
 - Whether a blow on an empty pore — a tap where it was, a beat late — costs
   anything. The draft says no: the late tap is its own punishment.
 - `blisterUpBeats` and `blisterSinkRows`: the guide's wave measures them; the
-  draft is 2 beats and 3 rows.
+  draft is 2 beats and 3 rows. Lane 1 added two more: `blisterDownBeats`, the
+  beats under between surfacings (2, the last of them the bulge's), and
+  `blisterBlows`, the count when a wave names none (3).
 - Whether a wave may carry several blisters up at once. The draft allows it and
   the first wave does not use it.

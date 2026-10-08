@@ -1,3 +1,4 @@
+import { stepBlister } from "./blister.js";
 import { stepCarom } from "./carom.js";
 import { stepChute } from "./chute.js";
 import { stepCoil } from "./coil.js";
@@ -124,6 +125,13 @@ export function steppedInsteadOfFalling(world: World, c: Creature): boolean {
   // away from the tile somebody just read out.
   if (c.kind === "mine") {
     stepMine(world, c);
+    return true;
+  }
+  // A blister does not fall either: it comes up, stays, sinks and comes up
+  // nearer, on its own clock (`stepBlister`). One that also fell would come
+  // up a row away from the pore the partner just named.
+  if (c.kind === "blister") {
+    stepBlister(world, c);
     return true;
   }
   // A crossing ghost drifts in to the row it prowls along, walks it a column a

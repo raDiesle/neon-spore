@@ -181,6 +181,7 @@ const DUTY_WORD = {
   // `duty-mine.ts`. This is the shape and the default, the way THE FENCE's row
   // is — the navigator sees it, so the navigator says the tile.
   mine: { p1: "TAP THE TILE", p2: "SAY THE TILE" },
+  blister: { p1: "SAY WHERE", p2: "TAP IT OUT" }, // THE BLISTER, by P2's default
   // THE MOULT. The navigator is the only seat shown the form that is coming,
   // and every control that answers one — the column, the trigger, the mouth
   // — is the pilot's, so the word on one dial is a count and the word on the
