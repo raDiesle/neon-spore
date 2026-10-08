@@ -35884,3 +35884,5 @@ Bottleneck: none to speak of; the entry had the cause and the cure.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: landing — the rows were quicker to write than to check.
+
+*Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 434d46def — THE SURGE, THE LEAD, THE SCUTTLE and THE ANTIPHON hold no mark before its window
+
+Four more rows `NO_ROW` owed, each the shared halo held to the boss's windows in the simulation: either seat's grip on THE SURGE's bulb, THE LEAD's stalk while it may be gripped, THE SCUTTLE's loose parts while the frame may be swung, THE ANTIPHON's organ or a candidate on its rail. Each goes red with its window emptied.
+
 ## 2026-10-08 · cad925e64 — `land` lets a queue heading be shortened to a prefix of itself
 
 The guard against a lane putting back finished queue work asked the trunk's history with `git log -S`, which counts a substring: the commit that filed *… THE RIME, THE GRINDSTONE, THE VALVE* had changed the count of the same heading cut to end at THE GRINDSTONE, so a lane that finished one boss of three and renamed its entry was refused. The heading and the `Found:` line are now asked for as whole lines, with `-G` and the line escaped and anchored.
