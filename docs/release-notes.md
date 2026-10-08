@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · a13bf8836 — THE BLISTER's lanes 4 to 8 are postponed off the queue
+
+HOLD, SWIPE, TURN, RUB and the real guide leave docs/queue.md at the owner's word and wait at the foot of docs/spec/blister.md, each in the shape it had as an entry, until he asks for one. The blister the game has is lanes 1 to 3: tapped down, its look, and the director's BY, GESTURE and COUNT rows.
+
 ## 2026-10-08 · c84b2b78d — THE BLISTER's look: a four-lobed body up out of a pore, the bulge before it, and the tap help
 
 THE BLISTER is drawn now, not a plain disc. Its body is ROOTED CLOVER: the four deep lobes of BULB · CLOVER on SINKER's roots, a combination of two shape drafts. CLOVER alone is already THE LAMPREY's dung. It comes up out of a dark pore over a third of a beat and goes back in the same way. The seat that may not tap sees the pore shut while it is under, then swelling into a dome on its last beat; the seat that may tap sees neither. Over the body: on the tapping seat a soft red light and the tap glyph; on the other seat the waiting clock; on both, THE MINE's ring of pips, one per tap still owed. Every tap that counts gets the green verdict ring and a bubble-press sound that rises with each tap.
