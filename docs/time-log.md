@@ -35093,3 +35093,5 @@ outside its own files, and only the tests list them.
 
 Bottleneck: looking — whether the pose read as a swinger only showed in a
 frame, and the first one was too small to.
+
+*Measured: 59 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
