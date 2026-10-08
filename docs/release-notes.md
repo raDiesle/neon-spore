@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 7a6b21c3b — THE SLING's tines ring after a true loose
+
+Through the rest a true loose ends in, the two tines ring about the crotch like a struck fork, mirrored: 0.6 of a radian at the first swing, so the tips travel more than half a tile, dying to nothing before the next step lights, since a tine is a seat's draw handle. Each cord, its verdict ring and the bolt's stop go round with their tine. Timed off the rest's own beat, so both screens ring together; a shot, a miss or a draw sprung slack rings nothing. Living bosses, step 11. On the field under *a look the owner asked for by name*.
+
 ## 2026-10-08 · 79a27fe3d — THE GRINDSTONE's open caliper rocks on its axle
 
 THE HOOD and both its jaws rock together about the axle, up to 0.36 of a radian times how far the caliper is from shut, so a slack caliper's jaw tips travel more than half a tile each way and a bitten one is still on the stone. The jaw pads are marks, so the hit test, the ghost thumb and the verdict rings place each pad with the same turn. On the beat clock, hushed under THE SLOW. Living bosses, step 11. On the field under *a look the owner asked for by name*.

@@ -35542,3 +35542,5 @@ each place a pad, and all three had to take the same turn.
 
 Bottleneck: reading — the simulation does not keep what began a rest, so
 the ring had to come from the events without breaking the two-screen rule.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
