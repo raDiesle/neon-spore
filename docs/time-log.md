@@ -36318,3 +36318,5 @@ Bottleneck: reading — the row is one cell, the rule it states is three files.
 
 Bottleneck: the frames — seventeen seconds each, and the only way to see
 whether a shell reads as its own metal.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

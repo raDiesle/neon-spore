@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · da9156db9 — THE BASTION is drawn: a metal moon in four shells, each its own metal
+
+The moon hangs over the middle of the field, drawn inside out so every shell still on shows through the one over it: blue gunmetal armour slabs with a command tower and a keel, a bronze gun ring whose guns go round the back as the rim turns, a titanium cage with lightning-yellow nodes, and a grey inner hull with a trench, its ports on the navigator's screen alone, round a white-hot core. A slab being pulled stands out along its way; a shell coming away is a flash, a green shockwave and the shell in pieces; one growing back fills out inside a red ring; the core swells and blows.
+
 ## 2026-10-08 · c4ed9a926 — controls.md says who taps THE GOVERNOR's dial now: the seat each lit mark names
 
 The `THE GOVERNOR'S NEEDLE` row still talked about a braking seat, from before the owner's rework took the brake out. It now says what `sim/governor-hand.ts` does. Each mark of the lit step names the seat that lands it, and a step may hold marks for both seats. A press from a seat with nothing left to land is not heard. A tap lands when the needle is on one of that seat's open marks: any mark not yet landed, or only the next one on an ordered step. Any other tap is a skid, and it costs nothing already landed.
