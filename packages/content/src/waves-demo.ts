@@ -1,6 +1,7 @@
 import { DEFAULT_CONFIG, PLAY_CHARGE, type SimConfig } from "@neon-spore/sim";
 import type { MechanicId } from "./mechanics.js";
 import { WAVES, type Wave } from "./waves.js";
+import { BOSS_DEMONSTRATIONS } from "./waves-demo-bosses.js";
 
 /**
  * Which wave to open to see each mechanic, and what the run has to be switched
@@ -69,8 +70,11 @@ export interface Demonstration {
  * fails the type check here until somebody has said where it can be watched.
  * That is the whole point of the file — the registry can already say a
  * mechanic is reached, and reached is not the same as *shown to somebody*.
+ * The bosses from THE STARE on are next door (`waves-demo-bosses.ts`), and
+ * spread in here so the check still covers them.
  */
 export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
+  ...BOSS_DEMONSTRATIONS,
   slick: { wave: "firstStep" },
   bulb: { wave: "cyan" },
   lure: { wave: "theLure" },
@@ -144,48 +148,6 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   pinball: { wave: "pinball" },
   pulse: { wave: "pulse" },
   scout: { wave: "theScout" },
-  stare: { wave: "theStare" },
-  baton: { wave: "theBaton" },
-  throat: { wave: "theThroat" },
-  undertow: { wave: "theUndertow" },
-  gorge: { wave: "theGorge" },
-  curtain: { wave: "theCurtain" },
-  taster: { wave: "theTaster" },
-  ledger: { wave: "theLedger" },
-  sinew: { wave: "theSinew" },
-  surge: { wave: "theSurge" },
-  lead: { wave: "theLead" },
-  scuttle: { wave: "theScuttle" },
-  antiphon: { wave: "theAntiphon" },
-  hive: { wave: "theHive" },
-  instar: { wave: "theInstar" },
-  nettle: { wave: "theNettle" },
-  filament: { wave: "theFilament" },
-  gimbal: { wave: "theGimbal" },
-  spool: { wave: "theSpool" },
-  hasp: { wave: "theHasp" },
-  ratchet: { wave: "theRatchet" },
-  mantle: { wave: "theMantle" },
-  keel: { wave: "theKeel" },
-  valve: { wave: "theValve" },
-  seam: { wave: "theSeam" },
-  oculus: { wave: "theOculus" },
-  vise: { wave: "theVise" },
-  rime: { wave: "theRime" },
-  trivet: { wave: "theTrivet" },
-  plumb: { wave: "thePlumb" },
-  sling: { wave: "theSling" },
-  grindstone: { wave: "theGrindstone" },
-  cyst: { wave: "theCyst" },
-  davit: { wave: "theDavit" },
-  halter: { wave: "theHalter" },
-  capstan: { wave: "theCapstan" },
-  gall: { wave: "theGall" },
-  trapeze: { wave: "theTrapeze" },
-  flue: { wave: "theFlue" },
-  governor: { wave: "theGovernor" },
-  lamprey: { wave: "theLamprey" },
-  mimic: { wave: "theMimic" },
   // A fresh pair meeting the slick, which is the first card the game ever
   // raises and the shortest wave to raise one.
   briefing: { wave: "firstStep", config: { briefings: true } },

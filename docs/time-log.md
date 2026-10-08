@@ -35322,3 +35322,16 @@ and only a dump of the world after the hand had emptied the pile showed the
 third was the game's and not the hand's.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — waves-demo.ts and poses-mechanics.ts split before they reach the ceiling
+
+- reading: 5 min. Both files, for the seam each one already had.
+- writing: 5 min. The bosses from THE STARE on into `waves-demo-bosses.ts`,
+  spread back with `satisfies` so a missing row still fails the type check;
+  the pods and the radar into `poses-mechanics-reads.ts`.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: writing — proving the split table still catches a missing row,
+by deleting one and watching the type check go red.

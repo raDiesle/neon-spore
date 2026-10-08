@@ -875,6 +875,7 @@ by hand never moves.
 | `packages/content/src/warden-shape.ts` | THE WARDEN's body, and the only silhouette in the game with a hole in it |
 | `packages/content/src/wave-types.ts` | what a wave is made of |
 | `packages/content/src/waves-demo.ts` | which wave to open to see each mechanic, and what the run has to be switched to before it shows |
+| `packages/content/src/waves-demo-bosses.ts` | where each boss from THE STARE on is watched, spread into `waves-demo.ts` |
 | `packages/content/src/waves/act-1.ts` | act one: the tutorial arc |
 | `packages/content/src/waves/act-2.ts` | act two: the first six bosses, back to back, nothing else |
 | `packages/content/src/waves/act-3.ts` | act three: new mechanics after the first five bosses, one more boss among them (THE VANE) |
@@ -3092,6 +3093,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-plumb.ts` | THE PLUMB's pull: the left weight asked for, the bob skewed left |
 | `tools/director/src/poses-field-controls-lamprey.ts` | THE LAMPREY's hands, **each photographed from the seat that presses it**: the tail from the pilot's screen |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
+| `tools/director/src/poses-mechanics-reads.ts` | the last four mechanics poses: a pod hanging, a pod falling, and the radar from each seat |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
 | `tools/director/src/poses-struck.ts` | A living body over the ship with a matching bolt still climbing at it: the kill itself, replayed |
