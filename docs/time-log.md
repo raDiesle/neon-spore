@@ -35152,3 +35152,5 @@ the test's own setup had lost.
 
 Bottleneck: reading — the cause was already written down in `cpu-time.ts`;
 a walk timed idle and under 24 copies of itself said which part was wrong.
+
+*Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
