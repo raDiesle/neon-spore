@@ -22,6 +22,11 @@ export interface Mark {
 export interface Row {
   kind: BossKind;
   marks: (() => Mark)[];
+  /**
+   * The wave to walk, by id, where the boss's first wave never reaches its
+   * marks: THE SCOUT's ship is only ever laden on THE HAUL.
+   */
+  wave?: string;
 }
 
 /** Every spy a row has put up, for the test to take down after it. */

@@ -58,9 +58,13 @@ afterAll(() => {
 const ROWS = [...ROWS_A, ...ROWS_B, ...ROWS_C, ...ROWS_D, ...ROWS_E, ...ROWS_F];
 
 /** AUTO through the wave: every lit call outside its window, and how often each mark was lit. */
-function walk(kind: BossKind, marks: Mark[]): { wrong: string[]; seen: Map<string, number> } {
+function walk(
+  kind: BossKind,
+  marks: Mark[],
+  wave?: string,
+): { wrong: string[]; seen: Map<string, number> } {
   installCanvasGlobals();
-  const world = bossWorld(kind);
+  const world = bossWorld(kind, {}, wave);
   const cfg = world.cfg;
   const l = computeLayout(VIEWPORT, cfg, "test");
   const field = (seat: 1 | 2) => stageField(world, "test", controlSet("default"), cfg, seat, null);
@@ -106,7 +110,7 @@ function phaseName(world: World): string {
 describe("no boss puts a mark up before its window opens", () => {
   test.each(ROWS.map((r) => [r.kind, r] as const))("%s", (_, row) => {
     const marks = row.marks.map((m) => m());
-    const { wrong, seen } = walk(row.kind, marks);
+    const { wrong, seen } = walk(row.kind, marks, row.wave);
     expect(wrong.slice(0, 5)).toEqual([]);
     for (const m of marks) {
       if (m.unreached !== undefined) continue;

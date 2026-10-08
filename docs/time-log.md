@@ -35919,3 +35919,17 @@ Bottleneck: reading — a gate composed in render has to be traced back to the
 simulation before there is a window to hold it to.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — Marks-window rows for THE SCOUT, THE BATON, THE THROAT, THE GORGE
+
+- reading: 10 min. The four asked-marks functions and their sim windows, then
+  why THE SCOUT's halo was never drawn: AUTO carries one mote a trip there,
+  so the ship is never laden and neither hand is offered.
+- writing: 5 min. Four rows on `-f`, and a `wave` on a row so THE SCOUT's is
+  walked on THE HAUL, where AUTO carries the level.
+- looking: 0 min. Nothing drawn; each row seen red with its window emptied.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — a row never seen lit has to be traced to what AUTO
+does on that wave before it can be fixed or excused.
