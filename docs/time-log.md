@@ -36255,3 +36255,5 @@ Bottleneck: landing — the full check.
 Bottleneck: deciding what a count of beats means on a body that is up for two:
 a blow per whole beat held, kept across surfacings, was the only reading under
 which three could be won.
+
+*Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

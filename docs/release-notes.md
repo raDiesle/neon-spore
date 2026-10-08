@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 69cc5e3cd — THE BLISTER's HOLD: a press kept on it while it is up, one blow a beat held
+
+A blister authored `gesture: "hold"` is knocked down by holding it, not by tapping it: the same `grip` as THE WEIGHT's press, so a mouse's press counts as a thumb's. Each whole beat held is one blow. The blows are kept across surfacings the way taps are, and a release or a sink loses only the beat in progress, which is the only reading under which a count larger than the up-time can be won. Two hands on a BOTH blister finish it twice as fast. A hand left on one that sinks is let go of on the tick, and a TAP blister still refuses a hand. The help is the hold mark, with the grip dial running round it and the held ring on both screens. The director's GESTURE row now offers TAP and HOLD, and saves the choice.
+
 ## 2026-10-08 · ae7b750fb — The creatures' own cues go behind one guard in audio/bind-field.ts
 
 `cueFor` named an import and a case for every creature with a cue file of its own, and THE BLISTER's took `bind.ts` to 223 lines. The thirty-four events from the coil to the volley are `bind-field.ts` now, reached through `isFieldEvent` the way `bind-creatures.ts` is, so a new event is still a compile error and `bind.ts` is 166 lines. Nothing sounds different.
