@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 2fcf7d463 — THE CURTAIN, THE TASTER, THE SINEW and THE LEDGER hold no mark before its window
+
+Four more rows `NO_ROW` owed, in a row file of their own: each the shared halo held to the boss's windows in the simulation — THE CURTAIN's hem, THE TASTER's lock, blades and gaps, THE SINEW's free handles before the tendon is out, THE LEDGER's root, bead and haul. Each goes red with its window emptied.
+
 ## 2026-10-08 · eda30b67f — Marks-window rows for THE MIRROR, THE VANE, THE MAZE and THE GAUGE
 
 Four more bosses are now checked: no mark is drawn before its window opens. Each of the four draws its asking as the field's shared halo, so each row holds that halo to the union of the boss's own windows from `sim/`. They live in a new `marks-window-rows-e.ts`, because `-c` is near its 250 lines and three other lanes are writing the rest of the list.
