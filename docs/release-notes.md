@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 988930fc5 — THE BASTION takes a thumb: a knob on each side's slab, and the rim
+
+While the armour is lit, a knob sits on each side's next slab: the pilot's on the left, the navigator's on the right. It wears the arrow out along the slab's way and fills a channel one pull long. While the gun ring is lit, the pilot turns the moon by THE MAZE's lever on its rim. The partner's knob is drawn dim and waiting. A press on it is refused aloud, and a slab torn, a slab snapped back or a gun shot answers with the shared verdict ring. The wave now has the default panel: lane one gave it the empty one, which left the shield and the cannon off the ship. The hands are a look with no shipped alternative; the panel is a fix to something wrong.
+
 ## 2026-10-08 · 46c353b22 — THE VISE's lobes are carried shut by one thumb, not pinched
 
 The owner ruled one finger a player on 8 October 2026, since a PC has one pointer, and chose a drag for THE VISE. A press in a seat's zone takes its lobe and says nothing; every move sends the open gap less however far the thumb has come, any way at all; the lift lets it open. The cue now says PULL / TILL IT SHUTS and the briefings say pull. The simulation is unchanged — it still hears a gap — and the two-finger pinch machinery (`pinch.ts`, `pinch-pair.ts`) is gone, its gesture moved to STAY MISSED. A look the owner asked for by name.
