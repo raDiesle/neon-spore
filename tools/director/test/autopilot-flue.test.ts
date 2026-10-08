@@ -5,6 +5,7 @@ import { flueBoss, step, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE FLUE to the end** (`hands/boss-hands-flue.ts`): every
@@ -24,9 +25,9 @@ function rig(world: World, mode: "both" | "p1") {
   return auto;
 }
 
-describe("AUTO on THE FLUE", () => {
+describe.each(CHARGES)("AUTO on THE FLUE, %s", (_charge, cfg) => {
   test("BOTH meets every level's ember with its first shot and plays the flue out", () => {
-    const world: World = bossWorld("flue");
+    const world: World = bossWorld("flue", cfg);
     const auto = rig(world, "both");
     const authored = flueBoss(world)?.levels ?? [];
     const levels = authored.length;
@@ -55,7 +56,7 @@ describe("AUTO on THE FLUE", () => {
   });
 
   test("P1 alone sends nothing: the pilot only calls the shot, and the trigger is the navigator's", () => {
-    const world: World = bossWorld("flue");
+    const world: World = bossWorld("flue", cfg);
     const auto = rig(world, "p1");
     for (let i = 0; i < 2_000; i++) {
       const sent = auto.commands(world);

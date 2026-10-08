@@ -5,6 +5,7 @@ import { step, viseBoss, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE VISE to the end** (`hands/boss-hands-vise.ts`): every lit
@@ -16,9 +17,9 @@ import { stageField } from "../src/stage-field.js";
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 
-describe("AUTO on THE VISE", () => {
+describe.each(CHARGES)("AUTO on THE VISE, %s", (_charge, cfg) => {
   test("BOTH cracks all four seams, holds both braces and shoots the kernel out", () => {
-    const world: World = bossWorld("vise");
+    const world: World = bossWorld("vise", cfg);
     const l = computeLayout(VIEWPORT, world.cfg, "test");
     const field = (seat: 1 | 2) =>
       stageField(world, "test", controlSet("default"), world.cfg, seat, null);
@@ -46,7 +47,7 @@ describe("AUTO on THE VISE", () => {
   });
 
   test("P1 alone cracks the left lobe and never touches the right", () => {
-    const world: World = bossWorld("vise");
+    const world: World = bossWorld("vise", cfg);
     const l = computeLayout(VIEWPORT, world.cfg, "test");
     const field = (seat: 1 | 2) =>
       stageField(world, "test", controlSet("default"), world.cfg, seat, null);

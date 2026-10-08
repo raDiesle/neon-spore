@@ -5,6 +5,7 @@ import { capstanBoss, step, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE CAPSTAN to the end** (`hands/boss-hands-capstan.ts`): each
@@ -24,9 +25,9 @@ function rig(world: World, mode: "both" | "p1" | "p2") {
   return auto;
 }
 
-describe("AUTO on THE CAPSTAN", () => {
+describe.each(CHARGES)("AUTO on THE CAPSTAN, %s", (_charge, cfg) => {
   test("BOTH brightens both bands, makes both holds and shoots the core out", () => {
-    const world: World = bossWorld("capstan");
+    const world: World = bossWorld("capstan", cfg);
     const auto = rig(world, "both");
     const bright: number[] = [];
     const hits: number[] = [];
@@ -53,7 +54,7 @@ describe("AUTO on THE CAPSTAN", () => {
   });
 
   test("P1 alone leans the left band over, and wears nothing of it", () => {
-    const world: World = bossWorld("capstan");
+    const world: World = bossWorld("capstan", cfg);
     const auto = rig(world, "p1");
     let rocked = false;
     for (let i = 0; i < 4_000; i++) {

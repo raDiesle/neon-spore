@@ -47,8 +47,12 @@ export function steerRunaway(w: World): Press[] | null {
   const m = faultOn(w, "cannon");
   if (m === null) return null;
   // The fault reads the beat `onBeat` is about to count, so the colour it
-  // fires next is the one it would have loaded a beat on from here.
-  const next = malfunctionColor({ ...w, waveBeat: w.waveBeat + 1 }, m);
+  // fires next is the one it would have loaded a beat on from here — unless
+  // the last one is still in the muzzle. At the game's half-beat charge a
+  // runaway shot is laid on the beat and leaves on the half, out of whatever
+  // column the cannon stands in then (`shot-charge.ts`), so the cannon stays
+  // under that shot's body until it has gone.
+  const next = w.charge?.color ?? malfunctionColor({ ...w, waveBeat: w.waveBeat + 1 }, m);
   const body = lowest(w, (c) => cannonAnswers(c) && c.color === next);
   const col = body ? aimColumn(body) : emptyCol(w);
   return w.cannonCol === col ? [] : [{ player: 1, command: { kind: "cannonCol", col } }];

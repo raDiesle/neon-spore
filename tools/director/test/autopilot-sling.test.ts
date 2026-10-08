@@ -5,6 +5,7 @@ import { slingBoss, step, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE SLING to the end** (`hands/boss-hands-sling.ts`): each
@@ -19,9 +20,9 @@ const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 
 const WRONG = ["slingSlack", "slingSpring", "slingDim", "slingMiss", "slingSnap"];
 
-describe("AUTO on THE SLING", () => {
+describe.each(CHARGES)("AUTO on THE SLING, %s", (_charge, cfg) => {
   test("BOTH looses all four draws, lights the yoke, redraws it and shoots it out", () => {
-    const world: World = bossWorld("sling");
+    const world: World = bossWorld("sling", cfg);
     const l = computeLayout(VIEWPORT, world.cfg, "test");
     const field = (seat: 1 | 2) =>
       stageField(world, "test", controlSet("default"), world.cfg, seat, null);

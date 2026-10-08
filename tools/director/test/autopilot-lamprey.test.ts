@@ -5,6 +5,7 @@ import { lampreyBoss, lampreyTailHeld, step, type World } from "@neon-spore/sim"
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE LAMPREY to the end** (`hands/boss-hands-lamprey.ts`): the
@@ -31,9 +32,9 @@ function rig(world: World, mode: "both" | "p1") {
 
 const WRONG = ["lampreySnap", "lampreySlip", "lampreyFull"];
 
-describe("AUTO on THE LAMPREY", () => {
+describe.each(CHARGES)("AUTO on THE LAMPREY, %s", (_charge, cfg) => {
   test("BOTH answers every stay, pulls the teeth and shoots the gullet out", () => {
-    const world: World = bossWorld("lamprey");
+    const world: World = bossWorld("lamprey", cfg);
     const auto = rig(world, "both");
     const cracks: number[] = [];
     const hits: number[] = [];
@@ -68,7 +69,7 @@ describe("AUTO on THE LAMPREY", () => {
   });
 
   test("P1 alone holds the tail through the first stay, the head left to the person", () => {
-    const world: World = bossWorld("lamprey");
+    const world: World = bossWorld("lamprey", cfg);
     const auto = rig(world, "p1");
     let held = 0;
     for (let i = 0; i < 6_000 && held < 60; i++) {

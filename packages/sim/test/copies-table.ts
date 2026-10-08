@@ -916,4 +916,13 @@ export const COPIES: Copy[] = [
     owner: "packages/render/src/keel-pose.ts",
     pattern: /Math\.PI\s*\*\s*0\.5\s*\+\s*k\s*\*\s*1\.7\b/,
   },
+  {
+    // **The charge the game plays at.** `apps/game` spelled out its half beat
+    // and the autopilot tests built on the poses' nought, so THE TRAPEZE's
+    // hand went four for four in its test and one for ten in the game (8
+    // October 2026). A test that means the game's charge spreads the name.
+    call: "PLAY_CHARGE",
+    owner: "packages/sim/src/shot-charge.ts",
+    pattern: /shotChargeBeats:\s*0\.5\b/,
+  },
 ];

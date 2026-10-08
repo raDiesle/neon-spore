@@ -5,6 +5,7 @@ import { grindstoneBoss, step, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE GRINDSTONE to the end** (`hands/boss-hands-grindstone.ts`):
@@ -26,9 +27,9 @@ function rig(world: World, mode: "both" | "p1") {
   return auto;
 }
 
-describe("AUTO on THE GRINDSTONE", () => {
+describe.each(CHARGES)("AUTO on THE GRINDSTONE, %s", (_charge, cfg) => {
   test("BOTH grinds both flats clean, holds both clamps and shoots the axle out", () => {
-    const world: World = bossWorld("grindstone");
+    const world: World = bossWorld("grindstone", cfg);
     const auto = rig(world, "both");
     let free = false;
     let wrong = 0;
@@ -67,7 +68,7 @@ describe("AUTO on THE GRINDSTONE", () => {
   });
 
   test("P1 alone grinds the left flat and never touches the right flat or jaw", () => {
-    const world: World = bossWorld("grindstone");
+    const world: World = bossWorld("grindstone", cfg);
     const auto = rig(world, "p1");
     const clears: string[] = [];
     for (let i = 0; i < 4_000 && world.boss !== null; i++) {

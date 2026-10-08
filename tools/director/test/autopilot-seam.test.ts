@@ -5,6 +5,7 @@ import { seamBoss, step, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE SEAM to the end** (`hands/boss-hands-seam.ts`): every lit
@@ -24,9 +25,9 @@ function rig(world: World, mode: "both" | "p1") {
   return auto;
 }
 
-describe("AUTO on THE SEAM", () => {
+describe.each(CHARGES)("AUTO on THE SEAM, %s", (_charge, cfg) => {
   test("BOTH seals all three points, takes every grit and splits the ridge", () => {
-    const world: World = bossWorld("seam");
+    const world: World = bossWorld("seam", cfg);
     const auto = rig(world, "both");
     let split = false;
     let quenched = false;
@@ -59,7 +60,7 @@ describe("AUTO on THE SEAM", () => {
   });
 
   test("P1 alone never fires or moves the shield: those are the navigator's", () => {
-    const world: World = bossWorld("seam");
+    const world: World = bossWorld("seam", cfg);
     const auto = rig(world, "p1");
     for (let i = 0; i < 4_000 && world.boss !== null; i++) {
       const out = auto.commands(world);

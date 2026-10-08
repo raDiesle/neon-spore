@@ -14,6 +14,7 @@ import {
 import { bossWorld, phaseOf } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays one seat and the person the other** — the owner's ask of 25
@@ -51,33 +52,39 @@ describe("AUTO", () => {
     expect(missing).toEqual([]);
   });
 
-  test("BOTH plays THE PULSE through every stage with the meter full", () => {
-    const world = bossWorld("pulse");
-    const { auto } = rig(() => world);
-    auto.setMode("both");
-    for (let i = 0; i < 20_000 && pulseRound(world)?.phase !== "spent"; i++) {
-      step(world, auto.commands(world));
-    }
-    const s = pulseRound(world);
-    expect(s?.phase).toBe("spent");
-    expect(s?.passed).toBe(true);
-    expect(s?.meter).toBe(world.cfg.pulseMeterMaxMilli);
-  });
+  test.each(CHARGES)(
+    "BOTH plays THE PULSE through every stage with the meter full, %s",
+    (_c, cfg) => {
+      const world = bossWorld("pulse", cfg);
+      const { auto } = rig(() => world);
+      auto.setMode("both");
+      for (let i = 0; i < 20_000 && pulseRound(world)?.phase !== "spent"; i++) {
+        step(world, auto.commands(world));
+      }
+      const s = pulseRound(world);
+      expect(s?.phase).toBe("spent");
+      expect(s?.passed).toBe(true);
+      expect(s?.meter).toBe(world.cfg.pulseMeterMaxMilli);
+    },
+  );
 
-  test("BOTH plays THE REPRISE out, echoes and all, with nothing reaching the hull", () => {
-    const world = bossWorld("reprise");
-    const { auto } = rig(() => world);
-    auto.setMode("both");
-    const echoed = new Set<number>();
-    for (let i = 0; i < 20_000 && world.boss !== null; i++) {
-      for (const c of world.creatures) if (c.unseen) echoed.add(c.id);
-      step(world, auto.commands(world));
-    }
-    // The boss only takes itself off with the field empty (`sim/reprise.ts`).
-    expect(world.boss).toBeNull();
-    expect(echoed.size).toBeGreaterThan(0);
-    expect(world.scars).toEqual([]);
-  });
+  test.each(CHARGES)(
+    "BOTH plays THE REPRISE out, echoes and all, with nothing reaching the hull, %s",
+    (_c, cfg) => {
+      const world = bossWorld("reprise", cfg);
+      const { auto } = rig(() => world);
+      auto.setMode("both");
+      const echoed = new Set<number>();
+      for (let i = 0; i < 20_000 && world.boss !== null; i++) {
+        for (const c of world.creatures) if (c.unseen) echoed.add(c.id);
+        step(world, auto.commands(world));
+      }
+      // The boss only takes itself off with the field empty (`sim/reprise.ts`).
+      expect(world.boss).toBeNull();
+      expect(echoed.size).toBeGreaterThan(0);
+      expect(world.scars).toEqual([]);
+    },
+  );
 
   test("OFF sends nothing, and P2 sends only player 2's commands", () => {
     let world = bossWorld("filament");

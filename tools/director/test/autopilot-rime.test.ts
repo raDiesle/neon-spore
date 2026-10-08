@@ -5,6 +5,7 @@ import { rimeBoss, step, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE RIME to the end** (`hands/boss-hands-rime.ts`): each lit
@@ -25,9 +26,9 @@ function rig(world: World, mode: "both" | "p1") {
   return auto;
 }
 
-describe("AUTO on THE RIME", () => {
+describe.each(CHARGES)("AUTO on THE RIME, %s", (_charge, cfg) => {
   test("BOTH wipes both halves, turns every surge and icicle and shatters the lens", () => {
-    const world: World = bossWorld("rime");
+    const world: World = bossWorld("rime", cfg);
     const auto = rig(world, "both");
     let shatter = false;
     let wrong = 0;
@@ -57,7 +58,7 @@ describe("AUTO on THE RIME", () => {
   });
 
   test("P1 alone wipes the left half and never touches the right", () => {
-    const world: World = bossWorld("rime");
+    const world: World = bossWorld("rime", cfg);
     const auto = rig(world, "p1");
     const clears: string[] = [];
     for (let i = 0; i < 4_000 && world.boss !== null; i++) {

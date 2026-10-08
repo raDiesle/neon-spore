@@ -5,6 +5,7 @@ import { halterBoss, step, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE HALTER to the end** (`hands/boss-hands-halter.ts`): each
@@ -24,9 +25,9 @@ function rig(world: World, mode: "both" | "p1") {
   return auto;
 }
 
-describe("AUTO on THE HALTER", () => {
+describe.each(CHARGES)("AUTO on THE HALTER, %s", (_charge, cfg) => {
   test("BOTH cracks both segments, makes both guards and shoots the centre out", () => {
-    const world: World = bossWorld("halter");
+    const world: World = bossWorld("halter", cfg);
     const auto = rig(world, "both");
     let split = false;
     const cracks: number[] = [];
@@ -54,7 +55,7 @@ describe("AUTO on THE HALTER", () => {
   });
 
   test("P1 alone grips the left segment, and the silent navigator's rest cracks it", () => {
-    const world: World = bossWorld("halter");
+    const world: World = bossWorld("halter", cfg);
     const auto = rig(world, "p1");
     const cracks: number[] = [];
     for (let i = 0; i < 4_000 && cracks.length === 0; i++) {

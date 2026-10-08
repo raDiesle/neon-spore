@@ -5,6 +5,7 @@ import { gallBoss, gallSeatAt, step, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE GALL to the end** (`hands/boss-hands-gall.ts`): each close
@@ -24,9 +25,9 @@ function rig(world: World, mode: "both" | "p1" | "p2") {
   return auto;
 }
 
-describe("AUTO on THE GALL", () => {
+describe.each(CHARGES)("AUTO on THE GALL, %s", (_charge, cfg) => {
   test("BOTH closes it three times wherever it jumps, and shoots the root out", () => {
-    const world: World = bossWorld("gall");
+    const world: World = bossWorld("gall", cfg);
     const auto = rig(world, "both");
     const closes: number[] = [];
     const hits: number[] = [];
@@ -53,7 +54,7 @@ describe("AUTO on THE GALL", () => {
   });
 
   test("P1 alone closes the gall on its own half, and never one on the other", () => {
-    const world: World = bossWorld("gall");
+    const world: World = bossWorld("gall", cfg);
     const auto = rig(world, "p1");
     const from: number[] = [];
     for (let i = 0; i < 6_000 && world.boss !== null; i++) {

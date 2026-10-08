@@ -35241,3 +35241,18 @@ a picture or a hand-rolled probe; nothing in the film's own tests says the
 balloon was ever pulled apart.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — AUTO's tests run at the game's shot charge too
+
+- reading: 5 min. The queue entry, THE TRAPEZE's fix, `shot-charge.ts`,
+  `bullets.ts`'s `fire` and THE JAM's hand.
+- writing: 10 min. `PLAY_CHARGE` and its COPIES row, six call sites onto
+  it, `charges.ts`, every autopilot `describe` run under both, THE JAM's
+  hand held on a shot still in the muzzle, four queue entries.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: reading — one run of the whole director suite with the poses'
+config at half a beat named the one failing hand, which was cheaper than
+reading the 21 hands it ruled out.

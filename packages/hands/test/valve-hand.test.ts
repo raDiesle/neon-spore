@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
   createWorld,
   DEFAULT_CONFIG,
+  PLAY_CHARGE,
   type SimEvent,
   startWave,
   step,
@@ -47,7 +48,7 @@ describe("THE VALVE, played by AUTO", () => {
   });
 
   it("leaves a spark at least the lay and the climb of a bolt", () => {
-    const cfg = { ...DEFAULT_CONFIG, shotChargeBeats: 0.5 };
+    const cfg = { ...DEFAULT_CONFIG, ...PLAY_CHARGE };
     const beat = ticksPerBeat(cfg);
     const shortest = (cfg.valveSparkBeats - 1) * beat;
     // The whole field, top to bottom, at `bulletTilesPerBeat`.

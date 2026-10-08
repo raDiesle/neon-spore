@@ -5,6 +5,7 @@ import { step, trivetBoss, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE TRIVET to the end** (`hands/boss-hands-trivet.ts`): every
@@ -26,9 +27,9 @@ function rig(world: World, mode: "both" | "p1") {
   return auto;
 }
 
-describe("AUTO on THE TRIVET", () => {
+describe.each(CHARGES)("AUTO on THE TRIVET, %s", (_charge, cfg) => {
   test("BOTH plants all four feet, holds both braces and shoots the hub out", () => {
-    const world: World = bossWorld("trivet");
+    const world: World = bossWorld("trivet", cfg);
     const auto = rig(world, "both");
     let collapsed = false;
     let wrong = 0;
@@ -59,7 +60,7 @@ describe("AUTO on THE TRIVET", () => {
   });
 
   test("P1 alone plants the front foot and never touches the rear", () => {
-    const world: World = bossWorld("trivet");
+    const world: World = bossWorld("trivet", cfg);
     const auto = rig(world, "p1");
     const plants: string[] = [];
     for (let i = 0; i < 4_000 && world.boss !== null; i++) {

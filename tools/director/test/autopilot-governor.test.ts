@@ -5,6 +5,7 @@ import { governorBoss, step, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE GOVERNOR to the end** (`hands/boss-hands-governor.ts`):
@@ -26,9 +27,9 @@ function rig(world: World, mode: "both" | "p1") {
 
 const WRONG = ["governorSkid", "governorSway", "governorDim", "governorMiss"];
 
-describe("AUTO on THE GOVERNOR", () => {
+describe.each(CHARGES)("AUTO on THE GOVERNOR, %s", (_charge, cfg) => {
   test("BOTH taps every mark, makes both retaps and shoots the hub out", () => {
-    const world: World = bossWorld("governor");
+    const world: World = bossWorld("governor", cfg);
     const auto = rig(world, "both");
     const ticks: number[] = [];
     const retaps: number[] = [];
@@ -59,7 +60,7 @@ describe("AUTO on THE GOVERNOR", () => {
   });
 
   test("P1 alone lands only the pilot's marks, the navigator's left to the person", () => {
-    const world: World = bossWorld("governor");
+    const world: World = bossWorld("governor", cfg);
     const auto = rig(world, "p1");
     const ticks: number[] = [];
     for (let i = 0; i < 4_000 && ticks.length === 0; i++) {

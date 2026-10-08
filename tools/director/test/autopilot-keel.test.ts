@@ -5,6 +5,7 @@ import { keelBoss, step, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE KEEL to the end** (`hands/boss-hands-keel.ts`): every
@@ -15,9 +16,9 @@ import { stageField } from "../src/stage-field.js";
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 
-describe("AUTO on THE KEEL", () => {
+describe.each(CHARGES)("AUTO on THE KEEL, %s", (_charge, cfg) => {
   test("BOTH locks every joint, shuts the socket and shoots the rock", () => {
-    const world: World = bossWorld("keel");
+    const world: World = bossWorld("keel", cfg);
     const l = computeLayout(VIEWPORT, world.cfg, "test");
     const field = (seat: 1 | 2) =>
       stageField(world, "test", controlSet("default"), world.cfg, seat, null);

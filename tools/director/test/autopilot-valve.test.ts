@@ -5,6 +5,7 @@ import { step, valveBoss, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE VALVE to the end** (`hands/boss-hands-valve.ts`): the wheel
@@ -36,9 +37,9 @@ function rig(world: World, mode: "both" | "p1") {
   return auto;
 }
 
-describe("AUTO on THE VALVE", () => {
+describe.each(CHARGES)("AUTO on THE VALVE, %s", (_charge, cfg) => {
   test("BOTH draws all three pins and plays the story between them clean", () => {
-    const world: World = bossWorld("valve");
+    const world: World = bossWorld("valve", cfg);
     const auto = rig(world, "both");
     const seen: string[] = [];
     const pins: number[] = [];
@@ -62,7 +63,7 @@ describe("AUTO on THE VALVE", () => {
   });
 
   test("P1 alone brings the wheel onto its mark and never freezes it", () => {
-    const world: World = bossWorld("valve");
+    const world: World = bossWorld("valve", cfg);
     const auto = rig(world, "p1");
     const seen: string[] = [];
     for (let i = 0; i < 2_000 && world.boss !== null; i++) {

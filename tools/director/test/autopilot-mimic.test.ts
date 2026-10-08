@@ -5,6 +5,7 @@ import { mimicBoss, step, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE MIMIC to the end** (`hands/boss-hands-mimic.ts`): every
@@ -31,9 +32,9 @@ function rig(world: World, mode: "both" | "p1") {
 
 const WRONG = ["mimicWrong", "mimicLapse", "mimicReach", "mimicClose", "breach"];
 
-describe("AUTO on THE MIMIC", () => {
+describe.each(CHARGES)("AUTO on THE MIMIC, %s", (_charge, cfg) => {
   test("BOTH draws every sign, splits and all, and shoots the core out", () => {
-    const world: World = bossWorld("mimic");
+    const world: World = bossWorld("mimic", cfg);
     const auto = rig(world, "both");
     const peels: (0 | 1)[] = [];
     const hits: number[] = [];
@@ -61,7 +62,7 @@ describe("AUTO on THE MIMIC", () => {
   });
 
   test("P1 alone draws nothing while it reads, so the first sign runs out", () => {
-    const world: World = bossWorld("mimic");
+    const world: World = bossWorld("mimic", cfg);
     const auto = rig(world, "p1");
     const seen: string[] = [];
     for (let i = 0; i < 6_000 && !seen.includes("mimicReach"); i++) {

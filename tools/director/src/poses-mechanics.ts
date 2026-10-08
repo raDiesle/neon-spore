@@ -1,4 +1,4 @@
-import { laying, type World } from "@neon-spore/sim";
+import { laying, PLAY_CHARGE, type World } from "@neon-spore/sim";
 import {
   aim,
   EVENT_CADENCE_SECONDS,
@@ -108,7 +108,7 @@ const MECHANICS: Pose[] = [
       // 148 ticks — 1.97 beats, about a second and a quarter — which is often
       // enough to compare two mouths and slow enough that each lay is watched
       // rather than strobed.
-      const w = fresh([], [], null, { shotChargeBeats: 0.5, waveRestBeats: 1 });
+      const w = fresh([], [], null, { ...PLAY_CHARGE, waveRestBeats: 1 });
       runUntil(w, "a shot in the muzzle", [aim(0, COL), shoot(1, "red")], laying);
       return w;
     },

@@ -5,6 +5,7 @@ import { oculusBoss, step, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE OCULUS to the end** (`hands/boss-hands-oculus.ts`): every
@@ -15,9 +16,9 @@ import { stageField } from "../src/stage-field.js";
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 
-describe("AUTO on THE OCULUS", () => {
+describe.each(CHARGES)("AUTO on THE OCULUS, %s", (_charge, cfg) => {
   test("BOTH shuts every pair, holds every reseal and shoots the core out", () => {
-    const world: World = bossWorld("oculus");
+    const world: World = bossWorld("oculus", cfg);
     const l = computeLayout(VIEWPORT, world.cfg, "test");
     const field = (seat: 1 | 2) =>
       stageField(world, "test", controlSet("default"), world.cfg, seat, null);

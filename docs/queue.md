@@ -634,16 +634,43 @@ body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
 
-## AUTO's boss hands are tested without the game's half-beat shot charge
+## No test plays AUTO to the end on THE GIMBAL, THE SPOOL, THE STARE, THE HIVE
 
-- **Found:** 2026-10-08, claude/queue-trapeze-auto
-- **Taken:** 2026-10-08, claude/task-queue-work-589459 (claim: claude/queue-autos-boss-hands-are-tested-without-the-games-ha)
-- **Files:** `packages/hands/src/boss-hands-*.ts`, `tools/director/test/autopilot-*.test.ts`, `tools/director/src/pose-kit.ts`, `apps/game/src/main-world.ts`
+- **Found:** 2026-10-08, claude/queue-autos-boss-hands-are-tested-without-the-games-ha
+- **Files:** `packages/hands/src/boss-hands-gimbal.ts`, `packages/hands/src/boss-hands-spool.ts`, `packages/hands/src/boss-hands-stare.ts`, `packages/hands/src/boss-hand-hive.ts`, `tools/director/test/charges.ts`
 
-The game plays at `playConfig()`'s `shotChargeBeats: 0.5`, so a press leaves
-on the charge's grid (`sim/shot-charge.ts`); the autopilot tests build their
-worlds on `POSE_CONFIG`, whose charge is nothing. THE TRAPEZE's hand led its
-shots by the climb alone, went four for four in its test and one for ten in
-the game (fixed by aiming through `chargeDueTick`). Run every
-`autopilot-*.test.ts` at the game's charge too — one shared config both read,
-not a second `0.5` — and fix each hand that times a shot to a tick.
+Twelve of the 57 kinds in `AUTOPILOT_HANDS` are named by no test in
+`tools/director/test` or `packages/hands/test`, so a hand that stopped
+winning, or only won at one shot charge, would stay green. Give each of these
+four a play test of its own beside `autopilot-vise.test.ts` — BOTH plays it to
+`world.boss === null` with no scar, and each seat alone touches only its own
+side — under `describe.each(CHARGES)`, so it runs at nought and at the game's
+half beat. Fix any hand that loses at one of them.
+
+## No test plays AUTO to the end on THE WELL, THE LEDGER, THE THROAT, THE SURGE
+
+- **Found:** 2026-10-08, claude/queue-autos-boss-hands-are-tested-without-the-games-ha
+- **Files:** `packages/hands/src/boss-hands-well.ts`, `packages/hands/src/boss-hands-clocks.ts`, `packages/hands/src/boss-hands-beats.ts`, `packages/hands/src/boss-hands-rime.ts`, `tools/director/test/charges.ts`
+
+The second four of the twelve kinds in `AUTOPILOT_HANDS` no test plays (the
+first entry above says how they were found). One play test each, as there,
+under `describe.each(CHARGES)`; fix any hand that loses at either charge.
+
+## No test plays AUTO to the end on THE CAIRN, THE UNDERTOW, THE MIRROR, THE SPLICE
+
+- **Found:** 2026-10-08, claude/queue-autos-boss-hands-are-tested-without-the-games-ha
+- **Files:** `packages/hands/src/boss-hands-takes.ts`, `packages/hands/src/boss-hands-rounds.ts`, `packages/hands/src/autopilot-hands.ts`, `tools/director/test/charges.ts`
+
+The last four of the twelve kinds in `AUTOPILOT_HANDS` no test plays. THE
+SPLICE's hand is not named in any file of `packages/hands/src` but the table
+itself, so find what answers it first. One play test each under
+`describe.each(CHARGES)`; fix any hand that loses at either charge.
+
+## waves-demo.ts and poses-mechanics.ts are each within twenty lines of the ceiling
+
+- **Found:** 2026-10-08, claude/queue-autos-boss-hands-are-tested-without-the-games-ha
+- **Files:** `packages/content/src/waves-demo.ts`, `tools/director/src/poses-mechanics.ts`
+
+`after-edit-size.ts` flagged both on a one-word edit: 231 and 234 lines of
+250. Choose each one's seam and split it before the next lane that has to
+grow it finds it red in `limits.test.ts`.

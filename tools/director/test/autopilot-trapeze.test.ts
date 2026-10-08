@@ -5,6 +5,7 @@ import { step, trapezeBoss, trapezeLitStep, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays THE TRAPEZE to the end** (`hands/boss-hands-trapeze.ts`): each
@@ -25,9 +26,9 @@ function rig(world: World, mode: "both" | "p1" | "p2") {
   return auto;
 }
 
-describe("AUTO on THE TRAPEZE", () => {
+describe.each(CHARGES)("AUTO on THE TRAPEZE, %s", (_charge, cfg) => {
   test("BOTH kicks every gong, and the swing goes over the top", () => {
-    const world: World = bossWorld("trapeze");
+    const world: World = bossWorld("trapeze", cfg);
     const auto = rig(world, "both");
     const gongs: number[] = [];
     const pushers = new Set<number>();
@@ -57,13 +58,12 @@ describe("AUTO on THE TRAPEZE", () => {
     expect(trapezeBoss(world)).toBeNull();
   });
 
-  test("at the game's half-beat charge, most shots from below hit", () => {
-    // The game lays every shot over half a beat (`playConfig`, apps/game), so a
-    // press leaves on the charge's grid and not on its own tick. A hand that
-    // led by the climb alone fired ten times for one hit there (8 October
-    // 2026); the test world's charge is nothing, which is why the case above
-    // never saw it.
-    const world: World = bossWorld("trapeze", { shotChargeBeats: 0.5 });
+  test("most shots from below hit", () => {
+    // At the game's half-beat charge a press leaves on the charge's grid and
+    // not on its own tick, and a hand that led by the climb alone fired ten
+    // times for one hit there (8 October 2026) — while the case above, at
+    // nought, never saw it (`charges.ts`).
+    const world: World = bossWorld("trapeze", cfg);
     const auto = rig(world, "both");
     let fired = 0;
     let hit = 0;
@@ -85,7 +85,7 @@ describe("AUTO on THE TRAPEZE", () => {
   });
 
   test("P1 alone swipes only its own side, never the partner's", () => {
-    const world: World = bossWorld("trapeze");
+    const world: World = bossWorld("trapeze", cfg);
     const auto = rig(world, "p1");
     const zones: number[] = [];
     for (let i = 0; i < 2_000 && world.boss !== null; i++) {

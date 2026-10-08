@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { startWave } from "../src/beat.js";
 import { step } from "../src/index.js";
+import { PLAY_CHARGE } from "../src/shot-charge.js";
 import { createWorld, type SimEvent } from "../src/world.js";
 import { CFG, fireInto, mazeOf, TPB, untilReading, WHEELS } from "./maze-fixture.js";
 
@@ -18,7 +19,7 @@ import { CFG, fireInto, mazeOf, TPB, untilReading, WHEELS } from "./maze-fixture
  */
 describe("a shot the drum takes on a shot grid", () => {
   it("still flashes the muzzle when the charge goes, and leaves no bolt on the field", () => {
-    const world = createWorld({ ...CFG, shotChargeBeats: 0.5 }, 0);
+    const world = createWorld({ ...CFG, ...PLAY_CHARGE }, 0);
     startWave(world, 0, [], [], { kind: "maze", rounds: WHEELS });
     untilReading(world);
     const seen: SimEvent[] = fireInto(world, 0);

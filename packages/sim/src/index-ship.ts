@@ -84,6 +84,7 @@ export {
   chargeMilli,
   chargePartTicks,
   laying,
+  PLAY_CHARGE,
   type ShotCharge,
 } from "./shot-charge.js";
 // THE WEIGHT: whether both hands are on one, and how far the press has come.

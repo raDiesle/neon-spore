@@ -2,7 +2,15 @@ import { describe, expect, it } from "bun:test";
 import { buildBoss, buildQueue, WAVES } from "@neon-spore/content";
 import { autopilotHand } from "@neon-spore/hands";
 
-import { createWorld, DEFAULT_CONFIG, type SimEvent, startWave, step } from "@neon-spore/sim";
+import {
+  createWorld,
+  DEFAULT_CONFIG,
+  type SimConfig,
+  type SimEvent,
+  startWave,
+  step,
+} from "@neon-spore/sim";
+import { CHARGES } from "./charges.js";
 
 /** `wave-fail.ts`'s sentinel for a wave nothing has failed, not exported past the sim. */
 const NOT_FAILED = -1;
@@ -14,9 +22,9 @@ const NOT_FAILED = -1;
  * ring; it answers what gets past the bubbles the field's way, then feeds.
  */
 
-function played(seed: number): { heard: SimEvent[]; failed: boolean } {
+function played(seed: number, cfg: Partial<SimConfig>): { heard: SimEvent[]; failed: boolean } {
   const index = WAVES.findIndex((v) => v.boss?.kind === "gorge");
-  const world = createWorld(DEFAULT_CONFIG, seed);
+  const world = createWorld({ ...DEFAULT_CONFIG, ...cfg }, seed);
   startWave(world, index, buildQueue(index, world.cfg.cols), [], buildBoss(index, world.cfg.cols));
   const heard: SimEvent[] = [];
   while (world.tick < 60_000 && world.boss !== null && world.failTick === NOT_FAILED) {
@@ -30,9 +38,9 @@ function played(seed: number): { heard: SimEvent[]; failed: boolean } {
   return { heard, failed: world.failTick !== NOT_FAILED };
 }
 
-describe("THE GORGE, played by AUTO", () => {
+describe.each(CHARGES)("THE GORGE, played by AUTO, %s", (_charge, cfg) => {
   it.each([1, 2, 3])("clears all five levels without a breach, seed %d", (seed) => {
-    const { heard, failed } = played(seed);
+    const { heard, failed } = played(seed, cfg);
     expect(failed).toBe(false);
     expect(heard.filter((e) => e.type === "gorgeCleared")).toHaveLength(5);
     expect(heard.some((e) => e.type === "gorgeOut")).toBe(true);

@@ -77,6 +77,17 @@ export interface ShotCharge {
 }
 
 /**
+ * **The charge the game plays at**: half a beat, for the three reasons above.
+ * `DEFAULT_CONFIG` ships nought, so a replay and a headless test lay no shot
+ * at all; `playConfig` (`apps/game`) spreads this in, and so does every test
+ * that holds a hand or a picture to what the game does. THE TRAPEZE's AUTO went
+ * four for four at nought and one for ten at this (8 October 2026), so the
+ * value is named once and a change to the game's charge is a change to its
+ * tests' too (`test/copies-table.ts`).
+ */
+export const PLAY_CHARGE: Pick<SimConfig, "shotChargeBeats"> = { shotChargeBeats: 0.5 };
+
+/**
  * Ticks in one part of a beat — the spacing of the grid a shot may leave on.
  * Zero means there is no grid and a press is a bullet, which is what
  * `DEFAULT_CONFIG` ships so that every replay keeps its exact timing.

@@ -4,6 +4,7 @@ import {
   DEFAULT_CONFIG,
   type Difficulty,
   PAIR_ON,
+  PLAY_CHARGE,
   playDifficulty,
   resetClock,
   type SimConfig,
@@ -33,7 +34,7 @@ export interface OpenWorld {
 /** The config this build plays at, before a level is put on it — a fresh
  * object each call, because the world holds it and the TEST panel writes it. */
 export function playConfig(): SimConfig {
-  return { ...DEFAULT_CONFIG, ...PAIR_ON, shotChargeBeats: 0.5 };
+  return { ...DEFAULT_CONFIG, ...PAIR_ON, ...PLAY_CHARGE };
 }
 
 export function openWorld(audio: GameAudio, buffer: InputBuffer): OpenWorld {

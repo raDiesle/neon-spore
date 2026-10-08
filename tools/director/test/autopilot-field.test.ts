@@ -8,10 +8,11 @@ import {
   WAVES,
 } from "@neon-spore/content";
 import { computeLayout, type Field } from "@neon-spore/render";
-import { step, type World } from "@neon-spore/sim";
+import { type SimConfig, step, type World } from "@neon-spore/sim";
 import { fresh, POSE_CONFIG } from "../src/pose-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { CHARGES } from "./charges.js";
 
 /**
  * **AUTO plays an ordinary wave too**: the cannon and the shield together,
@@ -34,14 +35,15 @@ import { stageField } from "../src/stage-field.js";
  * hand could answer. */
 const HALF_PLAYED = new Set<string>();
 
-/** Wave `index` stood up the way the game starts it, on the poses' config. */
-function waveWorld(index: number): World {
+/** Wave `index` stood up the way the game starts it, on the poses' config
+ * and the charge `cfg` lays a shot over. */
+function waveWorld(index: number, cfg: Partial<SimConfig>): World {
   const cols = POSE_CONFIG.cols;
   return fresh(
     buildQueue(index, cols),
     buildPods(index, cols),
     buildBoss(index, cols),
-    {},
+    cfg,
     index,
     placedFaults(WAVES[index]?.faults),
   );
@@ -67,10 +69,10 @@ function playOut(world: World): { world: World; breaches: number } {
   return { world, breaches };
 }
 
-describe("AUTO on a wave with no boss", () => {
+describe.each(CHARGES)("AUTO on a wave with no boss, %s", (_charge, cfg) => {
   test("BOTH clears ONE LAST CHANCE with every rock turned by the dome", () => {
     const index = WAVES.findIndex((w) => w.name === "ONE LAST CHANCE");
-    const { world, breaches } = playOut(waveWorld(index));
+    const { world, breaches } = playOut(waveWorld(index, cfg));
     expect(world.balance.wavesCleared).toBe(1);
     expect(world.scars).toEqual([]);
     expect(breaches).toBe(0);
@@ -82,7 +84,7 @@ describe("AUTO on a wave with no boss", () => {
     const failed: string[] = [];
     WAVES.forEach((wave, index) => {
       if (wave.boss || HALF_PLAYED.has(wave.name)) return;
-      const { world, breaches } = playOut(waveWorld(index));
+      const { world, breaches } = playOut(waveWorld(index, cfg));
       if (world.balance.wavesCleared !== 1 || breaches > 0) failed.push(wave.name);
     });
     expect(failed).toEqual([]);

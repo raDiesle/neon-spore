@@ -1,4 +1,4 @@
-import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
+import { DEFAULT_CONFIG, PLAY_CHARGE, type SimConfig } from "@neon-spore/sim";
 import type { MechanicId } from "./mechanics.js";
 import { WAVES, type Wave } from "./waves.js";
 
@@ -192,7 +192,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   // The grid is worth watching where the beat is already the enemy: a Throb
   // can only be hit while it is open, and a laid shot leaves on a named
   // moment. Half a beat is the value `apps/game` ships.
-  windup: { wave: "theThrob", config: { shotChargeBeats: 0.5 } },
+  windup: { wave: "theThrob", config: PLAY_CHARGE },
   lance: { wave: "theLance" },
   // Three rocks on one beat and one shield: the only way through is a hand on
   // two of them, which is THE GRIP with nothing else in the way.
