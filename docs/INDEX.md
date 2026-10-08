@@ -2429,7 +2429,16 @@ by hand never moves.
 | `packages/render/src/baton-knock.ts` | **THE BATON's bead thrown back up the arm** by the wrong colour or a slow socket: out of the hit, up past its socket and in |
 | `packages/render/src/baton-explain-when.ts` | Which new part of THE BATON is coming and which is running, read off the arm, on the level it first comes in on |
 | `packages/render/src/baton-explain.ts` | THE BATON's words on the field: a banner while a new part is coming, each screen's job beside it while it runs |
-| `packages/render/src/bastion-shape.ts` | **THE BASTION's geometry**: where the moon hangs, and how far out each of its shells stands |
+| `packages/render/src/bastion-shape.ts` | **THE BASTION's geometry**: where the moon hangs, how far out each of its shells stands |
+| `packages/render/src/bastion-shed.ts` | **A shell coming away** (§11.62): the owner's *visual of a successful step level achieved* |
+| `packages/render/src/bastion-cage.ts` | **THE BASTION's lattice** (§11.62): a cage of bright titanium struts round the inner hull |
+| `packages/render/src/bastion-draw.ts` | **THE BASTION** (§11.62): a metal moon hung over the field in four shells |
+| `packages/render/src/bastion-fx.ts` | What THE BASTION leaves behind a frame (§11.62, *The receipts*): **the plates torn off** |
+| `packages/render/src/bastion-hull.ts` | **THE BASTION's inner hull and its core** (§11.62): the last shell |
+| `packages/render/src/bastion-plates.ts` | **THE BASTION's armour** (§11.62), the outermost shell: eight curved slabs of blue gunmetal |
+| `packages/render/src/bastion-pose.ts` | **THE BASTION's pose**: where in its story the moon is this frame |
+| `packages/render/src/bastion-receipts.ts` | THE BASTION's receipts, drawn (`bastion-fx.ts` holds them): a torn plate flying out along its way |
+| `packages/render/src/bastion-ring.ts` | **THE BASTION's gun ring** (§11.62): a dark bronze band round the moon's middle |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pulse-grip.ts` | **THE PULSE's hand on the bar**: the rectangle the meter is drawn in, the box a thumb is answered in |
 | `packages/render/src/pull-track.ts` | **A pull is drawn as the way the hand goes, and a big circle where it starts** — every pull handle's thin channel, filling green behind the hand, closed round for a turn |

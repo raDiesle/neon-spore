@@ -124,4 +124,22 @@ export const LATE_CREATURE_HUES = {
   latchSkinDark: "#2A230C",
   latchTendril: "#A8934A",
   latchKnot: "#F0E2A0",
+  /**
+   * THE BASTION (§11.62): a metal moon, every shell its own metal. The plates
+   * a cold blue gunmetal with a pale bevel; the ring a dark bronze band lit
+   * by amber running lights, its guns lensed in the cannon colour that kills
+   * them; the lattice bright titanium struts round nodes that charge a
+   * lightning yellow no cannon, shield or hull carries; the inner hull a
+   * flat battleship grey with a dark trench; and the core white-hot.
+   */
+  bastionArmour: "#71808F",
+  bastionArmourDark: "#1A1F27",
+  bastionEdge: "#D4DEEA",
+  bastionBand: "#4A3B2A",
+  bastionLight: "#FFB04A",
+  bastionStrut: "#B9C2CC",
+  bastionNode: "#F4FF8A",
+  bastionHull: "#59606A",
+  bastionHullDark: "#202429",
+  bastionCore: "#FFF2C8",
 } as const;

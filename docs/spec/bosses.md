@@ -11141,8 +11141,8 @@ every level, players have to remove layers of the ball one after another …
 the smaller the ball gets. removing layers requires different actions …
 after every level achieved, there must be some visual of a successful step
 level achieved.* A choreographed scene, the third kind in
-`.claude/skills/new-boss`. **Built on 8 October 2026 as its simulation**; the
-look is the next lane.
+`.claude/skills/new-boss`. **Built on 8 October 2026 as its simulation**, and
+its body the same day; its marks are the next lane.
 
 **The rule, in one sentence.** Take each layer off the moon before its time
 runs out, or it grows back.
@@ -11183,7 +11183,7 @@ lattice's or port's column **offsets** from the middle.
   nothing (`bastionArc`) and the same node charges again after
   `bastionGapBeats`.
 - **The port** — a port per authored offset, in order, shown on the
-  navigator's screen only (the look lane's `showsX`). The navigator says
+  navigator's screen only (`showsBastionPort`). The navigator says
   where; the pilot slides the cannon under it; either colour goes down it
   (`bastionPort`).
 
@@ -11216,13 +11216,52 @@ proves it wins the shipped wave with no shell grown back.
 fourteen, all machine metal, a shell lit and a shell shed pitched lower the
 deeper the shell lay, so the four sheds are heard as a moon getting smaller.
 
-**What is not built.** The look: the four shells, the plates' knobs and
-their arrows, the rim, the guns, the nodes and the lightning, the port on
-the navigator's screen alone, the shed and the core's blow, the cue words
-and the receipts. Until it lands, a bolt is judged where it leaves the top
-of the field (the moon is not drawn for it to stop on), and the targets are
-`unbuilt` on the field-controls tab. `render/bastion-shape.ts` holds only
-where the moon hangs and how far it reaches, for THE SLOW's aim.
+**The look** (`render/bastion-draw.ts`, a look with no shipped alternative).
+A metal moon over the middle of the field, every shell its own metal and its
+own machine, drawn inside out so each shell still on shows through the gaps
+in the one over it:
+- **The core** (`bastion-hull.ts`), white-hot, seen through the cage.
+- **The inner hull**, battleship grey, a dark trench round its middle,
+  panelled by meridians that turn with it and hatches placed on the turning
+  surface (`content/surface.ts`). **The ports are on the navigator's screen
+  alone** (`showsBastionPort`, `view-role-clocks-c.ts`): the open one a well
+  with the core's light down it, the ones to come shut irises. A port shot is
+  a crater on both screens — a receipt, not a clue.
+- **The lattice** (`bastion-cage.ts`), titanium struts turning about the
+  upright, drawn as tubes, and a hexagonal pod per node over its column. The
+  charging one lights lightning yellow and crackles harder as it fills; a
+  burst one is black.
+- **The gun ring** (`bastion-ring.ts`), a bronze band with amber running
+  lights, drawn in two halves round the moon so the guns go round the back
+  as the rim turns. Each gun's lens is the colour that kills it; **the gun
+  at the front burns** and breathes on the beat. A blown gun is a stump.
+- **The armour** (`bastion-plates.ts`), eight thick slabs of blue gunmetal
+  with a bevel, rivets and stencil marks, a command tower on top and a keel
+  with three exhaust bells below. **A slab being pulled stands out along its
+  way by as much as the thumb has it**, and the seam behind it glows hotter
+  the nearer it is to tearing.
+
+The moon arrives out of deep space at its own place, growing as it comes —
+never down past the top of the screen (`boss-top.test.ts`). **A shell coming
+away is the step the owner asked to see** (`bastion-shed.ts`): a white flash
+at the heart, a green shockwave running out past the field's edges, the
+shell in pieces of its own metal flung out tumbling, and the smaller moon
+left behind rimmed in green. A shell growing back is drawn small and filling
+out inside a red ring. The core blowing swells it and goes out in a flash.
+
+**The receipts** (`bastion-fx.ts`, drawn by `bastion-receipts.ts`): a torn
+slab flying out along its way, tumbling, until it is off the field; the
+lightning down to the hull when nobody shielded it and up off the shield
+into the node when somebody did; the hull's shudder as the moon comes in, a
+shell comes away and the core blows; and the blow it takes (`BossHurt`) — a
+jab for every piece off, the whole blow for a shell. `render/test/
+bastion-frame.test.ts` draws every state on all three screens.
+
+**What is not built.** The marks: the plates' knobs and their arrows, the
+rim's channel, the shield's and the cannon's cues and their words, the
+verdicts on a touch, and the bolt stopped on the moon. Until they land the
+targets are `unbuilt` on the field-controls tab and a bolt is judged where
+it leaves the top of the field.
 
 **What is proven, and what is not.** `sim/test/bastion.test.ts` proves the
 rules: the install and the first shell; a plate torn along its way, and
@@ -11233,7 +11272,8 @@ the front gun blown in its colour and kept on the wrong one; a node burst on
 the shield and recharged when not; the port in its column in either colour;
 a shell run out grown back with no hull hit; the core blown and gone; the
 same thumbs hashing the same. Whether a pair can call the ring's turn and
-the port aloud at tempo — the owner's eye — has never been watched.
+the port aloud at tempo, and whether each shell reads as its own metal on a
+phone — the owner's eye — has never been watched.
 
 ## Retired
 

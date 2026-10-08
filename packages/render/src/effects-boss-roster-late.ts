@@ -1,3 +1,4 @@
+import { BastionFx } from "./bastion-fx.js";
 import { CapstanFx } from "./capstan-fx.js";
 import { RoundMarks } from "./effects-round-marks.js";
 import { FlueFx } from "./flue-fx.js";
@@ -72,4 +73,9 @@ export class LateRoster extends RoundMarks {
    * in and as it snaps, the blow a knot deals, and its grips' verdicts on a
    * touch (`latch-fx.ts`, `latch-receipts.ts`, `latch-verdicts.ts`). */
   readonly latch = new LatchFx();
+  /** THE BASTION's plates flying off, its lightning down to the hull and
+   * back up from the shield, the hull's shudder as it comes in, as a shell
+   * comes away and as the core blows, and the blow it takes (`bastion-fx.ts`,
+   * `bastion-receipts.ts`). */
+  readonly bastion = new BastionFx();
 }

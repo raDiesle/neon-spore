@@ -159,3 +159,12 @@ export const showsMimicSign = (role: ViewRole, drawer: 1 | 2): boolean =>
   role === "test" || role !== `p${drawer}`;
 export const showsMimicPaint = (role: ViewRole, drawer: 1 | 2): boolean =>
   role === "test" || role === `p${drawer}`;
+
+/**
+ * THE BASTION's split on its last shell (§11.62, the owner's *Death Star
+ * tunnel to the core*): **the port is shown to the navigator alone** — the
+ * open one, and the shut ones still to come — and the pilot, whose hand is
+ * on the cannon, slides it on the navigator's word. A port already shot is a
+ * crater on both screens. `test` is both.
+ */
+export const showsBastionPort = (role: ViewRole): boolean => role !== "p1";

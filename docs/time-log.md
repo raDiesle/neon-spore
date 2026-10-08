@@ -36302,3 +36302,19 @@ Bottleneck: friction — the output folder is emptied before the page can refuse
 Bottleneck: reading — the row is one cell, the rule it states is three files.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE BASTION, lane two: its body
+
+- reading: 5 min. THE LATCH's drawer, fx and frame test as the pattern; the
+  key light, the glow and the surface projection.
+- writing: 15 min. Ten files in `render/`: the four shells, the pose, the
+  shed and regrow, the receipts, the palette, the frame test, §11.62.
+- looking: 5 min. Seven real frames through `bun run frames`, every shell,
+  the arrival, a shed, a regrow and the core's blow.
+- friction: 5 min. The arrival dropped from above and touched the seat
+  switcher (`boss-top.test.ts`); the depth hook sent the hatches to
+  `content/surface.ts`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the frames — seventeen seconds each, and the only way to see
+whether a shell reads as its own metal.

@@ -1,4 +1,5 @@
 import type { World } from "@neon-spore/sim";
+import { drawBastion } from "./bastion-draw.js";
 import type { Effects } from "./effects.js";
 import { drawFlue } from "./flue-draw.js";
 import { drawGovernor } from "./governor-draw.js";
@@ -25,7 +26,14 @@ import type { ViewState } from "./renderer.js";
 type Installed = NonNullable<World["boss"]>;
 
 /** The kinds this file draws. Appended, like every list of boss kinds. */
-export const LATEST_PAIR_KINDS = ["flue", "governor", "lamprey", "mimic", "latch"] as const;
+export const LATEST_PAIR_KINDS = [
+  "flue",
+  "governor",
+  "lamprey",
+  "mimic",
+  "latch",
+  "bastion",
+] as const;
 
 export type LatestPairBoss = Extract<Installed, { kind: (typeof LATEST_PAIR_KINDS)[number] }>;
 
@@ -94,5 +102,13 @@ export function drawLatestPairBoss(
   // hull, hauled down hand over hand on its two grips, a body torn off it at
   // every knot (`latch-draw.ts`); its grips' verdicts on a touch are
   // `latch-verdicts.ts`.
-  drawLatch(ctx, l, world, boss, beat, beatPhase, time, effects.boss.latch);
+  if (boss.kind === "latch") {
+    drawLatch(ctx, l, world, boss, beat, beatPhase, time, effects.boss.latch);
+    return;
+  }
+
+  // THE BASTION: a metal moon in four shells, each its own metal and its
+  // own machine, taken off from the outside in (`bastion-draw.ts`); its
+  // receipts are `bastion-fx.ts`.
+  drawBastion(ctx, l, world, boss, beat, beatPhase, time, effects.boss.bastion);
 }

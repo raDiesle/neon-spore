@@ -59,8 +59,10 @@ export const INGEST_SILENT_BOSS_F = [
   "mazeProbe",
   "mazeVerdict",
   "mazeDown",
-  // THE BASTION's fourteen leave nothing behind until its look lane draws
-  // them; then they are one family read above the loop, as THE SCUTTLE's are.
+  // THE BASTION's fourteen are read as one family above the loop by
+  // `bastion-fx.ts` (`Effects.boss.bastion`), the way THE LATCH's are: a
+  // burst at the plate, the gun, the node or the port, a torn plate flung
+  // off, the lightning, and the shudder as a shell comes away.
   "bastionEnter",
   "bastionLayer",
   "bastionTear",

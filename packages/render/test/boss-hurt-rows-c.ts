@@ -185,4 +185,31 @@ export const HURT_ROWS_C: Row[] = [
     hit: "every knot is landed: the knots are the colony's health, a body each",
     hurt: (fx) => fx.boss.latch.hurt,
   },
+  {
+    boss: "bastion",
+    // A shell come away, and the core blown after the last.
+    land: [
+      { type: "bastionShed", layer: "plates", col: 5 },
+      { type: "bastionSpent", col: 5 },
+    ],
+    // A shell lit, a plate snapped back, a thumb on the wrong side, a node
+    // charging, lightning nobody shielded and a shell grown back only work
+    // toward one, or against it.
+    part: [
+      { type: "bastionLayer", layer: "plates", col: 5 },
+      { type: "bastionSnap", seat: 0, piece: 0, col: 5 },
+      { type: "bastionWrong", seat: 1, col: 5 },
+      { type: "bastionCharge", piece: 0, col: 3 },
+      { type: "bastionArc", piece: 0, col: 3 },
+      { type: "bastionRegrow", layer: "ring", col: 5 },
+    ],
+    // A piece off its shell: a plate torn, a gun blown, a node burst, a port shot.
+    hit: [
+      { type: "bastionTear", seat: 0, piece: 0, col: 5 },
+      { type: "bastionGun", piece: 0, col: 5 },
+      { type: "bastionBurst", piece: 0, col: 3 },
+      { type: "bastionPort", piece: 0, col: 3 },
+    ],
+    hurt: (fx) => fx.boss.bastion.hurt,
+  },
 ];

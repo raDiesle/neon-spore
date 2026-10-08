@@ -93,6 +93,9 @@ export function drawOnShip(
   held.effects.boss.mimic.shock.draw(ctx, l, surfaceY, view.time);
   // And THE LATCH's: the tendril hooking in, and the rope snapping (`latch-fx.ts`, §11.61).
   held.effects.boss.latch.shock.draw(ctx, l, surfaceY, view.time);
+  // And THE BASTION's: the moon coming in, a shell coming away, and the core
+  // blowing (`bastion-fx.ts`, §11.62).
+  held.effects.boss.bastion.shock.draw(ctx, l, surfaceY, view.time);
   // And THE SEAM's: a click for every point shot shut, and the ridge splitting
   // a harder shudder (`seam-fx.ts`, §26).
   held.effects.boss.seam.shock.draw(ctx, l, surfaceY, view.time);
