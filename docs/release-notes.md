@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · addb4c574 — A queue entry: AUTO's shots from below at THE TRAPEZE mostly fly past
+
 ## 2026-10-08 · 4fa5770e4 — THE TRAPEZE is a swing: push it as it comes back until the alien kicks the gong
 
 The owner's rework of THE BURGEE, 7 October 2026. An alien sits on a swing hung from long ropes over the middle; a swipe toward the middle as the swing comes back on your side pushes it higher, one while it goes out slows it, and high enough the alien kicks the gong. Four levels, one new thing each: P1 left and P2 right, then who pushes a side called by chance, then shots from below, then the pilot's tap locking the cannon for a shot from the side. No SLOW, and a swipe that does nothing says why in its zone. The picture is plain — zones, the arc with how high it goes, the gong, the alien — with the look and the tutorial to follow as their own lanes.
