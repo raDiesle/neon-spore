@@ -338,6 +338,7 @@ The look lane of step 8 (`bosses-choreographed.md` §12). The simulation landed 
 ## THE INSTAR's fly-in gets a body that matches its side view
 
 - **Found:** 2026-10-07, claude/instar-boss-graphics-3d-b0ba0a
+- **Taken:** 2026-10-08, claude/task-queue-work-8b2adc (claim: claude/queue-the-instars-fly-in-gets-a-body-that-matches-its)
 - **Files:** `packages/render/src/instar-flight.ts`, `packages/render/src/instar-front-body.ts`, `packages/render/src/instar-turn.ts`, `packages/render/src/instar-legs.ts`
 - **Asks:** Should THE INSTAR fly in seen from the side (A), keep coming in face-on but with a new body (B), or should both go to VERSUS (C)?
 - **Answered:** 2026-10-08 — (C): A and B both built as VERSUS candidates (`instar:flight`) beside what ships, over building either straight onto the field
