@@ -2,7 +2,8 @@ import {
   ANTIPHON_SHIP,
   type AntiphonState,
   antiphonIsOrgan,
-  antiphonTurnMilli,
+  antiphonOrganTurnMilli,
+  antiphonQuarterMilli,
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
@@ -60,6 +61,11 @@ import { showsAntiphonOrgan, showsAntiphonRail } from "./view-role-clocks-b.js";
  * swaps every level. Their own ship is drawn true on the explainer's; on the
  * chooser's the ship's decoys have the wrong number of lobes, and nothing
  * says which is the organ.
+ *
+ * **On a level whose organ rests at a turn** (`sim/antiphon-turn.ts`) the
+ * organ is drawn at it and each candidate on the rail at its own, so a decoy
+ * is the organ's own contour the wrong way up. With the figure off every
+ * turn is nought and nothing here moves.
  */
 export function drawAntiphon(
   ctx: CanvasRenderingContext2D,
@@ -93,9 +99,9 @@ export function drawAntiphon(
   // the explainer's the knots and the bead in hand (`antiphon-veins.ts`).
   drawAntiphonVeins(ctx, l, cfg, s, grow, time, fade, railShown);
   if (organShown && s.organ !== null) {
-    // The turn under a hand: the organ faces the way the thumb has turned
-    // it, and never on the rail (`antiphon-grip.ts`).
-    const turn = (antiphonTurnMilli(s, cfg) / 1000) * Math.PI * 2;
+    // The organ faces the way it rests (`sim/antiphon-turn.ts`), and the way
+    // the thumb has turned it on top of that (`antiphon-grip.ts`).
+    const turn = milliTurn(antiphonOrganTurnMilli(s, cfg));
     const at = antiphonOrganCircle(l, cfg);
     drawContour(ctx, l, s.organ.shape, at, ORGAN_R * grow, time, fade, undefined, turn);
     drawAntiphonGrip(ctx, l, cfg, s, time, fade);
@@ -116,7 +122,8 @@ export function drawAntiphon(
       const c = s.rail[i];
       if (c === undefined) continue;
       const at = antiphonCandidateAt(l, cfg, s, i);
-      drawContour(ctx, l, c.shape, at, RAIL_R * grow, time, fade, lobesOf[i]);
+      const turn = milliTurn(antiphonQuarterMilli(c.turn));
+      drawContour(ctx, l, c.shape, at, RAIL_R * grow, time, fade, lobesOf[i], turn);
     }
     // The rings on the rail, over the candidates so each stands on its own
     // (`antiphon-rail-grip.ts`).
@@ -203,6 +210,11 @@ function drawContour(
   ctx.lineJoin = "round";
   ctx.stroke(p);
   ctx.restore();
+}
+
+/** Thousandths of a turn, in canvas radians. */
+function milliTurn(milli: number): number {
+  return (milli / 1000) * Math.PI * 2;
 }
 
 /** The rim round an organ or a candidate, in tiles. */

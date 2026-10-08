@@ -35592,3 +35592,18 @@ Bottleneck: the thirty-odd registrations a scripted boss needs outside the
 simulation, each found only by the test that fails without it.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE ANTIPHON's resting turn is drawn on the organ and the rail
+
+- reading: 10 min. The draw, the contour table, the frame harness, and how
+  VERSUS and the director's poses are reached.
+- writing: 10 min. The two turns in the draw, the turned-contour test, the
+  frame test, the pose, the spec and the queued question.
+- looking: 15 min. Finding the shot's spelling for a STATES card, then the
+  rail cropped.
+- friction: 5 min. The pose first went in the ON THE FIELD group, which only
+  takes poses a control row uses.
+- landing: 5 min. `check:fast`, the commit, the land.
+
+Bottleneck: looking — `bun run shot` needed `--open "▣ DOCUMENTATION"
+--inner STATES --click '[data-group=…] h2'`, found by reading the director.

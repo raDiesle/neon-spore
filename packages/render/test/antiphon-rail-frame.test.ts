@@ -87,4 +87,23 @@ describe("THE ANTIPHON's rail", () => {
     grown(world).carried = 1;
     expect(chooseWord(drawn(world, "p2", 3).words).length).toBe(1);
   });
+
+  it("draws the organ and each candidate at its resting turn, and nought as it ships", () => {
+    // `sim/antiphon-turn.ts` sets the turns; with the figure off they are all
+    // nought and the picture is the one above.
+    const organ = (turn: number) =>
+      frame("p1", (w) => {
+        const s = grown(w);
+        s.rail = [];
+        if (s.organ !== null) s.organ.turn = turn;
+      }).text;
+    const decoy = (turn: number) =>
+      frame("p2", (w) => {
+        const c = grown(w).rail[0];
+        if (c !== undefined) c.turn = turn;
+      }).text;
+    expect(organ(1)).not.toBe(organ(0));
+    expect(decoy(2)).not.toBe(decoy(0));
+    expect(decoy(0)).toBe(railed("p2"));
+  });
 });

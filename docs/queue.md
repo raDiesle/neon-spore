@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE ANTIPHON's resting turn is drawn on the organ and the rail
-
-- **Found:** 2026-10-08, claude/task-queue-work-8b2adc
-- **Taken:** 2026-10-08, claude/task-queue-work-8b2adc (claim: claude/queue-the-antiphons-resting-turn-is-drawn-on-the-organ)
-- **Files:** `packages/render/src/antiphon-draw.ts`, `packages/render/src/antiphon-shape.ts`, `packages/render/test/antiphon-frame.test.ts`, `packages/content/src/antiphon-contours.ts`, `tools/versus/candidates`
-
-The look lane of step 8 (`bosses-choreographed.md` §12). The simulation landed off on 8 October 2026 (`packages/sim/src/antiphon-turn.ts`, `antiphonRestingTurn`): from `antiphonTurnPits` the organ rests at a seeded quarter turn (`organ.turn`) and every candidate on the rail carries its own (`turn`), the decoys being the organ's contour at the other turns. Nothing draws either yet: the organ is turned by `antiphonTurnMilli` alone, and the rail is never turned. To do: draw the organ by `antiphonOrganTurnMilli` and each candidate rotated by `antiphonQuarterMilli(c.turn)`, then offer the level with the figure on as a VERSUS candidate beside the shipped rail. With the figure off every turn is nought, so the default frame does not move. A test belongs beside it: every contour in the antiphon shape table must differ from itself at a quarter and a half turn, or a turned rail shows two identical candidates and only one of them is right.
-
 ## A held mark shows it is right: THE DAVIT, THE LAMPREY, THE HALTER
 
 - **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
@@ -540,3 +532,11 @@ sets `data-frozen`. Have the shot fail at once, naming the error, when the
 page reports a bundle or runtime error (console error, or no `#versus`
 mounted after the settle), and add a test with a candidate that throws at
 import.
+
+## THE ANTIPHON's *four facets* is the same upside down on a turned rail
+
+- **Found:** 2026-10-08, claude/task-queue-work-8b2adc
+- **Files:** `packages/content/src/antiphon-contours.ts`, `packages/content/test/antiphon-turned.test.ts`, `packages/sim/src/antiphon-rail.ts`, `packages/sim/src/config-antiphon.ts`
+- **Asks:** Before the resting turn is switched on, how should contour 9, *four facets*, stop being the same at a half turn: (A) the simulation is told which contours are alike turned and gives those a shape decoy instead, (B) the contour itself changes so it is not symmetric (a look, so VERSUS), or (C) a turned level never grows it?
+
+With `antiphonRestingTurn` on (`sim/antiphon-turn.ts`), the rail's decoys are the organ's own contour at the other quarter turns. Contour 9 is a crystal with an even number of facets and an ellipse's aspect, so it looks the same at a half turn: the gap between the two is 0.000 radii, against at least 0.09 for every other contour (`packages/content/test/antiphon-turned.test.ts`, which names it in `ALIKE`). If the organ is 9 and a decoy rests at the opposite turn, the rail shows two identical candidates and only one is right. The switch ships off, so nothing is wrong today. (A) puts a table in `SimConfig` (the simulation never sees a shape), (B) changes a shipped shape, (C) narrows the table on those levels. Whichever is chosen, the test's `ALIKE` list goes empty.

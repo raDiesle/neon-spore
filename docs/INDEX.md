@@ -3492,6 +3492,7 @@ by hand never moves.
 | `tools/director/src/poses-instar-spit.ts` | THE INSTAR's fire on its way down, three beats into the window, while nobody answers |
 | `tools/director/src/poses-instar-acts.ts` | THE INSTAR's third and fourth acts in the gallery, three beats into each pose's window while nobody answers |
 | `tools/director/src/poses-instar-flight.ts` | **THE INSTAR in flight**: held four beats into the brood's first pass, the pose `instar:flight` is judged on |
+| `tools/director/src/poses-antiphon-turned.ts` | THE ANTIPHON's rail with the resting turn on: one contour three ways up (`sim/antiphon-turn.ts`) |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
 | `tools/director/src/versus-advance.ts` | **One tick of a pose's world**, and the one thing four tests and the seat probe want out of `versus-pair.ts`… |
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |

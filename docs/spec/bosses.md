@@ -6115,8 +6115,15 @@ levels it springs back the short way round, `antiphonSpringRate` (4) times
 as fast as it went, so it never changes what the answer looks like. The
 ship is never turned. Off, nothing draws from the seed and every recorded
 fight replays as it did. The simulation landed alone (8 October 2026,
-option A, left to the session); drawing the organ and the rail at their
-turns is the look's lane and goes to VERSUS.
+option A, left to the session). **Drawn, 8 October 2026**: the organ at
+`antiphonOrganTurnMilli` and each candidate at its own quarter
+(`render/antiphon-draw.ts`), so off every turn is nought and no frame moves;
+the director's `ANTIPHON · A RAIL TURNED` shows a level with it on. VERSUS
+patches only drawing around one world, so it cannot offer a simulation
+switch; the switch stays the owner's. One contour fails on a turned rail:
+*four facets* (9) is the same upside down
+(`content/test/antiphon-turned.test.ts`), and how it is mended waits on the
+owner (`docs/queue.md`).
 
 **The carry's handle** (`render/antiphon-rail-grip.ts`): a grip ring on
 **every** candidate, never on one, each with the way down its vein inside
