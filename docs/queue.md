@@ -536,6 +536,7 @@ import.
 ## THE ANTIPHON's *four facets* is the same upside down on a turned rail
 
 - **Found:** 2026-10-08, claude/task-queue-work-8b2adc
+- **Taken:** 2026-10-08, claude/task-queue-work-8b2adc (claim: claude/queue-the-antiphons-four-facets-is-the-same-upside-dow)
 - **Files:** `packages/content/src/antiphon-contours.ts`, `packages/content/test/antiphon-turned.test.ts`, `packages/sim/src/antiphon-rail.ts`, `packages/sim/src/config-antiphon.ts`
 - **Asks:** Before the resting turn is switched on, how should contour 9, *four facets*, stop being the same at a half turn: (A) the simulation is told which contours are alike turned and gives those a shape decoy instead, (B) the contour itself changes so it is not symmetric (a look, so VERSUS), or (C) a turned level never grows it?
 
