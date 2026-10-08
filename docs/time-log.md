@@ -35968,3 +35968,17 @@ Bottleneck: the documents that count things — briefings, audio, the index —
 each said the old number and only a red test named them.
 
 *Measured: 12 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — Marks-window rows owed: THE SNAKE, THE PINBALL, THE PULSE, THE CAIRN
+
+- reading: 5 min. The four marks files, their sim predicates, and where
+  THE CAIRN's ring is really drawn.
+- writing: 5 min. Three halo rows in `-e`, a row's own `auto` seat, and
+  `answers-only` in `NO_ROW` for THE CAIRN.
+- looking: 0 min. No picture: a test.
+- friction: 5 min. THE PULSE's halo was never lit: AUTO on both seats never
+  misses, so the heart never leaves steady. Probed until one seat was enough.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: a mark whose window opens only on a mistake can't be reached by
+an autopilot that makes none.

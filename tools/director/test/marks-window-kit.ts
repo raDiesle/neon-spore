@@ -1,6 +1,7 @@
 import { spyOn } from "bun:test";
 import type { ViewRole } from "@neon-spore/render";
 import type { BossKind, World } from "@neon-spore/sim";
+import type { AutoMode } from "../src/stage-autopilot.js";
 
 /**
  * **What a row of `marks-window.test.ts` is made of**, out of that file on 27
@@ -35,6 +36,12 @@ export interface Row {
    * `p2`, each with its own layout.
    */
   roles?: readonly ViewRole[];
+  /**
+   * Which seats AUTO plays, both unless a row says otherwise: THE PULSE's bar
+   * asks only once the heart has fallen off steady, which takes a miss, and
+   * AUTO on both seats never misses.
+   */
+  auto?: AutoMode;
 }
 
 /** Every spy a row has put up, for the test to take down after it. */

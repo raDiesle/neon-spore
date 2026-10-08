@@ -16,20 +16,22 @@ import type { BossKind } from "@neon-spore/sim";
  * - **`own-test`** — a boss whose marks are held by a test of their own.
  * - **`owed`** — it has a `*-marks.ts` and nobody has written its row. Each is
  *   a later lane of its own.
+ * - **`answers-only`** — its `*-marks.ts` draws the verdict, the answer to a
+ *   touch, and no mark that asks for one, so there is no window to hold it to.
+ *   THE CAIRN, whose pile is asked by the hand ring the grip itself draws.
  * - **`no-marks-file`** — there is no `*-marks.ts` to spy on, which is what a
  *   row is made of (`marks-window-kit.ts`). Whatever it lights is drawn in its
  *   body's own files; a lane that finds a mark there moves it out first.
  */
-export type NoRowWhy = "never" | "own-test" | "owed" | "no-marks-file";
+export type NoRowWhy = "never" | "own-test" | "owed" | "answers-only" | "no-marks-file";
 
 export const NO_ROW: Partial<Record<BossKind, NoRowWhy>> = {
   queen: "never",
   // `packages/render/test/instar-marks-up.test.ts`.
   instar: "own-test",
-  snake: "owed",
-  pinball: "owed",
-  pulse: "owed",
-  cairn: "owed",
+  // `cairn-marks.ts` draws the verdict and nothing else: the ring round the
+  // pile is the hand on it (`cairn-hand.ts`), drawn only once a thumb has it.
+  cairn: "answers-only",
   warden: "no-marks-file",
   well: "no-marks-file",
   splice: "no-marks-file",

@@ -476,17 +476,3 @@ one sentence fits, then a later wave that mixes the five gestures on one
 body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
-
-## Marks-window rows owed: THE SNAKE, THE PINBALL, THE PULSE, THE CAIRN
-
-- **Found:** 2026-10-08, claude/task-queue-work-e71746
-- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-marks-window-rows-owed-the-snake-the-pinball-the)
-- **Files:** `tools/director/test/marks-window-no-row.ts`, `tools/director/test/marks-window-rows-c.ts`, `packages/render/src/snake-marks.ts`, `packages/render/src/pinball-marks.ts`, `packages/render/src/pulse-marks.ts`, `packages/render/src/cairn-marks.ts`
-
-`marks-window-no-row.ts` lists these as `owed`: each has a `*-marks.ts` and no
-row in `marks-window.test.ts`. Write a row for each — every function in its
-marks file that draws a mark lit, held to the window the simulation's own
-predicate in `sim/` says it is answered in, never the render's gate re-read
-(`marks-window-kit.ts`) — and strike its line from `NO_ROW`. A mark AUTO cannot
-reach is `unreached` with its reason; a mark found lit outside its window is a
-render fix in the same lane. A row file past ~250 lines splits into a fourth.

@@ -6,6 +6,13 @@ import {
   mazeHeartAsks,
   mazeStringAsks,
   mirrorAsks,
+  type PinballState,
+  type PulseState,
+  pinPlungerAsks,
+  pinTableAsks,
+  pulseBarAsks,
+  type SnakeState,
+  snakeJawsAsks,
   type VaneState,
   vaneArmAsks,
   vaneHousingAsks,
@@ -26,12 +33,22 @@ import { mark, type Row } from "./marks-window-kit.js";
  * THE VANE's arm until the pin lands and its housing while the haul is up;
  * THE MAZE's string while it is read and its heart while it wants the grip;
  * THE GAUGE's band while the dial is bound and wound open.
+ *
+ * THE SNAKE, PINBALL and THE PULSE are the next three, the same way: the
+ * jaws once the maw has rested; the plunger while it winds and the table
+ * while it takes a nudge; a seat's bar while the heart is off and that seat
+ * has not braced — which takes a miss, so THE PULSE is walked with AUTO on
+ * the pilot's seat alone. These, like THE GAUGE, are rounds, and are walked through
+ * `drawRound` (`marks-window.test.ts`).
  */
 
 const mirror = (w: World) => w.boss as MirrorState;
 const vane = (w: World) => w.boss as VaneState;
 const maze = (w: World) => w.boss as MazeState;
 const gauge = (w: World) => w.boss as GaugeState;
+const snake = (w: World) => w.boss as SnakeState;
+const pinball = (w: World) => w.boss as PinballState;
+const pulse = (w: World) => w.boss as PulseState;
 
 export const ROWS_E: readonly Row[] = [
   {
@@ -62,5 +79,32 @@ export const ROWS_E: readonly Row[] = [
   {
     kind: "gauge",
     marks: [mark(markFeedback, "drawMarkHalo", (w) => gaugeBandAsks(gauge(w)))],
+  },
+  {
+    kind: "snake",
+    marks: [mark(markFeedback, "drawMarkHalo", (w) => snakeJawsAsks(w.cfg, snake(w), w.tick))],
+  },
+  {
+    kind: "pinball",
+    marks: [
+      mark(
+        markFeedback,
+        "drawMarkHalo",
+        (w) => pinPlungerAsks(pinball(w)) || pinTableAsks(pinball(w)),
+      ),
+    ],
+  },
+  {
+    kind: "pulse",
+    // The pilot alone: the navigator's notes go by, the heart falls, and the
+    // bar asks of both seats.
+    auto: "p1",
+    marks: [
+      mark(
+        markFeedback,
+        "drawMarkHalo",
+        (w) => pulseBarAsks(w.cfg, pulse(w), 1) || pulseBarAsks(w.cfg, pulse(w), 2),
+      ),
+    ],
   },
 ];

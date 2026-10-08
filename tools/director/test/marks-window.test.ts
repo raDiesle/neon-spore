@@ -7,7 +7,7 @@ import { Effects } from "../../../packages/render/src/effects.js";
 import { drawRound } from "../../../packages/render/src/round-draw.js";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
 import { bossWorld } from "../src/poses-bosses-kit.js";
-import { stageAutopilot } from "../src/stage-autopilot.js";
+import { type AutoMode, stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
 import { type Mark, spies } from "./marks-window-kit.js";
 import { ROWS_A } from "./marks-window-rows-a.js";
@@ -65,6 +65,7 @@ function walk(
   marks: Mark[],
   wave: string | undefined,
   roles: readonly ViewRole[],
+  mode: AutoMode,
 ): { wrong: string[]; seen: Map<string, number> } {
   installCanvasGlobals();
   const world = bossWorld(kind, {}, wave);
@@ -72,7 +73,7 @@ function walk(
   const l = computeLayout(VIEWPORT, cfg, "test");
   const field = (seat: 1 | 2) => stageField(world, "test", controlSet("default"), cfg, seat, null);
   const auto = stageAutopilot({ layout: () => l, field });
-  auto.setMode("both");
+  auto.setMode(mode);
   // AUTO plays from TEST's screen, which hears both seats; the screens drawn
   // are the row's, each with its own layout and its own effects.
   const screens = roles.map((role) => ({
@@ -124,7 +125,13 @@ function phaseName(world: World): string {
 describe("no boss puts a mark up before its window opens", () => {
   test.each(ROWS.map((r) => [r.kind, r] as const))("%s", (_, row) => {
     const marks = row.marks.map((m) => m());
-    const { wrong, seen } = walk(row.kind, marks, row.wave, row.roles ?? ["test"]);
+    const { wrong, seen } = walk(
+      row.kind,
+      marks,
+      row.wave,
+      row.roles ?? ["test"],
+      row.auto ?? "both",
+    );
     expect(wrong.slice(0, 5)).toEqual([]);
     for (const m of marks) {
       if (m.unreached !== undefined) continue;
