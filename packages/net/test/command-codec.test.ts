@@ -304,6 +304,9 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "lampreyHead", on: true, fromMilli: 0, fromYMilli: -1500 },
   { kind: "drag", target: "lampreyHead", on: false, fromMilli: 0 },
   { kind: "drag", target: "lampreyTooth", on: true, id: 2, fromMilli: 0 },
+  // THE LATCH's grips are pulled down, `fromYMilli` the depth (`sim/latch-hand.ts`).
+  { kind: "drag", target: "latchGripLeft", on: true, fromMilli: 0, fromYMilli: 1800 },
+  { kind: "drag", target: "latchGripRight", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -494,6 +497,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   lampreyTail: true,
   lampreyHead: true,
   lampreyTooth: true,
+  latchGripLeft: true,
+  latchGripRight: true,
   crank: true,
 };
 

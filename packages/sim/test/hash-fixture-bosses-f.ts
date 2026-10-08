@@ -87,6 +87,16 @@ export const BOSS_ENTRIES_F = {
       { ask: "core", reader: 1, changes: false, size: 0, beats: 4 },
     ],
   },
+  // A yank level ahead of a haul and a cross, the knots and the beats apart,
+  // so every figure of a level is varied (`latch-hash.ts`).
+  latch: {
+    kind: "latch",
+    steps: [
+      { ask: "yank", knots: 3, beats: 21 },
+      { ask: "haul", knots: 1, beats: 9 },
+      { ask: "cross", knots: 2, beats: 14 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE FLUE on's share of `patchBoss`. */
@@ -174,5 +184,22 @@ export function patchBossF(boss: BossState): void {
     boss.reaches = 2;
     boss.peels = 3;
     boss.hits = 1;
+  }
+  if (boss.kind === "latch") {
+    // The second level lit, the rope a way past its third knot with one in
+    // this level, the left grip down part way and the right let go from
+    // higher, the right's turn next, and a yank coming — every field given a value (`latch-hash.ts`).
+    boss.phase = "level";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.hauledMilli = 13300;
+    boss.floorMilli = 12000;
+    boss.knots = 3;
+    boss.levelKnots = 1;
+    boss.down = [true, false];
+    boss.anchorMilli = [12400, 11100];
+    boss.depthMilli = [900, 0];
+    boss.turn = 1;
+    boss.yankBeat = 11;
   }
 }

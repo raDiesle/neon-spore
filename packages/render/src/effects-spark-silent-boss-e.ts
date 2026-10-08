@@ -45,4 +45,18 @@ export const SILENT_BOSS_E = [
   "mimicClose",
   "mimicSpent",
   "mimicOut",
+  // THE LATCH's twelve, no burst from this table: silent until its look lane
+  // draws them, and then above the loop by its own fx file.
+  "latchEnter",
+  "latchLevel",
+  "latchGrip",
+  "latchTurn",
+  "latchWrong",
+  "latchSlip",
+  "latchRear",
+  "latchBraced",
+  "latchKnot",
+  "latchMiss",
+  "latchSpent",
+  "latchOut",
 ] as const satisfies readonly SimEvent["type"][];

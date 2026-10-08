@@ -87,6 +87,11 @@ for the owner's eye.
 
 ### 2. THE LATCH — whether you can share one grip without ever both letting go at once
 
+**Built, 8 October 2026, as its simulation** — reworked as a rope hauled
+hand over hand in turns, never both let go; wave 124 THE LATCH and
+[bosses](bosses.md) §11.61, which argues every departure from what follows.
+The look is the next lane.
+
 **Splits** hands: one clasp per seat on the same hatch, and only one may be
 open at a time. **Silhouette**: a hull-hatch body with five ringed latch
 plates; each clean handoff pops one plate free. **Mechanic**: each seat holds

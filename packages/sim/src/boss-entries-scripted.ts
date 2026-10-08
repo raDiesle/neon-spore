@@ -7,6 +7,7 @@ import type { GovernorEntry } from "./governor.js";
 import type { GrindstoneEntry } from "./grindstone.js";
 import type { HalterEntry } from "./halter.js";
 import type { LampreyEntry } from "./lamprey.js";
+import type { LatchEntry } from "./latch.js";
 import type { MimicEntry } from "./mimic.js";
 import type { OculusEntry } from "./oculus.js";
 import type { PlumbEntry } from "./plumb.js";
@@ -65,7 +66,9 @@ export type ScriptedBossEntry =
   // The one that authors a grip as well as taps: a jaw one seat pins for the other to pull its teeth (`lamprey.ts`).
   | LampreyEntry
   // The one answered by drawing: a sign one seat reads for the other to draw (`mimic.ts`).
-  | MimicEntry;
+  | MimicEntry
+  // The one hauled hand over hand: two grips on one tendril, never both let go (`latch.ts`).
+  | LatchEntry;
 
 export type { CapstanEntry, CapstanStep } from "./capstan.js";
 export type { CystEntry, CystStep } from "./cyst.js";
@@ -76,6 +79,7 @@ export type { GovernorEntry, GovernorStep } from "./governor.js";
 export type { GrindstoneEntry, GrindstoneStep } from "./grindstone.js";
 export type { HalterEntry, HalterStep } from "./halter.js";
 export type { LampreyEntry, LampreyStep } from "./lamprey.js";
+export type { LatchEntry, LatchStep } from "./latch.js";
 export type { MimicEntry, MimicStep } from "./mimic.js";
 export type { OculusEntry, OculusStep } from "./oculus.js";
 export type { PlumbEntry, PlumbStep } from "./plumb.js";

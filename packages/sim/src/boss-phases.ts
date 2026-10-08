@@ -20,6 +20,7 @@ import { HIVE_LOBES } from "./hive-lobe.js";
 import { INSTAR_PHASES } from "./instar.js";
 import { KEEL_PHASES } from "./keel.js";
 import { LAMPREY_PHASES } from "./lamprey.js";
+import { LATCH_PHASES } from "./latch.js";
 import { LEDGER_PHASES } from "./ledger.js";
 import { MANTLE_PHASES, MANTLE_SEAMS } from "./mantle.js";
 import { MAZE_PHASES } from "./maze.js";
@@ -151,5 +152,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   governor: GOVERNOR_PHASES,
   lamprey: LAMPREY_PHASES,
   mimic: MIMIC_PHASES,
+  latch: LATCH_PHASES,
   fleet: FLEET_PHASES,
 };

@@ -19,6 +19,7 @@ import { filamentHand, sinewHand, surgeHand } from "./boss-hands-handles.js";
 import { haspHand } from "./boss-hands-hasp.js";
 import { keelHand } from "./boss-hands-keel.js";
 import { lampreyHand } from "./boss-hands-lamprey.js";
+import { latchHand } from "./boss-hands-latch.js";
 import { mantleHand } from "./boss-hands-mantle.js";
 import { mimicHand } from "./boss-hands-mimic.js";
 import { oculusHand } from "./boss-hands-oculus.js";
@@ -99,6 +100,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   ledger: ledgerHand,
   mantle: mantleHand,
   mimic: mimicHand,
+  latch: latchHand,
   maze: mazeHand,
   mirror: mirrorHand,
   nettle: nettleHand,

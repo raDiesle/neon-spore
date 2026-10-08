@@ -45,6 +45,7 @@ const AUTHORS_NOTHING = [
   "governor",
   "lamprey",
   "mimic",
+  "latch",
 ] as const satisfies readonly BossEntry["kind"][];
 
 const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
@@ -184,6 +185,8 @@ const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
  * - **THE MIMIC**'s script is one list of steps too, and it names no column
  *   at all: the mantle hangs over `midCol`, and the signs are the seeded
  *   `Rng`'s, not an author's (`sim/mimic.ts`).
+ * - **THE LATCH**'s script is one list of levels too, and names no column:
+ *   its tendril hangs down `midCol` (`sim/latch.ts`).
  *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which

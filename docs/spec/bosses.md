@@ -11817,6 +11817,105 @@ are proven on a stub canvas (`render/test/mimic-frame.test.ts`). Whether a
 pair can say a picture square by square across a room inside its window —
 §42's payoff — is the owner's eye, and it has never been watched at tempo.
 
+## 11.61 THE LATCH — a rope you haul down in turns, never both letting go
+
+> A slime has hooked the ship with a rope, and each of you has one grip on
+> it. Pull it down in turns: one pulls while the other holds. Let go both at
+> once and it slips back to the last knot. When it rears, both hold on.
+
+Designed as §2 of [bosses-cinematic](bosses-cinematic.md) — a choreographed
+scene, the third kind in `.claude/skills/new-boss`. **Built on 8 October
+2026 as its simulation**, taken by a lane asked to *take some parked boss
+concept which you think i will like*; the look is the next lane.
+
+**The rule, in one sentence.** Take turns — one pulls while the other holds
+— and never let go both at once, or it slips back to the last knot.
+
+**It is the rope, and the knots are its health.** The state (`sim/latch.ts`,
+hashed in `sim/latch-hash.ts`) is the **phase** (`enter`, `level`, `rest`,
+`spent`) and the beat it began, the **cursor** into the script, how far the
+rope is **hauled** and the **floor** it can slip back to, the **knots** in
+all and in this level, and for each of the two grips whether a thumb is
+**down**, where on the rope it took hold (its **anchor**) and how far it is
+pulled (its **depth**); then whose **turn** it is to pull, and the beat of
+the next **yank**. The script is the wave's (`LatchEntry.steps`), copied at
+install: each step asks `haul`, `yank` or `cross`, how many **knots** it
+wants and how many **beats** it has.
+
+**The grips.** Two `DragTarget`s, `latchGripLeft` and `latchGripRight`, a
+column either side of the middle at the depth `latchGripRowMilli`, each
+pulled **down** — `fromYMilli` the depth, the way THE MANTLE's handles are.
+The pilot's is the left and the navigator's the right, **crossed** in a
+`cross` level (`latchGripSeat`). A thumb going down on the partner's grip
+takes hold of nothing and is said (`latchWrong`) — the owner, 7 October
+2026, on THE TRAPEZE: *I don't understand why nothing happens on tap.*
+
+**The hands** (`sim/latch-hand.ts`). Taking hold marks the grip's anchor on
+the rope, less the depth the thumb already has. **Only the grip whose turn
+it is moves the rope**: it hauls it down as far as its anchor and its depth,
+never more than `latchReachMilli` a pull; the other grip, pulled, only
+holds. **Letting go** after a pull of at least `latchStrokeMilli` passes the
+turn (`latchTurn`), and the new puller pulls from where its thumb is on the
+rope now. **Letting go while the other grip is off too** is both off: the
+rope slips back to the floor (`latchSlip`, *both*) and the same grip pulls
+again. Every `latchKnotMilli` hauled is **a knot**, and a knot is kept — the
+floor moves up to it and no slip goes back past it.
+
+**The clock** (`sim/latch-step.ts`) runs on the beat: the slime drops in for
+`latchEnterBeats`, and each level is lit after a rest of `latchRestBeats`.
+A level is won the moment its knots are in. **A level run out** with knots
+still owed tears the hull (`latchMiss`, `bossStrikesHull`), and the same
+level, with the knots it already has, is lit again after the rest. **A `yank` level** yanks every
+`latchYankEveryBeats`: it **rears** `latchRearBeats` before (`latchRear`),
+and on the yank both grips must be down (`latchBraced`) or the rope slips
+back (`latchSlip`, *yank*). The last level won, the slime is torn loose
+(`latchSpent`) and leaves after `latchSpentBeats`. The wave's script is
+two knots hauled, two through the yanks and two with the grips crossed.
+
+**Where this departs from §2, and why.**
+- **A rope, not a hatch.** §2's five latch plates popping on a handoff made
+  the handoff the whole act and the pull nothing. Hand over hand down a rope
+  is the same handoff with a reason to make it — the rope only comes down
+  while someone pulls — and the knots are the plates, kept once won.
+- **Turns, so both seats act.** The first cut let any grip pull, and one
+  seat could hold still while the other did everything. Only the turn's grip
+  moves the rope, and a real pull passes the turn: both thumbs work, in
+  alternation, and the talk is *mine — yours — mine*.
+- **Yanks**, so holding is a thing done and not only a thing waited through:
+  the slime is seen to rear, and the answer is both hands on.
+- **The cross**, so the grips are not learned once and forgotten: each seat
+  reaches for the side it is not used to.
+- **No penalty in §2; a slip and a torn hull here.** A slip costs the
+  progress since the last knot and nothing else; only a level run out hurts,
+  so the clock is the threat and the slip is the lesson.
+- **No SLOW**, for THE TRAPEZE's reasons: both screens see the same rope.
+
+**The hand.** AUTO (`hands/src/boss-hands-latch.ts`) acts a third of a beat
+apart, THE MIMIC's reason: the holder takes hold first, then the puller,
+which pulls a whole reach and lets go — and never lets go while the slime
+rears.
+
+**The sound** (`audio/src/bind-latch.ts`, `sounds/boss-latch.ts`): twelve
+cues; a grip is heard on its own side, a knot rises as they add up, and a
+slip falls further the more it lost.
+
+**What is not built.** The look: the slime, its rope and its knots, the
+grips drawn as handles to pull down, the cue words, the verdicts and the
+receipts — every latch event is silent on the field until then
+(`effects-spark-silent-boss-e.ts`), and the grips are `unbuilt` in
+`tools/director/test/on-field-controls.test.ts`. The guide film.
+
+**What is proven, and what is not.** `sim/test/latch.test.ts` proves the
+rules: the install and the first level; whose grip is whose and the wrong
+grab said; only the turn's grip moves the rope, never more than a reach; a
+pull let go passes the turn, a short one does not; both off slips back to
+the last knot and keeps the turn; a knot is kept; a level won lights the
+next; a yank rears first and slips a rope held by one hand, and is held by
+two; the cross swaps the grips; a level run out tears the hull; the script
+ends torn loose and out; the same seed and thumbs hash the same. Whether a
+pair can keep *mine — yours* going aloud at tempo, and whether the yanks
+read — the owner's eye — has never been watched.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

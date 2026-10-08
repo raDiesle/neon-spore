@@ -53,4 +53,5 @@ export const BOSS_DEMONSTRATIONS = {
   governor: { wave: "theGovernor" },
   lamprey: { wave: "theLamprey" },
   mimic: { wave: "theMimic" },
+  latch: { wave: "theLatch" },
 } satisfies Partial<Record<MechanicId, Demonstration>>;

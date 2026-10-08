@@ -18,6 +18,8 @@ export * from "./boss-script.js";
 // And the clock bosses' names, whole — a list of the same kind, cut for the
 // same reason `bosses.ts` was (`boss-surface-clocks.ts`).
 export * from "./boss-surface-clocks.js";
+// THE LATCH's, from the day it was written (`boss-surface-latch.ts`).
+export * from "./boss-surface-latch.js";
 // THE MAZE's, since its lever's ring became the simulation's (`boss-surface-maze.ts`).
 export * from "./boss-surface-maze.js";
 // And PINBALL's, whole: the round whose state is a shot rather than a clock

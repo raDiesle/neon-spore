@@ -300,6 +300,7 @@ by hand never moves.
 | `packages/sim/src/boss-surface-splice.ts` | **THE SPLICE's names on `@neon-spore/sim`'s surface**, cut off `boss-surface.ts` on 25 September 2026 |
 | `packages/sim/src/boss-surface-pinball.ts` | **PINBALL's names on `@neon-spore/sim`'s surface** |
 | `packages/sim/src/boss-surface-ledger.ts` | **THE LEDGER's names on `@neon-spore/sim`'s surface** |
+| `packages/sim/src/boss-surface-latch.ts` | **THE LATCH's names, on a page of their own** — the tendril, the grips and the script, for the picture |
 | `packages/sim/src/boss-surface-instar.ts` | **THE INSTAR's names, on a page of their own** — the script and where the scene is in it |
 | `packages/sim/src/boss-surface-maze.ts` | **THE MAZE's names on `@neon-spore/sim`'s surface**, cut off `boss-surface.ts` on 29 September 2026 |
 | `packages/sim/src/boss-surface-verdicts.ts` | **Every boss's shot, asked rather than acted on** — the `…Verdict` each boss's `…Struck` acts on |
@@ -674,6 +675,10 @@ by hand never moves.
 | `packages/sim/src/lamprey-roam.ts` | **THE LAMPREY as a worm on the field** (the owner, 6 October 2026) |
 | `packages/sim/src/lamprey-types.ts` | THE LAMPREY's shapes: the script a wave authors and the state the simulation keeps (`lamprey.ts` for what… |
 | `packages/sim/src/lamprey.ts` | THE LAMPREY: an eel that leaps from tile to tile across the field and bites into each one |
+| `packages/sim/src/latch-hand.ts` | THE LATCH's hands: two grips on the one tendril, `latchGripLeft` and `latchGripRight`, each pulled **down** |
+| `packages/sim/src/latch-hash.ts` | What THE LATCH puts into `hashWorld`, and nothing else |
+| `packages/sim/src/latch-step.ts` | THE LATCH's clock: each level lighting and running out, the slime rearing and yanking in a level that yanks |
+| `packages/sim/src/latch.ts` | THE LATCH: a slime clinging over the field has hooked a tendril into the hull and is reeling it in |
 | `packages/sim/src/ledger-bead.ts` | **What a bill is**: one hit down the seam, and one return on the cord |
 | `packages/sim/src/ledger-hash.ts` | What THE LEDGER puts into `hashWorld`, and nothing else |
 | `packages/sim/src/ledger-hand.ts` | **THE LEDGER's four hands on its own cord**, off the wire, on the tick |
@@ -738,6 +743,7 @@ by hand never moves.
 | `packages/sim/src/events-ledger.ts` | **Everything THE LEDGER does that neither screen already says**, as events |
 | `packages/sim/src/events-lead.ts` | **Everything THE LEAD does that neither screen already says**, as events |
 | `packages/sim/src/events-lamprey.ts` | What THE LAMPREY says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-latch.ts` | What THE LATCH says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-antiphon.ts` | **Everything THE ANTIPHON does that neither screen already says**, as events |
 | `packages/sim/src/events-hive.ts` | **Everything THE HIVE does that neither screen already says**, as events |
 | `packages/sim/src/events-hasp.ts` | What THE HASP says as it happens, one line per thing the picture and the sound answer |
@@ -778,6 +784,7 @@ by hand never moves.
 | `packages/sim/src/config-ledger.ts` | THE LEDGER's numbers — how wide the body stands, how many hits part it |
 | `packages/sim/src/config-lead.ts` | THE LEAD's numbers — how many segments the stalk has, how far ahead of the body a shot has to be put |
 | `packages/sim/src/config-lamprey.ts` | THE LAMPREY's tuning: the worm's crawl, the beats around its stays, the tiles it lands on |
+| `packages/sim/src/config-latch.ts` | THE LATCH's tuning: how long a knot is and how far one pull reaches |
 | `packages/sim/src/config-antiphon.ts` | THE ANTIPHON's numbers — how many contours the body can grow and how they fall into families |
 | `packages/sim/src/config-hive.ts` | THE HIVE's numbers — how many breach sites the underside has, how long it hangs before the first opens |
 | `packages/sim/src/config-hasp.ts` | THE HASP's tuning: how long a grip lasts before it burns the hand off, how long the burn holds |
@@ -2667,6 +2674,7 @@ by hand never moves.
 | `packages/audio/src/bind-ledger.ts` | THE LEDGER's eleven, in a file of their own for `bind-taster.ts`' reason |
 | `packages/audio/src/bind-lead.ts` | THE LEAD's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-lamprey.ts` | Whether an event is THE LAMPREY's, so a page of the chain can hand it over whole |
+| `packages/audio/src/bind-latch.ts` | Whether an event is THE LATCH's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-fence.ts` | **What THE FENCE sounds like**: the wire going over the ship, and a bolt cutting a way through it |
 | `packages/audio/src/bind-filament.ts` | THE FILAMENT's eleven, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
@@ -2781,6 +2789,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-plumb.ts` | **THE PLUMB, on AUTO**: both stones pulled half the lit step's skew each, the other way |
 | `packages/hands/src/boss-hands-davit.ts` | **THE DAVIT played right**, for the autopilot: one seat leans to the target, the other draws and looses, the pivot shot |
 | `packages/hands/src/boss-hands-lamprey.ts` | **THE LAMPREY played right**, for the autopilot |
+| `packages/hands/src/boss-hands-latch.ts` | **THE LATCH played right**, for the autopilot: hand over hand |
 | `packages/hands/src/boss-hand-fleet.ts` | **The pair's hands on THE FLEET**, a `Hand` (`hand.ts`) |
 | `packages/hands/src/boss-hand-hive.ts` | **The pair's hands on THE HIVE**, a `Hand` (`hand.ts`) |
 | `packages/hands/src/autopilot-hands.ts` | **The hand AUTO plays each boss with**: the one the poses reach the boss's defeat with |
@@ -3459,6 +3468,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-valve.ts` | **THE VALVE's ten states**, posed with a hand on the controls (`boss-hands-valve.ts`) |
 | `tools/director/src/poses-bosses-hands-grindstone.ts` | **THE GRINDSTONE's four states**, posed with a hand on the controls (`boss-hands-grindstone.ts`) |
 | `tools/director/src/poses-bosses-hands-lamprey.ts` | **THE LAMPREY's states**, posed with a hand on the controls (`boss-hands-lamprey.ts`): the crawl in |
+| `tools/director/src/poses-bosses-hands-latch.ts` | **THE LATCH's states**, posed with a hand on the controls (`boss-hands-latch.ts`) |
 | `tools/director/src/poses-bosses.ts` | **The BOSSES category of the STATES sheet**: one group per boss, in the order the simulation numbers them |
 | `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
 | `tools/director/src/poses-cage.ts` | The pose a candidate for THE RECOIL's cage is judged on |
@@ -3573,7 +3583,7 @@ by hand never moves.
 | `tools/director/src/sound-link-none-b.ts` | The sounds wired up with nothing to draw, the second page — from THE SCUTTLE on |
 | `tools/director/src/sound-link-none-c.ts` | The sounds wired up with nothing to draw, the third page — from THE GAUGE on |
 | `tools/director/src/sound-link-none-d.ts` | The sounds wired up with nothing to draw, the fourth page — from THE SEAM on |
-| `tools/director/src/sound-link-none-e.ts` | The sounds wired up with nothing to draw, the fifth page — THE VALVE's, THE LAMPREY's and THE MIMIC's |
+| `tools/director/src/sound-link-none-e.ts` | The sounds wired up with nothing to draw, the fifth page — THE VALVE's, THE LAMPREY's |
 | `tools/director/src/sound-row.ts` | **One sound, as a row of the catalogue sheet.** Its own file beside `sound-page.ts` |
 | `tools/director/src/pose-type.ts` | What a pose *is* — the shape of one, and the two things a caller can ask of one without building it |
 | `tools/director/src/pose-commands.ts` | the commands a pose presses, spelled short — `aim`, `ward`, `guard`, `suck`, `prime`, `shoot`, `pullCord`, `hold` — one builder per verb, re-exported by the kit |

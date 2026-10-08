@@ -12,6 +12,7 @@ import { stepGrindstone } from "./grindstone-step.js";
 import { stepHalter } from "./halter-step.js";
 import { stepHasp } from "./hasp-step.js";
 import { stepLamprey } from "./lamprey-step.js";
+import { stepLatch } from "./latch-step.js";
 import { stepMaze } from "./maze-round.js";
 import { stepMimic } from "./mimic-step.js";
 import { stepRatchet } from "./ratchet-step.js";
@@ -54,6 +55,11 @@ import type { World } from "./world.js";
  * stepped somewhere else (`boss-off-beat.ts`).
  */
 export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>): void {
+  // THE LATCH: a level lit, the rear and the yank, a level run out, and the slime gone (`latch-step.ts`).
+  if (boss.kind === "latch") {
+    stepLatch(world, boss);
+    return;
+  }
   // THE MIMIC: the slap, a sign's window and its change, the mimicry and the reach, the core and the fall (`mimic-step.ts`).
   if (boss.kind === "mimic") {
     stepMimic(world, boss);

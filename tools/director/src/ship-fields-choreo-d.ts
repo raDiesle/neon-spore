@@ -148,4 +148,15 @@ export const CHOREO_FIELD_GROUP_D = {
   mimicReaches: "THE MIMIC — a sign one of you reads for the other to draw",
   mimicClenchBeats: "THE MIMIC — a sign one of you reads for the other to draw",
   mimicSpentBeats: "THE MIMIC — a sign one of you reads for the other to draw",
+  // LatchConfig — a knot and a reach, the yank and its rear, where the grips
+  // hang, and the beats around the levels (`config-latch.ts`).
+  latchEnterBeats: "THE LATCH — a rope you haul down in turns, never both letting go",
+  latchRestBeats: "THE LATCH — a rope you haul down in turns, never both letting go",
+  latchSpentBeats: "THE LATCH — a rope you haul down in turns, never both letting go",
+  latchKnotMilli: "THE LATCH — a rope you haul down in turns, never both letting go",
+  latchStrokeMilli: "THE LATCH — a rope you haul down in turns, never both letting go",
+  latchReachMilli: "THE LATCH — a rope you haul down in turns, never both letting go",
+  latchYankEveryBeats: "THE LATCH — a rope you haul down in turns, never both letting go",
+  latchRearBeats: "THE LATCH — a rope you haul down in turns, never both letting go",
+  latchGripRowMilli: "THE LATCH — a rope you haul down in turns, never both letting go",
 } satisfies Record<string, GroupName>;

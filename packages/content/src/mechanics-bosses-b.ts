@@ -25,6 +25,7 @@ type BossIdB = Extract<
   | "halter"
   | "lamprey"
   | "mimic"
+  | "latch"
   | "capstan"
   | "gall"
   | "trapeze"
@@ -156,6 +157,10 @@ export const BOSS_MECHANICS_B = {
   },
   mimic: {
     what: "One of you sees a picture of tiles and says it. The other taps it into the frame. Too slow and an arm reaches down. Then tap the core.",
+    reach: "spawn",
+  },
+  latch: {
+    what: "A slime hooks the hull with a rope. You each have one grip. Pull it down in turns, and never both let go. Hold on when it yanks.",
     reach: "spawn",
   },
   vane: {

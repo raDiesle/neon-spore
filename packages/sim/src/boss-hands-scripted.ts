@@ -9,6 +9,7 @@ import { governorTurned } from "./governor-turn.js";
 import { grindstoneHeard } from "./grindstone-hand.js";
 import { halterHeard } from "./halter-hand.js";
 import { lampreyHeard } from "./lamprey-hand.js";
+import { latchHeard } from "./latch-hand.js";
 import { mimicHeard } from "./mimic-hand.js";
 import { oculusGuarded } from "./oculus-guard.js";
 import { oculusHeard } from "./oculus-hand.js";
@@ -99,4 +100,6 @@ export function scriptedHandsHeard(world: World, commands: readonly TimedCommand
   for (const c of commands) lampreyHeard(world, c.player, c.command);
   // THE MIMIC's glyph: a sign drawn peels or is mimicked the instant it lands (`mimic-hand.ts`).
   for (const c of commands) mimicHeard(world, c.player, c.command);
+  // THE LATCH's grips: a lift is judged the instant it lands, against the other grip (`latch-hand.ts`).
+  for (const c of commands) latchHeard(world, c.player, c.command);
 }

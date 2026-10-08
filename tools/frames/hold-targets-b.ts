@@ -177,4 +177,8 @@ export const ROWS: Record<string, Row> = {
   // same wire name as `instarMark`, which holds rather than lets go.
   instarSwipe: { as: "instarMark", id: true, swipe: true },
   instarSwipe2: { seat: 2, as: "instarMark", id: true, swipe: true },
+  // `latch-hand.ts`: the pilot's grip on the left and the navigator's on the
+  // right, pulled down on `fromYMilli`; crossed in a `cross` level.
+  latchGripLeft: {},
+  latchGripRight: { seat: 2 },
 };

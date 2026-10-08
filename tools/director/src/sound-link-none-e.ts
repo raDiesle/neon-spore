@@ -1,6 +1,6 @@
 /**
  * The sounds wired up with nothing to draw, the fifth page — THE VALVE's,
- * THE LAMPREY's and THE MIMIC's.
+ * THE LAMPREY's, THE MIMIC's and THE LATCH's.
  *
  * Cut off `sound-link-none-c.ts` on 30 September 2026, when THE GAUGE's loose
  * tooth left that page at 248 lines, by the rule the pages before it carry:
@@ -64,4 +64,18 @@ export const NO_SUBJECT_E: Record<string, string> = {
   "boss.mimicClose": "the skin closing over the core. Same argument.",
   "boss.mimicSpent": "the mimic shapeless, falling. Same argument.",
   "boss.mimicOut": "the mimic gone and the wave ending. Same argument, and an absence.",
+  // THE LATCH's twelve (`sim/events-latch.ts`): the same argument. The slime
+  // has no shape-sheet subject yet — its look is a lane of its own.
+  "boss.latchEnter": "the hook biting into the hull. No shape-sheet subject yet.",
+  "boss.latchLevel": "the rope drawn taut. Same argument.",
+  "boss.latchGrip": "a hand taking hold of the rope. Same argument.",
+  "boss.latchTurn": "the turn passing to the other grip. Same argument.",
+  "boss.latchWrong": "the partner's grip touched. Same argument.",
+  "boss.latchSlip": "the rope running back to the last knot. Same argument.",
+  "boss.latchRear": "the slime rearing back. Same argument.",
+  "boss.latchBraced": "a yank held by both hands. Same argument.",
+  "boss.latchKnot": "a knot pulled in, a lobe torn off. Same argument.",
+  "boss.latchMiss": "the slime tearing the hull. Same argument.",
+  "boss.latchSpent": "the rope snapping, the slime falling. Same argument.",
+  "boss.latchOut": "the slime gone and the wave ending. Same argument, and an absence.",
 };

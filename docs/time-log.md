@@ -35575,3 +35575,18 @@ Bottleneck: writing — the seam had to reach the face-on body through the
 look, since `frontBody` is handed no flight.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE LATCH's simulation: a rope hauled hand over hand
+
+- reading: 5 min. The unbuilt briefs, to choose one; THE MIMIC's simulation
+  lane, for every list a scripted boss is registered in.
+- writing: 15 min. The state, the clock, the hands, the hash, the rig and
+  fifteen tests; twelve sounds; AUTO; the director's rows; the write-up.
+- looking: 0 min. No picture: the look is the next lane.
+- friction: 5 min. A guard hook refused a heredoc with escaped newlines; a
+  sound sat in the speech band.
+- landing: 10 min. Doc-drift, the briefings and prose counts, the import
+  sort, `check:fast`, `land`.
+
+Bottleneck: the thirty-odd registrations a scripted boss needs outside the
+simulation, each found only by the test that fails without it.

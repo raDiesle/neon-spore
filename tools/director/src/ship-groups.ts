@@ -62,6 +62,7 @@ export type GroupName =
   | "THE GOVERNOR — a needle each of you taps on your own mark"
   | "THE LAMPREY — an eel one of you holds by the tail for the other to pull off"
   | "THE MIMIC — a sign one of you reads for the other to draw"
+  | "THE LATCH — a rope you haul down in turns, never both letting go"
   | "THE SPLICE — straws fed in the order the numbers say"
   | "THE REPRISE — the wave sent again unseen"
   | "AIM — colour and column"
@@ -174,6 +175,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE GOVERNOR — a needle each of you taps on your own mark",
   "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   "THE MIMIC — a sign one of you reads for the other to draw",
+  "THE LATCH — a rope you haul down in turns, never both letting go",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",

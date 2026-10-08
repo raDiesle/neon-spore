@@ -43,7 +43,9 @@ export type DragTargetE =
   | "gaugeTongue"
   | "lampreyTail"
   | "lampreyHead"
-  | "lampreyTooth";
+  | "lampreyTooth"
+  | "latchGripLeft"
+  | "latchGripRight";
 
 /**
  * `trivetPadFront` and `trivetPadRear` are the seventy-ninth and
@@ -213,4 +215,15 @@ export type DragTargetE =
  * the body in an `apart`; the head is THE CURTAIN's hem, `-fromYMilli` the
  * pull up; and the teeth are `valvePin`'s edge with `id` the tooth
  * (`lamprey-hand.ts`).
+ */
+
+/**
+ * `latchGripLeft` and `latchGripRight` are the hundred-and-thirteenth and
+ * fourteenth: THE LATCH's two grips on its one tendril, the pilot's on the
+ * left and the navigator's on the right — crossed in a `cross` level.
+ *
+ * No new reading. Each is THE MANTLE's handle, `fromYMilli` the depth pulled
+ * down; what is new is that the two hands take turns on the same rope, and a
+ * lift is judged against whether the other grip is held (`latch-hand.ts`).
+ * `id` is unused.
  */

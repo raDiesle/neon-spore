@@ -155,4 +155,15 @@ export const CHOREO_NOTES_D = {
     "mimicChangeBeats in, a roll, then split boards each seat reads for the " +
     "other, each baring a core on row mimicCoreRow to tap. " +
     "See sim/mimic.ts, sim/mimic-frame.ts, sim/mimic-shapes.ts, sim/mimic-hand.ts.",
+  "THE LATCH — a rope you haul down in turns, never both letting go":
+    "Brief §2 of docs/spec/bosses-cinematic.md, built as a tug of war: a " +
+    "slime has hooked the hull with a rope, and each seat has one grip on it, " +
+    "the pilot's left and the navigator's right. They take turns: the grip " +
+    "whose turn it is carries the rope down as far as the thumb goes, at most " +
+    "latchReachMilli, while the other holds; letting go after latchStrokeMilli " +
+    "passes the turn. A knot is latchKnotMilli, so two pulls at least. Both " +
+    "hands off at once and the rope slips back to the last knot. A yank level rears for latchRearBeats every " +
+    "latchYankEveryBeats and yanks: both hands must be holding. A cross level " +
+    "swaps the grips. A level run out tears the hull. No SLOW. " +
+    "See sim/latch.ts, sim/latch-step.ts, sim/latch-hand.ts, sim/config-latch.ts.",
 } satisfies Partial<Record<GroupName, string>>;

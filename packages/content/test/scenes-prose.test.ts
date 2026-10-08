@@ -131,6 +131,10 @@ const STILL_PROSE = [
   // off on 5 October 2026 and asked for one back on the 6th, *briefly
   // explains what has to be done*; the guide says who reads and who taps.
   "THE MIMIC",
+  // And THE LATCH (cinematic §2), a twenty-eighth time: the slime is undrawn
+  // until its look lane, and the guide says which grip is whose and when
+  // they cross.
+  "THE LATCH",
 ];
 
 const guided = WAVES.filter((w) => w.guide);

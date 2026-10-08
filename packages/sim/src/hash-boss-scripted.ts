@@ -8,6 +8,7 @@ import { governorHashParts } from "./governor-hash.js";
 import { grindstoneHashParts } from "./grindstone-hash.js";
 import { halterHashParts } from "./halter-hash.js";
 import { lampreyHashParts } from "./lamprey-hash.js";
+import { latchHashParts } from "./latch-hash.js";
 import { mimicHashParts } from "./mimic-hash.js";
 import { oculusHashParts } from "./oculus-hash.js";
 import { plumbHashParts } from "./plumb-hash.js";
@@ -119,6 +120,10 @@ export function scriptedHashParts(boss: BossState): number[] {
   // THE MIMIC: the phase, the signs, the drawn, the peels, the reaches and the script (`mimic-hash.ts`).
   if (boss.kind === "mimic") {
     for (const n of mimicHashParts(boss)) out.push(n);
+  }
+  // THE LATCH: the phase, the tendril, the floor, the knots, the grips, the next yank and the script (`latch-hash.ts`).
+  if (boss.kind === "latch") {
+    for (const n of latchHashParts(boss)) out.push(n);
   }
   return out;
 }

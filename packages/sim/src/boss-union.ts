@@ -20,6 +20,7 @@ import type { HiveState } from "./hive.js";
 import type { InstarState, NettleState } from "./instar.js";
 import type { KeelState } from "./keel.js";
 import type { LampreyState } from "./lamprey.js";
+import type { LatchState } from "./latch.js";
 import type { LeadState } from "./lead.js";
 import type { LedgerState } from "./ledger.js";
 import type { MantleState } from "./mantle.js";
@@ -137,4 +138,5 @@ export type BossState =
   | FlueState
   | GovernorState
   | LampreyState
-  | MimicState;
+  | MimicState
+  | LatchState;
