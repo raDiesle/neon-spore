@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · dc20a5119 — THE RIME's halves take thirteen rubs, with a green arc filling round each
+
+A wipe now shaves 80 frost a reversal, not 125: thirteen reversals from solid frost and seven from the film, where it was eight and four. The half being wiped wears a plain green arc on both screens, filling as its frost comes off. Every reversal throws twice the flakes it did and flashes the half white. A wipe step is lit under THE SLOW, so even the shortest one holds the thirteen at one thumb's pace.
+
 ## 2026-10-08 · ddadd9e41 — THE MANTLE and THE GOVERNOR are held to no mark before its window
 
 Two of the rows `NO_ROW` owed, in a fourth row file. THE MANTLE's halo — a knob, the core's half or the vent — is drawn only while the simulation says that mark asks; THE GOVERNOR's track mark is drawn open only while a tap may land it, and its halos only on an open mark or while the hub fires. Each row goes red with its window narrowed to nothing.

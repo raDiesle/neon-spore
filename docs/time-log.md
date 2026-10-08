@@ -35826,3 +35826,5 @@ had to be the shared halo rather than its own file.
 
 Bottleneck: friction — `land`'s queue guard reads a heading cut to a prefix
 of itself as finished work put back.
+
+*Measured: 23 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
