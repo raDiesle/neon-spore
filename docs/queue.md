@@ -338,6 +338,7 @@ The look lane of step 8 (`bosses-choreographed.md` §12). The simulation landed 
 ## THE SLING's tines twang after a true loose (living bosses, step 11)
 
 - **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
+- **Taken:** 2026-10-08, claude/task-queue-work-8b2adc (claim: claude/queue-the-slings-tines-twang-after-a-true-loose-living)
 - **Files:** `packages/render/src/sling-draw.ts`, `packages/render/src/sling-pose.ts`, `packages/render/src/sling-grip.ts`
 
 Step 11 of `docs/spec/living-bosses.md`: after a true loose, the two tines
