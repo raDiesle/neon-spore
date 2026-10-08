@@ -621,6 +621,7 @@ bestiary's line to built.
 ## No test plays AUTO to the end on THE CAIRN, THE UNDERTOW, THE MIRROR, THE SPLICE
 
 - **Found:** 2026-10-08, claude/queue-autos-boss-hands-are-tested-without-the-games-ha
+- **Taken:** 2026-10-08, claude/queue-tasks-3078fe (claim: claude/queue-no-test-plays-auto-to-the-end-on-the-cairn-the-u)
 - **Files:** `packages/hands/src/boss-hands-takes.ts`, `packages/hands/src/boss-hands-rounds.ts`, `packages/hands/src/autopilot-hands.ts`, `tools/director/test/charges.ts`
 
 The last four of the twelve kinds in `AUTOPILOT_HANDS` no test plays. THE
