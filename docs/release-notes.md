@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 085099902 — AUTO answers the wave's own bodies at THE WELL and THE SURGE
+
+AUTO on THE WELL held and wound the seam and did nothing else, so every body of the wave reached the hull; on THE SURGE both thumbs were on the bulb and nothing moved the shield, so every rock it threw got through. Both now play the field alongside the boss, and THE WELL, THE LEDGER, THE THROAT and THE SURGE each have a test that plays AUTO to the end at both shot charges.
+
 ## 2026-10-08 · c10471bb8 — AUTO answers THE HIVE's last spills, and four more bosses are played to the end in tests
 
 AUTO on THE HIVE stood idle once every breach was sealed, while a body a breach had already spilled was still falling, and the hull took it — once a fight at no charge, three times at the game's. It now answers what is left on the field the field's way. THE GIMBAL, THE SPOOL, THE STARE and THE HIVE each have a test that plays AUTO to the end at both shot charges.

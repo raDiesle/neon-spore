@@ -35303,3 +35303,5 @@ guesses made before that.
 
 Bottleneck: reading — THE WELL never ending was by design and only its
 header said so; the probe's "never finishes" was the wrong question.
+
+*Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
