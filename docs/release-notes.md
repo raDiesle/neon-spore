@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · daf204ae0 — THE SURGE's eversion turning the body out, offered in VERSUS
+
+THE SURGE's eversion now has a candidate, `surge:evert` / TURNED. The game folds the bulb's outline through its equator and draws it pale past the half. TURNED instead rolls the pale inside out of the seam and back over the bulb like a sock turned out. A rolled lip stands at the seam, the ribs come through it one at a time, and what is left of the outside shrinks into the turned skin. The inner body stays out (bosses.md §11). Shipped picture unchanged: the body is drawn through the new `EVERT_LOOK` record in `surge-body.ts`, whose default is the fold the game already draws.
+
 ## 2026-10-08 · c3638c167 — THE SURGE's seam gaping with the pressure, offered in VERSUS
 
 The design's seam that parts wider the more the bulb is charged is offered as surge:seam / gape on THE SURGE · BAND: on the navigator's screen the seam opens into a lit mouth as wide as the pressure is high. The pilot's seam stays one shut line, because a gap there would be the pressure he is not shown. The game draws what it drew; the seam line is now read from a record.
