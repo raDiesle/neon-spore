@@ -523,6 +523,7 @@ and add a test that a card whose `owner` starts with a taker is not `free`.
 ## `versus:shot` waits out its timeout on a candidate that does not compile
 
 - **Found:** 2026-10-08, claude/queue-tasks-3078fe
+- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-versus-shot-waits-out-its-timeout-on-a-candidate)
 - **Files:** `tools/director/src/versus-shot.ts`, `tools/frames/shot.ts`
 
 A candidate importing `@neon-spore/content` by name (a candidate reaches a
