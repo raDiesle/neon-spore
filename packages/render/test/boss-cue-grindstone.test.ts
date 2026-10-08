@@ -86,7 +86,7 @@ describe("THE GRINDSTONE", () => {
     expect(c?.word).toBe("RUB");
     expect(c?.kind).toBe("CARRY");
     expect(c?.seat).toBe(seat);
-    const flat = grindstoneStanding(LAYOUT[role], CFG, s, target, world.beat, 0);
+    const flat = grindstoneStanding(LAYOUT[role], CFG, s, target, world.beat, 0, world);
     expect(c?.x).toBeCloseTo(flat.x, 5);
     expect(c?.y).toBeCloseTo(flat.y, 5);
     expect(cue(world, seat === 1 ? "p2" : "p1")).toBeNull();
@@ -110,7 +110,7 @@ describe("THE GRINDSTONE", () => {
       const c = cue(world, role);
       expect(c?.word).toBe("HOLD");
       expect(c?.kind).toBe("HOLD");
-      const jaw = grindstoneStanding(LAYOUT[role], CFG, s, target, world.beat, 0);
+      const jaw = grindstoneStanding(LAYOUT[role], CFG, s, target, world.beat, 0, world);
       expect(c?.x).toBeCloseTo(jaw.x, 5);
       expect(c?.y).toBeCloseTo(jaw.y, 5);
     }

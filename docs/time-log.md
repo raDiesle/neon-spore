@@ -35511,3 +35511,18 @@ Bottleneck: writing — the turn had to thread through the rail's seed order
 without drawing anything new from the seed while the figure is off.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE GRINDSTONE's caliper rocks on its axle
+
+- reading: 5 min. The caliper, the jaw, the grip and the verdicts, and
+  THE SPOOL's roll as the pattern.
+- writing: 10 min. `grindstone-rock.ts`, the rock through the pad placer
+  and its three callers, the slow window into the ghost thumb, the test,
+  the spec.
+- looking: 5 min. A scan of the clock for the widest rock each way, two
+  frames paired.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: writing — the hit test, the ghost thumb and the verdict ring
+each place a pad, and all three had to take the same turn.

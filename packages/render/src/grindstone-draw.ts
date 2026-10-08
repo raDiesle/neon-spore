@@ -24,6 +24,7 @@ import {
   grindstoneShut,
   grindstoneSpin,
 } from "./grindstone-pose.js";
+import { grindstoneRock } from "./grindstone-rock.js";
 import {
   grindstoneAxleAt,
   grindstoneCut,
@@ -91,10 +92,13 @@ export function drawGrindstone(
   ctx.translate(at.x, at.y);
   if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
 
-  // The caliper first, behind the wheel it closes on; spinning free it is flung off both ways.
+  // The caliper first, behind the wheel it closes on, rocked on the axle as far as it is open;
+  // spinning free it is flung off both ways.
   const pads = step?.ask === "clamp";
+  const rock = grindstoneRock(world, cfg, shut, beat, beatPhase);
   for (const side of [0, 1] as const) {
     ctx.save();
+    ctx.rotate(rock);
     const out = side === 0 ? -1 : 1;
     ctx.translate(out * FLING * free * l.tile, -FLING * 0.5 * free * l.tile);
     ctx.globalAlpha = alpha * (1 - free);
@@ -145,7 +149,7 @@ export function drawGrindstone(
   else drawGrindstoneHeat(ctx, l, hurt.size, faded, grindstoneFadeTurn(s, faded, beat, beatPhase));
   drawGrindstoneFlash(ctx, l, fx.flash, fx.free);
   ctx.restore();
-  drawGrindstoneMarkFeedback(ctx, l, s, time, cuts, shut, fx.marks.verdicts);
+  drawGrindstoneMarkFeedback(ctx, l, s, time, cuts, shut, rock, fx.marks.verdicts);
   ctx.restore();
 }
 

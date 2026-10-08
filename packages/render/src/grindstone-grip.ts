@@ -11,6 +11,7 @@ import {
   grindstoneFree,
   grindstoneShut,
 } from "./grindstone-pose.js";
+import { grindstoneRock } from "./grindstone-rock.js";
 import {
   grindstoneAxleAt,
   grindstoneAxleR,
@@ -18,6 +19,7 @@ import {
   grindstoneFlatHalf,
 } from "./grindstone-shape.js";
 import type { Circle, Layout } from "./layout.js";
+import { NO_SPAN, type SlowSpan } from "./slow-hush.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
@@ -92,7 +94,7 @@ export function grindstoneAxleStanding(
 /** Where a seat's flat and pads stand this frame, in canvas pixels. */
 function standing(
   l: Layout,
-  field: Pick<Field, "cfg">,
+  field: Pick<Field, "cfg" | "slow">,
   s: GrindstoneState,
   seat: Seat,
   beat: number,
@@ -108,8 +110,9 @@ function standing(
   );
   const cut = grindstoneCut(l, grindstoneDepth(s, side));
   const shut = grindstoneShut(field, s, beat, beatPhase);
+  const rock = grindstoneRock(field.slow ?? NO_SPAN, cfg, shut, beat, beatPhase);
   const pads = [0, 1].map((k) => {
-    const p = grindstonePadPlaced(l, side, k, shut);
+    const p = grindstonePadPlaced(l, side, k, shut, rock);
     return { x: at.x + p.x, y: at.y + p.y };
   });
   const flat = { x: at.x + (side === 0 ? -cut : cut), y: at.y, half: grindstoneFlatHalf(l, cut) };
@@ -156,7 +159,8 @@ function grindTarget(seat: Seat, jaw: boolean): DragTarget {
 
 /**
  * A seat's flat or jaw as a circle, where it stands this frame — which is where
- * the ghost thumb stands and what `handleCircle` answers. The press is taken
+ * the ghost thumb stands and what `handleCircle` answers; `slow` hushes the
+ * caliper's rock as the draw does. The press is taken
  * out to `REACH` (`grindstoneGripUnder`); this is the part it names.
  */
 export function grindstoneStanding(
@@ -166,9 +170,10 @@ export function grindstoneStanding(
   target: "grindFlatLeft" | "grindFlatRight" | "grindJawLeft" | "grindJawRight",
   beat: number,
   beatPhase: number,
+  slow: SlowSpan = NO_SPAN,
 ): Circle {
   const seat: Seat = target.endsWith("Left") ? 1 : 2;
-  const { flat, pads } = standing(l, { cfg }, s, seat, beat, beatPhase);
+  const { flat, pads } = standing(l, { cfg, slow }, s, seat, beat, beatPhase);
   if (target.startsWith("grindFlat")) return { x: flat.x, y: flat.y, r: flat.half };
   const [a, b] = pads;
   const r = grindstonePadR(l) * 2;

@@ -61,7 +61,7 @@ export function laterBossHandleCircle(
     const b = world.boss?.kind === "grindstone" ? world.boss : null;
     if (b === null || !grindstoneTakesHand(b)) return null;
     const t = target as "grindFlatLeft" | "grindFlatRight" | "grindJawLeft" | "grindJawRight";
-    return grindstoneStanding(l, cfg, b, t, world.beat, beatPhase);
+    return grindstoneStanding(l, cfg, b, t, world.beat, beatPhase, world);
   }
   if (target === "halterChordLeft" || target === "halterChordRight") {
     // THE HALTER's two grips on the lit segment's seam, either seat's. Null

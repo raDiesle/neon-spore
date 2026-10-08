@@ -2203,6 +2203,7 @@ by hand never moves.
 | `packages/render/src/grindstone-blow.ts` | **THE GRINDSTONE's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/grindstone-verdicts.ts` | **THE GRINDSTONE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/grindstone-caliper.ts` | **THE GRINDSTONE's caliper**: THE HOOD standing over the wheel, split at its crown into two jaws on one bolt |
+| `packages/render/src/grindstone-rock.ts` | **THE GRINDSTONE's open caliper rocks on its axle** (`docs/spec/living-bosses.md`, step 11) |
 | `packages/render/src/gorge-draw.ts` | THE GORGE, drawn: a translucent sack in the middle of the field, breathing on the beat |
 | `packages/render/src/gorge-drift.ts` | **THE GORGE's lobes lean on their intakes** |
 | `packages/render/src/gorge-depth.ts` | **THE GORGE in depth**: the sack is not a strip painted across the top of the field but a body bowed round… |

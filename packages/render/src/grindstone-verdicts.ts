@@ -109,11 +109,14 @@ export class GrindstoneVerdicts {
   }
 }
 
-/** The axle, the two flats cut `cuts` deep and the two jaws `shut` of the way, as the drawer puts them. */
-function marksAt(l: Layout, cuts: readonly [number, number], shut: number): Circle[] {
+/** The axle, the two flats cut `cuts` deep and the two jaws `shut` of the way and rocked by `rock`, as the drawer puts them. */
+function marksAt(l: Layout, cuts: readonly [number, number], shut: number, rock: number): Circle[] {
   const flatR = FLAT_R * l.tile;
   const jaw = (side: 0 | 1): Circle => {
-    const [a, b] = [grindstonePadPlaced(l, side, 0, shut), grindstonePadPlaced(l, side, 1, shut)];
+    const [a, b] = [
+      grindstonePadPlaced(l, side, 0, shut, rock),
+      grindstonePadPlaced(l, side, 1, shut, rock),
+    ];
     return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2, r: grindstonePadR(l) * 2 };
   };
   return [
@@ -145,10 +148,11 @@ export function drawGrindstoneMarkFeedback(
   time: number,
   cuts: readonly [number, number],
   shut: number,
+  rock: number,
   v: GripVerdicts,
 ): void {
   const fade = ctx.globalAlpha;
-  marksAt(l, cuts, shut).forEach((c, mark) => {
+  marksAt(l, cuts, shut, rock).forEach((c, mark) => {
     const says = asked(l, s, mark);
     if (says === "own") drawMarkHalo(ctx, c.x, c.y, c.r, time);
     ctx.globalAlpha = fade;

@@ -51,7 +51,7 @@ export function grindstoneCues(
   const step = grindstoneLitStep(s);
   if (step === null) return [];
   const at = (target: Parameters<typeof grindstoneStanding>[3]) =>
-    grindstoneStanding(l, world.cfg, s, target, world.beat, beatPhase);
+    grindstoneStanding(l, world.cfg, s, target, world.beat, beatPhase, world);
   const side = grinding(s);
   if (side !== null) {
     const flat = at(side === 0 ? "grindFlatLeft" : "grindFlatRight");

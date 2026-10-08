@@ -89,16 +89,27 @@ export function grindstonePadAt(l: Layout, side: 0 | 1, k: number, shut: number)
 
 /**
  * Pad `k` of jaw `side` where it stands, `shut` of the way bitten: laid on the
- * jaw, then swung with it about the bolt. The verdict ring and the hit test both
- * call this, so the ring is drawn where a thumb is taken.
+ * jaw, swung with it about the bolt, then rocked with the whole caliper about
+ * the axle by `rock` (`grindstone-rock.ts`). The verdict ring and the hit test
+ * both call this, so the ring is drawn where a thumb is taken.
  */
-export function grindstonePadPlaced(l: Layout, side: 0 | 1, k: number, shut: number): Point {
-  return turnedAbout(
+export function grindstonePadPlaced(
+  l: Layout,
+  side: 0 | 1,
+  k: number,
+  shut: number,
+  rock: number,
+): Point {
+  const swung = turnedAbout(
     grindstonePadAt(l, side, k, shut),
     grindstoneBolt(l, shut),
     grindstoneJawTurn(side, shut),
   );
+  return turnedAbout(swung, AXLE, rock);
 }
+
+/** The axle the caliper is laid round and rocks about: the origin. */
+const AXLE: Point = { x: 0, y: 0 };
 
 /** A jaw pad's radius, in pixels. */
 export function grindstonePadR(l: Layout): number {

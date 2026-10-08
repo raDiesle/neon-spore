@@ -335,19 +335,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 The look lane of step 8 (`bosses-choreographed.md` §12). The simulation landed off on 8 October 2026 (`packages/sim/src/antiphon-turn.ts`, `antiphonRestingTurn`): from `antiphonTurnPits` the organ rests at a seeded quarter turn (`organ.turn`) and every candidate on the rail carries its own (`turn`), the decoys being the organ's contour at the other turns. Nothing draws either yet: the organ is turned by `antiphonTurnMilli` alone, and the rail is never turned. To do: draw the organ by `antiphonOrganTurnMilli` and each candidate rotated by `antiphonQuarterMilli(c.turn)`, then offer the level with the figure on as a VERSUS candidate beside the shipped rail. With the figure off every turn is nought, so the default frame does not move. A test belongs beside it: every contour in the antiphon shape table must differ from itself at a quarter and a half turn, or a turned rail shows two identical candidates and only one of them is right.
 
-## THE GRINDSTONE's caliper rocks on its axle (living bosses, step 11)
-
-- **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
-- **Taken:** 2026-10-08, claude/task-queue-work-8b2adc (claim: claude/queue-the-grindstones-caliper-rocks-on-its-axle-living)
-- **Files:** `packages/render/src/grindstone-caliper.ts`, `packages/render/src/grindstone-grip.ts`, `packages/render/src/grindstone-verdicts.ts`
-
-Step 11 of `docs/spec/living-bosses.md`: rock the open caliper about the
-axle, about 0.3 of a radian times how far it is from shut, on the beat
-clock with `slowHush`, and still once shut. The jaw pads are marks, so do
-*THE GRINDSTONE's jaw pads are placed in two places* first and have the
-one pad function take the rock, or the hit test leaves the drawing. Test,
-two frames paired, the spec's *as built* paragraph.
-
 ## THE SLING's tines twang after a true loose (living bosses, step 11)
 
 - **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
