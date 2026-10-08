@@ -358,12 +358,12 @@ by hand never moves.
 | `packages/sim/src/config-veer.ts` | THE VEER's two numbers: how far apart the rows it changes lane on are, and the widest a single change can reach |
 | `packages/sim/src/creature-state-held.ts` | **The state a hand writes**, as opposed to the state the beat writes |
 | `packages/sim/src/veer.ts` | THE VEER: the first rock that does not hold its lane |
-| `packages/sim/src/vise-hand.ts` | Two pinches on THE VISE, one lobe each |
+| `packages/sim/src/vise-hand.ts` | Two thumbs on THE VISE, one lobe each, each carried to shut it |
 | `packages/sim/src/vise-hash.ts` | What THE VISE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/vise-shot.ts` | **THE VISE's shot**: the bared kernel, where a bolt leaves the top of the field in the middle column |
 | `packages/sim/src/vise-step.ts` | THE VISE's clock: the case settling, each step lighting, the beats a pinch is kept shut being counted |
 | `packages/sim/src/vise-guard.ts` | **THE VISE's shield**, asked once a tick after the commands are heard — THE OCULUS's glare |
-| `packages/sim/src/vise.ts` | THE VISE: a seed-case of two lobes over the middle column, each cracked by its own seat pinching it shut |
+| `packages/sim/src/vise.ts` | THE VISE: a seed-case of two lobes over the middle column, each cracked by its own seat dragging it shut |
 | `packages/sim/src/lock.ts` | THE LOCK: the hand player 1 already has on the field, read a second way |
 | `packages/sim/src/mid-beat.ts` | **Where a thing stands between two beats**, in thousandths of a tile |
 | `packages/sim/src/mine.ts` | THE MINE: a wisp standing still, answered by a thumb instead of a bolt |
@@ -1525,10 +1525,11 @@ by hand never moves.
 | `packages/render/src/vise-story.ts` | **THE VISE's two story steps, drawn** (§28's story item; the rules are `sim/vise-guard.ts` and… |
 | `packages/render/src/vise-stop.ts` | **Where a bolt meets THE VISE**, for `BoltStops` (`bolt-stop.ts`): the bared kernel, the seed on a spit, the swung lobes |
 | `packages/render/src/vise-sway.ts` | **THE VISE's case swings from its hinge** (`docs/spec/living-bosses.md` §1, the outline tier) |
-| `packages/render/src/vise-grip.ts` | **The pinch on THE VISE** — the first of its hands lanes |
+| `packages/render/src/vise-grip.ts` | **The hand on THE VISE** — the first of its hands lanes |
 | `packages/render/src/vise-fx.ts` | What THE VISE leaves behind a frame (§28, *Presentation*): the **dry thud** of a seam cracking |
 | `packages/render/src/vise-blow.ts` | THE VISE's timeout blow: the case spits a husk seed that cracks in two on the hull |
 | `packages/render/src/vise-verdicts.ts` | **THE VISE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
+| `packages/render/src/vise-carry.ts` | **How shut a thumb has carried THE VISE's lobe**: the gap the lobe stands at open |
 | `packages/render/src/snake-body.ts` | The body: where it is between two tiles, and what it looks like |
 | `packages/render/src/snake-button.ts` | SNAKE's four presses, as faces on the band's own lobes |
 | `packages/render/src/snake-draw.ts` | SNAKE's arena, and everything standing on a tile of it |
@@ -1665,7 +1666,7 @@ by hand never moves.
 | `packages/render/src/filament-marks.ts` | **THE FILAMENT's two thumbs answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/filament-blow.ts` | **THE FILAMENT's own blow at the hull**: the vein snaps where the line stood and whips down to the column |
 | `packages/render/src/fire-vein.ts` | **A shot, running from the thumb to the cannon**: the button's flash, a pulse up its cord in the shot's colour, the release at the top of the cannon |
-| `packages/render/src/fingers.ts` | **The gestures one sample cannot answer**, kept together |
+| `packages/render/src/fingers.ts` | **The gesture one sample cannot answer**: a rubbing thumb's turns (`rub.ts`) |
 | `packages/render/src/guide-scene.ts` | a guide's rehearsal at full size: the state — which page, which seat, whether it has finished — beside the slide and the page it draws |
 | `packages/render/src/guide-thumb.ts` | the ghost hand a rehearsal is driven by, placed from `bandLobes` and the strips and never authored |
 | `packages/render/src/guide-tide-caption.ts` | The words, the ring and the scrim |
@@ -2153,8 +2154,8 @@ by hand never moves.
 | `packages/render/src/reprise-brood.ts` | THE REPRISE's count: a ring of eggs round the lens, laid as bodies are recorded and spent as they are sent, then a dashed shell per unseen body still falling |
 | `packages/render/src/reprise-lens.ts` | THE REPRISE's eye: a camera lens — shutter blink and blinking red dot while recording, rewind and triangle while playing |
 | `packages/render/src/reprise-parts.ts` | THE REPRISE's parts — the outline tier's (`outline-parts.ts`) on the sac |
-| `packages/render/src/rub.ts` | **`RubCount` from one thumb** — a gesture a host has to keep count of, as it does the pinch (`pinch.ts`) |
-| `packages/render/src/rub-turns.ts` | Where it went down, and the way it is rubbing once it has gone far enough to say |
+| `packages/render/src/rub.ts` | **`RubCount` from one thumb** — the one gesture a host has to keep count of |
+| `packages/render/src/rub-turns.ts` | A rub's answer, and the seat it is from |
 | `packages/render/src/rub-mark.ts` | **The mark a rub asks with: a red line, and an arrow coming in at it from each side**, the same on every boss |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
 | `packages/render/src/comms-boss.ts` | The siren for a boss whose split is the whole fight: THE ANTIPHON's explainer lit, EXPLAIN SHAPE and CHOOSE SHAPE swapping every level |
@@ -2454,8 +2455,6 @@ by hand never moves.
 | `packages/render/src/pinball-mouth.ts` | **While the ball is up, the cannon is a funnel waiting for it** |
 | `packages/render/src/pinball-fuse.ts` | **PINBALL's clock is the fuse every boss wears, along the top of the table** |
 | `packages/render/src/pinball-catch.ts` | **A ball caught back in the cannon is said out loud: YEAH** |
-| `packages/render/src/pinch.ts` | **`SqueezeGap` from two fingers** — the one gesture in the game read off two touches at once |
-| `packages/render/src/pinch-pair.ts` | A pinch's answer, and the seat it is from |
 | `packages/render/src/pip-ring.ts` | **A ring of pips round a body, one per thing still owed** — THE MINE's fuse first |
 | `packages/render/src/plate-gap.ts` | A plate of the hull that is **gone**, drawn as a hole in the outline |
 | `packages/render/src/plumb-draw.ts` | **THE PLUMB**: a lopsided bob of old bronze hung off a hook over the middle column, a ball on a chain at each end of its beam |
@@ -3582,7 +3581,7 @@ by hand never moves.
 | `tools/director/src/field-controls-latch.ts` | THE LATCH's two grips, as two rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-vane.ts` | **THE VANE's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-valve.ts` | THE VALVE's two handles, as rows of the ON THE FIELD tab: the wheel, the pilot's |
-| `tools/director/src/field-controls-vise.ts` | THE VISE's two lobe pinches, as rows of the ON THE FIELD tab |
+| `tools/director/src/field-controls-vise.ts` | THE VISE's two lobes, carried shut, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-undertow.ts` | **THE UNDERTOW's one thumb**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-keel.ts` | THE KEEL's one control, as a row of the ON THE FIELD tab: a tap on the lit joint |
 | `tools/director/src/field-controls-oculus.ts` | THE OCULUS's two leaf holds, as rows of the ON THE FIELD tab |

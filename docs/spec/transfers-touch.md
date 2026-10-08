@@ -647,12 +647,15 @@ Each is delay-tolerant: a level held, or a thing graded against a beat window.
   Malladus' finisher. Reads as *wipe it clean*.
 - **Pinch / squeeze on one body** — two fingers on one target, the separation as
   a depth. A world of blobs asks for it: squeeze a lobe, spread a membrane. Needs
-  a one-thumb twin.
+  a one-thumb twin. **Ruled out by the owner, 8 October 2026**: never two
+  fingers of one player, since a PC has one pointer. THE VISE, its one
+  tenant, carries its lobes shut by one thumb now.
 - **A drawn glyph, recognised on the device** — one phone shows it, the other
   draws it (3.15). The recogniser runs where milliseconds are allowed and sends
   one command, as the shake does.
 - **Chord** — "hold two and five": easy to say, indifferent to the beat, inside
-  the iPhone's finger limit at two or three.
+  the iPhone's finger limit at two or three. **Ruled out by the owner, 8
+  October 2026**, with the pinch: one finger a player.
 - **Double tap**, only where a single tap means nothing — a confirm verb that
   does not slow the fire buttons by the ~250 ms a double tap costs.
 - **Tilt as a level**, always with an on-screen twin (THE CHOIR's rule), and

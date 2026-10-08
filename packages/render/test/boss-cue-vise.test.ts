@@ -84,7 +84,7 @@ describe("THE VISE", () => {
     light(s, world, ask);
     const role = seat === 1 ? "p1" : "p2";
     const c = cue(world, role);
-    expect(c?.word).toBe("HOLD");
+    expect(c?.word).toBe("PULL");
     expect(c?.kind).toBe("HOLD");
     expect(c?.seat).toBe(seat);
     const lobe = viseLobeStanding(LAYOUT[role], world, s, seat, 0);
@@ -96,11 +96,11 @@ describe("THE VISE", () => {
   it("asks both seats on a both step, and takes each word off once that lobe is shut", () => {
     const { world, s } = stood();
     light(s, world, "both");
-    expect(cue(world, "p1")?.word).toBe("HOLD");
-    expect(cue(world, "p2")?.word).toBe("HOLD");
+    expect(cue(world, "p1")?.word).toBe("PULL");
+    expect(cue(world, "p2")?.word).toBe("PULL");
     s.gapMilli = [SHUT, OPEN];
     expect(cue(world, "p1")).toBeNull();
-    expect(cue(world, "p2")?.word).toBe("HOLD");
+    expect(cue(world, "p2")?.word).toBe("PULL");
     s.gapMilli = [SHUT, SHUT];
     expect(cue(world, "p2")).toBeNull();
   });
@@ -111,7 +111,7 @@ describe("THE VISE", () => {
     s.gapMilli = [SHUT, OPEN];
     expect(cue(world, "p1")).toBeNull();
     s.gapMilli = [SHUT + 1, OPEN];
-    expect(cue(world, "p1")?.word).toBe("HOLD");
+    expect(cue(world, "p1")?.word).toBe("PULL");
   });
 
   it("says nothing between steps or as it splits", () => {

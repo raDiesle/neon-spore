@@ -328,23 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE VISE's pinch asks two fingers of one player
-
-- **Found:** 2026-10-08, claude/trivet-boss-concept-670eed
-- **Taken:** 2026-10-08, claude/trivet-boss-concept-670eed (claim: claude/queue-the-vises-pinch-asks-two-fingers-of-one-player)
-- **Files:** `packages/render/src/vise-grip.ts`, `packages/render/src/pinch.ts`, `packages/sim/src/vise-hand.ts`, `docs/spec/bosses.md`
-- **Asks:** THE VISE's lobes are cracked by a two-finger pinch — should the pinch become a one-finger gesture, or should THE VISE leave the game?
-
-The owner's rule of 8 October 2026 (`.claude/skills/new-boss/generic.md`):
-never more than one finger of the same player at once, since a PC has one
-pointer. THE VISE is the one boss left that asks it: each seat pinches its
-own lobe shut with two fingers (`SqueezeGap`, `vise-grip.ts`). The options:
-a one-finger drag that closes the lobe (the gap is how far the thumb has
-carried, THE PLUMB's pull), a hold on the lobe for the count (THE
-OCULUS's), or THE VISE taken out whole as THE TRIVET was. Either rework
-keeps the simulation's `gapMilli` and changes only what sends it; the
-pinch machinery (`pinch.ts`, `pinch-pair.ts`) goes with the last pinch.
-
 ## `bun run frames` empties its output folder before a refusal in the page
 
 - **Found:** 2026-10-08, claude/task-queue-work-b00fee
@@ -413,3 +396,16 @@ the guard (snapshots against the merge base, `resurrectedAfter`) whether or
 not there is a replay, and give an intended restore a spoken way through — a
 `Restored:` line or a flag — rather than the re-run. A test in
 `tools/land/test/` that a second run of a refused landing is refused again.
+
+## `apps/game/src/input.ts` stands two lines under the ceiling
+
+- **Found:** 2026-10-08, claude/trivet-boss-concept-670eed
+- **Files:** `apps/game/src/input.ts`
+
+248 of its 250 lines, and the after-edit hook asked for the seam while THE
+VISE's carry was touching it. The one-finger rule took the pinch's pair out
+of `Fingers`, so what the field keeps is now the rub's count and the marks'
+glow; the pointer handlers' seat bookkeeping (`from`, `pressY`, the desk's
+both-seats signing) is the cut that reads as one thing. Move it to a page of
+its own with the test it already has, and `bun run check`.
+

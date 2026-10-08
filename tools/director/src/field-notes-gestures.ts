@@ -41,7 +41,9 @@ export const GESTURE_NOTES: Readonly<Record<string, string>> = {
   RUB:
     "Stamped SPEC'D but built: THE RIME, THE CAPSTAN. Move " +
     "to BUILT, and bring THE MAZE's heart under it.",
-  "SQUEEZE ONE BODY": "Stamped SPEC'D but built: THE VISE, THE GALL. Move to BUILT.",
+  "SQUEEZE ONE BODY":
+    "Ruled out by the owner on 8 October 2026 with CHORD: one finger a " +
+    "player. THE VISE's lobes became a one-thumb carry. Move to MISSED with the ruling.",
   "TILT, AS A LEVEL":
     "Ruled out by the owner on 27 September 2026: no wave may need a tilt " +
     "sensor, and THE PLUMB became drag stones. Move to MISSED with the ruling.",

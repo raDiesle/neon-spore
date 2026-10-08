@@ -104,6 +104,10 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "A stone under each end of the beam — left the pilot's, right the navigator's — haloed while a level is lit.",
     move: "A pull shrinks one stone and grows the other, and the bob tips the way the thumb goes; true and held, the lit weight settles green.",
   },
+  "THE VISE'S LEFT LOBE": {
+    find: "Each seat's half of the seed-case — left the pilot's, right the navigator's — haloed while a step naming that lobe is lit.",
+    move: "One thumb carried any way from the press closes the lobe; held shut through the count a seam cracks, green. A lift lets it open.",
+  },
   "THE CAPSTAN'S PULL": {
     find: "The drum's middle or its cradle, haloed on the screen of the seat that steers this step.",
     move: "Carried sideways, the cradle rocks and bares that side's face; on a lift it drifts back level.",

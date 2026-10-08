@@ -37,7 +37,7 @@ function pinching(): World {
 }
 
 const PINCHING_NOTE =
-  "THE VISE stood over the middle column: a seed-case of two lobes either side of a spine. Both lobes are lit and both seats have held a pinch shut on their own for two and a half of the step's four beats.";
+  "THE VISE stood over the middle column: a seed-case of two lobes either side of a spine. Both lobes are lit and both seats have carried their own shut and kept it there for two and a half of the step's four beats.";
 
 const VISE_LEFT: Pose = {
   name: "VISE · THE LEFT LOBE PINCHED",

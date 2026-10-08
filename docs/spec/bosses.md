@@ -8886,12 +8886,21 @@ the hull. A step let run out reddens only what it asked. A leaf pressed by
 the wrong seat, and a shot of the wrong colour, stay silent, as the
 simulation is.
 
-## 11.45 THE VISE — the boss two pinches crack, then shoot into
+## 11.45 THE VISE — the boss two drags crack, then shoot into
 
 > A dry seed-case over the middle of the field, two lobes clamped on a
-> kernel. A seam lights on your lobe: pinch it shut and keep it shut. Two
+> kernel. A seam lights on your lobe: pull it shut and keep it shut. Two
 > seams a lobe and the kernel lies bare. Shoot it in its colour, and when the
-> lobes creep back, pinch both together.
+> lobes creep back, pull both together.
+
+**One thumb, since 8 October 2026.** The lobes were pinched — two fingers of
+one seat, closing on the lobe — until the owner ruled that a player never has
+two fingers down at once, *"as its not supported on pc"*, and chose a drag of
+the three ways offered. A press in a seat's zone takes the lobe and says
+nothing; every move sends the open gap less however far the thumb has come,
+any way at all (`render/vise-carry.ts`); the lift lets it open. The cue says
+`PULL` / `TILL IT SHUTS`. The simulation was not touched: it still hears a
+gap on `fromMilli`. Where this section says a pinch, read a lobe carried shut.
 
 Designed as §28 of [bosses-choreographed](bosses-choreographed.md), the first
 of the concepts written to spend a gesture nobody had claimed — a
@@ -8908,7 +8917,7 @@ thousandths, and the beats the lit pinch has been **held**. The script is the
 wave's (`ViseEntry.steps`), copied at install: each step asks `left`,
 `right`, `fire` or `both`, in a colour or `either`, for its own beats.
 
-**The rule, in one sentence.** Pinch your lobe shut until its seam cracks,
+**The rule, in one sentence.** Pull your lobe shut until its seam cracks,
 and shoot the bared kernel in its colour.
 
 **The split.** Geometry, THE MANTLE's rule: `viseLobeLeft` is Player 1's and
@@ -9061,8 +9070,8 @@ drag's `fromMilli` on every move that changes it. The gap is the middles'
 distance less `FINGERTIPS_MILLI`, a fingertip's width: two fingertips pressed
 together stand nearly two tiles apart middle to middle on a phone, and read
 straight could never reach the shut line. Either finger lifting lets the lobe
-go. Which fingers pair is the game's (`packages/render/src/pinch-pair.ts`), what a pair
-means is render's (`render/pinch.ts`), so THE CYST's flanks can spend the same
+go. Which fingers pair is the game's (packages/render/src/pinch-pair.ts), what a pair
+means is render's (render/pinch.ts), so THE CYST's flanks can spend the same
 sender; a ghost thumb stands on a lobe while it is pinched
 (`render/vise-grip.ts`, `test/vise-grip.test.ts`, the director's two rows and
 poses). **AUTO has a hand for it** (26 September 2026): the lit lobe

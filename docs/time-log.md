@@ -36362,3 +36362,18 @@ Bottleneck: `check:fast` — a minute and a half, for a diff that only deletes.
 Bottleneck: reading — a drag target reaches three tables nobody names in the entry.
 
 *Measured: 17 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE VISE is carried shut by one thumb
+
+- reading: 10 min. The pinch's pair and every host that kept it, the
+  cue's verbs, the director's gesture sheet and the VISE's spec.
+- writing: 25 min. The carry and its hold, the pinch machinery out, the
+  tests, the cue's word and the briefings, the director's rows, the docs.
+- looking: 5 min. The cue's new word on a frame.
+- friction: 5 min. The heredoc guard on a doubled backslash, again, and a
+  verb the cue test does not know (`DRAG`, so `PULL`).
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the word *pinch* — forty files say it, and only reading each
+told the gesture (to change) from the lobe's state (to keep).
+

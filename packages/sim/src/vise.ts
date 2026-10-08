@@ -3,15 +3,17 @@ import type { World } from "./world.js";
 
 /**
  * THE VISE: a seed-case of two lobes over the middle column, each cracked by
- * its own seat pinching it shut, and then a kernel that has to be shot in the
+ * its own seat dragging it shut, and then a kernel that has to be shot in the
  * colour it shows (`docs/spec/bosses-choreographed.md` §28).
  *
- * **The rule is one sentence**: pinch your lobe's gap shut and keep it shut
+ * **The rule is one sentence**: drag your lobe's gap shut and keep it shut
  * for the beats asked, then shoot the bared kernel in its colour.
  *
  * Each seat has one lobe — the pilot's `viseLobeLeft`, the navigator's
- * `viseLobeRight` — and what a thumb and finger send is the **gap** between
- * them, a distance falling as they converge. A pinch step counts the beats
+ * `viseLobeRight` — and what one thumb sends is the lobe's **gap**, falling
+ * as the thumb is carried from its press (`render/vise-carry.ts`). It was a
+ * pinch, two fingers of one seat, until the owner ruled on 8 October 2026
+ * that a player never has two down at once. A pinch step counts the beats
  * its gap (or, for `both`, both gaps) sits at or under `viseShutMilli`; the
  * gap widening back past it starts the count again. Two cracks split a lobe,
  * both lobes split bare the kernel, and after that the script alternates a
@@ -79,8 +81,8 @@ export interface ViseState {
   /** Whether the kernel lies bare to be shot. */
   bared: boolean;
   /**
-   * Each lobe's gap, in thousandths of a tile: the distance between the two
-   * touches on it, or `viseOpenMilli` with no pinch on it at all.
+   * Each lobe's gap, in thousandths of a tile: the open gap less how far its
+   * seat's thumb has carried it, or `viseOpenMilli` with no hand on it at all.
    */
   gapMilli: [number, number];
   /** Beats of the lit pinch step its gap(s) have been kept shut. */

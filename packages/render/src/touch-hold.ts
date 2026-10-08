@@ -161,12 +161,13 @@ export type Hold =
        */
       rim?: { cx: number; cy: number; r: number; angle: number };
       /**
-       * One finger of a **pinch** — THE VISE's lobes: what it sends is the gap
-       * to a second finger on the same body, so neither its move nor its lift
-       * says anything alone, and the pair is answered by whoever owns the
-       * pointers (`pinch.ts`, `pinch-pair.ts`).
+       * THE VISE's lobes, **carried shut by one thumb**: the gap a lobe stands
+       * at open, `viseOpenMilli`, read off `SimConfig` at the press, so a move
+       * sends the gap less however far the thumb has come (`vise-grip.ts`).
+       * It was a two-finger pinch until the owner ruled one finger a player on
+       * 8 October 2026.
        */
-      pinch?: true;
+      closes?: number;
       /**
        * One thumb **rubbing** — THE RIME's halves: what it sends is how
        * many times it has turned back since it went down, so its press, its

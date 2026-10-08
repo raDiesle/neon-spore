@@ -92,7 +92,7 @@ export const BOSS_MECHANICS_B = {
     reach: "spawn",
   },
   vise: {
-    what: "Each pinches a lobe shut until a seam cracks. Two seams each, the kernel bares. Shoot it in its colour, and pinch both when both light.",
+    what: "Each pulls a lobe shut until a seam cracks. Two seams each, the kernel bares. Shoot it in its colour, and pull both when both light.",
     reach: "spawn",
   },
   rime: {

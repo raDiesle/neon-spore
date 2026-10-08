@@ -56,7 +56,7 @@ export function choreoCues(
   lead = 0,
 ): readonly BossCue[] {
   switch (boss.kind) {
-    // THE VISE's, a word on each lobe a lit pinch asks for, gone once it is shut, and one under the lit kernel (`boss-cue-read-zf.ts`).
+    // THE VISE's, a word on each lobe a lit step asks to be dragged shut, gone once it is shut, and one under the lit kernel (`boss-cue-read-zf.ts`).
     case "vise":
       return viseCues(l, world, boss, beatPhase);
     // THE RIME's, a word under the lit core and one where the shield is wanted (`boss-cue-read-zg.ts`).

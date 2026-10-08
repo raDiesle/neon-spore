@@ -4,6 +4,7 @@ import { colFromX, type Layout } from "./layout.js";
 import { crankTurn, dragging, rimFrom, turnAbout } from "./touch-drag.js";
 import type { Hold, Touch } from "./touch-hold.js";
 import { wellCol, wellColsFrom } from "./touch-well.js";
+import { viseCarriedGap } from "./vise-carry.js";
 
 /**
  * The same finger, moved, and the two kinds of answer it can have.
@@ -52,9 +53,14 @@ export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | 
     return { player: hold.player, command: drag, hold };
   }
   if (hold.kind === "drag") {
-    // **A pinch's finger says nothing alone**: the gap is the pair's (`pinch.ts`),
-    // and a rub's turns are counted by its host (`rub.ts`).
-    if (hold.pinch || hold.rub) return null;
+    // **A rub's turns are counted by its host** (`rub.ts`), never by one sample.
+    if (hold.rub) return null;
+    // **THE VISE's lobe is carried shut**: what goes out is the gap left
+    // after however far the thumb has come, any way at all (`vise-grip.ts`).
+    if (hold.closes !== undefined) {
+      const gap = viseCarriedGap(l, hold.closes, x - hold.originX, y - hold.originY);
+      return { player: hold.player, command: dragging(hold, gap, 0, true), hold };
+    }
     // **The crank is not carried anywhere, it is turned**, and what a turn
     // reports is an angle rather than a distance (`touch-drag.ts`).
     if (hold.target === "crank") return crankTurn(hold, x, y);

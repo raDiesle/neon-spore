@@ -4,20 +4,21 @@ import { viseBoss, viseClosed, vising } from "./vise.js";
 import type { World } from "./world.js";
 
 /**
- * Two pinches on THE VISE, one lobe each.
+ * Two thumbs on THE VISE, one lobe each, each carried to shut it.
  *
  * **Geometry says whose lobe is whose**, THE MANTLE's rule (`mantle-hand.ts`):
  * `viseLobeLeft` answers only Player 1 and `viseLobeRight` only Player 2, and
- * the wrong seat's pinch does nothing, silently.
+ * the wrong seat's thumb does nothing, silently.
  *
- * **The gap is `fromMilli`**: the distance between the two touches on the
- * lobe, in thousandths of a tile, falling as they converge — `SqueezeGap`,
- * §28's primitive. It is read straight, never below nought; a pinch lifted is
- * the lobe back at `viseOpenMilli`, nothing banked. Recorded whenever the
- * case is present, so a pinch already shut when a step lights is counted
- * from its first beat.
+ * **The gap is `fromMilli`**: the open gap less how far the thumb has come
+ * since its press, in thousandths of a tile, worked out where the pointer is
+ * (`render/vise-carry.ts`) — §28's `SqueezeGap` from one finger, since the
+ * owner's rule of 8 October 2026 against two of one player. It is read
+ * straight, never below nought; a thumb lifted is the lobe back at
+ * `viseOpenMilli`, nothing banked. Recorded whenever the case is present, so
+ * a lobe already shut when a step lights is counted from its first beat.
  *
- * What a pinch is worth is counted on the beat (`vise-step.ts`); what is heard
+ * What a shut lobe is worth is counted on the beat (`vise-step.ts`); what is heard
  * here is the one instant the beat cannot see — **a gap widening back past
  * shut** while the lit pinch step was counting, which starts its count again
  * from nought.

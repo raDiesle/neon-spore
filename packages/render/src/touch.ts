@@ -153,10 +153,9 @@ export function touchUp(l: Layout, hold: Hold, at?: Point): Touch | null {
     // THE GALL's alien the fifth, tapped or pulled up (`sim/gall-hand.ts`), and
     // THE BLISTER's SWIPE the sixth, a stroke (`sim/blister-swipe.ts`). Every
     // other drag's lift only lets go.
-    // A pinch's finger lets go of nothing alone: the pair's lift is the one
-    // that opens the lobe again (`pinch.ts`), and a rub's the count its host
-    // kept (`rub.ts`).
-    if (hold.pinch || hold.rub) return null;
+    // A rub's lift sends the count its host kept (`rub.ts`). THE VISE's lobe
+    // carried shut is let go like any drag, and the lobe is back open.
+    if (hold.rub) return null;
     const swiped =
       hold.target === "mirrorLobe" ||
       hold.target === "wardenHatch" ||

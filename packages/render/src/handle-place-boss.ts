@@ -20,7 +20,7 @@ import { ratchetCatchCircle, ratchetPadCircle, ratchetTakesHand } from "./ratche
 import { sinewHandleAt } from "./sinew-handles.js";
 import { spoolKnobStanding, spoolTakesHand } from "./spool-grip.js";
 import { surgeBulbCircle } from "./surge-shape.js";
-import { viseLobeStanding, viseTakesPinch } from "./vise-grip.js";
+import { viseLobeStanding, viseTakesHand } from "./vise-grip.js";
 
 /**
  * **Where a boss's handle is standing** — `handle-place.ts`' question, asked
@@ -156,7 +156,7 @@ export function bossHandleCircle(
     // THE VISE's two lobes, the middle of each seat's half-shell as it stands
     // this frame. Null once it splits (`vise-grip.ts`).
     const b = world.boss?.kind === "vise" ? world.boss : null;
-    if (b === null || !viseTakesPinch(b)) return null;
+    if (b === null || !viseTakesHand(b)) return null;
     return viseLobeStanding(l, world, b, target === "viseLobeLeft" ? 1 : 2, beatPhase);
   }
   return laterBossHandleCircle(l, world, target, beatPhase);

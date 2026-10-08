@@ -221,4 +221,6 @@ item naming the rule, never a fix made in passing.
   no pinch, no two pads held by one hand — because the game is also played
   with one mouse. Two players each with one finger down is fine; one player
   with two is not. THE TRIVET's chord left with it (`bosses.md` §11.47), and
-  a boss that already ships with one is a queue item.
+  THE VISE's pinch became a one-thumb drag the same day (§11.45) — nothing
+  that ships asks it now. A lobe to squeeze is a thumb carried
+  (`render/vise-carry.ts`); a pair of pads is a hold each, one per seat.

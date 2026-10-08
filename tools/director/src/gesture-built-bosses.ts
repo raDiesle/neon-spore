@@ -86,39 +86,6 @@ export const BUILT_FOR_BOSSES: readonly Gesture[] = [
     where: ["packages/sim/src/rime-hand.ts", "packages/sim/src/capstan-hand.ts"],
   },
   {
-    name: "SQUEEZE ONE BODY",
-    state: "built",
-    does: "Two fingers on one blob, pinched together or spread apart; the gap is a depth. THE VISE's `SqueezeGap`: a lobe cracked by pinching it shut.",
-    hand: [
-      { k: "body", at: [46, 52], r: 18 },
-      {
-        k: "path",
-        pts: [
-          [24, 34],
-          [38, 46],
-        ],
-      },
-      {
-        k: "path",
-        pts: [
-          [68, 70],
-          [54, 58],
-        ],
-      },
-    ],
-    timeline: {
-      lanes: [
-        { event: "pointerdown", marks: [1] },
-        { event: "pointerdown", finger: 2, marks: [1.5] },
-        { event: "pointermove", marks: [[1.8, 7.5]] },
-        { event: "pointerup", marks: [8] },
-      ],
-      note: "the gap between the two, not either one",
-    },
-    platform: "iPhone also fires gesturechange for it, which is the one to refuse.",
-    where: ["packages/sim/src/vise-hand.ts", "packages/sim/src/gall-hand.ts"],
-  },
-  {
     name: "HOLD, THEN SWIPE",
     state: "built",
     does: "A held note that ends in a direction (Beatstar). THE SLING's `DrawRelease`: a draw held, then loosed toward whichever column is lit.",

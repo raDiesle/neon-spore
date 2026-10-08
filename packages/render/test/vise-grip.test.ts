@@ -13,8 +13,8 @@ import {
 import { bossThumb } from "../src/guide-boss-hand.js";
 import { handleCircle } from "../src/handle-place.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
-import { FINGERTIPS_MILLI, pinchGapMilli, pinching, pinchSays } from "../src/pinch.js";
-import { type Field, touchDown, touchMove, touchUp } from "../src/touch.js";
+import { type Field, type Hold, touchDown, touchMove, touchUp } from "../src/touch.js";
+import { viseCarriedGap } from "../src/vise-carry.js";
 import { viseLobeCircle } from "../src/vise-grip.js";
 import { FRAME_TIMEOUT_MS, waveWith } from "./frame-harness.js";
 
@@ -22,9 +22,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **Real fingers on THE VISE**, and what the simulation cannot be asked:
- * whether each seat's pinch zone is where the picture draws that seat's lobe,
- * whether a finger alone says nothing, and whether the gap two fingers stand
- * apart, sent, is what shuts the lobe.
+ * whether each seat's zone is where the picture draws that seat's lobe,
+ * whether a press says nothing until the thumb moves, and whether one thumb
+ * carried far enough sends the gap that shuts the lobe — never two fingers of
+ * one seat, the owner's rule of 8 October 2026.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -81,6 +82,13 @@ function target(touch: ReturnType<typeof touchDown>): string | null {
   return touch?.hold?.kind === "drag" ? touch.hold.target : null;
 }
 
+/** The hold a press on a lobe took, or a throw. */
+function lobeHold(touch: ReturnType<typeof touchDown>): Extract<Hold, { kind: "drag" }> {
+  const hold = touch?.hold;
+  if (hold?.kind !== "drag" || hold.closes === undefined) throw new Error("no lobe hold");
+  return hold;
+}
+
 describe("a finger on THE VISE", () => {
   it.each(ROLES)("takes each seat's press in its own zone, on %s", (role) => {
     const { world, s } = lit();
@@ -117,30 +125,37 @@ describe("a finger on THE VISE", () => {
     );
   });
 
-  it("holds on the press and says nothing on it, its wander or its lift", () => {
+  it("holds on the press and says nothing until the thumb moves", () => {
     const { world, s } = lit();
     const l = layout("p1");
     const at = lobe(world, s, "p1", 1);
     const down = press(world, "p1", 1, at);
     expect(down?.command).toBeNull();
-    const hold = down?.hold;
-    if (!hold || !pinching(hold)) throw new Error("no pinch hold");
-    expect(touchMove(l, hold, at.x + l.tile, at.y)).toBeNull();
-    expect(touchUp(l, hold, at)).toBeNull();
+    const hold = lobeHold(down);
+    expect(hold.closes).toBe(CFG.viseOpenMilli);
+    const moved = touchMove(l, hold, at.x + l.tile, at.y)?.command;
+    expect(moved).toMatchObject({ target: "viseLobeLeft", on: true });
+    expect(moved?.kind === "drag" && moved.fromMilli).toBe(CFG.viseOpenMilli - 1000);
   });
 
-  it("shuts the lit lobe on a gap sent from two fingers pressed together", () => {
-    const { world, s } = lit();
-    const l = layout("p1");
-    const at = lobe(world, s, "p1", 1);
-    const hold = press(world, "p1", 1, at)?.hold;
-    if (!hold || !pinching(hold)) throw new Error("no pinch hold");
-    const gap = pinchGapMilli(l, at, { x: at.x + l.tile * 1.8, y: at.y });
-    step(world, [{ tick: world.tick, player: 1, command: pinchSays(hold, gap) }]);
-    expect(s.gapMilli[0]).toBeLessThanOrEqual(CFG.viseShutMilli);
-    step(world, [{ tick: world.tick, player: 1, command: pinchSays(hold, null) }]);
-    expect(s.gapMilli[0]).toBe(CFG.viseOpenMilli);
-  });
+  it.each(ROLES)(
+    "shuts the lit lobe carried by one thumb, and lets it open on the lift, on %s",
+    (role) => {
+      const { world, s } = lit();
+      const l = layout(role);
+      const at = lobe(world, s, role, 1);
+      const hold = lobeHold(press(world, role, 1, at));
+      const far = { x: at.x + (l.tile * CFG.viseOpenMilli) / 1000, y: at.y };
+      const carried = touchMove(l, hold, far.x, far.y)?.command;
+      if (!carried) throw new Error("the carry said nothing");
+      step(world, [{ tick: world.tick, player: 1, command: carried }]);
+      expect(s.gapMilli[0]).toBeLessThanOrEqual(CFG.viseShutMilli);
+      const lifted = touchUp(l, hold, far)?.command;
+      if (!lifted) throw new Error("the lift said nothing");
+      step(world, [{ tick: world.tick, player: 1, command: lifted }]);
+      expect(s.gapMilli[0]).toBe(CFG.viseOpenMilli);
+    },
+  );
 
   it("offers nothing once the case has split", () => {
     const { world, s } = lit();
@@ -162,19 +177,24 @@ describe("a finger on THE VISE", () => {
   });
 });
 
-describe("the gap between two fingertips", () => {
+describe("the gap a carry leaves", () => {
   const l = layout("p1");
+  const open = CFG.viseOpenMilli;
 
-  it("reads nought for two fingertips pressed together, and never below", () => {
-    const a = { x: 100, y: 100 };
-    expect(pinchGapMilli(l, a, { x: 100 + (l.tile * FINGERTIPS_MILLI) / 1000, y: 100 })).toBe(0);
-    expect(pinchGapMilli(l, a, a)).toBe(0);
+  it("is the open gap for a thumb that has not moved, and nought once it has come that far", () => {
+    expect(viseCarriedGap(l, open, 0, 0)).toBe(open);
+    expect(viseCarriedGap(l, open, (l.tile * open) / 1000, 0)).toBe(0);
+    expect(viseCarriedGap(l, open, l.tile * 9, 0)).toBe(0);
   });
 
-  it("reads the space past a fingertip, in thousandths of a tile, whichever way apart", () => {
-    const a = { x: 100, y: 100 };
-    const b = { x: 100, y: 100 + l.tile * 4 };
-    expect(pinchGapMilli(l, a, b)).toBe(4000 - FINGERTIPS_MILLI);
-    expect(pinchGapMilli(l, b, a)).toBe(4000 - FINGERTIPS_MILLI);
+  it("reads the distance whichever way the thumb went", () => {
+    for (const [dx, dy] of [
+      [1, 0],
+      [-1, 0],
+      [0, 1],
+      [0, -1],
+    ] as const) {
+      expect(viseCarriedGap(l, open, dx * l.tile * 2, dy * l.tile * 2)).toBe(open - 2000);
+    }
   });
 });

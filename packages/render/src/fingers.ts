@@ -1,21 +1,20 @@
 import type { Layout } from "./layout.js";
-import { type Pinched, Pinches } from "./pinch-pair.js";
-import { Rubs } from "./rub-turns.js";
+import { type Rubbed, Rubs } from "./rub-turns.js";
 import type { Thumb } from "./thumb-aura.js";
 import type { Hold } from "./touch-hold.js";
 
 /**
- * **The gestures one sample cannot answer**, kept together: two fingers on
- * one pinch body (`pinch.ts`) and a rubbing thumb's turns (`rub.ts`). Every
- * pointer event is offered to both and each answers only the holds flagged its
- * own, so the page that owns the pointers has one call a phase rather than two.
+ * **The gesture one sample cannot answer**: a rubbing thumb's turns
+ * (`rub.ts`). Every pointer event is offered to it and it answers only the
+ * holds flagged its own. THE VISE's two-finger pinch was kept here beside it
+ * until the owner ruled out two fingers of one player on 8 October 2026; its
+ * lobes are carried shut by one thumb now (`vise-grip.ts`).
  *
  * And where every finger on a boss's mark is, for the glow drawn round it
  * (`thumb-aura.ts`) — it says nothing to the ship, but it is the same
  * pointers in the same three phases.
  */
 export class Fingers {
-  private readonly pinches = new Pinches();
   private readonly rubs = new Rubs();
   private readonly onMarks = new Map<number, Thumb>();
 
@@ -27,24 +26,21 @@ export class Fingers {
   /** A finger down, with the holds its press took, and whether it landed on
    * a boss's mark (`auraTouch`). */
   down(
-    l: Layout,
+    _l: Layout,
     id: number,
     holds: readonly Hold[],
     x: number,
     y: number,
     onMark = false,
-  ): Pinched[] {
+  ): Rubbed[] {
     if (onMark) this.onMarks.set(id, { id, x, y });
-    return [
-      ...said(this.pinches.down(l, id, holds, x, y)),
-      ...said(this.rubs.down(id, holds, x, y)),
-    ];
+    return said(this.rubs.down(id, holds, x, y));
   }
 
   /** A finger moved, one sample at a time. */
-  move(l: Layout, id: number, x: number, y: number): Pinched[] {
+  move(l: Layout, id: number, x: number, y: number): Rubbed[] {
     if (this.onMarks.has(id)) this.onMarks.set(id, { id, x, y });
-    return said(this.pinches.move(l, id, x, y), this.rubs.move(l, id, x, y));
+    return said(this.rubs.move(l, id, x, y));
   }
 
   /** Every ring a finger wears, gone — the window lost under a held mouse. */
@@ -53,12 +49,12 @@ export class Fingers {
   }
 
   /** A finger lifted, or lost. */
-  up(id: number): Pinched[] {
+  up(id: number): Rubbed[] {
     this.onMarks.delete(id);
-    return said(this.pinches.up(id), this.rubs.up(id));
+    return said(this.rubs.up(id));
   }
 }
 
-function said(...answers: (Pinched | null)[]): Pinched[] {
-  return answers.filter((a): a is Pinched => a !== null);
+function said(answer: Rubbed | null): Rubbed[] {
+  return answer === null ? [] : [answer];
 }

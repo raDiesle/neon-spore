@@ -46,7 +46,7 @@ export type GroupName =
   | "THE VALVE — the boss one hand turns and the other hand stops"
   | "THE SEAM — the boss answered with the cannon and the shield, in order"
   | "THE OCULUS — the boss both hands hold shut, then shoot into"
-  | "THE VISE — the boss two pinches crack, then shoot into"
+  | "THE VISE — the boss two drags crack, then shoot into"
   | "THE RIME — the boss two rubs wipe clear, then shoot into"
   | "THE PLUMB — the boss two pulls hold level, then shoot into"
   | "THE SLING — the boss two draws loose, then shoot into"
@@ -156,7 +156,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE VALVE — the boss one hand turns and the other hand stops",
   "THE SEAM — the boss answered with the cannon and the shield, in order",
   "THE OCULUS — the boss both hands hold shut, then shoot into",
-  "THE VISE — the boss two pinches crack, then shoot into",
+  "THE VISE — the boss two drags crack, then shoot into",
   "THE RIME — the boss two rubs wipe clear, then shoot into",
   "THE PLUMB — the boss two pulls hold level, then shoot into",
   "THE SLING — the boss two draws loose, then shoot into",

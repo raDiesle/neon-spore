@@ -188,4 +188,37 @@ export const STAY_MISSED: readonly Gesture[] = [
     },
     why: "The owner ruled on 8 October 2026, when THE TRIVET left the game: never more than one finger of the same player at once, because a PC has one pointer. A desk mouse held every pad at once, which is no chord at all.",
   },
+  {
+    name: "SQUEEZE ONE BODY",
+    state: "missed",
+    does: "Two fingers on one blob, pinched together or spread apart; the gap is a depth.",
+    hand: [
+      { k: "body", at: [46, 52], r: 18 },
+      {
+        k: "path",
+        pts: [
+          [24, 34],
+          [38, 46],
+        ],
+      },
+      {
+        k: "path",
+        pts: [
+          [68, 70],
+          [54, 58],
+        ],
+      },
+    ],
+    timeline: {
+      lanes: [
+        { event: "pointerdown", marks: [1] },
+        { event: "pointerdown", finger: 2, marks: [1.5] },
+        { event: "pointermove", marks: [[1.8, 7.5]] },
+        { event: "pointerup", marks: [8] },
+      ],
+      note: "the gap between the two, not either one",
+    },
+    platform: "iPhone also fires gesturechange for it, which is the one to refuse.",
+    why: "The owner ruled on 8 October 2026: never two fingers of one player at once, because a PC has one pointer. THE VISE's lobes, its last body, are carried shut by one thumb now (`packages/render/src/vise-carry.ts`).",
+  },
 ];

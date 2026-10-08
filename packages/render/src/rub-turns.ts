@@ -1,9 +1,15 @@
+import type { Command } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
-import type { Pinched } from "./pinch-pair.js";
 import { RUB_TURN, rubFinger, rubSays } from "./rub.js";
 import type { Hold } from "./touch-hold.js";
 
 type RubHold = Extract<Hold, { kind: "drag" }>;
+
+/** A rub's answer, and the seat it is from. */
+export interface Rubbed {
+  player: 1 | 2;
+  command: Command;
+}
 
 interface Thumb {
   hold: RubHold;
@@ -35,7 +41,7 @@ export class Rubs {
   private readonly thumbs = new Map<number, Thumb>();
 
   /** A thumb down, with the holds its press took. */
-  down(id: number, holds: readonly Hold[], x: number, y: number): Pinched | null {
+  down(id: number, holds: readonly Hold[], x: number, y: number): Rubbed | null {
     const hold = holds.find(rubFinger);
     if (!hold) return null;
     this.thumbs.set(id, { hold, x, y, axis: null, reach: 0, sense: 1, turns: 0 });
@@ -43,7 +49,7 @@ export class Rubs {
   }
 
   /** A thumb moved: a message only when it has just turned back. */
-  move(l: Layout, id: number, x: number, y: number): Pinched | null {
+  move(l: Layout, id: number, x: number, y: number): Rubbed | null {
     const t = this.thumbs.get(id);
     if (!t) return null;
     const turn = RUB_TURN * l.tile;
@@ -67,7 +73,7 @@ export class Rubs {
   }
 
   /** A thumb lifted, or lost. */
-  up(id: number): Pinched | null {
+  up(id: number): Rubbed | null {
     const t = this.thumbs.get(id);
     if (!t) return null;
     this.thumbs.delete(id);

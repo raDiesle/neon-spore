@@ -6,8 +6,8 @@ import { Rubs } from "../src/rub-turns.js";
 
 /**
  * **How many times a thumb has turned back** — the count `rub.ts` keeps, with
- * what a count means left to `sim/rime-hand.ts`' own test; and a pinch's
- * finger beside it, through `fingers.ts`.
+ * what a count means left to `sim/rime-hand.ts`' own test; and another
+ * finger held beside it, through `fingers.ts`.
  */
 
 const L = computeLayout({ width: 420, height: 900, dpr: 2 }, DEFAULT_CONFIG, "p1");
@@ -27,7 +27,7 @@ const LOBE: Hold = {
   player: 1,
   originX: 0,
   originY: 0,
-  pinch: true,
+  closes: DEFAULT_CONFIG.viseOpenMilli,
 };
 
 const says = (id: number, on: boolean, target: DragTarget = "rimeHalfLeft"): Command => ({
@@ -88,7 +88,7 @@ describe("a rubbing thumb", () => {
 });
 
 describe("the fingers", () => {
-  it("counts a rub's turns beside a pinch's finger", () => {
+  it("counts a rub's turns beside a finger held on THE VISE's lobe", () => {
     const f = new Fingers();
     f.down(L, 1, [LOBE], 0, 0);
     f.down(L, 2, [FLAT], 0, 0);

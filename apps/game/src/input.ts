@@ -3,8 +3,8 @@ import {
   deskDownAll,
   Fingers,
   type Hold,
-  type Pinched,
   pressSeat,
+  type Rubbed,
   shipUnder,
   type Thumb,
   touchMove,
@@ -64,9 +64,9 @@ export function bindControls(bindings: Bindings): Controls {
   const from = (t: { player: 1 | 2 }, id: number): 1 | 2 =>
     pressSeat(layout(), pressY.get(id) ?? 0, t, handed(), player());
   const hand = new ShipHandWatch();
-  /** A pinch's pair, a chord's pads and a rub's turns, counted here (`render/fingers.ts`). */
+  /** A rub's turns, counted here (`render/fingers.ts`). */
   const fingers = new Fingers();
-  const say = (said: readonly Pinched[], id: number): void => {
+  const say = (said: readonly Rubbed[], id: number): void => {
     for (const s of said) buffer.push(from(s, id), s.command);
   };
   /** A desk has a hover and a phone does not. Undefined until a mouse moves. */

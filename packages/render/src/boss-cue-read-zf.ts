@@ -14,20 +14,21 @@ import { viseLobeStanding, viseShotStanding } from "./vise-grip.js";
 
 /**
  * **What THE VISE is asking for** — page thirty-two of the readings, THE
- * OCULUS's page (`boss-cue-read-ze.ts`) spent on a pinch instead of a hold.
+ * OCULUS's page (`boss-cue-read-ze.ts`) spent on a drag instead of a hold.
  * Both seats are shown the whole case (`vise-draw.ts`), so nothing a word
  * could stand on is a secret, and `cueSeen` only keeps each word to the thumb
  * that can act on it.
  *
- * **`HOLD` / `TILL IT SHUTS` on each lobe a lit pinch asks for** — the left one's is Player 1's
+ * **`PULL` / `TILL IT SHUTS` on each lobe a lit step asks for** — the left one's is Player 1's
  * and the right one's Player 2's (`vise-grip.ts`), one of them on a single
  * seam and both on a `both` step. It stands on the lobe's round, where the
- * ghost thumb does, and goes the moment that lobe's gap is pinched under the
+ * ghost thumb does, and goes the moment that lobe's gap is carried under the
  * shut line: a word over a lobe already shut could only say *keep going*,
  * which the seam cracking down under it already says. A lobe let go before
- * its count is up is owed the word again. The kind is `HOLD`, THE GORGE's
- * pinch's (`boss-cue-read-n.ts`): the gesture is two fingertips kept
- * together, and the seam wants beats of it, not a moment.
+ * its count is up is owed the word again. The kind is `HOLD`: the gesture
+ * is a thumb carried and kept there, and the seam wants beats of it, not a
+ * moment. The word was `HOLD` while the lobe was pinched by two fingers, until
+ * the owner ruled one finger a player on 8 October 2026.
  *
  * **`FIRE` at the hull under the middle column while the kernel is lit**, to
  * either seat. The kernel wants its own colour and the word never names one:
@@ -70,7 +71,7 @@ export function viseCues(
     out.push({
       seat,
       kind: "HOLD",
-      word: "HOLD",
+      word: "PULL",
       why: "TILL IT SHUTS",
       x: lobe.x,
       y: lobe.y,

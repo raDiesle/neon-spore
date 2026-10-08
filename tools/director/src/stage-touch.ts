@@ -2,8 +2,8 @@ import {
   deskDownAll,
   Fingers,
   type Hold,
-  type Pinched,
   pointerSeat,
+  type Rubbed,
   type ShipHand,
   shipHand,
   shipUnder,
@@ -75,13 +75,12 @@ export function bindStageTouch({
     if (both) push(both.player, both.command);
   };
   /**
-   * A pinch's pair, a chord's pads and a rub's turns — what one sample cannot
-   * answer — counted by the same `Fingers` the game's field keeps
-   * (`apps/game/src/input.ts`). Without it two fingers on THE VISE's lobe sent
-   * nothing here, and a pinch could not be played from the director.
+   * A rub's turns — what one sample cannot answer — counted by the same
+   * `Fingers` the game's field keeps (`apps/game/src/input.ts`), so THE
+   * RIME's halves play from the director as they do on a phone.
    */
   const fingers = new Fingers();
-  const say = (said: readonly Pinched[]): void => {
+  const say = (said: readonly Rubbed[]): void => {
     for (const s of said) send(s.player, s.command);
   };
   let hand: ShipHand | undefined;

@@ -146,7 +146,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     valveWheelUnder(l, x, y, field) ?? // THE VALVE's wheel, the pilot's, turned about its hub while it turns or holds (`valve-grip.ts`).
     valvePinUnder(l, x, y, field) ?? // And its pin, either seat's: tapped on the socket, drawn off the live plate, rubbed in the wipe (`valve-grip.ts`).
     oculusLeafUnder(l, x, y, field) ?? // THE OCULUS's lens, this seat's half of it held down (`oculus-grip.ts`).
-    viseLobeUnder(l, x, y, field) ?? // THE VISE's case, one finger of this seat's pinch in its zone (`vise-grip.ts`).
+    viseLobeUnder(l, x, y, field) ?? // THE VISE's case, this seat's lobe taken in its zone to be carried shut (`vise-grip.ts`).
     slingDrawUnder(l, x, y, field) ?? // THE SLING's own cord, held then loosed toward the lit column (`sling-grip.ts`).
     plumbPullUnder(l, x, y, field) ?? // THE PLUMB's stone on this seat's side, pulled left or right (`plumb-grip.ts`).
     rimeHalfUnder(l, x, y, field) ?? // THE RIME's lens, this seat's half of it rubbed clear (`rime-grip.ts`).

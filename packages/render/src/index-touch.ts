@@ -12,15 +12,13 @@
 export { creatureAt } from "./creature-under.js";
 export { deskDown, deskDownAll, pressSeat } from "./desk-grab.js";
 export { bothKey, DeskSeat, pointerSeat, pointerSeats, seatKey } from "./desk-seat.js";
-// The gestures one sample cannot answer — a pinch's pair and a rub's turns —
-// kept for whichever host owns the pointers: the game's field
-// and the director's stage both (`fingers.ts`).
+// The gesture one sample cannot answer — a rub's turns — kept for whichever
+// host owns the pointers: the game's field and the director's stage both
+// (`fingers.ts`).
 export { Fingers } from "./fingers.js";
-// What a pinch's gap says; which two fingers are one, `pinch-pair.ts`.
-export { FINGERTIPS_MILLI, pinchGapMilli, pinching, pinchSays } from "./pinch.js";
-export type { Pinched } from "./pinch-pair.js";
 // What a rub's count says; how many turns a thumb made, `rub-turns.ts`.
 export { RUB_TURN, rubFinger, rubSays } from "./rub.js";
+export type { Rubbed } from "./rub-turns.js";
 export { type CanvasBox, clientOfStage, pointOnStage } from "./stage-point.js";
 // The glow round a thumb on a boss's mark: which holds earn one, and what a
 // host hands the frame for each (`thumb-aura.ts`, `fingers.ts`).

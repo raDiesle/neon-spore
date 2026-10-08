@@ -14,11 +14,11 @@ import {
 import { bindStageTouch } from "../src/stage-touch.js";
 
 /**
- * **Two fingers on THE VISE's lobe, on the stage.** A press on a pinch body
- * takes hold and says nothing, and the gap is sent only by the host that pairs
- * two pointers. The game's field did; the stage answered each pointer alone,
- * so two fingers on a lobe sent nothing and the case could not be played from
- * the director. Both hosts now keep the same `Fingers` (`render/fingers.ts`).
+ * **One pointer on THE VISE's lobe, on the stage.** The case was a pinch,
+ * two fingers paired by the host, until the owner ruled one finger a player on
+ * 8 October 2026; now a press takes the lobe and a carry shuts it
+ * (`render/vise-grip.ts`, `render/vise-carry.ts`). The stage answers a
+ * pointer the way the field does, so a mouse plays it from the director.
  *
  * The press goes on the canvas and the lift on the window, so a stub window
  * forwards to the stub canvas's listeners — `stage-touch.test.ts`'s pattern.
@@ -95,7 +95,7 @@ function onLobe(field: Field): { x: number; y: number }[] {
   return hits;
 }
 
-it("pairs two pointers on the pilot's lobe and sends the gap between them", () => {
+it("carries the pilot's lobe shut with one pointer, and lets it open on the lift", () => {
   const world = lit();
   const field = fieldOf(world);
   on = new Map();
@@ -115,8 +115,7 @@ it("pairs two pointers on the pilot's lobe and sends the gap between them", () =
   const lobe = onLobe(field);
   expect(lobe.length, "no press found the pilot's lobe").toBeGreaterThan(1);
   const a = lobe[0];
-  const b = lobe[lobe.length - 1];
-  if (!a || !b) throw new Error("unreachable");
+  if (!a) throw new Error("unreachable");
   const pointer = (pointerId: number, p: { x: number; y: number }) => ({
     pointerId,
     clientX: p.x,
@@ -125,24 +124,21 @@ it("pairs two pointers on the pilot's lobe and sends the gap between them", () =
   });
 
   fire("pointerdown", pointer(1, a));
-  expect(sent, "a finger alone is not a pinch").toEqual([]);
-  fire("pointerdown", pointer(2, b));
-  const gap = sent.at(-1)?.command;
-  expect(gap?.kind).toBe("drag");
-  if (gap?.kind !== "drag") return;
-  expect(gap.target).toBe("viseLobeLeft");
-  expect(gap.on).toBe(true);
-  expect(typeof gap.fromMilli).toBe("number");
+  expect(sent, "a press not yet carried has shut nothing").toEqual([]);
 
-  // Closer together is a smaller gap, sent on the move.
-  const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
-  fire("pointermove", pointer(2, mid));
-  const closer = sent.at(-1)?.command;
-  if (closer?.kind !== "drag") throw new Error("the move sent no drag");
-  expect(closer.fromMilli ?? 0).toBeLessThan(gap.fromMilli ?? 0);
+  // A tile of carry is a tile off the open gap; the whole of it is shut.
+  fire("pointermove", pointer(1, { x: a.x + layout.tile, y: a.y }));
+  const part = sent.at(-1)?.command;
+  if (part?.kind !== "drag") throw new Error("the move sent no drag");
+  expect(part.target).toBe("viseLobeLeft");
+  expect(part.on).toBe(true);
+  expect(part.fromMilli).toBe(CFG.viseOpenMilli - 1000);
+  const far = { x: a.x + (layout.tile * CFG.viseOpenMilli) / 1000, y: a.y };
+  fire("pointermove", pointer(1, far));
+  const shut = sent.at(-1)?.command;
+  expect(shut?.kind === "drag" && shut.fromMilli).toBe(0);
 
-  // Either finger lifting lets the lobe go.
-  fire("pointerup", pointer(1, a));
+  fire("pointerup", pointer(1, far));
   const off = sent.at(-1)?.command;
   expect(off?.kind === "drag" && off.on).toBe(false);
 });

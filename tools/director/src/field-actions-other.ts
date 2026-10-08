@@ -105,20 +105,6 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
     ],
   },
   {
-    key: "pinch",
-    title: "PINCH",
-    says: "Two fingers of one seat closing on a body.",
-    types: [
-      {
-        key: "squeeze",
-        title: "SQUEEZE",
-        says: "Two fingers of one seat, closed on a body; the gap is the depth.",
-        suggest: "Already one gesture, THE VISE's. Make its zone and its picture generic.",
-        rows: ["THE VISE'S LEFT LOBE", "THE VISE'S RIGHT LOBE"],
-      },
-    ],
-  },
-  {
     key: "shake",
     title: "SHAKE",
     says:

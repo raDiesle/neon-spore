@@ -2,9 +2,10 @@ import type { Command } from "@neon-spore/sim";
 import type { Hold } from "./touch-hold.js";
 
 /**
- * **`RubCount` from one thumb** — a gesture a host has to keep count of, as it
- * does the pinch (`pinch.ts`), written for THE RIME's halves (§29). The chord
- * was the other, until THE TRIVET left the game on 8 October 2026.
+ * **`RubCount` from one thumb** — the one gesture a host has to keep count
+ * of, written for THE RIME's halves (§29). The chord and THE VISE's pinch
+ * were the others, until the owner ruled one finger a player on 8 October
+ * 2026.
  *
  * A rub is a thumb going back and forth, and what it sends is **how many times
  * it has turned back since it went down**: nought on the press, one more on

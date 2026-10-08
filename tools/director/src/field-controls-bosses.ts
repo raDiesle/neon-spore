@@ -163,7 +163,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE OCULUS's two leaf holds, a half of the lens a seat by geometry
   // (`field-controls-oculus.ts`).
   ...OCULUS_CONTROLS,
-  // THE VISE's two lobe pinches, the first two-finger gesture in the game
+  // THE VISE's two lobes, each carried shut by its own seat's thumb
   // (`field-controls-vise.ts`).
   ...VISE_CONTROLS,
   ...PLUMB_CONTROLS,

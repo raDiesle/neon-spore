@@ -158,8 +158,9 @@ export const CHOREO_NOTES_C = {
     "THE SLOW spans every step but the break. A glare wants the shield under " +
     "the eye, a look a shot up the column it looks down — sim/oculus*.ts, " +
     "sim/config-oculus.ts.",
-  "THE VISE — the boss two pinches crack, then shoot into":
-    "Asked for in docs/spec/bosses-choreographed.md §28: a pinch, each seat on " +
+  "THE VISE — the boss two drags crack, then shoot into":
+    "Asked for in docs/spec/bosses-choreographed.md §28 as a pinch, a " +
+    "one-thumb drag since the owner's rule of 8 October 2026, each seat on " +
     "its own lobe of a case clamping a kernel over the middle column, and a " +
     "script the wave authors. A left or right step cracks a seam once that " +
     "lobe's gap has stayed at or under viseShutMilli for its beats; the gap " +
