@@ -34995,3 +34995,15 @@ Bottleneck: looking — the first rust thinning was too faint to tell one rub
 from seven, which only a frame showed.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE CAPSTAN explained
+
+- reading: 5 min. §37's question and beat list; the rest was read the day
+  before, for the three CAPSTAN lanes.
+- writing: 10 min. The explanation, in German.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. The commit and `bun run land`.
+
+Bottleneck: writing — the explanation had to keep the shipped rules apart
+from §37's first design, which still describes a tilt.
