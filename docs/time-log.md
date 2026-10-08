@@ -35841,3 +35841,5 @@ of itself as finished work put back.
 
 Bottleneck: reading — a render gate built from sim pieces has to be taken
 apart to find the window to hold it to.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 7b6c3c3c0 — THE HIVE, THE GIMBAL, THE HASP and THE RATCHET hold no mark before its window
+
+Four more rows `NO_ROW` owed. Each draws its asking marks as the shared halo behind a gate of its own, so each row holds that halo to the union of the boss's windows in the simulation: THE HIVE's site to hold, underside to haul and lobe swelling; THE GIMBAL's two rings; THE HASP's latch and wheel; THE RATCHET's catch and pawl. Each goes red with its window emptied.
+
 ## 2026-10-08 · dc20a5119 — THE RIME's halves take thirteen rubs, with a green arc filling round each
 
 A wipe now shaves 80 frost a reversal, not 125: thirteen reversals from solid frost and seven from the film, where it was eight and four. The half being wiped wears a plain green arc on both screens, filling as its frost comes off. Every reversal throws twice the flakes it did and flashes the half white. A wipe step is lit under THE SLOW, so even the shortest one holds the thirteen at one thumb's pace.
