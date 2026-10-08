@@ -621,6 +621,7 @@ bestiary's line to built.
 ## No test plays AUTO to the end on THE WELL, THE LEDGER, THE THROAT, THE SURGE
 
 - **Found:** 2026-10-08, claude/queue-autos-boss-hands-are-tested-without-the-games-ha
+- **Taken:** 2026-10-08, claude/task-queue-work-589459 (claim: claude/queue-no-test-plays-auto-to-the-end-on-the-well-the-le)
 - **Files:** `packages/hands/src/boss-hands-well.ts`, `packages/hands/src/boss-hands-clocks.ts`, `packages/hands/src/boss-hands-beats.ts`, `packages/hands/src/boss-hands-rime.ts`, `tools/director/test/charges.ts`
 
 The second four of the twelve kinds in `AUTOPILOT_HANDS` that no test played
