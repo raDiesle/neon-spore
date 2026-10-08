@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE ANTIPHON's resting turn is drawn on the organ and the rail
 
 - **Found:** 2026-10-08, claude/task-queue-work-8b2adc
+- **Taken:** 2026-10-08, claude/task-queue-work-8b2adc (claim: claude/queue-the-antiphons-resting-turn-is-drawn-on-the-organ)
 - **Files:** `packages/render/src/antiphon-draw.ts`, `packages/render/src/antiphon-shape.ts`, `packages/render/test/antiphon-frame.test.ts`, `packages/content/src/antiphon-contours.ts`, `tools/versus/candidates`
 
 The look lane of step 8 (`bosses-choreographed.md` §12). The simulation landed off on 8 October 2026 (`packages/sim/src/antiphon-turn.ts`, `antiphonRestingTurn`): from `antiphonTurnPits` the organ rests at a seeded quarter turn (`organ.turn`) and every candidate on the rail carries its own (`turn`), the decoys being the organ's contour at the other turns. Nothing draws either yet: the organ is turned by `antiphonTurnMilli` alone, and the rail is never turned. To do: draw the organ by `antiphonOrganTurnMilli` and each candidate rotated by `antiphonQuarterMilli(c.turn)`, then offer the level with the figure on as a VERSUS candidate beside the shipped rail. With the figure off every turn is nought, so the default frame does not move. A test belongs beside it: every contour in the antiphon shape table must differ from itself at a quarter and a half turn, or a turned rail shows two identical candidates and only one of them is right.
