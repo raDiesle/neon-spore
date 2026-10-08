@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · c84b2b78d — THE BLISTER's look: a four-lobed body up out of a pore, the bulge before it, and the tap help
+
+THE BLISTER is drawn now, not a plain disc. Its body is ROOTED CLOVER: the four deep lobes of BULB · CLOVER on SINKER's roots, a combination of two shape drafts. CLOVER alone is already THE LAMPREY's dung. It comes up out of a dark pore over a third of a beat and goes back in the same way. The seat that may not tap sees the pore shut while it is under, then swelling into a dome on its last beat; the seat that may tap sees neither. Over the body: on the tapping seat a soft red light and the tap glyph; on the other seat the waiting clock; on both, THE MINE's ring of pips, one per tap still owed. Every tap that counts gets the green verdict ring and a bubble-press sound that rises with each tap.
+
 ## 2026-10-08 · 52b03fab6 — A repo test's cleanup hook may take as long as it needs, so a landing is not red for it
 
 `bun run land` went red on `reconcile-worktree.test.ts` because its `afterEach`, which only removes a temp directory, overran bun's 5 s default for a hook while three sessions' checks were running. `CLEANUP_MS` in `tools/test/repo-time.ts` is one unscaled ceiling for such a hook, and every one of the twenty-four repo-backed hooks now passes it — including the eighteen that passed `repoTimeout`, which a probe taken at import floors at the same 5 s.

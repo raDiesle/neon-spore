@@ -36189,3 +36189,5 @@ to trust that it meant the hook and not the test.
 
 Bottleneck: friction — a draft marked free was already drawn by a boss's
 prop, which only a grep of the render tree found.
+
+*Measured: 28 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
