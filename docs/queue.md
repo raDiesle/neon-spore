@@ -341,6 +341,7 @@ Found on 8 October 2026 (claude/queue-tasks-3078fe), before any work: the shippe
 ## THE SPOOL's barrel rolls on its flange (living bosses, step 11)
 
 - **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
+- **Taken:** 2026-10-08, claude/queue-tasks-3078fe (claim: claude/queue-the-spools-barrel-rolls-on-its-flange-living-bos)
 - **Files:** `packages/render/src/spool-draw.ts`, `packages/render/src/spool-pose.ts`, `packages/render/src/spool-grip.ts`
 
 Step 11 of `docs/spec/living-bosses.md`: roll the barrel about the
