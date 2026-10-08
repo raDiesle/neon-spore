@@ -35722,3 +35722,5 @@ partner works by keeping still, and has no mark to carry it.
 
 Bottleneck: looking — finding out that Bun's dev server swallows a throw at
 import, which no amount of reading `page-said.ts` would have shown.
+
+*Measured: 17 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
