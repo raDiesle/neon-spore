@@ -45,9 +45,11 @@ export function stepLatch(world: World, s: LatchState): void {
 }
 
 /**
- * The next level lights. Every grip is let go of in the picture's account,
- * so a thumb still down from the last level takes hold again on its next
- * move, and in a `cross` level that is the thumb the grip now belongs to.
+ * The next level lights. **A thumb still down keeps its hold**: one resting
+ * on its grip through the rest sends nothing, and dropping it here would slip
+ * the rope on the first pull with no hand seen to let go. It is taken hold of
+ * again where the rope now is. A grip that changed hands was let go of when
+ * it did (`latchHauled`).
  */
 function light(world: World, s: LatchState): void {
   const step = s.steps[s.cursor];
@@ -55,8 +57,7 @@ function light(world: World, s: LatchState): void {
   s.phase = "level";
   s.phaseBeat = world.beat;
   s.levelKnots = 0;
-  s.down = [false, false];
-  s.depthMilli = [0, 0];
+  for (const g of [0, 1] as const) s.anchorMilli[g] = s.hauledMilli - s.depthMilli[g];
   s.turn = 0;
   s.yankBeat = latchYanks(s) ? world.beat + world.cfg.latchYankEveryBeats : -1;
   world.events.push({ type: "latchLevel", ask: step.ask, col: midCol(world.cfg) });
@@ -120,6 +121,12 @@ export function latchHauled(world: World, s: LatchState, toMilli: number): void 
   if (s.levelKnots < step.knots) return;
   s.hauledMilli = s.floorMilli;
   s.cursor += 1;
+  // The grips change hands into or out of a `cross`: the thumbs on them are
+  // now the partner's, and hold nothing until the right thumb takes hold.
+  if ((s.steps[s.cursor]?.ask === "cross") !== (step.ask === "cross")) {
+    s.down = [false, false];
+    s.depthMilli = [0, 0];
+  }
   s.phaseBeat = world.beat;
   s.yankBeat = -1;
   if (s.cursor >= s.steps.length) {

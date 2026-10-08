@@ -169,6 +169,41 @@ describe("THE LATCH", () => {
     expect(s.hauledMilli).toBe(2000);
   });
 
+  it("keeps a thumb held through the rest, so the next level's first pull does not slip", () => {
+    const world = install([
+      { ask: "haul", knots: 1, beats: 40 },
+      { ask: "haul", knots: 1, beats: 40 },
+    ]);
+    toLevel(world);
+    tick(world, [hold(2, 1)]);
+    pull(world, 1, 0);
+    tick(world, [hold(1, 0)]);
+    tick(world, [hold(2, 1, REACH)]);
+    const s = latch(world);
+    expect(s.phase).toBe("rest");
+    // Both thumbs rest where they are, and send nothing, until the next level.
+    toLevel(world);
+    expect(s.down).toEqual([true, true]);
+    tick(world, [lift(2, 1)]);
+    tick(world, [hold(1, 0, 1800)]);
+    expect(s.hauledMilli).toBe(KNOT + 1800);
+    expect(world.events.some((e) => e.type === "latchSlip")).toBe(false);
+  });
+
+  it("lets go of both grips when they change hands into a cross", () => {
+    const world = install([
+      { ask: "haul", knots: 1, beats: 40 },
+      { ask: "cross", knots: 1, beats: 40 },
+    ]);
+    toLevel(world);
+    tick(world, [hold(2, 1)]);
+    pull(world, 1, 0);
+    tick(world, [hold(1, 0)]);
+    tick(world, [hold(2, 1, REACH)]);
+    expect(latch(world).phase).toBe("rest");
+    expect(latch(world).down).toEqual([false, false]);
+  });
+
   it("tears the hull when a level runs out", () => {
     const world = install([{ ask: "haul", knots: 2, beats: 6 }]);
     toLevel(world);
