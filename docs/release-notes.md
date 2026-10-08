@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 2e7410c77 — THE GIMBAL's and THE HASP's film captions are drawn on the boss
+
+Three tutorial captions were never drawn because their boss had no caption anchor: THE GIMBAL's "THE OUTER RING IS YOURS" and "BOTH TRUE · LET GO TOGETHER" now stand under the outer ring, and THE HASP's "WOUND FAR ENOUGH · IT OPENS" under the clasp being wound, or the one swinging open while it swings. A fix to something wrong rather than unlovely.
+
 ## 2026-10-08 · 80b716d4e — AUTO's shots from below at THE TRAPEZE are aimed through the shot's charge
 
 The game lays every shot over half a beat, so a press leaves on the charge's grid rather than its own tick, and a hand that led by the climb alone hit once in ten in the game. It now asks where the swing will be when a shot pressed now reaches its row, puts the cannon under that and fires when the arrival is the nearest the grid allows to the swing coming back; bun run frames shows four of five hitting and the wave going on to its lock level. A test holds it at the game's charge.
