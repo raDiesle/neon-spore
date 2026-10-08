@@ -350,6 +350,7 @@ count the simulation keeps gets the green ring and no arc.
 ## More rubs, counted in green, each one seen: THE RIME, THE GRINDSTONE, THE VALVE
 
 - **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
+- **Taken:** 2026-10-08, claude/task-queue-work-8b2adc (claim: claude/queue-more-rubs-counted-in-green-each-one-seen-the-rim)
 - **Files:** `packages/sim/src/config-rime.ts`, `packages/sim/src/config-grindstone.ts`, `packages/sim/src/config-valve.ts`, `packages/render/src/rime-verdicts.ts`, `packages/render/src/grindstone-verdicts.ts`, `packages/render/src/valve-verdicts.ts`, `packages/render/src/mark-progress.ts`
 
 The owner, 7 October 2026: *every "Rub" should require more rubs, and how
