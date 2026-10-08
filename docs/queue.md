@@ -479,6 +479,7 @@ bestiary's line to built.
 ## BULB · CLOVER says free while its own note says THE CYST took it
 
 - **Found:** 2026-10-08, claude/queue-tasks-3078fe
+- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-bulb-clover-says-free-while-its-own-note-says-th)
 - **Files:** `tools/shape-sheet/src/drafts/offered.ts`
 
 BULB · CLOVER's card carries `status: "free"` and an `owner` that begins
