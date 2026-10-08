@@ -338,20 +338,6 @@ bosses-choreographed.md §12 step 8, never built: the organ starts turning slowl
 
 Found on 8 October 2026 (claude/queue-tasks-3078fe), before any work: the shipped organ already turns, but only under a thumb (`antiphon-hand.ts`, `turnTicks`), and bosses.md §11 calls that turn a second viewing angle that changes nothing about the fight. Step 8 makes the turn the answer — the rail shows the organ's contour at other turns too, and only the one at the organ's turn is right. The options: (A) the organ rests at a quarter turn the seed picks for the level and the rail's decoys are the same contour at the other turns; the thumb's turn springs back when it lifts, so it is still only a look. (B) the organ turns on its own on a beat cadence from step 8 on, and a carry is judged against its turn on the beat it arrives; the thumb's turn is taken off the organ from that level on. (C) leave the hand's turn as it is and build step 8 as (A) without the spring-back, so a thumb can turn the organ to the answer. Behind a `SimConfig` figure that is off by default in every case, with the look offered in VERSUS.
 
-## THE SPOOL's barrel rolls on its flange (living bosses, step 11)
-
-- **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
-- **Taken:** 2026-10-08, claude/queue-tasks-3078fe (claim: claude/queue-the-spools-barrel-rolls-on-its-flange-living-bos)
-- **Files:** `packages/render/src/spool-draw.ts`, `packages/render/src/spool-pose.ts`, `packages/render/src/spool-grip.ts`
-
-Step 11 of `docs/spec/living-bosses.md`: roll the barrel about the
-brake-side flange, about 5.5 degrees, so its far end moves more than half
-a tile, on the beat clock (`hasp-sway.ts` is the pattern: a local seed,
-`bodyLife()`, `slowHush`). The gauge and the brake knob a thumb holds stay
-fixed, and the line stays taut to the hull. Write a `spool-sway.ts`, a test
-for its reach and its stillness under a hand, two frames paired, and the
-spec's *as built* paragraph.
-
 ## THE GRINDSTONE's caliper rocks on its axle (living bosses, step 11)
 
 - **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77

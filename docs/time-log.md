@@ -35476,3 +35476,19 @@ Bottleneck: friction — the shot waited out its five minutes on a type
 error rather than failing on it.
 
 *Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE SPOOL's barrel rolls on the brake's flange
+
+- reading: 5 min. `hasp-sway.ts` and its test, and which of the spool's
+  pieces a thumb or the gauge reads.
+- writing: 10 min. `spool-sway.ts`, the rotate about the pivot in
+  `drawSpool`, the line's top carried by the roll, the test, the spec.
+- looking: 5 min. Two frames at the roll's widest each way, picked off a
+  scan of the clock.
+- friction: 5 min. Stilling the roll under a hand, as the entry asked,
+  showed the navigator the pilot's grip; `spool-frame.test.ts` caught it,
+  and the roll now ignores the brake.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: friction — the entry's "still under a hand" broke the seat
+rule, and only the frame test said so.

@@ -23,6 +23,7 @@ import {
   spoolWindR,
 } from "./spool-shape.js";
 import { spoolStoryShake } from "./spool-story.js";
+import { spoolPivot, spoolRolled, spoolSway } from "./spool-sway.js";
 import { showsSpoolZone } from "./view-role-clocks-c.js";
 
 /**
@@ -71,13 +72,18 @@ export function drawSpool(
   ctx.rotate(fx.shudder * 0.025 * Math.sin(time * 44));
   ctx.translate(-at.x, -at.y);
 
-  drawSpoolLine(ctx, l, cfg, s, pose, beat, beatPhase, time, run);
+  // The barrel rolls on the brake's flange; the line's top goes with it (`spool-sway.ts`).
+  const roll = spoolSway(world, s, beat, beatPhase);
+  const pivot = spoolPivot(l, pose, side);
+  drawSpoolLine(ctx, l, cfg, s, spoolRolled(l, pose, side, roll), beat, beatPhase, time, run);
   ctx.globalAlpha = alpha;
   const hurt = fx.hurt.value;
   // The snag shudders the casing and nothing a thumb has to find (`spool-story.ts`).
   const shake = spoolStoryShake(l, s, beat, beatPhase, world);
   ctx.save();
-  ctx.translate(shake.x, shake.y);
+  ctx.translate(shake.x + pivot.x, shake.y + pivot.y);
+  ctx.rotate(roll);
+  ctx.translate(-pivot.x, -pivot.y);
   drawFlange(ctx, l, pose, side, false, time, hurt);
   drawBarrel(ctx, l, pose, run, drift, hurt);
   drawRibs(ctx, l, world, s, pose, side, beat, beatPhase);

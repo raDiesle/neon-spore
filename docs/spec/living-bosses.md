@@ -384,14 +384,25 @@ game "INSTAR:FLIGHT · SERPENT"*. `INSTAR_SERPENT.amount` is 1 on the field.
   held, and the press still takes a stone 0.6 of a tile past its rim, which
   covers the swing. Under *a look the owner asked for by name*.
 
+  *THE SPOOL, as built, 8 October 2026* (`spool-sway.ts`): the casing, its
+  ribs and both flanges roll together about the brake's flange, up to 0.12
+  of a radian, so the far end, 5.2 tiles out, rises and dips by more than
+  half a tile. The rail, its knob and the navigator's gauge are drawn off
+  the unrolled pose and stay put; the line's top follows the winding, so
+  it stays taut to the hull. The knob sits at the pivot, where the roll
+  moves nothing, so it stays under the thumb; a hand on the brake does not
+  still the roll, since a barrel stopping under a thumb would show the
+  navigator the grip. The slack spool has its own turn and takes none of
+  this, and it is hushed under THE SLOW. Under *a look the owner asked for by name*.
+
   *Left still on purpose:* THE VALVE, since its drum carries the wheel the
   pilot turns and the socket both seats tap, and its pins are thumb-held
   and already sway as the owner picked on VERSUS `valve:pin`; THE DAVIT,
   since its hook is both seats' loose handle and the fire step's target,
   and a hook swinging off the middle column would mislead the cannons;
   and THE VANE, SCUTTLE, RATCHET, RIME and TRIVET for the reasons given
-  under *A mechanism is not an animal*. THE SPOOL's barrel, THE
-  GRINDSTONE's caliper and THE SLING's tines are queued, one lane each
+  under *A mechanism is not an animal*. THE GRINDSTONE's caliper and THE
+  SLING's tines are queued, one lane each
   (`docs/queue.md`).
 
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
@@ -944,7 +955,7 @@ about a tenth of a second.
     SURGE, LEDGER, STARE, CYST, VISE, MANTLE, KEEL, SPLICE and HIVE; THE
     FILAMENT's organ turn was taken as its sway.
 11. The mechanisms' hinged parts, six a lane. THE HASP and THE PLUMB landed
-    7 October 2026; THE SPOOL, GRINDSTONE and SLING are queued; the rest
+    7 October 2026, THE SPOOL 8 October; THE GRINDSTONE and SLING are queued; the rest
     are left still on purpose.
 12. What sets the `life` level lower: the motion setting (landed 29 September 2026).
 

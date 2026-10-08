@@ -2578,6 +2578,7 @@ by hand never moves.
 | `packages/render/src/spool-pose.ts` | **How far through a pose THE SPOOL is** — the clock the whole scene is posed off (§21, *Animation*) |
 | `packages/render/src/spool-shape.ts` | **Where THE SPOOL is**, in field pixels: the barrel slung sideways across the top of the field |
 | `packages/render/src/spool-story.ts` | **THE SPOOL's story between the ribs, drawn** (§21; the rules are `sim/spool-story.ts`) |
+| `packages/render/src/spool-sway.ts` | **THE SPOOL's barrel rolls on its flange** (`docs/spec/living-bosses.md`, the rollout's step 11 |
 | `packages/render/src/surface-clear.ts` | **Wiping an overlay whatever transform is on it** — a `clearRect` under a ratio below one misses the right edge |
 | `packages/render/src/surge-draw.ts` | **THE SURGE**: a ribbed bulb hung high over the middle of the field with a seam round its equator |
 | `packages/render/src/surge-fx.ts` | What THE SURGE leaves behind a frame: the row the bulb sinks through after a vent |
