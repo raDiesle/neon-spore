@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · c710964b2 — THE INSTAR's fly-in is offered face-on with a tapered body
+
+`instar:flight` gets its second candidate, TAPER, the owner's option B: the approach stays face-on, but the seamed tube behind the head is drawn as one smooth taper from a deep chest to a fine end, with the wings spread full. The plates come back and the wings settle over the last 30% of the approach. The new `INSTAR_FLIGHT_LOOK.body` field ships at 0, and SIDE leaves it there, so no shipped frame changes.
+
 ## 2026-10-08 · 58975f166 — THE INSTAR's fly-in is offered side-on on VERSUS
 
 `instar:flight` opens with candidate SIDE, the owner's option A: the approach is flown in profile, so the turned head, the legs and the raised wings grow in from far away, and the body turns face-on only as it arrives. The pose the drawing flies goes through a new record, `INSTAR_FLIGHT_LOOK`, which ships unchanged; the director's `INSTAR · FLYING IN` plays the whole first approach. Option B, face-on with a tapered body behind, is queued as the slot's second candidate.
