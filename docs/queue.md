@@ -479,6 +479,7 @@ bestiary's line to built.
 ## `marks-window.test.ts` walks TEST's screen only: no partner's ring is checked
 
 - **Found:** 2026-10-08, claude/parked-boss-concept-d88325
+- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-marks-window-test-ts-walks-tests-screen-only-no)
 - **Files:** `tools/director/test/marks-window.test.ts`, `tools/director/test/marks-window-kit.ts`, `tools/director/test/marks-window-rows-c.ts`
 - **Needs:** says every boss has a row, and 22 do
 
