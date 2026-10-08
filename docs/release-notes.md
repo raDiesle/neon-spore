@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · d7a7be2f9 — THE SURGE's burst spraying the whole ship, offered in VERSUS
+
+THE SURGE's burst has a candidate, `surge:spray` / SPLATTER. In the game, a burst is three gums down the bulb's own columns, a puff of sparks and the jolt. SPLATTER throws gobs of the bulb on arcs to every column of the field, wall to wall, and leaves them on the hull as splats that sag and fade over two and a half beats. It is judged on a new pose, THE SURGE · BURST, which stops on the burst's own tick. Shipped picture unchanged: `SurgeFx` keeps the spray's clock and draws through `SPRAY_LOOK` in `surge-spray.ts`, which draws nothing. This closes the queue entry for THE SURGE's three unbuilt looks.
+
 ## 2026-10-08 · daf204ae0 — THE SURGE's eversion turning the body out, offered in VERSUS
 
 THE SURGE's eversion now has a candidate, `surge:evert` / TURNED. The game folds the bulb's outline through its equator and draws it pale past the half. TURNED instead rolls the pale inside out of the seam and back over the bulb like a sock turned out. A rolled lip stands at the seam, the ribs come through it one at a time, and what is left of the outside shrinks into the turned skin. The inner body stays out (bosses.md §11). Shipped picture unchanged: the body is drawn through the new `EVERT_LOOK` record in `surge-body.ts`, whose default is the fold the game already draws.

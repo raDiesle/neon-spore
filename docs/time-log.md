@@ -35413,3 +35413,5 @@ eversion only shows past the first third of them.
 
 Bottleneck: reading — a pair sees only its build's last tick of events,
 so a look on an event needs a pose that ends on it.
+
+*Measured: 24 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
