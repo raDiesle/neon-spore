@@ -13,6 +13,7 @@ import { gaugeDial } from "./gauge-round.js";
 import { gimbalCentre, gimbalRingR } from "./gimbal-shape.js";
 import { haspWorkIndex } from "./hasp-pose.js";
 import { haspCentre, haspShellBox } from "./hasp-shape.js";
+import { latchGripRest, latchMilliPx } from "./latch-shape.js";
 import type { Layout } from "./layout.js";
 import { mazeDrum } from "./maze-walls.js";
 import { repriseTearBox } from "./reprise-draw.js";
@@ -24,7 +25,7 @@ import { trapezeOnArc } from "./trapeze-shape.js";
  * **Where the fixtures of THE GAUGE, THE MAZE and THE REPRISE are** — the
  * sixth of `caption-anchor-boss.ts`, split off `-e` on line count — and THE
  * SPOOL's gauge, THE FLUE's row, THE TRAPEZE's swing, THE GIMBAL's rings and
- * THE HASP's clasp, the newest bosses whose films asked, because this file
+ * THE HASP's clasp and THE LATCH's grips, the newest bosses whose films asked, because this file
  * had room.
  *
  * **These three are rounds and not bosses**, and that was the question the
@@ -59,6 +60,7 @@ export function bossAnchorF(
   if (kind === "trapeze") return trapezeSwing(l, cfg);
   if (kind === "gimbal") return gimbalRings(l, cfg);
   if (world.boss?.kind === "hasp") return haspClasp(l, cfg, world.boss);
+  if (kind === "latch") return latchGrips(l, cfg);
   return null;
 }
 
@@ -147,6 +149,25 @@ function haspClasp(l: Layout, cfg: SimConfig, s: HaspState): AnchorPoint {
   const i = Math.max(0, Math.min(HASP_COUNT - 1, work));
   const at = haspCentre(l, cfg, i);
   return box({ x: at.x, y: at.y, ...haspShellBox(l) });
+}
+
+/**
+ * THE LATCH: the two grips, from the row they rest on down as far as a
+ * reach draws them. Every page of its film is about whose grip is whose and
+ * which of them is pulling, so the box is both and stays still while the
+ * knobs travel inside it — the caption stands clear of the tendril's colony
+ * over them rather than following one thumb.
+ */
+function latchGrips(l: Layout, cfg: SimConfig): AnchorPoint {
+  const a = latchGripRest(l, cfg, 0);
+  const b = latchGripRest(l, cfg, 1);
+  const reach = latchMilliPx(l, cfg.latchReachMilli);
+  return box({
+    x: (a.x + b.x) / 2,
+    y: a.y + reach / 2,
+    rx: Math.abs(b.x - a.x) / 2 + a.r,
+    ry: reach / 2 + a.r,
+  });
 }
 
 /** THE TRAPEZE's box: how far up the ropes it reaches and how wide it is, in tiles. */

@@ -35843,3 +35843,17 @@ Bottleneck: reading — a render gate built from sim pieces has to be taken
 apart to find the window to hold it to.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE LATCH's guide is a film: one holds, one pulls, and they swap
+
+- reading: 5 min. THE TRAPEZE's film, the drag acts, `latch.ts`'s turn and
+  yank rules.
+- writing: 10 min. The film, its scene test, the right grip on the
+  navigator's seat, the taut reach, the caption box round both grips.
+- looking: 5 min. One page of the film through `bun run frames`.
+- friction: 5 min. The film was first timed at thirty ticks a beat; at 120
+  BPM it is sixty, so nothing fired until it was retimed.
+- landing: 5 min. The prose counts, `imports:sort`, `check:fast`, `land`.
+
+Bottleneck: a film's ticks are read against a tempo nobody wrote down in the
+scene, so the first timing was off by half.

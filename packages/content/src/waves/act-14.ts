@@ -132,9 +132,7 @@ export const WAVES_ACT_14: Wave[] = [
     id: "theLatch",
     name: "THE LATCH",
     guide: {
-      both: "A slime has hooked the ship with a rope. Each of you has one grip on it. Pull it down in turns. If you both let go, it slips back.",
-      p1: "1. Pull your grip down. Hold it while the other pulls.\n2. When it rears back, both of you hold on.\n3. Last, your grip is on the right.",
-      p2: "1. Pull your grip down. Hold it while the other pulls.\n2. When it rears back, both of you hold on.\n3. Last, your grip is on the left.",
+      scene: "theLatch",
     },
     entries: [],
     boss: {

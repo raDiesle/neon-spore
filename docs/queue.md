@@ -476,29 +476,6 @@ body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
 
-## THE LATCH's guide is a film: one holds, one pulls, and they swap
-
-- **Found:** 2026-10-08, claude/parked-boss-concept-d88325
-- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-the-latchs-guide-is-a-film-one-holds-one-pulls-a)
-- **Files:** `packages/content/src/scenes-choreographed.ts`, `packages/content/src/scene-drag.ts`, `packages/content/src/scene-drag-taut.ts`, `packages/content/src/waves/act-14.ts`, `packages/content/test/scenes-prose.test.ts`, `packages/render/src/caption-anchor-boss-f.ts`, `docs/spec/briefings.md`, `docs/spec/bosses.md`
-
-THE LATCH (§11.61) ships with prose for its guide; its write-up's *What is
-not built* names the film and nothing else. Model it on THE TRAPEZE's
-(commit 6b3a1cb65, the-trapeze.ts under `packages/content/src/scenes/`, and its
-scene test): a new the-latch.ts there, registered in `scenes-choreographed.ts`
-and named by the wave in `waves/act-14.ts`. The pages: P2's thumb rests on
-the right grip (*hold*), P1 carries the left grip down a reach and lets go,
-and the turn passes; then the other way round; a knot comes in and a body
-is torn off; the colony rears and both thumbs are down for the yank. The
-grips are `latchGripLeft` and `latchGripRight`: a press holds by itself
-(`fromYMilli: 0`) and the carry is the depth pulled down, so `scene-drag.ts`'s
-`pullsDown` and `scene-drag-taut.ts` need the two targets. Every page must find
-its caption's subject on its own screen (`caption-anchor-boss-f.ts`, commit
-04a76621a). A look with no shipped alternative — say so in the commit.
-Proven by `bun run check` (the scene's own test, `scenes-prose.test.ts`, the
-caption-subject test); move *What is not built* in `bosses.md` to say it is
-built.
-
 ## `marks-window.test.ts` walks TEST's screen only: no partner's ring is checked
 
 - **Found:** 2026-10-08, claude/parked-boss-concept-d88325

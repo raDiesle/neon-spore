@@ -1,7 +1,7 @@
 # Briefings
 
 > **Status: the guide, the introduction and the rehearsals are built, in that
-> order.** A wave with a guide opens on it, and on all but twenty-one of them that is
+> order.** A wave with a guide opens on it, and on all but twenty of them that is
 > a **rehearsal** — the game's own screen at full size, playing the wave the
 > pair is about to meet, one device at a time, with the words inside the picture
 > beside the things they explain. It ends on the ready gate, whose page is the
@@ -303,7 +303,7 @@ before a room is even joined.
   says what a slick *is*, where a guide says what this pair does next.
 - Purity applies unchanged — it is content, so no clock, no randomness, no DOM.
 
-### 3.2 The rehearsals — all but twenty-one of them
+### 3.2 The rehearsals — all but twenty of them
 
 A guide that names a `scene` does not draw a panel of prose at all. It plays a
 **rehearsal**: the game's own screen at full size, one device at a time. FIRST
@@ -313,9 +313,9 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are ninety of them now**, one per guided wave bar twenty-one,
+**There are ninety-one of them now**, one per guided wave bar twenty,
 and each is authored in `packages/content/src/scenes/` as a page of
-choreography rather than a page of prose. The twenty-one that are still the
+choreography rather than a page of prose. The twenty that are still the
 three strings and the two circles are the bosses from THE NETTLE on, each
 named with its reason in `STILL_PROSE` in `test/scenes-prose.test.ts`. The
 test holds that list rather than this paragraph, and it reads both numbers

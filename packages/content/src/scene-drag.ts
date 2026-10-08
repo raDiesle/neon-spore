@@ -81,6 +81,9 @@ const NAVIGATORS: ReadonlySet<DragTarget> = new Set([
   "haspWheel",
   "ratchetCatch",
   "throatAim",
+  // THE LATCH's right grip is the navigator's, the left the pilot's, in every
+  // level but a `cross` (`sim/latch.ts`), which a film writes `hand` for.
+  "latchGripRight",
 ]);
 
 export function dragSeat(target: DragTarget, hand?: 1 | 2): 1 | 2 {

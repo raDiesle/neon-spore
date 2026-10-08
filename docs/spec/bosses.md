@@ -11991,7 +11991,14 @@ colony cracks its tendril like a whip, a wave running down the rope already
 hooked into the hull, and the hook tears out of the plating in the hull's
 red, spattered ochre.
 
-**What is not built.** The guide film.
+**The guide film** (`content/scenes/the-latch.ts`, 8 October 2026) hauls
+one knot in turns and braces one yank: player 2 holds the right grip,
+player 1 pulls the left a reach down and lets go, player 2 pulls the second
+reach and the knot comes in; then both hold through the rear. Not shown: a
+slip, and the crossed grips of the last level — the fight says each when it
+comes. `content/test/scene-latch.test.ts` runs it.
+
+**What is not built.** Nothing.
 
 **What is proven, and what is not.** `sim/test/latch.test.ts` proves the
 rules: the install and the first level; whose grip is whose and the wrong

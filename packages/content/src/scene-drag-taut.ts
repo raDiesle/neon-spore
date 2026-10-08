@@ -88,5 +88,10 @@ export function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // the runner turns it into a displacement (`sim/scene-aim.ts`): left out,
   // the whole vein, which is the candidate arriving.
   if (target === "antiphonRail") return 1000;
+  // THE LATCH's grips are pulled **down**, and a pull carries the tendril no
+  // further than `latchReachMilli` (`sim/latch-hand.ts`): left out, a film
+  // pulls the whole reach. A hold is a grip pressed and not carried, which a
+  // film writes `toMilli: 0` for.
+  if (target === "latchGripLeft" || target === "latchGripRight") return cfg.latchReachMilli;
   return cfg.mazeTurnMilli;
 }

@@ -964,6 +964,7 @@ by hand never moves.
 | `packages/content/src/instar-script-first.ts` | **THE INSTAR's first act**: the steps the script had before the other two acts were laid in among them |
 | `packages/content/src/instar-script-fourth.ts` | **THE INSTAR's fourth act**: hover, bow, arch, rise and loom, laid in among the other three acts |
 | `packages/content/src/scenes/the-lance.ts` | THE LANCE's rehearsal: one shot instead of three |
+| `packages/content/src/scenes/the-latch.ts` | THE LATCH's rehearsal: the tendril hauled down hand over hand, one grip holding while the other pulls |
 | `packages/content/src/scenes/pinball.ts` | PINBALL's rehearsal: the thing you fire from is the thing you have to catch it with |
 | `packages/content/src/scenes/the-gauge.ts` | THE GAUGE's rehearsal: neither of them has more than half a dial |
 | `packages/content/src/scenes/the-lid.ts` | THE LID's rehearsal: doing your half first is the same as not doing it |
