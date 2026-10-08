@@ -345,6 +345,7 @@ recipe line and a test that the merged entry reaches `createWorld`.
 ## controls.md's row for THE GOVERNOR's needle still names the brake
 
 - **Found:** 2026-10-08, claude/trivet-boss-concept-670eed
+- **Taken:** 2026-10-08, claude/task-queue-work-e99d1a (claim: claude/queue-controls-mds-row-for-the-governors-needle-still)
 - **Files:** `docs/spec/controls.md`
 
 The owner's rework of 6 October 2026 took THE GOVERNOR's brake out
