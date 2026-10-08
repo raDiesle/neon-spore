@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 9e20b1d55 — THE DAVIT, THE LAMPREY and THE HALTER say a hold is right, and how far the partner has got
+
+The seat holding now sees that its hold is right and that the partner is still working, as on THE CAPSTAN. THE DAVIT's boom held on the lit side wears a steady green ring on both screens, and the hook carries the draw's beats as green segments. THE LAMPREY's tail held — or pulled all the way out in an apart — goes green, the word over it stays HOLD, and the head carries a green arc of how far it has come up. THE HALTER's two grips go green once both are down, the word stays HOLD, and one ring round the pair counts the resting seat's still beats, then the beats held together. THE DAVIT has no words on the field, so it gets no HOLD. The owner asked for this look by name on 7 October 2026.
+
 ## 2026-10-08 · 5990a28a3 — THE KEEL's and THE CYST's held parts show they are right, and how far
 
 THE CAPSTAN's rule, rolled out to two more bosses.

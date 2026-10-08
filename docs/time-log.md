@@ -35704,3 +35704,5 @@ written in its preamble, not in THE KEEL's cue.
 
 Bottleneck: deciding, per boss, what the partner's count is — THE HALTER's
 partner works by keeping still, and has no mark to carry it.
+
+*Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
