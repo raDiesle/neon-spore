@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 0333392b6 — A `Needs:` line quoting a title with a code span waits on it
+
+`needOf` stripped the backticks from a `Needs:` line and `blockedBy` compared it with the other entry's title as written, so a line copied whole from a title like *`marks-window.test.ts` says every boss has a row* matched nothing and the waiting entry was handed out first. The title is stripped the same way now.
+
 ## 2026-10-08 · a9818f513 — BULB · CLOVER is marked taken, as THE CYST wears it
 
 The shape catalogue said BULB · CLOVER was free while its own note said THE CYST took it on 26 September 2026, so a lane looking for an unused shape would have picked one the game already draws. It now says taken, and a test refuses any card marked free whose note opens with something having taken or built it.
