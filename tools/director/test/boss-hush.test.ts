@@ -60,6 +60,12 @@ import { DRAWN } from "./boss-hush-drawn.js";
  * AUTO cracks it inside the half beat this waits before it reads, so the walk
  * takes no sample at all. Its marks ride the crawling mouth by the rule.
  *
+ * THE GALL lost its row to its rework of 8 October 2026, for THE LAMPREY's
+ * reason: AUTO taps and pulls, or shoots, inside the half beat this waits
+ * before it reads, so the walk takes no sample. Its windows run at the
+ * ordinary pace besides — the owner's *the progress bar timer is there on no
+ * slow* — and THE SLOW is only its leap, which asks nothing.
+ *
  * THE LATCH has none because it never slows: its levels are played at tempo,
  * and its grips stand at their rest and move only under the thumb carrying
  * them (`render/latch-shape.ts`).
@@ -89,7 +95,6 @@ const STILL: readonly BossKind[] = [
   "seam",
   "sling",
   "halter",
-  "gall",
   "valve",
   "nettle",
   "scuttle",

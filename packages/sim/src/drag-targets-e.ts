@@ -8,7 +8,7 @@
  * whole, so the set being written keeps the comment that explains it and the
  * one being moved keeps its own. THE TRIVET's pads came over with this file;
  * THE PLUMB's levels were written on it, and THE SLING's draws and THE
- * GRINDSTONE's flats and jaws after them, THE CYST's marks and flanks, THE HALTER's grips, THE CAPSTAN's steer and rub, THE GALL's pinch, and THE TRAPEZE's tap and draw. `drag-targets.ts` unions the pages
+ * GRINDSTONE's flats and jaws after them, THE CYST's marks and flanks, THE HALTER's grips, THE CAPSTAN's steer and rub, THE GALL's tap and pull, and THE TRAPEZE's tap and draw. `drag-targets.ts` unions the pages
  * together, so `DragTarget` is one name.
  */
 export type DragTargetE =
@@ -142,13 +142,15 @@ export type DragTargetE =
  */
 
 /**
- * `gallPress` is the hundred-and-first: THE GALL's one press, on whichever
- * point of the seam it goes down on, heard from the seat nearer that point.
+ * `gallPress` is the hundred-and-first: THE GALL's hand on the alien, on
+ * whichever point it goes down on, heard from the seat nearer that point.
  *
- * `on` the finger down and the gall shut, a lift the gall open again;
- * `fromMilli` is not read. It was `viseLobeLeft`'s two-finger `SqueezeGap`
- * until 7 October 2026. `id` is the point, nought at the left end, and a
- * press counts only on the point the gall is on (`gall-hand.ts`).
+ * `on` the finger down; **the lift is the gesture**, carrying how far it went
+ * — `fromMilli` across and `fromYMilli` down, thousandths of a tile. A lift
+ * that hardly moved is a tap, one dragged up is a pull (`gall-hand.ts`). It
+ * was a held press until the owner's rework of 8 October 2026, and
+ * `viseLobeLeft`'s two-finger `SqueezeGap` before 7 October. `id` is the
+ * point, nought at the left end.
  */
 
 /**

@@ -47,8 +47,6 @@ export const LATE_CREATURE_HUES = {
    */
   gallFlesh: "#B889C9",
   gallFleshDark: "#4E3160",
-  /** The root the peeled seam bares, while no shot is owed. */
-  gallRoot: "#8C6A7E",
   /**
    * THE TRAPEZE (§39, *Colour*): the swing's hemp rope and its shadow, and
    * the seat's worn wood — warm and unlit, so nothing on the swing reads as

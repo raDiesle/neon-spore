@@ -1,9 +1,6 @@
 import type { Layout } from "@neon-spore/render";
 import {
   type BossKind,
-  gallClosing,
-  gallLitStep,
-  gallPresser,
   halterLitStep,
   instarStep,
   mantleBracing,
@@ -19,20 +16,6 @@ import {
 import { capstanCues } from "../../../packages/render/src/boss-cue-read-zl.js";
 import { capstanScreenAt } from "../../../packages/render/src/capstan-grip.js";
 import { capstanShake } from "../../../packages/render/src/capstan-pose.js";
-import {
-  gallArrived,
-  gallHeld,
-  gallRippling,
-  gallSpent,
-  gallSunk,
-  gallSwell,
-} from "../../../packages/render/src/gall-pose.js";
-import {
-  gallPointAt,
-  gallRipple,
-  gallRootAt,
-  gallSize,
-} from "../../../packages/render/src/gall-shape.js";
 import { halterGripStanding } from "../../../packages/render/src/halter-grip.js";
 import { halterArrived, halterOpen } from "../../../packages/render/src/halter-pose.js";
 import { halterAt, halterBend, halterSpan } from "../../../packages/render/src/halter-shape.js";
@@ -60,7 +43,6 @@ import {
   valveWheel,
 } from "../../../packages/render/src/valve-shape.js";
 import { valveShake } from "../../../packages/render/src/valve-story.js";
-import { showsGallReach } from "../../../packages/render/src/view-role-clocks-c.js";
 import { DRAWN_B } from "./boss-hush-drawn-b.js";
 
 /**
@@ -70,10 +52,11 @@ import { DRAWN_B } from "./boss-hush-drawn-b.js";
  * September 2026, when the fourth lane's six readers would have taken it
  * past 250 lines.
  *
- * Two of that lane's readers found a motion to hush and hush it by calling
- * the same function the draw does, given the world: THE GALL's ripple, which
- * carries both its rings on the wall clock (`gallRippling`), and THE VALVE's
- * brace shudder, five a beat under the socket both thumbs hold (`valveShake`).
+ * Two of that lane's readers found a motion to hush and hushed it by calling
+ * the same function the draw does, given the world: THE VALVE's brace
+ * shudder, five a beat under the socket both thumbs hold (`valveShake`), and
+ * THE GALL's ripple, until its rework of 8 October 2026 took THE SLOW off
+ * its asking windows and its row with it.
  *
  * A reader leaves out motion that *is* the rule: a rock falling to the hull,
  * a cord drawn out by the thumb on it. What is left is where a thumb is asked
@@ -165,36 +148,6 @@ export const DRAWN: Partial<Record<BossKind, Drawn>> = {
     const span = halterSpan(l, 1);
     const x = (span.x0 + span.x1) / 2;
     return [...grips, { id: -3, x: at.x + x, y: at.y + halterBend(l, x) }];
-  },
-  // The pinch ring over the nodule on the seat that pinches, and the root's
-  // ring for a shot, each on the seam's hushed ripple. The press sinking the
-  // nodule is the rule; a blow's shake and bulge are reactions and left out.
-  gall: (l, world, phase, time) => {
-    const s = world.boss;
-    if (s?.kind !== "gall") return [];
-    const cfg = world.cfg;
-    const b = world.beat;
-    const ripple = gallRippling(s, cfg, b, phase, world);
-    const marks: Mark[] = [];
-    const sunk = Math.max(
-      gallSunk(s, cfg, b, phase),
-      1 - gallArrived(s, cfg, b, phase),
-      0.45 * gallHeld(s, cfg, phase),
-    );
-    if (gallClosing(s) && sunk < 1 && showsGallReach(l.role, gallPresser(s))) {
-      const here = gallPointAt(l, cfg, s.point);
-      const lift = -gallSize(l).ry * 0.55 * gallSpent(s) * gallSwell(s, cfg, phase) * (1 - sunk);
-      marks.push({
-        id: -1,
-        x: here.x,
-        y: here.y + gallRipple(l, here.x, time, ripple) + lift * 0.6,
-      });
-    }
-    if (gallLitStep(s)?.ask === "fire") {
-      const root = gallRootAt(l, cfg);
-      marks.push({ id: -2, x: root.x, y: root.y + gallRipple(l, root.x, time, ripple) });
-    }
-    return marks;
   },
   // The socket and the wheel's notch, in the drum's frame: its centre, the
   // brace's shudder (hushed), and the list it leans by.

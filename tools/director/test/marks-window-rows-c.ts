@@ -1,10 +1,7 @@
 import {
   type FlueState,
   flueLitLevel,
-  type GallState,
   type GrindstoneState,
-  gallClosing,
-  gallLitStep,
   grinding,
   grindstoneLitStep,
   type HalterState,
@@ -26,7 +23,6 @@ import {
   type World,
 } from "@neon-spore/sim";
 import * as flueMarks from "../../../packages/render/src/flue-marks.js";
-import * as gallMarks from "../../../packages/render/src/gall-marks.js";
 import * as grindstoneMarks from "../../../packages/render/src/grindstone-marks.js";
 import * as halterMarks from "../../../packages/render/src/halter-marks.js";
 import * as lampreyMarks from "../../../packages/render/src/lamprey-marks.js";
@@ -40,8 +36,7 @@ import * as slingMarks from "../../../packages/render/src/sling-marks.js";
 import { mark, type Row } from "./marks-window-kit.js";
 
 /**
- * **The rows after the second six bosses'** of `marks-window.test.ts`. THE GALL's scars
- * name the seam's points and ask for nothing, and THE GRINDSTONE's axle is
+ * **The rows after the second six bosses'** of `marks-window.test.ts`. THE GRINDSTONE's axle is
  * ringed white once the caliper has bitten, before its fire step: that is
  * the bite, and only the step's colour counts as lit. THE PLUMB's glass has
  * no argument that says it is asked, so its call is read off the state it
@@ -52,7 +47,6 @@ import { mark, type Row } from "./marks-window-kit.js";
  * tooth to tap are asked only while the mouth is on the hull.
  */
 
-const gall = (w: World) => w.boss as GallState;
 const flue = (w: World) => w.boss as FlueState;
 const grindstone = (w: World) => w.boss as GrindstoneState;
 const halter = (w: World) => w.boss as HalterState;
@@ -70,18 +64,6 @@ const halterHolds = (w: World) => {
 };
 
 export const ROWS_C: readonly Row[] = [
-  {
-    kind: "gall",
-    marks: [
-      mark(gallMarks, "drawGallPress", (w) => gallClosing(gall(w))),
-      mark(
-        gallMarks,
-        "drawGallRoot",
-        (w) => gall(w).bared && gallLitStep(gall(w))?.ask === "fire",
-        (a) => a[4] !== null,
-      ),
-    ],
-  },
   {
     kind: "grindstone",
     marks: [

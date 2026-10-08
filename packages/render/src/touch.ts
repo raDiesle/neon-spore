@@ -145,7 +145,9 @@ export function touchUp(l: Layout, hold: Hold, at?: Point): Touch | null {
     // says where the hand ended; THE WARDEN's hatch is the second, a swipe
     // (`sim/warden-hand.ts`). THE SLING's own cords are the third, loosed
     // toward whichever column is lit (`sim/sling-hand.ts`), and THE TRAPEZE's
-    // two zones the fourth, swiped toward the middle (`sim/trapeze-hand.ts`). Every other drag's lift only lets go.
+    // two zones the fourth, swiped toward the middle (`sim/trapeze-hand.ts`), and
+    // THE GALL's alien the fifth, tapped or pulled up (`sim/gall-hand.ts`). Every
+    // other drag's lift only lets go.
     // A pinch's finger lets go of nothing alone: the pair's lift is the one
     // that opens the lobe again (`pinch.ts`). A chord's finger lifts the pad
     // its host counted it as (`chord.ts`), and a rub's the count its host
@@ -157,7 +159,8 @@ export function touchUp(l: Layout, hold: Hold, at?: Point): Touch | null {
       hold.target === "slingDrawLeft" ||
       hold.target === "slingDrawRight" ||
       hold.target === "trapezePushLeft" ||
-      hold.target === "trapezePushRight";
+      hold.target === "trapezePushRight" ||
+      hold.target === "gallPress";
     const carried = swiped && at !== undefined;
     const dx = carried ? Math.round(((at.x - hold.originX) * 1000) / l.tile) : 0;
     const dy = carried ? Math.round(((at.y - hold.originY) * 1000) / l.tile) : 0;

@@ -7,7 +7,7 @@ import {
   flueLitLevel,
   gallBoss,
   gallLitStep,
-  midCol,
+  gallPointCol,
   slowing,
   ticksPerBeat,
   type World,
@@ -36,13 +36,12 @@ import {
  * a window already up, so a window extended is the same window, and one opened
  * after another has closed starts on a later beat.
  *
- * **THE GALL's fire step is the one ask with no window** (`gall-step.ts`
- * `next` opens THE SLOW only for a close), and the one a withheld hand does
- * not let go: the cannon fires by itself every half beat, under the root on
- * the middle column. So a lit fire step on a bared root is withheld every
- * time — its miss is the blow, and a run that reached it is done — and the
- * misser slides the cannon one column off the middle for as long as it is lit
- * (`presses`). The closes before it alternate like any other window.
+ * **THE GALL's fire step is the one a withheld hand does not let go**: the
+ * cannon fires by itself every half beat, and once it stands under the alien
+ * a withheld hand still hits it. So a lit fire step is withheld every time —
+ * its miss is the blow, and a run that reached it is done — and the misser
+ * slides the cannon one column off the alien for as long as it is lit
+ * (`presses`). The leaps before it alternate like any other window.
  *
  * **THE FILAMENT's trace is the other**: its SLOW is the pause between two
  * lines, not an ask, and the ask is the line itself — stood still past its
@@ -70,11 +69,11 @@ function unansweredLine(w: World): boolean {
   return s !== null && filamentTracing(s) && s.cursor % 2 === 0;
 }
 
-/** The column a lit shot with no asking window must leave by, or null. */
+/** The column a lit shot the autofire would answer must leave, or null. */
 function unwindowedShot(w: World): number | null {
   const s = gallBoss(w);
-  if (s === null || !s.bared || gallLitStep(s)?.ask !== "fire") return null;
-  return midCol(w.cfg);
+  if (s === null || gallLitStep(s)?.ask !== "fire") return null;
+  return gallPointCol(w.cfg, s.point);
 }
 
 /** How far off the middle the ember must be for a shot to be wide: three hits' reach. */

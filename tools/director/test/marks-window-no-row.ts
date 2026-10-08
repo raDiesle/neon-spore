@@ -38,6 +38,9 @@ export const NO_ROW: Partial<Record<BossKind, NoRowWhy>> = {
   reprise: "no-marks-file",
   stare: "no-marks-file",
   undertow: "no-marks-file",
+  // Its scars ask for nothing and its fire step lights the body (`gall-draw.ts`):
+  // the ring it asked with went on 8 October 2026, and `gall-marks.ts` became `gall-scars.ts`.
+  gall: "no-marks-file",
   spool: "no-marks-file",
   nettle: "no-marks-file",
 };

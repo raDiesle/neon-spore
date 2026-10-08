@@ -75,13 +75,13 @@ export const BOSS_ENTRIES_E = {
       { ask: "fire", color: "cyan", beats: 3 },
     ],
   },
-  // THE GALL the same, a close and the shot, the colour set off `either`
+  // THE GALL the same, a leap and the shot, the colour set off `either`
   // (`gall-hash.ts`).
   gall: {
     kind: "gall",
     steps: [
-      { ask: "close", color: "red", beats: 6 },
-      { ask: "fire", color: "cyan", beats: 3 },
+      { ask: "leap", taps: 3, color: "red", beats: 6 },
+      { ask: "fire", taps: 0, color: "cyan", beats: 3 },
     ],
   },
   // THE TRAPEZE the same, a swipe level and a lock level, the gong on
@@ -197,18 +197,18 @@ export function patchBossE(boss: BossState): void {
     boss.heldBeats = 1;
   }
   if (boss.kind === "gall") {
-    // Two closes landed and the gall moved to the navigator's far point, the
-    // root bare and shot once, a pinch half shut on it and a beat counted —
+    // Two leaps landed and the alien on the navigator's far point, from the
+    // pilot's near one, two taps in, shot once, a finger down on each half —
     // every field given a value (`gall-hash.ts`).
     boss.phase = "lit";
     boss.phaseBeat = 3;
     boss.cursor = 1;
     boss.point = 3;
-    boss.closes = 2;
+    boss.from = 1;
+    boss.taps = 2;
+    boss.leaps = 2;
     boss.hits = 1;
-    boss.bared = true;
-    boss.gapMilli = 1300;
-    boss.heldBeats = 1;
+    boss.down = [0, 3];
   }
   if (boss.kind === "trapeze") {
     // The second level lit and swinging, a side pushed, the navigator called

@@ -58,14 +58,13 @@ export const CHOREO_FIELD_GROUP_D = {
   capstanWearThreshold: "THE CAPSTAN — the boss one hand rocks for the other to wear",
   capstanHoldBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
   capstanOpenBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
-  // GallConfig — the slack before the first step, the rest between, the beats
-  // a close is kept shut, the open and shut gaps, and the flat seam (`config-gall.ts`).
-  gallSlackBeats: "THE GALL — the boss that moves the moment it is closed",
-  gallRestBeats: "THE GALL — the boss that moves the moment it is closed",
-  gallShutBeats: "THE GALL — the boss that moves the moment it is closed",
-  gallOpenMilli: "THE GALL — the boss that moves the moment it is closed",
-  gallShutMilli: "THE GALL — the boss that moves the moment it is closed",
-  gallFlatBeats: "THE GALL — the boss that moves the moment it is closed",
+  // GallConfig — the slack before the first step, the rest between, the
+  // leap's flight, the pull's reach and the flat seam (`config-gall.ts`).
+  gallSlackBeats: "THE GALL — the alien tapped, pulled and thrown across the hull",
+  gallRestBeats: "THE GALL — the alien tapped, pulled and thrown across the hull",
+  gallLeapBeats: "THE GALL — the alien tapped, pulled and thrown across the hull",
+  gallPullMilli: "THE GALL — the alien tapped, pulled and thrown across the hull",
+  gallFlatBeats: "THE GALL — the alien tapped, pulled and thrown across the hull",
   // TrapezeConfig — the swing coming down, the rest between levels and the
   // spent swing; its ropes, its period and its reach; a push, a brake, the
   // damping and what a gong leaves; a swipe's run, a shot's reach and the

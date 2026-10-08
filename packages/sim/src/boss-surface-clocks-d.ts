@@ -48,13 +48,13 @@ export {
 // And how long a step is lit and a flank stilled, so the rings the picture
 // closes read the numbers the simulation judges by (`cyst-step.ts`).
 export { cystFrozenBeats, cystLitBeats } from "./cyst-step.js";
-// THE GALL's seam: the phase, the lit step, the point it sits on and the
-// column over it, whose pinch closes it and how shut, and what its marks ask,
-// for the picture, the cue and the director's hand. Straight off `gall.ts` (§38).
+export type { GallWhy } from "./events-gall.js";
+// THE GALL's alien: the phase, the lit step, the point it sits on and the
+// column over it, whose hand it answers, its charge, and what it asks, for
+// the picture, the cue and the director's hand. Straight off `gall.ts` (§38).
 export {
   freshGall,
   GALL_ASKS,
-  GALL_CLOSES,
   GALL_PHASES,
   GALL_POINTS,
   type GallAsk,
@@ -63,15 +63,14 @@ export {
   type GallState,
   type GallStep,
   gallBoss,
-  gallClosing,
-  gallDone,
+  gallCharged,
+  gallLeaping,
   gallLitStep,
   gallPointAsks,
   gallPointCol,
   gallPresser,
-  gallRootAsks,
   gallSeatAt,
-  gallShut,
+  gallShotAsks,
 } from "./gall.js";
 // THE GRINDSTONE's wheel: the phase, the lit step, the flats' grit, the
 // caliper and both seats' jaws, for the picture, the cue and the director's

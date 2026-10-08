@@ -20,8 +20,8 @@ import { CFG, runFrames, waveWith } from "./frame-harness.js";
  */
 
 const TPB = ticksPerBeat(CFG);
-export const CLOSE: GallStep = { ask: "close", color: "either", beats: 6 };
-export const FIRE: GallStep = { ask: "fire", color: "cyan", beats: 3 };
+export const LEAP: GallStep = { ask: "leap", taps: 3, color: "either", beats: 6 };
+export const FIRE: GallStep = { ask: "fire", taps: 0, color: "cyan", beats: 6 };
 
 export function stood(): World {
   const world = createWorld(CFG, 5);
@@ -31,19 +31,24 @@ export function stood(): World {
   return world;
 }
 
-/** The gall standing on `point`, `lit` under the cursor `beats` beats in, unclosed and unpinched. */
-export function posed(world: World, lit: GallStep | null, point = 0, beats = 1): GallState {
+/** The alien standing on `point`, `lit` under the cursor `beats` beats in, `taps` into its taps and unhit. */
+export function posed(
+  world: World,
+  lit: GallStep | null,
+  point = 0,
+  beats = 1,
+  taps = 0,
+): GallState {
   const s = gallBoss(world);
   if (s === null) throw new Error("the gall wave stood no gall");
   s.phase = lit === null ? "rest" : "lit";
   s.phaseBeat = world.beat - beats;
   s.cursor = 0;
   s.point = point;
-  s.closes = 0;
+  s.from = point;
+  s.taps = taps;
   s.hits = 0;
-  s.bared = false;
-  s.gapMilli = world.cfg.gallOpenMilli;
-  s.heldBeats = 0;
+  s.down = [-1, -1];
   if (lit !== null) s.steps[0] = lit;
   return s;
 }

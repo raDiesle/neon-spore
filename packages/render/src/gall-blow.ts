@@ -1,21 +1,20 @@
 import { blobRadiusMul, type Point } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
 import type { StrikeFrame } from "./boss-strike-look.js";
-import { gallRootAt, gallRootR } from "./gall-shape.js";
+import { gallMidAt } from "./gall-shape.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
 
 /**
- * **THE GALL's own blow at the hull** (`boss-strike-look.ts`). The root lay
- * bare and nobody shot it (`gall-step.ts`'s `miss`), and the growth does what
- * a gall does left alone: it seeds. A seed of the nodule — NOTCH 2's lobes at
- * a third of the size, soft and dull — is torn off the root's underside on a
- * strand of its flesh, drops down the middle column, the strand stretching
- * and snapping halfway, and splats on the skin at `reach = 1`. There it takes
- * root: three tendrils creep into the plating the way the root's own go into
- * the hull (`gall-marks.ts`), and then the whole of it withers away.
+ * **THE GALL's own blow at the hull** (`boss-strike-look.ts`). A step ran
+ * out with nobody answering it (`gall-step.ts`'s `miss`), and the creature
+ * seeds. A seed of it — NOTCH 2's lobes at a third of the size, soft and
+ * dull — is torn off the seam's underside on a strand of its flesh, drops to
+ * the hull under the column it sat over, the strand stretching and snapping
+ * halfway, and splats on the skin at `reach = 1`. There it takes root: three
+ * tendrils creep into the plating, and then the whole of it withers away.
  */
 
 /** The seed's half-width, in tiles, and its lobes: fewer than the nodule's, it is a piece of one. */
@@ -29,17 +28,17 @@ const TENDRIL = 0.8;
 /** Samples round the seed. */
 const N = 24;
 
-/** Where the blow leaves the body: the root's underside, in the peeled seam over the middle column. */
+/** Where the blow leaves the body: the seam's underside over the middle column. */
 export function gallBlowFrom(l: Layout, cfg: SimConfig): Point {
-  const root = gallRootAt(l, cfg);
-  return { x: root.x, y: root.y + gallRootR(l) };
+  const mid = gallMidAt(l, cfg);
+  return { x: mid.x, y: mid.y + SEED * l.tile };
 }
 
 export function gallBlow(ctx: CanvasRenderingContext2D, f: StrikeFrame): void {
   const { from, to, tile } = f;
   const fade = 1 - f.after;
   if (fade <= 0) return;
-  // Dropped: slow off the root and hard at the end, on the skin at 1.
+  // Dropped: slow off the seam and hard at the end, on the skin at 1.
   const t = f.reach ** 2;
   const x = from.x + (to.x - from.x) * t;
   const y = from.y + (to.y - from.y) * t;
@@ -80,9 +79,9 @@ export function gallBlow(ctx: CanvasRenderingContext2D, f: StrikeFrame): void {
 }
 
 /**
- * The strand of flesh the seed is torn off on: whole from the root to the
+ * The strand of flesh the seed is torn off on: whole from the seam to the
  * seed's top until `SNAP` of the drop, then two ends curling back — one up
- * into the root, one after the seed — gone as it lands.
+ * into the seam, one after the seed — gone as it lands.
  */
 function drawStrand(ctx: CanvasRenderingContext2D, f: StrikeFrame, top: Point): void {
   if (f.after > 0) return;

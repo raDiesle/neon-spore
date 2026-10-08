@@ -1,36 +1,21 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import type { World } from "@neon-spore/sim";
-import {
-  gallBearing,
-  gallHeld,
-  gallLobes,
-  gallPart,
-  gallPress,
-  gallSpent,
-} from "../src/gall-pose.js";
-import { gallPointAt } from "../src/gall-shape.js";
-import { rgba } from "../src/hex.js";
+import { gallBearing, gallCharge, gallFlight, gallLobes, gallSpent } from "../src/gall-pose.js";
+import { gallArcAt, gallMidAt, gallPointAt } from "../src/gall-shape.js";
 import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
-import { showsGallReach } from "../src/view-role-clocks-c.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, VIEWPORT } from "./frame-harness.js";
-import { CLOSE, count, FIRE, frame, posed, stood } from "./gall-harness.js";
-
-/** The shot's colour as the lit core is drawn in it: `drawLitCore`'s light and
- * ring are `rgba` of it, whatever the beat, and a gradient's stops are not in
- * the stub's log, so it is counted by its prefix (`lit-core.ts`). */
-const CYAN_LIT = rgba(PALETTE.cyan, 0).slice(0, -2);
+import { count, FIRE, frame, LEAP, posed, stood } from "./gall-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE GALL, drawn (`render/src/gall-draw.ts`): the seam and its four scars,
- * the nodule on its point heeled toward its presser's end, the press's
- * chevrons full on that seat's screen and faint on the other's, the nodule
- * squeezed by the gap and pressed down by the beats kept shut, a lobe fewer
- * for every close, the seam peeled open over the root and the root lit in a
- * shot's colour, and the seam smoothed flat — on all three screens, set
- * rather than played to; `sim/test/gall.test.ts` proves the rules.
+ * the alien on its point heeled toward its presser's end, wound by its taps
+ * and lit at the rim once charged, flying its arc over the middle through a
+ * leap, lit from inside in a fire step's colour, a lobe fewer for every shot,
+ * and dropping dead — on all three screens, set rather than played to;
+ * `sim/test/gall.test.ts` proves the rules.
  */
 
 beforeAll(() => {
@@ -39,7 +24,7 @@ beforeAll(() => {
 });
 
 describe("THE GALL's seam", () => {
-  it.each(ROLES)("draws the seam and the nodule on it, on %s", (role) => {
+  it.each(ROLES)("draws the seam and the alien on it, on %s", (role) => {
     const drawn = frame(role, (w) => posed(w, null));
     expect(count(drawn, PALETTE.gallSeam)).toBeGreaterThan(0);
     expect(count(drawn, PALETTE.gallFlesh)).toBeGreaterThan(0);
@@ -53,15 +38,20 @@ describe("THE GALL's seam", () => {
     expect(xs[2] ?? 0).toBeGreaterThan(l.gridLeft + (l.cols * l.tile) / 2);
   });
 
-  it.each(ROLES)("moves the nodule to the point it jumped to, on %s", (role) => {
+  it("stands the seam below the middle of the field", () => {
+    const l = computeLayout(VIEWPORT, CFG, "test");
+    expect(gallMidAt(l, CFG).y).toBeGreaterThan(l.gridTop + (CFG.rows * l.tile) / 2);
+  });
+
+  it.each(ROLES)("moves the alien to the point it landed on, on %s", (role) => {
     const here = frame(role, (w) => posed(w, null, 0));
     const there = frame(role, (w) => posed(w, null, 2));
     expect(there).not.toBe(here);
   });
 
-  it("heels the nodule toward its presser's end, and turns the heel over with the field", () => {
+  it("heels the alien toward its presser's end, and turns the heel over with the field", () => {
     const world = stood();
-    const s = posed(world, CLOSE, 0);
+    const s = posed(world, LEAP, 0);
     expect(gallBearing(s, false)).toBe(Math.PI);
     expect(gallBearing(s, true)).toBe(0);
     s.point = 3;
@@ -70,146 +60,105 @@ describe("THE GALL's seam", () => {
   });
 });
 
-describe("THE GALL's press mark, split by seat", () => {
-  it("is full on the screen of the seat whose half the gall is on, and on test", () => {
-    expect(showsGallReach("p1", 1)).toBe(true);
-    expect(showsGallReach("p2", 1)).toBe(false);
-    expect(showsGallReach("p2", 2)).toBe(true);
-    expect(showsGallReach("p1", 2)).toBe(false);
-    expect(showsGallReach("test", 1) && showsGallReach("test", 2)).toBe(true);
+describe("THE GALL's charge", () => {
+  it("winds by the taps, from nought untapped to one charged, and not on a fire step", () => {
+    const world = stood();
+    const s = posed(world, LEAP);
+    expect(gallCharge(s)).toBe(0);
+    s.taps = 1;
+    expect(gallCharge(s)).toBeCloseTo(1 / 3);
+    s.taps = 3;
+    expect(gallCharge(s)).toBe(1);
+    posed(world, FIRE).taps = 3;
+    expect(gallCharge(s)).toBe(0);
   });
 
-  it.each(ROLES)("draws the chevrons on a lit close and not at rest, on %s", (role) => {
-    // On p2 the gall on point 0 is the pilot's, so its mark there is the
-    // faint plain line with no glow: drawn, but in no hex of its own.
-    const resting = frame(role, (w) => posed(w, null));
-    const asked = frame(role, (w) => posed(w, CLOSE));
-    expect(asked).not.toBe(resting);
+  it.each(ROLES)("draws a tapped alien wound tighter than an untapped one, on %s", (role) => {
+    const loose = frame(role, (w) => posed(w, LEAP));
+    const wound = frame(role, (w) => posed(w, LEAP, 0, 1, 2));
+    expect(wound).not.toBe(loose);
   });
 
-  it("glows on the pilot's screen for the left half and not for the right", () => {
-    const mine = frame("p1", (w) => posed(w, CLOSE, 1));
-    const hers = frame("p1", (w) => posed(w, CLOSE, 2));
-    expect(count(mine, PALETTE.hullRim)).toBeGreaterThan(count(hers, PALETTE.hullRim));
-  });
-
-  it("glows on the navigator's screen for the right half and not for the left", () => {
-    const mine = frame("p2", (w) => posed(w, CLOSE, 2));
-    const his = frame("p2", (w) => posed(w, CLOSE, 1));
-    expect(count(mine, PALETTE.hullRim)).toBeGreaterThan(count(his, PALETTE.hullRim));
-  });
-
-  it("glows for either half on the test screen", () => {
-    const left = frame("test", (w) => posed(w, CLOSE, 1));
-    const right = frame("test", (w) => posed(w, CLOSE, 2));
-    expect(count(left, PALETTE.hullRim)).toBe(count(right, PALETTE.hullRim));
+  it.each(ROLES)("lights the rim once it is charged, on %s", (role) => {
+    const wound = frame(role, (w) => posed(w, LEAP, 0, 1, 2));
+    const charged = frame(role, (w) => posed(w, LEAP, 0, 1, 3));
+    expect(count(charged, PALETTE.hullRim)).toBeGreaterThan(count(wound, PALETTE.hullRim));
   });
 });
 
-describe("THE GALL's body, deformed by the answer", () => {
-  it("squeezes by the gap, from nought wide open to one at shut", () => {
-    const world = stood();
-    const s = posed(world, CLOSE);
-    expect(gallPress(s, world.cfg)).toBe(0);
-    s.gapMilli = world.cfg.gallShutMilli;
-    expect(gallPress(s, world.cfg)).toBe(1);
-    s.gapMilli = (world.cfg.gallShutMilli + world.cfg.gallOpenMilli) / 2;
-    expect(gallPress(s, world.cfg)).toBeCloseTo(0.5);
-    posed(world, null).gapMilli = world.cfg.gallShutMilli;
-    expect(gallPress(s, world.cfg)).toBe(0);
-  });
-
-  it.each(ROLES)("draws a pressed gall narrower than an open one, on %s", (role) => {
-    const open = frame(role, (w) => posed(w, CLOSE));
-    const pressed = frame(role, (w) => {
-      posed(w, CLOSE).gapMilli = w.cfg.gallShutMilli;
-    });
-    expect(pressed).not.toBe(open);
-  });
-
-  it("presses the nodule down by the beats kept shut, and not while the gap is open", () => {
-    const world = stood();
-    const s = posed(world, CLOSE);
-    s.gapMilli = world.cfg.gallShutMilli;
-    expect(gallHeld(s, world.cfg, 0)).toBe(0);
-    s.heldBeats = 1;
-    expect(gallHeld(s, world.cfg, 0)).toBeGreaterThan(0);
-    s.gapMilli = world.cfg.gallOpenMilli;
-    expect(gallHeld(s, world.cfg, 0.5)).toBe(gallHeld(s, world.cfg, 0));
-  });
-
-  it.each(ROLES)("takes a lobe and a sixth of the size for every close, on %s", (role) => {
+describe("THE GALL's leap", () => {
+  it("flies from nought as it leaves to one as it lands, and only in a leap", () => {
     const world = stood();
     const s = posed(world, null);
-    expect(gallLobes(s)).toBe(5);
-    s.closes = 2;
-    expect(gallLobes(s)).toBe(3);
-    expect(gallSpent(s)).toBeLessThan(1);
-    const fresh = frame(role, (w) => posed(w, null));
-    const spent = frame(role, (w) => {
-      posed(w, null).closes = 2;
+    expect(gallFlight(s, world.cfg, world.beat, 0)).toBeNull();
+    s.phase = "leap";
+    s.phaseBeat = world.beat;
+    expect(gallFlight(s, world.cfg, world.beat, 0)).toBe(0);
+    expect(gallFlight(s, world.cfg, world.beat + world.cfg.gallLeapBeats, 0)).toBe(1);
+  });
+
+  it("arcs over the middle, above the seam, from one half to the other", () => {
+    const l = computeLayout(VIEWPORT, CFG, "test");
+    const from = gallArcAt(l, CFG, 0, 3, 0);
+    const top = gallArcAt(l, CFG, 0, 3, 0.5);
+    const to = gallArcAt(l, CFG, 0, 3, 1);
+    expect(from.x).toBeCloseTo(gallPointAt(l, CFG, 0).x);
+    expect(to.x).toBeCloseTo(gallPointAt(l, CFG, 3).x);
+    expect(top.y).toBeLessThan(gallPointAt(l, CFG, 0).y - 2 * l.tile);
+  });
+
+  it.each(ROLES)("draws the alien in the air apart from where it sat, on %s", (role) => {
+    const sitting = frame(role, (w) => posed(w, null, 0));
+    const flying = frame(role, (w) => {
+      const s = posed(w, null, 3);
+      s.from = 0;
+      s.phase = "leap";
     });
-    expect(spent).not.toBe(fresh);
+    expect(flying).not.toBe(sitting);
   });
 });
 
-describe("THE GALL's root", () => {
-  it("peels the seam through the rest after the third close, and stands it open for the shot", () => {
-    const world = stood();
-    const s = posed(world, null, 0, 0);
-    expect(gallPart(s, world.cfg, world.beat, 0)).toBe(0);
-    s.bared = true;
-    s.closes = 3;
-    expect(gallPart(s, world.cfg, world.beat, 0)).toBe(0);
-    expect(gallPart(s, world.cfg, world.beat + world.cfg.gallRestBeats, 0)).toBe(1);
-    posed(world, FIRE).bared = true;
-    expect(gallPart(s, world.cfg, world.beat, 0)).toBe(1);
-  });
-
+describe("THE GALL's shot", () => {
   it.each(ROLES)(
-    "lights the bared root in the shot's colour, and hits change it, on %s",
+    "lights the alien from inside on a fire step, and hits change it, on %s",
     (role) => {
-      const covered = frame(role, (w) => posed(w, FIRE));
-      const bared = (w: World) => {
-        const s = posed(w, FIRE);
-        s.bared = true;
-        s.closes = 3;
-        return s;
-      };
-      const lit = frame(role, bared);
-      expect(count(lit, CYAN_LIT)).toBeGreaterThan(count(covered, CYAN_LIT));
+      // The light is a gradient, whose stops are not in the stub's log, and
+      // there is no countdown ring round it any more to count its colour by.
+      const leap = frame(role, (w) => posed(w, LEAP));
+      const lit = frame(role, (w) => posed(w, FIRE));
+      expect(lit).not.toBe(leap);
       const hit = frame(role, (w) => {
-        bared(w).hits = 1;
+        posed(w, FIRE).hits = 1;
       });
       expect(hit).not.toBe(lit);
     },
   );
 
-  it.each(ROLES)("shows the root dull once bared and no shot owed yet, on %s", (role) => {
-    const bared = frame(role, (w) => {
-      const s = posed(w, null, 0, 4);
-      s.bared = true;
-      s.closes = 3;
+  it.each(ROLES)("takes a lobe and a sixth of the size for every shot, on %s", (role) => {
+    const world = stood();
+    const s = posed(world, null);
+    expect(gallLobes(s)).toBe(5);
+    s.hits = 2;
+    expect(gallLobes(s)).toBe(3);
+    expect(gallSpent(s)).toBeLessThan(1);
+    const fresh = frame(role, (w) => posed(w, null));
+    const spent = frame(role, (w) => {
+      posed(w, null).hits = 2;
     });
-    expect(count(bared, PALETTE.gallRoot)).toBeGreaterThan(0);
+    expect(spent).not.toBe(fresh);
   });
 
-  it.each(ROLES)("smooths the seam flat once the root is shot, on %s", (role) => {
-    const standing = frame(role, (w) => {
-      const s = posed(w, null);
-      s.bared = true;
-    });
+  it.each(ROLES)("drops it dead once every step is answered, on %s", (role) => {
+    const standing = frame(role, (w) => posed(w, null));
     const flat = frame(role, (w) => {
-      const s = posed(w, null, 0, 1);
-      s.bared = true;
-      s.phase = "flat";
+      posed(w, null, 0, 1).phase = "flat";
     });
     expect(flat).not.toBe(standing);
   });
 
   it("draws the same pose the same way twice", () => {
     const pose = (w: World) => {
-      posed(w, CLOSE).gapMilli = 1500;
+      posed(w, LEAP, 1, 1, 2);
     };
     expect(frame("p1", pose)).toBe(frame("p1", pose));
   });

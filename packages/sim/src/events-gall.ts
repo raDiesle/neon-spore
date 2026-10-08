@@ -5,8 +5,8 @@ import type { GallAsk } from "./gall.js";
  * sound answer.
  *
  * Every event carries `col`, the column it happened over, for the sounds to
- * pan to: the gall's point for what happens to the gall, the middle for the
- * root and the seam as a whole. A point is `point`, nought at the left end.
+ * pan to: the alien's point for what happens to the alien, the middle for
+ * the fight as a whole. A point is `point`, nought at the left end.
  */
 
 interface GallColEvent {
@@ -14,26 +14,32 @@ interface GallColEvent {
   col: number;
 }
 
+/**
+ * Why a hand on the alien did nothing — never silently (the owner's rule for
+ * THE TRAPEZE, 7 October 2026): not this seat's half (`seat`), nothing on
+ * the point pressed (`empty`), a pull before it is charged (`early`), or a
+ * hand dragged too far for a tap and not up enough for a pull (`way`).
+ */
+export type GallWhy = "seat" | "empty" | "early" | "way";
+
 export type GallEvent =
-  /** The seam rises into frame with the gall slack on its first point. */
+  /** The alien drops in on its first point. */
   | ({ type: "gallEnter"; point: number } & GallColEvent)
-  /** A step lit: the gall to be pressed shut where it sits, or the root to shoot. */
+  /** A step lit: the alien to be tapped and thrown, or shot where it sits. */
   | ({ type: "gallLight"; ask: GallAsk; point: number } & GallColEvent)
-  /** A press on the gall's point came shut: the count begins. */
-  | ({ type: "gallPress"; point: number } & GallColEvent)
-  /** The shut press widened before the count was done: it starts again. */
-  | ({ type: "gallSlip"; point: number } & GallColEvent)
-  /** A close landed and the gall jumped `from` one point `to` another; `closes` so far. */
-  | ({ type: "gallClose"; from: number; to: number; closes: number } & GallColEvent)
-  /** A close window ran out: the gall swells back, to be pressed again where it sits. */
-  | ({ type: "gallSwell"; point: number } & GallColEvent)
-  /** The last close landed and the root lies bare. */
-  | ({ type: "gallBare" } & GallColEvent)
-  /** The root shot in its colour; `hits` is how many it has taken. */
+  /** A tap charged it: `taps` of the `need` the step wants. */
+  | ({ type: "gallTap"; point: number; taps: number; need: number } & GallColEvent)
+  /** A hand on it did nothing, and `why`. */
+  | ({ type: "gallWhiff"; point: number; why: GallWhy } & GallColEvent)
+  /** A pull threw it `from` one point `to` another; `leaps` so far. */
+  | ({ type: "gallLeap"; from: number; to: number; leaps: number } & GallColEvent)
+  /** It came down on `point`, and the clock starts again. */
+  | ({ type: "gallLand"; point: number } & GallColEvent)
+  /** A shot in its colour took a limb; `hits` is how many it has taken. */
   | ({ type: "gallHit"; hits: number } & GallColEvent)
-  /** A fire step ran out with the root unshot: the hull takes it. */
+  /** A step ran out unanswered: the hull takes it. */
   | ({ type: "gallMiss" } & GallColEvent)
-  /** The script is done and the seam smooths flat. */
+  /** The script is done and it drops dead. */
   | ({ type: "gallFlat" } & GallColEvent)
-  /** The flat seam has stood `gallFlatBeats`; the wave may end. */
+  /** It has lain `gallFlatBeats`; the wave may end. */
   | ({ type: "gallOut" } & GallColEvent);

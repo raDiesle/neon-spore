@@ -90,7 +90,7 @@ const FROM: Partial<
   halter: halterBlowFrom,
   // The cradle's foot, where the cog it throws falls clear (`capstan-blow.ts`).
   capstan: capstanBlowFrom,
-  // The root's underside in the peeled seam, where the seed tears off (`gall-blow.ts`).
+  // The seam's underside over the middle, where the seed tears off (`gall-blow.ts`).
   gall: gallBlowFrom,
   // The fly of the flag held over the middle, where the scrap tears off (`trapeze-blow.ts`).
   trapeze: trapezeBlowFrom,

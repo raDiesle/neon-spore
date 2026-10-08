@@ -63,7 +63,7 @@ The kinds each breaks it with, and where. Paths are under `packages/sim/src`.
 | CYST | 1, 4, 5 | `cyst-step.ts`, `cyst-hand.ts` |
 | FLEET | 3, 7 | `fleet.ts` (salvo into water), `fleet-flood.ts` (lapse plugs the hull) |
 | FLUE | 1, 4, 5 | `flue-step.ts`, `flue-hand.ts` |
-| GALL | 1, 4, 5 | `gall-step.ts`, `gall-hand.ts` |
+| GALL | 1, 10 | `gall-shot.ts`, `gall-hand.ts` (a refused tap or pull: event only); a step run out strikes the hull since the rework of 8 October 2026 |
 | GIMBAL | 5 | `gimbal-step.ts` (the turn has no clock at all) |
 | GORGE | 1, 11 | `gorge-step.ts` (wrong colour spills a bead), `gorge-ring.ts` |
 | GOVERNOR | 1, 4 | `governor-step.ts`, `governor-hand.ts` (off-mark tap: event only) |

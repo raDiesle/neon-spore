@@ -280,7 +280,8 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "capstanRub", on: true, fromMilli: 0, id: 3 },
   // THE GALL's pinch carries the gap on `fromMilli` and the point it went down
   // on as `id` (`sim/gall-hand.ts`).
-  { kind: "drag", target: "gallPress", on: true, fromMilli: 600, id: 2 },
+  { kind: "drag", target: "gallPress", on: true, fromMilli: 0, fromYMilli: 0, id: 2 },
+  { kind: "drag", target: "gallPress", on: false, fromMilli: -300, fromYMilli: -2400, id: 2 },
   // THE TRAPEZE's swipe lifts carrying how far it went across on
   // `fromMilli`, and its lock is an edge (`sim/trapeze-hand.ts`).
   { kind: "drag", target: "trapezePushLeft", on: false, fromMilli: 600 },

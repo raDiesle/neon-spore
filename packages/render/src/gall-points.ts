@@ -1,5 +1,5 @@
 import { GALL_POINTS, gallSeatAt, type SimConfig } from "@neon-spore/sim";
-import { gallPointAt, gallRipple, gallRootAt } from "./gall-shape.js";
+import { gallMidAt, gallPointAt, gallRipple } from "./gall-shape.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -19,10 +19,9 @@ import { showsGallReach } from "./view-role-clocks-c.js";
  * numbers and bracket are full on the screen of the seat whose half it is
  * and dim on the other's — *yours*, and *theirs* — `showsGallReach`'s
  * split, called rather than copied. They stand under the seam, clear of the
- * nodule, which rises above it, and ride its ripple with it, as does a stud
- * on the seam at each point, so a number is tied to its place. All of it
- * fades as the seam peels open over the root: once the third close lands
- * there is nothing left to find, and the bar stands where the root does.
+ * creature, which stands above it, and ride its ripple with it, as does a
+ * stud on the seam at each point, so a number is tied to its place. A leap
+ * over the bar is a leap to the other seat's half.
  */
 
 /** How far under the seam the numbers stand, and their height, in tiles. */
@@ -44,7 +43,7 @@ type SeamAt = (x: number) => number;
 
 /**
  * The numbers, the studs, the brackets and the middle bar, on the seam as it
- * ripples at `time`, `part` of the way peeled over the root.
+ * ripples at `time`.
  */
 export function drawGallPoints(
   ctx: CanvasRenderingContext2D,
@@ -52,15 +51,12 @@ export function drawGallPoints(
   cfg: SimConfig,
   time: number,
   ripple: number,
-  part: number,
 ): void {
-  const shown = 1 - part;
-  if (shown <= 0.02) return;
   const seam: SeamAt = (x) => gallPointAt(l, cfg, 0).y + gallRipple(l, x, time, ripple);
   ctx.save();
-  drawBar(ctx, l, cfg, seam, shown);
+  drawBar(ctx, l, cfg, seam, 1);
   for (const seat of [1, 2] as const) {
-    const alpha = (showsGallReach(l.role, seat) ? 1 : THEIRS) * shown;
+    const alpha = showsGallReach(l.role, seat) ? 1 : THEIRS;
     drawBracket(ctx, l, cfg, seat, seam, alpha);
   }
   ctx.font = `bold ${Math.round(l.tile * NUMBER_SIZE)}px "Courier New",monospace`;
@@ -69,7 +65,7 @@ export function drawGallPoints(
   for (let p = 0; p < GALL_POINTS; p++) {
     const x = gallPointAt(l, cfg, p).x;
     const y = seam(x);
-    const alpha = (showsGallReach(l.role, gallSeatAt(p)) ? 1 : THEIRS) * shown;
+    const alpha = showsGallReach(l.role, gallSeatAt(p)) ? 1 : THEIRS;
     ctx.fillStyle = rgba(PALETTE.hullRim, alpha);
     ctx.beginPath();
     ctx.arc(x, y, STUD * l.tile, 0, Math.PI * 2);
@@ -87,7 +83,7 @@ function drawBar(
   seam: SeamAt,
   alpha: number,
 ): void {
-  const x = gallRootAt(l, cfg).x;
+  const x = gallMidAt(l, cfg).x;
   const y = seam(x);
   const bar = new Path2D();
   bar.moveTo(x, y - BAR_UP * l.tile);

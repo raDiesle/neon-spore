@@ -4,7 +4,7 @@ import { midCol } from "./config.js";
 import type { CoreVerdict } from "./core-verdict.js";
 import { curtainCoreAside, curtainVerdict } from "./curtain-shot.js";
 import { cystBudAside, cystVerdict } from "./cyst-shot.js";
-import { gallVerdict } from "./gall-shot.js";
+import { gallAside, gallVerdict } from "./gall-shot.js";
 import { governorVerdict } from "./governor-shot.js";
 import { grindstoneVerdict } from "./grindstone-shot.js";
 import { halterVerdict } from "./halter-shot.js";
@@ -56,6 +56,9 @@ interface Core {
  * runtime — the director's dev server — a module still loading is `null`, so
  * a verdict taken by name at load threw. Each is called through an arrow.
  */
+/** THE GALL's row: below the middle of the field's fifteen. */
+const GALL_ROW = 8500;
+
 const CORES: Partial<Record<BossKind, Core>> = {
   grindstone: { milli: 2000, verdict: (w, c, k) => grindstoneVerdict(w, c, k) },
   capstan: { milli: 2700, verdict: (w, c, k) => capstanVerdict(w, c, k) },
@@ -65,7 +68,14 @@ const CORES: Partial<Record<BossKind, Core>> = {
     verdict: (w, c, k) => cystVerdict(w, c, k),
     aside: (w) => cystBudAside(w),
   },
-  gall: { milli: 2900, verdict: (w, c, k) => gallVerdict(w, c, k) },
+  // THE GALL's alien sits below the middle of the field, the owner's ask of 8
+  // October 2026, and is met up whichever column it landed in while a fire
+  // step is lit (`gall-shot.ts`).
+  gall: {
+    milli: GALL_ROW,
+    verdict: (w, c, k) => gallVerdict(w, c, k),
+    aside: (w) => gallAside(w, GALL_ROW),
+  },
   // THE GOVERNOR's target is its needle's tip in the gap at the bottom of the
   // dial, four and a half rows under the hub, and a bolt is met past its far
   // edge (`governor-shot.ts`, `render/governor-shape.ts`).

@@ -85,7 +85,7 @@ export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>)
     stepTrapeze(world, boss);
     return;
   }
-  // THE GALL: shut beats counted, the jump, and the seam gone flat (`gall-step.ts`).
+  // THE GALL: a step's clock, a leap's landing, and the alien shot down (`gall-step.ts`).
   if (boss.kind === "gall") {
     stepGall(world, boss);
     return;

@@ -6,7 +6,7 @@ import { splinePath } from "./spline.js";
 
 /**
  * **THE GALL's geometry**: where the seam runs, where its four points sit,
- * and what the nodule on it is made of.
+ * the arc a leap flies, and what the nodule on it is made of.
  *
  * **The body is two drafts combined** (`tools/shape-sheet/src/drafts/`):
  * THE NEEDLE's straight corridor, barely bending (`systems.ts`, an arm 130
@@ -18,8 +18,7 @@ import { splinePath } from "./spline.js";
  * the whole body and not off a mark.
  *
  * Every nodule path is laid round the point's own middle at the origin; the
- * draw moves the canvas there, so the jump to another point is a translate
- * and nothing in between — the single frame §38 asks for.
+ * draw moves the canvas there, so a leap is a translate along `gallArcAt`.
  */
 
 /** The row the seam runs along, in tiles below the grid's top. */
@@ -33,8 +32,8 @@ const RIDGE_END = 0.07;
 /** NOTCH 2 at its own numbers, its half-width scaled to `HALF_W` tiles. */
 const NOTCH = { rx: 33, ry: 31, heel: 0.42 };
 const HALF_W = 0.82;
-/** The root's radius at its fullest, in tiles. */
-const ROOT = 0.36;
+/** How high a leap's arc is pulled, in tiles below the grid's top: up toward the top of the middle. */
+const APEX = 2.5;
 /** Samples along the seam, and round the nodule. */
 const ALONG = 28;
 const N = 48;
@@ -54,9 +53,26 @@ export function gallPoints(l: Layout, cfg: SimConfig): Point[] {
   return Array.from({ length: GALL_POINTS }, (_, p) => gallPointAt(l, cfg, p));
 }
 
-/** The root's middle: the seam over the middle column. */
-export function gallRootAt(l: Layout, cfg: SimConfig): Point {
+/** The seam over the middle column, where the bar between the two halves stands. */
+export function gallMidAt(l: Layout, cfg: SimConfig): Point {
   return { x: fieldX(l, midCol(cfg)), y: gallSeamY(l) };
+}
+
+/**
+ * Where a leap from point `from` to point `to` is, `t` of the way through it:
+ * a curve pulled up toward the top of the field's middle and down again —
+ * the way the pull threw it — eased so it hangs at the top.
+ */
+export function gallArcAt(l: Layout, cfg: SimConfig, from: number, to: number, t: number): Point {
+  const a = gallPointAt(l, cfg, from);
+  const b = gallPointAt(l, cfg, to);
+  const apex = { x: (a.x + b.x) / 2, y: l.gridTop + APEX * l.tile };
+  const u = Math.max(0, Math.min(1, t));
+  const v = 1 - u;
+  return {
+    x: v * v * a.x + 2 * u * v * apex.x + u * u * b.x,
+    y: v * v * a.y + 2 * u * v * apex.y + u * u * b.y,
+  };
 }
 
 /**
@@ -70,30 +86,10 @@ export function gallRipple(l: Layout, x: number, time: number, ripple: number): 
   return bend * REACH * l.tile * ripple;
 }
 
-/**
- * The raised seam, across the whole field: a ridge thickest in the middle
- * and thin at the ends, lifted by the ripple, and `part` of the way split
- * open over the root — nought one unbroken ridge, one its two lips peeled
- * back to show it.
- */
-export function gallSeamPath(l: Layout, time: number, ripple: number, part: number): Path2D {
+/** The raised seam, across the whole field: a ridge thickest in the middle and thin at the ends, lifted by the ripple. */
+export function gallSeamPath(l: Layout, time: number, ripple: number): Path2D {
   const x0 = l.gridLeft;
-  const w = l.cols * l.tile;
-  const mid = x0 + w / 2;
-  const p = new Path2D();
-  if (part <= 0.01) {
-    p.addPath(ridge(l, x0, x0 + w, time, ripple));
-    return p;
-  }
-  const gap = gallSeamGap(l, part);
-  p.addPath(ridge(l, x0, mid - gap, time, ripple));
-  p.addPath(ridge(l, mid + gap, x0 + w, time, ripple));
-  return p;
-}
-
-/** How far either lip stands back from the middle column with the seam `part` of the way peeled, in pixels. */
-export function gallSeamGap(l: Layout, part: number): number {
-  return part * ROOT * 1.6 * l.tile;
+  return ridge(l, x0, x0 + l.cols * l.tile, time, ripple);
 }
 
 /** One stretch of the ridge from `a` to `b`, closed round its own two edges. */
@@ -114,25 +110,18 @@ function ridge(l: Layout, a: number, b: number, time: number, ripple: number): P
   return splinePath([...top, ...bottom.reverse()], true);
 }
 
-/**
- * The seam's underside over screen `x`, as `ridge` lays it, or `null` past
- * its ends or in the gap it parts at over the root.
- */
-export function gallSeamFoot(
-  l: Layout,
-  x: number,
-  time: number,
-  ripple: number,
-  part: number,
-): number | null {
+/** The seam's underside over screen `x`, as `ridge` lays it, or `null` past its ends. */
+export function gallSeamFoot(l: Layout, x: number, time: number, ripple: number): number | null {
   const half = (l.cols * l.tile) / 2;
   const mid = l.gridLeft + half;
   const u = Math.abs(x - mid) / half;
   if (u > 1) return null;
-  if (part > 0.01 && Math.abs(x - mid) < gallSeamGap(l, part)) return null;
   const t = (RIDGE - (RIDGE - RIDGE_END) * u * u) * l.tile;
   return gallSeamY(l) + gallRipple(l, x, time, ripple) + t * 0.7;
 }
+
+/** How far above the seam the body's middle stands, in its own half-heights. */
+export const GALL_STANDS = 0.55;
 
 /** The nodule's half-width and half-height at its fullest, in pixels. */
 export function gallSize(l: Layout): { rx: number; ry: number } {
@@ -143,9 +132,9 @@ export function gallSize(l: Layout): { rx: number; ry: number } {
 /**
  * NOTCH 2's heeled mass, round its own middle: `lobes` lobes breathing on
  * `time`, heeled toward `bearing` (nought the right, π the left) by `heel` of
- * the draft's own, `size` of its fullest, and pressed `press` of the way —
- * squeezed across the way a press shuts it and pushed up out of the
- * seam — then `sunk` of the way down into it.
+ * the draft's own, `size` of its fullest, and wound `press` of the way —
+ * squeezed across and pushed up tall, the tension a tap stores — then
+ * `sunk` of the way down into the seam.
  */
 export function gallNodulePath(
   l: Layout,
@@ -172,9 +161,4 @@ export function gallNodulePath(
     pts.push({ x: Math.cos(a) * rx * m * across, y: y > 0 ? y * 0.35 : y });
   }
   return splinePath(pts, true);
-}
-
-/** The root's radius at its fullest, in pixels. */
-export function gallRootR(l: Layout): number {
-  return ROOT * l.tile;
 }

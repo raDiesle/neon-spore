@@ -52,7 +52,7 @@ export type ScriptedBossEntry =
   | HalterEntry
   // The one that authors leans and rubs as well as shots: a drum one seat rocks for the other (`capstan.ts`).
   | CapstanEntry
-  // The one that authors closes as well as shots: a nodule pinched where it sits and moved (`gall.ts`).
+  // The one that authors leaps as well as shots: an alien tapped, thrown to the other half and shot (`gall.ts`).
   | GallEntry
   // The one that authors levels of swipes and shots: a swing pushed higher until it kicks a gong (`trapeze.ts`).
   | TrapezeEntry

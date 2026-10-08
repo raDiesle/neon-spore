@@ -80,7 +80,7 @@ export function scriptedHandsHeard(world: World, commands: readonly TimedCommand
   // THE CAPSTAN's leans and rubs: the cradle rocking and a band cracking are
   // both the instant (`capstan-hand.ts`).
   for (const c of commands) capstanHeard(world, c.player, c.command);
-  // THE GALL's pinch: coming shut and widening back are the instant (`gall-hand.ts`).
+  // THE GALL's taps and pull, judged at the lift (`gall-hand.ts`).
   for (const c of commands) gallHeard(world, c.player, c.command);
   // THE TRAPEZE's swipes and lock, judged the instant they lift or land (`trapeze-hand.ts`),
   // and its swing moved after them, so a bolt meets the alien where it is (`trapeze-step.ts`).

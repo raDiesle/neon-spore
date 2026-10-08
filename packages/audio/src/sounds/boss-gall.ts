@@ -1,17 +1,15 @@
 /**
- * THE GALL's eleven, in a file of their own for `boss-gorge.ts`' reason.
+ * THE GALL's ten, in a file of their own for `boss-gorge.ts`' reason.
  *
- * The boss is **a soft nodule on a seam, pressed shut and moving**, and
- * everything here is wet and elastic: the enter is the seam rising, a low
- * swell under a damp hiss; the light is a step waking, one soft tick. The
- * press is the gall squeezed shut, a short squelch; the slip is it bulging
- * back out from under the finger, a rising puff. The close is the gall
- * popping loose and landing on another point, a pop and a soft knock, pitched
- * up per close; the swell is a window run out, the gall filling back. The
- * bare is the root showing, a hum with a glint; the hit is a shot into it, a
- * flash; the miss is the hull's dull strike; the flat is the seam smoothing
- * down, spent, and the out the field clearing. Low and soft under the band,
- * or short and high above it, as ever (`docs/spec/audio.md` §1).
+ * The boss is **a small creature charged by taps and thrown across the
+ * hull**, and everything here is wet and elastic: the enter is it dropping
+ * onto the seam, a low swell under a damp hiss; the light is a step waking,
+ * one soft tick. A tap is a short squelch, pitched up as the charge builds;
+ * a refused hand is a rising puff. The leap is it springing loose, a pop and
+ * a rush of air; the landing is a soft knock on the other half. The hit is a
+ * shot into it, a flash; the miss is the hull's dull strike; the flat is it
+ * dropping dead, and the out the field clearing. Low and soft under the
+ * band, or short and high above it, as ever (`docs/spec/audio.md` §1).
  */
 
 import { after, air, glint, noise, spore, sub, swell, thud, tick } from "../grain.js";
@@ -23,7 +21,7 @@ export const BOSS_GALL_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "A seam rising under the hull: a low swell under a damp hiss.",
     status: "bound",
-    use: "THE GALL arriving, slack on the seam's first point.",
+    use: "THE GALL arriving, dropping onto the seam's first point.",
     level: 0.42,
     layers: [
       swell(58, 1.0, 0.12),
@@ -33,63 +31,55 @@ export const BOSS_GALL_SOUNDS: SoundDef[] = [
   {
     id: "boss.gallLight",
     family: "boss",
-    blurb: "One soft tick: a step on the seam waking.",
+    blurb: "One soft tick: a step waking.",
     status: "bound",
-    use: "A step lit: the gall to press shut where it sits, or the root to shoot.",
+    use: "A step lit: THE GALL to tap and throw, or to shoot where it sits.",
     level: 0.34,
     layers: [tick(0.2, 0, 2700), after(0.06, tick(0.08, 0, 3100))],
   },
+
   {
-    id: "boss.gallPress",
+    id: "boss.gallTap",
     family: "boss",
-    blurb: "A short squelch: the gall squeezed shut.",
+    blurb: "A short squelch: the creature wound tighter by a tap.",
     status: "bound",
-    use: "The press on the gall's point came shut; the count of beats begins.",
+    use: "A tap charged THE GALL. Pitched up per tap, so the charge is heard building.",
     level: 0.32,
     layers: [spore(420, 0.12, 0.18, 40), after(0.02, thud(300, 180, 0.04, 0.08))],
   },
   {
-    id: "boss.gallSlip",
+    id: "boss.gallWhiff",
     family: "boss",
-    blurb: "A rising puff: the gall bulging back out from under the finger.",
+    blurb: "A rising puff: a hand the creature would not take.",
     status: "bound",
-    use: "The press lifted before the count was done; it starts again.",
+    use: "A tap or pull refused: the other half, an empty point, a pull too early, or the wrong way.",
     level: 0.3,
     layers: [air(500, 1400, 0.18, 0.1, 2)],
   },
   {
-    id: "boss.gallClose",
+    id: "boss.gallLeap",
     family: "boss",
-    blurb: "A pop and a soft knock: the gall closing and landing somewhere else.",
+    blurb: "A pop and a rush of air: the creature springing loose.",
     status: "bound",
-    use: "A close landed and the gall jumped; panned to where it landed. Pitched up per close.",
+    use: "A charged pull threw THE GALL toward the other half.",
     level: 0.42,
-    layers: [glint(1800, 0.12, 0.12), after(0.08, thud(260, 140, 0.05, 0.14))],
+    layers: [glint(1800, 0.12, 0.12), after(0.04, air(600, 2400, 0.4, 0.12, 1.5))],
   },
   {
-    id: "boss.gallSwell",
+    id: "boss.gallLand",
     family: "boss",
-    blurb: "A slow fill: the gall swelling back where it sits.",
+    blurb: "A soft knock: the creature coming down on the other half.",
     status: "bound",
-    use: "A close window ran out; the same close is asked again, the gall where it was.",
-    level: 0.34,
-    layers: [air(400, 900, 0.3, 0.1, 2), after(0.1, thud(170, 120, 0.05, 0.1))],
-  },
-  {
-    id: "boss.gallBare",
-    family: "boss",
-    blurb: "A low hum and a glint: the root showing.",
-    status: "bound",
-    use: "Three closes landed; the root lies bare to a shot.",
-    level: 0.44,
-    layers: [sub(64, 0.35, 0.16), after(0.04, glint(2200, 0.25, 0.12))],
+    use: "THE GALL landed; panned to where it landed, and the clock starts again.",
+    level: 0.4,
+    layers: [thud(260, 140, 0.05, 0.14), after(0.03, spore(300, 0.1, 0.12, 30))],
   },
   {
     id: "boss.gallHit",
     family: "boss",
-    blurb: "A flash: a bright ring and a knock into the root.",
+    blurb: "A flash: a bright ring and a knock into the creature.",
     status: "bound",
-    use: "A shot in the step's colour into the bared root. Pitched up per hit.",
+    use: "A shot in the step's colour into THE GALL where it sits. Pitched up per hit.",
     level: 0.44,
     layers: [glint(2800, 0.3, 0.18), after(0.02, thud(240, 115, 0.1, 0.22))],
   },
@@ -98,23 +88,23 @@ export const BOSS_GALL_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "The hull struck: a dull, heavy blow.",
     status: "bound",
-    use: "A fire step ran out unanswered and the hull took it.",
+    use: "A step ran out unanswered and the hull took it.",
     level: 0.46,
     layers: [thud(210, 95, 0.14, 0.34), after(0.05, sub(44, 0.45, 0.36))],
   },
   {
     id: "boss.gallFlat",
     family: "boss",
-    blurb: "The seam smoothing down: a low fall under a rising hiss.",
+    blurb: "The creature dropping dead: a low fall under a rising hiss.",
     status: "bound",
-    use: "Every step answered — the seam goes flat, spent.",
+    use: "Every step answered — THE GALL drops dead.",
     level: 0.46,
     layers: [sub(50, 0.7, 0.3), after(0.02, air(1200, 3200, 0.5, 0.14, 1.5))],
   },
   {
     id: "boss.gallOut",
     family: "boss",
-    blurb: "The flat seam sinking away, and the field clearing.",
+    blurb: "The dead creature sinking away, and the field clearing.",
     status: "bound",
     use: "THE GALL gone — then the wave-end light.",
     level: 0.5,

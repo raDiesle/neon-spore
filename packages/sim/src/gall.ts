@@ -3,57 +3,56 @@ import type { Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * THE GALL: a soft nodule riding a raised seam the width of the hull, closed
- * by a press and moved the instant a close lands (`docs/spec/bosses-
- * choreographed.md` §38).
+ * THE GALL: a small alien that leaps from one seat's half of the hull to the
+ * other's, charged by taps and thrown by a pull (`docs/spec/bosses-
+ * choreographed.md` §38, the owner's rework of 8 October 2026).
  *
- * **The rule is one sentence**: press the gall shut where it sits, and when
- * it jumps, find it and press it there.
+ * **The rule is one sentence**: tap it until it is charged, pull it up to
+ * throw it to your partner's side, and shoot it when it is lit.
  *
- * The seam has **four points**, and the gall sits on one. The two nearer the
- * left end are the pilot's to press and the two nearer the right the
- * navigator's — geometry says whose, THE VISE's rule — and both screens show
- * the gall where it is, because finding it is the whole difficulty rather
- * than a secret one seat keeps. What a finger sends is a **press**, held down
- * on the nodule — THE VISE's two-finger pinch until 7 October 2026, when the
- * owner swapped it for one pointer a desk can make — with the point it went
- * down on as its `id`: a press counts only on the point the gall is on, so a
- * press left where the gall was never follows it.
+ * The field has **four points** it can sit on. The two nearer the left end
+ * are the pilot's and the two nearer the right the navigator's — geometry
+ * says whose, THE VISE's rule — and both screens show it where it is.
  *
- * A close step counts the beats the gall is held shut; a lift before they
- * run out starts the count again, and a window run out is
- * tried again with the gall where it was. A close landed **jumps the gall** to
- * one of the other three points, drawn off the seeded `Rng`. Three closes
- * spend it and bare its root.
+ * **A leap step** asks the seat whose half it sits on to tap it `taps` times,
+ * each tap winding it tighter, and then to **pull** — a press on it dragged
+ * up toward the middle of the field. A pull before it is charged is refused
+ * aloud. A pull charged throws it: it flies for `gallLeapBeats` under THE
+ * SLOW, and lands on a point of the other half drawn off the seeded `Rng`.
  *
- * **Its health is three closes and one shot**: the spent gall's root is shot
- * in its colour, and a shot that runs out is a hull hit, which is the wave.
+ * **Every landing starts the clock again**: a step's `beats` count from the
+ * beat it lit, which is the beat the alien landed, and a step run out is the
+ * hull — one miss loses the wave, so the clock is short (the owner, 8
+ * October 2026: *it should have much less time available*).
+ *
+ * **A fire step** lights the alien where it landed: the cannon is slid under
+ * it and the bolt is its colour. Its health is the fire steps in the script,
+ * one limb a shot.
  */
 
-/** Points along the seam the gall can sit on — a figure of the silhouette, `SEAM_POINTS`' reason. */
+/** Points the alien can sit on — two to each seat's half. */
 export const GALL_POINTS = 4;
 
-/** Closes that spend the gall. */
-export const GALL_CLOSES = 3;
-
 /**
- * Where the scene is: the gall slack on the seam before anything is asked,
- * a step lit and waiting, the seam resting between steps, and the root shot
- * and the seam smoothed flat.
+ * Where the scene is: the alien dropping in before anything is asked, a step
+ * lit and waiting, the alien in the air between two halves, a rest after a
+ * shot, and the alien shot down for good.
  */
-export const GALL_PHASES = ["slack", "lit", "rest", "flat"] as const;
+export const GALL_PHASES = ["slack", "lit", "leap", "rest", "flat"] as const;
 export type GallPhase = (typeof GALL_PHASES)[number];
 
-/** What a step asks: the gall pressed shut where it sits, or a shot at the bared root. */
-export const GALL_ASKS = ["close", "fire"] as const;
+/** What a step asks: the alien tapped and thrown, or shot where it sits. */
+export const GALL_ASKS = ["leap", "fire"] as const;
 export type GallAsk = (typeof GALL_ASKS)[number];
 
 /** One step of the script, authored on the wave. */
 export interface GallStep {
   ask: GallAsk;
+  /** Taps that charge it before a pull throws it. Only a leap step reads it. */
+  taps: number;
   /** The colour a shot must be, or `"either"`. Only a fire step reads it. */
   color: Color | "either";
-  /** Beats the step stays lit: a close's window, a fire step's wait for its shot. */
+  /** Beats the step stays lit from the landing: the whole of the pair's time. */
   beats: number;
 }
 
@@ -72,21 +71,18 @@ export interface GallState {
   phaseBeat: number;
   /** The step lit, or the next to light. */
   cursor: number;
-  /** The point on the seam the gall sits on, nought at the left end up to `GALL_POINTS - 1`. */
+  /** The point the alien sits on — or, in the air, is landing on — nought at the left end. */
   point: number;
-  /** Closes landed: nought up to `GALL_CLOSES`. */
-  closes: number;
-  /** Shots the root has taken. */
+  /** The point it left on its last leap; its own point before it has leapt. */
+  from: number;
+  /** Taps the lit leap step has had. */
+  taps: number;
+  /** Leaps landed. */
+  leaps: number;
+  /** Shots the alien has taken. */
   hits: number;
-  /** Whether the root lies bare to be shot. */
-  bared: boolean;
-  /**
-   * How far the gall's lips stand open on its point, in thousandths of a
-   * tile: nought while a press holds it shut, `gallOpenMilli` with none.
-   */
-  gapMilli: number;
-  /** Beats of the lit close its gap has been kept shut. */
-  heldBeats: number;
+  /** The point each seat's finger is down on, nought for the pilot, or -1 with none. */
+  down: [number, number];
 }
 
 export function gallBoss(world: World): GallState | null {
@@ -99,52 +95,48 @@ export function gallLitStep(s: GallState): GallStep | null {
   return s.phase === "lit" ? (s.steps[s.cursor] ?? null) : null;
 }
 
-/** Whether the lit step is a close. */
-export function gallClosing(s: GallState): boolean {
-  return gallLitStep(s)?.ask === "close";
+/** Whether the lit step is a leap. */
+export function gallLeaping(s: GallState): boolean {
+  return gallLitStep(s)?.ask === "leap";
+}
+
+/** Whether the lit leap has had its taps and wants the pull. */
+export function gallCharged(s: GallState): boolean {
+  const step = gallLitStep(s);
+  return step?.ask === "leap" && s.taps >= step.taps;
 }
 
 /**
- * The column a point on the seam stands over: the four spread evenly across
- * the hull, mirrored about its middle, so the pilot's two and the navigator's
- * two are as far from their own ends.
+ * The column a point stands over: the four spread evenly across the hull,
+ * mirrored about its middle, so the pilot's two and the navigator's two are
+ * as far from their own ends.
  */
 export function gallPointCol(cfg: Pick<SimConfig, "cols">, point: number): number {
   return Math.floor(((2 * point + 1) * cfg.cols) / (2 * GALL_POINTS));
 }
 
-/** The seat nearer a point on the seam: the pilot's the left half, the navigator's the right. */
+/** The seat nearer a point: the pilot's the left half, the navigator's the right. */
 export function gallSeatAt(point: number): 1 | 2 {
   return point < GALL_POINTS / 2 ? 1 : 2;
 }
 
-/** The seat nearer the gall where it sits now: the one whose press closes it. */
+/** The seat whose half the alien sits on: the one whose taps and pull it answers. */
 export function gallPresser(s: GallState): 1 | 2 {
   return gallSeatAt(s.point);
 }
 
-/** Whether the gall's point asks a seat's press, nought for the pilot: a close lit, and the gall on that seat's half. */
+/** Whether the alien asks a seat's hand, nought for the pilot: a leap lit, and it on that seat's half. */
 export function gallPointAsks(s: GallState, side: 0 | 1): boolean {
-  return gallClosing(s) && gallPresser(s) === side + 1;
+  return gallLeaping(s) && gallPresser(s) === side + 1;
 }
 
-/** Whether the root asks for a shot: a fire step lit with the root bared. */
-export function gallRootAsks(s: GallState): boolean {
-  return s.bared && gallLitStep(s)?.ask === "fire";
+/** Whether the alien asks for a shot: a fire step lit. */
+export function gallShotAsks(s: GallState): boolean {
+  return gallLitStep(s)?.ask === "fire";
 }
 
-/** Whether the gall is pressed shut this instant. */
-export function gallShut(world: World, s: GallState): boolean {
-  return s.gapMilli <= world.cfg.gallShutMilli;
-}
-
-/** The root shot and the seam flat: the fight is over. */
-export function gallDone(s: GallState): boolean {
-  return s.phase === "flat";
-}
-
-/** A fresh gall: slack on the seam's first point, unclosed, no press on it. */
-export function freshGall(beat: number, steps: readonly GallStep[], openMilli: number): GallState {
+/** A fresh alien: dropping in on the first point, untapped, no finger on it. */
+export function freshGall(beat: number, steps: readonly GallStep[]): GallState {
   return {
     kind: "gall",
     steps: steps.map((step) => ({ ...step })),
@@ -152,10 +144,10 @@ export function freshGall(beat: number, steps: readonly GallStep[], openMilli: n
     phaseBeat: beat,
     cursor: 0,
     point: 0,
-    closes: 0,
+    from: 0,
+    taps: 0,
+    leaps: 0,
     hits: 0,
-    bared: false,
-    gapMilli: openMilli,
-    heldBeats: 0,
+    down: [-1, -1],
   };
 }

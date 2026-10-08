@@ -92,15 +92,14 @@ export const SILENT_BOSS_D = [
   "capstanMiss",
   "capstanOpen",
   "capstanOut",
-  // THE GALL's eleven, no burst from this table: each is thrown above the
+  // THE GALL's ten, no burst from this table: each is thrown above the
   // loop by its own fx file (`gall-fx.ts`).
   "gallEnter",
   "gallLight",
-  "gallPress",
-  "gallSlip",
-  "gallClose",
-  "gallSwell",
-  "gallBare",
+  "gallTap",
+  "gallWhiff",
+  "gallLeap",
+  "gallLand",
   "gallHit",
   "gallMiss",
   "gallFlat",

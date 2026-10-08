@@ -131,7 +131,7 @@ export const BOSS_MECHANICS_B = {
     reach: "spawn",
   },
   gall: {
-    what: "Press and hold the gall where it sits, on your half. It jumps: call its number and press it there. Three closes bare the root. Shoot it in its colour.",
+    what: "Tap the alien on your half, then pull it up. It jumps to your partner's half and the clock starts again. Shoot it when it glows.",
     reach: "spawn",
   },
   trapeze: {

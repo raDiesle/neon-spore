@@ -25,18 +25,17 @@ export const HURT_ROWS_C: Row[] = [
   },
   {
     boss: "gall",
-    // A close landed and the root hit; a pinch come shut, a slip or a swell only works toward one.
+    // A leap thrown and a hit landed; a light, a tap or a landing only works toward one.
     land: [
-      { type: "gallClose", from: 0, to: 2, closes: 1, col: 3 },
+      { type: "gallLeap", from: 0, to: 2, leaps: 1, col: 3 },
       { type: "gallHit", hits: 1, col: 3 },
     ],
     part: [
-      { type: "gallLight", ask: "close", point: 0, col: 0 },
-      { type: "gallPress", point: 0, col: 0 },
-      { type: "gallSlip", point: 0, col: 0 },
-      { type: "gallSwell", point: 0, col: 0 },
+      { type: "gallLight", ask: "leap", point: 0, col: 0 },
+      { type: "gallTap", point: 0, taps: 1, need: 3, col: 0 },
+      { type: "gallLand", point: 2, col: 3 },
     ],
-    hit: "every close and every root shot is landed",
+    hit: "every leap and every shot is landed",
     hurt: (fx) => fx.boss.gall.hurt,
   },
   {

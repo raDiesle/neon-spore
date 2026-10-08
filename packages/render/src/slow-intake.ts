@@ -1,4 +1,4 @@
-import { instarBoss, type World } from "@neon-spore/sim";
+import { instarBoss, MILLI, type World } from "@neon-spore/sim";
 import { instarMarksUp } from "./instar-marks.js";
 import { drawCrawl } from "./slow-crawl.js";
 import { drawFuse } from "./slow-fuse.js";
@@ -40,6 +40,11 @@ import { drawPrism } from "./slow-prism.js";
  * may have to read under pressure, and light added over a measure is a measure
  * that got harder to count.
  *
+ * **A window at the ordinary pace is a fuse and no light.** THE GALL opens
+ * one for every step it lights (`sim/gall-step.ts`): the owner, 8 October
+ * 2026, wanted the timer while the alien sits and the slow only while it
+ * leaps, so nothing slowed is nothing lit.
+ *
  * **It ends.** Four tenths of a second of fade at each end, spent inside the
  * window, so the light arrives from nothing and is gone on the beat the game
  * comes back up to speed rather than being at its loudest then
@@ -47,7 +52,7 @@ import { drawPrism } from "./slow-prism.js";
  */
 export const intakeWindow: SlowLook["paint"] = (ctx, l, world, view, win) => {
   const at = aim(world, l, world.beat, view.beatPhase);
-  const up = ramp(win, world);
+  const up = world.slowPaceMilli < MILLI ? ramp(win, world) : 0;
   if (up > 0) {
     drawPrism(ctx, l, at, up, win);
     drawCrawl(ctx, l, at, up, win);

@@ -60,18 +60,17 @@ export const CHOREO_NOTES_D = {
     "middle and the rub a thumb on either end (render/capstan-grip.ts) — see " +
     "sim/capstan.ts, sim/capstan-step.ts, sim/capstan-hand.ts, " +
     "sim/capstan-shot.ts, sim/config-capstan.ts.",
-  "THE GALL — the boss that moves the moment it is closed":
-    "Asked for in docs/spec/bosses-choreographed.md §38: a soft nodule on a " +
-    "seam across the hull, sitting on one of four points. The seat nearer " +
-    "it presses it — one finger held down, the point as the press's id — " +
-    "and keeps it shut for gallShutBeats; a press on " +
-    "any other point is on bare seam. A close landed jumps it to another " +
-    "point, drawn off the seeded Rng. Three closes bare the root, shot in " +
-    "its colour. A close window run out is tried again with the gall where " +
-    "it was; a fire step run out is a hull hit, which is the wave. Nothing " +
-    "on the phone sends a press here yet. Only the simulation lane has " +
-    "landed — see sim/gall.ts, sim/gall-step.ts, sim/gall-hand.ts, " +
-    "sim/gall-shot.ts, sim/config-gall.ts.",
+  "THE GALL — the alien tapped, pulled and thrown across the hull":
+    "Asked for in docs/spec/bosses-choreographed.md §38, reworked by the " +
+    "owner on 8 October 2026: a small alien on a seam across the hull, below " +
+    "the middle, sitting on one of four points. The seat whose half it is on " +
+    "taps it a leap's taps, then pulls it up toward the top of the field, " +
+    "gallPullMilli or more; it flies for gallLeapBeats under THE SLOW and " +
+    "lands on a point of the other half, drawn off the seeded Rng, where the " +
+    "next step's clock starts. A fire step lights it in a colour, shot in its " +
+    "column. Any step run out is a hull hit, which is the wave — see " +
+    "sim/gall.ts, sim/gall-step.ts, sim/gall-hand.ts, sim/gall-shot.ts, " +
+    "sim/config-gall.ts.",
   "THE TRAPEZE — an alien swung up to a gong":
     "Reworked by the owner, 7 October 2026 (docs/spec/bosses-choreographed.md " +
     "§39): an alien on a swing hung from long ropes, trapezeRopeMilli from " +

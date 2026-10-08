@@ -1,31 +1,29 @@
 /**
- * THE GALL's tuning: the beats around its steps, how wide the gall stands
- * open and how shut a press holds it, and how long it must be kept shut to close
+ * THE GALL's tuning: the beats around its steps, how long a leap is in the
+ * air, and how far a hand must move to be a pull rather than a tap
  * (`docs/spec/bosses-choreographed.md` §38).
  *
- * What is **not** here is the script — which step asks what, in which colour,
- * for how many beats: that is the wave's, authored on its entry.
+ * What is **not** here is the script — which step asks what, how many taps,
+ * in which colour, for how many beats: that is the wave's, authored on its
+ * entry.
  */
 export interface GallConfig {
-  /** Beats the gall sits slack on the seam before the first step lights. */
+  /** Beats the alien takes dropping in before the first step lights. */
   gallSlackBeats: number;
-  /** Beats the seam rests after a step before the next lights. */
+  /** Beats it rests after a shot before the next step lights. */
   gallRestBeats: number;
-  /** Beats a press must be kept shut on the gall's point to close it. */
-  gallShutBeats: number;
-  /** How far the gall stands open with no press on it, in thousandths of a tile. */
-  gallOpenMilli: number;
-  /** The gap at or under which the gall counts as shut, in thousandths of a tile; a press holds it at nought. */
-  gallShutMilli: number;
-  /** Beats the flat seam stands with the root shot before the wave may end. */
+  /** Beats a leap is in the air, under THE SLOW, before it lands and the next step lights. */
+  gallLeapBeats: number;
+  /** How far up a hand must be dragged before its lift is a pull, in thousandths of a tile. */
+  gallPullMilli: number;
+  /** Beats it stands shot down before the wave may end. */
   gallFlatBeats: number;
 }
 
 export const GALL_DEFAULTS: GallConfig = {
   gallSlackBeats: 2,
   gallRestBeats: 1,
-  gallShutBeats: 2,
-  gallOpenMilli: 3000,
-  gallShutMilli: 800,
+  gallLeapBeats: 2,
+  gallPullMilli: 1200,
   gallFlatBeats: 2,
 };

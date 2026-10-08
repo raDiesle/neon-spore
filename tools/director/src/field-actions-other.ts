@@ -140,7 +140,6 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
         rows: [
           "THE VISE'S LEFT LOBE",
           "THE VISE'S RIGHT LOBE",
-          "THE GALL'S PRESS",
           "THE CYST'S LEFT FLANK",
           "THE CYST'S RIGHT FLANK",
         ],
@@ -177,7 +176,12 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
         suggest:
           "Keep specific: these are scripts, not verbs. Each step should use the " +
           "generic control it borrows, once that exists.",
-        rows: ["THE INSTAR'S MARKS", "THE MIRROR'S LOBES", "THE QUEEN'S MARKS"],
+        rows: [
+          "THE INSTAR'S MARKS",
+          "THE MIRROR'S LOBES",
+          "THE QUEEN'S MARKS",
+          "THE GALL'S TAPS AND PULL",
+        ],
       },
     ],
   },

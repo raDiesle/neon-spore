@@ -13,7 +13,9 @@ import { capstanArrived, capstanGone, capstanTurn } from "./capstan-pose.js";
 import { capstanAt, capstanOnScreen, capstanPivot, capstanSize } from "./capstan-shape.js";
 import { type Box, sides, spread } from "./caption-anchor-box.js";
 import { flueCentre, flueUnitR } from "./flue-shape.js";
-import { gallSeamY, gallSize } from "./gall-shape.js";
+import { gallPointCircle } from "./gall-grip.js";
+import { gallFlight } from "./gall-pose.js";
+import { gallArcAt, gallSize } from "./gall-shape.js";
 import { governorStanding, governorSwing } from "./governor-pose.js";
 import { ballR, flyweightAt, headAt, rimDepth } from "./governor-shape.js";
 import { halterArrived } from "./halter-pose.js";
@@ -97,13 +99,19 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
         0,
       );
     }
-    // The seam from one side of the field to the other, as tall as the nodule
-    // riding it stands up out of it.
+    // The alien where it is this frame: in the air on its leap, which is the
+    // one window THE SLOW lights round it (the owner, 8 October 2026), and on
+    // its point while a step's fuse burns under it.
     case "gall": {
-      if (gallBoss(world) === null) return null;
-      const y = gallSeamY(l);
-      const reach = gallSize(l).ry * GALL_STANDS;
-      return capsule(sides(l.gridLeft, l.gridLeft + l.cols * l.tile, y - reach, y + reach));
+      const s = gallBoss(world);
+      if (s === null) return null;
+      const t = gallFlight(s, cfg, beat, beatPhase);
+      const at =
+        t === null
+          ? gallPointCircle(l, cfg, s.point)
+          : { ...gallArcAt(l, cfg, s.from, s.point, t), r: gallSize(l).rx };
+      const { rx, ry } = gallSize(l);
+      return capsule(sides(at.x - rx, at.x + rx, at.y - ry * GALL_REACH, at.y + ry * GALL_REACH));
     }
     // The flue from one side of the field to the other, with the scale and
     // the card under the sight (`flue-scale.ts`, `flue-card.ts`) — and all of it
@@ -167,10 +175,9 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
   }
 }
 
-/** How far THE GALL's nodule stands above the seam, in its own half-heights:
- * risen a little over half of one, and its crown a whole one above that
- * (`gall-draw.ts`'s `lift`). */
-const GALL_STANDS = 1.6;
+/** How far THE GALL's body reaches above and below its middle, in its own
+ * half-heights: wound tall by its taps (`gall-shape.ts`' `press`). */
+const GALL_REACH = 1.4;
 
 /** How far THE FLUE's marks stand off its row, in tiles: the card and the
  * strings over it, the scale under the sight and the words over

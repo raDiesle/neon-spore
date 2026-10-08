@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, midCol } from "../src/config.js";
 import { playDifficulty } from "../src/difficulty.js";
+import { gallPointCol } from "../src/gall.js";
 import { step } from "../src/index.js";
 import { leadAim, leadBoss } from "../src/lead.js";
 import { shotLeaves } from "../src/shot-out.js";
@@ -81,7 +82,6 @@ describe("a bolt out of the top on HARD, under a boss", () => {
   const CORED: Record<string, () => World> = {
     capstan: () => capstan.install(),
     cyst: () => cyst.install(),
-    gall: () => gall.install(),
     governor: () => governor.install(),
     grindstone: () => grindstone.install(),
     halter: () => halter.install(),
@@ -150,6 +150,16 @@ describe("a bolt out of the top on HARD, under a boss", () => {
       expect(out).not.toContain(MID);
     });
   }
+
+  // THE GALL sits on a point of either half, not over the middle, since its
+  // rework of 8 October 2026: only its own column meets it.
+  it("gall: the alien's column is armour, every other column is sky", () => {
+    const make = () => gall.install();
+    const s = make().boss;
+    if (s?.kind !== "gall") throw new Error("no gall");
+    const at = gallPointCol(DEFAULT_CONFIG, s.point);
+    expect(lost(make)).toEqual(everyColumn.filter((col) => col !== at));
+  });
 
   it("curtain: the fabric is on the field, so up here only the core's column meets it", () => {
     const make = bare("curtain");

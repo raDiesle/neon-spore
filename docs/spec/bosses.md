@@ -10607,6 +10607,37 @@ simulation is.
 
 ## 11.55 THE GALL — the boss that moves the moment it is closed
 
+**Reworked by the owner, 8 October 2026 — this block stands over
+everything below it, which is the design it replaced.** *Nothing happens if
+i hold it … i expected i have to drag it up like pull in direction of
+center, so it is thrown to other side and then lands randomly on … other
+player.* What the game does now:
+
+- **A small alien on the seam, below the middle** (`core-along.ts`'s
+  `GALL_ROW`, 8.5 of 15 rows), on one of four points. Both screens draw it.
+- **A leap step: tap, then pull.** The seat whose half it is on taps it the
+  step's `taps` times (a lift within half of `gallPullMilli` of where it went
+  down), and then pulls it up toward the top middle, `gallPullMilli` or more,
+  more up than across. A pull before the taps are in, a drag any other way,
+  a hand from the other half or on an empty point is refused (`gallWhiff`).
+- **It leaps** for `gallLeapBeats` under THE SLOW, which shows and never
+  asks (no fuse), and **lands on a random point of the other half**, off the
+  seeded `Rng`. The next step lights on landing with a fresh clock.
+- **The clock is the fuse, at the ordinary pace**: a lit step opens an
+  asking window at `MILLI`, so the fuse burns and nothing slows. The windows
+  are short (four to six beats) and shrink through the wave.
+- **A fire step lights the alien in a colour**, shot in its own column. A hit
+  costs it a lobe and a sixth of its size.
+- **Any step run out strikes the hull**, which is the wave.
+- **Nothing round the alien counts down**: the press ring and its chevrons
+  are gone, the owner's *we already have generic timer*.
+- **Three levels in the wave** (`act-13.ts`): three taps and long windows,
+  then more taps and shorter ones, then up to seven taps in four beats, each
+  closed by a fire step (red, cyan, either).
+
+The look — a small scary jumping sci-fi alien in place of the nodule — is
+the owner's ask of the same day and a lane of its own.
+
 > A soft nodule on a raised seam across the hull. The seat nearer it
 > presses it shut and holds it shut; the instant it closes it jumps to
 > another point on the seam, for whichever seat is nearer there. Three
@@ -10716,7 +10747,7 @@ middle column through the rest, and the view is into the hull, at the root
 the growth was hiding — soft and dull, three tendrils going down, lit in
 the fire step's colour with a ring closing as its window runs, and smaller
 and brighter per hit (`coreHurt`). Shot, the seam closes over it and
-smooths flat and fades. **The marks say which gesture** (`gall-marks.ts`):
+smooths flat and fades. **The marks say which gesture** (`gall-marks.ts`, gone with the rework):
 two chevrons pointing in at the nodule from either side, closing as the
 press takes it, glowing and breathing with a window ring round them **on the
 screen of the seat whose half the gall is on**, and a faint plain line with

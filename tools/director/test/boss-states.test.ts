@@ -37,7 +37,7 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   cyst: ["still", "lit", "frozen", "rest", "split"],
   halter: ["alarmed", "lit", "pause", "spent"],
   capstan: ["rusted", "lit", "rest", "open"],
-  gall: ["slack", "lit", "rest", "flat"],
+  gall: ["slack", "lit", "leap", "rest", "flat"],
   trapeze: ["rest", "spent"],
   flue: ["slack", "lit", "rest", "spent"],
   governor: ["slack", "lit", "rest", "spent"],

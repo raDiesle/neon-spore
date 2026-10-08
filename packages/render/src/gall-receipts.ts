@@ -9,59 +9,19 @@ import { PALETTE, STROKE } from "./palette.js";
 
 /**
  * **What THE GALL's receipts are drawn as**, off the numbers `gall-fx.ts`
- * keeps: the ghost a close leaves on the point it jumped off, the fibres
- * across the split as the root is bared, and the root's flash on a hit. The
- * tear and the flash are laid round the root's own middle, the draw moving
- * the canvas there. The nodule's own flare, shudder and bulge are its body
- * drawn differently, so they stay in `gall-draw.ts`.
+ * keeps: the ghost a leap leaves on the point it jumped off, and the flash on
+ * a hit, laid round the body's own middle, the draw moving the canvas there.
+ * Its own flare, shudder and bulge are its body drawn differently, so they
+ * stay in `gall-draw.ts`.
  */
 
-/** How far a close's ghost rises off the point it left, in tiles, and how much it spreads. */
+/** How far a leap's ghost rises off the point it left, in tiles, and how much it spreads. */
 const PUFF_RISE = 0.7;
 const PUFF_SPREAD = 0.5;
 
-/** Fibres across the split: their heights on the seam, in tiles, and how far toward the middle each reaches before it snapped. */
-const FIBRES = [
-  { y: -0.16, reach: 0.8 },
-  { y: -0.05, reach: 0.65 },
-  { y: 0.06, reach: 0.9 },
-  { y: 0.14, reach: 0.72 },
-];
-
 /**
- * The seam's lips tearing apart: fibres of its flesh strung from each lip
- * `gap` pixels out toward the middle, nearly meeting as the lips part and
- * snapping back to the lips as `tear` runs down to nought.
- */
-export function drawGallTear(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  gap: number,
-  tear: number,
-): void {
-  if (tear <= 0 || gap <= 0) return;
-  ctx.save();
-  ctx.lineCap = "round";
-  ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = rgba(PALETTE.gallFleshDark, 0.9 * Math.min(1, tear * 2));
-  // Each fibre snapped at its own place, so the torn ends never line up.
-  for (const f of FIBRES) {
-    const y = f.y * l.tile;
-    const reach = gap * tear * f.reach;
-    for (const side of [-1, 1] as const) {
-      const lip = side * gap;
-      ctx.beginPath();
-      ctx.moveTo(lip, y);
-      ctx.quadraticCurveTo(lip - side * reach * 0.5, y + 0.06 * l.tile, lip - side * reach, y);
-      ctx.stroke();
-    }
-  }
-  ctx.restore();
-}
-
-/**
- * The root hit: a white flash over it, wider for every hit, and the red of
- * the blow every boss takes over its face while `hurt` lasts.
+ * A hit: a white flash over it, wider for every hit, and the red of the blow
+ * every boss takes over its face while `hurt` lasts.
  */
 export function drawGallFlash(
   ctx: CanvasRenderingContext2D,
@@ -84,22 +44,21 @@ export function drawGallFlash(
 }
 
 /**
- * The ghost a close leaves on the point the gall jumped off: the nodule as it
- * was, rising off the seam, spreading and fading — a moment of *it was here*
- * against the single frame the jump itself is.
+ * The ghost a leap leaves on the point it jumped off: the body as it was,
+ * rising off the seam, spreading and fading — a moment of *it was here*.
  */
 export function drawGallPuff(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   cfg: SimConfig,
-  puff: { now: number; point: number; closes: number },
+  puff: { now: number; point: number; hits: number },
   time: number,
   ripple: number,
 ): void {
   if (puff.now <= 0) return;
   const at = gallPointAt(l, cfg, puff.point);
   const gone = 1 - puff.now;
-  const was = { closes: puff.closes };
+  const was = { hits: puff.hits };
   ctx.save();
   ctx.translate(at.x, at.y + gallRipple(l, at.x, time, ripple) - PUFF_RISE * l.tile * gone);
   const ghost = gallNodulePath(l, {

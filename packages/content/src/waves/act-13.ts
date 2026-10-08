@@ -21,11 +21,12 @@ import type { Wave } from "../wave-types.js";
  * right the navigator's; after the bare, a hold takes either way round. Three
  * shots at the core, the last one white.
  *
- * **THE GALL is the first boss that moves when it is answered.** A soft
- * nodule on a raised seam across the hull: the seat nearer it presses it
- * shut and holds it shut, and the instant it closes it jumps to another of
- * the seam's four points, for whichever seat is nearer there (§38,
- * `sim/gall.ts`). Three closes bare the root, and one shot in red ends it.
+ * **THE GALL is the first boss the pair throw to each other.** A small
+ * alien sits on one seat's half of the hull: that seat taps it until it is
+ * charged and pulls it up, and it leaps to a point on the other half, where
+ * the clock starts again (§38, `sim/gall.ts`, the owner's rework of 8
+ * October 2026). Three levels, each more taps on a shorter clock, each ended
+ * by a shot at the alien where it landed: red, cyan, then either.
  *
  * **THE TRAPEZE is the first boss the pair swings up.** An alien sits on a
  * swing hung from long ropes over the middle; the pair push it as it comes
@@ -102,18 +103,25 @@ export const WAVES_ACT_13: Wave[] = [
     id: "theGall",
     name: "THE GALL",
     guide: {
-      both: "Press and hold the gall where it sits, on your half. It jumps: call its number and press it there. Three closes bare the root. Shoot it in its colour.",
-      p1: "1. The gall starts on your half, 1 and 2. Press it and hold until it jumps.\n2. Call its number. Press it again when it is on 1 or 2.\n3. After three closes, move the cannon to the middle.",
-      p2: "1. When the gall jumps to your half, 3 and 4, press it and hold until it jumps.\n2. Call its number.\n3. After three closes, shoot the root in its colour.",
+      both: "Tap the alien on your half until it shakes. Then pull it up. It jumps to your partner's half. Shoot it when it glows.",
+      p1: "1. It starts on your half. Tap it, then pull it up.\n2. When it lands on your half, do it again.\n3. When it glows, move the cannon under it.",
+      p2: "1. When it lands on your half, tap it, then pull it up.\n2. Be fast. Every landing starts the clock.\n3. When it glows, shoot it in its colour.",
     },
     entries: [],
     boss: {
       kind: "gall",
       steps: [
-        { ask: "close", color: "either", beats: 6 },
-        { ask: "close", color: "either", beats: 5 },
-        { ask: "close", color: "either", beats: 5 },
-        { ask: "fire", color: "red", beats: 6 },
+        { ask: "leap", taps: 3, color: "either", beats: 6 },
+        { ask: "leap", taps: 3, color: "either", beats: 5 },
+        { ask: "fire", taps: 0, color: "red", beats: 6 },
+        { ask: "leap", taps: 4, color: "either", beats: 5 },
+        { ask: "leap", taps: 5, color: "either", beats: 5 },
+        { ask: "leap", taps: 5, color: "either", beats: 4 },
+        { ask: "fire", taps: 0, color: "cyan", beats: 6 },
+        { ask: "leap", taps: 6, color: "either", beats: 4 },
+        { ask: "leap", taps: 6, color: "either", beats: 4 },
+        { ask: "leap", taps: 7, color: "either", beats: 4 },
+        { ask: "fire", taps: 0, color: "either", beats: 6 },
       ],
     },
     bossType: "normal",

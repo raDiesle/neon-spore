@@ -1,8 +1,16 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
-import { capstanBoss, createWorld, sceneBoss, startWave, type World } from "@neon-spore/sim";
+import {
+  capstanBoss,
+  createWorld,
+  gallBoss,
+  sceneBoss,
+  startWave,
+  type World,
+} from "@neon-spore/sim";
 import { capstanCentre, capstanPivot, capstanSize } from "../src/capstan-shape.js";
-import { gallSeamY } from "../src/gall-shape.js";
+import { gallPointCircle } from "../src/gall-grip.js";
+import { gallArcAt } from "../src/gall-shape.js";
 import { halterCentre, halterSize } from "../src/halter-shape.js";
 import { instarAt, instarLen } from "../src/instar-place.js";
 import { computeLayout } from "../src/layout.js";
@@ -18,7 +26,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * **THE SLOW's light stands round the bosses on page four**
  * (`slow-boss-aim-d.ts`): five that opened windows that ask and were aimed at
  * the cannon on the hull until 27 September 2026, THE NETTLE once its body
- * was drawn. Each is held to the body its
+ * was drawn. THE GALL's alien sits below the middle since 8 October 2026, so
+ * it is held to its point and its arc rather than to the top. Each is held to the body its
  * own shape file names — its box holds the body, and stands well clear of the
  * hull — rather than to its own arithmetic again.
  */
@@ -41,7 +50,7 @@ function settled(kind: Parameters<typeof waveWith>[0]) {
 }
 
 describe("THE SLOW's aim at the bosses on page four", () => {
-  it.each(["seam", "halter", "capstan", "gall", "nettle"] as const)(
+  it.each(["seam", "halter", "capstan", "nettle"] as const)(
     "stands round THE %s, not the cannon, and leaves the hull a gap",
     (kind) => {
       const box = settled(kind);
@@ -82,11 +91,34 @@ describe("THE SLOW's aim at the bosses on page four", () => {
     expect(at().left).not.toBeCloseTo(still.left, 1);
   });
 
-  it("runs THE GALL's seam from one side of the field to the other", () => {
-    const box = settled("gall");
-    expect(box.left).toBeCloseTo(L.gridLeft, 5);
-    expect(box.right).toBeCloseTo(L.gridLeft + L.cols * T, 5);
-    expect((box.top + box.bottom) / 2).toBeCloseTo(gallSeamY(L), 5);
+  it("stands round THE GALL's alien where it sits, below the middle, clear of the hull", () => {
+    const world = stood("gall");
+    const s = gallBoss(world);
+    if (s === null) throw new Error("the gall wave stood no alien");
+    const box = bodyBox(aim(world, L, world.beat + 1_000, 0));
+    const at = gallPointCircle(L, CFG, s.point);
+    expect(box.left).toBeLessThan(at.x);
+    expect(box.right).toBeGreaterThan(at.x);
+    expect(box.top).toBeLessThan(at.y);
+    expect(box.bottom).toBeGreaterThan(at.y);
+    expect(box.bottom).toBeLessThan(L.hullY - 2 * T);
+  });
+
+  it("goes with THE GALL's alien along its arc while it leaps", () => {
+    const world = stood("gall");
+    const s = gallBoss(world);
+    if (s === null) throw new Error("the gall wave stood no alien");
+    s.from = 0;
+    s.point = 3;
+    s.phase = "leap";
+    s.phaseBeat = world.beat;
+    const half = world.cfg.gallLeapBeats / 2;
+    const box = bodyBox(aim(world, L, world.beat + Math.floor(half), half % 1));
+    const top = gallArcAt(L, CFG, 0, 3, 0.5);
+    expect(box.left).toBeLessThan(top.x);
+    expect(box.right).toBeGreaterThan(top.x);
+    expect(box.top).toBeLessThan(top.y);
+    expect(box.bottom).toBeGreaterThan(top.y);
   });
 
   it("holds THE NETTLE's whole bell, where this frame's figure has it", () => {

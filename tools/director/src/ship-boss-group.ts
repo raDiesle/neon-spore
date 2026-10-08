@@ -65,7 +65,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   cyst: "THE CYST — the boss one hand stills for the other to crack",
   halter: "THE HALTER — the boss one hand keeps still for the other to open",
   capstan: "THE CAPSTAN — the boss one hand rocks for the other to wear",
-  gall: "THE GALL — the boss that moves the moment it is closed",
+  gall: "THE GALL — the alien tapped, pulled and thrown across the hull",
   trapeze: "THE TRAPEZE — an alien swung up to a gong",
   flue: "THE FLUE — an ember one seat sees and the other shoots",
   governor: "THE GOVERNOR — a needle each of you taps on your own mark",

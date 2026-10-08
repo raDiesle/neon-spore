@@ -8,7 +8,7 @@ import { capstanCentre } from "../src/capstan-shape.js";
 import { cystCentre } from "../src/cyst-shape.js";
 import { ingestBreach } from "../src/effects-breach.js";
 import { flueCentre } from "../src/flue-shape.js";
-import { gallRootAt } from "../src/gall-shape.js";
+import { gallMidAt } from "../src/gall-shape.js";
 import { TILT_READ } from "../src/governor-pose.js";
 import { governorDial } from "../src/governor-shape.js";
 import { grindstoneCentre } from "../src/grindstone-shape.js";
@@ -147,7 +147,7 @@ describe("a boss's blow at the hull", () => {
   it.each([
     ["THE HALTER sheds a plate from under its centre", "halter", halterCentre],
     ["THE CAPSTAN throws a cog off its cradle's foot", "capstan", capstanCentre],
-    ["THE GALL drops a seed off its root's underside", "gall", gallRootAt],
+    ["THE GALL drops a seed off its seam's underside", "gall", gallMidAt],
     ["THE TRAPEZE's alien leaps off the swing it hangs under", "trapeze", trapezeAnchor],
     ["THE CYST spits a spore out of its bottom lobe", "cyst", cystCentre],
     ["THE GRINDSTONE throws a chip off its wheel", "grindstone", grindstoneCentre],

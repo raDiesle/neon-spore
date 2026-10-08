@@ -146,15 +146,14 @@ export const INGEST_SILENT_BOSS_D = [
   "capstanMiss",
   "capstanOpen",
   "capstanOut",
-  // THE GALL's eleven: what outlives a frame is `gall-fx.ts`', read above the
-  // loop; the point, the gap and the part stay read off the state.
+  // THE GALL's ten: what outlives a frame is `gall-fx.ts`', read above the
+  // loop; the point, the taps and the flight stay read off the state.
   "gallEnter",
   "gallLight",
-  "gallPress",
-  "gallSlip",
-  "gallClose",
-  "gallSwell",
-  "gallBare",
+  "gallTap",
+  "gallWhiff",
+  "gallLeap",
+  "gallLand",
   "gallHit",
   "gallMiss",
   "gallFlat",

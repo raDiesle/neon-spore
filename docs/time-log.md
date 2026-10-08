@@ -35984,3 +35984,22 @@ Bottleneck: a mark whose window opens only on a mistake can't be reached by
 an autopilot that makes none.
 
 *Measured: 35 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE GALL is tapped, pulled and thrown across the hull
+
+- reading: 10 min. The old press, its ring and chevrons, THE SLOW's ask and
+  show windows and the fuse, the core row, and the fourteen registrations a
+  boss state touches.
+- writing: 30 min. The simulation of taps, the pull and the random landing;
+  the fuse at the ordinary pace and the slow on the leap; three levels; the
+  touch, the cue, the receipts, the sounds, AUTO's hand; every test of the
+  old press rewritten for the new gesture.
+- looking: 5 min. One frame of the alien leaving its point, by `frames`.
+- friction: 5 min. The browser pane paused on a hidden tab, so the original
+  dead hold was never reproduced there; the new gesture is proven through
+  `touch.ts` in `gall-grip.test.ts` instead.
+- landing: 10 min. Two `check:fast` runs: the first found old-design tests
+  in the director, the HARD sky table and THE SLOW's aim.
+
+Bottleneck: landing — the boss's old gesture was named in a dozen tests
+outside its own files, found only by the full shard run.

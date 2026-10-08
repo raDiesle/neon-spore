@@ -6,14 +6,14 @@ import {
   type GallPhase,
   gallBoss,
   gallPointAsks,
-  gallRootAsks,
+  gallShotAsks,
   type SimEvent,
   startWave,
   step,
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import { GALL_POINT_MARK, GALL_ROOT_MARK, GallVerdicts } from "../src/gall-verdicts.js";
+import { GALL_POINT_MARK, GallVerdicts } from "../src/gall-verdicts.js";
 import { rgba } from "../src/hex.js";
 import type { ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
@@ -29,13 +29,13 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE GALL's marks answer a touch the way every mark does**
- * (`gall-verdicts.ts`, `.claude/skills/new-boss` §5): on a close the point
- * the gall sits on wears the halo on the screen of the seat whose half it is
- * on, and the partner's ring and clock on the other's, crossing over when the
- * gall does; the bared root on a fire step is either seat's, and halos on
- * both screens with nobody's clock; each of the seam's words lands on the
- * mark it names; and the verdict reaches the field's frame on every screen.
+ * **THE GALL's mark answers a touch the way every mark does**
+ * (`gall-verdicts.ts`, `.claude/skills/new-boss` §5): on a leap the point the
+ * alien sits on wears the halo on the screen of the seat whose half it is on,
+ * and the partner's ring and clock on the other's, crossing over when the
+ * alien does; on a fire step it is either seat's, and halos on both screens
+ * with nobody's clock; each of the alien's words lands on its one mark; and
+ * the verdict reaches the field's frame on every screen.
  */
 
 beforeAll(installCanvasGlobals);
@@ -53,24 +53,18 @@ function hung(): World {
   return world;
 }
 
-/** The seam in `phase` since a beat ago, `ask` the step under the cursor, the gall on `point`. */
-function at(
-  world: World,
-  phase: GallPhase,
-  ask: GallAsk = "close",
-  point = 0,
-  bared = false,
-): void {
+/** The seam in `phase` since a beat ago, `ask` the step under the cursor, the alien on `point`. */
+function at(world: World, phase: GallPhase, ask: GallAsk = "leap", point = 0): void {
   const s = gallBoss(world);
   if (s === null) throw new Error("the gall wave hung no gall");
   s.phase = phase;
   s.phaseBeat = world.beat - 1;
   s.cursor = 0;
   s.point = point;
-  s.bared = bared;
-  s.gapMilli = CFG.gallOpenMilli;
-  s.heldBeats = 0;
-  s.steps[0] = { ask, color: "either", beats: 4 };
+  s.from = point;
+  s.taps = 0;
+  s.down = [-1, -1];
+  s.steps[0] = { ask, taps: 3, color: "either", beats: 4 };
 }
 
 function frame(role: ViewRole, arrange: (world: World) => void, said: SimEvent[] = []): string {
@@ -96,30 +90,32 @@ const clocks = (role: ViewRole, arrange: (w: World) => void) => count(frame(role
 
 describe("THE GALL's marks asking", () => {
   const as =
-    (phase: GallPhase, ask: GallAsk, point = 0, bared = false) =>
+    (phase: GallPhase, ask: GallAsk, point = 0) =>
     (w: World) =>
-      at(w, phase, ask, point, bared);
+      at(w, phase, ask, point);
   const rest = (w: World) => at(w, "rest");
 
-  it("asks a close of the seat whose half the gall is on", () => {
+  it("asks a leap of the seat whose half the alien is on, and a shot of either", () => {
     const world = hung();
     const s = gallBoss(world);
     if (s === null) throw new Error("no gall");
-    const asks = () => [gallPointAsks(s, 0), gallPointAsks(s, 1), gallRootAsks(s)];
-    at(world, "lit", "close", 1);
+    const asks = () => [gallPointAsks(s, 0), gallPointAsks(s, 1), gallShotAsks(s)];
+    at(world, "lit", "leap", 1);
     expect(asks()).toEqual([true, false, false]);
-    at(world, "lit", "close", 2);
+    at(world, "lit", "leap", 2);
     expect(asks()).toEqual([false, true, false]);
-    at(world, "rest", "close", 2);
+    at(world, "rest", "leap", 2);
     expect(asks()).toEqual([false, false, false]);
-    at(world, "lit", "fire", 0, true);
+    at(world, "leap", "leap", 2);
+    expect(asks()).toEqual([false, false, false]);
+    at(world, "lit", "fire", 0);
     expect(asks()).toEqual([false, false, true]);
   });
 
   it.each([0, 3])(
-    "haloes the presser's screen and waits on the other's, the gall on point %i",
+    "haloes the presser's screen and waits on the other's, the alien on point %i",
     (point) => {
-      const close = as("lit", "close", point);
+      const close = as("lit", "leap", point);
       const [own, other]: [ViewRole, ViewRole] = point === 0 ? ["p1", "p2"] : ["p2", "p1"];
       expect(halos(own, close)).toBeGreaterThan(halos(own, rest));
       expect(clocks(own, close)).toBe(clocks(own, rest));
@@ -129,10 +125,10 @@ describe("THE GALL's marks asking", () => {
     },
   );
 
-  it.each(ROLES)("haloes the root on %s once it is bare, and waits on nobody", (role) => {
-    const bare = as("lit", "fire", 0, true);
-    expect(halos(role, bare)).toBeGreaterThan(halos(role, as("lit", "fire")));
-    expect(clocks(role, bare)).toBe(clocks(role, rest));
+  it.each(ROLES)("haloes the alien on %s on a fire step, and waits on nobody", (role) => {
+    const fire = as("lit", "fire", 0);
+    expect(halos(role, fire)).toBeGreaterThan(halos(role, rest));
+    expect(clocks(role, fire)).toBe(clocks(role, rest));
   });
 });
 
@@ -141,31 +137,29 @@ describe("THE GALL's verdict on a touch", () => {
     const v = new GallVerdicts();
     v.ingest(said);
     const at = (k: number) => v.verdicts.at(k)?.good ?? null;
-    return [at(GALL_POINT_MARK), at(GALL_ROOT_MARK)];
+    return at(GALL_POINT_MARK);
   };
   const col = 5;
-  const n = null;
 
-  it("lands each of the seam's words on the mark it names", () => {
-    expect(on([{ type: "gallClose", from: 0, to: 2, closes: 1, col }])).toEqual([true, n]);
-    expect(on([{ type: "gallHit", hits: 1, col }])).toEqual([n, true]);
-    expect(on([{ type: "gallSlip", point: 0, col }])).toEqual([false, n]);
-    expect(on([{ type: "gallSwell", point: 0, col }])).toEqual([false, n]);
-    expect(on([{ type: "gallMiss", col }])).toEqual([n, false]);
-    expect(on([{ type: "gallPress", point: 0, col }])).toEqual([n, n]);
-    expect(on([{ type: "gallBare", col }])).toEqual([n, n]);
+  it("greens a leap and a hit, reddens a refused hand and a miss, and a tap says nothing", () => {
+    expect(on([{ type: "gallLeap", from: 0, to: 2, leaps: 1, col }])).toBe(true);
+    expect(on([{ type: "gallHit", hits: 1, col }])).toBe(true);
+    expect(on([{ type: "gallWhiff", point: 0, why: "early", col }])).toBe(false);
+    expect(on([{ type: "gallMiss", col }])).toBe(false);
+    expect(on([{ type: "gallTap", point: 0, taps: 1, need: 3, col }])).toBeNull();
+    expect(on([{ type: "gallLand", point: 2, col }])).toBeNull();
   });
 
   it("forgets on reset", () => {
     const v = new GallVerdicts();
     v.ingest([{ type: "gallMiss", col }]);
     v.clear();
-    expect(v.verdicts.at(GALL_ROOT_MARK)).toBeNull();
+    expect(v.verdicts.at(GALL_POINT_MARK)).toBeNull();
   });
 
   it.each(ROLES)("reaches the field's frame, on %s", (role) => {
     const rest = (w: World) => at(w, "rest");
-    const missed: SimEvent[] = [{ type: "gallSlip", point: 0, col }];
+    const missed: SimEvent[] = [{ type: "gallWhiff", point: 0, why: "seat", col }];
     expect(count(frame(role, rest, missed), PALETTE.red)).toBeGreaterThan(
       count(frame(role, rest), PALETTE.red),
     );

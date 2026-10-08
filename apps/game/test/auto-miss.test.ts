@@ -1,6 +1,13 @@
 import { describe, expect, it } from "bun:test";
 import { WAVES } from "@neon-spore/content";
-import { createWorld, guideHolds, midCol, onReadyPage, step, type World } from "@neon-spore/sim";
+import {
+  createWorld,
+  gallPointCol,
+  guideHolds,
+  onReadyPage,
+  step,
+  type World,
+} from "@neon-spore/sim";
 import type { GameAudio } from "../src/audio.js";
 import { askMisser } from "../src/auto-miss.js";
 import { gameAutopilot } from "../src/autopilot.js";
@@ -119,27 +126,27 @@ describe("askMisser", () => {
     expect(m.withholds(world(10, 18, true, 16))).toBe(true);
   });
 
-  it("holds off THE GALL's lit fire step and slides the cannon off the root", () => {
+  it("holds off THE GALL's lit fire step and slides the cannon off the alien", () => {
     const cfg = playConfig();
-    const mid = midCol(cfg);
-    const gall = (bared: boolean, ask: "fire" | "close") =>
+    const col = gallPointCol(cfg, 1);
+    const gall = (ask: "fire" | "leap", phase: "lit" | "rest" = "lit") =>
       ({
         slowFromBeat: -1,
         slowToBeat: -1,
         slowAsks: false,
         beat: 40,
         cfg,
-        cannonCol: mid,
-        boss: { kind: "gall", bared, phase: "lit", cursor: 0, steps: [{ ask, beats: 4 }] },
+        cannonCol: col,
+        boss: { kind: "gall", point: 1, phase, cursor: 0, steps: [{ ask, taps: 0, beats: 4 }] },
       }) as unknown as World;
     const m = askMisser();
-    expect(m.withholds(gall(true, "fire"))).toBe(true);
-    expect(m.presses(gall(true, "fire"))).toEqual([
-      { player: 1, command: { kind: "cannonCol", col: mid - 1 } },
+    expect(m.withholds(gall("fire"))).toBe(true);
+    expect(m.presses(gall("fire"))).toEqual([
+      { player: 1, command: { kind: "cannonCol", col: col - 1 } },
     ]);
-    expect(m.presses({ ...gall(true, "fire"), cannonCol: mid - 1 } as World)).toEqual([]);
-    expect(m.withholds(gall(false, "fire"))).toBe(false);
-    expect(m.presses(gall(true, "close"))).toEqual([]);
+    expect(m.presses({ ...gall("fire"), cannonCol: col - 1 } as World)).toEqual([]);
+    expect(m.withholds(gall("fire", "rest"))).toBe(false);
+    expect(m.presses(gall("leap"))).toEqual([]);
   });
 
   it("never holds off a show, or a field with no window up", () => {

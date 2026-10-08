@@ -87,8 +87,8 @@ export function scriptedHashParts(boss: BossState): number[] {
   if (boss.kind === "capstan") {
     for (const n of capstanHashParts(boss)) out.push(n);
   }
-  // THE GALL: the phase, the cursor, the point, the closes, the hits, the root,
-  // the gap and its count, and the script (`gall-hash.ts`).
+  // THE GALL: the phase, the cursor, the point and the one it left, the taps,
+  // the leaps, the hits, both seats' fingers, and the script (`gall-hash.ts`).
   if (boss.kind === "gall") {
     for (const n of gallHashParts(boss)) out.push(n);
   }

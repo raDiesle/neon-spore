@@ -1,8 +1,6 @@
 import type { BoltStops } from "../src/bolt-stop.js";
 import { drawCapstan } from "../src/capstan-draw.js";
 import { CapstanFx } from "../src/capstan-fx.js";
-import { drawGall } from "../src/gall-draw.js";
-import { GallFx } from "../src/gall-fx.js";
 import { drawGovernor } from "../src/governor-draw.js";
 import { GovernorFx } from "../src/governor-fx.js";
 import { drawGrindstone } from "../src/grindstone-draw.js";
@@ -21,7 +19,6 @@ import { SlingFx } from "../src/sling-fx.js";
 import { stubCanvas } from "./canvas-stub.js";
 import * as capstan from "./capstan-harness.js";
 import * as curtain from "./curtain-harness.js";
-import * as gall from "./gall-harness.js";
 import * as governor from "./governor-harness.js";
 import * as grindstone from "./grindstone-harness.js";
 import * as halter from "./halter-harness.js";
@@ -99,17 +96,6 @@ export const ROWS: Row[] = [
       curtain.draw(world, stops, l);
     },
     wide: false,
-  },
-  {
-    name: "THE GALL",
-    draw(stops, l, open) {
-      const world = gall.stood();
-      const s = gall.posed(world, gall.FIRE);
-      s.bared = open;
-      drawGall(paper(), l, world, s, world.beat, 0.5, 0, new GallFx(), stops);
-    },
-    wide: true,
-    spans: true,
   },
   {
     name: "THE GRINDSTONE",
