@@ -8147,6 +8147,12 @@ back, shows what it kept, and cools, and each asks the pair for something:
   the count again. Run out, the spine snaps back against the hull — THE
   KEEL's own blow, through `bossStrikesHull` — and bows again. Every
   `keelJoint` press or lift writes the seat's thumb (`held`) in every phase.
+  An end held wears the steady green ring on both screens and both ends
+  carry the chord's beats as segments (8 October 2026, THE CAPSTAN's rule,
+  `keel-verdicts.ts`, `test/keel-held.test.ts`). The seat's `HOLD` still goes
+  once its thumb is down: the end rides the arch under the thumb, and a word
+  there would be a cue moving inside THE SLOW (`boss-hush.test.ts`), so the
+  ring says it instead.
 - **The marrow.** Arrested, a seam lights down the spine's middle under THE
   SLOW (`keelMarrowBeats`), and one bolt of each colour up the middle column
   seals it. §24 asks for the two cannons at once; the simulation counts each
@@ -10173,6 +10179,14 @@ and a pinch slipped or a stilled flank let spring reddens its flank. A shot,
 a swell or a bud let run out reddens only what it asked. The spit is the
 shield's and has no mark on the sac; a wrong seat's touch and a wrong colour
 stay silent, as the simulation is.
+
+**A part held right says so** (8 October 2026, THE CAPSTAN's rule of 7
+October, `mark-progress.ts`, `test/cyst-held.test.ts`): a freeze mark whose
+flank it stilled, and a flank pinched shut on its step, wear the steady green
+ring on both screens while they stay so; the flank being kept shut carries
+`heldBeats` out of the step's beats as segments round it, both flanks on a
+swell; and once shut the pincher's cue is `HOLD` alone, `TILL IT SHUTS`
+coming back if it is let go.
 
 ## 11.52 THE DAVIT — the boss one hand steers for the other to loose
 

@@ -127,6 +127,7 @@ Taught once, by the guide; **no helper on the field** (above).
 | `drawLitCore`, `lightCore` | `lit-core.ts` | *shoot this part*: the step's colour lit inside the part the cannon must hit, beating on `heartLight` and brighter with its hurt, with the countdown as a plain ring round it; `lightCore`, the light alone, for a ring of its own shape | THE FLUE, THE GOVERNOR, THE CYST, THE OCULUS, THE TRIVET, THE VISE, THE TRAPEZE, THE CAPSTAN, THE DAVIT, THE GALL, THE GRINDSTONE, THE HALTER, THE PLUMB, THE RIME, THE SLING |
 | `drawMarkTheirs` | `mark-feedback.ts` | *someone else is being waited on here*: a dim dashed ring turning round the partner's | the same |
 | `drawMarkWait` | `mark-feedback.ts` | *not yours — wait*: a clock face whose hand goes round, in place of the gesture | the same |
+| `drawMarkHeld`, `drawMarkProgress`, `MARK_PROGRESS_R` | `mark-progress.ts` | *this is right, keep it there*: a steady green ring on a part held where it is wanted; *how far the partner has got*: a green arc from twelve o'clock, or segments over a dim track of every one the part needs | THE CAPSTAN, THE KEEL, THE CYST, THE INSTAR |
 | `drawHandleHint`, `handleIsMine`, `seatIsMine`, `HandleWords`, `PILOT_HANDLE`, `HINT_LOUD`, `HINT_SOFT`, `HintStyle` | `handle-word.ts` | the word under a handle: `PULL` on the seat it is for, `P1'S` on the other, gone once a hand lands; `seatIsMine`, whether a seat's handle is this screen's | THE WARDEN, THE LID, THE MAZE, THE CURTAIN, THE BALLOON, THE FLEET |
 
 ### Was it right

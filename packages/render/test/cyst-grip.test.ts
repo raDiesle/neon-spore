@@ -167,14 +167,17 @@ describe("the words over THE CYST", () => {
     expect(cue(world, "p1")).toBeNull();
   });
 
-  it("says HOLD to the pincher once the flank is stilled, gone while it is held", () => {
+  it("says HOLD TILL IT SHUTS to the pincher once the flank is stilled, and HOLD alone while it is held", () => {
     const { world, s } = lit("left");
     s.phase = "frozen";
     const c = cue(world, "p1");
     expect(c?.word).toBe("HOLD");
+    expect(c?.why).toBe("TILL IT SHUTS");
     expect(c?.seat).toBe(1);
     s.gapMilli[0] = CFG.cystShutMilli;
-    expect(cue(world, "p1")).toBeNull();
+    const held = cue(world, "p1");
+    expect(held?.word).toBe("HOLD");
+    expect(held?.why).toBeUndefined();
   });
 
   it("says HOLD to both seats on a swell", () => {

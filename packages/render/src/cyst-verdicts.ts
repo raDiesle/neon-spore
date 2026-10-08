@@ -5,8 +5,10 @@ import {
   cystCoreAsks,
   cystFlankAsks,
   cystFreezer,
+  cystLitStep,
   cystMarkAsks,
   cystPincher,
+  cystSide,
   type SimEvent,
   type World,
 } from "@neon-spore/sim";
@@ -14,6 +16,7 @@ import { cystCoreR, cystMarkAt, cystR } from "./cyst-shape.js";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
 import { type Circle, type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
+import { drawMarkHeld, drawMarkProgress, MARK_PROGRESS_R } from "./mark-progress.js";
 
 /**
  * **THE CYST's marks answering a touch the way every mark does**
@@ -42,6 +45,14 @@ import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
  * the shield's, under its column — and **neither a wrong seat's touch nor a
  * wrong colour is refused red**: the simulation says nothing of either
  * (`sim/cyst-hand.ts`, `sim/cyst-shot.ts`).
+ *
+ * **A part held right says so, and the pinch says how far** (the owner, 7
+ * October 2026, THE CAPSTAN's rule, `mark-progress.ts`): a freeze mark whose
+ * flank it has stilled, and a flank pinched shut, wear the steady green ring
+ * on both screens for as long as they stay so; and the flank being kept shut
+ * carries the beats it has been, out of the step's own, as segments round it
+ * — both flanks on a swell — so the seat that tapped sees the partner still
+ * at it, and how far.
  *
  * Held in `CystFx` (`cyst-fx.ts`). Everything here is in the sac's frame, as
  * the drawer has it: translated to its middle, thudded and shaken.
@@ -128,6 +139,36 @@ function marksAt(l: Layout, bud: Circle | null): (Circle | null)[] {
   ];
 }
 
+/** Whether a mark is held where it is wanted: a freeze mark its flank stilled, a flank pinched shut on its step. */
+export function cystMarkHeld(world: World, s: CystState, mark: number): boolean {
+  const side = mark === CYST_LEFT_FREEZE_MARK || mark === CYST_LEFT_FLANK_MARK ? 0 : 1;
+  const frozen = s.phase === "frozen" && cystSide(s) === side;
+  if (mark === CYST_LEFT_FREEZE_MARK || mark === CYST_RIGHT_FREEZE_MARK) return frozen;
+  if (mark !== CYST_LEFT_FLANK_MARK && mark !== CYST_RIGHT_FLANK_MARK) return false;
+  const swell = s.phase === "lit" && cystLitStep(s)?.ask === "swell";
+  return (frozen || swell) && s.gapMilli[side] <= world.cfg.cystShutMilli;
+}
+
+/**
+ * How far the pinch has got, in beats kept shut out of the step's, and the
+ * flanks that wear it: the stilled one, or both on a swell. Null otherwise.
+ */
+export function cystPinchCount(
+  s: CystState,
+): { share: number; segments: number; flanks: readonly number[] } | null {
+  const step = cystLitStep(s);
+  if (step === null || step.beats <= 0) return null;
+  const side = cystSide(s);
+  const flanks =
+    s.phase === "frozen" && side !== null
+      ? [FLANKS[side]]
+      : s.phase === "lit" && step.ask === "swell"
+        ? FLANKS
+        : null;
+  if (flanks === null) return null;
+  return { share: s.heldBeats / step.beats, segments: step.beats, flanks };
+}
+
 /** What a mark asks of this screen: `own` for the halo, `theirs` for the partner's ring and clock. */
 function asked(l: Layout, world: World, s: CystState, mark: number): "own" | "theirs" | null {
   if (mark === CYST_CORE_MARK) return cystCoreAsks(s) ? "own" : null;
@@ -154,14 +195,20 @@ export function drawCystMarkFeedback(
   v: GripVerdicts,
 ): void {
   const fade = ctx.globalAlpha;
+  const pinch = cystPinchCount(s);
   marksAt(l, bud).forEach((c, mark) => {
     if (c === null) return;
     const says = asked(l, world, s, mark);
-    if (says === "own") drawMarkHalo(ctx, c.x, c.y, c.r, time);
+    if (cystMarkHeld(world, s, mark)) drawMarkHeld(ctx, c.x, c.y, c.r, time);
+    else if (says === "own") drawMarkHalo(ctx, c.x, c.y, c.r, time);
     ctx.globalAlpha = fade;
     if (says === "theirs") {
       drawMarkTheirs(ctx, c.x, c.y, c.r, time);
       drawMarkWait(ctx, c.x, c.y, c.r, time);
+    }
+    ctx.globalAlpha = fade;
+    if (pinch?.flanks.includes(mark)) {
+      drawMarkProgress(ctx, c.x, c.y, c.r * MARK_PROGRESS_R, pinch.share, pinch.segments);
     }
     const verdict = v.at(mark);
     if (verdict !== null) drawVerdictRing(ctx, c.x, c.y, c.r, verdict);

@@ -35674,3 +35674,17 @@ Bottleneck: friction — a machine at load 98 failed a timing figure and a
 directory walk that both pass alone.
 
 *Measured: 86 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — A held mark shows it is right: THE KEEL, THE CYST
+
+- reading: 15 min. THE CAPSTAN's worked example, both bosses' verdicts, their
+  cues, their state and what the simulation counts.
+- writing: 15 min. The held rings and counts for both, THE CYST's `HOLD`
+  alone once shut, two tests, the spec and the catalogue row.
+- looking: 5 min. Two frames off AUTO, cropped.
+- friction: 10 min. THE KEEL's `HOLD` kept under a held thumb moved inside
+  THE SLOW and failed the hush walk; put back.
+- landing: 5 min. `check:fast` twice, the commit, the land.
+
+Bottleneck: friction — the hush walk's rule that a cue goes once obeyed was
+written in its preamble, not in THE KEEL's cue.

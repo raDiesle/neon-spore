@@ -21,7 +21,7 @@ import { keelPlatePath, keelRibsPath, keelSeamPath, type Point, type Seg } from 
 import { keelStopper } from "./keel-stop.js";
 import { drawKeelEnds, drawKeelMarrow } from "./keel-story.js";
 import { keelHeat } from "./keel-story-pose.js";
-import { drawKeelHalos, drawKeelVerdicts } from "./keel-verdicts.js";
+import { drawKeelHalos, drawKeelHeld, drawKeelVerdicts } from "./keel-verdicts.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -97,6 +97,7 @@ export function drawKeel(
     const g = segs[s.joint];
     if (g !== undefined) drawKeelRing(ctx, l, s, cfg, g.centre, beat, beatPhase);
   }
+  drawKeelHeld(ctx, l, cfg, s, segs, time);
   drawKeelVerdicts(ctx, l, cfg, s, segs, time, fx.marks.verdicts);
   const rock = keelRockNow(l, cfg, s, segs, beat, beatPhase);
   if (rock !== null) drawRock(ctx, l, rock, beat + beatPhase);

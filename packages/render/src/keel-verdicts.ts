@@ -2,6 +2,7 @@ import {
   type KeelState,
   keelEndAsks,
   keelEndSeg,
+  keelFlipping,
   keelJointAsks,
   type SimConfig,
   type SimEvent,
@@ -11,6 +12,7 @@ import { keelRingCircle } from "./keel-marks.js";
 import type { Seg } from "./keel-shape.js";
 import type { Circle, Layout, ViewRole } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
+import { drawMarkHeld, drawMarkProgress, MARK_PROGRESS_R } from "./mark-progress.js";
 
 /**
  * **THE KEEL's joints answering a touch the way every mark does**
@@ -35,6 +37,13 @@ import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
  * refused red**: the simulation says nothing of it, on purpose — a pair find
  * out whose joint it was by watching whose tap counted (`sim/keel-hand.ts`).
  * The socket and the marrow are the cannon's, not a touch's.
+ *
+ * **An end held through the flip says it is right, and the chord says how
+ * far** (the owner, 7 October 2026, THE CAPSTAN's rule, `mark-progress.ts`):
+ * a thumb down on its own end joint wears the steady green ring there in
+ * place of the halo, on both screens, and both ends carry the chord's count —
+ * one segment a beat of both thumbs down, out of `keelChordBeats` — so a seat
+ * holding sees the partner still owed, and how close the arrest is.
  *
  * Held in `KeelFx` (`keel-fx.ts`).
  */
@@ -99,6 +108,35 @@ export function drawKeelHalos(
     if (seat === null || mine(l.role, seat)) drawMarkHalo(ctx, c.x, c.y, c.r, time);
   }
   ctx.globalAlpha = fade;
+}
+
+/** How far the flip's chord has got, in beats of both thumbs down out of those it needs; null outside the flip. */
+export function keelChordCount(
+  cfg: SimConfig,
+  s: KeelState,
+): { share: number; segments: number } | null {
+  if (!keelFlipping(s)) return null;
+  return { share: s.chordBeats / cfg.keelChordBeats, segments: cfg.keelChordBeats };
+}
+
+/** Over the rings, in the flip: each end held wears the green ring, and both the chord's count. */
+export function drawKeelHeld(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  s: KeelState,
+  segs: Seg[],
+  time: number,
+): void {
+  const count = keelChordCount(cfg, s);
+  if (count === null) return;
+  for (const seat of [1, 2] as const) {
+    const end = segs[keelEndSeg(s, seat)];
+    if (end === undefined) continue;
+    const c = keelRingCircle(l, end.centre);
+    if (s.held[seat - 1]) drawMarkHeld(ctx, c.x, c.y, c.r, time);
+    drawMarkProgress(ctx, c.x, c.y, c.r * MARK_PROGRESS_R, count.share, count.segments);
+  }
 }
 
 /** Over the rings: the partner's ring and clock on each asking mark this screen does not own, and every segment's verdict. */

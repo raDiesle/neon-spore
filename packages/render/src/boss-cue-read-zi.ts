@@ -24,12 +24,14 @@ import type { Circle, Layout } from "./layout.js";
  * **A flank step is two words, one after the other.** While it is lit,
  * `TAP` on its freeze mark, to the seat that taps it still — the partner of
  * the one who pinches it (`cyst-grip.ts`); once it is stilled, `HOLD` / `TILL IT SHUTS` on the
- * flank, to the pincher, gone while the flank is held under the shut line and
- * owed again the moment it is let go. So each seat is shown only its own half
- * of the step, and the other half is what it has to hear.
+ * flank, to the pincher; held under the shut line it is `HOLD` alone, the
+ * flank's green ring saying it is right while the beats are kept (the owner,
+ * 7 October 2026: *so that he knows to keep pulling and holding*), and let go
+ * it is owed `TILL IT SHUTS` again. So each seat is shown only its own half of
+ * the step, and the other half is what it has to hear.
  *
- * **A swell is `HOLD` / `TILL IT SHUTS` on both flanks**, to both seats, each gone while its
- * own is held.
+ * **A swell is `HOLD` / `TILL IT SHUTS` on both flanks**, to both seats, each
+ * `HOLD` alone while its own is held.
  *
  * **`FIRE` at the hull under the middle column while the core is bared and
  * lit**, to either seat; the core is lit in the colour it wants and the word
@@ -72,14 +74,13 @@ export function cystCues(
   if (step.ask === "swell") {
     const out: BossCue[] = [];
     for (const side of [0, 1] as const) {
-      if (s.gapMilli[side] <= shut) continue;
       const at = cystStanding(l, world, s, "flank", side, beatPhase);
       const seat = cystPincher(side);
       out.push({
         seat,
         kind: "HOLD",
         word: "HOLD",
-        why: "TILL IT SHUTS",
+        ...(s.gapMilli[side] <= shut ? {} : { why: "TILL IT SHUTS" }),
         x: at.x,
         y: at.y,
         ...frame,
@@ -95,7 +96,6 @@ export function cystCues(
     const seat = cystFreezer(side);
     return [{ seat, kind: "PRESS", word: "TAP", x: at.x, y: at.y, ...frame, seed: 150 }];
   }
-  if (cystClosed(world, s)) return [];
   const at = cystStanding(l, world, s, "flank", side, beatPhase);
   const seat = cystPincher(side);
   return [
@@ -103,7 +103,7 @@ export function cystCues(
       seat,
       kind: "HOLD",
       word: "HOLD",
-      why: "TILL IT SHUTS",
+      ...(cystClosed(world, s) ? {} : { why: "TILL IT SHUTS" }),
       x: at.x,
       y: at.y,
       ...frame,
