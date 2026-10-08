@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 7188c9f4c — THE TRIVET leaves the game
+
+The owner asked for it gone on 8 October 2026: "remove this wave from game. i do not like it." Its simulation, drawing, effects, painted plant strip, twelve sounds, wave, two drag targets, autopilot hand and director cards are deleted whole rather than switched off, as THE HALTER's and THE GRINDSTONE's were; `git log -S trivetPadFront` finds the code. It was the last boss to read a chord, so the pointer machinery only it used goes too: the pads counted by the order fingers land, the desk's every-pad hold and its ring. The design stays in bosses.md §11.47, moved under Retired with his verdict, and the verdict goes on the new-boss skill's owner page. His rule of the same day goes on its page of rules for every boss: never two fingers of one player at once, since a PC has one pointer — so CHORD moves to the gesture sheet's STAY MISSED page, and THE VISE's pinch, the one boss left that asks it, is queued with the question. SINKER's shape draft is free again, and the waves after it move up one. A look the owner asked for by name.
+
 ## 2026-10-08 · 69cc5e3cd — THE BLISTER's HOLD: a press kept on it while it is up, one blow a beat held
 
 A blister authored `gesture: "hold"` is knocked down by holding it, not by tapping it: the same `grip` as THE WEIGHT's press, so a mouse's press counts as a thumb's. Each whole beat held is one blow. The blows are kept across surfacings the way taps are, and a release or a sink loses only the beat in progress, which is the only reading under which a count larger than the up-time can be won. Two hands on a BOTH blister finish it twice as fast. A hand left on one that sinks is let go of on the tick, and a TAP blister still refuses a hand. The help is the hold mark, with the grip dial running round it and the held ring on both screens. The director's GESTURE row now offers TAP and HOLD, and saves the choice.
