@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · ae7b750fb — The creatures' own cues go behind one guard in audio/bind-field.ts
+
+`cueFor` named an import and a case for every creature with a cue file of its own, and THE BLISTER's took `bind.ts` to 223 lines. The thirty-four events from the coil to the volley are `bind-field.ts` now, reached through `isFieldEvent` the way `bind-creatures.ts` is, so a new event is still a compile error and `bind.ts` is 166 lines. Nothing sounds different.
+
 ## 2026-10-08 · 0ba11f270 — `events-creature.ts` and `events.ts` have room again: grouped creature events in a file of their own
 
 Refactor; nothing in the game changes. `events-creature.ts` was at 249 lines, and every creature with its own events file still added an import and a union line there. Those fifteen grouped unions now live in `events-creature-groups.ts`, which joins `CreatureEvent` as one line. The two comments trimmed to fit THE BLISTER are whole again, and a block of re-exports nothing imported is gone. `events.ts`, also at 249, moved THE BULB QUEEN's petal and fall and THE WARDEN's line, plate and fall into those bosses' own events files. The eye opening stays in `events.ts`, because THE LID's plates open it too.
