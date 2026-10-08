@@ -338,6 +338,7 @@ The look lane of step 8 (`bosses-choreographed.md` §12). The simulation landed 
 ## THE GRINDSTONE's caliper rocks on its axle (living bosses, step 11)
 
 - **Found:** 2026-10-07, claude/living-bosses-steps-10-11-327a77
+- **Taken:** 2026-10-08, claude/task-queue-work-8b2adc (claim: claude/queue-the-grindstones-caliper-rocks-on-its-axle-living)
 - **Files:** `packages/render/src/grindstone-caliper.ts`, `packages/render/src/grindstone-grip.ts`, `packages/render/src/grindstone-verdicts.ts`
 
 Step 11 of `docs/spec/living-bosses.md`: rock the open caliper about the
