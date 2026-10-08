@@ -496,6 +496,7 @@ packages/render/src`), to show the option carries.
 ## Marks-window rows owed: THE MIRROR, THE VANE, THE MAZE, THE GAUGE
 
 - **Found:** 2026-10-08, claude/task-queue-work-e71746
+- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-marks-window-rows-owed-the-mirror-the-vane-the-m)
 - **Files:** `tools/director/test/marks-window-no-row.ts`, `tools/director/test/marks-window-rows-c.ts`, `packages/render/src/mirror-marks.ts`, `packages/render/src/vane-marks.ts`, `packages/render/src/maze-marks.ts`, `packages/render/src/gauge-marks.ts`
 
 `marks-window-no-row.ts` lists these as `owed`: each has a `*-marks.ts` and no
