@@ -35270,3 +35270,5 @@ reading the 21 hands it ruled out.
 
 Bottleneck: reading — whether a window is under THE SLOW is said only at the
 `openSlow` call, so each of five fields had to be followed to its caller.
+
+*Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

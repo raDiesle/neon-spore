@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · e437df768 — THE KEEL's and THE SEAM's shot windows stay as they are, and say why
+
+Acts twelve and thirteen doubled every boss shot window to six beats on the owner's ask for more time to shoot. THE KEEL and THE SEAM keep theirs in their own config, and every one of those windows plays under THE SLOW at a quarter of the tempo: 5 to 10 seconds at 96 bpm against the acts' 3.75. Nothing is changed; each config now says so.
+
 ## 2026-10-08 · 1edea7135 — AUTO's tests play every hand at the game's half-beat shot charge too
 
 The game lays every shot over half a beat and the director's tests fired at once, so a hand could pass its test and miss in the game. Every AUTO test now plays at both, the game's charge is one named value the game and the tests share, and AUTO on THE JAM keeps the cannon under its runaway shot until the shot has left instead of sliding off it to the next beat's colour.
