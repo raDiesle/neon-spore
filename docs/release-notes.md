@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 80b716d4e — AUTO's shots from below at THE TRAPEZE are aimed through the shot's charge
+
+The game lays every shot over half a beat, so a press leaves on the charge's grid rather than its own tick, and a hand that led by the climb alone hit once in ten in the game. It now asks where the swing will be when a shot pressed now reaches its row, puts the cannon under that and fires when the arrival is the nearest the grid allows to the swing coming back; bun run frames shows four of five hitting and the wave going on to its lock level. A test holds it at the game's charge.
+
 ## 2026-10-08 · 69ef9eb6f — versus:shot photographs every seat the VERSUS page drew, not P1's alone
 
 A plain shot took the first .versus-stage, which is P1's, so a candidate drawn differently on each seat — sinew:band · white — looked as if the page had planned one seat. The seat plan said two all along; the shot now takes .versus-screens, and a test holds that two shapes in one rectangle sign two seats.

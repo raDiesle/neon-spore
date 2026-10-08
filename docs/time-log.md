@@ -35201,3 +35201,5 @@ showed the plan said two seats.
 
 Bottleneck: friction — the test world and the game play at different shot
 charges, and nothing says so where a hand is written.
+
+*Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
