@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 46c353b22 — THE VISE's lobes are carried shut by one thumb, not pinched
+
+The owner ruled one finger a player on 8 October 2026, since a PC has one pointer, and chose a drag for THE VISE. A press in a seat's zone takes its lobe and says nothing; every move sends the open gap less however far the thumb has come, any way at all; the lift lets it open. The cue now says PULL / TILL IT SHUTS and the briefings say pull. The simulation is unchanged — it still hears a gap — and the two-finger pinch machinery (`pinch.ts`, `pinch-pair.ts`) is gone, its gesture moved to STAY MISSED. A look the owner asked for by name.
+
 ## 2026-10-08 · 30db15ad1 — THE BLISTER's SWIPE, half built: the stroke is heard and judged, and parked
 
 A blister may be authored `gesture: "swipe"` with a `way`, and a stroke across it that way is a blow: a `blisterSwipe` drag judged on the lift, a tile along the way and more along than across, with a sink voiding any stroke still open. The help is THE INSTAR's swipe track turned to the way. No wave and no director chip sends one yet, so nothing in the game changes; the tests, the director's SWIPE and WAY chips, the field-controls row and a look are left, in docs/parked.md, and lane 5 moves there from the queue.
