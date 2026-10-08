@@ -584,6 +584,7 @@ render fix in the same lane. A row file past ~250 lines splits into a fourth.
 ## `land` refuses a queue heading shortened to a prefix of its old self
 
 - **Found:** 2026-10-08, claude/task-queue-work-8b2adc
+- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-land-refuses-a-queue-heading-shortened-to-a-pref)
 - **Files:** `tools/land/queue-guard.ts`, `tools/land/test/queue-history.test.ts`
 
 A lane that finished one boss of three renamed the entry *More rubs, counted
