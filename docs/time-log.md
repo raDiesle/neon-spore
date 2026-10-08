@@ -35239,3 +35239,5 @@ Bottleneck: looking — `bun run frames` writes every run to the same
 Bottleneck: looking — whether the pull still split was only answerable by
 a picture or a hand-rolled probe; nothing in the film's own tests says the
 balloon was ever pulled apart.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

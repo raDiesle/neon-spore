@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · deafc358f — Every tutorial film page now draws its caption
+
+Four pages pointed at something not on the screen while they played, so their words never appeared. THE BALLOON's balloon comes in two beats earlier, in time for "THE LEFT HANDLE IS YOURS", and its first page points at the balloon's radar warning; THE LANCE's "THE BEAM TAKES ALL THREE" opens as the beam fires and points at the cannon; THE SCUTTLE's "OUT · NONE LEFT TO COUNT" points at the empty top of the field. A fix to something wrong rather than unlovely.
+
 ## 2026-10-08 · 2e7410c77 — THE GIMBAL's and THE HASP's film captions are drawn on the boss
 
 Three tutorial captions were never drawn because their boss had no caption anchor: THE GIMBAL's "THE OUTER RING IS YOURS" and "BOTH TRUE · LET GO TOGETHER" now stand under the outer ring, and THE HASP's "WOUND FAR ENOUGH · IT OPENS" under the clasp being wound, or the one swinging open while it swings. A fix to something wrong rather than unlovely.
