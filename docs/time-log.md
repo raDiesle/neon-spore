@@ -36078,3 +36078,14 @@ Bottleneck: landing — three bosses taken out at once by three lanes, each
 conflicting on every list all three were struck from.
 
 *Measured: 29 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — `render/duty.ts` is at 250 lines: cut `DUTY_WORD` out
+
+- reading: 5 min. `duty.ts` and who reads `DUTY_WORD` — only its own reader.
+- writing: 5 min. The table and its row comments to `duty-words.ts`,
+  re-exported; THE BLISTER's row given a comment above it like the others.
+- looking: 0 min. Nothing drawn moves.
+- friction: 0 min. The size hook read the old length once.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: landing — the full check is most of a lane this small.

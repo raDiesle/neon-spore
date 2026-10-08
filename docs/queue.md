@@ -458,15 +458,3 @@ a list of their own: AUTO's hands (`hands/autopilot-touch.ts`,
 compile-checked ones to the table and the rest as a second list; prove it
 complete by adding a throwaway kind on a scratch branch and running
 `bun run check`.
-
-## `render/duty.ts` is at 250 lines: cut `DUTY_WORD` out
-
-- **Found:** 2026-10-08, claude/task-queue-work-e71746
-- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-render-duty-ts-is-at-250-lines-cut-duty-word-out)
-- **Files:** `packages/render/src/duty.ts`
-
-THE BLISTER's row took it to the limit exactly, and its comment had to go on
-the row's own line to fit. Every new kind adds a row here, so the next one
-cannot. Move the `DUTY_WORD` table and its per-row arguments into
-`duty-words.ts` beside it, re-exported so no caller moves, and give THE
-BLISTER's row a comment above it like the others.

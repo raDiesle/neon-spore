@@ -2068,6 +2068,7 @@ by hand never moves.
 | `packages/render/src/duty-harpoon.ts` | **What a harpooned control says under the dial of the seat that cannot move it** |
 | `packages/render/src/duty-fence.ts` | THE FENCE's own duty word, which is the only one in the table that the world picks rather than the table |
 | `packages/render/src/duty-mine.ts` | THE MINE's word, which of the two dials it goes under decided by the field rather than by the table |
+| `packages/render/src/duty-words.ts` | The table `duty.ts` reads its words from, one row a kind |
 | `packages/render/src/throb.ts` | where THE THROB's far half lies — the seam meridian this instant and the region the paint clips to |
 | `packages/render/src/throb-look.ts` | THE ONE RECORD A CANDIDATE THROB LOOK PATCHES |
 | `packages/render/src/throb-pores.ts` | THE THROB's surface, PORES — a middle with no ammunition colour, black and white pores pinned round the ball, the two colours on the rim |
