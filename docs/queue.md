@@ -637,6 +637,7 @@ bestiary's line to built.
 ## AUTO's boss hands are tested without the game's half-beat shot charge
 
 - **Found:** 2026-10-08, claude/queue-trapeze-auto
+- **Taken:** 2026-10-08, claude/task-queue-work-589459 (claim: claude/queue-autos-boss-hands-are-tested-without-the-games-ha)
 - **Files:** `packages/hands/src/boss-hands-*.ts`, `tools/director/test/autopilot-*.test.ts`, `tools/director/src/pose-kit.ts`, `apps/game/src/main-world.ts`
 
 The game plays at `playConfig()`'s `shotChargeBeats: 0.5`, so a press leaves
