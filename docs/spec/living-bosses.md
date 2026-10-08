@@ -405,14 +405,25 @@ game "INSTAR:FLIGHT · SERPENT"*. `INSTAR_SERPENT.amount` is 1 on the field.
   jaw's own tremble rides on top of it. On the beat clock and hushed under
   THE SLOW. Under *a look the owner asked for by name*.
 
+  *THE SLING, as built, 8 October 2026* (`sling-twang.ts`): after a true
+  loose the two tines ring about the crotch through the rest that follows,
+  mirrored like a struck fork, 0.6 of a radian at the first swing and two
+  and a half swings dying to nothing as the rest runs out, so the tips
+  travel more than half a tile and are still before the next step lights,
+  since a tine is a seat's draw handle. Each cord, its verdict ring and the
+  bolt's stop go round with their tine. An event, not an idle drift: the
+  September `sling:tine` sway was too small to see. Timed off the rest's
+  own beat; that a loose and not a shot or a spring began the rest is kept
+  from the events, and cleared by every other end. Not hushed: the loose
+  closes THE SLOW. Under *a look the owner asked for by name*.
+
   *Left still on purpose:* THE VALVE, since its drum carries the wheel the
   pilot turns and the socket both seats tap, and its pins are thumb-held
   and already sway as the owner picked on VERSUS `valve:pin`; THE DAVIT,
   since its hook is both seats' loose handle and the fire step's target,
   and a hook swinging off the middle column would mislead the cannons;
   and THE VANE, SCUTTLE, RATCHET, RIME and TRIVET for the reasons given
-  under *A mechanism is not an animal*. THE SLING's tines are queued
-  (`docs/queue.md`).
+  under *A mechanism is not an animal*.
 
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
@@ -964,7 +975,7 @@ about a tenth of a second.
     SURGE, LEDGER, STARE, CYST, VISE, MANTLE, KEEL, SPLICE and HIVE; THE
     FILAMENT's organ turn was taken as its sway.
 11. The mechanisms' hinged parts, six a lane. THE HASP and THE PLUMB landed
-    7 October 2026, THE SPOOL and THE GRINDSTONE 8 October; THE SLING is queued; the rest
+    7 October 2026, THE SPOOL, THE GRINDSTONE and THE SLING 8 October; the rest
     are left still on purpose.
 12. What sets the `life` level lower: the motion setting (landed 29 September 2026).
 

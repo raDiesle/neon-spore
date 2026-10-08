@@ -18,6 +18,7 @@ import {
 } from "./sling-pose.js";
 import { slingCupRadius, slingHandle, slingHome, slingTinePath, slingTip } from "./sling-shape.js";
 import { slingStopper } from "./sling-stop.js";
+import { slingRung, slingTineTurn, slingTwang } from "./sling-twang.js";
 import { drawSlingMarkFeedback } from "./sling-verdicts.js";
 
 /**
@@ -54,17 +55,22 @@ export function drawSling(
   const cooled = slingCooled(s, cfg, beat, beatPhase);
   const cords: Circle[] = [];
   const tension: [number, number] = [0, 0];
+  // After a true loose the tines ring through the rest, each cord carried with its tine.
+  const ring = slingTwang(s, cfg, fx.ring.rung, beat, beatPhase);
   for (const side of [0, 1] as const) {
+    ctx.save();
+    ctx.rotate(slingTineTurn(side, ring));
     drawTine(ctx, l, side, arrived, time);
     const drawn =
       cooled === null
         ? slingTension(world, s, side, beat, beatPhase)
         : slingCoolTension(s, side, cooled, beatPhase);
     drawSlingCord(ctx, l, side, drawn, slingAsks(s, side), beatPhase);
-    cords.push(cordMark(l, side, drawn));
+    ctx.restore();
+    cords.push(cordMark(l, side, drawn, ring));
     tension[side] = drawn;
   }
-  stops?.aim(slingStopper(l, world, home, arrived, tension));
+  stops?.aim(slingStopper(l, world, home, arrived, tension, ring));
   const r = slingCupRadius(l);
   const at = { cup: { x: 0, y: -r * 0.2, r }, cords: [cords[0], cords[1]] as [Circle, Circle] };
 
@@ -89,11 +95,12 @@ export function drawSling(
   ctx.restore();
 }
 
-/** A cord's mark: round its middle at this frame's draw, half a tile out. */
-function cordMark(l: Layout, side: 0 | 1, tension: number): Circle {
+/** A cord's mark: round its middle at this frame's draw, carried with its ringing tine, half a tile out. */
+function cordMark(l: Layout, side: 0 | 1, tension: number, ring: number): Circle {
   const tip = slingTip(l, side, 1);
   const handle = slingHandle(l, side, tension);
-  return { x: (tip.x + handle.x) / 2, y: (tip.y + handle.y) / 2, r: l.tile * 0.5 };
+  const mid = slingRung({ x: (tip.x + handle.x) / 2, y: (tip.y + handle.y) / 2 }, side, ring);
+  return { ...mid, r: l.tile * 0.5 };
 }
 
 /** One tine, splayed to `arrived`: scoured steel, the key light on it, its dark outline. */

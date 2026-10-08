@@ -35528,3 +35528,17 @@ Bottleneck: writing — the hit test, the ghost thumb and the verdict ring
 each place a pad, and all three had to take the same turn.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE SLING's tines ring after a true loose
+
+- reading: 5 min. The fork's shape, pose, draw and stop, the sim's loose
+  and rest, and why `sling:tine` was dropped.
+- writing: 10 min. `sling-twang.ts`, the ring flag off the events, the
+  tines, cords, cord marks and stop carried round, the test, the spec.
+- looking: 5 min. `--auto both` to the first loose, three frames cropped
+  three times up.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: reading — the simulation does not keep what began a rest, so
+the ring had to come from the events without breaking the two-screen rule.

@@ -1439,6 +1439,7 @@ by hand never moves.
 | `packages/render/src/sling-blow.ts` | **THE SLING's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/sling-fx.ts` | What THE SLING leaves behind a frame: its marks' verdicts (`marks`, `sling-verdicts.ts`) and |
 | `packages/render/src/sling-verdicts.ts` | **THE SLING's marks answering a touch the way every mark does** (`mark-feedback.ts` |
+| `packages/render/src/sling-twang.ts` | **THE SLING's tines ring out after a true loose** (`docs/spec/living-bosses.md`, step 11) |
 | `packages/render/src/slow-look.ts` | **THE SLOW's window, as a picture** — the record the look is one field on, and the pass that reads it |
 | `packages/render/src/slow-lens.ts` | **What a lens over THE SLOW's window needs and is not about**: the frame's own pixels |
 | `packages/render/src/slow-intake-aim.ts` | Where the body a window is about stands and how wide it is, and how far up the look stands this frame |
