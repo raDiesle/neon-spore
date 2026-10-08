@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE LEDGER: lit nerves along the cord, and a new back for its body?
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Taken:** 2026-10-08, claude/queue-tasks-3078fe (claim: claude/queue-the-ledger-lit-nerves-along-the-cord-and-a-new-b)
 - **Files:** `packages/render/src/ship-nerves.ts`, `packages/render/src/ledger-cord.ts`, `packages/render/src/ledger-shape.ts`
 - **Asks:** Is THE LEDGER kept? Both looks wait on it (the owner, 7 October 2026: skip what is only visual until he has decided whether to keep the boss)
 - **Answered:** 2026-10-08 — THE LEDGER is kept, over cutting it; both looks are workable, each still a VERSUS offer, never straight onto the field
