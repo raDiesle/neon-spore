@@ -3760,6 +3760,7 @@ by hand never moves.
 | `tools/frames/until.ts` | **Stopping on the tick something happened, instead of on a number.** `--ticks` is an absolute `world.tick` |
 | `tools/frames/until-flags.ts` | **`--until` and the two numbers that ride on it, read off the command line**: how far to look |
 | `tools/frames/auto.ts` | `--auto both`, `p1` or `p2`: the game's own AUTO plays those seats while a capture steps the ticks, so a boss's receipt can be photographed |
+| `tools/frames/known-flags.ts` | **Every flag `bun run frames` reads, and the refusal of any other** |
 | `tools/director/src/stage-trail.ts` | THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD |
 | `tools/director/src/stage-draft.ts` | **What the wave being edited says about itself**, read fresh on every call |
 | `tools/director/src/stage-field.ts` | **What the stage hands a hit test**, and nothing else |

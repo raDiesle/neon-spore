@@ -533,17 +533,3 @@ reason (its comment says so). Give a `Row` an optional list of roles to walk
 `drawMarkTheirs` back on its row with both seats. Then do the same for one
 more boss that draws the partner's ring (`grep -l drawMarkTheirs
 packages/render/src`), to show the option carries.
-
-## `bun run frames` takes a flag it does not know without a word
-
-- **Found:** 2026-10-08, claude/parked-boss-concept-d88325
-- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-bun-run-frames-takes-a-flag-it-does-not-know-wit)
-- **Files:** `tools/frames/run.ts`, `tools/frames/flags.ts`, `tools/frames/test/flags.test.ts`
-
-`bun run frames . --wave "THE LATCH" --until latchKnot --after 6` wrote the
-frame on the tick of the event, with nothing said about `--after`; so does
-`--bogus-flag 3`. The flag that does it is `--until-on N`, and the run had to
-be repeated to find that out. Have `run.ts` refuse any `--flag` it does not
-read, naming the nearest flag it does (the usage line in `run.ts` lists them
-all), and add a test in `flags.test.ts` for an unknown flag and for a known
-one with a typo.

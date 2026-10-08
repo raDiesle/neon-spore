@@ -46,6 +46,8 @@ import { dirname, join } from "node:path";
  *
  * What somebody reaching for the command needs is the other half: one
  * **recipe** per flag, in `recipes.ts`, printed by `bun run frames --help`.
+ * A flag in neither is refused by name rather than ignored (`known-flags.ts`),
+ * so a new one gets its row there too.
  *
  * **`.` in place of a sha photographs the working tree**, once, with no
  * worktree, no parent and no `identical:` guard. The pair stays the default

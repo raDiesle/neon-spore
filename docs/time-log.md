@@ -35765,3 +35765,16 @@ Bottleneck: the per-rub flare needed an event the simulation did not say,
 and an event is seven files outside it.
 
 *Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — `bun run frames` takes a flag it does not know without a word
+
+- reading: 5 min. `flags.ts`, the flags `run.ts` reads itself, the recipes.
+- writing: 5 min. `known-flags.ts` and its test, a test kept out of
+  `flags.test.ts`, which is already past the ceiling.
+- looking: 0 min. The two refusals read off the terminal.
+- friction: 5 min. The first cut-off suggested `--raster` for `--after`, and
+  two heredocs with a backslash were refused by the guard.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: tuning how near a misspelling has to be before naming a flag
+helps more than it misleads.

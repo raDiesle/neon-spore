@@ -5,6 +5,7 @@ import { parseAt } from "./crop.js";
 import { parseFault } from "./fault.js";
 import { collectHolds, collectPresses, tickLine } from "./flag-lists.js";
 import { parseHand } from "./hand.js";
+import { refuseUnknownFlags } from "./known-flags.js";
 import { parseOpening } from "./opening.js";
 import type { FrameSpec } from "./spec.js";
 import { DEFAULT_UNTIL_TICKS, parseUntil } from "./until-flags.js";
@@ -30,6 +31,8 @@ export function parseFrameSpec(
   argv: readonly string[],
   waves: readonly WaveName[],
 ): { spec: FrameSpec; waveValue: string } {
+  // A flag nobody reads is refused before anything is read (`known-flags.ts`).
+  refuseUnknownFlags(argv);
   const flag = (name: string, fallback: number): number => {
     const i = argv.indexOf(`--${name}`);
     return i === -1 ? fallback : Number(argv[i + 1]);
