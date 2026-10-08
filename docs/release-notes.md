@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 30db15ad1 — THE BLISTER's SWIPE, half built: the stroke is heard and judged, and parked
+
+A blister may be authored `gesture: "swipe"` with a `way`, and a stroke across it that way is a blow: a `blisterSwipe` drag judged on the lift, a tile along the way and more along than across, with a sink voiding any stroke still open. The help is THE INSTAR's swipe track turned to the way. No wave and no director chip sends one yet, so nothing in the game changes; the tests, the director's SWIPE and WAY chips, the field-controls row and a look are left, in docs/parked.md, and lane 5 moves there from the queue.
+
 ## 2026-10-08 · 6f1fa2198 — The mouse no longer leaves a rainbow trail
 
 The neon slime that followed a desktop mouse, on the menu, the room screen and the field, is removed from the game and from the director's stage. The owner asked for it by name. `neonHue` stays, in `neon-hue.ts`, because THE FLUE's mirage turns it.
