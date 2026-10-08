@@ -696,7 +696,7 @@ by hand never moves.
 | `packages/sim/src/baton.ts` | THE BATON: whose turn is it |
 | `packages/sim/src/bastion-hand.ts` | THE BASTION's hands: a plate a side pulled out from the core, and the pilot's rim turning the moon |
 | `packages/sim/src/bastion-hash.ts` | What THE BASTION puts into `hashWorld`, and nothing else |
-| `packages/sim/src/bastion-shot.ts` | **THE BASTION's shot**, met where it leaves the top of the field (`shot-out.ts`) until the moon is drawn for… |
+| `packages/sim/src/bastion-shot.ts` | **THE BASTION's shot**, met where the moon hangs (`core-along.ts`) up the middle column and up the open… |
 | `packages/sim/src/bastion-step.ts` | THE BASTION's clock: the moon coming in, each shell lighting, a node charging and throwing its lightning |
 | `packages/sim/src/bastion.ts` | THE BASTION: a metal moon built in shells, hanging over the field, taken apart from the outside in |
 | `packages/sim/src/config-balloon.ts` | THE BALLOON's numbers: how long one swells before it moves, how fast it climbs |
@@ -1176,6 +1176,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zs.ts` | **What THE LAMPREY is asking for**, page forty-five of the readings |
 | `packages/render/src/boss-cue-read-zt.ts` | **What THE MIMIC is asking for**: TILES round the picture on the screen that reads, TAP over the board on the one that paints, TAP on the bare core |
 | `packages/render/src/boss-cue-read-zu.ts` | **What THE LATCH is asking for**, page forty-seven of the readings |
+| `packages/render/src/boss-cue-read-zv.ts` | **What THE BASTION is asking for**, page forty-eight of the readings, a word for each shell's job |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -2434,6 +2435,7 @@ by hand never moves.
 | `packages/render/src/baton-explain.ts` | THE BATON's words on the field: a banner while a new part is coming, each screen's job beside it while it runs |
 | `packages/render/src/bastion-shape.ts` | **THE BASTION's geometry**: where the moon hangs, how far out each of its shells stands |
 | `packages/render/src/bastion-shed.ts` | **A shell coming away** (§11.62): the owner's *visual of a successful step level achieved* |
+| `packages/render/src/bastion-stop.ts` | **Where a bolt meets THE BASTION**, for `BoltStops` (`bolt-stop.ts`) |
 | `packages/render/src/bastion-cage.ts` | **THE BASTION's lattice** (§11.62): a cage of bright titanium struts round the inner hull |
 | `packages/render/src/bastion-draw.ts` | **THE BASTION** (§11.62): a metal moon hung over the field in four shells |
 | `packages/render/src/bastion-fx.ts` | What THE BASTION leaves behind a frame (§11.62, *The receipts*): **the plates torn off** |

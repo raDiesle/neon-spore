@@ -109,6 +109,6 @@ export function drawLatestPairBoss(
 
   // THE BASTION: a metal moon in four shells, each its own metal and its
   // own machine, taken off from the outside in (`bastion-draw.ts`); its
-  // receipts are `bastion-fx.ts`.
-  drawBastion(ctx, l, world, boss, beat, beatPhase, time, effects.boss.bastion);
+  // receipts are `bastion-fx.ts`, and a bolt stops on it (`bastion-stop.ts`).
+  drawBastion(ctx, l, world, boss, beat, beatPhase, time, effects.boss.bastion, effects.bolts);
 }

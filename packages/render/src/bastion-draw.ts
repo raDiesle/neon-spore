@@ -25,7 +25,9 @@ import {
   bastionReach,
 } from "./bastion-shape.js";
 import { drawBastionRegrow, drawBastionShed } from "./bastion-shed.js";
+import { bastionStopper } from "./bastion-stop.js";
 import { drawBastionHalos, drawBastionVerdicts } from "./bastion-verdicts.js";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import type { Layout } from "./layout.js";
 import { showsBastionPort } from "./view-role-clocks-c.js";
@@ -45,6 +47,8 @@ import { showsBastionPort } from "./view-role-clocks-c.js";
  * port a crater — and every shell off leaves the moon a size smaller, with
  * the shell flung apart in a green shockwave (`bastion-shed.ts`).
  *
+ * **A bolt stops on the moon** where it meets it (`bastion-stop.ts`).
+ *
  * Everything is read off `world` each frame but its receipts — the plates in
  * flight, the lightning, the shudder and the blow (`bastion-fx.ts`, drawn by
  * `bastion-receipts.ts`) — and the knobs the thumbs take it apart by, with
@@ -59,9 +63,11 @@ export function drawBastion(
   beatPhase: number,
   time: number,
   fx: BastionFx,
+  stops?: BoltStops,
 ): void {
   const p = bastionPose(l, world.cfg, s, beat, beatPhase);
   fx.note(s);
+  stops?.aim(bastionStopper(l, world, s, p));
   const c = p.c;
   const reach = bastionReach(l, s);
   ctx.save();

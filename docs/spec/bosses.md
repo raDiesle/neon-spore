@@ -11282,9 +11282,20 @@ greens the rim. **The panel is the default one**: lane one's wave carried
 off the ship for a boss two of whose shells they answer — a fix to
 something wrong.
 
-**What is not built.** The shield's and the cannon's cues and their words,
-and the bolt stopped on the moon: until they land a bolt is judged where it
-leaves the top of the field.
+**The words** (`render/boss-cue-read-zv.ts`): `PULL` on each side's slab
+knob to its seat until a thumb is on it; `TURN` on the rim to the pilot
+while no gun stands at the front, then `FIRE` at the hull under the middle,
+aimed at the gun; `SHIELD` under the node charging; and `FIRE` under the
+open port, aimed at it, to the navigator alone — the pilot is never shown
+the port's column, which is what she has to say.
+
+**A bolt stops on the moon** (`render/bastion-stop.ts`): at its lower edge,
+as wide as the shell on it now, or past the edge and up to the gun at the
+front or into the open port. The simulation meets it there too
+(`sim/core-along.ts`): up the middle past the innermost shell's foot, and up
+the gun's or the port's own column just past where each is drawn
+(`bastionAside`), so the gun blows and the port flares on the frame the bolt
+reaches them rather than when it leaves the top of the field.
 
 **What is proven, and what is not.** `sim/test/bastion.test.ts` proves the
 rules: the install and the first shell; a plate torn along its way, and

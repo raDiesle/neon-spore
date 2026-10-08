@@ -1,3 +1,4 @@
+import { bastionAside, bastionVerdict } from "./bastion-shot.js";
 import type { BossKind } from "./boss-strike.js";
 import { capstanVerdict } from "./capstan-shot.js";
 import { midCol } from "./config.js";
@@ -52,10 +53,23 @@ interface Core {
  * runtime — the director's dev server — a module still loading is `null`, so
  * a verdict taken by name at load threw. Each is called through an arrow.
  */
+/** THE BASTION's row: the moon's centre, over the middle column. */
+const BASTION_ROW = 4200;
+
 /** THE GALL's row: below the middle of the field's fifteen. */
 const GALL_ROW = 8500;
 
 const CORES: Partial<Record<BossKind, Core>> = {
+  // THE BASTION's moon hangs over the middle column and shrinks a shell at a
+  // time. The gun turned to the front and the open port are met up their own
+  // columns just past where they are drawn (`bastion-shot.ts`); the armour up
+  // the middle, past the innermost shell's foot (`render/bastion-stop.ts`).
+  bastion: {
+    milli: BASTION_ROW,
+    meet: 5900,
+    verdict: (w, c, k) => bastionVerdict(w, c, k),
+    aside: (w) => bastionAside(w, BASTION_ROW),
+  },
   capstan: { milli: 2700, verdict: (w, c, k) => capstanVerdict(w, c, k) },
   curtain: { verdict: (w, c, k) => curtainVerdict(w, c, k), aside: (w) => curtainCoreAside(w) },
   // THE GALL's alien sits below the middle of the field, the owner's ask of 8

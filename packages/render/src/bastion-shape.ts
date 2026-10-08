@@ -4,6 +4,7 @@ import {
   type BastionState,
   bastionLayerOn,
   bastionPlateWay,
+  coreRowMilli,
   midCol,
   type SimConfig,
 } from "@neon-spore/sim";
@@ -23,8 +24,8 @@ import { type Layout, tileCY } from "./layout.js";
  * lower face, where a bolt coming up that column meets it.
  */
 
-/** The row the moon's centre hangs on, in rows. */
-export const BASTION_ROW = 4.2;
+/** The row the moon's centre hangs on, in rows: the simulation's, where its bolts are met (`sim/core-along.ts`). */
+export const BASTION_ROW = coreRowMilli("bastion") / 1000;
 
 /** How far out each shell stands from the centre, in tiles, outermost first. */
 export const BASTION_SHELL_TILES: Record<BastionLayer, number> = {

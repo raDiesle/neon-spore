@@ -13,13 +13,15 @@ import {
 import { bastionTakes } from "./bastion-step.js";
 import { midCol } from "./config.js";
 import { type CoreVerdict, coreTaken } from "./core-verdict.js";
+import { isqrt } from "./handle-pull.js";
 import { guardArmed } from "./hull-guard.js";
 import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * **THE BASTION's shot**, met where it leaves the top of the field
- * (`shot-out.ts`) until the moon is drawn for a bolt to stop on.
+ * **THE BASTION's shot**, met where the moon hangs (`core-along.ts`) up the
+ * middle column and up the open port's, and anywhere else where it leaves the
+ * top of the field (`shot-out.ts`).
  *
  * - **The ring**: the gun turned to the front, over the middle column, in
  *   its own colour. The wrong colour is a colour missed, and the gun stays.
@@ -58,6 +60,39 @@ export function bastionTarget(
   if (step.layer !== "port") return null;
   const piece = bastionNext(s);
   return piece < 0 ? null : { piece, col: bastionPieceCol(world, s, piece), color: "either" };
+}
+
+/**
+ * Where the moon is met up a column of its own (`core-along.ts`), in
+ * thousandths of a row: the gun turned to the front up the middle while the
+ * ring is lit, the open port up its column while the hull is, laid off the
+ * moon's `centre`. Each is met `MEET_MILLI` short of this row, four tenths of
+ * a row past where the picture stands it (`render/bastion-shape.ts`), so a
+ * bolt is drawn reaching it on a frame before it is judged.
+ */
+export function bastionAside(world: World, centre: number): { col: number; milli: number } | null {
+  const target = bastionTarget(world);
+  const s = bastionBoss(world);
+  const layer = s === null ? null : bastionLitStep(s)?.layer;
+  if (target === null || s === null) return null;
+  if (layer === "ring") return { col: target.col, milli: centre + BASTION_GUN_DOWN + BASTION_PAST };
+  const offset = target.col - midCol(world.cfg);
+  return { col: target.col, milli: centre + bastionPortDown(offset) + BASTION_PAST };
+}
+
+/** The hull's radius and the share of it down its face the ports sit on, as the picture lays them. */
+const BASTION_PORT_R_MILLI = 2100;
+const BASTION_PORT_FACE_MILLI = 600;
+/** The gun at the front, under the centre by the ring's drop and its near half. */
+const BASTION_GUN_DOWN = 1380;
+/** The aside's row under its picture: `MEET_MILLI`, less four tenths of a row. */
+const BASTION_PAST = 100;
+
+/** How far under the centre a port `offset` columns out is drawn, on the hull's lower face. */
+function bastionPortDown(offset: number): number {
+  const dx = offset * 1000;
+  const root = isqrt(Math.max(0, BASTION_PORT_R_MILLI ** 2 - dx * dx));
+  return Math.round((root * BASTION_PORT_FACE_MILLI) / 1000);
 }
 
 /**

@@ -11,6 +11,7 @@ import { seamCues } from "./boss-cue-read-zr.js";
 import { lampreyCues } from "./boss-cue-read-zs.js";
 import { mimicCues } from "./boss-cue-read-zt.js";
 import { latchCues } from "./boss-cue-read-zu.js";
+import { bastionCues } from "./boss-cue-read-zv.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import type { Layout } from "./layout.js";
 import { plumbCues } from "./plumb-marks.js";
@@ -35,6 +36,7 @@ const CHOREO_KINDS: ReadonlySet<BossState["kind"]> = new Set([
   "lamprey",
   "mimic",
   "latch",
+  "bastion",
 ]);
 
 /** Whether `boss` is one of the choreographed kinds whose page is in this file. */
@@ -97,6 +99,9 @@ export function choreoCues(
     // THE LATCH's, a pull on the grip whose turn it is and a hold on the other, both a hold while it rears (`boss-cue-read-zu.ts`).
     case "latch":
       return latchCues(l, world, boss);
+    // THE BASTION's, a pull on each side's slab, a turn on the rim and a shot at the front gun, a shield under the charging node, and a shot under the port to the seat that sees it (`boss-cue-read-zv.ts`).
+    case "bastion":
+      return bastionCues(l, world, boss);
     default:
       return [];
   }

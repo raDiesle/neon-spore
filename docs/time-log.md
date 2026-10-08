@@ -36396,3 +36396,20 @@ Bottleneck: the director's registries, found one red check at a time —
 `check:fast` takes two minutes a round.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE BASTION, lane four: its words and its bolt
+
+- reading: 10 min. THE LATCH's and THE SEAM's cue pages, `core-along.ts`,
+  `core-stop.ts` and the test that plays every core.
+- writing: 20 min. The cue page and its test, the stopper, the moon's row
+  on the core table with the gun and the port met up their own columns,
+  §11.62.
+- looking: 5 min. Two real frames: the front gun's FIRE, the open port's.
+- friction: 10 min. One meet row could not serve the gun, the armour and a
+  port two columns out against a frame every other tick; `Math.sqrt` is
+  refused in the sim (`isqrt`); a word on the next piece needed a seed of
+  its own, or the hush read it as the last one moved.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: fitting the sim's meet rows to the picture — three rounds of
+`core-met.test.ts` to find the window each part is met in.
