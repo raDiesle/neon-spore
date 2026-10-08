@@ -36,8 +36,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * table, and judged by the boss's own call rather than `shotLeaves`, so the
  * target going out is the receipt rather than a `shotOut`.
  *
- * **And what a step asks for aside**, THE CYST's bud and THE VISE's seed: each
- * is played on until a bolt has met it up its own column too.
+ * **And what a step asks for aside**, THE VISE's seed: it is played on until
+ * a bolt has met it up its own column too.
  */
 
 beforeAll(() => installCanvasGlobals());
@@ -66,7 +66,7 @@ const FALLING: Partial<Record<BossKind, SimEvent["type"]>> = {
 };
 
 /** The bosses with a part a step asks for aside of the middle column. */
-const ASIDE: readonly BossKind[] = ["cyst", "vise"];
+const ASIDE: readonly BossKind[] = ["vise"];
 
 /**
  * THE STARE played right never shoots, because the eye cannot be hurt

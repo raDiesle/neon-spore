@@ -52,13 +52,6 @@ import type { Wave } from "../wave-types.js";
  * clean lock the caliper and light the axle, which is shot in its colour;
  * between the shots both seats clamp at once to keep it locked.
  *
- * **THE CYST is the first boss where one seat's tap is the other's cue**:
- * a sac over the middle column whose lit flank shudders until the partner
- * taps it still, then is pinched shut by its own seat to crack
- * (`docs/spec/bosses-choreographed.md` §34, `sim/cyst.ts`). Both flanks
- * cracked bare the core, which is shot in its colour; between the shots a
- * cracked flank is stilled and pinched again to hold it off the core.
- *
  * Every shot in this act waits six beats, as in act thirteen (`act-13.ts`).
  */
 export const WAVES_ACT_12: Wave[] = [
@@ -213,33 +206,6 @@ export const WAVES_ACT_12: Wave[] = [
         { ask: "clamp", color: "either", beats: 3 },
         { ask: "fire", color: "cyan", beats: 6 },
         { ask: "clamp", color: "either", beats: 3 },
-        { ask: "fire", color: "either", beats: 6 },
-      ],
-    },
-    bossType: "normal",
-  },
-  {
-    id: "theCyst",
-    name: "THE CYST",
-    guide: {
-      both: "A shaking flank: your partner taps it still, you pinch it shut. Both cracked: shoot the core in its colour. Swell: both pinch shut. Shield the spore. Shoot the bud.",
-      p1: "1. When the left flank shakes, your partner taps it. Then pinch it shut.\n2. When the right flank shakes, tap its mark so it stops.\n3. Shoot the bare core in its colour.\n4. Swell: pinch shut with your partner.",
-      p2: "1. When the left flank shakes, tap its mark so it stops.\n2. When the right flank shakes, your partner taps it. Then pinch it shut.\n3. Shield the spore. Shoot the bud in its colour.",
-    },
-    entries: [],
-    boss: {
-      kind: "cyst",
-      steps: [
-        { ask: "left", color: "either", beats: 4 },
-        { ask: "right", color: "either", beats: 4 },
-        { ask: "swell", color: "either", beats: 3 },
-        { ask: "fire", color: "red", beats: 6 },
-        { ask: "spit", color: "either", beats: 4, offset: -2 },
-        { ask: "left", color: "either", beats: 3 },
-        { ask: "fire", color: "cyan", beats: 6 },
-        { ask: "bud", color: "cyan", beats: 4, offset: 2 },
-        { ask: "right", color: "either", beats: 2 },
-        { ask: "swell", color: "either", beats: 2 },
         { ask: "fire", color: "either", beats: 6 },
       ],
     },

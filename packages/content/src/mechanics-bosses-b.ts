@@ -20,7 +20,6 @@ type BossIdB = Extract<
   | "plumb"
   | "sling"
   | "grindstone"
-  | "cyst"
   | "halter"
   | "lamprey"
   | "mimic"
@@ -116,10 +115,6 @@ export const BOSS_MECHANICS_B = {
   },
   grindstone: {
     what: "Rub your flat back and forth until clean, twice. Both flats clean lock the caliper: shoot the axle in its colour. When the jaws light, both hold every pad.",
-    reach: "spawn",
-  },
-  cyst: {
-    what: "When a flank shakes, your partner taps it still: pinch it shut to crack it. Both cracked: shoot the core in its colour. Then crack each flank once more.",
     reach: "spawn",
   },
   halter: {

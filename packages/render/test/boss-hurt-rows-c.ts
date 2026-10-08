@@ -73,23 +73,6 @@ export const HURT_ROWS_C: Row[] = [
     hurt: (fx) => fx.boss.plumb.hurt,
   },
   {
-    boss: "cyst",
-    // A flank cracked and the core hit; the tap that stills it, a slip or a spring only works toward one.
-    land: [
-      { type: "cystCrack", side: 0, col: 3 },
-      { type: "cystHit", hits: 1, col: 3 },
-    ],
-    part: [
-      { type: "cystLight", ask: "left", col: 3 },
-      { type: "cystStill", side: 0, col: 3 },
-      { type: "cystShudder", side: 1, col: 3 },
-      { type: "cystSlip", side: 0, col: 3 },
-      { type: "cystSpring", side: 1, col: 3 },
-    ],
-    hit: "a crack is its tap and its pinch landed together, and the core is one shot",
-    hurt: (fx) => fx.boss.cyst.hurt,
-  },
-  {
     boss: "nettle",
     // THE INSTAR's engine, so THE INSTAR's events: a step landed and the last.
     land: [

@@ -10,7 +10,6 @@ import { NOT_FAILED } from "../src/wave-fail.js";
 import { startWave } from "../src/wave-start.js";
 import { createWorld, type World } from "../src/world.js";
 import * as capstan from "./capstan-rig.js";
-import * as cyst from "./cyst-rig.js";
 import * as flue from "./flue-rig.js";
 import * as gall from "./gall-rig.js";
 import * as governor from "./governor-rig.js";
@@ -81,7 +80,6 @@ describe("a bolt out of the top on HARD, under a boss", () => {
   // The core stands in the middle column whether it is lit or shut.
   const CORED: Record<string, () => World> = {
     capstan: () => capstan.install(),
-    cyst: () => cyst.install(),
     governor: () => governor.install(),
     grindstone: () => grindstone.install(),
     halter: () => halter.install(),

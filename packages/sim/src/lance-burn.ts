@@ -4,7 +4,6 @@ import { resolve } from "./bullet-hit.js";
 import { capstanStruck } from "./capstan-shot.js";
 import { hullRow } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
-import { cystStruck } from "./cyst-shot.js";
 import { flueStruck } from "./flue-shot.js";
 import { gallStruck } from "./gall-shot.js";
 import { gimbalStruck } from "./gimbal-shot.js";
@@ -200,8 +199,6 @@ function burnColumn(world: World, col: number, color: Color): number {
   slingStruck(world, b);
   // And THE GRINDSTONE's lit axle (`grindstone-shot.ts`).
   grindstoneStruck(world, b);
-  // And THE CYST's bared core (`cyst-shot.ts`).
-  cystStruck(world, b);
   // And THE HALTER's bared centre (`halter-shot.ts`).
   halterStruck(world, b);
   // And THE CAPSTAN's bared core (`capstan-shot.ts`).

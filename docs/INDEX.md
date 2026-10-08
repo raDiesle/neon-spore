@@ -642,11 +642,9 @@ by hand never moves.
 | `packages/sim/src/config-choir.ts` | THE CHOIR's numbers: how far a hand has to carry an arrow, how long the pair has between the two of them |
 | `packages/sim/src/config-choke.ts` | THE CHOKE's one number: how many beats the steer fault takes per column of the cannon's walk |
 | `packages/sim/src/config-curtain.ts` | THE CURTAIN's numbers — the row the fabric hangs at, how much of it must stay on the field |
-| `packages/sim/src/config-cyst.ts` | THE CYST's tuning: the rests around its steps, the window a tap is given, the grace a pinch is given |
 | `packages/sim/src/events-choir.ts` | **THE CHOIR's three**: an arrow out, both in, and the window gone |
 | `packages/sim/src/events-cling.ts` | **Everything THE LIMPET and THE LEECH do**, as events: one takes hold of a control, is shaken a move looser |
 | `packages/sim/src/events-curtain.ts` | **Everything THE CURTAIN does that neither screen already says**, as events |
-| `packages/sim/src/events-cyst.ts` | What THE CYST says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/command-round.ts` | **The rounds' own verbs**, as their half of the `Command` union |
 | `packages/sim/src/command-locks.ts` | **Every way a press is refused before it is read**, in one place |
 | `packages/sim/src/command-leave.ts` | **The two presses that leave a run**, read above every lock a boss or a fault puts on a press |
@@ -795,12 +793,6 @@ by hand never moves.
 | `packages/sim/src/curtain-shove.ts` | **The shove**: two hands on the sheet, carrying it along its rail |
 | `packages/sim/src/curtain-step.ts` | THE CURTAIN's clock — the soft lobes redrawn, the roll-back, the core's fire, the beats after the last hit |
 | `packages/sim/src/curtain.ts` | THE CURTAIN: what it is standing in front of |
-| `packages/sim/src/cyst-hand.ts` | THE CYST's four handles: a freeze mark and a flank on each side |
-| `packages/sim/src/cyst-hash.ts` | What THE CYST puts into `hashWorld`, and nothing else |
-| `packages/sim/src/cyst-shot.ts` | **THE CYST's shot**: the bared core, where a bolt leaves the top of the field in the middle column |
-| `packages/sim/src/cyst-step.ts` | THE CYST's clock: the sac settling, each step lighting, a lit flank waiting for its tap |
-| `packages/sim/src/cyst-guard.ts` | **THE CYST's spore, turned**, asked once a tick after the commands are heard |
-| `packages/sim/src/cyst.ts` | THE CYST: a sac of two flanks over the middle column |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
 | `packages/sim/src/stare-hash.ts` | What THE STARE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/stare-hand.ts` | **The one hand on THE STARE**: its lashes, pulled up off the charging eye one at a time so the beam vents out to the sides |
@@ -1180,7 +1172,6 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zf.ts` | **What THE VISE is asking for** — page thirty-two of the readings |
 | `packages/render/src/boss-cue-read-zg.ts` | **What THE RIME is asking for** — page thirty-three of the readings |
 | `packages/render/src/boss-cue-read-zh.ts` | **What THE TRIVET is asking for** — page thirty-four of the readings |
-| `packages/render/src/boss-cue-read-zi.ts` | **What THE CYST is asking for** — page thirty-five of the readings |
 | `packages/render/src/boss-cue-read-zj.ts` | **What THE GRINDSTONE is asking for** — page thirty-six of the readings |
 | `packages/render/src/boss-cue-read-zk.ts` | **What THE HALTER is asking for** — page thirty-seven of the readings |
 | `packages/render/src/boss-cue-read-zl.ts` | **What THE CAPSTAN is asking for** — page thirty-eight of the readings |
@@ -2022,7 +2013,7 @@ by hand never moves.
 | `packages/render/src/effects-spark-silent-boss.ts` | The choreographed bosses' events that are deliberately not a burst, a family at a time |
 | `packages/render/src/effects-spark-silent-boss-b.ts` | **The bosses' half of the not-a-burst list, the second page** — from THE FILAMENT on |
 | `packages/render/src/effects-spark-silent-boss-c.ts` | **The bosses' half of the not-a-burst list, the third page** — THE GAUGE's four and THE WELL's four |
-| `packages/render/src/effects-spark-silent-boss-d.ts` | **The bosses' half of the not-a-burst list, the fourth page** |
+| `packages/render/src/effects-spark-silent-boss-d.ts` | **The bosses' half of the not-a-burst list, the fourth page** — THE KEEL's story beats |
 | `packages/render/src/effects-spark-silent-boss-e.ts` | **The bosses' half of the not-a-burst list, the fifth page** |
 | `packages/render/src/effects-spark-silent-boss-f.ts` | **The bosses' half of the not-a-burst list, the sixth page** — THE SURGE, THE LEAD, THE SCUTTLE |
 | `packages/render/src/effects-spark-handed.ts` | The bursts for the bodies answered by hands alone (`creatures-handed.ts`) |
@@ -2563,17 +2554,6 @@ by hand never moves.
 | `packages/render/src/curtain-marks.ts` | **THE CURTAIN's hem and sheet answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/curtain-thin.ts` | **THE CURTAIN thins where it is strained** |
 | `packages/render/src/cue-helper.ts` | **The helper a cue's word wears on the field**: a crosshair on a shot's aim, the panel's face for SHIELD and SUCK |
-| `packages/render/src/cyst-draw.ts` | **THE CYST**: a four-lobed sac over the middle column (BULB · CLOVER) |
-| `packages/render/src/cyst-fx.ts` | What THE CYST leaves behind a frame (§34): the **thud** of a flank cracking |
-| `packages/render/src/cyst-grip.ts` | **The hands on THE CYST** (§34): a tap on a freeze mark, and a pinch on a flank |
-| `packages/render/src/cyst-marks.ts` | **THE CYST's marks**: the things that say what a step asks — a lit freeze mark beside a flank |
-| `packages/render/src/cyst-pose.ts` | **THE CYST's pose, read off the state every frame** (§34): how far in the sac has dropped |
-| `packages/render/src/cyst-shape.ts` | **THE CYST's geometry**: where the sac stands, and the paths it is made of |
-| `packages/render/src/cyst-story.ts` | **THE CYST's three story steps, drawn** (§34; the rules are `sim/cyst-step.ts` and `sim/cyst-shot.ts`) |
-| `packages/render/src/cyst-stop.ts` | **Where a bolt meets THE CYST**, for `BoltStops` (`bolt-stop.ts`): the bared core, the bud on its own step, the sac |
-| `packages/render/src/cyst-sway.ts` | **THE CYST's lobes swing about their waists** (`docs/spec/living-bosses.md` §1, the outline tier) |
-| `packages/render/src/cyst-blow.ts` | **THE CYST's own blow at the hull** (`boss-strike-look.ts`) |
-| `packages/render/src/cyst-verdicts.ts` | **THE CYST's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/splash-blob.ts` | ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down |
 | `packages/render/src/spool-brake.ts` | **The pilot's brake**: a rail hanging outside the brake's flange, a knob on it at the depth his thumb has it |
 | `packages/render/src/spool-draw.ts` | **THE SPOOL**: a thread-spool slung sideways across the top of the field |
@@ -2692,7 +2672,6 @@ by hand never moves.
 | `packages/audio/src/bind-choreographed-c.ts` | **The tail of `bind-choreographed.ts`** |
 | `packages/audio/src/bind-choreographed-d.ts` | **The tail of `bind-choreographed-c.ts`** |
 | `packages/audio/src/bind-cling.ts` | THE LIMPET's and THE LEECH's four, in a file of their own on `bind-gum.ts`'s pattern |
-| `packages/audio/src/bind-cyst.ts` | THE CYST's seventeen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 | `packages/audio/src/mixer-handover.ts` | THE HANDOVER, heard: the beat the panels change screens, and the beat they come back |
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
@@ -2756,7 +2735,6 @@ by hand never moves.
 | `packages/hands/src/boss-hands-sling.ts` | **THE SLING played right**, for the autopilot: each seat holds its own draw down while the lit step asks it |
 | `packages/hands/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |
 | `packages/hands/src/boss-hands-capstan.ts` | **THE CAPSTAN played right**, for the autopilot: the steering seat leans past the mark, the other rubs, the bared core shot |
-| `packages/hands/src/boss-hands-cyst.ts` | **THE CYST played right**, for the autopilot |
 | `packages/hands/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN, THE SCUTTLE |
 | `packages/hands/src/boss-hands-flue.ts` | **THE FLUE played right**, for the autopilot: the navigator's thumb sent on the lead the pilot would call |
 | `packages/hands/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
@@ -3098,7 +3076,6 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-vise.ts` | THE VISE's two hands: a pinch on each lobe, both seats holding the case shut together |
 | `tools/director/src/poses-field-controls-valve.ts` | THE VALVE's two hands, **each photographed from the seat whose half it is** |
 | `tools/director/src/poses-field-controls-trivet.ts` | THE TRIVET's two hands: a chord of two on each foot, both seats keeping the stand planted together |
-| `tools/director/src/poses-field-controls-cyst.ts` | THE CYST's four hands: a flank tapped still by one seat and pinched shut by the other |
 | `tools/director/src/poses-field-controls-capstan.ts` | THE CAPSTAN's rub: the left band asked for, the pilot's thumb pulled over so its face is round |
 | `tools/director/src/poses-field-controls-choir.ts` | THE CHOIR's SHAKE as the pilot is offered it: a membrane on the field and the two arrows against its walls |
 | `tools/director/src/poses-field-controls-trapeze.ts` | THE TRAPEZE's controls, **each photographed from the seat whose control it is** |
@@ -3631,7 +3608,6 @@ by hand never moves.
 | `tools/director/src/field-controls-warden.ts` | THE WARDEN's thumb and swipe, the director's two rows |
 | `tools/director/src/field-controls-well.ts` | **THE WELL's seam**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-curtain.ts` | **THE CURTAIN's hem**, in a file of its own, the split every boss since THE INSTAR has made |
-| `tools/director/src/field-controls-cyst.ts` | THE CYST's freeze marks and flanks, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-capstan.ts` | THE CAPSTAN's pull and rub, as two rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-hive.ts` | **THE HIVE's underside**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-hasp.ts` | THE HASP's latch and wheel, as rows of the ON THE FIELD tab |
@@ -3661,7 +3637,7 @@ by hand never moves.
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |
 | `tools/director/src/ship-fields-choreo-c.ts` | **The choreographed bosses' dials, the third page** — THE SPOOL and every boss built after it |
-| `tools/director/src/ship-fields-choreo-d.ts` | **The choreographed bosses' dials, the fourth page** — THE CYST, THE HALTER |
+| `tools/director/src/ship-fields-choreo-d.ts` | **The choreographed bosses' dials, the fourth page** — THE HALTER, THE CAPSTAN and every boss built after them |
 | `tools/director/src/ship-fields-cannon.ts` | The cannon's numbers — the shot it fires and the arm THE CLAW puts in its place — sorted into their cards |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |

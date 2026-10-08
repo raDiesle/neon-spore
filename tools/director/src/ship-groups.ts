@@ -52,7 +52,6 @@ export type GroupName =
   | "THE PLUMB — the boss two pulls hold level, then shoot into"
   | "THE SLING — the boss two draws loose, then shoot into"
   | "THE GRINDSTONE — the boss two thumbs grind true, then shoot into"
-  | "THE CYST — the boss one hand stills for the other to crack"
   | "THE HALTER — the boss one hand keeps still for the other to open"
   | "THE CAPSTAN — the boss one hand rocks for the other to wear"
   | "THE GALL — the alien tapped, pulled and thrown across the hull"
@@ -164,7 +163,6 @@ export const GROUP_ORDER: GroupName[] = [
   "THE PLUMB — the boss two pulls hold level, then shoot into",
   "THE SLING — the boss two draws loose, then shoot into",
   "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
-  "THE CYST — the boss one hand stills for the other to crack",
   "THE HALTER — the boss one hand keeps still for the other to open",
   "THE CAPSTAN — the boss one hand rocks for the other to wear",
   "THE GALL — the alien tapped, pulled and thrown across the hull",

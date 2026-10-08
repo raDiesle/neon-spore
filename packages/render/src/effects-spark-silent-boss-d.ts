@@ -1,8 +1,8 @@
 import type { SimEvent } from "@neon-spore/sim";
 
 /**
- * **The bosses' half of the not-a-burst list, the fourth page** — THE CYST's
- * seventeen and THE KEEL's story beats.
+ * **The bosses' half of the not-a-burst list, the fourth page** — THE
+ * KEEL's story beats.
  *
  * Cut off `effects-spark-silent-boss-c.ts` on 26 September 2026, when THE
  * KEEL's flip, marrow and cooldown arrived with eight and page three stood at
@@ -42,25 +42,6 @@ export const SILENT_BOSS_D = [
   // bled is read off the state each frame (`sim/plumb-bleed.ts`).
   "plumbBleed",
   "plumbFlare",
-  // THE CYST's seventeen, no burst from this table: each is thrown above the
-  // loop by its own fx file (`cyst-fx.ts`).
-  "cystEnter",
-  "cystLight",
-  "cystStill",
-  "cystShudder",
-  "cystSlip",
-  "cystCrack",
-  "cystSpring",
-  "cystBare",
-  "cystHit",
-  "cystGuard",
-  "cystSeal",
-  "cystMiss",
-  "cystClench",
-  "cystTurn",
-  "cystPop",
-  "cystSplit",
-  "cystOut",
   // THE HALTER's fourteen, the same (`packages/audio/src/bind-halter.ts`).
   "halterEnter",
   "halterLight",

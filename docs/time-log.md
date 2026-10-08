@@ -36021,3 +36021,19 @@ Bottleneck: copying THE RIME's lane to a second body is quick; deciding the
 new count against the window was the only real question.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE CYST is taken out of the game, whole
+
+- reading: 5 min. THE BELLOWS's removal, to copy it, and the hundred-odd
+  files that named THE CYST.
+- writing: 15 min. Thirty-six files deleted, the registrations unpicked
+  until the typecheck went quiet, the string-keyed ones after it, the
+  design moved under *Retired*.
+- looking: 0 min. Nothing new drawn.
+- friction: 0 min.
+- landing: 45 min. Two full test runs, then a rebase over THE DAVIT's own
+  removal, landed by another session meanwhile, which touched the same lines
+  in seventy files, and another over THE GALL's rework.
+
+Bottleneck: landing — two lanes deleting neighbouring bosses at once
+conflict on every list both were struck from.

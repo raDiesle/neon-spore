@@ -1,20 +1,18 @@
 import { describe, expect, it } from "bun:test";
 import type { CoreVerdict } from "../src/core-verdict.js";
-import { cystStruck, cystVerdict } from "../src/cyst-shot.js";
 import { hashWorld } from "../src/hash.js";
 import { oculusStruck, oculusVerdict } from "../src/oculus-shot.js";
 import { trivetStruck, trivetVerdict } from "../src/trivet-shot.js";
 import type { Bullet, Color } from "../src/types.js";
 import { viseStruck, viseVerdict } from "../src/vise-shot.js";
 import type { World } from "../src/world.js";
-import * as cystRig from "./cyst-rig.js";
 import * as oculusRig from "./oculus-rig.js";
 import * as trivetRig from "./trivet-rig.js";
 import * as viseRig from "./vise-rig.js";
 
 /**
- * **A core with a second ask in a column of its own** — THE CYST's bud, THE
- * OCULUS's look, THE TRIVET's tip, THE VISE's spit — says what a bolt meets
+ * **A core with a second ask in a column of its own** — THE OCULUS's look,
+ * THE TRIVET's tip, THE VISE's spit — says what a bolt meets
  * through `coreVerdict`'s `aside`. The picture stops a bolt on that verdict,
  * so it must agree with the boss's `…Struck` on every column and colour, and
  * asking it must change nothing.
@@ -26,14 +24,6 @@ interface Case {
   verdict: (world: World, col: number, color: Color) => CoreVerdict;
   struck: (world: World, bullet: Bullet) => boolean;
   shot: (color: Color, col: number) => Bullet;
-}
-
-function lit<W>(install: () => W, toLit: (w: W) => unknown): () => W {
-  return () => {
-    const world = install();
-    toLit(world);
-    return world;
-  };
 }
 
 const CASES: Case[] = [
@@ -68,23 +58,6 @@ const CASES: Case[] = [
     verdict: trivetVerdict,
     struck: trivetStruck,
     shot: trivetRig.shot,
-  },
-  {
-    name: "THE CYST, a bud",
-    make: lit(
-      () => cystRig.install([{ ask: "bud", color: "cyan", beats: 4, offset: 2 }]),
-      cystRig.toLit,
-    ),
-    verdict: cystVerdict,
-    struck: cystStruck,
-    shot: cystRig.shot,
-  },
-  {
-    name: "THE CYST, a fire step on a shut core",
-    make: lit(() => cystRig.install([{ ask: "fire", color: "red", beats: 3 }]), cystRig.toLit),
-    verdict: cystVerdict,
-    struck: cystStruck,
-    shot: cystRig.shot,
   },
 ];
 

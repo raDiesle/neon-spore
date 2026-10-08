@@ -6,7 +6,6 @@ import {
   trivetLitStep,
   type World,
 } from "@neon-spore/sim";
-import { cystCentre, cystR } from "./cyst-shape.js";
 import { gimbalCentre, gimbalRingR } from "./gimbal-shape.js";
 import { haspCentre, haspShellRadius } from "./hasp-shape.js";
 import type { Layout } from "./layout.js";
@@ -87,8 +86,6 @@ export function bossAim(world: World, l: Layout, beat = world.beat, beatPhase = 
       return still({ x: hook.x + mid.x + core.x, y: hook.y + mid.y + core.y }, core.r);
     }
     // A sac over the middle column, its flank lobes the widest of it.
-    case "cyst":
-      return still(cystCentre(l, world.cfg), cystR(l) * 1.4);
     default:
       return lateBossAim(world, l, beat, beatPhase);
   }

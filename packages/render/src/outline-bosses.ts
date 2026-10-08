@@ -15,8 +15,7 @@
  * swings under its held collar (`sinew-sway.ts`), THE SURGE rocks about its
  * middle (`surge-sway.ts`), THE LEDGER's plating leans on its underside
  * (`ledger-sway.ts`), THE STARE rolls about its eye (`stare-sway.ts`) and
- * THE CYST's lobes each swing about their waists (`cyst-sway.ts`) and THE
- * VISE's case swings from its hinge (`vise-sway.ts`), THE MANTLE leans on
+ * THE VISE's case swings from its hinge (`vise-sway.ts`), THE MANTLE leans on
  * its straps (`mantle-sway.ts`), THE KEEL's loose segments heave on a
  * swell (`keel-sway.ts`), THE SPLICE's eater rears its head and swings
  * its back end (`splice-sway.ts`) and THE HIVE's drops sway on their sites
@@ -37,7 +36,6 @@ export type OutlineBoss =
   | "surge"
   | "ledger"
   | "stare"
-  | "cyst"
   | "vise"
   | "mantle"
   | "keel"
@@ -59,7 +57,6 @@ export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
   surge: 1,
   ledger: 1,
   stare: 1,
-  cyst: 1,
   vise: 1,
   mantle: 1,
   keel: 1,
@@ -82,7 +79,6 @@ export const OUTLINE_SEED: Readonly<Record<OutlineBoss, number>> = {
   surge: 167,
   ledger: 173,
   stare: 179,
-  cyst: 181,
   vise: 191,
   mantle: 193,
   keel: 197,

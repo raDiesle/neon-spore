@@ -799,7 +799,7 @@ export const COPIES: Copy[] = [
   {
     // **A boss step's colour on the canvas** — its cannon's fill and rim, or
     // the hull's rim for a step either answers. THE SEAM wrote it, and THE
-    // OCULUS, THE VISE, THE CYST, THE SLING and THE DAVIT each pasted it again
+    // OCULUS, THE VISE, THE CYST (since taken out), THE SLING and THE DAVIT each pasted it again
     // beside their marks (THE CYST a rim-only ternary as well). Both spellings,
     // and unstripped, because the `"either"` the shape turns on is a string.
     call: "stepColour",

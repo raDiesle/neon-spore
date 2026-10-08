@@ -64,10 +64,6 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "The socket beside the wheel, and the long lit pin under the drum while the wheel is frozen; haloed on the screen it asks.",
     move: "Each step answered washes it green, each window run out red.",
   },
-  "THE CYST'S LEFT FREEZE MARK": {
-    find: "A mark standing off each flank of the sac, haloed on the screen of the seat that taps it.",
-    move: "A tap in time stills the shuddering flank, green; a flank left shuddering, red.",
-  },
   "THE GOVERNOR'S NEEDLE": {
     find: "Anywhere on the dial's face, while a mark of this seat's is lit; each seat has its own, numbered when there is an order.",
     move: "A tap with the needle on the seat's open mark lands; anywhere else, or out of turn, it skids and the needle goes round again.",
@@ -138,10 +134,6 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
   "THE GALL'S TAPS AND PULL": {
     find: "The alien on its point of the seam, haloed on the screen of the seat whose half it sits on.",
     move: "Taps wind it up; a pull up toward the top throws it to the other half, green.",
-  },
-  "THE CYST'S LEFT FLANK": {
-    find: "Each seat's half of the sac — left the pilot's, right the navigator's — haloed once the flank is stilled.",
-    move: "Held shut through the count the flank cracks, green; a slip or a spring, red.",
   },
   // SHAKE
   "THE CHOIR'S LEFT ARROW": {

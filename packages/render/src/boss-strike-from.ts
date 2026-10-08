@@ -1,7 +1,6 @@
 import { type BossKind, midCol, type SimConfig } from "@neon-spore/sim";
 import type { Point } from "./boss-strike-look.js";
 import { capstanBlowFrom } from "./capstan-blow.js";
-import { cystBlowFrom } from "./cyst-blow.js";
 import { fieldX } from "./field-flip.js";
 import { flueBlowFrom } from "./flue-blow.js";
 import { gallBlowFrom } from "./gall-blow.js";
@@ -94,8 +93,6 @@ const FROM: Partial<
   gall: gallBlowFrom,
   // The fly of the flag held over the middle, where the scrap tears off (`trapeze-blow.ts`).
   trapeze: trapezeBlowFrom,
-  // The bottom lobe's tip, the one that spits (`cyst-blow.ts`).
-  cyst: cystBlowFrom,
   // The bottom of the wheel, where the chip breaks off (`grindstone-blow.ts`).
   grindstone: grindstoneBlowFrom,
   // The underside of the cup at the crotch, where the ball is flung from (`sling-blow.ts`).

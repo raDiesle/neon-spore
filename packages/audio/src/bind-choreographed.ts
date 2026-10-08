@@ -58,7 +58,6 @@ type ChoreographedEvent =
           | `plumb${string}`
           | `sling${string}`
           | `grindstone${string}`
-          | `cyst${string}`
           | `halter${string}`
           | `capstan${string}`
           | `gall${string}`

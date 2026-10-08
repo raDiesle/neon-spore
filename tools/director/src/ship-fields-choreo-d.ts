@@ -1,8 +1,8 @@
 import type { GroupName } from "./ship-groups.js";
 
 /**
- * **The choreographed bosses' dials, the fourth page** — THE CYST, THE
- * HALTER, THE CAPSTAN and every boss built after them.
+ * **The choreographed bosses' dials, the fourth page** — THE HALTER, THE
+ * CAPSTAN and every boss built after them.
  *
  * Cut on 27 September 2026, when THE TRAPEZE's eight numbers would have taken
  * `ship-fields-choreo-c.ts` past the 250-line wall. The seam is page three's:
@@ -16,6 +16,7 @@ import type { GroupName } from "./ship-groups.js";
  * SLING's cool took page three past the wall again, and THE CYST and THE
  * DAVIT on the same day, when THE SPOOL's story brought nine. THE GRINDSTONE
  * came over on 2 October 2026, when THE OCULUS's levers brought one more.
+ * THE CYST's left the game with it on 8 October 2026.
  */
 export const CHOREO_FIELD_GROUP_D = {
   // GrindstoneConfig — the rests around the steps, the grit a reversal
@@ -31,16 +32,6 @@ export const CHOREO_FIELD_GROUP_D = {
   grindstoneGraceBeats: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
   grindstoneFadeBeats: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
   grindstoneFadeJars: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
-  // CystConfig — the rests around the steps, the tap's window, the grace a
-  // stilled flank is given, the split, and the gaps a flank rests at and
-  // counts as shut below (`config-cyst.ts`).
-  cystStillBeats: "THE CYST — the boss one hand stills for the other to crack",
-  cystRestBeats: "THE CYST — the boss one hand stills for the other to crack",
-  cystTapBeats: "THE CYST — the boss one hand stills for the other to crack",
-  cystGraceBeats: "THE CYST — the boss one hand stills for the other to crack",
-  cystSplitBeats: "THE CYST — the boss one hand stills for the other to crack",
-  cystOpenMilli: "THE CYST — the boss one hand stills for the other to crack",
-  cystShutMilli: "THE CYST — the boss one hand stills for the other to crack",
   // HalterConfig — the alarm before the first step, the pause between steps,
   // how long a seat must send nothing, how long the pair must hold, and the
   // spent seam (`config-halter.ts`).

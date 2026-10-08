@@ -304,7 +304,7 @@ reaches a mark: the flight is over before any is up. Test:
   THE SLOW, still through the rise and the calm, back over the first beat
   of each rest. On the field under *a look with no shipped alternative*.
 
-  *THE CYST, as built, 7 October 2026* (`cyst-sway.ts`): each of the four
+  *THE CYST, as built, 7 October 2026; the boss was taken out on 8 October*: each of the four
   lobes turns about the sac's middle by its own angle, up to 0.4 of a
   radian at the tip and none at the waists between neighbours
   (`cystBent`), so they sway out of step and the ring never tears; a tip
@@ -634,7 +634,6 @@ with a joint, before it can move.
 | THE SURGE | bulb, both grips | ready |
 | THE STARE | cowl, eye, lid | ready |
 | THE HIVE | mass, each hanging lobe | ready — each lobe is a piece with its joint (`hiveLobes`), laid into the mass's one outline so the translucent wax has no seam; a lobe swings by moving its piece before it is laid |
-| THE CYST | sac, each of its four lobes, core | ready — each lobe is a run of the outline with its joint at the waist (`cystLobes`), the four splined as one ring |
 | THE VISE | both lobes, kernel | ready |
 | THE MANTLE | core, both valves | ready |
 | THE KEEL | each spine segment | ready |

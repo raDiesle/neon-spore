@@ -411,12 +411,6 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   grindFlatRight: "field",
   grindJawLeft: "field",
   grindJawRight: "field",
-  // THE CYST's marks tapped by the partner and flanks pinched by their own
-  // seat (`render/cyst-grip.ts`, `bosses-choreographed.md` §34).
-  cystFreezeLeft: "field",
-  cystFreezeRight: "field",
-  cystFlankLeft: "field",
-  cystFlankRight: "field",
   // THE HALTER's two grips on the lit segment's seam, either seat's on both
   // screens (`render/halter-grip.ts`, `docs/spec/bosses.md` §11.53).
   halterChordLeft: "field",

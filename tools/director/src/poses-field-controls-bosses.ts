@@ -1,6 +1,5 @@
 import type { Pose } from "./pose-kit.js";
 import { CAPSTAN_GRIPS } from "./poses-field-controls-capstan.js";
-import { CYST_GRIPS } from "./poses-field-controls-cyst.js";
 import { GALL_GRIPS } from "./poses-field-controls-gall.js";
 import { GOVERNOR_GRIPS } from "./poses-field-controls-governor.js";
 import { GRINDSTONE_GRIPS } from "./poses-field-controls-grindstone.js";
@@ -39,7 +38,6 @@ export const BOSS_GRIPS: readonly Pose[] = [
   ...GALL_GRIPS,
   ...GRINDSTONE_GRIPS,
   ...RIME_GRIPS,
-  ...CYST_GRIPS,
   ...TRAPEZE_GRIPS,
   ...GOVERNOR_GRIPS,
   ...SLING_GRIPS,

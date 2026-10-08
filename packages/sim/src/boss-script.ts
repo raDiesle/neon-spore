@@ -8,7 +8,7 @@ import type { World } from "./world.js";
  *
  * A choreographed boss keeps its place as `cursor` on its state and its script
  * as one list beside it. The list goes by five names — `steps` (the asks of
- * THE CYST and its kind, the poses of THE INSTAR and THE NETTLE), `marks`
+ * THE DAVIT and its kind, the poses of THE INSTAR and THE NETTLE), `marks`
  * (THE GIMBAL), `tiles` (THE FILAMENT), `thresholds` (THE MANTLE), `levels`
  * (THE FLUE, whose word is the level's weapon) — and
  * `SCRIPT_LISTS` is the one line each. A boss added later with its script under

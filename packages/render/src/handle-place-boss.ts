@@ -8,7 +8,6 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { curtainHemAt } from "./curtain-grip.js";
-import { cystStanding } from "./cyst-grip.js";
 import { gimbalRingCircle } from "./gimbal-grip.js";
 import { laterBossHandleCircle } from "./handle-place-boss-b.js";
 import { haspLatchCircle, haspLatchTakes, haspWheelCircle } from "./hasp-grip.js";
@@ -159,15 +158,6 @@ export function bossHandleCircle(
     const b = world.boss?.kind === "vise" ? world.boss : null;
     if (b === null || !viseTakesPinch(b)) return null;
     return viseLobeStanding(l, world, b, target === "viseLobeLeft" ? 1 : 2, beatPhase);
-  }
-  if (target.startsWith("cyst")) {
-    // THE CYST's two flanks and two freeze marks, each where the sac stands
-    // this frame. Null once it splits (`cyst-grip.ts`).
-    const b = world.boss?.kind === "cyst" ? world.boss : null;
-    if (b === null || b.phase === "split") return null;
-    const side = target.endsWith("Left") ? 0 : 1;
-    const what = target.startsWith("cystFreeze") ? "mark" : "flank";
-    return cystStanding(l, world, b, what, side, beatPhase);
   }
   return laterBossHandleCircle(l, world, target, beatPhase);
 }

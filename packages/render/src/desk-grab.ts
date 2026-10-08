@@ -1,7 +1,6 @@
 import { batonGripSeat } from "./baton-grip.js";
 import { capstanGripSeat } from "./capstan-grip.js";
 import { curtainHemSeat } from "./curtain-grip.js";
-import { cystGripSeat } from "./cyst-grip.js";
 import { deskChord } from "./desk-chord.js";
 import { filamentGripSeat } from "./filament-grip.js";
 import { governorGripSeat } from "./governor-grip.js";
@@ -66,7 +65,7 @@ import { wardenGripSeat } from "./warden-grip.js";
  *    THE TASTER's pin, wipe and pry the fifteenth (`taster-grip.ts`
  *    `tasterGripSeat`), and THE SURGE's two grip marks the sixteenth
  *    (`surge-grip.ts` `surgeMarkSeat`), and THE CYST's freeze marks the
- *    seventeenth (`cyst-grip.ts` `cystGripSeat`). THE KEEL's joint, THE
+ *    seventeenth, until THE CYST left the game. THE KEEL's joint, THE
  *    FILAMENT's two rings, THE FLUE's row, THE LAMPREY's mouth, THE
  *    CAPSTAN's drum, THE HALTER's grips and THE PULSE's bar followed on the
  *    same day, and THE LATCH's two grips on 8 October 2026, all found by `test/desk-reach.test.ts`, which asks every boss
@@ -201,7 +200,6 @@ export function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 |
     curtainHemSeat(l, x, y, field) ??
     tasterGripSeat(l, x, y, field) ??
     surgeMarkSeat(l, x, y, field) ??
-    cystGripSeat(l, x, y, field) ??
     keelGripSeat(l, x, y, field) ??
     filamentGripSeat(l, x, y, field) ??
     lampreyGripSeat(l, x, y, field) ??

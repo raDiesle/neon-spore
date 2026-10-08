@@ -1,7 +1,6 @@
 import { BATON_STAGES } from "./baton.js";
 import type { BossEntry } from "./boss-entries.js";
 import { CAPSTAN_PHASES } from "./capstan.js";
-import { CYST_PHASES } from "./cyst.js";
 import { FILAMENT_PHASES } from "./filament.js";
 import { FLEET_PHASES } from "./fleet-state.js";
 import { FLUE_PHASES } from "./flue.js";
@@ -141,7 +140,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   plumb: PLUMB_PHASES,
   sling: SLING_PHASES,
   grindstone: GRINDSTONE_PHASES,
-  cyst: CYST_PHASES,
   halter: HALTER_PHASES,
   capstan: CAPSTAN_PHASES,
   gall: GALL_PHASES,

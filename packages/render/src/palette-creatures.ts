@@ -228,14 +228,6 @@ export const CREATURE_HUES = {
   /** The spent core's light as it leaves the beam in row 11's bleed: a warm white, no cannon's. */
   plumbBleed: "#F8F4E6",
   /**
-   * THE CYST's sac (§34): a dull mauve flesh and its shadow, greyer than
-   * `hull` and far from `red`, and the pale scar a crack leaves — so the only
-   * colours on it are what a step asks for.
-   */
-  cystSac: "#8A6E82",
-  cystSacDark: "#2C2029",
-  cystScar: "#F1E2EC",
-  /**
    * THE GRINDSTONE's wheel (§33, *Colour*): a dull quarried grey, its shadow,
    * and the sandy tan a flat shows where its grit is ground away — warm, so a
    * clean patch never reads as either cannon's colour or as frost.

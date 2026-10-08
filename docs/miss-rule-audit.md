@@ -60,7 +60,6 @@ The kinds each breaks it with, and where. Paths are under `packages/sim/src`.
 | TRAPEZE | 1, 4 | `trapeze-step.ts`, `trapeze-hand.ts` (off-mark tap, bad draw: event only) |
 | CAPSTAN | 1, 4 | `capstan-step.ts`, `capstan-hand.ts` |
 | CURTAIN | 1, 4 | `curtain-shot.ts`, `curtain-step.ts` (jam lapse back to hung) |
-| CYST | 1, 4, 5 | `cyst-step.ts`, `cyst-hand.ts` |
 | FLEET | 3, 7 | `fleet.ts` (salvo into water), `fleet-flood.ts` (lapse plugs the hull) |
 | FLUE | 1, 4, 5 | `flue-step.ts`, `flue-hand.ts` |
 | GALL | 1, 10 | `gall-shot.ts`, `gall-hand.ts` (a refused tap or pull: event only); a step run out strikes the hull since the rework of 8 October 2026 |

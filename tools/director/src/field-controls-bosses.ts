@@ -4,7 +4,6 @@ import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { BATON_CONTROLS } from "./field-controls-baton.js";
 import { CAPSTAN_CONTROLS } from "./field-controls-capstan.js";
 import { CURTAIN_CONTROLS } from "./field-controls-curtain.js";
-import { CYST_CONTROLS } from "./field-controls-cyst.js";
 import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
 import { FLEET_CONTROLS } from "./field-controls-fleet.js";
 import { GALL_CONTROLS } from "./field-controls-gall.js";
@@ -184,10 +183,6 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // primitives on one body** — THE RIME's rub and THE TRIVET's chord
   // (`field-controls-grindstone.ts`).
   ...GRINDSTONE_CONTROLS,
-  // THE CYST's marks and flanks, the only boss here whose **every part has
-  // two handles on two seats** — the partner's tap, then its own seat's pinch
-  // (`field-controls-cyst.ts`).
-  ...CYST_CONTROLS,
   // THE TRAPEZE's ring and track, the only pair here **one seat's tap answered
   // by the other's swipe** on one swinging flag (`field-controls-trapeze.ts`).
   ...TRAPEZE_CONTROLS,

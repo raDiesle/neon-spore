@@ -5,7 +5,6 @@ import { strikeFrom } from "../src/boss-strike-from.js";
 import { BossStrikeFx } from "../src/boss-strike-fx.js";
 import { lash, type StrikeFrame, type StrikeLook, strikeLook } from "../src/boss-strike-look.js";
 import { capstanCentre } from "../src/capstan-shape.js";
-import { cystCentre } from "../src/cyst-shape.js";
 import { ingestBreach } from "../src/effects-breach.js";
 import { flueCentre } from "../src/flue-shape.js";
 import { gallMidAt } from "../src/gall-shape.js";
@@ -96,7 +95,7 @@ describe("a boss's blow at the hull", () => {
     const bosses = [
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
       ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "halter"],
-      ...["capstan", "gall", "trapeze", "cyst", "grindstone", "sling", "flue", "governor"],
+      ...["capstan", "gall", "trapeze", "grindstone", "sling", "flue", "governor"],
       ...["filament", "lamprey", "mimic", "latch"],
     ] as const;
     for (const by of bosses) {
@@ -149,7 +148,6 @@ describe("a boss's blow at the hull", () => {
     ["THE CAPSTAN throws a cog off its cradle's foot", "capstan", capstanCentre],
     ["THE GALL drops a seed off its seam's underside", "gall", gallMidAt],
     ["THE TRAPEZE's alien leaps off the swing it hangs under", "trapeze", trapezeAnchor],
-    ["THE CYST spits a spore out of its bottom lobe", "cyst", cystCentre],
     ["THE GRINDSTONE throws a chip off its wheel", "grindstone", grindstoneCentre],
     ["THE SLING flings a ball out of its cup", "sling", slingCentre],
     ["THE FLUE coughs a cinder out of its flue", "flue", flueCentre],

@@ -2,7 +2,7 @@ import type { GroupName } from "./ship-groups.js";
 
 /**
  * The paragraph under each **choreographed boss's** card, the fourth page —
- * THE CYST and every boss built after it.
+ * THE DAVIT and every boss built after it.
  *
  * Cut out of `ship-notes-choreo-c.ts` on 26 September 2026, when that page
  * stood at 241 lines and THE DAVIT's paragraph was sixteen more. The seam is
@@ -12,25 +12,9 @@ import type { GroupName } from "./ship-groups.js";
  *
  * THE CYST's came over on 27 September 2026, when THE HASP's story grew its
  * paragraph on page three: the last boss on the page goes, never the one
- * being worked on.
+ * being worked on. It left with THE CYST on 8 October 2026.
  */
 export const CHOREO_NOTES_D = {
-  "THE CYST — the boss one hand stills for the other to crack":
-    "Asked for in docs/spec/bosses-choreographed.md §34: a sac over the " +
-    "middle column whose lit flank shudders until the other seat taps its " +
-    "mark, read as THE VALVE reads its pin, within cystTapBeats. A stilled " +
-    "flank is pinched by its own seat, read as THE VISE reads a lobe: kept " +
-    "under cystShutMilli for the step's beats it cracks, and a pinch that " +
-    "widens starts the count again. The stilled flank is given the beats " +
-    "and cystGraceBeats, then springs wide. The pilot pinches the left and " +
-    "taps the right, the navigator the other way. Both flanks cracked bare " +
-    "the core; a fire step wants a shot in its colour; a flank step on a " +
-    "cracked flank holds it off the core, and one run out reseals the core " +
-    "and is asked again. A fire step run out is a hull hit, which is the " +
-    "wave. Story steps under THE SLOW, each run out a hull hit: a swell " +
-    "pinched shut on both flanks at once, a spore off the middle turned by " +
-    "the shield, a bud off the middle shot in its colour. THE SLOW never " +
-    "holds a shot. The picture is render/cyst*.ts, the lit flank white.",
   "THE HALTER — the boss one hand keeps still for the other to open":
     "Asked for in docs/spec/bosses-choreographed.md §36: a seam over the " +
     "middle column that opens only while one seat sends nothing at all — " +

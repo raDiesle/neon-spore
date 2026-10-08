@@ -1,6 +1,6 @@
 /**
  * **The clock bosses' half of the surface, the fourth page** — THE GRINDSTONE's
- * wheel, THE CYST's sac, THE HALTER's seam, THE GALL's
+ * wheel, THE HALTER's seam, THE GALL's
  * seam, THE VISE's seed-case and THE TRIVET's stand. THE
  * WELL's face went to the fifth page, its last row, when THE HALTER's asking
  * predicates took this one to 252 lines, and THE CAPSTAN's drum after it,
@@ -18,36 +18,6 @@
 
 // THE TRAPEZE and after, on the fifth page (`boss-surface-clocks-e.ts`).
 export * from "./boss-surface-clocks-e.js";
-// THE CYST's sac: the phase, the lit step, the flanks, their gaps and taps,
-// and whose hand is on which, for the picture, the cue and the director's
-// hand. Straight off `cyst.ts` (`docs/spec/bosses-choreographed.md` §34).
-export {
-  CYST_ASKS,
-  CYST_PHASES,
-  type CystAsk,
-  type CystEntry,
-  type CystPhase,
-  type CystState,
-  type CystStep,
-  cystBoss,
-  cystBudAsks,
-  cystClenched,
-  cystClosed,
-  cystCoreAsks,
-  cystDone,
-  cystFlankAsks,
-  cystFreezer,
-  cystGuarding,
-  cystLitStep,
-  cystMarkAsks,
-  cystPincher,
-  cystSide,
-  cystStepCol,
-  freshCyst,
-} from "./cyst.js";
-// And how long a step is lit and a flank stilled, so the rings the picture
-// closes read the numbers the simulation judges by (`cyst-step.ts`).
-export { cystFrozenBeats, cystLitBeats } from "./cyst-step.js";
 export type { GallWhy } from "./events-gall.js";
 // THE GALL's alien: the phase, the lit step, the point it sits on and the
 // column over it, whose hand it answers, its charge, and what it asks, for

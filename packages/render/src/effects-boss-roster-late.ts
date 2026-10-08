@@ -1,5 +1,4 @@
 import { CapstanFx } from "./capstan-fx.js";
-import { CystFx } from "./cyst-fx.js";
 import { RoundMarks } from "./effects-round-marks.js";
 import { FlueFx } from "./flue-fx.js";
 import { GallFx } from "./gall-fx.js";
@@ -43,10 +42,6 @@ export class LateRoster extends RoundMarks {
    * both screens, and told the core's colour by the drawer (`plumb-fx.ts`,
    * `plumb-draw.ts`). */
   readonly plumb = new PlumbFx();
-  /** THE CYST's thud, the sprung flanks, the core's flash and the split's,
-   * and its receipts' bursts — thrown the same on both screens, and told the
-   * core's colour by the drawer (`cyst-fx.ts`, `cyst-draw.ts`). */
-  readonly cyst = new CystFx();
   /** THE GRINDSTONE's grit, a flat's clean flash, the caliper's flare and
    * thud, the axle's flash and the snap free's, the hull shock, and its
    * receipts' bursts — thrown the same on both screens, and told the axle's

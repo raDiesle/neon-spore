@@ -17,7 +17,6 @@ import { BOSS_BATON_SOUNDS } from "./sounds/boss-baton.js";
 import { BOSS_BATON_HAND_SOUNDS } from "./sounds/boss-baton-hand.js";
 import { BOSS_CAPSTAN_SOUNDS } from "./sounds/boss-capstan.js";
 import { BOSS_CURTAIN_SOUNDS } from "./sounds/boss-curtain.js";
-import { BOSS_CYST_SOUNDS } from "./sounds/boss-cyst.js";
 import { BOSS_FILAMENT_SOUNDS } from "./sounds/boss-filament.js";
 import { BOSS_FLUE_SOUNDS } from "./sounds/boss-flue.js";
 import { BOSS_GALL_SOUNDS } from "./sounds/boss-gall.js";
@@ -124,7 +123,6 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_PLUMB_SOUNDS,
   ...BOSS_SLING_SOUNDS,
   ...BOSS_GRINDSTONE_SOUNDS,
-  ...BOSS_CYST_SOUNDS,
   ...BOSS_HALTER_SOUNDS,
   ...BOSS_CAPSTAN_SOUNDS,
   ...BOSS_GALL_SOUNDS,

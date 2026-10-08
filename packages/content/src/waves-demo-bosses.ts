@@ -43,7 +43,6 @@ export const BOSS_DEMONSTRATIONS = {
   plumb: { wave: "thePlumb" },
   sling: { wave: "theSling" },
   grindstone: { wave: "theGrindstone" },
-  cyst: { wave: "theCyst" },
   halter: { wave: "theHalter" },
   capstan: { wave: "theCapstan" },
   gall: { wave: "theGall" },

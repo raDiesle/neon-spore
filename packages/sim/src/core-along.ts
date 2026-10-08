@@ -3,7 +3,6 @@ import { capstanVerdict } from "./capstan-shot.js";
 import { midCol } from "./config.js";
 import type { CoreVerdict } from "./core-verdict.js";
 import { curtainCoreAside, curtainVerdict } from "./curtain-shot.js";
-import { cystBudAside, cystVerdict } from "./cyst-shot.js";
 import { gallAside, gallVerdict } from "./gall-shot.js";
 import { governorVerdict } from "./governor-shot.js";
 import { grindstoneVerdict } from "./grindstone-shot.js";
@@ -33,7 +32,7 @@ import type { World } from "./world.js";
  * nearly every core hangs, and that the verdict says anything of, is judged
  * there by the same calls as at the top (`shotLeaves`) and goes no further.
  * **A part met up a column of its own** is met the same way at its own row:
- * a part a step asks for aside — THE CYST's bud, THE VISE's seed — for as
+ * a part a step asks for aside — THE VISE's seed — for as
  * long as that step is lit, and a core that hangs over a column of its own,
  * THE CURTAIN's, which drifts. Any other column, or one the verdict is silent
  * on, flies on to the top as it always did. The beam is not asked: it stands in
@@ -63,11 +62,6 @@ const CORES: Partial<Record<BossKind, Core>> = {
   grindstone: { milli: 2000, verdict: (w, c, k) => grindstoneVerdict(w, c, k) },
   capstan: { milli: 2700, verdict: (w, c, k) => capstanVerdict(w, c, k) },
   curtain: { verdict: (w, c, k) => curtainVerdict(w, c, k), aside: (w) => curtainCoreAside(w) },
-  cyst: {
-    milli: 2200,
-    verdict: (w, c, k) => cystVerdict(w, c, k),
-    aside: (w) => cystBudAside(w),
-  },
   // THE GALL's alien sits below the middle of the field, the owner's ask of 8
   // October 2026, and is met up whichever column it landed in while a fire
   // step is lit (`gall-shot.ts`).

@@ -1,6 +1,4 @@
 import { capstanHeard } from "./capstan-hand.js";
-import { cystGuarded } from "./cyst-guard.js";
-import { cystHeard } from "./cyst-hand.js";
 import { flueRolled } from "./flue-step.js";
 import { gallHeard } from "./gall-hand.js";
 import { governorHeard } from "./governor-hand.js";
@@ -69,11 +67,6 @@ export function scriptedHandsHeard(world: World, commands: readonly TimedCommand
   // THE GRINDSTONE's passes and clamps, the same: a flat ground clean and a
   // jaw pad lifting are both the instant (`grindstone-hand.ts`).
   for (const c of commands) grindstoneHeard(world, c.player, c.command);
-  // THE CYST's taps and pinches, the same: a tap is an edge and a pinch
-  // widening past shut is the instant (`cyst-hand.ts`).
-  for (const c of commands) cystHeard(world, c.player, c.command);
-  // Its spore, THE TRIVET's needle once a tick after the commands (`cyst-guard.ts`).
-  cystGuarded(world);
   // THE HALTER hears every command there is: any one at all is a seat's rest
   // gone, and a grip lifting is the pair coming apart (`halter-hand.ts`).
   for (const c of commands) halterHeard(world, c.player, c.command);

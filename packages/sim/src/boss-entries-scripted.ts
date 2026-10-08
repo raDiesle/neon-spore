@@ -1,5 +1,4 @@
 import type { CapstanEntry } from "./capstan.js";
-import type { CystEntry } from "./cyst.js";
 import type { FlueEntry } from "./flue.js";
 import type { GallEntry } from "./gall.js";
 import type { GovernorEntry } from "./governor.js";
@@ -46,8 +45,6 @@ export type ScriptedBossEntry =
   | SlingEntry
   // The one that authors passes and clamps as well as shots: a wheel ground by two seats (`grindstone.ts`).
   | GrindstoneEntry
-  // The one that authors flanks as well as shots: a sac one seat stills for the other (`cyst.ts`).
-  | CystEntry
   // The one that authors rests and chords as well as shots: a seam one seat stays off while the other grips (`halter.ts`).
   | HalterEntry
   // The one that authors leans and rubs as well as shots: a drum one seat rocks for the other (`capstan.ts`).
@@ -68,7 +65,6 @@ export type ScriptedBossEntry =
   | LatchEntry;
 
 export type { CapstanEntry, CapstanStep } from "./capstan.js";
-export type { CystEntry, CystStep } from "./cyst.js";
 export type { FlueEntry, FlueLevel } from "./flue.js";
 export type { GallEntry, GallStep } from "./gall.js";
 export type { GovernorEntry, GovernorStep } from "./governor.js";

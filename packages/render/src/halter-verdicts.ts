@@ -20,7 +20,7 @@ import { drawMarkHeld, drawMarkProgress, MARK_PROGRESS_R } from "./mark-progress
  * **THE HALTER's marks answering a touch the way every mark does**
  * (`mark-feedback.ts`, `grip-verdict.ts`; the owner, 27 September 2026: *the
  * consistent visual across all waves*). Both screens draw the one seam
- * (`halter-draw.ts`), so this is THE CYST's arrangement again.
+ * (`halter-draw.ts`), so this is the arrangement THE CYST's marks had.
  *
  * Three marks, the places a thumb answers it (`halter-grip.ts`). **The two
  * grips** of the lit segment are the chord: they ask the seat whose chord the

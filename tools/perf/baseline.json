@@ -1169,18 +1169,8 @@
       "unmeasured": true
     },
     {
-      "id": "theCyst",
-      "wave": 114,
-      "name": "THE CYST",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
       "id": "theHalter",
-      "wave": 115,
+      "wave": 114,
       "name": "THE HALTER",
       "bodies": 0,
       "typical": 0,
@@ -1190,7 +1180,7 @@
     },
     {
       "id": "theCapstan",
-      "wave": 116,
+      "wave": 115,
       "name": "THE CAPSTAN",
       "bodies": 0,
       "typical": 0,
@@ -1200,7 +1190,7 @@
     },
     {
       "id": "theGall",
-      "wave": 117,
+      "wave": 116,
       "name": "THE GALL",
       "bodies": 0,
       "typical": 0,
@@ -1210,7 +1200,7 @@
     },
     {
       "id": "theTrapeze",
-      "wave": 118,
+      "wave": 117,
       "name": "THE TRAPEZE",
       "bodies": 0,
       "typical": 0,
@@ -1220,7 +1210,7 @@
     },
     {
       "id": "theFlue",
-      "wave": 119,
+      "wave": 118,
       "name": "THE FLUE",
       "bodies": 0,
       "typical": 0,
@@ -1230,7 +1220,7 @@
     },
     {
       "id": "theGovernor",
-      "wave": 120,
+      "wave": 119,
       "name": "THE GOVERNOR",
       "bodies": 0,
       "typical": 0,
@@ -1240,7 +1230,7 @@
     },
     {
       "id": "theLamprey",
-      "wave": 121,
+      "wave": 120,
       "name": "THE LAMPREY",
       "bodies": 0,
       "typical": 0,
@@ -1250,7 +1240,7 @@
     },
     {
       "id": "theMimic",
-      "wave": 122,
+      "wave": 121,
       "name": "THE MIMIC",
       "bodies": 0,
       "typical": 0,
@@ -1260,7 +1250,7 @@
     },
     {
       "id": "theLatch",
-      "wave": 123,
+      "wave": 122,
       "name": "THE LATCH",
       "bodies": 0,
       "typical": 0,

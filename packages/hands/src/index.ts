@@ -11,7 +11,6 @@ export * from "./boss-hand-hive.js";
 export * from "./boss-hands-beats.js";
 export * from "./boss-hands-capstan.js";
 export * from "./boss-hands-clocks.js";
-export * from "./boss-hands-cyst.js";
 export * from "./boss-hands-field.js";
 export * from "./boss-hands-flue.js";
 export * from "./boss-hands-gall.js";

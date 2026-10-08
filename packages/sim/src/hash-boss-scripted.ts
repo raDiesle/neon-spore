@@ -1,6 +1,5 @@
 import type { BossState } from "./boss-union.js";
 import { capstanHashParts } from "./capstan-hash.js";
-import { cystHashParts } from "./cyst-hash.js";
 import { flueHashParts } from "./flue-hash.js";
 import { gallHashParts } from "./gall-hash.js";
 import { governorHashParts } from "./governor-hash.js";
@@ -71,11 +70,6 @@ export function scriptedHashParts(boss: BossState): number[] {
   // both flats' grit and rubs, both jaws and the script (`grindstone-hash.ts`).
   if (boss.kind === "grindstone") {
     for (const n of grindstoneHashParts(boss)) out.push(n);
-  }
-  // THE CYST: the phase, the cursor, the cracks, the hits, the core, both
-  // flanks' gaps and taps and the script (`cyst-hash.ts`).
-  if (boss.kind === "cyst") {
-    for (const n of cystHashParts(boss)) out.push(n);
   }
   // THE HALTER: the phase, the cursor, the cracks, the hits, the centre, both
   // seats' rests, stirrings and grips, the pair's count and the script (`halter-hash.ts`).

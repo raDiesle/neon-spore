@@ -48,15 +48,6 @@ export const BOSS_ENTRIES_E = {
       { ask: "clamp", color: "cyan", beats: 3 },
     ],
   },
-  // THE CYST authors its script; two steps rather than the shipped eleven,
-  // one of them off the middle (`cyst-hash.ts`).
-  cyst: {
-    kind: "cyst",
-    steps: [
-      { ask: "left", color: "red", beats: 4 },
-      { ask: "bud", color: "cyan", beats: 3, offset: 2 },
-    ],
-  },
   // THE HALTER authors its script; two steps rather than the shipped seven,
   // the colour set off `either` so the walk can move it (`halter-hash.ts`).
   halter: {
@@ -150,21 +141,6 @@ export function patchBossE(boss: BossState): void {
     boss.rubbed = [true, false];
     boss.padsDown = [1, 3];
     boss.heldBeats = 2;
-  }
-  if (boss.kind === "cyst") {
-    // The left flank cracked, the right stilled and pinched part way, the
-    // core bare and a thumb down on a mark — every field given a value
-    // (`cyst-hash.ts`).
-    boss.phase = "frozen";
-    boss.phaseBeat = 3;
-    boss.cursor = 1;
-    boss.cracks = [1, 0];
-    boss.hits = 1;
-    boss.bared = true;
-    boss.gapMilli = [400, 700];
-    boss.tapDown = [true, false];
-    boss.heldBeats = 2;
-    boss.litTick = 40;
   }
   if (boss.kind === "halter") {
     // One segment cracked, the centre bare and shot once, a seat part way

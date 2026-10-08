@@ -78,8 +78,6 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
           "Six of these already say 'THE VALVE's pin' in their own text.",
         rows: [
           "THE VALVE'S PIN",
-          "THE CYST'S LEFT FREEZE MARK",
-          "THE CYST'S RIGHT FREEZE MARK",
           "THE GOVERNOR'S NEEDLE",
           "THE TASTER'S PIN",
           "THE LAMPREY'S TEETH",
@@ -137,12 +135,7 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
         title: "SQUEEZE",
         says: "Two fingers of one seat, closed on a body; the gap is the depth.",
         suggest: "Already one gesture, THE VISE's. Make its zone and its picture generic.",
-        rows: [
-          "THE VISE'S LEFT LOBE",
-          "THE VISE'S RIGHT LOBE",
-          "THE CYST'S LEFT FLANK",
-          "THE CYST'S RIGHT FLANK",
-        ],
+        rows: ["THE VISE'S LEFT LOBE", "THE VISE'S RIGHT LOBE"],
       },
     ],
   },

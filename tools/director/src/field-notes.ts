@@ -40,11 +40,11 @@ export const DECISIONS: readonly FieldDecision[] = [
     title: "A PAIR OF HANDLES IS SPLIT BY GEOMETRY",
     text:
       "THE MANTLE began it and most paired bosses since follow it: the left handle is the " +
-      "pilot's and the right the navigator's, on both phones. THE CYST's " +
-      "freeze marks cross it on purpose. Suggest: make " +
+      "pilot's and the right the navigator's, on both phones; the two bosses " +
+      "that crossed it on purpose have left the game. Suggest: make " +
       "geometry the rule in the new-boss skill, and let a crossing be a named " +
       "exception the boss's sheet has to argue for.",
-    rows: ["THE MANTLE'S LEFT KNOB", "THE CYST'S LEFT FREEZE MARK"],
+    rows: ["THE MANTLE'S LEFT KNOB"],
   },
   {
     title: "ONE PICTURE FOR 'THIS IS ASKED OF YOU'",

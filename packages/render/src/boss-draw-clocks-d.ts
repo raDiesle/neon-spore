@@ -1,6 +1,5 @@
 import type { World } from "@neon-spore/sim";
 import { drawCapstan } from "./capstan-draw.js";
-import { drawCyst } from "./cyst-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGall } from "./gall-draw.js";
 import { drawGrindstone } from "./grindstone-draw.js";
@@ -34,7 +33,6 @@ export const LATE_PAIR_KINDS = [
   "sling",
   "trivet",
   "plumb",
-  "cyst",
   "grindstone",
   "halter",
   "capstan",
@@ -94,14 +92,6 @@ export function drawLatePairBoss(
   // the free swing's release are `effects.boss.plumb` (`plumb-fx.ts`).
   if (boss.kind === "plumb") {
     drawPlumb(ctx, l, world, boss, beat, beatPhase, time, effects.boss.plumb, effects.bolts);
-    return;
-  }
-
-  // THE CYST: a four-lobed sac, each flank tapped still by one seat and
-  // pinched shut by the other, a core both cannons hit (`cyst-draw.ts`); a
-  // crack's thud, a sprung flank and the core's flash are `cyst-fx.ts`.
-  if (boss.kind === "cyst") {
-    drawCyst(ctx, l, world, boss, beat, beatPhase, time, effects.boss.cyst, effects.bolts);
     return;
   }
 

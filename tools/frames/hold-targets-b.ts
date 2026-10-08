@@ -144,12 +144,6 @@ export const ROWS: Record<string, Row> = {
   grindFlatRight: { seat: 2, id: true },
   grindJawLeft: { id: true },
   grindJawRight: { seat: 2, id: true },
-  // `cyst-hand.ts`: a flank each, pinched shut, and a mark each tapped by the
-  // other seat — the pilot pinches the left and taps the right.
-  cystFreezeLeft: { seat: 2 },
-  cystFreezeRight: {},
-  cystFlankLeft: {},
-  cystFlankRight: { seat: 2 },
   // `halter-hand.ts`: either seat's thumbs on both grips; sent as the pilot's.
   halterChordLeft: {},
   halterChordRight: {},
