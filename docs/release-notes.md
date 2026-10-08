@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 7948df1cf — `bun run frames` refuses a flag it does not read, and names the one meant
+
+A flag the tool does not read used to be dropped without a word, so a mistyped or invented flag produced a picture that looked right and was not. Now any unknown flag stops the run with its name, the flag it is a likely typo of when one is close (`--untl-on` → `--until-on`), and a pointer to `--help`. A test checks that every recipe's flags are known.
+
 ## 2026-10-08 · 5b6fc09b1 — THE VALVE's film takes eight rubs, counted in green round the pin
 
 The wipe now needs eight reversals between both thumbs, up from three, and the pin carries them as green segments on both screens. Every reversal is said as `valveRub`: it throws flecks off the pin, flares it, lights the film's wiped edge and squeaks higher as the film comes off. At 96 bpm the window still holds the eight at one thumb's pace.

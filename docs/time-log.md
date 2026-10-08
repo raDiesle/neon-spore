@@ -35778,3 +35778,5 @@ and an event is seven files outside it.
 
 Bottleneck: tuning how near a misspelling has to be before naming a flag
 helps more than it misleads.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
