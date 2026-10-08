@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · c5cd03bf2 — THE SCOUT, THE BATON, THE THROAT and THE GORGE hold no mark before its window
+
+Four more rows `NO_ROW` owed, each the shared halo held to the boss's windows in the simulation: THE SCOUT's line and prime, THE BATON's draw and strip, THE THROAT's mouth and pump through `sucks`, THE GORGE's sites as each falls due. A row may now name the wave it is walked on: AUTO carries one mote a trip on THE SCOUT, so the ship is never laden there, and THE SCOUT's row walks THE HAUL. Each row goes red with its window emptied.
+
 ## 2026-10-08 · 2fcf7d463 — THE CURTAIN, THE TASTER, THE SINEW and THE LEDGER hold no mark before its window
 
 Four more rows `NO_ROW` owed, in a row file of their own: each the shared halo held to the boss's windows in the simulation — THE CURTAIN's hem, THE TASTER's lock, blades and gaps, THE SINEW's free handles before the tendon is out, THE LEDGER's root, bead and haul. Each goes red with its window emptied.
