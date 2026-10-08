@@ -35966,3 +35966,5 @@ to the seats' screens.
 
 Bottleneck: the documents that count things — briefings, audio, the index —
 each said the old number and only a red test named them.
+
+*Measured: 12 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
