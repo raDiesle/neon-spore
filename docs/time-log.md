@@ -35140,3 +35140,15 @@ Bottleneck: friction — telling the seven real silent captions from the ones
 the test's own setup had lost.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — the tree walks' hooks wait out a hang, not a figure
+
+- reading: 10 min. `repo-time.ts`, `cpu-time.ts` and `figure.ts`, and which
+  of the three a walk's hook should ask.
+- writing: 5 min. Two hooks to `HANG_MS`, the comments on why.
+- looking: 0 min. A test's budget; nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: reading — the cause was already written down in `cpu-time.ts`;
+a walk timed idle and under 24 copies of itself said which part was wrong.

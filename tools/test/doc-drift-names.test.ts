@@ -1,10 +1,10 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { HANG_MS } from "./cpu-time.js";
 import { declaredNames, ownSubjectClaims, REMEMBERED, sourceFiles } from "./doc-names.js";
 import { ROOT } from "./doc-paths.js";
 import { itCosts } from "./figure.js";
-import { loadedTimeout } from "./repo-time.js";
 import { treeText } from "./tree-text.js";
 
 /**
@@ -30,13 +30,16 @@ import { treeText } from "./tree-text.js";
 describe("a comment naming something in its own file's subject", () => {
   // Read before the cases, the way `doc-drift.test.ts` reads its sources: the
   // walk is the machine's time, not the check's, and on 30 September 2026 it
-  // took this case to 13.9 s at slowdown 5.0 against its 850 ms figure.
+  // took this case to 13.9 s at slowdown 5.0 against its 850 ms figure. And
+  // the hook's budget is a guard against a hang, so it is `HANG_MS` flat: on
+  // 7 October 2026 a figure scaled off the load read at import — the minute
+  // before 135 shards started — ran out at 6.7 s (`cpu-time.ts`).
   let names: ReadonlySet<string> = new Set();
   const files = sourceFiles();
   let sources: string[] = [];
   beforeAll(async () => {
     [names, sources] = await Promise.all([declaredNames(), treeText(files)]);
-  }, loadedTimeout(150));
+  }, HANG_MS);
 
   itCosts(850, "names something this tree still writes down", () => {
     const found: string[] = [];

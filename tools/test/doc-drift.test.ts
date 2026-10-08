@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { DEFAULT_CONFIG } from "../../packages/sim/src/config.js";
 import { parseItems } from "../queue/queue.js";
 import { existsIn } from "../queue/stale.js";
+import { HANG_MS } from "./cpu-time.js";
 import { commentSpans, sourceFiles } from "./doc-names.js";
 import {
   BY_NAME,
@@ -16,7 +17,6 @@ import {
   TREE,
 } from "./doc-paths.js";
 import { itCosts } from "./figure.js";
-import { loadedTimeout } from "./repo-time.js";
 import { treeText } from "./tree-text.js";
 
 /**
@@ -197,14 +197,17 @@ function namesATsFile(mention: string): boolean {
 describe("a comment under packages/*/src or apps/*/src", () => {
   // Read before the case, through the shared reader (`tree-text.ts`): 2,590
   // files one after another took 6.9 s at a load of 36 on 30 September 2026
-  // and failed `land`, and 0.7 s together, which is why the hook, too, carries
-  // a figure.
+  // and failed `land`, and 0.7 s together. The hook's budget is a guard
+  // against a hang, not a cost — the cases carry the figures — so it takes
+  // `HANG_MS` flat: a load read at import is the minute before the shards
+  // started, and a figure scaled off it ran out at 6.7 s on 7 October 2026
+  // (`cpu-time.ts`).
   const sources = new Map<string, string>();
   beforeAll(async () => {
     const files = sourceFiles();
     const texts = await treeText(files);
     for (const [i, f] of files.entries()) sources.set(f, texts[i] ?? "");
-  }, loadedTimeout(150));
+  }, HANG_MS);
 
   itCosts(350, "names a source file this tree still has", () => {
     const found: { file: string; mention: string }[] = [];

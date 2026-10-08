@@ -513,20 +513,6 @@ wave — a window under THE SLOW is already stretched, and a rock's is timed
 against its fall — double the ones that are a plain wait for a shot, and move
 the sim tests that pin them.
 
-## doc-drift-names' beforeAll timed out under a full `bun run test`
-
-- **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
-- **Taken:** 2026-10-08, claude/queue-doc-drift-timeout (claim: claude/queue-doc-drift-names-beforeall-timed-out-under-a-full)
-- **Files:** `tools/test/doc-drift-names.test.ts`, `tools/test/repo-time.ts`
-
-A full `bun run test` on 7 October 2026 went red on one case, reported as
-`a comment naming something in its own file's subject > (unnamed)` at
-6651 ms: the `beforeAll` that reads `declaredNames()` and the whole tree's
-text, given `loadedTimeout(150)`. Run alone it passed in seconds, so the
-run was retried and nothing was fixed. Find out why the loaded timeout came
-out short of the walk at that load — the figure, or how the load is read
-when 135 shards start at once — and give the hook a figure that holds.
-
 ## More rubs, counted in green, each one seen: THE RIME, THE GRINDSTONE, THE VALVE
 
 - **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
