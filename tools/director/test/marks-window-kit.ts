@@ -1,4 +1,5 @@
 import { spyOn } from "bun:test";
+import type { ViewRole } from "@neon-spore/render";
 import type { BossKind, World } from "@neon-spore/sim";
 
 /**
@@ -27,6 +28,13 @@ export interface Row {
    * marks: THE SCOUT's ship is only ever laden on THE HAUL.
    */
   wave?: string;
+  /**
+   * The screens to draw, TEST's alone by default. On TEST both seats are the
+   * screen's own, so the partner's ring and waiting clock (`drawMarkTheirs`,
+   * `drawMarkWait`) are never drawn there; a row holding those walks `p1` and
+   * `p2`, each with its own layout.
+   */
+  roles?: readonly ViewRole[];
 }
 
 /** Every spy a row has put up, for the test to take down after it. */

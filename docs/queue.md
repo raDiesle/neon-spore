@@ -476,24 +476,6 @@ body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
 
-## `marks-window.test.ts` walks TEST's screen only: no partner's ring is checked
-
-- **Found:** 2026-10-08, claude/parked-boss-concept-d88325
-- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-marks-window-test-ts-walks-tests-screen-only-no)
-- **Files:** `tools/director/test/marks-window.test.ts`, `tools/director/test/marks-window-kit.ts`, `tools/director/test/marks-window-rows-c.ts`
-- **Needs:** says every boss has a row, and 22 do
-
-The walk draws every boss on the `test` role, where every mark is the
-screen's own. The partner's ring and waiting clock (`drawMarkTheirs`,
-`drawMarkWait` in `packages/render/src/mark-feedback.ts`) are drawn only on a
-seat's screen, so for every boss that uses them nothing proves they stay
-down outside the window. THE LATCH's row had to drop `drawMarkTheirs` for that
-reason (its comment says so). Give a `Row` an optional list of roles to walk
-(default `["test"]`), walk `p1` and `p2` where it is set, and put THE LATCH's
-`drawMarkTheirs` back on its row with both seats. Then do the same for one
-more boss that draws the partner's ring (`grep -l drawMarkTheirs
-packages/render/src`), to show the option carries.
-
 ## Marks-window rows owed: THE SNAKE, THE PINBALL, THE PULSE, THE CAIRN
 
 - **Found:** 2026-10-08, claude/task-queue-work-e71746

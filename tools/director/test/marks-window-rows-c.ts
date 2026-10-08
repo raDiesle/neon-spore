@@ -200,11 +200,15 @@ export const ROWS_C: readonly Row[] = [
     ],
   },
   {
-    // THE LATCH's halos, the field's shared mark (`latch-verdicts.ts`), only
-    // while a level is lit — never while the colony drops in or rests between
-    // levels. The walk is TEST's screen, where both grips are its own, so the
-    // partner's ring is never drawn here.
+    // THE LATCH's halos, the field's shared mark (`latch-verdicts.ts`), and
+    // the partner's ring on the grip that asks the other seat, only while a
+    // level is lit — never while the colony drops in or rests between levels.
+    // Walked on both seats' screens, since on TEST both grips are its own.
     kind: "latch",
-    marks: [mark(markFeedback, "drawMarkHalo", (w) => latchLitStep(latch(w)) !== null)],
+    roles: ["p1", "p2"],
+    marks: [
+      mark(markFeedback, "drawMarkHalo", (w) => latchLitStep(latch(w)) !== null),
+      mark(markFeedback, "drawMarkTheirs", (w) => latchLitStep(latch(w)) !== null),
+    ],
   },
 ];

@@ -35935,3 +35935,18 @@ Bottleneck: reading — a row never seen lit has to be traced to what AUTO
 does on that wave before it can be fixed or excused.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — The marks walk draws the seats' screens where a row asks
+
+- reading: 5 min. The walk, THE LATCH's row and where `drawMarkTheirs` is
+  called for it and for THE MANTLE.
+- writing: 10 min. `roles` on a row, the walk drawing each named screen with
+  its own layout and effects while AUTO plays from TEST's, THE LATCH's
+  partner's ring put back, and THE MANTLE's added.
+- looking: 0 min. Nothing drawn changed; both rows seen red with the
+  partner's ring's window emptied.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — keeping AUTO on TEST's layout while the drawing moved
+to the seats' screens.

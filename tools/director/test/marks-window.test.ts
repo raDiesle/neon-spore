@@ -1,6 +1,6 @@
 import { afterAll, describe, expect, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
-import { computeLayout, type Viewport } from "@neon-spore/render";
+import { computeLayout, type Viewport, type ViewRole } from "@neon-spore/render";
 import { type BossKind, beatPhase, roundSpent, step, type World } from "@neon-spore/sim";
 import { drawBoss } from "../../../packages/render/src/boss-draw.js";
 import { Effects } from "../../../packages/render/src/effects.js";
@@ -25,7 +25,9 @@ import { ROWS_F } from "./marks-window-rows-f.js";
  * the one every other boss gets a row in.
  *
  * AUTO plays both seats through the boss's wave, the boss is drawn every
- * few ticks — a round by `drawRound`, as the game draws it — and every call the draw makes into the boss's `*-marks.ts` is
+ * few ticks — a round by `drawRound`, as the game draws it; on TEST's screen,
+ * or on each seat's where the row names them (`roles`, for the partner's
+ * ring) — and every call the draw makes into the boss's `*-marks.ts` is
  * caught. A call that draws a mark lit — its own argument says so, or the
  * call is only ever a mark — must fall on a tick the **simulation** says
  * that mark's window is open, by the boss's own predicate in `sim/`, never
@@ -61,7 +63,8 @@ const ROWS = [...ROWS_A, ...ROWS_B, ...ROWS_C, ...ROWS_D, ...ROWS_E, ...ROWS_F];
 function walk(
   kind: BossKind,
   marks: Mark[],
-  wave?: string,
+  wave: string | undefined,
+  roles: readonly ViewRole[],
 ): { wrong: string[]; seen: Map<string, number> } {
   installCanvasGlobals();
   const world = bossWorld(kind, {}, wave);
@@ -70,7 +73,13 @@ function walk(
   const field = (seat: 1 | 2) => stageField(world, "test", controlSet("default"), cfg, seat, null);
   const auto = stageAutopilot({ layout: () => l, field });
   auto.setMode("both");
-  const effects = new Effects();
+  // AUTO plays from TEST's screen, which hears both seats; the screens drawn
+  // are the row's, each with its own layout and its own effects.
+  const screens = roles.map((role) => ({
+    role,
+    l: computeLayout(VIEWPORT, cfg, role),
+    effects: new Effects(),
+  }));
   const { ctx } = stubCanvas();
   const c = ctx as unknown as CanvasRenderingContext2D;
   const wrong: string[] = [];
@@ -81,17 +90,22 @@ function walk(
     step(world, auto.commands(world));
     if (i % EVERY !== 0) continue;
     const before = marks.map((m) => m.calls().length);
-    const view = { world, beatPhase: beatPhase(cfg, world.tick), role: "test" as const };
-    const state = {
-      ...view,
-      time: i / cfg.tickHz,
-      dt: EVERY / cfg.tickHz,
-      events: [],
-      running: true,
-    };
-    // A round replaces the field and is never drawn by `drawBoss` at all
-    // (`round-draw.ts`), so its marks are only reached the game's own way.
-    if (!drawRound(c, l, state, effects)) drawBoss(c, l, state, effects);
+    for (const screen of screens) {
+      const state = {
+        world,
+        beatPhase: beatPhase(cfg, world.tick),
+        role: screen.role,
+        time: i / cfg.tickHz,
+        dt: EVERY / cfg.tickHz,
+        events: [],
+        running: true,
+      };
+      // A round replaces the field and is never drawn by `drawBoss` at all
+      // (`round-draw.ts`), so its marks are only reached the game's own way.
+      if (!drawRound(c, screen.l, state, screen.effects)) {
+        drawBoss(c, screen.l, state, screen.effects);
+      }
+    }
     marks.forEach((m, k) => {
       const lit = m.calls().slice(before[k]).filter(m.lit).length;
       if (lit === 0) return;
@@ -110,7 +124,7 @@ function phaseName(world: World): string {
 describe("no boss puts a mark up before its window opens", () => {
   test.each(ROWS.map((r) => [r.kind, r] as const))("%s", (_, row) => {
     const marks = row.marks.map((m) => m());
-    const { wrong, seen } = walk(row.kind, marks, row.wave);
+    const { wrong, seen } = walk(row.kind, marks, row.wave, row.roles ?? ["test"]);
     expect(wrong.slice(0, 5)).toEqual([]);
     for (const m of marks) {
       if (m.unreached !== undefined) continue;

@@ -43,8 +43,9 @@ import { mark, type Row } from "./marks-window-kit.js";
  *
  * THE MANTLE's mark functions decide inside themselves whether to draw, so a
  * call to one says nothing; its row is the halo they draw, the field's shared
- * mark — a knob while the shell wants both hands, the core's half for the seat
- * whose tap is next, and the vent while it hisses.
+ * mark, and the partner's ring on the other screen — a knob while the shell
+ * wants both hands, the core's half for the seat whose tap is next, and the
+ * vent while it hisses.
  *
  * THE GOVERNOR's track mark is lit when it is drawn `open`: a mark a tap may
  * land now. One landed stays lit, steady, until its step is answered, which is
@@ -67,6 +68,18 @@ import { mark, type Row } from "./marks-window-kit.js";
 
 const mantle = (w: World) => w.boss as MantleState;
 const governor = (w: World) => w.boss as GovernorState;
+
+/** Whether any of THE MANTLE's marks asks: a knob, the core's half, or the vent. */
+const mantleAsks = (w: World): boolean => {
+  const s = mantle(w);
+  return (
+    mantleKnobAsks(s, 0) ||
+    mantleKnobAsks(s, 1) ||
+    mantleCoreAsks(s, 1) ||
+    mantleCoreAsks(s, 2) ||
+    mantleVenting(s)
+  );
+};
 const hive = (w: World) => w.boss as HiveState;
 const gimbal = (w: World) => w.boss as GimbalState;
 const hasp = (w: World) => w.boss as HaspState;
@@ -79,17 +92,12 @@ const antiphon = (w: World) => w.boss as AntiphonState;
 export const ROWS_D: readonly Row[] = [
   {
     kind: "mantle",
+    // Both seats' screens, so the partner's ring is held too: on TEST every
+    // mark is the screen's own and it is never drawn.
+    roles: ["p1", "p2"],
     marks: [
-      mark(markFeedback, "drawMarkHalo", (w) => {
-        const s = mantle(w);
-        return (
-          mantleKnobAsks(s, 0) ||
-          mantleKnobAsks(s, 1) ||
-          mantleCoreAsks(s, 1) ||
-          mantleCoreAsks(s, 2) ||
-          mantleVenting(s)
-        );
-      }),
+      mark(markFeedback, "drawMarkHalo", mantleAsks),
+      mark(markFeedback, "drawMarkTheirs", mantleAsks),
     ],
   },
   {
