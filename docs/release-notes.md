@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 016265381 — `marks-window.test.ts`'s *every boss has a row* is held by a test
+
+The preamble said every boss but THE QUEEN has a row and nothing checked it: 22 of 58 did. `NO_ROW` (`marks-window-no-row.ts`) names the other 36 with a reason each — THE QUEEN never, THE INSTAR's own test, eight with no `*-marks.ts` to spy on, and 26 owed — and `marks-window-coverage.test.ts` holds every boss to a row or a line, nothing to both, and each reason to the tree, so the list can only shrink. The 26 owed rows are queued in seven lanes.
+
 ## 2026-10-08 · 7948df1cf — `bun run frames` refuses a flag it does not read, and names the one meant
 
 A flag the tool does not read used to be dropped without a word, so a mistyped or invented flag produced a picture that looked right and was not. Now any unknown flag stops the run with its name, the flag it is a likely typo of when one is close (`--untl-on` → `--until-on`), and a pointer to `--help`. A test checks that every recipe's flags are known.

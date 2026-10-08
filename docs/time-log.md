@@ -35794,3 +35794,5 @@ helps more than it misleads.
 
 Bottleneck: reading — telling a boss with no marks from one whose row was
 never written, settled by whether a `*-marks.ts` exists to spy on.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
