@@ -6,7 +6,7 @@ import { HANDOVER_TRADE_POSE } from "./poses-handover.js";
 import { INSTAR_ACT_POSES } from "./poses-instar-acts.js";
 import { INSTAR_BARE_POSE } from "./poses-instar-bare.js";
 import { INSTAR_BROOD_POSE } from "./poses-instar-brood.js";
-import { INSTAR_FLIGHT_POSE } from "./poses-instar-flight.js";
+import { INSTAR_ARRIVING_POSE, INSTAR_FLIGHT_POSE } from "./poses-instar-flight.js";
 import { INSTAR_REAR_POSE, INSTAR_SPREAD_POSE } from "./poses-instar-spit.js";
 import { LEAD_DROPPING_POSE } from "./poses-lead-dropping.js";
 import { LEDGER_BILLED_POSE } from "./poses-ledger-billed.js";
@@ -73,6 +73,7 @@ export const VERSUS_STATE_POSES: Pose[] = [
   SLOW_RUNS_OUT_POSE,
   INSTAR_BROOD_POSE,
   INSTAR_FLIGHT_POSE,
+  INSTAR_ARRIVING_POSE,
   INSTAR_BARE_POSE,
   INSTAR_REAR_POSE,
   INSTAR_SPREAD_POSE,

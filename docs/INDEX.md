@@ -1937,6 +1937,7 @@ by hand never moves.
 | `packages/render/src/instar-fx-ingest.ts` | **What each of THE INSTAR's events does to its fx** |
 | `packages/render/src/instar-fire.ts` | **The fire in THE INSTAR's mouth**: a ball of flame turning on itself in the middle of the open jaws |
 | `packages/render/src/instar-flight.ts` | **How THE INSTAR arrives**, step by step: the flight the whole body takes over the first part of a morph |
+| `packages/render/src/instar-flight-look.ts` | **What THE INSTAR looks like while it flies** |
 | `packages/render/src/instar-front.ts` | **THE INSTAR face-on**: a living ship coming at the screen |
 | `packages/render/src/instar-front-body.ts` | **THE INSTAR's body face-on, as a tube of the rig**: the long body seen from its head end |
 | `packages/render/src/instar-glyphs.ts` | **The gesture, drawn inside the ring** — one glyph per member of `INSTAR_GESTURES` |

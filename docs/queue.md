@@ -335,27 +335,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 The look lane of step 8 (`bosses-choreographed.md` §12). The simulation landed off on 8 October 2026 (`packages/sim/src/antiphon-turn.ts`, `antiphonRestingTurn`): from `antiphonTurnPits` the organ rests at a seeded quarter turn (`organ.turn`) and every candidate on the rail carries its own (`turn`), the decoys being the organ's contour at the other turns. Nothing draws either yet: the organ is turned by `antiphonTurnMilli` alone, and the rail is never turned. To do: draw the organ by `antiphonOrganTurnMilli` and each candidate rotated by `antiphonQuarterMilli(c.turn)`, then offer the level with the figure on as a VERSUS candidate beside the shipped rail. With the figure off every turn is nought, so the default frame does not move. A test belongs beside it: every contour in the antiphon shape table must differ from itself at a quarter and a half turn, or a turned rail shows two identical candidates and only one of them is right.
 
-## THE INSTAR's fly-in gets a body that matches its side view
-
-- **Found:** 2026-10-07, claude/instar-boss-graphics-3d-b0ba0a
-- **Taken:** 2026-10-08, claude/task-queue-work-8b2adc (claim: claude/queue-the-instars-fly-in-gets-a-body-that-matches-its)
-- **Files:** `packages/render/src/instar-flight.ts`, `packages/render/src/instar-front-body.ts`, `packages/render/src/instar-turn.ts`, `packages/render/src/instar-legs.ts`
-- **Asks:** Should THE INSTAR fly in seen from the side (A), keep coming in face-on but with a new body (B), or should both go to VERSUS (C)?
-- **Answered:** 2026-10-08 — (C): A and B both built as VERSUS candidates (`instar:flight`) beside what ships, over building either straight onto the field
-
-The owner, 7 October 2026: *it looks ugly when it flies in*. The scale
-strips on the growing body are fixed (`instar-front-body.ts`), and side-on the
-dragon now has a turned head and four legs. Face-on, the fly-in is still a
-flat mask with a lumpy, segmented tube trailing up and to the right, with no
-legs, and its wings are small at that size. Options:
-(A) fly in side-on: the approach is drawn in the profile, so the turned head,
-legs and raised wings grow in from far away, and it turns face-on only when it
-arrives;
-(B) stay face-on, but the trailing tube becomes a smooth tapered body seen
-a third of the way round (`instar-turn.ts`'s `TURN`), with the legs
-hanging off it and the wings spread;
-(C) build A and B as VERSUS candidates (`instar:flight`) beside what ships.
-
 ## A held mark shows it is right: THE DAVIT, THE LAMPREY, THE HALTER
 
 - **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
@@ -560,3 +539,10 @@ sets `data-frozen`. Have the shot fail at once, naming the error, when the
 page reports a bundle or runtime error (console error, or no `#versus`
 mounted after the settle), and add a test with a candidate that throws at
 import.
+
+## THE INSTAR's fly-in, candidate B: face-on with a tapered body behind
+
+- **Found:** 2026-10-08, claude/task-queue-work-8b2adc
+- **Files:** `packages/render/src/instar-flight-look.ts`, `packages/render/src/instar-front-body.ts`, `packages/render/src/instar-turn.ts`, `packages/render/src/instar-legs.ts`, `tools/versus/candidates/instar-flight/side/index.ts`
+
+The second half of the owner's (C) of 8 October 2026 (*it looks ugly when it flies in*, 7 October): `instar:flight` is open with candidate SIDE, option (A), the approach flown in profile through `INSTAR_FLIGHT_LOOK.figure`, judged on the director's `INSTAR · FLYING IN`. Option (B) is still to build beside it: the approach stays face-on, but the lumpy segmented tube trailing up and right becomes a smooth tapered body seen a third of the way round (`instar-turn.ts`'s `TURN`), with the legs hanging off it and the wings spread. It needs a seam the front body's drawing reads while flying — a field on the same record, so every candidate in the slot patches the same record and fields (`tools/versus/test/distinct.test.ts`): SIDE then patches the new field to the shipped drawing. `bun run versus:shot instar:flight <name> --freeze 5.5` shows both mid-approach.

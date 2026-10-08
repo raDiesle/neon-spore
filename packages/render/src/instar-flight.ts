@@ -58,13 +58,26 @@ const AT_REST: Flight = { dxMilli: 0, dyMilli: 0, scale: 1, turn: 1, light: 1 };
 /** How far away the approach starts: the body is `1 / FAR` of its size. */
 const FAR = 8;
 
+/** A flight under way: how it arrives, how far through it is, 0..1, and whether a body left the field first. */
+export interface FlightAt {
+  arrive: InstarArrival;
+  t: number;
+  leaves: boolean;
+}
+
+/** The flight under way this frame, or `null` while the body is not flying. */
+export function instarFlightAt(s: InstarState, beat: number, beatPhase: number): FlightAt | null {
+  const step = instarStep(s);
+  if (s.phase !== "morph" || step === null) return null;
+  const t = phaseInto(s, beat, beatPhase) / (step.morphBeats * INSTAR_FLIGHT_ENDS);
+  if (t >= 1) return null;
+  return { arrive: step.arrive, t: Math.max(0, t), leaves: s.cursor > 0 };
+}
+
 /** Where the body is carried, and how large it is, this frame. */
 export function instarFlight(s: InstarState, beat: number, beatPhase: number): Flight {
-  const step = instarStep(s);
-  if (s.phase !== "morph" || step === null) return AT_REST;
-  const t = phaseInto(s, beat, beatPhase) / (step.morphBeats * INSTAR_FLIGHT_ENDS);
-  if (t >= 1) return AT_REST;
-  return flown(step.arrive, Math.max(0, t), s.cursor > 0);
+  const at = instarFlightAt(s, beat, beatPhase);
+  return at === null ? AT_REST : flown(at.arrive, at.t, at.leaves);
 }
 
 /** How much of an approach is spent leaving, when there was a body on the field to leave. */

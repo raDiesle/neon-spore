@@ -1,7 +1,8 @@
 import type { InstarState, World } from "@neon-spore/sim";
 import type { BoltStops } from "./bolt-stop.js";
 import { instarEbb, instarFire } from "./instar-ebb.js";
-import { instarFlight } from "./instar-flight.js";
+import { instarFlight, instarFlightAt } from "./instar-flight.js";
+import { INSTAR_FLIGHT_LOOK } from "./instar-flight-look.js";
 import { drawFront } from "./instar-front.js";
 import { seeFrontBody } from "./instar-front-body.js";
 import type { InstarFx } from "./instar-fx.js";
@@ -67,7 +68,10 @@ export function drawInstar(
   const cfg = world.cfg;
   const fade = instarFade(s, cfg, beat, beatPhase);
   if (fade <= 0) return;
-  const { f, sway } = instarBody(s, cfg, world, beat, beatPhase, fx.held);
+  const posed = instarBody(s, cfg, world, beat, beatPhase, fx.held);
+  const sway = posed.sway;
+  const flightAt = instarFlightAt(s, beat, beatPhase);
+  const f = flightAt === null ? posed.f : INSTAR_FLIGHT_LOOK.figure(posed.f, flightAt);
   const threat = instarThreat(s, beat, beatPhase);
   // What the body shows of it ebbs over a landing from where the window left it.
   const shown = s.phase === "land" ? fx.held * instarEbb(s, beat, beatPhase) : threat;

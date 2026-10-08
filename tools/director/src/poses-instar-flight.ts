@@ -40,3 +40,33 @@ export const INSTAR_FLIGHT_POSE: Pose = {
     return w;
   },
 };
+
+/** Beats into the first morph the fly-in is caught at: a speck high up, still far. */
+const ARRIVING = 1;
+/** Seconds the fly-in plays before it is built again: the whole approach, the turn face-on at its end. */
+const APPROACH_SECONDS = 9;
+
+/**
+ * **THE INSTAR flying in**: the first step's approach from the start, a speck
+ * far off growing at the screen to the breath. `instar:flight` is judged
+ * here — the owner, 7 October 2026: *it looks ugly when it flies in* — and
+ * the whole approach plays before the replay, so the turn face-on at its end
+ * is seen.
+ */
+export const INSTAR_ARRIVING_POSE: Pose = {
+  name: "INSTAR · FLYING IN",
+  note: "THE INSTAR's first approach, a speck far off growing at the screen until it faces the ship.",
+  lookAt: "whether the body reads as a dragon flying in, or a mask trailing a tube",
+  crop: "field",
+  cadenceSeconds: APPROACH_SECONDS,
+  build: () => {
+    const w = bossWorld("instar");
+    for (let i = 0; i < 400 * TPB; i++) {
+      const s = instarBoss(w);
+      if (s !== null && s.phase === "morph" && instarStep(s)?.arrive === "approach") break;
+      step(w, []);
+    }
+    for (let i = 0; i < ARRIVING * TPB; i++) step(w, []);
+    return w;
+  },
+};

@@ -35544,3 +35544,17 @@ Bottleneck: reading — the simulation does not keep what began a rest, so
 the ring had to come from the events without breaking the two-screen rule.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE INSTAR's fly-in, candidate SIDE (option A) on VERSUS
+
+- reading: 10 min. The flight, the draw, the figure and its in-betweens,
+  the poses, and how a VERSUS slot and its pose are written.
+- writing: 10 min. `instarFlightAt`, the `INSTAR_FLIGHT_LOOK` record, the
+  SIDE candidate, the `INSTAR · FLYING IN` pose and its slot row.
+- looking: 10 min. `versus:shot` at three moments, both sides alone,
+  cropped to one screen.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: reading — seventy-seven INSTAR files, and the seam had to sit
+where only the drawing reads it, never a mark.
