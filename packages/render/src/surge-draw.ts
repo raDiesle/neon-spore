@@ -1,25 +1,18 @@
 import {
-  type SimConfig,
   type SurgeState,
   surgeEverting,
   surgeHands,
-  surgeHoldsCharge,
   surgeSealing,
   type World,
 } from "@neon-spore/sim";
-import { drawHurt } from "./boss-hurt.js";
-import { mixHex, rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
-import { PALETTE } from "./palette.js";
-import { paintSac } from "./surge-flesh.js";
+import { drawSurgeBody, EVERT_LOOK, surgeFoldedRy } from "./surge-body.js";
 import type { SurgeFx } from "./surge-fx.js";
 import { drawSurgeGauge } from "./surge-gauge.js";
 import { drawSurgeGrips } from "./surge-grip.js";
 import { drawSurgeAsked, drawSurgeVerdicts } from "./surge-marks.js";
 import {
-  type Point,
   surgeBulbCentre,
-  surgeBulbPath,
   surgeBulbRx,
   surgeBulbRy,
   surgeEvert01,
@@ -78,14 +71,10 @@ export function drawSurge(
     : 1 + 0.03 * surgeHands(s) * (1 + Math.sin(time * 6));
   const pinch = sealing ? 0.72 : 1;
   const rx = surgeBulbRx(l, cfg) * (1 + 0.5 * (swell - 1)) * (sealing ? 0.9 : 1);
+  const fullRy = surgeBulbRy(l) * swell * pinch * (1 - fx.jolt);
   // The eversion folds the body through its equator: flat at the half, and
-  // the far side drawn inside out past it.
-  const fold = Math.cos(evert * Math.PI);
-  const ry = Math.max(
-    l.tile * 0.08,
-    surgeBulbRy(l) * swell * pinch * (1 - fx.jolt) * Math.abs(fold),
-  );
-  const inside = fold < 0;
+  // the far side drawn inside out past it (`EVERT_LOOK`, `surge-body.ts`).
+  const ry = surgeFoldedRy(l.tile, fullRy, evert);
   // The bulb rocks about its middle, seam and grips with it (`surge-sway.ts`).
   const roll = surgeRoll(cfg, s, beat, beatPhase, world);
 
@@ -96,21 +85,21 @@ export function drawSurge(
   ctx.translate(c.x, c.y);
   ctx.rotate(roll);
   ctx.translate(-c.x, -c.y);
-  drawBody(
-    ctx,
-    cfg,
-    s,
-    c,
-    rx,
-    ry,
-    time,
-    pressure,
-    sealing,
-    inside,
-    showsSurgePressure(l.role),
-    l.tile,
-    fx.hurt.value,
-  );
+  const body = (bodyRy: number, inside: boolean): void =>
+    drawSurgeBody(ctx, cfg, s, {
+      c,
+      rx,
+      ry: bodyRy,
+      time,
+      pressure,
+      sealing,
+      inside,
+      warms: showsSurgePressure(l.role),
+      tile: l.tile,
+      hurt: fx.hurt.value,
+    });
+  if (evert > 0) EVERT_LOOK.draw({ ctx, c, rx, ry: fullRy, evert, time, tile: l.tile, body });
+  else body(ry, false);
   drawSurgeGauge(ctx, l, cfg, s, c, rx, ry, time, everting);
   ctx.restore();
   if (!everting) {
@@ -119,58 +108,4 @@ export function drawSurge(
     drawSurgeVerdicts(ctx, l, world, c, rx, ry, fx.marks.verdicts, roll);
   }
   ctx.restore();
-}
-
-/**
- * The body: a sac of the hull's violet (`surge-flesh.ts`), its lower wall lit
- * from inside and warmed toward its rim as the pressure comes
- * on where the pressure is shown, dim and shut while it re-seals, and pale
- * — the inside out — past the half of the eversion. From `surgeHoldNotches`
- * open it keeps its charge with no thumb on it, and a faint glow inside
- * says so on both screens: that it *holds* is a rule, not a number.
- */
-function drawBody(
-  ctx: CanvasRenderingContext2D,
-  cfg: SimConfig,
-  s: SurgeState,
-  c: Point,
-  rx: number,
-  ry: number,
-  time: number,
-  pressure: number,
-  sealing: boolean,
-  inside: boolean,
-  warms: boolean,
-  tile: number,
-  hurt: number,
-): void {
-  const path = surgeBulbPath(c, rx, ry, time);
-  const warm = warms ? pressure * 0.4 : 0;
-  const hex = sealing
-    ? PALETTE.dim
-    : inside
-      ? PALETTE.hullRim
-      : mixHex(PALETTE.hull, PALETTE.hullRim, warm);
-  const rim = sealing ? PALETTE.rock : inside ? PALETTE.hull : PALETTE.hullRim;
-  const glow = sealing ? 0 : warms ? pressure : 0;
-  paintSac(
-    ctx,
-    path,
-    { c, rx, ry, tile },
-    hex,
-    rim,
-    inside ? 0.8 : 0.6,
-    glow,
-    sealing ? 0.5 : 1,
-    time,
-  );
-  drawHurt(ctx, path, hurt);
-  if (surgeHoldsCharge(s, cfg) && !sealing) {
-    ctx.save();
-    ctx.fillStyle = rgba(PALETTE.hullRim, 0.12 + 0.05 * Math.sin(time * 2));
-    ctx.beginPath();
-    ctx.ellipse(c.x, c.y, rx * 0.55, ry * 0.55, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  }
 }

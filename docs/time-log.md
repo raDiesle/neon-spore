@@ -35384,3 +35384,17 @@ Bottleneck: reading — the design asks for the gap on a body it also says
 the pilot must not read the pressure off.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE SURGE's eversion turning the body out, offered in VERSUS
+
+- reading: 5 min. The draw, the fold and `surgeEvert01`, to find where a
+  turned body could stand in for the folded outline.
+- writing: 10 min. `surge-body.ts` lifted out of the draw with
+  `EVERT_LOOK` in it, the candidate, the EVERTING pose's `lookAt`.
+- looking: 10 min. The first stills caught the first beat of the turn;
+  THE SLOW stretches five beats over ten seconds, so it was shot at ten.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: looking — a freeze is in the pair's slowed seconds, and the
+eversion only shows past the first third of them.

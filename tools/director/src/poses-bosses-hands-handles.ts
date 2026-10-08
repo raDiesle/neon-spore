@@ -147,6 +147,8 @@ export const HANDLE_HAND_POSES: Pose[] = [
       want: surge((_, s) => s.evertBeat >= 0),
       hold: 6,
       budgetBeats: 120,
+      // `surge:evert` is judged here, from the first tick of the turn.
+      lookAt: "the bulb turning through its seam over five beats",
     },
   ),
   bossPose(

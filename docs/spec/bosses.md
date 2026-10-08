@@ -5274,7 +5274,10 @@ gums and a jolt; the slits do not gape wider with the pressure — offered
 in VERSUS as `surge:seam` (8 October 2026), the seam opening into a lit
 mouth on the navigator's screen alone, because on the pilot's it would be
 the pressure he is not shown; the eversion is a fold of the outline, not a
-second body turned out of the first. The owner's eye decides all three.
+second body turned out of the first — offered in VERSUS as `surge:evert`
+(8 October 2026), the pale inside rolling out of the seam and back over
+the bulb rib by rib, the inner body still left out. The owner's eye
+decides all three.
 
 **The other seat's mark fills nothing, 22 September 2026**
 (`theirs`, `handle-draw.ts`). This is the one handle in the game where that
