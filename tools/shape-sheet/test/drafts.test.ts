@@ -91,6 +91,14 @@ describe("the shape catalogue", () => {
     );
   });
 
+  // BULB · CLOVER said free for twelve days with an owner that began *THE
+  // CYST, taken 26 September 2026*; a lane reads the status, not the note.
+  it("calls no card free whose note says something took it", () => {
+    const taker = /^[^:]*?, (taken|built) \d{1,2} [A-Z][a-z]+ \d{4}/;
+    const free = CATALOGUE.filter((e) => e.status === "free" && taker.test(e.owner ?? ""));
+    expect(free.map((e) => e.subject.name)).toEqual([]);
+  });
+
   it("names every shape exactly once", () => {
     const names = CATALOGUE.map((e) => e.subject.name);
     expect(new Set(names).size).toBe(names.length);

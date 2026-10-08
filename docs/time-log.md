@@ -35724,3 +35724,14 @@ Bottleneck: looking — finding out that Bun's dev server swallows a throw at
 import, which no amount of reading `page-said.ts` would have shown.
 
 *Measured: 17 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — BULB · CLOVER says free while its own note says THE CYST took it
+
+- reading: 5 min. The card, `cyst-shape.ts`'s CLOVER lobes, and how the
+  other cards word a taker.
+- writing: 0 min. One status, and a test that reads the note's opening.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none worth the name; the entry said exactly what to do.

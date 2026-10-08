@@ -476,19 +476,6 @@ body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
 
-## BULB · CLOVER says free while its own note says THE CYST took it
-
-- **Found:** 2026-10-08, claude/queue-tasks-3078fe
-- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-bulb-clover-says-free-while-its-own-note-says-th)
-- **Files:** `tools/shape-sheet/src/drafts/offered.ts`
-
-BULB · CLOVER's card carries `status: "free"` and an `owner` that begins
-*THE CYST, taken 26 September 2026*. A lane looking for a free shape to
-combine (CLAUDE.md, *a new shape is never one the game already draws*) reads
-the status and would take a shape the game already draws. Check
-`render/cyst-shape.ts` against the card, set the status to `taken` if it is,
-and add a test that a card whose `owner` starts with a taker is not `free`.
-
 ## THE LATCH's guide is a film: one holds, one pulls, and they swap
 
 - **Found:** 2026-10-08, claude/parked-boss-concept-d88325
