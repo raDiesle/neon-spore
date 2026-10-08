@@ -621,6 +621,7 @@ bestiary's line to built.
 ## waves-demo.ts and poses-mechanics.ts are each within twenty lines of the ceiling
 
 - **Found:** 2026-10-08, claude/queue-autos-boss-hands-are-tested-without-the-games-ha
+- **Taken:** 2026-10-08, claude/queue-tasks-3078fe (claim: claude/queue-waves-demo-ts-and-poses-mechanics-ts-are-each-wi)
 - **Files:** `packages/content/src/waves-demo.ts`, `tools/director/src/poses-mechanics.ts`
 
 `after-edit-size.ts` flagged both on a one-word edit: 231 and 234 lines of
