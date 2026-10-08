@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 52b03fab6 — A repo test's cleanup hook may take as long as it needs, so a landing is not red for it
+
+`bun run land` went red on `reconcile-worktree.test.ts` because its `afterEach`, which only removes a temp directory, overran bun's 5 s default for a hook while three sessions' checks were running. `CLEANUP_MS` in `tools/test/repo-time.ts` is one unscaled ceiling for such a hook, and every one of the twenty-four repo-backed hooks now passes it — including the eighteen that passed `repoTimeout`, which a probe taken at import floors at the same 5 s.
+
+## 2026-10-08 · a846aca06 — Queued: a repo test's cleanup hook can fail a landing on bun's 5 s default
+
 ## 2026-10-08 · ecd95e3df — The new-creature skill lists every row a kind is, proven by a throwaway kind
 
 Its table said six rows, all enforced, the list complete; THE BLISTER met more than twenty. A throwaway kind added to the union and the roster, then put on a wave, gave the real list: eight rows the compiler names (the union, the roster, the creature and mechanic rows, the living look, the talker, the siren's word and the demonstration), six only the full check names, and the rows a kind's own make-up owes — a config field, a spawn field, a `null` look, a placeholder look, a body that stands, a new wave and film.
