@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A held mark shows it is right: THE DAVIT, THE LAMPREY, THE HALTER
 
 - **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
+- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-a-held-mark-shows-it-is-right-the-davit-the-lamp)
 - **Files:** `packages/render/src/davit-verdicts.ts`, `packages/render/src/lamprey-verdicts.ts`, `packages/render/src/halter-verdicts.ts`, `packages/render/src/mark-progress.ts`
 
 The owner, 7 October 2026, on THE CAPSTAN and *generic for on-screen
