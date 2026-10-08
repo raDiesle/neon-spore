@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 97d1e4560 — THE SCUTTLE's parts as lobes of the frame, offered in VERSUS
+
+THE SCUTTLE's parts have a candidate, `scuttle:seat` / LOBED. In the game, a part is a plate seated in a socket, and a socket left open shows the violet inside at the bottom of a recess. LOBED draws each part as a swell of the frame's own rock, with no edge where one ends and the frame begins. Where a part has gone, it leaves a ragged wet wound dripping the violet inside. The parts still stand over the sockets' columns, because a throw lands under its own. Shipped picture unchanged: seated parts and open sockets are drawn through `SEAT_LOOK` in `scuttle-seat.ts`, which holds the game's own two drawings.
+
 ## 2026-10-08 · 5e799da1e — THE LEAD's torch and rock torn out of the ridge, offered in VERSUS
 
 THE LEAD's drops have a candidate, `lead:drop` / TORN. In the game, a run's torch and rock arrive under the ridge as the field's own creatures, with a puff of sparks. TORN tears the ridge's underside open over the column, and an ember sac or a grey lump hangs from it on a strand of flesh that stretches and parts. On the navigator's screen alone, a cord runs from the mound to the tear. It is judged on a new pose, THE LEAD · DROPPING, which stops on the drop's own tick. Shipped picture unchanged: `LeadFx` holds the drops in `lead-drop.ts` and draws them through `DROP_LOOK`, which draws nothing. This closes the queue entry for THE LEAD's three unbuilt looks.

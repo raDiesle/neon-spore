@@ -35474,3 +35474,5 @@ a column, so it is the navigator's alone.
 
 Bottleneck: friction — the shot waited out its five minutes on a type
 error rather than failing on it.
+
+*Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
