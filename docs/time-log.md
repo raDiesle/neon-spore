@@ -36223,3 +36223,15 @@ Bottleneck: reading — deciding which entries the request meant.
 Bottleneck: landing — the check is most of a lane this small.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — `audio/bind.ts` is at 223 lines: choose its seam before the next creature
+
+- reading: 5 min. `bind.ts` and the guard `bind-creatures.ts` already uses.
+- writing: 5 min. `bind-field.ts`: the thirty-four events of the creatures
+  with a cue file each, one guard and one switch; `bind.ts` down to 166.
+- looking: 0 min. Nothing drawn, nothing heard differently.
+- friction: 0 min.
+- landing: 5 min. Two mutations to prove a dropped case or a dropped name
+  is still a compile error, `check:fast`, `land`.
+
+Bottleneck: landing — the full check.

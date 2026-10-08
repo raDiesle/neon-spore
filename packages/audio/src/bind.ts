@@ -12,22 +12,13 @@
  */
 
 import type { SimEvent } from "@neon-spore/sim";
-import { balloonCue } from "./bind-balloon.js";
-import { beatboxCue } from "./bind-beatbox.js";
-import { blisterCue } from "./bind-blister.js";
 import { breachCue } from "./bind-breach.js";
-import { caromCue } from "./bind-carom.js";
-import { choirCue } from "./bind-choir.js";
 import { choreographedCue } from "./bind-choreographed.js";
-import { clingCue } from "./bind-cling.js";
-import { coilCue } from "./bind-coil.js";
 import { crawlerCue } from "./bind-crawler.js";
 import { creatureCue, isCreatureEvent } from "./bind-creatures.js";
 import type { Cue } from "./bind-cue.js";
-import { fenceCue } from "./bind-fence.js";
+import { fieldCue, isFieldEvent } from "./bind-field.js";
 import { fleetCue, isFleetEvent } from "./bind-fleet.js";
-import { gumCue } from "./bind-gum.js";
-import { handedCue } from "./bind-handed.js";
 import { impactCue } from "./bind-impact.js";
 import { mirrorCue } from "./bind-mirror.js";
 import { panForCol } from "./bind-place.js";
@@ -35,7 +26,6 @@ import { podCue } from "./bind-pod.js";
 import { isShipEvent, shipCue } from "./bind-ship.js";
 import { spliceCue } from "./bind-splice.js";
 import { stareCue } from "./bind-stare.js";
-import { volleyCue } from "./bind-volley.js";
 import { wardenCue } from "./bind-warden.js";
 
 // **What a cue is** is `bind-cue.ts` and **where a sound is** is
@@ -57,6 +47,9 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
   // switch as a case does, so a new event is still a compile error below.
   if (isShipEvent(e)) return shipCue(e, cols, rows);
   if (isCreatureEvent(e)) return creatureCue(e, cols, rows);
+  // The creatures with a `bind-*.ts` each — the coil to the volley — behind
+  // one guard in `bind-field.ts`, where the next one's cue goes.
+  if (isFieldEvent(e)) return fieldCue(e, cols, rows);
   switch (e.type) {
     case "beat":
       return { id: e.beat % 4 === 0 ? "beat.accent" : "beat.tick" };
@@ -164,56 +157,6 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "spliceWrong":
     case "spliceDown":
       return spliceCue(e, cols);
-    // Each group below lives in its own `bind-*.ts`, cut out the way its
-    // events were cut out of `events-creature.ts`, and **named here rather
-    // than reached through a default** — a new event is a compile error.
-    case "coilBreak":
-    case "coilJump":
-      return coilCue(e, cols, rows);
-    case "choirArm":
-    case "choirMerge":
-    case "choirOpen":
-    case "choirSing":
-      return choirCue(e, cols, rows);
-    case "balloonSplit":
-    case "balloonPop":
-    case "balloonTopped":
-      return balloonCue(e, cols, rows);
-    case "gumFlung":
-      return gumCue(e, cols, rows);
-    case "clingGrip":
-    case "clingFreed":
-    case "clingBlast":
-      return clingCue(e, cols);
-    // The four a hand answers, in `bind-handed.ts` — about a thumb, not a shot.
-    case "weightCrushed":
-    case "cairnPulled":
-    case "cairnShed":
-    case "cairnHeld":
-      return handedCue(e, cols, rows);
-    case "caromBounce":
-    case "caromCrack":
-    case "caromEject":
-    case "chuteOpen":
-    case "chuteCut":
-    case "crystalBounce":
-    case "crystalCatch":
-    case "crystalSplit":
-      return caromCue(e, cols, rows);
-    // THE BEATBOX's three, in `bind-beatbox.ts` — about a rhythm, not a shot.
-    case "beatboxTap":
-    case "beatboxWave":
-    case "beatboxSilent":
-      return beatboxCue(e, cols, rows);
-    case "blisterBlow":
-      return blisterCue(e, cols);
-    case "fencePass":
-    case "fenceBurn":
-      return fenceCue(e, cols, rows);
-    case "volleyReturn":
-    case "volleyHatch":
-    case "shieldPush":
-      return volleyCue(e, cols, rows);
     // THE BATON's seven and THE UNDERTOW's nine, in `bind-choreographed.ts`:
     // the branch is narrowed by every case above it, so an event this switch
     // does not name and that file does not take fails to type.

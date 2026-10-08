@@ -327,15 +327,3 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
-
-## `audio/bind.ts` is at 223 lines: choose its seam before the next creature
-
-- **Found:** 2026-10-08, claude/task-queue-work-e99d1a
-- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-audio-bind-ts-is-at-223-lines-choose-its-seam-be)
-- **Files:** `packages/audio/src/bind.ts`
-
-`tools/hooks/after-edit-size.ts` flagged it when THE BLISTER's cue went in
-(`bind-blister.ts`): every creature with a cue of its own adds an import and
-two lines to the switch in `bindEvent`. Cut the creature cases (the carom,
-beatbox, blister, fence and volley groups) into a `bind-field.ts` that the
-switch defers to the way it defers to `choreographedCue`.

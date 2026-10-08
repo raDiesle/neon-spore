@@ -2640,6 +2640,7 @@ by hand never moves.
 | `packages/audio/src/bind-latch.ts` | Whether an event is THE LATCH's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-fence.ts` | **What THE FENCE sounds like**: the wire going over the ship, and a bolt cutting a way through it |
 | `packages/audio/src/bind-filament.ts` | THE FILAMENT's eleven, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-field.ts` | The creatures whose cues each live in a `bind-*.ts` of their own |
 | `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
 | `packages/audio/src/bind-plumb.ts` | Whether an event is THE PLUMB's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-pod.ts` | **What the one thing on the field that is *taken* sounds like** |
