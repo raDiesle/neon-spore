@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · a9818f513 — BULB · CLOVER is marked taken, as THE CYST wears it
+
+The shape catalogue said BULB · CLOVER was free while its own note said THE CYST took it on 26 September 2026, so a lane looking for an unused shape would have picked one the game already draws. It now says taken, and a test refuses any card marked free whose note opens with something having taken or built it.
+
 ## 2026-10-08 · f7212e012 — `versus:shot` refuses a candidate that does not build or throws at import
 
 A candidate that failed to bundle left `bun run versus:shot` waiting on `[data-frozen]` until its caller's timeout, with nothing printed; one that threw at import did the same. Bun's dev server swallows both: an unbuilt page is answered 500, a throw at import is caught by its module loader, and neither reaches Playwright as a throw. `shot.ts` now refuses a page answered with an error at once, treats Bun's `<bun-hmr>` error screen as a throw in the `--until` race, and prints the screen's words — the file and the error — in the report.
