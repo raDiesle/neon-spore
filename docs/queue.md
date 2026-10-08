@@ -328,26 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## More rubs, counted in green, each one seen: THE RIME, THE GRINDSTONE, THE VALVE
-
-- **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
-- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-more-rubs-counted-in-green-each-one-seen-the-rim)
-- **Files:** `packages/sim/src/config-grindstone.ts`, `packages/render/src/grindstone-verdicts.ts`, `packages/render/src/mark-progress.ts`
-
-The owner, 7 October 2026: *every "Rub" should require more rubs, and how
-much rubs required again should be indicated by green circle around and also
-visual should change on any rub of boss.* THE CAPSTAN is the worked example:
-`capstanWearThreshold` went from 8 to 12, the band being rubbed carries
-`drawMarkProgress`'s green segments, one a reversal, on both screens
-(`capstan-verdicts.ts`), and every reversal pops the face, flares it and
-thins the rust (`capstan-marks.ts`). Do the same for the other three rubs:
-THE GRINDSTONE's `grindstoneShaveMilli` (40, twenty-five). THE VALVE's
-`valveWipeRubs` landed 8 October 2026 (3 → 8, `valveRub` per reversal), and
-THE RIME's `rimeShaveMilli` the same day (125 → 80, a plain arc).
-A rub against regrowth counts down a share, not whole reversals, so its ring
-is a plain arc, not segments. Check each step's window still holds the new
-count at a thumb's pace, and move the sim tests that pin the old one.
-
 ## THE BLISTER, lane 1: the simulation, knocked down by taps
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f

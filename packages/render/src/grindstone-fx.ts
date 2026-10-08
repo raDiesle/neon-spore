@@ -46,12 +46,15 @@ const FREE_FORCE = 0.8;
 const FREE_BEATS = 1.2;
 /** How fast a flat's flash, the caliper's flare and a hit's flash fade, per second. */
 const CLEAN_DECAY = 3;
+/** How fast a reversal's flash on a flat fades, per second: gone before the next at a thumb's pace. */
+const SHAVE_DECAY = 5;
 const FLARE_DECAY = 4;
 const FLASH_DECAY = 3;
 
 export class GrindstoneFx {
   private thudNow = 0;
   private readonly cleanNow: [number, number] = [0, 0];
+  private readonly shaveNow: [number, number] = [0, 0];
   private flareNow = 0;
   private flashNow = 0;
   private flashHits = 0;
@@ -72,6 +75,11 @@ export class GrindstoneFx {
   /** How bright the flash along flat `side`'s face still is, 0..1. */
   clean(side: 0 | 1): number {
     return this.cleanNow[side];
+  }
+
+  /** How bright the last reversal's flash on flat `side` still is, 0..1. */
+  shaved(side: 0 | 1): number {
+    return this.shaveNow[side];
   }
 
   /** How bright the flare along both jaws still is, 0..1. */
@@ -113,8 +121,11 @@ export class GrindstoneFx {
           burst(mid.x, mid.y, 4, PALETTE.hullRim);
           break;
         case "grindstoneShave":
-          // A pinch of grit off the face under the thumb, every reversal.
-          burst(...flatAt(l, mid, e.side, 0.5), 3, PALETTE.grindstoneStoneDark);
+          // A pinch of grit off the face under the thumb and a flash along
+          // it, every reversal (the owner, 7 October 2026: *visual should
+          // change on any rub*).
+          burst(...flatAt(l, mid, e.side, 0.5), 6, PALETTE.grindstoneStoneDark);
+          this.shaveNow[e.side] = 1;
           this.hurt.jab();
           break;
         case "grindstoneClear":
@@ -169,6 +180,7 @@ export class GrindstoneFx {
     if (this.thudNow < 0.002) this.thudNow = 0;
     for (const side of [0, 1] as const) {
       this.cleanNow[side] = Math.max(0, this.cleanNow[side] - CLEAN_DECAY * step);
+      this.shaveNow[side] = Math.max(0, this.shaveNow[side] - SHAVE_DECAY * step);
     }
     this.flareNow = Math.max(0, this.flareNow - FLARE_DECAY * step);
     this.flashNow = Math.max(0, this.flashNow - FLASH_DECAY * step);
@@ -183,6 +195,8 @@ export class GrindstoneFx {
     this.thudNow = 0;
     this.cleanNow[0] = 0;
     this.cleanNow[1] = 0;
+    this.shaveNow[0] = 0;
+    this.shaveNow[1] = 0;
     this.flareNow = 0;
     this.flashNow = 0;
     this.flashHits = 0;

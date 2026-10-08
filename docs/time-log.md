@@ -36005,3 +36005,17 @@ Bottleneck: landing — the boss's old gesture was named in a dozen tests
 outside its own files, found only by the full shard run.
 
 *Measured: 14 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — More rubs, counted in green, each one seen: THE GRINDSTONE (lane 3 of 3)
+
+- reading: 5 min. The entry, THE RIME's lane to copy, the wheel's fx,
+  verdicts and the sim rig.
+- writing: 10 min. The shave 40 → 27, the pace test, the green arc, the
+  flash on every reversal, the render test, the spec paragraph.
+- looking: 5 min. One frame twenty rubs in, cropped round the wheel.
+- friction: 5 min. The regrow test hit the solid cap with the smaller
+  shave, and `--seat 1` is `--seat p1`.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: copying THE RIME's lane to a second body is quick; deciding the
+new count against the window was the only real question.

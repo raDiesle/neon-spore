@@ -15,11 +15,14 @@ export interface GrindstoneConfig {
   grindstoneFreeBeats: number;
   /**
    * Grit one reversal of a grinding thumb shaves off the lit flat, in
-   * thousandths of its face. 40 is twenty-five reversals for a solid flat and
-   * thirteen for the film — it was 125, eight and four, until the owner,
-   * 3 October 2026: *increase the number of rubs much more*. A slowed beat is
-   * two and a half seconds, so a thumb rubbing three or four times a second
-   * still clears a solid flat in a little over two beats of a six-beat pass.
+   * thousandths of its face. 27 is thirty-eight reversals for a solid flat
+   * and nineteen for the film. It was 125, eight and four, until the owner,
+   * 3 October 2026: *increase the number of rubs much more*; then 40,
+   * twenty-five and thirteen, until 7 October: *every "Rub" should require
+   * more rubs*, half as many again, as THE CAPSTAN's went from 8 to 12. A
+   * slowed beat is two and a half seconds, so a thumb rubbing three times a
+   * second clears a solid flat in about five beats of a six-beat pass and the
+   * film in under three of a four (`grindstone-pace.test.ts`).
    */
   grindstoneShaveMilli: number;
   /** Grit a lit flat nobody rubbed grows back in a beat, in thousandths of its face. */
@@ -38,7 +41,7 @@ export const GRINDSTONE_DEFAULTS: GrindstoneConfig = {
   grindstoneStillBeats: 2,
   grindstoneRestBeats: 1,
   grindstoneFreeBeats: 2,
-  grindstoneShaveMilli: 40,
+  grindstoneShaveMilli: 27,
   grindstoneRegrowMilli: 150,
   grindstoneFilmMilli: 500,
   grindstoneGraceBeats: 2,

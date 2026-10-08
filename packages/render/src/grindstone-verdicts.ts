@@ -7,10 +7,12 @@ import {
   type SimEvent,
 } from "@neon-spore/sim";
 import { grindstonePadPlaced, grindstonePadR } from "./grindstone-caliper.js";
+import { grindstoneClear } from "./grindstone-pose.js";
 import { grindstoneAxleR } from "./grindstone-shape.js";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
 import { type Circle, type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
+import { drawMarkProgress } from "./mark-progress.js";
 
 /**
  * **THE GRINDSTONE's marks answering a touch the way every mark does**
@@ -37,6 +39,12 @@ import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
  * remembered from its light. **A flat or a jaw worked by the wrong seat is not
  * refused red**: the simulation says nothing of it (`sim/grindstone-hand.ts`),
  * and nor does a wrong colour.
+ *
+ * **A flat being ground says how far** (the owner, 7 October 2026, THE
+ * CAPSTAN's rule, `mark-progress.ts`): while its pass asks, a plain green arc
+ * round it fills as its grit comes off, on both screens. A plain arc, not
+ * segments: a beat nobody rubbed regrows a share, not a whole reversal, so
+ * there is no count to cut it into.
  *
  * Held in `GrindstoneFx` (`grindstone-fx.ts`). Everything here is in the
  * axle's frame, as the drawer has it: translated to the axle, thudded and
@@ -137,6 +145,9 @@ function asked(l: Layout, s: GrindstoneState, mark: number): "own" | "theirs" | 
   return l.role === "test" || seatOf(l.role) === side + 1 ? "own" : "theirs";
 }
 
+/** How far out round a flat its pass's arc runs, in mark radii: just outside the halo. */
+const GRIND_R = 1.12;
+
 /**
  * Over the wheel: the halo on each mark that asks this screen, the partner's
  * ring and clock on each that asks only them, and every verdict still showing.
@@ -160,6 +171,11 @@ export function drawGrindstoneMarkFeedback(
       drawMarkTheirs(ctx, c.x, c.y, c.r, time);
       drawMarkWait(ctx, c.x, c.y, c.r, time);
     }
+    ctx.globalAlpha = fade;
+    const flat =
+      mark === GRINDSTONE_LEFT_FLAT_MARK ? 0 : mark === GRINDSTONE_RIGHT_FLAT_MARK ? 1 : null;
+    if (says !== null && flat !== null)
+      drawMarkProgress(ctx, c.x, c.y, c.r * GRIND_R, grindstoneClear(s, flat));
     const verdict = v.at(mark);
     if (verdict !== null) drawVerdictRing(ctx, c.x, c.y, c.r, verdict);
   });

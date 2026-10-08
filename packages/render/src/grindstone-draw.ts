@@ -135,6 +135,12 @@ export function drawGrindstone(
     // A pass just ground clean flashes along its face in the bare stone's tan.
     if (fx.clean(side) > 0)
       strokeGlow(ctx, face, PALETTE.grindstoneFlat, STROKE.outline, fx.clean(side));
+    // Every reversal flashes the face it shaved white, THE RIME's way.
+    if (fx.shaved(side) > 0) {
+      ctx.fillStyle = rgba(PALETTE.hullRim, 0.18 * fx.shaved(side));
+      ctx.fill(face);
+      strokeGlow(ctx, face, PALETTE.hullRim, STROKE.inner, 1.4 * fx.shaved(side));
+    }
     ctx.globalAlpha = alpha;
   }
 

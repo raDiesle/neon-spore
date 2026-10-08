@@ -88,7 +88,8 @@ describe("a pass", () => {
 
   it("regrits a beat nobody rubbed, and not a beat somebody did", () => {
     const world = toStep(0);
-    rub(world, 0, 4);
+    // Eight, not four: deep enough that a beat's regrowth is not cut off at solid.
+    rub(world, 0, 8);
     const ground = grindstone(world).gritMilli[0];
     beats(world, 1);
     expect(grindstone(world).gritMilli[0]).toBe(ground);

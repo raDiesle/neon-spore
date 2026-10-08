@@ -9894,6 +9894,17 @@ is the thumb's reversals since it went down, only the ones since the last
 count shave `grindstoneShaveMilli`, a lift sets the count back to nought,
 and a flat ground to nought is answered on the tick (`grindstoneClear`). A
 flat's second pass starts from `grindstoneFilmMilli` rather than solid.
+**The shave is 27, from 40, since 8 October 2026** (the owner, the day
+before: *every "Rub" should require more rubs, and how much … indicated by
+green circle around and also visual should change on any rub*):
+thirty-eight reversals from solid and nineteen from the film, where it was
+twenty-five and thirteen, half as many again as THE CAPSTAN's went. A pass
+is lit under THE SLOW, so the shipped six and four beats hold them at three
+reversals a second (`sim/test/grindstone-pace.test.ts`). The flat being
+ground wears a plain green arc that fills as its grit comes off, on both
+screens (`grindstone-verdicts.ts`, `drawMarkProgress`), and every
+`grindstoneShave` throws six grains, not three, and flashes that face white
+(`grindstone-fx.ts`, `render/test/grindstone-rub.test.ts`).
 Both flats clean bite the caliper shut (`grindstoneBite`). A jaw is heard
 as THE TRIVET hears a foot: one drag a pad by its `id`, kept whenever the
 wheel is present, and a pad lifting from a held clamp slips it

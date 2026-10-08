@@ -143,7 +143,7 @@ export function grindClean(world: World, side: 0 | 1): Set<string> {
   const seen = new Set<string>();
   const cursor = grindstone(world).cursor;
   for (let n = 1; grindstone(world).cursor === cursor && grindstone(world).phase === "lit"; n++) {
-    if (n > 40) throw new Error("the flat never came clean");
+    if (n > 80) throw new Error("the flat never came clean");
     for (const t of rub(world, side, n)) seen.add(t);
   }
   liftFlat(world, side);
