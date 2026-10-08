@@ -348,23 +348,6 @@ round the body per tap still owed, `drawMarkHalo` on the seat that may tap,
 over and round the body and never changes its shape. Drawn again in
 `frame.test.ts`; send the owner one PNG of a frame.
 
-## THE BLISTER, lane 3: the director's BY, GESTURE, COUNT and WAY rows
-
-- **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
-- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-the-blister-lane-3-the-directors-by-gesture-coun)
-- **Files:** `tools/director/src/cell-config.ts`, `tools/director/src/cell-config-mine.ts`, `tools/director/src/entry-fields-mine.ts`, `tools/director/src/serialize-entry.ts`
-- **Needs:** THE BLISTER, lane 1
-
-The owner asked for who may knock a blister down to be set in the
-director's brush settings. Under a selected `blister` cell, beside THE
-MINE's SEES row and built the same way (a `cell-config-blister` file beside
-`cell-config-mine.ts`, its fields in an `entry-fields-blister` file):
-**BY** `P1` / `P2` / `BOTH`, default `P2` stored as absent; **COUNT**
-1–8, default 3; **GESTURE** with `TAP` only for now — lanes 4 to 7 each add
-their own choice to it; **WAY** shown only for a gesture that has one.
-Saved by `serialize-entry.ts`, round-tripped in a director test. The table
-of rows is in `docs/spec/blister.md`.
-
 ## THE BLISTER, lane 4: HOLD
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f

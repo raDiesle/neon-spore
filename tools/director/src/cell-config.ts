@@ -6,6 +6,7 @@ import {
   type RockCross,
   type RockSize,
 } from "@neon-spore/sim";
+import { blisterRows } from "./cell-config-blister.js";
 import { fenceCracksRow, fenceGapsRow } from "./cell-config-gaps.js";
 import { mineRows } from "./cell-config-mine.js";
 import { moultRows } from "./cell-config-moult.js";
@@ -57,6 +58,7 @@ import {
   setRockCross,
   setRockRow,
 } from "./entry-fields.js";
+import { hasBlisterFields } from "./entry-fields-blister.js";
 import { hasFenceGaps } from "./entry-fields-fence.js";
 import { hasMineFields } from "./entry-fields-mine.js";
 import { hasMoultFields } from "./entry-fields-moult.js";
@@ -218,6 +220,8 @@ export function cellConfig({ entry, onEdit }: CellConfigOptions): HTMLElement | 
   // THE MOULT's one, and the tenth: what it is carrying for the half of its
   // fall it spends as a cargo (`cell-config-moult.ts`).
   if (hasMoultFields(e)) rows.push(...moultRows(e, onEdit));
+  // THE BLISTER's, whose hand, how many blows and by which gesture (`cell-config-blister.ts`).
+  if (hasBlisterFields(e)) rows.push(...blisterRows(e, onEdit));
   if (hasFenceGaps(e)) {
     // THE FENCE's own row, and the sixth per-arrival fact in the game — the
     // first that is a *set*. Which columns the wall is open in is the whole of

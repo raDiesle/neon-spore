@@ -36091,3 +36091,18 @@ conflicting on every list all three were struck from.
 Bottleneck: landing — the full check is most of a lane this small.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE BLISTER, lane 3: the director's BY, GESTURE, COUNT and WAY rows
+
+- reading: 5 min. THE MINE's two files, what lane 1 put on `WaveEntry`, the
+  spec's table.
+- writing: 10 min. `entry-fields-blister.ts`, `cell-config-blister.ts`, the
+  call in `cell-config.ts`, a test with a small `document` stub.
+- looking: 0 min. Not looked at in the director: the rows are tested
+  through the stub, not seen.
+- friction: 5 min. Lane 2 was claimed by another session first;
+  `imports:sort` for the new import.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: lane 1 had already written the serializer's two fields, so the
+lane was the panel alone.

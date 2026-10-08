@@ -65,7 +65,8 @@ before and the waiting clock during.
 
 ## The director's settings
 
-Under the selected cell, the way THE MINE's SEES row is (`tools/director/src/cell-config-mine.ts`):
+Under the selected cell, the way THE MINE's SEES row is (`tools/director/src/cell-config-mine.ts`). **BY, GESTURE and COUNT are built** (lane 3, 8 October 2026: `cell-config-blister.ts`, `entry-fields-blister.ts`): GESTURE offers TAP alone and writes nothing until a later lane adds its gesture and its field, and WAY is offered only for a gesture that has one.
+
 
 | Row | Choices | Default |
 |---|---|---|

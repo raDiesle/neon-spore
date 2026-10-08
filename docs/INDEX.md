@@ -3496,6 +3496,7 @@ by hand never moves.
 | `tools/director/src/cell-config-pod.ts` | The rows under the selected cell that configure the **pod** in it: the row it hangs at |
 | `tools/director/src/cell-config-mine.ts` | **THE MINE's two rows under the selected cell** |
 | `tools/director/src/cell-config-moult.ts` | **THE MOULT's one row under the selected cell** |
+| `tools/director/src/cell-config-blister.ts` | **THE BLISTER's rows under the selected cell** |
 | `tools/director/src/grid-note.ts` | The line of arithmetic under the map: how many entries and pods the wave carries, how long it runs |
 | `tools/director/src/grid-gestures.ts` | **Everything a hand can do to one cell of the map**: point at it, paint it, drag a stroke across it |
 | `tools/director/src/grid-rows.ts` | The map's beat labels — a number that seeks — and the two row edits behind them, a beat opened and a span of beats taken out, without a question |
@@ -3550,6 +3551,7 @@ by hand never moves.
 | `tools/hooks/after-svg-edit.ts` | A drawn picture is the one thing a session cannot check by reading it back |
 | `tools/director/src/skins/glass.ts` | GLASS — a body you see *into*, rather than one with things drawn on it |
 | `tools/director/src/entry-fields-balloon.ts` | **THE BALLOON's one authored fact**: how fast it climbs |
+| `tools/director/src/entry-fields-blister.ts` | **THE BLISTER's per-arrival facts**: whose hand knocks it down, how many blows it takes, by which gesture |
 | `tools/director/src/entry-fields-mine.ts` | **THE MINE's two per-arrival facts**, and the first pair in this game that are not about how a body moves or… |
 | `tools/director/src/entry-fields-moult.ts` | **THE MOULT's one per-arrival fact**: what it is carrying for the beats it is wearing its cargo rather than… |
 | `tools/director/src/effects-page.ts` | `versus.html?effect=…` — one kept effect, alone, live, at phone size |
