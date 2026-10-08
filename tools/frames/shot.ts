@@ -38,7 +38,7 @@
 import { closeBrowser, launchBrowser } from "./capture.js";
 import { clipFor, onDocument } from "./crop.js";
 import { startDirector } from "./director-serve.js";
-import { elementOr, listen, waitUntil } from "./page-said.js";
+import { elementOr, listen, refuseFailed, waitUntil } from "./page-said.js";
 import { readShotFlags } from "./shot-flags.js";
 import { reachState, Unreachable } from "./shot-state.js";
 import { TALLEST, withHeightFor } from "./tall.js";
@@ -60,10 +60,13 @@ try {
   // in the report when the element is missing or the wait runs out
   // (`page-said.ts`).
   const said = listen(page);
-  await page.goto(url, { waitUntil: "networkidle" });
+  const response = await page.goto(url, { waitUntil: "networkidle" });
 
   let target: ReturnType<typeof page.locator>;
   try {
+    // A page that never built is answered with an error and throws nothing,
+    // so it is refused here rather than waited on (`bun-overlay.ts`).
+    await refuseFailed(page, response, said);
     await reachState(page, reach);
     if (until) await waitUntil(page, until, said);
     await page.waitForTimeout(settle);

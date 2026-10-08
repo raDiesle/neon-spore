@@ -31,7 +31,7 @@
 
 import { poseForSlot } from "../director/src/versus-pose.js";
 import { startDirector } from "./director-serve.js";
-import { root, run } from "./exec.js";
+import { root } from "./exec.js";
 import { elementFor } from "./versus-element.js";
 
 const argv = process.argv.slice(2);
@@ -151,8 +151,15 @@ try {
   if (scale !== undefined) args.push("--scale", scale);
   // The pair says when the freeze has landed; the settle starts from there.
   if (freeze !== undefined) args.push("--until", "[data-frozen]");
-  await run(["bun", ...args], root);
-  console.log(`wrote ${file} — ${slot} · ${name}`);
+  // `shot.ts` has already said why when it refuses, so its exit is passed on
+  // without a stack trace from `run` printed under the reason.
+  const code = await Bun.spawn(["bun", ...args], {
+    cwd: root,
+    stdout: "inherit",
+    stderr: "inherit",
+  }).exited;
+  if (code === 0) console.log(`wrote ${file} — ${slot} · ${name}`);
+  else process.exitCode = code;
 } finally {
   await director.stop();
 }

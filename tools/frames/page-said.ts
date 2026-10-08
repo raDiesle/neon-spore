@@ -1,4 +1,5 @@
-import type { Locator, Page } from "playwright-core";
+import type { Locator, Page, Response } from "playwright-core";
+import { OVERLAY, overlayLines } from "./bun-overlay.js";
 import { Unreachable } from "./shot-state.js";
 
 /**
@@ -26,6 +27,11 @@ import { Unreachable } from "./shot-state.js";
  * up on. Without a throw the wait is the full `PATIENCE_MS`: a machine running
  * a full check paints a headless frame at about eight a second, and a wrong
  * picture is worse than a slow one.
+ *
+ * Bun's dev server swallows both ways a candidate breaks, so its error screen
+ * counts as a throw, and a page it answered with an error is refused before
+ * anything is waited for (`bun-overlay.ts`). What the screen says is printed
+ * with the rest.
  */
 
 /** Ten minutes, for a page that is merely slow. */
@@ -63,6 +69,26 @@ export function explain(said: Said, sentence: string): string {
   return `the page said:\n${said.lines.map((l) => `  ${l}`).join("\n")}\n${sentence}`;
 }
 
+/** `explain`, with Bun's error screen between what the page said and the sentence. */
+async function explainOn(page: Page, said: Said, sentence: string): Promise<string> {
+  const screen = await overlayLines(page);
+  if (screen.length === 0) return explain(said, sentence);
+  const shown = screen.map((l) => `  ${l}`).join("\n");
+  return explain(said, `the error screen said:\n${shown}\n${sentence}`);
+}
+
+/** Throws `Unreachable` when the page itself was answered with an error. */
+export async function refuseFailed(
+  page: Page,
+  response: Response | null,
+  said: Said,
+): Promise<void> {
+  if (response === null || response.status() < 400) return;
+  const title = await page.title().catch(() => "");
+  const answered = `the page answered ${response.status()}${title ? ` (${title})` : ""}`;
+  throw new Unreachable(await explainOn(page, said, `${answered} — the picture is not coming`), 2);
+}
+
 /**
  * `--until`: wait for the page to say it is ready, for as long as it takes —
  * unless it throws first and then does not arrive within the grace.
@@ -70,15 +96,21 @@ export function explain(said: Said, sentence: string): string {
 export async function waitUntil(page: Page, selector: string, said: Said): Promise<void> {
   const locator = page.locator(selector).first();
   const arrived = locator.waitFor({ state: "attached", timeout: PATIENCE_MS }).then(() => true);
+  // Bun's error screen is a throw nobody else heard. Its wait is caught,
+  // because it is still running when the page closes on a healthy shot.
+  const screen = page
+    .locator(OVERLAY)
+    .first()
+    .waitFor({ state: "attached", timeout: PATIENCE_MS })
+    .then(() => false)
+    .catch(() => new Promise<boolean>(() => {}));
   const threw = said.thrown.then(() => false);
-  if (await Promise.race([arrived, threw])) return;
+  if (await Promise.race([arrived, threw, screen])) return;
   try {
     await locator.waitFor({ state: "attached", timeout: GRACE_MS });
   } catch {
-    throw new Unreachable(
-      explain(said, `${selector} never appeared after the page threw — the picture is not coming`),
-      2,
-    );
+    const sentence = `${selector} never appeared after the page threw — the picture is not coming`;
+    throw new Unreachable(await explainOn(page, said, sentence), 2);
   }
 }
 
@@ -86,7 +118,8 @@ export async function waitUntil(page: Page, selector: string, said: Said): Promi
 export async function elementOr(page: Page, selector: string, said: Said): Promise<Locator> {
   const target = page.locator(selector);
   if ((await target.count()) === 0) {
-    throw new Unreachable(explain(said, `no element matches ${selector} — is the tab right?`), 2);
+    const sentence = `no element matches ${selector} — is the tab right?`;
+    throw new Unreachable(await explainOn(page, said, sentence), 2);
   }
   return target;
 }

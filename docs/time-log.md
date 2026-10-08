@@ -35706,3 +35706,19 @@ Bottleneck: deciding, per boss, what the partner's count is — THE HALTER's
 partner works by keeping still, and has no mark to carry it.
 
 *Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — `versus:shot` refuses a candidate that does not build or throws at import
+
+- reading: 5 min. The entry, `shot.ts`, `versus-shot.ts` and `page-said.ts`,
+  which already cut a wait short on a throw nobody was hearing.
+- writing: 10 min. `bun-overlay.ts`, `refuseFailed`, the overlay in the
+  `--until` race, the quiet exit, and a test against a real `Bun.serve`.
+- looking: 10 min. Probing what the page actually receives: a 500 for an
+  unbuilt candidate, a 200 with a swallowed throw and a `<bun-hmr>` screen for
+  one that throws — then all four cases end to end.
+- friction: 5 min. The first reproduction hung as the entry said, and its
+  killed parent left the shot and its Chrome orphaned.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — finding out that Bun's dev server swallows a throw at
+import, which no amount of reading `page-said.ts` would have shown.

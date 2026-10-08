@@ -489,22 +489,6 @@ the status and would take a shape the game already draws. Check
 `render/cyst-shape.ts` against the card, set the status to `taken` if it is,
 and add a test that a card whose `owner` starts with a taker is not `free`.
 
-
-## `versus:shot` waits out its timeout on a candidate that does not compile
-
-- **Found:** 2026-10-08, claude/queue-tasks-3078fe
-- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-versus-shot-waits-out-its-timeout-on-a-candidate)
-- **Files:** `tools/director/src/versus-shot.ts`, `tools/frames/shot.ts`
-
-A candidate importing `@neon-spore/content` by name (a candidate reaches a
-package by its relative path) failed `tsc`, and `bun run versus:shot
-scuttle:seat lobed` then sat on `--until "[data-frozen]"` until the caller's
-five-minute timeout, with nothing printed. A page whose bundle failed never
-sets `data-frozen`. Have the shot fail at once, naming the error, when the
-page reports a bundle or runtime error (console error, or no `#versus`
-mounted after the settle), and add a test with a candidate that throws at
-import.
-
 ## THE LATCH's guide is a film: one holds, one pulls, and they swap
 
 - **Found:** 2026-10-08, claude/parked-boss-concept-d88325
