@@ -36320,3 +36320,14 @@ Bottleneck: the frames — seventeen seconds each, and the only way to see
 whether a shell reads as its own metal.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE BLISTER's lanes 5 to 8 back on the queue
+
+- reading: 5 min. The postponing commit, the queue entries it removed, and
+  lane 4 already landed from another session.
+- writing: 5 min. The four entries restored, `blister.md`'s foot and status.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: reading — which of the five postponed lanes were still unbuilt.

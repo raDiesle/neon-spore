@@ -1,6 +1,6 @@
 # THE BLISTER — a body you knock back down
 
-> **Status: TAP built — its simulation (lane 1) and its look (lane 2, 8
+> **Status: TAP and HOLD built — TAP's simulation (lane 1) and its look (lane 2, 8
 > October 2026: ROOTED CLOVER, the pore, the bulge and the tap help).** Asked
 > for by the owner on 7 October 2026: a creature
 > on the principle of whack-a-mole, removed by several taps on the screen, with
@@ -8,8 +8,8 @@
 > also work with a mouse; the director's brush settings say whether player 1,
 > player 2 or both may remove it; one picture for every variant, with only the
 > help for the gesture it wants drawn over and round it. The work is cut into
-> eight lanes. Lanes 1 to 3 went through `docs/queue.md`; lanes 4 to 8 are
-> postponed, and wait at the foot of this page (*Postponed: lanes 4 to 8*).
+> eight lanes. Lanes 1 to 3 went through `docs/queue.md`; lane 4 (HOLD)
+> landed the same day, and lanes 5 to 8 are back on the queue.
 
 ## In one sentence
 
@@ -133,78 +133,9 @@ from end to end.
 - Whether a wave may carry several blisters up at once. The draft allows it and
   the first wave does not use it.
 
-## Postponed: lanes 4 to 8
+## Lanes 5 to 8
 
-The owner took these five out of `docs/queue.md` on 8 October 2026 and put
-them off: lanes 1 to 3 (the simulation, the look with TAP's help, and the
-director's rows) are the blister the game has, and the other four gestures
-and the real guide wait here until he asks for them by name. Each was a queue
-entry and is kept in that shape, so a session asked to build one can put it
-back on the queue as it stands, or work it from here. Until then the GESTURE
-row offers TAP alone, and the guide is lane 1's plain one.
-
-### Lane 4: HOLD
-
-- **Files:** `packages/sim/src/hand.ts`, `packages/render/src/touch-hold.ts`, `packages/render/src/hold-mark.ts`, `packages/render/src/grip-rings.ts`
-- **After:** lane 2
-
-The second gesture of `docs/spec/blister.md`: press and keep the press for
-`count` beats while it is up. Add `gesture` to the entry (`tap` default,
-absent) and `hold` to it; `handMeans` gives the blister a hold, the
-simulation counts the ticks between `grip` on and off, a release or a sink
-resets. Help: `drawHoldMark` with `drawGripDial` running round it, the
-green held ring on both screens. HOLD added to lane 3's GESTURE row. Replay
-test: a hold of `count` beats knocks it out, one let go a beat early does
-not. Works with a mouse press — say so in the test's name.
-
-### Lane 5: SWIPE
-
-- **Files:** `packages/sim/src/drag-targets.ts`, `packages/render/src/touch-drag.ts`, `packages/render/src/instar-track.ts`, `packages/net/src/command-codec.ts`
-- **After:** lane 4
-
-The third gesture of `docs/spec/blister.md`: a drag across the body in the
-entry's `way` (left, right, up, down), `count` strokes. A drag target
-`blisterSwipe` with the blister's id and `fromMilli` / `fromYMilli`, the
-simulation judging length and direction on the lift — no new `Command`
-kind (`.claude/skills/net-change` for the target's wire value). Help:
-`drawInstarTrack`'s bar along the way, never a ring. SWIPE and the four
-ways added to lane 3's rows. Replay test for a right stroke, a short one
-and a wrong-way one.
-
-### Lane 6: TURN, a circle round it
-
-- **Files:** `packages/sim/src/drag-targets.ts`, `packages/sim/src/crank.ts`, `packages/render/src/crank-dial.ts`, `packages/render/src/maze-lever.ts`
-- **After:** lane 5
-
-The owner's circle round the body, in the game's word TURN
-(`docs/spec/blister.md`): drag `count` full turns round the blister in the
-entry's way, clockwise or not. A drag target `blisterTurn` sending a
-bearing in thousandths of a turn round the body's centre, the way the crank
-does — call its bearing, never re-derive it; progress lost when it sinks.
-Help: `drawMazeLever`, the one turn for every wave, its channel filling
-green. TURN and the two ways added to lane 3's rows. Replay test for a full
-turn, a half one and one the wrong way.
-
-### Lane 7: RUB
-
-- **Files:** `packages/render/src/rub.ts`, `packages/render/src/rub-turns.ts`, `packages/render/src/rub-mark.ts`, `packages/sim/src/drag-targets.ts`
-- **After:** lane 6
-
-The fifth gesture of `docs/spec/blister.md`: scrub back and forth over the
-body, `count` reversals, counted the way `rub-turns.ts` counts them. Help:
-`drawRubMark`, and `drawMarkProgress`'s green segments one a reversal, as
-THE CAPSTAN's rub wears them. RUB added to lane 3's GESTURE row. Replay test
-for enough reversals and too few.
-
-### Lane 8: its guide and its waves
-
-- **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/test/waves.test.ts`, `docs/spec/blister.md`, `docs/spec/bestiary.md`
-- **After:** lane 7
-
-Make lane 1's plain guide the real one, by `.claude/skills/new-tutorial`
-and `.claude/skills/new-wave`: one wave that teaches the talking — P2 knocks
-down by TAP, P1 sees the bulge — and the act it sits in chosen by where its
-one sentence fits, then a later wave that mixes the five gestures on one
-body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
-figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
-bestiary's line to built.
+Lane 4, HOLD, landed on 8 October 2026. SWIPE, TURN, RUB and the real guide
+had been postponed here, and the owner put them back on the queue the same
+evening: each is an entry in `docs/queue.md` titled *THE BLISTER, lane N*,
+worked in order.
