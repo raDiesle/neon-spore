@@ -35627,3 +35627,17 @@ Bottleneck: looking — `bun run shot` needed `--open "▣ DOCUMENTATION"
 Bottleneck: the look itself — three frames to get six bodies to read as six.
 
 *Measured: 15 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE LATCH says PULL and HOLD over its grips
+
+- reading: 5 min. THE MIMIC's cue page and test, the marks-window and
+  boss-hush walks.
+- writing: 5 min. The cue page, its test, the marks-window row, the docs.
+- looking: 0 min.
+- friction: 5 min. `boss-cue.ts` hit the size hook's warning; the
+  choreographed kinds moved to a set beside their pages. The walk's TEST
+  screen never draws the partner's ring, so that mark came off the row.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the seam in `boss-cue.ts`, chosen in this lane
+because the hook asked for it now.

@@ -61,6 +61,10 @@ import { DRAWN } from "./boss-hush-drawn.js";
  * each bite's first lit tooth and closes on the first crack (§11.59), and
  * AUTO cracks it inside the half beat this waits before it reads, so the walk
  * takes no sample at all. Its marks ride the crawling mouth by the rule.
+ *
+ * THE LATCH has none because it never slows: its levels are played at tempo,
+ * and its grips stand at their rest and move only under the thumb carrying
+ * them (`render/latch-shape.ts`).
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };

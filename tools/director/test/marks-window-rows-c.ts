@@ -10,7 +10,9 @@ import {
   type HalterState,
   halterLitStep,
   type LampreyState,
+  type LatchState,
   lampreyAsks,
+  latchLitStep,
   type MimicState,
   mimicDraws,
   type PlumbState,
@@ -28,6 +30,7 @@ import * as gallMarks from "../../../packages/render/src/gall-marks.js";
 import * as grindstoneMarks from "../../../packages/render/src/grindstone-marks.js";
 import * as halterMarks from "../../../packages/render/src/halter-marks.js";
 import * as lampreyMarks from "../../../packages/render/src/lamprey-marks.js";
+import * as markFeedback from "../../../packages/render/src/mark-feedback.js";
 import * as mimicTile from "../../../packages/render/src/mimic-tile.js";
 import * as plumbMarks from "../../../packages/render/src/plumb-marks.js";
 import { plumbAsked } from "../../../packages/render/src/plumb-pose.js";
@@ -54,6 +57,7 @@ const flue = (w: World) => w.boss as FlueState;
 const grindstone = (w: World) => w.boss as GrindstoneState;
 const halter = (w: World) => w.boss as HalterState;
 const lamprey = (w: World) => w.boss as LampreyState;
+const latch = (w: World) => w.boss as LatchState;
 const mimic = (w: World) => w.boss as MimicState;
 const plumb = (w: World) => w.boss as PlumbState;
 const rime = (w: World) => w.boss as RimeState;
@@ -194,5 +198,13 @@ export const ROWS_C: readonly Row[] = [
         (a) => a[5] === "wanted",
       ),
     ],
+  },
+  {
+    // THE LATCH's halos, the field's shared mark (`latch-verdicts.ts`), only
+    // while a level is lit — never while the colony drops in or rests between
+    // levels. The walk is TEST's screen, where both grips are its own, so the
+    // partner's ring is never drawn here.
+    kind: "latch",
+    marks: [mark(markFeedback, "drawMarkHalo", (w) => latchLitStep(latch(w)) !== null)],
   },
 ];

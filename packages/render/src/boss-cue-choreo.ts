@@ -14,16 +14,46 @@ import { governorCues } from "./boss-cue-read-zq.js";
 import { seamCues } from "./boss-cue-read-zr.js";
 import { lampreyCues } from "./boss-cue-read-zs.js";
 import { mimicCues } from "./boss-cue-read-zt.js";
+import { latchCues } from "./boss-cue-read-zu.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import type { Layout } from "./layout.js";
 import { plumbCues } from "./plumb-marks.js";
 
 /**
- * **The choreographed bosses' half of `bossCue`'s switch**, from THE VISE on.
- * Cut out of `boss-cue.ts` on 27 September 2026, when THE TRAPEZE's page would
- * have taken it past 250 lines. Every kind here is still named in that switch,
- * because a boss left to its `default` is a boss nobody has read; this file
- * only holds the pages each one is sent to.
+ * **The choreographed bosses, from THE VISE on, each read**: a boss left to
+ * `bossCues`'s `default` is a boss nobody has read, so a kind is named here
+ * only once its page is written. The list moved out of `boss-cue.ts`'s switch
+ * on 8 October 2026, when THE LATCH would have taken that file near 250 lines.
+ */
+const CHOREO_KINDS: ReadonlySet<BossState["kind"]> = new Set([
+  "vise",
+  "rime",
+  "trivet",
+  "plumb",
+  "cyst",
+  "grindstone",
+  "halter",
+  "capstan",
+  "gall",
+  "trapeze",
+  "flue",
+  "valve",
+  "governor",
+  "seam",
+  "lamprey",
+  "mimic",
+  "latch",
+]);
+
+/** Whether `boss` is one of the choreographed kinds whose page is in this file. */
+export function isChoreo(boss: BossState): boolean {
+  return CHOREO_KINDS.has(boss.kind);
+}
+
+/**
+ * **The choreographed bosses' half of `bossCue`'s switch**, cut out of
+ * `boss-cue.ts` on 27 September 2026, when THE TRAPEZE's page would have
+ * taken it past 250 lines.
  */
 export function choreoCues(
   l: Layout,
@@ -84,6 +114,9 @@ export function choreoCues(
     // THE MIMIC's, a call over the sign to the seat that sees it, a draw on the pad to the seat that owes it, and one under the bare core (`boss-cue-read-zt.ts`).
     case "mimic":
       return mimicCues(l, world, boss, beatPhase);
+    // THE LATCH's, a pull on the grip whose turn it is and a hold on the other, both a hold while it rears (`boss-cue-read-zu.ts`).
+    case "latch":
+      return latchCues(l, world, boss);
     default:
       return [];
   }

@@ -1,5 +1,5 @@
 import type { World } from "@neon-spore/sim";
-import { choreoCues } from "./boss-cue-choreo.js";
+import { choreoCues, isChoreo } from "./boss-cue-choreo.js";
 import { curtainCues, queenCues } from "./boss-cue-read.js";
 import { tasterCues } from "./boss-cue-read-b.js";
 import { leadCues } from "./boss-cue-read-c.js";
@@ -99,6 +99,9 @@ export function bossCues(
 ): readonly BossCue[] {
   const boss = world.boss;
   if (boss === null) return NONE;
+  // The choreographed bosses from THE VISE on, each a page of its own, named
+  // next door in `CHOREO_KINDS` rather than here, on line count (`boss-cue-choreo.ts`).
+  if (isChoreo(boss)) return choreoCues(l, world, boss, beatPhase, lead);
   switch (boss.kind) {
     case "gorge":
       return gorgeCues(l, world, boss);
@@ -173,25 +176,6 @@ export function bossCues(
     // And THE OCULUS's, a word to each seat not yet on its half of a lit pair and one under the lit core (`boss-cue-read-ze.ts`).
     case "oculus":
       return oculusCues(l, world, boss, beatPhase);
-    // The choreographed bosses from THE VISE on, each a page of its own,
-    // switched on next door on line count (`boss-cue-choreo.ts`).
-    case "vise":
-    case "rime":
-    case "trivet":
-    case "plumb":
-    case "cyst":
-    case "grindstone":
-    case "halter":
-    case "capstan":
-    case "gall":
-    case "trapeze":
-    case "flue":
-    case "valve":
-    case "governor":
-    case "seam":
-    case "lamprey":
-    case "mimic":
-      return choreoCues(l, world, boss, beatPhase, lead);
     // **THE WELL is read and silent, which is why it is a `case` and not a
     // fall-through.** Its answer is THE PULSE's below, but it gets a page of
     // its own (`boss-cue-read-r.ts`) because a boss sitting in the `default` is

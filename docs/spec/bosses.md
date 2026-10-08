@@ -11935,10 +11935,16 @@ clock on theirs; a grip taken, a pull that passes the turn and a yank held
 green it, a press on the partner's grip and a slip redden it. TEST's one
 mouse is told whose grip is under it before the press (`latchGripSeatAt`).
 
-**What is not built.** The cue words over the grips (PULL, HOLD), AUTO's cards
-in the STATES sheet with the marks they ask for, and the receipts — a body torn off, a slip, a yank held, the blow at the hull — so
-every latch event is still silent on the field (`effects-spark-silent-boss-e.ts`).
-The guide film.
+**The words** (`render/boss-cue-read-zu.ts`): `PULL` on the grip whose turn
+it is, to its seat, until the thumb has started to carry it; `HOLD` on the
+other while no thumb has it; and both a `HOLD` while the colony rears for a
+yank, since a pull begun then is a hand off on the yank. Nothing between
+levels. The halos are held to a lit level by `marks-window.test.ts`; there
+is no `boss-hush` row, because THE LATCH never slows.
+
+**What is not built.** The receipts — a body torn off, a slip, a yank held,
+the blow at the hull — so every latch event is still silent on the field
+(`effects-spark-silent-boss-e.ts`). The guide film.
 
 **What is proven, and what is not.** `sim/test/latch.test.ts` proves the
 rules: the install and the first level; whose grip is whose and the wrong
@@ -11949,8 +11955,9 @@ next; a yank rears first and slips a rope held by one hand, and is held by
 two; the cross swaps the grips; a level run out tears the hull; the script
 ends torn loose and out; a thumb resting through the rest keeps its hold,
 and a cross lets go of both grips; the same seed and thumbs hash the same.
-`render/test/latch-frame.test.ts` proves the picture on all three screens
-and `latch-grip.test.ts` real thumbs on the grips. Whether a
+`render/test/latch-frame.test.ts` proves the picture on all three screens,
+`latch-grip.test.ts` real thumbs on the grips and `boss-cue-latch.test.ts`
+the words. Whether a
 pair can keep *mine — yours* going aloud at tempo, and whether the yanks
 read — the owner's eye — has never been watched.
 
