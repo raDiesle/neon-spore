@@ -26,6 +26,10 @@ interface QueenMarkEvent {
 }
 
 export type QueenEvent =
+  /** A petal off her, `left` still on; and her going, at the last. Older than
+   * the marks, and moved here from `events.ts` when that file was full. */
+  | { type: "petal"; col: number; row: number; left: number }
+  | { type: "queenDown"; col: number; row: number }
   | ({ type: "queenFlinch" } & QueenMarkEvent)
   | ({ type: "queenPry" } & QueenMarkEvent)
   | ({ type: "queenHold"; real: boolean } & QueenMarkEvent)

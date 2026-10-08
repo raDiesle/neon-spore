@@ -206,14 +206,8 @@ export type SimEvent =
       /** The round whose window ran out (`roundStrikesHull`). */
       round?: RoundKind;
     }
-  | { type: "petal"; col: number; row: number; left: number }
-  | { type: "queenDown"; col: number; row: number }
-  /**
-   * THE WARDEN lowered a line out of the middle of its rim. `color` is what the
-   * rim will carry until the line goes — the same colour the one shot into the
-   * eye has to be.
-   */
-  | { type: "tether"; col: number; color: Color }
+  // THE BULB QUEEN's petal and fall, and THE WARDEN's line, plate and fall,
+  // are with the rest of each boss's (`events-queen.ts`, `events-warden.ts`).
   /**
    * Something armoured came open under a hand and the thing behind it can be
    * shot: THE WARDEN's hatch, when the line comes fully taut, and THE LID's
@@ -223,9 +217,6 @@ export type SimEvent =
    * the eye already has (`lid.ts`, `warden.ts`).
    */
   | { type: "eyeOpen"; col: number; color: Color }
-  /** A plate off the rim. `color` is the rim's, which is what took it. */
-  | { type: "plate"; col: number; row: number; left: number; color: Color }
-  | { type: "wardenDown"; col: number; row: number }
   // THE MIRROR's five and THE MAZE's five, as one union next door
   // (`events-rounds.ts`): a round's coordinates are its own, and these were
   // the last rows on the page when THE BELLOWS put it within three lines of

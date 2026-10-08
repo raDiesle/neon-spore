@@ -36207,3 +36207,17 @@ prop, which only a grep of the render tree found.
 Bottleneck: reading — deciding which entries the request meant.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — `sim/events-creature.ts` at 249 lines: its groups cut out
+
+- reading: 2 min. The union's tail, and who imports the re-exports below it
+  — nobody.
+- writing: 5 min. `events-creature-groups.ts` with the fifteen grouped arms
+  and their comments, the two shortened ones restored; the dead re-export
+  block dropped; `events.ts` given room by moving the queen's and the
+  warden's older events into their own boss files.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: landing — the check is most of a lane this small.

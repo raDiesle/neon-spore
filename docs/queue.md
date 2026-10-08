@@ -328,19 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `sim/events-creature.ts` is at 249 lines: the next creature's events cannot join
-
-- **Found:** 2026-10-08, claude/task-queue-work-e99d1a
-- **Taken:** 2026-10-08, claude/task-queue-work-e99d1a (claim: claude/queue-sim-events-creature-ts-is-at-249-lines-the-next)
-- **Files:** `packages/sim/src/events-creature.ts`, `packages/sim/src/events.ts`
-
-THE BLISTER's `BlisterEvent` took two lines there, and two comments over
-THE FENCE's and THE MAGNET's arms were shortened to find them; `events.ts`
-beside it is at 249 too. Every creature with an event of its own adds an
-import and an arm here. Move the tail of grouped arms (`CaromEvent` on) into
-an `events-creature-groups.ts` union that `CreatureEvent` takes as one arm,
-so each new group is a line in a file with room.
-
 ## `audio/bind.ts` is at 223 lines: choose its seam before the next creature
 
 - **Found:** 2026-10-08, claude/task-queue-work-e99d1a

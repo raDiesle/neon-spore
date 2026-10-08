@@ -1,13 +1,15 @@
+import type { Color } from "./types.js";
+
 /**
- * **What THE WARDEN's second and third hands do that neither screen already
- * says**, as three events (`warden-hand.ts`).
+ * **What THE WARDEN does**, as events: its rope, and what its second and
+ * third hands do that neither screen already says (`warden-hand.ts`).
  *
  * Its own file on `events-gorge.ts`' terms: one boss, one arm of
- * `SimEvent`, and a file `packages/audio/test/bind.test.ts` has to be told
- * the name of. The rope's four — the line coming down, the eye opening, a
- * plate off, the ring gone — are older than this file and stay in
- * `events.ts`, where `bind.ts` reads them. These are the moments the other
- * two phases add that are not states a frame later: a thumb landing on the
+ * `SimEvent`. The rope's four — the line coming down, the eye opening, a
+ * plate off, the ring gone — are older than the rest; three of them came
+ * here from `events.ts` when that file was full, and the eye opening stays
+ * there, because THE LID's plates open it too. The rest are the moments the
+ * other two phases add that are not states a frame later: a thumb landing on the
  * eye, which player 1 has to hear because it is the thumb their pull is
  * waiting on; the hatch thrown, which player 2 has to hear because it is the
  * three beats they have to fire in; and the slam, which both have to hear
@@ -17,6 +19,15 @@
  * is told so on the mark (`render/warden-fx.ts`).
  */
 export type WardenEvent =
+  /**
+   * THE WARDEN lowered a line out of the middle of its rim. `color` is what the
+   * rim will carry until the line goes — the same colour the one shot into the
+   * eye has to be.
+   */
+  | { type: "tether"; col: number; color: Color }
+  /** A plate off the rim. `color` is the rim's, which is what took it. */
+  | { type: "plate"; col: number; row: number; left: number; color: Color }
+  | { type: "wardenDown"; col: number; row: number }
   /** Player 2's thumb landed on the eye under NARROW: the lids behind the hatch part. */
   | { type: "wardenHold"; col: number }
   /** Player 1 threw the hatch under GLARE: it stands open for `wardenThrowBeats`. */

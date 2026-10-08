@@ -236,6 +236,7 @@ by hand never moves.
 | `packages/sim/src/rime.ts` | THE RIME: a frosted lens of two halves over the middle column, each wiped clear by its own seat |
 | `packages/sim/src/rim-turn.ts` | **How far a lever carried round a rim turns what it is bolted to**, in thousandths of a degree |
 | `packages/sim/src/events-creature.ts` | the arm of `SimEvent` about one body — a disguise, a covering, a cloud, a layer |
+| `packages/sim/src/events-creature-groups.ts` | **Every creature whose events have a file of their own**, as one arm of `CreatureEvent` (`events-creature.ts`) |
 | `packages/sim/src/snake-arena.ts` | What is standing on a tile, and whether a tile is a tile at all |
 | `packages/sim/src/echo-split.ts` | how an echo comes apart — which way the halves step, how long each generation waits first, and the pass that does it |
 | `packages/sim/src/config-pinball.ts` | PINBALL's numbers — the table, the ball, and what a dropped one costs |
@@ -739,7 +740,7 @@ by hand never moves.
 | `packages/sim/src/events-hasp.ts` | What THE HASP says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-instar.ts` | What THE INSTAR says as it happens, one line per thing the picture and the sound answer — and THE NETTLE |
 | `packages/sim/src/events-queen.ts` | **What THE BULB QUEEN reports**, off the beat and the thumb |
-| `packages/sim/src/events-warden.ts` | THE WARDEN's hold, throw and slam events — what the second and third hands do that neither screen already says |
+| `packages/sim/src/events-warden.ts` | THE WARDEN's events: its rope's line, plate and fall, and the hold, throw and slam its second and third hands add |
 | `packages/sim/src/events-well.ts` | **Everything THE WELL does that neither screen already says**, as events |
 | `packages/sim/src/events-pinball.ts` | **What PINBALL's two hands on the table do that neither screen already says** |
 | `packages/sim/src/events-pulse.ts` | **What THE PULSE's hand on the bar does that neither screen already says**, as three events (`pulse-hand.ts`) |

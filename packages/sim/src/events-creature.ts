@@ -1,20 +1,6 @@
-import type { BalloonEvent } from "./events-balloon.js";
-import type { BeatboxEvent } from "./events-beatbox.js";
-import type { BlisterEvent } from "./events-blister.js";
-import type { CaromEvent } from "./events-carom.js";
-import type { ChoirEvent } from "./events-choir.js";
-import type { ClingEvent } from "./events-cling.js";
-import type { CoilEvent } from "./events-coil.js";
-import type { CrawlerEvent } from "./events-crawler.js";
-import type { CrystalEvent } from "./events-crystal.js";
-import type { FenceEvent } from "./events-fence.js";
+import type { CreatureGroupEvent } from "./events-creature-groups.js";
 import type { GhostEvent } from "./events-ghost.js";
-import type { GumEvent } from "./events-gum.js";
-import type { MagnetEvent } from "./events-magnet.js";
-import type { PushEvent } from "./events-push.js";
-import type { StrandEvent } from "./events-strand.js";
 import type { VeilEvent } from "./events-veil.js";
-import type { VolleyEvent } from "./events-volley.js";
 import type { Color, CreatureKind } from "./types.js";
 
 /**
@@ -190,60 +176,7 @@ export type CreatureEvent =
    * on the tick before this.
    */
   | { type: "gyreBroke"; col: number; row: number }
-  // THE CAROM's four — the wall, the crack, the body thrown clear and the
-  // canopy — are `events-carom.ts` next door, cut out when the fourth took
-  // this file over its limit. One arrival taken apart, rather than four
-  // incidents that happen to share a creature.
-  | CaromEvent
-  // And THE CRYSTAL's, THE GUM's and the clingers', on the same terms
-  // (`events-crystal.ts`, `events-gum.ts`, `events-cling.ts`).
-  | CrystalEvent
-  | GumEvent
-  | ClingEvent
-  // And THE VOLLEY's two — the ward that sends it back and the shell bursting
-  // over the body — are `events-volley.ts`, on exactly the same terms.
-  | VolleyEvent
-  | PushEvent
-  // And THE CRAWLER's two — the beam that takes a stripped worm and the burrow
-  // when one gets in — are `events-crawler.ts`, on the same terms. Its two
-  // *answers* are a plain `destroy` and a plain `deflect`.
-  | CrawlerEvent
-  // And THE FENCE's two, the wire and the cut (`events-fence.ts`), on the same terms.
-  | FenceEvent
-  // And THE MAGNET's two, the plate and the arch (`events-magnet.ts`).
-  | MagnetEvent
-  // And THE COIL's two, on the same terms as the six above (`events-coil.ts`).
-  | CoilEvent
-  // And THE CHOIR's three, on the same terms and cut out for the same reason
-  // (`events-choir.ts`) — the first group in this list that is about the
-  // pilot's hands rather than about something meeting a body.
-  | ChoirEvent
-  // And THE BEATBOX's two, on the same terms as the six above
-  // (`events-beatbox.ts`) — the second group in this list that is about a
-  // player's hands rather than about something meeting a body, and the first
-  // whose every event deliberately leaves out the one number the creature is
-  // *about*, because both phones play a cue and only one seat may know it.
-  | BeatboxEvent
-  // And THE BALLOON's three, on the same terms again (`events-balloon.ts`) —
-  // the three ways one body stops being what it was, which is neither a
-  // gesture taken apart nor an arrival taken apart.
-  | BalloonEvent
-  | StrandEvent
-  | BlisterEvent;
-
-export type { BalloonEvent } from "./events-balloon.js";
-export type { BeatboxEvent } from "./events-beatbox.js";
-export type { CaromEvent } from "./events-carom.js";
-// Re-exported so nothing that reaches for one through this file has to move.
-export type { ChoirEvent } from "./events-choir.js";
-export type { CoilEvent } from "./events-coil.js";
-export type { CrawlerEvent } from "./events-crawler.js";
-export type { CrystalEvent } from "./events-crystal.js";
-export type { FenceEvent } from "./events-fence.js";
-export type { GhostEvent } from "./events-ghost.js";
-export type { GumEvent } from "./events-gum.js";
-export type { MagnetEvent } from "./events-magnet.js";
-export type { PushEvent } from "./events-push.js";
-export type { StrandEvent } from "./events-strand.js";
-export type { VeilEvent } from "./events-veil.js";
-export type { VolleyEvent } from "./events-volley.js";
+  // Every creature whose events were cut into a file of their own, one arm
+  // each, in `events-creature-groups.ts` — this file had no room left for
+  // the next one's import and line.
+  | CreatureGroupEvent;
