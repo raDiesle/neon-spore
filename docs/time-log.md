@@ -35026,3 +35026,5 @@ from §37's first design, which still describes a tilt.
 
 Bottleneck: the rename — one identifier in forty files, and prose in a
 dozen more that still said two fingers.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

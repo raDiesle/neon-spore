@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 5783fb268 — THE GALL is pressed and held, not pinched
+
+The seat whose half the gall sits on now holds one finger (or the mouse button in the director) down on it until it jumps, instead of closing a two-finger pinch: a desk has one pointer, and the difficulty is finding the gall and saying where it went, not the fingers. Player 1's guide says the gall starts on their half, and the cue on the nodule reads HOLD.
+
 ## 2026-10-08 · 8aeae3c7a — THE CAPSTAN explained to the owner, in German
 
 No change to the game: the time this explanation took, for the log.
