@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 19fda32e4 — THE GALL is tapped, pulled and thrown across the hull
+
+The owner's rework of 8 October 2026. The held press, which did nothing, is gone, along with the ring and chevrons that were drawn round the enemy. The seat whose half the alien sits on taps it until it is charged, then pulls it up toward the top middle. It leaps under THE SLOW and lands on a random point of the other half, where the next step's clock starts. While it sits, the clock is the fuse, at the ordinary pace and with no slow. A fire step lights it in a colour, shot in its own column. Any step that runs out strikes the hull. The seam sits below the middle (row 8.5 of 15). The wave has three levels: more taps on a shorter clock, and red, cyan and either shots.
+
 ## 2026-10-08 · 923ba35dd — Marks-window rows for THE SNAKE, PINBALL and THE PULSE; THE CAIRN asks nothing
 
 THE SNAKE, PINBALL and THE PULSE now have rows: each one's halo is held to the union of its windows from `sim/`. THE PULSE's bar asks only once the heart falls off steady, which takes a miss, and AUTO on both seats never misses. So a row can now name the seats AUTO plays (`auto`), and THE PULSE's is the pilot's alone.
