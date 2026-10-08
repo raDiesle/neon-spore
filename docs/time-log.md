@@ -35351,3 +35351,5 @@ by deleting one and watching the type check go red.
 
 Bottleneck: looking — the tree's depth was only known from a frame: the
 panel draws over the ship below the plating, which no file says.
+
+*Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

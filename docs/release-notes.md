@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 28af95c1a — THE LEDGER's ship nerves lit along the cord, offered in VERSUS
+
+The design's nerves lit along the cord's line, which the game has never drawn, is offered as ledger:nerves / lit on a new pose, THE LEDGER · BILLED: as a return comes down the cord the ship's nerves under the socket light from the socket outward, all of them on the beat it lands, on the navigator's screen alone. The game draws nothing new; the hook it reads ships empty.
+
 ## 2026-10-08 · cac7680d4 — waves-demo.ts and poses-mechanics.ts split before they reach the ceiling
 
 The demonstration rows for the bosses from THE STARE on move to waves-demo-bosses.ts and are spread back in, so a mechanic with no row still fails the type check in either file; the pod and radar poses move to poses-mechanics-reads.ts, in the same order. Nothing the director shows changes.
