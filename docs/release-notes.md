@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 1d6ca1568 — THE BLISTER: a whack-a-mole creature, designed and cut into eight lanes
+
+A blister swells up out of a pore in the field, stays up a beat or two and sinks; the seat set in the director (P1, P2 or both) knocks it down by TAP, HOLD, SWIPE, TURN round it or RUB — all one pointer, so a mouse does them too — while only the other seat sees the bulge that says where it comes up next. One body for every gesture; only the help over and round it changes, and every help is a piece the catalogue already has. The design is docs/spec/blister.md; the work is eight queue lanes, chained so the simulation comes first, then its look and the director's rows, then one gesture a lane, then the guide.
+
 ## 2026-10-08 · 91b7010bf — THE GALL's seam is numbered 1 to 4, with its middle barred
 
 Each of the four points has a number under it, 1 to 4 left to right, and a stud on the seam; a bracket runs under each seat's half, and a bar with a diamond crosses the seam at the middle. Your own half is bright on your screen and your partner's is dim, so "three!" is a place to call and a jump across the bar is a jump to the other seat. The guide says to call the number. All of it fades once the root is bared.
