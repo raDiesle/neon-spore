@@ -4,8 +4,9 @@ import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
-import { drawLedgerCord } from "./ledger-cord.js";
+import { drawLedgerCord, drawLedgerWhip } from "./ledger-cord.js";
 import {
+  ledgerBeadNear,
   ledgerCordAt,
   ledgerRootPoint,
   ledgerSocketPoint,
@@ -62,13 +63,7 @@ const STRAIN_FROM = 0.72;
 
 /** The cord's strain, 0..1: the soonest return taking its last stretch. */
 function strainOf(t: LedgerState, beat: number, beatPhase: number): number {
-  let most = 0;
-  for (const b of t.beads) {
-    const left = b.beat - beat - beatPhase;
-    const u = Math.max(0, Math.min(1, 1 - left / Math.max(1, b.span)));
-    if (u > most) most = u;
-  }
-  return Math.max(0, (most - STRAIN_FROM) / (1 - STRAIN_FROM));
+  return Math.max(0, (ledgerBeadNear(t, beat, beatPhase) - STRAIN_FROM) / (1 - STRAIN_FROM));
 }
 
 /**
@@ -153,7 +148,7 @@ export function drawLedger(
     const end =
       paid >= 1 ? socket : ledgerCordAt(l, root, socket, taut, time, Math.max(0.02, paid));
     drawLedgerCord(ctx, l, root, end, taut, time, showsLedgerSocket(l.role), strain);
-    drawWhip(ctx, l, root, socket, taut, time, fx.whipU);
+    drawLedgerWhip(ctx, l, root, socket, taut, time, fx.whipU);
   }
 
   const hex = t.want === "red" ? PALETTE.red : PALETTE.cyan;
@@ -208,33 +203,4 @@ function drawSeam(
   line.moveTo(seamX, top);
   line.lineTo(seamX, bottom);
   strokeGlow(ctx, line, rim, STROKE.inner, 0.45 + 0.4 * taut);
-}
-
-/**
- * **The whip**: a warded return going back up the cord, which is the one thing
- * on this screen that travels the other way.
- *
- * Drawn here rather than in `ledger-fx.ts` because the cord's geometry is the
- * drawer's — the transient keeps only how far up it has got, the way THE
- * SINEW's keeps only how far the mass has swung (`ledger-fx.ts`, `whipU`).
- */
-function drawWhip(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  root: { x: number; y: number },
-  socket: { x: number; y: number },
-  taut: number,
-  time: number,
-  u: number,
-): void {
-  if (u < 0) return;
-  const at = ledgerCordAt(l, root, socket, taut, time, u);
-  const r = l.tile * 0.2 * (1 - u * 0.4);
-  const flare = new Path2D();
-  flare.arc(at.x, at.y, r, 0, Math.PI * 2);
-  ctx.save();
-  ctx.fillStyle = rgba(PALETTE.hullRim, 0.4 * u);
-  ctx.fill(flare);
-  ctx.restore();
-  strokeGlow(ctx, flare, PALETTE.hullRim, STROKE.inner, 0.7, u);
 }

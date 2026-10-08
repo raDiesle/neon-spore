@@ -341,10 +341,8 @@ The design's look for THE LEDGER has three parts the game does not draw
 turned out to be built already: THE SLOW is marked by its prism round the
 body since 26 September. The other two:
 
-1. **The ship's nerves lit along the cord's line** when a return comes down
-   it. The write-up argues against it on purpose: the hull's shock is the
-   plating's answer to a return, and lit nerves would be a second picture of
-   one hit. Option: drop it, or offer it in VERSUS anyway.
+1. **The ship's nerves lit along the cord's line** — offered in VERSUS on
+   8 October 2026 as `ledger:nerves` / `lit`, on THE LEDGER · BILLED.
 2. **The body's lobed back off the shape sheet** rather than
    `ledgerHalfPoints`' own seven points, under the riveted plating the owner
    asked for on 23 September. No free boss draft fits: THE CONDUCTOR is an

@@ -35337,3 +35337,17 @@ Bottleneck: writing — proving the split table still catches a missing row,
 by deleting one and watching the type check go red.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE LEDGER's lit nerves offered in VERSUS
+
+- reading: 10 min. VERSUS's README and design, the cord, the root pass and
+  the design's §5, to find where the nerves go and which screen may see them.
+- writing: 10 min. The empty `LEDGER_NERVES` record and its call, the whip
+  moved to the cord's file, the candidate, the BILLED pose.
+- looking: 5 min. Three stills: the first tree too small, the second cut off
+  by the panel, the third kept.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: looking — the tree's depth was only known from a frame: the
+panel draws over the ship below the plating, which no file says.

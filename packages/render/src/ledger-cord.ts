@@ -111,3 +111,32 @@ export function drawLedgerSocket(
   ctx.restore();
   strokeGlow(ctx, hole, PALETTE.hullRim, STROKE.inner, 0.45 + 0.45 * taut);
 }
+
+/**
+ * **The whip**: a warded return going back up the cord, which is the one thing
+ * on this screen that travels the other way.
+ *
+ * Drawn with the cord rather than in `ledger-fx.ts` because the cord's
+ * geometry is the drawer's — the transient keeps only how far up it has got, the way THE
+ * SINEW's keeps only how far the mass has swung (`ledger-fx.ts`, `whipU`).
+ */
+export function drawLedgerWhip(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  root: Point,
+  socket: Point,
+  taut: number,
+  time: number,
+  u: number,
+): void {
+  if (u < 0) return;
+  const at = ledgerCordAt(l, root, socket, taut, time, u);
+  const r = l.tile * 0.2 * (1 - u * 0.4);
+  const flare = new Path2D();
+  flare.arc(at.x, at.y, r, 0, Math.PI * 2);
+  ctx.save();
+  ctx.fillStyle = rgba(PALETTE.hullRim, 0.4 * u);
+  ctx.fill(flare);
+  ctx.restore();
+  strokeGlow(ctx, flare, PALETTE.hullRim, STROKE.inner, 0.7, u);
+}

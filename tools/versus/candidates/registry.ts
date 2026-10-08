@@ -11,6 +11,7 @@ import { AIM_IRIS } from "./aim-cannon/iris/index.js";
 import { AIM_PLASMA } from "./aim-cannon/plasma/index.js";
 import { AIM_SPORES } from "./aim-cannon/spores/index.js";
 import { AIM_TENDRILS } from "./aim-cannon/tendrils/index.js";
+import { LEDGER_LIT } from "./ledger-nerves/lit/index.js";
 import { SINEW_WHITE } from "./sinew-band/white/index.js";
 import { SINEW_VEILED } from "./sinew-fibres/veiled/index.js";
 import { SINEW_HEAVY } from "./sinew-weight/heavy/index.js";
@@ -22,6 +23,7 @@ export const VARIANTS: Variant[] = [
   AIM_PLASMA,
   AIM_SPORES,
   AIM_TENDRILS,
+  LEDGER_LIT,
   SINEW_WHITE,
   SINEW_VEILED,
   SINEW_HEAVY,

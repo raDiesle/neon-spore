@@ -124,3 +124,14 @@ export function ledgerBeadU(b: LedgerBead, beat: number, beatPhase: number): num
   const left = b.beat - beat - beatPhase;
   return Math.max(0, Math.min(1, 1 - left / Math.max(1, b.span)));
 }
+
+/** How far down the cord the soonest return has come, 0..1; 0 with none on it. */
+export function ledgerBeadNear(t: LedgerState, beat: number, beatPhase: number): number {
+  let most = 0;
+  for (const b of t.beads) {
+    const left = b.beat - beat - beatPhase;
+    const u = Math.max(0, Math.min(1, 1 - left / Math.max(1, b.span)));
+    if (u > most) most = u;
+  }
+  return most;
+}

@@ -5024,14 +5024,15 @@ in its strongest form: the navigator's screen draws *exactly as many calls*
 with three ordinary returns on the cord as with none, while the pilot's grows
 by them and by the beats written beside each; the socket and its lock are on
 hers and not his; the last return is on both; and the whip and the tear's flash
-are cleared on restart. *Not built of the design's look*: `ship-nerves.ts` is
-not lit along the cord's line — the shock is the plating's answer and a second
-one would be two pictures of one hit; the halves do not fire down their own
+are cleared on restart. *Not built of the design's look*: the ship's nerves
+are not lit along the cord's line — the shock is the plating's answer and a
+second one would be two pictures of one hit, so it is offered in VERSUS
+instead (`ledger:nerves`, `render/ledger-nerves.ts`, 8 October 2026); the halves do not fire down their own
 columns, which the simulation dropped for the owner's rule; and the body's
 lobed back is `ledgerHalfPath`'s own rather than a silhouette off the sheet.
 THE SLOW is marked by its prism standing round the body
-(`slow-boss-aim-c.ts`, 26 September 2026). The nerves and a new back wait on
-whether the owner keeps THE LEDGER at all (7 October 2026, `docs/queue.md`).
+(`slow-boss-aim-c.ts`, 26 September 2026). The owner kept THE LEDGER on
+8 October 2026; a new back is still to be offered (`docs/queue.md`).
 
 **The words** (`render/src/boss-cue-read-o.ts`, 19 September 2026, its own
 page). Four, and the cord's own state picks the pair of them. While a return is
