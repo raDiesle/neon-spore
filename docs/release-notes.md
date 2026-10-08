@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 4fa5770e4 — THE TRAPEZE is a swing: push it as it comes back until the alien kicks the gong
+
+The owner's rework of THE BURGEE, 7 October 2026. An alien sits on a swing hung from long ropes over the middle; a swipe toward the middle as the swing comes back on your side pushes it higher, one while it goes out slows it, and high enough the alien kicks the gong. Four levels, one new thing each: P1 left and P2 right, then who pushes a side called by chance, then shots from below, then the pilot's tap locking the cannon for a shot from the side. No SLOW, and a swipe that does nothing says why in its zone. The picture is plain — zones, the arc with how high it goes, the gong, the alien — with the look and the tutorial to follow as their own lanes.
+
 ## 2026-10-08 · 1d6ca1568 — THE BLISTER: a whack-a-mole creature, designed and cut into eight lanes
 
 A blister swells up out of a pore in the field, stays up a beat or two and sinks; the seat set in the director (P1, P2 or both) knocks it down by TAP, HOLD, SWIPE, TURN round it or RUB — all one pointer, so a mouse does them too — while only the other seat sees the bulge that says where it comes up next. One body for every gesture; only the help over and round it changes, and every help is a piece the catalogue already has. The design is docs/spec/blister.md; the work is eight queue lanes, chained so the simulation comes first, then its look and the director's rows, then one gesture a lane, then the guide.
