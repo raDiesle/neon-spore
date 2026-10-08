@@ -1,4 +1,4 @@
-import { type LeadState, leadStill, type SimConfig, type World } from "@neon-spore/sim";
+import { type LeadState, leadPace, leadStill, type SimConfig, type World } from "@neon-spore/sim";
 import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
@@ -7,6 +7,7 @@ import { type Layout, tileCX } from "./layout.js";
 import { beadRim, moundContact, moundRim, paintLedge, stemHide } from "./lead-depth.js";
 import { paintBead, paintMound, paintStem, STEM } from "./lead-flesh.js";
 import type { LeadFx } from "./lead-fx.js";
+import { LEAN_LOOK } from "./lead-lean.js";
 import { faded, paintRidge } from "./lead-rock.js";
 import {
   leadAlong,
@@ -21,7 +22,7 @@ import { leadStopper } from "./lead-stop.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawContact } from "./solid-haze.js";
 import { drawTargetLock } from "./target-lock.js";
-import { showsLeadCol } from "./view-role-clocks.js";
+import { showsLeadCol, showsLeadLean } from "./view-role-clocks.js";
 
 /**
  * **THE LEAD**: a long grey ridge across the top of the field above row 0
@@ -81,6 +82,10 @@ export function drawLead(
   if (placed) drawMound(ctx, l, foot, still, time, fade, hurt);
   else drawSill(ctx, l, foot, fade);
   drawStalk(ctx, l, s, foot, angle, placed, still, time, hurt);
+  if (showsLeadLean(l.role) && s.segments > 0) {
+    const pace = leadPace(s, cfg);
+    LEAN_LOOK.draw({ ctx, l, foot, tip, lean: s.lean, pace, still, time, fade });
+  }
   if (placed && s.segments > 0) {
     drawTargetLock(
       ctx,

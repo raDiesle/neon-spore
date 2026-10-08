@@ -35415,3 +35415,16 @@ Bottleneck: reading — a pair sees only its build's last tick of events,
 so a look on an event needs a pose that ends on it.
 
 *Measured: 24 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE LEAD's lean as an arrow, offered in VERSUS
+
+- reading: 5 min. The draw, the lean's −1/0/1 and the design's §11, to
+  pick a length that says the pace without doing the pair's sum.
+- writing: 5 min. `LEAN_LOOK` behind the lean gate, the candidate, the
+  RUNNING pose's `lookAt`.
+- looking: 5 min. One still of the pilot's screen; two chevrons at the run.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: reading — "a length to it" had to be given a meaning, and
+the lead itself would have been the arithmetic done for them.

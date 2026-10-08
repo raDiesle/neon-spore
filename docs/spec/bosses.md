@@ -5557,7 +5557,10 @@ proves the ridge and the stalk on all three screens, the column drawn on
 the navigator's and not the pilot's, the lean drawn on the pilot's and not
 the navigator's, a flight in the air, the still, the pass, the fade and the
 gone, and the spring's reset (eighteen). *Not built of the design's look*:
-the lean is a tilt of the stalk and not a drawn arrow with a length to it;
+the lean is a tilt of the stalk and not a drawn arrow with a length to it
+— offered in VERSUS as `lead:lean` (8 October 2026), an arrow out of the
+tip on the pilot's screen alone with a chevron for each column of pace,
+the pace and not the lead, so the sum stays the pair's;
 the ridge does not show the walls it turns at; the torch and the rock are
 the field's own creatures with a burst over the column and no fall drawn
 out of the body. The owner's eye decides all three.

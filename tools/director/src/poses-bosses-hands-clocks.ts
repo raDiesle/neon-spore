@@ -137,7 +137,13 @@ export const CLOCK_HAND_POSES: Pose[] = [
     "lead",
     "running",
     "The body runs two columns a beat. P1 aims where it will be, not where it is; P2 fires on that beat.",
-    { hand: leadHand, want: (w) => w.boss?.kind === "lead" && leadRunning(w.boss, w.cfg), hold: 6 },
+    {
+      hand: leadHand,
+      want: (w) => w.boss?.kind === "lead" && leadRunning(w.boss, w.cfg),
+      hold: 6,
+      // `lead:lean` is judged here: two columns a beat, the longest lean before the pass.
+      lookAt: "the stalk on the pilot's screen, and what it says about the way and the pace",
+    },
   ),
   bossPose(
     "lead",

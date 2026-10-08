@@ -2324,6 +2324,7 @@ by hand never moves.
 | `packages/render/src/lead-word.ts` | **What THE LEAD is asking of the navigator's thumb while it stands still** |
 | `packages/render/src/lead-rock.ts` | **THE LEAD's ridge**: dark rock, lit along its top edge and gone to the deep under it |
 | `packages/render/src/lead-marks.ts` | **THE LEAD's ring answering a touch the way every mark does** (`mark-feedback.ts` |
+| `packages/render/src/lead-lean.ts` | THE LEAD's lean, past the stalk's own tilt: what a screen shown the lean draws to say it |
 | `packages/render/src/body-mark.ts` | One living body, at a size, with no world around it |
 | `packages/render/src/body-interior.ts` | **What a living body has inside it**: one record per kind, so the slick's two dots can be argued with |
 | `packages/render/src/body-inset.ts` | what is inside a living body is clipped to the body drawn a sixth smaller, so an interior borrowed from one contour never crosses another's rim |
