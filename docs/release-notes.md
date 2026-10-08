@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 0f7d44c43 — THE GRINDSTONE leaves the game
+
+The owner did not like it, and THE HALTER's new concept, built in another session, takes its place. Its simulation, drawing, effects, thirteen sounds, wave, four drag targets, autopilot hand and director cards are deleted whole rather than switched off, with the longer rub that landed the same hour; `git log -S grindstoneShaveMilli` finds the code. The tests that used it as a fixture for a core met where it hangs, a desk's chord and a rub's turns now stand on THE SLING and THE TRIVET. The design stays in bosses.md §11.50, moved under Retired with his verdict, and his lesson goes on the new-boss skill's owner page: known gestures are fine, but the story has to be good, with more levels and variation. Its three shape drafts are free again, and the waves after it move up one. A look the owner asked for by name.
+
 ## 2026-10-08 · 07ec545c5 — THE BLISTER's simulation: a body that comes up out of a pore and is tapped back down
 
 The owner's whack-a-mole creature, its first lane (`docs/spec/blister.md`). A blister arrives under a pore, comes up for `blisterUpBeats`, sinks for `blisterDownBeats` and comes up again `blisterSinkRows` nearer the hull in a column the seeded rng picks; one that comes up on the hull row breaks it. A tap on it — the soundbox's `tap {id}`, asked of the blister first — is one off its count while it is up and from the seat its `by` names, and the count is kept across surfacings. A tap from the other seat or on a sunk pore counts nothing; a bolt meets it only while it is up. `by` and `count` ride from `WaveEntry` through the queue to the body and are hashed, and the director's save keeps them.

@@ -36076,3 +36076,5 @@ six the skill lists, and most of them are only found by the full check.
 
 Bottleneck: landing — three bosses taken out at once by three lanes, each
 conflicting on every list all three were struck from.
+
+*Measured: 29 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
