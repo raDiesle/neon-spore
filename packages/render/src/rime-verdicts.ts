@@ -14,6 +14,8 @@ import { fieldX } from "./field-flip.js";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
 import { type Circle, type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
+import { drawMarkProgress } from "./mark-progress.js";
+import { rimeClear } from "./rime-pose.js";
 import { rimeCentre, rimeCoreR, rimeHalfMiddle, rimeRadius } from "./rime-shape.js";
 
 /**
@@ -42,6 +44,12 @@ import { rimeCentre, rimeCoreR, rimeHalfMiddle, rimeRadius } from "./rime-shape.
  * not refused red**: the simulation says nothing of it (`sim/rime-hand.ts`),
  * and nor does a wrong colour.
  *
+ * **A half being wiped says how far** (the owner, 7 October 2026, THE
+ * CAPSTAN's rule, `mark-progress.ts`): while it asks, a plain green arc round
+ * it fills as its frost comes off, on both screens. A plain arc, not
+ * segments: a half nobody rubs through a beat regrows a share, not a whole
+ * reversal, so there is no count to cut it into.
+ *
  * Held in `RimeFx` (`rime-fx.ts`). Everything here is in the lens's own frame,
  * as the drawer has it: translated to its middle and shaken.
  */
@@ -52,6 +60,8 @@ export const RIME_HULL_MARK = 3;
 export const RIME_ICICLE_MARK = 4;
 
 const HALVES = [RIME_LEFT_MARK, RIME_RIGHT_MARK] as const;
+/** How far out round a half its wipe's arc runs, in mark radii: just outside the halo, inside the lens. */
+const WIPE_R = 1.12;
 
 /** What each step asks, by the marks it lights. */
 const OWES: Readonly<Record<RimeAsk, readonly number[]>> = {
@@ -152,6 +162,10 @@ export function drawRimeMarkFeedback(
       drawMarkTheirs(ctx, c.x, c.y, c.r, time);
       drawMarkWait(ctx, c.x, c.y, c.r, time);
     }
+    ctx.globalAlpha = fade;
+    const side = mark === RIME_LEFT_MARK ? 0 : mark === RIME_RIGHT_MARK ? 1 : null;
+    if (side !== null && rimeHalfAsks(s, side))
+      drawMarkProgress(ctx, c.x, c.y, c.r * WIPE_R, rimeClear(s, side));
     const verdict = v.at(mark);
     if (verdict !== null) drawVerdictRing(ctx, c.x, c.y, c.r, verdict);
   });

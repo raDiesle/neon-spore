@@ -11,7 +11,9 @@ import { SpriteBursts } from "./sprite-burst.js";
 
 /**
  * What THE RIME leaves behind a frame (§29, *Presentation*): **flakes** of
- * frost shaved off a half at every reversal of a rubbing thumb, and a flurry
+ * frost shaved off a half at every reversal of a rubbing thumb, its edge
+ * flashing white for each (the owner, 7 October 2026: *visual should change
+ * on any rub*), and a flurry
  * of them as the half comes clear, its rim flashing white; the pale **film**
  * flashing over a half that frosts back solid, and over both as a shield step
  * runs out and the lens clouds; the **flash** of a core hit, wider for every
@@ -46,6 +48,8 @@ const SHATTER_FORCE = 0.8;
 const SHATTER_BEATS = 1.2;
 /** How fast a half's flash, the film and a hit's flash fade, per second. */
 const CLEAN_DECAY = 3;
+/** How fast a shave's flash fades, per second: gone before the next reversal at a thumb's pace. */
+const SHAVE_DECAY = 5;
 const FILM_DECAY = 2.5;
 const FLASH_DECAY = 3;
 /** How fast the refreeze's scattered cracks stop flashing, per second: inside the beat it adds. */
@@ -62,6 +66,7 @@ export class RimeFx {
   readonly marks = new RimeVerdicts();
   private readonly cleanNow: [number, number] = [0, 0];
   private readonly filmNow: [number, number] = [0, 0];
+  private readonly shaveNow: [number, number] = [0, 0];
   private flashNow = 0;
   private flashHits = 0;
   private shatterNow = 0;
@@ -71,6 +76,11 @@ export class RimeFx {
   /** How bright the flash round half `side`'s rim still is, as it came clear, 0..1. */
   cleared(side: 0 | 1): number {
     return this.cleanNow[side];
+  }
+
+  /** How bright the last reversal's flash on half `side` still is, 0..1. */
+  shaved(side: 0 | 1): number {
+    return this.shaveNow[side];
   }
 
   /** How thick the film flashing back over half `side` still is, 0..1. */
@@ -118,7 +128,8 @@ export class RimeFx {
           break;
         case "rimeShave":
           // A pinch of flakes off the half under the thumb, every reversal.
-          burst(...halfAt(l, mid, e.side), 3, PALETTE.rimeFrost);
+          burst(...halfAt(l, mid, e.side), 6, PALETTE.rimeFrost);
+          this.shaveNow[e.side] = 1;
           this.hurt.jab();
           break;
         case "rimeClear":
@@ -171,6 +182,7 @@ export class RimeFx {
     for (const side of [0, 1] as const) {
       this.cleanNow[side] = Math.max(0, this.cleanNow[side] - CLEAN_DECAY * step);
       this.filmNow[side] = Math.max(0, this.filmNow[side] - FILM_DECAY * step);
+      this.shaveNow[side] = Math.max(0, this.shaveNow[side] - SHAVE_DECAY * step);
     }
     this.flashNow = Math.max(0, this.flashNow - FLASH_DECAY * step);
     if (this.flashNow === 0) this.flashHits = 0;
@@ -187,6 +199,8 @@ export class RimeFx {
     this.cleanNow[1] = 0;
     this.filmNow[0] = 0;
     this.filmNow[1] = 0;
+    this.shaveNow[0] = 0;
+    this.shaveNow[1] = 0;
     this.flashNow = 0;
     this.flashHits = 0;
     this.shatterNow = 0;

@@ -332,7 +332,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 - **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
 - **Taken:** 2026-10-08, claude/task-queue-work-8b2adc (claim: claude/queue-more-rubs-counted-in-green-each-one-seen-the-rim)
-- **Files:** `packages/sim/src/config-rime.ts`, `packages/sim/src/config-grindstone.ts`, `packages/render/src/rime-verdicts.ts`, `packages/render/src/grindstone-verdicts.ts`, `packages/render/src/mark-progress.ts`
+- **Files:** `packages/sim/src/config-grindstone.ts`, `packages/render/src/grindstone-verdicts.ts`, `packages/render/src/mark-progress.ts`
 
 The owner, 7 October 2026: *every "Rub" should require more rubs, and how
 much rubs required again should be indicated by green circle around and also
@@ -341,9 +341,9 @@ visual should change on any rub of boss.* THE CAPSTAN is the worked example:
 `drawMarkProgress`'s green segments, one a reversal, on both screens
 (`capstan-verdicts.ts`), and every reversal pops the face, flares it and
 thins the rust (`capstan-marks.ts`). Do the same for the other three rubs:
-THE RIME's `rimeShaveMilli` (125, eight reversals a half) and THE
-GRINDSTONE's `grindstoneShaveMilli` (40, twenty-five); THE VALVE's
-`valveWipeRubs` landed 8 October 2026 (3 → 8, `valveRub` per reversal).
+THE GRINDSTONE's `grindstoneShaveMilli` (40, twenty-five). THE VALVE's
+`valveWipeRubs` landed 8 October 2026 (3 → 8, `valveRub` per reversal), and
+THE RIME's `rimeShaveMilli` the same day (125 → 80, a plain arc).
 A rub against regrowth counts down a share, not whole reversals, so its ring
 is a plain arc, not segments. Check each step's window still holds the new
 count at a thumb's pace, and move the sim tests that pin the old one.
@@ -595,3 +595,18 @@ predicate in `sim/` says it is answered in, never the render's gate re-read
 (`marks-window-kit.ts`) — and strike its line from `NO_ROW`. A mark AUTO cannot
 reach is `unreached` with its reason; a mark found lit outside its window is a
 render fix in the same lane. A row file past ~250 lines splits into a fourth.
+
+## `land` refuses a queue heading shortened to a prefix of its old self
+
+- **Found:** 2026-10-08, claude/task-queue-work-8b2adc
+- **Files:** `tools/land/queue-guard.ts`, `tools/land/test/queue-history.test.ts`
+
+A lane that finished one boss of three renamed the entry *More rubs, counted
+in green, each one seen: THE RIME, THE GRINDSTONE, THE VALVE* to end at THE
+GRINDSTONE, and `bun run land` refused it as work the trunk had finished. The
+cause is `everHeldIn`: `git log -S "## <title>"` counts a substring, so the
+commit that filed the longer heading changed the count of the shorter one,
+and the `Found:` line was the same. The lane put the old heading back and
+landed. Ask for the heading as a whole line instead — `-G` with the title
+escaped and anchored, `^## <title>$` — and add a case to the guard's tests in
+which an entry renamed to a prefix of its own heading lands.

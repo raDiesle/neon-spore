@@ -9136,7 +9136,18 @@ then the first step lights under THE SLOW (`openSlow(…, "ask")`). A half's
 first wipe starts from solid frost, its second from `rimeFilmMilli`. Every
 fresh reversal on the lit half shaves `rimeShaveMilli`; a beat nobody rubbed
 it grows `rimeRegrowMilli` back. A half at nought is a wipe, and the fourth
-wipe bares the core. An answered step closes THE SLOW and the lens rests
+wipe bares the core. **The shave is 80, from 125, since 8 October 2026** (the
+owner, the day before: *every "Rub" should require more rubs, and how much …
+indicated by green circle around and also visual should change on any
+rub*): thirteen reversals from solid and seven from the film, where it was
+eight and four. A wipe is lit under THE SLOW's quarter rate, so its shortest,
+four beats, is ten seconds in the hand, and `sim/test/rime-pace.test.ts`
+clears both of a half's wipes at three reversals a second. The half being
+wiped wears a plain green arc that fills as its frost comes off, on both
+screens (`rime-verdicts.ts`, `drawMarkProgress`) — not segments, because a
+beat unrubbed regrows a share and not a reversal — and every `rimeShave`
+throws six flakes, not three, and flashes that half white (`rime-fx.ts`,
+`rime-marks.ts`). An answered step closes THE SLOW and the lens rests
 `rimeRestBeats` before the next lights. With the script done a film
 **refreezes** over the spent core for `rimeRefreezeBeats`, under THE SLOW,
 and asks both seats to send nothing (`sim/rime-refreeze.ts`, row 11): a fresh

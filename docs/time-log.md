@@ -35812,3 +35812,17 @@ Bottleneck: reading — THE MANTLE's mark functions gate themselves, so the row
 had to be the shared halo rather than its own file.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — More rubs, counted in green, each one seen: THE RIME (lane 2 of 3)
+
+- reading: 5 min. The shave in both packages, THE SLOW's rate over a lit
+  step, the act's shortest wipe.
+- writing: 10 min. `rimeShaveMilli` 125 → 80, the plain arc, the shave's
+  flash, a pace test and a render file.
+- looking: 5 min. One frame off AUTO at the sixth shave, cropped.
+- friction: 5 min. VALVE's landing refused a shortened queue heading; the
+  heading went back and the guard is queued.
+- landing: 5 min. `check:fast`, the commit, the land.
+
+Bottleneck: friction — `land`'s queue guard reads a heading cut to a prefix
+of itself as finished work put back.

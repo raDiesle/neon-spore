@@ -114,6 +114,11 @@ export function drawRimeFlashes(ctx: CanvasRenderingContext2D, l: Layout, fx: Ri
     }
     if (fx.cleared(side) > 0)
       strokeGlow(ctx, half, PALETTE.rimeFrost, STROKE.outline, fx.cleared(side));
+    if (fx.shaved(side) > 0) {
+      ctx.fillStyle = rgba(PALETTE.hullRim, 0.18 * fx.shaved(side));
+      ctx.fill(half);
+      strokeGlow(ctx, half, PALETTE.hullRim, STROKE.inner, 1.4 * fx.shaved(side));
+    }
   }
   const flash = fx.flash;
   if (flash.now > 0) {

@@ -17,7 +17,13 @@ export interface RimeConfig {
   rimeRefreezeBeats: number;
   /** Beats a reflex wipe or shield may add to the refreeze, one a beat, before it spends anyway. */
   rimeRefreezeScatters: number;
-  /** Frost one reversal of a wiping thumb shaves off the lit half, in thousandths of its face. */
+  /**
+   * Frost one reversal of a wiping thumb shaves off the lit half, in
+   * thousandths of its face — 80, thirteen reversals from solid and seven
+   * from the film, since the owner's *every rub should require more rubs* (7
+   * October 2026), from 125's eight and four. A wipe step is lit under THE
+   * SLOW, so its four beats are ten seconds in the hand.
+   */
   rimeShaveMilli: number;
   /** Frost a lit half nobody rubbed grows back in a beat, in thousandths of its face. */
   rimeRegrowMilli: number;
@@ -31,7 +37,7 @@ export const RIME_DEFAULTS: RimeConfig = {
   rimeShatterBeats: 2,
   rimeRefreezeBeats: 3,
   rimeRefreezeScatters: 2,
-  rimeShaveMilli: 125,
+  rimeShaveMilli: 80,
   rimeRegrowMilli: 150,
   rimeFilmMilli: 500,
 };
