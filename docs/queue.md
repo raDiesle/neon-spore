@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE ANTIPHON's organ turns slowly in place, so the pilot has to say which way up
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Taken:** 2026-10-08, claude/task-queue-work-8b2adc (claim: claude/queue-the-antiphons-organ-turns-slowly-in-place-so-the)
 - **Files:** `packages/sim/src/antiphon.ts`, `packages/sim/src/antiphon-step.ts`, `packages/sim/src/antiphon-hash.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/antiphon-shape.ts`
 
 bosses-choreographed.md §12 step 8, never built: the organ starts turning slowly in place, so the pilot's description has to include which way up it stands, and a candidate on the rail matches only at the right turn. This is a new state on a shipped boss: `.claude/skills/new-boss-state` lists the registrations outside the simulation. Two lanes, the simulation then the look, and the look goes to VERSUS. The 900 ms call windows stay out (the game never evaluates speech). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued.
