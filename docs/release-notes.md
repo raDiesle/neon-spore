@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · a7d5f2750 — THE BASTION: a metal moon taken apart one layer at a time (simulation)
+
+A new boss in THE HALTER's place, wave 122. A metal moon has four layers, and each one comes off by a different job split between the two seats. Panels: each seat pulls its own four panels out, away from the core. Guns: the pilot turns the moon by its rim and the navigator shoots the gun at the front in its colour. Nodes: the shield throws a charging node's lightning back. Ports: only the navigator sees the port, and the pilot brings the cannon under it. A panel let go too soon snaps back, and a layer whose time runs out grows back whole; nothing hits the hull.
+
+## 2026-10-08 · 1785d0b7a — THE HALTER is taken out of the game, whole
+
+The owner asked for it gone on 8 October 2026: "I do not like the concept at all. and holding is bad visual and boring … its boring to just hold." Its simulation, drawing, grips and marks, fourteen sounds, wave, drag targets, AUTO's hand and director cards are deleted rather than switched off, as THE BELLOWS's were. The design stays in bosses.md §11.53, now under Retired with his verdict, and the lesson is on the new-boss skill's owner page. The one idea he kept, shells taken off a body one after another, is the layered boss that comes next. A desk chord's partner is now always the other seat's, so `desk-chord.ts` loses its `across` flag. The waves after it move up one.
+
 ## 2026-10-08 · 7f48a885b — THE BLISTER's BY, GESTURE and COUNT rows in the director
 
 Selecting a blister cell in the director now shows three rows, beside where THE MINE's SEES row sits. BY says whose hand knocks the blister down: P1, P2 or BOTH. COUNT is how many blows it takes, from 1 to 8. GESTURE offers TAP alone and writes nothing until lanes 4 to 7 each add their own gesture. WAY appears only for a gesture that has a direction, so it does not appear yet. Each default is saved as no field, so an untouched blister saves exactly as before, and a set one survives a save and a read back (`blister-fields.test.ts`).
