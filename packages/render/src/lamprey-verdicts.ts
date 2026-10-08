@@ -2,17 +2,21 @@ import {
   type LampreyState,
   lampreyAsks,
   lampreyFiring,
+  lampreyHeadPull,
   lampreyHolder,
+  lampreyTailHeld,
+  lampreyTailPull,
   lampreyWorker,
   type SimConfig,
   type SimEvent,
 } from "@neon-spore/sim";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
-import { lampreyTailRest } from "./lamprey-grip.js";
+import { lampreyTailAt, lampreyTailRest } from "./lamprey-grip.js";
 import { LAMPREY_TOOTH_RING } from "./lamprey-marks.js";
 import { type LampreyPose, lampreyToothAt } from "./lamprey-shape.js";
 import { type Circle, type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
+import { drawMarkHeld, drawMarkProgress, MARK_PROGRESS_R } from "./mark-progress.js";
 
 /**
  * **THE LAMPREY's marks answering a touch the way every mark does**
@@ -30,6 +34,16 @@ import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
  * the head coming off greens the head, and a slip or a bite gone through
  * reddens it; a tap and a crack green the tooth and a snap reddens it; a hit greens
  * the gullet.
+ *
+ * **The tail says it is right, and the head how far** (the owner, 7 October
+ * 2026, THE CAPSTAN's rule for every boss: `capstan-verdicts.ts`). A tail
+ * held in a `teeth` or a `pull`, or pulled all the way out in an `apart`,
+ * wears the steady green ring of a part held where it is wanted on both
+ * screens, and the halo goes (`lampreyTailRight`). **The head's pull rides
+ * it on both screens** as a green arc of how far up it has come
+ * (`mark-progress.ts`), so the seat on the tail sees its partner still at
+ * it, and how far; the lit tooth's taps are its own ring's arc already
+ * (`lamprey-marks.ts`).
  */
 export const LAMPREY_TAIL = 0;
 export const LAMPREY_HEAD = 1;
@@ -108,15 +122,21 @@ export function drawLampreyHalos(
   time: number,
 ): void {
   const fade = ctx.globalAlpha;
+  const right = lampreyTailRight(cfg, s);
   for (const mark of MARKS) {
     if (asked(l, s, mark) !== "own") continue;
+    if (mark === LAMPREY_TAIL && right) continue;
     const c = markAt(l, cfg, p, s, mark);
     drawMarkHalo(ctx, c.x, c.y, c.r, time);
     ctx.globalAlpha = fade;
   }
 }
 
-/** Over everything: the partner's ring and clock on each mark that asks only them, and the verdicts. */
+/**
+ * Over everything: the tail's green ring once it is right, the head's pull,
+ * the partner's ring and clock on each mark that asks only them, and the
+ * verdicts.
+ */
 export function drawLampreyVerdicts(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -127,6 +147,17 @@ export function drawLampreyVerdicts(
   v: GripVerdicts,
 ): void {
   const fade = ctx.globalAlpha;
+  if (lampreyTailRight(cfg, s)) {
+    const c = lampreyAsks(s) === "apart" ? lampreyTailAt(l, cfg, s) : markAt(l, cfg, p, s, 0);
+    drawMarkHeld(ctx, c.x, c.y, c.r, time);
+    ctx.globalAlpha = fade;
+  }
+  const ask = lampreyAsks(s);
+  if (ask === "pull" || ask === "apart") {
+    const c = markAt(l, cfg, p, s, LAMPREY_HEAD);
+    const share = lampreyHeadPull(s) / cfg.lampreyHeadPullMilli;
+    drawMarkProgress(ctx, c.x, c.y, c.r * MARK_PROGRESS_R, share);
+  }
   for (const mark of MARKS) {
     const c = markAt(l, cfg, p, s, mark);
     if (asked(l, s, mark) === "theirs") {
@@ -138,4 +169,14 @@ export function drawLampreyVerdicts(
     if (verdict !== null) drawVerdictRing(ctx, c.x, c.y, c.r, verdict);
     ctx.globalAlpha = fade;
   }
+}
+
+/**
+ * Whether the tail is where the stay wants it: the holder's thumb on it in a
+ * `teeth` or a `pull`, or pulled all the way out in an `apart`.
+ */
+export function lampreyTailRight(cfg: SimConfig, s: LampreyState): boolean {
+  const ask = lampreyAsks(s);
+  if (ask === "teeth" || ask === "pull") return lampreyTailHeld(s);
+  return ask === "apart" && lampreyTailPull(s) >= cfg.lampreyTailPullMilli;
 }

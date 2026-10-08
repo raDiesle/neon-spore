@@ -112,7 +112,7 @@ export function drawHalter(
     if (gap < halterGap(l, 0.9)) drawHalterSeamGlow(ctx, halterSeamPath(l, litK), beatPhase);
     drawHalterGrips(ctx, l, litK, s.grips[0] | s.grips[1], beatPhase);
   }
-  drawHalterMarkFeedback(ctx, l, s, time, v);
+  drawHalterMarkFeedback(ctx, l, cfg, s, time, v);
   ctx.restore();
 }
 

@@ -1,16 +1,9 @@
-import {
-  type HalterState,
-  halterGripped,
-  halterLitStep,
-  halterResters,
-  halterSeatIndex,
-  midCol,
-  type World,
-} from "@neon-spore/sim";
+import { type HalterState, halterLitStep, midCol, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import { halterCoreStanding, halterGripStanding } from "./halter-grip.js";
+import { halterGripper } from "./halter-verdicts.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -20,9 +13,10 @@ import type { Layout } from "./layout.js";
  * word only keeps itself to the seat whose thumbs can act on it.
  *
  * **`HOLD` between the lit segment's grips, to the seat that grips**: the
- * pilot on a left step, the navigator on a right. It goes the moment both
- * grips are down — a word over a chord held could only say *keep going* —
- * and a chord let go is owed it again. **A guard** may be gripped by either
+ * pilot on a left step, the navigator on a right, before both grips are
+ * down and after: the owner, 7 October 2026, on THE CAPSTAN and for every
+ * boss, the seat holding has to know to keep it there while the other keeps
+ * still (`halter-verdicts.ts`). **A guard** may be gripped by either
  * seat, and which one is the pair's to settle out loud, so until a thumb is
  * on a grip both are shown it; after, only the seat with the thumb.
  *
@@ -56,22 +50,8 @@ export function halterCues(
   const left = halterGripStanding(l, world.cfg, s, 0, world.beat, beatPhase);
   const right = halterGripStanding(l, world.cfg, s, 1, world.beat, beatPhase);
   if (left === null || right === null) return [];
-  const seat = gripper(s);
-  const held: readonly (1 | 2)[] = seat === null ? [1, 2] : [seat];
-  if (held.some((k) => halterGripped(s, k))) return [];
+  const seat = halterGripper(s);
   const x = (left.x + right.x) / 2;
   const y = (left.y + right.y) / 2;
   return [{ seat, kind: "HOLD", word: "HOLD", x, y, ...frame, seed: 158, chord: true }];
-}
-
-/**
- * The seat the lit step wants gripping: the one that may not rest; on a
- * guard the one with a thumb already down, or `null` — both — while neither
- * has one.
- */
-function gripper(s: HalterState): 1 | 2 | null {
-  const resters = halterResters(s);
-  if (resters.length === 1) return resters[0] === 1 ? 2 : 1;
-  const down = ([1, 2] as const).filter((seat) => s.grips[halterSeatIndex(seat)] !== 0);
-  return down.length === 1 ? (down[0] ?? null) : null;
 }

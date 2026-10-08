@@ -1,8 +1,10 @@
 import {
   type DavitState,
+  davitLitStep,
   davitLooseAsks,
   davitPivotAsks,
   davitSteerAsks,
+  davitSteering,
   type SimEvent,
 } from "@neon-spore/sim";
 import { GRIP_R_MUL, STEER_R } from "./davit-grip.js";
@@ -10,6 +12,7 @@ import { DAVIT_SAG, davitHook, davitHookRadius, davitTip } from "./davit-shape.j
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
 import { type Circle, type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
+import { drawMarkHeld, drawMarkProgress, MARK_PROGRESS_R } from "./mark-progress.js";
 
 /**
  * **THE DAVIT's marks answering a touch the way every mark does**
@@ -35,6 +38,15 @@ import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
  * hook. **Neither a wrong seat's touch nor a wrong colour is refused red**:
  * the simulation says nothing of either (`sim/davit-hand.ts`,
  * `sim/davit-shot.ts`).
+ *
+ * **The steer says it is right, and the draw how far** (the owner, 7 October
+ * 2026, THE CAPSTAN's rule for every boss: `capstan-verdicts.ts`). Once a
+ * thumb holds the boom on its target (`davitSteering`) the boom wears the
+ * steady green ring of a part held where it is wanted, on both screens, and
+ * the halo goes. **The draw's count rides the hook on both screens** — one
+ * green segment a beat held steered, over a dim track of the step's `beats`
+ * (`mark-progress.ts`) — so the seat holding the boom sees its partner still
+ * drawing, and how far.
  *
  * Held in `LateRoster` (`effects-boss-roster-late.ts`). Everything here is in
  * the boom's frame, as the drawer has it: translated to the mast's foot.
@@ -111,16 +123,42 @@ export function drawDavitMarkFeedback(
   v: GripVerdicts,
 ): void {
   const fade = ctx.globalAlpha;
+  const held = davitSteering(s) !== null;
   marksAt(l, angle).forEach((c, mark) => {
     const says = asked(l, s, mark);
-    if (says === "own") drawMarkHalo(ctx, c.x, c.y, c.r, time);
+    const boom = mark === DAVIT_BOOM_MARK;
+    if (boom && held) drawMarkHeld(ctx, c.x, c.y, c.r, time);
+    else if (says === "own") drawMarkHalo(ctx, c.x, c.y, c.r, time);
     ctx.globalAlpha = fade;
     if (says === "theirs") {
       drawMarkTheirs(ctx, c.x, c.y, c.r, time);
       drawMarkWait(ctx, c.x, c.y, c.r, time);
     }
+    ctx.globalAlpha = fade;
+    const count = boom ? null : davitDrawCount(s);
+    if (count !== null) {
+      drawMarkProgress(ctx, c.x, c.y, c.r * MARK_PROGRESS_R, count.share, count.segments);
+    }
     const verdict = v.at(mark);
     if (verdict !== null) drawVerdictRing(ctx, c.x, c.y, c.r, verdict);
   });
   ctx.globalAlpha = fade;
+}
+
+/**
+ * How far the lit step's draw has got, and in how many parts: the drawing
+ * seat's beats held steered out of the step's `beats`. On a swing the
+ * drawer is the step's; on a reland it is the seat not holding the boom, and
+ * nobody's until one does. Null on a shot and between steps.
+ */
+export function davitDrawCount(s: DavitState): { share: number; segments: number } | null {
+  const step = davitLitStep(s);
+  if (step === null || step.ask === "fire" || step.beats < 1) return null;
+  let drawer: 0 | 1;
+  if (step.ask === "reland") {
+    const steering = davitSteering(s);
+    if (steering === null) return null;
+    drawer = steering === 0 ? 1 : 0;
+  } else drawer = step.ask === "left" ? 1 : 0;
+  return { share: s.drawnBeats[drawer] / step.beats, segments: step.beats };
 }

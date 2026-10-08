@@ -28,7 +28,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * **THE HALTER, and the two words the field may say about it**
  * (`render/src/boss-cue-read-zk.ts`): `HOLD` between the lit segment's grips,
- * to the seat that grips, gone once both grips are down; on a guard to both
+ * to the seat that grips, before both grips are down and after; on a guard to both
  * until a thumb is on a grip, then to that seat alone; and `FIRE` under the
  * middle column on a shot with the centre bared. What is *not* said: nothing
  * to the resting seat, nothing between steps, and never the shot's colour.
@@ -90,14 +90,13 @@ describe("THE HALTER", () => {
     expect(cue(world, rester)).toBeNull();
   });
 
-  it("stops saying HOLD once both grips are down, and says it again on a slip", () => {
+  it("keeps saying HOLD once both grips are down, and to nobody else", () => {
     const { world, s } = lit(stepOf("left"));
     s.grips = [1, 0];
     expect(cue(world, "p1")?.word).toBe("HOLD");
     s.grips = [3, 0];
-    expect(cue(world, "p1")).toBeNull();
-    s.grips = [2, 0];
     expect(cue(world, "p1")?.word).toBe("HOLD");
+    expect(cue(world, "p2")).toBeNull();
   });
 
   it("says HOLD on a guard to both until a thumb is down, then to that seat alone", () => {
@@ -108,7 +107,8 @@ describe("THE HALTER", () => {
     expect(cue(world, "p1")).toBeNull();
     expect(cue(world, "p2")?.word).toBe("HOLD");
     s.grips = [0, 3];
-    expect(cue(world, "p2")).toBeNull();
+    expect(cue(world, "p2")?.word).toBe("HOLD");
+    expect(cue(world, "p1")).toBeNull();
   });
 
   it("says FIRE under the middle column on a shot with the centre bared, and never the colour", () => {

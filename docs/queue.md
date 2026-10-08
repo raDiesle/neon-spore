@@ -328,25 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## A held mark shows it is right: THE DAVIT, THE LAMPREY, THE HALTER
-
-- **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
-- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-a-held-mark-shows-it-is-right-the-davit-the-lamp)
-- **Files:** `packages/render/src/davit-verdicts.ts`, `packages/render/src/lamprey-verdicts.ts`, `packages/render/src/halter-verdicts.ts`, `packages/render/src/mark-progress.ts`
-
-The owner, 7 October 2026, on THE CAPSTAN and *generic for on-screen
-events*: a seat holding its part has to see that the hold is right, that the
-partner is still busy, and how far the partner has got, *so that he knows to
-keep pulling and holding*. THE CAPSTAN is the worked example
-(`capstan-verdicts.ts`): its held pull wears `drawMarkHeld`'s steady green
-ring in place of the halo, the cue says `HOLD` to that seat, and the
-partner's mark carries `drawMarkProgress`'s segments on both screens. Give
-the same to each boss here wherever one seat holds while the other works —
-THE DAVIT's boom held on the lit side while the partner swipes, THE
-LAMPREY's tail held while the head is freed, THE HALTER's two grips held —
-with a test beside `capstan-held.test.ts` for each. A boss whose hold has no
-count the simulation keeps gets the green ring and no arc.
-
 ## More rubs, counted in green, each one seen: THE RIME, THE GRINDSTONE, THE VALVE
 
 - **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a

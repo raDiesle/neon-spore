@@ -4,7 +4,6 @@ import {
   lampreyFiring,
   lampreyHeadPull,
   lampreyHolder,
-  lampreyTailHeld,
   lampreyTailPull,
   lampreyWorker,
   type World,
@@ -15,9 +14,11 @@ import { fieldX } from "./field-flip.js";
 import {
   lampreyGulletCircle,
   lampreyHeadCircle,
+  lampreyTailAt,
   lampreyTailCircle,
   lampreyToothCircle,
 } from "./lamprey-grip.js";
+import { lampreyTailRight } from "./lamprey-verdicts.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -26,14 +27,17 @@ import type { Layout } from "./layout.js";
  * (`lamprey-draw.ts`), so nothing a word could stand on is a secret, and
  * `cueSeen` keeps each word to the seat it is for.
  *
- * **`HOLD` on the tail, to the holder**, while the thumb is not on it — THE
- * GOVERNOR's word for a hold (`boss-cue-read-zq.ts`). Over a tail already
- * held it could only say *keep going*.
+ * **`HOLD` on the tail, to the holder**, for the whole of a `teeth` or a
+ * `pull` — THE GOVERNOR's word for a hold (`boss-cue-read-zq.ts`) — before
+ * the thumb is on it and after: the owner, 7 October 2026, on THE CAPSTAN
+ * and for every boss, the seat holding has to know to keep it there while
+ * the other works (`lampreyTailRight`).
  *
  * **`PULL UP` on the head, to the other seat**, in a `pull` or an `apart`,
  * until the head has started to come — a word that stood over a head
  * already moving would be the pull made for them. **`PULL` on the tail, to
- * the holder**, in an `apart`, the same way: the channel says which way.
+ * the holder**, in an `apart`, the same way: the channel says which way —
+ * and **`HOLD`** in its place once the tail is all the way out.
  *
  * **`TAP` on the lit tooth, to the other seat**, in a `teeth`, for the whole
  * of the stay: each tooth gets its own seed, because the light jumps two
@@ -73,13 +77,15 @@ export function lampreyCues(
         ...frame,
         seed: 229,
       });
-    } else if (ask !== "apart" && !lampreyTailHeld(s)) {
+    } else if (ask !== "apart" || lampreyTailRight(cfg, s)) {
+      // Pulled all the way out, the tail is no longer at its rest.
+      const at = ask === "apart" ? lampreyTailAt(l, cfg, s) : tail;
       out.push({
         seat: holder,
         kind: "HOLD",
         word: "HOLD",
-        x: tail.x,
-        y: tail.y,
+        x: at.x,
+        y: at.y,
         ...frame,
         seed: 221,
       });

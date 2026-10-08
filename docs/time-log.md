@@ -35690,3 +35690,17 @@ Bottleneck: friction — the hush walk's rule that a cue goes once obeyed was
 written in its preamble, not in THE KEEL's cue.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — A held mark shows it is right: THE DAVIT, THE LAMPREY, THE HALTER
+
+- reading: 5 min. THE CAPSTAN's commit, then each boss's state, its asks
+  and its cue reading.
+- writing: 5 min. The green ring and the count in three verdict files, two
+  cue readings that kept `HOLD` past the grip, three `*-held` tests.
+- looking: 0 min. One frame sent after the commit.
+- friction: 0 min.
+- landing: 5 min. The controls catalogue wanted `mark-progress.ts`'s row
+  once a third boss shared it; `check:fast`, `land`.
+
+Bottleneck: deciding, per boss, what the partner's count is — THE HALTER's
+partner works by keeping still, and has no mark to carry it.

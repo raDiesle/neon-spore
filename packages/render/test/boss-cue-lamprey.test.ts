@@ -5,6 +5,7 @@ import { fieldX } from "../src/field-flip.js";
 import {
   lampreyGulletCircle,
   lampreyHeadCircle,
+  lampreyTailAt,
   lampreyTailCircle,
   lampreyToothCircle,
 } from "../src/lamprey-grip.js";
@@ -16,8 +17,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **THE LAMPREY, and the words the field may say about it**
- * (`render/src/boss-cue-read-zs.ts`): `HOLD` on the tail to the holder until
- * the thumb is on it, `TAP` on the lit tooth and `PULL UP` on the head to the
+ * (`render/src/boss-cue-read-zs.ts`): `HOLD` on the tail to the holder before
+ * the thumb is on it and after, `TAP` on the lit tooth and `PULL UP` on the head to the
  * other seat, `PULL` on the tail in an `apart`, and `FIRE` under the eel's
  * column on the lit gullet. What is *not* said: the tail to the worker or the
  * head to the holder, anything between stays, and never the gullet's colour.
@@ -61,12 +62,13 @@ describe("THE LAMPREY", () => {
     },
   );
 
-  it("drops HOLD once the holder's thumb is on the tail", () => {
+  it("keeps HOLD once the holder's thumb is on the tail", () => {
     const world = stood();
     posed(world, "bite", BITE, (t) => {
       t.tailDown = [true, false];
     });
-    expect(words(world, "p1")).not.toContain("HOLD");
+    expect(words(world, "p1")).toContain("HOLD");
+    expect(words(world, "p2")).not.toContain("HOLD");
   });
 
   it("says PULL UP on the head to the other seat in a pull", () => {
@@ -86,6 +88,18 @@ describe("THE LAMPREY", () => {
     posed(world, "bite", APART);
     expect(words(world, "p1")).toContain("PULL");
     expect(words(world, "p2")).toContain("PULL UP");
+  });
+
+  it("says HOLD in an apart once the tail is all the way out, where it is", () => {
+    const world = stood();
+    const s = posed(world, "bite", APART, (t) => {
+      t.tailMilli = [CFG.lampreyTailPullMilli, 0];
+    });
+    const hold = cues(world, "p1")[0];
+    const at = lampreyTailAt(LAYOUT.p1, CFG, s);
+    expect(hold?.word).toBe("HOLD");
+    expect(hold?.x).toBeCloseTo(at.x);
+    expect(hold?.y).toBeCloseTo(at.y);
   });
 
   it("moves TAP with the light, on a seed of its own", () => {
