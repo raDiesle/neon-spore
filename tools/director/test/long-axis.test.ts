@@ -113,7 +113,10 @@ describe("the catalogue's long axes", () => {
     // for VERSUS (`pod:husk-tell`, rejected the same day —
     // `tools/versus/DECIDED.md`), so the tall count below is eleven and THE
     // VEER the eleventh.
-    expect(axes.length).toBe(120);
+    // 121 on 8 October 2026: THE BLISTER, ROOTED CLOVER, round — four lobes
+    // on a circle with the roots hanging under them by less than a body's
+    // width, SINKER's finding again.
+    expect(axes.length).toBe(121);
     // One ring of THE CRAWLER is the thirty-ninth wide card, and it is wide by
     // more than any other: a ring reaches nearly a full tile past its own
     // column at each end, which is what makes a run of them one animal with no
@@ -124,7 +127,8 @@ describe("the catalogue's long axes", () => {
     // the card crossed from round to wide with it, as the pile it is judged
     // against always was.
     expect(count("x")).toBe(43);
-    expect(count(null)).toBe(66);
+    // 67 round with THE BLISTER (above).
+    expect(count(null)).toBe(67);
     // THE VEER is the last tall card and the only one made tall by
     // something *on* a body rather than by the body: the stone under it is
     // round, and the rider's hat carries the box half as far again above it.

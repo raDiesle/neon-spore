@@ -1,6 +1,8 @@
 # THE BLISTER — a body you knock back down
 
-> **Status: not built.** Asked for by the owner on 7 October 2026: a creature
+> **Status: TAP built — its simulation (lane 1) and its look (lane 2, 8
+> October 2026: ROOTED CLOVER, the pore, the bulge and the tap help).** Asked
+> for by the owner on 7 October 2026: a creature
 > on the principle of whack-a-mole, removed by several taps on the screen, with
 > variants removed by a hold, a swipe, a turn round it and other gestures that
 > also work with a mouse; the director's brush settings say whether player 1,
@@ -62,6 +64,26 @@ may not, `GripVerdicts` and `drawVerdictRing` on every stroke, the green
 progress ring a held mark wears. **The partner's screen never shows the
 gesture** (`docs/controls-catalogue.md`, *Not allowed*) — it shows the bulge
 before and the waiting clock during.
+
+## The look, as built
+
+**ROOTED CLOVER** (`content/silhouettes-blister.ts`): BULB · CLOVER's four
+deep lobes with SINKER's roots on the underside, drawn a little larger than
+the plain footprint so it is told apart from THE LEECH and THE MINE, the two
+other fours. It comes up out of a dark pore over a third of a beat, clipped at
+the pore's mouth, and goes back in the same way (`render/blister.ts`).
+
+On the screen of the seat that may not knock it down, the pore is drawn shut
+while it is under — *where* — and swells into a dome on the last beat —
+*when*; the hand that can do it is drawn neither. On the beat it sinks the
+pore glides to the next one, which the simulation picks on that beat.
+
+The TAP help is the shared set (`render/blister-help.ts`): on the seat that may
+tap, `drawMarkHalo` and the tap glyph; on the other, `drawMarkWait`; on both,
+THE MINE's ring of pips, one per blow still owed (`render/pip-ring.ts`). Every
+blow that counts is a `blisterBlow` event, answered with the green verdict ring
+(`render/blister-verdicts.ts`) and THE GORGE's bubble-press cue pitched up a
+step a blow (`audio/bind-blister.ts`).
 
 ## The director's settings
 

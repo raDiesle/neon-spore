@@ -762,6 +762,7 @@ const SAMPLES: Record<string, SimEvent> = {
   beatboxTap: { type: "beatboxTap", id: 10, col: 3, row: 5, hits: 2 },
   beatboxWave: { type: "beatboxWave", id: 10, col: 3, row: 5, hits: 1 },
   beatboxSilent: { type: "beatboxSilent", id: 10, col: 3, row: 5, hits: 4 },
+  blisterBlow: { type: "blisterBlow", id: 11, col: 3, row: 4, left: 2 },
   wispHop: { type: "wispHop" },
   ghostRelease: { type: "ghostRelease", col: 3, row: 4, color: "red" },
   ghostTurn: { type: "ghostTurn", col: 0, row: 3, laps: 2 },

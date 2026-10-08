@@ -149,6 +149,10 @@ describe("knocking it down", () => {
     blow(s, 2);
     expect(only(s.world)).toBeUndefined();
     expect(s.events.some((e) => e.type === "destroy" && e.kind === "blister")).toBe(true);
+    // One `blisterBlow` a blow that counted, counting down to nought — the
+    // verdict ring and the cue are thrown off these (`render/blister-verdicts.ts`).
+    const left = s.events.flatMap((e) => (e.type === "blisterBlow" ? [e.left] : []));
+    expect(left).toEqual([2, 1, 0]);
     expect(s.world.scars).toEqual([]);
   });
 
@@ -159,6 +163,7 @@ describe("knocking it down", () => {
     blow(s, 1);
     blow(s, 1);
     expect(blisterLeft(CFG, only(s.world)!)).toBe(3);
+    expect(s.events.some((e) => e.type === "blisterBlow")).toBe(false);
   });
 
   it("a tap while it is under counts nothing", () => {

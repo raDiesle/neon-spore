@@ -1,4 +1,5 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
+import { BlisterVerdictFx } from "./blister-verdicts.js";
 import { BodyStrikeFx } from "./body-strike.js";
 import { ChuteCutFx } from "./chute-cut.js";
 import { ClaspBreakFx } from "./clasp-break.js";
@@ -76,6 +77,8 @@ export class BodyTransients {
    * last bead is spent — the one transient here that is a *line* of bodies
    * going rather than one (`strand-fuse.ts`). */
   private strandFuse = new StrandFuseFx();
+  /** THE BLISTER's green ring off every blow that counted (`blister-verdicts.ts`). */
+  private blisterVerdict = new BlisterVerdictFx();
 
   /** `time` is the wall clock the contour wobble is sampled at — the husk
    * freezes the outline the body had on the frame the layer came off. */
@@ -121,6 +124,7 @@ export class BodyTransients {
     // And a thread lit at both ends, rebuilt from the beads the event carries:
     // the bodies are gone from the world on the tick it fires.
     this.strandFuse.ingest(events, l, cfg, time);
+    this.blisterVerdict.ingest(events);
   }
 
   update(dt: number): void {
@@ -139,6 +143,7 @@ export class BodyTransients {
     this.fenceExit.update(dt);
     this.bodyStrike.update(dt);
     this.strandFuse.update(dt);
+    this.blisterVerdict.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D, l: Layout, surfaceY?: SurfaceY): void {
@@ -179,7 +184,7 @@ export class BodyTransients {
     this.strandFuse.draw(ctx, l);
   }
 
-  /** The five that are drawn around a body the world still has. */
+  /** The six that are drawn around a body the world still has. */
   drawOnBodies(
     ctx: CanvasRenderingContext2D,
     l: Layout,
@@ -204,6 +209,8 @@ export class BodyTransients {
     // And the jet a recoil vented downward out of the tile it was struck in,
     // with a wake of embers reaching up to wherever the body is now.
     this.recoilVent.draw(ctx, l, world, beatPhase, leaps);
+    // And a blister's verdict, last: it answers the thumb, over everything.
+    this.blisterVerdict.draw(ctx, l, world, beatPhase);
   }
 
   /**
@@ -228,5 +235,6 @@ export class BodyTransients {
     this.fenceExit.clear();
     this.bodyStrike.clear();
     this.strandFuse.clear();
+    this.blisterVerdict.clear();
   }
 }

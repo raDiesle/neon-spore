@@ -25,13 +25,28 @@ export interface RootedOpts {
    * the shortest a root ever gets is still a root. */
   drift: number;
   period: number;
+  /** The body the roots grow out of, as `blobRadiusMul`'s lobes, depth,
+   * wobble and seed. Absent, SINKER's own: two shallow lobes, nearly round.
+   * THE BLISTER grows them under CLOVER's four (`silhouettes-blister.ts`). */
+  body?: RootedBody;
 }
+
+/** A lobed body under the roots, in `blobRadiusMul`'s terms. */
+export interface RootedBody {
+  lobes: number;
+  depth: number;
+  wobble: number;
+  seed: number;
+}
+
+const SINKER_BODY: RootedBody = { lobes: 2, depth: 0.08, wobble: 0.04, seed: 11.6 };
 
 const N = 64;
 
 /** The rim at a moment `t`, in seconds, centred on the origin, roots down. */
 export function rootedContour(o: RootedOpts): (t: number) => Point[] {
   const { rx, ry, roots, reach, drift, period } = o;
+  const b = o.body ?? SINKER_BODY;
   return (t) => {
     const pts: Point[] = [];
     for (let i = 0; i < N; i++) {
@@ -43,7 +58,9 @@ export function rootedContour(o: RootedOpts): (t: number) => Point[] {
       // Raised to a high power so each one is a spike and not a lobe.
       const comb = Math.max(0, Math.cos(roots * a)) ** 10;
       const wander = 1 + drift * Math.sin((t / period) * Math.PI * 2 + a * 3);
-      const m = blobRadiusMul(a, 2, 0.08, 0.04, t, 11.6) * (1 + reach * under * comb * wander);
+      const m =
+        blobRadiusMul(a, b.lobes, b.depth, b.wobble, t, b.seed) *
+        (1 + reach * under * comb * wander);
       pts.push({ x: Math.cos(a) * rx * m, y: Math.sin(a) * ry * m });
     }
     return pts;

@@ -108,10 +108,10 @@ export const OFFERED_DRAFTS: CatalogueEntry[] = [
       "four deep lobes — the largest count read without counting",
     ),
     motion: BULB_MOTION,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "nothing wears it: THE CYST took it on 26 September 2026 as its sac, the left and right lobes the two flanks one seat tapped still and the other pinched shut, and left the game on 8 October 2026, when the owner took it out. Before that, offered on VERSUS as `bulb:shape` / `clover` and moved here on 9 September 2026 when the owner kept the shipped bulb and asked for the alternatives to live on this page. It argues that six is one too many — four deep lobes round a middle is the largest number a player reads at a glance without going one, two, three, and the whole reason the bulb carries lobes at all is that the count is what the pair says out loud. Deeper than the shipped shape, so each lobe is a thing rather than a scallop. What it risks is that four symmetrical arms is a cross, and a cross is furniture: the shape of a target, a compass, a joint, next to a field that already draws a bracket round a locked body",
+      "THE BLISTER, taken 8 October 2026, combined with SINKER as ROOTED CLOVER: these four lobes, at their own numbers, with SINKER's roots grown on the underside running down into the pore it comes up out of (`content/silhouettes-blister.ts`). Whole, it is also two of THE LAMPREY's dung stacked (`render/lamprey-dung.ts`), which is why the blister does not wear it alone. Before that: THE CYST took it on 26 September 2026 as its sac, the left and right lobes the two flanks one seat tapped still and the other pinched shut, and left the game on 8 October 2026, when the owner took it out. Before that, offered on VERSUS as `bulb:shape` / `clover` and moved here on 9 September 2026 when the owner kept the shipped bulb and asked for the alternatives to live on this page. It argues that six is one too many — four deep lobes round a middle is the largest number a player reads at a glance without going one, two, three, and the whole reason the bulb carries lobes at all is that the count is what the pair says out loud. Deeper than the shipped shape, so each lobe is a thing rather than a scallop. What it risks is that four symmetrical arms is a cross, and a cross is furniture: the shape of a target, a compass, a joint, next to a field that already draws a bracket round a locked body",
   },
   {
     subject: blob(

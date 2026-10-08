@@ -724,6 +724,7 @@ by hand never moves.
 | `packages/sim/src/events-baton.ts` | **Everything THE BATON does that neither screen already says**, as events |
 | `packages/sim/src/events-bastion.ts` | What THE BASTION says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-bosses.ts` | **The choreographed bosses' arms of `SimEvent`**, as one union |
+| `packages/sim/src/events-blister.ts` | **THE BLISTER's one**: a blow that counted |
 | `packages/sim/src/events-trapeze.ts` | What THE TRAPEZE says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-undertow.ts` | **Everything THE UNDERTOW does that neither screen already says**, as events |
 | `packages/sim/src/events-taster.ts` | **Everything THE TASTER does that neither screen already says**, as events |
@@ -1063,6 +1064,7 @@ by hand never moves.
 | `packages/content/src/mechanics-beatbox.ts` | THE BEATBOX's row, cut out of `mechanics-table.ts` when it took that file past its 250-line limit |
 | `packages/content/src/mechanics-blister.ts` | THE BLISTER's row, beside `mechanics-beatbox.ts` and for its reason: `mechanics-table.ts` is near its limit |
 | `packages/content/src/silhouettes-beatbox.ts` | Beatbox: a rounded cabinet, and the one body on this roster whose contour is *architecture* rather than an… |
+| `packages/content/src/silhouettes-blister.ts` | **THE BLISTER is ROOTED CLOVER**: two drafts off the shape sheet, combined and named |
 | `packages/content/src/silhouettes-gum.ts` | **THE GUM in the air: THE WEIGHT's sac**, taken off the shape sheet whole |
 | `packages/content/src/silhouettes-weight.ts` | **THE WEIGHT: the slumped sac**, the louder of the two hanging drafts, taken off the shape sheet whole |
 | `packages/content/src/silhouettes-mine.ts` | **THE MINE is REACHER**, off the shape sheet: *four soft arms |
@@ -2466,6 +2468,7 @@ by hand never moves.
 | `packages/render/src/pinball-catch.ts` | **A ball caught back in the cannon is said out loud: YEAH** |
 | `packages/render/src/pinch.ts` | **`SqueezeGap` from two fingers** — the one gesture in the game read off two touches at once |
 | `packages/render/src/pinch-pair.ts` | A pinch's answer, and the seat it is from |
+| `packages/render/src/pip-ring.ts` | **A ring of pips round a body, one per thing still owed** — THE MINE's fuse first |
 | `packages/render/src/plate-gap.ts` | A plate of the hull that is **gone**, drawn as a hole in the outline |
 | `packages/render/src/plumb-draw.ts` | **THE PLUMB**: a lopsided bob of old bronze hung off a hook over the middle column, a ball on a chain at each end of its beam |
 | `packages/render/src/plumb-marks.ts` | **THE PLUMB's marks**: a level's glass with its bubble, and the lit core in its step's colour |
@@ -2509,7 +2512,9 @@ by hand never moves.
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
 | `packages/render/src/blister-tap.ts` | **A tap on THE BLISTER**, answered only where the simulation would count it: on a blister that is up |
-| `packages/render/src/blister.ts` | THE BLISTER, drawn at its plainest: a disc while it is up and nothing while it is under (`sim/blister.ts`) |
+| `packages/render/src/blister-help.ts` | **THE BLISTER's help for TAP**, called and not drawn anew (`docs/controls-catalogue.md`) |
+| `packages/render/src/blister-verdicts.ts` | Where a blister was last drawn, for the ring of the blow that finished it |
+| `packages/render/src/blister.ts` | THE BLISTER, drawn: |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/canvas2d-held.ts` | **What a host may reach of the renderer's state**, as the class `Canvas2DRenderer` stands on |
 | `packages/render/src/cairn-settle.ts` | The lane THE CAIRN is about to drop a rock into, drawn on player 1's screen and on nothing player 2 is shown |
@@ -2659,6 +2664,7 @@ by hand never moves.
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-baton.ts` | THE BATON's sixteen, in a file of their own because `bind.ts` is at its limit |
 | `packages/audio/src/bind-bastion.ts` | THE BASTION's fourteen cues, panned to their column; a shell's sounds pitched lower the deeper it lay |
+| `packages/audio/src/bind-blister.ts` | THE BLISTER's one, in a file of its own on `bind-gum.ts`' pattern: a blow that counted (`sim/blister.ts`) |
 | `packages/audio/src/bind-trapeze.ts` | Whether an event is THE TRAPEZE's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
 | `packages/audio/src/bind-gorge.ts` | THE GORGE's nine, in a file of their own because `bind.ts` is full |

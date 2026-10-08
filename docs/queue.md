@@ -328,26 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE BLISTER, lane 2: its body, its pore, the bulge and the tap help
-
-- **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
-- **Taken:** 2026-10-08, claude/task-queue-work-e99d1a (claim: claude/queue-the-blister-lane-2-its-body-its-pore-the-bulge-a)
-- **Files:** `packages/content/src/living-look.ts`, `packages/render/src/instar-glyphs.ts`, `packages/render/src/mark-feedback.ts`, `packages/render/src/grip-verdict.ts`, `packages/render/test/frame.test.ts`
-- **Needs:** THE BLISTER, lane 1
-
-The look of `docs/spec/blister.md`, a look with no shipped alternative (say
-so in the commit). **One body for every gesture**: take a shape from
-`tools/shape-sheet/src/drafts/` or combine two, naming it, never one the
-game already draws (`bun run shapes:report`). Draw the pore it comes up
-from, the body rising out of it and sinking into it, and the bulge a beat
-before — on the screen of the seat that is *not* `by` only, both screens
-when `by` is both. The TAP help is called, not drawn anew
-(`docs/controls-catalogue.md`): `drawInstarGlyph`'s flaring dots, one pip
-round the body per tap still owed, `drawMarkHalo` on the seat that may tap,
-`drawMarkWait` on the other, `drawVerdictRing` on every tap. The help sits
-over and round the body and never changes its shape. Drawn again in
-`frame.test.ts`; send the owner one PNG of a frame.
-
 ## THE BLISTER, lane 4: HOLD
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
@@ -418,3 +398,26 @@ one sentence fits, then a later wave that mixes the five gestures on one
 body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
+
+## `sim/events-creature.ts` is at 249 lines: the next creature's events cannot join
+
+- **Found:** 2026-10-08, claude/task-queue-work-e99d1a
+- **Files:** `packages/sim/src/events-creature.ts`, `packages/sim/src/events.ts`
+
+THE BLISTER's `BlisterEvent` took two lines there, and two comments over
+THE FENCE's and THE MAGNET's arms were shortened to find them; `events.ts`
+beside it is at 249 too. Every creature with an event of its own adds an
+import and an arm here. Move the tail of grouped arms (`CaromEvent` on) into
+an `events-creature-groups.ts` union that `CreatureEvent` takes as one arm,
+so each new group is a line in a file with room.
+
+## `audio/bind.ts` is at 223 lines: choose its seam before the next creature
+
+- **Found:** 2026-10-08, claude/task-queue-work-e99d1a
+- **Files:** `packages/audio/src/bind.ts`
+
+`tools/hooks/after-edit-size.ts` flagged it when THE BLISTER's cue went in
+(`bind-blister.ts`): every creature with a cue of its own adds an import and
+two lines to the switch in `bindEvent`. Cut the creature cases (the carom,
+beatbox, blister, fence and volley groups) into a `bind-field.ts` that the
+switch defers to the way it defers to `choreographedCue`.

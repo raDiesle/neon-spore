@@ -36170,3 +36170,22 @@ Bottleneck: reading — the failure named a hook, and it took a reproduction
 to trust that it meant the hook and not the test.
 
 *Measured: 18 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE BLISTER, lane 2: its body, its pore, the bulge and the tap help
+
+- reading: 10 min. Lane 1's commit, THE MINE's seat gate and pip ring, the
+  mark help (`mark-feedback.ts`, `instar-glyphs.ts`, `grip-verdict.ts`) and
+  where a creature's verdict could live.
+- writing: 25 min. ROOTED CLOVER and `rootedContour`'s body option, the pore,
+  the rise and the bulge, the help, `blisterBlow` from sim to cue and ring, the
+  pip ring cut out of `mine.ts`, a frame test.
+- looking: 10 min. Five real frames by `bun run frames`: the shut pore, the
+  bulge on p1, the body up with its help on p2, the verdict.
+- friction: 15 min. CLOVER whole was already THE LAMPREY's dung, so a second
+  draft was combined in; then sized twice against THE LEECH and THE MINE. Two
+  files at 249 lines took comment trimming, and five counting tests each
+  wanted the new body.
+- landing: 5 min. `check:fast` three times, `land`.
+
+Bottleneck: friction — a draft marked free was already drawn by a boss's
+prop, which only a grep of the render tree found.

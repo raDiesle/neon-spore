@@ -14,6 +14,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { balloonCue } from "./bind-balloon.js";
 import { beatboxCue } from "./bind-beatbox.js";
+import { blisterCue } from "./bind-blister.js";
 import { breachCue } from "./bind-breach.js";
 import { caromCue } from "./bind-carom.js";
 import { choirCue } from "./bind-choir.js";
@@ -204,6 +205,8 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "beatboxWave":
     case "beatboxSilent":
       return beatboxCue(e, cols, rows);
+    case "blisterBlow":
+      return blisterCue(e, cols);
     case "fencePass":
     case "fenceBurn":
       return fenceCue(e, cols, rows);

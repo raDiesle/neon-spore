@@ -1,5 +1,6 @@
 import { isBossBody, recoilTurn, type World, wispOnField } from "@neon-spore/sim";
 import { drawBalloonHandles } from "./balloon-handles.js";
+import { drawBlisterHelp } from "./blister-help.js";
 import type { CoilFlightFx } from "./coil-flight.js";
 import { bodyDraw } from "./creature-body.js";
 import { drawOverBody } from "./creature-over.js";
@@ -184,4 +185,7 @@ export function drawCreatures(
   // **which screen this is**, because a hand on a weight is shown to the seat
   // whose hand it is and to nobody else (`weight.ts`).
   drawWeightPress(ctx, l, world, beatPhase, time);
+  // And THE BLISTER's help, flat and last for the handles' reasons: it is
+  // drawn on the circle a tap is answered on (`blister-help.ts`).
+  drawBlisterHelp(ctx, l, world, beatPhase, time);
 }

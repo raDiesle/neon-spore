@@ -128,6 +128,7 @@ export function blisterTapped(world: World, player: 1 | 2, id: number): boolean 
   if (!blisterIsUp(c) || !blisterMayTap(c, player)) return true;
   const left = blisterLeft(world.cfg, c) - 1;
   c.blisterLeft = left;
+  world.events.push({ type: "blisterBlow", id: c.id, col: c.col, row: c.row, left });
   if (left > 0) return true;
   world.events.push({
     type: "destroy",

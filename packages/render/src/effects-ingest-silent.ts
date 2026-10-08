@@ -48,6 +48,9 @@ export const INGEST_SILENT = [
   // the body they came out of has moved on, and `beatboxSilent`'s rings open
   // out of a body that is no longer there to be read.
   "beatboxTap",
+  // THE BLISTER's blow: its verdict is ingested above the loop, by the fx that
+  // keeps it (`blister-verdicts.ts`), as a boss's marks are.
+  "blisterBlow",
   "lureVanished",
   "claspBreak",
   "choirSing",

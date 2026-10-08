@@ -118,7 +118,10 @@ describe("drawn size against the 20-26 px floor", () => {
     // shipped mark rather than on a card against the POD's. The owner
     // rejected both the same day (`tools/versus/DECIDED.md`); the cards do
     // not come back, because the look they describe has been looked at.
-    expect(SQUARE.length).toBe(105);
+    // 106 on 8 October 2026: THE BLISTER, ROOTED CLOVER, a combination of
+    // two cards that both stay on the sheet as drafts they were drawn as
+    // (`content/silhouettes-blister.ts`), so nothing left with it.
+    expect(SQUARE.length).toBe(106);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
@@ -195,7 +198,9 @@ describe("drawn size against the 20-26 px floor", () => {
     // quarter it is drawn larger on the field is `sizeMul` and is not a fact
     // about the card, so it lands under 26 px here exactly where the draft it
     // replaced did, and the draft is gone.
-    expect(under26).toBe(67);
+    // 68 with THE BLISTER, for the mine's reason: its `sizeMul` is the
+    // field's, and at the card's own size the roots' reach shrinks the lobes.
+    expect(under26).toBe(68);
     expect(under20).toBe(23);
   });
 

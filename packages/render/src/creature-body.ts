@@ -149,9 +149,8 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // choose, so `showsMine` is asked of the creature (`mine.ts`). The draw
   // under the gate is the ordinary living blob with the fuse round it.
   ["mine", drawMineBody],
-  // THE BLISTER: a plain disc while it is up and nothing while it is under,
-  // until lane 2 gives it a body (`blister.ts`). `living-look.ts` answers
-  // `null`, so without a row it would ask `drawLiving` for a contour.
+  // THE BLISTER: its pore, the body coming up out of it and going back in,
+  // and the bulge a beat before on the seat that may not tap (`blister.ts`).
   ["blister", drawBlisterBody],
   // THE MOULT, and a row for the same reason as THE COIL's: it is not an
   // `isMeteorKind` — nothing about it is a rock for more than five beats at a

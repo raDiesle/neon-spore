@@ -51,9 +51,6 @@ const SEATS: ViewRole[] = ["p1", "p2"];
 const LOOK_PENDING = new Set<string>([
   // Empty on 17 September 2026: THE CURTAIN's look landed the same day its
   // simulation did (`docs/spec/bosses.md` §11.24, `curtain-draw.ts`).
-  // THE BLISTER, 8 October 2026: its simulation landed with a plain disc
-  // drawn only while it is up, and its pore is lane 2's (`docs/queue.md`).
-  "blister",
 ]);
 
 /** A body and where it is drawn on a given seat's layout. */

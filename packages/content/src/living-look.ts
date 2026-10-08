@@ -6,6 +6,7 @@ import { FLICKER, HOLD, POISE, RUMBLE } from "./motions.js";
 import { BLOOM } from "./motions-event.js";
 import type { OwnMotion } from "./own-motion.js";
 import { BEATBOX, BULB, type CreatureSilhouette, DART, SLICK, THROB, WISP } from "./silhouettes.js";
+import { BLISTER } from "./silhouettes-blister.js";
 import { LEECH, LIMPET } from "./silhouettes-cling.js";
 import { COUNTDOWN } from "./silhouettes-countdown.js";
 import { MINE } from "./silhouettes-mine.js";
@@ -155,9 +156,10 @@ const LIVING_LOOK = {
   // the one drawing that made this creature unanswerable
   // (`render/moult.ts`).
   moult: null,
-  // THE BLISTER's body is lane 2's (`docs/queue.md`): until then it is drawn
-  // as a plain disc by `render/blister.ts`, which asks for no contour.
-  blister: null,
+  // THE BLISTER: CLOVER, and the throb's stillness under it. Its motion is
+  // coming up and going down, which `render/blister.ts` draws off its clock;
+  // a sway on top would be a second movement on a body being aimed at.
+  blister: { shape: BLISTER, motion: HOLD },
 } as const satisfies Record<CreatureKind, { shape: CreatureSilhouette; motion: OwnMotion } | null>;
 
 /**

@@ -49,6 +49,11 @@ export const SILENT = [
   // carry should also throw something is a look and the owner's to choose
   // (`docs/looks.md`), so nothing is invented here.
   "carry",
+  // THE BLISTER's blow. Its answer is the green verdict ring on the body
+  // (`blister-verdicts.ts`), which every mark in the game wears; a shower on
+  // top would be a second answer to the one tap. The last blow's `destroy`
+  // on the same tick throws the kill's.
+  "blisterBlow",
   // THE CHOIR's first arrow going out, and the gesture landing. The whole
   // screen is shaking on both (`choir-quake.ts`), and particles thrown on top
   // of an earthquake are particles nobody can see. What does throw one is

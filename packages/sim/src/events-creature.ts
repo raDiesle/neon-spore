@@ -1,5 +1,6 @@
 import type { BalloonEvent } from "./events-balloon.js";
 import type { BeatboxEvent } from "./events-beatbox.js";
+import type { BlisterEvent } from "./events-blister.js";
 import type { CaromEvent } from "./events-carom.js";
 import type { ChoirEvent } from "./events-choir.js";
 import type { ClingEvent } from "./events-cling.js";
@@ -207,11 +208,9 @@ export type CreatureEvent =
   // when one gets in — are `events-crawler.ts`, on the same terms. Its two
   // *answers* are a plain `destroy` and a plain `deflect`.
   | CrawlerEvent
-  // And THE FENCE's two — the wire going over the ship and a bolt cutting it
-  // open — are `events-fence.ts`, on the same terms as the three above.
+  // And THE FENCE's two, the wire and the cut (`events-fence.ts`), on the same terms.
   | FenceEvent
-  // And THE MAGNET's two — the plate turning a bolt away and the arch coming
-  // apart when one got past it — are `events-magnet.ts`, on the same terms.
+  // And THE MAGNET's two, the plate and the arch (`events-magnet.ts`).
   | MagnetEvent
   // And THE COIL's two, on the same terms as the six above (`events-coil.ts`).
   | CoilEvent
@@ -229,7 +228,8 @@ export type CreatureEvent =
   // the three ways one body stops being what it was, which is neither a
   // gesture taken apart nor an arrival taken apart.
   | BalloonEvent
-  | StrandEvent;
+  | StrandEvent
+  | BlisterEvent;
 
 export type { BalloonEvent } from "./events-balloon.js";
 export type { BeatboxEvent } from "./events-beatbox.js";
