@@ -35043,3 +35043,5 @@ dozen more that still said two fingers.
 
 Bottleneck: looking — whether a number belongs to its place only showed in
 a frame, where the seam's ripple pulled them apart.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

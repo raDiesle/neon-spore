@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 91b7010bf — THE GALL's seam is numbered 1 to 4, with its middle barred
+
+Each of the four points has a number under it, 1 to 4 left to right, and a stud on the seam; a bracket runs under each seat's half, and a bar with a diamond crosses the seam at the middle. Your own half is bright on your screen and your partner's is dim, so "three!" is a place to call and a jump across the bar is a jump to the other seat. The guide says to call the number. All of it fades once the root is bared.
+
 ## 2026-10-08 · 5783fb268 — THE GALL is pressed and held, not pinched
 
 The seat whose half the gall sits on now holds one finger (or the mouse button in the director) down on it until it jumps, instead of closing a two-finger pinch: a desk has one pointer, and the difficulty is finding the gall and saying where it went, not the fingers. Player 1's guide says the gall starts on their half, and the cue on the nodule reads HOLD.
