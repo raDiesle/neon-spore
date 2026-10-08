@@ -687,15 +687,28 @@ misses that. Aim at the column the seat is over when the bolt reaches its
 row (`trapezeSeat` stepped forward by the climb), and tighten
 `autopilot-trapeze.test.ts` to say most shots in a `shoot` level hit.
 
-## A film's caption at a boss with no caption anchor is dropped silently
+## THE GIMBAL's and THE HASP's films point at a boss with no caption anchor
 
-- **Found:** 2026-10-08, claude/trapeze-tutorial
-- **Taken:** 2026-10-08, claude/queue-caption-anchor (claim: claude/queue-a-films-caption-at-a-boss-with-no-caption-anchor)
-- **Files:** `packages/render/src/caption-anchor.ts`, `packages/render/src/caption-anchor-boss-f.ts`, `packages/content/test/scenes.test.ts`
+- **Found:** 2026-10-08, claude/queue-caption-anchor
+- **Files:** `packages/render/src/caption-anchor-boss-f.ts`, `packages/render/test/caption-anchor-films.test.ts`, `packages/content/src/scenes/the-gimbal.ts`, `packages/content/src/scenes/the-hasp.ts`
 
-THE TRAPEZE's film was written with every page `{ at: "boss" }`, and
-`bossAnchor` returned null for its kind, so none of its four captions was
-drawn — every test green. Add a test that steps every film
-(`SCENES`) and, at each page's first tick, resolves its anchor through
-`captionAnchor` on that page's seat, failing on null, so a boss film whose
-kind has no line in `caption-anchor-boss*.ts` is a red check.
+The fault THE TRAPEZE had: THE GIMBAL's pages 0 and 2 and THE HASP's page 4
+are `{ at: "boss" }`, `bossAnchorF` returns null for both kinds, and none of
+those three captions is drawn. Give each kind a line in
+`caption-anchor-boss-f.ts`, asked of the file that places its body (as
+`trapezeSwing` is), take the three pages off `LOST_ALREADY` in
+`caption-anchor-films.test.ts`, and look at each page with
+`bun run frames --opening guide`.
+
+## Four film pages end before their subject arrives, or after it has gone
+
+- **Found:** 2026-10-08, claude/queue-caption-anchor
+- **Files:** `packages/content/src/scenes/the-balloon.ts`, `packages/content/src/scenes/the-lance.ts`, `packages/content/src/scenes/the-scuttle.ts`, `packages/render/test/caption-anchor-films.test.ts`
+
+`caption-anchor-films.test.ts` steps every tick of every page, and these four
+never find their subject, so their words are never drawn: THE BALLOON's page
+0 (`body`, the balloon enters on beat 6, the tick page 1 starts) and page 1
+(`handle`), THE LANCE's page 3 (`body`, the beam has taken all three by tick
+840) and THE SCUTTLE's page 12 (`boss`, the boss is gone by *OUT · NONE LEFT
+TO COUNT*). Retime each page or anchor it on what is on the screen, take it
+off `LOST_ALREADY`, and look at each with `bun run frames --opening guide`.

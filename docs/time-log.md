@@ -35124,3 +35124,17 @@ Bottleneck: reading — finding where the block ended and where the clock
 paragraph's "below" points.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — every film page's caption must find its subject
+
+- reading: 10 min. How a film is stepped, and how `guide-scene.ts` lays out
+  a page, picks its seat and its panel.
+- writing: 10 min. The test, the seven pages it found named, two entries.
+- looking: 0 min. A test; nothing drawn moved.
+- friction: 10 min. First runs asked at the first tick and on the wrong
+  seat's layout, and flagged pages that are fine; each lost page was read
+  against its film by hand.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: friction — telling the seven real silent captions from the ones
+the test's own setup had lost.
