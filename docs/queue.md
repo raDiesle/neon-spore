@@ -496,6 +496,7 @@ packages/render/src`), to show the option carries.
 ## Marks-window rows owed: THE SNAKE, THE PINBALL, THE PULSE, THE CAIRN
 
 - **Found:** 2026-10-08, claude/task-queue-work-e71746
+- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-marks-window-rows-owed-the-snake-the-pinball-the)
 - **Files:** `tools/director/test/marks-window-no-row.ts`, `tools/director/test/marks-window-rows-c.ts`, `packages/render/src/snake-marks.ts`, `packages/render/src/pinball-marks.ts`, `packages/render/src/pulse-marks.ts`, `packages/render/src/cairn-marks.ts`
 
 `marks-window-no-row.ts` lists these as `owed`: each has a `*-marks.ts` and no
