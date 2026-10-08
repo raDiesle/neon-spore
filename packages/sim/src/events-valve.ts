@@ -48,6 +48,8 @@ export type ValveEvent =
   | ({ type: "valveShake" } & ValveColEvent)
   /** The last pin out: a film weeps over the face, to be rubbed off. */
   | ({ type: "valveFilm" } & ValveColEvent)
+  /** A reversal rubbed into the film; `wiped` is how many it has taken so far. */
+  | ({ type: "valveRub"; wiped: number } & ValveColEvent)
   /** The face ran dry. */
   | ({ type: "valveDry" } & ValveColEvent)
   /** Still slick, the film smeared against the hull and came back. */

@@ -17,8 +17,9 @@ import { ValveVerdicts } from "./valve-verdicts.js";
  * wheel as the navigator's tap freezes it, the **flare** in the slot a pin
  * has just left, the **kick** that knocks the drum as the wheel is thrown off
  * its mark, the **shock** through the hull as the spark lands or the face
- * falls open, and the bursts its thirteen receipts throw — with its story's
- * twelve, whose bursts are `valve-fx-story.ts`'.
+ * falls open, the **rub** that flares the socket and the film's edge on every
+ * reversal, and the bursts its thirteen receipts throw — with its story's
+ * thirteen, whose bursts are `valve-fx-story.ts`'.
  *
  * Everything else — where the wheel stands, which pins are out, how far the
  * drum lists — is read off the boss every frame (`valve-draw.ts`,
@@ -47,6 +48,8 @@ const KICK_DECAY = 8;
 /** How fast the clamp's flare and a slot's fade, per second. */
 const CLAMP_DECAY = 2.5;
 const SLOT_DECAY = 2;
+/** How fast a rub's flare fades, per second: gone before the next reversal at a thumb's pace. */
+const RUB_DECAY = 4;
 /** The hull's shudder as the spark lands, and as the face falls open, in beats and strength. */
 const SPARK_BEATS = 1;
 const OPEN_BEATS = 1.5;
@@ -57,6 +60,7 @@ export class ValveFx {
   private clampNow = 0;
   private slotNow = 0;
   private slotAt = 0;
+  private rubNow = 0;
   /** The shudder down the plating as the spark lands and the face falls open (`frame-on-ship.ts`). */
   readonly shock = new HullShock();
   /** The blow a freeze and a pull deal the drum. */
@@ -72,6 +76,11 @@ export class ValveFx {
   /** How bright the clamp round the frozen wheel flares, 0..1. */
   get clamp(): number {
     return this.clampNow;
+  }
+
+  /** How bright the last rub on the film flares, 0..1. */
+  get rub(): number {
+    return this.rubNow;
   }
 
   /** The slot the last pin left and how bright it flares, 0..1. */
@@ -144,6 +153,7 @@ export class ValveFx {
         default: {
           const blow = valveStoryBurst(e, l, cfg, c, burst);
           if (blow === "landed") this.hurt.hit();
+          else if (blow === "rubbed") this.rubNow = 1;
           else if (blow === "struck") this.shock.strike(SPARK_BEATS * beatSeconds, 1);
           break;
         }
@@ -157,6 +167,7 @@ export class ValveFx {
     if (this.kickNow < 0.002) this.kickNow = 0;
     this.clampNow = Math.max(0, this.clampNow - CLAMP_DECAY * step);
     this.slotNow = Math.max(0, this.slotNow - SLOT_DECAY * step);
+    this.rubNow = Math.max(0, this.rubNow - RUB_DECAY * step);
     this.shock.update(dt);
     this.hurt.update(dt);
     this.marks.update(dt);
@@ -167,6 +178,7 @@ export class ValveFx {
     this.clampNow = 0;
     this.slotNow = 0;
     this.slotAt = 0;
+    this.rubNow = 0;
     this.shock.clear();
     this.hurt.clear();
     this.marks.clear();

@@ -106,12 +106,14 @@ export function stepBrace(world: World, s: ValveState, since: number, leak: () =
 
 /**
  * Reversals rubbed on the pin while the film is on: `fresh` of them since
- * the last report (`valve-hand.ts`). Enough between both thumbs and the face
- * runs dry, and the seal is next.
+ * the last report (`valve-hand.ts`), each report said as `valveRub` so the
+ * film can be seen to take it. Enough between both thumbs and the face runs
+ * dry, and the seal is next.
  */
 export function valveRubbed(world: World, s: ValveState, fresh: number): void {
   if (s.phase !== "wipe" || fresh <= 0) return;
   s.wiped = Math.min(world.cfg.valveWipeRubs, s.wiped + fresh);
+  world.events.push({ type: "valveRub", wiped: s.wiped, col: midCol(world.cfg) });
   if (s.wiped < world.cfg.valveWipeRubs) return;
   closeSlow(world);
   world.events.push({ type: "valveDry", col: midCol(world.cfg) });

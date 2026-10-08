@@ -8,7 +8,7 @@ import { type Point, valveSocket } from "./valve-shape.js";
 
 /**
  * **What THE VALVE's story throws** (`sim/valve-story.ts`): the burst each of
- * its twelve events leaves, and whether it is a step landed or a blow on the
+ * its thirteen events leaves, and whether it is a step landed or a blow on the
  * hull, which `valve-fx.ts` turns into the drum's hurt and the hull's shock.
  * Its own page because the fx file is at its length with the thirteen.
  *
@@ -17,13 +17,16 @@ import { type Point, valveSocket } from "./valve-shape.js";
  *   drum, pale film off the face, white off the seam.
  * - **An ask answered** — the cap, the brace, the dry face, the seal — flares
  *   white where the thumbs were, the socket or the slot, and is a step landed.
+ * - **A rub on the film** spits pale flecks off the socket and is `rubbed`:
+ *   the drum flares the socket and the film's wiped edge for it (the owner,
+ *   7 October 2026: *visual should change on any rub*).
  * - **An ask run out** — the blow, the shake, the smear, the rough open —
  *   lands on the hull under the middle column in red, where `bossStrikesHull`
  *   struck, and shudders it.
  *
  * Points on the drum are at rest, unlisted, like the rest of its bursts.
  */
-export type StoryBlow = "landed" | "struck" | null;
+export type StoryBlow = "landed" | "struck" | "rubbed" | null;
 
 /** The burst for one of the story's events, and what it deals; `undefined` for an event not the story's. */
 export function valveStoryBurst(
@@ -60,6 +63,9 @@ export function valveStoryBurst(
     case "valveBrace":
       burst(socket.x, socket.y, 12, PALETTE.hullRim);
       return "landed";
+    case "valveRub":
+      burst(socket.x, socket.y, 5, PALETTE.text);
+      return "rubbed";
     case "valveDry":
       burst(c.x, c.y, 12, PALETTE.hullRim);
       return "landed";

@@ -2,6 +2,7 @@ import { type SimConfig, VALVE_PINS, type ValveState } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { drawMarkProgress } from "./mark-progress.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { phaseInto } from "./phase-into.js";
 import { NO_SPAN, type SlowSpan, slowHush } from "./slow-hush.js";
@@ -19,7 +20,10 @@ import { valveFacePath, valveReach, valveSocket } from "./valve-shape.js";
  *   (`valveShake`); a half-ring each side of the socket lit under each held
  *   thumb, and the count filling inside it.
  * - **The wipe**: a pale film over the face, dripping, cleared from the left
- *   as the rubs land — the face read through it as it goes.
+ *   as the rubs land — the face read through it as it goes. Round the pin,
+ *   the rubs it needs as green segments, one a reversal, filling on both
+ *   screens; and every reversal flares the pin and the film's wiped edge
+ *   (the owner, 7 October 2026, THE CAPSTAN's rule, `mark-progress.ts`).
  * - **The seal**: a white seam split down the face, straining wider as its
  *   window runs, with the brace's two half-rings back for the hold.
  *
@@ -40,6 +44,8 @@ const PUFFS = 6;
 const JET = 1.4;
 /** Drips hanging off the film. */
 const DRIPS = 5;
+/** How far out round the pin the wipe's count runs, in socket radii: inside the window's arc. */
+const COUNT_R = 1.35;
 
 /**
  * The drum's shake this frame, in pixels: the brace's shudder, fading as the
@@ -70,10 +76,13 @@ export function drawValveStory(
   cfg: SimConfig,
   beat: number,
   beatPhase: number,
+  rub = 0,
 ): void {
   if (s.phase === "jet") drawJet(ctx, l, beatPhase);
-  else if (s.phase === "wipe") drawFilm(ctx, l, s, cfg, beatPhase);
-  else if (s.phase === "seal") drawSeam(ctx, l, s, cfg, beat, beatPhase);
+  else if (s.phase === "wipe") {
+    drawFilm(ctx, l, s, cfg, beatPhase, rub);
+    drawRubs(ctx, l, s, cfg, rub);
+  } else if (s.phase === "seal") drawSeam(ctx, l, s, cfg, beat, beatPhase);
   if (s.phase === "brace" || s.phase === "seal") {
     const need = s.phase === "brace" ? cfg.valveBraceBeats : cfg.valveSealBeats;
     drawHolds(ctx, l, s, s.chordBeats / Math.max(1, need));
@@ -105,6 +114,7 @@ function drawFilm(
   s: ValveState,
   cfg: SimConfig,
   beatPhase: number,
+  rub: number,
 ): void {
   const share = s.wiped / Math.max(1, cfg.valveWipeRubs);
   const { rx, ry } = valveReach(l);
@@ -127,6 +137,31 @@ function drawFilm(
     ctx.fill(drip);
   }
   ctx.restore();
+  if (rub <= 0 || share <= 0) return;
+  const edge = new Path2D();
+  edge.moveTo(from, -ry * 0.8);
+  edge.lineTo(from, ry * 0.8);
+  ctx.lineWidth = STROKE.outline;
+  ctx.strokeStyle = rgba(PALETTE.text, 0.9 * rub);
+  ctx.stroke(edge);
+  strokeGlow(ctx, edge, PALETTE.text, STROKE.outline, 1.6 * rub);
+}
+
+/** The pin's count of rubs, one green segment a reversal, and its flare as one lands. */
+function drawRubs(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  s: ValveState,
+  cfg: SimConfig,
+  rub: number,
+): void {
+  const { at, r } = valveSocket(l);
+  const need = Math.max(1, cfg.valveWipeRubs);
+  drawMarkProgress(ctx, at.x, at.y, r * COUNT_R, s.wiped / need, need);
+  if (rub <= 0) return;
+  const flare = new Path2D();
+  flare.arc(at.x, at.y, r * (1 + 0.25 * (1 - rub)), 0, Math.PI * 2);
+  strokeGlow(ctx, flare, PALETTE.good, STROKE.outline, 1.8 * rub);
 }
 
 /** The bare seal: a white seam split down the face, wider the longer it strains, pulsing on the beat. */

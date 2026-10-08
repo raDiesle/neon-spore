@@ -152,7 +152,7 @@ function drawDrum(
   drawValveFx(ctx, l, fx);
   if (valveTurning(s) || valveFrozen(s)) drawValveMark(ctx, l, world, s);
   drawValveSocket(ctx, l, world, s, valveSocketGlow(s, beatPhase), beat, beatPhase);
-  drawValveStory(ctx, l, s, world.cfg, beat, beatPhase);
+  drawValveStory(ctx, l, s, world.cfg, beat, beatPhase, fx.rub);
   drawValveVerdicts(ctx, l, s, beatPhase, time, fx.marks.verdicts);
 }
 

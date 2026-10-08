@@ -41,7 +41,12 @@ export interface ValveConfig {
   valveBraceBeats: number;
   /** The shudder's window, in beats, before a plate shakes loose. */
   valveShudderBeats: number;
-  /** Reversals rubbed on the pin, between both thumbs, to wipe the film. */
+  /**
+   * Reversals rubbed on the pin, between both thumbs, to wipe the film — eight
+   * since the owner's *every rub should require more rubs* (7 October 2026),
+   * from three: at 96 bpm the window's five beats are three seconds, and one
+   * thumb alone reverses about three times a second.
+   */
   valveWipeRubs: number;
   /** The film's window, in beats, before it smears. */
   valveWipeBeats: number;
@@ -67,7 +72,7 @@ export const VALVE_DEFAULTS: ValveConfig = {
   valveJetBeats: 2,
   valveBraceBeats: 3,
   valveShudderBeats: 6,
-  valveWipeRubs: 3,
+  valveWipeRubs: 8,
   valveWipeBeats: 4,
   valveSealBeats: 3,
   valveStrainBeats: 6,

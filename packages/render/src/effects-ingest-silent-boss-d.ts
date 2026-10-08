@@ -205,6 +205,7 @@ export const INGEST_SILENT_BOSS_D = [
   "valveBrace",
   "valveShake",
   "valveFilm",
+  "valveRub",
   "valveDry",
   "valveSmear",
   "valveStrain",

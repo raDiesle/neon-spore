@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE VALVE's twenty-five, in a file of their own for `bind-gorge.ts`' reason.
+ * THE VALVE's twenty-six, in a file of their own for `bind-gorge.ts`' reason.
  *
  * **Everything is heard from the middle**, THE MANTLE's argument: the drum
  * stands over `midCol` and so does the spark it leaks, and nothing about the
@@ -44,7 +44,7 @@ export function valveCue(e: Extract<SimEvent, { type: `valve${string}` }>, cols:
     // The story between the pins borrows the drum's own voice, bent: a jet
     // and a film hiss as the spark does, the shudder and the strain are the
     // seat's catch lower, and every answer is the freeze's clunk or the
-    // face's opening at its own pitch — no new sound for any of the twelve.
+    // face's opening at its own pitch — no new sound for any of the thirteen.
     case "valveJet":
       return { id: "boss.valveSpark", pan, pitch: 0.8 };
     case "valveCap":
@@ -59,6 +59,9 @@ export function valveCue(e: Extract<SimEvent, { type: `valve${string}` }>, cols:
       return { id: "boss.valveSparkHit", pan, pitch: 0.8 };
     case "valveFilm":
       return { id: "boss.valveSpark", pan, pitch: 0.65 };
+    case "valveRub":
+      // A squeak per reversal, rising as the film comes off.
+      return { id: "boss.valveSpark", pan, pitch: 1.1 + e.wiped * 0.04 };
     case "valveDry":
       return { id: "boss.valveSparkOut", pan, pitch: 0.9 };
     case "valveSmear":

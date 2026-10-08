@@ -35750,3 +35750,16 @@ Bottleneck: none worth the name; the entry said exactly what to do.
 Bottleneck: landing — the check is longer than the change.
 
 *Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — More rubs, counted in green, each one seen: THE VALVE (lane 1 of 3)
+
+- reading: 10 min. THE CAPSTAN's commit, the wipe in both packages, the
+  new-boss-state skill's event rows.
+- writing: 15 min. `valveWipeRubs` 3 → 8, `valveRub` through its seven
+  registrations, the count and the flare, two sim tests and a render file.
+- looking: 5 min. One frame off AUTO at the fifth rub, cropped.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, the land.
+
+Bottleneck: the per-rub flare needed an event the simulation did not say,
+and an event is seven files outside it.

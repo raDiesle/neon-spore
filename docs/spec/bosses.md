@@ -8337,7 +8337,17 @@ under THE SLOW, and each run out is the drum's own blow against the hull
 - **The wipe.** The last pin out and a film weeps over the face. Either
   thumb rubs the pin back and forth, `valveWipeRubs` reversals between them,
   read as THE RIME reads its rub. Still slick after `valveWipeBeats`:
-  `valveSmear`, and the film comes back whole.
+  `valveSmear`, and the film comes back whole. **Eight reversals, from
+  three, since 8 October 2026** (the owner, the day before: *every "Rub"
+  should require more rubs, and how much … indicated by green circle around
+  and also visual should change on any rub*): the window's five beats are
+  three seconds at 96 bpm, and one thumb alone reverses about three times a
+  second (`sim/test/valve-story.test.ts` rubs it at that pace). Round the
+  pin, the eight as green segments over a dim track, on both screens
+  (`drawMarkProgress`); and every reversal is said as `valveRub`, which
+  throws pale flecks off the pin, flares it green and lights the film's wiped
+  edge white (`valve-fx.ts`, `valve-story.ts`), with a squeak that rises as
+  the film comes off — the spark's hiss, bent up.
 - **The seal.** Wiped, the bare seal strains. Both thumbs hold for
   `valveSealBeats` and the face opens clean; run out `valveStrainBeats` and
   it blows open rough, against the hull. The face is open either way.

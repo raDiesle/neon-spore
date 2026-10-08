@@ -480,6 +480,7 @@ const SAMPLES: Record<string, SimEvent> = {
   valveBrace: { type: "valveBrace", col: 5 },
   valveShake: { type: "valveShake", col: 5 },
   valveFilm: { type: "valveFilm", col: 5 },
+  valveRub: { type: "valveRub", col: 5, wiped: 3 },
   valveDry: { type: "valveDry", col: 5 },
   valveSmear: { type: "valveSmear", col: 5 },
   valveStrain: { type: "valveStrain", col: 5 },

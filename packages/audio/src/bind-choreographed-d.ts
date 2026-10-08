@@ -106,6 +106,7 @@ export function laterCue(e: LaterEvent, cols: number): Cue | null {
     case "valveBrace":
     case "valveShake":
     case "valveFilm":
+    case "valveRub":
     case "valveDry":
     case "valveSmear":
     case "valveStrain":

@@ -1488,7 +1488,7 @@ by hand never moves.
 | `packages/render/src/valve-blow.ts` | THE VALVE's timeout blow: its ember burns through the hull and the ship vents a jet of steam up the column |
 | `packages/render/src/valve-grip.ts` | **The two thumbs on THE VALVE** — the grip of its hands lane |
 | `packages/render/src/valve-fx.ts` | What THE VALVE leaves behind a frame: the **clamp** round a frozen wheel, a pulled pin's slot, the kick, the hull shock |
-| `packages/render/src/valve-fx-story.ts` | **What THE VALVE's story throws** (`sim/valve-story.ts`): the burst each of its twelve events leaves |
+| `packages/render/src/valve-fx-story.ts` | **What THE VALVE's story throws** (`sim/valve-story.ts`): the burst each of its thirteen events leaves |
 | `packages/render/src/valve-verdicts.ts` | **THE VALVE's wheel and pin answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/veil-bolt.ts` | THE VEIL's lightning: small bolts that break out of the cloud's own border, scattered round it, each in its |
 | `packages/render/src/veil-marks.ts` | What stands over a cloud, and it is a different thing in each seat |
@@ -2698,7 +2698,7 @@ by hand never moves.
 | `packages/audio/src/bind-curtain.ts` | THE CURTAIN's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
 | `packages/audio/src/bind-vane.ts` | THE VANE's two hands on its own mechanism, in a file of their own for `bind-warden-hand.ts`' reason |
-| `packages/audio/src/bind-valve.ts` | THE VALVE's twenty-five, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-valve.ts` | THE VALVE's twenty-six, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-vise.ts` | THE VISE's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
 | `packages/audio/src/bind-choreographed.ts` | The choreographed bosses' events (`docs/spec/bosses-choreographed.md`) |

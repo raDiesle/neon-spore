@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import { step } from "../src/index.js";
 import { slowing } from "../src/slow.js";
 import { valveBracing, valveJetting, valveWiping } from "../src/valve.js";
 import { valveStruck } from "../src/valve-shot.js";
@@ -142,6 +143,29 @@ describe("the wipe", () => {
     expect(seen.has("valveDry")).toBe(true);
     expect(seen.has("valveStrain")).toBe(true);
     expect(valve(world).phase).toBe("seal");
+  });
+
+  it("says each rub as it lands, counting the reversals up", () => {
+    const world = wipe();
+    const said: number[] = [];
+    for (let n = 1; n <= 3; n++) {
+      step(world, [pin(world.tick, 1, 0, true, n)]);
+      for (const e of world.events) if (e.type === "valveRub") said.push(e.wiped);
+    }
+    expect(said).toEqual([1, 2, 3]);
+    expect(valve(world).wiped).toBe(3);
+  });
+
+  it("holds the whole count in its window at one thumb's pace, three reversals a second", () => {
+    const world = wipe();
+    const every = Math.floor(CFG.tickHz / 3);
+    const seen = new Set<string>();
+    for (let n = 1; n <= CFG.valveWipeRubs; n++) {
+      for (const t of tick(world, [pin(world.tick, 1, 0, true, n)])) seen.add(t);
+      for (let i = 1; i < every; i++) for (const t of tick(world)) seen.add(t);
+    }
+    expect(seen.has("valveDry")).toBe(true);
+    expect(seen.has("valveSmear")).toBe(false);
   });
 
   it("left slick smears against the hull, and the film comes back whole", () => {

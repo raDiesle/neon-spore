@@ -133,6 +133,18 @@ describe("THE VALVE's wipe", () => {
     expect(film).not.toBe(bare);
     expect(rubbed).not.toBe(film);
   });
+
+  it.each(ROLES)("counts the rubs round the pin in green, one a reversal, on %s", (role) => {
+    const none = frame(role, (w) => at(w, "wipe"));
+    const some = frame(role, (w) => {
+      at(w, "wipe").wiped = 2;
+    });
+    const most = frame(role, (w) => {
+      at(w, "wipe").wiped = CFG.valveWipeRubs - 1;
+    });
+    expect(tinted(some, PALETTE.good)).toBeGreaterThan(tinted(none, PALETTE.good));
+    expect(tinted(most, PALETTE.good)).toBeGreaterThan(tinted(some, PALETTE.good));
+  });
 });
 
 describe("THE VALVE's seal", () => {
