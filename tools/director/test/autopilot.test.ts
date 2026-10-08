@@ -29,11 +29,9 @@ import { CHARGES } from "./charges.js";
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 
 /**
- * Bosses AUTO has no hand for. THE PULSE and THE REPRISE got theirs here, and
- * fifteen more their own file each (`autopilot-<boss>.test.ts`: THE MANTLE,
- * THE KEEL, THE VALVE, THE SEAM, THE OCULUS, THE VISE, THE RIME, THE TRIVET,
- * THE GRINDSTONE, THE HALTER, THE CAPSTAN, THE GALL, THE FLUE, THE CYST,
- * THE SLING and THE GOVERNOR). A boss belongs here only while its simulation
+ * Bosses AUTO has no hand for. THE PULSE and THE REPRISE are played out here,
+ * and every other boss with a play test has its own file
+ * (`autopilot-<boss>.test.ts`, under `charges.ts`'s two charges). A boss belongs here only while its simulation
  * has landed and its hand has not (`docs/spec/bosses.md`); none does today.
  * A new boss is a row in `AUTOPILOT_HANDS` or a name here.
  */

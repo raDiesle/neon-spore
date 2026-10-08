@@ -35272,3 +35272,19 @@ Bottleneck: reading — whether a window is under THE SLOW is said only at the
 `openSlow` call, so each of five fields had to be followed to its caller.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — AUTO is played to the end on THE GIMBAL, THE SPOOL, THE STARE, THE HIVE
+
+- reading: 5 min. THE HIVE's hand and THE GORGE's, which answers bodies
+  between its own work.
+- writing: 10 min. Four play tests at both charges, THE HIVE's hand
+  answering the field once nothing is open, and two tries that did not
+  hold: bodies first, which starved the sealing and flooded the field, and
+  the most urgent breach first, which changed nothing.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: writing — the scars only made sense once a probe printed which
+breaches were open on the tick each one landed; the first two fixes were
+guesses made before that.

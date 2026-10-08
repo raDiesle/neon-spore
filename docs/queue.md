@@ -618,28 +618,17 @@ body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
 
-## No test plays AUTO to the end on THE GIMBAL, THE SPOOL, THE STARE, THE HIVE
-
-- **Found:** 2026-10-08, claude/queue-autos-boss-hands-are-tested-without-the-games-ha
-- **Taken:** 2026-10-08, claude/task-queue-work-589459 (claim: claude/queue-no-test-plays-auto-to-the-end-on-the-gimbal-the)
-- **Files:** `packages/hands/src/boss-hands-gimbal.ts`, `packages/hands/src/boss-hands-spool.ts`, `packages/hands/src/boss-hands-stare.ts`, `packages/hands/src/boss-hand-hive.ts`, `tools/director/test/charges.ts`
-
-Twelve of the 57 kinds in `AUTOPILOT_HANDS` are named by no test in
-`tools/director/test` or `packages/hands/test`, so a hand that stopped
-winning, or only won at one shot charge, would stay green. Give each of these
-four a play test of its own beside `autopilot-vise.test.ts` — BOTH plays it to
-`world.boss === null` with no scar, and each seat alone touches only its own
-side — under `describe.each(CHARGES)`, so it runs at nought and at the game's
-half beat. Fix any hand that loses at one of them.
-
 ## No test plays AUTO to the end on THE WELL, THE LEDGER, THE THROAT, THE SURGE
 
 - **Found:** 2026-10-08, claude/queue-autos-boss-hands-are-tested-without-the-games-ha
 - **Files:** `packages/hands/src/boss-hands-well.ts`, `packages/hands/src/boss-hands-clocks.ts`, `packages/hands/src/boss-hands-beats.ts`, `packages/hands/src/boss-hands-rime.ts`, `tools/director/test/charges.ts`
 
-The second four of the twelve kinds in `AUTOPILOT_HANDS` no test plays (the
-first entry above says how they were found). One play test each, as there,
-under `describe.each(CHARGES)`; fix any hand that loses at either charge.
+The second four of the twelve kinds in `AUTOPILOT_HANDS` that no test played
+(the first four have theirs: `autopilot-hive.test.ts` is the pattern). One
+play test each under `describe.each(CHARGES)`; fix any hand that loses at
+either charge. A probe on 8 October 2026, BOTH from `bossWorld`: THE WELL
+never finishes in 60,000 ticks, at either charge, with seven scars; THE SURGE
+finishes with six scars; THE LEDGER and THE THROAT finish clean.
 
 ## No test plays AUTO to the end on THE CAIRN, THE UNDERTOW, THE MIRROR, THE SPLICE
 
@@ -649,7 +638,10 @@ under `describe.each(CHARGES)`; fix any hand that loses at either charge.
 The last four of the twelve kinds in `AUTOPILOT_HANDS` no test plays. THE
 SPLICE's hand is not named in any file of `packages/hands/src` but the table
 itself, so find what answers it first. One play test each under
-`describe.each(CHARGES)`; fix any hand that loses at either charge.
+`describe.each(CHARGES)`; fix any hand that loses at either charge. A probe
+on 8 October 2026, BOTH from `bossWorld`: THE CAIRN never finishes in 60,000
+ticks, at either charge, with fourteen scars; THE UNDERTOW finishes with six;
+THE MIRROR and THE SPLICE finish clean.
 
 ## waves-demo.ts and poses-mechanics.ts are each within twenty lines of the ceiling
 

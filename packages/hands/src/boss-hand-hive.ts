@@ -12,6 +12,7 @@ import {
   type TimedCommand,
   type World,
 } from "@neon-spore/sim";
+import { fieldHand } from "./autopilot-field-hand.js";
 import type { Hand } from "./hand.js";
 
 /**
@@ -92,7 +93,9 @@ export const hiveHand: Hand = (w) => {
     const color = hiveSealedBy(s, i, "red") ? "red" : "cyan";
     return free(w) ? [...thumb, fire(color)] : thumb;
   }
-  return s.aim === NO_PINCH ? [] : [lock(false, s.aim)];
+  // Nothing open, and a spill can still be falling from a breach already
+  // sealed: answered the field's way, with the thumb off any cocoon first.
+  return s.aim === NO_PINCH ? fieldHand(w) : [lock(false, s.aim)];
 };
 
 /**
