@@ -621,6 +621,7 @@ bestiary's line to built.
 ## No test plays AUTO to the end on THE GIMBAL, THE SPOOL, THE STARE, THE HIVE
 
 - **Found:** 2026-10-08, claude/queue-autos-boss-hands-are-tested-without-the-games-ha
+- **Taken:** 2026-10-08, claude/task-queue-work-589459 (claim: claude/queue-no-test-plays-auto-to-the-end-on-the-gimbal-the)
 - **Files:** `packages/hands/src/boss-hands-gimbal.ts`, `packages/hands/src/boss-hands-spool.ts`, `packages/hands/src/boss-hands-stare.ts`, `packages/hands/src/boss-hand-hive.ts`, `tools/director/test/charges.ts`
 
 Twelve of the 57 kinds in `AUTOPILOT_HANDS` are named by no test in
