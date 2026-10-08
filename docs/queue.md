@@ -415,6 +415,7 @@ so each new group is a line in a file with room.
 ## `audio/bind.ts` is at 223 lines: choose its seam before the next creature
 
 - **Found:** 2026-10-08, claude/task-queue-work-e99d1a
+- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-audio-bind-ts-is-at-223-lines-choose-its-seam-be)
 - **Files:** `packages/audio/src/bind.ts`
 
 `tools/hooks/after-edit-size.ts` flagged it when THE BLISTER's cue went in
