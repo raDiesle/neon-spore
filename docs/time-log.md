@@ -35902,3 +35902,18 @@ Bottleneck: the walk drew every boss through `drawBoss`, and the five rounds
 are not drawn there.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — Marks-window rows for THE CURTAIN, THE TASTER, THE SINEW, THE LEDGER
+
+- reading: 10 min. Each boss's asked-marks function and the sim behind its
+  gate — THE SINEW's word is render-side, so its window came from
+  `sinew-hand.ts`, which hears a grip at any beat before the tendon is out.
+- writing: 5 min. A row file of its own, since `-d` is near full; four
+  lines struck.
+- looking: 0 min. Nothing drawn; each row seen red with its window emptied.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, and a `land` that found the
+  other marks-window lane had named its file `-e` too: renamed to `-f`.
+
+Bottleneck: reading — a gate composed in render has to be traced back to the
+simulation before there is a window to hold it to.
