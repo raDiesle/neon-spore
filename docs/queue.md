@@ -443,6 +443,7 @@ hanging off it and the wings spread;
 ## THE GOVERNOR's two baked sprites join the sprite bench
 
 - **Found:** 2026-10-07, claude/governor-graphics-enhancement-b358ca
+- **Taken:** 2026-10-08, claude/queue-governor-sprites (claim: claude/queue-the-governors-two-baked-sprites-join-the-sprite)
 - **Files:** `tools/raster/src/sprite-demos.ts`, `tools/raster/sprite.ts`, `.claude/skills/sprite/baked-parts.md`, `packages/render/src/governor-face-baked.ts`
 
 `governor-alloy` and `governor-veins` (`governor-face-baked.ts`) are baked
