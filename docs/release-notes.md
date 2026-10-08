@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · eda30b67f — Marks-window rows for THE MIRROR, THE VANE, THE MAZE and THE GAUGE
+
+Four more bosses are now checked: no mark is drawn before its window opens. Each of the four draws its asking as the field's shared halo, so each row holds that halo to the union of the boss's own windows from `sim/`. They live in a new `marks-window-rows-e.ts`, because `-c` is near its 250 lines and three other lanes are writing the rest of the list.
+
 ## 2026-10-08 · 434d46def — THE SURGE, THE LEAD, THE SCUTTLE and THE ANTIPHON hold no mark before its window
 
 Four more rows `NO_ROW` owed, each the shared halo held to the boss's windows in the simulation: either seat's grip on THE SURGE's bulb, THE LEAD's stalk while it may be gripped, THE SCUTTLE's loose parts while the frame may be swung, THE ANTIPHON's organ or a candidate on its rail. Each goes red with its window emptied.

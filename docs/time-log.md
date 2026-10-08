@@ -35900,3 +35900,5 @@ Bottleneck: landing — the rows were quicker to write than to check.
 
 Bottleneck: the walk drew every boss through `drawBoss`, and the five rounds
 are not drawn there.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
