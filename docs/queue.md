@@ -637,6 +637,7 @@ bestiary's line to built.
 ## THE GIMBAL's and THE HASP's films point at a boss with no caption anchor
 
 - **Found:** 2026-10-08, claude/queue-caption-anchor
+- **Taken:** 2026-10-08, claude/task-queue-work-589459 (claim: claude/queue-the-gimbals-and-the-hasps-films-point-at-a-boss)
 - **Files:** `packages/render/src/caption-anchor-boss-f.ts`, `packages/render/test/caption-anchor-films.test.ts`, `packages/content/src/scenes/the-gimbal.ts`, `packages/content/src/scenes/the-hasp.ts`
 
 The fault THE TRAPEZE had: THE GIMBAL's pages 0 and 2 and THE HASP's page 4
