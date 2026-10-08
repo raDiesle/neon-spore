@@ -557,19 +557,3 @@ predicate in `sim/` says it is answered in, never the render's gate re-read
 (`marks-window-kit.ts`) — and strike its line from `NO_ROW`. A mark AUTO cannot
 reach is `unreached` with its reason; a mark found lit outside its window is a
 render fix in the same lane. A row file past ~250 lines splits into a fourth.
-
-## `land` refuses a queue heading shortened to a prefix of its old self
-
-- **Found:** 2026-10-08, claude/task-queue-work-8b2adc
-- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-land-refuses-a-queue-heading-shortened-to-a-pref)
-- **Files:** `tools/land/queue-guard.ts`, `tools/land/test/queue-history.test.ts`
-
-A lane that finished one boss of three renamed the entry *More rubs, counted
-in green, each one seen: THE RIME, THE GRINDSTONE, THE VALVE* to end at THE
-GRINDSTONE, and `bun run land` refused it as work the trunk had finished. The
-cause is `everHeldIn`: `git log -S "## <title>"` counts a substring, so the
-commit that filed the longer heading changed the count of the shorter one,
-and the `Found:` line was the same. The lane put the old heading back and
-landed. Ask for the heading as a whole line instead — `-G` with the title
-escaped and anchored, `^## <title>$` — and add a case to the guard's tests in
-which an entry renamed to a prefix of its own heading lands.

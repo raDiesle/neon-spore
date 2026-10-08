@@ -35859,3 +35859,15 @@ Bottleneck: a film's ticks are read against a tempo nobody wrote down in the
 scene, so the first timing was off by half.
 
 *Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — `land` lets a queue heading be shortened to a prefix of itself
+
+- reading: 5 min. `everHeldIn` and its history test.
+- writing: 5 min. `-G` with the line escaped and anchored, for the heading and
+  the `Found:` line both, and a repository test of the rename, seen red
+  under `-S`.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none to speak of; the entry had the cause and the cure.

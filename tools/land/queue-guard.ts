@@ -133,10 +133,9 @@ export function foundLine(block: string): string | undefined {
 }
 
 /**
- * That question as git answers it: the pickaxe, which names a commit where the
- * number of times a string occurs in a path *changed*. A heading the trunk
- * does not carry now and that some commit changed the count of is one it once
- * carried and took out.
+ * That question as git answers it: the pickaxe, which names a commit whose
+ * diff of a path adds or takes out a line. A heading the trunk does not carry
+ * now and that some commit added or took out is one it once carried.
  *
  * **The heading alone would be too much**, though. Two lanes may honestly file
  * the same one-line finding months apart, and refusing the second would be the
@@ -147,15 +146,32 @@ export function foundLine(block: string): string | undefined {
  *
  * One call per candidate when the answer is no, two when it is yes, and about
  * a tenth of a second apiece over this repository's own `docs/queue.md`.
+ *
+ * **Asked as a whole line**, with `-G` and the line anchored, not `-S`: the
+ * pickaxe counts a *substring*, so a lane that shortened *More rubs …: THE
+ * RIME, THE GRINDSTONE, THE VALVE* to end at THE GRINDSTONE was refused on 8
+ * October 2026 — the commit that filed the long heading had changed the count
+ * of the short one, and the `Found:` line was the same.
  */
 export function everHeldIn(run: (args: string[]) => Promise<string>, trunk: string): EverHeld {
-  const seen = async (file: string, needle: string): Promise<boolean> =>
-    (await run(["log", "--format=%H", "-n", "1", "-S", needle, trunk, "--", file])).length > 0;
+  const seen = async (file: string, line: string): Promise<boolean> =>
+    (await run(["log", "--format=%H", "-n", "1", "-G", wholeLine(line), trunk, "--", file]))
+      .length > 0;
   return async (file, entry) => {
     if (!(await seen(file, `## ${entry.title}`))) return false;
     const found = foundLine(entry.block);
     return found === undefined || (await seen(file, found));
   };
+}
+
+/**
+ * `line` as a POSIX extended regex matching it and nothing longer: every
+ * metacharacter escaped, anchored at both ends — `-G` sets `REG_NEWLINE`, so
+ * the anchors are the line's — and a carriage return or trailing space let
+ * through, for a file checked out on Windows.
+ */
+export function wholeLine(line: string): string {
+  return `^${line.trimEnd().replace(/[.[\]{}()*+?^$|\\]/g, "\\$&")}[[:space:]]*$`;
 }
 
 /**

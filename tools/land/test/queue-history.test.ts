@@ -3,7 +3,7 @@ import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { gitIn, repoTimeout } from "../../test/repo-time.js";
-import { everHeldIn, queueSnapshots, resurrectedAfter } from "../queue-guard.js";
+import { everHeldIn, queueSnapshots, resurrectedAfter, wholeLine } from "../queue-guard.js";
 import { replay } from "../replay.js";
 
 /**
@@ -125,4 +125,46 @@ describe("an entry the trunk finished before the lane branched", () => {
       }),
     repoTimeout(24),
   );
+});
+
+describe("an entry the lane renamed to a prefix of its own heading", () => {
+  const LONG = "More rubs, each one seen: THE RIME, THE GRINDSTONE, THE VALVE";
+  const SHORT = "More rubs, each one seen: THE RIME, THE GRINDSTONE";
+
+  test(
+    "lands: the trunk never held the shorter heading as a line",
+    () =>
+      inRepo(async (root) => {
+        const run = (args: string[]) => gitIn(args, root, WHO);
+        const write = (md: string) => writeFile(join(root, "docs", "queue.md"), md);
+        await run(["init", "-b", "main"]);
+        await run(["config", "user.email", "t@t"]);
+        await run(["config", "user.name", "t"]);
+        await Bun.write(join(root, "docs", "parked.md"), "# Parked\n");
+        await write(file(LONG, WAITING));
+        await run(["add", "-A"]);
+        await run(["commit", "-m", "the queue"]);
+
+        // One boss of three done: the same entry, `Found:` and all, under a
+        // heading the old one starts with.
+        await run(["checkout", "-b", "lane"]);
+        await write(file(SHORT, WAITING));
+        await run(["commit", "-am", "one of three done"]);
+
+        const before = await queueSnapshots(
+          "main",
+          (rev, path) => gitIn(["show", `${rev}:${path}`], root, WHO),
+          await run(["merge-base", "main", "HEAD"]),
+        );
+        expect(await replay(root, "main")).toMatchObject({ ok: true });
+        expect(await resurrectedAfter(root, before, everHeldIn(run, "main"))).toEqual([]);
+      }),
+    repoTimeout(24),
+  );
+
+  test("asks git for the heading as a whole line, metacharacters and all", () => {
+    expect(wholeLine("## `a.b` (c) *d* | e?")).toBe(
+      "^## `a\\.b` \\(c\\) \\*d\\* \\| e\\?[[:space:]]*$",
+    );
+  });
 });
