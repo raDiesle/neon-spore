@@ -36108,3 +36108,17 @@ Bottleneck: lane 1 had already written the serializer's two fields, so the
 lane was the panel alone.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE HALTER is taken out of the game, whole
+
+- reading: 5 min. The new-boss skill, the owner's pages, THE BELLOWS's
+  removal as the pattern.
+- writing: 15 min. Thirty files deleted, the registrations taken out of
+  about ninety more, §11.53 moved under *Retired* with the verdict.
+- looking: 0 min. Nothing new drawn.
+- friction: 5 min. The prose counts in `audio.md` and `briefings.md`, and
+  the retired section's paths, each found one red test at a time.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the registrations — a boss is a name in ninety files, and only
+the typecheck lists them.

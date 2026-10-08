@@ -79,22 +79,6 @@ export const INGEST_SILENT_BOSS_D = [
   "slingSnap",
   "slingFree",
   "slingOut",
-  // THE HALTER's fourteen: what outlives a frame is its marks' verdicts,
-  // `halter-verdicts.ts`', read above the loop (`packages/audio/src/bind-halter.ts`).
-  "halterEnter",
-  "halterLight",
-  "halterSettle",
-  "halterStartle",
-  "halterSlip",
-  "halterCrack",
-  "halterBare",
-  "halterGuard",
-  "halterShut",
-  "halterSeal",
-  "halterHit",
-  "halterMiss",
-  "halterSplit",
-  "halterOut",
   // THE CAPSTAN's fourteen: what outlives a frame is `capstan-fx.ts`', read above
   // the loop; the lean, the wear and the cap's creep stay read off the state.
   "capstanEnter",

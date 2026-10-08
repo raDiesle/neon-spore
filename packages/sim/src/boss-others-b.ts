@@ -7,7 +7,6 @@ import { stepFleet } from "./fleet.js";
 import { stepFlue } from "./flue-step.js";
 import { stepGall } from "./gall-step.js";
 import { stepGovernor } from "./governor-step.js";
-import { stepHalter } from "./halter-step.js";
 import { stepHasp } from "./hasp-step.js";
 import { stepLamprey } from "./lamprey-step.js";
 import { stepLatch } from "./latch-step.js";
@@ -91,11 +90,6 @@ export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>)
   // THE CAPSTAN: holds counted, windows run out, and the cap swung open (`capstan-step.ts`).
   if (boss.kind === "capstan") {
     stepCapstan(world, boss);
-    return;
-  }
-  // THE HALTER: rests counted, pairs held together, windows shut, and the split (`halter-step.ts`).
-  if (boss.kind === "halter") {
-    stepHalter(world, boss);
     return;
   }
   // THE SPOOL is nearly all clock, because a brake is a level rather than an

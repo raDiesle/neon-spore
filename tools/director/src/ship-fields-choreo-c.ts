@@ -233,6 +233,6 @@ export const CHOREO_FIELD_GROUP_C = {
   slingCoolBeats: "THE SLING — the boss two draws loose, then shoot into",
   slingCoolSnaps: "THE SLING — the boss two draws loose, then shoot into",
   slingFreeBeats: "THE SLING — the boss two draws loose, then shoot into",
-  // The fourth page, THE HALTER on (`ship-fields-choreo-d.ts`).
+  // The fourth page, THE CAPSTAN on (`ship-fields-choreo-d.ts`).
   ...CHOREO_FIELD_GROUP_D,
 } satisfies Record<string, GroupName>;

@@ -405,10 +405,6 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // seat's own screen (`render/sling-grip.ts`, `bosses-choreographed.md` §32).
   slingDrawLeft: "field",
   slingDrawRight: "field",
-  // THE HALTER's two grips on the lit segment's seam, either seat's on both
-  // screens (`render/halter-grip.ts`, `docs/spec/bosses.md` §11.53).
-  halterChordLeft: "field",
-  halterChordRight: "field",
   // THE CAPSTAN's pull is the drum's middle and its rub either end, either
   // seat's (`render/capstan-grip.ts`, §11.54).
   capstanSteer: "field",

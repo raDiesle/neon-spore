@@ -36,14 +36,13 @@ export const GESTURE_NOTES: Readonly<Record<string, string>> = {
   "FREEZE TAP":
     "Stamped SPEC'D but built: THE VALVE, THE TRAPEZE, THE FLUE, " +
     "THE GOVERNOR. Move to BUILT; make THE VALVE's pin the generic one.",
-  "SENDING NOTHING":
-    "Stamped SPEC'D but built: `RestraintGate` in THE FLUE and THE HALTER. " + "Move to BUILT.",
+  "SENDING NOTHING": "Stamped SPEC'D but built: `RestraintGate` in THE FLUE. " + "Move to BUILT.",
   "TAPS ON A MOVING TARGET": "Stamped SPEC'D but built: THE RATCHET's pawl. Move to BUILT.",
   RUB:
     "Stamped SPEC'D but built: THE RIME, THE CAPSTAN. Move " +
     "to BUILT, and bring THE MAZE's heart under it.",
   "SQUEEZE ONE BODY": "Stamped SPEC'D but built: THE VISE, THE GALL. Move to BUILT.",
-  CHORD: "Stamped SPEC'D but built: THE TRIVET, THE HALTER, THE GOVERNOR. Move to BUILT.",
+  CHORD: "Stamped SPEC'D but built: THE TRIVET, THE GOVERNOR. Move to BUILT.",
   "TILT, AS A LEVEL":
     "Ruled out by the owner on 27 September 2026: no wave may need a tilt " +
     "sensor, and THE PLUMB became drag stones. Move to MISSED with the ruling.",

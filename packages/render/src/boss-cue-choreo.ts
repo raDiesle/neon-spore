@@ -2,7 +2,6 @@ import type { BossState, World } from "@neon-spore/sim";
 import { viseCues } from "./boss-cue-read-zf.js";
 import { rimeCues } from "./boss-cue-read-zg.js";
 import { trivetCues } from "./boss-cue-read-zh.js";
-import { halterCues } from "./boss-cue-read-zk.js";
 import { capstanCues } from "./boss-cue-read-zl.js";
 import { gallCues } from "./boss-cue-read-zm.js";
 import { trapezeCues } from "./boss-cue-read-zn.js";
@@ -28,7 +27,6 @@ const CHOREO_KINDS: ReadonlySet<BossState["kind"]> = new Set([
   "rime",
   "trivet",
   "plumb",
-  "halter",
   "capstan",
   "gall",
   "trapeze",
@@ -74,9 +72,6 @@ export function choreoCues(
     // is lit (`plumb-marks.ts`).
     case "plumb":
       return plumbCues(l, world, boss, beatPhase);
-    // THE HALTER's, a word between the lit grips to the seat that grips, gone once it is held, nothing to the rester, and one under the bared centre (`boss-cue-read-zk.ts`).
-    case "halter":
-      return halterCues(l, world, boss, beatPhase);
     // THE CAPSTAN's, a lean to the seat that steers until the band is round, a rub to the other on the bared face, and one under the bared core (`boss-cue-read-zl.ts`).
     case "capstan":
       return capstanCues(l, world, boss, beatPhase);

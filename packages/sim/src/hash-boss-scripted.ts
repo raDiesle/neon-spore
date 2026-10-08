@@ -3,7 +3,6 @@ import { capstanHashParts } from "./capstan-hash.js";
 import { flueHashParts } from "./flue-hash.js";
 import { gallHashParts } from "./gall-hash.js";
 import { governorHashParts } from "./governor-hash.js";
-import { halterHashParts } from "./halter-hash.js";
 import { lampreyHashParts } from "./lamprey-hash.js";
 import { latchHashParts } from "./latch-hash.js";
 import { mimicHashParts } from "./mimic-hash.js";
@@ -64,11 +63,6 @@ export function scriptedHashParts(boss: BossState): number[] {
   // counts and the script (`sling-hash.ts`).
   if (boss.kind === "sling") {
     for (const n of slingHashParts(boss)) out.push(n);
-  }
-  // THE HALTER: the phase, the cursor, the cracks, the hits, the centre, both
-  // seats' rests, stirrings and grips, the pair's count and the script (`halter-hash.ts`).
-  if (boss.kind === "halter") {
-    for (const n of halterHashParts(boss)) out.push(n);
   }
   // THE CAPSTAN: the phase, the cursor, both bands' wear, the hits, the core,
   // both seats' leans and reversal counts, the hold's count and the script (`capstan-hash.ts`).

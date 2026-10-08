@@ -19,7 +19,6 @@ type BossIdB = Extract<
   | "trivet"
   | "plumb"
   | "sling"
-  | "halter"
   | "lamprey"
   | "mimic"
   | "latch"
@@ -110,10 +109,6 @@ export const BOSS_MECHANICS_B = {
   },
   sling: {
     what: "Hold until your arm is drawn home, then swipe toward the lit side. Both arms drawn light the yoke: shoot it in its colour. When both light, draw together.",
-    reach: "spawn",
-  },
-  halter: {
-    what: "One of you touches nothing while the other holds both grips. Hold it together and the seam opens. Then shoot the bared centre.",
     reach: "spawn",
   },
   capstan: {

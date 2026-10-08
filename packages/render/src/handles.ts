@@ -11,7 +11,6 @@ import { gaugeGripUnder } from "./gauge-grip.js";
 import { gimbalRingUnder } from "./gimbal-grip.js";
 import { gorgeGripUnder } from "./gorge-grip.js";
 import { governorGripUnder } from "./governor-grip.js";
-import { halterGripUnder } from "./halter-grip.js";
 import { lidCordUnder, mazeStringUnder, wardenRopeUnder } from "./handles-cords.js";
 import { balloonHandleUnder, choirArrowUnder } from "./handles-pairs.js";
 import { haspHandleUnder, haspRimUnder } from "./hasp-grip.js";
@@ -153,7 +152,6 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     trivetPadUnder(l, x, y, field) ?? // THE TRIVET's foot, one finger of this seat's chord in its zone (`trivet-grip.ts`).
     plumbPullUnder(l, x, y, field) ?? // THE PLUMB's stone on this seat's side, pulled left or right (`plumb-grip.ts`).
     rimeHalfUnder(l, x, y, field) ?? // THE RIME's lens, this seat's half of it rubbed clear (`rime-grip.ts`).
-    halterGripUnder(l, x, y, field) ?? // THE HALTER's two lit grips, either seat's, a finger of a chord each (`halter-grip.ts`).
     capstanRubUnder(l, x, y, field) ?? // THE CAPSTAN's drum, either end rubbed from either seat (`capstan-grip.ts`).
     capstanSteerUnder(l, x, y, field) ?? // THE CAPSTAN's middle, pulled to steer the cradle (`capstan-grip.ts`).
     gallPressUnder(l, x, y, field) ?? // THE GALL's seam, one finger of this seat's pinch on the point it is nearest (`gall-grip.ts`).

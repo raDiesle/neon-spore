@@ -5,7 +5,6 @@ import { flueBlow } from "./flue-blow.js";
 import { gallBlow } from "./gall-blow.js";
 import { gimbalBlow } from "./gimbal-blow.js";
 import { governorBlow } from "./governor-blow.js";
-import { halterBlow } from "./halter-blow.js";
 import { haspBlow } from "./hasp-blow.js";
 import { lampreyBlow } from "./lamprey-blow.js";
 import { latchBlow } from "./latch-blow.js";
@@ -90,7 +89,6 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   // A hub left unshot: the middle needle stamps the stand's footprint into the skin.
   trivet: trivetBlow,
   // A centre left unshot: the plating sheds a hanging plate that bites into the skin.
-  halter: halterBlow,
   // A step let run: the rusted drum throws a cog that spins down and bites the skin.
   capstan: capstanBlow,
   // A root left unshot: it seeds, a piece of the nodule torn off that takes root in the skin.

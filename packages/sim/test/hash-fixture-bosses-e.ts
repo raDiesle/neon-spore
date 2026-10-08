@@ -39,15 +39,6 @@ export const BOSS_ENTRIES_E = {
       { ask: "fire", aim: "left", color: "cyan", beats: 3 },
     ],
   },
-  // THE HALTER authors its script; two steps rather than the shipped seven,
-  // the colour set off `either` so the walk can move it (`halter-hash.ts`).
-  halter: {
-    kind: "halter",
-    steps: [
-      { ask: "left", color: "red", beats: 6 },
-      { ask: "fire", color: "cyan", beats: 3 },
-    ],
-  },
   // THE CAPSTAN authors its script the same way, two steps of the shipped
   // seven, the colour set off `either` (`capstan-hash.ts`).
   capstan: {
@@ -116,21 +107,6 @@ export function patchBossE(boss: BossState): void {
     boss.holding = [true, false];
     boss.drawnBeats = [2, 0];
     boss.loosed = [false, true];
-  }
-  if (boss.kind === "halter") {
-    // One segment cracked, the centre bare and shot once, a seat part way
-    // rested and the other stirred, a grip down on each — every field given a
-    // value (`halter-hash.ts`).
-    boss.phase = "lit";
-    boss.phaseBeat = 3;
-    boss.cursor = 1;
-    boss.cracks = [1, 0];
-    boss.hits = 1;
-    boss.bared = true;
-    boss.restBeats = [2, 1];
-    boss.stirred = [true, false];
-    boss.grips = [3, 1];
-    boss.heldBeats = 1;
   }
   if (boss.kind === "capstan") {
     // The left band bright and the right part worn, the core bare and shot

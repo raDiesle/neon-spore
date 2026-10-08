@@ -3,7 +3,6 @@ import {
   flueBoss,
   gallBoss,
   governorBoss,
-  halterBoss,
   lampreyBoss,
   sceneBoss,
   seamBoss,
@@ -18,8 +17,6 @@ import { gallFlight } from "./gall-pose.js";
 import { gallArcAt, gallSize } from "./gall-shape.js";
 import { governorStanding, governorSwing } from "./governor-pose.js";
 import { ballR, flyweightAt, headAt, rimDepth } from "./governor-shape.js";
-import { halterArrived } from "./halter-pose.js";
-import { halterAt, halterBend, halterGap, halterSize } from "./halter-shape.js";
 import { instarAt, instarLen } from "./instar-place.js";
 import { lampreyTailRest } from "./lamprey-grip.js";
 import { lampreyPose } from "./lamprey-pose.js";
@@ -65,18 +62,6 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       const w = seamHalfWidth(l);
       const h = seamHalfHeight(l);
       return capsule(sides(home.x - w, home.x + w, y - h, y + h));
-    }
-    // The slab across the top, its plates parted as far as they go and the
-    // hanging plates under them: the spine hunches up at its middle, and the
-    // ends hang lowest.
-    case "halter": {
-      const s = halterBoss(world);
-      if (s === null) return null;
-      const at = halterAt(l, cfg, halterArrived(s, cfg, beat, beatPhase));
-      const { rx, ry, drop } = halterSize(l);
-      const gap = halterGap(l, 1);
-      const top = at.y + halterBend(l, 0) - ry - gap;
-      return capsule(sides(at.x - rx, at.x + rx, top, at.y + ry + drop + gap));
     }
     // The drum's four corners and the foot of the cradle's post, rolled about
     // that foot as far as the lean has turned it.

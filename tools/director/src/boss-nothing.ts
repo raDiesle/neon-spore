@@ -34,7 +34,6 @@ const AUTHORS_NOTHING = [
   "trivet",
   "plumb",
   "sling",
-  "halter",
   "capstan",
   "gall",
   "trapeze",
@@ -171,7 +170,7 @@ const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
  * - **THE OCULUS**'s script the same, and the same two answers: the eye is
  *   `midCol`, and the leaves and the hits are the health (`sim/oculus.ts`).
  *   THE VISE's, THE RIME's, THE TRIVET's, THE PLUMB's, THE SLING's, THE
- *   HALTER's and THE CAPSTAN's
+ *   CAPSTAN's
  *   too: all `midCol`. THE GALL's points are the seam's own (`gallPointCol`),
  *   and THE TRAPEZE's columns and THE FLUE's notches are offsets from `midCol`;
  *   THE GOVERNOR's dial is `midCol` and its marks are thousandths of a lap.

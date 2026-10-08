@@ -198,7 +198,6 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "trivet",
   "plumb",
   "sling",
-  "halter",
   "capstan",
   "gall",
   "trapeze",

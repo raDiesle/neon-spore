@@ -8,7 +8,7 @@
  * whole, so the set being written keeps the comment that explains it and the
  * one being moved keeps its own. THE TRIVET's pads came over with this file;
  * THE PLUMB's levels were written on it, and THE SLING's draws after them,
- * THE HALTER's grips, THE CAPSTAN's steer and rub, THE GALL's tap and pull, and THE TRAPEZE's tap and draw. `drag-targets.ts` unions the pages
+ * THE CAPSTAN's steer and rub, THE GALL's tap and pull, and THE TRAPEZE's tap and draw. `drag-targets.ts` unions the pages
  * together, so `DragTarget` is one name.
  */
 export type DragTargetE =
@@ -18,8 +18,6 @@ export type DragTargetE =
   | "plumbLevelRight"
   | "slingDrawLeft"
   | "slingDrawRight"
-  | "halterChordLeft"
-  | "halterChordRight"
   | "capstanSteer"
   | "capstanRub"
   | "gallPress"
@@ -89,16 +87,6 @@ export type DragTargetE =
  * stood here as the ninety-third to the ninety-sixth, THE DAVIT's two steers
  * and two draws, until the owner took the boss out of the game on 8 October
  * 2026.
- */
-
-/**
- * `halterChordLeft` and `halterChordRight` are the ninety-seventh and
- * ninety-eighth: THE HALTER's two grips, both on each seat's screen, since
- * which seat chords is the lit step's.
- *
- * No new reading: `CHORD`, `trivetPadFront`'s — `on` the thumb down and a
- * lift the thumb up, the two kept as a mask a seat. Either seat's are heard
- * (`halter-hand.ts`). `id` and `fromMilli` are unused.
  */
 
 /**

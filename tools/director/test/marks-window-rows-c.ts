@@ -1,8 +1,6 @@
 import {
   type FlueState,
   flueLitLevel,
-  type HalterState,
-  halterLitStep,
   type LampreyState,
   type LatchState,
   lampreyAsks,
@@ -20,7 +18,6 @@ import {
   type World,
 } from "@neon-spore/sim";
 import * as flueMarks from "../../../packages/render/src/flue-marks.js";
-import * as halterMarks from "../../../packages/render/src/halter-marks.js";
 import * as lampreyMarks from "../../../packages/render/src/lamprey-marks.js";
 import * as markFeedback from "../../../packages/render/src/mark-feedback.js";
 import * as mimicTile from "../../../packages/render/src/mimic-tile.js";
@@ -42,7 +39,6 @@ import { mark, type Row } from "./marks-window-kit.js";
  */
 
 const flue = (w: World) => w.boss as FlueState;
-const halter = (w: World) => w.boss as HalterState;
 const lamprey = (w: World) => w.boss as LampreyState;
 const latch = (w: World) => w.boss as LatchState;
 const mimic = (w: World) => w.boss as MimicState;
@@ -50,26 +46,7 @@ const plumb = (w: World) => w.boss as PlumbState;
 const rime = (w: World) => w.boss as RimeState;
 const sling = (w: World) => w.boss as SlingState;
 
-/** THE HALTER's grips and seam: a lit step that asks for a hold, not the shot. */
-const halterHolds = (w: World) => {
-  const step = halterLitStep(halter(w));
-  return step !== null && step.ask !== "fire";
-};
-
 export const ROWS_C: readonly Row[] = [
-  {
-    kind: "halter",
-    marks: [
-      mark(halterMarks, "drawHalterSeamGlow", halterHolds),
-      mark(halterMarks, "drawHalterGrips", halterHolds),
-      mark(
-        halterMarks,
-        "drawHalterCore",
-        (w) => halter(w).bared && halterLitStep(halter(w))?.ask === "fire",
-        (a) => a[4] !== null,
-      ),
-    ],
-  },
   {
     kind: "plumb",
     marks: [

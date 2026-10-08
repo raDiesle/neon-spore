@@ -66,7 +66,6 @@ The kinds each breaks it with, and where. Paths are under `packages/sim/src`.
 | GIMBAL | 5 | `gimbal-step.ts` (the turn has no clock at all) |
 | GORGE | 1, 11 | `gorge-step.ts` (wrong colour spills a bead), `gorge-ring.ts` |
 | GOVERNOR | 1, 4 | `governor-step.ts`, `governor-hand.ts` (off-mark tap: event only) |
-| HALTER | 1, 4, 5 | `halter-step.ts`, `halter-hand.ts` |
 | HASP | 5, 9 | `hasp-step.ts` (burn), `hasp-story.ts`, `hasp-hand.ts` |
 | HIVE | 1, 2, 11 | `hive-shot.ts`, `hive-step.ts` (spills come sooner) |
 | INSTAR | 1, 5, 10 | `instar-step.ts`, `instar-hand.ts`, `scene-panel.ts` |

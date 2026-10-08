@@ -3,7 +3,6 @@ import { RoundMarks } from "./effects-round-marks.js";
 import { FlueFx } from "./flue-fx.js";
 import { GallFx } from "./gall-fx.js";
 import { GovernorFx } from "./governor-fx.js";
-import { HalterVerdicts } from "./halter-verdicts.js";
 import { LampreyFx } from "./lamprey-fx.js";
 import { LatchFx } from "./latch-fx.js";
 import { MimicFx } from "./mimic-fx.js";
@@ -28,9 +27,6 @@ import { TrivetFx } from "./trivet-fx.js";
 export class LateRoster extends RoundMarks {
   /** THE SLING's painted draw over a cord loosed true (`sling-fx.ts`). */
   readonly sling = new SlingFx();
-  /** THE HALTER's marks' verdicts on a touch — nothing else of it outlives a
-   * frame, so it has no fx of its own (`halter-verdicts.ts`). */
-  readonly halter = new HalterVerdicts();
   /** THE TRIVET's thud, the clamps' flare, the hub's flash and the collapse's,
    * the hull shock, and its receipts' bursts — thrown the same on both
    * screens, and told the hub's colour by the drawer (`trivet-fx.ts`,

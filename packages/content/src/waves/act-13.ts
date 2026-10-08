@@ -7,13 +7,6 @@ import type { Wave } from "../wave-types.js";
  * left the game on 8 October 2026: the owner did not like it, and it was
  * short to play (`docs/spec/bosses.md` §11.52).
  *
- * **THE HALTER is the first boss that asks a seat to do nothing.** A wary
- * seam on the hull's spine: on each lit segment one seat sends no command at
- * all while the other holds both grips, and held together the segment cracks
- * (§36, `sim/halter.ts`). The left mark rests the navigator and the right the
- * pilot; after the bare, a guard takes either way round. Three shots at the
- * bared centre, the last one white.
- *
  * **THE CAPSTAN is the first boss one seat turns for the other to work.** A
  * rusted drum on a cradle: one seat drags the drum to rock a face toward the
  * pair, the other wipes that face's band bright, and only the bared face
@@ -53,29 +46,6 @@ import type { Wave } from "../wave-types.js";
  * give players more time to shoot and hit.*
  */
 export const WAVES_ACT_13: Wave[] = [
-  {
-    id: "theHalter",
-    name: "THE HALTER",
-    guide: {
-      both: "One of you touches nothing while the other holds both grips. Hold it together and the seam opens. Then shoot the bared centre.",
-      p1: "1. Left mark: hold both grips down while your partner keeps still.\n2. Right mark: let go and touch nothing at all.\n3. When the seam starts to close, do it again, either way round.\n4. Shoot the centre in its colour.",
-      p2: "1. Left mark: let go and touch nothing at all.\n2. Right mark: hold both grips down while your partner keeps still.\n3. When the seam starts to close, do it again, either way round.\n4. White takes either colour.",
-    },
-    entries: [],
-    boss: {
-      kind: "halter",
-      steps: [
-        { ask: "left", color: "either", beats: 10 },
-        { ask: "right", color: "either", beats: 10 },
-        { ask: "fire", color: "red", beats: 6 },
-        { ask: "guard", color: "either", beats: 8 },
-        { ask: "fire", color: "cyan", beats: 6 },
-        { ask: "guard", color: "either", beats: 6 },
-        { ask: "fire", color: "either", beats: 6 },
-      ],
-    },
-    bossType: "normal",
-  },
   {
     id: "theCapstan",
     name: "THE CAPSTAN",

@@ -2,7 +2,6 @@ import type { World } from "@neon-spore/sim";
 import { drawCapstan } from "./capstan-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGall } from "./gall-draw.js";
-import { drawHalter } from "./halter-draw.js";
 import type { Layout } from "./layout.js";
 import { drawPlumb } from "./plumb-draw.js";
 import type { ViewState } from "./renderer.js";
@@ -28,15 +27,7 @@ import { drawTrivet } from "./trivet-draw.js";
 type Installed = NonNullable<World["boss"]>;
 
 /** The kinds this file draws. Appended, like every list of boss kinds. */
-export const LATE_PAIR_KINDS = [
-  "sling",
-  "trivet",
-  "plumb",
-  "halter",
-  "capstan",
-  "gall",
-  "trapeze",
-] as const;
+export const LATE_PAIR_KINDS = ["sling", "trivet", "plumb", "capstan", "gall", "trapeze"] as const;
 
 export type LatePairBoss = Extract<Installed, { kind: (typeof LATE_PAIR_KINDS)[number] }>;
 
@@ -90,25 +81,6 @@ export function drawLatePairBoss(
   // the free swing's release are `effects.boss.plumb` (`plumb-fx.ts`).
   if (boss.kind === "plumb") {
     drawPlumb(ctx, l, world, boss, beat, beatPhase, time, effects.boss.plumb, effects.bolts);
-    return;
-  }
-
-  // THE HALTER: a plated slab hugged shut along a seam of three segments,
-  // each parted while one seat touches nothing and the other holds both
-  // grips, the bared centre shot; its tell is the tremor stopping
-  // (`halter-draw.ts`). Nothing of it outlives a frame.
-  if (boss.kind === "halter") {
-    drawHalter(
-      ctx,
-      l,
-      world,
-      boss,
-      beat,
-      beatPhase,
-      time,
-      effects.boss.halter.verdicts,
-      effects.bolts,
-    );
     return;
   }
 

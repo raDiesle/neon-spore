@@ -11,7 +11,6 @@ import {
 import { capstanCentre, capstanPivot, capstanSize } from "../src/capstan-shape.js";
 import { gallPointCircle } from "../src/gall-grip.js";
 import { gallArcAt } from "../src/gall-shape.js";
-import { halterCentre, halterSize } from "../src/halter-shape.js";
 import { instarAt, instarLen } from "../src/instar-place.js";
 import { computeLayout } from "../src/layout.js";
 import { nettleBody } from "../src/nettle-sway.js";
@@ -50,7 +49,7 @@ function settled(kind: Parameters<typeof waveWith>[0]) {
 }
 
 describe("THE SLOW's aim at the bosses on page four", () => {
-  it.each(["seam", "halter", "capstan", "nettle"] as const)(
+  it.each(["seam", "capstan", "nettle"] as const)(
     "stands round THE %s, not the cannon, and leaves the hull a gap",
     (kind) => {
       const box = settled(kind);
@@ -65,15 +64,6 @@ describe("THE SLOW's aim at the bosses on page four", () => {
     expect(box.left).toBeCloseTo(c.x - seamHalfWidth(L), 5);
     expect(box.right).toBeCloseTo(c.x + seamHalfWidth(L), 5);
     expect(box.bottom).toBeCloseTo(c.y + seamHalfHeight(L), 5);
-  });
-
-  it("runs THE HALTER's slab across, down past its hanging plates", () => {
-    const box = settled("halter");
-    const c = halterCentre(L, CFG);
-    const { rx, ry, drop } = halterSize(L);
-    expect(box.left).toBeCloseTo(c.x - rx, 5);
-    expect(box.right).toBeCloseTo(c.x + rx, 5);
-    expect(box.bottom).toBeGreaterThan(c.y + ry + drop);
   });
 
   it("holds THE CAPSTAN's drum and cradle, and follows the drum as it rolls", () => {

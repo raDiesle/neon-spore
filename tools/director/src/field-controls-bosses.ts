@@ -11,7 +11,6 @@ import { GAUGE_CONTROLS } from "./field-controls-gauge.js";
 import { GIMBAL_CONTROLS } from "./field-controls-gimbal.js";
 import { GORGE_CONTROLS } from "./field-controls-gorge.js";
 import { GOVERNOR_CONTROLS } from "./field-controls-governor.js";
-import { HALTER_CONTROLS } from "./field-controls-halter.js";
 import { HASP_CONTROLS } from "./field-controls-hasp.js";
 import { HIVE_CONTROLS } from "./field-controls-hive.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
@@ -172,7 +171,6 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // order they land in (`field-controls-trivet.ts`).
   ...TRIVET_CONTROLS,
   ...PLUMB_CONTROLS,
-  ...HALTER_CONTROLS,
   ...CAPSTAN_CONTROLS,
   ...GALL_CONTROLS,
   // THE RIME's two halves, the first rub: a thumb turned back and forth on

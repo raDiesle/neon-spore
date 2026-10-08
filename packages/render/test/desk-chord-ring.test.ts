@@ -1,8 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import type { HalterStep, TrivetStep, World } from "@neon-spore/sim";
+import type { TrivetStep, World } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, runFrames } from "./frame-harness.js";
-import * as halter from "./halter-harness.js";
 import * as trivet from "./trivet-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -19,7 +18,6 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 beforeAll(installCanvasGlobals);
 
 const BOTH: TrivetStep = { ask: "both", pads: 2, color: "either", beats: 4 };
-const LEFT: HalterStep = { ask: "left", color: "either", beats: 10 };
 
 /** The words a frame of `world` writes as `role`, posed by `arrange` before each tick. */
 function words(world: World, role: ViewRole, arrange: (w: World) => void): string[] {
@@ -41,7 +39,6 @@ const said = (w: readonly string[], word: string) => w.filter((t) => t === word)
 
 const BOSSES = [
   ["THE TRIVET's feet", trivet.stood, (w: World) => trivet.posed(w, BOTH, false), 2],
-  ["THE HALTER's lit grips", halter.stood, (w: World) => halter.posed(w, LEFT), 1],
 ] as const;
 
 describe("a desk's chord body", () => {

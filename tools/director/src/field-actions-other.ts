@@ -114,12 +114,7 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
         title: "CHORD",
         says: "Fingers held at once, each a pad by the order it landed (`chord-pads.ts`).",
         suggest: "Already one helper. Make the pads' picture generic.",
-        rows: [
-          "THE TRIVET'S FRONT FOOT",
-          "THE TRIVET'S REAR FOOT",
-          "THE HALTER'S LEFT GRIP",
-          "THE HALTER'S RIGHT GRIP",
-        ],
+        rows: ["THE TRIVET'S FRONT FOOT", "THE TRIVET'S REAR FOOT"],
       },
     ],
   },

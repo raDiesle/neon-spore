@@ -200,8 +200,6 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   if (boss.kind === "plumb") return { ...boss };
   // THE SLING the same: its yoke is `midCol` and its aims are sides, not columns.
   if (boss.kind === "sling") return { ...boss };
-  // THE HALTER the same: its seam is `midCol` and its marks are seats.
-  if (boss.kind === "halter") return { ...boss };
   // THE CAPSTAN the same: its drum is `midCol` and its faces are sides.
   if (boss.kind === "capstan") return { ...boss };
   // THE GALL the same: its points are the seam's own, spread across the hull.

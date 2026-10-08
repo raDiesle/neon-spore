@@ -1,7 +1,6 @@
 import type { Layout } from "@neon-spore/render";
 import {
   type BossKind,
-  halterLitStep,
   instarStep,
   mantleBracing,
   seamLitStep,
@@ -16,9 +15,6 @@ import {
 import { capstanCues } from "../../../packages/render/src/boss-cue-read-zl.js";
 import { capstanScreenAt } from "../../../packages/render/src/capstan-grip.js";
 import { capstanShake } from "../../../packages/render/src/capstan-pose.js";
-import { halterGripStanding } from "../../../packages/render/src/halter-grip.js";
-import { halterArrived, halterOpen } from "../../../packages/render/src/halter-pose.js";
-import { halterAt, halterBend, halterSpan } from "../../../packages/render/src/halter-shape.js";
 import { instarMarksUp } from "../../../packages/render/src/instar-marks.js";
 import { instarMarkPoint } from "../../../packages/render/src/instar-place.js";
 import { instarThreat } from "../../../packages/render/src/instar-shape.js";
@@ -130,24 +126,6 @@ export const DRAWN: Partial<Record<BossKind, Drawn>> = {
       const at = slingHandle(l, side, 0);
       return [{ id: -2 - side, x: home.x + at.x, y: home.y + at.y }];
     });
-  },
-  // Both grips while a segment asks for them (`halterGripStanding`, which the
-  // hit test reads too), and the bared core as a shot's mark.
-  halter: (l, world, phase) => {
-    const s = world.boss;
-    if (s?.kind !== "halter") return [];
-    const cfg = world.cfg;
-    const grips = ([0, 1] as const).flatMap((side) => {
-      const at = halterGripStanding(l, cfg, s, side, world.beat, phase);
-      return at === null ? [] : [{ id: -1 - side, x: at.x, y: at.y }];
-    });
-    if (halterLitStep(s)?.ask !== "fire" || halterOpen(world, s, 1, world.beat, phase) <= 0.5) {
-      return grips;
-    }
-    const at = halterAt(l, cfg, halterArrived(s, cfg, world.beat, phase));
-    const span = halterSpan(l, 1);
-    const x = (span.x0 + span.x1) / 2;
-    return [...grips, { id: -3, x: at.x + x, y: at.y + halterBend(l, x) }];
   },
   // The socket and the wheel's notch, in the drum's frame: its centre, the
   // brace's shudder (hushed), and the list it leans by.

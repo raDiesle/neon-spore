@@ -3,7 +3,6 @@ import { flueRolled } from "./flue-step.js";
 import { gallHeard } from "./gall-hand.js";
 import { governorHeard } from "./governor-hand.js";
 import { governorTurned } from "./governor-turn.js";
-import { halterHeard } from "./halter-hand.js";
 import { lampreyHeard } from "./lamprey-hand.js";
 import { latchHeard } from "./latch-hand.js";
 import { mimicHeard } from "./mimic-hand.js";
@@ -63,9 +62,6 @@ export function scriptedHandsHeard(world: World, commands: readonly TimedCommand
   // THE SLING's draws, the same: a draw is judged the instant it lifts
   // (`sling-hand.ts`).
   for (const c of commands) slingHeard(world, c.player, c.command);
-  // THE HALTER hears every command there is: any one at all is a seat's rest
-  // gone, and a grip lifting is the pair coming apart (`halter-hand.ts`).
-  for (const c of commands) halterHeard(world, c.player, c.command);
   // THE CAPSTAN's leans and rubs: the cradle rocking and a band cracking are
   // both the instant (`capstan-hand.ts`).
   for (const c of commands) capstanHeard(world, c.player, c.command);

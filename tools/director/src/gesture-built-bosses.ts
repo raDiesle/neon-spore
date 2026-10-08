@@ -46,7 +46,7 @@ export const BUILT_FOR_BOSSES: readonly Gesture[] = [
       beats: [2, 4, 6, 8],
       window: { from: 2, to: 8, label: "nothing, three beats" },
     },
-    where: ["packages/sim/src/halter-hand.ts"],
+    where: ["packages/sim/src/seam-step.ts"],
   },
   {
     name: "TAPS ON A MOVING TARGET",

@@ -5,7 +5,6 @@ import type { CoreVerdict } from "./core-verdict.js";
 import { curtainCoreAside, curtainVerdict } from "./curtain-shot.js";
 import { gallAside, gallVerdict } from "./gall-shot.js";
 import { governorVerdict } from "./governor-shot.js";
-import { halterVerdict } from "./halter-shot.js";
 import { oculusVerdict } from "./oculus-shot.js";
 import { plumbVerdict } from "./plumb-shot.js";
 import { rimeVerdict } from "./rime-shot.js";
@@ -72,7 +71,6 @@ const CORES: Partial<Record<BossKind, Core>> = {
   // dial, four and a half rows under the hub, and a bolt is met past its far
   // edge (`governor-shot.ts`, `render/governor-shape.ts`).
   governor: { milli: 5900, meet: 9600, verdict: (w, c, k) => governorVerdict(w, c, k) },
-  halter: { milli: 2100, verdict: (w, c, k) => halterVerdict(w, c, k) },
   oculus: { milli: 2200, verdict: (w, c, k) => oculusVerdict(w, c, k) },
   plumb: { milli: 2040, verdict: (w, c, k) => plumbVerdict(w, c, k) },
   rime: { milli: 2200, verdict: (w, c, k) => rimeVerdict(w, c, k) },

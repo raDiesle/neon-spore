@@ -42,21 +42,6 @@ export const SILENT_BOSS_D = [
   // bled is read off the state each frame (`sim/plumb-bleed.ts`).
   "plumbBleed",
   "plumbFlare",
-  // THE HALTER's fourteen, the same (`packages/audio/src/bind-halter.ts`).
-  "halterEnter",
-  "halterLight",
-  "halterSettle",
-  "halterStartle",
-  "halterSlip",
-  "halterCrack",
-  "halterBare",
-  "halterGuard",
-  "halterShut",
-  "halterSeal",
-  "halterHit",
-  "halterMiss",
-  "halterSplit",
-  "halterOut",
   // THE CAPSTAN's fourteen, no burst from this table: each is thrown above the
   // loop by its own fx file (`capstan-fx.ts`).
   "capstanEnter",

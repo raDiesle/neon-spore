@@ -15,8 +15,7 @@ import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 
 /**
- * **What THE CAPSTAN is asking for** — page thirty-eight of the readings,
- * THE HALTER's (`boss-cue-read-zk.ts`) with a pull in front of the hands.
+ * **What THE CAPSTAN is asking for** — page thirty-eight of the readings.
  * Both screens draw the whole drum, so the word is what keeps the two jobs
  * apart: one seat pulls the drum round, the other rubs.
  *

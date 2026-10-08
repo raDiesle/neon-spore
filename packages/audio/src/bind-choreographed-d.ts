@@ -1,6 +1,5 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
-import { halterCue, isHalterEvent } from "./bind-halter.js";
 import { keelCue } from "./bind-keel.js";
 import { oculusCue } from "./bind-oculus.js";
 import { isPlumbEvent, plumbCue } from "./bind-plumb.js";
@@ -36,16 +35,13 @@ type LaterEvent = Extract<
       | `trivet${string}`
       | `plumb${string}`
       | `sling${string}`
-      | `halter${string}`
       | `undertow${string}`;
   }
 >;
 
 export function laterCue(e: LaterEvent, cols: number): Cue | null {
-  // THE HALTER whole, by its prefix: this page had no room for fourteen cases.
-  // THE PLUMB the same, the day its bleed brought two more, and THE SLING the
-  // day its cool did, and THE TRIVET the day its ring did.
-  if (isHalterEvent(e)) return halterCue(e, cols);
+  // THE PLUMB whole, by its prefix, the day its bleed brought two more, and
+  // THE SLING the day its cool did, and THE TRIVET the day its ring did.
   if (isTrivetEvent(e)) return trivetCue(e, cols);
   if (isPlumbEvent(e)) return plumbCue(e, cols);
   if (isSlingEvent(e)) return slingCue(e, cols);

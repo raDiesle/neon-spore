@@ -138,8 +138,8 @@ export interface BossCue {
    */
   rubHalf?: number;
   /**
-   * **A `HOLD` on a chord body** — THE TRIVET's feet, THE GOVERNOR's works,
-   * THE HALTER's lit grips. On a screen whose pointer
+   * **A `HOLD` on a chord body** — THE TRIVET's feet and THE GOVERNOR's
+   * works. On a screen whose pointer
    * speaks for both seats a held mouse there is the whole chord
    * (`desk-chord.ts`), so it is drawn as THE INSTAR's `HOLD BOTH` ring and
    * not as this cue (`desk-chord-ring.ts`).

@@ -607,11 +607,6 @@ by hand never moves.
 | `packages/sim/src/hand.ts` | you are deciding what a finger on the field is worth — a brake on a rock, an aim on anything living, nothing where it would be neither |
 | `packages/sim/src/handover.ts` | **THE HANDOVER's clock, and nothing else**: when the two panels change screens, how long they stay changed, and how many beats of warning first — no state, nothing hashed, no command swallowed |
 | `packages/sim/src/harpoon.ts` | **THE LEECH and THE LIMPET as malfunctions** |
-| `packages/sim/src/halter-hand.ts` | Every command either seat sends while THE HALTER is up — **all of them** |
-| `packages/sim/src/halter-hash.ts` | What THE HALTER puts into `hashWorld`, and nothing else |
-| `packages/sim/src/halter-shot.ts` | **THE HALTER's shot**: the bared centre, where a bolt leaves the top of the field in the middle column |
-| `packages/sim/src/halter-step.ts` | THE HALTER's clock: the seam settling in, each step lighting, each seat's rest counted |
-| `packages/sim/src/halter.ts` | THE HALTER: a wary seam over the middle column, in three segments |
 | `packages/sim/src/hive-hash.ts` | What THE HIVE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/hive-hand.ts` | **Two thumbs on THE HIVE's underside**, off the wire, on the tick |
 | `packages/sim/src/hive-shot.ts` | **A shot that nothing on the field stopped, leaving through the top** under THE HIVE |
@@ -733,7 +728,6 @@ by hand never moves.
 | `packages/sim/src/events-antiphon.ts` | **Everything THE ANTIPHON does that neither screen already says**, as events |
 | `packages/sim/src/events-hive.ts` | **Everything THE HIVE does that neither screen already says**, as events |
 | `packages/sim/src/events-hasp.ts` | What THE HASP says as it happens, one line per thing the picture and the sound answer |
-| `packages/sim/src/events-halter.ts` | What THE HALTER says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-instar.ts` | What THE INSTAR says as it happens, one line per thing the picture and the sound answer — and THE NETTLE |
 | `packages/sim/src/events-queen.ts` | **What THE BULB QUEEN reports**, off the beat and the thumb |
 | `packages/sim/src/events-warden.ts` | THE WARDEN's hold, throw and slam events — what the second and third hands do that neither screen already says |
@@ -773,7 +767,6 @@ by hand never moves.
 | `packages/sim/src/config-antiphon.ts` | THE ANTIPHON's numbers — how many contours the body can grow and how they fall into families |
 | `packages/sim/src/config-hive.ts` | THE HIVE's numbers — how many breach sites the underside has, how long it hangs before the first opens |
 | `packages/sim/src/config-hasp.ts` | THE HASP's tuning: how long a grip lasts before it burns the hand off, how long the burn holds |
-| `packages/sim/src/config-halter.ts` | THE HALTER's tuning: the beats around its steps, the rest a seat must keep |
 | `packages/sim/src/config-instar.ts` | THE INSTAR's tuning: the rules that hold across every step of a scene |
 | `packages/sim/src/config-keel.ts` | THE KEEL's tuning: how many segments the spine has |
 | `packages/sim/src/config-oculus.ts` | THE OCULUS's tuning: the rests around its steps and the grace a hold is given… |
@@ -1170,7 +1163,6 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zf.ts` | **What THE VISE is asking for** — page thirty-two of the readings |
 | `packages/render/src/boss-cue-read-zg.ts` | **What THE RIME is asking for** — page thirty-three of the readings |
 | `packages/render/src/boss-cue-read-zh.ts` | **What THE TRIVET is asking for** — page thirty-four of the readings |
-| `packages/render/src/boss-cue-read-zk.ts` | **What THE HALTER is asking for** — page thirty-seven of the readings |
 | `packages/render/src/boss-cue-read-zl.ts` | **What THE CAPSTAN is asking for** — page thirty-eight of the readings |
 | `packages/render/src/boss-cue-read-zm.ts` | **What THE GALL is asking for** — page thirty-nine of the readings |
 | `packages/render/src/boss-cue-read-zn.ts` | **What THE TRAPEZE is asking for**: page forty of the readings |
@@ -2382,14 +2374,6 @@ by hand never moves.
 | `packages/render/src/harpoon-line.ts` | **THE LINE**: the thing at the top of the field firing a body at a control |
 | `packages/render/src/harpoon-mark.ts` | **WHAT IS ON THE CONTROL, WRITTEN ON IT.** The owner's point 2 of 14 September 2026 |
 | `packages/render/src/harpoon-place.ts` | **Where each harpooned body is drawn**, for the two passes that draw something attached to one |
-| `packages/render/src/halter-blow.ts` | **THE HALTER's own blow at the hull** (`boss-strike-look.ts`) |
-| `packages/render/src/halter-draw.ts` | **THE HALTER**: a plated slab hugged shut along a spinal seam of three segments; its tell is the tremor stopping |
-| `packages/render/src/halter-marks.ts` | **THE HALTER's marks**: what says what a step asks — a segment's stretch of the seam glowing |
-| `packages/render/src/halter-pose.ts` | **The clock THE HALTER is posed off** (§36, *Animation*) |
-| `packages/render/src/halter-shape.ts` | **THE HALTER's geometry**: where the seam is, and the plates it is made of |
-| `packages/render/src/halter-stop.ts` | **Where a bolt meets THE HALTER**: the core in its mouth, or the lower plates' teeth |
-| `packages/render/src/halter-grip.ts` | **The grips on THE HALTER**: either seat's thumb on the lit segment's two grips, a finger of a chord each |
-| `packages/render/src/halter-verdicts.ts` | **THE HALTER's marks answering a touch the way every mark does** (`mark-feedback.ts`) |
 | `packages/render/src/crank-dial.ts` | THE CLAW's crank, drawn: the winder that brings the arm home |
 | `packages/render/src/crystal.ts` | THE CRYSTAL: a craft three tiles wide with an electric field round it — the order its parts go on in |
 | `packages/render/src/crystal-craft.ts` | THE CRYSTAL's craft: the `SHELL` saucer, the red and cyan engine pods and the canopy over the middle |
@@ -2677,7 +2661,6 @@ by hand never moves.
 | `packages/audio/src/bind-mantle.ts` | THE MANTLE's twenty-two, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
 | `packages/audio/src/bind-hasp.ts` | Whether an event is THE HASP's, so a page of the chain can hand it over whole |
-| `packages/audio/src/bind-halter.ts` | THE HALTER's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-hive.ts` | THE HIVE's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
 | `packages/audio/src/bind-spool.ts` | THE SPOOL's eleven, in a file of their own so the page that routes them stays a switch |
@@ -2726,7 +2709,6 @@ by hand never moves.
 | `packages/hands/src/boss-hands-flue.ts` | **THE FLUE played right**, for the autopilot: the navigator's thumb sent on the lead the pilot would call |
 | `packages/hands/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
 | `packages/hands/src/boss-hands-hasp.ts` | **THE HASP played right**, for the STATES sheet: the latch kept down and the wheel kept turning |
-| `packages/hands/src/boss-hands-halter.ts` | **THE HALTER played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |
 | `packages/hands/src/boss-hands-trivet.ts` | **THE TRIVET played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE MIRROR's pin |
@@ -3051,7 +3033,6 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-gall.ts` | THE GALL's taps: the first leap lit with the alien on the seam's first point |
 | `tools/director/src/poses-field-controls-governor.ts` | THE GOVERNOR's tap, **photographed from the pilot's seat**: a step with a mark for each seat |
 | `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb |
-| `tools/director/src/poses-field-controls-halter.ts` | THE HALTER's two grips: the left segment asked for |
 | `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
 | `tools/director/src/poses-field-controls-rime.ts` | THE RIME's two hands: a half of the lens rubbed, once a seat |
 | `tools/director/src/poses-field-controls-dark.ts` | THE DARK with a thumb dragged across it: three squares lit along one row |
@@ -3596,7 +3577,6 @@ by hand never moves.
 | `tools/director/src/field-controls-capstan.ts` | THE CAPSTAN's pull and rub, as two rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-hive.ts` | **THE HIVE's underside**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-hasp.ts` | THE HASP's latch and wheel, as rows of the ON THE FIELD tab |
-| `tools/director/src/field-controls-halter.ts` | THE HALTER's two grips, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-lead.ts` | **THE LEAD's stalk**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-ledger.ts` | **The navigator's two hands on THE LEDGER's root**, in a file of its own |
 | `tools/director/src/field-controls-lamprey.ts` | THE LAMPREY's tail, head and teeth, as rows of the ON THE FIELD tab: the holder's thumb on the tail |
@@ -3622,7 +3602,7 @@ by hand never moves.
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |
 | `tools/director/src/ship-fields-choreo-c.ts` | **The choreographed bosses' dials, the third page** — THE SPOOL and every boss built after it |
-| `tools/director/src/ship-fields-choreo-d.ts` | **The choreographed bosses' dials, the fourth page** — THE HALTER, THE CAPSTAN and every boss built after them |
+| `tools/director/src/ship-fields-choreo-d.ts` | **The choreographed bosses' dials, the fourth page** — THE CAPSTAN and every boss built after them |
 | `tools/director/src/ship-fields-cannon.ts` | The cannon's numbers — the shot it fires and the arm THE CLAW puts in its place — sorted into their cards |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |

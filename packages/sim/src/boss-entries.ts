@@ -201,8 +201,6 @@ export type {
 export type {
   CapstanEntry,
   CapstanStep,
-  HalterEntry,
-  HalterStep,
   OculusEntry,
   OculusStep,
   PlumbEntry,

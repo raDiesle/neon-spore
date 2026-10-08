@@ -10,7 +10,6 @@ import { flueCentre } from "../src/flue-shape.js";
 import { gallMidAt } from "../src/gall-shape.js";
 import { TILT_READ } from "../src/governor-pose.js";
 import { governorDial } from "../src/governor-shape.js";
-import { halterCentre } from "../src/halter-shape.js";
 import { computeLayout, tileCX, tileCY } from "../src/layout.js";
 import { mimicHang } from "../src/mimic-pose.js";
 import { RockImpactFx } from "../src/rock-impact.js";
@@ -93,7 +92,7 @@ describe("a boss's blow at the hull", () => {
     const c = ctx as unknown as CanvasRenderingContext2D;
     const bosses = [
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
-      ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "halter"],
+      ...["ratchet", "valve", "vise", "rime", "trivet", "plumb"],
       ...["capstan", "gall", "trapeze", "sling", "flue", "governor"],
       ...["filament", "lamprey", "mimic", "latch"],
     ] as const;
@@ -143,7 +142,6 @@ describe("a boss's blow at the hull", () => {
   });
 
   it.each([
-    ["THE HALTER sheds a plate from under its centre", "halter", halterCentre],
     ["THE CAPSTAN throws a cog off its cradle's foot", "capstan", capstanCentre],
     ["THE GALL drops a seed off its seam's underside", "gall", gallMidAt],
     ["THE TRAPEZE's alien leaps off the swing it hangs under", "trapeze", trapezeAnchor],

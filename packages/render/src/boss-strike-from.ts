@@ -6,7 +6,6 @@ import { flueBlowFrom } from "./flue-blow.js";
 import { gallBlowFrom } from "./gall-blow.js";
 import { gimbalCentre } from "./gimbal-shape.js";
 import { governorBlowFrom } from "./governor-blow.js";
-import { halterBlowFrom } from "./halter-blow.js";
 import { lampreyBlowFrom } from "./lamprey-blow.js";
 import { latchBlowFrom } from "./latch-blow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -84,8 +83,6 @@ const FROM: Partial<
     const c = viseCentre(l, cfg);
     return { x: c.x, y: c.y + viseRadius(l).ry };
   },
-  // The foot of the centre's hanging plates, the one it sheds (`halter-blow.ts`).
-  halter: halterBlowFrom,
   // The cradle's foot, where the cog it throws falls clear (`capstan-blow.ts`).
   capstan: capstanBlowFrom,
   // The seam's underside over the middle, where the seed tears off (`gall-blow.ts`).

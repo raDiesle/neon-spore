@@ -98,7 +98,7 @@ describe("buildBacklog", () => {
     // list. THE KEEL (§24), THE VALVE (§25), THE SEAM (§26), THE OCULUS
     // (§27), THE VISE (§28), THE RIME (§29), THE TRIVET (§30), THE PLUMB
     // (§31), THE SLING (§32), THE GRINDSTONE (§33), THE CYST (§34), THE
-    // DAVIT (§35), THE HALTER (§36), THE CAPSTAN (§37), THE GALL (§38) and THE
+    // DAVIT (§35), THE CAPSTAN (§37), THE GALL (§38) and THE
     // TRAPEZE (§39) left it when their simulation lanes landed, and THE FLUE
     // (§40) and THE GOVERNOR (§43) after them, and THE MIMIC (§42) last.
     expect(proposedNames).not.toContain("THE MANTLE");
@@ -114,7 +114,6 @@ describe("buildBacklog", () => {
     expect(proposedNames).not.toContain("THE GRINDSTONE");
     expect(proposedNames).not.toContain("THE CYST");
     expect(proposedNames).not.toContain("THE DAVIT");
-    expect(proposedNames).not.toContain("THE HALTER");
     expect(proposedNames).not.toContain("THE CAPSTAN");
     expect(proposedNames).not.toContain("THE GALL");
     expect(proposedNames).not.toContain("THE TRAPEZE");

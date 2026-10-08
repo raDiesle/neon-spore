@@ -3,8 +3,6 @@ import { drawCapstan } from "../src/capstan-draw.js";
 import { CapstanFx } from "../src/capstan-fx.js";
 import { drawGovernor } from "../src/governor-draw.js";
 import { GovernorFx } from "../src/governor-fx.js";
-import { GripVerdicts } from "../src/grip-verdict.js";
-import { drawHalter } from "../src/halter-draw.js";
 import { drawKeel } from "../src/keel-draw.js";
 import { KeelFx } from "../src/keel-fx.js";
 import type { Layout } from "../src/layout.js";
@@ -18,7 +16,6 @@ import { stubCanvas } from "./canvas-stub.js";
 import * as capstan from "./capstan-harness.js";
 import * as curtain from "./curtain-harness.js";
 import * as governor from "./governor-harness.js";
-import * as halter from "./halter-harness.js";
 import * as keel from "./keel-harness.js";
 import * as plumb from "./plumb-harness.js";
 import * as rime from "./rime-harness.js";
@@ -93,17 +90,6 @@ export const ROWS: Row[] = [
       curtain.draw(world, stops, l);
     },
     wide: false,
-  },
-  {
-    name: "THE HALTER",
-    draw(stops, l, open) {
-      const world = halter.stood();
-      const s = halter.posed(world, halter.FIRE, (h) => {
-        h.bared = open;
-      });
-      drawHalter(paper(), l, world, s, world.beat, 0.5, 0, new GripVerdicts(), stops);
-    },
-    wide: true,
   },
   {
     name: "THE KEEL",

@@ -258,10 +258,6 @@ const ACCEPTED: Command[] = [
   // `fromMilli` by its sign alone (`sim/sling-hand.ts`).
   { kind: "drag", target: "slingDrawLeft", on: true, fromMilli: 0 },
   { kind: "drag", target: "slingDrawRight", on: false, fromMilli: -1 },
-  // THE HALTER's grips carry nothing but the thumb down or up, from either
-  // seat (`sim/halter-hand.ts`).
-  { kind: "drag", target: "halterChordLeft", on: true, fromMilli: 0 },
-  { kind: "drag", target: "halterChordRight", on: false, fromMilli: 0 },
   // THE CAPSTAN's pull carries the thumb's carry on `fromMilli`, its rub the
   // reversal count on `id`, from either seat (`sim/capstan-hand.ts`).
   { kind: "drag", target: "capstanSteer", on: true, fromMilli: -1200 },
@@ -454,8 +450,6 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   plumbLevelRight: true,
   slingDrawLeft: true,
   slingDrawRight: true,
-  halterChordLeft: true,
-  halterChordRight: true,
   capstanSteer: true,
   capstanRub: true,
   gallPress: true,

@@ -34,7 +34,6 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   // and THE SLING's cool, each posed with row 11's look.
   plumb: ["lit", "rest", "free"],
   sling: ["lit", "rest", "free"],
-  halter: ["alarmed", "lit", "pause", "spent"],
   capstan: ["rusted", "lit", "rest", "open"],
   gall: ["slack", "lit", "leap", "rest", "flat"],
   trapeze: ["rest", "spent"],

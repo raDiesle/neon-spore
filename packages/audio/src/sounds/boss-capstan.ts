@@ -150,7 +150,6 @@ export const BOSS_CAPSTAN_SOUNDS: SoundDef[] = [
     status: "bound",
     use: "THE CAPSTAN gone — then the wave-end light.",
     level: 0.5,
-    // The same shape as THE HALTER's own out (`sounds/boss-halter.ts`).
     layers: [
       sub(50, 0.5, 0.35),
       after(0.1, air(4000, 6800, 0.6, 0.14, 1.5)),

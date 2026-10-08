@@ -99,9 +99,6 @@ const STILL_PROSE = [
   // And THE SLING (§32), a sixteenth time: the fork is undrawn, and the guide
   // says which finger draws which arm.
   "THE SLING",
-  // And THE HALTER (§36), a twentieth time: the seam is undrawn, and the
-  // guide says which mark each seat rests on and which it grips.
-  "THE HALTER",
   // And THE CAPSTAN (§37), a twenty-first time: the drum is undrawn, and the
   // guide says which mark each seat leans on and which it rubs.
   "THE CAPSTAN",

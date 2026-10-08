@@ -2,7 +2,6 @@ import type { CapstanEntry } from "./capstan.js";
 import type { FlueEntry } from "./flue.js";
 import type { GallEntry } from "./gall.js";
 import type { GovernorEntry } from "./governor.js";
-import type { HalterEntry } from "./halter.js";
 import type { LampreyEntry } from "./lamprey.js";
 import type { LatchEntry } from "./latch.js";
 import type { MimicEntry } from "./mimic.js";
@@ -42,8 +41,6 @@ export type ScriptedBossEntry =
   | PlumbEntry
   // The one that authors draws as well as shots: a fork loosed by two seats' holds (`sling.ts`).
   | SlingEntry
-  // The one that authors rests and chords as well as shots: a seam one seat stays off while the other grips (`halter.ts`).
-  | HalterEntry
   // The one that authors leans and rubs as well as shots: a drum one seat rocks for the other (`capstan.ts`).
   | CapstanEntry
   // The one that authors leaps as well as shots: an alien tapped, thrown to the other half and shot (`gall.ts`).
@@ -65,7 +62,6 @@ export type { CapstanEntry, CapstanStep } from "./capstan.js";
 export type { FlueEntry, FlueLevel } from "./flue.js";
 export type { GallEntry, GallStep } from "./gall.js";
 export type { GovernorEntry, GovernorStep } from "./governor.js";
-export type { HalterEntry, HalterStep } from "./halter.js";
 export type { LampreyEntry, LampreyStep } from "./lamprey.js";
 export type { LatchEntry, LatchStep } from "./latch.js";
 export type { MimicEntry, MimicStep } from "./mimic.js";

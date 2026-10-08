@@ -1,8 +1,8 @@
 import type { GroupName } from "./ship-groups.js";
 
 /**
- * **The choreographed bosses' dials, the fourth page** — THE HALTER, THE
- * CAPSTAN and every boss built after them.
+ * **The choreographed bosses' dials, the fourth page** — THE CAPSTAN and
+ * every boss built after them.
  *
  * Cut on 27 September 2026, when THE TRAPEZE's eight numbers would have taken
  * `ship-fields-choreo-c.ts` past the 250-line wall. The seam is page three's:
@@ -19,14 +19,6 @@ import type { GroupName } from "./ship-groups.js";
  * THE CYST's and THE GRINDSTONE's left the game with them on 8 October 2026.
  */
 export const CHOREO_FIELD_GROUP_D = {
-  // HalterConfig — the alarm before the first step, the pause between steps,
-  // how long a seat must send nothing, how long the pair must hold, and the
-  // spent seam (`config-halter.ts`).
-  halterAlarmBeats: "THE HALTER — the boss one hand keeps still for the other to open",
-  halterPauseBeats: "THE HALTER — the boss one hand keeps still for the other to open",
-  halterRestThreshold: "THE HALTER — the boss one hand keeps still for the other to open",
-  halterHoldBeats: "THE HALTER — the boss one hand keeps still for the other to open",
-  halterSpentBeats: "THE HALTER — the boss one hand keeps still for the other to open",
   // CapstanConfig — the rust before the first step, the rest between steps,
   // how far a pull rocks the cradle, the reversals that wear a band bright,
   // the beats a hold needs, and the spent drum (`config-capstan.ts`).

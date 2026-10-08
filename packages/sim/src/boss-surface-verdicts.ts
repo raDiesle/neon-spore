@@ -21,7 +21,6 @@ export { curtainVerdict } from "./curtain-shot.js";
 export { gallVerdict } from "./gall-shot.js";
 export { gimbalVerdict } from "./gimbal-shot.js";
 export { governorVerdict } from "./governor-shot.js";
-export { halterVerdict } from "./halter-shot.js";
 export { HASP_BOLT_FROM_MILLI, haspBoltMilli, haspVerdict } from "./hasp-shot.js";
 export { hiveVerdict, hiveWallVerdict } from "./hive-shot.js";
 export { KEEL_ROCK_FROM_MILLI, keelRockMilli, keelVerdict } from "./keel-shot.js";

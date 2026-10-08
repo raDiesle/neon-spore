@@ -2,7 +2,6 @@ import { type DragTarget, valveTurning, type World } from "@neon-spore/sim";
 import { capstanRubStanding, capstanSteerStanding, capstanTakesHand } from "./capstan-grip.js";
 import { gallPointCircle, gallTakesPress } from "./gall-grip.js";
 import { governorTapCircle } from "./governor-grip.js";
-import { halterGripStanding } from "./halter-grip.js";
 import { lampreyHeadCircle, lampreyTailCircle, lampreyToothCircle } from "./lamprey-grip.js";
 import { latchKnobStanding, latchTakesHand } from "./latch-grip.js";
 import type { Circle, Layout } from "./layout.js";
@@ -53,14 +52,6 @@ export function laterBossHandleCircle(
     const b = world.boss?.kind === "rime" ? world.boss : null;
     if (b === null || !rimeTakesHand(b)) return null;
     return rimeHalfStanding(l, cfg, b, target, world.beat, beatPhase);
-  }
-  if (target === "halterChordLeft" || target === "halterChordRight") {
-    // THE HALTER's two grips on the lit segment's seam, either seat's. Null
-    // while no rest-and-chord step is lit (`halter-grip.ts`).
-    const b = world.boss?.kind === "halter" ? world.boss : null;
-    if (b === null) return null;
-    const side = target === "halterChordLeft" ? 0 : 1;
-    return halterGripStanding(l, cfg, b, side, world.beat, beatPhase);
   }
   if (target === "trapezePushLeft" || target === "trapezePushRight" || target === "trapezeLock") {
     // THE TRAPEZE's two zones, the middle of each, null outside a swipe level;

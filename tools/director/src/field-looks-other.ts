@@ -118,10 +118,6 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "Each seat's half of the stand down to under its feet — front the pilot's, rear the navigator's. The lit sockets say how many fingers.",
     move: "Each finger lands as a pad; held together through the count, the foot plants green. A pad lifting slips the chord.",
   },
-  "THE HALTER'S LEFT GRIP": {
-    find: "Two grips near the ends of the lit segment's seam, haloed on the gripper's screen.",
-    move: "Both grips held while the resting seat sends nothing and the segment cracks, green; a stir or a slip, red.",
-  },
   // PINCH
   "THE VISE'S LEFT LOBE": {
     find: "Each seat's half of the seed-case — left the pilot's, right the navigator's — haloed while a pinch on that lobe is lit.",

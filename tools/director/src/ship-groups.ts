@@ -51,7 +51,6 @@ export type GroupName =
   | "THE TRIVET — the boss two chords plant, then shoot into"
   | "THE PLUMB — the boss two pulls hold level, then shoot into"
   | "THE SLING — the boss two draws loose, then shoot into"
-  | "THE HALTER — the boss one hand keeps still for the other to open"
   | "THE CAPSTAN — the boss one hand rocks for the other to wear"
   | "THE GALL — the alien tapped, pulled and thrown across the hull"
   | "THE TRAPEZE — an alien swung up to a gong"
@@ -162,7 +161,6 @@ export const GROUP_ORDER: GroupName[] = [
   "THE TRIVET — the boss two chords plant, then shoot into",
   "THE PLUMB — the boss two pulls hold level, then shoot into",
   "THE SLING — the boss two draws loose, then shoot into",
-  "THE HALTER — the boss one hand keeps still for the other to open",
   "THE CAPSTAN — the boss one hand rocks for the other to wear",
   "THE GALL — the alien tapped, pulled and thrown across the hull",
   "THE TRAPEZE — an alien swung up to a gong",

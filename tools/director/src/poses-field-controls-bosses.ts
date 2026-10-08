@@ -2,7 +2,6 @@ import type { Pose } from "./pose-kit.js";
 import { CAPSTAN_GRIPS } from "./poses-field-controls-capstan.js";
 import { GALL_GRIPS } from "./poses-field-controls-gall.js";
 import { GOVERNOR_GRIPS } from "./poses-field-controls-governor.js";
-import { HALTER_GRIPS } from "./poses-field-controls-halter.js";
 import { HASP_GRIPS } from "./poses-field-controls-hasp.js";
 import { KEEL_GRIPS } from "./poses-field-controls-keel.js";
 import { LAMPREY_GRIPS } from "./poses-field-controls-lamprey.js";
@@ -32,7 +31,6 @@ export const BOSS_GRIPS: readonly Pose[] = [
   ...VISE_GRIPS,
   ...TRIVET_GRIPS,
   ...PLUMB_GRIPS,
-  ...HALTER_GRIPS,
   ...CAPSTAN_GRIPS,
   ...GALL_GRIPS,
   ...RIME_GRIPS,

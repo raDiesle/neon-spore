@@ -155,6 +155,15 @@ bosses* — are `generic.md`, next to this page.**
   the other acts is the shape he finds boring. THE GOVERNOR lost its brake
   for a mark each, numbered later and taken in order, and its shot is aimed
   at the needle rather than the body.
+- **Dislikes, in his words:** THE HALTER, built 26 September and removed on
+  8 October 2026 — *"I do not like the concept at all. and holding is bad
+  visual and boring (not enough clear feedback that during holding first
+  beats its the correct action player has to do). its boring to just hold."*
+  A hold whose first beats look the same right or wrong is no feedback, and
+  a seat asked to do nothing is THE GOVERNOR's boring shape again. He kept
+  one idea from it: **shells taken off a body, one after another** — a body
+  in layers, each layer a different action, the body smaller each time, and
+  a picture of each layer won (`bosses.md` §11.53, *Retired*).
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

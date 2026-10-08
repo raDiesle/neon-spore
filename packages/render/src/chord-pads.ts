@@ -26,8 +26,8 @@ interface Body {
  * Bodies are told apart by target and seat. By target is `pinch.ts`' rule: on
  * a phone each seat has one foot, and the desk's both-seats screen signs a
  * press with the seat whose side it landed on. By seat as well since THE
- * HALTER, whose two grips are both seats' (`halter-grip.ts`): at the desk the
- * pilot's thumb and the navigator's on one grip are two bodies, not one.
+ * HALTER (taken out on 8 October 2026), whose two grips were both seats': at
+ * the desk the pilot's thumb and the navigator's on one grip are two bodies.
  *
  * **A desk's mouse is every pad at once.** Its press carries a hold for each
  * body of the chord, each flagged with its count of pads (`desk-chord.ts`),

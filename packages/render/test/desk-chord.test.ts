@@ -9,7 +9,6 @@ import { computeLayout } from "../src/layout.js";
 import type { Pinched } from "../src/pinch-pair.js";
 import type { Field } from "../src/touch.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT } from "./frame-harness.js";
-import * as halter from "./halter-harness.js";
 import * as trivet from "./trivet-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -84,14 +83,6 @@ describe("one mouse at the desk closes a chord", () => {
       lifted.map((p) => ({ tick: world.tick, player: p.player, command: p.command })),
     );
     expect(s.padsDown).toEqual([0, 0]);
-  });
-
-  it("takes both of THE HALTER's grips for the chording seat, and none for the rester", () => {
-    const world = halter.stood();
-    const s = halter.posed(world, { ask: "left", color: "either", beats: 8 });
-    const said = press(world, "halterChordLeft");
-    expect(said.every((p) => p.player === 1)).toBe(true);
-    expect(s.grips).toEqual([3, 0]);
   });
 
   it("is one pad a finger on a phone", () => {

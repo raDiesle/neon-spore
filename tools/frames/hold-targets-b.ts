@@ -138,9 +138,6 @@ export const ROWS: Record<string, Row> = {
   // `sling-hand.ts`: an arm each, the lift's swipe on `fromMilli`; the pilot's is the left.
   slingDrawLeft: {},
   slingDrawRight: { seat: 2 },
-  // `halter-hand.ts`: either seat's thumbs on both grips; sent as the pilot's.
-  halterChordLeft: {},
-  halterChordRight: {},
   // `capstan-hand.ts`: either seat's pull on `fromMilli` and either seat's
   // thumb, `id` the reversal count; which one steers is the lit step's.
   capstanSteer: {},
