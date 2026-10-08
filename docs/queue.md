@@ -690,6 +690,7 @@ row (`trapezeSeat` stepped forward by the climb), and tighten
 ## A film's caption at a boss with no caption anchor is dropped silently
 
 - **Found:** 2026-10-08, claude/trapeze-tutorial
+- **Taken:** 2026-10-08, claude/queue-caption-anchor (claim: claude/queue-a-films-caption-at-a-boss-with-no-caption-anchor)
 - **Files:** `packages/render/src/caption-anchor.ts`, `packages/render/src/caption-anchor-boss-f.ts`, `packages/content/test/scenes.test.ts`
 
 THE TRAPEZE's film was written with every page `{ at: "boss" }`, and
