@@ -35810,3 +35810,5 @@ never written, settled by whether a `*-marks.ts` exists to spy on.
 
 Bottleneck: reading — THE MANTLE's mark functions gate themselves, so the row
 had to be the shared halo rather than its own file.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

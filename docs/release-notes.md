@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · ddadd9e41 — THE MANTLE and THE GOVERNOR are held to no mark before its window
+
+Two of the rows `NO_ROW` owed, in a fourth row file. THE MANTLE's halo — a knob, the core's half or the vent — is drawn only while the simulation says that mark asks; THE GOVERNOR's track mark is drawn open only while a tap may land it, and its halos only on an open mark or while the hub fires. Each row goes red with its window narrowed to nothing.
+
 ## 2026-10-08 · 016265381 — `marks-window.test.ts`'s *every boss has a row* is held by a test
 
 The preamble said every boss but THE QUEEN has a row and nothing checked it: 22 of 58 did. `NO_ROW` (`marks-window-no-row.ts`) names the other 36 with a reason each — THE QUEEN never, THE INSTAR's own test, eight with no `*-marks.ts` to spy on, and 26 owed — and `marks-window-coverage.test.ts` holds every boss to a row or a line, nothing to both, and each reason to the tree, so the list can only shrink. The 26 owed rows are queued in seven lanes.
