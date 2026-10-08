@@ -501,6 +501,7 @@ built.
 ## `marks-window.test.ts` says every boss has a row, and 22 do
 
 - **Found:** 2026-10-08, claude/parked-boss-concept-d88325
+- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-marks-window-test-ts-says-every-boss-has-a-row-a)
 - **Files:** `tools/director/test/marks-window.test.ts`, `tools/director/test/marks-window-rows-a.ts`, `tools/director/test/marks-window-rows-b.ts`, `tools/director/test/marks-window-rows-c.ts`
 
 The preamble reads *Every boss but THE QUEEN has a row, in
