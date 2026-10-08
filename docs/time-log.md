@@ -35288,3 +35288,5 @@ Bottleneck: reading — whether a window is under THE SLOW is said only at the
 Bottleneck: writing — the scars only made sense once a probe printed which
 breaches were open on the tick each one landed; the first two fixes were
 guesses made before that.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

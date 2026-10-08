@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · c10471bb8 — AUTO answers THE HIVE's last spills, and four more bosses are played to the end in tests
+
+AUTO on THE HIVE stood idle once every breach was sealed, while a body a breach had already spilled was still falling, and the hull took it — once a fight at no charge, three times at the game's. It now answers what is left on the field the field's way. THE GIMBAL, THE SPOOL, THE STARE and THE HIVE each have a test that plays AUTO to the end at both shot charges.
+
 ## 2026-10-08 · e437df768 — THE KEEL's and THE SEAM's shot windows stay as they are, and say why
 
 Acts twelve and thirteen doubled every boss shot window to six beats on the owner's ask for more time to shoot. THE KEEL and THE SEAM keep theirs in their own config, and every one of those windows plays under THE SLOW at a quarter of the tempo: 5 to 10 seconds at 96 bpm against the acts' 3.75. Nothing is changed; each config now says so.
