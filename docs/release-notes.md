@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · b7de87b10 — THE BLISTER's lanes 5 to 8 are back on the queue
+
+SWIPE, TURN, RUB and the real guide leave the foot of docs/spec/blister.md for docs/queue.md at the owner's word, each in the shape it had as an entry, to be worked in order. Lane 4, HOLD, had already landed and is not restored.
+
 ## 2026-10-08 · da9156db9 — THE BASTION is drawn: a metal moon in four shells, each its own metal
 
 The moon hangs over the middle of the field, drawn inside out so every shell still on shows through the one over it: blue gunmetal armour slabs with a command tower and a keel, a bronze gun ring whose guns go round the back as the rim turns, a titanium cage with lightning-yellow nodes, and a grey inner hull with a trench, its ports on the navigator's screen alone, round a white-hot core. A slab being pulled stands out along its way; a shell coming away is a flash, a green shockwave and the shell in pieces; one growing back fills out inside a red ring; the core swells and blows.
