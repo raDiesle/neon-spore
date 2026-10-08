@@ -34,7 +34,7 @@ import { trapezeAlienAt, trapezeDeg, trapezeSpeed } from "./trapeze-shape.js";
  */
 
 /** How far round the alien a tap lands, in tiles, before `hitReach`. */
-const ALIEN_R = 0.8;
+const ALIEN_R = 1;
 
 /** The circle round the alien this frame, where the pilot taps to lock. */
 export function trapezeAlienCircle(l: Layout, cfg: SimConfig, s: TrapezeState): Circle {

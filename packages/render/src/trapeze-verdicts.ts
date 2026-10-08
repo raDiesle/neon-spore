@@ -33,6 +33,8 @@ import { trapezeAlienCircle, trapezeZoneCircle } from "./trapeze-grip.js";
 export const TRAPEZE_LEFT_MARK = 0;
 export const TRAPEZE_RIGHT_MARK = 1;
 export const TRAPEZE_ALIEN_MARK = 2;
+/** A zone's verdict ring, in tiles. */
+const ZONE_VERDICT = 0.9;
 
 export class TrapezeVerdicts {
   /** Was the last touch on each mark right. */
@@ -99,7 +101,9 @@ export function drawTrapezeMarkFeedback(
       drawMarkWait(ctx, c.x, c.y, c.r, time);
     }
     const verdict = v.verdicts.at(mark);
-    if (verdict !== null) drawVerdictRing(ctx, c.x, c.y, c.r, verdict);
+    // A zone is half the field: its verdict is a ring the size of a thumb in its middle, not a disc over the zone.
+    const r = mark === TRAPEZE_ALIEN_MARK ? c.r : Math.min(c.r, ZONE_VERDICT * l.tile);
+    if (verdict !== null) drawVerdictRing(ctx, c.x, c.y, r, verdict);
   });
   ctx.globalAlpha = before;
 }

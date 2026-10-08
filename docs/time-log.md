@@ -35080,3 +35080,16 @@ Bottleneck: friction — a reworked boss's names live in about twenty places
 outside its own files, and only the tests list them.
 
 *Measured: 529 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE TRAPEZE's look: the alien pumping on a swing seen from the side
+
+- reading: 5 min. The plain picture's files, and four real frames of it.
+- writing: 20 min. The alien and its limbs, the ropes side-on, the gong's
+  swing, the chevrons, the zone verdict, a test, the write-up.
+- looking: 15 min. Five rounds of `bun run frames`, close up and whole.
+- friction: 5 min. AUTO loses the shoot level in the frames tool, so the
+  lock level was posed with `--boss` rather than played to.
+- landing: 5 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: looking — whether the pose read as a swinger only showed in a
+frame, and the first one was too small to.

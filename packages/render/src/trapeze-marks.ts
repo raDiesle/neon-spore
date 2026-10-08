@@ -26,6 +26,8 @@ import { trapezeOnArc } from "./trapeze-shape.js";
 
 /** How much of a zone shows on the screen of the seat that does not push there. */
 const OTHER = 0.35;
+/** How steeply the chevrons point down, as rows per column in. */
+const DOWN = 0.55;
 /** Rows of the field the zones leave free above the hull, for the cannon. */
 const FREE_ROWS = 1.2;
 
@@ -85,7 +87,11 @@ export function drawTrapezeZone(
   drawBadge(ctx, l, z, side, seat, open ? k : 0.45 * k);
 }
 
-/** Three chevrons down and in toward the middle, stepping with `pulse`. */
+/**
+ * Three chevrons marching down and in toward the middle, the way the swipe
+ * goes: each an arrowhead pointing along it, the lead one brightest, and the
+ * three stepping forward with `pulse` so they read as moving.
+ */
 function drawChevrons(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -94,21 +100,27 @@ function drawChevrons(
   k: number,
   pulse: number,
 ): void {
-  const way = -side;
+  const len = Math.hypot(1, DOWN);
+  const dx = -side / len;
+  const dy = DOWN / len;
   const cx = z.x + z.w / 2;
   const cy = z.y + z.h / 2;
-  const size = 0.42 * l.tile;
+  const size = 0.38 * l.tile;
+  const wing = 0.75;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
   for (let i = 0; i < 3; i++) {
-    const t = (i - 1) * 0.75 * l.tile + pulse * 0.25 * l.tile;
-    const x = cx + way * t;
-    const y = cy + 0.4 * t;
+    const t = (i - 1 + pulse * 0.5) * 0.8 * l.tile;
+    const x = cx + dx * t;
+    const y = cy + dy * t;
     const head = new Path2D();
-    head.moveTo(x - way * size, y - size);
-    head.lineTo(x, y);
-    head.lineTo(x - way * size * 0.2, y + size);
-    strokeGlow(ctx, head, PALETTE.hullRim, STROKE.outline, k * (0.45 + 0.25 * i), 1);
+    for (const w of [-wing, wing]) {
+      const c = Math.cos(Math.PI + w);
+      const sn = Math.sin(Math.PI + w);
+      head.moveTo(x + (dx * c - dy * sn) * size, y + (dx * sn + dy * c) * size);
+      head.lineTo(x, y);
+    }
+    strokeGlow(ctx, head, PALETTE.hullRim, STROKE.outline * 1.3, k * (0.35 + 0.3 * i), 1);
   }
 }
 

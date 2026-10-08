@@ -20,7 +20,10 @@ import { TrapezeVerdicts } from "./trapeze-verdicts.js";
  *   `WAIT FOR IT` or `TOWARD THE MIDDLE`, off `trapezeWhiff`'s `why`.
  * - **A shot that pushes** jabs the swing as a push does.
  * - **A gong** rings: a ring thrown off it, brighter for every gong kicked,
- *   and the blow every boss takes on a step landed (`boss-hurt.ts`).
+ *   the alien's legs thrown straight out at it, and the blow every boss
+ *   takes on a step landed (`boss-hurt.ts`).
+ * - **Which way the alien faces**, eased as it turns round on the seat to
+ *   face the next level's gong (`trapeze-alien.ts`).
  * - **The lock** draws its ring closed round the alien; a shot into it is a
  *   flash on its body.
  */
@@ -30,6 +33,9 @@ const PUSH_DECAY = 2.5;
 const RING_DECAY = 0.9;
 const FLASH_DECAY = 3;
 const SNAP_DECAY = 4;
+const KICK_DECAY = 2.2;
+/** How fast the alien turns round on the seat, in widths a second. */
+const TURN = 3;
 /** How long a word stands, in seconds. */
 const WORD_STANDS = 1.1;
 
@@ -59,6 +65,11 @@ export class TrapezeFx {
   /** A shot into the alien, and the lock closing on it, each 1 as it lands. */
   flash = 0;
   snap = 0;
+  /** The legs thrown out at the gong, 1 as it is kicked. */
+  kick = 0;
+  /** Which way the alien faces, -1..1, and which way it is turning to (`trapeze-alien.ts`). */
+  facing = 1;
+  face: -1 | 1 = 1;
   /** The word standing in a zone, or null. */
   word: TrapezeWord | null = null;
   /** The blow a gong deals the swing, and a push's jab. */
@@ -108,6 +119,7 @@ export class TrapezeFx {
           break;
         case "trapezeGong":
           this.ring = 1;
+          this.kick = 1;
           this.ringStep = e.gongs - 1;
           this.hurt.hit();
           break;
@@ -133,6 +145,9 @@ export class TrapezeFx {
     this.ring = Math.max(0, this.ring - RING_DECAY * step);
     this.flash = Math.max(0, this.flash - FLASH_DECAY * step);
     this.snap = Math.max(0, this.snap - SNAP_DECAY * step);
+    this.kick = Math.max(0, this.kick - KICK_DECAY * step);
+    const turn = this.face - this.facing;
+    this.facing += Math.sign(turn) * Math.min(Math.abs(turn), TURN * step);
     if (this.word !== null) {
       this.word.age += step;
       if (this.word.age >= WORD_STANDS) this.word = null;
@@ -150,6 +165,9 @@ export class TrapezeFx {
     this.ringStep = 0;
     this.flash = 0;
     this.snap = 0;
+    this.kick = 0;
+    this.facing = 1;
+    this.face = 1;
     this.word = null;
     this.hurt.clear();
     this.verdicts.clear();

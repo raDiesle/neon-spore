@@ -1226,6 +1226,8 @@ by hand never moves.
 | `packages/render/src/trapeze-grip.ts` | **THE TRAPEZE's controls**: the two zones, `trapezePushLeft` and `trapezePushRight`, and the alien itself |
 | `packages/render/src/trapeze-verdicts.ts` | **THE TRAPEZE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/trapeze-arc.ts` | **How high the swing goes, and how high it has to go** (the owner, 7 October 2026 |
+| `packages/render/src/trapeze-alien.ts` | **The alien on the swing, seen from the side**: facing the gong, pumping its legs, turning round between levels |
+| `packages/render/src/trapeze-limbs.ts` | **The seat and the alien's limbs**, for `trapeze-alien.ts`, in the seat's own frame |
 | `packages/render/src/effects.ts` | every transient the field keeps past its frame, and where each one is kept |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/sparks.ts` | the particles every impact spends, thrown out or drawn in |

@@ -11001,13 +11001,23 @@ an eighth of a swing after each end, which is the swing coming back, and
 plays the wave to its end (`autopilot-trapeze.test.ts`). **Whether a pair
 reads the swing's rhythm at tempo, on two phones, is unverified.**
 
-**The picture** (`render/src/trapeze-draw.ts`, 7 October 2026, plain, with
-the look still to come). Both screens draw the same swing: the ropes fading
-in from the top of the field, the plank, and the alien on it, a torso and a
-head lagging the swing, looking the way it goes (`trapeze-shape.ts`).
+**The picture** (`render/src/trapeze-draw.ts`, 7 October 2026; the look, 8
+October). Both screens draw the same swing, **seen from the side** so it
+goes the way the screen is wide: the ropes fading in from the top of the
+field, the far one a shade darker behind the near, and the seat end-on with
+its top showing. **The alien sits on it facing the gong**
+(`trapeze-alien.ts`, `trapeze-limbs.ts`), a third bigger than a creature,
+and pumps the way a child on a swing does: going forward it leans back and
+throws its legs out, coming back it sits up and tucks them under; its far
+arm and leg are drawn darker behind its body. At the gong its legs shoot
+straight out, and the gong swings away on its cord as it rings
+(`TrapezeFx.kick`, `trapeze-arc.ts`). When the next gong hangs on the other
+side the alien turns round on the seat, through edge-on
+(`TrapezeFx.facing`).
 **Where and when** (`trapeze-marks.ts`): in a swipe level the field is cut
 into two zones, each badged with the seat that pushes there; a zone lights
-with chevrons toward the middle while the swing comes back over it, loud on
+with three arrowheads marching down and in toward the middle, the swipe,
+while the swing comes back over it, loud on
 that seat's screen and faint on the partner's. **How high, and how high it
 has to go** (`trapeze-arc.ts`): under the plank's path an arc, filled in
 brass from the bottom as far as the swing goes now, dashed on to the gong;
@@ -11018,7 +11028,8 @@ alien, FIRE on the hull. **The receipts** (`trapeze-fx.ts`,
 its zone, a gong rings, and the lock draws a red sight round the alien.
 **Its marks answer a touch the way every mark does**
 (`trapeze-verdicts.ts`): the two zones and the alien, each greened or
-reddened by what its own touch did.
+reddened by what its own touch did — a zone's a ring the size of a thumb in
+its middle, never a disc over half the field.
 
 ## 11.57 THE FLUE — an ember one seat sees and the other shoots
 

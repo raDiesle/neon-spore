@@ -15,14 +15,15 @@ import { splinePath } from "./spline.js";
  * at an angle, where the gong of a level hangs, and the alien's two bodies.
  *
  * **The swing is THE CONDUCTOR** (`tools/shape-sheet/src/drafts/bosses.ts`):
- * an arm, not a body, a pendulum with no inside — two long ropes from a
- * point above the field to a plank. The owner, 7 October 2026: *the ropes
+ * an arm, not a body, a pendulum with no inside — long ropes from a point
+ * above the field to a seat, seen from the side, so the swing goes the way
+ * the screen is wide. The owner, 7 October 2026: *the ropes
  * should be much longer*, so it hangs from four rows above the grid's top
  * and its seat rests two thirds of the way down the field.
  *
  * **The alien is HERALD** (`tools/shape-sheet/src/drafts/creatures.ts`): *a
- * body and its earlier self, never quite together* — a torso on the plank
- * and a head that lags the swing, a beat behind where the plank already is.
+ * body and its earlier self, never quite together* — a torso on the seat
+ * and a head that lags the swing, a beat behind where the seat already is.
  *
  * Every place is the simulation's own (`sim/trapeze.ts`'s `trapezeSeat` and
  * `trapezeGongAt`), laid in field pixels, with the angle taken as a float
@@ -34,17 +35,18 @@ export interface Point {
   y: number;
 }
 
-/** The plank's half-width and the alien's two bodies' radii, in tiles. */
-const PLANK = 0.55;
-const TORSO = 0.42;
-const HEAD = 0.3;
-/** How far up the ropes the torso and the head sit off the plank, in tiles. */
-const TORSO_UP = 0.4;
-const HEAD_UP = 0.95;
+/** How much bigger than a creature the alien is drawn: everything below is before it. */
+export const TRAPEZE_SIZE = 1.35;
+/** The alien's two bodies' radii, in tiles. */
+export const TRAPEZE_TORSO = 0.4;
+export const TRAPEZE_HEAD = 0.32;
+/** How far up the ropes the torso and the head sit off the seat, in tiles. */
+export const TRAPEZE_TORSO_UP = 0.48;
+export const TRAPEZE_HEAD_UP = 1.16;
 /** How far the head lags the swing, in degrees per degree of swing speed's share. */
 const HEAD_LAG = 6;
 /** How far out past the seat's place a gong hangs, so the foot kicks it, in tiles. */
-const GONG_OUT = 0.85;
+const GONG_OUT = 1.2;
 /** HERALD's two bodies: lobes, depth, wobble, seeds. */
 const BODY = { lobes: 3, depth: 0.12, wobble: 0.07 } as const;
 /** Samples round each body. */
@@ -80,17 +82,6 @@ export function trapezeOnArc(l: Layout, cfg: SimConfig, deg: number, out = 0): P
   return { x: a.x + r * Math.sin(rad(deg)), y: a.y + r * Math.cos(rad(deg)) };
 }
 
-/** The plank's two ends at `deg`: the ropes are tied to them. */
-export function trapezePlank(l: Layout, cfg: SimConfig, deg: number): [Point, Point] {
-  const c = trapezeOnArc(l, cfg, deg);
-  const dx = Math.cos(rad(deg)) * PLANK * l.tile;
-  const dy = -Math.sin(rad(deg)) * PLANK * l.tile;
-  return [
-    { x: c.x - dx, y: c.y - dy },
-    { x: c.x + dx, y: c.y + dy },
-  ];
-}
-
 /** Where a gong hangs: the seat's place at its angle, and out past it the side it is on. */
 export function trapezeGongPx(l: Layout, cfg: SimConfig, step: TrapezeStep): Point {
   const at = trapezeOnArc(l, cfg, (step.gongSide * step.gongMilli) / 1000);
@@ -99,7 +90,7 @@ export function trapezeGongPx(l: Layout, cfg: SimConfig, step: TrapezeStep): Poi
 
 /** The gong's radius, in pixels. */
 export function trapezeGongR(l: Layout): number {
-  return 0.42 * l.tile;
+  return 0.55 * l.tile;
 }
 
 /** The alien's torso and head at `deg`, the head lagging by `speed`. */
@@ -109,10 +100,10 @@ export function trapezeAlienAt(
   deg: number,
   speed: number,
 ): { torso: Point; head: Point; r: number } {
-  const torso = trapezeOnArc(l, cfg, deg, -TORSO_UP);
+  const torso = trapezeOnArc(l, cfg, deg, -TRAPEZE_TORSO_UP * TRAPEZE_SIZE);
   const lag = deg - HEAD_LAG * speed;
-  const head = trapezeOnArc(l, cfg, lag, -HEAD_UP);
-  return { torso, head, r: (TORSO + 0.5 * HEAD) * l.tile };
+  const head = trapezeOnArc(l, cfg, lag, -TRAPEZE_HEAD_UP * TRAPEZE_SIZE);
+  return { torso, head, r: (TRAPEZE_TORSO + 0.5 * TRAPEZE_HEAD) * TRAPEZE_SIZE * l.tile };
 }
 
 /** One of HERALD's bodies, `r` round, about `at`. */
@@ -128,5 +119,8 @@ export function trapezeBodyPath(at: Point, r: number, time: number, seed: number
 
 /** The torso's radius and the head's, in pixels. */
 export function trapezeBodyR(l: Layout): { torso: number; head: number } {
-  return { torso: TORSO * l.tile, head: HEAD * l.tile };
+  return {
+    torso: TRAPEZE_TORSO * TRAPEZE_SIZE * l.tile,
+    head: TRAPEZE_HEAD * TRAPEZE_SIZE * l.tile,
+  };
 }

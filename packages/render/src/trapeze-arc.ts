@@ -25,6 +25,10 @@ import { trapezeAnchor, trapezeGongPx, trapezeGongR, trapezeRope } from "./trape
 const BELOW = 0.75;
 /** How dim a gong not yet lit is. */
 const WAITING = 0.4;
+/** The gong's cord, in tiles; how far a kick swings it, radians; and how fast, radians a second. */
+const CORD = 0.9;
+const KICK_SWING = 0.7;
+const KICK_RATE = 9;
 
 /** Canvas angle of the swing's angle `deg`: nought straight down, positive to the right. */
 const canvasAngle = (deg: number) => ((90 - deg) * Math.PI) / 180;
@@ -83,7 +87,8 @@ export function drawTrapezeArc(
 /**
  * The gong of `step`, hung on a cord at the end of the swing on its side:
  * dim until its level lights, and ringing bright once the swing goes high
- * enough to kick it.
+ * enough to kick it. `kicked` 1..0 is a gong just kicked, swinging away on
+ * its cord and back, brass-bright, as its ring dies (`TrapezeFx.ring`).
  */
 export function drawTrapezeGong(
   ctx: CanvasRenderingContext2D,
@@ -92,15 +97,22 @@ export function drawTrapezeGong(
   step: TrapezeStep,
   s: TrapezeState,
   lit: boolean,
+  kicked = 0,
+  time = 0,
 ): void {
   const at = trapezeGongPx(l, cfg, step);
   const r = trapezeGongR(l);
-  const ready = lit && s.ampMilli >= step.gongMilli;
+  const ready = kicked > 0 || (lit && s.ampMilli >= step.gongMilli);
+  const hang = CORD * l.tile;
   ctx.save();
-  ctx.globalAlpha *= lit ? 1 : WAITING;
+  ctx.globalAlpha *= lit || kicked > 0 ? 1 : WAITING;
+  // Swung about the top of its cord: away from the swing, and back, dying.
+  ctx.translate(at.x, at.y - r - hang);
+  ctx.rotate(-step.gongSide * KICK_SWING * kicked * Math.cos(time * KICK_RATE));
+  ctx.translate(-at.x, -(at.y - r - hang));
   const cord = new Path2D();
   cord.moveTo(at.x, at.y - r);
-  cord.lineTo(at.x, at.y - r - 0.9 * l.tile);
+  cord.lineTo(at.x, at.y - r - hang);
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = PALETTE.trapezeRopeDark;
   ctx.stroke(cord);
