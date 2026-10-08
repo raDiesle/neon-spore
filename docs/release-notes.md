@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 07ec545c5 — THE BLISTER's simulation: a body that comes up out of a pore and is tapped back down
+
+The owner's whack-a-mole creature, its first lane (`docs/spec/blister.md`). A blister arrives under a pore, comes up for `blisterUpBeats`, sinks for `blisterDownBeats` and comes up again `blisterSinkRows` nearer the hull in a column the seeded rng picks; one that comes up on the hull row breaks it. A tap on it — the soundbox's `tap {id}`, asked of the blister first — is one off its count while it is up and from the seat its `by` names, and the count is kept across surfacings. A tap from the other seat or on a sunk pore counts nothing; a bolt meets it only while it is up. `by` and `count` ride from `WaveEntry` through the queue to the body and are hashed, and the director's save keeps them.
+
 ## 2026-10-08 · b7e743357 — THE CYST is taken out of the game, whole
 
 The owner asked for it gone: he does not like it, and it is now very close to THE HALTER, which is being worked on elsewhere. Its simulation, drawing, seventeen sounds, autopilot hand, wave, four drag targets and director cards are deleted rather than switched off, as THE BELLOWS's were; `git log -S cystFreezeLeft` finds them. The design stays in bosses.md §11.51, now under Retired with his reason, and its shape, BULB · CLOVER, is free on the shape sheet again. The waves after it move up one; with THE DAVIT gone the same day, the game has a hundred and twenty-two.
