@@ -45,6 +45,16 @@ import type { Wave } from "../wave-types.js";
  * sees where they come up. *The one where the hand that waits to see it is
  * late.* Lane 8 moves it to the act its sentence fits and writes its real
  * guide (`docs/queue.md`).
+ *
+ * **THE BASTION is a metal moon taken apart from the outside in** (the
+ * owner, 8 October 2026, in THE HALTER's place: *removing layers requires
+ * different actions … the smaller the ball gets*; `sim/bastion.ts`). Four
+ * shells, each a different job split across the seats: eight panels pulled
+ * out, four a side; six guns turned to the front by the pilot's rim and shot
+ * in their colour by the navigator; five nodes whose lightning the shield
+ * throws back; three ports only the navigator sees, the cannon slid under
+ * each. A plate let go short snaps back, and a shell run out grows back
+ * whole — nothing hits the hull (THE GRINDSTONE's rule, the owner's pick).
  */
 export const WAVES_ACT_14: Wave[] = [
   {
@@ -162,5 +172,26 @@ export const WAVES_ACT_14: Wave[] = [
       { beat: 0, col: 3, kind: "blister", color: null, row: 2, by: 2, count: 3 },
       { beat: 12, col: 1, kind: "blister", color: null, row: 3, by: 2, count: 3 },
     ],
+  },
+  {
+    id: "theBastion",
+    name: "THE BASTION",
+    guide: {
+      both: "A metal moon in four layers. Take each layer off before it grows back. The moon gets smaller every time.",
+      p1: "1. Pull your panels on the left out, away from the moon.\n2. Turn the moon by its rim. The other shoots the gun at the front.\n3. Fire the SHIELD under the spark.\n4. Slide the cannon under the port.",
+      p2: "1. Pull your panels on the right out, away from the moon.\n2. Shoot the gun at the front in its colour.\n3. Slide the shield under the spark.\n4. Only you see the port: say where, then fire.",
+    },
+    entries: [],
+    boss: {
+      kind: "bastion",
+      steps: [
+        { layer: "plates", beats: 32 },
+        { layer: "ring", colors: ["red", "cyan", "red", "cyan", "red", "cyan"], beats: 40 },
+        { layer: "lattice", offsets: [-2, 2, 0, -1, 1], beats: 48 },
+        { layer: "port", offsets: [-2, 1, 0], beats: 32 },
+      ],
+    },
+    bossType: "normal",
+    controls: "scene",
   },
 ];

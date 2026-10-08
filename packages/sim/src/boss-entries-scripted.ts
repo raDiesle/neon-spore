@@ -1,3 +1,4 @@
+import type { BastionEntry } from "./bastion.js";
 import type { CapstanEntry } from "./capstan.js";
 import type { FlueEntry } from "./flue.js";
 import type { GallEntry } from "./gall.js";
@@ -56,8 +57,11 @@ export type ScriptedBossEntry =
   // The one answered by drawing: a sign one seat reads for the other to draw (`mimic.ts`).
   | MimicEntry
   // The one hauled hand over hand: two grips on one tendril, never both let go (`latch.ts`).
-  | LatchEntry;
+  | LatchEntry
+  // The one taken apart a shell at a time, each a different way (`bastion.ts`).
+  | BastionEntry;
 
+export type { BastionEntry, BastionStep } from "./bastion.js";
 export type { CapstanEntry, CapstanStep } from "./capstan.js";
 export type { FlueEntry, FlueLevel } from "./flue.js";
 export type { GallEntry, GallStep } from "./gall.js";

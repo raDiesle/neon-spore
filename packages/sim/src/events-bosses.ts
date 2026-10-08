@@ -1,4 +1,5 @@
 import type { AntiphonEvent } from "./events-antiphon.js";
+import type { BastionEvent } from "./events-bastion.js";
 import type { BatonEvent } from "./events-baton.js";
 import type { CapstanEvent } from "./events-capstan.js";
 import type { CurtainEvent } from "./events-curtain.js";
@@ -103,6 +104,7 @@ export type BossEvent =
   | LampreyEvent
   | MimicEvent
   | LatchEvent
+  | BastionEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -118,6 +120,7 @@ export type BossEvent =
   | WellEvent;
 
 export type { AntiphonEvent } from "./events-antiphon.js";
+export type { BastionEvent } from "./events-bastion.js";
 export type { BatonEvent } from "./events-baton.js";
 export type { CapstanEvent } from "./events-capstan.js";
 export type { CurtainEvent } from "./events-curtain.js";

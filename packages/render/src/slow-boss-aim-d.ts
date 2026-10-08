@@ -1,4 +1,5 @@
 import {
+  bastionBoss,
   capstanBoss,
   flueBoss,
   gallBoss,
@@ -8,6 +9,7 @@ import {
   seamBoss,
   type World,
 } from "@neon-spore/sim";
+import { bastionCentre, bastionReach } from "./bastion-shape.js";
 import { capstanArrived, capstanGone, capstanTurn } from "./capstan-pose.js";
 import { capstanAt, capstanOnScreen, capstanPivot, capstanSize } from "./capstan-shape.js";
 import { type Box, sides, spread } from "./caption-anchor-box.js";
@@ -47,7 +49,7 @@ import type { Aim } from "./slow-intake-aim.js";
  * THE GOVERNOR joined on 7 October 2026, torn into three by a split about
  * the cannon; it is left whole the same way, being as tall as half the
  * field. THE TRAPEZE had a row until its rework of 7 October 2026 took THE
- * SLOW off it: the owner, *no slow while the pair swing it up*. A kind none of the four pages has is aimed at the cannon, and
+ * SLOW off it: the owner, *no slow while the pair swing it up*. THE BASTION joined on 8 October 2026, off the shell still on. A kind none of the four pages has is aimed at the cannon, and
  * `slow-boss-aim.test.ts` names any that opens THE SLOW with no row.
  */
 export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: number): Aim | null {
@@ -154,6 +156,14 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       const top = Math.min(p.y - p.r * p.tilt, tail.y - tail.r);
       const bottom = Math.max(p.y + p.r * p.tilt, tail.y + tail.r);
       return capsule(sides(left, right, top, bottom));
+    }
+    // The moon at the size it is now: the outermost shell still on.
+    case "bastion": {
+      const s = bastionBoss(world);
+      if (s === null) return null;
+      const c = bastionCentre(l, cfg);
+      const r = bastionReach(l, s);
+      return capsule(sides(c.x - r, c.x + r, c.y - r, c.y + r));
     }
     default:
       return null;

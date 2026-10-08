@@ -43,4 +43,6 @@ export const NO_ROW: Partial<Record<BossKind, NoRowWhy>> = {
   gall: "no-marks-file",
   spool: "no-marks-file",
   nettle: "no-marks-file",
+  // Its look is a lane of its own, not yet landed: nothing is drawn to spy on.
+  bastion: "no-marks-file",
 };

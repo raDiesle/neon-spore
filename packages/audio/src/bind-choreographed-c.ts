@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { antiphonCue } from "./bind-antiphon.js";
+import { bastionCue, isBastionEvent } from "./bind-bastion.js";
 import { capstanCue, isCapstanEvent } from "./bind-capstan.js";
 import { laterCue } from "./bind-choreographed-d.js";
 import type { Cue } from "./bind-cue.js";
@@ -81,12 +82,13 @@ type LateEvent = Extract<
       | `lamprey${string}`
       | `mimic${string}`
       | `latch${string}`
+      | `bastion${string}`
       | `undertow${string}`;
   }
 >;
 
 export function lateCue(e: LateEvent, cols: number): Cue | null {
-  // THE CAPSTAN, THE GALL, THE TRAPEZE, THE FLUE, THE GOVERNOR, THE LAMPREY, THE MIMIC and THE LATCH are bound here and not on `bind-choreographed-d.ts`,
+  // THE CAPSTAN, THE GALL, THE TRAPEZE, THE FLUE, THE GOVERNOR, THE LAMPREY, THE MIMIC, THE LATCH and THE BASTION are bound here and not on `bind-choreographed-d.ts`,
   // which is two lines from the limit: handed over whole, before the switch.
   // THE HASP joined them when its story brought twelve more (`bind-hasp.ts`),
   // and THE SPOOL when its story brought nine (`bind-spool.ts`).
@@ -100,6 +102,7 @@ export function lateCue(e: LateEvent, cols: number): Cue | null {
   if (isLampreyEvent(e)) return lampreyCue(e, cols);
   if (isMimicEvent(e)) return mimicCue(e, cols);
   if (isLatchEvent(e)) return latchCue(e, cols);
+  if (isBastionEvent(e)) return bastionCue(e, cols);
   switch (e.type) {
     // The three that came over on 22 September 2026, in the order they stood
     // at the foot of `bind-choreographed.ts`.

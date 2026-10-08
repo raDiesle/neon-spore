@@ -117,4 +117,15 @@ export const CHOREO_NOTES_D = {
     "latchYankEveryBeats and yanks: both hands must be holding. A cross level " +
     "swaps the grips. A level run out tears the hull. No SLOW. " +
     "See sim/latch.ts, sim/latch-step.ts, sim/latch-hand.ts, sim/config-latch.ts.",
+  "THE BASTION — a metal moon you take apart, one layer at a time":
+    "The owner's brief of 8 October 2026, in THE HALTER's place: a moon of " +
+    "armour shells, each taken off by a different job and the moon smaller " +
+    "for each. Plates: four a side, each pulled out past bastionPullMilli " +
+    "along its own way; let go short and it snaps back. Ring: the pilot turns " +
+    "the moon by its rim (bastionRimMilli), the navigator shoots the gun within " +
+    "bastionFrontMilli of the front in its colour. Lattice: a node charges " +
+    "bastionChargeBeats, the shield under it throws it back; unanswered it " +
+    "charges again after bastionGapBeats. Port: only the navigator sees it; the " +
+    "cannon under it, either colour. A shell run out grows back. THE SLOW on each. " +
+    "See sim/bastion.ts, sim/bastion-step.ts, sim/bastion-hand.ts, sim/bastion-shot.ts.",
 } satisfies Partial<Record<GroupName, string>>;

@@ -160,4 +160,9 @@ export const ROWS: Record<string, Row> = {
   // right, pulled down on `fromYMilli`; crossed in a `cross` level.
   latchGripLeft: {},
   latchGripRight: { seat: 2 },
+  // `bastion-hand.ts`: the pilot's plates on the left and the navigator's on
+  // the right, pulled out along the plate's way; the rim, the pilot's.
+  bastionPlateLeft: {},
+  bastionPlateRight: { seat: 2 },
+  bastionSpin: {},
 };

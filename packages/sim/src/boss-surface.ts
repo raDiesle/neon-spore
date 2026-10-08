@@ -15,6 +15,8 @@
 // Where a choreographed boss is in its script — the director's step readout
 // and the HUD's both read it (`boss-script.ts`).
 export * from "./boss-script.js";
+// THE BASTION's, the same way (`boss-surface-bastion.ts`).
+export * from "./boss-surface-bastion.js";
 // And the clock bosses' names, whole — a list of the same kind, cut for the
 // same reason `bosses.ts` was (`boss-surface-clocks.ts`).
 export * from "./boss-surface-clocks.js";

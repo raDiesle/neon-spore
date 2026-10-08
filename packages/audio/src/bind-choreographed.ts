@@ -64,7 +64,8 @@ type ChoreographedEvent =
           | `governor${string}`
           | `lamprey${string}`
           | `mimic${string}`
-          | `latch${string}`;
+          | `latch${string}`
+          | `bastion${string}`;
       }
     >
   // And the events added to bosses that had already shipped, which have to be

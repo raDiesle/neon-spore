@@ -76,6 +76,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   "THE MIMIC — a sign one of you reads for the other to draw",
   "THE LATCH — a rope you haul down in turns, never both letting go",
+  "THE BASTION — a metal moon you take apart, one layer at a time",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE SPLICE — straws fed in the order the numbers say",

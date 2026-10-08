@@ -1,3 +1,4 @@
+import { stepBastion } from "./bastion-step.js";
 import { offBeat } from "./boss-off-beat.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
@@ -55,6 +56,11 @@ export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>)
   // THE LATCH: a level lit, the rear and the yank, a level run out, and the slime gone (`latch-step.ts`).
   if (boss.kind === "latch") {
     stepLatch(world, boss);
+    return;
+  }
+  // THE BASTION: a shell lit, a node charged and loosed, a shell run out, the core blown (`bastion-step.ts`).
+  if (boss.kind === "bastion") {
+    stepBastion(world, boss);
     return;
   }
   // THE MIMIC: the slap, a sign's window and its change, the mimicry and the reach, the core and the fall (`mimic-step.ts`).

@@ -8,6 +8,7 @@ export * from "./autopilot-field-hand.js";
 export * from "./autopilot-hands.js";
 export * from "./boss-hand-fleet.js";
 export * from "./boss-hand-hive.js";
+export * from "./boss-hands-bastion.js";
 export * from "./boss-hands-beats.js";
 export * from "./boss-hands-capstan.js";
 export * from "./boss-hands-clocks.js";

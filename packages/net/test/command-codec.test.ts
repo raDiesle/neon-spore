@@ -286,6 +286,10 @@ const ACCEPTED: Command[] = [
   // THE LATCH's grips are pulled down, `fromYMilli` the depth (`sim/latch-hand.ts`).
   { kind: "drag", target: "latchGripLeft", on: true, fromMilli: 0, fromYMilli: 1800 },
   { kind: "drag", target: "latchGripRight", on: false, fromMilli: 0 },
+  // THE BASTION's plates pulled out both ways, its rim turned (`sim/bastion-hand.ts`).
+  { kind: "drag", target: "bastionPlateLeft", on: true, fromMilli: -1200, fromYMilli: -900 },
+  { kind: "drag", target: "bastionPlateRight", on: false, fromMilli: 0 },
+  { kind: "drag", target: "bastionSpin", on: true, fromMilli: -700 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -464,6 +468,9 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   lampreyTooth: true,
   latchGripLeft: true,
   latchGripRight: true,
+  bastionPlateLeft: true,
+  bastionPlateRight: true,
+  bastionSpin: true,
   crank: true,
 };
 

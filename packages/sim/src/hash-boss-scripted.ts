@@ -1,3 +1,4 @@
+import { bastionHashParts } from "./bastion-hash.js";
 import type { BossState } from "./boss-union.js";
 import { capstanHashParts } from "./capstan-hash.js";
 import { flueHashParts } from "./flue-hash.js";
@@ -100,6 +101,10 @@ export function scriptedHashParts(boss: BossState): number[] {
   // THE LATCH: the phase, the tendril, the floor, the knots, the grips, the next yank and the script (`latch-hash.ts`).
   if (boss.kind === "latch") {
     for (const n of latchHashParts(boss)) out.push(n);
+  }
+  // THE BASTION: the phase, the pieces off, the plates, the turn, the charge and the script (`bastion-hash.ts`).
+  if (boss.kind === "bastion") {
+    for (const n of bastionHashParts(boss)) out.push(n);
   }
   return out;
 }

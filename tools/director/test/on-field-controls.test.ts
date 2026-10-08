@@ -431,6 +431,11 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE LATCH's two grips on the tendril (`render/latch-grip.ts`, §11.61).
   latchGripLeft: "field",
   latchGripRight: "field",
+  // THE BASTION's plates and its rim (`sim/bastion-hand.ts`): heard, and
+  // nothing drawn to take hold of until the look lane lands.
+  bastionPlateLeft: "unbuilt",
+  bastionPlateRight: "unbuilt",
+  bastionSpin: "unbuilt",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

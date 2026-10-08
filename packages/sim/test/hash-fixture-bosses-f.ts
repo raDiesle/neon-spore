@@ -97,6 +97,16 @@ export const BOSS_ENTRIES_F = {
       { ask: "cross", knots: 2, beats: 14 },
     ],
   },
+  // Every layer once, the colours and the offsets apart (`bastion-hash.ts`).
+  bastion: {
+    kind: "bastion",
+    steps: [
+      { layer: "plates", beats: 11 },
+      { layer: "ring", colors: ["cyan", "red"], beats: 13 },
+      { layer: "lattice", offsets: [2, -1], beats: 17 },
+      { layer: "port", offsets: [-2], beats: 19 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE FLUE on's share of `patchBoss`. */
@@ -201,5 +211,24 @@ export function patchBossF(boss: BossState): void {
     boss.depthMilli = [900, 0];
     boss.turn = 1;
     boss.yankBeat = 11;
+  }
+  if (boss.kind === "bastion") {
+    // The lattice lit with one node gone and the next charging, the left
+    // thumb down part way and the right's plate torn under it, the moon
+    // turned and its rim held — every field given a value (`bastion-hash.ts`).
+    boss.phase = "layer";
+    boss.phaseBeat = 3;
+    boss.cursor = 2;
+    boss.goneMask = 1;
+    boss.pieces = 15;
+    boss.down = [true, true];
+    boss.pullMilli = [700, 0];
+    boss.tore = [false, true];
+    boss.yawMilli = 120000;
+    boss.spinning = true;
+    boss.spinAtMilli = 400;
+    boss.dischargeBeat = 9;
+    boss.chargeTick = 41;
+    boss.nextChargeBeat = 12;
   }
 }

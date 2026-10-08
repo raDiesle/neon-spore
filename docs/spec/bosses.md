@@ -11340,6 +11340,112 @@ the words and `latch-receipts.test.ts` the receipts and the blow. Whether a
 pair can keep *mine — yours* going aloud at tempo, and whether the yanks
 read — the owner's eye — has never been watched.
 
+## 11.62 THE BASTION — a metal moon you take apart, one layer at a time
+
+> A metal moon in four layers. Take each layer off before it grows back.
+> Pull the panels out, turn the guns to the front and shoot them, throw the
+> sparks back with the shield, and shoot down the port only one of you sees.
+
+The owner's brief of 8 October 2026, given with THE HALTER's removal (§11.53,
+Retired): *a boss which looks like a science fiction ship metal planet … for
+every level, players have to remove layers of the ball one after another …
+the smaller the ball gets. removing layers requires different actions …
+after every level achieved, there must be some visual of a successful step
+level achieved.* A choreographed scene, the third kind in
+`.claude/skills/new-boss`. **Built on 8 October 2026 as its simulation**; the
+look is the next lane.
+
+**The rule, in one sentence.** Take each layer off the moon before its time
+runs out, or it grows back.
+
+**It is the moon, and its pieces are its health.** The state
+(`sim/bastion.ts`, hashed in `sim/bastion-hash.ts`) is the **phase**
+(`enter`, `layer`, `shed`, `regrow`, `spent`) and the beat it began, the
+**cursor** into the script, which pieces of the lit shell are **gone** and
+how many have come off in all; for each seat whether a thumb is **down** on
+its plates, how far it has **pulled** and whether its plate **tore** under
+it; the moon's **yaw**, and whether the rim is held and where; and a node's
+**discharge** beat, the tick it began to charge and the beat the next one
+will. The script is the wave's (`BastionEntry.steps`), copied at install:
+each step names a **layer**, its **beats**, and the ring's **colours** or a
+lattice's or port's column **offsets** from the middle.
+
+**The four shells**, outside in, each a different job split across the seats:
+- **The plates** — eight, four a side. Two `DragTarget`s,
+  `bastionPlateLeft` (the pilot's) and `bastionPlateRight` (the
+  navigator's), each pulled **out from the core** along the plate's own way
+  (`bastionPlateWay`): sideways and back count for nothing. Out past
+  `bastionPullMilli` the plate tears off and flies (`bastionTear`). **Let go
+  short of that** — at least `bastionSnapMilli` pulled — and it snaps back
+  (`bastionSnap`): only that plate starts over, the other side keeps every
+  plate it has taken. A thumb on the partner's plates is said
+  (`bastionWrong`).
+- **The ring** — a gun per authored colour, spaced round the moon. The pilot
+  turns the moon by its rim, `bastionSpin`, THE MAZE's lever
+  (`rim-turn.ts`, `bastionRimMilli`), either way; the gun within
+  `bastionFrontMilli` of the front stands over the middle column and is the
+  one a shot meets (`bastionFrontGun`). The navigator shoots it in its
+  colour (`bastionGun`); the wrong colour is a colour missed and the gun
+  stays.
+- **The lattice** — a node per authored offset, in order. A node charges
+  for `bastionChargeBeats` (`bastionCharge`); the shield under its column,
+  raised after it began, throws the lightning back and bursts it
+  (`bastionBurst`, THE SEAM's test). Unanswered, the lightning comes down on
+  nothing (`bastionArc`) and the same node charges again after
+  `bastionGapBeats`.
+- **The port** — a port per authored offset, in order, shown on the
+  navigator's screen only (the look lane's `showsX`). The navigator says
+  where; the pilot slides the cannon under it; either colour goes down it
+  (`bastionPort`).
+
+**The clock** (`sim/bastion-step.ts`) runs on the beat: the moon comes in for
+`bastionEnterBeats`, and each shell lights after `bastionShedBeats` —
+`bastionRegrowBeats` after one grew back. A shell's last piece off sheds it
+(`bastionShed`), the step the owner asked to *see*; the last shell off blows
+the core (`bastionSpent`) and the moon leaves after `bastionSpentBeats`.
+**Every shell's window is THE SLOW**, the owner's rule of 22 September 2026.
+
+**Where this departs from the brief, and why.**
+- **No hull hit anywhere.** A shell run out grows back whole (`bastionRegrow`)
+  and is lit again; a plate let go short snaps back. The owner's pick of 8
+  October 2026, *both*, from THE GRINDSTONE's rule: what failed starts over,
+  what was won is kept.
+- **The tunnel is a port, not a trench run.** Nothing the players control
+  travels (`CLAUDE.md`), so the Death Star's tunnel is a hole in the inner
+  hull one seat sees and the other's cannon is brought under.
+- **A fourth job, the lattice,** where the brief named three: the owner,
+  *the more the better, if its understandable*. It uses the shield, the one
+  control the other three shells leave idle.
+
+**The hand.** AUTO (`hands/src/boss-hands-bastion.ts`) takes each seat's next
+plate out past the tear, turns the next gun to the front the short way, keeps
+the rim still while a bolt climbs, carries the shield under a charging node,
+and brings the cannon under the port; `hands/test/bastion-hand.test.ts`
+proves it wins the shipped wave with no shell grown back.
+
+**The sound** (`audio/src/bind-bastion.ts`, `sounds/boss-bastion.ts`):
+fourteen, all machine metal, a shell lit and a shell shed pitched lower the
+deeper the shell lay, so the four sheds are heard as a moon getting smaller.
+
+**What is not built.** The look: the four shells, the plates' knobs and
+their arrows, the rim, the guns, the nodes and the lightning, the port on
+the navigator's screen alone, the shed and the core's blow, the cue words
+and the receipts. Until it lands, a bolt is judged where it leaves the top
+of the field (the moon is not drawn for it to stop on), and the targets are
+`unbuilt` on the field-controls tab. `render/bastion-shape.ts` holds only
+where the moon hangs and how far it reaches, for THE SLOW's aim.
+
+**What is proven, and what is not.** `sim/test/bastion.test.ts` proves the
+rules: the install and the first shell; a plate torn along its way, and
+nothing for sideways or back; a short let-go snapped back with only that
+plate lost; a torn plate holding nothing until the lift; the wrong seat
+said; the plates shed and the ring lit; the rim turning the moon both ways;
+the front gun blown in its colour and kept on the wrong one; a node burst on
+the shield and recharged when not; the port in its column in either colour;
+a shell run out grown back with no hull hit; the core blown and gone; the
+same thumbs hashing the same. Whether a pair can call the ring's turn and
+the port aloud at tempo — the owner's eye — has never been watched.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

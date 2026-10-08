@@ -1,3 +1,5 @@
+import { bastionHeard } from "./bastion-hand.js";
+import { bastionGuarded } from "./bastion-shot.js";
 import { capstanHeard } from "./capstan-hand.js";
 import { flueRolled } from "./flue-step.js";
 import { gallHeard } from "./gall-hand.js";
@@ -83,4 +85,8 @@ export function scriptedHandsHeard(world: World, commands: readonly TimedCommand
   for (const c of commands) mimicHeard(world, c.player, c.command);
   // THE LATCH's grips: a lift is judged the instant it lands, against the other grip (`latch-hand.ts`).
   for (const c of commands) latchHeard(world, c.player, c.command);
+  // THE BASTION's plates and rim, on the tick because a plate tears the instant it is out far
+  // enough (`bastion-hand.ts`); and its lattice, THE SEAM's shield once a tick after them.
+  for (const c of commands) bastionHeard(world, c.player, c.command);
+  bastionGuarded(world);
 }

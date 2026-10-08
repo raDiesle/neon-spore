@@ -2,6 +2,7 @@ import type { World } from "@neon-spore/sim";
 import { fieldHand } from "./autopilot-field-hand.js";
 import { fleetHand } from "./boss-hand-fleet.js";
 import { hiveHand } from "./boss-hand-hive.js";
+import { bastionHand } from "./boss-hands-bastion.js";
 import { batonHand, throatHand } from "./boss-hands-beats.js";
 import { capstanHand } from "./boss-hands-capstan.js";
 import { leadHand, ledgerHand, tasterHand } from "./boss-hands-clocks.js";
@@ -93,6 +94,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   mantle: mantleHand,
   mimic: mimicHand,
   latch: latchHand,
+  bastion: bastionHand,
   maze: mazeHand,
   mirror: mirrorHand,
   nettle: nettleHand,

@@ -8,7 +8,7 @@
  * whole, so the set being written keeps the comment that explains it and the
  * one being moved keeps its own. THE TRIVET's pads came over with this file;
  * THE PLUMB's levels were written on it, and THE SLING's draws after them,
- * THE CAPSTAN's steer and rub, THE GALL's tap and pull, and THE TRAPEZE's tap and draw. `drag-targets.ts` unions the pages
+ * THE CAPSTAN's steer and rub, THE GALL's tap and pull, THE TRAPEZE's tap and draw, and THE BASTION's plates and rim. `drag-targets.ts` unions the pages
  * together, so `DragTarget` is one name.
  */
 export type DragTargetE =
@@ -31,7 +31,10 @@ export type DragTargetE =
   | "lampreyHead"
   | "lampreyTooth"
   | "latchGripLeft"
-  | "latchGripRight";
+  | "latchGripRight"
+  | "bastionPlateLeft"
+  | "bastionPlateRight"
+  | "bastionSpin";
 
 /**
  * `trivetPadFront` and `trivetPadRear` are the seventy-ninth and
@@ -177,4 +180,15 @@ export type DragTargetE =
  * down; what is new is that the two hands take turns on the same rope, and a
  * lift is judged against whether the other grip is held (`latch-hand.ts`).
  * `id` is unused.
+ */
+
+/**
+ * `bastionPlateLeft`, `bastionPlateRight` and `bastionSpin` are the
+ * hundred-and-fifteenth to seventeenth: THE BASTION's outer plates, the
+ * pilot's on the left and the navigator's on the right, and its rim, the
+ * pilot's alone.
+ *
+ * No new reading. A plate is pulled out from the core along its own way,
+ * `fromMilli` and `fromYMilli` the drag (`bastion-hand.ts`); the rim is THE
+ * MAZE's lever, `fromMilli` the way round (`rim-turn.ts`). `id` is unused.
  */

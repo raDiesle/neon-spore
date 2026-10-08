@@ -13,6 +13,7 @@ import { ASSIST_SOUNDS } from "./sounds/assist.js";
 import { BEAT_SOUNDS } from "./sounds/beat.js";
 import { BOSS_SOUNDS } from "./sounds/boss.js";
 import { BOSS_ANTIPHON_SOUNDS } from "./sounds/boss-antiphon.js";
+import { BOSS_BASTION_SOUNDS } from "./sounds/boss-bastion.js";
 import { BOSS_BATON_SOUNDS } from "./sounds/boss-baton.js";
 import { BOSS_BATON_HAND_SOUNDS } from "./sounds/boss-baton-hand.js";
 import { BOSS_CAPSTAN_SOUNDS } from "./sounds/boss-capstan.js";
@@ -128,6 +129,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_LAMPREY_SOUNDS,
   ...BOSS_MIMIC_SOUNDS,
   ...BOSS_LATCH_SOUNDS,
+  ...BOSS_BASTION_SOUNDS,
   ...BOSS_WARDEN_SOUNDS,
   ...BOSS_VANE_SOUNDS,
   ...BOSS_THROAT_SOUNDS,

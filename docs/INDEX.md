@@ -297,6 +297,7 @@ by hand never moves.
 | `packages/sim/src/boss-surface-instar.ts` | **THE INSTAR's names, on a page of their own** — the script and where the scene is in it |
 | `packages/sim/src/boss-surface-maze.ts` | **THE MAZE's names on `@neon-spore/sim`'s surface**, cut off `boss-surface.ts` on 29 September 2026 |
 | `packages/sim/src/boss-surface-verdicts.ts` | **Every boss's shot, asked rather than acted on** — the `…Verdict` each boss's `…Struck` acts on |
+| `packages/sim/src/boss-surface-bastion.ts` | **THE BASTION's names, on a page of their own** — the moon, its shells, the plates, the ring and the port |
 | `packages/sim/src/boss-script.ts` | **Where a choreographed boss is in its script**: which step is up, out of how many |
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |
 | `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
@@ -699,8 +700,14 @@ by hand never moves.
 | `packages/sim/src/baton-arm.ts` | THE BATON's second arm: where each arm hangs, which arm and socket an entry of the sockets is, and the outward swing |
 | `packages/sim/src/baton-knock.ts` | THE BATON's knock: the wrong colour through a bead in flight throws it back two sockets |
 | `packages/sim/src/baton.ts` | THE BATON: whose turn is it |
+| `packages/sim/src/bastion-hand.ts` | THE BASTION's hands: a plate a side pulled out from the core, and the pilot's rim turning the moon |
+| `packages/sim/src/bastion-hash.ts` | What THE BASTION puts into `hashWorld`, and nothing else |
+| `packages/sim/src/bastion-shot.ts` | **THE BASTION's shot**, met where it leaves the top of the field (`shot-out.ts`) until the moon is drawn for… |
+| `packages/sim/src/bastion-step.ts` | THE BASTION's clock: the moon coming in, each shell lighting, a node charging and throwing its lightning |
+| `packages/sim/src/bastion.ts` | THE BASTION: a metal moon built in shells, hanging over the field, taken apart from the outside in |
 | `packages/sim/src/config-balloon.ts` | THE BALLOON's numbers: how long one swells before it moves, how fast it climbs |
 | `packages/sim/src/config-baton.ts` | THE BATON's numbers — how many sockets the arm has, how long a bead is in the air |
+| `packages/sim/src/config-bastion.ts` | THE BASTION's tuning: the beats around its shells, how far a plate is pulled before it tears |
 | `packages/sim/src/config-blister.ts` | THE BLISTER's numbers: how long it stays up, how long it is under, how much nearer each surfacing comes |
 | `packages/sim/src/config-trapeze.ts` | THE TRAPEZE's tuning: where the swing hangs and how long its ropes are, how fast it swings |
 | `packages/sim/src/creature-state-balloon.ts` | **THE BALLOON's six**, and the seventh group carried out of `creature-state.ts` along the seam that file's… |
@@ -715,6 +722,7 @@ by hand never moves.
 | `packages/sim/src/difficulty.ts` | **EASY, MEDIUM and HARD**, and the one number they move: the tempo, which on this field is the falling speed of everything |
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 | `packages/sim/src/events-baton.ts` | **Everything THE BATON does that neither screen already says**, as events |
+| `packages/sim/src/events-bastion.ts` | What THE BASTION says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-bosses.ts` | **The choreographed bosses' arms of `SimEvent`**, as one union |
 | `packages/sim/src/events-trapeze.ts` | What THE TRAPEZE says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-undertow.ts` | **Everything THE UNDERTOW does that neither screen already says**, as events |
@@ -2442,6 +2450,7 @@ by hand never moves.
 | `packages/render/src/baton-knock.ts` | **THE BATON's bead thrown back up the arm** by the wrong colour or a slow socket: out of the hit, up past its socket and in |
 | `packages/render/src/baton-explain-when.ts` | Which new part of THE BATON is coming and which is running, read off the arm, on the level it first comes in on |
 | `packages/render/src/baton-explain.ts` | THE BATON's words on the field: a banner while a new part is coming, each screen's job beside it while it runs |
+| `packages/render/src/bastion-shape.ts` | **THE BASTION's geometry**: where the moon hangs, and how far out each of its shells stands |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pulse-grip.ts` | **THE PULSE's hand on the bar**: the rectangle the meter is drawn in, the box a thumb is answered in |
 | `packages/render/src/pull-track.ts` | **A pull is drawn as the way the hand goes, and a big circle where it starts** — every pull handle's thin channel, filling green behind the hand, closed round for a turn |
@@ -2649,6 +2658,7 @@ by hand never moves.
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-baton.ts` | THE BATON's sixteen, in a file of their own because `bind.ts` is at its limit |
+| `packages/audio/src/bind-bastion.ts` | THE BASTION's fourteen cues, panned to their column; a shell's sounds pitched lower the deeper it lay |
 | `packages/audio/src/bind-trapeze.ts` | Whether an event is THE TRAPEZE's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
 | `packages/audio/src/bind-gorge.ts` | THE GORGE's nine, in a file of their own because `bind.ts` is full |
@@ -2693,6 +2703,7 @@ by hand never moves.
 | Path | One line |
 |---|---|
 | `packages/hands/src/boss-hands-beats.ts` | **The pair's hands on the bosses a beat answers** — THE BATON and THE THROAT |
+| `packages/hands/src/boss-hands-bastion.ts` | **THE BASTION played right**, for the autopilot: plates pulled, guns turned and shot, nodes shielded, ports shot |
 | `packages/hands/src/boss-hands-trapeze.ts` | **THE TRAPEZE played right**, for the autopilot |
 | `packages/hands/src/boss-hands-shots.ts` | **The pair's hands on the bosses a shot answers** — THE WARDEN and THE VANE |
 | `packages/hands/src/boss-hands-snake.ts` | **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or THE SCOUT's kind |
@@ -3386,6 +3397,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-rounds.ts` | **The rounds' states** — the bosses that take the field away and hand the pair a screen of their own… |
 | `tools/director/src/poses-bosses-rounds-b.ts` | **The rounds' states, the second page** — PINBALL's and THE PULSE's |
 | `tools/director/src/poses-bosses-hands-beats.ts` | **The states a beat earns** — THE BATON's crossing, THE THROAT's suck |
+| `tools/director/src/poses-bosses-hands-bastion.ts` | **THE BASTION's states**, posed with a hand on the controls (`boss-hands-bastion.ts`) |
 | `tools/director/src/poses-bosses-hands-shots.ts` | **The states a shot earns** on the clock bosses — THE WARDEN's plates, THE VANE's pins |
 | `tools/director/src/poses-bosses-hands-seam.ts` | **THE SEAM's states**, posed with a hand on the controls (`boss-hands-seam.ts`) |
 | `tools/director/src/poses-bosses-hands-clocks.ts` | **The states the pair's hands bring on the bosses that keep a ledger of their own** — THE TASTER's fan |

@@ -22,6 +22,7 @@ type BossIdB = Extract<
   | "lamprey"
   | "mimic"
   | "latch"
+  | "bastion"
   | "capstan"
   | "gall"
   | "trapeze"
@@ -141,6 +142,10 @@ export const BOSS_MECHANICS_B = {
   },
   latch: {
     what: "A slime hooks the hull with a rope. You each have one grip. Pull it down in turns, and never both let go. Hold on when it yanks.",
+    reach: "spawn",
+  },
+  bastion: {
+    what: "A metal moon in layers. Take each layer off before it grows back. Pull panels out, shoot guns, shield sparks, shoot the port.",
     reach: "spawn",
   },
   vane: {

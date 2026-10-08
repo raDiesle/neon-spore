@@ -1,4 +1,5 @@
 import type { AntiphonState } from "./antiphon.js";
+import type { BastionState } from "./bastion.js";
 import type { BatonState } from "./baton.js";
 import type { FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
 import type { CairnState } from "./cairn.js";
@@ -131,4 +132,5 @@ export type BossState =
   | GovernorState
   | LampreyState
   | MimicState
-  | LatchState;
+  | LatchState
+  | BastionState;

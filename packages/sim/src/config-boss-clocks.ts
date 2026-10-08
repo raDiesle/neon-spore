@@ -1,4 +1,5 @@
 import { ANTIPHON_DEFAULTS, type AntiphonConfig } from "./config-antiphon.js";
+import { BASTION_DEFAULTS, type BastionConfig } from "./config-bastion.js";
 import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
 import { CAIRN_DEFAULTS, type CairnConfig } from "./config-cairn.js";
 import { CAPSTAN_DEFAULTS, type CapstanConfig } from "./config-capstan.js";
@@ -109,6 +110,7 @@ export interface BossClockConfig
     LampreyConfig,
     MimicConfig,
     LatchConfig,
+    BastionConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -156,6 +158,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...LAMPREY_DEFAULTS,
   ...MIMIC_DEFAULTS,
   ...LATCH_DEFAULTS,
+  ...BASTION_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

@@ -1,3 +1,4 @@
+import { bastionStruck } from "./bastion-shot.js";
 import { batonBeadAlong, batonShotSpends, batonStruck } from "./baton-press.js";
 import { bossAlong, bossAlongStruck } from "./boss-along.js";
 import { resolve } from "./bullet-hit.js";
@@ -205,6 +206,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   governorStruck(world, b);
   // And THE LAMPREY's lit gullet (`lamprey-shot.ts`).
   lampreyStruck(world, b);
+  // And THE BASTION's gun at the front or its open port (`bastion-shot.ts`).
+  bastionStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

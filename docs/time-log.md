@@ -36122,3 +36122,18 @@ lane was the panel alone.
 
 Bottleneck: the registrations — a boss is a name in ninety files, and only
 the typecheck lists them.
+
+## 2026-10-08 — THE BASTION, lane one: the simulation
+
+- reading: 10 min. THE LATCH's and THE SEAM's files as the pattern for a
+  scripted boss with drags, shots and the shield; the registrations table.
+- writing: 25 min. The moon's four shells in `sim/`, its fourteen events and
+  sounds, AUTO's hand and the pose cards, the wave, §11.62.
+- looking: 0 min. Nothing drawn yet; the look is lane two.
+- friction: 5 min. Tables the typecheck does not list — the silent lists,
+  the frames' hold rows, the player-word check on *plate* — each found one
+  red test at a time.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the registrations — the typecheck finds half, and the other
+half are tests that only fail one per run of `check:fast`.

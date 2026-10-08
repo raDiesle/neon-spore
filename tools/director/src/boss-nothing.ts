@@ -42,6 +42,7 @@ const AUTHORS_NOTHING = [
   "lamprey",
   "mimic",
   "latch",
+  "bastion",
 ] as const satisfies readonly BossEntry["kind"][];
 
 const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
@@ -183,6 +184,8 @@ const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
  *   `Rng`'s, not an author's (`sim/mimic.ts`).
  * - **THE LATCH**'s script is one list of levels too, and names no column:
  *   its tendril hangs down `midCol` (`sim/latch.ts`).
+ * - **THE BASTION**'s script is one list of shells, and its nodes and ports
+ *   are offsets from `midCol`, fields of the shell (`sim/bastion.ts`).
  *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which

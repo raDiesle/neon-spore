@@ -1,3 +1,4 @@
+import { BASTION_PHASES } from "./bastion.js";
 import { BATON_STAGES } from "./baton.js";
 import type { BossEntry } from "./boss-entries.js";
 import { CAPSTAN_PHASES } from "./capstan.js";
@@ -145,5 +146,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   lamprey: LAMPREY_PHASES,
   mimic: MIMIC_PHASES,
   latch: LATCH_PHASES,
+  bastion: BASTION_PHASES,
   fleet: FLEET_PHASES,
 };

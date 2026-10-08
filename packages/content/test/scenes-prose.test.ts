@@ -119,6 +119,9 @@ const STILL_PROSE = [
   // off on 5 October 2026 and asked for one back on the 6th, *briefly
   // explains what has to be done*; the guide says who reads and who taps.
   "THE MIMIC",
+  // And THE BASTION (§11.62), 8 October 2026: the moon is undrawn, and the
+  // guide says which seat does what to each of its four layers.
+  "THE BASTION",
   // THE LATCH (cinematic §2) left this list on 8 October 2026: its film is
   // the tendril hauled hand over hand, the turn passed, and a yank braced.
 ];

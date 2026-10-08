@@ -59,4 +59,20 @@ export const INGEST_SILENT_BOSS_F = [
   "mazeProbe",
   "mazeVerdict",
   "mazeDown",
+  // THE BASTION's fourteen leave nothing behind until its look lane draws
+  // them; then they are one family read above the loop, as THE SCUTTLE's are.
+  "bastionEnter",
+  "bastionLayer",
+  "bastionTear",
+  "bastionSnap",
+  "bastionWrong",
+  "bastionGun",
+  "bastionCharge",
+  "bastionBurst",
+  "bastionArc",
+  "bastionPort",
+  "bastionShed",
+  "bastionRegrow",
+  "bastionSpent",
+  "bastionOut",
 ] as const satisfies readonly SimEvent["type"][];

@@ -4,6 +4,7 @@ import { BOSS_STATES, type BossKind, bossTitle } from "./boss-states.js";
 import type { Pose, PoseGroup } from "./pose-kit.js";
 import { CLOCK_BOSS_POSES } from "./poses-bosses-clocks.js";
 import { FIRST_BOSS_POSES } from "./poses-bosses-first.js";
+import { BASTION_POSES } from "./poses-bosses-hands-bastion.js";
 import { BEAT_HAND_POSES } from "./poses-bosses-hands-beats.js";
 import { CLOCK_HAND_POSES } from "./poses-bosses-hands-clocks.js";
 import { FIELD_HAND_POSES } from "./poses-bosses-hands-field.js";
@@ -75,6 +76,7 @@ export const BOSS_POSES: Pose[] = [
   ...LAMPREY_POSES,
   ...MIMIC_POSES,
   ...LATCH_POSES,
+  ...BASTION_POSES,
   ...MECHANISM_POSES,
 ];
 

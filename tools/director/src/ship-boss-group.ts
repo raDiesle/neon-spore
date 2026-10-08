@@ -69,6 +69,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   lamprey: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   mimic: "THE MIMIC — a sign one of you reads for the other to draw",
   latch: "THE LATCH — a rope you haul down in turns, never both letting go",
+  bastion: "THE BASTION — a metal moon you take apart, one layer at a time",
   // The one group with no dial in it, and deliberately: everything about THE
   // WELL is the shape of a picture, and a number that changed how a picture
   // reads belongs in a VERSUS candidate rather than on a slider

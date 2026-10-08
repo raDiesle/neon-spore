@@ -119,4 +119,16 @@ export const CHOREO_FIELD_GROUP_D = {
   latchYankEveryBeats: "THE LATCH — a rope you haul down in turns, never both letting go",
   latchRearBeats: "THE LATCH — a rope you haul down in turns, never both letting go",
   latchGripRowMilli: "THE LATCH — a rope you haul down in turns, never both letting go",
+  // BastionConfig — the beats around the shells, a plate's tear, the rim
+  // and the front, a node's charge (`config-bastion.ts`).
+  bastionEnterBeats: "THE BASTION — a metal moon you take apart, one layer at a time",
+  bastionShedBeats: "THE BASTION — a metal moon you take apart, one layer at a time",
+  bastionRegrowBeats: "THE BASTION — a metal moon you take apart, one layer at a time",
+  bastionSpentBeats: "THE BASTION — a metal moon you take apart, one layer at a time",
+  bastionPullMilli: "THE BASTION — a metal moon you take apart, one layer at a time",
+  bastionSnapMilli: "THE BASTION — a metal moon you take apart, one layer at a time",
+  bastionRimMilli: "THE BASTION — a metal moon you take apart, one layer at a time",
+  bastionFrontMilli: "THE BASTION — a metal moon you take apart, one layer at a time",
+  bastionChargeBeats: "THE BASTION — a metal moon you take apart, one layer at a time",
+  bastionGapBeats: "THE BASTION — a metal moon you take apart, one layer at a time",
 } satisfies Record<string, GroupName>;
