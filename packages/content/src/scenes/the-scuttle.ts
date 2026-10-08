@@ -189,6 +189,8 @@ export const THE_SCUTTLE: GuideScene = {
     // the body leaves the field before this page opens, so what it stands in
     // front of is the empty top of the field — the NONE is the absence, and
     // there is no boss left for `test/scene-pages.test.ts` to read a zero off.
-    { tick: 2700, seat: 1, text: "OUT · NONE LEFT TO COUNT", anchor: { at: "boss" } },
+    // So it is anchored on that emptiness: the radar strip with nothing on it,
+    // whose middle is where a caption about nothing points (`caption-anchor.ts`).
+    { tick: 2700, seat: 1, text: "OUT · NONE LEFT TO COUNT", anchor: { at: "radar" } },
   ],
 };

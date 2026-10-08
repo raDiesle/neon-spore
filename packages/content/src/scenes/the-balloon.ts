@@ -36,9 +36,16 @@ import type { GuideScene } from "../scene-types.js";
  * answer rather than a bill they read afterwards. So the page says that, and
  * points at the body it is about.
  *
- * The body comes in at a wall a beat in and glides to the middle
- * (`sim/balloon-entry.ts`). The timing is the whole of the authoring: a step is
- * `balloonClimbBeats` long and the runner finds a handle's body by the column
+ * **The first page points at the radar, not the body**: the balloon is on the
+ * strip from the first tick and on the field five beats in, so a page about
+ * the body would have waited out its whole length for nothing. The second page
+ * is the first that has it — it comes in at a wall a beat after its entry and
+ * glides to the middle (`sim/balloon-entry.ts`). It came in two beats later
+ * once, and then the first two pages played without words
+ * (`render/test/caption-anchor-films.test.ts`); two beats earlier is one more
+ * climb before the pull, so the pull is a column further left than it was.
+ *
+ * The timing is the whole of the authoring: a step is `balloonClimbBeats` long and the runner finds a handle's body by the column
  * it stands in, so the carry has to start and finish inside one step — the grab
  * is on the beat after a step and the carry is done before the next.
  */
@@ -46,13 +53,13 @@ export const THE_BALLOON: GuideScene = {
   ticks: 1620,
   bpm: 120,
   seed: 1,
-  entries: [{ beat: 6, col: 4, kind: "balloon", color: null }],
+  entries: [{ beat: 4, col: 4, kind: "balloon", color: null }],
   acts: [
-    { tick: 630, drag: "balloonLeft", col: 2, by: 690, until: 800 },
-    { tick: 630, drag: "balloonRight", col: 2, by: 690, until: 800 },
+    { tick: 630, drag: "balloonLeft", col: 1, by: 690, until: 800 },
+    { tick: 630, drag: "balloonRight", col: 1, by: 690, until: 800 },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "NOTHING YOU FIRE TOUCHES IT", anchor: { at: "body" } },
+    { tick: 0, seat: 1, text: "NOTHING YOU FIRE TOUCHES IT", anchor: { at: "radar" } },
     {
       tick: 180,
       seat: 1,
@@ -66,8 +73,8 @@ export const THE_BALLOON: GuideScene = {
       anchor: { at: "handle", target: "balloonRight" },
     },
     { tick: 540, seat: 2, text: "BOTH, AND HOLD TILL IT GIVES", anchor: { at: "body" } },
-    // Three beats, and it holds with the climbing half on row six — the last
-    // beat it is still in the middle of the screen — and the other on row ten.
+    // Three beats, and it holds with both halves on row six — the last beat
+    // they are still in the middle of the screen.
     { tick: 840, seat: 1, text: "TWO NOW, AND BOTH GO UP", anchor: { at: "body" } },
     { tick: 1020, seat: 1, text: "AT THE TOP IT DROPS BACK", anchor: { at: "radar" } },
   ],

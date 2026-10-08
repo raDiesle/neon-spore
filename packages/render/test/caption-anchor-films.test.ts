@@ -38,20 +38,6 @@ const PHONE = { width: 390, height: 844, dpr: 1 };
 
 beforeAll(installCanvasGlobals);
 
-/**
- * The pages lost on 8 October 2026, when this was first run, each queued to
- * be fixed (`docs/queue.md`). Two films ask for a boss with no anchor of its
- * own; the rest have a page whose subject is not on the field yet, or has
- * already gone. Named so that a new one is red and a fixed one has to be
- * crossed off: the list only ever gets shorter.
- */
-const LOST_ALREADY = [
-  "theLance page 3 (seat 1, at body)",
-  "theBalloon page 0 (seat 1, at body)",
-  "theBalloon page 1 (seat 1, at handle)",
-  "theScuttle page 12 (seat 1, at boss)",
-];
-
 /** The wave a film rehearses, which is the index its script is built with. */
 function waveOf(id: SceneId): number {
   const index = WAVES.findIndex((w) => w.guide?.scene === id);
@@ -85,6 +71,10 @@ describe("a film's caption", () => {
         lost.push(`${id} page ${i} (seat ${step.seat}, at ${step.anchor.at})`);
       });
     }
-    expect(lost).toEqual(LOST_ALREADY);
+    // Seven were lost when this was first run, on 8 October 2026: two films
+    // asking for a boss with no anchor of its own, four pages whose subject
+    // was not on the field yet or had already gone. All seven were fixed in
+    // the film or the anchor, never by a list of exceptions here.
+    expect(lost).toEqual([]);
   });
 });

@@ -62,11 +62,13 @@ export const THE_LANCE: GuideScene = {
       text: "HOLD IT · DO NOT TAP",
       anchor: { at: "control", control: "fireCyan" },
     },
+    // On the cannon and not the three: the beam reaches the top at 810 and
+    // burns them, and a caption on a body goes with the body.
     {
-      tick: 840,
+      tick: 780,
       seat: 1,
       text: "THE BEAM TAKES ALL THREE",
-      anchor: { at: "body" },
+      anchor: { at: "ship", control: "cannon" },
     },
   ],
 };

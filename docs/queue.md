@@ -634,20 +634,6 @@ body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
 
-## Four film pages end before their subject arrives, or after it has gone
-
-- **Found:** 2026-10-08, claude/queue-caption-anchor
-- **Taken:** 2026-10-08, claude/task-queue-work-589459 (claim: claude/queue-four-film-pages-end-before-their-subject-arrives)
-- **Files:** `packages/content/src/scenes/the-balloon.ts`, `packages/content/src/scenes/the-lance.ts`, `packages/content/src/scenes/the-scuttle.ts`, `packages/render/test/caption-anchor-films.test.ts`
-
-`caption-anchor-films.test.ts` steps every tick of every page, and these four
-never find their subject, so their words are never drawn: THE BALLOON's page
-0 (`body`, the balloon enters on beat 6, the tick page 1 starts) and page 1
-(`handle`), THE LANCE's page 3 (`body`, the beam has taken all three by tick
-840) and THE SCUTTLE's page 12 (`boss`, the boss is gone by *OUT · NONE LEFT
-TO COUNT*). Retime each page or anchor it on what is on the screen, take it
-off `LOST_ALREADY`, and look at each with `bun run frames --opening guide`.
-
 ## AUTO's boss hands are tested without the game's half-beat shot charge
 
 - **Found:** 2026-10-08, claude/queue-trapeze-auto

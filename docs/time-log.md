@@ -35220,3 +35220,22 @@ Bottleneck: looking — `bun run frames` writes every run to the same
 `frame.png`, so three pages are three runs copied out one at a time.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — Four film pages find their subject
+
+- reading: 5 min. The queue entry, the three films, the anchor kinds and the
+  test that steps them.
+- writing: 5 min. THE BALLOON's entry two beats earlier and its first page
+  on the radar, THE LANCE's last page on the cannon at 780, THE SCUTTLE's
+  last on the empty radar strip, the exceptions list gone.
+- looking: 10 min. A probe of which anchors are found on which tick, and
+  `bun run frames --opening guide` before and after on THE BALLOON's pull.
+- friction: 5 min. An earlier balloon broke the pull silently — the act
+  finds its body by column and the climb drifts it one — and the pages
+  were first squeezed under the 1.5-second floor, read in ticks at 60 a
+  second when the game runs 120.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: looking — whether the pull still split was only answerable by
+a picture or a hand-rolled probe; nothing in the film's own tests says the
+balloon was ever pulled apart.
