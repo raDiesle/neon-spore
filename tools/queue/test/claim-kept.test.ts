@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { gitIn, repoTimeout } from "../../test/repo-time.js";
+import { CLEANUP_MS, gitIn, repoTimeout } from "../../test/repo-time.js";
 import { branchFor } from "../claim.js";
 import { type Item, parseItems } from "../queue.js";
 import { claim, headBranch, trunkTaken, unmark } from "../repo.js";
@@ -54,7 +54,7 @@ async function repo(): Promise<{ root: string; run: (args: string[]) => Promise<
 
 afterAll(async () => {
   for (const root of roots) await rm(root, { recursive: true, force: true });
-}, repoTimeout(4));
+}, CLEANUP_MS);
 
 describe("a claim on the branch this tree kept and stands on", () => {
   let root = "";

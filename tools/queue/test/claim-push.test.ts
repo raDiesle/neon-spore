@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { gitIn, repoTimeout } from "../../test/repo-time.js";
+import { CLEANUP_MS, gitIn, repoTimeout } from "../../test/repo-time.js";
 import { branchFor } from "../claim.js";
 import { markTaken, takenIn } from "../edit.js";
 import { commitOnRef } from "../git.js";
@@ -85,7 +85,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await rm(base, { recursive: true, force: true });
-}, repoTimeout(2));
+}, CLEANUP_MS);
 
 describe("a claim from a main that fell behind origin", () => {
   const item = itemNamed("Split the wave editor's cell panel");

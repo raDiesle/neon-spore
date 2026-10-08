@@ -2,7 +2,7 @@ import { afterEach, expect, test } from "bun:test";
 import { mkdtemp, realpath, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { repoTimeout, gitIn as run } from "../../test/repo-time.js";
+import { CLEANUP_MS, repoTimeout, gitIn as run } from "../../test/repo-time.js";
 import { mergesSaid } from "../merges.js";
 
 /**
@@ -16,7 +16,7 @@ let dir = "";
 afterEach(async () => {
   if (dir) await rm(dir, { recursive: true, force: true }).catch(() => {});
   dir = "";
-});
+}, CLEANUP_MS);
 
 /** A clone of a bare origin with one commit pushed, and a `commit` helper. */
 async function clone(): Promise<{ ours: string; commit: (file: string) => Promise<void> }> {

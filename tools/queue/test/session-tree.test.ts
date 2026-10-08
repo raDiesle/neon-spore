@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { gitIn, repoTimeout } from "../../test/repo-time.js";
+import { CLEANUP_MS, gitIn, repoTimeout } from "../../test/repo-time.js";
 import { takenMark } from "../mark.js";
 import { promptFor } from "../prompt.js";
 import { parseItems } from "../queue.js";
@@ -33,7 +33,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await rm(root, { recursive: true, force: true });
-}, repoTimeout(2));
+}, CLEANUP_MS);
 
 describe("sessionTree", () => {
   it(

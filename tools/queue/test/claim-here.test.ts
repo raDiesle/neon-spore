@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { gitIn, repoTimeout } from "../../test/repo-time.js";
+import { CLEANUP_MS, gitIn, repoTimeout } from "../../test/repo-time.js";
 import { branchFor, heldElsewhere } from "../claim.js";
 import { markTaken } from "../edit.js";
 import { commitOnRef } from "../git.js";
@@ -94,7 +94,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await rm(root, { recursive: true, force: true });
-}, repoTimeout(2));
+}, CLEANUP_MS);
 
 describe("trunkHas", () => {
   it(

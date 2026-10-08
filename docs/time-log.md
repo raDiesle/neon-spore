@@ -36154,3 +36154,17 @@ half are tests that only fail one per run of `check:fast`.
 Bottleneck: friction — two full test runs to prove a list.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — A repo test's cleanup hook can fail a landing on bun's 5 s default
+
+- reading: 5 min. The red shard's log, `repo-time.ts`, and how every
+  repo-backed file closes its hook.
+- writing: 5 min. `CLEANUP_MS` beside `repoTimeout`, passed to the
+  twenty-four hooks that remove a temp directory.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. Proving which timeout bun meant: a 5.5 s hook and a 6 s
+  test in a scratch file, read side by side.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: reading — the failure named a hook, and it took a reproduction
+to trust that it meant the hook and not the test.

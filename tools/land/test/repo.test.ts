@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { mkdir, mkdtemp, realpath, rm, utimes, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { gitIn, repoTimeout } from "../../test/repo-time.js";
+import { CLEANUP_MS, gitIn, repoTimeout } from "../../test/repo-time.js";
 import { idleDays } from "../idle.js";
 import { orphanWorktrees } from "../orphans.js";
 import { isDirty, removeWorktree } from "../worktree.js";
@@ -55,7 +55,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await rm(root, { recursive: true, force: true }).catch(() => {});
-}, repoTimeout(2));
+}, CLEANUP_MS);
 
 describe("against a repository git actually made", () => {
   test(

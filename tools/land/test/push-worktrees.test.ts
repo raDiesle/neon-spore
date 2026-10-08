@@ -2,7 +2,7 @@ import { afterEach, expect, test } from "bun:test";
 import { mkdtemp, realpath, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { repoTimeout, gitIn as run } from "../../test/repo-time.js";
+import { CLEANUP_MS, repoTimeout, gitIn as run } from "../../test/repo-time.js";
 import { reconcile } from "../reconcile.js";
 
 /**
@@ -23,7 +23,7 @@ let dir = "";
 afterEach(async () => {
   if (dir) await rm(dir, { recursive: true, force: true }).catch(() => {});
   dir = "";
-});
+}, CLEANUP_MS);
 
 test(
   "the trunk reconciles with a lane's worktree registered under .claude/worktrees/",

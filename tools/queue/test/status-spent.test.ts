@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { gitIn, repoTimeout } from "../../test/repo-time.js";
+import { CLEANUP_MS, gitIn, repoTimeout } from "../../test/repo-time.js";
 import { branchFor } from "../claim.js";
 import { type Item, parseItems } from "../queue.js";
 import { spentHere } from "../spent.js";
@@ -56,7 +56,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await rm(root, { recursive: true, force: true });
-}, repoTimeout(2));
+}, CLEANUP_MS);
 
 describe("status with a spent claim", () => {
   const refs = () => ["main", branchFor(spentItem), branchFor(liveItem)];

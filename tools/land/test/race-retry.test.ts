@@ -2,7 +2,7 @@ import { afterEach, beforeEach, expect, describe as group, test } from "bun:test
 import { mkdir, mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { gitIn, repoTimeout } from "../../test/repo-time.js";
+import { CLEANUP_MS, gitIn, repoTimeout } from "../../test/repo-time.js";
 import { RACE_RETRIES, raceRetry } from "../race.js";
 import { rerace } from "../race-retry.js";
 import { replay, SETTLED } from "../replay.js";
@@ -73,7 +73,7 @@ beforeEach(async () => {
 
 afterEach(async () => {
   await rm(root, { recursive: true, force: true }).catch(() => {});
-}, repoTimeout(2));
+}, CLEANUP_MS);
 
 test(
   "a trunk that moved on other files is replayed onto and checked from where the lane was",

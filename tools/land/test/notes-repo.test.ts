@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { gitIn, repoTimeout } from "../../test/repo-time.js";
+import { CLEANUP_MS, gitIn, repoTimeout } from "../../test/repo-time.js";
 import type { LandState } from "../land.js";
 import { writeNotes } from "../note-commit.js";
 import { type Landed, PREAMBLE } from "../notes.js";
@@ -80,7 +80,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await rm(root, { recursive: true, force: true }).catch(() => {});
-});
+}, CLEANUP_MS);
 
 describe("a release note in a clone with no worktrees", () => {
   test(

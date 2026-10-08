@@ -3,7 +3,7 @@ import { existsSync } from "node:fs";
 import { mkdtemp, realpath, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { repoTimeout, gitIn as run } from "../../test/repo-time.js";
+import { CLEANUP_MS, repoTimeout, gitIn as run } from "../../test/repo-time.js";
 import { reconcile } from "../reconcile.js";
 
 /**
@@ -88,7 +88,7 @@ async function diverged(mine: string, theirs: string, file?: [string, string]): 
 afterEach(async () => {
   if (dir) await rm(dir, { recursive: true, force: true }).catch(() => {});
   dir = "";
-});
+}, CLEANUP_MS);
 
 describe("two sessions that both pushed", () => {
   test(

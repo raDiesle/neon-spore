@@ -2,7 +2,7 @@ import { afterEach, expect, test } from "bun:test";
 import { mkdtemp, realpath, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { repoTimeout, gitIn as run } from "../../test/repo-time.js";
+import { CLEANUP_MS, repoTimeout, gitIn as run } from "../../test/repo-time.js";
 import { branchMade, claimTimes } from "../lane-start.js";
 
 /**
@@ -15,7 +15,7 @@ let dir = "";
 afterEach(async () => {
   if (dir) await rm(dir, { recursive: true, force: true }).catch(() => {});
   dir = "";
-});
+}, CLEANUP_MS);
 
 async function commitAt(tree: string, when: number, subject: string): Promise<void> {
   const date = `${when} +0000`;

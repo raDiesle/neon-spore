@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { repoTimeout } from "../../test/repo-time.js";
+import { CLEANUP_MS, repoTimeout } from "../../test/repo-time.js";
 import { gitIn } from "../git.js";
 import { parseItems } from "../queue.js";
 import { existsIn, foundDate, staleLine, staleness, substantive, type Trunk } from "../stale.js";
@@ -121,7 +121,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await rm(root, { recursive: true, force: true });
-}, repoTimeout(2));
+}, CLEANUP_MS);
 
 function trunk(): Trunk {
   return {

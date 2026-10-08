@@ -127,6 +127,20 @@ export function repoTimeout(ops: number): number {
 }
 
 /**
+ * **What a hook that only removes a temporary directory may take** — pass it
+ * as `afterEach`'s or `afterAll`'s second argument.
+ *
+ * Not scaled by `GIT_OP_MS`, on purpose: that is measured once at import, and
+ * load arrives after the probe as easily as before it. On 8 October 2026 a
+ * landing went red on `reconcile-worktree.test.ts` with three sessions' checks
+ * running, because its `rm` overran bun's 5 s default for a hook; a hook
+ * passed `repoTimeout` would have had the same 5 s, since the probe had seen
+ * an idle machine. A late cleanup is never a finding, so the number is only a
+ * guard against a hang, and it is the ceiling.
+ */
+export const CLEANUP_MS = CEILING_MS;
+
+/**
  * What the baseline costs on a machine with nothing else on it, in
  * milliseconds — the left-hand column of the table above.
  */

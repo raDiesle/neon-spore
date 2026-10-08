@@ -418,17 +418,3 @@ one sentence fits, then a later wave that mixes the five gestures on one
 body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
-
-## A repo test's cleanup hook can fail a landing on bun's 5 s default
-
-- **Found:** 2026-10-08, claude/task-queue-work-e71746
-- **Files:** `tools/test/repo-time.ts`, `tools/land/test/*.test.ts`, `tools/queue/test/*.test.ts`
-
-`bun run land` went red once on `reconcile-worktree.test.ts` with *a
-beforeEach/afterEach hook timed out*: its `afterEach` only removes the temp
-directory, and with three sessions' checks running, that `rm` overran bun's
-5 s default (reproduced with a 5.5 s hook). Seven repo-backed files give the
-hook no timeout. The other eighteen pass `repoTimeout(n)`, which is scaled by
-a probe taken at import and floored at the same 5 s, so load that arrives
-after the probe beats it too. Name one unscaled ceiling for a hook that only
-cleans up, in `repo-time.ts`, and pass it to every such hook.

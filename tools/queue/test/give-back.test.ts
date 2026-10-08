@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { gitIn, repoTimeout } from "../../test/repo-time.js";
+import { CLEANUP_MS, gitIn, repoTimeout } from "../../test/repo-time.js";
 import { branchFor } from "../claim.js";
 import { markTaken, takenIn } from "../edit.js";
 import { giveBack, holdsClaim } from "../give-back.js";
@@ -56,7 +56,7 @@ async function repo(branch: string, mark: string) {
 
 afterAll(async () => {
   for (const root of roots) await rm(root, { recursive: true, force: true });
-}, repoTimeout(4));
+}, CLEANUP_MS);
 
 describe("a give-back from a tree on another branch", () => {
   let r: Awaited<ReturnType<typeof repo>>;

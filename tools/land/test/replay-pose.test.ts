@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { mkdtemp, realpath, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { gitIn, repoTimeout } from "../../test/repo-time.js";
+import { CLEANUP_MS, gitIn, repoTimeout } from "../../test/repo-time.js";
 import { withoutPoseRow } from "../../versus/pose-row.js";
 import { POSE_FILE } from "../pose-merge.js";
 import { replay } from "../replay.js";
@@ -52,7 +52,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await rm(root, { recursive: true, force: true }).catch(() => {});
-}, repoTimeout(2));
+}, CLEANUP_MS);
 
 describe("two lanes changing SLOT_POSE in the same hours", () => {
   test(
