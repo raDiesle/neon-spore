@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · d174c770b — THE ANTIPHON's turning organ is decided: a seeded resting turn
+
+The organ rests at a quarter turn the seed picks, the decoys are the same contour at the other turns, and the thumb's look-around turn springs back when let go, so it never changes the answer. The owner left the choice to the session; the queue entry is free to take.
+
 ## 2026-10-08 · 3b7185d3f — THE SPOOL's barrel rolls on the brake's flange
 
 The casing, its ribs and both flanges roll together about the brake's flange, up to 0.12 of a radian, on the beat clock, so the far end rises and dips by more than half a tile on both screens. The knob sits at the pivot and stays under the thumb, the gauge is drawn off the unrolled pose, and the line's top follows the winding, so it stays taut to the hull. A hand on the brake does not still the roll — that would show the navigator the grip — and the slack spool takes none of it. Living bosses, step 11. On the field under *a look the owner asked for by name*.
