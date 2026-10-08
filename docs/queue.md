@@ -460,6 +460,7 @@ complete by adding a throwaway kind on a scratch branch and running
 ## `render/duty.ts` is at 250 lines: cut `DUTY_WORD` out
 
 - **Found:** 2026-10-08, claude/task-queue-work-e71746
+- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-render-duty-ts-is-at-250-lines-cut-duty-word-out)
 - **Files:** `packages/render/src/duty.ts`
 
 THE BLISTER's row took it to the limit exactly, and its comment had to go on
