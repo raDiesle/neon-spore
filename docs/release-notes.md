@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 53bf5d181 — THE LEDGER's new back, COLONY · PLATED, offered in VERSUS
+
+The design's lobed back off the shape sheet is offered as ledger:back / plated on THE LEDGER · PAYING: two free drafts combined and named, CODE PLATE's squared slab cut down the seam with COLONY's five small lobes swelling down its back, inside the same width the plating refuses bolts from. The drawing and the bolt that stops on the body now read the half's outline through one record, so a candidate moves both. The game draws what it drew.
+
 ## 2026-10-08 · 28af95c1a — THE LEDGER's ship nerves lit along the cord, offered in VERSUS
 
 The design's nerves lit along the cord's line, which the game has never drawn, is offered as ledger:nerves / lit on a new pose, THE LEDGER · BILLED: as a return comes down the cord the ship's nerves under the socket light from the socket outward, all of them on the beat it lands, on the navigator's screen alone. The game draws nothing new; the hook it reads ships empty.
