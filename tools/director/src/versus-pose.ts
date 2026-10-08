@@ -45,6 +45,7 @@ const SLOT_POSE: Record<string, string> = {
   "surge:evert": "THE SURGE · EVERTING",
   "surge:spray": "THE SURGE · BURST",
   "lead:lean": "THE LEAD · RUNNING",
+  "lead:walls": "THE LEAD · PASSING",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

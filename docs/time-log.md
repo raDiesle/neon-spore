@@ -35430,3 +35430,15 @@ Bottleneck: reading — "a length to it" had to be given a meaning, and
 the lead itself would have been the arithmetic done for them.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE LEAD's walls on the ridge, offered in VERSUS
+
+- reading: 5 min. The ridge's paint, and `lead-draw.ts` at its size limit,
+  so the record went into `lead-rock.ts`.
+- writing: 5 min. `RIDGE_WALLS`, the candidate, the PASSING pose's `lookAt`.
+- looking: 5 min. The first crags were a corner hook and nothing else;
+  raised, widened and lit grey over the dark.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: looking — dark rock on a dark sky vanished at phone size.

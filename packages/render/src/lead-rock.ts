@@ -26,6 +26,26 @@ export interface Ridge {
   tile: number;
 }
 
+/** One frame of the ridge's two ends, for `RIDGE_WALLS`. */
+export interface RidgeWallsDraw {
+  ctx: CanvasRenderingContext2D;
+  r: Ridge;
+  fade: number;
+}
+
+export interface RidgeWallsLook {
+  draw: (d: RidgeWallsDraw) => void;
+}
+
+/**
+ * The walls the body turns at, on the ridge. The design shows them; the
+ * game draws nothing at the ridge's ends but the rock running out to the
+ * field's edge. Lifted out on 8 October 2026 so a wall could be offered in
+ * VERSUS (`lead:walls`); the game draws nothing through it. A wall is the
+ * field's edge, no secret from either seat, so it is called on every screen.
+ */
+export const RIDGE_WALLS: RidgeWallsLook = { draw: () => {} };
+
 /** How many pits along the ridge, and where the strata lie, as shares of its depth. */
 const PITS = 9;
 const STRATA = [0.45, 0.72] as const;
@@ -94,4 +114,5 @@ export function paintRidge(
   ctx.globalAlpha = 0.45;
   ctx.stroke(body);
   ctx.restore();
+  RIDGE_WALLS.draw({ ctx, r, fade });
 }

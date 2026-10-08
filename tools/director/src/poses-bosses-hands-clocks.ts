@@ -161,7 +161,13 @@ export const CLOCK_HAND_POSES: Pose[] = [
     "lead",
     "passing",
     "The body passes three columns a beat. P1 holds the cannon still; P2's fill stands up in its way.",
-    { hand: leadHandLate(2), want: (w) => w.boss?.kind === "lead" && leadPassing(w.boss), hold: 6 },
+    {
+      hand: leadHandLate(2),
+      want: (w) => w.boss?.kind === "lead" && leadPassing(w.boss),
+      hold: 6,
+      // `lead:walls` is judged here: the pass runs for the farther wall.
+      lookAt: "the ridge's two ends, where the pass is going",
+    },
   ),
   bossPose(
     "lead",
