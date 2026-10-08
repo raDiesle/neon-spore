@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 51b5983c3 — THE BASTION says what each shell wants, and a bolt stops on the moon
+
+The field now gives each shell its word: PULL on each side's slab knob, TURN on the rim, then FIRE aimed at the gun brought to the front, SHIELD under the node charging, and FIRE under the open port to the navigator alone. The pilot is never shown the port's column. A bolt bursts on the moon's edge, on the gun or in the port, and is judged where it is drawn. So a gun blows and a port flares on the frame the bolt reaches them, not when it leaves the top of the field. A look with no shipped alternative.
+
 ## 2026-10-08 · 988930fc5 — THE BASTION takes a thumb: a knob on each side's slab, and the rim
 
 While the armour is lit, a knob sits on each side's next slab: the pilot's on the left, the navigator's on the right. It wears the arrow out along the slab's way and fills a channel one pull long. While the gun ring is lit, the pilot turns the moon by THE MAZE's lever on its rim. The partner's knob is drawn dim and waiting. A press on it is refused aloud, and a slab torn, a slab snapped back or a gun shot answers with the shared verdict ring. The wave now has the default panel: lane one gave it the empty one, which left the shield and the cannon off the ship. The hands are a look with no shipped alternative; the panel is a fix to something wrong.

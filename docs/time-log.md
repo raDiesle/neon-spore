@@ -36413,3 +36413,5 @@ Bottleneck: the director's registries, found one red check at a time —
 
 Bottleneck: fitting the sim's meet rows to the picture — three rounds of
 `core-met.test.ts` to find the window each part is met in.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
