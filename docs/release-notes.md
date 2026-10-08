@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 0ba11f270 — `events-creature.ts` and `events.ts` have room again: grouped creature events in a file of their own
+
+Refactor; nothing in the game changes. `events-creature.ts` was at 249 lines, and every creature with its own events file still added an import and a union line there. Those fifteen grouped unions now live in `events-creature-groups.ts`, which joins `CreatureEvent` as one line. The two comments trimmed to fit THE BLISTER are whole again, and a block of re-exports nothing imported is gone. `events.ts`, also at 249, moved THE BULB QUEEN's petal and fall and THE WARDEN's line, plate and fall into those bosses' own events files. The eye opening stays in `events.ts`, because THE LID's plates open it too.
+
 ## 2026-10-08 · a13bf8836 — THE BLISTER's lanes 4 to 8 are postponed off the queue
 
 HOLD, SWIPE, TURN, RUB and the real guide leave docs/queue.md at the owner's word and wait at the foot of docs/spec/blister.md, each in the shape it had as an entry, until he asks for one. The blister the game has is lanes 1 to 3: tapped down, its look, and the director's BY, GESTURE and COUNT rows.
