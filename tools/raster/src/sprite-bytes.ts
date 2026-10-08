@@ -48,6 +48,18 @@ export const BYTES: Record<string, { shipped: [string, string]; baked: [string, 
     shipped: ["instar-wings.ts", "drawWing"],
     baked: ["instar-wing-baked.ts", "drawBakedMembrane"],
   },
+  // Laid on the dial rather than offered against a drawing, so each is
+  // weighed beside the hub drawn over it, which ships the dial's shape and
+  // the palette any drawing has. One module paints both, and the bundle
+  // shakes out whichever painter a row does not call.
+  "governor-alloy": {
+    shipped: ["governor-hub.ts", "drawGovernorHub"],
+    baked: ["governor-face-baked.ts", "drawGovernorAlloy"],
+  },
+  "governor-veins": {
+    shipped: ["governor-hub.ts", "drawGovernorHub"],
+    baked: ["governor-face-baked.ts", "drawGovernorVeins"],
+  },
 };
 
 /**

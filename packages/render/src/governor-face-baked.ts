@@ -85,7 +85,7 @@ function paintVeins(g: CanvasRenderingContext2D, w: number, h: number): void {
   }
 }
 
-const ALLOY: SpriteSpec = {
+export const GOVERNOR_ALLOY_SPRITE: SpriteSpec = {
   name: "governor-alloy",
   frames: 1,
   aspect: 1,
@@ -93,7 +93,12 @@ const ALLOY: SpriteSpec = {
   light: paintGloss,
 };
 
-const VEINS: SpriteSpec = { name: "governor-veins", frames: 1, aspect: 1, body: paintVeins };
+export const GOVERNOR_VEINS_SPRITE: SpriteSpec = {
+  name: "governor-veins",
+  frames: 1,
+  aspect: 1,
+  body: paintVeins,
+};
 
 /** How bright the veins are on a beat: a slow swell after the downbeat, never dark. */
 export function governorVeinPulse(beatPhase: number): number {
@@ -109,14 +114,32 @@ function blit(ctx: CanvasRenderingContext2D, s: Sprite, d: Dial, alpha: number):
   ctx.restore();
 }
 
-/** Lays the face's alloy over the flat face and rim. */
-export function drawGovernorAlloy(ctx: CanvasRenderingContext2D, d: Dial): void {
-  const px = spritePx(d.r * 2, Math.min(DPR_CAP, screenDpr()));
-  blit(ctx, tintedSprite(ALLOY, px, PALETTE.governorBrass, PALETTE.governorSheen), d, 1);
+/**
+ * Lays the face's alloy over the flat face and rim. `dpr` is the screen's
+ * unless `bun run sprite` names its own (`tools/raster/src/sprite-demos-governor.ts`).
+ */
+export function drawGovernorAlloy(ctx: CanvasRenderingContext2D, d: Dial, dpr = screenDpr()): void {
+  const px = spritePx(d.r * 2, Math.min(DPR_CAP, dpr));
+  blit(
+    ctx,
+    tintedSprite(GOVERNOR_ALLOY_SPRITE, px, PALETTE.governorBrass, PALETTE.governorSheen),
+    d,
+    1,
+  );
 }
 
 /** Lays the veins over the face, at `pulse`'s brightness. */
-export function drawGovernorVeins(ctx: CanvasRenderingContext2D, d: Dial, pulse: number): void {
-  const px = spritePx(d.r * 2, Math.min(DPR_CAP, screenDpr()));
-  blit(ctx, tintedSprite(VEINS, px, PALETTE.governorGlow, PALETTE.governorGlow), d, pulse);
+export function drawGovernorVeins(
+  ctx: CanvasRenderingContext2D,
+  d: Dial,
+  pulse: number,
+  dpr = screenDpr(),
+): void {
+  const px = spritePx(d.r * 2, Math.min(DPR_CAP, dpr));
+  blit(
+    ctx,
+    tintedSprite(GOVERNOR_VEINS_SPRITE, px, PALETTE.governorGlow, PALETTE.governorGlow),
+    d,
+    pulse,
+  );
 }

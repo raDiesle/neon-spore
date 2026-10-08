@@ -30,13 +30,15 @@ import {
   WING_LOOK,
   WING_SPRITE,
 } from "@neon-spore/render";
+import { GOVERNOR_DEMOS } from "./sprite-demos-governor.js";
 import { beat, flat, glob, iris, look, plate, spark, split, wing } from "./sprite-fixtures.js";
 
 /**
  * **What `bun run sprite` can show**: each baked sprite beside the drawing it
  * is offered against. A new sprite is one entry here — its spec, its colours,
  * how tall it plays, and a shipped and a baked way to draw one at a point —
- * and one row in `sprite.ts`'s `BYTES`, which names the modules it costs.
+ * and one row in `sprite-bytes.ts`' `BYTES`, which names the modules it costs.
+ * THE GOVERNOR's are in `sprite-demos-governor.ts`.
  */
 
 export interface SpriteDemo {
@@ -208,4 +210,5 @@ export const DEMOS: readonly SpriteDemo[] = [
       drawBakedMembrane(ctx, wing(ctx, x, y, r), dpr);
     },
   },
+  ...GOVERNOR_DEMOS,
 ];

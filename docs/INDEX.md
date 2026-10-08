@@ -2007,7 +2007,7 @@ by hand never moves.
 | `packages/render/src/instar-quarter-parts.ts` | **The small parts of THE INSTAR's head turned to the ship** (`instar-quarter-head.ts` lays them): its teeth |
 | `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
 | `packages/render/src/index-solid.ts` | **The solid half of the barrel**: a boss drawn from any side |
-| `packages/render/src/index-sprite.ts` | Sprites baked at load (`sprite-bake.ts`) and the examples offered on THE INSTAR beside the drawings they… |
+| `packages/render/src/index-sprite.ts` | Sprites baked at load (`sprite-bake.ts`), THE GOVERNOR's face |
 | `packages/render/src/idle-drift-parts.ts` | THE PART DRIFT: every named part of a boss turns, tilts and rotates a little about its own joint |
 | `packages/render/src/idle-drift.ts` | the idle drift: a boss's body yaw, pitch, roll and head yaw as seeded noise of `look.time`, plus `hush`, `settle` and `letGo` |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
@@ -3232,6 +3232,7 @@ by hand never moves.
 | `tools/raster/src/rime-clear-art.ts` | One frame of THE RIME's bare-core reveal, drawn into a 2D context |
 | `tools/raster/src/spec.ts` | The one description of the burst — the only place its numbers are written |
 | `tools/raster/src/sprite-demos.ts` | **What `bun run sprite` can show**: each baked sprite beside the drawing it is offered against |
+| `tools/raster/src/sprite-demos-governor.ts` | **THE GOVERNOR's face on the sprite bench** |
 | `tools/raster/src/sprite-page.ts` | The sprite sheet's page: bundled for the browser by `sprite.ts` and run there, so the bake |
 | `tools/raster/src/sprite-bytes.ts` | What a baked sprite costs the game's bundle — the only bytes it ships |
 | `tools/raster/src/sprite-fixtures.ts` | The things `sprite-demos.ts` draws its sprites on: a nest's layout and window, a plate of hide |

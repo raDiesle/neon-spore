@@ -44,3 +44,20 @@ the five fourth-act poses (hover, bow, arch, rise, loom) on 26 September 2026.
 Every baked part draws there without clipping or popping. The fire, the heart
 and the pale body only show in their own states, which none of those poses
 puts on screen, so they were checked in their own slots' poses.
+
+## THE GOVERNOR's face
+
+Two sprites laid on the flywheel's face (`governor-face-baked.ts`), in the game
+since the owner asked for them by name on 7 October 2026. Weighed beside the
+hub drawn over them, and drawn on the bench flat at the dial's diameter
+against the bare brass and face. Figures from `bun run sprite` on 8 October
+2026.
+
+| Part | Code, gzipped | Calls, shipped → baked | µs, shipped → baked | Bake once | As a picture, WebP |
+|---|---|---|---|---|---|
+| Alloy (iris, bezel, glyphs, rim, gloss) | +1.8 kB | 6 → 11 | 0.5 → 1.5 | 1.6 ms | 245 kB |
+| Veins | +1.4 kB | 6 → 11 | 0.5 → 1.5 | 4.8 ms | 25 kB |
+
+Here the shipped column is only the flat face, so baking buys detail, not
+speed: five calls for a face that would be hundreds of strokes drawn live, and
+an alloy that would cost a quarter of a megabyte shipped as a picture.

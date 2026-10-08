@@ -35154,3 +35154,17 @@ Bottleneck: reading — the cause was already written down in `cpu-time.ts`;
 a walk timed idle and under 24 copies of itself said which part was wrong.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE GOVERNOR's two baked sprites on the sprite bench
+
+- reading: 10 min. The bench's page, demos and byte weigher, and the face's
+  bake.
+- writing: 10 min. Two demos in their own file, two `BYTES` rows, the specs
+  exported, a `dpr` the bench can pass, the skill's table.
+- looking: 5 min. Both sheets.
+- friction: 5 min. Weighed beside `dialRing`, the alloy read 3.3 kB, over the
+  ceiling — the palette was counted as the sprite's; the hub is the honest
+  baseline.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: friction — choosing a baseline that ships what any drawing does.

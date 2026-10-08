@@ -440,20 +440,6 @@ a third of the way round (`instar-turn.ts`'s `TURN`), with the legs
 hanging off it and the wings spread;
 (C) build A and B as VERSUS candidates (`instar:flight`) beside what ships.
 
-## THE GOVERNOR's two baked sprites join the sprite bench
-
-- **Found:** 2026-10-07, claude/governor-graphics-enhancement-b358ca
-- **Taken:** 2026-10-08, claude/queue-governor-sprites (claim: claude/queue-the-governors-two-baked-sprites-join-the-sprite)
-- **Files:** `tools/raster/src/sprite-demos.ts`, `tools/raster/sprite.ts`, `.claude/skills/sprite/baked-parts.md`, `packages/render/src/governor-face-baked.ts`
-
-`governor-alloy` and `governor-veins` (`governor-face-baked.ts`) are baked
-with `sprite-bake.ts` but have no entry in `sprite-demos.ts`, no `BYTES` row
-in `tools/raster/sprite.ts` and no row in `baked-parts.md`, so `bun run
-sprite` neither shows them nor prints their code bytes, bake time and the
-memory a 2× disc takes. Add the demo (play height the dial's diameter, one
-state), the `BYTES` row and the `baked-parts.md` line; `bun run sprite
-governor-alloy` should print both.
-
 ## VERSUS shows one seat for a patch that draws each seat differently
 
 - **Found:** 2026-10-07, claude/tasks-form-queue-9a5f8c
