@@ -35320,3 +35320,5 @@ header said so; the probe's "never finishes" was the wrong question.
 Bottleneck: reading — "THE CAIRN never finishes" was three faults stacked,
 and only a dump of the world after the hand had emptied the pile showed the
 third was the game's and not the hand's.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

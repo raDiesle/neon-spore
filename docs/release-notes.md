@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · ab941e0c6 — THE CAIRN's wave can be passed, and AUTO plays it and THE UNDERTOW to the end
+
+An emptied cairn stayed installed as the boss with nought rocks, and a boss still installed holds its wave open, so THE CAIRN's wave could not be passed at all; the last rock out now takes the boss off the world like every other boss. AUTO pulled one rock and then reported the same carry for ever, and answered neither the rocks nor THE UNDERTOW's six slimes; it now carries a column further each pull and plays the field beside both. THE CAIRN, THE UNDERTOW, THE MIRROR and THE SPLICE each have a test that plays AUTO to the end at both shot charges.
+
 ## 2026-10-08 · 085099902 — AUTO answers the wave's own bodies at THE WELL and THE SURGE
 
 AUTO on THE WELL held and wound the seam and did nothing else, so every body of the wave reached the hull; on THE SURGE both thumbs were on the bulb and nothing moved the shield, so every rock it threw got through. Both now play the field alongside the boss, and THE WELL, THE LEDGER, THE THROAT and THE SURGE each have a test that plays AUTO to the end at both shot charges.
