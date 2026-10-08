@@ -35873,3 +35873,14 @@ scene, so the first timing was off by half.
 Bottleneck: none to speak of; the entry had the cause and the cure.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — Marks-window rows for THE SURGE, THE LEAD, THE SCUTTLE, THE ANTIPHON
+
+- reading: 5 min. Where each calls the shared halo and the sim predicate
+  behind each gate.
+- writing: 5 min. Four rows, four lines struck from `NO_ROW`.
+- looking: 0 min. Nothing drawn; each row seen red with its window emptied.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: landing — the rows were quicker to write than to check.

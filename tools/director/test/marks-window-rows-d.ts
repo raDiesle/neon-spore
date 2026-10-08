@@ -1,4 +1,7 @@
 import {
+  type AntiphonState,
+  antiphonOrganAsks,
+  antiphonRailAsks,
   type GimbalState,
   type GovernorState,
   gimbalRingAsks,
@@ -14,6 +17,8 @@ import {
   hiveHoldable,
   hiveSwelling,
   INNER,
+  type LeadState,
+  leadGrippable,
   type MantleState,
   mantleCoreAsks,
   mantleKnobAsks,
@@ -22,6 +27,10 @@ import {
   type RatchetState,
   ratchetCatchAsks,
   ratchetPawlAsks,
+  type ScuttleState,
+  type SurgeState,
+  scuttleSwingable,
+  surgeAsks,
   type World,
 } from "@neon-spore/sim";
 import * as governorMarks from "../../../packages/render/src/governor-marks.js";
@@ -49,6 +58,11 @@ import { mark, type Row } from "./marks-window-kit.js";
  * swelling for the navigator. THE HASP's are the latch while it will take his
  * hand and the wheel while it is up for hers; its halo is narrower, never
  * drawn past the grip or with her hand already on the rim.
+ *
+ * THE SURGE, THE LEAD, THE SCUTTLE and THE ANTIPHON the same: either seat's
+ * grip on the bulb; the stalk while it stands still and nobody holds it; a
+ * loose part while the frame may be swung; the organ grown and nothing in
+ * hand, or a candidate on the rail while it stands.
  */
 
 const mantle = (w: World) => w.boss as MantleState;
@@ -57,6 +71,10 @@ const hive = (w: World) => w.boss as HiveState;
 const gimbal = (w: World) => w.boss as GimbalState;
 const hasp = (w: World) => w.boss as HaspState;
 const ratchet = (w: World) => w.boss as RatchetState;
+const surge = (w: World) => w.boss as SurgeState;
+const lead = (w: World) => w.boss as LeadState;
+const scuttle = (w: World) => w.boss as ScuttleState;
+const antiphon = (w: World) => w.boss as AntiphonState;
 
 export const ROWS_D: readonly Row[] = [
   {
@@ -126,6 +144,34 @@ export const ROWS_D: readonly Row[] = [
         "drawMarkHalo",
         (w) => ratchetCatchAsks(ratchet(w), w.cfg) || ratchetPawlAsks(ratchet(w)),
       ),
+    ],
+  },
+  {
+    kind: "surge",
+    marks: [
+      mark(
+        markFeedback,
+        "drawMarkHalo",
+        (w) => surgeAsks(surge(w), w, 1) || surgeAsks(surge(w), w, 2),
+      ),
+    ],
+  },
+  {
+    kind: "lead",
+    marks: [mark(markFeedback, "drawMarkHalo", (w) => leadGrippable(lead(w)))],
+  },
+  {
+    kind: "scuttle",
+    marks: [mark(markFeedback, "drawMarkHalo", (w) => scuttleSwingable(scuttle(w)))],
+  },
+  {
+    kind: "antiphon",
+    marks: [
+      mark(markFeedback, "drawMarkHalo", (w) => {
+        const s = antiphon(w);
+        if (antiphonOrganAsks(s)) return true;
+        return s.rail.some((_, i) => antiphonRailAsks(s, w.cfg, w.beat, i));
+      }),
     ],
   },
 ];
