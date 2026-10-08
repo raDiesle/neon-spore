@@ -683,3 +683,17 @@ one sentence fits, then a later wave that mixes the five gestures on one
 body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
+
+## AUTO's shots from below at THE TRAPEZE mostly fly past
+
+- **Found:** 2026-10-08, claude/trapeze-sim
+- **Files:** `packages/hands/src/boss-hands-trapeze.ts`, `tools/director/test/autopilot-trapeze.test.ts`
+
+`bun run frames . --wave "THE TRAPEZE" --auto both --until trapezeShot:side=true`
+printed, over the first 3000 ticks, ten `fire` in the `shoot` level and nine
+`shotOut` against one `trapezeShot`. `below()` leads the alien by the climb
+of a shot, but the bolt must pass within `trapezeHitMilli` of the seat
+(`sim/trapeze-shot.ts`, `trapezeAlong`), and the cannon column it picks
+misses that. Aim at the column the seat is over when the bolt reaches its
+row (`trapezeSeat` stepped forward by the climb), and tighten
+`autopilot-trapeze.test.ts` to say most shots in a `shoot` level hit.
