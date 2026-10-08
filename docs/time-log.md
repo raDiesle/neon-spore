@@ -35382,3 +35382,5 @@ them, BULB · CLOVER, is marked free while its note says it is taken.
 
 Bottleneck: reading — the design asks for the gap on a body it also says
 the pilot must not read the pressure off.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

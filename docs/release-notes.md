@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · c3638c167 — THE SURGE's seam gaping with the pressure, offered in VERSUS
+
+The design's seam that parts wider the more the bulb is charged is offered as surge:seam / gape on THE SURGE · BAND: on the navigator's screen the seam opens into a lit mouth as wide as the pressure is high. The pilot's seam stays one shut line, because a gap there would be the pressure he is not shown. The game draws what it drew; the seam line is now read from a record.
+
 ## 2026-10-08 · 53bf5d181 — THE LEDGER's new back, COLONY · PLATED, offered in VERSUS
 
 The design's lobed back off the shape sheet is offered as ledger:back / plated on THE LEDGER · PAYING: two free drafts combined and named, CODE PLATE's squared slab cut down the seam with COLONY's five small lobes swelling down its back, inside the same width the plating refuses bolts from. The drawing and the bolt that stops on the body now read the half's outline through one record, so a candidate moves both. The game draws what it drew.
