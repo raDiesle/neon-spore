@@ -12,6 +12,7 @@
 import type { AutoSeats } from "./auto.js";
 import type { BossSpec } from "./boss.js";
 import type { Crop } from "./crop.js";
+import type { EntrySpec } from "./entry.js";
 import type { FaultSpec } from "./fault.js";
 import type { OpeningStop } from "./opening.js";
 import type { HandSpec, HoldSpec, PressSpec } from "./press-spec.js";
@@ -195,6 +196,9 @@ export interface FrameSpec extends StageSpec {
    * is where `startWave` left it (`fault.ts`, and `page.ts` for the install).
    */
   fault?: FaultSpec;
+  /** Fields merged into one of the wave's arrivals before it arrives: a
+   * gesture no wave sends, photographed without editing one (`entry.ts`). */
+  entry?: EntrySpec;
   /**
    * The installed boss's own fields, whether or not a press could reach them.
    *

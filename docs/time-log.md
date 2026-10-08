@@ -36273,3 +36273,17 @@ Bottleneck: the registrations — a boss is a row in sixty files, and only
 the typecheck finds them in one pass.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — `bun run frames` cannot draw an arrival no shipped wave has
+
+- reading: 5 min. `run.ts`'s flag index, `boss.ts`'s scalar reader, the
+  page's install window after `jumpToWave`, and how `world.queue` is ordered.
+- writing: 10 min. `entry.ts` (parse, the self-contained page write, the
+  install), the flag's wiring and recipe, five tests.
+- looking: 5 min. THE BLISTER with `--entry 0:gesture=hold` against the hand
+  edit's frame: the same HOLD help, no wave file touched.
+- friction: 5 min. A refused run wiped the output folder, so the crop after it
+  failed; queued.
+- landing: 5 min. `check:fast`, `queue done`, `land`.
+
+Bottleneck: friction — the output folder is emptied before the page can refuse.

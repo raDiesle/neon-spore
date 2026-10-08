@@ -3327,6 +3327,7 @@ by hand never moves.
 | `tools/land/send.ts` | What a landing says to `origin` once the trunk has moved: the push, the count held back, the lane's own branch gone |
 | `tools/director/src/entry-fields-rock.ts` | **A rock's two numbers**: how fast it falls and how wide it arrives |
 | `tools/frames/exec.ts` | The three things every part of this tool needs before it can do anything: where the checkout is |
+| `tools/frames/entry.ts` | `--entry <n>:<key>=<value>[,…]` — fields merged into one of the wave's own arrivals before it arrives |
 | `tools/frames/scratch.ts` | The throwaway checkouts `bun run frames` works out of: made, used, and — the part that was missing |
 | `tools/frames/scout-press.ts` | **THE SCOUT's flying, written on the press line** — the pilot's three held verbs, and one recorded flight that works |
 | `tools/land/crlf.ts` | The line endings on disk, asked before `bun run check` is asked anything |

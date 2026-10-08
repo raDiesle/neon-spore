@@ -328,20 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `bun run frames` cannot draw an arrival no shipped wave has
-
-- **Found:** 2026-10-08, claude/task-queue-work-b00fee
-- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-bun-run-frames-cannot-draw-an-arrival-no-shipped)
-- **Files:** `tools/frames/run.ts`, `tools/frames/recipes.ts`
-
-THE BLISTER's HOLD landed with no wave that sends one, so its one picture was
-taken by switching THE BLISTER's first arrival to `gesture: "hold"` in the
-working tree, running `frames .`, and reverting by hand — an edit to a shipped
-wave that a slip would have committed. Lanes 5 to 7 (SWIPE, TURN, RUB) meet the
-same wall. Add a flag, e.g. `--entry 0 '{gesture:"hold"}'`, that merges fields
-into one of the wave's entries in memory before the world is built, with a
-recipe line and a test that the merged entry reaches `createWorld`.
-
 ## controls.md's row for THE GOVERNOR's needle still names the brake
 
 - **Found:** 2026-10-08, claude/trivet-boss-concept-670eed
@@ -370,3 +356,16 @@ OCULUS's), or THE VISE taken out whole as THE TRIVET was. Either rework
 keeps the simulation's `gapMilli` and changes only what sends it; the
 pinch machinery (`pinch.ts`, `pinch-pair.ts`) goes with the last pinch.
 
+
+## `bun run frames` empties its output folder before a refusal in the page
+
+- **Found:** 2026-10-08, claude/task-queue-work-b00fee
+- **Files:** `tools/frames/run.ts`, `tools/frames/scratch.ts`
+
+`frames . --wave "THE BLISTER" --entry 7:gesture=hold` is refused in the page
+(`this wave has 2 arrivals`), but only after `docs/frames/working` has been
+emptied, so the frame the run before it wrote was gone and a crop of it failed.
+Every page-side refusal (`--entry`, `--boss`, `--creature`, `--boss-round`) has
+the same order. Write into a fresh scratch directory and move it over the output
+folder only once every frame is taken, with a test that a refused run leaves the
+folder as it found it.

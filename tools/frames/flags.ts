@@ -2,6 +2,7 @@ import { DIFFICULTIES, isDifficulty } from "@neon-spore/sim";
 import { parseAuto, parseAutoMiss } from "./auto.js";
 import { bossSpec, parseBoss, parseBossJson, parseCreature } from "./boss.js";
 import { parseAt } from "./crop.js";
+import { parseEntry } from "./entry.js";
 import { parseFault } from "./fault.js";
 import { collectHolds, collectPresses, tickLine } from "./flag-lists.js";
 import { parseHand } from "./hand.js";
@@ -143,6 +144,8 @@ export function parseFrameSpec(
     // would have left it. Undefined is every capture this tool has ever taken:
     // the wave's own fault, or none (`fault.ts`).
     fault: parseFault(after("fault")),
+    // An arrival's fields, for a gesture no wave sends yet (`entry.ts`).
+    ...(argv.includes("--entry") ? { entry: parseEntry(after("entry")) } : {}),
     // And the boss's own fields, for the same reason one flag up: a state a
     // run of correct presses deep is a state nobody could photograph twice
     // (`boss.ts`). Three flags, one list: `--boss` writes scalars, `--boss-json`

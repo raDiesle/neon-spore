@@ -2,6 +2,7 @@ import type { Browser, Page } from "playwright-core";
 import { installAuto } from "./auto.js";
 import { installBoss } from "./boss-install.js";
 import { freezeClocks } from "./draw-clock.js";
+import { installEntry } from "./entry.js";
 import { installFault } from "./fault.js";
 import { type OffOrigin, refuseOffOrigin } from "./offline.js";
 import { clearOpening } from "./opening.js";
@@ -110,6 +111,8 @@ export async function openStage(
   // Straight after the jump and before the opening lets go, which is where
   // `startWave` left the wave's own (`installFault`).
   if (spec.fault) await installFault(page, spec.fault);
+  // And an arrival's fields, in the same window: it has not arrived yet.
+  if (spec.entry) await installEntry(page, spec.entry);
 
   // And the boss's own fields — and its body's, from `--creature` — in the
   // same window and for the same reason: a phase is drawn over the field from

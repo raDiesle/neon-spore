@@ -97,8 +97,8 @@ export function parseCreature(value: string | undefined): BossSpec | undefined {
   return scalars("--creature", value, "creature");
 }
 
-/** The shared body of the two scalar flags: names, values, and nothing else. */
-function scalars(
+/** The shared body of the scalar flags — `--entry`'s too: names, values, and nothing else. */
+export function scalars(
   flag: string,
   value: string | undefined,
   where: "creature" | undefined,

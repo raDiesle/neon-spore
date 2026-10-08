@@ -44,6 +44,7 @@ export const KNOWN_FLAGS: readonly string[] = [
   "opening",
   "guide-page",
   "fault",
+  "entry",
   "out",
   "help",
 ];

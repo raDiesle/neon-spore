@@ -31,6 +31,7 @@ import { dirname, join } from "node:path";
  * | flag | argued in |
  * |---|---|
  * | `--fault` | `fault.ts` |
+ * | `--entry` | `entry.ts` |
  * | `--boss`, `--boss-json`, `--creature` | `boss.ts`; the write in `boss-install.ts` |
  * | `--until`, `--until-ticks`, `--until-back`, `--until-on`, `--events` | `until.ts` |
  * | `--opening` | `opening.ts`; a rehearsal's own clock in `guide-film.ts` |
