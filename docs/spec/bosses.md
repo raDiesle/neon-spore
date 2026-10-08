@@ -10950,6 +10950,13 @@ kill.
 **Its health is the gongs.** A level run out is the alien jumping at the
 hull (`trapezeOut`, `bossStrikesHull`), which is the wave.
 
+**The guide is a film** (`content/scenes/the-trapeze.ts`, 8 October 2026,
+the owner's *a guide tutorial that briefly explains the principle*): one
+`push` level, player 1 swiping on the left and player 2 on the right as the
+swing comes back, until the alien kicks the gong. Four pages — whose side,
+*when*, the partner's side, and what it is for — and nothing the fight's
+own `SWIPE` already says.
+
 **The worm on the field** (the owner, 6 October 2026, `sim/lamprey-roam.ts`):
 *let the enemy appear as an intro animation, eat its way through things that
 fall … leave crumbs … crawl out of the picture and back … between each slow

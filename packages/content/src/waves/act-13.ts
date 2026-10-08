@@ -157,9 +157,7 @@ export const WAVES_ACT_13: Wave[] = [
     id: "theTrapeze",
     name: "THE TRAPEZE",
     guide: {
-      both: "Swing the alien up to the gong. Swipe toward the middle when the swing comes back on your side. Swipe too early and it slows.",
-      p1: "1. Swipe on the left when the swing comes back.\n2. Later, the field says who swipes.\n3. Then shoot it from below.\n4. Last, tap the alien. Your partner fires.",
-      p2: "1. Swipe on the right when the swing comes back.\n2. Later, the field says who swipes.\n3. Then fire when it comes back.\n4. Last, fire when your partner taps the alien.",
+      scene: "theTrapeze",
     },
     entries: [],
     boss: {

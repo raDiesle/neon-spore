@@ -9,12 +9,13 @@ import { mazeDrum } from "./maze-walls.js";
 import { repriseTearBox } from "./reprise-draw.js";
 import { spoolPlaced } from "./spool-pose.js";
 import { spoolGaugeAt } from "./spool-shape.js";
+import { trapezeOnArc } from "./trapeze-shape.js";
 
 /**
  * **Where the fixtures of THE GAUGE, THE MAZE and THE REPRISE are** — the
  * sixth of `caption-anchor-boss.ts`, split off `-e` on line count — and THE
- * SPOOL's gauge and THE FLUE's row, the newest bosses whose films asked,
- * because this file had room.
+ * SPOOL's gauge, THE FLUE's row and THE TRAPEZE's swing, the newest bosses
+ * whose films asked, because this file had room.
  *
  * **These three are rounds and not bosses**, and that was the question the
  * queue entry left open: a round is its own picture, and one that throws the
@@ -45,6 +46,7 @@ export function bossAnchorF(
   if (kind === "reprise") return box(repriseTearBox(l, cfg));
   if (world.boss?.kind === "spool") return spoolGauge(l, world, world.boss, beatPhase);
   if (kind === "flue") return flueRow(l, cfg);
+  if (kind === "trapeze") return trapezeSwing(l, cfg);
   return null;
 }
 
@@ -97,3 +99,19 @@ function flueRow(l: Layout, cfg: SimConfig): AnchorPoint {
   const c = flueCentre(l, cfg);
   return box({ x: c.x, y: c.y, rx: flueSlotHalf(l, cfg), ry: flueUnitR(l) });
 }
+
+/**
+ * THE TRAPEZE: the bottom of the swing, where the alien passes, as wide as
+ * it swings in a film. Every page of its film is about the swing coming back
+ * over a side, so the box stays still while the alien goes through it — a
+ * caption walking with the swing would be unreadable — and the caption
+ * stands clear under it, over the zones.
+ */
+function trapezeSwing(l: Layout, cfg: SimConfig): AnchorPoint {
+  const c = trapezeOnArc(l, cfg, 0, -SWING_UP);
+  return box({ x: c.x, y: c.y, rx: SWING_HALF * l.tile, ry: SWING_UP * l.tile });
+}
+
+/** THE TRAPEZE's box: how far up the ropes it reaches and how wide it is, in tiles. */
+const SWING_UP = 0.9;
+const SWING_HALF = 3;

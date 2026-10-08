@@ -73,6 +73,12 @@ export function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // `scoutPrimeMilli`; left out, a film carries it exactly that far.
   if (target === "scoutLine") return 0;
   if (target === "scoutPrime") return cfg.scoutPrimeMilli;
+  // THE TRAPEZE's swipes are carried **toward the middle**, and count past
+  // `trapezeSwipeMilli` (`sim/trapeze-hand.ts`): left out, a film carries one
+  // twice that far, a swipe no reader would call short. Its lock reads none.
+  if (target === "trapezePushLeft") return 2 * cfg.trapezeSwipeMilli;
+  if (target === "trapezePushRight") return -2 * cfg.trapezeSwipeMilli;
+  if (target === "trapezeLock") return 0;
   // THE THROAT's mouth is carried **up**, toward what is falling, and has no
   // end but the box it is kept in (`throatAimAt`): left out, a film carries it
   // one widest circle, which is a body reached from where it stood.

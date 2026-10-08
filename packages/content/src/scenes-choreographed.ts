@@ -18,6 +18,7 @@ import { THE_SPOOL } from "./scenes/the-spool.js";
 import { THE_SURGE } from "./scenes/the-surge.js";
 import { THE_TASTER } from "./scenes/the-taster.js";
 import { THE_THROAT } from "./scenes/the-throat.js";
+import { THE_TRAPEZE } from "./scenes/the-trapeze.js";
 import { THE_UNDERTOW } from "./scenes/the-undertow.js";
 
 /**
@@ -54,7 +55,8 @@ export type ChoreographedSceneId =
   | "theHasp"
   | "theRatchet"
   | "theHaul"
-  | "theFlue";
+  | "theFlue"
+  | "theTrapeze";
 
 export const SCENES_CHOREOGRAPHED: Record<ChoreographedSceneId, GuideScene> = {
   theBaton: THE_BATON,
@@ -77,4 +79,5 @@ export const SCENES_CHOREOGRAPHED: Record<ChoreographedSceneId, GuideScene> = {
   theRatchet: THE_RATCHET,
   theHaul: THE_HAUL,
   theFlue: THE_FLUE,
+  theTrapeze: THE_TRAPEZE,
 };

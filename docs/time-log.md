@@ -35095,3 +35095,17 @@ Bottleneck: looking — whether the pose read as a swinger only showed in a
 frame, and the first one was too small to.
 
 *Measured: 59 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE TRAPEZE's guide is a film
+
+- reading: 10 min. The tutorial skill, THE FLUE's film, and how a film's
+  drag is spelled as commands.
+- writing: 15 min. The film, its test, the swipe and the lock taught to a
+  film's hand, the caption's place, the briefings count.
+- looking: 10 min. The five pages through `bun run frames --opening guide`.
+- friction: 5 min. The first frames had no captions: a boss with no
+  caption anchor drops its words silently, and no test says so.
+- landing: 5 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: friction — a film's caption anchored at a boss that has no
+anchor is simply not drawn, and only a frame showed it.

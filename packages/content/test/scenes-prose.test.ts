@@ -117,9 +117,8 @@ const STILL_PROSE = [
   // And THE GALL (§38), a twenty-second time: the seam is undrawn, and the
   // guide says whose half of it each seat pinches on.
   "THE GALL",
-  // And THE TRAPEZE (§39), a twenty-third time: the swing is reworked, and the
-  // guide says which side each seat swipes, and what each level adds.
-  "THE TRAPEZE",
+  // THE TRAPEZE (§39) left this list on 8 October 2026, at the owner's word:
+  // `scenes/the-trapeze.ts` is the swing pushed from both sides to its gong.
   // THE FLUE (§40) left this list on 6 October 2026, at the owner's word:
   // `scenes/the-flue.ts` is one level called and shot, and the seats swapped.
   // And THE GOVERNOR (§43), a twenty-fifth time: the dial is undrawn, and the

@@ -697,3 +697,15 @@ of a shot, but the bolt must pass within `trapezeHitMilli` of the seat
 misses that. Aim at the column the seat is over when the bolt reaches its
 row (`trapezeSeat` stepped forward by the climb), and tighten
 `autopilot-trapeze.test.ts` to say most shots in a `shoot` level hit.
+
+## A film's caption at a boss with no caption anchor is dropped silently
+
+- **Found:** 2026-10-08, claude/trapeze-tutorial
+- **Files:** `packages/render/src/caption-anchor.ts`, `packages/render/src/caption-anchor-boss-f.ts`, `packages/content/test/scenes.test.ts`
+
+THE TRAPEZE's film was written with every page `{ at: "boss" }`, and
+`bossAnchor` returned null for its kind, so none of its four captions was
+drawn — every test green. Add a test that steps every film
+(`SCENES`) and, at each page's first tick, resolves its anchor through
+`captionAnchor` on that page's seat, failing on null, so a boss film whose
+kind has no line in `caption-anchor-boss*.ts` is a red check.

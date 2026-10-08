@@ -42,7 +42,9 @@ function pullsDown(target: DragTarget): boolean {
     target !== "choirLeft" &&
     target !== "choirRight" &&
     target !== "balloonLeft" &&
-    target !== "balloonRight"
+    target !== "balloonRight" &&
+    target !== "trapezePushLeft" &&
+    target !== "trapezePushRight"
   );
 }
 
@@ -95,6 +97,11 @@ export function dragSeat(target: DragTarget, hand?: 1 | 2): 1 | 2 {
   // THE ANTIPHON's rail is the chooser's, and the chooser swaps every level
   // (`antiphonChooser`): the navigator's on the first.
   if (target === "antiphonRail") return hand ?? 2;
+  // THE TRAPEZE's two zones are the pilot's on the left and the navigator's
+  // on the right in a `push` level, and either's in a `call` level, drawn by
+  // chance (`sim/trapeze-hand.ts`); its lock is the pilot's.
+  if (target === "trapezePushLeft" || target === "trapezeLock") return hand ?? 1;
+  if (target === "trapezePushRight") return hand ?? 2;
   // And THE SINEW's right handle, the second: one handle per seat, each
   // pulled down, and the sum is the two of them (`sim/sinew-hand.ts`).
   // THE GIMBAL's inner ring, THE HASP's wheel and THE RATCHET's catch are the
@@ -124,8 +131,9 @@ export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   // A ring or a wheel is turned, not carried: a bearing, not a distance.
   if (TURNED.has(target)) return ringCommands(act, player, cfg);
   // THE UNDERTOW's tap is a press with nothing carried: one down, one up, and
-  // the lobe it is on found by the runner (`sim/scene-aim.ts`).
-  if (target === "undertowTap") {
+  // the lobe it is on found by the runner (`sim/scene-aim.ts`). THE TRAPEZE's
+  // lock is the same press on the alien.
+  if (target === "undertowTap" || target === "trapezeLock") {
     const tap = { kind: "drag", target, fromMilli: 0, fromYMilli: 0 } as const;
     return [
       { tick: act.tick, player, command: { ...tap, on: true } },
@@ -167,17 +175,25 @@ export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   out.push({
     tick: until,
     player,
-    // A prime is the one handle read on the letting go, by how far the thumb
-    // had travelled (`sim/scout-hand.ts`), so it lets go where it got to.
+    // A prime and THE TRAPEZE's swipes are read on the letting go, by how far
+    // the thumb had travelled (`sim/scout-hand.ts`, `sim/trapeze-hand.ts`), so
+    // they let go where they got to.
     command: {
       kind: "drag",
       target,
       on: false,
-      ...carry(target, target === "scoutPrime" ? to : 0),
+      ...carry(target, LIFT_READ.has(target) ? to : 0),
     },
   });
   return out;
 }
+
+/** The handles read on the letting go, by how far the thumb had travelled. */
+const LIFT_READ: ReadonlySet<DragTarget> = new Set([
+  "scoutPrime",
+  "trapezePushLeft",
+  "trapezePushRight",
+]);
 
 /** How many messages one carry is spelled in. Enough that the plates are seen
  * parting rather than found apart, and few enough to stay a gesture. */
