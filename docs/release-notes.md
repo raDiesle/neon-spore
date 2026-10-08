@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 921a60fc2 — THE LATCH tears its bodies off, and whips the hull
+
+Every knot pulled in tears its body off the colony, at the place it was drawn. The body is flung clear and falls away down the field, and the colony takes the blow. The tendril's hook bites the hull with a shudder as it arrives. A slip frays the rope at the grips. A yank held shines there green. The colony spits as it rears. When the rope snaps at the end, the colony bursts and the hull shudders harder. A level run out is THE LATCH's own blow: the colony cracks its tendril like a whip down the rope into the hull, and the hook tears out in red. A look with no shipped alternative.
+
 ## 2026-10-08 · 9fd945b05 — THE LATCH says PULL and HOLD over its grips
 
 The grip whose turn it is says PULL to its seat until the thumb starts to carry it; the other says HOLD while no thumb has it; and both say HOLD while the colony rears for a yank. Nothing is said between levels. The halos are held to a lit level by a marks-window row. THE LATCH never slows, so it has no boss-hush row. The choreographed kinds moved out of `boss-cue.ts`'s switch into a set beside their pages, because the file was near its ceiling. A look with no shipped alternative.
