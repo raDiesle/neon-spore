@@ -637,6 +637,7 @@ bestiary's line to built.
 ## AUTO's shots from below at THE TRAPEZE mostly fly past
 
 - **Found:** 2026-10-08, claude/trapeze-sim
+- **Taken:** 2026-10-08, claude/queue-trapeze-auto (claim: claude/queue-autos-shots-from-below-at-the-trapeze-mostly-fly)
 - **Files:** `packages/hands/src/boss-hands-trapeze.ts`, `tools/director/test/autopilot-trapeze.test.ts`
 
 `bun run frames . --wave "THE TRAPEZE" --auto both --until trapezeShot:side=true`
