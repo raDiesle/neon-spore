@@ -97,7 +97,7 @@ describe("a boss's blow at the hull", () => {
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
       ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "davit", "halter"],
       ...["capstan", "gall", "trapeze", "cyst", "grindstone", "sling", "flue", "governor"],
-      ...["filament", "lamprey", "mimic"],
+      ...["filament", "lamprey", "mimic", "latch"],
     ] as const;
     for (const by of bosses) {
       const fx = new BossStrikeFx();

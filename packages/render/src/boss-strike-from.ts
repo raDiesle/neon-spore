@@ -11,6 +11,7 @@ import { governorBlowFrom } from "./governor-blow.js";
 import { grindstoneBlowFrom } from "./grindstone-blow.js";
 import { halterBlowFrom } from "./halter-blow.js";
 import { lampreyBlowFrom } from "./lamprey-blow.js";
+import { latchBlowFrom } from "./latch-blow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { ledgerBodyY } from "./ledger-shape.js";
 import { mantleCentre } from "./mantle-shape.js";
@@ -115,6 +116,8 @@ const FROM: Partial<
   lamprey: lampreyBlowFrom,
   // Under the mantle, where the reaching arm roots (`mimic-blow.ts`).
   mimic: mimicBlowFrom,
+  // The core, where the tendril grows out of the colony (`latch-blow.ts`).
+  latch: latchBlowFrom,
 };
 
 /** Where the blow leaves the body — for THE FILAMENT, the tile it struck from

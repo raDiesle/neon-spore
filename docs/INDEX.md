@@ -2317,6 +2317,9 @@ by hand never moves.
 | `packages/render/src/latch-pose.ts` | **How THE LATCH stands this frame**, read off the simulation and nothing else (§11.61) |
 | `packages/render/src/latch-shape.ts` | **THE LATCH's shape** (§11.61): the shape sheet's COLONY — small bodies sharing one skin |
 | `packages/render/src/latch-verdicts.ts` | **THE LATCH's grips answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
+| `packages/render/src/latch-blow.ts` | **THE LATCH's own blow at the hull** (`boss-strike-look.ts`) |
+| `packages/render/src/latch-fx.ts` | What THE LATCH leaves behind a frame (§11.61, *The receipts*): the **torn body** |
+| `packages/render/src/latch-receipts.ts` | **THE LATCH's receipts, drawn** — what `latch-fx.ts` holds between frames |
 | `packages/render/src/ledger-cord.ts` | **The cord**, and the one hole in the ship it goes into |
 | `packages/render/src/ledger-cord-shape.ts` | **Where THE LEDGER's cord is**, in field pixels: where it leaves the body and where it goes into the ship |
 | `packages/render/src/ledger-draw.ts` | **THE LEDGER**: a tall split body high in the field on a single thick cord running down into the pair's own… |

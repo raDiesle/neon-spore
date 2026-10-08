@@ -11,6 +11,7 @@ import { grindstoneBlow } from "./grindstone-blow.js";
 import { halterBlow } from "./halter-blow.js";
 import { haspBlow } from "./hasp-blow.js";
 import { lampreyBlow } from "./lamprey-blow.js";
+import { latchBlow } from "./latch-blow.js";
 import type { Layout } from "./layout.js";
 import { ledgerBlow } from "./ledger-blow.js";
 import { mantleBlow } from "./mantle-blow.js";
@@ -117,6 +118,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   // A third reach in one movement: the arm already hung at the hull slaps it,
   // and its suckers leave their prints in the skin.
   mimic: mimicBlow,
+  // A level run out: the colony cracks its tendril like a whip, and the hook tears out of the skin.
+  latch: latchBlow,
   // A fault on the line, or a line let stand: the vein snaps where it stood
   // and whips its torn end down to the column.
   filament: filamentBlow,

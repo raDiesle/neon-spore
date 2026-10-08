@@ -97,6 +97,8 @@ export function drawOnShip(
   // And THE MIMIC's: the mottle slapping into shape, and its fall, spent
   // (`mimic-fx.ts`, §42).
   held.effects.boss.mimic.shock.draw(ctx, l, surfaceY, view.time);
+  // And THE LATCH's: the tendril hooking in, and the rope snapping (`latch-fx.ts`, §11.61).
+  held.effects.boss.latch.shock.draw(ctx, l, surfaceY, view.time);
   // And THE SEAM's: a click for every point shot shut, and the ridge splitting
   // a harder shudder (`seam-fx.ts`, §26).
   held.effects.boss.seam.shock.draw(ctx, l, surfaceY, view.time);

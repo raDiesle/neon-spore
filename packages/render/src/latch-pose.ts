@@ -21,6 +21,9 @@ export interface LatchPose {
   sag: number;
 }
 
+/** Hung at rest: dropped in, not rearing, nothing hauled — for what is placed before a frame is drawn. */
+export const LATCH_AT_REST: LatchPose = { arrived: 1, gone: 0, rear: 0, sag: 0 };
+
 export function latchPose(
   s: LatchState,
   cfg: SimConfig,

@@ -11942,9 +11942,19 @@ yank, since a pull begun then is a hand off on the yank. Nothing between
 levels. The halos are held to a lit level by `marks-window.test.ts`; there
 is no `boss-hush` row, because THE LATCH never slows.
 
-**What is not built.** The receipts — a body torn off, a slip, a yank held,
-the blow at the hull — so every latch event is still silent on the field
-(`effects-spark-silent-boss-e.ts`). The guide film.
+**The receipts** (`render/latch-fx.ts`, `latch-receipts.ts`): **every knot
+in tears its body off** where it was drawn, flung clear on its own side and
+falling away down the field, ragged where it let go, and the colony takes
+the blow (`boss-hurt.ts`) — a knot is a body of its health. The tendril's
+hook bites into the hull with a shudder as it arrives; a slip frays the rope
+at the grips, more the more it lost; a yank held shines there green; the
+colony spits as it rears; and torn loose at the end it bursts and the hull
+shudders harder. **A level run out is its own blow** (`latch-blow.ts`): the
+colony cracks its tendril like a whip, a wave running down the rope already
+hooked into the hull, and the hook tears out of the plating in the hull's
+red, spattered ochre.
+
+**What is not built.** The guide film.
 
 **What is proven, and what is not.** `sim/test/latch.test.ts` proves the
 rules: the install and the first level; whose grip is whose and the wrong
@@ -11956,8 +11966,8 @@ two; the cross swaps the grips; a level run out tears the hull; the script
 ends torn loose and out; a thumb resting through the rest keeps its hold,
 and a cross lets go of both grips; the same seed and thumbs hash the same.
 `render/test/latch-frame.test.ts` proves the picture on all three screens,
-`latch-grip.test.ts` real thumbs on the grips and `boss-cue-latch.test.ts`
-the words. Whether a
+`latch-grip.test.ts` real thumbs on the grips, `boss-cue-latch.test.ts`
+the words and `latch-receipts.test.ts` the receipts and the blow. Whether a
 pair can keep *mine — yours* going aloud at tempo, and whether the yanks
 read — the owner's eye — has never been watched.
 

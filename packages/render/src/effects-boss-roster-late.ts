@@ -8,7 +8,7 @@ import { GovernorFx } from "./governor-fx.js";
 import { GrindstoneFx } from "./grindstone-fx.js";
 import { HalterVerdicts } from "./halter-verdicts.js";
 import { LampreyFx } from "./lamprey-fx.js";
-import { LatchVerdicts } from "./latch-verdicts.js";
+import { LatchFx } from "./latch-fx.js";
 import { MimicFx } from "./mimic-fx.js";
 import { PlumbFx } from "./plumb-fx.js";
 import { SeamFx } from "./seam-fx.js";
@@ -93,7 +93,8 @@ export class LateRoster extends RoundMarks {
    * shudder under its slap and its fall, and the blow it takes
    * (`mimic-fx.ts`, `mimic-receipts.ts`). */
   readonly mimic = new MimicFx();
-  /** THE LATCH's grips' verdicts on a touch — nothing else of it outlives a
-   * frame yet, so it has no fx of its own (`latch-verdicts.ts`). */
-  readonly latch = new LatchVerdicts();
+  /** THE LATCH's torn bodies falling away, the hull's shudder as it hooks
+   * in and as it snaps, the blow a knot deals, and its grips' verdicts on a
+   * touch (`latch-fx.ts`, `latch-receipts.ts`, `latch-verdicts.ts`). */
+  readonly latch = new LatchFx();
 }

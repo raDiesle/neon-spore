@@ -185,4 +185,22 @@ export const HURT_ROWS_C: Row[] = [
     hit: [{ type: "mimicPeel", side: 1, sign: 0, at: 40, peels: 1, col: 3 }],
     hurt: (fx) => fx.boss.mimic.hurt,
   },
+  {
+    boss: "latch",
+    // A knot pulled in: it tears a body off the colony.
+    land: [{ type: "latchKnot", knots: 1, col: 5 }],
+    // A level lit, a grip taken or wrong, a pull passing the turn, a slip, a
+    // rear and a yank held only work toward one, or against it.
+    part: [
+      { type: "latchLevel", ask: "haul", col: 5 },
+      { type: "latchGrip", seat: 0, grip: 0, col: 5 },
+      { type: "latchWrong", seat: 0, grip: 1, col: 5 },
+      { type: "latchTurn", grip: 0, col: 5 },
+      { type: "latchSlip", why: "both", lostMilli: 500, col: 5 },
+      { type: "latchRear", col: 5 },
+      { type: "latchBraced", col: 5 },
+    ],
+    hit: "every knot is landed: the knots are the colony's health, a body each",
+    hurt: (fx) => fx.boss.latch.hurt,
+  },
 ];

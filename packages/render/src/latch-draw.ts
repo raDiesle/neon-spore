@@ -6,11 +6,15 @@ import {
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { mixHex, rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
+import type { LatchFx } from "./latch-fx.js";
 import { drawLatchHandles } from "./latch-handles.js";
 import { type LatchPose, latchPose } from "./latch-pose.js";
+import { drawLatchTorn } from "./latch-receipts.js";
 import {
+  LATCH_TENDRIL,
   type LatchBody,
   latchBodies,
   latchGripY,
@@ -19,13 +23,12 @@ import {
   latchMilliPx,
   latchSkinLoops,
 } from "./latch-shape.js";
-import { drawLatchHalos, drawLatchVerdicts, type LatchVerdicts } from "./latch-verdicts.js";
+import { drawLatchHalos, drawLatchVerdicts } from "./latch-verdicts.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 
-/** The tendril's width, a knot's radius and the spacing of its rings, in tiles. */
-const TENDRIL = 0.16;
+/** A knot's radius, in tiles, and the spacing of the tendril's rings. */
 const KNOT = 0.2;
 const RING_MILLI = 500;
 
@@ -44,6 +47,11 @@ const RING_MILLI = 500;
  * to move it; every knot in tears a body off the colony; the rope hauled in
  * coils on the hull; and the colony is stretched toward the ship by the rope
  * pulled since the last knot, so a slip is seen to spring it back up.
+ *
+ * Everything is read off `world` each frame but its receipts — the body a
+ * knot tears off, the hull's shudder, the blow the colony takes
+ * (`latch-fx.ts`, drawn by `latch-receipts.ts`) — and its own blow at the
+ * hull (`latch-blow.ts`).
  */
 export function drawLatch(
   ctx: CanvasRenderingContext2D,
@@ -53,16 +61,22 @@ export function drawLatch(
   beat: number,
   beatPhase: number,
   time: number,
-  fx: LatchVerdicts,
+  fx: LatchFx,
 ): void {
   const cfg = world.cfg;
   const p = latchPose(s, cfg, beat, beatPhase);
   const bodies = latchBodies(l, cfg, s, p, time);
+  fx.note(bodies);
   drawTendril(ctx, l, cfg, s, p);
-  drawColony(ctx, l, bodies, p);
+  // The colony takes the blow of a knot pulled in; the rope and the grips do not.
+  ctx.save();
+  ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
+  drawColony(ctx, l, bodies, p, fx.hurt.value);
+  ctx.restore();
+  drawLatchTorn(ctx, l, fx.torn);
   drawLatchHalos(ctx, l, cfg, s, time);
   drawLatchHandles(ctx, l, cfg, s, time);
-  drawLatchVerdicts(ctx, l, cfg, s, time, fx.verdicts);
+  drawLatchVerdicts(ctx, l, cfg, s, time, fx.marks.verdicts);
 }
 
 /** The tendril from the colony to the hull, its rings, its knots and its coil. */
@@ -83,10 +97,10 @@ function drawTendril(
   ctx.save();
   ctx.lineCap = "round";
   ctx.strokeStyle = PALETTE.latchSkinDark;
-  ctx.lineWidth = l.tile * TENDRIL + STROKE.outline * 2;
+  ctx.lineWidth = l.tile * LATCH_TENDRIL + STROKE.outline * 2;
   line(ctx, x, top, bottom);
   ctx.strokeStyle = PALETTE.latchTendril;
-  ctx.lineWidth = l.tile * TENDRIL;
+  ctx.lineWidth = l.tile * LATCH_TENDRIL;
   line(ctx, x, top, bottom);
   // The rings ride down with the rope, so every pull is seen to move it.
   ctx.strokeStyle = rgba(PALETTE.latchSkinDark, 0.7);
@@ -96,7 +110,7 @@ function drawTendril(
   for (let y = first - step * Math.ceil((first - top) / step); y < bottom; y += step) {
     if (y <= top) continue;
     ctx.beginPath();
-    ctx.ellipse(x, y, l.tile * TENDRIL * 0.55, l.tile * 0.04, 0, 0, Math.PI);
+    ctx.ellipse(x, y, l.tile * LATCH_TENDRIL * 0.55, l.tile * 0.04, 0, 0, Math.PI);
     ctx.stroke();
   }
   ctx.restore();
@@ -146,7 +160,7 @@ function drawKnot(
 function drawCoil(ctx: CanvasRenderingContext2D, l: Layout, x: number, hauled: number): void {
   const loops = Math.min(5, 1 + Math.floor(hauled / 2000));
   ctx.save();
-  ctx.lineWidth = l.tile * TENDRIL * 0.8;
+  ctx.lineWidth = l.tile * LATCH_TENDRIL * 0.8;
   for (let i = 0; i < loops; i += 1) {
     const rx = l.tile * (0.3 + 0.09 * i);
     const y = l.hullY - l.tile * 0.06 * i;
@@ -167,6 +181,7 @@ function drawColony(
   l: Layout,
   bodies: readonly LatchBody[],
   p: LatchPose,
+  hurt: number,
 ): void {
   const path = new Path2D();
   for (const loop of latchSkinLoops(l, bodies)) path.addPath(splinePath(resample(loop, 40), true));
@@ -195,6 +210,7 @@ function drawColony(
   ctx.strokeStyle = PALETTE.latchSkinDark;
   ctx.lineWidth = STROKE.outline * 1.5;
   ctx.stroke(path);
+  drawHurt(ctx, path, hurt);
   for (const b of bodies) {
     const core = b.knot === 0;
     ctx.fillStyle = rgba(

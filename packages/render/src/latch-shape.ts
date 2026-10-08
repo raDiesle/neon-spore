@@ -48,11 +48,25 @@ export interface LatchBody extends Circle {
   knot: number;
 }
 
+/** The tendril's width, in tiles: the rope as drawn hanging (`latch-draw.ts`) and cracked (`latch-blow.ts`). */
+export const LATCH_TENDRIL = 0.16;
+
 /** Where the colony's middle hangs this frame. */
 export function latchHang(l: Layout, cfg: SimConfig, p: LatchPose): Point {
   const rows = HANG_ROW + 0.9 * p.sag - 0.6 * p.rear;
   const drop = (1 - p.arrived) * 5 + p.gone * 7;
   return { x: tileCX(l, midCol(cfg)), y: l.gridTop + l.tile * (rows - drop) };
+}
+
+/** The core's radius: it swells a little as the colony rears. */
+function coreRadius(l: Layout, p: LatchPose): number {
+  return l.tile * CORE * (1 + 0.15 * p.rear);
+}
+
+/** Where the tendril leaves the colony: the underside of the core. */
+export function latchRoot(l: Layout, cfg: SimConfig, p: LatchPose): Point {
+  const at = latchHang(l, cfg, p);
+  return { x: at.x, y: at.y + coreRadius(l, p) };
 }
 
 /**
@@ -69,9 +83,7 @@ export function latchBodies(
 ): LatchBody[] {
   const at = latchHang(l, cfg, p);
   const n = latchKnotsAll(s);
-  const bodies: LatchBody[] = [
-    { x: at.x, y: at.y, r: l.tile * CORE * (1 + 0.15 * p.rear), knot: 0 },
-  ];
+  const bodies: LatchBody[] = [{ x: at.x, y: at.y, r: coreRadius(l, p), knot: 0 }];
   const rx = l.tile * RING_X * (1 + 0.25 * p.rear);
   const ry = l.tile * RING_Y * (1 - 0.6 * p.rear) * (1 + 0.35 * p.sag);
   const spin = time * 0.15;

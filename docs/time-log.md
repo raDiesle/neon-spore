@@ -35643,3 +35643,17 @@ Bottleneck: friction — the seam in `boss-cue.ts`, chosen in this lane
 because the hook asked for it now.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE LATCH tears its bodies off, and whips the hull
+
+- reading: 0 min. THE MIMIC's fx, receipts and blow were the model, read
+  in the lane before.
+- writing: 5 min. The fx, the torn body, the whip, their registrations,
+  the hurt row and the receipts test.
+- looking: 0 min. Three frames: the torn body falling, then the whip, moved
+  to leave from under the core.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the registrations a boss's fx needs outside its own
+files (the roster, the ingest, the shudder's draw, the blow's two tables).

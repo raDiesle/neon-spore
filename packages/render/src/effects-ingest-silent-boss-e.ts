@@ -151,8 +151,8 @@ export const INGEST_SILENT_BOSS_E = [
   "mimicClose",
   "mimicSpent",
   "mimicOut",
-  // THE LATCH's twelve: nothing left behind for the next frame until its look
-  // lane draws them; the tendril is read off the world each frame.
+  // THE LATCH's twelve: the colony and its tendril are drawn off the world
+  // each frame, and what outlives a frame is `latch-fx.ts`', read above the loop.
   "latchEnter",
   "latchLevel",
   "latchGrip",
