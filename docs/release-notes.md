@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 6b3a1cb65 — THE TRAPEZE's guide is a film: the swing pushed from both sides to its gong
+
+The wave opens on its own rehearsal now, not three lines of prose. Player 1 swipes on the left and player 2 on the right, each as the swing comes back toward the middle, until the alien kicks the gong. Four pages: whose side, when, the partner's side, and what the pushing is for. A film can now spell THE TRAPEZE's swipe and lock, and its captions stand at the bottom of the swing.
+
 ## 2026-10-08 · 0c0571dab — THE TRAPEZE's alien pumps on a swing seen from the side, and kicks the gong
 
 The swing is drawn side-on now, so it goes the way the screen is wide: the seat end-on, the far rope behind the near. The alien, a third bigger than a creature, sits facing the gong and pumps like a child on a swing — leaning back with its legs thrown out going forward, sitting up with them tucked coming back — and at the gong its legs shoot out and the gong swings away ringing. Between levels it turns round on the seat to face the next gong. The zone's arrows are arrowheads marching toward the middle, and a zone's verdict is a thumb-sized ring rather than a disc over half the field.
