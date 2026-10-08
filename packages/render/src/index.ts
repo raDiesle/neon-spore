@@ -119,6 +119,7 @@ export { bodyLife, motionLife, setMotionLife } from "./motion-life.js";
 export { MOUNT_LOOK, type MountLook } from "./mount-look.js";
 export { rasp } from "./mount-rasp.js";
 export { taproot } from "./mount-taproot.js";
+export { neonHue } from "./neon-hue.js";
 export { LAUNCH_LIFE, SETTLED_AGE } from "./opening-fx.js";
 export {
   PAINTED_STRIPS,
@@ -165,8 +166,6 @@ export { drawStepGlyph, stepHex, stepLabel } from "./simon-glyph.js";
 export { sirenCentre } from "./siren.js";
 export { type Arena, snakeArena } from "./snake-draw.js";
 export { drawSnakeRound } from "./snake-round.js";
-export { FIELD_TRAIL_SCALE, neonHue } from "./splash-blob.js";
-export { SplashTrail } from "./splash-trail.js";
 export { splinters } from "./splinter.js";
 export { BURST_SHEET, SpriteBursts, type SpriteSheet } from "./sprite-burst.js";
 export { clearSurface } from "./surface-clear.js";

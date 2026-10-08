@@ -2,8 +2,8 @@ import type { SimConfig } from "@neon-spore/sim";
 import { flueCentre, flueEmberAt, flueEmberR, flueSlotHalf } from "./flue-shape.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { neonHue } from "./neon-hue.js";
 import { PALETTE } from "./palette.js";
-import { neonHue } from "./splash-blob.js";
 
 /**
  * **What the screen without the spore sees in the gullet**: a neon rainbow

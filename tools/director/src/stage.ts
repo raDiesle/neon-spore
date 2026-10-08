@@ -13,7 +13,6 @@ import { stageGeometry } from "./stage-point.js";
 import { stageStep } from "./stage-step.js";
 import { bindStageStepReadout } from "./stage-step-readout.js";
 import { bindStageTouch } from "./stage-touch.js";
-import { bindStageTrail } from "./stage-trail.js";
 import { buildStageWorld } from "./stage-world.js";
 import type { Store } from "./state.js";
 
@@ -49,9 +48,6 @@ export function bindStage(
     desk,
     keys,
   } = bindStageControls(store, cfg, () => world);
-  // Ink off the end of a mouse, over the field and nowhere else, and none of
-  // it on a phone (`stage-trail.ts`).
-  bindStageTrail(canvas);
   // What a hit test is handed, read fresh on every press (`stage-field.ts`).
   const fieldFor = (seat?: 1 | 2) =>
     stageField(world, role, currentControlSet(), cfg, seat ?? desk.seat(), renderer.skinY);

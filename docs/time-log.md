@@ -36333,3 +36333,15 @@ whether a shell reads as its own metal.
 Bottleneck: reading — which of the five postponed lanes were still unbuilt.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — The mouse's rainbow trail is gone
+
+- reading: 5 min. `trail.ts`, `stage-trail.ts`, `splash-trail.ts` and
+  `splash-blob.ts`, and who else called `neonHue` (THE FLUE's mirage).
+- writing: 5 min. Four files deleted, `neonHue` kept in `neon-hue.ts`, the
+  comments that named the trail.
+- looking: 0 min. Nothing new drawn; something taken away.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: `check:fast` — a minute and a half, for a diff that only deletes.

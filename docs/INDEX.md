@@ -1494,6 +1494,7 @@ by hand never moves.
 | `packages/render/src/nettle-sway.ts` | **THE NETTLE pulses**, and the bell carries with it |
 | `packages/render/src/nettle-strike.ts` | **What THE NETTLE does when the pair do not stop it**, one picture per kind of part |
 | `packages/render/src/nettle-stop.ts` | **Where a bolt meets THE NETTLE**: a SHOOT mark over its column, else the bell and the brood sac |
+| `packages/render/src/neon-hue.ts` | A hue as `#rrggbb` — THE FLUE's rainbow mirage turns it (`flue-mirage.ts`) |
 | `packages/render/src/effects-ingest.ts` | Everything `ingestOne` needs to act on a single event, gathered rather than passed one field at a time — the |
 | `packages/render/src/touch-lobe.ts` | What pressing a lobe says |
 | `packages/render/src/dart-query.ts` | Player 1's half of THE DART: two arrows and a question mark |
@@ -2494,7 +2495,6 @@ by hand never moves.
 | `packages/render/src/hive-marks.ts` | **THE HIVE's one handle answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/hive-lock.ts` | **The pilot's thumb on a wall's cocoon**: the ring on every high cocoon that only a held thumb reaches, and the press on it |
 | `packages/render/src/hit.ts` | **How far past its drawn edge a circle answers a thumb.** Every ring, lobe |
-| `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
 | `packages/render/src/blister-tap.ts` | **A tap on THE BLISTER**, answered only where the simulation would count it: on a blister that is up |
@@ -2526,7 +2526,6 @@ by hand never moves.
 | `packages/render/src/curtain-marks.ts` | **THE CURTAIN's hem and sheet answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/curtain-thin.ts` | **THE CURTAIN thins where it is strained** |
 | `packages/render/src/cue-helper.ts` | **The helper a cue's word wears on the field**: a crosshair on a shot's aim, the panel's face for SHIELD and SUCK |
-| `packages/render/src/splash-blob.ts` | ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down |
 | `packages/render/src/spool-brake.ts` | **The pilot's brake**: a rail hanging outside the brake's flange, a knob on it at the depth his thumb has it |
 | `packages/render/src/spool-draw.ts` | **THE SPOOL**: a thread-spool slung sideways across the top of the field |
 | `packages/render/src/spool-fx.ts` | What THE SPOOL leaves behind a frame: the **shudder** of the casing when the line slips its zone |
@@ -2865,7 +2864,6 @@ by hand never moves.
 | `apps/game/src/sign-in-standin.ts` | A signed-in person with no Google behind them, so a check can be one |
 | `apps/game/src/sign-in.ts` | Who is holding this phone, proved by Google or by an email link |
 | `apps/game/src/safe-area.ts` | The strips of the screen the phone keeps for itself, in numbers |
-| `apps/game/src/trail.ts` | The surface the mouse's ink is drawn on, over every sheet, and nothing at all on a phone |
 | `apps/game/src/tick-rate.ts` | **How long one tick is worth in the hand, right now** |
 | `apps/game/src/quit.ts` | Who pressed QUIT on the lost screen, for the menu to say |
 
@@ -3684,7 +3682,6 @@ by hand never moves.
 | `tools/frames/until-flags.ts` | **`--until` and the two numbers that ride on it, read off the command line**: how far to look |
 | `tools/frames/auto.ts` | `--auto both`, `p1` or `p2`: the game's own AUTO plays those seats while a capture steps the ticks, so a boss's receipt can be photographed |
 | `tools/frames/known-flags.ts` | **Every flag `bun run frames` reads, and the refusal of any other** |
-| `tools/director/src/stage-trail.ts` | THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD |
 | `tools/director/src/stage-draft.ts` | **What the wave being edited says about itself**, read fresh on every call |
 | `tools/director/src/stage-field.ts` | **What the stage hands a hit test**, and nothing else |
 | `tools/director/src/stage-step.ts` | **one tick of the stage's world and one frame of its picture** — what the loop next door calls, and the first of the stage's own running `bun test` can drive |

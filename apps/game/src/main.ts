@@ -23,7 +23,6 @@ import { createRunState } from "./run-state.js";
 import { bossLife, readSettings } from "./settings.js";
 import { bindShell } from "./shell.js";
 import { bindTestControls } from "./testing.js";
-import { bindSplashTrail } from "./trail.js";
 import { bindViewSwitch } from "./view.js";
 import { bindViewport } from "./viewport.js";
 
@@ -160,10 +159,6 @@ const link = bindShell(
 void bindRasterBurst(renderer.sprites, location.href);
 void bindRasterClasp(renderer.claspShield, location.href);
 void bindRasterStrips(renderer, location.href);
-// Ink off the end of a mouse, and nothing at all on a phone (`trail.ts`).
-// Full size while a sheet is up and much smaller on the field: the "menu" hold
-// is exactly "something is covering the game", which is the question asked.
-bindSplashTrail({ onField: () => !run.held("menu") });
 
 /**
  * Every tick and every frame, from here on (`frame.ts`). Everything above this
