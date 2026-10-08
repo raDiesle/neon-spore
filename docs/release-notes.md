@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 5b6fc09b1 — THE VALVE's film takes eight rubs, counted in green round the pin
+
+The wipe now needs eight reversals between both thumbs, up from three, and the pin carries them as green segments on both screens. Every reversal is said as `valveRub`: it throws flecks off the pin, flares it, lights the film's wiped edge and squeaks higher as the film comes off. At 96 bpm the window still holds the eight at one thumb's pace.
+
 ## 2026-10-08 · 0333392b6 — A `Needs:` line quoting a title with a code span waits on it
 
 `needOf` stripped the backticks from a `Needs:` line and `blockedBy` compared it with the other entry's title as written, so a line copied whole from a title like *`marks-window.test.ts` says every boss has a row* matched nothing and the waiting entry was handed out first. The title is stripped the same way now.

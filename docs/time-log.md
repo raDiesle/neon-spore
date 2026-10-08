@@ -35763,3 +35763,5 @@ Bottleneck: landing — the check is longer than the change.
 
 Bottleneck: the per-rub flare needed an event the simulation did not say,
 and an event is seven files outside it.
+
+*Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
