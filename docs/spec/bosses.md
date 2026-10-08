@@ -5270,9 +5270,11 @@ on the pilot's alone, the pressure on the navigator's alone, and the sink's
 reset; `surge-touch.test.ts` proves the bulb is answered where it is
 drawn, by both seats at the same place, and not beside it. *Not built of
 the design's look*: the spray of a burst across the whole ship is three
-gums and a jolt; the slits do not gape wider with the pressure; the
-eversion is a fold of the outline, not a second body turned out of the
-first. The owner's eye decides all three.
+gums and a jolt; the slits do not gape wider with the pressure — offered
+in VERSUS as `surge:seam` (8 October 2026), the seam opening into a lit
+mouth on the navigator's screen alone, because on the pilot's it would be
+the pressure he is not shown; the eversion is a fold of the outline, not a
+second body turned out of the first. The owner's eye decides all three.
 
 **The other seat's mark fills nothing, 22 September 2026**
 (`theirs`, `handle-draw.ts`). This is the one handle in the game where that

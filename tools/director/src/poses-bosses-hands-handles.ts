@@ -114,6 +114,9 @@ export const HANDLE_HAND_POSES: Pose[] = [
       hand: surgeHand,
       want: surge((w, s) => surgeInBand(s, w.cfg) && (s.heldP1 || s.heldP2)),
       hold: 3,
+      // `surge:seam` is judged here: the charge at its highest short of a
+      // burst, so a seam that answers the pressure is as open as it gets.
+      lookAt: "the seam round the bulb's middle, on the navigator's screen",
     },
   ),
   bossPose(

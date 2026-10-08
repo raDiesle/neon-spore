@@ -35368,3 +35368,17 @@ Bottleneck: reading — the only free closed drafts were three, and one of
 them, BULB · CLOVER, is marked free while its note says it is taken.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE SURGE's seam gaping with the pressure, offered in VERSUS
+
+- reading: 5 min. The gauge, the swell and the design's §9, to find that a
+  seam opening on both screens would hand the pilot the pressure.
+- writing: 5 min. `SEAM_LOOK` lifted out of the gauge, the candidate, the
+  BAND pose's `lookAt`.
+- looking: 5 min. The first gape was a sliver at the first notch's low
+  pressure; opened by its square root instead.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: reading — the design asks for the gap on a body it also says
+the pilot must not read the pressure off.

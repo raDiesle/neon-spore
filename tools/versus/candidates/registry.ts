@@ -16,6 +16,7 @@ import { LEDGER_LIT } from "./ledger-nerves/lit/index.js";
 import { SINEW_WHITE } from "./sinew-band/white/index.js";
 import { SINEW_VEILED } from "./sinew-fibres/veiled/index.js";
 import { SINEW_HEAVY } from "./sinew-weight/heavy/index.js";
+import { SURGE_GAPE } from "./surge-seam/gape/index.js";
 import { TASTER_DEEP } from "./taster-notch/deep/index.js";
 
 export const VARIANTS: Variant[] = [
@@ -29,5 +30,6 @@ export const VARIANTS: Variant[] = [
   SINEW_WHITE,
   SINEW_VEILED,
   SINEW_HEAVY,
+  SURGE_GAPE,
   TASTER_DEEP,
 ];

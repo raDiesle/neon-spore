@@ -3,7 +3,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { type Point, surgeSeamEnds, surgeSeamX } from "./surge-shape.js";
+import { type Point, surgePressure01, surgeSeamEnds, surgeSeamX } from "./surge-shape.js";
 import { showsSurgeNotches, showsSurgePressure } from "./view-role-clocks.js";
 
 /**
@@ -48,8 +48,32 @@ export function drawSurgeGauge(
   /** Whether the bulb has lost its seam to the eversion: marks go, the line stays. */
   everting: boolean,
 ): void {
+  const pressure = surgePressure01(s, cfg);
+  SEAM_LOOK.draw({ ctx, l, c, rx, ry, pressure, time, everting });
+  if (everting) return;
+
+  if (showsSurgeNotches(l.role)) drawNotches(ctx, cfg, s, c, rx, ry, time);
+  if (showsSurgePressure(l.role)) drawPressure(ctx, cfg, s, c, rx, ry, time);
+}
+
+/** What the seam line is drawn from — the bulb, and the pressure for a seam
+ * that answers it on the screen shown the pressure. */
+export interface SeamDraw {
+  readonly ctx: CanvasRenderingContext2D;
+  readonly l: Layout;
+  readonly c: Point;
+  readonly rx: number;
+  readonly ry: number;
+  /** 0..1 of the way to a burst. Only the navigator's screen may show it. */
+  readonly pressure: number;
+  readonly time: number;
+  readonly everting: boolean;
+}
+
+/** The seam: a shallow curve, dark on the bright body, the same on both screens. */
+export function drawSurgeSeam(d: SeamDraw): void {
+  const { ctx, c, rx, ry } = d;
   const ends = surgeSeamEnds(c, rx);
-  // The seam: a shallow curve, dark on the bright body.
   const seam = new Path2D();
   seam.moveTo(ends.left, c.y);
   seam.quadraticCurveTo(c.x, c.y + ry * 0.12, ends.right, c.y);
@@ -59,11 +83,19 @@ export function drawSurgeGauge(
   ctx.lineCap = "round";
   ctx.stroke(seam);
   ctx.restore();
-  if (everting) return;
-
-  if (showsSurgeNotches(l.role)) drawNotches(ctx, cfg, s, c, rx, ry, time);
-  if (showsSurgePressure(l.role)) drawPressure(ctx, cfg, s, c, rx, ry, time);
 }
+
+/**
+ * **The seam line, as a record** — a candidate patches it (`surge:seam` in
+ * VERSUS, 8 October 2026). The design asks for the seam to part wider the
+ * more the bulb is charged (bosses-choreographed.md §9); what ships is one
+ * line on both screens, with the pressure a mark along it on hers alone.
+ */
+export interface SeamLook {
+  draw(d: SeamDraw): void;
+}
+
+export const SEAM_LOOK: SeamLook = { draw: drawSurgeSeam };
 
 /** Where notch `k` sits on the gauge: the sim's own arithmetic, asked with
  * `k` as the count open, so the picture never re-derives the ladder. */
