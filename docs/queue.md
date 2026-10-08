@@ -535,6 +535,7 @@ packages/render/src`), to show the option carries.
 ## `bun run frames` takes a flag it does not know without a word
 
 - **Found:** 2026-10-08, claude/parked-boss-concept-d88325
+- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-bun-run-frames-takes-a-flag-it-does-not-know-wit)
 - **Files:** `tools/frames/run.ts`, `tools/frames/flags.ts`, `tools/frames/test/flags.test.ts`
 
 `bun run frames . --wave "THE LATCH" --until latchKnot --after 6` wrote the
