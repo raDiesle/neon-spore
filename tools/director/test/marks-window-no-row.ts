@@ -50,8 +50,6 @@ export const NO_ROW: Partial<Record<BossKind, NoRowWhy>> = {
   gimbal: "owed",
   hasp: "owed",
   ratchet: "owed",
-  mantle: "owed",
-  governor: "owed",
   warden: "no-marks-file",
   well: "no-marks-file",
   splice: "no-marks-file",

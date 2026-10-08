@@ -35796,3 +35796,17 @@ Bottleneck: reading — telling a boss with no marks from one whose row was
 never written, settled by whether a `*-marks.ts` exists to spy on.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — Marks-window rows for THE MANTLE and THE GOVERNOR
+
+- reading: 5 min. Both bosses' marks files, THE GOVERNOR's verdicts, and the
+  sim predicates each draw gates on.
+- writing: 5 min. `marks-window-rows-d.ts`, wired into the walk and the
+  coverage test, the two lines struck from `NO_ROW`.
+- looking: 0 min. Nothing drawn changed; each row seen red with its window
+  narrowed to nothing.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — THE MANTLE's mark functions gate themselves, so the row
+had to be the shared halo rather than its own file.

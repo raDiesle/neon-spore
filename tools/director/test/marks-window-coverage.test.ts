@@ -6,6 +6,7 @@ import { NO_ROW } from "./marks-window-no-row.js";
 import { ROWS_A } from "./marks-window-rows-a.js";
 import { ROWS_B } from "./marks-window-rows-b.js";
 import { ROWS_C } from "./marks-window-rows-c.js";
+import { ROWS_D } from "./marks-window-rows-d.js";
 
 /**
  * **Every boss has a row in `marks-window.test.ts`, or a line in `NO_ROW`
@@ -16,7 +17,7 @@ import { ROWS_C } from "./marks-window-rows-c.js";
 
 const RENDER = join(import.meta.dir, "../../../packages/render/src");
 const marksFile = (kind: string) => existsSync(join(RENDER, `${kind}-marks.ts`));
-const rowed = [...ROWS_A, ...ROWS_B, ...ROWS_C].map((r) => r.kind);
+const rowed = [...ROWS_A, ...ROWS_B, ...ROWS_C, ...ROWS_D].map((r) => r.kind);
 
 describe("the bosses marks-window.test.ts walks", () => {
   test("are every boss, less the ones NO_ROW names", () => {

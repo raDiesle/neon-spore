@@ -12,6 +12,7 @@ import { type Mark, spies } from "./marks-window-kit.js";
 import { ROWS_A } from "./marks-window-rows-a.js";
 import { ROWS_B } from "./marks-window-rows-b.js";
 import { ROWS_C } from "./marks-window-rows-c.js";
+import { ROWS_D } from "./marks-window-rows-d.js";
 
 /**
  * **No boss puts a mark up before its window opens** — the owner, 27
@@ -35,7 +36,7 @@ import { ROWS_C } from "./marks-window-rows-c.js";
  * rings from the announcement onward are her mechanic — P1 is shown both
  * marks (`docs/spec/controls.md`).
  *
- * A boss has a row in `marks-window-rows-a.ts`, `-b.ts` or `-c.ts`, or a line
+ * A boss has a row in `marks-window-rows-a.ts` to `-d.ts`, or a line
  * in `marks-window-no-row.ts` saying why it has none — THE QUEEN never, a boss
  * with a test of its own, one with no `*-marks.ts` to spy on, and the rows
  * still owed. `marks-window-coverage.test.ts` holds every boss to one or the
@@ -51,7 +52,7 @@ afterAll(() => {
   for (const s of spies) s.mockRestore();
 });
 
-const ROWS = [...ROWS_A, ...ROWS_B, ...ROWS_C];
+const ROWS = [...ROWS_A, ...ROWS_B, ...ROWS_C, ...ROWS_D];
 
 /** AUTO through the wave: every lit call outside its window, and how often each mark was lit. */
 function walk(kind: BossKind, marks: Mark[]): { wrong: string[]; seen: Map<string, number> } {
