@@ -332,8 +332,11 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
 - **Files:** `packages/sim/src/antiphon.ts`, `packages/sim/src/antiphon-step.ts`, `packages/sim/src/antiphon-hash.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/antiphon-shape.ts`
+- **Asks:** Step 8 makes the organ's turn part of the answer, but a thumb already turns it for a second viewing angle that "changes nothing about the fight" — which should give way?
 
 bosses-choreographed.md §12 step 8, never built: the organ starts turning slowly in place, so the pilot's description has to include which way up it stands, and a candidate on the rail matches only at the right turn. This is a new state on a shipped boss: `.claude/skills/new-boss-state` lists the registrations outside the simulation. Two lanes, the simulation then the look, and the look goes to VERSUS. The 900 ms call windows stay out (the game never evaluates speech). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued.
+
+Found on 8 October 2026 (claude/queue-tasks-3078fe), before any work: the shipped organ already turns, but only under a thumb (`antiphon-hand.ts`, `turnTicks`), and bosses.md §11 calls that turn a second viewing angle that changes nothing about the fight. Step 8 makes the turn the answer — the rail shows the organ's contour at other turns too, and only the one at the organ's turn is right. The options: (A) the organ rests at a quarter turn the seed picks for the level and the rail's decoys are the same contour at the other turns; the thumb's turn springs back when it lifts, so it is still only a look. (B) the organ turns on its own on a beat cadence from step 8 on, and a carry is judged against its turn on the beat it arrives; the thumb's turn is taken off the organ from that level on. (C) leave the hand's turn as it is and build step 8 as (A) without the spring-back, so a thumb can turn the organ to the answer. Behind a `SimConfig` figure that is off by default in every case, with the look offered in VERSUS.
 
 ## THE SPOOL's barrel rolls on its flange (living bosses, step 11)
 
