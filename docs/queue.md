@@ -333,6 +333,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
 - **Files:** `packages/render/src/ship-nerves.ts`, `packages/render/src/ledger-cord.ts`, `packages/render/src/ledger-shape.ts`
 - **Asks:** Is THE LEDGER kept? Both looks wait on it (the owner, 7 October 2026: skip what is only visual until he has decided whether to keep the boss)
+- **Answered:** 2026-10-08 — THE LEDGER is kept, over cutting it; both looks are workable, each still a VERSUS offer, never straight onto the field
 
 The design's look for THE LEDGER has three parts the game does not draw
 (bosses.md §11.27, *Not built of the design's look*). On 7 October 2026 one
@@ -424,6 +425,7 @@ paired, the spec's *as built* paragraph.
 - **Found:** 2026-10-07, claude/instar-boss-graphics-3d-b0ba0a
 - **Files:** `packages/render/src/instar-flight.ts`, `packages/render/src/instar-front-body.ts`, `packages/render/src/instar-turn.ts`, `packages/render/src/instar-legs.ts`
 - **Asks:** Should THE INSTAR fly in seen from the side (A), keep coming in face-on but with a new body (B), or should both go to VERSUS (C)?
+- **Answered:** 2026-10-08 — (C): A and B both built as VERSUS candidates (`instar:flight`) beside what ships, over building either straight onto the field
 
 The owner, 7 October 2026: *it looks ugly when it flies in*. The scale
 strips on the growing body are fixed (`instar-front-body.ts`), and side-on the
