@@ -343,6 +343,7 @@ braking seat's thumb on the dial is not answered": check it against
 ## THE VISE's pinch asks two fingers of one player
 
 - **Found:** 2026-10-08, claude/trivet-boss-concept-670eed
+- **Taken:** 2026-10-08, claude/trivet-boss-concept-670eed (claim: claude/queue-the-vises-pinch-asks-two-fingers-of-one-player)
 - **Files:** `packages/render/src/vise-grip.ts`, `packages/render/src/pinch.ts`, `packages/sim/src/vise-hand.ts`, `docs/spec/bosses.md`
 - **Asks:** THE VISE's lobes are cracked by a two-finger pinch — should the pinch become a one-finger gesture, or should THE VISE leave the game?
 
