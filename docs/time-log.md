@@ -35509,3 +35509,5 @@ rule, and only the frame test said so.
 
 Bottleneck: writing — the turn had to thread through the rail's seed order
 without drawing anything new from the seed while the figure is off.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

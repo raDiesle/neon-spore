@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 7274da049 — THE ANTIPHON's organ can rest at a seeded quarter turn, off
+
+The design's step 8, simulated behind `antiphonRestingTurn` (off by default): from `antiphonTurnPits` the organ rests at a quarter turn the seed picks, the rail's decoys are its own contour at the other turns, and only the candidate at the organ's turn is a pit. A thumb's turn stays a look-around and springs back the short way round when it lifts. The ship is never turned, and with the figure off nothing draws from the seed, so every recorded fight replays as before. Drawing the turns is queued as its own lane for VERSUS.
+
 ## 2026-10-08 · d174c770b — THE ANTIPHON's turning organ is decided: a seeded resting turn
 
 The organ rests at a quarter turn the seed picks, the decoys are the same contour at the other turns, and the thumb's look-around turn springs back when let go, so it never changes the answer. The owner left the choice to the session; the queue entry is free to take.
