@@ -480,6 +480,7 @@ bestiary's line to built.
 ## THE LATCH's guide is a film: one holds, one pulls, and they swap
 
 - **Found:** 2026-10-08, claude/parked-boss-concept-d88325
+- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-the-latchs-guide-is-a-film-one-holds-one-pulls-a)
 - **Files:** `packages/content/src/scenes-choreographed.ts`, `packages/content/src/scene-drag.ts`, `packages/content/src/scene-drag-taut.ts`, `packages/content/src/waves/act-14.ts`, `packages/content/test/scenes-prose.test.ts`, `packages/render/src/caption-anchor-boss-f.ts`, `docs/spec/briefings.md`, `docs/spec/bosses.md`
 
 THE LATCH (§11.61) ships with prose for its guide; its write-up's *What is
