@@ -116,7 +116,9 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   splice: spliceHand,
   spool: spoolHand,
   stare: stareHand,
-  surge: surgeHand,
+  // The rocks it throws while both thumbs are on the bulb are the dome's,
+  // and nothing in the bulb's hand moves it.
+  surge: (w) => [...surgeHand(w), ...fieldHand(w)],
   taster: tasterHand,
   throat: throatHand,
   trivet: trivetHand,
@@ -125,8 +127,10 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   vane: vaneHand,
   vise: viseHand,
   warden: wardenHand,
-  // The hold while the face slips, then the wind home once it has stopped.
-  well: either(wellWindHand, wellHoldHand),
+  // The hold while the face slips, then the wind home once it has stopped —
+  // and the wave's own bodies answered all the while, because the face turns
+  // the field without taking anything off it (`sim/well.ts`).
+  well: (w) => [...either(wellWindHand, wellHoldHand)(w), ...fieldHand(w)],
 };
 
 /** The hand for the boss on the field, null for a boss with no hand, and the

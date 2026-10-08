@@ -35290,3 +35290,16 @@ breaches were open on the tick each one landed; the first two fixes were
 guesses made before that.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — AUTO is played to the end on THE WELL, THE LEDGER, THE THROAT, THE SURGE
+
+- reading: 5 min. THE WELL's header, `bossFillsWave`, `autopilotHand` and
+  THE SURGE's bulb hand.
+- writing: 5 min. The field played beside THE WELL's and THE SURGE's hands,
+  four play tests at both charges, a pointer for the next four.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: reading — THE WELL never ending was by design and only its
+header said so; the probe's "never finishes" was the wrong question.
