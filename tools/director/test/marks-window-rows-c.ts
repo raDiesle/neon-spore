@@ -1,4 +1,6 @@
 import {
+  type BastionState,
+  bastionLitStep,
   type FlueState,
   flueLitLevel,
   type LampreyState,
@@ -38,6 +40,7 @@ import { mark, type Row } from "./marks-window-kit.js";
  * tooth to tap are asked only while the mouth is on the hull.
  */
 
+const bastion = (w: World) => w.boss as BastionState;
 const flue = (w: World) => w.boss as FlueState;
 const lamprey = (w: World) => w.boss as LampreyState;
 const latch = (w: World) => w.boss as LatchState;
@@ -145,4 +148,22 @@ export const ROWS_C: readonly Row[] = [
       mark(markFeedback, "drawMarkTheirs", (w) => latchLitStep(latch(w)) !== null),
     ],
   },
+  {
+    // THE BASTION's halos and the partner's ring (`bastion-verdicts.ts`): on
+    // the slab knobs while the armour is lit, on the rim while the gun ring
+    // is — never while the moon comes in, sheds or grows a shell back, and
+    // never on the cage or the hull, which the shield and the cannon answer.
+    kind: "bastion",
+    roles: ["p1", "p2"],
+    marks: [
+      mark(markFeedback, "drawMarkHalo", (w) => bastionHandled(bastion(w))),
+      mark(markFeedback, "drawMarkTheirs", (w) => bastionHandled(bastion(w))),
+    ],
+  },
 ];
+
+/** Whether the lit shell is one a thumb takes off: the armour or the gun ring. */
+function bastionHandled(s: BastionState): boolean {
+  const layer = bastionLitStep(s)?.layer;
+  return layer === "plates" || layer === "ring";
+}

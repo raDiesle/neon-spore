@@ -1,6 +1,7 @@
 import type { FieldControlDef } from "./field-control-def.js";
 import { ANTIPHON_CONTROLS } from "./field-controls-antiphon.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
+import { BASTION_CONTROLS } from "./field-controls-bastion.js";
 import { BATON_CONTROLS } from "./field-controls-baton.js";
 import { CAPSTAN_CONTROLS } from "./field-controls-capstan.js";
 import { CURTAIN_CONTROLS } from "./field-controls-curtain.js";
@@ -191,4 +192,6 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...LAMPREY_CONTROLS,
   // THE LATCH's two grips, whose owner the simulation crosses in a `cross` level.
   ...LATCH_CONTROLS,
+  // THE BASTION's slabs a side and the pilot's rim, each lit by the shell it takes off.
+  ...BASTION_CONTROLS,
 ];

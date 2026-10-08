@@ -10,6 +10,7 @@ import {
 } from "@neon-spore/sim";
 import { drawBastionCage, type NodeMark } from "./bastion-cage.js";
 import type { BastionFx } from "./bastion-fx.js";
+import { drawBastionHandles } from "./bastion-handles.js";
 import { drawBastionCore, drawBastionHull, type PortMark } from "./bastion-hull.js";
 import { drawBastionPlates } from "./bastion-plates.js";
 import { type BastionPose, bastionPose } from "./bastion-pose.js";
@@ -24,6 +25,7 @@ import {
   bastionReach,
 } from "./bastion-shape.js";
 import { drawBastionRegrow, drawBastionShed } from "./bastion-shed.js";
+import { drawBastionHalos, drawBastionVerdicts } from "./bastion-verdicts.js";
 import { drawHurt } from "./boss-hurt.js";
 import type { Layout } from "./layout.js";
 import { showsBastionPort } from "./view-role-clocks-c.js";
@@ -45,7 +47,8 @@ import { showsBastionPort } from "./view-role-clocks-c.js";
  *
  * Everything is read off `world` each frame but its receipts — the plates in
  * flight, the lightning, the shudder and the blow (`bastion-fx.ts`, drawn by
- * `bastion-receipts.ts`).
+ * `bastion-receipts.ts`) — and the knobs the thumbs take it apart by, with
+ * what they say back (`bastion-handles.ts`, `bastion-verdicts.ts`).
  */
 export function drawBastion(
   ctx: CanvasRenderingContext2D,
@@ -81,6 +84,9 @@ export function drawBastion(
   if (growing !== undefined) drawBastionRegrow(ctx, l, c, growing, p.grow, p.pulse);
   drawBastionFlung(ctx, l, c, fx.flung);
   drawBastionArcs(ctx, fx.arcs, time);
+  drawBastionHalos(ctx, l, world.cfg, s, time);
+  drawBastionHandles(ctx, l, world.cfg, s, time);
+  drawBastionVerdicts(ctx, l, world.cfg, s, time, fx.marks.verdicts);
 }
 
 function drawShells(

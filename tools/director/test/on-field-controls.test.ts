@@ -427,11 +427,10 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE LATCH's two grips on the tendril (`render/latch-grip.ts`, §11.61).
   latchGripLeft: "field",
   latchGripRight: "field",
-  // THE BASTION's plates and its rim (`sim/bastion-hand.ts`): heard, and
-  // nothing drawn to take hold of until the look lane lands.
-  bastionPlateLeft: "unbuilt",
-  bastionPlateRight: "unbuilt",
-  bastionSpin: "unbuilt",
+  // THE BASTION's slab knobs and its rim (`render/bastion-grip.ts`, §11.62).
+  bastionPlateLeft: "field",
+  bastionPlateRight: "field",
+  bastionSpin: "field",
   // THE BLISTER's SWIPE (`sim/blister-swipe.ts`): heard and drawn, but no
   // wave and no GESTURE chip sends one yet — its row and pose come with that.
   blisterSwipe: "unbuilt",

@@ -1,4 +1,5 @@
 import { type DragTarget, valveTurning, type World } from "@neon-spore/sim";
+import { bastionHandleStanding } from "./bastion-grip.js";
 import { capstanRubStanding, capstanSteerStanding, capstanTakesHand } from "./capstan-grip.js";
 import { gallPointCircle, gallTakesPress } from "./gall-grip.js";
 import { governorTapCircle } from "./governor-grip.js";
@@ -120,6 +121,12 @@ export function laterBossHandleCircle(
     const b = world.boss?.kind === "latch" ? world.boss : null;
     if (b === null || !latchTakesHand(b)) return null;
     return latchKnobStanding(l, world, b, target === "latchGripLeft" ? 0 : 1);
+  }
+  if (target === "bastionPlateLeft" || target === "bastionPlateRight" || target === "bastionSpin") {
+    // THE BASTION's slab knobs while the armour is lit, and its rim while
+    // the gun ring is (`bastion-grip.ts`).
+    const b = world.boss?.kind === "bastion" ? world.boss : null;
+    return b === null ? null : bastionHandleStanding(l, world, b, target);
   }
   return undefined;
 }

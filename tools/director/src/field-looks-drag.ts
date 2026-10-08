@@ -15,6 +15,10 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "A rope hanging from the rim with a resting circle at its end, on the pilot's screen.",
     move: "The line stretches taut after the thumb; held taut long enough, a hatch opens on the eye. Four looks of the rope are on its row.",
   },
+  "THE BASTION'S LEFT SLAB": {
+    find: "A knob in the middle of the next armour slab each side of the moon — left the pilot's, right the navigator's — with the arrow out along the slab's way.",
+    move: "The slab comes off the moon after the thumb and its channel fills; past the pull it tears and flies off. Let go short and it snaps back red.",
+  },
   "THE ANTIPHON'S RAIL": {
     find: "A ring on each candidate on the rail a third of the way down, on the chooser's screen, haloed once the organ stands.",
     move: "The candidate follows the thumb down its vein towards the organ; let go short and it springs back to the rail. The verdict is drawn round the organ on both screens.",
@@ -167,6 +171,10 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
   "THE HASP'S WHEEL": {
     find: "THE MAZE's knob on the wheel across the door, with a two-headed arrow and PULL, on the navigator's screen; the rim haloed while her hand is off.",
     move: "The channel fills green by the share of the wind turned. Turned while the latch is up, the rim seizes red.",
+  },
+  "THE BASTION'S RIM": {
+    find: "THE MAZE's knob under the moon on the gun ring's rim, with a two-headed arrow, in a channel round the whole rim on the pilot's screen.",
+    move: "The moon and its guns turn after the thumb, either way; a gun brought to the front and shot greens the knob.",
   },
   "THE VALVE'S WHEEL": {
     find: "The wheel in the drum's face over the middle column, haloed on the pilot's screen while a mark is lit.",

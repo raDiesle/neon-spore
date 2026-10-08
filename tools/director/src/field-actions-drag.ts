@@ -40,6 +40,8 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE FLEET'S WRECK",
       "THE TRAPEZE'S LEFT ZONE",
       "THE TRAPEZE'S RIGHT ZONE",
+      "THE BASTION'S LEFT SLAB",
+      "THE BASTION'S RIGHT SLAB",
     ],
   },
   {
@@ -130,6 +132,7 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE GIMBAL'S INNER RING",
       "THE HASP'S WHEEL",
       "THE VALVE'S WHEEL",
+      "THE BASTION'S RIM",
     ],
   },
   {

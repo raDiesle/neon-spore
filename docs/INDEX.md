@@ -2438,10 +2438,13 @@ by hand never moves.
 | `packages/render/src/bastion-draw.ts` | **THE BASTION** (§11.62): a metal moon hung over the field in four shells |
 | `packages/render/src/bastion-fx.ts` | What THE BASTION leaves behind a frame (§11.62, *The receipts*): **the plates torn off** |
 | `packages/render/src/bastion-hull.ts` | **THE BASTION's inner hull and its core** (§11.62): the last shell |
+| `packages/render/src/bastion-handles.ts` | **THE BASTION's knobs**, in the field's one look for a thumb's control (`pull-knob.ts`, `pull-track.ts`) |
 | `packages/render/src/bastion-plates.ts` | **THE BASTION's armour** (§11.62), the outermost shell: eight curved slabs of blue gunmetal |
 | `packages/render/src/bastion-pose.ts` | **THE BASTION's pose**: where in its story the moon is this frame |
 | `packages/render/src/bastion-receipts.ts` | THE BASTION's receipts, drawn (`bastion-fx.ts` holds them): a torn plate flying out along its way |
 | `packages/render/src/bastion-ring.ts` | **THE BASTION's gun ring** (§11.62): a dark bronze band round the moon's middle |
+| `packages/render/src/bastion-grip.ts` | **The thumbs on THE BASTION** (§11.62): a knob on each side's next slab, pulled out along the slab's own way |
+| `packages/render/src/bastion-verdicts.ts` | **THE BASTION's knobs answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pulse-grip.ts` | **THE PULSE's hand on the bar**: the rectangle the meter is drawn in, the box a thumb is answered in |
 | `packages/render/src/pull-track.ts` | **A pull is drawn as the way the hand goes, and a big circle where it starts** — every pull handle's thin channel, filling green behind the hand, closed round for a turn |
@@ -3045,6 +3048,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-choir.ts` | THE CHOIR's SHAKE as the pilot is offered it: a membrane on the field and the two arrows against its walls |
 | `tools/director/src/poses-field-controls-trapeze.ts` | THE TRAPEZE's controls, **each photographed from the seat whose control it is** |
 | `tools/director/src/poses-field-controls-bosses.ts` | Every boss's grips on the ON THE FIELD tab, in the tab's order: one file a boss |
+| `tools/director/src/poses-field-controls-bastion.ts` | THE BASTION's thumbs: the armour lit with the pilot's thumb carrying his next slab most of a pull out |
 | `tools/director/src/poses-field-controls-plumb.ts` | THE PLUMB's pull: the left weight asked for, the bob skewed left |
 | `tools/director/src/poses-field-controls-lamprey.ts` | THE LAMPREY's hands, **each photographed from the seat that presses it**: the tail from the pilot's screen |
 | `tools/director/src/poses-field-controls-latch.ts` | THE LATCH's grips, hand over hand: the first level lit, the navigator holding the right grip |
@@ -3538,6 +3542,7 @@ by hand never moves.
 | `tools/director/src/effects-panel.ts` | The EFFECTS view on GRAPHICS: a list of doors, one per kept effect, grouped by the fight it belongs to |
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
 | `tools/director/src/field-controls-baton.ts` | THE BATON's two thumbs on its own arm, in a file of their own — `field-controls-page.ts` is at its limit |
+| `tools/director/src/field-controls-bastion.ts` | THE BASTION's three thumbs, as three rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-bosses.ts` | **Every boss's own rows** on the ON THE FIELD tab, in the order they were built |
 | `tools/director/src/field-controls-trapeze.ts` | THE TRAPEZE's controls, as rows of the ON THE FIELD tab: the two zones |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |

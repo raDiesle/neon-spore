@@ -36378,3 +36378,19 @@ Bottleneck: the word *pinch* — forty files say it, and only reading each
 told the gesture (to change) from the lobe's state (to keep).
 
 *Measured: 25 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE BASTION, lane three: its hands
+
+- reading: 10 min. THE LATCH's grip, handles and verdicts as the pattern;
+  THE MAZE's lever and rim for the turn; the director's field rows.
+- writing: 25 min. The grip, the knobs and the verdicts in `render/`, three
+  field-control rows and two poses, the marks-window row, the grip test,
+  `controls.md` and §11.62.
+- looking: 5 min. Two real frames: a slab mid-pull, the rim mid-turn.
+- friction: 10 min. Five registries the roll-outs name one at a time — the
+  pull-way list, the field page's action groups and looks, `controls.md`'s
+  table, the marks window's no-row list — each found by its own red test.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the director's registries, found one red check at a time —
+`check:fast` takes two minutes a round.

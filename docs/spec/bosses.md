@@ -11266,11 +11266,25 @@ shell comes away and the core blows; and the blow it takes (`BossHurt`) — a
 jab for every piece off, the whole blow for a shell. `render/test/
 bastion-frame.test.ts` draws every state on all three screens.
 
-**What is not built.** The marks: the plates' knobs and their arrows, the
-rim's channel, the shield's and the cannon's cues and their words, the
-verdicts on a touch, and the bolt stopped on the moon. Until they land the
-targets are `unbuilt` on the field-controls tab and a bolt is judged where
-it leaves the top of the field.
+**The hands** (`render/bastion-grip.ts`, `bastion-handles.ts`,
+`bastion-verdicts.ts`), the field's one look for a thumb's control. While
+the armour is lit a knob sits in the middle of each side's next slab, the
+pilot's on the left and the navigator's on the right, wearing the arrow out
+along the slab's way and, on its own seat's screen, a channel one pull long
+filling as the thumb carries it. While the gun ring is lit the pilot's knob
+sits under the moon on the rim, with a two-headed arrow and a channel round
+the whole rim, and the moon turns as far as the thumb is carried round.
+Both screens draw every knob; the partner's is dim, ringed and waiting, and
+a press on it is sent through for the simulation to refuse aloud. A slab
+torn greens its knob, one snapped back reddens it, a gun shot at the front
+greens the rim. **The panel is the default one**: lane one's wave carried
+`controls: "scene"`, the empty panel, which left the shield and the cannon
+off the ship for a boss two of whose shells they answer — a fix to
+something wrong.
+
+**What is not built.** The shield's and the cannon's cues and their words,
+and the bolt stopped on the moon: until they land a bolt is judged where it
+leaves the top of the field.
 
 **What is proven, and what is not.** `sim/test/bastion.test.ts` proves the
 rules: the install and the first shell; a plate torn along its way, and

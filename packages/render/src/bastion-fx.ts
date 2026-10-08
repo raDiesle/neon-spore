@@ -9,6 +9,7 @@ import {
   bastionPlateAngle,
   bastionPortAt,
 } from "./bastion-shape.js";
+import { BastionVerdicts } from "./bastion-verdicts.js";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
@@ -59,6 +60,8 @@ export class BastionFx {
   private boss: BastionState | null = null;
   private flungOf: Flung[] = [];
   private arcsOf: Arc[] = [];
+  /** The knobs' verdicts on a touch (`bastion-verdicts.ts`). */
+  readonly marks = new BastionVerdicts();
   /** The hull's shudder as the moon comes in, a shell comes off, and the core blows. */
   readonly shock = new HullShock();
   /** The blow a piece off and a shell off deal. */
@@ -75,6 +78,7 @@ export class BastionFx {
   /** The drawer's word for the moon it drew, which the events do not carry. */
   note(boss: BastionState): void {
     this.boss = boss;
+    this.marks.note(boss);
   }
 
   ingest(
@@ -84,6 +88,7 @@ export class BastionFx {
     beatSeconds: number,
     burst: Burst,
   ): void {
+    this.marks.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("bastion")) continue;
       const c = bastionCentre(l, cfg);
@@ -163,6 +168,7 @@ export class BastionFx {
     for (const a of this.arcsOf) a.now = Math.max(0, a.now - ARC_DECAY * step);
     if (this.flungOf.some((f) => f.now <= 0)) this.flungOf = this.flungOf.filter((f) => f.now > 0);
     if (this.arcsOf.some((a) => a.now <= 0)) this.arcsOf = this.arcsOf.filter((a) => a.now > 0);
+    this.marks.update(dt);
     this.shock.update(dt);
     this.hurt.update(dt);
   }
@@ -171,6 +177,7 @@ export class BastionFx {
     this.boss = null;
     this.flungOf = [];
     this.arcsOf = [];
+    this.marks.clear();
     this.shock.clear();
     this.hurt.clear();
   }
