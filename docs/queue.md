@@ -516,6 +516,7 @@ the sim tests that pin them.
 ## doc-drift-names' beforeAll timed out under a full `bun run test`
 
 - **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
+- **Taken:** 2026-10-08, claude/queue-doc-drift-timeout (claim: claude/queue-doc-drift-names-beforeall-timed-out-under-a-full)
 - **Files:** `tools/test/doc-drift-names.test.ts`, `tools/test/repo-time.ts`
 
 A full `bun run test` on 7 October 2026 went red on one case, reported as
