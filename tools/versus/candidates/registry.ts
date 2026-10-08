@@ -16,6 +16,7 @@ import { LEAD_ARROW } from "./lead-lean/arrow/index.js";
 import { LEAD_CRAGS } from "./lead-walls/crags/index.js";
 import { LEDGER_PLATED } from "./ledger-back/plated/index.js";
 import { LEDGER_LIT } from "./ledger-nerves/lit/index.js";
+import { SCUTTLE_LOBED } from "./scuttle-seat/lobed/index.js";
 import { SINEW_WHITE } from "./sinew-band/white/index.js";
 import { SINEW_VEILED } from "./sinew-fibres/veiled/index.js";
 import { SINEW_HEAVY } from "./sinew-weight/heavy/index.js";
@@ -35,6 +36,7 @@ export const VARIANTS: Variant[] = [
   LEAD_CRAGS,
   LEDGER_PLATED,
   LEDGER_LIT,
+  SCUTTLE_LOBED,
   SINEW_WHITE,
   SINEW_VEILED,
   SINEW_HEAVY,

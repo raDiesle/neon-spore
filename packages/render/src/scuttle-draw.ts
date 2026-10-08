@@ -14,7 +14,8 @@ import type { ScuttleFx } from "./scuttle-fx.js";
 import { drawScuttleLock } from "./scuttle-lock.js";
 import { faded, paintSlab } from "./scuttle-metal.js";
 import { scuttlePlatePath, scuttleSlabPath } from "./scuttle-outline.js";
-import { paintLiveRim, paintPlate, paintSocket, paintThread } from "./scuttle-plate.js";
+import { paintLiveRim, paintPlate, paintThread } from "./scuttle-plate.js";
+import { SEAT_LOOK } from "./scuttle-seat.js";
 import {
   PLATE_HALF_H,
   type Point,
@@ -86,10 +87,11 @@ export function drawScuttle(
     const c = scuttleSocket(l, cfg, i, rise);
     // The shiver dies down in a window; the rise and the hang go on (`scuttleShiver`).
     if (loose && wind > 0) c.x += scuttleShiver(l, cfg, world, s, beat, beatPhase, time);
-    if (loose) drawOpen(ctx, l, c, fade);
+    const seat = { ctx, l, c, i, fade, time };
+    if (loose) SEAT_LOOK.open(seat);
     else if (counted) {
-      if (part !== null) drawPlate(ctx, l, c, fade);
-      else drawOpen(ctx, l, c, fade);
+      if (part !== null) SEAT_LOOK.seated(seat);
+      else SEAT_LOOK.open(seat);
     }
     if (loose && part !== null) {
       const live = lively && i === s.live;
@@ -140,7 +142,7 @@ function drawSlab(
   drawHurt(ctx, path, hurt * fade);
 }
 
-/** A part in its socket, or hanging under it, slimmer: a plate of rock. */
+/** A part hanging under its socket: a slimmer plate of rock. The seated one is `SEAT_LOOK`'s. */
 function drawPlate(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -150,11 +152,6 @@ function drawPlate(
 ): void {
   const p = scuttlePlatePath(l, c, fade, half);
   paintPlate(ctx, p, c, l.tile, half, PALETTE.rock, 0.55, fade);
-}
-
-/** A socket with nothing in it: the violet inside showing at the bottom of a recess. */
-function drawOpen(ctx: CanvasRenderingContext2D, l: Layout, c: Point, fade: number): void {
-  paintSocket(ctx, scuttlePlatePath(l, c, fade), c.x, c.y, l.tile, fade);
 }
 
 /** The thread a loose part hangs on, from its socket's floor to the plate. */

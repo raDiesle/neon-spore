@@ -328,15 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE SCUTTLE's parts are drawn as part of its body, not as a grid of sockets
-
-- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
-- **Taken:** 2026-10-08, claude/queue-tasks-3078fe (claim: claude/queue-the-scuttles-parts-are-drawn-as-part-of-its-body)
-- **Files:** `packages/render/src/scuttle-shape.ts`, `packages/render/src/scuttle-draw.ts`, `packages/render/src/scuttle-plate.ts`
-
-bosses-choreographed.md ledger row §15, *Not built*: a part sits in a socket list rather than in the frame's body. Offer a candidate where each part is a lobe of the one frame and leaves a wound in it when it goes. The pod that is not taken losing the wave is the owner's rule of 12 September 2026 (`scuttle-step.ts`) and stays as it is. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
-
-
 ## THE ANTIPHON's organ turns slowly in place, so the pilot has to say which way up
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
@@ -591,3 +582,18 @@ combine (CLAUDE.md, *a new shape is never one the game already draws*) reads
 the status and would take a shape the game already draws. Check
 `render/cyst-shape.ts` against the card, set the status to `taken` if it is,
 and add a test that a card whose `owner` starts with a taker is not `free`.
+
+
+## `versus:shot` waits out its timeout on a candidate that does not compile
+
+- **Found:** 2026-10-08, claude/queue-tasks-3078fe
+- **Files:** `tools/director/src/versus-shot.ts`, `tools/frames/shot.ts`
+
+A candidate importing `@neon-spore/content` by name (a candidate reaches a
+package by its relative path) failed `tsc`, and `bun run versus:shot
+scuttle:seat lobed` then sat on `--until "[data-frozen]"` until the caller's
+five-minute timeout, with nothing printed. A page whose bundle failed never
+sets `data-frozen`. Have the shot fail at once, naming the error, when the
+page reports a bundle or runtime error (console error, or no `#versus`
+mounted after the settle), and add a test with a candidate that throws at
+import.

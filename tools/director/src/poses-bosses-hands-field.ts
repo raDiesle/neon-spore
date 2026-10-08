@@ -139,6 +139,8 @@ export const FIELD_HAND_POSES: Pose[] = [
       hand: scuttleHand,
       want: (w) => w.boss?.kind === "scuttle" && w.boss.swung >= 0,
       budgetBeats: 80,
+      // `scuttle:seat` is judged here: parts still seated beside sockets already left.
+      lookAt: "the frame's parts, and the places parts have gone from",
     },
   ),
   bossPose(

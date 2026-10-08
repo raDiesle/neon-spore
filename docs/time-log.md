@@ -35460,3 +35460,17 @@ Bottleneck: reading — a cord from the pilot's stalk would have drawn him
 a column, so it is the navigator's alone.
 
 *Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE SCUTTLE's parts as lobes of the frame, offered in VERSUS
+
+- reading: 5 min. The draw's socket loop and the plate painters, to keep
+  the hanging part and the bolt stop out of the record.
+- writing: 10 min. `SEAT_LOOK` with the shipped plate and socket in it,
+  the candidate, the SWUNG pose's `lookAt`.
+- looking: 5 min. One pair of stills; lobes and a wound against plates.
+- friction: 5 min. A candidate cannot import `@neon-spore/content` by name,
+  and the first shot hung on the type error until its timeout.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: friction — the shot waited out its five minutes on a type
+error rather than failing on it.
