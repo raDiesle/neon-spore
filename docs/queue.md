@@ -341,3 +341,31 @@ wave that a slip would have committed. Lanes 5 to 7 (SWIPE, TURN, RUB) meet the
 same wall. Add a flag, e.g. `--entry 0 '{gesture:"hold"}'`, that merges fields
 into one of the wave's entries in memory before the world is built, with a
 recipe line and a test that the merged entry reaches `createWorld`.
+
+## controls.md's row for THE GOVERNOR's needle still names the brake
+
+- **Found:** 2026-10-08, claude/trivet-boss-concept-670eed
+- **Files:** `docs/spec/controls.md`
+
+The owner's rework of 6 October 2026 took THE GOVERNOR's brake out
+(`bosses.md` §11.58), and its two rows went from `controls.md` with THE
+TRIVET on 8 October 2026. The row `THE GOVERNOR'S NEEDLE` still says "the
+braking seat's thumb on the dial is not answered": check it against
+`sim/governor-hand.ts` and say what each seat taps now.
+
+## THE VISE's pinch asks two fingers of one player
+
+- **Found:** 2026-10-08, claude/trivet-boss-concept-670eed
+- **Files:** `packages/render/src/vise-grip.ts`, `packages/render/src/pinch.ts`, `packages/sim/src/vise-hand.ts`, `docs/spec/bosses.md`
+- **Asks:** THE VISE's lobes are cracked by a two-finger pinch — should the pinch become a one-finger gesture, or should THE VISE leave the game?
+
+The owner's rule of 8 October 2026 (`.claude/skills/new-boss/generic.md`):
+never more than one finger of the same player at once, since a PC has one
+pointer. THE VISE is the one boss left that asks it: each seat pinches its
+own lobe shut with two fingers (`SqueezeGap`, `vise-grip.ts`). The options:
+a one-finger drag that closes the lobe (the gap is how far the thumb has
+carried, THE PLUMB's pull), a hold on the lobe for the count (THE
+OCULUS's), or THE VISE taken out whole as THE TRIVET was. Either rework
+keeps the simulation's `gapMilli` and changes only what sends it; the
+pinch machinery (`pinch.ts`, `pinch-pair.ts`) goes with the last pinch.
+

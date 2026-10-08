@@ -1,4 +1,3 @@
-import { Chords } from "./chord-pads.js";
 import type { Layout } from "./layout.js";
 import { type Pinched, Pinches } from "./pinch-pair.js";
 import { Rubs } from "./rub-turns.js";
@@ -7,10 +6,9 @@ import type { Hold } from "./touch-hold.js";
 
 /**
  * **The gestures one sample cannot answer**, kept together: two fingers on
- * one pinch body (`pinch.ts`), a chord's fingers each counted as a pad
- * (`chord.ts`), and a rubbing thumb's turns (`rub.ts`). Every pointer event
- * is offered to all three and each answers only the holds flagged its own, so
- * the page that owns the pointers has one call a phase rather than three.
+ * one pinch body (`pinch.ts`) and a rubbing thumb's turns (`rub.ts`). Every
+ * pointer event is offered to both and each answers only the holds flagged its
+ * own, so the page that owns the pointers has one call a phase rather than two.
  *
  * And where every finger on a boss's mark is, for the glow drawn round it
  * (`thumb-aura.ts`) — it says nothing to the ship, but it is the same
@@ -18,7 +16,6 @@ import type { Hold } from "./touch-hold.js";
  */
 export class Fingers {
   private readonly pinches = new Pinches();
-  private readonly chords = new Chords();
   private readonly rubs = new Rubs();
   private readonly onMarks = new Map<number, Thumb>();
 
@@ -40,7 +37,6 @@ export class Fingers {
     if (onMark) this.onMarks.set(id, { id, x, y });
     return [
       ...said(this.pinches.down(l, id, holds, x, y)),
-      ...this.chords.down(id, holds),
       ...said(this.rubs.down(id, holds, x, y)),
     ];
   }
@@ -59,7 +55,7 @@ export class Fingers {
   /** A finger lifted, or lost. */
   up(id: number): Pinched[] {
     this.onMarks.delete(id);
-    return [...said(this.pinches.up(id)), ...this.chords.up(id), ...said(this.rubs.up(id))];
+    return said(this.pinches.up(id), this.rubs.up(id));
   }
 }
 

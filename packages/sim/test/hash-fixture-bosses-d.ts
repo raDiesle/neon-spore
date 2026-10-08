@@ -9,7 +9,7 @@ import type { BossState } from "../src/boss-union.js";
  * the next boss, which is what happened.
  *
  * It runs to THE RIME. It grew to 483 lines, one boss at a time, and was cut
- * at that boundary on 27 September 2026: THE TRIVET to THE TRAPEZE are on
+ * at that boundary on 27 September 2026: THE PLUMB to THE TRAPEZE are on
  * `-e.ts`, and THE FLUE on is `-f.ts`, the last page, where the newest boss
  * goes — `BOSS_KINDS` is appended to, never inserted into. The reasons the
  * fixture works the way it does are on `-a.ts` and in `hash-fixture.ts`,

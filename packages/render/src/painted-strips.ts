@@ -33,12 +33,6 @@ export const PAINTED_STRIPS = {
    */
   "rime-clear": { frames: 16, frameSize: 128, frameMs: 50, seed: 20260927 },
   /**
-   * THE TRIVET's foot planting home (`trivet-fx.ts`): the pilot's, mirrored
-   * for the navigator's. Twelve frames, since a slam is over faster than a
-   * crack or a clearing.
-   */
-  "trivet-plant": { frames: 12, frameSize: 96, frameMs: 45, seed: 20260930 },
-  /**
    * THE PLUMB's weight settling true (`plumb-fx.ts`): a damped swing hung
    * from the beam's end, mirrored for the navigator's. As wide as THE RIME's,
    * because a chain and a ball under it are three tiles tall, and as slow,

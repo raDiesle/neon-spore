@@ -6,7 +6,6 @@ import { isPlumbEvent, plumbCue } from "./bind-plumb.js";
 import { rimeCue } from "./bind-rime.js";
 import { seamCue } from "./bind-seam.js";
 import { isSlingEvent, slingCue } from "./bind-sling.js";
-import { isTrivetEvent, trivetCue } from "./bind-trivet.js";
 import { undertowCue } from "./bind-undertow.js";
 import { valveCue } from "./bind-valve.js";
 import { viseCue } from "./bind-vise.js";
@@ -32,7 +31,6 @@ type LaterEvent = Extract<
       | `oculus${string}`
       | `vise${string}`
       | `rime${string}`
-      | `trivet${string}`
       | `plumb${string}`
       | `sling${string}`
       | `undertow${string}`;
@@ -41,8 +39,7 @@ type LaterEvent = Extract<
 
 export function laterCue(e: LaterEvent, cols: number): Cue | null {
   // THE PLUMB whole, by its prefix, the day its bleed brought two more, and
-  // THE SLING the day its cool did, and THE TRIVET the day its ring did.
-  if (isTrivetEvent(e)) return trivetCue(e, cols);
+  // THE SLING the day its cool did.
   if (isPlumbEvent(e)) return plumbCue(e, cols);
   if (isSlingEvent(e)) return slingCue(e, cols);
   switch (e.type) {

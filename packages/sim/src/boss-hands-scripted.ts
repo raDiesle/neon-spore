@@ -18,8 +18,6 @@ import { seamGuarded } from "./seam-guard.js";
 import { slingHeard } from "./sling-hand.js";
 import { trapezeHeard } from "./trapeze-hand.js";
 import { trapezeSwung } from "./trapeze-step.js";
-import { trivetGuarded } from "./trivet-guard.js";
-import { trivetHeard } from "./trivet-hand.js";
 import type { TimedCommand } from "./types.js";
 import { viseGuarded } from "./vise-guard.js";
 import { viseHeard } from "./vise-hand.js";
@@ -54,11 +52,6 @@ export function scriptedHandsHeard(world: World, commands: readonly TimedCommand
   // and its shield, THE SEAM's once a tick after the commands (`rime-guard.ts`).
   for (const c of commands) rimeHeard(world, c.player, c.command);
   rimeGuarded(world);
-  // THE TRIVET's pads, on the tick for the same reason: a slip is the instant
-  // a pad of the lit chord lifts (`trivet-hand.ts`).
-  for (const c of commands) trivetHeard(world, c.player, c.command);
-  // Its needle, THE SEAM's shield once a tick after the commands (`trivet-guard.ts`).
-  trivetGuarded(world);
   // THE PLUMB's leans, the same: a drift is the instant a lean leaves range (`plumb-hand.ts`).
   for (const c of commands) plumbHeard(world, c.player, c.command);
   // THE SLING's draws, the same: a draw is judged the instant it lifts

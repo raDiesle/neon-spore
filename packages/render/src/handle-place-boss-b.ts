@@ -15,7 +15,6 @@ import {
 } from "./scout-grip.js";
 import { slingDrawCircle } from "./sling-grip.js";
 import { trapezeAlienCircle, trapezeZoneCircle } from "./trapeze-grip.js";
-import { trivetFootStanding, trivetTakesChord } from "./trivet-grip.js";
 import { valvePinHandle, valveWheelCircle } from "./valve-grip.js";
 
 /**
@@ -38,13 +37,6 @@ export function laterBossHandleCircle(
     const b = world.boss?.kind === "sling" ? world.boss : null;
     if (b === null) return null;
     return slingDrawCircle(l, cfg, b, target === "slingDrawLeft" ? 0 : 1, world.beat, beatPhase);
-  }
-  if (target === "trivetPadFront" || target === "trivetPadRear") {
-    // THE TRIVET's two feet, each where its leg has it swung this frame. Null
-    // once the stand collapses (`trivet-grip.ts`).
-    const b = world.boss?.kind === "trivet" ? world.boss : null;
-    if (b === null || !trivetTakesChord(b)) return null;
-    return trivetFootStanding(l, world, b, target === "trivetPadFront" ? 1 : 2, beatPhase);
   }
   if (target === "rimeHalfLeft" || target === "rimeHalfRight") {
     // THE RIME's half of the lens, where its clear patch opens from, dropped

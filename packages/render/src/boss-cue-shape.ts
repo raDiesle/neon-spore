@@ -138,14 +138,6 @@ export interface BossCue {
    */
   rubHalf?: number;
   /**
-   * **A `HOLD` on a chord body** — THE TRIVET's feet and THE GOVERNOR's
-   * works. On a screen whose pointer
-   * speaks for both seats a held mouse there is the whole chord
-   * (`desk-chord.ts`), so it is drawn as THE INSTAR's `HOLD BOTH` ring and
-   * not as this cue (`desk-chord-ring.ts`).
-   */
-  chord?: boolean;
-  /**
    * **A `TAP` that wears the thumbprint** in place of the scan box: `HOLD`'s
    * red circle (`hold-mark.ts`), drawn by `cue-helper.ts`. THE GOVERNOR's
    * marks, the owner, 6 October 2026: *instead of tap scanner square box use

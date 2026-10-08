@@ -437,41 +437,12 @@ reveal — the patches wiped clear, the core lit — is drawn either way.
 **Still open**: the owner's eye. Play THE RIME at `?raster=1` to the bare
 core and compare.
 
-### The fifth strip: THE TRIVET's plant
+### The fifth strip: THE TRIVET's plant — taken out
 
-Rows 2 to 5 of §30's beat list — an outer foot swung down and slammed onto
-its plate — are a hinge and a slam: a smear, a squashed shock and grit thrown
-along the ground, rule 4 once more. `tools/raster/src/trivet-plant-art.ts`
-paints the plate's after-image arcing down from the upper left and gone in a
-fifth, a flat flash along the footprint, a shock ring squashed flat on the
-ground and running out both ways, ten dust puffs rolling outward, and grit and
-a few cold sparks thrown low and falling back. **Metal colours only** —
-`trivetMetal`, `trivetMetalDark`, `trivetSocket`'s cold blue-white (rule 7).
-
-It is painted for **the pilot's foot**, the one splayed left, and the
-navigator's is the same strip mirrored: `SpriteBursts.spawn` takes a `flip`,
-and the draw scales by −1 about the burst's own point. The entry asked for
-all three feet by mirror; the middle foot never lifts, so it never plants,
-and the mirror covers the two that do.
-
-Twelve frames of 96 px at 45 ms, 0.54 s — the slam is over faster than a
-crack or a clearing — drawn 2.6 tiles wide, a plate and its grit either side.
-
-| file | bytes |
-|---|---|
-| `trivet-plant-strip.webp`, the atlas the field fetches | **15 690** — under the 90 kB budget |
-| `trivet-plant.apng`, the master | 45 427 |
-
-`TrivetFx.plant` (`trivet-fx.ts`, `effects.boss.trivet`) spawns it on
-`trivetPlant` at the foot that bit; `boss-draw-clocks-d.ts` draws it after the
-stand, and `bindRasterStrips` installs it behind `?raster=1`. Without the
-flag it draws nothing (`packages/render/test/trivet-plant.test.ts`), and the
-shipped thud — the stand pressed down, the grit, the shudder — is drawn
-either way. The burst draws additively, like every other light in the game, so
-the grey dust brightens the field behind it rather than darkening it.
-
-**Still open**: the owner's eye. Play THE TRIVET at `?raster=1` through a
-plant on each foot and compare.
+THE TRIVET's foot slammed onto its plate was the fifth strip, twelve frames of
+96 px, an atlas of 15 690 bytes. It left the game with its boss on 8 October
+2026, and its painter, its atlas and its master went with it;
+`git log -S drawTrivetPlantFrame` finds them.
 
 ### The sixth strip: THE PLUMB's settle
 
@@ -503,7 +474,8 @@ Sixteen frames of 128 px at 50 ms, 0.8 s.
 | `plumb-settle.apng`, the master | 107 102 |
 
 **One budget for the four painted boss strips: each atlas under 90 kB.** THE
-VISE's 43 238, THE RIME's 66 970, THE TRIVET's 15 690, THE PLUMB's 42 130.
+VISE's 43 238, THE RIME's 66 970, THE TRIVET's 15 690 (since taken out),
+THE PLUMB's 42 130.
 
 `PlumbFx.swing` (`plumb-fx.ts`, `effects.boss.plumb`) spawns it on
 `plumbSettle`, and `bindRasterStrips` installs it behind `?raster=1`.
@@ -541,8 +513,8 @@ Twelve frames of 96 px at 45 ms, 0.54 s — the entry's own floor.
 | `sling-draw.apng`, the master | 29 238 |
 
 **One budget for the five painted boss strips: each atlas under 90 kB.** THE
-VISE's 43 238, THE RIME's 66 970, THE TRIVET's 15 690, THE PLUMB's 42 130, THE
-SLING's 11 084.
+VISE's 43 238, THE RIME's 66 970, THE TRIVET's 15 690 (since taken out),
+THE PLUMB's 42 130, THE SLING's 11 084.
 
 `SlingFx.draw` (`sling-fx.ts`, `effects.boss.sling`) spawns it on
 `slingLoose`, and `bindRasterStrips` installs it behind `?raster=1`. Without

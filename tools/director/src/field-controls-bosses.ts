@@ -40,7 +40,6 @@ import { SURGE_CONTROLS } from "./field-controls-surge.js";
 import { TASTER_CONTROLS } from "./field-controls-taster.js";
 import { THROAT_CONTROLS } from "./field-controls-throat.js";
 import { TRAPEZE_CONTROLS } from "./field-controls-trapeze.js";
-import { TRIVET_CONTROLS } from "./field-controls-trivet.js";
 import { UNDERTOW_CONTROLS } from "./field-controls-undertow.js";
 import { VALVE_CONTROLS } from "./field-controls-valve.js";
 import { VANE_CONTROLS } from "./field-controls-vane.js";
@@ -167,9 +166,6 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE VISE's two lobe pinches, the first two-finger gesture in the game
   // (`field-controls-vise.ts`).
   ...VISE_CONTROLS,
-  // THE TRIVET's two feet, the first chord: a finger a pad, counted by the
-  // order they land in (`field-controls-trivet.ts`).
-  ...TRIVET_CONTROLS,
   ...PLUMB_CONTROLS,
   ...CAPSTAN_CONTROLS,
   ...GALL_CONTROLS,

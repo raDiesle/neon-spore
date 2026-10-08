@@ -71,7 +71,6 @@ type LateEvent = Extract<
       | `oculus${string}`
       | `vise${string}`
       | `rime${string}`
-      | `trivet${string}`
       | `plumb${string}`
       | `sling${string}`
       | `capstan${string}`

@@ -23,7 +23,6 @@ import { RIME_POSES } from "./poses-bosses-hands-rime.js";
 import { SEAM_POSES } from "./poses-bosses-hands-seam.js";
 import { SHOT_HAND_POSES } from "./poses-bosses-hands-shots.js";
 import { TAKE_HAND_POSES } from "./poses-bosses-hands-takes.js";
-import { TRIVET_POSES } from "./poses-bosses-hands-trivet.js";
 import { VALVE_POSES } from "./poses-bosses-hands-valve.js";
 import { VISE_POSES } from "./poses-bosses-hands-vise.js";
 import { QUEEN_POSES } from "./poses-bosses-queen.js";
@@ -69,7 +68,6 @@ export const BOSS_POSES: Pose[] = [
   ...KEEL_POSES,
   ...OCULUS_POSES,
   ...VISE_POSES,
-  ...TRIVET_POSES,
   ...RIME_POSES,
   ...VALVE_POSES,
   ...SEAM_POSES,

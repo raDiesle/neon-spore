@@ -105,20 +105,6 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
     ],
   },
   {
-    key: "chord",
-    title: "CHORD",
-    says: "Several fingers of one seat down at once.",
-    types: [
-      {
-        key: "chord",
-        title: "CHORD",
-        says: "Fingers held at once, each a pad by the order it landed (`chord-pads.ts`).",
-        suggest: "Already one helper. Make the pads' picture generic.",
-        rows: ["THE TRIVET'S FRONT FOOT", "THE TRIVET'S REAR FOOT"],
-      },
-    ],
-  },
-  {
     key: "pinch",
     title: "PINCH",
     says: "Two fingers of one seat closing on a body.",

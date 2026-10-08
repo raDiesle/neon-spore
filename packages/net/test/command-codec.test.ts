@@ -246,10 +246,6 @@ const ACCEPTED: Command[] = [
   // (`sim/rime-hand.ts`).
   { kind: "drag", target: "rimeHalfLeft", on: true, fromMilli: 0, id: 3 },
   { kind: "drag", target: "rimeHalfRight", on: false, fromMilli: 0 },
-  // THE TRIVET's pads are held, one foot a seat, the pad named by `id`
-  // (`sim/trivet-hand.ts`).
-  { kind: "drag", target: "trivetPadFront", id: 2, on: true, fromMilli: 0 },
-  { kind: "drag", target: "trivetPadRear", id: 0, on: false, fromMilli: 0 },
   // THE PLUMB's stones are pulled, one a seat, the pull on `fromMilli`
   // in thousandths of a tile either way (`sim/plumb-hand.ts`).
   { kind: "drag", target: "plumbLevelLeft", on: true, fromMilli: -4500 },
@@ -448,8 +444,6 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   viseLobeRight: true,
   rimeHalfLeft: true,
   rimeHalfRight: true,
-  trivetPadFront: true,
-  trivetPadRear: true,
   plumbLevelLeft: true,
   plumbLevelRight: true,
   slingDrawLeft: true,

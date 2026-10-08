@@ -36,6 +36,5 @@ export { slingVerdict } from "./sling-shot.js";
 export { stareVerdict } from "./stare-shot.js";
 export { tasterVerdict } from "./taster-shot.js";
 export { trapezeAim } from "./trapeze-shot.js";
-export { trivetVerdict } from "./trivet-shot.js";
 export { VALVE_SPARK_FROM_MILLI, valveSparkMilli, valveVerdict } from "./valve-shot.js";
 export { VISE_SEED_MILLI, viseVerdict } from "./vise-shot.js";

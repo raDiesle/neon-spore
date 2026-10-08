@@ -16,7 +16,6 @@ type BossIdB = Extract<
   | "oculus"
   | "vise"
   | "rime"
-  | "trivet"
   | "plumb"
   | "sling"
   | "lamprey"
@@ -98,10 +97,6 @@ export const BOSS_MECHANICS_B = {
   },
   rime: {
     what: "Each rubs a half of the lens clear, back and forth. Two wipes each, the core bares. Shoot it in its colour, and shield the surge under it.",
-    reach: "spawn",
-  },
-  trivet: {
-    what: "Hold your foot's lit pads down together until it plants. Both feet home light the hub. Shoot it in its colour. When both light, hold together.",
     reach: "spawn",
   },
   plumb: {

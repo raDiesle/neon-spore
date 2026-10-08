@@ -73,7 +73,6 @@ export const FAMILIES: Family[] = [
       "slingSteelDark",
       "slingCord",
       "slingHeat",
-      "trivetSocket",
       "plumbBronze",
       "plumbBronzeDark",
       "plumbGlass",
@@ -136,7 +135,7 @@ export const FAMILIES: Family[] = [
   {
     name: "DEAD MATTER",
     rule: "colder and bluer than the dark, at 224°. The rock is immune because it does not live, and it throws no light.",
-    keys: ["rock", "rockDark", "trivetMetal", "trivetMetalDark"],
+    keys: ["rock", "rockDark"],
   },
   {
     name: "NEUTRALS",

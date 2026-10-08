@@ -789,8 +789,8 @@ export const COPIES: Copy[] = [
   {
     // **How a struck core shrinks and brightens** — THE VISE's kernel figure,
     // a little smaller and brighter per hit. THE RIME's core wrote it out a
-    // second time on the day it was drawn, and THE TRIVET's hub and THE
-    // PLUMB's core were each one paste from a third; `core-hurt.ts` is the one
+    // second time on the day it was drawn, and THE TRIVET's hub (since taken
+    // out) and THE PLUMB's core were each one paste from a third; `core-hurt.ts` is the one
     // copy, and the next core that takes shots calls it.
     call: "coreHurt",
     owner: "packages/render/src/core-hurt.ts",

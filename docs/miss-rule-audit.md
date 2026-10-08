@@ -93,7 +93,6 @@ The kinds each breaks it with, and where. Paths are under `packages/sim/src`.
 | SURGE | 4, 7 | `surge-seam.ts` (a short lift or a burst loses the charge) |
 | TASTER | 1, 4, 7, 11 | `taster-shot.ts`, `taster-step.ts` |
 | THROAT | 11 | `throat-suck.ts` (wrong-colour mouth refuses, nothing) |
-| TRIVET | 1, 4, 5 | `trivet-step.ts`, `trivet-hand.ts`, `trivet-shot.ts` |
 | UNDERTOW | 4 | `undertow-step.ts`, `undertow-press.ts` (a tall lobe tapped back is a free second try) |
 | VALVE | 4, 5 | `valve-step.ts` (kick), `valve-hand.ts` (slip) |
 | VANE | 1, 2, 11 | `vane.ts`, `vane-hand.ts` |

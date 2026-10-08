@@ -13,7 +13,6 @@ import { rimeHashParts } from "./rime-hash.js";
 import { seamHashParts } from "./seam-hash.js";
 import { slingHashParts } from "./sling-hash.js";
 import { trapezeHashParts } from "./trapeze-hash.js";
-import { trivetHashParts } from "./trivet-hash.js";
 import { viseHashParts } from "./vise-hash.js";
 
 /**
@@ -49,11 +48,6 @@ export function scriptedHashParts(boss: BossState): number[] {
   // the reversal counts and the script (`rime-hash.ts`).
   if (boss.kind === "rime") {
     for (const n of rimeHashParts(boss)) out.push(n);
-  }
-  // THE TRIVET: the phase, the cursor, the feet, the hits, both seats' pads
-  // and the script (`trivet-hash.ts`).
-  if (boss.kind === "trivet") {
-    for (const n of trivetHashParts(boss)) out.push(n);
   }
   // THE PLUMB: the phase, the cursor, the weights, the hits, both seats'
   // leans and the script (`plumb-hash.ts`).

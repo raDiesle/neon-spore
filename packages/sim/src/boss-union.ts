@@ -44,7 +44,6 @@ import type { SurgeState } from "./surge.js";
 import type { TasterState } from "./taster.js";
 import type { ThroatState } from "./throat.js";
 import type { TrapezeState } from "./trapeze.js";
-import type { TrivetState } from "./trivet.js";
 import type { UndertowState } from "./undertow.js";
 import type { ValveState } from "./valve.js";
 import type { ViseState } from "./vise.js";
@@ -122,7 +121,6 @@ export type BossState =
   | OculusState
   | ViseState
   | RimeState
-  | TrivetState
   | PlumbState
   | SlingState
   | CapstanState

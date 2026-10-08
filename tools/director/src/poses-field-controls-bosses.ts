@@ -13,7 +13,6 @@ import { RATCHET_GRIPS } from "./poses-field-controls-ratchet.js";
 import { RIME_GRIPS } from "./poses-field-controls-rime.js";
 import { SLING_GRIPS } from "./poses-field-controls-sling.js";
 import { TRAPEZE_GRIPS } from "./poses-field-controls-trapeze.js";
-import { TRIVET_GRIPS } from "./poses-field-controls-trivet.js";
 import { VALVE_GRIPS } from "./poses-field-controls-valve.js";
 import { VISE_GRIPS } from "./poses-field-controls-vise.js";
 
@@ -29,7 +28,6 @@ export const BOSS_GRIPS: readonly Pose[] = [
   ...KEEL_GRIPS,
   ...OCULUS_GRIPS,
   ...VISE_GRIPS,
-  ...TRIVET_GRIPS,
   ...PLUMB_GRIPS,
   ...CAPSTAN_GRIPS,
   ...GALL_GRIPS,

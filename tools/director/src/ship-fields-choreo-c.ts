@@ -205,15 +205,6 @@ export const CHOREO_FIELD_GROUP_C = {
   rimeShaveMilli: "THE RIME — the boss two rubs wipe clear, then shoot into",
   rimeRegrowMilli: "THE RIME — the boss two rubs wipe clear, then shoot into",
   rimeFilmMilli: "THE RIME — the boss two rubs wipe clear, then shoot into",
-  // TrivetConfig — the rests around the steps, the grace a chord is given on
-  // top of its count, the feet's ring and the collapse (`config-trivet.ts`).
-  // The script is the wave's own, pads and all.
-  trivetStillBeats: "THE TRIVET — the boss two chords plant, then shoot into",
-  trivetRestBeats: "THE TRIVET — the boss two chords plant, then shoot into",
-  trivetGraceBeats: "THE TRIVET — the boss two chords plant, then shoot into",
-  trivetCollapseBeats: "THE TRIVET — the boss two chords plant, then shoot into",
-  trivetRingBeats: "THE TRIVET — the boss two chords plant, then shoot into",
-  trivetRingJolts: "THE TRIVET — the boss two chords plant, then shoot into",
   // PlumbConfig — the rests, a level's grace, one seat's reach, the spent
   // core's bleed and the swing free (`config-plumb.ts`). The script is
   // the wave's own, ranges and all.

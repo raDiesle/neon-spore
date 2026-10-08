@@ -58,7 +58,6 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   oculus: "THE OCULUS — the boss both hands hold shut, then shoot into",
   vise: "THE VISE — the boss two pinches crack, then shoot into",
   rime: "THE RIME — the boss two rubs wipe clear, then shoot into",
-  trivet: "THE TRIVET — the boss two chords plant, then shoot into",
   plumb: "THE PLUMB — the boss two pulls hold level, then shoot into",
   sling: "THE SLING — the boss two draws loose, then shoot into",
   capstan: "THE CAPSTAN — the boss one hand rocks for the other to wear",

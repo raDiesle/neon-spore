@@ -1,7 +1,6 @@
 import type { BossState, World } from "@neon-spore/sim";
 import { viseCues } from "./boss-cue-read-zf.js";
 import { rimeCues } from "./boss-cue-read-zg.js";
-import { trivetCues } from "./boss-cue-read-zh.js";
 import { capstanCues } from "./boss-cue-read-zl.js";
 import { gallCues } from "./boss-cue-read-zm.js";
 import { trapezeCues } from "./boss-cue-read-zn.js";
@@ -25,7 +24,6 @@ import { plumbCues } from "./plumb-marks.js";
 const CHOREO_KINDS: ReadonlySet<BossState["kind"]> = new Set([
   "vise",
   "rime",
-  "trivet",
   "plumb",
   "capstan",
   "gall",
@@ -64,9 +62,6 @@ export function choreoCues(
     // THE RIME's, a word under the lit core and one where the shield is wanted (`boss-cue-read-zg.ts`).
     case "rime":
       return rimeCues(l, world, boss, beatPhase);
-    // THE TRIVET's, a word on each foot a lit chord asks for, gone once it is held, and one under the lit hub (`boss-cue-read-zh.ts`).
-    case "trivet":
-      return trivetCues(l, world, boss, beatPhase);
     // THE PLUMB's, `LEVEL` on the glass a seat's phone is asked level,
     // `BOTH` across the pair once a step asks both, and `FIRE` once the core
     // is lit (`plumb-marks.ts`).

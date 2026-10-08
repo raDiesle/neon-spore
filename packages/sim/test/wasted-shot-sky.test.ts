@@ -23,7 +23,6 @@ import * as rime from "./rime-rig.js";
 import * as seam from "./seam-rig.js";
 import * as sling from "./sling-rig.js";
 import * as trapeze from "./trapeze-rig.js";
-import * as trivet from "./trivet-rig.js";
 import * as valve from "./valve-rig.js";
 import * as vise from "./vise-rig.js";
 
@@ -84,7 +83,6 @@ describe("a bolt out of the top on HARD, under a boss", () => {
     plumb: () => plumb.install(),
     rime: () => rime.install(),
     sling: () => sling.install(),
-    trivet: () => trivet.install(),
     vise: () => vise.install(),
   };
   for (const [kind, make] of Object.entries(CORED)) {

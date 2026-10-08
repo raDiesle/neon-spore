@@ -31,7 +31,7 @@ export interface CoreStep {
 
 /**
  * A second ask a bolt answers besides fire, in a column of its own: THE
- * OCULUS's look, THE TRIVET's tip, THE VISE's spit.
+ * OCULUS's look, THE VISE's spit.
  */
 export interface CoreAside {
   ask: string;

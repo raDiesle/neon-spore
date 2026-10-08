@@ -213,22 +213,6 @@ export const INGEST_SILENT_BOSS_C = [
   "rimeScatter",
   "rimeShatter",
   "rimeOut",
-  // THE TRIVET's fifteen: what outlives a frame is `trivet-fx.ts`', read above the loop.
-  "trivetEnter",
-  "trivetLight",
-  "trivetSlip",
-  "trivetPlant",
-  "trivetSpring",
-  "trivetHub",
-  "trivetHit",
-  "trivetBrace",
-  "trivetRock",
-  "trivetMiss",
-  "trivetTurn",
-  "trivetRing",
-  "trivetJolt",
-  "trivetCollapse",
-  "trivetOut",
   // THE GAUGE's three, its first events: the needle, band and bind are world
   // state, read off `needleMilli`, `markMilli` and `boundBeat` every frame
   // (`render/gauge.ts`, 19 September 2026). Sound was what was missing —

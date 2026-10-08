@@ -129,9 +129,6 @@ export const ROWS: Record<string, Row> = {
   // pilot's is the left.
   rimeHalfLeft: { id: true },
   rimeHalfRight: { seat: 2, id: true },
-  // `trivet-hand.ts`: a foot each, its pads held down together; the pilot's is the front.
-  trivetPadFront: { id: true },
-  trivetPadRear: { seat: 2, id: true },
   // `plumb-hand.ts`: a stone each, the pull on `fromMilli`; the pilot's is the left.
   plumbLevelLeft: {},
   plumbLevelRight: { seat: 2 },

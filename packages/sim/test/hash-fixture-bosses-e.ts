@@ -2,25 +2,16 @@ import type { BossEntry } from "../src/boss-entries.js";
 import type { BossState } from "../src/boss-union.js";
 
 /**
- * **THE TRIVET to THE TRAPEZE: the fifth page of `hash-fixture.ts`**, cut off
+ * **THE PLUMB to THE TRAPEZE: the fifth page of `hash-fixture.ts`**, cut off
  * `-d.ts` on 27 September 2026, when that page stood at 483 lines, at the
- * boundary between THE RIME and THE TRIVET. Nothing new goes here: the
- * newest boss goes on `-f.ts`, the last page, because `BOSS_KINDS` is
- * appended to, never inserted into. The reasons the fixture works the way it
+ * boundary between THE RIME and THE TRIVET, taken out on 8 October 2026.
+ * Nothing new goes here: the newest boss goes on `-f.ts`, the last page,
+ * because `BOSS_KINDS` is appended to, never inserted into. The reasons the fixture works the way it
  * does are on `-a.ts` and in `hash-fixture.ts`, which composes the pages.
  */
 
 /** What each is authored with; the keys are the page's share of `BOSS_KINDS`. */
 export const BOSS_ENTRIES_E = {
-  // THE TRIVET authors its script; two steps rather than the shipped nine
-  // (`trivet-hash.ts`).
-  trivet: {
-    kind: "trivet",
-    steps: [
-      { ask: "front", pads: 3, color: "cyan", beats: 4 },
-      { ask: "fire", pads: 2, color: "cyan", beats: 3 },
-    ],
-  },
   // THE PLUMB authors its script; two steps rather than the shipped nine
   // (`plumb-hash.ts`).
   plumb: {
@@ -68,20 +59,8 @@ export const BOSS_ENTRIES_E = {
   },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
-/** THE TRIVET to THE TRAPEZE's share of `patchBoss`. */
+/** THE PLUMB to THE TRAPEZE's share of `patchBoss`. */
 export function patchBossE(boss: BossState): void {
-  if (boss.kind === "trivet") {
-    // The front foot planted once and the rear home, the hub lit, pads down
-    // on both seats — every field given a value (`trivet-hash.ts`).
-    boss.phase = "lit";
-    boss.phaseBeat = 3;
-    boss.cursor = 1;
-    boss.feet = [1, 2];
-    boss.hits = 1;
-    boss.hubLit = true;
-    boss.padsDown = [3, 5];
-    boss.heldBeats = 2;
-  }
   if (boss.kind === "plumb") {
     // The left weight settled once and the right true, the core lit, both
     // stones pulled — every field given a value (`plumb-hash.ts`).

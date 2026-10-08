@@ -113,11 +113,6 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "The alien on the swing, wherever it swings, haloed on the pilot's screen in the lock level.",
     move: "A tap draws a red sight round it and locks the cannon on it, green; the navigator's next shot hits it from the side.",
   },
-  // CHORD
-  "THE TRIVET'S FRONT FOOT": {
-    find: "Each seat's half of the stand down to under its feet — front the pilot's, rear the navigator's. The lit sockets say how many fingers.",
-    move: "Each finger lands as a pad; held together through the count, the foot plants green. A pad lifting slips the chord.",
-  },
   // PINCH
   "THE VISE'S LEFT LOBE": {
     find: "Each seat's half of the seed-case — left the pilot's, right the navigator's — haloed while a pinch on that lobe is lit.",

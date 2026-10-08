@@ -90,9 +90,7 @@ const STILL_PROSE = [
   // And THE RIME (§29), a thirteenth time: the lens is undrawn, and the guide
   // says which thumb rubs which half.
   "THE RIME",
-  // And THE TRIVET (§30), a fourteenth time: the stand is undrawn, and the
-  // guide says which thumbs hold which foot.
-  "THE TRIVET",
+  // THE TRIVET (§30), a fourteenth time, left the game on 8 October 2026.
   // And THE PLUMB (§31), a fifteenth time: the bob is undrawn, and the guide
   // says which phone holds which weight.
   "THE PLUMB",

@@ -169,4 +169,23 @@ export const STAY_MISSED: readonly Gesture[] = [
     platform: "Same gate as the shake on an iPhone; Android asks nothing.",
     why: "The owner ruled on 27 September 2026 that no wave may need a tilt sensor (`packages/sim/src/plumb.ts`).",
   },
+  {
+    name: "CHORD",
+    state: "missed",
+    does: '"Hold two and five": two or three controls pressed at once, counted only while none has lifted.',
+    hand: [
+      { k: "hold", at: [22, 128] },
+      { k: "hold", at: [60, 128] },
+    ],
+    timeline: {
+      lanes: [
+        { event: "pointerdown", marks: [2] },
+        { event: "pointerdown", finger: 2, marks: [3] },
+        { event: "pointerup", marks: [8] },
+        { event: "pointerup", finger: 2, marks: [8] },
+      ],
+      window: { from: 3, to: 8, label: "both down" },
+    },
+    why: "The owner ruled on 8 October 2026, when THE TRIVET left the game: never more than one finger of the same player at once, because a PC has one pointer. A desk mouse held every pad at once, which is no chord at all.",
+  },
 ];

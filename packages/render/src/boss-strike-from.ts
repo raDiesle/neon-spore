@@ -21,7 +21,6 @@ import { slingBlowFrom } from "./sling-blow.js";
 import { spoolHome } from "./spool-shape.js";
 import { stareEye } from "./stare-shape.js";
 import { trapezeBlowFrom } from "./trapeze-blow.js";
-import { trivetCentre, trivetFoot } from "./trivet-shape.js";
 import { valveCentre } from "./valve-shape.js";
 import { viseCentre, viseRadius } from "./vise-shape.js";
 
@@ -70,13 +69,6 @@ const FROM: Partial<
   stare: (l, cfg) => {
     const e = stareEye(l, cfg);
     return { x: e.cx, y: e.cy };
-  },
-  // The middle foot, the one never lifted, where the needle drives on from
-  // (`trivet-blow.ts`).
-  trivet: (l, cfg) => {
-    const c = trivetCentre(l, cfg);
-    const f = trivetFoot(l, 2, 0, 0);
-    return { x: c.x + f.x, y: c.y + f.y };
   },
   // The split at the case's heavy end, where it spits its seed (`vise-blow.ts`).
   vise: (l, cfg) => {

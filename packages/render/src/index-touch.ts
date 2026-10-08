@@ -9,13 +9,11 @@
  * own hit tests (`hitCircle`, `hitReach`) stay with the layout they measure.
  */
 
-// What a chord's finger says; which pad it is, `chord-pads.ts`.
-export { chordFinger, chordSays } from "./chord.js";
 export { creatureAt } from "./creature-under.js";
 export { deskDown, deskDownAll, pressSeat } from "./desk-grab.js";
 export { bothKey, DeskSeat, pointerSeat, pointerSeats, seatKey } from "./desk-seat.js";
-// The gestures one sample cannot answer — a pinch's pair, a chord's pads, a
-// rub's turns — kept for whichever host owns the pointers: the game's field
+// The gestures one sample cannot answer — a pinch's pair and a rub's turns —
+// kept for whichever host owns the pointers: the game's field
 // and the director's stage both (`fingers.ts`).
 export { Fingers } from "./fingers.js";
 // What a pinch's gap says; which two fingers are one, `pinch-pair.ts`.

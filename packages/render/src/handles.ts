@@ -46,7 +46,6 @@ import { tasterGripUnder } from "./taster-grip.js";
 import { throatGripUnder } from "./throat-grip.js";
 import type { Field, Touch } from "./touch.js";
 import { trapezeLockUnder, trapezePushUnder } from "./trapeze-grip.js";
-import { trivetPadUnder } from "./trivet-grip.js";
 import { undertowTapUnder } from "./undertow-tap.js";
 import { valvePinUnder, valveWheelUnder } from "./valve-grip.js";
 import { vaneGripUnder } from "./vane-grip.js";
@@ -149,7 +148,6 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     oculusLeafUnder(l, x, y, field) ?? // THE OCULUS's lens, this seat's half of it held down (`oculus-grip.ts`).
     viseLobeUnder(l, x, y, field) ?? // THE VISE's case, one finger of this seat's pinch in its zone (`vise-grip.ts`).
     slingDrawUnder(l, x, y, field) ?? // THE SLING's own cord, held then loosed toward the lit column (`sling-grip.ts`).
-    trivetPadUnder(l, x, y, field) ?? // THE TRIVET's foot, one finger of this seat's chord in its zone (`trivet-grip.ts`).
     plumbPullUnder(l, x, y, field) ?? // THE PLUMB's stone on this seat's side, pulled left or right (`plumb-grip.ts`).
     rimeHalfUnder(l, x, y, field) ?? // THE RIME's lens, this seat's half of it rubbed clear (`rime-grip.ts`).
     capstanRubUnder(l, x, y, field) ?? // THE CAPSTAN's drum, either end rubbed from either seat (`capstan-grip.ts`).

@@ -40,7 +40,6 @@ import type { SurgeEvent } from "./events-surge.js";
 import type { TasterEvent } from "./events-taster.js";
 import type { ThroatEvent } from "./events-throat.js";
 import type { TrapezeEvent } from "./events-trapeze.js";
-import type { TrivetEvent } from "./events-trivet.js";
 import type { UndertowEvent } from "./events-undertow.js";
 import type { ValveEvent } from "./events-valve.js";
 import type { VaneEvent } from "./events-vane.js";
@@ -93,7 +92,6 @@ export type BossEvent =
   | OculusEvent
   | ViseEvent
   | RimeEvent
-  | TrivetEvent
   | PlumbEvent
   | SlingEvent
   | CapstanEvent
@@ -161,7 +159,6 @@ export type { SurgeEvent } from "./events-surge.js";
 export type { TasterEvent } from "./events-taster.js";
 export type { ThroatEvent } from "./events-throat.js";
 export type { TrapezeEvent } from "./events-trapeze.js";
-export type { TrivetEvent } from "./events-trivet.js";
 export type { UndertowEvent } from "./events-undertow.js";
 export type { ValveEvent } from "./events-valve.js";
 export type { VaneEvent } from "./events-vane.js";

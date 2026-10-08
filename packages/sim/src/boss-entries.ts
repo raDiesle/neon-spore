@@ -212,8 +212,6 @@ export type {
   SeamStep,
   SlingEntry,
   SlingStep,
-  TrivetEntry,
-  TrivetStep,
   ViseEntry,
   ViseStep,
 } from "./boss-entries-scripted.js";

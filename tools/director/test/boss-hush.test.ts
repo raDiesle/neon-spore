@@ -87,7 +87,6 @@ const STILL: readonly BossKind[] = [
   "vise",
   "baton",
   "rime",
-  "trivet",
   "plumb",
   "capstan",
   "seam",

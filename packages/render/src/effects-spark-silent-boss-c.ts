@@ -179,23 +179,6 @@ export const SILENT_BOSS_C = [
   "rimeScatter",
   "rimeShatter",
   "rimeOut",
-  // THE TRIVET's fifteen, no burst from this table: each is thrown above the
-  // loop by its own fx file (`trivet-fx.ts`).
-  "trivetEnter",
-  "trivetLight",
-  "trivetSlip",
-  "trivetPlant",
-  "trivetSpring",
-  "trivetHub",
-  "trivetHit",
-  "trivetBrace",
-  "trivetRock",
-  "trivetMiss",
-  "trivetTurn",
-  "trivetRing",
-  "trivetJolt",
-  "trivetCollapse",
-  "trivetOut",
   // THE PLUMB's twelve, no burst from this table: each is thrown above the
   // loop by its own fx file (`plumb-fx.ts`).
   "plumbEnter",

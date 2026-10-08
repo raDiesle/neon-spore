@@ -2,20 +2,17 @@ import type { BoltStops } from "../src/bolt-stop.js";
 import type { Layout } from "../src/layout.js";
 import { drawOculus } from "../src/oculus-draw.js";
 import { OculusFx } from "../src/oculus-fx.js";
-import { drawTrivet } from "../src/trivet-draw.js";
-import { TrivetFx } from "../src/trivet-fx.js";
 import { drawVise } from "../src/vise-draw.js";
 import { ViseFx } from "../src/vise-fx.js";
 import { stubCanvas } from "./canvas-stub.js";
 import type { Row } from "./core-stop-rows.js";
 import * as oculus from "./oculus-harness.js";
-import * as trivet from "./trivet-harness.js";
 import * as vise from "./vise-harness.js";
 
 /**
  * The rows of `core-stop.test.ts` for the bosses whose step can ask for a
- * part in a column of its own besides the core — THE OCULUS's look, THE
- * TRIVET's tip, THE VISE's spit — each with its `aside`.
+ * part in a column of its own besides the core — THE OCULUS's look and THE
+ * VISE's spit — each with its `aside`.
  */
 
 const paper = () => stubCanvas().ctx as unknown as CanvasRenderingContext2D;
@@ -30,12 +27,6 @@ function drawnVise(stops: BoltStops, l: Layout, lit: typeof vise.FIRE, bared: bo
   const world = vise.stood();
   const s = vise.posed(world, lit, bared);
   drawVise(paper(), l, world, s, world.beat, 0.5, 0, new ViseFx(), stops);
-}
-
-function drawnTrivet(stops: BoltStops, l: Layout, lit: typeof trivet.FIRE, hubLit: boolean): void {
-  const world = trivet.stood();
-  const s = trivet.posed(world, lit, hubLit);
-  drawTrivet(paper(), l, world, s, world.beat, 0.5, 0, new TrivetFx(), stops);
 }
 
 export const ASIDE_ROWS: Row[] = [
@@ -54,11 +45,5 @@ export const ASIDE_ROWS: Row[] = [
     draw: (stops, l, open) => drawnVise(stops, l, vise.FIRE, open),
     wide: true,
     aside: { offset: 2, draw: (stops, l) => drawnVise(stops, l, vise.SPIT, true) },
-  },
-  {
-    name: "THE TRIVET",
-    draw: (stops, l, open) => drawnTrivet(stops, l, trivet.FIRE, open),
-    wide: true,
-    aside: { offset: -2, draw: (stops, l) => drawnTrivet(stops, l, trivet.TIP, true) },
   },
 ];

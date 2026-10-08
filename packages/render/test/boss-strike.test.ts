@@ -92,7 +92,7 @@ describe("a boss's blow at the hull", () => {
     const c = ctx as unknown as CanvasRenderingContext2D;
     const bosses = [
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
-      ...["ratchet", "valve", "vise", "rime", "trivet", "plumb"],
+      ...["ratchet", "valve", "vise", "rime", "plumb"],
       ...["capstan", "gall", "trapeze", "sling", "flue", "governor"],
       ...["filament", "lamprey", "mimic", "latch"],
     ] as const;

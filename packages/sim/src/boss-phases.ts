@@ -38,7 +38,6 @@ import { STARE_PHASES } from "./stare.js";
 import { TASTER_PHASES } from "./taster.js";
 import { THROAT_PHASES } from "./throat.js";
 import { TRAPEZE_PHASES } from "./trapeze.js";
-import { TRIVET_PHASES } from "./trivet.js";
 import { UNDERTOW_PHASES } from "./undertow.js";
 import { VALVE_PHASES } from "./valve.js";
 import { VANE_PHASES } from "./vane-phases.js";
@@ -135,7 +134,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   oculus: OCULUS_PHASES,
   vise: VISE_PHASES,
   rime: RIME_PHASES,
-  trivet: TRIVET_PHASES,
   plumb: PLUMB_PHASES,
   sling: SLING_PHASES,
   capstan: CAPSTAN_PHASES,

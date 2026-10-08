@@ -43,7 +43,6 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "oculusLeafLeft", "oculusLeafRight",
   "viseLobeLeft", "viseLobeRight",
   "rimeHalfLeft", "rimeHalfRight",
-  "trivetPadFront", "trivetPadRear",
   "plumbLevelLeft", "plumbLevelRight",
   "slingDrawLeft", "slingDrawRight",
   "capstanSteer", "capstanRub",

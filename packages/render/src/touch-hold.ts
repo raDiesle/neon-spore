@@ -168,20 +168,6 @@ export type Hold =
        */
       pinch?: true;
       /**
-       * One finger of a **chord** — THE TRIVET's feet: which pad it is, is
-       * the order it landed in among the fingers on the same body, so neither
-       * its press, its move nor its lift says anything alone, and the pad is
-       * counted by whoever owns the pointers (`chord.ts`,
-       * `chord-pads.ts`).
-       */
-      chord?: true;
-      /**
-       * A chord finger that is **every pad of its body at once**: the desk's
-       * one mouse, which can never be the second finger (`desk-chord.ts`).
-       * How many pads, so the pointers' owner says each down (`chord-pads.ts`).
-       */
-      pads?: number;
-      /**
        * One thumb **rubbing** — THE RIME's halves: what it sends is how
        * many times it has turned back since it went down, so its press, its
        * move and its lift are counted by whoever owns the pointers (`rub.ts`,

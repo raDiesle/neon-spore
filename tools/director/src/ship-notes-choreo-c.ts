@@ -185,19 +185,6 @@ export const CHOREO_NOTES_C = {
     "is a hull hit, and so is a whiteout left unrubbed or an icicle unshielded — " +
     "see sim/rime.ts, sim/rime-step.ts, sim/rime-hand.ts, sim/rime-guard.ts, " +
     "sim/rime-shot.ts, sim/config-rime.ts.",
-  "THE TRIVET — the boss two chords plant, then shoot into":
-    "Asked for in docs/spec/bosses-choreographed.md §30: a chord, each seat " +
-    "holding its own foot's lit pads of a stand over the middle column, and a " +
-    "script the wave authors, pads and all. A front or rear step plants that " +
-    "foot once its step's pads have all been down together for its beats; a " +
-    "pad lifted starts the count again, and a step run out springs the foot " +
-    "and relights it. Two plants a foot light the hub; a fire step wants a " +
-    "shot in its colour; a both step is both chords held at once, and one run " +
-    "out rocks the hub dark until it is held again; a lurch holds its foot and shoots " +
-    "the swung hub, a needle is shielded; any of the three run out is the wave. The " +
-    "grace (trivetGraceBeats) is how long a chord step stays lit past its count. See " +
-    "sim/trivet.ts, sim/trivet-step.ts, sim/trivet-hand.ts, " +
-    "sim/trivet-shot.ts, sim/trivet-guard.ts, sim/config-trivet.ts.",
   "THE PLUMB — the boss two pulls hold level, then shoot into":
     "Asked for in docs/spec/bosses-choreographed.md §31: a pull, each seat " +
     "dragging its own stone left or right under a bob over the middle column, " +

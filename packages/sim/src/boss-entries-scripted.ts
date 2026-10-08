@@ -12,7 +12,6 @@ import type { RimeEntry } from "./rime.js";
 import type { SeamEntry } from "./seam.js";
 import type { SlingEntry } from "./sling.js";
 import type { TrapezeEntry } from "./trapeze.js";
-import type { TrivetEntry } from "./trivet.js";
 import type { ViseEntry } from "./vise.js";
 
 /**
@@ -36,8 +35,6 @@ export type ScriptedBossEntry =
   | ViseEntry
   // The one that authors wipes and a shield as well as shots: a lens rubbed clear (`rime.ts`).
   | RimeEntry
-  // The one that authors chords as well as shots: a stand planted by two seats' pads (`trivet.ts`).
-  | TrivetEntry
   // The one that authors leans as well as shots: a bob held level by two phones (`plumb.ts`).
   | PlumbEntry
   // The one that authors draws as well as shots: a fork loosed by two seats' holds (`sling.ts`).
@@ -75,5 +72,4 @@ export type { RimeEntry, RimeStep } from "./rime.js";
 export type { SeamEntry, SeamStep } from "./seam.js";
 export type { SlingEntry, SlingStep } from "./sling.js";
 export type { TrapezeEntry, TrapezeStep } from "./trapeze.js";
-export type { TrivetEntry, TrivetStep } from "./trivet.js";
 export type { ViseEntry, ViseStep } from "./vise.js";

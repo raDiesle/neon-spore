@@ -26,8 +26,7 @@ import { valvePinHandle, valveWheelHand } from "./valve-grip.js";
  * THE MANTLE's knobs are one a seat, left the pilot's and right the
  * navigator's, each drawn while the simulation has it pulled down its groove.
  * THE OCULUS's halves are the same pair, each drawn while its leaf is held,
- * and THE VISE's lobes, each drawn while a pinch is on it. THE TRIVET's
- * feet are one a seat again, each drawn while any pad of its chord is down.
+ * and THE VISE's lobes, each drawn while a pinch is on it.
  * THE VALVE's wheel is the pilot's, his thumb drawn where his hand has gone
  * round to, THE HASP's again; its pin is either seat's, drawn while that
  * seat's thumb is down on it.
@@ -63,10 +62,6 @@ export function bossThumb(l: Layout, world: World, seat: 1 | 2, beatPhase: numbe
   if (b?.kind === "sling") {
     if (!b.holding[seat === 1 ? 0 : 1]) return null;
     return handleCircle(l, world, seat === 1 ? "slingDrawLeft" : "slingDrawRight", beatPhase);
-  }
-  if (b?.kind === "trivet") {
-    if (b.padsDown[seat === 1 ? 0 : 1] === 0) return null;
-    return handleCircle(l, world, seat === 1 ? "trivetPadFront" : "trivetPadRear", beatPhase);
   }
   if (b?.kind === "valve") {
     const hand = seat === 1 ? valveWheelHand(l, world.cfg, b, world.beat, beatPhase) : null;

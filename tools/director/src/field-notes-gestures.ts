@@ -42,10 +42,12 @@ export const GESTURE_NOTES: Readonly<Record<string, string>> = {
     "Stamped SPEC'D but built: THE RIME, THE CAPSTAN. Move " +
     "to BUILT, and bring THE MAZE's heart under it.",
   "SQUEEZE ONE BODY": "Stamped SPEC'D but built: THE VISE, THE GALL. Move to BUILT.",
-  CHORD: "Stamped SPEC'D but built: THE TRIVET, THE GOVERNOR. Move to BUILT.",
   "TILT, AS A LEVEL":
     "Ruled out by the owner on 27 September 2026: no wave may need a tilt " +
     "sensor, and THE PLUMB became drag stones. Move to MISSED with the ruling.",
+  CHORD:
+    "Ruled out by the owner on 8 October 2026: never two fingers of one " +
+    "player at once, since a PC has one pointer. Move to MISSED with the ruling.",
   "HOLD, THEN SWIPE": "Stamped SPEC'D but built: THE SLING, THE TRAPEZE. Move to BUILT.",
   "A DRAWN GLYPH":
     "Worth a boss: describing a shape is exactly the talking the game is. " +

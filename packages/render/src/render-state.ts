@@ -144,7 +144,6 @@ export class RenderState {
     const players: Record<StripName, SpriteBursts> = {
       "vise-crack": boss.vise.crack,
       "rime-clear": boss.rime.clear,
-      "trivet-plant": boss.trivet.plant,
       "plumb-settle": boss.plumb.swing,
       "sling-draw": boss.sling.draw,
     };

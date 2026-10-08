@@ -10,7 +10,6 @@ import { plumbVerdict } from "./plumb-shot.js";
 import { rimeVerdict } from "./rime-shot.js";
 import { slingVerdict } from "./sling-shot.js";
 import { stareVerdict } from "./stare-shot.js";
-import { trivetVerdict } from "./trivet-shot.js";
 import type { Bullet, Color } from "./types.js";
 import { viseSeedAside, viseVerdict } from "./vise-shot.js";
 import type { World } from "./world.js";
@@ -79,7 +78,6 @@ const CORES: Partial<Record<BossKind, Core>> = {
   // in it is ever a target: a bolt rings off the dome's lower edge, so it is
   // met just past that rather than past the eye (`render/stare-shell.ts`).
   stare: { milli: 1550, meet: 2400, verdict: (w, c, k) => stareVerdict(w, c, k) },
-  trivet: { milli: 1700, verdict: (w, c, k) => trivetVerdict(w, c, k) },
   vise: {
     milli: 2200,
     verdict: (w, c, k) => viseVerdict(w, c, k),

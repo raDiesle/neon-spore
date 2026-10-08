@@ -438,13 +438,6 @@ by hand never moves.
 | `packages/sim/src/taster-shot.ts` | **What a shot does to THE TASTER**, which is the whole of the inverted rule |
 | `packages/sim/src/taster-step.ts` | THE TASTER's clock — the crest arriving, a blade coming out of it, its colour setting on the ledger |
 | `packages/sim/src/taster.ts` | THE TASTER: what you have already spent |
-| `packages/sim/src/trivet-hand.ts` | Two chords on THE TRIVET, one foot each |
-| `packages/sim/src/trivet-hash.ts` | What THE TRIVET puts into `hashWorld`, and nothing else |
-| `packages/sim/src/trivet-shot.ts` | **THE TRIVET's shot**: the lit hub, where a bolt leaves the top of the field in the middle column |
-| `packages/sim/src/trivet-step.ts` | THE TRIVET's clock: the stand settling, each step lighting, the beats a chord is held being counted |
-| `packages/sim/src/trivet-guard.ts` | **THE TRIVET's needle, turned**, asked once a tick after the commands are heard |
-| `packages/sim/src/trivet-ring.ts` | **THE TRIVET's ring** (§30 row 11): the last shot is in, and the planted feet ring under the spent hub |
-| `packages/sim/src/trivet.ts` | THE TRIVET: a three-legged stand splayed over the middle column |
 | `packages/sim/src/boss-entries.ts` | **What a wave authors when it wants a boss** — twelve shapes, the union of them |
 | `packages/sim/src/boss-entries-round.ts` | **What a wave authors when it wants a round** — the bosses that take the panel away |
 | `packages/sim/src/boss-entries-clocks.ts` | **What a wave authors when it wants a boss that is a clock** |
@@ -719,7 +712,7 @@ by hand never moves.
 | `packages/sim/src/drag-targets-b.ts` | **Every thing on this field a hand may take hold of, the second page** — the names from THE FLEET's chart on |
 | `packages/sim/src/drag-targets-c.ts` | **Every thing on this field a hand may take hold of, the third page** — the names from THE TASTER's fan on |
 | `packages/sim/src/drag-targets-d.ts` | **Every thing on this field a hand may take hold of, the fourth page** — the names from THE HIVE's underside on |
-| `packages/sim/src/drag-targets-e.ts` | **Every thing on this field a hand may take hold of, the fifth page** — the names from THE TRIVET's feet on |
+| `packages/sim/src/drag-targets-e.ts` | **Every thing on this field a hand may take hold of, the fifth page** — the names from THE PLUMB's levels on |
 | `packages/sim/src/difficulty.ts` | **EASY, MEDIUM and HARD**, and the one number they move: the tempo, which on this field is the falling speed of everything |
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 | `packages/sim/src/events-baton.ts` | **Everything THE BATON does that neither screen already says**, as events |
@@ -730,7 +723,6 @@ by hand never moves.
 | `packages/sim/src/events-undertow.ts` | **Everything THE UNDERTOW does that neither screen already says**, as events |
 | `packages/sim/src/events-taster.ts` | **Everything THE TASTER does that neither screen already says**, as events |
 | `packages/sim/src/events-throat.ts` | **What THE THROAT's two hands do that neither screen already says**, as three events (`throat-hand.ts`) |
-| `packages/sim/src/events-trivet.ts` | What THE TRIVET says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-ledger.ts` | **Everything THE LEDGER does that neither screen already says**, as events |
 | `packages/sim/src/events-lead.ts` | **Everything THE LEAD does that neither screen already says**, as events |
 | `packages/sim/src/events-lamprey.ts` | What THE LAMPREY says as it happens, one line per thing the picture and the sound answer |
@@ -769,7 +761,6 @@ by hand never moves.
 | `packages/sim/src/config-undertow.ts` | THE UNDERTOW's numbers — how long each of its three levels lasts, how many lobes each lets up at once |
 | `packages/sim/src/config-throat.ts` | **THE THROAT's numbers**: how many rings the gullet has, where its mouth may be carried |
 | `packages/sim/src/config-taster.ts` | THE TASTER's numbers — how many blades the fan holds |
-| `packages/sim/src/config-trivet.ts` | THE TRIVET's tuning: the rests around its steps, the grace a chord is given |
 | `packages/sim/src/config-ledger.ts` | THE LEDGER's numbers — how wide the body stands, how many hits part it |
 | `packages/sim/src/config-lead.ts` | THE LEAD's numbers — how many segments the stalk has, how far ahead of the body a shot has to be put |
 | `packages/sim/src/config-lamprey.ts` | THE LAMPREY's tuning: the worm's crawl, the beats around its stays, the tiles it lands on |
@@ -1174,7 +1165,6 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-ze.ts` | **What THE OCULUS is asking for** — page thirty-one of the readings |
 | `packages/render/src/boss-cue-read-zf.ts` | **What THE VISE is asking for** — page thirty-two of the readings |
 | `packages/render/src/boss-cue-read-zg.ts` | **What THE RIME is asking for** — page thirty-three of the readings |
-| `packages/render/src/boss-cue-read-zh.ts` | **What THE TRIVET is asking for** — page thirty-four of the readings |
 | `packages/render/src/boss-cue-read-zl.ts` | **What THE CAPSTAN is asking for** — page thirty-eight of the readings |
 | `packages/render/src/boss-cue-read-zm.ts` | **What THE GALL is asking for** — page thirty-nine of the readings |
 | `packages/render/src/boss-cue-read-zn.ts` | **What THE TRAPEZE is asking for**: page forty of the readings |
@@ -1275,8 +1265,6 @@ by hand never moves.
 | `packages/render/src/depth.ts` | THE FIELD HAS A NEAR EDGE AND A FAR ONE |
 | `packages/render/src/debris.ts` | The pieces a broken body left, still in the air |
 | `packages/render/src/desk-seat.ts` | **Whose hand a desk's one mouse is**, on the screen that shows both seats |
-| `packages/render/src/desk-chord.ts` | **A desk press on a chord body is the whole chord** — every pad of it and of its partner |
-| `packages/render/src/desk-chord-ring.ts` | **A desk's chord body is drawn as `HOLD BOTH` is drawn** |
 | `packages/render/src/desk-grab.ts` | **A press on the screen that shows both seats**, where the desk's one mouse has not been told whose hand it is |
 | `packages/render/src/effects-body.ts` | The transients that belong to **one body** and outlive it by less than a beat: a lure folding to a point, the |
 | `packages/render/src/effects-boss.ts` | The transients that belong to **one boss** and are read above the loop |
@@ -1675,7 +1663,7 @@ by hand never moves.
 | `packages/render/src/filament-marks.ts` | **THE FILAMENT's two thumbs answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/filament-blow.ts` | **THE FILAMENT's own blow at the hull**: the vein snaps where the line stood and whips down to the column |
 | `packages/render/src/fire-vein.ts` | **A shot, running from the thumb to the cannon**: the button's flash, a pulse up its cord in the shot's colour, the release at the top of the cannon |
-| `packages/render/src/fingers.ts` | **The gestures one sample cannot answer**, kept together: two fingers on one pinch body (`pinch.ts`) |
+| `packages/render/src/fingers.ts` | **The gestures one sample cannot answer**, kept together |
 | `packages/render/src/guide-scene.ts` | a guide's rehearsal at full size: the state — which page, which seat, whether it has finished — beside the slide and the page it draws |
 | `packages/render/src/guide-thumb.ts` | the ghost hand a rehearsal is driven by, placed from `bandLobes` and the strips and never authored |
 | `packages/render/src/guide-tide-caption.ts` | The words, the ring and the scrim |
@@ -2163,7 +2151,7 @@ by hand never moves.
 | `packages/render/src/reprise-brood.ts` | THE REPRISE's count: a ring of eggs round the lens, laid as bodies are recorded and spent as they are sent, then a dashed shell per unseen body still falling |
 | `packages/render/src/reprise-lens.ts` | THE REPRISE's eye: a camera lens — shutter blink and blinking red dot while recording, rewind and triangle while playing |
 | `packages/render/src/reprise-parts.ts` | THE REPRISE's parts — the outline tier's (`outline-parts.ts`) on the sac |
-| `packages/render/src/rub.ts` | **`RubCount` from one thumb** — the third gesture a host has to keep count of |
+| `packages/render/src/rub.ts` | **`RubCount` from one thumb** — a gesture a host has to keep count of, as it does the pinch (`pinch.ts`) |
 | `packages/render/src/rub-turns.ts` | Where it went down, and the way it is rubbing once it has gone far enough to say |
 | `packages/render/src/rub-mark.ts` | **The mark a rub asks with: a red line, and an arrow coming in at it from each side**, the same on every boss |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
@@ -2345,8 +2333,6 @@ by hand never moves.
 | `packages/render/src/choke-coil.ts` | **The coil, which is THE CHOKE's one word said in two places.** On the field the choke is wound round the… |
 | `packages/render/src/choke-strip.ts` | **Player 1's cannon strip while THE CHOKE has the cannon.** Drawn over the strip the band has just drawn |
 | `packages/render/src/choke-hull.ts` | THE CHOKE's grip on the cannon over the finished hull — the loops round the swelling while the steer fault has it, and the pilot's light toward the next column |
-| `packages/render/src/chord.ts` | **`ChordHold` from several fingers** — the second gesture in the game read off more than one touch at once |
-| `packages/render/src/chord-pads.ts` | **Which pad each finger is** — the pointers' half of a chord, and a desk's mouse every pad at once |
 | `packages/render/src/chart-lattice.ts` | **A chart's lattice**: the lines between the squares, a mark on every crossing pulsing on the beat |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
 | `packages/render/src/antiphon-draw.ts` | **THE ANTIPHON**: a smooth violet body hung over the top of the field above row 0 |
@@ -2397,17 +2383,6 @@ by hand never moves.
 | `packages/render/src/touch-move.ts` | The same finger, moved, and the two kinds of answer it can have |
 | `packages/render/src/top-chrome.ts` | **How far down from the top of the stage the game's own chrome reaches**, in CSS pixels |
 | `packages/render/src/tile-seed.ts` | The seed a picture of one tile is drawn from |
-| `packages/render/src/trivet-draw.ts` | How far the hub sinks as the stand collapses, in tiles |
-| `packages/render/src/trivet-marks.ts` | **THE TRIVET's marks**: the two things that say what a step asks — the lit sockets on a foot |
-| `packages/render/src/trivet-pose.ts` | **The clock THE TRIVET is posed off** (§30, *Animation*) |
-| `packages/render/src/trivet-shape.ts` | **THE TRIVET's geometry**: where the stand is, and the paths it is made of |
-| `packages/render/src/trivet-story.ts` | **THE TRIVET's lurch and needle, drawn**: the hub thrown over its column, the far foot up, the needle flung with its sight to the hull |
-| `packages/render/src/trivet-stop.ts` | **Where a bolt meets THE TRIVET**, for `BoltStops` (`bolt-stop.ts`): the hub's face, ahead or lurched, the legs and plates |
-| `packages/render/src/trivet-grip.ts` | **The pads on THE TRIVET** — each seat's zone, where its foot stands this frame, and the press that takes a chord finger |
-| `packages/render/src/trivet-blow.ts` | THE TRIVET's own blow at the hull: the middle needle stamps the stand's footprint into the skin |
-| `packages/render/src/trivet-fx.ts` | What THE TRIVET leaves behind a frame (§30, *Presentation*): the **thud** of a foot driven home |
-| `packages/render/src/trivet-verdicts.ts` | **THE TRIVET's marks answering a touch the way every mark does** (`mark-feedback.ts` |
-| `packages/render/src/trivet-ring.ts` | **THE TRIVET's ring, drawn** (§30 row 11, the fifth pose): the last shot is in |
 | `packages/render/src/dart-torch.ts` | WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts` |
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |
 | `packages/render/src/dark-field.ts` | **THE DARK, as a screen sees it**: the field above the ship put out |
@@ -2700,7 +2675,6 @@ by hand never moves.
 | `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's seven, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |
 | `packages/audio/src/bind-taster.ts` | THE TASTER's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-throat.ts` | THE THROAT's two hands on the gullet itself, in a file of their own for `bind-vane.ts`' reason |
-| `packages/audio/src/bind-trivet.ts` | Whether an event is THE TRIVET's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |
 | `packages/audio/src/bind-ratchet.ts` | THE RATCHET's twenty-four, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-rime.ts` | THE RIME's fourteen, in a file of their own for `bind-gorge.ts`' reason |
@@ -2730,7 +2704,6 @@ by hand never moves.
 | `packages/hands/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
 | `packages/hands/src/boss-hands-hasp.ts` | **THE HASP played right**, for the STATES sheet: the latch kept down and the wheel kept turning |
 | `packages/hands/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |
-| `packages/hands/src/boss-hands-trivet.ts` | **THE TRIVET played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE MIRROR's pin |
 | `packages/hands/src/boss-hands-ratchet.ts` | **THE RATCHET played right, and played blind**, for the STATES sheet |
 | `packages/hands/src/boss-hands-rime.ts` | **THE RIME played right**, for the autopilot: each lit half wiped clear by its own seat |
@@ -3061,7 +3034,6 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-oculus.ts` | THE OCULUS's two hands: a thumb on each half of the lens, holding the first pair shut |
 | `tools/director/src/poses-field-controls-vise.ts` | THE VISE's two hands: a pinch on each lobe, both seats holding the case shut together |
 | `tools/director/src/poses-field-controls-valve.ts` | THE VALVE's two hands, **each photographed from the seat whose half it is** |
-| `tools/director/src/poses-field-controls-trivet.ts` | THE TRIVET's two hands: a chord of two on each foot, both seats keeping the stand planted together |
 | `tools/director/src/poses-field-controls-capstan.ts` | THE CAPSTAN's rub: the left band asked for, the pilot's thumb pulled over so its face is round |
 | `tools/director/src/poses-field-controls-choir.ts` | THE CHOIR's SHAKE as the pilot is offered it: a membrane on the field and the two arrows against its walls |
 | `tools/director/src/poses-field-controls-trapeze.ts` | THE TRAPEZE's controls, **each photographed from the seat whose control it is** |
@@ -3229,7 +3201,6 @@ by hand never moves.
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |
 | `tools/raster/src/zdog-page.ts` | The Zdog comparison, 26 September 2026: the owner found Zdog promising |
 | `tools/raster/src/vise-crack-art.ts` | One frame of THE VISE's kernel crack, drawn into a 2D context |
-| `tools/raster/src/trivet-plant-art.ts` | One frame of THE TRIVET's foot planting home, drawn into a 2D context |
 | `tools/raster/src/instar-world.ts` | THE INSTAR's wave for the solid strips, as `packages/render/test/instar-kit.ts` hangs it |
 | `tools/raster/solid.ts` | `bun run solid [out.png]` — the solid sheet: a test rig turned from the side to the front |
 | `tools/raster/sprite.ts` | `bun run sprite [name] [out.png]` — the sprite sheet |
@@ -3414,7 +3385,6 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-handles.ts` | **The states a handle brings on** — THE SINEW's tendon pulled, THE SURGE's bulb held and let go |
 | `tools/director/src/poses-bosses-hands-hasp.ts` | **THE HASP's story between the hasps**, posed with a hand on the controls: the rattle, the backspin, the rust and the sway |
 | `tools/director/src/poses-bosses-hands-takes.ts` | **The states a taking brings on** — a rock out of THE CAIRN, a number down THE SPLICE's straw |
-| `tools/director/src/poses-bosses-hands-trivet.ts` | **THE TRIVET's five states**, posed with a hand on the controls (`boss-hands-trivet.ts`) |
 | `tools/director/src/poses-bosses-hands-ratchet.ts` | **THE RATCHET's nine states**, posed with a hand on the controls (`boss-hands-ratchet.ts`) |
 | `tools/director/src/poses-bosses-hands-rime.ts` | **THE RIME's still**, the one of its four states posed so far: the pane dropped in and standing |
 | `tools/director/src/poses-bosses-hands-nettle.ts` | **THE NETTLE's four states**, THE INSTAR's four (`poses-bosses-clocks.ts` |
@@ -3574,7 +3544,6 @@ by hand never moves.
 | `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |
 | `tools/director/src/field-controls-throat.ts` | **THE THROAT's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-taster.ts` | **THE TASTER's three thumbs on its own fan**, in a file of its own |
-| `tools/director/src/field-controls-trivet.ts` | THE TRIVET's two feet, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-sinew.ts` | THE SINEW's two handles, in a file of their own |
 | `tools/director/src/field-controls-surge.ts` | THE SURGE's one handle, in a file of its own |
 | `tools/director/src/field-controls-stare.ts` | THE STARE's lashes, in a file of their own — `field-controls-page.ts` is at its limit |

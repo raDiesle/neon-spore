@@ -7,7 +7,6 @@ import { drawPlumb } from "./plumb-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawSling } from "./sling-draw.js";
 import { drawTrapeze } from "./trapeze-draw.js";
-import { drawTrivet } from "./trivet-draw.js";
 
 /**
  * **The clock bosses, drawn — page four**: the pairs from THE SLING on, each
@@ -27,7 +26,7 @@ import { drawTrivet } from "./trivet-draw.js";
 type Installed = NonNullable<World["boss"]>;
 
 /** The kinds this file draws. Appended, like every list of boss kinds. */
-export const LATE_PAIR_KINDS = ["sling", "trivet", "plumb", "capstan", "gall", "trapeze"] as const;
+export const LATE_PAIR_KINDS = ["sling", "plumb", "capstan", "gall", "trapeze"] as const;
 
 export type LatePairBoss = Extract<Installed, { kind: (typeof LATE_PAIR_KINDS)[number] }>;
 
@@ -58,18 +57,6 @@ export function drawLatePairBoss(
   if (boss.kind === "sling") {
     drawSling(ctx, l, world, boss, beat, beatPhase, time, effects.boss.sling, effects.bolts);
     effects.boss.sling.draw.draw(ctx);
-    return;
-  }
-
-  // THE TRIVET: a three-legged stand splayed over the middle of the field,
-  // each outer foot swung down by one seat's chord and the hub, once both are
-  // planted, shot. Both screens are drawn the same — the other seat has to see
-  // which foot is lit to say so (`trivet-draw.ts`). What outlives a frame —
-  // a plant's thud, a clamp's flare, the hub's flash, the hull's shudder — is
-  // `effects.boss.trivet` (`trivet-fx.ts`).
-  if (boss.kind === "trivet") {
-    drawTrivet(ctx, l, world, boss, beat, beatPhase, time, effects.boss.trivet, effects.bolts);
-    effects.boss.trivet.plant.draw(ctx);
     return;
   }
 

@@ -3,7 +3,6 @@ import { drawPlumbSettleFrame } from "./plumb-settle-art.js";
 import type { StripPainter } from "./render-strip.js";
 import { drawRimeClearFrame } from "./rime-clear-art.js";
 import { drawSlingDrawFrame } from "./sling-draw-art.js";
-import { drawTrivetPlantFrame } from "./trivet-plant-art.js";
 import { drawViseCrackFrame } from "./vise-crack-art.js";
 
 /**
@@ -15,7 +14,6 @@ import { drawViseCrackFrame } from "./vise-crack-art.js";
 export const PAINTERS: Record<StripName, StripPainter> = {
   "vise-crack": drawViseCrackFrame,
   "rime-clear": drawRimeClearFrame,
-  "trivet-plant": drawTrivetPlantFrame,
   "plumb-settle": drawPlumbSettleFrame,
   "sling-draw": drawSlingDrawFrame,
 };

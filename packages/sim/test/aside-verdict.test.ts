@@ -2,17 +2,15 @@ import { describe, expect, it } from "bun:test";
 import type { CoreVerdict } from "../src/core-verdict.js";
 import { hashWorld } from "../src/hash.js";
 import { oculusStruck, oculusVerdict } from "../src/oculus-shot.js";
-import { trivetStruck, trivetVerdict } from "../src/trivet-shot.js";
 import type { Bullet, Color } from "../src/types.js";
 import { viseStruck, viseVerdict } from "../src/vise-shot.js";
 import type { World } from "../src/world.js";
 import * as oculusRig from "./oculus-rig.js";
-import * as trivetRig from "./trivet-rig.js";
 import * as viseRig from "./vise-rig.js";
 
 /**
- * **A core with a second ask in a column of its own** — THE OCULUS's look,
- * THE TRIVET's tip, THE VISE's spit — says what a bolt meets
+ * **A core with a second ask in a column of its own** — THE OCULUS's look
+ * and THE VISE's spit — says what a bolt meets
  * through `coreVerdict`'s `aside`. The picture stops a bolt on that verdict,
  * so it must agree with the boss's `…Struck` on every column and colour, and
  * asking it must change nothing.
@@ -41,24 +39,6 @@ const CASES: Case[] = [
     struck: viseStruck,
     shot: viseRig.shot,
   })),
-  ...[4, 6].map((n) => ({
-    name: `THE TRIVET, step ${n}`,
-    make: () => trivetRig.toStep(n),
-    verdict: trivetVerdict,
-    struck: trivetStruck,
-    shot: trivetRig.shot,
-  })),
-  {
-    name: "THE TRIVET, its tip's chord held",
-    make: () => {
-      const world = trivetRig.toStep(6);
-      trivetRig.chord(world, "front", 3);
-      return world;
-    },
-    verdict: trivetVerdict,
-    struck: trivetStruck,
-    shot: trivetRig.shot,
-  },
 ];
 
 describe("a core's aside verdict", () => {
@@ -89,9 +69,5 @@ describe("a core's aside verdict", () => {
     const vise = viseRig.toStep(8);
     expect(viseVerdict(vise, viseRig.MID + 2, "red")).toBe("target");
     expect(viseVerdict(vise, viseRig.MID + 2, "cyan")).toBe("wrong");
-    const trivet = trivetRig.toStep(6);
-    expect(trivetVerdict(trivet, trivetRig.MID - 2, "red")).toBe("armour");
-    trivetRig.chord(trivet, "front", 3);
-    expect(trivetVerdict(trivet, trivetRig.MID - 2, "red")).toBe("target");
   });
 });

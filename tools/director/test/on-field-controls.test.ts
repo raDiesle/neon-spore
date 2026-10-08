@@ -395,10 +395,6 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE RIME's two halves, each a rub on the seat's side of the lens.
   rimeHalfLeft: "field",
   rimeHalfRight: "field",
-  // THE TRIVET's two feet, chorded one a seat by geometry though both screens
-  // draw both (`render/trivet-grip.ts`, `bosses-choreographed.md` §30).
-  trivetPadFront: "field",
-  trivetPadRear: "field",
   plumbLevelLeft: "field",
   plumbLevelRight: "field",
   // THE SLING's two cords, one a seat by geometry, taken anywhere on the

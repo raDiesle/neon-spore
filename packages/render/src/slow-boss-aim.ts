@@ -1,11 +1,4 @@
-import {
-  HASP_COUNT,
-  haspBoss,
-  OUTER,
-  trivetBoss,
-  trivetLitStep,
-  type World,
-} from "@neon-spore/sim";
+import { HASP_COUNT, haspBoss, OUTER, type World } from "@neon-spore/sim";
 import { gimbalCentre, gimbalRingR } from "./gimbal-shape.js";
 import { haspCentre, haspShellRadius } from "./hasp-shape.js";
 import type { Layout } from "./layout.js";
@@ -14,8 +7,6 @@ import { oculusCentre, oculusRadius } from "./oculus-shape.js";
 import { plumbCore, plumbHook, plumbSacMiddle } from "./plumb-shape.js";
 import { lateBossAim, longer, still } from "./slow-boss-aim-b.js";
 import type { Aim } from "./slow-intake-aim.js";
-import { trivetCentre, trivetReach } from "./trivet-shape.js";
-import { trivetStoryDx } from "./trivet-story.js";
 import { valveCentre, valveReach } from "./valve-shape.js";
 import { viseCentre, viseRadius } from "./vise-shape.js";
 
@@ -31,8 +22,8 @@ import { viseCentre, viseRadius } from "./vise-shape.js";
  * radius that is the body's own extent, not a thumb's — the light stands
  * around the full boss (`slow-intake-aim.ts`).
  *
- * **No row reads a lift.** THE MANTLE, THE VALVE, THE VISE, THE OCULUS and
- * THE TRIVET drop into frame, but only while they are still, and no window opens before
+ * **No row reads a lift.** THE MANTLE, THE VALVE, THE VISE and THE OCULUS
+ * drop into frame, but only while they are still, and no window opens before
  * a boss has left its still phase — its arrival reads 1 from then on
  * (`vise-pose.ts` and its neighbours).
  *
@@ -66,16 +57,6 @@ export function bossAim(world: World, l: Layout, beat = world.beat, beatPhase = 
       return still(valveCentre(l, world.cfg), longer(valveReach(l)));
     case "vise":
       return still(viseCentre(l, world.cfg), longer(viseRadius(l)));
-    // A stand, aimed at its hub, the target, and as wide as its feet reach:
-    // a light that stopped at the hub would run across the legs. A lurch's
-    // window is on the hub swung over; the feet it leans on are still in reach.
-    case "trivet": {
-      const s = trivetBoss(world);
-      const at = trivetCentre(l, world.cfg);
-      const lurch = s !== null && trivetLitStep(s)?.ask === "tip";
-      const dx = lurch ? trivetStoryDx(l, world, s) : 0;
-      return still({ x: at.x + dx, y: at.y }, trivetReach(l));
-    }
     // The bob hangs still whenever the window is open: the light stands at
     // the core, not the whole body — the core is the thing both cannons are
     // asked to hit (`plumb-shape.ts`).

@@ -5,8 +5,6 @@ import {
   oculusLitStep,
   type SeamState,
   seamLitStep,
-  type TrivetState,
-  trivetLitStep,
   type ValveState,
   type ViseState,
   valveBracing,
@@ -21,16 +19,14 @@ import {
 import * as keelMarks from "../../../packages/render/src/keel-marks.js";
 import * as oculusMarks from "../../../packages/render/src/oculus-marks.js";
 import * as seamMarks from "../../../packages/render/src/seam-marks.js";
-import * as trivetMarks from "../../../packages/render/src/trivet-marks.js";
 import * as valveMarks from "../../../packages/render/src/valve-marks.js";
 import * as viseMarks from "../../../packages/render/src/vise-marks.js";
 import { mark, type Row } from "./marks-window-kit.js";
 
-/** **The first six bosses' rows** of `marks-window.test.ts`, the first lane's. */
+/** **The first five bosses' rows** of `marks-window.test.ts`, the first lane's. */
 
 const oculus = (w: World) => w.boss as OculusState;
 const vise = (w: World) => w.boss as ViseState;
-const trivet = (w: World) => w.boss as TrivetState;
 const keel = (w: World) => w.boss as KeelState;
 const valve = (w: World) => w.boss as ValveState;
 const seam = (w: World) => w.boss as SeamState;
@@ -56,23 +52,6 @@ export const ROWS_A: readonly Row[] = [
         viseMarks,
         "drawViseKernel",
         (w) => viseLitStep(vise(w)) !== null,
-        (a) => a[5] !== null,
-      ),
-    ],
-  },
-  {
-    kind: "trivet",
-    marks: [
-      mark(
-        trivetMarks,
-        "drawTrivetSockets",
-        (w) => trivetLitStep(trivet(w)) !== null,
-        (a) => (a[4] as number) > 0,
-      ),
-      mark(
-        trivetMarks,
-        "drawTrivetFace",
-        (w) => trivetLitStep(trivet(w)) !== null,
         (a) => a[5] !== null,
       ),
     ],

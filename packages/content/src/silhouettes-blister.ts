@@ -9,8 +9,8 @@ import type { CreatureSilhouette } from "./silhouettes.js";
  * roots* (`drafts/mine.ts`) gives it the roots on its underside.
  *
  * Neither alone would do. CLOVER whole is already on the field, two of them
- * stacked as THE LAMPREY's dung (`render/lamprey-dung.ts`), and SINKER whole is
- * THE TRIVET's hub. Together they say the two halves of the creature: four
+ * stacked as THE LAMPREY's dung (`render/lamprey-dung.ts`), and SINKER whole was
+ * THE TRIVET's hub until it left the game. Together they say the two halves of the creature: four
  * lobes pushed up through the membrane is the swelling, and the roots running
  * down into the pore are why it never falls — it is *of* the field, and it
  * goes back into it.

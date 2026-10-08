@@ -21,7 +21,6 @@ import { seamBlow } from "./seam-blow.js";
 import { slingBlow } from "./sling-blow.js";
 import { stareBlow } from "./stare-blow.js";
 import { trapezeBlow } from "./trapeze-blow.js";
-import { trivetBlow } from "./trivet-blow.js";
 import { valveBlow } from "./valve-blow.js";
 import { viseBlow } from "./vise-blow.js";
 
@@ -86,8 +85,6 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   rime: rimeBlow,
   // A core left unshot: the sac lets a small bob down its own plumb line.
   plumb: plumbBlow,
-  // A hub left unshot: the middle needle stamps the stand's footprint into the skin.
-  trivet: trivetBlow,
   // A centre left unshot: the plating sheds a hanging plate that bites into the skin.
   // A step let run: the rusted drum throws a cog that spins down and bites the skin.
   capstan: capstanBlow,

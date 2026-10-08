@@ -194,8 +194,6 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   if (boss.kind === "vise") return { ...boss };
   // THE RIME the same: its core is `midCol` and nothing else has a place.
   if (boss.kind === "rime") return { ...boss };
-  // THE TRIVET the same: its hub is `midCol` and its pads are on the panel.
-  if (boss.kind === "trivet") return { ...boss };
   // THE PLUMB the same: its core is `midCol` and its levels are the phones.
   if (boss.kind === "plumb") return { ...boss };
   // THE SLING the same: its yoke is `midCol` and its aims are sides, not columns.

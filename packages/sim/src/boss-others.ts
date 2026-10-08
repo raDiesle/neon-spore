@@ -25,7 +25,6 @@ import { stepStare } from "./stare-step.js";
 import { stepSurge } from "./surge-step.js";
 import { stepTaster } from "./taster-step.js";
 import { stepThroat } from "./throat-step.js";
-import { stepTrivet } from "./trivet-step.js";
 import { stepUndertow } from "./undertow-step.js";
 import { stepValve } from "./valve-step.js";
 import { stepVise } from "./vise-step.js";
@@ -214,11 +213,6 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // THE RIME: steps lit, the frost regrowing, and the shatter (`rime-step.ts`).
   if (boss.kind === "rime") {
     stepRime(world, boss);
-    return;
-  }
-  // THE TRIVET: steps lit, chords counted, and the collapse (`trivet-step.ts`).
-  if (boss.kind === "trivet") {
-    stepTrivet(world, boss);
     return;
   }
   // THE PLUMB: steps lit, leans counted, and the swing free (`plumb-step.ts`).

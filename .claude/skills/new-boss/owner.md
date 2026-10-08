@@ -164,6 +164,12 @@ bosses* — are `generic.md`, next to this page.**
   one idea from it: **shells taken off a body, one after another** — a body
   in layers, each layer a different action, the body smaller each time, and
   a picture of each layer won (`bosses.md` §11.53, *Retired*).
+- **Dislikes, in his words:** THE TRIVET, built 26 September and removed on
+  8 October 2026 — *"remove this wave from game. i do not like it."* No
+  reason given; read with THE HALTER's verdict the same day, a boss whose
+  every step is a seat holding pads down for a count is the hold he called
+  boring, and a chord's first beats look the same right or wrong
+  (`bosses.md` §11.47, *Retired*).
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

@@ -35,7 +35,6 @@ import { spoolHand } from "./boss-hands-spool.js";
 import { stareHand } from "./boss-hands-stare.js";
 import { antiphonHand, cairnHand, spliceHand, undertowHand } from "./boss-hands-takes.js";
 import { trapezeHand } from "./boss-hands-trapeze.js";
-import { trivetHand } from "./boss-hands-trivet.js";
 import { pulseHand, repriseHand } from "./boss-hands-unseen.js";
 import { valveHand } from "./boss-hands-valve.js";
 import { viseHand } from "./boss-hands-vise.js";
@@ -119,7 +118,6 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   surge: (w) => [...surgeHand(w), ...fieldHand(w)],
   taster: tasterHand,
   throat: throatHand,
-  trivet: trivetHand,
   // The wave sends six slimes under the lobes, and the lobes' hand answers
   // only the lobes.
   undertow: (w) => [...undertowHand(w), ...fieldHand(w)],

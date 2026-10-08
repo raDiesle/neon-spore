@@ -14,7 +14,6 @@ import {
   startWave,
   step,
   ticksPerBeat,
-  trivetBoss,
   type World,
 } from "@neon-spore/sim";
 import { gimbalCentre, gimbalRingR } from "../src/gimbal-shape.js";
@@ -26,7 +25,6 @@ import { oculusCentre, oculusRadius } from "../src/oculus-shape.js";
 import { plumbCore, plumbHook, plumbSacMiddle } from "../src/plumb-shape.js";
 import { bossAim } from "../src/slow-boss-aim.js";
 import { aim } from "../src/slow-intake-aim.js";
-import { trivetCentre, trivetReach } from "../src/trivet-shape.js";
 import { valveCentre, valveReach } from "../src/valve-shape.js";
 import { viseCentre, viseRadius } from "../src/vise-shape.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT, waveWith } from "./frame-harness.js";
@@ -86,7 +84,6 @@ describe("THE SLOW's aim at a boss", () => {
     ["mantle", () => round(mantleCentre(L, CFG), Math.max(mantleReach(L).rx, mantleReach(L).ry))],
     ["valve", () => round(valveCentre(L, CFG), Math.max(valveReach(L).rx, valveReach(L).ry))],
     ["vise", () => round(viseCentre(L, CFG), Math.max(viseRadius(L).rx, viseRadius(L).ry))],
-    ["trivet", () => round(trivetCentre(L, CFG), trivetReach(L))],
     [
       "plumb",
       () => {
@@ -112,18 +109,6 @@ describe("THE SLOW's aim at a boss", () => {
     const next = aim(world, L, 0, 0);
     expect(next).toEqual(round(haspCentre(L, CFG, 1), r));
     expect(next.y).not.toBe(haspCentre(L, CFG, 0).y);
-  });
-
-  it("stands round THE TRIVET's hub swung over in a lurch, as wide as before", () => {
-    const world = stood("trivet");
-    const s = trivetBoss(world);
-    if (s === null) throw new Error("the trivet wave stood no stand");
-    s.phase = "lit";
-    s.cursor = s.steps.findIndex((x) => x.ask === "tip");
-    const home = trivetCentre(L, CFG);
-    const at = aim(world, L, 0, 0);
-    expect(at.x).toBeLessThan(home.x - L.tile);
-    expect(at).toEqual(round({ x: at.x, y: home.y }, trivetReach(L)));
   });
 
   it("has no row for a field with no boss, which still aims at the cannon's column", () => {

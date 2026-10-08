@@ -9,7 +9,7 @@ import { bossOf } from "./touch-field.js";
  * **The two halves of THE RIME's lens as controls** — the hands lane that
  * makes the frost answer a thumb at all (§11.64, `bosses-choreographed.md` §29).
  *
- * Its own page for `trivet-grip.ts`' reason: the lens a thumb is answered on
+ * Its own page for `oculus-grip.ts`' reason: the lens a thumb is answered on
  * is the one `drawRime` puts on the screen this frame — dropped in as it
  * arrives — and all this file adds is *whose half* a press is on.
  *

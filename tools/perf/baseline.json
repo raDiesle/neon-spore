@@ -1129,18 +1129,8 @@
       "unmeasured": true
     },
     {
-      "id": "theTrivet",
-      "wave": 110,
-      "name": "THE TRIVET",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
       "id": "thePlumb",
-      "wave": 111,
+      "wave": 110,
       "name": "THE PLUMB",
       "bodies": 0,
       "typical": 0,
@@ -1150,7 +1140,7 @@
     },
     {
       "id": "theSling",
-      "wave": 112,
+      "wave": 111,
       "name": "THE SLING",
       "bodies": 0,
       "typical": 0,
@@ -1160,7 +1150,7 @@
     },
     {
       "id": "theCapstan",
-      "wave": 113,
+      "wave": 112,
       "name": "THE CAPSTAN",
       "bodies": 0,
       "typical": 0,
@@ -1170,7 +1160,7 @@
     },
     {
       "id": "theGall",
-      "wave": 114,
+      "wave": 113,
       "name": "THE GALL",
       "bodies": 0,
       "typical": 0,
@@ -1180,7 +1170,7 @@
     },
     {
       "id": "theTrapeze",
-      "wave": 115,
+      "wave": 114,
       "name": "THE TRAPEZE",
       "bodies": 0,
       "typical": 0,
@@ -1190,7 +1180,7 @@
     },
     {
       "id": "theFlue",
-      "wave": 116,
+      "wave": 115,
       "name": "THE FLUE",
       "bodies": 0,
       "typical": 0,
@@ -1200,7 +1190,7 @@
     },
     {
       "id": "theGovernor",
-      "wave": 117,
+      "wave": 116,
       "name": "THE GOVERNOR",
       "bodies": 0,
       "typical": 0,
@@ -1210,7 +1200,7 @@
     },
     {
       "id": "theLamprey",
-      "wave": 118,
+      "wave": 117,
       "name": "THE LAMPREY",
       "bodies": 0,
       "typical": 0,
@@ -1220,7 +1210,7 @@
     },
     {
       "id": "theMimic",
-      "wave": 119,
+      "wave": 118,
       "name": "THE MIMIC",
       "bodies": 0,
       "typical": 0,
@@ -1230,7 +1220,7 @@
     },
     {
       "id": "theLatch",
-      "wave": 120,
+      "wave": 119,
       "name": "THE LATCH",
       "bodies": 0,
       "typical": 0,
@@ -1240,7 +1230,7 @@
     },
     {
       "id": "theBlister",
-      "wave": 121,
+      "wave": 120,
       "name": "THE BLISTER",
       "bodies": 0,
       "typical": 0,
@@ -1250,7 +1240,7 @@
     },
     {
       "id": "theBastion",
-      "wave": 122,
+      "wave": 121,
       "name": "THE BASTION",
       "bodies": 0,
       "typical": 0,

@@ -1,8 +1,7 @@
 import type { World } from "@neon-spore/sim";
-import { bossCue, bossCues } from "./boss-cue.js";
+import { bossCue } from "./boss-cue.js";
 import { drawCueText } from "./boss-cue-text.js";
 import { cueBoxed, cueDrawnAt, drawCueHelper, markIsHere } from "./cue-helper.js";
-import { drawDeskChordRings, pointerSpeaksForBoth } from "./desk-chord-ring.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -21,9 +20,6 @@ import { drawTargetLock } from "./target-lock.js";
  * four-pictures-for-one-idea mistake `target-lock.ts` records the owner ending.
  * THE SCUTTLE borrows the navigator's own lock; THE SINEW, THE SURGE and THE
  * ANTIPHON stand their words on a handle ring, which is a mark already.
- *
- * On a screen whose pointer speaks for both seats, every chord body asked for
- * is drawn first, as THE INSTAR's `HOLD BOTH` ring (`desk-chord-ring.ts`).
  */
 export function drawBossCue(
   ctx: CanvasRenderingContext2D,
@@ -37,8 +33,6 @@ export function drawBossCue(
   /** This device's input delay, in ticks (`ViewState.leadTicks`), for a mark that rides a needle drawn ahead. */
   lead = 0,
 ): void {
-  if (pointerSpeaksForBoth(l.role))
-    drawDeskChordRings(ctx, l, world.cfg, bossCues(l, world, beatPhase, skinY, lead), time);
   const read = bossCue(l, world, beatPhase, skinY, lead);
   if (read === null) return;
   // A shot is drawn on what it is for, not on the cannon (`cueDrawnAt`).

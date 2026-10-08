@@ -215,3 +215,10 @@ item naming the rule, never a fix made in passing.
   mistake otherwise: *i will do every boss separately and individual*. So a
   boss's mistakes are its own spec's, and what each costs today is in
   `docs/miss-rule-audit.md`; no lane changes one unasked.
+- **One finger per player, at any moment** (8 October 2026, in his words
+  *"do never use again multi finger for same player, as its not supported
+  on pc"*). A step never asks one seat for two touches at once — no chord,
+  no pinch, no two pads held by one hand — because the game is also played
+  with one mouse. Two players each with one finger down is fine; one player
+  with two is not. THE TRIVET's chord left with it (`bosses.md` §11.47), and
+  a boss that already ships with one is a queue item.

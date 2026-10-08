@@ -6,7 +6,9 @@ import type { Gesture } from "./gesture-types.js";
  * stamped SPECIFIED here, and each is read by a boss's own hand file now.
  * Split off `gesture-built.ts` and `gesture-built-moves.ts` on line count.
  * TILT, AS A LEVEL was the eighth, and the owner ruled it out on 27 September
- * 2026; it is in `gesture-missed.ts`.
+ * 2026; it is in `gesture-missed.ts`. CHORD was another, until THE TRIVET
+ * left the game on 8 October 2026, and the owner ruled it out the same day;
+ * it is in `gesture-missed.ts`.
  */
 
 export const BUILT_FOR_BOSSES: readonly Gesture[] = [
@@ -115,25 +117,6 @@ export const BUILT_FOR_BOSSES: readonly Gesture[] = [
     },
     platform: "iPhone also fires gesturechange for it, which is the one to refuse.",
     where: ["packages/sim/src/vise-hand.ts", "packages/sim/src/gall-hand.ts"],
-  },
-  {
-    name: "CHORD",
-    state: "built",
-    does: '"Hold two and five": two or three controls pressed at once. THE TRIVET\'s `ChordHold`: a foot planted only while a chord holds.',
-    hand: [
-      { k: "hold", at: [22, 128] },
-      { k: "hold", at: [60, 128] },
-    ],
-    timeline: {
-      lanes: [
-        { event: "pointerdown", marks: [2] },
-        { event: "pointerdown", finger: 2, marks: [3] },
-        { event: "pointerup", marks: [8] },
-        { event: "pointerup", finger: 2, marks: [8] },
-      ],
-      window: { from: 3, to: 8, label: "both down" },
-    },
-    where: ["packages/sim/src/trivet-hand.ts", "packages/sim/src/governor-hand.ts"],
   },
   {
     name: "HOLD, THEN SWIPE",

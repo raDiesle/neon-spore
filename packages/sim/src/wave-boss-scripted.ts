@@ -13,7 +13,6 @@ import { installRime } from "./rime-step.js";
 import { installSeam } from "./seam-step.js";
 import { installSling } from "./sling-step.js";
 import { installTrapeze } from "./trapeze-step.js";
-import { installTrivet } from "./trivet-step.js";
 import { installVise } from "./vise-step.js";
 import type { BossEntry, World } from "./world.js";
 
@@ -35,7 +34,6 @@ export const SCRIPTED_KINDS = [
   "oculus",
   "vise",
   "rime",
-  "trivet",
   "plumb",
   "sling",
   "capstan",
@@ -60,7 +58,6 @@ export function installScripted(world: World, boss: ScriptedEntry): BossState {
   if (boss.kind === "oculus") return installOculus(world, boss.steps);
   if (boss.kind === "vise") return installVise(world, boss.steps);
   if (boss.kind === "rime") return installRime(world, boss.steps);
-  if (boss.kind === "trivet") return installTrivet(world, boss.steps);
   if (boss.kind === "plumb") return installPlumb(world, boss.steps);
   if (boss.kind === "sling") return installSling(world, boss.steps);
   if (boss.kind === "capstan") return installCapstan(world, boss.steps);

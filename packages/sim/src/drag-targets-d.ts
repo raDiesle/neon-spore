@@ -13,7 +13,7 @@ import type { DragTargetE } from "./drag-targets-e.js";
  * pages together, so `DragTarget` is one name and nothing that reaches for it
  * knows there are four.
  *
- * **This page is full**, and `drag-targets-e.ts` carries THE TRIVET and every
+ * **This page is full**, and `drag-targets-e.ts` carries THE PLUMB and every
  * boss from here on.
  */
 // THE GIMBAL's two rings, argued below: the first pair of targets that are

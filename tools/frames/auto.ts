@@ -33,7 +33,7 @@ export function parseAuto(value: string | undefined): AutoSeats | undefined {
 
 /**
  * **`--auto-miss`: AUTO plays, and lets every other ask run out**
- * (`apps/game/src/auto-miss.ts`). With no hand on them THE VISE, THE TRIVET, THE HASP, THE RATCHET and THE GIMBAL never reach an ask, and
+ * (`apps/game/src/auto-miss.ts`). With no hand on them THE VISE, THE HASP, THE RATCHET and THE GIMBAL never reach an ask, and
  * with AUTO they never miss one, so `--until breach` found nothing in either.
  * On its own it would be a flag that changes nothing, so it is refused.
  */

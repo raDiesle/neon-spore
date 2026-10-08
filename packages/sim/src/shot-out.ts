@@ -24,7 +24,6 @@ import { shotWasted } from "./shot-wasted.js";
 import { slingStruck } from "./sling-shot.js";
 import { stareStruck } from "./stare-shot.js";
 import { tasterStruck } from "./taster-shot.js";
-import { trivetStruck } from "./trivet-shot.js";
 import type { Bullet } from "./types.js";
 import { valveStruck } from "./valve-shot.js";
 import { vaneStruck } from "./vane.js";
@@ -105,8 +104,6 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   met = viseStruck(world, b) || met;
   // THE RIME's bared core, in its colour (`rime-shot.ts`).
   met = rimeStruck(world, b) || met;
-  // THE TRIVET's lit hub, in its colour (`trivet-shot.ts`).
-  met = trivetStruck(world, b) || met;
   // THE PLUMB's lit core, in its colour (`plumb-shot.ts`).
   met = plumbStruck(world, b) || met;
   // THE SLING's lit yoke, in its colour (`sling-shot.ts`).
@@ -173,7 +170,6 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "oculus",
   "vise",
   "rime",
-  "trivet",
   "plumb",
   "sling",
   "capstan",

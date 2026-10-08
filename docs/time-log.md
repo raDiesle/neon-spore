@@ -36257,3 +36257,17 @@ a blow per whole beat held, kept across surfacings, was the only reading under
 which three could be won.
 
 *Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE TRIVET leaves the game
+
+- reading: 5 min. THE GRINDSTONE's and THE HALTER's removals, the trivet's
+  references, and who else read the chord's pointer code — nobody.
+- writing: 10 min. The deletions, every list a kind is a row in, the
+  director's cards, the docs and the retired section.
+- looking: 0 min. Nothing new drawn; a boss taken away.
+- friction: 5 min. The path-drift test on the retired section's backticks,
+  and a script blocked for a doubled backslash in a heredoc.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the registrations — a boss is a row in sixty files, and only
+the typecheck finds them in one pass.

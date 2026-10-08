@@ -10,7 +10,6 @@ import { PlumbFx } from "./plumb-fx.js";
 import { SeamFx } from "./seam-fx.js";
 import { SlingFx } from "./sling-fx.js";
 import { TrapezeFx } from "./trapeze-fx.js";
-import { TrivetFx } from "./trivet-fx.js";
 
 /**
  * **The roster's late pairs**: the fields of the bosses `boss-draw-clocks-d.ts`
@@ -27,11 +26,6 @@ import { TrivetFx } from "./trivet-fx.js";
 export class LateRoster extends RoundMarks {
   /** THE SLING's painted draw over a cord loosed true (`sling-fx.ts`). */
   readonly sling = new SlingFx();
-  /** THE TRIVET's thud, the clamps' flare, the hub's flash and the collapse's,
-   * the hull shock, and its receipts' bursts — thrown the same on both
-   * screens, and told the hub's colour by the drawer (`trivet-fx.ts`,
-   * `trivet-draw.ts`). */
-  readonly trivet = new TrivetFx();
   /** THE PLUMB's settle ringing a glass, a drift's jolt, the core's hit and
    * the free swing's release, and its receipts' bursts — thrown the same on
    * both screens, and told the core's colour by the drawer (`plumb-fx.ts`,

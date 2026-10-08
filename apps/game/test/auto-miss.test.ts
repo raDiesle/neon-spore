@@ -81,15 +81,8 @@ function firstHeard(
 describe("--auto-miss", () => {
   // THE OCULUS left the list on 2 October 2026: its rework in three levels
   // has no blow at all, a level run out springing open and a shot waiting.
-  // THE CYST left the game on 8 October 2026.
-  for (const name of [
-    "THE VISE",
-    "THE TRIVET",
-    "THE RATCHET",
-    "THE SLING",
-    "THE GALL",
-    "THE FILAMENT",
-  ]) {
+  // THE CYST and THE TRIVET left the game on 8 October 2026.
+  for (const name of ["THE VISE", "THE RATCHET", "THE SLING", "THE GALL", "THE FILAMENT"]) {
     it(`reaches ${name}'s timeout blow, which AUTO alone never lands`, () => {
       expect(bossBlow(name, false)).toBeNull();
       expect(bossBlow(name, true)).not.toBeNull();

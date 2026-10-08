@@ -207,16 +207,6 @@ export const CREATURE_HUES = {
   slingCord: "#C9BFA8",
   slingHeat: "#F7F5EF",
   /**
-   * THE TRIVET's stand (§30, *Colour*): a dull gunmetal and its shadow, the
-   * rock's cold blue-grey taken darker so the stand reads as worked metal
-   * rather than stone; and its sockets lit, a cold blue-white paler than
-   * `rimeFrost` and far from `cyan`, so a lit socket says *press here* and
-   * never *load cyan*.
-   */
-  trivetMetal: "#5B616E",
-  trivetMetalDark: "#23262E",
-  trivetSocket: "#D9E8FA",
-  /**
    * THE PLUMB's old bronze (§31, *Colour*): a dull olive bronze, its shadow,
    * and the pale green-white of its level glass. Greener and greyer than
    * `viseCase`'s brown so the two never read as one family, and far from

@@ -23,22 +23,15 @@ import type { Wave } from "../wave-types.js";
  * the shield where the hold was. A half's first wipe is from solid frost and
  * gets the longer window; the second is from the film the first left.
  *
- * **THE TRIVET is the first boss answered by a chord**, the same shape a
- * third time: a stand of three legs over the middle column, each seat's foot
- * planted by holding two — then three — of its own pads down together for
- * the count (`docs/spec/bosses-choreographed.md` §30, `sim/trivet.ts`). Both
- * feet home light the hub, which is shot in its colour; between the shots
- * both seats chord at once to keep the feet planted under it.
- *
  * **THE PLUMB is the first boss answered by the phone itself**, the same
- * shape a fourth time: a bob over the middle column, each seat's weight hung
+ * shape a third time: a bob over the middle column, each seat's weight hung
  * true by holding its own phone level, inside a range that narrows on the
  * second settle (`docs/spec/bosses-choreographed.md` §31, `sim/plumb.ts`).
  * Both weights true light the core, which is shot in its colour; between the
  * shots both seats hold level at once to keep the weights true under it.
  *
  * **THE SLING is the first boss answered at the lift**, the same shape a
- * fifth time: a fork over the middle column, each seat's arm drawn by
+ * fourth time: a fork over the middle column, each seat's arm drawn by
  * holding a finger down for the count and loosed by swiping toward the lit
  * side as it leaves (`docs/spec/bosses-choreographed.md` §32,
  * `sim/sling.ts`). Both arms drawn light the yoke, which is shot in its
@@ -97,33 +90,6 @@ export const WAVES_ACT_12: Wave[] = [
         { ask: "icicle", color: "either", beats: 4, offset: -2 },
         { ask: "shield", color: "either", beats: 3 },
         { ask: "fire", color: "either", beats: 6 },
-      ],
-    },
-    bossType: "normal",
-  },
-  {
-    id: "theTrivet",
-    name: "THE TRIVET",
-    guide: {
-      both: "Hold your foot's lit pads until it plants. Shoot the lit hub in its colour. When it leans, hold that foot and shoot where the hub swung. Shield the needle.",
-      p1: "1. Hold the front foot's lit pads down together and say so.\n2. Keep every one down until the foot plants.\n3. When the hub shows a colour, fire it.\n4. When it leans on your foot, hold it and fire where the hub swung.",
-      p2: "1. Hold the rear foot's lit pads down together and say so.\n2. Keep every one down until the foot plants.\n3. When both light, hold with the other one.\n4. A needle falls: slide the shield under it.",
-    },
-    entries: [],
-    boss: {
-      kind: "trivet",
-      steps: [
-        { ask: "front", pads: 2, color: "either", beats: 5 },
-        { ask: "front", pads: 3, color: "either", beats: 4 },
-        { ask: "rear", pads: 2, color: "either", beats: 5 },
-        { ask: "rear", pads: 3, color: "either", beats: 4 },
-        { ask: "fire", pads: 2, color: "red", beats: 6 },
-        { ask: "both", pads: 2, color: "either", beats: 3 },
-        { ask: "tip", pads: 3, color: "either", beats: 4, offset: -2 },
-        { ask: "fire", pads: 2, color: "cyan", beats: 6 },
-        { ask: "needle", pads: 2, color: "either", beats: 4, offset: 2 },
-        { ask: "both", pads: 2, color: "either", beats: 3 },
-        { ask: "fire", pads: 2, color: "either", beats: 6 },
       ],
     },
     bossType: "normal",
