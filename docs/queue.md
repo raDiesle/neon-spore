@@ -439,6 +439,7 @@ bestiary's line to built.
 ## The new-creature skill says six tables; a kind is a row in more
 
 - **Found:** 2026-10-08, claude/task-queue-work-e71746
+- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-the-new-creature-skill-says-six-tables-a-kind-is)
 - **Files:** `.claude/skills/new-creature/SKILL.md`, `packages/render/src/duty.ts`, `packages/content/src/waves-demo.ts`, `tools/director/src/ship-fields.ts`, `packages/render/src/creature-body.ts`, `packages/sim/src/hull.ts`, `packages/sim/src/beat.ts`
 
 The skill's table says *every one of them is enforced … so this list is
