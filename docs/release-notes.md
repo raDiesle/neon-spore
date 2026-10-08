@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 6d875015a — The marks walk holds the partner's ring on each seat's screen
+
+`marks-window.test.ts` drew every boss on TEST's screen, where both seats' marks are the screen's own, so the partner's ring and waiting clock were never drawn and nothing held them to their window. A row may now name the screens to walk (`roles`); AUTO still plays from TEST's, and each named screen is drawn with its own layout and effects. THE LATCH's row has its partner's ring back, walked on both seats, and THE MANTLE's holds its own.
+
 ## 2026-10-08 · c5cd03bf2 — THE SCOUT, THE BATON, THE THROAT and THE GORGE hold no mark before its window
 
 Four more rows `NO_ROW` owed, each the shared halo held to the boss's windows in the simulation: THE SCOUT's line and prime, THE BATON's draw and strip, THE THROAT's mouth and pump through `sucks`, THE GORGE's sites as each falls due. A row may now name the wave it is walked on: AUTO carries one mote a trip on THE SCOUT, so the ship is never laden there, and THE SCOUT's row walks THE HAUL. Each row goes red with its window emptied.
