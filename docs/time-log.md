@@ -35857,3 +35857,5 @@ apart to find the window to hold it to.
 
 Bottleneck: a film's ticks are read against a tempo nobody wrote down in the
 scene, so the first timing was off by half.
+
+*Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

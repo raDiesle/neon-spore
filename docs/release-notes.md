@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · b05ab82ea — THE LATCH's guide is a film: one holds, one pulls, and they swap
+
+THE LATCH used to open on prose. Its rehearsal is now the fight itself. Player 2 holds the right grip while player 1 pulls the left grip a reach down and lets go, which passes the turn. Player 2 then pulls the second reach and the knot comes in. On the last page the slime rears and both hold through the yank. The captions say what the field's own PULL and HOLD do not: whose grip is whose, that the two take turns, and that a yank needs both hands.
+
 ## 2026-10-08 · 7b6c3c3c0 — THE HIVE, THE GIMBAL, THE HASP and THE RATCHET hold no mark before its window
 
 Four more rows `NO_ROW` owed. Each draws its asking marks as the shared halo behind a gate of its own, so each row holds that halo to the union of the boss's windows in the simulation: THE HIVE's site to hold, underside to haul and lobe swelling; THE GIMBAL's two rings; THE HASP's latch and wheel; THE RATCHET's catch and pawl. Each goes red with its window emptied.
