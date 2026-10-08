@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 25c6b61c0 — THE LATCH is drawn: a colony hung by its tendril, and two grips to haul it
+
+THE LATCH's body is the shape sheet's COLONY at six: small ochre bodies in one skin round the knot the tendril grows from, one torn off for every knot hauled in. It stretches toward the ship as the rope comes down, rears and tips edge-on before a yank, and goes off the top torn loose. The tendril runs to a hook in the hull with rings that ride down as it is pulled; the knots pass the grips the instant they count, and the rope hauled in coils on the hull. The two grips are the field's pull knob, a column either side of the tendril: the press holds, the carry down pulls, the grip whose turn it is wears the arrow and its channel, and a press on the partner's grip is sent through and refused aloud. Each grip answers a touch with the halo and the green or red verdict every mark has.
+
+## 2026-10-08 · 131ce25d9 — THE LATCH keeps a thumb held through the rest between levels
+
+A thumb resting still on its grip sends nothing, and the level lighting let go of both grips, so the first pull of the next level slipped the rope with no hand seen to let go. A grip now keeps its hold into the next level and is taken hold of again where the rope is; only a grip that changes hands, into or out of a cross, is let go of, the moment it does.
+
 ## 2026-10-08 · 9f48cab46 — THE ANTIPHON draws its organ and its rail at their resting turns
 
 The organ is drawn at `antiphonOrganTurnMilli` and each candidate at its own quarter, so on a level with `antiphonRestingTurn` on, the decoys are the organ's own contour the wrong way up. The switch ships off, so every turn is nought and no frame moves. The exemption: a look with no shipped alternative. The director's `ANTIPHON · A RAIL TURNED` shows the rail with the switch on; VERSUS cannot offer it, because VERSUS patches only drawing. A new test turns every contour by each quarter: *four facets* is the same upside down, and how to mend that is queued as a question for the owner.

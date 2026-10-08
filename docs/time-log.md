@@ -35625,3 +35625,5 @@ Bottleneck: looking — `bun run shot` needed `--open "▣ DOCUMENTATION"
   `land`.
 
 Bottleneck: the look itself — three frames to get six bodies to read as six.
+
+*Measured: 15 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
