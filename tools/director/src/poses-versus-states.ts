@@ -13,6 +13,7 @@ import { ROUND_TIMEOUT_POSE } from "./poses-round-timeout.js";
 import { SINEW_PARTING_POSE } from "./poses-sinew-parting.js";
 import { SLOW_RUNS_OUT_POSE, SLOW_WINDOW_POSE } from "./poses-slow.js";
 import { BREAK_POSE, BULB_STRUCK_POSE } from "./poses-struck.js";
+import { SURGE_BURST_POSE } from "./poses-surge-burst.js";
 
 /**
  * The half of `poses-versus.ts` that shows something other than a body: the
@@ -78,4 +79,5 @@ export const VERSUS_STATE_POSES: Pose[] = [
   VALVE_SECOND_SPARK_POSE,
   SINEW_PARTING_POSE,
   LEDGER_BILLED_POSE,
+  SURGE_BURST_POSE,
 ];

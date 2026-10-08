@@ -5,11 +5,13 @@ import { rgba } from "./hex.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { SurgeMarks } from "./surge-marks.js";
+import { SPRAY_BEATS, SPRAY_LOOK } from "./surge-spray.js";
 
 /**
  * What THE SURGE leaves behind a frame: the row the bulb sinks through
  * after a vent, the jolt a burst puts through the body, the jet a vent
- * throws up out of the seam, and the bursts its thirteen receipts throw.
+ * throws up out of the seam, the clock of a burst's spray
+ * (`surge-spray.ts`), and the bursts its thirteen receipts throw.
  *
  * Everything else about the boss is drawn off the world every frame
  * (`surge-draw.ts`). The three here are THE SINEW's exception said three
@@ -52,6 +54,13 @@ export class SurgeFx {
   private joltLife = 1;
   private jetLeft = 0;
   private jetLife = 1;
+  /** A burst's spray (`surge-spray.ts`): its clock, and where the bulb burst. */
+  private sprayLeft = 0;
+  private sprayLife = 1;
+  private sprayX = 0;
+  private sprayY = 0;
+  /** False for a burst heard before the bulb was ever drawn: `note` places it. */
+  private sprayPlaced = false;
   private bulbX = 0;
   private bulbY = 0;
   private noted = false;
@@ -65,6 +74,11 @@ export class SurgeFx {
     this.bulbX = x;
     this.bulbY = y;
     this.noted = true;
+    if (!this.sprayPlaced) {
+      this.sprayX = x;
+      this.sprayY = y;
+      this.sprayPlaced = true;
+    }
   }
 
   /** How far above its row the bulb still is, in tiles: a row easing to nought. */
@@ -126,6 +140,11 @@ export class SurgeFx {
           atBulb(18, PALETTE.hull);
           this.joltLife = JOLT_BEATS * spb;
           this.joltLeft = this.joltLife;
+          this.sprayLife = SPRAY_BEATS * spb;
+          this.sprayLeft = this.sprayLife;
+          this.sprayPlaced = this.noted;
+          this.sprayX = this.bulbX;
+          this.sprayY = this.bulbY;
           break;
         case "surgeGum":
           burst(tileCX(l, e.col), tileCY(l, e.row), 4, PALETTE.hull);
@@ -159,12 +178,17 @@ export class SurgeFx {
     this.sinkLeft = Math.max(0, this.sinkLeft - dt);
     this.joltLeft = Math.max(0, this.joltLeft - dt);
     this.jetLeft = Math.max(0, this.jetLeft - dt);
+    this.sprayLeft = Math.max(0, this.sprayLeft - dt);
     this.hurt.update(dt);
     this.marks.update(dt);
   }
 
   /** The jet: a violet streak up out of the seam, thinning as it goes. */
   draw(ctx: CanvasRenderingContext2D, l: Layout): void {
+    if (this.sprayLeft > 0 && this.sprayPlaced) {
+      const age = 1 - this.sprayLeft / this.sprayLife;
+      SPRAY_LOOK.draw({ ctx, l, x: this.sprayX, y: this.sprayY, age });
+    }
     if (this.jetLeft <= 0 || !this.noted) return;
     const left = this.jetLeft / this.jetLife;
     const reach = JET_TILES * l.tile * (1 - left * left);
@@ -185,6 +209,11 @@ export class SurgeFx {
     this.sinkLeft = 0;
     this.joltLeft = 0;
     this.jetLeft = 0;
+    this.sprayLeft = 0;
+    this.sprayLife = 1;
+    this.sprayX = 0;
+    this.sprayY = 0;
+    this.sprayPlaced = false;
     this.sinkLife = 1;
     this.joltLife = 1;
     this.jetLife = 1;

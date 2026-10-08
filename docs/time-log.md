@@ -35400,3 +35400,16 @@ Bottleneck: looking — a freeze is in the pair's slowed seconds, and the
 eversion only shows past the first third of them.
 
 *Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE SURGE's burst spraying the whole ship, offered in VERSUS
+
+- reading: 5 min. `SurgeFx` and how a VERSUS pair is handed events, to
+  find SEALING stands six ticks past the burst and could never show it.
+- writing: 10 min. `SPRAY_LOOK` and its clock in `SurgeFx`, the candidate,
+  a BURST pose stopping on the burst's own tick.
+- looking: 5 min. Two stills, the splats on the hull fattened once.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: reading — a pair sees only its build's last tick of events,
+so a look on an event needs a pose that ends on it.

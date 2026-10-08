@@ -5270,7 +5270,9 @@ on the pilot's alone, the pressure on the navigator's alone, and the sink's
 reset; `surge-touch.test.ts` proves the bulb is answered where it is
 drawn, by both seats at the same place, and not beside it. *Not built of
 the design's look*: the spray of a burst across the whole ship is three
-gums and a jolt; the slits do not gape wider with the pressure — offered
+gums and a jolt — offered in VERSUS as `surge:spray` (8 October 2026),
+gobs of the bulb thrown wall to wall and left on the hull as splats for
+the spray's beats, judged on THE SURGE · BURST; the slits do not gape wider with the pressure — offered
 in VERSUS as `surge:seam` (8 October 2026), the seam opening into a lit
 mouth on the navigator's screen alone, because on the pilot's it would be
 the pressure he is not shown; the eversion is a fold of the outline, not a

@@ -2583,6 +2583,7 @@ by hand never moves.
 | `packages/render/src/surge-grip.ts` | **THE SURGE's one handle, taken by both seats**: the bulb itself |
 | `packages/render/src/surge-shape.ts` | **Where THE SURGE is**, in field pixels: the bulb's centre, its two radii, its outline |
 | `packages/render/src/surge-sway.ts` | **THE SURGE rocks where it hangs** (`docs/spec/living-bosses.md` §1, the outline tier) |
+| `packages/render/src/surge-spray.ts` | THE SURGE's burst, past its first instant: what the bulb throws across the ship when the pressure goes over |
 | `packages/render/src/surge-word.ts` | **What THE SURGE is asking of one thumb**, and the three silences beside the one that shipped |
 | `packages/render/src/surge-marks.ts` | **THE SURGE's two grip marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/surge-body.ts` | **THE SURGE's body**, and the eversion that turns it out |
@@ -3098,6 +3099,7 @@ by hand never moves.
 | `tools/director/src/poses-mechanics-reads.ts` | the last four mechanics poses: a pod hanging, a pod falling, and the radar from each seat |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
+| `tools/director/src/poses-surge-burst.ts` | THE SURGE on the tick it bursts — the pose `surge:spray` is judged on |
 | `tools/director/src/poses-struck.ts` | A living body over the ship with a matching bolt still climbing at it: the kill itself, replayed |
 | `tools/director/src/poses-slow.ts` | THE INSTAR's wave run until THE SLOW opens a window — the `slow:window` slot's pose, and the only card where `slowing` is true |
 | `tools/director/src/poses-sinew-parting.ts` | THE SINEW just after a hold parts a fibre, THE SLOW open: `sinew:fibres`'s pose |
