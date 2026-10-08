@@ -6,6 +6,7 @@ import { governorTapCircle } from "./governor-grip.js";
 import { grindstoneStanding, grindstoneTakesHand } from "./grindstone-grip.js";
 import { halterGripStanding } from "./halter-grip.js";
 import { lampreyHeadCircle, lampreyTailCircle, lampreyToothCircle } from "./lamprey-grip.js";
+import { latchKnobStanding, latchTakesHand } from "./latch-grip.js";
 import type { Circle, Layout } from "./layout.js";
 import { plumbStoneStanding, plumbTakesHand } from "./plumb-grip.js";
 import { rimeHalfStanding, rimeTakesHand } from "./rime-grip.js";
@@ -153,6 +154,13 @@ export function laterBossHandleCircle(
     if (target === "scoutLine")
       return scoutLineGrippable(cfg, b) ? scoutLineCircle(l, cfg, b) : null;
     return scoutPrimeGrippable(cfg, b) ? scoutPrimeCircle(l, cfg, b) : null;
+  }
+  if (target === "latchGripLeft" || target === "latchGripRight") {
+    // THE LATCH's two grips, each at the depth its thumb has it, until the
+    // colony is torn loose (`latch-grip.ts`).
+    const b = world.boss?.kind === "latch" ? world.boss : null;
+    if (b === null || !latchTakesHand(b)) return null;
+    return latchKnobStanding(l, world, b, target === "latchGripLeft" ? 0 : 1);
   }
   return undefined;
 }

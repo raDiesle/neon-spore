@@ -3,6 +3,7 @@ import type { Effects } from "./effects.js";
 import { drawFlue } from "./flue-draw.js";
 import { drawGovernor } from "./governor-draw.js";
 import { drawLamprey } from "./lamprey-draw.js";
+import { drawLatch } from "./latch-draw.js";
 import type { Layout } from "./layout.js";
 import { drawMimic } from "./mimic-draw.js";
 import type { ViewState } from "./renderer.js";
@@ -24,7 +25,7 @@ import type { ViewState } from "./renderer.js";
 type Installed = NonNullable<World["boss"]>;
 
 /** The kinds this file draws. Appended, like every list of boss kinds. */
-export const LATEST_PAIR_KINDS = ["flue", "governor", "lamprey", "mimic"] as const;
+export const LATEST_PAIR_KINDS = ["flue", "governor", "lamprey", "mimic", "latch"] as const;
 
 export type LatestPairBoss = Extract<Installed, { kind: (typeof LATEST_PAIR_KINDS)[number] }>;
 
@@ -84,5 +85,14 @@ export function drawLatestPairBoss(
   // THE MIMIC: a mantle over the top of the field wearing a sign on one
   // screen and mottle on the other, the pad on the drawer's, split on its
   // lit core at the last (`mimic-draw.ts`); its receipts are `mimic-fx.ts`.
-  drawMimic(ctx, l, world, boss, beat, beatPhase, time, effects.boss.mimic);
+  if (boss.kind === "mimic") {
+    drawMimic(ctx, l, world, boss, beat, beatPhase, time, effects.boss.mimic);
+    return;
+  }
+
+  // THE LATCH: a colony hung over the field by a tendril hooked into the
+  // hull, hauled down hand over hand on its two grips, a body torn off it at
+  // every knot (`latch-draw.ts`); its grips' verdicts on a touch are
+  // `latch-verdicts.ts`.
+  drawLatch(ctx, l, world, boss, beat, beatPhase, time, effects.boss.latch);
 }

@@ -20,6 +20,7 @@ import { HIVE_CONTROLS } from "./field-controls-hive.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
 import { KEEL_CONTROLS } from "./field-controls-keel.js";
 import { LAMPREY_CONTROLS } from "./field-controls-lamprey.js";
+import { LATCH_CONTROLS } from "./field-controls-latch.js";
 import { LEAD_CONTROLS } from "./field-controls-lead.js";
 import { LEDGER_CONTROLS } from "./field-controls-ledger.js";
 import { MANTLE_CONTROLS } from "./field-controls-mantle.js";
@@ -208,4 +209,6 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE LAMPREY's jaw and teeth, the only pair here where **one seat's level
   // follows a part that crawls** while the other's edge picks at it (`field-controls-lamprey.ts`).
   ...LAMPREY_CONTROLS,
+  // THE LATCH's two grips, whose owner the simulation crosses in a `cross` level.
+  ...LATCH_CONTROLS,
 ];

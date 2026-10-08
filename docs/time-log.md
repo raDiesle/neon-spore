@@ -35609,3 +35609,19 @@ Bottleneck: looking — `bun run shot` needed `--open "▣ DOCUMENTATION"
 --inner STATES --click '[data-group=…] h2'`, found by reading the director.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE LATCH is drawn: the colony, its tendril and the two grips
+
+- reading: 10 min. THE MANTLE's and THE PLUMB's grips, THE LAMPREY's look
+  lane for its registrations, THE CHOIR's metaball skin.
+- writing: 25 min. The pose, the shape, the draw, the handles, the hit
+  test and the verdicts; the harness and two tests; the director's rows; a
+  simulation fix for a thumb held through the rest, found while wiring it.
+- looking: 10 min. Four frames: the colony read as one lump, then too small,
+  then lit in squares where the sprites overlapped, then right.
+- friction: 0 min.
+- landing: 10 min. The field page's and the catalogue's counts; three
+  roll-out tests (the verdicts, the pull's way, TEST's mouse); `check:fast`,
+  `land`.
+
+Bottleneck: the look itself — three frames to get six bodies to read as six.

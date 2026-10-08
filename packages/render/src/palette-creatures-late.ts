@@ -131,4 +131,14 @@ export const LATE_CREATURE_HUES = {
   mimicSkinDark: "#0A140E",
   mimicSign: "#C4F6FF",
   mimicCore: "#33413A",
+  /**
+   * THE LATCH (§11.61): a dull bile ochre for the colony's skin, far from
+   * both cannons and from THE LAMPREY's olive, and its outline; the tendril
+   * a shade paler, so the rope reads as the colony's own; and the knot a pale
+   * cream, the brightest thing on it — the next to come in is the one lit.
+   */
+  latchSkin: "#8C7A34",
+  latchSkinDark: "#2A230C",
+  latchTendril: "#A8934A",
+  latchKnot: "#F0E2A0",
 } as const;

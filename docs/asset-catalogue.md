@@ -1,6 +1,6 @@
 # The asset catalogue
 
-> **Status: ten drafts, twenty-one claimed, eight set free and two moved to VERSUS so far.** A draft is a picture
+> **Status: nine drafts, twenty-two claimed, eight set free and two moved to VERSUS so far.** A draft is a picture
 > offered to an idea, not a decision about it. Nothing on this page is in the
 > game until it is claimed — its parameters moving into `packages/content`, or
 > into `packages/render` where what was drawn is a mechanism rather than a
@@ -276,6 +276,9 @@ Said plainly, because a catalogue that oversells itself is worse than none.
   if one of them stops. What that does **not** say is whether the parting reads
   at creature size on a phone — five bodies at a fifth of a tile each may be a
   spread, or may be a smear. That is an eye's question and it is open.
+  THE LATCH took COLONY (8 October 2026) at boss size, six bodies a body a
+  knot, where losing one is the point (`render/latch-shape.ts`); at that size
+  the parting is not in question, and at a creature's it still is.
 - **The glyph rim is a notch pattern, not glyphs.** COUNTDOWN · MARKS and THE
   CODEX scroll a wave around their outline. Whether a *key* can be read off it
   is unanswered; the *count* was answered another way when THE COUNT was built

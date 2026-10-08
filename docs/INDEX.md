@@ -2310,6 +2310,12 @@ by hand never moves.
 | `packages/render/src/lamprey-receipts.ts` | **THE LAMPREY's receipts, drawn** — what `lamprey-fx.ts` holds between frames |
 | `packages/render/src/lamprey-handles.ts` | **THE LAMPREY's handles**, in the field's one look for a thumb's control (`pull-knob.ts`, `pull-track.ts`) |
 | `packages/render/src/lamprey-crumbs.ts` | **The crumbs THE LAMPREY leaves where it eats** (the owner, 6 October 2026 |
+| `packages/render/src/latch-draw.ts` | **THE LATCH** drawn: the colony in its one skin, the tendril and its knots, the coil on the hull, the grips |
+| `packages/render/src/latch-grip.ts` | **The thumbs on THE LATCH** (§11.61): the two grips on the tendril, pulled down |
+| `packages/render/src/latch-handles.ts` | **THE LATCH's two grips**, in the field's one look for a thumb's control (`pull-knob.ts`, `pull-track.ts`) |
+| `packages/render/src/latch-pose.ts` | **How THE LATCH stands this frame**, read off the simulation and nothing else (§11.61) |
+| `packages/render/src/latch-shape.ts` | **THE LATCH's shape** (§11.61): the shape sheet's COLONY — small bodies sharing one skin |
+| `packages/render/src/latch-verdicts.ts` | **THE LATCH's grips answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
 | `packages/render/src/ledger-cord.ts` | **The cord**, and the one hole in the ship it goes into |
 | `packages/render/src/ledger-cord-shape.ts` | **Where THE LEDGER's cord is**, in field pixels: where it leaves the body and where it goes into the ship |
 | `packages/render/src/ledger-draw.ts` | **THE LEDGER**: a tall split body high in the field on a single thick cord running down into the pair's own… |
@@ -3112,6 +3118,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-bosses.ts` | Every boss's grips on the ON THE FIELD tab, in the tab's order: one file a boss |
 | `tools/director/src/poses-field-controls-plumb.ts` | THE PLUMB's pull: the left weight asked for, the bob skewed left |
 | `tools/director/src/poses-field-controls-lamprey.ts` | THE LAMPREY's hands, **each photographed from the seat that presses it**: the tail from the pilot's screen |
+| `tools/director/src/poses-field-controls-latch.ts` | THE LATCH's grips, hand over hand: the first level lit, the navigator holding the right grip |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-mechanics-reads.ts` | the last four mechanics poses: a pod hanging, a pod falling, and the radar from each seat |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
@@ -3644,6 +3651,7 @@ by hand never moves.
 | `tools/director/src/field-controls-lead.ts` | **THE LEAD's stalk**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-ledger.ts` | **The navigator's two hands on THE LEDGER's root**, in a file of its own |
 | `tools/director/src/field-controls-lamprey.ts` | THE LAMPREY's tail, head and teeth, as rows of the ON THE FIELD tab: the holder's thumb on the tail |
+| `tools/director/src/field-controls-latch.ts` | THE LATCH's two grips, as two rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-vane.ts` | **THE VANE's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-valve.ts` | THE VALVE's two handles, as rows of the ON THE FIELD tab: the wheel, the pilot's |
 | `tools/director/src/field-controls-vise.ts` | THE VISE's two lobe pinches, as rows of the ON THE FIELD tab |

@@ -108,6 +108,10 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "The drum's middle or its cradle, haloed on the screen of the seat that steers this step.",
     move: "Carried sideways, the cradle rocks and bares that side's face; on a lift it drifts back level.",
   },
+  "THE LATCH'S LEFT GRIP": {
+    find: "A knob a column either side of the tendril — left the pilot's, right the navigator's, swapped in a cross. The one to pull wears the arrow down.",
+    move: "The press holds the rope; the puller's knob carries it down after the thumb and a knot comes in past the grips. Both off at once and it slips back to the last knot.",
+  },
   // CARRY TO A PLACE
   "THE SCUTTLE'S PART": {
     find: "A ring on every loose part hanging on its thread, on the pilot's screen only, sliding down the thread with the part.",

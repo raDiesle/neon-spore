@@ -101,11 +101,10 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
       floor: 0.35,
     }),
     motion: SHIVER,
-    status: "draft",
+    status: "taken",
     slot: "creature",
-    suggests: "The Colony",
     owner:
-      "reads as several things at once at any size, which is what a thing that spreads has to do; each body is small enough that losing one changes the silhouette",
+      "THE LATCH, taken 8 October 2026: six bodies, one a knot, on a ring round a knot of skin the tendril grows out of, traced from the same metaball field at THE CHOIR's coarse grid; every knot hauled in tears a body off, from the rope up, so what is left to haul is counted on the colony (`render/latch-shape.ts`). Before that: reads as several things at once at any size, which is what a thing that spreads has to do; each body is small enough that losing one changes the silhouette",
   },
   {
     subject: crystal(

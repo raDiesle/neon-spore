@@ -11906,11 +11906,39 @@ rears.
 cues; a grip is heard on its own side, a knot rises as they add up, and a
 slip falls further the more it lost.
 
-**What is not built.** The look: the slime, its rope and its knots, the
-grips drawn as handles to pull down, the cue words, the verdicts and the
-receipts — every latch event is silent on the field until then
-(`effects-spark-silent-boss-e.ts`), and the grips are `unbuilt` in
-`tools/director/test/on-field-controls.test.ts`. The guide film.
+**The look** (`render/src/latch-draw.ts`, `latch-shape.ts`, `latch-pose.ts`),
+a look with no shipped alternative. **The body is the shape sheet's COLONY**
+— small bodies sharing one skin — at six, one a knot, on a ring round a knot
+of skin the tendril grows out of, traced from THE CHOIR's metaball field and
+lit by one key light, with a crease where each body meets the core. **Every
+knot hauled in tears a body off**, from the rope up, so what is left to haul
+is counted on the colony. It is **stretched toward the ship** by the rope
+pulled since the last knot, so a slip is seen to spring it back; it **rears**
+up and tips its ring edge-on in the beats before a yank, and snaps back down
+after; it drops in at the start and goes off the top torn loose at the end.
+**The tendril** runs down the middle to a hook in the hull, a ring every half
+tile riding down with it so even a short pull is seen to move it; the knots
+ride down it and pass the grips the instant the simulation counts them, the
+next one lit, the ones in dull; the rope hauled in coils on the hull.
+
+**The grips** (`render/latch-grip.ts`, `latch-handles.ts`) are the field's
+one pull knob, a column either side of the tendril, each tied to it by a
+strap that pulls taut while a thumb has it. **The press is a message** — a
+resting thumb holds — and the carry down is the depth. The grip whose turn
+it is wears the arrow down and, on its own seat's screen, a channel one pull
+long; the holding grip is a knob with no arrow; the partner's is drawn dim.
+**A press on the partner's grip is sent through** and refused aloud
+(`latchWrong`) rather than falling through to the cannon. **Every grip answers
+a touch the way every mark does** (`render/latch-verdicts.ts`): while a level
+is lit both grips ask, the halo on this seat's own and the partner's ring and
+clock on theirs; a grip taken, a pull that passes the turn and a yank held
+green it, a press on the partner's grip and a slip redden it. TEST's one
+mouse is told whose grip is under it before the press (`latchGripSeatAt`).
+
+**What is not built.** The cue words over the grips (PULL, HOLD), AUTO's cards
+in the STATES sheet with the marks they ask for, and the receipts — a body torn off, a slip, a yank held, the blow at the hull — so
+every latch event is still silent on the field (`effects-spark-silent-boss-e.ts`).
+The guide film.
 
 **What is proven, and what is not.** `sim/test/latch.test.ts` proves the
 rules: the install and the first level; whose grip is whose and the wrong
@@ -11919,7 +11947,10 @@ pull let go passes the turn, a short one does not; both off slips back to
 the last knot and keeps the turn; a knot is kept; a level won lights the
 next; a yank rears first and slips a rope held by one hand, and is held by
 two; the cross swaps the grips; a level run out tears the hull; the script
-ends torn loose and out; the same seed and thumbs hash the same. Whether a
+ends torn loose and out; a thumb resting through the rest keeps its hold,
+and a cross lets go of both grips; the same seed and thumbs hash the same.
+`render/test/latch-frame.test.ts` proves the picture on all three screens
+and `latch-grip.test.ts` real thumbs on the grips. Whether a
 pair can keep *mine — yours* going aloud at tempo, and whether the yanks
 read — the owner's eye — has never been watched.
 

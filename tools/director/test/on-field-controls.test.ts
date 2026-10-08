@@ -451,10 +451,9 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   lampreyTail: "field",
   lampreyHead: "field",
   lampreyTooth: "field",
-  // THE LATCH's two grips: heard by `sim/latch-hand.ts`, and no handle on the
-  // field until its look lane draws them, as every one above it.
-  latchGripLeft: "unbuilt",
-  latchGripRight: "unbuilt",
+  // THE LATCH's two grips on the tendril (`render/latch-grip.ts`, §11.61).
+  latchGripLeft: "field",
+  latchGripRight: "field",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

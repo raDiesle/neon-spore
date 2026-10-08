@@ -66,6 +66,8 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE PLUMB'S LEFT STONE",
       "THE PLUMB'S RIGHT STONE",
       "THE CAPSTAN'S PULL",
+      "THE LATCH'S LEFT GRIP",
+      "THE LATCH'S RIGHT GRIP",
     ],
   },
   {
