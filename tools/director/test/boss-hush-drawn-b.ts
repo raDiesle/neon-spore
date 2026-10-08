@@ -1,10 +1,4 @@
-import {
-  type BossKind,
-  davitLitStep,
-  scuttlePartCol,
-  trapezeCatching,
-  trapezeLitStep,
-} from "@neon-spore/sim";
+import { type BossKind, davitLitStep, scuttlePartCol } from "@neon-spore/sim";
 import { antiphonOrganCircle, antiphonPerch } from "../../../packages/render/src/antiphon-shape.js";
 import { davitAngle } from "../../../packages/render/src/davit-pose.js";
 import { DAVIT_SAG, davitHook, davitMast } from "../../../packages/render/src/davit-shape.js";
@@ -13,9 +7,6 @@ import { scuttleLockBox } from "../../../packages/render/src/scuttle-lock.js";
 import { scuttleRowY, scuttleShiver } from "../../../packages/render/src/scuttle-shape.js";
 import { sinewHandleCircle } from "../../../packages/render/src/sinew-handles.js";
 import { sinewLanded, sinewMassCentre } from "../../../packages/render/src/sinew-shape.js";
-import { trapezeMarks } from "../../../packages/render/src/trapeze-marks.js";
-import { trapezeArrived } from "../../../packages/render/src/trapeze-pose.js";
-import { trapezeSpindleAt } from "../../../packages/render/src/trapeze-shape.js";
 import {
   showsAntiphonOrgan,
   showsAntiphonRail,
@@ -32,8 +23,6 @@ import type { Drawn, Mark } from "./boss-hush-drawn.js";
 
 /** How far under the organ's centre its ring sits (`antiphon-grip.ts`'s `GRIP_DOWN`). */
 const ORGAN_GRIP_DOWN = 0.45;
-/** How far the body drops in from above on arrival, in tiles (`trapeze-draw.ts`'s `ARRIVE`). */
-const TRAPEZE_ARRIVE = 3;
 
 export const DRAWN_B: Partial<Record<BossKind, Drawn>> = {
   // The live part over the column it hangs in, on the screen shown it, and
@@ -82,28 +71,6 @@ export const DRAWN_B: Partial<Record<BossKind, Drawn>> = {
     }
     if (showsAntiphonRail(l.role, s)) {
       for (const c of s.rail) marks.push({ id: -100 - c.col, ...antiphonPerch(l, cfg, c.col) });
-    }
-    return marks;
-  },
-  // The spindle while a fire is asked of it, and the catch's ring at the lit
-  // step's mark with the track's head under it, all in the body's drop. The
-  // flag's lay swings only the canvas.
-  trapeze: (l, world, phase) => {
-    const s = world.boss;
-    if (s?.kind !== "trapeze") return [];
-    const step = trapezeLitStep(s);
-    if (step === null) return [];
-    const cfg = world.cfg;
-    const dy = -(1 - trapezeArrived(s, cfg, world.beat, phase)) * TRAPEZE_ARRIVE * l.tile;
-    const marks: Mark[] = [];
-    if (step.ask === "fire" && s.spindleLit) {
-      const at = trapezeSpindleAt(l, cfg);
-      marks.push({ id: -3, x: at.x, y: at.y + dy });
-    }
-    if (trapezeCatching(s)) {
-      const { ring, to } = trapezeMarks(l, cfg, step);
-      marks.push({ id: -1, x: ring.x, y: ring.y + dy });
-      marks.push({ id: -2, x: to.x, y: to.y + dy });
     }
     return marks;
   },

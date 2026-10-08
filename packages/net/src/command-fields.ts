@@ -52,7 +52,7 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "halterChordLeft", "halterChordRight",
   "capstanSteer", "capstanRub",
   "gallPress",
-  "trapezeFreeze", "trapezeDraw",
+  "trapezePushLeft", "trapezePushRight", "trapezeLock",
   "governorTap",
   "gaugeTooth",
   "gaugeTongue",

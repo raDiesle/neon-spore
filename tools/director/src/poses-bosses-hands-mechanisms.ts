@@ -1,4 +1,4 @@
-import { plumbHand, slingHand } from "@neon-spore/hands";
+import { plumbHand, slingHand, trapezeHand } from "@neon-spore/hands";
 import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
@@ -7,7 +7,8 @@ import { bossPose } from "./poses-bosses-kit.js";
  * and standing, no step lit yet. Their other states are the look lanes' and
  * stay on `OWED` (`test/boss-states.test.ts`) — but for THE PLUMB's bleed
  * and THE SLING's cool, each row 11's look, played to by its own hand: every
- * step answered, both thumbs up after the last shot.
+ * step answered, both thumbs up after the last shot. THE TRAPEZE's swing
+ * coming down on its ropes, and its first level pushed by its own hand.
  */
 export const MECHANISM_POSES: Pose[] = [
   bossPose(
@@ -57,6 +58,22 @@ export const MECHANISM_POSES: Pose[] = [
       hold: Math.round(TPB * 1.4),
       budgetBeats: 160,
       lookAt: "the cup cooling — whether it reads as heat dying, or as a lamp dimming",
+    },
+  ),
+  bossPose(
+    "trapeze",
+    "enter",
+    "The swing comes down on its long ropes over the middle, the alien on the plank. P1 and P2 wait: nothing is lit yet.",
+    { lookAt: "the ropes — whether they read as hung from above the screen, or as cut off" },
+  ),
+  bossPose(
+    "trapeze",
+    "level",
+    "Level one: P1 swipes the left zone, P2 the right, as the swing comes back over it. The gauge climbs to the gong.",
+    {
+      hand: trapezeHand,
+      hold: TPB * 6,
+      lookAt: "the gauge under the arc — whether it reads as how high the swing goes",
     },
   ),
 ];

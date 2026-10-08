@@ -67,6 +67,10 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "The raked hull's wound on the navigator's screen, haloed for the beats it floats.",
     move: "Pulled down while the pilot's thumb is still on the hull, the wreck sinks and the wound goes green.",
   },
+  "THE TRAPEZE'S LEFT ZONE": {
+    find: "The left half of the field under the swing, badged P1 or P2, lit with chevrons while the swing comes back over it.",
+    move: "A swipe toward the middle pushes the swing higher, green; too early brakes it, and a wrong seat or way says why, red.",
+  },
   // LEVER — CARRY TO A DEPTH AND HOLD
   "THE LID'S CORD": {
     find: "A resting circle on a cord under every armoured eye on the field.",
@@ -158,10 +162,6 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
   "THE DAVIT'S LEFT LOOSE": {
     find: "Anywhere on the field; the hook wears the halo on the drawer's screen.",
     move: "The draw counts while the partner holds the boom on the lit column; the lift's swipe towards the target looses it.",
-  },
-  "THE TRAPEZE'S DRAW": {
-    find: "A track under the ring, from the pivot towards the lit column, haloed on the drawer's screen.",
-    move: "The draw counts its beats; a swipe towards the lit column on the lift catches the frozen flag, green, or flutters, red.",
   },
   // TURN A WHEEL
   "THE GIMBAL'S OUTER RING": {

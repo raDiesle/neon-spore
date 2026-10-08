@@ -56,7 +56,7 @@ export type ScriptedBossEntry =
   | CapstanEntry
   // The one that authors closes as well as shots: a nodule pinched where it sits and moved (`gall.ts`).
   | GallEntry
-  // The one that authors catches as well as shots: a flag one seat taps still for the other to catch (`trapeze.ts`).
+  // The one that authors levels of swipes and shots: a swing pushed higher until it kicks a gong (`trapeze.ts`).
   | TrapezeEntry
   // The one that authors levels of a weapon, a colour, a speed and a slow: an ember one seat sees and the other shoots (`flue.ts`).
   | FlueEntry

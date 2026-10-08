@@ -1,162 +1,131 @@
-import type { Color, SimConfig, TrapezeStep } from "@neon-spore/sim";
-import { arcFromTop } from "./arc-from-top.js";
+import type { SimConfig, TrapezeSide } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
-import type { Circle, Layout } from "./layout.js";
-import { drawLitCore } from "./lit-core.js";
+import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { stepColour } from "./step-colour.js";
-import { type Point, trapezePivot, trapezeTip } from "./trapeze-shape.js";
+import { trapezeOnArc } from "./trapeze-shape.js";
 
 /**
- * **THE TRAPEZE's marks**: what says what a step asks. A **ring** over the lit
- * column where the boom's tip would be, which is *tap it still here*; a
- * **track** running from the middle toward the lit column's side, which is
- * *hold, then swipe this way* — a swipe is a track and never a ring, so the
- * two hands cannot be mistaken for each other at a glance; and the spindle's
- * three **studs**, lit in the colour a shot must be, one going dark for each
- * shot taken.
+ * **THE TRAPEZE's two zones**: the left and the right half of the field under
+ * the swing, where a finger swipes toward the middle to push it. The owner,
+ * 7 October 2026: *it should be made clear visually in which area what has to
+ * be done and when.*
  *
- * The ring and the track are the white of the hull's rim, full on the screen
- * of the seat whose hand it is and a faint plain line on the other's, so the
- * seat that is not asked still sees what its partner is being asked for and
- * can say it. The studs are the only cannon colour on the body,
- * `stepColour`'s, called rather than copied.
+ * **Where**: each zone is its half of the field from the swing's lowest
+ * point down to a row above the hull, so a thumb never lands on the cannon.
+ * **Whose**: a badge in each, `P1` or `P2`, the seat that pushes there — a
+ * call level changes it as the swing heads that way. **When**: a zone is dim
+ * while the swing is anywhere else, and lights the moment the swing comes
+ * back over it, with a chevron pointing down and in, toward the middle,
+ * which is the swipe. On the screen of the seat whose zone it is not, a lit
+ * zone is faint: the partner sees it and can say *now*.
+ *
+ * `trapezeZone` is the one placement the drawing and the thumb share
+ * (`trapeze-grip.ts`).
  */
 
-/** How strong a hand's mark is on the screen of the seat it is not for. */
-const OTHER = 0.3;
-/** The freeze ring's radius, in tiles. */
-const RING = 0.46;
-/** How far below the boom's tip the draw's track runs, in tiles: under a flag hanging limp. */
-const TRACK_BELOW = 1.75;
-/** Studs up the spindle, top to bottom, as shares of its half-height. */
-const STUDS = [-0.62, 0, 0.62] as const;
+/** How much of a zone shows on the screen of the seat that does not push there. */
+const OTHER = 0.35;
+/** Rows of the field the zones leave free above the hull, for the cannon. */
+const FREE_ROWS = 1.2;
 
-/**
- * Where a catching step's two marks stand: the ring over the lit column,
- * where the boom's tip would be, and the track from under the pivot to under
- * the ring. **One answer for the drawing and the thumb** (`trapeze-grip.ts`),
- * so a mark is never drawn in one place and pressed in another. The fixture
- * is still only while it is catching, so no swing-in is folded in here.
- */
-export function trapezeMarks(
-  l: Layout,
-  cfg: SimConfig,
-  step: Pick<TrapezeStep, "offset">,
-): { ring: Circle; from: Point; to: Point } {
-  const at = trapezeTip(l, cfg, step.offset * 1000);
-  const y = at.y + TRACK_BELOW * l.tile;
-  const ring = { x: at.x, y: at.y, r: RING * l.tile };
-  return { ring, from: { x: trapezePivot(l, cfg).x, y }, to: { x: at.x, y } };
+export interface Zone {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+/** The zone on `side`, in canvas pixels. */
+export function trapezeZone(l: Layout, cfg: SimConfig, side: TrapezeSide): Zone {
+  const top = trapezeOnArc(l, cfg, 0).y;
+  const mid = trapezeOnArc(l, cfg, 0).x;
+  const bottom = l.hullY - FREE_ROWS * l.tile;
+  const left = side < 0 ? l.gridLeft : mid;
+  const w = side < 0 ? mid - l.gridLeft : l.gridLeft + l.cols * l.tile - mid;
+  return { x: left, y: top, w, h: Math.max(l.tile, bottom - top) };
+}
+
+/** Whether (x, y) is inside `z`. */
+export function inZone(z: Zone, x: number, y: number): boolean {
+  return x >= z.x && x <= z.x + z.w && y >= z.y && y <= z.y + z.h;
 }
 
 /**
- * The freeze ring at `at`. On its seat's screen (`full`) it breathes on the
- * beat with a second ring closing as the window runs out, `left` of it
- * still to go, and fills while the flag is frozen; elsewhere it is faint.
+ * One zone: its frame, its seat's badge, and — while `open` — its light and
+ * the chevron pointing in. `mine` is whether this screen's seat pushes here;
+ * `pulse` 0..1 breathes the light.
  */
-export function drawTrapezeRing(
+export function drawTrapezeZone(
   ctx: CanvasRenderingContext2D,
-  at: Circle,
-  left: number,
-  frozen: boolean,
-  full: boolean,
-  beatPhase: number,
+  l: Layout,
+  z: Zone,
+  side: TrapezeSide,
+  seat: 1 | 2,
+  open: boolean,
+  mine: boolean,
+  pulse: number,
 ): void {
-  const r = at.r;
-  const ring = new Path2D();
-  ring.arc(at.x, at.y, r, 0, Math.PI * 2);
-  if (!full) {
+  const k = mine ? 1 : OTHER;
+  const r = 0.3 * l.tile;
+  const frame = new Path2D();
+  frame.roundRect(z.x + 0.1 * l.tile, z.y, z.w - 0.2 * l.tile, z.h, r);
+  if (open) {
+    ctx.fillStyle = rgba(PALETTE.hullRim, (0.08 + 0.08 * pulse) * k);
+    ctx.fill(frame);
+    strokeGlow(ctx, frame, PALETTE.hullRim, STROKE.inner, k, 1);
+    drawChevrons(ctx, l, z, side, k, pulse);
+  } else {
     ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.hullRim, OTHER);
-    ctx.stroke(ring);
-    return;
+    ctx.setLineDash([0.18 * l.tile, 0.18 * l.tile]);
+    ctx.strokeStyle = rgba(PALETTE.hullRim, 0.22 * k);
+    ctx.stroke(frame);
+    ctx.setLineDash([]);
   }
-  if (frozen) {
-    ctx.fillStyle = rgba(PALETTE.hullRim, 0.16);
-    ctx.fill(ring);
-  }
-  const pulse = frozen ? 1 : 0.65 + 0.35 * Math.cos(beatPhase * Math.PI * 2);
-  strokeGlow(ctx, ring, PALETTE.hullRim, STROKE.outline, pulse, 1);
-  const time = new Path2D();
-  arcFromTop(time, at.x, at.y, r * 1.3, left);
-  strokeGlow(ctx, time, PALETTE.hullRim, STROKE.inner, 0.6, 1);
+  drawBadge(ctx, l, z, side, seat, open ? k : 0.45 * k);
 }
 
-/**
- * The draw's track from `from` to `to`, a chevron at its head. On the aiming
- * seat's screen the track is filled from its tail by `drawn` — the beats the
- * finger has been down, over the beats a draw needs — and glows whole once
- * the draw is ready to swipe.
- */
-export function drawTrapezeTrack(
+/** Three chevrons down and in toward the middle, stepping with `pulse`. */
+function drawChevrons(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  from: Point,
-  to: Point,
-  drawn: number,
-  full: boolean,
+  z: Zone,
+  side: TrapezeSide,
+  k: number,
+  pulse: number,
 ): void {
-  const head = 0.18 * l.tile;
-  const way = Math.sign(to.x - from.x) || 1;
-  const track = new Path2D();
-  track.moveTo(from.x, from.y);
-  track.lineTo(to.x, to.y);
-  track.moveTo(to.x - way * head, to.y - head);
-  track.lineTo(to.x, to.y);
-  track.lineTo(to.x - way * head, to.y + head);
+  const way = -side;
+  const cx = z.x + z.w / 2;
+  const cy = z.y + z.h / 2;
+  const size = 0.42 * l.tile;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
-  if (!full) {
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.hullRim, OTHER);
-    ctx.stroke(track);
-    return;
+  for (let i = 0; i < 3; i++) {
+    const t = (i - 1) * 0.75 * l.tile + pulse * 0.25 * l.tile;
+    const x = cx + way * t;
+    const y = cy + 0.4 * t;
+    const head = new Path2D();
+    head.moveTo(x - way * size, y - size);
+    head.lineTo(x, y);
+    head.lineTo(x - way * size * 0.2, y + size);
+    strokeGlow(ctx, head, PALETTE.hullRim, STROKE.outline, k * (0.45 + 0.25 * i), 1);
   }
-  strokeGlow(ctx, track, PALETTE.hullRim, STROKE.inner, drawn >= 1 ? 1 : 0.45, 1);
-  if (drawn <= 0 || drawn >= 1) return;
-  const filled = new Path2D();
-  filled.moveTo(from.x, from.y);
-  filled.lineTo(from.x + (to.x - from.x) * drawn, from.y + (to.y - from.y) * drawn);
-  strokeGlow(ctx, filled, PALETTE.hullRim, STROKE.outline, 1, 1);
 }
 
-/**
- * The spindle's three studs round its middle, `tall` its half-height: the
- * top `hits` spent and dark, the rest glowing faint by `glow` while the
- * spindle is lit, and lit in the step's colour with a ring closing while a
- * shot is owed, `left` of the step to go.
- */
-export function drawTrapezeStuds(
+/** The badge in the zone's top outer corner: the seat that pushes here. */
+function drawBadge(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  tall: number,
-  hits: number,
-  glow: number,
-  lit: { color: Color | "either"; left: number } | null,
-  beatPhase: number,
+  z: Zone,
+  side: TrapezeSide,
+  seat: 1 | 2,
+  k: number,
 ): void {
-  const r = 0.11 * l.tile;
-  STUDS.forEach((share, i) => {
-    const stud = new Path2D();
-    stud.arc(0, share * tall, r, 0, Math.PI * 2);
-    if (i < hits || (glow <= 0 && lit === null)) {
-      ctx.fillStyle = PALETTE.trapezeSteelDark;
-      ctx.fill(stud);
-      return;
-    }
-    ctx.fillStyle = rgba(PALETTE.hullRim, 0.25 + 0.45 * glow);
-    ctx.fill(stud);
-    // Lit for its step, from inside, and nothing past its edge (`lit-core.ts`).
-    // The ring is the column's, once, round the spindle rather than each stud.
-    if (lit !== null)
-      drawLitCore(ctx, stud, { ...lit, left: 0 }, beatPhase, { x: 0, y: share * tall, r }, 0);
-  });
-  if (lit === null) return;
-  const ring = new Path2D();
-  arcFromTop(ring, 0, 0, tall * 1.35, lit.left);
-  ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = rgba(stepColour(lit.color).body, 0.75);
-  ctx.stroke(ring);
+  const x = side < 0 ? z.x + 0.75 * l.tile : z.x + z.w - 0.75 * l.tile;
+  const y = z.y + 0.6 * l.tile;
+  ctx.font = `700 ${Math.round(0.42 * l.tile)}px "Courier New",monospace`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = rgba(PALETTE.hullRim, k);
+  ctx.fillText(`P${seat}`, x, y);
 }

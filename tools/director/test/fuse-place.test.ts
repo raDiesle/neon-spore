@@ -43,7 +43,9 @@ import { stageField } from "../src/stage-field.js";
  * back to the cannon on the hull and would be excused the same way, which is
  * how five bosses hid there until page four (`slow-boss-aim-d.ts`) gave them
  * rows: those five must now be walked, and leave a gap on every tick, and so
- * must THE NETTLE, given its row once its body was drawn. Every
+ * must THE NETTLE, given its row once its body was drawn. THE TRAPEZE was
+ * one of the five until its rework of 7 October 2026 took THE SLOW off it.
+ * Every
  * window must still be walked by somebody: THE INSTAR's, at least, and THE
  * REPRISE's clock.
  */
@@ -63,7 +65,7 @@ const crosses = (a: Box, b: Box): boolean =>
   a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
 
 /** The bosses that must be walked, and the ones that must leave a gap on every tick. */
-const GAPPED: readonly string[] = ["seam", "halter", "capstan", "gall", "trapeze", "nettle"];
+const GAPPED: readonly string[] = ["seam", "halter", "capstan", "gall", "nettle"];
 const WALKED: readonly string[] = ["instar", "reprise", ...GAPPED];
 
 interface Walked {

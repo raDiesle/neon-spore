@@ -75,17 +75,25 @@ export const CHOREO_FIELD_GROUP_D = {
   gallOpenMilli: "THE GALL — the boss that moves the moment it is closed",
   gallShutMilli: "THE GALL — the boss that moves the moment it is closed",
   gallFlatBeats: "THE GALL — the boss that moves the moment it is closed",
-  // TrapezeConfig — the slack before the first step, the rest between, the
-  // spent flag, the span and the default sweep, how near the column a tap
-  // lands, and how long a freeze and a draw last (`config-trapeze.ts`).
-  trapezeSlackBeats: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
-  trapezeRestBeats: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
-  trapezeSpentBeats: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
-  trapezeSpanMilli: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
-  trapezeSweepMilli: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
-  trapezeMarkMilli: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
-  trapezeFreezeBeats: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
-  trapezeDrawBeats: "THE TRAPEZE — a flag stilled by one seat and caught by the other",
+  // TrapezeConfig — the swing coming down, the rest between levels and the
+  // spent swing; its ropes, its period and its reach; a push, a brake, the
+  // damping and what a gong leaves; a swipe's run, a shot's reach and the
+  // lock's length (`config-trapeze.ts`).
+  trapezeEnterBeats: "THE TRAPEZE — an alien swung up to a gong",
+  trapezeRestBeats: "THE TRAPEZE — an alien swung up to a gong",
+  trapezeSpentBeats: "THE TRAPEZE — an alien swung up to a gong",
+  trapezeAnchorMilli: "THE TRAPEZE — an alien swung up to a gong",
+  trapezeRopeMilli: "THE TRAPEZE — an alien swung up to a gong",
+  trapezePeriodBeats: "THE TRAPEZE — an alien swung up to a gong",
+  trapezeStartMilli: "THE TRAPEZE — an alien swung up to a gong",
+  trapezeMaxMilli: "THE TRAPEZE — an alien swung up to a gong",
+  trapezePushMilli: "THE TRAPEZE — an alien swung up to a gong",
+  trapezeBrakeMilli: "THE TRAPEZE — an alien swung up to a gong",
+  trapezeDampMilli: "THE TRAPEZE — an alien swung up to a gong",
+  trapezeKeepMilli: "THE TRAPEZE — an alien swung up to a gong",
+  trapezeSwipeMilli: "THE TRAPEZE — an alien swung up to a gong",
+  trapezeHitMilli: "THE TRAPEZE — an alien swung up to a gong",
+  trapezeLockBeats: "THE TRAPEZE — an alien swung up to a gong",
   // FlueConfig — the slack before the first level, the pause between, the
   // fade once spent, the slot's span, the row, how near a shot must meet
   // the ember, and the shots a level gives (`config-flue.ts`).

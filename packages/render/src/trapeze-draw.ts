@@ -1,83 +1,66 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import {
-  midCol,
   type TrapezeState,
-  trapezeAims,
-  trapezeCatching,
-  trapezeFreezes,
-  trapezeFrozen,
+  type TrapezeStep,
+  trapezeCaller,
   trapezeLitStep,
+  trapezeLocked,
+  trapezeOpenZone,
+  trapezeSwiping,
   type World,
 } from "@neon-spore/sim";
 import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
-import { coreHurt } from "./core-hurt.js";
-import { strokeGlow } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { splinePath } from "./spline.js";
-import { stepColour } from "./step-colour.js";
+import { drawTrapezeArc, drawTrapezeGong } from "./trapeze-arc.js";
 import type { TrapezeFx } from "./trapeze-fx.js";
+import { trapezeAlienCircle } from "./trapeze-grip.js";
+import { drawTrapezeZone, trapezeZone } from "./trapeze-marks.js";
 import {
-  drawTrapezeRing,
-  drawTrapezeStuds,
-  drawTrapezeTrack,
-  trapezeMarks,
-} from "./trapeze-marks.js";
+  drawTrapezeFlash,
+  drawTrapezeGongRing,
+  drawTrapezeLockRing,
+  drawTrapezeWord,
+} from "./trapeze-receipts.js";
 import {
-  trapezeArrived,
-  trapezeAsked,
-  trapezeCaught,
-  trapezeLay,
-  trapezeLeft,
-  trapezeSpent,
-  trapezeSpindleGlow,
-} from "./trapeze-pose.js";
-import { drawTrapezeCrack, drawTrapezeFlash, drawTrapezeSnap } from "./trapeze-receipts.js";
-import {
-  type Point,
-  trapezeColumnPx,
-  trapezeFlagPoints,
-  trapezePivot,
-  trapezeSpindleAt,
-  trapezeSpindlePath,
-  trapezeSpindleTall,
-  trapezeTip,
+  trapezeAlienAt,
+  trapezeAnchor,
+  trapezeBodyPath,
+  trapezeBodyR,
+  trapezeDeg,
+  trapezeGongPx,
+  trapezeGongR,
+  trapezePlank,
+  trapezeSpeed,
 } from "./trapeze-shape.js";
 import { trapezeStopper } from "./trapeze-stop.js";
 import { drawTrapezeMarkFeedback } from "./trapeze-verdicts.js";
 import { showsTrapezeHand } from "./view-role-clocks-c.js";
 
-/** How far above its place the whole fixture starts as it swings in, in tiles. */
-const ARRIVE = 3;
-/** Each seat, and its index into the state's per-seat pairs. */
-const SEATS = [
-  { seat: 1, side: 0 },
-  { seat: 2, side: 1 },
-] as const;
+/** How far above its place the swing starts as it comes down, in tiles. */
+const ARRIVE = 6;
+/** How far down the field the ropes start, and how far they take to fade in, in tiles. */
+const ROPE_CLEAR = 0.6;
+const ROPE_FADE = 2.5;
 
 /**
- * **THE TRAPEZE**: a canvas pennant on a steel boom hanging from a turned
- * spindle over the middle column, swinging across the middle three columns
- * on its own, tapped still by one seat and caught by the other's swipe, and
- * then the spindle shot in the colour it lights (§11.56,
- * `bosses-choreographed.md` §39).
+ * **THE TRAPEZE**: an alien on a swing hung from long ropes over the middle,
+ * pushed higher by the pair until it kicks the gong (§11.56,
+ * `bosses-choreographed.md` §39, the owner's rework of 7 October 2026).
  *
- * **Both screens are drawn the same body.** The boom, the flag and the
- * spindle are on both, because the tap is timed off the flag and the swipe
- * aimed at it; only the marks differ, the freeze ring full for the step's
- * freezer and the track for the seat that draws (`showsTrapezeHand`).
+ * **Both screens are drawn the same swing**, because the push is timed off
+ * it and either seat may be the one called; what differs is how loud a zone
+ * is — full for the seat that pushes there, faint for its partner
+ * (`showsTrapezeHand`).
  *
- * **The flag is drawn where `fx` has eased it to** (`trapeze-fx.ts`), told
- * here each frame where the simulation's place is, so a freeze landing mid-
- * beat slows the flag to a stop and never snaps it; how fast it is going is
- * what streams it out. **Its health is read off the body** — no bar: the
- * canvas brightens with each catch, and the spindle loses a stud and a
- * little of its girth to every shot. What outlives a frame besides — the
- * receipts' snap, crack, light and flash, and the blow the trapeze takes — is
- * `fx` too, told the shot's colour here.
+ * From the back: the zones in a swipe level (`trapeze-marks.ts`), the arc
+ * the seat runs on with how high it goes now and the gong it has to reach
+ * (`trapeze-arc.ts`), the ropes and the plank, and the alien on it. The
+ * swing's place is the simulation's own every tick (`trapeze-shape.ts`);
+ * nothing is eased. What outlives a frame is `fx` (`trapeze-fx.ts`).
  */
 export function drawTrapeze(
   ctx: CanvasRenderingContext2D,
@@ -91,135 +74,152 @@ export function drawTrapeze(
   stops?: BoltStops,
 ): void {
   const cfg = world.cfg;
-  fx.flag.aim(trapezeAsked(s, cfg, beatPhase));
-  const tip = trapezeTip(l, cfg, fx.flag.swing);
-  const pivot = trapezePivot(l, cfg);
-  const lay = trapezeLay(fx, trapezeColumnPx(l, cfg), time);
-  const flagPts = trapezeFlagPoints(l, tip, lay);
-  const off = {
-    x: fx.hurt.shakeX(time, l.tile),
-    y: -(1 - trapezeArrived(s, cfg, beat, beatPhase)) * ARRIVE * l.tile,
-  };
-  stops?.aim(trapezeStopper(l, world, s, time, tip, flagPts, off));
+  const deg = trapezeDeg(cfg, s);
+  const speed = trapezeSpeed(cfg, s);
+  const since = beat - s.phaseBeat + beatPhase;
+  const arrive = s.phase === "enter" ? Math.min(1, since / Math.max(1, cfg.trapezeEnterBeats)) : 1;
+  const gone = s.phase === "spent" ? Math.min(1, since / Math.max(1, cfg.trapezeSpentBeats)) : 0;
+  const off = { x: fx.hurt.shakeX(time, l.tile), y: -(1 - arrive) * ARRIVE * l.tile };
+  stops?.aim(trapezeStopper(l, world, s, off));
 
   ctx.save();
-  ctx.globalAlpha = 1 - 0.5 * trapezeSpent(s, cfg, beat, beatPhase);
+  ctx.globalAlpha = 1 - gone;
+  if (trapezeSwiping(s)) drawZones(ctx, l, world, s, fx, beatPhase);
+  const step = trapezeLitStep(s) ?? s.steps[s.cursor] ?? null;
+  drawTrapezeArc(ctx, l, cfg, s, step, trapezeLitStep(s) !== null);
+  if (step !== null) drawTrapezeGong(ctx, l, cfg, step, s, trapezeLitStep(s) !== null);
+  const rung: TrapezeStep | undefined = s.steps[fx.ringStep];
+  if (rung !== undefined)
+    drawTrapezeGongRing(ctx, trapezeGongPx(l, cfg, rung), trapezeGongR(l), fx.ring, s.gongs);
+
   ctx.translate(off.x, off.y);
-  if (trapezeCatching(s)) drawHands(ctx, l, world, s, beat, beatPhase);
-  const snap = fx.snap;
-  drawTrapezeSnap(ctx, l, trapezeTip(l, cfg, (snap.col - midCol(cfg)) * 1000), snap.now);
-
-  const boom = new Path2D();
-  boom.moveTo(pivot.x, pivot.y);
-  boom.lineTo(tip.x, tip.y);
-  ctx.lineCap = "round";
-  ctx.lineWidth = STROKE.outline * 2.6;
-  ctx.strokeStyle = PALETTE.trapezeSteelDark;
-  ctx.stroke(boom);
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = PALETTE.trapezeSteel;
-  ctx.stroke(boom);
-
-  const flag = splinePath(flagPts, true);
-  ctx.fillStyle = mixHex(PALETTE.trapezeCanvas, PALETTE.trapezeCanvasCaught, trapezeCaught(s));
-  ctx.fill(flag);
-  ctx.save();
-  ctx.clip(flag);
-  litRound(ctx, tip.x - 0.3 * l.tile, tip.y, 1.1 * l.tile, LIGHT_HALF.creature);
+  drawSwing(ctx, l, world, deg);
+  const body = drawAlien(ctx, l, world, deg, speed, time, fx);
+  drawTrapezeFlash(ctx, body, fx.flash);
+  if (trapezeLocked(s)) drawTrapezeLockRing(ctx, trapezeAlienCircle(l, cfg, s), fx.snap, beatPhase);
+  ctx.translate(-off.x, -off.y);
+  drawTrapezeMarkFeedback(ctx, l, cfg, s, time, 1 - gone, fx.verdicts);
+  drawTrapezeWord(ctx, l, cfg, fx.word);
   ctx.restore();
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = rgba(PALETTE.trapezeCanvasDark, 0.95);
-  ctx.stroke(flag);
-  drawHurt(ctx, flag, fx.hurt.value);
-  drawTrapezeCrack(ctx, l, tip, lay.angle, fx.taut);
-  drawKnob(ctx, l, tip, 0.1);
+}
 
-  drawSpindle(ctx, l, world, s, beat, beatPhase, time, fx);
-  drawKnob(ctx, l, pivot, 0.13);
-  const fade = 1 - trapezeSpent(s, cfg, beat, beatPhase);
-  drawTrapezeMarkFeedback(ctx, l, cfg, s, time, fade, fx.verdicts);
-  ctx.restore();
+/** Both zones: lit while the swing comes back over one, badged with the seat that pushes there. */
+function drawZones(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  s: TrapezeState,
+  fx: TrapezeFx,
+  beatPhase: number,
+): void {
+  const open = trapezeOpenZone(world.cfg, s);
+  for (const side of [-1, 1] as const) {
+    const seat = trapezeCaller(s, side) === 0 ? 1 : 2;
+    const pulse = Math.max(
+      fx.push[side < 0 ? 0 : 1],
+      0.5 + 0.5 * Math.cos(beatPhase * Math.PI * 2),
+    );
+    const z = trapezeZone(l, world.cfg, side);
+    drawTrapezeZone(ctx, l, z, side, seat, open === side, showsTrapezeHand(l.role, seat), pulse);
+  }
 }
 
 /**
- * The freeze ring over the lit column and the draw's track toward it, each
- * full if a seat whose hand it is looks at this screen.
+ * The two ropes to the plank's ends, and the plank. The ropes hang from above
+ * the screen, so they fade in down the top of the field from nothing: no boss
+ * touches the top of the screen, where the phone's bar and the seat switcher
+ * stand (`test/boss-top.test.ts`).
  */
-function drawHands(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  world: World,
-  s: TrapezeState,
-  beat: number,
-  beatPhase: number,
-): void {
-  const step = trapezeLitStep(s);
-  if (step === null) return;
-  const cfg = world.cfg;
-  const marks = trapezeMarks(l, cfg, step);
-  const freezer = SEATS.some((k) => trapezeFreezes(s, k.side) && showsTrapezeHand(l.role, k.seat));
-  const aimers = SEATS.filter((k) => trapezeAims(s, k.side) && showsTrapezeHand(l.role, k.seat));
-  const left = trapezeLeft(s, beat, beatPhase);
-  drawTrapezeRing(ctx, marks.ring, left, trapezeFrozen(s), freezer, beatPhase);
-  const drawn = Math.max(
-    0,
-    ...aimers.map((k) =>
-      s.holding[k.side] ? Math.min(1, s.drawnBeats[k.side] / Math.max(1, cfg.trapezeDrawBeats)) : 0,
-    ),
-  );
-  drawTrapezeTrack(ctx, l, marks.from, marks.to, drawn, aimers.length > 0);
+function drawSwing(ctx: CanvasRenderingContext2D, l: Layout, world: World, deg: number): void {
+  const a = trapezeAnchor(l, world.cfg);
+  const [left, right] = trapezePlank(l, world.cfg, deg);
+  const ropes = new Path2D();
+  ropes.moveTo(a.x - 0.2 * l.tile, a.y);
+  ropes.lineTo(left.x, left.y);
+  ropes.moveTo(a.x + 0.2 * l.tile, a.y);
+  ropes.lineTo(right.x, right.y);
+  const top = l.gridTop + ROPE_CLEAR * l.tile;
+  const fade = (hex: string) => {
+    const g = ctx.createLinearGradient(0, top, 0, top + ROPE_FADE * l.tile);
+    g.addColorStop(0, rgba(hex, 0));
+    g.addColorStop(1, rgba(hex, 1));
+    return g;
+  };
+  ctx.save();
+  const below = new Path2D();
+  below.rect(l.gridLeft - l.tile * 4, top, l.cols * l.tile + l.tile * 8, l.hullY - top);
+  ctx.clip(below);
+  ctx.lineCap = "round";
+  ctx.lineWidth = STROKE.outline * 1.8;
+  ctx.strokeStyle = fade(PALETTE.trapezeRopeDark);
+  ctx.stroke(ropes);
+  ctx.lineWidth = STROKE.inner * 1.4;
+  ctx.strokeStyle = fade(PALETTE.trapezeRope);
+  ctx.stroke(ropes);
+  ctx.restore();
+  const plank = new Path2D();
+  plank.moveTo(left.x, left.y);
+  plank.lineTo(right.x, right.y);
+  ctx.lineWidth = STROKE.outline * 3.2;
+  ctx.strokeStyle = PALETTE.trapezeRopeDark;
+  ctx.stroke(plank);
+  ctx.lineWidth = STROKE.outline * 2;
+  ctx.strokeStyle = PALETTE.trapezeWood;
+  ctx.stroke(plank);
 }
 
-/** REVERB on end over the middle column, its studs, its glow while lit, and its receipts. */
-function drawSpindle(
+/** HERALD on the plank: the torso, and the head lagging the swing, with two eyes. Returns the torso. */
+function drawAlien(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
-  s: TrapezeState,
-  beat: number,
-  beatPhase: number,
+  deg: number,
+  speed: number,
   time: number,
   fx: TrapezeFx,
-): void {
-  const at = trapezeSpindleAt(l, world.cfg);
-  const step = trapezeLitStep(s);
-  const glow = trapezeSpindleGlow(s);
-  const hurt = coreHurt(s.hits);
-  const lit =
-    step?.ask === "fire" && s.spindleLit
-      ? { color: step.color, left: trapezeLeft(s, beat, beatPhase) }
-      : null;
-  if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
-  ctx.save();
-  ctx.translate(at.x, at.y);
-  const body = trapezeSpindlePath(l, time, hurt.size);
-  ctx.fillStyle = PALETTE.trapezeSteel;
-  ctx.fill(body);
-  ctx.save();
-  ctx.clip(body);
-  litRound(ctx, -0.12 * l.tile, -0.3 * l.tile, 0.8 * l.tile, LIGHT_HALF.creature);
-  ctx.restore();
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = rgba(PALETTE.trapezeSteelDark, 0.95);
-  ctx.stroke(body);
-  if (lit !== null) strokeGlow(ctx, body, stepColour(lit.color).rim, STROKE.inner, hurt.bright);
-  else if (glow > 0) strokeGlow(ctx, body, PALETTE.hullRim, STROKE.inner, 0.5 * glow);
-  // Both catches in: the spindle lights with a flare that settles to its glow.
-  if (fx.light > 0) strokeGlow(ctx, body, PALETTE.hullRim, STROKE.outline, fx.light);
-  drawHurt(ctx, body, fx.hurt.value);
-  const tall = trapezeSpindleTall(l);
-  drawTrapezeStuds(ctx, l, tall, s.hits, glow, lit, beatPhase);
-  drawTrapezeFlash(ctx, body, tall, fx.flash);
-  ctx.restore();
-}
-
-/** A steel knob `r` tiles round: the boom's pin at the spindle's foot, the flag's at its tip. */
-function drawKnob(ctx: CanvasRenderingContext2D, l: Layout, at: Point, r: number): void {
-  const knob = new Path2D();
-  knob.arc(at.x, at.y, r * l.tile, 0, Math.PI * 2);
-  ctx.fillStyle = PALETTE.trapezeSteel;
-  ctx.fill(knob);
-  ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = PALETTE.trapezeSteelDark;
-  ctx.stroke(knob);
+): Path2D {
+  const at = trapezeAlienAt(l, world.cfg, deg, speed);
+  const r = trapezeBodyR(l);
+  const torso = trapezeBodyPath(at.torso, r.torso, time, 2.3);
+  const head = trapezeBodyPath(at.head, r.head, time * 1.3, 5.1);
+  for (const [path, at2, rr] of [
+    [torso, at.torso, r.torso],
+    [head, at.head, r.head],
+  ] as const) {
+    ctx.fillStyle = PALETTE.trapezeAlien;
+    ctx.fill(path);
+    ctx.save();
+    ctx.clip(path);
+    litRound(ctx, at2.x - 0.3 * rr, at2.y - 0.3 * rr, rr * 1.2, LIGHT_HALF.creature);
+    ctx.restore();
+    ctx.lineWidth = STROKE.outline;
+    ctx.strokeStyle = rgba(PALETTE.trapezeAlienDark, 0.95);
+    ctx.stroke(path);
+  }
+  drawHurt(ctx, torso, fx.hurt.value);
+  // Two eyes on the head, looking the way it swings.
+  const look = 0.25 * r.head * Math.max(-1, Math.min(1, speed * 2));
+  for (const side of [-1, 1]) {
+    const eye = new Path2D();
+    eye.arc(
+      at.head.x + side * 0.38 * r.head + look,
+      at.head.y - 0.1 * r.head,
+      0.2 * r.head,
+      0,
+      Math.PI * 2,
+    );
+    ctx.fillStyle = mixHex(PALETTE.hullRim, PALETTE.trapezeAlien, 0.15);
+    ctx.fill(eye);
+    const pupil = new Path2D();
+    pupil.arc(
+      at.head.x + side * 0.38 * r.head + look * 1.4,
+      at.head.y - 0.1 * r.head,
+      0.09 * r.head,
+      0,
+      Math.PI * 2,
+    );
+    ctx.fillStyle = PALETTE.trapezeAlienDark;
+    ctx.fill(pupil);
+  }
+  return torso;
 }

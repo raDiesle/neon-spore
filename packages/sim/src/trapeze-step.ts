@@ -1,44 +1,50 @@
 import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { closeSlow, openSlow } from "./slow.js";
+import { nextInt } from "./rng.js";
 import {
   freshTrapeze,
-  TRAPEZE_CATCHES,
+  type TrapezeSide,
   type TrapezeState,
   type TrapezeStep,
-  trapezeAims,
-  trapezeHeld,
+  trapezeBoss,
+  trapezeGongAt,
   trapezeLitStep,
-  trapezeMarkCol,
+  trapezePeriod,
+  trapezeSeat,
 } from "./trapeze.js";
 import type { World } from "./world.js";
 
 /**
- * THE TRAPEZE's clock: the flag swinging on its own, a freeze running out, the
- * beats a draw is held being counted, each step lighting, a window running
- * out, and the flag swung spent.
+ * THE TRAPEZE's clock: the swing moving every tick, dying down every beat,
+ * turning at each end — where a gong is kicked and a side's chance to push
+ * comes round — the calls of a `call` level, a lock running out, each level
+ * lighting and running out, and the swing gone over the top.
  *
- * The taps and the draws are heard on the tick (`trapeze-hand.ts`), judged at
- * the tap and at the lift, and only *counted* here, on the beat, because a
- * freeze lasts a number of beats and a draw asks for one. The shot is judged
- * where a bolt leaves the top of the field (`trapeze-shot.ts`).
- *
- * **A catch or a recatch that runs out is tried again**, the step relit after
- * a rest with the cursor where it was; a recatch run out dims the spindle as
- * well, so no fire step lights until it is made. **A shot that runs out is
- * the hull**, THE SEAM's rule (`seam-step.ts`).
+ * The swipes and the lock are heard on the tick (`trapeze-hand.ts`) and the
+ * shots where a bolt meets the alien (`trapeze-shot.ts`). **No level opens
+ * THE SLOW**: the owner, 7 October 2026 — a pair bringing a swing up to
+ * speed is reading its rhythm, and a slowed swing is a different rhythm.
  */
 
 export function installTrapeze(world: World, steps: readonly TrapezeStep[]): TrapezeState {
-  const s = freshTrapeze(world.beat, steps);
+  const s = freshTrapeze(world.cfg, world.beat, steps);
   world.events.push({ type: "trapezeEnter", col: midCol(world.cfg) });
   return s;
 }
 
+/** The column the alien is over this tick, for an event to pan to. */
+export function trapezeCol(world: World, s: TrapezeState): number {
+  return Math.round(trapezeSeat(world.cfg, s).xMilli / 1000);
+}
+
+/**
+ * One beat of THE TRAPEZE: the swing dies down a little, a lock counts down,
+ * and the phases move on — a level lit, a level run out, the alien gone.
+ * The swing itself moves on the tick (`trapezeSwung`).
+ */
 export function stepTrapeze(world: World, s: TrapezeState): void {
   const cfg = world.cfg;
   const since = world.beat - s.phaseBeat;
-  swing(world, s);
   if (s.phase === "spent") {
     if (since >= cfg.trapezeSpentBeats) {
       world.events.push({ type: "trapezeOut", col: midCol(cfg) });
@@ -46,125 +52,101 @@ export function stepTrapeze(world: World, s: TrapezeState): void {
     }
     return;
   }
-  if (s.phase === "slack" && since >= cfg.trapezeSlackBeats) next(world, s);
-  else if (s.phase === "rest" && since >= cfg.trapezeRestBeats) next(world, s);
-  else if (s.phase === "lit") lit(world, s, since);
+  damp(world, s);
+  if (s.phase === "enter" && since >= cfg.trapezeEnterBeats) light(world, s);
+  else if (s.phase === "rest" && since >= cfg.trapezeRestBeats) light(world, s);
+  else if (s.phase === "level") {
+    const step = trapezeLitStep(s);
+    if (step !== null && since >= step.beats) miss(world, s);
+  }
 }
 
 /**
- * One beat of the flag: a freeze counted down, and let go when it runs out;
- * or, not frozen and not held on the spindle, the swing carried on, turned
- * back off either end of the span.
+ * **The swing**, once a tick: on to the next tick of its period, and at
+ * either end the turn — a new half swing, and the gong kicked if it is on
+ * that side and the swing reached it. A `call` level calls a side's pusher
+ * as the swing passes the bottom heading there, a quarter swing ahead.
+ * Called from the commands' hook (`boss-hands-scripted.ts`), THE FLUE's way,
+ * so a bolt meets the alien where it really is.
  */
-function swing(world: World, s: TrapezeState): void {
-  const cfg = world.cfg;
-  if (s.frozenBeats > 0) {
-    s.frozenBeats -= 1;
-    if (s.frozenBeats > 0) return;
-    s.frozenBy = null;
-    world.events.push({ type: "trapezeLapse", col: midCol(cfg) });
-    return;
-  }
-  if (trapezeHeld(s)) return;
-  const step = trapezeLitStep(s);
-  const sweep = step !== null && step.ask !== "fire" ? step.sweepMilli : cfg.trapezeSweepMilli;
-  const span = cfg.trapezeSpanMilli;
-  let at = s.swingMilli + s.swingDir * sweep;
-  if (at > span) {
-    at = 2 * span - at;
-    s.swingDir = -1;
-  } else if (at < -span) {
-    at = -2 * span - at;
-    s.swingDir = 1;
-  }
-  s.swingMilli = Math.max(-span, Math.min(span, at));
+export function trapezeSwung(world: World): void {
+  const s = trapezeBoss(world);
+  if (s === null || s.phase === "spent") return;
+  const period = trapezePeriod(world.cfg);
+  s.swingTick = (s.swingTick + 1) % period;
+  const q = period / 4;
+  if (s.swingTick === 0) turn(world, s, 1);
+  else if (s.swingTick === 2 * q) turn(world, s, -1);
+  else if (s.swingTick === q) call(world, s, -1);
+  else if (s.swingTick === 3 * q) call(world, s, 1);
 }
 
-function lit(world: World, s: TrapezeState, since: number): void {
+/** Every beat the swing loses a little, and a lock counts down. */
+function damp(world: World, s: TrapezeState): void {
+  s.ampMilli = Math.max(0, s.ampMilli - world.cfg.trapezeDampMilli);
+  if (s.lockBeats > 0) {
+    s.lockBeats -= 1;
+    if (s.lockBeats === 0) world.events.push({ type: "trapezeUnlock", col: trapezeCol(world, s) });
+  }
+}
+
+/** The swing turned at the `side` end: a new half swing, and a gong kicked if it reached it. */
+function turn(world: World, s: TrapezeState, side: TrapezeSide): void {
+  s.half += 1;
+  const step = trapezeLitStep(s);
+  if (step === null || step.gongSide !== side || s.ampMilli < step.gongMilli) return;
+  s.gongs += 1;
+  s.ampMilli = Math.round((s.ampMilli * world.cfg.trapezeKeepMilli) / 1000);
+  s.lockBeats = 0;
+  const col = Math.round(trapezeGongAt(world.cfg, step).xMilli / 1000);
+  world.events.push({ type: "trapezeGong", gongs: s.gongs, col });
+  s.cursor += 1;
+  s.phaseBeat = world.beat;
+  if (s.cursor >= s.steps.length) {
+    s.phase = "spent";
+    world.events.push({ type: "trapezeSpent", col: midCol(world.cfg) });
+    return;
+  }
+  s.phase = "rest";
+}
+
+/** In a `call` level, the seat to push on `zone` next, drawn by chance and said. */
+function call(world: World, s: TrapezeState, zone: TrapezeSide): void {
+  if (trapezeLitStep(s)?.ask !== "call") return;
+  const seat: 0 | 1 = nextInt(world.rng, 2) === 0 ? 0 : 1;
+  s.callers[zone < 0 ? 0 : 1] = seat;
+  world.events.push({ type: "trapezeCall", seat, zone, col: trapezeCol(world, s) });
+}
+
+/** The next level lights. A `push` level gives the left to the pilot and the right to the navigator. */
+function light(world: World, s: TrapezeState): void {
   const step = s.steps[s.cursor];
   if (step === undefined) return;
-  for (const side of [0, 1] as const) {
-    if (!s.holding[side] || !trapezeAims(s, side)) continue;
-    if (s.drawnBeats[side] < world.cfg.trapezeDrawBeats) s.drawnBeats[side] += 1;
-  }
-  if (since < step.beats) return;
-  if (step.ask === "fire") {
-    miss(world, s);
-    return;
-  }
-  const col = midCol(world.cfg);
-  if (step.ask === "recatch") {
-    s.spindleLit = false;
-    world.events.push({ type: "trapezeDim", col });
-  } else world.events.push({ type: "trapezeSway", col });
-  closeSlow(world);
-  rest(world, s, false);
-}
-
-/**
- * A seat loosed its draw true — held its beats, lifted while the flag was
- * still frozen over the lit column and swiped toward it — in a step that
- * asked it: a catch landed, or the flag caught again under the spindle.
- * Called by the lift (`trapeze-hand.ts`).
- */
-export function trapezeCaught(world: World, s: TrapezeState, side: 0 | 1): void {
-  const col = trapezeMarkCol(world.cfg, s) ?? midCol(world.cfg);
-  if (trapezeLitStep(s)?.ask === "recatch") {
-    s.spindleLit = true;
-    world.events.push({ type: "trapezeRecatch", side, col });
-    trapezeAnswered(world, s);
-    return;
-  }
-  s.catches = Math.min(TRAPEZE_CATCHES, s.catches + 1);
-  world.events.push({ type: "trapezeCatch", side, catches: s.catches, col });
-  if (s.catches >= TRAPEZE_CATCHES && !s.spindleLit) {
-    s.spindleLit = true;
-    world.events.push({ type: "trapezeSpindle", col: midCol(world.cfg) });
-  }
-  trapezeAnswered(world, s);
-}
-
-/**
- * The lit step has its answer: THE SLOW lets go, the cursor moves on and the
- * boom rests. Called by the shot and by a catch.
- */
-export function trapezeAnswered(world: World, s: TrapezeState): void {
-  closeSlow(world);
-  rest(world, s, true);
-}
-
-/** The next step lights, a catch under THE SLOW; or, with the script done, the flag swings spent. */
-function next(world: World, s: TrapezeState): void {
-  const step = s.steps[s.cursor];
-  const col = midCol(world.cfg);
-  if (step === undefined) {
-    s.phase = "spent";
-    s.phaseBeat = world.beat;
-    world.events.push({ type: "trapezeSpent", col });
-    return;
-  }
-  s.phase = "lit";
+  s.phase = "level";
   s.phaseBeat = world.beat;
-  s.drawnBeats = [0, 0];
-  if (step.ask !== "fire") openSlow(world, step.beats + 1, "ask");
-  const at = step.ask === "fire" ? col : col + step.offset;
-  world.events.push({ type: "trapezeLight", ask: step.ask, offset: step.offset, col: at });
+  s.callers = [0, 1];
+  s.lockBeats = 0;
+  const col = Math.round(trapezeGongAt(world.cfg, step).xMilli / 1000);
+  world.events.push({ type: "trapezeLevel", ask: step.ask, gongSide: step.gongSide, col });
 }
 
-/** A fire step ran out with the spindle unshot: the hull takes it, and the wave is lost. */
+/** A level ran out before its gong: the alien jumps at the hull, and the wave is lost. */
 function miss(world: World, s: TrapezeState): void {
-  const col = midCol(world.cfg);
+  const col = trapezeCol(world, s);
   world.events.push({ type: "trapezeMiss", col });
-  rest(world, s, true);
+  s.phase = "rest";
+  s.phaseBeat = world.beat;
   bossStrikesHull(world, "trapeze", col);
 }
 
-/** Between steps: the freeze let go with the step, so a relit catch is tapped still again. */
-function rest(world: World, s: TrapezeState, advance: boolean): void {
-  s.phase = "rest";
-  s.phaseBeat = world.beat;
-  s.drawnBeats = [0, 0];
-  s.frozenBeats = 0;
-  s.frozenBy = null;
-  if (advance) s.cursor += 1;
+/**
+ * The swing pushed (`gain`) or slowed: by a swipe or a bolt. Never past
+ * `trapezeMaxMilli`, never below nought. A push or a brake by a swipe spends
+ * the side's chance for this half swing; a bolt does not.
+ */
+export function trapezeShove(world: World, s: TrapezeState, gain: boolean, swipe: boolean): void {
+  const cfg = world.cfg;
+  const by = gain ? cfg.trapezePushMilli : -cfg.trapezeBrakeMilli;
+  s.ampMilli = Math.max(0, Math.min(cfg.trapezeMaxMilli, s.ampMilli + by));
+  if (swipe) s.pushedHalf = s.half;
 }

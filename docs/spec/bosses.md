@@ -10887,111 +10887,68 @@ close run out reddens the point, and a shot run out the root. A press come
 shut says nothing, and a press on bare seam and a wrong colour stay silent,
 as the simulation is.
 
-## 11.56 THE BURGEE — a flag stilled by one seat and caught by the other
+## 11.56 THE TRAPEZE — an alien swung up to a gong
 
-> A pennant on a free boom mid-hull swings across the middle columns on
-> its own. One of you taps it still over the lit column; the other holds a
-> draw and lets go toward it while it is still. Two catches light the
-> spindle: shoot it in its colour, and catch the flag back when it creeps
-> loose.
+> An alien sits on a swing hung from long ropes over the middle. Swipe
+> toward the middle when the swing comes back on your side, and it goes
+> higher; swipe while it goes out and it slows. High enough, and the alien
+> kicks the gong.
 
-Designed as §39 of [bosses-choreographed](bosses-choreographed.md) — a
-choreographed scene, the third kind in `.claude/skills/new-boss`. No new
-primitive: THE VALVE's `FREEZE TAP` and THE SLING's `HOLD, THEN SWIPE`,
-paired for the first time, the freeze stilling **the very thing the swipe
-is aimed at**, which neither seat moves.
+Designed as §39 of [bosses-choreographed](bosses-choreographed.md), the
+owner's rework of THE BURGEE on 7 October 2026 — a choreographed scene, the
+third kind in `.claude/skills/new-boss`. The pennant it replaced was never
+seen at tempo; the owner's words are in §39.
 
-**It is two catches and three shots, and they are its health.** The state
-(`sim/trapeze.ts`, hashed in `sim/trapeze-hash.ts`) is the **phase** and the
-beat it began, the **cursor** into the script, the flag's **swing** in
-thousandths of a column off the middle and the way it is going, the beats
-left on a **freeze** and the seat that tapped it, the **catches**, the
-**hits**, whether the **spindle** is lit, and each seat's **thumb** on the
-freeze mark, its **draw** held, and the beats that draw has been counted.
-The script is the wave's (`BurgeeEntry.steps`), copied at install: each
-step asks `catch`, `recatch` or `fire`, names its **freezer** (the pilot,
-the navigator or `either`), the lit column as an **offset** from the
-middle, the flag's **sweep** a beat while it is lit, a colour or `either`,
-and its own beats.
+**The rule, in one sentence.** Push the swing when it comes back toward the
+middle, until it is high enough to kick the gong; a push while it goes out
+slows it.
 
-**The rule, in one sentence.** One of you taps the flag still over the lit
-column, the other lets a held draw go toward it while it is still.
+**The state** (`sim/trapeze.ts`, hashed in `sim/trapeze-hash.ts`) is the
+**phase** (`enter`, `level`, `rest`, `spent`) and the beat it began, the
+**cursor** into the script, how far the swing goes (`ampMilli`) and where in
+the swing it is (`swingTick`), the ends it has turned at (`half`) and the
+half last pushed (`pushedHalf`), who pushes on each side (`callers`), each
+seat's finger **down**, the beats left on a **lock**, and the **gongs**. The
+script is the wave's (`TrapezeEntry.steps`), copied at install: each level
+asks `push`, `call`, `shoot` or `lock`, names the side its gong hangs on,
+the `gongMilli` the swing must reach and the level's beats.
 
-**The split.** By the step, not by geometry: both handles are on both
-screens and either seat's to press, THE CYST's and THE DAVIT's
-role-swap-by-movement. The first catch is the pilot's to freeze and the
-navigator's to draw, the second the other way about; a recatch is
-`either`, and the seat that did not freeze it draws. A fire step is the
-ordinary shot — Player 1's cannon under the middle column, Player 2's
-trigger in its colour.
+**The swing** (`sim/trapeze-step.ts`). Its ropes are tied
+`trapezeAnchorMilli` above the field and are `trapezeRopeMilli` long; one
+whole swing takes `trapezePeriodBeats`. It starts `trapezeStartMilli` either
+side, can never go past `trapezeMaxMilli`, and loses `trapezeDampMilli` a
+beat on its own. It sways in for `trapezeEnterBeats`, rests
+`trapezeRestBeats` after each gong, and goes over the top for
+`trapezeSpentBeats` after the last. Each turn at an end is a new half swing
+and a side's one chance to push; when the swing turns at the gong's side
+with `ampMilli` at the level's `gongMilli`, the alien kicks the gong
+(`trapezeGong`) and `trapezeKeepMilli` of the swing is kept. **No level
+opens THE SLOW** — the owner's word.
 
-**The clock** (`sim/trapeze-step.ts`). The flag swings **every beat, on
-its own**: `trapezeSweepMilli` a beat (the lit step's own sweep while one
-is lit), turned back off either end of `trapezeSpanMilli`. It swings loose
-for `trapezeSlackBeats`, then the first catch lights under THE SLOW
-(`openSlow(…, "ask")`), a fire step without it. A freeze counts down one
-a beat and lets the flag go when it runs out (`trapezeLapse`). A draw held
-by the seat the step asks it of counts a beat each beat, up to
-`trapezeDrawBeats`. A catch or a recatch run out sways the flag off
-(`trapezeSway`) or dims the spindle (`trapezeDim`), THE SLOW closes, the boom
-rests `trapezeRestBeats`, and the same step relights. The second catch
-lights the spindle (`trapezeSpindle`), and while it is lit **the flag is
-held on it** and does not swing, except under a recatch — the flag
-creeping loose. With the script done the flag swings spent, for
-`trapezeSpentBeats` before the wave may end.
+**The swipes** (`sim/trapeze-hand.ts`). The drags `trapezePushLeft` and
+`trapezePushRight`, by the zone the finger went down in, the lift carrying
+the run across on `fromMilli`. A lift pushes (`trapezePush`,
+`trapezePushMilli`) if this seat pushes this side, the swing is on this side
+coming back, the run is `trapezeSwipeMilli` toward the middle and this half
+swing is not pushed yet. While the swing goes out the same lift brakes it
+(`trapezeBrake`, `trapezeBrakeMilli`). **A swipe never does nothing
+silently**: anything else is a `trapezeWhiff` with its reason, `seat`,
+`time` or `way`. In a `push` level P1 pushes left and P2 right; in a `call`
+level each side's pusher is drawn by `nextInt` as the swing passes the
+bottom heading there (`trapezeCall`).
 
-**The answers** (`sim/trapeze-hand.ts`). The tap is the drag
-`trapezeFreeze`, **an edge**, THE VALVE's pin: a thumb resting on the mark
-has to lift and come down again. From the step's freezer, over the lit
-column (within `trapezeMarkMilli`), it stills the flag for
-`trapezeFreezeBeats` (`trapezeFreeze`); off the column it is a flap
-(`trapezeFlap`) and the flag swings on; from the other seat it does
-nothing. The draw is the drag `trapezeDraw`, THE SLING's: `on: true` the
-finger down, the lift carrying the swipe's sign on `fromMilli`. A lift
-lands the catch only with all three — **a beat drawn, the flag frozen this
-instant, the swipe toward the lit column's half** — and anything else in a
-step that asked for it is a flutter (`trapezeFlutter`), the step still lit.
-A shot is judged where a bolt leaves the top of the field
-(`sim/trapeze-shot.ts`): only with the spindle lit, only while a fire step
-is lit, only in the middle column, and only in its colour unless it is
-`either`.
+**The shots** (`sim/trapeze-shot.ts`, through `boss-along.ts`). In a `shoot`
+level a bolt that passes within `trapezeHitMilli` of the alien pushes it if
+the swing comes back, and slows it if it goes out (`trapezeShot` with its
+gain). In a `lock` level the pilot's press on the alien (`trapezeLock`)
+locks the cannon on it for `trapezeLockBeats`; `lock.ts` steers the bolt
+round the corner, and a hit pushes the alien away from the cannon. A bolt
+straight up flies past in a `lock` level. Any colour does, and HARD's wasted
+shot is not asked of it (`shot-wasted.ts`): a shot here is a shove, not a
+kill.
 
-**Where this departs from the design, and why.** Eight places.
-
-- **The flag swings over three columns, the middle and one either side.**
-  §39 says "across the lit columns". A lit column is an offset of one off
-  the middle, so the swipe has a side to go toward; a wider sweep would
-  make the flag's lap longer than any window in the script.
-- **A freeze lands only over the lit column; a tap anywhere else is a
-  flap.** §39's freeze is "timed against a mark exactly as THE VALVE reads
-  it". THE VALVE's pin is judged on its mark too, and a freeze that could
-  land anywhere would leave the swipe's direction nothing to be read off.
-- **The recatch windows are seven and five beats, not three.** At 500 a
-  beat the flag is off a lit column five beats running, at 1000 three, so
-  a three-beat window could light with the flag unable to get there — a
-  step no pair could answer. The rule the script is written to: **every
-  catch's window outlasts a lap of the flag at its sweep**. Row 7's
-  "faster" is still the faster: 1000 against row 5's 500.
-- **A second catch run out is tried again at the second catch**, not "from
-  row 2". The first catch is still landed; asking it again would punish the
-  pair for the second seat's miss, and every choreographed body since THE
-  SEAM keeps what was won.
-- **The draw is counted from the finger going down, frozen or not.** §39's
-  row says "P2 holds, then looses at it once still". Holding before the
-  freeze is how a pair would play it, and the freeze is short enough that
-  a draw started only once it held would rarely have its beat.
-- **A fire step lights without THE SLOW.** §39 opens it "on every catch
-  window", rows 2, 3, 5 and 7, and a fire step is not one. THE GALL's and
-  every choreographed body's shot are the same.
-- **A shot run out is a hull hit, and a hull hit is the wave.** §39's rows
-  4, 6 and 8 say "ordinary hull hit", and row 8 "stays lit". This game has
-  no ordinary hit (`wave-fail.ts`) — THE SEAM's precedent and every
-  choreographed body's since.
-- **The spindle holds the flag still between the steps that do not ask
-  for it caught.** §39's Animation pose three is "both caught, spindle
-  lit". A flag that swung under a fire step would be a second thing to
-  watch while the pair is aiming at the first, and rows 5 and 7 are the
-  flag *creeping loose* — which reads only if it was still.
+**Its health is the gongs.** A level run out is the alien jumping at the
+hull (`trapezeOut`, `bossStrikesHull`), which is the wave.
 
 **The worm on the field** (the owner, 6 October 2026, `sim/lamprey-roam.ts`):
 *let the enemy appear as an intro animation, eat its way through things that
@@ -11031,88 +10988,37 @@ for food.
   levels, four in the last. The ring has nine teeth, one for each stay with
   hands.
 
-**What is proven, and what is not.** `sim/test/trapeze.test.ts` and
-`trapeze-spindle.test.ts` prove the rules: the flag swings its span and
-turns back; a tap over the lit column from the step's seat freezes it, off
-the column flaps, from the other seat does nothing, and resting does not
-tap again; the freeze lets go on its own; a lift lands a catch only drawn,
-frozen and toward the column, and a lift from the freezer does nothing; a
-catch run out sways and relights at the same step; the second catch lights
-the spindle and holds the flag; a shot wants its colour and the middle
-column; either seat may freeze a recatch; a recatch run out dims the
-spindle until it is made; a fire step run out is the wave; and the whole
-script swings the flag spent and out. `render/test/trapeze-frame.test.ts`
-proves the body on every screen, `trapeze-receipts.test.ts` the receipts
-and `boss-strike.test.ts` the blow. **The touch** (`render/trapeze-grip.ts`):
-the ring and the track are pressed where `trapezeMarks` draws them, each only
-by the seat the lit step asks. **The cue** (`boss-cue-read-zn.ts`): `TAP` on
-the ring to the freezer until the flag is still, `HOLD · SWIPE` on the track
-to the seat that draws, and `FIRE` under the middle column once the spindle
-is lit; never *when*, never the side, never the colour. **AUTO**
-(`hands/boss-hands-trapeze.ts`) taps from the step's freezer, the pilot on a
-recatch, and draws from the other seat from the moment the step lights,
-lifting toward the lit column once the flag is still; it plays the wave to
-its end (`autopilot-trapeze.test.ts`). Whether a freeze on one phone answered by a swipe
-on the other *reads* at tempo is the owner's eye, on two real phones.
+**What is proven, and what is not.** `sim/test/trapeze.test.ts` proves the
+swing and the swipes: it dies down on its own, a push on time raises it and
+one going out brakes it, a side pushes once a half swing, every refused
+swipe is a whiff with its reason, a `call` level draws its pushers, the gong
+is kicked at the turn on its side, and a level run out is the wave.
+`trapeze-shots.test.ts` proves the shots from below and the lock from the
+side. `render/test/trapeze-frame.test.ts` proves the body on every screen,
+`trapeze-grip.test.ts` the touch, `boss-cue-trapeze.test.ts` the words and
+`boss-strike.test.ts` the blow. AUTO (`hands/boss-hands-trapeze.ts`) swipes
+an eighth of a swing after each end, which is the swing coming back, and
+plays the wave to its end (`autopilot-trapeze.test.ts`). **Whether a pair
+reads the swing's rhythm at tempo, on two phones, is unverified.**
 
-**The look** (`render/src/trapeze-draw.ts`, 27 September 2026 — the body).
-**Two drafts, one each**: SLICK · REVERB (`tools/shape-sheet/src/drafts/offered.ts`)
-stood on end for the **spindle** over the middle column near the field's
-top, three even swells stacked like a masthead truck, and SLICK · COMMA
-(the same file) laid along a bent line for the **flag**, its deep lobe the
-hoist and its tail the fly (`trapeze-shape.ts`). Between them a plain steel
-**boom hangs down** from the spindle's foot, a pendulum — THE DAVIT's boom
-stands up and THE VANE's spar tapers on a bearing — and its tip is over
-the flag's column exactly, whatever angle that takes. **The flag is eased,
-not put** (`trapeze-fx.ts`): the simulation's place steps once a beat, the
-render spreads each step across its beat and eases toward it, so a freeze
-landing mid-beat slows the flag to a stop; how fast it is going streams it
-out behind, and a still flag falls limp and folds narrow. A swipe that
-caught nothing (`trapezeFlutter`) sets it fluttering long and slow, dying
-away. **The marks say which hand** (`trapeze-marks.ts`): a ring over the lit
-column where the tip would be, breathing on the beat with a second ring
-closing as the window runs and filled while frozen, is *tap it still here*;
-a track from the middle toward the lit column with a chevron at its head,
-filled from its tail by the beats the finger has been down, is *hold, then
-swipe this way*. Each is full on the screen of the seat whose hand it is
-and a faint plain line on the other's (`showsBurgeeHand`), so the seat not
-asked can say what its partner is asked for. **Health is read off the
-body**: the canvas brightens from a worn tan to a caught cream with each
-catch, and the spindle has three studs, lit in the shot's colour with a
-ring closing while one is owed, one going dark and the spindle a little
-thinner for every shot (`coreHurt`); a guarded recatch dims the spindle
-until it is made. Hues: steel and a canvas tan, `trapezeSteel` to
-`trapezeCanvasCaught` (`palette-creatures-late.ts`).
-
-**The receipts and the blow** (`render/src/trapeze-fx.ts`,
-`trapeze-receipts.ts`, `trapeze-blow.ts`, 27 September 2026). A freeze on the
-mark throws a white ring wide off it and deals the lighter jab; a tap off
-the mark sends a quick shiver down the canvas; a swipe that caught nothing
-leaves the long slow flutter, and a catch run out a little of it, the flag
-sagging as it swings on. A catch or a recatch cracks the canvas taut — pulled
-open and flat, white strokes flung off the hoist — and deals the blow every
-boss takes; both catches in flare the spindle white. A hit washes the
-spindle white and throws a ring off it, wider for every hit, and reddens it.
-**The blow**: a spindle left unshot tears a scrap off the fly of the flag
-held over the middle, COMMA at under half its size, which falls the way
-cloth falls — rocking and turning over down the middle column — and lands
-plastered flat on the skin, its fly still rippling as it fades.
-
+**The picture** (`render/src/trapeze-draw.ts`, 7 October 2026, plain, with
+the look still to come). Both screens draw the same swing: the ropes fading
+in from the top of the field, the plank, and the alien on it, a torso and a
+head lagging the swing, looking the way it goes (`trapeze-shape.ts`).
+**Where and when** (`trapeze-marks.ts`): in a swipe level the field is cut
+into two zones, each badged with the seat that pushes there; a zone lights
+with chevrons toward the middle while the swing comes back over it, loud on
+that seat's screen and faint on the partner's. **How high, and how high it
+has to go** (`trapeze-arc.ts`): under the plank's path an arc, filled in
+brass from the bottom as far as the swing goes now, dashed on to the gong;
+the gong dim until its level lights and bright once the swing is high
+enough. The words (`boss-cue-read-zn.ts`): SWIPE in the open zone, TAP on the
+alien, FIRE on the hull. **The receipts** (`trapeze-fx.ts`,
+`trapeze-receipts.ts`): a push jabs the alien, a refused swipe says why in
+its zone, a gong rings, and the lock draws a red sight round the alien.
 **Its marks answer a touch the way every mark does**
-(`render/trapeze-verdicts.ts`, `test/trapeze-verdict.test.ts`). Three marks:
-the freeze ring, the draw's track from its tail, and the spindle. The ring
-asks the step's freezer until the flag is frozen, and the track asks the
-other seat — the halo on the asked seat's screen and the partner's ring and
-clock on the other's, so on a catch both screens wait on something, and on
-a recatch either seat is asked and nobody waits. The spindle asks for the
-shot on a fire step while it is lit, which is either seat's, so it haloes on
-both screens with nobody's clock. A freeze on the mark greens the ring and a
-flap reddens it; a flutter, or a freeze run out before the swipe, reddens
-the track; a catch or a recatch greens the ring and the track, and a catch's
-or a recatch's window run out reddens both; a hit greens the spindle and a shot run out reddens it.
-Between steps the ring and the track stand at the last lit catch's column,
-so a verdict stays where it was earned. A wrong colour stays silent, as the
-simulation is.
+(`trapeze-verdicts.ts`): the two zones and the alien, each greened or
+reddened by what its own touch did.
 
 ## 11.57 THE FLUE — an ember one seat sees and the other shoots
 
@@ -11426,7 +11332,7 @@ four thousandths a tick, two passes of the tip at the gap or more.
 - **A shot is aimed at the needle's tip, not the hub.** The owner's word,
   twice: on 6 October the hub took it as the needle pointed down; on
   7 October the tip itself is the target, through a gap in the rim.
-- **A retap run out dims the hub**, THE BURGEE's recatch (§11.56), and the
+- **A retap run out dims the hub**, as THE BURGEE's recatch did before it became THE TRAPEZE, and the
   marks already landed stay landed.
 - **The needle turns on the tick.** A mark is crossed in a tenth of a
   second; a needle stepped once a beat would jump clean over it.

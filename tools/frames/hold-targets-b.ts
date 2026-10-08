@@ -166,10 +166,11 @@ export const ROWS: Record<string, Row> = {
   // `gall-hand.ts`: the pinch's gap on `fromMilli` and the point it went down
   // on as `id`; the seat is the one nearer that point.
   gallPress: { id: true },
-  // `trapeze-hand.ts`: the tap and the draw are both seats'; which is live is
-  // the lit step's, and the draw's lift carries the swipe on `fromMilli`.
-  trapezeFreeze: {},
-  trapezeDraw: {},
+  // `trapeze-hand.ts`: a swipe on either half, its lift carrying how far it
+  // went across on `fromMilli`; the lock, the pilot's press on the alien.
+  trapezePushLeft: {},
+  trapezePushRight: {},
+  trapezeLock: {},
   // `governor-hand.ts`: the tap, an edge from a seat with a mark to land.
   governorTap: {},
   // `instar-hand.ts`: a swipe arms on the carry and counts on the lift. The

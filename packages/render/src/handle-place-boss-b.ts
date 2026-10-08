@@ -16,7 +16,7 @@ import {
   scoutPrimeGrippable,
 } from "./scout-grip.js";
 import { slingDrawCircle } from "./sling-grip.js";
-import { trapezeDrawCircle, trapezeFreezeCircle } from "./trapeze-grip.js";
+import { trapezeAlienCircle, trapezeZoneCircle } from "./trapeze-grip.js";
 import { trivetFootStanding, trivetTakesChord } from "./trivet-grip.js";
 import { valvePinHandle, valveWheelCircle } from "./valve-grip.js";
 
@@ -85,14 +85,13 @@ export function laterBossHandleCircle(
     if (b === null) return null;
     return davitLooseCircle(l, cfg, b, target === "davitLooseLeft" ? 0 : 1, world.beat, beatPhase);
   }
-  if (target === "trapezeFreeze" || target === "trapezeDraw") {
-    // THE TRAPEZE's ring over the lit column and the tail of its track, where
-    // the fixture hangs still to be caught. Null between catches (`trapeze-grip.ts`).
+  if (target === "trapezePushLeft" || target === "trapezePushRight" || target === "trapezeLock") {
+    // THE TRAPEZE's two zones, the middle of each, null outside a swipe level;
+    // and the alien where it swings this frame, the pilot's lock (`trapeze-grip.ts`).
     const b = world.boss?.kind === "trapeze" ? world.boss : null;
     if (b === null) return null;
-    return target === "trapezeFreeze"
-      ? trapezeFreezeCircle(l, cfg, b)
-      : trapezeDrawCircle(l, cfg, b);
+    if (target === "trapezeLock") return trapezeAlienCircle(l, cfg, b);
+    return trapezeZoneCircle(l, cfg, b, target === "trapezePushLeft" ? -1 : 1);
   }
   if (target === "plumbLevelLeft" || target === "plumbLevelRight") {
     // THE PLUMB's two stones, each hanging where the beam holds it this

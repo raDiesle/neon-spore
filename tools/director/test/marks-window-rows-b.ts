@@ -12,8 +12,7 @@ import {
   type FleetState,
   filamentTracing,
   type TrapezeState,
-  trapezeCatching,
-  trapezeLitStep,
+  trapezeOpenZone,
   type World,
 } from "@neon-spore/sim";
 import * as capstanMarks from "../../../packages/render/src/capstan-marks.js";
@@ -26,9 +25,8 @@ import { mark, type Row } from "./marks-window-kit.js";
 
 /**
  * **The second six bosses' rows** of `marks-window.test.ts`. THE TRAPEZE's
- * studs glow white once both catches are in, before a fire step is lit:
- * that is the spindle's state and its health, the colour and the closing
- * ring are the ask, and only those count as lit.
+ * zones are drawn dashed all through a swipe level, so the pair know where
+ * they are before they are asked; only a zone drawn open is the ask.
  *
  * THE FLEET's `fleet-marks.ts` asks for nothing — the record, and the sights
  * that are the square's name — so its row is the grip on the wound, which is
@@ -45,14 +43,13 @@ const fleet = (w: World) => w.boss as FleetState;
 export const ROWS_B: readonly Row[] = [
   {
     kind: "trapeze",
+    // A zone drawn open, its chevrons and its light, only while the swing comes back over a side in a swipe level.
     marks: [
-      mark(trapezeMarks, "drawTrapezeRing", (w) => trapezeCatching(trapeze(w))),
-      mark(trapezeMarks, "drawTrapezeTrack", (w) => trapezeCatching(trapeze(w))),
       mark(
         trapezeMarks,
-        "drawTrapezeStuds",
-        (w) => trapeze(w).spindleLit && trapezeLitStep(trapeze(w))?.ask === "fire",
-        (a) => a[5] !== null,
+        "drawTrapezeZone",
+        (w) => trapezeOpenZone(w.cfg, trapeze(w)) !== 0,
+        (a) => a[5] === true,
       ),
     ],
   },

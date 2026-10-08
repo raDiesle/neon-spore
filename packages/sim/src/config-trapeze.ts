@@ -1,38 +1,60 @@
 /**
- * THE TRAPEZE's tuning: the beats around its steps, how far and how fast the
- * flag swings on its own, how near the lit column a tap stills it, and how
- * long a freeze and a draw last (`docs/spec/bosses-choreographed.md` §39).
+ * THE TRAPEZE's tuning: where the swing hangs and how long its ropes are, how
+ * fast it swings, how much a push gives and a wrong one takes, how fast it
+ * slows on its own, and the beats around its levels
+ * (`docs/spec/bosses-choreographed.md` §39).
  *
- * What is **not** here is the script — which step asks what, of whom, over
- * which column, in which colour and for how many beats: that is the wave's,
- * authored on its entry.
+ * What is **not** here is the script — which level asks for swipes, shots
+ * from below or shots from the side, where its gong hangs and how long it
+ * may take: that is the wave's, authored on its entry.
  */
 export interface TrapezeConfig {
-  /** Beats the flag swings loose before the first step lights. */
-  trapezeSlackBeats: number;
-  /** Beats the boom rests after a step before the next lights. */
+  /** Beats the swing hangs swaying before the first level. */
+  trapezeEnterBeats: number;
+  /** Beats after a gong before the next level. */
   trapezeRestBeats: number;
-  /** Beats the spent flag swings before the wave may end. */
+  /** Beats the swing goes over the top and away before the wave may end. */
   trapezeSpentBeats: number;
-  /** How far either side of the middle column the flag swings, thousandths of a column. */
-  trapezeSpanMilli: number;
-  /** How far it swings a beat when no lit step says, thousandths of a column. */
-  trapezeSweepMilli: number;
-  /** How near the lit column the flag must be for a tap to still it, thousandths of a column. */
-  trapezeMarkMilli: number;
-  /** Beats a landed tap holds the flag still. */
-  trapezeFreezeBeats: number;
-  /** Beats a draw must be held before its lift can land a catch. */
-  trapezeDrawBeats: number;
+  /** Where the ropes are tied, thousandths of a row: above the top of the field. */
+  trapezeAnchorMilli: number;
+  /** How long the ropes are, thousandths of a row. */
+  trapezeRopeMilli: number;
+  /** Beats one whole swing takes, there and back. */
+  trapezePeriodBeats: number;
+  /** How far the swing goes at the start, thousandths of a degree either side. */
+  trapezeStartMilli: number;
+  /** The furthest it can go, thousandths of a degree either side. */
+  trapezeMaxMilli: number;
+  /** What a push on time adds to the swing, thousandths of a degree. */
+  trapezePushMilli: number;
+  /** What a push at the wrong time takes off it, thousandths of a degree. */
+  trapezeBrakeMilli: number;
+  /** What the swing loses on its own every beat, thousandths of a degree. */
+  trapezeDampMilli: number;
+  /** How much of the swing is left after a gong, in thousandths of it. */
+  trapezeKeepMilli: number;
+  /** How far a swipe must go sideways to count, thousandths of a column. */
+  trapezeSwipeMilli: number;
+  /** How near the alien a bolt must pass to hit it, thousandths of a column or row. */
+  trapezeHitMilli: number;
+  /** Beats a tap on the alien keeps the cannon locked on it. */
+  trapezeLockBeats: number;
 }
 
 export const TRAPEZE_DEFAULTS: TrapezeConfig = {
-  trapezeSlackBeats: 2,
-  trapezeRestBeats: 1,
-  trapezeSpentBeats: 2,
-  trapezeSpanMilli: 1000,
-  trapezeSweepMilli: 1000,
-  trapezeMarkMilli: 500,
-  trapezeFreezeBeats: 3,
-  trapezeDrawBeats: 1,
+  trapezeEnterBeats: 2,
+  trapezeRestBeats: 2,
+  trapezeSpentBeats: 4,
+  trapezeAnchorMilli: -4000,
+  trapezeRopeMilli: 12500,
+  trapezePeriodBeats: 4,
+  trapezeStartMilli: 4000,
+  trapezeMaxMilli: 22000,
+  trapezePushMilli: 3000,
+  trapezeBrakeMilli: 2000,
+  trapezeDampMilli: 250,
+  trapezeKeepMilli: 500,
+  trapezeSwipeMilli: 300,
+  trapezeHitMilli: 600,
+  trapezeLockBeats: 6,
 };

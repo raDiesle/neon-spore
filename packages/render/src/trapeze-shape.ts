@@ -1,29 +1,32 @@
 import { blobRadiusMul } from "@neon-spore/content";
-import { coreRowMilli, midCol, type SimConfig } from "@neon-spore/sim";
+import {
+  midCol,
+  type SimConfig,
+  type TrapezeState,
+  type TrapezeStep,
+  trapezePeriod,
+} from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
-import type { Layout } from "./layout.js";
+import { type Layout, tileCY } from "./layout.js";
 import { splinePath } from "./spline.js";
 
 /**
- * **THE TRAPEZE's geometry**: where the spindle stands, where the boom hangs
- * and the paths the three are made of.
+ * **THE TRAPEZE's geometry**: where the swing hangs from, where its seat is
+ * at an angle, where the gong of a level hangs, and the alien's two bodies.
  *
- * **The spindle is SLICK · REVERB stood on end**
- * (`tools/shape-sheet/src/drafts/offered.ts`): three even swells at a modest
- * depth, turned upright so they stack, the turned wood of a masthead truck.
- * REVERB's own objection — plain reads as unfinished — is answered by the
- * swells being the spindle's health: each is lit in a cannon's colour while
- * a shot is owed and goes dark when it is taken.
+ * **The swing is THE CONDUCTOR** (`tools/shape-sheet/src/drafts/bosses.ts`):
+ * an arm, not a body, a pendulum with no inside — two long ropes from a
+ * point above the field to a plank. The owner, 7 October 2026: *the ropes
+ * should be much longer*, so it hangs from four rows above the grid's top
+ * and its seat rests two thirds of the way down the field.
  *
- * **The flag is SLICK · COMMA laid along a bent line** (the same file): one
- * deep lobe and a drawn-out tail, the fat end the hoist at the boom's tip and
- * the tail the fly. COMMA's objection — THE DART owns a point — does not
- * reach a flag: it is never the size of a creature and never on the grid.
+ * **The alien is HERALD** (`tools/shape-sheet/src/drafts/creatures.ts`): *a
+ * body and its earlier self, never quite together* — a torso on the plank
+ * and a head that lags the swing, a beat behind where the plank already is.
  *
- * **The boom is a plain rod hanging down from the spindle's foot**, a
- * pendulum, where THE DAVIT's boom stands up and THE VANE's spar tapers on a
- * bearing. Its tip is over the column the flag is over, exactly: the angle
- * is whatever puts it there. Paths are laid in field pixels.
+ * Every place is the simulation's own (`sim/trapeze.ts`'s `trapezeSeat` and
+ * `trapezeGongAt`), laid in field pixels, with the angle taken as a float
+ * so a frame between ticks is not a step.
  */
 
 export interface Point {
@@ -31,132 +34,99 @@ export interface Point {
   y: number;
 }
 
-/** The spindle's middle, in tiles below the grid's top. */
-const SPINDLE_ROW = coreRowMilli("trapeze") / 1000 + 0.5;
-/** REVERB stood on end: half its height and half its width, in tiles. */
-const SPINDLE_TALL = 0.62;
-const SPINDLE_WIDE = 0.34;
-const REVERB = { lobes: 3, depth: 0.24, wobble: 0.06, seed: 6.1 } as const;
-/** The boom's length from the spindle's foot to its tip, in tiles. */
-const BOOM = 2.5;
-/** COMMA: one lobe this deep, this much wobble, its height as a share of its length. */
-const COMMA = { lobes: 1, depth: 0.42, wobble: 0.05, seed: 0, tall: 54 / 64 } as const;
-/** How far COMMA's outline reaches along its axis either side, at rest: 1 ± depth. */
-const HEAD = 1 + COMMA.depth;
-const TAIL = 1 - COMMA.depth;
-/** The flag's length from hoist to fly, and its half-width at the hoist, in tiles. */
-const FLAG_LONG = 1.5;
-const FLAG_WIDE = 0.48;
-/** Samples round each outline. */
-const N = 48;
+/** The plank's half-width and the alien's two bodies' radii, in tiles. */
+const PLANK = 0.55;
+const TORSO = 0.42;
+const HEAD = 0.3;
+/** How far up the ropes the torso and the head sit off the plank, in tiles. */
+const TORSO_UP = 0.4;
+const HEAD_UP = 0.95;
+/** How far the head lags the swing, in degrees per degree of swing speed's share. */
+const HEAD_LAG = 6;
+/** How far out past the seat's place a gong hangs, so the foot kicks it, in tiles. */
+const GONG_OUT = 0.85;
+/** HERALD's two bodies: lobes, depth, wobble, seeds. */
+const BODY = { lobes: 3, depth: 0.12, wobble: 0.07 } as const;
+/** Samples round each body. */
+const N = 28;
 
-/** The spindle's middle: over the middle column, near the top of the field. */
-export function trapezeSpindleAt(l: Layout, cfg: SimConfig): Point {
-  return { x: fieldX(l, midCol(cfg)), y: l.gridTop + SPINDLE_ROW * l.tile };
+const rad = (deg: number) => (deg * Math.PI) / 180;
+
+/** The point the ropes hang from, above the grid over the middle column. */
+export function trapezeAnchor(l: Layout, cfg: SimConfig): Point {
+  return { x: fieldX(l, midCol(cfg)), y: tileCY(l, cfg.trapezeAnchorMilli / 1000) };
 }
 
-/** Where the boom hangs from: the spindle's foot. */
-export function trapezePivot(l: Layout, cfg: SimConfig): Point {
-  const at = trapezeSpindleAt(l, cfg);
-  return { x: at.x, y: at.y + SPINDLE_TALL * l.tile };
+/** The ropes' length, in pixels. */
+export function trapezeRope(l: Layout, cfg: SimConfig): number {
+  return (cfg.trapezeRopeMilli / 1000) * l.tile;
 }
 
-/** Pixels across one column, signed the way the field is turned. */
-export function trapezeColumnPx(l: Layout, cfg: SimConfig): number {
-  const mid = midCol(cfg);
-  return fieldX(l, mid + 1) - fieldX(l, mid);
+/** The swing's angle this frame, degrees, below nought the left; `frac` is the share of a tick gone. */
+export function trapezeDeg(cfg: SimConfig, s: TrapezeState, frac = 0): number {
+  const turn = (2 * Math.PI * (s.swingTick + frac)) / trapezePeriod(cfg);
+  return (s.ampMilli / 1000) * Math.cos(turn);
 }
 
-/**
- * The boom's tip for a flag `swingMilli` thousandths of a column off the
- * middle, and the boom's angle off hanging straight down: the tip is over
- * that column's centre, however long the boom.
- */
-export function trapezeTip(
+/** How fast it swings this frame, as a share of the fastest it could at this height: -1..1, below nought leftward. */
+export function trapezeSpeed(cfg: SimConfig, s: TrapezeState): number {
+  return -Math.sin((2 * Math.PI * s.swingTick) / trapezePeriod(cfg));
+}
+
+/** The point on the swing's arc at `deg`, `out` tiles further down the ropes. */
+export function trapezeOnArc(l: Layout, cfg: SimConfig, deg: number, out = 0): Point {
+  const a = trapezeAnchor(l, cfg);
+  const r = trapezeRope(l, cfg) + out * l.tile;
+  return { x: a.x + r * Math.sin(rad(deg)), y: a.y + r * Math.cos(rad(deg)) };
+}
+
+/** The plank's two ends at `deg`: the ropes are tied to them. */
+export function trapezePlank(l: Layout, cfg: SimConfig, deg: number): [Point, Point] {
+  const c = trapezeOnArc(l, cfg, deg);
+  const dx = Math.cos(rad(deg)) * PLANK * l.tile;
+  const dy = -Math.sin(rad(deg)) * PLANK * l.tile;
+  return [
+    { x: c.x - dx, y: c.y - dy },
+    { x: c.x + dx, y: c.y + dy },
+  ];
+}
+
+/** Where a gong hangs: the seat's place at its angle, and out past it the side it is on. */
+export function trapezeGongPx(l: Layout, cfg: SimConfig, step: TrapezeStep): Point {
+  const at = trapezeOnArc(l, cfg, (step.gongSide * step.gongMilli) / 1000);
+  return { x: at.x + step.gongSide * GONG_OUT * l.tile, y: at.y };
+}
+
+/** The gong's radius, in pixels. */
+export function trapezeGongR(l: Layout): number {
+  return 0.42 * l.tile;
+}
+
+/** The alien's torso and head at `deg`, the head lagging by `speed`. */
+export function trapezeAlienAt(
   l: Layout,
   cfg: SimConfig,
-  swingMilli: number,
-): Point & { angle: number } {
-  const pivot = trapezePivot(l, cfg);
-  const long = BOOM * l.tile;
-  const dx = (swingMilli / 1000) * trapezeColumnPx(l, cfg);
-  const angle = Math.asin(Math.max(-1, Math.min(1, dx / long)));
-  return { x: pivot.x + dx, y: pivot.y + Math.cos(angle) * long, angle };
+  deg: number,
+  speed: number,
+): { torso: Point; head: Point; r: number } {
+  const torso = trapezeOnArc(l, cfg, deg, -TORSO_UP);
+  const lag = deg - HEAD_LAG * speed;
+  const head = trapezeOnArc(l, cfg, lag, -HEAD_UP);
+  return { torso, head, r: (TORSO + 0.5 * HEAD) * l.tile };
 }
 
-/** The flag's length from hoist to fly, in pixels. */
-export function trapezeFlagLong(l: Layout): number {
-  return FLAG_LONG * l.tile;
-}
-
-/** The spindle's half-height, in pixels: how far each swell is from the next. */
-export function trapezeSpindleTall(l: Layout): number {
-  return SPINDLE_TALL * l.tile;
-}
-
-/** REVERB on end round the spindle's middle, `size` of its full width. */
-export function trapezeSpindlePath(l: Layout, time: number, size: number): Path2D {
-  return splinePath(trapezeSpindlePoints(l, time, size), true);
-}
-
-/** The points `trapezeSpindlePath` runs through, about the spindle's middle. */
-export function trapezeSpindlePoints(l: Layout, time: number, size: number): Point[] {
+/** One of HERALD's bodies, `r` round, about `at`. */
+export function trapezeBodyPath(at: Point, r: number, time: number, seed: number): Path2D {
   const pts: Point[] = [];
   for (let i = 0; i < N; i++) {
     const a = (i / N) * Math.PI * 2;
-    const m = blobRadiusMul(a, REVERB.lobes, REVERB.depth, REVERB.wobble, time, REVERB.seed);
-    // Stood on end: the draft's long axis is the spindle's height.
-    pts.push({
-      x: Math.sin(a) * SPINDLE_WIDE * l.tile * m * size,
-      y: Math.cos(a) * SPINDLE_TALL * l.tile * m,
-    });
+    const m = blobRadiusMul(a, BODY.lobes, BODY.depth, BODY.wobble, time, seed);
+    pts.push({ x: at.x + Math.cos(a) * r * m, y: at.y + Math.sin(a) * r * m });
   }
-  return pts;
+  return splinePath(pts, true);
 }
 
-/** How the flag is laid this frame, read off the pose (`trapeze-pose.ts`). */
-export interface FlagLay {
-  /** Its angle off hanging straight down: toward screen right above nought. */
-  angle: number;
-  /** How wide it opens, 0..1: a limp flag hangs folded narrow. */
-  open: number;
-  /** The ripple along it, in tiles at the fly, and where the wave is. */
-  ripple: number;
-  wave: number;
-  time: number;
-}
-
-/**
- * COMMA from `tip`, streaming at `lay.angle`: each point of the draft's
- * outline is carried to its place along the flag — how far from the hoist
- * by how far it is along the draft's axis, how far off the line by how far
- * it is across — and the line itself bent by the ripple, more toward the
- * fly, so the tail flutters and the hoist stays on the boom.
- */
-export function trapezeFlagPath(l: Layout, tip: Point, lay: FlagLay): Path2D {
-  return splinePath(trapezeFlagPoints(l, tip, lay), true);
-}
-
-/** The points `trapezeFlagPath` runs through, in field pixels. */
-export function trapezeFlagPoints(l: Layout, tip: Point, lay: FlagLay): Point[] {
-  const dx = Math.sin(lay.angle);
-  const dy = Math.cos(lay.angle);
-  // Across the flag, a quarter-turn round from along it.
-  const nx = -dy;
-  const ny = dx;
-  const long = FLAG_LONG * l.tile;
-  const wide = FLAG_WIDE * l.tile * (0.6 + 0.4 * lay.open);
-  const pts: Point[] = [];
-  for (let i = 0; i < N; i++) {
-    const a = (i / N) * Math.PI * 2;
-    const m = blobRadiusMul(a, COMMA.lobes, COMMA.depth, COMMA.wobble, lay.time, COMMA.seed);
-    const u = (HEAD - Math.cos(a) * m) / (HEAD + TAIL);
-    const v = Math.sin(a) * m * COMMA.tall;
-    // The wobble can carry the hoist's edge a hair past nought; the ripple is none there.
-    const bend = lay.ripple * l.tile * Math.max(0, u) ** 1.5 * Math.sin(u * 5 - lay.wave);
-    const along = u * long;
-    const across = v * wide + bend;
-    pts.push({ x: tip.x + dx * along + nx * across, y: tip.y + dy * along + ny * across });
-  }
-  return pts;
+/** The torso's radius and the head's, in pixels. */
+export function trapezeBodyR(l: Layout): { torso: number; head: number } {
+  return { torso: TORSO * l.tile, head: HEAD * l.tile };
 }

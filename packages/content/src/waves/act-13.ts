@@ -37,13 +37,13 @@ import type { Wave } from "../wave-types.js";
  * the seam's four points, for whichever seat is nearer there (§38,
  * `sim/gall.ts`). Three closes bare the root, and one shot in red ends it.
  *
- * **THE TRAPEZE is the first boss the simulation keeps moving for a seat to
- * still.** A pennant on a free boom mid-hull swings across the three middle
- * columns on its own: one seat taps it still over the lit column, the other
- * holds a draw and lets go toward it while it is still held (§39,
- * `sim/trapeze.ts`). Two catches, the seats swapped, light the spindle; three
- * shots at it, each after the flag has been caught back, the last one white.
- * Every catch's window outlasts a lap of the flag at its sweep.
+ * **THE TRAPEZE is the first boss the pair swings up.** An alien sits on a
+ * swing hung from long ropes over the middle; the pair push it as it comes
+ * back toward the middle until it is high enough to kick the gong (§39,
+ * `sim/trapeze.ts`, the owner's rework of 7 October 2026). Four levels, one
+ * new thing each: P1 left and P2 right; who pushes a side called by chance;
+ * shots from below; the pilot's tap locking the cannon for a shot from the
+ * side. Every gong a little higher than the last.
  *
  * **THE FLUE is the first boss only one seat can see.** An ember runs along
  * a flue across the top of the field, end to end and back, over the cannon
@@ -157,35 +157,18 @@ export const WAVES_ACT_13: Wave[] = [
     id: "theTrapeze",
     name: "THE TRAPEZE",
     guide: {
-      both: "One of you taps the flag still over the lit column. The other holds a draw and swipes toward it. Two catches light the spindle. Shoot it in its colour.",
-      p1: "1. First, tap the flag still when it swings over the lit column.\n2. Next, hold a draw and swipe toward the column once it stops.\n3. Shoot the spindle. Catch the flag back when it creeps loose.",
-      p2: "1. First, hold a draw and swipe toward the column once it stops.\n2. Next, tap the flag still when it swings over the lit column.\n3. Shoot the spindle. Catch the flag back when it creeps loose.",
+      both: "Swing the alien up to the gong. Swipe toward the middle when the swing comes back on your side. Swipe too early and it slows.",
+      p1: "1. Swipe on the left when the swing comes back.\n2. Later, the field says who swipes.\n3. Then shoot it from below.\n4. Last, tap the alien. Your partner fires.",
+      p2: "1. Swipe on the right when the swing comes back.\n2. Later, the field says who swipes.\n3. Then fire when it comes back.\n4. Last, fire when your partner taps the alien.",
     },
     entries: [],
     boss: {
       kind: "trapeze",
       steps: [
-        { ask: "catch", freezer: 1, offset: -1, sweepMilli: 1000, color: "either", beats: 6 },
-        { ask: "catch", freezer: 2, offset: 1, sweepMilli: 1000, color: "either", beats: 5 },
-        { ask: "fire", freezer: "either", offset: 0, sweepMilli: 0, color: "red", beats: 6 },
-        {
-          ask: "recatch",
-          freezer: "either",
-          offset: 1,
-          sweepMilli: 500,
-          color: "either",
-          beats: 7,
-        },
-        { ask: "fire", freezer: "either", offset: 0, sweepMilli: 0, color: "cyan", beats: 6 },
-        {
-          ask: "recatch",
-          freezer: "either",
-          offset: 1,
-          sweepMilli: 1000,
-          color: "either",
-          beats: 5,
-        },
-        { ask: "fire", freezer: "either", offset: 0, sweepMilli: 0, color: "either", beats: 6 },
+        { ask: "push", gongSide: 1, gongMilli: 10000, beats: 32 },
+        { ask: "call", gongSide: -1, gongMilli: 14000, beats: 40 },
+        { ask: "shoot", gongSide: 1, gongMilli: 16000, beats: 48 },
+        { ask: "lock", gongSide: -1, gongMilli: 18000, beats: 48 },
       ],
     },
     bossType: "normal",

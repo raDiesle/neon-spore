@@ -17,7 +17,7 @@ import { computeLayout, tileCX, tileCY } from "../src/layout.js";
 import { mimicHang } from "../src/mimic-pose.js";
 import { RockImpactFx } from "../src/rock-impact.js";
 import { slingCentre } from "../src/sling-shape.js";
-import { trapezeSpindleAt } from "../src/trapeze-shape.js";
+import { trapezeAnchor } from "../src/trapeze-shape.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -148,7 +148,7 @@ describe("a boss's blow at the hull", () => {
     ["THE HALTER sheds a plate from under its centre", "halter", halterCentre],
     ["THE CAPSTAN throws a cog off its cradle's foot", "capstan", capstanCentre],
     ["THE GALL drops a seed off its root's underside", "gall", gallRootAt],
-    ["THE TRAPEZE tears a scrap off its flag's fly", "trapeze", trapezeSpindleAt],
+    ["THE TRAPEZE's alien leaps off the swing it hangs under", "trapeze", trapezeAnchor],
     ["THE CYST spits a spore out of its bottom lobe", "cyst", cystCentre],
     ["THE GRINDSTONE throws a chip off its wheel", "grindstone", grindstoneCentre],
     ["THE SLING flings a ball out of its cup", "sling", slingCentre],

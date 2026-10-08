@@ -8,6 +8,7 @@ import { hiveWallAlong } from "./hive-wall.js";
 import { keelRockAlong, keelStruck } from "./keel-shot.js";
 import { mantleSparkAlong, mantleStruck } from "./mantle-shot.js";
 import { ratchetBoltAlong, ratchetStruck } from "./ratchet-shot.js";
+import { trapezeAlong, trapezeStruck } from "./trapeze-shot.js";
 import type { Bullet } from "./types.js";
 import { valveSparkAlong, valveStruck } from "./valve-shot.js";
 import { vaneMouthAlong, vaneMouthStruck } from "./vane.js";
@@ -19,7 +20,7 @@ import type { World } from "./world.js";
  * HIVE's cocoons down its two walls (`hive-wall.ts`), THE GIMBAL's leaking
  * bead, THE MANTLE's spark and THE VALVE's, THE RATCHET's loose bolt and THE
  * HASP's and THE KEEL's rock, each on its way down its column
- * (`spark-fall.ts`), THE FLUE's row, which
+ * (`spark-fall.ts`), THE TRAPEZE's alien on its swing, THE FLUE's row, which
  * stops every shot to judge it against the ember (`flue-shot.ts`). One
  * question for `bullets.ts` and `lance-burn.ts` to ask beside the bodies and
  * pods in the same sweep, so whichever stands lowest is met first and a body
@@ -47,7 +48,9 @@ export function bossAlong(world: World, bullet: Bullet, from: number, to: number
   const clasp = haspBoltAlong(world, bullet, from, to);
   if (clasp >= 0) return clasp;
   const rock = keelRockAlong(world, bullet, from, to);
-  return rock >= 0 ? rock : gorgeAlong(world, bullet, from, to);
+  if (rock >= 0) return rock;
+  const alien = trapezeAlong(world, bullet, from, to);
+  return alien >= 0 ? alien : gorgeAlong(world, bullet, from, to);
 }
 
 /** The shot met what `bossAlong` found. */
@@ -61,5 +64,6 @@ export function bossAlongStruck(world: World, bullet: Bullet): void {
   else if (world.boss?.kind === "ratchet") ratchetStruck(world, bullet);
   else if (world.boss?.kind === "hasp") haspStruck(world, bullet);
   else if (world.boss?.kind === "keel") keelStruck(world, bullet);
+  else if (world.boss?.kind === "trapeze") trapezeStruck(world, bullet);
   else vaneMouthStruck(world, bullet);
 }

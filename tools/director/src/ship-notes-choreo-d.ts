@@ -90,18 +90,17 @@ export const CHOREO_NOTES_D = {
     "on the phone sends a press here yet. Only the simulation lane has " +
     "landed — see sim/gall.ts, sim/gall-step.ts, sim/gall-hand.ts, " +
     "sim/gall-shot.ts, sim/config-gall.ts.",
-  "THE TRAPEZE — a flag stilled by one seat and caught by the other":
-    "Asked for in docs/spec/bosses-choreographed.md §39: a pennant on a free " +
-    "boom mid-hull that swings across the three middle columns on its own, " +
-    "trapezeSwingMilli, never a player's to move. The step's freezer taps it " +
-    "still over the lit column — THE VALVE's FREEZE TAP, an edge, landing only " +
-    "on the mark — and the other seat holds a draw a beat and lifts toward " +
-    "the column while it is still frozen, THE SLING's HOLD, THEN SWIPE. Two " +
-    "catches, seats swapped, light the spindle; three shots at it, each after " +
-    "the creeping flag is caught back. A catch run out is tried again; a " +
-    "recatch run out dims the spindle; a fire step run out is a hull hit, " +
-    "which is the wave. Nothing on the phone sends a tap or a draw here yet. " +
-    "Only the simulation lane has landed — see sim/trapeze.ts, " +
+  "THE TRAPEZE — an alien swung up to a gong":
+    "Reworked by the owner, 7 October 2026 (docs/spec/bosses-choreographed.md " +
+    "§39): an alien on a swing hung from long ropes, trapezeRopeMilli from " +
+    "trapezeAnchorMilli above the grid, swinging on its own and dying down " +
+    "trapezeDampMilli a beat. A swipe toward the middle in a zone, while the " +
+    "swing comes back over it, pushes it trapezePushMilli higher; while it " +
+    "goes out it brakes it trapezeBrakeMilli. High enough, the alien kicks the " +
+    "level's gong. Four levels: P1 left and P2 right; who swipes a side drawn " +
+    "by chance; shots from below; the pilot's tap locking the cannon for " +
+    "trapezeLockBeats, a shot from the side. A level run out is the alien at " +
+    "the hull, which is the wave. No SLOW — see sim/trapeze.ts, " +
     "sim/trapeze-step.ts, sim/trapeze-hand.ts, sim/trapeze-shot.ts, " +
     "sim/config-trapeze.ts.",
   "THE FLUE — an ember one seat sees and the other shoots":

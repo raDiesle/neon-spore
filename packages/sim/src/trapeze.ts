@@ -1,71 +1,56 @@
-import { midCol, type SimConfig } from "./config.js";
-import type { Color } from "./types.js";
+import { midCol, type SimConfig, ticksPerBeat } from "./config.js";
+import { mazeCosMilli, mazeSinMilli } from "./maze.js";
 import type { World } from "./world.js";
 
 /**
- * THE TRAPEZE: a pennant on a free-swinging boom mid-hull, swinging across the
- * middle columns on its own, stilled by one seat's tap and caught by the
- * other seat's draw, and then a spindle that has to be shot in the colour it
- * shows (`docs/spec/bosses-choreographed.md` §39).
+ * THE TRAPEZE: an alien on a swing hung from two long ropes over the middle
+ * of the field. The pair swing it higher and higher until the alien kicks
+ * the gong hung at the side (`docs/spec/bosses-choreographed.md` §39, the
+ * owner's rework of 7 October 2026).
  *
- * **The rule is one sentence**: tap the flag still over the lit column, and
- * while it is still your partner looses a held draw toward it; then shoot
- * the lit spindle in its colour.
+ * **The rule is one sentence**: push the swing when it comes back toward the
+ * middle, until it is high enough to kick the gong. A push while it goes out
+ * slows it.
  *
- * `swingMilli` is where the flag is, in thousandths of a column off the
- * middle one, and it is **nobody's to move**: the simulation swings it
- * `sweepMilli` a beat, back and forth inside `trapezeSpanMilli` either side.
- * The tap is THE VALVE's pin and THE CYST's mark (`FreezeTap`): an edge, and
- * it lands only while the flag is over the lit column — within
- * `trapezeMarkMilli` of it — stopping the swing dead for `trapezeFreezeBeats`.
- * The draw is THE SLING's (`DrawRelease`): held `trapezeDrawBeats`, and the
- * lift carries the swipe's sign. A lift lands a catch only while the flag is
- * still frozen and only swiping toward the lit column's half.
+ * The swing is a pendulum with a fixed period, kept as two integers: how far
+ * it swings (`ampMilli`, thousandths of a degree either side) and where in
+ * the swing it is (`swingTick`, ticks into one whole swing). Tick nought is
+ * the right end, a quarter the bottom on the way left, a half the left end,
+ * three quarters the bottom on the way right. A push adds to the swing and a
+ * wrong one takes from it; the swing loses `trapezeDampMilli` a beat on its
+ * own, so a pair that stops pushing sees it die down.
  *
- * Both handles are on both screens and either seat may press either; which
- * one is live is the lit step's. On the first catch the pilot freezes and the
- * navigator draws, on the second the other way about, and on a recatch
- * whoever taps first is the freezer and the other seat draws.
+ * **Four kinds of level**, one new thing each:
+ * - `push`: the pilot swipes on the left side, the navigator on the right.
+ * - `call`: who swipes on a side is called just before it, by chance.
+ * - `shoot`: no swipes; a bolt from below pushes the alien.
+ * - `lock`: the pilot taps the alien to lock the cannon on it and the
+ *   navigator fires; the bolt comes in from the side and pushes it away
+ *   from the cannon.
  *
- * **Its health is two catches and three shots.** A catch or a recatch that
- * runs out is tried again, and a recatch run out dims the spindle until it is
- * made; a shot that runs out is a hull hit, which is the wave.
+ * **Its health is the gongs**, one a level. A level that runs out is the
+ * alien jumping at the hull, which is the wave.
  */
 
-/** Catches that light the spindle — rows 2 and 3 of §39. */
-export const TRAPEZE_CATCHES = 2;
-
-/**
- * Where the scene is: the flag swinging loose before anything is asked, a
- * step lit and waiting, the boom resting between steps, and the flag
- * swinging free, spent.
- */
-export const TRAPEZE_PHASES = ["slack", "lit", "rest", "spent"] as const;
+/** Where the scene is: swaying in, a level lit, resting after a gong, and over the top and away. */
+export const TRAPEZE_PHASES = ["enter", "level", "rest", "spent"] as const;
 export type TrapezePhase = (typeof TRAPEZE_PHASES)[number];
 
-/**
- * What a step asks: the flag caught by the step's own freezer and the other
- * seat, the flag caught again off the lit spindle by either freezer, or a
- * shot at the spindle.
- */
-export const TRAPEZE_ASKS = ["catch", "recatch", "fire"] as const;
+/** What a level asks. */
+export const TRAPEZE_ASKS = ["push", "call", "shoot", "lock"] as const;
 export type TrapezeAsk = (typeof TRAPEZE_ASKS)[number];
 
-/** One step of the script, authored on the wave. */
+/** A side of the swing, and a side's zone: -1 left, 1 right. */
+export type TrapezeSide = -1 | 1;
+
+/** One level of the script, authored on the wave. */
 export interface TrapezeStep {
   ask: TrapezeAsk;
-  /** The seat whose tap stills the flag, or `"either"`. A catch names one; a recatch is either. */
-  freezer: 1 | 2 | "either";
-  /**
-   * The lit column, as columns off the middle: below nought the left half,
-   * above it the right, and the way a loose must swipe. A catch or a recatch reads it.
-   */
-  offset: number;
-  /** How far the flag swings a beat while the step is lit, thousandths of a column. */
-  sweepMilli: number;
-  /** The colour a shot must be, or `"either"`. Only a fire step reads it. */
-  color: Color | "either";
-  /** Beats the step stays lit: a catch's window, a fire step's wait for its shot. */
+  /** The side the gong hangs on. */
+  gongSide: TrapezeSide;
+  /** How far the swing must go to kick it, thousandths of a degree. */
+  gongMilli: number;
+  /** Beats the level may take before the alien jumps at the hull. */
   beats: number;
 }
 
@@ -82,28 +67,24 @@ export interface TrapezeState {
   phase: TrapezePhase;
   /** `world.beat` the phase began. */
   phaseBeat: number;
-  /** The step lit, or the next to light. */
+  /** The level lit, or the next to light. */
   cursor: number;
-  /** Where the flag is, thousandths of a column off the middle column. */
-  swingMilli: number;
-  /** Which way it is swinging: 1 toward the right, -1 toward the left. */
-  swingDir: 1 | -1;
-  /** Beats the flag stays frozen, nought when it swings. */
-  frozenBeats: number;
-  /** The seat index whose tap froze it, 0 the pilot, or null. */
-  frozenBy: 0 | 1 | null;
-  /** Catches landed: nought up to `TRAPEZE_CATCHES`. */
-  catches: number;
-  /** Shots the spindle has taken. */
-  hits: number;
-  /** Whether the spindle is lit to be shot. */
-  spindleLit: boolean;
-  /** Whether each seat's thumb is down on the freeze mark, so a tap is an edge. */
-  tapDown: [boolean, boolean];
-  /** Whether each seat's finger is down on its draw this instant. */
-  holding: [boolean, boolean];
-  /** Beats each seat has held its draw in the lit step, up to `trapezeDrawBeats`. */
-  drawnBeats: [number, number];
+  /** How far the swing goes either side, thousandths of a degree. */
+  ampMilli: number;
+  /** Ticks into one whole swing; nought is the right end. */
+  swingTick: number;
+  /** Ends the swing has turned at so far: each half swing is one, and a side's chance to push. */
+  half: number;
+  /** The `half` a push or a brake was last taken in, so a side pushes once a half swing. */
+  pushedHalf: number;
+  /** Who pushes on the left and on the right: the seat index, nought the pilot. */
+  callers: [0 | 1, 0 | 1];
+  /** The zone each seat's finger went down on, nought when none is down. */
+  down: [-1 | 0 | 1, -1 | 0 | 1];
+  /** Beats the cannon stays locked on the alien, nought when it is not. */
+  lockBeats: number;
+  /** Gongs kicked: the levels won. */
+  gongs: number;
 }
 
 export function trapezeBoss(world: World): TrapezeState | null {
@@ -111,97 +92,124 @@ export function trapezeBoss(world: World): TrapezeState | null {
   return boss !== null && boss.kind === "trapeze" ? boss : null;
 }
 
-/** The step lit, or null between steps. */
+/** The level lit, or null between levels. */
 export function trapezeLitStep(s: TrapezeState): TrapezeStep | null {
-  return s.phase === "lit" ? (s.steps[s.cursor] ?? null) : null;
+  return s.phase === "level" ? (s.steps[s.cursor] ?? null) : null;
 }
 
-/** Whether the lit step asks for the flag caught: a catch or a recatch. */
-export function trapezeCatching(s: TrapezeState): boolean {
+/** Ticks in one whole swing. */
+export function trapezePeriod(cfg: SimConfig): number {
+  return cfg.trapezePeriodBeats * ticksPerBeat(cfg);
+}
+
+/** The swing's angle this tick, thousandths of a degree: below nought the left. */
+export function trapezeAngle(cfg: SimConfig, s: TrapezeState): number {
+  const turn = Math.floor((360_000 * s.swingTick) / trapezePeriod(cfg));
+  return Math.round((s.ampMilli * mazeCosMilli(turn)) / 1000);
+}
+
+/** The side the swing is on this tick. */
+export function trapezeOnSide(cfg: SimConfig, s: TrapezeState): TrapezeSide {
+  const q = trapezePeriod(cfg) / 4;
+  return s.swingTick >= q && s.swingTick < 3 * q ? -1 : 1;
+}
+
+/** Whether the swing is coming back toward the middle this tick, rather than going out. */
+export function trapezeInward(cfg: SimConfig, s: TrapezeState): boolean {
+  const p = trapezePeriod(cfg);
+  const t = s.swingTick;
+  return t < p / 4 || (t >= p / 2 && t < (3 * p) / 4);
+}
+
+/** Which way the swing is moving this tick: -1 toward the left, 1 toward the right. */
+export function trapezeHeading(cfg: SimConfig, s: TrapezeState): TrapezeSide {
+  return s.swingTick < trapezePeriod(cfg) / 2 ? -1 : 1;
+}
+
+/** Where the alien sits this tick, thousandths of a column and of a row. */
+export function trapezeSeat(cfg: SimConfig, s: TrapezeState): { xMilli: number; yMilli: number } {
+  const angle = trapezeAngle(cfg, s);
+  const rope = cfg.trapezeRopeMilli;
+  return {
+    xMilli: midCol(cfg) * 1000 + Math.round((rope * mazeSinMilli(angle)) / 1000),
+    yMilli: cfg.trapezeAnchorMilli + Math.round((rope * mazeCosMilli(angle)) / 1000),
+  };
+}
+
+/** Where the gong of `step` hangs: the swing's seat at the gong's angle. */
+export function trapezeGongAt(
+  cfg: SimConfig,
+  step: TrapezeStep,
+): { xMilli: number; yMilli: number } {
+  const angle = step.gongSide * step.gongMilli;
+  const rope = cfg.trapezeRopeMilli;
+  return {
+    xMilli: midCol(cfg) * 1000 + Math.round((rope * mazeSinMilli(angle)) / 1000),
+    yMilli: cfg.trapezeAnchorMilli + Math.round((rope * mazeCosMilli(angle)) / 1000),
+  };
+}
+
+/** Whether the lit level asks for swipes. */
+export function trapezeSwiping(s: TrapezeState): boolean {
   const ask = trapezeLitStep(s)?.ask;
-  return ask === "catch" || ask === "recatch";
+  return ask === "push" || ask === "call";
 }
 
-/** The column the lit step wants the flag over, or null when none is lit. */
-export function trapezeMarkCol(cfg: SimConfig, s: TrapezeState): number | null {
-  const step = trapezeLitStep(s);
-  if (step === null || step.ask === "fire") return null;
-  return midCol(cfg) + step.offset;
-}
-
-/** Whether the flag is over the lit column this instant. */
-export function trapezeOnMark(world: World, s: TrapezeState): boolean {
-  const step = trapezeLitStep(s);
-  if (step === null || step.ask === "fire") return false;
-  return Math.abs(s.swingMilli - step.offset * 1000) <= world.cfg.trapezeMarkMilli;
-}
-
-/** Whether the flag is frozen still. */
-export function trapezeFrozen(s: TrapezeState): boolean {
-  return s.frozenBeats > 0;
-}
-
-/** Whether this seat's tap may still the flag in the lit step. */
-export function trapezeFreezes(s: TrapezeState, side: 0 | 1): boolean {
-  if (!trapezeCatching(s)) return false;
-  const freezer = trapezeLitStep(s)?.freezer;
-  return freezer === "either" || freezer === side + 1;
-}
-
-/** Whether this seat's draw is the one the lit step asks for: the seat that is not the freezer. */
-export function trapezeAims(s: TrapezeState, side: 0 | 1): boolean {
-  if (!trapezeCatching(s)) return false;
-  const freezer = trapezeLitStep(s)?.freezer;
-  if (freezer === "either") return s.frozenBy !== side;
-  return freezer !== side + 1;
-}
-
-/** Whether the freeze mark asks this seat's tap: its tap may still the flag, and it is not still already. */
-export function trapezeFreezeAsks(s: TrapezeState, side: 0 | 1): boolean {
-  return trapezeFreezes(s, side) && !trapezeFrozen(s);
-}
-
-/** Whether the spindle asks for a shot: a fire step lit with the spindle lit. */
-export function trapezeSpindleAsks(s: TrapezeState): boolean {
-  return s.spindleLit && trapezeLitStep(s)?.ask === "fire";
+/** Whether the lit level asks for shots. */
+export function trapezeShooting(s: TrapezeState): boolean {
+  const ask = trapezeLitStep(s)?.ask;
+  return ask === "shoot" || ask === "lock";
 }
 
 /**
- * Whether the flag is held on the lit spindle rather than swinging: once both
- * catches are in, and until a recatch lights with the flag creeping loose, or
- * the fight is over.
+ * The zone that may be pushed this tick, or nought: the side the swing is on
+ * while it comes back toward the middle, in a swipe level, once a half swing.
  */
-export function trapezeHeld(s: TrapezeState): boolean {
-  return s.spindleLit && s.phase !== "spent" && trapezeLitStep(s)?.ask !== "recatch";
+export function trapezeOpenZone(cfg: SimConfig, s: TrapezeState): -1 | 0 | 1 {
+  if (!trapezeSwiping(s) || s.pushedHalf === s.half || !trapezeInward(cfg, s)) return 0;
+  return trapezeOnSide(cfg, s);
 }
 
-/** The side a swipe went, from its signed `fromMilli`: -1 left, 1 right, 0 a lift with no swipe. */
-export function trapezeSwipe(fromMilli: number): -1 | 0 | 1 {
-  return fromMilli < 0 ? -1 : fromMilli > 0 ? 1 : 0;
+/** The seat that pushes on `zone`. */
+export function trapezeCaller(s: TrapezeState, zone: TrapezeSide): 0 | 1 {
+  return s.callers[zone < 0 ? 0 : 1];
 }
 
-/** The flag swinging free and the spindle spent: the fight is over. */
+/** Whether the cannon is locked on the alien. */
+export function trapezeLocked(s: TrapezeState): boolean {
+  return s.lockBeats > 0 && trapezeLitStep(s)?.ask === "lock";
+}
+
+/** How far the swing has to go yet before it kicks the lit gong, thousandths of a degree; nought when it would. */
+export function trapezeShort(s: TrapezeState): number {
+  const step = trapezeLitStep(s);
+  return step === null ? 0 : Math.max(0, step.gongMilli - s.ampMilli);
+}
+
+/** Over the top and away: the fight is over. */
 export function trapezeDone(s: TrapezeState): boolean {
   return s.phase === "spent";
 }
 
-/** A fresh flag: hanging over the middle, swinging right, nothing caught, no thumb down. */
-export function freshTrapeze(beat: number, steps: readonly TrapezeStep[]): TrapezeState {
+/** A fresh swing: swaying a little at its right end, no gong kicked, no finger down. */
+export function freshTrapeze(
+  cfg: SimConfig,
+  beat: number,
+  steps: readonly TrapezeStep[],
+): TrapezeState {
   return {
     kind: "trapeze",
     steps: steps.map((step) => ({ ...step })),
-    phase: "slack",
+    phase: "enter",
     phaseBeat: beat,
     cursor: 0,
-    swingMilli: 0,
-    swingDir: 1,
-    frozenBeats: 0,
-    frozenBy: null,
-    catches: 0,
-    hits: 0,
-    spindleLit: false,
-    tapDown: [false, false],
-    holding: [false, false],
-    drawnBeats: [0, 0],
+    ampMilli: cfg.trapezeStartMilli,
+    swingTick: 0,
+    half: 0,
+    pushedHalf: -1,
+    callers: [0, 1],
+    down: [0, 0],
+    lockBeats: 0,
+    gongs: 0,
   };
 }

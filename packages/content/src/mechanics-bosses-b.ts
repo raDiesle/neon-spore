@@ -139,7 +139,7 @@ export const BOSS_MECHANICS_B = {
     reach: "spawn",
   },
   trapeze: {
-    what: "One of you taps the flag still over the lit column. The other holds a draw and swipes toward it. Two catches light the spindle. Shoot it in its colour.",
+    what: "Swing the alien up to the gong. Swipe toward the middle as the swing comes back. Later, shoot it from below and from the side.",
     reach: "spawn",
   },
   flue: {

@@ -85,7 +85,7 @@ reordering the page without keeping them would break every one of them.
 - **[THE HALTER](#36-the-halter--a-seam-that-only-bares-itself-while-one-hand-proves-it-isnt-there)** · §36 — a seam that only bares itself while one hand proves it isn't there; [bosses](bosses.md) §11.53, wave 115
 - **[THE CAPSTAN](#37-the-capstan--a-drum-one-hand-steers-that-the-other-hand-wears-down)** · §37 — a drum one hand steers, that the other hand wears down; [bosses](bosses.md) §11.54, wave 116
 - **[THE GALL](#38-the-gall--a-growth-that-moves-once-the-pinch-that-closes-it-lands)** · §38 — a growth that moves once the pinch that closes it lands; [bosses](bosses.md) §11.55, wave 117
-- **[THE BURGEE](#39-the-trapeze--a-flag-that-will-not-hold-still-long-enough-to-aim)** · §39 — a flag that will not hold still long enough to aim; [bosses](bosses.md) §11.56, wave 118
+- **[THE TRAPEZE](#39-the-trapeze--an-alien-swung-up-to-a-gong)** · §39 — an alien swung up to a gong; [bosses](bosses.md) §11.56, wave 118
 - **[THE FLUE](#40-the-flue--a-vent-that-only-steadies-for-as-long-as-a-hand-proves-still)** · §40 — a vent that only steadies for as long as a hand proves still; [bosses](bosses.md) §11.57, wave 119 — reworked by the owner 5 October 2026: an ember one seat sees and the other shoots
 - **[THE LAMPREY](#41-the-lamprey--a-mouth-on-the-hull-one-thumb-pinning-it-and-one-knocking-its-teeth-out)** · §41 — a mouth on the hull, one thumb pinning it and one knocking its teeth out; [bosses](bosses.md) §11.59, wave 122
 - **[THE MIMIC](#42-the-mimic--a-skin-only-one-of-you-can-read-and-only-the-other-can-answer)** · §42 — a skin only one of you can read, and only the other can answer; [bosses](bosses.md) §11.60, wave 123
@@ -145,7 +145,7 @@ done.
 | [§36 THE HALTER](#36-the-halter--a-seam-that-only-bares-itself-while-one-hand-proves-it-isnt-there) | **lane one and the body landed, 26 September 2026; the hands, 27 September** | The simulation is in as wave 115 THE HALTER and `docs/spec/bosses.md` §11.53: `RestraintGate`'s first tenant, **every command either seat sends heard** and zeroing that seat's rest, counted in whole beats up to `halterRestThreshold`; and `halterChordLeft` and `halterChordRight` heard as THE TRIVET hears its pads, a mask a seat, on both seats. Which seat rests is the step's — on the left segment the navigator rests and the pilot grips, on the right the other way about, on a guard either. A beat counts only while the step's rester is settled, holding no grip, and the other seat holds both grips; `halterHoldBeats` together cracks the segment, and either half failing while they held clears both counters. Both cracks bare the centre, a fire step the ordinary shot into the middle column in its colour, a guard between the shots keeping the plating off it. Two cracks and three hits as the health. **Seven departures are argued by name** in §11.53: the eleven rows are seven steps, the rest is held at the threshold and zeroed as a step lights, a rester with a thumb on a grip is not resting, a segment run out is tried again, a guard's pairing is free, a guard comes apart the instant the pair does, and a fire step run out is the wave. The fourteen sounds are bound. **The body is drawn** (§11.53, *The look*): THE TITHE · EDGE's plated slab cut along a hunched spinal seam of three segments that part as they crack, the bared core lit in the shot's colour, a tremor that stops dead while the pair holds, and its own blow, a shed plate. **The hands are in** (§11.53, *The hands*): the two lit grips are touch targets for either seat on both screens, a finger of a chord each, the resting seat's phone sends nothing, `HOLD` is said to the gripper alone, and AUTO plays it out |
 | [§37 THE CAPSTAN](#37-the-capstan--a-drum-one-hand-steers-that-the-other-hand-wears-down) | **built, 27 September 2026** — lane one, the lean sender, the autopilot hand, the body, the blow, the receipts, the rub's touch and the cue; never watched at tempo | The simulation is in as wave 116 THE CAPSTAN and `docs/spec/bosses.md` §11.54: THE PLUMB's `LevelTilt` and THE RIME's `RubCount` paired, as `capstanSteer` and `capstanRub`, **both heard from either seat**. Which seat steers is the step's — on the left band the pilot leans and the navigator rubs, on the right the other way about, on a hold whichever seat leans past `capstanPullMilli`, the pilot first. A lean past the mark bares that side's face, and fresh reversals from the other seat wear **only the bared face**; the hidden face keeps its wear exactly. `capstanWearThreshold` cracks a band, both bright bare the core, a fire step the ordinary shot into the middle column in its colour, a hold between the shots counting `capstanHoldBeats` beats with a rub on a bared face. Two bands and three hits as the health. **Nine departures are argued by name** in §11.54: the eleven rows are seven steps, a band not lit is worn one short, a band window run out is tried again with its wear kept, a hold is counted in beats with a miss not a reset, a hold's pairing is free, a hold run out covers the core and is asked again, a quiet phone is level, the two targets are the gesture not the side, and a fire step run out is the wave. The fourteen sounds are bound. **The lean is sent** from both phones as the one `capstanSteer`, and **AUTO plays it out** (§11.54, *The lean, and AUTO*). **The body is drawn** (§11.54, *The look*): GATE's bar laid as a drum on its side with a BEARING RING for each end face, rocked in its cradle by the lean itself so the steered face comes round, each band's eight marks scrubbed bright one reversal at a time, the lean's mark on a horn, and the core under a cap that creeps back through a hold. **Its blow is a cog** it throws off the cradle's foot, and its receipts flare, ring, thud and flash (§11.54). **A press on either end takes the rub**, read where the rocked drum is drawn, and the field says `LEAN` to the steerer, `RUB` to the other seat and `FIRE` on a bared core (§11.54, *The rub's touch and the cue*). **The lean became a pull the same day**: no wave may need a tilt sensor, so the steering seat drags the drum's middle and holds it, a lift pausing the rub, and the field says `PULL` (§11.54, *The pull, in place of the lean*) |
 | [§38 THE GALL](#38-the-gall--a-growth-that-moves-once-the-pinch-that-closes-it-lands) | **lane one landed, 27 September 2026** — the simulation, the body, the blow, the receipts, AUTO's hand, the pinch's touch and the cue; never watched at tempo | The simulation is in as wave 117 THE GALL and `docs/spec/bosses.md` §11.55: THE VISE's `SqueezeGap` as the one drag `gallPress`, `fromMilli` the gap and **`id` the point** the fingers went down on, heard only on the gall's point and only from that point's seat — the two left points the pilot's, the two right the navigator's, by geometry. A close counts `gallShutBeats` beats at or under `gallShutMilli`, a widening slips and starts again, and a close landed **jumps the gall** to one of the other three points off the seeded `Rng`. Three closes bare the root, one fire step in red ends it. **Six departures are argued by name** in §11.55: the windows a beat longer, the points indices, one pinch target with the point as `id`, the shot a fifth row, a shot run out the wave, and a close window run out tried again in place. The eleven sounds are bound. **The body is drawn** (§11.55, *The look*): THE NEEDLE laid across the field as a raised seam with four scars, NOTCH 2's heeled mass riding it and leaning toward its pincher's end, squeezed by the gap and pressed down by the beats kept shut, a lobe fewer per close, and the seam's lips peeled back over the root after the third; the pinch's chevrons full on the seat whose half it is. **Its blow and receipts are drawn**: a root let run seeds, a piece of the nodule dropped down the middle column that takes root in the skin, and a close leaves a ghost of the nodule on the point it left. **AUTO plays it to the end** (`hands/boss-hands-gall.ts`): the pincher's seat shuts the gall where it sits and again wherever it jumps, and the bared root is shot in its colour. **Two fingers pinch it** (`render/gall-grip.ts`) on the point of the seat's half nearest the first, the point sent as the pinch's `id`, and the field says `PINCH` to the seat whose half the gall sits on and `FIRE` on the bared root (`boss-cue-read-zm.ts`) |
-| [§39 THE BURGEE](#39-the-trapeze--a-flag-that-will-not-hold-still-long-enough-to-aim) | **lane one and the look landed, 27 September 2026** — the simulation and the body; the receipts and the blow landed the same day, and the touch, the cue and AUTO the same day; never watched at tempo | The simulation is in as wave 118 THE BURGEE and `docs/spec/bosses.md` §11.56: THE VALVE's `FREEZE TAP` as the drag `trapezeFreeze`, an edge, and THE SLING's `HOLD, THEN SWIPE` as the drag `trapezeDraw`, the lift carrying the swipe on `fromMilli`, **both heard from either seat** and which is live the step's — the first catch the pilot freezes and the navigator draws, the second the other way about, a recatch either. The flag swings `trapezeSwingMilli` across the middle three columns every beat on its own; a tap over the lit column stills it `trapezeFreezeBeats`, and a lift lands a catch only with a beat drawn, the flag still frozen and the swipe toward the column. Two catches light the spindle and hold the flag on it, three fire steps shoot it, each after a recatch of the creeping flag. **Eight departures are argued by name** in §11.56: the sweep spans three columns, a freeze lands only on the mark, the recatch windows are seven and five beats so a lap fits, a second catch run out is tried again in place, the draw counts from the finger down, a fire step has no SLOW, a shot run out is the wave, and the lit spindle holds the flag. The fifteen sounds are bound. **The body is drawn** (`render/src/trapeze-draw.ts`): SLICK · REVERB on end for the spindle, a hanging steel boom, SLICK · COMMA for a canvas flag eased still rather than put there, the freeze ring and the draw's track split by seat, the canvas brightening with the catches and the spindle's studs going dark per shot. **Its receipts and blow are drawn** (`trapeze-fx.ts`, `trapeze-blow.ts`): a freeze's ring, a catch's crack taut, the spindle's flare and flash, and a scrap of the flag's fly torn off onto the skin for a shot run out. Nothing sends a tap or a draw from a touch yet, and AUTO has no hand |
+| [§39 THE TRAPEZE](#39-the-trapeze--an-alien-swung-up-to-a-gong) | **reworked as a swing, 8 October 2026** — the simulation and a plain picture; the look and the tutorial are the next two lanes; never watched at tempo | The owner's rework of THE BURGEE (7 October 2026), wave 118 and `docs/spec/bosses.md` §11.56: an alien on a swing, pushed by a swipe toward the middle as it comes back (`trapezePushLeft`, `trapezePushRight`), braked by one while it goes out, until it kicks the gong. Four levels, one new thing each: P1 left and P2 right; who pushes a side called by chance; shots from below; the pilot's tap locking the cannon (`trapezeLock`) for the navigator's shot from the side. **No SLOW.** A refused swipe says why. The thirteen sounds are bound, AUTO plays it to the end, and the picture draws the zones, the arc with its gauge, the gong and the alien |
 | [§40 THE FLUE](#40-the-flue--a-vent-that-only-steadies-for-as-long-as-a-hand-proves-still) | **built 27 September 2026; reworked by the owner, 5 October 2026** — the rules, the cue, AUTO and the look adapted in one landing, the numbered scale and the level card in a second; never watched at tempo | Wave 119 THE FLUE and `docs/spec/bosses.md` §11.57, which has the owner's brief. The vents, the damper, the taps, the core and `flueTap` are gone. An ember runs end to end along a flue across the top of the field, drawn on the pilot's screen only (`showsFlueEmber`); the cannon is held under the middle column (`flueHoldsCannon`). Six levels, each one weapon — a bolt or the beam — in one colour, with its own ember speed and THE SLOW at its own strength (`slowPaceMilli`), and `flueShots` shots: the pilot says when, early by the shot's own delay, and the navigator fires. Every shot stops at the flue and is judged there; the third spent is the wave. The flue is drawn dark — flat on 5 October 2026, and since 6 October, when the owner asked for it bigger and *more alien living*, a row of dark flesh segments with a gullet for a slot and a spore for the ember (`flue-flesh.ts`, `flue-spore.ts`) — THE SLOW's split stands round it (`slow-boss-aim-d.ts`), the sight is ringed in the level's colour with the beam's bar on a beam level, pips count the shots and studs the levels, a scale under the slot counts the beats to the sight, and a card names `SHOT` or `BEAM` and `SLOW ½`. The field says `CALL NOW` to the pilot and `FIRE` or `HOLD` to the navigator (`boss-cue-read-zo.ts`). AUTO fires on the lead (`boss-hands-flue.ts`, `sim/flue-lead.ts`) |
 | [§43 THE GOVERNOR](#43-the-governor--a-chord-that-does-not-gate-the-tap-only-how-hard-it-lands) | **reworked by the owner, 6 October 2026: the brake is gone, each seat taps its own mark, later marks are numbered and taken in order, the needle is quicker, and a shot is under THE SLOW and aimed at the needle pointing down — §11.58 is the shipped rule and what follows here is history.** Lane one landed 27 September 2026, and the look's body and hands 29 September 2026 — the simulation, the governor drawn, the touch, the cue and AUTO, and the receipts and its blow at the hull the same day; never watched at tempo | The simulation is in as wave 120 THE GOVERNOR and `docs/spec/bosses.md` §11.58: THE TRIVET's `CHORD` as `governorChordLeft` and `governorChordRight`, one per seat by geometry, one drag a pad by its `id`, paired with THE RATCHET's `TAPS ON A MOVING TARGET` as the drag `governorTap`, an edge. A needle turns round a dial mid-hull **on the tick**, the step's pace times its speed; the speed eases back to 1× while the step's braking seat holds both pads down and climbs toward `governorHotMilli`, twice as fast, the moment one lifts. **The chord sets the pace and never the validity**: a tap from the step's tapper within `governorMarkMilli` of the lit mark lands however fast the needle runs. Three marks each, the seats swapped, light the hub; three fire steps shoot it, the second and third each after a retap at a faster pace. Six taps and three hits as the health. **Seven departures are argued by name** in §11.58: the fifteen rows are eleven steps, each tap step is one mark, roles are not free to trade, a retap run out dims the hub, the needle turns on the tick, a fire step has no SLOW, and a shot run out is the wave. The fourteen sounds are bound. **The body is drawn** (§11.58, *The look*): THE VANE and INTERFERENCE combined, a flywheel whose needle sweeps a graduated track under a Watt governor, the flyweights swung out by the needle's speed and turning with it, the yoke's jaws on the drum as the braking seat's chord, the lit mark split by seat, and the hub lit only once both runs are spent. **The hands are in** (`render/governor-grip.ts`): the tap anywhere on the dial's face, the tapper's only, and the braking seat's chord on the works round it; `HOLD` on the drum, `TAP` on the mark, `FIRE` under the middle column; and AUTO plays it through |
 | [§41 THE LAMPREY](#41-the-lamprey--a-mouth-on-the-hull-one-thumb-pinning-it-and-one-knocking-its-teeth-out) | **rebuilt 5 October 2026 on the owner's word** — the eel leaps from tile to tile across the field, further each stay, and each stay asks a `pull`, a `teeth`, an `apart` or a `gullet` under THE SLOW; simulation, hand, cue, AUTO, poses and receipts in; the living look (the tail whipping, the bite and release, the time rift on bitten tiles) is its own lane still to come; never watched at tempo | `docs/spec/bosses.md` §11.59 has what is built. The tail is a knob for the holder, the head a knob pulled up for the other seat, the shipped pull look (`render/lamprey-handles.ts`); the leap is drawn from the seed among tiles `jump` away, the tail laid opposite the next tile (`sim/lamprey-leap.ts`); a stay run out is the hull |
@@ -4679,100 +4679,67 @@ a new relocation rule of its own.
 
 ---
 
-### §39 THE BURGEE — a flag that will not hold still long enough to aim
+### §39 THE TRAPEZE — an alien swung up to a gong
 
-**Question.** `FREEZE TAP` has only ever stilled something the *other*
-seat was dragging by hand (THE VALVE, THE CYST); `HOLD, THEN SWIPE` has
-only ever aimed at a column the hull already holds still (THE SLING, THE
-DAVIT). Neither concept has asked a tapped freeze to still the very thing
-a held-and-released swipe is aimed at. This one asks whether stilling a
-target long enough to read it, then committing a separate seat's aim at
-it, reads as a different fight from either gesture answering its own
-body alone.
+**The owner's rework, 7 October 2026.** This section was THE BURGEE, a
+pennant on a boom that one seat tapped still and the other swiped at. The
+owner played it and found none of it: *I see no flag. I don't understand
+when I have to do what, and what "swipe" means, and why nothing happens on
+tap.* He proposed a swing instead, and answered four questions the same day:
+P1 swipes left and P2 right at first, then who swipes is called at short
+notice; with enough swing the alien kicks a gong; a side shot is one seat's
+tap and the other's trigger; and the name is THE TRAPEZE.
 
-**Silhouette.** A small pennant on a free-swinging boom mid-hull,
-sweeping back and forth across the lit columns on its own, never
-resting. **Health is two catches**, each a swing stilled by one seat and
-released at by the other, plus a lit spindle once both catches have
-landed; the spindle takes three ordinary hits.
+**Question.** Can a pair learn a rhythm they did not set — a pendulum's —
+well enough to feed it, each on their own side, and then feed it with the
+cannon instead of a finger?
 
-**Mechanic.** `trapezeSwingMilli` sweeps back and forth across the
-columns under the simulation's own clock, never a player's to move
-directly. One seat's `FREEZE TAP`, timed against a mark exactly as THE
-VALVE reads it, stops the sweep dead for a few beats rather than
-stopping whatever a hand is dragging; the other seat's `HOLD, THEN
-SWIPE` only lands a catch if the release falls while the sweep is
-frozen *and* the swipe's direction matches the column the flag is
-frozen over — a swipe thrown at where the flag was still moving a
-moment before reads as a miss even if the freeze itself held. A freeze
-let lapse before the swipe releases, or a swipe loosed before any freeze
-lands at all, springs nothing and costs nothing beyond the beats spent:
-the sweep simply resumes, the same forgiving shape THE VALVE's freeze
-and THE SLING's draw both already use.
+**The rule, in one sentence.** Push the swing when it comes back toward the
+middle, until it is high enough to kick the gong; a push while it goes out
+slows it.
 
-**Player 1 and Player 2.** Identical screens, a freeze-tap half and a
-hold-then-swipe half both drawn on every phone; only one is live on a
-given catch, and the seat holding each half trades every movement, the
-same role-swap-by-movement THE CYST's and THE DAVIT's pairings both use
-rather than a fixed left seat / right seat split.
+**Silhouette.** HERALD, the two-bodied draft (`drafts/creatures.ts`), as an
+alien sitting on a plank, on THE CONDUCTOR's pendulum (`drafts/bosses.ts`)
+hung from two long ropes tied above the screen. A brass gong on a cord at
+the end of the swing on one side. **Health is the gongs**, one a level.
 
-**The beat list.**
+**Mechanic.** A pendulum with a fixed period, `trapezePeriodBeats` a whole
+swing, kept as how far it swings (`ampMilli`) and where in the swing it is
+(`swingTick`). It loses `trapezeDampMilli` a beat on its own. A push on time
+adds `trapezePushMilli`, a push while it goes out takes `trapezeBrakeMilli`,
+and each side pushes once a half swing. When `ampMilli` reaches the level's
+`gongMilli`, the next time the swing turns at the gong's side the alien
+kicks it, and `trapezeKeepMilli` of the swing is left for the next level.
 
-| # | Picture | Seat | Gesture | Window | Landed | Missed |
-|---|---|---|---|---|---|---|
-| **Movement 1 — the first catch** ||||||
-| 1 | The flag sweeps loose across the columns, spindle dark | — | — | — | — | — |
-| 2 | A column lights | P1 freezes, P2 aims | P1 taps the flag still on the mark (`FREEZE TAP`) while P2 holds, then looses at it once still (`HOLD, THEN SWIPE`) | 6 beats, held together | first catch lands | freeze missed or swipe mistimed: flag resumes sweeping, retry |
-| **Movement 2 — the second catch** ||||||
-| 3 | A second column lights, roles swapped | P2 freezes, P1 aims | P2 taps it still while P1 holds, then looses | 5 beats, held together | second catch lands, spindle lights | resumes sweeping, retry from row 2 |
-| **Movement 3 — the spindle, held caught** ||||||
-| 4 | The spindle flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
-| 5 | The flag creeps loose off the spindle | P1+P2, either freezing | freeze and swipe together to recatch it | 3 beats, held together | spindle stays lit | dims, movement's fire beats lost until recaught |
-| 6 | Spindle flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
-| 7 | Flag creeps loose a second time, faster | P1+P2, either freezing | freeze and swipe together | 3 beats, held together | stays lit | dims, retry |
-| 8 | Spindle flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, spindle spent | stays lit |
-| 9 | The flag sweeps free once more, spent | — | — | — | — | — |
+**The four levels**, one new thing each:
 
-**THE SLOW** opens on every catch window (rows 2, 3, 5, 7) — a tapped
-freeze on one phone answered by a held-and-released swipe on the other,
-both judged against a single frozen instant, is a harder read than
-either THE VALVE's freeze or THE SLING's draw alone.
+| # | Level | P1 | P2 | Gong |
+|---|---|---|---|---|
+| 1 | `push` | swipes in the left zone | swipes in the right zone | right, 10° |
+| 2 | `call` | swipes where the field badges P1 | swipes where it badges P2 | left, 14° |
+| 3 | `shoot` | the cannon under the swing | fires as it comes back | right, 16° |
+| 4 | `lock` | taps the alien: the cannon locks on it | fires; the bolt comes in from the side | left, 18° |
 
-**Presentation.** No camera. A landed catch a short taut snap as the
-flag goes still; each spindle hit an ordinary shot's flash; a mistimed
-swipe a limp flutter with no snap, and the sweep simply picks back up.
+In a `call` level who pushes each side is drawn by chance as the swing
+passes the bottom heading there, so the badge changes a moment before it
+counts. From below, a hit while the swing comes back pushes it and one while
+it goes out slows it, as a swipe does. From the side, a hit pushes the
+alien away from the cannon.
 
-**Animation.** Four poses: flag sweeping loose; first catch held;
-both caught, spindle lit; spindle guarded, flag creeping loose. The flag
-eases into stillness on a landed freeze rather than snapping to a stop —
-the same drawn-as-mechanism choice THE VALVE's freeze and THE PLUMB's
-lean both make.
+**No SLOW.** The owner: no slow while the pair bring the swing up to speed.
+A slowed swing would be a different rhythm from the one they are learning.
 
-**Colour.** Boom and spindle a scoured steel grey, the flag itself a
-dull canvas tan that only brightens once caught; the spindle is the only
-lit colour on the body, lit in whichever cannon colour a given beat
-wants, THE SEAM's and THE OCULUS's rule again.
+**Missed.** A swipe that does nothing says why in its zone — NOT YOUR SIDE,
+WAIT FOR IT, TOWARD THE MIDDLE — and a brake says TOO EARLY. A level run out
+is the alien jumping at the hull, which is the wave.
 
-**Payoff.** Rows 5 and 7 — freeze-and-swipe asked for defensively,
-recatching the flag under a `FIRE` step already under way, the same
-shape as THE DAVIT's rows 7/9 and every earlier body's own defensive
-reuse of its pairing.
+**Colour.** Rope and wood, `trapezeRope`, `trapezeRopeDark` and
+`trapezeWood`; the alien a pale green, `trapezeAlien` and
+`trapezeAlienDark`; brass for the gong and the gauge, `trapezeBrass`,
+`trapezeBrassDark` and `trapezeBrassLit` (`palette-creatures-late.ts`).
 
-**Cost. Low.** No new primitive — `FREEZE TAP` and `HOLD, THEN SWIPE`
-are both already built, for THE VALVE/THE CYST and THE SLING/THE DAVIT.
-The only new code is the simulation's own free sweep for the freeze to
-catch, and the role-swap wiring THE CYST's and THE DAVIT's pairings
-already proved out.
-
-**Reusable.** Stilling a body the simulation itself keeps moving, so
-that a separate seat's committed release can be judged against a target
-neither seat controls directly, is a shape distinct from THE DAVIT's
-live-steered aim (where a seat's own hold *is* the target) and from THE
-RATCHET's or THE GALL's relocating marks (where the target moves only on
-a miss or a landed count); any future concept wanting a target that
-drifts on its own, rather than at either seat's hand, can reach for a
-tap-stilled sweep before inventing a new kind of motion for a body to
-carry.
+**Cost.** One pendulum in the simulation; the swipe is THE SLING's lift and
+the lock THE HIVE's auto-aim (`lock.ts`), both already built.
 
 ---
 
@@ -4802,8 +4769,8 @@ tap, every one of them resets it to nought, read exactly as
 `RestraintGate` is catalogued and exactly as THE HALTER's own
 `halterRestBeats` first anchored it. While `flueRestBeats` sits under
 `flueRestThreshold` the ember drifts along the slot under the
-simulation's own clock, the undriven sweep THE BURGEE's `trapezeSwingMilli`
-already keeps; at threshold the drift stops dead. Only while it is
+simulation's own clock, the undriven sweep THE BURGEE's flag
+kept before it became THE TRAPEZE; at threshold the drift stops dead. Only while it is
 stopped does the other seat's `TAPS ON A MOVING TARGET` register at
 all — a tap thrown at a still-drifting ember lands nowhere, there being
 nothing steady yet to land it against. Each landed tap advances

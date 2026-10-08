@@ -2,6 +2,7 @@ import { gripsCreature } from "./grip.js";
 import { handMeans } from "./hand.js";
 import { hiveAim } from "./hive-wall.js";
 import { bulletMilli, creatureLane, creatureMilli } from "./mid-beat.js";
+import { trapezeAim } from "./trapeze-shot.js";
 import { type Bullet, type Creature, spanOf } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -146,7 +147,9 @@ interface LockAim {
 /**
  * The thing player 1's hand is steering shots into: a held body, or — under
  * THE HIVE, which has no body to hold — the wall cocoon his thumb is on
- * (`hive-wall.ts`), one lane wide and standing still.
+ * (`hive-wall.ts`), one lane wide and standing still; or THE TRAPEZE's alien
+ * once the pilot has tapped it, a lock that outlasts the tap
+ * (`trapeze-shot.ts`).
  */
 function lockAim(world: World): LockAim | null {
   const body = lockedBody(world);
@@ -154,7 +157,7 @@ function lockAim(world: World): LockAim | null {
     const milli = creatureMilli(world, body);
     return { milli, lane: creatureLane(world, body), span: spanOf(body) };
   }
-  const wall = hiveAim(world);
+  const wall = hiveAim(world) ?? trapezeAim(world);
   return wall === null ? null : { ...wall, span: 1 };
 }
 

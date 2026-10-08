@@ -8,9 +8,10 @@ import { stageField } from "../src/stage-field.js";
 
 /**
  * **AUTO plays THE TRAPEZE to the end** (`hands/boss-hands-trapeze.ts`): each
- * catch tapped still by the step's freezer and caught by the other seat's
- * swipe, each recatch made, and the lit spindle shot in its colour — with no
- * flap, no flutter, no window run out and the hull never struck.
+ * side swiped by the seat it belongs to as the swing comes back, shots from
+ * below while it comes back, and the lock with shots from the side — every
+ * gong kicked, with no brake, no swipe that did nothing, no level run out and
+ * the hull never struck.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
@@ -25,56 +26,48 @@ function rig(world: World, mode: "both" | "p1" | "p2") {
 }
 
 describe("AUTO on THE TRAPEZE", () => {
-  test("BOTH makes both catches and both recatches, and shoots the spindle out", () => {
+  test("BOTH kicks every gong, and the swing goes over the top", () => {
     const world: World = bossWorld("trapeze");
     const auto = rig(world, "both");
-    const catches: number[] = [];
-    const catchers: number[] = [];
-    const hits: number[] = [];
-    let recatches = 0;
-    let spindle = false;
+    const gongs: number[] = [];
+    const pushers = new Set<number>();
+    let shots = 0;
+    let locks = 0;
     let out = false;
     const wrong: string[] = [];
-    for (let i = 0; i < 30_000 && world.boss !== null; i++) {
+    for (let i = 0; i < 40_000 && world.boss !== null; i++) {
       step(world, auto.commands(world));
       for (const e of world.events) {
-        if (e.type === "trapezeCatch") {
-          catches.push(e.catches);
-          catchers.push(e.side);
-        }
-        if (e.type === "trapezeRecatch") recatches += 1;
-        if (e.type === "trapezeSpindle") spindle = true;
-        if (e.type === "trapezeHit") hits.push(e.hits);
+        if (e.type === "trapezeGong") gongs.push(e.gongs);
+        if (e.type === "trapezePush") pushers.add(e.seat);
+        if (e.type === "trapezeShot" && e.gain) shots += 1;
+        if (e.type === "trapezeLock") locks += 1;
         if (e.type === "trapezeOut") out = true;
-        const off = ["trapezeFlap", "trapezeFlutter", "trapezeSway", "trapezeDim", "trapezeMiss"];
-        if (off.includes(e.type)) wrong.push(e.type);
+        if (["trapezeBrake", "trapezeWhiff", "trapezeMiss"].includes(e.type)) wrong.push(e.type);
+        if (e.type === "trapezeShot" && !e.gain) wrong.push("slowing shot");
       }
     }
-    expect(catches).toEqual([1, 2]);
-    expect(catchers).toEqual([1, 0]);
-    expect(spindle).toBe(true);
-    expect(recatches).toBe(2);
-    expect(hits).toEqual([1, 2, 3]);
+    expect(gongs).toEqual([1, 2, 3, 4]);
+    expect([...pushers].sort()).toEqual([0, 1]);
+    expect(shots).toBeGreaterThan(0);
+    expect(locks).toBeGreaterThan(0);
     expect(out).toBe(true);
     expect(wrong).toEqual([]);
     expect(world.scars).toEqual([]);
     expect(trapezeBoss(world)).toBeNull();
   });
 
-  test("P1 alone freezes its own catch, and no catch lands without the other seat", () => {
+  test("P1 alone swipes only its own side, never the partner's", () => {
     const world: World = bossWorld("trapeze");
     const auto = rig(world, "p1");
-    const freezes: number[] = [];
-    let caught = 0;
-    for (let i = 0; i < 6_000 && world.boss !== null; i++) {
+    const zones: number[] = [];
+    for (let i = 0; i < 2_000 && world.boss !== null; i++) {
       step(world, auto.commands(world));
       for (const e of world.events) {
-        if (e.type === "trapezeFreeze") freezes.push(e.side);
-        if (e.type === "trapezeCatch") caught += 1;
+        if (e.type === "trapezePush") zones.push(e.zone);
       }
     }
-    expect(freezes.length).toBeGreaterThan(0);
-    expect(freezes.every((side) => side === 0)).toBe(true);
-    expect(caught).toBe(0);
+    expect(zones.length).toBeGreaterThan(0);
+    expect(zones.every((zone) => zone === -1)).toBe(true);
   });
 });

@@ -1,83 +1,91 @@
-import { midCol } from "./config.js";
 import {
+  type TrapezeSide,
   type TrapezeState,
-  trapezeAims,
   trapezeBoss,
-  trapezeCatching,
-  trapezeFreezes,
-  trapezeFrozen,
+  trapezeCaller,
+  trapezeInward,
   trapezeLitStep,
-  trapezeMarkCol,
-  trapezeOnMark,
-  trapezeSwipe,
+  trapezeOnSide,
+  trapezeSwiping,
 } from "./trapeze.js";
-import { trapezeCaught } from "./trapeze-step.js";
+import { trapezeCol, trapezeShove } from "./trapeze-step.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * THE TRAPEZE's two handles: the freeze mark `trapezeFreeze` and the draw
- * `trapezeDraw`, both on both screens and either seat's to press. Which seat's
- * is live is the lit step's (`trapezeFreezes`, `trapezeAims`); the other seat's
- * press does nothing, silently.
+ * THE TRAPEZE's hands: a swipe on either side of the swing, and the pilot's
+ * tap on the alien.
  *
- * **The tap is an edge**, THE VALVE's pin (`valve-hand.ts`): a thumb already
- * resting on the mark has to lift and come down again. It lands only while
- * the flag is over the lit column (`trapezeOnMark`) and stills it for
- * `trapezeFreezeBeats`; a tap off the column is a flap, and the flag swings on.
+ * **A swipe** is `trapezePushLeft` or `trapezePushRight`, by the half of the
+ * field the finger went down on: `on: true` the finger down, the lift
+ * carrying how far it went across on `fromMilli`. It is judged at the lift,
+ * and **it never does nothing silently** — the owner, 7 October 2026: *I
+ * don't understand why nothing happens on tap.* A lift that pushes is a
+ * `trapezePush`; one while the swing goes out on that side is a
+ * `trapezeBrake`; anything else is a `trapezeWhiff` with its reason: not this
+ * seat's side (`seat`), the swing not there or this side already pushed this
+ * half swing (`time`), or not swiped toward the middle far enough (`way`).
  *
- * **The draw is THE SLING's** (`sling-hand.ts`): `on: true` is the finger
- * down, and the lift carries the swipe's sign on `fromMilli`. A lift lands a
- * catch only when all three hold: the draw was counted its beats, the flag is
- * frozen *this instant*, and the swipe goes toward the lit column's half. Any
- * other lift in a step that asked for it is a flutter, the step still lit.
+ * **The tap** is `trapezeLock`, the pilot's press on the alien in a `lock`
+ * level: the cannon locks on it for `trapezeLockBeats` (`lock.ts` steers the
+ * bolt). The navigator's tap there falls through, since the navigator fires.
  */
 export function trapezeHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag") return;
-  if (command.target !== "trapezeFreeze" && command.target !== "trapezeDraw") return;
   const s = trapezeBoss(world);
   if (s === null) return;
-  const side: 0 | 1 = player === 1 ? 0 : 1;
-  if (command.target === "trapezeFreeze") tap(world, s, side, command.on);
-  else draw(world, s, side, command.on, command.fromMilli);
+  const seat: 0 | 1 = player === 1 ? 0 : 1;
+  if (command.target === "trapezeLock") {
+    if (command.on) lock(world, s, seat);
+    return;
+  }
+  const zone = zoneOf(command.target);
+  if (zone === 0) return;
+  if (command.on) {
+    s.down[seat] = zone;
+    return;
+  }
+  if (s.down[seat] !== zone) return;
+  s.down[seat] = 0;
+  if (!Number.isInteger(command.fromMilli)) return;
+  swiped(world, s, seat, zone, command.fromMilli);
 }
 
-function tap(world: World, s: TrapezeState, side: 0 | 1, on: boolean): void {
-  if (!on) {
-    s.tapDown[side] = false;
-    return;
-  }
-  const edge = !s.tapDown[side];
-  s.tapDown[side] = true;
-  if (!edge || !trapezeFreezes(s, side) || trapezeFrozen(s)) return;
-  const col = trapezeMarkCol(world.cfg, s) ?? midCol(world.cfg);
-  if (!trapezeOnMark(world, s)) {
-    world.events.push({ type: "trapezeFlap", side, col });
-    return;
-  }
-  s.frozenBeats = world.cfg.trapezeFreezeBeats;
-  s.frozenBy = side;
-  s.drawnBeats[side] = 0;
-  s.holding[side] = false;
-  world.events.push({ type: "trapezeFreeze", side, col });
+function zoneOf(target: string): -1 | 0 | 1 {
+  if (target === "trapezePushLeft") return -1;
+  if (target === "trapezePushRight") return 1;
+  return 0;
 }
 
-function draw(world: World, s: TrapezeState, side: 0 | 1, on: boolean, milli: number): void {
-  if (on) {
-    s.holding[side] = true;
+function swiped(
+  world: World,
+  s: TrapezeState,
+  seat: 0 | 1,
+  zone: TrapezeSide,
+  fromMilli: number,
+): void {
+  if (!trapezeSwiping(s)) return;
+  const cfg = world.cfg;
+  const col = trapezeCol(world, s);
+  const why =
+    trapezeCaller(s, zone) !== seat
+      ? "seat"
+      : -zone * fromMilli < cfg.trapezeSwipeMilli
+        ? "way"
+        : trapezeOnSide(cfg, s) !== zone || s.pushedHalf === s.half
+          ? "time"
+          : null;
+  if (why !== null) {
+    world.events.push({ type: "trapezeWhiff", seat, zone, why, col });
     return;
   }
-  if (!s.holding[side] || !Number.isInteger(milli)) return;
-  s.holding[side] = false;
-  const drawn = s.drawnBeats[side] >= world.cfg.trapezeDrawBeats;
-  s.drawnBeats[side] = 0;
-  if (!trapezeCatching(s) || !trapezeAims(s, side)) return;
-  const step = trapezeLitStep(s);
-  if (step === null) return;
-  if (drawn && trapezeFrozen(s) && trapezeSwipe(milli) === Math.sign(step.offset)) {
-    trapezeCaught(world, s, side);
-    return;
-  }
-  const col = trapezeMarkCol(world.cfg, s) ?? midCol(world.cfg);
-  world.events.push({ type: "trapezeFlutter", side, col });
+  const gain = trapezeInward(cfg, s);
+  trapezeShove(world, s, gain, true);
+  world.events.push({ type: gain ? "trapezePush" : "trapezeBrake", seat, zone, col });
+}
+
+function lock(world: World, s: TrapezeState, seat: 0 | 1): void {
+  if (seat !== 0 || trapezeLitStep(s)?.ask !== "lock") return;
+  s.lockBeats = world.cfg.trapezeLockBeats;
+  world.events.push({ type: "trapezeLock", col: trapezeCol(world, s) });
 }

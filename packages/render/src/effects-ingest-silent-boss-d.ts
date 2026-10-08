@@ -173,21 +173,18 @@ export const INGEST_SILENT_BOSS_D = [
   "gallMiss",
   "gallFlat",
   "gallOut",
-  // THE TRAPEZE's fifteen: what outlives a frame is `trapeze-fx.ts`', read
-  // above the loop; the flag's place, the catches and the hits stay read off
-  // the state.
+  // THE TRAPEZE's thirteen: what outlives a frame is `trapeze-fx.ts`', read
+  // above the loop; the swing's place and the gongs stay read off the state.
   "trapezeEnter",
-  "trapezeLight",
-  "trapezeFreeze",
-  "trapezeFlap",
-  "trapezeLapse",
-  "trapezeFlutter",
-  "trapezeCatch",
-  "trapezeSpindle",
-  "trapezeRecatch",
-  "trapezeSway",
-  "trapezeDim",
-  "trapezeHit",
+  "trapezeLevel",
+  "trapezeCall",
+  "trapezePush",
+  "trapezeBrake",
+  "trapezeWhiff",
+  "trapezeLock",
+  "trapezeUnlock",
+  "trapezeShot",
+  "trapezeGong",
   "trapezeMiss",
   "trapezeSpent",
   "trapezeOut",

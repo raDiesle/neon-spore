@@ -12,14 +12,16 @@ import type { World } from "./world.js";
  * What is left to ask is whether the wave is still being played: a bolt still
  * climbing when the last body went is not a shot at nothing, it is a shot the
  * rest after a clear caught in the air (`clearHolds`). THE WELL is out of it
- * as well: its field is a disc, and a disc has no top line to hit.
+ * as well: its field is a disc, and a disc has no top line to hit. So is THE
+ * TRAPEZE: a bolt at its swing is a shove at a moving alien, not a shot at a
+ * target, and a near miss flies out of the top.
  *
  * Its own file because the two callers are a cycle apart: `shot-out.ts`
  * imports THE LEAD's hook, which imports its clock.
  */
 export function shotWasted(world: World): boolean {
   if (!world.cfg.wastedShotFails) return false;
-  if (world.boss?.kind === "well") return false;
+  if (world.boss?.kind === "well" || world.boss?.kind === "trapeze") return false;
   return world.restBeat === 0;
 }
 

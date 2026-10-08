@@ -35063,3 +35063,18 @@ partner was found in the catalogue, not in the creature skill, and it
 changed where the pair's talking comes from.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE TRAPEZE reworked as a swing: the simulation and a plain picture
+
+- reading: 10 min. The owner's words, THE SLING's lift, `lock.ts`, and the
+  registrations a boss state reaches.
+- writing: 30 min. The pendulum, the swipes, the shots, the zones, the arc,
+  the cues, AUTO, the director's rows and both spec sections.
+- looking: 5 min. One frame of the first level, sent.
+- friction: 15 min. The old flag's names stood in a style guide, four
+  director tables, a states list and two specs, each found by its own red
+  test, one at a time.
+- landing: 5 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: friction — a reworked boss's names live in about twenty places
+outside its own files, and only the tests list them.

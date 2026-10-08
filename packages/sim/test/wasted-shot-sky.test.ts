@@ -80,7 +80,6 @@ const everyColumn = Array.from({ length: COLS }, (_, i) => i);
 describe("a bolt out of the top on HARD, under a boss", () => {
   // The core stands in the middle column whether it is lit or shut.
   const CORED: Record<string, () => World> = {
-    trapeze: () => trapeze.install(),
     capstan: () => capstan.install(),
     cyst: () => cyst.install(),
     davit: () => davit.install(),
@@ -129,6 +128,13 @@ describe("a bolt out of the top on HARD, under a boss", () => {
       expect(lost(bare(kind))).toEqual([]);
     });
   }
+
+  // THE TRAPEZE's bolts are shoves at a swinging alien, never a shot at a
+  // target, so HARD does not ask them (`shot-wasted.ts`).
+  it("trapeze: a near miss at the swing is not a wasted shot", () => {
+    expect(String(trapeze.install().boss?.kind)).toBe("trapeze");
+    expect(lost(() => trapeze.install())).toEqual([]);
+  });
 
   // THE FLUE's row, edge to edge: every shot stops on it and is judged there
   // (`flue-shot.ts`), so none goes on into the sky.

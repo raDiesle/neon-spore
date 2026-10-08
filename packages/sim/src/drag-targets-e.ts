@@ -35,8 +35,9 @@ export type DragTargetE =
   | "capstanSteer"
   | "capstanRub"
   | "gallPress"
-  | "trapezeFreeze"
-  | "trapezeDraw"
+  | "trapezePushLeft"
+  | "trapezePushRight"
+  | "trapezeLock"
   | "governorTap"
   | "gaugeTooth"
   | "gaugeTongue"
@@ -161,14 +162,15 @@ export type DragTargetE =
  */
 
 /**
- * `trapezeFreeze` and `trapezeDraw` are the hundred-and-second and third: THE
- * TRAPEZE's two handles, both on both screens and either seat's to press, the
- * lit step saying whose is live.
+ * `trapezePushLeft`, `trapezePushRight` and `trapezeLock` are THE TRAPEZE's,
+ * in the places its old flag's `trapezeFreeze` and `trapezeDraw` stood until
+ * the owner's rework of 7 October 2026 made it a swing.
  *
- * No new reading. `trapezeFreeze` is `valvePin`'s tap, an edge with `on` and
- * nothing on `fromMilli`; `trapezeDraw` is `slingDrawLeft`'s draw, the finger
- * down and the lift carrying the swipe's sign on `fromMilli`
- * (`trapeze-hand.ts`).
+ * The pushes are a swipe on either half of the field, by where the finger
+ * went down: `on` the finger down, the lift carrying how far it went across
+ * on `fromMilli`, THE SLING's draw without its count. Which seat's swipe on a
+ * side pushes is the level's (`trapezeCaller`). `trapezeLock` is a press on
+ * the alien, an edge with nothing on `fromMilli` (`trapeze-hand.ts`).
  */
 
 /**

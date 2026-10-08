@@ -52,7 +52,10 @@ import { DRAWN } from "./boss-hush-drawn.js";
  * (`render/mimic-crane.ts`). THE FLUE lost its row to its rework of the
  * same day: THE SLOW on its levels is a window that shows and never asks,
  * so the walk reads nothing, and its sight and its words stand fixed over
- * the held cannon by construction (`render/boss-cue-read-zo.ts`).
+ * the held cannon by construction (`render/boss-cue-read-zo.ts`). THE
+ * TRAPEZE lost its row to its rework of 7 October 2026, the owner's *no slow
+ * while the pair swing it up*: its zones stand still by construction and the
+ * alien it asks a tap on swings by the rule.
  *
  * THE LAMPREY has none for a reason of the same kind: its window opens with
  * each bite's first lit tooth and closes on the first crack (§11.59), and
@@ -90,7 +93,6 @@ const STILL: readonly BossKind[] = [
   "scuttle",
   "sinew",
   "antiphon",
-  "trapeze",
   "davit",
 ];
 

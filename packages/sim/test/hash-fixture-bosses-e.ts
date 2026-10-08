@@ -93,13 +93,13 @@ export const BOSS_ENTRIES_E = {
       { ask: "fire", color: "cyan", beats: 3 },
     ],
   },
-  // THE TRAPEZE the same, a catch and the shot, the colour set off `either`
-  // and the freezer off `either` (`trapeze-hash.ts`).
+  // THE TRAPEZE the same, a swipe level and a lock level, the gong on
+  // either side (`trapeze-hash.ts`).
   trapeze: {
     kind: "trapeze",
     steps: [
-      { ask: "catch", freezer: 1, offset: -1, sweepMilli: 1000, color: "red", beats: 6 },
-      { ask: "fire", freezer: 2, offset: 0, sweepMilli: 0, color: "cyan", beats: 3 },
+      { ask: "push", gongSide: 1, gongMilli: 10000, beats: 30 },
+      { ask: "lock", gongSide: -1, gongMilli: 18000, beats: 40 },
     ],
   },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
@@ -235,21 +235,19 @@ export function patchBossE(boss: BossState): void {
     boss.heldBeats = 1;
   }
   if (boss.kind === "trapeze") {
-    // One catch landed and the flag frozen off the middle by the navigator,
-    // swinging left when it goes, the spindle lit and shot once, both thumbs
-    // down and a draw counted — every field given a value (`trapeze-hash.ts`).
-    boss.phase = "lit";
+    // The second level lit and swinging, a side pushed, the navigator called
+    // to the left, a finger down on each side, the lock held and one gong
+    // kicked — every field given a value (`trapeze-hash.ts`).
+    boss.phase = "level";
     boss.phaseBeat = 3;
     boss.cursor = 1;
-    boss.swingMilli = 700;
-    boss.swingDir = -1;
-    boss.frozenBeats = 2;
-    boss.frozenBy = 1;
-    boss.catches = 1;
-    boss.hits = 1;
-    boss.spindleLit = true;
-    boss.tapDown = [true, false];
-    boss.holding = [false, true];
-    boss.drawnBeats = [1, 2];
+    boss.ampMilli = 9000;
+    boss.swingTick = 120;
+    boss.half = 7;
+    boss.pushedHalf = 6;
+    boss.callers = [1, 1];
+    boss.down = [-1, 1];
+    boss.lockBeats = 2;
+    boss.gongs = 1;
   }
 }

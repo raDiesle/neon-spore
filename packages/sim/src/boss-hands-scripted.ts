@@ -19,6 +19,7 @@ import { rimeHeard } from "./rime-hand.js";
 import { seamGuarded } from "./seam-guard.js";
 import { slingHeard } from "./sling-hand.js";
 import { trapezeHeard } from "./trapeze-hand.js";
+import { trapezeSwung } from "./trapeze-step.js";
 import { trivetGuarded } from "./trivet-guard.js";
 import { trivetHeard } from "./trivet-hand.js";
 import type { TimedCommand } from "./types.js";
@@ -84,8 +85,10 @@ export function scriptedHandsHeard(world: World, commands: readonly TimedCommand
   for (const c of commands) capstanHeard(world, c.player, c.command);
   // THE GALL's pinch: coming shut and widening back are the instant (`gall-hand.ts`).
   for (const c of commands) gallHeard(world, c.player, c.command);
-  // THE TRAPEZE's tap and draw: a freeze landing and a loose judged are the instant (`trapeze-hand.ts`).
+  // THE TRAPEZE's swipes and lock, judged the instant they lift or land (`trapeze-hand.ts`),
+  // and its swing moved after them, so a bolt meets the alien where it is (`trapeze-step.ts`).
   for (const c of commands) trapezeHeard(world, c.player, c.command);
+  trapezeSwung(world);
   // THE FLUE hears no command of its own; its ember runs on the tick, so a
   // shot is met where it really is (`flue-step.ts`).
   flueRolled(world);

@@ -74,7 +74,7 @@ export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>)
     stepFlue(world, boss);
     return;
   }
-  // THE TRAPEZE: the flag's swing, a freeze run out, draws counted, and the flag spent (`trapeze-step.ts`).
+  // THE TRAPEZE: the swing dying down, a lock run out, a level lit or run out, and the alien gone (`trapeze-step.ts`).
   if (boss.kind === "trapeze") {
     stepTrapeze(world, boss);
     return;

@@ -1,6 +1,6 @@
 /**
  * **The clock bosses' half of the surface, the fifth page** — THE TRAPEZE's
- * flag, whatever comes after it, and THE WELL's face, the fourth page's last
+ * swing, whatever comes after it, and THE WELL's face, the fourth page's last
  * row, moved across on 1 October 2026 when THE HALTER's asking predicates
  * took that page past the limit, and THE CAPSTAN's drum, the same day, when
  * its own asking predicates took the fourth page within ten lines of it.
@@ -175,33 +175,35 @@ export {
   mimicShapeSize,
   mimicShapesOfSize,
 } from "./mimic-shapes.js";
-// THE TRAPEZE's flag: the phase, the lit step, the swing and the freeze, the
-// lit column, whose tap stills it and whose draw looses at it, the catches
-// and the spindle, for the picture, the cue and the director's hand. Straight
-// off `trapeze.ts` (§39).
+// THE TRAPEZE's swing: the phase, the lit level, where the alien sits and
+// where the gong hangs, which side may be pushed and by whom, the lock, for
+// the picture, the cue and the director's hand. Straight off `trapeze.ts` (§39).
 export {
   freshTrapeze,
   TRAPEZE_ASKS,
-  TRAPEZE_CATCHES,
   TRAPEZE_PHASES,
   type TrapezeAsk,
   type TrapezeEntry,
   type TrapezePhase,
+  type TrapezeSide,
   type TrapezeState,
   type TrapezeStep,
-  trapezeAims,
+  trapezeAngle,
   trapezeBoss,
-  trapezeCatching,
+  trapezeCaller,
   trapezeDone,
-  trapezeFreezeAsks,
-  trapezeFreezes,
-  trapezeFrozen,
-  trapezeHeld,
+  trapezeGongAt,
+  trapezeHeading,
+  trapezeInward,
   trapezeLitStep,
-  trapezeMarkCol,
-  trapezeOnMark,
-  trapezeSpindleAsks,
-  trapezeSwipe,
+  trapezeLocked,
+  trapezeOnSide,
+  trapezeOpenZone,
+  trapezePeriod,
+  trapezeSeat,
+  trapezeShooting,
+  trapezeShort,
+  trapezeSwiping,
 } from "./trapeze.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),

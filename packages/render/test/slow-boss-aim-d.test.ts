@@ -1,13 +1,6 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
-import {
-  capstanBoss,
-  createWorld,
-  sceneBoss,
-  startWave,
-  trapezeBoss,
-  type World,
-} from "@neon-spore/sim";
+import { capstanBoss, createWorld, sceneBoss, startWave, type World } from "@neon-spore/sim";
 import { capstanCentre, capstanPivot, capstanSize } from "../src/capstan-shape.js";
 import { gallSeamY } from "../src/gall-shape.js";
 import { halterCentre, halterSize } from "../src/halter-shape.js";
@@ -17,7 +10,6 @@ import { nettleBody } from "../src/nettle-sway.js";
 import { seamCentre, seamHalfHeight, seamHalfWidth } from "../src/seam-shape.js";
 import { bodyBox } from "../src/slow-fuse-place.js";
 import { aim } from "../src/slow-intake-aim.js";
-import { trapezeTip } from "../src/trapeze-shape.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT, waveWith } from "./frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -49,7 +41,7 @@ function settled(kind: Parameters<typeof waveWith>[0]) {
 }
 
 describe("THE SLOW's aim at the bosses on page four", () => {
-  it.each(["seam", "halter", "capstan", "gall", "trapeze", "nettle"] as const)(
+  it.each(["seam", "halter", "capstan", "gall", "nettle"] as const)(
     "stands round THE %s, not the cannon, and leaves the hull a gap",
     (kind) => {
       const box = settled(kind);
@@ -95,17 +87,6 @@ describe("THE SLOW's aim at the bosses on page four", () => {
     expect(box.left).toBeCloseTo(L.gridLeft, 5);
     expect(box.right).toBeCloseTo(L.gridLeft + L.cols * T, 5);
     expect((box.top + box.bottom) / 2).toBeCloseTo(gallSeamY(L), 5);
-  });
-
-  it("reaches from THE TRAPEZE's spindle down past the flag, and swings with it", () => {
-    const world = stood("trapeze");
-    const s = trapezeBoss(world);
-    if (s === null) throw new Error("the trapeze wave stood no spindle");
-    const box = bodyBox(aim(world, L, world.beat + 1_000, 0));
-    expect(box.bottom).toBeGreaterThan(trapezeTip(L, CFG, s.swingMilli).y);
-    s.swingMilli = CFG.trapezeSpanMilli;
-    const swung = bodyBox(aim(world, L, world.beat + 1_000, 0));
-    expect(swung.right).toBeGreaterThan(box.right);
   });
 
   it("holds THE NETTLE's whole bell, where this frame's figure has it", () => {

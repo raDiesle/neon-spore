@@ -97,8 +97,8 @@ export function scriptedHashParts(boss: BossState): number[] {
   if (boss.kind === "gall") {
     for (const n of gallHashParts(boss)) out.push(n);
   }
-  // THE TRAPEZE: the phase, the cursor, the swing, the freeze, the catches, the
-  // hits, the spindle, the thumbs and the draws, and the script (`trapeze-hash.ts`).
+  // THE TRAPEZE: the phase, the cursor, the swing, the half swings, the callers,
+  // the fingers, the lock, the gongs, and the script (`trapeze-hash.ts`).
   if (boss.kind === "trapeze") {
     for (const n of trapezeHashParts(boss)) out.push(n);
   }

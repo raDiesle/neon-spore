@@ -1,93 +1,105 @@
 import {
-  midCol,
+  hullRow,
   type TimedCommand,
   type TrapezeState,
+  ticksPerBeat,
   trapezeBoss,
-  trapezeCatching,
-  trapezeFrozen,
+  trapezeCaller,
   trapezeLitStep,
-  trapezeOnMark,
+  trapezeLocked,
+  trapezeOpenZone,
+  trapezePeriod,
+  trapezeSeat,
   type World,
 } from "@neon-spore/sim";
 
 /**
- * **THE TRAPEZE played right**, for the autopilot: on a catch or a recatch
- * the step's freezer taps the flag still the tick it swings over the lit
- * column, and the other seat, its finger down on the draw since the step
- * lit, swipes toward that column once the draw is counted and the flag is
- * frozen; with the spindle lit, the cannon to the middle and the step's
- * colour up it.
+ * **THE TRAPEZE played right**, for the autopilot.
  *
- * **A tap is an edge** (`sim/trapeze-hand.ts`), THE VALVE's pin
- * (`boss-hands-valve.ts`): a thumb still on the ring is lifted the tick after
- * it came down, so the next freeze is an answer, never a thumb parked. **A
- * recatch's freezer is either seat**, and this hand has the pilot take it, so
- * the navigator is the one who draws, as on the first catch.
+ * **A swipe level**: the moment a side opens — the swing on it, coming back
+ * toward the middle — the seat called to it puts a finger down there, and
+ * lifts it the next tick a column across toward the middle. A finger is
+ * never left down past its lift (`sim/trapeze-hand.ts`).
  *
- * **The draw is held from the moment the step lights**, so its beats are
- * counted by the time the flag is still, and it is lifted only while the
- * flag is frozen: a lift any sooner would be a flutter. A finger still down
- * when no catch is lit is lifted with no swipe, which the sim ignores.
+ * **Shots from below**: the cannon goes under the column the alien will be
+ * over an eighth of a swing after it turns, on whichever side it turns next,
+ * and the shot leaves early by the time a shot takes to climb to the swing,
+ * so it lands while the swing comes back toward the middle.
  *
- * **The shot** wants the step's colour; `"either"` is fired cyan. The cannon
- * is slid only while it is not on the middle column and the shot is sent
- * once it is.
+ * **Shots from the side**: the cannon goes to the left edge, the pilot taps
+ * the alien whenever it is not locked, and the navigator fires as the swing
+ * turns at the left end, so the shot comes round the corner and pushes the
+ * alien right while it is heading right.
  */
 type Press = Omit<TimedCommand, "tick">;
 
 export const trapezeHand = (w: World): Press[] => {
   const s = trapezeBoss(w);
+  const step = s === null ? null : trapezeLitStep(s);
   if (s === null) return [];
-  return [...tap(w, s), ...draw(w, s), ...shoot(w, s)];
+  const lifts = lift(s);
+  if (step === null) return lifts;
+  if (step.ask === "push" || step.ask === "call") return [...lifts, ...swipe(w, s)];
+  if (step.ask === "shoot") return [...lifts, ...below(w, s)];
+  return [...lifts, ...side(w, s)];
 };
 
-/** The seat whose tap the lit step asks for, 0 or 1: the pilot on `"either"`. */
-function freezer(s: TrapezeState): 0 | 1 {
-  const f = trapezeLitStep(s)?.freezer;
-  return f === 2 ? 1 : 0;
-}
-
-function tap(w: World, s: TrapezeState): Press[] {
-  const lifts = ([0, 1] as const)
-    .filter((side) => s.tapDown[side])
-    .map((side) => ring(side, false));
-  if (lifts.length > 0 || !trapezeCatching(s) || trapezeFrozen(s) || !trapezeOnMark(w, s))
-    return lifts;
-  return [ring(freezer(s), true)];
-}
-
-function draw(w: World, s: TrapezeState): Press[] {
-  const step = trapezeLitStep(s);
-  const aimer = freezer(s) === 0 ? 1 : 0;
+/** A finger down is lifted, a column toward the middle. */
+function lift(s: TrapezeState): Press[] {
   const out: Press[] = [];
-  for (const side of [0, 1] as const) {
-    if (side !== aimer || step === null || !trapezeCatching(s)) {
-      if (s.holding[side]) out.push(track(side, false, 0));
-      continue;
-    }
-    if (!s.holding[side]) out.push(track(side, true, 0));
-    else if (trapezeFrozen(s) && s.drawnBeats[side] >= w.cfg.trapezeDrawBeats) {
-      out.push(track(side, false, Math.sign(step.offset) * 1000));
-    }
+  for (const seat of [0, 1] as const) {
+    const zone = s.down[seat];
+    if (zone !== 0) out.push(push(seat, zone, false, -zone * 1000));
   }
   return out;
 }
 
-function shoot(w: World, s: TrapezeState): Press[] {
-  const step = trapezeLitStep(s);
-  if (step?.ask !== "fire" || !s.spindleLit) return [];
-  const col = midCol(w.cfg);
-  if (w.cannonCol !== col) return [{ player: 1, command: { kind: "cannonCol", col } }];
-  const color = step.color === "either" ? "cyan" : step.color;
-  return [{ player: 2, command: { kind: "fire", color } }];
+function swipe(w: World, s: TrapezeState): Press[] {
+  const zone = trapezeOpenZone(w.cfg, s);
+  if (zone === 0) return [];
+  const seat = trapezeCaller(s, zone);
+  return s.down[seat] === 0 ? [push(seat, zone, true, 0)] : [];
 }
 
-const ring = (side: 0 | 1, on: boolean): Press => ({
-  player: side === 0 ? 1 : 2,
-  command: { kind: "drag", target: "trapezeFreeze", on, fromMilli: 0 },
+/** Ticks a shot takes from the muzzle to the swing's row. */
+function climb(w: World, s: TrapezeState): number {
+  const perTick = (w.cfg.bulletTilesPerBeat * 1000) / ticksPerBeat(w.cfg);
+  const from = (hullRow(w.cfg) - 1) * 1000;
+  return Math.ceil((from - trapezeSeat(w.cfg, s).yMilli - w.cfg.trapezeHitMilli) / perTick);
+}
+
+function below(w: World, s: TrapezeState): Press[] {
+  const period = trapezePeriod(w.cfg);
+  const lead = climb(w, s);
+  const targets = [Math.round(period / 8), Math.round(period / 2 + period / 8)];
+  const ahead = (t: number) => (t - s.swingTick - lead + period * 2) % period;
+  const target = targets.reduce((a, b) => (ahead(a) <= ahead(b) ? a : b));
+  const col = Math.round(trapezeSeat(w.cfg, { ...s, swingTick: target }).xMilli / 1000);
+  if (w.cannonCol !== col) return [{ player: 1, command: { kind: "cannonCol", col } }];
+  return ahead(target) === 0 ? [{ player: 2, command: { kind: "fire", color: "cyan" } }] : [];
+}
+
+function side(w: World, s: TrapezeState): Press[] {
+  if (w.cannonCol !== 0) return [{ player: 1, command: { kind: "cannonCol", col: 0 } }];
+  if (!trapezeLocked(s)) return [lock(true)];
+  const out: Press[] = [lock(false)];
+  if (s.swingTick === trapezePeriod(w.cfg) / 2) {
+    out.push({ player: 2, command: { kind: "fire", color: "red" } });
+  }
+  return out;
+}
+
+const push = (seat: 0 | 1, zone: -1 | 1, on: boolean, fromMilli: number): Press => ({
+  player: seat === 0 ? 1 : 2,
+  command: {
+    kind: "drag",
+    target: zone < 0 ? "trapezePushLeft" : "trapezePushRight",
+    on,
+    fromMilli,
+  },
 });
 
-const track = (side: 0 | 1, on: boolean, fromMilli: number): Press => ({
-  player: side === 0 ? 1 : 2,
-  command: { kind: "drag", target: "trapezeDraw", on, fromMilli },
+const lock = (on: boolean): Press => ({
+  player: 1,
+  command: { kind: "drag", target: "trapezeLock", on, fromMilli: 0 },
 });

@@ -50,19 +50,20 @@ export const LATE_CREATURE_HUES = {
   /** The root the peeled seam bares, while no shot is owed. */
   gallRoot: "#8C6A7E",
   /**
-   * THE TRAPEZE's boom and spindle (§39, *Colour*): a scoured steel grey, the
-   * mast of a fixture rather than the hull's violet, and its shadow.
+   * THE TRAPEZE (§39, *Colour*): the swing's hemp rope and its shadow, and
+   * the seat's worn wood — warm and unlit, so nothing on the swing reads as
+   * a cannon's colour or as a lit mark.
    */
-  trapezeSteel: "#8E98A3",
-  trapezeSteelDark: "#2B3139",
-  /**
-   * The flag: a dull canvas tan, its shadow, and the tan it brightens to once
-   * both catches are in. Warm and unlit, so it never reads as a cannon's
-   * colour — the spindle is the only lit thing on the body.
-   */
-  trapezeCanvas: "#A28E6C",
-  trapezeCanvasDark: "#43392A",
-  trapezeCanvasCaught: "#E3CC98",
+  trapezeRope: "#B9A27A",
+  trapezeRopeDark: "#3F3424",
+  trapezeWood: "#8A5A3A",
+  /** The alien on it: a pale moss green and its shadow, a living thing on a made one. */
+  trapezeAlien: "#9CC98A",
+  trapezeAlienDark: "#2E4529",
+  /** The gong it kicks: dull brass, its shadow, and the brass it rings to. */
+  trapezeBrass: "#B08A3E",
+  trapezeBrassDark: "#4A3815",
+  trapezeBrassLit: "#F2D27A",
   /**
    * THE FLUE's units (§40, *Colour*): a dark plum flesh since the owner
    * asked for the flue *more alien living* on 6 October 2026, where it was a

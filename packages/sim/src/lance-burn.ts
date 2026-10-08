@@ -32,7 +32,6 @@ import { firstAlong } from "./shot-reach.js";
 import { slingStruck } from "./sling-shot.js";
 import { spendShot } from "./spend.js";
 import { tasterStruck } from "./taster-shot.js";
-import { trapezeStruck } from "./trapeze-shot.js";
 import { trivetStruck } from "./trivet-shot.js";
 import type { Bullet, Color } from "./types.js";
 import { valveStruck } from "./valve-shot.js";
@@ -212,8 +211,6 @@ function burnColumn(world: World, col: number, color: Color): number {
   capstanStruck(world, b);
   // And THE GALL's bared root (`gall-shot.ts`).
   gallStruck(world, b);
-  // And THE TRAPEZE's lit spindle (`trapeze-shot.ts`).
-  trapezeStruck(world, b);
   // And THE FLUE, which no beam gets past (`flue-shot.ts`).
   flueStruck(world, b);
   // And THE GOVERNOR's lit hub (`governor-shot.ts`).

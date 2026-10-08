@@ -39,7 +39,7 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   halter: ["alarmed", "lit", "pause", "spent"],
   capstan: ["rusted", "lit", "rest", "open"],
   gall: ["slack", "lit", "rest", "flat"],
-  trapeze: ["slack", "lit", "rest", "spent"],
+  trapeze: ["rest", "spent"],
   flue: ["slack", "lit", "rest", "spent"],
   governor: ["slack", "lit", "rest", "spent"],
 };

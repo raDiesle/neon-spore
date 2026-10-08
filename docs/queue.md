@@ -464,14 +464,14 @@ the same place apart. Find out why, and make a seat-split candidate show both
 seats; a test with two patches drawing different shapes in one rectangle
 proves it.
 
-## THE LAMPREY's "worm on the field" sits inside THE BURGEE's write-up
+## THE LAMPREY's "worm on the field" sits inside THE TRAPEZE's write-up
 
 - **Found:** 2026-10-07, claude/burgee-boss-wave-fd8568
 - **Files:** `docs/spec/bosses.md`
 
 The block that opens **The worm on the field** (the owner, 6 October 2026,
-`sim/lamprey-roam.ts`) and its five bullets stand in §11.56 THE BURGEE,
-between *Where this departs from the design* and *What is proven*, though
+`sim/lamprey-roam.ts`) and its five bullets stand in §11.56 THE TRAPEZE,
+between *Its health is the gongs* and *What is proven*, though
 every word of it is THE LAMPREY's. §11.59 THE LAMPREY's clock paragraph
 points to it as "*The worm on the field*, below", so a reader of either
 section is sent the wrong way. Move the block, whole, into §11.59 below that
@@ -495,15 +495,16 @@ LAMPREY's tail held while the head is freed, THE HALTER's two grips held —
 with a test beside `capstan-held.test.ts` for each. A boss whose hold has no
 count the simulation keeps gets the green ring and no arc.
 
-## A held mark shows it is right: THE KEEL, THE CYST, THE BURGEE
+## A held mark shows it is right: THE KEEL, THE CYST
 
 - **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
-- **Files:** `packages/render/src/keel-verdicts.ts`, `packages/render/src/cyst-verdicts.ts`, `packages/render/src/trapeze-verdicts.ts`, `packages/render/src/mark-progress.ts`
+- **Files:** `packages/render/src/keel-verdicts.ts`, `packages/render/src/cyst-verdicts.ts`, `packages/render/src/mark-progress.ts`
 
 The same rule and recipe as the entry for THE DAVIT, THE LAMPREY and THE
 HALTER above (`capstan-verdicts.ts` is the worked example): THE KEEL's two
 ends held through a flip, THE CYST's flank tapped still while the partner
-pinches, THE BURGEE's flag held still while the partner draws. Each held
+pinches. THE BURGEE's flag stood here until 8 October 2026; THE TRAPEZE
+that replaced it holds nothing. Each held
 part wears `drawMarkHeld` on both screens, the holder's cue reads `HOLD`, and
 the partner's work carries `drawMarkProgress` where the simulation counts it.
 

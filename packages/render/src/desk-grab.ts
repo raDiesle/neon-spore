@@ -23,6 +23,7 @@ import { surgeMarkSeat } from "./surge-grip.js";
 import { tasterGripSeat } from "./taster-grip.js";
 import { throatGripSeat } from "./throat-grip.js";
 import { type Field, type Touch, touchDown } from "./touch.js";
+import { trapezeGripSeat } from "./trapeze-grip.js";
 import { vaneGripSeat } from "./vane-grip.js";
 import { wardenGripSeat } from "./warden-grip.js";
 
@@ -206,6 +207,7 @@ export function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 |
     governorGripSeat(l, x, y, field) ??
     capstanGripSeat(l, x, y, field) ??
     halterGripSeat(l, x, y, field) ??
+    trapezeGripSeat(l, x, y, field) ??
     pulseGripSeat(l, x, y, field)
   );
 }

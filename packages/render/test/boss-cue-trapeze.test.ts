@@ -1,35 +1,18 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
-import {
-  createWorld,
-  midCol,
-  startWave,
-  step,
-  type TrapezeState,
-  ticksPerBeat,
-  type World,
-} from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
-import { fieldX } from "../src/field-flip.js";
-import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
-import { trapezeMarks } from "../src/trapeze-marks.js";
-import { trapezeSpindleAt, trapezeSpindleTall } from "../src/trapeze-shape.js";
-import {
-  CFG,
-  FRAME_TIMEOUT_MS,
-  installCanvasGlobals,
-  VIEWPORT,
-  waveWith,
-} from "./frame-harness.js";
+import { computeLayout, type Layout, tileCX, type ViewRole } from "../src/layout.js";
+import { trapezeAlienCircle, trapezeZoneCircle } from "../src/trapeze-grip.js";
+import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, VIEWPORT } from "./frame-harness.js";
+import { BACK_LEFT, BACK_RIGHT, posed, Q, stood } from "./trapeze-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **THE TRAPEZE, and the three words the field may say about it**
- * (`render/src/boss-cue-read-zn.ts`): `TAP` on the ring to the step's
- * freezer until the flag is still, `SWIPE` on the track to the seat that
- * draws, and `FIRE` under the middle column once the spindle is lit. What is
- * *not* said: *when* to tap, which way to swipe, or the shot's colour.
+ * (`render/src/boss-cue-read-zn.ts`): `SWIPE` in the open zone to the seat
+ * that pushes there, `TAP` on the alien to the pilot in a lock level, and
+ * `FIRE` at the cannon in a shot level. What is *not* said: anything while
+ * the swing goes out, or between levels.
  */
 
 beforeAll(installCanvasGlobals);
@@ -40,90 +23,74 @@ const LAYOUT: Record<ViewRole, Layout> = {
   test: computeLayout(VIEWPORT, CFG, "test"),
 };
 
-function cue(world: World, role: ViewRole): BossCue | null {
+function cue(world: Parameters<typeof bossCue>[1], role: ViewRole): BossCue | null {
   const l = LAYOUT[role];
   return bossCue(l, world, 0, () => l.hullY);
 }
 
-/** THE TRAPEZE's wave, stepped to its first catch: player 1 freezes, player 2 draws. */
-function toLit(): { world: World; b: TrapezeState } {
-  const world = createWorld(CFG, 5);
-  const index = waveWith("trapeze");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  const b = world.boss;
-  if (b === null || b.kind !== "trapeze")
-    throw new Error("the trapeze's wave installed no trapeze");
-  let guard = 0;
-  while (b.phase !== "lit" && guard++ < 60 * ticksPerBeat(CFG)) step(world, []);
-  return { world, b };
-}
-
-function marksOf(role: ViewRole, b: TrapezeState) {
-  const lit = b.steps[b.cursor];
-  if (lit === undefined) throw new Error("no lit step");
-  return trapezeMarks(LAYOUT[role], CFG, lit);
-}
-
 describe("THE TRAPEZE", () => {
-  it("says TAP on the ring to the freezer, and SWIPE on the track to the other seat", () => {
-    const { world, b } = toLit();
-    expect(b.steps[b.cursor]).toMatchObject({ ask: "catch", freezer: 1 });
-    const tap = cue(world, "p1");
-    const ring = marksOf("p1", b).ring;
-    expect(tap).toMatchObject({ word: "TAP", kind: "PRESS" });
-    expect(tap?.x).toBeCloseTo(ring.x);
-    expect(tap?.y).toBeCloseTo(ring.y);
-    const swipe = cue(world, "p2");
-    const { from, to } = marksOf("p2", b);
-    expect(swipe).toMatchObject({ word: "SWIPE", kind: "HOLD" });
-    expect(swipe?.x).toBeCloseTo((from.x + to.x) / 2);
-    expect(swipe?.y).toBeCloseTo(from.y);
-  });
-
-  it("stops saying TAP once the flag is still, and keeps the swipe", () => {
-    const { world, b } = toLit();
-    b.frozenBeats = CFG.trapezeFreezeBeats;
-    b.frozenBy = 0;
-    expect(cue(world, "p1")).toBeNull();
-    expect(cue(world, "p2")?.word).toBe("SWIPE");
-  });
-
-  it("says both words to both seats on a recatch, until one of them has frozen it", () => {
-    const { world, b } = toLit();
-    const at = b.steps.findIndex((s) => s.ask === "recatch");
-    b.cursor = at;
-    for (const role of ["p1", "p2"] as const) expect(cue(world, role)?.word).toBe("TAP");
-    b.frozenBeats = CFG.trapezeFreezeBeats;
-    b.frozenBy = 1;
-    expect(cue(world, "p1")?.word).toBe("SWIPE");
+  it("says SWIPE in the open zone, to the seat that pushes there", () => {
+    const world = stood();
+    const s = posed(world, "push", BACK_LEFT);
+    const left = cue(world, "p1");
+    const at = trapezeZoneCircle(LAYOUT.p1, CFG, s, -1);
+    expect(left).toMatchObject({ word: "SWIPE", kind: "CARRY" });
+    expect(left?.x).toBeCloseTo(at?.x ?? Number.NaN);
     expect(cue(world, "p2")).toBeNull();
+    posed(world, "push", BACK_RIGHT);
+    expect(cue(world, "p2")?.word).toBe("SWIPE");
+    expect(cue(world, "p1")).toBeNull();
   });
 
-  it("says FIRE under the middle column once the spindle is lit, and nothing before", () => {
-    const { world, b } = toLit();
-    b.cursor = b.steps.findIndex((s) => s.ask === "fire");
-    b.spindleLit = false;
+  it("follows a call: the seat called to a side is the one told", () => {
+    const world = stood();
+    posed(world, "call", BACK_LEFT, (s) => {
+      s.callers = [1, 1];
+    });
+    expect(cue(world, "p2")?.word).toBe("SWIPE");
     expect(cue(world, "p1")).toBeNull();
-    b.spindleLit = true;
+  });
+
+  it("says nothing while the swing goes out, or once its side is pushed", () => {
+    const world = stood();
+    posed(world, "push", Q + Q / 2);
+    for (const role of ["p1", "p2"] as const) expect(cue(world, role)).toBeNull();
+    posed(world, "push", BACK_LEFT, (s) => {
+      s.pushedHalf = s.half;
+    });
+    for (const role of ["p1", "p2"] as const) expect(cue(world, role)).toBeNull();
+  });
+
+  it("says TAP on the alien to the pilot in a lock level, then FIRE once it is locked", () => {
+    const world = stood();
+    const s = posed(world, "lock");
+    const tap = cue(world, "p1");
+    const alien = trapezeAlienCircle(LAYOUT.p1, CFG, s);
+    expect(tap).toMatchObject({ word: "TAP", kind: "PRESS" });
+    expect(tap?.x).toBeCloseTo(alien.x);
+    expect(cue(world, "p2")).toBeNull();
+    s.lockBeats = 3;
+    expect(cue(world, "p2")?.word).toBe("FIRE");
+  });
+
+  it("says FIRE at the cannon in a shot level, aimed at the alien", () => {
+    const world = stood();
+    const s = posed(world, "shoot");
     for (const role of ["p1", "p2"] as const) {
       const said = cue(world, role);
+      const l = LAYOUT[role];
       expect(said).toMatchObject({ word: "FIRE", kind: "PRESS" });
-      expect(said?.x).toBeCloseTo(fieldX(LAYOUT[role], midCol(CFG)));
-      expect(said?.y).toBeCloseTo(LAYOUT[role].hullY);
-      // The owner, 29 September 2026, every boss: a shot cue carries a clear
-      // aim target (`cue-helper.ts`). The word stays at the hull, where the
-      // cannon goes; the crosshair rides the thing it is fired at.
-      const want = { ...trapezeSpindleAt(LAYOUT[role], CFG), r: trapezeSpindleTall(LAYOUT[role]) };
-      expect(said?.aim?.x).toBeCloseTo(want.x, 5);
-      expect(said?.aim?.y).toBeCloseTo(want.y, 5);
-      expect(said?.aim?.r).toBeCloseTo(want.r, 5);
-      expect(said?.aim?.y).toBeLessThan(LAYOUT[role].hullY);
+      expect(said?.x).toBeCloseTo(tileCX(l, world.cannonCol));
+      expect(said?.y).toBeCloseTo(l.hullY);
+      const alien = trapezeAlienCircle(l, CFG, s);
+      expect(said?.aim?.x).toBeCloseTo(alien.x, 5);
+      expect(said?.aim?.y).toBeLessThan(l.hullY);
     }
   });
 
-  it("says nothing between steps", () => {
-    const { world, b } = toLit();
-    b.phase = "rest";
+  it("says nothing between levels", () => {
+    const world = stood();
+    posed(world, null, BACK_LEFT);
     for (const role of ["p1", "p2"] as const) expect(cue(world, role)).toBeNull();
   });
 });

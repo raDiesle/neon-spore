@@ -41,20 +41,19 @@ export const HURT_ROWS_C: Row[] = [
   },
   {
     boss: "trapeze",
-    // A catch, a recatch and the spindle hit; a tap off the mark or a swipe that caught nothing only works toward one.
-    land: [
-      { type: "trapezeCatch", side: 1, catches: 1, col: 3 },
-      { type: "trapezeRecatch", side: 0, col: 5 },
-      { type: "trapezeHit", hits: 1, col: 4 },
-    ],
+    // A gong kicked; a level lighting, a call, a brake or a swipe that did nothing only works toward one.
+    land: [{ type: "trapezeGong", gongs: 1, col: 9 }],
     part: [
-      { type: "trapezeLight", ask: "catch", offset: -1, col: 3 },
-      { type: "trapezeFlap", side: 0, col: 3 },
-      { type: "trapezeFlutter", side: 1, col: 3 },
-      { type: "trapezeSway", col: 3 },
+      { type: "trapezeLevel", ask: "push", gongSide: 1, col: 5 },
+      { type: "trapezeCall", seat: 1, zone: -1, col: 5 },
+      { type: "trapezeBrake", seat: 0, zone: -1, col: 3 },
+      { type: "trapezeWhiff", seat: 1, zone: -1, why: "seat", col: 3 },
     ],
-    // The flag tapped still on the mark, the catch not yet made.
-    hit: [{ type: "trapezeFreeze", side: 0, col: 3 }],
+    // A push on time, and a shot that pushes: the swing higher, the gong not yet kicked.
+    hit: [
+      { type: "trapezePush", seat: 0, zone: -1, col: 3 },
+      { type: "trapezeShot", gain: true, side: false, col: 5 },
+    ],
     hurt: (fx) => fx.boss.trapeze.hurt,
   },
   {

@@ -9,42 +9,37 @@ export function isTrapezeEvent(e: SimEvent): e is TrapezeSimEvent {
 }
 
 /**
- * THE TRAPEZE's fifteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE TRAPEZE's thirteen, in a file of their own for `bind-gorge.ts`' reason.
  *
- * **Heard where they happen**: a tap, a freeze, a flutter and a catch are
- * panned to the lit column, so **the half a freeze lands on is heard** by
- * the seat that has to swipe toward it. The spindle and the flag as a whole
- * are in the middle.
+ * **Heard where they happen**: a push, a brake, a swipe that did nothing, a
+ * call and a shot are panned to the alien, so the pair hear the swing go
+ * across; the gong is panned to its side.
  *
- * **A catch rises as they add up**, and so does a hit.
+ * **A gong rises as they add up.**
  */
 export function trapezeCue(e: TrapezeSimEvent, cols: number): Cue {
   const pan = panForCol(e.col, cols);
   switch (e.type) {
+    case "trapezeGong":
+      return { id: "boss.trapezeGong", pan, pitch: 1 + Math.max(0, e.gongs - 1) * 0.08 };
     case "trapezeEnter":
       return { id: "boss.trapezeEnter", pan };
-    case "trapezeLight":
-      return { id: "boss.trapezeLight", pan };
-    case "trapezeFreeze":
-      return { id: "boss.trapezeFreeze", pan };
-    case "trapezeFlap":
-      return { id: "boss.trapezeFlap", pan };
-    case "trapezeLapse":
-      return { id: "boss.trapezeLapse", pan };
-    case "trapezeFlutter":
-      return { id: "boss.trapezeFlutter", pan };
-    case "trapezeCatch":
-      return { id: "boss.trapezeCatch", pan, pitch: 1 + Math.max(0, e.catches - 1) * 0.08 };
-    case "trapezeSpindle":
-      return { id: "boss.trapezeSpindle", pan };
-    case "trapezeRecatch":
-      return { id: "boss.trapezeRecatch", pan };
-    case "trapezeSway":
-      return { id: "boss.trapezeSway", pan };
-    case "trapezeDim":
-      return { id: "boss.trapezeDim", pan };
-    case "trapezeHit":
-      return { id: "boss.trapezeHit", pan, pitch: 1 + Math.max(0, e.hits - 1) * 0.08 };
+    case "trapezeLevel":
+      return { id: "boss.trapezeLevel", pan };
+    case "trapezeCall":
+      return { id: "boss.trapezeCall", pan };
+    case "trapezePush":
+      return { id: "boss.trapezePush", pan };
+    case "trapezeBrake":
+      return { id: "boss.trapezeBrake", pan };
+    case "trapezeWhiff":
+      return { id: "boss.trapezeWhiff", pan };
+    case "trapezeLock":
+      return { id: "boss.trapezeLock", pan };
+    case "trapezeUnlock":
+      return { id: "boss.trapezeUnlock", pan };
+    case "trapezeShot":
+      return { id: "boss.trapezeShot", pan };
     case "trapezeMiss":
       return { id: "boss.trapezeMiss", pan };
     case "trapezeSpent":

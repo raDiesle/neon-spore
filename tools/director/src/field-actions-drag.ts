@@ -38,6 +38,8 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE STARE'S LASHES",
       "THE LEDGER'S HAUL",
       "THE FLEET'S WRECK",
+      "THE TRAPEZE'S LEFT ZONE",
+      "THE TRAPEZE'S RIGHT ZONE",
     ],
   },
   {
@@ -117,7 +119,6 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE SLING'S RIGHT CORD",
       "THE DAVIT'S LEFT LOOSE",
       "THE DAVIT'S RIGHT LOOSE",
-      "THE TRAPEZE'S DRAW",
     ],
   },
   {

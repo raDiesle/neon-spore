@@ -435,10 +435,11 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE GALL's pinch: a point of this seat's half of the seam, the point sent
   // as its id, on both screens (`render/gall-grip.ts`, §11.55).
   gallPress: "field",
-  // THE TRAPEZE's tap on the freeze ring and draw on the track, each the lit
-  // step's seat's, pressed where they are drawn (`render/trapeze-grip.ts`, §11.56).
-  trapezeFreeze: "field",
-  trapezeDraw: "field",
+  // THE TRAPEZE's swipes on either half of the field and the pilot's tap on
+  // the alien, pressed where they are drawn (`render/trapeze-grip.ts`, §11.56).
+  trapezePushLeft: "field",
+  trapezePushRight: "field",
+  trapezeLock: "field",
   // THE GOVERNOR's tap on the dial's face, from a seat with a mark to land
   // (`render/governor-grip.ts`, §11.58).
   governorTap: "field",

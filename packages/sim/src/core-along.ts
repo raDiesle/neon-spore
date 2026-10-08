@@ -14,7 +14,6 @@ import { plumbVerdict } from "./plumb-shot.js";
 import { rimeVerdict } from "./rime-shot.js";
 import { slingVerdict } from "./sling-shot.js";
 import { stareVerdict } from "./stare-shot.js";
-import { trapezeVerdict } from "./trapeze-shot.js";
 import { trivetVerdict } from "./trivet-shot.js";
 import type { Bullet, Color } from "./types.js";
 import { viseSeedAside, viseVerdict } from "./vise-shot.js";
@@ -60,7 +59,6 @@ interface Core {
  */
 const CORES: Partial<Record<BossKind, Core>> = {
   grindstone: { milli: 2000, verdict: (w, c, k) => grindstoneVerdict(w, c, k) },
-  trapeze: { milli: 550, verdict: (w, c, k) => trapezeVerdict(w, c, k) },
   capstan: { milli: 2700, verdict: (w, c, k) => capstanVerdict(w, c, k) },
   curtain: { verdict: (w, c, k) => curtainVerdict(w, c, k), aside: (w) => curtainCoreAside(w) },
   cyst: {

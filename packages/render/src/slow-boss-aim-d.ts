@@ -7,7 +7,6 @@ import {
   lampreyBoss,
   sceneBoss,
   seamBoss,
-  trapezeBoss,
   type World,
 } from "@neon-spore/sim";
 import { capstanArrived, capstanGone, capstanTurn } from "./capstan-pose.js";
@@ -28,13 +27,6 @@ import { nettleBody } from "./nettle-sway.js";
 import { seamArrived } from "./seam-pose.js";
 import { seamCentre, seamHalfHeight, seamHalfWidth, seamLift } from "./seam-shape.js";
 import type { Aim } from "./slow-intake-aim.js";
-import { trapezeAsked } from "./trapeze-pose.js";
-import {
-  trapezeFlagLong,
-  trapezeSpindleAt,
-  trapezeSpindleTall,
-  trapezeTip,
-} from "./trapeze-shape.js";
 
 /**
  * **THE SLOW's aim, page four** — the bosses that opened windows that
@@ -43,7 +35,7 @@ import {
  *
  * Each row is page three's kind: a box off the boss's own shape file, run the
  * long way as a capsule, placed where its drawer places it this frame — the
- * drop in, the lift as it goes, the cradle's roll, the flag's swing.
+ * drop in, the lift as it goes, the cradle's roll.
  *
  * THE NETTLE joined once its body was drawn: it shares THE INSTAR's engine
  * but not its body, so it is aimed here off its own bell and arms rather than
@@ -55,7 +47,8 @@ import {
  * pair must read the colour of; so its row is left whole by the split.
  * THE GOVERNOR joined on 7 October 2026, torn into three by a split about
  * the cannon; it is left whole the same way, being as tall as half the
- * field. A kind none of the four pages has is aimed at the cannon, and
+ * field. THE TRAPEZE had a row until its rework of 7 October 2026 took THE
+ * SLOW off it: the owner, *no slow while the pair swing it up*. A kind none of the four pages has is aimed at the cannon, and
  * `slow-boss-aim.test.ts` names any that opens THE SLOW with no row.
  */
 export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: number): Aim | null {
@@ -111,16 +104,6 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       const y = gallSeamY(l);
       const reach = gallSize(l).ry * GALL_STANDS;
       return capsule(sides(l.gridLeft, l.gridLeft + l.cols * l.tile, y - reach, y + reach));
-    }
-    // The spindle's crown down to the boom's tip where the flag is asked to
-    // be, and the flag's length round both: it streams off the tip any way.
-    case "trapeze": {
-      const s = trapezeBoss(world);
-      if (s === null) return null;
-      const spindle = trapezeSpindleAt(l, cfg);
-      const crown = { x: spindle.x, y: spindle.y - trapezeSpindleTall(l) };
-      const tip = trapezeTip(l, cfg, trapezeAsked(s, cfg, beatPhase));
-      return spreadCapsule([crown, tip], trapezeFlagLong(l));
     }
     // The flue from one side of the field to the other, with the scale and
     // the card under the sight (`flue-scale.ts`, `flue-card.ts`) — and all of it

@@ -1,53 +1,67 @@
 import type { FieldControlDef } from "./field-control-def.js";
 
 /**
- * THE TRAPEZE's two hands, as rows of the ON THE FIELD tab: the freeze ring
- * and the draw's track, each pressed where it is drawn, and each the lit
- * step's seat's — the freezer's ring and the other seat's track
- * (`render/trapeze-grip.ts`, `docs/spec/bosses-choreographed.md` §39).
+ * THE TRAPEZE's controls, as rows of the ON THE FIELD tab: the two zones,
+ * each swiped toward the middle by the seat that pushes there, and the
+ * alien, the pilot's tap that locks the cannon (`render/trapeze-grip.ts`,
+ * `docs/spec/bosses-choreographed.md` §39).
  */
 const SOURCE =
-  "handles.ts — trapezeFreezeUnder() and trapezeDrawUnder() under handleUnder(); the swipe's side carried on the lift by touch.ts' swiped set";
+  "handles.ts — trapezePushUnder() and trapezeLockUnder() under handleUnder(); the swipe's run carried on the lift by touch.ts' swiped set";
+
+const ZONE_DOES =
+  "A **swipe toward the middle**, THE SLING's lift: the finger goes down in the " +
+  "zone and the lift carries its sideways run. It pushes the swing " +
+  "`trapezePushMilli` higher if the swing is coming back over this side and " +
+  "this seat pushes here, once a half swing; while the swing goes out it " +
+  "brakes it `trapezeBrakeMilli` instead. Any other swipe does nothing and " +
+  "says why in the zone — NOT YOUR SIDE, WAIT FOR IT, TOWARD THE MIDDLE " +
+  "(sim/trapeze-hand.ts, render/trapeze-fx.ts). The zone lights with chevrons " +
+  "while it is open, loud on its seat's screen and faint on the partner's; a " +
+  "push greens it, and a brake or a refused swipe reddens it.";
 
 export const TRAPEZE_CONTROLS: readonly FieldControlDef[] = [
   {
-    name: "THE TRAPEZE'S FREEZE RING",
-    where: "the ring over the lit column, where the boom's tip would be, while a catch is lit",
-    seat: "the step's freezer — player 1 on the first catch, player 2 on the second, either on a recatch",
-    gesture: "press",
-    does:
-      "An **edge**, THE VALVE's pin: the press stills the flag for `trapezeFreezeBeats` " +
-      "if it is over the lit column that instant, and a thumb resting on the ring " +
-      "has to lift and come down again. A tap off the column is a flap, and the " +
-      "flag swings on (sim/trapeze-hand.ts). While it asks, the ring wears the " +
-      "halo on the freezer's screen and the partner's ring and clock on the " +
-      "other's; a freeze on the mark greens it, and a flap reddens it " +
-      "(render/trapeze-verdicts.ts).",
+    name: "THE TRAPEZE'S LEFT ZONE",
+    where:
+      "the left half of the field under the swing, down to a row above the hull, in a swipe level",
+    seat: "player 1 in the first level; in a call level whoever the field badges, drawn by chance",
+    gesture: "grab and drag",
+    does: ZONE_DOES,
     source: SOURCE,
     holdKind: "drag",
-    dragTarget: "trapezeFreeze",
+    dragTarget: "trapezePushLeft",
     sends: ["drag"],
-    pose: "TRAPEZE · THE FREEZE RING LIT",
+    pose: "TRAPEZE · THE LEFT ZONE OPEN",
   },
   {
-    name: "THE TRAPEZE'S DRAW",
+    name: "THE TRAPEZE'S RIGHT ZONE",
     where:
-      "the track under the ring, from under the pivot toward the lit column, while a catch is lit",
-    seat: "the seat that is not the freezer — either on a recatch, until one of them has frozen it",
+      "the right half of the field under the swing, down to a row above the hull, in a swipe level",
+    seat: "player 2 in the first level; in a call level whoever the field badges, drawn by chance",
     gesture: "grab and drag",
-    does:
-      "A **draw and swipe**, THE SLING's: a finger down on the track counts its " +
-      "beats, and the lift carries the swipe's side. The catch lands only if the " +
-      "draw was held `trapezeDrawBeats`, the flag is frozen the instant it lifts, " +
-      "and the swipe goes toward the lit column's side; any other lift is a " +
-      "flutter, the step still lit (sim/trapeze-hand.ts). While it asks, the " +
-      "track wears the halo on the drawer's screen and the partner's ring and " +
-      "clock on the other's; a catch greens it, and a flutter or a freeze run " +
-      "out before the swipe reddens it (render/trapeze-verdicts.ts).",
+    does: ZONE_DOES,
     source: SOURCE,
     holdKind: "drag",
-    dragTarget: "trapezeDraw",
+    dragTarget: "trapezePushRight",
     sends: ["drag"],
-    pose: "TRAPEZE · THE DRAW HELD",
+    pose: "TRAPEZE · THE RIGHT ZONE OPEN",
+  },
+  {
+    name: "THE TRAPEZE'S ALIEN",
+    where: "the alien on the swing, wherever it swings, in the lock level",
+    seat: "player 1",
+    gesture: "press",
+    does:
+      "An **edge**: the press locks the cannon on the alien for `trapezeLockBeats`, " +
+      "so the navigator's next shot climbs, turns and hits it from the side " +
+      "(sim/lock.ts, sim/trapeze-shot.ts). A shot with the swing pushes it; one " +
+      "against it slows it. While it asks, the alien wears the halo on the " +
+      "pilot's screen; the lock draws a sight round it.",
+    source: SOURCE,
+    holdKind: "drag",
+    dragTarget: "trapezeLock",
+    sends: ["drag"],
+    pose: "TRAPEZE · THE ALIEN TO TAP",
   },
 ];

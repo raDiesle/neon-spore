@@ -68,10 +68,6 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "A mark standing off each flank of the sac, haloed on the screen of the seat that taps it.",
     move: "A tap in time stills the shuddering flank, green; a flank left shuddering, red.",
   },
-  "THE TRAPEZE'S FREEZE RING": {
-    find: "A ring over the lit column, where the boom's tip would be, haloed on the freezer's screen.",
-    move: "A tap while the flag is over the column stills it, green; off the column it flaps on, red.",
-  },
   "THE GOVERNOR'S NEEDLE": {
     find: "Anywhere on the dial's face, while a mark of this seat's is lit; each seat has its own, numbered when there is an order.",
     move: "A tap with the needle on the seat's open mark lands; anywhere else, or out of turn, it skids and the needle goes round again.",
@@ -116,6 +112,10 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
   "THE LIGHT": {
     find: "Anywhere on the black field while THE DARK is down.",
     move: "The square under the finger lights, and every square a drag crosses; the bodies there show again for a while.",
+  },
+  "THE TRAPEZE'S ALIEN": {
+    find: "The alien on the swing, wherever it swings, haloed on the pilot's screen in the lock level.",
+    move: "A tap draws a red sight round it and locks the cannon on it, green; the navigator's next shot hits it from the side.",
   },
   // CHORD
   "THE TRIVET'S FRONT FOOT": {

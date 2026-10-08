@@ -1,12 +1,13 @@
-import type { TrapezeAsk } from "./trapeze.js";
+import type { TrapezeAsk, TrapezeSide } from "./trapeze.js";
 
 /**
  * What THE TRAPEZE says as it happens, one line per thing the picture and the
  * sound answer.
  *
  * Every event carries `col`, the column it happened over, for the sounds to
- * pan to: the lit column for a tap and a catch, the middle for the spindle
- * and the flag as a whole. A seat is `side`, nought the pilot.
+ * pan to: the alien's column for a push and a shot, the gong's for a gong.
+ * A seat is `seat`, nought the pilot; a zone is the side of the swing, -1
+ * the left.
  */
 
 interface TrapezeColEvent {
@@ -14,34 +15,38 @@ interface TrapezeColEvent {
   col: number;
 }
 
+/** Why a swipe did nothing: not this seat's side, not the time, or not toward the middle. */
+export type TrapezeWhiffWhy = "seat" | "time" | "way";
+
 export type TrapezeEvent =
-  /** The boom swings into frame with the flag loose over the middle. */
+  /** The swing comes down into the field, swaying a little. */
   | ({ type: "trapezeEnter" } & TrapezeColEvent)
-  /** A step lit: the flag to be caught over a column, or the spindle to shoot. */
-  | ({ type: "trapezeLight"; ask: TrapezeAsk; offset: number } & TrapezeColEvent)
-  /** A tap stilled the flag over the lit column. */
-  | ({ type: "trapezeFreeze"; side: 0 | 1 } & TrapezeColEvent)
-  /** A tap came while the flag was off the lit column: it swings on. */
-  | ({ type: "trapezeFlap"; side: 0 | 1 } & TrapezeColEvent)
-  /** The freeze ran out before a catch: the flag swings again. */
-  | ({ type: "trapezeLapse" } & TrapezeColEvent)
-  /** A loose that caught nothing — not drawn, not frozen, or the wrong way: a limp flutter. */
-  | ({ type: "trapezeFlutter"; side: 0 | 1 } & TrapezeColEvent)
-  /** A catch landed, loosed by `side`; `catches` so far. */
-  | ({ type: "trapezeCatch"; side: 0 | 1; catches: number } & TrapezeColEvent)
-  /** Both catches in: the spindle lights and the flag is held on it. */
-  | ({ type: "trapezeSpindle" } & TrapezeColEvent)
-  /** The creeping flag caught again, loosed by `side`: the spindle stays lit. */
-  | ({ type: "trapezeRecatch"; side: 0 | 1 } & TrapezeColEvent)
-  /** A catch window ran out: the flag swings on, to be caught again. */
-  | ({ type: "trapezeSway" } & TrapezeColEvent)
-  /** A recatch window ran out: the spindle dims until the flag is caught again. */
-  | ({ type: "trapezeDim" } & TrapezeColEvent)
-  /** The spindle shot in its colour; `hits` is how many it has taken. */
-  | ({ type: "trapezeHit"; hits: number } & TrapezeColEvent)
-  /** A fire step ran out with the spindle unshot: the hull takes it. */
+  /** A level lit: what it asks, and the gong to kick. */
+  | ({ type: "trapezeLevel"; ask: TrapezeAsk; gongSide: TrapezeSide } & TrapezeColEvent)
+  /** In a `call` level: `seat` is to push on `zone` the next time the swing comes back there. */
+  | ({ type: "trapezeCall"; seat: 0 | 1; zone: TrapezeSide } & TrapezeColEvent)
+  /** A swipe on time: the swing goes higher. */
+  | ({ type: "trapezePush"; seat: 0 | 1; zone: TrapezeSide } & TrapezeColEvent)
+  /** A swipe while the swing went out: it slows. */
+  | ({ type: "trapezeBrake"; seat: 0 | 1; zone: TrapezeSide } & TrapezeColEvent)
+  /** A swipe that did nothing, and why. */
+  | ({
+      type: "trapezeWhiff";
+      seat: 0 | 1;
+      zone: TrapezeSide;
+      why: TrapezeWhiffWhy;
+    } & TrapezeColEvent)
+  /** The pilot tapped the alien: the cannon is locked on it. */
+  | ({ type: "trapezeLock" } & TrapezeColEvent)
+  /** The lock ran out with no bolt landed. */
+  | ({ type: "trapezeUnlock" } & TrapezeColEvent)
+  /** A bolt hit the alien; `gain` whether it pushed the swing higher or slowed it. */
+  | ({ type: "trapezeShot"; gain: boolean; side: boolean } & TrapezeColEvent)
+  /** The alien kicked the gong; `gongs` kicked so far. */
+  | ({ type: "trapezeGong"; gongs: number } & TrapezeColEvent)
+  /** A level ran out: the alien jumps at the hull. */
   | ({ type: "trapezeMiss" } & TrapezeColEvent)
-  /** The script is done: the spindle spent and the flag swinging free. */
+  /** The last gong: the swing goes over the top and the ropes snap. */
   | ({ type: "trapezeSpent" } & TrapezeColEvent)
-  /** The spent flag has swung `trapezeSpentBeats`; the wave may end. */
+  /** The alien is gone; the wave may end. */
   | ({ type: "trapezeOut" } & TrapezeColEvent);
