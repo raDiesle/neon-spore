@@ -418,27 +418,3 @@ one sentence fits, then a later wave that mixes the five gestures on one
 body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
-
-## The new-creature skill says six tables; a kind is a row in more
-
-- **Found:** 2026-10-08, claude/task-queue-work-e71746
-- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-the-new-creature-skill-says-six-tables-a-kind-is)
-- **Files:** `.claude/skills/new-creature/SKILL.md`, `packages/render/src/duty.ts`, `packages/content/src/waves-demo.ts`, `tools/director/src/ship-fields.ts`, `packages/render/src/creature-body.ts`, `packages/sim/src/hull.ts`, `packages/sim/src/beat.ts`
-
-The skill's table says *every one of them is enforced … so this list is
-complete*, and THE BLISTER's lane met more: `DUTY_WORD` in `duty.ts`,
-`DEMONSTRATIONS` in `waves-demo.ts` (both compile errors), a new `SimConfig`
-field's card in `ship-fields.ts` with its group and note, an `EXCLUSIVE` row
-in `creature-body.ts` when `living-look.ts` answers `null` (a runtime ask for
-a missing contour, not a compile error), and — for a kind that stands rather
-than falls — `resolveHull` and `beat.ts`' arrival rule, which breach a body on
-the hull row a beat later and freeze its clock. Then the tests that each keep
-a list of their own: AUTO's hands (`hands/autopilot-touch.ts`,
-`autopilot-field.test.ts`), the palette's `SHORT_NOTE` and `cardSubjects`
-(`brushes.test.ts`), `LOOK_PENDING` (`pixel-frame.test.ts`), the counts in
-`docs/spec/briefings.md` §1 and §3.2, `categoryOf`'s special list
-(`creatures.test.ts`), the nameable kinds (`mechanics.test.ts`) and a new
-`SimConfig` field named in a document (`doc-drift.test.ts`). Add the
-compile-checked ones to the table and the rest as a second list; prove it
-complete by adding a throwaway kind on a scratch branch and running
-`bun run check`.

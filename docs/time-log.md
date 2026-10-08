@@ -36139,3 +36139,16 @@ Bottleneck: the registrations — the typecheck finds half, and the other
 half are tests that only fail one per run of `check:fast`.
 
 *Measured: 63 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — The new-creature skill says six tables; a kind is a row in more
+
+- reading: 5 min. The skill's §2, and where the kind lists live today.
+- writing: 5 min. §2 rewritten: eight compiler rows, six test-only rows,
+  and what a kind's own make-up owes.
+- looking: 0 min. Nothing drawn.
+- friction: 15 min. The proof: a throwaway kind added to the union and the
+  roster, the compiler's rows filled, the whole test run twice — once with
+  no wave carrying it, once with one — then reverted.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: friction — two full test runs to prove a list.
