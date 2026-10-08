@@ -5,6 +5,7 @@ import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
 import type { GallFx } from "./gall-fx.js";
 import { drawGallPress, drawGallRoot, drawGallScar } from "./gall-marks.js";
+import { drawGallPoints } from "./gall-points.js";
 import {
   gallArrived,
   gallBearing,
@@ -95,6 +96,7 @@ export function drawGall(
     if (p.x === here.x && !s.bared) continue;
     drawGallScar(ctx, l, p.x, p.y + gallRipple(l, p.x, time, ripple));
   }
+  drawGallPoints(ctx, l, cfg, time, ripple, part);
   drawGallPuff(ctx, l, cfg, fx.puff, time, ripple);
 
   if (part > 0) {

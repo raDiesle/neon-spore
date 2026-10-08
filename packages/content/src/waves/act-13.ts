@@ -137,9 +137,9 @@ export const WAVES_ACT_13: Wave[] = [
     id: "theGall",
     name: "THE GALL",
     guide: {
-      both: "Press and hold the gall where it sits, on your half. It jumps: find it and press it there. Three closes bare the root. Shoot it in its colour.",
-      p1: "1. The gall starts on your half, the left. Press it and hold until it jumps.\n2. Say where it went. Press it again when it is on your half.\n3. After three closes, move the cannon to the middle.",
-      p2: "1. When the gall jumps to your half, the right, press it and hold until it jumps.\n2. Say where it went.\n3. After three closes, shoot the root in its colour.",
+      both: "Press and hold the gall where it sits, on your half. It jumps: call its number and press it there. Three closes bare the root. Shoot it in its colour.",
+      p1: "1. The gall starts on your half, 1 and 2. Press it and hold until it jumps.\n2. Call its number. Press it again when it is on 1 or 2.\n3. After three closes, move the cannon to the middle.",
+      p2: "1. When the gall jumps to your half, 3 and 4, press it and hold until it jumps.\n2. Call its number.\n3. After three closes, shoot the root in its colour.",
     },
     entries: [],
     boss: {

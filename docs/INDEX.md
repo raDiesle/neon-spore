@@ -1316,6 +1316,7 @@ by hand never moves.
 | `packages/render/src/gall-draw.ts` | **THE GALL**: a soft nodule riding a raised seam the width of the field |
 | `packages/render/src/gall-marks.ts` | **THE GALL's marks**: what says what a step asks — two chevrons closing on the nodule from either side |
 | `packages/render/src/gall-pose.ts` | **The clock THE GALL is posed off** (§38, *Animation*) |
+| `packages/render/src/gall-points.ts` | **THE GALL's seam, named for saying out loud**: a number under each of its four points |
 | `packages/render/src/gall-shape.ts` | **THE GALL's geometry**: where the seam runs, where its four points sit, and what the nodule on it is made of |
 | `packages/render/src/gall-stop.ts` | **Where a bolt meets THE GALL**: the bared root, or the seam's underside across the field |
 | `packages/render/src/gall-blow.ts` | **THE GALL's own blow at the hull** (`boss-strike-look.ts`) |

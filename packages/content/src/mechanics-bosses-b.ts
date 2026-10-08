@@ -135,7 +135,7 @@ export const BOSS_MECHANICS_B = {
     reach: "spawn",
   },
   gall: {
-    what: "Press and hold the gall where it sits, on your half. It jumps: find it and press it there. Three closes bare the root. Shoot it in its colour.",
+    what: "Press and hold the gall where it sits, on your half. It jumps: call its number and press it there. Three closes bare the root. Shoot it in its colour.",
     reach: "spawn",
   },
   trapeze: {

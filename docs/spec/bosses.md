@@ -10812,6 +10812,16 @@ The seam, its scars and the gall are on both screens: finding it is the
 fight. Hues: the hull's own violet gone dull for the seam and a paler mauve
 for the nodule, `gallSeam` to `gallRoot` (`palette-creatures-late.ts`).
 
+**The seam is named for saying out loud** (`render/src/gall-points.ts`, 8
+October 2026, asked for by the owner: the scars alone gave no place to call
+and no middle to see). A number stands under each point, **1 to 4** left to
+right as drawn, with a stud on the seam above it; a bracket runs under each
+seat's half; and a bar with a diamond crosses the seam over the middle
+column. A half's numbers and bracket are full on its own seat's screen and
+dim on the partner's (`showsGallReach`). All of it rides the seam's ripple
+and fades as the seam peels open over the root. The guide says *call its
+number*.
+
 **The blow and the receipts** (`render/src/gall-blow.ts`, `gall-fx.ts`,
 `gall-receipts.ts`, 27 September 2026). A shot let run is not the default
 lash: **the root seeds**. A seed of the nodule, three lobes at a third of

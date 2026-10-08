@@ -35028,3 +35028,18 @@ Bottleneck: the rename — one identifier in forty files, and prose in a
 dozen more that still said two fingers.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE GALL's seam numbered 1 to 4, its middle barred
+
+- reading: 10 min. The seam's draw, the scars, the ripple, THE GOVERNOR's
+  numbered marks and the reach split.
+- writing: 15 min. `gall-points.ts`, its test, the guide and the write-up.
+- looking: 15 min. Four rounds of `bun run frames`: the numbers first stood
+  still under a seam that ripples, then rode it; both seats' screens and
+  the bared root, where they had to fade.
+- friction: 0 min.
+- landing: 10 min. A rebase of part one over twelve commits that renamed
+  THE BURGEE, `check:fast` twice for a test's timeout.
+
+Bottleneck: looking — whether a number belongs to its place only showed in
+a frame, where the seam's ripple pulled them apart.
