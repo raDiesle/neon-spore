@@ -467,6 +467,7 @@ proves it.
 ## THE LAMPREY's "worm on the field" sits inside THE TRAPEZE's write-up
 
 - **Found:** 2026-10-07, claude/burgee-boss-wave-fd8568
+- **Taken:** 2026-10-08, claude/queue-lamprey-doc (claim: claude/queue-the-lampreys-worm-on-the-field-sits-inside-the-t)
 - **Files:** `docs/spec/bosses.md`
 
 The block that opens **The worm on the field** (the owner, 6 October 2026,
