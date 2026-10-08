@@ -35168,3 +35168,5 @@ a walk timed idle and under 24 copies of itself said which part was wrong.
 - landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
 
 Bottleneck: friction — choosing a baseline that ships what any drawing does.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

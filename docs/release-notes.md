@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 273e6f538 — THE GOVERNOR's alloy and veins are on the sprite bench
+
+`bun run sprite governor-alloy` and `governor-veins` now draw each baked sprite on the bare dial at its diameter and print its code bytes, bake time and draw cost; each is weighed beside the hub drawn over it (1.8 kB and 1.4 kB gzipped) and has a row in the sprite skill's table. What the game draws is unchanged: the two draws only take an optional density for the bench.
+
 ## 2026-10-08 · b85ec1300 — The two tree walks' setup hooks wait out a hang rather than a scaled figure
 
 doc-drift and doc-drift-names read the whole tree in a beforeAll whose budget was scaled off the load each shard reads at import — the minute before the shards started — and ran out at 6.7 s under a full run on 7 October 2026. The hook guards against a hang, not a cost, so it takes HANG_MS flat, as cpu-time.ts says such a budget should; the cases keep their figures.
