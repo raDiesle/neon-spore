@@ -35494,3 +35494,18 @@ Bottleneck: friction — the entry's "still under a hand" broke the seat
 rule, and only the frame test said so.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE ANTIPHON's organ rests at a seeded quarter turn (simulation, off)
+
+- reading: 5 min. The boss's eight sim files, step 8 of §12, the
+  new-boss-state table, and how other figures are switched off.
+- writing: 5 min. `antiphon-turn.ts`, the rail's candidates with a turn,
+  the spring back, the hash, the two re-export hops, the director's rows,
+  the test, the spec.
+- looking: 0 min. Nothing drawn moved: the look is queued.
+- friction: 0 min. Three render harnesses built organs by hand and went red
+  on the new field; the typecheck named all three at once.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: writing — the turn had to thread through the rail's seed order
+without drawing anything new from the seed while the figure is off.

@@ -8,6 +8,7 @@ import {
   antiphonRailSize,
   antiphonTight,
 } from "./antiphon.js";
+import { antiphonDrawTurns, antiphonTurned } from "./antiphon-turn.js";
 import { antiphonSlotCol } from "./antiphon-vein.js";
 import { nextInt } from "./rng.js";
 import type { World } from "./world.js";
@@ -21,10 +22,14 @@ import type { World } from "./world.js";
  * through `nextInt` in one order, so two phones grow the same organ with the
  * same decoys beside it in the same places. The order is fixed here and
  * nowhere else: the organ's shape, the decoys', then the rail's own shuffle.
+ * On a level whose organ rests at a turn (`antiphon-turn.ts`) the turns are
+ * drawn where the decoys' shapes would be, and the decoys are the organ's own
+ * contour at the other turns.
  *
  * **A decoy is never the organ by another road.** Shapes are distinct across
  * the rail, so the contour being described is on it once — except the
- * ship's rail, which is three ships told apart only by how they are drawn.
+ * ship's rail, which is three ships told apart only by how they are drawn,
+ * and a turned level's, where a shape and its turn together are distinct.
  * Where a candidate hangs is its place on the rail (`antiphonSlotCol`), so
  * the shuffle is what puts the organ somewhere new each level.
  */
@@ -79,16 +84,42 @@ function decoyShapes(world: World, s: AntiphonState, organ: number, n: number): 
   return out;
 }
 
-/** The shapes in the seed's order, the organ's place among them returned with them. */
-function shuffled(world: World, shapes: number[]): { order: number[]; answer: number } {
-  const idx = shapes.map((_, i) => i);
+/** The candidates in the seed's order, the organ's place among them returned with them. */
+function shuffled<T>(world: World, items: T[]): { order: T[]; answer: number } {
+  const idx = items.map((_, i) => i);
   for (let i = idx.length - 1; i > 0; i--) {
     const j = nextInt(world.rng, i + 1);
     const a = idx[i] ?? 0;
     idx[i] = idx[j] ?? 0;
     idx[j] = a;
   }
-  return { order: idx.map((i) => shapes[i] ?? 0), answer: idx.indexOf(0) };
+  const order: T[] = [];
+  for (const i of idx) {
+    const item = items[i];
+    if (item !== undefined) order.push(item);
+  }
+  return { order, answer: idx.indexOf(0) };
+}
+
+type Unplaced = Omit<AntiphonCandidate, "col">;
+
+/** The organ first, then its decoys: other shapes, or on a turned level its own at the other turns. */
+function candidates(world: World, s: AntiphonState, organ: number, n: number): Unplaced[] {
+  if (organ === ANTIPHON_SHIP) {
+    return new Array<Unplaced>(n + 1).fill({ shape: ANTIPHON_SHIP, turn: 0 });
+  }
+  if (!antiphonTurned(s, world.cfg)) {
+    const decoys = decoyShapes(world, s, organ, n).map((shape) => ({ shape, turn: 0 }));
+    return [{ shape: organ, turn: 0 }, ...decoys];
+  }
+  const turns = antiphonDrawTurns(world, n);
+  const out = turns.map((turn) => ({ shape: organ, turn }));
+  const first = turns[0] ?? 0;
+  // A rail wider than the turns are many is filled with other shapes at the
+  // organ's own turn: a different contour is never the answer whatever way up.
+  const more = decoyShapes(world, s, organ, n + 1 - out.length);
+  for (const shape of more) out.push({ shape, turn: first });
+  return out;
 }
 
 /**
@@ -98,18 +129,16 @@ function shuffled(world: World, shapes: number[]): { order: number[]; answer: nu
  */
 export function growCycle(world: World, s: AntiphonState): AntiphonOrgan {
   const cfg = world.cfg;
-  const ship = antiphonFull(s, cfg);
   const size = antiphonRailSize(s, cfg);
-  const organ = ship ? ANTIPHON_SHIP : organShape(world, s);
-  const decoys = ship
-    ? new Array<number>(size - 1).fill(ANTIPHON_SHIP)
-    : decoyShapes(world, s, organ, size - 1);
-  const { order, answer } = shuffled(world, [organ, ...decoys]);
-  const rail: AntiphonCandidate[] = order.map((shape, i) => ({
-    shape,
+  const organ = antiphonFull(s, cfg) ? ANTIPHON_SHIP : organShape(world, s);
+  const all = candidates(world, s, organ, size - 1);
+  const turn = all[0]?.turn ?? 0;
+  const { order, answer } = shuffled(world, all);
+  const rail: AntiphonCandidate[] = order.map((c, i) => ({
+    ...c,
     col: antiphonSlotCol(cfg, order.length, i),
   }));
-  s.organ = { shape: organ, grownBeat: world.beat };
+  s.organ = { shape: organ, turn, grownBeat: world.beat };
   s.rail = rail;
   s.answer = answer;
   return s.organ;

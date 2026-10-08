@@ -6105,6 +6105,19 @@ changes nothing about the fight. The handle is the organ's own circle
 (`antiphonOrganCircle`) on the explainer's screen, with the word TURN
 under it while no thumb is on (`render/antiphon-grip.ts`).
 
+**The resting turn — the design's step 8, simulated and off.**
+`antiphonRestingTurn` (off) makes the turn the answer from
+`antiphonTurnPits` (2, the third pit) on: the organ rests at a quarter turn
+the seed picks, the rail's decoys are its own contour at the other quarter
+turns, and only the candidate at the organ's turn is a pit
+(`sim/antiphon-turn.ts`). The thumb's turn is still only a look — on those
+levels it springs back the short way round, `antiphonSpringRate` (4) times
+as fast as it went, so it never changes what the answer looks like. The
+ship is never turned. Off, nothing draws from the seed and every recorded
+fight replays as it did. The simulation landed alone (8 October 2026,
+option A, left to the session); drawing the organ and the rail at their
+turns is the look's lane and goes to VERSUS.
+
 **The carry's handle** (`render/antiphon-rail-grip.ts`): a grip ring on
 **every** candidate, never on one, each with the way down its vein inside
 it (`drawPullArrow`), and the word PULL under the middle of the rail while

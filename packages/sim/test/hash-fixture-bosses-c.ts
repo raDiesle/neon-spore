@@ -167,11 +167,11 @@ export function patchBossC(boss: BossState): void {
   if (boss.kind === "antiphon") {
     // One organ standing on a rail of three, one pit taken, a candidate half
     // way down its vein under a thumb, and every clock given a beat.
-    boss.organ = { shape: 5, grownBeat: 6 };
+    boss.organ = { shape: 5, turn: 1, grownBeat: 6 };
     boss.rail = [
-      { shape: 7, col: 2 },
-      { shape: 5, col: 5 },
-      { shape: 4, col: 8 },
+      { shape: 7, turn: 2, col: 2 },
+      { shape: 5, turn: 1, col: 5 },
+      { shape: 4, turn: 3, col: 8 },
     ];
     boss.answer = 1;
     boss.pits = [2];

@@ -42,6 +42,7 @@ export type {
 // take it, and whose bead is whose while the two are drawn together — all four
 // read by `render/baton-grip.ts` and the cue beside it (`baton-hand.ts`).
 export {
+  ANTIPHON_QUARTERS,
   ANTIPHON_SHIP,
   type AntiphonCandidate,
   type AntiphonEntry,
@@ -63,6 +64,8 @@ export {
   antiphonOrganAsks,
   antiphonOrganCol,
   antiphonOrganRow,
+  antiphonOrganTurnMilli,
+  antiphonQuarterMilli,
   antiphonRailAsks,
   antiphonRailSize,
   antiphonShipUp,
@@ -70,6 +73,7 @@ export {
   antiphonSlotCol,
   antiphonStanding,
   antiphonTight,
+  antiphonTurned,
   antiphonTurnMilli,
   antiphonVein,
   antiphonVeinMilli,

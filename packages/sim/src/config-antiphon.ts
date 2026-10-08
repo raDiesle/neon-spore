@@ -56,6 +56,17 @@ export interface AntiphonConfig {
   antiphonOutBeats: number;
   /** Beats one whole turn of the organ takes under a resting thumb. */
   antiphonTurnBeats: number;
+  /**
+   * Whether the organ rests at a quarter turn the seed picks from
+   * `antiphonTurnPits` on, among decoys that are its own contour at the
+   * other turns (`antiphon-turn.ts`). Off by default: step 8 is offered, not
+   * shipped.
+   */
+  antiphonRestingTurn: boolean;
+  /** Pits from which a turned organ rests at its own turn, while `antiphonRestingTurn` is set. */
+  antiphonTurnPits: number;
+  /** How many times faster than a thumb turns it the organ springs back to its resting turn once let go. */
+  antiphonSpringRate: number;
 }
 
 /**
@@ -74,6 +85,9 @@ export interface AntiphonConfig {
  * **Doubled on the owner's rule, 24 September 2026**
  * (`docs/spec/choreographed-windows.md`): the window 14 → 28 and the tight
  * one 8 → 16. The window is THE SLOW (`antiphon-step.ts`).
+ *
+ * The resting turn is the design's step 8, the third pit, and off; a thumb's
+ * turn springs back in a quarter of the time it took.
  */
 export const ANTIPHON_DEFAULTS: AntiphonConfig = {
   antiphonShapes: 16,
@@ -95,4 +109,7 @@ export const ANTIPHON_DEFAULTS: AntiphonConfig = {
   antiphonShipRail: 3,
   antiphonOutBeats: 3,
   antiphonTurnBeats: 8,
+  antiphonRestingTurn: false,
+  antiphonTurnPits: 2,
+  antiphonSpringRate: 4,
 };

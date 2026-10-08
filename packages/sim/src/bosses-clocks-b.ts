@@ -56,6 +56,12 @@ export {
 } from "./antiphon.js";
 export { antiphonOpenLevel } from "./antiphon-step.js";
 export {
+  ANTIPHON_QUARTERS,
+  antiphonOrganTurnMilli,
+  antiphonQuarterMilli,
+  antiphonTurned,
+} from "./antiphon-turn.js";
+export {
   antiphonAlongVein,
   antiphonSlotCol,
   antiphonVein,

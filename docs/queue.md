@@ -328,17 +328,12 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE ANTIPHON's organ turns slowly in place, so the pilot has to say which way up
+## THE ANTIPHON's resting turn is drawn on the organ and the rail
 
-- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
-- **Taken:** 2026-10-08, claude/task-queue-work-8b2adc (claim: claude/queue-the-antiphons-organ-turns-slowly-in-place-so-the)
-- **Files:** `packages/sim/src/antiphon.ts`, `packages/sim/src/antiphon-step.ts`, `packages/sim/src/antiphon-hash.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/antiphon-shape.ts`
+- **Found:** 2026-10-08, claude/task-queue-work-8b2adc
+- **Files:** `packages/render/src/antiphon-draw.ts`, `packages/render/src/antiphon-shape.ts`, `packages/render/test/antiphon-frame.test.ts`, `packages/content/src/antiphon-contours.ts`, `tools/versus/candidates`
 
-bosses-choreographed.md §12 step 8, never built: the organ starts turning slowly in place, so the pilot's description has to include which way up it stands, and a candidate on the rail matches only at the right turn. This is a new state on a shipped boss: `.claude/skills/new-boss-state` lists the registrations outside the simulation. Two lanes, the simulation then the look, and the look goes to VERSUS. The 900 ms call windows stay out (the game never evaluates speech). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued.
-
-**Decided, 8 October 2026** (the owner left it to the session): option (A). The organ rests at a quarter turn the seed picks, the decoys on the rail are the same contour at the other turns, and the thumb's turn stays as the look-around it ships as but springs back to the resting turn when let go, so it never changes the answer. Behind a `SimConfig` figure, off by default.
-
-Found on 8 October 2026 (claude/queue-tasks-3078fe), before any work: the shipped organ already turns, but only under a thumb (`antiphon-hand.ts`, `turnTicks`), and bosses.md §11 calls that turn a second viewing angle that changes nothing about the fight. Step 8 makes the turn the answer — the rail shows the organ's contour at other turns too, and only the one at the organ's turn is right. The options: (A) the organ rests at a quarter turn the seed picks for the level and the rail's decoys are the same contour at the other turns; the thumb's turn springs back when it lifts, so it is still only a look. (B) the organ turns on its own on a beat cadence from step 8 on, and a carry is judged against its turn on the beat it arrives; the thumb's turn is taken off the organ from that level on. (C) leave the hand's turn as it is and build step 8 as (A) without the spring-back, so a thumb can turn the organ to the answer. Behind a `SimConfig` figure that is off by default in every case, with the look offered in VERSUS.
+The look lane of step 8 (`bosses-choreographed.md` §12). The simulation landed off on 8 October 2026 (`packages/sim/src/antiphon-turn.ts`, `antiphonRestingTurn`): from `antiphonTurnPits` the organ rests at a seeded quarter turn (`organ.turn`) and every candidate on the rail carries its own (`turn`), the decoys being the organ's contour at the other turns. Nothing draws either yet: the organ is turned by `antiphonTurnMilli` alone, and the rail is never turned. To do: draw the organ by `antiphonOrganTurnMilli` and each candidate rotated by `antiphonQuarterMilli(c.turn)`, then offer the level with the figure on as a VERSUS candidate beside the shipped rail. With the figure off every turn is nought, so the default frame does not move. A test belongs beside it: every contour in the antiphon shape table must differ from itself at a quarter and a half turn, or a turned rail shows two identical candidates and only one of them is right.
 
 ## THE GRINDSTONE's caliper rocks on its axle (living bosses, step 11)
 

@@ -47,6 +47,8 @@ export const ANTIPHON_SHIP = -1;
 export interface AntiphonCandidate {
   /** A contour under `antiphonShapes`, or `ANTIPHON_SHIP`. */
   shape: number;
+  /** The quarter turn it hangs at, `0` the way up its contour was drawn (`antiphon-turn.ts`). */
+  turn: number;
   col: number;
 }
 
@@ -54,6 +56,8 @@ export interface AntiphonCandidate {
 export interface AntiphonOrgan {
   /** A contour under `antiphonShapes`, or `ANTIPHON_SHIP`. */
   shape: number;
+  /** The quarter turn it rests at, `0` but on a turned level (`antiphon-turn.ts`). */
+  turn: number;
   /** `world.beat` it began pushing out on; it can be answered `antiphonGrowBeats` later. */
   grownBeat: number;
 }

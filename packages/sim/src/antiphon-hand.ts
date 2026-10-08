@@ -6,6 +6,7 @@ import {
   antiphonStanding,
 } from "./antiphon.js";
 import { antiphonArrive } from "./antiphon-step.js";
+import { springAntiphonTurn } from "./antiphon-turn.js";
 import { antiphonAlongVein } from "./antiphon-vein.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -19,7 +20,9 @@ import type { World } from "./world.js";
  * rests on the organ it **turns slowly in place**, a whole turn in
  * `antiphonTurnBeats`, and stops where it is the moment the thumb lifts. What
  * the pair buys is a second viewing angle and nothing about the fight
- * changes for it. The organ is drawn on the explainer's screen alone, so his
+ * changes for it — on a level whose organ rests at a turn of its own the
+ * turn springs back when the thumb lifts, so it still changes nothing
+ * (`antiphon-turn.ts`). The organ is drawn on the explainer's screen alone, so his
  * is the thumb that reaches it (`render/antiphon-grip.ts`); the simulation
  * keeps both seats, for THE SURGE's reason. On the tick, because a turn a
  * beat at a time would be a shape snapping rather than turning.
@@ -49,11 +52,12 @@ export function antiphonHeard(world: World, player: 1 | 2, command: Command): vo
   else s.heldP2 = command.on;
 }
 
-/** The turn, a tick at a time, while a thumb rests and an organ stands to be turned. */
+/** The turn, a tick at a time, while a thumb rests and an organ stands to be turned — and the spring back once none does. */
 export function stepAntiphonTurn(world: World): void {
   const s = antiphonBoss(world);
   if (s === null || s.organ === null) return;
   if (antiphonHeld(s, 1) || antiphonHeld(s, 2)) s.turnTicks += 1;
+  else springAntiphonTurn(s, world.cfg);
 }
 
 /** The chooser's thumb on, along or off a candidate's vein. */

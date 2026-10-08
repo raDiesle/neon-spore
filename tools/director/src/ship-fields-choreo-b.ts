@@ -150,6 +150,9 @@ export const CHOREO_FIELD_GROUP_B = {
   antiphonShipRail: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonOutBeats: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonTurnBeats: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
+  antiphonRestingTurn: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
+  antiphonTurnPits: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
+  antiphonSpringRate: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   // HiveConfig — how many sites, the look before the first opens and the
   // cadence after, the swell's warning, the spill's cadence, the opening
   // twins come from, what a wrong colour provokes, the clench's count and

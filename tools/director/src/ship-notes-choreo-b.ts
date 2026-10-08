@@ -143,7 +143,10 @@ export const CHOREO_NOTES_B = {
     "antiphonEchoPits a pit grows again. Full, it is still antiphonStillBeats " +
     "and grows the ship on a rail of antiphonShipRail; the right one bursts it " +
     "over antiphonOutBeats. A thumb resting on the organ turns it in place, a " +
-    "whole turn in antiphonTurnBeats. See sim/antiphon.ts, " +
+    "whole turn in antiphonTurnBeats. With antiphonRestingTurn set, from " +
+    "antiphonTurnPits the organ rests at a quarter turn the seed picks, the " +
+    "decoys are its own contour at the other turns, and a thumb's turn " +
+    "springs back antiphonSpringRate times as fast. See sim/antiphon.ts, " +
     "sim/config-antiphon.ts.",
   "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling":
     "Designed on 16 September 2026 in docs/spec/bosses.md §11.14: the boss " +

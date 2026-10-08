@@ -29,8 +29,8 @@ export function hung(): World {
   const world = createWorld(CFG, 5);
   startWave(world, WAVE, [], [], { kind: "antiphon" });
   const s = organ(world);
-  s.organ = { shape: 1, grownBeat: world.beat - CFG.antiphonGrowBeats };
-  s.rail = [4, 1, 9].map((shape, i) => ({ shape, col: antiphonSlotCol(CFG, 3, i) }));
+  s.organ = { shape: 1, turn: 0, grownBeat: world.beat - CFG.antiphonGrowBeats };
+  s.rail = [4, 1, 9].map((shape, i) => ({ shape, turn: 0, col: antiphonSlotCol(CFG, 3, i) }));
   s.answer = 1;
   return world;
 }

@@ -841,6 +841,7 @@ by hand never moves.
 | `packages/sim/src/antiphon-rail.ts` | **What grows and what the chooser is shown beside it** — one level's organ and the rail it is hidden on |
 | `packages/sim/src/antiphon-step.ts` | THE ANTIPHON's clock — the rise, the growth, the window, the verdict, the still and the ship, and the collapse |
 | `packages/sim/src/antiphon-vein.ts` | **The veins**: where each candidate hangs on the rail's row |
+| `packages/sim/src/antiphon-turn.ts` | **Which way up the organ stands** — step 8 of `bosses-choreographed.md` §12 |
 | `packages/sim/src/antiphon.ts` | THE ANTIPHON: describing a thing that has no name |
 | `packages/sim/src/nettle-words.ts` | **The words THE NETTLE's script is written in** — its parts and its poses |
 

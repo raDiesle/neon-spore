@@ -56,8 +56,8 @@ export function bare(world: World): AntiphonState {
 /** One organ grown, the middle of a rail of three. */
 export function grown(world: World, shape = 1): AntiphonState {
   const s = bare(world);
-  s.organ = { shape, grownBeat: world.beat - CFG.antiphonGrowBeats };
-  s.rail = [0, shape, 3].map((c, i) => ({ shape: c, col: antiphonSlotCol(CFG, 3, i) }));
+  s.organ = { shape, turn: 0, grownBeat: world.beat - CFG.antiphonGrowBeats };
+  s.rail = [0, shape, 3].map((c, i) => ({ shape: c, turn: 0, col: antiphonSlotCol(CFG, 3, i) }));
   s.answer = 1;
   return s;
 }
