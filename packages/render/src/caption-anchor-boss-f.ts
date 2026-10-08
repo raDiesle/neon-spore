@@ -1,9 +1,18 @@
 import type { BossPart } from "@neon-spore/content";
-import type { SimConfig, SpoolState, World } from "@neon-spore/sim";
+import {
+  HASP_COUNT,
+  type HaspState,
+  type SimConfig,
+  type SpoolState,
+  type World,
+} from "@neon-spore/sim";
 import type { AnchorPoint } from "./caption-anchor.js";
 import { box } from "./caption-anchor-box.js";
 import { flueCentre, flueSlotHalf, flueUnitR } from "./flue-shape.js";
 import { gaugeDial } from "./gauge-round.js";
+import { gimbalCentre, gimbalRingR } from "./gimbal-shape.js";
+import { haspWorkIndex } from "./hasp-pose.js";
+import { haspCentre, haspShellBox } from "./hasp-shape.js";
 import type { Layout } from "./layout.js";
 import { mazeDrum } from "./maze-walls.js";
 import { repriseTearBox } from "./reprise-draw.js";
@@ -14,8 +23,9 @@ import { trapezeOnArc } from "./trapeze-shape.js";
 /**
  * **Where the fixtures of THE GAUGE, THE MAZE and THE REPRISE are** — the
  * sixth of `caption-anchor-boss.ts`, split off `-e` on line count — and THE
- * SPOOL's gauge, THE FLUE's row and THE TRAPEZE's swing, the newest bosses
- * whose films asked, because this file had room.
+ * SPOOL's gauge, THE FLUE's row, THE TRAPEZE's swing, THE GIMBAL's rings and
+ * THE HASP's clasp, the newest bosses whose films asked, because this file
+ * had room.
  *
  * **These three are rounds and not bosses**, and that was the question the
  * queue entry left open: a round is its own picture, and one that throws the
@@ -47,6 +57,8 @@ export function bossAnchorF(
   if (world.boss?.kind === "spool") return spoolGauge(l, world, world.boss, beatPhase);
   if (kind === "flue") return flueRow(l, cfg);
   if (kind === "trapeze") return trapezeSwing(l, cfg);
+  if (kind === "gimbal") return gimbalRings(l, cfg);
+  if (world.boss?.kind === "hasp") return haspClasp(l, cfg, world.boss);
   return null;
 }
 
@@ -110,6 +122,31 @@ function flueRow(l: Layout, cfg: SimConfig): AnchorPoint {
 function trapezeSwing(l: Layout, cfg: SimConfig): AnchorPoint {
   const c = trapezeOnArc(l, cfg, 0, -SWING_UP);
   return box({ x: c.x, y: c.y, rx: SWING_HALF * l.tile, ry: SWING_UP * l.tile });
+}
+
+/**
+ * THE GIMBAL: the outer ring, which holds the inner and the drum. Both of the
+ * film's pages that ask for the boss are about the whole cradle — *the outer
+ * ring is yours*, *both true, let go together* — and the outer rim is the
+ * edge of all of it. The rings turn in place, so the box never moves.
+ */
+function gimbalRings(l: Layout, cfg: SimConfig): AnchorPoint {
+  const c = gimbalCentre(l, cfg);
+  const r = gimbalRingR(l, 0);
+  return box({ x: c.x, y: c.y, rx: r, ry: r });
+}
+
+/**
+ * THE HASP: the clasp the wheel is winding, or the one swinging open while it
+ * swings — *wound far enough, it opens* is about that clasp, and the work
+ * moves on to the next the tick it is wound. The box is the shut shell; its
+ * halves gaping past it are the point of the page, not a reason to chase them.
+ */
+function haspClasp(l: Layout, cfg: SimConfig, s: HaspState): AnchorPoint {
+  const work = haspWorkIndex(s) - (s.phase === "swing" ? 1 : 0);
+  const i = Math.max(0, Math.min(HASP_COUNT - 1, work));
+  const at = haspCentre(l, cfg, i);
+  return box({ x: at.x, y: at.y, ...haspShellBox(l) });
 }
 
 /** THE TRAPEZE's box: how far up the ropes it reaches and how wide it is, in tiles. */

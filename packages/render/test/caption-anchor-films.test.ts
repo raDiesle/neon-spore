@@ -50,9 +50,6 @@ const LOST_ALREADY = [
   "theBalloon page 0 (seat 1, at body)",
   "theBalloon page 1 (seat 1, at handle)",
   "theScuttle page 12 (seat 1, at boss)",
-  "theGimbal page 0 (seat 1, at boss)",
-  "theGimbal page 2 (seat 1, at boss)",
-  "theHasp page 4 (seat 2, at boss)",
 ];
 
 /** The wave a film rehearses, which is the index its script is built with. */

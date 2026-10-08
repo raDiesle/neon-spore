@@ -78,6 +78,11 @@ export function haspShellRadius(l: Layout): number {
   return Math.max(SHELL_RX, SHELL_RY) * l.tile;
 }
 
+/** The shut shell's half-width and half-length on this screen — a caption's box (`caption-anchor-boss-f.ts`). */
+export function haspShellBox(l: Layout): { rx: number; ry: number } {
+  return { rx: SHELL_RX * l.tile, ry: SHELL_RY * l.tile };
+}
+
 /**
  * The outer edge as a fraction of the half-width, `f` of the way from nose
  * to tail — THE CASE's flank exactly: a rounded shoulder over the first

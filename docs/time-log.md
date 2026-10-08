@@ -35203,3 +35203,18 @@ Bottleneck: friction — the test world and the game play at different shot
 charges, and nothing says so where a hand is written.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE GIMBAL's and THE HASP's film captions find their boss
+
+- reading: 5 min. The queue entry, `caption-anchor-boss-f.ts`'s TRAPEZE
+  line, the two films and the two shape files.
+- writing: 5 min. Two lines and their functions, `haspShellBox`, three
+  pages off `LOST_ALREADY`.
+- looking: 5 min. `bun run frames --opening guide` on each of the three
+  pages; every caption stands on its ring and the HASP's on the clasp
+  swinging open.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: looking — `bun run frames` writes every run to the same
+`frame.png`, so three pages are three runs copied out one at a time.

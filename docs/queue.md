@@ -634,20 +634,6 @@ body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
 
-## THE GIMBAL's and THE HASP's films point at a boss with no caption anchor
-
-- **Found:** 2026-10-08, claude/queue-caption-anchor
-- **Taken:** 2026-10-08, claude/task-queue-work-589459 (claim: claude/queue-the-gimbals-and-the-hasps-films-point-at-a-boss)
-- **Files:** `packages/render/src/caption-anchor-boss-f.ts`, `packages/render/test/caption-anchor-films.test.ts`, `packages/content/src/scenes/the-gimbal.ts`, `packages/content/src/scenes/the-hasp.ts`
-
-The fault THE TRAPEZE had: THE GIMBAL's pages 0 and 2 and THE HASP's page 4
-are `{ at: "boss" }`, `bossAnchorF` returns null for both kinds, and none of
-those three captions is drawn. Give each kind a line in
-`caption-anchor-boss-f.ts`, asked of the file that places its body (as
-`trapezeSwing` is), take the three pages off `LOST_ALREADY` in
-`caption-anchor-films.test.ts`, and look at each page with
-`bun run frames --opening guide`.
-
 ## Four film pages end before their subject arrives, or after it has gone
 
 - **Found:** 2026-10-08, claude/queue-caption-anchor
