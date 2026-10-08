@@ -1,9 +1,10 @@
 import { afterAll, describe, expect, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import { computeLayout, type Viewport } from "@neon-spore/render";
-import { type BossKind, beatPhase, step, type World } from "@neon-spore/sim";
+import { type BossKind, beatPhase, roundSpent, step, type World } from "@neon-spore/sim";
 import { drawBoss } from "../../../packages/render/src/boss-draw.js";
 import { Effects } from "../../../packages/render/src/effects.js";
+import { drawRound } from "../../../packages/render/src/round-draw.js";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
@@ -13,6 +14,7 @@ import { ROWS_A } from "./marks-window-rows-a.js";
 import { ROWS_B } from "./marks-window-rows-b.js";
 import { ROWS_C } from "./marks-window-rows-c.js";
 import { ROWS_D } from "./marks-window-rows-d.js";
+import { ROWS_E } from "./marks-window-rows-e.js";
 
 /**
  * **No boss puts a mark up before its window opens** — the owner, 27
@@ -22,7 +24,7 @@ import { ROWS_D } from "./marks-window-rows-d.js";
  * the one every other boss gets a row in.
  *
  * AUTO plays both seats through the boss's wave, the boss is drawn every
- * few ticks, and every call the draw makes into the boss's `*-marks.ts` is
+ * few ticks — a round by `drawRound`, as the game draws it — and every call the draw makes into the boss's `*-marks.ts` is
  * caught. A call that draws a mark lit — its own argument says so, or the
  * call is only ever a mark — must fall on a tick the **simulation** says
  * that mark's window is open, by the boss's own predicate in `sim/`, never
@@ -36,7 +38,7 @@ import { ROWS_D } from "./marks-window-rows-d.js";
  * rings from the announcement onward are her mechanic — P1 is shown both
  * marks (`docs/spec/controls.md`).
  *
- * A boss has a row in `marks-window-rows-a.ts` to `-d.ts`, or a line
+ * A boss has a row in `marks-window-rows-a.ts` to `-e.ts`, or a line
  * in `marks-window-no-row.ts` saying why it has none — THE QUEEN never, a boss
  * with a test of its own, one with no `*-marks.ts` to spy on, and the rows
  * still owed. `marks-window-coverage.test.ts` holds every boss to one or the
@@ -52,7 +54,7 @@ afterAll(() => {
   for (const s of spies) s.mockRestore();
 });
 
-const ROWS = [...ROWS_A, ...ROWS_B, ...ROWS_C, ...ROWS_D];
+const ROWS = [...ROWS_A, ...ROWS_B, ...ROWS_C, ...ROWS_D, ...ROWS_E];
 
 /** AUTO through the wave: every lit call outside its window, and how often each mark was lit. */
 function walk(kind: BossKind, marks: Mark[]): { wrong: string[]; seen: Map<string, number> } {
@@ -68,17 +70,23 @@ function walk(kind: BossKind, marks: Mark[]): { wrong: string[]; seen: Map<strin
   const c = ctx as unknown as CanvasRenderingContext2D;
   const wrong: string[] = [];
   const seen = new Map(marks.map((m) => [m.name, 0]));
-  for (let i = 0; i < TICKS && world.boss?.kind === kind; i++) {
+  // A round that has run its course stays installed, spent, until the next
+  // wave replaces it (`wave-end.ts`), and nothing in it asks again.
+  for (let i = 0; i < TICKS && world.boss?.kind === kind && !roundSpent(world); i++) {
     step(world, auto.commands(world));
     if (i % EVERY !== 0) continue;
     const before = marks.map((m) => m.calls().length);
     const view = { world, beatPhase: beatPhase(cfg, world.tick), role: "test" as const };
-    drawBoss(
-      c,
-      l,
-      { ...view, time: i / cfg.tickHz, dt: EVERY / cfg.tickHz, events: [], running: true },
-      effects,
-    );
+    const state = {
+      ...view,
+      time: i / cfg.tickHz,
+      dt: EVERY / cfg.tickHz,
+      events: [],
+      running: true,
+    };
+    // A round replaces the field and is never drawn by `drawBoss` at all
+    // (`round-draw.ts`), so its marks are only reached the game's own way.
+    if (!drawRound(c, l, state, effects)) drawBoss(c, l, state, effects);
     marks.forEach((m, k) => {
       const lit = m.calls().slice(before[k]).filter(m.lit).length;
       if (lit === 0) return;

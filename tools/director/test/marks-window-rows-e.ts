@@ -1,0 +1,66 @@
+import {
+  type GaugeState,
+  gaugeBandAsks,
+  type MazeState,
+  type MirrorState,
+  mazeHeartAsks,
+  mazeStringAsks,
+  mirrorAsks,
+  type VaneState,
+  vaneArmAsks,
+  vaneHousingAsks,
+  type World,
+} from "@neon-spore/sim";
+import * as markFeedback from "../../../packages/render/src/mark-feedback.js";
+import { mark, type Row } from "./marks-window-kit.js";
+
+/**
+ * **THE MIRROR, THE VANE, THE MAZE and THE GAUGE**, four of the rows owed
+ * when `NO_ROW` was written (`marks-window-no-row.ts`), in a file of their
+ * own because `-c` was near its 250 lines with three other lanes writing
+ * the rest of the list.
+ *
+ * Each of the four draws every mark that asks as the field's shared halo,
+ * behind the simulation's own asking, so each row is that halo and the
+ * union of the boss's windows: a lobe of THE MIRROR's asked of either seat;
+ * THE VANE's arm until the pin lands and its housing while the haul is up;
+ * THE MAZE's string while it is read and its heart while it wants the grip;
+ * THE GAUGE's band while the dial is bound and wound open.
+ */
+
+const mirror = (w: World) => w.boss as MirrorState;
+const vane = (w: World) => w.boss as VaneState;
+const maze = (w: World) => w.boss as MazeState;
+const gauge = (w: World) => w.boss as GaugeState;
+
+export const ROWS_E: readonly Row[] = [
+  {
+    kind: "mirror",
+    marks: [
+      mark(
+        markFeedback,
+        "drawMarkHalo",
+        (w) => mirrorAsks(mirror(w), 1).length > 0 || mirrorAsks(mirror(w), 2).length > 0,
+      ),
+    ],
+  },
+  {
+    kind: "vane",
+    marks: [
+      mark(markFeedback, "drawMarkHalo", (w) => {
+        const s = vane(w);
+        return vaneArmAsks(w.cfg, s, w.beat) || vaneHousingAsks(w.cfg, s, w.beat);
+      }),
+    ],
+  },
+  {
+    kind: "maze",
+    marks: [
+      mark(markFeedback, "drawMarkHalo", (w) => mazeStringAsks(maze(w)) || mazeHeartAsks(maze(w))),
+    ],
+  },
+  {
+    kind: "gauge",
+    marks: [mark(markFeedback, "drawMarkHalo", (w) => gaugeBandAsks(gauge(w)))],
+  },
+];

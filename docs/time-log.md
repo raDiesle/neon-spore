@@ -35886,3 +35886,17 @@ Bottleneck: none to speak of; the entry had the cause and the cure.
 Bottleneck: landing — the rows were quicker to write than to check.
 
 *Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — Marks-window rows owed: THE MIRROR, THE VANE, THE MAZE, THE GAUGE
+
+- reading: 5 min. The kit, `-d`'s rows, the four marks files and their sim
+  predicates.
+- writing: 5 min. `marks-window-rows-e.ts`, four halo rows, and the walk
+  drawing a round by `drawRound` and stopping once it is spent.
+- looking: 0 min. No picture: a test.
+- friction: 5 min. THE GAUGE was never drawn lit: a round is not drawn by
+  `drawBoss`, and once spent it never leaves, so the walk timed out.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the walk drew every boss through `drawBoss`, and the five rounds
+are not drawn there.

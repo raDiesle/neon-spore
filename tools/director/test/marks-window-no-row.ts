@@ -26,10 +26,6 @@ export const NO_ROW: Partial<Record<BossKind, NoRowWhy>> = {
   queen: "never",
   // `packages/render/test/instar-marks-up.test.ts`.
   instar: "own-test",
-  mirror: "owed",
-  vane: "owed",
-  maze: "owed",
-  gauge: "owed",
   snake: "owed",
   pinball: "owed",
   pulse: "owed",
