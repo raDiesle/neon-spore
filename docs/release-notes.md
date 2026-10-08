@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · cad925e64 — `land` lets a queue heading be shortened to a prefix of itself
+
+The guard against a lane putting back finished queue work asked the trunk's history with `git log -S`, which counts a substring: the commit that filed *… THE RIME, THE GRINDSTONE, THE VALVE* had changed the count of the same heading cut to end at THE GRINDSTONE, so a lane that finished one boss of three and renamed its entry was refused. The heading and the `Found:` line are now asked for as whole lines, with `-G` and the line escaped and anchored.
+
 ## 2026-10-08 · b05ab82ea — THE LATCH's guide is a film: one holds, one pulls, and they swap
 
 THE LATCH used to open on prose. Its rehearsal is now the fight itself. Player 2 holds the right grip while player 1 pulls the left grip a reach down and lets go, which passes the turn. Player 2 then pulls the second reach and the knot comes in. On the last page the slime rears and both hold through the yank. The captions say what the field's own PULL and HOLD do not: whose grip is whose, that the two take turns, and that a yank needs both hands.
