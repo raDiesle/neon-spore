@@ -634,21 +634,6 @@ body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
 
-## AUTO's shots from below at THE TRAPEZE mostly fly past
-
-- **Found:** 2026-10-08, claude/trapeze-sim
-- **Taken:** 2026-10-08, claude/queue-trapeze-auto (claim: claude/queue-autos-shots-from-below-at-the-trapeze-mostly-fly)
-- **Files:** `packages/hands/src/boss-hands-trapeze.ts`, `tools/director/test/autopilot-trapeze.test.ts`
-
-`bun run frames . --wave "THE TRAPEZE" --auto both --until trapezeShot:side=true`
-printed, over the first 3000 ticks, ten `fire` in the `shoot` level and nine
-`shotOut` against one `trapezeShot`. `below()` leads the alien by the climb
-of a shot, but the bolt must pass within `trapezeHitMilli` of the seat
-(`sim/trapeze-shot.ts`, `trapezeAlong`), and the cannon column it picks
-misses that. Aim at the column the seat is over when the bolt reaches its
-row (`trapezeSeat` stepped forward by the climb), and tighten
-`autopilot-trapeze.test.ts` to say most shots in a `shoot` level hit.
-
 ## THE GIMBAL's and THE HASP's films point at a boss with no caption anchor
 
 - **Found:** 2026-10-08, claude/queue-caption-anchor
@@ -674,3 +659,16 @@ never find their subject, so their words are never drawn: THE BALLOON's page
 840) and THE SCUTTLE's page 12 (`boss`, the boss is gone by *OUT · NONE LEFT
 TO COUNT*). Retime each page or anchor it on what is on the screen, take it
 off `LOST_ALREADY`, and look at each with `bun run frames --opening guide`.
+
+## AUTO's boss hands are tested without the game's half-beat shot charge
+
+- **Found:** 2026-10-08, claude/queue-trapeze-auto
+- **Files:** `packages/hands/src/boss-hands-*.ts`, `tools/director/test/autopilot-*.test.ts`, `tools/director/src/pose-kit.ts`, `apps/game/src/main-world.ts`
+
+The game plays at `playConfig()`'s `shotChargeBeats: 0.5`, so a press leaves
+on the charge's grid (`sim/shot-charge.ts`); the autopilot tests build their
+worlds on `POSE_CONFIG`, whose charge is nothing. THE TRAPEZE's hand led its
+shots by the climb alone, went four for four in its test and one for ten in
+the game (fixed by aiming through `chargeDueTick`). Run every
+`autopilot-*.test.ts` at the game's charge too — one shared config both read,
+not a second `0.5` — and fix each hand that times a shot to a tick.

@@ -35186,3 +35186,18 @@ Bottleneck: friction — the entry named the arithmetic, and only running it
 showed the plan said two seats.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — AUTO's shots from below at THE TRAPEZE lead by the charge
+
+- reading: 15 min. The hand, the shot's judging, the game's loop, link and
+  input buffer, and finally `playConfig`.
+- writing: 10 min. The hand aimed through the charge, and a test at the
+  game's half beat.
+- looking: 5 min. The same `bun run frames` run that found it.
+- friction: 25 min. Every headless run hit four for four; the misses were
+  only in the game, and sweeps of phase, amplitude and columns each came
+  back clean before the game's own config turned up the charge.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: friction — the test world and the game play at different shot
+charges, and nothing says so where a hand is written.

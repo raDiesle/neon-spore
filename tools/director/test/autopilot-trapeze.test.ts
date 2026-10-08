@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import { computeLayout, type Viewport } from "@neon-spore/render";
-import { step, trapezeBoss, type World } from "@neon-spore/sim";
+import { step, trapezeBoss, trapezeLitStep, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
@@ -55,6 +55,33 @@ describe("AUTO on THE TRAPEZE", () => {
     expect(wrong).toEqual([]);
     expect(world.scars).toEqual([]);
     expect(trapezeBoss(world)).toBeNull();
+  });
+
+  test("at the game's half-beat charge, most shots from below hit", () => {
+    // The game lays every shot over half a beat (`playConfig`, apps/game), so a
+    // press leaves on the charge's grid and not on its own tick. A hand that
+    // led by the climb alone fired ten times for one hit there (8 October
+    // 2026); the test world's charge is nothing, which is why the case above
+    // never saw it.
+    const world: World = bossWorld("trapeze", { shotChargeBeats: 0.5 });
+    const auto = rig(world, "both");
+    let fired = 0;
+    let hit = 0;
+    let gongs = 0;
+    for (let i = 0; i < 40_000 && world.boss !== null; i++) {
+      const s = trapezeBoss(world);
+      const shooting = s !== null && trapezeLitStep(s)?.ask === "shoot";
+      step(world, auto.commands(world));
+      for (const e of world.events) {
+        if (e.type === "trapezeGong") gongs += 1;
+        if (!shooting) continue;
+        if (e.type === "fire") fired += 1;
+        if (e.type === "trapezeShot" && e.gain) hit += 1;
+      }
+    }
+    expect(fired).toBeGreaterThan(0);
+    expect(hit * 2).toBeGreaterThan(fired);
+    expect(gongs).toBe(4);
   });
 
   test("P1 alone swipes only its own side, never the partner's", () => {
