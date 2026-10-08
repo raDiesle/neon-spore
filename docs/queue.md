@@ -440,20 +440,6 @@ a third of the way round (`instar-turn.ts`'s `TURN`), with the legs
 hanging off it and the wings spread;
 (C) build A and B as VERSUS candidates (`instar:flight`) beside what ships.
 
-## VERSUS shows one seat for a patch that draws each seat differently
-
-- **Found:** 2026-10-07, claude/tasks-form-queue-9a5f8c
-- **Taken:** 2026-10-08, claude/queue-versus-seat (claim: claude/queue-versus-shows-one-seat-for-a-patch-that-draws-eac)
-- **Files:** `tools/director/src/versus-seat.ts`, `tools/director/src/versus-diff.ts`
-
-`sinew:band · white` paints the zone as a white block on the pilot's screen
-and the sum as a white fill on the navigator's, yet `seatPlan` gave the page
-only P1'S SCREEN on THE SINEW · HELD, so the navigator's half is never seen.
-Likely `signature` hashes the difference too coarsely to tell two shapes in
-the same place apart. Find out why, and make a seat-split candidate show both
-seats; a test with two patches drawing different shapes in one rectangle
-proves it.
-
 ## A held mark shows it is right: THE DAVIT, THE LAMPREY, THE HALTER
 
 - **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a

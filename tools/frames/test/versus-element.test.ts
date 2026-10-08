@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { elementFor, PICTURE, STAGE } from "../versus-element.js";
+import { elementFor, PICTURE, SCREENS } from "../versus-element.js";
 
 /**
  * `--at` is a rectangle inside the *picture*, so the element it is measured
@@ -8,8 +8,10 @@ import { elementFor, PICTURE, STAGE } from "../versus-element.js";
  * px box, and a rectangle measured from its corner lands under the tile.
  */
 describe("elementFor", () => {
-  it("photographs the stage when nothing narrows the shot", () => {
-    expect(elementFor({})).toBe(STAGE);
+  it("photographs every seat's screen when nothing narrows the shot", () => {
+    // The first `.versus-stage` is P1's, and a candidate drawn differently
+    // on each seat was shot as one (`sinew:band · white`, 7 October 2026).
+    expect(elementFor({})).toBe(SCREENS);
   });
 
   it("measures --at against the picture, not the stage", () => {

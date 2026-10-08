@@ -65,7 +65,7 @@ if (!slot || !name) {
   );
   console.error("            already taken when this cannot.");
   console.error("       --element which element to photograph; .versus-row for the whole");
-  console.error("            candidate, notes and all. Default .versus-stage, the phones");
+  console.error("            candidate, notes and all. Default .versus-screens, every seat");
   console.error("       --scale   device scale factor, default 2 — with --at, how far a");
   console.error("            creature-sized crop is magnified; 6 shows a body at desk size");
   process.exit(1);

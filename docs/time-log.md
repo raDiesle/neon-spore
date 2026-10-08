@@ -35170,3 +35170,17 @@ a walk timed idle and under 24 copies of itself said which part was wrong.
 Bottleneck: friction — choosing a baseline that ships what any drawing does.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — versus:shot photographs every seat the page drew
+
+- reading: 10 min. `versus-seat.ts`, `versus-diff.ts`, the page's row and
+  `versus:shot`.
+- writing: 5 min. The default element, its test, and a test that two shapes
+  in one rectangle sign two seats.
+- looking: 5 min. The candidate's shot, both seats in it.
+- friction: 10 min. The seat plan had to be run in a headless browser to see
+  it was right all along and the photograph was the fault.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: friction — the entry named the arithmetic, and only running it
+showed the plan said two seats.
