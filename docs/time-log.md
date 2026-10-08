@@ -35258,3 +35258,15 @@ config at half a beat named the one failing hand, which was cheaper than
 reading the 21 hands it ruled out.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE KEEL's and THE SEAM's shot windows are already long enough
+
+- reading: 10 min. The two configs, where each window is opened, THE
+  SLOW's rate and the game's tick clock, and act thirteen's doubling.
+- writing: 5 min. Why neither was doubled, in each config's header.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: reading — whether a window is under THE SLOW is said only at the
+`openSlow` call, so each of five fields had to be followed to its caller.

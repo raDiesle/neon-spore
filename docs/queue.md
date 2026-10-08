@@ -471,23 +471,6 @@ that replaced it holds nothing. Each held
 part wears `drawMarkHeld` on both screens, the holder's cue reads `HOLD`, and
 the partner's work carries `drawMarkProgress` where the simulation counts it.
 
-## Boss shots kept in SimConfig wait longer too: THE KEEL, THE SEAM
-
-- **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
-- **Taken:** 2026-10-08, claude/task-queue-work-589459 (claim: claude/queue-boss-shots-kept-in-simconfig-wait-longer-too-the)
-- **Files:** `packages/sim/src/config-keel.ts`, `packages/sim/src/config-seam.ts`, `packages/content/src/waves/act-12.ts`
-
-The owner, 7 October 2026: *when in boss sequences player needs to shoot
-cannon, we must give players more time to shoot and hit.* The scripted
-bosses of acts twelve and thirteen had their shot steps doubled from three
-beats to six that day (`act-13.ts`'s header). Two bosses keep their shot
-window in their own config instead and were not touched: THE KEEL's
-`keelSocketBeats` and `keelMarrowBeats` (three each), and THE SEAM's
-`seamPointBeats`, `seamRockBeats` and `seamGlowBeats`. Read each against its
-wave — a window under THE SLOW is already stretched, and a rock's is timed
-against its fall — double the ones that are a plain wait for a shot, and move
-the sim tests that pin them.
-
 ## More rubs, counted in green, each one seen: THE RIME, THE GRINDSTONE, THE VALVE
 
 - **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a

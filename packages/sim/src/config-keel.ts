@@ -6,6 +6,13 @@
  * re-lights its joints: those are the wave's, authored on its entry, so a wave
  * may ask for a different cannon or a different run without touching this
  * file.
+ *
+ * **The two shot windows were not doubled** when acts twelve and thirteen's
+ * were, on the owner's *more time to shoot and hit* (7 October 2026,
+ * `content/src/waves/act-13.ts`). Both are under THE SLOW, at a quarter of the
+ * tempo (`slowRateMilli`), so the socket's three beats and the marrow's three
+ * are 7.5 seconds each at 96 bpm against those acts' 3.75. The bolt climbs on
+ * the same slowed ticks, so the share of a window it takes is no larger.
  */
 export interface KeelConfig {
   /** Segments in the spine, and so its health. Even, so the midpoint falls

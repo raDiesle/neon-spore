@@ -4,6 +4,13 @@
  *
  * What is **not** here is the script — which step asks what, in which colour
  * and which column: that is the wave's, authored on its entry.
+ *
+ * **The shot windows were not doubled** when acts twelve and thirteen's were,
+ * on the owner's *more time to shoot and hit* (7 October 2026,
+ * `content/src/waves/act-13.ts`). Every step but the dark lights under THE
+ * SLOW, at a quarter of the tempo (`slowRateMilli`, `seam-step.ts`), so at
+ * 96 bpm a point's three beats are 7.5 seconds, a rock's two are 5 and the
+ * glow's four are 10, against those acts' 3.75.
  */
 export interface SeamConfig {
   /** Beats the ridge settles into frame before the first step lights. */
