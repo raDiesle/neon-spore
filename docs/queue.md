@@ -350,6 +350,7 @@ count at a thumb's pace, and move the sim tests that pin the old one.
 ## THE BLISTER, lane 1: the simulation, knocked down by taps
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-the-blister-lane-1-the-simulation-knocked-down-b)
 - **Files:** `packages/sim/src/creature-kinds.ts`, `packages/content/src/creatures-table.ts`, `packages/content/src/mechanics-table.ts`, `packages/content/src/living-look.ts`, `packages/render/src/comms.ts`, `docs/spec/bestiary.md`, `packages/sim/src/commands.ts`, `packages/sim/src/types.ts`, `packages/sim/src/hash-creature-tail.ts`, `packages/content/src/wave-entry.ts`, `packages/sim/src/entries.ts`, `packages/content/src/queue.ts`, `packages/sim/src/spawn-fields.ts`
 
 The owner's whack-a-mole creature, designed in `docs/spec/blister.md` —
