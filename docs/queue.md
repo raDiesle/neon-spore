@@ -350,6 +350,7 @@ count the simulation keeps gets the green ring and no arc.
 ## A held mark shows it is right: THE KEEL, THE CYST
 
 - **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
+- **Taken:** 2026-10-08, claude/task-queue-work-8b2adc (claim: claude/queue-a-held-mark-shows-it-is-right-the-keel-the-cyst)
 - **Files:** `packages/render/src/keel-verdicts.ts`, `packages/render/src/cyst-verdicts.ts`, `packages/render/src/mark-progress.ts`
 
 The same rule and recipe as the entry for THE DAVIT, THE LAMPREY and THE
