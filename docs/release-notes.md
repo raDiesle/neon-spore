@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · ecd95e3df — The new-creature skill lists every row a kind is, proven by a throwaway kind
+
+Its table said six rows, all enforced, the list complete; THE BLISTER met more than twenty. A throwaway kind added to the union and the roster, then put on a wave, gave the real list: eight rows the compiler names (the union, the roster, the creature and mechanic rows, the living look, the talker, the siren's word and the demonstration), six only the full check names, and the rows a kind's own make-up owes — a config field, a spawn field, a `null` look, a placeholder look, a body that stands, a new wave and film.
+
 ## 2026-10-08 · a7d5f2750 — THE BASTION: a metal moon taken apart one layer at a time (simulation)
 
 A new boss in THE HALTER's place, wave 122. A metal moon has four layers, and each one comes off by a different job split between the two seats. Panels: each seat pulls its own four panels out, away from the core. Guns: the pilot turns the moon by its rim and the navigator shoots the gun at the front in its colour. Nodes: the shield throws a charging node's lightning back. Ports: only the navigator sees the port, and the pilot brings the cannon under it. A panel let go too soon snaps back, and a layer whose time runs out grows back whole; nothing hits the hull.
