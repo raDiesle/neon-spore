@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 9fd945b05 — THE LATCH says PULL and HOLD over its grips
+
+The grip whose turn it is says PULL to its seat until the thumb starts to carry it; the other says HOLD while no thumb has it; and both say HOLD while the colony rears for a yank. Nothing is said between levels. The halos are held to a lit level by a marks-window row. THE LATCH never slows, so it has no boss-hush row. The choreographed kinds moved out of `boss-cue.ts`'s switch into a set beside their pages, because the file was near its ceiling. A look with no shipped alternative.
+
 ## 2026-10-08 · 25c6b61c0 — THE LATCH is drawn: a colony hung by its tendril, and two grips to haul it
 
 THE LATCH's body is the shape sheet's COLONY at six: small ochre bodies in one skin round the knot the tendril grows from, one torn off for every knot hauled in. It stretches toward the ship as the rope comes down, rears and tips edge-on before a yank, and goes off the top torn loose. The tendril runs to a hook in the hull with rings that ride down as it is pulled; the knots pass the grips the instant they count, and the rope hauled in coils on the hull. The two grips are the field's pull knob, a column either side of the tendril: the press holds, the carry down pulls, the grip whose turn it is wears the arrow and its channel, and a press on the partner's grip is sent through and refused aloud. Each grip answers a touch with the halo and the green or red verdict every mark has.

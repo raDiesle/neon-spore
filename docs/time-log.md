@@ -35641,3 +35641,5 @@ Bottleneck: the look itself — three frames to get six bodies to read as six.
 
 Bottleneck: friction — the seam in `boss-cue.ts`, chosen in this lane
 because the hook asked for it now.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
