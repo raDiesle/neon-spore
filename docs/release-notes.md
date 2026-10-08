@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 9f48cab46 — THE ANTIPHON draws its organ and its rail at their resting turns
+
+The organ is drawn at `antiphonOrganTurnMilli` and each candidate at its own quarter, so on a level with `antiphonRestingTurn` on, the decoys are the organ's own contour the wrong way up. The switch ships off, so every turn is nought and no frame moves. The exemption: a look with no shipped alternative. The director's `ANTIPHON · A RAIL TURNED` shows the rail with the switch on; VERSUS cannot offer it, because VERSUS patches only drawing. A new test turns every contour by each quarter: *four facets* is the same upside down, and how to mend that is queued as a question for the owner.
+
 ## 2026-10-08 · afa684dab — THE LATCH's simulation: a rope hauled hand over hand, never both let go
 
 Wave 124 THE LATCH, §2 of the cinematic brief, built as a tug of war: a slime has hooked the hull with a rope and each seat has one grip on it. Only the grip whose turn it is hauls the rope down, a real pull let go passes the turn, and both thumbs off at once slips the rope back to the last knot. Yank levels rear before they yank and want both hands on; a cross level swaps the grips; a level run out tears the hull. Sound, AUTO's hand and the director's rows are in; the look is the next lane, and every latch event is silent on the field until then.
