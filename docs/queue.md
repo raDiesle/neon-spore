@@ -637,6 +637,7 @@ bestiary's line to built.
 ## Four film pages end before their subject arrives, or after it has gone
 
 - **Found:** 2026-10-08, claude/queue-caption-anchor
+- **Taken:** 2026-10-08, claude/task-queue-work-589459 (claim: claude/queue-four-film-pages-end-before-their-subject-arrives)
 - **Files:** `packages/content/src/scenes/the-balloon.ts`, `packages/content/src/scenes/the-lance.ts`, `packages/content/src/scenes/the-scuttle.ts`, `packages/render/test/caption-anchor-films.test.ts`
 
 `caption-anchor-films.test.ts` steps every tick of every page, and these four
