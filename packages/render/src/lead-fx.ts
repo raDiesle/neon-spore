@@ -2,10 +2,11 @@ import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX, type ViewRole } from "./layout.js";
+import { LeadDrops } from "./lead-drop.js";
 import { LeadMarks } from "./lead-marks.js";
 import { leadRidgeY } from "./lead-shape.js";
 import { PALETTE } from "./palette.js";
-import { showsLeadLean } from "./view-role-clocks.js";
+import { showsLeadCol, showsLeadLean } from "./view-role-clocks.js";
 
 /**
  * What THE LEAD leaves behind a frame: the **spring** the stalk leans on,
@@ -65,6 +66,9 @@ export class LeadFx {
   readonly hurt = new BossHurt();
   /** The ring's verdict on a touch (`lead-marks.ts`). */
   readonly marks = new LeadMarks();
+  /** The torches and rocks a run has just dropped (`lead-drop.ts`). */
+  readonly drops = new LeadDrops();
+  private placed = false;
 
   /** Where the stalk stood this frame, for the receipts with no column of their own on this screen. */
   note(footX: number, footY: number, tipX: number, tipY: number): void {
@@ -96,6 +100,8 @@ export class LeadFx {
   ): void {
     this.marks.ingest(events);
     const ridge = leadRidgeY(l, cfg);
+    this.placed = showsLeadCol(role);
+    this.drops.ingest(events, l, ridge.bottom, spb);
     const atFoot = (n: number, hex: string) => {
       if (this.noted) burst(this.footX, this.footY, n, hex);
     };
@@ -168,12 +174,14 @@ export class LeadFx {
     this.vel += (this.target - this.angleNow) * SPRING_K * step - this.vel * SPRING_C * step;
     this.angleNow = Math.max(-ANGLE_MAX, Math.min(ANGLE_MAX, this.angleNow + this.vel * step));
     this.tumbleLeft = Math.max(0, this.tumbleLeft - dt);
+    this.drops.update(dt);
     this.hurt.update(dt);
     this.marks.update(dt);
   }
 
   /** The segment that came off: a bead falling from where the tip was, fading as it goes. */
   draw(ctx: CanvasRenderingContext2D, l: Layout): void {
+    if (this.noted) this.drops.draw(ctx, l, { x: this.footX, y: this.footY }, this.placed);
     if (this.tumbleLeft <= 0) return;
     const gone = 1 - this.tumbleLeft / this.tumbleLife;
     const y = this.tumbleY + gone * gone * TUMBLE_TILES * l.tile;
@@ -200,6 +208,8 @@ export class LeadFx {
     this.tumbleX = 0;
     this.tumbleY = 0;
     this.tumbleR = 0;
+    this.placed = false;
+    this.drops.clear();
     this.hurt.clear();
     this.marks.clear();
   }

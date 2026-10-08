@@ -35444,3 +35444,17 @@ the lead itself would have been the arithmetic done for them.
 Bottleneck: looking — dark rock on a dark sky vanished at phone size.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE LEAD's torch and rock torn out of the ridge, offered in VERSUS
+
+- reading: 5 min. `litter` in the step, the burst in `LeadFx`, and which
+  screen may draw a cord to which column.
+- writing: 10 min. `LeadDrops` with `DROP_LOOK`, the candidate, a DROPPING
+  pose stopping on the drop's own tick.
+- looking: 5 min. The first tear was a stub with nothing hanging from it;
+  the sac and the lump were added and the mouth widened.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: reading — a cord from the pilot's stalk would have drawn him
+a column, so it is the navigator's alone.

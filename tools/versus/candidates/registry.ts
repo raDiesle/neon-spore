@@ -11,6 +11,7 @@ import { AIM_IRIS } from "./aim-cannon/iris/index.js";
 import { AIM_PLASMA } from "./aim-cannon/plasma/index.js";
 import { AIM_SPORES } from "./aim-cannon/spores/index.js";
 import { AIM_TENDRILS } from "./aim-cannon/tendrils/index.js";
+import { LEAD_TORN } from "./lead-drop/torn/index.js";
 import { LEAD_ARROW } from "./lead-lean/arrow/index.js";
 import { LEAD_CRAGS } from "./lead-walls/crags/index.js";
 import { LEDGER_PLATED } from "./ledger-back/plated/index.js";
@@ -29,6 +30,7 @@ export const VARIANTS: Variant[] = [
   AIM_PLASMA,
   AIM_SPORES,
   AIM_TENDRILS,
+  LEAD_TORN,
   LEAD_ARROW,
   LEAD_CRAGS,
   LEDGER_PLATED,

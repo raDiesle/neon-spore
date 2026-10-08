@@ -8,6 +8,7 @@ import { INSTAR_BARE_POSE } from "./poses-instar-bare.js";
 import { INSTAR_BROOD_POSE } from "./poses-instar-brood.js";
 import { INSTAR_FLIGHT_POSE } from "./poses-instar-flight.js";
 import { INSTAR_REAR_POSE, INSTAR_SPREAD_POSE } from "./poses-instar-spit.js";
+import { LEAD_DROPPING_POSE } from "./poses-lead-dropping.js";
 import { LEDGER_BILLED_POSE } from "./poses-ledger-billed.js";
 import { ROUND_TIMEOUT_POSE } from "./poses-round-timeout.js";
 import { SINEW_PARTING_POSE } from "./poses-sinew-parting.js";
@@ -80,4 +81,5 @@ export const VERSUS_STATE_POSES: Pose[] = [
   SINEW_PARTING_POSE,
   LEDGER_BILLED_POSE,
   SURGE_BURST_POSE,
+  LEAD_DROPPING_POSE,
 ];

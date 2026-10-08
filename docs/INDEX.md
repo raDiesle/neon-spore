@@ -2315,6 +2315,7 @@ by hand never moves.
 | `packages/render/src/ledger-blow.ts` | **THE LEDGER's own blow at the hull** (`boss-strike-look.ts`): the bill is collected: its cord wrenches the socket's plate up off the hull and slams it back |
 | `packages/render/src/ledger-nerves.ts` | what the ship does under THE LEDGER's socket while a return comes down, as a record — ships drawing nothing, `ledger:nerves` patches it |
 | `packages/render/src/lead-draw.ts` | THE LEAD drawn: the ridge, the stalk of beads, the mound or the sill, the lock and the flights, split by seat |
+| `packages/render/src/lead-drop.ts` | THE LEAD's run littering the field, past the burst it puts over the column |
 | `packages/render/src/lead-depth.ts` | **THE LEAD in depth**: the ridge is not a grey band laid across the top of the field but a ledge seen a… |
 | `packages/render/src/lead-fx.ts` | What THE LEAD leaves behind a frame: the spring the lean rides, the whip, the tumbling bead, the bursts |
 | `packages/render/src/lead-flesh.ts` | **What THE LEAD is made of**, the living part |
@@ -3465,6 +3466,7 @@ by hand never moves.
 | `tools/director/src/poses-layers.ts` | the states a layer over a body is judged giving way in — a rind under fire, a lid under a hand — with `Pose.hand` |
 | `tools/director/src/poses-link.ts` | The two states a candidate for something that **joins two things** is judged on |
 | `tools/director/src/poses-ledger-billed.ts` | THE LEDGER the tick a return leaves the body, with the pair's hand on it — `ledger:nerves` is judged here |
+| `tools/director/src/poses-lead-dropping.ts` | THE LEAD on the tick its run drops a torch or a rock — the pose `lead:drop` is judged on |
 | `tools/director/src/poses-hold.ts` | The two bodies that hold a control and **go off if it stands still** — THE LIMPET on the plate |
 | `tools/director/src/poses-handover.ts` | the state `handover:notice` is judged on — the pilot's screen a beat before THE HANDOVER warns, replayed once a window |
 | `tools/director/src/poses-husk.ts` | The state a candidate for `pod:husk-tell` is judged on |

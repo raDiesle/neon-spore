@@ -5565,7 +5565,10 @@ the ridge does not show the walls it turns at — offered in VERSUS as
 `lead:walls` (8 October 2026), a crag on each end of the ridge with a hook
 curling back into the field, on both screens; the torch and the rock are
 the field's own creatures with a burst over the column and no fall drawn
-out of the body. The owner's eye decides all three.
+out of the body — offered in VERSUS as `lead:drop` (8 October 2026), the
+ridge's underside torn open over the column and the drop hanging from it on
+a strand that parts, a cord from the mound on the navigator's screen alone,
+judged on THE LEAD · DROPPING. The owner's eye decides all three.
 
 **The words** (`render/src/boss-cue-read-c.ts`, 19 September 2026; THE SCUTTLE's
 and THE DIASTOLE's followed it to their own pages, `-t.ts` and `-u.ts`, the same

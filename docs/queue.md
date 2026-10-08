@@ -328,15 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE LEAD's lean is an arrow, and its torch and rock fall out of the body
-
-- **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
-- **Taken:** 2026-10-08, claude/queue-tasks-3078fe (claim: claude/queue-the-leads-lean-is-an-arrow-and-its-torch-and-roc)
-- **Files:** `packages/render/src/lead-draw.ts`, `packages/render/src/lead-rock.ts`, `packages/render/src/lead-fx.ts`
-
-bosses.md §11 THE LEAD, *Not built of the design's look*: the lean is a tilt of the stalk, where the design wanted an arrow with a length to it (offered 8 October 2026 as `lead:lean` / `arrow`, through `LEAN_LOOK` in `lead-lean.ts`); the ridge does not show the walls the pass turns at (offered 8 October 2026 as `lead:walls` / `crags`, through `RIDGE_WALLS` in `lead-rock.ts`); and the torch and the rock are the field's own creatures with a burst over the column, with no fall drawn out of the body. Offer each as a candidate; the write-up leaves all three to the owner's eye. The pass to the farther wall, and bolts doing nothing from the last segment on, are argued in §11 and stay out. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
-
-
 ## THE SCUTTLE's parts are drawn as part of its body, not as a grid of sockets
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
