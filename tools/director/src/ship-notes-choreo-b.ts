@@ -146,7 +146,9 @@ export const CHOREO_NOTES_B = {
     "whole turn in antiphonTurnBeats. With antiphonRestingTurn set, from " +
     "antiphonTurnPits the organ rests at a quarter turn the seed picks, the " +
     "decoys are its own contour at the other turns, and a thumb's turn " +
-    "springs back antiphonSpringRate times as fast. See sim/antiphon.ts, " +
+    "springs back antiphonSpringRate times as fast; a contour in " +
+    "antiphonHalfAlike, one bit per shape, gets another shape where its " +
+    "half turn would be. See sim/antiphon.ts, " +
     "sim/config-antiphon.ts.",
   "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling":
     "Designed on 16 September 2026 in docs/spec/bosses.md §11.14: the boss " +

@@ -70,8 +70,10 @@ describe("THE ANTIPHON's resting turn", () => {
   });
 
   it("from the turn pits, hangs the organ's own contour at distinct turns", () => {
+    // Every contour taken as one its turns tell apart; the one that is not is the test below.
+    const cfg = { ...ON, antiphonHalfAlike: 0 };
     for (let seed = 1; seed <= 12; seed++) {
-      const s = body(at(CFG.antiphonTurnPits, ON, seed));
+      const s = body(at(CFG.antiphonTurnPits, cfg, seed));
       const organ = s.organ;
       if (organ === null) throw new Error("no organ");
       expect(s.rail.every((c) => c.shape === organ.shape)).toBe(true);
@@ -146,5 +148,22 @@ describe("THE ANTIPHON's resting turn", () => {
     if (c === undefined) throw new Error("no rail");
     c.turn = (c.turn + 1) % ANTIPHON_QUARTERS;
     expect(hashWorld(world)).not.toBe(before);
+  });
+
+  it("never shows a contour alike at a half turn beside itself upside down", () => {
+    /** Whether the rail holds the organ's own contour half a turn from it. */
+    const upsideDown = (w: World) => {
+      const s = body(w);
+      const o = s.organ;
+      if (o === null) return false;
+      return s.rail.some((c) => c.shape === o.shape && (c.turn - o.turn + 4) % 4 === 2);
+    };
+    const levels = (cfg: SimConfig) =>
+      [1, 2, 3, 4, 5, 6, 7, 8].flatMap((seed) => [2, 3, 4].map((level) => at(level, cfg, seed)));
+    expect(levels({ ...ON, antiphonHalfAlike: 0 }).some(upsideDown)).toBe(true);
+    const alike = levels({ ...ON, antiphonHalfAlike: 0xffff });
+    expect(alike.some(upsideDown)).toBe(false);
+    // The place it would have taken is another shape, so the rail is no shorter.
+    for (const w of alike) expect(body(w).rail.length).toBe(CFG.antiphonRail);
   });
 });

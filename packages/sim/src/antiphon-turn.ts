@@ -75,6 +75,20 @@ export function springAntiphonTurn(s: AntiphonState, cfg: SimConfig): void {
   else s.turnTicks = t + rate >= whole ? 0 : t + rate;
 }
 
+/**
+ * Whether contour `shape` turned `quarters` from itself looks the same — a
+ * half turn of a shape in `antiphonHalfAlike`. Such a turn is never a decoy.
+ */
+export function antiphonAlikeTurned(cfg: SimConfig, shape: number, quarters: number): boolean {
+  const q = ((quarters % ANTIPHON_QUARTERS) + ANTIPHON_QUARTERS) % ANTIPHON_QUARTERS;
+  return (
+    q === ANTIPHON_QUARTERS / 2 &&
+    shape >= 0 &&
+    shape < 31 &&
+    ((cfg.antiphonHalfAlike >> shape) & 1) === 1
+  );
+}
+
 /** A quarter-turn index as thousandths of a turn. */
 export function antiphonQuarterMilli(turn: number): number {
   return (turn * 1000) / ANTIPHON_QUARTERS;

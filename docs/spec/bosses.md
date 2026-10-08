@@ -6120,10 +6120,12 @@ option A, left to the session). **Drawn, 8 October 2026**: the organ at
 (`render/antiphon-draw.ts`), so off every turn is nought and no frame moves;
 the director's `ANTIPHON · A RAIL TURNED` shows a level with it on. VERSUS
 patches only drawing around one world, so it cannot offer a simulation
-switch; the switch stays the owner's. One contour fails on a turned rail:
-*four facets* (9) is the same upside down
-(`content/test/antiphon-turned.test.ts`), and how it is mended waits on the
-owner (`docs/queue.md`).
+switch; the switch stays the owner's. One contour is the same upside down,
+*four facets* (9) (`content/test/antiphon-turned.test.ts`), so the owner
+chose on 8 October 2026 that the simulation is told: `antiphonHalfAlike`
+holds a bit per such contour, and on a turned rail the place its half turn
+would take is a decoy of another shape at the organ's turn
+(`antiphonAlikeTurned`).
 
 **The carry's handle** (`render/antiphon-rail-grip.ts`): a grip ring on
 **every** candidate, never on one, each with the way down its vein inside

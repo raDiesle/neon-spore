@@ -57,6 +57,7 @@ export {
 export { antiphonOpenLevel } from "./antiphon-step.js";
 export {
   ANTIPHON_QUARTERS,
+  antiphonAlikeTurned,
   antiphonOrganTurnMilli,
   antiphonQuarterMilli,
   antiphonTurned,

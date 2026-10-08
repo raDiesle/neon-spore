@@ -48,6 +48,7 @@ export {
   type AntiphonEntry,
   type AntiphonOrgan,
   type AntiphonState,
+  antiphonAlikeTurned,
   antiphonAlongVein,
   antiphonBoss,
   antiphonChooser,

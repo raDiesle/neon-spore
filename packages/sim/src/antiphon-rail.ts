@@ -8,7 +8,7 @@ import {
   antiphonRailSize,
   antiphonTight,
 } from "./antiphon.js";
-import { antiphonDrawTurns, antiphonTurned } from "./antiphon-turn.js";
+import { antiphonAlikeTurned, antiphonDrawTurns, antiphonTurned } from "./antiphon-turn.js";
 import { antiphonSlotCol } from "./antiphon-vein.js";
 import { nextInt } from "./rng.js";
 import type { World } from "./world.js";
@@ -113,10 +113,14 @@ function candidates(world: World, s: AntiphonState, organ: number, n: number): U
     return [{ shape: organ, turn: 0 }, ...decoys];
   }
   const turns = antiphonDrawTurns(world, n);
-  const out = turns.map((turn) => ({ shape: organ, turn }));
   const first = turns[0] ?? 0;
-  // A rail wider than the turns are many is filled with other shapes at the
-  // organ's own turn: a different contour is never the answer whatever way up.
+  // A turn at which the contour looks as it does at the organ's is no decoy at all.
+  const out = turns
+    .filter((turn, i) => i === 0 || !antiphonAlikeTurned(world.cfg, organ, turn - first))
+    .map((turn) => ({ shape: organ, turn }));
+  // A rail wider than the turns are many, or short of one the contour cannot
+  // be told by, is filled with other shapes at the organ's own turn: a
+  // different contour is never the answer whatever way up.
   const more = decoyShapes(world, s, organ, n + 1 - out.length);
   for (const shape of more) out.push({ shape, turn: first });
   return out;

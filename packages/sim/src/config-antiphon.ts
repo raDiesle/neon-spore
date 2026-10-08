@@ -67,6 +67,14 @@ export interface AntiphonConfig {
   antiphonTurnPits: number;
   /** How many times faster than a thumb turns it the organ springs back to its resting turn once let go. */
   antiphonSpringRate: number;
+  /**
+   * The contours that look the same at a half turn, one bit per shape index:
+   * on a turned level such an organ is never shown beside itself upside
+   * down, and the decoy there is another shape (`antiphon-turn.ts`). The
+   * simulation never sees a shape, so the table's own measure is written
+   * here (`content/test/antiphon-turned.test.ts` checks it): `four facets`.
+   */
+  antiphonHalfAlike: number;
 }
 
 /**
@@ -112,4 +120,5 @@ export const ANTIPHON_DEFAULTS: AntiphonConfig = {
   antiphonRestingTurn: false,
   antiphonTurnPits: 2,
   antiphonSpringRate: 4,
+  antiphonHalfAlike: 1 << 9,
 };

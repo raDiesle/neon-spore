@@ -532,12 +532,3 @@ sets `data-frozen`. Have the shot fail at once, naming the error, when the
 page reports a bundle or runtime error (console error, or no `#versus`
 mounted after the settle), and add a test with a candidate that throws at
 import.
-
-## THE ANTIPHON's *four facets* is the same upside down on a turned rail
-
-- **Found:** 2026-10-08, claude/task-queue-work-8b2adc
-- **Taken:** 2026-10-08, claude/task-queue-work-8b2adc (claim: claude/queue-the-antiphons-four-facets-is-the-same-upside-dow)
-- **Files:** `packages/content/src/antiphon-contours.ts`, `packages/content/test/antiphon-turned.test.ts`, `packages/sim/src/antiphon-rail.ts`, `packages/sim/src/config-antiphon.ts`
-- **Asks:** Before the resting turn is switched on, how should contour 9, *four facets*, stop being the same at a half turn: (A) the simulation is told which contours are alike turned and gives those a shape decoy instead, (B) the contour itself changes so it is not symmetric (a look, so VERSUS), or (C) a turned level never grows it?
-
-With `antiphonRestingTurn` on (`sim/antiphon-turn.ts`), the rail's decoys are the organ's own contour at the other quarter turns. Contour 9 is a crystal with an even number of facets and an ellipse's aspect, so it looks the same at a half turn: the gap between the two is 0.000 radii, against at least 0.09 for every other contour (`packages/content/test/antiphon-turned.test.ts`, which names it in `ALIKE`). If the organ is 9 and a decoy rests at the opposite turn, the rail shows two identical candidates and only one is right. The switch ships off, so nothing is wrong today. (A) puts a table in `SimConfig` (the simulation never sees a shape), (B) changes a shipped shape, (C) narrows the table on those levels. Whichever is chosen, the test's `ALIKE` list goes empty.

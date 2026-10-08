@@ -35659,3 +35659,16 @@ Bottleneck: writing — the registrations a boss's fx needs outside its own
 files (the roster, the ingest, the shudder's draw, the blow's two tables).
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE ANTIPHON's *four facets* gets another shape for a decoy at its half turn
+
+- reading: 5 min. The rail's candidates, the config and its two hops.
+- writing: 10 min. `antiphonHalfAlike`, `antiphonAlikeTurned`, the rail's
+  filter, the sim test, the content test read off the config, the spec.
+- looking: 0 min. Nothing drawn moves: the switch ships off.
+- friction: 10 min. `check:fast` ran under a load of 98, and two timing
+  tests failed on it alone; both passed run again.
+- landing: 5 min. The second `check:fast`, the commit, the land.
+
+Bottleneck: friction — a machine at load 98 failed a timing figure and a
+directory walk that both pass alone.
