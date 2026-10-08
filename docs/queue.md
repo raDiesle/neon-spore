@@ -474,6 +474,7 @@ the partner's work carries `drawMarkProgress` where the simulation counts it.
 ## Boss shots kept in SimConfig wait longer too: THE KEEL, THE SEAM
 
 - **Found:** 2026-10-07, claude/capstan-boss-feedback-f5635a
+- **Taken:** 2026-10-08, claude/task-queue-work-589459 (claim: claude/queue-boss-shots-kept-in-simconfig-wait-longer-too-the)
 - **Files:** `packages/sim/src/config-keel.ts`, `packages/sim/src/config-seam.ts`, `packages/content/src/waves/act-12.ts`
 
 The owner, 7 October 2026: *when in boss sequences player needs to shoot
