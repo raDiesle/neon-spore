@@ -35982,3 +35982,5 @@ each said the old number and only a red test named them.
 
 Bottleneck: a mark whose window opens only on a mistake can't be reached by
 an autopilot that makes none.
+
+*Measured: 35 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

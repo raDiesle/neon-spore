@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 923ba35dd — Marks-window rows for THE SNAKE, PINBALL and THE PULSE; THE CAIRN asks nothing
+
+THE SNAKE, PINBALL and THE PULSE now have rows: each one's halo is held to the union of its windows from `sim/`. THE PULSE's bar asks only once the heart falls off steady, which takes a miss, and AUTO on both seats never misses. So a row can now name the seats AUTO plays (`auto`), and THE PULSE's is the pilot's alone.
+
 ## 2026-10-08 · ae198b025 — THE DAVIT is taken out of the game, whole
 
 The owner asked for it gone: "i do not like it. and its short to play." Its simulation, drawing, thirteen sounds, AUTO hand, wave, four drag targets and director cards are deleted rather than switched off, as THE BELLOWS's were. The design stays in bosses.md §11.52, now under Retired at the end of the page with his verdict, and the new-boss skill's owner page records it: a boss has to last long enough to be learnt and then played. The waves after it move up one. The exemption used is a change the owner asked for by name.
