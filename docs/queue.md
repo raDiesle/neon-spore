@@ -535,3 +535,85 @@ sets `data-frozen`. Have the shot fail at once, naming the error, when the
 page reports a bundle or runtime error (console error, or no `#versus`
 mounted after the settle), and add a test with a candidate that throws at
 import.
+
+## THE LATCH's guide is a film: one holds, one pulls, and they swap
+
+- **Found:** 2026-10-08, claude/parked-boss-concept-d88325
+- **Files:** `packages/content/src/scenes-choreographed.ts`, `packages/content/src/scene-drag.ts`, `packages/content/src/scene-drag-taut.ts`, `packages/content/src/waves/act-14.ts`, `packages/content/test/scenes-prose.test.ts`, `packages/render/src/caption-anchor-boss-f.ts`, `docs/spec/briefings.md`, `docs/spec/bosses.md`
+
+THE LATCH (§11.61) ships with prose for its guide; its write-up's *What is
+not built* names the film and nothing else. Model it on THE TRAPEZE's
+(commit 6b3a1cb65, the-trapeze.ts under `packages/content/src/scenes/`, and its
+scene test): a new the-latch.ts there, registered in `scenes-choreographed.ts`
+and named by the wave in `waves/act-14.ts`. The pages: P2's thumb rests on
+the right grip (*hold*), P1 carries the left grip down a reach and lets go,
+and the turn passes; then the other way round; a knot comes in and a body
+is torn off; the colony rears and both thumbs are down for the yank. The
+grips are `latchGripLeft` and `latchGripRight`: a press holds by itself
+(`fromYMilli: 0`) and the carry is the depth pulled down, so `scene-drag.ts`'s
+`pullsDown` and `scene-drag-taut.ts` need the two targets. Every page must find
+its caption's subject on its own screen (`caption-anchor-boss-f.ts`, commit
+04a76621a). A look with no shipped alternative — say so in the commit.
+Proven by `bun run check` (the scene's own test, `scenes-prose.test.ts`, the
+caption-subject test); move *What is not built* in `bosses.md` to say it is
+built.
+
+## `marks-window.test.ts` says every boss has a row, and 22 do
+
+- **Found:** 2026-10-08, claude/parked-boss-concept-d88325
+- **Files:** `tools/director/test/marks-window.test.ts`, `tools/director/test/marks-window-rows-a.ts`, `tools/director/test/marks-window-rows-b.ts`, `tools/director/test/marks-window-rows-c.ts`
+
+The preamble reads *Every boss but THE QUEEN has a row, in
+marks-window-rows-a.ts, -b.ts and -c.ts; a boss added later gets one there
+too*, and nothing holds it: THE LATCH's lane added a row because it read the
+sentence, but THE SINEW, THE ANTIPHON, THE HIVE and most of the bosses with
+marks have none, and the test is green. Add an allowance in the shape of
+`boss-states.test.ts`'s `OWED` — a `NO_ROW` list of the kinds without one,
+each with a reason (no marks at all, a round with no body, owed) — and a test
+that every `BossKind` is in a row or on the list, and that nothing on the
+list has a row, so the list can only shrink. Then make the preamble say
+that. Writing the missing rows is not this entry: each owed one is a later
+lane of its own.
+
+## `marks-window.test.ts` walks TEST's screen only: no partner's ring is checked
+
+- **Found:** 2026-10-08, claude/parked-boss-concept-d88325
+- **Files:** `tools/director/test/marks-window.test.ts`, `tools/director/test/marks-window-kit.ts`, `tools/director/test/marks-window-rows-c.ts`
+- **Needs:** says every boss has a row, and 22 do
+
+The walk draws every boss on the `test` role, where every mark is the
+screen's own. The partner's ring and waiting clock (`drawMarkTheirs`,
+`drawMarkWait` in `packages/render/src/mark-feedback.ts`) are drawn only on a
+seat's screen, so for every boss that uses them nothing proves they stay
+down outside the window. THE LATCH's row had to drop `drawMarkTheirs` for that
+reason (its comment says so). Give a `Row` an optional list of roles to walk
+(default `["test"]`), walk `p1` and `p2` where it is set, and put THE LATCH's
+`drawMarkTheirs` back on its row with both seats. Then do the same for one
+more boss that draws the partner's ring (`grep -l drawMarkTheirs
+packages/render/src`), to show the option carries.
+
+## `bun run frames` takes a flag it does not know without a word
+
+- **Found:** 2026-10-08, claude/parked-boss-concept-d88325
+- **Files:** `tools/frames/run.ts`, `tools/frames/flags.ts`, `tools/frames/test/flags.test.ts`
+
+`bun run frames . --wave "THE LATCH" --until latchKnot --after 6` wrote the
+frame on the tick of the event, with nothing said about `--after`; so does
+`--bogus-flag 3`. The flag that does it is `--until-on N`, and the run had to
+be repeated to find that out. Have `run.ts` refuse any `--flag` it does not
+read, naming the nearest flag it does (the usage line in `run.ts` lists them
+all), and add a test in `flags.test.ts` for an unknown flag and for a known
+one with a typo.
+
+## A Needs line quoting a title with a code span never matches it
+
+- **Found:** 2026-10-08, claude/parked-boss-concept-d88325
+- **Files:** `tools/queue/needs.ts`, `tools/queue/test/needs.test.ts`
+
+`needOf` strips the backticks from a `Needs:` line, and `blockedBy` compares
+it with the other entry's title as written, backticks and all. So a `Needs:`
+copied from a title like *`marks-window.test.ts` says every boss has a row*
+waits on nothing, and the entry is handed out before its prerequisite. It was
+worked around by quoting only the words after the code span. Strip the
+backticks from the title too before the substring match, and add a test with
+a backticked title quoted whole.
