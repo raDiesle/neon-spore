@@ -443,6 +443,7 @@ hanging off it and the wings spread;
 ## VERSUS shows one seat for a patch that draws each seat differently
 
 - **Found:** 2026-10-07, claude/tasks-form-queue-9a5f8c
+- **Taken:** 2026-10-08, claude/queue-versus-seat (claim: claude/queue-versus-shows-one-seat-for-a-patch-that-draws-eac)
 - **Files:** `tools/director/src/versus-seat.ts`, `tools/director/src/versus-diff.ts`
 
 `sinew:band · white` paints the zone as a white block on the pilot's screen
