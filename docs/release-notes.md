@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 1edea7135 — AUTO's tests play every hand at the game's half-beat shot charge too
+
+The game lays every shot over half a beat and the director's tests fired at once, so a hand could pass its test and miss in the game. Every AUTO test now plays at both, the game's charge is one named value the game and the tests share, and AUTO on THE JAM keeps the cannon under its runaway shot until the shot has left instead of sliding off it to the next beat's colour.
+
 ## 2026-10-08 · deafc358f — Every tutorial film page now draws its caption
 
 Four pages pointed at something not on the screen while they played, so their words never appeared. THE BALLOON's balloon comes in two beats earlier, in time for "THE LEFT HANDLE IS YOURS", and its first page points at the balloon's radar warning; THE LANCE's "THE BEAM TAKES ALL THREE" opens as the beam fires and points at the cannon; THE SCUTTLE's "OUT · NONE LEFT TO COUNT" points at the empty top of the field. A fix to something wrong rather than unlovely.

@@ -35256,3 +35256,5 @@ balloon was ever pulled apart.
 Bottleneck: reading — one run of the whole director suite with the poses'
 config at half a beat named the one failing hand, which was cheaper than
 reading the 21 hands it ruled out.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
