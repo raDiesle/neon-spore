@@ -1,7 +1,6 @@
 import type { World } from "@neon-spore/sim";
 import { drawCapstan } from "./capstan-draw.js";
 import { drawCyst } from "./cyst-draw.js";
-import { drawDavit } from "./davit-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGall } from "./gall-draw.js";
 import { drawGrindstone } from "./grindstone-draw.js";
@@ -35,7 +34,6 @@ export const LATE_PAIR_KINDS = [
   "sling",
   "trivet",
   "plumb",
-  "davit",
   "cyst",
   "grindstone",
   "halter",
@@ -96,17 +94,6 @@ export function drawLatePairBoss(
   // the free swing's release are `effects.boss.plumb` (`plumb-fx.ts`).
   if (boss.kind === "plumb") {
     drawPlumb(ctx, l, world, boss, beat, beatPhase, time, effects.boss.plumb, effects.bolts);
-    return;
-  }
-
-  // THE DAVIT: a crane boom over the middle column, swung by whichever seat's
-  // lean is steering it and let go by a loose off each seat's own thumb, a
-  // hook on the end of its slack chain both cannons are asked to hit. Both
-  // screens are drawn the same — the other seat has to see which half the
-  // lean is steering and how far the lit step's window has run
-  // (`davit-draw.ts`).
-  if (boss.kind === "davit") {
-    drawDavit(ctx, l, world, boss, beat, beatPhase, time, effects.boss.davit, effects.bolts);
     return;
   }
 

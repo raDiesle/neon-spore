@@ -227,10 +227,6 @@ export const CREATURE_HUES = {
   plumbGlass: "#E3EEC4",
   /** The spent core's light as it leaves the beam in row 11's bleed: a warm white, no cannon's. */
   plumbBleed: "#F8F4E6",
-  /** THE DAVIT's boom: dull yardarm steel, its shadow, and the slack chain off its tip. */
-  davitSteel: "#7C8797",
-  davitSteelDark: "#2C323B",
-  davitChain: "#9B9384",
   /**
    * THE CYST's sac (§34): a dull mauve flesh and its shadow, greyer than
    * `hull` and far from `red`, and the pale scar a crack leaves — so the only

@@ -2,7 +2,6 @@ import { type BossKind, midCol, type SimConfig } from "@neon-spore/sim";
 import type { Point } from "./boss-strike-look.js";
 import { capstanBlowFrom } from "./capstan-blow.js";
 import { cystBlowFrom } from "./cyst-blow.js";
-import { davitHook, davitMast } from "./davit-shape.js";
 import { fieldX } from "./field-flip.js";
 import { flueBlowFrom } from "./flue-blow.js";
 import { gallBlowFrom } from "./gall-blow.js";
@@ -53,13 +52,6 @@ const FROM: Partial<
   },
   valve: valveCentre,
   spool: spoolHome,
-  // The hook at the chain's end, stowed — off the same shape the boom draws
-  // itself from (`davit-shape.ts`).
-  davit: (l, cfg) => {
-    const mast = davitMast(l, cfg);
-    const hook = davitHook(l, 0, 1);
-    return { x: mast.x + hook.x, y: mast.y + hook.y };
-  },
   mantle: mantleCentre,
   // The body's underside, where the cord leaves it: the side the plate is
   // wrenched toward (`ledger-blow.ts`).

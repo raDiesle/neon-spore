@@ -5,7 +5,6 @@ import { BATON_CONTROLS } from "./field-controls-baton.js";
 import { CAPSTAN_CONTROLS } from "./field-controls-capstan.js";
 import { CURTAIN_CONTROLS } from "./field-controls-curtain.js";
 import { CYST_CONTROLS } from "./field-controls-cyst.js";
-import { DAVIT_CONTROLS } from "./field-controls-davit.js";
 import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
 import { FLEET_CONTROLS } from "./field-controls-fleet.js";
 import { GALL_CONTROLS } from "./field-controls-gall.js";
@@ -189,9 +188,6 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // two handles on two seats** — the partner's tap, then its own seat's pinch
   // (`field-controls-cyst.ts`).
   ...CYST_CONTROLS,
-  // THE DAVIT's steers and looses, the only pair here **judged against the
-  // partner's carry** of one boom (`field-controls-davit.ts`).
-  ...DAVIT_CONTROLS,
   // THE TRAPEZE's ring and track, the only pair here **one seat's tap answered
   // by the other's swipe** on one swinging flag (`field-controls-trapeze.ts`).
   ...TRAPEZE_CONTROLS,

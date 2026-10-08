@@ -3,7 +3,7 @@ import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
 /**
- * **THE DAVIT's, THE PLUMB's and THE SLING's stills**: each machine arrived
+ * **THE PLUMB's and THE SLING's stills**: each machine arrived
  * and standing, no step lit yet. Their other states are the look lanes' and
  * stay on `OWED` (`test/boss-states.test.ts`) — but for THE PLUMB's bleed
  * and THE SLING's cool, each row 11's look, played to by its own hand: every
@@ -11,15 +11,6 @@ import { bossPose } from "./poses-bosses-kit.js";
  * coming down on its ropes, and its first level pushed by its own hand.
  */
 export const MECHANISM_POSES: Pose[] = [
-  bossPose(
-    "davit",
-    "still",
-    "The boom stands up off its mast over the middle column, the hook hung on its chain. P1 and P2 wait: nothing is lit yet.",
-    {
-      hold: Math.round(TPB * 1.9),
-      lookAt: "the hook on its chain — whether it hangs or is welded on",
-    },
-  ),
   bossPose(
     "plumb",
     "still",

@@ -10,8 +10,9 @@ wasted shot on HARD, or a pod not taken.
 **Eight already keep the rule**: SPLICE, STARE, FILAMENT, CAIRN, REPRISE,
 THE MAZE, THE MIRROR and THE WELL (the last two of those with nothing in them
 a mistake could be — CAIRN's pile and THE WELL's face cost nothing to leave).
-THE GAUGE was made to keep it the same day. **Forty-eight do not.** What they
-break it with falls into a few kinds, and most bosses carry more than one.
+THE GAUGE was made to keep it the same day. **Forty-eight did not** —
+forty-seven since THE DAVIT left the game on 8 October 2026. What they break
+it with falls into a few kinds, and most bosses carry more than one.
 
 **Answered the same day: boss by boss.** Shown this, the owner: *i will do
 every boss separately and individual. so only change for this boss for now*.
@@ -60,7 +61,6 @@ The kinds each breaks it with, and where. Paths are under `packages/sim/src`.
 | CAPSTAN | 1, 4 | `capstan-step.ts`, `capstan-hand.ts` |
 | CURTAIN | 1, 4 | `curtain-shot.ts`, `curtain-step.ts` (jam lapse back to hung) |
 | CYST | 1, 4, 5 | `cyst-step.ts`, `cyst-hand.ts` |
-| DAVIT | 1, 4, 5 | `davit-step.ts`, `davit-hand.ts` |
 | FLEET | 3, 7 | `fleet.ts` (salvo into water), `fleet-flood.ts` (lapse plugs the hull) |
 | FLUE | 1, 4, 5 | `flue-step.ts`, `flue-hand.ts` |
 | GALL | 1, 4, 5 | `gall-step.ts`, `gall-hand.ts` |

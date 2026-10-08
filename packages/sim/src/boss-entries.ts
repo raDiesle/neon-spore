@@ -203,8 +203,6 @@ export type {
   CapstanStep,
   CystEntry,
   CystStep,
-  DavitEntry,
-  DavitStep,
   GrindstoneEntry,
   GrindstoneStep,
   HalterEntry,

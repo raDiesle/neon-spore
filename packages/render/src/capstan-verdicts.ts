@@ -23,8 +23,8 @@ import { drawPullArrow } from "./pull-knob.js";
  * **THE CAPSTAN's marks answering a touch the way every mark does**
  * (`mark-feedback.ts`, `grip-verdict.ts`; the owner, 27 September 2026: *the
  * consistent visual across all waves*). Both screens draw the one drum
- * (`capstan-draw.ts`), so this is THE DAVIT's arrangement again: one seat
- * steers and the other works the thing the steer brings round.
+ * (`capstan-draw.ts`), so this is THE DAVIT's arrangement, before it left
+ * the game: one seat steers and the other works the thing the steer brings round.
  *
  * Three marks, the places a thumb answers it (`capstan-grip.ts`). **The
  * middle** is the steer: it asks the lit band's own seat on a left or a right

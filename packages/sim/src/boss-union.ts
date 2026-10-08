@@ -5,7 +5,6 @@ import type { CairnState } from "./cairn.js";
 import type { CapstanState } from "./capstan.js";
 import type { CurtainState } from "./curtain.js";
 import type { CystState } from "./cyst.js";
-import type { DavitState } from "./davit.js";
 import type { FilamentState } from "./filament.js";
 import type { FlueState } from "./flue.js";
 import type { GallState } from "./gall.js";
@@ -130,7 +129,6 @@ export type BossState =
   | SlingState
   | GrindstoneState
   | CystState
-  | DavitState
   | HalterState
   | CapstanState
   | GallState

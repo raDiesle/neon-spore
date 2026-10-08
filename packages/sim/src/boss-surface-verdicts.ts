@@ -19,7 +19,6 @@ export { CORE_KINDS, coreRowMilli } from "./core-along.js";
 export type { CoreVerdict } from "./core-verdict.js";
 export { curtainVerdict } from "./curtain-shot.js";
 export { CYST_BUD_MILLI, cystVerdict } from "./cyst-shot.js";
-export { davitVerdict } from "./davit-shot.js";
 export { gallVerdict } from "./gall-shot.js";
 export { gimbalVerdict } from "./gimbal-shot.js";
 export { governorVerdict } from "./governor-shot.js";

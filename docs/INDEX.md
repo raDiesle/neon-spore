@@ -150,11 +150,6 @@ by hand never moves.
 | `packages/sim/src/creature-rules.ts` | the state machines the bestiary asks for that are small enough to be one function each |
 | `packages/sim/src/dart.ts` | THE DART: the first body that does not hold its lane |
 | `packages/sim/src/dark.ts` | THE DARK: |
-| `packages/sim/src/davit-hand.ts` | A steer and a draw for each seat on THE DAVIT, heard as THE CAPSTAN and THE SLING hear theirs |
-| `packages/sim/src/davit-hash.ts` | What THE DAVIT puts into `hashWorld`, and nothing else |
-| `packages/sim/src/davit-shot.ts` | **THE DAVIT's shot**: the lit pivot, where a bolt leaves the top of the field in the middle column |
-| `packages/sim/src/davit-step.ts` | THE DAVIT's clock: the boom settling, each step lighting, the beats a steered draw is held being counted |
-| `packages/sim/src/davit.ts` | THE DAVIT: a crane boom pivoted off the hull's spine |
 | `packages/sim/src/events.ts` | everything the simulation reports about a tick, and the whole of what it says to anybody |
 | `packages/sim/src/gauge-round.ts` | THE GAUGE's clock: the three phases, the way in and the way out |
 | `packages/sim/src/gauge-band.ts` | **The band between the two marks**: where it lands, where it walks, and how wide it is at this moment |
@@ -280,7 +275,6 @@ by hand never moves.
 | `packages/sim/src/filament-turn.ts` | Whose move THE FILAMENT waits on, and the beat a line standing still strikes the hull |
 | `packages/sim/src/filament.ts` | THE FILAMENT: a body over the field made of loose filaments, the way a nerve is a bundle |
 | `packages/sim/src/config-derived.ts` | what the config implies: ticks per beat, ms to ticks, the hull row, the middle column |
-| `packages/sim/src/config-davit.ts` | THE DAVIT's tuning: the rests around its steps, the grace a swing is given |
 | `packages/sim/src/bullet-hit-boss.ts` | a shot met the queen or the warden and you want to know which half of the pair a rejection is charged to |
 | `packages/sim/src/bullet-types.ts` | you need what a bullet *is* rather than what one does — the shape, lifted out of `types.ts` beside `pod-types.ts` |
 | `packages/sim/src/lid.ts` | you are working on the armoured eye — the cord, how far the plates have parted, and what a shot into it does |
@@ -761,7 +755,6 @@ by hand never moves.
 | `packages/sim/src/events-rime.ts` | What THE RIME says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-keel.ts` | What THE KEEL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-oculus.ts` | What THE OCULUS says as it happens, one line per thing the picture and the sound answer |
-| `packages/sim/src/events-davit.ts` | What THE DAVIT says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -2029,7 +2022,7 @@ by hand never moves.
 | `packages/render/src/effects-spark-silent-boss.ts` | The choreographed bosses' events that are deliberately not a burst, a family at a time |
 | `packages/render/src/effects-spark-silent-boss-b.ts` | **The bosses' half of the not-a-burst list, the second page** — from THE FILAMENT on |
 | `packages/render/src/effects-spark-silent-boss-c.ts` | **The bosses' half of the not-a-burst list, the third page** — THE GAUGE's four and THE WELL's four |
-| `packages/render/src/effects-spark-silent-boss-d.ts` | **The bosses' half of the not-a-burst list, the fourth page** — THE CYST's seventeen, THE DAVIT's thirteen |
+| `packages/render/src/effects-spark-silent-boss-d.ts` | **The bosses' half of the not-a-burst list, the fourth page** |
 | `packages/render/src/effects-spark-silent-boss-e.ts` | **The bosses' half of the not-a-burst list, the fifth page** |
 | `packages/render/src/effects-spark-silent-boss-f.ts` | **The bosses' half of the not-a-burst list, the sixth page** — THE SURGE, THE LEAD, THE SCUTTLE |
 | `packages/render/src/effects-spark-handed.ts` | The bursts for the bodies answered by hands alone (`creatures-handed.ts`) |
@@ -2446,14 +2439,6 @@ by hand never moves.
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |
 | `packages/render/src/dark-field.ts` | **THE DARK, as a screen sees it**: the field above the ship put out |
 | `packages/render/src/dark-tap.ts` | **A finger on THE DARK**: a press anywhere on the field lights the square under it |
-| `packages/render/src/davit-blow.ts` | **THE DAVIT's own blow at the hull** (`boss-strike-look.ts`) |
-| `packages/render/src/davit-draw.ts` | **THE DAVIT** (§35): a crane boom on a mast over the middle column |
-| `packages/render/src/davit-grip.ts` | **THE DAVIT's two steers and two looses as controls** |
-| `packages/render/src/davit-marks.ts` | The mast's own socket: a dark steel foot the boom always stands out of |
-| `packages/render/src/davit-pose.ts` | THE DAVIT's timing: how far the boom has stood up out of stowed, how far a lit step's window has run |
-| `packages/render/src/davit-shape.ts` | **THE DAVIT's geometry**: a boom stowed pointing straight up off a mast over the middle column |
-| `packages/render/src/davit-stop.ts` | **Where a bolt meets THE DAVIT**: the lit hook, or the lowest of hook, boom and socket |
-| `packages/render/src/davit-verdicts.ts` | **THE DAVIT's marks answering a touch the way every mark does** (`mark-feedback.ts`) |
 | `packages/render/src/magnet-coil.ts` | WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips |
 | `packages/render/src/magnet-lanes.ts` | Where an intake lane starts and ends, in body radii from the centre |
 | `packages/render/src/magnet-look.ts` | THE ONE RECORD A CANDIDATE MAGNET LOOK PATCHES |
@@ -2753,7 +2738,6 @@ by hand never moves.
 | `packages/audio/src/bind-rime.ts` | THE RIME's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-keel.ts` | THE KEEL's twenty-four, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-oculus.ts` | THE OCULUS's fourteen, in a file of their own for `bind-gorge.ts`' reason |
-| `packages/audio/src/bind-davit.ts` | THE DAVIT's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 
 ### packages/hands
 
@@ -2798,7 +2782,6 @@ by hand never moves.
 | `packages/hands/src/boss-hands-vise.ts` | **THE VISE played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-valve.ts` | **THE VALVE played right**, for the autopilot: the wheel turned onto each mark by the pilot |
 | `packages/hands/src/boss-hands-plumb.ts` | **THE PLUMB, on AUTO**: both stones pulled half the lit step's skew each, the other way |
-| `packages/hands/src/boss-hands-davit.ts` | **THE DAVIT played right**, for the autopilot: one seat leans to the target, the other draws and looses, the pivot shot |
 | `packages/hands/src/boss-hands-lamprey.ts` | **THE LAMPREY played right**, for the autopilot |
 | `packages/hands/src/boss-hands-latch.ts` | **THE LATCH played right**, for the autopilot: hand over hand |
 | `packages/hands/src/boss-hand-fleet.ts` | **The pair's hands on THE FLEET**, a `Hand` (`hand.ts`) |
@@ -3109,7 +3092,6 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
 | `tools/director/src/poses-field-controls-rime.ts` | THE RIME's two hands: a half of the lens rubbed, once a seat |
 | `tools/director/src/poses-field-controls-dark.ts` | THE DARK with a thumb dragged across it: three squares lit along one row |
-| `tools/director/src/poses-field-controls-davit.ts` | THE DAVIT's two steers and two looses: a swing lit |
 | `tools/director/src/poses-field-controls-mantle.ts` | THE MANTLE's three hands: the two knobs under the two thumbs, and a tap on the bared core |
 | `tools/director/src/poses-field-controls-keel.ts` | THE KEEL's one hand: the first joint lit and waiting for its tap |
 | `tools/director/src/poses-field-controls-oculus.ts` | THE OCULUS's two hands: a thumb on each half of the lens, holding the first pair shut |
@@ -3473,7 +3455,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-rime.ts` | **THE RIME's still**, the one of its four states posed so far: the pane dropped in and standing |
 | `tools/director/src/poses-bosses-hands-nettle.ts` | **THE NETTLE's four states**, THE INSTAR's four (`poses-bosses-clocks.ts` |
 | `tools/director/src/poses-bosses-hands-mantle.ts` | **THE MANTLE's ten states**, posed with a hand on the controls (`boss-hands-mantle.ts`) |
-| `tools/director/src/poses-bosses-hands-mechanisms.ts` | THE DAVIT's, THE PLUMB's and THE SLING's stills: each machine arrived and standing, no step lit yet |
+| `tools/director/src/poses-bosses-hands-mechanisms.ts` | THE PLUMB's and THE SLING's stills: each machine arrived and standing, no step lit yet |
 | `tools/director/src/poses-bosses-hands-mimic.ts` | **THE MIMIC's states**: eight cards on AUTO's hand, the mimicking one with P2 drawing the wrong sign |
 | `tools/director/src/poses-bosses-hands-keel.ts` | **THE KEEL's twelve states**, posed with a hand on the controls (`boss-hands-keel.ts`) |
 | `tools/director/src/poses-bosses-hands-oculus.ts` | **THE OCULUS's four states**, posed with a hand on the controls (`boss-hands-oculus.ts`) |
@@ -3664,7 +3646,6 @@ by hand never moves.
 | `tools/director/src/field-controls-undertow.ts` | **THE UNDERTOW's one thumb**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-keel.ts` | THE KEEL's one control, as a row of the ON THE FIELD tab: a tap on the lit joint |
 | `tools/director/src/field-controls-oculus.ts` | THE OCULUS's two leaf holds, as rows of the ON THE FIELD tab |
-| `tools/director/src/field-controls-davit.ts` | THE DAVIT's two steers and two looses, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-notes-gestures.ts` | A suggestion for every gesture in the catalogue (`gesture-catalogue.ts`), keyed by its name |
 | `tools/director/src/field-notes.ts` | The suggestions on CONTROLS › ON THE FIELD — what this lane would decide about each thing on the page |
 | `tools/director/src/field-page.ts` | CONTROLS › ON THE FIELD — one page for every touch the field answers and every gesture it could be built from… |
@@ -3680,7 +3661,7 @@ by hand never moves.
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |
 | `tools/director/src/ship-fields-choreo-c.ts` | **The choreographed bosses' dials, the third page** — THE SPOOL and every boss built after it |
-| `tools/director/src/ship-fields-choreo-d.ts` | **The choreographed bosses' dials, the fourth page** — THE CYST, THE DAVIT, THE HALTER |
+| `tools/director/src/ship-fields-choreo-d.ts` | **The choreographed bosses' dials, the fourth page** — THE CYST, THE HALTER |
 | `tools/director/src/ship-fields-cannon.ts` | The cannon's numbers — the shot it fires and the arm THE CLAW puts in its place — sorted into their cards |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |

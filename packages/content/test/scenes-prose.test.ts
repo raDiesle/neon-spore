@@ -105,9 +105,6 @@ const STILL_PROSE = [
   // And THE CYST (§34), an eighteenth time: the sac is undrawn, and the
   // guide says whose tap stills which flank.
   "THE CYST",
-  // And THE DAVIT (§35), a nineteenth time: the boom is undrawn, and the
-  // guide says which swing each seat leans and which it draws.
-  "THE DAVIT",
   // And THE HALTER (§36), a twentieth time: the seam is undrawn, and the
   // guide says which mark each seat rests on and which it grips.
   "THE HALTER",

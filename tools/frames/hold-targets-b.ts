@@ -150,12 +150,6 @@ export const ROWS: Record<string, Row> = {
   cystFreezeRight: {},
   cystFlankLeft: {},
   cystFlankRight: { seat: 2 },
-  // `davit-hand.ts`: a steer and a draw each, both on `fromMilli`; the pilot's
-  // are the left, and the wrong seat's touch does nothing.
-  davitSteerLeft: {},
-  davitLooseLeft: {},
-  davitSteerRight: { seat: 2 },
-  davitLooseRight: { seat: 2 },
   // `halter-hand.ts`: either seat's thumbs on both grips; sent as the pilot's.
   halterChordLeft: {},
   halterChordRight: {},

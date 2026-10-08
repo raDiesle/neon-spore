@@ -16,6 +16,11 @@ bosses* — are `generic.md`, next to this page.**
   drawn on the boss is still a rule table; a boss the pair has to be taught
   three symbols for before the first beat means anything is not a boss of
   this game (`bosses.md` §11.9). **Every new boss is read against this.**
+- **Dislikes, in his words:** THE DAVIT, built 26 September and removed
+  on 8 October 2026 — *"i do not like it. and its short to play."* One seat
+  dragging a boom for the other's swipe, nine short steps and three shots:
+  over before the pair had learnt it. **A boss has to last long enough to be
+  learnt and then played** (`bosses.md` §11.52).
 - **Likes** the field to look like the field: the ship, the band and the
   background stay in a round, the controls are drawn in the default set's
   style — THE PULSE was rebuilt to this, PINBALL made the cannon the

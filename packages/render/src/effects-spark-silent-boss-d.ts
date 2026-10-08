@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 
 /**
  * **The bosses' half of the not-a-burst list, the fourth page** — THE CYST's
- * seventeen, THE DAVIT's thirteen, and THE KEEL's story beats.
+ * seventeen and THE KEEL's story beats.
  *
  * Cut off `effects-spark-silent-boss-c.ts` on 26 September 2026, when THE
  * KEEL's flip, marrow and cooldown arrived with eight and page three stood at
@@ -61,20 +61,6 @@ export const SILENT_BOSS_D = [
   "cystPop",
   "cystSplit",
   "cystOut",
-  // THE DAVIT's thirteen, the same (`packages/audio/src/bind-davit.ts`).
-  "davitEnter",
-  "davitLight",
-  "davitDrift",
-  "davitSlack",
-  "davitLoose",
-  "davitSway",
-  "davitPivot",
-  "davitHit",
-  "davitReland",
-  "davitDim",
-  "davitMiss",
-  "davitSpent",
-  "davitOut",
   // THE HALTER's fourteen, the same (`packages/audio/src/bind-halter.ts`).
   "halterEnter",
   "halterLight",

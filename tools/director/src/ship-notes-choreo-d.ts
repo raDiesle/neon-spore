@@ -31,24 +31,6 @@ export const CHOREO_NOTES_D = {
     "pinched shut on both flanks at once, a spore off the middle turned by " +
     "the shield, a bud off the middle shot in its colour. THE SLOW never " +
     "holds a shot. The picture is render/cyst*.ts, the lit flank white.",
-  "THE DAVIT — the boss one hand steers for the other to loose":
-    "Asked for in docs/spec/bosses-choreographed.md §35: a crane boom over " +
-    "the middle column, steered by one seat's thumb carried across it — read " +
-    "as THE CAPSTAN reads a cradle, davitSteerDegreesPerTile degrees a tile " +
-    "— onto the step's leanMilli, within its rangeMilli, while the other " +
-    "seat holds a draw, read as THE SLING reads an arm. The draw counts its " +
-    "beats only while the steer holds, and lands only if it lifts while the " +
-    "steer still holds, swiping toward the steer's half; a steer that leaves " +
-    "the target resets the draw it steered. On the left swing the pilot " +
-    "steers and the navigator looses, on the right the other way; two looses " +
-    "on each light the pivot, shot in its colour. A reland step lets either " +
-    "seat loose against the other's steer, and one run out dims the pivot. " +
-    "A swing run out is tried again after davitRestBeats; a fire step run " +
-    "out is a hull hit, which is the wave. Unsteered, the boom swings back " +
-    "davitDriftMilli a beat. It was steered by the phone's lean until 30 " +
-    "September 2026 — see sim/davit.ts, sim/davit-step.ts, " +
-    "sim/davit-hand.ts, sim/davit-shot.ts, sim/config-davit.ts, " +
-    "render/davit-grip.ts.",
   "THE HALTER — the boss one hand keeps still for the other to open":
     "Asked for in docs/spec/bosses-choreographed.md §36: a seam over the " +
     "middle column that opens only while one seat sends nothing at all — " +

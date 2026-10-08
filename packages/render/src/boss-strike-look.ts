@@ -1,7 +1,6 @@
 import type { BossKind } from "@neon-spore/sim";
 import { capstanBlow } from "./capstan-blow.js";
 import { cystBlow } from "./cyst-blow.js";
-import { davitBlow } from "./davit-blow.js";
 import { filamentBlow } from "./filament-blow.js";
 import { flueBlow } from "./flue-blow.js";
 import { gallBlow } from "./gall-blow.js";
@@ -92,9 +91,6 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   plumb: plumbBlow,
   // A hub left unshot: the middle needle stamps the stand's footprint into the skin.
   trivet: trivetBlow,
-  // Its hook is already hanging off the boom in sight; the blow pays the
-  // chain the rest of the way out and hauls it back taut.
-  davit: davitBlow,
   // A centre left unshot: the plating sheds a hanging plate that bites into the skin.
   halter: halterBlow,
   // A step let run: the rusted drum throws a cog that spins down and bites the skin.

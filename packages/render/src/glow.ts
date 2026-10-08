@@ -63,8 +63,8 @@ export function strokeGlow(
 
 /**
  * `strokeGlow` inside a body that fades itself as a whole by
- * `ctx.globalAlpha` — THE FLUE and THE GOVERNOR while spent, THE MANTLE and
- * THE DAVIT arriving, a brood egg, a living body's edge through THE FLIP's
+ * `ctx.globalAlpha` — THE FLUE and THE GOVERNOR while spent, THE MANTLE
+ * arriving, a brood egg, a living body's edge through THE FLIP's
  * tear. It scales its `alpha` by the alpha it finds and leaves that alpha as
  * it found it, so a part drawn after a glow is still faded. `strokeGlow`
  * itself keeps ignoring the caller's alpha: the callers left reach it with one

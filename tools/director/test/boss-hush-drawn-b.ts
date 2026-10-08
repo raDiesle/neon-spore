@@ -1,7 +1,5 @@
-import { type BossKind, davitLitStep, scuttlePartCol } from "@neon-spore/sim";
+import { type BossKind, scuttlePartCol } from "@neon-spore/sim";
 import { antiphonOrganCircle, antiphonPerch } from "../../../packages/render/src/antiphon-shape.js";
-import { davitAngle } from "../../../packages/render/src/davit-pose.js";
-import { DAVIT_SAG, davitHook, davitMast } from "../../../packages/render/src/davit-shape.js";
 import { tileCX } from "../../../packages/render/src/layout.js";
 import { scuttleLockBox } from "../../../packages/render/src/scuttle-lock.js";
 import { scuttleRowY, scuttleShiver } from "../../../packages/render/src/scuttle-shape.js";
@@ -73,16 +71,5 @@ export const DRAWN_B: Partial<Record<BossKind, Drawn>> = {
       for (const c of s.rail) marks.push({ id: -100 - c.col, ...antiphonPerch(l, cfg, c.col) });
     }
     return marks;
-  },
-  // The hook while a fire step asks for it, at the end of its chain off the
-  // boom's angle; both screens draw it the same. With nobody steering the
-  // boom swings back toward hanging by the rule, eased through the beat
-  // (`davitAngle`), so it is left in.
-  davit: (l, world, phase) => {
-    const s = world.boss;
-    if (s?.kind !== "davit" || davitLitStep(s)?.ask !== "fire") return [];
-    const mast = davitMast(l, world.cfg);
-    const hook = davitHook(l, davitAngle(s, world.cfg, phase), DAVIT_SAG);
-    return [{ id: -1, x: mast.x + hook.x, y: mast.y + hook.y }];
   },
 };

@@ -4,7 +4,6 @@ import { stepLateBoss } from "./boss-others-b.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
 import { stepCurtain } from "./curtain-step.js";
-import { stepDavit } from "./davit-step.js";
 import { stepFilament } from "./filament-step.js";
 import { stepGimbal } from "./gimbal-step.js";
 import { stepGorge } from "./gorge-step.js";
@@ -230,11 +229,6 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // THE SLING: steps lit, draws counted, and the snap free (`sling-step.ts`).
   if (boss.kind === "sling") {
     stepSling(world, boss);
-    return;
-  }
-  // THE DAVIT: steps lit, steered draws counted, the boom swinging back, and the spent boom (`davit-step.ts`).
-  if (boss.kind === "davit") {
-    stepDavit(world, boss);
     return;
   }
   // And the six that are not stepped here at all, with THE HALTER, THE CYST, THE GRINDSTONE, THE SPOOL, THE HASP, THE RATCHET, THE VANE,

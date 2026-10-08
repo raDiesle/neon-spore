@@ -4,7 +4,6 @@ import { midCol } from "./config.js";
 import type { CoreVerdict } from "./core-verdict.js";
 import { curtainCoreAside, curtainVerdict } from "./curtain-shot.js";
 import { cystBudAside, cystVerdict } from "./cyst-shot.js";
-import { davitVerdict } from "./davit-shot.js";
 import { gallVerdict } from "./gall-shot.js";
 import { governorVerdict } from "./governor-shot.js";
 import { grindstoneVerdict } from "./grindstone-shot.js";
@@ -66,7 +65,6 @@ const CORES: Partial<Record<BossKind, Core>> = {
     verdict: (w, c, k) => cystVerdict(w, c, k),
     aside: (w) => cystBudAside(w),
   },
-  davit: { milli: 1100, verdict: (w, c, k) => davitVerdict(w, c, k) },
   gall: { milli: 2900, verdict: (w, c, k) => gallVerdict(w, c, k) },
   // THE GOVERNOR's target is its needle's tip in the gap at the bottom of the
   // dial, four and a half rows under the hub, and a bolt is met past its far

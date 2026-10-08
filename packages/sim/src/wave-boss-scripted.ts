@@ -1,7 +1,6 @@
 import type { BossState } from "./boss-union.js";
 import { installCapstan } from "./capstan-step.js";
 import { installCyst } from "./cyst-step.js";
-import { installDavit } from "./davit-step.js";
 import { installFlue } from "./flue-step.js";
 import { installGall } from "./gall-step.js";
 import { installGovernor } from "./governor-step.js";
@@ -43,7 +42,6 @@ export const SCRIPTED_KINDS = [
   "sling",
   "grindstone",
   "cyst",
-  "davit",
   "halter",
   "capstan",
   "gall",
@@ -71,7 +69,6 @@ export function installScripted(world: World, boss: ScriptedEntry): BossState {
   if (boss.kind === "sling") return installSling(world, boss.steps);
   if (boss.kind === "grindstone") return installGrindstone(world, boss.steps);
   if (boss.kind === "cyst") return installCyst(world, boss.steps);
-  if (boss.kind === "davit") return installDavit(world, boss.steps);
   if (boss.kind === "halter") return installHalter(world, boss.steps);
   if (boss.kind === "capstan") return installCapstan(world, boss.steps);
   if (boss.kind === "gall") return installGall(world, boss.steps);

@@ -105,6 +105,7 @@ kinds each of them is.
 - **[THE ORRERY](#1121-the-orrery--three-orbits-and-neither-of-you-can-see-all-three)** · 11.21 — three orbits, and neither of you can see all three
 - **[THE CANDLE](#1122-the-candle--the-boss-fought-in-the-dark)** · 11.22 — the boss fought in the dark
 - **[THE BELLOWS](#1135-the-bellows--the-boss-where-you-may-never-push-while-they-are-pulling)** · 11.35 — the boss where you may never push while they are pulling
+- **[THE DAVIT](#1152-the-davit--the-boss-one-hand-steers-for-the-other-to-loose)** · 11.52 — the boss one hand steers for the other to loose
 
 ## Fixed and learnable
 
@@ -10209,169 +10210,6 @@ ring on both screens while they stay so; the flank being kept shut carries
 swell; and once shut the pincher's cue is `HOLD` alone, `TILL IT SHUTS`
 coming back if it is let go.
 
-## 11.52 THE DAVIT — the boss one hand steers for the other to loose
-
-> A crane boom pivoted off the hull's spine, swinging on a slack chain.
-> One of you drags the boom onto the lit side and keeps it there; the
-> other holds a draw and looses it that way while the steer still holds. Two looses each way light the pivot: shoot it in its
-> colour, and between the shots reland the boom under it.
-
-Designed as §35 of [bosses-choreographed](bosses-choreographed.md) — a
-choreographed scene, the third kind in `.claude/skills/new-boss`, and the
-third on that page with **no gesture of its own**: THE CAPSTAN's carried
-pull (designed as THE PLUMB's `LevelTilt`, the phone's lean, until 30
-September 2026) and THE SLING's draw (`DrawRelease`), paired so that one
-seat's live steer is what the other seat's release is judged against.
-
-**It is two swings of two looses each and three hits, and they are its
-health.** The state (`sim/davit.ts`, hashed in `sim/davit-hash.ts`) is the
-**phase** and the beat it began, the **cursor** into the script, the
-**swings** landed on each side, the **hits**, whether the **pivot is lit**,
-each seat's **steer** as the boom's angle in thousandths of a degree, whether each seat's finger
-is **down** on its draw, the **beats drawn** by each seat in the lit step,
-and the boom's own **aim**. The script is the wave's (`DavitEntry.steps`),
-copied at install: each step asks `left`, `right`, `fire` or `reland`, with
-a target `leanMilli` and a `rangeMilli` around it, a colour or `either`,
-and its own beats.
-
-**The rule, in one sentence.** One of you drags the boom onto the lit side
-and keeps it there while the other holds a draw and looses it that way;
-shoot the lit pivot in its colour.
-
-**The split.** Geometry, THE MANTLE's rule: the pilot has `davitSteerLeft`
-and `davitLooseLeft`, the navigator `davitSteerRight` and
-`davitLooseRight`, and the wrong seat's touch is not heard
-(`sim/davit-hand.ts`). Which of a seat's two is live is the step's — the
-role swap by movement §35 asks for: on the `left` swing the pilot steers
-and the navigator looses, on the `right` swing the other way about, and on
-a `reland` either seat looses against the other's steer. A fire step is the
-ordinary shot — Player 1's cannon under the middle column, Player 2's
-trigger in its colour.
-
-**The clock** (`sim/davit-step.ts`). The boom settles for
-`davitStillBeats`, then the first step lights under THE SLOW
-(`openSlow(…, "ask")`) — every step, the fire steps too, as §35 says. Each
-beat a seat's finger is down on a draw the step asks of it, *and* the other
-seat's steer is within `rangeMilli` of `leanMilli`, counts one, up to the
-step's beats. A swing or a reland is given its beats and `davitGraceBeats`;
-a fire step its beats. An answered step closes THE SLOW and the boom rests
-`davitRestBeats` before the next lights. With the script done the boom
-swings spent, and hangs `davitSpentBeats` before the wave may end.
-
-**The answers.** A steer is heard as THE CAPSTAN hears its pull:
-`fromMilli` is how far the thumb has carried across since it took the
-boom, in thousandths of a tile, and `davitSteerDegreesPerTile` turns it
-into the boom's angle, the carry kept within a field's width and the angle
-off the hull; `on: false` is the thumb lifted (`DAVIT_UNREAD`, further off
-than any range). A steer that leaves the target while it was steering a
-draw costs that draw its count (`davitDrift`). A draw is heard as THE SLING hears an arm: `on: true` the
-finger down, the lift carrying the swipe's sign on `fromMilli`. A lift
-lands only when the draw was counted home, the other seat's steer holds the
-target *that instant*, and the swipe goes toward the half the target
-points into; any other lift in a step that asked it springs the draw slack
-(`davitSlack`) with the step still lit. The boom (`aimMilli`) follows the
-steering thumb while it holds, and with nobody steering swings back toward
-hanging by `davitDriftMilli` a beat. A shot is judged where a bolt leaves
-the top of the field (`sim/davit-shot.ts`): only with the pivot lit, only
-while a fire step is lit, only in the middle column, and only in its colour
-unless it is `either`.
-
-**Where this departs from the design, and why.** Eight places.
-
-- **The steer is a thumb's carry, not the phone's lean.** §35 steers with
-  THE PLUMB's `LevelTilt`, and it shipped that way; on 30 September 2026
-  the owner asked for a drag instead, the ruling of 27 September that no
-  wave may need a tilt sensor, which THE PLUMB and THE CAPSTAN had already
-  met. The targets and `fromMilli` are the same on the wire; only what
-  `fromMilli` measures changed, and the step's targets stay in degrees.
-- **The column is a signed target angle.** §35 lights "a column" for the
-  boom to be steered onto. What the simulation judges is an angle, so the
-  step authors the angle itself (`leanMilli`) and the half it points into
-  is the side the loose must swipe toward; which column the look draws
-  for it is the look's, THE SLING's aim-as-a-side argument.
-- **Drawn is counted in beats, not `davitLeftDrawnMilli` /
-  `davitRightDrawnMilli`.** THE SLING counts its draw in beats and judges
-  it at the lift; the same reader is spent here, one `drawnBeats` pair,
-  counted only while steered.
-- **Either seat steers a reland.** Rows 7 and 9 say "P1+P2, either
-  steering". A reland step lets each seat loose against the other's steer,
-  so whichever pair of hands is free answers it; one loose relands it.
-- **A swing run out is tried again from the same step.** Rows 3 and 5
-  retry "from row 2" and "from row 4". The first loose of a swing is
-  already landed and counted in `swings`; asking it again would re-ask
-  what is answered — THE SLING's second draw, the same argument.
-- **A reland run out dims the pivot and is asked again.** Row 7 loses the
-  movement's fire beats "until relanded": the pivot goes dark
-  (`davitDim`), the cursor stays, and no fire step lights until the same
-  reland is made. The hits already landed stay.
-- **A fire step run out is a hull hit, and a hull hit is the wave.** Rows
-  6 and 8 say "ordinary hull hit" and row 10 "stays lit". This game has no
-  ordinary hit (`wave-fail.ts`) — THE SEAM's precedent and every
-  choreographed body's since.
-- **Row 9's "faster" is left to the look.** The second creep is the same
-  reland step with its target on the other side; how fast the boom is
-  *drawn* creeping is a picture, and the simulation's drift is one
-  number, `davitDriftMilli`.
-
-**The look** (`render/src/davit-draw.ts`, `davit-marks.ts`, `davit-pose.ts`,
-`davit-shape.ts`). A steel boom stands off a mast over the middle column,
-settling up out of stowed under `davitStood`, and swings toward whichever
-half the live `aimMilli` points into. While the lit step wants a steer — a
-swing or a reland, never a fire step — a pulsing halo rings the boom, off
-`drawDavit`'s own `ask !== "fire" && ask !== "reland"` read of the script;
-a fire step drops the halo and lights the hook instead, in that step's own
-colour, with a ring that closes as `davitWindowLeft` runs its window out.
-Between steps the hook hangs dark. **A press on the boom takes the
-steer** (`davitSteerUnder`, `render/src/davit-grip.ts`): a little over a tile
-from the boom's midpoint, wherever it has swung, asked only while the lit
-step wants that seat's steer and read before the loose, so anywhere else on
-the field is still the draw's. The loose is THE SLING's draw sender,
-unchanged, since `davitLooseLeft` / `davitLooseRight` are ordinary drag
-targets. The phone's lean sender (apps/game's `lean.ts`, now deleted) read
-gamma for this boss alone and went with the change, and iOS is no longer
-asked for the sensor on the guide's READY. A window run out at a fire step breaks the hull with the boom's
-own blow (`render/src/davit-blow.ts`): the hook pays its chain out onto the
-plating and is hauled back taut, never a rock. `render/test/davit-frame.test.ts`
-covers every state — stowed, resting, swung either way, asking, lit red or
-cyan, spent — on all three screens. AUTO plays it out
-(`hands/boss-hands-davit.ts`), carrying the steering thumb as far as the
-lit step's angle asks, and the events
-themselves stay off the two silent lists' pictures: the state they carry
-(the aim, the phase, the lit colour) is already read straight off `world`
-every frame, so no event needs a picture of its own.
-
-**Never watched at tempo.** What the tests say is the mechanism
-(`sim/test/davit.test.ts`): the boom comes in with the pivot dark and no
-steer read, and lights the left swing under THE SLOW; a draw counts only
-while the *other* seat's steer holds the target, never unsteered, never off
-range, never for a drawer steering for themself and never for the steerer's
-own draw; a lift too soon, the wrong way or unswiped springs slack with the
-step lit; a steer leaving the target, or a thumb lifted off the boom,
-costs the draw its count; the wrong seat's steer or draw is not heard; a
-swing run out sways back and asks the same step again, and is no hull hit;
-the boom follows the steering carry and swings back when it is lost; the
-fourth loose lights the pivot; a fire step wants its colour and the middle
-column, and run out is the wave; a reland is either seat's, and run out
-dims the pivot until it is made; and a script answered whole swings the
-boom spent and ends the fight. Whether any of it *reads* — whether dragging
-the boom for a partner's draw feels like aiming for them — is the owner's
-eye, on two real phones.
-
-**Its marks answer a touch the way every mark does**
-(`render/davit-verdicts.ts`, `test/davit-verdict.test.ts`). Two marks: the
-boom, round its middle as wide as the steer's reach, and the hook, as wide as
-a loose is taken. On a swing the boom wears the halo on its steerer's screen
-and the hook on its drawer's, each with the partner's ring and clock on the
-other's. On a reland both ask both seats until one thumb holds the boom on
-its target; then the boom asks only that seat and the hook only the other,
-so the seat steering sees its partner's loose waited on. On a fire step with
-the pivot lit the hook asks for the shot, which is either seat's, so it
-haloes on both screens with nobody's clock. A true loose, on a swing or a
-reland, greens both marks and a hit greens the hook; a steer drifted off
-reddens the boom, a draw sprung slack the hook, a swing or a reland run out
-both, and a shot run out the hook. A wrong seat's touch and a wrong colour
-stay silent, as the simulation is.
-
 ## 11.53 THE HALTER — the boss one hand keeps still for the other to open
 
 > A wary seam down the hull's spine that hugs its plating shut at the
@@ -13354,3 +13192,176 @@ its marks and shut on the tick its seam parts or the handles jam
 (`bellowsSlow`, sim/test/bellows-doubled.test.ts); the split keeps its own
 `bellowsSlowBeats` as the boss's end. The pilot's guide says the third seam
 takes two.
+
+## 11.52 THE DAVIT — the boss one hand steers for the other to loose
+
+> A crane boom pivoted off the hull's spine, swinging on a slack chain.
+> One of you drags the boom onto the lit side and keeps it there; the
+> other holds a draw and looses it that way while the steer still holds. Two looses each way light the pivot: shoot it in its
+> colour, and between the shots reland the boom under it.
+
+**Built and taken out.** It shipped on wave 114 on 26 September 2026, its
+steer became a drag on 30 September, and the owner removed it on 8 October
+2026: "i do not like it. and its short to play." Everything it was — the
+sim's boom and its hands, the render's boom, hook, grips and marks, its
+thirteen sounds, the AUTO hand, the wave and the director's cards — was
+deleted whole rather than switched off; `git log -S davitSteerLeft` finds it.
+What follows is the design as it shipped. Any second try at one seat aiming
+what the other looses has to start from both objections: it was not liked,
+and nine short steps were over before the pair had learnt them.
+
+Designed as §35 of [bosses-choreographed](bosses-choreographed.md) — a
+choreographed scene, the third kind in `.claude/skills/new-boss`, and the
+third on that page with **no gesture of its own**: THE CAPSTAN's carried
+pull (designed as THE PLUMB's `LevelTilt`, the phone's lean, until 30
+September 2026) and THE SLING's draw (`DrawRelease`), paired so that one
+seat's live steer is what the other seat's release is judged against.
+
+**It is two swings of two looses each and three hits, and they are its
+health.** The state (sim/davit.ts, hashed in sim/davit-hash.ts) is the
+**phase** and the beat it began, the **cursor** into the script, the
+**swings** landed on each side, the **hits**, whether the **pivot is lit**,
+each seat's **steer** as the boom's angle in thousandths of a degree, whether each seat's finger
+is **down** on its draw, the **beats drawn** by each seat in the lit step,
+and the boom's own **aim**. The script is the wave's (`DavitEntry.steps`),
+copied at install: each step asks `left`, `right`, `fire` or `reland`, with
+a target `leanMilli` and a `rangeMilli` around it, a colour or `either`,
+and its own beats.
+
+**The rule, in one sentence.** One of you drags the boom onto the lit side
+and keeps it there while the other holds a draw and looses it that way;
+shoot the lit pivot in its colour.
+
+**The split.** Geometry, THE MANTLE's rule: the pilot has `davitSteerLeft`
+and `davitLooseLeft`, the navigator `davitSteerRight` and
+`davitLooseRight`, and the wrong seat's touch is not heard
+(sim/davit-hand.ts). Which of a seat's two is live is the step's — the
+role swap by movement §35 asks for: on the `left` swing the pilot steers
+and the navigator looses, on the `right` swing the other way about, and on
+a `reland` either seat looses against the other's steer. A fire step is the
+ordinary shot — Player 1's cannon under the middle column, Player 2's
+trigger in its colour.
+
+**The clock** (sim/davit-step.ts). The boom settles for
+`davitStillBeats`, then the first step lights under THE SLOW
+(`openSlow(…, "ask")`) — every step, the fire steps too, as §35 says. Each
+beat a seat's finger is down on a draw the step asks of it, *and* the other
+seat's steer is within `rangeMilli` of `leanMilli`, counts one, up to the
+step's beats. A swing or a reland is given its beats and `davitGraceBeats`;
+a fire step its beats. An answered step closes THE SLOW and the boom rests
+`davitRestBeats` before the next lights. With the script done the boom
+swings spent, and hangs `davitSpentBeats` before the wave may end.
+
+**The answers.** A steer is heard as THE CAPSTAN hears its pull:
+`fromMilli` is how far the thumb has carried across since it took the
+boom, in thousandths of a tile, and `davitSteerDegreesPerTile` turns it
+into the boom's angle, the carry kept within a field's width and the angle
+off the hull; `on: false` is the thumb lifted (`DAVIT_UNREAD`, further off
+than any range). A steer that leaves the target while it was steering a
+draw costs that draw its count (`davitDrift`). A draw is heard as THE SLING hears an arm: `on: true` the
+finger down, the lift carrying the swipe's sign on `fromMilli`. A lift
+lands only when the draw was counted home, the other seat's steer holds the
+target *that instant*, and the swipe goes toward the half the target
+points into; any other lift in a step that asked it springs the draw slack
+(`davitSlack`) with the step still lit. The boom (`aimMilli`) follows the
+steering thumb while it holds, and with nobody steering swings back toward
+hanging by `davitDriftMilli` a beat. A shot is judged where a bolt leaves
+the top of the field (sim/davit-shot.ts): only with the pivot lit, only
+while a fire step is lit, only in the middle column, and only in its colour
+unless it is `either`.
+
+**Where this departs from the design, and why.** Eight places.
+
+- **The steer is a thumb's carry, not the phone's lean.** §35 steers with
+  THE PLUMB's `LevelTilt`, and it shipped that way; on 30 September 2026
+  the owner asked for a drag instead, the ruling of 27 September that no
+  wave may need a tilt sensor, which THE PLUMB and THE CAPSTAN had already
+  met. The targets and `fromMilli` are the same on the wire; only what
+  `fromMilli` measures changed, and the step's targets stay in degrees.
+- **The column is a signed target angle.** §35 lights "a column" for the
+  boom to be steered onto. What the simulation judges is an angle, so the
+  step authors the angle itself (`leanMilli`) and the half it points into
+  is the side the loose must swipe toward; which column the look draws
+  for it is the look's, THE SLING's aim-as-a-side argument.
+- **Drawn is counted in beats, not `davitLeftDrawnMilli` /
+  `davitRightDrawnMilli`.** THE SLING counts its draw in beats and judges
+  it at the lift; the same reader is spent here, one `drawnBeats` pair,
+  counted only while steered.
+- **Either seat steers a reland.** Rows 7 and 9 say "P1+P2, either
+  steering". A reland step lets each seat loose against the other's steer,
+  so whichever pair of hands is free answers it; one loose relands it.
+- **A swing run out is tried again from the same step.** Rows 3 and 5
+  retry "from row 2" and "from row 4". The first loose of a swing is
+  already landed and counted in `swings`; asking it again would re-ask
+  what is answered — THE SLING's second draw, the same argument.
+- **A reland run out dims the pivot and is asked again.** Row 7 loses the
+  movement's fire beats "until relanded": the pivot goes dark
+  (`davitDim`), the cursor stays, and no fire step lights until the same
+  reland is made. The hits already landed stay.
+- **A fire step run out is a hull hit, and a hull hit is the wave.** Rows
+  6 and 8 say "ordinary hull hit" and row 10 "stays lit". This game has no
+  ordinary hit (`wave-fail.ts`) — THE SEAM's precedent and every
+  choreographed body's since.
+- **Row 9's "faster" is left to the look.** The second creep is the same
+  reland step with its target on the other side; how fast the boom is
+  *drawn* creeping is a picture, and the simulation's drift is one
+  number, `davitDriftMilli`.
+
+**The look** (render/src/davit-draw.ts, davit-marks.ts, davit-pose.ts,
+davit-shape.ts). A steel boom stands off a mast over the middle column,
+settling up out of stowed under `davitStood`, and swings toward whichever
+half the live `aimMilli` points into. While the lit step wants a steer — a
+swing or a reland, never a fire step — a pulsing halo rings the boom, off
+`drawDavit`'s own `ask !== "fire" && ask !== "reland"` read of the script;
+a fire step drops the halo and lights the hook instead, in that step's own
+colour, with a ring that closes as `davitWindowLeft` runs its window out.
+Between steps the hook hangs dark. **A press on the boom takes the
+steer** (`davitSteerUnder`, render/src/davit-grip.ts): a little over a tile
+from the boom's midpoint, wherever it has swung, asked only while the lit
+step wants that seat's steer and read before the loose, so anywhere else on
+the field is still the draw's. The loose is THE SLING's draw sender,
+unchanged, since `davitLooseLeft` / `davitLooseRight` are ordinary drag
+targets. The phone's lean sender (apps/game's `lean.ts`, now deleted) read
+gamma for this boss alone and went with the change, and iOS is no longer
+asked for the sensor on the guide's READY. A window run out at a fire step breaks the hull with the boom's
+own blow (render/src/davit-blow.ts): the hook pays its chain out onto the
+plating and is hauled back taut, never a rock. render/test/davit-frame.test.ts
+covers every state — stowed, resting, swung either way, asking, lit red or
+cyan, spent — on all three screens. AUTO plays it out
+(hands/boss-hands-davit.ts), carrying the steering thumb as far as the
+lit step's angle asks, and the events
+themselves stay off the two silent lists' pictures: the state they carry
+(the aim, the phase, the lit colour) is already read straight off `world`
+every frame, so no event needs a picture of its own.
+
+**Never watched at tempo.** What the tests say is the mechanism
+(sim/test/davit.test.ts): the boom comes in with the pivot dark and no
+steer read, and lights the left swing under THE SLOW; a draw counts only
+while the *other* seat's steer holds the target, never unsteered, never off
+range, never for a drawer steering for themself and never for the steerer's
+own draw; a lift too soon, the wrong way or unswiped springs slack with the
+step lit; a steer leaving the target, or a thumb lifted off the boom,
+costs the draw its count; the wrong seat's steer or draw is not heard; a
+swing run out sways back and asks the same step again, and is no hull hit;
+the boom follows the steering carry and swings back when it is lost; the
+fourth loose lights the pivot; a fire step wants its colour and the middle
+column, and run out is the wave; a reland is either seat's, and run out
+dims the pivot until it is made; and a script answered whole swings the
+boom spent and ends the fight. Whether any of it *reads* — whether dragging
+the boom for a partner's draw feels like aiming for them — is the owner's
+eye, on two real phones.
+
+**Its marks answer a touch the way every mark does**
+(render/davit-verdicts.ts, test/davit-verdict.test.ts). Two marks: the
+boom, round its middle as wide as the steer's reach, and the hook, as wide as
+a loose is taken. On a swing the boom wears the halo on its steerer's screen
+and the hook on its drawer's, each with the partner's ring and clock on the
+other's. On a reland both ask both seats until one thumb holds the boom on
+its target; then the boom asks only that seat and the hook only the other,
+so the seat steering sees its partner's loose waited on. On a fire step with
+the pivot lit the hook asks for the shot, which is either seat's, so it
+haloes on both screens with nobody's clock. A true loose, on a swing or a
+reland, greens both marks and a hit greens the hook; a steer drifted off
+reddens the boom, a draw sprung slack the hook, a swing or a reland run out
+both, and a shot run out the hook. A wrong seat's touch and a wrong colour
+stay silent, as the simulation is.

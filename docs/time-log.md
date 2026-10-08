@@ -35952,3 +35952,17 @@ Bottleneck: writing — keeping AUTO on TEST's layout while the drawing moved
 to the seats' screens.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE DAVIT is taken out of the game, whole
+
+- reading: 5 min. THE BELLOWS's removal, to copy it, and the 125 files that
+  name the boss.
+- writing: 15 min. Thirty-odd files deleted, every registry row struck, the
+  design moved under *Retired* with the owner's words, the counted docs.
+- looking: 0 min. Nothing new drawn; a wave left the game.
+- friction: 0 min.
+- landing: 15 min. Two `check:fast` runs, the second for the documents
+  that count waves, sounds and guides.
+
+Bottleneck: the documents that count things — briefings, audio, the index —
+each said the old number and only a red test named them.

@@ -1,7 +1,6 @@
 import type { BossState } from "./boss-union.js";
 import { capstanHashParts } from "./capstan-hash.js";
 import { cystHashParts } from "./cyst-hash.js";
-import { davitHashParts } from "./davit-hash.js";
 import { flueHashParts } from "./flue-hash.js";
 import { gallHashParts } from "./gall-hash.js";
 import { governorHashParts } from "./governor-hash.js";
@@ -77,11 +76,6 @@ export function scriptedHashParts(boss: BossState): number[] {
   // flanks' gaps and taps and the script (`cyst-hash.ts`).
   if (boss.kind === "cyst") {
     for (const n of cystHashParts(boss)) out.push(n);
-  }
-  // THE DAVIT: the phase, the cursor, the swings, the hits, the pivot, both
-  // seats' steers, fingers and counts, the boom and the script (`davit-hash.ts`).
-  if (boss.kind === "davit") {
-    for (const n of davitHashParts(boss)) out.push(n);
   }
   // THE HALTER: the phase, the cursor, the cracks, the hits, the centre, both
   // seats' rests, stirrings and grips, the pair's count and the script (`halter-hash.ts`).

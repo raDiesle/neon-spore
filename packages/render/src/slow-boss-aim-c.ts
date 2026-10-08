@@ -3,7 +3,6 @@ import {
   batonBoss,
   curtainBody,
   curtainBoss,
-  davitBoss,
   gorgeBoss,
   hiveBoss,
   keelBoss,
@@ -23,8 +22,6 @@ import { socketPoint, socketReach } from "./baton-socket-draw.js";
 import { sides } from "./caption-anchor-box.js";
 import { curtainSheetSpan } from "./curtain-grip.js";
 import { CURTAIN_HEM_DROP, CURTAIN_RAIL_RISE } from "./curtain-sheet.js";
-import { davitAngle } from "./davit-pose.js";
-import { DAVIT_SAG, davitHook, davitHookRadius, davitMast, davitTip } from "./davit-shape.js";
 import { drawnCol } from "./depth.js";
 import { gorgeSackBox } from "./gorge-place.js";
 import { hiveBox } from "./hive-shape.js";
@@ -176,14 +173,6 @@ export function longBossAim(world: World, l: Layout, beat: number, beatPhase: nu
         parts.push(slingTip(l, side, out), slingHandle(l, side, tension));
       }
       return spreadCapsule(offset(home, parts), slingCupRadius(l));
-    }
-    // The boom from the mast's foot to its tip, and the hook on its chain.
-    case "davit": {
-      const s = davitBoss(world);
-      if (s === null) return null;
-      const angle = davitAngle(s, cfg, beatPhase);
-      const parts = [{ x: 0, y: 0 }, davitTip(l, angle), davitHook(l, angle, DAVIT_SAG)];
-      return spreadCapsule(offset(davitMast(l, cfg), parts), davitHookRadius(l));
     }
     default:
       return lastBossAim(world, l, beat, beatPhase);

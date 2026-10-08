@@ -57,15 +57,6 @@ export const BOSS_ENTRIES_E = {
       { ask: "bud", color: "cyan", beats: 3, offset: 2 },
     ],
   },
-  // THE DAVIT's script, a swing and a shot, every authored field set off
-  // `either` so the walk can move it (`davit-hash.ts`).
-  davit: {
-    kind: "davit",
-    steps: [
-      { ask: "left", leanMilli: -20000, rangeMilli: 8000, color: "cyan", beats: 6 },
-      { ask: "fire", leanMilli: 0, rangeMilli: 0, color: "red", beats: 3 },
-    ],
-  },
   // THE HALTER authors its script; two steps rather than the shipped seven,
   // the colour set off `either` so the walk can move it (`halter-hash.ts`).
   halter: {
@@ -174,21 +165,6 @@ export function patchBossE(boss: BossState): void {
     boss.tapDown = [true, false];
     boss.heldBeats = 2;
     boss.litTick = 40;
-  }
-  if (boss.kind === "davit") {
-    // One swing landed and the other part way, the pivot lit, a lean read on
-    // each seat, a finger down and counting, and the boom off hanging — every
-    // field given a value (`davit-hash.ts`).
-    boss.phase = "lit";
-    boss.phaseBeat = 3;
-    boss.cursor = 1;
-    boss.swings = [2, 1];
-    boss.hits = 1;
-    boss.pivotLit = true;
-    boss.tiltMilli = [-19000, 4000];
-    boss.holding = [false, true];
-    boss.drawnBeats = [0, 3];
-    boss.aimMilli = -19000;
   }
   if (boss.kind === "halter") {
     // One segment cracked, the centre bare and shot once, a seat part way

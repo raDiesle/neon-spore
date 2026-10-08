@@ -1,6 +1,6 @@
 /**
  * **The clock bosses' half of the surface, the fourth page** — THE GRINDSTONE's
- * wheel, THE CYST's sac, THE DAVIT's boom, THE HALTER's seam, THE GALL's
+ * wheel, THE CYST's sac, THE HALTER's seam, THE GALL's
  * seam, THE VISE's seed-case and THE TRIVET's stand. THE
  * WELL's face went to the fifth page, its last row, when THE HALTER's asking
  * predicates took this one to 252 lines, and THE CAPSTAN's drum after it,
@@ -48,37 +48,6 @@ export {
 // And how long a step is lit and a flank stilled, so the rings the picture
 // closes read the numbers the simulation judges by (`cyst-step.ts`).
 export { cystFrozenBeats, cystLitBeats } from "./cyst-step.js";
-// THE DAVIT's boom: the phase, the lit step, the swings, the pivot, both
-// seats' steers and draws, and whose is live, for the picture, the cue and the
-// director's hand. Straight off `davit.ts` (`docs/spec/bosses-choreographed.md` §35).
-export {
-  DAVIT_ASKS,
-  DAVIT_LOOSES_PER_SWING,
-  DAVIT_PHASES,
-  DAVIT_UNREAD,
-  type DavitAsk,
-  type DavitEntry,
-  type DavitHalf,
-  type DavitPhase,
-  type DavitState,
-  type DavitStep,
-  davitBoss,
-  davitDone,
-  davitDraws,
-  davitHalf,
-  davitLitStep,
-  davitLooseAsks,
-  davitOnTarget,
-  davitPivotAsks,
-  davitSteerAsks,
-  davitSteered,
-  davitSteering,
-  davitSteers,
-  davitSwipe,
-  freshDavit,
-} from "./davit.js";
-// A steering carry as the boom's angle, for the autopilot's thumb (`davit-hand.ts`).
-export { davitCarryAngle } from "./davit-hand.js";
 // THE GALL's seam: the phase, the lit step, the point it sits on and the
 // column over it, whose pinch closes it and how shut, and what its marks ask,
 // for the picture, the cue and the director's hand. Straight off `gall.ts` (§38).

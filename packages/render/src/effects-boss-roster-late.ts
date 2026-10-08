@@ -1,6 +1,5 @@
 import { CapstanFx } from "./capstan-fx.js";
 import { CystFx } from "./cyst-fx.js";
-import { DavitVerdicts } from "./davit-verdicts.js";
 import { RoundMarks } from "./effects-round-marks.js";
 import { FlueFx } from "./flue-fx.js";
 import { GallFx } from "./gall-fx.js";
@@ -31,9 +30,6 @@ import { TrivetFx } from "./trivet-fx.js";
 export class LateRoster extends RoundMarks {
   /** THE SLING's painted draw over a cord loosed true (`sling-fx.ts`). */
   readonly sling = new SlingFx();
-  /** THE DAVIT's marks' verdicts on a touch — it throws nothing else that
-   * outlives a frame yet, so it has no fx of its own (`davit-verdicts.ts`). */
-  readonly davit = new DavitVerdicts();
   /** THE HALTER's marks' verdicts on a touch — nothing else of it outlives a
    * frame, so it has no fx of its own (`halter-verdicts.ts`). */
   readonly halter = new HalterVerdicts();

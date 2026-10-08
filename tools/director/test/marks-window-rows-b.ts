@@ -6,8 +6,6 @@ import {
   capstanLitStep,
   cystLitStep,
   cystSide,
-  type DavitState,
-  davitLitStep,
   type FilamentState,
   type FleetState,
   filamentTracing,
@@ -17,14 +15,14 @@ import {
 } from "@neon-spore/sim";
 import * as capstanMarks from "../../../packages/render/src/capstan-marks.js";
 import * as cystMarks from "../../../packages/render/src/cyst-marks.js";
-import * as davitMarks from "../../../packages/render/src/davit-marks.js";
 import * as filamentMarks from "../../../packages/render/src/filament-turn-marks.js";
 import * as fleetGrip from "../../../packages/render/src/fleet-grip-draw.js";
 import * as trapezeMarks from "../../../packages/render/src/trapeze-marks.js";
 import { mark, type Row } from "./marks-window-kit.js";
 
 /**
- * **The second six bosses' rows** of `marks-window.test.ts`. THE TRAPEZE's
+ * **The second six bosses' rows** of `marks-window.test.ts`, five since THE
+ * DAVIT left the game on 8 October 2026. THE TRAPEZE's
  * zones are drawn dashed all through a swipe level, so the pair know where
  * they are before they are asked; only a zone drawn open is the ask.
  *
@@ -36,7 +34,6 @@ import { mark, type Row } from "./marks-window-kit.js";
 const trapeze = (w: World) => w.boss as TrapezeState;
 const capstan = (w: World) => w.boss as CapstanState;
 const cyst = (w: World) => w.boss as CystState;
-const davit = (w: World) => w.boss as DavitState;
 const filament = (w: World) => w.boss as FilamentState;
 const fleet = (w: World) => w.boss as FleetState;
 
@@ -84,21 +81,6 @@ export const ROWS_B: readonly Row[] = [
         cystMarks,
         "drawCystCore",
         (w) => cyst(w).bared && cystLitStep(cyst(w))?.ask === "fire",
-        (a) => a[5] !== null,
-      ),
-    ],
-  },
-  {
-    kind: "davit",
-    marks: [
-      mark(davitMarks, "drawDavitAsk", (w) => {
-        const ask = davitLitStep(davit(w))?.ask;
-        return ask === "left" || ask === "right";
-      }),
-      mark(
-        davitMarks,
-        "drawDavitHook",
-        (w) => davit(w).pivotLit && davitLitStep(davit(w))?.ask === "fire",
         (a) => a[5] !== null,
       ),
     ],

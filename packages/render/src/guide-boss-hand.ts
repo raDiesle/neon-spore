@@ -74,10 +74,6 @@ export function bossThumb(l: Layout, world: World, seat: 1 | 2, beatPhase: numbe
     if (b.gapMilli[side] >= world.cfg.cystOpenMilli) return null;
     return handleCircle(l, world, side === 0 ? "cystFlankLeft" : "cystFlankRight", beatPhase);
   }
-  if (b?.kind === "davit") {
-    if (!b.holding[seat === 1 ? 0 : 1]) return null;
-    return handleCircle(l, world, seat === 1 ? "davitLooseLeft" : "davitLooseRight", beatPhase);
-  }
   if (b?.kind === "valve") {
     const hand = seat === 1 ? valveWheelHand(l, world.cfg, b, world.beat, beatPhase) : null;
     if (hand !== null) return hand;

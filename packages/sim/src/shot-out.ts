@@ -2,7 +2,6 @@ import { bulletShown } from "./bullet-types.js";
 import { capstanStruck } from "./capstan-shot.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { cystStruck } from "./cyst-shot.js";
-import { davitStruck } from "./davit-shot.js";
 import { flueStruck } from "./flue-shot.js";
 import { gallStruck } from "./gall-shot.js";
 import { gimbalStruck } from "./gimbal-shot.js";
@@ -118,8 +117,6 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   met = grindstoneStruck(world, b) || met;
   // THE CYST's bared core, in its colour (`cyst-shot.ts`).
   met = cystStruck(world, b) || met;
-  // THE DAVIT's lit pivot, in its colour (`davit-shot.ts`).
-  met = davitStruck(world, b) || met;
   // THE HALTER's bared centre, in its colour (`halter-shot.ts`).
   met = halterStruck(world, b) || met;
   // THE CAPSTAN's bared core, in its colour (`capstan-shot.ts`).
@@ -187,7 +184,6 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "sling",
   "grindstone",
   "cyst",
-  "davit",
   "halter",
   "capstan",
   "gall",

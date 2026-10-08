@@ -49,7 +49,7 @@ export const GESTURE_NOTES: Readonly<Record<string, string>> = {
   "TILT, AS A LEVEL":
     "Ruled out by the owner on 27 September 2026: no wave may need a tilt " +
     "sensor, and THE PLUMB became drag stones. Move to MISSED with the ruling.",
-  "HOLD, THEN SWIPE": "Stamped SPEC'D but built: THE SLING, THE DAVIT, THE TRAPEZE. Move to BUILT.",
+  "HOLD, THEN SWIPE": "Stamped SPEC'D but built: THE SLING, THE TRAPEZE. Move to BUILT.",
   "A DRAWN GLYPH":
     "Worth a boss: describing a shape is exactly the talking the game is. " +
     "Recognise on the drawing phone, send one command.",

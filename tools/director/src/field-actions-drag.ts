@@ -83,8 +83,6 @@ export const DRAG_TYPES: readonly ControlType[] = [
     rows: [
       "THE SCUTTLE'S PART",
       "THE LEDGER'S FOOT",
-      "THE DAVIT'S LEFT STEER",
-      "THE DAVIT'S RIGHT STEER",
       "THE MAZE'S STRING",
       "THE WELL'S WIND",
       "THE THROAT'S MOUTH",
@@ -114,14 +112,9 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "A finger held for a count of beats, and the lift's direction is the " +
       "answer (`DrawRelease`).",
     suggest:
-      "Already one gesture in three bosses. Make it generic under one name — " +
+      "Already one gesture in two bosses. Make it generic under one name — " +
       "THE SLING's — and one drawn cord.",
-    rows: [
-      "THE SLING'S LEFT CORD",
-      "THE SLING'S RIGHT CORD",
-      "THE DAVIT'S LEFT LOOSE",
-      "THE DAVIT'S RIGHT LOOSE",
-    ],
+    rows: ["THE SLING'S LEFT CORD", "THE SLING'S RIGHT CORD"],
   },
   {
     key: "bearing",

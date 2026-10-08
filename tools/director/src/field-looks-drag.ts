@@ -121,10 +121,6 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "A ring on the root of the cord above the plating, on the navigator's screen only, for the first two beats of the fight.",
     move: "The foot walks column by column under the thumb; its dial drains the time left to choose, and each column taken washes green.",
   },
-  "THE DAVIT'S LEFT STEER": {
-    find: "The boom, haloed on the screen of the seat that steers this swing.",
-    move: "The boom swings with the thumb, so many degrees a tile; a lift lets it swing back towards hanging.",
-  },
   "THE MAZE'S STRING": {
     find: "The drum's resting circle while the wheel is being read, on the pilot's screen.",
     move: "The wheel turns by how far the hand has come from where it grabbed.",
@@ -162,10 +158,6 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
   "THE SLING'S LEFT CORD": {
     find: "Anywhere on the field; a ghost hand stands on the lit tine's handle. Left cord the pilot's, right the navigator's.",
     move: "The cord is drawn while the finger stays down; the lift's swipe towards the lit side looses it, green — too soon or the wrong way springs it slack, red.",
-  },
-  "THE DAVIT'S LEFT LOOSE": {
-    find: "Anywhere on the field; the hook wears the halo on the drawer's screen.",
-    move: "The draw counts while the partner holds the boom on the lit column; the lift's swipe towards the target looses it.",
   },
   // TURN A WHEEL
   "THE GIMBAL'S OUTER RING": {

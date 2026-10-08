@@ -8,7 +8,7 @@
  * whole, so the set being written keeps the comment that explains it and the
  * one being moved keeps its own. THE TRIVET's pads came over with this file;
  * THE PLUMB's levels were written on it, and THE SLING's draws and THE
- * GRINDSTONE's flats and jaws after them, THE CYST's marks and flanks, THE DAVIT's leans and draws, THE HALTER's grips, THE CAPSTAN's steer and rub, THE GALL's pinch, and THE TRAPEZE's tap and draw. `drag-targets.ts` unions the pages
+ * GRINDSTONE's flats and jaws after them, THE CYST's marks and flanks, THE HALTER's grips, THE CAPSTAN's steer and rub, THE GALL's pinch, and THE TRAPEZE's tap and draw. `drag-targets.ts` unions the pages
  * together, so `DragTarget` is one name.
  */
 export type DragTargetE =
@@ -26,10 +26,6 @@ export type DragTargetE =
   | "cystFreezeRight"
   | "cystFlankLeft"
   | "cystFlankRight"
-  | "davitSteerLeft"
-  | "davitSteerRight"
-  | "davitLooseLeft"
-  | "davitLooseRight"
   | "halterChordLeft"
   | "halterChordRight"
   | "capstanSteer"
@@ -117,17 +113,9 @@ export type DragTargetE =
 
 /**
  * `davitSteerLeft`, `davitSteerRight`, `davitLooseLeft` and `davitLooseRight`
- * are the ninety-third to the ninety-sixth: THE DAVIT's two steers and two
- * draws, one of each for each seat — the pilot's are the `Left` pair, the
- * navigator's the `Right`. Which of a seat's two is live is the lit step's.
- *
- * No new reading. A steer is `capstanSteer`'s: a handle's carry, `fromMilli`
- * how far the thumb has come across the boom since it took it, thousandths of
- * a tile, and a lift the thumb up. It was the phone's lean, on the same slots,
- * until 30 September 2026. A draw is
- * `slingDrawLeft`'s: `DrawRelease`, `on` the finger down and the lift's
- * `fromMilli` the swipe's sign. The wrong seat's touch does nothing
- * (`davit-hand.ts`). `id` is unused.
+ * stood here as the ninety-third to the ninety-sixth, THE DAVIT's two steers
+ * and two draws, until the owner took the boss out of the game on 8 October
+ * 2026.
  */
 
 /**

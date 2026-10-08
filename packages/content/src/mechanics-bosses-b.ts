@@ -21,7 +21,6 @@ type BossIdB = Extract<
   | "sling"
   | "grindstone"
   | "cyst"
-  | "davit"
   | "halter"
   | "lamprey"
   | "mimic"
@@ -121,10 +120,6 @@ export const BOSS_MECHANICS_B = {
   },
   cyst: {
     what: "When a flank shakes, your partner taps it still: pinch it shut to crack it. Both cracked: shoot the core in its colour. Then crack each flank once more.",
-    reach: "spawn",
-  },
-  davit: {
-    what: "Your partner drags the boom onto the lit side: hold a draw, then swipe that way. Two each way light the pivot. Shoot it in its colour. Then reland it.",
     reach: "spawn",
   },
   halter: {

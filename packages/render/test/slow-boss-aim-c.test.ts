@@ -6,7 +6,6 @@ import {
   createWorld,
   curtainBody,
   curtainBoss,
-  davitBoss,
   gorgeBoss,
   keelBoss,
   leadBoss,
@@ -26,8 +25,6 @@ import { socketPoint, socketReach } from "../src/baton-socket-draw.js";
 import { sides, spread } from "../src/caption-anchor-box.js";
 import { curtainSheetSpan } from "../src/curtain-grip.js";
 import { CURTAIN_HEM_DROP, CURTAIN_RAIL_RISE } from "../src/curtain-sheet.js";
-import { davitAngle } from "../src/davit-pose.js";
-import { DAVIT_SAG, davitHook, davitHookRadius, davitMast, davitTip } from "../src/davit-shape.js";
 import { drawnCol } from "../src/depth.js";
 import { gorgeSackBox } from "../src/gorge-place.js";
 import { hiveBox } from "../src/hive-shape.js";
@@ -152,17 +149,6 @@ const WANT: Record<string, (w: World) => Aim> = {
       around(
         parts.map((p) => ({ x: home.x + p.x, y: home.y + p.y })),
         slingCupRadius(L),
-      ),
-    );
-  },
-  davit: (w) => {
-    const angle = davitAngle(need(davitBoss(w), "davit"), CFG, 0);
-    const mast = davitMast(L, CFG);
-    const parts = [{ x: 0, y: 0 }, davitTip(L, angle), davitHook(L, angle, DAVIT_SAG)];
-    return capsule(
-      around(
-        parts.map((p) => ({ x: mast.x + p.x, y: mast.y + p.y })),
-        davitHookRadius(L),
       ),
     );
   },

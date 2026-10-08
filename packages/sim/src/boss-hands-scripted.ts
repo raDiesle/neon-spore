@@ -1,7 +1,6 @@
 import { capstanHeard } from "./capstan-hand.js";
 import { cystGuarded } from "./cyst-guard.js";
 import { cystHeard } from "./cyst-hand.js";
-import { davitHeard } from "./davit-hand.js";
 import { flueRolled } from "./flue-step.js";
 import { gallHeard } from "./gall-hand.js";
 import { governorHeard } from "./governor-hand.js";
@@ -75,9 +74,6 @@ export function scriptedHandsHeard(world: World, commands: readonly TimedCommand
   for (const c of commands) cystHeard(world, c.player, c.command);
   // Its spore, THE TRIVET's needle once a tick after the commands (`cyst-guard.ts`).
   cystGuarded(world);
-  // THE DAVIT's steers and draws, the same: a steer leaving its target and a
-  // draw lifting are both the instant (`davit-hand.ts`).
-  for (const c of commands) davitHeard(world, c.player, c.command);
   // THE HALTER hears every command there is: any one at all is a seat's rest
   // gone, and a grip lifting is the pair coming apart (`halter-hand.ts`).
   for (const c of commands) halterHeard(world, c.player, c.command);

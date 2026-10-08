@@ -153,7 +153,7 @@ export const BOSS_HALTER_SOUNDS: SoundDef[] = [
     status: "bound",
     use: "THE HALTER gone — then the wave-end light.",
     level: 0.5,
-    // The same shape as THE DAVIT's own out (`sounds/boss-davit.ts`).
+    // The same shape THE DAVIT's own out had, before it left the game.
     layers: [
       sub(50, 0.5, 0.35),
       after(0.1, air(4000, 6800, 0.6, 0.14, 1.5)),

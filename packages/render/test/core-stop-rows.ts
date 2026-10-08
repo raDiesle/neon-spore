@@ -1,8 +1,6 @@
 import type { BoltStops } from "../src/bolt-stop.js";
 import { drawCapstan } from "../src/capstan-draw.js";
 import { CapstanFx } from "../src/capstan-fx.js";
-import { drawDavit } from "../src/davit-draw.js";
-import { DavitVerdicts } from "../src/davit-verdicts.js";
 import { drawGall } from "../src/gall-draw.js";
 import { GallFx } from "../src/gall-fx.js";
 import { drawGovernor } from "../src/governor-draw.js";
@@ -23,7 +21,6 @@ import { SlingFx } from "../src/sling-fx.js";
 import { stubCanvas } from "./canvas-stub.js";
 import * as capstan from "./capstan-harness.js";
 import * as curtain from "./curtain-harness.js";
-import * as davit from "./davit-harness.js";
 import * as gall from "./gall-harness.js";
 import * as governor from "./governor-harness.js";
 import * as grindstone from "./grindstone-harness.js";
@@ -100,17 +97,6 @@ export const ROWS: Row[] = [
     draw(stops, l, open) {
       const world = curtain.stood(open);
       curtain.draw(world, stops, l);
-    },
-    wide: false,
-  },
-  {
-    name: "THE DAVIT",
-    draw(stops, l, open) {
-      const world = davit.stood();
-      const s = davit.posed(world, davit.FIRE, 0, (d) => {
-        d.pivotLit = open;
-      });
-      drawDavit(paper(), l, world, s, world.beat, 0.5, 0, new DavitVerdicts(), stops);
     },
     wide: false,
   },

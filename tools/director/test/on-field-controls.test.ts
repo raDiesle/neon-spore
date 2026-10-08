@@ -417,13 +417,6 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   cystFreezeRight: "field",
   cystFlankLeft: "field",
   cystFlankRight: "field",
-  // THE DAVIT's steers are a thumb carrying the boom, the phone's lean until
-  // 30 September 2026; its looses a draw anywhere on the field
-  // (`render/davit-grip.ts`, §35).
-  davitSteerLeft: "field",
-  davitSteerRight: "field",
-  davitLooseLeft: "field",
-  davitLooseRight: "field",
   // THE HALTER's two grips on the lit segment's seam, either seat's on both
   // screens (`render/halter-grip.ts`, `docs/spec/bosses.md` §11.53).
   halterChordLeft: "field",

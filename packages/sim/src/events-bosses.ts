@@ -3,7 +3,6 @@ import type { BatonEvent } from "./events-baton.js";
 import type { CapstanEvent } from "./events-capstan.js";
 import type { CurtainEvent } from "./events-curtain.js";
 import type { CystEvent } from "./events-cyst.js";
-import type { DavitEvent } from "./events-davit.js";
 import type { FilamentEvent } from "./events-filament.js";
 import type { FlueEvent } from "./events-flue.js";
 import type { GallEvent } from "./events-gall.js";
@@ -101,7 +100,6 @@ export type BossEvent =
   | SlingEvent
   | GrindstoneEvent
   | CystEvent
-  | DavitEvent
   | HalterEvent
   | CapstanEvent
   | GallEvent
@@ -130,7 +128,6 @@ export type { BatonEvent } from "./events-baton.js";
 export type { CapstanEvent } from "./events-capstan.js";
 export type { CurtainEvent } from "./events-curtain.js";
 export type { CystEvent } from "./events-cyst.js";
-export type { DavitEvent } from "./events-davit.js";
 export type { FilamentEvent } from "./events-filament.js";
 export type { FlueEvent } from "./events-flue.js";
 export type { GallEvent } from "./events-gall.js";
