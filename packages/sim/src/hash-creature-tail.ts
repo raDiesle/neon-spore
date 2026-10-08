@@ -91,6 +91,10 @@ export function tailHashParts(c: Creature): number[] {
   out.push(c.blisterLeft ?? -1);
   out.push(c.blisterUp ? 1 : 0);
   out.push(c.blisterClock ?? -1);
+  // And HOLD's: which gesture it wants, and the beat of a hold in progress —
+  // two devices apart on it would count a blow on one phone a tick early.
+  out.push(c.blisterGesture === "hold" ? 1 : 0);
+  out.push(c.blisterHeldTicks ?? -1);
   return out;
 }
 

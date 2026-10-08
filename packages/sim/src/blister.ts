@@ -1,5 +1,5 @@
 import { hullRow, type SimConfig } from "./config.js";
-import type { BlisterBy } from "./creature-state-blister.js";
+import type { BlisterBy, BlisterGesture } from "./creature-state-blister.js";
 import { removeCreature } from "./field.js";
 import { breachHull } from "./hull-damage.js";
 import { nextInt } from "./rng.js";
@@ -50,13 +50,31 @@ export function blisterOnSpawn(
   cfg: SimConfig,
   by: BlisterBy | undefined,
   count: number | undefined,
+  gesture?: BlisterGesture,
 ): Partial<Creature> {
   return {
     blisterBy: by ?? 2,
     blisterLeft: Math.max(1, count ?? cfg.blisterBlows),
     blisterUp: false,
     blisterClock: cfg.blisterDownBeats,
+    // Absent a tap, so a tap blister is byte-for-byte the blister lane 1 built.
+    ...(gesture === "hold" ? { blisterGesture: gesture } : {}),
   };
+}
+
+/** The gesture it wants, with the default spelled once. */
+export function blisterGestureOf(c: Creature): BlisterGesture {
+  return c.blisterGesture ?? "tap";
+}
+
+/**
+ * Whether this seat's hand on it is a hold that counts: a HOLD blister, up,
+ * and this seat's by the setting. `setGrip` asks it, because a blister is
+ * not grippable as a kind — a TAP one that took a hand would turn a tap that
+ * rested a little long into the other gesture (`grippable.ts`).
+ */
+export function blisterHoldable(c: Creature, seat: 1 | 2): boolean {
+  return blisterGestureOf(c) === "hold" && blisterIsUp(c) && blisterMayTap(c, seat);
 }
 
 /** The seat whose blow counts, with the default spelled once. */
@@ -125,11 +143,22 @@ export function stepBlister(world: World, c: Creature): void {
 export function blisterTapped(world: World, player: 1 | 2, id: number): boolean {
   const c = world.creatures.find((x) => x.id === id);
   if (c === undefined || c.kind !== "blister") return false;
+  // A tap on a HOLD blister is a press that did not stay, and counts nothing.
+  if (blisterGestureOf(c) !== "tap") return true;
   if (!blisterIsUp(c) || !blisterMayTap(c, player)) return true;
+  blisterBlow(world, c);
+  return true;
+}
+
+/**
+ * One blow landed, whichever gesture dealt it: one off the count, said, and
+ * at nought the blister is gone.
+ */
+export function blisterBlow(world: World, c: Creature): void {
   const left = blisterLeft(world.cfg, c) - 1;
   c.blisterLeft = left;
   world.events.push({ type: "blisterBlow", id: c.id, col: c.col, row: c.row, left });
-  if (left > 0) return true;
+  if (left > 0) return;
   world.events.push({
     type: "destroy",
     col: c.col,
@@ -140,5 +169,4 @@ export function blisterTapped(world: World, player: 1 | 2, id: number): boolean 
     kind: "blister",
   });
   removeCreature(world, c.id);
-  return true;
 }

@@ -1,3 +1,4 @@
+import { blisterHoldable } from "./blister.js";
 import { clearGripPush } from "./grip-push.js";
 import { handMeans } from "./hand.js";
 import { type Creature, fallTilesPerBeat } from "./types.js";
@@ -44,7 +45,10 @@ export const NO_GRIP = 0;
  * clause in this file; all of them are one call now (`hand.ts`).
  */
 export function setGrip(world: World, player: 1 | 2, id: number): void {
-  const holds = (c: Creature) => c.id === id && handMeans(c.kind, player) !== null;
+  // And a HOLD blister that is up and this seat's, the one body whose hand is
+  // the body's setting rather than its kind's (`blister-hold.ts`).
+  const holds = (c: Creature) =>
+    c.id === id && (handMeans(c.kind, player) !== null || blisterHoldable(c, player));
   const target = world.creatures.some(holds) ? id : NO_GRIP;
   const was = player === 1 ? world.gripP1 : world.gripP2;
   if (player === 1) world.gripP1 = target;

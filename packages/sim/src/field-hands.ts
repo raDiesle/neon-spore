@@ -1,5 +1,6 @@
 import { balloonHeard } from "./balloon-pull.js";
 import { rubBalloons } from "./balloon-rub.js";
+import { stepBlisterHolds } from "./blister-hold.js";
 import { bossHandsHeard } from "./boss-hands.js";
 import { stepChoirFuse } from "./choir.js";
 import { choirArrowHeard, stepChoirWindow } from "./choir-gesture.js";
@@ -95,6 +96,9 @@ export function fieldHandsHeard(world: World, commands: readonly TimedCommand[])
   // instant both thumbs land, and an instant answered on the next beat would
   // land up to a whole beat after the one they said out loud (`weight.ts`).
   stepWeights(world);
+  // And a hand on a HOLD blister, the same ordinary `grip` and counted on the
+  // tick for the weight's reason (`blister-hold.ts`).
+  stepBlisterHolds(world);
   // THE FLEET's sights and its salvo, read on the tick for the third time and
   // the same reason: a square the pair just named out loud is answered now,
   // not on the next beat. Its clock is the one thing about it that is on the

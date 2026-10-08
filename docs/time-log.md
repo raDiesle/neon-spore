@@ -36237,3 +36237,21 @@ Bottleneck: landing — the check is most of a lane this small.
 Bottleneck: landing — the full check.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE BLISTER, lane 4: HOLD
+
+- reading: 10 min. The spec's gesture table, THE WEIGHT's grip and
+  `stepWeights`, `setGrip`'s refusal, `touch.ts`'s held press, and the hold
+  and dial helpers.
+- writing: 25 min. `gesture` from the entry to the body and the hash, the
+  per-tick hold in `blister-hold.ts`, the press in `blister-tap.ts`, the help,
+  the director's GESTURE row and its save, eight sim tests and a frame test.
+- looking: 5 min. One real frame of THE BLISTER with its first arrival
+  switched to HOLD in the working tree only, then reverted.
+- friction: 5 min. No wave ships a HOLD blister and `frames` has no way to
+  author one, so the picture needed a throwaway edit to a shipped wave.
+- landing: 5 min. `check:fast`, `queue done`, `land`.
+
+Bottleneck: deciding what a count of beats means on a body that is up for two:
+a blow per whole beat held, kept across surfacings, was the only reading under
+which three could be won.

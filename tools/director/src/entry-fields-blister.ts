@@ -1,5 +1,5 @@
 import type { WaveEntry } from "@neon-spore/content";
-import { type BlisterBy, DEFAULT_CONFIG } from "@neon-spore/sim";
+import { type BlisterBy, type BlisterGesture, DEFAULT_CONFIG } from "@neon-spore/sim";
 
 /**
  * **THE BLISTER's per-arrival facts**: whose hand knocks it down, how many
@@ -20,13 +20,14 @@ export const BLISTER_BYS: readonly BlisterBy[] = [1, 2, "both"];
 /** How many blows one may be authored to take. */
 export const BLISTER_COUNTS: readonly number[] = [1, 2, 3, 4, 5, 6, 7, 8];
 
+export type { BlisterGesture };
+
 /**
- * The gestures a blister is knocked down by. TAP alone for now: THE BLISTER's
- * lanes 4 to 7 each add their own here, with the field on `WaveEntry` it
- * writes, and a WAY where it has one (`docs/queue.md`).
+ * The gestures a blister is knocked down by: TAP and HOLD. THE BLISTER's
+ * lanes 5 to 7 each add theirs to the simulation's `BlisterGesture` and here,
+ * with a WAY where it has one (`docs/queue.md`).
  */
-export type BlisterGesture = "tap";
-export const BLISTER_GESTURES: readonly BlisterGesture[] = ["tap"];
+export const BLISTER_GESTURES: readonly BlisterGesture[] = ["tap", "hold"];
 
 /** Whether this entry is a blister, and so has these rows to set. */
 export function hasBlisterFields(entry: WaveEntry): boolean {
@@ -53,12 +54,17 @@ export function setBlisterCount(entry: WaveEntry, count: number): void {
   entry.count = count === DEFAULT_CONFIG.blisterBlows ? undefined : count;
 }
 
-/** The gesture it is knocked down by: TAP, until a gesture with a field arrives. */
-export function blisterGestureOf(_entry: WaveEntry): BlisterGesture {
-  return "tap";
+/** The gesture it is knocked down by. Unset is TAP, which `blisterOnSpawn` reads. */
+export function blisterGestureOf(entry: WaveEntry): BlisterGesture {
+  return entry.gesture ?? "tap";
 }
 
-/** The ways a gesture may go: none for TAP, so its row is not offered. */
+/** Set the gesture, TAP written as no field. */
+export function setBlisterGesture(entry: WaveEntry, gesture: BlisterGesture): void {
+  entry.gesture = gesture === "tap" ? undefined : gesture;
+}
+
+/** The ways a gesture may go: none for TAP or HOLD, so the row is not offered. */
 export function blisterWaysOf(_gesture: BlisterGesture): readonly string[] {
   return [];
 }

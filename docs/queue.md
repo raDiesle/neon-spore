@@ -327,3 +327,16 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
+
+## `bun run frames` cannot draw an arrival no shipped wave has
+
+- **Found:** 2026-10-08, claude/task-queue-work-b00fee
+- **Files:** `tools/frames/run.ts`, `tools/frames/recipes.ts`
+
+THE BLISTER's HOLD landed with no wave that sends one, so its one picture was
+taken by switching THE BLISTER's first arrival to `gesture: "hold"` in the
+working tree, running `frames .`, and reverting by hand — an edit to a shipped
+wave that a slip would have committed. Lanes 5 to 7 (SWIPE, TURN, RUB) meet the
+same wall. Add a flag, e.g. `--entry 0 '{gesture:"hold"}'`, that merges fields
+into one of the wave's entries in memory before the world is built, with a
+recipe line and a test that the merged entry reaches `createWorld`.

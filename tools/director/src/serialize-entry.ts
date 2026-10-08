@@ -76,6 +76,7 @@ export function serializeEntry(entry: WaveEntry): string {
   // navigator's after one save (`sim/blister.ts`).
   if (entry.by !== undefined) parts.push(`by: ${entry.by === "both" ? '"both"' : entry.by}`);
   if (entry.count !== undefined) parts.push(`count: ${entry.count}`);
+  if (entry.gesture !== undefined) parts.push(`gesture: "${entry.gesture}"`);
   return `{ ${parts.join(", ")} }`;
 }
 

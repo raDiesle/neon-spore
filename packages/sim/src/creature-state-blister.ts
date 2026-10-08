@@ -5,6 +5,13 @@
 export type BlisterBy = 1 | 2 | "both";
 
 /**
+ * The gesture a blister is knocked down by (`docs/spec/blister.md`, *The
+ * gestures*): a tap for each blow, or a press kept down a beat for each. One
+ * body for both — only the help drawn round it says which.
+ */
+export type BlisterGesture = "tap" | "hold";
+
+/**
  * **THE BLISTER's four fields**: whose blow counts, how many are still owed,
  * whether it is up, and how long it stays where it is.
  *
@@ -36,4 +43,12 @@ export interface BlisterState {
    * blisters on one field surface on their own clocks.
    */
   blisterClock?: number;
+  /** The gesture it wants, absent a tap. The wave's (`SpawnEntry.gesture`). */
+  blisterGesture?: BlisterGesture;
+  /**
+   * HOLD's beat in progress: ticks a hand that counts has been on it since the
+   * last blow, every hand on it adding its own. A whole beat is a blow and
+   * starts it again; a release or a sink loses it (`blister-hold.ts`).
+   */
+  blisterHeldTicks?: number;
 }

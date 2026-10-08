@@ -14,6 +14,7 @@ import {
   gestureLabel,
   setBlisterBy,
   setBlisterCount,
+  setBlisterGesture,
 } from "./entry-fields-blister.js";
 
 /**
@@ -24,9 +25,9 @@ import {
  *
  * BY is whose hand knocks it down — the owner asked for it to be set here,
  * in the brush settings — and the other seat is the one shown where it comes
- * up. COUNT is the blows it takes. GESTURE is TAP alone until THE BLISTER's
- * lanes 4 to 7 add theirs, and has nothing to write yet; WAY is offered only
- * for a gesture that has one, so it is not offered at all today.
+ * up. COUNT is the blows it takes — taps, or beats held. GESTURE is TAP or
+ * HOLD until THE BLISTER's lanes 5 to 7 add theirs; WAY is offered only for
+ * a gesture that has one, so it is not offered at all today.
  */
 export function blisterRows(entry: WaveEntry, onEdit: () => void): HTMLElement[] {
   const gesture = blisterGestureOf(entry);
@@ -35,7 +36,8 @@ export function blisterRows(entry: WaveEntry, onEdit: () => void): HTMLElement[]
       setBlisterBy(entry, by);
       onEdit();
     }),
-    choiceRow("GESTURE", BLISTER_GESTURES, gesture, gestureLabel, (_g: BlisterGesture) => {
+    choiceRow("GESTURE", BLISTER_GESTURES, gesture, gestureLabel, (g: BlisterGesture) => {
+      setBlisterGesture(entry, g);
       onEdit();
     }),
     choiceRow("COUNT", BLISTER_COUNTS, blisterCountOf(entry), beadLabel, (count: number) => {

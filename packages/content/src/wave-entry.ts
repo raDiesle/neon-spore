@@ -1,5 +1,6 @@
 import type {
   BlisterBy,
+  BlisterGesture,
   Color,
   CrawlerSide,
   GhostPath,
@@ -242,4 +243,6 @@ export interface WaveEntry extends FenceEntry {
   /** How many blows THE BLISTER takes, kept across surfacings; absent is the
    * director's default of three. */
   count?: number;
+  /** What knocks THE BLISTER down, absent a tap: a tap a blow or a beat held. */
+  gesture?: BlisterGesture;
 }

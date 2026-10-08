@@ -33,8 +33,12 @@ only the other seat sees where it will come up next.**
   wave entry is how many: taps for TAP, beats for HOLD, strokes for SWIPE and
   RUB, turns for TURN. A tap that lands while it is up is one off the count,
   and the count does not grow back while it is down — that is the mole: you
-  wait for it, you hit it, it goes, you wait again. A HOLD or a TURN started
-  and not finished before it sinks starts again from nothing next time.
+  wait for it, you hit it, it goes, you wait again. A HOLD's blow is a whole
+  beat held: the beats already held are kept across a sink as taps are, and
+  the beat in progress is lost on a release or a sink — the only reading under
+  which a count larger than the up-time can be won (`sim/blister-hold.ts`).
+  A TURN started and not finished before it sinks starts again from nothing
+  next time.
 - **Where it comes up next is the talking.** A beat before it surfaces the
   pore swells — a bulge in the membrane, on **one screen only**: the seat that
   is *not* the one knocking it down. The hand that can do it sees the blister
@@ -88,7 +92,7 @@ step a blow (`audio/bind-blister.ts`).
 
 ## The director's settings
 
-Under the selected cell, the way THE MINE's SEES row is (`tools/director/src/cell-config-mine.ts`). **BY, GESTURE and COUNT are built** (lane 3, 8 October 2026: `cell-config-blister.ts`, `entry-fields-blister.ts`): GESTURE offers TAP alone and writes nothing until a later lane adds its gesture and its field, and WAY is offered only for a gesture that has one.
+Under the selected cell, the way THE MINE's SEES row is (`tools/director/src/cell-config-mine.ts`). **BY, GESTURE and COUNT are built** (lane 3, 8 October 2026: `cell-config-blister.ts`, `entry-fields-blister.ts`): GESTURE offers TAP and HOLD (lane 4, the same day: `gesture: "hold"` on the entry, TAP written as no field), and WAY is offered only for a gesture that has one. A HOLD is the ordinary `grip`, so a mouse's press is a thumb's, and a hand left on one that sinks is let go of on the tick.
 
 
 | Row | Choices | Default |

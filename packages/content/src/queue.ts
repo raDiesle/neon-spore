@@ -177,6 +177,7 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
       // same terms: absent is the default `blisterOnSpawn` reads.
       ...(e.by === undefined ? {} : { by: e.by }),
       ...(e.count === undefined ? {} : { count: e.count }),
+      ...(e.gesture === undefined ? {} : { gesture: e.gesture }),
     });
   }
   return queue.sort((a, b) => a.beat - b.beat);

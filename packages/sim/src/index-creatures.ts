@@ -17,16 +17,20 @@
  * and the shot are the simulation's alone.
  */
 
-// THE BLISTER: what render and the director ask of one — whose blow counts,
-// whether it is up, whether its pore is swelling, how many blows are owed.
-// The cycle and the tap stay inside (`stepBlister`, `blisterTapped`).
 export {
   blisterByOf,
+  blisterGestureOf,
+  blisterHoldable,
   blisterIsUp,
   blisterLeft,
   blisterMayTap,
   blisterSwelling,
 } from "./blister.js";
+// THE BLISTER: what render and the director ask of one — whose blow counts,
+// whether it is up, whether its pore is swelling, how many blows are owed.
+// The cycle and the tap stay inside (`stepBlister`, `blisterTapped`); the
+// gesture, whether a hand on it holds, and how far a hold is through its beat.
+export { blisterHoldShare } from "./blister-hold.js";
 export {
   COLOUR_UNSTRUCK,
   colourArmourLeft,
@@ -50,7 +54,7 @@ export {
   linkOrder,
 } from "./crawler.js";
 export { lureVanishRow, wornKind } from "./creature-rules.js";
-export type { BlisterBy } from "./creature-state-blister.js";
+export type { BlisterBy, BlisterGesture } from "./creature-state-blister.js";
 export {
   DART_COLS,
   DART_ROWS,

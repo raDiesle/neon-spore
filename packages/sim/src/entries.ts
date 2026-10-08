@@ -1,5 +1,5 @@
 import type { CrawlerSide } from "./crawler.js";
-import type { BlisterBy } from "./creature-state-blister.js";
+import type { BlisterBy, BlisterGesture } from "./creature-state-blister.js";
 import type { GhostPath } from "./ghost.js";
 import type { RockSize } from "./span.js";
 import type { Color, CreatureKind, PodKind } from "./types.js";
@@ -206,6 +206,8 @@ export interface SpawnEntry {
   /** How many blows a **blister** takes, kept across its surfacings; absent
    * means `blisterBlows`. Meaningless on any other kind. */
   count?: number;
+  /** The gesture a **blister** is knocked down by; absent a tap. */
+  gesture?: BlisterGesture;
 }
 
 // **What a wave authors when it wants a boss** is `boss-entries.ts` next door,

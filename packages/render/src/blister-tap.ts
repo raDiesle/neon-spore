@@ -1,4 +1,4 @@
-import { blisterIsUp, blisterMayTap } from "@neon-spore/sim";
+import { blisterGestureOf, blisterIsUp, blisterMayTap } from "@neon-spore/sim";
 import { flatCenter, flatRadius } from "./creature-place.js";
 import type { Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
@@ -31,5 +31,15 @@ export function blisterUnder(l: Layout, field: Field, x: number, y: number): Tou
     bestDist = d;
   }
   if (best === null) return null;
+  // A HOLD blister's press is the ordinary `grip`, kept until the lift lets go
+  // (`touch.ts`, `sim/blister-hold.ts`) — a mouse's press as a thumb's.
+  const body = field.creatures.find((c) => c.id === best);
+  if (body !== undefined && blisterGestureOf(body) === "hold") {
+    return {
+      player: field.seat,
+      command: { kind: "grip", id: best },
+      hold: { kind: "grip", id: best, player: field.seat, originX: x },
+    };
+  }
   return { player: field.seat, command: { kind: "tap", id: best }, hold: null };
 }
