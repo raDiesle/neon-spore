@@ -35672,3 +35672,5 @@ files (the roster, the ingest, the shudder's draw, the blow's two tables).
 
 Bottleneck: friction — a machine at load 98 failed a timing figure and a
 directory walk that both pass alone.
+
+*Measured: 86 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

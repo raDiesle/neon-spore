@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 88b46edb2 — THE ANTIPHON never shows *four facets* beside itself upside down
+
+On a level whose organ rests at a turn, the decoys are the organ's own contour at the other quarter turns. *Four facets* looks the same at a half turn, so the owner chose (A): the simulation is told. `antiphonHalfAlike` holds one bit per contour that looks the same upside down, and that decoy's place on the rail goes to another shape at the organ's turn. The content test measures every contour against the bits. The switch still ships off, so no replay changes.
+
 ## 2026-10-08 · 921a60fc2 — THE LATCH tears its bodies off, and whips the hull
 
 Every knot pulled in tears its body off the colony, at the place it was drawn. The body is flung clear and falls away down the field, and the colony takes the blow. The tendril's hook bites the hull with a shudder as it arrives. A slip frays the rope at the grips. A yank held shines there green. The colony spits as it rears. When the rope snaps at the end, the colony bursts and the hull shudders harder. A level run out is THE LATCH's own blow: the colony cracks its tendril like a whip down the rope into the hull, and the hook tears out in red. A look with no shipped alternative.
