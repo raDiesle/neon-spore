@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 66a6ab560 — THE GRINDSTONE's flats take thirty-eight rubs, with a green arc filling round each
+
+Each reversal now shaves 27 grit instead of 40. A flat takes thirty-eight reversals from solid and nineteen from the film, where it took twenty-five and thirteen: half as many again, as THE CAPSTAN's went. The flat being ground wears a plain green arc on both screens, filling as its grit comes off. Every reversal throws twice the grains and flashes the face white. A pass is lit under THE SLOW, so the shipped six and four beats still hold the new count at three reversals a second. This finishes the rubs entry; THE RIME and THE VALVE landed earlier the same day.
+
 ## 2026-10-08 · 19fda32e4 — THE GALL is tapped, pulled and thrown across the hull
 
 The owner's rework of 8 October 2026. The held press, which did nothing, is gone, along with the ring and chevrons that were drawn round the enemy. The seat whose half the alien sits on taps it until it is charged, then pulls it up toward the top middle. It leaps under THE SLOW and lands on a random point of the other half, where the next step's clock starts. While it sits, the clock is the fuse, at the ordinary pace and with no slow. A fire step lights it in a colour, shot in its own column. Any step that runs out strikes the hull. The seam sits below the middle (row 8.5 of 15). The wave has three levels: more taps on a shorter clock, and red, cyan and either shots.

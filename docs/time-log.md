@@ -36019,3 +36019,5 @@ outside its own files, found only by the full shard run.
 
 Bottleneck: copying THE RIME's lane to a second body is quick; deciding the
 new count against the window was the only real question.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
