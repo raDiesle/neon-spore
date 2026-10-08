@@ -36287,3 +36287,5 @@ the typecheck finds them in one pass.
 - landing: 5 min. `check:fast`, `queue done`, `land`.
 
 Bottleneck: friction — the output folder is emptied before the page can refuse.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

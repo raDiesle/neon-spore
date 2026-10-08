@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · a7b44b157 — `bun run frames --entry 0:gesture=hold`: photograph an arrival no shipped wave sends
+
+`--entry <n>:<key>=<value>[,…]` merges fields into the wave's nth arrival, counted from 0 in the order they arrive. The fields are written right after the jump to the wave and before the opening lets go, so the body spawns carrying them. A gesture no wave sends yet, like THE BLISTER's HOLD and the SWIPE, TURN and RUB still to come, can now be photographed without editing a shipped wave and reverting it by hand. Values are read the way `--boss` reads them; `now` is refused, and so are an arrival the wave does not have and one already arrived.
+
 ## 2026-10-08 · 7188c9f4c — THE TRIVET leaves the game
 
 The owner asked for it gone on 8 October 2026: "remove this wave from game. i do not like it." Its simulation, drawing, effects, painted plant strip, twelve sounds, wave, two drag targets, autopilot hand and director cards are deleted whole rather than switched off, as THE HALTER's and THE GRINDSTONE's were; `git log -S trivetPadFront` finds the code. It was the last boss to read a chord, so the pointer machinery only it used goes too: the pads counted by the order fingers land, the desk's every-pad hold and its ring. The design stays in bosses.md §11.47, moved under Retired with his verdict, and the verdict goes on the new-boss skill's owner page. His rule of the same day goes on its page of rules for every boss: never two fingers of one player at once, since a PC has one pointer — so CHORD moves to the gesture sheet's STAY MISSED page, and THE VISE's pinch, the one boss left that asks it, is queued with the question. SINKER's shape draft is free again, and the waves after it move up one. A look the owner asked for by name.
