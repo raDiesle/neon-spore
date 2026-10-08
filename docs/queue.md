@@ -549,6 +549,7 @@ render fix in the same lane. A row file past ~250 lines splits into a fourth.
 ## Marks-window rows owed: THE SURGE, THE LEAD, THE SCUTTLE, THE ANTIPHON
 
 - **Found:** 2026-10-08, claude/task-queue-work-e71746
+- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-marks-window-rows-owed-the-surge-the-lead-the-sc)
 - **Files:** `tools/director/test/marks-window-no-row.ts`, `tools/director/test/marks-window-rows-c.ts`, `packages/render/src/surge-marks.ts`, `packages/render/src/lead-marks.ts`, `packages/render/src/scuttle-marks.ts`, `packages/render/src/antiphon-marks.ts`
 
 `marks-window-no-row.ts` lists these as `owed`: each has a `*-marks.ts` and no
