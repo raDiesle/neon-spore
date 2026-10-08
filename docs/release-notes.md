@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 79a27fe3d — THE GRINDSTONE's open caliper rocks on its axle
+
+THE HOOD and both its jaws rock together about the axle, up to 0.36 of a radian times how far the caliper is from shut, so a slack caliper's jaw tips travel more than half a tile each way and a bitten one is still on the stone. The jaw pads are marks, so the hit test, the ghost thumb and the verdict rings place each pad with the same turn. On the beat clock, hushed under THE SLOW. Living bosses, step 11. On the field under *a look the owner asked for by name*.
+
 ## 2026-10-08 · 7274da049 — THE ANTIPHON's organ can rest at a seeded quarter turn, off
 
 The design's step 8, simulated behind `antiphonRestingTurn` (off by default): from `antiphonTurnPits` the organ rests at a quarter turn the seed picks, the rail's decoys are its own contour at the other turns, and only the candidate at the organ's turn is a pit. A thumb's turn stays a look-around and springs back the short way round when it lifts. The ship is never turned, and with the figure off nothing draws from the seed, so every recorded fight replays as before. Drawing the turns is queued as its own lane for VERSUS.
