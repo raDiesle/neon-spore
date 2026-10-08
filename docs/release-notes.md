@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 7902b60f4 — Five queue entries from THE LATCH's lanes, each its own session
+
+THE LATCH's guide film is the one thing its write-up still lists as not built. `marks-window.test.ts` claims every boss has a row, and only 22 do; it also walks TEST's screen only, so no partner's ring is checked. `bun run frames` accepts a flag it does not know. And a `Needs:` line that quotes a title with a code span never matches it.
+
 ## 2026-10-08 · 88b46edb2 — THE ANTIPHON never shows *four facets* beside itself upside down
 
 On a level whose organ rests at a turn, the decoys are the organ's own contour at the other quarter turns. *Four facets* looks the same at a half turn, so the owner chose (A): the simulation is told. `antiphonHalfAlike` holds one bit per contour that looks the same upside down, and that decoy's place on the rail goes to another shape at the organ's turn. The content test measures every contour against the bits. The switch still ships off, so no replay changes.
