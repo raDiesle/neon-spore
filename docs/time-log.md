@@ -36106,3 +36106,5 @@ Bottleneck: landing — the full check is most of a lane this small.
 
 Bottleneck: lane 1 had already written the serializer's two fields, so the
 lane was the panel alone.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

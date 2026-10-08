@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 7f48a885b — THE BLISTER's BY, GESTURE and COUNT rows in the director
+
+Selecting a blister cell in the director now shows three rows, beside where THE MINE's SEES row sits. BY says whose hand knocks the blister down: P1, P2 or BOTH. COUNT is how many blows it takes, from 1 to 8. GESTURE offers TAP alone and writes nothing until lanes 4 to 7 each add their own gesture. WAY appears only for a gesture that has a direction, so it does not appear yet. Each default is saved as no field, so an untouched blister saves exactly as before, and a set one survives a save and a read back (`blister-fields.test.ts`).
+
 ## 2026-10-08 · 9c330f93d — The siren's word table moves out of render/duty.ts into duty-words.ts
 
 `DUTY_WORD` and its row comments are their own file now, re-exported from `duty.ts`, which keeps only the short reader. THE BLISTER's row had taken `duty.ts` to the 250-line limit exactly; every new kind adds a row here, so the next one could not. Nothing drawn changes.
