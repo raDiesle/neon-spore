@@ -1,5 +1,5 @@
 import type { CrawlerSide } from "./crawler.js";
-import type { BlisterBy, BlisterGesture } from "./creature-state-blister.js";
+import type { BlisterSpawn } from "./creature-state-blister.js";
 import type { GhostPath } from "./ghost.js";
 import type { RockSize } from "./span.js";
 import type { Color, CreatureKind, PodKind } from "./types.js";
@@ -14,7 +14,9 @@ import type { Color, CreatureKind, PodKind } from "./types.js";
  * union of two bosses that will keep growing.
  */
 
-export interface SpawnEntry {
+/** A blister's four fields are `BlisterSpawn`'s, shared with content's
+ * `WaveEntry` so the next gesture's field is written once. */
+export interface SpawnEntry extends BlisterSpawn {
   beat: number;
   col: number;
   kind: CreatureKind;
@@ -199,15 +201,6 @@ export interface SpawnEntry {
    * before it decides whether to stand under it.
    */
   cargo?: PodKind;
-  /** Whose hand knocks a **blister** down — 1, 2 or both — and absent on every
-   * other kind; absent on a blister means 2 (`blisterOnSpawn`). The wave's,
-   * for `sees`' reason: the other seat is the one shown the pore. */
-  by?: BlisterBy;
-  /** How many blows a **blister** takes, kept across its surfacings; absent
-   * means `blisterBlows`. Meaningless on any other kind. */
-  count?: number;
-  /** The gesture a **blister** is knocked down by; absent a tap. */
-  gesture?: BlisterGesture;
 }
 
 // **What a wave authors when it wants a boss** is `boss-entries.ts` next door,

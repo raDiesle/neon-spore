@@ -31,6 +31,7 @@ export {
 // The cycle and the tap stay inside (`stepBlister`, `blisterTapped`); the
 // gesture, whether a hand on it holds, and how far a hold is through its beat.
 export { blisterHoldShare } from "./blister-hold.js";
+export { blisterSwipeShare, blisterWayOf } from "./blister-swipe.js";
 export {
   COLOUR_UNSTRUCK,
   colourArmourLeft,
@@ -54,7 +55,12 @@ export {
   linkOrder,
 } from "./crawler.js";
 export { lureVanishRow, wornKind } from "./creature-rules.js";
-export type { BlisterBy, BlisterGesture } from "./creature-state-blister.js";
+export type {
+  BlisterBy,
+  BlisterGesture,
+  BlisterSpawn,
+  BlisterWay,
+} from "./creature-state-blister.js";
 export {
   DART_COLS,
   DART_ROWS,

@@ -93,8 +93,13 @@ export function tailHashParts(c: Creature): number[] {
   out.push(c.blisterClock ?? -1);
   // And HOLD's: which gesture it wants, and the beat of a hold in progress —
   // two devices apart on it would count a blow on one phone a tick early.
-  out.push(c.blisterGesture === "hold" ? 1 : 0);
+  out.push(c.blisterGesture === "hold" ? 1 : c.blisterGesture === "swipe" ? 2 : 0);
   out.push(c.blisterHeldTicks ?? -1);
+  // And SWIPE's: its way, the strokes open on it and how far the furthest has
+  // come — a stroke voided on one phone and not the other is a blow apart.
+  out.push(c.blisterWay === undefined ? -1 : ["left", "right", "up", "down"].indexOf(c.blisterWay));
+  out.push(c.blisterStrokes ?? -1);
+  out.push(c.blisterAlongMilli ?? -1);
   return out;
 }
 

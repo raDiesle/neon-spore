@@ -55,3 +55,34 @@ keeps it either way. Nothing here is ticked, and nothing here is counted — a
 count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
+
+## THE BLISTER, lane 5: SWIPE, half built
+
+- **Found:** 2026-10-08, claude/task-queue-work-e99d1a
+- **Files:** `packages/sim/src/blister-swipe.ts`, `packages/render/src/blister-help.ts`, `tools/director/src/entry-fields-blister.ts`, `tools/director/test/on-field-controls.test.ts`
+
+The simulation and the hand are in; the owner archived the session before the
+rest. Built: `gesture: "swipe"` and `way` (left, right, up, down; absent right)
+on `BlisterSpawn`, now the one shape `SpawnEntry` and `WaveEntry` extend; the
+`blisterSwipe` drag target with `id` the body (`drag-targets-e.ts`, the net's
+`DRAG_TARGETS`); `blister-swipe.ts` judging the lift — `blisterSwipeMilli`
+along the way and more along than across — with a sink voiding open strokes
+(`blisterStrokes`, `blisterAlongMilli`, both hashed); the press in
+`render/blister-tap.ts`, the lift's carry in `touch.ts`; the help, THE
+INSTAR's track turned to the way, in `blister-help.ts`.
+
+Left, in order:
+- The replay test (`packages/sim/test/`, beside `blister-hold.test.ts`): a
+  right stroke knocks one blow off, a short one and a wrong-way one do not, a
+  stroke open across a sink counts nothing, the wrong seat counts nothing.
+- A frame test beside `blister-hold-frame.test.ts`, and a `touch` test that a
+  press on a SWIPE blister is a `blisterSwipe` drag whose lift carries dx/dy.
+- The director: `swipe` in `BLISTER_GESTURES`, `blisterWaysOf("swipe")` the
+  four ways with arrow labels, a real `setBlisterWay` (the WAY row's onPick
+  sets nothing today), `way` in `serialize-entry.ts`, and a test.
+- `blisterSwipe` from `"unbuilt"` to `"field"` in `on-field-controls.test.ts`,
+  with a FIELD_CONTROLS row (`field-controls-gum.ts`' shape) and a pose in a
+  file of its own (`poses-field-controls-dark.ts`' shape).
+- Look at it with `bun run frames . --wave "THE BLISTER" --entry 0:gesture=swipe`
+  on the tapping seat; `docs/spec/blister.md`'s status and *The look, as
+  built* say SWIPE; a time-log row.

@@ -32,7 +32,8 @@ export type DragTargetE =
   | "latchGripRight"
   | "bastionPlateLeft"
   | "bastionPlateRight"
-  | "bastionSpin";
+  | "bastionSpin"
+  | "blisterSwipe";
 
 /**
  * `plumbLevelLeft` and `plumbLevelRight` are the eighty-first and
@@ -175,4 +176,11 @@ export type DragTargetE =
  * No new reading. A plate is pulled out from the core along its own way,
  * `fromMilli` and `fromYMilli` the drag (`bastion-hand.ts`); the rim is THE
  * MAZE's lever, `fromMilli` the way round (`rim-turn.ts`). `id` is unused.
+ */
+
+/**
+ * `blisterSwipe` is the hundred-and-eighteenth: THE BLISTER's SWIPE, the
+ * first handle on a creature the field drops rather than on a boss, and `id`
+ * is which body. No new reading: `fromMilli` and `fromYMilli` are the carry,
+ * and the lift is judged, THE WARDEN's hatch's way (`blister-swipe.ts`).
  */

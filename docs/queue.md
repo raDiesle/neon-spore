@@ -358,21 +358,6 @@ the same order. Write into a fresh scratch directory and move it over the output
 folder only once every frame is taken, with a test that a refused run leaves the
 folder as it found it.
 
-## THE BLISTER, lane 5: SWIPE
-
-- **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
-- **Taken:** 2026-10-08, claude/task-queue-work-e99d1a (claim: claude/queue-the-blister-lane-5-swipe)
-- **Files:** `packages/sim/src/drag-targets.ts`, `packages/render/src/touch-drag.ts`, `packages/render/src/instar-track.ts`, `packages/net/src/command-codec.ts`
-
-The third gesture of `docs/spec/blister.md`: a drag across the body in the
-entry's `way` (left, right, up, down), `count` strokes. A drag target
-`blisterSwipe` with the blister's id and `fromMilli` / `fromYMilli`, the
-simulation judging length and direction on the lift — no new `Command`
-kind (`.claude/skills/net-change` for the target's wire value). Help:
-`drawInstarTrack`'s bar along the way, never a ring. SWIPE and the four
-ways added to lane 3's rows. Replay test for a right stroke, a short one
-and a wrong-way one.
-
 ## THE BLISTER, lane 6: TURN, a circle round it
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
@@ -414,3 +399,17 @@ body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
 
+## `bun run land` lands on a re-run a queue entry it refused
+
+- **Found:** 2026-10-08, claude/task-queue-work-e99d1a
+- **Files:** `tools/land/run.ts`, `tools/land/replay-guarded.ts`, `tools/land/queue-guard.ts`
+
+The resurrection guard runs only inside `replayGuarded`, which `moveTrunk`
+calls only when `going.rebase`. A refused landing has already rebased the
+lane, so the same command run again has nothing to replay, skips the guard
+and lands the entry it just refused — seen with THE BLISTER's lanes 5 to 8,
+put back on the owner's word, refused and then landed by a plain re-run. Run
+the guard (snapshots against the merge base, `resurrectedAfter`) whether or
+not there is a replay, and give an intended restore a spoken way through — a
+`Restored:` line or a flag — rather than the re-run. A test in
+`tools/land/test/` that a second run of a refused landing is refused again.

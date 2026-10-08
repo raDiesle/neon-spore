@@ -34,6 +34,13 @@ export interface BlisterConfig {
    * for the setting (`docs/spec/blister.md`, *The director's settings*).
    */
   blisterBlows: number;
+  /**
+   * How far a SWIPE has to carry along its way before its lift is a blow, in
+   * thousandths of a tile: one tile, which is across the body and out the
+   * other side — a stroke rather than a nudge, and short of THE INSTAR's
+   * `instarSwipeMilli`, because this one has to land inside two beats.
+   */
+  blisterSwipeMilli: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -42,4 +49,5 @@ export const BLISTER_DEFAULTS: BlisterConfig = {
   blisterDownBeats: 2,
   blisterSinkRows: 3,
   blisterBlows: 3,
+  blisterSwipeMilli: 1000,
 };

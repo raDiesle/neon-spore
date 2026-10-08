@@ -6,10 +6,34 @@ export type BlisterBy = 1 | 2 | "both";
 
 /**
  * The gesture a blister is knocked down by (`docs/spec/blister.md`, *The
- * gestures*): a tap for each blow, or a press kept down a beat for each. One
- * body for both — only the help drawn round it says which.
+ * gestures*): a tap for each blow, a press kept down a beat for each, or a
+ * stroke across it the way its arrow points. One body for all of them — only
+ * the help drawn round it says which.
  */
-export type BlisterGesture = "tap" | "hold";
+export type BlisterGesture = "tap" | "hold" | "swipe";
+
+/** Which way a SWIPE goes, as a screen reads it: `down` is towards the hull. */
+export type BlisterWay = "left" | "right" | "up" | "down";
+
+/**
+ * **What an arrival says about a blister**, absent on every other kind. One
+ * shape for the simulation's `SpawnEntry` and content's `WaveEntry`, which
+ * both extend it, so a field added for the next gesture is written once.
+ */
+export interface BlisterSpawn {
+  /** Whose hand knocks it down — 1, 2 or both; absent means 2
+   * (`blisterOnSpawn`). The wave's, for `sees`' reason: the other seat is the
+   * one shown the pore, so this turns the exchange round. */
+  by?: BlisterBy;
+  /** How many blows it takes, kept across its surfacings; absent means
+   * `blisterBlows`, the director's default of three. */
+  count?: number;
+  /** The gesture it is knocked down by; absent a tap. */
+  gesture?: BlisterGesture;
+  /** Which way a SWIPE goes; absent `right`, and meaningless on any other
+   * gesture. */
+  way?: BlisterWay;
+}
 
 /**
  * **THE BLISTER's four fields**: whose blow counts, how many are still owed,
@@ -51,4 +75,15 @@ export interface BlisterState {
    * starts it again; a release or a sink loses it (`blister-hold.ts`).
    */
   blisterHeldTicks?: number;
+  /** Which way a SWIPE counts, absent `right` (`blister-swipe.ts`). */
+  blisterWay?: BlisterWay;
+  /**
+   * SWIPE's strokes in progress, a bit a seat: 1 and 2 for a stroke open on
+   * a body that is up, 4 and 8 for one the sink voided — the thumb is still
+   * down, and its lift counts nothing (`blister-swipe.ts`).
+   */
+  blisterStrokes?: number;
+  /** How far along its way the furthest open stroke has come, in thousandths
+   * of a tile and no further than a stroke needs — what the bar fills to. */
+  blisterAlongMilli?: number;
 }

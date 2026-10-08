@@ -814,6 +814,7 @@ by hand never moves.
 | `packages/sim/src/bearing.ts` | **A bearing**: where a hand is round a circle, in thousandths of a turn clockwise from the top |
 | `packages/sim/src/blister.ts` | THE BLISTER: a body you knock back down (`docs/spec/blister.md`) |
 | `packages/sim/src/blister-hold.ts` | **THE BLISTER's HOLD** (`docs/spec/blister.md`, *The gestures*): a press kept on it while it is up |
+| `packages/sim/src/blister-swipe.ts` | **THE BLISTER's SWIPE** (`docs/spec/blister.md`, *The gestures*) |
 | `packages/sim/src/undertow-hash.ts` | What THE UNDERTOW puts into `hashWorld`, and nothing else |
 | `packages/sim/src/undertow-press.ts` | THE UNDERTOW's answers, and the tap, all on the **tick** |
 | `packages/sim/src/undertow-step.ts` | THE UNDERTOW's clock: the bow, the lobe standing, the lobe growing, the burst |
@@ -2498,7 +2499,7 @@ by hand never moves.
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
 | `packages/render/src/blister-tap.ts` | **A tap on THE BLISTER**, answered only where the simulation would count it: on a blister that is up |
-| `packages/render/src/blister-help.ts` | **THE BLISTER's help for TAP and HOLD**, called and not drawn anew (`docs/controls-catalogue.md`) |
+| `packages/render/src/blister-help.ts` | **THE BLISTER's help for TAP, HOLD and SWIPE**, called and not drawn anew (`docs/controls-catalogue.md`) |
 | `packages/render/src/blister-verdicts.ts` | Where a blister was last drawn, for the ring of the blow that finished it |
 | `packages/render/src/blister.ts` | THE BLISTER, drawn: |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |

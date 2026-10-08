@@ -1,6 +1,7 @@
 import { balloonHeard } from "./balloon-pull.js";
 import { rubBalloons } from "./balloon-rub.js";
 import { stepBlisterHolds } from "./blister-hold.js";
+import { blisterSwipeHeard } from "./blister-swipe.js";
 import { bossHandsHeard } from "./boss-hands.js";
 import { stepChoirFuse } from "./choir.js";
 import { choirArrowHeard, stepChoirWindow } from "./choir-gesture.js";
@@ -99,6 +100,9 @@ export function fieldHandsHeard(world: World, commands: readonly TimedCommand[])
   // And a hand on a HOLD blister, the same ordinary `grip` and counted on the
   // tick for the weight's reason (`blister-hold.ts`).
   stepBlisterHolds(world);
+  // And a stroke across a SWIPE blister, judged on the lift and on the tick
+  // for the same reason: the blow lands as the thumb comes away (`blister-swipe.ts`).
+  for (const c of commands) blisterSwipeHeard(world, c.player, c.command);
   // THE FLEET's sights and its salvo, read on the tick for the third time and
   // the same reason: a square the pair just named out loud is answered now,
   // not on the next beat. Its clock is the one thing about it that is on the

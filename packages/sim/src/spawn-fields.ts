@@ -154,9 +154,7 @@ export function kindFieldsOnSpawn(world: World, entry: SpawnEntry, at: Placed): 
     // the spread because nothing here rolls, and the order above is the
     // fingerprint.
     ...(entry.kind === "mine" ? mineOnSpawn(world.cfg, entry.sees) : {}),
-    ...(entry.kind === "blister"
-      ? blisterOnSpawn(world.cfg, entry.by, entry.count, entry.gesture)
-      : {}),
+    ...(entry.kind === "blister" ? blisterOnSpawn(world.cfg, entry) : {}),
     // What a moult is carrying, absent on every other kind. Authored, never
     // rolled, and it is the body's *whole* state: which form it is in is a
     // pure function of the beat and is deliberately not stored (`moult.ts`).

@@ -162,4 +162,8 @@ export const ROWS: Record<string, Row> = {
   bastionPlateLeft: {},
   bastionPlateRight: { seat: 2 },
   bastionSpin: {},
+  // `blister-swipe.ts`: a stroke across a SWIPE blister, judged on the lift's
+  // carry; the navigator's, the default `by`, and the pilot's for `by` 1.
+  blisterSwipe: { seat: 2, id: true, swipe: true },
+  blisterSwipe1: { as: "blisterSwipe", id: true, swipe: true },
 };

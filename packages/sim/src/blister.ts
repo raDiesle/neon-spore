@@ -1,5 +1,5 @@
 import { hullRow, type SimConfig } from "./config.js";
-import type { BlisterBy, BlisterGesture } from "./creature-state-blister.js";
+import type { BlisterBy, BlisterGesture, BlisterSpawn } from "./creature-state-blister.js";
 import { removeCreature } from "./field.js";
 import { breachHull } from "./hull-damage.js";
 import { nextInt } from "./rng.js";
@@ -46,19 +46,17 @@ export function blisterPlaceRow(cfg: SimConfig, row: number | undefined): number
  * is a thing to hit. The seat defaults to the navigator, the director's own
  * default (`docs/spec/blister.md`).
  */
-export function blisterOnSpawn(
-  cfg: SimConfig,
-  by: BlisterBy | undefined,
-  count: number | undefined,
-  gesture?: BlisterGesture,
-): Partial<Creature> {
+export function blisterOnSpawn(cfg: SimConfig, entry: BlisterSpawn): Partial<Creature> {
+  const { by, count, gesture, way } = entry;
   return {
     blisterBy: by ?? 2,
     blisterLeft: Math.max(1, count ?? cfg.blisterBlows),
     blisterUp: false,
     blisterClock: cfg.blisterDownBeats,
-    // Absent a tap, so a tap blister is byte-for-byte the blister lane 1 built.
-    ...(gesture === "hold" ? { blisterGesture: gesture } : {}),
+    // Absent a tap, so a tap blister is byte-for-byte the blister lane 1 built,
+    // and a way only on the gesture that goes one.
+    ...(gesture === undefined || gesture === "tap" ? {} : { blisterGesture: gesture }),
+    ...(gesture === "swipe" && way !== undefined ? { blisterWay: way } : {}),
   };
 }
 
@@ -119,6 +117,7 @@ export function stepBlister(world: World, c: Creature): void {
   if (left > 0) return;
   if (c.blisterUp) {
     c.blisterUp = false;
+    voidStrokes(c);
     c.blisterClock = cfg.blisterDownBeats;
     c.col = nextInt(world.rng, cfg.cols);
     c.row = Math.min(hullRow(cfg), c.row + cfg.blisterSinkRows);
@@ -169,4 +168,15 @@ export function blisterBlow(world: World, c: Creature): void {
     kind: "blister",
   });
   removeCreature(world, c.id);
+}
+
+/**
+ * A sink voids every SWIPE stroke in progress: the thumbs are still down, and
+ * the lift that follows counts nothing — the body it began on is under
+ * another pore by then (`blister-swipe.ts`).
+ */
+function voidStrokes(c: Creature): void {
+  const open = (c.blisterStrokes ?? 0) & 3;
+  if (open !== 0) c.blisterStrokes = ((c.blisterStrokes ?? 0) & 12) | (open << 2);
+  c.blisterAlongMilli = undefined;
 }

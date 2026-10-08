@@ -34,6 +34,17 @@ export function blisterUnder(l: Layout, field: Field, x: number, y: number): Tou
   // A HOLD blister's press is the ordinary `grip`, kept until the lift lets go
   // (`touch.ts`, `sim/blister-hold.ts`) — a mouse's press as a thumb's.
   const body = field.creatures.find((c) => c.id === best);
+  // A SWIPE blister's press is a `drag` on `blisterSwipe`, carried from where
+  // it landed; the lift says where it ended and the simulation judges the
+  // stroke (`touch.ts` `touchUp`, `sim/blister-swipe.ts`).
+  if (body !== undefined && blisterGestureOf(body) === "swipe") {
+    const target = "blisterSwipe";
+    return {
+      player: field.seat,
+      command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0, id: best },
+      hold: { kind: "drag", target, player: field.seat, originX: x, originY: y, id: best },
+    };
+  }
   if (body !== undefined && blisterGestureOf(body) === "hold") {
     return {
       player: field.seat,

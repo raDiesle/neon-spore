@@ -1,9 +1,12 @@
 import {
+  type BlisterWay,
   blisterGestureOf,
   blisterHoldShare,
   blisterIsUp,
   blisterLeft,
   blisterMayTap,
+  blisterSwipeShare,
+  blisterWayOf,
   type Creature,
   gripsCreature,
   type World,
@@ -13,6 +16,7 @@ import { flatCenter, flatRadius } from "./creature-place.js";
 import { drawGripDial } from "./grip-rings.js";
 import { drawHoldMark } from "./hold-mark.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
+import { drawInstarTrack, instarTrack } from "./instar-track.js";
 import { type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkWait } from "./mark-feedback.js";
 import { drawMarkHeld } from "./mark-progress.js";
@@ -20,7 +24,7 @@ import { PALETTE } from "./palette.js";
 import { drawFuseRing } from "./pip-ring.js";
 
 /**
- * **THE BLISTER's help for TAP and HOLD**, called and not drawn anew
+ * **THE BLISTER's help for TAP, HOLD and SWIPE**, called and not drawn anew
  * (`docs/controls-catalogue.md`): the same pieces every mark in the game
  * wears, laid over and round a body that is up.
  *
@@ -36,6 +40,10 @@ import { drawFuseRing } from "./pip-ring.js";
  *   the beat in progress fills (`drawGripDial`), and the halo only while no
  *   hand is on it. On both screens, while a hand that counts is on it, the
  *   steady green ring a held mark wears (`drawMarkHeld`).
+ * - SWIPE, on the seat that may: THE INSTAR's swipe track (`instar-track.ts`)
+ *   laid across the body along its way, a bar and never a ring (the owner, 24
+ *   September 2026), its chevrons pointing the way and its fill the furthest
+ *   open stroke. The partner is drawn the waiting clock, never the way.
  * - The verdict on each blow is a transient and is `blister-verdicts.ts`'.
  *
  * Flat, after every body, outside the perspective transform — the tap's
@@ -61,9 +69,12 @@ export function drawBlisterHelp(
     const mine = l.role === "test" || blisterMayTap(c, seatOf(l.role));
     ctx.save();
     ctx.globalAlpha *= h;
-    const holding = blisterGestureOf(c) === "hold";
+    const gesture = blisterGestureOf(c);
+    const holding = gesture === "hold";
     const held = holding && heldNow(world, c);
-    if (mine && holding) {
+    if (mine && gesture === "swipe") {
+      drawSwipeTrack(ctx, l, world, c, { x, y, r }, time);
+    } else if (mine && holding) {
       if (!held) drawMarkHalo(ctx, x, y, r, time);
       drawHoldMark(ctx, x, y, r * HOLD_R, time);
       drawGripDial(ctx, x, y, r * DIAL_R, 1 - blisterHoldShare(world, c));
@@ -92,3 +103,38 @@ const DIAL_R = 0.92;
 function heldNow(world: World, c: Creature): boolean {
   return ([1, 2] as const).some((s) => gripsCreature(world, s, c.id) && blisterMayTap(c, s));
 }
+
+/**
+ * SWIPE's track, centred on the body and as long as the stroke the lift counts
+ * at (`blisterSwipeMilli`). The track is drawn pointing down, so it is turned
+ * to the way rather than drawn four times.
+ */
+function drawSwipeTrack(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  c: Creature,
+  at: { x: number; y: number; r: number },
+  time: number,
+): void {
+  const length = (world.cfg.blisterSwipeMilli * l.tile) / 1000;
+  const along = blisterSwipeShare(world, c);
+  const mark = at.r * TRACK_R;
+  ctx.save();
+  ctx.translate(at.x, at.y);
+  ctx.rotate(TURN_TO[blisterWayOf(c)]);
+  const track = instarTrack(0, -length / 2, mark, length);
+  drawInstarTrack(ctx, track, mark, true, along > 0, along, time, false);
+  ctx.restore();
+}
+
+/** The track's mark radius, in body radii: its bar and chevrons inside the body. */
+const TRACK_R = 0.8;
+
+/** How far to turn a track drawn pointing down so it points the way. */
+const TURN_TO: Record<BlisterWay, number> = {
+  down: 0,
+  up: Math.PI,
+  right: -Math.PI / 2,
+  left: Math.PI / 2,
+};

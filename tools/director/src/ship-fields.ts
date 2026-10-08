@@ -115,6 +115,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   blisterDownBeats: "THE BLISTER — a body one of you knocks down where the other says",
   blisterSinkRows: "THE BLISTER — a body one of you knocks down where the other says",
   blisterBlows: "THE BLISTER — a body one of you knocks down where the other says",
+  blisterSwipeMilli: "THE BLISTER — a body one of you knocks down where the other says",
   moultBeats: "THE MOULT — a rock and a cargo by turns, and the turn is the call",
   ghostCrossRow: "THE GHOST — a body with no column on one screen",
   ghostCrossCols: "THE GHOST — a body with no column on one screen",

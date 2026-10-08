@@ -1,6 +1,5 @@
 import type {
-  BlisterBy,
-  BlisterGesture,
+  BlisterSpawn,
   Color,
   CrawlerSide,
   GhostPath,
@@ -31,9 +30,11 @@ import type { FenceEntry } from "./wave-entry-fence.js";
  * it has: every field left here is one number or one word, and those three are
  * lists — which is the difference between a picker in the director's panel and
  * a row of chips painted across a wall. `WaveEntry` extends it, so nothing that
- * reads `e.gaps` moved either.
+ * reads `e.gaps` moved either. THE BLISTER's are the simulation's own
+ * `BlisterSpawn`, extended the same way, so `SpawnEntry` and this one cannot
+ * spell a gesture two ways.
  */
-export interface WaveEntry extends FenceEntry {
+export interface WaveEntry extends FenceEntry, BlisterSpawn {
   beat: number;
   col: number;
   /**
@@ -236,13 +237,4 @@ export interface WaveEntry extends FenceEntry {
    * of them is one sentence to say rather than one per body (`sim/moult.ts`).
    */
   cargo?: PodKind;
-  /** Whose hand knocks THE BLISTER down: 1, 2 or both, absent 2. The other
-   * seat is shown where it comes up, so this turns the exchange round, as
-   * `sees` does a mine's (`sim/blister.ts`). */
-  by?: BlisterBy;
-  /** How many blows THE BLISTER takes, kept across surfacings; absent is the
-   * director's default of three. */
-  count?: number;
-  /** What knocks THE BLISTER down, absent a tap: a tap a blow or a beat held. */
-  gesture?: BlisterGesture;
 }

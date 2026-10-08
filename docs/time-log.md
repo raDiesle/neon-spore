@@ -36347,3 +36347,16 @@ Bottleneck: reading — which of the five postponed lanes were still unbuilt.
 Bottleneck: `check:fast` — a minute and a half, for a diff that only deletes.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE BLISTER, lane 5: SWIPE, half built and parked
+
+- reading: 20 min. THE INSTAR's swipe, the HOLD lane's wiring, the drag
+  targets, the lift's carry in `touch.ts`, the director's tables.
+- writing: 20 min. `blister-swipe.ts`, `BlisterSpawn`, the target on both
+  sides of the wire, the press, the lift, the track help.
+- looking: 0 min. Parked before a frame was taken.
+- friction: 5 min. `wave-entry.ts` at its limit; a refused landing that went
+  through on a re-run, queued.
+- landing: 5 min. `check:fast`, the parked entry, `land`.
+
+Bottleneck: reading — a drag target reaches three tables nobody names in the entry.

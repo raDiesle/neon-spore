@@ -178,6 +178,7 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
       ...(e.by === undefined ? {} : { by: e.by }),
       ...(e.count === undefined ? {} : { count: e.count }),
       ...(e.gesture === undefined ? {} : { gesture: e.gesture }),
+      ...(e.way === undefined ? {} : { way: e.way }),
     });
   }
   return queue.sort((a, b) => a.beat - b.beat);
