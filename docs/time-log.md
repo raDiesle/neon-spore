@@ -35111,3 +35111,14 @@ Bottleneck: friction — a film's caption anchored at a boss that has no
 anchor is simply not drawn, and only a frame showed it.
 
 *Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE LAMPREY's worm on the field moved to its own section
+
+- reading: 5 min. The queue, the two answers asked, the two sections.
+- writing: 5 min. The block moved whole, the answers written back.
+- looking: 0 min. A document; nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: reading — finding where the block ended and where the clock
+paragraph's "below" points.

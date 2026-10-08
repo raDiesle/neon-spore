@@ -10957,44 +10957,6 @@ swing comes back, until the alien kicks the gong. Four pages — whose side,
 *when*, the partner's side, and what it is for — and nothing the fight's
 own `SWIPE` already says.
 
-**The worm on the field** (the owner, 6 October 2026, `sim/lamprey-roam.ts`):
-*let the enemy appear as an intro animation, eat its way through things that
-fall … leave crumbs … crawl out of the picture and back … between each slow
-it should crawl back and forth through the picture like a worm, and now and
-then eat things … it could poop, which has to be turned with the shield.*
-While it crawls, the eel's `col` and `row` are its head, in whole tiles, the
-columns running off the field either side, with the places it has been
-(`trailCol`, `trailRow`, `LAMPREY_TRAIL` of them) for the body to lie along
-— so both phones eat the same body on the same beat. The head moves
-`lampreyCrawlTiles` a beat each way, and `lampreyLungeTiles` while it goes
-for food.
-
-- **It arrives hungry.** It crawls in from `lampreyOutCols` off the side
-  nearer its meal to `lampreyFeedRow` (`entering`, `lampreyEnter`), and the
-  wave's `meal` falls for it one morsel at a time (`feeding`, `lampreyFeed`):
-  the shipped wave's is two rocks, a slick and two bulbs. Its head goes under
-  each and eats it (`lampreyEat`) — a body off the field through
-  `removeCreature`.
-- **It crawls out of the picture and back** (`away`, `lampreyAway`): off the
-  nearer side along `lampreyHighRow`, `lampreyAwayBeats` there, then straight
-  in to the first stay's tile, drawn at install (`roam`, `lampreyRoam`).
-- **Levels of three to five leaps, a crawl between them.** A step that says
-  `crawl` is not leapt to: the eel crawls across to the far side along
-  `lampreyHighRow`, back along `lampreyLowRow`, and onto the step's tile. A
-  step's `food` falls `lampreyFoodCols` ahead of it as it sets off and it
-  goes for it; anything edible its head passes is eaten too. The shipped
-  wave is three levels of three, four and five stays, each ended on a
-  gullet, the second and third crawled to.
-- **Its dung is a rock for the shield.** A step with `dung` lets one go from
-  its tail's end as the head reaches the far side (`lampreyDung`), in the
-  column `LAMPREY_TAIL_END` tiles back along the trail and never in an edge
-  column: an ordinary `meteor`, answered by `resolveHull` like any rock, so
-  a miss is the hull and the wave. Its ids are `dung`, which the head never
-  eats and the picture draws as dung.
-- **A tooth is a run of taps**: three in the shipped wave's first two
-  levels, four in the last. The ring has nine teeth, one for each stay with
-  hands.
-
 **What is proven, and what is not.** `sim/test/trapeze.test.ts` proves the
 swing and the swipes: it dies down on its own, a push on time raises it and
 one going out brakes it, a side pushes once a half swing, every refused
@@ -11504,6 +11466,44 @@ rule for bosses (`docs/miss-rule-audit.md`): the bite goes through
 (`lampreyFull`), the hull is struck at the tile's column, and the eel leaps
 on — the wave is lost anyway (`wave-fail.ts`). With the script done it is
 limp (`lampreySpent`) for `lampreySpentBeats` and falls away (`lampreyOut`).
+
+**The worm on the field** (the owner, 6 October 2026, `sim/lamprey-roam.ts`):
+*let the enemy appear as an intro animation, eat its way through things that
+fall … leave crumbs … crawl out of the picture and back … between each slow
+it should crawl back and forth through the picture like a worm, and now and
+then eat things … it could poop, which has to be turned with the shield.*
+While it crawls, the eel's `col` and `row` are its head, in whole tiles, the
+columns running off the field either side, with the places it has been
+(`trailCol`, `trailRow`, `LAMPREY_TRAIL` of them) for the body to lie along
+— so both phones eat the same body on the same beat. The head moves
+`lampreyCrawlTiles` a beat each way, and `lampreyLungeTiles` while it goes
+for food.
+
+- **It arrives hungry.** It crawls in from `lampreyOutCols` off the side
+  nearer its meal to `lampreyFeedRow` (`entering`, `lampreyEnter`), and the
+  wave's `meal` falls for it one morsel at a time (`feeding`, `lampreyFeed`):
+  the shipped wave's is two rocks, a slick and two bulbs. Its head goes under
+  each and eats it (`lampreyEat`) — a body off the field through
+  `removeCreature`.
+- **It crawls out of the picture and back** (`away`, `lampreyAway`): off the
+  nearer side along `lampreyHighRow`, `lampreyAwayBeats` there, then straight
+  in to the first stay's tile, drawn at install (`roam`, `lampreyRoam`).
+- **Levels of three to five leaps, a crawl between them.** A step that says
+  `crawl` is not leapt to: the eel crawls across to the far side along
+  `lampreyHighRow`, back along `lampreyLowRow`, and onto the step's tile. A
+  step's `food` falls `lampreyFoodCols` ahead of it as it sets off and it
+  goes for it; anything edible its head passes is eaten too. The shipped
+  wave is three levels of three, four and five stays, each ended on a
+  gullet, the second and third crawled to.
+- **Its dung is a rock for the shield.** A step with `dung` lets one go from
+  its tail's end as the head reaches the far side (`lampreyDung`), in the
+  column `LAMPREY_TAIL_END` tiles back along the trail and never in an edge
+  column: an ordinary `meteor`, answered by `resolveHull` like any rock, so
+  a miss is the hull and the wave. Its ids are `dung`, which the head never
+  eats and the picture draws as dung.
+- **A tooth is a run of taps**: three in the shipped wave's first two
+  levels, four in the last. The ring has nine teeth, one for each stay with
+  hands.
 
 **The answers** (`sim/lamprey-hand.ts`).
 
