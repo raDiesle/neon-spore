@@ -3,7 +3,6 @@ import { RoundMarks } from "./effects-round-marks.js";
 import { FlueFx } from "./flue-fx.js";
 import { GallFx } from "./gall-fx.js";
 import { GovernorFx } from "./governor-fx.js";
-import { GrindstoneFx } from "./grindstone-fx.js";
 import { HalterVerdicts } from "./halter-verdicts.js";
 import { LampreyFx } from "./lamprey-fx.js";
 import { LatchFx } from "./latch-fx.js";
@@ -42,11 +41,6 @@ export class LateRoster extends RoundMarks {
    * both screens, and told the core's colour by the drawer (`plumb-fx.ts`,
    * `plumb-draw.ts`). */
   readonly plumb = new PlumbFx();
-  /** THE GRINDSTONE's grit, a flat's clean flash, the caliper's flare and
-   * thud, the axle's flash and the snap free's, the hull shock, and its
-   * receipts' bursts — thrown the same on both screens, and told the axle's
-   * colour by the drawer (`grindstone-fx.ts`, `grindstone-draw.ts`). */
-  readonly grindstone = new GrindstoneFx();
   /** THE CAPSTAN's scrub and bright ring off a band, the thud of a window
    * let run, the core's flash and the spent drum's, and its receipts' bursts
    * — thrown the same on both screens, and told the core's colour by the

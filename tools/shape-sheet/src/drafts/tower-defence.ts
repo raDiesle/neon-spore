@@ -128,10 +128,10 @@ export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
       seed: 4.4,
     }),
     motion: SETTLE,
-    status: "taken",
+    status: "free",
     slot: "creature",
     owner:
-      "THE GRINDSTONE, taken 26 September 2026, at its own numbers: the wheel, its studs the grit, two faces of it cut flat and deeper for every pass (`render/grindstone-shape.ts`). SETTLE is not used — the wheel spins and stops rather than wandering off a line. Before that, nothing carried it, and it is the one card here whose argument is the motion rather than the contour: the body is deliberately near a meteor, because Missile Command's smart bomb is an ordinary warhead that *steers*. SETTLE is the whole proposal — it wanders off its line and snaps back — and the shape is only there so that something is carrying it. If the motion reads on this, it reads on the rock we already draw",
+      "nothing wears it: THE GRINDSTONE wore it from 26 September 2026, at its own numbers, as a wheel with its studs the grit and two faces cut flat, and was taken out of the game on 8 October 2026. Before that, nothing carried it, and it is the one card here whose argument is the motion rather than the contour: the body is deliberately near a meteor, because Missile Command's smart bomb is an ordinary warhead that *steers*. SETTLE is the whole proposal — it wanders off its line and snaps back — and the shape is only there so that something is carrying it. If the motion reads on this, it reads on the rock we already draw",
   },
   {
     subject: guarded("THE HOOD", "a body under an arc that is not attached to it", {
@@ -144,10 +144,10 @@ export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
       seed: 9.2,
     }),
     motion: WIND,
-    status: "taken",
+    status: "free",
     slot: "creature",
     owner:
-      "THE GRINDSTONE, taken 26 September 2026, at its own numbers: the caliper over the wheel, split at its crown into two jaws on one bolt, one to a seat, swinging in until they bite (`render/grindstone-shape.ts`). Before that, nothing carried it: converted from Nova Drift's enemy line-up, which is drawn as white silhouettes on dark and is therefore the strictest test of the only thing that matters here. Almost all of that line-up is already in this catalogue under other names; the one arrangement that is not is a body with a detached piece standing over it, touching nothing. It is the only way this catalogue can draw protection that is a separate object rather than a thickness — and the state worth judging is `held: 0`, where the arc is gone and the body has to read as exposed rather than merely as smaller",
+      "nothing wears it: THE GRINDSTONE wore it from 26 September 2026, at its own numbers, as a caliper split at its crown into two jaws, and was taken out of the game on 8 October 2026. Before that, nothing carried it: converted from Nova Drift's enemy line-up, which is drawn as white silhouettes on dark and is therefore the strictest test of the only thing that matters here. Almost all of that line-up is already in this catalogue under other names; the one arrangement that is not is a body with a detached piece standing over it, touching nothing. It is the only way this catalogue can draw protection that is a separate object rather than a thickness — and the state worth judging is `held: 0`, where the arc is gone and the body has to read as exposed rather than merely as smaller",
   },
   {
     subject: guarded("THE HOOD — BROKEN", "the same body with the arc gone", {
@@ -160,10 +160,10 @@ export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
       seed: 9.2,
     }),
     motion: SHIVER,
-    status: "taken",
+    status: "free",
     slot: "creature",
     owner:
-      "THE GRINDSTONE, taken 26 September 2026 with THE HOOD: the caliper flung off and the wheel bare, spinning free as it falls (`render/grindstone-draw.ts`). Before that, the second half of THE HOOD and useless without it: identical in every parameter except that the guard is gone. The pair of cards is the proposal, not either one of them — a guard that can be broken is worth having only if the broken state is legible on its own, and one card cannot answer that. It carries SHIVER where the whole one carries WIND, which is the same claim made in motion: the thing that was winding up has stopped",
+      "nothing wears it: THE GRINDSTONE wore it with THE HOOD from 26 September 2026, the caliper flung off and the wheel bare, and was taken out of the game on 8 October 2026. Before that, the second half of THE HOOD and useless without it: identical in every parameter except that the guard is gone. The pair of cards is the proposal, not either one of them — a guard that can be broken is worth having only if the broken state is legible on its own, and one card cannot answer that. It carries SHIVER where the whole one carries WIND, which is the same claim made in motion: the thing that was winding up has stopped",
   },
   {
     subject: clubbed("THE POMMEL", "a heavy body wearing balls on stalks, no two the same", {

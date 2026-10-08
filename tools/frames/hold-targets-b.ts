@@ -138,12 +138,6 @@ export const ROWS: Record<string, Row> = {
   // `sling-hand.ts`: an arm each, the lift's swipe on `fromMilli`; the pilot's is the left.
   slingDrawLeft: {},
   slingDrawRight: { seat: 2 },
-  // `grindstone-hand.ts`: a flat each, rubbed, `id` the reversal count; a jaw
-  // each, its pads held down together, `id` the pad; the pilot's is the left.
-  grindFlatLeft: { id: true },
-  grindFlatRight: { seat: 2, id: true },
-  grindJawLeft: { id: true },
-  grindJawRight: { seat: 2, id: true },
   // `halter-hand.ts`: either seat's thumbs on both grips; sent as the pilot's.
   halterChordLeft: {},
   halterChordRight: {},

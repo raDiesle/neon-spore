@@ -1,4 +1,4 @@
-import { type DragTarget, GRINDSTONE_PADS, TRIVET_PADS } from "@neon-spore/sim";
+import { type DragTarget, TRIVET_PADS } from "@neon-spore/sim";
 import { chordFinger } from "./chord.js";
 import type { Touch } from "./touch.js";
 
@@ -12,8 +12,6 @@ interface ChordBody {
 
 /** Every chord body in the game and its partner. A HALTER grip is one pad: the grip is the bit. */
 const BODIES: Partial<Record<DragTarget, ChordBody>> = {
-  grindJawLeft: { pads: GRINDSTONE_PADS, partner: "grindJawRight", across: true },
-  grindJawRight: { pads: GRINDSTONE_PADS, partner: "grindJawLeft", across: true },
   trivetPadFront: { pads: TRIVET_PADS, partner: "trivetPadRear", across: true },
   trivetPadRear: { pads: TRIVET_PADS, partner: "trivetPadFront", across: true },
   halterChordLeft: { pads: 1, partner: "halterChordRight", across: false },
@@ -27,11 +25,10 @@ const BODIES: Partial<Record<DragTarget, ChordBody>> = {
  * `HOLD BOTH` ring is both thumbs (`desk-grab.ts` `deskDownAll`).
  *
  * A chord is fingers counted in the order they land (`chord-pads.ts`), and a
- * mouse is one pointer, so it was one pad on one body and THE GRINDSTONE's
- * clamp — all four pads, both jaws — ran out and sprang every time.
+ * mouse is one pointer, so it was one pad on one body and a two-body clamp
+ * — all four pads — ran out and sprang every time.
  *
- * **The partner is the other seat's** on THE GRINDSTONE's jaws and THE
- * TRIVET's feet; the simulation hears a seat's own body
+ * **The partner is the other seat's** on THE TRIVET's feet; the simulation hears a seat's own body
  * only, so the partner's hold is signed with the other seat. **THE HALTER's is
  * the same seat's other grip**: a chord there is one seat's two grips while
  * the other rests, and a grip from the rester would startle it

@@ -3,7 +3,7 @@
  * own fraction counted in, and never before the phase began.
  *
  * Every pose file wrote this line out on its own state — THE OCULUS's, THE
- * GRINDSTONE's, THE FLUE's and seventeen more, the same clock twenty times —
+ * FLUE's and seventeen more, the same clock nineteen times —
  * so it is one function here, and `packages/sim/test/copies-table.ts` fails
  * on the next file that writes it rather than calling it.
  */

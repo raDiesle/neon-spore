@@ -4,7 +4,7 @@ import { PALETTE, STROKE } from "./palette.js";
 /**
  * **The mark a rub asks with: a red line, and an arrow coming in at it from
  * each side**, the same on every boss. The owner, 3 October 2026, on THE
- * GRINDSTONE: *remove scanner rectangle box and instead have the middle line
+ * GRINDSTONE (since retired): *remove scanner rectangle box and instead have the middle line
  * to rub to be a very visible red colour. then two arrows from each side
  * animating to move in the middle to make clear the rub directions come from
  * the horizontal left and right. the rub is a reusable on screen control

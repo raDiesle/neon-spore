@@ -6,8 +6,8 @@ import { Rubs } from "../src/rub-turns.js";
 
 /**
  * **How many times a thumb has turned back** — the count `rub.ts` keeps, with
- * what a count means left to `sim/grindstone-hand.ts`' own test; and the
- * jaw's chord beside it, through `fingers.ts`, lifting the pad it was.
+ * what a count means left to `sim/rime-hand.ts`' own test; and the
+ * foot's chord beside it, through `fingers.ts`, lifting the pad it was.
  */
 
 const L = computeLayout({ width: 420, height: 900, dpr: 2 }, DEFAULT_CONFIG, "p1");
@@ -15,22 +15,22 @@ const T = L.tile;
 
 const FLAT: Hold = {
   kind: "drag",
-  target: "grindFlatLeft",
+  target: "rimeHalfLeft",
   player: 1,
   originX: 0,
   originY: 0,
   rub: true,
 };
-const JAW: Hold = {
+const FOOT: Hold = {
   kind: "drag",
-  target: "grindJawLeft",
+  target: "trivetPadFront",
   player: 1,
   originX: 0,
   originY: 0,
   chord: true,
 };
 
-const says = (id: number, on: boolean, target: DragTarget = "grindFlatLeft"): Command => ({
+const says = (id: number, on: boolean, target: DragTarget = "rimeHalfLeft"): Command => ({
   kind: "drag",
   target,
   on,
@@ -81,28 +81,28 @@ describe("a rubbing thumb", () => {
 
   it("ignores a hold that is not a rub", () => {
     const r = new Rubs();
-    expect(r.down(1, [JAW], 0, 0)).toBeNull();
+    expect(r.down(1, [FOOT], 0, 0)).toBeNull();
     expect(r.move(L, 1, 0, T)).toBeNull();
     expect(r.up(1)).toBeNull();
   });
 });
 
-describe("the fingers on one wheel", () => {
-  it("lifts each of a jaw's pads by the id it went down as", () => {
+describe("the fingers on one foot", () => {
+  it("lifts each of a foot's pads by the id it went down as", () => {
     const f = new Fingers();
-    expect(f.down(L, 1, [JAW], 0, 0).map((s) => s.command)).toEqual([
-      says(0, true, "grindJawLeft"),
+    expect(f.down(L, 1, [FOOT], 0, 0).map((s) => s.command)).toEqual([
+      says(0, true, "trivetPadFront"),
     ]);
-    expect(f.down(L, 2, [JAW], 0, 0).map((s) => s.command)).toEqual([
-      says(1, true, "grindJawLeft"),
+    expect(f.down(L, 2, [FOOT], 0, 0).map((s) => s.command)).toEqual([
+      says(1, true, "trivetPadFront"),
     ]);
-    expect(f.up(2).map((s) => s.command)).toEqual([says(1, false, "grindJawLeft")]);
-    expect(f.up(1).map((s) => s.command)).toEqual([says(0, false, "grindJawLeft")]);
+    expect(f.up(2).map((s) => s.command)).toEqual([says(1, false, "trivetPadFront")]);
+    expect(f.up(1).map((s) => s.command)).toEqual([says(0, false, "trivetPadFront")]);
   });
 
-  it("counts a rub's turns beside a jaw's pads", () => {
+  it("counts a rub's turns beside a foot's pads", () => {
     const f = new Fingers();
-    f.down(L, 1, [JAW], 0, 0);
+    f.down(L, 1, [FOOT], 0, 0);
     f.down(L, 2, [FLAT], 0, 0);
     f.move(L, 2, 0, T);
     expect(f.move(L, 2, 0, 0).map((s) => s.command)).toEqual([says(1, true)]);

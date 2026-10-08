@@ -227,12 +227,4 @@ export const CREATURE_HUES = {
   plumbGlass: "#E3EEC4",
   /** The spent core's light as it leaves the beam in row 11's bleed: a warm white, no cannon's. */
   plumbBleed: "#F8F4E6",
-  /**
-   * THE GRINDSTONE's wheel (§33, *Colour*): a dull quarried grey, its shadow,
-   * and the sandy tan a flat shows where its grit is ground away — warm, so a
-   * clean patch never reads as either cannon's colour or as frost.
-   */
-  grindstoneStone: "#77736B",
-  grindstoneStoneDark: "#2B2925",
-  grindstoneFlat: "#D7C4A0",
 } as const;

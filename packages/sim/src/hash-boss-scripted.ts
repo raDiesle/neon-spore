@@ -3,7 +3,6 @@ import { capstanHashParts } from "./capstan-hash.js";
 import { flueHashParts } from "./flue-hash.js";
 import { gallHashParts } from "./gall-hash.js";
 import { governorHashParts } from "./governor-hash.js";
-import { grindstoneHashParts } from "./grindstone-hash.js";
 import { halterHashParts } from "./halter-hash.js";
 import { lampreyHashParts } from "./lamprey-hash.js";
 import { latchHashParts } from "./latch-hash.js";
@@ -65,11 +64,6 @@ export function scriptedHashParts(boss: BossState): number[] {
   // counts and the script (`sling-hash.ts`).
   if (boss.kind === "sling") {
     for (const n of slingHashParts(boss)) out.push(n);
-  }
-  // THE GRINDSTONE: the phase, the cursor, the passes, the hits, the caliper,
-  // both flats' grit and rubs, both jaws and the script (`grindstone-hash.ts`).
-  if (boss.kind === "grindstone") {
-    for (const n of grindstoneHashParts(boss)) out.push(n);
   }
   // THE HALTER: the phase, the cursor, the cracks, the hits, the centre, both
   // seats' rests, stirrings and grips, the pair's count and the script (`halter-hash.ts`).

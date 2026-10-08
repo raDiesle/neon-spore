@@ -16,7 +16,7 @@ import {
  * step's colour up the middle, and the shield carried under a surge or an
  * icicle and pressed.
  *
- * **A wipe is a rub**, THE GRINDSTONE's (`boss-hands-grindstone.ts`): the
+ * **A wipe is a rub**, THE CAPSTAN's (`boss-hands-capstan.ts`): the
  * drag's `id` is how many reversals the thumb has made since it went down
  * (`sim/rime-hand.ts`), so a seat whose half is asked for sends one more than
  * the lens last heard, four times a beat, and lifts once it is not.

@@ -10,7 +10,7 @@ import { type Cue, panForCol } from "./bind.js";
  * **A clear and a hit are pitched up as they add up**, so how far the pair
  * are along can be heard without either of them counting.
  *
- * **The refreeze is silent**, as THE GRINDSTONE's fade is: the beats that ask
+ * **The refreeze is silent**, as THE SLING's cool is: the beats that ask
  * for nothing sound of nothing, and what breaks them, `rimeScatter`, is heard.
  */
 export function rimeCue(e: Extract<SimEvent, { type: `rime${string}` }>, cols: number): Cue | null {

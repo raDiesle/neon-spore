@@ -8,9 +8,8 @@ import type { World } from "./world.js";
  * feet ring under the spent hub, straining loose on their own, for
  * `trivetRingBeats` while both seats send nothing — after ten beats spent
  * chording or firing, the fight's last beat asks the pair to let go of every
- * pad and trust the stand to settle. THE GRINDSTONE's fade
- * (`grindstone-fade.ts`), THE SLING's cool and THE PLUMB's bleed are the same
- * shape.
+ * pad and trust the stand to settle. THE SLING's cool and THE PLUMB's bleed
+ * are the same shape.
  *
  * **A reflex chord jolts a foot loose** and rings it again: the ring takes a
  * beat longer, at most `trivetRingJolts`. It costs a beat, not a pad — a

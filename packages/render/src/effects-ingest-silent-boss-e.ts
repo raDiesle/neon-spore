@@ -11,7 +11,7 @@ import type { SimEvent } from "@neon-spore/sim";
  * next frame*.
  *
  * THE HASP's story came over on 29 September 2026, when THE SLING's cool
- * and THE GRINDSTONE's fade took page four within a line of the wall: the
+ * and a since-retired boss's fade took page four within a line of the wall: the
  * last rows on the page go, never the boss being worked on. THE PLUMB's
  * twelve came from page three on 30 September 2026 by the same rule, when
  * THE GAUGE's tooth left that page at 250.

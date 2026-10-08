@@ -11,7 +11,6 @@ import { gallHand } from "./boss-hands-gall.js";
 import { gaugeHand } from "./boss-hands-gauge.js";
 import { gimbalHand } from "./boss-hands-gimbal.js";
 import { governorHand } from "./boss-hands-governor.js";
-import { grindstoneHand } from "./boss-hands-grindstone.js";
 import { halterHand } from "./boss-hands-halter.js";
 import { filamentHand, sinewHand, surgeHand } from "./boss-hands-handles.js";
 import { haspHand } from "./boss-hands-hasp.js";
@@ -85,7 +84,6 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   gimbal: gimbalHand,
   gorge: gorgeHand,
   governor: governorHand,
-  grindstone: grindstoneHand,
   halter: halterHand,
   hasp: haspHand,
   hive: hiveHand,

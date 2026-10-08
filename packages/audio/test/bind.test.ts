@@ -584,21 +584,6 @@ const SAMPLES: Record<string, SimEvent> = {
   slingSnap: { type: "slingSnap", col: 5, side: 0 },
   slingFree: { type: "slingFree", col: 5 },
   slingOut: { type: "slingOut", col: 5 },
-  grindstoneEnter: { type: "grindstoneEnter", col: 5 },
-  grindstoneLight: { type: "grindstoneLight", col: 5, ask: "left" },
-  grindstoneShave: { type: "grindstoneShave", col: 5, side: 0, gritMilli: 500 },
-  grindstoneClear: { type: "grindstoneClear", col: 5, side: 1, passes: 2 },
-  grindstoneRegrit: { type: "grindstoneRegrit", col: 5, side: 0 },
-  grindstoneBite: { type: "grindstoneBite", col: 5 },
-  grindstoneSlip: { type: "grindstoneSlip", col: 5, side: 1 },
-  grindstoneClamp: { type: "grindstoneClamp", col: 5 },
-  grindstoneLoose: { type: "grindstoneLoose", col: 5 },
-  grindstoneHit: { type: "grindstoneHit", col: 5, hits: 2 },
-  grindstoneMiss: { type: "grindstoneMiss", col: 5 },
-  grindstoneFade: { type: "grindstoneFade", col: 5 },
-  grindstoneJar: { type: "grindstoneJar", col: 5, side: 1 },
-  grindstoneFree: { type: "grindstoneFree", col: 5 },
-  grindstoneOut: { type: "grindstoneOut", col: 5 },
   halterEnter: { type: "halterEnter", col: 5 },
   halterLight: { type: "halterLight", col: 5, ask: "left" },
   halterSettle: { type: "halterSettle", col: 5, seat: 2 },
@@ -830,8 +815,7 @@ describe("bindings", () => {
   // one quiet beat on the bob (§31, *Presentation*), and the pull that
   // breaks it is `plumbFlare`, which is heard. `slingCool` is the eighth, and
   // THE SLING's spent yoke cooling the same beat: `slingSnap` is heard.
-  // `grindstoneFade` is the ninth, THE GRINDSTONE's: `grindstoneJar` is heard.
-  // `rimeRefreeze` is the tenth, THE RIME's, for the ninth's reason:
+  // `rimeRefreeze` is the ninth, THE RIME's, for the eighth's reason:
   // `rimeScatter` is heard. (THE STARE's `stareAgain` was one until 2 October
   // 2026, when its levels stopped starting over.) THE LAMPREY's food
   // falling, its crawl out of the picture and its crawl across the field are
@@ -848,7 +832,6 @@ describe("bindings", () => {
     "fleetHold",
     "plumbBleed",
     "slingCool",
-    "grindstoneFade",
     "rimeRefreeze",
   ]);
 

@@ -2,7 +2,6 @@ import type { BossState, World } from "@neon-spore/sim";
 import { viseCues } from "./boss-cue-read-zf.js";
 import { rimeCues } from "./boss-cue-read-zg.js";
 import { trivetCues } from "./boss-cue-read-zh.js";
-import { grindstoneCues } from "./boss-cue-read-zj.js";
 import { halterCues } from "./boss-cue-read-zk.js";
 import { capstanCues } from "./boss-cue-read-zl.js";
 import { gallCues } from "./boss-cue-read-zm.js";
@@ -29,7 +28,6 @@ const CHOREO_KINDS: ReadonlySet<BossState["kind"]> = new Set([
   "rime",
   "trivet",
   "plumb",
-  "grindstone",
   "halter",
   "capstan",
   "gall",
@@ -76,9 +74,6 @@ export function choreoCues(
     // is lit (`plumb-marks.ts`).
     case "plumb":
       return plumbCues(l, world, boss, beatPhase);
-    // THE GRINDSTONE's, a rub on the lit flat, a word on each jaw a clamp asks for, gone once it is held, and one under the lit axle (`boss-cue-read-zj.ts`).
-    case "grindstone":
-      return grindstoneCues(l, world, boss, beatPhase);
     // THE HALTER's, a word between the lit grips to the seat that grips, gone once it is held, nothing to the rester, and one under the bared centre (`boss-cue-read-zk.ts`).
     case "halter":
       return halterCues(l, world, boss, beatPhase);

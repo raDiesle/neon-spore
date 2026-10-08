@@ -1,6 +1,6 @@
 /**
- * **The clock bosses' half of the surface, the fourth page** — THE GRINDSTONE's
- * wheel, THE HALTER's seam, THE GALL's
+ * **The clock bosses' half of the surface, the fourth page** — THE HALTER's
+ * seam, THE GALL's
  * seam, THE VISE's seed-case and THE TRIVET's stand. THE
  * WELL's face went to the fifth page, its last row, when THE HALTER's asking
  * predicates took this one to 252 lines, and THE CAPSTAN's drum after it,
@@ -42,32 +42,6 @@ export {
   gallSeatAt,
   gallShotAsks,
 } from "./gall.js";
-// THE GRINDSTONE's wheel: the phase, the lit step, the flats' grit, the
-// caliper and both seats' jaws, for the picture, the cue and the director's
-// hand. Straight off `grindstone.ts` (`docs/spec/bosses-choreographed.md` §33).
-export {
-  freshGrindstone,
-  GRINDSTONE_ASKS,
-  GRINDSTONE_FULL_MILLI,
-  GRINDSTONE_PADS,
-  GRINDSTONE_PASSES_PER_FLAT,
-  GRINDSTONE_PHASES,
-  type GrindstoneAsk,
-  type GrindstoneEntry,
-  type GrindstonePhase,
-  type GrindstoneState,
-  type GrindstoneStep,
-  grinding,
-  grindstoneAxleAsks,
-  grindstoneBoss,
-  grindstoneClamped,
-  grindstoneDone,
-  grindstoneFlatAsks,
-  grindstoneJawAsks,
-  grindstoneJawHeld,
-  grindstoneLitStep,
-} from "./grindstone.js";
-export { grindstoneWindowBeats } from "./grindstone-step.js";
 // THE HALTER's seam: the phase, the lit step, the cracks, both seats' rests
 // and grips, and which pairing holds, for the picture, the cue and the
 // director's hand. Straight off `halter.ts` (`docs/spec/bosses-choreographed.md` §36).

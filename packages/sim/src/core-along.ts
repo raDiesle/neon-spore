@@ -5,7 +5,6 @@ import type { CoreVerdict } from "./core-verdict.js";
 import { curtainCoreAside, curtainVerdict } from "./curtain-shot.js";
 import { gallAside, gallVerdict } from "./gall-shot.js";
 import { governorVerdict } from "./governor-shot.js";
-import { grindstoneVerdict } from "./grindstone-shot.js";
 import { halterVerdict } from "./halter-shot.js";
 import { oculusVerdict } from "./oculus-shot.js";
 import { plumbVerdict } from "./plumb-shot.js";
@@ -59,7 +58,6 @@ interface Core {
 const GALL_ROW = 8500;
 
 const CORES: Partial<Record<BossKind, Core>> = {
-  grindstone: { milli: 2000, verdict: (w, c, k) => grindstoneVerdict(w, c, k) },
   capstan: { milli: 2700, verdict: (w, c, k) => capstanVerdict(w, c, k) },
   curtain: { verdict: (w, c, k) => curtainVerdict(w, c, k), aside: (w) => curtainCoreAside(w) },
   // THE GALL's alien sits below the middle of the field, the owner's ask of 8

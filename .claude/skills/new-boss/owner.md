@@ -64,6 +64,14 @@ bosses* — are `generic.md`, next to this page.**
   counter-example, *we have to open mouth so we can pull tongue — clear
   understandable*. **Every gesture needs a reason the picture gives**
   (`bosses.md` §11.35).
+- **Known gestures are fine; a sequence is not a story.** THE GRINDSTONE,
+  removed on 8 October 2026 because he did not like it: *known gestures are
+  fine for a new boss, but the story has to be good, with more levels and
+  variation* (his words, translated). Grind a flat, then clamp a caliper, nine
+  steps of the same two asks, was one level played twice with no reason in
+  the picture for either. Reusing spent gestures is not the fault; a boss
+  still needs a story the pair can follow and **levels that change what is
+  asked**, not the same ask again (`bosses.md` §11.50).
 - **The gesture is the defence against what the picture is about to do**,
   25 September 2026, on THE INSTAR: *its not logical to me why we need to
   open mouth to succeed. more sense makes that the enemy already has open

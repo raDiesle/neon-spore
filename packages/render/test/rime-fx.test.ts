@@ -114,7 +114,7 @@ describe("THE RIME's transients", () => {
 
   it("says nothing for another boss's events", () => {
     const fx = new RimeFx();
-    expect(said(fx, [{ type: "grindstoneHit", hits: 1, col }])).toEqual([]);
+    expect(said(fx, [{ type: "slingHit", hits: 1, col }])).toEqual([]);
     expect(fx.hurt.value).toBe(0);
   });
 

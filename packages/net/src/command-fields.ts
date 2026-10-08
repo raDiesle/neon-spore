@@ -46,7 +46,6 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "trivetPadFront", "trivetPadRear",
   "plumbLevelLeft", "plumbLevelRight",
   "slingDrawLeft", "slingDrawRight",
-  "grindFlatLeft", "grindFlatRight", "grindJawLeft", "grindJawRight",
   "halterChordLeft", "halterChordRight",
   "capstanSteer", "capstanRub",
   "gallPress",

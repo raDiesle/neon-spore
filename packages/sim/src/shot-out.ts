@@ -5,7 +5,6 @@ import { flueStruck } from "./flue-shot.js";
 import { gallStruck } from "./gall-shot.js";
 import { gimbalStruck } from "./gimbal-shot.js";
 import { governorStruck } from "./governor-shot.js";
-import { grindstoneStruck } from "./grindstone-shot.js";
 import { halterStruck } from "./halter-shot.js";
 import { haspStruck } from "./hasp-shot.js";
 import { hiveStruck } from "./hive-shot.js";
@@ -112,8 +111,6 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   met = plumbStruck(world, b) || met;
   // THE SLING's lit yoke, in its colour (`sling-shot.ts`).
   met = slingStruck(world, b) || met;
-  // THE GRINDSTONE's lit axle, in its colour (`grindstone-shot.ts`).
-  met = grindstoneStruck(world, b) || met;
   // THE HALTER's bared centre, in its colour (`halter-shot.ts`).
   met = halterStruck(world, b) || met;
   // THE CAPSTAN's bared core, in its colour (`capstan-shot.ts`).
@@ -179,7 +176,6 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "trivet",
   "plumb",
   "sling",
-  "grindstone",
   "halter",
   "capstan",
   "gall",

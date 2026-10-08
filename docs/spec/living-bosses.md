@@ -407,16 +407,6 @@ reaches a mark: the flight is over before any is up. Test:
   navigator the grip. The slack spool has its own turn and takes none of
   this, and it is hushed under THE SLOW. Under *a look the owner asked for by name*.
 
-  *THE GRINDSTONE, as built, 8 October 2026* (`grindstone-rock.ts`): THE
-  HOOD and both its jaws rock together about the axle, up to 0.36 of a
-  radian times how far the caliper is from shut, so a slack caliper's jaw
-  tips, 1.7 tiles out, travel more than half a tile each way, and a bitten
-  one is dead still on the stone. The jaw pads are marks, so the rock is not
-  only drawn: the hit test, the ghost thumb's circle and the verdict rings
-  all place a pad through `grindstonePadPlaced` with the same turn. The
-  jaw's own tremble rides on top of it. On the beat clock and hushed under
-  THE SLOW. Under *a look the owner asked for by name*.
-
   *THE SLING, as built, 8 October 2026* (`sling-twang.ts`): after a true
   loose the two tines ring about the crotch through the rest that follows,
   mirrored like a struck fork, 0.6 of a radian at the first swing and two
@@ -652,7 +642,7 @@ he could not see.
 
 **A mechanism is not an animal**, and the owner's ask is for the creatures.
 THE VANE, THE SCUTTLE, THE SPOOL, THE HASP, THE RATCHET, THE VALVE, THE RIME,
-THE SLING, THE TRIVET, THE PLUMB, THE DAVIT and THE GRINDSTONE get the part
+THE SLING, THE TRIVET, THE PLUMB and THE DAVIT get the part
 drift only on what **hangs or hinges** — a boom, a bob, a hook, a jaw on its
 bolt, a tine, a spar's tip — at half the table's range, and nothing rigid
 wobbles. THE MAZE, THE FLEET and THE MIRROR have no body and get none.
@@ -668,8 +658,7 @@ of the three opens THE SLOW, so the swing is hushed by `slowHush` — to a
 tenth on the part the window's mark is on (the hook and the bob on a fire
 step, a tine on its own seat's draw), a third elsewhere — and a test holds a
 mark five tiles out under a tenth of a tile a second at the tenth. THE
-GRINDSTONE's jaw tremble had shipped already; THE TRIVET's dangle was offered
-and dropped; THE VANE is left out, since its spar already whips as it swings
+TRIVET's dangle was offered and dropped; THE VANE is left out, since its spar already whips as it swings
 (`vane-draw.ts`) and its tip is the fold line the pair read.
 
 *Dropped, 27 September 2026:* `davit:hook`, `plumb:bob` and `sling:tine` —
@@ -986,7 +975,7 @@ about a tenth of a second.
     SURGE, LEDGER, STARE, CYST, VISE, MANTLE, KEEL, SPLICE and HIVE; THE
     FILAMENT's organ turn was taken as its sway.
 11. The mechanisms' hinged parts, six a lane. THE HASP and THE PLUMB landed
-    7 October 2026, THE SPOOL, THE GRINDSTONE and THE SLING 8 October; the rest
+    7 October 2026, THE SPOOL and THE SLING 8 October; the rest
     are left still on purpose.
 12. What sets the `life` level lower: the motion setting (landed 29 September 2026).
 

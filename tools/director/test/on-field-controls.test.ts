@@ -405,12 +405,6 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // seat's own screen (`render/sling-grip.ts`, `bosses-choreographed.md` §32).
   slingDrawLeft: "field",
   slingDrawRight: "field",
-  // THE GRINDSTONE's flats rubbed and jaws chorded, one of each a seat by
-  // geometry (`render/grindstone-grip.ts`, `bosses-choreographed.md` §33).
-  grindFlatLeft: "field",
-  grindFlatRight: "field",
-  grindJawLeft: "field",
-  grindJawRight: "field",
   // THE HALTER's two grips on the lit segment's seam, either seat's on both
   // screens (`render/halter-grip.ts`, `docs/spec/bosses.md` §11.53).
   halterChordLeft: "field",

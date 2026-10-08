@@ -32,7 +32,7 @@ import { SpriteBursts } from "./sprite-burst.js";
  *
  * **A half wiped clear is a step landed**, and a core hit a shot landed, so
  * both deal the pane the blow every boss takes (`boss-hurt.ts`); a shave jabs
- * it, THE GRINDSTONE's way. A step lighting, a frost back, a surge turned and
+ * it. A step lighting, a frost back, a surge turned and
  * the lens clouding deal nothing.
  *
  * A step run out throws nothing here: the hull it breaks is the boss's own

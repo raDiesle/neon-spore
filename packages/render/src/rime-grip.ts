@@ -20,7 +20,7 @@ import { bossOf } from "./touch-field.js";
  *
  * **A press anywhere on a seat's half takes a rub**, out to `REACH` past the
  * rim: held and saying nothing until it turns back on itself, and then its
- * host counts the reversals (`rub.ts`) the way THE GRINDSTONE's flat does.
+ * host counts the reversals (`rub.ts`) the way THE CAPSTAN's drum does.
  *
  * **The lens takes a hand until it shatters**: the simulation hears a wipe
  * whenever the lens is present, so a thumb already rubbing when a step lights

@@ -148,8 +148,8 @@ export function fresh(
  *
  * **A tick that is not a whole number is refused.** `POSE_TPB` is 75, so a
  * quarter-beat is 18.75, and a command listed there was never sent — silently:
- * THE CYST's tap lift did not happen and THE GRINDSTONE's rubs only looked
- * right because a reversal count that jumps shaves the same (27 September 2026).
+ * THE CYST's tap lift did not happen and a rub only looked right because a
+ * reversal count that jumps shaves the same (27 September 2026).
  */
 export function run(world: World, ticks: number, cmds: TimedCommand[] = []): void {
   const byTick = new Map<number, TimedCommand[]>();

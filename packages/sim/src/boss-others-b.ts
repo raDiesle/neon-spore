@@ -7,7 +7,6 @@ import { stepFleet } from "./fleet.js";
 import { stepFlue } from "./flue-step.js";
 import { stepGall } from "./gall-step.js";
 import { stepGovernor } from "./governor-step.js";
-import { stepGrindstone } from "./grindstone-step.js";
 import { stepHalter } from "./halter-step.js";
 import { stepHasp } from "./hasp-step.js";
 import { stepLamprey } from "./lamprey-step.js";
@@ -45,8 +44,8 @@ import type { World } from "./world.js";
  * **THE RATCHET came across on 26 September 2026**, the last row on the first
  * page when THE RIME's branch filled it, and **THE HASP** the same day, when
  * THE PLUMB's did, and **THE SPOOL** after it, when THE SLING's did, and
- * **THE GRINDSTONE** after that, when THE CYST's did (THE CYST itself came
- * across when THE DAVIT's did, and left the game on 8 October 2026).
+ * **THE GRINDSTONE** after that, when THE CYST's did, and THE CYST when
+ * THE DAVIT's did; both left the game on 8 October 2026.
  *
  * **The check next door is unchanged.** `stepOtherBoss` ends by calling this
  * rather than by falling off its own end, so a boss stepped nowhere still
@@ -97,11 +96,6 @@ export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>)
   // THE HALTER: rests counted, pairs held together, windows shut, and the split (`halter-step.ts`).
   if (boss.kind === "halter") {
     stepHalter(world, boss);
-    return;
-  }
-  // THE GRINDSTONE: grit regrown, clamps counted, and the snap free (`grindstone-step.ts`).
-  if (boss.kind === "grindstone") {
-    stepGrindstone(world, boss);
     return;
   }
   // THE SPOOL is nearly all clock, because a brake is a level rather than an

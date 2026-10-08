@@ -2,7 +2,6 @@ import type { World } from "@neon-spore/sim";
 import { drawCapstan } from "./capstan-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGall } from "./gall-draw.js";
-import { drawGrindstone } from "./grindstone-draw.js";
 import { drawHalter } from "./halter-draw.js";
 import type { Layout } from "./layout.js";
 import { drawPlumb } from "./plumb-draw.js";
@@ -16,7 +15,7 @@ import { drawTrivet } from "./trivet-draw.js";
  * two halves of one fight with one half to a seat, as page three's are.
  *
  * Cut from `boss-draw-clocks-c.ts` on 26 September 2026, when THE CYST and
- * THE GRINDSTONE landing side by side had put that page at 254 lines. There
+ * THE GRINDSTONE (both since retired) landing side by side had put that page at 254 lines. There
  * is no seam in the bosses here the way there was at page three; the cut is
  * where the page was full. It filled again with THE GALL and THE TRAPEZE, and
  * from THE FLUE on is page five (`boss-draw-clocks-e.ts`).
@@ -33,7 +32,6 @@ export const LATE_PAIR_KINDS = [
   "sling",
   "trivet",
   "plumb",
-  "grindstone",
   "halter",
   "capstan",
   "gall",
@@ -92,24 +90,6 @@ export function drawLatePairBoss(
   // the free swing's release are `effects.boss.plumb` (`plumb-fx.ts`).
   if (boss.kind === "plumb") {
     drawPlumb(ctx, l, world, boss, beat, beatPhase, time, effects.boss.plumb, effects.bolts);
-    return;
-  }
-
-  // THE GRINDSTONE: two flats ground, a caliper bitten, the axle shot
-  // (`grindstone-draw.ts`); a flat's clean flash, the caliper's flare, the
-  // axle's flash and the snap free are `grindstone-fx.ts`.
-  if (boss.kind === "grindstone") {
-    drawGrindstone(
-      ctx,
-      l,
-      world,
-      boss,
-      beat,
-      beatPhase,
-      time,
-      effects.boss.grindstone,
-      effects.bolts,
-    );
     return;
   }
 

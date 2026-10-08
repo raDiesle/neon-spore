@@ -99,9 +99,6 @@ const STILL_PROSE = [
   // And THE SLING (§32), a sixteenth time: the fork is undrawn, and the guide
   // says which finger draws which arm.
   "THE SLING",
-  // And THE GRINDSTONE (§33), a seventeenth time: the wheel is undrawn, and
-  // the guide says which thumb grinds which flat.
-  "THE GRINDSTONE",
   // And THE HALTER (§36), a twentieth time: the seam is undrawn, and the
   // guide says which mark each seat rests on and which it grips.
   "THE HALTER",

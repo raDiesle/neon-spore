@@ -2,7 +2,6 @@ import { type DragTarget, valveTurning, type World } from "@neon-spore/sim";
 import { capstanRubStanding, capstanSteerStanding, capstanTakesHand } from "./capstan-grip.js";
 import { gallPointCircle, gallTakesPress } from "./gall-grip.js";
 import { governorTapCircle } from "./governor-grip.js";
-import { grindstoneStanding, grindstoneTakesHand } from "./grindstone-grip.js";
 import { halterGripStanding } from "./halter-grip.js";
 import { lampreyHeadCircle, lampreyTailCircle, lampreyToothCircle } from "./lamprey-grip.js";
 import { latchKnobStanding, latchTakesHand } from "./latch-grip.js";
@@ -54,14 +53,6 @@ export function laterBossHandleCircle(
     const b = world.boss?.kind === "rime" ? world.boss : null;
     if (b === null || !rimeTakesHand(b)) return null;
     return rimeHalfStanding(l, cfg, b, target, world.beat, beatPhase);
-  }
-  if (target.startsWith("grind")) {
-    // THE GRINDSTONE's two flats and two jaws, each where the wheel stands and
-    // the caliper swings this frame. Null once it spins free (`grindstone-grip.ts`).
-    const b = world.boss?.kind === "grindstone" ? world.boss : null;
-    if (b === null || !grindstoneTakesHand(b)) return null;
-    const t = target as "grindFlatLeft" | "grindFlatRight" | "grindJawLeft" | "grindJawRight";
-    return grindstoneStanding(l, cfg, b, t, world.beat, beatPhase, world);
   }
   if (target === "halterChordLeft" || target === "halterChordRight") {
     // THE HALTER's two grips on the lit segment's seam, either seat's. Null

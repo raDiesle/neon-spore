@@ -11,7 +11,6 @@ import type { GaugeState } from "./gauge.js";
 import type { GimbalState } from "./gimbal.js";
 import type { GorgeState } from "./gorge.js";
 import type { GovernorState } from "./governor.js";
-import type { GrindstoneState } from "./grindstone.js";
 import type { HalterState } from "./halter.js";
 import type { HaspState } from "./hasp.js";
 import type { HiveState } from "./hive.js";
@@ -126,7 +125,6 @@ export type BossState =
   | TrivetState
   | PlumbState
   | SlingState
-  | GrindstoneState
   | HalterState
   | CapstanState
   | GallState

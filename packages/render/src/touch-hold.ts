@@ -182,7 +182,7 @@ export type Hold =
        */
       pads?: number;
       /**
-       * One thumb **rubbing** — THE GRINDSTONE's flats: what it sends is how
+       * One thumb **rubbing** — THE RIME's halves: what it sends is how
        * many times it has turned back since it went down, so its press, its
        * move and its lift are counted by whoever owns the pointers (`rub.ts`,
        * `rub-turns.ts`).

@@ -1,6 +1,5 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
-import { grindstoneCue, isGrindstoneEvent } from "./bind-grindstone.js";
 import { halterCue, isHalterEvent } from "./bind-halter.js";
 import { keelCue } from "./bind-keel.js";
 import { oculusCue } from "./bind-oculus.js";
@@ -37,7 +36,6 @@ type LaterEvent = Extract<
       | `trivet${string}`
       | `plumb${string}`
       | `sling${string}`
-      | `grindstone${string}`
       | `halter${string}`
       | `undertow${string}`;
   }
@@ -45,14 +43,12 @@ type LaterEvent = Extract<
 
 export function laterCue(e: LaterEvent, cols: number): Cue | null {
   // THE HALTER whole, by its prefix: this page had no room for fourteen cases.
-  // THE PLUMB the same, the day its bleed brought two more, and THE SLING and
-  // THE GRINDSTONE the days their cool and their fade did, and THE TRIVET the
-  // day its ring did.
+  // THE PLUMB the same, the day its bleed brought two more, and THE SLING the
+  // day its cool did, and THE TRIVET the day its ring did.
   if (isHalterEvent(e)) return halterCue(e, cols);
   if (isTrivetEvent(e)) return trivetCue(e, cols);
   if (isPlumbEvent(e)) return plumbCue(e, cols);
   if (isSlingEvent(e)) return slingCue(e, cols);
-  if (isGrindstoneEvent(e)) return grindstoneCue(e, cols);
   switch (e.type) {
     case "keelEnter":
     case "keelLight":

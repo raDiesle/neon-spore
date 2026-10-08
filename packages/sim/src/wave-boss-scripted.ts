@@ -3,7 +3,6 @@ import { installCapstan } from "./capstan-step.js";
 import { installFlue } from "./flue-step.js";
 import { installGall } from "./gall-step.js";
 import { installGovernor } from "./governor-step.js";
-import { installGrindstone } from "./grindstone-step.js";
 import { installHalter } from "./halter-step.js";
 import { installLamprey } from "./lamprey-step.js";
 import { installLatch } from "./latch-step.js";
@@ -39,7 +38,6 @@ export const SCRIPTED_KINDS = [
   "trivet",
   "plumb",
   "sling",
-  "grindstone",
   "halter",
   "capstan",
   "gall",
@@ -65,7 +63,6 @@ export function installScripted(world: World, boss: ScriptedEntry): BossState {
   if (boss.kind === "trivet") return installTrivet(world, boss.steps);
   if (boss.kind === "plumb") return installPlumb(world, boss.steps);
   if (boss.kind === "sling") return installSling(world, boss.steps);
-  if (boss.kind === "grindstone") return installGrindstone(world, boss.steps);
   if (boss.kind === "halter") return installHalter(world, boss.steps);
   if (boss.kind === "capstan") return installCapstan(world, boss.steps);
   if (boss.kind === "gall") return installGall(world, boss.steps);

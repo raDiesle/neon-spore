@@ -13,8 +13,8 @@ import type { World } from "./world.js";
  * **A reflex wipe or shield scatters the crack**: a beat is added to the
  * refreeze, once a beat and at most `rimeRefreezeScatters` times, and THE
  * SLOW is held open over the longer window. Nothing is lost by it — no hull
- * hit, no step asked again — only the beat. THE GRINDSTONE's fade
- * (`grindstone-fade.ts`) is the same shape, and the model for this one.
+ * hit, no step asked again — only the beat. THE PLUMB's bleed is the same
+ * shape.
  *
  * A wipe is heard as fresh reversals on either half (`rime-hand.ts`), a shield
  * as the guard pressed under the lens after the film began (`rime-guard.ts`).

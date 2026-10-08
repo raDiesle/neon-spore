@@ -283,7 +283,6 @@ by hand never moves.
 | `packages/sim/src/config-gorge.ts` | THE GORGE's numbers — where the bubbles hang, how big the ring is |
 | `packages/sim/src/config-governor.ts` | THE GOVERNOR's tuning: the beats around its steps, how fast the needle idles |
 | `packages/sim/src/config-gimbal.ts` | THE GIMBAL's tuning: how close together two hands must let go |
-| `packages/sim/src/config-grindstone.ts` | THE GRINDSTONE's tuning: the rests around its steps, what a reversal shaves and a beat regrits |
 | `packages/sim/src/boss-surface.ts` | Every name the boss code puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/boss-surface-clocks.ts` | **The clock bosses' half of the surface**, written out the same way |
 | `packages/sim/src/boss-surface-clocks-b.ts` | **The clock bosses' half of the surface, the second page** — from THE ANTIPHON on |
@@ -474,7 +473,6 @@ by hand never moves.
 | `packages/sim/src/events-gauge.ts` | **What THE GAUGE's dial does that neither screen already says**, as seven events (`gauge.ts`, `gauge-hand.ts`) |
 | `packages/sim/src/events-gall.ts` | What THE GALL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-gimbal.ts` | What THE GIMBAL says as it happens, one line per thing the picture and the sound answer |
-| `packages/sim/src/events-grindstone.ts` | What THE GRINDSTONE says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/kind-code.ts` | **A kind as a number**, and the compile-time proof that every kind has one |
 | `packages/sim/src/keel-hand.ts` | THE KEEL's one thumb: a tap on the lit joint, from the seat whose half of the screen it sits over |
 | `packages/sim/src/keel-hash.ts` | What THE KEEL puts into `hashWorld`, and nothing else |
@@ -523,12 +521,6 @@ by hand never moves.
 | `packages/sim/src/events-mimic.ts` | What THE MIMIC says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/grip-push.ts` | THE PUSH: the hand on a rock, carried sideways — one column, then a beat of quiet |
 | `packages/sim/src/grip-push-dir.ts` | **Which way a carried body has been earned a column** |
-| `packages/sim/src/grindstone-hand.ts` | Two grinding thumbs and two jaws on THE GRINDSTONE, one of each a seat |
-| `packages/sim/src/grindstone-hash.ts` | What THE GRINDSTONE puts into `hashWorld`, and nothing else |
-| `packages/sim/src/grindstone-shot.ts` | The axle's row, thousandths of a row down the field |
-| `packages/sim/src/grindstone-step.ts` | THE GRINDSTONE's clock: the wheel settling, each step lighting |
-| `packages/sim/src/grindstone-fade.ts` | **THE GRINDSTONE's fade** (§33 row 11): the last shot is in |
-| `packages/sim/src/grindstone.ts` | THE GRINDSTONE: a gritted wheel on a fixed axle mid-hull, each of its two flats ground clean by its own seat |
 | `packages/sim/src/gorge-hash.ts` | What THE GORGE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/gorge-hand.ts` | **Player 1's tap on THE GORGE's ring**, off the wire, on the tick |
 | `packages/sim/src/gorge-step.ts` | THE GORGE's clock — a level hung, the ring turning, the pause between levels and the beats after the last |
@@ -1178,7 +1170,6 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zf.ts` | **What THE VISE is asking for** — page thirty-two of the readings |
 | `packages/render/src/boss-cue-read-zg.ts` | **What THE RIME is asking for** — page thirty-three of the readings |
 | `packages/render/src/boss-cue-read-zh.ts` | **What THE TRIVET is asking for** — page thirty-four of the readings |
-| `packages/render/src/boss-cue-read-zj.ts` | **What THE GRINDSTONE is asking for** — page thirty-six of the readings |
 | `packages/render/src/boss-cue-read-zk.ts` | **What THE HALTER is asking for** — page thirty-seven of the readings |
 | `packages/render/src/boss-cue-read-zl.ts` | **What THE CAPSTAN is asking for** — page thirty-eight of the readings |
 | `packages/render/src/boss-cue-read-zm.ts` | **What THE GALL is asking for** — page thirty-nine of the readings |
@@ -2193,18 +2184,6 @@ by hand never moves.
 | `packages/render/src/grip-beam.ts` | The beam of a brake — the one part of a hand on a rock that is visible from across the room |
 | `packages/render/src/grip-rings.ts` | The three rings a thumb on a boss's picture is drawn with: asked for, held, thrown off — the queen's and the mirror's |
 | `packages/render/src/grip-verdict.ts` | **Was that right?** — answered on the thing the thumb touched, the moment the simulation has judged it |
-| `packages/render/src/grindstone-draw.ts` | **THE GRINDSTONE**, drawn: THE SMART's wheel with its flats ground, the caliper flung free, the lit axle, the fall |
-| `packages/render/src/grindstone-marks.ts` | **THE GRINDSTONE's marks**: what a step asks — a flat's face glowing, a jaw's pads lit, the axle in a shot's colour |
-| `packages/render/src/grindstone-pose.ts` | **The clock THE GRINDSTONE is posed off**: the drop, the depth and grit of each flat, the caliper's swing and creep, the fall |
-| `packages/render/src/grindstone-shape.ts` | **THE GRINDSTONE's geometry**: where the wheel is, and the paths of the wheel, its flats, the patch and the caliper's jaws |
-| `packages/render/src/grindstone-stop.ts` | **Where a bolt meets THE GRINDSTONE**: the locked axle, or the wheel's ground edge |
-| `packages/render/src/grindstone-grip.ts` | **The flats and the jaws on THE GRINDSTONE** |
-| `packages/render/src/grindstone-fx.ts` | What THE GRINDSTONE leaves behind a frame (§33, *Presentation*) |
-| `packages/render/src/grindstone-jaw.ts` | **THE GRINDSTONE's caliper jaws**: THE HOOD's two, trembling at the tip while they stand open |
-| `packages/render/src/grindstone-blow.ts` | **THE GRINDSTONE's own blow at the hull** (`boss-strike-look.ts`) |
-| `packages/render/src/grindstone-verdicts.ts` | **THE GRINDSTONE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
-| `packages/render/src/grindstone-caliper.ts` | **THE GRINDSTONE's caliper**: THE HOOD standing over the wheel, split at its crown into two jaws on one bolt |
-| `packages/render/src/grindstone-rock.ts` | **THE GRINDSTONE's open caliper rocks on its axle** (`docs/spec/living-bosses.md`, step 11) |
 | `packages/render/src/gorge-draw.ts` | THE GORGE, drawn: a translucent sack in the middle of the field, breathing on the beat |
 | `packages/render/src/gorge-drift.ts` | **THE GORGE's lobes lean on their intakes** |
 | `packages/render/src/gorge-depth.ts` | **THE GORGE in depth**: the sack is not a strip painted across the top of the field but a body bowed round… |
@@ -2692,7 +2671,6 @@ by hand never moves.
 | `packages/audio/src/bind-gauge.ts` | THE GAUGE's seven, in a file of their own for `bind-pulse-hand.ts`'s reason |
 | `packages/audio/src/bind-gall.ts` | Whether an event is THE GALL's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-gimbal.ts` | THE GIMBAL's ten, in a file of their own for `bind-gorge.ts`' reason |
-| `packages/audio/src/bind-grindstone.ts` | Whether an event is THE GRINDSTONE's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
 | `packages/audio/src/bind-mimic.ts` | Whether an event is THE MIMIC's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-mantle.ts` | THE MANTLE's twenty-two, in a file of their own for `bind-gorge.ts`' reason |
@@ -2758,7 +2736,6 @@ by hand never moves.
 | `packages/hands/src/boss-hands-gauge.ts` | **THE GAUGE's hands**, in a file of their own |
 | `packages/hands/src/boss-hands-gall.ts` | **THE GALL played right**, for the autopilot |
 | `packages/hands/src/boss-hands-gimbal.ts` | **THE GIMBAL played right**, for the STATES sheet: both rings carried onto their own marks |
-| `packages/hands/src/boss-hands-grindstone.ts` | **THE GRINDSTONE played right**, for the autopilot: the lit flat rubbed clean by its own seat |
 | `packages/hands/src/boss-hands-governor.ts` | **THE GOVERNOR played right**, for the autopilot |
 | `packages/hands/src/boss-hands-unseen.ts` | **The pair's hands on the two fights about what one of them cannot see** |
 | `packages/hands/src/boss-hands-mantle.ts` | **THE MANTLE played right**, for the STATES sheet and the autopilot: both handles pulled together |
@@ -3070,7 +3047,6 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-antiphon.ts` | THE ANTIPHON with the pilot's thumb on the organ, a quarter turn in |
 | `tools/director/src/poses-field-controls-instar.ts` | THE INSTAR in its first pose, the gape, with the pilot's thumb halfway down the lower jaw |
 | `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
-| `tools/director/src/poses-field-controls-grindstone.ts` | THE GRINDSTONE's four hands: a flat part ground, once a seat, and the caliper clamped by both seats |
 | `tools/director/src/poses-field-controls-gall.ts` | THE GALL's taps: the first leap lit with the alien on the seam's first point |
 | `tools/director/src/poses-field-controls-governor.ts` | THE GOVERNOR's tap, **photographed from the pilot's seat**: a step with a mark for each seat |
 | `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb |
@@ -3446,7 +3422,6 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-oculus.ts` | **THE OCULUS's four states**, posed with a hand on the controls (`boss-hands-oculus.ts`) |
 | `tools/director/src/poses-bosses-hands-vise.ts` | **THE VISE's four states**, posed with a hand on the controls (`boss-hands-vise.ts`) |
 | `tools/director/src/poses-bosses-hands-valve.ts` | **THE VALVE's ten states**, posed with a hand on the controls (`boss-hands-valve.ts`) |
-| `tools/director/src/poses-bosses-hands-grindstone.ts` | **THE GRINDSTONE's four states**, posed with a hand on the controls (`boss-hands-grindstone.ts`) |
 | `tools/director/src/poses-bosses-hands-lamprey.ts` | **THE LAMPREY's states**, posed with a hand on the controls (`boss-hands-lamprey.ts`): the crawl in |
 | `tools/director/src/poses-bosses-hands-latch.ts` | **THE LATCH's states**, posed with a hand on the controls (`boss-hands-latch.ts`) |
 | `tools/director/src/poses-bosses.ts` | **The BOSSES category of the STATES sheet**: one group per boss, in the order the simulation numbers them |
@@ -3588,7 +3563,6 @@ by hand never moves.
 | `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-gall.ts` | THE GALL's taps and pull, as a row of the ON THE FIELD tab |
 | `tools/director/src/field-controls-gimbal.ts` | THE GIMBAL's two rings, as rows of the ON THE FIELD tab |
-| `tools/director/src/field-controls-grindstone.ts` | THE GRINDSTONE's flats and jaws, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn (`field-page.ts` lays them out) |
 | `tools/director/src/field-controls-ratchet.ts` | THE RATCHET's catch and pawl, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-rime.ts` | THE RIME's two halves, as rows of the ON THE FIELD tab |

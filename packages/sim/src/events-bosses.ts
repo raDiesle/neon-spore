@@ -9,7 +9,6 @@ import type { GaugeEvent } from "./events-gauge.js";
 import type { GimbalEvent } from "./events-gimbal.js";
 import type { GorgeEvent } from "./events-gorge.js";
 import type { GovernorEvent } from "./events-governor.js";
-import type { GrindstoneEvent } from "./events-grindstone.js";
 import type { HalterEvent } from "./events-halter.js";
 import type { HaspEvent } from "./events-hasp.js";
 import type { HiveEvent } from "./events-hive.js";
@@ -97,7 +96,6 @@ export type BossEvent =
   | TrivetEvent
   | PlumbEvent
   | SlingEvent
-  | GrindstoneEvent
   | HalterEvent
   | CapstanEvent
   | GallEvent
@@ -132,7 +130,6 @@ export type { GaugeEvent } from "./events-gauge.js";
 export type { GimbalEvent } from "./events-gimbal.js";
 export type { GorgeEvent } from "./events-gorge.js";
 export type { GovernorEvent } from "./events-governor.js";
-export type { GrindstoneEvent } from "./events-grindstone.js";
 export type { HalterEvent } from "./events-halter.js";
 export type { HaspEvent } from "./events-hasp.js";
 export type { HiveEvent } from "./events-hive.js";

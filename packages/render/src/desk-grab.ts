@@ -119,7 +119,7 @@ export function deskDown(
  *
  * 1. **The control under it says so**: THE INSTAR's `HOLD BOTH` ring
  *    (`instarMarkBoth`), with no key held at all.
- * 2. **A chord body** — THE GRINDSTONE's jaws and every other chord: the
+ * 2. **A chord body** — THE TRIVET's feet and every other chord: the
  *    whole chord, every pad of both bodies (`desk-chord.ts`), with no key held.
  * 3. **`both` — the `3` key held** (`desk-seat.ts`): every seat that finds
  *    something there is on it. Not on a ring that names one seat, which the

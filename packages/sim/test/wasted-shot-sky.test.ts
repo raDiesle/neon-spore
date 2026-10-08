@@ -13,7 +13,6 @@ import * as capstan from "./capstan-rig.js";
 import * as flue from "./flue-rig.js";
 import * as gall from "./gall-rig.js";
 import * as governor from "./governor-rig.js";
-import * as grindstone from "./grindstone-rig.js";
 import * as halter from "./halter-rig.js";
 import * as hasp from "./hasp-rig.js";
 import * as keel from "./keel-rig.js";
@@ -81,7 +80,6 @@ describe("a bolt out of the top on HARD, under a boss", () => {
   const CORED: Record<string, () => World> = {
     capstan: () => capstan.install(),
     governor: () => governor.install(),
-    grindstone: () => grindstone.install(),
     halter: () => halter.install(),
     keel: () => keel.install(),
     oculus: () => oculus.install(),

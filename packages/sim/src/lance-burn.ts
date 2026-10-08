@@ -8,7 +8,6 @@ import { flueStruck } from "./flue-shot.js";
 import { gallStruck } from "./gall-shot.js";
 import { gimbalStruck } from "./gimbal-shot.js";
 import { governorStruck } from "./governor-shot.js";
-import { grindstoneStruck } from "./grindstone-shot.js";
 import { halterStruck } from "./halter-shot.js";
 import { haspStruck } from "./hasp-shot.js";
 import { hiveStruck } from "./hive-shot.js";
@@ -197,8 +196,6 @@ function burnColumn(world: World, col: number, color: Color): number {
   plumbStruck(world, b);
   // And THE SLING's lit yoke (`sling-shot.ts`).
   slingStruck(world, b);
-  // And THE GRINDSTONE's lit axle (`grindstone-shot.ts`).
-  grindstoneStruck(world, b);
   // And THE HALTER's bared centre (`halter-shot.ts`).
   halterStruck(world, b);
   // And THE CAPSTAN's bared core (`capstan-shot.ts`).

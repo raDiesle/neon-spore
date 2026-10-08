@@ -225,21 +225,4 @@ export const SILENT_BOSS_C = [
   "slingSnap",
   "slingFree",
   "slingOut",
-  // THE GRINDSTONE's fifteen, no burst from this table: each is thrown above
-  // the loop by its own fx file (`grindstone-fx.ts`).
-  "grindstoneEnter",
-  "grindstoneLight",
-  "grindstoneShave",
-  "grindstoneClear",
-  "grindstoneRegrit",
-  "grindstoneBite",
-  "grindstoneSlip",
-  "grindstoneClamp",
-  "grindstoneLoose",
-  "grindstoneHit",
-  "grindstoneMiss",
-  "grindstoneFade",
-  "grindstoneJar",
-  "grindstoneFree",
-  "grindstoneOut",
 ] as const satisfies readonly SimEvent["type"][];

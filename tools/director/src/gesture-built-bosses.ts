@@ -81,7 +81,7 @@ export const BUILT_FOR_BOSSES: readonly Gesture[] = [
       ],
       note: "a reversal is where x changes sign",
     },
-    where: ["packages/sim/src/rime-hand.ts", "packages/sim/src/grindstone-hand.ts"],
+    where: ["packages/sim/src/rime-hand.ts", "packages/sim/src/capstan-hand.ts"],
   },
   {
     name: "SQUEEZE ONE BODY",

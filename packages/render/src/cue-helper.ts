@@ -42,7 +42,7 @@ import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
  *   control visual.*
  * - **`RUB`**: a red line with an arrow sliding in at it from each side
  *   (`rub-mark.ts`), and no scanner box either — the owner, 3 October 2026,
- *   on THE GRINDSTONE. The line is as long as the cue's `rubHalf` says.
+ *   on THE GRINDSTONE, since retired. The line is as long as the cue's `rubHalf` says.
  *
  * Pulls are not here: a pull is a handle, and its arrow is the knob's
  * (`pull-knob.ts`, `way-arrow.ts`).

@@ -57,7 +57,6 @@ type ChoreographedEvent =
           | `trivet${string}`
           | `plumb${string}`
           | `sling${string}`
-          | `grindstone${string}`
           | `halter${string}`
           | `capstan${string}`
           | `gall${string}`

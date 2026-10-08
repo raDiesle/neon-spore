@@ -99,8 +99,6 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE CAPSTAN'S RUB",
       "THE RIME'S LEFT HALF",
       "THE RIME'S RIGHT HALF",
-      "THE GRINDSTONE'S LEFT FLAT",
-      "THE GRINDSTONE'S RIGHT FLAT",
       "THE MAZE'S HEART",
       "THE THROAT'S PUMP",
     ],

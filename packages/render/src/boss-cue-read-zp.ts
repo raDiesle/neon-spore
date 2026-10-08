@@ -36,7 +36,7 @@ import { valveSparkNow } from "./valve-spark.js";
  * the freeze (`valvePinHandle`): `TAP` while the jet blows — an edge, which
  * caps it — `HOLD` for the brace and for the seal, which count both thumbs
  * down together, and `RUB` while the film is on, the back and forth THE
- * GRINDSTONE's flat asks for (`boss-cue-read-zj.ts`).
+ * RIME's lens asks for (`boss-cue-read-zg.ts`).
  */
 
 /** The story's word in each of its phases, on the socket to either seat. */

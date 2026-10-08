@@ -42,7 +42,6 @@ export const BOSS_DEMONSTRATIONS = {
   trivet: { wave: "theTrivet" },
   plumb: { wave: "thePlumb" },
   sling: { wave: "theSling" },
-  grindstone: { wave: "theGrindstone" },
   halter: { wave: "theHalter" },
   capstan: { wave: "theCapstan" },
   gall: { wave: "theGall" },

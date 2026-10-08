@@ -23,13 +23,13 @@ interface Thumb {
  * `RubCount`, whose meaning is `render/rub.ts`'s.
  *
  * A press on a rubbed face takes hold and says nothing
- * (`render/grindstone-grip.ts`). Here it is counted: the press says nought,
+ * (`render/rime-grip.ts`). Here it is counted: the press says nought,
  * and the first `RUB_TURN` of a tile it travels sets the **axis** it rubs
  * along, whichever way that is — up and down a flat, or across it. From then
  * only the thumb's reach along that axis is read, and coming back `RUB_TURN`
  * from the furthest this stroke got is one turn, sent at once with the count
  * so far. The lift sends the count with `on` false, and the simulation starts
- * it again from nought (`sim/grindstone-hand.ts`).
+ * it again from nought (`sim/rime-hand.ts`).
  */
 export class Rubs {
   private readonly thumbs = new Map<number, Thumb>();

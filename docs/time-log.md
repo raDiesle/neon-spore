@@ -36059,3 +36059,20 @@ Bottleneck: friction — a new creature is a row in far more places than the
 six the skill lists, and most of them are only found by the full check.
 
 *Measured: 32 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE GRINDSTONE leaves the game
+
+- reading: 5 min. THE BELLOWS's and THE DIASTOLE's removals as the
+  precedent, and the 160 files that named it.
+- writing: 25 min. Thirty-eight files deleted, every registration
+  unpicked from the sim outwards, the tests that used it as a fixture moved
+  to THE SLING and THE TRIVET, §11.50 under *Retired*, the owner's lesson.
+- looking: 0 min. Nothing drawn: a boss taken away.
+- friction: 0 min.
+- landing: 65 min. Two `check:fast` runs of six minutes each, the counted
+  documents found stale by the first; then five rebases, over THE DAVIT's
+  and THE CYST's removals, THE GALL's rework, THE BLISTER's first lane and the same hour's rubs on
+  THE GRINDSTONE itself, each landing on `main` while the full check ran.
+
+Bottleneck: landing — three bosses taken out at once by three lanes, each
+conflicting on every list all three were struck from.

@@ -54,7 +54,7 @@ import { drawPullArrow } from "./pull-knob.js";
  * beat of a hold, over a dim track of all it needs (`mark-progress.ts`) — so
  * the seat holding the pull sees the partner still at it, and how far.
  *
- * Held in `CapstanFx` (`capstan-fx.ts`), as THE GRINDSTONE's are in its own.
+ * Held in `CapstanFx` (`capstan-fx.ts`).
  * Everything here is in canvas pixels, where the drum stands this frame.
  */
 export const CAPSTAN_STEER_MARK = 0;

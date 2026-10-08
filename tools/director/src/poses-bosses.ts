@@ -7,7 +7,6 @@ import { FIRST_BOSS_POSES } from "./poses-bosses-first.js";
 import { BEAT_HAND_POSES } from "./poses-bosses-hands-beats.js";
 import { CLOCK_HAND_POSES } from "./poses-bosses-hands-clocks.js";
 import { FIELD_HAND_POSES } from "./poses-bosses-hands-field.js";
-import { GRINDSTONE_POSES } from "./poses-bosses-hands-grindstone.js";
 import { HANDLE_HAND_POSES } from "./poses-bosses-hands-handles.js";
 import { HASP_STORY_POSES } from "./poses-bosses-hands-hasp.js";
 import { KEEL_POSES } from "./poses-bosses-hands-keel.js";
@@ -70,7 +69,6 @@ export const BOSS_POSES: Pose[] = [
   ...OCULUS_POSES,
   ...VISE_POSES,
   ...TRIVET_POSES,
-  ...GRINDSTONE_POSES,
   ...RIME_POSES,
   ...VALVE_POSES,
   ...SEAM_POSES,

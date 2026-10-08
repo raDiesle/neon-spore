@@ -10,7 +10,6 @@ import { flueCentre } from "../src/flue-shape.js";
 import { gallMidAt } from "../src/gall-shape.js";
 import { TILT_READ } from "../src/governor-pose.js";
 import { governorDial } from "../src/governor-shape.js";
-import { grindstoneCentre } from "../src/grindstone-shape.js";
 import { halterCentre } from "../src/halter-shape.js";
 import { computeLayout, tileCX, tileCY } from "../src/layout.js";
 import { mimicHang } from "../src/mimic-pose.js";
@@ -95,7 +94,7 @@ describe("a boss's blow at the hull", () => {
     const bosses = [
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
       ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "halter"],
-      ...["capstan", "gall", "trapeze", "grindstone", "sling", "flue", "governor"],
+      ...["capstan", "gall", "trapeze", "sling", "flue", "governor"],
       ...["filament", "lamprey", "mimic", "latch"],
     ] as const;
     for (const by of bosses) {
@@ -148,7 +147,6 @@ describe("a boss's blow at the hull", () => {
     ["THE CAPSTAN throws a cog off its cradle's foot", "capstan", capstanCentre],
     ["THE GALL drops a seed off its seam's underside", "gall", gallMidAt],
     ["THE TRAPEZE's alien leaps off the swing it hangs under", "trapeze", trapezeAnchor],
-    ["THE GRINDSTONE throws a chip off its wheel", "grindstone", grindstoneCentre],
     ["THE SLING flings a ball out of its cup", "sling", slingCentre],
     ["THE FLUE coughs a cinder out of its flue", "flue", flueCentre],
     ["THE GOVERNOR sheds a shard off its flywheel's rim", "governor", governorHubAt],

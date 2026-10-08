@@ -25,7 +25,7 @@ import { bossOf } from "./touch-field.js";
  * **The bands on THE CAPSTAN** — the hands lane that makes the drum answer a
  * thumb at all (§11.54, `bosses-choreographed.md` §37).
  *
- * Its own page for `grindstone-grip.ts`' reason: the drum a thumb is answered
+ * Its own page for `rime-grip.ts`' reason: the drum a thumb is answered
  * on is the one `drawCapstan` puts on the screen this frame — dropped in as it
  * arrives, rolled in its cradle by the pull — and all this file adds is
  * *which* part of it a press is on.

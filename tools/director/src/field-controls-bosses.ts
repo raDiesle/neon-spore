@@ -11,7 +11,6 @@ import { GAUGE_CONTROLS } from "./field-controls-gauge.js";
 import { GIMBAL_CONTROLS } from "./field-controls-gimbal.js";
 import { GORGE_CONTROLS } from "./field-controls-gorge.js";
 import { GOVERNOR_CONTROLS } from "./field-controls-governor.js";
-import { GRINDSTONE_CONTROLS } from "./field-controls-grindstone.js";
 import { HALTER_CONTROLS } from "./field-controls-halter.js";
 import { HASP_CONTROLS } from "./field-controls-hasp.js";
 import { HIVE_CONTROLS } from "./field-controls-hive.js";
@@ -179,10 +178,6 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE RIME's two halves, the first rub: a thumb turned back and forth on
   // the seat's side of the lens's spine (`field-controls-rime.ts`).
   ...RIME_CONTROLS,
-  // THE GRINDSTONE's flats and jaws, the first boss here that is **two spent
-  // primitives on one body** — THE RIME's rub and THE TRIVET's chord
-  // (`field-controls-grindstone.ts`).
-  ...GRINDSTONE_CONTROLS,
   // THE TRAPEZE's ring and track, the only pair here **one seat's tap answered
   // by the other's swipe** on one swinging flag (`field-controls-trapeze.ts`).
   ...TRAPEZE_CONTROLS,

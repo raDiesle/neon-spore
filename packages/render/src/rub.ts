@@ -3,9 +3,8 @@ import type { Hold } from "./touch-hold.js";
 
 /**
  * **`RubCount` from one thumb** — the third gesture a host has to keep count
- * of, after the pinch (`pinch.ts`) and the chord (`chord.ts`), first spent by
- * THE GRINDSTONE's flats (§33) and written for THE RIME's halves (§29), which
- * the simulation hears the same way.
+ * of, after the pinch (`pinch.ts`) and the chord (`chord.ts`), written for
+ * THE RIME's halves (§29).
  *
  * A rub is a thumb going back and forth, and what it sends is **how many times
  * it has turned back since it went down**: nought on the press, one more on

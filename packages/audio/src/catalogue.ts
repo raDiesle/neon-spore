@@ -24,7 +24,6 @@ import { BOSS_GAUGE_SOUNDS } from "./sounds/boss-gauge.js";
 import { BOSS_GIMBAL_SOUNDS } from "./sounds/boss-gimbal.js";
 import { BOSS_GORGE_SOUNDS } from "./sounds/boss-gorge.js";
 import { BOSS_GOVERNOR_SOUNDS } from "./sounds/boss-governor.js";
-import { BOSS_GRINDSTONE_SOUNDS } from "./sounds/boss-grindstone.js";
 import { BOSS_HALTER_SOUNDS } from "./sounds/boss-halter.js";
 import { BOSS_HASP_SOUNDS } from "./sounds/boss-hasp.js";
 import { BOSS_HASP_STORY_SOUNDS } from "./sounds/boss-hasp-story.js";
@@ -122,7 +121,6 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_TRIVET_SOUNDS,
   ...BOSS_PLUMB_SOUNDS,
   ...BOSS_SLING_SOUNDS,
-  ...BOSS_GRINDSTONE_SOUNDS,
   ...BOSS_HALTER_SOUNDS,
   ...BOSS_CAPSTAN_SOUNDS,
   ...BOSS_GALL_SOUNDS,

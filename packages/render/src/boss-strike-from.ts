@@ -6,7 +6,6 @@ import { flueBlowFrom } from "./flue-blow.js";
 import { gallBlowFrom } from "./gall-blow.js";
 import { gimbalCentre } from "./gimbal-shape.js";
 import { governorBlowFrom } from "./governor-blow.js";
-import { grindstoneBlowFrom } from "./grindstone-blow.js";
 import { halterBlowFrom } from "./halter-blow.js";
 import { lampreyBlowFrom } from "./lamprey-blow.js";
 import { latchBlowFrom } from "./latch-blow.js";
@@ -93,8 +92,6 @@ const FROM: Partial<
   gall: gallBlowFrom,
   // The fly of the flag held over the middle, where the scrap tears off (`trapeze-blow.ts`).
   trapeze: trapezeBlowFrom,
-  // The bottom of the wheel, where the chip breaks off (`grindstone-blow.ts`).
-  grindstone: grindstoneBlowFrom,
   // The underside of the cup at the crotch, where the ball is flung from (`sling-blow.ts`).
   sling: slingBlowFrom,
   // The flue's underside under the sight, where the cinder is coughed out (`flue-blow.ts`).

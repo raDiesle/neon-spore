@@ -1,18 +1,18 @@
 import { describe, expect, it } from "bun:test";
-import { grindstoneLitStep, step, type TimedCommand } from "../src/index.js";
-import { grindstone, MID, rightColor, TPB, toStep } from "./grindstone-rig.js";
+import { slingLitStep, step, type TimedCommand } from "../src/index.js";
+import { MID, rightColor, sling, TPB, toStep } from "./sling-rig.js";
 
 /**
  * **A boss's core is met where it hangs** (`core-along.ts`): a bolt up the
- * middle into THE GRINDSTONE's lit axle is a hit on the tick it crosses the
- * axle, judged by the same calls as past the top and said with where it was
+ * middle into THE SLING's lit yoke is a hit on the tick it crosses the
+ * yoke, judged by the same calls as past the top and said with where it was
  * met, and the bolt goes no further.
  */
 
 describe("a core met where it hangs", () => {
-  it("is THE GRINDSTONE's axle hit on the tick the bolt reaches it", () => {
+  it("is THE SLING's yoke hit on the tick the bolt reaches it", () => {
     const world = toStep(4);
-    const lit = grindstoneLitStep(grindstone(world));
+    const lit = slingLitStep(sling(world));
     if (lit === null) throw new Error("nothing is lit");
     const t = world.tick;
     const cmds: TimedCommand[] = [
@@ -21,7 +21,7 @@ describe("a core met where it hangs", () => {
     ];
     const seen: string[] = [];
     let at = Number.NaN;
-    while (world.tick < t + TPB * 2 && !seen.includes("grindstoneHit")) {
+    while (world.tick < t + TPB * 2 && !seen.includes("slingHit")) {
       step(
         world,
         cmds.filter((c) => c.tick === world.tick),
@@ -31,7 +31,7 @@ describe("a core met where it hangs", () => {
         if (e.type === "shotOut") at = e.atMilli;
       }
     }
-    expect(seen).toContain("grindstoneHit");
+    expect(seen).toContain("slingHit");
     expect(at).toBeGreaterThan(0);
     expect(world.bullets).toHaveLength(0);
   });

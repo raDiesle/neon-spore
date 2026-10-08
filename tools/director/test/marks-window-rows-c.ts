@@ -1,9 +1,6 @@
 import {
   type FlueState,
   flueLitLevel,
-  type GrindstoneState,
-  grinding,
-  grindstoneLitStep,
   type HalterState,
   halterLitStep,
   type LampreyState,
@@ -23,7 +20,6 @@ import {
   type World,
 } from "@neon-spore/sim";
 import * as flueMarks from "../../../packages/render/src/flue-marks.js";
-import * as grindstoneMarks from "../../../packages/render/src/grindstone-marks.js";
 import * as halterMarks from "../../../packages/render/src/halter-marks.js";
 import * as lampreyMarks from "../../../packages/render/src/lamprey-marks.js";
 import * as markFeedback from "../../../packages/render/src/mark-feedback.js";
@@ -36,9 +32,7 @@ import * as slingMarks from "../../../packages/render/src/sling-marks.js";
 import { mark, type Row } from "./marks-window-kit.js";
 
 /**
- * **The rows after the second six bosses'** of `marks-window.test.ts`. THE GRINDSTONE's axle is
- * ringed white once the caliper has bitten, before its fire step: that is
- * the bite, and only the step's colour counts as lit. THE PLUMB's glass has
+ * **The rows after the second six bosses'** of `marks-window.test.ts`. THE PLUMB's glass has
  * no argument that says it is asked, so its call is read off the state it
  * was handed. THE RIME's icicle is drawn from `rime-story.ts`, not its marks
  * file.
@@ -48,7 +42,6 @@ import { mark, type Row } from "./marks-window-kit.js";
  */
 
 const flue = (w: World) => w.boss as FlueState;
-const grindstone = (w: World) => w.boss as GrindstoneState;
 const halter = (w: World) => w.boss as HalterState;
 const lamprey = (w: World) => w.boss as LampreyState;
 const latch = (w: World) => w.boss as LatchState;
@@ -64,24 +57,6 @@ const halterHolds = (w: World) => {
 };
 
 export const ROWS_C: readonly Row[] = [
-  {
-    kind: "grindstone",
-    marks: [
-      mark(grindstoneMarks, "drawGrindstoneFaceGlow", (w) => grinding(grindstone(w)) !== null),
-      mark(
-        grindstoneMarks,
-        "drawGrindstonePads",
-        (w) => grindstoneLitStep(grindstone(w))?.ask === "clamp",
-        (a) => a[4] === true,
-      ),
-      mark(
-        grindstoneMarks,
-        "drawGrindstoneAxle",
-        (w) => grindstone(w).locked && grindstoneLitStep(grindstone(w))?.ask === "fire",
-        (a) => a[5] !== null,
-      ),
-    ],
-  },
   {
     kind: "halter",
     marks: [

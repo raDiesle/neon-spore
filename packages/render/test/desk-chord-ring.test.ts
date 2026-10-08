@@ -1,8 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import type { GrindstoneStep, HalterStep, TrivetStep, World } from "@neon-spore/sim";
+import type { HalterStep, TrivetStep, World } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, runFrames } from "./frame-harness.js";
-import * as grindstone from "./grindstone-harness.js";
 import * as halter from "./halter-harness.js";
 import * as trivet from "./trivet-harness.js";
 
@@ -19,7 +18,6 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 beforeAll(installCanvasGlobals);
 
-const CLAMP: GrindstoneStep = { ask: "clamp", color: "either", beats: 2 };
 const BOTH: TrivetStep = { ask: "both", pads: 2, color: "either", beats: 4 };
 const LEFT: HalterStep = { ask: "left", color: "either", beats: 10 };
 
@@ -42,7 +40,6 @@ function words(world: World, role: ViewRole, arrange: (w: World) => void): strin
 const said = (w: readonly string[], word: string) => w.filter((t) => t === word).length;
 
 const BOSSES = [
-  ["THE GRINDSTONE's jaws", grindstone.stood, (w: World) => grindstone.posed(w, CLAMP), 2],
   ["THE TRIVET's feet", trivet.stood, (w: World) => trivet.posed(w, BOTH, false), 2],
   ["THE HALTER's lit grips", halter.stood, (w: World) => halter.posed(w, LEFT), 1],
 ] as const;
@@ -66,11 +63,9 @@ describe("a desk's chord body", () => {
   });
 
   it("goes as the chord is held", () => {
-    const held = words(grindstone.stood(), "test", (w) =>
-      grindstone.posed(w, CLAMP, (s) => {
-        s.padsDown = [3, 3];
-      }),
-    );
+    const held = words(trivet.stood(), "test", (w) => {
+      trivet.posed(w, BOTH, false).padsDown = [3, 3];
+    });
     expect(said(held, "HOLD BOTH")).toBe(0);
   });
 });

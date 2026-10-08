@@ -3,7 +3,7 @@ import type { FieldControlDef } from "./field-control-def.js";
 /**
  * THE RIME's two halves, as rows of the ON THE FIELD tab.
  *
- * **The first rub**, the primitive THE GRINDSTONE's flats later spent again:
+ * **The first rub**, the primitive THE CAPSTAN's drum later spent again:
  * both screens draw the whole frosted lens, and whose half is whose is
  * geometry — the left the pilot's, the right the navigator's — so a thumb on
  * the other seat's side of the spine falls through (`render/rime-grip.ts`,

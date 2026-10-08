@@ -79,9 +79,6 @@ export function drawOnShip(
   // And THE TRIVET's: each foot driven home is a thud through the plating,
   // the collapse a harder one (`trivet-fx.ts`, §30).
   held.effects.boss.trivet.shock.draw(ctx, l, surfaceY, view.time);
-  // And THE GRINDSTONE's: the caliper biting is a thud through the plating,
-  // the snap free a harder one (`grindstone-fx.ts`, §33).
-  held.effects.boss.grindstone.shock.draw(ctx, l, surfaceY, view.time);
   // And THE RIME's: the lens shattering is a shudder down the plating
   // (`rime-fx.ts`, §29).
   held.effects.boss.rime.shock.draw(ctx, l, surfaceY, view.time);

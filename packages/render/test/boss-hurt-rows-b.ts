@@ -211,22 +211,6 @@ export const HURT_ROWS_B: Row[] = [
     hit: "every plant and every hub shot is landed",
     hurt: (fx) => fx.boss.trivet.hurt,
   },
-  {
-    boss: "grindstone",
-    // A pass ground clean, and the axle hit; a bite or a clamp only works toward one.
-    land: [
-      { type: "grindstoneClear", side: 0, passes: 1, col: 3 },
-      { type: "grindstoneHit", hits: 1, col: 3 },
-    ],
-    part: [
-      { type: "grindstoneLight", ask: "left", col: 3 },
-      { type: "grindstoneBite", col: 3 },
-      { type: "grindstoneSlip", side: 1, col: 3 },
-    ],
-    // A reversal's shave, eight of them to a pass.
-    hit: [{ type: "grindstoneShave", side: 0, gritMilli: 500, col: 3 }],
-    hurt: (fx) => fx.boss.grindstone.hurt,
-  },
 ];
 
 /** THE UNDERTOW with a lobe standing: nothing of it shows otherwise. */

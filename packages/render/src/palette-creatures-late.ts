@@ -72,8 +72,6 @@ export const LATE_CREATURE_HUES = {
   flueSoot: "#6A4C7A",
   flueSootDark: "#170C1E",
   flueSlot: "#09050D",
-  /** THE GRINDSTONE's spent axle as row 11's fade opens: a white with no cannon's in it. */
-  grindstoneHeat: "#F6F3EC",
   /**
    * THE GOVERNOR (§43, *Colour*): a scoured brass for the flywheel, the
    * spindle, the flyweights and the yoke, its shadow, and the dark face the

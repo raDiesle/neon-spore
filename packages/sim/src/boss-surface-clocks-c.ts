@@ -9,8 +9,8 @@
  * Page two re-exports this one and page one re-exports page two, so nothing
  * reaching for a name through `@neon-spore/sim` knows there are three.
  *
- * **A fourth page opened when THE GRINDSTONE's names would have taken this
- * one past 250**, and THE WELL's rows went across, the last ones here
+ * **A fourth page opened when a boss's names would have taken this one past
+ * 250**, and THE WELL's rows went across, the last ones here
  * (`boss-surface-clocks-d.ts`); THE VISE's followed, the last again, when
  * this page reached 252, and THE TRIVET's when its window length took this
  * page to 238 — the boss being drawn went across, since it was the one open.
@@ -23,8 +23,8 @@
 // whether a bolt is loose — for the picture, the sound, the cue and the
 // director's hand. Straight off `ratchet.ts` (`docs/spec/bosses.md` §11.38).
 export type { RatchetEntry } from "./boss-entries-clocks-b.js";
-// THE WELL's names, THE GRINDSTONE's, THE VISE's and THE TRIVET's, the last
-// rows this page held (`boss-surface-clocks-d.ts`).
+// THE WELL's names, THE VISE's and THE TRIVET's, the last rows this page
+// held (`boss-surface-clocks-d.ts`).
 export * from "./boss-surface-clocks-d.js";
 // THE KEEL's spine: the phase, the movement, where the joint sits and whose
 // thumb it wants, the locked segments and the tail's rock, for the picture,

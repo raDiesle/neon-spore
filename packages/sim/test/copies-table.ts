@@ -828,7 +828,7 @@ export const COPIES: Copy[] = [
   },
   {
     // **A hull shock's clock** — struck, fading linearly, drawn along the
-    // plating. THE GRINDSTONE's fx kept it in three fields and four lines, and
+    // plating. One boss's fx kept it in three fields and four lines, and
     // nine more fx files had pasted the same fields before `HullShock` took
     // them all (27 September 2026). The field names are the copy: a file that
     // declares its own `shockLeft` is keeping the clock by hand again; the
@@ -896,16 +896,6 @@ export const COPIES: Copy[] = [
     owner: "packages/sim/src/core-verdict.ts",
     pattern: /step\s*===\s*null\s*\|\|\s*\(?\s*step\.ask\s*!==\s*"fire"\s*(?:\|\||\)|&&)/,
     strip: false,
-  },
-  {
-    // **Where a GRINDSTONE jaw pad stands**: laid on the jaw, then swung with
-    // it about the bolt. The verdict ring and the hit test each wrote the
-    // turn out until 7 October 2026, and they must agree on the point — a
-    // jaw that rocks would have had to be taught to rock twice, and a ring
-    // drawn off where a thumb is taken is the copy that drifted.
-    call: "grindstonePadPlaced",
-    owner: "packages/render/src/grindstone-caliper.ts",
-    pattern: /turnedAbout\(\s*grindstonePadAt\(/,
   },
   {
     // **Where a loose KEEL segment is in its sway.** The ribs wrote the

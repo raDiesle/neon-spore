@@ -1,16 +1,6 @@
-import {
-  filamentBoss,
-  grindstoneBoss,
-  sinewBoss,
-  stareBoss,
-  surgeBoss,
-  type World,
-} from "@neon-spore/sim";
+import { filamentBoss, sinewBoss, stareBoss, surgeBoss, type World } from "@neon-spore/sim";
 import { filamentHeart } from "./filament-heart.js";
 import { filamentStrands } from "./filament-shape.js";
-import { grindstoneReach } from "./grindstone-caliper.js";
-import { grindstoneArrived, grindstoneFree, grindstoneShut } from "./grindstone-pose.js";
-import { grindstoneAxleAt } from "./grindstone-shape.js";
 import type { Layout } from "./layout.js";
 import { rimeCentre, rimeRadius } from "./rime-shape.js";
 import { sinewCollarBox } from "./sinew-band.js";
@@ -76,15 +66,6 @@ export function lateBossAim(world: World, l: Layout, beat: number, beatPhase: nu
     // at its widest, or its flange where that is the larger.
     case "spool":
       return still(spoolHome(l, cfg), Math.max(spoolBarrelHalf(l, 0), spoolFlangeR(l)));
-    // The wheel where it has dropped in or fallen to, as wide as the caliper
-    // round it stands this frame.
-    case "grindstone": {
-      const s = grindstoneBoss(world);
-      if (s === null) return null;
-      const arrived = grindstoneArrived(s, cfg, beat, beatPhase);
-      const axle = grindstoneAxleAt(l, cfg, arrived, grindstoneFree(s, cfg, beat, beatPhase));
-      return still(axle, grindstoneReach(l, grindstoneShut(world, s, beat, beatPhase)));
-    }
     // The eye in its cowl, swollen as far as the charge has come: the charge
     // is when the lid's window opens, and a light aimed at the cannon split
     // the eye itself into three (29 September 2026).

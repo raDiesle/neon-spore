@@ -5,7 +5,6 @@ import { flueBlow } from "./flue-blow.js";
 import { gallBlow } from "./gall-blow.js";
 import { gimbalBlow } from "./gimbal-blow.js";
 import { governorBlow } from "./governor-blow.js";
-import { grindstoneBlow } from "./grindstone-blow.js";
 import { halterBlow } from "./halter-blow.js";
 import { haspBlow } from "./hasp-blow.js";
 import { lampreyBlow } from "./lamprey-blow.js";
@@ -98,9 +97,6 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   gall: gallBlow,
   // A spindle left unshot: a scrap of the flag's fly tears away and falls flat on the skin.
   trapeze: trapezeBlow,
-  // A step let run: the bottom lobe spits a spore that bursts on the skin.
-  // A fire step let run: the wheel throws a chip that shatters to grit on the skin.
-  grindstone: grindstoneBlow,
   // A fire step let run: the lit cup flings its steel ball, which dents the skin.
   sling: slingBlow,
   // A level's third shot spent: the flue coughs a cinder that scorches the skin.
