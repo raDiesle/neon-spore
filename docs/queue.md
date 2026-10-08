@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run frames` cannot draw an arrival no shipped wave has
 
 - **Found:** 2026-10-08, claude/task-queue-work-b00fee
+- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-bun-run-frames-cannot-draw-an-arrival-no-shipped)
 - **Files:** `tools/frames/run.ts`, `tools/frames/recipes.ts`
 
 THE BLISTER's HOLD landed with no wave that sends one, so its one picture was
