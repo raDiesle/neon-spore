@@ -10,7 +10,7 @@ import type { GuideScene } from "../scene-types.js";
  * only true until it sinks — after that the rng has the column — so all three
  * land on the first surfacing.
  *
- * Lane 8 makes this film the real one (`docs/queue.md`, *THE BLISTER, lane 8*):
+ * Lane 8, postponed, makes this film the real one (`docs/spec/blister.md`, *Lane 8*):
  * the bulge on the pilot's screen is lane 2's to draw, and this page names it
  * before anything shows it.
  */

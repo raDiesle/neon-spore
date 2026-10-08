@@ -36191,3 +36191,17 @@ Bottleneck: friction — a draft marked free was already drawn by a boss's
 prop, which only a grep of the render tree found.
 
 *Measured: 28 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE BLISTER's lanes 4 to 8 postponed off the queue
+
+- reading: 10 min. The queue, the parked file, the boss ledger and every
+  unlanded branch's queue additions, to find which entries were new-enemy
+  work and nothing else.
+- writing: 5 min. Five entries moved into `docs/spec/blister.md` in the
+  queue's shape, its status line and one code comment repointed.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. `parked.md` is the front of the queue, not a shelf, so
+  postponing meant the spec page rather than the file the word suggests.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — deciding which entries the request meant.
