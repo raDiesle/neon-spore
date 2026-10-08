@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE SCUTTLE's parts are drawn as part of its body, not as a grid of sockets
 
 - **Found:** 2026-10-07, claude/undone-boss-tasks-concepts-1f5f11
+- **Taken:** 2026-10-08, claude/queue-tasks-3078fe (claim: claude/queue-the-scuttles-parts-are-drawn-as-part-of-its-body)
 - **Files:** `packages/render/src/scuttle-shape.ts`, `packages/render/src/scuttle-draw.ts`, `packages/render/src/scuttle-plate.ts`
 
 bosses-choreographed.md ledger row §15, *Not built*: a part sits in a socket list rather than in the frame's body. Offer a candidate where each part is a lobe of the one frame and leaves a wound in it when it goes. The pod that is not taken losing the wave is the owner's rule of 12 September 2026 (`scuttle-step.ts`) and stays as it is. A look: offered in VERSUS (`tools/versus/candidates/`, `docs/versus.md`), never straight onto the field (CLAUDE.md, *A look is offered, never replaced*). The owner asked on 7 October 2026 for the *Not built* parts of the shipped bosses to be queued; parts the write-up argues against on purpose are left out.
