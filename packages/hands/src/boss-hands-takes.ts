@@ -6,6 +6,7 @@ import {
   antiphonStanding,
   antiphonVeinMilli,
   cairnState,
+  gripPushOf,
   spliceRound,
   spliceWantedAfterFlights,
   type TimedCommand,
@@ -49,12 +50,23 @@ export const cairnHand: Hand = (w) => {
         kind: "drag",
         target: "gripBody",
         on: true,
-        fromMilli: w.cfg.gripPushMilli,
+        fromMilli: cairnCarry(w),
         id: body.id,
       },
     },
   ];
 };
+
+/**
+ * How far the pilot's finger has come since it took hold: a column further
+ * than it has already spent. A `drag` is the whole distance from the grab and
+ * never an increment (`sim/grip-push.ts`), so a hand that reported one
+ * column's travel for ever had earned its one rock and no other — until
+ * 8 October 2026 AUTO pulled once and let the pile shed the other six.
+ */
+function cairnCarry(w: World): number {
+  return ((gripPushOf(w, 1)?.cols ?? 0) + 1) * w.cfg.gripPushMilli;
+}
 
 /**
  * THE CAIRN's other hand, and the one that does the least: a thumb put on the

@@ -618,23 +618,6 @@ body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
 figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
 bestiary's line to built.
 
-## No test plays AUTO to the end on THE CAIRN, THE UNDERTOW, THE MIRROR, THE SPLICE
-
-- **Found:** 2026-10-08, claude/queue-autos-boss-hands-are-tested-without-the-games-ha
-- **Taken:** 2026-10-08, claude/queue-tasks-3078fe (claim: claude/queue-no-test-plays-auto-to-the-end-on-the-cairn-the-u)
-- **Files:** `packages/hands/src/boss-hands-takes.ts`, `packages/hands/src/boss-hands-rounds.ts`, `packages/hands/src/autopilot-hands.ts`, `tools/director/test/charges.ts`
-
-The last four of the twelve kinds in `AUTOPILOT_HANDS` no test plays. THE
-SPLICE's hand is not named in any file of `packages/hands/src` but the table
-itself, so find what answers it first. One play test each under
-`describe.each(CHARGES)`; fix any hand that loses at either charge. A probe
-on 8 October 2026, BOTH from `bossWorld`: THE CAIRN never finishes in 60,000
-ticks, at either charge, with fourteen scars; THE UNDERTOW finishes with six;
-THE MIRROR and THE SPLICE finish clean. Look first at what nobody answers:
-THE WELL's and THE SURGE's scars were the wave's own bodies, which their
-hands never played, and both were fixed by playing `fieldHand` beside them
-in `AUTOPILOT_HANDS`.
-
 ## waves-demo.ts and poses-mechanics.ts are each within twenty lines of the ceiling
 
 - **Found:** 2026-10-08, claude/queue-autos-boss-hands-are-tested-without-the-games-ha

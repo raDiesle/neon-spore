@@ -72,7 +72,9 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   antiphon: antiphonHand,
   baton: batonHand,
   trapeze: trapezeHand,
-  cairn: cairnHand,
+  // Every rock pulled out is a plain rock falling, and the pile's hand is on
+  // the pile — the shield under it is the field's.
+  cairn: (w) => [...cairnHand(w), ...fieldHand(w)],
   capstan: capstanHand,
   curtain: curtainHand,
   davit: davitHand,
@@ -122,7 +124,9 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   taster: tasterHand,
   throat: throatHand,
   trivet: trivetHand,
-  undertow: undertowHand,
+  // The wave sends six slimes under the lobes, and the lobes' hand answers
+  // only the lobes.
+  undertow: (w) => [...undertowHand(w), ...fieldHand(w)],
   valve: valveHand,
   vane: vaneHand,
   vise: viseHand,

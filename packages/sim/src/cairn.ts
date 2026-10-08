@@ -171,7 +171,12 @@ function letGo(world: World, body: Creature, b: CairnState, col: number): void {
   // the unit went: a pair who pull have bought their four beats again, and a
   // pair who only ever hold find the budget is per rock and not per fight.
   b.heldBeats = 0;
-  if (b.units <= 0) removeCreatures(world, [body.id]);
+  if (b.units > 0) return;
+  // The last rock out is the boss leaving, the way every other boss leaves: a
+  // pile still installed at nought held its wave open for ever (`bossHoldsWave`),
+  // with the field empty and nothing left to take — until 8 October 2026.
+  removeCreatures(world, [body.id]);
+  world.boss = null;
 }
 
 /**

@@ -35305,3 +35305,18 @@ Bottleneck: reading — THE WELL never ending was by design and only its
 header said so; the probe's "never finishes" was the wrong question.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — AUTO is played to the end on THE CAIRN, THE UNDERTOW, THE MIRROR, THE SPLICE
+
+- reading: 5 min. The four hands, `grip-push.ts`'s cumulative carry, and
+  `beat.ts`'s clear, to see why an empty field never ended THE CAIRN.
+- writing: 5 min. The carry a column further each pull, the field played
+  beside THE CAIRN and THE UNDERTOW, the empty pile taken off the world,
+  four play tests at both charges.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: reading — "THE CAIRN never finishes" was three faults stacked,
+and only a dump of the world after the hand had emptied the pile showed the
+third was the game's and not the hand's.

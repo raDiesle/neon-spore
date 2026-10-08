@@ -218,10 +218,11 @@ describe("a pile nobody touches", () => {
   it("is gone when the last rock has left it", () => {
     const world = install(2);
     // Long enough for the clock to run out seven times over, with nobody's
-    // hands on anything: the pile empties itself and stops being a body.
+    // hands on anything: the pile empties itself and stops being a body —
+    // and stops being the boss, or its wave could never be passed.
     runTo(world, TPB * CFG.cairnShedBeats * (CFG.cairnUnits + 1));
-    expect(cairn(world).units).toBeLessThanOrEqual(0);
     expect(pile(world)).toBeUndefined();
+    expect(world.boss).toBeNull();
   });
 });
 
