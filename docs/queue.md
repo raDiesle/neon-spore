@@ -403,6 +403,7 @@ bestiary's line to built.
 ## `sim/events-creature.ts` is at 249 lines: the next creature's events cannot join
 
 - **Found:** 2026-10-08, claude/task-queue-work-e99d1a
+- **Taken:** 2026-10-08, claude/task-queue-work-e99d1a (claim: claude/queue-sim-events-creature-ts-is-at-249-lines-the-next)
 - **Files:** `packages/sim/src/events-creature.ts`, `packages/sim/src/events.ts`
 
 THE BLISTER's `BlisterEvent` took two lines there, and two comments over
