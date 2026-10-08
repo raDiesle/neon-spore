@@ -553,3 +553,132 @@ THE RIME's `rimeShaveMilli` (125, eight reversals a half), THE GRINDSTONE's
 A rub against regrowth counts down a share, not whole reversals, so its ring
 is a plain arc, not segments. Check each step's window still holds the new
 count at a thumb's pace, and move the sim tests that pin the old one.
+
+## THE BLISTER, lane 1: the simulation, knocked down by taps
+
+- **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Files:** `packages/sim/src/creature-kinds.ts`, `packages/content/src/creatures-table.ts`, `packages/content/src/mechanics-table.ts`, `packages/content/src/living-look.ts`, `packages/render/src/comms.ts`, `docs/spec/bestiary.md`, `packages/sim/src/commands.ts`, `packages/sim/src/types.ts`, `packages/sim/src/hash-creature-tail.ts`, `packages/content/src/wave-entry.ts`, `packages/sim/src/entries.ts`, `packages/content/src/queue.ts`, `packages/sim/src/spawn-fields.ts`
+
+The owner's whack-a-mole creature, designed in `docs/spec/blister.md` —
+read it first. This lane is its simulation with the TAP gesture only, by
+`.claude/skills/new-creature`: the kind `blister` in the six tables; the
+surface / up / sink cycle on the beat (`blisterUpBeats`, `blisterSinkRows`
+in `SimConfig`), the next pore picked by the seeded `Rng`, the hull scar
+when it surfaces on the hull row; `tap {id}` routed to it in
+`commands.ts` the way the soundbox's is, counted only while it is up and
+only from a seat its `by` allows; the count kept across surfacings. The
+entry fields `by` (1, 2 or both) and `count` go on `WaveEntry` and
+`SpawnEntry` exactly as the ghost's `path` does, and every new
+`Creature` field is hashed. The hit test in `packages/render/src/creature-under.ts`
+answers it only for a seat `by` allows and only while it is up. Whatever
+`packages/content/test/waves.test.ts` asks of a new creature — its own wave
+with a guide — lands here at its plainest; lane 8 makes the guide good. A
+replay test in `packages/sim/test/`: three taps knock it out, a tap from
+the wrong seat or while it is down counts nothing, an unanswered blister
+scars the hull.
+
+## THE BLISTER, lane 2: its body, its pore, the bulge and the tap help
+
+- **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Files:** `packages/content/src/living-look.ts`, `packages/render/src/instar-glyphs.ts`, `packages/render/src/mark-feedback.ts`, `packages/render/src/grip-verdict.ts`, `packages/render/test/frame.test.ts`
+- **Needs:** THE BLISTER, lane 1
+
+The look of `docs/spec/blister.md`, a look with no shipped alternative (say
+so in the commit). **One body for every gesture**: take a shape from
+`tools/shape-sheet/src/drafts/` or combine two, naming it, never one the
+game already draws (`bun run shapes:report`). Draw the pore it comes up
+from, the body rising out of it and sinking into it, and the bulge a beat
+before — on the screen of the seat that is *not* `by` only, both screens
+when `by` is both. The TAP help is called, not drawn anew
+(`docs/controls-catalogue.md`): `drawInstarGlyph`'s flaring dots, one pip
+round the body per tap still owed, `drawMarkHalo` on the seat that may tap,
+`drawMarkWait` on the other, `drawVerdictRing` on every tap. The help sits
+over and round the body and never changes its shape. Drawn again in
+`frame.test.ts`; send the owner one PNG of a frame.
+
+## THE BLISTER, lane 3: the director's BY, GESTURE, COUNT and WAY rows
+
+- **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Files:** `tools/director/src/cell-config.ts`, `tools/director/src/cell-config-mine.ts`, `tools/director/src/entry-fields-mine.ts`, `tools/director/src/serialize-entry.ts`
+- **Needs:** THE BLISTER, lane 1
+
+The owner asked for who may knock a blister down to be set in the
+director's brush settings. Under a selected `blister` cell, beside THE
+MINE's SEES row and built the same way (a `cell-config-blister` file beside
+`cell-config-mine.ts`, its fields in an `entry-fields-blister` file):
+**BY** `P1` / `P2` / `BOTH`, default `P2` stored as absent; **COUNT**
+1–8, default 3; **GESTURE** with `TAP` only for now — lanes 4 to 7 each add
+their own choice to it; **WAY** shown only for a gesture that has one.
+Saved by `serialize-entry.ts`, round-tripped in a director test. The table
+of rows is in `docs/spec/blister.md`.
+
+## THE BLISTER, lane 4: HOLD
+
+- **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Files:** `packages/sim/src/hand.ts`, `packages/render/src/touch-hold.ts`, `packages/render/src/hold-mark.ts`, `packages/render/src/grip-rings.ts`
+- **Needs:** THE BLISTER, lane 2
+
+The second gesture of `docs/spec/blister.md`: press and keep the press for
+`count` beats while it is up. Add `gesture` to the entry (`tap` default,
+absent) and `hold` to it; `handMeans` gives the blister a hold, the
+simulation counts the ticks between `grip` on and off, a release or a sink
+resets. Help: `drawHoldMark` with `drawGripDial` running round it, the
+green held ring on both screens. HOLD added to lane 3's GESTURE row. Replay
+test: a hold of `count` beats knocks it out, one let go a beat early does
+not. Works with a mouse press — say so in the test's name.
+
+## THE BLISTER, lane 5: SWIPE
+
+- **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Files:** `packages/sim/src/drag-targets.ts`, `packages/render/src/touch-drag.ts`, `packages/render/src/instar-track.ts`, `packages/net/src/command-codec.ts`
+- **Needs:** THE BLISTER, lane 4
+
+The third gesture of `docs/spec/blister.md`: a drag across the body in the
+entry's `way` (left, right, up, down), `count` strokes. A drag target
+`blisterSwipe` with the blister's id and `fromMilli` / `fromYMilli`, the
+simulation judging length and direction on the lift — no new `Command`
+kind (`.claude/skills/net-change` for the target's wire value). Help:
+`drawInstarTrack`'s bar along the way, never a ring. SWIPE and the four
+ways added to lane 3's rows. Replay test for a right stroke, a short one
+and a wrong-way one.
+
+## THE BLISTER, lane 6: TURN, a circle round it
+
+- **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Files:** `packages/sim/src/drag-targets.ts`, `packages/sim/src/crank.ts`, `packages/render/src/crank-dial.ts`, `packages/render/src/maze-lever.ts`
+- **Needs:** THE BLISTER, lane 5
+
+The owner's circle round the body, in the game's word TURN
+(`docs/spec/blister.md`): drag `count` full turns round the blister in the
+entry's way, clockwise or not. A drag target `blisterTurn` sending a
+bearing in thousandths of a turn round the body's centre, the way the crank
+does — call its bearing, never re-derive it; progress lost when it sinks.
+Help: `drawMazeLever`, the one turn for every wave, its channel filling
+green. TURN and the two ways added to lane 3's rows. Replay test for a full
+turn, a half one and one the wrong way.
+
+## THE BLISTER, lane 7: RUB
+
+- **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Files:** `packages/render/src/rub.ts`, `packages/render/src/rub-turns.ts`, `packages/render/src/rub-mark.ts`, `packages/sim/src/drag-targets.ts`
+- **Needs:** THE BLISTER, lane 6
+
+The fifth gesture of `docs/spec/blister.md`: scrub back and forth over the
+body, `count` reversals, counted the way `rub-turns.ts` counts them. Help:
+`drawRubMark`, and `drawMarkProgress`'s green segments one a reversal, as
+THE CAPSTAN's rub wears them. RUB added to lane 3's GESTURE row. Replay test
+for enough reversals and too few.
+
+## THE BLISTER, lane 8: its guide and its waves
+
+- **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/test/waves.test.ts`, `docs/spec/blister.md`, `docs/spec/bestiary.md`
+- **Needs:** THE BLISTER, lane 7
+
+Make lane 1's plain guide the real one, by `.claude/skills/new-tutorial`
+and `.claude/skills/new-wave`: one wave that teaches the talking — P2 knocks
+down by TAP, P1 sees the bulge — and the act it sits in chosen by where its
+one sentence fits, then a later wave that mixes the five gestures on one
+body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
+figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
+bestiary's line to built.

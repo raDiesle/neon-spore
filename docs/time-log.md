@@ -35045,3 +35045,19 @@ Bottleneck: looking — whether a number belongs to its place only showed in
 a frame, where the seam's ripple pulled them apart.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-08 — THE BLISTER, a whack-a-mole creature, designed and queued
+
+- reading: 20 min. How a hand reaches a body today (`tap`, `grip`, the drag
+  targets, the crank's bearing), THE MINE's SEES row as the director's
+  precedent, and the controls catalogue — which forbids the partner's
+  screen showing the gesture, and moved the talking onto the bulge.
+- writing: 15 min. `docs/spec/blister.md` and eight queue lanes chained by
+  `Needs:`.
+- looking: 0 min.
+- friction: 0 min. The session slept overnight between reading and writing.
+- landing: 5 min.
+
+Bottleneck: reading — the owner's rule against showing the gesture to the
+partner was found in the catalogue, not in the creature skill, and it
+changed where the pair's talking comes from.
