@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 69ef9eb6f — versus:shot photographs every seat the VERSUS page drew, not P1's alone
+
+A plain shot took the first .versus-stage, which is P1's, so a candidate drawn differently on each seat — sinew:band · white — looked as if the page had planned one seat. The seat plan said two all along; the shot now takes .versus-screens, and a test holds that two shapes in one rectangle sign two seats.
+
 ## 2026-10-08 · 273e6f538 — THE GOVERNOR's alloy and veins are on the sprite bench
 
 `bun run sprite governor-alloy` and `governor-veins` now draw each baked sprite on the bare dial at its diameter and print its code bytes, bake time and draw cost; each is weighed beside the hub drawn over it (1.8 kB and 1.4 kB gzipped) and has a row in the sprite skill's table. What the game draws is unchanged: the two draws only take an optional density for the bench.
