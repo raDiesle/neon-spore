@@ -351,6 +351,7 @@ over and round the body and never changes its shape. Drawn again in
 ## THE BLISTER, lane 3: the director's BY, GESTURE, COUNT and WAY rows
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Taken:** 2026-10-08, claude/task-queue-work-b00fee (claim: claude/queue-the-blister-lane-3-the-directors-by-gesture-coun)
 - **Files:** `tools/director/src/cell-config.ts`, `tools/director/src/cell-config-mine.ts`, `tools/director/src/entry-fields-mine.ts`, `tools/director/src/serialize-entry.ts`
 - **Needs:** THE BLISTER, lane 1
 
