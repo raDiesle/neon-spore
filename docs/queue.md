@@ -561,6 +561,7 @@ one with a typo.
 ## A Needs line quoting a title with a code span never matches it
 
 - **Found:** 2026-10-08, claude/parked-boss-concept-d88325
+- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-a-needs-line-quoting-a-title-with-a-code-span-ne)
 - **Files:** `tools/queue/needs.ts`, `tools/queue/test/needs.test.ts`
 
 `needOf` strips the backticks from a `Needs:` line, and `blockedBy` compares
