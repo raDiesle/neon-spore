@@ -35138,3 +35138,5 @@ paragraph's "below" points.
 
 Bottleneck: friction — telling the seven real silent captions from the ones
 the test's own setup had lost.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
