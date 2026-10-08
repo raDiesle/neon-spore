@@ -35737,3 +35737,14 @@ import, which no amount of reading `page-said.ts` would have shown.
 Bottleneck: none worth the name; the entry said exactly what to do.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — A `Needs:` line quoting a backticked title matches it
+
+- reading: 0 min. The entry named the line and the fix.
+- writing: 5 min. The title stripped as the line already was, and a test
+  quoting a code-span title whole, seen red without the fix.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: landing — the check is longer than the change.

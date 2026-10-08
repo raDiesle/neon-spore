@@ -545,17 +545,3 @@ be repeated to find that out. Have `run.ts` refuse any `--flag` it does not
 read, naming the nearest flag it does (the usage line in `run.ts` lists them
 all), and add a test in `flags.test.ts` for an unknown flag and for a known
 one with a typo.
-
-## A Needs line quoting a title with a code span never matches it
-
-- **Found:** 2026-10-08, claude/parked-boss-concept-d88325
-- **Taken:** 2026-10-08, claude/task-queue-work-e71746 (claim: claude/queue-a-needs-line-quoting-a-title-with-a-code-span-ne)
-- **Files:** `tools/queue/needs.ts`, `tools/queue/test/needs.test.ts`
-
-`needOf` strips the backticks from a `Needs:` line, and `blockedBy` compares
-it with the other entry's title as written, backticks and all. So a `Needs:`
-copied from a title like *`marks-window.test.ts` says every boss has a row*
-waits on nothing, and the entry is handed out before its prerequisite. It was
-worked around by quoting only the words after the code span. Strip the
-backticks from the title too before the substring match, and add a test with
-a backticked title quoted whole.

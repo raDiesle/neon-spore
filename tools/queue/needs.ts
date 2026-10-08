@@ -47,11 +47,16 @@ export function needOf(item: Item): string {
  * so a `Needs:` line can quote the prerequisite's own words without being held
  * to its punctuation. An entry naming itself is nobody's blocker: it would wait
  * forever, and the shape it comes in is a copied heading.
+ *
+ * The title loses its backticks before the match, as the line already has: a
+ * `Needs:` copied whole from *`marks-window.test.ts` says every boss has a
+ * row* matched nothing while only one side was stripped, and the entry waiting
+ * on it was handed out first (`docs/queue.md`, 8 October 2026).
  */
 export function blockedBy(item: Item, items: readonly Item[]): Item | undefined {
   const need = needOf(item).toLowerCase();
   if (!need) return undefined;
-  return items.find((i) => i !== item && i.title.toLowerCase().includes(need));
+  return items.find((i) => i !== item && i.title.replace(/`/g, "").toLowerCase().includes(need));
 }
 
 /** Whether the automatic pick should pass this one over. */

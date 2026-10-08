@@ -55,6 +55,27 @@ describe("an entry that waits on another one", () => {
     expect(blocked(alone[0]!, alone)).toBe(false);
   });
 
+  it("waits on a title with a code span in it, quoted whole", () => {
+    const first = `## \`marks-window.test.ts\` says every boss has a row, and 22 do
+
+- **Found:** 2026-10-08, claude/some-lane
+- **Files:** \`packages/render/test/marks-window.test.ts\`
+
+Twenty-two rows for twenty-five bosses.
+`;
+    const second = `## Check every partner's ring too
+
+- **Found:** 2026-10-08, claude/some-lane
+- **Files:** \`packages/render/test/marks-window.test.ts\`
+- **Needs:** \`marks-window.test.ts\` says every boss has a row, and 22 do
+
+Only TEST's screen is walked.
+`;
+    const items = parseItems(`${first}\n${second}`, "queue");
+    expect(blockedBy(items[1]!, items)).toBe(items[0]);
+    expect(needsTag(items[1]!, items)).toContain("WAITS ON");
+  });
+
   it("fails open on a title that matches nothing, which reads as landed", () => {
     const md = LANE_TWO.replace("THE GIMBAL is written and nobody", "THE GIMLET is written and no");
     const items = parseItems(md, "queue");
