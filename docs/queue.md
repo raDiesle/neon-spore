@@ -361,6 +361,7 @@ folder as it found it.
 ## THE BLISTER, lane 5: SWIPE
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Taken:** 2026-10-08, claude/task-queue-work-e99d1a (claim: claude/queue-the-blister-lane-5-swipe)
 - **Files:** `packages/sim/src/drag-targets.ts`, `packages/render/src/touch-drag.ts`, `packages/render/src/instar-track.ts`, `packages/net/src/command-codec.ts`
 
 The third gesture of `docs/spec/blister.md`: a drag across the body in the
