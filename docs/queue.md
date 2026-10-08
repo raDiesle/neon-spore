@@ -328,18 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## controls.md's row for THE GOVERNOR's needle still names the brake
-
-- **Found:** 2026-10-08, claude/trivet-boss-concept-670eed
-- **Taken:** 2026-10-08, claude/task-queue-work-e99d1a (claim: claude/queue-controls-mds-row-for-the-governors-needle-still)
-- **Files:** `docs/spec/controls.md`
-
-The owner's rework of 6 October 2026 took THE GOVERNOR's brake out
-(`bosses.md` §11.58), and its two rows went from `controls.md` with THE
-TRIVET on 8 October 2026. The row `THE GOVERNOR'S NEEDLE` still says "the
-braking seat's thumb on the dial is not answered": check it against
-`sim/governor-hand.ts` and say what each seat taps now.
-
 ## THE VISE's pinch asks two fingers of one player
 
 - **Found:** 2026-10-08, claude/trivet-boss-concept-670eed
@@ -356,7 +344,6 @@ carried, THE PLUMB's pull), a hold on the lobe for the count (THE
 OCULUS's), or THE VISE taken out whole as THE TRIVET was. Either rework
 keeps the simulation's `gapMilli` and changes only what sends it; the
 pinch machinery (`pinch.ts`, `pinch-pair.ts`) goes with the last pinch.
-
 
 ## `bun run frames` empties its output folder before a refusal in the page
 

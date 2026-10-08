@@ -36289,3 +36289,14 @@ the typecheck finds them in one pass.
 Bottleneck: friction — the output folder is emptied before the page can refuse.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-08 — controls.md's row for THE GOVERNOR's needle
+
+- reading: 5 min. `sim/governor-hand.ts`, `governor-mark.ts` and
+  `render/governor-grip.ts` for who is heard and when.
+- writing: 2 min. The row's seat cell and its landing sentence.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: reading — the row is one cell, the rule it states is three files.
