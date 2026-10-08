@@ -36345,3 +36345,5 @@ Bottleneck: reading — which of the five postponed lanes were still unbuilt.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: `check:fast` — a minute and a half, for a diff that only deletes.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

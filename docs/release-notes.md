@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-08 · 6f1fa2198 — The mouse no longer leaves a rainbow trail
+
+The neon slime that followed a desktop mouse, on the menu, the room screen and the field, is removed from the game and from the director's stage. The owner asked for it by name. `neonHue` stays, in `neon-hue.ts`, because THE FLUE's mirage turns it.
+
 ## 2026-10-08 · b7de87b10 — THE BLISTER's lanes 5 to 8 are back on the queue
 
 SWIPE, TURN, RUB and the real guide leave the foot of docs/spec/blister.md for docs/queue.md at the owner's word, each in the shape it had as an entry, to be worked in order. Lane 4, HOLD, had already landed and is not restored.
