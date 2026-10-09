@@ -62,6 +62,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * so its sections are lit at angles the tube's light cache has not held yet
  * (`solid-tube-light.ts`), each baked once as the turn first reaches it.
  *
+ * On 9 October 2026 the approach's TAPER was taken (`instar-flight-taper.ts`):
+ * the dive's body is one smooth taper with the wings spread full while it
+ * flies in, so fills 296 → 301 and linear gradients 49 → 54.
+ *
  * Each row is the worst of each op over one beat starting a third of the way
  * into the step's morph, on a phone. Set `MEASURE` to true and run this file
  * to print the rows as they are written below (`budget-row.ts`); never
@@ -89,10 +93,10 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 296,
+      fill: 301,
       stroke: 236,
       drawImage: 34,
-      createLinearGradient: 49,
+      createLinearGradient: 54,
       createRadialGradient: 40,
     },
   },

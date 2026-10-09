@@ -1,10 +1,10 @@
-import { smoothstep } from "../../../../../packages/render/src/ease.js";
-import type { FlightAt } from "../../../../../packages/render/src/instar-flight.js";
-import type { Figure } from "../../../../../packages/render/src/instar-shape.js";
+import { smoothstep } from "./ease.js";
+import type { FlightAt } from "./instar-flight.js";
+import type { Figure } from "./instar-shape.js";
 
 /**
- * The approach kept face-on (the queue's option B, the owner's (C) of 8
- * October 2026), with a dragon behind the head rather than a seamed tube: the
+ * **THE INSTAR's approach**, taken from VERSUS on 9 October 2026 (TAPER,
+ * the owner's (C) of 8 October): kept face-on, with a dragon behind the head rather than a seamed tube: the
  * body is one smooth taper going away a third of the way round, the legs
  * hanging off it, and the wings spread full. As it arrives, the plates come
  * back and the wings settle into the pose the morph is making. Only the

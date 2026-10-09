@@ -9,10 +9,8 @@ import { bossWorld, runHand } from "./poses-bosses-kit.js";
  * and the world is held a few beats into its morph, while the whole body is
  * carried side-on across the field (`instar-flight.ts`).
  *
- * The one pose where `instar:flight`'s candidate and the shipped body differ:
- * the serpent's wave runs only while the body flies, never while it stays
- * (`instar-serpent.ts`). Until this pose the slot showed `INSTAR · PERCHED`,
- * where the two are drawn the same.
+ * The serpent's wave runs only while the body flies, never while it stays
+ * (`instar-serpent.ts`), so this is where it is judged.
  */
 
 /** How many beats into the morph the world is held: on the first pass, side-on. */

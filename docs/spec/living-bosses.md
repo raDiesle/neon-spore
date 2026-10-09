@@ -181,6 +181,10 @@ full; the plates come back and the wings settle over the last 30%. Neither
 reaches a mark: the flight is over before any is up. Test:
 `packages/render/test/instar-flight-look.test.ts`.
 
+**Built (9 October 2026).** The owner took TAPER — *not much difference, but
+probably looks better* — and called SIDE weird. `INSTAR_FLIGHT_LOOK` is
+`packages/render/src/instar-flight-taper.ts` on the field.
+
 ### How far it reaches, by kind of body
 
 - **A body on the rig** (`packages/render/src/solid-rig.ts`) takes all four

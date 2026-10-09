@@ -36656,3 +36656,16 @@ Bottleneck: looking — blending the body point by point read fine in a test
 and folded it short in a frame; only the strip showed it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE INSTAR flies in with TAPER, and SIDE goes with the slot
+
+- reading: 5 min. The two candidates, `instar-flight-look.ts`, the slot's
+  history in `DECIDED.md`.
+- writing: 0 min. `versus adopt` moved the paint; three headers corrected.
+- looking: 0 min. The owner had already looked.
+- friction: 0 min.
+- landing: 5 min. The flight-look test rewritten off the identity, the
+  dive's budget row remeasured, the index row, `check:fast`, `land`.
+
+Bottleneck: landing — the adopted look broke a test that pinned the old
+identity and a budget row, both only seen in `check:fast`.

@@ -1527,3 +1527,21 @@ is being turned
 Written into `packages/render/src/gimbal-tilt.ts`, `GIMBAL_TILT`: `amount`.
 
 It was the only answer offered.
+
+## `instar:flight` / `taper` — taken, 2026-10-09
+
+the owner, 9 October 2026: not much difference, but probably looks better;
+SIDE looks weird
+
+taper — the dragon flies in facing the ship, a smooth tapered body going away
+behind its head, legs hanging and wings spread full
+
+`INSTAR_FLIGHT_LOOK.figure` is `flyTaperedFigure`, moved from
+`tools/versus/candidates/instar-flight/taper/paint.ts` to
+`packages/render/src/instar-flight-taper.ts`.
+
+`INSTAR_FLIGHT_LOOK.body` is `flyTaperedBody`, moved from
+`tools/versus/candidates/instar-flight/taper/paint.ts` to
+`packages/render/src/instar-flight-taper.ts`.
+
+The other answer offered was `side`; it went with the slot.

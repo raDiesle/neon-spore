@@ -6,8 +6,8 @@ import { BODY_DEPTH, BODY_LENS } from "../src/instar-turn.js";
 
 /**
  * **What THE INSTAR looks like while it flies** (`instar-flight-look.ts`):
- * shipped, the record changes nothing — the pose is the morph's and the body
- * keeps its plates; a body `smooth` all the way is one taper, thinning
+ * on the approach the wings spread full and the body is one taper, and it is
+ * the morph's own pose once arrived and on every lap; a body `smooth` all the way is one taper, thinning
  * steadily from the neck to the far end with no pinch at any seam.
  */
 
@@ -21,10 +21,15 @@ function radii(smooth: number | undefined): number[] {
 }
 
 describe("THE INSTAR's flight look", () => {
-  it("ships as the identity: the morph's own pose and a body of plates", () => {
-    const f = { side: 0.2 } as Parameters<typeof INSTAR_FLIGHT_LOOK.figure>[0];
-    expect(INSTAR_FLIGHT_LOOK.figure(f, AT)).toBe(f);
-    expect(INSTAR_FLIGHT_LOOK.body(AT)).toBe(0);
+  it("spreads the wings and smooths the body on the approach, and is the identity once arrived", () => {
+    const f = { side: 0.2, wing: 0.4 } as Parameters<typeof INSTAR_FLIGHT_LOOK.figure>[0];
+    expect(INSTAR_FLIGHT_LOOK.figure(f, AT).wing).toBeGreaterThan(f.wing);
+    expect(INSTAR_FLIGHT_LOOK.body(AT)).toBeGreaterThan(0);
+    const landed = { ...AT, t: 1 };
+    expect(INSTAR_FLIGHT_LOOK.figure(f, landed)).toBe(f);
+    expect(INSTAR_FLIGHT_LOOK.body(landed)).toBe(0);
+    const lap = { ...AT, arrive: "passes" } as const;
+    expect(INSTAR_FLIGHT_LOOK.figure(f, lap)).toBe(f);
     expect(radii(0)).toEqual(radii(undefined));
   });
 

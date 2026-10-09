@@ -48,7 +48,6 @@ const SLOT_POSE: Record<string, string> = {
   "lead:walls": "THE LEAD · PASSING",
   "lead:drop": "THE LEAD · DROPPING",
   "scuttle:seat": "THE SCUTTLE · SWUNG",
-  "instar:flight": "INSTAR · FLYING IN",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
