@@ -1,5 +1,6 @@
 import type { ControlSet, SceneStep } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
+import type { CaptionHold } from "./caption-hold.js";
 import { inside, type NavBox, type NavButtons, type NavState } from "./guide-nav.js";
 import type { CornerPlate } from "./guide-switch.js";
 import { BAND_FOOT, band } from "./guide-tide.js";
@@ -60,6 +61,8 @@ export interface GuideLook {
     tick: number,
     beatPhase: number,
     names?: SeatNames,
+    /** Where a page's body last stood, once it has gone (`caption-hold.ts`). */
+    hold?: CaptionHold,
   ) => void;
 }
 

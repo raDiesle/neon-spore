@@ -36576,3 +36576,18 @@ Bottleneck: reading — the red-test sentence for each row had to be read out
 of the test, since the commits say what was added and not what caught it.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-09 — a caption about a body stays where it last stood
+
+- reading: 10 min. `caption-anchor.ts`, the caption box, `GuideStage` and
+  how a page is rebuilt, `SceneRun`.
+- writing: 10 min. A probe of every body page's empty ticks, `CaptionHold`
+  threaded through the stage, seven tests.
+- looking: 5 min. Two `frames` runs of THE BEATBOX's last page — the first
+  on the wrong page, `--guide-page` counting from nought.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — whether a page turn always rebuilds the world decided
+whether the hold could be reset in one place, and only the stage's comments
+said so.

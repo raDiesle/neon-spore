@@ -1,5 +1,6 @@
 import { framePhase, type World } from "@neon-spore/sim";
 import type { OpeningView } from "./briefing.js";
+import { CaptionHold } from "./caption-hold.js";
 import { drawHands, filmLayout, seatLayout } from "./guide-film.js";
 import { drawGuideKeycaps } from "./guide-keycaps.js";
 import { GUIDE_LOOK } from "./guide-look.js";
@@ -57,6 +58,8 @@ import type { Layout, ViewRole } from "./layout.js";
 export class GuideStage {
   private readonly seats: readonly [SeatView, SeatView] = [new SeatView(), new SeatView()];
   private readonly play = new ScenePlay();
+  /** Where the page's body last stood, for a caption about it (`caption-hold.ts`). */
+  private readonly hold = new CaptionHold();
   /** When the picture was last pressed, on the play's own clock, or null. */
   private nudgedAt: number | null = null;
 
@@ -115,6 +118,7 @@ export class GuideStage {
 
   private resetSeats(): void {
     for (const s of this.seats) s.reset();
+    this.hold.reset();
     this.nudgedAt = null;
   }
 
@@ -184,7 +188,7 @@ export class GuideStage {
     // A desk's keys on the controls they press, under the words and the hand,
     // and coming in with the screen they belong to (`guide-keycaps.ts`).
     if (view.keys) drawGuideKeycaps(ctx, l, run.world, set, from === null ? 1 : k);
-    GUIDE_LOOK.caption(ctx, l, run.world, set, step, run.tick, phase, names);
+    GUIDE_LOOK.caption(ctx, l, run.world, set, step, run.tick, phase, names, this.hold);
     drawHands(ctx, l, run, scene, set, shown, phase);
     ctx.restore();
     // The band and the rim are the page's, not the picture's.

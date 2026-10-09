@@ -1,6 +1,7 @@
 import type { ControlSet, SceneStep } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import { type AnchorPoint, anchorPoint } from "./caption-anchor.js";
+import type { CaptionHold } from "./caption-hold.js";
 import { BAND_FOOT, CAPTION_FONT } from "./guide-tide.js";
 import { handoverPlateBox } from "./handover-look.js";
 import { LABEL_LINE } from "./label-box.js";
@@ -58,7 +59,8 @@ export interface CaptionBox {
 
 /**
  * Null when the page has no subject on the screen — the same answer the
- * drawing gives, so neither has an opinion the other does not.
+ * drawing gives, so neither has an opinion the other does not. With a `hold`,
+ * a page about a body that has gone still has the place it stood.
  *
  * `ctx` is measured against, not drawn on: the plate is as wide as the
  * longest line the words wrap to.
@@ -71,8 +73,11 @@ export function captionBox(
   step: SceneStep,
   beatPhase: number,
   names?: SeatNames,
+  hold?: CaptionHold,
 ): CaptionBox | null {
-  const point = anchorPoint(l, world, set, step.anchor, beatPhase);
+  // A page about a body keeps the place it last stood (`caption-hold.ts`).
+  const found = anchorPoint(l, world, set, step.anchor, beatPhase);
+  const point = hold ? hold.through(step, found) : found;
   if (!point) return null;
   ctx.font = CAPTION_FONT;
   const lines = wrapText(ctx, withNames(step.text, names), l.width - 24 - PAD_X * 2);

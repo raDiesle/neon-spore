@@ -1746,6 +1746,7 @@ by hand never moves.
 | `packages/render/src/caption-anchor-boss-f.ts` | **Where the fixtures of THE GAUGE, THE MAZE and THE REPRISE are** — the sixth of `caption-anchor-boss.ts` |
 | `packages/render/src/caption-anchor-box.ts` | **The ring round a boss's fixture** — the two shapes every line of `caption-anchor-boss*.ts` answers with |
 | `packages/render/src/caption-hull-room.ts` | A caption on a control stands above THE UNDERTOW's lobes rather than over the plating they come through |
+| `packages/render/src/caption-hold.ts` | a guide page about a body keeps the ring where it last stood, until the page is rebuilt |
 | `packages/render/src/capstan-draw.ts` | **THE CAPSTAN**: a rusted drum on its side in a rocking cradle, its two end faces and the core under a cap |
 | `packages/render/src/capstan-marks.ts` | **THE CAPSTAN's marks**: the lit horn, band and core, and a band's health as its marks |
 | `packages/render/src/capstan-pose.ts` | **The clock THE CAPSTAN is posed off**: the rock read off the lean, the cap, the rattle |

@@ -50,8 +50,18 @@ const SCRIM = 0.32;
 /** How far past the subject the pool reaches before the dimming begins. */
 const POOL = 34;
 
-export const caption: GuideLook["caption"] = (ctx, l, world, set, step, tick, beatPhase, names) => {
-  const box = captionBox(ctx, l, world, set, step, beatPhase, names);
+export const caption: GuideLook["caption"] = (
+  ctx,
+  l,
+  world,
+  set,
+  step,
+  tick,
+  beatPhase,
+  names,
+  hold,
+) => {
+  const box = captionBox(ctx, l, world, set, step, beatPhase, names, hold);
   if (!box) return;
   const k = Math.min(1, Math.max(0, (tick - step.tick) / FADE_TICKS));
   if (k <= 0) return;

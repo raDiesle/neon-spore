@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## A caption anchored to a body is gone the moment the body is
-
-- **Found:** 2026-10-09, claude/queue-tasks-d82b1f
-- **Taken:** 2026-10-09, claude/task-queue-work-368248 (claim: claude/queue-a-caption-anchored-to-a-body-is-gone-the-moment)
-- **Files:** `packages/render/src/caption-anchor.ts`, `packages/content/test/scene-pages.test.ts`
-
-`anchorPoint`'s `{ at: "body" }` answers `null` when the field is empty, and
-the caption is not drawn. A page repeats its span until NEXT is pressed, so a
-page whose body is knocked out early shows its words for a sliver of every
-loop: THE BLISTER's last page had them for 65 of 200 ticks until its tap was
-moved a beat later to keep them up. Keep the caption at the last place its
-body stood until the page's span restarts (a ring remembered per page, cleared
-on the loop's wrap), or add a test that no body-anchored page spends more than
-half its span with no body — and see which films the test finds.
-
 ## The bestiary's status block still counts twenty-five creatures
 
 - **Found:** 2026-10-09, claude/queue-tasks-d82b1f
