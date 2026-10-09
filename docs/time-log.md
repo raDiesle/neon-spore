@@ -36866,3 +36866,5 @@ Bottleneck: looking — four frames to find where the arms could be seen at all.
 
 Bottleneck: friction — a refused `frames` run leaves the last PNG behind, and
 it was looked at twice as though it were the new one.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
