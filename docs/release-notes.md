@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · e93ace936 — ON THE FIELD shows the numbers each control's gesture is held to
+
+Every card now lists the SimConfig fields that decide whether its gesture counts — how far a carry must go, how long a window stays open, how near a mark is near enough — with their values read from DEFAULT_CONFIG, so two uses of one type can be compared by what they ask of a thumb. A rule no field holds is said in a line naming the constant or file, and how far every handle reaches is said once at the top.
+
 ## 2026-10-09 · 3e00c99b7 — TRY IT shows either seat's screen, and what the game answered and played
 
 TRY IT now draws the test screen, player 1's or player 2's, so what the other seat sees of a control is one click away. Under the phone, three columns: the commands the hand sent, the events the game reported back (a refusal, a slip, a count), and the sounds its own mixer played, heard aloud unless MUTE is picked. A drag's every-tick command is counted rather than repeated.

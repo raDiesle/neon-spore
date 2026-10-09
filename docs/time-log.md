@@ -37134,3 +37134,5 @@ Bottleneck: looking — a pose that idles says nothing for hundreds of ticks, so
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: reading — ninety-six rows across forty bosses' hand files, done by a background agent while the TRY log was built.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
