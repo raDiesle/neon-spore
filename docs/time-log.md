@@ -36898,3 +36898,14 @@ that only a still at the change showed.
 Bottleneck: writing — `adopt` takes one answer, so three taken at once was by hand.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE GORGE's ring is fitted round the whole lobe as it is drawn
+
+- reading: 5 min. How `drawLobe` grows a lobe and how the pose leans it.
+- writing: 5 min. `aim-fit.ts`, `lobeOutline` at its biggest, and a test.
+- looking: 5 min. The frame the owner had, cropped, then the new one.
+- friction: 0 min.
+- landing: 5 min. The index row, `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the lobe grows by three factors in three places, and
+the ring had been sized by one of them.

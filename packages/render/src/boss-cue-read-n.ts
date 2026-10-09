@@ -8,10 +8,11 @@ import {
   gorgeSated,
   type World,
 } from "@neon-spore/sim";
+import { aimRound } from "./aim-fit.js";
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
 import { gorgePose, gorgePosed } from "./gorge-drift.js";
-import { gorgeWant, lobeAimR } from "./gorge-lobe.js";
+import { gorgeWant, lobeOutline } from "./gorge-lobe.js";
 import { gorgeBubbleAt } from "./gorge-place.js";
 import type { Layout } from "./layout.js";
 import { showsGorgeNearest } from "./view-role-clocks.js";
@@ -82,13 +83,11 @@ export function gorgeCues(
   const h = g.intakes[here];
   const open = phase !== "ring" || (h !== undefined && h.taps >= cfg.gorgeOpenTaps);
   if (h !== undefined && !gorgeSated(h) && gorgeDue(g, here) && open) {
-    // Round the lobe as the canvas drew it, leaning on its intake, not on the tile.
+    // Round the whole lobe as the canvas draws it, leaning on its intake, not on the tile.
     const root = gorgeBubbleAt(l, cfg, g, here);
-    const c = gorgePosed(gorgePose(l, cfg, root, here, world.beat, beatPhase), {
-      x: root.x,
-      y: root.y - l.tile * 0.5,
-    });
-    const aim = { x: c.x, y: c.y, r: lobeAimR(l.tile) };
+    const pose = gorgePose(l, cfg, root, here, world.beat, beatPhase);
+    const aim = aimRound(lobeOutline(l.tile, root.x, root.y).map((q) => gorgePosed(pose, q)));
+    const c = { x: aim.x, y: aim.y };
     // Her screen shows the colour in the lobe's floor; the pilot's does not.
     const want = gorgeWant(h);
     const shows = showsGorgeNearest(l.role) && want !== "both" ? want : undefined;

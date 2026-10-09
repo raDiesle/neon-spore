@@ -6,6 +6,7 @@ import type { LobeDepth } from "./gorge-depth.js";
 import { paintPucker } from "./gorge-flesh-torn.js";
 import { paintLobeRim, paintLobeSkin } from "./gorge-lobe-skin.js";
 import { paintLobeWant } from "./gorge-want.js";
+import type { Point } from "./outline-drift.js";
 import { PALETTE } from "./palette.js";
 import { drawContact } from "./solid-haze.js";
 import { splinePath } from "./spline.js";
@@ -32,13 +33,27 @@ import { splinePath } from "./spline.js";
 /** A lobe's radii, as a share of a tile — wide enough to hold four beads. */
 const RX = 0.4;
 const RY = 0.5;
+/** The most a lobe is grown by the sack's lens, its breath, and its own wobble (`drawLobe`). */
+const LENS_MAX = 1.14;
+const BREATH_MAX = 1.12;
+const WOBBLE_MAX = 1.14;
+const OUTLINE_N = 24;
+
 /**
- * **How far round a lobe's middle a shot's mark must stand**: a hungry lobe at
- * its nearest and most swollen, so the mark is never under the skin it names
- * (`aim-ember.ts`).
+ * **A hungry lobe's outline at its biggest**, at rest, for intake `(x, y)`:
+ * at its nearest in the sack's bow, at the top of its breath, and with its
+ * wobble out. A shot's mark is fitted round it once the pose has leaned it
+ * (`aim-fit.ts`, `boss-cue-read-n.ts`), so the ring is round the whole lobe
+ * and never across it (the owner, 9 October 2026).
  */
-export function lobeAimR(tile: number): number {
-  return tile * RY * 1.25;
+export function lobeOutline(tile: number, x: number, y: number): Point[] {
+  const ry = tile * RY * LENS_MAX * BREATH_MAX;
+  const rx = tile * RX * LENS_MAX * WOBBLE_MAX;
+  const cy = y - ry;
+  return Array.from({ length: OUTLINE_N }, (_, i) => {
+    const a = (i / OUTLINE_N) * Math.PI * 2;
+    return { x: x + Math.cos(a) * rx, y: cy + Math.sin(a) * ry * WOBBLE_MAX };
+  });
 }
 
 /** A bead's radius. */
