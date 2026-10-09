@@ -5,6 +5,7 @@ import { rgba } from "./hex.js";
 import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { SinewCarry } from "./sinew-carry.js";
 import { TEAR_BEATS, type Tear, tornFibre } from "./sinew-tear.js";
 
 /**
@@ -72,6 +73,8 @@ export class SinewFx {
   readonly hurt = new BossHurt();
   /** Each handle's verdict, keyed by its owner's seat. */
   readonly verdicts = new GripVerdicts();
+  /** The mass trailing where it hangs (`sinew-carry.ts`). */
+  readonly carry = new SinewCarry();
 
   /** Where the mass and the band were drawn this frame, for the receipts with no row of their own. */
   note(x: number, y: number, band: { x: number; y: number }): void {
@@ -228,5 +231,6 @@ export class SinewFx {
     this.tearLife = 1;
     this.hurt.clear();
     this.verdicts.clear();
+    this.carry.clear();
   }
 }

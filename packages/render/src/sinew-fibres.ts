@@ -8,6 +8,7 @@ import { drawFray } from "./sinew-fray.js";
 import { drawSinewPulse } from "./sinew-hold.js";
 import type { Point } from "./sinew-shape.js";
 import { sinewSum01 } from "./sinew-shape.js";
+import { layVeiled } from "./sinew-veil.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -172,8 +173,7 @@ function sheath(
  * **How the fibres are laid on the frame, as a record**, so VERSUS can offer
  * another answer beside it (`tools/versus/`): `slow` is whether THE SLOW is
  * open this beat, and `paint` draws them on the context it is handed. The game
- * paints them on the frame as they are,
- * window or none — THE SLOW is marked by its prism round the mass.
+ * veils them while the window is open (`sinew-veil.ts`).
  */
 export interface FibreLook {
   lay: (
@@ -183,7 +183,7 @@ export interface FibreLook {
   ) => void;
 }
 
-export const FIBRE_LOOK: FibreLook = { lay: (ctx, _slow, paint) => paint(ctx) };
+export const FIBRE_LOOK: FibreLook = { lay: layVeiled };
 
 export function drawSinewFibres(
   ctx: CanvasRenderingContext2D,

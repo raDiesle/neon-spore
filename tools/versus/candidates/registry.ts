@@ -17,9 +17,6 @@ import { LEAD_CRAGS } from "./lead-walls/crags/index.js";
 import { LEDGER_PLATED } from "./ledger-back/plated/index.js";
 import { LEDGER_LIT } from "./ledger-nerves/lit/index.js";
 import { SCUTTLE_LOBED } from "./scuttle-seat/lobed/index.js";
-import { SINEW_WHITE } from "./sinew-band/white/index.js";
-import { SINEW_VEILED } from "./sinew-fibres/veiled/index.js";
-import { SINEW_HEAVY } from "./sinew-weight/heavy/index.js";
 import { SURGE_TURNED } from "./surge-evert/turned/index.js";
 import { SURGE_GAPE } from "./surge-seam/gape/index.js";
 import { SURGE_SPLATTER } from "./surge-spray/splatter/index.js";
@@ -36,9 +33,6 @@ export const VARIANTS: Variant[] = [
   LEDGER_PLATED,
   LEDGER_LIT,
   SCUTTLE_LOBED,
-  SINEW_WHITE,
-  SINEW_VEILED,
-  SINEW_HEAVY,
   SURGE_TURNED,
   SURGE_GAPE,
   SURGE_SPLATTER,

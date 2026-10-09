@@ -5,9 +5,9 @@ import { bossWorld, runHand } from "./poses-bosses-kit.js";
 
 /**
  * THE SINEW just after a hold parts a fibre: five strings still standing and
- * THE SLOW open over the part (`sinewPartSlowBeats`) — the pose
- * `sinew:fibres` is judged on, because it is the one moment the fight has
- * fibres on the field and a window open at once. Every other SINEW pose has
+ * THE SLOW open over the part (`sinewPartSlowBeats`) — the pose the veiled
+ * strings are seen on (`sinew-veil.ts`), because it is the one moment the
+ * fight has fibres on the field and a window open at once. Every other SINEW pose has
  * one or the other. The window then runs out, so it replays on the ordinary
  * event rhythm.
  */

@@ -53,10 +53,9 @@ const filamentIn =
     w.boss?.kind === "filament" && w.boss.phase === phase && w.boss.head >= head;
 
 export const HANDLE_HAND_POSES: Pose[] = [
-  // VERSUS judges `sinew:weight` here: of every SINEW pose, this is the one
-  // where the mass is still travelling as the pose lands. `sinew:band` too:
-  // the band stands with the sum in the zone on both seats. It lags the sum by
-  // a tile and a half, against an eighth of a tile while swinging (7 October 2026).
+  // The mass's weight is seen here (`sinew-carry.ts`): of every SINEW pose,
+  // this is the one where the mass is still travelling as the pose lands, and
+  // the band stands with the sum in the zone on both seats.
   bossPose(
     "sinew",
     "held",

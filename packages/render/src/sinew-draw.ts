@@ -26,7 +26,6 @@ import {
   sinewRoot,
   sinewSum01,
 } from "./sinew-shape.js";
-import { SINEW_WEIGHT } from "./sinew-sway.js";
 import { drawSinewTear } from "./sinew-tear.js";
 
 /**
@@ -46,7 +45,7 @@ import { drawSinewTear } from "./sinew-tear.js";
  * landing either way, at the wall as a mass fading out over
  * `sinewOutBeats`, on the ship as a mass on the plating (the breach is the
  * ship's own). What outlives a frame — the whip, the flash, the shock down
- * the hull — is `effects.sinew` (`sinew-fx.ts`).
+ * the hull, the mass's lag — is `effects.sinew` (`sinew-fx.ts`).
  */
 export function drawSinew(
   ctx: CanvasRenderingContext2D,
@@ -66,12 +65,9 @@ export function drawSinew(
   const root = sinewCrownRoot(l, sinewRoot(l, cfg, s, beat, beatPhase), time);
   // A fibre parted shakes the mass and not the root: the fibres and the
   // handles' cords follow it, the way they follow the swing (`boss-hurt.ts`).
+  // The mass has weight: it trails where it hangs, and overshoots (`sinew-carry.ts`).
   const seconds = (beat + beatPhase) * beatSeconds(cfg);
-  const hung = SINEW_WEIGHT.carry(
-    sinewMassCentre(l, cfg, s, beat, beatPhase, swing),
-    seconds,
-    l.tile,
-  );
+  const hung = fx.carry.at(sinewMassCentre(l, cfg, s, beat, beatPhase, swing), seconds, l.tile);
   const mass = { x: hung.x + fx.hurt.shakeX(time, l.tile), y: hung.y };
   const box = sinewCollarBox(l, cfg, s, beat, beatPhase, swing);
   fx.note(mass.x, mass.y, box);

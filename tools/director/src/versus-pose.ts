@@ -34,9 +34,6 @@ import { POSE_GROUPS } from "./poses.js";
  * so a slot showing it needs no dedicated one.
  */
 const SLOT_POSE: Record<string, string> = {
-  "sinew:fibres": "SINEW · PARTING",
-  "sinew:weight": "THE SINEW · HELD",
-  "sinew:band": "THE SINEW · HELD",
   "ledger:nerves": "THE LEDGER · BILLED",
   "ledger:back": "THE LEDGER · PAYING",
   "surge:seam": "THE SURGE · BAND",

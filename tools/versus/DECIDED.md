@@ -1570,3 +1570,27 @@ read any more. Before it was taken the cut gap was made three times as deep as
 offered (`thick * (0.7 + 8.3 * wet)`), at the owner's word.
 
 It was the only answer offered.
+
+## `sinew:band` — nothing taken, 2026-10-09
+
+the owner, 9 October 2026: "WHITE" looks bad and too simple
+
+The other answer offered was `white`; it went with the slot.
+
+## `sinew:fibres` — nothing taken, 2026-10-09
+
+taken by hand — the owner, 9 October 2026: not clear what the idea is, but
+build it into the game, some less transparent. Moved to
+packages/render/src/sinew-veil.ts, the veil raised from 0.45 to 0.7, and the
+per-frame OffscreenCanvas made one scratch surface reused
+
+The other answer offered was `veiled`; it went with the slot.
+
+## `sinew:weight` — nothing taken, 2026-10-09
+
+taken by hand — the owner, 9 October 2026: i like it, it makes it look not so
+static but more dynamic. Moved to packages/render/src/sinew-carry.ts as
+SinewCarry, held by SinewFx and cleared in reset(); the SINEW_WEIGHT record is
+gone
+
+The other answer offered was `heavy`; it went with the slot.

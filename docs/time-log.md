@@ -36803,3 +36803,17 @@ Bottleneck: looking — the first flames read as a saw edge, and only a crop
 showed it.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE SINEW's three VERSUS slots answered
+
+- reading: 10 min. `docs/versus.md`, the three candidates, `sinew-draw.ts`
+  and `sinew-fx.ts`, and how `aim:cannon` was taken by hand.
+- writing: 10 min. `sinew-carry.ts` into `SinewFx`, `sinew-veil.ts` on one
+  scratch surface, the three slots dropped, the spec's not-built line.
+- looking: 5 min. A frame of THE SINEW a beat after a part, THE SLOW open.
+- friction: 5 min. The tests' stub canvas refused `setTransform` handed a
+  matrix; and the index wanted two rows.
+- landing: 10 min. `check:fast` three times, the commit, `land`.
+
+Bottleneck: landing — `check:fast` runs two minutes, and each of two small
+misses cost a whole run.

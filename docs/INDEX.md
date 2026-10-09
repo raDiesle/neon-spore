@@ -1405,8 +1405,10 @@ by hand never moves.
 | `packages/render/src/sinew-marks.ts` | THE SINEW's handles answering a touch: the halo, the partner's ring and clock, the verdict |
 | `packages/render/src/sinew-arrive.ts` | **THE SINEW dropping in, and its rubber after**, as offsets in tiles off where the tendon hangs |
 | `packages/render/src/sinew-crown.ts` | **The crown**: the body THE SINEW's tendon hangs from, flying over the top of the field — the owner |
+| `packages/render/src/sinew-carry.ts` | THE SINEW's mass on a damped spring: it trails where it hangs and overshoots |
 | `packages/render/src/sinew-tear.ts` | **A fibre torn: the stage won, said so nobody can miss it** — the owner, 2 October 2026 |
 | `packages/render/src/sinew-power.ts` | **What a hand's pull is worth, on the handle it is worth it on** |
+| `packages/render/src/sinew-veil.ts` | THE SINEW's strings laid down veiled while THE SLOW is open |
 | `packages/render/src/slime-look.ts` | WHAT HANGS OFF THE MEMBRANE INTO THE CHAMBER, AS A RECORD |
 | `packages/render/src/sling-draw.ts` | **THE SLING** (§32): a forked bracket over the middle column, folded until it swings into stand |
 | `packages/render/src/sling-grip.ts` | **THE SLING's two cords as controls**: `slingDrawLeft` is the pilot's (seat 1) |
