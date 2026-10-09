@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE BLISTER, lane 8: its guide and its waves
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Taken:** 2026-10-09, claude/queue-tasks-d82b1f (claim: claude/queue-the-blister-lane-8-its-guide-and-its-waves)
 - **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/test/waves.test.ts`, `docs/spec/blister.md`, `docs/spec/bestiary.md`
 - **Needs:** THE BLISTER, lane 7
 
