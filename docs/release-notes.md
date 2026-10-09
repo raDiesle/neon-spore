@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 76df83355 — AUTO answers every gesture THE BLISTER wants, and plays FIVE BLISTERS clean
+
+AUTO tapped a TAP blister and had no hand for the other four, so FIVE BLISTERS was named as a wave it could not clear. It now holds a HOLD one, strokes a SWIPE one its way, winds a TURN one round, and scrubs a RUB one — a blow a beat from the seat its BY names, read off the body, lifting a hand the sink left dead.
+
 ## 2026-10-09 · be7b15824 — The bestiary points at the roster rather than counting its creatures
 
 Its status block said twenty-five `CreatureKind` values exist and named them, while the Categories table under it already held a dozen more. It now points at `CREATURE_KINDS` and the table its test keeps whole, and names no number.

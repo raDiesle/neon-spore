@@ -36619,3 +36619,5 @@ would not.
 
 Bottleneck: reading — a sink leaves a stroke, a turn and a rub each in a
 state of its own, and the hand has to lift out of every one of them.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
