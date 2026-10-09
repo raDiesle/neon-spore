@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The bestiary's status block still counts twenty-five creatures
 
 - **Found:** 2026-10-09, claude/queue-tasks-d82b1f
+- **Taken:** 2026-10-09, claude/task-queue-work-368248 (claim: claude/queue-the-bestiarys-status-block-still-counts-twenty-f)
 - **Files:** `docs/spec/bestiary.md`
 
 Its opening block says twenty-five `CreatureKind` values exist and names them,
