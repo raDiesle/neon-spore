@@ -36689,3 +36689,17 @@ Bottleneck: reading — a new ask on a shipped boss touches the hand, the
 cues, the verdicts, the pose and four director tables, each found by reading.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — EMBER is the shot's mark, round the whole target
+
+- reading: 10 min. The five `aim:cannon` candidates, `cue-helper.ts`, which
+  readings hand a shot an `aim`, THE GORGE's lobe and its lean.
+- writing: 10 min. `aim-ember.ts` with arrowheads and the swing, the slot
+  taken by hand, THE GORGE's `aim` off the lobe, the tests, three queue entries.
+- looking: 5 min. Two `bun run frames` of THE GORGE: the ring on the tile,
+  then on the lobe as drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the mark sat on the tile while the lobe leaned off it,
+and only a zoomed frame showed the two apart.

@@ -2341,6 +2341,7 @@ by hand never moves.
 | `packages/render/src/antiphon-marks.ts` | **THE ANTIPHON's two handles answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/antiphon-veins.ts` | THE ANTIPHON's veins from each candidate to the organ's place, the bead in hand on the explainer's screen, and the unknown turning on the chooser's |
 | `packages/render/src/antiphon-vein-track.ts` | THE ANTIPHON's pull channel down each vein on the chooser's screen: chevrons, and green behind the carry |
+| `packages/render/src/aim-ember.ts` | **EMBER — the mark a shot's target wears**: a wobbling ring of neon round the whole target |
 | `packages/render/src/beatbox-marks.ts` | THE BEATBOX's two half-pictures: the **count** over the box on player 1's screen |
 | `packages/render/src/beatbox-tap.ts` | **Player 2's thumb on a soundbox**, and the first press in this game that lands on a *body* and is over the… |
 | `packages/render/src/beatbox-wave.ts` | **The wave of sound a miscounted box sends at the ship**, and the picture this creature is named for |

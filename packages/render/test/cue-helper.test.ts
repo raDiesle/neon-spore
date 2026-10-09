@@ -1,4 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
+import { emberHues, RING_MIN } from "../src/aim-ember.js";
 import type { BossCue } from "../src/boss-cue-shape.js";
 import {
   AIM_LOOK,
@@ -8,7 +9,7 @@ import {
   drawCueHelper,
   markIsHere,
 } from "../src/cue-helper.js";
-import { CROSSHAIR_LOOK } from "../src/instar-crosshair.js";
+import { PALETTE } from "../src/palette.js";
 import { drawPullKnob } from "../src/pull-knob.js";
 import { rubArrows } from "../src/rub-mark.js";
 import { P2_SKIN } from "../src/seat-skin.js";
@@ -89,7 +90,7 @@ describe("the cue's helper", () => {
     expect(cueDrawnAt(cue("RUB", 100, 200, { aim: { x: 300, y: 150 } }), HULL).x).toBe(100);
   });
 
-  it("hands the aim look this screen's seat, and moves no word until a look reaches further", () => {
+  it("hands the aim look this screen's seat, and grows a word that is its own aim to hold it", () => {
     const paint = AIM_LOOK.paint;
     const tints: string[] = [];
     AIM_LOOK.paint = (_ctx, _x, _y, _r, _k, _t, skin) => {
@@ -101,40 +102,37 @@ describe("the cue's helper", () => {
       AIM_LOOK.paint = paint;
     }
     expect(tints).toEqual([P2_SKIN.tint]);
-    // VERSUS's `aim:cannon` widens the reach; the shipped crosshair leaves the frame alone.
+    // EMBER reaches further than the crosshair before it: the frame grows round
+    // its own place, and the ring stays the size the frame first gave it.
     const own = cue("FIRE", 120, 240);
-    expect(cueDrawnAt(own, HULL)).toBe(own);
-    const reach = AIM_LOOK.reach;
-    AIM_LOOK.reach = reach + 1;
-    try {
-      const wide = cueDrawnAt(own, HULL);
-      expect(wide.halfH).toBeGreaterThan(own.halfH);
-      expect(wide.aim?.r).toBe(Math.min(own.halfW, own.halfH) * 0.55);
-    } finally {
-      AIM_LOOK.reach = reach;
-    }
+    const wide = cueDrawnAt(own, HULL);
+    expect([wide.x, wide.y]).toEqual([own.x, own.y]);
+    expect(wide.halfH).toBeGreaterThan(own.halfH);
+    expect(wide.aim?.r).toBe(Math.min(own.halfW, own.halfH) * 0.55);
   });
 
-  it("draws the crosshair red", () => {
-    const paint = CROSSHAIR_LOOK.paint;
-    const colors: unknown[] = [];
-    CROSSHAIR_LOOK.paint = (_ctx, _x, _y, _r, _bright, _k, color) => {
-      colors.push(color);
-    };
-    try {
-      log((ctx) =>
-        drawCueHelper(ctx, cue("FIRE", 100, HULL, { aim: { x: 300, y: 150 } }), HULL, 0),
-      );
-    } finally {
-      CROSSHAIR_LOOK.paint = paint;
-    }
-    expect(colors).toEqual(["red"]);
+  it("draws the mark in the fire button's red, or the colour the cue asks", () => {
+    const red = log((ctx) =>
+      drawCueHelper(ctx, cue("FIRE", 100, HULL, { aim: { x: 300, y: 150 } }), HULL, 0),
+    );
+    const cyan = log((ctx) =>
+      drawCueHelper(
+        ctx,
+        cue("FIRE", 100, HULL, { aim: { x: 300, y: 150 }, tint: "cyan" }),
+        HULL,
+        0,
+      ),
+    );
+    expect(red.length).toBeGreaterThan(0);
+    expect(red).toEqual(cyan);
+    expect(emberHues().hex).toBe(PALETTE.red);
+    expect(emberHues("cyan").hex).toBe(PALETTE.cyan);
   });
 
-  it("draws the crosshair on the aim, not on the word", () => {
-    const paint = CROSSHAIR_LOOK.paint;
+  it("draws the mark on the aim, not on the word, and round the target, never under it", () => {
+    const paint = AIM_LOOK.paint;
     const at: number[][] = [];
-    CROSSHAIR_LOOK.paint = (_ctx, x, y) => {
+    AIM_LOOK.paint = (_ctx, x, y) => {
       at.push([x, y]);
     };
     try {
@@ -143,9 +141,10 @@ describe("the cue's helper", () => {
       );
       log((ctx) => drawCueHelper(ctx, cue("FIRE", 100, HULL), HULL, 0));
     } finally {
-      CROSSHAIR_LOOK.paint = paint;
+      AIM_LOOK.paint = paint;
     }
     expect(at).toEqual([[300, 150]]);
+    expect(RING_MIN).toBeGreaterThan(1.1);
   });
 
   it("draws a face for SHIELD and SUCK, and a different one for each", () => {

@@ -6,11 +6,6 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { AIM_EMBER } from "./aim-cannon/ember/index.js";
-import { AIM_IRIS } from "./aim-cannon/iris/index.js";
-import { AIM_PLASMA } from "./aim-cannon/plasma/index.js";
-import { AIM_SPORES } from "./aim-cannon/spores/index.js";
-import { AIM_TENDRILS } from "./aim-cannon/tendrils/index.js";
 import { LEAD_TORN } from "./lead-drop/torn/index.js";
 import { LEAD_ARROW } from "./lead-lean/arrow/index.js";
 import { LEAD_CRAGS } from "./lead-walls/crags/index.js";
@@ -26,11 +21,6 @@ import { SURGE_SPLATTER } from "./surge-spray/splatter/index.js";
 import { TASTER_DEEP } from "./taster-notch/deep/index.js";
 
 export const VARIANTS: Variant[] = [
-  AIM_EMBER,
-  AIM_IRIS,
-  AIM_PLASMA,
-  AIM_SPORES,
-  AIM_TENDRILS,
   LEAD_TORN,
   LEAD_ARROW,
   LEAD_CRAGS,

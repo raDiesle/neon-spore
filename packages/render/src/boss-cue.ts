@@ -103,7 +103,7 @@ export function bossCues(
   if (isChoreo(boss)) return choreoCues(l, world, boss, beatPhase, lead);
   switch (boss.kind) {
     case "gorge":
-      return gorgeCues(l, world, boss);
+      return gorgeCues(l, world, boss, beatPhase);
     case "curtain":
       return curtainCues(l, world, boss);
     case "taster":

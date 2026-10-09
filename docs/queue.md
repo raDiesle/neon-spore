@@ -327,3 +327,24 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
+
+## Shot mark sized by its frame: THE MIRROR, THE MAZE, THE WARDEN and THE BATON
+
+- **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
+- **Files:** `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue-read-f.ts`, `packages/render/src/boss-cue-read-i.ts`, `packages/render/src/boss-cue-read-i-b.ts`, `packages/render/src/cue-helper.ts`
+
+The owner, 9 October 2026, taking EMBER (`aim-ember.ts`): *the round crosshair should be around the full bubble in the middle not overlapping it - better bigger than too small*, and the place drawn matters more than the tile. Each of these readings stands its `FIRE` on its own place with no `aim`, so `cueAim` hands EMBER a radius of `min(halfW, halfH) * AIM_R` — the word's frame, not the mouth, eye or bead being shot. THE GORGE was the case it was seen on and now passes `aim: { x, y, r }` off the lobe as the canvas leans it (`boss-cue-read-n.ts`, `lobeAimR`). Do the same here: the centre the body is drawn at this frame, and `r` the drawn part's own radius at its biggest. `bun run frames . --wave "<NAME>" --at … --zoom 3` shows each.
+
+## Shot mark sized by its frame: THE LEDGER, THE HIVE, THE GAUGE and THE REPRISE
+
+- **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
+- **Files:** `packages/render/src/boss-cue-read-o.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue-read-w.ts`, `packages/render/src/boss-cue-read-s.ts`
+
+The same finding as THE MIRROR's entry above, for four more readings that stand a `FIRE` or `SHOOT` on its own place with no `aim`: give each an `aim` centred where the target is drawn and `r` its drawn radius, so EMBER's ring goes round it (`aim-ember.ts`, `RING_MIN`) rather than across it.
+
+## Shot mark sized by its frame: THE CURTAIN, THE QUEEN, THE SCUTTLE and THE FLEET
+
+- **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
+- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-t.ts`, `packages/render/src/boss-cue-read-g.ts`
+
+The same finding as THE MIRROR's entry above, for the last readings that stand a shot word on its own place with no `aim` (`curtainCues`, `queenCues`, `scuttleCues`, `fleetCues`, `snakeCues`): an `aim` centred where the target is drawn, `r` its drawn radius.

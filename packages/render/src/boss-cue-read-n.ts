@@ -10,6 +10,8 @@ import {
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
+import { gorgePose, gorgePosed } from "./gorge-drift.js";
+import { lobeAimR } from "./gorge-lobe.js";
 import { gorgeBubbleAt } from "./gorge-place.js";
 import type { Layout } from "./layout.js";
 
@@ -49,7 +51,12 @@ import type { Layout } from "./layout.js";
  * column, because the ring is turning on it and the cannon can follow a beat
  * later; on hers there is only the one.
  */
-export function gorgeCues(l: Layout, world: World, g: GorgeState): readonly BossCue[] {
+export function gorgeCues(
+  l: Layout,
+  world: World,
+  g: GorgeState,
+  beatPhase = 0,
+): readonly BossCue[] {
   const cfg = world.cfg;
   const phase = gorgePhase(g);
   if (phase !== "row" && phase !== "ring") return [];
@@ -74,8 +81,14 @@ export function gorgeCues(l: Layout, world: World, g: GorgeState): readonly Boss
   const h = g.intakes[here];
   const open = phase !== "ring" || (h !== undefined && h.taps >= cfg.gorgeOpenTaps);
   if (h !== undefined && !gorgeSated(h) && gorgeDue(g, here) && open) {
-    const p = gorgeBubbleAt(l, cfg, g, here);
-    out.push({ ...markAt(2, "PRESS", "FIRE", p.x, p.y - l.tile * 0.5, l, 34), why: "TO FEED IT" });
+    // Round the lobe as the canvas drew it, leaning on its intake, not on the tile.
+    const root = gorgeBubbleAt(l, cfg, g, here);
+    const c = gorgePosed(gorgePose(l, cfg, root, here, world.beat, beatPhase), {
+      x: root.x,
+      y: root.y - l.tile * 0.5,
+    });
+    const aim = { x: c.x, y: c.y, r: lobeAimR(l.tile) };
+    out.push({ ...markAt(2, "PRESS", "FIRE", c.x, c.y, l, 34), aim, why: "TO FEED IT" });
   }
   return out;
 }

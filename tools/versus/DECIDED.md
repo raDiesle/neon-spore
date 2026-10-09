@@ -1545,3 +1545,12 @@ behind its head, legs hanging and wings spread full
 `packages/render/src/instar-flight-taper.ts`.
 
 The other answer offered was `side`; it went with the slot.
+
+## `aim:cannon` — nothing taken, 2026-10-09
+
+taken by hand — the owner, 9 October 2026: i like "EMBER" the most. Moved to
+packages/render/src/aim-ember.ts and changed as asked: arrows with broad
+heads, the ring round the whole target, a small swing out and back
+
+The other answers offered were `ember`, `iris`, `plasma`, `spores` and
+`tendrils`; they went with the slot.

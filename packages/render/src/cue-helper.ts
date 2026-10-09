@@ -1,8 +1,8 @@
 import type { Color } from "@neon-spore/sim";
 import { emblem } from "./action-face.js";
+import { EMBER_REACH, paintEmber } from "./aim-ember.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import { drawHoldMark, HOLD_MARK_R } from "./hold-mark.js";
-import { drawInstarCrosshair } from "./instar-crosshair.js";
 import { PALETTE } from "./palette.js";
 import { drawRubMark } from "./rub-mark.js";
 import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
@@ -16,8 +16,11 @@ import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
  * this is them for a `BossCue`, called from the one place every boss's cue is
  * drawn (`boss-cue-draw.ts`), so no boss draws its own.
  *
- * - **`FIRE`, `SHOOT`**: THE INSTAR's crosshair **on what the shot is for**,
- *   `BossCue.aim`, **in red, with the word and its scan box moved there**.
+ * - **`FIRE`, `SHOOT`**: EMBER (`aim-ember.ts`) **round what the shot is
+ *   for**, `BossCue.aim` — a ring of neon round the whole target and four
+ *   arrows pointing in at it, **with the word moved there and no scan box**
+ *   (the owner took it from VERSUS, 9 October 2026; THE INSTAR's crosshair
+ *   was the mark before it).
  *   A reading may stand the word on the cannon's column at the hull, where
  *   the thumb goes; it is drawn on the target instead (`cueDrawnAt`) — the
  *   owner, 3 October 2026: *the aim in the middle to shoot with cannon
@@ -148,10 +151,9 @@ export const AIM_LOOK: {
   boxed: boolean;
   reach: number;
 } = {
-  paint: (ctx, x, y, r, k, _time, _skin, _from, tint) =>
-    drawInstarCrosshair(ctx, x, y, r, true, k, tint ?? "red"),
-  boxed: true,
-  reach: CROSSHAIR_REACH,
+  paint: (ctx, x, y, r, k, time, _skin, _from, tint) => paintEmber(ctx, x, y, r, k, time, tint),
+  boxed: false,
+  reach: EMBER_REACH,
 };
 
 /** Whether the scan box stands round this cue: not where `AIM_LOOK` draws its own frame. */

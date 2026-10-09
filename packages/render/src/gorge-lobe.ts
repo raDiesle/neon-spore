@@ -32,6 +32,15 @@ import { splinePath } from "./spline.js";
 /** A lobe's radii, as a share of a tile — wide enough to hold four beads. */
 const RX = 0.4;
 const RY = 0.5;
+/**
+ * **How far round a lobe's middle a shot's mark must stand**: a hungry lobe at
+ * its nearest and most swollen, so the mark is never under the skin it names
+ * (`aim-ember.ts`).
+ */
+export function lobeAimR(tile: number): number {
+  return tile * RY * 1.25;
+}
+
 /** A bead's radius. */
 const BEAD = 0.09;
 /** How far round its lobe a bead swims, in bead radii, and how fast, in radians a second. */

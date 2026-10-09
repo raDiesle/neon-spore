@@ -10,6 +10,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { AIM_LOOK } from "../src/cue-helper.js";
 import type { ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import {
@@ -67,13 +68,20 @@ function rooted(world: World): LedgerState {
 /** Frames of a world **held still**: these movements are counted off a beat. */
 function drawn(world: World, role: ViewRole): string {
   const log: string[] = [];
-  runFrames(world, role, 3, {
-    every: 3,
-    onTick: () => {},
-    onCanvas: (c) => {
-      c.log = log;
-    },
-  });
+  // The shot's mark has a dark sleeve of its own (`aim-ember.ts`) and is not a ring.
+  const paint = AIM_LOOK.paint;
+  AIM_LOOK.paint = () => {};
+  try {
+    runFrames(world, role, 3, {
+      every: 3,
+      onTick: () => {},
+      onCanvas: (c) => {
+        c.log = log;
+      },
+    });
+  } finally {
+    AIM_LOOK.paint = paint;
+  }
   return log.join("|");
 }
 
