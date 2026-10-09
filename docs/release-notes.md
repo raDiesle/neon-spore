@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 716b90152 — THE SINEW's mass swings with weight, and its strings go see-through while THE SLOW is open
+
+The owner's answer to THE SINEW's three VERSUS slots, 9 October 2026. The mass now trails where the pull hangs it on a slow spring, so a snap or a fibre parted throws it past its rest and it rings back down (`sinew:weight` · heavy). While THE SLOW is open the strings between the crown and the mass are laid down at 70% (`sinew:fibres` · veiled, made less transparent than the 45% offered). The white strain band (`sinew:band` · white) was refused as looking bad and too simple; the glass tube stays.
+
 ## 2026-10-09 · 9fa6e9517 — THE STARE's charge burns in a ring of flickering ember flames that lengthen as it fills
 
 The core gathering in the shut eye is ringed by PLASMA now, the look VERSUS offered for a shot's mark: twenty-six flames, each flickering at its own pace and leaning as it turns, over a lumpy ring of neon. Short licks as the eye shuts, long and fast ones by the time the beam is due, in the charge's own ember. The owner asked for the aim:cannon animations on bosses by name, 9 October 2026.
