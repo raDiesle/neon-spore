@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 995e532fe — THE LEDGER, THE HIVE, THE GAUGE and THE REPRISE ring the whole thing to hit
+
+The shot's ring now stands round what the screen draws for each: the LEDGER's seam over the body's full height, the HIVE's open drop (laid on its side for a wall's cocoon), the GAUGE's whole wound in the colour it shows, and the REPRISE's lens with the brood circling it. The GAUGE's fire buttons light too: a round now marks them, and the gauge's own buttons count as red and cyan. A look the owner asked for by name.
+
 ## 2026-10-09 · a84e09663 — THE SCUTTLE's parts are lobes of the frame, with room between them
 
 VERSUS `scuttle:seat` · `lobed`, taken by the owner on 9 October 2026 (a look asked for by name): each part is a swell of the frame's own rock, a part gone is a ragged wet wound, and the frame is half again as wide past its outer lobes and twice as tall, its rows 1.05 tiles apart where they were 0.6. The plate-in-a-socket drawing it replaces is gone; a part hanging on its thread is still a plate.
