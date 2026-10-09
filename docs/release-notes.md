@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · f4b0b88c5 — THE GORGE's shot mark stands round the whole lobe it names, as the lobe is drawn
+
+The ring was centred on the lobe at rest with one fixed radius, so a lobe leaning and swollen reached under its line. It is fitted now round the lobe's outline at its biggest, posed the way the canvas leans it (`aim-fit.ts`), and comes out a little wider and a little left. A fix to something wrong, and a look the owner asked for by name.
+
 ## 2026-10-09 · 2fc21dd06 — A boss's picture brief now includes parts that turn, as THE INSTAR's head does
 
 The depth skill gains "A part that glances": when the owner asks for a boss to look better or more 3D, a part turns slightly all the time so it is seen from a new side. The part is a head first, then claws and tails, or a machine's whole shape. The side it turns toward opens, the far side darkens, the points the marks sit on are held, and SWAY, LOOK and COCK are offered. `new-boss-more` §6.3 said "no change of perspective", which is what kept this from being built before; it now points at the recipe.

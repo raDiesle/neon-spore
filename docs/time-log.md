@@ -36909,3 +36909,5 @@ Bottleneck: writing — `adopt` takes one answer, so three taken at once was by 
 
 Bottleneck: reading — the lobe grows by three factors in three places, and
 the ring had been sized by one of them.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
