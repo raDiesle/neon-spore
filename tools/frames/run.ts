@@ -1,7 +1,6 @@
 #!/usr/bin/env bun
 
-import { mkdir, rm } from "node:fs/promises";
-import { dirname, join } from "node:path";
+import { join } from "node:path";
 /**
  * `bun run frames <sha> --wave N` — a before-and-after picture for a landing.
  *
@@ -65,12 +64,12 @@ import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { absentNote, NoSuchField, unlessAbsent } from "./boss-check.js";
 import { sameFrames } from "./crop.js";
 import { parseFrameSpec } from "./flags.js";
+import { throughScratch } from "./frame-publish.js";
 import { heldPageNote } from "./guide-film.js";
 import { columnNotes } from "./press-column.js";
 import { standingNotes } from "./press-standing.js";
 import { recipeHelp } from "./recipes.js";
 import { pressNote, say, tickNote } from "./report.js";
-import { scratchDir } from "./scratch.js";
 import { captureAt, captureHere, git, root } from "./serve.js";
 import { firedNote } from "./until.js";
 import { waveNamesAt, waveNamesHere } from "./wave.js";
@@ -135,11 +134,15 @@ async function main(): Promise<void> {
 
   const start = Date.now();
   if (here) {
-    await mkdir(out, { recursive: true });
-    const { paths, atTick, heldPage, fired, sent } = await captureHere(spec, join(out, "frame"));
+    // Into a scratch folder first, and over `out` only once it is all taken:
+    // a refusal in the page leaves the last run's frame where it was
+    // (`frame-publish.ts`).
+    const done = await throughScratch(out, ["frame"], (s) => captureHere(spec, join(s, "frame")));
+    if (done === null) return;
+    const { atTick, heldPage, fired, sent } = done.got;
     const seconds = Math.round((Date.now() - start) / 1000);
-    console.log(`wrote ${paths.length} frame(s) to ${out} in ${seconds}s`);
-    paths.forEach((p, i) => {
+    console.log(`wrote ${done.written.length} frame(s) to ${out} in ${seconds}s`);
+    done.written.forEach((p, i) => {
       console.log(`  ${p}${tickNote(atTick[i])}`);
     });
     if (wantsEvents) console.log(`  ${firedNote(fired)}`);
@@ -148,8 +151,7 @@ async function main(): Promise<void> {
     return;
   }
 
-  const scratchOut = await scratchDir("out-");
-  try {
+  const done = await throughScratch(out, ["before", "after"], async (scratchOut) => {
     console.log(`before: ${parent.slice(0, 7)}`);
     // A field the sha itself adds is not on its parent's boss: the after
     // frame alone, and said, rather than no picture (`boss-check.ts`).
@@ -158,38 +160,28 @@ async function main(): Promise<void> {
     if (before instanceof NoSuchField) console.log(`  ${absentNote(before)}`);
     console.log(`after: ${full.slice(0, 7)}`);
     const after = await captureAt(full, spec, join(scratchOut, "after"));
-    const seconds = Math.round((Date.now() - start) / 1000);
-
     if (pair && sameFrames(pair.whole, after.whole)) {
+      const seconds = Math.round((Date.now() - start) / 1000);
       console.log(
         `identical: before and after look the same at this wave and tick (${seconds}s) — nothing written to ${out}. A picture of an unchanged field teaches nothing; try a different --wave or --ticks.`,
       );
-      return;
+      return null;
     }
-
-    await mkdir(out, { recursive: true });
-    const written: string[] = [];
-    for (const p of [...(pair?.paths ?? []), ...after.paths]) {
-      const rel = p.slice(scratchOut.length + 1);
-      const dest = join(out, rel);
-      await mkdir(dirname(dest), { recursive: true });
-      await Bun.write(dest, Bun.file(p));
-      written.push(dest);
-    }
-
-    console.log(`wrote ${written.length} frame(s) to ${out} in ${seconds}s`);
-    const both = [...(pair?.atTick ?? []), ...after.atTick];
-    written.forEach((p, i) => {
-      console.log(`  ${p}${tickNote(both[i])}`);
-    });
-    // The **after** run's, and said so: a pair is two runs of two builds, and
-    // the events of the one being landed are the ones a reader is asking about.
-    if (wantsEvents) console.log(`  after ${firedNote(after.fired)}`);
-    say(heldPageNote(spec, after.heldPage));
-    say(pressNote(after.sent, after.fired));
-  } finally {
-    await rm(scratchOut, { recursive: true, force: true }).catch(() => {});
-  }
+    return { pair, after, paths: [...(pair?.paths ?? []), ...after.paths] };
+  });
+  if (done === null) return;
+  const { pair, after } = done.got;
+  const seconds = Math.round((Date.now() - start) / 1000);
+  console.log(`wrote ${done.written.length} frame(s) to ${out} in ${seconds}s`);
+  const both = [...(pair?.atTick ?? []), ...after.atTick];
+  done.written.forEach((p, i) => {
+    console.log(`  ${p}${tickNote(both[i])}`);
+  });
+  // The **after** run's, and said so: a pair is two runs of two builds, and
+  // the events of the one being landed are the ones a reader is asking about.
+  if (wantsEvents) console.log(`  after ${firedNote(after.fired)}`);
+  say(heldPageNote(spec, after.heldPage));
+  say(pressNote(after.sent, after.fired));
 }
 
 if (import.meta.main)

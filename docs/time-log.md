@@ -36433,3 +36433,16 @@ Bottleneck: landing — a field control is six registrations and the last two
 were learned from a red `check:fast`, a minute and a half each (queued).
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — `bun run frames` keeps its folder through a refusal
+
+- reading: 0 min. `run.ts`, `capture.ts`'s `clearFrames` before the tab
+  opens, `frame-files.ts` and `scratch.ts`.
+- writing: 5 min. `throughScratch`, both of `run.ts`'s modes through it,
+  and its test.
+- looking: 0 min. The entry's own refusal run against a frame on disk, its
+  hash the same after, and one good run.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none to speak of — the refusal reproduced on the first run.

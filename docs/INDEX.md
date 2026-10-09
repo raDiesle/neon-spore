@@ -3662,6 +3662,7 @@ by hand never moves.
 | `tools/frames/flag-lists.ts` | Every `--hold` and `--press` on the command line rather than the first, and the one tick line they join |
 | `tools/frames/fault.ts` | `--fault <kind>[:<numbers>]` — the wave's fault, written on the world from outside it |
 | `tools/frames/frame-files.ts` | **The files a capture writes: their names, the write, and the clearing of the last run's** |
+| `tools/frames/frame-publish.ts` | **A run's frames reach its output folder only once every one is taken** |
 | `tools/frames/page-handle.ts` | The handle `window.neonSpore` installs, as this tool sees it — every field, and the build that added it |
 | `tools/frames/page-said.ts` | What the page said while `shot.ts` waited for it — its throws and console errors, printed above *is the tab right?* |
 | `tools/frames/pixels.ts` | **A screenshot read back as the picture it is**, rather than as the file it arrived in |

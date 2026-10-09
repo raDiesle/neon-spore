@@ -328,20 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `bun run frames` empties its output folder before a refusal in the page
-
-- **Found:** 2026-10-08, claude/task-queue-work-b00fee
-- **Taken:** 2026-10-09, claude/queue-tasks-d82b1f (claim: claude/queue-bun-run-frames-empties-its-output-folder-before)
-- **Files:** `tools/frames/run.ts`, `tools/frames/scratch.ts`
-
-`frames . --wave "THE BLISTER" --entry 7:gesture=hold` is refused in the page
-(`this wave has 2 arrivals`), but only after `docs/frames/working` has been
-emptied, so the frame the run before it wrote was gone and a crop of it failed.
-Every page-side refusal (`--entry`, `--boss`, `--creature`, `--boss-round`) has
-the same order. Write into a fresh scratch directory and move it over the output
-folder only once every frame is taken, with a test that a refused run leaves the
-folder as it found it.
-
 ## THE BLISTER, lane 6: TURN, a circle round it
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
