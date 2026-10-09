@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 9ea8e0a6f — The fire button a shot asks for wears the same red or cyan neon ring and arrows as its target
+
+While a shot's mark stands on a target, the fire button it asks for is ringed with the same mark in its own colour and glows: the colour this screen is already shown the shot wants, or both fire buttons where the colour is the other seat's to say. THE GORGE says it off the lobe's floor on her screen and THE FLUE by its tint; every other boss lights both until its reading says. The owner asked for it by name, 9 October 2026.
+
 ## 2026-10-09 · ef5f63fb7 — THE LAMPREY lunges at the ship when it loses its temper in a tow
 
 Two thirds of the way along the tow the eel no longer just jumps back to a third: its head plunges down the curve past where the knob waits, at the shield and the hull, and comes back onto it, the whole eel shaking and its body whipping for a second, red spraying off the mouth. Through the whole tow the body now reaches from the head to the tail's knob, stretched between the two thumbs, rather than lying where it landed.
