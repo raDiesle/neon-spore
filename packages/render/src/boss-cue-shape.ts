@@ -148,8 +148,8 @@ export interface BossCue {
    * **The colour a shot's mark is drawn in**, where the colour is the ask:
    * THE FLUE's levels each want one colour, and a red crosshair or `HOLD`
    * circle over a sight asking cyan was read as *fire red*, which the flue
-   * then refused as the wrong colour (the owner, 7 October 2026). Red, the
-   * mark's own, when left out — every other boss.
+   * then refused as the wrong colour (the owner, 7 October 2026). Left out,
+   * the mark does not know the colour (`cueShot`).
    */
   tint?: Color;
   /**
@@ -160,6 +160,18 @@ export interface BossCue {
    * colour is the other seat's to say (#34).
    */
   shows?: Color;
+}
+
+/**
+ * **The colour a shot's mark and its fire button both say**, or `undefined`
+ * where this screen does not know it — then both buttons are lit and the
+ * mark flickers between the two (`aim-ember.ts`). One answer for both, so a
+ * red ring over a lit cyan button cannot happen (the owner, 9 October 2026:
+ * *i see in gorge red crosshair but cyan shoot cannon … highlighted - which
+ * does not makes sense*).
+ */
+export function cueShot(cue: BossCue): Color | undefined {
+  return cue.shows ?? cue.tint;
 }
 
 /** Whether this screen is the one being asked. */

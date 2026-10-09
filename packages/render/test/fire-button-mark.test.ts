@@ -1,7 +1,7 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import { createWorld } from "@neon-spore/sim";
-import type { BossCue } from "../src/boss-cue-shape.js";
+import { type BossCue, cueShot } from "../src/boss-cue-shape.js";
 import { markedFireButtons } from "../src/fire-button-mark.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { CFG, FRAME_TIMEOUT_MS } from "./frame-harness.js";
@@ -44,6 +44,17 @@ describe("the fire button's mark", () => {
   it("rings only the colour this screen is shown, or the colour the mark is drawn in", () => {
     expect(shots("p2", fire({ shows: "cyan" }))).toEqual(["cyan"]);
     expect(shots("p2", fire({ tint: "red" }))).toEqual(["red"]);
+  });
+
+  it("rings the very colour the mark on the target is drawn in", () => {
+    // THE GORGE drew a red ring over a lit cyan button (the owner, 9 October
+    // 2026): the ring and the button are one reading now (`cueShot`).
+    for (const extra of [{ shows: "cyan" as const }, { tint: "red" as const }, {}]) {
+      const cue = fire(extra);
+      const lit = shots("p2", cue);
+      const ring = cueShot(cue);
+      expect(lit).toEqual(ring === undefined ? ["red", "cyan"] : [ring]);
+    }
   });
 
   it("rings nothing while no mark stands on a target, and nothing on a screen with no fire button", () => {

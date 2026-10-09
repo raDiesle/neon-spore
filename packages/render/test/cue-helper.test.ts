@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { emberHues, RING_MIN } from "../src/aim-ember.js";
+import { emberEither, emberHues, paintEmber, RING_MIN } from "../src/aim-ember.js";
 import type { BossCue } from "../src/boss-cue-shape.js";
 import {
   AIM_LOOK,
@@ -111,22 +111,32 @@ describe("the cue's helper", () => {
     expect(wide.aim?.r).toBe(Math.min(own.halfW, own.halfH) * 0.55);
   });
 
-  it("draws the mark in the fire button's red, or the colour the cue asks", () => {
-    const red = log((ctx) =>
-      drawCueHelper(ctx, cue("FIRE", 100, HULL, { aim: { x: 300, y: 150 } }), HULL, 0),
-    );
-    const cyan = log((ctx) =>
-      drawCueHelper(
-        ctx,
-        cue("FIRE", 100, HULL, { aim: { x: 300, y: 150 }, tint: "cyan" }),
-        HULL,
-        0,
-      ),
-    );
-    expect(red.length).toBeGreaterThan(0);
-    expect(red).toEqual(cyan);
+  it("draws the mark in the colour the shot wants, and hands it none where this screen does not know it", () => {
+    const paint = AIM_LOOK.paint;
+    const shots: (string | undefined)[] = [];
+    AIM_LOOK.paint = (_ctx, _x, _y, _r, _k, _t, _skin, _from, shot) => {
+      shots.push(shot);
+    };
+    const aim = { x: 300, y: 150 };
+    try {
+      for (const extra of [{}, { tint: "cyan" as const }, { shows: "cyan" as const }])
+        log((ctx) => drawCueHelper(ctx, cue("FIRE", 100, HULL, { aim, ...extra }), HULL, 0));
+    } finally {
+      AIM_LOOK.paint = paint;
+    }
+    expect(shots).toEqual([undefined, "cyan", "cyan"]);
     expect(emberHues().hex).toBe(PALETTE.red);
     expect(emberHues("cyan").hex).toBe(PALETTE.cyan);
+  });
+
+  it("flickers between both fire colours, fast, where the colour is not known", () => {
+    const seen = new Set<string>();
+    for (let t = 0; t < 0.5; t += 0.02) seen.add(emberEither(t));
+    expect([...seen].sort()).toEqual(["cyan", "red"]);
+    // Faster than four times a second each way, so it reads as a flicker and not a choice.
+    expect(emberEither(0)).not.toBe(emberEither(0.2));
+    const either = log((ctx) => paintEmber(ctx, 100, 100, 20, 1, 0.01));
+    expect(either.length).toBeGreaterThan(0);
   });
 
   it("draws the mark on the aim, not on the word, and round the target, never under it", () => {

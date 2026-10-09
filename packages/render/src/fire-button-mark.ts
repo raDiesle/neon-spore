@@ -3,7 +3,7 @@ import { type Color, mirrorHoldsControls, type World } from "@neon-spore/sim";
 import { emberHues } from "./aim-ember.js";
 import { bandControlSet } from "./band.js";
 import { controlLobes } from "./band-lobes.js";
-import type { BossCue } from "./boss-cue-shape.js";
+import { type BossCue, cueShot } from "./boss-cue-shape.js";
 import { AIM_LOOK, cueAim, cueBreath } from "./cue-helper.js";
 import { halo } from "./glow.js";
 import type { Circle, Layout } from "./layout.js";
@@ -20,9 +20,9 @@ import { seatSkin } from "./seat-skin.js";
  *
  * So while EMBER stands on a target on this screen (`aim-ember.ts`,
  * `cueAim`), EMBER stands round the fire button too, in that button's own
- * colour: the one this screen is already shown the shot wants
- * (`BossCue.shows`, or the `tint` a mark is drawn in), or both where it is
- * not. The colour comes from what this screen already draws; nothing is told
+ * colour: the one the mark on the target is drawn in (`cueShot`), or both
+ * where this screen does not know it — and then the mark on the target
+ * flickers between the two. The colour comes from what this screen already draws; nothing is told
  * here that the pair are meant to say to each other (#34).
  *
  * Drawn after the cue (`boss-cue-field.ts`), which is after the band, so the
@@ -54,7 +54,7 @@ export function markedFireButtons(
   controls?: ControlSet,
 ): { circle: Circle; shot: Color }[] {
   if (cueAim(cue, l.hullY) === null || mirrorHoldsControls(world)) return [];
-  const want = cue.shows ?? cue.tint;
+  const want = cueShot(cue);
   const out: { circle: Circle; shot: Color }[] = [];
   for (const { control, circle } of controlLobes(l, bandControlSet(controls, world))) {
     const shot = fireColour(control.id);

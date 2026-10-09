@@ -36868,3 +36868,16 @@ Bottleneck: friction — a refused `frames` run leaves the last PNG behind, and
 it was looked at twice as though it were the new one.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — The shot's mark and its lit fire button always say one colour
+
+- reading: 5 min. Where the ring took `tint` and the button `shows ?? tint`.
+- writing: 10 min. `cueShot` for both, EMBER flickering red and cyan where
+  the colour is unknown, and the tests that the ring is the button's colour.
+- looking: 10 min. THE GORGE from both seats, then THE HIVE across three
+  ticks; the first tear added red and cyan into white.
+- friction: 0 min.
+- landing: 5 min. Two catalogue rows, `check:fast`, the commit, `land`.
+
+Bottleneck: looking — a tear blended additively made a third colour, white,
+that only a still at the change showed.

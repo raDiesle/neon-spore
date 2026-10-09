@@ -15,7 +15,10 @@ import { PALETTE } from "./palette.js";
  * `r` is **the target's own radius**, what the bolt must reach as it is
  * drawn, and the ring stands outside it at its narrowest (`RING_MIN`): the
  * thing to shoot is inside the circle, never under its line. The colour is
- * the fire button's — red, or the cue's `tint` where the colour is the ask.
+ * the fire button's the shot wants (`cueShot`); where this screen does not
+ * know it, the mark flickers fast between red and cyan, torn in two at every
+ * change like a signal caught between channels — both buttons are lit then
+ * (`fire-button-mark.ts`), and the mark says *either, ask*.
  */
 
 /** The ring's radius, in the target's, and how far its three waves move it. */
@@ -36,6 +39,10 @@ const GAP = 0.12;
 const SWING = 0.2;
 /** One swing out and back, in seconds. */
 const SWING_S = 1.15;
+
+/** How long the mark wears each colour while the colour is unknown here, and how long each change tears. */
+const FLIP_S = 0.16;
+const TEAR_S = 0.045;
 
 /** How far the mark reaches from its target, in the target's radius (`AIM_LOOK.reach`). */
 export const EMBER_REACH =
@@ -171,7 +178,11 @@ export function emberArrows(r: number, x: number, y: number, t: number): Path2D 
   return arrows;
 }
 
-/** EMBER: the ring round a target of radius `r` at (x, y), and the arrows pointing in at it. */
+/**
+ * EMBER: the ring round a target of radius `r` at (x, y), and the arrows
+ * pointing in at it, in `shot`'s colour — or flickering between both where
+ * the colour is not known here.
+ */
 export function paintEmber(
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -179,9 +190,45 @@ export function paintEmber(
   r: number,
   k: number,
   t: number,
-  tint?: Color,
+  shot?: Color,
 ): void {
-  const { hex, rim } = emberHues(tint);
+  if (shot !== undefined) {
+    paintIn(ctx, x, y, r, k, t, shot);
+    return;
+  }
+  const n = Math.floor(t / FLIP_S);
+  const into = t - n * FLIP_S;
+  if (into >= TEAR_S) {
+    paintIn(ctx, x, y, r, k, t, emberEither(t));
+    return;
+  }
+  // The change: the colour going and the colour coming at once, torn apart
+  // and closing as it settles. Laid over each other, never added: red and
+  // cyan added are white, and white would be a third answer.
+  const tear = r * 0.22 * (1 - into / TEAR_S);
+  const a = n * 2.4;
+  const dx = Math.cos(a) * tear;
+  const dy = Math.sin(a) * tear * 0.4;
+  const coming = emberEither(t);
+  paintIn(ctx, x - dx, y - dy, r, 0.7 * k, t, coming === "red" ? "cyan" : "red");
+  paintIn(ctx, x + dx, y + dy, r, k, t, coming);
+}
+
+/** The colour the mark wears at `t` while this screen does not know the shot's. */
+export function emberEither(t: number): Color {
+  return Math.floor(t / FLIP_S) % 2 === 0 ? "red" : "cyan";
+}
+
+function paintIn(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  k: number,
+  t: number,
+  shot: Color,
+): void {
+  const { hex, rim } = emberHues(shot);
   halo(ctx, x, y, r * RING * 2.2, hex, 0.18 * k);
   neon(ctx, emberRing(r, x, y, t), 2.4, k, hex, rim);
   glowFill(ctx, emberArrows(r, x, y, t), hex, rim, k);

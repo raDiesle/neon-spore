@@ -1,7 +1,7 @@
 import type { Color } from "@neon-spore/sim";
 import { emblem } from "./action-face.js";
 import { EMBER_REACH, paintEmber } from "./aim-ember.js";
-import type { BossCue } from "./boss-cue-shape.js";
+import { type BossCue, cueShot } from "./boss-cue-shape.js";
 import { drawHoldMark, HOLD_MARK_R } from "./hold-mark.js";
 import { PALETTE } from "./palette.js";
 import { drawRubMark } from "./rub-mark.js";
@@ -128,12 +128,11 @@ function aimR(cue: BossCue, aim: { r?: number }): number {
 
 /**
  * **How a shot's aim is laid on its target**, and whether the cue's scan box
- * stands round it. Swapped by VERSUS (`aim:cannon`), which asks whether the
- * crosshair should wear the cannon's colour — the fire buttons' red or cyan
- * (`PALETTE`), or the seat's: `skin` is this screen's seat, so
- * `skin.tint` is the exact colour the cannon and its column are drawn in here
- * (`cannon-column.ts`). `from` is the cannon's muzzle, for a look that joins
- * the two. `reach` is how far the look stands out from its target, in the
+ * stands round it. `shot` is the fire button's colour the mark asks for, or
+ * `undefined` where this screen does not know it (`cueShot`); `skin` is this
+ * screen's seat, so `skin.tint` is the exact colour the cannon and its column
+ * are drawn in here (`cannon-column.ts`). `from` is the cannon's muzzle, for
+ * a look that joins the two. `reach` is how far the look stands out from its target, in the
  * ring's radius: the box and the word are hung off it (`cueDrawnAt`).
  */
 export const AIM_LOOK: {
@@ -146,12 +145,12 @@ export const AIM_LOOK: {
     time: number,
     skin: SeatSkin,
     from: { x: number; y: number },
-    tint?: Color,
+    shot?: Color,
   ) => void;
   boxed: boolean;
   reach: number;
 } = {
-  paint: (ctx, x, y, r, k, time, _skin, _from, tint) => paintEmber(ctx, x, y, r, k, time, tint),
+  paint: (ctx, x, y, r, k, time, _skin, _from, shot) => paintEmber(ctx, x, y, r, k, time, shot),
   boxed: false,
   reach: EMBER_REACH,
 };
@@ -192,7 +191,7 @@ export function drawCueHelper(
   if (helper === "aim") {
     const aim = cueAim(cue, hullY);
     if (aim === null) return;
-    AIM_LOOK.paint(ctx, aim.x, aim.y, aimR(cue, aim), breath, time, skin, from, cue.tint);
+    AIM_LOOK.paint(ctx, aim.x, aim.y, aimR(cue, aim), breath, time, skin, from, cueShot(cue));
     return;
   }
   if (helper === "hold") {
