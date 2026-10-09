@@ -6,13 +6,14 @@ import {
   handedLayout,
   pointerSeats,
   pointOnStage,
+  type ViewRole,
 } from "@neon-spore/render";
 import { type Command, framePhase, type SimEvent, step, type World } from "@neon-spore/sim";
 import type { FieldControlDef } from "./field-control-def.js";
 import { controlRect, type Rect, touchArea } from "./field-focus.js";
 import { paintTouchArea } from "./field-touch-paint.js";
 import { type TryBar, tryBar } from "./field-try-bar.js";
-import { text } from "./gestures-page.js";
+import { TryLog } from "./field-try-log.js";
 import { poseCropRect } from "./pose-art.js";
 import { PHONE } from "./pose-frame.js";
 import type { Pose } from "./pose-kit.js";
@@ -31,8 +32,9 @@ import { bindStageTouch } from "./stage-touch.js";
  * on the phone), and the window cut to the box round the control
  * (`field-focus.ts`) and blown up to fill the screen. Slowed to an eighth, or
  * held and stepped a tick at a time, the look before a press, under it and
- * after the lift can be watched; RESTART stands the pose up again. The last
- * commands the hand sent are listed under it, for what the control *says*.
+ * after the lift can be watched; RESTART stands the pose up again; SCREEN
+ * draws either seat's screen. Under it, what the hand sent and what the game
+ * answered — its events and the sounds its own mixer played (`field-try-log.ts`).
  */
 
 /**
@@ -45,17 +47,7 @@ const MAX_DPR = 4;
 /** Frames between two sweeps for the TOUCH AREA outline: each is about ten
  * milliseconds (`field-focus.ts`), too dear for every frame. */
 const OUTLINE_EVERY = 6;
-/** Commands kept in the readout. */
-const LOG = 6;
-
-function say(c: Command): string {
-  const { kind, ...rest } = c as Command & Record<string, unknown>;
-  const parts = Object.entries(rest).map(([k, v]) => `${k} ${String(v)}`);
-  return [kind, ...parts].join(" · ");
-}
-
 export function openTry(title: string, pose: Pose, rows: readonly FieldControlDef[]): void {
-  const role = pose.role ?? "test";
   const cfg = pose.build().cfg;
   let world: World = pose.build();
   const shade = document.createElement("div");
@@ -71,33 +63,46 @@ export function openTry(title: string, pose: Pose, rows: readonly FieldControlDe
   outline.className = "try-outline";
   view.append(canvas, outline);
   room.appendChild(view);
-  const log = text("p", "", "try-log");
+  const log = new TryLog();
   const life = new AbortController();
+  /** Whose screen is drawn: the pose's own, until SCREEN picks another. */
+  const role = (): ViewRole => bar.screen();
   const renderer = new Canvas2DRenderer(canvas);
   const stage = computeStage(PHONE);
   const layout = () =>
     handedLayout(
-      computeLayout({ width: stage.width, height: stage.height, dpr: PHONE.dpr }, cfg, role),
+      computeLayout({ width: stage.width, height: stage.height, dpr: PHONE.dpr }, cfg, role()),
       world,
     );
   const controls = () => seatedSet(controlSetForWave(world.wave), world);
-  const focus: Rect = controlRect(world, role, rows) ?? poseCropRect(pose, world, role, PHONE);
-  const whole: Rect = poseCropRect({ ...pose, crop: "full" }, world, role, PHONE);
+  // The cut is read off the pose as it was opened, per screen: a seat's
+  // screen lays the band out its own way.
+  const first = pose.build();
+  const cuts = new Map<ViewRole, { focus: Rect; whole: Rect }>();
+  const cut = (r: ViewRole) => {
+    const known = cuts.get(r);
+    if (known) return known;
+    const made = {
+      focus: controlRect(first, r, rows) ?? poseCropRect(pose, first, r, PHONE),
+      whole: poseCropRect({ ...pose, crop: "full" }, first, r, PHONE),
+    };
+    cuts.set(r, made);
+    return made;
+  };
 
   let pending: { player: 1 | 2; command: Command }[] = [];
-  const sent: string[] = [];
   const push = (player: 1 | 2, command: Command): void => {
     pending.push({ player, command });
-    sent.unshift(`P${player} ${say(command)}`);
-    sent.length = Math.min(sent.length, LOG);
-    log.textContent = sent.join("\n");
+    log.sent(player, command);
   };
-  const bar: TryBar = tryBar(title, {
+  const bar: TryBar = tryBar(title, pose.role ?? "test", {
     restart: () => {
       world = pose.build();
       pending = [];
       events = [];
+      log.reset();
     },
+    sound: (on) => log.setSound(on),
     fit: () => fit(),
     stepOnce: () => stepOnce(),
     close: () => close(),
@@ -106,17 +111,18 @@ export function openTry(title: string, pose: Pose, rows: readonly FieldControlDe
     canvas,
     at: (e) => pointOnStage(e, canvas.getBoundingClientRect(), PHONE, stage),
     layout,
-    field: (seat) => stageField(world, role, controls(), cfg, seat ?? bar.seat(), renderer.skinY),
-    seats: () => pointerSeats(role, bar.seat()),
+    field: (seat) => stageField(world, role(), controls(), cfg, seat ?? bar.seat(), renderer.skinY),
+    seats: () => pointerSeats(role(), bar.seat()),
     push,
     world: () => world,
-    role: () => role,
+    role,
     replay: () => renderer.replayGuide(),
     signal: life.signal,
   });
 
   /** The phone drawn `s` times its size, moved so `rect` fills the window. */
   const fit = (): void => {
+    const { focus, whole } = cut(role());
     const rect = bar.whole() ? whole : focus;
     const box = room.getBoundingClientRect();
     const s = Math.min((box.width - 28) / rect.w, (box.height - 14) / rect.h);
@@ -141,7 +147,7 @@ export function openTry(title: string, pose: Pose, rows: readonly FieldControlDe
     if (!ctx) return;
     ctx.clearRect(0, 0, outline.width, outline.height);
     if (!bar.touch()) return;
-    const area = touchArea(world, role, rows, renderer.skinY);
+    const area = touchArea(world, role(), rows, renderer.skinY);
     const ui = outline.width / (PHONE.width * scaled);
     paintTouchArea(ctx, area, { k: scaled * ui, ox: -stage.left, oy: -stage.top, ui });
   };
@@ -171,7 +177,7 @@ export function openTry(title: string, pose: Pose, rows: readonly FieldControlDe
     renderer.draw({
       world,
       beatPhase: framePhase(world),
-      role,
+      role: role(),
       time: world.tick / cfg.tickHz,
       dt,
       events,
@@ -181,6 +187,7 @@ export function openTry(title: string, pose: Pose, rows: readonly FieldControlDe
       hand: touch.hand(),
       pointer: touch.pointer(),
     });
+    log.frame(world, events, role());
     events = [];
     if (++frames % OUTLINE_EVERY === 0) paintOutline();
     bar.readout(`TICK ${world.tick} · BEAT ${world.waveBeat}${world.over ? " · OVER" : ""}`);
@@ -193,13 +200,16 @@ export function openTry(title: string, pose: Pose, rows: readonly FieldControlDe
   const close = (): void => {
     life.abort();
     renderer.dispose();
+    log.dispose();
     shade.remove();
     window.removeEventListener("keydown", onKey);
     window.removeEventListener("resize", fit);
   };
   window.addEventListener("keydown", onKey);
   window.addEventListener("resize", fit);
-  shade.append(bar.element, room, log);
+  // Sound needs a press before a browser lets it play.
+  canvas.addEventListener("pointerdown", () => log.unlock(), { signal: life.signal });
+  shade.append(bar.element, room, log.element);
   document.body.appendChild(shade);
   fit();
   requestAnimationFrame(frame);

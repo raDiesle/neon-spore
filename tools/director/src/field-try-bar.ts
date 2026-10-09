@@ -1,10 +1,12 @@
+import type { ViewRole } from "@neon-spore/render";
 import { text } from "./gestures-page.js";
 
 /**
  * The bar over a TRY view (`field-try.ts`): what is being tried, and the
  * transport that lets a look be watched before, during and after a press —
  * restart, hold and step, the speed, whose hand the mouse is, how much of
- * the phone is shown, and whether where it answers a finger is outlined. The view asks it for each value as it needs it.
+ * the phone is shown, whose screen, the sound, and whether where it answers a
+ * finger is outlined. The view asks it for each value as it needs it.
  */
 
 export interface TryBar {
@@ -19,6 +21,8 @@ export interface TryBar {
   whole(): boolean;
   /** Where the control answers a finger, drawn over it (`field-touch-paint.ts`). */
   touch(): boolean;
+  /** Whose screen is drawn: both seats' (TEST), or one seat's. */
+  screen(): ViewRole;
   readout(line: string): void;
 }
 
@@ -27,6 +31,7 @@ export interface TryActions {
   /** The window is cut again — the view changed. */
   fit(): void;
   stepOnce(): void;
+  sound(on: boolean): void;
   close(): void;
 }
 
@@ -51,7 +56,8 @@ function choice<T>(
   return group;
 }
 
-export function tryBar(title: string, act: TryActions): TryBar {
+export function tryBar(title: string, first: ViewRole, act: TryActions): TryBar {
+  let screen = first;
   let running = true;
   let speed = 1;
   let seat: 1 | 2 | undefined;
@@ -110,6 +116,26 @@ export function tryBar(title: string, act: TryActions): TryBar {
         act.fit();
       },
     ),
+    choice<ViewRole>(
+      [
+        ["TEST SCREEN", "test"],
+        ["P1 SCREEN", "p1"],
+        ["P2 SCREEN", "p2"],
+      ],
+      screen,
+      (v) => {
+        screen = v;
+        act.fit();
+      },
+    ),
+    choice(
+      [
+        ["SOUND", true],
+        ["MUTE", false],
+      ],
+      true,
+      act.sound,
+    ),
     choice(
       [
         ["NO OUTLINE", false],
@@ -130,6 +156,7 @@ export function tryBar(title: string, act: TryActions): TryBar {
     seat: () => seat,
     whole: () => whole,
     touch: () => touch,
+    screen: () => screen,
     readout: (line) => {
       readout.textContent = line;
     },

@@ -69,13 +69,26 @@
   gap: 2px;
 }
 .try-log {
-  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
   padding: 0 14px 10px;
-  min-height: 6.5em;
+}
+.try-log h5 {
+  margin: 0 0 2px;
+  font-weight: 400;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+}
+.try-log pre {
+  margin: 0;
+  min-height: 8.8em;
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   line-height: 1.1;
   white-space: pre;
+  overflow: hidden;
   color: var(--cyan);
 }
 .field-try {

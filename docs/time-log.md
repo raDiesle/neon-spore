@@ -37112,3 +37112,13 @@ Bottleneck: writing — the outline is drawn in three places at three scales, an
 Bottleneck: writing — a strip is a run, not a frame, so it had to fill in without stopping the page.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — TRY IT: either seat's screen, and what the game answered and played
+
+- reading: 5 min. The game's `Mixer` and how `apps/game` holds it.
+- writing: 15 min. The SCREEN and SOUND choices, the three-column log, its test.
+- looking: 15 min. THE VALVE and THE RATCHET's pawl tried in the preview, P1 and P2 screens.
+- friction: 10 min. A preview reload closed the view mid-test, and the first card picked was the catch, not the pawl.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — a pose that idles says nothing for hundreds of ticks, so the GAME SAID column was proved by a test rather than by a tap.

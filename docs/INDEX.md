@@ -3621,6 +3621,7 @@ by hand never moves.
 | `tools/director/src/field-focus-art.ts` | A use card's picture on CONTROLS › ON THE FIELD |
 | `tools/director/src/field-focus.ts` | **Where on the phone a control answers a finger** |
 | `tools/director/src/field-try-bar.ts` | The bar over a TRY view (`field-try.ts`): what is being tried |
+| `tools/director/src/field-try-log.ts` | **What a hand said, and what the game said back**, under a TRY view (`field-try.ts`) |
 | `tools/director/src/field-try.ts` | **A control on its own, played** — the owner, 9 October 2026, on CONTROLS › ON THE FIELD |
 | `tools/director/src/field-touch-paint.ts` | **Where a control answers a finger, drawn over the picture of it** |
 | `tools/director/src/field-stills-art.ts` | A card's strip of stills, drawn: its pose played forward with AUTO's hand |
