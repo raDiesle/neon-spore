@@ -9,10 +9,12 @@ import { paintLobe, paintWound } from "./paint.js";
  * when it goes, where the game seats a plate in a socket on a grid.
  *
  * Roomier from 9 October 2026, the owner: "some wider but much taller, that
- * things are not so tight together". The columns are the field's and cannot
- * spread, so the frame grows past its outer lobes and the rows stand further
- * apart — its top 2.5 tiles over the grid rather than 1.6, still under the
- * HUD's pills — and each lobe is slimmer, so rock shows between them.
+ * things are not so tight together", then "maybe doubling, especially
+ * taller spacings". The columns are the field's and cannot spread, so the
+ * frame grows past its outer lobes and the rows stand nearly twice as far
+ * apart — its top just over 3 tiles above the grid rather than 1.6, which
+ * on a 390-wide phone is still under the HUD's pills at the top of a
+ * wind-up — and each lobe is slimmer, so rock shows between them.
  */
 export const SCUTTLE_LOBED: Variant = {
   slot: "scuttle:seat",
@@ -35,7 +37,7 @@ export const SCUTTLE_LOBED: Variant = {
         symbol: "SCUTTLE_ROWS",
         type: "ScuttleRows",
       },
-      fields: { rise: 0.42, pitch: 0.85 },
+      fields: { rise: 0.46, pitch: 1.05 },
     }),
     patch({
       target: shape.SCUTTLE_FRAME,
@@ -45,7 +47,7 @@ export const SCUTTLE_LOBED: Variant = {
         symbol: "SCUTTLE_FRAME",
         type: "ScuttleFrame",
       },
-      fields: { padX: 0.4, padY: 0.26 },
+      fields: { padX: 0.8, padY: 0.36 },
     }),
   ],
 };
