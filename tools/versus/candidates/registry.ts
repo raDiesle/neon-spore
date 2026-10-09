@@ -8,14 +8,12 @@
 import type { Variant } from "../variant.js";
 import { INSTAR_PENDULUM } from "./instar-tail/pendulum/index.js";
 import { INSTAR_STATIONS } from "./instar-tail/stations/index.js";
-import { LEDGER_PLATED } from "./ledger-back/plated/index.js";
 import { LEDGER_LIT } from "./ledger-nerves/lit/index.js";
 import { SCUTTLE_LOBED } from "./scuttle-seat/lobed/index.js";
 
 export const VARIANTS: Variant[] = [
   INSTAR_PENDULUM,
   INSTAR_STATIONS,
-  LEDGER_PLATED,
   LEDGER_LIT,
   SCUTTLE_LOBED,
 ];

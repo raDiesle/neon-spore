@@ -5032,13 +5032,13 @@ are cleared on restart. *Not built of the design's look*: the ship's nerves
 are not lit along the cord's line — the shock is the plating's answer and a
 second one would be two pictures of one hit, so it is offered in VERSUS
 instead (`ledger:nerves`, `render/ledger-nerves.ts`, 8 October 2026); the halves do not fire down their own
-columns, which the simulation dropped for the owner's rule; and the body's
-lobed back is `ledgerHalfPath`'s own rather than a silhouette off the sheet.
+columns, which the simulation dropped for the owner's rule.
 THE SLOW is marked by its prism standing round the body
 (`slow-boss-aim-c.ts`, 26 September 2026). The owner kept THE LEDGER on
-8 October 2026, and a new back is offered in VERSUS beside the seven points
-(`ledger:back`, COLONY · PLATED — CODE PLATE's slab with COLONY's five lobes
-down its back, `render/ledger-shape.ts`'s `LEDGER_BACK`).
+8 October 2026, and the back off the sheet was offered in VERSUS beside the
+seven points it shipped with; he took it on 9 October 2026 (COLONY · PLATED —
+CODE PLATE's slab with COLONY's five lobes down its back,
+`render/ledger-shape-plated-back.ts`, read through `LEDGER_BACK`).
 
 **The words** (`render/src/boss-cue-read-o.ts`, 19 September 2026, its own
 page). Four, and the cord's own state picks the pair of them. While a return is

@@ -2293,6 +2293,7 @@ by hand never moves.
 | `packages/render/src/ledger-read.ts` | **What is written about the cord, and which seat is shown it** — *his clock, her column* |
 | `packages/render/src/ledger-root.ts` | **The navigator's half of THE LEDGER, on the finished ship** |
 | `packages/render/src/ledger-shape.ts` | **Where THE LEDGER is**, in field pixels: the two halves of the body |
+| `packages/render/src/ledger-shape-plated-back.ts` | **COLONY · PLATED** — two drafts off the shape sheet, combined and named: CODE PLATE's slab (`systems.ts` |
 | `packages/render/src/ledger-stop.ts` | **Where a bolt meets THE LEDGER**, for `BoltStops` (`bolt-stop.ts`): the halves' underside and the seam's mouth |
 | `packages/render/src/ledger-sway.ts` | **THE LEDGER leans on its root** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/ledger-grip.ts` | **The navigator's two hands on THE LEDGER's root**: the foot of the cord while it is still paying out |

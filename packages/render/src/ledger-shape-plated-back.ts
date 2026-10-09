@@ -1,9 +1,5 @@
-import type { Layout } from "../../../../../packages/render/src/layout.js";
-import {
-  LEDGER_HALF_W,
-  ledgerBodyY,
-  type Point,
-} from "../../../../../packages/render/src/ledger-shape.js";
+import type { Layout } from "./layout.js";
+import { LEDGER_HALF_W, ledgerBodyY, type Point } from "./ledger-shape.js";
 
 /**
  * **COLONY · PLATED** — two drafts off the shape sheet, combined and named:

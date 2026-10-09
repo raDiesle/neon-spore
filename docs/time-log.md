@@ -36927,3 +36927,16 @@ Bottleneck: the frame's pad was two bare constants, so a roomier frame
 needed a lift before a candidate could reach it.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE LEDGER's halves are plated, with five lobes down each back
+
+- reading: 10 min. Both LEDGER candidates, the nerves' seam in `ledger-root.ts`
+  and the queue entry already asking about it.
+- writing: 5 min. `versus adopt`, the seven points taken out, the spec's two
+  sentences about the back.
+- looking: 5 min. One frame of THE LEDGER paying.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the nerves request crossed the seat split, and that
+took the time; the adoption itself was one command.

@@ -1692,3 +1692,17 @@ a six-second round each of COCK, SWAY and LOOK in turn, COCK first, every
 round beginning and ending at the middle of the swing with the head level so
 one hands over to the next without a jump. The three candidates' rounds were
 redrawn to share that middle; their sizes are the candidates'.
+
+## `ledger:back` / `plated` — taken, 2026-10-09
+
+The owner, 9 October 2026: PLATED looks better; build it straight into the
+game.
+
+plated — each half a squared plate cut down the seam, with five small lobes
+swelling down its back and breathing out of step
+
+`LEDGER_BACK.points` is `platedBack`, moved from
+`tools/versus/candidates/ledger-back/plated/back.ts` to
+`packages/render/src/ledger-shape-plated-back.ts`.
+
+It was the only answer offered.
