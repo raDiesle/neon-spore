@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE BLISTER, lane 7: RUB
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Taken:** 2026-10-09, claude/queue-tasks-d82b1f (claim: claude/queue-the-blister-lane-7-rub)
 - **Files:** `packages/render/src/rub.ts`, `packages/render/src/rub-turns.ts`, `packages/render/src/rub-mark.ts`, `packages/sim/src/drag-targets.ts`
 - **Needs:** THE BLISTER, lane 6
 
