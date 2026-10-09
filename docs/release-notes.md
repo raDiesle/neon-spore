@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · a930b8df2 — Where the colour is unknown, the fire buttons take turns wearing the shot's mark
+
+The mark round the fire buttons jumps from one to the other in step with the ring's red and cyan flicker on the target — one button at a time, never both — so the band says *one of these* as the field does. A look the owner asked for by name.
+
 ## 2026-10-09 · b12004d1a — THE LEDGER's nerves light from her shield up the cord to the boss while the shield is under the socket
 
 On the navigator's screen, with her shield in the socket's column, the ship's nerves under the socket light up with a fast flicker, a nerve runs down to her shield block, and streaks of light climb the cord to the body. With the shield one column off they only flicker, and further off they are dark. It is VERSUS's LIT reworked to the owner's reading on 9 October 2026; it reads her own column, never a return coming, so it shows her nothing she could not already see. Exemption: a look the owner asked for by name.
