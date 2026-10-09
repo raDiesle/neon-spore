@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 25d0087a1 — The new-creature skill lists the six places a field gesture is registered
+
+A creature's own gesture moving from "unbuilt" to "field" is owed a TARGET_PLACE row, a FIELD_CONTROLS row file, a pose, a row in the controls spec, a place on an action and a card — each now listed with the test that goes red without it. new-boss-state's row 14 named `documentedDragTarget`, which is gone; it names `TARGET_PLACE` and points at the list.
+
 ## 2026-10-09 · 439176f11 — Who a press is from has a page of its own, out of input.ts
 
 The pointer rig's seat bookkeeping — where each finger landed, the handover's re-signing of a band press, and the push of every word a press, move, lift or rub says — is `input-seat.ts` now, with a test of its own. `input.ts` stood at 248 of its 250 lines and is 236.

@@ -36574,3 +36574,5 @@ nothing, and only the grep after it said so.
 
 Bottleneck: reading — the red-test sentence for each row had to be read out
 of the test, since the commits say what was added and not what caught it.
+
+*Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
