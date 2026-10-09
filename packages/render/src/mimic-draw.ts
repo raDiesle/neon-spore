@@ -13,12 +13,14 @@ import type { MimicFx } from "./mimic-fx.js";
 import { mimicHalfSide, mimicPose, PART, PEELED_BACK } from "./mimic-pose.js";
 import { drawMimicFlash, drawMimicPeel } from "./mimic-receipts.js";
 import {
+  CORE,
   type MimicPose,
   mimicCore,
   mimicMantle,
   mimicMottle,
   mimicReachArm,
 } from "./mimic-shape.js";
+import { drawMimicTendrils } from "./mimic-tendrils.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
 
@@ -68,8 +70,8 @@ export function drawMimic(
 
   drawMimicCraneArms(ctx, l, hold, p);
   drawReach(ctx, l, p);
-  if (split) drawCore(ctx, p, s);
   if (split) {
+    drawCore(ctx, p, s);
     for (const seat of [1, 2] as const) {
       const back = s.peeled[seat - 1] ? PEELED_BACK : 0;
       const dx = mimicHalfSide(l, seat) * Math.min(1, p.split + back) * PART * 0.5 * p.r;
@@ -80,6 +82,8 @@ export function drawMimic(
       drawSkin(ctx, l, { ...p, face: seat }, hurt);
       ctx.restore();
     }
+    // Its arms curl in at the core from the cut edges of its halves (`mimic-tendrils.ts`).
+    drawMimicTendrils(ctx, p.x, p.y, CORE * p.r, p.squash, Math.min(1, p.split), time);
   } else drawSkin(ctx, l, p, hurt);
   drawMimicFlash(ctx, p, fx.flash);
   ctx.restore();

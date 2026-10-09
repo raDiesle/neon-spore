@@ -1117,6 +1117,7 @@ by hand never moves.
 | `packages/render/src/mimic-receipts.ts` | **THE MIMIC's receipts, drawn** — what `mimic-fx.ts` holds between frames |
 | `packages/render/src/mimic-tap.ts` | **A finger on THE MIMIC's board**: the square it came down on, as THE MINE's `tapTile` (`mine-tap.ts`) |
 | `packages/render/src/mimic-tile.ts` | **One square of THE MIMIC's board**, and **the same square on every level** — the owner, 5 October 2026 |
+| `packages/render/src/mimic-tendrils.ts` | **THE MIMIC's arms curling in at its own heart** |
 | `packages/render/src/mimic-crane.ts` | **THE MIMIC as a crane**: two arms holding the frame up by its top corners |
 | `packages/render/src/simon-fx.ts` | the count-in, the handover, and what the row is showing |
 | `packages/render/src/simon-row.ts` | the row of slots: a control, or a question mark |

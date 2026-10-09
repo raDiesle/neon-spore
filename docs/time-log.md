@@ -36836,3 +36836,16 @@ Bottleneck: friction — the hand-done undo of one adoption cost as much as
 the seven adoptions did.
 
 *Measured: 16 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE MIMIC's arms curl in at its core, from TENDRILS
+
+- reading: 5 min. `mimic-draw.ts`, the split, and where the core is drawn.
+- writing: 5 min. `mimic-tendrils.ts` from the TENDRILS candidate, in the
+  mantle's greens with its sign's pale edge.
+- looking: 15 min. Under the halves the arms hid in a gap one core wide;
+  over them they read as hooks, then as cut leaves, before a round root.
+- friction: 5 min. `--until mimicCore` needs `--until-ticks 8000` to reach
+  the split.
+- landing: 5 min. The index row, `check:fast`, the commit, `land`.
+
+Bottleneck: looking — four frames to find where the arms could be seen at all.
