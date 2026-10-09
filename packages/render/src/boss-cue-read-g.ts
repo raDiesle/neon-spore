@@ -39,6 +39,8 @@ const SIGHTS_HALF = 0.46;
 /** SNAKE's mark, in arena tiles: a shade inside the tile it stands on, so the
  * frame reads as being *on* that square and not between two of them. */
 const TILE_HALF = 0.44;
+/** A square's corner from its middle, in its side: a shot's ring stands round the whole square. */
+const SQUARE_REACH = Math.SQRT1_2;
 
 /**
  * THE FLEET. One word, the pilot's, and the navigator gets none — the same
@@ -89,6 +91,7 @@ export function fleetCues(l: Layout, world: World, f: FleetState): readonly Boss
       word: "FIRE",
       x: chartX(c, f.aimCol),
       y: chartY(c, f.aimRow),
+      aim: { x: chartX(c, f.aimCol), y: chartY(c, f.aimRow), r: c.tile * SQUARE_REACH },
       halfW: half,
       halfH: half,
       seed: 72,
@@ -178,5 +181,6 @@ export function snakeCues(l: Layout, world: World, s: SnakeState): readonly Boss
   const lands =
     stop !== null && stop.col === hint.col && stop.row === hint.row && stop.enemy !== -1;
   const now = lands && !snakeResting(world, s);
-  return [{ seat: null, kind: "PRESS", word: "SHOOT", ...at, seed: 76, soon: !now }];
+  const aim = { x: at.x, y: at.y, r: a.tile * SQUARE_REACH };
+  return [{ seat: null, kind: "PRESS", word: "SHOOT", ...at, aim, seed: 76, soon: !now }];
 }

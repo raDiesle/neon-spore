@@ -9,9 +9,11 @@ import {
   queenGesture,
   type World,
 } from "@neon-spore/sim";
+import { aimRound } from "./aim-fit.js";
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
 import { creatureCenter } from "./creature-place.js";
+import { curtainCorePoints, curtainCoreRadius } from "./curtain-sheet.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { queenMarkCenter } from "./queen-figure.js";
 import { queenTurn } from "./queen-surface.js";
@@ -90,12 +92,20 @@ import { queenTurn } from "./queen-surface.js";
  * nothing in `out`, where the core is going and the wave is held two beats so
  * it cannot end on the same one.
  */
+/** The torn core's throb at its widest (`curtainCoreRadius`). */
+const CORE_THROB = 1.08;
+
 export function curtainCues(l: Layout, world: World, c: CurtainState): readonly BossCue[] {
   if (c.phase === "out") return [];
   const y = tileCY(l, world.cfg.curtainRow);
   if (curtainCoreBare(world, c)) {
     if (world.cannonCol !== c.coreCol) return [];
-    return [markAt(2, "PRESS", "FIRE", tileCX(l, c.coreCol), y, l, 35)];
+    // Round the bare core's lobes at the top of its throb, in the colour it
+    // is drawn on both screens once bare (`curtain-sheet.ts`).
+    const x = tileCX(l, c.coreCol);
+    const r = curtainCoreRadius(l, true, c.phase === "torn", 0) * CORE_THROB;
+    const aim = aimRound(curtainCorePoints(x, y, r, 0));
+    return [{ ...markAt(2, "PRESS", "FIRE", x, y, l, 35), aim, shows: c.coreColor }];
   }
   const body = curtainBody(world, c);
   if (body === undefined) return [];
@@ -144,6 +154,9 @@ export function curtainCues(l: Layout, world: World, c: CurtainState): readonly 
  * lands is a hull breach and a hull breach fails the whole wave, while a mark
  * missed costs nothing but the beat.
  */
+/** The open mark's breath at its widest (`queen-weakpoint.ts`'s pump). */
+const MARK_BREATH = 1.15;
+
 export function queenCues(
   l: Layout,
   world: World,
@@ -178,7 +191,10 @@ export function queenCues(
   }
   if (queen.color !== null) {
     const mark = queenMarkCenter(l, queen, q.weakSide, queenTurn(world.cfg, world.beat, beatPhase));
-    out.push(markAt(2, "PRESS", "FIRE", mark.x, mark.y, l, 39));
+    // Round the open mark at the top of its breath, in the colour it is
+    // drawn on both screens once open (`queen-weakpoint.ts`).
+    const aim = { x: mark.x, y: mark.y, r: mark.r * MARK_BREATH };
+    out.push({ ...markAt(2, "PRESS", "FIRE", mark.x, mark.y, l, 39), aim, shows: queen.color });
   }
   if (torch !== undefined) {
     const at = creatureCenter(l, world, torch, beatPhase);

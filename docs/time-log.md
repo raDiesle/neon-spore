@@ -37060,3 +37060,17 @@ buttons, a second bug the readings' tests could not see.
 Bottleneck: writing — the crop had to be found by the game's own hit test, not kept by hand for ninety rows.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE CURTAIN, BULB QUEEN, THE SCUTTLE and THE FLEET ring the thing to hit
+
+- reading: 10 min. Each `FIRE` and what is drawn where it stands: the bare
+  core's lobes, the open mark's breath, the hanging plate, a chart square.
+- writing: 5 min. An `aim` off each, `shows` where both screens or hers
+  draw the colour, and SNAKE's `SHOOT` round its square too.
+- looking: 15 min. `--events` to find each fight's own event, then one frame
+  before it; THE SCUTTLE's ring had stood on the lock, in the wrong colour.
+- friction: 5 min. SNAKE's bots never fire, so no frame of its `SHOOT`.
+- landing: 5 min. `check:fast`, `queue done`, the commit, `land`.
+
+Bottleneck: looking — finding the tick a `FIRE` stands at takes an events
+run per fight before the frame itself.

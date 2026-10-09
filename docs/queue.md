@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## Shot mark sized by its frame: THE CURTAIN, THE QUEEN, THE SCUTTLE and THE FLEET
-
-- **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
-- **Taken:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48 (claim: claude/queue-shot-mark-sized-by-its-frame-the-curtain-the-que)
-- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-t.ts`, `packages/render/src/boss-cue-read-g.ts`
-
-The same finding as THE MIRROR's entry above, for the last readings that stand a shot word on its own place with no `aim` (`curtainCues`, `queenCues`, `scuttleCues`, `fleetCues`, `snakeCues`): an `aim` centred where the target is drawn, `r` its drawn radius — and `BossCue.shows` where the shooter's screen shows the colour, as THE MIRROR's entry says.
-
 ## Fire button lit for the colour shown: THE VANE to THE MANTLE
 
 - **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48

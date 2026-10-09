@@ -10,7 +10,8 @@ import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { scuttleLockBox } from "./scuttle-lock.js";
-import { scuttleRowY } from "./scuttle-shape.js";
+import { SOCKET_HALF_W, scuttleHangDrop, scuttleHangPhase, scuttleRowY } from "./scuttle-shape.js";
+import { showsScuttleLive } from "./view-role-clocks-b.js";
 
 /**
  * **What THE SCUTTLE is asking for** — the readings' page `t`, split off
@@ -133,5 +134,16 @@ export function scuttleCues(l: Layout, world: World, s: ScuttleState): readonly 
   // so the cue borrows that box and adds the one thing it does not say.
   const box = scuttleLockBox(l, cfg, s);
   if (box === null) return carry;
-  return [{ seat: 2, kind: "PRESS", word: "FIRE", ...box, seed: 56, framed: false }, ...carry];
+  // The ring, though, stands round the live part itself, hanging where
+  // `scuttle-draw.ts` hangs it, and not on the lock under the slab.
+  const col = scuttlePartCol(s, cfg, s.live);
+  const hang = scuttleHangDrop(l, scuttleHangPhase(s, cfg, world.beat, 0));
+  const aim = {
+    x: tileCX(l, col),
+    y: scuttleRowY(l, cfg, s.live) + hang,
+    r: l.tile * SOCKET_HALF_W * 1.15,
+  };
+  const shows = showsScuttleLive(l.role) ? s.parts[s.live]?.color : undefined;
+  const fire: BossCue = { seat: 2, kind: "PRESS", word: "FIRE", ...box, seed: 56, framed: false };
+  return [{ ...fire, aim, ...(shows === undefined ? {} : { shows }) }, ...carry];
 }
