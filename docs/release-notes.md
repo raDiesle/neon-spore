@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · b0bb7629e — THE INSTAR's resting tail leans both ways in turn, and the whole tail stays on the screen
+
+The resting tail now takes turns, six seconds each: STATIONS holds straight up, then left, then straight up again, then right; PENDULUM sweeps without stopping. Both were taken from VERSUS `instar:tail`. With the head's three glances that makes six pairings before the pattern repeats. Face-on, the body's far end used to sit past the top-right corner, and the tail went off-screen with it. Side-on, a resting tail near the right edge ran off that edge. Now the far end is kept inside the screen wherever the turn carries it (`instar-far-end.ts`). A resting tail is moved back in off any edge it crosses (`instar-tail-fit.ts`). A lash is never moved, because its fork sits over the marks.
+
 ## 2026-10-09 · a930b8df2 — Where the colour is unknown, the fire buttons take turns wearing the shot's mark
 
 The mark round the fire buttons jumps from one to the other in step with the ring's red and cyan flicker on the target — one button at a time, never both — so the band says *one of these* as the field does. A look the owner asked for by name.

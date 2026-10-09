@@ -36984,3 +36984,5 @@ Bottleneck: landing — `check:fast` is the longest step of a five-line change.
 
 Bottleneck: looking — the cut only showed by measuring every step's tail
 against the screen; no single frame showed how many poses it was.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
