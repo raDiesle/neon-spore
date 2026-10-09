@@ -72,7 +72,8 @@ export function markedFireButtons(
 
 /** The colour a fire button shoots, or `null` for any other control. */
 function fireColour(id: string): Color | null {
-  if (id === "fireRed") return "red";
-  if (id === "fireCyan") return "cyan";
+  // THE GAUGE's two fire the cannon in their colour too (`content/controls-round.ts`).
+  if (id === "fireRed" || id === "gaugeRed") return "red";
+  if (id === "fireCyan" || id === "gaugeCyan") return "cyan";
   return null;
 }

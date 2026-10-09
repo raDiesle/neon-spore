@@ -6,10 +6,13 @@ import {
   hiveWallFront,
   type World,
 } from "@neon-spore/sim";
+import { aimRound } from "./aim-fit.js";
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
-import { hiveSite } from "./hive-shape.js";
+import { hiveSite, SITE_HANG, SITE_R } from "./hive-shape.js";
+import { hiveWallFrame, WALL_SITE } from "./hive-walls.js";
 import type { Layout } from "./layout.js";
+import type { Point } from "./outline-drift.js";
 
 /**
  * **What THE HIVE is asking for** — the readings' page `v`, a letter rather
@@ -77,5 +80,29 @@ export function hiveCues(l: Layout, world: World, s: HiveState): readonly BossCu
   const held = hiveOnWall(s, target) && hiveWallFront(s, col) !== target;
   if (held ? s.aim !== target || world.cannonCol === col : world.cannonCol !== col) return [];
   const c = hiveSite(l, s, target);
-  return [markAt(2, "PRESS", "FIRE", c.x, c.y, l, 100)];
+  return [
+    { ...markAt(2, "PRESS", "FIRE", c.x, c.y, l, 100), aim: aimRound(lobe(l, s, target, c)) },
+  ];
+}
+
+/**
+ * The open drop's outline, where the screen draws it: its top corners, its
+ * widest and its tip — laid on its side for a wall's cocoon, as `hive-draw.ts`
+ * lays it — so the ring stands round the whole drop and not on its top edge.
+ */
+function lobe(l: Layout, s: HiveState, i: number, c: Point): Point[] {
+  const r = l.tile * SITE_R;
+  const local: Point[] = [
+    { x: -r, y: -r * 0.3 },
+    { x: r, y: -r * 0.3 },
+    { x: -r * 0.8, y: r },
+    { x: r * 0.8, y: r },
+    { x: 0, y: r * SITE_HANG },
+  ];
+  if (!hiveOnWall(s, i)) return local.map((q) => ({ x: c.x + q.x, y: c.y + q.y }));
+  const [a, b, cc, d] = hiveWallFrame(s.cols[i] ?? 0);
+  return local.map((q) => ({
+    x: c.x + (a * q.x + cc * q.y) * WALL_SITE,
+    y: c.y + (b * q.x + d * q.y) * WALL_SITE,
+  }));
 }

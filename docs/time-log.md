@@ -37031,3 +37031,18 @@ Bottleneck: `versus adopt` dropped one of two records in the same file and
 said it had written both.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE LEDGER, THE HIVE, THE GAUGE and THE REPRISE ring the thing to hit
+
+- reading: 10 min. Each reading's `FIRE` and what the screen draws round it:
+  the seam's body, the hanging drop and its wall frame, the wound's arc, the
+  lens's brood.
+- writing: 15 min. `gaugeWoundCorners`, `lensReach` shared with the brood, the
+  drop's outline through `hiveWallFrame`, and the seam's whole height.
+- looking: 15 min. One frame each; THE GAUGE's buttons were dark because a
+  round never reached `drawFireButtonMarks` and `fireColour` lacked its ids.
+- friction: 5 min. Import order three times over.
+- landing: 5 min. `check:fast`, `queue done`, the commit, `land`.
+
+Bottleneck: looking — the GAUGE frame showed a ringed wound over unlit
+buttons, a second bug the readings' tests could not see.

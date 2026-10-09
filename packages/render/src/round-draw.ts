@@ -1,5 +1,6 @@
 import { drawBossCue } from "./boss-cue-draw.js";
 import type { Effects } from "./effects.js";
+import { drawFireButtonMarks } from "./fire-button-mark.js";
 import { drawGaugeRound } from "./gauge-round.js";
 import type { Layout } from "./layout.js";
 import { drawPinballRound } from "./pinball-round.js";
@@ -59,6 +60,9 @@ export function drawRound(
   const round = ROUND_DRAWS[view.world.boss?.kind ?? ""];
   if (round === undefined) return false;
   round(ctx, l, view, effects);
-  drawBossCue(ctx, l, view.world, view.beatPhase, view.time, () => l.hullY);
+  const cue = drawBossCue(ctx, l, view.world, view.beatPhase, view.time, () => l.hullY);
+  // A round draws its own band before this, so the fire button the shot asks
+  // for is ringed here, as the field's is after its band (`canvas2d-over.ts`).
+  if (cue !== null) drawFireButtonMarks(ctx, l, view.world, cue, view.time, view.controls);
   return true;
 }

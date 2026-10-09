@@ -193,7 +193,12 @@ export function ledgerCues(
   if (phase !== "paying") return [];
   const seam = ledgerSeamCol(t, cfg);
   if (world.cannonCol !== seam || priming(world)) return [];
-  return [markAt(2, "PRESS", "FIRE", ledgerSeamX(l, cfg, t), ledgerBodyY(l).mid, l, 92)];
+  // The seam runs the body's whole height, so the ring stands round all of it.
+  const body = ledgerBodyY(l);
+  const x = ledgerSeamX(l, cfg, t);
+  return [
+    { ...markAt(2, "PRESS", "FIRE", x, body.mid, l, 92), aim: { x, y: body.mid, r: body.ry } },
+  ];
 }
 
 /** Where a return has got to down the cord: the one point three marks stand on. */

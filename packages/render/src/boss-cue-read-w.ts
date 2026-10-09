@@ -3,20 +3,24 @@ import {
   gaugeBound,
   gaugeGape,
   gaugeSeated,
+  gaugeSpanNow,
   gaugeTongueAsks,
   gaugeToothAsks,
   gaugeWoundOpen,
   type World,
 } from "@neon-spore/sim";
+import { aimRound } from "./aim-fit.js";
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
-import { type Dial, gaugeBandMid, gaugeNeedleTip } from "./gauge.js";
+import { type Dial, gaugeBandMid, gaugeNeedleTip, showsGaugeMarks } from "./gauge.js";
 import { rimPoint } from "./gauge-alien.js";
 import { gaugeOpenDial } from "./gauge-gape.js";
+import { gaugeWoundColor } from "./gauge-load.js";
 import { gaugeDial } from "./gauge-round.js";
 import { toothPoint } from "./gauge-teeth.js";
 import { gaugeTongueGrip } from "./gauge-tongue.js";
 import { gaugeTongueHeld } from "./gauge-tongue-grip.js";
+import { gaugeWoundCorners } from "./gauge-wound.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -79,7 +83,11 @@ export function gaugeCues(l: Layout, world: World, g: GaugeState): readonly Boss
   const out: BossCue[] = [];
   if (callReady(world, g)) {
     const tip = gaugeNeedleTip(dial, g);
-    out.push(markAt(2, "PRESS", "SHOOT", tip.x, tip.y, l, 68));
+    // Round the whole wound, which the needle is seated in, in the colour it
+    // wants on her screen — the one that draws it (`gauge-wound.ts`).
+    const aim = aimRound(gaugeWoundCorners(dial, g.markMilli, gaugeSpanNow(world.cfg, g)));
+    const shows = showsGaugeMarks(l.role) ? gaugeWoundColor(g) : undefined;
+    out.push({ ...markAt(2, "PRESS", "SHOOT", tip.x, tip.y, l, 68), aim, shows });
   }
   if (gaugeBound(g) && !g.openThumb) {
     const mid = gaugeBandMid(dial, g);

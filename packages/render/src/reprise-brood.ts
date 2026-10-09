@@ -3,7 +3,7 @@ import { rgba } from "./hex.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { RepriseFrame } from "./reprise-body.js";
 import type { ReprisePhase } from "./reprise-fx.js";
-import { lensRadius } from "./reprise-lens.js";
+import { lensReach } from "./reprise-lens.js";
 
 /**
  * **THE REPRISE's count: a ring of eggs round the lens**, one for each body
@@ -51,7 +51,7 @@ export function drawBrood(ctx: CanvasRenderingContext2D, f: RepriseFrame, s: Bro
   const shown = s.eggs + going + s.standing;
   if (shown === 0) return;
   const slots = Math.max(8, shown);
-  const ring = lensRadius(f) * 1.12 + f.u * 0.26;
+  const ring = lensReach(f);
   const egg = Math.min(f.u * 0.21, (Math.PI * ring) / slots / 1.15);
   const spin = s.time * 0.25;
   const pulse = (1 - s.beatPhase) ** 2;

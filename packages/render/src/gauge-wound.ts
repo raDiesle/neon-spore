@@ -4,6 +4,7 @@ import { rimPoint } from "./gauge-alien.js";
 import { type Loaded, loadedLook } from "./gauge-load.js";
 import { halo, strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
+import type { Point } from "./outline-drift.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -55,6 +56,20 @@ function strip(
   }
   path.closePath();
   return path;
+}
+
+/**
+ * **The wound's four corners**, from `mark - span` to `mark + span` across
+ * the rim's depth, for a shot's mark to be fitted round (`aim-fit.ts`): the
+ * owner, 9 October 2026, *the crosshair on screen must be around the graphic
+ * of the thing to hit*.
+ */
+export function gaugeWoundCorners(dial: Dial, markMilli: number, spanMilli: number): Point[] {
+  const lo = Math.max(-GAUGE_FULL, markMilli - spanMilli);
+  const hi = markMilli + spanMilli;
+  const out = dial.r * OUTER;
+  const inn = dial.r * INNER;
+  return [lo, hi].flatMap((m) => [rimPoint(dial, m, out), rimPoint(dial, m, -inn)]);
 }
 
 /**

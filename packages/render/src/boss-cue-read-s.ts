@@ -2,7 +2,8 @@ import { type RepriseState, repriseEchoing, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
 import type { Layout } from "./layout.js";
-import { repriseTearCenter } from "./reprise-draw.js";
+import { repriseFrame, repriseTearCenter } from "./reprise-draw.js";
+import { lensReach } from "./reprise-lens.js";
 
 /**
  * **What THE REPRISE is asking for** — the readings' page `s`, and a page of
@@ -132,6 +133,11 @@ export function repriseCues(l: Layout, world: World, _s: RepriseState): readonly
     // Hers, on the lens and wide, THE CURTAIN's arrangement for a mark that is
     // a whole body rather than a tile. There is nowhere else honest for it to
     // stand: every other thing on this field is a body neither screen may draw.
-    markAt(2, "PRESS", "FIRE", tear.x, tear.y, l, 98, 2),
+    // The ring stands round the lens and the brood circling it, not on the
+    // lens's middle (`aim-ember.ts`).
+    {
+      ...markAt(2, "PRESS", "FIRE", tear.x, tear.y, l, 98, 2),
+      aim: { ...tear, r: lensReach(repriseFrame(l, world.cfg)) },
+    },
   ];
 }

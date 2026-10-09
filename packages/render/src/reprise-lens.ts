@@ -47,6 +47,9 @@ export interface LensState {
 /** The lens's radius for a body frame. */
 export const lensRadius = (f: RepriseFrame): number => f.u * 0.55;
 
+/** How far from its middle the lens's brood ring stands: the outermost thing drawn round the lens (`reprise-brood.ts`). */
+export const lensReach = (f: RepriseFrame): number => lensRadius(f) * 1.12 + f.u * 0.26;
+
 export function drawLens(ctx: CanvasRenderingContext2D, f: RepriseFrame, s: LensState): void {
   const R = lensRadius(f);
   const { x, cy } = f;
