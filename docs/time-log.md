@@ -37029,3 +37029,5 @@ only leaving her seat to nobody kept one on screen.
 
 Bottleneck: `versus adopt` dropped one of two records in the same file and
 said it had written both.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
