@@ -1362,6 +1362,7 @@ by hand never moves.
 | `packages/render/src/scuttle-shape.ts` | **Where THE SCUTTLE is**, in field pixels: the frame of sockets hung over the top of the field above row 0 |
 | `packages/render/src/scuttle-stop.ts` | **Where a bolt meets THE SCUTTLE**: the live part where it hangs, else the slab and the loose parts |
 | `packages/render/src/scuttle-seat.ts` | THE SCUTTLE's parts where they sit in the frame: a part seated, and the socket one has left |
+| `packages/render/src/scuttle-seat-lobed.ts` | A lobe's half-width and half-height, and a wound's, in tiles |
 | `packages/render/src/scuttle-grip.ts` | **THE SCUTTLE's hanging parts as controls**: a ring on each one a thumb may still carry |
 | `packages/render/src/scuttle-metal.ts` | **What THE SCUTTLE is made of**: a slab of dark rock |
 | `packages/render/src/scuttle-marks.ts` | **THE SCUTTLE's hanging parts answering a touch the way every mark does** (`mark-feedback.ts` |

@@ -384,3 +384,10 @@ The same as THE VANE's entry above, for THE GOVERNOR, THE SEAM, THE LAMPREY, THE
 - **Files:** `tools/frames/auto.ts`, `packages/sim/src/hive*.ts`
 
 `bun run frames . --wave "THE HIVE" --auto both --until hiveSeal --until-on 4000` fires `hiveSwell`, `hiveOpen` and `hiveSeal` once each, on the wall site at col 10, and then nothing for four thousand ticks: the bots never do what makes the next site swell, so no frame shows a breach on the underside. Find what the next swell waits on and teach `--auto` to do it, with a test that a THE HIVE run fires a second `hiveOpen`.
+
+## versus adopt loses all but the last record written to one file
+
+- **Found:** 2026-10-09, claude/scuttle-seat-lobed-ship-d50809
+- **Files:** `tools/versus/decide.ts`, `tools/versus/test/`
+
+`bun run versus adopt scuttle:seat lobed` patched `SCUTTLE_ROWS` and `SCUTTLE_FRAME`, both in `packages/render/src/scuttle-shape.ts`, and printed both edits — but only `SCUTTLE_FRAME` reached the file. `decide.ts` builds its plan by reading each patch's file from disk (`rewriteRecord(readFileSync(file, …))`, about line 96) and writes every plan entry whole, so the second record's text overwrites the first's. The lane wrote `SCUTTLE_ROWS` by hand. Fold patches on the same file into one entry, each rewrite applied to the text the previous one produced, with a test of a candidate patching two records in one file.

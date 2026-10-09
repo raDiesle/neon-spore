@@ -37017,3 +37017,15 @@ Bottleneck: looking — a `FIRE` lives zero ticks under `--auto both`, and
 only leaving her seat to nobody kept one on screen.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-09 — SCUTTLE LOBED taken into the game
+
+- reading: 5 min. `versus adopt`'s output against the files it wrote.
+- writing: 10 min. `SCUTTLE_ROWS` by hand, the dead socket paint out, the
+  comments on the records, two tests onto what the lobes draw.
+- looking: 0 min. The picture is the one already sent.
+- friction: 5 min. `adopt` printed a record it had not written.
+- landing: 10 min. Two red tests in `check:fast`, the commit, `land`.
+
+Bottleneck: `versus adopt` dropped one of two records in the same file and
+said it had written both.

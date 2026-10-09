@@ -46,33 +46,6 @@ export function paintPlate(
   glint(ctx, x - tile * 0.18, y - hh * 0.45, tile * 0.08, tile * 0.03, fade);
 }
 
-/**
- * A socket a plate has left: a recess under its lip, the shadow the lip casts
- * across its top, and the violet of the inside wet at the bottom of it.
- */
-export function paintSocket(
-  ctx: CanvasRenderingContext2D,
-  body: Path2D,
-  x: number,
-  y: number,
-  tile: number,
-  fade: number,
-): void {
-  const hh = tile * 0.16;
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.sheenDeep, fade, 0.6);
-  ctx.fill(body);
-  ctx.globalAlpha = 0.5;
-  ctx.fillStyle = faded(PALETTE.hull, fade);
-  ctx.fill(body);
-  ctx.clip(body);
-  ctx.lineJoin = "round";
-  band(ctx, body, x, y + hh * 0.2, y + hh * 2, tile * 0.1, faded(PALETTE.hullRim, fade), 0.55);
-  band(ctx, body, x, y - hh * 2, y - hh * 0.3, tile * 0.14, faded(PALETTE.sheenDeep, fade), 0.6);
-  ctx.restore();
-  glint(ctx, x + tile * 0.1, y + hh * 0.35, tile * 0.06, tile * 0.025, fade);
-}
-
 /** The thread a loose part hangs on: a cord with a wet line down its lit side. */
 export function paintThread(
   ctx: CanvasRenderingContext2D,

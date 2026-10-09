@@ -31,7 +31,9 @@ describe("a body over the grid stays on the canvas", () => {
     for (const role of ROLES) {
       it(`THE SCUTTLE's frame, wound all the way back, at ${vp.width}×${vp.height} (${role})`, () => {
         const l = computeLayout(vp, CFG, role);
-        expect(scuttleBox(l, CFG).top - scuttleWindRise(l, 1)).toBeGreaterThanOrEqual(0);
+        // The frame comes down by exactly the shortfall, so one that needs
+        // the drop lands on 0 give or take the arithmetic's last bit.
+        expect(scuttleBox(l, CFG).top - scuttleWindRise(l, 1)).toBeGreaterThan(-1e-9);
       });
       it(`THE LEAD's full stalk at ${vp.width}×${vp.height} (${role})`, () => {
         const l = computeLayout(vp, CFG, role);

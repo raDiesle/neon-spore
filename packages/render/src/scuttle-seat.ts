@@ -1,20 +1,16 @@
 import type { Layout } from "./layout.js";
-import { PALETTE } from "./palette.js";
-import { scuttlePlatePath } from "./scuttle-outline.js";
-import { paintPlate, paintSocket } from "./scuttle-plate.js";
-import { type Point, SOCKET_HALF_H } from "./scuttle-shape.js";
+import { paintLobe, paintWound } from "./scuttle-seat-lobed.js";
+import type { Point } from "./scuttle-shape.js";
 
 /**
  * THE SCUTTLE's parts where they sit in the frame: a part seated, and the
  * socket one has left.
  *
- * The design has each part a piece of the one body, leaving a wound when it
- * goes; the game seats a plate in a socket on a grid (`scuttle-draw.ts`).
- * Lifted out on 8 October 2026 so a body-and-wound look could be offered in
- * VERSUS (`scuttle:seat`) without the field changing until the owner
- * chooses; these are the drawings the game already made. A part hanging on
- * its thread is not drawn through here, and neither is where a bolt stops
- * on the frame (`scuttle-stop.ts`).
+ * Each part is a lobe of the one body, leaving a wound when it goes
+ * (`scuttle-seat-lobed.ts`) — VERSUS `scuttle:seat`, `lobed`, taken 9
+ * October 2026 in place of a plate seated in a socket. A part hanging on
+ * its thread is still a plate (`scuttle-draw.ts`), and where a bolt stops
+ * on the frame is `scuttle-stop.ts`.
  */
 
 /** One part's place in the frame, as the slab is drawn this frame. */
@@ -37,17 +33,6 @@ export interface SeatLook {
 }
 
 export const SEAT_LOOK: SeatLook = {
-  seated: ({ ctx, l, c, fade }) =>
-    paintPlate(
-      ctx,
-      scuttlePlatePath(l, c, fade),
-      c,
-      l.tile,
-      SOCKET_HALF_H,
-      PALETTE.rock,
-      0.55,
-      fade,
-    ),
-  open: ({ ctx, l, c, fade }) =>
-    paintSocket(ctx, scuttlePlatePath(l, c, fade), c.x, c.y, l.tile, fade),
+  seated: paintLobe,
+  open: paintWound,
 };

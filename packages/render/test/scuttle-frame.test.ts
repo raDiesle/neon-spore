@@ -141,9 +141,10 @@ describe("THE SCUTTLE's frame", () => {
   });
 
   it("puts the count on the pilot's screen and not the navigator's", () => {
-    // A socket emptied is a violet slot on the screen shown the count, and
-    // a frame with two parts gone is the same picture as one whole on the
-    // screen that is not.
+    // A part gone is a wound wet with the violet inside on the screen shown
+    // the count (`scuttle-seat-lobed.ts`), and a frame with two parts gone is
+    // the same picture as one whole on the screen that is not.
+    const wet = rgba(PALETTE.hull, 0.95);
     const whole = (role: ViewRole) => frame(role, () => {});
     const thinned = (role: ViewRole) =>
       frame(role, (w) => {
@@ -151,16 +152,11 @@ describe("THE SCUTTLE's frame", () => {
         s.parts[2] = null;
         s.parts[11] = null;
       });
-    expect(count(thinned("p1").text, PALETTE.hullRim)).toBeGreaterThan(
-      count(whole("p1").text, PALETTE.hullRim),
-    );
-    expect(count(thinned("test").text, PALETTE.hullRim)).toBeGreaterThan(
-      count(whole("test").text, PALETTE.hullRim),
-    );
+    expect(count(thinned("p1").text, wet)).toBeGreaterThan(count(whole("p1").text, wet));
+    expect(count(thinned("test").text, wet)).toBeGreaterThan(count(whole("test").text, wet));
     expect(thinned("p2").text).toBe(whole("p2").text);
-    expect(count(whole("p1").text, PALETTE.rock)).toBeGreaterThan(
-      count(whole("p2").text, PALETTE.rock),
-    );
+    const lobe = rgba(PALETTE.rockDark, 1);
+    expect(count(whole("p1").text, lobe)).toBeGreaterThan(count(whole("p2").text, lobe));
   });
 
   it("puts the live part on the navigator's screen and not the pilot's", () => {

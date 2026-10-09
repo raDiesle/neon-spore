@@ -1,8 +1,8 @@
-import { blobPoints } from "../../../../../packages/content/src/shapes.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import type { SeatDraw } from "../../../../../packages/render/src/scuttle-seat.js";
-import { splineSealed } from "../../../../../packages/render/src/spline.js";
+import { blobPoints } from "@neon-spore/content";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
+import type { SeatDraw } from "./scuttle-seat.js";
+import { splineSealed } from "./spline.js";
 
 /** A lobe's half-width and half-height, and a wound's, in tiles. */
 const LOBE_W = 0.34;

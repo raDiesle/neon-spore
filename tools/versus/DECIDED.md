@@ -1732,3 +1732,28 @@ straight up. The candidates' rounds and sizes are kept as they were offered.
 The cut the owner named was fixed with it: the far end of the body is kept on
 the screen (`instar-far-end.ts`) and so is a resting tail
 (`instar-tail-fit.ts`).
+
+## `scuttle:seat` / `lobed` — taken, 2026-10-09
+
+the owner liked it most, then asked for the frame taller and wider so the
+lobes stand apart, and took it at nearly double the spacing
+
+lobed — each part a swell of the frame's own rock with no edge round it, and
+where one has gone a ragged wet wound dripping the violet inside; the frame
+taller and a little wider, so the lobes stand apart
+
+`SEAT_LOOK.seated` is `paintLobe`, moved from
+`tools/versus/candidates/scuttle-seat/lobed/paint.ts` to
+`packages/render/src/scuttle-seat-lobed.ts`.
+
+`SEAT_LOOK.open` is `paintWound`, moved from
+`tools/versus/candidates/scuttle-seat/lobed/paint.ts` to
+`packages/render/src/scuttle-seat-lobed.ts`.
+
+Written into `packages/render/src/scuttle-shape.ts`, `SCUTTLE_ROWS`: `pitch`
+and `rise`.
+
+Written into `packages/render/src/scuttle-shape.ts`, `SCUTTLE_FRAME`: `padX`
+and `padY`.
+
+It was the only answer offered.

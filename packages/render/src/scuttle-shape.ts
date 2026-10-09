@@ -36,9 +36,10 @@ export interface Point {
  * Where the rows stand and how far a loose part falls, in tiles: the bottom
  * row's centre above the grid, the pitch between rows, and how far a loose
  * part slides down out of its socket over the cadence. Three rows at this
- * pitch put the top of the frame 1.6 tiles above the grid, under the HUD's
- * pills rather than through them — THE LEAD's full stalk reaches 1.85 for the
- * same reason (`lead-shape.ts`).
+ * pitch, with the frame's pad (`SCUTTLE_FRAME`), put the top of its arch just
+ * over 3 tiles above the grid: the rows stand apart, as the owner asked on 9
+ * October 2026 (VERSUS `scuttle:seat`, `lobed`), and on a 390-wide phone
+ * the frame drawn back on a wind-up still stops under the HUD's pills.
  *
  * **The drop is shorter than the pitch**, so a part off an upper row comes to
  * rest clear of the socket below it rather than over it — VERSUS `apart`,
@@ -50,7 +51,7 @@ export interface ScuttleRows {
   pitch: number;
   drop: number;
 }
-export const SCUTTLE_ROWS: ScuttleRows = { rise: 0.4, pitch: 0.6, drop: 0.26 };
+export const SCUTTLE_ROWS: ScuttleRows = { rise: 0.46, pitch: 1.05, drop: 0.26 };
 /** A socket's half width and half height, in tiles. */
 export const SOCKET_HALF_W = 0.36;
 export const SOCKET_HALF_H = 0.16;
@@ -69,14 +70,15 @@ export const PLATE_HALF_H = 0.1;
 const WIND_RISE = 0.3;
 /**
  * The frame's pad round its sockets, in tiles: beyond the outer columns'
- * plates, and above its top row's and below its bottom row's. A record so
- * VERSUS can offer a roomier frame (`scuttle:seat`).
+ * sockets, and above its top row's and below its bottom row's — wide enough
+ * that a lobe (`scuttle-seat-lobed.ts`) sits inside the slab's arch with rock
+ * round it.
  */
 export interface ScuttleFrame {
   padX: number;
   padY: number;
 }
-export const SCUTTLE_FRAME: ScuttleFrame = { padX: 0.1, padY: 0.08 };
+export const SCUTTLE_FRAME: ScuttleFrame = { padX: 0.8, padY: 0.36 };
 
 /**
  * How far the frame stands above row 0 at its highest, in tiles: its top row,
