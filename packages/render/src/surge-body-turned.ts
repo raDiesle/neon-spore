@@ -1,6 +1,6 @@
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE, STROKE } from "../../../../../packages/render/src/palette.js";
-import type { EvertDraw } from "../../../../../packages/render/src/surge-body.js";
+import { rgba } from "./hex.js";
+import { PALETTE, STROKE } from "./palette.js";
+import type { EvertDraw } from "./surge-body.js";
 
 /** The ribs that come through the seam, one after another over the eversion. */
 const RIBS = 5;

@@ -2547,13 +2547,16 @@ by hand never moves.
 | `packages/render/src/surge-fx.ts` | What THE SURGE leaves behind a frame: the row the bulb sinks through after a vent |
 | `packages/render/src/surge-flesh.ts` | **What THE SURGE is made of**: a sac of membrane blown tight |
 | `packages/render/src/surge-gauge.ts` | **THE SURGE's seam**: the dark line round the bulb's equator, and the gauge read along it by seat (§11.28) |
+| `packages/render/src/surge-gauge-gape.ts` | How far each lip stands off the seam at the burst, as a share of the half-height |
 | `packages/render/src/surge-grip.ts` | **THE SURGE's one handle, taken by both seats**: the bulb itself |
 | `packages/render/src/surge-shape.ts` | **Where THE SURGE is**, in field pixels: the bulb's centre, its two radii, its outline |
 | `packages/render/src/surge-sway.ts` | **THE SURGE rocks where it hangs** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/surge-spray.ts` | THE SURGE's burst, past its first instant: what the bulb throws across the ship when the pressure goes over |
+| `packages/render/src/surge-spray-splatter.ts` | How many gobs the bulb throws |
 | `packages/render/src/surge-word.ts` | **What THE SURGE is asking of one thumb**, and the three silences beside the one that shipped |
 | `packages/render/src/surge-marks.ts` | **THE SURGE's two grip marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/surge-body.ts` | **THE SURGE's body**, and the eversion that turns it out |
+| `packages/render/src/surge-body-turned.ts` | The ribs that come through the seam, one after another over the eversion |
 | `packages/render/src/solid-ball.ts` | A ROUND PART OF A RIG — a head, a knuckle, an eye, a nest — lit once and stamped |
 | `packages/render/src/solid-haze.ts` | DEPTH ACROSS A RIG: what makes the far wing read as further than the near one when both are the same size on… |
 | `packages/render/src/solid-motion.ts` | MOTION THAT A RIG HAS WITHOUT BEING TOLD: the always-on life of a body, as pure functions of time |

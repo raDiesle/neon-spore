@@ -3,6 +3,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { paintGapingSeam } from "./surge-gauge-gape.js";
 import { type Point, surgePressure01, surgeSeamEnds, surgeSeamX } from "./surge-shape.js";
 import { showsSurgeNotches, showsSurgePressure } from "./view-role-clocks.js";
 
@@ -89,13 +90,15 @@ export function drawSurgeSeam(d: SeamDraw): void {
  * **The seam line, as a record** — a candidate patches it (`surge:seam` in
  * VERSUS, 8 October 2026). The design asks for the seam to part wider the
  * more the bulb is charged (bosses-choreographed.md §9); what ships is one
- * line on both screens, with the pressure a mark along it on hers alone.
+ * line on both screens, with the pressure a mark along it on hers alone —
+ * and on hers the line is parted into a gape by the charge
+ * (`surge-gauge-gape.ts`, taken from VERSUS on 9 October 2026).
  */
 export interface SeamLook {
   draw(d: SeamDraw): void;
 }
 
-export const SEAM_LOOK: SeamLook = { draw: drawSurgeSeam };
+export const SEAM_LOOK: SeamLook = { draw: paintGapingSeam };
 
 /** Where notch `k` sits on the gauge: the sim's own arithmetic, asked with
  * `k` as the count open, so the picture never re-derives the ladder. */

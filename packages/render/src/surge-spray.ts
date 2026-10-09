@@ -1,4 +1,5 @@
 import type { Layout } from "./layout.js";
+import { paintSplatter } from "./surge-spray-splatter.js";
 
 /**
  * THE SURGE's burst, past its first instant: what the bulb throws across the
@@ -6,10 +7,9 @@ import type { Layout } from "./layout.js";
  *
  * The design has a burst spray the whole ship; the game has three gums down
  * the bulb's own columns, a puff of sparks and the jolt (`surge-fx.ts`). This
- * is the record a spray would be drawn through, and the game draws nothing
- * through it — it was lifted out on 8 October 2026 so the spray could be
- * offered in VERSUS (`surge:spray`) without the field changing until the
- * owner chooses. `SurgeFx` keeps the clock and calls it every frame of the
+ * is the record the spray is drawn through — lifted out on 8 October 2026 so
+ * it could be offered in VERSUS (`surge:spray`), and SPLATTER taken on
+ * 9 October 2026 (`surge-spray-splatter.ts`). `SurgeFx` keeps the clock and calls it every frame of the
  * `SPRAY_BEATS` after a burst; the clock is cleared in `Effects.reset()` with
  * the rest of the boss's.
  */
@@ -32,5 +32,5 @@ export interface SprayLook {
   draw: (d: SprayDraw) => void;
 }
 
-/** What the game draws after a burst beyond the sparks and the jolt: nothing. */
-export const SPRAY_LOOK: SprayLook = { draw: () => {} };
+/** What the game draws after a burst beyond the sparks and the jolt: the splatter. */
+export const SPRAY_LOOK: SprayLook = { draw: paintSplatter };

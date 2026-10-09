@@ -1,8 +1,8 @@
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE, STROKE } from "../../../../../packages/render/src/palette.js";
-import { drawSurgeSeam, type SeamDraw } from "../../../../../packages/render/src/surge-gauge.js";
-import { surgeSeamEnds } from "../../../../../packages/render/src/surge-shape.js";
-import { showsSurgePressure } from "../../../../../packages/render/src/view-role-clocks.js";
+import { rgba } from "./hex.js";
+import { PALETTE, STROKE } from "./palette.js";
+import { drawSurgeSeam, type SeamDraw } from "./surge-gauge.js";
+import { surgeSeamEnds } from "./surge-shape.js";
+import { showsSurgePressure } from "./view-role-clocks.js";
 
 /** How far each lip stands off the seam at the burst, as a share of the
  * half-height. Opened by the square root of the pressure, so the first

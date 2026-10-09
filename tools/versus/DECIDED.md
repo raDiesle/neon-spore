@@ -1594,3 +1594,45 @@ SinewCarry, held by SinewFx and cleared in reset(); the SINEW_WEIGHT record is
 gone
 
 The other answer offered was `heavy`; it went with the slot.
+
+## `surge:spray` / `splatter` — taken, 2026-10-09
+
+The owner looked at it on the VERSUS page and said it looks cool, and that an
+addition belongs straight in the game (9 October 2026).
+
+splatter — the burst throws gobs of the bulb across the whole field, wall to
+wall, and they land on the hull as splats that sag and fade
+
+`SPRAY_LOOK.draw` is `paintSplatter`, moved from
+`tools/versus/candidates/surge-spray/splatter/paint.ts` to
+`packages/render/src/surge-spray-splatter.ts`.
+
+It was the only answer offered.
+
+## `surge:seam` / `gape` — taken, 2026-10-09
+
+The owner looked at it on the VERSUS page and said they like it more than the
+shipped seam (9 October 2026).
+
+gape — on the navigator's screen the seam parts into a lit mouth as wide as
+the pressure is high; the pilot's line stays shut
+
+`SEAM_LOOK.draw` is `paintGapingSeam`, moved from
+`tools/versus/candidates/surge-seam/gape/paint.ts` to
+`packages/render/src/surge-gauge-gape.ts`.
+
+It was the only answer offered.
+
+## `surge:evert` / `turned` — taken, 2026-10-09
+
+The owner looked at it on the VERSUS page and said they like it more than the
+shipped fold (9 October 2026).
+
+turned — the inside rolls out of the seam and back over the bulb like a sock
+turned out, a lip at the seam and the ribs coming through one at a time
+
+`EVERT_LOOK.draw` is `paintTurnedEversion`, moved from
+`tools/versus/candidates/surge-evert/turned/paint.ts` to
+`packages/render/src/surge-body-turned.ts`.
+
+It was the only answer offered.

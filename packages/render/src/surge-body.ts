@@ -2,6 +2,7 @@ import { type SimConfig, type SurgeState, surgeHoldsCharge } from "@neon-spore/s
 import { drawHurt } from "./boss-hurt.js";
 import { mixHex, rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
+import { paintTurnedEversion } from "./surge-body-turned.js";
 import { paintSac } from "./surge-flesh.js";
 import { type Point, surgeBulbPath } from "./surge-shape.js";
 
@@ -9,7 +10,7 @@ import { type Point, surgeBulbPath } from "./surge-shape.js";
  * **THE SURGE's body**, and the eversion that turns it out — split from
  * `surge-draw.ts` on 8 October 2026 so the eversion could be a record a
  * candidate patches (`surge:evert` in VERSUS) without that file passing its
- * line ceiling.
+ * line ceiling. The owner took TURNED on 9 October 2026 (`surge-body-turned.ts`).
  */
 
 /** Everything the body is drawn from but the world: where, how big, and how lit. */
@@ -52,17 +53,17 @@ export function surgeFoldedRy(tile: number, ry: number, evert: number): number {
 }
 
 /**
- * **The eversion, as a record.** What ships folds the outline through its
- * equator — flat at the half and drawn pale past it; the design asked for the
- * bulb turned inside out through its seam, rib by rib (bosses-choreographed.md
- * §9, step 14), and a candidate offers that.
+ * **The eversion, as a record.** What ships is the bulb turned inside out
+ * through its seam, rib by rib (bosses-choreographed.md §9, step 14;
+ * `surge-body-turned.ts`, taken from VERSUS on 9 October 2026). It replaced a
+ * fold of the outline through its equator, flat at the half and pale past it.
  */
 export interface EvertLook {
   draw(d: EvertDraw): void;
 }
 
 export const EVERT_LOOK: EvertLook = {
-  draw: (d) => d.body(surgeFoldedRy(d.tile, d.ry, d.evert), Math.cos(d.evert * Math.PI) < 0),
+  draw: paintTurnedEversion,
 };
 
 /**

@@ -17,9 +17,6 @@ import { LEAD_CRAGS } from "./lead-walls/crags/index.js";
 import { LEDGER_PLATED } from "./ledger-back/plated/index.js";
 import { LEDGER_LIT } from "./ledger-nerves/lit/index.js";
 import { SCUTTLE_LOBED } from "./scuttle-seat/lobed/index.js";
-import { SURGE_TURNED } from "./surge-evert/turned/index.js";
-import { SURGE_GAPE } from "./surge-seam/gape/index.js";
-import { SURGE_SPLATTER } from "./surge-spray/splatter/index.js";
 
 export const VARIANTS: Variant[] = [
   INSTAR_COCK,
@@ -33,7 +30,4 @@ export const VARIANTS: Variant[] = [
   LEDGER_PLATED,
   LEDGER_LIT,
   SCUTTLE_LOBED,
-  SURGE_TURNED,
-  SURGE_GAPE,
-  SURGE_SPLATTER,
 ];

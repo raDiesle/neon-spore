@@ -36,9 +36,6 @@ import { POSE_GROUPS } from "./poses.js";
 const SLOT_POSE: Record<string, string> = {
   "ledger:nerves": "THE LEDGER · BILLED",
   "ledger:back": "THE LEDGER · PAYING",
-  "surge:seam": "THE SURGE · BAND",
-  "surge:evert": "THE SURGE · EVERTING",
-  "surge:spray": "THE SURGE · BURST",
   "lead:lean": "THE LEAD · RUNNING",
   "lead:walls": "THE LEAD · PASSING",
   "lead:drop": "THE LEAD · DROPPING",

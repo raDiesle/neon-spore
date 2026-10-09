@@ -1,7 +1,7 @@
-import { sinHash } from "../../../../../packages/render/src/hash.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import type { SprayDraw } from "../../../../../packages/render/src/surge-spray.js";
+import { sinHash } from "./hash.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
+import type { SprayDraw } from "./surge-spray.js";
 
 /** How many gobs the bulb throws. */
 const GOBS = 26;
