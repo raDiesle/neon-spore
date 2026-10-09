@@ -37001,3 +37001,17 @@ Bottleneck: the headroom under the pills is read off a picture by eye —
 nothing states it in tiles.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE MAZE, THE WARDEN and THE BATON ring the thing to hit
+
+- reading: 10 min. Each reading's `FIRE`, the part it names, and how that
+  part is sized when drawn; THE MIRROR turned out to have no shot word.
+- writing: 10 min. An `aim` off the door's gap, the eye at its widest and
+  the bead or its socket, and `shows` off the heart, the lip and the bead.
+- looking: 20 min. Both seats' bots fire the instant a shot is wanted, so
+  `--auto p1` to leave hers standing; each ring widened once after a crop.
+- friction: 5 min. Two renders taken where no `FIRE` stood.
+- landing: 5 min. `check:fast`, `queue done`, the commit, `land`.
+
+Bottleneck: looking — a `FIRE` lives zero ticks under `--auto both`, and
+only leaving her seat to nobody kept one on screen.

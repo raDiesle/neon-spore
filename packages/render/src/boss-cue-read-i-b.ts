@@ -7,7 +7,7 @@ import {
   batonMayStrip,
   type World,
 } from "@neon-spore/sim";
-import { beadPoint } from "./baton-bead-draw.js";
+import { beadAimR, beadPoint } from "./baton-bead-draw.js";
 import { socketPoint } from "./baton-socket-draw.js";
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
@@ -78,7 +78,9 @@ export function batonPassingCues(l: Layout, world: World, b: BatonState): readon
   if (flying !== null) {
     if (!batonLocked(b, 2, world.beat)) {
       const { x, y } = beadPoint(l, cfg, b, flying, world.tick);
-      out.push(markAt(2, "PRESS", "FIRE", x, y, l, 45 + flying.socket));
+      const aim = { x, y, r: beadAimR(l, b, flying) };
+      const shows = flying.color;
+      out.push({ ...markAt(2, "PRESS", "FIRE", x, y, l, 45 + flying.socket), aim, shows });
     }
   }
   // `TAP` on the sitting bead for whichever seat is free to send it — both

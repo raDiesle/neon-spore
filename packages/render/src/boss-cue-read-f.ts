@@ -1,6 +1,8 @@
 import {
   type WardenState,
   type World,
+  wardenColor,
+  wardenCycle,
   wardenEyeOpen,
   wardenHandleMilli,
   wardenHatchMilli,
@@ -29,6 +31,9 @@ import { wardenGripCircle } from "./warden-grip.js";
  * records the owner ending. What the picture does *not* say is what happens
  * after the grab, and that is the whole of this page.
  */
+
+/** How far the open hatch's flaps stand out past the open eye, in its radius (`warden-eye.ts`). */
+const HATCH_FLAPS = 1.2;
 
 /**
  * THE WARDEN. One hand that must not let go and one shot through what it
@@ -81,7 +86,12 @@ export function wardenCues(
   const pose = body && wardenPose(l, world.cfg, body, world.beat, beatPhase);
   if (open && body !== undefined && pose !== undefined) {
     const eye = wardenPosed(pose, wardenEyeCircle(l, body, b, wardenHatchMilli(world, b) / 1000));
-    out.push(markAt(2, "PRESS", "FIRE", eye.x, eye.y, l, 69));
+    // Round the eye at its widest and the hatch flaps folded back beside it,
+    // so the ring never closes on the open door (`aim-ember.ts`).
+    const aim = { x: eye.x, y: eye.y, r: wardenEyeCircle(l, body, b, 1).r * HATCH_FLAPS };
+    // The lip says the colour on both screens (`warden.ts`), so its button is the one lit.
+    const shows = wardenColor(wardenCycle(world.cfg, world.waveBeat));
+    out.push({ ...markAt(2, "PRESS", "FIRE", eye.x, eye.y, l, 69), aim, shows });
   } else if (body !== undefined && pose !== undefined) {
     const eye = wardenPosed(pose, wardenGripCircle(l, body, b));
     if (asks === "hold" && !b.eyeHeld && wardenTether(world) !== null) {

@@ -7,7 +7,7 @@ import {
   batonMergeSocket,
   type World,
 } from "@neon-spore/sim";
-import { beadPoint } from "./baton-bead-draw.js";
+import { beadAimR, beadPoint } from "./baton-bead-draw.js";
 import { socketPoint, socketRoomBelow } from "./baton-socket-draw.js";
 import type { BossCue } from "./boss-cue.js";
 import { cueFrame } from "./boss-cue-frame.js";
@@ -122,7 +122,10 @@ function crossing(l: Layout, world: World, b: BatonState): readonly BossCue[] {
   if (batonLocked(b, seat, world.beat)) return [];
   const { x, y } = beadPoint(l, world.cfg, b, bead, world.tick);
   const cue = markAt(seat, "PRESS", seat === 1 ? "TAP" : "FIRE", x, y, l, 84 + seat);
-  return [seat === 1 ? { ...cue, why: "TO SEND IT DOWN" } : cue];
+  if (seat === 1) return [{ ...cue, why: "TO SEND IT DOWN" }];
+  // Round the whole bead as it is drawn, not the word's frame (`aim-ember.ts`).
+  // The bead wears its colour on both screens (`baton-bead-draw.ts`).
+  return [{ ...cue, aim: { x, y, r: beadAimR(l, b, bead) }, shows: bead.color }];
 }
 
 /**

@@ -10,6 +10,7 @@ import {
 } from "@neon-spore/sim";
 import { paintDrop } from "./baton-drop.js";
 import { batonThrown, drawThrow, throwPoint } from "./baton-knock.js";
+import { socketReach } from "./baton-socket-draw.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { tileCX } from "./layout.js";
@@ -52,6 +53,24 @@ const PUPIL_FILL = "#0B0614";
 
 /** The merged bead's size against one. */
 const MERGED = 1.3;
+
+/** A bead's size against one: the twin is smaller, the merged one bigger. */
+function beadSize(b: BatonState, bead: BatonBead): number {
+  const twin = b.beads.length > 1 && bead !== batonLead(b, bead.arm);
+  const merged = b.merged && b.beads.length === 1;
+  return twin ? TWIN : merged ? MERGED : 1;
+}
+
+/**
+ * **How far round a bead a shot's mark stands**: the bead at its biggest —
+ * its pulse and wobble out — or the socket it sits in or passes, whichever is
+ * wider, so the ring is round both and across neither (`aim-ember.ts`; the
+ * owner, 9 October 2026: *the crosshair on screen must be around the graphic
+ * of the thing to hit - wider is better if unclear*).
+ */
+export function beadAimR(l: Layout, b: BatonState, bead: BatonBead): number {
+  return Math.max(l.tile * BEAD_R * beadSize(b, bead) * 1.12 * 1.15, socketReach(l));
+}
 
 /**
  * Where a bead is on this tick, bow and all.
@@ -117,7 +136,7 @@ export function drawBead(
   // was running. Struck, it burns: the navigator's turn is spent and the
   // landing is owed.
   const pulse = flying ? 0 : (1 - beatPhase) * (1 - beatPhase);
-  const size = twin ? TWIN : merged ? MERGED : 1;
+  const size = beadSize(b, bead);
   const r = l.tile * BEAD_R * size * (1 + 0.12 * pulse);
   const thrown = batonThrown(cfg, bead, tick);
   if (thrown !== null)

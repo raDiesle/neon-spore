@@ -101,6 +101,18 @@ export function mazeDoorMouth(
   return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
 }
 
+/** How far a way in reaches from its middle: half its gap, for a shot's mark to stand round. */
+export function mazeDoorHalf(
+  l: Layout,
+  cfg: SimConfig,
+  m: MazeState,
+  wheel: MazeWheel,
+  way: number,
+): number {
+  const { a, b } = doorEdges(l, cfg, m, wheel, way);
+  return Math.hypot(a.x - b.x, a.y - b.y) / 2;
+}
+
 type Point = { x: number; y: number };
 
 /**

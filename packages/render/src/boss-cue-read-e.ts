@@ -2,13 +2,14 @@ import {
   type MazeState,
   type MirrorState,
   mazeCurrent,
+  mazeHeartColor,
   mirrorGesture,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
 import { type Layout, tileCX } from "./layout.js";
-import { mazeDoorMouth } from "./maze-door.js";
+import { mazeDoorHalf, mazeDoorMouth } from "./maze-door.js";
 import { mazeStringHandle } from "./maze-string.js";
 import { mazeDrum } from "./maze-walls.js";
 import { mirrorHullY } from "./mirror.js";
@@ -75,6 +76,9 @@ export function mirrorCues(l: Layout, world: World, m: MirrorState): readonly Bo
   return [markAt(null, "PRESS", "REPEAT", tileCX(l, m.cannonCol), y, l, 62)];
 }
 
+/** How far the doorway's light leans out past its cut ends, in its half-gap (`maze-door.ts`). */
+const DOOR_LIGHT = 1.45;
+
 /**
  * THE MAZE. Two verbs, one per seat, and the round is nothing but which of
  * them is wanted now — so the cue is read off the lock and never off the
@@ -137,7 +141,12 @@ export function mazeCues(l: Layout, world: World, m: MazeState): readonly BossCu
   }
 
   const mouth = mazeDoorMouth(l, world.cfg, m, wheel, m.lockedWay);
-  out.push(markAt(2, "PRESS", "FIRE", mouth.x, mouth.y, l, 67));
+  // Round the whole lit doorway — its two cut ends and the light leaning out
+  // of it — and not the word's frame (`aim-ember.ts`).
+  const aim = { ...mouth, r: mazeDoorHalf(l, world.cfg, m, wheel, m.lockedWay) * DOOR_LIGHT };
+  // The heart beats its colour in the drum on both screens (`maze-heart.ts`).
+  const shows = mazeHeartColor(m.round);
+  out.push({ ...markAt(2, "PRESS", "FIRE", mouth.x, mouth.y, l, 67), aim, shows });
   return out;
 }
 
