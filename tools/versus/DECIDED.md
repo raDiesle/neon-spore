@@ -1679,3 +1679,16 @@ with a hook curling back into the field where the body turns
 `packages/render/src/lead-rock-crags.ts`.
 
 It was the only answer offered.
+
+## `instar:glance` / `cock`, `sway` and `look` — taken by hand, 2026-10-09
+
+the owner, 9 October 2026: the results of INSTAR:GLANCE look all really cool
+... apply all three across the levels for more variety; and later, the cock
+variant looks the best
+
+Taken by hand because `adopt` takes one answer and the owner took all three:
+`INSTAR_GLANCE` reads `glanceAt` (`packages/render/src/instar-glance-styles.ts`),
+a six-second round each of COCK, SWAY and LOOK in turn, COCK first, every
+round beginning and ending at the middle of the swing with the head level so
+one hands over to the next without a jump. The three candidates' rounds were
+redrawn to share that middle; their sizes are the candidates'.

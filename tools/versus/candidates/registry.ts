@@ -6,9 +6,6 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { INSTAR_COCK } from "./instar-glance/cock/index.js";
-import { INSTAR_LOOK } from "./instar-glance/look/index.js";
-import { INSTAR_SWAY } from "./instar-glance/sway/index.js";
 import { INSTAR_PENDULUM } from "./instar-tail/pendulum/index.js";
 import { INSTAR_STATIONS } from "./instar-tail/stations/index.js";
 import { LEDGER_PLATED } from "./ledger-back/plated/index.js";
@@ -16,9 +13,6 @@ import { LEDGER_LIT } from "./ledger-nerves/lit/index.js";
 import { SCUTTLE_LOBED } from "./scuttle-seat/lobed/index.js";
 
 export const VARIANTS: Variant[] = [
-  INSTAR_COCK,
-  INSTAR_LOOK,
-  INSTAR_SWAY,
   INSTAR_PENDULUM,
   INSTAR_STATIONS,
   LEDGER_PLATED,

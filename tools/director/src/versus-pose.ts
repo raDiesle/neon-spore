@@ -37,7 +37,6 @@ const SLOT_POSE: Record<string, string> = {
   "ledger:nerves": "THE LEDGER · BILLED",
   "ledger:back": "THE LEDGER · PAYING",
   "scuttle:seat": "THE SCUTTLE · SWUNG",
-  "instar:glance": "INSTAR · CROUCHED",
   "instar:tail": "INSTAR · PERCHED",
 };
 

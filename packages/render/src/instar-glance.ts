@@ -1,3 +1,6 @@
+import { glanceAt } from "./instar-glance-styles.js";
+import { bodyLife } from "./motion-life.js";
+
 /**
  * **Where THE INSTAR's face-on head and resting tail are looking**, as two
  * records so VERSUS can offer a head that turns and a tail that wanders
@@ -6,9 +9,11 @@
  * side so it is not so static. and the tail could switch to move from right
  * to middle and left*.
  *
- * Shipped, both are still: the head keeps the third-of-the-way turn
- * `instar-turn.ts` gives it, and the tail rests up and to the right of the
- * rear (`instar-tail.ts`).
+ * The head glances (taken 9 October 2026): on top of the third-of-the-way
+ * turn `instar-turn.ts` gives it, it does a round each of COCK, SWAY and LOOK
+ * in turn (`instar-glance-styles.ts`), halved on a device asking for less
+ * motion (`bodyLife`). The tail still rests up and to the right of the rear
+ * (`instar-tail.ts`).
  */
 
 export interface Glance {
@@ -19,8 +24,8 @@ export interface Glance {
 }
 
 export const INSTAR_GLANCE: Glance = {
-  swing: () => 0,
-  roll: () => 0,
+  swing: (time) => glanceAt(time).swing * bodyLife(),
+  roll: (time) => glanceAt(time).roll * bodyLife(),
 };
 
 export interface TailRest {

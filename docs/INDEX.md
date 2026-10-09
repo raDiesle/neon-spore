@@ -1918,6 +1918,7 @@ by hand never moves.
 | `packages/render/src/instar-front-body.ts` | **THE INSTAR's body face-on, as a tube of the rig**: the long body seen from its head end |
 | `packages/render/src/instar-glyphs.ts` | **The gesture, drawn inside the ring** — one glyph per member of `INSTAR_GESTURES` |
 | `packages/render/src/instar-glance.ts` | **Where THE INSTAR's face-on head and resting tail are looking** |
+| `packages/render/src/instar-glance-styles.ts` | **THE INSTAR's three glances, taken in turn** — the owner, 9 October 2026, on VERSUS `instar:glance` |
 | `packages/render/src/instar-marks.ts` | **THE INSTAR's marks: the only control on the screen.** A red ring on the part the script wants moved |
 | `packages/render/src/instar-mark-grip.ts` | THE INSTAR's marks under a thumb — the hit test alone |
 | `packages/render/src/instar-poses.ts` | **THE INSTAR's poses**, one `Figure` each: the dragon as it comes in, the three the script names |

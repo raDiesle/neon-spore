@@ -201,6 +201,12 @@ seconds, the length the pair replays its pose over; the glance is judged on
 `INSTAR · CROUCHED` (face-on), the tail on `INSTAR · PERCHED` (side-on, where
 the tail is in the frame).
 
+**Built (9 October 2026), the glance.** The owner took all three — *apply
+all three across the levels for more variety* — and liked COCK best. The
+head does a six-second round each of COCK, SWAY and LOOK in turn, COCK
+first (`packages/render/src/instar-glance-styles.ts`). The tail's slot is
+still open.
+
 ### How far it reaches, by kind of body
 
 - **A body on the rig** (`packages/render/src/solid-rig.ts`) takes all four

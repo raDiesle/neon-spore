@@ -207,5 +207,7 @@ pinned to a part, hold the points the marks sit on and turn what is between
 them, as THE INSTAR's head holds its two eyes (`instar-turn.ts`).
 
 He asked for THE INSTAR's on VERSUS by name (`instar:glance`,
-`instar:tail`); for a part still today on any other boss the rule above
-stands — it goes straight into the game.
+`instar:tail`), and took all three head glances — *all really cool* — to
+run in turn for variety (`instar-glance-styles.ts`). That is the worked
+example; how to build one for any boss is `.claude/skills/depth`, "A part
+that glances".

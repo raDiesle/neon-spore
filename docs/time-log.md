@@ -36883,3 +36883,16 @@ Bottleneck: looking — a tear blended additively made a third colour, white,
 that only a still at the change showed.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE INSTAR's head glances in the game, and the recipe in the depth skill
+
+- reading: 5 min. The three candidates' rounds, `DECIDED.md`'s by-hand
+  entries, `new-boss-more` §6.3.
+- writing: 15 min. `instar-glance-styles.ts` with the three rounds made to
+  chain, the record, the test, the depth skill's "A part that glances" and
+  §6.3's correction.
+- looking: 0 min. The owner had looked at all three on VERSUS.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, two commits, `land`.
+
+Bottleneck: writing — `adopt` takes one answer, so three taken at once was by hand.
