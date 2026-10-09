@@ -36638,3 +36638,19 @@ Bottleneck: looking — a side view of a disc only reads once the skull,
 the neck and the throat agree, and each took a strip to see.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE LAMPREY's meal on rows of its own, and no jump onto its first tile
+
+- reading: 10 min. The roam, the step's landing, the pose and the spine, and
+  a probe of the opening beat by beat.
+- writing: 15 min. `lamprey-meal.ts`, the morsel's row, beat and speed, the
+  `away` phase and event taken out of nine files, the trail kept through a
+  landing, the settle in the pose and the spine, two tests.
+- looking: 10 min. Three rounds of `bun run frames` strips of the arrival:
+  the body folded short, then the tail snapped round, then smooth.
+- friction: 0 min.
+- landing: 5 min. The autopilot's count of the meal, the index row, the
+  test's own timeout, `check:fast`, the commit, `land`.
+
+Bottleneck: looking — blending the body point by point read fine in a test
+and folded it short in a frame; only the strip showed it.

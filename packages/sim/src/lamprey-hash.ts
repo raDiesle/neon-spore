@@ -54,7 +54,9 @@ export function lampreyHashParts(s: LampreyState): number[] {
     ...s.slipped.map((d) => (d ? 1 : 0)),
     s.meal.length,
   ];
-  for (const m of s.meal) out.push(LAMPREY_FOODS.indexOf(m.kind) + 1, m.col);
+  for (const m of s.meal) {
+    out.push(LAMPREY_FOODS.indexOf(m.kind) + 1, m.col, m.row ?? -1, m.beat ?? -1, m.tiles ?? -1);
+  }
   out.push(s.steps.length);
   for (const step of s.steps) {
     out.push(LAMPREY_ASKS.indexOf(step.ask) + 1);

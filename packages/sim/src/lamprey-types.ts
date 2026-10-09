@@ -19,14 +19,13 @@ export const LAMPREY_TAIL_END = 4;
 
 /**
  * Where the scene is: crawling in from the side, eating its meal, crawling
- * out of the picture and back, crawling the field between levels, bitten into
+ * the field to a tile and between levels, bitten into
  * a tile, leaping to the next, reared on a tile with the gullet lit,
  * recoiling from a hit, and limp, falling away, spent.
  */
 export const LAMPREY_PHASES = [
   "entering",
   "feeding",
-  "away",
   "roam",
   "bite",
   "leap",
@@ -44,10 +43,16 @@ export type LampreyAsk = (typeof LAMPREY_ASKS)[number];
 export const LAMPREY_FOODS = ["meteor", "slick", "bulb"] as const;
 export type LampreyFood = (typeof LAMPREY_FOODS)[number];
 
-/** One thing dropped for it to eat as it arrives: what, and in which column. */
+/** One thing dropped for it to eat as it arrives: what, and in which column (`lamprey-meal.ts`). */
 export interface LampreyMorsel {
   kind: LampreyFood;
   col: number;
+  /** The row the head waits for it on; `lampreyFeedRow` when left out. */
+  row?: number;
+  /** The beat of the meal it falls on, counted from the head's arrival; the first when left out. */
+  beat?: number;
+  /** Tiles a beat the head goes after it; `lampreyLungeTiles` when left out. */
+  tiles?: number;
 }
 
 /** One stay of the script, authored on the wave. */
@@ -114,7 +119,7 @@ export interface LampreyState {
   trailRow: number[];
   /** `world.beat` the head last moved a tile. */
   headBeat: number;
-  /** The leg of a crawl it is on, or of the way out and back. */
+  /** The leg of a crawl it is on, or the morsel of its meal it is after. */
   leg: number;
   /** Which way across the field this crawl goes first: 1 to the right, -1 to the left. */
   roamSide: number;

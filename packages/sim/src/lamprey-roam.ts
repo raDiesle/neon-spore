@@ -14,11 +14,11 @@ import type { World } from "./world.js";
 
 /**
  * **THE LAMPREY as a worm on the field** (the owner, 6 October 2026): it
- * crawls in from the side and eats the meal that falls for it — two rocks, a
- * slick and two bulbs in the shipped wave — crawls out of the picture and
- * back in to its first tile, and before a step that says `crawl` it crawls
- * the field from side to side instead of leaping, eating what the step drops
- * for it and letting go of dung for the shield.
+ * crawls in from the side and eats the meal that falls for it
+ * (`lamprey-meal.ts`), crawls straight on to its first tile, and before a
+ * step that says `crawl` it crawls the field from side to side instead of
+ * leaping, eating what the step drops for it and letting go of dung for the
+ * shield.
  *
  * **The head is the simulation's** — the eel's own `col` and `row` while it
  * crawls, a tile a beat (`lampreyCrawlTiles`) and two while it goes for food
@@ -32,13 +32,13 @@ import type { World } from "./world.js";
  */
 
 /** The three kinds it eats, and the rocks of every speed. */
-function edible(s: LampreyState, c: Creature): boolean {
+export function lampreyEdible(s: LampreyState, c: Creature): boolean {
   if (s.dung.includes(c.id)) return false;
   return c.kind === "slick" || c.kind === "bulb" || isMeteorKind(c.kind);
 }
 
 /** The column clamped onto the field. */
-function onField(world: World, col: number): number {
+export function lampreyOnField(world: World, col: number): number {
   return Math.max(0, Math.min(world.cfg.cols - 1, col));
 }
 
@@ -71,25 +71,28 @@ export function lampreyHeadTo(
 }
 
 /** A body dropped from the top of the field in `col`. */
-function drop(world: World, kind: LampreyFood, col: number): Creature | null {
+export function lampreyDrop(world: World, kind: LampreyFood, col: number): Creature | null {
   const color = isMeteorKind(kind) ? null : livingKindForColor("red") === kind ? "red" : "cyan";
-  spawnOne(world, { beat: world.beat, col: onField(world, col), kind, color });
+  spawnOne(world, { beat: world.beat, col: lampreyOnField(world, col), kind, color });
   return world.creatures.at(-1) ?? null;
 }
 
 /** Food dropped for the head to go after. */
 function serve(world: World, s: LampreyState, kind: LampreyFood, col: number): void {
-  const c = drop(world, kind, col);
+  const c = lampreyDrop(world, kind, col);
   if (c === null) return;
   s.prey = c.id;
   world.events.push({ type: "lampreyFeed", food: kind, col: c.col });
 }
 
 /** Every edible body within a tile of the head, eaten. */
-function eat(world: World, s: LampreyState): void {
+export function lampreyEat(world: World, s: LampreyState): void {
   const near = world.creatures.filter(
     (c) =>
-      edible(s, c) && Math.abs(c.col - s.col) <= 1 && Math.abs(c.row - s.row) <= 1 && c.row >= 0,
+      lampreyEdible(s, c) &&
+      Math.abs(c.col - s.col) <= 1 &&
+      Math.abs(c.row - s.row) <= 1 &&
+      c.row >= 0,
   );
   for (const c of near) {
     removeCreature(world, c.id);
@@ -111,7 +114,7 @@ function hunt(world: World, s: LampreyState): boolean {
   }
   const row = c.row < s.row ? s.row : c.row + 1;
   lampreyHeadTo(world, s, c.col, row, world.cfg.lampreyLungeTiles);
-  eat(world, s);
+  lampreyEat(world, s);
   return true;
 }
 
@@ -121,46 +124,10 @@ export function lampreySweepDung(world: World, s: LampreyState): void {
 }
 
 /** Into a phase of the crawl, from this beat. */
-function into(world: World, s: LampreyState, phase: LampreyState["phase"]): void {
+export function lampreyInto(world: World, s: LampreyState, phase: LampreyState["phase"]): void {
   s.phase = phase;
   s.phaseBeat = world.beat;
   s.leg = 0;
-}
-
-/** Crawling in from the side to where it feeds. */
-export function lampreyEntering(world: World, s: LampreyState): void {
-  const cfg = world.cfg;
-  const first = onField(world, s.meal[0]?.col ?? midCol(cfg));
-  if (lampreyHeadTo(world, s, first, cfg.lampreyFeedRow, cfg.lampreyCrawlTiles)) {
-    into(world, s, "feeding");
-  }
-}
-
-/** Its meal, one morsel at a time, each dropped once the last is gone; then out of the picture. */
-export function lampreyFeeding(world: World, s: LampreyState): void {
-  if (hunt(world, s)) return;
-  const morsel = s.meal[s.served];
-  if (morsel === undefined) {
-    into(world, s, "away");
-    return;
-  }
-  s.served += 1;
-  serve(world, s, morsel.kind, morsel.col);
-  hunt(world, s);
-}
-
-/** Out of the picture by the nearer side, and back in after `lampreyAwayBeats`, true as it turns. */
-export function lampreyAway(world: World, s: LampreyState): boolean {
-  const cfg = world.cfg;
-  if (s.leg === 0) {
-    const out = lampreyOutside(world, s.col);
-    if (!lampreyHeadTo(world, s, out, cfg.lampreyHighRow, cfg.lampreyCrawlTiles)) return false;
-    s.leg = 1;
-    s.phaseBeat = world.beat;
-    world.events.push({ type: "lampreyAway", col: onField(world, out) });
-    return false;
-  }
-  return world.beat - s.phaseBeat >= cfg.lampreyAwayBeats;
 }
 
 /**
@@ -169,10 +136,10 @@ export function lampreyAway(world: World, s: LampreyState): boolean {
  * stay's tile.
  */
 export function lampreyRoams(world: World, s: LampreyState, leg = 0): void {
-  into(world, s, "roam");
+  lampreyInto(world, s, "roam");
   s.leg = leg;
   s.roamSide = s.col < midCol(world.cfg) ? 1 : -1;
-  world.events.push({ type: "lampreyRoam", col: onField(world, s.col) });
+  world.events.push({ type: "lampreyRoam", col: lampreyOnField(world, s.col) });
   const food = lampreyStep(s)?.food;
   if (food !== undefined && leg === 0) {
     serve(world, s, food, s.col + s.roamSide * world.cfg.lampreyFoodCols);
@@ -196,7 +163,7 @@ export function lampreyRoaming(world: World, s: LampreyState): boolean {
   if (hunt(world, s)) return false;
   const to = lampreyLegEnd(world, s);
   const there = lampreyHeadTo(world, s, to.col, to.row, world.cfg.lampreyCrawlTiles);
-  eat(world, s);
+  lampreyEat(world, s);
   if (!there) return false;
   if (s.leg === 0 && lampreyStep(s)?.dung === true) dropDung(world, s);
   s.leg += 1;
@@ -213,7 +180,7 @@ function dropDung(world: World, s: LampreyState): void {
   const cfg = world.cfg;
   const end = s.trailCol[Math.min(LAMPREY_TAIL_END, s.trailCol.length - 1)] ?? s.col;
   const col = Math.max(cfg.lampreyEdgeCols, Math.min(cfg.cols - 1 - cfg.lampreyEdgeCols, end));
-  const c = drop(world, "meteor", col);
+  const c = lampreyDrop(world, "meteor", col);
   if (c === null) return;
   c.row = Math.max(0, Math.min(hullRow(world.cfg) - 1, s.row + 1));
   c.fromRow = c.row;

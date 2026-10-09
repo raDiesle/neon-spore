@@ -613,7 +613,6 @@ const SAMPLES: Record<string, SimEvent> = {
   lampreyEnter: { type: "lampreyEnter", col: 2 },
   lampreyFeed: { type: "lampreyFeed", col: 3, food: "slick" },
   lampreyEat: { type: "lampreyEat", col: 3, food: "slick", row: 3 },
-  lampreyAway: { type: "lampreyAway", col: 0 },
   lampreyRoam: { type: "lampreyRoam", col: 0 },
   lampreyDung: { type: "lampreyDung", col: 9, row: 5 },
   lampreyTap: { type: "lampreyTap", col: 2, side: 1, tooth: 0, taps: 1 },
@@ -789,11 +788,10 @@ describe("bindings", () => {
   // THE SLING's spent yoke cooling the same beat: `slingSnap` is heard.
   // (THE STARE's `stareAgain` was one until 2 October
   // 2026, when its levels stopped starting over.) THE LAMPREY's food
-  // falling, its crawl out of the picture and its crawl across the field are
+  // falling and its crawl across the field are
   // silent: the crawl is seen, and the bodies falling have their own sounds.
   const SILENT_BY_DESIGN = new Set([
     "lampreyFeed",
-    "lampreyAway",
     "lampreyRoam",
     "needWave",
     "choirMerge",

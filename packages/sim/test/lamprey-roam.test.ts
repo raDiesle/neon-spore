@@ -24,8 +24,9 @@ import { slowing } from "../src/slow.js";
 
 /**
  * THE LAMPREY as a worm on the field (the owner, 6 October 2026,
- * `sim/lamprey-roam.ts`): it crawls in and eats a meal of two rocks, a slick
- * and two bulbs, crawls out of the picture and back to its first stay, and
+ * `sim/lamprey-roam.ts`): it crawls in and eats a meal that falls for it, each
+ * morsel caught on its own row, on its own beat and at its own speed
+ * (`sim/lamprey-meal.ts`, the owner, 9 October 2026), crawls straight on to its first stay, and
  * before a step that says `crawl` crawls the field from side to side, eating
  * what the step drops and letting go of dung the shield must turn; a tooth
  * takes the step's taps; and no leap lands where the mouth or the tail would
@@ -39,11 +40,10 @@ const PULL: LampreyStep = { ask: "pull", holder: 1, teeth: 0, jump: 1, beats: 12
 const SECOND: LampreyStep = { ...PULL, holder: 2, jump: 2, crawl: true, food: "bulb", dung: true };
 
 const MEAL: readonly LampreyMorsel[] = [
-  { kind: "meteor", col: 3 },
-  { kind: "meteor", col: 7 },
-  { kind: "slick", col: 5 },
-  { kind: "bulb", col: 2 },
-  { kind: "bulb", col: 8 },
+  { kind: "meteor", col: 3, row: 4, beat: 0, tiles: 1 },
+  { kind: "slick", col: 8, row: 8, beat: 2, tiles: 2 },
+  { kind: "bulb", col: 2, row: 3, beat: 7, tiles: 3 },
+  { kind: "meteor", col: 6, row: 6, beat: 9, tiles: 2 },
 ];
 
 function install(steps: readonly LampreyStep[] = [PULL, SECOND], seed = 0): World {
@@ -108,18 +108,29 @@ const count = (seen: string[], type: string) => seen.filter((t) => t === type).l
 const biting = (w: World) => eel(w).phase === "bite";
 
 describe("THE LAMPREY arrives hungry", () => {
-  it("eats two rocks, a slick and two bulbs, crawls out of the picture and back to its first stay", () => {
+  it("eats its meal on rows and beats of its own and crawls straight on to its first stay", () => {
     const world = install();
-    const heads: number[] = [];
     const first = { col: eel(world).nextCol, row: eel(world).nextRow };
+    const heads: { col: number; row: number; phase: string }[] = [];
+    const ate: number[] = [];
     const seen = runUntil(world, (w) => {
-      heads.push(eel(w).col);
+      const s = eel(w);
+      heads.push({ col: s.col, row: s.row, phase: s.phase });
+      for (const e of w.events) if (e.type === "lampreyEat") ate.push(w.beat);
       return biting(w);
     });
-    expect([count(seen, "lampreyFeed"), count(seen, "lampreyEat")]).toEqual([5, 5]);
-    expect(seen.indexOf("lampreyAway")).toBeGreaterThan(seen.lastIndexOf("lampreyEat"));
-    expect(seen).toContain("lampreyRoam");
-    expect(Math.min(...heads) < 0 || Math.max(...heads) > CFG.cols - 1).toBe(true);
+    expect([count(seen, "lampreyFeed"), count(seen, "lampreyEat")]).toEqual([4, 4]);
+    expect(seen.indexOf("lampreyRoam")).toBeGreaterThan(seen.lastIndexOf("lampreyEat"));
+    // Up and down the field as well as across it, and never out of it once in.
+    const fed = heads.filter((h) => h.phase !== "entering");
+    expect(new Set(fed.map((h) => h.row)).size).toBeGreaterThan(3);
+    for (const h of fed) expect(h.col >= 0 && h.col <= CFG.cols - 1).toBe(true);
+    // Not one gap between bites the same as the next.
+    const gaps = ate.slice(1).map((b, i) => b - (ate[i] ?? b));
+    expect(new Set(gaps).size).toBe(gaps.length);
+    // Faster than one tile a beat somewhere in the meal.
+    const steps = fed.slice(1).map((h, i) => Math.abs(h.col - (fed[i]?.col ?? h.col)));
+    expect(Math.max(...steps)).toBeGreaterThan(1);
     expect({ col: eel(world).col, row: eel(world).row }).toEqual(first);
     expect(world.creatures).toHaveLength(0);
     expect(seen).not.toContain("breach");

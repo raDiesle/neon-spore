@@ -12,21 +12,14 @@ import {
   lampreyToothIn,
 } from "./lamprey.js";
 import { lampreyLeapTo, lampreyTailFor, lampreyTileIndex } from "./lamprey-leap.js";
-import {
-  lampreyAway,
-  lampreyEntering,
-  lampreyFeeding,
-  lampreyOutside,
-  lampreyRoaming,
-  lampreyRoams,
-  lampreySweepDung,
-} from "./lamprey-roam.js";
+import { lampreyEntering, lampreyFeeding } from "./lamprey-meal.js";
+import { lampreyOutside, lampreyRoaming, lampreyRoams, lampreySweepDung } from "./lamprey-roam.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
- * THE LAMPREY's clock, once a beat: the worm crawling in, feeding, out and
- * back and across the field (`lamprey-roam.ts`), landing on a tile, a stay's
+ * THE LAMPREY's clock, once a beat: the worm crawling in, feeding
+ * (`lamprey-meal.ts`) and across the field (`lamprey-roam.ts`), landing on a tile, a stay's
  * window running out, the leap to the next tile, the recoil from a hit, and
  * falling away spent.
  *
@@ -41,9 +34,9 @@ import type { World } from "./world.js";
  */
 
 /**
- * In from off the field's side nearer its meal, at the row it feeds on, the
- * first stay's tile drawn now — a leap of its `jump` from the top middle — so
- * the crawl back in after the meal knows where it ends.
+ * In from off the field's side nearer its meal, at the row it waits for the
+ * first morsel on, the first stay's tile drawn now — a leap of its `jump`
+ * from the top middle — so the crawl on after the meal knows where it ends.
  */
 export function installLamprey(
   world: World,
@@ -53,7 +46,8 @@ export function installLamprey(
   const cfg = world.cfg;
   const top = { col: midCol(cfg), row: cfg.lampreyRowTop };
   const side = lampreyOutside(world, meal[0]?.col ?? 0);
-  const s = freshLamprey(world.beat, { col: side, row: cfg.lampreyFeedRow }, top, steps, meal);
+  const row = meal[0]?.row ?? cfg.lampreyFeedRow;
+  const s = freshLamprey(world.beat, { col: side, row }, top, steps, meal);
   const first = lampreyLeapTo(world, s, top, steps[0]?.jump ?? 1, -1);
   s.nextCol = first.col;
   s.nextRow = first.row;
@@ -74,9 +68,7 @@ export function stepLamprey(world: World, s: LampreyState): void {
   }
   if (s.phase === "entering") lampreyEntering(world, s);
   else if (s.phase === "feeding") lampreyFeeding(world, s);
-  else if (s.phase === "away") {
-    if (lampreyAway(world, s)) lampreyRoams(world, s, 2);
-  } else if (s.phase === "roam") {
+  else if (s.phase === "roam") {
     if (lampreyRoaming(world, s)) land(world, s);
   } else if (s.phase === "leap" && since >= cfg.lampreyLeapBeats) land(world, s);
   else if (s.phase === "recoil" && since >= cfg.lampreyRecoilBeats) leapOn(world, s);
@@ -89,6 +81,10 @@ export function stepLamprey(world: World, s: LampreyState): void {
 /**
  * Down on the tile it leapt to: a bite under THE SLOW, or the gullet reared
  * and lit — and the next tile drawn now, so the tail can lie away from it.
+ * **A crawl's trail is kept** until it sets off again (`leapOn`), so the
+ * picture can carry the head over its last tile and swing the body off the
+ * trail onto the way the tail lies, rather than jump (the owner, 9 October
+ * 2026: *fluent movement where it was before and where it stops*).
  */
 function land(world: World, s: LampreyState): void {
   const step = lampreyStep(s);
@@ -108,8 +104,6 @@ function land(world: World, s: LampreyState): void {
   s.phaseBeat = world.beat;
   s.pulled = [];
   s.toothTaps = 0;
-  s.trailCol = [];
-  s.trailRow = [];
   s.tailDown = [false, false];
   s.tailMilli = [0, 0];
   s.headMilli = [0, 0];
@@ -220,6 +214,8 @@ function leapOn(world: World, s: LampreyState): void {
     return;
   }
   s.toothTaps = 0;
+  s.trailCol = [];
+  s.trailRow = [];
   if (step.crawl === true) {
     lampreyRoams(world, s, 0);
     return;

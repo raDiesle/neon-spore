@@ -1,4 +1,5 @@
 import { LAMPREY_TEETH } from "@neon-spore/sim";
+import { swung } from "./lamprey-settle.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -62,6 +63,14 @@ export interface LampreyPose {
    * screen: the body is laid along them instead of along `lean`.
    */
   trail?: readonly Point[];
+  /**
+   * Stopped on a tile it crawled to, how far the body has swung off `trail`
+   * onto `lean`: 0 still along the trail, 1 laid along `lean` — and the turn
+   * that takes, radians on the screen, decided once so the swing never
+   * changes its mind about which way round it goes.
+   */
+  settle?: number;
+  settleTurn?: number;
 }
 
 /**
@@ -70,7 +79,14 @@ export interface LampreyPose {
  * the head and a crawl ripples away from the mouth.
  */
 export function lampreySpine(l: Layout, p: LampreyPose): Point[] {
-  if (p.trail !== undefined && p.trail.length > 0) return trailSpine(l, p, p.trail);
+  if (p.trail === undefined || p.trail.length === 0) return leanSpine(l, p);
+  const along = trailSpine(l, p, p.trail);
+  const k = p.settle ?? 0;
+  return k <= 0 ? along : swung(along, leanSpine(l, p), k, p.settleTurn ?? 0);
+}
+
+/** The spine laid along `lean` from the back of the mouth, bending as the wave runs down it. */
+function leanSpine(l: Layout, p: LampreyPose): Point[] {
   const seg = (LENGTH * l.tile) / SPINE;
   // The neck leaves the back of the mouth on the side the body lies.
   const neck = p.r * 0.6;

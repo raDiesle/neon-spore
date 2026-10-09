@@ -26,7 +26,6 @@ export const SILENT_BOSS_E = [
   "lampreyOut",
   "lampreyFeed",
   "lampreyEat",
-  "lampreyAway",
   "lampreyRoam",
   "lampreyDung",
   "lampreyTap",

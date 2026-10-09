@@ -10460,7 +10460,7 @@ authors the jumps rising within a level: "every level increases the number
 of tile distance".
 
 **The clock** (`sim/lamprey-step.ts`) runs on the beat: the eel crawls in,
-eats its meal, crawls out of the picture and back to its first tile (*The
+eats its meal, crawls on to its first tile (*The
 worm on the field*, below) and lands; each stay opens THE SLOW for its beats
 (`openSlow(…, "ask")`) and bites the tile (`lampreyBite`) or, for a gullet,
 rears lit in its colour (`lampreyRear`). A stay won closes THE SLOW and the
@@ -10485,19 +10485,31 @@ columns running off the field either side, with the places it has been
 for food.
 
 - **It arrives hungry.** It crawls in from `lampreyOutCols` off the side
-  nearer its meal to `lampreyFeedRow` (`entering`, `lampreyEnter`), and the
-  wave's `meal` falls for it one morsel at a time (`feeding`, `lampreyFeed`):
-  the shipped wave's is two rocks, a slick and two bulbs. Its head goes under
-  each and eats it (`lampreyEat`) — a body off the field through
-  `removeCreature`. **The picture is a bite from the side** (the owner,
+  nearer its meal to the row it waits for the first morsel on (`entering`,
+  `lampreyEnter`), and the wave's `meal` falls for it (`feeding`,
+  `lampreyFeed`, `sim/lamprey-meal.ts`): the shipped wave's is two rocks, a
+  slick and a bulb. **Each morsel says where and when** (the owner,
+  9 October 2026): its column, the `row` the head waits for it on
+  (`lampreyFeedRow` left out), the `beat` of the meal it falls on, and the
+  `tiles` a beat the head goes after it (`lampreyLungeTiles` left out) — so
+  one may still be falling as the next drops, the head swims up and down the
+  field as well as across, and the bites come at uneven gaps. The head goes
+  after the lowest body of the meal, waits under it on its row and eats it
+  (`lampreyEat`) — a body off the field through `removeCreature`. **The picture is a bite from the side** (the owner,
   9 October 2026, `render/lamprey-chomp.ts`, `render/lamprey-jaws.ts`): as
   what it hunts falls near, the round sucker turns edge-on toward it and
   folds forward into two fanged jaws; the body eaten is carried into the
   middle of the mouth, the jaws snap shut on it, chew twice and spill its
   crumbs out of the seam, and the head turns back to the sucker.
-- **It crawls out of the picture and back** (`away`, `lampreyAway`): off the
-  nearer side along `lampreyHighRow`, `lampreyAwayBeats` there, then straight
-  in to the first stay's tile, drawn at install (`roam`, `lampreyRoam`).
+- **Fed, it crawls straight on to the first stay's tile**, drawn at install
+  (`roam`, `lampreyRoam`). It used to crawl out of the picture and back first;
+  the owner cut that on 9 October 2026, with a morsel of the meal, to shorten
+  the opening from 37 beats to 23. **It stops where it was going**: the
+  crawl's trail is kept on the tile until it sets off again, and the picture
+  carries the head over its last tile and swings the body off the trail onto
+  the way the tail lies over `SETTLE` beats, turning at its full length
+  rather than folding across the mouth (`render/lamprey-pose.ts`,
+  `render/lamprey-settle.ts`).
 - **Levels of three to five leaps, a crawl between them.** A step that says
   `crawl` is not leapt to: the eel crawls across to the far side along
   `lampreyHighRow`, back along `lampreyLowRow`, and onto the step's tile. A
@@ -10564,8 +10576,10 @@ from one seed. AUTO (`hands/src/boss-hands-lamprey.ts`) plays it through
 without a snap, a slip or a scar, its meal and both crawls' food eaten and
 both pieces of dung turned on the shield
 (`tools/director/test/autopilot-lamprey.test.ts`). `sim/test/lamprey-roam.test.ts`
-proves the worm: the meal eaten, out of the picture and back to a first
-stay under THE SLOW; the crawl to both sides with its food eaten and its
+proves the worm: the meal eaten on rows and at gaps and speeds of its own,
+never off the field, and straight on to a first stay under THE SLOW;
+`render/test/lamprey-arrive.test.ts` that neither the mouth nor the tail's
+tip moves more than a third of a tile in a tick from the meal into the bite; the crawl to both sides with its food eaten and its
 dung turned, and the hull when it is not; a tooth's taps, started again by
 a wrong one; and over thirty seeds no tile at the edge and no tail, pulled
 out, off the field.

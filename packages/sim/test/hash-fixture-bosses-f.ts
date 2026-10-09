@@ -53,11 +53,12 @@ export const BOSS_ENTRIES_F = {
   },
   // A teeth and a gullet, the holders apart, and the first step's colour,
   // taps, crawl, food and dung all set off what is left out, for the walk
-  // only changes element 0; a meal of two (`lamprey-hash.ts`).
+  // only changes element 0; a meal of two, the first with its row, beat and
+  // speed set (`lamprey-hash.ts`).
   lamprey: {
     kind: "lamprey",
     meal: [
-      { kind: "slick", col: 3 },
+      { kind: "slick", col: 3, row: 5, beat: 2, tiles: 3 },
       { kind: "meteor", col: 6 },
     ],
     steps: [

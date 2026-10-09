@@ -44,7 +44,7 @@ import type { World } from "./world.js";
  *
  * **Before the first stay and between levels it is a worm on the field**
  * (the owner, 6 October 2026, `lamprey-roam.ts`): it crawls in and eats the
- * meal that falls for it, crawls out of the picture and back, and before a
+ * meal that falls for it (`lamprey-meal.ts`), crawls on to its first tile, and before a
  * step that says `crawl` it crawls the field from side to side instead of
  * leaping — eating what falls and dropping dung for the shield.
  *
@@ -145,11 +145,9 @@ export function lampreyTailPull(s: LampreyState): number {
   return holder === null ? 0 : (s.tailMilli[holder - 1] ?? 0);
 }
 
-/** Whether it is a worm on the field: crawling in, eating its meal, out and back, or between levels. */
+/** Whether it is a worm on the field: crawling in, eating its meal, or crawling to a tile. */
 export function lampreyCrawling(s: LampreyState): boolean {
-  return (
-    s.phase === "entering" || s.phase === "feeding" || s.phase === "away" || s.phase === "roam"
-  );
+  return s.phase === "entering" || s.phase === "feeding" || s.phase === "roam";
 }
 
 /** Taps a lit tooth wants in the stay on: the step's `taps`, one when it says none. */

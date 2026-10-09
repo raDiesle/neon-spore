@@ -15,8 +15,10 @@ import type { Wave } from "../wave-types.js";
  *
  * **It arrives hungry and crawls between levels** (the owner, 6 October
  * 2026, `sim/lamprey-roam.ts`): it crawls in and eats two rocks, a slick and
- * two bulbs as they fall, crawls out of the picture and back, and then
- * leaps through three levels of three, four and five stays, every leap in a
+ * a bulb as they fall — each caught on its own row, the gaps between them
+ * uneven and the head after them at one, two or three tiles a beat (the
+ * owner, 9 October 2026, `sim/lamprey-meal.ts`) — crawls straight on to its
+ * first tile, and then leaps through three levels of three, four and five stays, every leap in a
  * level a tile longer than the last and each level ended on a gullet. Before
  * the second and third it crawls the field side to side like a worm, eats
  * what falls for it and drops dung the shield has to turn. A lit tooth takes
@@ -71,11 +73,10 @@ export const WAVES_ACT_14: Wave[] = [
     boss: {
       kind: "lamprey",
       meal: [
-        { kind: "meteor", col: 3 },
-        { kind: "meteor", col: 7 },
-        { kind: "slick", col: 5 },
-        { kind: "bulb", col: 2 },
-        { kind: "bulb", col: 8 },
+        { kind: "meteor", col: 3, row: 4, beat: 0, tiles: 1 },
+        { kind: "slick", col: 8, row: 8, beat: 2, tiles: 2 },
+        { kind: "bulb", col: 2, row: 3, beat: 7, tiles: 3 },
+        { kind: "meteor", col: 6, row: 6, beat: 9, tiles: 2 },
       ],
       steps: [
         { ask: "pull", holder: 1, teeth: 0, jump: 1, beats: 12, color: "either" },

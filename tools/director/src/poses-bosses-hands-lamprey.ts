@@ -31,14 +31,8 @@ export const LAMPREY_POSES = [
   bossPose(
     "lamprey",
     "feeding",
-    "Food falls and the eel's head goes up to eat it; crumbs where it bit. P1 and P2 watch it eat.",
+    "Food falls and the eel swims up or down to the row it waits on to eat it; crumbs where it bit. P1 and P2 watch it eat.",
     { want: (w) => lampreyBoss(w)?.phase === "feeding" && lampreyBoss(w)?.prey !== -1 },
-  ),
-  bossPose(
-    "lamprey",
-    "away",
-    "Fed, the eel crawls out of the picture by the side. P1 and P2 wait for it to come back.",
-    { want: (w) => lampreyBoss(w)?.phase === "away" && lampreyBoss(w)?.leg === 1 },
   ),
   bossPose(
     "lamprey",

@@ -9,6 +9,7 @@ import {
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { fieldX } from "./field-flip.js";
+import { wrap } from "./lamprey-settle.js";
 import { type LampreyPose, MOUTH } from "./lamprey-shape.js";
 import { type Layout, tileCY } from "./layout.js";
 import { phaseInto } from "./phase-into.js";
@@ -38,6 +39,8 @@ const TILT_LEAP = 0.75;
 const CURVE = 0.35;
 /** How much of a beat a landing takes, the mouth settling into the tile. */
 const LAND = 0.4;
+/** Beats the body takes to swing off a crawl's trail onto the way its tail lies, stopped on a tile. */
+const SETTLE = 2;
 /**
  * How far the tail sweeps either side of the way it lies while the head
  * stays on a tile, and the beats a sweep there and back takes: half a turn
@@ -98,12 +101,12 @@ export function lampreyPose(
     const lift = (lampreyHeadPull(s) * l.tile) / 1000;
     const free = lampreyAsks(s) !== "apart" && !lampreyTailHeld(s);
     const lean = tailLean(l, s) + (free ? sweep(beat, beatPhase) * land : 0);
-    return { ...base, x: here.x, y: here.y - lift, tilt, lean };
+    return crawledTo(l, s, into, { ...base, x: here.x, y: here.y - lift, tilt, lean });
   }
   if (s.phase === "rearing") {
     const sway = Math.sin(wave * 0.5) * 0.15 * l.tile;
     const lean = tailLean(l, s) + sweep(beat, beatPhase);
-    return { ...base, x: here.x + sway, y: here.y, tilt: 1, lean };
+    return crawledTo(l, s, into, { ...base, x: here.x + sway, y: here.y, tilt: 1, lean });
   }
   if (s.phase === "recoil") {
     const k = Math.min(1, into / Math.max(1, cfg.lampreyRecoilBeats));
@@ -138,4 +141,29 @@ function crawlPose(
     here.x === prev.x && here.y === prev.y ? Math.PI : leanTo(prev.x - here.x, prev.y - here.y);
   const trail = s.trailCol.map((col, i) => at(l, col, s.trailRow[i] ?? s.row));
   return { ...base, x, y, tilt: TILT_LEAP, lean: back, curve: CURVE * 1.5, trail };
+}
+
+/**
+ * A tile reached by crawling rather than leaping, for the first `SETTLE`
+ * beats on it: the head carried over its last tile in the beat it arrives,
+ * as the crawl was carrying it, and the body swung off the trail onto the
+ * way the tail lies — so the worm stops where it was going instead of
+ * jumping there (the owner, 9 October 2026). The simulation keeps the trail
+ * until the eel sets off again.
+ */
+function crawledTo(l: Layout, s: LampreyState, into: number, pose: LampreyPose): LampreyPose {
+  if (s.trailCol.length === 0 || into >= SETTLE) return pose;
+  const trail = s.trailCol.map((col, i) => at(l, col, s.trailRow[i] ?? s.row));
+  const prev = trail[0] ?? pose;
+  const k = s.headBeat === s.phaseBeat && into < 1 ? smoothstep(into) : 1;
+  const x = lerp(prev.x, pose.x, k);
+  const y = lerp(prev.y, pose.y, k);
+  // The turn, off the tile and the trail's far end and the way the tail is to
+  // lie — none of which moves while it settles — the shorter way round.
+  const here = at(l, s.col, s.row);
+  const end = trail.at(-1) ?? prev;
+  const from = Math.atan2(end.y - here.y, end.x - here.x);
+  const to = tailLean(l, s) - Math.PI / 2;
+  const settleTurn = wrap(to - from);
+  return { ...pose, x, y, trail, settle: smoothstep(into / SETTLE), settleTurn };
 }

@@ -60,8 +60,8 @@ describe.each(CHARGES)("AUTO on THE LAMPREY, %s", (_charge, cfg) => {
     expect(cracks).toEqual([0, 1, 0, 1]);
     expect(loose).toBe(9);
     expect(hits).toEqual([1, 2, 3]);
-    // The meal of five and the food of both crawls; the dung turned, not eaten.
-    expect([eaten, dung]).toEqual([7, 2]);
+    // The meal of four and the food of both crawls; the dung turned, not eaten.
+    expect([eaten, dung]).toEqual([6, 2]);
     expect(wrong).toEqual([]);
     expect(world.scars).toEqual([]);
     expect(out).toBe(true);

@@ -21,7 +21,7 @@ export function isLampreyEvent(e: SimEvent): e is LampreySimEvent {
  * **The worm on the field has no new sound** (6 October 2026): a body eaten
  * is the bite's chomp, high; a tap that has not cracked the tooth yet is the
  * crack, low and rising with the taps; dung is the bite letting go, low. Food
- * falling, out of the picture and the crawl across are silent — the crawl is
+ * falling and the crawl across are silent — the crawl is
  * seen, and the bodies falling have their own sounds.
  */
 export function lampreyCue(e: LampreySimEvent, cols: number): Cue | null {
@@ -30,7 +30,6 @@ export function lampreyCue(e: LampreySimEvent, cols: number): Cue | null {
     case "lampreyEnter":
       return { id: "boss.lampreyEnter", pan };
     case "lampreyFeed":
-    case "lampreyAway":
     case "lampreyRoam":
       return null;
     case "lampreyEat":

@@ -8,12 +8,10 @@
  * wave's, authored on its entry.
  */
 export interface LampreyConfig {
-  /** How far off the field's side it crawls in from and out to, in columns. */
+  /** How far off the field's side it crawls in from, in columns. */
   lampreyOutCols: number;
-  /** The row its head eats its meal on as it arrives. */
+  /** The row its head waits for a morsel of its meal on, where the morsel says none. */
   lampreyFeedRow: number;
-  /** Beats it stays out of the picture before it crawls back in. */
-  lampreyAwayBeats: number;
   /** The rows a crawl crosses the field along: out on the high one, back on the low one. */
   lampreyHighRow: number;
   lampreyLowRow: number;
@@ -45,7 +43,6 @@ export interface LampreyConfig {
 export const LAMPREY_DEFAULTS: LampreyConfig = {
   lampreyOutCols: 3,
   lampreyFeedRow: 3,
-  lampreyAwayBeats: 2,
   lampreyHighRow: 4,
   lampreyLowRow: 8,
   lampreyCrawlTiles: 1,

@@ -79,7 +79,6 @@ export const CHOREO_FIELD_GROUP_D = {
   // are pulled (`config-lamprey.ts`).
   lampreyOutCols: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreyFeedRow: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
-  lampreyAwayBeats: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreyHighRow: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreyLowRow: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreyCrawlTiles: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",

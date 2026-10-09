@@ -637,10 +637,11 @@ by hand never moves.
 | `packages/sim/src/lamprey-hand.ts` | THE LAMPREY's three handles: the tail, the head and the teeth, heard on the tick |
 | `packages/sim/src/lamprey-hash.ts` | What THE LAMPREY puts into `hashWorld`, and nothing else |
 | `packages/sim/src/lamprey-shot.ts` | **THE LAMPREY's shot**: the lit gullet |
-| `packages/sim/src/lamprey-step.ts` | THE LAMPREY's clock, once a beat: the worm crawling in, feeding |
+| `packages/sim/src/lamprey-step.ts` | THE LAMPREY's clock, once a beat: the worm crawling in |
 | `packages/sim/src/lamprey-leap.ts` | **Where THE LAMPREY leaps to**: a tile `jump` away from where it is |
 | `packages/sim/src/lamprey-roam.ts` | **THE LAMPREY as a worm on the field** (the owner, 6 October 2026) |
 | `packages/sim/src/lamprey-types.ts` | THE LAMPREY's shapes: the script a wave authors and the state the simulation keeps (`lamprey.ts` for what… |
+| `packages/sim/src/lamprey-meal.ts` | **THE LAMPREY's meal**, as it arrives: it crawls in from the side and eats what falls for it |
 | `packages/sim/src/lamprey.ts` | THE LAMPREY: an eel that leaps from tile to tile across the field and bites into each one |
 | `packages/sim/src/latch-hand.ts` | THE LATCH's hands: two grips on the one tendril, `latchGripLeft` and `latchGripRight`, each pulled **down** |
 | `packages/sim/src/latch-hash.ts` | What THE LATCH puts into `hashWorld`, and nothing else |
@@ -2251,6 +2252,7 @@ by hand never moves.
 | `packages/render/src/lamprey-pose.ts` | **The clock THE LAMPREY is posed off** (§41, *Animation*), six poses: crawling as a worm |
 | `packages/render/src/lamprey-shape.ts` | **THE LAMPREY's shape** (§41, *The look*): two drafts combined, named on the shape sheet |
 | `packages/render/src/lamprey-skin.ts` | **THE LAMPREY's skin**: what makes the olive tube read as an eel |
+| `packages/render/src/lamprey-settle.ts` | **THE LAMPREY settling onto a tile it crawled to** (the owner, 9 October 2026 |
 | `packages/render/src/lamprey-verdicts.ts` | **THE LAMPREY's marks answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
 | `packages/render/src/lamprey-grip.ts` | **THE LAMPREY's hands**: the pinner's thumb on the jaw, following it, and the tapper's tap on the nearest tooth |
 | `packages/render/src/lamprey-gills.ts` | **THE LAMPREY's gills and eyes**: a row of seven pores down each flank behind the head |

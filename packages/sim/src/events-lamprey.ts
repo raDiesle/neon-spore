@@ -22,8 +22,6 @@ export type LampreyEvent =
   | ({ type: "lampreyFeed"; food: LampreyFood } & LampreyColEvent)
   /** It ate a body off the field at `col` and `row`, and leaves crumbs there. */
   | ({ type: "lampreyEat"; food: CreatureKind; row: number } & LampreyColEvent)
-  /** It has crawled out of the picture, off the side by `col`. */
-  | ({ type: "lampreyAway" } & LampreyColEvent)
   /** It sets off crawling across the field toward its next stay. */
   | ({ type: "lampreyRoam" } & LampreyColEvent)
   /** It let go of dung, a rock for the shield, at `col` and `row`. */
