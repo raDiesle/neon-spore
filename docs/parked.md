@@ -59,6 +59,7 @@ on.
 ## THE BLISTER, lane 5: SWIPE, half built
 
 - **Found:** 2026-10-08, claude/task-queue-work-e99d1a
+- **Taken:** 2026-10-09, claude/queue-tasks-d82b1f (claim: claude/queue-the-blister-lane-5-swipe-half-built)
 - **Files:** `packages/sim/src/blister-swipe.ts`, `packages/render/src/blister-help.ts`, `tools/director/src/entry-fields-blister.ts`, `tools/director/test/on-field-controls.test.ts`
 
 The simulation and the hand are in; the owner archived the session before the
