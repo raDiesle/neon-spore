@@ -383,3 +383,10 @@ The same as THE VANE's entry above, for THE GOVERNOR, THE SEAM, THE LAMPREY, THE
 - **Files:** `tools/director/src/field-focus.ts`, `tools/director/test/field-focus.test.ts`, `tools/director/src/poses-field-controls.ts`
 
 CONTROLS › ON THE FIELD cuts each use card to the box its control answers a press in, by sweeping the posed world through `deskDown` (`controlRect`). Seven rows find nothing — SNAKE'S JAWS, PINBALL'S PLUNGER, THE FLEET'S WRECK, THE GAUGE'S BAND, THE LEAD'S STALK, THE BATON'S STRIP, THE QUEEN'S MARKS — so their cards keep the pose's own crop. On each pose's tick the sweep meets other holds (THE GAUGE a `held` valve, THE FLEET only `fleetRake`, the rest the cannon, shield and prime), never the row's `DragTarget`. For each: find whether the pose catches the moment after the control (move the pose a tick where it is pressable, or add a second pose for the card) or whether the hit test answers it through a path `holdsRow` does not read; take it off `UNFOUND` in the test, which goes red on a listed row that is found.
+
+## TRY IT records a take into stills, for the 22 rows AUTO does not play
+
+- **Found:** 2026-10-09, claude/controls-documentation-redesign-0e3a85
+- **Files:** `tools/director/src/field-try.ts`, `tools/director/src/field-stills-art.ts`, `tools/director/test/field-stills.test.ts`
+
+A card's ▤ STILLS on CONTROLS › ON THE FIELD are six moments — a beat before the press, the press, halfway, the lift, one and three beats after — found by playing the pose with AUTO's hand (`stillTicks`). AUTO plays no creature and reaches only what its boss needs, so 22 rows (`NOT_PLAYED` in the test: THE GUM, PINBALL, THE BALLOON, THE LEDGER, THE CHOIR …) say "play it with ▶ TRY IT" and drop out of ▤ COMPARE ALL USES. Let TRY IT keep the frames of a human take — the window's cut, small, in a ring of the last few seconds — and on the lift plus three beats assemble the same six stills from the mouse's own press and lift, kept for the page's session, so the comparison can show them beside AUTO's.

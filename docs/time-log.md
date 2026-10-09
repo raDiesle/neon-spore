@@ -37100,3 +37100,13 @@ Bottleneck: reading — the stage's touch binding had to be reused as is, so its
 Bottleneck: writing — the outline is drawn in three places at three scales, and each had to be placed by the same arithmetic.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — ON THE FIELD: stills before, under and after the press, and every use compared
+
+- reading: 5 min. The stage's AUTO and its finger painter.
+- writing: 20 min. The moments (`field-stills.ts`), the strip drawn tick by tick, the comparison view, the card and type buttons, a test.
+- looking: 10 min. THE VALVE's strip and TURN A WHEEL's comparison in the preview.
+- friction: 5 min. A probe script on a timer read the page before the strip had drawn.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — a strip is a run, not a frame, so it had to fill in without stopping the page.

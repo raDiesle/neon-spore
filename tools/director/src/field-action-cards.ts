@@ -5,11 +5,13 @@ import { cardArea, focusArt } from "./field-focus-art.js";
 import { lookOf } from "./field-looks.js";
 import { ROW_NOTES } from "./field-notes.js";
 import { GESTURE_NOTES } from "./field-notes-gestures.js";
+import { stillsStrip } from "./field-stills-art.js";
+import { compareStills, type StillsUse } from "./field-stills-compare.js";
 import { LEAST_TARGET, narrowest } from "./field-touch-paint.js";
 import { openTry } from "./field-try.js";
 import { GESTURES } from "./gesture-catalogue.js";
 import { card, text } from "./gestures-page.js";
-import { zoomable } from "./picture-zoom.js";
+import { openZoom, type ZoomView, zoomable } from "./picture-zoom.js";
 import { poseNamed } from "./poses.js";
 
 /**
@@ -68,19 +70,28 @@ function useCard(user: string, rows: readonly FieldControlDef[]): HTMLElement {
     const pose = poseNamed(name);
     const own = rows.filter((r) => r.pose === name);
     const title = `${user} · ${own.map((r) => r.name).join(" · ")}`;
+    const views: ZoomView[] = [
+      { label: "THE CONTROL", draw: (w, h) => focusArt(pose, own, w, h) },
+      { label: "TOUCH AREA", draw: (w, h) => focusArt(pose, own, w, h, "touch") },
+      { label: "WHOLE PHONE", draw: (w, h) => focusArt(pose, own, w, h, "whole") },
+      {
+        label: "STILLS",
+        draw: (w, h) => stillsStrip(pose, own, Math.floor(w / 3) - 8, (h - 60) / 2),
+      },
+    ];
     const shot = document.createElement("div");
-    shot.appendChild(
-      zoomable(focusArt(pose, own, SHOT_WIDTH, SHOT_CAP), title, [
-        { label: "THE CONTROL", draw: (w, h) => focusArt(pose, own, w, h) },
-        { label: "TOUCH AREA", draw: (w, h) => focusArt(pose, own, w, h, "touch") },
-        { label: "WHOLE PHONE", draw: (w, h) => focusArt(pose, own, w, h, "whole") },
-      ]),
-    );
-    shot.appendChild(touchLine(cardArea(pose, own)));
-    // The same frame, live and under the mouse (`field-try.ts`).
+    shot.appendChild(zoomable(focusArt(pose, own, SHOT_WIDTH, SHOT_CAP), title, views));
+    // The same frame, live and under the mouse (`field-try.ts`), and its
+    // moments before, under and after AUTO's thumb (`field-stills-art.ts`).
     const play = text("button", "▶ TRY IT", "field-try");
     play.addEventListener("click", () => openTry(title, pose, own));
-    shot.appendChild(play);
+    const stills = text("button", "▤ STILLS", "field-try");
+    stills.addEventListener("click", () => openZoom(title, views, views.length - 1));
+    const buttons = document.createElement("div");
+    buttons.className = "field-try-row";
+    buttons.append(play, stills);
+    shot.appendChild(touchLine(cardArea(pose, own)));
+    shot.appendChild(buttons);
     shots.appendChild(shot);
   }
   card.appendChild(shots);
@@ -130,6 +141,23 @@ export const placedGestures = (a: FieldAction): string[] => [
   ...a.types.flatMap((t) => t.gestures ?? []),
 ];
 
+/** A type's uses as the comparison lists them: one per enemy or boss wave
+ * and picture, in the cards' own order. */
+function stillsUses(t: ControlType, byName: ReadonlyMap<string, FieldControlDef>): StillsUse[] {
+  return [...usersOf(t.rows)]
+    .sort((a, b) => bare(a).localeCompare(bare(b)))
+    .flatMap((user) => {
+      const rows = t.rows
+        .filter((name) => userOf(name) === user)
+        .flatMap((name) => byName.get(name) ?? []);
+      return [...new Set(rows.map((r) => r.pose))].map((pose) => ({
+        user,
+        pose: poseNamed(pose),
+        rows: rows.filter((r) => r.pose === pose),
+      }));
+    });
+}
+
 function typeBlock(
   t: ControlType,
   showTitle: boolean,
@@ -147,6 +175,13 @@ function typeBlock(
   if (t.suggest) box.appendChild(suggested(t.suggest));
   const own = concepts(t.gestures);
   if (own) box.appendChild(own);
+  const compare = text("button", "▤ COMPARE ALL USES", "field-try");
+  compare.addEventListener("click", () =>
+    openZoom(`${t.title} · EVERY USE`, [
+      { label: "STILLS", draw: (w) => compareStills(stillsUses(t, byName), w) },
+    ]),
+  );
+  box.appendChild(compare);
   const grid = document.createElement("div");
   grid.className = "field-uses";
   for (const user of [...usersOf(t.rows)].sort((a, b) => bare(a).localeCompare(bare(b)))) {

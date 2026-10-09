@@ -106,3 +106,58 @@
 .try-window canvas.try-outline {
   pointer-events: none;
 }
+/* A card's moments, before, under and after AUTO's thumb
+   (`field-stills-art.ts`), and a type's uses stacked (`field-stills-compare.ts`). */
+.field-try-row {
+  display: flex;
+  gap: 6px;
+}
+.stills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-content: center;
+  justify-content: center;
+}
+.stills figure {
+  margin: 0;
+}
+.stills figcaption {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-align: center;
+}
+.stills-none {
+  color: var(--dim);
+  font-size: 0.8rem;
+}
+.pic-zoom-stage:has(.stills-compare) {
+  display: block;
+  overflow-y: auto;
+}
+.stills-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.stills-row h4 {
+  flex: 0 0 142px;
+  margin: 0;
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+}
+.stills-row h4 span {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--dim);
+}
+.stills-row .stills {
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}

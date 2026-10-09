@@ -3623,6 +3623,9 @@ by hand never moves.
 | `tools/director/src/field-try-bar.ts` | The bar over a TRY view (`field-try.ts`): what is being tried |
 | `tools/director/src/field-try.ts` | **A control on its own, played** — the owner, 9 October 2026, on CONTROLS › ON THE FIELD |
 | `tools/director/src/field-touch-paint.ts` | **Where a control answers a finger, drawn over the picture of it** |
+| `tools/director/src/field-stills-art.ts` | A card's strip of stills, drawn: its pose played forward with AUTO's hand |
+| `tools/director/src/field-stills-compare.ts` | **Every use of one control type, stills under stills** |
+| `tools/director/src/field-stills.ts` | **The moments a card's strip of stills shows** |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-boss.ts` | The `BossConfig` fields of every boss that is not choreographed — the queen, the warden, the cairn |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |

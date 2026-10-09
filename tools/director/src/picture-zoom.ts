@@ -12,10 +12,11 @@ import { text } from "./gestures-page.js";
 
 export interface ZoomView {
   label: string;
-  draw: (width: number, height: number) => HTMLCanvasElement;
+  draw: (width: number, height: number) => HTMLElement;
 }
 
-function open(title: string, views: readonly ZoomView[]): void {
+/** The views over the whole window, `start` shown first. */
+export function openZoom(title: string, views: readonly ZoomView[], start = 0): void {
   const shade = document.createElement("div");
   shade.className = "pic-zoom";
   const bar = document.createElement("div");
@@ -51,7 +52,7 @@ function open(title: string, views: readonly ZoomView[]): void {
   });
   window.addEventListener("keydown", onKey);
   document.body.appendChild(shade);
-  const [first] = views;
+  const first = views[start] ?? views[0];
   if (first) show(first);
 }
 
@@ -59,6 +60,6 @@ function open(title: string, views: readonly ZoomView[]): void {
 export function zoomable(el: HTMLElement, title: string, views: readonly ZoomView[]): HTMLElement {
   el.classList.add("zoomable");
   el.title = "Click to enlarge";
-  el.addEventListener("click", () => open(title, views));
+  el.addEventListener("click", () => openZoom(title, views));
   return el;
 }
