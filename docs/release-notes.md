@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · c8d5e4162 — THE BLISTER is taught after THE MINE, and FIVE BLISTERS mixes its gestures
+
+THE BLISTER moves to act nine, straight after THE MINE: one seat sees it, the other's finger answers it, now against a clock. Its guide is a real film of three pages: the pilot sees the pore swell and says where, the navigator waits to see it and it sinks with one blow left, then the pilot calls the nearer pore early and the tap lands while it is up. Its old slot in act fourteen is FIVE BLISTERS, the one where the body never says how to hit it: tap, hold, swipe, turn and rub in turn, by turns each seat's. The spec gives the up and sink figures, measured headless at 96 bpm. FIVE BLISTERS went in unweighed (`baseline:blank`), and AUTO is named as half playing it. Exemption: a look with no shipped alternative.
+
 ## 2026-10-09 · d6f10775b — THE BLISTER's RUB: scrubbed back and forth over it, a blow a reversal
 
 A RUB blister wears the game's one rub mark across its body, and every reversal of a thumb scrubbing it while it is up is a blow. The host counts the reversals and sends them as a `blisterRub` drag carrying the body in `fromMilli`, since the count already holds `id`; a sink leaves a thumb still scrubbing dead until it lifts. The director offers RUB under GESTURE, and ON THE FIELD shows it. Exemption: a look with no shipped alternative.
