@@ -36494,3 +36494,5 @@ found from its commit's file list rather than from any list of them.
 
 Bottleneck: landing — the six registrations queued this morning went in at
 once, and a seventh list (every file that draws a pull knob) was found red.
+
+*Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

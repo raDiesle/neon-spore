@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · fad7b174f — THE BLISTER's TURN is drawn and set: THE MAZE's turn round the body
+
+A TURN blister now wears THE MAZE's turn on the seat that may turn it: a channel round the body, a lever to its rim and the knob at the top with its arrow the way the turn counts, filling green as the thumb goes round. The director's GESTURE row offers TURN, with a WAY row of clockwise and anticlockwise, and the turn is a row of the ON THE FIELD tab with its pose. No wave uses one yet.
+
 ## 2026-10-09 · 0b7a28862 — THE BLISTER's TURN is heard: a full turn round it is a blow
 
 A blister may be authored `gesture: "turn"`, with `way: "ccw"` for anticlockwise. A press on one is a `blisterTurn` drag read the crank's way: every move is a bearing round the body's centre, and a full turn the way it counts is one blow. The wrong way round counts nothing, and a sink loses the turn in progress and deadens a thumb left on it until it lifts. No wave and no director chip sends one yet, so nothing in the game changes; its help on the field and its director rows are the lane's second half.
