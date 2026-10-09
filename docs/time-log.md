@@ -36636,3 +36636,5 @@ state of its own, and the hand has to lift out of every one of them.
 
 Bottleneck: looking — a side view of a disc only reads once the skull,
 the neck and the throat agree, and each took a strip to see.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

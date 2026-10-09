@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 8c21e06a3 — THE LAMPREY bites from the side and crushes what it eats between its teeth
+
+As a body it hunts falls near, the round sucker turns edge-on toward it and folds forward into two fanged jaws; the body eaten is carried into the middle of the mouth, the jaws snap shut on it, chew twice and spill its crumbs out of the seam, then the head turns back to the sucker. The ring's teeth are curved bone fangs now, lit on one side and shaded on the other with a glint, with a small row of rasps inside them that never counts as a tooth.
+
 ## 2026-10-09 · 76df83355 — AUTO answers every gesture THE BLISTER wants, and plays FIVE BLISTERS clean
 
 AUTO tapped a TAP blister and had no hand for the other four, so FIVE BLISTERS was named as a wave it could not clear. It now holds a HOLD one, strokes a SWIPE one its way, winds a TURN one round, and scrubs a RUB one — a blow a beat from the seat its BY names, read off the body, lifting a hand the sink left dead.
