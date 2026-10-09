@@ -36956,3 +36956,13 @@ Bottleneck: reading — "the cannon" on her screen is her shield block, and
 the design turned on seeing that.
 
 *Measured: 15 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — The fire buttons take turns wearing the mark where the colour is unknown
+
+- reading: 0 min. Both files were open from the lane before.
+- writing: 5 min. One filter on `emberEither`, and its test.
+- looking: 5 min. THE HIVE at two ticks, side by side.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: landing — `check:fast` is the longest step of a five-line change.

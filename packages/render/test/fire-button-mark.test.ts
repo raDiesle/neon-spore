@@ -1,9 +1,11 @@
-import { describe, expect, it, setDefaultTimeout } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import { createWorld } from "@neon-spore/sim";
 import { type BossCue, cueShot } from "../src/boss-cue-shape.js";
-import { markedFireButtons } from "../src/fire-button-mark.js";
+import { AIM_LOOK } from "../src/cue-helper.js";
+import { drawFireButtonMarks, markedFireButtons } from "../src/fire-button-mark.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
+import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 import { CFG, FRAME_TIMEOUT_MS } from "./frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -17,6 +19,25 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 const layout = (role: ViewRole) => computeLayout({ width: 420, height: 900, dpr: 2 }, CFG, role);
 const SET = controlSet("default");
+
+beforeAll(installCanvasGlobals);
+
+/** The colours of the buttons the mark is drawn round at `time`. */
+function drawnAt(cue: BossCue, time: number): string[] {
+  const paint = AIM_LOOK.paint;
+  const out: string[] = [];
+  AIM_LOOK.paint = (_c, _x, _y, _r, _k, _t, _s, _f, shot) => {
+    out.push(shot ?? "none");
+  };
+  try {
+    const { ctx } = stubCanvas();
+    const c = ctx as unknown as CanvasRenderingContext2D;
+    drawFireButtonMarks(c, layout("p2"), createWorld(CFG, 3), cue, time, SET);
+  } finally {
+    AIM_LOOK.paint = paint;
+  }
+  return out;
+}
 
 function fire(extra: Partial<BossCue> = {}): BossCue {
   return {
@@ -55,6 +76,18 @@ describe("the fire button's mark", () => {
       const ring = cueShot(cue);
       expect(lit).toEqual(ring === undefined ? ["red", "cyan"] : [ring]);
     }
+  });
+
+  it("jumps between the two buttons where the colour is unknown, one at a time", () => {
+    const seen = new Set<string>();
+    for (let t = 0; t < 0.6; t += 0.03) {
+      const drawn = drawnAt(fire(), t);
+      expect(drawn.length).toBe(1);
+      seen.add(drawn[0] ?? "");
+    }
+    expect([...seen].sort()).toEqual(["cyan", "red"]);
+    // A known colour stays on its button.
+    expect(drawnAt(fire({ shows: "cyan" }), 0)).toEqual(["cyan"]);
   });
 
   it("rings nothing while no mark stands on a target, and nothing on a screen with no fire button", () => {

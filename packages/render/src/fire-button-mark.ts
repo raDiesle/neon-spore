@@ -1,6 +1,6 @@
 import type { ControlSet } from "@neon-spore/content";
 import { type Color, mirrorHoldsControls, type World } from "@neon-spore/sim";
-import { emberHues } from "./aim-ember.js";
+import { emberEither, emberHues } from "./aim-ember.js";
 import { bandControlSet } from "./band.js";
 import { controlLobes } from "./band-lobes.js";
 import { type BossCue, cueShot } from "./boss-cue-shape.js";
@@ -20,9 +20,12 @@ import { seatSkin } from "./seat-skin.js";
  *
  * So while EMBER stands on a target on this screen (`aim-ember.ts`,
  * `cueAim`), EMBER stands round the fire button too, in that button's own
- * colour: the one the mark on the target is drawn in (`cueShot`), or both
- * where this screen does not know it — and then the mark on the target
- * flickers between the two. The colour comes from what this screen already draws; nothing is told
+ * colour: the one the mark on the target is drawn in (`cueShot`). Where this
+ * screen does not know it, the mark on the target flickers between red and
+ * cyan and the mark here jumps between the two buttons with it, one at a
+ * time — the owner, 9 October 2026: *the displaying visual should switch in
+ * control set cannon buttons from one to another indicating its one of them
+ * ( but not both at the same time)*. The colour comes from what this screen already draws; nothing is told
  * here that the pair are meant to say to each other (#34).
  *
  * Drawn after the cue (`boss-cue-field.ts`), which is after the band, so the
@@ -39,7 +42,11 @@ export function drawFireButtonMarks(
 ): void {
   const k = cueBreath(time);
   const skin = seatSkin(l.role);
+  // Where this screen does not know the colour, the mark jumps between the
+  // two buttons in step with the ring's flicker — one at a time, never both.
+  const either = cueShot(cue) === undefined;
   for (const { circle, shot } of markedFireButtons(l, world, cue, controls)) {
+    if (either && shot !== emberEither(time)) continue;
     halo(ctx, circle.x, circle.y, circle.r * 1.9, emberHues(shot).hex, 0.35 * k);
     // The look the target wears, so a mark swapped there is swapped here too.
     AIM_LOOK.paint(ctx, circle.x, circle.y, circle.r, k, time, skin, circle, shot);
