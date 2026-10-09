@@ -1,9 +1,10 @@
 import { describe, expect, it } from "bun:test";
 import { createCanvas } from "@napi-rs/canvas";
 import { instarFire } from "../src/instar-ebb.js";
+import { instarFarEnd } from "../src/instar-far-end.js";
 import { drawFront } from "../src/instar-front.js";
 import { seeFrontBody } from "../src/instar-front-body.js";
-import { instarAt, instarFarEnd, instarHeadAt } from "../src/instar-place.js";
+import { instarAt, instarHeadAt } from "../src/instar-place.js";
 import type { Look } from "../src/instar-plate.js";
 import { drawProfile } from "../src/instar-profile-draw.js";
 import {

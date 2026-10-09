@@ -1,11 +1,12 @@
 import { type InstarState, instarVerdict, type World } from "@neon-spore/sim";
 import type { Stopper } from "./bolt-stop.js";
 import { type Foot, lowestFoot, outlineFoot, roundFoot } from "./core-stop.js";
+import { instarFarEnd } from "./instar-far-end.js";
 import type { Flight } from "./instar-flight.js";
 import { seeFrontBody } from "./instar-front-body.js";
 import { frontHeadFeet, sideHeadFeet } from "./instar-head-stop.js";
 import { frontLimbFeet, profileLimbFeet } from "./instar-limb-stop.js";
-import { instarAt, instarFarEnd, type Point } from "./instar-place.js";
+import { instarAt, type Point } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
 import type { Sway } from "./instar-sway.js";
 import { instarNeck, instarTurn } from "./instar-turn.js";

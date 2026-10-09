@@ -1916,6 +1916,7 @@ by hand never moves.
 | `packages/render/src/instar-flight-taper.ts` | **THE INSTAR's approach**, taken from VERSUS on 9 October 2026 (TAPER, the owner's (C) of 8 October) |
 | `packages/render/src/instar-front.ts` | **THE INSTAR face-on**: a living ship coming at the screen |
 | `packages/render/src/instar-front-body.ts` | **THE INSTAR's body face-on, as a tube of the rig**: the long body seen from its head end |
+| `packages/render/src/instar-far-end.ts` | **Where THE INSTAR's body goes away to**: the far end of it, the root of the tail |
 | `packages/render/src/instar-glyphs.ts` | **The gesture, drawn inside the ring** — one glyph per member of `INSTAR_GESTURES` |
 | `packages/render/src/instar-glance.ts` | **Where THE INSTAR's face-on head and resting tail are looking** |
 | `packages/render/src/instar-glance-styles.ts` | **THE INSTAR's three glances, taken in turn** — the owner, 9 October 2026, on VERSUS `instar:glance` |
@@ -1952,6 +1953,8 @@ by hand never moves.
 | `packages/render/src/instar-tail.ts` | **THE INSTAR's tail**: plated, spined, and forked at the end into two blades |
 | `packages/render/src/instar-tail-blade.ts` | **THE INSTAR's tail ends in a fork of two of these** (`instar-tail.ts`) |
 | `packages/render/src/instar-tail-lens.ts` | Two measures of THE INSTAR's tail, cut off `instar-tail.ts` when the body's record (`instar-body-look.ts`)… |
+| `packages/render/src/instar-tail-lean.ts` | **THE INSTAR's resting tail, in two ways taken in turn** — the owner, 9 October 2026 |
+| `packages/render/src/instar-tail-fit.ts` | **THE INSTAR's resting tail kept on the screen** — the owner, 9 October 2026 |
 | `packages/render/src/instar-turn.ts` | THE INSTAR seen a third of the way round: the body yawed, the head as two fitted planes |
 | `packages/render/src/instar-turning.ts` | **THE INSTAR turning between its two views is one body turning** — the owner, 7 October 2026 |
 | `packages/render/src/instar-eggs.ts` | THE INSTAR's clutch, one egg per swipe, and the egg each counted swipe drops to the hull |

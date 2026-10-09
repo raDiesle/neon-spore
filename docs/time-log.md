@@ -36968,3 +36968,19 @@ the design turned on seeing that.
 Bottleneck: landing — `check:fast` is the longest step of a five-line change.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE INSTAR's resting tail leans both ways in turn and stays on the screen
+
+- reading: 5 min. `tailShape`, the face-on far end's turn, and where
+  `instarFarEnd` is asked from.
+- writing: 15 min. `instar-tail-lean.ts`, `instar-tail-fit.ts`,
+  `instar-far-end.ts` with every caller moved to it, and the on-screen test.
+- looking: 10 min. A probe of every step's tail box, face-on and side-on at
+  three leans, and the crouch and bare frames.
+- friction: 5 min. The pixel reach test found the tail fit running away
+  mid-turn when the rear was off the field; three budget rows and two reach
+  margins re-measured.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the cut only showed by measuring every step's tail
+against the screen; no single frame showed how many poses it was.

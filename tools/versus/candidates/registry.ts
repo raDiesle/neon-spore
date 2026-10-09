@@ -6,8 +6,6 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { INSTAR_PENDULUM } from "./instar-tail/pendulum/index.js";
-import { INSTAR_STATIONS } from "./instar-tail/stations/index.js";
 import { SCUTTLE_LOBED } from "./scuttle-seat/lobed/index.js";
 
-export const VARIANTS: Variant[] = [INSTAR_PENDULUM, INSTAR_STATIONS, SCUTTLE_LOBED];
+export const VARIANTS: Variant[] = [SCUTTLE_LOBED];

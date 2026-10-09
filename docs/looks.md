@@ -208,6 +208,8 @@ them, as THE INSTAR's head holds its two eyes (`instar-turn.ts`).
 
 He asked for THE INSTAR's on VERSUS by name (`instar:glance`,
 `instar:tail`), and took all three head glances — *all really cool* — to
-run in turn for variety (`instar-glance-styles.ts`). That is the worked
+run in turn for variety (`instar-glance-styles.ts`), and both tails the
+same way (`instar-tail-lean.ts`). A part that turns must stay on the screen
+as it turns: the tail is kept in off the edges (`instar-tail-fit.ts`). That is the worked
 example; how to build one for any boss is `.claude/skills/depth`, "A part
 that glances".

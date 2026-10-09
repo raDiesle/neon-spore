@@ -1,6 +1,7 @@
 import type { InstarState, World } from "@neon-spore/sim";
 import type { BoltStops } from "./bolt-stop.js";
 import { instarEbb, instarFire } from "./instar-ebb.js";
+import { instarFarEnd } from "./instar-far-end.js";
 import { instarFlight, instarFlightAt } from "./instar-flight.js";
 import { INSTAR_FLIGHT_LOOK } from "./instar-flight-look.js";
 import { drawFront } from "./instar-front.js";
@@ -8,7 +9,7 @@ import { seeFrontBody } from "./instar-front-body.js";
 import type { InstarFx } from "./instar-fx.js";
 import { drawInstarHeart } from "./instar-heart.js";
 import { drawInstarMarks } from "./instar-marks.js";
-import { instarAt, instarFarEnd, instarHeadAt } from "./instar-place.js";
+import { instarAt, instarHeadAt } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
 import { drawProfile } from "./instar-profile-draw.js";
 import { frontReach, onField, profileReach } from "./instar-reach.js";

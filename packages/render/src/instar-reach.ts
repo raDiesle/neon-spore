@@ -1,6 +1,7 @@
 import type { SeenRing } from "@neon-spore/content";
+import { instarFarEnd } from "./instar-far-end.js";
 import type { Flight } from "./instar-flight.js";
-import { instarAt, instarFarEnd, instarLen, type Point } from "./instar-place.js";
+import { instarAt, instarLen, type Point } from "./instar-place.js";
 import type { Figure } from "./instar-shape.js";
 import type { Layout } from "./layout.js";
 
@@ -32,8 +33,10 @@ export interface Box {
 
 /** How far the face-on view's paint reaches past its head and its rings, in head radii.
  * It was 2 until the tail went on out of the far end face-on (`instar-front.ts`,
- * 7 October 2026): the hover's morph reaches 2.19. */
-export const FRONT_REACH = 2.3;
+ * 7 October 2026): the hover's morph reaches 2.19. It was 2.3 until the resting tail leaned
+ * both ways and was kept on the screen (`instar-tail-lean.ts`, `instar-tail-fit.ts`, 9 October
+ * 2026): the hover's morph reaches 2.30. */
+export const FRONT_REACH = 2.4;
 /** How far the side-on view's paint reaches past the figure's places, thousandths of the field's width.
  * The left was 360 until the side-on head grew (`instar-head-look.ts`, `SIDE_GROW`): its snout
  * reaches 371 at the loom's morph, and the down was 180 until its jaw reached 187 at the dive's.
@@ -43,8 +46,10 @@ export const FRONT_REACH = 2.3;
  * opens its jaw at the hull: the dive's morph reaches 338 down, so the down was 255 before it.
  * The legs (`instar-legs.ts`, 7 October 2026) hang off the belly wherever the spine folds: the
  * loom's morph reaches 684 left and 413 down and the dive's 587 right, so those were 430, 345
- * and 420 before them. */
-export const PROFILE_REACH = { left: 700, right: 600, up: 640, down: 430 } as const;
+ * and 420 before them. The body's far end kept on the screen (`instar-far-end.ts`, 9 October
+ * 2026) moves the rear the box is drawn round and not the legs: the loom's morph reaches 469
+ * down, so the down was 430 before it. */
+export const PROFILE_REACH = { left: 700, right: 600, up: 640, down: 480 } as const;
 /** The measured margins are grown by this before a view is left undrawn. */
 const SAFETY = 1.15;
 

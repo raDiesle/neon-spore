@@ -1,10 +1,11 @@
 import { glanceAt } from "./instar-glance-styles.js";
+import { tailLeanAt } from "./instar-tail-lean.js";
 import { bodyLife } from "./motion-life.js";
 
 /**
  * **Where THE INSTAR's face-on head and resting tail are looking**, as two
- * records so VERSUS can offer a head that turns and a tail that wanders
- * (`instar:glance`, `instar:tail`). The owner, 9 October 2026: *the head of
+ * records so VERSUS can offer a head that turns and a tail that wanders.
+ * The owner, 9 October 2026: *the head of
  * boss just slightly changes angle because he moves head slightly to another
  * side so it is not so static. and the tail could switch to move from right
  * to middle and left*.
@@ -12,8 +13,9 @@ import { bodyLife } from "./motion-life.js";
  * The head glances (taken 9 October 2026): on top of the third-of-the-way
  * turn `instar-turn.ts` gives it, it does a round each of COCK, SWAY and LOOK
  * in turn (`instar-glance-styles.ts`), halved on a device asking for less
- * motion (`bodyLife`). The tail still rests up and to the right of the rear
- * (`instar-tail.ts`).
+ * motion (`bodyLife`). The tail rests (taken 9 October 2026) in a round each
+ * of STATIONS and PENDULUM in turn (`instar-tail-lean.ts`), halved the same
+ * way, and wherever it leans it is kept on the screen (`instar-tail-fit.ts`).
  */
 
 export interface Glance {
@@ -39,5 +41,5 @@ export interface TailRest {
 }
 
 export const INSTAR_TAIL_REST: TailRest = {
-  lean: () => 1,
+  lean: (time) => tailLeanAt(time) * bodyLife(),
 };

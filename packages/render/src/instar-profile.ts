@@ -1,6 +1,7 @@
 import { SIDE, type Vec3, type View, view } from "@neon-spore/content";
 import { INSTAR_BODY } from "./instar-body-look.js";
-import { instarAt, instarFarEnd, type Point } from "./instar-place.js";
+import { instarFarEnd } from "./instar-far-end.js";
+import { instarAt, type Point } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
 import { breathAt, undulate } from "./instar-profile-life.js";
 import { swellAt, swimAt } from "./instar-serpent.js";

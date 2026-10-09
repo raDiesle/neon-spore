@@ -10,9 +10,10 @@ import {
   view,
 } from "@neon-spore/content";
 import { INSTAR_BODY } from "./instar-body-look.js";
+import { instarFarEnd } from "./instar-far-end.js";
 import { frontWings } from "./instar-front.js";
 import { frontBody } from "./instar-front-body.js";
-import { instarFarEnd, type Point } from "./instar-place.js";
+import type { Point } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
 import { heading, profileLines, profileWings, type WingSeat } from "./instar-profile.js";
 import { type Body, bodyOf, place } from "./instar-profile-surface.js";

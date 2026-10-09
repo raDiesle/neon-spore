@@ -2,9 +2,7 @@ import { FRONT, see, view } from "@neon-spore/content";
 import { smoothstep } from "./ease.js";
 import { rgba } from "./hex.js";
 import { INSTAR_GLANCE } from "./instar-glance.js";
-import { instarFarEnd, instarHeadAt, type Point } from "./instar-place.js";
-import type { Figure } from "./instar-shape.js";
-import type { Layout } from "./layout.js";
+import type { Point } from "./instar-place.js";
 import { SHADOW } from "./solid-tube-light.js";
 
 /**
@@ -78,15 +76,6 @@ export function turnedFarEnd(neck: Point, rear: Point, r: number, turn = TURN): 
   const c = { x: BODY_DEPTH * r, y: (rear.y - neck.y) / s, z: (rear.x - neck.x) / s };
   const p = see(c, view(FRONT - turn, 0, r * BODY_LENS));
   return { x: neck.x + p.x, y: neck.y + p.y };
-}
-
-/** Where the engines burn in this frame's figure: in whichever view has the body. */
-export function instarEnginesAt(l: Layout, f: Figure): Point {
-  const rear = instarFarEnd(l, f);
-  const { head, r } = instarHeadAt(l, f);
-  const t = turnedFarEnd(instarNeck(head, r), rear, r, instarTurn(f.side));
-  const k = instarHandover(f.side);
-  return { x: t.x + (rear.x - t.x) * k, y: t.y + (rear.y - t.y) * k };
 }
 
 /** How the head is turned and posed: its side-on share, and the clock its glance reads (`instar-glance.ts`). */

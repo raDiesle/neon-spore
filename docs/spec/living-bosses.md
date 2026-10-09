@@ -204,8 +204,18 @@ the tail is in the frame).
 **Built (9 October 2026), the glance.** The owner took all three — *apply
 all three across the levels for more variety* — and liked COCK best. The
 head does a six-second round each of COCK, SWAY and LOOK in turn, COCK
-first (`packages/render/src/instar-glance-styles.ts`). The tail's slot is
-still open.
+first (`packages/render/src/instar-glance-styles.ts`).
+
+**Built (9 October 2026), the tail.** The owner liked both — *apply both to
+different times during play and levels* — so the resting tail does a
+six-second round each of STATIONS and PENDULUM in turn
+(`packages/render/src/instar-tail-lean.ts`). Against the head's three rounds
+that is six pairings before they repeat. And *make sure ... the tail is not
+cut from borders of game screen*: the body's far end is kept inside the
+screen wherever the turn carries it (`instar-far-end.ts`), and a resting
+tail is moved in off any edge it crosses (`instar-tail-fit.ts`); a lash is
+not, its fork being over the marks. Test:
+`packages/render/test/instar-on-screen.test.ts`.
 
 ### How far it reaches, by kind of body
 

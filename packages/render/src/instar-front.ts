@@ -1,10 +1,11 @@
 import { FRONT, type SeenRing, view } from "@neon-spore/content";
 import { halo } from "./glow.js";
 import { INSTAR_BODY } from "./instar-body-look.js";
+import { instarFarEnd } from "./instar-far-end.js";
 import { BODY_SKIN, drawFrontBody, frontBody } from "./instar-front-body.js";
 import { INSTAR_HEAD } from "./instar-head-look.js";
 import { drawLegs, profileLegs } from "./instar-legs.js";
-import { instarFarEnd, type Point } from "./instar-place.js";
+import type { Point } from "./instar-place.js";
 import { faded, type Look } from "./instar-plate.js";
 import type { WingSeat } from "./instar-profile.js";
 import { drawTail } from "./instar-tail.js";

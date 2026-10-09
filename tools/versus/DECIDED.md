@@ -1716,3 +1716,19 @@ packages/render/src/ledger-nerves-lit.ts rather than adopted, because the
 record's inputs changed.
 
 Closed with `versus drop`, so the candidate's own files went with the slot.
+
+## `instar:tail` / `stations` and `pendulum` — taken by hand, 2026-10-09
+
+the owner, 9 October 2026: "INSTAR:TAIL" i like both again, they are again
+cool. apply both to different times during play and levels - and make sure
+the graphics of boss specifically the tail is not cut from borders of game
+screen
+
+Taken by hand because `adopt` takes one answer and the owner took both:
+`INSTAR_TAIL_REST.lean` reads `tailLeanAt`
+(`packages/render/src/instar-tail-lean.ts`), a six-second round each of
+STATIONS and PENDULUM in turn, STATIONS first, each beginning and ending
+straight up. The candidates' rounds and sizes are kept as they were offered.
+The cut the owner named was fixed with it: the far end of the body is kept on
+the screen (`instar-far-end.ts`) and so is a resting tail
+(`instar-tail-fit.ts`).

@@ -1,6 +1,7 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
+import { instarFarEnd } from "../src/instar-far-end.js";
 import { frontBody } from "../src/instar-front-body.js";
-import { instarFarEnd, instarHeadAt, type Point } from "../src/instar-place.js";
+import { instarHeadAt, type Point } from "../src/instar-place.js";
 import type { Look } from "../src/instar-plate.js";
 import { POSES } from "../src/instar-poses.js";
 import { profileLines } from "../src/instar-profile.js";

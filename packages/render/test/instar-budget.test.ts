@@ -66,6 +66,14 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * the dive's body is one smooth taper with the wings spread full while it
  * flies in, so fills 296 → 301 and linear gradients 49 → 54.
  *
+ * The same day the body's far end was kept on the screen and the resting tail
+ * took to leaning both ways (`instar-far-end.ts`, `instar-tail-lean.ts`): a
+ * rear moved in from past the corner yaws the turning body through angles
+ * the tube's light cache had not baked, so the linear gradients rose — coil
+ * 73 → 79, dive 54 → 56, roar 117 → 149, and one radial more in the roar —
+ * and the dive's fills fell 301 → 289, less of its body sliced at the
+ * screen's edge.
+ *
  * Each row is the worst of each op over one beat starting a third of the way
  * into the step's morph, on a phone. Set `MEASURE` to true and run this file
  * to print the rows as they are written below (`budget-row.ts`); never
@@ -86,17 +94,17 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
       fill: 469,
       stroke: 433,
       drawImage: 34,
-      createLinearGradient: 73,
+      createLinearGradient: 79,
       createRadialGradient: 41,
     },
   },
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 301,
+      fill: 289,
       stroke: 236,
       drawImage: 34,
-      createLinearGradient: 54,
+      createLinearGradient: 56,
       createRadialGradient: 40,
     },
   },
@@ -106,8 +114,8 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
       fill: 474,
       stroke: 434,
       drawImage: 34,
-      createLinearGradient: 117,
-      createRadialGradient: 39,
+      createLinearGradient: 149,
+      createRadialGradient: 40,
     },
   },
 };

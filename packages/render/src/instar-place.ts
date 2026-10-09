@@ -25,17 +25,6 @@ export function instarAt(l: Layout, xMilli: number, yMilli: number): Point {
   };
 }
 
-/**
- * **Where THE INSTAR's body goes away to**: the far end of it, the root of
- * the tail. Seen face-on the body runs back and up into the dark above the
- * head, and side-on it is the end of the back. `slow-intake-aim.ts` stops
- * the slow's light along the line from here to the head, so the light stands
- * round the whole body rather than crossing it.
- */
-export function instarFarEnd(l: Layout, f: Figure): Point {
-  return instarAt(l, f.rearX, f.rearY);
-}
-
 /** A length in thousandths of the field's width, in pixels. */
 export function instarLen(l: Layout, milli: number): number {
   return (milli * l.gridWidth) / 1000;

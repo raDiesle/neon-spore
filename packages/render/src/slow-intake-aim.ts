@@ -8,9 +8,9 @@ import {
 } from "@neon-spore/sim";
 import { flatCenter, flatRadius } from "./creature-place.js";
 import { smoothstep } from "./ease.js";
+import { instarEnginesAt } from "./instar-far-end.js";
 import { instarAt, instarLen } from "./instar-place.js";
 import { instarBody } from "./instar-sway.js";
-import { instarEnginesAt } from "./instar-turn.js";
 import { type Layout, tileCX } from "./layout.js";
 import { bossAim } from "./slow-boss-aim.js";
 import type { SlowWindow } from "./slow-look.js";
