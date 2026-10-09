@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · a87404475 — ON THE FIELD shows where each control answers a finger, and how big that is
+
+Every card on CONTROLS › ON THE FIELD now says how wide its narrowest touch patch is, in points, red under the 44 pt both phone platforms ask for. The enlarged picture has a TOUCH AREA view and TRY IT a TOUCH AREA switch: the cells where a press reaches the control, filled faintly, outlined, and each separate patch labelled with its size — live in TRY, so it follows a control that moves.
+
 ## 2026-10-09 · 47c06f44d — ON THE FIELD's cards can be played: TRY IT runs the control live, cut to it
 
 Every use card on CONTROLS › ON THE FIELD has a ▶ TRY IT button. It stands the card's pose up fresh and runs it live, cut to the box round the control and blown up to the window, answered by the mouse exactly as the director's stage answers it. HOLD, +1 TICK and speeds down to ⅛× show the look before a press, under it and after the lift; RESTART stands the pose up again; EITHER SEAT / P1 / P2 picks the hand; WHOLE PHONE shows where the control stands; the last commands the hand sent are listed under it.
