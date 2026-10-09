@@ -16,7 +16,6 @@ import { stepMantle } from "./mantle-step.js";
 import { stepMirror } from "./mirror.js";
 import { stepOculus } from "./oculus-step.js";
 import { stepPlumb } from "./plumb-step.js";
-import { stepRime } from "./rime-step.js";
 import { stepScuttle } from "./scuttle-step.js";
 import { stepSeam } from "./seam-step.js";
 import { stepSinew } from "./sinew-step.js";
@@ -208,11 +207,6 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // THE VISE: steps lit, pinches counted, and the split (`vise-step.ts`).
   if (boss.kind === "vise") {
     stepVise(world, boss);
-    return;
-  }
-  // THE RIME: steps lit, the frost regrowing, and the shatter (`rime-step.ts`).
-  if (boss.kind === "rime") {
-    stepRime(world, boss);
     return;
   }
   // THE PLUMB: steps lit, leans counted, and the swing free (`plumb-step.ts`).

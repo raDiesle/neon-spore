@@ -9,7 +9,6 @@ import { latchHashParts } from "./latch-hash.js";
 import { mimicHashParts } from "./mimic-hash.js";
 import { oculusHashParts } from "./oculus-hash.js";
 import { plumbHashParts } from "./plumb-hash.js";
-import { rimeHashParts } from "./rime-hash.js";
 import { seamHashParts } from "./seam-hash.js";
 import { slingHashParts } from "./sling-hash.js";
 import { trapezeHashParts } from "./trapeze-hash.js";
@@ -43,11 +42,6 @@ export function scriptedHashParts(boss: BossState): number[] {
   // the script (`vise-hash.ts`).
   if (boss.kind === "vise") {
     for (const n of viseHashParts(boss)) out.push(n);
-  }
-  // THE RIME: the phase, the cursor, the wipes, the hits, both halves' frost,
-  // the reversal counts and the script (`rime-hash.ts`).
-  if (boss.kind === "rime") {
-    for (const n of rimeHashParts(boss)) out.push(n);
   }
   // THE PLUMB: the phase, the cursor, the weights, the hits, both seats'
   // leans and the script (`plumb-hash.ts`).

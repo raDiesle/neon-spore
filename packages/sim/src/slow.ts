@@ -48,8 +48,8 @@ export const NO_SLOW = -1;
  * never comes. Every `openSlow` names one, so a new window has to say.
  *
  * **`"hold"` is an ask answered by sending nothing**: THE SEAM's false point,
- * THE KEEL's breath and cooldown, the last beat of THE SLING, THE PLUMB and
- * THE RIME. It asks, so it has a fuse, but a fuse in its
+ * THE KEEL's breath and cooldown, the last beat of THE SLING and THE PLUMB.
+ * It asks, so it has a fuse, but a fuse in its
  * colours says *act before it runs out*, which is the one thing a hold step
  * must not be read as. The owner, 1 October 2026, over cutting the false point
  * or a cue on it: *change the fuse* — so a hold's burns grey, and every boss's

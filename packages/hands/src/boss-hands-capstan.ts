@@ -19,8 +19,8 @@ import {
  *
  * **The pull is a held drag**: sent once when the seat's reading is not
  * what the step wants, and the seat not steering lets go of the drum, so a
- * seat never steers from where the last step left it. **The rub is THE RIME's**
- * (`boss-hands-rime.ts`): one more reversal than the drum last heard from
+ * seat never steers from where the last step left it. **The rub is a count of
+ * reversals**: one more reversal than the drum last heard from
  * that thumb, four times a beat, and lifted once the step wants none of it.
  *
  * **The shot** wants the step's colour; `"either"` is fired cyan. The cannon

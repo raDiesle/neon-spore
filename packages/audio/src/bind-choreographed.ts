@@ -53,7 +53,6 @@ type ChoreographedEvent =
           | `seam${string}`
           | `oculus${string}`
           | `vise${string}`
-          | `rime${string}`
           | `plumb${string}`
           | `sling${string}`
           | `capstan${string}`

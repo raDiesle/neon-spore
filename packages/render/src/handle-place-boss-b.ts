@@ -7,7 +7,6 @@ import { lampreyHeadCircle, lampreyTailCircle, lampreyToothCircle } from "./lamp
 import { latchKnobStanding, latchTakesHand } from "./latch-grip.js";
 import type { Circle, Layout } from "./layout.js";
 import { plumbStoneStanding, plumbTakesHand } from "./plumb-grip.js";
-import { rimeHalfStanding, rimeTakesHand } from "./rime-grip.js";
 import {
   scoutLineCircle,
   scoutLineGrippable,
@@ -38,13 +37,6 @@ export function laterBossHandleCircle(
     const b = world.boss?.kind === "sling" ? world.boss : null;
     if (b === null) return null;
     return slingDrawCircle(l, cfg, b, target === "slingDrawLeft" ? 0 : 1, world.beat, beatPhase);
-  }
-  if (target === "rimeHalfLeft" || target === "rimeHalfRight") {
-    // THE RIME's half of the lens, where its clear patch opens from, dropped
-    // in as the lens arrives. Null once it shatters (`rime-grip.ts`).
-    const b = world.boss?.kind === "rime" ? world.boss : null;
-    if (b === null || !rimeTakesHand(b)) return null;
-    return rimeHalfStanding(l, cfg, b, target, world.beat, beatPhase);
   }
   if (target === "trapezePushLeft" || target === "trapezePushRight" || target === "trapezeLock") {
     // THE TRAPEZE's two zones, the middle of each, null outside a swipe level;

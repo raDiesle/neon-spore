@@ -150,10 +150,6 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "Either end of the drum where the cradle has rocked it, haloed on the screen of the seat that is not steering.",
     move: "Every turn back wears the bared face; a band worn to its mark cracks bright.",
   },
-  "THE RIME'S LEFT HALF": {
-    find: "Each half of the lens — left the pilot's, right the navigator's — haloed while a wipe is lit on it.",
-    move: "Every turn back shaves frost off the half; rubbed clear it washes green, frosting back red.",
-  },
   "THE MAZE'S HEART": {
     find: "A ring on the heart in the middle of the drum, with SHAKE and eight arrows until a thumb lands — on both screens.",
     move: "The heart moves with the thumb inside its room, and the ring fills green with the distance shaken.",

@@ -22,7 +22,6 @@ import { oculusStruck } from "./oculus-shot.js";
 import { plumbStruck } from "./plumb-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { ratchetStruck } from "./ratchet-shot.js";
-import { rimeStruck } from "./rime-shot.js";
 import { scuttleStruck } from "./scuttle-shot.js";
 import { seamStruck } from "./seam-shot.js";
 import { firstAlong } from "./shot-reach.js";
@@ -187,8 +186,6 @@ function burnColumn(world: World, col: number, color: Color): number {
   oculusStruck(world, b);
   // And THE VISE's bared kernel (`vise-shot.ts`).
   viseStruck(world, b);
-  // And THE RIME's bared core (`rime-shot.ts`).
-  rimeStruck(world, b);
   // And THE PLUMB's lit core (`plumb-shot.ts`).
   plumbStruck(world, b);
   // And THE SLING's lit yoke (`sling-shot.ts`).

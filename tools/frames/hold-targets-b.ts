@@ -125,10 +125,6 @@ export const ROWS: Record<string, Row> = {
   // `vise-hand.ts`: a lobe each, pinched shut; the pilot's is the left.
   viseLobeLeft: {},
   viseLobeRight: { seat: 2 },
-  // `rime-hand.ts`: a half each, rubbed; `id` is the reversal count, and the
-  // pilot's is the left.
-  rimeHalfLeft: { id: true },
-  rimeHalfRight: { seat: 2, id: true },
   // `plumb-hand.ts`: a stone each, the pull on `fromMilli`; the pilot's is the left.
   plumbLevelLeft: {},
   plumbLevelRight: { seat: 2 },

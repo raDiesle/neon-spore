@@ -62,8 +62,7 @@ describe("the raster flag", () => {
 
   /**
    * Every painted strip goes through one loop over `PAINTED_STRIPS`, so the
-   * assertion is over the table: THE VISE's split, THE RIME's bare core,
-   * THE PLUMB's settle and whatever row comes next stay as they ship unflagged.
+   * assertion is over the table: THE VISE's split, THE PLUMB's settle and whatever row comes next stay as they ship unflagged.
    */
   it("leaves every painted strip's moment as it ships unless the flag is set", async () => {
     const asked: StripName[] = [];

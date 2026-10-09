@@ -73,7 +73,6 @@ export class BossTransients extends BossRoster {
     this.valve.ingest(events, l, cfg, beatSeconds, burst);
     this.oculus.ingest(events, l, cfg, beatSeconds, burst);
     this.vise.ingest(events, l, cfg, beatSeconds, burst);
-    this.rime.ingest(events, l, cfg, beatSeconds, burst);
     this.sling.ingest(events, l, cfg);
     this.plumb.ingest(events, l, cfg, burst);
     this.capstan.ingest(events, l, cfg, beatSeconds, burst);
@@ -126,7 +125,6 @@ export class BossTransients extends BossRoster {
     this.valve.update(dt);
     this.oculus.update(dt);
     this.vise.update(dt);
-    this.rime.update(dt);
     this.sling.update(dt);
     this.plumb.update(dt);
     this.capstan.update(dt);
@@ -197,7 +195,6 @@ export class BossTransients extends BossRoster {
     this.valve.clear();
     this.oculus.clear();
     this.vise.clear();
-    this.rime.reset();
     this.sling.reset();
     this.plumb.clear();
     this.capstan.clear();

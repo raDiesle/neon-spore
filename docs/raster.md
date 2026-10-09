@@ -283,7 +283,6 @@ well as at 16 — not a smaller file.
 ```bash
 bun run raster              # regenerate every painted asset in assets/raster/
 bun run raster vise-crack   # only THE VISE's crack — leave the burst's bytes alone
-bun run raster rime-clear   # only THE RIME's clearing
 bun run raster:verify       # open them in Chromium; check every frame decodes
 ```
 
@@ -408,34 +407,12 @@ crack lies over it.
 better than the split's flash and dust alone. Play THE VISE at `?raster=1`
 to the end and compare; the procedural split ships until he says otherwise.
 
-### The fourth strip: THE RIME's bare core
+### The fourth strip: THE RIME's bare core — taken out
 
-Row 6 of §29's beat list — the last frost wiped off and the core lit — is
-frost shattering off glass: rule 4 again. `tools/raster/src/rime-clear-art.ts`
-paints a cold light over the pane gone in a quarter, nine kinked hairline
-fractures out from the middle, twenty-two thin plates of frost that start
-where the frost was (the pane clears all over at once) and spin as they
-fall, bright face on and dull edge on, and a powder that drifts down and
-outlasts them. Anything nearing the frame's edge fades before it is cut.
-**Frost colours only** — `rimeFrost`, `rimeFrostDeep`, a cold white — so
-the core's colour stays the procedural core's (rule 7).
-
-Sixteen frames of 128 px at 50 ms, 0.8 s: larger than the crack's because it
-covers the whole pane, 2.3 half-widths across.
-
-| file | bytes |
-|---|---|
-| `rime-clear-strip.webp`, the atlas the field fetches | **66 970** — under the same 90 kB budget as THE VISE's 43 238 |
-| `rime-clear.apng`, the master | 163 975 |
-
-`RimeFx` (`rime-fx.ts`, `effects.boss.rime`) spawns it on `rimeBare` at the
-pane's middle; `boss-draw-clocks-c.ts` draws it after the lens, and
-`bindRasterStrips` installs it behind `?raster=1`. Without the flag it
-draws nothing (`packages/render/test/rime-clear.test.ts`), and the shipped
-reveal — the patches wiped clear, the core lit — is drawn either way.
-
-**Still open**: the owner's eye. Play THE RIME at `?raster=1` to the bare
-core and compare.
+THE RIME's frost shattering off its lens as the core lay bare was the fourth
+strip, sixteen frames of 128 px, an atlas of 66 970 bytes. It left the game
+with its boss on 9 October 2026, and its painter, its atlas and its master
+went with it; `git log -S drawRimeClearFrame` finds them.
 
 ### The fifth strip: THE TRIVET's plant — taken out
 
@@ -474,7 +451,7 @@ Sixteen frames of 128 px at 50 ms, 0.8 s.
 | `plumb-settle.apng`, the master | 107 102 |
 
 **One budget for the four painted boss strips: each atlas under 90 kB.** THE
-VISE's 43 238, THE RIME's 66 970, THE TRIVET's 15 690 (since taken out),
+VISE's 43 238, THE RIME's 66 970 and THE TRIVET's 15 690 (both since taken out),
 THE PLUMB's 42 130.
 
 `PlumbFx.swing` (`plumb-fx.ts`, `effects.boss.plumb`) spawns it on
@@ -513,7 +490,7 @@ Twelve frames of 96 px at 45 ms, 0.54 s — the entry's own floor.
 | `sling-draw.apng`, the master | 29 238 |
 
 **One budget for the five painted boss strips: each atlas under 90 kB.** THE
-VISE's 43 238, THE RIME's 66 970, THE TRIVET's 15 690 (since taken out),
+VISE's 43 238, THE RIME's 66 970 and THE TRIVET's 15 690 (both since taken out),
 THE PLUMB's 42 130, THE SLING's 11 084.
 
 `SlingFx.draw` (`sling-fx.ts`, `effects.boss.sling`) spawns it on

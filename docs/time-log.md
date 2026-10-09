@@ -36448,3 +36448,17 @@ were learned from a red `check:fast`, a minute and a half each (queued).
 Bottleneck: none to speak of — the refusal reproduced on the first run.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE RIME leaves the game
+
+- reading: 5 min. THE TRIVET's removal as the pattern, and who else read
+  the rub — THE CAPSTAN and THE VALVE, so its pointer code stays.
+- writing: 10 min. The deletions, every list a kind is a row in, the
+  director's cards, the docs, the retired section and the two shape drafts.
+- looking: 0 min. Nothing new drawn; a boss taken away.
+- friction: 5 min. A line-cutting script that left stray braces, zsh not
+  splitting a command held in a variable, and the heredoc guard again.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the registrations — a boss is a row in seventy files, and only
+the typecheck finds them in one pass.

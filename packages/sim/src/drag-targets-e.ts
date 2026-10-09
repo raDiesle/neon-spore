@@ -86,8 +86,8 @@ export type DragTargetE =
  * the thumb has come across from where it took the drum, thousandths of a
  * tile, and a lift the thumb up. It was the phone's lean, on the same slot,
  * until 27 September 2026.
- * `capstanRub` is `rimeHalfLeft`'s — `id` the reversals since the thumb went
- * down, a lift the thumb up (`capstan-hand.ts`).
+ * `capstanRub` is a `RubCount` — `id` how many times the thumb has turned
+ * back on itself since it went down, a lift the thumb up (`capstan-hand.ts`).
  */
 
 /**

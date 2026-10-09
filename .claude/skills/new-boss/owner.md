@@ -170,6 +170,12 @@ bosses* — are `generic.md`, next to this page.**
   every step is a seat holding pads down for a count is the hold he called
   boring, and a chord's first beats look the same right or wrong
   (`bosses.md` §11.47, *Retired*).
+- **Dislikes, in his words:** THE RIME, built 26 September and removed on
+  9 October 2026 — *"delete 'the rime' boss from game."* No reason given.
+  It was one more of the act-twelve shape — a lit core over the middle
+  column, a half to each seat, then shoot — that THE VISE, THE PLUMB and
+  THE SLING still share; its rub stays, on THE CAPSTAN and THE VALVE
+  (`bosses.md` §11.46, *Retired*).
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

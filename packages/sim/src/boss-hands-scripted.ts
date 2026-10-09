@@ -12,8 +12,6 @@ import { oculusGuarded } from "./oculus-guard.js";
 import { oculusHeard } from "./oculus-hand.js";
 import { oculusCounted } from "./oculus-level.js";
 import { plumbHeard } from "./plumb-hand.js";
-import { rimeGuarded } from "./rime-guard.js";
-import { rimeHeard } from "./rime-hand.js";
 import { seamGuarded } from "./seam-guard.js";
 import { slingHeard } from "./sling-hand.js";
 import { trapezeHeard } from "./trapeze-hand.js";
@@ -47,11 +45,6 @@ export function scriptedHandsHeard(world: World, commands: readonly TimedCommand
   for (const c of commands) viseHeard(world, c.player, c.command);
   // Its bite, THE SEAM's shield once a tick after the commands (`vise-guard.ts`).
   viseGuarded(world);
-  // THE RIME's two wipes, on the tick because a half wiped to nought is
-  // answered then, before the beat's regrowth could undo it (`rime-hand.ts`);
-  // and its shield, THE SEAM's once a tick after the commands (`rime-guard.ts`).
-  for (const c of commands) rimeHeard(world, c.player, c.command);
-  rimeGuarded(world);
   // THE PLUMB's leans, the same: a drift is the instant a lean leaves range (`plumb-hand.ts`).
   for (const c of commands) plumbHeard(world, c.player, c.command);
   // THE SLING's draws, the same: a draw is judged the instant it lifts

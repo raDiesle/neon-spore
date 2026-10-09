@@ -163,22 +163,6 @@ export const SILENT_BOSS_C = [
   "viseMiss",
   "viseSplit",
   "viseOut",
-  // THE RIME's fourteen, the same: each is thrown above the loop by its own fx
-  // file (`rime-fx.ts`, `packages/audio/src/bind-rime.ts`).
-  "rimeEnter",
-  "rimeLight",
-  "rimeShave",
-  "rimeClear",
-  "rimeFrost",
-  "rimeBare",
-  "rimeHit",
-  "rimeBlock",
-  "rimeCloud",
-  "rimeMiss",
-  "rimeRefreeze",
-  "rimeScatter",
-  "rimeShatter",
-  "rimeOut",
   // THE PLUMB's twelve, no burst from this table: each is thrown above the
   // loop by its own fx file (`plumb-fx.ts`).
   "plumbEnter",

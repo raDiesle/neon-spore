@@ -30,7 +30,6 @@ export { MANTLE_SPARK_FROM_MILLI, mantleSparkMilli, mantleVerdict } from "./mant
 export { oculusVerdict } from "./oculus-shot.js";
 export { plumbVerdict } from "./plumb-shot.js";
 export { RATCHET_BOLT_FROM_MILLI, ratchetBoltMilli, ratchetVerdict } from "./ratchet-shot.js";
-export { rimeVerdict } from "./rime-shot.js";
 export { scuttleVerdict } from "./scuttle-shot.js";
 export { slingVerdict } from "./sling-shot.js";
 export { stareVerdict } from "./stare-shot.js";

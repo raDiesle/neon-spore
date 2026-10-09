@@ -527,20 +527,6 @@ const SAMPLES: Record<string, SimEvent> = {
   viseMiss: { type: "viseMiss", col: 5 },
   viseSplit: { type: "viseSplit", col: 5 },
   viseOut: { type: "viseOut", col: 5 },
-  rimeEnter: { type: "rimeEnter", col: 5 },
-  rimeLight: { type: "rimeLight", col: 5, ask: "shield" },
-  rimeShave: { type: "rimeShave", col: 5, side: 0, rimeMilli: 500 },
-  rimeClear: { type: "rimeClear", col: 5, side: 1, wipes: 2 },
-  rimeFrost: { type: "rimeFrost", col: 5, side: 0 },
-  rimeBare: { type: "rimeBare", col: 5 },
-  rimeHit: { type: "rimeHit", col: 5, hits: 2 },
-  rimeBlock: { type: "rimeBlock", col: 5 },
-  rimeCloud: { type: "rimeCloud", col: 5 },
-  rimeMiss: { type: "rimeMiss", col: 5 },
-  rimeRefreeze: { type: "rimeRefreeze", col: 5 },
-  rimeScatter: { type: "rimeScatter", col: 5, side: 0 },
-  rimeShatter: { type: "rimeShatter", col: 5 },
-  rimeOut: { type: "rimeOut", col: 5 },
   plumbEnter: { type: "plumbEnter", col: 5 },
   plumbLight: { type: "plumbLight", col: 5, ask: "left" },
   plumbDrift: { type: "plumbDrift", col: 5, side: 1 },
@@ -801,8 +787,7 @@ describe("bindings", () => {
   // one quiet beat on the bob (§31, *Presentation*), and the pull that
   // breaks it is `plumbFlare`, which is heard. `slingCool` is the eighth, and
   // THE SLING's spent yoke cooling the same beat: `slingSnap` is heard.
-  // `rimeRefreeze` is the ninth, THE RIME's, for the eighth's reason:
-  // `rimeScatter` is heard. (THE STARE's `stareAgain` was one until 2 October
+  // (THE STARE's `stareAgain` was one until 2 October
   // 2026, when its levels stopped starting over.) THE LAMPREY's food
   // falling, its crawl out of the picture and its crawl across the field are
   // silent: the crawl is seen, and the bodies falling have their own sounds.
@@ -818,7 +803,6 @@ describe("bindings", () => {
     "fleetHold",
     "plumbBleed",
     "slingCool",
-    "rimeRefreeze",
   ]);
 
   it("names a sound that exists for every event but the ones that are silent by design", () => {

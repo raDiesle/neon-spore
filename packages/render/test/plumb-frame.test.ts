@@ -31,7 +31,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * colour, smaller per hit, the spent light bleeding down the chains, and the
  * bob swinging free — on all three screens.
  *
- * The states are **set** rather than played to, `rime-frame.test.ts`'s
+ * The states are **set** rather than played to, `vise-frame.test.ts`'s
  * arrangement: `sim/test/plumb*.test.ts` proves the script, the settles and
  * the drifts. What this file asks is whether every branch of the picture is
  * one a canvas accepts, and that each says what it has to: the body bronze,

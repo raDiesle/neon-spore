@@ -82,7 +82,6 @@ The kinds each breaks it with, and where. Paths are under `packages/sim/src`.
 | PULSE | 8 | `pulse-round.ts`, `pulse-controls.ts` (a miss or a stray takes meter) |
 | QUEEN | 1, 4, 10, 11 | `queen-mark.ts` (*there is no punishment here*), `queen-hand.ts` |
 | RATCHET | 5, 8 | `ratchet-step.ts`, `ratchet-story.ts` |
-| RIME | 1, 4, 6, 7 | `rime-step.ts`, `rime-refreeze.ts`, `rime-guard.ts` |
 | SCOUT | 10, and a shut mouth or a wall costs time | `scout-arena.ts`, `scout-fly.ts`, `scout-hand.ts` |
 | SCUTTLE | 1, 2 | `scuttle-shot.ts` (early beam touches nothing) |
 | SEAM | 1, 6 | `seam-step.ts` (a bolt into the dark step shuts it a beat longer), `seam-shot.ts` |

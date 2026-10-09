@@ -205,8 +205,6 @@ export type {
   OculusStep,
   PlumbEntry,
   PlumbStep,
-  RimeEntry,
-  RimeStep,
   ScriptedBossEntry,
   SeamEntry,
   SeamStep,

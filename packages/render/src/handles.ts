@@ -34,7 +34,6 @@ import { plumbPullUnder } from "./plumb-grip.js";
 import { pulseMeterUnder } from "./pulse-grip.js";
 import { queenMarkUnder } from "./queen-grip.js";
 import { ratchetCatchUnder, ratchetPawlUnder } from "./ratchet-grip.js";
-import { rimeHalfUnder } from "./rime-grip.js";
 import { scoutGripUnder } from "./scout-grip.js";
 import { scuttlePartUnder } from "./scuttle-grip.js";
 import { sinewHandleUnder } from "./sinew-handles.js";
@@ -150,7 +149,6 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     viseLobeUnder(l, x, y, field) ?? // THE VISE's case, this seat's lobe taken in its zone to be carried shut (`vise-grip.ts`).
     slingDrawUnder(l, x, y, field) ?? // THE SLING's own cord, held then loosed toward the lit column (`sling-grip.ts`).
     plumbPullUnder(l, x, y, field) ?? // THE PLUMB's stone on this seat's side, pulled left or right (`plumb-grip.ts`).
-    rimeHalfUnder(l, x, y, field) ?? // THE RIME's lens, this seat's half of it rubbed clear (`rime-grip.ts`).
     capstanRubUnder(l, x, y, field) ?? // THE CAPSTAN's drum, either end rubbed from either seat (`capstan-grip.ts`).
     capstanSteerUnder(l, x, y, field) ?? // THE CAPSTAN's middle, pulled to steer the cradle (`capstan-grip.ts`).
     gallPressUnder(l, x, y, field) ?? // THE GALL's seam, one finger of this seat's pinch on the point it is nearest (`gall-grip.ts`).

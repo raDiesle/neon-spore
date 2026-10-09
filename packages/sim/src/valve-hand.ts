@@ -102,8 +102,8 @@ function pinHeard(world: World, player: 1 | 2, command: Extract<Command, { kind:
 }
 
 /**
- * A rub on the pin: the reversal count rides the drag's `id`, THE RIME's
- * reading (`rime-hand.ts`) — a count lower than the last one heard is a fresh
+ * A rub on the pin: the reversal count rides the drag's `id`, the `RubCount`
+ * reading (`drag-targets-e.ts`) — a count lower than the last one heard is a fresh
  * touch, and every reversal in it is new. Counted only while the film is on.
  */
 function rubHeard(world: World, s: ValveState, player: 1 | 2, id: number): void {

@@ -39,7 +39,7 @@ export const GESTURE_NOTES: Readonly<Record<string, string>> = {
   "SENDING NOTHING": "Stamped SPEC'D but built: `RestraintGate` in THE FLUE. " + "Move to BUILT.",
   "TAPS ON A MOVING TARGET": "Stamped SPEC'D but built: THE RATCHET's pawl. Move to BUILT.",
   RUB:
-    "Stamped SPEC'D but built: THE RIME, THE CAPSTAN. Move " +
+    "Stamped SPEC'D but built: THE CAPSTAN. Move " +
     "to BUILT, and bring THE MAZE's heart under it.",
   "SQUEEZE ONE BODY":
     "Ruled out by the owner on 8 October 2026 with CHORD: one finger a " +

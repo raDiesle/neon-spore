@@ -143,7 +143,6 @@ export class RenderState {
     const boss = this.effects.boss;
     const players: Record<StripName, SpriteBursts> = {
       "vise-crack": boss.vise.crack,
-      "rime-clear": boss.rime.clear,
       "plumb-settle": boss.plumb.swing,
       "sling-draw": boss.sling.draw,
     };

@@ -392,9 +392,6 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // draw both (`render/vise-grip.ts`, `docs/spec/bosses.md` §11.45).
   viseLobeLeft: "field",
   viseLobeRight: "field",
-  // THE RIME's two halves, each a rub on the seat's side of the lens.
-  rimeHalfLeft: "field",
-  rimeHalfRight: "field",
   plumbLevelLeft: "field",
   plumbLevelRight: "field",
   // THE SLING's two cords, one a seat by geometry, taken anywhere on the

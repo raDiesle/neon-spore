@@ -11,7 +11,6 @@ import { MANTLE_GRIPS } from "./poses-field-controls-mantle.js";
 import { OCULUS_GRIPS } from "./poses-field-controls-oculus.js";
 import { PLUMB_GRIPS } from "./poses-field-controls-plumb.js";
 import { RATCHET_GRIPS } from "./poses-field-controls-ratchet.js";
-import { RIME_GRIPS } from "./poses-field-controls-rime.js";
 import { SLING_GRIPS } from "./poses-field-controls-sling.js";
 import { TRAPEZE_GRIPS } from "./poses-field-controls-trapeze.js";
 import { VALVE_GRIPS } from "./poses-field-controls-valve.js";
@@ -32,7 +31,6 @@ export const BOSS_GRIPS: readonly Pose[] = [
   ...PLUMB_GRIPS,
   ...CAPSTAN_GRIPS,
   ...GALL_GRIPS,
-  ...RIME_GRIPS,
   ...TRAPEZE_GRIPS,
   ...GOVERNOR_GRIPS,
   ...SLING_GRIPS,

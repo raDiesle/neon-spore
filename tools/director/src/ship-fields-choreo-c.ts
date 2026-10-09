@@ -194,17 +194,7 @@ export const CHOREO_FIELD_GROUP_C = {
   viseSplitBeats: "THE VISE — the boss two drags crack, then shoot into",
   viseOpenMilli: "THE VISE — the boss two drags crack, then shoot into",
   viseShutMilli: "THE VISE — the boss two drags crack, then shoot into",
-  // RimeConfig — the rests around the steps, the refreeze, the shatter, and how much frost
-  // a reversal shaves, a beat regrows and a first wipe leaves (`config-rime.ts`).
   // The script is the wave's own.
-  rimeStillBeats: "THE RIME — the boss two rubs wipe clear, then shoot into",
-  rimeRestBeats: "THE RIME — the boss two rubs wipe clear, then shoot into",
-  rimeShatterBeats: "THE RIME — the boss two rubs wipe clear, then shoot into",
-  rimeRefreezeBeats: "THE RIME — the boss two rubs wipe clear, then shoot into",
-  rimeRefreezeScatters: "THE RIME — the boss two rubs wipe clear, then shoot into",
-  rimeShaveMilli: "THE RIME — the boss two rubs wipe clear, then shoot into",
-  rimeRegrowMilli: "THE RIME — the boss two rubs wipe clear, then shoot into",
-  rimeFilmMilli: "THE RIME — the boss two rubs wipe clear, then shoot into",
   // PlumbConfig — the rests, a level's grace, one seat's reach, the spent
   // core's bleed and the swing free (`config-plumb.ts`). The script is
   // the wave's own, ranges and all.

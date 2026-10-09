@@ -40,8 +40,6 @@ export type DragTargetD =
   | "oculusLeafRight"
   | "viseLobeLeft"
   | "viseLobeRight"
-  | "rimeHalfLeft"
-  | "rimeHalfRight"
   | DragTargetE;
 
 /**
@@ -217,14 +215,8 @@ export type DragTargetD =
  */
 
 /**
- * `rimeHalfLeft` and `rimeHalfRight` are the seventy-seventh and
- * seventy-eighth: one half of THE RIME's frosted lens under each seat's
- * wiping thumb.
- *
- * Read as a **count** — `id` is how many times the thumb has turned back on
- * itself since it went down: `RubCount`, the first target whose number is
- * neither where a touch is nor how long it has stayed, but how often it has
- * reversed. Geometry says whose is whose, `oculusLeafLeft`'s reason, and the
- * wrong seat's message does nothing (`rime-hand.ts`). `fromMilli` is carried
- * and not read.
+ * `rimeHalfLeft` and `rimeHalfRight` stood here as the seventy-seventh and
+ * seventy-eighth, one half of THE RIME's frosted lens under each seat's
+ * wiping thumb, until the owner took the boss out of the game on 9 October
+ * 2026. Theirs was the first `RubCount` reading, which `capstanRub` keeps.
  */

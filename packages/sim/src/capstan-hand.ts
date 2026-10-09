@@ -25,7 +25,7 @@ const MAX_PULL_MILLI = 20_000;
  * rub. What is heard is the cradle **rocking over or drifting back** under
  * the steering pull.
  *
- * **The thumb is THE RIME's reading** (`rime-hand.ts`): `capstanRub`, `id` the
+ * **The thumb is a `RubCount`** (`drag-targets-e.ts`): `capstanRub`, `id` the
  * reversals since the thumb went down, kept so only fresh ones count and a
  * count lower than the last is a fresh touch. Fresh reversals from the
  * wearing seat go into the bared face's band and nowhere else; from the

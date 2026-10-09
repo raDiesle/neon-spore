@@ -9,7 +9,6 @@ import { installLatch } from "./latch-step.js";
 import { installMimic } from "./mimic-step.js";
 import { installOculus } from "./oculus-step.js";
 import { installPlumb } from "./plumb-step.js";
-import { installRime } from "./rime-step.js";
 import { installSeam } from "./seam-step.js";
 import { installSling } from "./sling-step.js";
 import { installTrapeze } from "./trapeze-step.js";
@@ -33,7 +32,6 @@ export const SCRIPTED_KINDS = [
   "seam",
   "oculus",
   "vise",
-  "rime",
   "plumb",
   "sling",
   "capstan",
@@ -57,7 +55,6 @@ export function installScripted(world: World, boss: ScriptedEntry): BossState {
   if (boss.kind === "seam") return installSeam(world, boss.steps);
   if (boss.kind === "oculus") return installOculus(world, boss.steps);
   if (boss.kind === "vise") return installVise(world, boss.steps);
-  if (boss.kind === "rime") return installRime(world, boss.steps);
   if (boss.kind === "plumb") return installPlumb(world, boss.steps);
   if (boss.kind === "sling") return installSling(world, boss.steps);
   if (boss.kind === "capstan") return installCapstan(world, boss.steps);

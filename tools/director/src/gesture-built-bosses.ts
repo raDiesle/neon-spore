@@ -70,7 +70,7 @@ export const BUILT_FOR_BOSSES: readonly Gesture[] = [
   {
     name: "RUB",
     state: "built",
-    does: "Back and forth over one body, counting the reversals — wipe it clean. THE RIME's `RubCount`: the level a seat reports without a shared clock, since it is only pointer events.",
+    does: "Back and forth over one body, counting the reversals — wipe it clean. THE CAPSTAN's `RubCount`, first THE RIME's: the level a seat reports without a shared clock, since it is only pointer events.",
     hand: [
       { k: "body", at: [46, 52], r: 16 },
       { k: "zigzag", from: [30, 52], to: [62, 52], n: 5 },
@@ -83,7 +83,7 @@ export const BUILT_FOR_BOSSES: readonly Gesture[] = [
       ],
       note: "a reversal is where x changes sign",
     },
-    where: ["packages/sim/src/rime-hand.ts", "packages/sim/src/capstan-hand.ts"],
+    where: ["packages/sim/src/capstan-hand.ts", "packages/sim/src/valve-hand.ts"],
   },
   {
     name: "HOLD, THEN SWIPE",

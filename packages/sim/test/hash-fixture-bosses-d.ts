@@ -2,13 +2,13 @@ import type { BossEntry } from "../src/boss-entries.js";
 import type { BossState } from "../src/boss-union.js";
 
 /**
- * **THE HASP to THE RIME: the fourth page of `hash-fixture.ts`**, opened the day that
+ * **THE HASP to THE VISE: the fourth page of `hash-fixture.ts`**, opened the day that
  * boss landed because `-c.ts` stood at 229 lines and an entry with its
  * paragraph and a patch with its own would not fit in the twenty-one that
  * were left. `-c.ts`' own header names this file as the one that would take
  * the next boss, which is what happened.
  *
- * It runs to THE RIME. It grew to 483 lines, one boss at a time, and was cut
+ * It ran to THE RIME, taken out on 9 October 2026. It grew to 483 lines, one boss at a time, and was cut
  * at that boundary on 27 September 2026: THE PLUMB to THE TRAPEZE are on
  * `-e.ts`, and THE FLUE on is `-f.ts`, the last page, where the newest boss
  * goes — `BOSS_KINDS` is appended to, never inserted into. The reasons the
@@ -94,18 +94,9 @@ export const BOSS_ENTRIES_D = {
       { ask: "fire", color: "red", beats: 3 },
     ],
   },
-  // THE RIME authors its script; two steps rather than the shipped nine
-  // (`rime-hash.ts`).
-  rime: {
-    kind: "rime",
-    steps: [
-      { ask: "right", color: "cyan", beats: 6 },
-      { ask: "shield", color: "red", beats: 3 },
-    ],
-  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
-/** THE HASP to THE RIME's share of `patchBoss`. */
+/** THE HASP to THE VISE's share of `patchBoss`. */
 export function patchBossD(boss: BossState): void {
   if (boss.kind === "hasp") {
     // A clasp part way wound with both hands on it: the latch held from a beat
@@ -245,19 +236,5 @@ export function patchBossD(boss: BossState): void {
     boss.bared = true;
     boss.gapMilli = [400, 2100];
     boss.heldBeats = 2;
-  }
-  if (boss.kind === "rime") {
-    // The right half part wiped with the core not yet bare — every field
-    // given a value (`rime-hash.ts`).
-    boss.phase = "lit";
-    boss.phaseBeat = 3;
-    boss.cursor = 1;
-    boss.litTick = 41;
-    boss.wipes = [2, 1];
-    boss.hits = 1;
-    boss.bared = true;
-    boss.rimeMilli = [250, 625];
-    boss.rubs = [4, 7];
-    boss.rubbed = [false, true];
   }
 }

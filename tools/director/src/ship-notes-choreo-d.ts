@@ -19,7 +19,7 @@ export const CHOREO_NOTES_D = {
     "Asked for in docs/spec/bosses-choreographed.md §37: a drum over the " +
     "middle column on a cradle one seat rocks with a pull past " +
     "capstanPullMilli — a thumb carried across the drum — while the other wipes the " +
-    "bared face's band, THE RIME's RubCount. Only the bared face wears; the " +
+    "bared face's band, a RubCount. Only the bared face wears; the " +
     "hidden one keeps its wear. The left mark is the pilot's pull and the " +
     "navigator's thumb, the right the other way; a band not lit stops one " +
     "short of capstanWearThreshold. Both bright bare the core, shot in its " +

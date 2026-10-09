@@ -27,14 +27,8 @@ export const PAINTED_STRIPS = {
   /** THE VISE's kernel crack, over the split (`vise-fx.ts`). */
   "vise-crack": { frames: 16, frameSize: 96, frameMs: 45, seed: 20260926 },
   /**
-   * THE RIME's frost clearing off the pane as the core lies bare
-   * (`rime-fx.ts`): wider than the crack because it covers the whole pane,
-   * and a little slower, because ice falls.
-   */
-  "rime-clear": { frames: 16, frameSize: 128, frameMs: 50, seed: 20260927 },
-  /**
    * THE PLUMB's weight settling true (`plumb-fx.ts`): a damped swing hung
-   * from the beam's end, mirrored for the navigator's. As wide as THE RIME's,
+   * from the beam's end, mirrored for the navigator's. As wide as THE RIME's was,
    * because a chain and a ball under it are three tiles tall, and as slow,
    * because a swing dies away rather than bursts.
    */

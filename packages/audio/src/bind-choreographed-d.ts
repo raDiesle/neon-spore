@@ -3,7 +3,6 @@ import type { Cue } from "./bind-cue.js";
 import { keelCue } from "./bind-keel.js";
 import { oculusCue } from "./bind-oculus.js";
 import { isPlumbEvent, plumbCue } from "./bind-plumb.js";
-import { rimeCue } from "./bind-rime.js";
 import { seamCue } from "./bind-seam.js";
 import { isSlingEvent, slingCue } from "./bind-sling.js";
 import { undertowCue } from "./bind-undertow.js";
@@ -30,7 +29,6 @@ type LaterEvent = Extract<
       | `seam${string}`
       | `oculus${string}`
       | `vise${string}`
-      | `rime${string}`
       | `plumb${string}`
       | `sling${string}`
       | `undertow${string}`;
@@ -142,21 +140,6 @@ export function laterCue(e: LaterEvent, cols: number): Cue | null {
     case "viseSplit":
     case "viseOut":
       return viseCue(e, cols);
-    case "rimeEnter":
-    case "rimeLight":
-    case "rimeShave":
-    case "rimeClear":
-    case "rimeFrost":
-    case "rimeBare":
-    case "rimeHit":
-    case "rimeBlock":
-    case "rimeCloud":
-    case "rimeMiss":
-    case "rimeRefreeze":
-    case "rimeScatter":
-    case "rimeShatter":
-    case "rimeOut":
-      return rimeCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

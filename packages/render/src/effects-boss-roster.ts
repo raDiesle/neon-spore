@@ -21,7 +21,6 @@ import { OculusFx } from "./oculus-fx.js";
 import { QueenFx } from "./queen-fx.js";
 import { RatchetFx } from "./ratchet-fx.js";
 import { RepriseFx } from "./reprise-fx.js";
-import { RimeFx } from "./rime-fx.js";
 import { ScuttleFx } from "./scuttle-fx.js";
 import { MirrorFx } from "./simon-fx.js";
 import { SinewFx } from "./sinew-fx.js";
@@ -185,10 +184,6 @@ export class BossRoster extends LateRoster {
    * screens, and told the kernel's colour by the drawer (`vise-fx.ts`,
    * `vise-draw.ts`). */
   readonly vise = new ViseFx();
-  /** THE RIME's flakes, flashes, film, the shatter's shudder, its blow and
-   * the painted clearing — thrown the same on both screens, and told the
-   * core's colour by the drawer (`rime-fx.ts`, `rime-draw.ts`). */
-  readonly rime = new RimeFx();
   /** THE BULB QUEEN's two marks' verdicts on a touch (`queen-fx.ts`). */
   readonly queen = new QueenFx();
   /** THE VANE's arm's and housing's verdicts on a touch (`vane-marks.ts`). */

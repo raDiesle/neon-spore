@@ -16,7 +16,6 @@ import { mantleStruck } from "./mantle-shot.js";
 import { oculusStruck } from "./oculus-shot.js";
 import { plumbStruck } from "./plumb-shot.js";
 import { ratchetStruck } from "./ratchet-shot.js";
-import { rimeStruck } from "./rime-shot.js";
 import { instarStruck, nettleStruck } from "./scene-panel.js";
 import { scuttleStruck } from "./scuttle-shot.js";
 import { seamStruck } from "./seam-shot.js";
@@ -102,8 +101,6 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   met = oculusStruck(world, b) || met;
   // THE VISE's bared kernel, in its colour (`vise-shot.ts`).
   met = viseStruck(world, b) || met;
-  // THE RIME's bared core, in its colour (`rime-shot.ts`).
-  met = rimeStruck(world, b) || met;
   // THE PLUMB's lit core, in its colour (`plumb-shot.ts`).
   met = plumbStruck(world, b) || met;
   // THE SLING's lit yoke, in its colour (`sling-shot.ts`).
@@ -169,7 +166,6 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "seam",
   "oculus",
   "vise",
-  "rime",
   "plumb",
   "sling",
   "capstan",

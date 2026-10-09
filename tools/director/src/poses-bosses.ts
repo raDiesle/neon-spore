@@ -19,7 +19,6 @@ import { MIMIC_POSES } from "./poses-bosses-hands-mimic.js";
 import { NETTLE_POSES } from "./poses-bosses-hands-nettle.js";
 import { OCULUS_POSES } from "./poses-bosses-hands-oculus.js";
 import { RATCHET_POSES } from "./poses-bosses-hands-ratchet.js";
-import { RIME_POSES } from "./poses-bosses-hands-rime.js";
 import { SEAM_POSES } from "./poses-bosses-hands-seam.js";
 import { SHOT_HAND_POSES } from "./poses-bosses-hands-shots.js";
 import { TAKE_HAND_POSES } from "./poses-bosses-hands-takes.js";
@@ -68,7 +67,6 @@ export const BOSS_POSES: Pose[] = [
   ...KEEL_POSES,
   ...OCULUS_POSES,
   ...VISE_POSES,
-  ...RIME_POSES,
   ...VALVE_POSES,
   ...SEAM_POSES,
   ...LAMPREY_POSES,

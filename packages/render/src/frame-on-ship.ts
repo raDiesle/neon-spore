@@ -76,9 +76,6 @@ export function drawOnShip(
   // And THE VISE's: each seam cracking is a dry thud through the plating
   // (`vise-fx.ts`, §28).
   held.effects.boss.vise.shock.draw(ctx, l, surfaceY, view.time);
-  // And THE RIME's: the lens shattering is a shudder down the plating
-  // (`rime-fx.ts`, §29).
-  held.effects.boss.rime.shock.draw(ctx, l, surfaceY, view.time);
   // And THE FLUE's: a thud through the plating as it goes cold for good
   // (`flue-fx.ts`, §11.57).
   held.effects.boss.flue.shock.draw(ctx, l, surfaceY, view.time);

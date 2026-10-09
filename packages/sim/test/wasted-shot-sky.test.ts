@@ -19,7 +19,6 @@ import * as mantle from "./mantle-rig.js";
 import * as oculus from "./oculus-rig.js";
 import * as plumb from "./plumb-rig.js";
 import * as ratchet from "./ratchet-rig.js";
-import * as rime from "./rime-rig.js";
 import * as seam from "./seam-rig.js";
 import * as sling from "./sling-rig.js";
 import * as trapeze from "./trapeze-rig.js";
@@ -81,7 +80,6 @@ describe("a bolt out of the top on HARD, under a boss", () => {
     keel: () => keel.install(),
     oculus: () => oculus.install(),
     plumb: () => plumb.install(),
-    rime: () => rime.install(),
     sling: () => sling.install(),
     vise: () => vise.install(),
   };

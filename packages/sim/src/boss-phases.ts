@@ -27,7 +27,6 @@ import { PIN_SHOTS, PINBALL_PHASES } from "./pinball.js";
 import { PLUMB_PHASES } from "./plumb.js";
 import { PULSE_HEARTS, PULSE_PHASES } from "./pulse.js";
 import { RATCHET_PHASES } from "./ratchet.js";
-import { RIME_PHASES } from "./rime.js";
 import { SCOUT_LOADS, SCOUT_PHASES } from "./scout.js";
 import { SEAM_PHASES, SEAM_SIGHTS } from "./seam.js";
 import type { MirrorPhase } from "./simon.js";
@@ -133,7 +132,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   seam: [...SEAM_PHASES, ...SEAM_SIGHTS],
   oculus: OCULUS_PHASES,
   vise: VISE_PHASES,
-  rime: RIME_PHASES,
   plumb: PLUMB_PHASES,
   sling: SLING_PHASES,
   capstan: CAPSTAN_PHASES,

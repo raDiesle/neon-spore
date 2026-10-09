@@ -16,7 +16,6 @@ import { oculusBlow } from "./oculus-blow.js";
 import { PALETTE } from "./palette.js";
 import { plumbBlow } from "./plumb-blow.js";
 import { ratchetBlow } from "./ratchet-blow.js";
-import { rimeBlow } from "./rime-blow.js";
 import { seamBlow } from "./seam-blow.js";
 import { slingBlow } from "./sling-blow.js";
 import { stareBlow } from "./stare-blow.js";
@@ -82,7 +81,6 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   // Its gaze is already in the sky; the look lands as one ray and brands the hull.
   stare: stareBlow,
   // A core left unshot: the lens drops a frosted sheet that bursts and frosts the skin.
-  rime: rimeBlow,
   // A core left unshot: the sac lets a small bob down its own plumb line.
   plumb: plumbBlow,
   // A centre left unshot: the plating sheds a hanging plate that bites into the skin.

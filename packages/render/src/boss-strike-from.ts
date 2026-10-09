@@ -15,7 +15,6 @@ import { mimicBlowFrom } from "./mimic-blow.js";
 import { oculusCentre } from "./oculus-shape.js";
 import { plumbHook, plumbSacBottom, plumbSacMiddle } from "./plumb-shape.js";
 import { ratchetPawlY, ratchetX } from "./ratchet-shape.js";
-import { rimeCentre, rimeRadius } from "./rime-shape.js";
 import { seamCentre, seamHalfHeight } from "./seam-shape.js";
 import { slingBlowFrom } from "./sling-blow.js";
 import { spoolHome } from "./spool-shape.js";
@@ -60,11 +59,6 @@ const FROM: Partial<
   // The pawl's seam, where the jammed rack lets its head plate go
   // (`ratchet-blow.ts`).
   ratchet: (l, cfg) => ({ x: ratchetX(l, cfg), y: ratchetPawlY(l) }),
-  // The lens's underside, where a frosted sheet lets go (`rime-blow.ts`).
-  rime: (l, cfg) => {
-    const c = rimeCentre(l, cfg);
-    return { x: c.x, y: c.y + rimeRadius(l).ry };
-  },
   // The eye itself, where the look leaves the socket (`stare-blow.ts`).
   stare: (l, cfg) => {
     const e = stareEye(l, cfg);

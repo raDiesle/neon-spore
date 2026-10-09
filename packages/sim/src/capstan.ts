@@ -16,7 +16,7 @@ import type { World } from "./world.js";
  * that side's face for as long as it is held. It was the phone's lean until
  * 27 September 2026, when the owner ruled that no wave may need a tilt
  * sensor, since a phone may lack one and a desk never has one. The
- * rub is THE RIME's `RubCount` (`rime-hand.ts`): `capstanRub`, the reversals
+ * rub is a `RubCount` (`drag-targets-e.ts`): `capstanRub`, the reversals
  * a wiping thumb has made. **Only the bared face takes them** — the hidden
  * face's wear holds exactly where it was, spending nothing and losing
  * nothing, until the cradle rocks back to it: a pause, never a reset.

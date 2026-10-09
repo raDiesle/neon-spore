@@ -2,7 +2,6 @@ import { filamentBoss, sinewBoss, stareBoss, surgeBoss, type World } from "@neon
 import { filamentHeart } from "./filament-heart.js";
 import { filamentStrands } from "./filament-shape.js";
 import type { Layout } from "./layout.js";
-import { rimeCentre, rimeRadius } from "./rime-shape.js";
 import { sinewCollarBox } from "./sinew-band.js";
 import { sinewMassCentre, sinewMassRx, sinewMassRy } from "./sinew-shape.js";
 import { longBossAim } from "./slow-boss-aim-c.js";
@@ -28,8 +27,6 @@ export function lateBossAim(world: World, l: Layout, beat: number, beatPhase: nu
   const cfg = world.cfg;
   switch (boss.kind) {
     // The lens stands still over the middle column, as THE VISE's case does.
-    case "rime":
-      return still(rimeCentre(l, cfg), longer(rimeRadius(l)));
     // The bulb, as wide as the circle a thumb is answered in.
     case "surge": {
       const s = surgeBoss(world);

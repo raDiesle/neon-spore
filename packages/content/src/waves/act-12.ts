@@ -16,23 +16,15 @@ import type { Wave } from "../wave-types.js";
  * It authors the whole script, and nothing that falls: the pilot's two seams,
  * the navigator's two, then fire and hold in turn up to the white last hit.
  *
- * **THE RIME is the first boss answered by a rub.** Each seat wipes its own
- * half of a frosted lens back and forth, and the frost it has not rubbed this
- * beat grows back (§29, `sim/rime.ts`). Two wipes a half bare the core, which
- * is shot in its colour; between the shots a surge of frost comes, and the
- * shield under the middle turns it. Its script runs as THE VISE's does, with
- * the shield where the hold was. A half's first wipe is from solid frost and
- * gets the longer window; the second is from the film the first left.
- *
  * **THE PLUMB is the first boss answered by the phone itself**, the same
- * shape a third time: a bob over the middle column, each seat's weight hung
+ * shape a second time: a bob over the middle column, each seat's weight hung
  * true by holding its own phone level, inside a range that narrows on the
  * second settle (`docs/spec/bosses-choreographed.md` §31, `sim/plumb.ts`).
  * Both weights true light the core, which is shot in its colour; between the
  * shots both seats hold level at once to keep the weights true under it.
  *
  * **THE SLING is the first boss answered at the lift**, the same shape a
- * fourth time: a fork over the middle column, each seat's arm drawn by
+ * third time: a fork over the middle column, each seat's arm drawn by
  * holding a finger down for the count and loosed by swiping toward the lit
  * side as it leaves (`docs/spec/bosses-choreographed.md` §32,
  * `sim/sling.ts`). Both arms drawn light the yoke, which is shot in its
@@ -63,33 +55,6 @@ export const WAVES_ACT_12: Wave[] = [
         { ask: "fire", color: "cyan", beats: 6 },
         { ask: "spit", color: "red", beats: 4, offset: 2 },
         { ask: "both", color: "either", beats: 3 },
-        { ask: "fire", color: "either", beats: 6 },
-      ],
-    },
-    bossType: "normal",
-  },
-  {
-    id: "theRime",
-    name: "THE RIME",
-    guide: {
-      both: "Rub your half of the lens back and forth until it clears. Two wipes each bare the core. Shoot it in its colour. When the surge comes, shield it.",
-      p1: "1. Rub the left half back and forth and say so.\n2. Keep rubbing until it clears. If you stop, the frost grows back.\n3. When the core shows a colour, fire it. Press the shield when it is under the lens.",
-      p2: "1. Rub the right half back and forth and say so.\n2. Keep rubbing until it clears.\n3. White takes either colour. When the surge comes, move the shield under the lens.\n4. In the fog, both rub. Shield the icicle.",
-    },
-    entries: [],
-    boss: {
-      kind: "rime",
-      steps: [
-        { ask: "left", color: "either", beats: 6 },
-        { ask: "left", color: "either", beats: 4 },
-        { ask: "right", color: "either", beats: 6 },
-        { ask: "right", color: "either", beats: 4 },
-        { ask: "fire", color: "red", beats: 6 },
-        { ask: "shield", color: "either", beats: 3 },
-        { ask: "both", color: "either", beats: 5 },
-        { ask: "fire", color: "cyan", beats: 6 },
-        { ask: "icicle", color: "either", beats: 4, offset: -2 },
-        { ask: "shield", color: "either", beats: 3 },
         { ask: "fire", color: "either", beats: 6 },
       ],
     },

@@ -29,7 +29,6 @@ import { PLUMB_CONTROLS } from "./field-controls-plumb.js";
 import { PULSE_CONTROLS } from "./field-controls-pulse.js";
 import { QUEEN_CONTROLS } from "./field-controls-queen.js";
 import { RATCHET_CONTROLS } from "./field-controls-ratchet.js";
-import { RIME_CONTROLS } from "./field-controls-rime.js";
 import { SCOUT_CONTROLS } from "./field-controls-scout.js";
 import { SCUTTLE_CONTROLS } from "./field-controls-scuttle.js";
 import { SINEW_CONTROLS } from "./field-controls-sinew.js";
@@ -170,9 +169,6 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...PLUMB_CONTROLS,
   ...CAPSTAN_CONTROLS,
   ...GALL_CONTROLS,
-  // THE RIME's two halves, the first rub: a thumb turned back and forth on
-  // the seat's side of the lens's spine (`field-controls-rime.ts`).
-  ...RIME_CONTROLS,
   // THE TRAPEZE's ring and track, the only pair here **one seat's tap answered
   // by the other's swipe** on one swinging flag (`field-controls-trapeze.ts`).
   ...TRAPEZE_CONTROLS,

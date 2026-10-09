@@ -29,7 +29,6 @@ export * from "./boss-hands-oculus.js";
 export * from "./boss-hands-plumb.js";
 export * from "./boss-hands-queen.js";
 export * from "./boss-hands-ratchet.js";
-export * from "./boss-hands-rime.js";
 export * from "./boss-hands-rounds.js";
 export * from "./boss-hands-scene.js";
 export * from "./boss-hands-scout.js";

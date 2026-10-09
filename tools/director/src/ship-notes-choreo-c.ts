@@ -172,20 +172,6 @@ export const CHOREO_NOTES_C = {
     "pinch step stays lit past its count. A bite wants the shield under the " +
     "case, a spit a shot up the column the seed hangs over; either run out " +
     "is a hull hit — sim/vise*.ts, sim/config-vise.ts.",
-  "THE RIME — the boss two rubs wipe clear, then shoot into":
-    "Asked for in docs/spec/bosses-choreographed.md §29: a rub, each seat on " +
-    "its own half of a frosted lens over the middle column, and a script the " +
-    "wave authors. A left or right step shaves rimeShaveMilli of frost for " +
-    "every reversal of that seat's thumb; a beat with no rub grows " +
-    "rimeRegrowMilli back, and a half at nought is a wipe. A first wipe starts " +
-    "from solid frost, a second from the film (rimeFilmMilli) the first left; " +
-    "a wipe run out frosts the half solid and retries from its first wipe. Two " +
-    "wipes a half bare the core; a fire step wants a shot in its colour; a " +
-    "shield step is the guard pressed with the shield under the lens, and one " +
-    "run out clouds the lens until it is shielded again. A fire step run out " +
-    "is a hull hit, and so is a whiteout left unrubbed or an icicle unshielded — " +
-    "see sim/rime.ts, sim/rime-step.ts, sim/rime-hand.ts, sim/rime-guard.ts, " +
-    "sim/rime-shot.ts, sim/config-rime.ts.",
   "THE PLUMB — the boss two pulls hold level, then shoot into":
     "Asked for in docs/spec/bosses-choreographed.md §31: a pull, each seat " +
     "dragging its own stone left or right under a bob over the middle column, " +

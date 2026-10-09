@@ -151,31 +151,6 @@ export {
   ratchetWindowBeats,
   ratchetWorking,
 } from "./ratchet.js";
-// THE RIME's lens: the phase, the lit step, the wipes and both halves' frost,
-// for the picture, the cue and the director's hand. Straight off `rime.ts`
-// (`docs/spec/bosses-choreographed.md` §29).
-export {
-  freshRime,
-  RIME_ASKS,
-  RIME_FULL_MILLI,
-  RIME_PHASES,
-  RIME_WIPES_PER_HALF,
-  type RimeAsk,
-  type RimeEntry,
-  type RimePhase,
-  type RimeState,
-  type RimeStep,
-  rimeBoss,
-  rimeCoreAsks,
-  rimeDone,
-  rimeHalfAsks,
-  rimeIcicleAsks,
-  rimeIcicleCol,
-  rimeLitStep,
-  rimeRubbing,
-  rimeSurgeAsks,
-  rimeWiping,
-} from "./rime.js";
 // THE SEAM's ridge: the phase, the lit step and what it still wants, and the
 // points sealed, for the picture, the cue and the director's hand. Straight
 // off `seam.ts` (`docs/spec/bosses-choreographed.md` §26).

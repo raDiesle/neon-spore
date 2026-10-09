@@ -8,7 +8,6 @@ import { gallAside, gallVerdict } from "./gall-shot.js";
 import { governorVerdict } from "./governor-shot.js";
 import { oculusVerdict } from "./oculus-shot.js";
 import { plumbVerdict } from "./plumb-shot.js";
-import { rimeVerdict } from "./rime-shot.js";
 import { slingVerdict } from "./sling-shot.js";
 import { stareVerdict } from "./stare-shot.js";
 import type { Bullet, Color } from "./types.js";
@@ -86,7 +85,6 @@ const CORES: Partial<Record<BossKind, Core>> = {
   governor: { milli: 5900, meet: 9600, verdict: (w, c, k) => governorVerdict(w, c, k) },
   oculus: { milli: 2200, verdict: (w, c, k) => oculusVerdict(w, c, k) },
   plumb: { milli: 2040, verdict: (w, c, k) => plumbVerdict(w, c, k) },
-  rime: { milli: 2200, verdict: (w, c, k) => rimeVerdict(w, c, k) },
   sling: { milli: 1800, verdict: (w, c, k) => slingVerdict(w, c, k) },
   // THE STARE's eye hangs inside a glass dome reaching to row 2.9, and nothing
   // in it is ever a target: a bolt rings off the dome's lower edge, so it is

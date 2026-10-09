@@ -424,7 +424,7 @@ reaches a mark: the flight is over before any is up. Test:
   and already sway as the owner picked on VERSUS `valve:pin`; THE DAVIT,
   since its hook is both seats' loose handle and the fire step's target,
   and a hook swinging off the middle column would mislead the cannons;
-  and THE VANE, SCUTTLE, RATCHET, RIME and TRIVET for the reasons given
+  and THE VANE, SCUTTLE, RATCHET and TRIVET for the reasons given
   under *A mechanism is not an animal*.
 
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
@@ -641,7 +641,7 @@ below is the rule as it stood before that, and the swings it built are the ones
 he could not see.
 
 **A mechanism is not an animal**, and the owner's ask is for the creatures.
-THE VANE, THE SCUTTLE, THE SPOOL, THE HASP, THE RATCHET, THE VALVE, THE RIME,
+THE VANE, THE SCUTTLE, THE SPOOL, THE HASP, THE RATCHET, THE VALVE,
 THE SLING, THE TRIVET, THE PLUMB and THE DAVIT get the part
 drift only on what **hangs or hinges** — a boom, a bob, a hook, a jaw on its
 bolt, a tine, a spar's tip — at half the table's range, and nothing rigid
@@ -674,8 +674,7 @@ long at most, so even a hand's whole range moves a part under two pixels —
 THE TRIVET's lesson again. THE RATCHET's pawl hinges, but it is sprung onto
 the teeth and lifts on every step; a pawl that swung loose would say the
 lock is broken. THE SPOOL's line is taut to the hull and its ribs ease
-open on the script's clock, and THE RIME is a pane of glass: nothing on
-either hangs.
+open on the script's clock: nothing on it hangs.
 
 ### Where it lives
 

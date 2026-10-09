@@ -38,7 +38,6 @@ export const BOSS_DEMONSTRATIONS = {
   seam: { wave: "theSeam" },
   oculus: { wave: "theOculus" },
   vise: { wave: "theVise" },
-  rime: { wave: "theRime" },
   plumb: { wave: "thePlumb" },
   sling: { wave: "theSling" },
   capstan: { wave: "theCapstan" },

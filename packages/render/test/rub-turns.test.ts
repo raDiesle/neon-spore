@@ -6,7 +6,7 @@ import { Rubs } from "../src/rub-turns.js";
 
 /**
  * **How many times a thumb has turned back** — the count `rub.ts` keeps, with
- * what a count means left to `sim/rime-hand.ts`' own test; and another
+ * what a count means left to `sim/capstan-hand.ts`' own test; and another
  * finger held beside it, through `fingers.ts`.
  */
 
@@ -15,7 +15,7 @@ const T = L.tile;
 
 const FLAT: Hold = {
   kind: "drag",
-  target: "rimeHalfLeft",
+  target: "capstanRub",
   player: 1,
   originX: 0,
   originY: 0,
@@ -30,7 +30,7 @@ const LOBE: Hold = {
   closes: DEFAULT_CONFIG.viseOpenMilli,
 };
 
-const says = (id: number, on: boolean, target: DragTarget = "rimeHalfLeft"): Command => ({
+const says = (id: number, on: boolean, target: DragTarget = "capstanRub"): Command => ({
   kind: "drag",
   target,
   on,

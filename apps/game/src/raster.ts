@@ -2,7 +2,6 @@ import { loadAtlas, STRIP_NAMES, type StripName } from "@neon-spore/render";
 import burstStripUrl from "../../../assets/raster/burst-strip.webp";
 import claspStripUrl from "../../../assets/raster/green-shield-strip.webp";
 import plumbSettleStripUrl from "../../../assets/raster/plumb-settle-strip.webp";
-import rimeClearStripUrl from "../../../assets/raster/rime-clear-strip.webp";
 import slingDrawStripUrl from "../../../assets/raster/sling-draw-strip.webp";
 import viseCrackStripUrl from "../../../assets/raster/vise-crack-strip.webp";
 
@@ -86,7 +85,6 @@ export const bindRasterClasp = (host: SpriteHost, href: string): Bound =>
  */
 const STRIP_URLS: Record<StripName, string> = {
   "vise-crack": viseCrackStripUrl,
-  "rime-clear": rimeClearStripUrl,
   "plumb-settle": plumbSettleStripUrl,
   "sling-draw": slingDrawStripUrl,
 };

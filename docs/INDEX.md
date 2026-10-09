@@ -227,13 +227,6 @@ by hand never moves.
 | `packages/sim/src/snake.ts` | SNAKE: one of you drives it and the other one works it |
 | `packages/sim/src/echo.ts` | THE ECHO: half speed down, dividing into four — the fan, the price and the one field it carries |
 | `packages/sim/src/rind.ts` | THE RIND: three sizes of one body — the shed, the kill at the end and the layer count that is also its health bar |
-| `packages/sim/src/rime-guard.ts` | **THE RIME's shield**, asked once a tick after the commands are heard |
-| `packages/sim/src/rime-hand.ts` | Two wiping thumbs on THE RIME, one half each |
-| `packages/sim/src/rime-hash.ts` | What THE RIME puts into `hashWorld`, and nothing else |
-| `packages/sim/src/rime-shot.ts` | **THE RIME's shot**: the bared core, where a bolt leaves the top of the field in the middle column |
-| `packages/sim/src/rime-step.ts` | THE RIME's clock: the lens settling, each step lighting |
-| `packages/sim/src/rime-refreeze.ts` | **THE RIME's refreeze**, §29 row 11 of `docs/spec/bosses-choreographed.md`: the third hit spends the core |
-| `packages/sim/src/rime.ts` | THE RIME: a frosted lens of two halves over the middle column, each wiped clear by its own seat |
 | `packages/sim/src/rim-turn.ts` | **How far a lever carried round a rim turns what it is bolted to**, in thousandths of a degree |
 | `packages/sim/src/events-creature.ts` | the arm of `SimEvent` about one body — a disguise, a covering, a cloud, a layer |
 | `packages/sim/src/events-creature-groups.ts` | **Every creature whose events have a file of their own**, as one arm of `CreatureEvent` (`events-creature.ts`) |
@@ -740,7 +733,6 @@ by hand never moves.
 | `packages/sim/src/events-plumb.ts` | What THE PLUMB says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-rounds.ts` | **THE MIRROR's seven and THE MAZE's five** |
 | `packages/sim/src/events-ratchet.ts` | What THE RATCHET says as it happens, one line per thing the picture and the sound answer |
-| `packages/sim/src/events-rime.ts` | What THE RIME says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-keel.ts` | What THE KEEL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-oculus.ts` | What THE OCULUS says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
@@ -754,7 +746,6 @@ by hand never moves.
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/config-run.ts` | The run's own numbers: the rest after a wave, the pause after a hit |
 | `packages/sim/src/config-ratchet.ts` | THE RATCHET's tuning: how deep the catch counts as set |
-| `packages/sim/src/config-rime.ts` | THE RIME's tuning: the rests around its steps, what a reversal shaves and a beat regrows |
 | `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
 | `packages/sim/src/config-well.ts` | THE WELL's numbers — how long the face stands still, how far it slips a beat |
 | `packages/sim/src/config-warden.ts` | THE WARDEN's throw: how far the swipe has to travel and how many beats the hatch stands open |
@@ -1165,7 +1156,6 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zd.ts` | **What THE KEEL is asking for** — page thirty of the readings |
 | `packages/render/src/boss-cue-read-ze.ts` | **What THE OCULUS is asking for** — page thirty-one of the readings |
 | `packages/render/src/boss-cue-read-zf.ts` | **What THE VISE is asking for** — page thirty-two of the readings |
-| `packages/render/src/boss-cue-read-zg.ts` | **What THE RIME is asking for** — page thirty-three of the readings |
 | `packages/render/src/boss-cue-read-zl.ts` | **What THE CAPSTAN is asking for** — page thirty-eight of the readings |
 | `packages/render/src/boss-cue-read-zm.ts` | **What THE GALL is asking for** — page thirty-nine of the readings |
 | `packages/render/src/boss-cue-read-zn.ts` | **What THE TRAPEZE is asking for**: page forty of the readings |
@@ -1624,18 +1614,6 @@ by hand never moves.
 | `packages/render/src/rind-flakes.ts` | FLAKES — a kept look for THE RIND's shed, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/rind-pod.ts` | POD — a kept look for THE RIND's shed, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/ricochet.ts` | **A wasted shot on HARD, coming back.** The shot that hit nothing loses the wave there (`sim/shot-out.ts`'s… |
-| `packages/render/src/rime-draw.ts` | **THE RIME**: a frosted pane of glass over the middle column, each half wiped clear by one seat's thumb |
-| `packages/render/src/rime-marks.ts` | **THE RIME's marks**: the three things that say what a step asks — the lit half |
-| `packages/render/src/rime-pose.ts` | **The clock THE RIME is posed off** (§29, *Animation*) |
-| `packages/render/src/rime-shape.ts` | **THE RIME's geometry**: where the lens stands, and the paths it is made of |
-| `packages/render/src/rime-story.ts` | **THE RIME's two story steps, drawn** (§29's story item; the rules are `sim/rime-step.ts` |
-| `packages/render/src/rime-stop.ts` | **Where a bolt meets THE RIME**: the bared core, or the lens's edge and any icicle |
-| `packages/render/src/rime-blow.ts` | THE RIME's timeout blow: the lens drops a frosted sheet that bursts and frosts the hull |
-| `packages/render/src/rime-glint.ts` | **THE RIME's frost glints**: a line of light crosses the pane on a slant every few seconds, catching the sheets' edges |
-| `packages/render/src/rime-grip.ts` | **The two halves of THE RIME's lens as controls** |
-| `packages/render/src/rime-fx.ts` | What THE RIME leaves behind a frame (§29, *Presentation*) |
-| `packages/render/src/rime-film.ts` | **THE RIME's refreeze**, drawn (§29 row 11): after the third hit a thin film ticks back over the spent core |
-| `packages/render/src/rime-verdicts.ts` | **THE RIME's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/snake-crash.ts` | The pause between two attempts, as a picture |
 | `packages/render/src/snake-clock.ts` | SNAKE's world, reduced to the three numbers its drawing runs on |
 | `packages/render/src/snake-contour.ts` | Where a body's edge is: the two banks of a tapered ribbon along a run of joints |
@@ -2690,7 +2668,6 @@ by hand never moves.
 | `packages/audio/src/bind-throat.ts` | THE THROAT's two hands on the gullet itself, in a file of their own for `bind-vane.ts`' reason |
 | `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |
 | `packages/audio/src/bind-ratchet.ts` | THE RATCHET's twenty-four, in a file of their own for `bind-gorge.ts`' reason |
-| `packages/audio/src/bind-rime.ts` | THE RIME's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-keel.ts` | THE KEEL's twenty-four, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-oculus.ts` | THE OCULUS's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 
@@ -2719,7 +2696,6 @@ by hand never moves.
 | `packages/hands/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |
 | `packages/hands/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE MIRROR's pin |
 | `packages/hands/src/boss-hands-ratchet.ts` | **THE RATCHET played right, and played blind**, for the STATES sheet |
-| `packages/hands/src/boss-hands-rime.ts` | **THE RIME played right**, for the autopilot: each lit half wiped clear by its own seat |
 | `packages/hands/src/boss-hands-queen.ts` | **The pair's hands on THE BULB QUEEN** |
 | `packages/hands/src/boss-hands-well.ts` | **The pilot's thumb on THE WELL's seam** |
 | `packages/hands/src/boss-hands-gauge.ts` | **THE GAUGE's hands**, in a file of their own |
@@ -3039,7 +3015,6 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-governor.ts` | THE GOVERNOR's tap, **photographed from the pilot's seat**: a step with a mark for each seat |
 | `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
-| `tools/director/src/poses-field-controls-rime.ts` | THE RIME's two hands: a half of the lens rubbed, once a seat |
 | `tools/director/src/poses-field-controls-dark.ts` | THE DARK with a thumb dragged across it: three squares lit along one row |
 | `tools/director/src/poses-field-controls-mantle.ts` | THE MANTLE's three hands: the two knobs under the two thumbs, and a tap on the bared core |
 | `tools/director/src/poses-field-controls-keel.ts` | THE KEEL's one hand: the first joint lit and waiting for its tap |
@@ -3195,7 +3170,6 @@ by hand never moves.
 | `tools/raster/src/painters.ts` | The painter of every row in `PAINTED_STRIPS`, by the row's name |
 | `tools/raster/src/render.ts` | Draws the burst in a real browser and brings the bytes back |
 | `tools/raster/src/render-strip.ts` | Draws any painted effect into a strip in a real browser, and brings the bytes back |
-| `tools/raster/src/rime-clear-art.ts` | One frame of THE RIME's bare-core reveal, drawn into a 2D context |
 | `tools/raster/src/spec.ts` | The one description of the burst — the only place its numbers are written |
 | `tools/raster/src/sprite-demos.ts` | **What `bun run sprite` can show**: each baked sprite beside the drawing it is offered against |
 | `tools/raster/src/sprite-demos-governor.ts` | **THE GOVERNOR's face on the sprite bench** |
@@ -3401,7 +3375,6 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-hasp.ts` | **THE HASP's story between the hasps**, posed with a hand on the controls: the rattle, the backspin, the rust and the sway |
 | `tools/director/src/poses-bosses-hands-takes.ts` | **The states a taking brings on** — a rock out of THE CAIRN, a number down THE SPLICE's straw |
 | `tools/director/src/poses-bosses-hands-ratchet.ts` | **THE RATCHET's nine states**, posed with a hand on the controls (`boss-hands-ratchet.ts`) |
-| `tools/director/src/poses-bosses-hands-rime.ts` | **THE RIME's still**, the one of its four states posed so far: the pane dropped in and standing |
 | `tools/director/src/poses-bosses-hands-nettle.ts` | **THE NETTLE's four states**, THE INSTAR's four (`poses-bosses-clocks.ts` |
 | `tools/director/src/poses-bosses-hands-mantle.ts` | **THE MANTLE's ten states**, posed with a hand on the controls (`boss-hands-mantle.ts`) |
 | `tools/director/src/poses-bosses-hands-mechanisms.ts` | THE PLUMB's and THE SLING's stills: each machine arrived and standing, no step lit yet |
@@ -3557,7 +3530,6 @@ by hand never moves.
 | `tools/director/src/field-controls-gimbal.ts` | THE GIMBAL's two rings, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn (`field-page.ts` lays them out) |
 | `tools/director/src/field-controls-ratchet.ts` | THE RATCHET's catch and pawl, as rows of the ON THE FIELD tab |
-| `tools/director/src/field-controls-rime.ts` | THE RIME's two halves, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |
 | `tools/director/src/field-controls-throat.ts` | **THE THROAT's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-taster.ts` | **THE TASTER's three thumbs on its own fan**, in a file of its own |

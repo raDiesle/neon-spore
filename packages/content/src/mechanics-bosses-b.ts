@@ -15,7 +15,6 @@ type BossIdB = Extract<
   | "seam"
   | "oculus"
   | "vise"
-  | "rime"
   | "plumb"
   | "sling"
   | "lamprey"
@@ -93,10 +92,6 @@ export const BOSS_MECHANICS_B = {
   },
   vise: {
     what: "Each pulls a lobe shut until a seam cracks. Two seams each, the kernel bares. Shoot it in its colour, and pull both when both light.",
-    reach: "spawn",
-  },
-  rime: {
-    what: "Each rubs a half of the lens clear, back and forth. Two wipes each, the core bares. Shoot it in its colour, and shield the surge under it.",
     reach: "spawn",
   },
   plumb: {

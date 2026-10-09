@@ -197,22 +197,6 @@ export const INGEST_SILENT_BOSS_C = [
   "viseMiss",
   "viseSplit",
   "viseOut",
-  // THE RIME's fourteen, for the same reason: what outlives a frame is
-  // `rime-fx.ts`', read above the loop (`packages/audio/src/bind-rime.ts`).
-  "rimeEnter",
-  "rimeLight",
-  "rimeShave",
-  "rimeClear",
-  "rimeFrost",
-  "rimeBare",
-  "rimeHit",
-  "rimeBlock",
-  "rimeCloud",
-  "rimeMiss",
-  "rimeRefreeze",
-  "rimeScatter",
-  "rimeShatter",
-  "rimeOut",
   // THE GAUGE's three, its first events: the needle, band and bind are world
   // state, read off `needleMilli`, `markMilli` and `boundBeat` every frame
   // (`render/gauge.ts`, 19 September 2026). Sound was what was missing —

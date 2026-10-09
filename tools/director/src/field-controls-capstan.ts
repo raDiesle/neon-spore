@@ -3,7 +3,7 @@ import type { FieldControlDef } from "./field-control-def.js";
 /**
  * THE CAPSTAN's pull and rub, as two rows of the ON THE FIELD tab.
  *
- * THE RIME's wipe on a drum a thumb pulls round. **Both screens draw the
+ * A wipe on a drum a thumb pulls round. **Both screens draw the
  * whole drum and either seat's thumb is taken on its middle and on either
  * end**, because which seat steers and wears is the step's and which face is
  * bared is the other seat's pull (`render/capstan-grip.ts`,

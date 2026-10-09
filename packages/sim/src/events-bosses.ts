@@ -26,7 +26,6 @@ import type { PlumbEvent } from "./events-plumb.js";
 import type { PulseEvent } from "./events-pulse.js";
 import type { QueenEvent } from "./events-queen.js";
 import type { RatchetEvent } from "./events-ratchet.js";
-import type { RimeEvent } from "./events-rime.js";
 import type { ScoutEvent } from "./events-scout.js";
 import type { ScuttleEvent } from "./events-scuttle.js";
 import type { SeamEvent } from "./events-seam.js";
@@ -91,7 +90,6 @@ export type BossEvent =
   | SeamEvent
   | OculusEvent
   | ViseEvent
-  | RimeEvent
   | PlumbEvent
   | SlingEvent
   | CapstanEvent
@@ -145,7 +143,6 @@ export type { PlumbEvent } from "./events-plumb.js";
 export type { PulseEvent } from "./events-pulse.js";
 export type { QueenEvent } from "./events-queen.js";
 export type { RatchetEvent } from "./events-ratchet.js";
-export type { RimeEvent } from "./events-rime.js";
 export type { ScoutEvent } from "./events-scout.js";
 export type { ScuttleEvent } from "./events-scuttle.js";
 export type { SeamEvent } from "./events-seam.js";

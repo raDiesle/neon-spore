@@ -12,7 +12,6 @@ import {
 import { filamentHeart } from "../src/filament-heart.js";
 import { filamentStrands } from "../src/filament-shape.js";
 import { computeLayout } from "../src/layout.js";
-import { rimeCentre, rimeRadius } from "../src/rime-shape.js";
 import { sinewCollarBox } from "../src/sinew-band.js";
 import { sinewMassCentre, sinewMassRx, sinewMassRy } from "../src/sinew-shape.js";
 import { aim } from "../src/slow-intake-aim.js";
@@ -54,7 +53,6 @@ function need<T>(s: T | null, kind: string): T {
 
 describe("THE SLOW's aim at a boss, page two", () => {
   it.each([
-    ["rime", () => round(rimeCentre(L, CFG), Math.max(rimeRadius(L).rx, rimeRadius(L).ry))],
     ["spool", () => round(spoolHome(L, CFG), Math.max(spoolBarrelHalf(L, 0), spoolFlangeR(L)))],
   ] as const)("stands round THE %s's whole body, over the field", (kind, want) => {
     const at = aim(stood(kind), L, 0, 0);

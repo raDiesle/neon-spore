@@ -6,8 +6,9 @@ import type { World } from "./world.js";
 /**
  * **What a bolt in a column meets of a core hung over the middle one**, the
  * judgement ten bosses made in seventeen identical lines each — THE TRAPEZE,
- * CAPSTAN, GALL, GOVERNOR, PLUMB, RIME and SLING, THE DAVIT, THE GRINDSTONE
- * and THE HALTER until the owner took them out on 8 October 2026, and THE
+ * CAPSTAN, GALL, GOVERNOR, PLUMB and SLING, THE DAVIT, THE GRINDSTONE
+ * and THE HALTER until the owner took them out on 8 October 2026, THE RIME
+ * until 9 October, and THE
  * FLUE until its rework of 5 October 2026 gave it an ember to shoot in place
  * of a core.
  *

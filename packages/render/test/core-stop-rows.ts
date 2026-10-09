@@ -8,8 +8,6 @@ import { KeelFx } from "../src/keel-fx.js";
 import type { Layout } from "../src/layout.js";
 import { drawPlumb } from "../src/plumb-draw.js";
 import { PlumbFx } from "../src/plumb-fx.js";
-import { drawRime } from "../src/rime-draw.js";
-import { RimeFx } from "../src/rime-fx.js";
 import { drawSling } from "../src/sling-draw.js";
 import { SlingFx } from "../src/sling-fx.js";
 import { stubCanvas } from "./canvas-stub.js";
@@ -18,7 +16,6 @@ import * as curtain from "./curtain-harness.js";
 import * as governor from "./governor-harness.js";
 import * as keel from "./keel-harness.js";
 import * as plumb from "./plumb-harness.js";
-import * as rime from "./rime-harness.js";
 import * as scuttle from "./scuttle-harness.js";
 import * as sling from "./sling-harness.js";
 import * as taster from "./taster-harness.js";
@@ -112,17 +109,6 @@ export const ROWS: Row[] = [
         p.coreLit = open;
       });
       drawPlumb(paper(), l, world, s, world.beat, 0.5, 0, new PlumbFx(), stops);
-    },
-    wide: true,
-  },
-  {
-    name: "THE RIME",
-    draw(stops, l, open) {
-      const world = rime.stood();
-      const s = rime.posed(world, rime.FIRE, (r) => {
-        r.bared = open;
-      });
-      drawRime(paper(), l, world, s, world.beat, 0.5, 0, new RimeFx(), stops);
     },
     wide: true,
   },
