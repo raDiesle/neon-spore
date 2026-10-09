@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A creature's field control is six registrations, found one red test at a time
 
 - **Found:** 2026-10-09, claude/queue-tasks-d82b1f
+- **Taken:** 2026-10-09, claude/task-queue-work-368248 (claim: claude/queue-a-creatures-field-control-is-six-registrations-f)
 - **Files:** `.claude/skills/new-creature/SKILL.md`, `tools/director/test/on-field-controls.test.ts`, `tools/director/test/field-page.test.ts`
 
 THE BLISTER's SWIPE moving from `unbuilt` to `field` took six places, and each
