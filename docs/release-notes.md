@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · be7b15824 — The bestiary points at the roster rather than counting its creatures
+
+Its status block said twenty-five `CreatureKind` values exist and named them, while the Categories table under it already held a dozen more. It now points at `CREATURE_KINDS` and the table its test keeps whole, and names no number.
+
 ## 2026-10-09 · 2a78d2206 — A guide page about a body keeps its words up after the body has gone
 
 A caption anchored to a body vanished the moment the body was knocked out, so a page that repeats its span showed its words for a sliver of each loop: THE BEATBOX's STOPPING IS THE ANSWER was up for 55 of 269 ticks. The ring the page last found is now held until the film's world is rebuilt. Exemption: a fix to something wrong — words a pair cannot read — not a new look.
