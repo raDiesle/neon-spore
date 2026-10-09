@@ -12,6 +12,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { blisterRise } from "./blister.js";
+import { drawBlisterTurn } from "./blister-turn-help.js";
 import { flatCenter, flatRadius } from "./creature-place.js";
 import { drawGripDial } from "./grip-rings.js";
 import { drawHoldMark } from "./hold-mark.js";
@@ -24,7 +25,7 @@ import { PALETTE } from "./palette.js";
 import { drawFuseRing } from "./pip-ring.js";
 
 /**
- * **THE BLISTER's help for TAP, HOLD and SWIPE**, called and not drawn anew
+ * **THE BLISTER's help for TAP, HOLD, SWIPE and TURN**, called and not drawn anew
  * (`docs/controls-catalogue.md`): the same pieces every mark in the game
  * wears, laid over and round a body that is up.
  *
@@ -44,6 +45,9 @@ import { drawFuseRing } from "./pip-ring.js";
  *   laid across the body along its way, a bar and never a ring (the owner, 24
  *   September 2026), its chevrons pointing the way and its fill the furthest
  *   open stroke. The partner is drawn the waiting clock, never the way.
+ * - TURN, on the seat that may: THE MAZE's turn round the body — channel,
+ *   lever and knob, filling green as the turn goes round
+ *   (`blister-turn-help.ts`). The partner, again, the waiting clock.
  * - The verdict on each blow is a transient and is `blister-verdicts.ts`'.
  *
  * Flat, after every body, outside the perspective transform — the tap's
@@ -74,6 +78,8 @@ export function drawBlisterHelp(
     const held = holding && heldNow(world, c);
     if (mine && gesture === "swipe") {
       drawSwipeTrack(ctx, l, world, c, { x, y, r }, time);
+    } else if (mine && gesture === "turn") {
+      drawBlisterTurn(ctx, l, world, c, { x, y, r }, time);
     } else if (mine && holding) {
       if (!held) drawMarkHalo(ctx, x, y, r, time);
       drawHoldMark(ctx, x, y, r * HOLD_R, time);

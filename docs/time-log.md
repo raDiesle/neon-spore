@@ -36480,3 +36480,17 @@ Bottleneck: reading — the lane is the same twelve places lane 5 touched,
 found from its commit's file list rather than from any list of them.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE BLISTER, lane 6, second half: TURN drawn and set
+
+- reading: 0 min. THE HASP's knob as the kit for a turn round a body, and
+  the ON THE FIELD page's TURN A WHEEL type.
+- writing: 5 min. `blister-turn-help.ts`, the director's TURN and its two
+  ways, the field row, its pose, the spec's lines and the frame test.
+- looking: 0 min. One `frames` run of a TURN blister up, and a crop.
+- friction: 0 min.
+- landing: 5 min. `check:fast` red once on the pull-knob roll-out list
+  missing the new drawer, the commit, `land`.
+
+Bottleneck: landing — the six registrations queued this morning went in at
+once, and a seventh list (every file that draws a pull knob) was found red.

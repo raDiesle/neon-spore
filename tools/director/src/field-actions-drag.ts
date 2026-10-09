@@ -128,6 +128,7 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE HASP'S WHEEL",
       "THE VALVE'S WHEEL",
       "THE BASTION'S RIM",
+      "THE BLISTER'S TURN",
     ],
   },
   {

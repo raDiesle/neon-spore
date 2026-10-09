@@ -1,4 +1,4 @@
-import { blisterIsUp, type TimedCommand } from "@neon-spore/sim";
+import { blisterIsUp, NO_BEARING, type TimedCommand } from "@neon-spore/sim";
 import { fresh, type Pose, run, until } from "./pose-kit.js";
 
 /**
@@ -47,6 +47,37 @@ export const BLISTER_SWIPE: Pose = {
       },
     });
     run(w, 3, [stroke(w.tick, 0), stroke(w.tick + 1, half)]);
+    return w;
+  },
+};
+
+/**
+ * THE BLISTER's TURN with a thumb half way round: the body up, THE MAZE's
+ * channel round it filled green from the top to the bottom, and the knob on
+ * its lever at the bottom (`sim/blister-turn.ts`, `render/blister-turn-help.ts`).
+ * The turn is a press and four bearings an eighth apart, the way `turnAbout`
+ * sends them while the thumb goes round.
+ */
+export const BLISTER_TURN: Pose = {
+  name: "BLISTER · A TURN HALF ROUND",
+  note: "A TURN blister is up out of its pore for its two beats. Player 2 has pressed on it and taken the thumb half way round clockwise: the channel round it is green from the top to the bottom, and the knob stands at the bottom on its lever. Another half and it is one of its three blows. Player 2's screen, the seat its BY names.",
+  lookAt: "whether the knob and channel read as go round, and whether half green reads as not yet",
+  crop: "field",
+  role: "p2",
+  build: () => {
+    const w = fresh([
+      { beat: 0, col: 4, kind: "blister", color: null, row: 3, count: 3, gesture: "turn" },
+    ]);
+    until(w, "a blister up", (x) => x.creatures.some(blisterIsUp));
+    const body = w.creatures.find(blisterIsUp);
+    if (!body) throw new Error("no blister up");
+    const bearing = (tick: number, at: number): TimedCommand => ({
+      tick,
+      player: 2,
+      command: { kind: "drag", target: "blisterTurn", id: body.id, on: true, fromMilli: at },
+    });
+    const round = [0, 125, 250, 375, 500].map((at, i) => bearing(w.tick + 1 + i, at));
+    run(w, 7, [bearing(w.tick, NO_BEARING), ...round]);
     return w;
   },
 };

@@ -116,9 +116,23 @@ describe("THE BLISTER's rows", () => {
   it("are BY, GESTURE and COUNT, and no WAY for a gesture without one", () => {
     expect(said(blisterRows(blister(), () => {}))).toEqual([
       "BY P1 P2 BOTH",
-      "GESTURE TAP HOLD SWIPE",
+      "GESTURE TAP HOLD SWIPE TURN",
       "COUNT 1 2 3 4 5 6 7 8",
     ]);
+  });
+
+  it("offer a TURN its two ways, clockwise unset, and drop a SWIPE's arrow on the change", () => {
+    const e = { ...blister(), gesture: "swipe", way: "up" } as WaveEntry;
+    setBlisterGesture(e, "turn");
+    expect(e.way).toBeUndefined();
+    expect(blisterWayOfEntry(e)).toBe("cw");
+    const rows = blisterRows(e, () => {}) as unknown as Node[];
+    expect(said(rows)[3]).toBe("WAY ⟳ ⟲");
+    rows[3]?.children[2]?.click?.();
+    expect(e.way).toBe("ccw");
+    expect(blisterWayOfEntry(reread(e))).toBe("ccw");
+    setBlisterWay(e, "cw");
+    expect(e.way).toBeUndefined();
   });
 
   it("offer a SWIPE its four ways as arrows, and set the one pressed", () => {

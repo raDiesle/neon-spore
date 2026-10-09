@@ -172,6 +172,10 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "THE MAZE's knob on the wheel across the door, with a two-headed arrow and PULL, on the navigator's screen; the rim haloed while her hand is off.",
     move: "The channel fills green by the share of the wind turned. Turned while the latch is up, the rim seizes red.",
   },
+  "THE BLISTER'S TURN": {
+    find: "THE MAZE's knob at the top of a channel round a blister while it is up, its arrow the way the turn counts, on the seat its BY names. The other seat sees the waiting clock.",
+    move: "The knob goes round after the thumb and the channel fills green behind it; a whole ring is one blow and one pip gone. The wrong way round counts nothing.",
+  },
   "THE BASTION'S RIM": {
     find: "THE MAZE's knob under the moon on the gun ring's rim, with a two-headed arrow, in a channel round the whole rim on the pilot's screen.",
     move: "The moon and its guns turn after the thumb, either way; a gun brought to the front and shot greens the knob.",

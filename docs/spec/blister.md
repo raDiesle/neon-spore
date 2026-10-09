@@ -1,10 +1,9 @@
 # THE BLISTER — a body you knock back down
 
-> **Status: TAP, HOLD and SWIPE built — TAP's simulation (lane 1) and its look
+> **Status: TAP, HOLD, SWIPE and TURN built — TAP's simulation (lane 1) and its look
 > (lane 2, 8 October 2026: ROOTED CLOVER, the pore, the bulge and the tap help);
-> HOLD (lane 4) the same day; SWIPE (lane 5) on 9 October 2026; TURN's
-> simulation and press (lane 6, first half) the same day, its help and its
-> director rows to follow.** Asked
+> HOLD (lane 4) the same day; SWIPE (lane 5) and TURN (lane 6) on 9 October
+> 2026.** Asked
 > for by the owner on 7 October 2026: a creature
 > on the principle of whack-a-mole, removed by several taps on the screen, with
 > variants removed by a hold, a swipe, a turn round it and other gestures that
@@ -12,8 +11,8 @@
 > player 2 or both may remove it; one picture for every variant, with only the
 > help for the gesture it wants drawn over and round it. The work is cut into
 > eight lanes. Lanes 1 to 3 went through `docs/queue.md`; lane 4 (HOLD)
-> landed the same day, lane 5 (SWIPE) the next, and lanes 6 to 8 are on the
-> queue.
+> landed the same day, lanes 5 (SWIPE) and 6 (TURN) the next, and lanes 7
+> and 8 are on the queue.
 
 ## In one sentence
 
@@ -101,9 +100,18 @@ open (`blisterSwipeShare`). The other seat is drawn the waiting clock, never
 the way. The press is a `blisterSwipe` drag (`render/blister-tap.ts`), the lift
 carries how far the hand went, and `sim/blister-swipe.ts` judges it.
 
+The TURN help is THE MAZE's turn round the body (`render/blister-turn-help.ts`):
+a closed channel a lever's length out, the lever bolted to the body's rim and
+THE MAZE's knob on its end, resting at the top with a one-headed arrow the way
+the turn counts. The knob goes round with the turn in progress and the channel
+fills green behind it; a whole ring is a blow and the knob is back at the top.
+The press is a `blisterTurn` drag about the body's centre, read the crank's way
+(`render/blister-tap.ts`, `touch-drag.ts` `turnAbout`), and
+`sim/blister-turn.ts` counts it.
+
 ## The director's settings
 
-Under the selected cell, the way THE MINE's SEES row is (`tools/director/src/cell-config-mine.ts`). **BY, GESTURE and COUNT are built** (lane 3, 8 October 2026: `cell-config-blister.ts`, `entry-fields-blister.ts`): GESTURE offers TAP, HOLD and SWIPE (lane 4, the same day: `gesture: "hold"` on the entry, TAP written as no field; lane 5, 9 October 2026: `gesture: "swipe"`), and WAY is offered only for a gesture that has one — SWIPE's four arrows, `→` written as no field. A HOLD is the ordinary `grip`, so a mouse's press is a thumb's, and a hand left on one that sinks is let go of on the tick.
+Under the selected cell, the way THE MINE's SEES row is (`tools/director/src/cell-config-mine.ts`). **BY, GESTURE and COUNT are built** (lane 3, 8 October 2026: `cell-config-blister.ts`, `entry-fields-blister.ts`): GESTURE offers TAP, HOLD and SWIPE (lane 4, the same day: `gesture: "hold"` on the entry, TAP written as no field; lane 5, 9 October 2026: `gesture: "swipe"`; lane 6, the same day: `gesture: "turn"`), and WAY is offered only for a gesture that has one — SWIPE's four arrows, `→` written as no field, and TURN's two, `⟳` written as no field. A way the new gesture does not go is dropped when the gesture changes. A HOLD is the ordinary `grip`, so a mouse's press is a thumb's, and a hand left on one that sinks is let go of on the tick.
 
 
 | Row | Choices | Default |
@@ -146,7 +154,7 @@ from end to end.
 
 ## Lanes 5 to 8
 
-Lane 4, HOLD, landed on 8 October 2026, and lane 5, SWIPE, on 9 October. TURN, RUB and the real guide
+Lane 4, HOLD, landed on 8 October 2026, and lanes 5, SWIPE, and 6, TURN, on 9 October. RUB and the real guide
 had been postponed here, and the owner put them back on the queue the same
 evening: each is an entry in `docs/queue.md` titled *THE BLISTER, lane N*,
 worked in order.

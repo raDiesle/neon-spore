@@ -2482,7 +2482,8 @@ by hand never moves.
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
 | `packages/render/src/blister-tap.ts` | **A tap on THE BLISTER**, answered only where the simulation would count it: on a blister that is up |
-| `packages/render/src/blister-help.ts` | **THE BLISTER's help for TAP, HOLD and SWIPE**, called and not drawn anew (`docs/controls-catalogue.md`) |
+| `packages/render/src/blister-turn-help.ts` | **THE BLISTER's TURN help**: THE MAZE's turn, the one turn for every wave (the owner, 5 October 2026) |
+| `packages/render/src/blister-help.ts` | **THE BLISTER's help for TAP, HOLD, SWIPE and TURN** |
 | `packages/render/src/blister-verdicts.ts` | Where a blister was last drawn, for the ring of the blow that finished it |
 | `packages/render/src/blister.ts` | THE BLISTER, drawn: |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |

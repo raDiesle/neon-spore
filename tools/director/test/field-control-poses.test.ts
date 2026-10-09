@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import {
   blisterIsUp,
   blisterSwipeShare,
+  blisterTurnShare,
   gumIsFlung,
   readyFraction,
   wardenTether,
@@ -59,6 +60,13 @@ describe("ON THE FIELD rows and their pictures", () => {
     const b = w.creatures.find(blisterIsUp);
     expect(b).toBeDefined();
     expect(blisterSwipeShare(w, b!)).toBe(0.5);
+  });
+
+  test("the blister is up and its turn half way round", () => {
+    const w = poseNamed("BLISTER · A TURN HALF ROUND").build();
+    const b = w.creatures.find(blisterIsUp);
+    expect(b).toBeDefined();
+    expect(blisterTurnShare(b!)).toBe(0.5);
   });
 
   test("one ready circle is part full and the other empty", () => {

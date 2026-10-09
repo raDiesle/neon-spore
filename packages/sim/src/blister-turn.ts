@@ -65,6 +65,13 @@ export function blisterTurnShare(c: Creature): number {
   return (c.blisterTurnedMilli ?? 0) / TURN;
 }
 
+/** Whether a hand that still counts is on it now — one the sink did not deaden. */
+export function blisterTurnHeld(c: Creature): boolean {
+  return [c.blisterTurnAt1, c.blisterTurnAt2].some(
+    (at) => at !== undefined && at !== BLISTER_TURN_DEAD,
+  );
+}
+
 function turnAt(c: Creature, player: 1 | 2): number | undefined {
   return player === 1 ? c.blisterTurnAt1 : c.blisterTurnAt2;
 }

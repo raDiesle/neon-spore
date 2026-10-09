@@ -28,14 +28,16 @@ export const BLISTER_COUNTS: readonly number[] = [1, 2, 3, 4, 5, 6, 7, 8];
 export type { BlisterGesture, BlisterWay };
 
 /**
- * The gestures a blister is knocked down by: TAP, HOLD and SWIPE. THE
- * BLISTER's lanes 6 and 7 each add theirs to the simulation's
- * `BlisterGesture` and here, with a WAY where it has one (`docs/queue.md`).
+ * The gestures a blister is knocked down by: TAP, HOLD, SWIPE and TURN. THE
+ * BLISTER's lane 7 adds RUB to the simulation's `BlisterGesture` and here
+ * (`docs/queue.md`).
  */
-export const BLISTER_GESTURES: readonly BlisterGesture[] = ["tap", "hold", "swipe"];
+export const BLISTER_GESTURES: readonly BlisterGesture[] = ["tap", "hold", "swipe", "turn"];
 
-/** The ways a SWIPE may be authored to go, in the order the chips read. */
+/** The ways a SWIPE and a TURN may be authored to go, in the order the chips
+ * read; the first of TURN's and the second of SWIPE's are the defaults. */
 const SWIPE_WAYS: readonly BlisterWay[] = ["left", "right", "up", "down"];
+const TURN_WAYS: readonly BlisterWay[] = ["cw", "ccw"];
 
 /** Whether this entry is a blister, and so has these rows to set. */
 export function hasBlisterFields(entry: WaveEntry): boolean {
@@ -67,24 +69,32 @@ export function blisterGestureOf(entry: WaveEntry): BlisterGesture {
   return entry.gesture ?? "tap";
 }
 
-/** Set the gesture, TAP written as no field. */
+/** Set the gesture, TAP written as no field — and a way the new gesture
+ * does not go dropped, so a SWIPE's arrow is not saved on a TURN. */
 export function setBlisterGesture(entry: WaveEntry, gesture: BlisterGesture): void {
   entry.gesture = gesture === "tap" ? undefined : gesture;
+  if (entry.way !== undefined && !blisterWaysOf(gesture).includes(entry.way)) entry.way = undefined;
 }
 
-/** The ways a gesture may go: SWIPE's four, none for TAP or HOLD, so the row is not offered. */
+/** The ways a gesture may go: SWIPE's four, TURN's two, none for TAP or HOLD, so the row is not offered. */
 export function blisterWaysOf(gesture: BlisterGesture): readonly BlisterWay[] {
-  return gesture === "swipe" ? SWIPE_WAYS : [];
+  return gesture === "swipe" ? SWIPE_WAYS : gesture === "turn" ? TURN_WAYS : [];
 }
 
-/** Which way it goes. Unset is right, which `blisterWayOf` in the simulation reads. */
+/** The way a gesture goes unset: right for a SWIPE and clockwise for a TURN,
+ * which `blisterWayOf` and `blisterTurnWayOf` in the simulation read. */
+function defaultWay(gesture: BlisterGesture): BlisterWay {
+  return gesture === "turn" ? "cw" : "right";
+}
+
+/** Which way it goes. */
 export function blisterWayOfEntry(entry: WaveEntry): BlisterWay {
-  return entry.way ?? "right";
+  return entry.way ?? defaultWay(blisterGestureOf(entry));
 }
 
-/** Set the way, right written as no field. */
+/** Set the way, the gesture's default written as no field. */
 export function setBlisterWay(entry: WaveEntry, way: BlisterWay): void {
-  entry.way = way === "right" ? undefined : way;
+  entry.way = way === defaultWay(blisterGestureOf(entry)) ? undefined : way;
 }
 
 /** BY's chips, said the way `seatLabel` says a seat on THE MINE's SEES row. */

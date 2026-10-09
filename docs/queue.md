@@ -328,22 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE BLISTER, lane 6: TURN, a circle round it
-
-- **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
-- **Taken:** 2026-10-09, claude/queue-tasks-d82b1f (claim: claude/queue-the-blister-lane-6-turn-a-circle-round-it)
-- **Files:** `packages/sim/src/drag-targets.ts`, `packages/sim/src/crank.ts`, `packages/render/src/crank-dial.ts`, `packages/render/src/maze-lever.ts`
-- **Needs:** THE BLISTER, lane 5
-
-The owner's circle round the body, in the game's word TURN
-(`docs/spec/blister.md`): drag `count` full turns round the blister in the
-entry's way, clockwise or not. A drag target `blisterTurn` sending a
-bearing in thousandths of a turn round the body's centre, the way the crank
-does — call its bearing, never re-derive it; progress lost when it sinks.
-Help: `drawMazeLever`, the one turn for every wave, its channel filling
-green. TURN and the two ways added to lane 3's rows. Replay test for a full
-turn, a half one and one the wrong way.
-
 ## THE BLISTER, lane 7: RUB
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
