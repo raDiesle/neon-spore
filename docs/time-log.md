@@ -36431,3 +36431,5 @@ Bottleneck: fitting the sim's meet rows to the picture — three rounds of
 
 Bottleneck: landing — a field control is six registrations and the last two
 were learned from a red `check:fast`, a minute and a half each (queued).
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

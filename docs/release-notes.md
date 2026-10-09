@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 380b39f36 — THE BLISTER's SWIPE is finished: the director sets it and its way
+
+The director's GESTURE row offers SWIPE, and a WAY row of four arrows sets which way the stroke must go, saved as `way` (right written as no field). The stroke is now a row of the ON THE FIELD tab with its own pose, a bar half filled. Tests prove the stroke the way the arrow points: short, sideways and wrong-way strokes count nothing, a stroke open across a sink counts nothing, and a press is a `blisterSwipe` drag whose lift carries how far the hand went. No exemption needed: the bar was already drawn by the half that landed first.
+
 ## 2026-10-08 · 51b5983c3 — THE BASTION says what each shell wants, and a bolt stops on the moon
 
 The field now gives each shell its word: PULL on each side's slab knob, TURN on the rim, then FIRE aimed at the gun brought to the front, SHIELD under the node charging, and FIRE under the open port to the navigator alone. The pilot is never shown the port's column. A bolt bursts on the moon's edge, on the gun or in the port, and is judged where it is drawn. So a gun blows and a port flares on the frame the bolt reaches them, not when it leaves the top of the field. A look with no shipped alternative.
