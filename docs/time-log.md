@@ -36703,3 +36703,5 @@ cues, the verdicts, the pose and four director tables, each found by reading.
 
 Bottleneck: looking — the mark sat on the tile while the lobe leaned off it,
 and only a zoomed frame showed the two apart.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
