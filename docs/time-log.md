@@ -36896,3 +36896,5 @@ that only a still at the change showed.
 - landing: 5 min. `check:fast`, two commits, `land`.
 
 Bottleneck: writing — `adopt` takes one answer, so three taken at once was by hand.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

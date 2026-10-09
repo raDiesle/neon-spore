@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 2fc21dd06 — A boss's picture brief now includes parts that turn, as THE INSTAR's head does
+
+The depth skill gains "A part that glances": when the owner asks for a boss to look better or more 3D, a part turns slightly all the time so it is seen from a new side. The part is a head first, then claws and tails, or a machine's whole shape. The side it turns toward opens, the far side darkens, the points the marks sit on are held, and SWAY, LOOK and COCK are offered. `new-boss-more` §6.3 said "no change of perspective", which is what kept this from being built before; it now points at the recipe.
+
+## 2026-10-09 · 413a37cd0 — THE INSTAR's head glances left and right in turn: cock, sway and look
+
+The owner took all three answers from VERSUS `instar:glance` (9 October 2026: "all really cool ... apply all three across the levels for more variety", and COCK looks best). Face-on, the head now runs through six seconds each of COCK (turns and cocks side to side), SWAY (turns) and LOOK (holds left, middle and right with a tilt), starting with COCK. The near cheek opens and the far one darkens as it turns, and the eyes stay on their marks. Every round starts and ends level at the middle, so one style hands over to the next without a jump. The exemption used: a look the owner asked for by name.
+
 ## 2026-10-09 · 3a7dd1cd0 — A shot's mark is drawn in the colour of the fire button it lights, and flickers where the colour is unknown
 
 The ring round a target and the lit fire button now read one colour, `cueShot`: THE GORGE drew a red ring over a lit cyan button on her screen. Where this screen does not know the colour, both buttons are lit and the mark flickers fast between red and cyan, torn in two at every change. A fix to something wrong, and a look the owner asked for by name.
