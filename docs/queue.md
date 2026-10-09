@@ -382,6 +382,7 @@ The same as THE VANE's entry above, for THE GOVERNOR, THE SEAM, THE LAMPREY, THE
 ## THE LEDGER's lit nerves show the navigator a return coming
 
 - **Found:** 2026-10-09, claude/versus-page-visual-feedback-da2cd3
+- **Taken:** 2026-10-09, claude/ledger-visual-effects-a64946 (claim: claude/queue-the-ledgers-lit-nerves-show-the-navigator-a-retu)
 - **Files:** `tools/versus/candidates/ledger-nerves/lit/paint.ts`, `packages/render/src/ledger-nerves.ts`, `packages/render/test/ledger-frame.test.ts`
 - **Asks:** Draw LIT on the pilot's screen instead, keep it on hers and let the test change, or drop the slot?
 
