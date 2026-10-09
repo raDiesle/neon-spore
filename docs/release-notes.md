@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 22cd5a765 — THE RIME leaves the game
+
+The owner asked for it gone on 9 October 2026: "delete 'the rime' boss from game." Its simulation, drawing, effects, painted clearing strip, twelve sounds, wave, two drag targets, autopilot hand and director cards are deleted whole rather than switched off, as THE TRIVET's were the day before; `git log -S rimeShaveMilli` finds the code. The rub it was the first to read stays, since THE CAPSTAN's bands and THE VALVE's pin count it through the same pointer code; their comments and the rub tests now name them instead. The design stays in bosses.md §11.46, moved under Retired with his word, and the word goes on the new-boss skill's owner page. BULB · PEBBLE and THE CAIRN's shape drafts are free again, the waves after it move up one, and a stray line of its refreeze test in THE VISE's section is gone. A look the owner asked for by name.
+
 ## 2026-10-09 · c69a6da0d — `bun run frames` keeps the last run's frames through a refusal
 
 A capture refused in the page — an `--entry`, `--boss` or `--creature` the wave has not got — used to empty the output folder first, so the frame the run before it wrote was gone. Both modes now capture into a scratch folder and replace the output's frames only once every one is taken; a pair's stale frames from a longer run are cleared on the way, as a single run's were.
