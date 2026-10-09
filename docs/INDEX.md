@@ -1490,6 +1490,7 @@ by hand never moves.
 | `packages/render/src/nettle-sway.ts` | **THE NETTLE pulses**, and the bell carries with it |
 | `packages/render/src/nettle-strike.ts` | **What THE NETTLE does when the pair do not stop it**, one picture per kind of part |
 | `packages/render/src/nettle-stop.ts` | **Where a bolt meets THE NETTLE**: a SHOOT mark over its column, else the bell and the brood sac |
+| `packages/render/src/nettle-iris.ts` | **THE NETTLE's iris, a mouth of hooked teeth** |
 | `packages/render/src/neon-hue.ts` | A hue as `#rrggbb` — THE FLUE's rainbow mirage turns it (`flue-mirage.ts`) |
 | `packages/render/src/effects-ingest.ts` | Everything `ingestOne` needs to act on a single event, gathered rather than passed one field at a time — the |
 | `packages/render/src/touch-lobe.ts` | What pressing a lobe says |

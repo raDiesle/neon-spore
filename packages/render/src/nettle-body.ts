@@ -2,6 +2,7 @@ import { blobPoints } from "@neon-spore/content";
 import { drawHurt } from "./boss-hurt.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Figure } from "./nettle-figure.js";
+import { drawNettleIris } from "./nettle-iris.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 
@@ -85,7 +86,7 @@ export function drawNettleBody(
   const top = fade * (1 - f.side);
   if (top > 0.01) drawCrown(ctx, cx, cy, r, f, top);
   const under = fade * f.side;
-  if (under > 0.01) drawUnderside(ctx, cx, cy, r, f, under);
+  if (under > 0.01) drawUnderside(ctx, cx, cy, r, f, under, time);
 }
 
 /** The points round the bell's contour, drawn so here and met so (`nettle-stop.ts`). */
@@ -193,7 +194,7 @@ function drawArm(
   strokeGlow(ctx, p, PALETTE.dim, STROKE.outline * 1.4, 1, alpha);
 }
 
-/** Turned: the iris, the held globs, the oral-arm curtain. */
+/** Turned: the iris and its teeth (`nettle-iris.ts`), the held globs, the oral-arm curtain. */
 function drawUnderside(
   ctx: CanvasRenderingContext2D,
   cx: number,
@@ -201,16 +202,9 @@ function drawUnderside(
   r: number,
   f: Figure,
   alpha: number,
+  time: number,
 ): void {
-  if (f.mouth > 0) {
-    const p = new Path2D();
-    p.arc(cx, cy + r * 0.15, r * 0.32 * f.mouth, 0, Math.PI * 2);
-    ctx.globalAlpha = alpha;
-    ctx.fillStyle = PALETTE.background;
-    ctx.fill(p);
-    ctx.globalAlpha = 1;
-    strokeGlow(ctx, p, PALETTE.emberRim, STROKE.inner, 0.6, alpha);
-  }
+  if (f.mouth > 0) drawNettleIris(ctx, cx, cy + r * 0.15, r * 0.32, f.mouth, time, alpha);
   const globs: [number, number][] = [
     [-0.4, f.globL],
     [0, f.globM],

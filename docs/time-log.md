@@ -36738,3 +36738,16 @@ Bottleneck: looking — the band is drawn after the cue, so the first mark was
 painted over and only a frame said so.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE NETTLE's iris bites with IRIS's hooked teeth
+
+- reading: 5 min. THE NETTLE's script and its underside, where the iris is
+  drawn and how open the figure holds it.
+- writing: 5 min. `nettle-iris.ts` from the IRIS candidate, in the iris's own
+  ember, its teeth opening with `mouth`.
+- looking: 5 min. Three frames across the turn and the gape, and a crop.
+- friction: 0 min.
+- landing: 5 min. The index row, `check:fast`, the commit, `land`.
+
+Bottleneck: looking — finding the tick the iris stands open meant reading
+the wave's events first.
