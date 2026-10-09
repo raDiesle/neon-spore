@@ -81,7 +81,8 @@ export function drawLamprey(
   fx: LampreyFx,
 ): void {
   const cfg = world.cfg;
-  const p = lampreyPose(l, cfg, s, beat, beatPhase);
+  // A tow's lunge throws the eel about where the pose put it (`lamprey-anger.ts`).
+  const p = fx.anger.apply(lampreyPose(l, cfg, s, beat, beatPhase), l, cfg, s, time);
   fx.note(p);
   ctx.save();
   // Every glow under the fade is `strokeGlowFaded`, which leaves it standing.

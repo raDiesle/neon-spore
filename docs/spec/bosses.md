@@ -10619,7 +10619,12 @@ it eats, it leaves crumbs** in the colour of what it ate, falling and
 fading over two seconds (`lamprey-crumbs.ts`). **Its dung** is two BULB ·
 CLOVERs stacked, brown, stinking, laid over the rock (`lamprey-dung.ts`).
 **The lit tooth's mark is THE INSTAR's tap ring** (`lamprey-marks.ts`), its
-green arc filling a share for each of the step's taps.
+green arc filling a share for each of the step's taps. **In a tow** the body
+reaches from the head to the tail's knob, stretched between the two thumbs
+(`render/lamprey-pose.ts`), and **the lunge** (`render/lamprey-anger.ts`)
+carries the head from two thirds of the curve down past where it lands, at
+the hull, and back in a quarter of a second, the eel shaking and its body
+whipping for a second more, a spray of red off the mouth.
 
 **The receipts** (`render/lamprey-fx.ts`, drawn by `lamprey-receipts.ts`):
 a crack flings the tooth off the ring and deals the lighter blow; a snap

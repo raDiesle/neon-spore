@@ -5,6 +5,7 @@ import { fieldX } from "./field-flip.js";
 import type { GripVerdicts } from "./grip-verdict.js";
 import { mixHex } from "./hex.js";
 import { HullShock } from "./hull-shock.js";
+import { LampreyAnger } from "./lamprey-anger.js";
 import { LampreyChomp } from "./lamprey-chomp.js";
 import { LampreyCrumbs } from "./lamprey-crumbs.js";
 import { type LampreyPose, lampreyToothAt, type Point } from "./lamprey-shape.js";
@@ -20,27 +21,20 @@ import { stepColour } from "./step-colour.js";
  * gullet flashing in its colour as a shot goes down it; the hull's shudder
  * as a bite goes through it and as the eel is spent; the **chomp** of a
  * body eaten, caught in its jaws and crushed (`lamprey-chomp.ts`), and the
- * **crumbs** it spills as they shut (`lamprey-crumbs.ts`); the bursts its
- * other receipts throw; and its marks' verdicts on a touch
- * (`lamprey-verdicts.ts`).
- *
- * Everything else — where the mouth is, which teeth are out — is read off
- * the boss every frame (`lamprey-draw.ts`).
- *
- * **Both screens are thrown the same**, like the drawing: the tail is one
- * seat's and the head the other's, and each has to see the other land.
+ * **crumbs** it spills as they shut (`lamprey-crumbs.ts`); a tow's lunge
+ * (`lamprey-anger.ts`); the bursts its other receipts throw; and its marks'
+ * verdicts on a touch (`lamprey-verdicts.ts`). The rest is read off the boss
+ * every frame (`lamprey-draw.ts`), and both screens are thrown the same.
  *
  * **A crack is one counted hit** and deals the lighter blow; **a bite freed**
  * — the mouth let go of its tile — and **a shot down the gullet** are a
  * sequence landed and deal the whole one (`boss-hurt.ts`). A bite, a grip, a
  * slip, a rear and the spend deal nothing.
  *
- * The events carry a column and a tooth and no place on the mouth, so the
- * drawer hands over the eel it drew each frame (`note`), THE GOVERNOR's way:
- * a cracked tooth flies from where it stood, and a burst is thrown where the
- * mouth is. A full bite throws nothing here but the shudder: the hull it
- * breaks is the eel's own blow (`lamprey-blow.ts`). Everything is cleared in
- * `Effects.reset()` (`restart.test.ts`).
+ * The events carry a column and no place on the mouth, so the drawer hands
+ * over the eel it drew each frame (`note`), THE GOVERNOR's way. A full bite
+ * throws nothing here but the shudder: the hull it breaks is the eel's own
+ * blow (`lamprey-blow.ts`). All cleared in `Effects.reset()`.
  */
 
 /** A rock between the teeth: the burning stone's brown, not the grey of its dust. */
@@ -83,6 +77,8 @@ export class LampreyFx {
   /** A body caught in the jaws and crushed (`lamprey-chomp.ts`). */
   readonly chomp = new LampreyChomp();
   private chompHex: string = ROCK;
+  /** A tow's lunge at two thirds: the shaking, and the head thrown at the hull. */
+  readonly anger = new LampreyAnger();
   /** Where the jaws shut on what they caught, for the next `ingest` to throw its burst: it lands frames after the eat. */
   private crushed: Point | null = null;
 
@@ -123,6 +119,7 @@ export class LampreyFx {
       this.crushed = null;
     }
     this.said.ingest(events);
+    this.anger.ingest(events, this.pose, burst);
     for (const e of events) {
       if (!e.type.startsWith("lamprey")) continue;
       const mouth = this.mouth(l, "col" in e ? e.col : 0);
@@ -215,6 +212,7 @@ export class LampreyFx {
     this.shock.update(dt);
     this.hurt.update(dt);
     this.said.update(dt);
+    this.anger.update(dt);
     this.crumbs.update(dt);
     if (this.chomp.update(dt) && this.pose !== null) {
       // Out of the seam, a little ahead of the hinge.
@@ -242,6 +240,7 @@ export class LampreyFx {
     this.shock.clear();
     this.hurt.clear();
     this.said.clear();
+    this.anger.clear();
     this.crumbs.clear();
     this.chomp.clear();
     this.chompHex = ROCK;

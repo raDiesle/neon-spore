@@ -4,6 +4,7 @@ import {
   lampreyCrawling,
   lampreyHeadPull,
   lampreyTailHeld,
+  lampreyTailPull,
   lampreyTailPulls,
   lampreyTailWay,
   type SimConfig,
@@ -68,6 +69,25 @@ function tailLean(l: Layout, s: LampreyState): number {
   return leanTo(l.flip ? -way.x : way.x, way.y);
 }
 
+/**
+ * In a tow, the way the body leaves the head for the tail's knob, however far
+ * along its curve the head has been pulled and the tail pulled out: the eel
+ * stretched between the two thumbs.
+ */
+function towLean(
+  l: Layout,
+  cfg: SimConfig,
+  s: LampreyState,
+  head: { x: number; y: number },
+): number {
+  const way = lampreyTailWay(s);
+  const reach = (cfg.lampreyTailTiles * 1000 + lampreyTailPull(s)) / 1000;
+  const here = at(l, s.col, s.row);
+  const x = here.x + ((l.flip ? -way.x : way.x) * l.tile * reach) / 1000;
+  const y = here.y + (way.y * l.tile * reach) / 1000;
+  return leanTo(x - head.x, y - head.y);
+}
+
 /** The tail's sweep about the way it lies this instant, radians: off the beat, never the wall clock. */
 const sweep = (beat: number, beatPhase: number): number =>
   SWEEP * Math.sin(((beat + beatPhase) * Math.PI * 2) / SWEEP_BEATS);
@@ -106,7 +126,8 @@ export function lampreyPose(
         ? lampreyTowPoint(l, cfg, s, s.towMilli)
         : { x: here.x, y: here.y - lift };
     const free = !lampreyTailPulls(s) && !lampreyTailHeld(s);
-    const lean = tailLean(l, s) + (free ? sweep(beat, beatPhase) * land : 0);
+    const rest = lampreyAsks(s) === "tow" ? towLean(l, cfg, s, head) : tailLean(l, s);
+    const lean = rest + (free ? sweep(beat, beatPhase) * land : 0);
     return crawledTo(l, s, into, { ...base, ...head, tilt, lean });
   }
   if (s.phase === "rearing") {

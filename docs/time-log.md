@@ -36705,3 +36705,17 @@ Bottleneck: looking — the mark sat on the tile while the lobe leaned off it,
 and only a zoomed frame showed the two apart.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE LAMPREY's lunge in a tow, and its body stretched between the thumbs
+
+- reading: 5 min. The eel's fx, draw and pose, and the frames tool's paint
+  clock.
+- writing: 10 min. `lamprey-anger.ts` — the plunge past the knob at the hull
+  and back, the shake, the whip — the body aimed at the tail's knob, a test.
+- looking: 15 min. Five strips of the lunge: one too coarse under THE SLOW,
+  one with no lunge at all, two too small to read, then one that reads.
+- friction: 0 min.
+- landing: 5 min. A drawing test's timeout, `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the fit lives on the paint clock and the strip on the
+tick clock, so the first two strips showed nothing of it.
