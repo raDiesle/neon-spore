@@ -3,7 +3,9 @@ import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import type { GripVerdicts } from "./grip-verdict.js";
+import { mixHex } from "./hex.js";
 import { HullShock } from "./hull-shock.js";
+import { LampreyChomp } from "./lamprey-chomp.js";
 import { LampreyCrumbs } from "./lamprey-crumbs.js";
 import { type LampreyPose, lampreyToothAt, type Point } from "./lamprey-shape.js";
 import { LampreyVerdicts } from "./lamprey-verdicts.js";
@@ -16,9 +18,11 @@ import { stepColour } from "./step-colour.js";
  * **tooth** a crack knocks out, flung off the ring and tumbling away; the
  * **snap**, a ring closing on the tooth that went back in; the **gulp**, the
  * gullet flashing in its colour as a shot goes down it; the hull's shudder
- * as a bite goes through it and as the eel is spent; the **crumbs** it
- * leaves where it eats (`lamprey-crumbs.ts`); the bursts its other receipts
- * throw; and its marks' verdicts on a touch (`lamprey-verdicts.ts`).
+ * as a bite goes through it and as the eel is spent; the **chomp** of a
+ * body eaten, caught in its jaws and crushed (`lamprey-chomp.ts`), and the
+ * **crumbs** it spills as they shut (`lamprey-crumbs.ts`); the bursts its
+ * other receipts throw; and its marks' verdicts on a touch
+ * (`lamprey-verdicts.ts`).
  *
  * Everything else — where the mouth is, which teeth are out — is read off
  * the boss every frame (`lamprey-draw.ts`).
@@ -39,6 +43,8 @@ import { stepColour } from "./step-colour.js";
  * `Effects.reset()` (`restart.test.ts`).
  */
 
+/** A rock between the teeth: the burning stone's brown, not the grey of its dust. */
+const ROCK = mixHex(PALETTE.ember, PALETTE.rockDark, 0.6);
 /** How strong the hull's shudder is for a bite gone through and the spend, and how long, in beats. */
 const FULL_FORCE = 0.7;
 const FULL_BEATS = 0.8;
@@ -74,6 +80,11 @@ export class LampreyFx {
   private readonly said = new LampreyVerdicts();
   /** The crumbs left where it ate (`lamprey-crumbs.ts`). */
   readonly crumbs = new LampreyCrumbs();
+  /** A body caught in the jaws and crushed (`lamprey-chomp.ts`). */
+  readonly chomp = new LampreyChomp();
+  private chompHex: string = ROCK;
+  /** Where the jaws shut on what they caught, for the next `ingest` to throw its burst: it lands frames after the eat. */
+  private crushed: Point | null = null;
 
   /** The tail's, the head's, the tooth's and the gullet's verdicts on a touch. */
   get verdicts(): GripVerdicts {
@@ -107,6 +118,10 @@ export class LampreyFx {
     beatSeconds: number,
     burst: Burst,
   ): void {
+    if (this.crushed !== null) {
+      burst(this.crushed.x, this.crushed.y, 6, this.chompHex);
+      this.crushed = null;
+    }
     this.said.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("lamprey")) continue;
@@ -116,12 +131,11 @@ export class LampreyFx {
           burst(mouth.x, mouth.y, 8, PALETTE.lampreyHide);
           break;
         case "lampreyEat": {
-          // Crumbs where the body was, in its colour.
+          // Caught where the body was; its crumbs spill as the jaws shut on it (`update`).
           const at = { x: fieldX(l, e.col), y: tileCY(l, e.row) };
-          const hex =
-            e.food === "slick" ? PALETTE.red : e.food === "bulb" ? PALETTE.cyan : PALETTE.rock;
-          this.crumbs.drop(at, hex);
-          burst(at.x, at.y, 5, hex);
+          this.chompHex =
+            e.food === "slick" ? PALETTE.red : e.food === "bulb" ? PALETTE.cyan : ROCK;
+          this.chomp.bite(at, this.chompHex, mouth, l.tile);
           break;
         }
         case "lampreyDung":
@@ -202,6 +216,17 @@ export class LampreyFx {
     this.hurt.update(dt);
     this.said.update(dt);
     this.crumbs.update(dt);
+    if (this.chomp.update(dt) && this.pose !== null) {
+      // Out of the seam, a little ahead of the hinge.
+      const reach = this.pose.r * 0.55;
+      const face = this.chomp.face;
+      const at = {
+        x: this.pose.x + Math.cos(face) * reach,
+        y: this.pose.y + Math.sin(face) * reach,
+      };
+      this.crumbs.drop(at, this.chompHex);
+      this.crushed = at;
+    }
   }
 
   clear(): void {
@@ -218,5 +243,8 @@ export class LampreyFx {
     this.hurt.clear();
     this.said.clear();
     this.crumbs.clear();
+    this.chomp.clear();
+    this.chompHex = ROCK;
+    this.crushed = null;
   }
 }

@@ -10489,7 +10489,12 @@ for food.
   wave's `meal` falls for it one morsel at a time (`feeding`, `lampreyFeed`):
   the shipped wave's is two rocks, a slick and two bulbs. Its head goes under
   each and eats it (`lampreyEat`) — a body off the field through
-  `removeCreature`.
+  `removeCreature`. **The picture is a bite from the side** (the owner,
+  9 October 2026, `render/lamprey-chomp.ts`, `render/lamprey-jaws.ts`): as
+  what it hunts falls near, the round sucker turns edge-on toward it and
+  folds forward into two fanged jaws; the body eaten is carried into the
+  middle of the mouth, the jaws snap shut on it, chew twice and spill its
+  crumbs out of the seam, and the head turns back to the sucker.
 - **It crawls out of the picture and back** (`away`, `lampreyAway`): off the
   nearer side along `lampreyHighRow`, `lampreyAwayBeats` there, then straight
   in to the first stay's tile, drawn at install (`roam`, `lampreyRoam`).

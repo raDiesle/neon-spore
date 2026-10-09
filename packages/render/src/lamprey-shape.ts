@@ -24,11 +24,8 @@ const LOBES = 5;
 const LOBE = 0.14;
 /** The points along the spine. */
 const SPINE = 28;
-/** Where the teeth sit on the ring, in radii, and how far in their hooks reach. */
+/** Where the teeth sit on the ring, in radii; their fangs are `lamprey-teeth.ts`'s. */
 const TOOTH_ROOT = 0.9;
-const TOOTH_TIP = 0.52;
-/** A tooth's root, as a share of the gap between two. */
-const TOOTH_WIDE = 0.42;
 /** The gullet's opening in radii, what each hit takes off it, and the least it shrinks to. */
 const GULLET = 0.45;
 const GULLET_HIT = 0.08;
@@ -197,26 +194,6 @@ export function lampreyRing(p: LampreyPose, reach: number): Path2D {
 export function lampreyToothAt(p: LampreyPose, t: number, reach = TOOTH_ROOT): Point {
   const a = -Math.PI / 2 + (t * Math.PI * 2) / LAMPREY_TEETH;
   return { x: p.x + p.r * reach * Math.cos(a), y: p.y + p.r * reach * p.tilt * Math.sin(a) };
-}
-
-/** Tooth `t`: a spike hooked in toward the gullet, its root on the ring. */
-export function lampreyTooth(p: LampreyPose, t: number): Path2D {
-  const gap = (Math.PI * 2) / LAMPREY_TEETH;
-  const a = -Math.PI / 2 + t * gap;
-  const at = (angle: number, reach: number): Point => ({
-    x: p.x + p.r * reach * Math.cos(angle),
-    y: p.y + p.r * reach * p.tilt * Math.sin(angle),
-  });
-  const l = at(a - gap * TOOTH_WIDE * 0.5, TOOTH_ROOT);
-  const r = at(a + gap * TOOTH_WIDE * 0.5, TOOTH_ROOT);
-  const tip = at(a + gap * 0.22, TOOTH_TIP);
-  const bow = at(a - gap * 0.08, (TOOTH_ROOT + TOOTH_TIP) / 2);
-  const path = new Path2D();
-  path.moveTo(l.x, l.y);
-  path.quadraticCurveTo(bow.x, bow.y, tip.x, tip.y);
-  path.lineTo(r.x, r.y);
-  path.closePath();
-  return path;
 }
 
 /** The empty socket a tooth knocked out leaves on the ring. */

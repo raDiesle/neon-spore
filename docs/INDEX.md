@@ -2256,9 +2256,13 @@ by hand never moves.
 | `packages/render/src/lamprey-gills.ts` | **THE LAMPREY's gills and eyes**: a row of seven pores down each flank behind the head |
 | `packages/render/src/lamprey-blow.ts` | **THE LAMPREY's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/lamprey-fx.ts` | What THE LAMPREY leaves behind a frame: the flung tooth, the snap, the gulp, the shudder and the blow |
+| `packages/render/src/lamprey-fang.ts` | **One of THE LAMPREY's fangs**, wherever it stands |
 | `packages/render/src/lamprey-receipts.ts` | **THE LAMPREY's receipts, drawn** — what `lamprey-fx.ts` holds between frames |
 | `packages/render/src/lamprey-handles.ts` | **THE LAMPREY's handles**, in the field's one look for a thumb's control (`pull-knob.ts`, `pull-track.ts`) |
 | `packages/render/src/lamprey-crumbs.ts` | **The crumbs THE LAMPREY leaves where it eats** (the owner, 6 October 2026 |
+| `packages/render/src/lamprey-chomp.ts` | **THE LAMPREY eating, as a clock** (the owner, 9 October 2026 |
+| `packages/render/src/lamprey-jaws.ts` | **THE LAMPREY's head seen from the side, eating** (`lamprey-chomp.ts` has the clock) |
+| `packages/render/src/lamprey-teeth.ts` | **The ring of teeth round THE LAMPREY's sucker**: nine hooked bone fangs standing in their gums |
 | `packages/render/src/latch-draw.ts` | **THE LATCH** drawn: the colony in its one skin, the tendril and its knots, the coil on the hull, the grips |
 | `packages/render/src/latch-grip.ts` | **The thumbs on THE LATCH** (§11.61): the two grips on the tendril, pulled down |
 | `packages/render/src/latch-handles.ts` | **THE LATCH's two grips**, in the field's one look for a thumb's control (`pull-knob.ts`, `pull-track.ts`) |

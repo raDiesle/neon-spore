@@ -36621,3 +36621,18 @@ Bottleneck: reading — a sink leaves a stroke, a turn and a rub each in a
 state of its own, and the hand has to lift out of every one of them.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE LAMPREY bites from the side and crushes what it eats
+
+- reading: 5 min. The eel's draw, pose, shape and fx, and the roam that
+  takes a body off the field on the beat it is eaten.
+- writing: 10 min. The fold clock, the jaws seen side-on, a shared shaded
+  fang for the ring and the jaws, the inner rasps, six tests.
+- looking: 10 min. Four rounds of `bun run frames` strips of one eat: the
+  morsel's colour, the skull over the neck, the throat edge-on, the hook.
+- friction: 0 min.
+- landing: 5 min. `restart.test.ts` caught a stored burst closure, then
+  `check:fast`, the commit, `land`.
+
+Bottleneck: looking — a side view of a disc only reads once the skull,
+the neck and the throat agree, and each took a strip to see.

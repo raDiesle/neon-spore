@@ -1,29 +1,27 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import {
-  LAMPREY_TEETH,
   type LampreyState,
   lampreyAsks,
-  lampreyBiting,
+  lampreyCrawling,
   lampreyFiring,
   lampreyStep,
   lampreyTapsWanted,
-  lampreyToothIn,
   lampreyWorker,
   type World,
 } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
+import { creatureCenter } from "./creature-place.js";
+import { glidePhase } from "./depth.js";
+import { smoothstep } from "./ease.js";
 import { strokeGlowFaded } from "./glow.js";
-import { mixHex, rgba } from "./hex.js";
+import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
-import {
-  drawLampreyFringe,
-  drawLampreyGums,
-  drawLampreyLipGloss,
-  drawLampreyThroat,
-} from "./lamprey-disc.js";
+import { FOLD_GAPE, type LampreyChomp } from "./lamprey-chomp.js";
+import { drawLampreyFringe, drawLampreyLipGloss, drawLampreyThroat } from "./lamprey-disc.js";
 import type { LampreyFx } from "./lamprey-fx.js";
 import { drawLampreyGills } from "./lamprey-gills.js";
 import { drawLampreyHandles } from "./lamprey-handles.js";
+import { drawLampreyJaws } from "./lamprey-jaws.js";
 import { drawLampreyToothMark } from "./lamprey-marks.js";
 import { lampreyPose } from "./lamprey-pose.js";
 import { drawLampreyFlung, drawLampreyGulp, drawLampreySnap } from "./lamprey-receipts.js";
@@ -32,11 +30,11 @@ import {
   lampreyBody,
   lampreyGulletReach,
   lampreyRing,
-  lampreySocket,
   lampreySpine,
-  lampreyTooth,
+  MOUTH,
 } from "./lamprey-shape.js";
 import { drawLampreyFin, drawLampreyHide } from "./lamprey-skin.js";
+import { drawLampreyTeeth } from "./lamprey-teeth.js";
 import { drawLampreyHalos, drawLampreyVerdicts } from "./lamprey-verdicts.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -45,6 +43,13 @@ import { showsLampreyHand } from "./view-role-clocks-c.js";
 
 /** The mouth's black inside the lip, in radii. */
 const MOUTH_IN = 0.8;
+/** How far below the eel its shadow falls, in tiles. */
+const DROP = 0.1;
+/** How narrow the sucker is turned edge-on, as a share of its width taken off. */
+const TURNED = 0.78;
+/** How near the body it hunts must fall, in tiles, before the head starts turning to it, and over how far it opens fully. */
+const HUNT_NEAR = 1;
+const HUNT_SPAN = 2.2;
 
 /**
  * **THE LAMPREY**: a dark olive eel with a round sucker mouth, leaping from
@@ -85,17 +90,27 @@ export function drawLamprey(
   // The eel shakes with the blow it took; its handles are the thumbs', and stay.
   ctx.save();
   ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
-  drawBody(ctx, l, p, s.phase === "bite", fx.hurt.value);
-  drawLampreyHalos(ctx, l, cfg, p, s, time);
-  drawMouth(ctx, p, s);
-  drawLampreyGulp(ctx, p, fx.gulp);
-  drawTeeth(ctx, p, s);
-  drawLampreySnap(ctx, p, fx.snap);
-  const worker = lampreyWorker(s);
-  if (worker !== null && lampreyAsks(s) === "teeth") {
-    const full = showsLampreyHand(l.role, worker);
-    const along = s.toothTaps / lampreyTapsWanted(s);
-    drawLampreyToothMark(ctx, p, s.litTooth, full, along, time);
+  drawHide(ctx, l, p, fx.hurt.value);
+  const fold = aimJaws(l, world, s, p, beatPhase, fx.chomp);
+  if (fold >= 1) {
+    drawLampreyJaws(ctx, p, fold, fx.chomp.face, fx.chomp.morsel, fx.hurt.value);
+  } else {
+    ctx.save();
+    // Turning to the side: the sucker narrowed across the way it is about to face.
+    if (fold > 0) squash(ctx, p, fx.chomp.face, 1 - TURNED * fold);
+    drawSucker(ctx, p, s.phase === "bite", fx.hurt.value);
+    drawLampreyHalos(ctx, l, cfg, p, s, time);
+    drawMouth(ctx, p, s);
+    drawLampreyGulp(ctx, p, fx.gulp);
+    drawLampreyTeeth(ctx, p, s);
+    drawLampreySnap(ctx, p, fx.snap);
+    const worker = lampreyWorker(s);
+    if (worker !== null && lampreyAsks(s) === "teeth") {
+      const full = showsLampreyHand(l.role, worker);
+      const along = s.toothTaps / lampreyTapsWanted(s);
+      drawLampreyToothMark(ctx, p, s.litTooth, full, along, time);
+    }
+    ctx.restore();
   }
   ctx.restore();
   drawLampreyHandles(ctx, l, cfg, s, time);
@@ -108,28 +123,15 @@ export function drawLamprey(
   ctx.restore();
 }
 
-/**
- * The body and the mouth's lip: the fin round the tail under it, its shadow,
- * lit from the key, the skin's detail (`lamprey-skin.ts`), the fringe round
- * the lip (`lamprey-disc.ts`), and the blow's red.
- */
-function drawBody(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  p: LampreyPose,
-  sucking: boolean,
-  hurt: number,
-): void {
+/** The body: the fin round the tail under it, its shadow, lit from the key, the skin's detail (`lamprey-skin.ts`), and the blow's red. */
+function drawHide(ctx: CanvasRenderingContext2D, l: Layout, p: LampreyPose, hurt: number): void {
   const spine = lampreySpine(l, p);
   const body = lampreyBody(l, spine);
-  const lip = lampreyRing(p, 1);
-  const drop = l.tile * 0.1;
   drawLampreyFin(ctx, l, spine, p.wave);
   ctx.save();
-  ctx.translate(0, drop);
+  ctx.translate(0, l.tile * DROP);
   ctx.fillStyle = PALETTE.lampreyHideDark;
   ctx.fill(body);
-  ctx.fill(lip);
   ctx.restore();
   ctx.fillStyle = PALETTE.lampreyHide;
   ctx.fill(body);
@@ -145,7 +147,23 @@ function drawBody(
   ctx.strokeStyle = rgba(PALETTE.lampreyHideDark, 0.95);
   ctx.stroke(body);
   drawLampreyGills(ctx, l, spine, p.wave);
+  drawHurt(ctx, body, hurt);
+}
 
+/** The sucker's lip face-on: its shadow, the fringe round it (`lamprey-disc.ts`), lit, glossed, and the blow's red. */
+function drawSucker(
+  ctx: CanvasRenderingContext2D,
+  p: LampreyPose,
+  sucking: boolean,
+  hurt: number,
+): void {
+  const lip = lampreyRing(p, 1);
+  const drop = (p.r / MOUTH) * DROP;
+  ctx.save();
+  ctx.translate(0, drop);
+  ctx.fillStyle = PALETTE.lampreyHideDark;
+  ctx.fill(lip);
+  ctx.restore();
   drawLampreyFringe(ctx, p, p.wave, sucking, drop);
   ctx.fillStyle = PALETTE.lampreyHide;
   ctx.fill(lip);
@@ -159,8 +177,49 @@ function drawBody(
   ctx.strokeStyle = rgba(PALETTE.lampreyHideDark, 0.95);
   ctx.stroke(lip);
   drawLampreyLipGloss(ctx, p);
-  drawHurt(ctx, body, hurt);
   drawHurt(ctx, lip, hurt);
+}
+
+/** The sucker narrowed to `k` of its width along `face`, about the mouth's middle. */
+function squash(ctx: CanvasRenderingContext2D, p: LampreyPose, face: number, k: number): void {
+  ctx.translate(p.x, p.y);
+  ctx.rotate(face);
+  ctx.scale(k, 1);
+  ctx.rotate(-face);
+  ctx.translate(-p.x, -p.y);
+}
+
+/**
+ * Where the head should face and how far it should fold, handed to the chomp
+ * (`lamprey-chomp.ts`), and the fold it shows this frame: while it crawls,
+ * turned toward the body it hunts as that falls near and its jaws opening for
+ * it; otherwise the sucker, facing on along the body.
+ */
+function aimJaws(
+  l: Layout,
+  world: World,
+  s: LampreyState,
+  p: LampreyPose,
+  beatPhase: number,
+  chomp: LampreyChomp,
+): number {
+  const ahead = Math.atan2(Math.cos(p.lean) * p.tilt, -Math.sin(p.lean));
+  if (!lampreyCrawling(s)) {
+    chomp.aim(0, ahead);
+    return 0;
+  }
+  const prey = world.creatures.find((c) => c.id === s.prey);
+  if (prey === undefined) {
+    chomp.aim(0, ahead);
+    return chomp.fold;
+  }
+  const at = creatureCenter(l, world, prey, glidePhase(world.cfg, world.beat, prey, beatPhase));
+  const near = 1 - (Math.hypot(at.x - p.x, at.y - p.y) / l.tile - HUNT_NEAR) / HUNT_SPAN;
+  chomp.aim(
+    FOLD_GAPE * smoothstep(Math.max(0, Math.min(1, near))),
+    Math.atan2(at.y - p.y, at.x - p.x),
+  );
+  return chomp.fold;
 }
 
 /**
@@ -184,30 +243,4 @@ function drawMouth(ctx: CanvasRenderingContext2D, p: LampreyPose, s: LampreyStat
   }
   ctx.fillStyle = PALETTE.lampreyGullet;
   ctx.fill(gullet);
-}
-
-/** The ring of teeth: bone, the lit one bright and glowing, a socket where one is out. */
-function drawTeeth(ctx: CanvasRenderingContext2D, p: LampreyPose, s: LampreyState): void {
-  const dull = mixHex(PALETTE.lampreyTooth, PALETTE.lampreyHide, 0.35);
-  const lit = lampreyBiting(s) ? s.litTooth : -1;
-  drawLampreyGums(ctx, p, (t) => lampreyToothIn(s, t));
-  ctx.lineWidth = STROKE.inner;
-  for (let t = 0; t < LAMPREY_TEETH; t++) {
-    if (!lampreyToothIn(s, t)) {
-      const socket = lampreySocket(p, t);
-      ctx.fillStyle = PALETTE.lampreyMouth;
-      ctx.fill(socket);
-      ctx.strokeStyle = rgba(PALETTE.lampreyHideDark, 0.9);
-      ctx.stroke(socket);
-      continue;
-    }
-    const tooth = lampreyTooth(p, t);
-    ctx.fillStyle = t === lit ? PALETTE.lampreyTooth : dull;
-    ctx.fill(tooth);
-    if (t === lit) strokeGlowFaded(ctx, tooth, PALETTE.lampreyTooth, STROKE.inner, 1, 1);
-    else {
-      ctx.strokeStyle = rgba(PALETTE.lampreyHideDark, 0.8);
-      ctx.stroke(tooth);
-    }
-  }
 }
