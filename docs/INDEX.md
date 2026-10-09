@@ -3620,6 +3620,8 @@ by hand never moves.
 | `tools/director/src/field-looks.ts` | What a card on CONTROLS › ON THE FIELD says under its picture |
 | `tools/director/src/field-focus-art.ts` | A use card's picture on CONTROLS › ON THE FIELD |
 | `tools/director/src/field-focus.ts` | **Where on the phone a control answers a finger** |
+| `tools/director/src/field-try-bar.ts` | The bar over a TRY view (`field-try.ts`): what is being tried |
+| `tools/director/src/field-try.ts` | **A control on its own, played** — the owner, 9 October 2026, on CONTROLS › ON THE FIELD |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-boss.ts` | The `BossConfig` fields of every boss that is not choreographed — the queen, the warden, the cairn |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |

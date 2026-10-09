@@ -37,6 +37,9 @@ export interface StageTouch {
    * phone would show, so a press dismisses it the way the phone's own
    * `bindBriefing` does. */
   role: () => ViewRole;
+  /** Takes every listener off again when aborted — a TRY view that closes
+   * (`field-try.ts`). The stage itself lives as long as the page. */
+  signal?: AbortSignal;
 }
 
 /**

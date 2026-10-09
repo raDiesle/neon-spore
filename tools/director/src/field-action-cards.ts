@@ -4,6 +4,7 @@ import { focusArt } from "./field-focus-art.js";
 import { lookOf } from "./field-looks.js";
 import { ROW_NOTES } from "./field-notes.js";
 import { GESTURE_NOTES } from "./field-notes-gestures.js";
+import { openTry } from "./field-try.js";
 import { GESTURES } from "./gesture-catalogue.js";
 import { card, text } from "./gestures-page.js";
 import { zoomable } from "./picture-zoom.js";
@@ -54,13 +55,19 @@ function useCard(user: string, rows: readonly FieldControlDef[]): HTMLElement {
   for (const name of new Set(rows.map((r) => r.pose))) {
     const pose = poseNamed(name);
     const own = rows.filter((r) => r.pose === name);
-    const shot = focusArt(pose, own, SHOT_WIDTH, SHOT_CAP);
-    shots.appendChild(
-      zoomable(shot, `${user} · ${own.map((r) => r.name).join(" · ")}`, [
+    const title = `${user} · ${own.map((r) => r.name).join(" · ")}`;
+    const shot = document.createElement("div");
+    shot.appendChild(
+      zoomable(focusArt(pose, own, SHOT_WIDTH, SHOT_CAP), title, [
         { label: "THE CONTROL", draw: (w, h) => focusArt(pose, own, w, h) },
         { label: "WHOLE PHONE", draw: (w, h) => focusArt(pose, own, w, h, true) },
       ]),
     );
+    // The same frame, live and under the mouse (`field-try.ts`).
+    const play = text("button", "▶ TRY IT", "field-try");
+    play.addEventListener("click", () => openTry(title, pose, own));
+    shot.appendChild(play);
+    shots.appendChild(shot);
   }
   card.appendChild(shots);
   const look = lookOf(rows.map((r) => r.name));

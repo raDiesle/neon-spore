@@ -37076,3 +37076,13 @@ Bottleneck: looking — finding the tick a `FIRE` stands at takes an events
 run per fight before the frame itself.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-09 — ON THE FIELD: TRY IT, a control played on its own
+
+- reading: 10 min. The stage's stepping, its touch binding and `pointOnStage`.
+- writing: 20 min. The live view (`field-try.ts`), its bar, the card button and an abort signal on the stage's listeners.
+- looking: 10 min. THE VALVE's wheel turned by mouse in the preview: commands logged, hold, step, ⅛×, restart, whole phone, sixty frames.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the stage's touch binding had to be reused as is, so its four inputs were read before a line was written.

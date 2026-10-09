@@ -47,3 +47,50 @@
   justify-content: center;
   padding: 0 14px 14px;
 }
+/* A control played on its own (`field-try.ts`): the phone drawn large inside
+   a window cut to the control, and the commands the hand sent under it. */
+.try-window {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  outline: 1px solid var(--line);
+}
+.try-window canvas {
+  position: absolute;
+  touch-action: none;
+  cursor: grab;
+}
+.try-readout {
+  color: var(--dim);
+  font-size: 0.75rem;
+}
+.try-choice {
+  display: inline-flex;
+  gap: 2px;
+}
+.try-log {
+  margin: 0;
+  padding: 0 14px 10px;
+  min-height: 6.5em;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.1;
+  white-space: pre;
+  color: var(--cyan);
+}
+.field-try {
+  display: block;
+  margin-top: 4px;
+  font: inherit;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  padding: 3px 10px;
+  color: var(--green);
+  background: transparent;
+  border: 1px solid var(--green);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.try .pic-zoom-bar b {
+  flex-basis: 100%;
+}
