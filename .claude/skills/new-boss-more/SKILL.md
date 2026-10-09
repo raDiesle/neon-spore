@@ -77,12 +77,19 @@ reopening a queue entry that asks this question again:**
 
 **So this is detail and not choreography**, and it is the one place
 `.claude/skills/new-boss` §5's standard is deliberately not asked for: no pose
-per state, no morph, no change of perspective. The state the boss has today is the state to draw, drawn until
+per state, no morph. The state the boss has today is the state to draw, drawn until
 it reads as a made thing — a grown contour out of `blobPath` with lobes rather
 than an outline, a material that reads as shell or plate or skin, wet sockets,
 a film of gloss over the curve, slime feeding it, and the parts a thumb reaches
 for drawn where they are reached. Never a filled rectangle with a stroke round
 it.
+
+**And its parts turn.** *No change of perspective* stood here until 9
+October 2026, and it was wrong: the perspective the owner wants changed is a
+part's own — a head glancing left and right so its near side opens and its
+far side darkens, claws and a tail turning, a machine's whole shape turning.
+That is `.claude/skills/depth`, "A part that glances", and a picture brief
+for a boss is not finished without it.
 
 A new shape is never one the game already draws: check
 `content/src/silhouettes.ts`, then take one from `tools/shape-sheet/src/drafts/`

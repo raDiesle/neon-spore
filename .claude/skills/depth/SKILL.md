@@ -133,6 +133,42 @@ you left out and why.** Six stops, not three, with
 Nothing casts a shadow onto anything else — that was built, looked at and taken
 out, and `spec/graphics.md` says why.
 
+## A part that glances — the default answer to *make it look better*
+
+The owner, 9 October 2026, on THE INSTAR's head turning left and right:
+*all really cool*, and **this is what he means** whenever he asks for a boss
+to look more three-dimensional, less static, more alive, or for its picture
+to be improved: **a part turns, slightly and all the time, so the eye sees it
+from a new side.** A head first; then feet, hands, a tail; a machine boss's
+whole shape. He asked for it earlier in other words and was given a whole
+body drifting on the rig (`instar:drift`, *looks worse*, 2 October) and new
+heads (`instar:head`, *all look worse*, 1 October) — neither is this.
+
+What makes it read, all four or it is a squash:
+
+- **The part's own perspective changes**: the side it turns toward opens,
+  the far side closes *and goes dark* — a cool gradient on the squeezed half
+  that follows the swing, as dark as the swing is wide (`drawTurnedHead`).
+- **What a thumb is on is held**: pick the two points the marks sit on (THE
+  INSTAR's eyes) and turn what lies between and beyond them — a two-plane
+  affine fitted so those points stay, or the rig where the part is modelled.
+  The hit test reads the same turn (`turnedHeadPoint`), so no hush is needed.
+- **Big enough for a still to show it**: THE INSTAR's snout swings about 0.35 of a
+  head radius end to end; a degree of lean is not offered (`docs/looks.md`).
+- **Three rhythms, taken in turn** (`instar-glance-styles.ts`): COCK — a slow
+  turn with a quicker side-to-side cock, which he liked best; SWAY — the turn
+  alone; LOOK — holds left, middle, right with a tilt toward the look. A
+  six-second round each, every round starting and ending level at the
+  middle, so they chain without a jump and the VERSUS pair (which replays its
+  pose every six seconds) shows a whole round.
+
+So when he names a boss and asks for its graphics to be better: find the
+part a face or a machine would turn — the head, the claws, a turret, the
+whole hull of a machine — put a record on its turn that ships still, and
+offer SWAY, LOOK and COCK for it on VERSUS (or, where he says *apply*, build
+the rotation of all three straight in). Its look of detail is
+`new-boss-more` §6.3; this is its movement.
+
 ## The house rule still holds
 
 A rounder version of something already drawn is an **alternative**, not a
