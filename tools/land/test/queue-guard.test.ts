@@ -126,6 +126,11 @@ describe("what a refused landing says", () => {
   /** The history half can name an entry the lane believes it filed, so the
    * refusal has to leave room for the case where it really did. */
   it("says what to do when the heading is genuinely new work", () => {
-    expect(lines.at(-1)).toContain("a heading the trunk has not finished under");
+    expect(lines.at(-2)).toContain("a heading the trunk has not finished under");
+  });
+
+  /** A restore the owner asked for is said in a commit, not by landing twice. */
+  it("says how an entry put back on purpose gets through", () => {
+    expect(lines.at(-1)).toContain("Restored: <title>");
   });
 });

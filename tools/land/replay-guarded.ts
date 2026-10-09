@@ -11,7 +11,14 @@
 import { doneTwiceSaid } from "./done-twice.js";
 import { git } from "./git.js";
 import { droppedAfter, droppedRefusal } from "./queue-dropped.js";
-import { everHeldIn, queueSnapshots, refusal, resurrectedAfter } from "./queue-guard.js";
+import {
+  everHeldIn,
+  queueSnapshots,
+  refusal,
+  restoredIn,
+  resurrectedAfter,
+  unrestored,
+} from "./queue-guard.js";
 import { trunkRaced } from "./race.js";
 import { rerace } from "./race-retry.js";
 import { checkGreen } from "./red-check.js";
@@ -24,8 +31,23 @@ export interface Guarded {
   said: string[];
 }
 
-/** The replay and its two guards over the queue, as one call. */
-export async function replayGuarded(root: string, trunk: string, branch: string): Promise<Guarded> {
+/**
+ * The replay and its two guards over the queue, as one call.
+ *
+ * **The guards run whether or not there is anything to replay.** A refused
+ * landing has already rebased the lane, so the same command run again found
+ * nothing to replay and — when the guards lived inside the replay — skipped
+ * them and landed the entry it had just refused: THE BLISTER's lanes 5 to 8,
+ * on 8 October 2026. `rebase` false asks the same questions of the tree as it
+ * stands. An entry put back on purpose says so in a commit message,
+ * `Restored: <title>` (`restoredIn`), not by running the landing twice.
+ */
+export async function replayGuarded(
+  root: string,
+  trunk: string,
+  branch: string,
+  rebase: boolean,
+): Promise<Guarded> {
   const show = (rev: string, file: string) => git(["show", `${rev}:${file}`], root);
   const run = (args: string[]) => git(args, root);
   // Read before the replay, asked after it: what the trunk had taken out of
@@ -37,24 +59,30 @@ export async function replayGuarded(root: string, trunk: string, branch: string)
   // The same snapshots asked the other way: an entry both this lane and the
   // trunk took out was done twice, and is said rather than refused (`done-twice.ts`).
   const said = await doneTwiceSaid(queueBefore, mergeBase, trunk, run);
-  const replayed = await replay(root, trunk);
-  if (!replayed.ok) {
+  const replayed = rebase ? await replay(root, trunk) : null;
+  if (replayed !== null && !replayed.ok) {
     said.push(`✗ ${branch} does not replay onto ${trunk}; nothing was moved`);
     if (replayed.conflicted.length > 0)
       said.push(`  conflicts in ${replayed.conflicted.join(", ")}`);
     else if (replayed.said) said.push(`  ${replayed.said}`);
     return { ok: false, said };
   }
-  said.push(`  rebased  onto ${await git(["rev-parse", "--short", trunk], root)}`);
-  for (const file of new Set(replayed.resolved)) {
-    said.push(`  merged   ${file} — the trunk's copy, carrying this lane's own edits`);
+  if (replayed !== null) {
+    said.push(`  rebased  onto ${await git(["rev-parse", "--short", trunk], root)}`);
+    for (const file of new Set(replayed.resolved)) {
+      said.push(`  merged   ${file} — the trunk's copy, carrying this lane's own edits`);
+    }
   }
+  const laneLog = await run(["log", "--format=%B", `${trunk}..HEAD`]);
   // The second half of the guard: the trunk's whole history, asked only of
   // the entries the three snapshots read as newly filed (`queue-guard.ts`).
-  const back = await resurrectedAfter(root, queueBefore, everHeldIn(run, trunk));
+  // An entry the lane's own commits say it restored is let through.
+  const restored = restoredIn(laneLog);
+  const found = await resurrectedAfter(root, queueBefore, everHeldIn(run, trunk));
+  const back = unrestored(found, restored);
+  for (const title of restored) said.push(`  restored ${title} — on this lane's word`);
   if (back.length > 0) return { ok: false, said: [...said, ...refusal(trunk, back)] };
   // Its mirror: an entry the trunk has that this lane took out unclosed (`queue-dropped.ts`).
-  const laneLog = await run(["log", "--format=%B", `${trunk}..HEAD`]);
   const gone = await droppedAfter(root, queueBefore, branch, laneLog);
   if (gone.length > 0) return { ok: false, said: [...said, ...droppedRefusal(trunk, gone)] };
   return { ok: true, said };
@@ -86,7 +114,7 @@ export async function settleRaces(
       now,
       tries,
       replay: async () => {
-        const replayed = await replayGuarded(root, trunk, branch);
+        const replayed = await replayGuarded(root, trunk, branch, true);
         const installErr = replayed.ok ? await installFrozen(root) : null;
         if (installErr !== null) replayed.said.push(`✗ bun install failed: ${installErr}`);
         return { ok: replayed.ok && installErr === null, said: replayed.said };

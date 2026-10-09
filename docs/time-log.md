@@ -36529,3 +36529,17 @@ blister is up for one, so the film's pages were fitted to the sim's clock by
 probing rather than by reading.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-09 — a refused landing is refused again on a re-run
+
+- reading: 5 min. `run.ts`, `replay-guarded.ts`, `queue-guard.ts` and the
+  history test's repository.
+- writing: 10 min. The guards out from under the replay, the `Restored:`
+  line, a repository test of the second run.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. A heredoc with an escaped newline refused by the guard
+  hook, and a test lane whose re-add rebased away into a clean tree.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing the test's repository — the lane's re-add has to survive
+the rebase as a commit of its own, or there is nothing to refuse.

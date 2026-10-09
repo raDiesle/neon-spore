@@ -202,6 +202,32 @@ export async function resurrectedAfter(
   return out;
 }
 
+/**
+ * The titles a lane's commit messages put back on purpose, one
+ * `Restored: <title>` line each — the owner's word, written down where the
+ * landing can read it rather than said by running the landing a second time.
+ */
+export function restoredIn(laneLog: string): string[] {
+  const out = laneLog
+    .split("\n")
+    .filter((line) => line.startsWith(RESTORED))
+    .map((line) => line.slice(RESTORED.length).trim());
+  return [...new Set(out)].filter(Boolean);
+}
+
+const RESTORED = "Restored: ";
+
+/** `back` without the titles the lane said it restored, and files left empty. */
+export function unrestored(
+  back: readonly { file: string; titles: string[] }[],
+  restored: readonly string[],
+): { file: string; titles: string[] }[] {
+  const meant = new Set(restored);
+  return back
+    .map(({ file, titles }) => ({ file, titles: titles.filter((t) => !meant.has(t)) }))
+    .filter(({ titles }) => titles.length > 0);
+}
+
 /** What a refused landing says, first line already carrying the ✗. */
 export function refusal(
   trunk: string,
@@ -217,5 +243,6 @@ export function refusal(
   lines.push(
     "  if one of them is genuinely new work, give it a heading the trunk has not finished under",
   );
+  lines.push("  if one is put back on purpose, a commit line `Restored: <title>` lets it through");
   return lines;
 }

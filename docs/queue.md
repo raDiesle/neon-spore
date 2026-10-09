@@ -328,22 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `bun run land` lands on a re-run a queue entry it refused
-
-- **Found:** 2026-10-08, claude/task-queue-work-e99d1a
-- **Taken:** 2026-10-09, claude/task-queue-work-368248 (claim: claude/queue-bun-run-land-lands-on-a-re-run-a-queue-entry-it)
-- **Files:** `tools/land/run.ts`, `tools/land/replay-guarded.ts`, `tools/land/queue-guard.ts`
-
-The resurrection guard runs only inside `replayGuarded`, which `moveTrunk`
-calls only when `going.rebase`. A refused landing has already rebased the
-lane, so the same command run again has nothing to replay, skips the guard
-and lands the entry it just refused — seen with THE BLISTER's lanes 5 to 8,
-put back on the owner's word, refused and then landed by a plain re-run. Run
-the guard (snapshots against the merge base, `resurrectedAfter`) whether or
-not there is a replay, and give an intended restore a spoken way through — a
-`Restored:` line or a flag — rather than the re-run. A test in
-`tools/land/test/` that a second run of a refused landing is refused again.
-
 ## `apps/game/src/input.ts` stands two lines under the ceiling
 
 - **Found:** 2026-10-08, claude/trivet-boss-concept-670eed

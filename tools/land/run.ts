@@ -116,13 +116,13 @@ async function moveTrunk(): Promise<Landed[]> {
   // (`trunkRaced`).
   const trunkBefore = await git(["rev-parse", TRUNK], root);
 
-  // The replay and its two guards over the queue, as one call; a trunk that
-  // moved during the check is replayed onto again (`replay-guarded.ts`).
-  if (going.rebase) {
-    const replayed = await replayGuarded(root, TRUNK, branch);
-    for (const line of replayed.said) console.log(line);
-    if (!replayed.ok) process.exit(1);
-  }
+  // The replay and its two guards over the queue, as one call. The guards run
+  // with nothing to replay too, or a refused landing lands on a re-run; a
+  // trunk that moved during the check is replayed onto again
+  // (`replay-guarded.ts`).
+  const replayed = await replayGuarded(root, TRUNK, branch, going.rebase);
+  for (const line of replayed.said) console.log(line);
+  if (!replayed.ok) process.exit(1);
 
   // The install a replay can leave stale, frozen so a lockfile drift is the
   // landing's to report (`toolchain.ts`).

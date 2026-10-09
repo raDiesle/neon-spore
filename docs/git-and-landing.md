@@ -188,7 +188,11 @@ structural rather than a mistake anybody made. The recipe is fixed: take
 line resurrects entries another lane removed with `bun run queue done` — which
 is a known enough failure that `tools/land/queue-guard.ts` fails the landing
 when it happens, and it will not save you on the release notes, where the only
-symptom is somebody else's entry quietly coming back.
+symptom is somebody else's entry quietly coming back. **Running the landing
+again does not get past it**: the guard runs with nothing left to replay too,
+since 8 October 2026 when a plain re-run landed THE BLISTER's lanes 5 to 8. An
+entry the owner wants back is said in a commit message, one
+`Restored: <title>` line each, and lands.
 
 **The mirror is refused too** (`tools/land/queue-dropped.ts`): a landing that
 takes out an entry the trunk still has, which this lane neither claimed — its
