@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · a0273543e — A refused landing is refused again when it is run a second time
+
+The queue guards ran only inside the replay, so a landing they refused — which had already rebased the lane — landed on a plain re-run with nothing left to replay. They now run either way, and an entry put back on purpose is said in a commit message, one `Restored: <title>` line each.
+
 ## 2026-10-09 · c8d5e4162 — THE BLISTER is taught after THE MINE, and FIVE BLISTERS mixes its gestures
 
 THE BLISTER moves to act nine, straight after THE MINE: one seat sees it, the other's finger answers it, now against a clock. Its guide is a real film of three pages: the pilot sees the pore swell and says where, the navigator waits to see it and it sinks with one blow left, then the pilot calls the nearer pore early and the tap lands while it is up. Its old slot in act fourteen is FIVE BLISTERS, the one where the body never says how to hit it: tap, hold, swipe, turn and rub in turn, by turns each seat's. The spec gives the up and sink figures, measured headless at 96 bpm. FIVE BLISTERS went in unweighed (`baseline:blank`), and AUTO is named as half playing it. Exemption: a look with no shipped alternative.
