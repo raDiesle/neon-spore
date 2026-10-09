@@ -37110,3 +37110,5 @@ Bottleneck: writing — the outline is drawn in three places at three scales, an
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: writing — a strip is a run, not a frame, so it had to fill in without stopping the page.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
