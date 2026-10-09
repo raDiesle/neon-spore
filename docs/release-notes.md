@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · c69a6da0d — `bun run frames` keeps the last run's frames through a refusal
+
+A capture refused in the page — an `--entry`, `--boss` or `--creature` the wave has not got — used to empty the output folder first, so the frame the run before it wrote was gone. Both modes now capture into a scratch folder and replace the output's frames only once every one is taken; a pair's stale frames from a longer run are cleared on the way, as a single run's were.
+
 ## 2026-10-09 · 380b39f36 — THE BLISTER's SWIPE is finished: the director sets it and its way
 
 The director's GESTURE row offers SWIPE, and a WAY row of four arrows sets which way the stroke must go, saved as `way` (right written as no field). The stroke is now a row of the ON THE FIELD tab with its own pose, a bar half filled. Tests prove the stroke the way the arrow points: short, sideways and wrong-way strokes count nothing, a stroke open across a sink counts nothing, and a press is a `blisterSwipe` drag whose lift carries how far the hand went. No exemption needed: the bar was already drawn by the half that landed first.
