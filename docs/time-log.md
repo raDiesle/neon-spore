@@ -36819,3 +36819,18 @@ Bottleneck: landing — `check:fast` runs two minutes, and each of two small
 misses cost a whole run.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — VERSUS additions go straight into the game
+
+- reading: 5 min. `docs/looks.md`, `docs/versus.md` on `adopt`, which open
+  slots had a no-op shipped record.
+- writing: 10 min. Seven `versus adopt`s, the stale "draws nothing" comments
+  on six records, the rule in `CLAUDE.md` and `docs/looks.md`, a queue entry.
+- looking: 5 min. One frame of THE LEAD with its crags and arrow.
+- friction: 10 min. A zsh loop that passed slot and name as one word; a bulk
+  revert of `ledger:nerves` refused, done again by hand file by file.
+- landing: 10 min. A three-minute `check:fast` red only on the file map,
+  then a red role test that took `ledger:nerves` back out.
+
+Bottleneck: friction — the hand-done undo of one adoption cost as much as
+the seven adoptions did.
