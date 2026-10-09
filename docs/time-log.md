@@ -36478,3 +36478,5 @@ the typecheck finds them in one pass.
 
 Bottleneck: reading — the lane is the same twelve places lane 5 touched,
 found from its commit's file list rather than from any list of them.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
