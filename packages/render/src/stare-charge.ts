@@ -2,6 +2,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawChargeFlames } from "./stare-flames.js";
 import type { StareEye } from "./stare-shape.js";
 
 /**
@@ -47,6 +48,8 @@ export function drawCharge(
     lines.lineTo(e.cx + cx * (near / 2), e.cy + cy * (near / 2));
   }
   strokeGlow(ctx, lines, PALETTE.emberRim, STROKE.outline, 0.8 + swell, 0.6 + 0.4 * swell);
+  // A ring of fire round the core, licking out as it fills (`stare-flames.ts`).
+  drawChargeFlames(ctx, e.cx, e.cy, r * 1.6, swell, time);
   // The core: ember round a white heart.
   ctx.globalCompositeOperation = "lighter";
   ctx.fillStyle = rgba(PALETTE.ember, 0.35 + 0.35 * swell);

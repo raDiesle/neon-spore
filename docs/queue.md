@@ -371,3 +371,10 @@ The same as THE VANE's entry above, for THE OCULUS, THE VISE, THE CAPSTAN, THE G
 - **Files:** `packages/render/src/boss-cue-read-zq.ts`, `packages/render/src/boss-cue-read-zr.ts`, `packages/render/src/boss-cue-read-zs.ts`, `packages/render/src/boss-cue-read-zt.ts`, `packages/render/src/boss-cue-read-zv.ts`
 
 The same as THE VANE's entry above, for THE GOVERNOR, THE SEAM, THE LAMPREY, THE MIMIC and THE BASTION: `BossCue.shows` on each `FIRE` whose shooter's screen draws the colour wanted.
+
+## Two source-sweep tests time out at five seconds on a loaded machine
+
+- **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
+- **Files:** `packages/render/test/controls-catalogue.test.ts`, `packages/render/test/baked-cache-guard.test.ts`
+
+`bun run check:fast` went red twice on a machine at load 55: *has every file three bodies share, or knows why it is not a mark* at 7039 ms and *is a bakedCache, so a test's canvas swap empties it* at 5001 ms, both on bun's five-second default. Each passes alone in under half a second, and the lane re-ran them and went on. Both read every source file under `packages/render/src`; give each a timeout of its own (`setDefaultTimeout`, as the drawing tests carry `FRAME_TIMEOUT_MS`), or make the sweep cheaper.

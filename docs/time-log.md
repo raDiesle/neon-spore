@@ -36788,3 +36788,16 @@ Bottleneck: friction — a test that counted one alpha by its text read the new
 notch as a blade.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE STARE's charge burns in a ring of PLASMA's fire
+
+- reading: 5 min. `stare-charge.ts` and where the swell is read.
+- writing: 5 min. `stare-flames.ts` from the PLASMA candidate, in the
+  charge's ember, growing with the swell.
+- looking: 5 min. Three frames after the charge, a crop, longer flames, one
+  more frame.
+- friction: 0 min.
+- landing: 5 min. The index row, `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the first flames read as a saw edge, and only a crop
+showed it.

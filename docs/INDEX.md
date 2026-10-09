@@ -1772,6 +1772,7 @@ by hand never moves.
 | `packages/render/src/stage-point.ts` | WHERE A POINTER ON THE CANVAS ACTUALLY LANDS |
 | `packages/render/src/stare-draw.ts` | THE STARE, drawn: the cowled eye over the top of the field, opening on the beats of its pattern |
 | `packages/render/src/stare-fx.ts` | What THE STARE leaves behind a frame: the **flash** of a press it caught |
+| `packages/render/src/stare-flames.ts` | **THE STARE's charge, burning**: a ring of fire round the core gathering in the shut eye — twenty-six flames |
 | `packages/render/src/stare-shape.ts` | **Where THE STARE is, and how far it has turned** — the numbers the drawer |
 | `packages/render/src/stare-shell.ts` | **THE STARE's shell**: the glass the eye stands behind |
 | `packages/render/src/stare-stop.ts` | **Where a bolt meets THE STARE**, for `BoltStops` (`bolt-stop.ts`): the glass dome round the eye |
