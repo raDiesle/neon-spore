@@ -36591,3 +36591,5 @@ of the test, since the commits say what was added and not what caught it.
 Bottleneck: reading — whether a page turn always rebuilds the world decided
 whether the hold could be reset in one place, and only the stage's comments
 said so.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

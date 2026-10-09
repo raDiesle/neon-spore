@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 2a78d2206 — A guide page about a body keeps its words up after the body has gone
+
+A caption anchored to a body vanished the moment the body was knocked out, so a page that repeats its span showed its words for a sliver of each loop: THE BEATBOX's STOPPING IS THE ANSWER was up for 55 of 269 ticks. The ring the page last found is now held until the film's world is rebuilt. Exemption: a fix to something wrong — words a pair cannot read — not a new look.
+
 ## 2026-10-09 · 25d0087a1 — The new-creature skill lists the six places a field gesture is registered
 
 A creature's own gesture moving from "unbuilt" to "field" is owed a TARGET_PLACE row, a FIELD_CONTROLS row file, a pose, a row in the controls spec, a place on an action and a card — each now listed with the test that goes red without it. new-boss-state's row 14 named `documentedDragTarget`, which is gone; it names `TARGET_PLACE` and points at the list.
