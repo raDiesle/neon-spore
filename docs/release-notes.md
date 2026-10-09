@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 9fa6e9517 — THE STARE's charge burns in a ring of flickering ember flames that lengthen as it fills
+
+The core gathering in the shut eye is ringed by PLASMA now, the look VERSUS offered for a shot's mark: twenty-six flames, each flickering at its own pace and leaning as it turns, over a lumpy ring of neon. Short licks as the eye shuts, long and fast ones by the time the beam is due, in the charge's own ember. The owner asked for the aim:cannon animations on bosses by name, 9 October 2026.
+
 ## 2026-10-09 · 88723bccd — THE TASTER's notches are each as deep as the pair has cut it, three times deeper than offered
 
 Each gap in THE TASTER's crest is now drawn at its own depth, taken from VERSUS (`taster:notch` · deep) at the owner's word: a gap nobody has fired into is the shallow notch it always was, and a gap cut four times is a wet hole down through the crest and far out under it — three times as deep as the candidate first offered it. Exemption: a look the owner asked for by name.
