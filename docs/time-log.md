@@ -36911,3 +36911,17 @@ Bottleneck: reading — the lobe grows by three factors in three places, and
 the ring had been sized by one of them.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — SCUTTLE LOBED made roomier
+
+- reading: 10 min. The candidate, `scuttle-shape.ts`'s rows and box, the
+  outline, and a game frame for how much room the HUD's pills leave.
+- writing: 5 min. `SCUTTLE_FRAME` lifted out of two literals, the candidate's
+  two new patches, slimmer lobes.
+- looking: 10 min. Three `versus:shot`s; the first left the top row's lobes
+  poking through the slab's arch.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the frame's pad was two bare constants, so a roomier frame
+needed a lift before a candidate could reach it.

@@ -5,10 +5,10 @@ import type { SeatDraw } from "../../../../../packages/render/src/scuttle-seat.j
 import { splineSealed } from "../../../../../packages/render/src/spline.js";
 
 /** A lobe's half-width and half-height, and a wound's, in tiles. */
-const LOBE_W = 0.46;
-const LOBE_H = 0.3;
-const WOUND_W = 0.4;
-const WOUND_H = 0.24;
+const LOBE_W = 0.38;
+const LOBE_H = 0.27;
+const WOUND_W = 0.34;
+const WOUND_H = 0.22;
 
 /**
  * LOBED, a part seated: a swell of the frame's own rock rather than a plate

@@ -67,8 +67,16 @@ export const SOCKET_FLOOR_H = 0.03;
 export const PLATE_HALF_H = 0.1;
 /** How far the frame draws back up on the wind-up, in tiles. */
 const WIND_RISE = 0.3;
-/** The frame's pad above its top row's plates and below its bottom row's, in tiles. */
-const BOX_PAD_Y = 0.08;
+/**
+ * The frame's pad round its sockets, in tiles: beyond the outer columns'
+ * plates, and above its top row's and below its bottom row's. A record so
+ * VERSUS can offer a roomier frame (`scuttle:seat`).
+ */
+export interface ScuttleFrame {
+  padX: number;
+  padY: number;
+}
+export const SCUTTLE_FRAME: ScuttleFrame = { padX: 0.1, padY: 0.08 };
 
 /**
  * How far the frame stands above row 0 at its highest, in tiles: its top row,
@@ -78,7 +86,7 @@ const BOX_PAD_Y = 0.08;
  */
 function scuttleHeadroom(cfg: SimConfig): number {
   const rows = SCUTTLE_ROWS.rise + (cfg.scuttleRows - 1) * SCUTTLE_ROWS.pitch;
-  return rows + SOCKET_HALF_H + BOX_PAD_Y + WIND_RISE;
+  return rows + SOCKET_HALF_H + SCUTTLE_FRAME.padY + WIND_RISE;
 }
 
 /** Where row 0's top edge stands for the frame: the grid's, or lower where the stage is short of room. */
@@ -104,8 +112,8 @@ export function scuttleBox(
 ): { left: number; right: number; top: number; bottom: number } {
   const first = scuttleSocket(l, cfg, 0);
   const last = scuttleSocket(l, cfg, cfg.scuttleRows * cfg.scuttleCols - 1);
-  const padX = l.tile * (SOCKET_HALF_W + 0.1);
-  const padY = l.tile * (SOCKET_HALF_H + BOX_PAD_Y);
+  const padX = l.tile * (SOCKET_HALF_W + SCUTTLE_FRAME.padX);
+  const padY = l.tile * (SOCKET_HALF_H + SCUTTLE_FRAME.padY);
   return { left: first.x - padX, right: last.x + padX, top: first.y - padY, bottom: last.y + padY };
 }
 
