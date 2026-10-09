@@ -146,14 +146,22 @@ export function lampreyRoams(world: World, s: LampreyState, leg = 0): void {
   }
 }
 
-/** Where a leg of the crawl ends: across to the far side high, back to the near side low, then the tile. */
+/**
+ * Where a leg of the crawl ends: across to the far side high, back to the
+ * near side low, then the tile — and before a `tow`, the middle of the field
+ * first, so it comes straight down at the hull (`lamprey-tow.ts`).
+ */
 export function lampreyLegEnd(world: World, s: LampreyState): { col: number; row: number } {
   const cfg = world.cfg;
   const far = s.roamSide === 1 ? cfg.cols - 1 : 0;
   if (s.leg === 0) return { col: far, row: cfg.lampreyHighRow };
   if (s.leg === 1) return { col: cfg.cols - 1 - far, row: cfg.lampreyLowRow };
+  if (s.leg === 2 && towing(s)) return { col: midCol(cfg), row: cfg.lampreyTowFromRow };
   return { col: s.nextCol, row: s.nextRow };
 }
+
+/** Whether the crawl on is to a tow, the one with a leg more. */
+const towing = (s: LampreyState): boolean => lampreyStep(s)?.ask === "tow";
 
 /**
  * A beat of the crawl: after its food if any is falling, else a leg on, the
@@ -167,7 +175,7 @@ export function lampreyRoaming(world: World, s: LampreyState): boolean {
   if (!there) return false;
   if (s.leg === 0 && lampreyStep(s)?.dung === true) dropDung(world, s);
   s.leg += 1;
-  return s.leg > 2;
+  return s.leg > (towing(s) ? 3 : 2);
 }
 
 /**

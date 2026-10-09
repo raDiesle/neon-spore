@@ -75,8 +75,8 @@ export const CHOREO_FIELD_GROUP_D = {
   governorMarkMilli: "THE GOVERNOR — a needle each of you taps on your own mark",
   governorDownMilli: "THE GOVERNOR — a needle each of you taps on your own mark",
   // LampreyConfig — the swim in, the leap, the recoil and the fall, the rows
-  // it may land on, how long the tail lies, and how far the head and the tail
-  // are pulled (`config-lamprey.ts`).
+  // it may land on, how long the tail lies, how far the head and the tail are
+  // pulled, and the tow's rows, curve and lunge (`config-lamprey.ts`).
   lampreyOutCols: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreyFeedRow: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreyHighRow: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
@@ -94,6 +94,13 @@ export const CHOREO_FIELD_GROUP_D = {
   lampreyHeadPullMilli:
     "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreyTailPullMilli:
+    "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyTowRow: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyTowFromRow: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyTowMilli: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyTowAngerMilli:
+    "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyTowBackMilli:
     "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   // MimicConfig — the slap into shape, how long a wrong sign is worn, the
   // flinch, when a changing sign changes, the reaches that strike the hull,

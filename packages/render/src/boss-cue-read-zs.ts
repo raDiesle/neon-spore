@@ -5,6 +5,7 @@ import {
   lampreyHeadPull,
   lampreyHolder,
   lampreyTailPull,
+  lampreyTailPulls,
   lampreyWorker,
   type World,
 } from "@neon-spore/sim";
@@ -67,7 +68,7 @@ export function lampreyCues(
   const worker = lampreyWorker(s);
   const tail = lampreyTailCircle(l, cfg, s);
   if (holder !== null && tail !== null) {
-    if (ask === "apart" && lampreyTailPull(s) === 0) {
+    if (lampreyTailPulls(s) && lampreyTailPull(s) === 0) {
       out.push({
         seat: holder,
         kind: "CARRY",
@@ -77,9 +78,9 @@ export function lampreyCues(
         ...frame,
         seed: 229,
       });
-    } else if (ask !== "apart" || lampreyTailRight(cfg, s)) {
+    } else if (!lampreyTailPulls(s) || lampreyTailRight(cfg, s)) {
       // Pulled all the way out, the tail is no longer at its rest.
-      const at = ask === "apart" ? lampreyTailAt(l, cfg, s) : tail;
+      const at = lampreyTailPulls(s) ? lampreyTailAt(l, cfg, s) : tail;
       out.push({
         seat: holder,
         kind: "HOLD",
@@ -92,7 +93,20 @@ export function lampreyCues(
     }
   }
   const head = lampreyHeadCircle(l, cfg, s);
-  if (worker !== null && head !== null && lampreyHeadPull(s) === 0) {
+  // A tow's knob says it again wherever it waits with no thumb on it, so after the lunge too.
+  if (worker !== null && head !== null && ask === "tow") {
+    if (s.towFrom < 0 && s.towMilli < cfg.lampreyTowMilli) {
+      out.push({
+        seat: worker,
+        kind: "CARRY",
+        word: "PULL",
+        x: head.x,
+        y: head.y,
+        ...frame,
+        seed: 232,
+      });
+    }
+  } else if (worker !== null && head !== null && lampreyHeadPull(s) === 0) {
     const at = { x: head.x, y: head.y };
     out.push({ seat: worker, kind: "CARRY", word: "PULL UP", ...at, ...frame, seed: 231 });
   }

@@ -36,6 +36,11 @@ import type { World } from "./world.js";
  *   up, and the two have to be all the way out in the same instant.
  * - `gullet` — the eel rears on its tile, the gullet lit in a colour, and the
  *   cannon shoots up its column (`lamprey-shot.ts`).
+ * - `tow` — it comes down the middle of the field at the hull and stops just
+ *   short; the holder pulls the tail out as in an `apart`, and the other
+ *   pulls the head back along a curve, `lampreyTowMilli`, where the knob
+ *   stays wherever it is let go. Two thirds of the way the eel lunges back,
+ *   once, and the knob is thrown back to a third (`lamprey-tow.ts`).
  *
  * **Every stay is THE SLOW**, opened as it lands for the step's `beats` and
  * shut the tick it is answered (the owner, the same message: *every staying
@@ -133,10 +138,26 @@ export function lampreyTailHeld(s: LampreyState): boolean {
   return holder !== null && s.tailDown[holder - 1] === true;
 }
 
-/** How far the worker has the head pulled up, thousandths, or 0 with no bite on. */
+/**
+ * How far the worker has the head pulled, thousandths, or 0 with no bite on:
+ * up off the tile, or in a `tow` back along its curve.
+ */
 export function lampreyHeadPull(s: LampreyState): number {
   const worker = lampreyWorker(s);
-  return worker === null ? 0 : (s.headMilli[worker - 1] ?? 0);
+  if (worker === null) return 0;
+  return lampreyAsks(s) === "tow" ? s.towMilli : (s.headMilli[worker - 1] ?? 0);
+}
+
+/** Whether the head is a pull in the stay on — a `pull`, an `apart` or a `tow` — rather than the teeth. */
+export function lampreyHeadPulls(s: LampreyState): boolean {
+  const ask = lampreyAsks(s);
+  return ask === "pull" || ask === "apart" || ask === "tow";
+}
+
+/** Whether the tail is pulled out along the body in the stay on, an `apart` or a `tow`, rather than only held. */
+export function lampreyTailPulls(s: LampreyState): boolean {
+  const ask = lampreyAsks(s);
+  return ask === "apart" || ask === "tow";
 }
 
 /** How far the holder has the tail pulled away, thousandths, or 0 with no bite on. */
@@ -210,5 +231,9 @@ export function freshLamprey(
     headMilli: [0, 0],
     tapDown: [false, false],
     slipped: [false, false],
+    towMilli: 0,
+    towFrom: -1,
+    towSide: 1,
+    angered: false,
   };
 }

@@ -38,6 +38,8 @@ export type LampreyEvent =
   | ({ type: "lampreySnap"; tooth: number; side: 0 | 1 } & LampreyColEvent)
   /** The head pulled up by `side` with the tail loose: it slipped back into the bite. */
   | ({ type: "lampreySlip"; side: 0 | 1 } & LampreyColEvent)
+  /** In a tow, the eel lost its temper two thirds of the way and lunged back at the hull, throwing off `side`'s thumb. */
+  | ({ type: "lampreyAnger"; side: 0 | 1 } & LampreyColEvent)
   /** The bite let go of its tile, leaving `tooth` in it, or -1 with none left behind. */
   | ({ type: "lampreyLoose"; tooth: number } & LampreyColEvent)
   /** The stay's window ran out: the bite went through, and the hull takes it. */

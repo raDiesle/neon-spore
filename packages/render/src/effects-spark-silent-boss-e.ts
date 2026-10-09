@@ -18,6 +18,7 @@ export const SILENT_BOSS_E = [
   "lampreySnap",
   "lampreyGrip",
   "lampreySlip",
+  "lampreyAnger",
   "lampreyFull",
   "lampreyLoose",
   "lampreyRear",

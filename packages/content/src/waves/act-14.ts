@@ -17,8 +17,10 @@ import type { Wave } from "../wave-types.js";
  * 2026, `sim/lamprey-roam.ts`): it crawls in and eats two rocks, a slick and
  * a bulb as they fall — each caught on its own row, the gaps between them
  * uneven and the head after them at one, two or three tiles a beat (the
- * owner, 9 October 2026, `sim/lamprey-meal.ts`) — crawls straight on to its
- * first tile, and then leaps through three levels of three, four and five stays, every leap in a
+ * owner, 9 October 2026, `sim/lamprey-meal.ts`) — **comes down the middle
+ * of the field at the ship, and both seats pull it back off**, the head
+ * along a curve, the eel losing its temper two thirds of the way (the owner,
+ * 9 October 2026, `sim/lamprey-tow.ts`) — and then leaps through three levels of three, four and five stays, every leap in a
  * level a tile longer than the last and each level ended on a gullet. Before
  * the second and third it crawls the field side to side like a worm, eats
  * what falls for it and drops dung the shield has to turn. A lit tooth takes
@@ -65,9 +67,9 @@ export const WAVES_ACT_14: Wave[] = [
     id: "theLamprey",
     name: "THE LAMPREY",
     guide: {
-      both: "One of you holds the tail. The other pulls the head up or taps the lit tooth until it breaks. Shield its dung. Shoot the gullet.",
-      p1: "1. First bite: hold the tail.\n2. Second bite: tap the lit tooth until it breaks.\n3. When it drops dung, raise the shield.",
-      p2: "1. First bite: pull the head up.\n2. Second bite: hold the tail.\n3. When it drops dung, carry the shield under it.",
+      both: "It goes for the ship: pull it back. One of you holds the tail. The other pulls the head or taps the lit tooth. Shield its dung. Shoot the gullet.",
+      p1: "1. It goes for the ship: pull the tail out and keep it there.\n2. Second bite: tap the lit tooth until it breaks.\n3. When it drops dung, raise the shield.",
+      p2: "1. It goes for the ship: pull the head back. When it gets angry, pull again.\n2. Second bite: hold the tail.\n3. When it drops dung, carry the shield under it.",
     },
     entries: [],
     boss: {
@@ -79,7 +81,7 @@ export const WAVES_ACT_14: Wave[] = [
         { kind: "meteor", col: 6, row: 6, beat: 9, tiles: 2 },
       ],
       steps: [
-        { ask: "pull", holder: 1, teeth: 0, jump: 1, beats: 12, color: "either" },
+        { ask: "tow", holder: 1, teeth: 0, jump: 1, beats: 16, color: "either" },
         { ask: "teeth", holder: 2, teeth: 1, jump: 2, beats: 16, color: "either", taps: 3 },
         { ask: "gullet", holder: 1, teeth: 0, jump: 3, beats: 12, color: "red" },
         {

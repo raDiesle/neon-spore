@@ -48,6 +48,8 @@ export function lampreyCue(e: LampreySimEvent, cols: number): Cue | null {
       return { id: "boss.lampreyGrip", pan };
     case "lampreySlip":
       return { id: "boss.lampreySlip", pan };
+    case "lampreyAnger":
+      return { id: "boss.lampreyBite", pan, pitch: 0.7 };
     case "lampreyFull":
       return { id: "boss.lampreyFull", pan };
     case "lampreyLoose":

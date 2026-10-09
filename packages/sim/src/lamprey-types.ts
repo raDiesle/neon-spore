@@ -35,8 +35,12 @@ export const LAMPREY_PHASES = [
 ] as const;
 export type LampreyPhase = (typeof LAMPREY_PHASES)[number];
 
-/** What a stay asks: the teeth tapped, the head pulled, the two pulled apart, or the gullet shot. */
-export const LAMPREY_ASKS = ["teeth", "pull", "apart", "gullet"] as const;
+/**
+ * What a stay asks: the teeth tapped, the head pulled, the two pulled apart,
+ * the gullet shot, or the eel towed back off the hull along a curve
+ * (`lamprey-tow.ts`).
+ */
+export const LAMPREY_ASKS = ["teeth", "pull", "apart", "gullet", "tow"] as const;
 export type LampreyAsk = (typeof LAMPREY_ASKS)[number];
 
 /** What the eel eats: three bodies the field already has. */
@@ -149,6 +153,18 @@ export interface LampreyState {
   headMilli: [number, number];
   /** Whether each seat's thumb is down on the teeth, so a tap is an edge. */
   tapDown: [boolean, boolean];
-  /** Whether each seat's slip has been said for the press it is on, so it is said once. */
+  /**
+   * Whether each seat's press has slipped, said once: a head pulled up on a
+   * loose tail, or a tow's thumb thrown off by the eel's anger. Either way the
+   * thumb has to lift and take hold again.
+   */
   slipped: [boolean, boolean];
+  /** How far a `tow` has the head pulled back along its curve, thousandths of a tile; it stays where it is let go. */
+  towMilli: number;
+  /** Where along the curve the worker's thumb took hold, or -1 with none on it. */
+  towFrom: number;
+  /** Which way the tow's curve bends as it rises: 1 to the right of the field, -1 to the left. */
+  towSide: number;
+  /** Whether the eel has lunged back at the hull in this tow; it does once. */
+  angered: boolean;
 }

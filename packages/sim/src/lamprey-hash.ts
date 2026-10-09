@@ -52,6 +52,10 @@ export function lampreyHashParts(s: LampreyState): number[] {
     ...s.tapDown.map((d) => (d ? 1 : 0)),
     s.slipped.length,
     ...s.slipped.map((d) => (d ? 1 : 0)),
+    s.towMilli,
+    s.towFrom,
+    s.towSide,
+    s.angered ? 1 : 0,
     s.meal.length,
   ];
   for (const m of s.meal) {

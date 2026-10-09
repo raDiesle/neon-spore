@@ -1,4 +1,4 @@
-import type { LampreyState } from "./lamprey.js";
+import type { LampreyState, LampreyStep } from "./lamprey.js";
 import { nextInt } from "./rng.js";
 import type { World } from "./world.js";
 
@@ -163,4 +163,24 @@ export function lampreyWayMilli(dx: number, dy: number): { x: number; y: number 
   if (x === 0 && y === 0) return { x: 0, y: 1000 };
   const len = x !== 0 && y !== 0 ? DIAGONAL : 1000;
   return { x: x * len, y: y * len };
+}
+
+/**
+ * On a tile it has landed on: the next tile drawn from this one, and the tail
+ * laid away from it — as far again as an `apart` pulls it — where that fits.
+ */
+export function lampreyNextAndTail(
+  world: World,
+  s: LampreyState,
+  step: LampreyStep,
+  after: LampreyStep | undefined,
+): void {
+  const tail = world.cfg.lampreyTailTiles * 1000;
+  const reach = step.ask === "apart" ? tail + world.cfg.lampreyTailPullMilli : tail;
+  const next = after === undefined ? null : lampreyLeapTo(world, s, s, after.jump, reach);
+  s.nextCol = next?.col ?? -1;
+  s.nextRow = next?.row ?? -1;
+  const way = lampreyTailFor(world, s, reach);
+  s.tailX = way.x;
+  s.tailY = way.y;
 }

@@ -6,11 +6,13 @@ import {
   lampreyHolder,
   lampreyTailHeld,
   lampreyTailPull,
+  lampreyTailPulls,
   lampreyWorker,
   type SimConfig,
 } from "@neon-spore/sim";
 import { seatIsMine } from "./handle-word.js";
 import { lampreyHeadRest, lampreyTailAt, lampreyTailDir, lampreyTailRest } from "./lamprey-grip.js";
+import { lampreyTowKnob, lampreyTowTrack } from "./lamprey-tow-grip.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawPullKnob } from "./pull-knob.js";
@@ -28,6 +30,9 @@ import { drawPullTrack, pullWay } from "./pull-track.js";
  * filling as the thumb drags it. **The head's knob** stands on the tile in a
  * `pull` or an `apart`, for the other seat, with a channel straight up,
  * `lampreyHeadPullMilli` long; it rides up with the head as it comes off.
+ * **In a `tow`** the tail is an `apart`'s, and the head's channel is the
+ * curve the head is pulled back along (`lamprey-tow-grip.ts`), its knob
+ * waiting wherever it was let go.
  *
  * The partner's knob is drawn too, with no arrow and no channel: what says
  * their thumb has landed (`sinew-handles.ts`).
@@ -47,7 +52,7 @@ export function drawLampreyHandles(
     const mine = seatIsMine(l.role, holder);
     const rest = lampreyTailRest(l, cfg, s);
     const held = lampreyTailHeld(s);
-    if (ask === "apart") {
+    if (lampreyTailPulls(s)) {
       const at = lampreyTailAt(l, cfg, s);
       const pull = Math.min(1, lampreyTailPull(s) / Math.max(1, cfg.lampreyTailPullMilli));
       const len = (cfg.lampreyTailPullMilli * l.tile) / 1000;
@@ -67,6 +72,16 @@ export function drawLampreyHandles(
     } else {
       drawPullKnob(ctx, rest, rest.r, { ...look(mine), held, time, way: null, theirs: !mine });
     }
+  }
+  if (worker !== null && ask === "tow") {
+    const mine = seatIsMine(l.role, worker);
+    const at = lampreyTowKnob(l, cfg, s);
+    const pull = Math.min(1, s.towMilli / Math.max(1, cfg.lampreyTowMilli));
+    const held = s.towFrom >= 0;
+    const track = lampreyTowTrack(l, cfg, s);
+    if (mine) drawPullTrack(ctx, track, { ...look(mine), held, origin: 0, at: pull, time });
+    const way = mine ? pullWay(track, pull, 1) : null;
+    drawPullKnob(ctx, at, at.r, { ...look(mine), held, time, way, theirs: !mine });
   }
   if (worker !== null && (ask === "pull" || ask === "apart")) {
     const mine = seatIsMine(l.role, worker);

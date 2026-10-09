@@ -3,9 +3,11 @@ import {
   lampreyAsks,
   lampreyFiring,
   lampreyHeadPull,
+  lampreyHeadPulls,
   lampreyHolder,
   lampreyTailHeld,
   lampreyTailPull,
+  lampreyTailPulls,
   lampreyWorker,
   type SimConfig,
   type SimEvent,
@@ -25,7 +27,7 @@ import { drawMarkHeld, drawMarkProgress, MARK_PROGRESS_R } from "./mark-progress
  * `lamprey-marks.ts`; this is what they say back.
  *
  * Four marks: **the tail** asks the stay's holder, **the head** the other
- * seat in a `pull` or an `apart`, **the lit tooth** the other seat in a
+ * seat in a `pull`, an `apart` or a `tow`, **the lit tooth** the other seat in a
  * `teeth`, and **the gullet** either seat while it is reared. A mark that
  * asks this screen's seat wears the halo; one that asks only the partner's
  * wears their ring and waiting clock.
@@ -55,6 +57,7 @@ const SAYS: Readonly<Record<string, readonly [number, boolean]>> = {
   lampreyGrip: [LAMPREY_TAIL, true],
   lampreyLoose: [LAMPREY_HEAD, true],
   lampreySlip: [LAMPREY_HEAD, false],
+  lampreyAnger: [LAMPREY_HEAD, false],
   lampreyFull: [LAMPREY_HEAD, false],
   lampreyTap: [LAMPREY_TOOTH, true],
   lampreyCrack: [LAMPREY_TOOTH, true],
@@ -96,8 +99,7 @@ function markAt(l: Layout, cfg: SimConfig, p: LampreyPose, s: LampreyState, mark
 function asks(s: LampreyState, mark: number, seat: 1 | 2): boolean {
   const ask = lampreyAsks(s);
   if (mark === LAMPREY_TAIL) return lampreyHolder(s) === seat;
-  if (mark === LAMPREY_HEAD)
-    return lampreyWorker(s) === seat && (ask === "pull" || ask === "apart");
+  if (mark === LAMPREY_HEAD) return lampreyWorker(s) === seat && lampreyHeadPulls(s);
   if (mark === LAMPREY_TOOTH) return lampreyWorker(s) === seat && ask === "teeth";
   return lampreyFiring(s);
 }
@@ -148,14 +150,14 @@ export function drawLampreyVerdicts(
 ): void {
   const fade = ctx.globalAlpha;
   if (lampreyTailRight(cfg, s)) {
-    const c = lampreyAsks(s) === "apart" ? lampreyTailAt(l, cfg, s) : markAt(l, cfg, p, s, 0);
+    const c = lampreyTailPulls(s) ? lampreyTailAt(l, cfg, s) : markAt(l, cfg, p, s, 0);
     drawMarkHeld(ctx, c.x, c.y, c.r, time);
     ctx.globalAlpha = fade;
   }
-  const ask = lampreyAsks(s);
-  if (ask === "pull" || ask === "apart") {
+  if (lampreyHeadPulls(s)) {
     const c = markAt(l, cfg, p, s, LAMPREY_HEAD);
-    const share = lampreyHeadPull(s) / cfg.lampreyHeadPullMilli;
+    const full = lampreyAsks(s) === "tow" ? cfg.lampreyTowMilli : cfg.lampreyHeadPullMilli;
+    const share = lampreyHeadPull(s) / full;
     drawMarkProgress(ctx, c.x, c.y, c.r * MARK_PROGRESS_R, share);
   }
   for (const mark of MARKS) {
@@ -173,10 +175,10 @@ export function drawLampreyVerdicts(
 
 /**
  * Whether the tail is where the stay wants it: the holder's thumb on it in a
- * `teeth` or a `pull`, or pulled all the way out in an `apart`.
+ * `teeth` or a `pull`, or pulled all the way out in an `apart` or a `tow`.
  */
 export function lampreyTailRight(cfg: SimConfig, s: LampreyState): boolean {
   const ask = lampreyAsks(s);
   if (ask === "teeth" || ask === "pull") return lampreyTailHeld(s);
-  return ask === "apart" && lampreyTailPull(s) >= cfg.lampreyTailPullMilli;
+  return lampreyTailPulls(s) && lampreyTailPull(s) >= cfg.lampreyTailPullMilli;
 }

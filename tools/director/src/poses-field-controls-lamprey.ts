@@ -1,4 +1,10 @@
-import { type LampreyStep, lampreyBoss, type World } from "@neon-spore/sim";
+import {
+  type LampreyStep,
+  lampreyBoss,
+  lampreyTailWay,
+  lampreyTowAt,
+  type World,
+} from "@neon-spore/sim";
 import { fresh, type Pose, run, runUntil, POSE_TPB as TPB } from "./pose-kit.js";
 
 /**
@@ -69,6 +75,45 @@ function biting(): World {
   return w;
 }
 
+/** A tow on: the eel come down at the hull, the pilot's tail out and the navigator's head half way along its curve. */
+function towing(): World {
+  const tow: LampreyStep[] = [
+    { ask: "tow", holder: 1, teeth: 0, jump: 2, beats: 16, color: "either" },
+    { ask: "pull", holder: 2, teeth: 0, jump: 2, beats: 12, color: "either" },
+  ];
+  const w = fresh([], [], { kind: "lamprey", steps: tow });
+  runUntil(w, "the tow on", [], (x) => lampreyBoss(x)?.phase === "bite");
+  const s = lampreyBoss(w);
+  if (s === null) return w;
+  const way = lampreyTailWay(s);
+  const half = lampreyTowAt(w.cfg, s, Math.trunc(w.cfg.lampreyTowAngerMilli * 0.8));
+  run(w, TPB, [
+    {
+      tick: w.tick,
+      player: 1,
+      command: {
+        kind: "drag",
+        target: "lampreyTail",
+        on: true,
+        fromMilli: way.x * 2,
+        fromYMilli: way.y * 2,
+      },
+    },
+    {
+      tick: w.tick,
+      player: 2,
+      command: {
+        kind: "drag",
+        target: "lampreyHead",
+        on: true,
+        fromMilli: half.x,
+        fromYMilli: half.y,
+      },
+    },
+  ]);
+  return w;
+}
+
 const LAMPREY_TAIL: Pose = {
   name: "LAMPREY · THE TAIL HELD",
   note: "THE LAMPREY bitten into a tile, its tail laid away from where it leaps next. Player 1's thumb is down on the tail's knob, so the partner's pull will count. Player 1's screen, the holding seat's.",
@@ -96,4 +141,18 @@ const LAMPREY_TOOTH: Pose = {
   build: biting,
 };
 
-export const LAMPREY_GRIPS: readonly Pose[] = [LAMPREY_TAIL, LAMPREY_HEAD, LAMPREY_TOOTH];
+const LAMPREY_TOW: Pose = {
+  name: "LAMPREY · THE TOW",
+  note: "The first stay: the eel come down the middle at the ship and stopped short of it. Player 1 has the tail pulled out; player 2's thumb is most of the way to where it loses its temper, the head riding the curve. Player 2's screen.",
+  lookAt: "whether the curved channel reads as *drag the head back along this*",
+  crop: "field",
+  role: "p2",
+  build: towing,
+};
+
+export const LAMPREY_GRIPS: readonly Pose[] = [
+  LAMPREY_TAIL,
+  LAMPREY_HEAD,
+  LAMPREY_TOOTH,
+  LAMPREY_TOW,
+];

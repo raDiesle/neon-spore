@@ -123,7 +123,7 @@ export const BOSS_MECHANICS_B = {
     reach: "spawn",
   },
   lamprey: {
-    what: "The eel jumps to a tile and bites in. One of you holds the tail. The other frees the head before time runs out. Then shoot the gullet.",
+    what: "The eel goes for the ship: pull it back. It jumps from tile to tile. One of you holds the tail. The other frees the head. Then shoot the gullet.",
     reach: "spawn",
   },
   mimic: {

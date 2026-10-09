@@ -36,8 +36,18 @@ export interface LampreyConfig {
   lampreyTailTiles: number;
   /** How far up the head has to be pulled to come off the tile, thousandths of a tile. */
   lampreyHeadPullMilli: number;
-  /** How far the tail has to be pulled away from the head in an `apart`, thousandths of a tile. */
+  /** How far the tail has to be pulled away from the head in an `apart` or a `tow`, thousandths of a tile. */
   lampreyTailPullMilli: number;
+  /** The row a `tow` comes down to from the middle of the field: the head nearly on the hull. */
+  lampreyTowRow: number;
+  /** The row in the middle of the field it sets off down from. */
+  lampreyTowFromRow: number;
+  /** How far along its curve the head has to be pulled back off the hull, thousandths of a tile. */
+  lampreyTowMilli: number;
+  /** How far along the curve the eel loses its temper and lunges back at the hull, once a tow. */
+  lampreyTowAngerMilli: number;
+  /** Where along the curve the lunge throws the head back to, and the knob waits. */
+  lampreyTowBackMilli: number;
 }
 
 export const LAMPREY_DEFAULTS: LampreyConfig = {
@@ -57,4 +67,9 @@ export const LAMPREY_DEFAULTS: LampreyConfig = {
   lampreyTailTiles: 3,
   lampreyHeadPullMilli: 1500,
   lampreyTailPullMilli: 1200,
+  lampreyTowRow: 11,
+  lampreyTowFromRow: 6,
+  lampreyTowMilli: 4500,
+  lampreyTowAngerMilli: 3000,
+  lampreyTowBackMilli: 1500,
 };

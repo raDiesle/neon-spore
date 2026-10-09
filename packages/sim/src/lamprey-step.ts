@@ -11,9 +11,10 @@ import {
   lampreyTeethIn,
   lampreyToothIn,
 } from "./lamprey.js";
-import { lampreyLeapTo, lampreyTailFor, lampreyTileIndex } from "./lamprey-leap.js";
+import { lampreyLeapTo, lampreyNextAndTail, lampreyTileIndex } from "./lamprey-leap.js";
 import { lampreyEntering, lampreyFeeding } from "./lamprey-meal.js";
 import { lampreyOutside, lampreyRoaming, lampreyRoams, lampreySweepDung } from "./lamprey-roam.js";
+import { lampreyTowLand, lampreyTowTile } from "./lamprey-tow.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
@@ -48,7 +49,10 @@ export function installLamprey(
   const side = lampreyOutside(world, meal[0]?.col ?? 0);
   const row = meal[0]?.row ?? cfg.lampreyFeedRow;
   const s = freshLamprey(world.beat, { col: side, row }, top, steps, meal);
-  const first = lampreyLeapTo(world, s, top, steps[0]?.jump ?? 1, -1);
+  const first =
+    steps[0]?.ask === "tow"
+      ? lampreyTowTile(cfg)
+      : lampreyLeapTo(world, s, top, steps[0]?.jump ?? 1, -1);
   s.nextCol = first.col;
   s.nextRow = first.row;
   world.events.push({ type: "lampreyEnter", col: side < 0 ? 0 : cfg.cols - 1 });
@@ -93,14 +97,13 @@ function land(world: World, s: LampreyState): void {
     return;
   }
   const after = s.steps[s.cursor + 1];
-  const tail = world.cfg.lampreyTailTiles * 1000;
-  const reach = step.ask === "apart" ? tail + world.cfg.lampreyTailPullMilli : tail;
-  const next = after === undefined ? null : lampreyLeapTo(world, s, s, after.jump, reach);
-  s.nextCol = next?.col ?? -1;
-  s.nextRow = next?.row ?? -1;
-  const way = lampreyTailFor(world, s, reach);
-  s.tailX = way.x;
-  s.tailY = way.y;
+  if (step.ask === "tow") lampreyTowLand(world, s, after);
+  else lampreyNextAndTail(world, s, step, after);
+  if (after?.ask === "tow") {
+    const tow = lampreyTowTile(world.cfg);
+    s.nextCol = tow.col;
+    s.nextRow = tow.row;
+  }
   s.phaseBeat = world.beat;
   s.pulled = [];
   s.toothTaps = 0;
@@ -108,6 +111,9 @@ function land(world: World, s: LampreyState): void {
   s.tailMilli = [0, 0];
   s.headMilli = [0, 0];
   s.slipped = [false, false];
+  s.towMilli = 0;
+  s.towFrom = -1;
+  s.angered = false;
   openSlow(world, step.beats, "ask");
   if (step.ask === "gullet") {
     s.phase = "rearing";
@@ -216,8 +222,9 @@ function leapOn(world: World, s: LampreyState): void {
   s.toothTaps = 0;
   s.trailCol = [];
   s.trailRow = [];
-  if (step.crawl === true) {
-    lampreyRoams(world, s, 0);
+  // A tow is never leapt to: it crawls down the middle of the field at the hull.
+  if (step.crawl === true || step.ask === "tow") {
+    lampreyRoams(world, s, step.crawl === true ? 0 : 2);
     return;
   }
   s.fromCol = s.col;

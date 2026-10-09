@@ -10420,7 +10420,8 @@ what is built is below. A choreographed scene, the third kind in
 `.claude/skills/new-boss`.
 
 **The rule, in one sentence.** One of you holds the tail while the other
-frees the head, before THE SLOW runs out.
+frees the head, before THE SLOW runs out — and first, when it goes for the
+ship, you both pull it back off.
 
 **The state** (`sim/lamprey.ts`, hashed in `sim/lamprey-hash.ts`) is the
 **phase** and the beat it began, the **cursor** into the script, the tile
@@ -10545,6 +10546,27 @@ for food.
   on; on any other tooth, or with the tail loose, the last cracked one snaps
   back (`lampreySnap`) and the lit tooth's taps start again. The stay's
   teeth out frees it.
+- **The tow** (the owner, 9 October 2026, `sim/lamprey-tow.ts`): *the
+  worm approaches from the middle of screen to aim for bottom of ship … the
+  player has to pull it away from ship … the hold we change also to be a
+  pull for other player … in curve … reaching around ⅔ of distance, the worm
+  starts to be angry … pushes back current state of pulling to ⅓ and the
+  pulling dot stays there.* A `tow` is never leapt to: the eel crawls to the
+  middle of the field (`lampreyTowFromRow`) and comes straight down the
+  middle column at the hull, a row a beat, and stops on `lampreyTowRow`
+  under THE SLOW. The holder pulls the tail out along the body, an
+  `apart`'s pull, laid up the field away from the curve. The worker's
+  `lampreyHead` carries the head back along **a curve** that sets off
+  straight up and bends an eighth of a turn to the side the seeded `Rng`
+  drew (`towSide`), `lampreyTowMilli` long — three times a `pull` — a table
+  of integers, the thumb read to the nearest point of it. **The knob stays
+  where it is let go** (`towMilli`, `towFrom`), so it may be taken in
+  several presses. **At `lampreyTowAngerMilli`, two thirds, the eel loses
+  its temper**, once a tow (`lampreyAnger`): the head is thrown back to
+  `lampreyTowBackMilli`, a third, and the thumb off it — it has to lift and
+  take the knob where it now waits. With the head at the curve's end and
+  the tail all the way out, whichever comes last, it comes off the hull and
+  leaps on from the curve's end. The shipped wave opens on one, 16 beats.
 - **The gullet** is the ordinary shot (`sim/lamprey-shot.ts`): only while it
   is lit, only in the column of the eel's tile, and only in its colour unless
   `either`; the other colour is missed on the balance sheet and it stays lit.

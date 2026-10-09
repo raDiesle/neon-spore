@@ -7,7 +7,9 @@ import {
   lampreyBoss,
   lampreyHolder,
   lampreyTailHeld,
+  lampreyTailPulls,
   lampreyTailWay,
+  lampreyTowAt,
   lampreyWorker,
   shieldRow,
   type TimedCommand,
@@ -21,6 +23,11 @@ import {
  * all the way up, or taps the one lit tooth. In an `apart` both pull at once,
  * the tail along the body away from the head. With the gullet lit, the
  * cannon goes to the eel's column and the step's colour goes up it.
+ *
+ * **A `tow` is pulled in two presses**: the tail out as in an `apart`, and
+ * the head along its curve to the far end — which the eel's lunge at two
+ * thirds throws back to a third, the thumb off with it. The hand lifts, and
+ * takes the knob again where it waits.
  *
  * **Each thumb is sent once**, and again only when the simulation has
  * forgotten it — every landing starts the thumbs again
@@ -59,13 +66,13 @@ function shield(w: World, s: LampreyState): Press[] {
 
 function holdTail(w: World, s: LampreyState): Press[] {
   const holder = lampreyHolder(s);
-  const ask = lampreyAsks(s);
   if (holder === null) return [];
   const full = w.cfg.lampreyTailPullMilli;
-  if (ask === "apart" ? (s.tailMilli[holder - 1] ?? 0) >= full : s.tailDown[holder - 1]) return [];
+  const pulls = lampreyTailPulls(s);
+  if (pulls ? (s.tailMilli[holder - 1] ?? 0) >= full : s.tailDown[holder - 1]) return [];
   // A hair past the whole pull, so the rounding along a diagonal never leaves it short.
   const way = lampreyTailWay(s);
-  const reach = ask === "apart" ? full + 50 : 0;
+  const reach = pulls ? full + 50 : 0;
   const command = {
     kind: "drag",
     target: "lampreyTail",
@@ -79,6 +86,7 @@ function holdTail(w: World, s: LampreyState): Press[] {
 function freeHead(w: World, s: LampreyState): Press[] {
   const worker = lampreyWorker(s);
   const ask = lampreyAsks(s);
+  if (worker !== null && ask === "tow") return tow(w, s, worker);
   if (worker === null || (ask !== "pull" && ask !== "apart")) return [];
   if (ask === "pull" && !lampreyTailHeld(s)) return [];
   if ((s.headMilli[worker - 1] ?? 0) >= w.cfg.lampreyHeadPullMilli) return [];
@@ -91,6 +99,20 @@ function freeHead(w: World, s: LampreyState): Press[] {
     fromYMilli: up,
   } as const;
   return [{ player: worker, command }];
+}
+
+/** The head along a tow's curve to its far end, from where the thumb took hold; lifted once the lunge throws it off. */
+function tow(w: World, s: LampreyState, worker: 1 | 2): Press[] {
+  const head = (on: boolean, fromMilli: number, fromYMilli: number): Press => ({
+    player: worker,
+    command: { kind: "drag", target: "lampreyHead", on, fromMilli, fromYMilli },
+  });
+  if (s.slipped[worker - 1]) return [head(false, 0, 0)];
+  const full = w.cfg.lampreyTowMilli;
+  if (s.towMilli >= full) return [];
+  const from = lampreyTowAt(w.cfg, s, s.towFrom < 0 ? s.towMilli : s.towFrom);
+  const end = lampreyTowAt(w.cfg, s, full);
+  return [head(true, end.x - from.x, end.y - from.y)];
 }
 
 function tap(s: LampreyState): Press[] {

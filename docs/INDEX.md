@@ -641,6 +641,7 @@ by hand never moves.
 | `packages/sim/src/lamprey-leap.ts` | **Where THE LAMPREY leaps to**: a tile `jump` away from where it is |
 | `packages/sim/src/lamprey-roam.ts` | **THE LAMPREY as a worm on the field** (the owner, 6 October 2026) |
 | `packages/sim/src/lamprey-types.ts` | THE LAMPREY's shapes: the script a wave authors and the state the simulation keeps (`lamprey.ts` for what… |
+| `packages/sim/src/lamprey-tow.ts` | **THE LAMPREY's tow**: down the middle at the hull, the head pulled back along a curve whose knob stays where it is let go, and the lunge at two thirds |
 | `packages/sim/src/lamprey-meal.ts` | **THE LAMPREY's meal**, as it arrives: it crawls in from the side and eats what falls for it |
 | `packages/sim/src/lamprey.ts` | THE LAMPREY: an eel that leaps from tile to tile across the field and bites into each one |
 | `packages/sim/src/latch-hand.ts` | THE LATCH's hands: two grips on the one tendril, `latchGripLeft` and `latchGripRight`, each pulled **down** |
@@ -2266,6 +2267,7 @@ by hand never moves.
 | `packages/render/src/lamprey-chomp.ts` | **THE LAMPREY eating, as a clock** (the owner, 9 October 2026 |
 | `packages/render/src/lamprey-jaws.ts` | **THE LAMPREY's head seen from the side, eating** (`lamprey-chomp.ts` has the clock) |
 | `packages/render/src/lamprey-teeth.ts` | **The ring of teeth round THE LAMPREY's sucker**: nine hooked bone fangs standing in their gums |
+| `packages/render/src/lamprey-tow-grip.ts` | **THE LAMPREY's tow on this screen** (`sim/lamprey-tow.ts`): the curve the head is pulled back along |
 | `packages/render/src/latch-draw.ts` | **THE LATCH** drawn: the colony in its one skin, the tendril and its knots, the coil on the hull, the grips |
 | `packages/render/src/latch-grip.ts` | **The thumbs on THE LATCH** (§11.61): the two grips on the tendril, pulled down |
 | `packages/render/src/latch-handles.ts` | **THE LATCH's two grips**, in the field's one look for a thumb's control (`pull-knob.ts`, `pull-track.ts`) |

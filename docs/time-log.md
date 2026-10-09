@@ -36671,3 +36671,19 @@ Bottleneck: landing — the adopted look broke a test that pinned the old
 identity and a budget row, both only seen in `check:fast`.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE LAMPREY comes down at the ship and is towed back off it along a curve
+
+- reading: 20 min. The eel's script, step clock, roam and hand, the grip,
+  handles, pose and cues, and the fourteen registrations of a new state.
+- writing: 25 min. `lamprey-tow.ts` — the integer curve, the knob that stays
+  where it is let go, the lunge at two thirds — the crawl down the middle,
+  AUTO's two presses, the curved channel, eight tests.
+- looking: 5 min. Two frames of the tow: the eel stopped over the hull, then
+  the head half way along the curve.
+- friction: 5 min. The words budget on three lines, and a second card on one
+  boss's control the field page refuses.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — a new ask on a shipped boss touches the hand, the
+cues, the verdicts, the pose and four director tables, each found by reading.

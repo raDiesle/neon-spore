@@ -134,17 +134,20 @@ export {
   lampreyDone,
   lampreyFiring,
   lampreyHeadPull,
+  lampreyHeadPulls,
   lampreyHolder,
   lampreyNextTooth,
   lampreyStep,
   lampreyTailHeld,
   lampreyTailPull,
+  lampreyTailPulls,
   lampreyTapsWanted,
   lampreyTeethIn,
   lampreyToothIn,
   lampreyWorker,
 } from "./lamprey.js";
 export { lampreyTailWay } from "./lamprey-leap.js";
+export { lampreyTowAt, lampreyTowPoints } from "./lamprey-tow.js";
 export {
   freshMimic,
   MIMIC_ASKS,

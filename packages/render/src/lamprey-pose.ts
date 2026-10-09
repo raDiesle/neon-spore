@@ -4,6 +4,7 @@ import {
   lampreyCrawling,
   lampreyHeadPull,
   lampreyTailHeld,
+  lampreyTailPulls,
   lampreyTailWay,
   type SimConfig,
 } from "@neon-spore/sim";
@@ -11,6 +12,7 @@ import { smoothstep } from "./ease.js";
 import { fieldX } from "./field-flip.js";
 import { wrap } from "./lamprey-settle.js";
 import { type LampreyPose, MOUTH } from "./lamprey-shape.js";
+import { lampreyTowPoint } from "./lamprey-tow-grip.js";
 import { type Layout, tileCY } from "./layout.js";
 import { phaseInto } from "./phase-into.js";
 
@@ -97,11 +99,15 @@ export function lampreyPose(
   if (s.phase === "bite") {
     const land = smoothstep(Math.min(1, into / LAND));
     const tilt = lerp(TILT_LEAP, TILT_BITE, land);
-    // A head being pulled comes up off its tile with the thumb on it.
+    // A head being pulled comes up off its tile with the thumb on it — in a tow, along its curve.
     const lift = (lampreyHeadPull(s) * l.tile) / 1000;
-    const free = lampreyAsks(s) !== "apart" && !lampreyTailHeld(s);
+    const head =
+      lampreyAsks(s) === "tow"
+        ? lampreyTowPoint(l, cfg, s, s.towMilli)
+        : { x: here.x, y: here.y - lift };
+    const free = !lampreyTailPulls(s) && !lampreyTailHeld(s);
     const lean = tailLean(l, s) + (free ? sweep(beat, beatPhase) * land : 0);
-    return crawledTo(l, s, into, { ...base, x: here.x, y: here.y - lift, tilt, lean });
+    return crawledTo(l, s, into, { ...base, ...head, tilt, lean });
   }
   if (s.phase === "rearing") {
     const sway = Math.sin(wave * 0.5) * 0.15 * l.tile;

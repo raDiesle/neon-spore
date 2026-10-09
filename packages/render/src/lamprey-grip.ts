@@ -15,6 +15,7 @@ import { handleRadius } from "./handle-draw.js";
 import { hitCircle } from "./hit.js";
 import { lampreyPose } from "./lamprey-pose.js";
 import { type LampreyPose, lampreyGulletReach, lampreyToothAt } from "./lamprey-shape.js";
+import { lampreyTowKnob } from "./lamprey-tow-grip.js";
 import { type Circle, type Layout, tileCY } from "./layout.js";
 import { PULL_GRAB } from "./pull-knob.js";
 import type { Field, Touch } from "./touch.js";
@@ -89,9 +90,13 @@ export function lampreyTailCircle(l: Layout, cfg: SimConfig, s: LampreyState): C
   return lampreyBiting(s) ? lampreyTailRest(l, cfg, s) : null;
 }
 
-/** The head as a circle while a `pull` or an `apart` is on: where the ghost thumb pulls from. */
+/**
+ * The head as a circle while a `pull`, an `apart` or a `tow` is on: where the
+ * ghost thumb pulls from — in a tow, wherever along the curve the knob waits.
+ */
 export function lampreyHeadCircle(l: Layout, cfg: SimConfig, s: LampreyState): Circle | null {
   const ask = lampreyAsks(s);
+  if (ask === "tow") return lampreyTowKnob(l, cfg, s);
   return ask === "pull" || ask === "apart" ? lampreyHeadRest(l, cfg, s) : null;
 }
 

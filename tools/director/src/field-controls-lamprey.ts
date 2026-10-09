@@ -21,7 +21,7 @@ export const LAMPREY_CONTROLS: readonly FieldControlDef[] = [
     does:
       "A **level** in a `pull` or a `teeth`: the tail is held while the holder's " +
       "thumb is down, and the head's pull and the teeth's taps only count while " +
-      "it is. In an `apart` it is a **pull** of its own, " +
+      "it is. In an `apart` or a `tow` it is a **pull** of its own, " +
       "`lampreyTailPullMilli` along the body away from the head, at the same " +
       "time as the head's (sim/lamprey-hand.ts).",
     source: SOURCE,
@@ -32,19 +32,40 @@ export const LAMPREY_CONTROLS: readonly FieldControlDef[] = [
   },
   {
     name: "THE LAMPREY'S HEAD",
-    where: "the knob on the bitten tile, in a `pull` or an `apart`",
+    where:
+      "the knob on the bitten tile in a `pull` or an `apart`; in a `tow`, wherever along its curve it was let go",
     seat: "the seat not holding the tail",
     gesture: "grab and drag",
     does:
       "A **pull**, THE CURTAIN's hem: dragged up `lampreyHeadPullMilli`, the " +
       "mouth comes off the tile and the stay is won — in a `pull` only with the " +
       "tail held, or it slips; in an `apart` only with the tail pulled the " +
-      "other way at once (sim/lamprey-hand.ts).",
+      "other way at once (sim/lamprey-hand.ts). In a `tow` it is carried back " +
+      "along a curve, `lampreyTowMilli`, and stays where it is let go; two " +
+      "thirds of the way the eel lunges once and throws it back to a third " +
+      "(sim/lamprey-tow.ts).",
     source: SOURCE,
     holdKind: "drag",
     dragTarget: "lampreyHead",
     sends: ["drag"],
     pose: "LAMPREY · THE HEAD PULLED",
+  },
+  {
+    name: "THE LAMPREY'S HEAD, TOWED",
+    where:
+      "the knob on the curve the head is pulled back along, in a `tow`: on the tile nearly on the hull, then wherever it was let go",
+    seat: "the seat not on the tail — player 2 in the first stay",
+    gesture: "grab and drag",
+    does:
+      "A **pull along a curve**, `lampreyTowMilli`, that stays where it is " +
+      "let go. Two thirds of the way the eel lunges, once, and throws the head " +
+      "back to a third and the thumb off it; taken again there and pulled to " +
+      "the end with the tail out, the eel comes off the hull (sim/lamprey-tow.ts).",
+    source: SOURCE,
+    holdKind: "drag",
+    dragTarget: "lampreyHead",
+    sends: ["drag"],
+    pose: "LAMPREY · THE TOW",
   },
   {
     name: "THE LAMPREY'S TEETH",

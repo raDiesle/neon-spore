@@ -11,6 +11,7 @@ import {
 } from "./lamprey.js";
 import { lampreyTailWay } from "./lamprey-leap.js";
 import { lampreyFreed, lampreySnapped, lampreyTapped } from "./lamprey-step.js";
+import { lampreyTowEnd, lampreyTowHeard } from "./lamprey-tow.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -25,7 +26,8 @@ import type { World } from "./world.js";
  *
  * **The head is `lampreyHead`**, the worker's, pulled **up**: `fromYMilli` is
  * negative going up the screen, THE CURTAIN's hem (`curtain-hand.ts`), so the
- * pull is `-fromYMilli`, cut to `lampreyHeadPullMilli`.
+ * pull is `-fromYMilli`, cut to `lampreyHeadPullMilli`. In a `tow` the same
+ * drag carries the head along its curve instead (`lamprey-tow.ts`).
  *
  * **The teeth are `lampreyTooth`**, an edge like THE VALVE's pin
  * (`valve-hand.ts`), its `id` the tooth: a thumb already resting has to lift
@@ -43,6 +45,9 @@ export function lampreyHeard(world: World, player: 1 | 2, command: Command): voi
   const side: 0 | 1 = player === 1 ? 0 : 1;
   if (command.target === "lampreyTail") {
     tail(world, s, side, command.on, command.fromMilli, command.fromYMilli ?? 0);
+  } else if (command.target === "lampreyHead" && lampreyAsks(s) === "tow") {
+    lampreyTowHeard(world, s, side, command.on, command.fromMilli, command.fromYMilli ?? 0);
+    settle(world, s);
   } else if (command.target === "lampreyHead") {
     head(world, s, side, command.on, command.fromYMilli ?? 0);
   } else if (command.target === "lampreyTooth") {
@@ -79,14 +84,25 @@ function head(world: World, s: LampreyState, side: 0 | 1, on: boolean, fromYMill
 
 /**
  * Whether the bite has come off: a `pull` with the head all the way up and
- * the tail held, an `apart` with both all the way out. A head all the way up
- * on a loose tail slips, said once a press.
+ * the tail held, an `apart` with both all the way out, a `tow` with the head
+ * at the curve's end and the tail all the way out — the head left there,
+ * so whichever gets there last. A head all the way up on a loose tail slips,
+ * said once a press.
  */
 function settle(world: World, s: LampreyState): void {
   const ask = lampreyAsks(s);
   const worker = lampreyWorker(s);
-  if (worker === null || (ask !== "pull" && ask !== "apart")) return;
   const cfg = world.cfg;
+  if (worker !== null && ask === "tow") {
+    if (s.towMilli < cfg.lampreyTowMilli || lampreyTailPull(s) < cfg.lampreyTailPullMilli) return;
+    // Off the hull where the curve ends, so the leap on starts where the head is.
+    const end = lampreyTowEnd(world, s);
+    s.col = end.col;
+    s.row = end.row;
+    lampreyFreed(world, s);
+    return;
+  }
+  if (worker === null || (ask !== "pull" && ask !== "apart")) return;
   const up = lampreyHeadPull(s) >= cfg.lampreyHeadPullMilli;
   if (ask === "apart") {
     if (up && lampreyTailPull(s) >= cfg.lampreyTailPullMilli) lampreyFreed(world, s);
