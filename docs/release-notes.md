@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 8c7eb21d7 — THE CURTAIN, BULB QUEEN, THE SCUTTLE and THE FLEET ring the whole thing to hit
+
+The shot's ring now stands round what the screen draws for each: THE CURTAIN's bare core with its lobes, BULB QUEEN's open mark at its widest breath, THE SCUTTLE's live plate where it hangs (it had stood on the lock under the slab, in the wrong colour), and the whole chart square on THE FLEET and SNAKE. The first three ring their fire button in the colour the target shows. A look the owner asked for by name.
+
 ## 2026-10-09 · 9f306cddf — ON THE FIELD's cards are cut to the control, enlarge on a click, and open on their gesture
 
 Each use card on CONTROLS › ON THE FIELD now shows the box its control answers a press in — found by sweeping the posed world through the game's own hit test — instead of half the phone; a click opens it as large as the window, drawn again at that size, with a WHOLE PHONE view beside it. Each action and control type opens on the generic gesture it is built from (TAP first under PRESS, SWIPE PAST A DISTANCE under PULL, ROUND A CIRCLE under TURN A WHEEL …); the four built gestures no action starts from stay under OTHER GESTURES THE GAME READS.

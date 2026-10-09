@@ -37074,3 +37074,5 @@ Bottleneck: writing — the crop had to be found by the game's own hit test, not
 
 Bottleneck: looking — finding the tick a `FIRE` stands at takes an events
 run per fight before the frame itself.
+
+*Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
