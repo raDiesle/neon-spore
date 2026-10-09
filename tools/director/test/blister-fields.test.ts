@@ -6,18 +6,19 @@ import {
   blisterByOf,
   blisterCountOf,
   blisterGestureOf,
+  blisterWayOfEntry,
   hasBlisterFields,
   setBlisterBy,
   setBlisterCount,
   setBlisterGesture,
+  setBlisterWay,
 } from "../src/entry-fields-blister.js";
 import { serializeEntry } from "../src/serialize-entry.js";
 
 /**
- * **THE BLISTER's BY, GESTURE and COUNT rows** (`cell-config-blister.ts`):
+ * **THE BLISTER's BY, GESTURE, COUNT and WAY rows** (`cell-config-blister.ts`):
  * each default is written as no field, a set one survives a save, and WAY is
- * offered only for a gesture that has one — none yet, TAP and HOLD having
- * none.
+ * offered only for a gesture that has one — SWIPE, TAP and HOLD having none.
  */
 
 const blister = (): WaveEntry => ({ beat: 4, col: 3, kind: "blister" }) as WaveEntry;
@@ -47,6 +48,8 @@ describe("THE BLISTER's fields", () => {
     setBlisterCount(e, DEFAULT_CONFIG.blisterBlows);
     setBlisterGesture(e, "hold");
     setBlisterGesture(e, "tap");
+    setBlisterWay(e, "up");
+    setBlisterWay(e, "right");
     expect(serializeEntry(e)).toBe(serializeEntry(blister()));
   });
 
@@ -60,6 +63,18 @@ describe("THE BLISTER's fields", () => {
       expect(blisterByOf(back)).toBe(by);
       expect(blisterCountOf(back)).toBe(7);
       expect(blisterGestureOf(back)).toBe("hold");
+    }
+  });
+
+  it("keep a SWIPE's way through a save, right when unset", () => {
+    expect(blisterWayOfEntry(blister())).toBe("right");
+    for (const way of ["left", "up", "down"] as const) {
+      const e = blister();
+      setBlisterGesture(e, "swipe");
+      setBlisterWay(e, way);
+      const back = reread(e);
+      expect(blisterGestureOf(back)).toBe("swipe");
+      expect(blisterWayOfEntry(back)).toBe(way);
     }
   });
 });
@@ -98,12 +113,22 @@ describe("THE BLISTER's rows", () => {
   const said = (rows: unknown[]) =>
     (rows as Node[]).map((r) => r.children.map((c) => c.textContent).join(" "));
 
-  it("are BY, GESTURE and COUNT, and no WAY while no gesture has one", () => {
+  it("are BY, GESTURE and COUNT, and no WAY for a gesture without one", () => {
     expect(said(blisterRows(blister(), () => {}))).toEqual([
       "BY P1 P2 BOTH",
-      "GESTURE TAP HOLD",
+      "GESTURE TAP HOLD SWIPE",
       "COUNT 1 2 3 4 5 6 7 8",
     ]);
+  });
+
+  it("offer a SWIPE its four ways as arrows, and set the one pressed", () => {
+    const e = { ...blister(), gesture: "swipe" } as WaveEntry;
+    let edits = 0;
+    const rows = blisterRows(e, () => edits++) as unknown as Node[];
+    expect(said(rows)[3]).toBe("WAY ← → ↑ ↓");
+    rows[3]?.children[4]?.click?.();
+    expect(e.way).toBe("down");
+    expect(edits).toBe(1);
   });
 
   it("set the entry when a chip is pressed", () => {

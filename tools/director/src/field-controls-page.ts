@@ -1,4 +1,5 @@
 import type { FieldControlDef } from "./field-control-def.js";
+import { BLISTER_CONTROLS } from "./field-controls-blister.js";
 import { BOSS_FIELD_CONTROLS } from "./field-controls-bosses.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { SHIP_FIELD_CONTROLS } from "./field-controls-ship.js";
@@ -61,6 +62,8 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   },
   // THE GUM, the grip's own hand read a third way: a creature's, not a boss's.
   ...GUM_CONTROLS,
+  // THE BLISTER's SWIPE, a creature's stroke: `field-controls-blister.ts`.
+  ...BLISTER_CONTROLS,
   // The ship's own lobes, cannon to muzzle: `field-controls-ship.ts`.
   ...SHIP_FIELD_CONTROLS,
   // THE MAZE's string moved out with its heart: `field-controls-maze.ts`.

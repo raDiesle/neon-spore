@@ -1,5 +1,10 @@
 import type { WaveEntry } from "@neon-spore/content";
-import { type BlisterBy, type BlisterGesture, DEFAULT_CONFIG } from "@neon-spore/sim";
+import {
+  type BlisterBy,
+  type BlisterGesture,
+  type BlisterWay,
+  DEFAULT_CONFIG,
+} from "@neon-spore/sim";
 
 /**
  * **THE BLISTER's per-arrival facts**: whose hand knocks it down, how many
@@ -20,14 +25,17 @@ export const BLISTER_BYS: readonly BlisterBy[] = [1, 2, "both"];
 /** How many blows one may be authored to take. */
 export const BLISTER_COUNTS: readonly number[] = [1, 2, 3, 4, 5, 6, 7, 8];
 
-export type { BlisterGesture };
+export type { BlisterGesture, BlisterWay };
 
 /**
- * The gestures a blister is knocked down by: TAP and HOLD. THE BLISTER's
- * lanes 5 to 7 each add theirs to the simulation's `BlisterGesture` and here,
- * with a WAY where it has one (`docs/queue.md`).
+ * The gestures a blister is knocked down by: TAP, HOLD and SWIPE. THE
+ * BLISTER's lanes 6 and 7 each add theirs to the simulation's
+ * `BlisterGesture` and here, with a WAY where it has one (`docs/queue.md`).
  */
-export const BLISTER_GESTURES: readonly BlisterGesture[] = ["tap", "hold"];
+export const BLISTER_GESTURES: readonly BlisterGesture[] = ["tap", "hold", "swipe"];
+
+/** The ways a SWIPE may be authored to go, in the order the chips read. */
+const SWIPE_WAYS: readonly BlisterWay[] = ["left", "right", "up", "down"];
 
 /** Whether this entry is a blister, and so has these rows to set. */
 export function hasBlisterFields(entry: WaveEntry): boolean {
@@ -64,15 +72,32 @@ export function setBlisterGesture(entry: WaveEntry, gesture: BlisterGesture): vo
   entry.gesture = gesture === "tap" ? undefined : gesture;
 }
 
-/** The ways a gesture may go: none for TAP or HOLD, so the row is not offered. */
-export function blisterWaysOf(_gesture: BlisterGesture): readonly string[] {
-  return [];
+/** The ways a gesture may go: SWIPE's four, none for TAP or HOLD, so the row is not offered. */
+export function blisterWaysOf(gesture: BlisterGesture): readonly BlisterWay[] {
+  return gesture === "swipe" ? SWIPE_WAYS : [];
+}
+
+/** Which way it goes. Unset is right, which `blisterWayOf` in the simulation reads. */
+export function blisterWayOfEntry(entry: WaveEntry): BlisterWay {
+  return entry.way ?? "right";
+}
+
+/** Set the way, right written as no field. */
+export function setBlisterWay(entry: WaveEntry, way: BlisterWay): void {
+  entry.way = way === "right" ? undefined : way;
 }
 
 /** BY's chips, said the way `seatLabel` says a seat on THE MINE's SEES row. */
 export function byLabel(by: BlisterBy): string {
   return by === "both" ? "BOTH" : by === 1 ? "P1" : "P2";
 }
+
+/** A way's chip: the arrow the field's track points with. */
+export function wayLabel(way: BlisterWay): string {
+  return WAY_ARROWS[way];
+}
+
+const WAY_ARROWS: Record<BlisterWay, string> = { left: "←", right: "→", up: "↑", down: "↓" };
 
 /** A gesture's chip, in the word the field's own help writes. */
 export function gestureLabel(gesture: BlisterGesture): string {

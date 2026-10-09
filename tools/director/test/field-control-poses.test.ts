@@ -1,5 +1,11 @@
 import { describe, expect, test } from "bun:test";
-import { gumIsFlung, readyFraction, wardenTether } from "@neon-spore/sim";
+import {
+  blisterIsUp,
+  blisterSwipeShare,
+  gumIsFlung,
+  readyFraction,
+  wardenTether,
+} from "@neon-spore/sim";
 import { FIELD_CONTROLS } from "../src/field-controls-page.js";
 import { poseNamed } from "../src/poses.js";
 import { FIELD_CONTROL_GROUP } from "../src/poses-field-controls.js";
@@ -46,6 +52,13 @@ describe("ON THE FIELD rows and their pictures", () => {
     expect(gum).toBeDefined();
     expect(gum?.rockDir).toBe(1);
     expect(gum?.col).toBeGreaterThan(5);
+  });
+
+  test("the blister is up and its stroke half carried", () => {
+    const w = poseNamed("BLISTER · A STROKE HALF CARRIED").build();
+    const b = w.creatures.find(blisterIsUp);
+    expect(b).toBeDefined();
+    expect(blisterSwipeShare(w, b!)).toBe(0.5);
   });
 
   test("one ready circle is part full and the other empty", () => {

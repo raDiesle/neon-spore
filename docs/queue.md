@@ -409,3 +409,19 @@ glow; the pointer handlers' seat bookkeeping (`from`, `pressY`, the desk's
 both-seats signing) is the cut that reads as one thing. Move it to a page of
 its own with the test it already has, and `bun run check`.
 
+
+## A creature's field control is six registrations, found one red test at a time
+
+- **Found:** 2026-10-09, claude/queue-tasks-d82b1f
+- **Files:** `.claude/skills/new-creature/SKILL.md`, `tools/director/test/on-field-controls.test.ts`, `tools/director/test/field-page.test.ts`
+
+THE BLISTER's SWIPE moving from `unbuilt` to `field` took six places, and each
+was learned from the test that went red without it: `TARGET_PLACE` in
+`on-field-controls.test.ts`, a row file spread into `FIELD_CONTROLS`
+(`field-controls-gum.ts`' shape), a pose in a file of its own registered in
+`poses-field-controls.ts`, a row in the table of `docs/spec/controls.md`, the
+row's name in one action type (`field-actions-drag.ts`) with its card text in
+`field-looks-drag.ts`, and `bun run index` for the two new files. Lanes 6 and 7
+(TURN, RUB) will pay it again. Write the list into the new-creature skill, the
+way `.claude/skills/new-boss-state` lists a boss's, each with what goes red
+without it.

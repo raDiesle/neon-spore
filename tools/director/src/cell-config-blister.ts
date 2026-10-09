@@ -1,5 +1,5 @@
 import type { WaveEntry } from "@neon-spore/content";
-import type { BlisterBy } from "@neon-spore/sim";
+import type { BlisterBy, BlisterWay } from "@neon-spore/sim";
 import { beadLabel, choiceRow } from "./cell-config-rows.js";
 import {
   BLISTER_BYS,
@@ -9,12 +9,15 @@ import {
   blisterByOf,
   blisterCountOf,
   blisterGestureOf,
+  blisterWayOfEntry,
   blisterWaysOf,
   byLabel,
   gestureLabel,
   setBlisterBy,
   setBlisterCount,
   setBlisterGesture,
+  setBlisterWay,
+  wayLabel,
 } from "./entry-fields-blister.js";
 
 /**
@@ -25,9 +28,9 @@ import {
  *
  * BY is whose hand knocks it down — the owner asked for it to be set here,
  * in the brush settings — and the other seat is the one shown where it comes
- * up. COUNT is the blows it takes — taps, or beats held. GESTURE is TAP or
- * HOLD until THE BLISTER's lanes 5 to 7 add theirs; WAY is offered only for
- * a gesture that has one, so it is not offered at all today.
+ * up. COUNT is the blows it takes — taps, beats held or strokes. GESTURE is
+ * TAP, HOLD or SWIPE until THE BLISTER's lanes 6 and 7 add theirs; WAY is
+ * offered only for a gesture that has one, SWIPE's four arrows today.
  */
 export function blisterRows(entry: WaveEntry, onEdit: () => void): HTMLElement[] {
   const gesture = blisterGestureOf(entry);
@@ -46,6 +49,13 @@ export function blisterRows(entry: WaveEntry, onEdit: () => void): HTMLElement[]
     }),
   ];
   const ways = blisterWaysOf(gesture);
-  if (ways.length > 0) rows.push(choiceRow("WAY", ways, ways[0] ?? "", String, () => onEdit()));
+  if (ways.length > 0) {
+    rows.push(
+      choiceRow("WAY", ways, blisterWayOfEntry(entry), wayLabel, (way: BlisterWay) => {
+        setBlisterWay(entry, way);
+        onEdit();
+      }),
+    );
+  }
   return rows;
 }

@@ -431,9 +431,9 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   bastionPlateLeft: "field",
   bastionPlateRight: "field",
   bastionSpin: "field",
-  // THE BLISTER's SWIPE (`sim/blister-swipe.ts`): heard and drawn, but no
-  // wave and no GESTURE chip sends one yet — its row and pose come with that.
-  blisterSwipe: "unbuilt",
+  // THE BLISTER's SWIPE, a stroke across the body (`sim/blister-swipe.ts`,
+  // answered by `render/blister-tap.ts`).
+  blisterSwipe: "field",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

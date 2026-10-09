@@ -77,6 +77,7 @@ export function serializeEntry(entry: WaveEntry): string {
   if (entry.by !== undefined) parts.push(`by: ${entry.by === "both" ? '"both"' : entry.by}`);
   if (entry.count !== undefined) parts.push(`count: ${entry.count}`);
   if (entry.gesture !== undefined) parts.push(`gesture: "${entry.gesture}"`);
+  if (entry.way !== undefined) parts.push(`way: "${entry.way}"`);
   return `{ ${parts.join(", ")} }`;
 }
 

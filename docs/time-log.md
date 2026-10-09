@@ -36415,3 +36415,19 @@ Bottleneck: fitting the sim's meet rows to the picture — three rounds of
 `core-met.test.ts` to find the window each part is met in.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE BLISTER, lane 5: SWIPE, finished
+
+- reading: 0 min. The parked entry, `blister-swipe.ts`, the HOLD's two
+  tests to copy, the director's blister rows and the ON THE FIELD table.
+- writing: 5 min. The replay test, the frame and touch test, the WAY row
+  with its arrows and `way` in the save, the field row, its pose and the spec.
+- looking: 0 min. Two `frames` runs — the first at tick 120, before the
+  blister was up — and a crop of the bar.
+- friction: 0 min.
+- landing: 10 min. `check:fast` red twice — `docs/INDEX.md` missing the two
+  new director files, then the row in no action type on the ON THE FIELD
+  page — the commit, `land`.
+
+Bottleneck: landing — a field control is six registrations and the last two
+were learned from a red `check:fast`, a minute and a half each (queued).

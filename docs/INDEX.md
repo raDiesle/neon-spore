@@ -3051,6 +3051,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-trapeze.ts` | THE TRAPEZE's controls, **each photographed from the seat whose control it is** |
 | `tools/director/src/poses-field-controls-bosses.ts` | Every boss's grips on the ON THE FIELD tab, in the tab's order: one file a boss |
 | `tools/director/src/poses-field-controls-bastion.ts` | THE BASTION's thumbs: the armour lit with the pilot's thumb carrying his next slab most of a pull out |
+| `tools/director/src/poses-field-controls-blister.ts` | THE BLISTER's SWIPE with a thumb half way through its stroke: the body up out of its pore |
 | `tools/director/src/poses-field-controls-plumb.ts` | THE PLUMB's pull: the left weight asked for, the bob skewed left |
 | `tools/director/src/poses-field-controls-lamprey.ts` | THE LAMPREY's hands, **each photographed from the seat that presses it**: the tail from the pilot's screen |
 | `tools/director/src/poses-field-controls-latch.ts` | THE LATCH's grips, hand over hand: the first level lit, the navigator holding the right grip |
@@ -3546,6 +3547,7 @@ by hand never moves.
 | `tools/director/src/field-controls-baton.ts` | THE BATON's two thumbs on its own arm, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-bastion.ts` | THE BASTION's three thumbs, as three rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-bosses.ts` | **Every boss's own rows** on the ON THE FIELD tab, in the order they were built |
+| `tools/director/src/field-controls-blister.ts` | THE BLISTER's SWIPE, in a file of its own on `field-controls-gum.ts`'s pattern |
 | `tools/director/src/field-controls-trapeze.ts` | THE TRAPEZE's controls, as rows of the ON THE FIELD tab: the two zones |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-gorge.ts` | THE GORGE's one thumb, in a file of its own — `field-controls-page.ts` is at its limit |

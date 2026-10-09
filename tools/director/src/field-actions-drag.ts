@@ -19,6 +19,7 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "whether a short pull is refused red or ignored — today both happen.",
     rows: [
       "THE GUM",
+      "THE BLISTER'S SWIPE",
       "THE WARDEN'S TETHER",
       "THE WARDEN'S SWIPE",
       "THE ANTIPHON'S RAIL",
