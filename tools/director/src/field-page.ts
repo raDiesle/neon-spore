@@ -1,5 +1,5 @@
-import { actionSection, suggested } from "./field-action-cards.js";
-import { EVERY_WAVE_ROWS, sortedActions } from "./field-actions.js";
+import { actionSection, placedGestures, suggested } from "./field-action-cards.js";
+import { EVERY_WAVE_ROWS, FIELD_ACTIONS, sortedActions } from "./field-actions.js";
 import type { FieldControlDef } from "./field-control-def.js";
 import { FIELD_CONTROLS } from "./field-controls-page.js";
 import { fieldControlRow } from "./field-controls-rows.js";
@@ -18,8 +18,10 @@ import { TRIED_CONTROLS, triedControlRow } from "./tried-controls-page.js";
  *
  * In order: the decisions that cut across types; every action the field
  * answers, most used first, each with its control types and a card per enemy
- * or boss wave that uses it (`field-actions.ts`, 6 October 2026, the owner);
- * the gestures the game reads; the ones it does not, with the controls tried
+ * or boss wave that uses it (`field-actions.ts`, 6 October 2026, the owner),
+ * each action and type opening on the generic gestures it is made of (9
+ * October 2026); the gestures the game reads that no action starts from; the
+ * ones it does not, with the controls tried
  * and set aside; and the raw events. The rows every wave has are drawn on
  * their own tab, EVERY WAVE, in the long form they always had.
  *
@@ -36,7 +38,7 @@ interface Part {
 
 const PART = {
   decide: { id: "fp-decisions", title: "DECISIONS" },
-  built: { id: "fp-built", title: "GESTURES THE GAME READS" },
+  built: { id: "fp-built", title: "OTHER GESTURES THE GAME READS" },
   ideas: { id: "fp-ideas", title: "NOT USED YET — IDEAS" },
   events: { id: "fp-events", title: "THE RAW EVENTS" },
 } satisfies Record<string, Part>;
@@ -82,10 +84,19 @@ function renderEveryWave(byName: ReadonlyMap<string, FieldControlDef>): void {
   }
 }
 
+/** The built gestures no action draws first: the ones every wave has, and
+ * the few no single action owns. */
+export function unplacedGestures(): string[] {
+  const placed = new Set(FIELD_ACTIONS.flatMap(placedGestures));
+  return GESTURES.filter((g) => g.state === "built" && !placed.has(g.name)).map((g) => g.name);
+}
+
 function gestureGrid(state: GestureState): HTMLElement {
   const grid = document.createElement("div");
   grid.className = "gesture-grid";
+  const left = new Set(unplacedGestures());
   for (const g of GESTURES.filter((x) => x.state === state)) {
+    if (state === "built" && !left.has(g.name)) continue;
     const c = card(g);
     const note = GESTURE_NOTES[g.name];
     if (note) c.appendChild(suggested(note));
@@ -123,7 +134,12 @@ export function renderFieldPage(): void {
     body.appendChild(actionSection(action, uses, types, byName));
   }
 
-  body.appendChild(partHead(PART.built, "the vocabulary: every gesture a row above is made of"));
+  body.appendChild(
+    partHead(
+      PART.built,
+      "the rest of the vocabulary: gestures the game reads that no one action above starts from",
+    ),
+  );
   body.appendChild(legend());
   body.appendChild(gestureGrid("built"));
 

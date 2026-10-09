@@ -1,5 +1,4 @@
 import {
-  Canvas2DRenderer,
   computeLayout,
   computeStage,
   type Layout,
@@ -7,8 +6,11 @@ import {
   type Viewport,
   type ViewRole,
 } from "@neon-spore/render";
-import { framePhase, hullRow, type SimConfig, type World } from "@neon-spore/sim";
+import { hullRow, type SimConfig, type World } from "@neon-spore/sim";
+import { cutCard, drawPhone } from "./pose-frame.js";
 import type { CropKind, Pose } from "./pose-kit.js";
+
+export { PHONE } from "./pose-frame.js";
 
 /**
  * A posed world, drawn — one frame of the shipping renderer, cut down to the
@@ -23,16 +25,9 @@ import type { CropKind, Pose } from "./pose-kit.js";
  * colour moves. This one cannot be out of date, because it is not a picture of
  * the game — it is the game, drawn once.
  *
- * The renderer eases: the shield swells towards armed, the maw travels through
- * flat, the cannon glides to its column. A single frame would catch all three
- * at zero, so the pose is drawn a few dozen times with a long `dt` first and
- * only the last frame is kept — the easing settled, the effects fresh.
+ * The drawing and the cutting are `pose-frame.ts`; what this file adds is
+ * which rectangle a pose's crop names.
  */
-
-/** The phone the frame is drawn into before it is cut. Bigger than a card. */
-export const PHONE: Viewport = { width: 380, height: 820, dpr: 2 };
-/** Frames spent settling the eased pose before the one that is kept. */
-const SETTLE = 40;
 
 /**
  * A pose's own built world, kept by name so two callers of the same one — the
@@ -43,7 +38,7 @@ const SETTLE = 40;
  */
 const built = new Map<string, World>();
 
-function builtWorld(pose: Pose): World {
+export function builtWorld(pose: Pose): World {
   const cached = built.get(pose.name);
   if (cached) return cached;
   const world = pose.build();
@@ -189,61 +184,9 @@ export function frameWorld(
    */
   bare = false,
 ): Framed {
-  const cfg = world.cfg;
-
-  const off = document.createElement("canvas");
-  const renderer = new Canvas2DRenderer(off);
-  renderer.resize(PHONE);
-
-  const view = {
-    world,
-    beatPhase: framePhase(world),
-    role,
-    time: world.tick / cfg.tickHz,
-    running: true,
-    banner: null,
-    bare,
-  };
-  // Settled first, with nothing reported: a long `dt` walks the eased pose to
-  // where it belongs without spending the events on frames nobody keeps.
-  for (let i = 0; i < SETTLE; i++) renderer.draw({ ...view, dt: 1 / 20, events: [] });
-  // Then the frame that is kept, carrying whatever the last tick reported —
-  // so a deflection is drawn with its flash on rather than a second later.
-  renderer.draw({ ...view, dt: 1 / 60, events: world.events });
-
-  const stage = computeStage(PHONE);
-  const layout = computeLayout(
-    { width: stage.width, height: stage.height, dpr: PHONE.dpr },
-    cfg,
-    role,
-  );
-  const rect = cropRect(crop, layout, stage, at, span ?? TILE_SPAN, cfg);
-
-  const dpr = Math.min(3, window.devicePixelRatio || 1);
-  // The crop decides the shape; the cap decides how much of the row it takes.
-  const wide = Math.min(width, Math.round((cap * rect.w) / rect.h));
-  const height = Math.round((wide * rect.h) / rect.w);
-  const card = document.createElement("canvas");
-  card.width = Math.round(wide * dpr);
-  card.height = Math.round(height * dpr);
-  card.style.width = `${wide}px`;
-  card.style.height = `${height}px`;
-
-  const ctx = card.getContext("2d");
-  if (ctx) {
-    ctx.imageSmoothingQuality = "high";
-    ctx.drawImage(
-      off,
-      rect.x * PHONE.dpr,
-      rect.y * PHONE.dpr,
-      rect.w * PHONE.dpr,
-      rect.h * PHONE.dpr,
-      0,
-      0,
-      card.width,
-      card.height,
-    );
-  }
-  renderer.dispose();
-  return { canvas: card, layout, stage, rect, scale: wide / rect.w };
+  const phone = drawPhone(world, role, bare);
+  const { layout, stage } = phone;
+  const rect = cropRect(crop, layout, stage, at, span ?? TILE_SPAN, world.cfg);
+  const { canvas, scale } = cutCard(phone, rect, width, cap);
+  return { canvas, layout, stage, rect, scale };
 }

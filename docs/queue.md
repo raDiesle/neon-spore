@@ -384,3 +384,10 @@ The same as THE VANE's entry above, for THE GOVERNOR, THE SEAM, THE LAMPREY, THE
 - **Files:** `tools/versus/decide.ts`, `tools/versus/test/`
 
 `bun run versus adopt scuttle:seat lobed` patched `SCUTTLE_ROWS` and `SCUTTLE_FRAME`, both in `packages/render/src/scuttle-shape.ts`, and printed both edits — but only `SCUTTLE_FRAME` reached the file. `decide.ts` builds its plan by reading each patch's file from disk (`rewriteRecord(readFileSync(file, …))`, about line 96) and writes every plan entry whole, so the second record's text overwrites the first's. The lane wrote `SCUTTLE_ROWS` by hand. Fold patches on the same file into one entry, each rewrite applied to the text the previous one produced, with a test of a candidate patching two records in one file.
+
+## Seven ON THE FIELD cards keep half the phone: no press reaches the control
+
+- **Found:** 2026-10-09, claude/controls-documentation-redesign-0e3a85
+- **Files:** `tools/director/src/field-focus.ts`, `tools/director/test/field-focus.test.ts`, `tools/director/src/poses-field-controls.ts`
+
+CONTROLS › ON THE FIELD cuts each use card to the box its control answers a press in, by sweeping the posed world through `deskDown` (`controlRect`). Seven rows find nothing — SNAKE'S JAWS, PINBALL'S PLUNGER, THE FLEET'S WRECK, THE GAUGE'S BAND, THE LEAD'S STALK, THE BATON'S STRIP, THE QUEEN'S MARKS — so their cards keep the pose's own crop. On each pose's tick the sweep meets other holds (THE GAUGE a `held` valve, THE FLEET only `fleetRake`, the rest the cannon, shield and prime), never the row's `DragTarget`. For each: find whether the pose catches the moment after the control (move the pose a tick where it is pressable, or add a second pose for the card) or whether the hit test answers it through a path `holdsRow` does not read; take it off `UNFOUND` in the test, which goes red on a listed row that is found.

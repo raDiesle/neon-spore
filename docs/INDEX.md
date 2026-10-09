@@ -3040,6 +3040,7 @@ by hand never moves.
 | `tools/director/src/paint-fault.ts` | **A fault, laid across a beat row.** The column is ignored on purpose: a malfunction has none |
 | `tools/director/src/pair-panel.ts` | The one switch that exists because the game has two people in front of it |
 | `tools/director/src/pinball-editor.ts` | PINBALL's boards, painted on the grid the round is played on |
+| `tools/director/src/picture-zoom.ts` | **A picture made large on a click**, over the whole window — the owner, 9 October 2026 |
 | `tools/director/src/pose-art.ts` | A posed world, drawn — one frame of the shipping renderer, cut down to the part of the phone the pose is about |
 | `tools/director/src/pose-kit.ts` | The apparatus behind a posed frame: a world put into one named state |
 | `tools/director/src/poses-field.ts` | The states of the things a wave puts on the field: the creatures, and the two bosses that exist |
@@ -3545,6 +3546,7 @@ by hand never moves.
 | `tools/director/src/sound-row.ts` | **One sound, as a row of the catalogue sheet.** Its own file beside `sound-page.ts` |
 | `tools/director/src/pose-type.ts` | What a pose *is* — the shape of one, and the two things a caller can ask of one without building it |
 | `tools/director/src/pose-commands.ts` | the commands a pose presses, spelled short — `aim`, `ward`, `guard`, `suck`, `prime`, `shoot`, `pullCord`, `hold` — one builder per verb, re-exported by the kit |
+| `tools/director/src/pose-frame.ts` | **The two halves of a posed picture**: the whole phone drawn once by the shipping renderer |
 | `tools/director/src/phone-view.ts` | WHICH OF THE THREE VIEWS THE PHONE IS SHOWING, AS ONE OWNER |
 | `tools/director/src/versus-crop.ts` | One side of a VERSUS pair: a whole phone, drawn, shown through the window its pose's own `crop` cuts in it |
 | `tools/director/src/versus-diff.ts` | How two pictures of the same frame are compared — the pixel arithmetic behind `versus-seat.ts` |
@@ -3616,6 +3618,8 @@ by hand never moves.
 | `tools/director/src/field-looks-drag.ts` | FIND IT and WHILE YOU MOVE for every GRAB AND DRAG card, keyed by one row of the card |
 | `tools/director/src/field-looks-other.ts` | FIND IT and WHILE YOU MOVE for every card but GRAB AND DRAG's (`field-looks-drag.ts`) |
 | `tools/director/src/field-looks.ts` | What a card on CONTROLS › ON THE FIELD says under its picture |
+| `tools/director/src/field-focus-art.ts` | A use card's picture on CONTROLS › ON THE FIELD |
+| `tools/director/src/field-focus.ts` | **Where on the phone a control answers a finger** |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-boss.ts` | The `BossConfig` fields of every boss that is not choreographed — the queen, the warden, the cairn |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |

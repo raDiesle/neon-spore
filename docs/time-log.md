@@ -37048,3 +37048,13 @@ Bottleneck: looking — the GAUGE frame showed a ringed wound over unlit
 buttons, a second bug the readings' tests could not see.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-09 — ON THE FIELD: cards cut to the control, enlarged on a click, gestures first
+
+- reading: 15 min. The page's four files, `pose-art.ts`, the stage's touch binding and `deskDown`.
+- writing: 25 min. The sweep (`field-focus.ts`), the frame split (`pose-frame.ts`), the zoom, the gesture placement and two tests.
+- looking: 10 min. The page in the preview: crops, the zoom's two views, TAP heading PRESS.
+- friction: 5 min. The first zoom screenshot came back stale and looked like a hidden overlay.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the crop had to be found by the game's own hit test, not kept by hand for ninety rows.

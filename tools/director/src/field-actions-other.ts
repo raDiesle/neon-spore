@@ -15,6 +15,7 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
     key: "hold",
     title: "HOLD",
     says: "A finger put on one thing and kept there; the lift is the end of it.",
+    gestures: ["HOLD, AS A LEVEL"],
     types: [
       {
         key: "hold",
@@ -47,6 +48,7 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
         suggest:
           "Make the together-mark generic: one ring on both screens that fills " +
           "only while both are down, the same on every boss that asks it.",
+        gestures: ["BOTH SEATS IN ONE WINDOW", "LETTING GO TOGETHER"],
         rows: [
           "THE BATON'S DRAW",
           "THE PULSE'S ARREST",
@@ -65,7 +67,10 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
   {
     key: "press",
     title: "PRESS",
-    says: "A finger put down and lifted again.",
+    says:
+      "A finger put down and lifted again. A tap and a press are one gesture " +
+      "here: the press is the down, and the lift only ends it.",
+    gestures: ["TAP"],
     types: [
       {
         key: "timed",
@@ -76,6 +81,7 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
         suggest:
           "Make it generic under THE VALVE's pin, with one skid and one ring. " +
           "Six of these already say 'THE VALVE's pin' in their own text.",
+        gestures: ["FREEZE TAP", "TAP RHYTHM AGAINST THE BEAT"],
         rows: [
           "THE VALVE'S PIN",
           "THE GOVERNOR'S NEEDLE",
@@ -91,6 +97,7 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
         suggest:
           "Keep specific, but one refusal: THE MANTLE and THE KEEL refuse the " +
           "wrong seat silently, where most of the game refuses it red.",
+        gestures: ["TAP COUNT", "TAPS ON A MOVING TARGET"],
         rows: [
           "THE PULSE'S BRACE",
           "THE MANTLE'S CORE",
@@ -110,6 +117,7 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
     says:
       "Shake the phone — or, on a phone that cannot tell or on a computer, " +
       "swipe outward on one side and then the other.",
+    gestures: ["SHAKE"],
     types: [
       {
         key: "shake",

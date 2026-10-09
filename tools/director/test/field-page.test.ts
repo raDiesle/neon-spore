@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { WAVES } from "@neon-spore/content";
+import { placedGestures } from "../src/field-action-cards.js";
 import {
   EVERY_WAVE_ROWS,
   FIELD_ACTIONS,
@@ -12,6 +13,7 @@ import { FIELD_CONTROLS } from "../src/field-controls-page.js";
 import { USE_LOOKS } from "../src/field-looks.js";
 import { DECISIONS, ROW_NOTES } from "../src/field-notes.js";
 import { GESTURE_NOTES, TRIED_NOTES } from "../src/field-notes-gestures.js";
+import { unplacedGestures } from "../src/field-page.js";
 import { GESTURES } from "../src/gesture-catalogue.js";
 import { TRIED_CONTROLS } from "../src/tried-controls-page.js";
 
@@ -99,5 +101,21 @@ describe("CONTROLS › ON THE FIELD", () => {
 
   test("every control tried and set aside has a suggestion", () => {
     expect(TRIED_CONTROLS.filter((c) => !TRIED_NOTES[c.name]).map((c) => c.name)).toEqual([]);
+  });
+
+  test("every gesture an action starts from is a built gesture, drawn once", () => {
+    const placed = FIELD_ACTIONS.flatMap(placedGestures);
+    const built = new Set(GESTURES.filter((g) => g.state === "built").map((g) => g.name));
+    expect(placed.filter((n) => !built.has(n))).toEqual([]);
+    expect(placed.length).toBe(new Set(placed).size);
+  });
+
+  test("the built gestures no action starts from are the ones every wave has, and the odd few", () => {
+    expect(unplacedGestures()).toEqual([
+      "TAP OR HOLD, ON ONE CONTROL",
+      "TIMED WHOLE-SCREEN HOLD",
+      "TWO THUMBS ON ONE PHONE",
+      "SENDING NOTHING",
+    ]);
   });
 });

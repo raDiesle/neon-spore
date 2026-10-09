@@ -17,6 +17,7 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "Make it one generic PULL with the direction a named field " +
       "(down · up · either · signed) and one drawn arrow for it. Decide once " +
       "whether a short pull is refused red or ignored — today both happen.",
+    gestures: ["SWIPE PAST A DISTANCE"],
     rows: [
       "THE GUM",
       "THE BLISTER'S SWIPE",
@@ -101,6 +102,7 @@ export const DRAG_TYPES: readonly ControlType[] = [
     suggest:
       "Make it generic under THE CAPSTAN's rules. THE MAZE's heart counts travel " +
       "rather than reversals — move it to a rub, or say why not.",
+    gestures: ["RUB"],
     rows: ["THE CAPSTAN'S RUB", "THE MAZE'S HEART", "THE THROAT'S PUMP", "THE BLISTER'S RUB"],
   },
   {
@@ -112,6 +114,7 @@ export const DRAG_TYPES: readonly ControlType[] = [
     suggest:
       "Already one gesture in two bosses. Make it generic under one name — " +
       "THE SLING's — and one drawn cord.",
+    gestures: ["HOLD, THEN SWIPE"],
     rows: ["THE SLING'S LEFT CORD", "THE SLING'S RIGHT CORD"],
   },
   {
@@ -123,6 +126,7 @@ export const DRAG_TYPES: readonly ControlType[] = [
     suggest:
       "Already one helper. Make its picture generic too — one rim, one mark, " +
       "one tick per sector — and let every wheel in the game use it.",
+    gestures: ["ROUND A CIRCLE"],
     rows: [
       "THE GIMBAL'S OUTER RING",
       "THE GIMBAL'S INNER RING",
@@ -139,6 +143,7 @@ export const DRAG_TYPES: readonly ControlType[] = [
     suggest:
       "Two bosses is too few to generalise; keep specific, and draw the lit " +
       "path the same way in both.",
+    gestures: ["TRACING A PATH"],
     rows: ["THE FILAMENT'S LINE", "THE FLEET'S RAKE"],
   },
   {

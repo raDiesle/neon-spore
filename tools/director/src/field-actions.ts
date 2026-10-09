@@ -24,6 +24,9 @@ export interface ControlType {
   says: string;
   /** The decision this lane would take about the type as a whole. */
   suggest?: string;
+  /** The gestures in `GESTURES` this type is built from, drawn first under
+   * its title — the generic picture before its uses. */
+  gestures?: readonly string[];
   rows: readonly string[];
 }
 
@@ -32,6 +35,9 @@ export interface FieldAction {
   title: string;
   /** What the finger does, in one sentence. */
   says: string;
+  /** The gesture every type under it starts from, drawn first under the
+   * heading (the owner, 9 October 2026: the generic picture, then its uses). */
+  gestures?: readonly string[];
   types: readonly ControlType[];
 }
 
@@ -60,6 +66,7 @@ export const FIELD_ACTIONS: readonly FieldAction[] = [
     key: "drag",
     title: "GRAB AND DRAG",
     says: "A finger put on a thing and moved.",
+    gestures: ["DRAG, AS A DISPLACEMENT"],
     types: DRAG_TYPES,
   },
   ...OTHER_ACTIONS,

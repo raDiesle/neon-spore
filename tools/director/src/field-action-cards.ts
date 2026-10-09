@@ -1,9 +1,12 @@
 import { type ControlType, type FieldAction, typeUses, userOf, usersOf } from "./field-actions.js";
 import type { FieldControlDef } from "./field-control-def.js";
+import { focusArt } from "./field-focus-art.js";
 import { lookOf } from "./field-looks.js";
 import { ROW_NOTES } from "./field-notes.js";
-import { text } from "./gestures-page.js";
-import { poseArt } from "./pose-art.js";
+import { GESTURE_NOTES } from "./field-notes-gestures.js";
+import { GESTURES } from "./gesture-catalogue.js";
+import { card, text } from "./gestures-page.js";
+import { zoomable } from "./picture-zoom.js";
 import { poseNamed } from "./poses.js";
 
 /**
@@ -12,7 +15,8 @@ import { poseNamed } from "./poses.js";
  * type under it, and under each type **one card per enemy or boss wave** — the
  * same type drawn the way that wave draws it.
  *
- * A card is the picture, who uses it, how the player finds it and what the
+ * A card is the picture — cut to the control and enlarged on a click
+ * (`field-focus-art.ts`, `picture-zoom.ts`) — who uses it, how the player finds it and what the
  * picture does while the finger moves (`field-looks.ts`). The row's own prose (where, seat,
  * does, source, pose) stays in `FIELD_CONTROLS` and off this page: the owner
  * asked for the action and its users, not the paragraph (6 October 2026).
@@ -20,6 +24,9 @@ import { poseNamed } from "./poses.js";
 
 /** Two pictures side by side fit the sheet's column. */
 const SHOT_WIDTH = 240;
+/** Tallest a card's picture is drawn; a click draws it again as tall as the
+ * window (`picture-zoom.ts`). */
+const SHOT_CAP = 300;
 
 export function suggested(line: string): HTMLElement {
   const p = text("p", "", "suggested");
@@ -44,8 +51,16 @@ function useCard(user: string, rows: readonly FieldControlDef[]): HTMLElement {
   card.appendChild(text("p", rows.map((r) => r.name).join(" · "), "rows"));
   const shots = document.createElement("div");
   shots.className = "field-use-shots";
-  for (const pose of new Set(rows.map((r) => r.pose))) {
-    shots.appendChild(poseArt(poseNamed(pose), SHOT_WIDTH));
+  for (const name of new Set(rows.map((r) => r.pose))) {
+    const pose = poseNamed(name);
+    const own = rows.filter((r) => r.pose === name);
+    const shot = focusArt(pose, own, SHOT_WIDTH, SHOT_CAP);
+    shots.appendChild(
+      zoomable(shot, `${user} · ${own.map((r) => r.name).join(" · ")}`, [
+        { label: "THE CONTROL", draw: (w, h) => focusArt(pose, own, w, h) },
+        { label: "WHOLE PHONE", draw: (w, h) => focusArt(pose, own, w, h, true) },
+      ]),
+    );
   }
   card.appendChild(shots);
   const look = lookOf(rows.map((r) => r.name));
@@ -66,6 +81,34 @@ function useCard(user: string, rows: readonly FieldControlDef[]): HTMLElement {
   return card;
 }
 
+/**
+ * The generic gestures an action or a type is made of, drawn before its uses
+ * — the owner, 9 October 2026: *"GESTURES THE GAME READS … are first picture
+ * of each categories above related."* What is left of that list, used by no
+ * action, is drawn under its old heading (`field-page.ts`).
+ */
+export function concepts(names: readonly string[] | undefined): HTMLElement | null {
+  if (!names?.length) return null;
+  const box = document.createElement("div");
+  box.className = "field-concepts gesture-grid";
+  for (const name of names) {
+    const g = GESTURES.find((x) => x.name === name);
+    if (!g) continue;
+    const c = card(g);
+    c.classList.add("field-concept");
+    const note = GESTURE_NOTES[g.name];
+    if (note) c.appendChild(suggested(note));
+    box.appendChild(c);
+  }
+  return box;
+}
+
+/** Every gesture an action or one of its types draws first. */
+export const placedGestures = (a: FieldAction): string[] => [
+  ...(a.gestures ?? []),
+  ...a.types.flatMap((t) => t.gestures ?? []),
+];
+
 function typeBlock(
   t: ControlType,
   showTitle: boolean,
@@ -81,6 +124,8 @@ function typeBlock(
   box.appendChild(text("p", t.says, "says"));
   box.appendChild(text("p", `USED BY · ${usersOf(t.rows).join(" · ")}`, "users"));
   if (t.suggest) box.appendChild(suggested(t.suggest));
+  const own = concepts(t.gestures);
+  if (own) box.appendChild(own);
   const grid = document.createElement("div");
   grid.className = "field-uses";
   for (const user of [...usersOf(t.rows)].sort((a, b) => bare(a).localeCompare(bare(b)))) {
@@ -113,6 +158,8 @@ export function actionSection(
   sub.prepend(countOf(uses));
   head.appendChild(sub);
   box.appendChild(head);
+  const own = concepts(a.gestures);
+  if (own) box.appendChild(own);
   // An action with one type is that type: its title would only repeat the
   // action's own.
   const showTitles = types.length > 1;

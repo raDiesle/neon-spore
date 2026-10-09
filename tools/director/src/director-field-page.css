@@ -144,3 +144,12 @@
   letter-spacing: 1px;
   margin-right: 4px;
 }
+/* The generic gesture an action or a type starts from, before its uses
+   (`concepts`, `field-action-cards.ts`). */
+.field-concepts {
+  margin: 8px 0 12px;
+}
+.field-concept h3::before {
+  content: "THE GESTURE · ";
+  color: var(--cyan);
+}
