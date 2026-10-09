@@ -36559,3 +36559,5 @@ the rebase as a commit of its own, or there is nothing to refuse.
 
 Bottleneck: friction — the rename went through a tool that silently matched
 nothing, and only the grep after it said so.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

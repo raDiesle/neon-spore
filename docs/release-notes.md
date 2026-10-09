@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 439176f11 — Who a press is from has a page of its own, out of input.ts
+
+The pointer rig's seat bookkeeping — where each finger landed, the handover's re-signing of a band press, and the push of every word a press, move, lift or rub says — is `input-seat.ts` now, with a test of its own. `input.ts` stood at 248 of its 250 lines and is 236.
+
 ## 2026-10-09 · a0273543e — A refused landing is refused again when it is run a second time
 
 The queue guards ran only inside the replay, so a landing they refused — which had already rebased the lane — landed on a plain re-run with nothing left to replay. They now run either way, and an entry put back on purpose is said in a commit message, one `Restored: <title>` line each.
