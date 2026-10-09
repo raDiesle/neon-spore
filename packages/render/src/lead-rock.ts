@@ -1,4 +1,5 @@
 import { rgba } from "./hex.js";
+import { paintCrags } from "./lead-rock-crags.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -40,11 +41,11 @@ export interface RidgeWallsLook {
 /**
  * The walls the body turns at, on the ridge. The design shows them; the
  * game draws nothing at the ridge's ends but the rock running out to the
- * field's edge. Lifted out on 8 October 2026 so a wall could be offered in
- * VERSUS (`lead:walls`); the game draws nothing through it. A wall is the
+ * field's edge. Lifted out on 8 October 2026 for VERSUS (`lead:walls`), and
+ * CRAGS built in on 9 October 2026 as an addition (`lead-rock-crags.ts`). A wall is the
  * field's edge, no secret from either seat, so it is called on every screen.
  */
-export const RIDGE_WALLS: RidgeWallsLook = { draw: () => {} };
+export const RIDGE_WALLS: RidgeWallsLook = { draw: paintCrags };
 
 /** How many pits along the ridge, and where the strata lie, as shares of its depth. */
 const PITS = 9;

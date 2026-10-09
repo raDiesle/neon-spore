@@ -1,6 +1,6 @@
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import type { DropDraw, LeadDropping } from "../../../../../packages/render/src/lead-drop.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
+import { rgba } from "./hex.js";
+import type { DropDraw, LeadDropping } from "./lead-drop.js";
+import { PALETTE } from "./palette.js";
 
 /** When the strand parts, as a share of the drop's beat. */
 const SNAP = 0.55;

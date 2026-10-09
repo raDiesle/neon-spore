@@ -1,5 +1,5 @@
-import { faded, type RidgeWallsDraw } from "../../../../../packages/render/src/lead-rock.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
+import { faded, type RidgeWallsDraw } from "./lead-rock.js";
+import { PALETTE } from "./palette.js";
 
 /** How tall a crag stands over the ridge's top, and how wide its foot, in tiles. */
 const RISE = 1.9;

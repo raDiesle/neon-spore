@@ -378,3 +378,11 @@ The same as THE VANE's entry above, for THE GOVERNOR, THE SEAM, THE LAMPREY, THE
 - **Files:** `packages/render/test/controls-catalogue.test.ts`, `packages/render/test/baked-cache-guard.test.ts`
 
 `bun run check:fast` went red twice on a machine at load 55: *has every file three bodies share, or knows why it is not a mark* at 7039 ms and *is a bakedCache, so a test's canvas swap empties it* at 5001 ms, both on bun's five-second default. Each passes alone in under half a second, and the lane re-ran them and went on. Both read every source file under `packages/render/src`; give each a timeout of its own (`setDefaultTimeout`, as the drawing tests carry `FRAME_TIMEOUT_MS`), or make the sweep cheaper.
+
+## THE LEDGER's lit nerves show the navigator a return coming
+
+- **Found:** 2026-10-09, claude/versus-page-visual-feedback-da2cd3
+- **Files:** `tools/versus/candidates/ledger-nerves/lit/paint.ts`, `packages/render/src/ledger-nerves.ts`, `packages/render/test/ledger-frame.test.ts`
+- **Asks:** Draw LIT on the pilot's screen instead, keep it on hers and let the test change, or drop the slot?
+
+`ledger:nerves` LIT is an addition, and it was going to be built straight into the game with the other additions. But adopting it turns `ledger-frame.test.ts` red ("shows the returns and their beats to the pilot and not the navigator", 394 → 471 ops on her screen): the nerves light by `near`, which is how far down the cord the soonest return is, and the navigator is not supposed to see that. `LEDGER_NERVES` is called from her pass because on his screen the nerves would give away the column the cord fades out to hide from him. Either way the nerves give one seat something it should not have. The three options: draw it on the pilot's screen and accept the column hint; keep it on hers and loosen the test; or `bun run versus drop ledger:nerves`.

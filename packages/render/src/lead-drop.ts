@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { type Layout, tileCX, tileCY } from "./layout.js";
+import { paintTornDrops } from "./lead-drop-torn.js";
 
 /**
  * THE LEAD's run littering the field, past the burst it puts over the column:
@@ -8,9 +9,8 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
  * The design has each fall out of the body; the game has them arrive as the
  * field's own creatures under the ridge, with a puff of sparks
  * (`lead-fx.ts`). This keeps each drop for a beat and hands it to
- * `DROP_LOOK`, and the game draws nothing through it — lifted out on 8
- * October 2026 so a fall could be offered in VERSUS (`lead:drop`) without the
- * field changing until the owner chooses. Held in `LeadFx` and cleared with
+ * `DROP_LOOK` — lifted out on 8 October 2026 for VERSUS (`lead:drop`), and
+ * TORN built in on 9 October 2026 as an addition (`lead-drop-torn.ts`). Held in `LeadFx` and cleared with
  * it in `Effects.reset()`.
  */
 
@@ -42,8 +42,8 @@ export interface DropLook {
   draw: (d: DropDraw) => void;
 }
 
-/** What the game draws for a drop beyond the burst: nothing. */
-export const DROP_LOOK: DropLook = { draw: () => {} };
+/** What the game draws for a drop beyond the burst: the torn underside. */
+export const DROP_LOOK: DropLook = { draw: paintTornDrops };
 
 interface Held {
   kind: "torch" | "rock";

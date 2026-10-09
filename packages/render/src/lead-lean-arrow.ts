@@ -1,7 +1,7 @@
-import { strokeGlow } from "../../../../../packages/render/src/glow.js";
-import type { LeanDraw } from "../../../../../packages/render/src/lead-lean.js";
-import { faded } from "../../../../../packages/render/src/lead-rock.js";
-import { PALETTE, STROKE } from "../../../../../packages/render/src/palette.js";
+import { strokeGlow } from "./glow.js";
+import type { LeanDraw } from "./lead-lean.js";
+import { faded } from "./lead-rock.js";
+import { PALETTE, STROKE } from "./palette.js";
 
 /** How far the arrow stands off the tip before it starts, and a chevron's half-height, in tiles. */
 const GAP = 0.25;

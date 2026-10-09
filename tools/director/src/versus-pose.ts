@@ -36,9 +36,6 @@ import { POSE_GROUPS } from "./poses.js";
 const SLOT_POSE: Record<string, string> = {
   "ledger:nerves": "THE LEDGER · BILLED",
   "ledger:back": "THE LEDGER · PAYING",
-  "lead:lean": "THE LEAD · RUNNING",
-  "lead:walls": "THE LEAD · PASSING",
-  "lead:drop": "THE LEAD · DROPPING",
   "scuttle:seat": "THE SCUTTLE · SWUNG",
   "instar:glance": "INSTAR · CROUCHED",
   "instar:tail": "INSTAR · PERCHED",

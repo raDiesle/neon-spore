@@ -2302,6 +2302,7 @@ by hand never moves.
 | `packages/render/src/ledger-nerves.ts` | what the ship does under THE LEDGER's socket while a return comes down, as a record — ships drawing nothing, `ledger:nerves` patches it |
 | `packages/render/src/lead-draw.ts` | THE LEAD drawn: the ridge, the stalk of beads, the mound or the sill, the lock and the flights, split by seat |
 | `packages/render/src/lead-drop.ts` | THE LEAD's run littering the field, past the burst it puts over the column |
+| `packages/render/src/lead-drop-torn.ts` | When the strand parts, as a share of the drop's beat |
 | `packages/render/src/lead-depth.ts` | **THE LEAD in depth**: the ridge is not a grey band laid across the top of the field but a ledge seen a… |
 | `packages/render/src/lead-fx.ts` | What THE LEAD leaves behind a frame: the spring the lean rides, the whip, the tumbling bead, the bursts |
 | `packages/render/src/lead-flesh.ts` | **What THE LEAD is made of**, the living part |
@@ -2310,8 +2311,10 @@ by hand never moves.
 | `packages/render/src/lead-grip.ts` | **THE LEAD's stalk as a control**, for the one movement that asks a thumb for it: the still |
 | `packages/render/src/lead-word.ts` | **What THE LEAD is asking of the navigator's thumb while it stands still** |
 | `packages/render/src/lead-rock.ts` | **THE LEAD's ridge**: dark rock, lit along its top edge and gone to the deep under it |
+| `packages/render/src/lead-rock-crags.ts` | How tall a crag stands over the ridge's top, and how wide its foot, in tiles |
 | `packages/render/src/lead-marks.ts` | **THE LEAD's ring answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/lead-lean.ts` | THE LEAD's lean, past the stalk's own tilt: what a screen shown the lean draws to say it |
+| `packages/render/src/lead-lean-arrow.ts` | How far the arrow stands off the tip before it starts, and a chevron's half-height, in tiles |
 | `packages/render/src/body-mark.ts` | One living body, at a size, with no world around it |
 | `packages/render/src/body-interior.ts` | **What a living body has inside it**: one record per kind, so the slick's two dots can be argued with |
 | `packages/render/src/body-inset.ts` | what is inside a living body is clipped to the body drawn a sixth smaller, so an interior borrowed from one contour never crosses another's rim |

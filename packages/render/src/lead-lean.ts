@@ -1,4 +1,5 @@
 import type { Layout } from "./layout.js";
+import { paintLeanArrow } from "./lead-lean-arrow.js";
 import type { Point } from "./lead-shape.js";
 
 /**
@@ -7,9 +8,9 @@ import type { Point } from "./lead-shape.js";
  *
  * The design wanted an arrow with a length to it; the game tilts the stalk
  * on a spring and draws nothing else (`lead-draw.ts`, `lead-fx.ts`). This is
- * the record an arrow would be drawn through, and the game draws nothing
- * through it — lifted out on 8 October 2026 so the arrow could be offered in
- * VERSUS (`lead:lean`) without the field changing until the owner chooses.
+ * the record the arrow is drawn through — lifted out on 8 October 2026 for
+ * VERSUS (`lead:lean`), and ARROW built in on 9 October 2026 as an addition
+ * (`lead-lean-arrow.ts`).
  * Called only on a screen `showsLeadLean` admits, so nothing drawn through
  * it can reach the navigator's.
  */
@@ -35,5 +36,5 @@ export interface LeanLook {
   draw: (d: LeanDraw) => void;
 }
 
-/** What the game draws for the lean beyond the stalk's tilt: nothing. */
-export const LEAN_LOOK: LeanLook = { draw: () => {} };
+/** What the game draws for the lean beyond the stalk's tilt: the arrow. */
+export const LEAN_LOOK: LeanLook = { draw: paintLeanArrow };

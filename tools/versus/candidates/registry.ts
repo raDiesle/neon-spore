@@ -11,9 +11,6 @@ import { INSTAR_LOOK } from "./instar-glance/look/index.js";
 import { INSTAR_SWAY } from "./instar-glance/sway/index.js";
 import { INSTAR_PENDULUM } from "./instar-tail/pendulum/index.js";
 import { INSTAR_STATIONS } from "./instar-tail/stations/index.js";
-import { LEAD_TORN } from "./lead-drop/torn/index.js";
-import { LEAD_ARROW } from "./lead-lean/arrow/index.js";
-import { LEAD_CRAGS } from "./lead-walls/crags/index.js";
 import { LEDGER_PLATED } from "./ledger-back/plated/index.js";
 import { LEDGER_LIT } from "./ledger-nerves/lit/index.js";
 import { SCUTTLE_LOBED } from "./scuttle-seat/lobed/index.js";
@@ -24,9 +21,6 @@ export const VARIANTS: Variant[] = [
   INSTAR_SWAY,
   INSTAR_PENDULUM,
   INSTAR_STATIONS,
-  LEAD_TORN,
-  LEAD_ARROW,
-  LEAD_CRAGS,
   LEDGER_PLATED,
   LEDGER_LIT,
   SCUTTLE_LOBED,

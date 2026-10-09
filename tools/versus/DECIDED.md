@@ -1636,3 +1636,46 @@ turned out, a lip at the seam and the ribs coming through one at a time
 `packages/render/src/surge-body-turned.ts`.
 
 It was the only answer offered.
+
+## `lead:drop` / `torn` — taken, 2026-10-09
+
+An addition — the shipped record drew nothing — and the owner said on 9
+October 2026 that additions go straight into the game, not VERSUS.
+
+torn — the ridge's underside tears open over the column and the torch or rock
+hangs from it on a strand of flesh that parts; a cord from the mound on the
+navigator's screen alone
+
+`DROP_LOOK.draw` is `paintTornDrops`, moved from
+`tools/versus/candidates/lead-drop/torn/paint.ts` to
+`packages/render/src/lead-drop-torn.ts`.
+
+It was the only answer offered.
+
+## `lead:lean` / `arrow` — taken, 2026-10-09
+
+An addition — the shipped record drew nothing — and the owner said on 9
+October 2026 that additions go straight into the game, not VERSUS.
+
+arrow — out of the stalk's tip the way the body goes, a chevron for each
+column it moves a beat, on the pilot's screen alone
+
+`LEAN_LOOK.draw` is `paintLeanArrow`, moved from
+`tools/versus/candidates/lead-lean/arrow/paint.ts` to
+`packages/render/src/lead-lean-arrow.ts`.
+
+It was the only answer offered.
+
+## `lead:walls` / `crags` — taken, 2026-10-09
+
+An addition — the shipped record drew nothing — and the owner said on 9
+October 2026 that additions go straight into the game, not VERSUS.
+
+crags — a crag of the ridge's rock stands on each end, its lit inner face cut
+with a hook curling back into the field where the body turns
+
+`RIDGE_WALLS.draw` is `paintCrags`, moved from
+`tools/versus/candidates/lead-walls/crags/paint.ts` to
+`packages/render/src/lead-rock-crags.ts`.
+
+It was the only answer offered.
