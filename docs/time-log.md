@@ -36654,3 +36654,5 @@ the neck and the throat agree, and each took a strip to see.
 
 Bottleneck: looking — blending the body point by point read fine in a test
 and folded it short in a frame; only the strip showed it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

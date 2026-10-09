@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · e623160bc — THE LAMPREY eats on rows of its own and glides onto its first tile
+
+The opening is shorter: the eel crawls in and eats two rocks, a slick and a bulb, each caught on a different row, with uneven gaps between the bites, and its head goes after them at one, two or three tiles a beat. Then it crawls straight on to its first tile instead of leaving the screen and coming back, so the opening takes 23 beats where it took 37. When it stops on a tile it crawled to, the head glides over the last tile and the body swings round onto the side where the tail will lie. Before, both jumped into place.
+
 ## 2026-10-09 · 8c21e06a3 — THE LAMPREY bites from the side and crushes what it eats between its teeth
 
 As a body it hunts falls near, the round sucker turns edge-on toward it and folds forward into two fanged jaws; the body eaten is carried into the middle of the mouth, the jaws snap shut on it, chew twice and spill its crumbs out of the seam, then the head turns back to the sucker. The ring's teeth are curved bone fangs now, lit on one side and shaded on the other with a glint, with a small row of rasps inside them that never counts as a tooth.
