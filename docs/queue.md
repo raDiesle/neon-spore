@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Shot mark sized by its frame: THE LEDGER, THE HIVE, THE GAUGE and THE REPRISE
 
 - **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
+- **Taken:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48 (claim: claude/queue-shot-mark-sized-by-its-frame-the-ledger-the-hive)
 - **Files:** `packages/render/src/boss-cue-read-o.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue-read-w.ts`, `packages/render/src/boss-cue-read-s.ts`
 
 The same finding as THE MIRROR's entry above, for four more readings that stand a `FIRE` or `SHOOT` on its own place with no `aim`: give each an `aim` centred where the target is drawn and `r` its drawn radius, so EMBER's ring goes round it (`aim-ember.ts`, `RING_MIN`) rather than across it — and `BossCue.shows` where the shooter's screen shows the colour, as THE MIRROR's entry says.
