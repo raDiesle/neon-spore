@@ -36999,3 +36999,5 @@ against the screen; no single frame showed how many poses it was.
 
 Bottleneck: the headroom under the pills is read off a picture by eye —
 nothing states it in tiles.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · ce55c706a — SCUTTLE LOBED: the frame's spacing nearly doubled, mostly in height
+
+The owner asked VERSUS `scuttle:seat` · `lobed` for about twice the room, especially between rows. The rows now stand 1.05 tiles apart rather than 0.85 (0.6 in the game), the frame reaches 0.8 of a tile past its outer lobes, and its top stands just over 3 tiles above the grid, still under the HUD's pills at the height of a wind-up; the lobes are slimmer again. The game draws what it drew before.
+
 ## 2026-10-09 · b0bb7629e — THE INSTAR's resting tail leans both ways in turn, and the whole tail stays on the screen
 
 The resting tail now takes turns, six seconds each: STATIONS holds straight up, then left, then straight up again, then right; PENDULUM sweeps without stopping. Both were taken from VERSUS `instar:tail`. With the head's three glances that makes six pairings before the pattern repeats. Face-on, the body's far end used to sit past the top-right corner, and the tail went off-screen with it. Side-on, a resting tail near the right edge ran off that edge. Now the far end is kept inside the screen wherever the turn carries it (`instar-far-end.ts`). A resting tail is moved back in off any edge it crosses (`instar-tail-fit.ts`). A lash is never moved, because its fork sits over the marks.
