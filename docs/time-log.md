@@ -36593,3 +36593,14 @@ whether the hold could be reset in one place, and only the stage's comments
 said so.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-09 — the bestiary points at the roster rather than counting it
+
+- reading: 5 min. The status block, the Categories table and its test.
+- writing: 5 min. The block down to a pointer at `CREATURE_KINDS`.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name — a document that repeated a list it said it
+would not.

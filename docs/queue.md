@@ -328,19 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## The bestiary's status block still counts twenty-five creatures
-
-- **Found:** 2026-10-09, claude/queue-tasks-d82b1f
-- **Taken:** 2026-10-09, claude/task-queue-work-368248 (claim: claude/queue-the-bestiarys-status-block-still-counts-twenty-f)
-- **Files:** `docs/spec/bestiary.md`
-
-Its opening block says twenty-five `CreatureKind` values exist and names them,
-ending on `recoil`; the categories table under it already lists `mine`,
-`blister`, `gum`, `weight` and a dozen more the block never names. The block
-says the list is not repeated on purpose and then repeats it. Cut the names
-and the number down to a pointer at `packages/sim/src/creature-kinds.ts`, or
-have `categories.test.ts` check the number the way it checks the table.
-
 ## AUTO knocks out a TAP blister and no other
 
 - **Found:** 2026-10-09, claude/queue-tasks-d82b1f

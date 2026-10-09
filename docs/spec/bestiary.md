@@ -1,19 +1,17 @@
 # Bestiary
 
-> **Status: twenty-five `CreatureKind` values exist**, against the twenty-odd
-> designed on this page — slick, bulb, the five meteor tiers, torch, queen,
-> warden, tether, lure, throb, shell, clasp, dart, veil, wisp, ghost, echo,
-> rind, gyre, mount, lid and recoil
-> (`packages/sim/src/creature-kinds.ts` is the roster). Everything else here is
-> design.
+> **Status: the creatures that exist are `CREATURE_KINDS`**, in
+> `packages/sim/src/creature-roster.ts`, and the Categories table below sorts
+> every one of them (`content/test/categories.test.ts`). Neither the names nor
+> their number is written here: this block counted twenty-five and named them
+> while the table under it held a dozen more. Everything on this page that is
+> not in that list is design.
 >
 > **Adding one is not "one entry plus a silhouette", which this line used to
-> say.** It is a row in the roster, a row in `CREATURES`, a row in `MECHANICS`,
-> a row in `living-look.ts`, a row in render's `TALKER`, a wave that introduces
-> it and a guide written inside that wave — and more if it carries state of its
-> own. Every one of those is enforced by a compiler or a test, which is the
-> only reason the list can be trusted to be complete.
-> `.claude/skills/new-creature` walks them in order.
+> say.** It is a name in eight tables the compiler finds, and more that only a
+> test does — a wave that introduces it, a guide inside that wave, and more
+> again if it carries state of its own. `.claude/skills/new-creature` walks
+> them in order.
 
 ## Naming
 
