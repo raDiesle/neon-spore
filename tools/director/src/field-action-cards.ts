@@ -1,9 +1,11 @@
 import { type ControlType, type FieldAction, typeUses, userOf, usersOf } from "./field-actions.js";
 import type { FieldControlDef } from "./field-control-def.js";
-import { focusArt } from "./field-focus-art.js";
+import type { TouchArea } from "./field-focus.js";
+import { cardArea, focusArt } from "./field-focus-art.js";
 import { lookOf } from "./field-looks.js";
 import { ROW_NOTES } from "./field-notes.js";
 import { GESTURE_NOTES } from "./field-notes-gestures.js";
+import { LEAST_TARGET, narrowest } from "./field-touch-paint.js";
 import { openTry } from "./field-try.js";
 import { GESTURES } from "./gesture-catalogue.js";
 import { card, text } from "./gestures-page.js";
@@ -43,6 +45,16 @@ function countOf(n: number): HTMLElement {
   return text("span", `${n} ${n === 1 ? "USE" : "USES"}`, "count");
 }
 
+/** Under a card's picture: how wide its narrowest touch patch is, in red
+ * under the platforms' least target (`field-touch-paint.ts`). */
+function touchLine(area: TouchArea): HTMLElement {
+  const least = narrowest(area);
+  if (least === null) return text("p", "TOUCH AREA · not found on this frame", "touch-size");
+  const line = text("p", `TOUCH AREA · narrowest ${Math.round(least)} pt`, "touch-size");
+  if (least < LEAST_TARGET) line.classList.add("small");
+  return line;
+}
+
 /** One enemy's or boss wave's use of a type: its rows, drawn once per look —
  * a left and a right handle posed in one frame are one picture. */
 function useCard(user: string, rows: readonly FieldControlDef[]): HTMLElement {
@@ -60,9 +72,11 @@ function useCard(user: string, rows: readonly FieldControlDef[]): HTMLElement {
     shot.appendChild(
       zoomable(focusArt(pose, own, SHOT_WIDTH, SHOT_CAP), title, [
         { label: "THE CONTROL", draw: (w, h) => focusArt(pose, own, w, h) },
-        { label: "WHOLE PHONE", draw: (w, h) => focusArt(pose, own, w, h, true) },
+        { label: "TOUCH AREA", draw: (w, h) => focusArt(pose, own, w, h, "touch") },
+        { label: "WHOLE PHONE", draw: (w, h) => focusArt(pose, own, w, h, "whole") },
       ]),
     );
+    shot.appendChild(touchLine(cardArea(pose, own)));
     // The same frame, live and under the mouse (`field-try.ts`).
     const play = text("button", "▶ TRY IT", "field-try");
     play.addEventListener("click", () => openTry(title, pose, own));

@@ -94,3 +94,15 @@
 .try .pic-zoom-bar b {
   flex-basis: 100%;
 }
+.touch-size {
+  margin: 2px 0 0;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: var(--cyan);
+}
+.touch-size.small {
+  color: var(--red);
+}
+.try-window canvas.try-outline {
+  pointer-events: none;
+}

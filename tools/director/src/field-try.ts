@@ -9,7 +9,8 @@ import {
 } from "@neon-spore/render";
 import { type Command, framePhase, type SimEvent, step, type World } from "@neon-spore/sim";
 import type { FieldControlDef } from "./field-control-def.js";
-import { controlRect, type Rect } from "./field-focus.js";
+import { controlRect, type Rect, touchArea } from "./field-focus.js";
+import { paintTouchArea } from "./field-touch-paint.js";
 import { type TryBar, tryBar } from "./field-try-bar.js";
 import { text } from "./gestures-page.js";
 import { poseCropRect } from "./pose-art.js";
@@ -41,6 +42,9 @@ import { bindStageTouch } from "./stage-touch.js";
  * card's six (`field-focus-art.ts`) is drawn once.
  */
 const MAX_DPR = 4;
+/** Frames between two sweeps for the TOUCH AREA outline: each is about ten
+ * milliseconds (`field-focus.ts`), too dear for every frame. */
+const OUTLINE_EVERY = 6;
 /** Commands kept in the readout. */
 const LOG = 6;
 
@@ -61,7 +65,11 @@ export function openTry(title: string, pose: Pose, rows: readonly FieldControlDe
   const view = document.createElement("div");
   view.className = "try-window";
   const canvas = document.createElement("canvas");
-  view.appendChild(canvas);
+  // Over the frame and under nothing: the outline of where a press answers,
+  // drawn every few frames while TOUCH AREA is on.
+  const outline = document.createElement("canvas");
+  outline.className = "try-outline";
+  view.append(canvas, outline);
   room.appendChild(view);
   const log = text("p", "", "try-log");
   const life = new AbortController();
@@ -120,6 +128,22 @@ export function openTry(title: string, pose: Pose, rows: readonly FieldControlDe
     canvas.style.top = `${-rect.y * s}px`;
     const dpr = Math.min(MAX_DPR, Math.max(1, s * (window.devicePixelRatio || 1)));
     renderer.resize({ ...PHONE, dpr });
+    for (const k of ["width", "height", "left", "top"] as const) outline.style[k] = canvas.style[k];
+    outline.width = canvas.width;
+    outline.height = canvas.height;
+    scaled = s;
+  };
+  let scaled = 1;
+
+  /** The outline again, off the world as it stands (`field-touch-paint.ts`). */
+  const paintOutline = (): void => {
+    const ctx = outline.getContext("2d");
+    if (!ctx) return;
+    ctx.clearRect(0, 0, outline.width, outline.height);
+    if (!bar.touch()) return;
+    const area = touchArea(world, role, rows, renderer.skinY);
+    const ui = outline.width / (PHONE.width * scaled);
+    paintTouchArea(ctx, area, { k: scaled * ui, ox: -stage.left, oy: -stage.top, ui });
   };
 
   let events: SimEvent[] = [];
@@ -134,6 +158,7 @@ export function openTry(title: string, pose: Pose, rows: readonly FieldControlDe
   };
 
   let carried = 0;
+  let frames = 0;
   let last = performance.now();
   const frame = (now: number): void => {
     if (life.signal.aborted) return;
@@ -157,6 +182,7 @@ export function openTry(title: string, pose: Pose, rows: readonly FieldControlDe
       pointer: touch.pointer(),
     });
     events = [];
+    if (++frames % OUTLINE_EVERY === 0) paintOutline();
     bar.readout(`TICK ${world.tick} · BEAT ${world.waveBeat}${world.over ? " · OVER" : ""}`);
     requestAnimationFrame(frame);
   };

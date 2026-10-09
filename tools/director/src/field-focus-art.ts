@@ -1,7 +1,6 @@
-import type { ViewRole } from "@neon-spore/render";
-import type { World } from "@neon-spore/sim";
 import type { FieldControlDef } from "./field-control-def.js";
-import { controlRect, type Rect } from "./field-focus.js";
+import { focusOf, type TouchArea, touchArea } from "./field-focus.js";
+import { paintTouchArea } from "./field-touch-paint.js";
 import { builtWorld, poseCropRect } from "./pose-art.js";
 import { cutCard, drawPhone, PHONE } from "./pose-frame.js";
 import type { Pose } from "./pose-kit.js";
@@ -23,37 +22,51 @@ import type { Pose } from "./pose-kit.js";
  * complaint. */
 const MAX_DPR = 6;
 
-const rects = new Map<string, Rect | null>();
+/** What a picture shows: the control, the control with where it answers a
+ * finger drawn over it (`field-touch-paint.ts`), or the whole phone. */
+export type FocusView = "control" | "touch" | "whole";
 
-function focusRect(
-  pose: Pose,
-  world: World,
-  role: ViewRole,
-  rows: readonly FieldControlDef[],
-): Rect {
+const areas = new Map<string, TouchArea>();
+
+/** The sweep of a card's rows on its pose, once per card. */
+export function cardArea(pose: Pose, rows: readonly FieldControlDef[]): TouchArea {
   const key = `${pose.name}|${rows.map((r) => r.name).join("|")}`;
-  if (!rects.has(key)) rects.set(key, controlRect(world, role, rows));
-  return rects.get(key) ?? poseCropRect(pose, world, role, PHONE);
+  const known = areas.get(key);
+  if (known) return known;
+  const area = touchArea(builtWorld(pose), pose.role ?? "test", rows);
+  areas.set(key, area);
+  return area;
 }
 
-/**
- * The picture, `width` CSS pixels across unless `cap` is reached first;
- * `whole` cuts the whole phone instead, for the zoom's second view.
- */
+/** The picture, `width` CSS pixels across unless `cap` is reached first. */
 export function focusArt(
   pose: Pose,
   rows: readonly FieldControlDef[],
   width: number,
   cap: number,
-  whole = false,
+  view: FocusView = "control",
 ): HTMLCanvasElement {
   const world = builtWorld(pose);
   const role = pose.role ?? "test";
-  const rect = whole
-    ? poseCropRect({ ...pose, crop: "full" }, world, role, PHONE)
-    : focusRect(pose, world, role, rows);
+  const area = cardArea(pose, rows);
+  const rect =
+    view === "whole"
+      ? poseCropRect({ ...pose, crop: "full" }, world, role, PHONE)
+      : (focusOf(area) ?? poseCropRect(pose, world, role, PHONE));
   const wide = Math.min(width, (cap * rect.w) / rect.h);
   const want = Math.ceil((wide * (window.devicePixelRatio || 1)) / rect.w);
   const dpr = Math.max(PHONE.dpr, Math.min(MAX_DPR, want));
-  return cutCard(drawPhone(world, role, false, dpr), rect, width, cap).canvas;
+  const { canvas, scale } = cutCard(drawPhone(world, role, false, dpr), rect, width, cap);
+  const ctx = canvas.getContext("2d");
+  if (view === "touch" && ctx) {
+    const ui = canvas.width / Number.parseFloat(canvas.style.width);
+    const { stage } = area;
+    paintTouchArea(ctx, area, {
+      k: scale * ui,
+      ox: rect.x - stage.left,
+      oy: rect.y - stage.top,
+      ui,
+    });
+  }
+  return canvas;
 }

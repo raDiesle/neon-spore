@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { FIELD_ACTIONS, userOf } from "../src/field-actions.js";
 import { FIELD_CONTROLS } from "../src/field-controls-page.js";
-import { controlRect } from "../src/field-focus.js";
+import { controlRect, patches, touchArea } from "../src/field-focus.js";
 import { PHONE } from "../src/pose-frame.js";
 import { poseNamed } from "../src/poses.js";
 
@@ -60,4 +60,17 @@ describe("a use card's picture is cut to its control", () => {
       expect(rect.h).toBeLessThan(PHONE.height);
     });
   }
+});
+
+describe("a touch area's patches", () => {
+  test("two handles apart are two patches, each the size of its cells", () => {
+    const pose = poseNamed("BALLOON · BOTH HANDS TAUT");
+    const area = touchArea(pose.build(), pose.role ?? "test", []);
+    const cell = (x: number, y: number) => ({ x: x * area.step, y: y * area.step });
+    const two = patches({ ...area, cells: [cell(1, 1), cell(2, 1), cell(2, 2), cell(9, 1)] });
+    expect(two.map((p) => [p.w / area.step, p.h / area.step])).toEqual([
+      [2, 2],
+      [1, 1],
+    ]);
+  });
 });

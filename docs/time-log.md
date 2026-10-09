@@ -37088,3 +37088,13 @@ run per fight before the frame itself.
 Bottleneck: reading — the stage's touch binding had to be reused as is, so its four inputs were read before a line was written.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — ON THE FIELD: where each control answers a finger, outlined and sized
+
+- reading: 0 min. The sweep was this session's own.
+- writing: 15 min. The sweep split into cells and patches, the outline painter, the zoom's view, the card's line, TRY's toggle and a test.
+- looking: 5 min. THE BALLOON in the zoom, THE VALVE live.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the outline is drawn in three places at three scales, and each had to be placed by the same arithmetic.

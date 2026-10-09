@@ -3,8 +3,8 @@ import { text } from "./gestures-page.js";
 /**
  * The bar over a TRY view (`field-try.ts`): what is being tried, and the
  * transport that lets a look be watched before, during and after a press —
- * restart, hold and step, the speed, whose hand the mouse is, and how much of
- * the phone is shown. The view asks it for each value as it needs it.
+ * restart, hold and step, the speed, whose hand the mouse is, how much of
+ * the phone is shown, and whether where it answers a finger is outlined. The view asks it for each value as it needs it.
  */
 
 export interface TryBar {
@@ -17,6 +17,8 @@ export interface TryBar {
   seat(): 1 | 2 | undefined;
   /** The whole phone rather than the box round the control. */
   whole(): boolean;
+  /** Where the control answers a finger, drawn over it (`field-touch-paint.ts`). */
+  touch(): boolean;
   readout(line: string): void;
 }
 
@@ -54,6 +56,7 @@ export function tryBar(title: string, act: TryActions): TryBar {
   let speed = 1;
   let seat: 1 | 2 | undefined;
   let whole = false;
+  let touch = false;
   const bar = document.createElement("div");
   bar.className = "pic-zoom-bar";
   bar.appendChild(text("b", `TRY · ${title}`));
@@ -107,6 +110,16 @@ export function tryBar(title: string, act: TryActions): TryBar {
         act.fit();
       },
     ),
+    choice(
+      [
+        ["NO OUTLINE", false],
+        ["TOUCH AREA", true],
+      ],
+      touch,
+      (v) => {
+        touch = v;
+      },
+    ),
     readout,
     button("✕", act.close),
   );
@@ -116,6 +129,7 @@ export function tryBar(title: string, act: TryActions): TryBar {
     speed: () => speed,
     seat: () => seat,
     whole: () => whole,
+    touch: () => touch,
     readout: (line) => {
       readout.textContent = line;
     },

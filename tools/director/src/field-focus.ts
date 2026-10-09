@@ -3,7 +3,10 @@ import {
   computeLayout,
   computeStage,
   deskDown,
+  type Field,
   handedLayout,
+  type Layout,
+  type Stage,
   type Touch,
   type ViewRole,
 } from "@neon-spore/render";
@@ -69,6 +72,85 @@ function grow(lo: number, len: number, want: number, max: number): [number, numb
 }
 
 /**
+ * Where a control answers, as the sweep found it: the centre of every
+ * `step`-square cell a press in reaches the row, in the layout's own
+ * coordinates, and the layout and stage they were found in.
+ */
+export interface TouchArea {
+  cells: readonly { x: number; y: number }[];
+  step: number;
+  layout: Layout;
+  stage: Stage;
+}
+
+/**
+ * Every cell of the phone a press in takes hold of one of `rows`. `skinY` is
+ * the renderer's own skin where there is a frame (`field-try.ts`), and the
+ * hull's line where there is none.
+ */
+export function touchArea(
+  world: World,
+  role: ViewRole,
+  rows: readonly FieldControlDef[],
+  skinY: Field["skinY"] = null,
+): TouchArea {
+  const stage = computeStage(PHONE);
+  const layout = handedLayout(
+    computeLayout({ width: stage.width, height: stage.height, dpr: PHONE.dpr }, world.cfg, role),
+    world,
+  );
+  const controls = seatedSet(controlSetForWave(world.wave), world);
+  const field = {
+    1: stageField(world, role, controls, world.cfg, 1, skinY),
+    2: stageField(world, role, controls, world.cfg, 2, skinY),
+  };
+  const fieldFor = (seat: 1 | 2) => field[seat];
+  const cells: { x: number; y: number }[] = [];
+  for (let y = STEP / 2; y < layout.height; y += STEP) {
+    for (let x = STEP / 2; x < layout.width; x += STEP) {
+      const touch = deskDown(layout, x, y, [1, 2], fieldFor);
+      if (rows.some((r) => holdsRow(touch, r))) cells.push({ x, y });
+    }
+  }
+  return { cells, step: STEP, layout, stage };
+}
+
+/**
+ * The separate patches of an area — a left and a right handle are two —
+ * each as its box, in layout pixels. Cells touching side by side are one.
+ */
+export function patches(area: TouchArea): Rect[] {
+  const { step } = area;
+  const key = (x: number, y: number): string => `${Math.round(x / step)},${Math.round(y / step)}`;
+  const left = new Map(area.cells.map((c) => [key(c.x, c.y), c]));
+  const out: Rect[] = [];
+  for (const seed of area.cells) {
+    if (!left.delete(key(seed.x, seed.y))) continue;
+    let [x0, y0, x1, y1] = [seed.x, seed.y, seed.x, seed.y];
+    const todo = [seed];
+    for (let c = todo.pop(); c; c = todo.pop()) {
+      x0 = Math.min(x0, c.x);
+      y0 = Math.min(y0, c.y);
+      x1 = Math.max(x1, c.x);
+      y1 = Math.max(y1, c.y);
+      for (const [dx, dy] of [
+        [step, 0],
+        [-step, 0],
+        [0, step],
+        [0, -step],
+      ] as const) {
+        const k = key(c.x + dx, c.y + dy);
+        const n = left.get(k);
+        if (n && left.delete(k)) todo.push(n);
+      }
+    }
+    const h = step / 2;
+    out.push({ x: x0 - h, y: y0 - h, w: x1 - x0 + step, h: y1 - y0 + step });
+  }
+  return out;
+}
+
+/**
  * The box round every point that takes hold of one of `rows`, padded and
  * clamped to the phone, in the canvas's CSS pixels — `stage.left` added
  * back, the same frame `pose-art.ts`'s crops are in. Null when nothing
@@ -80,32 +162,15 @@ export function controlRect(
   role: ViewRole,
   rows: readonly FieldControlDef[],
 ): Rect | null {
-  const stage = computeStage(PHONE);
-  const layout = handedLayout(
-    computeLayout({ width: stage.width, height: stage.height, dpr: PHONE.dpr }, world.cfg, role),
-    world,
-  );
-  const controls = seatedSet(controlSetForWave(world.wave), world);
-  const field = {
-    1: stageField(world, role, controls, world.cfg, 1, null),
-    2: stageField(world, role, controls, world.cfg, 2, null),
-  };
-  const fieldFor = (seat: 1 | 2) => field[seat];
-  let x0 = Infinity;
-  let y0 = Infinity;
-  let x1 = -Infinity;
-  let y1 = -Infinity;
-  for (let y = STEP / 2; y < layout.height; y += STEP) {
-    for (let x = STEP / 2; x < layout.width; x += STEP) {
-      const touch = deskDown(layout, x, y, [1, 2], fieldFor);
-      if (!rows.some((r) => holdsRow(touch, r))) continue;
-      x0 = Math.min(x0, x);
-      y0 = Math.min(y0, y);
-      x1 = Math.max(x1, x);
-      y1 = Math.max(y1, y);
-    }
-  }
-  if (x0 > x1) return null;
+  return focusOf(touchArea(world, role, rows));
+}
+
+/** `controlRect` of an area already swept. */
+export function focusOf({ cells, layout, stage }: TouchArea): Rect | null {
+  if (cells.length === 0) return null;
+  const xs = cells.map((c) => c.x);
+  const ys = cells.map((c) => c.y);
+  const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
   const pad = PAD_TILES * layout.tile + STEP / 2;
   const left = Math.max(0, x0 - pad);
   const top = Math.max(0, y0 - pad);
