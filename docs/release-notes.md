@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 88723bccd — THE TASTER's notches are each as deep as the pair has cut it, three times deeper than offered
+
+Each gap in THE TASTER's crest is now drawn at its own depth, taken from VERSUS (`taster:notch` · deep) at the owner's word: a gap nobody has fired into is the shallow notch it always was, and a gap cut four times is a wet hole down through the crest and far out under it — three times as deep as the candidate first offered it. Exemption: a look the owner asked for by name.
+
 ## 2026-10-09 · a4da1eb18 — VERSUS offers THE INSTAR's head glancing left and right, and its resting tail wandering
 
 Two new VERSUS slots, at the owner's request (9 October 2026: the head "slightly changes angle ... so it is not so static", and the tail could "move from right to middle and left"). `instar:glance` turns the face-on head: the snout swings on top of its turn, the far cheek darkens on whichever side it swings toward, and the two eyes stay where their marks are. SWAY turns it on one slow swing, LOOK holds a look left, middle and right with a slight tilt, and COCK also tips the head side to side. `instar:tail` leans the resting tail: STATIONS holds right, middle and left in turn, and PENDULUM sweeps without stopping. A lash still takes the tail to its marks. Nothing on the field changes: the new records in `instar-glance.ts` ship still, and a bolt meets the head where it is drawn.

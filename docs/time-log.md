@@ -36786,3 +36786,5 @@ the face-on frame were only found by taking the shots.
 
 Bottleneck: friction — a test that counted one alpha by its text read the new
 notch as a blade.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
