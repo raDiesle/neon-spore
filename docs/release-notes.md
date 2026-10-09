@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · a4da1eb18 — VERSUS offers THE INSTAR's head glancing left and right, and its resting tail wandering
+
+Two new VERSUS slots, at the owner's request (9 October 2026: the head "slightly changes angle ... so it is not so static", and the tail could "move from right to middle and left"). `instar:glance` turns the face-on head: the snout swings on top of its turn, the far cheek darkens on whichever side it swings toward, and the two eyes stay where their marks are. SWAY turns it on one slow swing, LOOK holds a look left, middle and right with a slight tilt, and COCK also tips the head side to side. `instar:tail` leans the resting tail: STATIONS holds right, middle and left in turn, and PENDULUM sweeps without stopping. A lash still takes the tail to its marks. Nothing on the field changes: the new records in `instar-glance.ts` ship still, and a bolt meets the head where it is drawn.
+
 ## 2026-10-09 · e12566b22 — THE NETTLE's iris is a mouth of hooked ember teeth that bite in on their own beats
 
 The dark hole on the turned underside wears IRIS now, the look VERSUS offered for a shot's mark: seven hooked teeth round it, no two the same size, each opening and biting in on its own beat, on a rim that breathes. They open as the iris forces itself open and turn a little as the pair wind it shut. In the iris's own ember, never a fire button's colour. The owner asked for the aim:cannon animations on bosses by name, 9 October 2026.
