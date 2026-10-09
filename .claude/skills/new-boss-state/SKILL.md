@@ -48,7 +48,7 @@ done.
 | 11 | `tools/director/src/sound-link.ts` — `BY_ID`, or `sound-link-none*.ts` — `NO_SUBJECT` | a **picture** per new *bound* sound, and a written reason only where there is nothing to draw. Which of the two is the question the row asks, and the test fails into the exception list either way: a rock the bulb spits is a `METEOR` the sheet has had all along, and only a thing with no contour earns the sentence | `tools/director/test/sound-link.test.ts` |
 | 12 | `tools/director/src/poses-bosses-hands-*.ts` | a pose card per new state, on the page for the kind of thing that earns it — a shot, a beat, a handle, a clock | `tools/director/test/poses.test.ts`, `boss-states.test.ts` |
 | 13 | `packages/hands/src/boss-hands-*.ts` | the hand that **drives the world into** the new state. Without it `poses.test.ts` throws `the world never reached …` rather than naming a missing card, which is the one failure here that does not read as what it is | `tools/director/test/poses.test.ts` |
-| 14 | `tools/director/test/on-field-controls.test.ts` — `documentedDragTarget` | a `case` per new target, with a sentence saying what the seat takes hold of | its own case |
+| 14 | `tools/director/test/on-field-controls.test.ts` — `TARGET_PLACE` | a row per new target, `"field"` with a comment naming the sim file and the grip that answers it — and then its ON THE FIELD row, pose, spec row and card, the list in `.claude/skills/new-creature` §2 | the compiler (`Record<DragTarget, …>`), then *every DragTarget on the field has a row* |
 
 And the counts, which are prose rather than a list and go stale silently:
 

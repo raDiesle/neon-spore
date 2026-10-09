@@ -328,23 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## A creature's field control is six registrations, found one red test at a time
-
-- **Found:** 2026-10-09, claude/queue-tasks-d82b1f
-- **Taken:** 2026-10-09, claude/task-queue-work-368248 (claim: claude/queue-a-creatures-field-control-is-six-registrations-f)
-- **Files:** `.claude/skills/new-creature/SKILL.md`, `tools/director/test/on-field-controls.test.ts`, `tools/director/test/field-page.test.ts`
-
-THE BLISTER's SWIPE moving from `unbuilt` to `field` took six places, and each
-was learned from the test that went red without it: `TARGET_PLACE` in
-`on-field-controls.test.ts`, a row file spread into `FIELD_CONTROLS`
-(`field-controls-gum.ts`' shape), a pose in a file of its own registered in
-`poses-field-controls.ts`, a row in the table of `docs/spec/controls.md`, the
-row's name in one action type (`field-actions-drag.ts`) with its card text in
-`field-looks-drag.ts`, and `bun run index` for the two new files. Lanes 6 and 7
-(TURN, RUB) will pay it again. Write the list into the new-creature skill, the
-way `.claude/skills/new-boss-state` lists a boss's, each with what goes red
-without it.
-
 ## A caption anchored to a body is gone the moment the body is
 
 - **Found:** 2026-10-09, claude/queue-tasks-d82b1f

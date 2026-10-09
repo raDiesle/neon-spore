@@ -36561,3 +36561,16 @@ Bottleneck: friction — the rename went through a tool that silently matched
 nothing, and only the grep after it said so.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-09 — a creature's field control is listed in its skill
+
+- reading: 10 min. THE BLISTER's SWIPE, TURN and RUB commits, and the
+  director tests each registration answers to.
+- writing: 5 min. The six-row table in the new-creature skill, and
+  new-boss-state's row 14, which named a function that is gone.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the red-test sentence for each row had to be read out
+of the test, since the commits say what was added and not what caught it.

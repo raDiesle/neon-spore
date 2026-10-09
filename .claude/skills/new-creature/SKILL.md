@@ -75,6 +75,24 @@ own never meets:
   §3.2, and a film page of at least 1.5 s with the body near mid-screen
   (`scene-pages.test.ts`).
 
+**A gesture of its own on the field is six more** — a `DragTarget` the body
+answers, as THE BLISTER's SWIPE, TURN and RUB do. The target itself is the
+sim lane's, with the wire's rows (`.claude/skills/new-boss-state` rows 5–7);
+these six are the director's, and the day it moves from `"unbuilt"` to
+`"field"` they are owed all at once. Each was learned on 9 October 2026 from
+the test that went red without it:
+
+| File | What you add | What goes red without it |
+|---|---|---|
+| `tools/director/test/on-field-controls.test.ts` | `TARGET_PLACE`: `"unbuilt"` while no wave or GESTURE chip sends it, `"field"` once one does, with a comment naming the sim file | the compiler, then *every DragTarget on the field has a row* |
+| `tools/director/src/field-controls-<kind>.ts` | the `FieldControlDef` row, in a file of its own on `field-controls-gum.ts`'s shape, spread into `FIELD_CONTROLS` in `field-controls-page.ts` | the same case: *… has no FIELD_CONTROLS row* |
+| `tools/director/src/poses-field-controls-<kind>.ts` | the row's `pose`, registered in `FIELD_CONTROL_GROUP` (`poses-field-controls.ts`) | `field-control-poses.test.ts`: *every row names a pose*, and *every pose … is used by a row* |
+| `docs/spec/controls.md` | `\| <ROW NAME> \|` in the table, in sentences rather than the row's `does` | *gives every field control a row of its own* |
+| `tools/director/src/field-actions-drag.ts` | the row's name in one type's `rows` | `field-page.test.ts`: *every row is in exactly one place* |
+| `tools/director/src/field-looks-drag.ts` | its card, `find` and `move` | `field-page.test.ts`: *every card says how it is found …, once* |
+
+Then `bun run index` for the two new files.
+
 **Rows 5 and 6 take `null` as a real answer, and `null` is a decision.** A kind
 gets `null` in `living-look.ts` when it is drawn as something else — a crystal,
 a boss with its own draw path, or a body it *wears* (resolve that with
