@@ -36510,3 +36510,5 @@ once, and a seventh list (every file that draws a pull knob) was found red.
 
 Bottleneck: writing — the rub's wire already spends `id` on the count, so the
 body had to ride `fromMilli`, for this one target only.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

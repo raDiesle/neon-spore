@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · d6f10775b — THE BLISTER's RUB: scrubbed back and forth over it, a blow a reversal
+
+A RUB blister wears the game's one rub mark across its body, and every reversal of a thumb scrubbing it while it is up is a blow. The host counts the reversals and sends them as a `blisterRub` drag carrying the body in `fromMilli`, since the count already holds `id`; a sink leaves a thumb still scrubbing dead until it lifts. The director offers RUB under GESTURE, and ON THE FIELD shows it. Exemption: a look with no shipped alternative.
+
 ## 2026-10-09 · fad7b174f — THE BLISTER's TURN is drawn and set: THE MAZE's turn round the body
 
 A TURN blister now wears THE MAZE's turn on the seat that may turn it: a channel round the body, a lever to its rim and the knob at the top with its arrow the way the turn counts, filling green as the thumb goes round. The director's GESTURE row offers TURN, with a WAY row of clockwise and anticlockwise, and the turn is a row of the ON THE FIELD tab with its pose. No wave uses one yet.
