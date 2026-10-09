@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE BLISTER, lane 8: its guide and its waves
-
-- **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
-- **Taken:** 2026-10-09, claude/queue-tasks-d82b1f (claim: claude/queue-the-blister-lane-8-its-guide-and-its-waves)
-- **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/test/waves.test.ts`, `docs/spec/blister.md`, `docs/spec/bestiary.md`
-- **Needs:** THE BLISTER, lane 7
-
-Make lane 1's plain guide the real one, by `.claude/skills/new-tutorial`
-and `.claude/skills/new-wave`: one wave that teaches the talking — P2 knocks
-down by TAP, P1 sees the bulge — and the act it sits in chosen by where its
-one sentence fits, then a later wave that mixes the five gestures on one
-body. Measure `blisterUpBeats` and `blisterSinkRows` at tempo and write the
-figures into `docs/spec/blister.md`'s *Left open*; flip its status and the
-bestiary's line to built.
-
 ## `bun run land` lands on a re-run a queue entry it refused
 
 - **Found:** 2026-10-08, claude/task-queue-work-e99d1a
@@ -386,3 +371,42 @@ row's name in one action type (`field-actions-drag.ts`) with its card text in
 (TURN, RUB) will pay it again. Write the list into the new-creature skill, the
 way `.claude/skills/new-boss-state` lists a boss's, each with what goes red
 without it.
+
+## A caption anchored to a body is gone the moment the body is
+
+- **Found:** 2026-10-09, claude/queue-tasks-d82b1f
+- **Files:** `packages/render/src/caption-anchor.ts`, `packages/content/test/scene-pages.test.ts`
+
+`anchorPoint`'s `{ at: "body" }` answers `null` when the field is empty, and
+the caption is not drawn. A page repeats its span until NEXT is pressed, so a
+page whose body is knocked out early shows its words for a sliver of every
+loop: THE BLISTER's last page had them for 65 of 200 ticks until its tap was
+moved a beat later to keep them up. Keep the caption at the last place its
+body stood until the page's span restarts (a ring remembered per page, cleared
+on the loop's wrap), or add a test that no body-anchored page spends more than
+half its span with no body — and see which films the test finds.
+
+## The bestiary's status block still counts twenty-five creatures
+
+- **Found:** 2026-10-09, claude/queue-tasks-d82b1f
+- **Files:** `docs/spec/bestiary.md`
+
+Its opening block says twenty-five `CreatureKind` values exist and names them,
+ending on `recoil`; the categories table under it already lists `mine`,
+`blister`, `gum`, `weight` and a dozen more the block never names. The block
+says the list is not repeated on purpose and then repeats it. Cut the names
+and the number down to a pointer at `packages/sim/src/creature-kinds.ts`, or
+have `categories.test.ts` check the number the way it checks the table.
+
+## AUTO knocks out a TAP blister and no other
+
+- **Found:** 2026-10-09, claude/queue-tasks-d82b1f
+- **Files:** `packages/hands/src/autopilot-touch.ts`, `tools/director/test/autopilot-field.test.ts`
+
+FIVE BLISTERS asks for all five of THE BLISTER's gestures, and AUTO answers
+only the tap, so the wave is named in `HALF_PLAYED`. Give the touch hand the
+other four the way a thumb does them — a `grip` held for HOLD, a
+`blisterSwipe` drag carried `blisterSwipeMilli` its way and lifted, a
+`blisterTurn` drag stepped round in bearings under half a turn, a
+`blisterRub` drag whose `id` counts reversals with the body in `fromMilli` —
+take FIVE BLISTERS out of `HALF_PLAYED`, and `bun run check`.

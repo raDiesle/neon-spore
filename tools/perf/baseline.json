@@ -949,8 +949,18 @@
       "unmeasured": true
     },
     {
-      "id": "theMoult",
+      "id": "theBlister",
       "wave": 92,
+      "name": "THE BLISTER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theMoult",
+      "wave": 93,
       "name": "THE MOULT",
       "bodies": 0,
       "typical": 0,
@@ -960,7 +970,7 @@
     },
     {
       "id": "theReprise",
-      "wave": 93,
+      "wave": 94,
       "name": "THE REPRISE",
       "bodies": 0,
       "typical": 0,
@@ -970,7 +980,7 @@
     },
     {
       "id": "theFlip",
-      "wave": 94,
+      "wave": 95,
       "name": "THE FLIP",
       "bodies": 0,
       "typical": 0,
@@ -980,7 +990,7 @@
     },
     {
       "id": "theDark",
-      "wave": 95,
+      "wave": 96,
       "name": "THE DARK",
       "bodies": 0,
       "typical": 0,
@@ -990,7 +1000,7 @@
     },
     {
       "id": "theHusk",
-      "wave": 96,
+      "wave": 97,
       "name": "THE HUSK",
       "bodies": 0,
       "typical": 0,
@@ -1000,7 +1010,7 @@
     },
     {
       "id": "theFilament",
-      "wave": 97,
+      "wave": 98,
       "name": "THE FILAMENT",
       "bodies": 0,
       "typical": 0,
@@ -1010,7 +1020,7 @@
     },
     {
       "id": "theGimbal",
-      "wave": 98,
+      "wave": 99,
       "name": "THE GIMBAL",
       "bodies": 0,
       "typical": 0,
@@ -1020,7 +1030,7 @@
     },
     {
       "id": "theSpool",
-      "wave": 99,
+      "wave": 100,
       "name": "THE SPOOL",
       "bodies": 0,
       "typical": 0,
@@ -1030,7 +1040,7 @@
     },
     {
       "id": "theHasp",
-      "wave": 100,
+      "wave": 101,
       "name": "THE HASP",
       "bodies": 0,
       "typical": 0,
@@ -1040,7 +1050,7 @@
     },
     {
       "id": "theRatchet",
-      "wave": 101,
+      "wave": 102,
       "name": "THE RATCHET",
       "bodies": 0,
       "typical": 0,
@@ -1050,7 +1060,7 @@
     },
     {
       "id": "theNettle",
-      "wave": 102,
+      "wave": 103,
       "name": "THE NETTLE",
       "bodies": 0,
       "typical": 0,
@@ -1060,7 +1070,7 @@
     },
     {
       "id": "theMantle",
-      "wave": 103,
+      "wave": 104,
       "name": "THE MANTLE",
       "bodies": 0,
       "typical": 0,
@@ -1070,7 +1080,7 @@
     },
     {
       "id": "theKeel",
-      "wave": 104,
+      "wave": 105,
       "name": "THE KEEL",
       "bodies": 0,
       "typical": 0,
@@ -1080,7 +1090,7 @@
     },
     {
       "id": "theValve",
-      "wave": 105,
+      "wave": 106,
       "name": "THE VALVE",
       "bodies": 0,
       "typical": 0,
@@ -1090,7 +1100,7 @@
     },
     {
       "id": "theSeam",
-      "wave": 106,
+      "wave": 107,
       "name": "THE SEAM",
       "bodies": 0,
       "typical": 0,
@@ -1100,7 +1110,7 @@
     },
     {
       "id": "theOculus",
-      "wave": 107,
+      "wave": 108,
       "name": "THE OCULUS",
       "bodies": 0,
       "typical": 0,
@@ -1110,7 +1120,7 @@
     },
     {
       "id": "theVise",
-      "wave": 108,
+      "wave": 109,
       "name": "THE VISE",
       "bodies": 0,
       "typical": 0,
@@ -1120,7 +1130,7 @@
     },
     {
       "id": "thePlumb",
-      "wave": 109,
+      "wave": 110,
       "name": "THE PLUMB",
       "bodies": 0,
       "typical": 0,
@@ -1130,7 +1140,7 @@
     },
     {
       "id": "theSling",
-      "wave": 110,
+      "wave": 111,
       "name": "THE SLING",
       "bodies": 0,
       "typical": 0,
@@ -1140,7 +1150,7 @@
     },
     {
       "id": "theCapstan",
-      "wave": 111,
+      "wave": 112,
       "name": "THE CAPSTAN",
       "bodies": 0,
       "typical": 0,
@@ -1150,7 +1160,7 @@
     },
     {
       "id": "theGall",
-      "wave": 112,
+      "wave": 113,
       "name": "THE GALL",
       "bodies": 0,
       "typical": 0,
@@ -1160,7 +1170,7 @@
     },
     {
       "id": "theTrapeze",
-      "wave": 113,
+      "wave": 114,
       "name": "THE TRAPEZE",
       "bodies": 0,
       "typical": 0,
@@ -1170,7 +1180,7 @@
     },
     {
       "id": "theFlue",
-      "wave": 114,
+      "wave": 115,
       "name": "THE FLUE",
       "bodies": 0,
       "typical": 0,
@@ -1180,7 +1190,7 @@
     },
     {
       "id": "theGovernor",
-      "wave": 115,
+      "wave": 116,
       "name": "THE GOVERNOR",
       "bodies": 0,
       "typical": 0,
@@ -1190,7 +1200,7 @@
     },
     {
       "id": "theLamprey",
-      "wave": 116,
+      "wave": 117,
       "name": "THE LAMPREY",
       "bodies": 0,
       "typical": 0,
@@ -1200,7 +1210,7 @@
     },
     {
       "id": "theMimic",
-      "wave": 117,
+      "wave": 118,
       "name": "THE MIMIC",
       "bodies": 0,
       "typical": 0,
@@ -1210,7 +1220,7 @@
     },
     {
       "id": "theLatch",
-      "wave": 118,
+      "wave": 119,
       "name": "THE LATCH",
       "bodies": 0,
       "typical": 0,
@@ -1219,9 +1229,9 @@
       "unmeasured": true
     },
     {
-      "id": "theBlister",
-      "wave": 119,
-      "name": "THE BLISTER",
+      "id": "fiveBlisters",
+      "wave": 120,
+      "name": "FIVE BLISTERS",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -1230,7 +1240,7 @@
     },
     {
       "id": "theBastion",
-      "wave": 120,
+      "wave": 121,
       "name": "THE BASTION",
       "bodies": 0,
       "typical": 0,

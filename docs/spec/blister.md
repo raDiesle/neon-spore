@@ -1,18 +1,17 @@
 # THE BLISTER — a body you knock back down
 
-> **Status: TAP, HOLD, SWIPE, TURN and RUB built — TAP's simulation (lane 1) and its look
-> (lane 2, 8 October 2026: ROOTED CLOVER, the pore, the bulge and the tap help);
-> HOLD (lane 4) the same day; SWIPE (lane 5), TURN (lane 6) and RUB (lane 7)
-> on 9 October 2026.** Asked
-> for by the owner on 7 October 2026: a creature
-> on the principle of whack-a-mole, removed by several taps on the screen, with
-> variants removed by a hold, a swipe, a turn round it and other gestures that
-> also work with a mouse; the director's brush settings say whether player 1,
-> player 2 or both may remove it; one picture for every variant, with only the
-> help for the gesture it wants drawn over and round it. The work is cut into
-> eight lanes. Lanes 1 to 3 went through `docs/queue.md`; lane 4 (HOLD)
-> landed the same day, lanes 5 (SWIPE), 6 (TURN) and 7 (RUB) the next, and
-> lane 8 is on the queue.
+> **Status: built** — the five gestures, their looks, the director's settings,
+> the guide and two waves. TAP's simulation (lane 1) and its look (lane 2, 8
+> October 2026: ROOTED CLOVER, the pore, the bulge and the tap help); HOLD
+> (lane 4) the same day; SWIPE (lane 5), TURN (lane 6), RUB (lane 7) and the
+> guide and waves (lane 8) on 9 October 2026. Asked for by the owner on 7
+> October 2026: a creature on the principle of whack-a-mole, removed by
+> several taps on the screen, with variants removed by a hold, a swipe, a turn
+> round it and other gestures that also work with a mouse; the director's
+> brush settings say whether player 1, player 2 or both may remove it; one
+> picture for every variant, with only the help for the gesture it wants drawn
+> over and round it. The work was cut into eight lanes, each an entry in
+> `docs/queue.md`.
 
 ## In one sentence
 
@@ -155,16 +154,34 @@ from end to end.
 
 - Whether a blow on an empty pore — a tap where it was, a beat late — costs
   anything. The draft says no: the late tap is its own punishment.
-- `blisterUpBeats` and `blisterSinkRows`: the guide's wave measures them; the
-  draft is 2 beats and 3 rows. Lane 1 added two more: `blisterDownBeats`, the
-  beats under between surfacings (2, the last of them the bulge's), and
-  `blisterBlows`, the count when a wave names none (3).
-- Whether a wave may carry several blisters up at once. The draft allows it and
-  the first wave does not use it.
+- `blisterUpBeats` and `blisterSinkRows` stay at the draft's 2 beats and 3
+  rows; lane 8 measured them headless on THE BLISTER's wave, at its 96 bpm.
+  Up is 1.25 s; under is `blisterDownBeats` (2, the last the bulge's), so a
+  surfacing comes round every 2.5 s. Left alone, the first one is up from
+  beat 3 at row 2 and comes up again at rows 5, 8 and 11, breaking the hull
+  from row 14 on beat 19 — four chances and ten seconds from first sight to
+  the hull. Three taps fit one surfacing easily; a HOLD of 2 needs both beats
+  of one, or one of each of two; a TURN of 2 is two whole turns, which is
+  why FIVE BLISTERS asks for no more. Whether that is the right pressure *at
+  tempo*, two people talking, nobody has seen yet. `blisterBlows`, the count
+  when a wave names none, is 3.
+- Whether a wave may carry several blisters up at once. The draft allows it;
+  THE BLISTER does not use it, and FIVE BLISTERS ends on two a beat apart,
+  one for each hand.
 
-## Lanes 5 to 8
+## Its guide and its waves
 
-Lane 4, HOLD, landed on 8 October 2026, and lanes 5, SWIPE, 6, TURN, and 7, RUB, on 9 October. RUB and the real guide
-had been postponed here, and the owner put them back on the queue the same
-evening: each is an entry in `docs/queue.md` titled *THE BLISTER, lane N*,
-worked in order.
+**THE BLISTER** stands in act nine, straight after THE MINE
+(`content/waves/act-9.ts`): the mine's split — one seat sees it, the other's
+finger answers it on the field — with a clock put on it. Two blisters, the
+navigator's, three taps each. Its guide is a film of three pages
+(`content/scenes/the-blister.ts`): the pilot sees the pore swell, *say
+where*; the navigator waits to see it and gets two taps in before it sinks;
+the pilot sees it swell again three rows nearer and calls it early, and the
+navigator's thumb is on it a beat after it is up.
+
+**FIVE BLISTERS** stands where THE BLISTER first did, in act fourteen
+(`content/waves/act-14.ts`): one of each gesture in turn, by turns the
+navigator's and the pilot's, and a SWIPE up for the pilot a beat after the
+RUB goes up for the navigator. No guide: the help round each body says which
+gesture, which is the point of drawing them all on one body.

@@ -1026,7 +1026,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-balloon.ts` | THE BALLOON's rehearsal: two hands on one body, or nothing at all |
 | `packages/content/src/scenes/the-baton.ts` | THE BATON's rehearsal: a launch nobody answers, then three handovers |
 | `packages/content/src/scenes/the-beatbox.ts` | THE BEATBOX's rehearsal: the tap you do not make is the one that counts |
-| `packages/content/src/scenes/the-blister.ts` | THE BLISTER's rehearsal, at its plainest: one blister, the navigator's to knock down |
+| `packages/content/src/scenes/the-blister.ts` | THE BLISTER's rehearsal: the talking it is for, in three pages (`docs/spec/blister.md`, *In one sentence*) |
 | `packages/content/src/scenes/the-undertow.ts` | THE UNDERTOW's rehearsal: the floor bows, a lobe stands, and its colour says who answers it |
 | `packages/content/src/scenes/the-antiphon.ts` | THE ANTIPHON's rehearsal: six organs described across the two seats, the seats swapping every level |
 | `packages/content/src/scenes/one-last-chance.ts` | ONE LAST CHANCE's rehearsal: the shield pushes a slick back up once, and only the cannon kills it |

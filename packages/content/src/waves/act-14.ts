@@ -40,11 +40,13 @@ import type { Wave } from "../wave-types.js";
  * that briefly explains what has to be done*), and while it plays the
  * siren top right says whose turn it is (`render/comms-mimic.ts`).
  *
- * **THE BLISTER is here at its plainest** (`docs/spec/blister.md`): two of
- * them, the navigator's hand, three taps each, and the pilot the seat that
- * sees where they come up. *The one where the hand that waits to see it is
- * late.* Lane 8 moves it to the act its sentence fits and writes its real
- * guide (`docs/queue.md`).
+ * **FIVE BLISTERS is the one where the body never says how to hit it**
+ * (`docs/spec/blister.md`, *The gestures*): THE BLISTER, met plain in act
+ * nine, comes back wanting each of its five gestures in turn — tapped, held,
+ * swiped, turned round and rubbed — every one the same body, so only the help
+ * round it says which. The hand that knocks it down changes too, so a seat
+ * that has just struck is the seat that has to call the next pore. The last
+ * two are up together, one for each hand.
  *
  * **THE BASTION is a metal moon taken apart from the outside in** (the
  * owner, 8 October 2026, in THE HALTER's place: *removing layers requires
@@ -163,14 +165,35 @@ export const WAVES_ACT_14: Wave[] = [
     controls: "scene",
   },
   {
-    id: "theBlister",
-    name: "THE BLISTER",
-    guide: {
-      scene: "theBlister",
-    },
+    id: "fiveBlisters",
+    name: "FIVE BLISTERS",
     entries: [
       { beat: 0, col: 3, kind: "blister", color: null, row: 2, by: 2, count: 3 },
-      { beat: 12, col: 1, kind: "blister", color: null, row: 3, by: 2, count: 3 },
+      { beat: 10, col: 5, kind: "blister", color: null, row: 2, by: 1, count: 2, gesture: "hold" },
+      {
+        beat: 20,
+        col: 1,
+        kind: "blister",
+        color: null,
+        row: 3,
+        by: 2,
+        count: 2,
+        gesture: "swipe",
+        way: "left",
+      },
+      { beat: 30, col: 4, kind: "blister", color: null, row: 2, by: 1, count: 2, gesture: "turn" },
+      { beat: 40, col: 2, kind: "blister", color: null, row: 2, by: 2, count: 4, gesture: "rub" },
+      {
+        beat: 41,
+        col: 5,
+        kind: "blister",
+        color: null,
+        row: 3,
+        by: 1,
+        count: 2,
+        gesture: "swipe",
+        way: "up",
+      },
     ],
   },
   {

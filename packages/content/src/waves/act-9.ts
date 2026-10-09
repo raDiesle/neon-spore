@@ -117,7 +117,14 @@ import type { Wave } from "../wave-types.js";
  *    the simulation (`minePlaceRow`), so the tiles beside one are never the
  *    answer to the other.
  *
- * **THE MOULT is the act's fourth**, and the last wave in the file. One body
+ * **THE BLISTER is the act's fourth, straight after THE MINE**
+ * (`docs/spec/blister.md`): the mine's split — one seat sees it, the other's
+ * finger answers it on the field — with a clock put on it. The pore swells
+ * on the pilot's screen a beat before it comes up, and it is up two beats:
+ * *the one where the hand that waits to see it is late.* Two of them, the
+ * navigator's, three taps each.
+ *
+ * **THE MOULT is the act's fifth**, and the last wave in the file. One body
  * wearing both ends of the game by turns: a rock the dome answers for five
  * beats, then a cargo the mouth answers for five, all the way down. Nothing
  * kills it either way, so the cannon's job on this wave is to *stand
@@ -197,6 +204,17 @@ export const WAVES_ACT_9: Wave[] = [
       { beat: 26, col: 2, kind: "mine", color: "cyan", row: 11, sees: 1 },
       { beat: 28, col: 4, color: "cyan" },
       { beat: 30, col: 0, color: "red" },
+    ],
+  },
+  {
+    id: "theBlister",
+    name: "THE BLISTER",
+    guide: {
+      scene: "theBlister",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "blister", color: null, row: 2, by: 2, count: 3 },
+      { beat: 12, col: 1, kind: "blister", color: null, row: 3, by: 2, count: 3 },
     ],
   },
   {

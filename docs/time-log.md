@@ -36512,3 +36512,18 @@ Bottleneck: writing — the rub's wire already spends `id` on the count, so the
 body had to ride `fromMilli`, for this one target only.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE BLISTER, lane 8: its guide and its waves
+
+- reading: 5 min. The tutorial and wave skills, THE MINE's wave as the
+  sibling, and how a film names a body after the rng has moved it.
+- writing: 5 min. The three-page film, THE BLISTER moved to act nine,
+  FIVE BLISTERS in its old slot, the spec's figures.
+- looking: 5 min. Probes of the film's and the wave's timelines, and three
+  `frames` runs of the guide's pages.
+- friction: 0 min.
+- landing: 5 min. Two queue findings, the commit, `land`.
+
+Bottleneck: looking — a page is at least a second and a half and the
+blister is up for one, so the film's pages were fitted to the sim's clock by
+probing rather than by reading.
