@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `apps/game/src/input.ts` stands two lines under the ceiling
 
 - **Found:** 2026-10-08, claude/trivet-boss-concept-670eed
+- **Taken:** 2026-10-09, claude/task-queue-work-368248 (claim: claude/queue-apps-game-src-input-ts-stands-two-lines-under-th)
 - **Files:** `apps/game/src/input.ts`
 
 248 of its 250 lines, and the after-edit hook asked for the seam while THE
