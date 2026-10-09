@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · bc16b28aa — SCUTTLE LOBED: a taller, wider frame with the lobes apart
+
+The owner liked VERSUS `scuttle:seat` · `lobed` but found it tight. The candidate now also stands the rows further apart (pitch 0.6 to 0.85) and pads the frame further round its sockets, so its top is 2.5 tiles over the grid rather than 1.6 and it reaches past its outer columns; each lobe and wound is slimmer, so rock shows between them. The frame's pad was lifted into `SCUTTLE_FRAME` in `scuttle-shape.ts` so a candidate can reach it; the game draws exactly what it drew before.
+
 ## 2026-10-09 · f4b0b88c5 — THE GORGE's shot mark stands round the whole lobe it names, as the lobe is drawn
 
 The ring was centred on the lobe at rest with one fixed radius, so a lobe leaning and swollen reached under its line. It is fitted now round the lobe's outline at its biggest, posed the way the canvas leans it (`aim-fit.ts`), and comes out a little wider and a little left. A fix to something wrong, and a look the owner asked for by name.
