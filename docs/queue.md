@@ -335,16 +335,39 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 The owner, 9 October 2026, taking EMBER (`aim-ember.ts`): *the round crosshair should be around the full bubble in the middle not overlapping it - better bigger than too small*, and the place drawn matters more than the tile. Each of these readings stands its `FIRE` on its own place with no `aim`, so `cueAim` hands EMBER a radius of `min(halfW, halfH) * AIM_R` — the word's frame, not the mouth, eye or bead being shot. THE GORGE was the case it was seen on and now passes `aim: { x, y, r }` off the lobe as the canvas leans it (`boss-cue-read-n.ts`, `lobeAimR`). Do the same here: the centre the body is drawn at this frame, and `r` the drawn part's own radius at its biggest. `bun run frames . --wave "<NAME>" --at … --zoom 3` shows each.
 
+In the same pass, set `BossCue.shows` on each where the shooter's own screen already shows the colour the shot wants, as THE GORGE's does off its lobe floor: the fire button of that colour is then the one ringed (`fire-button-mark.ts`), and with it left out both are — the owner's rule for a colour this screen is not shown, 9 October 2026.
+
 ## Shot mark sized by its frame: THE LEDGER, THE HIVE, THE GAUGE and THE REPRISE
 
 - **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
 - **Files:** `packages/render/src/boss-cue-read-o.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue-read-w.ts`, `packages/render/src/boss-cue-read-s.ts`
 
-The same finding as THE MIRROR's entry above, for four more readings that stand a `FIRE` or `SHOOT` on its own place with no `aim`: give each an `aim` centred where the target is drawn and `r` its drawn radius, so EMBER's ring goes round it (`aim-ember.ts`, `RING_MIN`) rather than across it.
+The same finding as THE MIRROR's entry above, for four more readings that stand a `FIRE` or `SHOOT` on its own place with no `aim`: give each an `aim` centred where the target is drawn and `r` its drawn radius, so EMBER's ring goes round it (`aim-ember.ts`, `RING_MIN`) rather than across it — and `BossCue.shows` where the shooter's screen shows the colour, as THE MIRROR's entry says.
 
 ## Shot mark sized by its frame: THE CURTAIN, THE QUEEN, THE SCUTTLE and THE FLEET
 
 - **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
 - **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-t.ts`, `packages/render/src/boss-cue-read-g.ts`
 
-The same finding as THE MIRROR's entry above, for the last readings that stand a shot word on its own place with no `aim` (`curtainCues`, `queenCues`, `scuttleCues`, `fleetCues`, `snakeCues`): an `aim` centred where the target is drawn, `r` its drawn radius.
+The same finding as THE MIRROR's entry above, for the last readings that stand a shot word on its own place with no `aim` (`curtainCues`, `queenCues`, `scuttleCues`, `fleetCues`, `snakeCues`): an `aim` centred where the target is drawn, `r` its drawn radius — and `BossCue.shows` where the shooter's screen shows the colour, as THE MIRROR's entry says.
+
+## Fire button lit for the colour shown: THE VANE to THE MANTLE
+
+- **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
+- **Files:** `packages/render/src/boss-cue-read-x.ts`, `packages/render/src/boss-cue-read-y.ts`, `packages/render/src/boss-cue-read-z.ts`, `packages/render/src/boss-cue-read-zb.ts`, `packages/render/src/boss-cue-read-zc.ts`, `packages/render/src/boss-cue-read-zd.ts`
+
+While a shot's mark stands on a target, EMBER rings the fire button it asks for too (`fire-button-mark.ts`, the owner, 9 October 2026): the colour this screen is already shown the shot wants, `BossCue.shows`, or both buttons where it is not. Only THE GORGE (`boss-cue-read-n.ts`) and THE FLUE (by its `tint`) say yet. For THE VANE, THE GIMBAL, THE HASP, THE RATCHET, THE MANTLE and THE KEEL, read whether the shooter's screen draws the colour the bolt wants at the moment of the `FIRE` and set `shows` off the same state where it does; leave it out where the colour is the other seat's to say. `test/fire-button-mark.test.ts` holds the rule.
+
+## Fire button lit for the colour shown: THE OCULUS to THE TRAPEZE
+
+- **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
+- **Files:** `packages/render/src/boss-cue-read-ze.ts`, `packages/render/src/boss-cue-read-zf.ts`, `packages/render/src/boss-cue-read-zl.ts`, `packages/render/src/boss-cue-read-zm.ts`, `packages/render/src/boss-cue-read-zn.ts`, `packages/render/src/boss-cue-read-zp.ts`
+
+The same as THE VANE's entry above, for THE OCULUS, THE VISE, THE CAPSTAN, THE GALL, THE TRAPEZE and THE VALVE: `BossCue.shows` on each `FIRE` whose shooter's screen draws the colour wanted.
+
+## Fire button lit for the colour shown: THE GOVERNOR to THE BASTION
+
+- **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
+- **Files:** `packages/render/src/boss-cue-read-zq.ts`, `packages/render/src/boss-cue-read-zr.ts`, `packages/render/src/boss-cue-read-zs.ts`, `packages/render/src/boss-cue-read-zt.ts`, `packages/render/src/boss-cue-read-zv.ts`
+
+The same as THE VANE's entry above, for THE GOVERNOR, THE SEAM, THE LAMPREY, THE MIMIC and THE BASTION: `BossCue.shows` on each `FIRE` whose shooter's screen draws the colour wanted.

@@ -1,5 +1,6 @@
 import type { World } from "@neon-spore/sim";
 import { bossCue } from "./boss-cue.js";
+import type { BossCue } from "./boss-cue-shape.js";
 import { drawCueText } from "./boss-cue-text.js";
 import { cueBoxed, cueDrawnAt, drawCueHelper, markIsHere } from "./cue-helper.js";
 import type { SurfaceY } from "./hull-frame.js";
@@ -20,6 +21,8 @@ import { drawTargetLock } from "./target-lock.js";
  * four-pictures-for-one-idea mistake `target-lock.ts` records the owner ending.
  * THE SCUTTLE borrows the navigator's own lock; THE SINEW, THE SURGE and THE
  * ANTIPHON stand their words on a handle ring, which is a mark already.
+ *
+ * Returns the cue as drawn, for the fire button's mark (`fire-button-mark.ts`).
  */
 export function drawBossCue(
   ctx: CanvasRenderingContext2D,
@@ -32,9 +35,9 @@ export function drawBossCue(
   skinY: SurfaceY = () => l.hullY,
   /** This device's input delay, in ticks (`ViewState.leadTicks`), for a mark that rides a needle drawn ahead. */
   lead = 0,
-): void {
+): BossCue | null {
   const read = bossCue(l, world, beatPhase, skinY, lead);
-  if (read === null) return;
+  if (read === null) return null;
   // A shot is drawn on what it is for, not on the cannon (`cueDrawnAt`).
   const cue = cueDrawnAt(read, l.hullY);
   // Only where nothing already marks the place: `BossCue.framed` — and not
@@ -46,4 +49,5 @@ export function drawBossCue(
   const muzzle = { x: tileCX(l, world.cannonCol), y: l.hullY };
   drawCueHelper(ctx, cue, l.hullY, time, seatSkin(l.role), muzzle);
   drawCueText(ctx, cue, time, l.width);
+  return cue;
 }

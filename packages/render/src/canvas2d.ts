@@ -1,6 +1,6 @@
 import { guardArmed, mawOpen, mineOnField, ticksPerBeat, wispOnField } from "@neon-spore/sim";
-import { bandControlSet } from "./band.js";
 import { HeldHost } from "./canvas2d-held.js";
+import { drawOverBand } from "./canvas2d-over.js";
 import { drawStageSeam, paintOutside } from "./canvas2d-stage.js";
 import { drawTakeover } from "./canvas2d-takeover.js";
 import { drawDarkField } from "./dark-field.js";
@@ -187,7 +187,7 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
     drawShip(ctx, l, world, view, this.held.effects, mood, at, hull);
     // The one word the boss wants, over the finished ship — it paints over
     // anything drawn earlier (`frame-field.ts`'s `drawFieldBossCue`).
-    drawFieldBossCue(ctx, l, world, view, skinY);
+    const cue = drawFieldBossCue(ctx, l, world, view, skinY);
     // Over the finished ship, what is stuck to it (`frame-on-ship.ts`).
     drawOnShip(ctx, l, world, view, this.held, hull, at, surfaceY);
     drawOverlays(ctx, l, world, view, {
@@ -197,24 +197,8 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
       surfaceY,
       shots: this.held.effects.ship.fireVein.shots,
     });
-    // Over the ship too, because it is about the ship: a lure shot by mistake (`lure-blast.ts`).
-    this.held.lureBlast.draw(ctx, l);
-    // And THE STARE's catch, on the button the caught seat pressed
-    // (`stare-fx.ts`). The panel is `bandControlSet`'s answer rather than a
-    // second reading of `world.wave`, so the circle it lights is one of the
-    // circles the band actually drew.
-    this.held.effects.boss.stare.drawCaught(
-      ctx,
-      l,
-      view.role,
-      bandControlSet(view.controls, world),
-    );
-    this.held.lanceFlash.draw(ctx, l);
-    // Last, over everything: the wave arriving, once the pair has crossed the
-    // gate — there is no opening left to draw it inside (`opening-fx.ts`).
-    if (this.held.effects.opening.launching) {
-      this.held.effects.opening.drawLaunch(ctx, l.width, l.height, l.playHeight * 0.4);
-    }
+    // Over the finished band, what is about the band or the whole screen (`canvas2d-over.ts`).
+    drawOverBand(ctx, l, world, view, this.held, cue);
     this.held.thumbs.frame(ctx, l, view);
     ctx.restore();
 

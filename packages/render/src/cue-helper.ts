@@ -167,6 +167,16 @@ export function markIsHere(cue: BossCue): boolean {
   return helper === "hold" || helper === "rub";
 }
 
+/**
+ * How bright a helper is at `time`: the same breath as the word
+ * (`boss-cue-text.ts`), a little brighter — the helper is the picture of the
+ * instruction, and the word its caption. The fire button's mark breathes with
+ * it (`fire-button-mark.ts`).
+ */
+export function cueBreath(time: number): number {
+  return 0.7 + 0.25 * ((Math.sin(time * 4.4) + 1) / 2);
+}
+
 export function drawCueHelper(
   ctx: CanvasRenderingContext2D,
   cue: BossCue,
@@ -178,9 +188,7 @@ export function drawCueHelper(
   const helper = helperOf(cue);
   if (helper === null) return;
   const short = Math.min(cue.halfW, cue.halfH);
-  // The same breath as the word (`boss-cue-text.ts`), a little brighter: the
-  // helper is the picture of the instruction, and the word its caption.
-  const breath = 0.7 + 0.25 * ((Math.sin(time * 4.4) + 1) / 2);
+  const breath = cueBreath(time);
   if (helper === "aim") {
     const aim = cueAim(cue, hullY);
     if (aim === null) return;

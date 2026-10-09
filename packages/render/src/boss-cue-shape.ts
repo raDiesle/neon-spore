@@ -152,6 +152,14 @@ export interface BossCue {
    * mark's own, when left out — every other boss.
    */
   tint?: Color;
+  /**
+   * **The colour this screen is already shown the shot wants**, so the fire
+   * button of that colour is the one lit with the mark (`fire-button-mark.ts`).
+   * Set only where the boss's own picture shows it on this screen — THE
+   * GORGE's lobe floor on hers. Left out, both fire buttons are lit: the
+   * colour is the other seat's to say (#34).
+   */
+  shows?: Color;
 }
 
 /** Whether this screen is the one being asked. */

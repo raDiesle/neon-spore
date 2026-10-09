@@ -11,9 +11,10 @@ import {
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
 import { gorgePose, gorgePosed } from "./gorge-drift.js";
-import { lobeAimR } from "./gorge-lobe.js";
+import { gorgeWant, lobeAimR } from "./gorge-lobe.js";
 import { gorgeBubbleAt } from "./gorge-place.js";
 import type { Layout } from "./layout.js";
+import { showsGorgeNearest } from "./view-role-clocks.js";
 
 /**
  * **What THE GORGE is asking for** — page fourteen of the readings, its own
@@ -88,7 +89,10 @@ export function gorgeCues(
       y: root.y - l.tile * 0.5,
     });
     const aim = { x: c.x, y: c.y, r: lobeAimR(l.tile) };
-    out.push({ ...markAt(2, "PRESS", "FIRE", c.x, c.y, l, 34), aim, why: "TO FEED IT" });
+    // Her screen shows the colour in the lobe's floor; the pilot's does not.
+    const want = gorgeWant(h);
+    const shows = showsGorgeNearest(l.role) && want !== "both" ? want : undefined;
+    out.push({ ...markAt(2, "PRESS", "FIRE", c.x, c.y, l, 34), aim, shows, why: "TO FEED IT" });
   }
   return out;
 }

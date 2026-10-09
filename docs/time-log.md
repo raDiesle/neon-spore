@@ -36721,3 +36721,18 @@ Bottleneck: looking — the fit lives on the paint clock and the strip on the
 tick clock, so the first two strips showed nothing of it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — the fire button a shot asks for wears EMBER too
+
+- reading: 5 min. The band and its lobes, where the cue and the band are
+  drawn in a frame, THE GORGE's colour on her screen.
+- writing: 10 min. `fire-button-mark.ts`, `BossCue.shows`, the passes over
+  the band cut out of `canvas2d.ts` into `canvas2d-over.ts`, a test, three
+  queue entries.
+- looking: 5 min. Three frames: the mark painted under the band, then over
+  it, and THE CURTAIN with no shot to show.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the band is drawn after the cue, so the first mark was
+painted over and only a frame said so.

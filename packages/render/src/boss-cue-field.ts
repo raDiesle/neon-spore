@@ -1,6 +1,7 @@
 import type { World } from "@neon-spore/sim";
 import { drawBatonExplain } from "./baton-explain.js";
 import { drawBossCue } from "./boss-cue-draw.js";
+import type { BossCue } from "./boss-cue-shape.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewState } from "./renderer.js";
@@ -35,6 +36,9 @@ import { wellShown } from "./well.js";
  * he asked for the one exception by name — THE BATON saying each new part
  * before it comes and while it runs (`baton-explain.ts`) — and it is drawn
  * here, after the cue, for the cue's own reason.
+ *
+ * Returns the cue drawn, for the mark round the fire button it asks for,
+ * which goes over the band (`fire-button-mark.ts`, `canvas2d.ts`).
  */
 export function drawFieldBossCue(
   ctx: CanvasRenderingContext2D,
@@ -42,8 +46,9 @@ export function drawFieldBossCue(
   world: World,
   view: ViewState,
   skinY?: SurfaceY,
-): void {
-  if (wellShown(l, world)) return;
-  drawBossCue(ctx, l, world, view.beatPhase, view.time, skinY, view.leadTicks ?? 0);
+): BossCue | null {
+  if (wellShown(l, world)) return null;
+  const cue = drawBossCue(ctx, l, world, view.beatPhase, view.time, skinY, view.leadTicks ?? 0);
   drawBatonExplain(ctx, l, world, view.time);
+  return cue;
 }

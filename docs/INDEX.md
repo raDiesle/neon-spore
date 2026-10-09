@@ -1649,6 +1649,7 @@ by hand never moves.
 | `packages/render/src/filament-marks.ts` | **THE FILAMENT's two thumbs answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/filament-blow.ts` | **THE FILAMENT's own blow at the hull**: the vein snaps where the line stood and whips down to the column |
 | `packages/render/src/fire-vein.ts` | **A shot, running from the thumb to the cannon**: the button's flash, a pulse up its cord in the shot's colour, the release at the top of the cannon |
+| `packages/render/src/fire-button-mark.ts` | **The fire button a shot's mark is asking for, lit with the same mark** — the owner, 9 October 2026 |
 | `packages/render/src/fingers.ts` | **The gesture one sample cannot answer**: a rubbing thumb's turns (`rub.ts`) |
 | `packages/render/src/guide-scene.ts` | a guide's rehearsal at full size: the state — which page, which seat, whether it has finished — beside the slide and the page it draws |
 | `packages/render/src/guide-thumb.ts` | the ghost hand a rehearsal is driven by, placed from `bandLobes` and the strips and never authored |
@@ -2501,6 +2502,7 @@ by hand never moves.
 | `packages/render/src/blister.ts` | THE BLISTER, drawn: |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/canvas2d-held.ts` | **What a host may reach of the renderer's state**, as the class `Canvas2DRenderer` stands on |
+| `packages/render/src/canvas2d-over.ts` | **What goes over the finished band and HUD**, last in a field frame |
 | `packages/render/src/cairn-settle.ts` | The lane THE CAIRN is about to drop a rock into, drawn on player 1's screen and on nothing player 2 is shown |
 | `packages/render/src/cairn-hand.ts` | The hand on THE CAIRN, drawn over the stack by the boss pass — the ordinary ring closed round every stone still standing, and the word PULL |
 | `packages/render/src/cairn-look.ts` | THE ONE RECORD A CANDIDATE **PILE** PATCHES |
