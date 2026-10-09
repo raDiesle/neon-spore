@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 1623be7a3 — THE INSTAR flies in with its body one smooth taper and its wings spread
+
+The owner took TAPER from VERSUS `instar:flight` (9 October 2026: "not much difference, but probably looks better"). On the approach the dragon stays face-on, but the seamed tube behind the head is one smooth taper and the wings spread full, settling into the morph's pose over the last 30%. SIDE, the profile fly-in, went with the slot: the owner found it weird. The exemption used: a look the owner asked for by name.
+
 ## 2026-10-09 · e623160bc — THE LAMPREY eats on rows of its own and glides onto its first tile
 
 The opening is shorter: the eel crawls in and eats two rocks, a slick and a bulb, each caught on a different row, with uneven gaps between the bites, and its head goes after them at one, two or three tiles a beat. Then it crawls straight on to its first tile instead of leaving the screen and coming back, so the opening takes 23 beats where it took 37. When it stops on a tile it crawled to, the head glides over the last tile and the body swings round onto the side where the tail will lie. Before, both jumped into place.

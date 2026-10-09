@@ -36669,3 +36669,5 @@ and folded it short in a frame; only the strip showed it.
 
 Bottleneck: landing — the adopted look broke a test that pinned the old
 identity and a budget row, both only seen in `check:fast`.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
