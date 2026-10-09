@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run frames` empties its output folder before a refusal in the page
 
 - **Found:** 2026-10-08, claude/task-queue-work-b00fee
+- **Taken:** 2026-10-09, claude/queue-tasks-d82b1f (claim: claude/queue-bun-run-frames-empties-its-output-folder-before)
 - **Files:** `tools/frames/run.ts`, `tools/frames/scratch.ts`
 
 `frames . --wave "THE BLISTER" --entry 7:gesture=hold` is refused in the page
