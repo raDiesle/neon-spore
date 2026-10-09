@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 5f49a166d — THE MIMIC's arms curl in at its core while it is split open
+
+Six tendrils of its skin reach out from the cut edges of the two halves and curl in to clutch the bared core, a wave running down each and a pale bud at every tip, reaching in as the mantle parts. It is TENDRILS, one of the `aim:cannon` candidates the owner asked to see on a boss. Exemption: a look the owner asked for by name.
+
 ## 2026-10-09 · eeb31087b — Time log: VERSUS additions go straight into the game
 
 ## 2026-10-09 · 6728f5b05 — THE LEAD's ridge stands between two crags, tears open to drop what it leaves, and points an arrow the way it leans
