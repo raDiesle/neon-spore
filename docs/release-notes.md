@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · dd822f8fc — THE MAZE, THE WARDEN and THE BATON ring the whole thing to hit, in the colour it shows
+
+Each `FIRE` now carries an aim fitted to what is drawn rather than the word's frame: THE MAZE's lit doorway with its cut ends and its light, THE WARDEN's eye at its widest with the hatch's flaps beside it, and THE BATON's bead or the socket it passes, whichever is wider. Each also lights the one fire button whose colour both screens already show — the heart's, the lip's, the bead's — so the ring is that colour and not a flicker. THE MIRROR asks no shot and has no ring. A fix to something wrong, and a look the owner asked for by name.
+
 ## 2026-10-09 · ce55c706a — SCUTTLE LOBED: the frame's spacing nearly doubled, mostly in height
 
 The owner asked VERSUS `scuttle:seat` · `lobed` for about twice the room, especially between rows. The rows now stand 1.05 tiles apart rather than 0.85 (0.6 in the game), the frame reaches 0.8 of a tile past its outer lobes, and its top stands just over 3 tiles above the grid, still under the HUD's pills at the height of a wind-up; the lobes are slimmer again. The game draws what it drew before.
