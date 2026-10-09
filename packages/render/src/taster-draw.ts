@@ -162,8 +162,8 @@ export function drawTaster(
   paintGum(ctx, crest, { left, right, y, thick, tile: l.tile }, roots, breath);
   drawHurt(ctx, crest, hurt);
 
-  // The gaps, and how wet they are: one notch per blade struck off, brighter
-  // the nearer the pair is to cutting the crest through (`NOTCH_LOOK`).
+  // The gaps, and how wet they are: one notch per blade struck off, each as
+  // deep as the pair has cut it (`NOTCH_LOOK`).
   for (let i = 0; i < t.blades.length; i++) {
     if (t.blades[i]?.shorn !== true) continue;
     const wet = NOTCH_LOOK.wet(t, i, cfg.tasterCrestCuts);

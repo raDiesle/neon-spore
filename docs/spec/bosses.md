@@ -4407,10 +4407,8 @@ beyond the glint the edge throws as it sets until 7 October 2026: since then the
 interlock parts under the pilot's haul, springs open past upright when it gives,
 and closes over THE SLOW's window until it crosses again as the window shuts,
 with a white sliver lit in the lock's column while it stands open
-(`render/src/taster-pry.ts`). The notch is one sheen for all the
-gaps rather than a depth each, though the simulation now keeps one (`cuts`)
-and a notch drawn at it is offered in VERSUS (`taster:notch`, on THE TASTER ·
-CLOSED); and the wave's guide is prose rather than a film
+(`render/src/taster-pry.ts`). Each notch is drawn at its own depth (`cuts`)
+since 9 October 2026, taken from VERSUS (`taster:notch`); and the wave's guide is prose rather than a film
 (`content/test/scenes-prose.test.ts`). **And the three hands are not drawn at
 all yet**: the pin, the wipe and the pry are heard and hashed, and nothing on
 either screen shows a held blade, a thumb crossing a gap or a half-opened

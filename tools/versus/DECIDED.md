@@ -1554,3 +1554,19 @@ heads, the ring round the whole target, a small swing out and back
 
 The other answers offered were `ember`, `iris`, `plasma`, `spores` and
 `tendrils`; they went with the slot.
+
+## `taster:notch` / `deep` — taken, 2026-10-09
+
+the owner, 9 October 2026: deeper reads, and three times deeper again
+
+deep — each gap cut as deep as the pair has cut it: a dent where nobody has
+fired, a wet hole through the crest where they have
+
+`NOTCH_LOOK.wet` is `notchWet` and `NOTCH_LOOK.paint` is `drawNotch`, both
+in `packages/render/src/taster-crest.ts`: `adopt` moved the candidate's
+`deepWet` and `paintDeep` to `taster-crest-deep.ts`, and they were folded back
+into the crest's own file in place of the gap they replaced, which nothing
+read any more. Before it was taken the cut gap was made three times as deep as
+offered (`thick * (0.7 + 8.3 * wet)`), at the owner's word.
+
+It was the only answer offered.

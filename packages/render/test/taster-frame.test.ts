@@ -215,7 +215,9 @@ describe("THE TASTER's fan", () => {
     // The blade's own fill alpha at full strength. Counting a hex cannot see
     // a fade — the same colour is named either way — so what is asked here is
     // whether anything is still drawn at full strength, which is the fade.
-    const FULL = "globalAlpha=0.55";
+    // The blade's fill colour with it, because a gap's sheen starts at the
+    // same alpha since the notch was drawn at its own depth.
+    const FULL = `globalAlpha=0.55|set fillStyle=${PALETTE.rockDark}`;
     const standingFan = late();
     closed(standingFan);
     const held = drawn(standingFan, role, 3);

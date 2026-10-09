@@ -65,13 +65,23 @@ export function crestPoints(
 }
 
 /**
+ * How far on gap `i` is: its own cuts out of the four that open the crest
+ * (`TasterBlade.cuts`, 7 October 2026), so each gap is drawn at its own depth.
+ */
+export function notchWet(t: TasterState, i: number, crestCuts: number): number {
+  return Math.min(1, (t.blades[i]?.cuts ?? 0) / Math.max(1, crestCuts));
+}
+
+/**
  * A gap: the crest under a blade that has been struck off, soft and visibly
- * wet — the design's own words, and player 1's target.
+ * wet — the design's own words, and player 1's target — cut as deep as the
+ * pair has cut it. A dent where nobody has fired, so an untouched gap still
+ * reads as the target it is; down through the crest and far out under it at
+ * four. Wider, darker and wetter the deeper it goes, so the gaps the pilot has
+ * been feeding read at a glance against the ones nobody has touched.
  *
- * `wet` is the fight's progress toward cutting the crest through rather than
- * this gap's own depth: one number for all of them (`TasterState.crest`),
- * read through `NOTCH_LOOK`. Each blade has kept its own `cuts` since
- * 7 October 2026, and a gap drawn at its own depth is offered in VERSUS.
+ * Taken from VERSUS (`taster:notch` · deep) on 9 October 2026, three times
+ * as deep as it was offered, at the owner's word.
  */
 export function drawNotch(
   ctx: CanvasRenderingContext2D,
@@ -82,30 +92,31 @@ export function drawNotch(
   wet: number,
   breath: number,
 ): void {
-  const w = tile * 0.34;
-  const deep = thick * (0.7 + 0.5 * wet);
+  const w = tile * (0.32 + 0.14 * wet);
+  // The curve's apex is half its control point.
+  const deep = thick * (0.7 + 8.3 * wet);
   const dent = new Path2D();
   dent.moveTo(x - w, y);
   dent.quadraticCurveTo(x, y + deep, x + w, y);
   ctx.save();
-  ctx.globalAlpha = 0.25 + 0.3 * wet;
+  ctx.globalAlpha = 0.35 + 0.55 * wet;
   ctx.fillStyle = PALETTE.background;
   ctx.fill(dent);
   // The sheen: its wall lit from inside, which is what makes it read as wet
   // rather than as a hole, and it is the hull's violet because the gap is the
   // one part of this boss that answers to either colour.
-  ctx.globalAlpha = 1;
   ctx.clip(dent);
-  ctx.lineWidth = tile * 0.1;
+  ctx.lineWidth = tile * (0.1 + 0.08 * wet);
   ctx.strokeStyle = PALETTE.hull;
-  ctx.globalAlpha = 0.3 + 0.4 * wet + 0.1 * breath;
+  ctx.globalAlpha = 0.55 + 0.35 * wet + 0.1 * breath;
   ctx.stroke(dent);
   ctx.restore();
-  // The drop that stands in the bottom of it.
+  // The drop, sunk to the bottom of it and swollen with every cut.
   ctx.save();
-  ctx.fillStyle = rgba(PALETTE.sheenRim, 0.3 + 0.5 * wet);
+  ctx.fillStyle = rgba(PALETTE.sheenRim, 0.35 + 0.55 * wet);
   ctx.beginPath();
-  ctx.ellipse(x - w * 0.2, y + deep * 0.35, tile * 0.05, tile * 0.025, 0, 0, Math.PI * 2);
+  const r = tile * (0.035 + 0.05 * wet);
+  ctx.ellipse(x - w * 0.15, y + deep * 0.42, r, r * 0.55, 0, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
 }
@@ -122,7 +133,7 @@ export interface NotchLook {
 }
 
 export const NOTCH_LOOK: NotchLook = {
-  wet: (t, _i, crestCuts) => Math.min(1, t.crest / Math.max(1, crestCuts)),
+  wet: notchWet,
   paint: drawNotch,
 };
 

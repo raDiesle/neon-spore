@@ -23,7 +23,6 @@ import { SINEW_HEAVY } from "./sinew-weight/heavy/index.js";
 import { SURGE_TURNED } from "./surge-evert/turned/index.js";
 import { SURGE_GAPE } from "./surge-seam/gape/index.js";
 import { SURGE_SPLATTER } from "./surge-spray/splatter/index.js";
-import { TASTER_DEEP } from "./taster-notch/deep/index.js";
 
 export const VARIANTS: Variant[] = [
   INSTAR_COCK,
@@ -43,5 +42,4 @@ export const VARIANTS: Variant[] = [
   SURGE_TURNED,
   SURGE_GAPE,
   SURGE_SPLATTER,
-  TASTER_DEEP,
 ];

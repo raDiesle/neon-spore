@@ -36772,3 +36772,17 @@ Bottleneck: looking — the pair's six-second replay and the tail being out of
 the face-on frame were only found by taking the shots.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE TASTER's notches are each as deep as the pair has cut them
+
+- reading: 5 min. The candidate, the crest's notch, how `adopt` takes a
+  function.
+- writing: 5 min. The depth tripled, the adopted paint folded back into
+  `taster-crest.ts` in place of the old notch, the spec and DECIDED.
+- looking: 5 min. The candidate before and after, side by side.
+- friction: 5 min. `taster-frame.test.ts` counted `globalAlpha=0.55` as the
+  blade's full strength, and the deeper gap's sheen starts at the same number.
+- landing: 5 min. `check:fast` twice, the commit, `land`.
+
+Bottleneck: friction — a test that counted one alpha by its text read the new
+notch as a blade.
