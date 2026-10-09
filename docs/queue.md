@@ -327,17 +327,3 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
-
-## AUTO knocks out a TAP blister and no other
-
-- **Found:** 2026-10-09, claude/queue-tasks-d82b1f
-- **Taken:** 2026-10-09, claude/task-queue-work-368248 (claim: claude/queue-auto-knocks-out-a-tap-blister-and-no-other)
-- **Files:** `packages/hands/src/autopilot-touch.ts`, `tools/director/test/autopilot-field.test.ts`
-
-FIVE BLISTERS asks for all five of THE BLISTER's gestures, and AUTO answers
-only the tap, so the wave is named in `HALF_PLAYED`. Give the touch hand the
-other four the way a thumb does them — a `grip` held for HOLD, a
-`blisterSwipe` drag carried `blisterSwipeMilli` its way and lifted, a
-`blisterTurn` drag stepped round in bearings under half a turn, a
-`blisterRub` drag whose `id` counts reversals with the body in `fromMilli` —
-take FIVE BLISTERS out of `HALF_PLAYED`, and `bun run check`.

@@ -18,6 +18,7 @@
  */
 
 export {
+  BLISTER_HAND_DEAD,
   blisterByOf,
   blisterGestureOf,
   blisterHoldable,

@@ -36606,3 +36606,16 @@ Bottleneck: none worth the name — a document that repeated a list it said it
 would not.
 
 *Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-09 — AUTO answers every gesture THE BLISTER wants
+
+- reading: 10 min. The four gesture files in the sim, what a sink leaves on
+  a hand, and the touch hand's tap.
+- writing: 15 min. `autopilot-blister.ts`, a hand per gesture read off the
+  body, seven tests, FIVE BLISTERS out of `HALF_PLAYED`.
+- looking: 0 min. AUTO's hands draw no new picture.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — a sink leaves a stroke, a turn and a rub each in a
+state of its own, and the hand has to lift out of every one of them.

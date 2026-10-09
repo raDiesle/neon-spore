@@ -32,11 +32,9 @@ import { CHARGES } from "./charges.js";
  *
  * THE JAM was one until its runaway was placed at beat 7: it used to fire its
  * first shot on the beat its first lure came on over the cannon, which no
- * hand could answer.
- *
- * FIVE BLISTERS is one: `autopilot-touch.ts` taps a TAP blister and has no
- * hand for HOLD, SWIPE, TURN or RUB yet (`docs/queue.md`). */
-const HALF_PLAYED = new Set<string>(["FIVE BLISTERS"]);
+ * hand could answer. FIVE BLISTERS was one while AUTO only tapped a blister;
+ * it has all five gestures now (`autopilot-blister.ts`). */
+const HALF_PLAYED = new Set<string>([]);
 
 /** Wave `index` stood up the way the game starts it, on the poses' config
  * and the charge `cfg` lays a shot over. */
