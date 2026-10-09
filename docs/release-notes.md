@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · ef5f63fb7 — THE LAMPREY lunges at the ship when it loses its temper in a tow
+
+Two thirds of the way along the tow the eel no longer just jumps back to a third: its head plunges down the curve past where the knob waits, at the shield and the hull, and comes back onto it, the whole eel shaking and its body whipping for a second, red spraying off the mouth. Through the whole tow the body now reaches from the head to the tail's knob, stretched between the two thumbs, rather than lying where it landed.
+
 ## 2026-10-09 · 5d15066a9 — A boss's shot is marked by EMBER: a red neon ring round the whole target, four arrows swinging in at it
 
 The owner took EMBER from VERSUS's aim:cannon slot on 9 October 2026 and asked for it changed: the arrows have broad heads with swept barbs instead of fangs thinning to a point at the ring, they swing out a little and back on a slow beat, and the ring stands round the whole target, never across it. THE GORGE's mark now goes round the lobe as it leans rather than the tile. The slot and its four other candidates leave VERSUS. Exemption: a look the owner asked for by name.
