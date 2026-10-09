@@ -2303,6 +2303,7 @@ by hand never moves.
 | `packages/render/src/ledger-marks.ts` | **THE LEDGER's three rings answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/ledger-blow.ts` | **THE LEDGER's own blow at the hull** (`boss-strike-look.ts`): the bill is collected: its cord wrenches the socket's plate up off the hull and slams it back |
 | `packages/render/src/ledger-nerves.ts` | what the ship does under THE LEDGER's socket while a return comes down, as a record — ships drawing nothing, `ledger:nerves` patches it |
+| `packages/render/src/ledger-nerves-lit.ts` | **LIT** — the ship's nerves under the socket, lit by her shield standing under it |
 | `packages/render/src/lead-draw.ts` | THE LEAD drawn: the ridge, the stalk of beads, the mound or the sill, the lock and the flights, split by seat |
 | `packages/render/src/lead-drop.ts` | THE LEAD's run littering the field, past the burst it puts over the column |
 | `packages/render/src/lead-drop-torn.ts` | When the strand parts, as a share of the drop's beat |

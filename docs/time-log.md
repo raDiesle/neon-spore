@@ -36940,3 +36940,17 @@ needed a lift before a candidate could reach it.
 
 Bottleneck: reading — the nerves request crossed the seat split, and that
 took the time; the adoption itself was one command.
+
+## 2026-10-09 — THE LEDGER's nerves light from her shield up to the boss
+
+- reading: 10 min. The queue entry's three options, which seat sees the
+  cannon, and which mark the owner meant by it — her shield block.
+- writing: 15 min. `ledger-nerves-lit.ts`, the record's new inputs, the lock
+  test kept dark and a test that the light follows the shield.
+- looking: 10 min. VERSUS's own pair, then two frames on her seat; the first
+  climbing pulses were balls and read as returns, so they became streaks.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — "the cannon" on her screen is her shield block, and
+the design turned on seeing that.

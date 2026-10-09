@@ -297,6 +297,11 @@ describe("THE LEDGER's cord", () => {
     // surface — it is read off the hull line, a ring rather than a trace, and
     // `ledger-grip.test.ts` is where that is the subject.
     rooted(world).plugBeats = 0;
+    // And her shield well away from the socket, so the nerves are dark: lit,
+    // they run down to her shield block and up the cord on purpose
+    // (`ledger-nerves-lit.ts`), and the subject here is the lock.
+    const socket = rooted(world).socket;
+    world.shieldCol = socket < CFG.cols / 2 ? CFG.cols - 1 : 0;
     const l = computeLayout(VIEWPORT, CFG, "p2");
     const plate = l.hullY - l.tile * 2;
     const log: string[] = [];
@@ -312,6 +317,31 @@ describe("THE LEDGER's cord", () => {
     });
     expect(ys.length).toBeGreaterThan(6);
     for (const y of ys) expect(Math.abs(y - plate)).toBeLessThan(l.tile);
+  });
+
+  it("lights the nerves from her shield to the boss only while it stands under the socket", () => {
+    // The owner's reading of LIT, 9 October 2026 (`ledger-nerves-lit.ts`):
+    // under the socket the tree, the trunk to her shield and the cord are
+    // lit; one column off they flicker; further off there is nothing.
+    const world = open();
+    rooted(world).plugBeats = 0;
+    const socket = rooted(world).socket;
+    const l = computeLayout(VIEWPORT, CFG, "p2");
+    const plate = l.hullY;
+    const ops = (shieldCol: number): number => {
+      world.shieldCol = shieldCol;
+      const log: string[] = [];
+      const { ctx } = stubCanvas();
+      ctx.log = log;
+      const none = new GripVerdicts();
+      drawLedgerRoot(ctx as unknown as CanvasRenderingContext2D, l, world, 0, 0, () => plate, none);
+      return log.length;
+    };
+    const far = ops(socket < CFG.cols / 2 ? CFG.cols - 1 : 0);
+    const next = ops(socket > 0 ? socket - 1 : socket + 1);
+    const under = ops(socket);
+    expect(next).toBeGreaterThan(far);
+    expect(under).toBeGreaterThan(next);
   });
 
   it("whips a warded return back up the cord, and keeps nothing of it", () => {

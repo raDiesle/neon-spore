@@ -7,11 +7,9 @@ import { bossWorld, runHand } from "./poses-bosses-kit.js";
  * THE LEDGER the tick a return leaves the body: the bead at the top of the
  * cord and four beats of it to come down into the socket, with the pair's
  * hand on it — the plate carried under the socket and the trigger on the
- * beat it lands (`hands/boss-hands-clocks.ts`). The pose `ledger:nerves` is
- * judged on, because the ship's nerves are a look of the whole descent and
- * the landing, and every other LEDGER pose has the bead somewhere in the
- * middle of it or none at all. Replayed on the event rhythm, so each replay
- * is one whole bill.
+ * beat it lands (`hands/boss-hands-clocks.ts`) — so her shield stands under
+ * the socket and the ship's nerves are lit (`ledger-nerves-lit.ts`).
+ * Replayed on the event rhythm, so each replay is one whole bill.
  */
 export const LEDGER_BILLED_POSE: Pose = {
   name: "THE LEDGER · BILLED",

@@ -5028,11 +5028,14 @@ in its strongest form: the navigator's screen draws *exactly as many calls*
 with three ordinary returns on the cord as with none, while the pilot's grows
 by them and by the beats written beside each; the socket and its lock are on
 hers and not his; the last return is on both; and the whip and the tear's flash
-are cleared on restart. *Not built of the design's look*: the ship's nerves
-are not lit along the cord's line — the shock is the plating's answer and a
-second one would be two pictures of one hit, so it is offered in VERSUS
-instead (`ledger:nerves`, `render/ledger-nerves.ts`, 8 October 2026); the halves do not fire down their own
-columns, which the simulation dropped for the owner's rule.
+are cleared on restart. The ship's nerves are lit along the cord's line on
+her screen (`render/ledger-nerves-lit.ts`, 9 October 2026), in the owner's
+reading of the design rather than the write-up's: not by a return coming,
+which is his clock, but by **her shield standing under the socket** — the
+tree under the socket lights, a nerve runs down to her shield block, and
+light climbs the cord to the body; one column off it only flickers. *Not
+built of the design's look*: the halves do not fire down their own columns,
+which the simulation dropped for the owner's rule.
 THE SLOW is marked by its prism standing round the body
 (`slow-boss-aim-c.ts`, 26 September 2026). The owner kept THE LEDGER on
 8 October 2026, and the back off the sheet was offered in VERSUS beside the

@@ -1706,3 +1706,13 @@ swelling down its back and breathing out of step
 `packages/render/src/ledger-shape-plated-back.ts`.
 
 It was the only answer offered.
+
+## `ledger:nerves` — `lit` taken, reworked by hand, 2026-10-09
+
+The owner, 9 October 2026, took LIT straight into the game with his own
+reading: the nerve lights from her shield up to the boss when the shield is
+roughly under the socket. Built by hand in
+packages/render/src/ledger-nerves-lit.ts rather than adopted, because the
+record's inputs changed.
+
+Closed with `versus drop`, so the candidate's own files went with the slot.

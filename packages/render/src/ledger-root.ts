@@ -3,7 +3,7 @@ import type { GripVerdicts } from "./grip-verdict.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawLedgerSocket } from "./ledger-cord.js";
-import { ledgerBeadNear, ledgerTaut } from "./ledger-cord-shape.js";
+import { ledgerRootPoint, ledgerSocketPoint, ledgerTaut } from "./ledger-cord-shape.js";
 import { drawLedgerGrips } from "./ledger-grip.js";
 import { drawLedgerRootAsked, drawLedgerRootVerdict } from "./ledger-marks.js";
 import { LEDGER_NERVES } from "./ledger-nerves.js";
@@ -61,7 +61,17 @@ export function drawLedgerRoot(
   const x = tileCX(l, t.socket);
   const at = { x, y: surfaceY(x) };
   drawLedgerSocket(ctx, l, at, ledgerTaut(cfg, t));
-  const near = ledgerBeadNear(t, world.beat, beatPhase);
-  LEDGER_NERVES.draw({ ctx, l, at, surfaceY, near, time });
+  LEDGER_NERVES.draw({
+    ctx,
+    l,
+    at,
+    surfaceY,
+    root: ledgerRootPoint(l, cfg, t),
+    socket: ledgerSocketPoint(l, t),
+    taut: ledgerTaut(cfg, t),
+    shield: { x: tileCX(l, world.shieldCol), y: l.shieldStrip.y },
+    off: Math.abs(world.shieldCol - t.socket),
+    time,
+  });
   drawLedgerLock(ctx, l, cfg, t, at, beatPhase);
 }
