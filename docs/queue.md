@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run land` lands on a re-run a queue entry it refused
 
 - **Found:** 2026-10-08, claude/task-queue-work-e99d1a
+- **Taken:** 2026-10-09, claude/task-queue-work-368248 (claim: claude/queue-bun-run-land-lands-on-a-re-run-a-queue-entry-it)
 - **Files:** `tools/land/run.ts`, `tools/land/replay-guarded.ts`, `tools/land/queue-guard.ts`
 
 The resurrection guard runs only inside `replayGuarded`, which `moveTrunk`
