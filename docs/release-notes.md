@@ -9,6 +9,20 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · eeb31087b — Time log: VERSUS additions go straight into the game
+
+## 2026-10-09 · 6728f5b05 — THE LEAD's ridge stands between two crags, tears open to drop what it leaves, and points an arrow the way it leans
+
+Three additions that VERSUS offered beside a record drawing nothing, built straight in under the owner's rule of 9 October 2026 (exemption: a look with no shipped alternative): CRAGS for lead:walls, TORN for lead:drop, ARROW for lead:lean. ledger:nerves stays in VERSUS: adopting LIT would show the navigator the returns her screen is meant not to see, so it is queued with the question.
+
+## 2026-10-09 · 337e5140b — A visual addition goes straight into the game, never into VERSUS
+
+The owner, 9 October 2026, seeing THE SURGE's spray offered beside a record that drew nothing: no need to ask. VERSUS is kept for a look that would replace one the game already draws; CLAUDE.md and docs/looks.md say so.
+
+## 2026-10-09 · 327e5c662 — THE SURGE throws a splatter across the ship when it bursts, its seam gapes as it charges, and it turns inside out rib by rib
+
+The owner looked at the three on the VERSUS page and took them by name (exemption: a look the owner asked for by name): SPLATTER for surge:spray, GAPE for surge:seam and TURNED for surge:evert. `bun run versus adopt` moved each paint into packages/render and removed the three slots.
+
 ## 2026-10-09 · 716b90152 — THE SINEW's mass swings with weight, and its strings go see-through while THE SLOW is open
 
 The owner's answer to THE SINEW's three VERSUS slots, 9 October 2026. The mass now trails where the pull hangs it on a slow spring, so a snap or a fibre parted throws it past its rest and it rings back down (`sinew:weight` · heavy). While THE SLOW is open the strings between the crown and the mass are laid down at 70% (`sinew:fibres` · veiled, made less transparent than the 45% offered). The white strain band (`sinew:band` · white) was refused as looking bad and too simple; the glass tube stays.

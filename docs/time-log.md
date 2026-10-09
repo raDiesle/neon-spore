@@ -36834,3 +36834,5 @@ misses cost a whole run.
 
 Bottleneck: friction — the hand-done undo of one adoption cost as much as
 the seven adoptions did.
+
+*Measured: 16 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
