@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · e12566b22 — THE NETTLE's iris is a mouth of hooked ember teeth that bite in on their own beats
+
+The dark hole on the turned underside wears IRIS now, the look VERSUS offered for a shot's mark: seven hooked teeth round it, no two the same size, each opening and biting in on its own beat, on a rim that breathes. They open as the iris forces itself open and turn a little as the pair wind it shut. In the iris's own ember, never a fire button's colour. The owner asked for the aim:cannon animations on bosses by name, 9 October 2026.
+
 ## 2026-10-09 · 9ea8e0a6f — The fire button a shot asks for wears the same red or cyan neon ring and arrows as its target
 
 While a shot's mark stands on a target, the fire button it asks for is ringed with the same mark in its own colour and glows: the colour this screen is already shown the shot wants, or both fire buttons where the colour is the other seat's to say. THE GORGE says it off the lobe's floor on her screen and THE FLUE by its tint; every other boss lights both until its reading says. The owner asked for it by name, 9 October 2026.
