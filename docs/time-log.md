@@ -36687,3 +36687,5 @@ identity and a budget row, both only seen in `check:fast`.
 
 Bottleneck: reading — a new ask on a shipped boss touches the hand, the
 cues, the verdicts, the pose and four director tables, each found by reading.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

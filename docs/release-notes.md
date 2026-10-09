@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 3854e3c5c — THE LAMPREY comes down at the ship and both seats tow it back off along a curve
+
+The fight opens on a new stay, the tow (the owner, 9 October 2026): after its meal the eel crawls to the middle of the field and straight down at the hull, and stops just short of it under THE SLOW. Player 1 pulls the tail out along the body; player 2 pulls the head back along a curve that rises and bends to one side, three times a straight pull's length, and the knob stays wherever it is let go. Two thirds of the way the eel loses its temper once: the head is thrown back to a third, the thumb off it, and the knob waits there to be taken again. Head at the end and tail out, it comes off the hull and leaps on from where the curve ends. AUTO plays it; the guide says it.
+
 ## 2026-10-09 · 1623be7a3 — THE INSTAR flies in with its body one smooth taper and its wings spread
 
 The owner took TAPER from VERSUS `instar:flight` (9 October 2026: "not much difference, but probably looks better"). On the approach the dragon stays face-on, but the seamed tube behind the head is one smooth taper and the wings spread full, settling into the morph's pose over the last 30%. SIDE, the profile fly-in, went with the slot: the owner found it weird. The exemption used: a look the owner asked for by name.
