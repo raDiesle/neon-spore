@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A caption anchored to a body is gone the moment the body is
 
 - **Found:** 2026-10-09, claude/queue-tasks-d82b1f
+- **Taken:** 2026-10-09, claude/task-queue-work-368248 (claim: claude/queue-a-caption-anchored-to-a-body-is-gone-the-moment)
 - **Files:** `packages/render/src/caption-anchor.ts`, `packages/content/test/scene-pages.test.ts`
 
 `anchorPoint`'s `{ at: "body" }` answers `null` when the field is empty, and
