@@ -15,6 +15,7 @@ import type { HiveFx } from "./hive-fx.js";
 import { hiveClenchRise, hivePinchPhase } from "./hive-hold.js";
 import { hiveBox, hiveFade, hiveMassPath, hiveSite, hiveSwellPhase } from "./hive-shape.js";
 import { drawBreach, drawLobe, drawScar, drawSwell } from "./hive-sites.js";
+import { drawHiveSpores } from "./hive-spores.js";
 import { type HiveHang, hiveStopper } from "./hive-stop.js";
 import { hiveLean } from "./hive-sway.js";
 import { hiveWallCombs, hiveWallFrame, hiveWallSpan, WALL_SITE } from "./hive-walls.js";
@@ -112,6 +113,12 @@ export function drawHive(
     else drawLobe(ctx, l, c, 0, open, fade);
     ctx.restore();
   }
+  // A swarm round every open wound, over the wax a wall's breach is under (`hive-spores.ts`).
+  for (const i of order)
+    if (hiveOpen(s, i) && !s.sealed[i]) {
+      const at = hiveSite(l, s, i);
+      drawHiveSpores(ctx, at.x, at.y, l.tile * open, time, fade);
+    }
   ctx.restore();
   stops?.aim(hiveStopper(l, world, s, shift, open, hangs));
 }

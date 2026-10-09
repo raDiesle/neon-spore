@@ -36851,3 +36851,18 @@ the seven adoptions did.
 Bottleneck: looking — four frames to find where the arms could be seen at all.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE HIVE's open breaches swarm with SPORES
+
+- reading: 5 min. `hive-draw.ts`'s site loop and `hive-sites.ts`'s breach.
+- writing: 5 min. `hive-spores.ts` from the SPORES candidate, in the hive's
+  bile on both screens, and a test that it is never a fire colour.
+- looking: 15 min. Sized by the breach it was dust; a wall's breach is drawn
+  under the wax, so the swarm became its own pass over the mass.
+- friction: 10 min. `--until-on` is ticks after the event, not its count;
+  two refused runs left the old PNG in place and it was read as new; and
+  `--auto both` never swells a second site, so only a wall breach was seen.
+- landing: 5 min. The index row, `check:fast`, the commit, `land`.
+
+Bottleneck: friction — a refused `frames` run leaves the last PNG behind, and
+it was looked at twice as though it were the new one.

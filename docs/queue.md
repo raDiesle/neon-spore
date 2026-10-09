@@ -386,3 +386,17 @@ The same as THE VANE's entry above, for THE GOVERNOR, THE SEAM, THE LAMPREY, THE
 - **Asks:** Draw LIT on the pilot's screen instead, keep it on hers and let the test change, or drop the slot?
 
 `ledger:nerves` LIT is an addition, and it was going to be built straight into the game with the other additions. But adopting it turns `ledger-frame.test.ts` red ("shows the returns and their beats to the pilot and not the navigator", 394 → 471 ops on her screen): the nerves light by `near`, which is how far down the cord the soonest return is, and the navigator is not supposed to see that. `LEDGER_NERVES` is called from her pass because on his screen the nerves would give away the column the cord fades out to hide from him. Either way the nerves give one seat something it should not have. The three options: draw it on the pilot's screen and accept the column hint; keep it on hers and loosen the test; or `bun run versus drop ledger:nerves`.
+
+## A refused frames run leaves the last PNG in --out, read as new
+
+- **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
+- **Files:** `tools/frames/until-flags.ts`, `tools/frames/run.ts`, `tools/frames/frame-files.ts`
+
+`bun run frames … --until hiveOpen --ticks 40` and `--until-back -40` are refused with a clear sentence and exit 1, but the `frame.png` an earlier run wrote to the same `--out` stays where it was. A lane that pipes the output away reads the old picture as the new one — this one did, twice, while placing THE HIVE's spores. Delete `--out`'s `frame.png` before the flags are checked, or write nothing there until the run succeeds and refuse loudly on a stale file; a test in `tools/frames/test/` that a refused run leaves no PNG behind.
+
+## --auto both never swells a second hive site to frame an underside breach
+
+- **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
+- **Files:** `tools/frames/auto.ts`, `packages/sim/src/hive*.ts`
+
+`bun run frames . --wave "THE HIVE" --auto both --until hiveSeal --until-on 4000` fires `hiveSwell`, `hiveOpen` and `hiveSeal` once each, on the wall site at col 10, and then nothing for four thousand ticks: the bots never do what makes the next site swell, so no frame shows a breach on the underside. Find what the next swell waits on and teach `--auto` to do it, with a test that a THE HIVE run fires a second `hiveOpen`.
