@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · b12004d1a — THE LEDGER's nerves light from her shield up the cord to the boss while the shield is under the socket
+
+On the navigator's screen, with her shield in the socket's column, the ship's nerves under the socket light up with a fast flicker, a nerve runs down to her shield block, and streaks of light climb the cord to the body. With the shield one column off they only flicker, and further off they are dark. It is VERSUS's LIT reworked to the owner's reading on 9 October 2026; it reads her own column, never a return coming, so it shows her nothing she could not already see. Exemption: a look the owner asked for by name.
+
+## 2026-10-09 · 487b21000 — THE LEDGER's halves are plated, with five lobes breathing down each back
+
+Each half of THE LEDGER is now COLONY · PLATED, taken from VERSUS by the owner on 9 October 2026: CODE PLATE's squared slab cut down the seam, with COLONY's five small lobes swelling down its back and breathing out of step. It replaces the seven-point outline, and it stays inside the width the plating refuses bolts from, so the bolt still stops on the outline you see. Exemption: a look the owner asked for by name.
+
 ## 2026-10-09 · bc16b28aa — SCUTTLE LOBED: a taller, wider frame with the lobes apart
 
 The owner liked VERSUS `scuttle:seat` · `lobed` but found it tight. The candidate now also stands the rows further apart (pitch 0.6 to 0.85) and pads the frame further round its sockets, so its top is 2.5 tiles over the grid rather than 1.6 and it reaches past its outer columns; each lobe and wound is slimmer, so rock shows between them. The frame's pad was lifted into `SCUTTLE_FRAME` in `scuttle-shape.ts` so a candidate can reach it; the game draws exactly what it drew before.

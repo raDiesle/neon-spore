@@ -36954,3 +36954,5 @@ took the time; the adoption itself was one command.
 
 Bottleneck: reading — "the cannon" on her screen is her shield block, and
 the design turned on seeing that.
+
+*Measured: 15 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
