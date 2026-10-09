@@ -185,6 +185,22 @@ reaches a mark: the flight is over before any is up. Test:
 probably looks better* — and called SIDE weird. `INSTAR_FLIGHT_LOOK` is
 `packages/render/src/instar-flight-taper.ts` on the field.
 
+**Offered (9 October 2026, VERSUS `instar:glance` and `instar:tail`).** The
+owner: *the head of boss just slightly changes angle ... so it is not so
+static. and the tail could switch to move from right to middle and left*.
+Both through `packages/render/src/instar-glance.ts`, which ships still. The
+face-on head swings its snout on top of its turn, the two eyes held where
+their marks are and the far cheek's dark following the swing
+(`instar-turn.ts`), and may roll about its centre; a bolt meets it where it
+is drawn (`turnedHeadPoint`). **SWAY** turns it on one sine, **LOOK** holds a
+look left, middle and right with a slight tilt toward it, **COCK** turns it
+and cocks it side to side three times as fast. The resting tail leans from
+the right over the middle to the left, a lash taking it over:
+**STATIONS** holds each place, **PENDULUM** never stops. Every cycle is six
+seconds, the length the pair replays its pose over; the glance is judged on
+`INSTAR · CROUCHED` (face-on), the tail on `INSTAR · PERCHED` (side-on, where
+the tail is in the frame).
+
 ### How far it reaches, by kind of body
 
 - **A body on the rig** (`packages/render/src/solid-rig.ts`) takes all four

@@ -6,6 +6,11 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { INSTAR_COCK } from "./instar-glance/cock/index.js";
+import { INSTAR_LOOK } from "./instar-glance/look/index.js";
+import { INSTAR_SWAY } from "./instar-glance/sway/index.js";
+import { INSTAR_PENDULUM } from "./instar-tail/pendulum/index.js";
+import { INSTAR_STATIONS } from "./instar-tail/stations/index.js";
 import { LEAD_TORN } from "./lead-drop/torn/index.js";
 import { LEAD_ARROW } from "./lead-lean/arrow/index.js";
 import { LEAD_CRAGS } from "./lead-walls/crags/index.js";
@@ -21,6 +26,11 @@ import { SURGE_SPLATTER } from "./surge-spray/splatter/index.js";
 import { TASTER_DEEP } from "./taster-notch/deep/index.js";
 
 export const VARIANTS: Variant[] = [
+  INSTAR_COCK,
+  INSTAR_LOOK,
+  INSTAR_SWAY,
+  INSTAR_PENDULUM,
+  INSTAR_STATIONS,
   LEAD_TORN,
   LEAD_ARROW,
   LEAD_CRAGS,

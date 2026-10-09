@@ -43,7 +43,11 @@ export function grown(look: Look): Look {
 
 /** The shipped face-on head, turned — named so a candidate can keep it. */
 export function drawInstarFront(ctx: CanvasRenderingContext2D, look: Look): void {
-  drawTurnedHead(ctx, look.head, look.r, { fade: look.fade, side: look.f.side }, (half) =>
-    drawFrontHead(ctx, look, half),
+  drawTurnedHead(
+    ctx,
+    look.head,
+    look.r,
+    { fade: look.fade, side: look.f.side, time: look.time },
+    (half) => drawFrontHead(ctx, look, half),
   );
 }

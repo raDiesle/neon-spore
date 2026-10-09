@@ -24,7 +24,7 @@ import type { Layout } from "./layout.js";
 export function frontHeadFeet(look: Look, lay: (p: Point) => Point): Foot[] {
   const { head, r, f } = look;
   const { up, down } = frontJaws(look);
-  const turned = (q: Point) => lay(turnedHeadPoint(head, r, f.side, q));
+  const turned = (q: Point) => lay(turnedHeadPoint(head, r, { side: f.side, time: look.time }, q));
   return [
     outlineFoot(LOWER.map(([x, y]) => turned(r2(down, r, x, y)))),
     outlineFoot(UPPER.map(([x, y]) => turned(r2(up, r, x, y)))),

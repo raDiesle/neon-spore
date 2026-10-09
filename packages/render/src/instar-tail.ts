@@ -3,6 +3,7 @@ import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { INSTAR_BODY } from "./instar-body-look.js";
+import { INSTAR_TAIL_REST } from "./instar-glance.js";
 import { instarAt, type Point } from "./instar-place.js";
 import { faded, type Look, toward } from "./instar-plate.js";
 import { drawBlade } from "./instar-tail-blade.js";
@@ -153,18 +154,21 @@ export function tailShape(
   heading: Point = { x: 1, y: 0 },
 ): { seen: SeenRing[]; fork: Point; blades: { tip: Point; s: 1 | -1 }[] } {
   const { f, r, time, threat } = look;
-  const rest = { x: rear.x + r * 0.9, y: rear.y - r * 1.3 };
+  // Which way it leans at rest, taken over by the lash (`instar-glance.ts`).
+  const lean = INSTAR_TAIL_REST.lean(time);
+  const leans = lean + (1 - lean) * f.tail;
+  const rest = { x: rear.x + r * 0.9 * leans, y: rear.y - r * 1.3 };
   const aimed = instarAt(l, f.tailX, f.tailY - FORK_RISE);
   const shiver = r * 0.05 * threat;
   const fork = toward(rest, aimed, f.tail);
   fork.x += Math.sin(time * 23) * shiver + Math.sin(time * 1.9) * r * 0.06 * f.tail;
   fork.y += Math.cos(time * 19) * shiver;
-  const rise = { x: rear.x + r * (0.4 + 0.9 * f.tail), y: rear.y - r * 1.5 };
+  const rise = { x: rear.x + r * (0.4 * leans + 0.9 * f.tail), y: rear.y - r * 1.5 };
   // Carried on along the spine, the root is the body going on rather than a
   // tube stood up off its end (`INSTAR_BODY.flow`).
   const on = { x: rear.x + heading.x * r * FLOW_REACH, y: rear.y + heading.y * r * FLOW_REACH };
   const c1 = toward(rise, on, INSTAR_BODY.flow);
-  const c2 = { x: fork.x + r * (0.4 + 1.2 * f.tail), y: fork.y - r * (0.3 + 0.9 * f.tail) };
+  const c2 = { x: fork.x + r * (0.4 * leans + 1.2 * f.tail), y: fork.y - r * (0.3 + 0.9 * f.tail) };
   const at = (u: number): Point => {
     const v = 1 - u;
     return {

@@ -36753,3 +36753,20 @@ Bottleneck: looking — finding the tick the iris stands open meant reading
 the wave's events first.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE INSTAR's head glances and its tail wanders, offered in VERSUS
+
+- reading: 15 min. The face-on head's two-plane turn, the tail's curve,
+  the dropped `instar:drift` and what it did, the pair's clock.
+- writing: 15 min. `instar-glance.ts` and the two seams in `instar-turn.ts`
+  and `instar-tail.ts`, five candidates, the test.
+- looking: 20 min. `versus:shot` stills of every candidate; the tail is off
+  the frame face-on, so its slot moved to the perched pose.
+- friction: 5 min. The pair rebuilds its pose every six seconds, so slower
+  cycles never finished; a lean taking the look read as identical to
+  `distinct.test.ts`.
+- landing: 5 min. The import sort, the drawing test's timeout,
+  `check:fast`, `land`.
+
+Bottleneck: looking — the pair's six-second replay and the tail being out of
+the face-on frame were only found by taking the shots.

@@ -173,3 +173,26 @@ frames, for a movement). It still has to be big enough to be seen, and if he
 does not like it, that is a new lane that takes it out. Movement given to a
 part that is still today is new; changing a movement or a look he already sees
 is a replacement, and goes to VERSUS.
+
+## Parts that turn, so the eye sees them from a new side — 9 October 2026
+
+The owner, 9 October 2026, on THE INSTAR's head standing still face-on and its
+tail always up on the right:
+
+> this is a generic issue of graphics i want to improve - to see body parts of
+> living thing to tend, especial head, but also e.g. feet and hands, or if
+> mechanical the full boss shape
+
+**So a part turns, and the turn changes what is seen of it.** A head looks a
+little to one side and then the other, so its near cheek opens and its far one
+closes and darkens; a foot or a hand turns on its joint; a machine boss turns
+its whole shape. *Slightly* is his word — a part that is never still, not a
+part that spins — but the stills must still tell apart at a glance (above). A
+turn is a change of the view, not a slide: the near side grows, the far side
+shrinks, the light moves round (`.claude/skills/depth`). Where marks are
+pinned to a part, hold the points the marks sit on and turn what is between
+them, as THE INSTAR's head holds its two eyes (`instar-turn.ts`).
+
+He asked for THE INSTAR's on VERSUS by name (`instar:glance`,
+`instar:tail`); for a part still today on any other boss the rule above
+stands — it goes straight into the game.
