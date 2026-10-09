@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 47c06f44d — ON THE FIELD's cards can be played: TRY IT runs the control live, cut to it
+
+Every use card on CONTROLS › ON THE FIELD has a ▶ TRY IT button. It stands the card's pose up fresh and runs it live, cut to the box round the control and blown up to the window, answered by the mouse exactly as the director's stage answers it. HOLD, +1 TICK and speeds down to ⅛× show the look before a press, under it and after the lift; RESTART stands the pose up again; EITHER SEAT / P1 / P2 picks the hand; WHOLE PHONE shows where the control stands; the last commands the hand sent are listed under it.
+
 ## 2026-10-09 · 8c7eb21d7 — THE CURTAIN, BULB QUEEN, THE SCUTTLE and THE FLEET ring the whole thing to hit
 
 The shot's ring now stands round what the screen draws for each: THE CURTAIN's bare core with its lobes, BULB QUEEN's open mark at its widest breath, THE SCUTTLE's live plate where it hangs (it had stood on the lock under the slab, in the wrong colour), and the whole chart square on THE FLEET and SNAKE. The first three ring their fire button in the colour the target shows. A look the owner asked for by name.
