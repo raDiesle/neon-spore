@@ -166,4 +166,7 @@ export const ROWS: Record<string, Row> = {
   // the navigator's, the default `by`, and the pilot's for `by` 1.
   blisterTurn: { seat: 2, id: true },
   blisterTurn1: { as: "blisterTurn", id: true },
+  // `blister-rub.ts`: a reversal count in `id`, the body riding `fromMilli`.
+  blisterRub: { seat: 2, id: true },
+  blisterRub1: { as: "blisterRub", id: true },
 };

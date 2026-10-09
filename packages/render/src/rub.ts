@@ -25,11 +25,17 @@ export function rubFinger(hold: Hold): hold is Extract<Hold, { kind: "drag" }> &
   return hold.kind === "drag" && hold.rub === true;
 }
 
-/** What a rubbing thumb says: `turns` reversals since it went down, or — with `on` false — lifted. */
+/**
+ * What a rubbing thumb says: `turns` reversals since it went down, or — with
+ * `on` false — lifted. THE BLISTER's is the one rub on a body there may be
+ * several of, and `id` is the count, so the body rides `fromMilli`
+ * (`sim/blister-rub.ts`); every other rub's is nought.
+ */
 export function rubSays(
   hold: Extract<Hold, { kind: "drag" }>,
   turns: number,
   on: boolean,
 ): Command {
-  return { kind: "drag", target: hold.target, on, fromMilli: 0, fromYMilli: 0, id: turns };
+  const fromMilli = hold.target === "blisterRub" ? (hold.id ?? 0) : 0;
+  return { kind: "drag", target: hold.target, on, fromMilli, fromYMilli: 0, id: turns };
 }

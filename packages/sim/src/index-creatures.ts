@@ -31,6 +31,7 @@ export {
 // The cycle and the tap stay inside (`stepBlister`, `blisterTapped`); the
 // gesture, whether a hand on it holds, and how far a hold is through its beat.
 export { blisterHoldShare } from "./blister-hold.js";
+export { blisterRubbing } from "./blister-rub.js";
 export { blisterSwipeShare, blisterWayOf } from "./blister-swipe.js";
 export { blisterTurnHeld, blisterTurnShare, blisterTurnWayOf } from "./blister-turn.js";
 export {

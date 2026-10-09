@@ -29,7 +29,7 @@ import {
  * BY is whose hand knocks it down — the owner asked for it to be set here,
  * in the brush settings — and the other seat is the one shown where it comes
  * up. COUNT is the blows it takes — taps, beats held or strokes. GESTURE is
- * TAP, HOLD, SWIPE or TURN until THE BLISTER's lane 7 adds RUB; WAY is
+ * TAP, HOLD, SWIPE, TURN or RUB; WAY is
  * offered only for a gesture that has one — SWIPE's four arrows, TURN's two.
  */
 export function blisterRows(entry: WaveEntry, onEdit: () => void): HTMLElement[] {

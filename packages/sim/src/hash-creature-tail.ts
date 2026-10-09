@@ -103,10 +103,13 @@ export function tailHashParts(c: Creature): number[] {
   out.push(c.blisterAlongMilli ?? -1);
   // And TURN's: each seat's last bearing and the turn in progress — a step
   // counted on one phone and not the other is a blow apart. Absent is -3, as
-  // -1 and -2 are bearings' own (`NO_BEARING`, `BLISTER_TURN_DEAD`).
+  // -1 and -2 are bearings' own (`NO_BEARING`, `BLISTER_HAND_DEAD`).
   out.push(c.blisterTurnAt1 ?? -3);
   out.push(c.blisterTurnAt2 ?? -3);
   out.push(c.blisterTurnedMilli ?? -1);
+  // And RUB's: each seat's last reversal count, or its dead hand.
+  out.push(c.blisterRubAt1 ?? -3);
+  out.push(c.blisterRubAt2 ?? -3);
   return out;
 }
 
@@ -117,5 +120,5 @@ const NO_BALLOON_HAND = -1_000_000;
 
 /** A blister's gesture and way as numbers, in the order they were added:
  * an index that moved would change every hash a recorded replay holds. */
-const GESTURES: readonly BlisterGesture[] = ["tap", "hold", "swipe", "turn"];
+const GESTURES: readonly BlisterGesture[] = ["tap", "hold", "swipe", "turn", "rub"];
 const WAYS: readonly BlisterWay[] = ["left", "right", "up", "down", "cw", "ccw"];

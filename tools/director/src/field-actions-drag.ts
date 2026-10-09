@@ -100,7 +100,7 @@ export const DRAG_TYPES: readonly ControlType[] = [
     suggest:
       "Make it generic under THE CAPSTAN's rules. THE MAZE's heart counts travel " +
       "rather than reversals — move it to a rub, or say why not.",
-    rows: ["THE CAPSTAN'S RUB", "THE MAZE'S HEART", "THE THROAT'S PUMP"],
+    rows: ["THE CAPSTAN'S RUB", "THE MAZE'S HEART", "THE THROAT'S PUMP", "THE BLISTER'S RUB"],
   },
   {
     key: "loose",

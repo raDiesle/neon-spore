@@ -72,8 +72,8 @@ function gestureGoes(gesture: BlisterGesture | undefined, way: BlisterWay | unde
   return gesture === "swipe" && way !== undefined && way !== "cw" && way !== "ccw";
 }
 
-/** A TURN hand the sink left on the body: it counts nothing until it lifts. */
-export const BLISTER_TURN_DEAD = -2;
+/** A TURN or RUB hand the sink left on the body: it counts nothing until it lifts. */
+export const BLISTER_HAND_DEAD = -2;
 
 /** The gesture it wants, with the default spelled once. */
 export function blisterGestureOf(c: Creature): BlisterGesture {
@@ -186,16 +186,18 @@ export function blisterBlow(world: World, c: Creature): void {
 }
 
 /**
- * A sink voids every SWIPE stroke and TURN in progress: the thumbs are still
- * down, and what they do next counts nothing until they lift — the body they
- * began on is under another pore by then (`blister-swipe.ts`,
- * `blister-turn.ts`). A turn short of whole is lost.
+ * A sink voids every SWIPE stroke, TURN and RUB in progress: the thumbs are
+ * still down, and what they do next counts nothing until they lift — the body
+ * they began on is under another pore by then (`blister-swipe.ts`,
+ * `blister-turn.ts`, `blister-rub.ts`). A turn short of whole is lost.
  */
 function voidGestures(c: Creature): void {
   const open = (c.blisterStrokes ?? 0) & 3;
   if (open !== 0) c.blisterStrokes = ((c.blisterStrokes ?? 0) & 12) | (open << 2);
   c.blisterAlongMilli = undefined;
-  if (c.blisterTurnAt1 !== undefined) c.blisterTurnAt1 = BLISTER_TURN_DEAD;
-  if (c.blisterTurnAt2 !== undefined) c.blisterTurnAt2 = BLISTER_TURN_DEAD;
+  if (c.blisterTurnAt1 !== undefined) c.blisterTurnAt1 = BLISTER_HAND_DEAD;
+  if (c.blisterTurnAt2 !== undefined) c.blisterTurnAt2 = BLISTER_HAND_DEAD;
   c.blisterTurnedMilli = undefined;
+  if (c.blisterRubAt1 !== undefined) c.blisterRubAt1 = BLISTER_HAND_DEAD;
+  if (c.blisterRubAt2 !== undefined) c.blisterRubAt2 = BLISTER_HAND_DEAD;
 }

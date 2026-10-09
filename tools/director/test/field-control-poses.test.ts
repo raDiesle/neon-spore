@@ -1,6 +1,8 @@
 import { describe, expect, test } from "bun:test";
 import {
   blisterIsUp,
+  blisterLeft,
+  blisterRubbing,
   blisterSwipeShare,
   blisterTurnShare,
   gumIsFlung,
@@ -67,6 +69,14 @@ describe("ON THE FIELD rows and their pictures", () => {
     const b = w.creatures.find(blisterIsUp);
     expect(b).toBeDefined();
     expect(blisterTurnShare(b!)).toBe(0.5);
+  });
+
+  test("the blister is up, rubbed, and one blow down", () => {
+    const w = poseNamed("BLISTER · RUBBED ONCE").build();
+    const b = w.creatures.find(blisterIsUp);
+    expect(b).toBeDefined();
+    expect(blisterLeft(w.cfg, b!)).toBe(2);
+    expect(blisterRubbing(b!)).toBe(true);
   });
 
   test("one ready circle is part full and the other empty", () => {

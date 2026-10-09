@@ -1,9 +1,9 @@
 # THE BLISTER — a body you knock back down
 
-> **Status: TAP, HOLD, SWIPE and TURN built — TAP's simulation (lane 1) and its look
+> **Status: TAP, HOLD, SWIPE, TURN and RUB built — TAP's simulation (lane 1) and its look
 > (lane 2, 8 October 2026: ROOTED CLOVER, the pore, the bulge and the tap help);
-> HOLD (lane 4) the same day; SWIPE (lane 5) and TURN (lane 6) on 9 October
-> 2026.** Asked
+> HOLD (lane 4) the same day; SWIPE (lane 5), TURN (lane 6) and RUB (lane 7)
+> on 9 October 2026.** Asked
 > for by the owner on 7 October 2026: a creature
 > on the principle of whack-a-mole, removed by several taps on the screen, with
 > variants removed by a hold, a swipe, a turn round it and other gestures that
@@ -11,8 +11,8 @@
 > player 2 or both may remove it; one picture for every variant, with only the
 > help for the gesture it wants drawn over and round it. The work is cut into
 > eight lanes. Lanes 1 to 3 went through `docs/queue.md`; lane 4 (HOLD)
-> landed the same day, lanes 5 (SWIPE) and 6 (TURN) the next, and lanes 7
-> and 8 are on the queue.
+> landed the same day, lanes 5 (SWIPE), 6 (TURN) and 7 (RUB) the next, and
+> lane 8 is on the queue.
 
 ## In one sentence
 
@@ -109,9 +109,19 @@ The press is a `blisterTurn` drag about the body's centre, read the crank's way
 (`render/blister-tap.ts`, `touch-drag.ts` `turnAbout`), and
 `sim/blister-turn.ts` counts it.
 
+The RUB help is the game's one rub mark (`render/rub-mark.ts` `drawRubMark`)
+across the body: the scrub line with its two arrows, the halo round it while
+nobody is rubbing. The pip ring already says how many blows are left, so the
+mark carries no progress of its own. The press sends nothing; the host counts
+the reversals (`render/rub-turns.ts`) and every count is a `blisterRub` drag
+whose `id` is the count and whose `fromMilli` is the body (`render/rub.ts`) —
+the one target that rides it there, because the count already holds `id`.
+`sim/blister-rub.ts` deals a blow for every fresh reversal while it is up; a
+sink leaves a thumb still scrubbing dead until it lifts, as for TURN.
+
 ## The director's settings
 
-Under the selected cell, the way THE MINE's SEES row is (`tools/director/src/cell-config-mine.ts`). **BY, GESTURE and COUNT are built** (lane 3, 8 October 2026: `cell-config-blister.ts`, `entry-fields-blister.ts`): GESTURE offers TAP, HOLD and SWIPE (lane 4, the same day: `gesture: "hold"` on the entry, TAP written as no field; lane 5, 9 October 2026: `gesture: "swipe"`; lane 6, the same day: `gesture: "turn"`), and WAY is offered only for a gesture that has one — SWIPE's four arrows, `→` written as no field, and TURN's two, `⟳` written as no field. A way the new gesture does not go is dropped when the gesture changes. A HOLD is the ordinary `grip`, so a mouse's press is a thumb's, and a hand left on one that sinks is let go of on the tick.
+Under the selected cell, the way THE MINE's SEES row is (`tools/director/src/cell-config-mine.ts`). **BY, GESTURE and COUNT are built** (lane 3, 8 October 2026: `cell-config-blister.ts`, `entry-fields-blister.ts`): GESTURE offers TAP, HOLD and SWIPE (lane 4, the same day: `gesture: "hold"` on the entry, TAP written as no field; lane 5, 9 October 2026: `gesture: "swipe"`; lane 6, the same day: `gesture: "turn"`; lane 7, the same day: `gesture: "rub"`), and WAY is offered only for a gesture that has one — SWIPE's four arrows, `→` written as no field, and TURN's two, `⟳` written as no field. A way the new gesture does not go is dropped when the gesture changes. A HOLD is the ordinary `grip`, so a mouse's press is a thumb's, and a hand left on one that sinks is let go of on the tick.
 
 
 | Row | Choices | Default |
@@ -154,7 +164,7 @@ from end to end.
 
 ## Lanes 5 to 8
 
-Lane 4, HOLD, landed on 8 October 2026, and lanes 5, SWIPE, and 6, TURN, on 9 October. RUB and the real guide
+Lane 4, HOLD, landed on 8 October 2026, and lanes 5, SWIPE, 6, TURN, and 7, RUB, on 9 October. RUB and the real guide
 had been postponed here, and the owner put them back on the queue the same
 evening: each is an entry in `docs/queue.md` titled *THE BLISTER, lane N*,
 worked in order.

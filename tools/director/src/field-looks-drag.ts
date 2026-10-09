@@ -146,6 +146,10 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "The mouth goes wherever the thumb takes it, inside its box, and the gullet bends to follow from its root on the hull.",
   },
   // RUB
+  "THE BLISTER'S RUB": {
+    find: "The rub's red line down a blister while it is up, two arrows sliding in at it from each side, on the seat its BY names. The other seat sees the waiting clock.",
+    move: "Every time the thumb turns back is one blow and one pip gone. A thumb still rubbing when it sinks counts nothing more until it lifts.",
+  },
   "THE CAPSTAN'S RUB": {
     find: "Either end of the drum where the cradle has rocked it, haloed on the screen of the seat that is not steering.",
     move: "Every turn back wears the bared face; a band worn to its mark cracks bright.",

@@ -287,6 +287,8 @@ const ACCEPTED: Command[] = [
   // THE BLISTER's TURN, a bearing round the body, and the press with none (`sim/blister-turn.ts`).
   { kind: "drag", target: "blisterTurn", on: true, fromMilli: 375, id: 4 },
   { kind: "drag", target: "blisterTurn", on: true, fromMilli: -1, id: 4 },
+  // THE BLISTER's RUB, the count in `id` and the body in `fromMilli` (`sim/blister-rub.ts`).
+  { kind: "drag", target: "blisterRub", on: true, fromMilli: 4, fromYMilli: 0, id: 3 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -466,6 +468,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   bastionSpin: true,
   blisterSwipe: true,
   blisterTurn: true,
+  blisterRub: true,
   crank: true,
 };
 

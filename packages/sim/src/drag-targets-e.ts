@@ -34,7 +34,8 @@ export type DragTargetE =
   | "bastionPlateRight"
   | "bastionSpin"
   | "blisterSwipe"
-  | "blisterTurn";
+  | "blisterTurn"
+  | "blisterRub";
 
 /**
  * `plumbLevelLeft` and `plumbLevelRight` are the eighty-first and
@@ -191,4 +192,11 @@ export type DragTargetE =
  * round the body, and `id` is which body. The crank's reading on a creature:
  * `fromMilli` is a bearing round the body's centre, `NO_BEARING` on the press
  * and inside the dead spot (`blister-turn.ts`).
+ */
+
+/**
+ * `blisterRub` is the hundred-and-twentieth: THE BLISTER's RUB, a `RubCount`
+ * — `id` how many times the thumb has turned back since it went down — and,
+ * because `id` is the count, **the body rides `fromMilli`**, the one rub that
+ * has to say which of several (`blister-rub.ts`).
  */

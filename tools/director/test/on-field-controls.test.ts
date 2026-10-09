@@ -434,6 +434,9 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE BLISTER's TURN, a full turn round the body (`sim/blister-turn.ts`,
   // answered by `render/blister-tap.ts`).
   blisterTurn: "field",
+  // THE BLISTER's RUB, a scrub over the body (`sim/blister-rub.ts`, answered
+  // by `render/blister-tap.ts`, counted by `render/rub-turns.ts`).
+  blisterRub: "field",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

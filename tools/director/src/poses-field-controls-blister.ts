@@ -81,3 +81,32 @@ export const BLISTER_TURN: Pose = {
     return w;
   },
 };
+
+/**
+ * THE BLISTER's RUB with a thumb on it that has turned back once: the body
+ * up, the rub's line and arrows on it, and one of its three pips gone
+ * (`sim/blister-rub.ts`, `render/blister-help.ts`). The rub is the press's
+ * nought and one reversal, as `rub-turns.ts` sends them.
+ */
+export const BLISTER_RUB: Pose = {
+  name: "BLISTER · RUBBED ONCE",
+  note: "A RUB blister is up out of its pore for its two beats. Player 2 is scrubbing it and has turned back once: one of its three pips is gone, and the red line with its two arrows sliding in still asks for more. Player 2's screen, the seat its BY names.",
+  lookAt: "whether the line and arrows read as scrub here, and whether the pips say what is left",
+  crop: "field",
+  role: "p2",
+  build: () => {
+    const w = fresh([
+      { beat: 0, col: 4, kind: "blister", color: null, row: 3, count: 3, gesture: "rub" },
+    ]);
+    until(w, "a blister up", (x) => x.creatures.some(blisterIsUp));
+    const body = w.creatures.find(blisterIsUp);
+    if (!body) throw new Error("no blister up");
+    const rubbed = (tick: number, turns: number): TimedCommand => ({
+      tick,
+      player: 2,
+      command: { kind: "drag", target: "blisterRub", on: true, fromMilli: body.id, id: turns },
+    });
+    run(w, 3, [rubbed(w.tick, 0), rubbed(w.tick + 1, 1)]);
+    return w;
+  },
+};

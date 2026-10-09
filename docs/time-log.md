@@ -36496,3 +36496,17 @@ Bottleneck: landing — the six registrations queued this morning went in at
 once, and a seventh list (every file that draws a pull knob) was found red.
 
 *Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE BLISTER, lane 7: RUB
+
+- reading: 5 min. `rub-turns.ts` and `rub.ts` for how the host counts
+  reversals, and where a body can ride a wire whose `id` is the count.
+- writing: 10 min. `blister-rub.ts`, the sink voiding a rub, the hash and the
+  wire, the press, the rub mark in the help, the director's RUB, and tests.
+- looking: 0 min. One `frames` run of a RUB blister up, and a crop.
+- friction: 5 min. The frame test's driver lifted between reversals and dealt
+  nothing until one thumb stayed down.
+- landing: 5 min. The index, the spec, the commit, `land`.
+
+Bottleneck: writing — the rub's wire already spends `id` on the count, so the
+body had to ride `fromMilli`, for this one target only.

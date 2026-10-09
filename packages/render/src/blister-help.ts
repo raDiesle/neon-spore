@@ -5,6 +5,7 @@ import {
   blisterIsUp,
   blisterLeft,
   blisterMayTap,
+  blisterRubbing,
   blisterSwipeShare,
   blisterWayOf,
   type Creature,
@@ -23,9 +24,10 @@ import { drawMarkHalo, drawMarkWait } from "./mark-feedback.js";
 import { drawMarkHeld } from "./mark-progress.js";
 import { PALETTE } from "./palette.js";
 import { drawFuseRing } from "./pip-ring.js";
+import { drawRubMark } from "./rub-mark.js";
 
 /**
- * **THE BLISTER's help for TAP, HOLD, SWIPE and TURN**, called and not drawn anew
+ * **THE BLISTER's help for all five gestures**, called and not drawn anew
  * (`docs/controls-catalogue.md`): the same pieces every mark in the game
  * wears, laid over and round a body that is up.
  *
@@ -48,6 +50,9 @@ import { drawFuseRing } from "./pip-ring.js";
  * - TURN, on the seat that may: THE MAZE's turn round the body — channel,
  *   lever and knob, filling green as the turn goes round
  *   (`blister-turn-help.ts`). The partner, again, the waiting clock.
+ * - RUB, on the seat that may: the rub's red line and its two arrows sliding
+ *   in (`drawRubMark`), the same on every rub in the game, with the halo
+ *   while no hand is rubbing. Its count is the pips, as every gesture's is.
  * - The verdict on each blow is a transient and is `blister-verdicts.ts`'.
  *
  * Flat, after every body, outside the perspective transform — the tap's
@@ -80,6 +85,9 @@ export function drawBlisterHelp(
       drawSwipeTrack(ctx, l, world, c, { x, y, r }, time);
     } else if (mine && gesture === "turn") {
       drawBlisterTurn(ctx, l, world, c, { x, y, r }, time);
+    } else if (mine && gesture === "rub") {
+      if (!blisterRubbing(c)) drawMarkHalo(ctx, x, y, r, time);
+      drawRubMark(ctx, x, y, r * RUB_R, time);
     } else if (mine && holding) {
       if (!held) drawMarkHalo(ctx, x, y, r, time);
       drawHoldMark(ctx, x, y, r * HOLD_R, time);
@@ -133,6 +141,9 @@ function drawSwipeTrack(
   drawInstarTrack(ctx, track, mark, true, along > 0, along, time, false);
   ctx.restore();
 }
+
+/** The rub line's half-length, in body radii: top to bottom of the body. */
+const RUB_R = 0.9;
 
 /** The track's mark radius, in body radii: its bar and chevrons inside the body. */
 const TRACK_R = 0.8;

@@ -116,7 +116,7 @@ describe("THE BLISTER's rows", () => {
   it("are BY, GESTURE and COUNT, and no WAY for a gesture without one", () => {
     expect(said(blisterRows(blister(), () => {}))).toEqual([
       "BY P1 P2 BOTH",
-      "GESTURE TAP HOLD SWIPE TURN",
+      "GESTURE TAP HOLD SWIPE TURN RUB",
       "COUNT 1 2 3 4 5 6 7 8",
     ]);
   });

@@ -1,6 +1,6 @@
 import { MAX_BEARING_STEP, NO_BEARING, TURN } from "./bearing.js";
 import {
-  BLISTER_TURN_DEAD,
+  BLISTER_HAND_DEAD,
   blisterBlow,
   blisterGestureOf,
   blisterIsUp,
@@ -38,7 +38,7 @@ export function blisterTurnHeard(world: World, player: 1 | 2, command: Command):
     setTurnAt(c, player, undefined);
     return;
   }
-  if (was === BLISTER_TURN_DEAD || !blisterIsUp(c) || !blisterMayTap(c, player)) return;
+  if (was === BLISTER_HAND_DEAD || !blisterIsUp(c) || !blisterMayTap(c, player)) return;
   if (command.fromMilli < 0) {
     setTurnAt(c, player, NO_BEARING);
     return;
@@ -68,7 +68,7 @@ export function blisterTurnShare(c: Creature): number {
 /** Whether a hand that still counts is on it now — one the sink did not deaden. */
 export function blisterTurnHeld(c: Creature): boolean {
   return [c.blisterTurnAt1, c.blisterTurnAt2].some(
-    (at) => at !== undefined && at !== BLISTER_TURN_DEAD,
+    (at) => at !== undefined && at !== BLISTER_HAND_DEAD,
   );
 }
 

@@ -67,6 +67,25 @@ export function blisterUnder(l: Layout, field: Field, x: number, y: number): Tou
       },
     };
   }
+  // A RUB blister's press takes hold and says nothing: the host that owns the
+  // pointers counts its reversals and sends them, the body riding with them
+  // (`rub.ts`, `rub-turns.ts`, `sim/blister-rub.ts`) — THE CAPSTAN's press.
+  if (body !== undefined && blisterGestureOf(body) === "rub") {
+    const target = "blisterRub";
+    return {
+      player: field.seat,
+      command: null,
+      hold: {
+        kind: "drag",
+        target,
+        player: field.seat,
+        originX: x,
+        originY: y,
+        id: best,
+        rub: true,
+      },
+    };
+  }
   if (body !== undefined && blisterGestureOf(body) === "hold") {
     return {
       player: field.seat,

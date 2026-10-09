@@ -7,11 +7,11 @@ export type BlisterBy = 1 | 2 | "both";
 /**
  * The gesture a blister is knocked down by (`docs/spec/blister.md`, *The
  * gestures*): a tap for each blow, a press kept down a beat for each, a
- * stroke across it the way its arrow points, or a full turn round it the way
- * its channel runs. One body for all of them — only the help drawn round it
- * says which.
+ * stroke across it the way its arrow points, a full turn round it the way
+ * its channel runs, or a scrub back and forth over it, a blow a reversal. One
+ * body for all of them — only the help drawn round it says which.
  */
-export type BlisterGesture = "tap" | "hold" | "swipe" | "turn";
+export type BlisterGesture = "tap" | "hold" | "swipe" | "turn" | "rub";
 
 /** Which way a SWIPE goes, as a screen reads it: `down` is towards the hull. */
 export type BlisterSwipeWay = "left" | "right" | "up" | "down";
@@ -97,7 +97,7 @@ export interface BlisterState {
   /**
    * TURN's hands, a field a seat: absent with no hand on it, `NO_BEARING`
    * for a hand on with no bearing yet, the last bearing it reported in
-   * thousandths of a turn, or `BLISTER_TURN_DEAD` for a hand the sink left
+   * thousandths of a turn, or `BLISTER_HAND_DEAD` for a hand the sink left
    * on it — whose turning counts nothing until it lifts (`blister-turn.ts`).
    */
   blisterTurnAt1?: number;
@@ -105,4 +105,11 @@ export interface BlisterState {
   /** How far round the turn in progress has come, in thousandths of a turn:
    * a whole one is a blow, and a sink loses what is short of it. */
   blisterTurnedMilli?: number;
+  /**
+   * RUB's hands, a field a seat: absent with no hand on it, the reversal
+   * count the hand last sent, or `BLISTER_HAND_DEAD` for a hand the sink left
+   * on it — whose reversals count nothing until it lifts (`blister-rub.ts`).
+   */
+  blisterRubAt1?: number;
+  blisterRubAt2?: number;
 }

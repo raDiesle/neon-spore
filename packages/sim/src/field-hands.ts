@@ -1,6 +1,7 @@
 import { balloonHeard } from "./balloon-pull.js";
 import { rubBalloons } from "./balloon-rub.js";
 import { stepBlisterHolds } from "./blister-hold.js";
+import { blisterRubHeard } from "./blister-rub.js";
 import { blisterSwipeHeard } from "./blister-swipe.js";
 import { blisterTurnHeard } from "./blister-turn.js";
 import { bossHandsHeard } from "./boss-hands.js";
@@ -106,6 +107,8 @@ export function fieldHandsHeard(world: World, commands: readonly TimedCommand[])
   for (const c of commands) blisterSwipeHeard(world, c.player, c.command);
   // And a turn round a TURN blister, a blow the moment the turn is whole (`blister-turn.ts`).
   for (const c of commands) blisterTurnHeard(world, c.player, c.command);
+  // And a scrub over a RUB blister, a blow a reversal (`blister-rub.ts`).
+  for (const c of commands) blisterRubHeard(world, c.player, c.command);
   // THE FLEET's sights and its salvo, read on the tick for the third time and
   // the same reason: a square the pair just named out loud is answered now,
   // not on the next beat. Its clock is the one thing about it that is on the

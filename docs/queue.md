@@ -328,19 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE BLISTER, lane 7: RUB
-
-- **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
-- **Taken:** 2026-10-09, claude/queue-tasks-d82b1f (claim: claude/queue-the-blister-lane-7-rub)
-- **Files:** `packages/render/src/rub.ts`, `packages/render/src/rub-turns.ts`, `packages/render/src/rub-mark.ts`, `packages/sim/src/drag-targets.ts`
-- **Needs:** THE BLISTER, lane 6
-
-The fifth gesture of `docs/spec/blister.md`: scrub back and forth over the
-body, `count` reversals, counted the way `rub-turns.ts` counts them. Help:
-`drawRubMark`, and `drawMarkProgress`'s green segments one a reversal, as
-THE CAPSTAN's rub wears them. RUB added to lane 3's GESTURE row. Replay test
-for enough reversals and too few.
-
 ## THE BLISTER, lane 8: its guide and its waves
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
