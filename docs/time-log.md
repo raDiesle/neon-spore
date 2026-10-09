@@ -37122,3 +37122,5 @@ Bottleneck: writing — a strip is a run, not a frame, so it had to fill in with
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: looking — a pose that idles says nothing for hundreds of ticks, so the GAME SAID column was proved by a test rather than by a tap.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

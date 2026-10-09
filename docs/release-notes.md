@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 3e00c99b7 — TRY IT shows either seat's screen, and what the game answered and played
+
+TRY IT now draws the test screen, player 1's or player 2's, so what the other seat sees of a control is one click away. Under the phone, three columns: the commands the hand sent, the events the game reported back (a refusal, a slip, a count), and the sounds its own mixer played, heard aloud unless MUTE is picked. A drag's every-tick command is counted rather than repeated.
+
 ## 2026-10-09 · 4d0e61720 — ON THE FIELD shows each control before, under and after the press, and every use of a type side by side
 
 Each card on CONTROLS › ON THE FIELD has ▤ STILLS: six real frames cut to the control — a beat before the press, the press, halfway, the lift, one and three beats after — found by playing the card's pose with AUTO's hand, its thumb drawn on. Each control type has ▤ COMPARE ALL USES: every use's strip stacked, so the same moment of every boss reads down a column. 74 of 96 rows are played; the rest say so and point at ▶ TRY IT, and recording a take there is queued.
