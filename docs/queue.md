@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## AUTO knocks out a TAP blister and no other
 
 - **Found:** 2026-10-09, claude/queue-tasks-d82b1f
+- **Taken:** 2026-10-09, claude/task-queue-work-368248 (claim: claude/queue-auto-knocks-out-a-tap-blister-and-no-other)
 - **Files:** `packages/hands/src/autopilot-touch.ts`, `tools/director/test/autopilot-field.test.ts`
 
 FIVE BLISTERS asks for all five of THE BLISTER's gestures, and AUTO answers
