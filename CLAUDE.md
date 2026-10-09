@@ -149,9 +149,9 @@ onto the field. A refactor, a speed fix, a test, a tool or the director is not a
 look and lands as usual.
 
 Three exemptions, and say in the commit which one you used: **a look the owner
-asked for by name**; **a look with no shipped alternative**; **a fix to
-something wrong rather than unlovely** — a highlight glued to a spinning rock, a
-shape clipping its frame, a control under the status bar.
+asked for by name**; **an addition where the game draws nothing — built in,
+never put in VERSUS**; **a fix to something wrong rather than unlovely** — a
+highlight glued to a spinning rock, a shape clipping its frame.
 
 **A new shape is never one the game already draws.** Check
 `packages/content/src/silhouettes*.ts`, then take one from

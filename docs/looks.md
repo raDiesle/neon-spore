@@ -41,6 +41,19 @@ read around within a day:
   is about looks a *session* decided to change.
 - **A look with no shipped alternative.** Something being drawn for the first
   time is not replacing anything, and there is nothing to compare it against.
+  This one was read too narrowly for a month: THE SURGE's spray was lifted
+  into a record whose shipped value drew nothing, then offered in VERSUS
+  beside that nothing. The owner, 9 October 2026, looking at it there:
+
+  > yes it looks cool. why you ask me for versus. i would prefer such
+  > additions of visual directly build into game instead of versus page - i
+  > see no need.
+
+  So an **addition** — a spray, a gape, a crag, an arrow, anything drawn where
+  the game draws nothing, on a new thing or on a creature that already ships —
+  lands straight in the game, and a record whose shipped value is a no-op is
+  an addition however it was lifted. VERSUS is for a look that would *replace*
+  one the game already draws.
 - **A fix to something that is wrong rather than to something that is
   unlovely.** A highlight glued to a spinning rock, a fringe that has come off
   its body, a shape that clips its own frame — these are defects, and a defect
