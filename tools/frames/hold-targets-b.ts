@@ -162,4 +162,8 @@ export const ROWS: Record<string, Row> = {
   // carry; the navigator's, the default `by`, and the pilot's for `by` 1.
   blisterSwipe: { seat: 2, id: true, swipe: true },
   blisterSwipe1: { as: "blisterSwipe", id: true, swipe: true },
+  // `blister-turn.ts`: a bearing round a TURN blister, the crank's reading;
+  // the navigator's, the default `by`, and the pilot's for `by` 1.
+  blisterTurn: { seat: 2, id: true },
+  blisterTurn1: { as: "blisterTurn", id: true },
 };

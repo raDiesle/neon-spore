@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import {
+  type BlisterSwipeWay,
   type BlisterWay,
   blisterIsUp,
   blisterLeft,
@@ -107,13 +108,13 @@ describe("a SWIPE blister, stroked the way its arrow points", () => {
   });
 
   it("counts each of the four ways only the way it points", () => {
-    const strokes: Record<BlisterWay, [number, number]> = {
+    const strokes: Record<BlisterSwipeWay, [number, number]> = {
       right: [FAR, 0],
       left: [-FAR, 0],
       down: [0, FAR],
       up: [0, -FAR],
     };
-    for (const way of Object.keys(strokes) as BlisterWay[]) {
+    for (const way of Object.keys(strokes) as BlisterSwipeWay[]) {
       const s = stage([swiped(3, way)]);
       s.untilUp();
       for (const [other, [dx, dy]] of Object.entries(strokes)) {

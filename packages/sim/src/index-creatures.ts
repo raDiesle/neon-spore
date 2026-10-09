@@ -32,6 +32,7 @@ export {
 // gesture, whether a hand on it holds, and how far a hold is through its beat.
 export { blisterHoldShare } from "./blister-hold.js";
 export { blisterSwipeShare, blisterWayOf } from "./blister-swipe.js";
+export { blisterTurnShare, blisterTurnWayOf } from "./blister-turn.js";
 export {
   COLOUR_UNSTRUCK,
   colourArmourLeft,
@@ -59,6 +60,8 @@ export type {
   BlisterBy,
   BlisterGesture,
   BlisterSpawn,
+  BlisterSwipeWay,
+  BlisterTurnWay,
   BlisterWay,
 } from "./creature-state-blister.js";
 export {

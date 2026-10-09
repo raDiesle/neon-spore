@@ -1,5 +1,10 @@
 import { hullRow, type SimConfig } from "./config.js";
-import type { BlisterBy, BlisterGesture, BlisterSpawn } from "./creature-state-blister.js";
+import type {
+  BlisterBy,
+  BlisterGesture,
+  BlisterSpawn,
+  BlisterWay,
+} from "./creature-state-blister.js";
 import { removeCreature } from "./field.js";
 import { breachHull } from "./hull-damage.js";
 import { nextInt } from "./rng.js";
@@ -56,9 +61,19 @@ export function blisterOnSpawn(cfg: SimConfig, entry: BlisterSpawn): Partial<Cre
     // Absent a tap, so a tap blister is byte-for-byte the blister lane 1 built,
     // and a way only on the gesture that goes one.
     ...(gesture === undefined || gesture === "tap" ? {} : { blisterGesture: gesture }),
-    ...(gesture === "swipe" && way !== undefined ? { blisterWay: way } : {}),
+    ...(gestureGoes(gesture, way) ? { blisterWay: way } : {}),
   };
 }
+
+/** Whether `way` is a way of this gesture: one of SWIPE's four, or TURN's
+ * anticlockwise — clockwise is TURN's default, written as no field. */
+function gestureGoes(gesture: BlisterGesture | undefined, way: BlisterWay | undefined): boolean {
+  if (gesture === "turn") return way === "ccw";
+  return gesture === "swipe" && way !== undefined && way !== "cw" && way !== "ccw";
+}
+
+/** A TURN hand the sink left on the body: it counts nothing until it lifts. */
+export const BLISTER_TURN_DEAD = -2;
 
 /** The gesture it wants, with the default spelled once. */
 export function blisterGestureOf(c: Creature): BlisterGesture {
@@ -117,7 +132,7 @@ export function stepBlister(world: World, c: Creature): void {
   if (left > 0) return;
   if (c.blisterUp) {
     c.blisterUp = false;
-    voidStrokes(c);
+    voidGestures(c);
     c.blisterClock = cfg.blisterDownBeats;
     c.col = nextInt(world.rng, cfg.cols);
     c.row = Math.min(hullRow(cfg), c.row + cfg.blisterSinkRows);
@@ -171,12 +186,16 @@ export function blisterBlow(world: World, c: Creature): void {
 }
 
 /**
- * A sink voids every SWIPE stroke in progress: the thumbs are still down, and
- * the lift that follows counts nothing — the body it began on is under
- * another pore by then (`blister-swipe.ts`).
+ * A sink voids every SWIPE stroke and TURN in progress: the thumbs are still
+ * down, and what they do next counts nothing until they lift — the body they
+ * began on is under another pore by then (`blister-swipe.ts`,
+ * `blister-turn.ts`). A turn short of whole is lost.
  */
-function voidStrokes(c: Creature): void {
+function voidGestures(c: Creature): void {
   const open = (c.blisterStrokes ?? 0) & 3;
   if (open !== 0) c.blisterStrokes = ((c.blisterStrokes ?? 0) & 12) | (open << 2);
   c.blisterAlongMilli = undefined;
+  if (c.blisterTurnAt1 !== undefined) c.blisterTurnAt1 = BLISTER_TURN_DEAD;
+  if (c.blisterTurnAt2 !== undefined) c.blisterTurnAt2 = BLISTER_TURN_DEAD;
+  c.blisterTurnedMilli = undefined;
 }

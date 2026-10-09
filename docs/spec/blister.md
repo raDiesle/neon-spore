@@ -2,7 +2,9 @@
 
 > **Status: TAP, HOLD and SWIPE built — TAP's simulation (lane 1) and its look
 > (lane 2, 8 October 2026: ROOTED CLOVER, the pore, the bulge and the tap help);
-> HOLD (lane 4) the same day; SWIPE (lane 5) on 9 October 2026.** Asked
+> HOLD (lane 4) the same day; SWIPE (lane 5) on 9 October 2026; TURN's
+> simulation and press (lane 6, first half) the same day, its help and its
+> director rows to follow.** Asked
 > for by the owner on 7 October 2026: a creature
 > on the principle of whack-a-mole, removed by several taps on the screen, with
 > variants removed by a hold, a swipe, a turn round it and other gestures that

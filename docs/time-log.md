@@ -36464,3 +36464,17 @@ Bottleneck: the registrations — a boss is a row in seventy files, and only
 the typecheck finds them in one pass.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — THE BLISTER, lane 6, first half: TURN heard and judged
+
+- reading: 0 min. Lane 5's half-built commit as the list of places, the
+  crank's bearing, THE INSTAR's turn mark in the sim and `turnAbout` in render.
+- writing: 5 min. `blister-turn.ts`, the sink voiding a turn, the hash and
+  the wire, the press in `blister-tap.ts`, the replay test and a touch test.
+- looking: 0 min. Nothing draws a turn yet; the help is the second half.
+- friction: 0 min.
+- landing: 5 min. `check:fast` red once on `frames --hold` lacking the new
+  target, the commit, `land`.
+
+Bottleneck: reading — the lane is the same twelve places lane 5 touched,
+found from its commit's file list rather than from any list of them.

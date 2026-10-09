@@ -97,7 +97,14 @@ export function wayLabel(way: BlisterWay): string {
   return WAY_ARROWS[way];
 }
 
-const WAY_ARROWS: Record<BlisterWay, string> = { left: "←", right: "→", up: "↑", down: "↓" };
+const WAY_ARROWS: Record<BlisterWay, string> = {
+  left: "←",
+  right: "→",
+  up: "↑",
+  down: "↓",
+  cw: "⟳",
+  ccw: "⟲",
+};
 
 /** A gesture's chip, in the word the field's own help writes. */
 export function gestureLabel(gesture: BlisterGesture): string {

@@ -806,6 +806,7 @@ by hand never moves.
 | `packages/sim/src/blister.ts` | THE BLISTER: a body you knock back down (`docs/spec/blister.md`) |
 | `packages/sim/src/blister-hold.ts` | **THE BLISTER's HOLD** (`docs/spec/blister.md`, *The gestures*): a press kept on it while it is up |
 | `packages/sim/src/blister-swipe.ts` | **THE BLISTER's SWIPE** (`docs/spec/blister.md`, *The gestures*) |
+| `packages/sim/src/blister-turn.ts` | **THE BLISTER's TURN** (`docs/spec/blister.md`, *The gestures*): the owner's circle round the body |
 | `packages/sim/src/undertow-hash.ts` | What THE UNDERTOW puts into `hashWorld`, and nothing else |
 | `packages/sim/src/undertow-press.ts` | THE UNDERTOW's answers, and the tap, all on the **tick** |
 | `packages/sim/src/undertow-step.ts` | THE UNDERTOW's clock: the bow, the lobe standing, the lobe growing, the burst |

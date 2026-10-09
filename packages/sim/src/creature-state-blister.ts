@@ -6,14 +6,21 @@ export type BlisterBy = 1 | 2 | "both";
 
 /**
  * The gesture a blister is knocked down by (`docs/spec/blister.md`, *The
- * gestures*): a tap for each blow, a press kept down a beat for each, or a
- * stroke across it the way its arrow points. One body for all of them — only
- * the help drawn round it says which.
+ * gestures*): a tap for each blow, a press kept down a beat for each, a
+ * stroke across it the way its arrow points, or a full turn round it the way
+ * its channel runs. One body for all of them — only the help drawn round it
+ * says which.
  */
-export type BlisterGesture = "tap" | "hold" | "swipe";
+export type BlisterGesture = "tap" | "hold" | "swipe" | "turn";
 
 /** Which way a SWIPE goes, as a screen reads it: `down` is towards the hull. */
-export type BlisterWay = "left" | "right" | "up" | "down";
+export type BlisterSwipeWay = "left" | "right" | "up" | "down";
+
+/** Which way a TURN goes, as a screen reads it: clockwise or anticlockwise. */
+export type BlisterTurnWay = "cw" | "ccw";
+
+/** Which way a gesture goes, for the two that go one. */
+export type BlisterWay = BlisterSwipeWay | BlisterTurnWay;
 
 /**
  * **What an arrival says about a blister**, absent on every other kind. One
@@ -30,8 +37,8 @@ export interface BlisterSpawn {
   count?: number;
   /** The gesture it is knocked down by; absent a tap. */
   gesture?: BlisterGesture;
-  /** Which way a SWIPE goes; absent `right`, and meaningless on any other
-   * gesture. */
+  /** Which way a SWIPE or a TURN goes; absent `right` or `cw`, and dropped
+   * at the spawn on a gesture it is not a way of. */
   way?: BlisterWay;
 }
 
@@ -75,7 +82,8 @@ export interface BlisterState {
    * starts it again; a release or a sink loses it (`blister-hold.ts`).
    */
   blisterHeldTicks?: number;
-  /** Which way a SWIPE counts, absent `right` (`blister-swipe.ts`). */
+  /** Which way a SWIPE or a TURN counts, absent `right` or `cw`
+   * (`blister-swipe.ts`, `blister-turn.ts`). */
   blisterWay?: BlisterWay;
   /**
    * SWIPE's strokes in progress, a bit a seat: 1 and 2 for a stroke open on
@@ -86,4 +94,15 @@ export interface BlisterState {
   /** How far along its way the furthest open stroke has come, in thousandths
    * of a tile and no further than a stroke needs — what the bar fills to. */
   blisterAlongMilli?: number;
+  /**
+   * TURN's hands, a field a seat: absent with no hand on it, `NO_BEARING`
+   * for a hand on with no bearing yet, the last bearing it reported in
+   * thousandths of a turn, or `BLISTER_TURN_DEAD` for a hand the sink left
+   * on it — whose turning counts nothing until it lifts (`blister-turn.ts`).
+   */
+  blisterTurnAt1?: number;
+  blisterTurnAt2?: number;
+  /** How far round the turn in progress has come, in thousandths of a turn:
+   * a whole one is a blow, and a sink loses what is short of it. */
+  blisterTurnedMilli?: number;
 }

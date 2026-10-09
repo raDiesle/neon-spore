@@ -431,6 +431,9 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE BLISTER's SWIPE, a stroke across the body (`sim/blister-swipe.ts`,
   // answered by `render/blister-tap.ts`).
   blisterSwipe: "field",
+  // THE BLISTER's TURN (`sim/blister-turn.ts`): heard, and pressed by
+  // `render/blister-tap.ts`, but its help and its row come in the look's half.
+  blisterTurn: "unbuilt",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

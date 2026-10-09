@@ -1,5 +1,5 @@
 import {
-  type BlisterWay,
+  type BlisterSwipeWay,
   blisterGestureOf,
   blisterHoldShare,
   blisterIsUp,
@@ -132,7 +132,7 @@ function drawSwipeTrack(
 const TRACK_R = 0.8;
 
 /** How far to turn a track drawn pointing down so it points the way. */
-const TURN_TO: Record<BlisterWay, number> = {
+const TURN_TO: Record<BlisterSwipeWay, number> = {
   down: 0,
   up: Math.PI,
   right: -Math.PI / 2,

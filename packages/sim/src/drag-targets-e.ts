@@ -33,7 +33,8 @@ export type DragTargetE =
   | "bastionPlateLeft"
   | "bastionPlateRight"
   | "bastionSpin"
-  | "blisterSwipe";
+  | "blisterSwipe"
+  | "blisterTurn";
 
 /**
  * `plumbLevelLeft` and `plumbLevelRight` are the eighty-first and
@@ -183,4 +184,11 @@ export type DragTargetE =
  * first handle on a creature the field drops rather than on a boss, and `id`
  * is which body. No new reading: `fromMilli` and `fromYMilli` are the carry,
  * and the lift is judged, THE WARDEN's hatch's way (`blister-swipe.ts`).
+ */
+
+/**
+ * `blisterTurn` is the hundred-and-nineteenth: THE BLISTER's TURN, the circle
+ * round the body, and `id` is which body. The crank's reading on a creature:
+ * `fromMilli` is a bearing round the body's centre, `NO_BEARING` on the press
+ * and inside the dead spot (`blister-turn.ts`).
  */

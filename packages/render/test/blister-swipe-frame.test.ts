@@ -2,10 +2,13 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import {
   type BlisterBy,
+  type BlisterSwipeWay,
   type BlisterWay,
   blisterIsUp,
   blisterMayTap,
+  blisterWayOf,
   createWorld,
+  NO_BEARING,
   type SpawnEntry,
   step,
   type TimedCommand,
@@ -16,6 +19,7 @@ import { flatCenter } from "../src/creature-place.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { touchDown, touchUp } from "../src/touch.js";
 import type { Field } from "../src/touch-field.js";
+import { touchMove } from "../src/touch-move.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -30,7 +34,7 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * THE BLISTER's SWIPE, pressed and drawn (`blister-tap.ts`, `blister-help.ts`):
+ * THE BLISTER's SWIPE, pressed and drawn — and a TURN's press beside it (`blister-tap.ts`, `blister-help.ts`):
  * a press on one that is up is a `blisterSwipe` drag whose lift carries how
  * far the hand went, and on every screen the track is laid across a body
  * whose shape is the TAP blister's, filling as a stroke is carried.
@@ -98,6 +102,26 @@ describe("a press on a SWIPE blister", () => {
     });
   });
 
+  it("on a TURN blister is a blisterTurn drag about the body's centre, a bearing on every move", () => {
+    const entry: SpawnEntry = { ...swiped(5, 2, "right"), gesture: "turn", way: undefined };
+    const world = createWorld(CFG, 3, [entry]);
+    while (!world.creatures.some(blisterIsUp)) step(world, []);
+    const body = world.creatures.find(blisterIsUp)!;
+    const at = flatCenter(L, body, 0);
+    const down = touchDown(L, at.x + 4, at.y - 3, fieldOf(world, 2));
+    expect(down?.command).toEqual({
+      kind: "drag",
+      target: "blisterTurn",
+      on: true,
+      fromMilli: NO_BEARING,
+      id: body.id,
+    });
+    expect(down?.hold).toMatchObject({ originX: at.x, originY: at.y, turns: true });
+    // A thumb a tile to the right of the centre is a quarter turn round from the top.
+    const moved = touchMove(L, down!.hold!, at.x + L.tile, at.y);
+    expect(moved?.command).toMatchObject({ target: "blisterTurn", on: true, fromMilli: 250 });
+  });
+
   it("is not answered on the seat its `by` does not name", () => {
     const world = createWorld(CFG, 3, [swiped(5, 2, "right")]);
     while (!world.creatures.some(blisterIsUp)) step(world, []);
@@ -106,7 +130,7 @@ describe("a press on a SWIPE blister", () => {
   });
 });
 
-const CARRY: Record<BlisterWay, [number, number]> = {
+const CARRY: Record<BlisterSwipeWay, [number, number]> = {
   right: [1, 0],
   left: [-1, 0],
   down: [0, 1],
@@ -125,7 +149,7 @@ function swipeFrames(role: ViewRole, ticks: number, sampling: { every?: number; 
       for (const c of w.creatures) {
         if (!blisterIsUp(c)) continue;
         const player = blisterMayTap(c, 1) ? 1 : 2;
-        const [ux, uy] = CARRY[c.blisterWay ?? "right"];
+        const [ux, uy] = CARRY[blisterWayOf(c)];
         const reach = step3 === 0 ? 0 : step3 === 1 ? far / 2 : far;
         inputs.push({
           tick: w.tick,

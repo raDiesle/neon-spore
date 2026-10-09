@@ -1,5 +1,5 @@
 import { blisterBlow, blisterGestureOf, blisterIsUp, blisterMayTap } from "./blister.js";
-import type { BlisterWay } from "./creature-state-blister.js";
+import type { BlisterSwipeWay } from "./creature-state-blister.js";
 import type { Command, Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -45,8 +45,9 @@ export function blisterSwipeHeard(world: World, player: 1 | 2, command: Command)
 }
 
 /** The way it counts, with the default spelled once. */
-export function blisterWayOf(c: Creature): BlisterWay {
-  return c.blisterWay ?? "right";
+export function blisterWayOf(c: Creature): BlisterSwipeWay {
+  const way = c.blisterWay;
+  return way === undefined || way === "cw" || way === "ccw" ? "right" : way;
 }
 
 /** How far the furthest open stroke has come, 0..1: what the bar fills to. */
@@ -63,7 +64,7 @@ function stroked(world: World, c: Creature, dx: number, dy: number): boolean {
 }
 
 /** A carry's reach along a way: positive the way the arrow points. */
-function alongWay(way: BlisterWay, dx: number, dy: number): number {
+function alongWay(way: BlisterSwipeWay, dx: number, dy: number): number {
   if (way === "right") return dx;
   if (way === "left") return -dx;
   return way === "down" ? dy : -dy;

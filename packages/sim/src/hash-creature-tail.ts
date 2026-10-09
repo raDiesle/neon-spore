@@ -1,3 +1,4 @@
+import type { BlisterGesture, BlisterWay } from "./creature-state-blister.js";
 import { POD_KINDS } from "./pod-types.js";
 import type { Creature } from "./types.js";
 
@@ -93,13 +94,19 @@ export function tailHashParts(c: Creature): number[] {
   out.push(c.blisterClock ?? -1);
   // And HOLD's: which gesture it wants, and the beat of a hold in progress —
   // two devices apart on it would count a blow on one phone a tick early.
-  out.push(c.blisterGesture === "hold" ? 1 : c.blisterGesture === "swipe" ? 2 : 0);
+  out.push(c.blisterGesture === undefined ? 0 : GESTURES.indexOf(c.blisterGesture));
   out.push(c.blisterHeldTicks ?? -1);
   // And SWIPE's: its way, the strokes open on it and how far the furthest has
   // come — a stroke voided on one phone and not the other is a blow apart.
-  out.push(c.blisterWay === undefined ? -1 : ["left", "right", "up", "down"].indexOf(c.blisterWay));
+  out.push(c.blisterWay === undefined ? -1 : WAYS.indexOf(c.blisterWay));
   out.push(c.blisterStrokes ?? -1);
   out.push(c.blisterAlongMilli ?? -1);
+  // And TURN's: each seat's last bearing and the turn in progress — a step
+  // counted on one phone and not the other is a blow apart. Absent is -3, as
+  // -1 and -2 are bearings' own (`NO_BEARING`, `BLISTER_TURN_DEAD`).
+  out.push(c.blisterTurnAt1 ?? -3);
+  out.push(c.blisterTurnAt2 ?? -3);
+  out.push(c.blisterTurnedMilli ?? -1);
   return out;
 }
 
@@ -107,3 +114,8 @@ export function tailHashParts(c: Creature): number[] {
  * lets a pull reach, so a hand resting at nought and no hand at all are never
  * the same number. */
 const NO_BALLOON_HAND = -1_000_000;
+
+/** A blister's gesture and way as numbers, in the order they were added:
+ * an index that moved would change every hash a recorded replay holds. */
+const GESTURES: readonly BlisterGesture[] = ["tap", "hold", "swipe", "turn"];
+const WAYS: readonly BlisterWay[] = ["left", "right", "up", "down", "cw", "ccw"];
