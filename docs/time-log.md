@@ -37124,3 +37124,13 @@ Bottleneck: writing — a strip is a run, not a frame, so it had to fill in with
 Bottleneck: looking — a pose that idles says nothing for hundreds of ticks, so the GAME SAID column was proved by a test rather than by a tap.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-09 — ON THE FIELD: the numbers each control is held to
+
+- reading: 15 min. A research agent traced every row to its `SimConfig` fields, from each boss's hand and step files.
+- writing: 15 min. The two name tables, the card's NUMBERS line, the GRAB line, a test.
+- looking: 5 min. THE VALVE and THE HASP's numbers in the preview.
+- friction: 5 min. The agent's table missed the nine rows every wave has; found by the test and filled in.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — ninety-six rows across forty bosses' hand files, done by a background agent while the TRY log was built.

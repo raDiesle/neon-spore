@@ -3610,6 +3610,9 @@ by hand never moves.
 | `tools/director/src/field-controls-oculus.ts` | THE OCULUS's two leaf holds, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-notes-gestures.ts` | A suggestion for every gesture in the catalogue (`gesture-catalogue.ts`), keyed by its name |
 | `tools/director/src/field-notes.ts` | The suggestions on CONTROLS › ON THE FIELD — what this lane would decide about each thing on the page |
+| `tools/director/src/field-numbers-drag.ts` | The `SimConfig` fields that decide whether a **drag** row's gesture counts — how far, how long, how near |
+| `tools/director/src/field-numbers-other.ts` | The `SimConfig` fields behind every row that is not a drag — a hold, a press, a tap on the mark, a shake |
+| `tools/director/src/field-numbers.ts` | **The numbers that decide whether a control's gesture counts**, under each ON THE FIELD card |
 | `tools/director/src/field-page.ts` | CONTROLS › ON THE FIELD — one page for every touch the field answers and every gesture it could be built from… |
 | `tools/director/src/field-action-cards.ts` | How CONTROLS › ON THE FIELD draws one action (`field-page.ts` lays them out) |
 | `tools/director/src/field-actions-drag.ts` | GRAB AND DRAG's control types — a finger put on a thing and moved |

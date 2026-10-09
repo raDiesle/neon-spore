@@ -5,6 +5,7 @@ import { cardArea, focusArt } from "./field-focus-art.js";
 import { lookOf } from "./field-looks.js";
 import { ROW_NOTES } from "./field-notes.js";
 import { GESTURE_NOTES } from "./field-notes-gestures.js";
+import { numbersBlock } from "./field-numbers.js";
 import { stillsStrip } from "./field-stills-art.js";
 import { compareStills, type StillsUse } from "./field-stills-compare.js";
 import { LEAST_TARGET, narrowest } from "./field-touch-paint.js";
@@ -95,6 +96,8 @@ function useCard(user: string, rows: readonly FieldControlDef[]): HTMLElement {
     shots.appendChild(shot);
   }
   card.appendChild(shots);
+  const numbers = numbersBlock(rows.map((r) => r.name));
+  if (numbers) card.appendChild(numbers);
   const look = lookOf(rows.map((r) => r.name));
   if (look) {
     const dl = document.createElement("dl");

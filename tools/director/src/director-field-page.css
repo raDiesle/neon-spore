@@ -153,3 +153,21 @@
   content: "THE GESTURE · ";
   color: var(--cyan);
 }
+.field-numbers {
+  margin: 6px 0 0;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  color: var(--dim);
+}
+.field-numbers b {
+  color: var(--cyan);
+  letter-spacing: 1px;
+}
+.field-numbers code {
+  display: inline-block;
+  margin: 0 8px 0 0;
+  color: var(--ink);
+}
+.field-numbers .literal {
+  display: block;
+}

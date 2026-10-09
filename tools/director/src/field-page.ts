@@ -6,6 +6,7 @@ import { fieldControlRow } from "./field-controls-rows.js";
 import { MARKS } from "./field-looks.js";
 import { DECISIONS, ROW_NOTES } from "./field-notes.js";
 import { GESTURE_NOTES, TRIED_NOTES } from "./field-notes-gestures.js";
+import { GRAB } from "./field-numbers.js";
 import { GESTURES } from "./gesture-catalogue.js";
 import { type GestureState, STATE_TITLES } from "./gesture-types.js";
 import { card, eventsTable, legend, text } from "./gestures-page.js";
@@ -130,6 +131,7 @@ export function renderFieldPage(): void {
   body.appendChild(decisions());
 
   body.appendChild(text("p", MARKS, "field-marks"));
+  body.appendChild(text("p", GRAB, "field-marks"));
   for (const { action, uses, types } of sortedActions()) {
     body.appendChild(actionSection(action, uses, types, byName));
   }
