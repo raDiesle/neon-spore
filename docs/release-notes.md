@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-09 · 9f306cddf — ON THE FIELD's cards are cut to the control, enlarge on a click, and open on their gesture
+
+Each use card on CONTROLS › ON THE FIELD now shows the box its control answers a press in — found by sweeping the posed world through the game's own hit test — instead of half the phone; a click opens it as large as the window, drawn again at that size, with a WHOLE PHONE view beside it. Each action and control type opens on the generic gesture it is built from (TAP first under PRESS, SWIPE PAST A DISTANCE under PULL, ROUND A CIRCLE under TURN A WHEEL …); the four built gestures no action starts from stay under OTHER GESTURES THE GAME READS.
+
 ## 2026-10-09 · 995e532fe — THE LEDGER, THE HIVE, THE GAUGE and THE REPRISE ring the whole thing to hit
 
 The shot's ring now stands round what the screen draws for each: the LEDGER's seam over the body's full height, the HIVE's open drop (laid on its side for a wall's cocoon), the GAUGE's whole wound in the colour it shows, and the REPRISE's lens with the brood circling it. The GAUGE's fire buttons light too: a round now marks them, and the gauge's own buttons count as red and cyan. A look the owner asked for by name.
