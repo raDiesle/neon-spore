@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE BLISTER, lane 6: TURN, a circle round it
 
 - **Found:** 2026-10-08, claude/whack-a-mole-enemy-concept-7aea3f
+- **Taken:** 2026-10-09, claude/queue-tasks-d82b1f (claim: claude/queue-the-blister-lane-6-turn-a-circle-round-it)
 - **Files:** `packages/sim/src/drag-targets.ts`, `packages/sim/src/crank.ts`, `packages/render/src/crank-dial.ts`, `packages/render/src/maze-lever.ts`
 - **Needs:** THE BLISTER, lane 5
 
