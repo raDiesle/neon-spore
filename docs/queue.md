@@ -328,20 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `apps/game/src/input.ts` stands two lines under the ceiling
-
-- **Found:** 2026-10-08, claude/trivet-boss-concept-670eed
-- **Taken:** 2026-10-09, claude/task-queue-work-368248 (claim: claude/queue-apps-game-src-input-ts-stands-two-lines-under-th)
-- **Files:** `apps/game/src/input.ts`
-
-248 of its 250 lines, and the after-edit hook asked for the seam while THE
-VISE's carry was touching it. The one-finger rule took the pinch's pair out
-of `Fingers`, so what the field keeps is now the rub's count and the marks'
-glow; the pointer handlers' seat bookkeeping (`from`, `pressY`, the desk's
-both-seats signing) is the cut that reads as one thing. Move it to a page of
-its own with the test it already has, and `bun run check`.
-
-
 ## A creature's field control is six registrations, found one red test at a time
 
 - **Found:** 2026-10-09, claude/queue-tasks-d82b1f

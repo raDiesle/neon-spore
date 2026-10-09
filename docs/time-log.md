@@ -36545,3 +36545,17 @@ Bottleneck: writing the test's repository — the lane's re-add has to survive
 the rebase as a commit of its own, or there is nothing to refuse.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-09 — who a press is from has a page of its own
+
+- reading: 5 min. `input.ts`, `pressSeat`, and the source-pattern tests in
+  `input-pc.test.ts`.
+- writing: 10 min. `input-seat.ts`, its four tests, `input.ts` down to 236
+  lines with every push through one `say`.
+- looking: 0 min. Nothing drawn moves.
+- friction: 5 min. BSD `sed` took no alternation and renamed half the calls;
+  `perl` did the rest.
+- landing: 5 min. Two source patterns rewritten, `check:fast`, `land`.
+
+Bottleneck: friction — the rename went through a tool that silently matched
+nothing, and only the grep after it said so.

@@ -2818,6 +2818,7 @@ by hand never moves.
 | `apps/game/src/menu-controls.ts` | what a thumb does, every panel the game has, the field itself, then the keys |
 | `apps/game/src/input-bindings.ts` | what the pointer rig is handed, and why each of it is read fresh |
 | `apps/game/src/input-buffer.ts` | the queue every listener in the app writes into, drained a tick at a time |
+| `apps/game/src/input-seat.ts` | who a press is from — the seat each finger speaks for, kept from landing to lift |
 | `apps/game/src/ship-hand.ts` | what this device's own hand is doing on the ship, between the event and the frame |
 | `apps/game/src/tally.ts` | the run mark — wave, clock, retries — up to the room every few seconds |
 | `apps/game/src/menu-link.ts` | what a link changes on the front page: eight entries, the progress line, the seat lock |
