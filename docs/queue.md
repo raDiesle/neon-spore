@@ -390,3 +390,346 @@ CONTROLS › ON THE FIELD cuts each use card to the box its control answers a pr
 - **Files:** `tools/director/src/field-try.ts`, `tools/director/src/field-stills-art.ts`, `tools/director/test/field-stills.test.ts`
 
 A card's ▤ STILLS on CONTROLS › ON THE FIELD are six moments — a beat before the press, the press, halfway, the lift, one and three beats after — found by playing the pose with AUTO's hand (`stillTicks`). AUTO plays no creature and reaches only what its boss needs, so 22 rows (`NOT_PLAYED` in the test: THE GUM, PINBALL, THE BALLOON, THE LEDGER, THE CHOIR …) say "play it with ▶ TRY IT" and drop out of ▤ COMPARE ALL USES. Let TRY IT keep the frames of a human take — the window's cut, small, in a ring of the last few seconds — and on the lift plus three beats assemble the same six stills from the mouse's own press and lift, kept for the page's session, so the comparison can show them beside AUTO's.
+
+## The Bulb Queen: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/queen.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.0, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE MIRROR: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/mirror.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.3, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## The Warden: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/warden.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.4, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE VANE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/vane-draw.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.5, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE FLEET: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/fleet-hulls.ts`, `packages/render/src/fleet-hull-body.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.6, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## PINBALL: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/pinball-table.ts`, `packages/render/src/pinball-mouth.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.7, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE PULSE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/pulse-body.ts`, `packages/render/src/pulse-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.8, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE MAZE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/maze-draw.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.10, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE CAIRN: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/cairn.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.11, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE WELL: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/well-body.ts`, `packages/render/src/well-draw.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.12, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE SPLICE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/splice-draw.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.13, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE HIVE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/hive-draw.ts`, `packages/render/src/hive-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.14, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE REPRISE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/reprise-body.ts`, `packages/render/src/reprise-draw.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.15, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE STARE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/stare-draw.ts`, `packages/render/src/stare-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.16, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE BATON: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/baton-draw.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.18, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE THROAT: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/throat-draw.ts`, `packages/render/src/throat-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.19, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE UNDERTOW: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/undertow-draw.ts`, `packages/render/src/undertow-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.20, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE GORGE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/gorge-draw.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.23, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE CURTAIN: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/curtain-draw.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.24, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE TASTER: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/taster-draw.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.25, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE SINEW: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/sinew-draw.ts`, `packages/render/src/sinew-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.26, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE LEDGER: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/ledger-draw.ts`, `packages/render/src/ledger-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.27, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE SURGE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/surge-draw.ts`, `packages/render/src/surge-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.28, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE LEAD: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/lead-draw.ts`, `packages/render/src/lead-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.29, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE SCUTTLE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/scuttle-draw.ts`, `packages/render/src/scuttle-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.30, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE ANTIPHON: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/antiphon-draw.ts`, `packages/render/src/antiphon-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.31, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE FILAMENT: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/filament-draw.ts`, `packages/render/src/filament-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.33, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE GIMBAL: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/gimbal-draw.ts`, `packages/render/src/gimbal-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.34, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE SPOOL: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/spool-draw.ts`, `packages/render/src/spool-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.36, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE HASP: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/hasp-draw.ts`, `packages/render/src/hasp-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.37, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE RATCHET: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/ratchet-draw.ts`, `packages/render/src/ratchet-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.38, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE NETTLE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/nettle-draw.ts`, `packages/render/src/nettle-body.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.39, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE MANTLE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/mantle-draw.ts`, `packages/render/src/mantle-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.40, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE KEEL: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/keel-draw.ts`, `packages/render/src/keel-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.41, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE VALVE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/valve-draw.ts`, `packages/render/src/valve-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.42, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE SEAM: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/seam-draw.ts`, `packages/render/src/seam-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.43, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE OCULUS: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/oculus-draw.ts`, `packages/render/src/oculus-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.44, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE VISE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/vise-draw.ts`, `packages/render/src/vise-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.45, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE PLUMB: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/plumb-draw.ts`, `packages/render/src/plumb-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.48, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE SLING: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/sling-draw.ts`, `packages/render/src/sling-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.49, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE CAPSTAN: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/capstan-draw.ts`, `packages/render/src/capstan-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.54, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE GALL: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/gall-draw.ts`, `packages/render/src/gall-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.55, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE TRAPEZE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/trapeze-draw.ts`, `packages/render/src/trapeze-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.56, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE FLUE: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/flue-draw.ts`, `packages/render/src/flue-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.57, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE GOVERNOR: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/governor-draw.ts`, `packages/render/src/governor-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.58, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE LAMPREY: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/lamprey-draw.ts`, `packages/render/src/lamprey-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.59, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE MIMIC: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/mimic-draw.ts`, `packages/render/src/mimic-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.60, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE LATCH: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/latch-draw.ts`, `packages/render/src/latch-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.61, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE BASTION: a part that turns, so it is seen from a new side
+
+- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
+- **Files:** `packages/render/src/bastion-draw.ts`, `packages/render/src/bastion-shape.ts`, `docs/spec/bosses.md`
+
+The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.62, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.

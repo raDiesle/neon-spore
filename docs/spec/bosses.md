@@ -3396,7 +3396,7 @@ being taken off.
 **What is not built**: the fold at step 14 still fades the whole picture
 rather than parting the eleven segments the design describes, and no sound
 marks the beat the arm comes down to one. The base is fixed to the middle
-column rather than authored, for THE VANE's reason.
+column rather than authored, for THE VANE's reason. **And a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*): The arm rolls over between passes, so the next socket is on its underside: lit on the navigator's screen only, while the pilot turns the arm back by its wrist, THE MAZE's lever, before the bead lands — a turn that has to finish inside the bead's three beats of flight.
 
 **What it draws** (`render/src/baton-draw.ts`,
 `render/src/baton-socket-draw.ts`, `render/src/baton-bead-draw.ts`,
@@ -3659,6 +3659,9 @@ like pumping, whether a pair finds the colour split without being told,
 whether the lip's colour reads at a glance on a phone, and whether the
 circle is bright enough to carry the mouth against.
 
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). It turns its head away, the mouth to one side; the pilot drags it back to the front by its jaw, and the side it faced last decides which seat feeds it next — the feeding read off which way it is looking.
+
+
 ## 11.20 THE UNDERTOW — the boss under the floor, answered downward
 
 > The one that comes up through the floor, so the shield faces down and the
@@ -3782,6 +3785,9 @@ left alone bursts and loses the wave, the level's clock ebbs the lobes away and
 opens the next level, three levels end the boss, and the same run fingerprints
 the same way twice (`sim/test/undertow.test.ts`).
 
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The floor tips and the body rolls a flank up at the field's edge; a lobe on the flank is answered only from the side it now faces, so the column the answer comes from changes with the roll.
+
+
 ## 11.23 THE GORGE — bubbles one of you counts and the other colours
 
 > A sack of bubbles in the middle of the field. One of you can count what
@@ -3887,6 +3893,9 @@ its own sound.
 turn; `sim/test/gorge-hand.test.ts` the tap, the offers and the asks;
 `content/test/scene-gorge.test.ts` the film; the director's hand
 (`packages/hands/src/boss-hands-field.ts`) clears all five levels on its own.
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The cluster turns, and the bubbles at its back come round to the front one by one; a bubble is due only while it faces the pair, so the counter calls them as they come round rather than as they stand.
+
 
 ## 11.24 THE CURTAIN — the boss that is in the way
 
@@ -4171,6 +4180,9 @@ third hit puts it out with the wave held two beats after and cleared once it
 is gone; and the same run fingerprints the same way twice and differently for
 another seed (`sim/test/curtain.test.ts`). The look has been seen in a frame
 and never at tempo.
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The sheet swings edge-on like a door on its hinge, and for as long as one seat holds the hinge the body behind it is open to a shot; let go and it swings shut — the first time the curtain is seen side-on.
+
 
 ## 11.25 THE TASTER — the boss that grows armour in the colour you spend
 
@@ -4497,6 +4509,9 @@ blade's colour sets, which asks for nothing, to the pry, which is the one
 ask here with a clock on it. The first beam is said since the same day: a
 `tasterPryFill` with `owed`, a sound, and a smaller burst of the payoff's.
 
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The crest turns and shows its back, where the blades grown in an earlier step are still set; the pair spends so the back's colours flip before they come round to the front.
+
+
 ## 11.26 THE SINEW — the boss that asks how hard, not when
 
 > The one where the answer is a magnitude, and neither of you can see the
@@ -4800,6 +4815,9 @@ and drawn wherever the whip has the handle this frame (`sinew-marks.ts`).
 The desk asks the handle whose it is before a press (`sinewGripSeat`,
 `desk-grab.ts`). The pull fill was already there: the cord and the ring
 are drawn at the pull (`handle-draw.ts`).
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The body twists, and each handle pulls along the twisted way, not straight down — THE BASTION's plate pulled along its own way — so how hard is asked at a slant that turns between steps.
+
 
 ## 11.27 THE LEDGER — the boss that bills your own hull for every shot
 
@@ -5122,6 +5140,9 @@ pull washes the return it moved, riding the bead because its ring has gone
 (`ledgerPull`). The haul has no verdict of its own: it lands in the tick the
 cord tears, and the tear is its answer (`ledger-fx.ts`).
 
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The two halves swing round and show the seam on the far side, up another column; the pilot turns the body by the cord to bring the seam back over the cannon before the bill comes due.
+
+
 ## 11.28 THE SURGE — the boss beaten by letting go
 
 > The one where holding is free and letting go is the entire skill, and
@@ -5391,6 +5412,9 @@ anywhere. A thumb landing washes its own mark green (`surgeGrip`). The lift is
 judged on both marks, because it takes both thumbs: green for a vent or the
 eversion, red for a charge lost or a burst. A desk press on a mark is signed
 with the mark's seat (`surgeMarkSeat`, `desk-grab.ts`).
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The bulb rolls and its vent comes round to one side and then the other; letting go only vents while the vent faces the seat letting go, so who lets go first is read off the turn.
+
 
 ## 11.29 THE LEAD — the boss you shoot where it will be
 
@@ -5686,6 +5710,9 @@ place to put one, and no refusal, since his press is dropped without a
 sound. The tear has no verdict: holding to the fuse is the most time a hand
 can buy, not a wrong touch, and the still passes in the same tick.
 
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). It flies an orbit in depth, toward the screen and away; a shot meets it only while it comes round in front of its own body, and passes behind it otherwise — leading it in time through a turn rather than across the field.
+
+
 ## 11.30 THE SCUTTLE — the boss racing you to its own death
 
 > The one that is killing itself, and if it finishes first, you lose.
@@ -5969,6 +5996,9 @@ the live part beside her own lock, and no refusal, since her press is
 dropped without a sound. A thumb landing is not judged, and neither is a
 shove off the end of the frame, which is not spent.
 
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The hulk rolls over, and parts coming loose on its underside face the hull; the pilot turns it by a rim so the loosening part points away before it is thrown.
+
+
 ## 11.31 THE ANTIPHON — the boss that grows a thing nobody has a word for
 
 > The one that grows an organ nobody has ever seen, so there is no word for
@@ -6168,6 +6198,9 @@ carry is the chooser's alone, never before the organ stands, one at a
 time, springing back when let go short; and all of it is in the hash.
 *Unverified*: the carry watched at tempo, and whether twenty-eight beats
 is a conversation or a wait — the owner's eye.
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The organ turns its back to one screen only; the one who sees the back describes it, and the other turns the organ until the front matches — a thing nobody has a word for, seen from two sides at once.
+
 
 ## 11.32 THE INSTAR — the boss with no panel, marked where it will hurt you
 
@@ -6454,7 +6487,7 @@ two silent lists — landed with the look the same day, 17 September 2026, and i
 written up above. The eleven events are still *on* the two silent lists, for the
 other reason: they are one family read above the loop by `render/instar-fx.ts`,
 the way THE HIVE's are, which is where a family belongs rather than as rows in a
-spark table at its limit.
+spark table at its limit. **And a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*): A step in which the pair turns its head by the jaw toward one seat (a drag), and the marks come up on the side it was turned to — the turn the body already does between its views, given to a thumb.
 
 **Never watched at tempo.** What the tests say is the mechanism: it comes
 in over the middle morphing into its first pose with the marks hidden, and
@@ -6813,7 +6846,7 @@ and no longer silent by omission, but the guide is still prose
 (`content/test/scenes-prose.test.ts`, `STILL_PROSE`). The figure this page
 once left open — a boss that could only be slowed and never lost — the owner
 closed on 25 September 2026: every fault strikes the hull, and so does the
-clock.
+clock. **And a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*): The line is drawn round a body that turns, so the next tile goes behind it and comes out the other side; the follower follows a tile neither of them can see for a beat.
 
 **The sounds are bound** (`audio/bind-filament.ts`): a cue per event, panned
 to the tile's column, a tile drawn or followed pitched higher the further
@@ -7097,6 +7130,9 @@ light off the drum on the frame the pair comes true (`GimbalFx.see`, not
 `gimbalTrue`, which waits for the beat); the rims go white-hot. It is drawn on
 every screen, because both true is the one thing both seats are told.
 
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The whole gimbal tips toward the screen, so a ring's mark is foreshortened on one seat's screen and face-on on the other's, and the same turn reads as a different amount to each.
+
+
 ## 11.36 THE SPOOL — the boss where the line runs out at the speed one of you reads
 
 > The one where doing less is the right amount. A wooden spool hangs across the
@@ -7296,6 +7332,9 @@ with no hand would be letting go, which is the snag's answer and not this
 one. *Every window closes once it is reached* rather than past: each state
 opens on the beat the ease ends, so THE SLOW spans exactly the window, where
 THE VALVE's open mid-beat and add one.
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The spool turns end-on and shows its flange, where a rib sits under the lip; the brake is held at its speed only while it stays end-on.
+
 ## 11.37 THE HASP — the boss where one hand holds what the other cannot see
 
 > The one that asks for faith. A door of three iron clasps hangs over the
@@ -7542,6 +7581,9 @@ once past its beats, with THE SLOW opened one beat longer*: the rust opens
 mid-beat, on the tick the spring caught, and THE VALVE's rule kept for all
 four means no state is a beat shorter than another.
 
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The door turns on its hinge and the latch goes round to the back, where only the holder's screen still shows it; the winder winds blind while the holder says it is still held.
+
+
 ## 11.38 THE RATCHET — the boss where every step you take stays taken
 
 > The one where nothing is taken back. A rack of seven teeth hangs over the
@@ -7677,7 +7719,7 @@ up. Not `PRESS`: a press is never refused, and a word that asked for one
 whenever the pad is lit would ask for a burnt tooth. `FIRE` over a loose bolt,
 to both seats.
 
-**What is not built.** The guide is prose.
+**What is not built.** The guide is prose. **And a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*): The wheel tips over and the pawl swings to its other side, and for that step the seats swap — the one who set the catch presses the pawl.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/ratchet.test.ts`): the rack comes in with seven teeth and lights
@@ -7802,6 +7844,9 @@ is the wave; and the fingerprint moves with a panel mark's count. The
 director's hand (`packages/hands/src/boss-hands-scene.ts`) plays the whole
 script and brings it down on beat 104. Whether any of it *reads* is the
 owner's eye.
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The jellyfish rolls; rings on its far side face away and can only be answered with the panel, the cannon or the shield, as they come round to the front.
+
 
 ## 11.40 THE MANTLE — the boss both hands have to pull at once, or neither counts
 
@@ -7996,6 +8041,9 @@ knob whose thumb lifted**, which is why `mantleSlip` now says whose
 (`sim/mantle-story.ts`); a landed tap greens the core, a vent shut the vent. A
 wrong-seat tap stays silent — the simulation refuses it without a word. Its
 test: `render/test/mantle-verdict.test.ts`.
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The mantle turns so its plate-pair stands on one side; both pulls run along the turned plates, no longer straight down, and together is asked at an angle.
+
 
 ## 11.41 THE KEEL — the boss whose next joint is whichever thumb is nearer
 
@@ -8239,6 +8287,9 @@ end joints and snapped back reddens both. A wrong-seat tap stays silent, as
 the hand says. The socket and the marrow are the cannon's, not a touch's. Its
 test: `render/test/keel-verdict.test.ts`.
 
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The spine turns, carrying joints across the middle of the screen, so whose half a joint is on changes while it is lit, and the seat it calls on is the one it has turned toward.
+
+
 ## 11.42 THE VALVE — the boss one hand turns and the other hand stops
 
 > A drum stands over the field with a wheel in its face and a pin beside it.
@@ -8437,6 +8488,9 @@ the freeze, the pull, the cap, the brace, the dry face and the clean seal
 green the pin, and each window let run out reddens it. The pilot's tap on the
 socket stays silent, as the hand says. Its test:
 `render/test/valve-verdict.test.ts`.
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The wheel tips back edge-on and its mark goes out of sight; the freeze is timed to the tip back, when the mark comes round again.
+
 
 ## 11.43 THE SEAM — the boss answered with the cannon and the shield, in order
 
@@ -8654,6 +8708,9 @@ greens its column on the hull, grit taken greens the shield's place, and a
 step run out reddens every mark it still owed. The wrong colour stays
 silent, as the shot says. Held in `BossBlows`, the boss having no fx class
 yet. Its test: `render/test/seam-verdict.test.ts`.
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The body turns and the lit point goes round to its side; the grit is thrown from the side it faces, so the shield moves with the turn.
+
 
 ## 11.44 THE OCULUS — the boss both hands hold shut, then shoot into
 
@@ -8888,6 +8945,9 @@ the hull. A step let run out reddens only what it asked. A leaf pressed by
 the wrong seat, and a shot of the wrong colour, stay silent, as the
 simulation is.
 
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The eye looks to one side, the far leaf foreshortened and dark; the pair turns it back to look ahead before both leaves can be held shut.
+
+
 ## 11.45 THE VISE — the boss two drags crack, then shoot into
 
 > A dry seed-case over the middle of the field, two lobes clamped on a
@@ -9113,6 +9173,9 @@ seed burst green their marks, and a step let run out reddens only what it
 asked. A lobe pinched by the wrong seat, and a shot of the wrong colour, stay
 silent, as the simulation is.
 
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The vise turns a quarter round, and the lobes close up and down instead of left and right — the two drags change their way.
+
+
 ## 11.48 THE PLUMB — the boss two pulls hold level, then shoot into
 
 > A bob hung skewed over the middle of the field, both weights swinging
@@ -9276,6 +9339,9 @@ knocking the bob off true, and a pull through the bleed, redden their own
 stone. A step let run out — a weight swung back, the core dimmed, a shot
 missed — reddens only what it asked. A stone pulled by the wrong seat, and a
 shot of the wrong colour, stay silent, as the simulation is.
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The frame tips toward the screen and the bob swings in depth; it hangs true only when both stones are level in the new tilt.
+
 
 ## 11.49 THE SLING — the boss two draws loose, then shoot into
 
@@ -9450,6 +9516,9 @@ cord. A step let run out — an arm sprung back, the yoke dimmed, a shot
 missed — reddens only what it asked and was not yet loosed. A cord drawn by
 the wrong seat, and a shot of the wrong colour, stay silent, as the
 simulation is.
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The sling turns, and the side to loose toward is the one that will be lit after the turn, not the one lit now.
+
 
 ## 11.54 THE CAPSTAN — the boss one hand rocks for the other to wear
 
@@ -9683,6 +9752,9 @@ on reddens both, and a shot run out the core. A reversal worn in and a drift
 say nothing, and a wrong seat's touch and a wrong colour stay silent, as the
 simulation is.
 
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The drum tips its axle toward the screen and its bands are seen face-on, as rings; the rubbing runs round a band instead of across it.
+
+
 ## 11.55 THE GALL — the boss that moves the moment it is closed
 
 **Reworked by the owner, 8 October 2026 — this block stands over
@@ -9903,6 +9975,9 @@ landed greens the point and a hit greens the root; a press let slip or a
 close run out reddens the point, and a shot run out the root. A press come
 shut says nothing, and a press on bare seam and a wrong colour stay silent,
 as the simulation is.
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The gall jumps round to the back of the body, out of sight; it is found by turning the body round by a rim, not by searching the field.
+
 ## 11.56 THE TRAPEZE — an alien swung up to a gong
 > An alien sits on a swing hung from long ropes over the middle. Swipe
 > toward the middle when the swing comes back on your side, and it goes
@@ -10005,6 +10080,9 @@ its zone, a gong rings, and the lock draws a red sight round the alien.
 (`trapeze-verdicts.ts`): the two zones and the alien, each greened or
 reddened by what its own touch did — a zone's a ring the size of a thumb in
 its middle, never a disc over half the field.
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The swing turns into depth, toward the screen and away; a push counts as it comes toward the screen, and the gong is behind it.
+
 
 ## 11.57 THE FLUE — an ember one seat sees and the other shoots
 
@@ -10217,6 +10295,9 @@ number and that no word round the flue lands on another;
 after a clear, and that the sight never moves however the flue hangs. Whether the call can be made early enough on two real phones at tempo, and
 whether the beam's prime is learnable, is the owner's eye.
 
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The vent turns and the ember runs round behind its curve; the one who sees it calls it as it comes round, the other fires as it crosses the front.
+
+
 ## 11.58 THE GOVERNOR — a needle each of you taps on your own mark
 
 > A needle runs round a dial mid-hull on its own, quick. Each of you has a
@@ -10399,6 +10480,9 @@ with the needle down. AUTO's
 hand (`hands/src/boss-hands-governor.ts`) taps each seat's open mark as the
 needle crosses it and fires the step's colour as the needle points down; it
 plays the script through (`tools/director/test/autopilot-governor.test.ts`).
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The dial tips edge-on and the needle's tip goes behind it; a seat's mark can only be tapped while its side of the dial faces the screen.
+
 
 ## 11.59 THE LAMPREY — a mouth on the hull, one thumb pinning it and one knocking its teeth out
 
@@ -10637,6 +10721,9 @@ nine teeth fly from the tile it bit down to the hull, closing to a ring,
 and leave punctures bleeding the hull's red. Its twelve sounds are bound
 (`audio/src/bind-lamprey.ts`), panned after the tile's column.
 
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). It rolls on the hull, head and tail changing sides, and the seat pinning the tail changes with the roll.
+
+
 ## 11.60 THE MIMIC — a skin only one of you can read, and only the other can answer
 
 > A picture of squares comes up, and only one of you can see it. Say which
@@ -10838,6 +10925,9 @@ are proven on a stub canvas (`render/test/mimic-frame.test.ts`). Whether a
 pair can say a picture square by square across a room inside its window —
 §42's payoff — is the owner's eye, and it has never been watched at tempo.
 
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The skin wraps a body that turns; the picture is said face-on, and painted onto the side that has turned toward the painter.
+
+
 ## 11.61 THE LATCH — a rope you haul down in turns, never both letting go
 
 > A slime has hooked the ship with a rope, and each of you has one grip on
@@ -10975,7 +11065,7 @@ reach and the knot comes in; then both hold through the rear. Not shown: a
 slip, and the crossed grips of the last level — the fight says each when it
 comes. `content/test/scene-latch.test.ts` runs it.
 
-**What is not built.** Nothing.
+**What is not built.** Nothing. **And a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*): The drum turns the rope round, and a knot on its back is out of reach until it is hauled round to the front.
 
 **What is proven, and what is not.** `sim/test/latch.test.ts` proves the
 rules: the install and the first level; whose grip is whose and the wrong
@@ -11162,6 +11252,9 @@ a shell run out grown back with no hull hit; the core blown and gone; the
 same thumbs hashing the same. Whether a pair can call the ring's turn and
 the port aloud at tempo, and whether each shell reads as its own metal on a
 phone — the owner's eye — has never been watched.
+
+**What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The moon tips its pole toward the screen, not only turning on its axis; the pole's cap is a fifth shell, taken off with both rims turned together.
+
 
 ## Retired
 

@@ -160,7 +160,8 @@ What makes it read, all four or it is a squash:
   alone; LOOK — holds left, middle, right with a tilt toward the look. A
   six-second round each, every round starting and ending level at the
   middle, so they chain without a jump and the VERSUS pair (which replays its
-  pose every six seconds) shows a whole round.
+  pose every six seconds) shows a whole round. Shipped, COCK takes two rounds
+  in four — COCK, SWAY, COCK, LOOK — at his word on 10 October 2026.
 
 So when he names a boss and asks for its graphics to be better: find the
 part a face or a machine would turn — the head, the claws, a turret, the

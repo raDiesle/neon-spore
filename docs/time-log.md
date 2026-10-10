@@ -37150,3 +37150,15 @@ Bottleneck: reading — ninety-six rows across forty bosses' hand files, done by
 Bottleneck: friction — an edit script that opened the file for writing before its check passed.
 
 *Measured: 3 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-10 — A queue entry per boss for a part that turns, and a step seen from another side on every choreographed boss
+
+- reading: 5 min. Each shipping boss's one-sentence rule, THE BASTION's
+  section, how the NOT BUILT YET sheet reads a boss's remainder.
+- writing: 10 min. 49 queue entries, 36 suggestions, the depth skill's
+  COCK share.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — thirty-six suggestions, each read off a boss's rule rather than its body.
