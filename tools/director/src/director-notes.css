@@ -31,9 +31,6 @@
   color: var(--dim);
   font-size: 0.875rem;
 }
-#notes > header button {
-  margin-left: auto;
-}
 #notesBody {
   flex: 1 1 auto;
   min-height: 0;
@@ -111,9 +108,6 @@
 #orphans .sub {
   color: var(--dim);
   font-size: 0.875rem;
-}
-#orphans > header button {
-  margin-left: auto;
 }
 #orphansOpen.danger {
   color: var(--red);

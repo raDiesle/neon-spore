@@ -21,7 +21,7 @@
    the three views and the six pages the header always had, wrapped
    into a cramped multi-row bar before this existed. Reachable from
    any of the three views because the header sits outside every
-   section; a page opened from the menu carries its own ✕ CLOSE back
+   section; a page opened from the menu carries its own ← BACK
    to whichever view was showing underneath. */
 @media (max-width: 700px) {
   body {

@@ -37266,3 +37266,17 @@ is in front, and the first one was not.
 Bottleneck: writing — a drag target taken out is a name in fourteen files, each found by the typecheck or a red test.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — The director's pages open under the topbar, with BACK first
+
+- reading: 10 min. The six sheets' own open/close wiring (`mountSheet` for
+  four, hand-rolled for RELEASE NOTES and ORPHANS) and the phone menu.
+- writing: 10 min. `sheet-doors.ts`, its stylesheet, BACK moved to the front
+  of six headers, the test.
+- looking: 5 min. The browser pane at desktop and phone width; every switch,
+  toggle and Escape driven once.
+- friction: 0 min.
+- landing: 5 min. Import order once, the INDEX row, `check:fast`, `land`.
+
+Bottleneck: reading — six pages close six ways, which is why this presses
+each page's own BACK rather than closing anything itself.

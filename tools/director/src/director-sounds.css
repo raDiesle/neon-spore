@@ -34,9 +34,6 @@
   color: var(--dim);
   font-size: 0.875rem;
 }
-#soundboard > header button {
-  margin-left: auto;
-}
 #soundTabs {
   display: flex;
   flex-wrap: wrap;

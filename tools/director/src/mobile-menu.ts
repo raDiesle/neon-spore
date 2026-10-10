@@ -21,7 +21,7 @@ import {
  *
  * `#menuToggle` is the way back in, reachable from any of the three views
  * because the header sits outside every one of them. A page opened from the
- * menu carries its own ✕ CLOSE, which returns to whichever view was showing
+ * menu carries its own ← BACK, which returns to whichever view was showing
  * underneath — the menu itself is not in that loop, by design: closing a
  * page is "go back one", not "go all the way out".
  *

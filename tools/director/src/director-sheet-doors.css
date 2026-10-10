@@ -1,0 +1,38 @@
+/**
+ * The way back out of a full-screen page — RELEASE NOTES, ORPHANS, NOT BUILT
+ * YET, DOCUMENTATION, TUNING, SOUND. `sheet-doors.ts` has the reasoning: the
+ * owner found the old ✕ CLOSE too small and too far right (10 October 2026).
+ */
+
+/* On a wide screen the pages open *under* the topbar instead of over it: the
+   row of doors stays where it was, the open page's door lit, and pressing it
+   again goes back. 38px is the topbar's row in `body`'s grid
+   (`director-shell.css`). A phone keeps the whole screen — its topbar is a
+   menu with its own way over a page (`director-phone.css`). */
+@media (min-width: 701px) {
+  #notes,
+  #orphans,
+  #backlog,
+  #states,
+  #tuning,
+  #soundboard {
+    top: 38px;
+  }
+}
+
+/* First in the page's header, where reading starts and the mouse already is,
+   and big enough to hit without aiming. */
+.sheet-back {
+  flex: 0 0 auto;
+  align-self: center;
+  font-size: 13px;
+  padding: 7px 16px;
+  color: var(--gold);
+  border-color: var(--gold);
+  letter-spacing: 2px;
+}
+.sheet-back:hover:not(:disabled) {
+  color: var(--bg);
+  background: var(--gold);
+  border-color: var(--gold);
+}

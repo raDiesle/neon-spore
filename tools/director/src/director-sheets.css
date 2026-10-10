@@ -50,15 +50,6 @@
   font-size: 0.875rem;
   max-width: 720px;
 }
-/* Every sheet's CLOSE sits at the end of its row, whatever is in front of it,
-   and the growing `.sub` is what pushes it there. #states used to hand this
-   push to a MAIN MENU link standing before its CLOSE; the owner moved that
-   link to the topbar on 15 September 2026, so both sheets are the plain case
-   again. */
-#states > header button,
-#tuning > header button {
-  margin-left: auto;
-}
 #statesTabs {
   display: flex;
   flex-wrap: wrap;
@@ -164,9 +155,6 @@
 #backlog .sub {
   color: var(--dim);
   font-size: 0.875rem;
-}
-#backlog > header button {
-  margin-left: auto;
 }
 #backlogTabs {
   display: flex;

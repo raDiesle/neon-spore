@@ -3641,6 +3641,7 @@ by hand never moves.
 | `tools/director/src/ship-notes-choreo-c.ts` | The paragraph under each **choreographed boss's** card, the third page |
 | `tools/director/src/ship-notes-choreo-d.ts` | The paragraph under each **choreographed boss's** card, the fourth page |
 | `tools/director/src/ship-boss-group.ts` | **The boss group each `BossEntry` kind shows.** It arrived in `ship-groups.ts` with THE CLAW |
+| `tools/director/src/sheet-doors.ts` | The topbar's page doors as tabs: the open page's door lit, pressed again to go back, another door switches straight there |
 | `tools/style-guide/src/colour.ts` | the swatch grid and the hue dial — every colour under its rule, and the twelve body hues at their measured angles |
 | `tools/style-guide/src/families.ts` | Every swatch in `PALETTE`, filed under the rule it belongs to |
 | `tools/style-guide/src/form.ts` | the drawn panels: the stroke build-up, the size ladder down to 11 px, and the five living silhouettes |

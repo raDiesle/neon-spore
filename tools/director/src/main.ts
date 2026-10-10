@@ -21,6 +21,7 @@ import { bindRail } from "./rail.js";
 import { rememberedWave } from "./rail-arrive.js";
 import { makeSelection } from "./selection.js";
 import { bindPlace, type PlaceSession } from "./session.js";
+import { bindSheetDoors } from "./sheet-doors.js";
 import { renderShip, renderShipSheet } from "./ship.js";
 import { bindShipped } from "./shipped.js";
 import { bindSoundPage } from "./sound-page.js";
@@ -196,6 +197,9 @@ bindBacklog();
 bindNotes();
 bindStates();
 bindSoundPage();
+// After every page is bound: the doors light off the pages, whichever opened
+// them — see `sheet-doors.ts`.
+bindSheetDoors();
 bindExpanders();
 bindContents();
 
