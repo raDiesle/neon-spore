@@ -9,7 +9,8 @@ import { poseForSlot } from "./versus-pose.js";
  *
  * "THE ALTERNATIVES PAGE SHOWS EVERYTHING AT ONCE" was this file's brief, and
  * it still is — every candidate of every slot is on this page, flat, with
- * nothing to pick before you can see what is offered. What changed is that
+ * nothing to pick before you can see what is offered, but a slot with a page
+ * of its own (`JUDGED_ELSEWHERE`), which is named here and listed there. What changed is that
  * *showing* a candidate no longer means *animating* it here. Nine candidates
  * were eighteen live renderers stepping eighteen worlds at 60 Hz on one page,
  * and the owner met that as the page being unusable rather than as the page
@@ -23,6 +24,23 @@ import { poseForSlot } from "./versus-pose.js";
  * to "what am I even comparing" — the question a row that draws a slick while
  * claiming to be about the strand's bead cannot answer.
  */
+
+/**
+ * Slots judged somewhere else, and where — left off this list, though their
+ * candidates are still open and still reached by `versus-one.ts`. The owner,
+ * 10 October 2026, of `pull:handle`: *"remove the PULL:HANDLE from versus
+ * page, i do not need it. it is enough to see the other page on controls"* —
+ * the PULL LAB plays every pull look on every shape, which one LAMPREY pose
+ * here cannot.
+ */
+export const JUDGED_ELSEWHERE: Readonly<Record<string, string>> = {
+  "pull:handle": "the PULL LAB, under CONTROLS › ON THE FIELD",
+};
+
+/** The open slots this list shows: every one not judged somewhere else. */
+export function listedSlots(variants: readonly Variant[] = VARIANTS): Slot[] {
+  return slots(variants).filter((s) => !Object.hasOwn(JUDGED_ELSEWHERE, s.slot));
+}
 
 export function versusListSection(): HTMLElement {
   const section = el("section");
@@ -52,7 +70,12 @@ export function versusListSection(): HTMLElement {
     ),
   );
 
-  const open = slots(VARIANTS);
+  const open = listedSlots();
+  const elsewhere = slots(VARIANTS).filter((s) => Object.hasOwn(JUDGED_ELSEWHERE, s.slot));
+  for (const s of elsewhere)
+    section.appendChild(
+      el("p", "note", `${s.slot.toUpperCase()} is judged in ${JUDGED_ELSEWHERE[s.slot]}.`),
+    );
   if (open.length === 0) {
     section.appendChild(
       el(
