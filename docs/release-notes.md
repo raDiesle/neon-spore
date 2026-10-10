@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 0be51a247 — THE PULL LAB can fail a thumb off the path
+
+The PULL LAB has an OFF PATH switch beside SHORT: free, as every pull in the game has it today, or a failure past one tile or half a tile off any of the six paths, with the band the thumb must stay in drawn under the pull, and AUTO's short pull turned into one that strays. It is the owner's experiment of 10 October 2026 — every pull with a path and a tolerance off it, which would make TRACE ALONG A LINE a pull whose path bends — felt by hand before the simulation is asked for it. Director only; the game draws nothing new.
+
+## 2026-10-10 · 779906f78 — THE FLEET's rake is filed as a hold, and a pull along a path is an idea
+
+CONTROLS › ON THE FIELD had THE FLEET's rake under TRACE ALONG A LINE. It is BOTH SEATS HOLDING AT ONCE, with a thumb that slides: a square is marked only while the navigator holds the plume, and the wreck sinks only while the pilot's thumb is still on the hull. TRACE is THE FILAMENT's alone now, and the owner's question of whether it is a pull with a drawn path and a tolerance off it, for every pull, is written up in `docs/spec/ideas.md`. Director only; the game draws nothing new.
+
 ## 2026-10-10 · bcd847f4f — DOUBLE TAP and A DRAWN GLYPH are ruled out, and CALL AND RESPONSE leaves the gestures
 
 The owner ruled on 10 October 2026: DOUBLE TAP is not worth a category of its own, since TAP COUNT already asks for more than one tap, and A DRAWN GLYPH is too fragile and no control — a shape is recognised by tapping tiles, as THE MIMIC's picture is painted. Both now stand under SHOULD STAY MISSED on CONTROLS › ON THE FIELD with the ruling. CALL AND RESPONSE is a way of using TAP RHYTHM with the beat, not a control; it is off the catalogue and kept in §4.3 of `docs/spec/transfers-touch.md` for a boss that may use it later. With nothing left worth considering, that group is gone from the page.
