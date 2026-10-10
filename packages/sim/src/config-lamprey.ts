@@ -48,6 +48,16 @@ export interface LampreyConfig {
   lampreyTowAngerMilli: number;
   /** Where along the curve the lunge throws the head back to, and the knob waits. */
   lampreyTowBackMilli: number;
+  /** How far out of the panel a `plug` has its button as it bites, thousandths of the button's travel. */
+  lampreyPlugStartMilli: number;
+  /** How far a `plug` pulls its button out each beat. */
+  lampreyPlugCreepMilli: number;
+  /** How far one press of the bitten button pushes it back in. */
+  lampreyPlugPushMilli: number;
+  /** How far out the button may be and still count as in: the tail pulled full then frees the eel. */
+  lampreyPlugFlushMilli: number;
+  /** How far the button jerks out when the tail is pulled full while it is not in. */
+  lampreyPlugYankMilli: number;
 }
 
 export const LAMPREY_DEFAULTS: LampreyConfig = {
@@ -72,4 +82,9 @@ export const LAMPREY_DEFAULTS: LampreyConfig = {
   lampreyTowMilli: 4500,
   lampreyTowAngerMilli: 3000,
   lampreyTowBackMilli: 1500,
+  lampreyPlugStartMilli: 400,
+  lampreyPlugCreepMilli: 150,
+  lampreyPlugPushMilli: 300,
+  lampreyPlugFlushMilli: 200,
+  lampreyPlugYankMilli: 350,
 };

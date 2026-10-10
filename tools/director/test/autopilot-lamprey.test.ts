@@ -12,8 +12,9 @@ import { CHARGES } from "./charges.js";
  * tail held every stay, the head pulled off in a pull, both ends pulled at
  * once in an apart, the lit tooth tapped its taps in a teeth, the gullet shot
  * in its colour and both pieces of dung turned on the shield, while the eel
- * eats its meal and the food of both crawls. No tooth snaps, no head slips,
- * no stay runs out and the hull is never struck.
+ * eats its meal and the food of all three crawls; in a plug the bitten button
+ * pressed back in before the tail is pulled. No tooth snaps, no head slips,
+ * no button is yanked, no stay runs out and the hull is never struck.
  *
  * The P1 case is the holder's thumb alone: the pilot on the tail in the
  * first stay, nobody on the head.
@@ -30,7 +31,7 @@ function rig(world: World, mode: "both" | "p1") {
   return auto;
 }
 
-const WRONG = ["lampreySnap", "lampreySlip", "lampreyFull"];
+const WRONG = ["lampreySnap", "lampreySlip", "lampreyYank", "lampreyFull"];
 
 describe.each(CHARGES)("AUTO on THE LAMPREY, %s", (_charge, cfg) => {
   test("BOTH answers every stay, pulls the teeth and shoots the gullet out", () => {
@@ -58,10 +59,11 @@ describe.each(CHARGES)("AUTO on THE LAMPREY, %s", (_charge, cfg) => {
     }
     // The seats take the teeth in turn: the pilot first, then the navigator.
     expect(cracks).toEqual([0, 1, 0, 1]);
-    expect(loose).toBe(9);
-    expect(hits).toEqual([1, 2, 3]);
-    // The meal of four and the food of both crawls; the dung turned, not eaten.
-    expect([eaten, dung]).toEqual([6, 2]);
+    // Nine stays with hands, and the two plugs.
+    expect(loose).toBe(11);
+    expect(hits).toEqual([1, 2, 3, 4]);
+    // The meal of four and the food of all three crawls; the dung turned, not eaten.
+    expect([eaten, dung]).toEqual([7, 2]);
     expect(wrong).toEqual([]);
     expect(world.scars).toEqual([]);
     expect(out).toBe(true);

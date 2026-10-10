@@ -24,7 +24,12 @@ import type { Wave } from "../wave-types.js";
  * level a tile longer than the last and each level ended on a gullet. Before
  * the second and third it crawls the field side to side like a worm, eats
  * what falls for it and drops dung the shield has to turn. A lit tooth takes
- * three taps, and four in the last level. Each stay's window is THE SLOW.
+ * three taps, and four in the third level. Each stay's window is THE SLOW.
+ * **In the fourth level it bites into the ship** (the owner, 10 October
+ * 2026, `sim/lamprey-plug.ts`): twice down the middle into the hull, its
+ * teeth pulling a button out of a panel — the pilot's SUCK, then the
+ * navigator's RED — which that seat presses back in before the other pulls
+ * the tail.
  *
  * **THE MIMIC is the boss answered by painting** (§42, `sim/mimic.ts`): a
  * picture of tiles shows on one seat's screen only, and the other seat taps
@@ -68,8 +73,8 @@ export const WAVES_ACT_14: Wave[] = [
     name: "THE LAMPREY",
     guide: {
       both: "It goes for the ship: pull it back. One of you holds the tail. The other pulls the head or taps the lit tooth. Shield its dung. Shoot the gullet.",
-      p1: "1. It goes for the ship: pull the tail out and keep it there.\n2. Second bite: tap the lit tooth until it breaks.\n3. When it drops dung, raise the shield.",
-      p2: "1. It goes for the ship: pull the head back. When it gets angry, pull again.\n2. Second bite: hold the tail.\n3. When it drops dung, carry the shield under it.",
+      p1: "1. It goes for the ship: pull the tail out and keep it there.\n2. Second bite: tap the lit tooth until it breaks.\n3. When it drops dung, raise the shield.\n4. In the ship: press SUCK in. Then pull the tail when told.",
+      p2: "1. It goes for the ship: pull the head back. When it gets angry, pull again.\n2. Second bite: hold the tail.\n3. When it drops dung, carry the shield under it.\n4. In the ship: pull the tail once SUCK is in. Then press RED.",
     },
     entries: [],
     boss: {
@@ -113,6 +118,27 @@ export const WAVES_ACT_14: Wave[] = [
         { ask: "apart", holder: 2, teeth: 0, jump: 4, beats: 14, color: "either" },
         { ask: "teeth", holder: 1, teeth: 1, jump: 5, beats: 18, color: "either", taps: 4 },
         { ask: "gullet", holder: 1, teeth: 0, jump: 6, beats: 12, color: "either" },
+        {
+          ask: "plug",
+          holder: 2,
+          teeth: 0,
+          jump: 1,
+          beats: 14,
+          color: "either",
+          crawl: true,
+          food: "meteor",
+          button: "intake",
+        },
+        {
+          ask: "plug",
+          holder: 1,
+          teeth: 0,
+          jump: 1,
+          beats: 14,
+          color: "either",
+          button: "fireRed",
+        },
+        { ask: "gullet", holder: 1, teeth: 0, jump: 3, beats: 12, color: "cyan" },
       ],
     },
     bossType: "normal",

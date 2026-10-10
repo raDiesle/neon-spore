@@ -37,11 +37,19 @@ export type LampreyPhase = (typeof LAMPREY_PHASES)[number];
 
 /**
  * What a stay asks: the teeth tapped, the head pulled, the two pulled apart,
- * the gullet shot, or the eel towed back off the hull along a curve
- * (`lamprey-tow.ts`).
+ * the gullet shot, the eel towed back off the hull along a curve
+ * (`lamprey-tow.ts`), or a button its teeth pull out of the ship pushed back
+ * in while the tail is pulled (`lamprey-plug.ts`).
  */
-export const LAMPREY_ASKS = ["teeth", "pull", "apart", "gullet", "tow"] as const;
+export const LAMPREY_ASKS = ["teeth", "pull", "apart", "gullet", "tow", "plug"] as const;
 export type LampreyAsk = (typeof LAMPREY_ASKS)[number];
+
+/**
+ * The panel buttons a `plug` bites, named as the panel names them
+ * (`content/controls.ts`): SUCK, SHIELD, RED and CYAN.
+ */
+export const LAMPREY_BUTTONS = ["intake", "guard", "fireRed", "fireCyan"] as const;
+export type LampreyButton = (typeof LAMPREY_BUTTONS)[number];
 
 /** What the eel eats: three bodies the field already has. */
 export const LAMPREY_FOODS = ["meteor", "slick", "bulb"] as const;
@@ -80,6 +88,8 @@ export interface LampreyStep {
   food?: LampreyFood;
   /** Whether it lets go of dung on that crawl, a rock for the shield. */
   dung?: boolean;
+  /** The button a `plug` bites, on the worker's panel. Only a `plug` reads it. */
+  button?: LampreyButton;
 }
 
 /** What a wave authors: the meal it arrives to, and the whole script, in order. */
@@ -167,4 +177,8 @@ export interface LampreyState {
   towSide: number;
   /** Whether the eel has lunged back at the hull in this tow; it does once. */
   angered: boolean;
+  /** How far a `plug` has its button out of the panel, thousandths: 1000 is torn out. */
+  plugMilli: number;
+  /** Every button a `plug` has bitten, in order, as indices into `LAMPREY_BUTTONS`: what the panel keeps loose. */
+  plugs: number[];
 }

@@ -6,6 +6,8 @@ import {
   lampreyAsks,
   lampreyBoss,
   lampreyHolder,
+  lampreyPlugButton,
+  lampreyPlugIn,
   lampreyTailHeld,
   lampreyTailPulls,
   lampreyTailWay,
@@ -29,6 +31,11 @@ import {
  * thirds throws back to a third, the thumb off with it. The hand lifts, and
  * takes the knob again where it waits.
  *
+ * **A `plug` is the button first** (`sim/lamprey-plug.ts`): the worker
+ * presses the bitten button until it is all the way in, and only then does
+ * the holder pull the tail — so the hand never yanks it. RED and CYAN are
+ * pressed as a shot, so a press never starts a lance.
+ *
  * **Each thumb is sent once**, and again only when the simulation has
  * forgotten it — every landing starts the thumbs again
  * (`sim/lamprey-step.ts`), so the hand is read off the state and keeps
@@ -51,7 +58,14 @@ type Press = Omit<TimedCommand, "tick">;
 export const lampreyHand = (w: World): Press[] => {
   const s = lampreyBoss(w);
   if (s === null) return [];
-  return [...holdTail(w, s), ...freeHead(w, s), ...tap(s), ...shoot(w, s), ...shield(w, s)];
+  return [
+    ...holdTail(w, s),
+    ...freeHead(w, s),
+    ...tap(s),
+    ...plug(s),
+    ...shoot(w, s),
+    ...shield(w, s),
+  ];
 };
 
 function shield(w: World, s: LampreyState): Press[] {
@@ -67,6 +81,13 @@ function shield(w: World, s: LampreyState): Press[] {
 function holdTail(w: World, s: LampreyState): Press[] {
   const holder = lampreyHolder(s);
   if (holder === null) return [];
+  if (lampreyAsks(s) === "plug") {
+    if (s.slipped[holder - 1]) {
+      const command = { kind: "drag", target: "lampreyTail", on: false, fromMilli: 0 } as const;
+      return [{ player: holder, command }];
+    }
+    if (!lampreyPlugIn(w.cfg, s)) return [];
+  }
   const full = w.cfg.lampreyTailPullMilli;
   const pulls = lampreyTailPulls(s);
   if (pulls ? (s.tailMilli[holder - 1] ?? 0) >= full : s.tailDown[holder - 1]) return [];
@@ -123,6 +144,17 @@ function tap(s: LampreyState): Press[] {
   const worker = lampreyWorker(s);
   if (worker === null || lampreyAsks(s) !== "teeth" || !lampreyTailHeld(s)) return [];
   return [press(worker, true, s.litTooth)];
+}
+
+/** The bitten button pressed by the worker until it is all the way back in. */
+function plug(s: LampreyState): Press[] {
+  const button = lampreyPlugButton(s);
+  const worker = lampreyWorker(s);
+  if (button === null || worker === null || s.plugMilli <= 0) return [];
+  if (button === "intake") return [{ player: worker, command: { kind: "intake" } }];
+  if (button === "guard") return [{ player: worker, command: { kind: "guard" } }];
+  const color = button === "fireRed" ? "red" : "cyan";
+  return [{ player: worker, command: { kind: "fire", color } }];
 }
 
 function shoot(w: World, s: LampreyState): Press[] {

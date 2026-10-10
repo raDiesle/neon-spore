@@ -115,12 +115,14 @@ export { governorFlightTicks, governorTicksToTip } from "./governor-shot.js";
 export {
   freshLamprey,
   LAMPREY_ASKS,
+  LAMPREY_BUTTONS,
   LAMPREY_FOODS,
   LAMPREY_JUMP,
   LAMPREY_PHASES,
   LAMPREY_TEETH,
   LAMPREY_TRAIL,
   type LampreyAsk,
+  type LampreyButton,
   type LampreyEntry,
   type LampreyFood,
   type LampreyMorsel,
@@ -147,6 +149,11 @@ export {
   lampreyWorker,
 } from "./lamprey.js";
 export { lampreyTailWay } from "./lamprey-leap.js";
+export {
+  lampreyButtonPressed,
+  lampreyPlugButton,
+  lampreyPlugIn,
+} from "./lamprey-plug.js";
 export { lampreyTowAt, lampreyTowPoints } from "./lamprey-tow.js";
 export {
   freshMimic,

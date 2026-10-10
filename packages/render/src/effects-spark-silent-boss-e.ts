@@ -10,7 +10,7 @@ import type { SimEvent } from "@neon-spore/sim";
  * neither.
  */
 export const SILENT_BOSS_E = [
-  // THE LAMPREY's eighteen, no burst from this table: each is thrown above
+  // THE LAMPREY's twenty, no burst from this table: each is thrown above
   // the loop by its own fx file (`lamprey-fx.ts`).
   "lampreyEnter",
   "lampreyBite",
@@ -19,6 +19,8 @@ export const SILENT_BOSS_E = [
   "lampreyGrip",
   "lampreySlip",
   "lampreyAnger",
+  "lampreyPush",
+  "lampreyYank",
   "lampreyFull",
   "lampreyLoose",
   "lampreyRear",

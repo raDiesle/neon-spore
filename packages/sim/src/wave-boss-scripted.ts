@@ -4,7 +4,7 @@ import { installCapstan } from "./capstan-step.js";
 import { installFlue } from "./flue-step.js";
 import { installGall } from "./gall-step.js";
 import { installGovernor } from "./governor-step.js";
-import { installLamprey } from "./lamprey-step.js";
+import { installLamprey } from "./lamprey-meal.js";
 import { installLatch } from "./latch-step.js";
 import { installMimic } from "./mimic-step.js";
 import { installOculus } from "./oculus-step.js";

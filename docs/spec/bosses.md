@@ -10490,7 +10490,9 @@ plays the script through (`tools/director/test/autopilot-governor.test.ts`).
 > tail; the other pulls its head off, or taps its lit tooth out, or you both
 > pull it apart at once. Each leap is longer than the last. Then shoot the
 > gullet in its colour. Before the first bite and between levels it crawls
-> the field like a worm, eats what falls and drops dung for the shield.
+> the field like a worm, eats what falls and drops dung for the shield. Last
+> it bites into the ship and pulls a button out of one of your panels: press
+> it back in, and only then may the other pull the tail.
 
 **Rebuilt on the owner's word, 5 October 2026.** The first build bit the
 hull and crawled along it; the owner: *the boss head is not visible and
@@ -10601,8 +10603,8 @@ for food.
   `lampreyHighRow`, back along `lampreyLowRow`, and onto the step's tile. A
   step's `food` falls `lampreyFoodCols` ahead of it as it sets off and it
   goes for it; anything edible its head passes is eaten too. The shipped
-  wave is three levels of three, four and five stays, each ended on a
-  gullet, the second and third crawled to.
+  wave is four levels — three, four and five stays, then two plugs — each
+  ended on a gullet, the second, third and fourth crawled to.
 - **Its dung is a rock for the shield.** A step with `dung` lets one go from
   its tail's end as the head reaches the far side (`lampreyDung`), in the
   column `LAMPREY_TAIL_END` tiles back along the trail and never in an edge
@@ -10652,6 +10654,31 @@ for food.
   take the knob where it now waits. With the head at the curve's end and
   the tail all the way out, whichever comes last, it comes off the hull and
   leaps on from the curve's end. The shipped wave opens on one, 16 beats.
+- **The plug** (the owner, 10 October 2026, `sim/lamprey-plug.ts`): *in
+  another level, the worm bites inside the ship, e.g. tries to pull out the
+  "suck" button by biting it … it gets almost outside like an electrical
+  button.* A `plug` is never leapt to: like a tow the eel comes down the
+  middle column, but all the way, its head into the hull (`hullRow`), the
+  tail straight up the field. Its teeth close on the step's `button` on the
+  **worker's** panel — `intake` (SUCK), `guard` (SHIELD), `fireRed` or
+  `fireCyan` — and pull it out of its socket, from
+  `lampreyPlugStartMilli` by `lampreyPlugCreepMilli` a beat (`plugMilli`);
+  all the way out is the bite through, the hull. **The worker presses it
+  back in**: each press of that button is `lampreyPlugPushMilli` toward the
+  socket (`lampreyPush`) and still does what the button does. **The holder
+  pulls the tail**, an `apart`'s pull up the field: all the way with the
+  button in (`lampreyPlugFlushMilli` or less) and the eel comes out of the
+  hull to `lampreyTowRow` and leaps on, leaving no tooth; all the way with
+  it out and the teeth yank it `lampreyPlugYankMilli` further
+  (`lampreyYank`) and the thumb is thrown off, to lift and take again. So the
+  seat with the button says when it is in, and the other pulls then. Every
+  button bitten is kept (`plugs`) for the panel to leave loose. The shipped
+  wave's fourth level is two: the pilot's SUCK, then the navigator's RED, a
+  gullet after. `sim/test/lamprey-plug.test.ts` proves it;
+  `content/test/lamprey-plug.test.ts` that each button is on its worker's
+  panel. **Its look is the next lane**: the head inside the ship, the button
+  half out of the panel, the hull bleeding where it bit, and every bitten
+  button left almost out.
 - **The gullet** is the ordinary shot (`sim/lamprey-shot.ts`): only while it
   is lit, only in the column of the eel's tile, and only in its colour unless
   `either`; the other colour is missed on the balance sheet and it stays lit.

@@ -638,7 +638,8 @@ by hand never moves.
 | `packages/sim/src/lamprey-roam.ts` | **THE LAMPREY as a worm on the field** (the owner, 6 October 2026) |
 | `packages/sim/src/lamprey-types.ts` | THE LAMPREY's shapes: the script a wave authors and the state the simulation keeps (`lamprey.ts` for what… |
 | `packages/sim/src/lamprey-tow.ts` | **THE LAMPREY's tow**: down the middle at the hull, the head pulled back along a curve whose knob stays where it is let go, and the lunge at two thirds |
-| `packages/sim/src/lamprey-meal.ts` | **THE LAMPREY's meal**, as it arrives: it crawls in from the side and eats what falls for it |
+| `packages/sim/src/lamprey-meal.ts` | **THE LAMPREY's meal**, as it arrives: it crawls in from the side and eats what falls for it; and the install |
+| `packages/sim/src/lamprey-plug.ts` | **THE LAMPREY's plug**: down the middle into the hull, its teeth pulling a panel button out; the worker presses it back in and the holder pulls the tail only once it is in |
 | `packages/sim/src/lamprey.ts` | THE LAMPREY: an eel that leaps from tile to tile across the field and bites into each one |
 | `packages/sim/src/latch-hand.ts` | THE LATCH's hands: two grips on the one tendril, `latchGripLeft` and `latchGripRight`, each pulled **down** |
 | `packages/sim/src/latch-hash.ts` | What THE LATCH puts into `hashWorld`, and nothing else |

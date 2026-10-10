@@ -1,4 +1,10 @@
-import { LAMPREY_ASKS, LAMPREY_FOODS, LAMPREY_PHASES, type LampreyState } from "./lamprey.js";
+import {
+  LAMPREY_ASKS,
+  LAMPREY_BUTTONS,
+  LAMPREY_FOODS,
+  LAMPREY_PHASES,
+  type LampreyState,
+} from "./lamprey.js";
 
 /**
  * What THE LAMPREY puts into `hashWorld`, and nothing else.
@@ -56,6 +62,9 @@ export function lampreyHashParts(s: LampreyState): number[] {
     s.towFrom,
     s.towSide,
     s.angered ? 1 : 0,
+    s.plugMilli,
+    s.plugs.length,
+    ...s.plugs,
     s.meal.length,
   ];
   for (const m of s.meal) {
@@ -73,6 +82,7 @@ export function lampreyHashParts(s: LampreyState): number[] {
     out.push(step.crawl === true ? 1 : 0);
     out.push(step.food === undefined ? 0 : LAMPREY_FOODS.indexOf(step.food) + 1);
     out.push(step.dung === true ? 1 : 0);
+    out.push(step.button === undefined ? 0 : LAMPREY_BUTTONS.indexOf(step.button) + 1);
   }
   return out;
 }

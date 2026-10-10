@@ -41,6 +41,9 @@ import type { World } from "./world.js";
  *   pulls the head back along a curve, `lampreyTowMilli`, where the knob
  *   stays wherever it is let go. Two thirds of the way the eel lunges back,
  *   once, and the knob is thrown back to a third (`lamprey-tow.ts`).
+ * - `plug` — it comes down into the hull and pulls a button out of the
+ *   worker's panel; the worker presses it back in and the holder pulls the
+ *   tail out, only once it is in (`lamprey-plug.ts`).
  *
  * **Every stay is THE SLOW**, opened as it lands for the step's `beats` and
  * shut the tick it is answered (the owner, the same message: *every staying
@@ -60,6 +63,7 @@ import type { World } from "./world.js";
 
 export {
   LAMPREY_ASKS,
+  LAMPREY_BUTTONS,
   LAMPREY_FOODS,
   LAMPREY_JUMP,
   LAMPREY_PHASES,
@@ -67,6 +71,7 @@ export {
   LAMPREY_TEETH,
   LAMPREY_TRAIL,
   type LampreyAsk,
+  type LampreyButton,
   type LampreyEntry,
   type LampreyFood,
   type LampreyMorsel,
@@ -154,10 +159,10 @@ export function lampreyHeadPulls(s: LampreyState): boolean {
   return ask === "pull" || ask === "apart" || ask === "tow";
 }
 
-/** Whether the tail is pulled out along the body in the stay on, an `apart` or a `tow`, rather than only held. */
+/** Whether the tail is pulled out along the body in the stay on — an `apart`, a `tow` or a `plug` — rather than only held. */
 export function lampreyTailPulls(s: LampreyState): boolean {
   const ask = lampreyAsks(s);
-  return ask === "apart" || ask === "tow";
+  return ask === "apart" || ask === "tow" || ask === "plug";
 }
 
 /** How far the holder has the tail pulled away, thousandths, or 0 with no bite on. */
@@ -235,5 +240,7 @@ export function freshLamprey(
     towFrom: -1,
     towSide: 1,
     angered: false,
+    plugMilli: 0,
+    plugs: [],
   };
 }

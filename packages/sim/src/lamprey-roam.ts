@@ -8,6 +8,7 @@ import {
   type LampreyState,
   lampreyStep,
 } from "./lamprey.js";
+import { lampreyDescends } from "./lamprey-plug.js";
 import { spawnOne } from "./spawn.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -148,8 +149,9 @@ export function lampreyRoams(world: World, s: LampreyState, leg = 0): void {
 
 /**
  * Where a leg of the crawl ends: across to the far side high, back to the
- * near side low, then the tile — and before a `tow`, the middle of the field
- * first, so it comes straight down at the hull (`lamprey-tow.ts`).
+ * near side low, then the tile — and before a `tow` or a `plug`, the middle of
+ * the field first, so it comes straight down at the hull (`lamprey-tow.ts`,
+ * `lamprey-plug.ts`).
  */
 export function lampreyLegEnd(world: World, s: LampreyState): { col: number; row: number } {
   const cfg = world.cfg;
@@ -160,8 +162,8 @@ export function lampreyLegEnd(world: World, s: LampreyState): { col: number; row
   return { col: s.nextCol, row: s.nextRow };
 }
 
-/** Whether the crawl on is to a tow, the one with a leg more. */
-const towing = (s: LampreyState): boolean => lampreyStep(s)?.ask === "tow";
+/** Whether the crawl on is down at the hull, a tow or a plug: the one with a leg more. */
+const towing = (s: LampreyState): boolean => lampreyDescends(lampreyStep(s) ?? undefined);
 
 /**
  * A beat of the crawl: after its food if any is falling, else a leg on, the

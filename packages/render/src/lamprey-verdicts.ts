@@ -58,6 +58,7 @@ const SAYS: Readonly<Record<string, readonly [number, boolean]>> = {
   lampreyLoose: [LAMPREY_HEAD, true],
   lampreySlip: [LAMPREY_HEAD, false],
   lampreyAnger: [LAMPREY_HEAD, false],
+  lampreyYank: [LAMPREY_TAIL, false],
   lampreyFull: [LAMPREY_HEAD, false],
   lampreyTap: [LAMPREY_TOOTH, true],
   lampreyCrack: [LAMPREY_TOOTH, true],

@@ -102,6 +102,16 @@ export const CHOREO_FIELD_GROUP_D = {
     "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreyTowBackMilli:
     "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyPlugStartMilli:
+    "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyPlugCreepMilli:
+    "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyPlugPushMilli:
+    "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyPlugFlushMilli:
+    "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyPlugYankMilli:
+    "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   // MimicConfig — the slap into shape, how long a wrong sign is worn, the
   // flinch, when a changing sign changes, the reaches that strike the hull,
   // the clench and the fall (`config-mimic.ts`).

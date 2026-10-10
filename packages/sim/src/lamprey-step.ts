@@ -1,20 +1,23 @@
 import { bossStrikesHull } from "./boss-strike.js";
-import { midCol } from "./config.js";
 import {
-  freshLamprey,
-  type LampreyMorsel,
   type LampreyState,
-  type LampreyStep,
+  lampreyAsks,
   lampreyNextTooth,
   lampreyStep,
   lampreyTapsWanted,
   lampreyTeethIn,
   lampreyToothIn,
 } from "./lamprey.js";
-import { lampreyLeapTo, lampreyNextAndTail, lampreyTileIndex } from "./lamprey-leap.js";
+import { lampreyNextAndTail, lampreyTileIndex } from "./lamprey-leap.js";
 import { lampreyEntering, lampreyFeeding } from "./lamprey-meal.js";
-import { lampreyOutside, lampreyRoaming, lampreyRoams, lampreySweepDung } from "./lamprey-roam.js";
-import { lampreyTowLand, lampreyTowTile } from "./lamprey-tow.js";
+import {
+  lampreyDescends,
+  lampreyDownTile,
+  lampreyPlugCreep,
+  lampreyPlugLand,
+} from "./lamprey-plug.js";
+import { lampreyRoaming, lampreyRoams, lampreySweepDung } from "./lamprey-roam.js";
+import { lampreyTowLand } from "./lamprey-tow.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
@@ -33,31 +36,6 @@ import type { World } from "./world.js";
  * is lost anyway (`wave-fail.ts`), and a stay asked again would strike again
  * in a world nobody is playing any more.
  */
-
-/**
- * In from off the field's side nearer its meal, at the row it waits for the
- * first morsel on, the first stay's tile drawn now — a leap of its `jump`
- * from the top middle — so the crawl on after the meal knows where it ends.
- */
-export function installLamprey(
-  world: World,
-  steps: readonly LampreyStep[],
-  meal: readonly LampreyMorsel[] = [],
-): LampreyState {
-  const cfg = world.cfg;
-  const top = { col: midCol(cfg), row: cfg.lampreyRowTop };
-  const side = lampreyOutside(world, meal[0]?.col ?? 0);
-  const row = meal[0]?.row ?? cfg.lampreyFeedRow;
-  const s = freshLamprey(world.beat, { col: side, row }, top, steps, meal);
-  const first =
-    steps[0]?.ask === "tow"
-      ? lampreyTowTile(cfg)
-      : lampreyLeapTo(world, s, top, steps[0]?.jump ?? 1, -1);
-  s.nextCol = first.col;
-  s.nextRow = first.row;
-  world.events.push({ type: "lampreyEnter", col: side < 0 ? 0 : cfg.cols - 1 });
-  return s;
-}
 
 export function stepLamprey(world: World, s: LampreyState): void {
   const cfg = world.cfg;
@@ -78,7 +56,8 @@ export function stepLamprey(world: World, s: LampreyState): void {
   else if (s.phase === "recoil" && since >= cfg.lampreyRecoilBeats) leapOn(world, s);
   else if (s.phase === "bite" || s.phase === "rearing") {
     const step = lampreyStep(s);
-    if (step !== null && since >= step.beats) bitThrough(world, s);
+    // A plug's button pulled out a step further each beat; all the way is the bite through.
+    if (step !== null && (since >= step.beats || lampreyPlugCreep(world, s))) bitThrough(world, s);
   }
 }
 
@@ -98,11 +77,12 @@ function land(world: World, s: LampreyState): void {
   }
   const after = s.steps[s.cursor + 1];
   if (step.ask === "tow") lampreyTowLand(world, s, after);
+  else if (step.ask === "plug") lampreyPlugLand(world, s, step, after);
   else lampreyNextAndTail(world, s, step, after);
-  if (after?.ask === "tow") {
-    const tow = lampreyTowTile(world.cfg);
-    s.nextCol = tow.col;
-    s.nextRow = tow.row;
+  const down = lampreyDownTile(world.cfg, after);
+  if (down !== null) {
+    s.nextCol = down.col;
+    s.nextRow = down.row;
   }
   s.phaseBeat = world.beat;
   s.pulled = [];
@@ -180,11 +160,13 @@ export function lampreySnapped(world: World, s: LampreyState, side: 0 | 1): void
 }
 
 /**
- * The head pulled off the tile, by a `pull` or an `apart`: the lit tooth stays
- * behind in the bite. Called by the hand (`lamprey-hand.ts`).
+ * The head pulled off the tile, by a `pull`, an `apart` or a `tow`: the lit
+ * tooth stays behind in the bite — but not a `plug`'s, whose teeth were on a
+ * button. Called by the hand (`lamprey-hand.ts`).
  */
 export function lampreyFreed(world: World, s: LampreyState): void {
-  const tooth = lampreyToothIn(s, s.litTooth) ? s.litTooth : -1;
+  const keeps = lampreyAsks(s) !== "plug" && lampreyToothIn(s, s.litTooth);
+  const tooth = keeps ? s.litTooth : -1;
   if (tooth !== -1) s.pulled.push(tooth);
   loose(world, s, tooth);
 }
@@ -222,8 +204,8 @@ function leapOn(world: World, s: LampreyState): void {
   s.toothTaps = 0;
   s.trailCol = [];
   s.trailRow = [];
-  // A tow is never leapt to: it crawls down the middle of the field at the hull.
-  if (step.crawl === true || step.ask === "tow") {
+  // A tow or a plug is never leapt to: it crawls down the middle of the field at the hull.
+  if (step.crawl === true || lampreyDescends(step)) {
     lampreyRoams(world, s, step.crawl === true ? 0 : 2);
     return;
   }

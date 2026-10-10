@@ -37551,3 +37551,19 @@ Bottleneck: landing — the trunk moved under a lane that touched every list
 of drag targets, so each list conflicted.
 
 *Measured: 217 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — THE LAMPREY bites into the ship and pulls a button out
+
+- reading: 15 min. §11.59, the tow (the nearest ask), the step, hand, hash,
+  AUTO and the boss-state registration list.
+- writing: 25 min. `sim/lamprey-plug.ts`, the `plug` ask through the step,
+  roam, hand and hash, two events through audio and render, AUTO's hand, the
+  fourth level and its guide lines, two tests, the spec.
+- looking: 0 min. The simulation only; the look is the next lane.
+- friction: 5 min. Two heredocs refused for a doubled backslash; the guide's
+  shared line and the mechanic's both over the word budget.
+- landing: 5 min. `lamprey-step.ts` over the ceiling — the install moved to
+  the meal; `check:fast`, `land`.
+
+Bottleneck: the registrations outside the simulation — ten files for two
+events and one ask, found from the skill's list rather than red tests.

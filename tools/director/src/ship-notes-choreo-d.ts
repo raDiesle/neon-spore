@@ -88,10 +88,13 @@ export const CHOREO_NOTES_D = {
     "fresh tile a stay, further each stay, and biting into it under THE SLOW. " +
     "One seat holds the tail; the other pulls the head up off the tile (a " +
     "pull), taps the lit tooth (a teeth), or pulls the head while the holder " +
-    "drags the tail the other way at once (an apart). A gullet stay is shot " +
+    "drags the tail the other way at once (an apart). In a plug it bites " +
+    "into the hull and pulls a button out of one seat's panel: that seat " +
+    "presses it back in, and the other pulls the tail only once it is in. " +
+    "A gullet stay is shot " +
     "in its colour. Any stay run out bites through to the hull, which is the " +
     "wave. See sim/lamprey.ts, sim/lamprey-step.ts, sim/lamprey-leap.ts, " +
-    "sim/lamprey-hand.ts, sim/lamprey-shot.ts, sim/config-lamprey.ts.",
+    "sim/lamprey-hand.ts, sim/lamprey-plug.ts, sim/lamprey-shot.ts, sim/config-lamprey.ts.",
   "THE MIMIC — a sign one of you reads for the other to draw":
     "Asked for in docs/spec/bosses-choreographed.md §42: a mantle with " +
     "eight arms that holds a frame, and a picture of squares in it on one " +

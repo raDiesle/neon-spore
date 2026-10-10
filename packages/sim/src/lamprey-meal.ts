@@ -1,4 +1,12 @@
-import type { LampreyMorsel, LampreyState } from "./lamprey.js";
+import { midCol } from "./config.js";
+import {
+  freshLamprey,
+  type LampreyMorsel,
+  type LampreyState,
+  type LampreyStep,
+} from "./lamprey.js";
+import { lampreyLeapTo } from "./lamprey-leap.js";
+import { lampreyDownTile } from "./lamprey-plug.js";
 import {
   lampreyDrop,
   lampreyEat,
@@ -6,6 +14,7 @@ import {
   lampreyHeadTo,
   lampreyInto,
   lampreyOnField,
+  lampreyOutside,
   lampreyRoams,
 } from "./lamprey-roam.js";
 import type { Creature } from "./types.js";
@@ -17,6 +26,9 @@ import type { World } from "./world.js";
  * October 2026: *eating enemies in other level of falling … not same time
  * distance between them … moving in some different speeds … skip that it
  * goes away the screen*).
+ *
+ * **The install is here too** (`installLamprey`), the arrival's first beat:
+ * moved out of `lamprey-step.ts` on line count when the plug came in.
  *
  * **Each morsel says where and when** (`LampreyMorsel`): the column it falls
  * in, the row the head waits for it on, the beat of the meal it falls on, and
@@ -75,3 +87,26 @@ function catchRow(world: World, m: LampreyMorsel | undefined): number {
 
 /** The lowest first, the older of two on a row first. */
 const lowest = (a: Creature, b: Creature): number => b.row - a.row || a.id - b.id;
+
+/**
+ * In from off the field's side nearer its meal, at the row it waits for the
+ * first morsel on, the first stay's tile drawn now — a leap of its `jump`
+ * from the top middle — so the crawl on after the meal knows where it ends.
+ */
+export function installLamprey(
+  world: World,
+  steps: readonly LampreyStep[],
+  meal: readonly LampreyMorsel[] = [],
+): LampreyState {
+  const cfg = world.cfg;
+  const top = { col: midCol(cfg), row: cfg.lampreyRowTop };
+  const side = lampreyOutside(world, meal[0]?.col ?? 0);
+  const row = meal[0]?.row ?? cfg.lampreyFeedRow;
+  const s = freshLamprey(world.beat, { col: side, row }, top, steps, meal);
+  const first =
+    lampreyDownTile(cfg, steps[0]) ?? lampreyLeapTo(world, s, top, steps[0]?.jump ?? 1, -1);
+  s.nextCol = first.col;
+  s.nextRow = first.row;
+  world.events.push({ type: "lampreyEnter", col: side < 0 ? 0 : cfg.cols - 1 });
+  return s;
+}

@@ -10,6 +10,7 @@ import {
   lampreyWorker,
 } from "./lamprey.js";
 import { lampreyTailWay } from "./lamprey-leap.js";
+import { lampreyPlugPressed, lampreyPlugPulled } from "./lamprey-plug.js";
 import { lampreyFreed, lampreySnapped, lampreyTapped } from "./lamprey-step.js";
 import { lampreyTowEnd, lampreyTowHeard } from "./lamprey-tow.js";
 import type { Command } from "./types.js";
@@ -33,15 +34,23 @@ import type { World } from "./world.js";
  * (`valve-hand.ts`), its `id` the tooth: a thumb already resting has to lift
  * and come down again. The step's `taps` of them on the lit tooth crack it.
  *
+ * **A plug is a panel button as well** (`lamprey-plug.ts`): the worker's
+ * press of the button the teeth have pushes it back in, heard here like any
+ * other command; the tail is the holder's pull, and pulled full with the
+ * button out it is thrown off and has to be taken again.
+ *
  * **A bite comes off the tile the instant both hands are where they need to
  * be**, whichever arrived last: so a head held all the way up comes off the
  * tick the partner's thumb lands on the tail. Only the stay's own seats are
  * heard; the other's press on a part is not theirs and does nothing.
  */
 export function lampreyHeard(world: World, player: 1 | 2, command: Command): void {
-  if (command.kind !== "drag") return;
   const s = lampreyBoss(world);
   if (s === null) return;
+  if (command.kind !== "drag") {
+    lampreyPlugPressed(world, s, player, command);
+    return;
+  }
   const side: 0 | 1 = player === 1 ? 0 : 1;
   if (command.target === "lampreyTail") {
     tail(world, s, side, command.on, command.fromMilli, command.fromYMilli ?? 0);
@@ -65,6 +74,12 @@ function tail(
 ): void {
   const was = s.tailDown[side];
   s.tailDown[side] = on;
+  // A plug's yank throws the thumb off the tail: lifted, it may take hold again.
+  if (lampreyAsks(s) === "plug" && s.slipped[side]) {
+    if (!on) s.slipped[side] = false;
+    s.tailMilli[side] = 0;
+    return;
+  }
   const way = lampreyTailWay(s);
   const along = Math.trunc((fromMilli * way.x + fromYMilli * way.y) / 1000);
   const full = world.cfg.lampreyTailPullMilli;
@@ -100,6 +115,10 @@ function settle(world: World, s: LampreyState): void {
     s.col = end.col;
     s.row = end.row;
     lampreyFreed(world, s);
+    return;
+  }
+  if (worker !== null && ask === "plug") {
+    if (lampreyPlugPulled(world, s) === "out") lampreyFreed(world, s);
     return;
   }
   if (worker === null || (ask !== "pull" && ask !== "apart")) return;
