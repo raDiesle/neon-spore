@@ -37264,3 +37264,5 @@ is in front, and the first one was not.
 - landing: 10 min. `check:fast` twice, the commit, `land`.
 
 Bottleneck: writing — a drag target taken out is a name in fourteen files, each found by the typecheck or a red test.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
