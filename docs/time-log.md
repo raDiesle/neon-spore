@@ -37164,3 +37164,16 @@ Bottleneck: friction — an edit script that opened the file for writing before 
 Bottleneck: writing — thirty-six suggestions, each read off a boss's rule rather than its body.
 
 *Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-10 — THE FLEET's wreck card drawn from the navigator's screen
+
+- reading: 10 min. The control row, the sim's `fleetWreck`, the grip
+  drawing, and which seat the `test` role draws.
+- writing: 0 min. One `role` on the pose.
+- looking: 15 min. Finding the `shot` flags that reach a STATES card, the
+  card before and after, and a crop of the doubled word.
+- friction: 5 min. `--click` on a group title missed twice before `*=`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — reaching one STATES card with `bun run shot` took
+three tries to guess the group's title.

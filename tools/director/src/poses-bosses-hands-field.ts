@@ -48,6 +48,8 @@ export const FIELD_HAND_POSES: Pose[] = [
     {
       hand: fleetHand,
       hold: TPB,
+      // Her screen: the pull is hers, and P1's shows only his HOLD on the hull.
+      role: "p2",
     },
   ),
   bossPose(

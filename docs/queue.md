@@ -733,3 +733,10 @@ The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts o
 - **Files:** `packages/render/src/bastion-draw.ts`, `packages/render/src/bastion-shape.ts`, `docs/spec/bosses.md`
 
 The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.62, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
+
+## THE FLEET's wreck says PULL twice on the navigator's screen
+
+- **Found:** 2026-10-10, claude/fleets-wreck-drag-drop-133829
+- **Files:** `packages/render/src/fleet-grip-draw.ts`, `packages/render/src/pull-knob.ts`, `packages/render/test/fleet-grip.test.ts`
+
+Drawn from player 2's screen (the STATES card `THE FLEET · WRECK`, now `role: "p2"`), the word under the wreck's pull knob is two copies of PULL a few pixels apart, one over the other. `drawFleetGrip` calls `drawHandleHint` once and `drawHandleHint` fills the text once, so the second copy comes from somewhere else that draws under the same knob — find it, keep one, and add a frame test that counts one `fillText("PULL")` for the navigator in the wreck.

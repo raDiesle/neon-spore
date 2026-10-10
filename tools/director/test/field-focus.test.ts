@@ -27,7 +27,6 @@ const NOT_ON_THE_TICK = "no press reaches it on the pose's tick";
 const UNFOUND: Readonly<Record<string, string>> = {
   "SNAKE'S JAWS": NOT_ON_THE_TICK,
   "PINBALL'S PLUNGER": NOT_ON_THE_TICK,
-  "THE FLEET'S WRECK": NOT_ON_THE_TICK,
   "THE GAUGE'S BAND": NOT_ON_THE_TICK,
   "THE LEAD'S STALK": NOT_ON_THE_TICK,
   "THE BATON'S STRIP": NOT_ON_THE_TICK,
