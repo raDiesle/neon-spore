@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · b323b41cd — A boss shot in the wrong colour loses the wave, and says WRONG COLOUR
+
+The owner, 10 October 2026, of THE BASTION and of boss waves in general: a cannon shot in the wrong colour at a lit target now fails the wave, on every level. The moment the shot is judged wrong, WRONG COLOUR is stamped in large red letters across the held field, and the lost screen that follows says it again under the wave's name. Until now the wrong colour on most bosses only counted against the balance sheet and the target stayed lit. THE BATON, THE GORGE, THE HIVE, THE TASTER and THE CURTAIN keep the answer their wrong colour already had (a knock back, a spill, a sooner spill, a thicker blade, a rock). Films are not affected. A lost screen after a wrong colour or a wasted shot no longer replays a breach from an earlier wave.
+
 ## 2026-10-10 · 35ff7db1d — THE LAMPREY bites into the ship and pulls a panel button out
 
 A fourth level, the owner's of 10 October 2026: the eel comes down the middle into the hull and its teeth pull a button out of one seat's panel — the pilot's SUCK, then the navigator's RED — a step further each beat, all the way out being the hull. That seat presses the button back in; the other pulls the tail up the field, and only once the button is in does the eel come out — pulled while it is out, the teeth yank it further and the thumb is thrown off. The simulation, AUTO's hand, the wave's level and guide lines; the look (the head in the ship, the button half out, the hull bleeding) is the next lane.
