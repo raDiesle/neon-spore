@@ -30,8 +30,8 @@ describe("the rehearsal for THE HAUL", () => {
           seen.push(e.type);
     }
     // Level one: all four aboard by beat 10, the line from beat 10 to 12,
-    // banked on 13. Level two: all five by beat 26, two primes on the way
-    // home, banked on 31 and the verdict after it. No breach, no wave failed.
+    // banked on 13. Level two: all five by beat 26, a prime held through each
+    // of the four burns home, banked on 31 and the verdict after it. No breach, no wave failed.
     expect(seen).toEqual([
       "arena 0 play carrying  banked  @0",
       "arena 0 play carrying 0 banked  @3",
@@ -47,6 +47,8 @@ describe("the rehearsal for THE HAUL", () => {
       "arena 1 play carrying 0,1,2 banked  @21",
       "arena 1 play carrying 0,1,2,3 banked  @23",
       "arena 1 play carrying 0,1,2,3,4 banked  @26",
+      "scoutPrime",
+      "scoutPrime",
       "scoutPrime",
       "scoutPrime",
       "arena 1 play carrying  banked 0,1,2,3,4 @31",

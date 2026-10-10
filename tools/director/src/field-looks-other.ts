@@ -43,6 +43,10 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "The knob at the tip of the tail, laid away from the tile the eel leaps to next, while a bite is on.",
     move: "The tail is held while the thumb is down; in an apart it is pulled along the body away from the head.",
   },
+  "THE SCOUT'S PRIME": {
+    find: "A ring off the little ship's stern, behind the amber beads, haloed on the pilot's screen while no thumb is on it.",
+    move: "Green as the thumb lands; the ring stays lit and the burn answers while he holds, and goes cold the moment he lets go.",
+  },
   "THE BATON'S DRAW": {
     find: "A ring on each of the two resting beads, one per screen, each haloed until that seat's thumb is down. Nothing says whether the other is down.",
     move: "A dial runs the window out; with both thumbs down the two beads draw together into one, green.",

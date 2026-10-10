@@ -37204,3 +37204,17 @@ Bottleneck: reading — the control was already filed under PULL, so the work wa
 Bottleneck: none to speak of — the seam was already written; it lacked one level.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — THE SCOUT's prime is a hold
+
+- reading: 15 min. The prime's row on ON THE FIELD and in `controls.md`, then
+  the simulation and the touch lift, which showed no thumb could ever prime.
+- writing: 20 min. `priming` for `primeTick`, both figures gone, the ring lit
+  while held, THE HAUL's four holds, the director cards, the specs.
+- looking: 0 min. A ring that is lit and full is the line's look already.
+- friction: 5 min. A test's `Touch.command` is nullable; the rehearsal moved
+  one tick because a press counts where a lift did.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the ask was a word on a document, and the code under it
+was a gesture the game could not hear at all.

@@ -54,7 +54,7 @@ export function scoutHashParts(b: ScoutState): number[] {
   // device that disagreed about either would be flying a different ship
   // (`scout-hand.ts`).
   push(b.reeling ? 1 : 0);
-  push(b.primeTick);
+  push(b.priming ? 1 : 0);
   // Carried and banked are two lists and both are the fight: a device that
   // thinks one more mote is aboard is a device drawing a different arena for
   // the seat that can see it.

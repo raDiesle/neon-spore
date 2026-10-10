@@ -80,7 +80,7 @@ export function stepScoutFlight(cfg: SimConfig, scout: ScoutState, tick: number)
     scoutTurnStep(cfg, scout, scout.turn, tick);
   }
 
-  if (scout.burning && scoutPrimed(cfg, scout, tick)) {
+  if (scout.burning && scoutPrimed(cfg, scout)) {
     const nose = scoutNose(scout.headingMilli);
     scout.vColMilli += Math.round((nose.colMilli * cfg.scoutBurnMilli) / 1000);
     scout.vRowMilli += Math.round((nose.rowMilli * cfg.scoutBurnMilli) / 1000);

@@ -79,7 +79,7 @@ export function installScout(world: World, arenas: readonly ScoutArena[]): Scout
     caughtTick: -1,
     caughtBy: -1,
     reeling: false,
-    primeTick: -1,
+    priming: false,
   };
   scoutStand(world.cfg, state, 0, world.beat, world.tick);
   return state;

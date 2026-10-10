@@ -24,16 +24,11 @@ export function scoutLoad(cfg: ScoutLoadBounds, scout: ScoutState): ScoutLoad {
 
 /**
  * Whether a burn takes this tick: always, until the ship is `heavy`, and then
- * only inside `scoutPrimeTicks` of a prime. One place, because the flight and
- * the picture must not disagree about whether the thruster is lit.
+ * only while the pilot's thumb is on the thruster. One place, because the
+ * flight and the picture must not disagree about whether it is lit.
  */
-export function scoutPrimed(
-  cfg: ScoutLoadBounds & { scoutPrimeTicks: number },
-  scout: ScoutState,
-  tick: number,
-): boolean {
-  if (scoutLoad(cfg, scout) !== "heavy") return true;
-  return scout.primeTick >= 0 && tick - scout.primeTick < cfg.scoutPrimeTicks;
+export function scoutPrimed(cfg: ScoutLoadBounds, scout: ScoutState): boolean {
+  return scoutLoad(cfg, scout) !== "heavy" || scout.priming;
 }
 
 /**
@@ -53,18 +48,14 @@ export function scoutPrimeOffered(cfg: ScoutLoadBounds, scout: ScoutState): bool
 /**
  * And whether each **asks** its seat for a hand this tick
  * (`render/scout-marks.ts` haloes the one asked): the line on offer with no
- * thumb on it yet, the prime on offer with no window running.
+ * thumb on it yet, and the same for the prime.
  */
 export function scoutLineAsks(cfg: ScoutLoadBounds, scout: ScoutState): boolean {
   return scoutLineOffered(cfg, scout) && !scout.reeling;
 }
 
-export function scoutPrimeAsks(
-  cfg: ScoutLoadBounds & { scoutPrimeTicks: number },
-  scout: ScoutState,
-  tick: number,
-): boolean {
-  return scoutPrimeOffered(cfg, scout) && !scoutPrimed(cfg, scout, tick);
+export function scoutPrimeAsks(cfg: ScoutLoadBounds, scout: ScoutState): boolean {
+  return scoutPrimeOffered(cfg, scout) && !scout.priming;
 }
 
 /**
@@ -87,14 +78,15 @@ export function scoutPrimeAsks(
  * see it.
  *
  * **The prime is player 1's**, and it is the split of `heavy`. Three motes
- * aboard and the thruster labours: a burn does nothing at all unless he has
- * carried the ship inside the last `scoutPrimeTicks`. The ship is the one
- * thing his screen shows him, so it is a gesture he can make without her word
- * — and it costs him the hand that holds the burn, on the load where every
- * burn matters most.
+ * aboard and the thruster labours: a burn does nothing at all unless his
+ * thumb is on it, **held** — the owner, 10 October 2026: *a hold, not a
+ * pull*. The ship is the one thing his screen shows him, so it is a gesture
+ * he can make without her word — and while it is down it costs him a hand,
+ * so a heavy ship burns or turns and not both, on the load where every burn
+ * matters most.
  *
- * Nothing here can hurt them. A carry too short, a line on a ship that is not
- * laden, a prime on one that is not heavy — each does nothing, and the wave is
+ * Nothing here can hurt them. A line on a ship that is not laden, a prime on
+ * one that is not heavy — each does nothing, and the wave is
  * still lost only by a hazard's touch and by the clock (`scout-arena.ts`).
  */
 export function scoutHandHeard(
@@ -120,12 +112,15 @@ export function scoutHandHeard(
     if (command.on && scoutPrimeOffered(world.cfg, scout)) refuse(world, "prime", player);
     return;
   }
-  if (scoutLoad(world.cfg, scout) !== "heavy") return;
-  // The press says nothing; the prime is the lift, and only one that
-  // travelled — a thumb resting on the ship is not a thruster being lit.
-  if (command.on) return;
-  if (Math.abs(command.fromYMilli ?? 0) < world.cfg.scoutPrimeMilli) return;
-  scout.primeTick = world.tick;
+  // The lift always lets go, whatever the load has become under the thumb, so
+  // a prime held while a mote was banked is not still lit the next time the
+  // ship is heavy.
+  if (!command.on) {
+    scout.priming = false;
+    return;
+  }
+  if (scoutLoad(world.cfg, scout) !== "heavy" || scout.priming) return;
+  scout.priming = true;
   world.events.push({ type: "scoutPrime" });
 }
 

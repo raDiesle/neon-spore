@@ -83,12 +83,9 @@ function fly(w: World, look: boolean): Press[] {
     out.push({ player: pilot, command: { kind: "scoutTurn", dir: 1, on: false } });
   const burn = aimed && !cruising && !(look && caughtFlyingOn(w));
   if (burn !== s.burning) out.push({ player: pilot, command: { kind: "scoutBurn", on: burn } });
-  if (scoutPrimeAsks(w.cfg, s, w.tick)) {
-    const prime = { target: "scoutPrime", on: false, fromMilli: 0 } as const;
-    out.push({
-      player: pilot,
-      command: { kind: "drag", ...prime, fromYMilli: CFG.scoutPrimeMilli },
-    });
+  if (scoutPrimeAsks(w.cfg, s)) {
+    const prime = { target: "scoutPrime", on: true, fromMilli: 0, fromYMilli: 0 } as const;
+    out.push({ player: pilot, command: { kind: "drag", ...prime } });
   }
   out.push({ player: pilot === 1 ? 2 : 1, command: { kind: "scoutMaw" } });
   return out;

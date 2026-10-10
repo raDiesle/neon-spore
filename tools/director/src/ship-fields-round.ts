@@ -51,8 +51,6 @@ export const ROUND_FIELD_GROUP = {
   scoutLadenMotes: "THE SCOUT — a little ship one of you flies",
   scoutHeavyMotes: "THE SCOUT — a little ship one of you flies",
   scoutReelMilli: "THE SCOUT — a little ship one of you flies",
-  scoutPrimeMilli: "THE SCOUT — a little ship one of you flies",
-  scoutPrimeTicks: "THE SCOUT — a little ship one of you flies",
   scoutHomeRadiusMilli: "THE SCOUT — a little ship one of you flies",
   scoutLeadBeats: "THE SCOUT — a little ship one of you flies",
   scoutLaunchMilli: "THE SCOUT — a little ship one of you flies",

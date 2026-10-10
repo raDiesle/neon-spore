@@ -68,12 +68,11 @@ export function drawScoutAsked(
   l: Layout,
   cfg: SimConfig,
   scout: ScoutState,
-  tick: number,
   time: number,
 ): void {
   if (scoutLineAsks(cfg, scout) && mine(l, scoutNavigator(scout)))
     halo(ctx, scoutLineCircle(l, cfg, scout), time);
-  if (!scoutPrimeAsks(cfg, scout, tick)) return;
+  if (!scoutPrimeAsks(cfg, scout)) return;
   const c = scoutPrimeCircle(l, cfg, scout);
   if (mine(l, scoutPilot(scout))) {
     halo(ctx, c, time);

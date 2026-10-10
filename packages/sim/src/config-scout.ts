@@ -120,8 +120,6 @@ export const SCOUT_DEFAULTS: ScoutConfig & ScoutHandConfig = {
   scoutLadenMotes: 3,
   scoutHeavyMotes: 4,
   scoutReelMilli: 2600,
-  scoutPrimeMilli: 1500,
-  scoutPrimeTicks: 180,
   scoutTurnMilliDeg: 45_000,
   scoutBurnMilli: 240,
   scoutDragMilli: 976,
@@ -176,21 +174,4 @@ export interface ScoutHandConfig {
    * only place it goes.
    */
   scoutReelMilli: number;
-  /**
-   * How far player 1's thumb has to carry the ship to prime a labouring
-   * thruster, in thousandths of a tile.
-   *
-   * 1500: a tile and a half, the travel every swipe in this game asks for
-   * (`wardenThrowMilli`, `vaneHaulMilli`, `snakeJawsMilli`, `pinballWindMilli`).
-   */
-  scoutPrimeMilli: number;
-  /**
-   * How many ticks one prime lasts. Outside it a **heavy** ship's burn does
-   * nothing at all.
-   *
-   * 180, which is about a beat and a half: long enough for the burn that the
-   * prime was called for, short enough that a heavy ship cannot be flown with
-   * one hand the way a light one can.
-   */
-  scoutPrimeTicks: number;
 }

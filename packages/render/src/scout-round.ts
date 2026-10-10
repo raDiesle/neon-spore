@@ -122,8 +122,8 @@ export function drawScoutRound(
   // on the hull's own surface, so a ring off the stern of a ship flown down
   // there would be painted over by the plating it is hanging in front of
   // (`scout-grip.ts`).
-  drawScoutAsked(ctx, l, cfg, boss, world.tick, view.time);
-  drawScoutGrips(ctx, l, cfg, boss, world.tick, view.time);
+  drawScoutAsked(ctx, l, cfg, boss, view.time);
+  drawScoutGrips(ctx, l, cfg, boss, view.time);
   drawBand(ctx, l, world, false, false, view.time, view.controls);
   drawHud(ctx, l, view);
   ctx.textAlign = "center";

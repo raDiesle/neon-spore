@@ -65,7 +65,7 @@ export function scoutStand(
   // again is a ship carrying nothing, and a line or a prime left standing
   // would be a hand on a ship that is not there yet (`scout-hand.ts`).
   scout.reeling = false;
-  scout.primeTick = -1;
+  scout.priming = false;
 }
 
 /**

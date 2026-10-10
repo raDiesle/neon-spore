@@ -8,7 +8,8 @@ import type { FieldAction } from "./field-actions.js";
  * Four rows are filed where the owner put them on 6 October 2026 rather than
  * where their old family had them: THE HIVE's wring is HOLD ENEMY FOR AUTO AIM
  * CANNON, THE PULSE's brace a simple PRESS, THE VANE's arm a regular HOLD, and
- * THE CHOIR's two arrows one SHAKE.
+ * THE CHOIR's two arrows one SHAKE. THE SCOUT's prime joined HOLD on 10
+ * October 2026, when the owner called it one and the game was made to agree.
  */
 export const OTHER_ACTIONS: readonly FieldAction[] = [
   {
@@ -37,6 +38,7 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
           "THE LEDGER'S PLUG",
           "THE FLEET'S PLUME",
           "THE LAMPREY'S TAIL",
+          "THE SCOUT'S PRIME",
         ],
       },
       {

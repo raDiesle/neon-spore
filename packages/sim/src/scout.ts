@@ -121,8 +121,8 @@ export const SCOUT_PHASES = ["lead", "play", "verdict", "spent"] as const;
  *   2 may put a line on it (`scoutLine`) and reel it home — straight, slowly,
  *   and with player 1's hands dead while it runs.
  * - `heavy`: past `scoutHeavyMotes` the thruster labours, and a burn does
- *   nothing at all unless player 1 has primed it (`scoutPrime`) inside the
- *   last `scoutPrimeTicks`.
+ *   nothing at all unless player 1 has a thumb on the thruster
+ *   (`scoutPrime`), held.
  */
 export const SCOUT_LOADS = ["light", "laden", "heavy"] as const;
 export type ScoutLoad = (typeof SCOUT_LOADS)[number];
@@ -232,8 +232,8 @@ export interface ScoutState {
    */
   reeling: boolean;
   /**
-   * `world.tick` player 1 last primed the thruster, or -1. Under `heavy` a
-   * burn does nothing outside `scoutPrimeTicks` of it.
+   * Whether player 1's thumb is on the thruster. Under `heavy` a burn does
+   * nothing unless it is — the prime is a hold, the way the line is.
    */
-  primeTick: number;
+  priming: boolean;
 }

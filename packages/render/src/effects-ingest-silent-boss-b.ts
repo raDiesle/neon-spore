@@ -170,8 +170,8 @@ export const INGEST_SILENT_BOSS_B = [
   "pinTilt",
   // THE SCOUT's two hands, drawn since 22 September 2026 and still silent:
   // a line and a primed thruster are state, read off `reeling` and
-  // `primeTick` every frame and put on the rings themselves — hers goes
-  // `held`, his is a dial draining (`sim/scout-hand.ts`, `scout-grip.ts`).
+  // `priming` every frame and put on the rings themselves — each goes
+  // `held` (`sim/scout-hand.ts`, `scout-grip.ts`).
   // The green the reel and the prime throw is the round's own, fed by the
   // takeover (`scout-marks.ts`).
   "scoutReel",

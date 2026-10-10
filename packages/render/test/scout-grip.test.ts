@@ -14,7 +14,7 @@ import {
 import { handleCircle } from "../src/handle-place.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { scoutLineCircle, scoutPrimeCircle } from "../src/scout-grip.js";
-import { type Field, touchDown } from "../src/touch.js";
+import { type Field, type Touch, touchDown, touchUp } from "../src/touch.js";
 import { FRAME_TIMEOUT_MS, waveWith } from "./frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -152,7 +152,33 @@ describe("the pilot's prime off a heavy ship's stern", () => {
     laden(world);
     expect(pressPrime(world, 1)).toBeNull();
   });
+
+  /**
+   * **A hold, from the thumb to the round**: the press lights the thruster and
+   * the lift puts it out, with no distance in either. Until 10 October 2026 it
+   * was a carry the lift never reported, so a phone could not prime at all.
+   */
+  it("is lit by the press and put out by the lift, carried nowhere", () => {
+    const world = flying();
+    heavy(world);
+    const l = layout("p1");
+    const at = scoutPrimeCircle(l, CFG, round(world));
+    const down = touchDown(l, at.x, at.y, field(world, 1));
+    send(world, down);
+    expect(round(world).priming).toBe(true);
+    for (let i = 0; i < 4 * TPB; i++) step(world, []);
+    expect(round(world).priming).toBe(true);
+    if (down?.hold == null) throw new Error("the press took no hold");
+    send(world, touchUp(l, down.hold, at));
+    expect(round(world).priming).toBe(false);
+  });
 });
+
+/** What a touch says, heard by the round on the next tick. */
+function send(world: World, touch: Touch | null): void {
+  if (touch?.command == null) throw new Error("the touch said nothing");
+  step(world, [{ tick: world.tick, player: touch.player, command: touch.command }]);
+}
 
 describe("the two rings on one ship", () => {
   it("stand clear of each other, so neither thumb can land on both", () => {

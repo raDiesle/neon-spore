@@ -101,7 +101,7 @@ export const ROWS_F: readonly Row[] = [
     marks: [
       mark(markFeedback, "drawMarkHalo", (w) => {
         const s = scout(w);
-        return scoutLineAsks(w.cfg, s) || scoutPrimeAsks(w.cfg, s, w.tick);
+        return scoutLineAsks(w.cfg, s) || scoutPrimeAsks(w.cfg, s);
       }),
     ],
   },

@@ -21,8 +21,9 @@ import type { Hand } from "./hand.js";
  * mote it has not got, burns while aimed and under half top speed, coasts
  * otherwise, and heads home once the hold is full (`scoutCarryLimit`) or
  * nothing is left out there — one mote a trip on THE SCOUT, the whole level on
- * THE HAUL. It primes the moment a heavy ship asks (`scoutPrimeAsks`), and
- * never reels: the line is a choice, the prime is not. It plans no order and
+ * THE HAUL. It puts a thumb on the thruster the moment a heavy ship asks
+ * (`scoutPrimeAsks`) and never lifts it, and never reels: the line is a
+ * choice, the prime is not. It plans no order and
  * leads no hazard.
  *
  * **It steers in eighths of a turn**, as the pilot's panel does since 29
@@ -51,14 +52,14 @@ const LOOK_BEATS = 3;
 
 type Press = Omit<TimedCommand, "tick">;
 
-/** The pilot's prime: a lift off the thruster that travelled far enough to count. */
-const PRIME = (w: World): Press["command"] => ({
+/** The pilot's prime: a thumb put on the thruster, held. */
+const PRIME: Press["command"] = {
   kind: "drag",
   target: "scoutPrime",
-  on: false,
+  on: true,
   fromMilli: 0,
-  fromYMilli: w.cfg.scoutPrimeMilli,
-});
+  fromYMilli: 0,
+};
 
 export const scoutHand: Hand = (w) => fly(w, true);
 
@@ -83,8 +84,8 @@ function fly(w: World, look: boolean): Press[] {
   }
   const burn = aimed && !cruising && !(look && caughtFlyingOn(w));
   if (burn !== s.burning) out.push({ player: pilot, command: { kind: "scoutBurn", on: burn } });
-  // A heavy ship's burn does not take until it is primed: the lift, far enough.
-  if (scoutPrimeAsks(w.cfg, s, w.tick)) out.push({ player: pilot, command: PRIME(w) });
+  // A heavy ship's burn does not take unless it is primed: a thumb held on it.
+  if (scoutPrimeAsks(w.cfg, s)) out.push({ player: pilot, command: PRIME });
   // The navigator holds the mouth open the whole flight — an open mouth costs
   // nothing, and this hand only has to arrive loaded, not play the maw well.
   out.push({ player: scoutNavigator(s), command: { kind: "scoutMaw" } });

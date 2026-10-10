@@ -61,20 +61,20 @@ export const SCOUT_CONTROLS: readonly FieldControlDef[] = [
       "exactly while the ring is offered (render/scout-grip.ts)",
     seat:
       "player 1 only — the ship is the one thing his screen shows him. The " +
-      "ring is haloed on his screen while no window runs, and on hers it " +
+      "ring is haloed on his screen while no thumb is on it, and on hers it " +
       "wears his turning ring and a clock, since her burn waits on it; the " +
       "prime washes it green and her press on it is refused red " +
       "(render/scout-marks.ts, sim/scout-hand.ts scoutRefuse)",
-    gesture: "grab and drag",
+    gesture: "hold",
     does:
-      "Primes the labouring thruster: a carry of at least scoutPrimeMilli, " +
-      "measured up or down, and the burn answers again for scoutPrimeTicks " +
-      "(sim/scout-hand.ts, scoutPrimed). The press itself says nothing and " +
-      "neither does a carry too short — a thumb resting on the stern is not " +
-      "a thruster being lit. Its dial is the window and drains with it, so " +
-      "the seat holding the burn can see it running out rather than finding " +
-      "out by pressing; the wake asks the same reading, so a burn held past " +
-      "the window draws nothing.",
+      "Lights the labouring thruster for as long as his thumb is down: the " +
+      "burn answers while it stays and not at all once it lifts " +
+      "(sim/scout-hand.ts, scoutPrimed). Nothing is carried. It costs him a " +
+      "hand for the whole burn, so a heavy ship burns or turns and not both. " +
+      "The ring is lit and full while it is held, as the line's is; the wake " +
+      "asks the same reading, so a burn held with no thumb on the stern draws " +
+      "nothing. A hold since 10 October 2026 — it was a carry, which no thumb " +
+      "could give.",
     source: "touch.ts — scoutGripUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "scoutPrime",

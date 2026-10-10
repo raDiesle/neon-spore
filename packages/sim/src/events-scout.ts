@@ -18,7 +18,7 @@ export type ScoutEvent =
   | { type: "scoutReel" }
   /** And took it off: the ship is player 1's again, wherever it has got to. */
   | { type: "scoutSlip" }
-  /** Player 1 primed a labouring thruster: a burn takes for `scoutPrimeTicks`. */
+  /** Player 1 put a thumb on a labouring thruster: a burn takes while it stays. */
   | { type: "scoutPrime" }
   /** A press on the other seat's ring while it is on offer, refused. */
   | { type: "scoutRefuse"; part: "line" | "prime"; player: 1 | 2 };

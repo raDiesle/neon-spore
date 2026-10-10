@@ -30,7 +30,7 @@ import { bossOf } from "./touch-field.js";
  * candidate against.
  *
  * **Both are on the little ship, and the split keeps them apart.** The brief
- * puts her thumb *on the ship* and his carry *on the ship*, and they are
+ * puts her thumb *on the ship* and his thumb *on the ship*, and they are
  * offered together the moment the fifth mote is aboard — but the pilot is
  * shown a ship with a nose and the navigator is shown a ship with none
  * (`view-role.ts`), so neither seat ever has to tell one ring from the other.
@@ -51,11 +51,13 @@ import { bossOf } from "./touch-field.js";
  * pilot's three — and it can be now: `tools/frames/scout-press.ts` carries the
  * flight that puts four motes aboard and takes her ring's picture.
  *
- * **The prime's dial is the window it bought.** `scoutPrimeTicks` is the whole
- * of what the gesture is for, and a pilot who cannot see it running out is a
- * pilot pressing a burn that has quietly stopped answering — so the ring
- * fills on the carry and drains, and `scoutPrimed` is asked for it rather
- * than the window being worked out a second time.
+ * **Both are holds, and both rings say so the same way**: full and lit while
+ * the thumb is down, empty the moment it lifts. The prime was a carry that
+ * bought a window, with a dial draining it, until the owner called it a hold
+ * on 10 October 2026 — and the carry never reached the simulation from a
+ * thumb, because a drag's lift reports no distance unless it is a swipe
+ * (`touch.ts`). `scoutPrimed` is asked for the lit ring rather than the
+ * thumb, because it is what the flight acts on.
  */
 
 /** How far off the stern the pilot's ring stands, in ship radii. */
@@ -180,7 +182,6 @@ export function drawScoutGrips(
   l: Layout,
   cfg: SimConfig,
   scout: ScoutState,
-  tick: number,
   time: number,
 ): void {
   if (!afoot(scout)) return;
@@ -190,11 +191,9 @@ export function drawScoutGrips(
     ring(ctx, scoutLineCircle(l, cfg, scout), l, hers, scout.reeling, scout.reeling ? 1 : 0, time);
   }
   if (!scoutPrimeGrippable(cfg, scout)) return;
-  // The dial is the window, so what fills is the number the flight acts on.
-  const left = scout.primeTick < 0 ? 0 : cfg.scoutPrimeTicks - (tick - scout.primeTick);
-  const pull = Math.max(0, Math.min(1, left / cfg.scoutPrimeTicks));
   const his = scoutPilot(scout);
-  ring(ctx, scoutPrimeCircle(l, cfg, scout), l, his, scoutPrimed(cfg, scout, tick), pull, time);
+  const lit = scoutPrimed(cfg, scout);
+  ring(ctx, scoutPrimeCircle(l, cfg, scout), l, his, lit, lit ? 1 : 0, time);
 }
 
 /**

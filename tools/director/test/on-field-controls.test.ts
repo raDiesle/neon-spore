@@ -208,7 +208,7 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   pinPlunger: "field",
   pinTable: "field",
   // THE SCOUT's two hands — player 2's line home on a laden ship, player 1's
-  // carry priming a thruster three motes have made labour
+  // thumb held on a thruster the load has made labour
   // (`sim/scout-hand.ts`). Drawn from 22 September 2026, and the only pair on
   // this tab in the *same place* on two screens: both are the little ship, and
   // the round's split is that the pilot is shown a nose and the navigator is

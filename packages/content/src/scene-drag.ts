@@ -192,11 +192,7 @@ export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
 }
 
 /** The handles read on the letting go, by how far the thumb had travelled. */
-const LIFT_READ: ReadonlySet<DragTarget> = new Set([
-  "scoutPrime",
-  "trapezePushLeft",
-  "trapezePushRight",
-]);
+const LIFT_READ: ReadonlySet<DragTarget> = new Set(["trapezePushLeft", "trapezePushRight"]);
 
 /** How many messages one carry is spelled in. Enough that the plates are seen
  * parting rather than found apart, and few enough to stay a gesture. */

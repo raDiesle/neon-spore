@@ -30,6 +30,7 @@ export const OTHER_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]
   "THE LEDGER'S PLUG": ["ledgerPlugBeats"],
   "THE FLEET'S PLUME": ["fleetFloodBeats"],
   "THE LAMPREY'S TAIL": ["lampreyTailPullMilli"],
+  "THE SCOUT'S PRIME": ["scoutHeavyMotes"],
   // Both seats holding at once.
   "THE BATON'S DRAW": ["batonMergeBeats", "batonMergeWindowBeats"],
   "THE PULSE'S ARREST": ["pulseArrestMilli", "pulseArrestGainMilli", "pulseFlutterMilli"],

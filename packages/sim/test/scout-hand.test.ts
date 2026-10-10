@@ -84,12 +84,12 @@ const line = (on: boolean): TimedCommand["command"] => ({
   fromYMilli: 0,
 });
 
-const prime = (milli: number): TimedCommand["command"] => ({
+const prime = (on: boolean): TimedCommand["command"] => ({
   kind: "drag",
   target: "scoutPrime",
-  on: false,
+  on,
   fromMilli: 0,
-  fromYMilli: milli,
+  fromYMilli: 0,
 });
 
 describe("what the motes aboard make of the ship", () => {
@@ -158,9 +158,9 @@ describe("the prime, under heavy", () => {
     const world = open();
     const s = scout(world);
     carry(s, CFG.scoutHeavyMotes + 1);
-    expect(scoutPrimed(CFG, s, world.tick)).toBe(false);
-    press(world, 1, prime(CFG.scoutPrimeMilli));
-    expect(scoutPrimed(CFG, scout(world), world.tick)).toBe(true);
+    expect(scoutPrimed(CFG, s)).toBe(false);
+    press(world, 1, prime(true));
+    expect(scoutPrimed(CFG, scout(world))).toBe(true);
   });
 
   it("holds a burn at nothing until it is given", () => {
@@ -170,35 +170,46 @@ describe("the prime, under heavy", () => {
     for (let i = 0; i < TPB; i++) step(world, []);
     expect(scout(world).vRowMilli).toBe(0);
     expect(scout(world).vColMilli).toBe(0);
-    press(world, 1, prime(CFG.scoutPrimeMilli));
+    press(world, 1, prime(true));
     for (let i = 0; i < TPB; i++) step(world, []);
     expect(scout(world).vRowMilli).not.toBe(0);
   });
 
-  it("runs out after scoutPrimeTicks", () => {
+  /** A hold: no window outlives the thumb, however long it was down. */
+  it("lasts exactly as long as the thumb, and the lift ends it", () => {
     const world = open();
     carry(scout(world), CFG.scoutHeavyMotes + 1);
-    press(world, 1, prime(CFG.scoutPrimeMilli));
-    for (let i = 0; i < CFG.scoutPrimeTicks + 1; i++) step(world, []);
-    expect(scoutPrimed(CFG, scout(world), world.tick)).toBe(false);
+    press(world, 1, prime(true));
+    for (let i = 0; i < 10 * TPB; i++) step(world, []);
+    expect(scoutPrimed(CFG, scout(world))).toBe(true);
+    press(world, 1, prime(false));
+    expect(scoutPrimed(CFG, scout(world))).toBe(false);
   });
 
-  it("refuses a carry too short, one from the navigator, and one off heavy", () => {
+  it("refuses a thumb from the navigator, and one off heavy", () => {
     const world = open();
     carry(scout(world), CFG.scoutHeavyMotes + 1);
-    press(world, 1, prime(CFG.scoutPrimeMilli - 1));
-    expect(scout(world).primeTick).toBe(-1);
-    press(world, 2, prime(CFG.scoutPrimeMilli));
-    expect(scout(world).primeTick).toBe(-1);
+    press(world, 2, prime(true));
+    expect(scout(world).priming).toBe(false);
     carry(scout(world), CFG.scoutHeavyMotes);
-    press(world, 1, prime(CFG.scoutPrimeMilli));
-    expect(scout(world).primeTick).toBe(-1);
+    press(world, 1, prime(true));
+    expect(scout(world).priming).toBe(false);
+  });
+
+  /** A thumb held while a mote is banked is let go by its lift, not left lit. */
+  it("lets go on the lift whatever the load has become", () => {
+    const world = open();
+    carry(scout(world), CFG.scoutHeavyMotes + 1);
+    press(world, 1, prime(true));
+    carry(scout(world), CFG.scoutHeavyMotes);
+    press(world, 1, prime(false));
+    expect(scout(world).priming).toBe(false);
   });
 
   /** A light ship never waits for anything: the old flight is untouched. */
   it("is not asked for at all while the ship is light", () => {
     const world = open();
-    expect(scoutPrimed(CFG, scout(world), world.tick)).toBe(true);
+    expect(scoutPrimed(CFG, scout(world))).toBe(true);
   });
 });
 

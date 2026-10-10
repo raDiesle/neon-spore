@@ -10,8 +10,8 @@ import { SCOUT_HAUL_ARENAS } from "../scout-haul-arenas.js";
  * is about. On level one the fourth mote makes the ship laden and player 2
  * reels it home on the line, past the hazard, rather than player 1 flying it
  * there; on level two the seats have swapped (`control-seats.ts`), the fifth
- * mote makes the ship heavy, and its pilot — player 2 now — primes the burn
- * before it will answer, twice on the way home.
+ * mote makes the ship heavy, and its pilot — player 2 now — holds the prime
+ * through every burn on the way home.
  *
  * **The flight was generated, not reasoned about**, as THE SCOUT's was and
  * for its reason (`the-scout.ts`): the acts below were recorded off an
@@ -20,8 +20,10 @@ import { SCOUT_HAUL_ARENAS } from "../scout-haul-arenas.js";
  * once a world stepped ahead shows it reeling home uncaught. Regenerate rather
  * than edit.
  *
- * **The line is held until the suck takes the ship** and the prime is a carry
- * of the whole stroke, `scoutPrimeMilli` (`scene-drag.ts`). Neither has a
+ * **The line is held until the suck takes the ship** and the prime for as long
+ * as each burn it lights (`scene-drag.ts`) — a hold since 10 October 2026, so
+ * the four prime acts are the four burns' own spans, the first and last a tick
+ * late because the carry they replace counted on its lift. Neither has a
  * control on the pad — each is a ring on the ship itself (`scout-grip.ts`) —
  * so the captions that name them point at the ring (`{ at: "handle" }`).
  */
@@ -86,12 +88,14 @@ export const THE_HAUL: GuideScene = {
     { tick: 1580, control: "scoutTurnLeft", until: 1581, seat: 2 },
     { tick: 1582, control: "scoutTurnRight", until: 1672, seat: 2 },
     { tick: 1672, control: "scoutBurn", until: 1696, seat: 2 },
-    { tick: 1672, drag: "scoutPrime", until: 1673, hand: 2 },
+    { tick: 1673, drag: "scoutPrime", until: 1696, hand: 2 },
     { tick: 1743, control: "scoutBurn", until: 1759, seat: 2 },
+    { tick: 1743, drag: "scoutPrime", until: 1759, hand: 2 },
     { tick: 1759, control: "scoutTurnLeft", until: 1760, seat: 2 },
     { tick: 1804, control: "scoutBurn", until: 1823, seat: 2 },
+    { tick: 1804, drag: "scoutPrime", until: 1823, hand: 2 },
     { tick: 1869, control: "scoutBurn", until: 1916, seat: 2 },
-    { tick: 1869, drag: "scoutPrime", until: 1870, hand: 2 },
+    { tick: 1870, drag: "scoutPrime", until: 1916, hand: 2 },
     { tick: 1880, control: "scoutMaw", seat: 1 },
   ],
   steps: [

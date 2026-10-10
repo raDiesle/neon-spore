@@ -69,8 +69,8 @@ function drawn(role: ViewRole, paint: (ctx: CanvasRenderingContext2D, l: Layout)
   return log.join("|");
 }
 
-const asked = (role: ViewRole, s: ScoutState, tick = 0): string =>
-  drawn(role, (ctx, l) => drawScoutAsked(ctx, l, CFG, s, tick, 1.2));
+const asked = (role: ViewRole, s: ScoutState): string =>
+  drawn(role, (ctx, l) => drawScoutAsked(ctx, l, CFG, s, 1.2));
 
 const count = (text: string, needle: string): number => text.split(needle).length - 1;
 const HALO = "createRadialGradient";
@@ -102,9 +102,9 @@ describe("THE SCOUT's rings asking", () => {
     expect(count(asked("test", scout), HALO)).toBe(2);
   });
 
-  it("stops asking for the prime while its window runs", () => {
+  it("stops asking for the prime while his thumb is on it", () => {
     const { scout } = playing(HEAVY);
-    expect(asked("p1", { ...scout, primeTick: 10 }, 11)).toBe("");
+    expect(asked("p1", { ...scout, priming: true })).toBe("");
   });
 });
 

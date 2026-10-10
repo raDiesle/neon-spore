@@ -92,14 +92,14 @@ describe("what each ring asks", () => {
     expect(scoutLineAsks(CFG, scout(world))).toBe(true);
   });
 
-  it("asks for the prime while no window runs, and again when it runs out", () => {
+  it("asks for the prime while no thumb is on it, and again once it lifts", () => {
     const world = open();
     carry(scout(world), CFG.scoutHeavyMotes + 1);
-    expect(scoutPrimeAsks(CFG, scout(world), world.tick)).toBe(true);
-    press(world, 1, drag("scoutPrime", false, CFG.scoutPrimeMilli));
-    expect(scoutPrimeAsks(CFG, scout(world), world.tick)).toBe(false);
-    for (let i = 0; i < CFG.scoutPrimeTicks + 1; i++) step(world, []);
-    expect(scoutPrimeAsks(CFG, scout(world), world.tick)).toBe(true);
+    expect(scoutPrimeAsks(CFG, scout(world))).toBe(true);
+    press(world, 1, drag("scoutPrime", true));
+    expect(scoutPrimeAsks(CFG, scout(world))).toBe(false);
+    press(world, 1, drag("scoutPrime", false));
+    expect(scoutPrimeAsks(CFG, scout(world))).toBe(true);
   });
 
   it("asks nothing outside the play", () => {
@@ -107,7 +107,7 @@ describe("what each ring asks", () => {
     const s = scout(world);
     carry(s, CFG.scoutHeavyMotes + 1);
     s.phase = "verdict";
-    expect(scoutLineAsks(CFG, s) || scoutPrimeAsks(CFG, s, world.tick)).toBe(false);
+    expect(scoutLineAsks(CFG, s) || scoutPrimeAsks(CFG, s)).toBe(false);
   });
 });
 
@@ -125,14 +125,14 @@ describe("the press from the wrong seat", () => {
     carry(scout(world), CFG.scoutHeavyMotes + 1);
     const said = refusals(press(world, 2, drag("scoutPrime", true)));
     expect(said).toEqual([{ type: "scoutRefuse", part: "prime", player: 2 }]);
-    expect(scout(world).primeTick).toBe(-1);
+    expect(scout(world).priming).toBe(false);
   });
 
   it("is not refused on a ring that is not on offer, nor on the lift", () => {
     const world = open();
     expect(refusals(press(world, 1, drag("scoutLine", true)))).toEqual([]);
     carry(scout(world), CFG.scoutHeavyMotes + 1);
-    expect(refusals(press(world, 2, drag("scoutPrime", false, CFG.scoutPrimeMilli)))).toEqual([]);
+    expect(refusals(press(world, 2, drag("scoutPrime", false)))).toEqual([]);
   });
 
   it("is not refused from the right seat", () => {

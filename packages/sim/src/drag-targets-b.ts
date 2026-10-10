@@ -86,8 +86,8 @@ export type DragTargetB =
  * 2 cannot move the little ship by a thousandth of a tile and still cannot:
  * her thumb on the line pulls it **straight home** and nowhere else, at under
  * half its own top speed, with player 1's hands dead while it runs. His is a
- * carry on the ship itself (`fromYMilli` against `scoutPrimeMilli`) that lights
- * a thruster three motes have made labour (`scout-hand.ts`). No `id`: one ship
+ * thumb held off the ship's stern that lights a thruster the load has made
+ * labour, for as long as it stays (`scout-hand.ts`). No `id`: one ship
  * and one line onto it.
  */
 

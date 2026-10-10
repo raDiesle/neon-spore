@@ -78,10 +78,10 @@ export function drawScout(
   }
   halo(ctx, x, y, r * 1.9, PALETTE.hull, 0.35);
   // **The wake says the thruster is firing, so it is asked whether it is.**
-  // A burn held on a heavy ship outside `scoutPrimeTicks` adds nothing at all
+  // A burn held on a heavy ship with no thumb on the thruster adds nothing at all
   // (`sim/scout-fly.ts`), and a wake for it would be a control answering
   // while it is refused. `scoutPrimed` is the flight's own reading.
-  if (nose && round.burning && scoutPrimed(cfg, round, tick)) {
+  if (nose && round.burning && scoutPrimed(cfg, round)) {
     drawScoutWake(ctx, x, y, r, sin, cos, time);
   }
 

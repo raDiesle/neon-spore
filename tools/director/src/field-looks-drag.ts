@@ -51,10 +51,6 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "A ring on the neck one tile behind the head, sliding with the body, haloed on the pilot's screen.",
     move: "The ring rides the snake as it moves; a long enough pull prises the jaws open and washes it green.",
   },
-  "THE SCOUT'S PRIME": {
-    find: "A ring off the little ship's stern, behind the amber beads, haloed on the pilot's screen while no window runs.",
-    move: "A carry up or down primes the thruster; the ring's dial is the window, draining as the burn runs.",
-  },
   "PINBALL'S PLUNGER": {
     find: "A ring at the right end of the strength bar's band, only when the spring is slack after a hard launch.",
     move: "No dial: the answer is the strength bar starting to run again after the wind. Plunger green; the table's shove green, its tilt red.",

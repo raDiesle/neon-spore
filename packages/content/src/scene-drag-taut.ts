@@ -67,12 +67,10 @@ export function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // down is the whole of it (`sim/ratchet-hand.ts`).
   if (target === "ratchetCatch") return cfg.ratchetReachMilli;
   if (target === "ratchetPawl") return 0;
-  // THE SCOUT's line reads no distance — a thumb on the little ship is the
-  // reel, held (`sim/scout-hand.ts`) — and its prime reads only the distance
-  // the thumb has travelled when it lets go, which has to be past
-  // `scoutPrimeMilli`; left out, a film carries it exactly that far.
-  if (target === "scoutLine") return 0;
-  if (target === "scoutPrime") return cfg.scoutPrimeMilli;
+  // THE SCOUT's line and prime read no distance — a thumb on the little ship
+  // is the reel, a thumb off its stern the lit thruster, each held
+  // (`sim/scout-hand.ts`).
+  if (target === "scoutLine" || target === "scoutPrime") return 0;
   // THE TRAPEZE's swipes are carried **toward the middle**, and count past
   // `trapezeSwipeMilli` (`sim/trapeze-hand.ts`): left out, a film carries one
   // twice that far, a swipe no reader would call short. Its lock reads none.

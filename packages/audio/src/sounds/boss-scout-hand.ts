@@ -42,7 +42,7 @@ export const BOSS_SCOUT_HAND_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "A cold thruster catching: a click, and a breath of flame taking hold behind it.",
     status: "bound",
-    use: "THE SCOUT's thruster primed by player 1 under heavy — a burn takes for scoutPrimeTicks.",
+    use: "THE SCOUT's thruster primed by player 1 under heavy — a burn takes while his thumb stays on it.",
     level: 0.36,
     layers: [metal(92, 0.2, 0.12, 250), after(0.05, air(4600, 5400, 0.3, 0.1, 1.9))],
   },

@@ -880,8 +880,8 @@ and `scoutHomeRadiusMilli` are what counts as touching each of the four things
 in the arena, and home's is the largest because it is the one thing the pair is
 aiming at. `scoutMawTicks` is how long the mother ship's mouth stands open on a
 press. `scoutLadenMotes` and `scoutHeavyMotes` are the loads above,
-`scoutReelMilli` is how fast the line pulls, and `scoutPrimeMilli` and
-`scoutPrimeTicks` are how far a prime is carried and how long it lasts.
+and `scoutReelMilli` is how fast the line pulls. The prime has no figure: it is
+a hold and lasts as long as the thumb.
 `scoutLeadBeats` is the quiet before the ship is let go — none since 29
 September 2026 — and `scoutVerdictBeats` is how long the result stands.
 
@@ -994,7 +994,7 @@ until it is banked.
 |---|---|---|---|
 | `light` | 0–3 | the three verbs and the mouth as the round was built | both, on the panel |
 | `laden` | 4 | **the line.** Player 2 may put a thumb on the little ship (`scoutLine`) and it is pulled straight home at `scoutReelMilli`, with player 1's turn and burn dead while it runs | player 2, on the picture |
-| `heavy` | 5+ | **the prime.** The thruster labours, and a burn does nothing at all outside `scoutPrimeTicks` of a carry on the ship (`scoutPrime`) | player 1, on the picture |
+| `heavy` | 5+ | **the prime.** The thruster labours, and a burn does nothing at all unless player 1's thumb is held off the ship's stern (`scoutPrime`) | player 1, on the picture |
 
 **The loads are the price of hoarding**, which is the decision this round was
 always about. A pair that banks each mote as it takes it never leaves `light`
@@ -1027,7 +1027,7 @@ motes goes `laden` on the way home, which takes nothing away, and never reaches
 and `scoutPrimed`, the two readings the flight and the picture must not
 disagree about; `stepScoutReel` runs from `stepScoutFlight` and replaces it on
 the ticks the line is on. `ScoutState` gained `reeling` and `primeTick`, both
-hashed. The three events — `scoutReel`, `scoutSlip`, `scoutPrime` — are
+hashed — `primeTick` is `priming` since 10 October 2026, below. The three events — `scoutReel`, `scoutSlip`, `scoutPrime` — are
 `events-scout.ts`, the round's first, cued by `bind-scout-hand.ts` and voiced
 by `sounds/boss-scout-hand.ts`.
 
@@ -1080,6 +1080,22 @@ owes two — no hand flies the little ship to a mote — so `laden` and `heavy`
 are on `OWED`. *Never watched at tempo*: whether a reeled ship reads as being
 pulled or as being flown badly, and whether a prime is a gesture a thumb can
 make while the other hand is on the crank.
+
+**The prime is a hold, 10 October 2026** (the owner: *a hold right now, not
+pull*). It had shipped as a carry of `scoutPrimeMilli` that bought
+`scoutPrimeTicks` of burn, and **no thumb could ever give it**: a drag's lift
+reports a distance only for the swipes `touch.ts` lists, so the carry reached
+the simulation as nought and a heavy ship's burn could not be lit by a thumb
+at all — only the autopilots, which speak the command directly, ever lit one.
+Now it is THE SCOUT'S LINE's gesture on his ring: the press lights the
+thruster, `priming` holds while the thumb is down, the lift puts it out, and
+both figures are gone. The ring goes `held` and full while it is down, as the
+line's does; the dial that drained a window has nothing left to measure. What
+it costs is the same hand it always cost, now for as long as the burn: a heavy
+ship burns or turns, not both. `render/test/scout-grip.test.ts` takes the
+gesture from a real touch to the round and back, the half the carry never had.
+THE HAUL's rehearsal holds the prime through each of its four burns home, on
+the ticks the old window covered, so the film flies exactly as it did.
 
 **A hazard's touch is the wave lost**, and so is the clock running out with a
 mote still owed: both break the hull through `breachHull`, and since 12
