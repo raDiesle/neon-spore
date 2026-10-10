@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 12ebceece — Four looks for every pull handle, in VERSUS and the PULL LAB
+
+VERSUS has a pull:handle slot, opening on THE LAMPREY's head, with four answers to the knob and channel every pull handle in the game shares: BEACON (a ghost knob plays the pull to a socket, a ring fills round the knob, the socket rings out), COMET (a runway of lights popping green behind a tail of fire, a shockwave at the end), SLIME (a drop of goo whose neck stretches and snaps) and TENDON (THE WARDEN's braided cord, thinning as it stretches, a clamp that shuts). The PULL LAB plays each on every shape, and its EVERY LOOK, EVERY STATE sheet puts them side by side at five moments — waiting, half way, counted, short, refused. Nothing the game draws changed; a look taken in VERSUS changes all twenty-two pull handles at once.
+
 ## 2026-10-10 · 7759036f5 — A link to every section of DOCUMENTATION and NOT BUILT YET
 
 Every row of a sheet page's contents menu, and every named card on NOT BUILT YET, has a 🔗 that copies a URL to that one section — the sheet and tab already in the query string, the section's own words as the hash (`?sheet=backlog&inner=bosses#the-instar`, `?sheet=states&inner=style#colour`). Opening one scrolls to the section once the page has drawn and outlines it for a moment. RESEARCH gets a contents menu, so its sections have links too.
