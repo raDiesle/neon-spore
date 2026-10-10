@@ -37280,3 +37280,5 @@ Bottleneck: writing — a drag target taken out is a name in fourteen files, eac
 
 Bottleneck: reading — six pages close six ways, which is why this presses
 each page's own BACK rather than closing anything itself.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 23e77d561 — The director's pages open under the topbar, with a big BACK first
+
+On a wide screen NOT BUILT YET, DOCUMENTATION, RELEASE NOTES, ORPHANS, TUNING and SOUND no longer cover the topbar: the open page's door is lit, pressing it again goes back to the editor, and pressing another door goes straight to that page. Each page's small ✕ CLOSE at the far right is now a large ← BACK at the start of its header. Escape still closes; a phone keeps the whole screen, with BACK in the same place.
+
 ## 2026-10-10 · 78a799f7c — PINBALL's nudge is ◀ and ▶ on both panels, and the tutorial shows it
 
 The shove was a ring on the table that appeared only while a ball was in the air and had to be dragged sideways. It is now a press: ◀ and ▶ either side of SET on player 1's panel and either side of FIRE on player 2's, in the band's own button look, there all round and lit only while a bump would work. Each bump moves the ball a little that way; three dots under each arrow show the bumps the pair still shares, and the fourth tilts the table as before. The tutorial has a sixth page, ANY PLAYER BUMPS THE BALL, where player 2 bumps a ball coming down wide back toward the ship. At a desk the pilot's pair is on the arrow keys and the navigator's on J and L.
