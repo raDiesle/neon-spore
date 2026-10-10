@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · e3f0b281e — The director is set in a text face, with four kinds of heading and brighter grey
+
+Everything in the director was hairline Courier New at 11-12px, with secondary text at 4.5:1 and headings told apart only by colour. Now the whole tool is in the system text face at 16px; code keeps a modern monospace and numbers line up through tabular figures. The grey is about 10:1 and the faint grey about 6.5:1. A page title is large and gold, a section is cyan with a rule under it, a sub-section is white and bold, and a label is small spaced capitals. Paragraphs on the sheets run to 130 characters instead of stopping at 560-900px, header buttons and slider readings no longer break over two lines, and the wave list is 270px wide, so long names show whole.
+
 ## 2026-10-10 · 23e77d561 — The director's pages open under the topbar, with a big BACK first
 
 On a wide screen NOT BUILT YET, DOCUMENTATION, RELEASE NOTES, ORPHANS, TUNING and SOUND no longer cover the topbar: the open page's door is lit, pressing it again goes back to the editor, and pressing another door goes straight to that page. Each page's small ✕ CLOSE at the far right is now a large ← BACK at the start of its header. Escape still closes; a phone keeps the whole screen, with BACK in the same place.

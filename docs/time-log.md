@@ -37296,3 +37296,5 @@ each page's own BACK rather than closing anything itself.
 
 Bottleneck: headings were styled per sheet, so a scale meant finding forty
 selectors that each set their own size.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
