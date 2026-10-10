@@ -24,7 +24,7 @@ export const GESTURE_NOTES: Readonly<Record<string, string>> = {
   "TRACING A PATH":
     "THE FILAMENT's alone now. Possibly a PULL along a drawn path with a " +
     "tolerance off it — `docs/spec/ideas.md`, A pull along a path.",
-  "TWO THUMBS ON ONE PHONE": "Keep. Each pointer by its own id; at a PC, the keys stand in.",
+  "TWO THUMBS ON ONE PHONE": "Keep ruled out — the TEST screen reads it, no wave asks for it.",
   "BOTH SEATS IN ONE WINDOW":
     "Make the together-mark generic: one ring on both screens that fills " +
     "only while both are down.",

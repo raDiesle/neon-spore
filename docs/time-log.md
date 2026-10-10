@@ -37484,3 +37484,16 @@ Bottleneck: finding out what the gesture is for — the game uses it only when
 one screen plays both seats, which the card never said.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — TWO THUMBS ON ONE PHONE ruled out; part 3 of ON THE FIELD goes with it
+
+- reading: 0 min. The files were the last lane's.
+- writing: 5 min. The card moved to the ruled-out list with the owner's
+  reason, the PC picture and its type taken back out, part 3 and its helper
+  removed, the marks legend moved to the ideas part, the test turned round.
+- looking: 5 min. The page in this tree's director: four parts, the card
+  stamped STAY MISSED.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: none worth the name — a removal and its test.

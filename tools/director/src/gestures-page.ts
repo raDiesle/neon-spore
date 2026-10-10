@@ -1,6 +1,5 @@
-import { DESK_H, DESK_W, layoutDesk } from "./gesture-desk.js";
 import { BROWSER_EVENTS, type EventFamily, FAMILY_TITLES } from "./gesture-events.js";
-import { eventColour, figureSvg, primsSvg } from "./gesture-figure.js";
+import { eventColour, figureSvg } from "./gesture-figure.js";
 import { type Gesture, STATE_TITLES } from "./gesture-types.js";
 
 /**
@@ -34,10 +33,8 @@ export function card(g: Gesture): HTMLElement {
   h3.appendChild(text("span", STATE_TITLES[g.state].stamp, "stamp"));
   section.appendChild(h3);
   section.appendChild(figureSvg(g));
-  if (g.desk) section.appendChild(primsSvg(layoutDesk(g.desk), DESK_W, DESK_H, g.desk.does));
   const dl = document.createElement("dl");
   row(dl, "DOES", g.does);
-  row(dl, "AT A PC", g.desk?.does);
   const events = [...new Set(g.timeline.lanes.map((l) => l.event))].join(" · ");
   row(dl, "EVENTS", events);
   row(dl, g.state === "built" ? "WHERE" : "SPEC", g.where?.join(" · "));

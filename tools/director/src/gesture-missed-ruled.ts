@@ -113,4 +113,23 @@ export const RULED_OUT: readonly Gesture[] = [
     },
     why: "The owner ruled on 10 October 2026: not worth a category of its own. TAP COUNT already asks for more than one tap, and on a fire button every single tap would wait ~250 ms to learn it was not a double.",
   },
+  {
+    name: "TWO THUMBS ON ONE PHONE",
+    state: "missed",
+    does: "Two fingers down at once on one screen, each pointer tracked by its own id.",
+    hand: [
+      { k: "hold", at: [20, 128] },
+      { k: "touch", at: [72, 128] },
+    ],
+    timeline: {
+      lanes: [
+        { event: "pointerdown", marks: [1] },
+        { event: "pointerdown", finger: 2, marks: [4] },
+        { event: "pointerup", finger: 2, marks: [5] },
+        { event: "pointerup", marks: [8] },
+      ],
+      note: "② has its own pointerId",
+    },
+    why: "The owner ruled on 10 October 2026: no wave may ask for it. Only the director's TEST screen reads two pointers at once, to play both seats on one screen, and that is not one player's two thumbs (`apps/game/src/input.ts`).",
+  },
 ];

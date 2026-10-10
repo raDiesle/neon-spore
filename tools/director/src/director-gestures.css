@@ -116,9 +116,6 @@ svg.gesture-figure {
   background: #0a0719;
   border-radius: 4px;
 }
-svg.gesture-figure + svg.gesture-figure {
-  margin-top: 6px;
-}
 .gesture-card dl {
   margin: 8px 0 0;
   display: grid;

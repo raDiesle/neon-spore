@@ -1,5 +1,5 @@
-import { actionSection, placedGestures, suggested } from "./field-action-cards.js";
-import { EVERY_WAVE_ROWS, FIELD_ACTIONS, sortedActions } from "./field-actions.js";
+import { actionSection, suggested } from "./field-action-cards.js";
+import { EVERY_WAVE_ROWS, sortedActions } from "./field-actions.js";
 import type { FieldControlDef } from "./field-control-def.js";
 import { FIELD_CONTROLS } from "./field-controls-page.js";
 import { fieldControlRow } from "./field-controls-rows.js";
@@ -21,9 +21,10 @@ import { TRIED_CONTROLS, triedControlRow } from "./tried-controls-page.js";
  * answers, most used first, each with its control types and a card per enemy
  * or boss wave that uses it (`field-actions.ts`, 6 October 2026, the owner),
  * each action and type opening on the generic gestures it is made of (9
- * October 2026); the gestures the game reads that no action starts from; the
- * ones it does not, with the controls tried
- * and set aside; and the raw events. The rows every wave has are drawn on
+ * October 2026); the gestures the game does not read, with the controls
+ * tried and set aside; and the raw events. Every gesture the game reads is
+ * drawn under an action — the last one that was not, TWO THUMBS ON ONE
+ * PHONE, the owner ruled out on 10 October 2026, and its part went with it. The rows every wave has are drawn on
  * their own tab, EVERY WAVE, in the long form they always had.
  *
  * The SUGGESTED lines (`field-notes.ts`, `field-notes-gestures.ts`) are
@@ -33,7 +34,7 @@ import { TRIED_CONTROLS, triedControlRow } from "./tried-controls-page.js";
 /** A part of the page; its h2 is what the CONTENTS list above it jumps to
  * (`bindContents`, `tabs.ts`).
  *
- * **The page is five parts, numbered, with the sections inside them nested
+ * **The page is four parts, numbered, with the sections inside them nested
  * under each** (10 October 2026, the owner: twelve headings at one level, and
  * nothing to say which part of the page a card was in). Each heading says its
  * depth in the outline (`data-depth`, `contents-here.ts`): a part is 1, an
@@ -47,7 +48,6 @@ interface Part {
 const PART = {
   decide: { id: "fp-decisions", title: "DECISIONS" },
   answers: { id: "fp-answers", title: "WHAT THE FIELD ANSWERS" },
-  built: { id: "fp-built", title: "OTHER GESTURES THE GAME READS" },
   ideas: { id: "fp-ideas", title: "NOT USED YET — IDEAS" },
   events: { id: "fp-events", title: "THE RAW EVENTS" },
 } satisfies Record<string, Part>;
@@ -98,19 +98,10 @@ function renderEveryWave(byName: ReadonlyMap<string, FieldControlDef>): void {
   }
 }
 
-/** The built gestures no action draws first: the ones every wave has, and
- * the few no single action owns. */
-export function unplacedGestures(): string[] {
-  const placed = new Set(FIELD_ACTIONS.flatMap(placedGestures));
-  return GESTURES.filter((g) => g.state === "built" && !placed.has(g.name)).map((g) => g.name);
-}
-
 function gestureGrid(state: GestureState): HTMLElement {
   const grid = document.createElement("div");
   grid.className = "gesture-grid";
-  const left = new Set(unplacedGestures());
   for (const g of GESTURES.filter((x) => x.state === state)) {
-    if (state === "built" && !left.has(g.name)) continue;
     const c = card(g);
     const note = GESTURE_NOTES[g.name];
     if (note) c.appendChild(suggested(note));
@@ -163,17 +154,9 @@ export function renderFieldPage(): void {
   }
 
   body.appendChild(
-    partHead(
-      PART.built,
-      "the rest of the vocabulary: gestures the game reads that no one action above starts from",
-    ),
-  );
-  body.appendChild(legend());
-  body.appendChild(gestureGrid("built"));
-
-  body.appendChild(
     partHead(PART.ideas, "gestures nothing reads yet, and controls the game had and set aside"),
   );
+  body.appendChild(legend());
   for (const state of IDEA_STATES) {
     // SPECIFIED is empty while the spec asks for nothing unbuilt, and a
     // heading over no cards reads as a page that failed to draw.

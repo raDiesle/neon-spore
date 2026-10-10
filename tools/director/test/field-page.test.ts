@@ -13,7 +13,6 @@ import { FIELD_CONTROLS } from "../src/field-controls-page.js";
 import { USE_LOOKS } from "../src/field-looks.js";
 import { DECISIONS, ROW_NOTES } from "../src/field-notes.js";
 import { GESTURE_NOTES, TRIED_NOTES } from "../src/field-notes-gestures.js";
-import { unplacedGestures } from "../src/field-page.js";
 import { GESTURES } from "../src/gesture-catalogue.js";
 import { TRIED_CONTROLS } from "../src/tried-controls-page.js";
 
@@ -135,7 +134,9 @@ describe("CONTROLS › ON THE FIELD", () => {
     expect(placed.length).toBe(new Set(placed).size);
   });
 
-  test("the built gestures no action starts from are the one only a shared screen needs", () => {
-    expect(unplacedGestures()).toEqual(["TWO THUMBS ON ONE PHONE"]);
+  test("every built gesture is drawn under an action — the page has no other place for one", () => {
+    const placed = new Set(FIELD_ACTIONS.flatMap(placedGestures));
+    const left = GESTURES.filter((g) => g.state === "built" && !placed.has(g.name));
+    expect(left.map((g) => g.name)).toEqual([]);
   });
 });
