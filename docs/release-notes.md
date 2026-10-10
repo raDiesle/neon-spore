@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 35ff7db1d — THE LAMPREY bites into the ship and pulls a panel button out
+
+A fourth level, the owner's of 10 October 2026: the eel comes down the middle into the hull and its teeth pull a button out of one seat's panel — the pilot's SUCK, then the navigator's RED — a step further each beat, all the way out being the hull. That seat presses the button back in; the other pulls the tail up the field, and only once the button is in does the eel come out — pulled while it is out, the teeth yank it further and the thumb is thrown off. The simulation, AUTO's hand, the wave's level and guide lines; the look (the head in the ship, the button half out, the hull bleeding) is the next lane.
+
 ## 2026-10-10 · 01b8afb2c — SNAKE's screen: the boss fuse on top, big worded buttons, no CRASHED
 
 The name and the lines of text over SNAKE's arena are gone, and the fuse every boss wears burns down just above the arena instead. The four buttons are about twice the size and each says what it does: LEFT and RIGHT under a turn arrow, SHOOT and EAT under the head. A crash no longer puts a CRASHED banner over the arena, and the open mouth is see-through rather than black. Looks asked for by the owner by name.
