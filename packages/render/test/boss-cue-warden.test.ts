@@ -76,8 +76,7 @@ function cue(world: World, role: ViewRole): BossCue | null {
  */
 function taut(world: World, b: WardenState): void {
   b.pulling = true;
-  b.pullMilli = 0;
-  b.pullYMilli = world.cfg.wardenTautMilli;
+  b.pullMilli = world.cfg.wardenTautMilli;
   b.eyeSpent = false;
   if (!wardenEyeOpen(world, b)) throw new Error("a pull at the taut distance did not open it");
 }
@@ -94,7 +93,7 @@ describe("THE WARDEN", () => {
   it("asks the pilot to PULL once his hand is on it and the line is short", () => {
     const { world, b } = opened();
     b.pulling = true;
-    b.pullYMilli = Math.floor(world.cfg.wardenTautMilli / 3);
+    b.pullMilli = Math.floor(world.cfg.wardenTautMilli / 3);
     expect(wardenEyeOpen(world, b)).toBe(false);
     const c = cue(world, "p1");
     expect(c?.word).toBe("PULL");
@@ -161,8 +160,7 @@ describe("THE WARDEN", () => {
           world.cfg.wardenTautMilli,
         ]) {
           b.pulling = true;
-          b.pullMilli = 0;
-          b.pullYMilli = pull;
+          b.pullMilli = pull;
           for (const role of ["p1", "p2"] as const) {
             const c = cue(world, role);
             if (c !== null) seen.add(`${c.kind}\u00b7${c.word}\u00b7${c.seat}`);

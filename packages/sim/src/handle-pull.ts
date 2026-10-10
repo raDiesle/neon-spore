@@ -6,8 +6,10 @@ import type { SimConfig } from "./config.js";
  *
  * A pull used to be one signed number along x, because the only handle in the
  * game hung under a rim and was swung *aside*. The owner asked for the whole
- * circle: a hand may now carry a handle in any direction, and the tension is
- * how far it has come rather than how far across.
+ * circle: a hand could carry a handle in any direction, and the tension was
+ * how far it had come rather than how far across. He took that back for THE
+ * WARDEN's rope (10 October 2026): it runs down one fixed path,
+ * `pullDownMilli`, and only THE LID's cord still goes any way.
  *
  * **Two bounds, and they are different kinds of thing.**
  *
@@ -109,9 +111,7 @@ export function tileCentreMilli(col: number, row: number): PullVec {
  * `anchor` is **where the handle hangs from**, and `raw` is what the pulling
  * device reported — a displacement from wherever the finger grabbed, resolved
  * on that device (`Command` in `command-types.ts`). Anchor plus pull is the
- * handle. For THE WARDEN the anchor is frozen where the hand took the rope
- * (`WardenState.pullAnchorX`), so the handle stays under the finger while the
- * pupil drifts; for THE LID it is the cord's rest **today**, so the handle
+ * handle. For THE LID it is the cord's rest **today**, so the handle
  * rides the falling body (`lidHandleMilli`, the owner's ask) and is re-clamped
  * once a beat as it goes (`stepLidPulls`). What comes back is what the handle
  * actually did, which is what both the picture and the openness are read off.
@@ -135,6 +135,23 @@ export function clampPull(
     x: Math.max(b.x0, Math.min(b.x1, anchor.x + cut.x)) - anchor.x,
     y: Math.max(b.y0, Math.min(b.y1, anchor.y + cut.y)) - anchor.y,
   };
+}
+
+/**
+ * A pull along one fixed path, straight down from `anchorY`: the travel the
+ * hand has made down it, cut to taut and kept on the field (`handleBoundsMilli`,
+ * so the whole circle stays above the bottom edge). Across counts nothing and
+ * up is slack — the pair reads the way from the channel, and the channel only
+ * goes one way.
+ */
+export function pullDownMilli(
+  cfg: SimConfig,
+  anchorY: number,
+  rawY: number,
+  tautMilli: number,
+): number {
+  const room = handleBoundsMilli(cfg).y1 - anchorY;
+  return Math.max(0, Math.min(Math.round(rawY), tautMilli, room));
 }
 
 /**

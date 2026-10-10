@@ -165,10 +165,4 @@ export const DRAG_TYPES: readonly ControlType[] = [
     gestures: ["TRACING A PATH"],
     rows: ["THE FILAMENT'S LINE"],
   },
-  {
-    key: "rope",
-    title: "PULL IN ANY DIRECTION WITH A ROPE",
-    says: "A rope taken hold of and pulled, whichever way the thumb goes.",
-    rows: ["THE WARDEN'S THUMB"],
-  },
 ];

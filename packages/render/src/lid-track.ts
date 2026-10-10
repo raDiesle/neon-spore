@@ -9,8 +9,8 @@ import type { PullTrack } from "./pull-track.js";
  * draws: from the cord's rest, `lidTautMilli` long — the distance at which
  * the plates stand fully apart.
  *
- * Any direction opens it, as with THE WARDEN's rope (`sim/handle-pull.ts`),
- * so the channel lies the first way the field holds its whole length
+ * Any direction opens it (`sim/handle-pull.ts`) — the last handle that still
+ * goes any way; THE WARDEN's rope runs one fixed path now — so the channel lies the first way the field holds its whole length
  * straight: down, then across towards the middle of the field (the side the
  * cord already hangs on, `lidSide`), then the other way, then up. A lid that
  * has come far down the field turns its channel across rather than drawing

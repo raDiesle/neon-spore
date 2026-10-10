@@ -16,6 +16,7 @@ import {
   type World,
   wardenColor,
   wardenEyeOpen,
+  wardenHandleMilli,
   wardenPullMilli,
   wardenTether,
 } from "../src/index.js";
@@ -93,18 +94,18 @@ const at = (beat: number, player: 1 | 2, command: TimedCommand["command"]): Time
  * A hand on the handle, `milli` from where it grabbed — and **down the screen
  * rather than across it**, because that is where the field has the room.
  *
- * The direction is not a flourish. A pull may not carry the handle off the
- * field (`handle-pull.ts`); the rope hangs at `wardenRow + wardenHangRows`,
- * which leaves 7.2 tiles below it and 7.2 above, while the width either side
- * depends on where the pupil has drifted to. Down is the one direction whose
- * room does not move, and `wardenTautMilli` is set to fit inside it.
+ * The direction is not a flourish. The rope runs down one fixed path
+ * (`pullDownMilli`, `handle-pull.ts`); it hangs at `wardenRow + wardenHangRows`,
+ * which leaves 7.2 tiles below it, while the width either side depends on where
+ * the pupil has drifted to. Down is the one direction whose room does not move,
+ * and `wardenTautMilli` is set to fit inside it.
  */
 const drag = (player: 1 | 2, on: boolean, milli: number): Omit<TimedCommand, "tick"> => ({
   player,
   command: { kind: "drag", target: "wardenTether", on, fromMilli: 0, fromYMilli: milli },
 });
 
-/** Grab the handle and haul it `milli` thousandths of a tile aside. Two ticks. */
+/** Grab the handle and haul it `milli` thousandths of a tile down. Two ticks. */
 function haul(run: Run, milli: number, player: 1 | 2 = 1): Run {
   tick(run, drag(player, true, 0));
   tick(run, drag(player, true, milli));
@@ -185,17 +186,17 @@ describe("the pull", () => {
   });
 
   /**
-   * The rule is the pull's **length**, and the field is what decides which
-   * directions can supply it. From where this rope hangs there are 7.2 tiles of
-   * field below and, once the app's own chrome along the top is taken off, 6.2
-   * above — so down reaches taut and up cannot, and the hand has somewhere to
-   * go rather than a sign to get right.
+   * The rule is the hand's travel **down one fixed path** — the channel drawn
+   * under the handle — and nothing else. It went any direction for a while; the
+   * owner took that out (10 October 2026), so a pull goes the way its channel
+   * shows: up is slack, across is nothing, a diagonal counts its downward part,
+   * and the handle stays in the column the hand took it in.
    *
    * Pulling down leaves the rope in the pupil's own column, which is fine: a
    * tether never stopped a shot (`bullets.ts`), so the lane was only ever
    * cleared for the look of it.
    */
-  it("takes any direction the field has room for, and no more", () => {
+  it("runs down one fixed path: across and up open nothing", () => {
     const down = open();
     beats(down, 1);
     haul(down, TAUT);
@@ -205,6 +206,34 @@ describe("the pull", () => {
     beats(up, 1);
     haul(up, -TAUT);
     expect(wardenEyeOpen(up.world, warden(up.world))).toBe(false);
+    expect(wardenPullMilli(up.world, warden(up.world))).toBe(0);
+
+    const across = open();
+    beats(across, 1);
+    tick(across, {
+      player: 1,
+      command: { kind: "drag", target: "wardenTether", on: true, fromMilli: 0 },
+    });
+    tick(across, {
+      player: 1,
+      command: { kind: "drag", target: "wardenTether", on: true, fromMilli: -TAUT, fromYMilli: 0 },
+    });
+    expect(wardenPullMilli(across.world, warden(across.world))).toBe(0);
+    // And a diagonal counts only its downward part.
+    tick(across, {
+      player: 1,
+      command: {
+        kind: "drag",
+        target: "wardenTether",
+        on: true,
+        fromMilli: TAUT,
+        fromYMilli: TAUT / 2,
+      },
+    });
+    expect(wardenPullMilli(across.world, warden(across.world))).toBe(500);
+    expect(wardenHandleMilli(across.world, warden(across.world)).x).toBe(
+      warden(across.world).pullAnchorX,
+    );
   });
 
   it("shuts the moment the hand lifts", () => {

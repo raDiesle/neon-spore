@@ -54,7 +54,7 @@ export function wardenEyeOpen(world: World, b: WardenState): boolean {
 
 function tautLine(world: World, b: WardenState): boolean {
   if (b.tetherId === NO_TETHER) return false;
-  return pullIsTaut({ x: b.pullMilli, y: b.pullYMilli }, world.cfg.wardenTautMilli);
+  return pullIsTaut({ x: 0, y: b.pullMilli }, world.cfg.wardenTautMilli);
 }
 
 /**
@@ -63,7 +63,7 @@ function tautLine(world: World, b: WardenState): boolean {
  */
 export function wardenHatchMilli(world: World, b: WardenState): number {
   if (wardenPhase(b.plates).asks === "throw") return wardenThrown(world, b) ? 1000 : 0;
-  return pullOpenMilli({ x: b.pullMilli, y: b.pullYMilli }, world.cfg.wardenTautMilli);
+  return pullOpenMilli({ x: 0, y: b.pullMilli }, world.cfg.wardenTautMilli);
 }
 
 /**

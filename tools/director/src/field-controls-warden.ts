@@ -21,7 +21,7 @@ export const WARDEN_CONTROLS: readonly FieldControlDef[] = [
     seat: "player 1 — the pilot pulls, player 2 keeps both colours",
     gesture: "grab and drag",
     does:
-      "Pulls the line taut; held taut long enough it opens a hatch " +
+      "Pulls the line taut, straight down its one channel; held taut long enough it opens a hatch " +
       "(render/tether.ts, sim/config-boss.ts).",
     source: "touch.ts — wardenRopeUnder() under handleUnder()",
     holdKind: "drag",

@@ -71,6 +71,7 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
           "THE FLEET'S RAKE",
           "THE INSTAR'S MARKS",
           "THE MIRROR'S LOBES",
+          "THE WARDEN'S THUMB",
         ],
         steps: {
           "THE INSTAR'S MARKS": "HOLD BOTH — both thumbs on a middle mark for its beats.",

@@ -10,11 +10,9 @@ import type { GuideScene } from "../scene-types.js";
  * job is a hand that does not let go, and player 2's is one shot of the rim's
  * own colour, in the eye's own column, while it is fully open.
  *
- * **The pull is a diagonal and it has to be.** The plates are apart at
- * `wardenTautMilli`, the rope hangs three and a half columns from the left
- * edge, and `clampPull` keeps a handle on the field — so a rope carried
- * straight sideways runs out of screen a thousandth short of taut. Down and to
- * the right it reaches with room over.
+ * **The pull is straight down, because that is the rope's one path**
+ * (`pullDownMilli`): the plates are apart at `wardenTautMilli`, and the field
+ * holds that much below the handle with room over.
  *
  * **Two pages since the field learned to say the verbs.** Both of the ones
  * that named one are gone into the cue, and what is left is the picture on his

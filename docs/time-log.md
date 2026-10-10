@@ -37518,3 +37518,16 @@ Bottleneck: reading a slime's motion off still cells — the sheet shows a
 moment, and whether a splash or a snap *feels* right is only told at tempo.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+## 2026-10-10 — THE WARDEN's rope runs one fixed path, straight down
+
+- reading: 15 min. Where the any-direction pull lives: the rope, the lid's
+  cord, the shared clamp, the channel, the director's card.
+- writing: 15 min. `pullDownMilli`, the warden's state down to one pull, the
+  channel held still, the spec, the menu text and the director's rows.
+- looking: 0 min. No frame: the rope was already pulled straight down in
+  every film and capture, so the picture at rest is unchanged.
+- friction: 5 min. `check:fast` ran past the shell's two-minute limit.
+- landing: 5 min. The commit and `land`.
+
+Bottleneck: reading — the vector pull was shared with THE LID, and deciding
+where the line falls between the two took longer than the change.

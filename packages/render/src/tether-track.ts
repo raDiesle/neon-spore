@@ -10,12 +10,12 @@ import type { PullTrack } from "./pull-track.js";
  * draws: from where the hand takes hold, `wardenTautMilli` long — the
  * distance at which the line is taut and the hatch fully open.
  *
- * Any direction opens the gate (`sim/warden-rope.ts`: it is the *length* of
- * the pull), but only one fits the field straight: down, away from the eye
- * the rope comes out of, with a fifth of a tile in hand (`config-boss.ts`).
- * So the channel hangs straight down while nobody has it — not on along the
- * rope, which leans as the pupil walks and would point it off the field — and
- * once a hand is on it turns to follow that hand (`pull-line.ts`).
+ * **One fixed path, straight down** (`sim/warden-rope.ts`): only the hand's
+ * travel down it counts, so the channel never turns to follow the hand — it is
+ * the path, drawn before anybody touches it and still there while they pull.
+ * Down rather than along the rope, which leans as the pupil walks and would
+ * point it off the field; down is the one way the field holds the whole length
+ * from where the rope hangs, with a fifth of a tile in hand (`config-boss.ts`).
  */
 export function wardenRopeTrack(
   l: Layout,
@@ -31,6 +31,7 @@ export function wardenRopeTrack(
     head,
     held: b.pulling,
     rest: PULL_DOWN,
+    follow: false,
     len: (cfg.wardenTautMilli * l.tile) / 1000,
   });
 }

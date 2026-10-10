@@ -11,8 +11,7 @@ import type { HoldSpec } from "./spec.js";
  *
  *   --hold prime=red                THE LANCE: a thumb on red, lobe filling
  *   --hold prime=cyan               the same on cyan
- *   --hold wardenTether=900         THE WARDEN's rope, 0.9 of a tile out
- *   --hold wardenTether=0,y=7000    the same rope, carried straight down
+ *   --hold wardenTether=0,y=7000    THE WARDEN's rope, pulled down taut
  *   --hold mazeString=1400          THE MAZE's wheel, most of a turn
  *   --hold lidString=800,id=3       THE LID: which cord, and how far
  *   --hold choirLeft=-2000          THE CHOIR: the left arrow carried outward
@@ -52,10 +51,9 @@ import type { HoldSpec } from "./spec.js";
  * kind on the field.
  *
  * **`y` is the other half of the pull, and the warden's rope needs it.** The
- * field is eleven columns wide and a boss stands in the middle of it, so a
- * sideways pull is cut short by the edge long before it is taut
- * (`clampPull` keeps a handle on the field); down, there is always room. It is
- * the direction `frame-budget.test.ts` holds that rope in for the same reason.
+ * rope runs down one fixed path and counts nothing across (`pullDownMilli`),
+ * so a `wardenTether` hold without a `y` opens nothing. It is the direction
+ * `frame-budget.test.ts` holds that rope in for the same reason.
  *
  * **A drag is two commands, not one.** The first `drag` a handle hears is the
  * *grab* — it takes the origin the distance will be measured from and moves

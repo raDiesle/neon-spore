@@ -572,7 +572,7 @@ is behind, so the rope starts standing in the shot lane and the pull that opens
 the hatch is the same movement that clears it.
 
 **Player 1 pulls; player 2 fires; neither can reach the other's half.** The
-pilot takes the handle and carries it away — any direction will do — and the
+pilot takes the handle and pulls it straight down its channel, and the
 **hatch in the middle of the ring, with the eyelids behind it, opens by degrees
 in proportion to the tension**. The navigator fires the rim's colour into the pupil's column while it
 is open. A hit takes a plate, shuts eye and hatch together, and snaps the rope
@@ -585,19 +585,18 @@ cannot see. The talking is not decoration on the mechanic, it **is** the
 mechanic.
 
 **How far is far enough** is `wardenTautMilli`, thousandths of a tile of hand
-travel, and the pull is a **distance rather than a duration**. What counts is
-its **length**, in whatever direction the hand went: a gate on a block and
-tackle does not care which way you lean, and the handle is one-to-one with the
-finger, so the rope is drawn running wherever it was carried.
+travel, and the pull is a **distance rather than a duration**.
 
-**A handle may not be carried off the field.** The circle stays wholly on the
-screen and slides along the edge it reaches rather than stopping dead
-(`packages/sim/src/handle-pull.ts`), and it stops a tile short of the very top,
-which is the app's own chrome. That bound and `wardenTautMilli` between them
-decide which directions can open the gate at all: this rope hangs with 7.2 tiles
-of field below it and 6.2 above once the chrome is off, so a downward pull
-reaches taut and an upward one cannot. The hand has somewhere to go rather than
-a sign to get right, and the boundary is what teaches it.
+**The path is fixed: straight down.** The channel is drawn under the handle
+before anybody touches it, and only the hand's travel down it counts — across
+counts nothing, up is slack, and a diagonal counts its downward part
+(`pullDownMilli`, `packages/sim/src/handle-pull.ts`). The handle stays in the
+column the hand took it in and runs down the channel after the thumb. For a
+while the rope could be carried any way at all and what counted was the pull's
+length; the owner took that out on 10 October 2026, for consistency — a pull in
+this game goes the way its channel shows. Down is the one way the field holds
+the whole of `wardenTautMilli` from where this rope hangs (7.2 tiles below it),
+and the handle is still kept wholly on the field above the bottom edge.
 
 **Nothing but the tension holds it open.** There is no tear and no clock. Keep
 pulling and it stays open; slacken and it shuts; land a shot and the rope is

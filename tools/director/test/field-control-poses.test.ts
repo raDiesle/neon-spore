@@ -36,7 +36,7 @@ describe("ON THE FIELD rows and their pictures", () => {
     const b = w.boss;
     if (b === null || b.kind !== "warden") throw new Error("no warden");
     expect(b.pulling).toBe(true);
-    expect(b.pullYMilli).toBeGreaterThanOrEqual(w.cfg.wardenTautMilli);
+    expect(b.pullMilli).toBeGreaterThanOrEqual(w.cfg.wardenTautMilli);
   });
 
   test("both balloon handles are taut and the skin has not given", () => {

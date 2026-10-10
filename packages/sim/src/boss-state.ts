@@ -101,29 +101,20 @@ export interface WardenState {
   /** Whether a hand is on the handle at all. */
   pulling: boolean;
   /**
-   * Where that hand was when it grabbed, in thousandths of a tile of its own
-   * device's displacement. The origin never crosses the wire (`Command` in
-   * `types.ts`); this is the sim's copy of the one the pulling device resolved.
+   * How far down the screen that hand was when it grabbed, in thousandths of a
+   * tile of its own device's displacement. The origin never crosses the wire
+   * (`Command` in `types.ts`); this is the sim's copy of the one the pulling
+   * device resolved.
    */
   pullOriginMilli: number;
-  /** The same, down the screen. Absent from the wire before the pull became a
-   * circle, so it is nought on every replay recorded until then. */
-  pullOriginYMilli: number;
   /**
-   * How far the handle has been carried across the field, in thousandths of a
-   * tile — the x of a pull that may now go any way at all.
+   * How far the handle has been carried down its one fixed path, in
+   * thousandths of a tile, 0..`wardenTautMilli` — the tension, and the picture
+   * as well as the rule: the rope is drawn running to where the hand carried
+   * it, and one thing player 2 can see about their partner's hand has to be the
+   * thing it is actually doing (`pullDownMilli`, `handle-pull.ts`).
    */
   pullMilli: number;
-  /**
-   * And how far down. The pair of them is the pull, and its **length** is the
-   * tension — `pullIsTaut` compares the two squares rather than taking a root,
-   * so the rule has no rounding in it at all (`handle-pull.ts`).
-   *
-   * Both are the picture as well as the rule: the rope is drawn running to
-   * wherever the hand carried it, and one thing player 2 can see about their
-   * partner's hand has to be the thing it is actually doing.
-   */
-  pullYMilli: number;
   /**
    * Where the handle was when the hand took it, in thousandths of a tile, held
    * there until the hand lets go. The handle is this plus the pull, so it stays

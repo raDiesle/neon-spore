@@ -13,7 +13,7 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
   },
   "THE WARDEN'S TETHER": {
     find: "A rope hanging from the rim with a resting circle at its end, on the pilot's screen.",
-    move: "The line stretches taut after the thumb; held taut long enough, a hatch opens on the eye. Four looks of the rope are on its row.",
+    move: "The handle runs straight down its channel after the thumb, the one way the rope goes; pulled the whole channel, a hatch opens on the eye. Four looks of the rope are on its row.",
   },
   "THE BASTION'S LEFT SLAB": {
     find: "A knob in the middle of the next armour slab each side of the moon — left the pilot's, right the navigator's — with the arrow out along the slab's way.",
@@ -184,10 +184,5 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
   "THE FILAMENT'S LINE": {
     find: "A ring on the armed filament with its word beside it — green when the move is open, red with WAIT when not; arrows march up the path.",
     move: "Each tile the thumb carries along lights; the partner's ring follows dim on the other screen.",
-  },
-  // PULL IN ANY DIRECTION WITH A ROPE
-  "THE WARDEN'S THUMB": {
-    find: "A ring on the shut eye where the pupil stands, haloed on the navigator's screen, while the pilot hauls the rope.",
-    move: "The lids part behind the hatch and the pupil stops walking for as long as the thumb stays; green when it lands.",
   },
 };
