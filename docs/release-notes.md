@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 429386ddb — GOO: four living-slime pull looks in the PULL LAB, built on OOZE
+
+The PULL LAB's LOOK picker now offers AS SHIPPED, OOZE and four looks of its own — JELLY, HONEY, ACID and TAR — and BEACON, COMET, SLIME and TENDON are gone from the tree, as the owner asked. None is cyan. Each is a real slime with a neon rim: lumps that creep, a teardrop lean into the pull, an uneven strand behind it kept quiet, and a few specks where it went, with no row of dots. Big glowing chevrons and a bold arrow say which way to pull. When counted, a glob falls onto the place and splashes. When it fails, the strand snaps, the drop spits red goo and crawls home, and after a count a fresh drop falls into the start. There is no word on the field. The lab opens with a one-tile tolerance either side of the path: the drop follows the hand anywhere inside it, the wall it nears heats red with a thread back to the middle, and both walls flash red when it leaves. JELLY has bubbles inside and wobbles hardest, HONEY drips, ACID fizzes and TAR is black with an oily sheen.
+
 ## 2026-10-10 · 7fb4fe542 — TWO THUMBS ON ONE PHONE is ruled out; ON THE FIELD is four parts
 
 The owner ruled on 10 October 2026 that no wave may ask for two fingers at once on one screen: only the director's TEST screen reads two pointers, to play both seats, and that is not one player's two thumbs. The card moves to SHOULD STAY MISSED with that reason, the AT A PC picture made for it goes, and part 3, OTHER GESTURES THE GAME READS, is gone with its last card; every gesture the game reads is drawn under an action. The input code is untouched.
