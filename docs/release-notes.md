@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 4241af9d8 — OOZE: SLIME made clear, a fifth pull look in the PULL LAB
+
+From the owner's notes on the four pull looks. OOZE keeps SLIME's drop and neck and takes the rest from the others: ripples and a halo calling the thumb to the start, louder than TENDON's; a ghost drop running the pull while the runway's drops light one after another behind it, as COMET's do; a hollow drop at the end, the place to put it; green drops and green goo along the way it has come; BEACON's ring of how far, hugging the drop's own rim. Counted, the place goes green, a star and a shockwave roll out and the drop pops away — no word. Refused, the drop bursts red where it was let go, off the path when the hand took it there, and a red neck hauls it home slowly.
+
 ## 2026-10-10 · e42e1b0f7 — ON THE FIELD files its step-by-step rows under the actions they use
 
 STEP BY STEP is no longer an action on CONTROLS › ON THE FIELD: it is how a control is used, not a kind of one. THE INSTAR's, THE MIRROR's, THE QUEEN's and THE GALL's marks now have a card under every type one of their steps uses — PULL, LEVER, TURN A WHEEL, HOLD, BOTH SEATS, PRESS — each saying which step it is. TAP OR HOLD, ON ONE CONTROL and TIMED WHOLE-SCREEN HOLD are off the gesture list: each reuses TAP or HOLD and is already a row of EVERY WAVE.
