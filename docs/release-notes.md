@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 5076cb713 — Queue: THE LAMPREY lets a bolt through its head while it is not reared
+
 ## 2026-10-10 · bea099e69 — THE LAMPREY's gullet stops a bolt and takes the hit where it is drawn
 
 A bolt shot up the reared eel's column no longer flies on through its head: it ends on the lit gullet's near rim with a burst and a ring in its colour, and the eel takes the hit there, five ticks later — red, jerked up, the gullet a step smaller — rather than when the bolt left the top of the field. The eel was never put on the table of cores met where they hang (`sim/core-along.ts`) when every other one was on 5 October; it is now, up its tile's column at its tile's row, with its own stopper (`render/lamprey-stop.ts`). A bolt already above the head when the gullet lit meets nothing.
