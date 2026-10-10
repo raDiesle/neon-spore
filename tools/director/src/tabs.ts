@@ -1,3 +1,5 @@
+import { depthOf, markHere, type Spot, standBar } from "./contents-here.js";
+
 /**
  * Buttons carrying `data-tab`, pages with the matching `<prefix><name>` id.
  *
@@ -83,8 +85,9 @@ export function bindContents(): void {
     const list = document.createElement("ol");
     list.className = "contents-list";
     nav.replaceChildren(label, list);
+    const spot = standBar(nav, container);
 
-    fillContents(nav, list, container);
+    fillContents(spot, list);
     // Coalesced to one refill per frame: a page that appends its sections one
     // by one would otherwise rebuild the list once per section.
     let due = false;
@@ -93,7 +96,7 @@ export function bindContents(): void {
       due = true;
       requestAnimationFrame(() => {
         due = false;
-        fillContents(nav, list, container);
+        fillContents(spot, list);
       });
     };
     new MutationObserver(refill).observe(container, { childList: true, subtree: true });
@@ -113,14 +116,29 @@ const HEADINGS = ["H2", "H3", "H4"];
  * than one heading at it** — which is the sections in both shapes, and never
  * the single title standing over them. A page with one heading in total lists
  * that one rather than nothing.
+ *
+ * A page that writes its own outline (`data-depth`, `contents-here.ts`) is
+ * taken at its word instead: its parts and their sections, whatever level of
+ * heading each is drawn at.
  */
 export function listedHeadings(container: HTMLElement): HTMLElement[] {
   const all: HTMLElement[] = [];
   collectHeadings(container, all);
+  const outline = all.filter((h) => h.dataset.depth);
+  if (outline.length > 0) return outline.filter((h) => depthOf(h) <= 2);
   const at = (level: string): HTMLElement[] => all.filter((h) => h.tagName === level);
   for (const level of HEADINGS) if (at(level).length > 1) return at(level);
   for (const level of HEADINGS) if (at(level).length === 1) return at(level);
   return [];
+}
+
+/** Every heading the bar can name: the page's own outline, steps and all, or
+ * what the menu lists when it has none. */
+function outlineOf(container: HTMLElement): HTMLElement[] {
+  const all: HTMLElement[] = [];
+  collectHeadings(container, all);
+  const outline = all.filter((h) => h.dataset.depth);
+  return outline.length > 0 ? outline : listedHeadings(container);
 }
 
 /** Every heading under `el`, in the order the page draws them. */
@@ -150,20 +168,29 @@ export function whereOnPage(index: number, count: number): string {
   return "near the end";
 }
 
-function fillContents(nav: HTMLElement, list: HTMLElement, container: HTMLElement): void {
+function fillContents(spot: Spot, list: HTMLElement): void {
+  const { nav, container } = spot;
   const headings = listedHeadings(container);
   list.replaceChildren();
+  spot.rows.clear();
+  spot.outline = outlineOf(container);
 
   // Hidden rather than shown empty: the pages here are drawn on first sight
   // of their own tab, and a label over a page with nothing on it yet is not
   // a fault to report — the observer shows it when the page arrives.
   nav.hidden = headings.length === 0;
 
+  let part = 0;
   for (const [index, heading] of headings.entries()) {
+    const depth = depthOf(heading);
     const item = document.createElement("li");
+    item.className = `depth-${depth}`;
     const jump = document.createElement("button");
     jump.type = "button";
     jump.textContent = heading.textContent ?? "";
+    // The part's number, drawn by the stylesheet off this attribute so the
+    // row's own text stays the heading's.
+    if (depth === 1) jump.dataset.num = String(++part);
 
     const where = document.createElement("span");
     where.className = "where";
@@ -176,5 +203,8 @@ function fillContents(nav: HTMLElement, list: HTMLElement, container: HTMLElemen
 
     item.appendChild(jump);
     list.appendChild(item);
+    spot.rows.set(heading, item);
   }
+  spot.drawn = "";
+  markHere(spot);
 }

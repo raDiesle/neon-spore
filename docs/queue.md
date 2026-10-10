@@ -747,3 +747,10 @@ Drawn from player 2's screen (the STATES card `THE FLEET · WRECK`, now `role: "
 - **Files:** `packages/hands/src/boss-hands-rounds.ts`, `packages/sim/src/pinball-physics.ts`, `packages/sim/src/pinball-funnel.ts`, `packages/sim/src/pinball-round.ts`
 
 `pinballHand` latches the needle on its first tick and launches on the next, so every AUTO shot leaves at `angleMilli` 0 and `powerMilli` 4: straight up from x 5500, it climbs to y ≈ 7.8 tiles (no peg is lower than 3), falls, and is thrown back up from y ≈ 13.7 with `vxMilli` 0 and no height lost, over and over. It never crosses the floor at 14000, so each flight runs about 60 beats (~38 s at 96 bpm) until `pinballFlightBeats` times it out. A played PINBALL is three of those and a verdict: the table offers the shove the whole time and nothing on the board is ever touched (`bun run probe` on `waveWorld("pinball")` with `playedBeat`). Two things to settle: what at y ≈ 13.7 returns a vertical ball with no loss, when the bounce should take `bouncePermille` off and the cannon should catch a ball that falls back onto it; and give the hand an aim and a power that reach the board, with a test that an AUTO PINBALL flight ends under the flight clock and lights at least one piece.
+
+## The director's dev route 404s director.css after a sheet is added under it
+
+- **Found:** 2026-10-10, claude/docs-section-navigation-8a2e5c
+- **Files:** `tools/director/server.ts`, `tools/director/src/director.css`
+
+With `director-here` running, adding `@import "./director-contents.css";` to `director.css` answered the next page load with a 500, and every reload after it asked for `/tools/director/src/director.css` and got a 404 — the bundled stylesheet under _bun/asset still loaded, so the page looked right and the error was only in the console. Stopping and starting the server cleared it; the lane did that and went on. Find whether the HTML route's asset graph is rebuilt when a CSS `@import` list grows, and either make it rebuild or have the route say "restart me" instead of 404ing, with a test if the route is reachable from one.

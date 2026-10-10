@@ -141,6 +141,16 @@ export class FakeEl {
     return node;
   }
 
+  /** Placed straight after this one under the same parent — the contents
+   * menu stands its bar there (`director/src/contents-here.ts`). */
+  after(node: FakeEl): void {
+    const parent = this.parent;
+    if (!parent) return;
+    node.remove();
+    node.parent = parent;
+    parent.children.splice(parent.children.indexOf(this) + 1, 0, node);
+  }
+
   replaceChildren(...nodes: FakeEl[]): void {
     for (const child of this.children) child.parent = null;
     this.children.length = 0;

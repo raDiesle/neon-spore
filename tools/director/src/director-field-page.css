@@ -12,6 +12,35 @@
   border-top: 1px solid var(--line);
   padding-top: 12px;
 }
+/* A part of the page — one of its five, numbered — reads as a band across
+   it, so the sections inside it read as inside it (10 October 2026). */
+.field-part.depth-1 h2 {
+  margin-top: 48px;
+  padding: 10px 12px;
+  font-size: 1.25rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--gold);
+  border-radius: 6px;
+}
+.field-part.depth-1:first-child h2 {
+  margin-top: 8px;
+}
+.field-part h2[data-num]::before {
+  content: attr(data-num) "  ";
+  white-space: pre;
+  color: var(--dim);
+}
+.field-part.depth-1 .sub {
+  margin-left: 16px;
+}
+/* An action inside WHAT THE FIELD ANSWERS: still its own heading, smaller
+   than the part it is in. */
+.field-part.depth-2 h2 {
+  margin-top: 26px;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
 .field-part .sub {
   margin: 0 0 12px;
   color: var(--dim);

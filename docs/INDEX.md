@@ -3314,6 +3314,7 @@ by hand never moves.
 | `tools/land/specs.ts` | The spent-delegate-spec half of the sweep |
 | `tools/hooks/lane-finished.ts` | The turn is over and the lane is finished: land it on the local trunk, and put the rest to the owner |
 | `tools/director/src/control-set-note.ts` | The roster under the wave editor's control-set picker: every button on the panel, seat by seat |
+| `tools/director/src/contents-here.ts` | Where you are on a long sheet page, kept in sight while you read it |
 | `tools/director/src/rail-marks.ts` | The small glyphs in front of a wave's name in the rail: a boss, a panel, a guide |
 | `tools/land/say.ts` | What a landing says about itself before and after it happens |
 | `tools/maze/draw.ts` | Draw a sheet for THE MAZE: the walls of one circular maze |

@@ -31,7 +31,14 @@ import { TRIED_CONTROLS, triedControlRow } from "./tried-controls-page.js";
  */
 
 /** A part of the page; its h2 is what the CONTENTS list above it jumps to
- * (`bindContents`, `tabs.ts`). */
+ * (`bindContents`, `tabs.ts`).
+ *
+ * **The page is five parts, numbered, with the sections inside them nested
+ * under each** (10 October 2026, the owner: twelve headings at one level, and
+ * nothing to say which part of the page a card was in). Each heading says its
+ * depth in the outline (`data-depth`, `contents-here.ts`): a part is 1, an
+ * action or a group of ideas 2, a control type inside an action 3 — which is
+ * what the bar standing at the top of the page names as you scroll. */
 interface Part {
   id: string;
   title: string;
@@ -39,6 +46,7 @@ interface Part {
 
 const PART = {
   decide: { id: "fp-decisions", title: "DECISIONS" },
+  answers: { id: "fp-answers", title: "WHAT THE FIELD ANSWERS" },
   built: { id: "fp-built", title: "OTHER GESTURES THE GAME READS" },
   ideas: { id: "fp-ideas", title: "NOT USED YET — IDEAS" },
   events: { id: "fp-events", title: "THE RAW EVENTS" },
@@ -48,9 +56,14 @@ const IDEA_STATES: readonly GestureState[] = ["specd", "consider", "missed"];
 
 function partHead(part: Part, sub: string): HTMLElement {
   const head = document.createElement("div");
-  head.className = "field-part";
+  head.className = "field-part depth-1";
   head.id = part.id;
-  head.appendChild(text("h2", part.title));
+  const h2 = text("h2", part.title);
+  h2.dataset.depth = "1";
+  // Drawn by the stylesheet, so the heading's text — what CONTENTS lists —
+  // stays the part's name.
+  h2.dataset.num = String(Object.values(PART).indexOf(part) + 1);
+  head.appendChild(h2);
   head.appendChild(text("p", sub, "sub"));
   return head;
 }
@@ -109,9 +122,16 @@ function gestureGrid(state: GestureState): HTMLElement {
 function stateHead(state: GestureState): HTMLElement {
   const head = document.createElement("div");
   head.className = `gesture-group state-${state}`;
-  head.appendChild(text("h2", STATE_TITLES[state].title));
+  head.appendChild(section("h2", STATE_TITLES[state].title));
   head.appendChild(text("p", STATE_TITLES[state].sub, "sub"));
   return head;
+}
+
+/** A section's heading inside a part: depth 2 of the outline. */
+function section(tag: string, title: string): HTMLElement {
+  const h = text(tag, title);
+  h.dataset.depth = "2";
+  return h;
 }
 
 let drawn = false;
@@ -130,6 +150,12 @@ export function renderFieldPage(): void {
   body.appendChild(partHead(PART.decide, "what this page suggests deciding, across types"));
   body.appendChild(decisions());
 
+  body.appendChild(
+    partHead(
+      PART.answers,
+      "every action, most used first: its types, and a card per wave that uses one",
+    ),
+  );
   body.appendChild(text("p", MARKS, "field-marks"));
   body.appendChild(text("p", GRAB, "field-marks"));
   for (const { action, uses, types } of sortedActions()) {
@@ -157,7 +183,7 @@ export function renderFieldPage(): void {
   }
   const tried = document.createElement("div");
   tried.className = "gesture-group";
-  tried.appendChild(text("h2", "TRIED AND SET ASIDE"));
+  tried.appendChild(section("h2", "TRIED AND SET ASIDE"));
   tried.appendChild(text("p", "played with once, kept because the owner asked", "sub"));
   body.appendChild(tried);
   for (const c of TRIED_CONTROLS) {

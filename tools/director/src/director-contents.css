@@ -1,0 +1,93 @@
+/* Where you are on a long sheet page (`contents-here.ts`, 10 October 2026):
+   the bar that stands at the top of the page's scroller naming the part,
+   section and step being read, and the menu's rows nested and marked to
+   match. The menu itself is `director-sheets.css`.
+
+   The bar is as wide as the scroller, padding and all, and opaque: a
+   sticky paragraph only as wide as its own column let the page scroll
+   *through* the text beside it (`director-music.css` says when). */
+.contents-here {
+  position: sticky;
+  /* The scroller's own top padding, so the bar meets its edge. */
+  top: -12px;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  margin: 0 -20px 12px;
+  padding: 7px 20px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 6px 10px -6px #000;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+.contents-here[hidden] {
+  display: none;
+}
+.contents-here button {
+  border: 0;
+  border-radius: 4px;
+  padding: 2px 6px;
+  background: none;
+  color: var(--ink);
+  letter-spacing: 1px;
+}
+.contents-here button:hover {
+  background: #2a1f4e;
+  color: var(--gold);
+}
+.contents-here .here-num {
+  color: var(--bg);
+  background: var(--gold);
+  border-radius: 3px;
+  padding: 1px 6px;
+  font-size: 0.7rem;
+  letter-spacing: 0;
+}
+.contents-here .here-crumb.depth-1 {
+  color: var(--gold);
+}
+.contents-here .here-crumb.depth-3 {
+  color: var(--cyan);
+}
+.contents-here .here-sep,
+.contents-here .here-none {
+  color: var(--dim);
+}
+.contents-here .here-up {
+  margin-left: auto;
+  color: var(--dim);
+  font-size: 0.7rem;
+}
+
+/* A jump lands its heading just under the bar rather than behind it. */
+.has-contents :is(h2, h3, h4) {
+  scroll-margin-top: 48px;
+}
+
+/* The menu's rows in the page's outline: a part numbered, its sections
+   indented under it, and the row being read lit. */
+.contents-list button[data-num]::before {
+  content: attr(data-num);
+  min-width: 1.4em;
+  color: var(--gold);
+}
+.contents-list li.depth-1 button {
+  color: var(--gold);
+}
+.contents-list li.depth-1:not(:first-child) {
+  margin-top: 4px;
+}
+.contents-list li.depth-2 button {
+  padding-left: calc(7px + 1.4em + 10px);
+  font-size: 0.85em;
+}
+.contents-list li.within > button {
+  background: #1a1338;
+}
+.contents-list li.here > button {
+  background: #2a1f4e;
+  box-shadow: inset 3px 0 0 var(--gold);
+}

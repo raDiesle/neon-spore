@@ -170,6 +170,9 @@ function typeBlock(
   box.className = `field-type field-type-${t.key}`;
   if (showTitle) {
     const h = text("h3", t.title, "field-type-title");
+    // A step in the page's outline: named by the bar, not listed.
+    h.dataset.depth = "3";
+    h.dataset.label = t.title;
     h.appendChild(countOf(typeUses(t)));
     box.appendChild(h);
   }
@@ -209,9 +212,11 @@ export function actionSection(
   const box = document.createElement("div");
   box.className = "field-action";
   const head = document.createElement("div");
-  head.className = "field-part";
+  head.className = "field-part depth-2";
   head.id = `fa-${a.key}`;
-  head.appendChild(text("h2", a.title));
+  const h2 = text("h2", a.title);
+  h2.dataset.depth = "2";
+  head.appendChild(h2);
   // The count stays out of the h2, whose text is what CONTENTS lists.
   const sub = text("p", ` ${a.says}`, "sub");
   sub.prepend(countOf(uses));

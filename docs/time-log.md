@@ -37237,3 +37237,18 @@ Bottleneck: friction — a dozen documents count or name the creatures, and
 only the tests say which.
 
 *Measured: 12 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — ON THE FIELD says where you are while you read it
+
+- reading: 10 min. `field-page.ts`, `field-action-cards.ts`, `tabs.ts`'s
+  contents menu and its test, the fake DOM's surface.
+- writing: 20 min. `contents-here.ts`, the outline in `data-depth`, the
+  fifth part, both stylesheets, the tests.
+- looking: 15 min. The pane was hidden, so no scroll fired until it was
+  fronted; the smooth jump up marked DECISIONS on its way past.
+- friction: 5 min. The dev route 404ed `director.css` after the new sheet;
+  a restart cleared it (queued).
+- landing: 5 min. `bun run index`, `check:fast`, the commit, `land`.
+
+Bottleneck: looking — a scroll-driven bar can only be judged in a pane that
+is in front, and the first one was not.
