@@ -37598,3 +37598,5 @@ every branch took as long as writing the rule.
 Bottleneck: making the ending and the failure play the same drop the hand
 had, which needed the lab to say where the verdict found it and when it was
 let go.
+
+*Measured: 18 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

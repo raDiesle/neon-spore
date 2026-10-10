@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 1d8f0363e — PULL LAB: four GOO looks on OOZE's guides, told apart by how a count ends
+
+The lab's GOO looks are rebuilt from the owner's notes on OOZE and on the first four: OOZE's call, dots ahead with the next one blinking, ghost run, turning place and ring of how far, in TAR's colour with JELLY's tail. Behind the drop only a quiet green left by the fluid; a red edge only where the drop's rim touches the limit, no walls; a failure slurped home by its own tail. The four looks are four endings — SINK, SCATTER, SLING, BLOOM — each playing the same drop from the place back to its start, none falling.
+
+## 2026-10-10 · 87a2722b5 — The PULL LAB's off-path rule is a file of its own, and the lab opens at half a tile
+
+`pull-lab-stray.ts` now holds the tolerance (`Stray`, `STRAY_TILES`, `strayReach`) and the nearest point of a path to a thumb, so `pull-lab-rule.ts` keeps the phases, the lift and the clock. A verdict is handed out in one place (`give`), which also keeps where the knob was when it was given (`from`), and the rule counts seconds since the last lift (`lifted`), both for a look to time its ending by. The lab opens with OFF PATH · FAILS PAST ½ TILE, the owner's choice.
+
 ## 2026-10-10 · b323b41cd — A boss shot in the wrong colour loses the wave, and says WRONG COLOUR
 
 The owner, 10 October 2026, of THE BASTION and of boss waves in general: a cannon shot in the wrong colour at a lit target now fails the wave, on every level. The moment the shot is judged wrong, WRONG COLOUR is stamped in large red letters across the held field, and the lost screen that follows says it again under the wave's name. Until now the wrong colour on most bosses only counted against the balance sheet and the target stayed lit. THE BATON, THE GORGE, THE HIVE, THE TASTER and THE CURTAIN keep the answer their wrong colour already had (a knock back, a spill, a sooner spill, a thicker blade, a rock). Films are not affected. A lost screen after a wrong colour or a wasted shot no longer replays a breach from an earlier wave.
