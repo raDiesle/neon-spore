@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · e42e1b0f7 — ON THE FIELD files its step-by-step rows under the actions they use
+
+STEP BY STEP is no longer an action on CONTROLS › ON THE FIELD: it is how a control is used, not a kind of one. THE INSTAR's, THE MIRROR's, THE QUEEN's and THE GALL's marks now have a card under every type one of their steps uses — PULL, LEVER, TURN A WHEEL, HOLD, BOTH SEATS, PRESS — each saying which step it is. TAP OR HOLD, ON ONE CONTROL and TIMED WHOLE-SCREEN HOLD are off the gesture list: each reuses TAP or HOLD and is already a row of EVERY WAVE.
+
 ## 2026-10-10 · fff8adc4d — A skill for adding a page to the director
 
 `.claude/skills/director-page` says what a new sheet, a room inside one, a tab bar inside a room and a linkable section each touch: the markup, the lazy draw, the binding order the URL restore depends on, which level of the URL (`sheet`, `inner`, `sub`, `#section`) it lives at, the tests that catch a tab with no page, and how to see it in this tree's director — so a new page comes back where it was on a reload from the start.

@@ -37415,3 +37415,5 @@ same fix, landed but not pushed.
 
 Bottleneck: deciding how one row sits on several types without losing the
 page's one-place check — answered by naming the step on each.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
