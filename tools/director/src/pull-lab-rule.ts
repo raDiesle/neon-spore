@@ -55,6 +55,8 @@ export interface LabPull {
   from: { at: number; off: Point };
   /** Seconds since the last lift, whatever it came to. */
   lifted: number;
+  /** Seconds since the knob was last taken. */
+  grabbed: number;
 }
 
 /** Seconds a verdict is shown before the knob is idle again. */
@@ -86,6 +88,7 @@ export function freshPull(shape: LabShape): LabPull {
     last: null,
     from: { at: shape.origin, off: { x: 0, y: 0 } },
     lifted: 0,
+    grabbed: 0,
   };
 }
 
@@ -115,6 +118,7 @@ export function press(shape: LabShape, p: LabPull, at: Point): boolean {
   const k = knobAt(shape, p);
   if (Math.hypot(at.x - k.x, at.y - k.y) > LAB_KNOB * PULL_GRAB) return false;
   p.phase = "held";
+  p.grabbed = 0;
   p.verdict = null;
   p.slow = false;
   p.last = null;
@@ -171,6 +175,7 @@ export function tick(shape: LabShape, p: LabPull, dt: number): void {
   if (p.verdict) p.since += dt;
   p.age += dt;
   p.lifted += dt;
+  p.grabbed += dt;
   if (p.phase === "idle") p.rested += dt;
   if (p.verdict && p.since > VERDICT_SECONDS && p.phase !== "full") {
     p.verdict = null;

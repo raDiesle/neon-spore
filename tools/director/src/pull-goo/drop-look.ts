@@ -2,6 +2,7 @@ import type { Point } from "@neon-spore/content";
 import { choice } from "../field-try-bar.js";
 import { paintBall } from "./ball.js";
 import { type GooBody, paintBody } from "./body.js";
+import { grabChoice } from "./grab.js";
 import type { GooStyle } from "./style.js";
 
 /**
@@ -11,7 +12,7 @@ import type { GooStyle } from "./style.js";
  * ending is judged with either drop rather than doubling the picker. A
  * director setting, not the game's: nothing here is stored.
  */
-export const GOO_DROP: { ball: boolean } = { ball: false };
+export const GOO_DROP: { ball: boolean } = { ball: true };
 
 /** The drop, as the bar has it; `way` is the way a ball rolls, down when not given. */
 export function paintGoo(
@@ -26,9 +27,10 @@ export function paintGoo(
   else paintBody(ctx, b, style, time, tint);
 }
 
-/** The bar's choice of drop; `changed` redraws whatever is not redrawn every frame. */
-export function dropChoice(changed: () => void): HTMLElement {
-  return choice(
+/** The bar's choices for every GOO drop: flat or a ball, and how it is taken (`grab.ts`);
+ * `changed` redraws whatever is not redrawn every frame. */
+export function dropChoices(changed: () => void): HTMLElement[] {
+  const look = choice(
     [
       ["DROP · FLAT", false],
       ["DROP · 3D BALL", true],
@@ -39,4 +41,5 @@ export function dropChoice(changed: () => void): HTMLElement {
       changed();
     },
   );
+  return [look, grabChoice()];
 }

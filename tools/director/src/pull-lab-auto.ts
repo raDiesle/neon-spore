@@ -49,11 +49,13 @@ const STRAY_DRIFT = 50;
  * and a look that keeps the knob under the hand shows it let go off the path. */
 const SHORT_DRIFT = 24;
 /** How far to the side of the path the whole pull swings at its middle, in
- * field pixels — inside half a tile, so it counts under either tolerance and
- * a look that keeps the knob under the hand shows a pull that need not be
+ * field pixels — well inside half a tile, so it counts under either tolerance
+ * and a look that keeps the knob under the hand shows a pull that need not be
  * straight (the owner, 10 October 2026: *pull it not only straight the
- * correct path, but also around the path in the tolerance*). */
-const WANDER = 13;
+ * correct path, but also around the path in the tolerance*), yet never so
+ * near half a tile's edge that a GOO look warns red on the pull that counts:
+ * half a tile is the owner's pick of the two, the same day. */
+const WANDER = 7;
 
 /** Where the thumb is `t` seconds into the loop. A two-way pull goes one way
  * whole and the other way short. */

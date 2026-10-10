@@ -62,12 +62,24 @@ export function tailPath(run: Run, r: number, time: number, taut = 0): Path2D {
   });
 }
 
+/** Where the tail turns from the drop's colour to green: the drop's own colour out to
+ * its `rim`, green by `span` pixels back from its middle. */
+export interface Blend {
+  readonly run: Run;
+  readonly color: string;
+  readonly rim: number;
+  readonly span: number;
+}
+
 /**
  * The tail, filled and edged in `color` — the count's green while it is
  * pulled, the refusal's red when it fails: one tail and no smear under it,
  * the owner, 10 October 2026: *remaining tail should only be in green colour
  * and a single one, not both*. `red` washes it towards red as the drop nears
- * the edge of the path.
+ * the edge of the path. With `blend` it leaves the drop in the drop's own
+ * colour and is green a short way on — the owner, the same day: *make tail
+ * at the beginning on ball to fast transition colour … from the colour of
+ * ball to the green*, so the goo reads as coming out of the drop.
  */
 export function paintTail(
   ctx: CanvasRenderingContext2D,
@@ -75,16 +87,39 @@ export function paintTail(
   color: string,
   red: number,
   alpha: number,
+  blend?: Blend,
 ): void {
+  const fill = mix(color, PALETTE.red, red);
+  const edge = mix(mix(color, "#FFFFFF", 0.3), PALETTE.red, red);
+  const paint = (c: string, white: number): string | CanvasGradient => {
+    if (!blend) return c;
+    const len = runLength(blend.run) || 1;
+    const a = runPoint(blend.run, 1);
+    const b = runPoint(blend.run, Math.max(0, 1 - blend.span / len));
+    const g = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
+    const own = mix(mix(blend.color, "#FFFFFF", white), PALETTE.red, red);
+    // The drop's own colour as far as its rim, then green within the span.
+    g.addColorStop(0, own);
+    g.addColorStop(Math.min(0.9, blend.rim / blend.span), own);
+    g.addColorStop(1, c);
+    return g;
+  };
   ctx.save();
-  ctx.fillStyle = mix(color, PALETTE.red, red);
+  ctx.fillStyle = paint(fill, 0);
   ctx.globalAlpha = 0.55 * alpha;
   ctx.fill(p);
-  ctx.strokeStyle = mix(mix(color, "#FFFFFF", 0.3), PALETTE.red, red);
+  ctx.strokeStyle = paint(edge, 0.3);
   ctx.globalAlpha = 0.75 * alpha;
   ctx.lineWidth = 0.8;
   ctx.stroke(p);
   ctx.restore();
+}
+
+/** How long a run is on the screen, start to drop, as the crow flies. */
+function runLength(run: Run): number {
+  const a = runPoint(run, 0);
+  const b = runPoint(run, 1);
+  return Math.hypot(b.x - a.x, b.y - a.y);
 }
 
 /**

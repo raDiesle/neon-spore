@@ -1,6 +1,6 @@
 import { PALETTE, smoothstep } from "@neon-spore/render";
 import { drop } from "./body.js";
-import { cheer, type Ending, gone, halo, paintDrop, wave } from "./ending.js";
+import { cheer, type Ending, gone, greenAt, halo, intoPlace, paintDrop, wave } from "./ending.js";
 import { GREEN } from "./moment.js";
 import { clamp01, hash, mix } from "./noise.js";
 import type { Scene } from "./scene.js";
@@ -102,24 +102,37 @@ export const WELL: Ending = {
 
 /** How many bubbles a drop boils away into. */
 const BUBBLES = 16;
+/** Seconds FIZZ takes from the count to nothing left. */
+const FIZZ_SPAN = 0.75;
 
+/**
+ * FIZZ, the owner's pick of the five (10 October 2026), made quieter: *remove
+ * the outer green border animation when successful, because i want it more
+ * subtle* — no ring rolls out of it — and *to switch to disappear with fizz
+ * should be instant when on right position* — no green moment held first: it
+ * turns green as it starts to boil, the moment it is counted.
+ */
 export const FIZZ: Ending = {
   name: "fizz",
   sentence:
-    "counted, the drop flashes green, then boils away where it was: it shrinks as sixteen green bubbles rise off it, swell and pop into rings, and nothing is left",
+    "counted, the drop turns green and at once boils away where it was: it shrinks as sixteen green bubbles rise off it and pop, and nothing is left",
   play(s, e) {
-    const u = gone(e);
-    if (e < GREEN) return cheer(s, e);
+    const u = clamp01(e / FIZZ_SPAN);
     const left = (1 - u) ** 1.3;
-    halo(s, s.place, s.r * 2, 0.4 * left);
+    halo(s, s.place, s.r * 1.8, 0.25 * left);
     if (left > 0.04)
-      paintDrop(s, drop(s.place, s.r * left, { shake: 0.25 * u }), 0.9, 0.4 + 0.6 * left);
+      paintDrop(
+        s,
+        drop(intoPlace(s, e), s.r * left, { shake: 0.25 * u }),
+        greenAt(e),
+        0.4 + 0.6 * left,
+      );
     const { ctx } = s;
     ctx.save();
     ctx.strokeStyle = mix(PALETTE.good, "#FFFFFF", 0.35);
     ctx.fillStyle = PALETTE.good;
     for (let i = 0; i < BUBBLES; i++) {
-      const born = hash(i * 2.7) * 0.6;
+      const born = hash(i * 2.7) ** 1.5 * 0.55;
       const life = 0.3 + 0.15 * hash(i * 5.1);
       const k = (u - born) / life;
       if (k <= 0 || k >= 1) continue;
@@ -137,11 +150,11 @@ export const FIZZ: Ending = {
         ctx.globalAlpha = 0.95;
         ctx.stroke();
       } else {
-        // The pop: a ring thrown wide and gone.
+        // The pop: a small ring, a little wider, and gone.
         const p = (k - 0.82) / 0.18;
-        ctx.globalAlpha = 1 - p;
+        ctx.globalAlpha = 0.8 * (1 - p) ** 2;
         ctx.beginPath();
-        ctx.arc(x, y, size * (1 + 1.4 * p), 0, Math.PI * 2);
+        ctx.arc(x, y, size * (1 + 0.5 * p), 0, Math.PI * 2);
         ctx.stroke();
       }
     }

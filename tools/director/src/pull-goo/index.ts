@@ -50,4 +50,5 @@ function gooLook(ending: Ending): Variant {
   };
 }
 
-export const GOO_LOOKS: readonly Variant[] = [SINK, STRAINER, VORTEX, WELL, FIZZ].map(gooLook);
+/** FIZZ first, the owner's pick of the five (10 October 2026), so the lab opens on it. */
+export const GOO_LOOKS: readonly Variant[] = [FIZZ, SINK, STRAINER, VORTEX, WELL].map(gooLook);

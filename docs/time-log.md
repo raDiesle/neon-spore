@@ -37684,3 +37684,18 @@ Bottleneck: the first picture — the arena's own head, reused on a button,
 said nothing at that size, and only a frame showed it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — PULL LAB: FIZZ at once and quieter, a ball that follows its rim, four grabs
+
+- reading: 10 min. The 4174 page served the main checkout, which held a
+  landing this branch had not got; then the ball, body, strand and ending files.
+- writing: 15 min. `rimAt` out of `bodyPath`, the ball's scattered surface,
+  FIZZ without its hold or ring, the tail's blend, `grab.ts`, `grabbed`.
+- looking: 15 min. Frames of the ball, the four grabs and FIZZ, up close;
+  LIFT's shadow was not seen on the dark field and became a neon spill.
+- friction: 10 min. The browser pane, hidden, paused the lab's clock and its
+  screenshots do not magnify; a scratch frame-stepping script (queued).
+- landing: 5 min. The index row, `format`, `check:fast`, `land`.
+
+Bottleneck: seeing a frame — no tool photographs one moment of a pull up close,
+so one was written in scratch before anything could be judged.

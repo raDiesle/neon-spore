@@ -44,6 +44,8 @@ export interface GooMoment {
   readonly off: Point;
   readonly reach: number | null;
   readonly near: number;
+  /** Seconds since the drop was taken; long ago when the lab does not say. */
+  readonly grabbed: number;
 }
 
 export function momentOf(
@@ -75,5 +77,6 @@ export function momentOf(
     off,
     reach,
     near: held ? clamp01(1 - gap / (r * 0.5)) : 0,
+    grabbed: after?.grabbed ?? 9,
   };
 }

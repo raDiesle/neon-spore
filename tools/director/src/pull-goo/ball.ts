@@ -1,34 +1,61 @@
-import { facet, LAT_LIMIT, type Pin, pin } from "@neon-spore/content";
-import { PALETTE } from "@neon-spore/render";
-import { bodyPath, DROP_SPIN, type GooBody, glow } from "./body.js";
-import { hash, mix } from "./noise.js";
+import { keyLit } from "@neon-spore/content";
+import { PALETTE, smoothstep } from "@neon-spore/render";
+import { bodyPath, centre, DROP_SPIN, type GooBody, glow, rimAt } from "./body.js";
+import { clamp01, hash, mix } from "./noise.js";
 import type { GooStyle } from "./style.js";
 
 /**
  * **The GOO drop as a ball** — the owner, 10 October 2026: *more cool, more
  * detailed, maybe 3d*. The same lumpy contour, posed as every GOO drop is;
- * its surface placed (`.claude/skills/depth`): flecks of lit goo pinned by
- * longitude and latitude and turned by `facet`, so as it rolls the near ones
- * go round and away and the far ones come up over the limb. Lit from the top
- * left with a dark limb, a neon rim light under it, and a glint that stays
- * with the light while the surface turns under it.
+ * its surface placed (`.claude/skills/depth`): bubbles, pits and beads of lit
+ * goo scattered over the whole sphere and rolled towards the pull, so the
+ * near ones go round and away and the far ones come up over the limb. Lit
+ * from the top left with a dark limb, a neon rim light under it, and a glint
+ * that stays with the light while the surface turns under it.
+ *
+ * And the owner's notes on that (10 October 2026): *it should not be visible
+ * that there is a straight horizontal line where dots are going behind, it
+ * should follow the natural shape* — so the sphere is laid onto the rim
+ * actually drawn (`rimAt`), lumps and lean, and a feature fades as it turns
+ * away rather than stopping at a line; *the small 3d bubbles … all on the
+ * same vertical line* — so there are no rings, every feature has its own
+ * place, size and shape, and drifts a little in the goo on its own clock.
  */
 
-/** The flecks on the surface, fixed once: dark pits and lit beads scattered over it, , and
- * two rings of beads either side of its middle the way it rolls — off the middle, where
- * the arrow lies — which read the turn best of all. */
-const FLECKS: readonly { pin: Pin; size: number; bright: boolean }[] = [
-  ...Array.from({ length: 9 }, (_, i) => ({
-    pin: pin(hash(i * 3.7 + 1) * Math.PI * 2, (hash(i * 5.3 + 2) * 2 - 1) * LAT_LIMIT, 0.8),
-    size: 0.14 + 0.14 * hash(i * 7.1 + 3),
-    bright: i % 3 === 0,
-  })),
-  ...Array.from({ length: 20 }, (_, i) => ({
-    pin: pin(((i % 10) / 10) * Math.PI * 2 + (i < 10 ? 0 : 0.3), i < 10 ? 0.55 : -0.55, 0.88),
-    size: 0.08,
-    bright: true,
-  })),
-];
+type Kind = "bubble" | "pit" | "bead";
+
+interface Fleck {
+  readonly lon: number;
+  readonly lat: number;
+  /** Its radius, as a share of the drop's: many small, a few big. */
+  readonly size: number;
+  /** How round it is, and which way its long side lies on the surface. */
+  readonly aspect: number;
+  readonly tilt: number;
+  readonly kind: Kind;
+  /** How fast and from where it wanders in the goo. */
+  readonly drift: number;
+  readonly phase: number;
+}
+
+/** The surface, fixed once: scattered evenly over the sphere, never in rows. */
+const FLECKS: readonly Fleck[] = Array.from({ length: 30 }, (_, i) => {
+  const h = (k: number): number => hash(i * 7.31 + k * 1.93 + 0.5);
+  const roll = h(4);
+  return {
+    lon: h(1) * Math.PI * 2,
+    lat: Math.asin((h(2) * 2 - 1) * 0.94),
+    size: 0.04 + 0.17 * h(3) ** 1.8,
+    aspect: 0.6 + 0.4 * h(5),
+    tilt: h(6) * Math.PI,
+    kind: roll < 0.55 ? "bubble" : roll < 0.8 ? "pit" : "bead",
+    drift: 0.25 + 0.5 * h(7),
+    phase: h(8) * Math.PI * 2,
+  };
+});
+
+/** How far round a feature has to be from the limb to show in full, as its depth. */
+const LIMB_FADE = 0.32;
 
 export function paintBall(
   ctx: CanvasRenderingContext2D,
@@ -66,7 +93,7 @@ export function paintBall(
   ctx.fillStyle = g;
   ctx.fill(p);
   ctx.clip(p);
-  flecks(ctx, b, neon, time, way, alpha);
+  flecks(ctx, b, style, neon, time, way, alpha);
   // The rim light: neon wrapping the limb on the side away from the key.
   ctx.globalCompositeOperation = "lighter";
   const rim = ctx.createRadialGradient(
@@ -101,36 +128,76 @@ export function paintBall(
   ctx.restore();
 }
 
-/** The flecks, rolled `DROP_SPIN` a second towards `way`, each foreshortened by its own plane. */
+/** The surface, rolled `DROP_SPIN` a second towards `way`, laid onto the rim drawn, far
+ * side first. */
 function flecks(
   ctx: CanvasRenderingContext2D,
   b: GooBody,
+  style: GooStyle,
   neon: string,
   time: number,
   way: { x: number; y: number },
   alpha: number,
 ): void {
-  const { at, r } = b;
   const len = Math.hypot(way.x, way.y);
   const ux = len > 0.01 ? way.x / len : 0;
   const uy = len > 0.01 ? way.y / len : 1;
-  const turn = Math.atan2(uy, ux);
   const theta = (b.spin ?? time * DROP_SPIN) * 1.6;
+  const c = centre(b);
+  const seen: { fl: Fleck; px: number; py: number; z: number }[] = [];
   for (const fl of FLECKS) {
-    const f = facet(fl.pin, theta);
-    if (!f.near) continue;
-    // Across the roll is `x`; it runs along `way`.
-    const x = at.x + (ux * f.x - uy * f.y) * r;
-    const y = at.y + (uy * f.x + ux * f.y) * r;
+    const lat = fl.lat + 0.12 * Math.sin(time * fl.drift + fl.phase);
+    const a = fl.lon + theta + 0.15 * Math.sin(time * fl.drift * 0.7 + fl.phase * 2);
+    const z = Math.cos(lat) * Math.cos(a);
+    if (z <= 0) continue;
+    // Along the roll is `way`; across it, the axis it rolls round.
+    const along = Math.cos(lat) * Math.sin(a);
+    const across = Math.sin(lat);
+    seen.push({ fl, px: ux * along - uy * across, py: uy * along + ux * across, z });
+  }
+  seen.sort((p, q) => p.z - q.z);
+  const ring = mix(neon, "#FFFFFF", 0.5);
+  for (const { fl, px, py, z } of seen) {
+    const phi = Math.atan2(py, px);
+    const rho = Math.hypot(px, py);
+    const rim = rimAt(b, style, time, phi);
+    const x = c.x + rim.x * rho;
+    const y = c.y + rim.y * rho;
+    const s = b.r * fl.size;
+    const lit = keyLit(px, py, z);
+    const fade = alpha * smoothstep(clamp01(z / LIMB_FADE));
     ctx.save();
     ctx.translate(x, y);
-    ctx.rotate(turn);
-    ctx.scale(Math.max(0.08, f.sx), Math.max(0.08, f.sy));
-    ctx.fillStyle = fl.bright ? mix(neon, "#FFFFFF", 0.45) : "#0B1024";
-    ctx.globalAlpha = alpha * (fl.bright ? 0.35 + 0.65 * f.lit : 0.7) * Math.min(1, f.sx * 2.5);
+    // Foreshortened across the limb, by how far it faces away; its own shape on top.
+    ctx.rotate(phi);
+    ctx.scale(Math.max(0.12, z), 1);
+    ctx.rotate(fl.tilt - phi);
     ctx.beginPath();
-    ctx.arc(0, 0, r * fl.size, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.ellipse(0, 0, s, s * fl.aspect, 0, 0, Math.PI * 2);
+    if (fl.kind === "pit") {
+      ctx.fillStyle = "#0B1024";
+      ctx.globalAlpha = fade * 0.6;
+      ctx.fill();
+    } else if (fl.kind === "bead") {
+      ctx.fillStyle = mix(neon, "#FFFFFF", 0.45);
+      ctx.globalAlpha = fade * (0.3 + 0.7 * lit);
+      ctx.fill();
+    } else {
+      ctx.fillStyle = style.core;
+      ctx.globalAlpha = fade * 0.22;
+      ctx.fill();
+      ctx.strokeStyle = ring;
+      ctx.lineWidth = s * 0.22;
+      ctx.globalAlpha = fade * (0.5 + 0.5 * lit);
+      ctx.stroke();
+    }
     ctx.restore();
+    if (fl.kind !== "bubble" || s < b.r * 0.06) continue;
+    // A bubble's glint is where the light is, whatever way the surface faces.
+    ctx.fillStyle = "#FFFFFF";
+    ctx.globalAlpha = fade * (0.25 + 0.6 * lit);
+    ctx.beginPath();
+    ctx.arc(x - s * 0.35 * z, y - s * 0.4, s * 0.26, 0, Math.PI * 2);
+    ctx.fill();
   }
 }

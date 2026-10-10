@@ -130,6 +130,7 @@ function afterOf(pull: LabPull, reach: number | null): PullAfter {
     last: pull.last,
     from: pull.from,
     lifted: pull.lifted,
+    grabbed: pull.grabbed,
     ...(reach === null ? {} : { reach }),
   };
 }

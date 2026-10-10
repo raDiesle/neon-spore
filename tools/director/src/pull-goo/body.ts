@@ -46,24 +46,37 @@ export const drop = (at: Point, r: number, rest: Partial<GooBody> = {}): GooBody
   ...rest,
 });
 
+/** Where the rim is at screen angle `a`, as an offset from `centre(b)`: the lumps, the
+ * lean and the petals, squashed. A ball's surface is laid onto this (`ball.ts`), so what
+ * goes round its limb goes round the rim actually drawn, lumps and all. */
+export function rimAt(b: GooBody, style: GooStyle, time: number, a: number): Point {
+  const sq = b.squash ?? 1;
+  const lean = b.lean ?? { x: 0, y: 0 };
+  const ca = Math.cos(a);
+  const sa = Math.sin(a);
+  const turned = a - (b.spin ?? time * DROP_SPIN);
+  const lump =
+    style.lumpy * lumps(turned, time * style.creep, b.seed) +
+    (b.shake ?? 0) * lumps(turned, time * 9, b.seed + 5);
+  const toward = Math.max(0, ca * lean.x + sa * lean.y);
+  const petal = b.petals ? b.petals.depth * (0.5 + 0.5 * Math.cos(b.petals.n * turned)) ** 2 : 0;
+  const d = b.r * (1 + lump + petal) * (1 + (b.stretch ?? 0) * toward ** (b.point ?? 3));
+  return { x: ca * d * sq, y: (sa * d) / sq };
+}
+
+/** The middle a squashed body is squashed about: sat on its own bottom. */
+export function centre(b: GooBody): Point {
+  return { x: b.at.x, y: b.at.y + b.r * (1 - 1 / (b.squash ?? 1)) };
+}
+
 /** The contour, smoothed through the midpoints of its samples so it has no corner. */
 export function bodyPath(b: GooBody, style: GooStyle, time: number): Path2D {
   const n = 44;
-  const sq = b.squash ?? 1;
-  const lean = b.lean ?? { x: 0, y: 0 };
+  const c = centre(b);
   const pts: Point[] = [];
   for (let i = 0; i < n; i++) {
-    const a = (i / n) * Math.PI * 2;
-    const ca = Math.cos(a);
-    const sa = Math.sin(a);
-    const turned = a - (b.spin ?? time * DROP_SPIN);
-    const lump =
-      style.lumpy * lumps(turned, time * style.creep, b.seed) +
-      (b.shake ?? 0) * lumps(turned, time * 9, b.seed + 5);
-    const toward = Math.max(0, ca * lean.x + sa * lean.y);
-    const petal = b.petals ? b.petals.depth * (0.5 + 0.5 * Math.cos(b.petals.n * turned)) ** 2 : 0;
-    const d = b.r * (1 + lump + petal) * (1 + (b.stretch ?? 0) * toward ** (b.point ?? 3));
-    pts.push({ x: b.at.x + ca * d * sq, y: b.at.y + (sa * d) / sq + b.r * (1 - 1 / sq) });
+    const o = rimAt(b, style, time, (i / n) * Math.PI * 2);
+    pts.push({ x: c.x + o.x, y: c.y + o.y });
   }
   const p = new Path2D();
   const mid = (i: number): Point => {

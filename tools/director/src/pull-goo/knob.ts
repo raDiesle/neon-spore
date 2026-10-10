@@ -4,6 +4,7 @@ import { noteMark } from "../../../../packages/render/src/mark-spots.js";
 import { drawWayArrow } from "../../../../packages/render/src/way-arrow.js";
 import { drop } from "./body.js";
 import { paintGoo } from "./drop-look.js";
+import { type Hold, heldBody, overHeld, underHeld } from "./grab.js";
 import { momentOf } from "./moment.js";
 import { mix } from "./noise.js";
 import { call } from "./parts.js";
@@ -12,7 +13,8 @@ import type { GooStyle } from "./style.js";
 /**
  * **The drop under the hand**: OOZE's drop made TAR's slime, wherever the
  * hand has it. Waiting, it breathes and ripples call the thumb; taken, it
- * leans into the pull and goes red as its rim nears the edge of the path.
+ * goes as the bar's grab has it (`grab.ts`) and red as its rim nears the
+ * edge of the path.
  * Once counted or refused it is not drawn here — the channel plays the same
  * drop through its ending or its failure (`track.ts`), until it is home.
  */
@@ -26,10 +28,13 @@ export function gooKnob(style: GooStyle) {
     ctx.save();
     if (o.theirs) ctx.globalAlpha = 0.4;
     if (!o.held && !o.theirs) call(ctx, at, r, style, o.time);
+    const hold: Hold = { at, r, way, near: m.near, grabbed: m.grabbed, time: o.time };
+    if (o.held) underHeld(ctx, hold, style);
     const body = o.held
-      ? drop(at, r, { lean: way, stretch: 0.22 + 0.15 * m.near, shake: 0.12 * m.near })
+      ? heldBody(hold)
       : drop(at, r, { squash: 1 + 0.07 * Math.sin(o.time * 3.4) });
     paintGoo(ctx, body, style, o.time, { red: 0.7 * m.near, alpha: o.theirs ? 0.4 : 1 }, way);
+    if (o.held) overHeld(ctx, hold, style);
     if (o.way) arrow(ctx, at, r, o, style);
     ctx.restore();
   };

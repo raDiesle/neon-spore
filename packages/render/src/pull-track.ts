@@ -73,6 +73,8 @@ export interface PullAfter {
   readonly from?: { readonly at: number; readonly off: Point };
   /** Seconds since the last lift. */
   readonly lifted?: number;
+  /** Seconds since the knob was last taken. */
+  readonly grabbed?: number;
 }
 
 /** The channel's half-width, as a share of the knob's radius: thin, so the knob is the control. */
