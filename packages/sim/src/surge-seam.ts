@@ -1,3 +1,4 @@
+import { blisterOnSpawn, blisterPlaceRow } from "./blister.js";
 import { midCol } from "./config.js";
 import { nextInt } from "./rng.js";
 import { NO_SHELL } from "./shell.js";
@@ -59,16 +60,23 @@ export function surgeVent(world: World, s: SurgeState): void {
   world.events.push({ type: "surgeVent", col, notches: s.notches, row });
 }
 
-/** One gum out of the bulb, down one of its own columns, from the row under it. */
-function throwGum(world: World, s: SurgeState): void {
+/**
+ * One blister out of the bulb, into one of its own columns two rows under
+ * it: a SWIPE blister either seat knocks out with one stroke. It arrives
+ * under, as every blister does, so the first thing seen is the pore swelling
+ * (`blister.ts`).
+ */
+function throwBlister(world: World, s: SurgeState): void {
   const cfg = world.cfg;
   const col = surgeBulbLeft(cfg) + nextInt(world.rng, surgeBulbSpan(cfg));
-  // The row under the bulb rather than its own: a gum on the bulb's row
-  // would be a body the bulb absorbs the next beat (`surge-step.ts`).
-  const row = surgeBulbRow(s, cfg) + 1;
+  // Two rows under the bulb rather than its own: a body on the bulb's row
+  // would be a body the bulb absorbs the next beat (`surge-step.ts`), and
+  // one row under it the blister's SWIPE bar is drawn across the bulb's
+  // HOLD marks. Clamped above the hull, as every blister's first row is.
+  const row = blisterPlaceRow(cfg, surgeBulbRow(s, cfg) + 2);
   world.creatures.push({
     id: world.nextId++,
-    kind: "gum",
+    kind: "blister",
     col,
     row,
     fromRow: row,
@@ -77,14 +85,15 @@ function throwGum(world: World, s: SurgeState): void {
     petals: 0,
     dragMilli: 0,
     shell: NO_SHELL,
+    ...blisterOnSpawn(cfg, { by: "both", count: 1, gesture: "swipe" }),
   });
-  world.events.push({ type: "surgeGum", col, row });
+  world.events.push({ type: "surgeBlister", col, row });
 }
 
 /**
  * The pressure went over — on a lift past the band, or on the beat at the
  * top of the gauge. Both thumbs are thrown off, the charge is gone, the bulb
- * re-seals for `surgeBurstBeats`, and it throws its gums down its own
+ * re-seals for `surgeBurstBeats`, and it throws its blisters into its own
  * columns. From `surgeCloseNotches` open, a notch closes again.
  */
 export function surgeBurst(world: World, s: SurgeState): void {
@@ -96,9 +105,9 @@ export function surgeBurst(world: World, s: SurgeState): void {
   surgeDrop(world, s, 1);
   surgeDrop(world, s, 2);
   const col = midCol(cfg);
-  const gums = Math.max(0, cfg.surgeBurstGums);
-  world.events.push({ type: "surgeBurst", col, gums });
-  for (let i = 0; i < gums; i++) throwGum(world, s);
+  const blisters = Math.max(0, cfg.surgeBurstBlisters);
+  world.events.push({ type: "surgeBurst", col, blisters });
+  for (let i = 0; i < blisters; i++) throwBlister(world, s);
   if (s.notches > 0 && s.notches >= cfg.surgeCloseNotches) {
     s.notches -= 1;
     world.events.push({ type: "surgeClose", col, notches: s.notches });

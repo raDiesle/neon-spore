@@ -70,7 +70,7 @@ export const CHOREO_NOTES_B = {
     "that opens THE SLOW surgeNearSlowBeats as the pressure comes in. Both " +
     "thumbs off inside it within a beat of each other opens the notch and " +
     "sinks the bulb a row; late, alone or short is the charge lost; over it, " +
-    "or the top on the beat, bursts — surgeBurstGums gums down its columns " +
+    "or the top on the beat, bursts — surgeBurstBlisters blisters into its columns " +
     "and surgeBurstBeats in which nothing takes hold. From surgeHoldNotches " +
     "it holds its charge and eats what falls in for surgeAbsorbMilli each, " +
     "from surgeDoubleNotches a thumb charges double, from surgeCloseNotches " +

@@ -7,10 +7,6 @@ import type { UseLook } from "./field-looks.js";
  */
 export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
   // PULL PAST A DISTANCE
-  "THE GUM": {
-    find: "The drop itself, falling down its lane on both screens. No ring: the body is the handle.",
-    move: "A thumb that only rests does nothing. Past the distance the drop flies out level along its row and is gone at the wall.",
-  },
   "THE BLISTER'S SWIPE": {
     find: "A bar across a blister while it is up out of its pore, chevrons pointing its way, on the seat its BY names. The other seat sees the waiting clock.",
     move: "The bar fills as the thumb carries along the chevrons; lifted past the end, one blow and one pip gone. Short, sideways or the wrong way counts nothing.",

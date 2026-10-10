@@ -133,7 +133,7 @@ export const HANDLE_HAND_POSES: Pose[] = [
   bossPose(
     "surge",
     "sealing",
-    "Held past the band and burst, with three gums thrown out. P1 keeps off the seam; P2 keeps off it too.",
+    "Held past the band and burst, with three blisters thrown out. P1 keeps off the seam; P2 keeps off it too.",
     { crop: F, hand: surgeHandWith(false), want: surge((w, s) => surgeSealing(s, w)), hold: 6 },
   ),
   bossPose(

@@ -1,7 +1,7 @@
 /**
  * **Everything THE SPLICE does that neither screen already says**, as events.
  *
- * Its own file on `events-gum.ts`' terms — one fight taken apart rather than
+ * Its own file on `events-crystal.ts`' terms — one fight taken apart rather than
  * incidents that share a body — and one arm of `SimEvent`, so every consumer
  * still switches over the whole list. It is a file rather than four more lines
  * in `events.ts` because that file was one boss from its 250-line limit.

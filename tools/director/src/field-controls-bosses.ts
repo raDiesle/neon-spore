@@ -57,11 +57,10 @@ import { WELL_CONTROLS } from "./field-controls-well.js";
  * how a row is drawn (`field-controls-rows.ts`). This one moves a *half of the
  * list*, and the half is the one that grows: the page keeps the handles the
  * game has always had — the grip, the push, the cannon, the maw, the shield,
- * the muzzle, the gum, the lid's cord, the choir's two arrows and the
+ * the muzzle, the lid's cord, the choir's two arrows and the
  * guide's hold — and every boss that arrives brings its row here instead.
- * THE WARDEN's tether and THE GUM traded places on 30 September 2026: the
- * tether is a boss's and went to `field-controls-warden.ts`, the gum a
- * creature's.
+ * THE WARDEN's tether is a boss's and went to `field-controls-warden.ts` on
+ * 30 September 2026.
  * One boss's handle was the one that took the page to 251 lines
  * (`packages/sim/test/limits.test.ts` is where that is a failure rather than a
  * preference).

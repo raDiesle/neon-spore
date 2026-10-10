@@ -25,10 +25,6 @@ export const BALLOON_FIELDS = {
   balloonTautMilli: "THE BALLOON — a body that goes up, opened by two hands at once",
   balloonHoldBeats: "THE BALLOON — a body that goes up, opened by two hands at once",
   balloonHandleMilli: "THE BALLOON — a body that goes up, opened by two hands at once",
-  // THE GUM's two ride along here rather than in a fourth file: the same
-  // seam, a creature a hand on the field works.
-  gumSwipeMilli: "THE GUM — a drop either hand swipes out of the field",
-  gumFlingCols: "THE GUM — a drop either hand swipes out of the field",
   // And the clingers' one — it was five, and four of them went with the
   // creature on 15 September 2026. Both kinds read it, so it is filed under the
   // plate's group and the cannon's note points at it.

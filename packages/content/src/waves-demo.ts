@@ -136,7 +136,6 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   chute: { wave: "theCarom" },
   volley: { wave: "theVolley" },
   crystal: { wave: "theCrystal" },
-  gum: { wave: "theGum" },
   weight: { wave: "theWeight" },
   limpet: { wave: "theLimpet" },
   leech: { wave: "theLeech" },

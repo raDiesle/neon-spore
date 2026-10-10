@@ -246,8 +246,8 @@ const SAMPLES: Record<string, SimEvent> = {
   surgeRelease: { type: "surgeRelease", col: 5, player: 2 },
   surgeNear: { type: "surgeNear", col: 5 },
   surgeVent: { type: "surgeVent", col: 5, notches: 1, row: 4 },
-  surgeBurst: { type: "surgeBurst", col: 5, gums: 3 },
-  surgeGum: { type: "surgeGum", col: 4, row: 4 },
+  surgeBurst: { type: "surgeBurst", col: 5, blisters: 3 },
+  surgeBlister: { type: "surgeBlister", col: 4, row: 4 },
   surgeRock: { type: "surgeRock", col: 4, row: 4 },
   surgeLost: { type: "surgeLost", col: 5 },
   surgeAbsorb: { type: "surgeAbsorb", col: 5, row: 4 },
@@ -723,7 +723,6 @@ const SAMPLES: Record<string, SimEvent> = {
   choirSing: { type: "choirSing", col: 3, row: 5 },
   balloonSplit: { type: "balloonSplit", col: 3, row: 5 },
   balloonPop: { type: "balloonPop", col: 3, row: 5 },
-  gumFlung: { type: "gumFlung", col: 2, row: 11, span: 1, dir: -1 },
   veilMorph: { type: "veilMorph", col: 3, row: 4, color: "red" },
   veilRebuff: { type: "veilRebuff", col: 3, row: 4 },
   veilTorn: { type: "veilTorn", col: 3, row: 4, color: "cyan", kind: "bulb" },
@@ -877,22 +876,6 @@ describe("bindings", () => {
     expect(cueFor(body, 7, 12)?.id).toBe("hull.breachLight");
   });
 
-  it("voices a gum's landing as the splash, in place of the tear", () => {
-    const gum = {
-      type: "breach",
-      col: 3,
-      weight: "light",
-      span: 1,
-      kind: "gum",
-      fromRow: 10,
-      seed: 0,
-      holes: 0,
-      color: null,
-      beat: 1,
-    } as const;
-    expect(cueFor(gum, 7, 12)?.id).toBe("creature.gumStick");
-  });
-
   it("gives each of THE MIRROR's steps its own sound", () => {
     const steps = ["fireRed", "fireCyan", "guard", "intake", "cannonLeft", "cannonRight"] as const;
     const ids = steps.map(
@@ -947,7 +930,7 @@ const CREATURE_IDS: Record<string, string> = {
   strandBead: "impact.split",
   strandSwell: "impact.wrongTarget",
   magnetPlate: "creature.magnetPlate",
-  // A bolt spent on a gum, a clinger or a weight: the plate's own sound,
+  // A bolt spent on a clinger or a weight: the plate's own sound,
   // because it is neither a kill nor a wrong colour (`bind-creatures.ts`).
   bounce: "creature.magnetPlate",
   magnetBreak: "creature.magnetBreak",
@@ -1004,14 +987,6 @@ const FENCE_IDS: Record<string, string> = {
   fenceBurn: "impact.split",
 };
 
-/**
- * And THE GUM's one, bound in `bind-gum.ts`, on the same terms. Its landing
- * is a `breach` and is tested with the breaches below.
- */
-const GUM_IDS: Record<string, string> = {
-  gumFlung: "impact.deflect",
-};
-
 describe("what one body did", () => {
   it("covers every event `creatureCue` names, so a new one cannot be left out", async () => {
     const src = await Bun.file(join(ROOT, "packages/audio/src/bind-creatures.ts")).text();
@@ -1043,19 +1018,12 @@ describe("what one body did", () => {
     expect(cases.sort()).toEqual(Object.keys(FENCE_IDS).sort());
   });
 
-  it("covers every event `gumCue` names, on the same terms", async () => {
-    const src = await Bun.file(join(ROOT, "packages/audio/src/bind-gum.ts")).text();
-    const cases = [...src.matchAll(/case "([a-zA-Z]+)":/g)].map((m) => m[1] as string);
-    expect(cases.sort()).toEqual(Object.keys(GUM_IDS).sort());
-  });
-
   for (const [type, id] of Object.entries({
     ...CREATURE_IDS,
     ...CAROM_IDS,
     ...COIL_IDS,
     ...VOLLEY_IDS,
     ...FENCE_IDS,
-    ...GUM_IDS,
   })) {
     it(`plays ${id} for ${type}`, () => {
       const sample = SAMPLES[type];

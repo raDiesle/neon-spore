@@ -21,9 +21,9 @@ import type { Subject } from "../contour.js";
 const N = 64;
 
 // `SacSkin`, `SAC_SKIN` and the sac's own points live in
-// `packages/content/src/silhouettes-gum.ts` now: THE GUM wears THE WEIGHT's
-// sac on the field, and the card here is drawn from the same points so the
-// two cannot drift apart. Re-exported so nothing that reached for the skin
+// `packages/content/src/silhouettes-sac.ts` now: THE WEIGHT wears the sac on
+// the field, and the card here is drawn from the same points so the two
+// cannot drift apart. Re-exported so nothing that reached for the skin
 // through this file had to move.
 export { SAC_SKIN, type SacSkin };
 
@@ -80,7 +80,7 @@ export function slumped(
   skin: SacSkin = SAC_SKIN,
 ): Subject {
   // Where the shoulder falls in, and how wide the dent is, are the contour's own
-  // two numbers now (`packages/content/src/silhouettes-gum.ts`): THE WEIGHT
+  // two numbers now (`packages/content/src/silhouettes-sac.ts`): THE WEIGHT
   // wears this form on the field, so the card and the body are drawn from one
   // place and cannot disagree about where the damage is.
   return {
@@ -90,7 +90,7 @@ export function slumped(
     // The dent lives with the sac's own loop in
     // `packages/content/src/silhouettes-weight.ts`' neighbour now — THE WEIGHT
     // wears this form on the field, and the card is drawn from the same points
-    // so the two cannot drift apart, exactly as the gum's sac is.
+    // so the two cannot drift apart.
     pointsAt: (t) => sacPoints(t, bias, rx, ry, skin, N, crown),
     path: catmullRomToBezierPath,
   };

@@ -30,7 +30,7 @@ describe("the rehearsal for THE SURGE", () => {
         else if (e.type === "deflect") seen.push(`deflect ${e.col} @${run.world.beat}`);
         else if (
           e.type === "surgeBurst" ||
-          e.type === "surgeGum" ||
+          e.type === "surgeBlister" ||
           e.type === "surgeAbsorb" ||
           e.type === "surgeEvert" ||
           e.type === "breach" ||
@@ -43,7 +43,7 @@ describe("the rehearsal for THE SURGE", () => {
     // band at 700 and the field slows; both off eight ticks apart at 1100,
     // the first notch. The second hold the pilot leaves alone at 800, the
     // navigator two beats later — lost. The third is the first again at the
-    // second notch, 1400. No burst, no gum, no eversion, no hull.
+    // second notch, 1400. No burst, no blister, no eversion, no hull.
     //
     // From the first notch the seam spits a rock every six beats it is held,
     // so the second hold spits one and the third two, and each is warded a

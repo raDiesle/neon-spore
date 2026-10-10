@@ -67,7 +67,6 @@ export const CREATURE_KINDS = [
   "beatbox",
   "balloon",
   "crystal",
-  "gum",
   "countdown",
   "limpet",
   "leech",

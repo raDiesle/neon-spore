@@ -2,7 +2,7 @@ import type { CreatureKind } from "@neon-spore/sim";
 import type { CreatureDef } from "./creatures.js";
 
 /**
- * **The bodies answered by hands alone**, and today there are four of them.
+ * **The bodies answered by hands alone**, and today there are two of them.
  *
  * Every other family in this bestiary is cut by what is *on* a body — a
  * costume (`creatures-worn.ts`), nothing at all (`creatures-bare.ts`), a split
@@ -19,7 +19,7 @@ import type { CreatureDef } from "./creatures.js";
  * than a table to overflow. THE LID and THE MAGNET, each needing a hand *and*
  * a trigger, were half here and are now next door in `creatures-held.ts`.
  */
-export type HandedKind = Extract<CreatureKind, "balloon" | "gum" | "weight">;
+export type HandedKind = Extract<CreatureKind, "balloon" | "weight">;
 
 export const HANDED_CREATURES: Record<HandedKind, CreatureDef> = {
   balloon: {
@@ -68,24 +68,5 @@ export const HANDED_CREATURES: Record<HandedKind, CreatureDef> = {
     radar: "p2",
     blurb:
       "A heavy sac that comes down a lane a beat and answers nothing either of you can do: no shot reaches it and the shield goes straight through. What answers it is a hand from each of you, on the body itself, at the same moment — hold both and it gives. Press it alone and it brightens under your thumb on your screen and on nothing your partner can see, so neither of you can tell whether the other has arrived. Count it out loud and land together.",
-  },
-  gum: {
-    kind: "gum",
-    // **Neither control**, THE WEIGHT's reason: it is answered by a hand on
-    // the body itself, either seat's, and no panel has anything to say to it
-    // (`sim/gum.ts`). It asked for `aim` until 14 September 2026, when a
-    // swipe counted only with the cannon parked under it; that went with the
-    // sticking.
-    controls: [],
-    // No colour, and none authored: no bolt reaches it in any colour, and a
-    // colour here would be a promise the field refuses.
-    color: null,
-    // The navigator's strip, like every other living body that comes down. It
-    // hides nothing — both seats watch the same drop fall and either can swipe
-    // it — so the warning is worth what it is worth for a slick: the seconds
-    // to say who is taking it.
-    radar: "p2",
-    blurb:
-      "A sticky mass that falls straight down one lane. A shot is spent on it — the bolt bounces off and the body is untouched — and the shield does not stop it. Either of you can take it: a thumb on the drop and a swipe to the left or to the right flings it out of the field along its row and out of the wall. A thumb that only rests on it does nothing, and a drop that is not swiped before it reaches the ship hits the hull at once and splashes across the whole of it.",
   },
 };

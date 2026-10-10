@@ -54,7 +54,7 @@ import type { Hand } from "./hand.js";
  * (`autopilot-crystal.ts`), THE CHOIR shaken together (`autopilot-choir.ts`),
  * THE CRAWLER's plates turned by the dome (`autopilot-crawler.ts`), THE JAM's
  * runaway cannon steered (`autopilot-jam.ts`), and the bodies a finger answers
- * — THE WEIGHT, THE MINE, THE BEATBOX and THE GUM (`autopilot-touch.ts`). Any
+ * — THE WEIGHT, THE MINE, THE BEATBOX and THE BLISTER (`autopilot-touch.ts`). Any
  * other creature with a verb of its own is not answered here, and the wave it
  * is on is one AUTO only half plays.
  */

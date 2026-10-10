@@ -100,7 +100,6 @@ export type GroupName =
   | "THE CHOIR — two bodies opened by shaking the phone"
   | "THE BEATBOX — a soundbox counted out on the beat"
   | "THE BALLOON — a body that goes up, opened by two hands at once"
-  | "THE GUM — a drop either hand swipes out of the field"
   | "THE WEIGHT — a load only two thumbs at once take down"
   | "THE LIMPET — a body on the plate that goes off if the plate stands still"
   | "THE MALFUNCTION — a control that acts by itself"
@@ -196,7 +195,6 @@ export const GROUP_ORDER: GroupName[] = [
   "THE BEATBOX — a soundbox counted out on the beat",
   "THE BALLOON — a body that goes up, opened by two hands at once",
   "THE WEIGHT — a load only two thumbs at once take down",
-  "THE GUM — a drop either hand swipes out of the field",
   "THE LIMPET — a body on the plate that goes off if the plate stands still",
   "WARDEN",
   "VANE",

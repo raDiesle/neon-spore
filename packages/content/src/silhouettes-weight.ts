@@ -1,6 +1,6 @@
 import { walkedSilhouette } from "./body-form.js";
 import type { CreatureSilhouette } from "./silhouettes.js";
-import { SAC_SKIN, sacPoints } from "./silhouettes-gum.js";
+import { SAC_SKIN, sacPoints } from "./silhouettes-sac.js";
 
 /**
  * **THE WEIGHT: the slumped sac**, the louder of the two hanging drafts, taken
@@ -8,8 +8,8 @@ import { SAC_SKIN, sacPoints } from "./silhouettes-gum.js";
  *
  * `tools/shape-sheet/src/forms/hanging.ts` draws the pair — `sac`, a blob with
  * its mass pulled to the bottom, and `slumped`, the same sag with one shoulder
- * fallen in. THE GUM took the first (`silhouettes-gum.ts`), so this is the
- * second, and the choice is the one CLAUDE.md asks for: a new body is never a
+ * fallen in. THE GUM took the first until it was taken out of the game, so
+ * this is the second, and the choice is the one CLAUDE.md asks for: a new body is never a
  * shape the game already draws, and it comes off the drafts rather than out of
  * nothing.
  *
@@ -38,7 +38,7 @@ import { SAC_SKIN, sacPoints } from "./silhouettes-gum.js";
  * thousandth louder.
  */
 const WEIGHT_CROWN = 0.25;
-/** The sag. A little under the gum's, because a body this wide reads as heavy
+/** The sag. A little under the plain sac's 0.46, because a body this wide reads as heavy
  * from its width and a deeper pull would make it a teardrop again. */
 const WEIGHT_BIAS = 0.4;
 const WEIGHT_RX = 92;
@@ -46,7 +46,7 @@ const WEIGHT_RY = 80;
 
 /** A sac's mass hangs below its origin by `bias * ry`, and the field draws a
  * body about its cell's centre — so the contour is lifted by that much and the
- * load sits on its row rather than a third of a tile under it (`GUM_LIFT`). */
+ * load sits on its row rather than a third of a tile under it. */
 const WEIGHT_LIFT = WEIGHT_BIAS * WEIGHT_RY;
 
 export const WEIGHT: CreatureSilhouette = walkedSilhouette({ ...SAC_SKIN }, (t) =>

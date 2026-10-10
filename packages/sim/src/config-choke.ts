@@ -4,7 +4,7 @@
  * the taps that got it off and what getting it off was worth went with the
  * body on 12 September 2026 (`docs/decisions.md` #31).
  *
- * `SimConfig` extends this rather than nesting it, for `config-gum.ts`'
+ * `SimConfig` extends this rather than nesting it, for `config-crystal.ts`'
  * reason next door: the call site still reads `cfg.chokeSweepBeats`, and the
  * split is only about how much of one file a reader has to hold at once.
  */

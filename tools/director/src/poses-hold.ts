@@ -5,9 +5,8 @@ import { fresh, type Pose, type PoseGroup, run, POSE_TPB as TPB, until } from ".
  * The two bodies that hold a control and **lose the round if it stands still**
  * — THE LIMPET on the plate, THE LEECH on the cannon (`sim/harpoon.ts`).
  *
- * THE GUM sits on the ON THE FIELD sheet because it is answered by a hand on
- * the field itself, in the air; these two are answered by the controls the band
- * already has, moved, so they are a sheet of their own.
+ * These two are answered by the controls the band already has, moved, rather
+ * than by a hand on the field itself, so they are a sheet of their own.
  *
  * **Both poses are on the seat *without* the control**, which is where the
  * words are: MOVE SHIELD! and MOVE CANNON! go under that seat's dial and over

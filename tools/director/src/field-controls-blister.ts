@@ -1,9 +1,9 @@
 import type { FieldControlDef } from "./field-control-def.js";
 
 /**
- * THE BLISTER's SWIPE, in a file of its own on `field-controls-gum.ts`'s
- * pattern — `field-controls-page.ts` grows only by the line that spreads it.
- * A creature's rows, so they sit after THE GUM rather than among the bosses':
+ * THE BLISTER's SWIPE, in a file of its own — `field-controls-page.ts` grows
+ * only by the line that spreads it. A creature's rows, so they sit after the
+ * grip's rather than among the bosses':
  * its TAP and HOLD are the tap and the grip every body already answers, and
  * the stroke, the turn and the rub are the gestures of its own that need a target.
  */

@@ -64,7 +64,7 @@ table in a document cannot be wrong in a way a compiler notices.
 | `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `countdown`, `leech` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil`, `limpet`, `cairn` `moult` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal`, `curtain` |
-| `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon`, `gum`, `weight`, `mine`, `blister` |
+| `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon`, `weight`, `mine`, `blister` |
 | `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
 
 `special` was reserved and empty for a long time on the reasoning that nothing
@@ -160,7 +160,6 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Bulb** | round, many fine lobes, rotating ring of light; pumps — always cyan | mark + colour |
 | **Strand** | chain of segments on one thread, alternating red and cyan | eaten from its ends inward — and only one of you is shown which end is next |
 | **Crystal** | a red slick and a cyan bulb joined at a thin middle, armoured all round — an hourglass on its side, three tiles wide, crossing on the carom's diagonal | the shield under the middle and the shot in the join's colour on the same beat; then it is two plain bodies |
-| **Gum** | THE WEIGHT's sac in the palette's venom green, falling straight down one lane; the same sac stretched into a level flight with its drops trailing behind it once a hand has swiped it | it cannot be shot and the shield does not stop it; either player's thumb on the drop, carried to the left or to the right, flings it out of the field along its row. A thumb that only rests on it does nothing, and one that reaches the ship hits the hull at once — no scar — and splashes across the whole of it like water |
 | **Throb** | six clubs on a small core, red down one side and cyan down the other, turning clockwise | colour *and* timing in one call |
 | **Lure** | a slick or a bulb that only the navigator can see through | do *not* hit it (costs the hull) |
 | **Countdown** | the COUNTDOWN draft's disc — as near a plain circle as the roster has — with a socket and a bright core on both screens; on the pilot's, blades of the body closed over the core, one per beat left, the last sliding back through its beat, and on zero a hole to shoot into under a halo; on the navigator's an eye that never blinks (IRIS, 12 September 2026) | hit only while the count is at zero, in its colour; a shot on any other beat, or in the wrong colour, shuts it grey for `countdownShutBeats` (three) — the wave goes on — and the body stays. The pilot counts down out loud, the navigator fires on the word — THE COUNT (act 3) teaches it |
@@ -180,7 +179,7 @@ running out, at which point the line is reeled in and the body goes home with
 it. The seat without the control is the one that can see the count, on both
 halves; the word is *move*.
 
-Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch, crystal, gum, countdown, limpet, leech.
+Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch, crystal, countdown, limpet, leech.
 
 The thirteenth was **Glyph** — a pattern across its skin, looked up in a
 table — and it left this list on 11 September 2026: THE MIRROR's Simon Says is
@@ -299,11 +298,12 @@ fires an unavoidable marking shot at the hull, **extinguishes its own drive**
 through is shooting its 5–7 segments in alternating colours.
 
 > The strand and the gum depended on evasion, which no longer exists. (The pod
-> did too; it was re-designed rather than dropped — see above.) The gum's
-> replacement is built: a drop nothing stops that either hand has to swipe out
-> of the field before it splashes on the ship — wave THE GUM,
-> `packages/content/src/waves/act-5.ts`. For a day it stuck to the ship and shut
-> the cannon instead; that version is on the NOT BUILT YET page
+> did too; it was re-designed rather than dropped — see above.) The gum came
+> back as a drop nothing stops that either hand swiped out of the field before
+> it splashed on the ship, and was taken out of the game again on 10 October
+> 2026 at the owner's word — *we have blister for that*: THE BLISTER's SWIPE is
+> the body a hand strokes away. For a day it had stuck to the ship and shut the
+> cannon instead; that version is on the NOT BUILT YET page
 > ([ideas](ideas.md#mechanics)).
 
 > The strand's whole point — greying out a control group — survives if it greys

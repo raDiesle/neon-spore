@@ -56,7 +56,7 @@ const to = 3 * MILLI;
 
 describe("which bodies spend a bolt", () => {
   it("is the four that are not stone, and the pile that is", () => {
-    for (const kind of ["gum", "limpet", "leech", "weight", "cairn"] as const) {
+    for (const kind of ["limpet", "leech", "weight", "cairn"] as const) {
       expect(refusesABolt(kind), kind).toBe(true);
     }
   });
@@ -74,7 +74,7 @@ describe("what the sweep stops at", () => {
    * the sweep now. Before this, `firstAlong` walked past all five by name and a
    * body behind one of them was shootable through it.
    */
-  for (const kind of ["gum", "limpet", "leech", "weight", "cairn"] as const) {
+  for (const kind of ["limpet", "leech", "weight", "cairn"] as const) {
     it(`stops at ${kind.toUpperCase()} rather than walking past it`, () => {
       const world = standing(kind);
       expect(firstAlong(world, bolt, from, to)?.kind).toBe(kind);

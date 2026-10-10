@@ -62,11 +62,10 @@ function painted(e: SimEvent, age: number): string[] {
 }
 
 describe("a body bursting on the hull", () => {
-  it("throws nothing for the three hits that have their own picture", () => {
-    // A rock punches a hole (`craters.ts`), a wall earths through the dome
-    // without breaking the skin, and a gum is already a drop of water with a
-    // splash of its own (`gum-splash.ts`).
-    for (const kind of ["meteor", "fence", "gum"] as const) {
+  it("throws nothing for the two hits that have their own picture", () => {
+    // A rock punches a hole (`craters.ts`), and a wall earths through the dome
+    // without breaking the skin.
+    for (const kind of ["meteor", "fence"] as const) {
       expect(painted(breach({ kind }), 0.05), `${kind} burst`).toHaveLength(0);
     }
     expect(painted(breach({}), 0.05).length).toBeGreaterThan(0);

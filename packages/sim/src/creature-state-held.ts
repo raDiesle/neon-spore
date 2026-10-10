@@ -15,10 +15,8 @@
  * every call site still reads `c.lidPullMilli` and nothing moved — the same
  * arrangement `SimConfig` has with `CreatureConfig` and the rest.
  *
- * THE LID was alone here for a while; the clingers came second — and THE GUM
- * stood between them until 14 September 2026, when its stuck state and player
- * 2's pull on it went with the sticking (`gum.ts`). The seam is still the
- * right one: a hand is a control rather than a creature, and a body a finger
+ * THE LID was alone here for a while; the clingers came second. The seam is
+ * the right one: a hand is a control rather than a creature, and a body a finger
  * can be put on belongs here rather than in the middle of a list of things
  * that fall.
  */

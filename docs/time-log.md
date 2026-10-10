@@ -37220,3 +37220,18 @@ Bottleneck: reading — the ask was a word on a document, and the code under it
 was a gesture the game could not hear at all.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — THE GUM is taken out of the game, whole
+
+- reading: 5 min. Where the gum is a name: the sim's pull, the hull's
+  unscarred breach, THE SURGE's burst, the sac contour THE WEIGHT shares.
+- writing: 10 min. Deletions by asserted replacement, the surge's blisters,
+  `silhouettes-gum.ts` kept as `silhouettes-sac.ts`.
+- looking: 5 min. THE SURGE's burst in one frame: one row under the bulb the
+  blisters' SWIPE bars hid its HOLD word, so they come up two rows under.
+- friction: 5 min. The doc-drift tests one at a time: counts in briefings,
+  audio, the shape sheet, the roster; biome's unsafe fix blocked for `imports`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — a dozen documents count or name the creatures, and
+only the tests say which.

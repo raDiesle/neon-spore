@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — one hundred and seven of the hundred and twenty-one waves today, and a wave
+   new carries one — one hundred and six of the hundred and twenty waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -313,7 +313,7 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are ninety-two of them now**, one per guided wave bar fifteen,
+**There are ninety-one of them now**, one per guided wave bar fifteen,
 and each is authored in `packages/content/src/scenes/` as a page of
 choreography rather than a page of prose. The fifteen that are still the
 three strings and the two circles are the bosses from THE NETTLE on, each
@@ -370,7 +370,7 @@ Each half now opens on the gauge only that seat can see. Its film, the
 same day, is three holds on one handle both seats hold — the first film
 whose acts say whose hand each is (`SceneAct.hand`), because the bulb is one
 `DragTarget` for either thumb — and the middle hold is the mistake, a thumb
-off alone with the charge lost under the other; the burst, its gums and the
+off alone with the charge lost under the other; the burst, its blisters and the
 eversion at the fifth notch are the last two pages' words and the prose.
 THE LEAD's guide was rewritten 19 September 2026, when the field learnt to say
 `STILL` and `BURN`: the pilot's half had told him to *say the turn a beat early*

@@ -153,7 +153,6 @@ describe("which kinds", () => {
       "torch",
       "veer",
       "volley",
-      "gum",
       "carom",
       "crystal",
       "coil",
@@ -171,12 +170,5 @@ describe("which kinds", () => {
       "crawler",
     ];
     for (const k of out) expect(isPushable(k), k).toBe(false);
-  });
-
-  it("lets a gum through the dome as before", () => {
-    const gum: SpawnEntry = { beat: 0, col: 3, kind: "gum", color: null };
-    const { events } = run([gum], TPB * 30, warding(3, 30));
-    expect(of(events, "shieldPush")).toHaveLength(0);
-    expect(of(events, "breach").length).toBeGreaterThan(0);
   });
 });

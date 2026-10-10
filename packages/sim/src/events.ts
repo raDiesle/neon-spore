@@ -125,11 +125,11 @@ export type SimEvent =
   | { type: "reject"; col: number; row: number }
   /**
    * A bolt turned away by a body that is not stone and cannot be broken — THE
-   * GUM, THE LIMPET, THE LEECH, THE WEIGHT (`bullet-hit.ts`).
+   * LIMPET, THE LEECH, THE WEIGHT (`bullet-hit.ts`).
    *
    * Its own event and not `magnetPlate`, which carries the same three fields:
    * that one is drawn from the plate's own offset on the magnet's shape, and a
-   * ricochet starting there would begin a tile below a gum. The *look* is the
+   * ricochet starting there would begin a tile below a limpet. The *look* is the
    * same one, called rather than copied (`render/magnet-bounce.ts`).
    */
   | { type: "bounce"; col: number; row: number; color: Color }

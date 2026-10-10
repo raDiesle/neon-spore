@@ -15,27 +15,24 @@ import { WEIGHT } from "./silhouettes-weight.js";
  * name, said a third time, and `creatures-table.ts` is the pattern for spreading
  * it back in.
  *
- * The three answers, and none of them is an accident of who wrote them:
+ * The two answers, and neither of them is an accident of who wrote them:
  *
  * - **THE BALLOON is `null` because it changes shape as it is played.** A blob
  *   contour is one radius sampled all the way round, so two hands stretching it
  *   apart would come out as a body growing evenly. `render/balloon.ts` draws it
  *   off the pulls themselves.
- * - **THE GUM is `null` because it is two pictures**, a sac in the air and the
- *   same sac stretched into a flight sideways, and `render/gum.ts` draws both.
  * - **THE WEIGHT has a contour**, because the hands do nothing to its shape until
  *   the tick it gives: what a thumb changes is how brightly it is drawn and on
  *   whose screen (`render/weight.ts`), and the pressure that closes on it is an
  *   overlay rather than a body deformed. So the ordinary machinery draws it, and
- *   what it draws is the hanging draft THE GUM did not take — a sac with one
+ *   what it draws is the hanging draft — a sac with one
  *   shoulder fallen in (`silhouettes-weight.ts`) — swaying on `RUMBLE`, the one
  *   motion on the bank that reads as mass rather than buoyancy.
  */
 export const HANDED_LOOK = {
   balloon: null,
-  gum: null,
   weight: { shape: WEIGHT, motion: RUMBLE },
 } as const satisfies Record<
-  Extract<CreatureKind, "balloon" | "gum" | "weight">,
+  Extract<CreatureKind, "balloon" | "weight">,
   { shape: CreatureSilhouette; motion: OwnMotion } | null
 >;

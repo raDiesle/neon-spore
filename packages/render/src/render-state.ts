@@ -7,7 +7,6 @@ import { FenceShards } from "./fence-shards.js";
 import { FenceStrike } from "./fence-strike.js";
 import { FieldPose } from "./field-pose.js";
 import { GuideStage } from "./guide-scene.js";
-import { GumSplash } from "./gum-splash.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { LanceFlash } from "./lance-flash.js";
 import type { Layout } from "./layout.js";
@@ -73,12 +72,6 @@ export class RenderState {
    * — `breach-look.ts` says why the field's answer is none.
    */
   readonly breachStrike = new BreachStrike();
-  /**
-   * A gum landing on the ship: the smear where it hit and the whole hull
-   * rippling from it (`gum-splash.ts`). Here for the strike's reason — it is
-   * drawn over the lit rim, and it rides the same `breach` event.
-   */
-  readonly gumSplash = new GumSplash();
   /**
    * And a body bursting on the plating it reached, in its own colour
    * (`body-burst.ts`). The third answer held here to the same `breach` event,
@@ -202,8 +195,6 @@ export class RenderState {
     // Whether the rock that caused it has been drawn reaching the hull yet.
     // `Effects` is updated before this call, so the answer is this frame's.
     this.breachStrike.update(dt, (col, beat) => this.effects.arrivals.has(col, beat));
-    this.gumSplash.ingest(events);
-    this.gumSplash.update(dt);
     this.bodyBurst.ingest(events);
     this.bodyBurst.update(dt);
     this.fenceShards.ingest(events, l);
@@ -234,7 +225,6 @@ export class RenderState {
     this.lureBlast.clear();
     this.fenceStrike.clear();
     this.breachStrike.clear();
-    this.gumSplash.clear();
     this.bodyBurst.clear();
     this.fenceShards.clear();
     this.lanceFlash.clear();

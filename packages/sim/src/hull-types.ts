@@ -31,7 +31,7 @@ export interface Scar {
    * **What colour the thing that made it was**, when its kind does not say.
    *
    * `breachHue` takes a kind *and* a colour, because a body that is not a
-   * rock, a fence or a gum is drawn in what it was shot with — cyan or red.
+   * rock or a fence is drawn in what it was shot with — cyan or red.
    * The live strike had that colour off the `breach` event and the scar did
    * not, so anything replaying a remembered hit had to hand `breachHue` a
    * `null` and got red for every cyan body: the hit and the record of the hit

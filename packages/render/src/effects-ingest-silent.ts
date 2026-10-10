@@ -103,10 +103,7 @@ export const INGEST_SILENT = [
   "crystalBounce",
   "crystalCatch",
   "crystalSplit",
-  // THE GUM's one: which way it is flying is read off the world every frame
-  // (`gum.ts`), and `burstFor` has already thrown the sparks.
-  "gumFlung",
-  // The clingers' four, for the gum's reason: the grip, the fuse and the
+  // The clingers' four: the grip, the fuse and the
   // moves are all read off the world every frame (`cling.ts`), and
   // `burstFor` has already thrown the sparks.
   "clingGrip",

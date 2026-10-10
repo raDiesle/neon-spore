@@ -57,7 +57,7 @@ export function installSurge(world: World): SurgeState {
  * thumbs on it or not — a body cannot pass through the bulb. Read
  * after the fall loop has moved them (`beat.ts`), so a body that arrived on
  * the row this beat is eaten this beat — and only bodies that came *down*
- * to it, so a gum the bulb itself threw from the row under it is not.
+ * to it, so a blister the bulb itself threw under it is not.
  *
  * **The rock it spat is named rather than reasoned about**, because the row
  * rule stops covering it the moment a vent sinks the bulb: a rock leaves from

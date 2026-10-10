@@ -35,12 +35,9 @@ import { type Layout, tileCX } from "./layout.js";
  * same split `landing.ts` and `hull-splash.ts` already make — stone punches a
  * hole and the hole is the picture (`craters.ts`) — and a wall is a live wire
  * that earths through the dome without breaking the skin at all
- * (`effects-breach.ts`'s first branch). THE GUM is left out for the opposite
- * reason: it is already a drop of water and already bursts, with a smear and
- * ripples the owner asked for on 14 September (`gum-splash.ts`), and a second
- * crown over that one would be the same picture drawn twice.
+ * (`effects-breach.ts`'s first branch).
  *
- * **Held by `RenderState` rather than `Effects`**, for the gum splash's
+ * **Held by `RenderState` rather than `Effects`**, for the fence strike's
  * reason: everything `Effects` owns is painted over by the hull, and a burst
  * on the ship is drawn on top of the ship it is about. `RenderState.forget`
  * clears it.
@@ -93,7 +90,7 @@ export class BodyBurst {
   ingest(events: readonly SimEvent[]): void {
     for (const e of events) {
       if (e.type !== "breach") continue;
-      if (isWardable(e.kind) || e.kind === "fence" || e.kind === "gum") continue;
+      if (isWardable(e.kind) || e.kind === "fence") continue;
       this.hit(e.col + (e.span - 1) / 2, e.span, breachHue(e.kind, e.color));
     }
   }

@@ -85,12 +85,6 @@ import type { Wave } from "../wave-types.js";
  *    apart in two columns — which is where "say which one we are finishing"
  *    stops being advice and becomes the only way through.
  *
- * **THE GUM, in three figures**: one alone at beat 0 so the pair can find that
- * nothing they own touches it and that it does not budge without the cannon
- * under it; a second on the far side at 14 with a bulb under it, so the
- * cannon is wanted in two lanes at once and one of them is shut; a third dead
- * centre at 30, where neither wall is near and the wrong guess is a lane.
- *
  * A recoil, a carom or a volley entry names its kind and its colour, the way
  * a rind does: the colour is the body inside, which is the cannon that
  * answers it — first, for a recoil; last, for the other two.
@@ -174,20 +168,6 @@ export const WAVES_ACT_5: Wave[] = [
       { beat: 20, col: 6, kind: "crystal", color: "cyan" },
       { beat: 40, col: 1, kind: "crystal", color: "cyan" },
       { beat: 46, col: 5, kind: "crystal", color: "red" },
-    ],
-  },
-  {
-    id: "theGum",
-    name: "THE GUM",
-    guide: {
-      scene: "theGum",
-    },
-    entries: [
-      { beat: 0, col: 1, kind: "gum", color: null },
-      { beat: 8, col: 1, color: "red" },
-      { beat: 14, col: 5, kind: "gum", color: null },
-      { beat: 20, col: 5, color: "cyan" },
-      { beat: 30, col: 3, kind: "gum", color: null },
     ],
   },
   {

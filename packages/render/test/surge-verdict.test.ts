@@ -162,7 +162,7 @@ describe("THE SURGE's verdict on a touch", () => {
     expect(marks.verdicts.at(1)?.good).toBe(true);
     marks.update(1);
     expect(marks.verdicts.at(2)).toBeNull();
-    marks.ingest([{ type: "surgeBurst", col: 5, gums: 2 }]);
+    marks.ingest([{ type: "surgeBurst", col: 5, blisters: 2 }]);
     marks.clear();
     expect(marks.verdicts.at(1)).toBeNull();
   });

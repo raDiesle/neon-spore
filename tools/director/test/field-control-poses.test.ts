@@ -5,7 +5,6 @@ import {
   blisterRubbing,
   blisterSwipeShare,
   blisterTurnShare,
-  gumIsFlung,
   readyFraction,
   wardenTether,
 } from "@neon-spore/sim";
@@ -47,14 +46,6 @@ describe("ON THE FIELD rows and their pictures", () => {
     const b = balloons[0];
     expect(b?.balloonPullP1).toBe(-w.cfg.balloonTautMilli);
     expect(b?.balloonPullP2).toBe(w.cfg.balloonTautMilli);
-  });
-
-  test("the gum is in flight to the right, off the lane it fell down", () => {
-    const w = poseNamed("GUM · FLUNG OUT OF THE FIELD").build();
-    const gum = w.creatures.find(gumIsFlung);
-    expect(gum).toBeDefined();
-    expect(gum?.rockDir).toBe(1);
-    expect(gum?.col).toBeGreaterThan(5);
   });
 
   test("the blister is up and its stroke half carried", () => {

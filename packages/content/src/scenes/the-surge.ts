@@ -10,7 +10,7 @@ import type { GuideScene } from "../scene-types.js";
  * counts is **both thumbs off the glass inside one beat of each other with
  * the pressure at the notch** (`sim/surge-hand.ts`). Inside the notch's band
  * it vents and the notch stays open, the bulb a row lower; over the band it
- * bursts and throws gums; under it, or one hand alone, the charge is lost.
+ * bursts and throws blisters; under it, or one hand alone, the charge is lost.
  * The pilot sees the band and not the pressure; the navigator the pressure
  * and not the band (`render/view-role-clocks.ts`) — the one boss in the game
  * that is beaten by letting go.
@@ -58,9 +58,9 @@ import type { GuideScene } from "../scene-types.js";
  * is the navigator's, and a word derived from either is one seat's gauge read
  * out on the other's glass.
  *
- * **What is prose.** The burst and its gums, and the eversion at the fifth
+ * **What is prose.** The burst and its blisters, and the eversion at the fifth
  * notch: a burst is a hold gone wrong in the other direction and the film
- * has one wrong hold already, and the gums would put three ordinary bodies
+ * has one wrong hold already, and the blisters would put three ordinary bodies
  * on a field about a bulb. The last two pages say both. The film takes no
  * hit and points at no retries.
  */

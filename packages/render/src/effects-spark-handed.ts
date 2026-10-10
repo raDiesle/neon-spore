@@ -20,7 +20,6 @@ export function handedBurst(
       type:
         | "balloonSplit"
         | "balloonTopped"
-        | "gumFlung"
         | "clingGrip"
         | "clingFreed"
         | "clingBlast"
@@ -43,10 +42,6 @@ export function handedBurst(
     // `topOut`).
     case "balloonTopped":
       return at(l, e.col, e.row, 10, PALETTE.rock);
-    // THE GUM in its own material, flung: the flick itself, thrown where the
-    // hand caught it. Its landing is a `breach` (`effects-breach.ts`).
-    case "gumFlung":
-      return at(l, e.col, e.row, 24, PALETTE.venom);
     // THE LIMPET and THE LEECH, in the malfunction's blue: the grab where it
     // landed, a move shaking sparks off it, letting go — and the blast, which
     // is the breach's own burst made louder in the fire's colour, because the

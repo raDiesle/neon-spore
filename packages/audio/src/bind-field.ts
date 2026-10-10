@@ -8,7 +8,6 @@ import { clingCue } from "./bind-cling.js";
 import { coilCue } from "./bind-coil.js";
 import type { Cue } from "./bind-cue.js";
 import { fenceCue } from "./bind-fence.js";
-import { gumCue } from "./bind-gum.js";
 import { handedCue } from "./bind-handed.js";
 import { volleyCue } from "./bind-volley.js";
 
@@ -34,7 +33,6 @@ const FIELD_EVENTS = [
   "balloonSplit",
   "balloonPop",
   "balloonTopped",
-  "gumFlung",
   "clingGrip",
   "clingFreed",
   "clingBlast",
@@ -81,8 +79,6 @@ export function fieldCue(e: FieldEvent, cols: number, rows: number): Cue | null 
     case "balloonPop":
     case "balloonTopped":
       return balloonCue(e, cols, rows);
-    case "gumFlung":
-      return gumCue(e, cols, rows);
     case "clingGrip":
     case "clingFreed":
     case "clingBlast":

@@ -5182,8 +5182,8 @@ lifted alone, or a pair of lifts short of the band is the charge **lost**
 (`surgeLost`): the pressure spent, nothing else. A pair of lifts over the
 band, or the pressure reaching `surgeBurstMilli` (3000) on the beat, is a
 **burst** (`surgeBurst`): both thumbs thrown off, nothing takes hold for
-`surgeBurstBeats` (2), `surgeBurstGums` (3) gums thrown from under the bulb
-down columns of its span (`surgeGum`), and from `surgeCloseNotches` (3) open
+`surgeBurstBeats` (2), `surgeBurstBlisters` (3) SWIPE blisters, either seat's, thrown under the bulb
+into columns of its span (`surgeBlister`), and from `surgeCloseNotches` (3) open
 a notch **closes** again (`surgeClose`). Every vent sinks the bulb a row.
 From `surgeHoldNotches` (2) open the bulb **holds** its charge with no thumb
 on it — a lost release leaves the pressure standing — and every body that
@@ -5207,11 +5207,12 @@ other, and the count is *let go on the four*, which is the word
 with the beat three seconds long.
 
 **Where this departs from the design, and why.** Seven places, each argued
-by name. *A burst throws gums down the bulb's columns, not across the ship*:
+by name. *A burst throws blisters into the bulb's columns, not across the ship*
+(gums until 10 October 2026, when THE GUM left the game):
 the design's splash on the hull "the hull takes it, no scar" was written
 before every hull damage failed the wave (12 September 2026, `wave-fail.ts`),
 and a punishment that ends the wave is not a punishment the pair plays
-through and looks at; three gums falling from under the bulb are three bodies
+through and looks at; three blisters coming up under the bulb are three bodies
 the pair has to swipe while the glass will not take a thumb, which is the
 same *keep playing through it* the design wanted. *The bulb sinks a row from
 the first notch, not step 8's second*: the design's "closer every time"
@@ -5286,7 +5287,7 @@ folding through its own equator over `surgeEvertBeats` with the inside
 coming out pale, and then it fades over `surgeOutBeats`. The thirteen events
 are one family read above `Effects`' loop (`surge-fx.ts`): a burst per
 event in its column — the grip's at its flank, the vent's and the burst's
-at the bulb, the gum's and the absorbed rock's at their row — a **sink** of
+at the bulb, the blister's and the absorbed rock's at their row — a **sink** of
 a row over a beat on a vent, a **jet** blown out of the seam with it, and
 a **jolt** shaking the bulb for a beat and a half on a burst, all cleared
 on restart. The bulb is on both screens (`controls.md`, the director's ON
@@ -5298,7 +5299,7 @@ on the pilot's alone, the pressure on the navigator's alone, and the sink's
 reset; `surge-touch.test.ts` proves the bulb is answered where it is
 drawn, by both seats at the same place, and not beside it. *Not built of
 the design's look*: the spray of a burst across the whole ship is three
-gums and a jolt — offered in VERSUS as `surge:spray` (8 October 2026),
+blisters and a jolt — offered in VERSUS as `surge:spray` (8 October 2026),
 gobs of the bulb thrown wall to wall and left on the hull as splats for
 the spray's beats, judged on THE SURGE · BURST; the slits do not gape wider with the pressure — offered
 in VERSUS as `surge:seam` (8 October 2026), the seam opening into a lit
@@ -5346,8 +5347,8 @@ already off inside it, which are `gripBrakes`' rule both ways round — the
 second is a seat whose half of the lift is done, and `liftTick` is waiting on
 the other hand; while the bulb refuses a thumb, where no thumb takes
 hold — `surge-grip.ts`'s own `refusing` — and once it has gone out. Nothing
-about the gums either:
-they are the shipped body the pair swipes out of the air, and a word on one
+about the blisters either:
+they are the shipped body the pair strokes away, and a word on one
 would be the field narrating the wave rather than the boss. Proved in
 `render/test/boss-cue-surge.test.ts`.
 
@@ -5368,7 +5369,7 @@ nought on the bulb. Nothing is rolled, so every lift is at a number the film
 names. Each caption points at the bulb (`render/handle-place.ts` answers
 `surgeBulb` with `surgeBulbCircle`, a row lower per notch), and each seat's
 thumb is the grip mark on its flank (`surge-grip.ts`); no ghost thumb rides
-the handle, as none does THE BALLOON's or THE SINEW's. The burst and its gums
+the handle, as none does THE BALLOON's or THE SINEW's. The burst and its blisters
 and the eversion at the fifth notch are the last two pages' words and
 otherwise the prose; the film takes no hit and points at no retries. Its
 *thumb on it* page came out when the bulb learnt to say `HOLD`, and says what
@@ -5387,7 +5388,7 @@ each other opens a notch, spends the pressure, sinks the bulb a row and
 raises the next notch, whichever seat lifts first; a second lift a beat
 late, a lift alone or a lift short of the band is the charge lost; a thumb
 that went back on makes the pair again; a lift over the band bursts —
-thumbs off, three gums from under the bulb in its columns, no grip for two
+thumbs off, three blisters under the bulb in its columns, no grip for two
 beats, then a grip; the top of the gauge on the beat bursts with no lift;
 from the third notch a burst closes one; from the second the charge holds
 under no thumb and through a lost release, and a rock that reaches the bulb

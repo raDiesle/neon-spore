@@ -316,7 +316,9 @@ filed rightly, and there is no second list to change.
   cannon and then be swiped, is removed; when it hits the hull it damages the
   ship immediately and splashes across the surface like water* — so a gum is
   answered in the air now by either seat, and a landing is a `breach` with a
-  splash and no scar (`sim/gum.ts`, `render/gum-splash.ts`). What is parked
+  splash and no scar. THE GUM itself was taken out of the game on 10 October
+  2026 — *we have blister for that*, the owner — so sim/gum.ts and
+  render/gum-splash.ts are in history only. What is parked
   here is the **split gesture**: a body on the ship that one seat has to
   position for and the other has to swipe, where the swipe's failure tells
   the swiper where the other control is. To restore: the tree at `eca00118`

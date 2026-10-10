@@ -201,8 +201,7 @@ export class StubState {
     const r = a[0] as number;
     this.mul([Math.cos(r), Math.sin(r), -Math.sin(r), Math.cos(r), 0, 0]);
   }
-  /** The general one, which a shear has to go through: a flung gum leans
-   * into its flight (`gum.ts`), and nothing else in render/ reaches for it. */
+  /** The general one, which a shear has to go through. */
   transform(...a: number[]): void {
     nums("transform", a);
     this.mul(a);

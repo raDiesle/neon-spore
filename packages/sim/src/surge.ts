@@ -37,10 +37,10 @@ import type { World } from "./world.js";
  * is this boss's own question asked at the one moment stopping costs
  * something (`docs/spec/bosses-choreographed.md` §9 step 7).
  *
- * **A burst throws gums**, `surgeBurstGums` of them, down the bulb's own
- * columns from where it hangs — the shipped body the pair swipes away in the
- * air (`gum.ts`), and one that reaches the ship is the ship's ordinary
- * arrival. Both hands are thrown off and nothing takes hold for
+ * **A burst throws blisters**, `surgeBurstBlisters` of them, into the bulb's
+ * own columns under where it hangs — each a SWIPE blister either seat may
+ * knock out with one stroke (`blister.ts`), and one that comes up on the
+ * ship's row breaks the hull as any blister does. Both hands are thrown off and nothing takes hold for
  * `surgeBurstBeats`. The cannon cannot hurt it, and it falls nothing but
  * what the pair's own bursts throw.
  *

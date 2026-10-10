@@ -3,7 +3,6 @@ import { hullRow } from "./config.js";
 import { curtainShoved } from "./curtain-shove.js";
 import { gripsCreature } from "./grip.js";
 import { carryDir, spend } from "./grip-push-dir.js";
-import { gumIsFlung, gumSwiped } from "./gum.js";
 import { type HandMeans, handMeans } from "./hand.js";
 import { clampSpanCol, spanOf } from "./span.js";
 import { bodyCenterCol, type Command, type Creature } from "./types.js";
@@ -21,9 +20,9 @@ import type { World } from "./world.js";
  * that dragged its subject a lane would be the pilot moving the field with the
  * hand that is supposed to be picking a target out of it. `handMeans` is asked
  * the moment the carry is heard, so a finger swept across a slick reports a
- * displacement nothing spends. The two pulls — THE CAIRN and THE GUM — are
+ * displacement nothing spends. The pulls — THE CAIRN and THE CURTAIN — are
  * the same carry spent on something other than a lane: a rock out of the
- * pile, a gum flung off the field (`carryGrips`).
+ * pile, the whole fabric a column over (`carryGrips`).
  *
  * **It is the grip's gesture and not a new control.** Nothing new is drawn,
  * nothing new is pressed, and the price is the one the grip already charges —
@@ -144,7 +143,7 @@ export function carryGrips(world: World): void {
     if (c.row >= hullRow(world.cfg)) continue;
     const dir = carryDir(world, c);
     if (dir === 0) continue;
-    if (c.kind !== "gum" && !carryIsReady(world, c)) continue;
+    if (!carryIsReady(world, c)) continue;
     // **THE CAIRN is carried and does not move.** The same gesture, the same
     // one-column-then-a-beat-of-quiet, and the same hands charged for it — what
     // the column buys is a rock dragged out of the pile on the side the finger
@@ -163,18 +162,6 @@ export function carryGrips(world: World): void {
     if (c.kind === "curtain") {
       c.pushBeat = world.beat;
       curtainShoved(world, c, dir, spend(world, c, dir));
-      continue;
-    }
-    // **THE GUM is carried once and flies.** The same gesture again, and the
-    // column it earns is the flick: the body is put on the crossing path the
-    // way the hand went and takes its first stride now (`gum.ts`). One already
-    // flying is past being swiped — the hand that sent it may still be on it,
-    // and a second column earned in the air is nothing. No pause is asked
-    // (`carryIsReady`): there is no second carry to hold it back from.
-    if (c.kind === "gum") {
-      if (gumIsFlung(c)) continue;
-      spend(world, c, dir);
-      gumSwiped(world, c, dir);
       continue;
     }
     const to = clampSpanCol(c.col + dir, world.cfg.cols, spanOf(c));

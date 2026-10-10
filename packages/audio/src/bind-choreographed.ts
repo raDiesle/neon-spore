@@ -147,7 +147,7 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue | nul
     case "surgeNear":
     case "surgeVent":
     case "surgeBurst":
-    case "surgeGum":
+    case "surgeBlister":
     case "surgeRock":
     case "surgeLost":
     case "surgeAbsorb":

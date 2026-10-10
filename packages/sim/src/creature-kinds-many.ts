@@ -83,16 +83,6 @@ export type ManyKind =
    */
   | "crystal"
   /**
-   * A sticky mass that falls straight down one lane, cannot be shot and is
-   * not stopped by the shield: it has to be **swiped away in the air**, by
-   * either seat, to the left or to the right, and it flies out of the field
-   * along its row. One that reaches the ship splashes across the hull and
-   * breaks it. Here among the bodies answered a column at a time because the
-   * column is what the pair watches it come down in. `gum.ts` holds the
-   * whole of it; `Creature.rockDir` and `rockRow` are its state once flung.
-   */
-  | "gum"
-  /**
    * A round body with marks cut into its rim, one fewer each beat, that a
    * shot only reaches while none are left — and **only the pilot is drawn
    * the marks**; the navigator, who fires, sees a blank rim. A shot off zero

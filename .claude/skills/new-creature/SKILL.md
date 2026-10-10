@@ -85,7 +85,7 @@ the test that went red without it:
 | File | What you add | What goes red without it |
 |---|---|---|
 | `tools/director/test/on-field-controls.test.ts` | `TARGET_PLACE`: `"unbuilt"` while no wave or GESTURE chip sends it, `"field"` once one does, with a comment naming the sim file | the compiler, then *every DragTarget on the field has a row* |
-| `tools/director/src/field-controls-<kind>.ts` | the `FieldControlDef` row, in a file of its own on `field-controls-gum.ts`'s shape, spread into `FIELD_CONTROLS` in `field-controls-page.ts` | the same case: *… has no FIELD_CONTROLS row* |
+| `tools/director/src/field-controls-<kind>.ts` | the `FieldControlDef` row, in a file of its own on `field-controls-balloon.ts`'s shape, spread into `FIELD_CONTROLS` in `field-controls-page.ts` | the same case: *… has no FIELD_CONTROLS row* |
 | `tools/director/src/poses-field-controls-<kind>.ts` | the row's `pose`, registered in `FIELD_CONTROL_GROUP` (`poses-field-controls.ts`) | `field-control-poses.test.ts`: *every row names a pose*, and *every pose … is used by a row* |
 | `docs/spec/controls.md` | `\| <ROW NAME> \|` in the table, in sentences rather than the row's `does` | *gives every field control a row of its own* |
 | `tools/director/src/field-actions-drag.ts` | the row's name in one type's `rows` | `field-page.test.ts`: *every row is in exactly one place* |

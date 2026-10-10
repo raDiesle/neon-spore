@@ -146,7 +146,7 @@ export class SurgeFx {
           this.sprayX = this.bulbX;
           this.sprayY = this.bulbY;
           break;
-        case "surgeGum":
+        case "surgeBlister":
           burst(tileCX(l, e.col), tileCY(l, e.row), 4, PALETTE.hull);
           break;
         case "surgeRock":

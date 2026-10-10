@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE LIMPET's and THE LEECH's three, in a file of their own on `bind-gum.ts`'s
+ * THE LIMPET's and THE LEECH's three, in a file of their own on `bind-balloon.ts`'s
  * pattern.
  *
  * Everything the ear gets from these is about a **control**: something taking

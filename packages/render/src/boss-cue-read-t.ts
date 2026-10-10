@@ -111,7 +111,7 @@ function carryCues(l: Layout, world: World, s: ScuttleState): BossCue[] {
  * **Nothing for a thrown part.** A rock wants her plate and his guard, a pod
  * his maw, and all three are the wave's ordinary answers to an ordinary
  * arrival: a word on one would be the field narrating the wave rather than the
- * boss, which is the objection THE SURGE's gums carry.
+ * boss, which is the objection THE SURGE's blisters carry.
  */
 export function scuttleCues(l: Layout, world: World, s: ScuttleState): readonly BossCue[] {
   if (s.downBeat >= 0) return [];

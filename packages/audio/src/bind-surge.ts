@@ -6,7 +6,7 @@ import { type Cue, panForCol } from "./bind.js";
  *
  * Every one of them is panned, and here the pan says less than anywhere
  * else in the game: the bulb hangs in the middle column and every event is
- * its own, so the sound sits in the middle until a gum is thrown down one
+ * its own, so the sound sits in the middle until a blister is thrown into one
  * of its columns. What the ear adds instead is the pressure: the vent and
  * the burst are the two ends of one gesture, and they are the two sounds a
  * pair has to be able to tell apart with their eyes on their thumbs.
@@ -22,7 +22,7 @@ export function surgeCue(
         | "surgeNear"
         | "surgeVent"
         | "surgeBurst"
-        | "surgeGum"
+        | "surgeBlister"
         | "surgeRock"
         | "surgeLost"
         | "surgeAbsorb"
@@ -48,8 +48,8 @@ export function surgeCue(
       return { id: "boss.surgeVent", pan, pitch: 0.9 + e.notches * 0.05 };
     case "surgeBurst":
       return { id: "boss.surgeBurst", pan };
-    case "surgeGum":
-      return { id: "boss.surgeGum", pan };
+    case "surgeBlister":
+      return { id: "boss.surgeBlister", pan };
     case "surgeRock":
       return { id: "boss.surgeRock", pan };
     case "surgeLost":

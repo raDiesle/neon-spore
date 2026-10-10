@@ -88,18 +88,6 @@ export const CREATURE_SOUNDS: SoundDef[] = [
     layers: [glint(7400, 0.05, 0.4), after(0.03, glint(7840, 0.06, 0.3))],
   },
   {
-    id: "creature.gumStick",
-    family: "creature",
-    blurb: "Something adhesive taking hold and not letting go.",
-    status: "bound",
-    use: "THE GUM hitting the hull and splashing across it — its `breach`, in place of the tear.",
-    level: 0.3,
-    layers: [
-      noise(800, { type: "lowpass", freq: 900, toFreq: 160, q: 1.8 }, 0.02, 0.3, 0.5),
-      spore(90, 0.4, 0.4, 70),
-    ],
-  },
-  {
     id: "creature.throbSwell",
     family: "creature",
     blurb: "A body growing over two beats and shrinking over one. Timing you can hear.",

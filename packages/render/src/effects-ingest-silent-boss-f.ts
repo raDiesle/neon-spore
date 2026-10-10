@@ -24,7 +24,7 @@ export const INGEST_SILENT_BOSS_F = [
   "surgeNear",
   "surgeVent",
   "surgeBurst",
-  "surgeGum",
+  "surgeBlister",
   "surgeRock",
   "surgeLost",
   "surgeAbsorb",

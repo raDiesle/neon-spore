@@ -34,8 +34,7 @@ import type { World } from "./world.js";
  *
  * Every body here comes down onto the hull and is the cannon's to kill. Not
  * here, agreed with the owner: the rocks and THE VOLLEY, which the shield
- * already answers its own way; THE GUM, which is the one body the shield was
- * built never to stop; THE CAROM, THE CRYSTAL and THE COIL, each a rock the
+ * already answers its own way; THE CAROM, THE CRYSTAL and THE COIL, each a rock the
  * shield cannot turn until something has opened it; THE FENCE, THE CLASP and
  * THE MOULT, which have answers of their own; the limpet and the leech, which
  * never break the hull; and every boss. Also not here, because none of them

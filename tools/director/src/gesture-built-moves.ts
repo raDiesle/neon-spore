@@ -35,7 +35,7 @@ export const BUILT_MOVING: readonly Gesture[] = [
   {
     name: "SWIPE PAST A DISTANCE",
     state: "built",
-    does: "A carry that counts once it has gone far enough, in its own direction — THE GUM flung left or right, THE INSTAR's egg swiped off, counted on the lift.",
+    does: "A carry that counts once it has gone far enough, in its own direction — THE BLISTER's SWIPE, THE INSTAR's egg swiped off, counted on the lift.",
     hand: [
       { k: "body", at: [58, 44], r: 9 },
       {
@@ -55,7 +55,7 @@ export const BUILT_MOVING: readonly Gesture[] = [
       ],
       window: { from: 4.5, to: 6, label: "past the threshold" },
     },
-    where: ["packages/sim/src/gum.ts", "packages/sim/src/instar-hand.ts"],
+    where: ["packages/sim/src/blister-swipe.ts", "packages/sim/src/instar-hand.ts"],
   },
   {
     name: "ROUND A CIRCLE",

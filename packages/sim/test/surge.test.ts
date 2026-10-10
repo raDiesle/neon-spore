@@ -36,7 +36,7 @@ import {
  * spent, the bulb a row lower, the next notch higher on the gauge; that a
  * second lift a beat late, or one thumb alone, is the charge **lost**; that
  * a lift over the band, or the pressure reaching the top of the gauge on
- * the beat, **bursts** — thumbs thrown off, gums thrown down its columns,
+ * the beat, **bursts** — thumbs thrown off, blisters thrown into its columns,
  * nothing taking hold for two beats, and from the third notch a notch
  * closed; that from its first notch it spits a rock at the ship every
  * `surgeRockBeats` beats it has both thumbs on it, which only the shield
@@ -65,7 +65,7 @@ function surge(world: World): SurgeState {
   return s;
 }
 
-const gums = (world: World) => world.creatures.filter((c) => c.kind === "gum");
+const blisters = (world: World) => world.creatures.filter((c) => c.kind === "blister");
 const rocks = (world: World) => world.creatures.filter((c) => c.kind === "meteor");
 
 /** One seat's thumb on the bulb, or off it. */
@@ -257,7 +257,7 @@ describe("the vent", () => {
 });
 
 describe("the burst", () => {
-  it("throws both thumbs off and gums down its columns on a lift over the band", () => {
+  it("throws both thumbs off and blisters into its columns on a lift over the band", () => {
     const world = install();
     const s = surge(world);
     primed(s, world);
@@ -265,19 +265,19 @@ describe("the burst", () => {
     const row = surgeBulbRow(s, CFG);
     const seen = liftBoth(world);
     expect(seen.has("surgeBurst")).toBe(true);
-    expect(seen.has("surgeGum")).toBe(true);
+    expect(seen.has("surgeBlister")).toBe(true);
     expect(seen.has("surgeClose")).toBe(false);
     expect(s.notches).toBe(0);
     expect(s.pressureMilli).toBe(0);
     expect(surgeHeld(s, 1)).toBe(false);
     expect(surgeHeld(s, 2)).toBe(false);
-    const thrown = gums(world);
-    expect(thrown.length).toBe(CFG.surgeBurstGums);
+    const thrown = blisters(world);
+    expect(thrown.length).toBe(CFG.surgeBurstBlisters);
     const left = surgeBulbLeft(CFG);
     for (const g of thrown) {
       expect(g.col).toBeGreaterThanOrEqual(left);
       expect(g.col).toBeLessThan(left + surgeBulbSpan(CFG));
-      expect(g.fromRow).toBe(row + 1);
+      expect(g.fromRow).toBe(row + 2);
     }
     // Re-sealing: a thumb on the glass takes nothing.
     runTo(world, world.tick + 2, [thumb(world.tick, 1, true), thumb(world.tick + 1, 2, true)]);
@@ -296,7 +296,7 @@ describe("the burst", () => {
     const seen = runTo(world, TPB + 1);
     expect(seen.has("surgeBurst")).toBe(true);
     expect(s.pressureMilli).toBe(0);
-    expect(gums(world).length).toBe(CFG.surgeBurstGums);
+    expect(blisters(world).length).toBe(CFG.surgeBurstBlisters);
   });
 
   it("closes a notch again from the third open", () => {

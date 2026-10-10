@@ -217,9 +217,7 @@ export function handleThumb(
   // A clock boss's handle, on either seat (`guide-boss-hand.ts`).
   const onBoss = bossThumb(l, world, seat, beatPhase);
   if (onBoss) return onBoss;
-  // The navigator's one handle is THE HIVE's lobe, pinched. Her other — a
-  // stuck gum — went with the sticking on 14 September 2026, and a gum is a
-  // grip now (`sim/gum.ts`), which is the hand `gripThumb` draws.
+  // The navigator's one handle is THE HIVE's lobe, pinched.
   if (seat === 2) return hivePinchCircle(l, world, beatPhase);
   const lid = world.creatures.find((c) => c.kind === "lid" && lidIsHeld(c));
   if (lid) return handleCircle(l, world, "lidString", beatPhase, lid.col);

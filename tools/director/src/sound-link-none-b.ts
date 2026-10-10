@@ -47,7 +47,7 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.surgeNear": "the pressure coming into the band. Same argument.",
   "boss.surgeVent": "a notch of the seam parting. Same argument.",
   "boss.surgeBurst": "the sac bursting and the thumbs thrown off. Same argument.",
-  "boss.surgeGum": "a gum thrown down one of its columns. Same argument.",
+  "boss.surgeBlister": "a blister thrown into one of its columns. Same argument.",
   "boss.surgeLost": "the charge lost to a release missed. Same argument.",
   "boss.surgeAbsorb": "a body eaten into the bulb. Same argument.",
   "boss.surgeClose": "a notch shutting again after a burst. Same argument.",

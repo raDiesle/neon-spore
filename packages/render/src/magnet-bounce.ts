@@ -61,7 +61,7 @@ export class MagnetBounceFx {
    * branch.** The plate's own offset is read off `MAGNET_SHAPE` rather than
    * guessed at, so the bolt leaves the edge the body is actually drawn with: a
    * ricochet starting at a tile centre would begin inside the arch it bounced
-   * off. A gum has no arch and no plate, so the ricochet starts at the body
+   * off. A clinger has no arch and no plate, so the ricochet starts at the body
    * itself; the same argument, the other way round.
    */
   ingest(events: readonly SimEvent[], l: Layout): void {

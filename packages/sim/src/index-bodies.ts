@@ -102,4 +102,3 @@ export {
   crystalMiddleCol,
   crystalUnder,
 } from "./crystal.js";
-export { gumIsFlung, gumSwiped } from "./gum.js";

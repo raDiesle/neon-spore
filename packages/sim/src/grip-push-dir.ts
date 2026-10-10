@@ -1,4 +1,3 @@
-import type { SimConfig } from "./config.js";
 import { gripsCreature } from "./grip.js";
 import { gripPushOf } from "./grip-push.js";
 import type { Creature } from "./types.js";
@@ -32,15 +31,8 @@ function handDir(world: World, player: 1 | 2, c: Creature): -1 | 0 | 1 {
   // `Math.trunc` and not a floor: a hand is as far from where it grabbed in
   // one direction as in the other, and a floor would earn a column half a tile
   // sooner going left than going right.
-  const earned = Math.trunc(push.milli / carryMilli(world.cfg, c));
+  const earned = Math.trunc(push.milli / world.cfg.gripPushMilli);
   return Math.sign(earned - push.cols) as -1 | 0 | 1;
-}
-
-/** How far a hand has to come to earn a column of this body. One number for
- * everything a hand carries, and the gum's own for the gum: a swipe is a
- * flick rather than a walk, and the two are tuned apart (`config-gum.ts`). */
-function carryMilli(cfg: SimConfig, c: Creature): number {
-  return c.kind === "gum" ? cfg.gumSwipeMilli : cfg.gripPushMilli;
 }
 
 /** The column is spent by every hand that asked for it, and by no hand that

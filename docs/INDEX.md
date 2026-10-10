@@ -273,7 +273,6 @@ by hand never moves.
 | `packages/sim/src/bullet-types.ts` | you need what a bullet *is* rather than what one does — the shape, lifted out of `types.ts` beside `pod-types.ts` |
 | `packages/sim/src/lid.ts` | you are working on the armoured eye — the cord, how far the plates have parted, and what a shot into it does |
 | `packages/sim/src/config-ghost.ts` | THE GHOST's numbers: what one is worth, the row a crossing one prowls along, how far it goes each beat, how |
-| `packages/sim/src/config-gum.ts` | THE GUM's numbers: how far a swipe has to carry it, and how far it flies a beat once swiped |
 | `packages/sim/src/config-gorge.ts` | THE GORGE's numbers — where the bubbles hang, how big the ring is |
 | `packages/sim/src/config-governor.ts` | THE GOVERNOR's tuning: the beats around its steps, how fast the needle idles |
 | `packages/sim/src/config-gimbal.ts` | THE GIMBAL's tuning: how close together two hands must let go |
@@ -311,7 +310,6 @@ by hand never moves.
 | `packages/sim/src/creature-types.ts` | What a **body on the field** is made of |
 | `packages/sim/src/recoil.ts` | THE RECOIL: a slick or a bulb inside a sprung cage, and the first body a landed shot sends the **wrong way** |
 | `packages/sim/src/guide-steps.ts` | A guide the pair turns the pages of, one seat at a time |
-| `packages/sim/src/gum.ts` | **THE GUM**: a sticky mass that falls straight down one lane, cannot be shot, is not stopped by the shield, and has to be swiped away in the air |
 | `packages/sim/src/carom.ts` | THE CAROM: a slick or a bulb sealed inside a hurtling rock crust |
 | `packages/sim/src/cairn.ts` | THE CAIRN: a pile of seven rocks nothing fired reaches, taken apart by a hand carried sideways, and the clock that drops one itself into a lane only player 1 is shown |
 | `packages/sim/src/cairn-hold.ts` | THE CAIRN's second gesture: a hand resting on the pile stops its shed clock for four beats, on the grip the pair already has and with no new word on the field |
@@ -455,7 +453,6 @@ by hand never moves.
 | `packages/sim/src/events-crawler.ts` | THE CRAWLER's three: a ring coming apart, the worm cleared, and the worm getting in |
 | `packages/sim/src/events-crystal.ts` | **Everything THE CRYSTAL does**, as events: it turns at a wall, its shell catches a wrong shot, the right one breaks it in two |
 | `packages/sim/src/events-ghost.ts` | THE GHOST's three: the body letting go, a wall turned at, and the dive |
-| `packages/sim/src/events-gum.ts` | **Everything THE GUM does**, as events: it is flung — its landing is a `breach` |
 | `packages/sim/src/events-gorge.ts` | **Everything THE GORGE does that neither screen already says**, as events |
 | `packages/sim/src/events-governor.ts` | What THE GOVERNOR says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-gauge.ts` | **What THE GAUGE's dial does that neither screen already says**, as seven events (`gauge.ts`, `gauge-hand.ts`) |
@@ -984,6 +981,7 @@ by hand never moves.
 | `packages/content/src/control-fault.ts` | **What a wave's fault does to the panel it is played on**, and the one place either half of it is decided |
 | `packages/content/src/mechanics-wave.ts` | **The two mechanics a wave turns on without putting a body on the field**, and the whole of `reach: "wave"` |
 | `packages/content/src/silhouettes-spare.ts` | **The two contours next door that are not a body on the roster**: one retired, one a capsule |
+| `packages/content/src/silhouettes-sac.ts` | **The sac**: the contour every hanging body is cut from, taken off the shape sheet whole |
 | `packages/content/src/waves/act-7.ts` | Act seven, and it opens on the first body in this game that cannot be answered from the column it is standing in |
 | `packages/content/src/magnet-shape.ts` | THE MAGNET's contour, as numbers rather than as drawing |
 | `packages/content/src/mantle-script.ts` | THE MANTLE's four pull-together thresholds: the summed depth of both handles, thousandths of a tile |
@@ -997,7 +995,6 @@ by hand never moves.
 | `packages/content/src/scenes/the-curtain.ts` | THE CURTAIN's rehearsal: a bounce, a soft lobe shot, a shove, a carry of four, the core bared and hit — every act the pilot's hand |
 | `packages/content/src/scenes/the-fence.ts` | THE FENCE's rehearsal: a wall the width of the field, and the one thing that has to be true when it lands |
 | `packages/content/src/scenes/the-gap.ts` | THE GAP's rehearsal: the wall moves its opening, and only one of them can see where it went |
-| `packages/content/src/scenes/the-gum.ts` | THE GUM's rehearsal: a still thumb moves nothing, a swipe flings it out, and one nobody takes splashes on the ship |
 | `packages/content/src/scenes/the-gorge.ts` | THE GORGE's rehearsal: a row of bubbles, each wanting shots, and a pair that can only fill them by talking |
 | `packages/content/src/control-sets-keys.ts` | Whether a panel answers a command — what the desk keyboard is gated by |
 | `packages/content/src/control-sets-groups.ts` | **The panel half of the coverage rule**, and nothing else |
@@ -1054,7 +1051,6 @@ by hand never moves.
 | `packages/content/src/mechanics-blister.ts` | THE BLISTER's row, beside `mechanics-beatbox.ts` and for its reason: `mechanics-table.ts` is near its limit |
 | `packages/content/src/silhouettes-beatbox.ts` | Beatbox: a rounded cabinet, and the one body on this roster whose contour is *architecture* rather than an… |
 | `packages/content/src/silhouettes-blister.ts` | **THE BLISTER is ROOTED CLOVER**: two drafts off the shape sheet, combined and named |
-| `packages/content/src/silhouettes-gum.ts` | **THE GUM in the air: THE WEIGHT's sac**, taken off the shape sheet whole |
 | `packages/content/src/silhouettes-weight.ts` | **THE WEIGHT: the slumped sac**, the louder of the two hanging drafts, taken off the shape sheet whole |
 | `packages/content/src/silhouettes-mine.ts` | **THE MINE is REACHER**, off the shape sheet: *four soft arms |
 | `packages/content/src/waves/act-8.ts` | Act eight, opened for THE BEATBOX rather than for a chapter |
@@ -1770,8 +1766,6 @@ by hand never moves.
 | `packages/render/src/guide-welcome.ts` | The page before a device's first tutorial: what the stepper is |
 | `packages/render/src/guide-look.ts` | The tutorial's furniture, as one record: the band across the top that says TUTORIAL and whose screen this is |
 | `packages/render/src/guide-keycaps.ts` | A keycap on each control a guide shows, at a desk only: a strip's two step keys at its ends, a lobe's key on its shoulder |
-| `packages/render/src/gum.ts` | THE GUM, drawn in its two states: a heavy drop coming down a lane |
-| `packages/render/src/gum-splash.ts` | **A gum landing on the ship, remembered.** One event — a `breach` carrying the gum's own kind |
 | `packages/render/src/baked.ts` | Every cache in render/ that holds baked work between frames, in one place that can empty them all |
 | `packages/render/src/stage-point.ts` | WHERE A POINTER ON THE CANVAS ACTUALLY LANDS |
 | `packages/render/src/stare-draw.ts` | THE STARE, drawn: the cowled eye over the top of the field, opening on the beats of its pattern |
@@ -2050,7 +2044,7 @@ by hand never moves.
 | `packages/render/src/flue-glass.ts` | **THE FLUE's sight as a length of glass pipe**: tinted in the level's colour, as wide as a shot's reach, collared into the flesh |
 | `packages/render/src/frame-field.ts` | The two passes that are about the field: the empty board, and the bodies on it |
 | `packages/render/src/frame-ship.ts` | The two passes that are about the ship: the hull with its controls, and the overlays |
-| `packages/render/src/frame-on-ship.ts` | a body sticks to the finished ship — the fifth pass, between the ship and the overlays: the fence's burn, the gums, the choke's coils, the clingers, in that order |
+| `packages/render/src/frame-on-ship.ts` | a body sticks to the finished ship — the fifth pass, between the ship and the overlays: the fence's burn, the choke's coils, the clingers, in that order |
 | `packages/render/src/strand-bead.ts` | The two bodies THE STRAND draws that are **not** a slick or a bulb |
 | `packages/render/src/strand.ts` | THE STRAND's thread, and the mark on the bead that has to be shot next |
 | `packages/render/src/strand-reel.ts` | THE STRAND's reel: the clock it rolls on, and the bad monitor over it |
@@ -2664,16 +2658,15 @@ by hand never moves.
 | `packages/audio/src/bind-choreographed-b.ts` | **The hands the §6.2 lanes added to bosses that had already shipped** |
 | `packages/audio/src/bind-choreographed-c.ts` | **The tail of `bind-choreographed.ts`** |
 | `packages/audio/src/bind-choreographed-d.ts` | **The tail of `bind-choreographed-c.ts`** |
-| `packages/audio/src/bind-cling.ts` | THE LIMPET's and THE LEECH's four, in a file of their own on `bind-gum.ts`'s pattern |
+| `packages/audio/src/bind-cling.ts` | THE LIMPET's and THE LEECH's four, in a file of their own on `bind-balloon.ts`'s pattern |
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 | `packages/audio/src/mixer-handover.ts` | THE HANDOVER, heard: the beat the panels change screens, and the beat they come back |
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-baton.ts` | THE BATON's sixteen, in a file of their own because `bind.ts` is at its limit |
 | `packages/audio/src/bind-bastion.ts` | THE BASTION's fourteen cues, panned to their column; a shell's sounds pitched lower the deeper it lay |
-| `packages/audio/src/bind-blister.ts` | THE BLISTER's one, in a file of its own on `bind-gum.ts`' pattern: a blow that counted (`sim/blister.ts`) |
+| `packages/audio/src/bind-blister.ts` | THE BLISTER's one, in a file of its own on `bind-balloon.ts`' pattern: a blow that counted (`sim/blister.ts`) |
 | `packages/audio/src/bind-trapeze.ts` | Whether an event is THE TRAPEZE's, so a page of the chain can hand it over whole |
-| `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
 | `packages/audio/src/bind-gorge.ts` | THE GORGE's nine, in a file of their own because `bind.ts` is full |
 | `packages/audio/src/bind-governor.ts` | Whether an event is THE GOVERNOR's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-gauge.ts` | THE GAUGE's seven, in a file of their own for `bind-pulse-hand.ts`'s reason |
@@ -2761,7 +2754,7 @@ by hand never moves.
 | `packages/hands/src/autopilot-moult.ts` | **THE MOULT, on AUTO**: a body that is a rock and a cargo by turns |
 | `packages/hands/src/autopilot-magnet.ts` | **THE MAGNET, on AUTO**: the cannon beside the magnet, locked on, its facing pole fired |
 | `packages/hands/src/autopilot-lid.ts` | **THE LID, on AUTO**: player 1 pulls the cord taut and holds the cannon's fire until the lens is bare |
-| `packages/hands/src/autopilot-touch.ts` | **THE WEIGHT, THE MINE, THE BEATBOX and THE GUM, on AUTO**: a finger on the body |
+| `packages/hands/src/autopilot-touch.ts` | **THE WEIGHT, THE MINE, THE BEATBOX and THE BLISTER, on AUTO**: a finger on the body |
 | `packages/hands/src/autopilot-choir.ts` | **THE CHOIR, on AUTO**: the membrane shaken until it draws together |
 | `packages/hands/src/autopilot-crawler.ts` | **THE CRAWLER, on AUTO**: the dome under the plate's next column, on the beat |
 | `packages/hands/src/autopilot-crystal.ts` | **THE CRYSTAL, on AUTO**: shield and cannon both in the middle, the dome up, then the shot |
@@ -3562,9 +3555,8 @@ by hand never moves.
 | `tools/director/src/field-controls-baton.ts` | THE BATON's two thumbs on its own arm, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-bastion.ts` | THE BASTION's three thumbs, as three rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-bosses.ts` | **Every boss's own rows** on the ON THE FIELD tab, in the order they were built |
-| `tools/director/src/field-controls-blister.ts` | THE BLISTER's SWIPE, in a file of its own on `field-controls-gum.ts`'s pattern |
+| `tools/director/src/field-controls-blister.ts` | THE BLISTER's SWIPE, in a file of its own — `field-controls-page.ts` grows only by the line that spreads it |
 | `tools/director/src/field-controls-trapeze.ts` | THE TRAPEZE's controls, as rows of the ON THE FIELD tab: the two zones |
-| `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-gorge.ts` | THE GORGE's one thumb, in a file of its own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-governor.ts` | THE GOVERNOR's tap, as a row of the ON THE FIELD tab: a seat's tap on the dial |
 | `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |
@@ -3638,7 +3630,7 @@ by hand never moves.
 | `tools/director/src/ship-fields-choreo-d.ts` | **The choreographed bosses' dials, the fourth page** — THE CAPSTAN and every boss built after them |
 | `tools/director/src/ship-fields-cannon.ts` | The cannon's numbers — the shot it fires and the arm THE CLAW puts in its place — sorted into their cards |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
-| `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |
+| `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — the two clingers |
 | `tools/director/src/ship-notes-hidden.ts` | The paragraph under each card for a **body one seat is not drawn at all**: THE WISP |
 | `tools/director/src/ship-notes-boss.ts` | The paragraph under each **boss's** card — the ones played on the field |
 | `tools/director/src/ship-notes-twice.ts` | The paragraph under each card for a **body one landed answer does not finish**: THE ECHO, THE RIND |

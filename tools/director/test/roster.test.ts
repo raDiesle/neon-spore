@@ -19,7 +19,8 @@ describe("roster", () => {
     // the same day, when the Countdown was built (docs/decisions.md #29).
     // Fifteen from 12 September 2026: THE LIMPET and THE LEECH — and fourteen
     // the same day, THE CHOKE a fault now and not a body (docs/decisions.md #31).
-    expect(roster.creatures).toHaveLength(14);
+    // Thirteen from 10 October 2026, THE GUM taken out of the game.
+    expect(roster.creatures).toHaveLength(13);
     // The Wisp alone — the nine idea rows beside it were retired the same day.
     expect(roster.accepted).toHaveLength(1);
     // Four named in the act order, plus the two that hold no slot in it and
@@ -96,8 +97,8 @@ describe("roster", () => {
     expect(veilDetail).toContain("the lure's split turned over");
 
     // And nothing is attributed to a name the paragraphs never mention.
-    const gumDetail = roster.creatures.find((c) => c.name === "Gum")?.detail;
-    expect(gumDetail).toBe("");
+    const throbDetail = roster.creatures.find((c) => c.name === "Throb")?.detail;
+    expect(throbDetail).toBe("");
   });
 
   test("parses a minimal example", () => {

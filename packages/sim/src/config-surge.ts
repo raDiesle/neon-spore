@@ -42,8 +42,8 @@ export interface SurgeConfig {
   surgeCloseNotches: number;
   /** Pressure one body absorbed into the bulb is worth, in thousandths. */
   surgeAbsorbMilli: number;
-  /** Gums a burst throws down the bulb's own columns. */
-  surgeBurstGums: number;
+  /** Blisters a burst throws into the bulb's own columns. */
+  surgeBurstBlisters: number;
   /** Beats after a burst in which no hand can take hold: the bulb is re-sealing. */
   surgeBurstBeats: number;
   /** Notches open from which the bulb spits a rock at the ship while both thumbs are on it. */
@@ -52,7 +52,7 @@ export interface SurgeConfig {
   surgeRockBeats: number;
   /** Row the bulb hangs at with the seam shut. A notch open is a row lower. */
   surgeBulbRow: number;
-  /** Columns the bulb spans, centred on `midCol`: what it absorbs, and where its gums come from. */
+  /** Columns the bulb spans, centred on `midCol`: what it absorbs, and where its blisters come from. */
   surgeBulbCols: number;
   /** Beats the pressure's arrival in a notch's band is watched at the slow rate (THE SLOW). */
   surgeNearSlowBeats: number;
@@ -72,7 +72,7 @@ export interface SurgeConfig {
  * which is the design's *no margin at all*: at the doubled rate it is one
  * beat wide, and the beat after it is the burst. From the second notch open
  * the bulb keeps what it has and eats what reaches it, 450 a body — a whole
- * notch's step — and a burst throws three gums and, from the third notch,
+ * notch's step — and a burst throws three blisters and, from the third notch,
  * closes one. The bulb starts on row 3 and is on row 7 by the last notch.
  *
  * **The rock is the one number here that is not on the gauge.** From the
@@ -94,7 +94,7 @@ export const SURGE_DEFAULTS: SurgeConfig = {
   surgeDoubleNotches: 3,
   surgeCloseNotches: 3,
   surgeAbsorbMilli: 450,
-  surgeBurstGums: 3,
+  surgeBurstBlisters: 3,
   surgeBurstBeats: 2,
   surgeRockNotches: 1,
   surgeRockBeats: 6,

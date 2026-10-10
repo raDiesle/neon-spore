@@ -1,7 +1,6 @@
 import {
   createWorld,
   DEFAULT_CONFIG,
-  gumIsFlung,
   type SpawnEntry,
   startWave,
   type TimedCommand,
@@ -10,12 +9,10 @@ import {
 import {
   firstOfKind,
   fresh,
-  hold,
   type Pose,
   type PoseGroup,
   pullCord,
   run,
-  runUntil,
   POSE_TPB as TPB,
   until,
 } from "./pose-kit.js";
@@ -38,8 +35,7 @@ import { SURGE_HOLD } from "./poses-field-controls-surge.js";
  * control*. Most rows could point at a pose that already existed — the grip,
  * the cannon at rest, the shield armed, the lid's eye open — and four could
  * not: nothing in the gallery had a rope held taut, a balloon with both hands
- * on it, a gum in flight off a swipe, or the ready circles of a guide.
- * These are those four. `field-controls-page.ts` names them by their
+ * on it, or the ready circles of a guide. These are those. `field-controls-page.ts` names them by their
  * `name`, and `field-control-poses.test.ts` checks every name it uses is here
  * or in another group.
  *
@@ -51,7 +47,7 @@ import { SURGE_HOLD } from "./poses-field-controls-surge.js";
 const COL = 5;
 
 /** A hand on the field, on one seat. `fromMilli` is sideways; a balloon's
- * handle is carried sideways and nothing else, and so is a held gum. */
+ * handle is carried sideways and nothing else. */
 const drag = (
   tick: number,
   player: 1 | 2,
@@ -112,31 +108,6 @@ const BALLOON_HELD: Pose = {
   },
 };
 
-const GUM_FLUNG: Pose = {
-  name: "GUM · FLUNG OUT OF THE FIELD",
-  note: "A gum halfway down its lane, taken by a thumb and swiped to the right: it has left the lane and is flying out level along its row, its drops trailing behind it. Either seat can do this; player 2's screen, the seat whose radar showed it coming down.",
-  lookAt:
-    "the drop to the right of the lane it was falling down, leaning the way it is going, with its trail behind it — that lean is the swipe",
-  crop: "field",
-  role: "p2",
-  build: () => {
-    const entry: SpawnEntry = { beat: 0, col: COL, kind: "gum", color: null };
-    const w = fresh([entry]);
-    run(w, TPB * 4);
-    const gum = w.creatures.find((c) => c.kind === "gum");
-    if (!gum) throw new Error("no gum on the field");
-    // A swipe's worth is `gumSwipeMilli` of cumulative travel; walked there
-    // over half a beat rather than in one jump, which is what a thumb does.
-    const cmds: TimedCommand[] = [hold(w.tick, 2, gum.id)];
-    const reach = w.cfg.gumSwipeMilli + 100;
-    for (let i = 1; i <= 12; i++)
-      cmds.push(drag(w.tick + i * 3, 2, "gripBody", gum.id, Math.round((i / 12) * reach)));
-    runUntil(w, "a gum in flight", cmds, (x) => x.creatures.some(gumIsFlung));
-    run(w, Math.round(TPB / 2));
-    return w;
-  },
-};
-
 /**
  * The ready gate is the one state here `fresh` cannot make: a pose's world has
  * briefings off, and the guide is told to `startWave` rather than read off a
@@ -171,7 +142,6 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
   poses: [
     TETHER_TAUT,
     BALLOON_HELD,
-    GUM_FLUNG,
     BLISTER_SWIPE,
     BLISTER_TURN,
     BLISTER_RUB,

@@ -15,8 +15,8 @@ const scatter = (i: number, k: number) => sinHash(i, k);
  * SPLATTER — the burst sprays the whole ship. Gobs of the bulb fly out of it
  * on arcs to every column of the field, wall to wall, and land on the hull
  * as splats that sag and fade over the spray's beats: the design's "the
- * burst sprays the ship", where the game throws three gums down its own
- * columns. The gums still fall as they do; this is only the picture around
+ * burst sprays the ship", where the game throws three blisters into its own
+ * columns. The blisters still come up as they do; this is only the picture around
  * them, on both screens, because a burst is said to both seats already.
  */
 export function paintSplatter(d: SprayDraw): void {

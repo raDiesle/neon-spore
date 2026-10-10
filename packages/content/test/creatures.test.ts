@@ -49,19 +49,16 @@ describe("categoryOf", () => {
     // THE WEIGHT is the sixth and the second a wave places: neither control
     // reaches it either, and what does is a hand from each seat on the body
     // itself — which is not a `ControlGroup` for the balloon's reason exactly.
-    // THE GUM is the seventh, since 14 September 2026: a hand from either seat
-    // flings it, and no panel has anything to say to it.
-    // THE MINE is the eighth: what answers it is a finger on a bare square of
+    // THE MINE is the seventh: what answers it is a finger on a bare square of
     // the field, which is not a control on either panel and so is not a
     // `ControlGroup` either — THE BEATBOX's own entry one creature along.
-    // THE BLISTER is the ninth: a tap on the body, the box's again.
+    // THE BLISTER is the eighth: a tap on the body, the box's again.
     expect(special).toEqual([
       "tether",
       "mount",
       "chute",
       "beatbox",
       "balloon",
-      "gum",
       "weight",
       "mine",
       "blister",

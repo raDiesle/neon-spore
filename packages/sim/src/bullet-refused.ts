@@ -25,11 +25,10 @@ import type { World } from "./world.js";
  *
  * A set rather than four branches, because what they have in common is the
  * whole reason they are together: not one of them is stone, and a bolt that
- * chipped a gum or a leech would be telling the pair that shooting it more
+ * chipped a limpet or a leech would be telling the pair that shooting it more
  * would work. Every one is answered by a hand or by a control being moved.
  */
 const BOUNCES_A_BOLT: ReadonlySet<Creature["kind"]> = new Set([
-  "gum",
   "limpet",
   "leech",
   "weight",

@@ -8,7 +8,6 @@ import type { CoilEvent } from "./events-coil.js";
 import type { CrawlerEvent } from "./events-crawler.js";
 import type { CrystalEvent } from "./events-crystal.js";
 import type { FenceEvent } from "./events-fence.js";
-import type { GumEvent } from "./events-gum.js";
 import type { MagnetEvent } from "./events-magnet.js";
 import type { PushEvent } from "./events-push.js";
 import type { StrandEvent } from "./events-strand.js";
@@ -35,10 +34,9 @@ export type CreatureGroupEvent =
   // `events-creature.ts` over its limit. One arrival taken apart, rather than four
   // incidents that happen to share a creature.
   | CaromEvent
-  // And THE CRYSTAL's, THE GUM's and the clingers', on the same terms
-  // (`events-crystal.ts`, `events-gum.ts`, `events-cling.ts`).
+  // And THE CRYSTAL's and the clingers', on the same terms
+  // (`events-crystal.ts`, `events-cling.ts`).
   | CrystalEvent
-  | GumEvent
   | ClingEvent
   // And THE VOLLEY's two — the ward that sends it back and the shell bursting
   // over the body — are `events-volley.ts`, on exactly the same terms.

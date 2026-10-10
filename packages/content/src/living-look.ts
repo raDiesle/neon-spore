@@ -134,7 +134,7 @@ const LIVING_LOOK = {
   // `world.boss` and never from a radius (`render/curtain-draw.ts`).
   curtain: null,
   tether: null,
-  // THE BALLOON, THE GUM and THE WEIGHT — the bodies two hands answer, and three
+  // THE BALLOON and THE WEIGHT — the bodies two hands answer, and two
   // different answers to "is this a body of its own". `living-look-handed.ts`
   // next door, cut out when the third of them took this table over its limit,
   // and spread rather than named one by one the way `creatures-table.ts` does.

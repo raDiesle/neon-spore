@@ -94,9 +94,7 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   "crystal",
   // And the two clingers: nothing can be done to either in the air, so a
   // brake would show every sign of working and buy nothing. What answers
-  // them is a hand *after* they land (`cling.ts`). THE GUM stood here for
-  // the same reason until 14 September 2026, and stands here no longer: a
-  // hand on a falling gum is now the thing that answers it (`gum.ts`).
+  // them is a hand *after* they land (`cling.ts`).
   "limpet",
   "leech",
   "chute",

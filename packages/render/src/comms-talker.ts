@@ -207,9 +207,6 @@ export const TALKER = {
   // what the pair has to do is put four thumbs in one lane on one beat, which
   // a siren cannot help with.
   crystal: null,
-  // THE GUM: both screens draw the whole of it and either hand answers it,
-  // the same way — nothing is withheld, and nothing has to be said.
-  gum: null,
   // The seat without the control is the one who reads the timer counting the
   // body down, and *move* is the whole of what it has to say.
   limpet: "p1",

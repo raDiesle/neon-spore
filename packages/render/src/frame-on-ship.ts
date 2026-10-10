@@ -18,10 +18,9 @@ import { drawUndertowHull } from "./undertow-draw.js";
  * down with the field, and why none of them is the ship's own business.
  *
  * Every call here is one `Canvas2DRenderer.draw` used to make directly, and
- * each was one landing: THE FENCE's strike, THE GUM's splash, THE CHOKE, THE
- * LIMPET and THE LEECH, four calls in a row that had taken that file to its
- * limit. The order is the picture — a gum's splash runs over the fence's
- * burn, a coil sits over both — so a body that sticks to the ship next is
+ * each was one landing: THE FENCE's strike, THE CHOKE, THE LIMPET and THE
+ * LEECH, calls in a row that had taken that file to its limit. The order is
+ * the picture — a coil sits over the fence's burn — so a body that sticks to the ship next is
  * added at the end, not slipped in between.
  *
  * The split moves lines, not behaviour: the stub canvas's ordered call log
@@ -99,10 +98,6 @@ export function drawOnShip(
   // And any boss's own blow when a window ran out, instead of a rock nobody
   // saw fall: out of its body and into the column (`boss-strike-fx.ts`).
   held.effects.boss.strike.draw(ctx, l, world.cfg, surfaceY, view.time);
-  // And a gum splashing across the ship, on the same membrane and over the
-  // same finished hull: the smear where it landed and the ripples running
-  // out from it (`gum-splash.ts`).
-  held.gumSplash.draw(ctx, l, surfaceY, view.time);
   // And a body bursting on the plating it reached: the ring where its skin let
   // go and the water thrown out of it, in the colour it was wearing
   // (`body-burst.ts`). Over the hull for the splash's reason, and over the

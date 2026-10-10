@@ -77,7 +77,7 @@ mark that suits it:
 | | what a refused bolt leaves |
 |---|---|
 | a rock, THE VOLLEY's shell, THE CAIRN | a crater, because all of them are stone |
-| THE GUM, THE LIMPET, THE LEECH, THE WEIGHT | a ricochet, the magnet plate's own — none of them is stone, and a chip would say *shoot it again* |
+| THE LIMPET, THE LEECH, THE WEIGHT | a ricochet, the magnet plate's own — none of them is stone, and a chip would say *shoot it again* |
 | a magnet's plate | the same ricochet, which is where the look comes from |
 
 **THE GYRE's hub is the one body a bolt still passes**, and it is a hole in the

@@ -57,7 +57,7 @@ export function firstAlong(
     // **Five other kinds used to be here and the owner took them out on 14
     // September 2026**: *shots with the cannon, generally speaking, should
     // never go through enemies, but should hit with no effect if the body
-    // cannot be destroyed with the cannon's colour.* THE GUM, THE LIMPET, THE
+    // cannot be destroyed with the cannon's colour.* THE GUM (since removed), THE LIMPET, THE
     // LEECH, THE WEIGHT and THE CAIRN each carried a paragraph here saying a
     // bolt went past it to whatever was above, and every one of those
     // paragraphs is overruled: a body a shot cannot answer still stops the

@@ -86,7 +86,7 @@ export {
   TORCH,
 } from "./silhouettes.js";
 export { LEECH, LIMPET } from "./silhouettes-cling.js";
-export { GUM, SAC_SKIN, type SacSkin, sacPoints } from "./silhouettes-gum.js";
+export { SAC_SKIN, type SacSkin, sacPoints } from "./silhouettes-sac.js";
 export {
   addScaled,
   cross,

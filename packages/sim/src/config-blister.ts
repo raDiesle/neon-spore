@@ -3,7 +3,7 @@
  * nearer each surfacing comes, and how many blows it takes when a wave leaves
  * the count out (`blister.ts`).
  *
- * `SimConfig` extends this rather than nesting it, for `config-gum.ts`' reason:
+ * `SimConfig` extends this rather than nesting it, for `config-crystal.ts`' reason:
  * every call site still reads `cfg.blisterUpBeats`, and the split is only about
  * how much of one file a reader has to hold at once. `config-creatures.ts` was
  * at its limit when this creature arrived.

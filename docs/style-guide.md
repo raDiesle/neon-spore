@@ -460,8 +460,8 @@ are plain ellipses and circles under the same kind of gradient. They are not
 the bug and were left alone.
 
 **A body drawn once per beat rather than once per turn gets it too.**
-THE GUM's drop (`gum.ts`) shades its sac with a linear gradient run straight
-down `-GUM.ry` to `GUM.ry` — a bare axis, never touched — and sets its wet
+THE GUM's drop (gum.ts, gone with THE GUM on 10 October 2026) shaded its sac
+with a linear gradient run straight down `-GUM.ry` to `GUM.ry` — a bare axis, never touched — and sets its wet
 gloss at a fixed `-rx * 0.3, -ry * 0.45`, while the sac's own silhouette
 breathes on `contourClock` feeding `blobRadiusMul`'s wobble terms every
 frame it falls or flies. Beautifully lit and still a still life, on a body

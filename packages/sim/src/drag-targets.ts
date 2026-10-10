@@ -82,9 +82,8 @@ export type DragTarget =
 /**
  * **There used to be a `gum` target**, the tenth, player 2's, and the first
  * handle that was the whole body: a gum stuck to the ship was swiped where it
- * sat. The owner took the sticking out on 14 September 2026 — a gum is
- * swiped in the air now, and that is `gripBody` below, the carry every hand
- * on the field already reports (`gum.ts`).
+ * sat. The owner took the sticking out on 14 September 2026, and THE GUM
+ * itself on 10 October 2026.
  */
 
 /**

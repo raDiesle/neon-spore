@@ -5,7 +5,7 @@ import { paintSplatter } from "./surge-spray-splatter.js";
  * THE SURGE's burst, past its first instant: what the bulb throws across the
  * ship when the pressure goes over.
  *
- * The design has a burst spray the whole ship; the game has three gums down
+ * The design has a burst spray the whole ship; the game has three blisters in
  * the bulb's own columns, a puff of sparks and the jolt (`surge-fx.ts`). This
  * is the record the spray is drawn through — lifted out on 8 October 2026 so
  * it could be offered in VERSUS (`surge:spray`), and SPLATTER taken on

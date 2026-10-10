@@ -27,8 +27,8 @@ export const SURGE_CONTROLS: readonly FieldControlDef[] = [
       "thumbs off within a beat of each other with the pressure inside the " +
       "next notch's band opens that notch (sim/surge-seam.ts) — the bulb " +
       "sinks a row, the seam parts at the notch, the pressure is spent. Over " +
-      "the band it bursts: both thumbs thrown off, surgeBurstGums gums down " +
-      "the bulb's columns, no hold for surgeBurstBeats. Under it, or one " +
+      "the band it bursts: both thumbs thrown off, surgeBurstBlisters blisters " +
+      "into the bulb's columns, no hold for surgeBurstBeats. Under it, or one " +
       "thumb alone, the charge is lost. Player 1's screen shows the notches " +
       "and the band and never the pressure; player 2's shows the pressure " +
       "and never the notches; the pressure coming into the band opens THE " +

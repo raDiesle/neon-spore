@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE BLISTER's one, in a file of its own on `bind-gum.ts`' pattern: a blow
+ * THE BLISTER's one, in a file of its own on `bind-balloon.ts`' pattern: a blow
  * that counted (`sim/blister.ts`).
  *
  * The sound is THE GORGE's tap, *a shut bubble pressed*, because that is what

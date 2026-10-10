@@ -166,17 +166,7 @@ export function resolveHull(world: World): void {
       // for the ones that did not: a charging ghost, head first, and a carom
       // nobody cracked open, which is a rock the shield was never offered.
       // One question, asked once (`impact.ts`).
-      //
-      // **THE GUM breaks it without a scar**, THE FENCE's arrangement: what a
-      // gum landing looks like is the thing splashing over the plating, not
-      // a crack in it, and a crack is what a `Scar` draws (`gum.ts`). The
-      // gates above are the ordinary ones, so it is resolved on the beat it
-      // is drawn standing on the hull like everything else.
-      if (c.kind === "gum") {
-        breachUnscarred(world, c.col, c.kind, c.fromRow, impactWeight(world.cfg, c));
-      } else {
-        breachHull(world, c.col, c.kind, c.fromRow, impactWeight(world.cfg, c), c.color);
-      }
+      breachHull(world, c.col, c.kind, c.fromRow, impactWeight(world.cfg, c), c.color);
     }
   }
   world.creatures = survivors;

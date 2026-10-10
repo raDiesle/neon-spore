@@ -96,7 +96,7 @@ describe("drawn size against the 20-26 px floor", () => {
     //
     // Two more on 11 September 2026: GUM, the sac THE WEIGHT's draft is drawn
     // from, and CHOKE, TENDRIL's, both bodies the field sent then
-    // (`content/silhouettes-gum.ts`; CHOKE's is gone with the body). And a
+    // (both gone with their bodies since). And a
     // third the same day: COUNTDOWN, THE COUNT's disc, 42 × 42 on HOLD
     // (`content/silhouettes-countdown.ts`).
     //
@@ -121,7 +121,8 @@ describe("drawn size against the 20-26 px floor", () => {
     // 106 on 8 October 2026: THE BLISTER, ROOTED CLOVER, a combination of
     // two cards that both stay on the sheet as drafts they were drawn as
     // (`content/silhouettes-blister.ts`), so nothing left with it.
-    expect(SQUARE.length).toBe(106);
+    // 105 on 10 October 2026: GUM left with THE GUM, taken out of the game.
+    expect(SQUARE.length).toBe(105);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {

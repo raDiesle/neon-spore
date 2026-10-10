@@ -30,10 +30,10 @@ export type SurgeEvent =
   | ({ type: "surgeNear" } & SurgeColEvent)
   /** Both thumbs came off inside the band: a vent, and `notches` are open now with the bulb on `row`. */
   | ({ type: "surgeVent"; notches: number; row: number } & SurgeColEvent)
-  /** The pressure went over: a burst that threw `gums` gums, and the hands are off. */
-  | ({ type: "surgeBurst"; gums: number } & SurgeColEvent)
-  /** One gum thrown out of the bulb, down `col` from `row`. */
-  | ({ type: "surgeGum"; row: number } & SurgeColEvent)
+  /** The pressure went over: a burst that threw `blisters` blisters, and the hands are off. */
+  | ({ type: "surgeBurst"; blisters: number } & SurgeColEvent)
+  /** One blister thrown out of the bulb, into `col` on `row`. */
+  | ({ type: "surgeBlister"; row: number } & SurgeColEvent)
   /** A rock spat at the ship while both thumbs were on it, down `col` from `row`. */
   | ({ type: "surgeRock"; row: number } & SurgeColEvent)
   /** The last thumb came off short of the band, or late: the charge did not count. */

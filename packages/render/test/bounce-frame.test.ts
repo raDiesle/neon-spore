@@ -58,7 +58,7 @@ function refused(kind: CreatureKind, role: ViewRole) {
 }
 
 describe("a bolt spent on a body that cannot be broken", () => {
-  for (const kind of ["gum", "limpet", "leech", "weight"] as const) {
+  for (const kind of ["limpet", "leech", "weight"] as const) {
     for (const role of ROLES) {
       it(`draws ${kind.toUpperCase()} turning one away as ${role}`, () => {
         const { ctx, refusals } = refused(kind, role);
