@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 93fe22c9b — THE GAUGE'S TONGUE is written as a pull whose direction each seat chooses
+
+The owner's reading, 10 October 2026: the tongue is a special variant of the pull, where each player chooses which way to pull and only the two pulling opposite ways counts. The controls page, the director's CONTROLS row, the PULL type's list of directions, and the interludes paragraph now say this instead of calling it only a twist. A row note proposes `opposed` as a direction for the generic PULL. The game itself is unchanged: the TWIST cue and the simulation stay as they are.
+
 ## 2026-10-10 · 2316718b3 — THE FLEET's wreck card is drawn from the navigator's screen
 
 The STATES card THE FLEET · WRECK, which the ON THE FIELD row for THE FLEET'S WRECK also shows, was drawn from the test screen, which draws player 1's seat: the pilot's HOLD ring on the hull, never the navigator's pull knob. The row says grab and drag and the picture showed a hold. The pose now draws player 2's screen, where the knob with the arrow down is. Director only; nothing in the game changed.
