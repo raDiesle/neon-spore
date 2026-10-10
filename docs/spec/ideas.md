@@ -591,7 +591,11 @@ filed rightly, and there is no second list to change.
   field or the trace stays a type. What it attaches to: the wire already sends
   both axes of every drag (`fromMilli`, `fromYMilli`), so the tolerance is a
   test in the simulation on the axis a pull ignores today, and a `SimConfig`
-  field for its width. Unworked out: how wide — a thumb pulling down
+  field for its width. **It can be felt now**, in the director only: the
+  PULL LAB's OFF PATH switch (`tools/director/src/pull-lab-rule.ts`, `Stray`)
+  fails a thumb past one tile or half a tile off any of its six paths, draws
+  the band it must stay in, and turns AUTO's short pull into one that strays.
+  Unworked out: how wide — a thumb pulling down
   one-handed drifts sideways a long way, and a band that catches that is
   testing the grip on the phone rather than the talk; what leaving costs —
   red and spring back, as a short pull is refused, or a strike, as THE

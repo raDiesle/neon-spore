@@ -143,7 +143,8 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "One boss now: THE FLEET's rake is a hold and went to BOTH SEATS " +
       "HOLDING AT ONCE (the owner, 10 October 2026). The open question is " +
       "whether this is a PULL along a drawn path, with a tolerance off it " +
-      "that fails — `docs/spec/ideas.md`, A pull along a path.",
+      "that fails — try it in the PULL LAB's OFF PATH switch; " +
+      "`docs/spec/ideas.md`, A pull along a path.",
     gestures: ["TRACING A PATH"],
     rows: ["THE FILAMENT'S LINE"],
   },

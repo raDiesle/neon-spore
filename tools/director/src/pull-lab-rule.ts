@@ -1,6 +1,6 @@
 import type { Point } from "@neon-spore/content";
 import { PULL_GRAB, type PullTrack, pullTrackPoint } from "@neon-spore/render";
-import { LAB_KNOB, type LabShape } from "./pull-lab-shapes.js";
+import { LAB_KNOB, LAB_TILE, type LabShape } from "./pull-lab-shapes.js";
 
 /**
  * **The one generic PULL, as the lab plays it** — a toy rule beside the
@@ -12,13 +12,29 @@ import { LAB_KNOB, type LabShape } from "./pull-lab-shapes.js";
  * - **a pull counts the moment it has gone the whole way**, once, and the
  *   knob stays there until the lift;
  * - **a short lift is one of two answers**, chosen on the lab's bar
- *   (`ShortPull`): refused, red, or ignored, the knob simply going home.
+ *   (`ShortPull`): refused, red, or ignored, the knob simply going home;
+ * - **a thumb off the path** is ignored, as every pull in the game ignores it
+ *   today, or fails past a tolerance (`Stray`) — the owner, 10 October 2026:
+ *   *maybe every pull should allow for failure with some tolerance to pull
+ *   away from the required path*, which would make TRACE ALONG A LINE a pull
+ *   whose path bends (`docs/spec/ideas.md`, A pull along a path).
  *
  * Seconds, not ticks: this is the director's own clock, and nothing here is
  * stored by the game.
  */
 
 export type ShortPull = "refuse" | "ignore";
+
+/** What a thumb that leaves the path comes to: nothing, or a failure past
+ * one tile or half a tile from it. The rope has no path, and never strays. */
+export type Stray = "free" | "tile" | "half";
+
+/** The tolerance either side of the path, in tiles; `null` is no limit. */
+export const STRAY_TILES: Readonly<Record<Stray, number | null>> = {
+  free: null,
+  tile: 1,
+  half: 0.5,
+};
 
 export type PullPhase = "idle" | "held" | "full" | "home";
 
@@ -27,7 +43,7 @@ export interface LabPull {
   /** Where the knob is along the track, 0..1. */
   at: number;
   /** What the last lift came to, while it is still being shown. */
-  verdict: "counted" | "refused" | "ignored" | null;
+  verdict: "counted" | "refused" | "ignored" | "strayed" | null;
   /** Seconds since the verdict. */
   since: number;
   /** -1 or 1 once a two-way pull has gone one way; 0 before. */
@@ -36,6 +52,8 @@ export interface LabPull {
   rope: PullTrack | null;
   counted: number;
   refused: number;
+  /** Pulls failed off the path; counted apart from the short ones. */
+  strayed: number;
 }
 
 /** Seconds a verdict is shown before the knob is idle again. */
@@ -55,6 +73,7 @@ export function freshPull(shape: LabShape): LabPull {
     rope: null,
     counted: 0,
     refused: 0,
+    strayed: 0,
   };
 }
 
@@ -83,8 +102,9 @@ export function press(shape: LabShape, p: LabPull, at: Point): boolean {
 }
 
 /** The nearest point of the track to `at`, searched near where the knob is
- * so a curve that doubles back is not jumped across. */
-function nearest(t: PullTrack, from: number, at: Point): number {
+ * so a curve that doubles back is not jumped across, and how far off it the
+ * thumb is. */
+function nearest(t: PullTrack, from: number, at: Point): { k: number; off: number } {
   let best = from;
   let bestD = Number.POSITIVE_INFINITY;
   for (let i = 0; i <= 200; i++) {
@@ -97,7 +117,7 @@ function nearest(t: PullTrack, from: number, at: Point): number {
       best = k;
     }
   }
-  return best;
+  return { k: best, off: bestD };
 }
 
 /** The rope, laid from where it rests towards the hand, its whole length. */
@@ -115,14 +135,24 @@ function ropeFor(shape: LabShape, at: Point): { track: PullTrack; at: number } {
   };
 }
 
-export function move(shape: LabShape, p: LabPull, at: Point): void {
+export function move(shape: LabShape, p: LabPull, at: Point, stray: Stray = "free"): void {
   if (p.phase !== "held") return;
   if (shape.direction === "free") {
     const r = ropeFor(shape, at);
     p.rope = r.track;
     p.at = r.at;
   } else {
-    p.at = nearest(shape.track, p.at, at);
+    const n = nearest(shape.track, p.at, at);
+    const limit = STRAY_TILES[stray];
+    if (limit !== null && n.off > limit * LAB_TILE) {
+      // Off the path is a failure, wherever along it the knob had got to.
+      p.phase = "home";
+      p.verdict = "strayed";
+      p.since = 0;
+      p.strayed++;
+      return;
+    }
+    p.at = n.k;
   }
   if (shape.origin > 0 && p.sign === 0 && Math.abs(p.at - shape.origin) > 0.08)
     p.sign = p.at > shape.origin ? 1 : -1;

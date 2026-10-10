@@ -37370,11 +37370,14 @@ Bottleneck: none to speak of — moving the rulings past 250 lines in
 
 - reading: 10 min. The two TRACE rows' simulation (`filament-hand.ts`,
   `fleet-hand.ts`, `fleet-flood.ts`) against what the director files them as.
-- writing: 5 min. The rake moved to BOTH SEATS HOLDING AT ONCE with its notes,
-  and the idea in `ideas.md`.
-- looking: 5 min. The two sections read off this tree's director.
+- writing: 20 min. The rake moved to BOTH SEATS HOLDING AT ONCE with its
+  notes, the idea in `ideas.md`, and the PULL LAB's OFF PATH switch with its
+  band, AUTO's straying pull and five tests.
+- looking: 10 min. The two sections and the lab's straying S-curve, read off
+  this tree's director.
 - friction: 0 min.
-- landing: 5 min. `check:fast`, the commit, `land`.
+- landing: 10 min. A rebase onto the PULL LAB, landed meanwhile in the same
+  two files, `check:fast`, `land`.
 
-Bottleneck: reading — whether the filament fails a thumb off its line had to
-be read off the code, and it does not.
+Bottleneck: landing — the PULL LAB landed under this lane mid-task, and it
+turned out to be the place the experiment belonged.

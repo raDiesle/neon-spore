@@ -3,15 +3,15 @@ import type { Variant } from "../../versus/variant.js";
 import { choice } from "./field-try-bar.js";
 import { text } from "./gestures-page.js";
 import { autoThumb } from "./pull-lab-auto.js";
-import { paintLab, pullLooks, VERDICT_WORDS } from "./pull-lab-paint.js";
+import { paintLab, pullLooks, readoutOf } from "./pull-lab-paint.js";
 import {
   freshPull,
   type LabPull,
   lift,
   move,
   press,
-  progress,
   type ShortPull,
+  type Stray,
   tick,
 } from "./pull-lab-rule.js";
 import { LAB_H, LAB_SHAPES, LAB_W, type LabShape, labShape } from "./pull-lab-shapes.js";
@@ -31,7 +31,9 @@ import { labSheet } from "./pull-lab-sheet.js";
  *   VERSUS candidate that patches the knob or the channel (`PULL_KNOB`,
  *   `PULL_TRACK`) — found by the records it patches, never by its slot's
  *   name, so taking or dropping one needs nothing changed here;
- * - **a short pull**: refused red, or ignored (`pull-lab-rule.ts`).
+ * - **a short pull**: refused red, or ignored (`pull-lab-rule.ts`);
+ * - **a thumb off the path**: free, as today, or a failure past one tile or
+ *   half a tile, with the band drawn (`Stray`).
  *
  * AUTO's thumb (`pull-lab-auto.ts`) plays a whole pull and a short one on a
  * loop until the mouse takes over.
@@ -45,6 +47,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
   let pull: LabPull = freshPull(shape);
   let look: Variant | null = null;
   let short: ShortPull = "refuse";
+  let stray: Stray = "free";
   let auto = true;
   let speed = 1;
   let time = 0;
@@ -123,6 +126,18 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     ),
     choice(
       [
+        ["OFF PATH · FREE", "free"],
+        ["OFF PATH · FAILS PAST 1 TILE", "tile"],
+        ["OFF PATH · FAILS PAST ½ TILE", "half"],
+      ] as [string, Stray][],
+      stray,
+      (v) => {
+        stray = v;
+        reset();
+      },
+    ),
+    choice(
+      [
         ["1×", 1],
         ["½×", 0.5],
         ["¼×", 0.25],
@@ -156,7 +171,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
   });
   on("pointermove", (e) => {
     if (auto) return;
-    move(shape, pull, toLab(e));
+    move(shape, pull, toLab(e), stray);
     thumb = { at: toLab(e), down: e.buttons > 0 };
   });
   on("pointerup", (e) => {
@@ -179,9 +194,9 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
   const drive = (dt: number): void => {
     const was = thumb?.down ?? false;
     autoTime += dt;
-    thumb = autoThumb(shape, autoTime);
+    thumb = autoThumb(shape, autoTime, stray !== "free");
     if (thumb.down && !was) press(shape, pull, thumb.at);
-    if (thumb.down) move(shape, pull, thumb.at);
+    if (thumb.down) move(shape, pull, thumb.at, stray);
     if (!thumb.down && was) lift(shape, pull, short);
   };
 
@@ -195,12 +210,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     tick(shape, pull, dt);
     draw();
     like.textContent = `${shape.label} — stands for ${shape.like}.`;
-    const state = pull.verdict
-      ? VERDICT_WORDS[pull.verdict]
-      : pull.phase === "held"
-        ? "HELD"
-        : "WAITING";
-    readout.textContent = `${state} · ${Math.round(progress(shape, pull) * 100)}% · COUNTED ${pull.counted} · REFUSED ${pull.refused}`;
+    readout.textContent = readoutOf(shape, pull);
     requestAnimationFrame(frame);
   };
 
@@ -208,7 +218,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     ctx.setTransform(canvas.width / LAB_W, 0, 0, canvas.height / LAB_H, 0, 0);
-    paintLab(ctx, { shape, pull, look, time, thumb });
+    paintLab(ctx, { shape, pull, look, time, thumb, stray });
   };
 
   const onKey = (e: KeyboardEvent): void => {
