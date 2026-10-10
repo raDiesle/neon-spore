@@ -2,6 +2,7 @@ import type { Point } from "@neon-spore/content";
 import { noteMark } from "./mark-spots.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { PullWay } from "./pull-line.js";
+import type { PullAfter } from "./pull-track.js";
 import { drawWayArrow } from "./way-arrow.js";
 
 /**
@@ -36,6 +37,8 @@ export interface PullKnobDraw {
   /** The partner's knob: nothing punched under it, which over a lobe or a
    * board read as a black hole rather than a handle (`handle-draw.ts`). */
   theirs?: boolean;
+  /** The lift's verdict and the knob's offset off the path (`PullAfter`). */
+  after?: PullAfter;
 }
 
 /**

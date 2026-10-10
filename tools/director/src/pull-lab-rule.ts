@@ -54,12 +54,22 @@ export interface LabPull {
   refused: number;
   /** Pulls failed off the path; counted apart from the short ones. */
   strayed: number;
+  /** How far off the path the hand has the knob, in field pixels: where it
+   * was let go, kept while a failure is shown and brought home with it. */
+  off: Point;
+  /** The knob is on its way home from a failure, slowly, whatever the verdict shows. */
+  slow: boolean;
 }
 
 /** Seconds a verdict is shown before the knob is idle again. */
 export const VERDICT_SECONDS = 0.9;
 /** How much of the way back the knob goes each second, as a rate. */
 const SPRING = 14;
+/** A failed pull goes home slower, so the eye follows it from where it was
+ * let go — the owner, 10 October 2026: *moves back, not too quick*. */
+const SPRING_FAILED = 3.2;
+/** Seconds a failed knob stays where it was let go before it goes home. */
+const FAILED_REST = 0.35;
 /** Close enough to the end to be the whole way. */
 const FULL = 0.985;
 
@@ -74,6 +84,8 @@ export function freshPull(shape: LabShape): LabPull {
     counted: 0,
     refused: 0,
     strayed: 0,
+    off: { x: 0, y: 0 },
+    slow: false,
   };
 }
 
@@ -98,6 +110,7 @@ export function press(shape: LabShape, p: LabPull, at: Point): boolean {
   if (Math.hypot(at.x - k.x, at.y - k.y) > LAB_KNOB * PULL_GRAB) return false;
   p.phase = "held";
   p.verdict = null;
+  p.slow = false;
   return true;
 }
 
@@ -143,6 +156,8 @@ export function move(shape: LabShape, p: LabPull, at: Point, stray: Stray = "fre
     p.at = r.at;
   } else {
     const n = nearest(shape.track, p.at, at);
+    const q = pullTrackPoint(shape.track, n.k);
+    p.off = { x: at.x - q.x, y: at.y - q.y };
     const limit = STRAY_TILES[stray];
     if (limit !== null && n.off > limit * LAB_TILE) {
       // Off the path is a failure, wherever along it the knob had got to.
@@ -150,6 +165,7 @@ export function move(shape: LabShape, p: LabPull, at: Point, stray: Stray = "fre
       p.verdict = "strayed";
       p.since = 0;
       p.strayed++;
+      p.slow = true;
       return;
     }
     p.at = n.k;
@@ -157,6 +173,7 @@ export function move(shape: LabShape, p: LabPull, at: Point, stray: Stray = "fre
   if (shape.origin > 0 && p.sign === 0 && Math.abs(p.at - shape.origin) > 0.08)
     p.sign = p.at > shape.origin ? 1 : -1;
   if (progress(shape, p) >= FULL) {
+    p.off = { x: 0, y: 0 };
     p.phase = "full";
     p.verdict = "counted";
     p.since = 0;
@@ -173,9 +190,13 @@ export function lift(shape: LabShape, p: LabPull, short: ShortPull): void {
   if (p.phase !== "held") return;
   p.phase = "home";
   // A pull that never left the knob is a tap, and a tap is never refused.
-  if (progress(shape, p) < 0.04) return;
+  if (progress(shape, p) < 0.04) {
+    p.off = { x: 0, y: 0 };
+    return;
+  }
   p.verdict = short === "refuse" ? "refused" : "ignored";
   if (short === "refuse") p.refused++;
+  p.slow = short === "refuse";
   p.since = 0;
 }
 
@@ -184,11 +205,17 @@ export function tick(shape: LabShape, p: LabPull, dt: number): void {
   if (p.verdict) p.since += dt;
   if (p.verdict && p.since > VERDICT_SECONDS && p.phase !== "full") p.verdict = null;
   if (p.phase !== "home") return;
-  // A counted pull rests at the end a moment before it goes home.
+  // A counted pull rests at the end a moment before it goes home, and a
+  // failed one where it was let go.
   if (p.verdict === "counted" && p.since < VERDICT_SECONDS * 0.5) return;
-  p.at += (shape.origin - p.at) * Math.min(1, SPRING * dt);
-  if (Math.abs(p.at - shape.origin) < 0.002) {
+  if (p.slow && p.verdict && p.since < FAILED_REST) return;
+  const back = Math.min(1, (p.slow ? SPRING_FAILED : SPRING) * dt);
+  p.at += (shape.origin - p.at) * back;
+  p.off = { x: p.off.x * (1 - back), y: p.off.y * (1 - back) };
+  if (Math.abs(p.at - shape.origin) < 0.002 && Math.hypot(p.off.x, p.off.y) < 0.5) {
     p.at = shape.origin;
+    p.off = { x: 0, y: 0 };
+    p.slow = false;
     p.phase = "idle";
     p.sign = 0;
     p.rope = null;

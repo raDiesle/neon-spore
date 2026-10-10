@@ -49,6 +49,17 @@ export interface PullTrackDraw {
   readonly origin: number;
   readonly at: number;
   readonly time: number;
+  /** What the last lift came to and how many seconds ago, while it is shown,
+   * and how far off the path the hand has the knob, in field pixels. Only the
+   * PULL LAB fills these today, so a VERSUS look can answer a refusal where it
+   * happened; nothing in the game reads them. */
+  readonly after?: PullAfter;
+}
+
+export interface PullAfter {
+  readonly verdict: "counted" | "refused" | null;
+  readonly since: number;
+  readonly off: Point;
 }
 
 /** The channel's half-width, as a share of the knob's radius: thin, so the knob is the control. */

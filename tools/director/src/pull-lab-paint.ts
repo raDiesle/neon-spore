@@ -5,6 +5,7 @@ import {
   PALETTE,
   PULL_KNOB,
   PULL_TRACK,
+  type PullAfter,
   type PullWay,
   pullTrackPoint,
 } from "@neon-spore/render";
@@ -89,12 +90,14 @@ function toneOf(pull: LabPull): { hex: string; rim: string } {
 function paintPull(ctx: CanvasRenderingContext2D, { shape, pull, time }: LabFrame): void {
   const held = pull.phase === "held" || pull.phase === "full";
   const tone = toneOf(pull);
+  const after = afterOf(pull);
   drawPullTrack(ctx, trackOf(shape, pull), {
     ...tone,
     held,
     origin: shape.origin,
     at: pull.at,
     time,
+    after,
   });
   drawPullKnob(ctx, knobAt(shape, pull), LAB_KNOB, {
     ...tone,
@@ -102,7 +105,15 @@ function paintPull(ctx: CanvasRenderingContext2D, { shape, pull, time }: LabFram
     time,
     way: wayNow(shape, pull),
     either: shape.origin > 0 && pull.sign === 0,
+    after,
   });
+}
+
+/** What a look is told of the last lift: a stray is a refusal to the eye. */
+function afterOf(pull: LabPull): PullAfter {
+  const v = pull.verdict;
+  const verdict = v === "counted" ? v : v === "refused" || v === "strayed" ? "refused" : null;
+  return { verdict, since: pull.since, off: pull.off };
 }
 
 /** Along the track towards the end the pull is going to: the far end, or

@@ -37417,3 +37417,19 @@ Bottleneck: deciding how one row sits on several types without losing the
 page's one-place check — answered by naming the step on each.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — OOZE, SLIME made clear, in the PULL LAB
+
+- reading: 5 min. The four pull looks, the PULL LAB's rule, its AUTO thumb
+  and its sheet, and what a look is told about a lift.
+- writing: 5 min. `PullAfter` on the two draw records, the lab keeping the
+  knob where the hand let it go and bringing a failure home slowly, and OOZE
+  in four files.
+- looking: 5 min. The EVERY LOOK sheet on DOWN and CURVE, twice: the green of
+  the way it came was under SLIME's neck the first time.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the pull:handle candidates were on local `main` and not on
+`origin/main`, so the worktree started without them until it was brought up
+to the local trunk.

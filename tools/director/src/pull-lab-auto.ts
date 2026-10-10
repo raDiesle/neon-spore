@@ -44,6 +44,10 @@ const OVERSHOOT = 120;
  * field pixels — past a tile, so either tolerance on the bar catches it. */
 const STRAY_REACH = 0.75;
 const STRAY_DRIFT = 50;
+/** How far off the path the short pull wanders with the rule free, in field
+ * pixels — under a tile, so it is still a short pull while the rule is free,
+ * and a look that keeps the knob under the hand shows it let go off the path. */
+const SHORT_DRIFT = 24;
 
 /** Where the thumb is `t` seconds into the loop. The rope goes down and out
  * to the right; a two-way pull goes one way whole and the other way short. */
@@ -86,11 +90,12 @@ function thumbAt(shape: LabShape, share: number, second: boolean): Point {
     const ang = second ? Math.PI * 0.85 : Math.PI * 0.3;
     return { x: a.x + Math.cos(ang) * len, y: a.y + Math.sin(ang) * len };
   }
-  if (shape.origin > 0) {
-    const k = shape.origin + (second ? -1 : 1) * share * shape.origin;
-    return beyond(shape, k);
-  }
-  return beyond(shape, share);
+  const k = shape.origin > 0 ? shape.origin + (second ? -1 : 1) * share * shape.origin : share;
+  const on = beyond(shape, k);
+  if (!second) return on;
+  const q = pullTrackPoint(t, k);
+  const off = (share / (LOOP[6] as Beat).to) ** 2 * SHORT_DRIFT;
+  return { x: on.x - q.dy * off, y: on.y + q.dx * off };
 }
 
 /** A point `k` of the way along, carried on past either end so the thumb

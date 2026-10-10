@@ -328,6 +328,19 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
+## packages/render/src/index.ts is 235 lines, under the ceiling by fifteen
+
+- **Found:** 2026-10-10, claude/versus-variants-visual-67ca5d
+- **Files:** `packages/render/src/index.ts`, `packages/sim/test/limits.test.ts`
+
+The render package's barrel grows by a line or two with every export a lane
+adds, and `tools/hooks/after-edit-size.ts` flagged it at 235 lines when the
+PULL LAB's `PullAfter` type was exported. Choose the seam before a lane is
+forced to: the pull handle's exports (`pull-knob.ts`, `pull-track.ts`,
+`pull-line.ts`) and the boss-figure exports are the two longest runs, and each
+could be re-exported from a small barrel of its own that `index.ts` re-exports
+whole. Nothing that imports `@neon-spore/render` should change.
+
 ## Fire button lit for the colour shown: THE VANE to THE MANTLE
 
 - **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48

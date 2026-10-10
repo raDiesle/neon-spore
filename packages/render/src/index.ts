@@ -138,6 +138,7 @@ export {
   drawPullTrack,
   PULL_TRACK,
   PULL_TRACK_W,
+  type PullAfter,
   type PullTrack,
   type PullTrackDraw,
   pullTrackPoint,
