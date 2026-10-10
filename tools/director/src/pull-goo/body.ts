@@ -24,11 +24,15 @@ export interface GooBody {
   readonly shake?: number;
   /** How sharp the drawn-out end is: 3 a rounded lean, 10 a falling drop's tail. */
   readonly point?: number;
-  /** How far round its lumps have turned, in radians: a drop that rolls. */
+  /** How far round its lumps have turned, in radians; `DROP_SPIN` a second when not given. */
   readonly spin?: number;
   /** Lobes standing out of the rim, `depth` of the radius: a drop in bloom. */
   readonly petals?: { readonly n: number; readonly depth: number };
 }
+
+/** Radians a second every GOO drop turns, whatever else it is doing — the owner, 10
+ * October 2026, on SINK: *can we keep the rotating of the ball*, which BLOOM had. */
+export const DROP_SPIN = 1;
 
 /** The seed every GOO drop is drawn with, so the one under the hand and the one an
  * ending or a failure plays have the same lumps. */
@@ -52,7 +56,7 @@ export function bodyPath(b: GooBody, style: GooStyle, time: number): Path2D {
     const a = (i / n) * Math.PI * 2;
     const ca = Math.cos(a);
     const sa = Math.sin(a);
-    const turned = a - (b.spin ?? 0);
+    const turned = a - (b.spin ?? time * DROP_SPIN);
     const lump =
       style.lumpy * lumps(turned, time * style.creep, b.seed) +
       (b.shake ?? 0) * lumps(turned, time * 9, b.seed + 5);

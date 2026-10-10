@@ -1,12 +1,6 @@
 import type { Point } from "@neon-spore/content";
-import { PALETTE, type PullTrack, pullTrackPoint, smoothstep } from "@neon-spore/render";
-import {
-  blob,
-  dot,
-  FULL,
-  GHOST_RUN,
-  rimArc,
-} from "../../../versus/candidates/pull-handle/ooze/goo.js";
+import { type PullTrack, pullTrackPoint, smoothstep } from "@neon-spore/render";
+import { blob, dot, FULL, GHOST_RUN } from "../../../versus/candidates/pull-handle/ooze/goo.js";
 import { bodyPath } from "./body.js";
 import type { GooStyle } from "./style.js";
 
@@ -14,10 +8,11 @@ import type { GooStyle } from "./style.js";
  * **What GOO keeps of OOZE**, the owner's base (10 October 2026): *it has
  * most visible starting visuals and it has the progress circle around, and a
  * nice rotating shape and the blinking dots as well showing path with real
- * projection where to go and where to stop.* OOZE's own contour (`blob`,
- * `rimArc`) in GOO's tar and neon — but only the dots still ahead of the
- * drop: the ones it has passed are gone, and the green it leaves is the
- * fluid's own (`remains` in `strand.ts`).
+ * projection where to go and where to stop.* OOZE's own contour (`blob`)
+ * in GOO's tar and neon — but only the dots still ahead of the drop: the
+ * ones it has passed are gone, and what it leaves is its green tail and
+ * specks (`strand.ts`). The progress circle went later the same day: *the
+ * green circle indicator around the pull is not required*.
  */
 
 /** Put a thumb here: a breathing halo and ripples out of the drop, two at a time. */
@@ -131,24 +126,6 @@ export function socket(
   ctx.strokeStyle = style.neon;
   ctx.lineWidth = r * 0.1;
   ctx.globalAlpha = 0.55 + 0.45 * lit;
-  ctx.stroke();
-  ctx.restore();
-}
-
-/** How far the pull has come: a green ring hugging the drop's rim, from twelve o'clock. */
-export function ring(ctx: CanvasRenderingContext2D, at: Point, r: number, time: number, p: number) {
-  ctx.save();
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  ctx.strokeStyle = PALETTE.background;
-  ctx.globalAlpha = 0.75;
-  ctx.lineWidth = r * 0.3;
-  rimArc(ctx, at, r * 1.36, time, 1);
-  ctx.stroke();
-  ctx.strokeStyle = PALETTE.good;
-  ctx.globalAlpha = 1;
-  ctx.lineWidth = r * 0.17;
-  rimArc(ctx, at, r * 1.36, time, Math.min(1, p / FULL));
   ctx.stroke();
   ctx.restore();
 }

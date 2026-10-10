@@ -3820,6 +3820,7 @@ by hand never moves.
 | `tools/compaction/transcript.ts` | One Claude Code transcript read as the events the compaction trial is judged on |
 | `tools/director/src/pull-goo/body.ts` | **A body of GOO**: a closed contour with lumps that creep |
 | `tools/director/src/pull-goo/border.ts` | **The edge of the tolerance, only where the drop touches it** |
+| `tools/director/src/pull-goo/ball.ts` | **The GOO drop as a ball** — the owner, 10 October 2026: *more cool, more detailed, maybe 3d* |
 | `tools/director/src/pull-goo/knob.ts` | **The drop under the hand**: OOZE's drop made TAR's slime, wherever the hand has it |
 | `tools/director/src/pull-goo/moment.ts` | **Where a GOO pull is in its story**, read the same way by the channel and the drop from what the PULL LAB… |
 | `tools/director/src/pull-goo/noise.ts` | The irregular in GOO: noise that is the same every frame for the same input |
@@ -3828,9 +3829,11 @@ by hand never moves.
 | `tools/director/src/pull-goo/scene.ts` | What an ending and a failure are drawn from: the track, the drop's size |
 | `tools/director/src/pull-goo/track.ts` | **The channel of a GOO look**: everything round the drop |
 | `tools/director/src/pull-goo/ending.ts` | **How a count ends** — what tells one GOO look from another |
-| `tools/director/src/pull-goo/endings-pool.ts` | Two GOO endings in which the drop comes apart in the place and gathers itself again at the start: SINK |
-| `tools/director/src/pull-goo/endings-spring.ts` | Two GOO endings in which the drop stays whole: SLING, held in the place by its own tail and flung home on it |
+| `tools/director/src/pull-goo/endings-deep.ts` | Two GOO endings that take the drop out of the field rather than across it: WELL |
+| `tools/director/src/pull-goo/endings-drain.ts` | Two GOO endings that drain the drop away where it was counted, flat on the field: SINK, the owner's pick |
+| `tools/director/src/pull-goo/endings-whirl.ts` | VORTEX, the GOO ending that winds the drop away where it was counted: a whirlpool of three arms |
 | `tools/director/src/pull-goo/fail.ts` | **A failure, short or off the path**: the owner, 10 October 2026, on SHORT · RED |
 | `tools/director/src/pull-goo/parts.ts` | **What GOO keeps of OOZE**, the owner's base (10 October 2026) |
+| `tools/director/src/pull-goo/drop-look.ts` | **How every GOO drop is drawn**: as the flat slime SINK was picked in |
 
 <!-- index:code:end -->

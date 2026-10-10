@@ -1,7 +1,8 @@
 import type { Point } from "@neon-spore/content";
 import { PALETTE, smoothstep } from "@neon-spore/render";
-import { drop, paintBody } from "./body.js";
+import { drop } from "./body.js";
 import { edge } from "./border.js";
+import { paintGoo } from "./drop-look.js";
 import { FAIL_BACK, FAIL_HOLD, FAIL_SETTLE } from "./moment.js";
 import { clamp01, hash, settle } from "./noise.js";
 import type { Scene } from "./scene.js";
@@ -23,9 +24,9 @@ export function paintFailure(s: Scene): void {
     edge(ctx, s.t, m.from.at, m.from.off, m.reach, r, 1 - clamp01(f / 0.9), time);
   if (f < FAIL_HOLD) {
     const e = f / FAIL_HOLD;
-    paintTail(ctx, tailPath(whole, r, time, 0.6), style, 1, 1);
+    paintTail(ctx, tailPath(whole, r, time, 0.6), PALETTE.red, 0, 1);
     spit(ctx, s.from, r, f);
-    paintBody(ctx, drop(s.from, r, { squash: 1.15, shake: 0.35 * (1 - e) }), style, time, {
+    paintGoo(ctx, drop(s.from, r, { squash: 1.15, shake: 0.35 * (1 - e) }), style, time, {
       red: smoothstep(clamp01(f / 0.08)) * 0.9,
     });
     return;
@@ -43,21 +44,22 @@ export function paintFailure(s: Scene): void {
     const w = Math.hypot(behind.x - at.x, behind.y - at.y) || 1;
     const rr = r * (1 - 0.32 * Math.sin(Math.PI * u));
     trail(ctx, whole, r, u, g);
-    paintTail(ctx, tailPath(run, rr, time, 0.4), style, 1, 1 - 0.5 * u);
+    paintTail(ctx, tailPath(run, rr, time, 0.4), PALETTE.red, 0, 1 - 0.5 * u);
     spit(ctx, s.from, r, f);
     const lean = { x: (behind.x - at.x) / w, y: (behind.y - at.y) / w };
-    paintBody(
+    paintGoo(
       ctx,
       drop(at, rr, { lean, stretch: 0.75 * Math.sin(Math.PI * u), point: 5 }),
       style,
       time,
       { red: 0.9 },
+      lean,
     );
     return;
   }
   const h = g - FAIL_BACK;
   trail(ctx, whole, r, 1, g);
-  paintBody(
+  paintGoo(
     ctx,
     drop(s.home, r, { squash: 1 + 0.45 * style.jiggle * settle(h, 6, 18) }),
     style,

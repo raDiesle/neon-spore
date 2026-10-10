@@ -77,7 +77,14 @@ export function paintLab(ctx: CanvasRenderingContext2D, f: LabFrame): void {
   } finally {
     if (applied) restore(applied);
   }
-  if (f.thumb) paintThumb(ctx, f.thumb.at, f.thumb.down);
+  if (f.thumb && !failedUnder(f.pull, f.thumb.down)) paintThumb(ctx, f.thumb.at, f.thumb.down);
+}
+
+/** A thumb still down on a pull that has already failed under it is not drawn: the
+ * owner, 10 October 2026, *when the red border is crossed, do not show animation of
+ * grey ball which continues the direction - skip it*. It shows again once lifted. */
+function failedUnder(pull: LabPull, down: boolean): boolean {
+  return down && pull.phase !== "held" && pull.phase !== "full";
 }
 
 function toneOf(pull: LabPull): { hex: string; rim: string } {

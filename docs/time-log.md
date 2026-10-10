@@ -37650,3 +37650,18 @@ Bottleneck: landing — the trunk changed the same shot file an hour earlier;
 the fix itself existed for every other core and only the table row was missing.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — PULL LAB: SINK's drop turns, one green tail, five endings that drain where they count
+
+- reading: 5 min. The GOO looks as the trunk had them (`pull-goo/`), the lab's
+  rule, sheet and AUTO, and `.claude/skills/depth` for the ball.
+- writing: 10 min. The moment without a trip home, five endings in three files,
+  the 3D ball and its bar choice, the green tail, the hidden thumb.
+- looking: 5 min. The sheet, then the count frame by frame flat and as a ball;
+  the ball's flecks were too faint and got two rings of beads.
+- friction: 0 min. The director died on a Bun panic after `git rm`; `shot --serve`
+  instead, and queued.
+- landing: 5 min. Two files over the line split, `bun run index`, `check:fast`.
+
+Bottleneck: looking — the sheet's cells are too small to judge an ending, so it
+took a temporary frame-by-frame sheet to see any of them.

@@ -6,16 +6,21 @@ import { clamp01 } from "./noise.js";
  * **Where a GOO pull is in its story**, read the same way by the channel and
  * the drop from what the PULL LAB tells a look (`PullAfter`) — and **who
  * draws the drop**: the knob while it waits and is held, the ending once it
- * is counted, the failure once it is refused. Both play the one drop the hand
- * had, from where the hand left it, all the way back to its start: the owner,
- * 10 October 2026, on the first endings — *it does not look connected, like
- * first ball disappears and a new one approaches*.
+ * is counted, the failure once it is refused.
+ *
+ * A count is never carried home. The owner, 10 October 2026: *in game, after
+ * pull we usually never move the pulled circle back to original position* —
+ * so an ending is a short green moment and a quick removal where the drop
+ * was counted, whether the hand is still on it or not, and a fresh drop
+ * wells up at the start once the hand is off and the old one is gone.
  */
 
-/** Seconds a count's ending takes to arrive in the place, the hand still on it. */
-export const ARRIVE = 0.45;
-/** Seconds an ending takes from the lift to the drop at its start again. */
-export const RETURN = 0.9;
+/** Seconds a count's ending lasts: green, then gone from the place. */
+export const ENDING = 0.95;
+/** Of those, the seconds the green alone is shown before the drop starts to go. */
+export const GREEN = 0.3;
+/** Seconds a fresh drop takes to well up at the start. */
+export const SPAWN = 0.35;
 /** A failure: seconds it shudders where it was let go, is carried home, and settles. */
 export const FAIL_HOLD = 0.2;
 export const FAIL_BACK = 0.45;
@@ -29,9 +34,9 @@ export interface GooMoment {
   readonly owner: Owner;
   /** Seconds since the verdict, kept after it stops being shown. */
   readonly age: number;
-  /** Seconds the ending has been on its way back since the lift and the arrival
-   * were both done — `null` while the hand still holds it. */
-  readonly back: number | null;
+  /** Seconds since a fresh drop began to well up at the start: once the ending
+   * is over and the hand is off — `null` before. */
+  readonly fresh: number | null;
   /** Where the drop was when the verdict was given: along the track, and off it. */
   readonly from: { readonly at: number; readonly off: Point };
   /** The hand's offset off the path, the tolerance either side, and how near the
@@ -53,10 +58,10 @@ export function momentOf(
   const settled = (after?.rested ?? 1) > 0;
   const last = after?.last ?? null;
   const lifted = after?.lifted ?? 0;
-  // A lift before the arrival is done waits for it; the way back starts once it is.
-  const back = held ? null : lifted - Math.max(0, ARRIVE - (age - lifted));
+  const fresh = last === "counted" && !held ? Math.min(lifted, age - ENDING) : null;
   let owner: Owner = "knob";
-  if (last === "counted" && !(settled && (back ?? 0) >= RETURN)) owner = "ending";
+  // The ending keeps the drop until the fresh one has welled up and the knob is home under it.
+  if (last === "counted" && !(settled && fresh !== null && fresh >= SPAWN)) owner = "ending";
   if (last === "refused" && !held && !(settled && age >= FAIL_HOLD + FAIL_BACK + FAIL_SETTLE))
     owner = "failure";
   const gap = reach === null ? Number.POSITIVE_INFINITY : reach - Math.hypot(off.x, off.y);
@@ -65,7 +70,7 @@ export function momentOf(
     time,
     owner,
     age,
-    back: back === null ? null : Math.max(0, back),
+    fresh: fresh === null || fresh < 0 ? null : fresh,
     from: after?.from ?? { at: 0, off: { x: 0, y: 0 } },
     off,
     reach,

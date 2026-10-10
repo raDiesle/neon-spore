@@ -1,15 +1,12 @@
 import type { Point } from "@neon-spore/content";
 import { PALETTE, type PullTrack, pullTrackPoint } from "@neon-spore/render";
 import { fbm, hash, mix } from "./noise.js";
-import type { GooStyle } from "./style.js";
 
 /**
  * **What is left behind the drop**: the tail it is pulled out of — JELLY's,
  * the owner's pick, thick where it leaves the drop and thin and uneven along
- * the way — and under it the green remains of the fluid along the way it
- * went. No dots behind the drop, and none at the start: the owner on OOZE, 10
- * October 2026, *instead just to show a decent subtle green remainings of the
- * fluid*.
+ * the way, in green — and small green specks either side of where it went.
+ * No dots behind the drop, and none at the start.
  */
 
 /** A stretch of path from `origin` to the drop at `at`, bent to the drop's `off`. */
@@ -65,45 +62,40 @@ export function tailPath(run: Run, r: number, time: number, taut = 0): Path2D {
   });
 }
 
-/** A tail in the drop's own tar, edged with its neon, washed towards red by `red`. */
+/**
+ * The tail, filled and edged in `color` — the count's green while it is
+ * pulled, the refusal's red when it fails: one tail and no smear under it,
+ * the owner, 10 October 2026: *remaining tail should only be in green colour
+ * and a single one, not both*. `red` washes it towards red as the drop nears
+ * the edge of the path.
+ */
 export function paintTail(
   ctx: CanvasRenderingContext2D,
   p: Path2D,
-  style: GooStyle,
+  color: string,
   red: number,
   alpha: number,
 ): void {
   ctx.save();
-  ctx.fillStyle = mix(mix(style.body, style.neon, 0.3), PALETTE.red, red);
-  ctx.globalAlpha = 0.7 * alpha;
+  ctx.fillStyle = mix(color, PALETTE.red, red);
+  ctx.globalAlpha = 0.55 * alpha;
   ctx.fill(p);
-  ctx.strokeStyle = mix(style.neon, PALETTE.red, red);
-  ctx.globalAlpha = 0.5 * alpha;
-  ctx.lineWidth = 0.7;
+  ctx.strokeStyle = mix(mix(color, "#FFFFFF", 0.3), PALETTE.red, red);
+  ctx.globalAlpha = 0.75 * alpha;
+  ctx.lineWidth = 0.8;
   ctx.stroke(p);
   ctx.restore();
 }
 
 /**
- * The green remains of the fluid along a run: a smear, uneven, see-through,
- * and specks either side where it fell — tied to the distance along the
- * path, so they never move once dropped. Quiet: never brighter than the
- * drop's own rim.
+ * Small green specks either side of the way the drop came, each where it
+ * fell — tied to the distance along the path, so they never move once
+ * dropped. Quiet: never brighter than the drop's own rim.
  */
-export function remains(ctx: CanvasRenderingContext2D, run: Run, r: number, alpha: number): void {
+export function specks(ctx: CanvasRenderingContext2D, run: Run, r: number, alpha: number): void {
   if (alpha <= 0 || Math.abs(run.at - run.origin) < 0.005) return;
-  const smear = outline(run, 0, 0.92, (u, s) => {
-    const lumpy = 1 + 0.5 * fbm(s / (r * 1.1), 9);
-    return r * 0.3 * lumpy * Math.min(1, u * 6);
-  });
   ctx.save();
   ctx.fillStyle = PALETTE.good;
-  ctx.globalAlpha = 0.14 * alpha;
-  ctx.fill(smear);
-  ctx.strokeStyle = PALETTE.good;
-  ctx.globalAlpha = 0.18 * alpha;
-  ctx.lineWidth = 0.5;
-  ctx.stroke(smear);
   const a = pullTrackPoint(run.t, run.origin);
   const b = pullTrackPoint(run.t, run.at);
   const came = Math.hypot(b.x - a.x, b.y - a.y);
@@ -113,7 +105,7 @@ export function remains(ctx: CanvasRenderingContext2D, run: Run, r: number, alph
     const q = runPoint(run, u);
     const side = (hash(i * 3.7 + 1) - 0.5) * 2 * r * 0.8;
     const size = r * (0.04 + 0.07 * hash(i * 5.3 + 2));
-    ctx.globalAlpha = alpha * (0.2 + 0.25 * hash(i * 9.1));
+    ctx.globalAlpha = alpha * (0.3 + 0.35 * hash(i * 9.1));
     ctx.beginPath();
     ctx.ellipse(
       q.x - q.dy * side,

@@ -1,8 +1,9 @@
 import { PULL_KNOB, PULL_TRACK } from "@neon-spore/render";
 import { patch, type Variant } from "../../../versus/variant.js";
 import type { Ending } from "./ending.js";
-import { SCATTER, SINK } from "./endings-pool.js";
-import { BLOOM, SLING } from "./endings-spring.js";
+import { FIZZ, WELL } from "./endings-deep.js";
+import { SINK, STRAINER } from "./endings-drain.js";
+import { VORTEX } from "./endings-whirl.js";
 import { gooKnob } from "./knob.js";
 import { GOO } from "./style.js";
 import { gooTrack } from "./track.js";
@@ -14,8 +15,12 @@ import { gooTrack } from "./track.js";
  * next one blinking, the ghost running the pull, the turning place, the ring
  * of how far. TAR's colour with JELLY's tail. Behind the drop, only a quiet
  * green left by the fluid. A red edge only where the drop touches the limit.
- * A failure slurped home by its own tail. And four endings to choose from,
- * none of them falling: the one thing that differs between these looks.
+ * A failure slurped home by its own tail. And the owner's notes on those
+ * (10 October 2026, on SINK): no ring of how far, one green tail, the drop
+ * turning — and endings that are a short green and a quick removal where
+ * the drop was counted, never a trip home: SINK, STRAINER, VORTEX, WELL and
+ * FIZZ, the one thing that differs between these looks. The drop itself is
+ * flat or a 3D ball, on the lab's bar (`drop-look.ts`).
  *
  * They live with the lab and nowhere else — the owner: *not on "versus" page
  * but this page* — so the VERSUS registry never lists them. Each is still a
@@ -45,4 +50,4 @@ function gooLook(ending: Ending): Variant {
   };
 }
 
-export const GOO_LOOKS: readonly Variant[] = [SINK, SCATTER, SLING, BLOOM].map(gooLook);
+export const GOO_LOOKS: readonly Variant[] = [SINK, STRAINER, VORTEX, WELL, FIZZ].map(gooLook);

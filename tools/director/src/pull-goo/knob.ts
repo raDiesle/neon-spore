@@ -2,7 +2,8 @@ import type { Point } from "@neon-spore/content";
 import { PALETTE, type PullKnobDraw } from "@neon-spore/render";
 import { noteMark } from "../../../../packages/render/src/mark-spots.js";
 import { drawWayArrow } from "../../../../packages/render/src/way-arrow.js";
-import { drop, paintBody } from "./body.js";
+import { drop } from "./body.js";
+import { paintGoo } from "./drop-look.js";
 import { momentOf } from "./moment.js";
 import { mix } from "./noise.js";
 import { call } from "./parts.js";
@@ -28,7 +29,7 @@ export function gooKnob(style: GooStyle) {
     const body = o.held
       ? drop(at, r, { lean: way, stretch: 0.22 + 0.15 * m.near, shake: 0.12 * m.near })
       : drop(at, r, { squash: 1 + 0.07 * Math.sin(o.time * 3.4) });
-    paintBody(ctx, body, style, o.time, { red: 0.7 * m.near, alpha: o.theirs ? 0.4 : 1 });
+    paintGoo(ctx, body, style, o.time, { red: 0.7 * m.near, alpha: o.theirs ? 0.4 : 1 }, way);
     if (o.way) arrow(ctx, at, r, o, style);
     ctx.restore();
   };

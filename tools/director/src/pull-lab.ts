@@ -2,6 +2,7 @@ import type { Point } from "@neon-spore/content";
 import type { Variant } from "../../versus/variant.js";
 import { choice } from "./field-try-bar.js";
 import { text } from "./gestures-page.js";
+import { dropChoice } from "./pull-goo/drop-look.js";
 import { GOO_LOOKS } from "./pull-goo/index.js";
 import { autoThumb } from "./pull-lab-auto.js";
 import { labLooks, paintLab, readoutOf } from "./pull-lab-paint.js";
@@ -24,21 +25,19 @@ import type { Stray } from "./pull-lab-stray.js";
  * an empty example in the different variants — pull straight, pull in either
  * direction, pull in a custom path (a curve)."*
  *
- * Three choices on the bar, and nothing else on the screen to look at:
+ * The choices on the bar, and nothing else on the screen to look at:
  *
- * - **the shape** (`pull-lab-shapes.ts`): down, up, either, signed, a curve,
- *   an S;
+ * - **the shape** (`pull-lab-shapes.ts`): down, up, either, signed, curve, S;
  * - **the look**: what every pull handle in the game draws today, any
  *   VERSUS candidate that patches the knob or the channel (`PULL_KNOB`,
  *   `PULL_TRACK`) — found by the records it patches, never by its slot's
- *   name — and the lab's own GOO looks (`pull-goo/`), the first of them
- *   picked when the lab opens;
+ *   name — and the lab's own GOO looks (`pull-goo/`), the first picked when
+ *   the lab opens; for those, a flat drop or a 3D ball (`drop-look.ts`);
  * - **a short pull**: refused red, or ignored (`pull-lab-rule.ts`);
  * - **a thumb off the path**: free, as today, or a failure past one tile or
  *   half a tile, with the band drawn (`Stray`) — half a tile when it opens.
  *
- * AUTO's thumb (`pull-lab-auto.ts`) plays a whole pull and a short one on a
- * loop until the mouse takes over.
+ * AUTO's thumb (`pull-lab-auto.ts`) plays a whole pull and a short one on a loop.
  */
 
 /** Device pixels per lab pixel, at most: the knob's rim is a line of 1.6. */
@@ -116,6 +115,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
         look = v;
       },
     ),
+    dropChoice(() => sheet && show()),
     choice(
       [
         ["SHORT · RED", "refuse"],
