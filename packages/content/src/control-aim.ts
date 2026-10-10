@@ -37,6 +37,9 @@ export function aimOf(id: ControlId): Aim {
       return "column";
     case "slide":
     case "valve":
+    // PINBALL's nudge names its own way, so it takes a sideways key
+    // (`keys-desk.ts` says which, on a seat whose pair is the strip's).
+    case "pinNudge":
       return down.dir < 0 ? "left" : "right";
     case "snakeTurn":
       return down.dir;

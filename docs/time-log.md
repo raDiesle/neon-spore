@@ -37254,3 +37254,13 @@ Bottleneck: looking — a scroll-driven bar can only be judged in a pane that
 is in front, and the first one was not.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — PINBALL's nudge is ◀ and ▶ on both panels, and the tutorial shows it
+
+- reading: 15 min. `pinball-hand.ts`, the band's lobe faces, `keys-desk.ts`, the PINBALL film and the new-boss-state list.
+- writing: 35 min. The `pinNudge` command through sim, codec, content and band; `pinTable` taken out of fourteen files; the sixth page; the specs.
+- looking: 10 min. Three `bun run frames` pictures — a flight on player 1's screen, the band cropped, the new page.
+- friction: 5 min. `--press` had no nudge and the desk had no key for the pilot's pair; both added rather than stepped round.
+- landing: 10 min. `check:fast` twice, the commit, `land`.
+
+Bottleneck: writing — a drag target taken out is a name in fourteen files, each found by the typecheck or a red test.

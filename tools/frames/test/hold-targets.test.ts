@@ -177,7 +177,7 @@ describe("the handles the handles lanes drew", () => {
   it("lets go of a handle whose hand file reads the lift", () => {
     // `vane-hand.ts`, `snake-controls.ts`, `pinball-hand.ts`: each returns on
     // `command.on` and measures the distance off the command that lets go.
-    for (const value of ["vaneHousing=0,y=900", "snakeJaws=0,y=900", "pinTable=1000"]) {
+    for (const value of ["vaneHousing=0,y=900", "snakeJaws=0,y=900", "pinPlunger=0,y=1500"]) {
       expect(shape(value)[1]?.on, value).toBe(false);
     }
     expect(shape("vaneArm=0")[1]?.on).toBe(true);

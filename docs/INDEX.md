@@ -2458,12 +2458,13 @@ by hand never moves.
 | `packages/render/src/pull-line.ts` | **A pull measured as a distance, as a straight channel** — the track builder THE WARDEN's rope |
 | `packages/render/src/pinball-blast.ts` | PINBALL's two loud moments: a ball that hit the ship, and a target taken |
 | `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
-| `packages/render/src/pinball-grip.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |
+| `packages/render/src/pinball-grip.ts` | **PINBALL's hand on the table itself** |
 | `packages/render/src/pinball-socket.ts` | **The wet socket every piece on PINBALL's table stands in.** The owner, 18 September 2026 |
 | `packages/render/src/pinball-marks.ts` | PINBALL's plunger and table haloed while asked, the partner's clock on the other, green on the wind and shove, red on the tilt and the other seat's press |
 | `packages/render/src/pinball-mouth.ts` | **While the ball is up, the cannon is a funnel waiting for it** |
 | `packages/render/src/pinball-fuse.ts` | **PINBALL's clock is the fuse every boss wears, along the top of the table** |
 | `packages/render/src/pinball-catch.ts` | **A ball caught back in the cannon is said out loud: YEAH** |
+| `packages/render/src/pinball-nudge-button.ts` | **PINBALL's nudge, ◀ and ▶ either side of SET and of FIRE** |
 | `packages/render/src/pip-ring.ts` | **A ring of pips round a body, one per thing still owed** — THE MINE's fuse first |
 | `packages/render/src/plate-gap.ts` | A plate of the hull that is **gone**, drawn as a hole in the outline |
 | `packages/render/src/plumb-draw.ts` | **THE PLUMB**: a lopsided bob of old bronze hung off a hook over the middle column, a ball on a chain at each end of its beam |
@@ -2995,7 +2996,7 @@ by hand never moves.
 | `tools/director/src/difficulty-picker.ts` | **THE THREE TEMPI A PAIR CAN CHOOSE, beside the field rather than behind a slider.** The owner asked for this… |
 | `tools/director/src/field-controls-page.ts` | The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on line count |
 | `tools/director/src/field-controls-pulse.ts` | **THE PULSE's bar**, in a file of its own, the split every boss since THE INSTAR has made |
-| `tools/director/src/field-controls-pinball.ts` | **PINBALL's two hands on its own table**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-pinball.ts` | **PINBALL's hand on its own table**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-plumb.ts` | THE PLUMB's two stones, as two rows of the ON THE FIELD tab |
 | `tools/director/src/fleet-editor.ts` | THE FLEET's placement, edited on the chart the pair will play it on |
 | `tools/director/src/glows/aura.ts` | A ring standing clear of the body, pulsing |

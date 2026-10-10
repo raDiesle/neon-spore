@@ -28,7 +28,6 @@ export type DragTargetB =
   | "vaneHousing"
   | "snakeJaws"
   | "pinPlunger"
-  | "pinTable"
   | "scoutLine"
   | "scoutPrime"
   | "pulseMeter"
@@ -70,14 +69,13 @@ export type DragTargetB =
  */
 
 /**
- * `pinPlunger` and `pinTable` are the thirty-fourth and -fifth, and the second
- * round to be given hands on its own picture. A launch above
- * `pinballHardMilli` leaves the spring slack and player 1 has to carry the
- * plunger back (`fromYMilli` against `pinballWindMilli`) before the bar will
- * run again; through a flight player 2 may shove the table sideways
- * (`fromMilli`, whose **sign is the direction** — the one place in this union
- * a carry's direction is the whole of what it says), once, and a second shove
- * tilts it (`pinball-hand.ts`). No `id`: one plunger and one table.
+ * `pinPlunger` is the thirty-fourth, and the second round to be given a hand
+ * on its own picture. A launch above `pinballHardMilli` leaves the spring
+ * slack and player 1 has to carry the plunger back (`fromYMilli` against
+ * `pinballWindMilli`) before the bar will run again (`pinball-hand.ts`). No
+ * `id`: one plunger. `pinTable`, the shove carried across the table, stood
+ * beside it until the owner made the nudge two presses on 10 October 2026
+ * (`pinNudge`, `command-round.ts`).
  */
 
 /**

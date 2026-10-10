@@ -101,6 +101,17 @@ describe("one key, several meanings", () => {
     expect(deskKey(controlSet("pinball"), "KeyA")?.control).toBe("cannon");
   });
 
+  it("gives PINBALL's nudges a pair on each seat, the pilot's on the arrows", () => {
+    // His sideways pair is the cannon's, so his ◀ and ▶ take the arrows; hers
+    // is free, so hers take it.
+    const set = controlSet("pinball");
+    expect(deskKey(set, "ArrowLeft")?.control).toBe("pin1Left");
+    expect(deskKey(set, "ArrowRight")?.control).toBe("pin1Right");
+    expect(deskKey(set, "KeyJ")?.control).toBe("pin2Left");
+    expect(deskKey(set, "KeyL")?.control).toBe("pin2Right");
+    expect(deskKey(set, "KeyQ")?.control).toBe("pinLaunch");
+  });
+
   it("gives the arrows to a panel that walks something across the field", () => {
     const fleet = controlSet("fleet");
     expect(deskKey(fleet, "ArrowUp")?.control).toBe("aimUp");

@@ -1,33 +1,26 @@
-import {
-  type PinballState,
-  pinPlungerAsks,
-  pinTableAsks,
-  type SimConfig,
-  type SimEvent,
-} from "@neon-spore/sim";
+import { type PinballState, pinPlungerAsks, type SimConfig, type SimEvent } from "@neon-spore/sim";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
 import type { Circle, Layout } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
-import { pinAfoot, pinPlungerCircle, pinTableCircle } from "./pinball-grip.js";
+import { pinAfoot, pinPlungerCircle } from "./pinball-grip.js";
 
 /**
- * **PINBALL's plunger and table answering a touch the way every mark does**
+ * **PINBALL's plunger answering a touch the way every mark does**
  * (`mark-feedback.ts`, `grip-verdict.ts`; the owner, 27 September 2026: *the
  * consistent visual across all waves*).
  *
- * Whether each is asked is the simulation's (`sim/pinball-hand.ts`
- * `pinPlungerAsks`, `pinTableAsks`), and whose it is never changes: the wind
- * is the pilot's and the shove is both of theirs (the owner, 1 October 2026). Both are lifts measured on the
- * way up, so nothing in the simulation says a thumb is down, and the halo
- * stands for as long as the part is asked — the wind ends the asking, and so
- * does the tilt. The part asked of the partner wears their turning ring and
- * the clock. The test screen is both seats', so both are its.
+ * Whether it is asked is the simulation's (`sim/pinball-hand.ts`
+ * `pinPlungerAsks`), and whose it is never changes: the wind is the pilot's.
+ * It is a lift measured on the way up, so nothing in the simulation says a
+ * thumb is down, and the halo stands for as long as the plunger is asked —
+ * the wind ends the asking. On the driver's screen it wears the partner's
+ * turning ring and the clock. The test screen is both seats', so it is its.
  *
- * The verdicts come last, over everything: the green of the wind and of the
- * shove (`pinWind`, `pinNudge`), and the red of the shove one too many
- * (`pinTilt`), which is their own thumb and the wrong one, and of a press on
- * the plunger from the driver's seat (`pinRefuse`). Keys are 0 for the plunger
- * and 1 for the table. A round, so fed by the takeover (`effects-round-marks.ts`).
+ * The verdicts come last, over everything: the green of the wind (`pinWind`)
+ * and the red of a press from the driver's seat (`pinRefuse`). The table's
+ * shove is ◀ and ▶ on the band since 10 October 2026, and answers there
+ * (`pinball-button.ts`). A round, so fed by the takeover
+ * (`effects-round-marks.ts`).
  */
 export class PinballMarks {
   /** Was the last touch on each part right. */
@@ -36,8 +29,6 @@ export class PinballMarks {
   ingest(events: readonly SimEvent[]): void {
     for (const e of events) {
       if (e.type === "pinWind") this.verdicts.mark(PLUNGER, true);
-      if (e.type === "pinNudge") this.verdicts.mark(TABLE, true);
-      if (e.type === "pinTilt") this.verdicts.mark(TABLE, false);
       if (e.type === "pinRefuse") this.verdicts.mark(PLUNGER, false);
     }
   }
@@ -52,28 +43,24 @@ export class PinballMarks {
 }
 
 const PLUNGER = 0;
-const TABLE = 1;
 
 interface Part {
   key: number;
   c: Circle;
-  seat: 1 | 2 | "both";
+  seat: 1 | 2;
   asked: boolean;
 }
 
-/** The two parts: where each stands, whose it is, and whether it is asked. */
+/** The one part: where it stands, whose it is, and whether it is asked. */
 function parts(l: Layout, cfg: SimConfig, state: PinballState): Part[] {
-  return [
-    { key: PLUNGER, c: pinPlungerCircle(l, cfg), seat: 1, asked: pinPlungerAsks(state) },
-    { key: TABLE, c: pinTableCircle(l, cfg), seat: "both", asked: pinTableAsks(state) },
-  ];
+  return [{ key: PLUNGER, c: pinPlungerCircle(l, cfg), seat: 1, asked: pinPlungerAsks(state) }];
 }
 
 /** Whether this screen's seat is the part's — the test screen is both. */
-const mine = (l: Layout, seat: 1 | 2 | "both"): boolean =>
-  seat === "both" || l.role === "test" || (l.role === "p1") === (seat === 1);
+const mine = (l: Layout, seat: 1 | 2): boolean =>
+  l.role === "test" || (l.role === "p1") === (seat === 1);
 
-/** The asking, drawn under the two rings. */
+/** The asking, drawn under the ring. */
 export function drawPinballAsked(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -92,7 +79,7 @@ export function drawPinballAsked(
   }
 }
 
-/** The verdict round each part, last of all — and none outside the play. */
+/** The verdict round the part, last of all — and none outside the play. */
 export function drawPinballVerdicts(
   ctx: CanvasRenderingContext2D,
   l: Layout,

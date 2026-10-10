@@ -99,7 +99,6 @@ export const ROUND_FIELD_GROUP = {
   pinballFunnelPermille: "PINBALL — a table the ship's cannon fires up into",
   pinballHardMilli: "PINBALL — a table the ship's cannon fires up into",
   pinballWindMilli: "PINBALL — a table the ship's cannon fires up into",
-  pinballNudgeMilli: "PINBALL — a table the ship's cannon fires up into",
   pinballNudgeShoveMilli: "PINBALL — a table the ship's cannon fires up into",
   pinballNudges: "PINBALL — a table the ship's cannon fires up into",
   pinballFlightBeats: "PINBALL — a table the ship's cannon fires up into",

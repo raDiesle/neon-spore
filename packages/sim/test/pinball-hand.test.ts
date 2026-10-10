@@ -83,13 +83,8 @@ const plunger = (milli: number): TimedCommand["command"] => ({
   fromYMilli: milli,
 });
 
-const table = (milli: number): TimedCommand["command"] => ({
-  kind: "drag",
-  target: "pinTable",
-  on: false,
-  fromMilli: milli,
-  fromYMilli: 0,
-});
+/** A press of ◀ (-1) or ▶ (1), from either seat's panel. */
+const table = (dir: -1 | 1): TimedCommand["command"] => ({ kind: "pinNudge", dir });
 
 /** Latch the needle and fire at exactly this power, which is the whole of what
  * the spring is charged against. */
@@ -144,21 +139,21 @@ describe("the spring, after a hard launch", () => {
 });
 
 describe("the nudge, through a flight", () => {
-  it("shoves the ball the way the table was carried", () => {
+  it("shoves the ball the way the button points", () => {
     const world = open();
     launchAt(world, 500);
     expect(pin(world).shot).toBe("flight");
     const before = pin(world).ball.vxMilli;
-    press(world, 2, table(CFG.pinballNudgeMilli));
+    press(world, 2, table(1));
     expect(pin(world).ball.vxMilli).toBe(before + CFG.pinballNudgeShoveMilli);
     expect(pin(world).nudges).toBe(1);
   });
 
-  it("goes the other way for a carry the other way", () => {
+  it("goes the other way for the other button", () => {
     const world = open();
     launchAt(world, 500);
     const before = pin(world).ball.vxMilli;
-    press(world, 2, table(-CFG.pinballNudgeMilli));
+    press(world, 2, table(-1));
     expect(pin(world).ball.vxMilli).toBe(before - CFG.pinballNudgeShoveMilli);
   });
 
@@ -168,27 +163,23 @@ describe("the nudge, through a flight", () => {
     const driver = open();
     launchAt(mixed, 500);
     launchAt(driver, 500);
-    press(mixed, 1, table(CFG.pinballNudgeMilli));
-    press(driver, 2, table(CFG.pinballNudgeMilli));
+    press(mixed, 1, table(1));
+    press(driver, 2, table(1));
     expect(pin(mixed).nudges).toBe(1);
-    press(mixed, 2, table(CFG.pinballNudgeMilli));
-    press(driver, 2, table(CFG.pinballNudgeMilli));
+    press(mixed, 2, table(1));
+    press(driver, 2, table(1));
     // Whose thumb it was is nowhere in the table afterwards: the same shove.
     expect(pin(mixed).nudges).toBe(2);
     expect(hashWorld(mixed)).toBe(hashWorld(driver));
   });
 
-  it("refuses a shove too short, and one off a flight", () => {
-    const world = open();
-    launchAt(world, 500);
-    const before = pin(world).ball.vxMilli;
-    press(world, 2, table(CFG.pinballNudgeMilli - 1));
-    press(world, 1, table(CFG.pinballNudgeMilli - 1));
-    expect(pin(world).ball.vxMilli).toBe(before);
-    expect(pin(world).nudges).toBe(0);
+  /** The buttons are there all the time and dark outside a flight. */
+  it("does nothing off a flight", () => {
     const aiming = open();
-    press(aiming, 2, table(CFG.pinballNudgeMilli));
+    press(aiming, 2, table(1));
+    press(aiming, 1, table(-1));
     expect(pin(aiming).nudges).toBe(0);
+    expect(pin(aiming).tilted).toBe(false);
   });
 
   /** The arcade's own rule: the shove after the last one is the tilt. */
@@ -196,12 +187,12 @@ describe("the nudge, through a flight", () => {
     const world = open();
     launchAt(world, 500);
     for (let i = 0; i <= CFG.pinballNudges; i++) {
-      press(world, i % 2 === 0 ? 1 : 2, table(CFG.pinballNudgeMilli));
+      press(world, i % 2 === 0 ? 1 : 2, table(1));
     }
     expect(pin(world).tilted).toBe(true);
     const after = pin(world).ball.vxMilli;
-    press(world, 1, table(CFG.pinballNudgeMilli));
-    press(world, 2, table(CFG.pinballNudgeMilli));
+    press(world, 1, table(1));
+    press(world, 2, table(1));
     expect(pin(world).ball.vxMilli).toBe(after);
   });
 
@@ -209,7 +200,7 @@ describe("the nudge, through a flight", () => {
   it("gives the shoves back with the next shot", () => {
     const world = open();
     launchAt(world, 500);
-    for (let i = 0; i <= CFG.pinballNudges; i++) press(world, 2, table(CFG.pinballNudgeMilli));
+    for (let i = 0; i <= CFG.pinballNudges; i++) press(world, 2, table(1));
     expect(pin(world).tilted).toBe(true);
     resetShot(pin(world));
     expect(pin(world).tilted).toBe(false);
@@ -222,7 +213,7 @@ describe("the two hands in the fingerprint", () => {
     const world = open();
     launchAt(world, 1000);
     const before = hashWorld(world);
-    press(world, 2, table(CFG.pinballNudgeMilli));
+    press(world, 2, table(1));
     expect(hashWorld(world)).not.toBe(before);
   });
 });

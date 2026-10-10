@@ -82,12 +82,9 @@ const ACCEPTED: Command[] = [
   // prising the stuck jaws (`sim/snake-controls.ts`), whose travel is the
   // whole of what the prise says.
   { kind: "drag", target: "snakeJaws", on: false, fromMilli: 0, fromYMilli: 1500 },
-  // PINBALL's two hands on the table: player 1 winding the plunger, player 2
-  // shoving the cabinet — and the shove's `fromMilli` is the one carry in
-  // this list whose **sign** is the whole of what it says, so a codec that
-  // dropped it would send the ball the other way on one device.
+  // PINBALL's hand on the table: player 1 winding the plunger. The shove
+  // beside it is two presses now (`pinNudge`, above).
   { kind: "drag", target: "pinPlunger", on: false, fromMilli: 0, fromYMilli: 1500 },
-  { kind: "drag", target: "pinTable", on: false, fromMilli: -1200, fromYMilli: 0 },
   // THE SCOUT's two hands: player 2's line, which pulls the little ship
   // straight home and nowhere else, and player 1's carry on the ship to prime
   // a labouring thruster (`sim/scout-hand.ts`). A codec that dropped the line
@@ -307,6 +304,11 @@ const ACCEPTED: Command[] = [
   { kind: "slide", on: true, dir: -1 },
   { kind: "latch" },
   { kind: "launch" },
+  // PINBALL's nudge, a press from either seat whose `dir` is the whole of
+  // what it says: a codec that dropped it would send the ball the other way
+  // on one device.
+  { kind: "pinNudge", dir: -1 },
+  { kind: "pinNudge", dir: 1 },
   // And the three that were handled and simply had no example, so the guard
   // could not have been satisfied by the switch alone.
   { kind: "guideStep", back: true },
@@ -365,6 +367,7 @@ const EVERY_KIND: Record<Command["kind"], true> = {
   slide: true,
   latch: true,
   launch: true,
+  pinNudge: true,
   drag: true,
   shake: true,
   restart: true,
@@ -407,7 +410,6 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   vaneHousing: true,
   snakeJaws: true,
   pinPlunger: true,
-  pinTable: true,
   scoutLine: true,
   scoutPrime: true,
   pulseMeter: true,
@@ -522,6 +524,12 @@ describe("decodeCommand: rejections", () => {
   it("refuses a turn that is not one of the two", () => {
     expect(decodeCommand({ kind: "snakeTurn", dir: "widdershins" })).toBeNull();
     expect(decodeCommand({ kind: "snakeTurn" })).toBeNull();
+  });
+
+  it("refuses a nudge that is not one way or the other", () => {
+    expect(decodeCommand({ kind: "pinNudge", dir: 0 })).toBeNull();
+    expect(decodeCommand({ kind: "pinNudge", dir: -1200 })).toBeNull();
+    expect(decodeCommand({ kind: "pinNudge" })).toBeNull();
   });
 
   it("refuses a throat colour the mouth does not have", () => {

@@ -117,8 +117,8 @@ export const CONTROL_SETS: readonly ControlSet[] = [
   {
     id: "pinball",
     name: "PINBALL",
-    why: "The ship's own strip against one button: the seat that slides the cannon also stops the needle, and the seat that cannot move it is the only one that can fire.",
-    controls: ["cannon", "pinLatch", "pinLaunch"],
+    why: "The ship's own strip against one button: the seat that slides the cannon also stops the needle, and the seat that cannot move it is the only one that can fire. Both of you can bump the ball in the air, from one count of three.",
+    controls: ["cannon", "pin1Left", "pinLatch", "pin1Right", "pin2Left", "pinLaunch", "pin2Right"],
   },
   {
     id: "pulse",

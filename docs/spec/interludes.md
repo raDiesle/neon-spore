@@ -534,7 +534,7 @@ in a state the two of them did not just put it in.
 |---|---|---|
 | `aim` | player 1's latch | nothing: the needle sweeps and the pair talks over it |
 | `power` | player 2's launch | **the spring may be slack.** A launch above `pinballHardMilli` leaves it so, and the bar does not run at all until player 1 carries the plunger back (`pinPlunger`, `pinballWindMilli`) |
-| `flight` | nobody — the ball is out of their hands | **the nudge.** Either player may shove the table sideways (`pinTable`, `pinballNudgeMilli`), three times between them, and the ball takes `pinballNudgeShoveMilli` the way it was shoved. The shove after that **tilts** it and both hands are dead for the rest of the flight |
+| `flight` | nobody — the ball is out of their hands | **the nudge.** Either player may bump the table with ◀ or ▶ on their panel (`pinNudge`), three times between them, and the ball takes `pinballNudgeShoveMilli` that way. The bump after that **tilts** it and both hands are dead for the rest of the flight |
 
 **The wind is the price of the shot they just took.** A launch at the top of
 the bar is the one that reaches the far corner of the board, and the top tenth
@@ -569,8 +569,26 @@ swipe anywhere on the table, because the pilot's thumb is on the cannon
 through a flight and a table-wide swipe would take his slide from under it.
 What is written above about her hand is the round as it was before.
 
-**Nothing new can hurt them.** A wind too short, a shove too short, a shove
-off a flight, a shove after the tilt — each does nothing. A tilt costs a hand
+**A press on both sides of both panels, 10 October 2026.** The owner, on the
+documentation's PINBALL'S TABLE row: *I do not understand how to use it*, and
+then *keep it on both sides all the time, it should work like a nudging and it
+should be a press action and clear visual as well part of tutorial*. The ring
+carried across the table showed up only in flight, at one end of the board,
+and the film never showed it. So the shove is a `pinNudge` press now, `dir` -1
+or 1, from either seat, and `pinTable` and `pinballNudgeMilli` are gone. It is
+four band lobes — ◀ and ▶ either side of SET on his panel and of FIRE on hers
+(`pin1Left` … `pin2Right`, `content/controls-round.ts`) — in the look every
+press on the band has, there through the whole round and **lit exactly while
+`pinTableAsks` says a bump would answer**, the bargain FIRE makes before the
+needle stops. Under each arrow are three dots, the bumps the pair still has,
+going hollow one a bump and all at once on the tilt
+(`render/pinball-nudge-button.ts`). At a desk his pair is on the arrows,
+because his A and D are the cannon's, and hers on J and L. The film gained a
+sixth page, ANY PLAYER BUMPS THE BALL, where she bumps a ball coming down wide
+back toward the ship — not far enough, which is the page after it.
+
+**Nothing new can hurt them.** A wind too short, a bump off a flight, a bump
+after the tilt — each does nothing. A tilt costs a hand
 and never the hull; the hull is still broken by a dropped ball and by the
 clock, in `pinball-round.ts`, exactly as it was.
 
@@ -657,10 +675,10 @@ word jumps out, overshoots, settles and floats off, in under a second and
 held inside the table (`render/pinball-catch.ts`, off the sim's `catchTick`).
 
 **What is not built**: the three events are still on both silent lists, and a
-tilt is still said by the ring going out rather than by a sound or a mark of
-its own. *Never watched at tempo*: whether a shove is a gesture a thumb can
-make on a phone while the other hand is nowhere, and whether one nudge is too
-few.
+tilt is still said by the buttons going dark rather than by a sound or a mark
+of its own. *Never watched at tempo*: whether the pilot can reach ◀ and ▶
+while his thumb is on the cannon through a flight, and whether three bumps
+is the right count.
 
 ### Two bodies, two gestures
 

@@ -125,6 +125,7 @@ export function deskKeys(set: ControlSet): readonly DeskKey[] {
     // landed in the press row, which is why it is a counter here rather than
     // the loop's own index.
     let press = 0;
+    const stripped = setControls(layout, player).some((d) => aimOf(d.id) === "column");
     for (const def of setControls(layout, player)) {
       if (!set.controls.includes(def.id)) {
         // Held back by this rung: it keeps its slot and answers nothing.
@@ -152,8 +153,10 @@ export function deskKeys(set: ControlSet): readonly DeskKey[] {
         continue;
       }
       // A sideways control that names its own direction — a valve, a bucket —
-      // takes the one key of its seat's pair that points the same way.
-      const slide = SEAT_KEYS[player].slide[aim === "left" ? 0 : 1];
+      // takes the one key of its seat's pair that points the same way. On a
+      // seat whose pair is already the strip's, which so far is PINBALL's
+      // pilot with his nudges beside the cannon, it takes the arrows.
+      const slide = stripped ? ARROWS[aim as Way] : SEAT_KEYS[player].slide[aim === "left" ? 0 : 1];
       keys.push({ code: slide, player, control: def.id });
     }
   }

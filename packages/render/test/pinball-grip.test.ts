@@ -11,7 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
-import { pinPlungerCircle, pinTableCircle } from "../src/pinball-grip.js";
+import { pinPlungerCircle } from "../src/pinball-grip.js";
 import { pinTable } from "../src/pinball-table.js";
 import { type Field, touchDown } from "../src/touch.js";
 import { FRAME_TIMEOUT_MS, waveWith } from "./frame-harness.js";
@@ -19,13 +19,14 @@ import { FRAME_TIMEOUT_MS, waveWith } from "./frame-harness.js";
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **Two real thumbs on PINBALL's table**, one per seat and one per shot
+ * **A real thumb on PINBALL's table**: the pilot's plunger
  * (`sim/pinball-hand.ts`, `docs/spec/interludes.md`).
  *
  * What this file asks is the half a simulation cannot: that a press on the
- * ring the picture draws is the press the round would accept, that each is
- * refused to the seat it does not belong to, and that neither is offered on a
- * shot that has no use for it.
+ * ring the picture draws is the press the round would accept, that it is
+ * refused to the seat it does not belong to, and that it is not offered on a
+ * shot that has no use for it. And that the shove's ring is gone from the
+ * table: since 10 October 2026 the nudge is ◀ and ▶ on the band.
  *
  * **The shot is set rather than played to**, which is what the round's own
  * frame test does the opposite of and for a reason that does not apply here:
@@ -106,10 +107,13 @@ const pressPlunger = (world: World, seat: 1 | 2): string | null => {
   return target(touchDown(l, at.x, at.y, field(world, seat)));
 };
 
+/** Where the shove's ring stood: the plunger mirrored to the band's left end. */
 const pressTable = (world: World, seat: 1 | 2): string | null => {
   const l = layout();
-  const at = pinTableCircle(l, CFG);
-  return target(touchDown(l, at.x, at.y, field(world, seat)));
+  const t = pinTable(l, CFG);
+  const at = pinPlungerCircle(l, CFG);
+  const x = t.x + (t.x + t.tile * t.cols - at.x);
+  return target(touchDown(l, x, at.y, field(world, seat)));
 };
 
 describe("the pilot's plunger on a slack spring", () => {
@@ -143,72 +147,35 @@ describe("the pilot's plunger on a slack spring", () => {
   });
 });
 
-describe("the shove on a ball in the air", () => {
-  it("takes hold at the left-hand end of the same band", () => {
+describe("the table in a flight", () => {
+  it("takes no hold where the shove's ring stood, from either seat", () => {
+    // The owner, 10 October 2026: the nudge is a press on both panels, there
+    // all the time (`pinball-button.ts`), so the field has nothing to take.
     const world = playing();
     flight(world);
-    expect(pressTable(world, 2)).toBe("pinTable");
-  });
-
-  it("is the pilot's too", () => {
-    // The owner, 1 October 2026: *any player can bump the ball*. The count it
-    // spends is the pair's, not his (`sim/pinball-hand.ts`).
-    const world = playing();
-    flight(world);
-    expect(pressTable(world, 1)).toBe("pinTable");
-  });
-
-  it("is still there with the pair's nudges spent, because the next one tilts", () => {
-    const world = playing();
-    flight(world).nudges = CFG.pinballNudges;
-    expect(pressTable(world, 2)).toBe("pinTable");
-  });
-
-  it("goes off the table for the rest of a flight it has tilted", () => {
-    const world = playing();
-    flight(world).tilted = true;
-    expect(pressTable(world, 2)).toBeNull();
-  });
-
-  it("offers nothing while the ball is still in the muzzle", () => {
-    const world = playing();
-    round(world).shot = "power";
+    expect(pressTable(world, 1)).toBeNull();
     expect(pressTable(world, 2)).toBeNull();
   });
 });
 
-describe("the two rings between them", () => {
-  it("stand clear of one another, at opposite ends of one band", () => {
-    // They are never offered on the same shot, so the distance is not about
-    // overlap — it is so that a pair never learns *the handle is over on the
-    // right* and reaches for the wrong end the first time both come up.
-    const l = layout();
-    const a = pinPlungerCircle(l, CFG);
-    const b = pinTableCircle(l, CFG);
-    expect(a.y).toBeCloseTo(b.y, 6);
-    expect(a.x - b.x).toBeGreaterThan(a.r + b.r);
-  });
-
-  it("stand whole on the table, rim and all", () => {
+describe("the plunger's ring", () => {
+  it("stands whole on the table, rim and all", () => {
     // The first frame taken of the plunger had it sliced down the middle by
     // the right edge of the phone: the table's walls are the screen's edges
     // here, and a disc centred on the end of the bar hangs half of itself off.
     const l = layout();
     const t = pinTable(l, CFG);
-    for (const c of [pinPlungerCircle(l, CFG), pinTableCircle(l, CFG)]) {
-      expect(c.x - c.r).toBeGreaterThanOrEqual(t.x);
-      expect(c.x + c.r).toBeLessThanOrEqual(t.x + t.tile * t.cols);
-    }
+    const c = pinPlungerCircle(l, CFG);
+    expect(c.x - c.r).toBeGreaterThanOrEqual(t.x);
+    expect(c.x + c.r).toBeLessThanOrEqual(t.x + t.tile * t.cols);
   });
 
-  it("are both gone once the round is over", () => {
+  it("is gone once the round is over", () => {
     for (const phase of ["verdict", "spent"] as const) {
       const world = playing();
       const r = slack(world);
       r.phase = phase;
       expect(pressPlunger(world, 1)).toBeNull();
-      r.shot = "flight";
-      expect(pressTable(world, 2)).toBeNull();
     }
   });
 });

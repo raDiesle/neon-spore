@@ -80,10 +80,16 @@ export type RoundCommand =
    * second thing before that — opening the sweep — and did not survive being
    * looked at: the needle was already walking when it arrived
    * (`pinball-controls.ts`).
+   *
+   * `pinNudge` is either seat's: the table bumped one way while the ball is in
+   * the air, `dir` -1 to the left and 1 to the right. It was a thumb carried
+   * across the table until the owner asked on 10 October 2026 for it to be a
+   * press on both sides of both panels, there all the time (`pinball-hand.ts`).
    */
   | { kind: "slide"; on: boolean; dir: -1 | 1 }
   | { kind: "latch" }
   | { kind: "launch" }
+  | { kind: "pinNudge"; dir: -1 | 1 }
   /**
    * THE PULSE's one verb, and the first in the game that **both seats send**.
    *

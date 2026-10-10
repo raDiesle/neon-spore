@@ -106,6 +106,10 @@ export function decodeCommand(x: unknown): Command | null {
       return { kind: "latch" };
     case "launch":
       return { kind: "launch" };
+    // PINBALL's nudge: a way and nothing else, so anything but -1 or 1 is a
+    // peer that sent a carry or a place, and the press is dropped whole.
+    case "pinNudge":
+      return c.dir === -1 || c.dir === 1 ? { kind: "pinNudge", dir: c.dir } : null;
     // THE FLEET's two verbs. `aim` is a *step* and its two fields are each one
     // of three values, so a peer that sent a column would be rejected here
     // rather than teleporting the sights across the chart three layers down.

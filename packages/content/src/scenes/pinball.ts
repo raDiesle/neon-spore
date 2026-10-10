@@ -9,8 +9,15 @@ import type { GuideScene } from "../scene-types.js";
  * the table, and the same cannon has to be under it when it lands. Player 1
  * slides the cannon *and* stops the sweeping needle; player 2 does one thing and
  * cannot do it until the needle has stopped. That is why the film is lopsided —
- * three of its five pages are his — and it is the wave being lopsided rather
+ * three of its six pages are his — and it is the wave being lopsided rather
  * than the film.
+ *
+ * **The sixth page is the nudge**, the owner's on 10 October 2026: ◀ and ▶
+ * stand either side of both panels the whole round and light while a ball is
+ * in the air, and a pair who are never shown one pressed never find out what
+ * they are for. It stays on player 2's screen, the page before it, and she
+ * bumps the ball back toward the ship — not far enough, which is the page
+ * after it.
  *
  * **It ends on a miss, and that is the only page that could have ended it.**
  * The whole of the round is the sentence *and then get back under wherever the
@@ -21,13 +28,13 @@ import type { GuideScene } from "../scene-types.js";
  *
  * The film's one page about what both screens share is spent on it.
  *
- * **Five pages still, and the first one changed on 18 September 2026.** The
+ * **The first page changed on 18 September 2026.** The
  * field now says `MOVE` on the cannon while a ball is coming down somewhere
  * else, so the page that named his gesture carries the round's own doubling
  * instead — the one rule neither screen states (`docs/spec/briefings.md`).
  */
 export const PINBALL: GuideScene = {
-  ticks: 1320,
+  ticks: 1380,
   bpm: 120,
   // One row shorter than the game's table, so the board hangs under the
   // tutorial plate and the round's header has the empty top row to drop
@@ -49,10 +56,15 @@ export const PINBALL: GuideScene = {
     // Long after the needle stopped, because the bar the launch takes its
     // strength off does not stop: it fills and empties on its own, and the
     // press is a moment inside that rather than the next thing on a list.
-    // Forty ticks into page four since 1 October 2026: the slower bar and the
-    // deader bounce keep a ball up longer, and a launch any later comes down
-    // after the film has ended — this one drops at 1239, under the last page.
+    // A hundred ticks into page four since the nudge page went in after it (10
+    // October 2026): the slower bar and the deader bounce keep a ball up
+    // longer, and a launch any later comes down after the film has ended —
+    // this one, bumped once, drops at 1231, under the last page.
     { tick: 900, control: "pinLaunch" },
+    // The ball is coming down to the right of the cannon, so she bumps it
+    // left, toward the ship — one bump of three, a beat and a half into its
+    // page, and it still lands wide.
+    { tick: 1070, control: "pin2Left" },
   ],
   steps: [
     // PLAYER 1 SLIDES THE CANNON stood here and is the cannon's own now:
@@ -85,11 +97,17 @@ export const PINBALL: GuideScene = {
       anchor: { at: "control", control: "pinLatch" },
     },
     {
-      tick: 860,
+      tick: 800,
       seat: 2,
       text: "PLAYER 2 TAKES THE POWER",
       anchor: { at: "control", control: "pinLaunch" },
     },
-    { tick: 1100, seat: 1, text: "MISS IT AND THE WAVE IS LOST", anchor: { at: "hit" } },
+    {
+      tick: 980,
+      seat: 2,
+      text: "ANY PLAYER BUMPS THE BALL",
+      anchor: { at: "control", control: "pin2Left" },
+    },
+    { tick: 1160, seat: 1, text: "MISS IT AND THE WAVE IS LOST", anchor: { at: "hit" } },
   ],
 };

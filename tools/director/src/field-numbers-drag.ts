@@ -33,7 +33,6 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
   "THE VANE'S HOUSING": ["vaneHaulMilli", "vanePinBeats"],
   "SNAKE'S JAWS": ["snakeJawsMilli", "snakeGorgeTiles", "snakeMawRestTicks"],
   "PINBALL'S PLUNGER": ["pinballWindMilli", "pinballHardMilli"],
-  "PINBALL'S TABLE": ["pinballNudgeMilli", "pinballNudges", "pinballNudgeShoveMilli"],
   "THE TASTER'S WIPE": ["tasterWipeMilli"],
   "THE TASTER'S PRY": ["tasterPryMilli", "tasterPryBeats"],
   "THE LEDGER'S PULL": ["ledgerWhipSeam"],

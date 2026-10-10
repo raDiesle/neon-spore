@@ -165,6 +165,12 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
       return { down: { kind: "latch" } };
     case "pinLaunch":
       return { down: { kind: "launch" } };
+    case "pin1Left":
+    case "pin2Left":
+      return { down: { kind: "pinNudge", dir: -1 } };
+    case "pin1Right":
+    case "pin2Right":
+      return { down: { kind: "pinNudge", dir: 1 } };
     // THE SCOUT's three, and all three are **held** — the nose keeps swinging
     // and the burn keeps pushing while a finger is down, which is what makes
     // the flying a thing one seat does on the other's word rather than a

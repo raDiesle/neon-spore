@@ -30,13 +30,6 @@ export interface PinballHandConfig {
    */
   pinballWindMilli: number;
   /**
-   * And how far either seat's thumb has to carry the table for a nudge to count.
-   *
-   * 1200, which is shorter than a swipe on purpose: a nudge is a shove and not
-   * a stroke, and the ball it is aimed at is falling while it is made.
-   */
-  pinballNudgeMilli: number;
-  /**
    * What one nudge adds to the ball's sideways speed, in thousandths of a tile
    * per tick, in the direction the table was shoved.
    *
@@ -59,11 +52,10 @@ export interface PinballHandConfig {
   pinballNudges: number;
 }
 
-/** The defaults: the top tenth, a tile and a half, a shove and three of them. */
+/** The defaults: the top tenth, a tile and a half, and three shoves of a peg. */
 export const PINBALL_HAND_DEFAULTS: PinballHandConfig = {
   pinballHardMilli: 900,
   pinballWindMilli: 1500,
-  pinballNudgeMilli: 1200,
   pinballNudgeShoveMilli: 60,
   pinballNudges: 3,
 };

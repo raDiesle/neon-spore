@@ -12,13 +12,14 @@ import {
   ticksPerBeat,
   type World,
 } from "../src/index.js";
-import { pinballDragHeard } from "../src/pinball-hand.js";
+import { pinballDragHeard, pinballNudgeHeard } from "../src/pinball-hand.js";
 
 /**
  * PINBALL's plunger and table answering a touch the way every mark does:
  * which part is asked (`pinPlungerAsks`, `pinTableAsks`), and a press from the
  * other seat on the asked plunger said once as a refusal (`pinRefuse`) and
- * doing nothing else. The table has no other seat. `pinball-hand.test.ts` holds the wind and the shove themselves.
+ * doing nothing else. The table's ◀ and ▶ have no other seat.
+ * `pinball-hand.test.ts` holds the wind and the shove themselves.
  */
 
 type Drag = Extract<Command, { kind: "drag" }>;
@@ -65,18 +66,18 @@ const plunger = (on: boolean): Drag => ({
   fromMilli: 0,
   fromYMilli: on ? 0 : CFG.pinballWindMilli,
 });
-const table = (on: boolean): Drag => ({
-  kind: "drag",
-  target: "pinTable",
-  on,
-  fromMilli: on ? 0 : CFG.pinballNudgeMilli,
-  fromYMilli: 0,
-});
 
 /** What one command says, and nothing said before it. */
 function said(world: World, pin: PinballState, player: 1 | 2, command: Drag): SimEvent[] {
   world.events.length = 0;
   pinballDragHeard(world, pin, player, command);
+  return world.events.filter((e) => e.type.startsWith("pin"));
+}
+
+/** What one ▶ press says. Whose it was is not passed, because it is not asked. */
+function nudged(world: World, pin: PinballState): SimEvent[] {
+  world.events.length = 0;
+  pinballNudgeHeard(world, pin, 1);
   return world.events.filter((e) => e.type.startsWith("pin"));
 }
 
@@ -109,10 +110,7 @@ test("the driver's thumb on the asked plunger is refused once and winds nothing"
 test("the asked table refuses neither seat: the shove is both of theirs", () => {
   const { world, pin } = playing();
   flight(pin);
-  expect(said(world, pin, 1, table(true))).toEqual([]);
-  expect(said(world, pin, 1, table(false))).toEqual([{ type: "pinNudge", way: 1 }]);
-  expect(said(world, pin, 2, table(true))).toEqual([]);
-  expect(said(world, pin, 2, table(false))).toEqual([{ type: "pinNudge", way: 1 }]);
+  expect(nudged(world, pin)).toEqual([{ type: "pinNudge", way: 1 }]);
 });
 
 test("a part not asked refuses nobody", () => {
@@ -120,5 +118,5 @@ test("a part not asked refuses nobody", () => {
   flight(pin);
   expect(said(world, pin, 2, plunger(true))).toEqual([]);
   slack(pin);
-  expect(said(world, pin, 1, table(true))).toEqual([]);
+  expect(nudged(world, pin)).toEqual([]);
 });

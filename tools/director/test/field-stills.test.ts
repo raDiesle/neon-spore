@@ -12,7 +12,6 @@ import { poseNamed } from "../src/poses.js";
 
 const NOT_PLAYED = [
   "PINBALL'S PLUNGER",
-  "PINBALL'S TABLE",
   "THE ANTIPHON'S ORGAN",
   "THE BALLOON'S LEFT HANDLE",
   "THE BALLOON'S RIGHT HANDLE",

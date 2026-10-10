@@ -4,6 +4,7 @@ import { halo } from "./glow.js";
 import type { Circle } from "./layout.js";
 import { paintLobe } from "./lobe-shell.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawNudgeLobe } from "./pinball-nudge-button.js";
 import type { SeatSkin } from "./seat-skin.js";
 
 /**
@@ -29,12 +30,24 @@ import type { SeatSkin } from "./seat-skin.js";
  * The sine comes off `mazeSinMilli` rather than `Math.sin`, the same call the
  * launch itself is built from — a needle drawn from a second copy of the angle
  * would point somewhere the ball does not go.
+ *
+ * **And the nudge, ◀ and ▶ either side of both.** The owner, 10 October 2026:
+ * the shove was a ring on the table that showed up only in flight, and he
+ * asked for a press on both sides, there all the time, in the look every
+ * other press on the band has. So it is four lobes in the same sockets, lit
+ * exactly while `pinTableAsks` says a bump would answer and dead the rest of
+ * the round — the same bargain FIRE makes before the needle stops
+ * (`pinball-nudge-button.ts`).
  */
 
-/** Whether this control is one of PINBALL's two. */
-export function pinLobeOf(id: ControlId): "latch" | "launch" | null {
+export type PinLobe = "latch" | "launch" | "left" | "right";
+
+/** Whether this control is one of PINBALL's, and which. */
+export function pinLobeOf(id: ControlId): PinLobe | null {
   if (id === "pinLatch") return "latch";
   if (id === "pinLaunch") return "launch";
+  if (id === "pin1Left" || id === "pin2Left") return "left";
+  if (id === "pin1Right" || id === "pin2Right") return "right";
   return null;
 }
 
@@ -44,10 +57,14 @@ const NEEDLE = 0.68;
 export function drawPinLobe(
   ctx: CanvasRenderingContext2D,
   circle: Circle,
-  which: "latch" | "launch",
+  which: PinLobe,
   world: World,
   skin: SeatSkin,
 ): void {
+  if (which === "left" || which === "right") {
+    drawNudgeLobe(ctx, circle, which === "left" ? -1 : 1, world, skin);
+    return;
+  }
   const { x, y, r } = circle;
   const boss = pinballRound(world);
   const live = boss !== null && boss.phase === "play";

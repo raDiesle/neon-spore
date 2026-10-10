@@ -20,11 +20,13 @@ import type { World } from "./world.js";
  * only kind of cost this round can charge without touching the hull.
  *
  * **The nudge is either seat's**, from one count the two of them share. A
- * shove carries the ball `pinballNudgeShoveMilli` the way the table was
- * carried, and the one after `pinballNudges` **tilts** it: the table is dead
- * to both hands for the rest of that flight. It was player 2's alone, one a
- * flight, until the owner asked on 1 October 2026 that *any player can bump
- * the ball to lead the direction a little while flying*. Shared rather than
+ * press of ◀ or ▶ carries the ball `pinballNudgeShoveMilli` that way, and the
+ * one after `pinballNudges` **tilts** the table: it is dead to both hands for
+ * the rest of that flight. It was player 2's alone, one a flight, until the
+ * owner asked on 1 October 2026 that *any player can bump the ball to lead the
+ * direction a little while flying*; and it was a thumb carried across the
+ * table until he asked on 10 October 2026 for a press on both sides of both
+ * panels, there all the time and lit while it answers. Shared rather than
  * one count each, because two counts are two players shoving without a word
  * between them; one count is a thing they have to spend together, and *not
  * yet — mine* is a sentence the pair now has to say.
@@ -47,7 +49,8 @@ import type { World } from "./world.js";
  *
  * Neither says anything about the seat: whose hand it is belongs with the
  * command, next to every other seat check in this round
- * (`pinball-controls.ts`).
+ * (`pinball-controls.ts`). The shove's is asked by the four ◀ ▶ buttons, which
+ * are lit exactly while it answers (`render/pinball-button.ts`).
  */
 export function pinWindable(state: PinballState): boolean {
   return state.slack && state.shot === "power";
@@ -59,8 +62,8 @@ export function pinNudgeable(state: PinballState): boolean {
 }
 
 /**
- * Whether each ring asks its seat for a hand this tick: the round in its play,
- * and the part offering (`render/pinball-marks.ts` haloes the one asked).
+ * Whether each part asks for a hand this tick: the round in its play, and the
+ * part offering (`render/pinball-marks.ts` haloes the plunger when asked).
  * `pinWindable` is true through a verdict reached on a slack spring, so the
  * play is asked here too.
  */
@@ -78,12 +81,7 @@ export function pinballDragHeard(
   player: 1 | 2,
   command: Extract<Command, { kind: "drag" }>,
 ): void {
-  if (command.target === "pinPlunger") {
-    windHeard(world, state, player, command);
-    return;
-  }
-  // Whose thumb it was is not asked: the table is both of theirs.
-  if (command.target === "pinTable") nudgeHeard(world, state, command);
+  if (command.target === "pinPlunger") windHeard(world, state, player, command);
 }
 
 function windHeard(
@@ -104,15 +102,13 @@ function windHeard(
   world.events.push({ type: "pinWind" });
 }
 
-function nudgeHeard(
-  world: World,
-  state: PinballState,
-  command: Extract<Command, { kind: "drag" }>,
-): void {
+/**
+ * A ◀ or ▶ press, from either seat: whose thumb it was is not asked, because
+ * the table is both of theirs. A press outside a flight says nothing — the
+ * buttons are dark then, and a dark button that answered would be lying.
+ */
+export function pinballNudgeHeard(world: World, state: PinballState, way: -1 | 1): void {
   if (!pinNudgeable(state)) return;
-  if (command.on) return;
-  const carried = command.fromMilli;
-  if (Math.abs(carried) < world.cfg.pinballNudgeMilli) return;
   if (state.nudges >= world.cfg.pinballNudges) {
     // The one over the line is the tilt, and it is charged rather than
     // ignored: a nudge that did nothing would be a nudge they went on making.
@@ -121,16 +117,15 @@ function nudgeHeard(
     return;
   }
   state.nudges += 1;
-  const way = Math.sign(carried);
   state.ball.vxMilli += way * world.cfg.pinballNudgeShoveMilli;
   world.events.push({ type: "pinNudge", way });
 }
 
 /**
  * A press from the seat the part is not asked of, said once — the press and
- * never its lift. Both rings are drawn on both screens (`render/pinball-grip.ts`),
- * so a thumb can land on the wrong one, and every mark's *not yours* is said.
- * Only the plunger has a wrong seat since the table became both of theirs.
+ * never its lift. The plunger's ring is drawn on both screens
+ * (`render/pinball-grip.ts`), so a thumb can land on it from the wrong seat,
+ * and every mark's *not yours* is said.
  */
 function refuse(world: World, part: "plunger", player: 1 | 2): void {
   world.events.push({ type: "pinRefuse", part, player });

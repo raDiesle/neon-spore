@@ -93,6 +93,11 @@ export function lobeMeans(
     // the ship's own cannon strip, answered above like any other wave's.
     case "pinLatch":
     case "pinLaunch":
+    // And its nudge, ◀ and ▶ on both seats: one bump a press, never a hold.
+    case "pin1Left":
+    case "pin1Right":
+    case "pin2Left":
+    case "pin2Right":
     // THE SCOUT's mouth, player 2's one press: a moment, not a hold — it
     // stands open for `scoutMawTicks` from the press and shuts on its own
     // (`sim/scout-round.ts`).

@@ -1,24 +1,20 @@
 import type { FieldControlDef } from "./field-control-def.js";
 
 /**
- * **PINBALL's two hands on its own table**, in a file of its own, the split
- * every boss since THE INSTAR has made.
+ * **PINBALL's hand on its own table**, in a file of its own, the split every
+ * boss since THE INSTAR has made.
  *
- * Two rows on two targets, and the only pair in the game that **cannot be on
- * the screen at the same time**: the wind is offered through `power` and the
- * shove through `flight`, which are two shots of one ball. So both stand in
- * the one band of air this round keeps clear above the ship — his at the right
- * end of it, hers at the left — and a table never shows two rings at once.
+ * One row on one target: the plunger, in the band of air this round keeps
+ * clear above the ship. It is entered by the pair's **own last answer**, which
+ * is the shape THE GAUGE's two states took: a launch at the top of the bar is
+ * what leaves the spring slack, and a pair that never fires that hard never
+ * sees the row at all.
  *
- * They are also entered by the pair's **own last answer**, which is the shape
- * THE GAUGE's two states took: a launch at the top of the bar is what leaves
- * the spring slack, and a pair that never fires that hard never sees the first
- * row at all.
- *
- * **The rules shipped first and the pictures came after.** Both gestures were
- * heard by `sim/pinball-hand.ts` from 18 September 2026 with nothing drawn to
- * take hold of, which is why there were no rows here and
- * `on-field-controls.test.ts` had `pinPlunger` and `pinTable` as `unbuilt`.
+ * PINBALL'S TABLE stood beside it — a shove carried across the table, offered
+ * only through a flight — until the owner asked on 10 October 2026 for the
+ * nudge to be a press on both sides of both panels, there all the time. It is
+ * four band buttons now (`pin1Left` … `pin2Right`, `content/controls-round.ts`)
+ * and no longer on this page, which is the field's.
  */
 export const PINBALL_CONTROLS: readonly FieldControlDef[] = [
   {
@@ -53,36 +49,5 @@ export const PINBALL_CONTROLS: readonly FieldControlDef[] = [
     dragTarget: "pinPlunger",
     sends: ["drag"],
     pose: "PINBALL · POWER",
-  },
-  {
-    name: "PINBALL'S TABLE",
-    where:
-      "at the left-hand end of the same band, as far from the plunger as the " +
-      "table goes — the two are never offered together, and the distance is " +
-      "so that a pair never learns that the handle is over on the right. Only " +
-      "through a flight, and only until the table is tilted " +
-      "(render/pinball-grip.ts)",
-    seat:
-      "either seat, out of one count the two of them share — the owner, " +
-      "1 October 2026: any player can bump the ball. Haloed on both screens " +
-      "while asked; the shove washes it green and the tilt red " +
-      "(render/pinball-marks.ts)",
-    gesture: "grab and drag",
-    does:
-      "Shoves the whole table sideways: a carry of at least pinballNudgeMilli, " +
-      "whose sign is the direction, and the ball in the air takes " +
-      "pinballNudgeShoveMilli that way (sim/pinball-hand.ts, pinNudgeable). " +
-      "The one thing either seat has that reaches a ball already thrown, and " +
-      "it is a direction and never a place: enough to move it a peg over by " +
-      "the time it has fallen a third of the table, and nowhere near enough " +
-      "to aim it. pinballNudges of them a flight — three, between them — and " +
-      "the shove after that tilts the table and kills both hands for the rest of it. Its dial " +
-      "is that count, so a full ring means the next one tilts, and a tilt " +
-      "takes the ring off the table altogether.",
-    source: "touch.ts — pinballGripUnder() under handleUnder()",
-    holdKind: "drag",
-    dragTarget: "pinTable",
-    sends: ["drag"],
-    pose: "PINBALL · FLIGHT",
   },
 ];

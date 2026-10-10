@@ -115,6 +115,7 @@ const PRESS_KINDS = [
   "pulseStep",
   "latch",
   "launch",
+  "pinNudge",
   "crank",
   "snakeTurn",
   "snakeFire",

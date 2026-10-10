@@ -33,7 +33,6 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE VANE'S HOUSING",
       "SNAKE'S JAWS",
       "PINBALL'S PLUNGER",
-      "PINBALL'S TABLE",
       "THE TASTER'S WIPE",
       "THE TASTER'S PRY",
       "THE LEDGER'S PULL",

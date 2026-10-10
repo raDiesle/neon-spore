@@ -1,6 +1,6 @@
 import { clampCol } from "./config-derived.js";
 import type { PinballState } from "./pinball.js";
-import { pinballDragHeard } from "./pinball-hand.js";
+import { pinballDragHeard, pinballNudgeHeard } from "./pinball-hand.js";
 import { launchBall } from "./pinball-shot.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -30,11 +30,11 @@ import type { World } from "./world.js";
  * player 2's opening of the sweep, was taken out because the needle was already
  * walking when it arrived (`pinball.ts`).
  *
- * **Nothing either of them can press reaches a ball already in the air.** That
- * is the round's one piece of held breath: an aim is argued over for as long
- * as the pair likes and then it is out of their hands, and the only thing left
- * to do about it is get the cannon underneath. It is also why the strip is the
- * one control that answers during flight.
+ * **Only a nudge reaches a ball already in the air**, and only a little: ◀
+ * and ▶ on both panels, three between the two of them, a peg over each. An aim
+ * is argued over for as long as the pair likes and then it is nearly out of
+ * their hands, and the thing left to do about it is get the cannon underneath
+ * — which is why the strip and the nudges are what answers during flight.
  */
 
 export function pinballHeard(
@@ -61,9 +61,15 @@ export function pinballHeard(
     return;
   }
   if (command.kind === "drag") {
-    // The two hands on the table itself — the plunger and the nudge, one per
-    // seat and one per shot that has a hand at all (`pinball-hand.ts`).
+    // The one hand on the table itself — player 1's plunger, on the shot
+    // after a hard one (`pinball-hand.ts`).
     pinballDragHeard(world, state, player, command);
+    return;
+  }
+  if (command.kind === "pinNudge") {
+    // Either seat's ◀ or ▶, and the one thing that reaches a ball already
+    // thrown (`pinball-hand.ts`).
+    pinballNudgeHeard(world, state, command.dir);
     return;
   }
   if (command.kind !== "launch" || player !== 2) return;

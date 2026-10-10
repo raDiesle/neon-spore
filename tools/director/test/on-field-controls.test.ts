@@ -198,15 +198,12 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // `field-controls-snake.ts`). The first two on this tab drawn on a thing
   // that moves *between* beats, which is why `Field` carries a tick.
   snakeJaws: "field",
-  // PINBALL's two hands on its table — player 1 winding the plunger his own
-  // hard launch left slack, player 2 shoving the cabinet through a flight
-  // (`sim/pinball-hand.ts`). Drawn from 22 September 2026, and the only pair
-  // on this tab that cannot both be on a screen: the wind is offered through
-  // `power` and the shove through `flight`, so they share the one band of air
-  // this round keeps clear above the ship, his at its right end and hers at
-  // its left (`render/pinball-grip.ts`, `field-controls-pinball.ts`).
+  // PINBALL's hand on its table — player 1 winding the plunger his own hard
+  // launch left slack (`sim/pinball-hand.ts`), drawn from 22 September 2026
+  // at the right end of the band of air above the ship
+  // (`render/pinball-grip.ts`). The shove beside it is ◀ and ▶ on the band
+  // since 10 October 2026, and not a drag at all.
   pinPlunger: "field",
-  pinTable: "field",
   // THE SCOUT's two hands — player 2's line home on a laden ship, player 1's
   // thumb held on a thruster the load has made labour
   // (`sim/scout-hand.ts`). Drawn from 22 September 2026, and the only pair on

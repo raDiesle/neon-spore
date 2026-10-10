@@ -189,7 +189,7 @@ describe("the two hands on the table", () => {
   });
 
   /** The seats the plunger is *theirs* on: his is the spring, and the rig may
-   * press it too. The shove is every seat's since 1 October 2026. */
+   * press it too. The shove is ◀ and ▶ on the band since 10 October 2026. */
   const HIS: ViewRole[] = ROLES.filter((r) => r !== "p2");
 
   it.each(HIS)("punches the plunger's disc on a slack spring, and only then, for %s", (role) => {
@@ -201,14 +201,8 @@ describe("the two hands on the table", () => {
     ).toBe(1);
   });
 
-  it.each(ROLES)("punches the shove's through a flight and takes it off a tilt for %s", (role) => {
-    expect(rings(role, (p) => (p.shot = "flight"))).toBe(1);
-    expect(
-      rings(role, (p) => {
-        p.shot = "flight";
-        p.tilted = true;
-      }),
-    ).toBe(0);
+  it.each(ROLES)("punches nothing through a flight for %s: the shove is on the band", (role) => {
+    expect(rings(role, (p) => (p.shot = "flight"))).toBe(0);
   });
 
   it("punches nothing for the seat that may not press the plunger", () => {
@@ -223,8 +217,8 @@ describe("the two hands on the table", () => {
 
   it("gives the navigator his plunger dimmed, and the shove neither seat", () => {
     // She cannot feel his thumb, so the plunger is drawn on both screens,
-    // bright on his and dim on hers (`pinball-grip.ts`). The shove is both
-    // of theirs, and bright on both.
+    // bright on his and dim on hers (`pinball-grip.ts`). A flight puts no ring
+    // on the table for either seat.
     const dim = (role: ViewRole, set: (state: PinballState) => void): number => {
       const world = stopped();
       set(pinballState(world));

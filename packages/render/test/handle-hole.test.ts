@@ -84,15 +84,14 @@ function slack(world: World): World {
   return world;
 }
 
-describe("PINBALL's two rings, one both seats' and one the pilot's", () => {
+describe("PINBALL's ring, the pilot's plunger", () => {
   it.each(ROLES)("punches nothing out of a table nobody has a hand on, on %s", (role) => {
     expect(holes(table(), role)).toBe(0);
   });
 
-  it.each(ROLES)("fills the shove's disc on %s, where a thumb may land in it", (role) => {
-    // Both of theirs since 1 October 2026 (`pinball-hand.ts`): the one thing
-    // each of them has to be able to find on a board of pegs and targets.
-    expect(holes(launched(table()), role)).toBe(1);
+  it.each(ROLES)("punches nothing through a flight on %s: the shove is on the band", (role) => {
+    // ◀ and ▶ on both panels since 10 October 2026 (`pinball-nudge-button.ts`).
+    expect(holes(launched(table()), role)).toBe(0);
   });
 
   it("fills the plunger's disc on his screen, where the wind is his", () => {

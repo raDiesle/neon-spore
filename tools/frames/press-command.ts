@@ -125,6 +125,15 @@ export function commandFor(
       }
       return { kind, on: true, dir: way === "left" ? -1 : 1 };
     }
+    case "pinNudge": {
+      // PINBALL's bump, from either seat: `pinNudge=left` or `=right`
+      // (`sim/pinball-hand.ts`).
+      const way = needs();
+      if (way !== "left" && way !== "right") {
+        throw new Error(`--press ${whole}: "${one}" — a nudge bumps left or right`);
+      }
+      return { kind, dir: way === "left" ? -1 : 1 };
+    }
     case "snakeTurn": {
       // SNAKE's steering, the navigator's: a quarter turn from wherever the
       // body is already going, never a heading (`sim/command-round.ts`).

@@ -42,6 +42,12 @@ export type ControlId =
   | "snakeMaw"
   | "pinLatch"
   | "pinLaunch"
+  // PINBALL's nudge, ◀ and ▶ on both seats: a `ControlDef` belongs to a seat,
+  // so the same two arrows are four controls, THE PULSE's way.
+  | "pin1Left"
+  | "pin1Right"
+  | "pin2Left"
+  | "pin2Right"
   // THE SCOUT's three, and all three are player 1's: the seat that can see the
   // arena has nothing to press (`control-sets-table.ts`).
   | "scoutTurnLeft"

@@ -9,7 +9,6 @@ import {
   type PinballState,
   type PulseState,
   pinPlungerAsks,
-  pinTableAsks,
   pulseBarAsks,
   type SnakeState,
   snakeJawsAsks,
@@ -19,7 +18,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import * as markFeedback from "../../../packages/render/src/mark-feedback.js";
-import { mark, type Row } from "./marks-window-kit.js";
+import { mark, type Row, unreached } from "./marks-window-kit.js";
 
 /**
  * **THE MIRROR, THE VANE, THE MAZE and THE GAUGE**, four of the rows owed
@@ -86,11 +85,12 @@ export const ROWS_E: readonly Row[] = [
   },
   {
     kind: "pinball",
+    // The plunger alone since the shove went to the band (10 October 2026),
+    // and AUTO never fires hard enough to leave the spring slack.
     marks: [
-      mark(
-        markFeedback,
-        "drawMarkHalo",
-        (w) => pinPlungerAsks(pinball(w)) || pinTableAsks(pinball(w)),
+      unreached(
+        mark(markFeedback, "drawMarkHalo", (w) => pinPlungerAsks(pinball(w))),
+        "queue: AUTO's PINBALL shot hops on the cannon for a whole flight",
       ),
     ],
   },

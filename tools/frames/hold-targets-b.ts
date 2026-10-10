@@ -65,9 +65,8 @@ export const ROWS: Record<string, Row> = {
   vaneHousing: { seat: 2, lift: true },
   // `snake-controls.ts`: the jaws are prised and let go.
   snakeJaws: { lift: true },
-  // `pinball-hand.ts`: the wind and the nudge are both spent on the lift.
+  // `pinball-hand.ts`: the wind is spent on the lift.
   pinPlunger: { lift: true },
-  pinTable: { lift: true },
   // `scout-hand.ts`.
   scoutLine: { seat: 2 },
   scoutPrime: { lift: true },
