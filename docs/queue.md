@@ -803,3 +803,10 @@ After the first entry lands: THE LAMPREY's head (a curve), THE ANTIPHON's rail (
 - **Files:** `tools/director/src/pull-lab.ts`
 
 `pull-lab.ts` is 238 lines after the OFF PATH switch, and every switch on the lab's bar grows it by a dozen. Cut on the seam the file already has: the bar — the shape, look, short, off-path and speed choices, AUTO and the sheet button — built in a file of its own, pull-lab-bar.ts, from one state object (`{ shape, look, short, stray, speed, auto }`) and a `reset` callback, so `openPullLab` keeps the canvas, the pointer, the clock and the frame. `test/pull-lab.test.ts` and the lab opened by hand from CONTROLS › ON THE FIELD › PULL PAST A DISTANCE say nothing moved.
+
+## A lane's trunk step misses a local main that is ahead of origin
+
+- **Found:** 2026-10-10, claude/visual-helpers-docs-2773b1
+- **Files:** `.claude/skills/lane/SKILL.md`, `tools/dev/here.ts`
+
+`git fetch origin main && git merge --ff-only origin/main` says *already up to date* in a fresh worktree while the local `main` holds landings that are not pushed yet, so the lane starts behind its own trunk. This lane built a sub tab against a `session.ts` without `subBars` and only found out when `sub=helpers` restored to PANELS; the lane before it (STEP BY STEP, `docs/time-log.md`) hit the same thing. The queue's preamble already says `git merge --ff-only main` in the lane; the lane skill's start step should say it too, or `bun run here` — which every lane that previews runs — should warn when `HEAD` is behind the local `main`. `bun test tools/dev` for a warning test, if the second.

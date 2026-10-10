@@ -37449,3 +37449,19 @@ to the local trunk.
 Bottleneck: none worth the name — a list filter and its test.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — CONTROLS › HELPERS, every picture that explains rather than answers
+
+- reading: 5 min. The render files behind each helper — siren, target lock,
+  wisp search, EMBER, the gunsight — and `docs/controls-catalogue.md`.
+- writing: 5 min. Twenty-two rows in two files, the frames the gallery had no
+  pose for, the tab, its test.
+- looking: 5 min. Every frame on the seat it names in this tree's director;
+  crops tightened round single bodies and THE CAPSTAN's drum, the siren and
+  the strip given frames of their own.
+- friction: 0 min. `sub=helpers` restored to PANELS because the lane started
+  behind the local `main`; a rebase fixed it (queued).
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: picking a frame per helper that actually shows it — a gallery pose
+named for a state often holds the helper too small, or not at all.

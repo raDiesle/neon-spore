@@ -3517,6 +3517,11 @@ by hand never moves.
 | `tools/director/src/gesture-types.ts` | What a card on CONTROLS › GESTURES is made of: a gesture, where it stands |
 | `tools/director/src/gestures-page.ts` | How a gesture is drawn on CONTROLS › ON THE FIELD: a card per gesture |
 | `tools/director/src/held.ts` | **What the author is carrying**: the brush that is armed, and — while a drag is in the air |
+| `tools/director/src/helpers-aim.ts` | CONTROLS › HELPERS, the second half: where a shot goes, the words and counts that stand on a body |
+| `tools/director/src/helpers-calls.ts` | CONTROLS › HELPERS, the first half: the helpers that tell the pair **to talk** |
+| `tools/director/src/helpers-def.ts` | **What one row of CONTROLS › HELPERS is** — a picture the game draws on the field to explain something |
+| `tools/director/src/helpers-page.ts` | CONTROLS › HELPERS — every picture the game draws on the field to explain something rather than to be… |
+| `tools/director/src/helpers-poses.ts` | The frames CONTROLS › HELPERS draws that the STATES gallery has no pose for (`helpers-page.ts`) |
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |
 | `tools/director/src/brush-lists.ts` | which strings are brushes and which kind each one paints — the lists, not the palette's rows |
 | `tools/director/src/scene-marks.ts` | The marks: everything a scene draws that is not a body |

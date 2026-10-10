@@ -306,6 +306,18 @@ zero. Each pose is drawn a few dozen times with a long `dt` first and only the
 last frame is kept: the easing settled, and the last tick's events still fresh,
 so a deflection is drawn with its flash on.
 
+**CONTROLS › HELPERS** (`?sheet=states&inner=controlsets&sub=helpers`) is the
+other half of ON THE FIELD: every picture the field draws to *explain*
+something rather than to be touched — the siren, the scanner box and what each
+seat sees in it, THE SEARCH, NEXT TO FALL, the gunsight, EMBER and the colour
+it does not know, the words and counts on a body, the marks on a boss's part.
+Each row is drawn as the screen that is shown it, because most helpers are on
+one seat and not the other. The rows are `src/helpers-calls.ts` and
+`src/helpers-aim.ts`; a frame the gallery has no pose for is built in
+`src/helpers-poses.ts`, and `test/helpers-page.test.ts` holds every pose and
+every source file a row names. The pieces a builder picks from are
+`docs/controls-catalogue.md`.
+
 ## RELEASE NOTES
 
 `≡ RELEASE NOTES` in the header is the other full-screen sheet: what landed on

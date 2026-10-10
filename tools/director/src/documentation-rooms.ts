@@ -1,4 +1,5 @@
 import { bindControlSetsTab } from "./controlsets-page.js";
+import { bindHelpersTab } from "./helpers-page.js";
 import { bindStatesTab } from "./states-page.js";
 import { bindStyleTab } from "./style-page.js";
 import { bindWordingsTab } from "./wordings-page.js";
@@ -26,4 +27,5 @@ export function bindDocumentationRooms(): void {
   bindStyleTab();
   bindWordingsTab();
   bindControlSetsTab();
+  bindHelpersTab();
 }
