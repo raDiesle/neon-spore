@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 609ff7d49 — THE PULL LAB: the one generic pull, tried by hand on an empty field
+
+CONTROLS › ON THE FIELD opens a lab from PULL PAST A DISTANCE and from GRAB AND DRAG: one pull on an empty field, as a DOWN, UP, UP OR DOWN, SIDEWAYS, CURVE, S-CURVE or ROPE · ANY WAY, a switch for whether a short pull is refused red or ignored, and AUTO's thumb playing a whole pull and a short one until the mouse takes over. Every pull handle's knob and channel are now drawn through two records, PULL_KNOB and PULL_TRACK, so the lab's LOOK picker can show any VERSUS candidate in their place; nothing the game draws changed.
+
 ## 2026-10-10 · e3f0b281e — The director is set in a text face, with four kinds of heading and brighter grey
 
 Everything in the director was hairline Courier New at 11-12px, with secondary text at 4.5:1 and headings told apart only by colour. Now the whole tool is in the system text face at 16px; code keeps a modern monospace and numbers line up through tabular figures. The grey is about 10:1 and the faint grey about 6.5:1. A page title is large and gold, a section is cyan with a rule under it, a sub-section is white and bold, and a label is small spaced capitals. Paragraphs on the sheets run to 130 characters instead of stopping at 560-900px, header buttons and slider readings no longer break over two lines, and the wave list is 270px wide, so long names show whole.
