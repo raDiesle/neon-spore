@@ -42,7 +42,7 @@ export function stageField(
     beat: world.beat,
     // The wave's own beat, which is the vane's cycle (`render/touch-field.ts`).
     waveBeat: world.waveBeat,
-    // And the tick, which is where a sliding body really is (`snake-grip.ts`).
+    // And the tick, for the things that move between beats.
     tick: world.tick,
     // Whose hand the mouse is: the role's, or under TEST the held seat key's.
     seat: pointerSeat(role, seatKey),

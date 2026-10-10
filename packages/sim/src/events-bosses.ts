@@ -31,7 +31,6 @@ import type { ScuttleEvent } from "./events-scuttle.js";
 import type { SeamEvent } from "./events-seam.js";
 import type { SinewEvent } from "./events-sinew.js";
 import type { SlingEvent } from "./events-sling.js";
-import type { SnakeEvent } from "./events-snake.js";
 import type { SpliceEvent } from "./events-splice.js";
 import type { SpoolEvent } from "./events-spool.js";
 import type { StareEvent } from "./events-stare.js";
@@ -107,7 +106,6 @@ export type BossEvent =
   | QueenEvent
   | WardenEvent
   | VaneEvent
-  | SnakeEvent
   | PinballEvent
   | ScoutEvent
   | PulseEvent
@@ -148,7 +146,6 @@ export type { ScuttleEvent } from "./events-scuttle.js";
 export type { SeamEvent } from "./events-seam.js";
 export type { SinewEvent } from "./events-sinew.js";
 export type { SlingEvent } from "./events-sling.js";
-export type { SnakeEvent } from "./events-snake.js";
 export type { SpliceEvent } from "./events-splice.js";
 export type { SpoolEvent } from "./events-spool.js";
 export type { StareEvent } from "./events-stare.js";

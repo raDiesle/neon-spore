@@ -65,10 +65,6 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       // The wrong seat's thumb on THE SCOUT's line or prime, with no pan for
       // `bind-scout-hand.ts`' reason: the ship is a point, not a lane.
       return { id: "boss.instarRefuse", pan: 0 };
-    case "snakeRefuse":
-      // The wrong seat's thumb on SNAKE's jaws or tail: every mark's *not
-      // yours*, one sound for all of them (`boss-instar.ts`).
-      return { id: "boss.instarRefuse", pan: panForCol(e.col, cols) };
     case "waveFailed":
       // The alarm that used to repeat while the hull was low. A hit is the
       // wave lost now (`sim/wave-fail.ts`), and that is what it says.

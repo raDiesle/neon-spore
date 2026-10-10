@@ -71,8 +71,6 @@ export const ROUND_FIELD_GROUP = {
   snakeStartTiles: "SNAKE — a round the ship is the body of",
   snakeGrowTiles: "SNAKE — a round the ship is the body of",
   snakeMawTicks: "SNAKE — a round the ship is the body of",
-  snakeGorgeTiles: "SNAKE — a round the ship is the body of",
-  snakeJawsMilli: "SNAKE — a round the ship is the body of",
   snakeMawRestTicks: "SNAKE — a round the ship is the body of",
   snakeFireRestBeats: "SNAKE — a round the ship is the body of",
   snakeShotTiles: "SNAKE — a round the ship is the body of",

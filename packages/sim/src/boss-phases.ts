@@ -31,7 +31,7 @@ import { SCOUT_LOADS, SCOUT_PHASES } from "./scout.js";
 import { SEAM_PHASES, SEAM_SIGHTS } from "./seam.js";
 import type { MirrorPhase } from "./simon.js";
 import { SLING_PHASES } from "./sling.js";
-import { SNAKE_GRIPS, SNAKE_PHASES } from "./snake.js";
+import { SNAKE_PHASES } from "./snake.js";
 import { SPOOL_PHASES } from "./spool.js";
 import { STARE_PHASES } from "./stare.js";
 import { TASTER_PHASES } from "./taster.js";
@@ -87,11 +87,8 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   // These two are not one enum and a pair can be in both at once, which costs
   // the sheet nothing — it wants the names, not the shape they came in.
   gauge: [...GAUGE_PHASES, ...GAUGE_GRIPS],
-  // Both of SNAKE's axes: the round's clock, and what the body has become
-  // (`snake.ts`). The second is a state the pair meets a new gesture in and
-  // the sheet would be lying by omission without it.
-  snake: [...SNAKE_PHASES, ...SNAKE_GRIPS],
-  // Both of PINBALL's axes, as SNAKE's are above: the round's clock, and
+  snake: [...SNAKE_PHASES],
+  // Both of PINBALL's axes, as THE GAUGE's are above: the round's clock, and
   // where one shot has got to. Each of the three shots waits on a different
   // thumb, and since 18 September 2026 two of them have a hand on the table
   // as well (`pinball.ts`).

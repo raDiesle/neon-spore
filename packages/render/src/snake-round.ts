@@ -22,9 +22,7 @@ import {
   snakeArena,
 } from "./snake-draw.js";
 import { clipAboveHull, drawEmergeSlime, emergeOffset } from "./snake-emerge.js";
-import { drawSnakeGrips } from "./snake-grip.js";
 import { drawSnakeGate, snakeIntake } from "./snake-home.js";
-import { drawSnakeAsked, drawSnakeVerdicts } from "./snake-marks.js";
 import { drawTally, drawTitle, drawVerdict } from "./snake-panel.js";
 import { drawSnakeShot } from "./snake-shot.js";
 
@@ -119,13 +117,6 @@ export function drawSnakeRound(
   const emerging = drawBody(ctx, l, arena, view, boss);
   ctx.restore();
   if (emerging !== null) drawEmergeSlime(ctx, l, arena, boss, emerging);
-  // The two hands the body grows: over it and outside the clip, because a ring
-  // is a thing to reach for and not a part of the animal (`snake-grip.ts`),
-  // each over its asking — the halo, or the partner's clock (`snake-marks.ts`).
-  // Nothing is drawn under `morph` or after a crash, which is the gate the
-  // controls themselves are held to.
-  drawSnakeAsked(ctx, l, world.cfg, boss, world.tick, view.time);
-  drawSnakeGrips(ctx, l, world.cfg, boss, world.tick, view.time);
   drawBand(ctx, l, world, false, false, view.time, view.controls);
   drawHud(ctx, l, view);
   ctx.textAlign = "center";
@@ -133,8 +124,6 @@ export function drawSnakeRound(
   // its own picture until the next wave arrives (`sim/wave-end.ts`).
   if (boss.phase === "verdict" || boss.phase === "spent") drawVerdict(ctx, l, boss);
   ctx.textAlign = "left";
-  // The green or red round a ring a thumb just landed on, last of all (`snake-marks.ts`).
-  drawSnakeVerdicts(ctx, l, world.cfg, boss, world.tick, effects.boss.snake.verdicts);
 }
 
 /**

@@ -43,4 +43,7 @@ export const NO_ROW: Partial<Record<BossKind, NoRowWhy>> = {
   gall: "no-marks-file",
   spool: "no-marks-file",
   nettle: "no-marks-file",
+  // Its one mark was the ring on the neck, and the owner took it out on 10
+  // October 2026: the round asks for nothing on the body now.
+  snake: "no-marks-file",
 };

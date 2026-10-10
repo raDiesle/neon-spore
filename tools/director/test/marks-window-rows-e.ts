@@ -10,8 +10,6 @@ import {
   type PulseState,
   pinPlungerAsks,
   pulseBarAsks,
-  type SnakeState,
-  snakeJawsAsks,
   type VaneState,
   vaneArmAsks,
   vaneHousingAsks,
@@ -45,7 +43,6 @@ const mirror = (w: World) => w.boss as MirrorState;
 const vane = (w: World) => w.boss as VaneState;
 const maze = (w: World) => w.boss as MazeState;
 const gauge = (w: World) => w.boss as GaugeState;
-const snake = (w: World) => w.boss as SnakeState;
 const pinball = (w: World) => w.boss as PinballState;
 const pulse = (w: World) => w.boss as PulseState;
 
@@ -78,10 +75,6 @@ export const ROWS_E: readonly Row[] = [
   {
     kind: "gauge",
     marks: [mark(markFeedback, "drawMarkHalo", (w) => gaugeBandAsks(gauge(w)))],
-  },
-  {
-    kind: "snake",
-    marks: [mark(markFeedback, "drawMarkHalo", (w) => snakeJawsAsks(w.cfg, snake(w), w.tick))],
   },
   {
     kind: "pinball",

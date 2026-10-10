@@ -4,7 +4,6 @@ import { PinballMarks } from "./pinball-marks.js";
 import { PulseMarks } from "./pulse-marks.js";
 import { RoundHit } from "./round-hit.js";
 import { ScoutMarks } from "./scout-marks.js";
-import { SnakeMarks } from "./snake-marks.js";
 
 /**
  * **The rounds' verdicts round a thumb**, the one transient a round keeps —
@@ -25,8 +24,6 @@ import { SnakeMarks } from "./snake-marks.js";
 export class RoundMarks {
   /** THE GAUGE's needle's and band's (`gauge-marks.ts`). */
   readonly gauge = new GaugeMarks();
-  /** SNAKE's jaws' and tail's (`snake-marks.ts`). */
-  readonly snake = new SnakeMarks();
   /** PINBALL's plunger's and table's (`pinball-marks.ts`). */
   readonly pinball = new PinballMarks();
   /** THE PULSE's bar's two ends (`pulse-marks.ts`). */
@@ -39,7 +36,6 @@ export class RoundMarks {
 
   ingestRounds(events: readonly SimEvent[]): void {
     this.gauge.ingest(events);
-    this.snake.ingest(events);
     this.pinball.ingest(events);
     this.pulse.ingest(events);
     this.scout.ingest(events);
@@ -47,7 +43,6 @@ export class RoundMarks {
 
   updateRounds(dt: number): void {
     this.gauge.update(dt);
-    this.snake.update(dt);
     this.pinball.update(dt);
     this.pulse.update(dt);
     this.scout.update(dt);
@@ -55,7 +50,6 @@ export class RoundMarks {
 
   clearRounds(): void {
     this.gauge.clear();
-    this.snake.clear();
     this.pinball.clear();
     this.pulse.clear();
     this.scout.clear();

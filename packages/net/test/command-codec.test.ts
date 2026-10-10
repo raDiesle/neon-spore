@@ -78,10 +78,6 @@ const ACCEPTED: Command[] = [
   // leave one device folding arrivals about a column the other has pinned.
   { kind: "drag", target: "vaneArm", on: true, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "vaneHousing", on: false, fromMilli: 0, fromYMilli: 1500 },
-  // SNAKE's hand on its own body, and the first a round has had: player 1
-  // prising the stuck jaws (`sim/snake-controls.ts`), whose travel is the
-  // whole of what the prise says.
-  { kind: "drag", target: "snakeJaws", on: false, fromMilli: 0, fromYMilli: 1500 },
   // PINBALL's hand on the table: player 1 winding the plunger. The shove
   // beside it is two presses now (`pinNudge`, above).
   { kind: "drag", target: "pinPlunger", on: false, fromMilli: 0, fromYMilli: 1500 },
@@ -408,7 +404,6 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   fleetWreck: true,
   vaneArm: true,
   vaneHousing: true,
-  snakeJaws: true,
   pinPlunger: true,
   scoutLine: true,
   scoutPrime: true,

@@ -18,8 +18,7 @@ import type { Hand } from "./hand.js";
 /**
  * **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or
  * THE SCOUT's kind: a heading only turns a quarter at a time and every step
- * is forced forward, so reaching `gorge` and `shed` (`docs/queue.md`, this
- * item) wants a real path found through the two things the body must not
+ * is forced forward, so clearing a round wants a real path found through the two things the body must not
  * touch, rather than a hand that merely points and hopes. `snakeEnemyAt`,
  * `snakeRockAt`, `snakeOnBoard`, `snakeOccupies` and `fireSnake` are not on
  * `@neon-spore/sim`'s public surface (`boss-surface-snake.ts` names what is),
@@ -180,16 +179,6 @@ export const snakeHand: Hand = (w) => {
     const nd = turnedDir(s.dirCol, s.dirRow, turn);
     if (snakePointAt(s, head.col + nd.dc, head.row + nd.dr) !== -1) {
       out.push({ player: 1, command: { kind: "snakeMaw" } });
-      out.push({
-        player: 1,
-        command: {
-          kind: "drag",
-          target: "snakeJaws",
-          on: false,
-          fromMilli: 0,
-          fromYMilli: w.cfg.snakeJawsMilli,
-        },
-      });
     }
   }
   // One corner a tile, sent while it is still the tile the head stands on: a

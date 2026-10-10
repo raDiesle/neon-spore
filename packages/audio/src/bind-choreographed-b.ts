@@ -3,7 +3,6 @@ import type { Cue } from "./bind-cue.js";
 import { pinballHandCue } from "./bind-pinball-hand.js";
 import { pulseHandCue } from "./bind-pulse-hand.js";
 import { scoutHandCue } from "./bind-scout-hand.js";
-import { snakeBodyCue } from "./bind-snake-body.js";
 import { vaneCue } from "./bind-vane.js";
 import { wardenHandCue } from "./bind-warden-hand.js";
 import { wellCue } from "./bind-well.js";
@@ -43,8 +42,6 @@ export type AddedEvent = Extract<
       | "vaneRefuse"
       // And the pin a shot knocks out, which is not a hand but is this boss's.
       | "vaneKnock"
-      // And SNAKE's prise, the first a *round* has had.
-      | "snakePrise"
       // And PINBALL's two, the second round to get a hand on its picture.
       | "pinWind"
       | "pinNudge"
@@ -88,7 +85,6 @@ const ADDED_EVENTS = new Set<string>([
   "vaneHaul",
   "vaneRefuse",
   "vaneKnock",
-  "snakePrise",
   "pinWind",
   "pinNudge",
   "pinTilt",
@@ -129,8 +125,6 @@ export function addedCue(e: AddedEvent, cols: number): Cue {
     case "vaneRefuse":
     case "vaneKnock":
       return vaneCue(e, cols);
-    case "snakePrise":
-      return snakeBodyCue(e, cols);
     case "pinWind":
     case "pinNudge":
     case "pinTilt":

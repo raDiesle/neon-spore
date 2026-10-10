@@ -1,10 +1,9 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss } from "@neon-spore/content";
 import { createWorld, snakeCrashed, startWave, ticksPerBeat } from "@neon-spore/sim";
-import { computeLayout, computeStage, type ViewRole, worldLayout } from "../src/layout.js";
+import { computeLayout, type ViewRole } from "../src/layout.js";
 import { snakeMawLit } from "../src/snake-button.js";
 import { snakeArena } from "../src/snake-draw.js";
-import { snakeJawsCircle } from "../src/snake-grip.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -39,25 +38,6 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  */
 
 beforeAll(installCanvasGlobals);
-
-/**
- * Whether the log carries a dial centred on this handle: an `arc` whose centre
- * is the ring's, within a pixel.
- *
- * The radius is not checked — `drawHandleRing` owns the 1.55 the dial stands
- * at, and a test repeating it would be a second copy of a number this file has
- * no opinion about. The centre is the whole question: it is where the hit test
- * answers.
- */
-function dialAt(log: string[], at: { x: number; y: number }): boolean {
-  for (const call of log) {
-    if (!call.startsWith("arc(")) continue;
-    const [x, y] = call.slice(4).split(",").map(Number);
-    if (x === undefined || y === undefined) continue;
-    if (Math.abs(x - at.x) < 1 && Math.abs(y - at.y) < 1) return true;
-  }
-  return false;
-}
 
 describe("SNAKE draws on all three screens", () => {
   const index = waveWith("snake");
@@ -96,56 +76,9 @@ describe("SNAKE draws on all three screens", () => {
     });
   }
 
-  /**
-   * **The hand the body grows** (`snake-grip.ts`), in the frame it is drawn
-   * in.
-   *
-   * A held ring is the one thing in this picture with a dial on it, so what
-   * this asks is not that the frame survived — every case above already asks
-   * that — but that the ring the hit test answers is the ring the canvas put
-   * down, in the same place. The layout is built off the **stage** and not the
-   * viewport, which is what `Canvas2DRenderer` draws through (`frameLayout`):
-   * a layout taken from the window is a pixel and a half out, which is near
-   * enough to look right in a picture and far enough to be a lie in a test.
-   */
-  it("draws the ring on the body it is taken on", () => {
-    const stage = computeStage(VIEWPORT);
-    const world = createWorld(CFG, 7, []);
-    startWave(world, index, [], [], buildBoss(index, CFG.cols));
-    const boss = world.boss;
-    if (boss?.kind !== "snake") throw new Error("SNAKE's wave installed no round");
-    // The round's own short band, which is what the frame is drawn against
-    // (`snake-layout.ts`).
-    const vp = { width: stage.width, height: stage.height, dpr: VIEWPORT.dpr };
-    const l = worldLayout(computeLayout(vp, CFG, "test"), world);
-    boss.phase = "play";
-    boss.dirCol = 0;
-    boss.dirRow = -1;
-    boss.body = Array.from({ length: CFG.snakeGorgeTiles + 2 }, (_, i) => ({ col: 4, row: 3 + i }));
-    boss.stepTick = world.tick;
-    // Held, which is the only state the ring draws its dial in: the mouth
-    // **standing** open — half way through its window rather than on the tick
-    // it was opened, where the gape is still nought (`snake-clock.ts`).
-    boss.mawTick = world.tick - Math.floor(CFG.snakeMawTicks / 2);
-    const log: string[] = [];
-    // Nothing stepped between the arrangement and the picture: a body that
-    // moved would take the ring with it.
-    runFrames(world, "test", 1, {
-      every: 1,
-      onTick: () => {},
-      onCanvas: (c) => {
-        c.log = log;
-      },
-    });
-    const at = snakeJawsCircle(l, CFG, boss, world.tick);
-    if (at === null) throw new Error("a body with no handle on it");
-    expect(dialAt(log, at)).toBe(true);
-  });
-
-  // MAW's face says *press me* only while the press is heard: past
-  // `snakeGorgeTiles` the jaws stick and `snakeHeard` refuses it, however
-  // long the body grows.
-  it("darkens the MAW face once the jaws stick", () => {
+  // MAW's face says *press me* for the whole of play, however long the body
+  // grows: the jaws that stuck past a length went on 10 October 2026.
+  it("keeps the MAW face lit however long the body", () => {
     const world = createWorld(CFG, 7, []);
     startWave(world, index, [], [], buildBoss(index, CFG.cols));
     const boss = world.boss;
@@ -155,9 +88,8 @@ describe("SNAKE draws on all three screens", () => {
       boss.body = Array.from({ length }, (_, i) => ({ col: 4, row: 3 + i }));
       return snakeMawLit(world);
     };
-    expect(lit(CFG.snakeGorgeTiles)).toBe(true);
-    expect(lit(CFG.snakeGorgeTiles + 1)).toBe(false);
-    expect(lit(CFG.snakeGorgeTiles + 20)).toBe(false);
+    expect(lit(CFG.snakeStartTiles)).toBe(true);
+    expect(lit(CFG.snakeStartTiles + 20)).toBe(true);
   });
 
   // The arena is every pixel the round has: the field's own width, or the

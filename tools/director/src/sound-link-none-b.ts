@@ -184,11 +184,6 @@ export const NO_SUBJECT_B: Record<string, string> = {
     "player 2 carrying the seized housing off a pinned arm under SEIZE, which is the only way the last pin can be answered. Same argument.",
   "boss.vaneKnock":
     "a shot through the split knocking a pin out of the bearing hung off the top edge. Same argument.",
-  // SNAKE's hand on its own body. The sheet's cards are for creatures and
-  // fixtures on the field, and in this round the field is gone altogether
-  // (`sim/snake-controls.ts`, `docs/spec/interludes.md`).
-  "boss.snakePrise":
-    "player 1 hauling the stuck jaws apart under gorge, where the MAW press has stopped working. The head's, on an arena that is not the field and has no cards.",
   // PINBALL's two hands on the table. The subject is a cabinet, and the sheet
   // has no card for one — the round throws the field away altogether
   // (`sim/pinball-hand.ts`, `docs/spec/interludes.md`).

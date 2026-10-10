@@ -1,6 +1,4 @@
-import type { SimConfig } from "./config.js";
-import { type SnakeState, snakeGrip } from "./snake.js";
-import { snakeCrashed } from "./snake-arena.js";
+import type { SnakeState } from "./snake.js";
 import { turnSnake } from "./snake-move.js";
 import { fireSnake } from "./snake-shot.js";
 import type { Command } from "./types.js";
@@ -39,12 +37,10 @@ export function snakeResting(world: World, snake: SnakeState): boolean {
  * press that counted would be a shot leaving a body that is not on the arena.
  * The wheel is refused with them: the round is over from the crash.
  *
- * **And since 18 September 2026 the body asks for two more, on itself.** Past
- * `snakeGorgeTiles` the jaws stick: the MAW press does nothing at all and
- * player 1 has to prise them apart on the head (`snakeJaws`), a carry of at
- * least `snakeJawsMilli` that opens the same window the press used to
- * (`docs/spec/interludes.md`, SNAKE's *Two bodies, two gestures*). Player 2's
- * thumb holding the tail clear went out on 6 October 2026, the owner.
+ * **There are no hands on the body.** From 18 September 2026 the jaws stuck
+ * past a length and player 1 prised them open on the neck in place of the MAW
+ * press; the owner took that out on 10 October 2026, and MAW answers the whole
+ * round. Player 2's thumb holding the tail clear went out on 6 October.
  */
 
 export function snakeHeard(
@@ -65,7 +61,7 @@ export function snakeHeard(
   return null;
 }
 
-/** Everything but the wheel: nothing player 1 does, nor a thumb on the body, moves it. */
+/** Everything but the wheel: nothing player 1 does moves the body. */
 function heardHands(world: World, snake: SnakeState, player: 1 | 2, command: Command): void {
   if (command.kind === "snakeFire") {
     if (player !== 1) return;
@@ -75,14 +71,7 @@ function heardHands(world: World, snake: SnakeState, player: 1 | 2, command: Com
     fireSnake(world, snake);
     return;
   }
-  if (command.kind === "drag") {
-    dragHeard(world, snake, player, command);
-    return;
-  }
   if (command.kind !== "snakeMaw" || player !== 1) return;
-  // The jaws stick once the body is past `snakeGorgeTiles`: from there the
-  // press is a dead button and the mouth is a thing to be pulled open.
-  if (snakeGrip(world.cfg, snake) !== "crawl") return;
   // The mouth is a *window* and not a hold: it opens on the press and shuts on
   // its own a fraction of a step later (`snakeMawTicks`), which is what makes
   // it a thing to time rather than a thing to leave on. The rest is at least
@@ -91,67 +80,4 @@ function heardHands(world: World, snake: SnakeState, player: 1 | 2, command: Com
   // every tick and nothing more, which is not the same thing at all.
   if (world.tick - snake.mawTick < world.cfg.snakeMawRestTicks) return;
   snake.mawTick = world.tick;
-}
-
-/** Whether there is a body to take hold of: playing, and not folded up against a crash. */
-function afoot(snake: SnakeState): boolean {
-  return snake.phase === "play" && !snakeCrashed(snake);
-}
-
-/**
- * Whether the jaws ask the pilot for a prise: past `crawl`, and the mouth's
- * rest run out — the same rest the press it replaces was held to.
- */
-export function snakeJawsAsks(cfg: SimConfig, snake: SnakeState, tick: number): boolean {
-  if (!afoot(snake) || snakeGrip(cfg, snake) === "crawl") return false;
-  return tick - snake.mawTick >= cfg.snakeMawRestTicks;
-}
-
-/**
- * The hand on the body itself: player 1 prising the jaws.
- *
- * Refused outside the grip that has it, and refused to the other seat — the
- * same rule of the simulation the four verbs above are held to, and for the
- * same reason: two devices have to agree exactly which presses counted, and a
- * driver who could also open the mouth would be playing both halves of a
- * round whose whole content is that she cannot. **The other seat's press on
- * the jaws while they are asked is said, once** — the press, never its lift
- * (`snakeRefuse`) — which is every mark's *not yours*: the ring is drawn on
- * both screens (`render/snake-grip.ts`), so a thumb can land on it.
- */
-function dragHeard(
-  world: World,
-  snake: SnakeState,
-  player: 1 | 2,
-  command: Extract<Command, { kind: "drag" }>,
-): void {
-  if (command.target !== "snakeJaws") return;
-  if (player !== 1) {
-    if (command.on && snakeJawsAsks(world.cfg, snake, world.tick)) refuse(world, snake, player);
-    return;
-  }
-  if (snakeGrip(world.cfg, snake) === "crawl") return;
-  // The press says nothing; the prise is the lift, and only one that
-  // travelled — a thumb resting on the head is not a mouth being opened.
-  if (command.on) return;
-  if (Math.abs(command.fromYMilli ?? 0) < world.cfg.snakeJawsMilli) return;
-  // The same rest as the press it replaces. A mouth that could be hauled
-  // open again the tick it shut would be a mouth held open all round, which
-  // is the one thing `snakeMawRestTicks` exists to stop.
-  if (world.tick - snake.mawTick < world.cfg.snakeMawRestTicks) return;
-  snake.mawTick = world.tick;
-  const head = snake.body[0];
-  world.events.push({ type: "snakePrise", col: head?.col ?? 0, row: head?.row ?? 0 });
-}
-
-/** A press on the jaws from the seat they are not asked of, at the head's tile. */
-function refuse(world: World, snake: SnakeState, player: 1 | 2): void {
-  const at = snake.body[0];
-  world.events.push({
-    type: "snakeRefuse",
-    col: at?.col ?? 0,
-    row: at?.row ?? 0,
-    part: "jaws",
-    player,
-  });
 }

@@ -62,8 +62,7 @@ const HAND_INSET = 0.35;
  * `handleRadius` owns what fraction of a tile a handle is and is called for
  * it; what changes here is *which* tile. The table's is the narrower of the
  * field's width over `pinballCols` and the air between the grid and the hull,
- * so a ring built on `l.tile` would be wider than the board it stands on
- * (`snake-grip.ts` makes the same trade for the same reason).
+ * so a ring built on `l.tile` would be wider than the board it stands on.
  */
 function ringRadius(l: Layout, cfg: SimConfig, t: Table): number {
   return handleRadius(l, cfg) * (t.tile / l.tile);

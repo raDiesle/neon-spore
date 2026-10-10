@@ -25,7 +25,6 @@ const onPage = FIELD_ACTIONS.flatMap((a) => a.types.flatMap((t) => t.rows));
  */
 const NOT_ON_THE_TICK = "no press reaches it on the pose's tick";
 const UNFOUND: Readonly<Record<string, string>> = {
-  "SNAKE'S JAWS": NOT_ON_THE_TICK,
   "PINBALL'S PLUNGER": NOT_ON_THE_TICK,
   "THE GAUGE'S BAND": NOT_ON_THE_TICK,
   "THE LEAD'S STALK": NOT_ON_THE_TICK,

@@ -26,7 +26,7 @@ export interface PinballHandConfig {
    * tile, for the wind to take.
    *
    * 1500: a tile and a half, the travel every swipe in this game asks for
-   * (`wardenThrowMilli`, `vaneHaulMilli`, `snakeJawsMilli`).
+   * (`wardenThrowMilli`, `vaneHaulMilli`).
    */
   pinballWindMilli: number;
   /**

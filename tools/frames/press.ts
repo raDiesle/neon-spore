@@ -2,7 +2,6 @@ import { crankPresses, parseTurns } from "./crank.js";
 import { commandFor } from "./press-command.js";
 import { refuseWrongSeat } from "./press-seats.js";
 import { isScoutHeld, scoutPresses } from "./scout-press.js";
-import { isSnakeHand, snakePresses } from "./snake-press.js";
 import type { PressSpec } from "./spec.js";
 
 /**
@@ -120,7 +119,6 @@ const PRESS_KINDS = [
   "snakeTurn",
   "snakeFire",
   "snakeMaw",
-  "snakeJaws",
   "scoutTurnLeft",
   "scoutTurnRight",
   "scoutBurn",
@@ -172,8 +170,6 @@ function parseOnePress(one: string, whole: string, wave: number): PressSpec[] {
   // so are two commands from one press (`scout-press.ts`). Her tap is not one
   // of them and falls through with the rest.
   if (isScoutHeld(kind)) return scoutPresses(tick, player, kind, argument, one, whole);
-  // SNAKE's two hands on the body: a prise and a held tail (`snake-press.ts`).
-  if (isSnakeHand(kind)) return snakePresses(tick, player, kind, argument, one, whole);
   const pick =
     (kind === "grip" || kind === "tap") && argument !== undefined ? PICKS[argument] : undefined;
   // The id is filled in by the page, so the command carries a placeholder here

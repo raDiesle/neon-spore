@@ -402,7 +402,6 @@ by hand never moves.
 | `packages/sim/src/events-surge.ts` | **Everything THE SURGE does that neither screen already says**, as events |
 | `packages/sim/src/events-scuttle.ts` | **Everything THE SCUTTLE does that neither screen already says**, as events |
 | `packages/sim/src/events-scout.ts` | **What THE SCOUT's two hands on its picture do that neither screen already says** |
-| `packages/sim/src/events-snake.ts` | **What SNAKE's two hands on the body do that neither screen already says** |
 | `packages/sim/src/events-seam.ts` | What THE SEAM says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-sling.ts` | What THE SLING says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/strand-round.ts` | What **happens** to a thread: the shot that meets a bead, and the thread parting once nothing on it is alive |
@@ -1610,7 +1609,6 @@ by hand never moves.
 | `packages/render/src/pinball-piece.ts` | you are drawing what stands on PINBALL's table — a peg as a living cell, a block as a slab of the same tissue |
 | `packages/render/src/snake-skin.ts` | What the body is made of: its contour, its light and its scales |
 | `packages/render/src/snake-mouth.ts` | What is in the mouth: the space itself, the fangs hung in it, and the tongue |
-| `packages/render/src/snake-marks.ts` | SNAKE's jaws and tail haloed while asked, the partner's clock on the other, green on the prise and lift, red on the other seat's press |
 | `packages/render/src/rind-shed.ts` | the event of a layer coming off a rind — which body, how big it was and is — handed to `RIND_LOOK` to draw |
 | `packages/render/src/rind-skin.ts` | the shipped picture of a rind losing a layer — the outline crushed onto the smaller body, the skin thrown out as a ring |
 | `packages/render/src/rind-slough.ts` | SLOUGH — a kept look for THE RIND's shed, drawn only on the GRAPHICS page's LIBRARY |
@@ -1627,7 +1625,6 @@ by hand never moves.
 | `packages/render/src/snake-venom.ts` | What the acid does when it stops moving |
 | `packages/render/src/snake-emerge.ts` | The body coming out of the ship |
 | `packages/render/src/snake-jaw.ts` | What one of SNAKE's jaws is: its outline, what is marked on it |
-| `packages/render/src/snake-grip.ts` | **SNAKE's hand on its own body**: the pilot prising the stuck jaws open (`sim/snake-controls.ts` |
 | `packages/render/src/snake-layout.ts` | **SNAKE's short hull and band.** While a snake round holds the world |
 | `packages/render/src/ship-hand.ts` | the ring round the swelling a finger has hold of, and which colour a lift would fire |
 | `packages/render/src/touch-hold.ts` | what a hit test hands back: what a drag and a lift go on meaning after the press |
@@ -2644,7 +2641,7 @@ by hand never moves.
 | `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
 | `packages/audio/src/bind-plumb.ts` | Whether an event is THE PLUMB's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-pod.ts` | **What the one thing on the field that is *taken* sounds like** |
-| `packages/audio/src/bind-pinball-hand.ts` | PINBALL's two hands on the table, in a file of their own for `bind-snake-body.ts`' reason |
+| `packages/audio/src/bind-pinball-hand.ts` | PINBALL's two hands on the table, in a file of their own for `bind-vane.ts`' reason — `bind.ts` is full |
 | `packages/audio/src/bind-pulse-hand.ts` | THE PULSE's hand on the bar, in a file of their own for `bind-scout-hand.ts`' reason — `bind.ts` is full |
 | `packages/audio/src/bind-prefixed.ts` | **The bosses whose every event one cue takes**, routed by the event's prefix rather than named one by one |
 | `packages/audio/src/bind-coil.ts` | **THE COIL's two, as sounds**: a dome coming off, and the charge it was holding leaving for the next one |
@@ -2686,7 +2683,6 @@ by hand never moves.
 | `packages/audio/src/bind-scuttle.ts` | THE SCUTTLE's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-scout-hand.ts` | THE SCOUT's two hands on its picture, in a file of their own for `bind-pinball-hand.ts`' reason |
 | `packages/audio/src/bind-stare.ts` | THE STARE's, in a file of their own for `bind-gorge.ts`' reason, and with **no pan on any of them** |
-| `packages/audio/src/bind-snake-body.ts` | SNAKE's hand on its own body, in a file of their own for `bind-vane.ts`' reason — `bind.ts` is full |
 | `packages/audio/src/bind-ship.ts` | **The ship's own six**: a bolt leaving the cannon, a lance filling or spilling |
 | `packages/audio/src/bind-seam.ts` | THE SEAM's nine, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-sling.ts` | Whether an event is THE SLING's, so a page of the chain can hand it over whole |
@@ -3587,7 +3583,6 @@ by hand never moves.
 | `tools/director/src/field-controls-stare.ts` | THE STARE's lashes, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-scuttle.ts` | **THE SCUTTLE's hanging part**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-scout.ts` | **THE SCOUT's two hands on its own picture**, in a file of its own |
-| `tools/director/src/field-controls-snake.ts` | **SNAKE's hand on its own body**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-spool.ts` | THE SPOOL's brake, as one row of the ON THE FIELD tab |
 | `tools/director/src/field-controls-ship.ts` | The ship's own handles on the field — the cannon, its maw, the shield's plate and trigger |
 | `tools/director/src/field-controls-sling.ts` | THE SLING's two cords, as rows of the ON THE FIELD tab: one a seat by geometry |
@@ -3713,7 +3708,6 @@ by hand never moves.
 | `tools/frames/shot-state.ts` | Getting the page into the state that is worth photographing |
 | `tools/frames/shot-flags.ts` | READING `bun run shot`'s COMMAND LINE — every flag it takes |
 | `tools/frames/sheet.ts` | **A STRIP OF FRAMES AS ONE PICTURE**, so a scene can be watched rather than read a frame at a time |
-| `tools/frames/snake-press.ts` | **SNAKE's two hands on the body, written on the press line.** Past `snakeGorgeTiles` the jaws stick and the… |
 | `tools/frames/tall.ts` | An element taller than the window, photographed whole rather than black below the fold |
 | `tools/frames/versus-shot.ts` | `bun run versus:shot` — one PNG of one VERSUS candidate |
 | `tools/frames/versus-element.ts` | What `versus:shot --at` is measured against: the window the pose cuts, not the stage |

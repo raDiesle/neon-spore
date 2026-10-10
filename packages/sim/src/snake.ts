@@ -60,27 +60,6 @@
 export const SNAKE_PHASES = ["morph", "play", "verdict", "spent"] as const;
 export type SnakePhase = (typeof SNAKE_PHASES)[number];
 
-/**
- * **What the body has become, which is a second state and not a second clock**
- * (`docs/spec/interludes.md`, SNAKE's *Three bodies, three gestures*).
- *
- * The phases above are the round's clock — arriving, playing, judged, put
- * away. This is the *body*, and it follows from how long it is and nothing
- * else: the thing that already grows a tile per point and is already both the
- * difficulty and the health bar. So the round escalates on the way to being
- * won rather than on the way to running out of beats, and the pair can see it
- * coming on the screen that carries the body.
- *
- * - `crawl`: the four verbs as the round was built.
- * - `gorge`: past `snakeGorgeTiles` the jaws stick. The MAW press does
- *   nothing; player 1 prises them apart on the head itself (`snakeJaws`).
- *
- * There was a third, `shed`, in which player 2 could hold the tail clear of
- * the arena with a thumb on it; the owner took it out on 6 October 2026.
- */
-export const SNAKE_GRIPS = ["crawl", "gorge"] as const;
-export type SnakeGrip = (typeof SNAKE_GRIPS)[number];
-
 /** One tile of the arena. Never a column of the field. */
 export interface SnakeTile {
   col: number;
@@ -200,21 +179,6 @@ export interface SnakeState {
    * mouth off it (`snake-arena.ts`, `snakeGate`).
    */
   clearBeat: number;
-}
-
-/**
- * What the body has become, off its own length. Never stored — the length is
- * the whole of it, the way `wardenPhase` reads the plates and `vanePhase` the
- * pins. The first row whose bound the body is still under.
- */
-export function snakeGrip(cfg: SnakeGripBounds, snake: SnakeState): SnakeGrip {
-  if (snake.body.length > cfg.snakeGorgeTiles) return "gorge";
-  return "crawl";
-}
-
-/** The length `snakeGrip` reads, as little of `SimConfig` as it needs. */
-export interface SnakeGripBounds {
-  snakeGorgeTiles: number;
 }
 
 /** The round being played. Clamped, so a state read after the last one still answers. */

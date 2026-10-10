@@ -4,7 +4,6 @@ import {
   fleetStruck,
   type SnakeState,
   snakeCrashed,
-  snakeGrip,
   snakeResting,
   snakeShotStop,
   type World,
@@ -151,9 +150,7 @@ function tileMid(a: Arena, col: number, row: number): { x: number; y: number } {
  * - on a point in the tile the head is about to step onto. The mouth is a
  *   window rather than a hold and the rest is at least as long as the window
  *   (`snake-controls.ts`), so `PRESS` three tiles out would spend it before
- *   the body arrives. Past `snakeGorgeTiles` the press is a dead button and
- *   the mouth is pulled open on the head instead, so the kind is `CARRY`,
- *   which draws no line (`saysKind`);
+ *   the body arrives;
  * - on the enemy a shot taken this instant would reach — `snakeShotStop`'s
  *   answer, the round's own walk, so the word cannot promise a hit a meteor
  *   would take — while the trigger is not resting.
@@ -174,8 +171,7 @@ export function snakeCues(l: Layout, world: World, s: SnakeState): readonly Boss
   const at = { ...tileMid(a, hint.col, hint.row), halfW: half, halfH: half };
   if (hint.eat) {
     const next = hint.col === head.col + s.dirCol && hint.row === head.row + s.dirRow;
-    const kind = snakeGrip(world.cfg, s) === "crawl" ? "PRESS" : "CARRY";
-    return [{ seat: null, kind, word: "EAT", ...at, seed: 75, soon: !next }];
+    return [{ seat: null, kind: "PRESS", word: "EAT", ...at, seed: 75, soon: !next }];
   }
   const stop = snakeShotStop(world, s);
   const lands =

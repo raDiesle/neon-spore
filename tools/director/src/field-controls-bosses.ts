@@ -33,7 +33,6 @@ import { SCOUT_CONTROLS } from "./field-controls-scout.js";
 import { SCUTTLE_CONTROLS } from "./field-controls-scuttle.js";
 import { SINEW_CONTROLS } from "./field-controls-sinew.js";
 import { SLING_CONTROLS } from "./field-controls-sling.js";
-import { SNAKE_CONTROLS } from "./field-controls-snake.js";
 import { SPOOL_CONTROLS } from "./field-controls-spool.js";
 import { STARE_CONTROLS } from "./field-controls-stare.js";
 import { SURGE_CONTROLS } from "./field-controls-surge.js";
@@ -113,10 +112,6 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // loses**: neither exists until the pair has choked a muscle
   // (`field-controls-throat.ts`).
   ...THROAT_CONTROLS,
-  // SNAKE's jaws and tail, the pair the round hands out as the pair **wins** —
-  // and the first two here drawn on a thing that moves between beats
-  // (`field-controls-snake.ts`).
-  ...SNAKE_CONTROLS,
   // THE UNDERTOW's tap, either seat's, on a tall lobe before it bursts
   // (`field-controls-undertow.ts`).
   ...UNDERTOW_CONTROLS,

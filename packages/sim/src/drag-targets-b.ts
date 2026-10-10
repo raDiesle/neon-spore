@@ -26,7 +26,6 @@ export type DragTargetB =
   | "fleetWreck"
   | "vaneArm"
   | "vaneHousing"
-  | "snakeJaws"
   | "pinPlunger"
   | "scoutLine"
   | "scoutPrime"
@@ -55,17 +54,6 @@ export type DragTargetB =
  * They are the first pair on a boss whose whole body is a *mechanism* rather
  * than a creature, so a hand on either is a hand on the thing deciding where
  * the wave lands — which is why the pin is in `hashWorld` (`vane-hash.ts`).
- */
-
-/**
- * `snakeJaws` is the thirty-second, and the first on a **round** rather than
- * on a field boss: the arena is not the field and the body is the whole of the
- * picture in it. Past `snakeGorgeTiles` the jaws stick and player 1 prises
- * them apart on the head (`fromYMilli` against `snakeJawsMilli`) in place of
- * the MAW press, which from there does nothing (`snake-controls.ts`). No `id`:
- * there is one body. `snakeTail`, player 2's thumb holding the tail clear of
- * the arena, was the thirty-third until the owner took it out on 6 October
- * 2026.
  */
 
 /**

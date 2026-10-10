@@ -395,7 +395,7 @@ The same as THE VANE's entry above, for THE GOVERNOR, THE SEAM, THE LAMPREY, THE
 - **Found:** 2026-10-09, claude/controls-documentation-redesign-0e3a85
 - **Files:** `tools/director/src/field-focus.ts`, `tools/director/test/field-focus.test.ts`, `tools/director/src/poses-field-controls.ts`
 
-CONTROLS › ON THE FIELD cuts each use card to the box its control answers a press in, by sweeping the posed world through `deskDown` (`controlRect`). Seven rows find nothing — SNAKE'S JAWS, PINBALL'S PLUNGER, THE FLEET'S WRECK, THE GAUGE'S BAND, THE LEAD'S STALK, THE BATON'S STRIP, THE QUEEN'S MARKS — so their cards keep the pose's own crop. On each pose's tick the sweep meets other holds (THE GAUGE a `held` valve, THE FLEET only `fleetRake`, the rest the cannon, shield and prime), never the row's `DragTarget`. For each: find whether the pose catches the moment after the control (move the pose a tick where it is pressable, or add a second pose for the card) or whether the hit test answers it through a path `holdsRow` does not read; take it off `UNFOUND` in the test, which goes red on a listed row that is found.
+CONTROLS › ON THE FIELD cuts each use card to the box its control answers a press in, by sweeping the posed world through `deskDown` (`controlRect`). Six rows find nothing — PINBALL'S PLUNGER, THE FLEET'S WRECK, THE GAUGE'S BAND, THE LEAD'S STALK, THE BATON'S STRIP, THE QUEEN'S MARKS — so their cards keep the pose's own crop. On each pose's tick the sweep meets other holds (THE GAUGE a `held` valve, THE FLEET only `fleetRake`, the rest the cannon, shield and prime), never the row's `DragTarget`. For each: find whether the pose catches the moment after the control (move the pose a tick where it is pressable, or add a second pose for the card) or whether the hit test answers it through a path `holdsRow` does not read; take it off `UNFOUND` in the test, which goes red on a listed row that is found.
 
 ## TRY IT records a take into stills, for the 22 rows AUTO does not play
 
@@ -795,7 +795,7 @@ After the entry above lands: THE CURTAIN's hem and THE STARE's lashes (up), THE 
 - **Found:** 2026-10-10, claude/pull-control-visuals-35c04f
 - **Files:** `packages/sim/src/lamprey-hand.ts`, `packages/sim/src/antiphon-rail.ts`, `packages/sim/src/warden-rope.ts`, `packages/sim/src/bastion-hand.ts`, `packages/sim/src/gauge-tooth.ts`, `packages/sim/src/pinball-hand.ts`
 
-After the first entry lands: THE LAMPREY's head (a curve), THE ANTIPHON's rail (down a vein), THE WARDEN's tether and THE BASTION's slabs (a rope, any way), THE GAUGE's tooth and PINBALL's plunger onto the one rule. A curve is a path the rule measures along, as the PULL LAB's CURVE and S-CURVE do. THE GUM and SNAKE's jaws are pulls by a body rather than a knob — say in the entry's commit whether they join or why not.
+After the first entry lands: THE LAMPREY's head (a curve), THE ANTIPHON's rail (down a vein), THE WARDEN's tether and THE BASTION's slabs (a rope, any way), THE GAUGE's tooth and PINBALL's plunger onto the one rule. A curve is a path the rule measures along, as the PULL LAB's CURVE and S-CURVE do. THE GUM is a pull by a body rather than a knob — say in the entry's commit whether it joins or why not (SNAKE's jaws were the other, until the owner took them out on 10 October 2026).
 
 ## THE PULL LAB's rule is 248 lines: the stray check out of `pull-lab-rule.ts`
 

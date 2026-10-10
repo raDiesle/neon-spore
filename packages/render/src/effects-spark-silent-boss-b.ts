@@ -161,10 +161,6 @@ export const SILENT_BOSS_B = [
   "vaneHaul",
   // The knock's picture is the blow on the hub and a pin fewer drawn.
   "vaneKnock",
-  // SNAKE's hand, no burst until the look lane draws it.
-  "snakePrise",
-  // And a refused press on it: the red is `snake-marks.ts`'.
-  "snakeRefuse",
   // PINBALL's two hands, drawn since 22 September 2026 and still no burst:
   // the ring is already saying both, and a tilt takes it away (`pinball-grip.ts`).
   "pinWind",

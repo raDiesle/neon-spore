@@ -69,7 +69,7 @@ export interface PulseHeartBounds {
 
 /**
  * What the bar has become. Never stored — the meter is the whole of it, the
- * way `snakeGrip` reads a body's length and `scoutLoad` a ship's motes.
+ * way `vanePhase` reads a bearing's pins and `scoutLoad` a ship's motes.
  */
 export function pulseHeart(cfg: PulseHeartBounds, state: PulseState): PulseHeart {
   if (state.meter < cfg.pulseArrestMilli) return "arrest";

@@ -1,6 +1,6 @@
 /**
  * PINBALL's two hands on the table, in a file of their own for
- * `boss-snake-body.ts`' reason: the round had no sounds of its own until 18
+ * `boss-vane.ts`' reason: the round had no sounds of its own until 18
  * September 2026. These three are a spring wound back, a cabinet shoved, and a
  * cabinet shoved once too often — and all three stay out of the 300–3000 Hz
  * band, because the whole round is one seat saying *now* to the other

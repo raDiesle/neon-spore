@@ -13,8 +13,7 @@ export interface ScoutLoadBounds {
 
 /**
  * The load the motes aboard put the ship in. Never stored — what it is
- * carrying is the whole of it, the way `snakeGrip` reads a body's length and
- * `vanePhase` reads a bearing's pins.
+ * carrying is the whole of it, the way `vanePhase` reads a bearing's pins.
  */
 export function scoutLoad(cfg: ScoutLoadBounds, scout: ScoutState): ScoutLoad {
   if (scout.carrying.length > cfg.scoutHeavyMotes) return "heavy";

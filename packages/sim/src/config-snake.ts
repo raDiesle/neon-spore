@@ -29,26 +29,6 @@ export interface SnakeConfig {
   /** Tiles a point adds. The body is the obstacle, so this is the difficulty. */
   snakeGrowTiles: number;
   /**
-   * Tiles the body has to be past before the jaws stick and MAW stops working
-   * — the length `gorge` begins at (`snakeGrip`).
-   *
-   * 10, which is two points into a round that opens at six: early enough that
-   * the pair meets the second gesture in the first round rather than reading
-   * about it, and late enough that the first two points are the round teaching
-   * the mouth with the press that still answers it.
-   */
-  snakeGorgeTiles: number;
-  /**
-   * How far player 1's thumb has to carry the head, in thousandths of a tile,
-   * for the lift to read as prising the jaws rather than brushing them.
-   *
-   * 1500: a tile and a half, the travel every swipe in this game asks for
-   * (`wardenThrowMilli`, `vaneHaulMilli`). The drag is measured in the
-   * field's tile like every other one, not the arena's small one, so the carry
-   * did not change when the arena's tiles halved.
-   */
-  snakeJawsMilli: number;
-  /**
    * Ticks the mouth stands open on one press.
    *
    * The one number in this file that decides how the round *feels*, because it
@@ -114,8 +94,6 @@ export const SNAKE_DEFAULTS: SnakeConfig = {
   snakeRows: 21,
   snakeStartTiles: 6,
   snakeGrowTiles: 2,
-  snakeGorgeTiles: 10,
-  snakeJawsMilli: 1500,
   // Fourteen tenths of a second, about four steps in the first round and six
   // by the last. It was half a second, then seven tenths, and the owner asked
   // each time for a mouth that stands open longer (last on 29 September 2026,

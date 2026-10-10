@@ -38,7 +38,6 @@ import { scoutGripUnder } from "./scout-grip.js";
 import { scuttlePartUnder } from "./scuttle-grip.js";
 import { sinewHandleUnder } from "./sinew-handles.js";
 import { slingDrawUnder } from "./sling-grip.js";
-import { snakeGripUnder } from "./snake-grip.js";
 import { spoolBrakeUnder } from "./spool-grip.js";
 import { stareLashUnder } from "./stare-lash-pull.js";
 import { surgeBulbUnder } from "./surge-grip.js";
@@ -121,7 +120,6 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     pulseMeterUnder(l, x, y, field) ?? // THE PULSE's own bar, while it is not steady (`pulse-grip.ts`).
     vaneGripUnder(l, x, y, field) ?? // THE VANE's swinging arm and the housing under its hub (`vane-grip.ts`).
     throatGripUnder(l, x, y, field) ?? // THE THROAT's mouth and its pump (`throat-grip.ts`).
-    snakeGripUnder(l, x, y, field) ?? // SNAKE's stuck jaws and dragging tail, on the body itself (`snake-grip.ts`).
     undertowTapUnder(l, x, y, field) ?? // THE UNDERTOW's tall lobe, either seat's tap (`undertow-tap.ts`).
     scoutGripUnder(l, x, y, field) ?? // THE SCOUT's line on a laden ship and the prime off a heavy one's stern (`scout-grip.ts`).
     pinballGripUnder(l, x, y, field) ?? // PINBALL's plunger on a slack spring and the shove on a table in flight (`pinball-grip.ts`).

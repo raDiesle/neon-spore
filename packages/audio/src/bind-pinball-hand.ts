@@ -3,7 +3,7 @@ import { type Cue, panForCol } from "./bind.js";
 
 /**
  * PINBALL's two hands on the table, in a file of their own for
- * `bind-snake-body.ts`' reason — `bind.ts` is full — and the first cues in the
+ * `bind-vane.ts`' reason — `bind.ts` is full — and the first cues in the
  * game with **no column at all**: the table is drawn whole on both screens and
  * a plunger is at the bottom of it, so a pan taken off a column would be a pan
  * about the field this round has thrown away.

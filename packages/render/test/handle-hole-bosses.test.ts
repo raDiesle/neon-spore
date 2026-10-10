@@ -9,10 +9,8 @@ import {
   vanePhase,
   type World,
 } from "@neon-spore/sim";
-import type { ViewRole } from "../src/layout.js";
-import { PALETTE } from "../src/palette.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, waveWith } from "./frame-harness.js";
-import { added, drawn } from "./handle-hole-count.js";
+import { added } from "./handle-hole-count.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -81,24 +79,14 @@ function vane(phase: string, pinned = false): World {
   return world;
 }
 
-describe("SNAKE's ring, on the body it is standing on", () => {
-  it("punches one for the seat that may press it, and none for the other", () => {
-    // Past `snakeGorgeTiles` his hand on the jaws is on offer. A hole in it on
-    // her screen would be a segment of the snake missing, which is the one
-    // thing a gap in this body could mean.
-    const { p1, p2, test } = added(snake(CFG.snakeGorgeTiles - 1), snake(CFG.snakeGorgeTiles + 2));
-    expect(p1).toBe(1);
+describe("SNAKE, which has no ring on its body", () => {
+  it("punches nothing on any screen, however long the body grows", () => {
+    // The pilot's ring on the neck went on 10 October 2026, the owner. A long
+    // body is the one that used to grow it, so it is the one that must not.
+    const { p1, p2, test } = added(snake(6), snake(16));
+    expect(p1).toBe(0);
     expect(p2).toBe(0);
-    expect(test).toBe(1);
-  });
-
-  it("still draws it on the other seat's screen, dimmed", () => {
-    // It stays: she cannot feel his thumb and the open mouth is a thing she is
-    // waiting on (`snake-grip.ts`).
-    const crawling = snake(CFG.snakeGorgeTiles - 1);
-    const gorged = snake(CFG.snakeGorgeTiles + 2);
-    const dim = (w: World, role: ViewRole) => drawn(w, role).split(PALETTE.dim).length - 1;
-    expect(dim(gorged, "p2")).toBeGreaterThan(dim(crawling, "p2"));
+    expect(test).toBe(0);
   });
 });
 

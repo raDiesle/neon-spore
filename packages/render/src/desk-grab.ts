@@ -16,7 +16,6 @@ import { pulseGripSeat } from "./pulse-grip.js";
 import { queenGripSeat } from "./queen-grip.js";
 import { scoutGripSeat } from "./scout-grip.js";
 import { sinewGripSeat } from "./sinew-handles.js";
-import { snakeGripSeat } from "./snake-grip.js";
 import { spoolGripSeat } from "./spool-grip.js";
 import { surgeMarkSeat } from "./surge-grip.js";
 import { tasterGripSeat } from "./taster-grip.js";
@@ -53,8 +52,8 @@ import { wardenGripSeat } from "./warden-grip.js";
  *    (`queen-grip.ts` `queenGripSeat`), and THE MIRROR's lobes the sixth
  *    (`mirror-grip.ts` `mirrorGripSeat`), and THE VANE's arm and housing the
  *    seventh (`vane-grip.ts` `vaneGripSeat`), and THE MAZE's string and
- *    heart the eighth (`maze-grip.ts` `mazeGripSeat`), and SNAKE's jaws and
- *    tail the ninth (`snake-grip.ts` `snakeGripSeat`), and PINBALL's plunger
+ *    heart the eighth (`maze-grip.ts` `mazeGripSeat`), SNAKE's jaws the ninth
+ *    until the owner took them out on 10 October 2026, and PINBALL's plunger
  *    (the table is both seats') the tenth (`pinball-grip.ts` `pinballGripSeat`), and THE
  *    SCOUT's line and prime the eleventh (`scout-grip.ts` `scoutGripSeat`),
  *    and THE BATON's shell and beads the twelfth (`baton-grip.ts`
@@ -187,7 +186,6 @@ export function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 |
     mirrorGripSeat(l, x, y, field) ??
     vaneGripSeat(l, x, y, field) ??
     mazeGripSeat(l, x, y, field) ??
-    snakeGripSeat(l, x, y, field) ??
     pinballGripSeat(l, x, y, field) ??
     scoutGripSeat(l, x, y, field) ??
     batonGripSeat(l, x, y, field) ??

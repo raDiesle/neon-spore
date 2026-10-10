@@ -11,10 +11,8 @@
  */
 
 export {
-  SNAKE_GRIPS,
   SNAKE_MORPH_BEATS,
   type SnakeEntry,
-  type SnakeGrip,
   type SnakeRound,
   type SnakeState,
   type SnakeTile,
@@ -30,7 +28,6 @@ export {
   // (`snake-home.ts`).
   snakeGate,
   snakeGoingHome,
-  snakeGrip,
   snakeHolds,
   snakePointAt,
   snakeResting,
@@ -39,9 +36,6 @@ export {
   snakeShotStop,
   snakeStepTicks,
 } from "./bosses.js";
-// Whether the jaws are asked of the pilot's hand, which their ring reads
-// (`render/snake-marks.ts`).
-export { snakeJawsAsks } from "./snake-controls.js";
 // Whether a turn sent now is taken where the head stands or one tile on,
 // which a hand planning a corner has to know (`snake-move.ts`, `turnSnake`).
 export { snakeTurnsHere } from "./snake-move.js";

@@ -2,7 +2,7 @@
  * **What PINBALL's two hands on the table do that neither screen already
  * says**, as four events (`pinball-hand.ts`).
  *
- * Its own file on `events-snake.ts`' terms: one round, one arm of `SimEvent`,
+ * Its own file on `events-vane.ts`' terms: one round, one arm of `SimEvent`,
  * and a file `packages/audio/test/bind.test.ts` has to be told the name of.
  * The round had no events of its own until 18 September 2026.
  *

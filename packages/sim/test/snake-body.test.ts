@@ -4,7 +4,6 @@ import {
   DEFAULT_CONFIG,
   type SimConfig,
   type SnakeState,
-  snakeGrip,
   snakeRound,
   startWave,
   step,
@@ -16,16 +15,13 @@ import { snakeMawOpen } from "../src/snake-arena.js";
 import { SNAKE_MORPH_BEATS } from "../src/snake-round.js";
 
 /**
- * **What SNAKE's body becomes as it grows**, and the gesture that comes with
- * it (`docs/spec/interludes.md`, SNAKE's *Two bodies, two gestures*).
+ * **SNAKE's body as it grows, and the one press that opens its mouth.**
  *
- * The body's length was already the difficulty and the health bar at once —
- * a tile per point, and the body is the obstacle. Since 18 September 2026 it
- * is the state as well: past `snakeGorgeTiles` the jaws stick and the MAW
- * press stops working. The new hand is on the body itself rather than on the
- * panel, and is refused to the seat it does not belong to — the rule the
- * round's four verbs are already held to (`snake-controls.ts`). The tail
- * player 2 could lift clear went on 6 October 2026.
+ * From 18 September 2026 to 10 October 2026 the jaws stuck past a length and
+ * the MAW press went dead, and player 1 prised them open on the neck instead.
+ * The owner took that out: MAW answers however long the body has grown, and
+ * nothing is held on the body. The tail player 2 could lift clear went on 6
+ * October 2026.
  *
  * The bodies here are **set** rather than eaten to. That is the one thing this
  * file does that `snake.test.ts` does not: a body of eight tiles is four
@@ -81,78 +77,47 @@ function press(world: World, player: 1 | 2, command: TimedCommand["command"]): v
   step(world, [{ tick: world.tick, player, command }]);
 }
 
-const jaws = (milli: number): TimedCommand["command"] => ({
+/** A drag on the body, which nothing on it answers any more. */
+const onBody: TimedCommand["command"] = {
   kind: "drag",
-  target: "snakeJaws",
+  target: "gripBody",
   on: false,
   fromMilli: 0,
-  fromYMilli: milli,
-});
+  fromYMilli: 3000,
+};
 
-describe("what the body has become", () => {
-  it("is crawl at the length a round opens on", () => {
+describe("the mouth, however long the body", () => {
+  it("opens to the press at the length a round opens on", () => {
     const world = open();
     expect(round(world).body.length).toBe(CFG.snakeStartTiles);
-    expect(snakeGrip(CFG, round(world))).toBe("crawl");
-  });
-
-  it("is gorge past snakeGorgeTiles, and stays gorge however long it grows", () => {
-    const world = open();
-    const snake = round(world);
-    lengthen(snake, CFG.snakeGorgeTiles);
-    expect(snakeGrip(CFG, snake)).toBe("crawl");
-    lengthen(snake, CFG.snakeGorgeTiles + 1);
-    expect(snakeGrip(CFG, snake)).toBe("gorge");
-    lengthen(snake, CFG.snakeGorgeTiles + 20);
-    expect(snakeGrip(CFG, snake)).toBe("gorge");
-  });
-});
-
-describe("the jaws, under gorge", () => {
-  it("leaves the press working while the body is short", () => {
-    const world = open();
     press(world, 1, { kind: "snakeMaw" });
     expect(snakeMawOpen(world, round(world))).toBe(true);
   });
 
-  it("stops answering the press once the body is past gorge", () => {
+  it("opens to the press on a body grown long", () => {
     const world = open();
-    lengthen(round(world), CFG.snakeGorgeTiles + 1);
+    lengthen(round(world), CFG.snakeStartTiles + 20);
     press(world, 1, { kind: "snakeMaw" });
-    expect(snakeMawOpen(world, round(world))).toBe(false);
-  });
-
-  it("opens the same window to a carry that travelled far enough", () => {
-    const world = open();
-    lengthen(round(world), CFG.snakeGorgeTiles + 1);
-    press(world, 1, jaws(CFG.snakeJawsMilli));
     expect(snakeMawOpen(world, round(world))).toBe(true);
   });
 
-  it("refuses a carry that did not, and one from the driver", () => {
+  it("is not opened by the driver, nor by a carry on the body", () => {
     const world = open();
-    lengthen(round(world), CFG.snakeGorgeTiles + 1);
-    press(world, 1, jaws(CFG.snakeJawsMilli - 1));
+    lengthen(round(world), CFG.snakeStartTiles + 20);
+    press(world, 2, { kind: "snakeMaw" });
     expect(snakeMawOpen(world, round(world))).toBe(false);
-    press(world, 2, jaws(CFG.snakeJawsMilli));
+    press(world, 1, onBody);
     expect(snakeMawOpen(world, round(world))).toBe(false);
   });
 
-  /** The mouth is still a window and not a hold: the rest is the whole of it. */
-  it("cannot be hauled open again until the mouth has shut", () => {
+  /** The mouth is a window and not a hold: the rest is the whole of it. */
+  it("cannot be opened again until the mouth has shut", () => {
     const world = open();
-    lengthen(round(world), CFG.snakeGorgeTiles + 1);
-    press(world, 1, jaws(CFG.snakeJawsMilli));
+    press(world, 1, { kind: "snakeMaw" });
     const first = round(world).mawTick;
     step(world, []);
-    press(world, 1, jaws(CFG.snakeJawsMilli));
+    press(world, 1, { kind: "snakeMaw" });
     expect(round(world).mawTick).toBe(first);
-  });
-
-  it("does nothing at all while the body is still crawling", () => {
-    const world = open();
-    press(world, 1, jaws(CFG.snakeJawsMilli));
-    expect(snakeMawOpen(world, round(world))).toBe(false);
   });
 });
 
@@ -182,7 +147,6 @@ describe("the tail, which nobody holds", () => {
     snake.body.push({ col, row: row - 1 });
     snake.body.push({ col: col - 1, row: row - 1 });
     snake.body.push({ col: col - 1, row });
-    expect(snakeGrip(CFG, snake)).toBe("gorge");
     for (let i = 0; i < ROUNDS[0]!.stepTicks + 2; i++) step(world, []);
     expect(round(world).crashTick).toBeGreaterThanOrEqual(0);
   });

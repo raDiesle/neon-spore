@@ -192,12 +192,6 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // thumb lands in is what the press decides.
   vaneArm: "field",
   vaneHousing: "field",
-  // SNAKE's two hands on its own body — player 1 prising the jaws that have
-  // stuck on the neck behind them, player 2 lifting the tail clear of the
-  // arena (`sim/snake-controls.ts`, `render/snake-grip.ts`,
-  // `field-controls-snake.ts`). The first two on this tab drawn on a thing
-  // that moves *between* beats, which is why `Field` carries a tick.
-  snakeJaws: "field",
   // PINBALL's hand on its table — player 1 winding the plunger his own hard
   // launch left slack (`sim/pinball-hand.ts`), drawn from 22 September 2026
   // at the right end of the band of air above the ship
