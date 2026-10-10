@@ -63,9 +63,10 @@ export function drawSnakeFuse(
  * corner).
  *
  * **Nothing on a crash**, the owner, 10 October 2026: *remove the "crashed"
- * animation. it is enough.* The body knocking into what stopped it and the
- * hit coming down the screen say it already (`snake-crash.ts`,
- * `round-hit.ts`), and a banner across the arena hid the place it went wrong.
+ * animation. it is enough.* The body knocking into what stopped it says it
+ * already (`snake-crash.ts`), and a banner across the arena hid the place it
+ * went wrong. The hit that used to come down the screen after it is gone too
+ * (`round-hit.ts`).
  */
 export function drawVerdict(
   ctx: CanvasRenderingContext2D,

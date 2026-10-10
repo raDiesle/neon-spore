@@ -1529,6 +1529,7 @@ by hand never moves.
 | `packages/render/src/vise-carry.ts` | **How shut a thumb has carried THE VISE's lobe**: the gap the lobe stands at open |
 | `packages/render/src/snake-body.ts` | The body: where it is between two tiles, and what it looks like |
 | `packages/render/src/snake-button.ts` | SNAKE's four presses, as faces on the band's own lobes |
+| `packages/render/src/snake-button-mouth.ts` | SNAKE's SHOOT and EAT faces as the act, no word: the head spitting venom, the head biting a pod |
 | `packages/render/src/snake-draw.ts` | SNAKE's arena, and everything standing on a tile of it |
 | `packages/render/src/snake-round.ts` | SNAKE over the whole stage |
 | `packages/render/src/living-draw.ts` | one lobed body, filled and lit — the draw path every blob creature takes, and the Throb's two sizes |
@@ -1546,6 +1547,7 @@ by hand never moves.
 | `packages/render/src/snake-home.ts` | **The mouth on the way home**, the picture half of `sim/snake-home.ts` |
 | `packages/render/src/snake-hint.ts` | **Which item the field's hint stands on**, and whether it is eaten or shot |
 | `packages/render/src/snake-panel.ts` | Around the arena: what this screen is told, the clock, the buttons |
+| `packages/render/src/snake-profile.ts` | SNAKE's head **from the side**, for the two buttons that are its mouth |
 | `packages/render/src/snake-shot.ts` | The shot: the one thing in this round both screens see the same way |
 | `packages/render/src/gyre-wind.ts` | you are drawing the pull between the ship and a wheel — the wind that says the maw is worth spending |
 | `packages/render/src/gyre-wheel.ts` | **One wheel, drawn**: the membrane around it, the two rim bands through the six bodies |

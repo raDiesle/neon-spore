@@ -23,6 +23,14 @@ import { Sparks } from "./sparks.js";
  * `pending` is every crack this round's hits will open, and `arrivals` the ones
  * whose rock is down; a crack from before the round is in neither and shows.
  * Fed from the takeover only — the rehearsal's seat strikes no hull.
+ *
+ * **SNAKE's hit is not drawn**, the owner, 10 October 2026: *why you still
+ * have this red cone animation when snake did something wrong. remove it from
+ * this wave.* A crash is the round's own picture already — the body folding
+ * into what stopped it (`snake-crash.ts`) — and the window closing down the
+ * arena after it was a second verdict over the place it went wrong. So its
+ * breach is skipped here: no window, no sparks, and the hole and the crack
+ * are on the hull at once, held back for no rock.
  */
 export class RoundHit {
   readonly rock = new RockImpactFx();
@@ -32,7 +40,7 @@ export class RoundHit {
 
   ingest(events: readonly SimEvent[], l: Layout, time: number, cfg: SimConfig): void {
     for (const e of events) {
-      if (e.type !== "breach" || e.round === undefined) continue;
+      if (e.type !== "breach" || e.round === undefined || e.round === "snake") continue;
       this.pending.mark(Math.round(e.col - (e.span - 1) / 2), e.span, e.beat);
       ingestBreach(e, l, time, beatSeconds(cfg), {
         burst: (x, y, n, hex) => this.sparks.burst(x, y, n, hex),

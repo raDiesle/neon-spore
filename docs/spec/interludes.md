@@ -721,9 +721,21 @@ cleared or the body has crashed (`render/snake-panel.ts`). The four buttons
 fill this round's short band (`render/snake-layout.ts`) and each face says
 its verb in a word under one picture — LEFT and RIGHT under a road sign's
 turn arrow, where the live nose read as a compass, and SHOOT and EAT under
-the head. A crash draws no verdict: the bump and the hit coming down the
-screen say it, and the banner hid the place it went wrong. And the open
-mouth is not filled — the jaws swing apart over whatever is behind them.
+the head. A crash draws no verdict: the bump says it, and the banner hid the
+place it went wrong. And the open mouth is not filled — the jaws swing apart
+over whatever is behind them.
+
+**The words came off again the same day, and so did the red cone** (the
+owner, 10 October 2026). The faces carry no text: the turn arrows stand alone
+and bigger, and player 1's two show the head *side on* doing the thing
+(`render/snake-profile.ts`, `render/snake-button-mouth.ts`) — SHOOT's jaws
+stand open and venom globs fly off the snout, thinning while the trigger
+rests; EAT's jaws swing open, a pod drifts in and they snap shut on it, and
+the face lights amber with the jaws at the real gape while the mouth stands
+open. From above, at button size, an open mouth read as a heart with eyes. The
+round's hit — the window closing down the arena onto the hull after a crash or
+the clock (`render/round-strike-window.ts`) — is not drawn for SNAKE
+(`render/round-hit.ts`): the hole and the crack are on the hull at once.
 
 **The fold is gone, and the body comes out of the ship instead**
 (`render/snake-emerge.ts`). The round used to open with the hull scaled down

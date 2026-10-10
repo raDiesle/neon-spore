@@ -13,7 +13,7 @@ import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { P1_SKIN } from "../src/seat-skin.js";
 import { drawSnakeLobe } from "../src/snake-button.js";
 import { arenaX, arenaY, snakeArena } from "../src/snake-draw.js";
-import { stubCanvas, type TextBox } from "./canvas-stub.js";
+import { stubCanvas } from "./canvas-stub.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -213,12 +213,10 @@ describe("SNAKE", () => {
 });
 
 describe("SNAKE's buttons", () => {
-  it("say SHOOT and EAT on player 1's two faces", () => {
+  // The owner, 10 October 2026: no text on the faces — the pictures say it.
+  it("write no word on any of the four faces", () => {
     const { world } = opened();
-    for (const [which, word] of [
-      ["fire", "SHOOT"],
-      ["maw", "EAT"],
-    ] as const) {
+    for (const which of ["left", "right", "fire", "maw"] as const) {
       const { ctx } = stubCanvas();
       ctx.texts = [];
       drawSnakeLobe(
@@ -228,14 +226,7 @@ describe("SNAKE's buttons", () => {
         world,
         P1_SKIN,
       );
-      const texts = (ctx.texts ?? []) as TextBox[];
-      expect(texts.map((t) => t.text)).toContain(word);
-      // Inside the face, not hanging off it.
-      for (const t of texts) {
-        expect(t.x).toBeGreaterThan(60);
-        expect(t.x + t.w).toBeLessThan(140);
-        expect(t.y + t.h).toBeLessThan(140);
-      }
+      expect(ctx.texts ?? []).toEqual([]);
     }
   });
 });

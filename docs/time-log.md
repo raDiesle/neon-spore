@@ -37667,3 +37667,18 @@ Bottleneck: looking — the sheet's cells are too small to judge an ending, so i
 took a temporary frame-by-frame sheet to see any of them.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — SNAKE's buttons lose their words, and the red cone goes
+
+- reading: 5 min. `snake-button.ts`, the head and jaw drawers, and where the
+  red cone came from — found by rendering a crash, not by grep.
+- writing: 10 min. `snake-profile.ts`, `snake-button-mouth.ts`, the turn
+  faces without a word, SNAKE's breach skipped in `round-hit.ts`, the test.
+- looking: 10 min. Four passes of `bun run frames`: the top-down head read as
+  a heart with eyes at button size, so the faces went side on.
+- friction: 0 min.
+- landing: 5 min. The index rows, an unused import, a re-derived smoothstep;
+  `check:fast`, `land`.
+
+Bottleneck: the first picture — the arena's own head, reused on a button,
+said nothing at that size, and only a frame showed it.
