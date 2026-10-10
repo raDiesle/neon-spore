@@ -59,6 +59,10 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "Each half of the lens — left the pilot's, right the navigator's — haloed while a pair is lit and that thumb is not down.",
     move: "With both halves held the lit pair slides shut across the face; a lift slips it, red.",
   },
+  "THE FLEET'S RAKE": {
+    find: "Anywhere along the holed hull, on the pilot's screen; his ring is haloed until his thumb is down.",
+    move: "While her thumb holds the plume, every square his rests on for a beat is marked; a hull raked end to end goes to wreck, and his thumb stays down until she has sunk it.",
+  },
   "THE HIVE'S WRING": {
     find: "A ring on each swelling lobe, on the navigator's screen only; every swelling lobe but the one under her thumb wears the halo.",
     move: "The lobe is held while the thumb stays and opens colourless; a lobe wrung washes green.",

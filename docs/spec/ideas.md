@@ -574,6 +574,31 @@ filed rightly, and there is no second list to change.
   currently carries; and whether going again with the guide should still count
   as a retry against the run, or whether being willing to be taught again is
   worth not being charged for
+- **A pull along a path** — the owner, 10 October 2026, reading CONTROLS ›
+  ON THE FIELD: TRACE ALONG A LINE is a pull at bottom, and should look like
+  every other pull, with one thing added — the path is drawn, and a thumb that
+  leaves it has failed. And then perhaps *every* pull should have it: a path,
+  a tolerance either side of it, and a failure past the tolerance. If so, a
+  trace is a pull whose path bends, and the type goes. What the game does
+  today is the opposite on both counts. No pull fails a thumb that drifts
+  sideways: THE BLISTER's swipe counts it as nothing, and THE FLEET's rake
+  (now filed as a hold) reads only the axis its hull lies along. THE FILAMENT
+  does not fail a thumb that leaves its line either — off the line is
+  nothing; its three faults are all *pace*: faster than a tile a beat, two
+  tiles ahead in one move, the partner too far behind
+  (`sim/filament-hand.ts`). So a pull with a path still leaves THE FILAMENT one
+  rule of its own, the speed limit, and the generic pull would carry it as a
+  field or the trace stays a type. What it attaches to: the wire already sends
+  both axes of every drag (`fromMilli`, `fromYMilli`), so the tolerance is a
+  test in the simulation on the axis a pull ignores today, and a `SimConfig`
+  field for its width. Unworked out: how wide — a thumb pulling down
+  one-handed drifts sideways a long way, and a band that catches that is
+  testing the grip on the phone rather than the talk; what leaving costs —
+  red and spring back, as a short pull is refused, or a strike, as THE
+  FILAMENT's faults are; whether the band is drawn, which makes it a steadiness
+  test, or not, which makes it a surprise; and the version that passes the
+  guiding question, a path only the *other* seat is shown, so the one pulling
+  has to be talked along it
 
 ### Weapons
 

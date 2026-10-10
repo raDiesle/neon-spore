@@ -112,7 +112,9 @@ export const ROW_NOTES: Readonly<Record<string, string>> = {
   "THE SURGE'S BULB":
     "Held by both, and the answer is the letting go. Keep specific; it is " +
     "the only release the game grades.",
-  "THE FLEET'S RAKE": "A trace; share THE FILAMENT's lit path.",
+  "THE FLEET'S RAKE":
+    "A hold, both seats at once, whose thumb slides — the square under it is " +
+    "the one marked. Keep the together-mark the generic one when it comes.",
   "THE VALVE'S PIN": "The model for the generic freeze tap: edge-read, a skid, one ring.",
   "THE QUEEN'S MARKS":
     "A press refused red from the seat that can see. Keep; but its steps " +

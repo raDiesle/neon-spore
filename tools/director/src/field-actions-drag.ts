@@ -140,10 +140,12 @@ export const DRAG_TYPES: readonly ControlType[] = [
     title: "TRACE ALONG A LINE",
     says: "A drag that counts only along something the field already shows.",
     suggest:
-      "Two bosses is too few to generalise; keep specific, and draw the lit " +
-      "path the same way in both.",
+      "One boss now: THE FLEET's rake is a hold and went to BOTH SEATS " +
+      "HOLDING AT ONCE (the owner, 10 October 2026). The open question is " +
+      "whether this is a PULL along a drawn path, with a tolerance off it " +
+      "that fails — `docs/spec/ideas.md`, A pull along a path.",
     gestures: ["TRACING A PATH"],
-    rows: ["THE FILAMENT'S LINE", "THE FLEET'S RAKE"],
+    rows: ["THE FILAMENT'S LINE"],
   },
   {
     key: "rope",

@@ -10,6 +10,9 @@ import type { FieldAction } from "./field-actions.js";
  * CANNON, THE PULSE's brace a simple PRESS, THE VANE's arm a regular HOLD, and
  * THE CHOIR's two arrows one SHAKE. THE SCOUT's prime joined HOLD on 10
  * October 2026, when the owner called it one and the game was made to agree.
+ * THE FLEET's rake joined it the same day: filed as a TRACE, it marks only
+ * while her thumb is on the plume and the wreck sinks only while his is still
+ * on the hull, so it is BOTH SEATS HOLDING AT ONCE with a thumb that slides.
  */
 export const OTHER_ACTIONS: readonly FieldAction[] = [
   {
@@ -56,6 +59,7 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
           "THE PULSE'S ARREST",
           "THE OCULUS'S LEFT LEAF",
           "THE OCULUS'S RIGHT LEAF",
+          "THE FLEET'S RAKE",
         ],
       },
       {

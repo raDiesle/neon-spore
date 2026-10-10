@@ -185,10 +185,6 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "A ring on the armed filament with its word beside it — green when the move is open, red with WAIT when not; arrows march up the path.",
     move: "Each tile the thumb carries along lights; the partner's ring follows dim on the other screen.",
   },
-  "THE FLEET'S RAKE": {
-    find: "Anywhere along the holed hull, on the pilot's screen; his ring is haloed until his thumb is down.",
-    move: "Every square the thumb rests on long enough is marked; a hull raked end to end goes to wreck.",
-  },
   // PULL IN ANY DIRECTION WITH A ROPE
   "THE WARDEN'S THUMB": {
     find: "A ring on the shut eye where the pupil stands, haloed on the navigator's screen, while the pilot hauls the rope.",

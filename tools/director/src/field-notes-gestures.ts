@@ -25,7 +25,9 @@ export const GESTURE_NOTES: Readonly<Record<string, string>> = {
     "Make it the generic PULL, with the direction a named field and one " + "arrow drawn for it.",
   "ROUND A CIRCLE":
     "Make every wheel use it — THE MAZE's string and THE WELL's wind still " + "turn by distance.",
-  "TRACING A PATH": "Keep; share THE FILAMENT's lit path with THE FLEET's rake.",
+  "TRACING A PATH":
+    "THE FILAMENT's alone now. Possibly a PULL along a drawn path with a " +
+    "tolerance off it — `docs/spec/ideas.md`, A pull along a path.",
   "TWO THUMBS ON ONE PHONE": "Keep. Each pointer by its own id.",
   "BOTH SEATS IN ONE WINDOW":
     "Make the together-mark generic: one ring on both screens that fills " +
