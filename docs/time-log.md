@@ -37531,3 +37531,5 @@ moment, and whether a splash or a snap *feels* right is only told at tempo.
 
 Bottleneck: reading — the vector pull was shared with THE LID, and deciding
 where the line falls between the two took longer than the change.
+
+*Measured: 207 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

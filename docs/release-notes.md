@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 97a87166f — The PULL LAB has no ROPE · ANY WAY
+
+The lab's rope that went any way, laid the way the hand went, is gone with the pull it stood for: THE WARDEN's tether is a DOWN now and is named on that shape. GRAB AND DRAG no longer opens the lab on the rope; PULL PAST A DISTANCE still opens it on DOWN. Every shape left has a path, so the OFF PATH switch reaches all of them.
+
+## 2026-10-10 · f80bada6a — THE WARDEN's rope runs one fixed path, straight down
+
+The rope no longer goes any direction. Only the hand's travel down the channel under the handle counts: across counts nothing, up is slack, and a diagonal counts its downward part. The handle stays in the column it was taken in and the channel stays put instead of turning after the hand. The director's PULL IN ANY DIRECTION WITH A ROPE card is gone; THE WARDEN'S THUMB moves to BOTH SEATS HOLDING AT ONCE, which is what it is. The menu's A HANDLE text says a rope goes one way. A look the owner asked for by name.
+
 ## 2026-10-10 · 429386ddb — GOO: four living-slime pull looks in the PULL LAB, built on OOZE
 
 The PULL LAB's LOOK picker now offers AS SHIPPED, OOZE and four looks of its own — JELLY, HONEY, ACID and TAR — and BEACON, COMET, SLIME and TENDON are gone from the tree, as the owner asked. None is cyan. Each is a real slime with a neon rim: lumps that creep, a teardrop lean into the pull, an uneven strand behind it kept quiet, and a few specks where it went, with no row of dots. Big glowing chevrons and a bold arrow say which way to pull. When counted, a glob falls onto the place and splashes. When it fails, the strand snaps, the drop spits red goo and crawls home, and after a count a fresh drop falls into the start. There is no word on the field. The lab opens with a one-tile tolerance either side of the path: the drop follows the hand anywhere inside it, the wall it nears heats red with a thread back to the middle, and both walls flash red when it leaves. JELLY has bubbles inside and wobbles hardest, HONEY drips, ACID fizzes and TAR is black with an oily sheen.
