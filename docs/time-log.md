@@ -37549,3 +37549,5 @@ where the line falls between the two took longer than the change.
 
 Bottleneck: landing — the trunk moved under a lane that touched every list
 of drag targets, so each list conflicted.
+
+*Measured: 217 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

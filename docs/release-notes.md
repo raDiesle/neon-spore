@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 01b8afb2c — SNAKE's screen: the boss fuse on top, big worded buttons, no CRASHED
+
+The name and the lines of text over SNAKE's arena are gone, and the fuse every boss wears burns down just above the arena instead. The four buttons are about twice the size and each says what it does: LEFT and RIGHT under a turn arrow, SHOOT and EAT under the head. A crash no longer puts a CRASHED banner over the arena, and the open mouth is see-through rather than black. Looks asked for by the owner by name.
+
+## 2026-10-10 · ce32d1fe9 — SNAKE has no hand on its body: EAT opens the mouth all round
+
+The ring on the snake's neck is gone, and so is what it did. Past ten tiles the jaws used to stick, EAT went dead and player 1 had to drag the mouth open on the neck; now EAT answers however long the body grows, and the four buttons on the band are the whole of the controls. The grip, its marks, its two events, its sound, its drag target, the director's rows and poses, and the frames tool's press went with it. Asked for by the owner by name.
+
 ## 2026-10-10 · 97a87166f — The PULL LAB has no ROPE · ANY WAY
 
 The lab's rope that went any way, laid the way the hand went, is gone with the pull it stood for: THE WARDEN's tether is a DOWN now and is named on that shape. GRAB AND DRAG no longer opens the lab on the rope; PULL PAST A DISTANCE still opens it on DOWN. Every shape left has a path, so the OFF PATH switch reaches all of them.
