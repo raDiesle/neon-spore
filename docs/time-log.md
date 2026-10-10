@@ -37465,3 +37465,5 @@ Bottleneck: none worth the name — a list filter and its test.
 
 Bottleneck: picking a frame per helper that actually shows it — a gallery pose
 named for a state often holds the helper too small, or not at all.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · d6c7f41b1 — CONTROLS › HELPERS lists every picture the field draws to explain rather than to be touched
+
+A fourth tab under DOCUMENTATION › CONTROLS, beside ON THE FIELD and in its shape: twenty-two helpers in five groups — the siren, the strip, the torch and magnet alarms; the scanner box and what each seat sees in it, THE SEARCH for a body one screen cannot see, NEXT TO FALL; the gunsight, EMBER and the colour it does not know, EMBER on the fire button; the words and counts on a body; the halo, clock, hold mark and green arc on a boss's part. Each row is a real frame drawn as the screen that is shown the helper, with where it stands, whose screen, what it says and the render file behind it. It restores at `?sheet=states&inner=controlsets&sub=helpers`.
+
 ## 2026-10-10 · e87694996 — PULL:HANDLE is off the VERSUS list; the PULL LAB is where it is judged
 
 The owner does not need the pull handle's looks on the VERSUS page — the PULL LAB under CONTROLS › ON THE FIELD plays every one of them on every shape. The list leaves the slot off and says in one line where it is judged; its candidates stay open, and the lab still finds all five.
