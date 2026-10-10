@@ -43,7 +43,7 @@ const clamp01 = (v: number): number => Math.max(0, Math.min(1, v));
  * Off the **wave's** beat rather than off `boss.releaseBeat`, and that is not
  * a detail: `spitCycle` drops a torch on `waveBeat % ROCK_CYCLE === 0`, so the
  * wave's own clock is where the rule lives and reading the last release would
- * be a second copy of it — one that says nothing at all for the eight beats
+ * be a second copy of it — one that says nothing at all for the ten beats
  * before the first torch has ever gone, which is exactly when a pair is first
  * learning to read this.
  *

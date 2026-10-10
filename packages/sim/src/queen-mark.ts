@@ -31,19 +31,26 @@ import type { World } from "./world.js";
  * Beats between one scripted rock and the next. Fixed for the whole fight —
  * not tied to her phase or her health, so it is one thing the pair can learn
  * once and rely on from her very first beat to her last. Owned here, not
- * `boss.ts`: the mark's own timing is derived from it (`ROCK_MID`), and
+ * `boss.ts`: the mark's own timing is derived from it (`MARK_OPEN`), and
  * `boss.ts` imports it back for the rock clock itself (`spitCycle`).
  */
-export const ROCK_CYCLE = 8;
+export const ROCK_CYCLE = 10;
 
 /**
- * The beat, within a rock cycle, the mark opens on — exactly halfway between
- * one rock landing and the next. `announce` derives the announce beat from
+ * The beat, within a rock cycle, the mark opens on — four beats after a rock
+ * breaks off, as it always was. `announce` derives the announce beat from
  * this and a phase's own `tell`, so the open beat itself never moves: only
  * how much warning it gets does. A pair is never asked to answer a rock and
  * take the mark in the same beat.
+ *
+ * **Not the middle any more.** The cycle was eight and this was its half;
+ * the owner found her too hard on 10 October 2026 and asked for a longer
+ * window on the mark *and* more time after it before the next torch falls.
+ * So the cycle grew by two and the open beat stayed: one beat went to the
+ * window (`openBeats` 2 → 3 for CROWN and BROOD), one to the gap after it —
+ * a shut mark is now three beats from the next drop rather than two.
  */
-const ROCK_MID = ROCK_CYCLE / 2;
+const MARK_OPEN = 4;
 
 /**
  * The three phases, tightening the mark's telegraph as she loses petals.
@@ -52,7 +59,7 @@ const ROCK_MID = ROCK_CYCLE / 2;
  * choreography and not in `SimConfig`.
  *
  * There used to be a `cycle` here too, a phase's own announce-to-announce
- * spacing. It is gone: the mark now always opens at `ROCK_MID`, so only
+ * spacing. It is gone: the mark now always opens at `MARK_OPEN`, so only
  * `tell` and `openBeats` are still a phase's to set.
  */
 /**
@@ -85,8 +92,8 @@ export interface Phase {
  * keeps it from doing so (`holdBloom`), up to `queenHoldBeats` in all.
  */
 export const PHASES: readonly Phase[] = [
-  { above: 7, tell: 2, openBeats: 2, gesture: "shoot" },
-  { above: 4, tell: 2, openBeats: 2, gesture: "pry" },
+  { above: 7, tell: 2, openBeats: 3, gesture: "shoot" },
+  { above: 4, tell: 2, openBeats: 3, gesture: "pry" },
   { above: 0, tell: 1, openBeats: 1, gesture: "hold" },
 ];
 
@@ -204,7 +211,7 @@ export function holdBloom(world: World, boss: QueenState, queen: Creature): void
  */
 export function announce(world: World, boss: QueenState, queen: Creature, plan: Phase): void {
   if (boss.openBeat !== -1) return;
-  if (world.waveBeat % ROCK_CYCLE !== ROCK_MID - plan.tell) return;
+  if (world.waveBeat % ROCK_CYCLE !== MARK_OPEN - plan.tell) return;
   boss.tellCol = queen.col;
   boss.openBeat = world.beat + plan.tell;
   boss.closeBeat = boss.openBeat + plan.openBeats;

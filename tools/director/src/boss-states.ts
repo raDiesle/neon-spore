@@ -23,7 +23,7 @@ export type BossKind = BossEntry["kind"];
  * thirty-fourth boss cannot land without a row.
  */
 const BY_HAND: Partial<Record<BossKind, readonly string[]>> = {
-  // Armoured and still, then a bloom for two beats, and every eight a torch
+  // Armoured and still, then a bloom for three beats, and every ten a torch
   // out of one wing (`queen-mark.ts`, `queen-torch.ts`). Under BROOD the
   // bloom is pried open by player 1's thumb, under SCREAM it is held open
   // by it (`queen-hand.ts`) — two states the look lane owes a pose.

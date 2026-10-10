@@ -37618,3 +37618,16 @@ Bottleneck: the looking — a plug half out only reads once the socket and
 its wires show round the button, and that took three frames to find.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — BULB QUEEN: a longer window on the mark, more time before the torch
+
+- reading: 5 min. `queen-mark.ts`, `boss.ts`, the timing table in §11.0 and
+  everywhere a player reads *eight beats*.
+- writing: 5 min. The cycle, the window, the hold cap, five sim tests and the
+  words on six pages.
+- looking: 5 min. A probe over the film's world, beat by beat, on both clocks.
+- friction: 5 min. The film's shot never landed on either clock; queued.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the film — the only thing timed to the old clock by hand, and it
+had to be run on both clocks to see that nothing in it had changed meaning.

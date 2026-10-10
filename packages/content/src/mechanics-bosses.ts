@@ -64,7 +64,7 @@ type BossId = Extract<
  */
 export const BOSS_MECHANICS = {
   queen: {
-    what: "Huge and armoured. Two marks under her middle, one real and one not. She opens for two beats, and every eight a torch drops out of one of her wings.",
+    what: "Huge and armoured. Two marks under her middle, one real and one not. She opens for three beats, and every ten a torch drops out of one of her wings.",
     reach: "spawn",
   },
   warden: {

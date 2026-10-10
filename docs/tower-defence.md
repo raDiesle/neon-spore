@@ -99,7 +99,7 @@ than in a footnote.
 | armour stripped before the body can be hurt | `shell` | two columns, one plate each, hidden colour underneath |
 | invulnerability phases on a clock | `throb` | only a shot while it is swollen lands |
 | camouflage — invisible to all but one answer | `lure` | and it is worse than camouflage: shooting it costs the hull |
-| a boss that spawns | `queen` | drops a torch out of a socket every eight beats |
+| a boss that spawns | `queen` | drops a torch out of a socket every ten beats |
 | a boss with a moving weak point | `warden` | the hole slides, the core stands in it two beats |
 | a body answered by hand rather than by a weapon | `tether` | dragged aside by the pilot |
 

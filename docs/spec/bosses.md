@@ -210,7 +210,7 @@ Nothing, as of 17 September 2026. See the contents above.
 
 ## 11.0 The Bulb Queen — armoured everywhere but the mark
 
-> The one where she opens for two beats, and drops a torch on a clock of its
+> The one where she opens for three beats, and drops a torch on a clock of its
 > own.
 
 A huge, armoured, low-slung body of her own shape. She paces the top of the
@@ -258,17 +258,20 @@ contours sampled through `blobRadiusMul` and blended vertex by vertex, so it
 genuinely rounds up or flattens out rather than one picture dissolving over
 another.
 
-**The bloom always opens exactly halfway between one torch release and the
-next**, never on top of one. A pair is never asked to defend the hull and
+**The bloom always opens four beats after one torch release, and shuts
+three beats before the next**, never on top of one. The cycle was eight and
+the bloom opened at its half, two beats each side; on 10 October 2026 the
+owner found her too hard and asked for a longer window and more room after
+it, so the cycle is ten, the window three and the gap after it three. A pair is never asked to defend the hull and
 take the mark in the same beat — that would not be a harder fight, it would
 be two fights at once. Only how much warning the bloom gives (`tell`) tightens
 with her phase; the timing itself never moves:
 
 | Phase | While petals are above | Tell | Open | Gesture |
 |---|---|---|---|---|
-| CROWN | 7 | 2 beats | 2 beats | shoot |
-| BROOD | 4 | 2 beats | 2 beats | pry |
-| SCREAM | 0 | 1 beat | 1 beat, held to 4 | hold |
+| CROWN | 7 | 2 beats | 3 beats | shoot |
+| BROOD | 4 | 2 beats | 3 beats | pry |
+| SCREAM | 0 | 1 beat | 1 beat, held to 6 | hold |
 
 **Three phases, three gestures** (18 September 2026, the owner's ask that a
 boss change state more than once and not answer to one gesture on the panel
@@ -280,14 +283,14 @@ talking:
 
 - **BROOD — pry.** She announces as before and then does not open: the real
   mark stays armoured until player 1 presses it, and opens for the phase's
-  two beats from that press. Player 2 says which; player 1 says the colour;
+  three beats from that press. Player 2 says which; player 1 says the colour;
   player 2 fires. A press on the *other* mark is a flinch — she shuts on the
   next beat with nothing fired, and says so (`queenFlinch`). That is the one
   punishment a miss has now that it did not have before, and a window nobody
   pried is a miss like any other.
 - **SCREAM — hold.** One beat of tell, and she opens by herself — for one
   beat only, unless player 1's thumb is already on the real mark, in which
-  case she stands open for as long as it stays, up to `queenHoldBeats` (4)
+  case she stands open for as long as it stays, up to `queenHoldBeats` (6)
   from the opening. Lifting shuts her on the next beat. Player 2 calls the
   side during the tell so the thumb is there when it opens.
 
@@ -333,7 +336,7 @@ the thumb, and a desk press on a mark is signed player 1's
 beat before the window shuts is not a second one. *Never watched at tempo.*
 
 **Her torches are on their own clock, not tied to the bloom or her health.**
-Every 8 beats, from her first beat to her last, the torch riding one of her
+Every 10 beats, from her first beat to her last, the torch riding one of her
 wings — the side drawn 2 beats ahead of the drop, so there is time to see it
 coming — is pushed out of its socket and stands still for the beat, which is
 the beat the picture hands over from the egg to the creature. From the next

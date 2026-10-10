@@ -153,8 +153,8 @@ export function drawQueen(
  * question on both screens at once. This asks only "is a drop pending" —
  * which is every beat except the one a torch just broke off on.
  *
- * That span is the whole rock cycle, `ROCK_CYCLE` beats (8, at the default
- * 96 bpm five seconds — longer than a spoken sentence, so the telegraph has
+ * That span is the whole rock cycle, `ROCK_CYCLE` beats (10, at the default
+ * 96 bpm six and a quarter seconds — longer than a spoken sentence, so the telegraph has
  * room to be said out loud). It needs no field of its own: `boss.releaseBeat`
  * already marks the one beat a cycle the tremor has to sit out, and this is a
  * pure function of it, so there is nothing for `Effects.reset()` to clear.

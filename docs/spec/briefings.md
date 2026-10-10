@@ -138,7 +138,7 @@ the two can be compared by opening the wave.
 | 5 | **The push** | the shield sends a creature back up once and never kills it; the rim goes red and the body carries ONE LAST CHANCE | p1 triggers, p2 shoots it on its second fall | 9 · ONE LAST CHANCE |
 | 6 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 15 · SALVAGE |
 | 7 | **The lock** | player 1's hand on a body steers every shot into it, from whatever column the cannon is in; it says nothing about the colour | p1 holds and keeps the cannon on the pod, p2 fires the colour | 16 · CATCH AND AIM |
-| 8 | **The queen** | two marks, one real; she opens for two beats; a torch drops every eight | p1 sees *what*, p2 sees *where* | 18 · BULB QUEEN |
+| 8 | **The queen** | two marks, one real; she opens for three beats; a torch drops every ten | p1 sees *what*, p2 sees *where* | 18 · BULB QUEEN |
 | 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 19 · THE MIRROR, 20 · THE MAZE, 21 · THE GAUGE, 22 · THE WARDEN, 31 · THE VANE |
 | 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the pods, the rock speed tiers | one guide each | 24 · THE LURE, 25 · THE THROB, 26 · THE COUNT, 27 · THE SHELL, 33 · THE PURGE, 34 · THE WARD |
 

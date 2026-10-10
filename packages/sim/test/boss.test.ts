@@ -87,7 +87,7 @@ test("she holds her row for sixty beats", () => {
   expect(queen.fromRow).toBe(CFG.queenRow);
 });
 
-test("her first bloom is announced on beat 2, opens on 4 and closes on 6 — the exact midpoint of the 8-beat rock cycle, and a miss spits no rock", () => {
+test("her first bloom is announced on beat 2, opens on 4 and closes on 7 — three beats open, three short of the 10-beat rock cycle's next drop, and a miss spits no rock", () => {
   const world = install();
 
   runTo(world, beatTick(2) + 1);
@@ -102,24 +102,27 @@ test("her first bloom is announced on beat 2, opens on 4 and closes on 6 — the
   expect(queenOf(world).color).toBe("cyan");
 
   runTo(world, beatTick(6) + 1);
+  expect(queenOf(world).color).toBe("cyan");
+
+  runTo(world, beatTick(7) + 1);
   expect(queenOf(world).color).toBeNull();
   // A missed bloom is not a punishment here — her rocks are their own thing,
   // on `spitCycle`'s clock, and none of that clock has fired yet.
   expect(world.creatures.some((c) => c.kind === "torch")).toBe(false);
 });
 
-test("every bloom opens exactly halfway between one rock release and the next, never on top of one", () => {
+test("every bloom opens four beats after one rock release and shuts three before the next, never on top of one", () => {
   const world = install();
   let sawOne = false;
   for (let beat = 1; beat <= 100; beat++) {
     runTo(world, beatTick(beat));
     if (queenOf_(world).openBeat !== beat) continue;
     sawOne = true;
-    // A rock releases on every multiple of 8 (`spitCycle`'s clock); the open
-    // beat must sit exactly 4 beats past the one before it, and 4 beats short
-    // of the one after — never coincide with either.
-    const sinceLastRock = beat % 8;
-    expect(sinceLastRock).toBe(4);
+    // A rock releases on every multiple of 10 (`spitCycle`'s clock); the open
+    // beat must sit exactly 4 beats past the one before it, and the close 3
+    // beats short of the one after — never coincide with either.
+    expect(beat % 10).toBe(4);
+    expect(10 - (queenOf_(world).closeBeat % 10)).toBe(3);
   }
   expect(sawOne).toBe(true);
 });
@@ -175,9 +178,9 @@ test("she is the only thing on the field — no runt ever joins her", () => {
   expect(world.creatures.every((c) => c.kind === "queen" || c.kind === "torch")).toBe(true);
 });
 
-test("her rocks land on a fixed 8-beat cycle, from her first beat, regardless of health", () => {
+test("her rocks land on a fixed 10-beat cycle, from her first beat, regardless of health", () => {
   const world = install();
-  runTo(world, beatTick(8));
+  runTo(world, beatTick(10));
 
   const queen = queenOf(world);
   const rocks = world.creatures.filter((c) => c.kind === "torch");
@@ -194,8 +197,8 @@ test("her rocks land on a fixed 8-beat cycle, from her first beat, regardless of
 
   // The cycle repeats untouched by anything that happened in between — the
   // first rock has long since fallen (it is the fastest kind there is), and
-  // a fresh one lands exactly 8 beats after it.
-  runTo(world, beatTick(16));
+  // a fresh one lands exactly 10 beats after it.
+  runTo(world, beatTick(20));
   const second = world.creatures.filter((c) => c.kind === "torch");
   expect(second.length).toBe(1);
   expect(second[0]!.fromRow).toBe(queenOf(world).row);
@@ -203,7 +206,7 @@ test("her rocks land on a fixed 8-beat cycle, from her first beat, regardless of
 
 test("what she releases falls at the torch's own speed, from the socket down", () => {
   const world = install();
-  runTo(world, beatTick(8));
+  runTo(world, beatTick(10));
   const queen = queenOf(world);
   const rock = world.creatures.find((c) => c.kind === "torch")!;
   const col = rock.col;
@@ -212,7 +215,7 @@ test("what she releases falls at the torch's own speed, from the socket down", (
   // or by as much of one as there is field left, since a rock's fall stops on
   // the ship's row rather than carrying it past (`beat.ts`) — and it has not
   // changed columns, because nothing of hers is under it.
-  runTo(world, beatTick(9));
+  runTo(world, beatTick(11));
   expect(rock.fromRow).toBe(queen.row);
   expect(rock.row).toBe(Math.min(queen.row + fallTilesPerBeat("torch"), hullRow(CFG)));
   expect(rock.col).toBe(col);
@@ -239,7 +242,7 @@ test("a hit does not leave her frozen", () => {
   expect(queen.petals).toBe(BOSS.petals - 1);
 
   // One phase-0 cycle later she is announcing again, and she has moved.
-  runTo(world, beatTick(10));
+  runTo(world, beatTick(12));
   expect(queenOf_(world).tellCol).not.toBe(-1);
   expect(queen.col).not.toBe(hitCol);
 });

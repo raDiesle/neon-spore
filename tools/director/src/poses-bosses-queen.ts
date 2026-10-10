@@ -83,7 +83,7 @@ export const QUEEN_POSES: Pose[] = [
   bossPose(
     "queen",
     "torch",
-    "Every eight beats a torch drops out of a wing socket. P1 slides the cannon off its column; P2 fires at it.",
+    "Every ten beats a torch drops out of a wing socket. P1 slides the cannon off its column; P2 fires at it.",
     {
       crop: "tile",
       span: 9,
