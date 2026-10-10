@@ -37665,3 +37665,5 @@ the fix itself existed for every other core and only the table row was missing.
 
 Bottleneck: looking — the sheet's cells are too small to judge an ending, so it
 took a temporary frame-by-frame sheet to see any of them.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

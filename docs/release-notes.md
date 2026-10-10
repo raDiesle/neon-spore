@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · c3bde8be7 — PULL LAB: SINK's drop turns, one green tail, five endings that drain where they count
+
+The GOO looks follow the owner's notes on SINK: the drop keeps turning, the green ring of how far is gone, the pulled tail is one tail in green with small green specks, and a count is never carried home — a short green, then the drop is removed where it was counted and a fresh one wells up at the start. Five endings to choose from: SINK (a pool that swirls down its middle), STRAINER (through a drain grate), VORTEX (a whirlpool), WELL (a hole in the floor with depth) and FIZZ (boiled away into bubbles). A new bar choice draws every GOO drop flat or as a 3D ball whose surface rolls, and a thumb whose pull failed under it is no longer drawn until it lifts.
+
 ## 2026-10-10 · 5076cb713 — Queue: THE LAMPREY lets a bolt through its head while it is not reared
 
 ## 2026-10-10 · bea099e69 — THE LAMPREY's gullet stops a bolt and takes the hit where it is drawn
