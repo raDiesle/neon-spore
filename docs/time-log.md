@@ -37715,3 +37715,20 @@ Bottleneck: none worth the name — `pull-lab.ts` at its 250-line limit made a
 switch dearer than removing the disc, which the owner allowed.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — PULL LAB: FIZZ alone, SQUISH's splash on the field, specks that stay, RETRY and the entrance
+
+- reading: 10 min. The endings, `moment.ts`, the knob, socket and runway parts,
+  the strand's specks, and the lab's bar at its line limit.
+- writing: 30 min. Four endings and two tolerance switches out, `enter.ts`,
+  `paintPath`, `paintArrow`, `fieldSplash`, the specks by arc length, `born`,
+  RETRY, the sheet retimed for the half tile.
+- looking: 20 min. Frame grids of the entrance at 20 ms, the splash, a fresh
+  drop after a count, and AUTO's straying pull under the half tile.
+- friction: 10 min. AUTO's wander flashed the whole pull red under the half
+  tile, and the sheet's moments had to be retimed by reading its timeline.
+- landing: 5 min. The queue's Asks kept over its answer, `imports:sort`,
+  `check:fast`, `land`.
+
+Bottleneck: looking — every timing (the entrance, the splash's stay) was judged
+from stepped frames, which is slow but was the only way to see them.

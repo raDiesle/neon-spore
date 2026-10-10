@@ -13,8 +13,9 @@ import type { GooStyle } from "./style.js";
  * every GOO look at once, as the drop is (`drop-look.ts`):
  *
  * - **LEAN**: as it was — taken, it leans into the pull;
- * - **SQUISH**: pressed flat under the thumb, it springs up wobbling and a
- *   few drops of goo splash off it; pulled, it stretches and quivers;
+ * - **SQUISH**, the owner's pick: pressed flat under the thumb, it springs
+ *   up wobbling and a few drops of goo splash off it onto the field, where
+ *   they lie a while; pulled, it stretches and quivers;
  * - **LIFT**: taken, it rises off the floor towards the eye, a shadow
  *   opening under it and under its tail, and is set down when let go;
  * - **CHARGE**: taken, it lights from inside; pulled, light runs up its
@@ -73,12 +74,10 @@ export function underHeld(ctx: CanvasRenderingContext2D, h: Hold, style: GooStyl
   shadow(ctx, at, h.r, style.neon, up);
 }
 
-/** Over the held drop: SQUISH's splash and CHARGE's light from inside, both as it is taken. */
+/** Over the held drop: the light from inside SQUISH and CHARGE as it is taken. */
 export function overHeld(ctx: CanvasRenderingContext2D, h: Hold, style: GooStyle): void {
-  if (GOO_GRAB.kind === "squish") {
-    splash(ctx, h, style);
+  if (GOO_GRAB.kind === "squish")
     inner(ctx, h.at, h.r, style.neon, 0.35 * (1 - clamp01(h.grabbed / 0.25)));
-  }
   if (GOO_GRAB.kind === "charge")
     inner(ctx, h.at, h.r, style.neon, 0.6 * (1 - clamp01(h.grabbed / 0.35)));
 }
@@ -171,29 +170,42 @@ function inner(ctx: CanvasRenderingContext2D, at: Point, r: number, color: strin
   ctx.restore();
 }
 
-/** Seconds SQUISH's drops take to fly off and land. */
-const SPLASH = 0.4;
+/** SQUISH's splash: seconds its drops fly before they land, how long they lie on the
+ * field after, and how long they take to fade — the owner, 10 October 2026: *keeping
+ * the spashing on the field just a little bit longer*. */
+const FLY = 0.22;
+const LIE = 0.9;
+const FADE = 0.5;
 
-/** A few drops of goo thrown off the rim as the thumb presses, falling as they go. */
-function splash(ctx: CanvasRenderingContext2D, h: Hold, style: GooStyle): void {
-  const t = h.grabbed / SPLASH;
-  if (t >= 1) return;
+/**
+ * A few drops of goo thrown off the rim as the thumb presses, landing on the
+ * field round where it was taken and lying there flattened a while before
+ * they fade — drawn by the channel, under the drop, at the start, so they
+ * stay where they fell when the drop is pulled away.
+ */
+export function fieldSplash(
+  ctx: CanvasRenderingContext2D,
+  at: Point,
+  r: number,
+  style: GooStyle,
+  grabbed: number,
+): void {
+  if (GOO_GRAB.kind !== "squish" || grabbed >= FLY + LIE + FADE) return;
+  const fly = clamp01(grabbed / FLY);
+  const fade = 1 - clamp01((grabbed - FLY - LIE) / FADE);
   ctx.save();
   ctx.fillStyle = style.neon;
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 8; i++) {
     const a = hash(i * 4.1 + 2) * Math.PI * 2;
-    const out = 1 - (1 - t) ** 2;
-    const d = h.r * (1 + (0.5 + 0.7 * hash(i * 2.9)) * out);
-    const size = h.r * (0.06 + 0.07 * hash(i * 6.3)) * (1 - t);
-    ctx.globalAlpha = 0.9 * (1 - t);
+    const d = r * (1 + (0.5 + 0.8 * hash(i * 2.9)) * (1 - (1 - fly) ** 2));
+    const size = r * (0.06 + 0.07 * hash(i * 6.3));
+    const x = at.x + Math.cos(a) * d;
+    // In the air it arcs up and comes down; on the field it lies flat and spreads a little.
+    const y = at.y + Math.sin(a) * d - r * 0.5 * Math.sin(Math.PI * fly);
+    const flat = fly < 1 ? 1 : 1 + 0.4 * clamp01((grabbed - FLY) / 0.15);
+    ctx.globalAlpha = 0.85 * fade;
     ctx.beginPath();
-    ctx.arc(
-      h.at.x + Math.cos(a) * d,
-      h.at.y + Math.sin(a) * d + h.r * 0.5 * t * t,
-      size,
-      0,
-      Math.PI * 2,
-    );
+    ctx.ellipse(x, y, size * flat, (size / flat) * 0.85, a, 0, Math.PI * 2);
     ctx.fill();
   }
   ctx.restore();

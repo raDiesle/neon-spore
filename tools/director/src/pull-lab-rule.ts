@@ -55,8 +55,10 @@ export interface LabPull {
   from: { at: number; off: Point };
   /** Seconds since the last lift, whatever it came to. */
   lifted: number;
-  /** Seconds since the knob was last taken. */
+  /** Seconds since the knob was last taken; long ago for one never taken. */
   grabbed: number;
+  /** Seconds since this pull was put on the field: the lab opened, a shape picked, RETRY. */
+  born: number;
 }
 
 /** Seconds a verdict is shown before the knob is idle again. */
@@ -68,6 +70,8 @@ const SPRING = 14;
 const SPRING_FAILED = 3.2;
 /** Seconds a failed knob stays where it was let go before it goes home. */
 const FAILED_REST = 0.35;
+/** Seconds since a knob never taken was taken: long enough for anything taking it shows. */
+const NEVER = 60;
 /** Close enough to the end to be the whole way. */
 const FULL = 0.985;
 
@@ -88,7 +92,8 @@ export function freshPull(shape: LabShape): LabPull {
     last: null,
     from: { at: shape.origin, off: { x: 0, y: 0 } },
     lifted: 0,
-    grabbed: 0,
+    grabbed: NEVER,
+    born: 0,
   };
 }
 
@@ -176,6 +181,7 @@ export function tick(shape: LabShape, p: LabPull, dt: number): void {
   p.age += dt;
   p.lifted += dt;
   p.grabbed += dt;
+  p.born += dt;
   if (p.phase === "idle") p.rested += dt;
   if (p.verdict && p.since > VERDICT_SECONDS && p.phase !== "full") {
     p.verdict = null;

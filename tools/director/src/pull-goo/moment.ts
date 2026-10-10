@@ -10,16 +10,17 @@ import { clamp01 } from "./noise.js";
  *
  * A count is never carried home. The owner, 10 October 2026: *in game, after
  * pull we usually never move the pulled circle back to original position* —
- * so an ending is a short green moment and a quick removal where the drop
- * was counted, whether the hand is still on it or not, and a fresh drop
- * wells up at the start once the hand is off and the old one is gone.
+ * so an ending is a quick removal where the drop was counted, whether the
+ * hand is still on it or not, and a fresh drop comes in at the start once the
+ * hand is off — while the old one is still going, so the path comes in early
+ * (the owner, the same day: *the entering path animation must come earlier*).
  */
 
-/** Seconds a count's ending lasts: green, then gone from the place. */
-export const ENDING = 0.95;
-/** Of those, the seconds the green alone is shown before the drop starts to go. */
-export const GREEN = 0.3;
-/** Seconds a fresh drop takes to well up at the start. */
+/** Seconds a count's ending lasts: FIZZ, from the count to nothing left. */
+export const ENDING = 0.75;
+/** Seconds after a count a fresh drop may start to come in, the hand being off. */
+export const FRESH_AFTER = 0.45;
+/** Seconds a fresh drop takes to grow at the start (`enter.ts` has the rest). */
 export const SPAWN = 0.35;
 /** A failure: seconds it shudders where it was let go, is carried home, and settles. */
 export const FAIL_HOLD = 0.2;
@@ -46,6 +47,9 @@ export interface GooMoment {
   readonly near: number;
   /** Seconds since the drop was taken; long ago when the lab does not say. */
   readonly grabbed: number;
+  /** Seconds since a drop came in at the start — a fresh one after a count, or the
+   * first one on the field — and the path with it (`enter.ts`); long ago otherwise. */
+  readonly enter: number;
 }
 
 export function momentOf(
@@ -60,7 +64,7 @@ export function momentOf(
   const settled = (after?.rested ?? 1) > 0;
   const last = after?.last ?? null;
   const lifted = after?.lifted ?? 0;
-  const fresh = last === "counted" && !held ? Math.min(lifted, age - ENDING) : null;
+  const fresh = last === "counted" && !held ? Math.min(lifted, age - FRESH_AFTER) : null;
   let owner: Owner = "knob";
   // The ending keeps the drop until the fresh one has welled up and the knob is home under it.
   if (last === "counted" && !(settled && fresh !== null && fresh >= SPAWN)) owner = "ending";
@@ -78,5 +82,6 @@ export function momentOf(
     reach,
     near: held ? clamp01(1 - gap / (r * 0.5)) : 0,
     grabbed: after?.grabbed ?? 9,
+    enter: fresh !== null ? Math.max(0, fresh) : last === null ? (after?.born ?? 9) : 9,
   };
 }

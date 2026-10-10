@@ -4,6 +4,7 @@ import { VARIANTS } from "../../versus/candidates/index.js";
 import { GOO_DROP } from "../src/pull-goo/drop-look.js";
 import { GOO_GRAB, type Grab } from "../src/pull-goo/grab.js";
 import { GOO_LOOKS } from "../src/pull-goo/index.js";
+import { specks } from "../src/pull-goo/strand.js";
 import { autoThumb } from "../src/pull-lab-auto.js";
 import { labLooks, paintLab } from "../src/pull-lab-paint.js";
 import { freshPull, lift, move, press, tick } from "../src/pull-lab-rule.js";
@@ -74,6 +75,34 @@ describe("the GOO looks", () => {
     } finally {
       GOO_GRAB.kind = was.kind;
       GOO_DROP.ball = was.ball;
+    }
+  });
+
+  test("leave their specks where they fell, however the drop swings or goes on", () => {
+    const at: string[][] = [];
+    const record = (): CanvasRenderingContext2D => {
+      const seen: string[] = [];
+      at.push(seen);
+      return {
+        save() {},
+        restore() {},
+        beginPath() {},
+        fill() {},
+        ellipse: (x: number, y: number) => seen.push(`${x.toFixed(3)},${y.toFixed(3)}`),
+      } as unknown as CanvasRenderingContext2D;
+    };
+    for (const shape of LAB_SHAPES) {
+      at.length = 0;
+      const t = shape.track;
+      const origin = shape.origin;
+      const to = origin > 0 ? 0.1 : 0.7;
+      specks(record(), { t, origin, at: to, off: { x: 0, y: 0 } }, 14, 1);
+      specks(record(), { t, origin, at: to, off: { x: 12, y: -9 } }, 14, 1);
+      specks(record(), { t, origin, at: origin > 0 ? 0.05 : 0.9, off: { x: -8, y: 4 } }, 14, 1);
+      const [still, swung, on] = at as [string[], string[], string[]];
+      expect(still.length).toBeGreaterThan(2);
+      expect([shape.key, swung]).toEqual([shape.key, still]);
+      expect([shape.key, on.slice(0, still.length)]).toEqual([shape.key, still]);
     }
   });
 });

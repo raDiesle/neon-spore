@@ -33,11 +33,17 @@ import type { Stray } from "./pull-lab-stray.js";
  *   `PULL_TRACK`) — found by the records it patches, never by its slot's
  *   name — and the lab's own GOO looks (`pull-goo/`), the first picked when
  *   the lab opens; for those, a flat drop or a 3D ball (`drop-look.ts`);
- * - **a short pull**: refused red, or ignored (`pull-lab-rule.ts`);
- * - **a thumb off the path**: free, as today, or a failure past one tile or
- *   half a tile, with the band drawn (`Stray`) — half a tile when it opens.
  *
- * AUTO's thumb (`pull-lab-auto.ts`) plays a whole pull and a short one on a loop.
+ * A short pull is refused, red, and a thumb half a tile off the path fails:
+ * the owner's picks of the rule's answers (10 October 2026: *for the
+ * tolerance variants i prefer "short * red" so remove the others*, and
+ * before it *i prefer "off path * fails past 1/2 tile"*). The rule still
+ * knows the others (`pull-lab-rule.ts`, `pull-lab-stray.ts`).
+ *
+ * AUTO's thumb (`pull-lab-auto.ts`) plays a whole pull and a straying one on
+ * a loop. RETRY puts a fresh pull on the field, so the drop and its path are
+ * seen coming in (`pull-goo/enter.ts`) — the owner: *give me a retry button
+ * … so i can clearly see the appearing animation*.
  */
 
 /** Device pixels per lab pixel, at most: the knob's rim is a line of 1.6. */
@@ -47,8 +53,8 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
   let shape: LabShape = labShape(first);
   let pull: LabPull = freshPull(shape);
   let look: Variant | null = GOO_LOOKS[0] ?? null;
-  let short: ShortPull = "refuse";
-  let stray: Stray = "half";
+  const short: ShortPull = "refuse";
+  const stray: Stray = "half";
   let auto = true;
   let speed = 1;
   let time = 0;
@@ -93,6 +99,8 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     reset();
   };
   autoButton.addEventListener("click", () => setAuto(!auto));
+  const retry = text("button", "↻ RETRY");
+  retry.addEventListener("click", reset);
   const close = text("button", "✕");
   close.addEventListener("click", () => shut());
   bar.append(
@@ -118,28 +126,6 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     ...dropChoices(() => sheet && show()),
     choice(
       [
-        ["SHORT · RED", "refuse"],
-        ["SHORT · IGNORED", "ignore"],
-      ] as [string, ShortPull][],
-      short,
-      (v) => {
-        short = v;
-      },
-    ),
-    choice(
-      [
-        ["OFF PATH · FREE", "free"],
-        ["OFF PATH · FAILS PAST 1 TILE", "tile"],
-        ["OFF PATH · FAILS PAST ½ TILE", "half"],
-      ] as [string, Stray][],
-      stray,
-      (v) => {
-        stray = v;
-        reset();
-      },
-    ),
-    choice(
-      [
         ["1×", 1],
         ["½×", 0.5],
         ["¼×", 0.25],
@@ -150,6 +136,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
       },
     ),
     autoButton,
+    retry,
     sheetButton,
     readout,
     close,
@@ -196,7 +183,8 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
   const drive = (dt: number): void => {
     const was = thumb?.down ?? false;
     autoTime += dt;
-    thumb = autoThumb(shape, autoTime, stray !== "free");
+    // Its second pull strays: the half tile catches it.
+    thumb = autoThumb(shape, autoTime, true);
     if (thumb.down && !was) press(shape, pull, thumb.at);
     if (thumb.down) move(shape, pull, thumb.at, stray);
     if (!thumb.down && was) lift(shape, pull, short);

@@ -1,9 +1,7 @@
 import { PULL_KNOB, PULL_TRACK } from "@neon-spore/render";
 import { patch, type Variant } from "../../../versus/variant.js";
 import type { Ending } from "./ending.js";
-import { FIZZ, WELL } from "./endings-deep.js";
-import { SINK, STRAINER } from "./endings-drain.js";
-import { VORTEX } from "./endings-whirl.js";
+import { FIZZ } from "./fizz.js";
 import { gooKnob } from "./knob.js";
 import { GOO } from "./style.js";
 import { gooTrack } from "./track.js";
@@ -18,9 +16,10 @@ import { gooTrack } from "./track.js";
  * A failure slurped home by its own tail. And the owner's notes on those
  * (10 October 2026, on SINK): no ring of how far, one green tail, the drop
  * turning — and endings that are a short green and a quick removal where
- * the drop was counted, never a trip home: SINK, STRAINER, VORTEX, WELL and
- * FIZZ, the one thing that differs between these looks. The drop itself is
- * flat or a 3D ball, on the lab's bar (`drop-look.ts`).
+ * the drop was counted, never a trip home. Of the five endings offered —
+ * SINK, STRAINER, VORTEX, WELL and FIZZ — the owner kept FIZZ (`fizz.ts`).
+ * The drop itself is flat or a 3D ball, and how it is grabbed one of four,
+ * on the lab's bar (`drop-look.ts`, `grab.ts`).
  *
  * They live with the lab and nowhere else — the owner: *not on "versus" page
  * but this page* — so the VERSUS registry never lists them. Each is still a
@@ -50,5 +49,5 @@ function gooLook(ending: Ending): Variant {
   };
 }
 
-/** FIZZ first, the owner's pick of the five (10 October 2026), so the lab opens on it. */
-export const GOO_LOOKS: readonly Variant[] = [FIZZ, SINK, STRAINER, VORTEX, WELL].map(gooLook);
+/** FIZZ alone, the owner's pick of the five endings (10 October 2026). */
+export const GOO_LOOKS: readonly Variant[] = [FIZZ].map(gooLook);

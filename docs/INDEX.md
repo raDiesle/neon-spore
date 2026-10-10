@@ -3831,10 +3831,9 @@ by hand never moves.
 | `tools/director/src/pull-goo/scene.ts` | What an ending and a failure are drawn from: the track, the drop's size |
 | `tools/director/src/pull-goo/track.ts` | **The channel of a GOO look**: everything round the drop |
 | `tools/director/src/pull-goo/ending.ts` | **How a count ends** — what tells one GOO look from another |
-| `tools/director/src/pull-goo/endings-deep.ts` | Two GOO endings that take the drop out of the field rather than across it: WELL |
-| `tools/director/src/pull-goo/endings-drain.ts` | Two GOO endings that drain the drop away where it was counted, flat on the field: SINK, the owner's pick |
-| `tools/director/src/pull-goo/endings-whirl.ts` | VORTEX, the GOO ending that winds the drop away where it was counted: a whirlpool of three arms |
+| `tools/director/src/pull-goo/enter.ts` | **How a drop and its path come onto the field** — the owner, 10 October 2026 |
 | `tools/director/src/pull-goo/fail.ts` | **A failure, short or off the path**: the owner, 10 October 2026, on SHORT · RED |
+| `tools/director/src/pull-goo/fizz.ts` | **FIZZ**, the drop boiling away into green bubbles that rise and pop |
 | `tools/director/src/pull-goo/parts.ts` | **What GOO keeps of OOZE**, the owner's base (10 October 2026) |
 | `tools/director/src/pull-goo/drop-look.ts` | **How every GOO drop is drawn**: as the flat slime SINK was picked in |
 | `tools/director/src/pull-goo/grab.ts` | **How a GOO drop is taken, and how it goes while it is pulled** — the owner, 10 October 2026 |

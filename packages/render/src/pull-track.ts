@@ -75,6 +75,8 @@ export interface PullAfter {
   readonly lifted?: number;
   /** Seconds since the knob was last taken. */
   readonly grabbed?: number;
+  /** Seconds since the knob was first put on the field. */
+  readonly born?: number;
 }
 
 /** The channel's half-width, as a share of the knob's radius: thin, so the knob is the control. */

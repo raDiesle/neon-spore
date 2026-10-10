@@ -122,6 +122,7 @@ function afterOf(pull: LabPull, reach: number | null): PullAfter {
     from: pull.from,
     lifted: pull.lifted,
     grabbed: pull.grabbed,
+    born: pull.born,
     ...(reach === null ? {} : { reach }),
   };
 }

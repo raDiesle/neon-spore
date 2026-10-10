@@ -1,6 +1,7 @@
 import type { Point } from "@neon-spore/content";
 import { PALETTE, type PullTrack, pullTrackPoint } from "@neon-spore/render";
 import { fbm, hash, mix } from "./noise.js";
+import { lengthOf } from "./parts.js";
 
 /**
  * **What is left behind the drop**: the tail it is pulled out of — JELLY's,
@@ -124,20 +125,24 @@ function runLength(run: Run): number {
 
 /**
  * Small green specks either side of the way the drop came, each where it
- * fell — tied to the distance along the path, so they never move once
- * dropped. Quiet: never brighter than the drop's own rim.
+ * fell — placed by the distance along the path from the start and off the
+ * path itself, never off the drop, so once dropped they do not move: not as
+ * the pull goes on, and not as the hand swings the drop from side to side
+ * (the owner, 10 October 2026: *the tail dot once drawn must not move*).
+ * Quiet: never brighter than the drop's own rim.
  */
 export function specks(ctx: CanvasRenderingContext2D, run: Run, r: number, alpha: number): void {
   if (alpha <= 0 || Math.abs(run.at - run.origin) < 0.005) return;
+  const len = lengthOf(run.t) || 1;
+  const came = Math.abs(run.at - run.origin) * len;
+  const sign = run.at > run.origin ? 1 : -1;
+  const gap = r * 0.75;
   ctx.save();
   ctx.fillStyle = PALETTE.good;
-  const a = pullTrackPoint(run.t, run.origin);
-  const b = pullTrackPoint(run.t, run.at);
-  const came = Math.hypot(b.x - a.x, b.y - a.y);
-  const gap = r * 0.75;
-  for (let i = 0; (i + 1) * gap < came - r; i++) {
-    const u = ((i + hash(i * 1.7)) * gap) / came;
-    const q = runPoint(run, u);
+  for (let i = 0; ; i++) {
+    const along = (i + hash(i * 1.7)) * gap;
+    if (along > came - r) break;
+    const q = pullTrackPoint(run.t, run.origin + (sign * along) / len);
     const side = (hash(i * 3.7 + 1) - 0.5) * 2 * r * 0.8;
     const size = r * (0.04 + 0.07 * hash(i * 5.3 + 2));
     ctx.globalAlpha = alpha * (0.3 + 0.35 * hash(i * 9.1));

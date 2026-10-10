@@ -18,21 +18,23 @@ import type { Stray } from "./pull-lab-stray.js";
 /** The moments, in seconds of AUTO's loop (`pull-lab-auto.ts`), and what each shows —
  * with the sheet's OFF PATH rule on, so its second pull strays (`SHEET_STRAY`). */
 export const MOMENTS: readonly { at: number; label: string }[] = [
-  { at: 0.55, label: "WAITING" },
+  { at: 0.3, label: "COMING IN" },
+  { at: 0.75, label: "WAITING" },
   { at: 1.6, label: "HELD · OFF THE MIDDLE" },
-  { at: 2.28, label: "COUNTED · GREEN" },
-  { at: 2.6, label: "COUNTED · GOING" },
-  { at: 2.88, label: "COUNTED · NEARLY GONE" },
-  { at: 3.2, label: "A FRESH DROP" },
-  { at: 5.17, label: "NEAR THE EDGE" },
-  { at: 5.24, label: "OFF THE PATH" },
-  { at: 5.6, label: "DRAGGED HOME" },
-  { at: 6.0, label: "SETTLING" },
+  { at: 2.2, label: "COUNTED · FIZZING" },
+  { at: 2.45, label: "COUNTED · BOILING AWAY" },
+  { at: 3.05, label: "A FRESH DROP COMING IN" },
+  { at: 3.5, label: "THE PATH IN" },
+  { at: 5.0, label: "NEAR THE EDGE" },
+  { at: 5.12, label: "OFF THE PATH" },
+  { at: 5.5, label: "DRAGGED HOME" },
+  { at: 5.85, label: "SETTLING" },
 ];
 
 const STEP = 1 / 60;
-/** The sheet's OFF PATH rule: one tile, so its second pull strays and the band is drawn. */
-export const SHEET_STRAY: Stray = "tile";
+/** The sheet's OFF PATH rule, the lab's: half a tile, so its second pull strays and
+ * the band is drawn. */
+export const SHEET_STRAY: Stray = "half";
 
 /** The pull as AUTO leaves it `seconds` into its loop, short pulls refused. */
 export function pullAt(

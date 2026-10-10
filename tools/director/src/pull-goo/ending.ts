@@ -1,21 +1,22 @@
 import type { Point } from "@neon-spore/content";
 import { PALETTE, smoothstep } from "@neon-spore/render";
-import { bodyPath, drop, type GooBody } from "./body.js";
+import { drop, type GooBody } from "./body.js";
 import { paintGoo } from "./drop-look.js";
-import { ENDING, GREEN, SPAWN } from "./moment.js";
-import { clamp01, settle } from "./noise.js";
+import { grown } from "./enter.js";
+import { paintArrow } from "./knob.js";
+import { ENDING, SPAWN } from "./moment.js";
+import { clamp01 } from "./noise.js";
+import { paintPath } from "./parts.js";
 import { homeward, type Scene } from "./scene.js";
 import { paintTail, specks, tailPath } from "./strand.js";
 
 /**
  * **How a count ends** — what tells one GOO look from another. The owner, 10
- * October 2026, on SINK: *give me more variants of animation when reaching
- * success. i am looking more for a short green success animation and then
- * some quick removal animation at this position, maybe like fluid flowing
- * away in drain strainer.* So every ending is the same two beats where the
- * drop was counted — green for `GREEN` seconds, then gone by `ENDING` — and
- * none of them carries it home: a fresh drop wells up at the start once the
- * old one is gone and the hand is off (`welling`).
+ * October 2026, on SINK: *i am looking more for a short green success
+ * animation and then some quick removal animation at this position*. So an
+ * ending plays where the drop was counted, gone by `ENDING`, and never
+ * carries it home: a fresh drop comes in at the start, its path with it, once
+ * the hand is off (`comingIn`). Of five endings the owner kept one, FIZZ.
  */
 export interface Ending {
   readonly name: string;
@@ -36,11 +37,8 @@ export function paintEnding(s: Scene, ending: Ending): void {
     paintTail(s.ctx, tailPath(short, s.r, s.time, 0.3 * pull), PALETTE.good, 0, 1 - 0.5 * pull);
   }
   if (e < ENDING) ending.play(s, e);
-  if (m.fresh !== null) welling(s, m.fresh);
+  if (m.fresh !== null) comingIn(s, m.fresh);
 }
-
-/** The removal's share, 0 while the green is shown and 1 when the drop is gone. */
-export const gone = (e: number): number => clamp01((e - GREEN) / (ENDING - GREEN));
 
 /** How green the drop is `e` seconds after the count: at once, and stays. */
 export const greenAt = (e: number): number => 0.9 * smoothstep(clamp01(e / 0.12));
@@ -62,52 +60,31 @@ export function paintDrop(s: Scene, b: GooBody, green: number, alpha = 1): void 
   paintGoo(s.ctx, b, s.style, s.time, { red: 0, green, alpha }, onward(s));
 }
 
-/**
- * The short green every ending opens with: the drop in the place, pressed
- * down by the count and springing back, green at once — a soft green light
- * under it and one ring rolling out. Endings that keep the drop longer draw
- * this and then their own removal.
- */
-export function cheer(s: Scene, e: number, extra: Partial<GooBody> = {}): void {
-  const press = 0.35 * Math.exp(-e * 7) * Math.cos(e * 22);
-  halo(s, s.place, s.r * 2.6, 0.5 * (1 - clamp01(e / 0.6)));
-  wave(s, s.place, e / 0.55, 1.9);
-  paintDrop(s, drop(intoPlace(s, e), s.r, { squash: 1 + press, ...extra }), greenAt(e));
-}
-
-/** A fresh drop welling up out of the start, `f` seconds in: from nothing, overshooting, still. */
-function welling(s: Scene, f: number): void {
-  const u = clamp01(f / SPAWN);
-  const grow = smoothstep(u);
-  const wobble = 0.3 * s.style.jiggle * settle(Math.max(0, f - SPAWN * 0.6), 7, 18);
-  const breathe = u >= 1 ? 0.07 * Math.sin(s.time * 3.4) : 0;
-  wave(s, s.home, f / 0.5, 1.2, s.style.neon);
-  paintGoo(
-    s.ctx,
-    drop(s.home, s.r * (0.2 + 0.8 * grow), { squash: 1 + wobble * grow + breathe }),
-    s.style,
-    s.time,
-    { red: 0, alpha: 0.3 + 0.7 * grow },
-  );
-}
-
-/** A ring rolling out of `at`, `u` 0..1 of its life, green unless told. */
-export function wave(
-  s: Scene,
-  at: Point,
-  u: number,
-  reach = 2,
-  color: string = PALETTE.good,
-): void {
-  if (u <= 0 || u >= 1) return;
-  const out = 1 - (1 - u) ** 2;
-  const { ctx, r } = s;
-  ctx.save();
-  ctx.strokeStyle = color;
-  ctx.globalAlpha = 0.85 * (1 - u);
-  ctx.lineWidth = r * 0.16 * (1 - u) + 0.3;
-  ctx.stroke(bodyPath({ at, r: r * (1.1 + reach * out), seed: 41 }, s.style, s.time));
-  ctx.restore();
+/** A fresh drop coming in at the start, `f` seconds in, and the path with it
+ * (`enter.ts`): the dots one after another, the place at the end, and the drop
+ * growing with its arrow — while the old one may still be boiling away. */
+function comingIn(s: Scene, f: number): void {
+  paintPath(s.ctx, s.t, s.r, s.style, {
+    origin: s.origin,
+    at: s.origin,
+    held: false,
+    time: s.time,
+    enter: f,
+  });
+  const g = grown(f);
+  if (g < 0.02) return;
+  const breathe = f >= SPAWN ? 0.07 * Math.sin(s.time * 3.4) : 0;
+  const rr = s.r * g;
+  paintGoo(s.ctx, drop(s.home, rr, { squash: 1 + breathe }), s.style, s.time, { red: 0 });
+  const q = homeward(s, 1);
+  const heads = s.origin > 0 && s.origin < 1 ? 2 : 1;
+  paintArrow(s.ctx, s.home, rr, s.style, {
+    dx: -q.dx,
+    dy: -q.dy,
+    heads,
+    held: false,
+    time: s.time,
+  });
 }
 
 /** A soft green light under `at`. */

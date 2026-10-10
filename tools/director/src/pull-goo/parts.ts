@@ -1,7 +1,15 @@
 import type { Point } from "@neon-spore/content";
 import { type PullTrack, pullTrackPoint, smoothstep } from "@neon-spore/render";
-import { blob, dot, FULL, GHOST_RUN } from "../../../versus/candidates/pull-handle/ooze/goo.js";
+import {
+  blob,
+  dot,
+  FULL,
+  GHOST_RUN,
+  goals,
+  share,
+} from "../../../versus/candidates/pull-handle/ooze/goo.js";
 import { bodyPath } from "./body.js";
+import { dotIn, entering, placeIn } from "./enter.js";
 import type { GooStyle } from "./style.js";
 
 /**
@@ -46,36 +54,82 @@ export function call(
   ctx.restore();
 }
 
+/** How many dots a path has between its start and its end. */
+export function dotCount(t: PullTrack, r: number): number {
+  return Math.max(4, Math.round(lengthOf(t) / r)) - 1;
+}
+
 /** The dots from the drop to the end, the next one blinking while it is held, lit one
- * after another by the ghost while it waits. `came` is how far the drop has come. */
+ * after another by the ghost while it waits, and coming in one after another with a
+ * blink while the path comes in (`enter`, `enter.ts`). `came` is how far the drop has come. */
 export function runway(
   ctx: CanvasRenderingContext2D,
   t: PullTrack,
   r: number,
   style: GooStyle,
-  o: { origin: number; goal: 0 | 1; came: number; held: boolean; time: number },
+  o: { origin: number; goal: 0 | 1; came: number; held: boolean; time: number; enter: number },
 ): void {
-  const n = Math.max(4, Math.round(lengthOf(t) / r));
+  const dots = dotCount(t, r);
   const ghostAt = smoothstep((o.time / GHOST_RUN) % 1);
   ctx.save();
-  for (let i = 1; i < n; i++) {
-    const along = i / n;
+  for (let i = 1; i <= dots; i++) {
+    const along = i / (dots + 1);
     if (along <= o.came + 1e-6 && o.came > 0.01) continue;
+    const come = dotIn(i, dots, o.enter);
+    if (!come) continue;
     const q = pullTrackPoint(t, o.origin + (o.goal - o.origin) * along);
-    let lit = 0;
-    if (!o.held && along <= ghostAt) lit = Math.max(0, 1 - (ghostAt - along) * 3.2);
-    if (o.held && along - o.came < 1 / n + 1e-6) lit = 0.5 + 0.5 * Math.sin(o.time * 12);
+    let lit = come.blink;
+    if (!o.held && along <= ghostAt && !entering(o.enter))
+      lit = Math.max(lit, 1 - (ghostAt - along) * 3.2);
+    if (o.held && along - o.came < 1 / (dots + 1) + 1e-6)
+      lit = Math.max(lit, 0.5 + 0.5 * Math.sin(o.time * 12));
     ctx.fillStyle = style.neon;
     if (lit > 0.3) {
       ctx.globalAlpha = 0.22 * lit;
-      dot(ctx, q, r * 0.5);
+      dot(ctx, q, r * 0.5 * come.size);
     }
     ctx.fillStyle = lit > 0.05 ? style.neon : style.core;
     ctx.globalAlpha = 0.35 + 0.65 * lit;
-    blob(ctx, q, r * (0.14 + 0.1 * lit), o.time + along * 7);
+    blob(ctx, q, r * (0.14 + 0.1 * lit) * come.size, o.time + along * 7);
     ctx.fill();
   }
   ctx.restore();
+}
+
+/** The path ahead of a drop at `at` along the track: the dots, the place at each end it
+ * may go to, and the ghost while it waits — each coming in as `enter` says. */
+export function paintPath(
+  ctx: CanvasRenderingContext2D,
+  t: PullTrack,
+  r: number,
+  style: GooStyle,
+  o: { origin: number; at: number; held: boolean; time: number; enter: number },
+): void {
+  const ends = goals(o.origin, o.at);
+  let p = 0;
+  for (const g of ends) p = Math.max(p, share(o.origin, o.at, g));
+  const waiting = !o.held && p < 0.01;
+  const dots = dotCount(t, r);
+  for (const g of ends) {
+    const came = share(o.origin, o.at, g);
+    runway(ctx, t, r, style, {
+      origin: o.origin,
+      goal: g,
+      came,
+      held: o.held,
+      time: o.time,
+      enter: o.enter,
+    });
+    socket(ctx, pullTrackPoint(t, g), r, style, {
+      came,
+      waiting,
+      time: o.time,
+      enter: o.enter,
+      dots,
+    });
+    if (waiting && !entering(o.enter))
+      ghost(ctx, t, r, style, { origin: o.origin, goal: g, time: o.time });
+  }
 }
 
 /** A see-through drop running the whole pull, from the start to the place it goes. */
@@ -103,28 +157,32 @@ export function ghost(
 
 /**
  * The place the drop goes: OOZE's turning dashed drop, filling as the drop
- * nears and for a moment each time the ghost arrives.
+ * nears and for a moment each time the ghost arrives, popping in with a blink
+ * after the last dot while the path comes in (`enter.ts`).
  */
 export function socket(
   ctx: CanvasRenderingContext2D,
   q: Point,
   r: number,
   style: GooStyle,
-  o: { came: number; waiting: boolean; time: number },
+  o: { came: number; waiting: boolean; time: number; enter: number; dots: number },
 ): void {
   if (o.came >= FULL) return;
+  const come = placeIn(o.dots, o.enter);
+  if (!come) return;
   const run = (o.time / GHOST_RUN) % 1;
-  const arrive = o.waiting ? Math.max(0, (run - 0.8) / 0.2) : 0;
-  const lit = Math.max(o.came, arrive);
+  const arrive = o.waiting && !entering(o.enter) ? Math.max(0, (run - 0.8) / 0.2) : 0;
+  const lit = Math.max(o.came, arrive, come.blink);
+  const rr = r * Math.max(0.01, come.size);
   ctx.save();
   ctx.fillStyle = style.body;
   ctx.globalAlpha = 0.35 + 0.4 * lit;
-  blob(ctx, q, r, o.time * 0.6);
+  blob(ctx, q, rr, o.time * 0.6);
   ctx.fill();
-  ctx.setLineDash([r * 0.32, r * 0.24]);
-  ctx.lineDashOffset = -o.time * r * 1.2;
+  ctx.setLineDash([rr * 0.32, rr * 0.24]);
+  ctx.lineDashOffset = -o.time * rr * 1.2;
   ctx.strokeStyle = style.neon;
-  ctx.lineWidth = r * 0.1;
+  ctx.lineWidth = rr * 0.1;
   ctx.globalAlpha = 0.55 + 0.45 * lit;
   ctx.stroke();
   ctx.restore();
