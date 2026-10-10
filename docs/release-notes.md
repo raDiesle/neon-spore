@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 1c8056cfe — ON THE FIELD says where you are while you read it
+
+DOCUMENTATION › CONTROLS › ON THE FIELD is now five numbered parts — DECISIONS, WHAT THE FIELD ANSWERS, GESTURES THE GAME READS, NOT USED YET — IDEAS, THE RAW EVENTS — with the actions and idea groups nested under them in CONTENTS. A bar stands at the top of the page as you scroll, naming the part, section and control type you are in ("2 / 5 WHAT THE FIELD ANSWERS › GRAB AND DRAG › LEVER"), each a jump back to its heading, with ↑ CONTENTS beside them; the menu lights the row last read. Every other page with a CONTENTS menu gets the same bar, one crumb deep.
+
 ## 2026-10-10 · 32331e7d3 — THE GUM is taken out of the game, whole
 
 The owner asked for it gone on 10 October 2026: "please remove the gum from game - we have blister for that". Its simulation, drawing, splash, sound, wave and rehearsal, AUTO's swipe, director cards and pose are deleted rather than switched off, as THE HALTER's were; `git log -S gumSwiped` finds them. THE SURGE's burst threw gums, so it now throws three SWIPE blisters either seat may knock out with one stroke, two rows under the bulb so their bars clear its HOLD marks (`surgeBurstBlisters`, `surgeBlister`) — a look the owner asked for by name, in the removal. The sac contour THE WEIGHT shares stays, as `silhouettes-sac.ts`. The waves after act 5's gum move up one; the game has a hundred and twenty.

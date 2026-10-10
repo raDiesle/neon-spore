@@ -37252,3 +37252,5 @@ only the tests say which.
 
 Bottleneck: looking — a scroll-driven bar can only be judged in a pane that
 is in front, and the first one was not.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
