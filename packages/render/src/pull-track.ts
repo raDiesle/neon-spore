@@ -69,6 +69,10 @@ export interface PullAfter {
   readonly rested?: number;
   /** The last verdict given, kept after it stops being shown, until the next press. */
   readonly last?: "counted" | "refused" | null;
+  /** Where the knob was when that verdict was given: along the track, and off it. */
+  readonly from?: { readonly at: number; readonly off: Point };
+  /** Seconds since the last lift. */
+  readonly lifted?: number;
 }
 
 /** The channel's half-width, as a share of the knob's radius: thin, so the knob is the control. */

@@ -24,7 +24,23 @@ export interface GooBody {
   readonly shake?: number;
   /** How sharp the drawn-out end is: 3 a rounded lean, 10 a falling drop's tail. */
   readonly point?: number;
+  /** How far round its lumps have turned, in radians: a drop that rolls. */
+  readonly spin?: number;
+  /** Lobes standing out of the rim, `depth` of the radius: a drop in bloom. */
+  readonly petals?: { readonly n: number; readonly depth: number };
 }
+
+/** The seed every GOO drop is drawn with, so the one under the hand and the one an
+ * ending or a failure plays have the same lumps. */
+export const DROP_SEED = 11;
+
+/** The GOO drop at `at`, everything else as given. */
+export const drop = (at: Point, r: number, rest: Partial<GooBody> = {}): GooBody => ({
+  at,
+  r,
+  seed: DROP_SEED,
+  ...rest,
+});
 
 /** The contour, smoothed through the midpoints of its samples so it has no corner. */
 export function bodyPath(b: GooBody, style: GooStyle, time: number): Path2D {
@@ -36,11 +52,13 @@ export function bodyPath(b: GooBody, style: GooStyle, time: number): Path2D {
     const a = (i / n) * Math.PI * 2;
     const ca = Math.cos(a);
     const sa = Math.sin(a);
+    const turned = a - (b.spin ?? 0);
     const lump =
-      style.lumpy * lumps(a, time * style.creep, b.seed) +
-      (b.shake ?? 0) * lumps(a, time * 9, b.seed + 5);
+      style.lumpy * lumps(turned, time * style.creep, b.seed) +
+      (b.shake ?? 0) * lumps(turned, time * 9, b.seed + 5);
     const toward = Math.max(0, ca * lean.x + sa * lean.y);
-    const d = b.r * (1 + lump) * (1 + (b.stretch ?? 0) * toward ** (b.point ?? 3));
+    const petal = b.petals ? b.petals.depth * (0.5 + 0.5 * Math.cos(b.petals.n * turned)) ** 2 : 0;
+    const d = b.r * (1 + lump + petal) * (1 + (b.stretch ?? 0) * toward ** (b.point ?? 3));
     pts.push({ x: b.at.x + ca * d * sq, y: b.at.y + (sa * d) / sq + b.r * (1 - 1 / sq) });
   }
   const p = new Path2D();

@@ -20,12 +20,14 @@ import type { Stray } from "./pull-lab-stray.js";
 export const MOMENTS: readonly { at: number; label: string }[] = [
   { at: 0.55, label: "WAITING" },
   { at: 1.6, label: "HELD · OFF THE MIDDLE" },
-  { at: 2.17, label: "COUNTED · IT FALLS" },
-  { at: 2.42, label: "COUNTED · SPLASH" },
-  { at: 3.8, label: "A FRESH DROP" },
-  { at: 5.1, label: "NEAR THE EDGE" },
-  { at: 5.3, label: "OFF THE PATH" },
-  { at: 6.3, label: "GOING HOME" },
+  { at: 2.22, label: "COUNTED · ARRIVING" },
+  { at: 2.6, label: "COUNTED · IN THE PLACE" },
+  { at: 3.0, label: "LET GO · ON ITS WAY" },
+  { at: 3.4, label: "LET GO · NEARLY HOME" },
+  { at: 5.17, label: "NEAR THE EDGE" },
+  { at: 5.24, label: "OFF THE PATH" },
+  { at: 5.6, label: "DRAGGED HOME" },
+  { at: 6.0, label: "SETTLING" },
 ];
 
 const STEP = 1 / 60;

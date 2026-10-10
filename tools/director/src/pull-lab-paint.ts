@@ -121,6 +121,8 @@ function afterOf(pull: LabPull, reach: number | null): PullAfter {
     age: pull.age,
     rested: pull.rested,
     last: pull.last,
+    from: pull.from,
+    lifted: pull.lifted,
     ...(reach === null ? {} : { reach }),
   };
 }

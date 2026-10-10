@@ -206,12 +206,14 @@ describe("the EVERY LOOK sheet", () => {
     const want: Record<string, [string, string | null]> = {
       WAITING: ["idle", null],
       "HELD · OFF THE MIDDLE": ["held", null],
-      "COUNTED · IT FALLS": ["full", "counted"],
-      "COUNTED · SPLASH": ["full", "counted"],
-      "A FRESH DROP": ["idle", null],
+      "COUNTED · ARRIVING": ["full", "counted"],
+      "COUNTED · IN THE PLACE": ["full", "counted"],
+      "LET GO · ON ITS WAY": ["home", "counted"],
+      "LET GO · NEARLY HOME": ["home", "counted"],
       "NEAR THE EDGE": ["held", null],
       "OFF THE PATH": ["home", "strayed"],
-      "GOING HOME": ["home", null],
+      "DRAGGED HOME": ["home", "strayed"],
+      SETTLING: ["home", "strayed"],
     };
     for (const s of LAB_SHAPES) {
       for (const m of MOMENTS) {

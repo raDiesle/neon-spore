@@ -1,4 +1,3 @@
-import type { Point } from "@neon-spore/content";
 import {
   PULL_TRACK_W,
   type PullTrack,
@@ -6,131 +5,65 @@ import {
   pullTrackPoint,
 } from "@neon-spore/render";
 import { paintPullTrack } from "../../../../packages/render/src/pull-track.js";
-import { bodyPath } from "./body.js";
-import { drip, fizz } from "./fx.js";
-import { chevrons, paintBand } from "./guide.js";
-import {
-  DROP_IN,
-  droppingIn,
-  type GooMoment,
-  goals,
-  IMPACT,
-  momentOf,
-  redness,
-  SNAP,
-  share,
-} from "./moment.js";
-import { clamp01 } from "./noise.js";
-import { countSplash } from "./splash.js";
-import { paintStrand, specks, strandPath, strandPoint } from "./strand.js";
+import { goals, share } from "../../../versus/candidates/pull-handle/ooze/goo.js";
+import { edge } from "./border.js";
+import { type Ending, paintEnding } from "./ending.js";
+import { paintFailure } from "./fail.js";
+import { type GooMoment, momentOf } from "./moment.js";
+import { ghost, ring, runway, socket } from "./parts.js";
+import { sceneOf } from "./scene.js";
+import { paintTail, remains, tailPath } from "./strand.js";
 import type { GooStyle } from "./style.js";
 
 /**
- * **The channel of a GOO look**: everything round the drop. The band the
- * hand may wander in and its middle, the place the drop goes, the strand it
- * is pulled out of and the specks it leaves, the chevrons ahead — and the
- * splash when it is counted, the snap when it fails. The drop is `knob.ts`.
+ * **The channel of a GOO look**: everything round the drop. Waiting or held,
+ * OOZE's guides ahead of it — the dots to the end, the ghost, the turning
+ * place, the ring of how far — and behind it only its tail and the green it
+ * leaves; the red edge where its rim touches the limit. Counted or refused,
+ * the channel draws the drop itself, through the look's ending or the failure.
  */
-export function gooTrack(style: GooStyle) {
+export function gooTrack(style: GooStyle, ending: Ending) {
   return (ctx: CanvasRenderingContext2D, t: PullTrack, o: PullTrackDraw): void => {
     if (t.closed) {
       paintPullTrack(ctx, t, o);
       return;
     }
     const r = t.w / PULL_TRACK_W;
-    const m = momentOf(o.held, o.time, o.after);
-    const ends = goals(o.origin, o.at);
-    const q = pullTrackPoint(t, o.at);
-    const drop = { k: o.at, at: { x: q.x + m.off.x, y: q.y + m.off.y } };
-    let p = 0;
-    for (const g of ends) p = Math.max(p, share(o.origin, o.at, g));
+    const m = momentOf(o.held, o.time, o.after, r);
     ctx.save();
-    paintBand(ctx, t, m, r, style, drop);
-    if (m.counted === null)
-      for (const g of ends) place(ctx, pullTrackPoint(t, g), r, share(o.origin, o.at, g), style, m);
-    if ((m.held && m.counted === null) || (m.counted ?? 1) < IMPACT)
-      pulled(ctx, t, o, r, p, style, m);
-    else if (m.counted !== null || m.failed !== null) {
-      const fade = 1 - clamp01((m.counted ?? m.failed ?? 0) / 0.8);
-      if (fade > 0) specks(ctx, t, o, r, style, fade);
-    }
-    if (m.failed !== null && m.failed < SNAP) snapped(ctx, t, o, r, p, style, m);
-    const falling = (droppingIn(m) ?? DROP_IN) < DROP_IN;
-    if (m.counted === null && m.failed === null && !m.crawling && !falling)
-      for (const g of ends) chevrons(ctx, t, o.at, g, r, style, m);
-    if (m.counted !== null && ends.length === 1)
-      countSplash(ctx, pullTrackPoint(t, ends[0] as 0 | 1), r, m.counted, style, o.time);
+    if (m.owner === "ending") paintEnding(sceneOf(ctx, t, r, style, m, o.origin), ending);
+    else if (m.owner === "failure") paintFailure(sceneOf(ctx, t, r, style, m, o.origin));
+    else guides(ctx, t, o, r, style, m);
     ctx.restore();
   };
 }
 
-/** The place the drop goes: a lumpy dashed print of a drop, filling as the drop nears. */
-function place(
-  ctx: CanvasRenderingContext2D,
-  at: Point,
-  r: number,
-  came: number,
-  style: GooStyle,
-  m: GooMoment,
-): void {
-  const pulse = m.held ? 0 : 0.5 + 0.5 * Math.sin(m.time * 3.4);
-  const p = bodyPath({ at, r: r * 1.05, seed: 37 }, style, m.time * 0.5);
-  ctx.save();
-  ctx.fillStyle = style.body;
-  ctx.globalAlpha = 0.07 + 0.3 * came + 0.06 * pulse;
-  ctx.fill(p);
-  ctx.setLineDash([r * 0.3, r * 0.22]);
-  ctx.lineDashOffset = -m.time * r * 0.8;
-  ctx.strokeStyle = style.neon;
-  ctx.globalAlpha = 0.35 + 0.55 * came;
-  ctx.lineWidth = r * 0.09;
-  ctx.stroke(p);
-  ctx.restore();
-}
-
-/** While held: the strand, the specks behind it, and what the style hangs or boils off it. */
-function pulled(
+function guides(
   ctx: CanvasRenderingContext2D,
   t: PullTrack,
   o: PullTrackDraw,
   r: number,
-  p: number,
   style: GooStyle,
   m: GooMoment,
 ): void {
-  if (Math.abs(o.at - o.origin) < 0.005 && Math.hypot(m.off.x, m.off.y) < 1) return;
-  specks(ctx, t, o, r, style, 1);
-  paintStrand(
-    ctx,
-    strandPath(t, o, m.off, r, { from: 0, to: 1, seed: 3, p }),
-    style,
-    redness(m),
-    1,
-  );
-  for (const [i, u] of [0.3, 0.62].entries()) {
-    const s = strandPoint(t, o, m.off, u);
-    if (style.drips) drip(ctx, s, r * 0.7, o.time, 20 + i, style, 0.6);
-    if (style.fizz)
-      fizz(ctx, s, r * 0.7, o.time, { seed: 30 + i, n: 2, spread: r * 0.3, style, alpha: 0.5 });
+  const ends = goals(o.origin, o.at);
+  let p = 0;
+  for (const g of ends) p = Math.max(p, share(o.origin, o.at, g));
+  const waiting = !o.held && p < 0.01;
+  const run = { t, origin: o.origin, at: o.at, off: m.off };
+  const moved = Math.abs(o.at - o.origin) > 0.005 || Math.hypot(m.off.x, m.off.y) > 1;
+  if (o.held && moved) {
+    remains(ctx, run, r, 1);
+    paintTail(ctx, tailPath(run, r, o.time, 0.4 * m.near), style, 0.6 * m.near, 1);
   }
-}
-
-/** Failed: the strand breaks at its waist and whips back into its two ends. */
-function snapped(
-  ctx: CanvasRenderingContext2D,
-  t: PullTrack,
-  o: PullTrackDraw,
-  r: number,
-  p: number,
-  style: GooStyle,
-  m: GooMoment,
-): void {
-  if (Math.abs(o.at - o.origin) < 0.01) return;
-  const e = 1 - (1 - clamp01((m.failed ?? 0) / SNAP)) ** 2;
-  const reach = 0.5 * (1 - e);
-  const red = redness(m);
-  const a = strandPath(t, o, m.off, r, { from: 0, to: reach, seed: 3, p, pinch: "to" });
-  const b = strandPath(t, o, m.off, r, { from: 1 - reach, to: 1, seed: 3, p, pinch: "from" });
-  paintStrand(ctx, a, style, red, 1 - e * 0.5);
-  paintStrand(ctx, b, style, red, 1 - e * 0.5);
+  for (const g of ends) {
+    const came = share(o.origin, o.at, g);
+    runway(ctx, t, r, style, { origin: o.origin, goal: g, came, held: o.held, time: o.time });
+    socket(ctx, pullTrackPoint(t, g), r, style, { came, waiting, time: o.time });
+    if (waiting) ghost(ctx, t, r, style, { origin: o.origin, goal: g, time: o.time });
+  }
+  const q = pullTrackPoint(t, o.at);
+  const at = { x: q.x + m.off.x, y: q.y + m.off.y };
+  if (o.held && p > 0.01) ring(ctx, at, r, o.time, p);
+  if (m.reach !== null && m.near > 0) edge(ctx, t, o.at, m.off, m.reach, r, m.near, o.time);
 }
