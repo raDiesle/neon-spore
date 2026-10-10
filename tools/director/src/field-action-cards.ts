@@ -14,6 +14,7 @@ import { GESTURES } from "./gesture-catalogue.js";
 import { card, text } from "./gestures-page.js";
 import { openZoom, type ZoomView, zoomable } from "./picture-zoom.js";
 import { poseNamed } from "./poses.js";
+import { openPullLab } from "./pull-lab.js";
 
 /**
  * How CONTROLS › ON THE FIELD draws one action (`field-page.ts` lays them
@@ -138,6 +139,14 @@ export function concepts(names: readonly string[] | undefined): HTMLElement | nu
   return box;
 }
 
+/** The button that opens the PULL LAB on `shape`, under a generic picture. */
+function labButton(shape: string | undefined, label: string): HTMLElement | null {
+  if (!shape) return null;
+  const b = text("button", label, "field-try field-lab");
+  b.addEventListener("click", () => openPullLab(shape));
+  return b;
+}
+
 /** Every gesture an action or one of its types draws first. */
 export const placedGestures = (a: FieldAction): string[] => [
   ...(a.gestures ?? []),
@@ -181,6 +190,8 @@ function typeBlock(
   if (t.suggest) box.appendChild(suggested(t.suggest));
   const own = concepts(t.gestures);
   if (own) box.appendChild(own);
+  const lab = labButton(t.lab, "▶ TRY THE GENERIC PULL — EMPTY FIELD, EVERY SHAPE, EVERY LOOK");
+  if (lab) box.appendChild(lab);
   const compare = text("button", "▤ COMPARE ALL USES", "field-try");
   compare.addEventListener("click", () =>
     openZoom(`${t.title} · EVERY USE`, [
@@ -224,6 +235,8 @@ export function actionSection(
   box.appendChild(head);
   const own = concepts(a.gestures);
   if (own) box.appendChild(own);
+  const lab = labButton(a.lab, "▶ TRY A BARE GRAB AND DRAG — EMPTY FIELD");
+  if (lab) box.appendChild(lab);
   // An action with one type is that type: its title would only repeat the
   // action's own.
   const showTitles = types.length > 1;

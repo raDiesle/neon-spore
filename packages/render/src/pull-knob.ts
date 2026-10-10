@@ -24,6 +24,20 @@ export const PULL_GRAB = 2.2;
  * its ring at 1.1 of the mark's radius, and the knob is the ring. */
 const ARROW = 1.1;
 
+/** How one knob is asked to be drawn — `drawPullKnob`'s last argument. */
+export interface PullKnobDraw {
+  hex: string;
+  rim: string;
+  held: boolean;
+  time: number;
+  way: PullWay | null;
+  /** A pull that may go either way and has not gone one yet: an arrow with two heads. */
+  either?: boolean;
+  /** The partner's knob: nothing punched under it, which over a lobe or a
+   * board read as a black hole rather than a handle (`handle-draw.ts`). */
+  theirs?: boolean;
+}
+
 /**
  * **The circle to start**: where the thumb goes, drawn at the handle's full
  * radius over the thin channel so there is no doubt where a pull begins. It
@@ -41,18 +55,24 @@ export function drawPullKnob(
   ctx: CanvasRenderingContext2D,
   at: Point,
   r: number,
-  o: {
-    hex: string;
-    rim: string;
-    held: boolean;
-    time: number;
-    way: PullWay | null;
-    /** A pull that may go either way and has not gone one yet: an arrow with two heads. */
-    either?: boolean;
-    /** The partner's knob: nothing punched under it, which over a lobe or a
-     * board read as a black hole rather than a handle (`handle-draw.ts`). */
-    theirs?: boolean;
-  },
+  o: PullKnobDraw,
+): void {
+  PULL_KNOB.paint(ctx, at, r, o);
+}
+
+/**
+ * **The knob as it ships**, which `PULL_KNOB` holds and every pull handle in
+ * the game reaches through `drawPullKnob`. One record rather than a function
+ * so a second answer to the knob can be held beside this one and drawn in its
+ * place for the length of a frame — VERSUS's `pull:handle`, and the PULL LAB
+ * (`tools/director/src/pull-lab.ts`), which plays any of them on an empty
+ * field. Nothing in the game patches it.
+ */
+export function paintPullKnob(
+  ctx: CanvasRenderingContext2D,
+  at: Point,
+  r: number,
+  o: PullKnobDraw,
 ): void {
   noteMark(ctx, at.x, at.y, r);
   ctx.save();
@@ -127,6 +147,10 @@ function strokeWay(
   ctx.lineJoin = "round";
   drawWayArrow(ctx, at.x, at.y, r * ARROW, way.dx, way.dy, time, either ? 2 : 1);
 }
+
+/** What `drawPullKnob` draws with: the shipped knob, unless something holds
+ * another in its place for a frame (`paintPullKnob`). */
+export const PULL_KNOB: { paint: typeof paintPullKnob } = { paint: paintPullKnob };
 
 /** A circle as its own path, so it adds nothing to the context's current one. */
 function ring(at: Point, r: number): Path2D {

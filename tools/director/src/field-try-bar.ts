@@ -36,7 +36,7 @@ export interface TryActions {
 }
 
 /** A row of buttons of which one is lit; `pick` hears the one pressed. */
-function choice<T>(
+export function choice<T>(
   options: readonly [string, T][],
   first: T,
   pick: (value: T) => void,

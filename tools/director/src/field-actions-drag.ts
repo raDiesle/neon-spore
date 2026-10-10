@@ -19,6 +19,7 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "(down · up · either · signed) and one drawn arrow for it. Decide once " +
       "whether a short pull is refused red or ignored — today both happen.",
     gestures: ["SWIPE PAST A DISTANCE"],
+    lab: "down",
     rows: [
       "THE BLISTER'S SWIPE",
       "THE WARDEN'S TETHER",

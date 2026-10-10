@@ -132,6 +132,16 @@ export { drawPinBlast, drawPinTake } from "./pinball-blast.js";
 export { drawPinPieces } from "./pinball-piece.js";
 export { drawPinballRound, showsPinPieces } from "./pinball-round.js";
 export { drawPinBall, drawPinWalls, pinAt, pinTable, type Table } from "./pinball-table.js";
+export { drawPullKnob, PULL_GRAB, PULL_KNOB, type PullKnobDraw } from "./pull-knob.js";
+export { PULL_DOWN, PULL_UP, type PullWay } from "./pull-line.js";
+export {
+  drawPullTrack,
+  PULL_TRACK,
+  PULL_TRACK_W,
+  type PullTrack,
+  type PullTrackDraw,
+  pullTrackPoint,
+} from "./pull-track.js";
 export { carapace } from "./queen-carapace.js";
 export { facet as facetShell } from "./queen-facet.js";
 export { armour, QUEEN_LOOK, type QueenLook, type ShellDraw } from "./queen-look.js";

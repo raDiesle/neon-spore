@@ -167,8 +167,19 @@ function chevrons(
   }
 }
 
-/** The channel, the green behind the hand, and the chevrons ahead of it. */
+/** The channel, the green behind the hand, and the chevrons ahead of it —
+ * through `PULL_TRACK`, the way `drawPullKnob` reaches its knob. */
 export function drawPullTrack(ctx: CanvasRenderingContext2D, t: PullTrack, o: PullTrackDraw): void {
+  PULL_TRACK.paint(ctx, t, o);
+}
+
+/** **The channel as it ships**, held in `PULL_TRACK` for the reason
+ * `paintPullKnob` is held in `PULL_KNOB` (`pull-knob.ts`). */
+export function paintPullTrack(
+  ctx: CanvasRenderingContext2D,
+  t: PullTrack,
+  o: PullTrackDraw,
+): void {
   const whole = slice(t, 0, 1);
   ctx.save();
   ctx.lineCap = "round";
@@ -193,3 +204,7 @@ export function drawPullTrack(ctx: CanvasRenderingContext2D, t: PullTrack, o: Pu
   }
   ctx.restore();
 }
+
+/** What `drawPullTrack` draws with: the shipped channel, unless something
+ * holds another in its place for a frame. */
+export const PULL_TRACK: { paint: typeof paintPullTrack } = { paint: paintPullTrack };

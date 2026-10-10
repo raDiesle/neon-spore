@@ -3543,6 +3543,11 @@ by hand never moves.
 | `tools/director/src/pose-commands.ts` | the commands a pose presses, spelled short — `aim`, `ward`, `guard`, `suck`, `prime`, `shoot`, `pullCord`, `hold` — one builder per verb, re-exported by the kit |
 | `tools/director/src/pose-frame.ts` | **The two halves of a posed picture**: the whole phone drawn once by the shipping renderer |
 | `tools/director/src/phone-view.ts` | WHICH OF THE THREE VIEWS THE PHONE IS SHOWING, AS ONE OWNER |
+| `tools/director/src/pull-lab-auto.ts` | **AUTO's thumb in the PULL LAB**: one whole pull and one short one, over and over, so every state of a look |
+| `tools/director/src/pull-lab-paint.ts` | One frame of the PULL LAB (`pull-lab.ts`): the empty field |
+| `tools/director/src/pull-lab-rule.ts` | **The one generic PULL, as the lab plays it** — a toy rule beside the twenty-odd the simulation keeps |
+| `tools/director/src/pull-lab-shapes.ts` | **The shapes the one generic PULL can take**, for the PULL LAB (`pull-lab.ts`) |
+| `tools/director/src/pull-lab.ts` | **THE PULL LAB** — the one generic PULL on an empty field, to be pulled by hand (the owner, 10 October 2026) |
 | `tools/director/src/versus-crop.ts` | One side of a VERSUS pair: a whole phone, drawn, shown through the window its pose's own `crop` cuts in it |
 | `tools/director/src/versus-diff.ts` | How two pictures of the same frame are compared — the pixel arithmetic behind `versus-seat.ts` |
 | `tools/hooks/after-svg-edit.ts` | A drawn picture is the one thing a session cannot check by reading it back |

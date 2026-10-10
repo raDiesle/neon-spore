@@ -37298,3 +37298,19 @@ Bottleneck: headings were styled per sheet, so a scale meant finding forty
 selectors that each set their own size.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — THE PULL LAB: the one generic pull, tried on an empty field
+
+- reading: 5 min. CONTROLS › ON THE FIELD's cards and its TRY view, the
+  shared knob and channel (`pull-knob.ts`, `pull-track.ts`), and how VERSUS
+  patches a record.
+- writing: 5 min. The knob and channel held in records, the lab's shapes,
+  rule, thumb, paint and window, its test, three queue entries.
+- looking: 0 min. The lab in the browser pane: every shape under AUTO, and a
+  short pull by mouse.
+- friction: 0 min.
+- landing: 5 min. Three red tests in `check:fast` — a catalogue row, a queue
+  title over eighty characters, a smoothstep written out — then `land`.
+
+Bottleneck: reading — the pull look was already one look in twenty-two
+files, which took finding before it could be made patchable in one place.

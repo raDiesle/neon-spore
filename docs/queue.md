@@ -761,3 +761,25 @@ With `director-here` running, adding `@import "./director-contents.css";` to `di
 - **Files:** `tools/director/src/director-shell.css`, `tools/director/src/director-columns.css`, `tools/director/src/director.css`
 
 `director-shell.css` is 270 lines and `director-columns.css` 299; both were already over before the readability pass added the type scale's tokens. Cut each on a seam its comments already name — the shell's palette and type tokens from its four shared controls, the columns' grid and drag handle from the wave rail — add the new sheet to `director.css`'s `@import` list beside its parent (never after `director-phone.css`; `test/stylesheet-order.test.ts`), and check that `test/columns.test.ts` still finds `main`'s `grid-template-columns`.
+
+## One generic PULL in the simulation, and the straight-down pulls onto it
+
+- **Found:** 2026-10-10, claude/pull-control-visuals-35c04f
+- **Files:** `packages/sim/src/handle-pull.ts`, `packages/sim/src/hive-hand.ts`, `packages/sim/src/vane-hand.ts`, `packages/sim/src/fleet-hand.ts`, `packages/sim/src/ledger-hand.ts`, `tools/director/src/pull-lab-rule.ts`, `tools/director/src/field-actions-drag.ts`
+- **Asks:** When a pull is let go short of its distance, is it refused (the knob springs back red, a fault the pair hears) or ignored (it springs back quietly and nothing is said)? Today both happen. Both can be felt in the PULL LAB: CONTROLS › ON THE FIELD › PULL PAST A DISTANCE › TRY THE GENERIC PULL, and the SHORT · RED / SHORT · IGNORED switch on its bar.
+
+The owner took PULL PAST A DISTANCE's SUGGESTED line on 10 October 2026: one generic PULL with the direction a named field (down · up · either · signed) and one drawn arrow. Twenty-six rows each keep their own rule today, in a hand file per boss. Write the rule once in the simulation, beside `handle-pull.ts` — a direction field, a reach in thousandths, counted once the moment the reach is met, and the answer to a short lift above — taking the PULL LAB's toy rule (`pull-lab-rule.ts`) as its specification, then move the four straight-down pulls onto it: THE HIVE's haul, THE VANE's housing, THE FLEET's wreck and THE LEDGER's pull, each a replay test unchanged or a sentence on why its behaviour moved. Two entries below move the rest, one lane each.
+
+## One generic PULL: the up, either-way and sideways pulls onto it
+
+- **Found:** 2026-10-10, claude/pull-control-visuals-35c04f
+- **Files:** `packages/sim/src/curtain-hand.ts`, `packages/sim/src/stare-hand.ts`, `packages/sim/src/scout-hand.ts`, `packages/sim/src/trapeze-hand.ts`, `packages/sim/src/taster-hand.ts`, `packages/sim/src/blister-swipe.ts`
+
+After the entry above lands: THE CURTAIN's hem and THE STARE's lashes (up), THE SCOUT's prime (either), THE TRAPEZE's zones, THE TASTER's wipe and THE BLISTER's swipe (signed) onto the one rule, their direction a value of its field rather than code. Replay tests unchanged, or a sentence each on why not.
+
+## One generic PULL: the curved and rope pulls onto it
+
+- **Found:** 2026-10-10, claude/pull-control-visuals-35c04f
+- **Files:** `packages/sim/src/lamprey-hand.ts`, `packages/sim/src/antiphon-rail.ts`, `packages/sim/src/warden-rope.ts`, `packages/sim/src/bastion-hand.ts`, `packages/sim/src/gauge-tooth.ts`, `packages/sim/src/pinball-hand.ts`
+
+After the first entry lands: THE LAMPREY's head (a curve), THE ANTIPHON's rail (down a vein), THE WARDEN's tether and THE BASTION's slabs (a rope, any way), THE GAUGE's tooth and PINBALL's plunger onto the one rule. A curve is a path the rule measures along, as the PULL LAB's CURVE and S-CURVE do. THE GUM and SNAKE's jaws are pulls by a body rather than a knob — say in the entry's commit whether they join or why not.

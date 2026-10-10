@@ -174,3 +174,15 @@
   flex-wrap: nowrap;
   justify-content: flex-start;
 }
+/* THE PULL LAB (`pull-lab.ts`): the one generic pull on an empty field. */
+.pull-lab-like {
+  margin: 0 14px 6px;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--dim);
+}
+.pull-lab-canvas {
+  touch-action: none;
+  cursor: grab;
+  outline: 1px solid var(--line);
+}

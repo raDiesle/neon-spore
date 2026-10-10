@@ -27,6 +27,9 @@ export interface ControlType {
   /** The gestures in `GESTURES` this type is built from, drawn first under
    * its title — the generic picture before its uses. */
   gestures?: readonly string[];
+  /** The PULL LAB shape this type opens on (`pull-lab-shapes.ts`): the one
+   * generic control, tried on an empty field before any of its uses. */
+  lab?: string;
   rows: readonly string[];
 }
 
@@ -38,6 +41,8 @@ export interface FieldAction {
   /** The gesture every type under it starts from, drawn first under the
    * heading (the owner, 9 October 2026: the generic picture, then its uses). */
   gestures?: readonly string[];
+  /** As a type's `lab`: the bare gesture, tried on an empty field. */
+  lab?: string;
   types: readonly ControlType[];
 }
 
@@ -67,6 +72,7 @@ export const FIELD_ACTIONS: readonly FieldAction[] = [
     title: "GRAB AND DRAG",
     says: "A finger put on a thing and moved.",
     gestures: ["DRAG, AS A DISPLACEMENT"],
+    lab: "rope",
     types: DRAG_TYPES,
   },
   ...OTHER_ACTIONS,
