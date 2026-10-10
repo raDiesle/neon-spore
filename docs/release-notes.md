@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 9cb149eb7 — BULB QUEEN: three beats to shoot the mark, three more before the torch
+
+The owner found her too hard. Her torch now falls every ten beats instead of eight, and the mark under her middle still opens four beats after a drop but stands open for three beats instead of two (CROWN and BROOD), then stays shut three beats rather than two before the next torch breaks off. Under SCREAM a held thumb keeps her open up to six beats rather than four, so the cap still lands on the next drop as it did. The guide, the bestiary and the mechanic text say ten beats and three. The fight runs about a quarter longer. Exemption: none needed — a tuning change, nothing drawn differently.
+
 ## 2026-10-10 · 0126ee270 — THE LAMPREY's plug is seen inside the ship
 
 In the fourth level the eel is drawn going down through the hull into the ship, its sucker clamped on the bitten panel button, and the button comes out of its socket like a plug half out of the wall: lifted and tipped, the socket dark and bleeding under it, three wires stretched between. Once let go the button stays loose, a little out. Where the eel bit, the hull is a torn, bleeding hole for the rest of the fight. The other seat sees the mouth clamped on a socket it cannot read.

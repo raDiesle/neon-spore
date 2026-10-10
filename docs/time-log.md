@@ -37631,3 +37631,5 @@ its wires show round the button, and that took three frames to find.
 
 Bottleneck: the film — the only thing timed to the old clock by hand, and it
 had to be run on both clocks to see that nothing in it had changed meaning.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
