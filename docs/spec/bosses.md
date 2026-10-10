@@ -10676,9 +10676,19 @@ for food.
   wave's fourth level is two: the pilot's SUCK, then the navigator's RED, a
   gullet after. `sim/test/lamprey-plug.test.ts` proves it;
   `content/test/lamprey-plug.test.ts` that each button is on its worker's
-  panel. **Its look is the next lane**: the head inside the ship, the button
-  half out of the panel, the hull bleeding where it bit, and every bitten
-  button left almost out.
+  panel. **Its look** (`render/lamprey-plug-look.ts`, `lamprey-wound.ts`):
+  the field's sucker is not drawn in a plug; the body goes on through the
+  hull and down the ship over the panel, and on the worker's screen its jaw
+  is clamped over the top of the button, which is lifted out of its socket
+  by `plugMilli`, tipped and nearer the eye, the socket dark and bleeding
+  under it and three wires (red, yellow, cyan) run up under it; a halo
+  breathes round it and the word PRESS stands beside it until it is in. The
+  holder's screen sees the mouth clamp a dark socket between its own
+  buttons, so how far out it is stays the worker's to say. Every button
+  bitten stays out `PLUG_LEFT` of the way for the rest of the fight, its
+  wires showing, and every hull tile bitten is a torn hole ringed with
+  punctures with blood running down the hull — wider and faster while the
+  eel is in it. Seen on both screens in frames; never watched at tempo.
 - **The gullet** is the ordinary shot (`sim/lamprey-shot.ts`): only while it
   is lit, only in the column of the eel's tile, and only in its colour unless
   `either`; the other colour is missed on the balance sheet and it stays lit.

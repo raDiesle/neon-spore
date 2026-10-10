@@ -37600,3 +37600,19 @@ had, which needed the lab to say where the verdict found it and when it was
 let go.
 
 *Measured: 18 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-10 — THE LAMPREY's plug is seen inside the ship
+
+- reading: 10 min. Where the panel's lobes, the hull's marks and the eel are
+  drawn and in what order — a search handed to an agent, read back here.
+- writing: 15 min. `lamprey-plug-look.ts` and `lamprey-wound.ts`, the hooks
+  in the panel, the over-panel pass and the ship, the pose card, a test.
+- looking: 15 min. Five frames: two mouths at once, a jaw that hid the
+  socket, wires the lobe's tissue covered — each fixed and shot again.
+- friction: 10 min. Waiting on the search; then the director's four checks
+  on a new ON THE FIELD row (its place, its spec row, its numbers, a pose
+  on the holder's screen), met one red test at a time.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: the looking — a plug half out only reads once the socket and
+its wires show round the button, and that took three frames to find.

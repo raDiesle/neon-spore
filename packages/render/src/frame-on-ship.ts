@@ -4,6 +4,7 @@ import { drawStuckClingers } from "./cling.js";
 import { drawHarpoonMarks } from "./harpoon-mark.js";
 import { heldHarpoons } from "./harpoon-place.js";
 import type { HullFrame, LobePositions, SurfaceY } from "./hull-frame.js";
+import { drawLampreyWounds } from "./lamprey-wound.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawLedgerRoot } from "./ledger-root.js";
 import type { RenderState } from "./render-state.js";
@@ -84,6 +85,8 @@ export function drawOnShip(
   // And THE LAMPREY's: a bite gone through to the hull, and the eel spent
   // and falling away (`lamprey-fx.ts`, §41).
   held.effects.boss.lamprey.shock.draw(ctx, l, surfaceY, view.time);
+  // And where it bit into the ship, the hull torn and bleeding (`lamprey-wound.ts`).
+  drawLampreyWounds(ctx, l, world, surfaceY, view.time);
   // And THE MIMIC's: the mottle slapping into shape, and its fall, spent
   // (`mimic-fx.ts`, §42).
   held.effects.boss.mimic.shock.draw(ctx, l, surfaceY, view.time);

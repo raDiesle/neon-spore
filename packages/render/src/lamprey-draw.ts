@@ -4,6 +4,7 @@ import {
   lampreyAsks,
   lampreyCrawling,
   lampreyFiring,
+  lampreyPlugButton,
   lampreyStep,
   lampreyTapsWanted,
   lampreyWorker,
@@ -95,7 +96,8 @@ export function drawLamprey(
   const fold = aimJaws(l, world, s, p, beatPhase, fx.chomp);
   if (fold >= 1) {
     drawLampreyJaws(ctx, p, fold, fx.chomp.face, fx.chomp.morsel, fx.hurt.value);
-  } else {
+  } else if (lampreyPlugButton(s) === null) {
+    // (In a plug the mouth is inside the ship, on the button: `lamprey-plug-look.ts`.)
     ctx.save();
     // Turning to the side: the sucker narrowed across the way it is about to face.
     if (fold > 0) squash(ctx, p, fx.chomp.face, 1 - TURNED * fold);

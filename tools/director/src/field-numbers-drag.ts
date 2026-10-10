@@ -29,6 +29,12 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
     "lampreyTowBackMilli",
     "lampreyTailPullMilli",
   ],
+  "THE LAMPREY'S TAIL, IN A PLUG": [
+    "lampreyTailPullMilli",
+    "lampreyPlugStartMilli",
+    "lampreyPlugPushMilli",
+    "lampreyPlugYankMilli",
+  ],
   "THE HIVE'S HAUL": ["hiveHaulMilli", "hiveClenchBeats"],
   "THE VANE'S HOUSING": ["vaneHaulMilli", "vanePinBeats"],
   "PINBALL'S PLUNGER": ["pinballWindMilli", "pinballHardMilli"],

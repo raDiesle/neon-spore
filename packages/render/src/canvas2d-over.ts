@@ -2,6 +2,7 @@ import type { World } from "@neon-spore/sim";
 import { bandControlSet } from "./band.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import { drawFireButtonMarks } from "./fire-button-mark.js";
+import { drawLampreyInside } from "./lamprey-plug-look.js";
 import type { Layout } from "./layout.js";
 import type { RenderState } from "./render-state.js";
 import type { ViewState } from "./renderer.js";
@@ -23,6 +24,9 @@ export function drawOverBand(
   held: RenderState,
   cue: BossCue | null,
 ): void {
+  // THE LAMPREY inside the ship, down through the hull and clamped on a button (`lamprey-plug-look.ts`).
+  const set = bandControlSet(view.controls, world);
+  drawLampreyInside(ctx, l, world, set, view.time, view.beatPhase);
   // The fire button the shot's mark asks for, ringed with the same mark.
   if (cue !== null) drawFireButtonMarks(ctx, l, world, cue, view.time, view.controls);
   // Over the ship too, because it is about the ship: a lure shot by mistake (`lure-blast.ts`).
@@ -31,7 +35,7 @@ export function drawOverBand(
   // (`stare-fx.ts`). The panel is `bandControlSet`'s answer rather than a
   // second reading of `world.wave`, so the circle it lights is one of the
   // circles the band actually drew.
-  held.effects.boss.stare.drawCaught(ctx, l, view.role, bandControlSet(view.controls, world));
+  held.effects.boss.stare.drawCaught(ctx, l, view.role, set);
   held.lanceFlash.draw(ctx, l);
   // Last, over everything: the wave arriving, once the pair has crossed the
   // gate — there is no opening left to draw it inside (`opening-fx.ts`).

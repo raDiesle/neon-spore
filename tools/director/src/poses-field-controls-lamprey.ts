@@ -114,6 +114,18 @@ function towing(): World {
   return w;
 }
 
+/** A plug on: the eel down in the hull, the pilot's SUCK bitten and pressed half back in, the navigator's thumb not yet on the tail. */
+function plugging(): World {
+  const plug: LampreyStep[] = [
+    { ask: "plug", holder: 2, teeth: 0, jump: 1, beats: 14, color: "either", button: "intake" },
+    { ask: "pull", holder: 2, teeth: 0, jump: 2, beats: 12, color: "either" },
+  ];
+  const w = fresh([], [], { kind: "lamprey", steps: plug });
+  runUntil(w, "the plug on", [], (x) => lampreyBoss(x)?.phase === "bite");
+  run(w, TPB, [{ tick: w.tick, player: 1, command: { kind: "intake" } }]);
+  return w;
+}
+
 const LAMPREY_TAIL: Pose = {
   name: "LAMPREY · THE TAIL HELD",
   note: "THE LAMPREY bitten into a tile, its tail laid away from where it leaps next. Player 1's thumb is down on the tail's knob, so the partner's pull will count. Player 1's screen, the holding seat's.",
@@ -152,9 +164,19 @@ const LAMPREY_TOW: Pose = {
   build: towing,
 };
 
+const LAMPREY_PLUG: Pose = {
+  name: "LAMPREY · THE PLUG",
+  note: "The fourth level: the eel down the middle into the ship, its teeth on player 1's SUCK and pulling it out of the panel; player 1 has pressed it part way back in. Player 2's screen, the seat on the tail: the mouth clamped on a socket it cannot read, so how far out SUCK is stays player 1's to say.",
+  lookAt: "whether the tail reads as *wait for the word, then pull*",
+  crop: "full",
+  role: "p2",
+  build: plugging,
+};
+
 export const LAMPREY_GRIPS: readonly Pose[] = [
   LAMPREY_TAIL,
   LAMPREY_HEAD,
   LAMPREY_TOOTH,
   LAMPREY_TOW,
+  LAMPREY_PLUG,
 ];

@@ -2258,6 +2258,7 @@ by hand never moves.
 | `packages/render/src/lamprey-disc.ts` | **THE LAMPREY's sucker, in detail**: the fleshy fringe of papillae round the lip, the gloss along its rim |
 | `packages/render/src/lamprey-marks.ts` | **THE LAMPREY's tooth mark**: the ring round the one lit tooth in a `teeth` |
 | `packages/render/src/lamprey-pose.ts` | **The clock THE LAMPREY is posed off** (§41, *Animation*), six poses: crawling as a worm |
+| `packages/render/src/lamprey-plug-look.ts` | **THE LAMPREY's plug, inside the ship**: the bitten button out of its socket with its wires, left loose after, and the eel's body down through the ship to its jaw on the button |
 | `packages/render/src/lamprey-shape.ts` | **THE LAMPREY's shape** (§41, *The look*): two drafts combined, named on the shape sheet |
 | `packages/render/src/lamprey-skin.ts` | **THE LAMPREY's skin**: what makes the olive tube read as an eel |
 | `packages/render/src/lamprey-settle.ts` | **THE LAMPREY settling onto a tile it crawled to** (the owner, 9 October 2026 |
@@ -2275,6 +2276,7 @@ by hand never moves.
 | `packages/render/src/lamprey-teeth.ts` | **The ring of teeth round THE LAMPREY's sucker**: nine hooked bone fangs standing in their gums |
 | `packages/render/src/lamprey-tow-grip.ts` | **THE LAMPREY's tow on this screen** (`sim/lamprey-tow.ts`): the curve the head is pulled back along |
 | `packages/render/src/lamprey-anger.ts` | **THE LAMPREY losing its temper in a tow**: the head plunged past where it lands at the hull and back, the eel shaking and whipping |
+| `packages/render/src/lamprey-wound.ts` | **Where THE LAMPREY bit into the ship, the hull bleeds**: a torn hole ringed with punctures, blood running down the hull for the rest of the fight |
 | `packages/render/src/latch-draw.ts` | **THE LATCH** drawn: the colony in its one skin, the tendril and its knots, the coil on the hull, the grips |
 | `packages/render/src/latch-grip.ts` | **The thumbs on THE LATCH** (§11.61): the two grips on the tendril, pulled down |
 | `packages/render/src/latch-handles.ts` | **THE LATCH's two grips**, in the field's one look for a thumb's control (`pull-knob.ts`, `pull-track.ts`) |

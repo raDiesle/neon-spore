@@ -4,6 +4,7 @@ import { drawStripFor } from "./band-channel.js";
 import { drawLobe } from "./band-control.js";
 import { bandLobes } from "./band-lobes.js";
 import { drawChokeStrip } from "./choke-strip.js";
+import { drawPluggedLobe, lampreyPlugDrawnOut } from "./lamprey-plug-look.js";
 import type { Layout } from "./layout.js";
 import { seatSkin } from "./seat-skin.js";
 
@@ -36,6 +37,10 @@ export function drawBandHalf(
   // layout, and `touchDown` asks it the same question with the same set — so
   // there is one answer to "where is this button", not two that have to agree.
   for (const lobe of bandLobes(l, set, player)) {
-    drawLobe(ctx, l, lobe.circle, lobe.control, world, armed, open, time, lead);
+    const draw = () => drawLobe(ctx, l, lobe.circle, lobe.control, world, armed, open, time, lead);
+    // A button THE LAMPREY's teeth have had, out of its socket (`lamprey-plug-look.ts`).
+    const out = lampreyPlugDrawnOut(world, lobe.control.id);
+    if (out > 0) drawPluggedLobe(ctx, l, lobe.circle, out, draw);
+    else draw();
   }
 }
