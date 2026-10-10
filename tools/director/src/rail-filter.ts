@@ -5,7 +5,7 @@ import { BRUSHES, brushOf, podBrushOf } from "./state.js";
 /**
  * The filter over the wave list.
  *
- * **One field, above the list, full width.** WAVES is a 210px track
+ * **One field, above the list, full width.** WAVES is a 270px track
  * (`columns.ts`), and it is the narrowest column the director has — so a rail
  * of category buttons, a dropdown beside the field, or a row of chips is out
  * on its face: every one of them spends width the column does not have, and

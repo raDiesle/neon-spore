@@ -37282,3 +37282,17 @@ Bottleneck: reading — six pages close six ways, which is why this presses
 each page's own BACK rather than closing anything itself.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — The director is set in a text face, with a heading scale and lighter grey
+
+- reading: 5 min. The twenty-two sheets' fonts, sizes, letter-spacing, greys
+  and width caps, counted rather than read one by one.
+- writing: 5 min. The palette, faces and heading sizes in `director-shell.css`;
+  the rest as sweeps across every sheet, then each heading block set by name.
+- looking: 5 min. Before and after shots of the desk, three sheets and a phone;
+  the TUNING sliders' labels wrapping was found in the after.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: headings were styled per sheet, so a scale meant finding forty
+selectors that each set their own size.

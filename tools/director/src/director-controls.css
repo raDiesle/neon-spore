@@ -22,17 +22,17 @@
   display: block;
 }
 .tried-control {
-  max-width: 700px;
+  max-width: var(--measure);
   margin: 0 0 16px;
   padding: 0 0 12px;
   border-bottom: 1px solid var(--line-soft);
 }
 .tried-control h3 {
   color: var(--gold);
-  font-size: 0.95rem;
-  letter-spacing: 2px;
+  font-size: var(--h3-size);
+  letter-spacing: 0.02em;
   margin: 0 0 4px;
-  font-weight: 400;
+  font-weight: 700;
 }
 .tried-control p {
   font-size: 0.875rem;
@@ -44,16 +44,19 @@
   color: var(--cyan);
 }
 .control-set-card {
-  max-width: 700px;
+  max-width: var(--measure);
   margin: 0 0 26px;
   padding: 0 0 16px;
   border-bottom: 1px solid var(--line-soft);
 }
 .control-set-card h2 {
-  color: var(--gold);
-  font-size: 1rem;
-  letter-spacing: 2px;
+  color: var(--cyan);
+  font-size: var(--h2-size);
+  letter-spacing: 0.04em;
   margin: 0 0 4px;
+  font-weight: 700;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--line);
 }
 .control-set-shot {
   margin: 8px 0;
@@ -76,11 +79,11 @@
   flex: 1 1 220px;
 }
 .control-set-col h3 {
-  font-size: 0.8rem;
-  letter-spacing: 2px;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
   color: var(--cyan);
   margin: 0 0 4px;
-  font-weight: 400;
+  font-weight: 700;
 }
 .control-set-col ul {
   margin: 0;
@@ -95,14 +98,14 @@
 .control-set-col li b {
   color: var(--ink);
   font-weight: 400;
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
 }
 
 /* SHIP: the ship's own dials, a tab of GAME MECHANICS now — see
    ship.ts. Capped like DEMOS and CONTROLS so a row of `.cap`s does
    not stretch the width the sheet itself would happily give it. */
 #shipSheetBody {
-  max-width: 700px;
+  max-width: var(--measure);
 }
 
 /* A row of drafts, each a canvas on the page's own beat — GRAPHICS's
@@ -139,18 +142,18 @@
 .library-card .head .from {
   margin-left: 10px;
   color: var(--dim);
-  font-size: 0.8rem;
-  letter-spacing: 1px;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
 }
 .gallery-cat {
   color: var(--gold);
-  letter-spacing: 2px;
+  letter-spacing: 0.06em;
   font-size: 0.95rem;
   margin: 18px 0 2px;
 }
 .gallery-empty {
-  font-size: 0.8rem;
-  color: #574d84;
+  font-size: 0.875rem;
+  color: var(--dim);
   margin: 0 0 10px;
 }
 
@@ -169,8 +172,8 @@
   min-width: 0;
 }
 .set-roster-col h4 {
-  font-size: 0.75rem;
-  letter-spacing: 2px;
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
   color: var(--cyan);
   font-weight: 400;
   margin: 0 0 3px;
@@ -179,7 +182,7 @@
   display: flex;
   gap: 5px;
   align-items: baseline;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: var(--ink);
 }
@@ -187,7 +190,7 @@
   color: var(--gold);
 }
 .set-roster-name {
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -207,7 +210,7 @@
    columns — a reduced panel is only legible beside the panel it reduces. */
 .control-set-card .reduces {
   font-size: 0.875rem;
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
   color: var(--dim);
   margin: 4px 0 0;
 }

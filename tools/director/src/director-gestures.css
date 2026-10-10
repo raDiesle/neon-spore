@@ -7,7 +7,7 @@
   flex-wrap: wrap;
   gap: 6px 14px;
   margin: 0 0 14px;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--dim);
 }
 .gesture-legend span {
@@ -53,10 +53,12 @@
 
 .gesture-group h2 {
   margin: 22px 0 2px;
-  font-size: 0.95rem;
-  font-weight: 400;
-  letter-spacing: 2px;
-  color: var(--ink);
+  font-size: var(--h2-size);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--cyan);
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--line);
 }
 .gesture-group.state-built h2 {
   color: var(--green);
@@ -73,7 +75,7 @@
 .gesture-group .sub {
   margin: 0 0 10px;
   color: var(--dim);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 
 .gesture-grid {
@@ -105,12 +107,12 @@
   color: var(--gold);
   font-size: 0.9rem;
   font-weight: 400;
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
 }
 .gesture-card h3 .stamp {
   margin-left: 8px;
   color: var(--dim);
-  font-size: 0.7rem;
+  font-size: 0.875rem;
 }
 svg.gesture-figure {
   display: block;
@@ -125,11 +127,11 @@ svg.gesture-figure {
   display: grid;
   grid-template-columns: max-content 1fr;
   gap: 3px 10px;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 .gesture-card dt {
   color: var(--cyan);
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
 }
 .gesture-card dd {
   margin: 0;
@@ -139,9 +141,9 @@ svg.gesture-figure {
 .gesture-events h4 {
   margin: 14px 0 4px;
   color: var(--ink);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 400;
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
 }
 .gesture-events td.ev-name {
   font-family: var(--mono);

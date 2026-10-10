@@ -19,18 +19,19 @@
 }
 .theme .name {
   color: var(--gold);
-  letter-spacing: 2px;
-  font-size: 1rem;
+  letter-spacing: 0.02em;
+  font-size: var(--h3-size);
+  font-weight: 700;
 }
 .theme .id {
-  color: #4d4478;
-  font-size: 0.8rem;
+  color: var(--faint);
+  font-size: 0.875rem;
 }
 .theme .stamp {
   margin-left: auto;
-  font-size: 0.8rem;
-  color: #574d84;
-  letter-spacing: 2px;
+  font-size: 0.875rem;
+  color: var(--faint);
+  letter-spacing: 0.06em;
 }
 .theme .note {
   margin: 4px 0 0;
@@ -44,7 +45,7 @@
 .theme .kind {
   margin: 2px 0 6px;
   color: #a98cff;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 .theme .roll {
   display: block;
@@ -62,9 +63,11 @@
 }
 .cells h2 {
   color: var(--dim);
-  font-size: 0.875rem;
-  letter-spacing: 2px;
+  font-size: var(--label-size);
+  letter-spacing: 0.08em;
   margin: 0 0 6px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 .cellrow {
   display: flex;
@@ -72,8 +75,8 @@
   gap: 4px;
 }
 .cellbtn {
-  font-size: 0.8rem;
-  letter-spacing: 1px;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
 }
 .sheetpage {
   display: none;
@@ -82,7 +85,7 @@
   display: block;
 }
 .sheetpage > .note {
-  max-width: 620px;
+  max-width: var(--measure);
 }
 /* The answer to "what is this page", pulled out of the `.note` fog:
    `.note` is 9px and #574d84 everywhere else in this file too, so a
@@ -98,7 +101,7 @@
    page earns its room only when it says where you are, and this one says
    what you already decided to open. */
 .sheetpage > .pagewhat {
-  max-width: 620px;
+  max-width: var(--measure);
   margin: 0 0 14px;
   padding: 0 0 12px;
   font-size: 1rem;
@@ -108,16 +111,20 @@
 }
 .sheetpage h2 {
   color: var(--cyan);
-  letter-spacing: 3px;
-  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  font-size: var(--h2-size);
   margin: 18px 0 2px;
+  font-weight: 700;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--line);
 }
 /* A category over the STATES sheet's groups: THE GAME, then BOSSES. */
 .sheetpage .states-category h1 {
-  color: var(--ink);
-  letter-spacing: 4px;
-  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  font-size: 1.4rem;
   margin: 8px 0 0;
+  font-weight: 700;
 }
 .sheetpage .states-category + .states-category {
   margin-top: 34px;

@@ -8,7 +8,7 @@ import { readRemembered, writeRemembered } from "./remembered.js";
  *
  * The owner asked for it on 14 September 2026, with the fault mark that made a
  * fourth: *a compact filter of the wave list by its symbols — either or is
- * enough.* The compactness is the whole constraint. WAVES is a 210 px track
+ * enough.* The compactness is the whole constraint. WAVES is a 270 px track
  * and `rail-filter.ts` argues at length that a rail of category buttons, a
  * dropdown or a row of chips is out on its face — every one of them spends
  * width the wave *names* need. Four glyphs at a glyph's own width is about

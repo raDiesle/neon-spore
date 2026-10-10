@@ -10,13 +10,16 @@
   padding: 18px 0 10px;
 }
 #mech-style .sg-section h2 {
-  color: var(--gold);
-  letter-spacing: 3px;
-  font-size: 1rem;
+  color: var(--cyan);
+  letter-spacing: 0.04em;
+  font-size: var(--h2-size);
   margin: 0 0 6px;
+  font-weight: 700;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--line);
 }
 #mech-style .sg-section > .note {
-  max-width: 760px;
+  max-width: var(--measure);
   margin: 0 0 14px;
 }
 #mech-style .sg-family {
@@ -24,14 +27,15 @@
 }
 #mech-style .sg-family h3 {
   color: var(--cyan);
-  letter-spacing: 2px;
-  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  font-size: var(--h3-size);
   margin: 0 0 3px;
+  font-weight: 700;
 }
 #mech-style .sg-rule {
   color: var(--dim);
   font-size: 0.875rem;
-  max-width: 760px;
+  max-width: var(--measure);
   margin: 0 0 8px;
 }
 #mech-style .sg-swatches {
@@ -69,7 +73,7 @@
   overflow-wrap: anywhere;
 }
 #mech-style .swatch .hex {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   overflow-wrap: anywhere;
   color: var(--dim);
 }
@@ -95,12 +99,12 @@
 }
 #mech-style .sg-rowname b {
   color: var(--cyan);
-  letter-spacing: 2px;
+  letter-spacing: 0.06em;
   font-size: 0.875rem;
 }
 #mech-style .sg-rowname span {
   color: var(--dim);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 #mech-style .sg-cell {
   text-align: center;
@@ -114,7 +118,7 @@
   font-size: 0.875rem;
 }
 #mech-style .sg-sub {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--dim);
 }
 #mech-style .sg-cell.is-dim .sg-caption {

@@ -96,7 +96,9 @@ const COLLAPSED_TRACK = "36px";
  * preview canvas, which cannot use it, instead of to the map. Exported for
  * `test/columns.test.ts`, which reads the stylesheet and holds the two equal. */
 export const OPEN_TRACKS: Readonly<Record<string, string>> = {
-  waves: "210px",
+  // 270 and not 210: the rail is set in a larger text face since 10 October
+  // 2026, and at 210 a name as long as SHIELD, THEN CANNON lost its end.
+  waves: "270px",
   // 220 and not 340: RUN took its 120 out of this column on 15 September 2026,
   // which is where the owner asked for it to come from. WAVE is the column
   // with a `1.1fr` on it, so on a wide screen it gives nothing up at all.
@@ -104,7 +106,7 @@ export const OPEN_TRACKS: Readonly<Record<string, string>> = {
   // The strip of buttons that used to wrap under the field. Fixed, because
   // every control in it is one line of words and a column that grew would
   // only put air between them.
-  run: "120px",
+  run: "140px",
   game: "minmax(320px, 460px)",
   // 600, not 560: the palette is 250 wide and the map is `--map-w` (302)
   // plus the gap and the column's own padding, and at 560 the strip of row

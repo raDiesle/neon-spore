@@ -17,22 +17,50 @@
   --line: #241b4f;
   --line-soft: #1a1436;
   --ink: #f2e9dc;
-  --dim: #7a6fa8;
+  /*
+   * Secondary text. It was #7a6fa8 — 4.5:1 on the page's black, the bare
+   * legal minimum, and the owner could not read it (10 October 2026). Lifted
+   * to about 10:1; `--faint` is the step under it, about 6.5:1, for what
+   * really is furniture — a row number, a stamp — and was #574d84 at 2.7:1.
+   */
+  --dim: #b8aee0;
+  --faint: #968cc8;
   --gold: #ffc24b;
   --cyan: #2fe0f0;
   --red: #ff5470;
   --blue: #5b8cff;
   --green: #3ddc84;
-  --mono: "Courier New", monospace;
   /*
-   * Prose is read, not aligned. Courier at 12px was the whole director,
-   * paragraphs included, and the owner could not read it — a monospace face
-   * sets prose about a third wider than a text face at the same size, so the
-   * eye covers a third fewer words per line and every stem is the same
-   * weight. The rule below spends this on the places that are sentences and
-   * leaves every grid, chart and column of numbers in `--mono`.
+   * The director is set in a text face, everywhere. Courier at 12px was the
+   * whole tool, and the owner could not read it; moving only the paragraphs to
+   * `--prose` (064675312) left every label, button, heading and list in a
+   * hairline typewriter, and he still could not (10 October 2026). Numbers
+   * keep their columns through `tabular-nums` on `body`, so a grid needs no
+   * monospace to line up. `--mono` is what is left for real code — a path, a
+   * fenced block — and it is a modern monospace rather than Courier's
+   * one-pixel stems.
    */
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
   --prose: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /*
+   * How long a line of prose may run. Every sheet capped its paragraphs at a
+   * fixed 560-900px, so on a desktop they wrapped in the left half of an empty
+   * page; the owner asked for text not to wrap where there is room. 130
+   * characters is a wide screen's worth and still stops a sentence from
+   * crossing a 2560px monitor.
+   */
+  --measure: 130ch;
+  /*
+   * Four kinds of heading, each told from the next by more than its colour:
+   * a page title is large and gold, a section is cyan with a rule under it,
+   * a sub-section is white and bold in ordinary case, a label is small spaced
+   * capitals. They were all the same 11px spaced capitals before, told apart
+   * by colour alone.
+   */
+  --h1-size: 1.6rem;
+  --h2-size: 1.2rem;
+  --h3-size: 1.05rem;
+  --label-size: 0.8rem;
 }
 /*
  * The one knob for the whole tool. Every `font-size` in the director's CSS is
@@ -43,7 +71,7 @@
  * everything equally keeps them the smallest thing on the page.
  */
 html {
-  font-size: 15px;
+  font-size: 16px;
 }
 html,
 body {
@@ -53,9 +81,11 @@ body {
 body {
   background: var(--bg);
   color: var(--ink);
-  font: 1rem / 1.5 var(--mono);
+  font: 1rem / 1.5 var(--prose);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
   display: grid;
-  grid-template-rows: 38px 1fr;
+  grid-template-rows: 46px 1fr;
   height: 100%;
   overflow: hidden;
 }
@@ -70,10 +100,17 @@ header {
 }
 header h1 {
   margin: 0;
-  font-size: 0.95rem;
-  letter-spacing: 3px;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
   color: var(--gold);
-  font-weight: 600;
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* A header button is a word or two, and it is never broken over two lines:
+   RELEASE NOTES stacked on itself read as two buttons. */
+header button,
+header a.linkbtn {
+  white-space: nowrap;
 }
 header .spacer {
   flex: 1;
@@ -95,22 +132,20 @@ header button[data-view] {
   color: var(--red);
 }
 #buildStamp {
-  font-size: 0.6875rem;
-  letter-spacing: 1px;
-  color: #3c3468;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  color: var(--faint);
 }
 
 button {
-  font:
-    11px "Courier New",
-    monospace;
+  font: 600 0.875rem / 1.3 var(--prose);
   color: var(--dim);
-  padding: 4px 9px;
+  padding: 5px 10px;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: transparent;
   cursor: pointer;
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
 }
 button:hover:not(:disabled) {
   color: var(--ink);
@@ -145,15 +180,13 @@ button.primary:hover:not(:disabled) {
   border-color: var(--ink);
 }
 a.linkbtn {
-  font:
-    11px "Courier New",
-    monospace;
+  font: 600 0.875rem / 1.3 var(--prose);
   color: var(--cyan);
   padding: 4px 9px;
   border: 1px solid var(--line);
   border-radius: 6px;
   text-decoration: none;
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
 }
 a.linkbtn:hover {
   color: var(--ink);
@@ -161,9 +194,7 @@ a.linkbtn:hover {
 }
 input,
 textarea {
-  font:
-    11px "Courier New",
-    monospace;
+  font: 0.95rem / 1.4 var(--prose);
   color: var(--ink);
   background: #0a0719;
   border: 1px solid var(--line);
@@ -179,8 +210,10 @@ textarea {
 }
 label.field {
   display: block;
-  font-size: 0.8rem;
-  letter-spacing: 2px;
+  font-size: var(--label-size);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--dim);
   margin: 9px 0 3px;
 }
@@ -191,9 +224,7 @@ label.field {
    why it is a list rather than one id. */
 #fControlSet,
 #fDifficulty {
-  font:
-    11px "Courier New",
-    monospace;
+  font: 0.95rem / 1.4 var(--prose);
   color: var(--ink);
   background: #0a0719;
   border: 1px solid var(--line);
@@ -227,21 +258,9 @@ label.field {
    gives it rather than dictating one. */
 
 /*
- * Prose in a text face, everything that has to line up left alone. The list is
- * selectors rather than an element rule because a `p` inside a chart legend is
- * still a chart, and because a page's own stylesheet may add to it: what is
- * named here is a note, a blurb, a caption's body, rendered markdown and the
- * plain-words rows on a NOT BUILT YET card.
+ * Identifiers keep a typewriter — a file path in a sentence is not prose, and
+ * a fenced block is laid out by its spaces.
  */
-.note,
-.blurb,
-.cap p,
-.md,
-.plainwords,
-.plan .drawn {
-  font-family: var(--prose);
-}
-/* Identifiers keep the typewriter — a file path in a sentence is not prose. */
 .note code,
 .blurb code,
 .md code,

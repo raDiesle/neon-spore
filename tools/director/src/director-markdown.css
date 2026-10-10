@@ -11,8 +11,8 @@ details.more > summary {
   cursor: pointer;
   list-style: none;
   color: #a98cff;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
 }
 details.more > summary::-webkit-details-marker {
   display: none;
@@ -52,7 +52,7 @@ details.more > summary:hover {
 }
 .md code {
   color: var(--cyan);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 /* A link out — a video or a store page on RESEARCH. The browser's own
    #00e is near-invisible on this sheet's black. */
@@ -68,9 +68,9 @@ details.more > summary:hover {
 .md h6 {
   margin: 12px 0 5px;
   color: var(--ink);
-  font-size: 0.875rem;
-  font-weight: 400;
-  letter-spacing: 1px;
+  font-size: var(--h3-size);
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 .md ul {
   margin: 0 0 8px;
@@ -94,7 +94,7 @@ table.md-table {
   width: 100%;
   border-collapse: collapse;
   margin: 0 0 8px;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 table.md-table th,
 table.md-table td {
@@ -106,7 +106,7 @@ table.md-table td {
 table.md-table th {
   color: var(--cyan);
   font-weight: 400;
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
 }
 /* The one thing the director draws that it did not make: a reference
    picture off another game's server, on the TOWER DEFENCE tab. Capped
@@ -125,7 +125,7 @@ img.md-img {
 }
 
 .expand {
-  font-size: 0.8rem;
-  letter-spacing: 1px;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
   margin: 0 0 8px;
 }

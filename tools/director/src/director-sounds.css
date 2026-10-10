@@ -27,8 +27,9 @@
 }
 #soundboard .title {
   color: var(--gold);
-  letter-spacing: 4px;
-  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  font-size: var(--h1-size);
+  font-weight: 700;
 }
 #soundboard .sub {
   color: var(--dim);
@@ -54,7 +55,7 @@
   display: block;
 }
 .soundpage > .note {
-  max-width: 700px;
+  max-width: var(--measure);
 }
 
 /* Three columns: what it is attached to, what it is, what it looks like.
@@ -84,7 +85,7 @@
   border: 1px solid var(--line-soft);
 }
 .sound .art-empty {
-  color: #3b3163;
+  color: var(--faint);
   font-size: 1.2rem;
 }
 .sound-body {
@@ -97,7 +98,7 @@
 }
 .sound .name {
   color: var(--ink);
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
   font-size: 0.95rem;
 }
 .sound.is-built .name {
@@ -105,9 +106,9 @@
 }
 .sound .stamp {
   margin-left: auto;
-  font-size: 0.8rem;
-  color: #574d84;
-  letter-spacing: 2px;
+  font-size: 0.875rem;
+  color: var(--faint);
+  letter-spacing: 0.06em;
 }
 .sound.is-built .stamp {
   color: var(--gold);
@@ -124,19 +125,19 @@
 .sound .pierce {
   margin: 2px 0;
   color: var(--red);
-  font-size: 0.8rem;
-  letter-spacing: 1px;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
 }
 .sound .kind {
   margin: 2px 0 0;
   color: #a98cff;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 .sound .recipe {
   display: block;
   margin-top: 4px;
-  color: #4d4478;
-  font-size: 0.8rem;
+  color: var(--dim);
+  font-size: 0.875rem;
   word-break: break-word;
 }
 .sound .plot {

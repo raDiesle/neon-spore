@@ -3,22 +3,22 @@
    Out of `director-controls.css` on line count (30 September 2026), and
    imported straight after it so the cascade is the order it always was. */
 .field-control {
-  max-width: 700px;
+  max-width: var(--measure);
   margin: 0 0 16px;
   padding: 0 0 12px;
   border-bottom: 1px solid var(--line-soft);
 }
 .field-control h3 {
   color: var(--gold);
-  font-size: 0.95rem;
-  letter-spacing: 2px;
+  font-size: var(--h3-size);
+  letter-spacing: 0.02em;
   margin: 0 0 4px;
-  font-weight: 400;
+  font-weight: 700;
 }
 .field-control .stamp {
   color: var(--cyan);
-  font-size: 0.8rem;
-  letter-spacing: 1px;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
   margin-right: 8px;
 }
 .field-control dl {
@@ -28,7 +28,7 @@
 }
 .field-control dt {
   color: var(--cyan);
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
   float: left;
   width: 74px;
   clear: left;
@@ -55,7 +55,7 @@
 }
 .field-control-look {
   margin: 0 0 6px;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--dim);
   max-width: 600px;
 }
@@ -72,7 +72,7 @@
   width: 330px;
 }
 .tether-looks-grid figcaption {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   line-height: 1.4;
   color: var(--ink);
   margin-top: 4px;

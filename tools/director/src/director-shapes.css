@@ -15,10 +15,8 @@
   flex-wrap: wrap;
 }
 .skinbar .skin {
-  font:
-    10px "Courier New",
-    monospace;
-  letter-spacing: 2px;
+  font: 600 0.8rem / 1.3 var(--prose);
+  letter-spacing: 0.06em;
   cursor: pointer;
   padding: 5px 11px;
   border-radius: 3px;
@@ -49,10 +47,8 @@
   gap: 4px;
 }
 .skinbar.control-bar .control-heading {
-  font:
-    12px "Courier New",
-    monospace;
-  letter-spacing: 3px;
+  font: 600 0.95rem / 1.3 var(--prose);
+  letter-spacing: 0.08em;
   color: var(--ink);
   margin: 0;
 }
@@ -61,7 +57,7 @@
   color: var(--dim);
   line-height: 1.45;
   margin: 0;
-  max-width: 640px;
+  max-width: var(--measure);
 }
 .skinbar.control-bar .control-row {
   display: flex;
@@ -92,9 +88,7 @@
   max-width: 640px;
   min-height: 160px;
   resize: vertical;
-  font:
-    11px "Courier New",
-    monospace;
+  font: 0.875rem / 1.4 var(--mono);
   color: var(--ink);
   background: var(--panel);
   border: 1px solid var(--line);
@@ -140,10 +134,8 @@
   color: var(--cyan);
 }
 .bodybar .body-name {
-  font:
-    8px "Courier New",
-    monospace;
-  letter-spacing: 1px;
+  font: 600 0.8rem / 1.3 var(--prose);
+  letter-spacing: 0.03em;
   color: var(--dim);
   white-space: nowrap;
 }
@@ -173,8 +165,8 @@
 .shape .suggest {
   margin: 3px 0 0;
   color: var(--cyan);
-  letter-spacing: 1px;
-  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  font-size: 0.875rem;
 }
 .shape .suggest b {
   color: var(--ink);
@@ -196,14 +188,15 @@
 }
 .shape .name {
   color: var(--ink);
-  letter-spacing: 2px;
-  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  font-size: var(--h3-size);
+  font-weight: 700;
 }
 .shape .stamp {
   float: right;
-  font-size: 0.75rem;
-  letter-spacing: 1px;
-  color: #574d84;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  color: var(--faint);
 }
 .shape.is-free .stamp {
   color: var(--gold);
@@ -215,8 +208,8 @@
 }
 .shape .figures {
   margin: 4px 0 0;
-  color: #574d84;
-  font-size: 0.8rem;
+  color: var(--dim);
+  font-size: 0.875rem;
 }
 .spec-file {
   padding: 6px 0;
@@ -225,7 +218,7 @@
 .spec-file details.more > summary {
   color: var(--ink);
   font-size: 0.95rem;
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
 }
 .spec-file .blurb {
   margin: 3px 0 0;

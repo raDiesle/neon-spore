@@ -37,13 +37,18 @@
     height: auto;
     padding: 8px 12px;
   }
+  /* The title is a step smaller than a desk's, so the build stamp in the
+     corner above it has a line of its own to sit on. */
+  header h1 {
+    font-size: 1rem;
+  }
   /* In the header's top padding, out of the wrapping row, so the stamp never
      costs a line of its own on a narrow screen. */
   #buildStamp {
     position: absolute;
     top: 1px;
     right: 6px;
-    font-size: 0.5625rem;
+    font-size: 0.6875rem;
   }
   header .menu-item {
     display: none;
@@ -246,7 +251,7 @@
     min-width: 32px;
     min-height: 32px;
     padding: 0 4px;
-    font-size: 10px;
+    font-size: 0.8rem;
     letter-spacing: 0;
     background: rgba(5, 4, 12, 0.72);
   }
@@ -305,8 +310,8 @@
     min-width: 44px;
     text-align: center;
     padding: 0 4px;
-    font-size: 0.65rem;
-    letter-spacing: 1px;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
     color: var(--dim);
     border-color: var(--line);
   }

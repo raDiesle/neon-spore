@@ -5,10 +5,10 @@
 
 .field-part h2 {
   margin: 30px 0 2px;
-  font-size: 1.05rem;
-  font-weight: 400;
-  letter-spacing: 3px;
-  color: var(--gold);
+  font-size: var(--h2-size);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--cyan);
   border-top: 1px solid var(--line);
   padding-top: 12px;
 }
@@ -44,7 +44,7 @@
 .field-part .sub {
   margin: 0 0 12px;
   color: var(--dim);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 .field-decisions {
   display: grid;
@@ -60,9 +60,9 @@
 }
 .field-decision h3 {
   margin: 0 0 4px;
-  font-size: 0.9rem;
-  font-weight: 400;
-  letter-spacing: 2px;
+  font-size: var(--h3-size);
+  font-weight: 700;
+  letter-spacing: 0.02em;
   color: var(--gold);
 }
 .field-decision p {
@@ -73,39 +73,39 @@
 }
 .field-decision .rows {
   color: var(--cyan);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 }
 .field-part .count {
   margin-right: 8px;
   color: var(--cyan);
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
 }
 .field-type {
   margin: 0 0 18px;
 }
 .field-type-title {
   margin: 18px 0 2px;
-  font-size: 0.95rem;
-  font-weight: 400;
-  letter-spacing: 2px;
+  font-size: var(--h3-size);
+  font-weight: 700;
+  letter-spacing: 0.02em;
   color: var(--cyan);
 }
 .field-type-title .count {
   margin-left: 8px;
   color: var(--dim);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 }
 .field-type .says,
 .field-type .users {
   margin: 0 0 4px;
-  max-width: 700px;
+  max-width: var(--measure);
   font-size: 0.85rem;
   line-height: 1.5;
   color: var(--dim);
 }
 .field-type .users {
   color: var(--ink);
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
 }
 .field-uses {
   display: grid;
@@ -122,12 +122,12 @@
   margin: 0 0 2px;
   font-size: 0.9rem;
   font-weight: 400;
-  letter-spacing: 2px;
+  letter-spacing: 0.06em;
   color: var(--gold);
 }
 .field-use .rows {
   margin: 0 0 6px;
-  font-size: 0.7rem;
+  font-size: 0.875rem;
   color: var(--dim);
 }
 .field-use-shots {
@@ -137,13 +137,13 @@
 }
 .field-use dl {
   margin: 6px 0 0;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   line-height: 1.45;
 }
 .field-use dt {
   color: var(--cyan);
-  letter-spacing: 1px;
-  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+  font-size: 0.875rem;
 }
 .field-use dd {
   margin: 0 0 4px;
@@ -151,7 +151,7 @@
 }
 .field-marks {
   margin: 24px 0 0;
-  max-width: 700px;
+  max-width: var(--measure);
   padding: 6px 10px;
   border-left: 2px solid var(--cyan);
   font-size: 0.85rem;
@@ -160,7 +160,7 @@
 }
 .suggested {
   margin: 6px 0 12px;
-  max-width: 700px;
+  max-width: var(--measure);
   padding: 4px 8px;
   border-left: 2px solid var(--green);
   font-size: 0.85rem;
@@ -170,7 +170,7 @@
 .suggested b {
   color: var(--green);
   font-weight: 400;
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
   margin-right: 4px;
 }
 /* The generic gesture an action or a type starts from, before its uses

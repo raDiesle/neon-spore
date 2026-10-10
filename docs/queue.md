@@ -754,3 +754,10 @@ Drawn from player 2's screen (the STATES card `THE FLEET · WRECK`, now `role: "
 - **Files:** `tools/director/server.ts`, `tools/director/src/director.css`
 
 With `director-here` running, adding `@import "./director-contents.css";` to `director.css` answered the next page load with a 500, and every reload after it asked for `/tools/director/src/director.css` and got a 404 — the bundled stylesheet under _bun/asset still loaded, so the page looked right and the error was only in the console. Stopping and starting the server cleared it; the lane did that and went on. Find whether the HTML route's asset graph is rebuilt when a CSS `@import` list grows, and either make it rebuild or have the route say "restart me" instead of 404ing, with a test if the route is reachable from one.
+
+## The director's shell and columns sheets are past 250 lines
+
+- **Found:** 2026-10-10, claude/director-text-readability-7bbd5d
+- **Files:** `tools/director/src/director-shell.css`, `tools/director/src/director-columns.css`, `tools/director/src/director.css`
+
+`director-shell.css` is 270 lines and `director-columns.css` 299; both were already over before the readability pass added the type scale's tokens. Cut each on a seam its comments already name — the shell's palette and type tokens from its four shared controls, the columns' grid and drag handle from the wave rail — add the new sheet to `director.css`'s `@import` list beside its parent (never after `director-phone.css`; `test/stylesheet-order.test.ts`), and check that `test/columns.test.ts` still finds `main`'s `grid-template-columns`.

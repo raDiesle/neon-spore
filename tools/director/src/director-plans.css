@@ -17,8 +17,8 @@
    the tabular figures keep the arrows still while the number changes width. */
 #waveNow {
   color: var(--gold);
-  font-size: 0.8rem;
-  letter-spacing: 2px;
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
   font-variant-numeric: tabular-nums;
   padding: 0 8px;
 }
@@ -37,7 +37,7 @@
 .cap b {
   color: var(--ink);
   font-weight: 400;
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
 }
 .cap .num {
   color: var(--gold);
@@ -65,18 +65,19 @@
   border-radius: 5px;
 }
 .plan .name {
-  color: var(--dim);
-  letter-spacing: 2px;
-  font-size: 0.95rem;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  font-size: var(--h3-size);
+  font-weight: 700;
 }
 .plan.is-built .name {
   color: var(--ink);
 }
 .plan .stamp {
   margin-left: auto;
-  font-size: 0.75rem;
-  letter-spacing: 1px;
-  color: #574d84;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  color: var(--faint);
 }
 .plan.is-built .stamp {
   color: var(--cyan);
@@ -84,7 +85,7 @@
 .plan .kind {
   color: #a98cff;
   margin-left: 6px;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 .plan .blurb {
   margin: 2px 0 0;
@@ -97,12 +98,12 @@
   margin: 3px 0 0 54px;
   color: #6fb9c4;
   line-height: 1.4;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 .plan .drawn b {
   color: var(--cyan);
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
 }
 /* Always the same width whether it holds a shape or a gap, so a column
    of entries stays a column and the names line up down the page. */
@@ -125,7 +126,7 @@
   background: #041013;
 }
 .concept-art.is-none {
-  color: #3b3163;
+  color: var(--faint);
   font-size: 1.1rem;
 }
 .concept-art svg {
@@ -168,7 +169,7 @@
   margin: 5px 0 0;
   color: var(--dim);
   line-height: 1.45;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 .scene .claim b {
   color: var(--ink);
@@ -176,9 +177,9 @@
 }
 .scene .seat {
   margin: 2px 0 0;
-  color: #574d84;
-  font-size: 0.75rem;
-  letter-spacing: 1px;
+  color: var(--dim);
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
 }
 
 .concept {
@@ -188,14 +189,15 @@
 }
 .concept .name {
   color: var(--ink);
-  letter-spacing: 2px;
-  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  font-size: var(--h3-size);
+  font-weight: 700;
 }
 .concept .status {
   float: right;
-  font-size: 0.75rem;
-  letter-spacing: 1px;
-  color: #574d84;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  color: var(--dim);
 }
 .concept .status.is-built {
   color: var(--cyan);
@@ -209,7 +211,7 @@ table.concept-table {
   width: 100%;
   border-collapse: collapse;
   margin: 8px 0 0;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
 }
 table.concept-table th,
 table.concept-table td {
@@ -221,7 +223,7 @@ table.concept-table td {
 table.concept-table th {
   color: var(--cyan);
   font-weight: 400;
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
 }
 table.concept-table td:first-child {
   color: var(--ink);
@@ -234,7 +236,7 @@ table.concept-table td:first-child {
 }
 .idea .name {
   color: var(--ink);
-  letter-spacing: 1px;
+  letter-spacing: 0.03em;
 }
 .idea .blurb {
   margin: 2px 0 0;
@@ -263,8 +265,8 @@ table.concept-table td:first-child {
 .plan .plainwords dt {
   color: #a98cff;
   font-family: var(--mono);
-  font-size: 0.75rem;
-  letter-spacing: 1px;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   white-space: nowrap;
   padding-top: 1px;

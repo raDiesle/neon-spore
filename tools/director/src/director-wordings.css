@@ -36,7 +36,7 @@
   position: absolute;
   width: 196px;
   font-family: var(--prose);
-  font-size: 0.74rem;
+  font-size: 0.875rem;
   line-height: 1.35;
   color: var(--dim);
 }
@@ -53,28 +53,28 @@
   color: var(--gold);
   font-family: var(--mono);
   font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
 }
 .wordlist {
   display: grid;
   grid-template-columns: max-content 1fr;
   gap: 6px 18px;
-  max-width: 780px;
+  max-width: var(--measure);
   margin: 0;
 }
 .wordlist dt {
   color: var(--gold);
   font-family: var(--mono);
-  font-size: 0.8rem;
-  letter-spacing: 1px;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
 }
 .wordlist dd {
   margin: 0;
   color: var(--dim);
   font-family: var(--prose);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   line-height: 1.45;
 }
