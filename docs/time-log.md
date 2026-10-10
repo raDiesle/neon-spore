@@ -37633,3 +37633,18 @@ Bottleneck: the film — the only thing timed to the old clock by hand, and it
 had to be run on both clocks to see that nothing in it had changed meaning.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — THE LAMPREY's gullet takes a bolt where it is drawn
+
+- reading: 5 min. `lamprey-shot.ts`, `shot-out.ts`, `bullets.ts`, and the
+  5 October fix in `core-along.ts` the eel had never been put on.
+- writing: 5 min. The verdict and the aside, the table row, `lamprey-stop.ts`,
+  the stopper aimed from `lamprey-draw.ts`; `core-met.test.ts` covers it unchanged.
+- looking: 5 min. `bun run frames` to the hit, a scratch test for the gap:
+  the burst five ticks before the eel takes it.
+- friction: 0 min. No `timeout` on macOS; a sheet written one directory up.
+- landing: 10 min. Import order, `lamprey-draw.ts` one line over, `bun run index`;
+  `lamprey-shot.ts` conflicted with WRONG COLOUR, which `coreTaken` already carries.
+
+Bottleneck: landing — the trunk changed the same shot file an hour earlier;
+the fix itself existed for every other core and only the table row was missing.

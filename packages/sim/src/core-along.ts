@@ -6,6 +6,7 @@ import type { CoreVerdict } from "./core-verdict.js";
 import { curtainCoreAside, curtainVerdict } from "./curtain-shot.js";
 import { gallAside, gallVerdict } from "./gall-shot.js";
 import { governorVerdict } from "./governor-shot.js";
+import { lampreyAside, lampreyVerdict } from "./lamprey-shot.js";
 import { oculusVerdict } from "./oculus-shot.js";
 import { plumbVerdict } from "./plumb-shot.js";
 import { slingVerdict } from "./sling-shot.js";
@@ -31,7 +32,8 @@ import type { World } from "./world.js";
  * **A part met up a column of its own** is met the same way at its own row:
  * a part a step asks for aside — THE VISE's seed — for as
  * long as that step is lit, and a core that hangs over a column of its own,
- * THE CURTAIN's, which drifts. Any other column, or one the verdict is silent
+ * THE CURTAIN's, which drifts, and THE LAMPREY's gullet, on whichever tile
+ * it rears. Any other column, or one the verdict is silent
  * on, flies on to the top as it always did. The beam is not asked: it stands in
  * the whole column on the tick it lights, so it has nothing to be late for.
  */
@@ -83,6 +85,9 @@ const CORES: Partial<Record<BossKind, Core>> = {
   // dial, four and a half rows under the hub, and a bolt is met past its far
   // edge (`governor-shot.ts`, `render/governor-shape.ts`).
   governor: { milli: 5900, meet: 9600, verdict: (w, c, k) => governorVerdict(w, c, k) },
+  // THE LAMPREY rears on a tile anywhere on the field, and its lit gullet is
+  // met up that tile's column at that tile's row (`lamprey-shot.ts`).
+  lamprey: { verdict: (w, c, k) => lampreyVerdict(w, c, k), aside: (w) => lampreyAside(w) },
   oculus: { milli: 2200, verdict: (w, c, k) => oculusVerdict(w, c, k) },
   plumb: { milli: 2040, verdict: (w, c, k) => plumbVerdict(w, c, k) },
   sling: { milli: 1800, verdict: (w, c, k) => slingVerdict(w, c, k) },

@@ -66,10 +66,10 @@ const HUNT_SPAN = 2.2;
  *
  * **Its health is read off the ring**, no bar: a tooth knocked out leaves a
  * socket, so the gaps can be counted by eye, and the gullet shrinks a step
- * per hit. Everything is read off `world` each frame; what the events leave —
- * a flung tooth, a snap, a gulp, the blow it takes, the marks' verdicts — is
- * `fx` (`lamprey-fx.ts`, drawn by `lamprey-receipts.ts`), and its own blow at
- * the hull is `lamprey-blow.ts`.
+ * per hit. What the events leave — a flung tooth, a snap, a gulp, the blow,
+ * the verdicts — is `fx` (`lamprey-fx.ts`, `lamprey-receipts.ts`); its blow at
+ * the hull `lamprey-blow.ts`. The pose drawn is returned, for the bolts
+ * (`lamprey-stop.ts`).
  */
 export function drawLamprey(
   ctx: CanvasRenderingContext2D,
@@ -80,7 +80,7 @@ export function drawLamprey(
   beatPhase: number,
   time: number,
   fx: LampreyFx,
-): void {
+): LampreyPose {
   const cfg = world.cfg;
   // A tow's lunge throws the eel about where the pose put it (`lamprey-anger.ts`).
   const p = fx.anger.apply(lampreyPose(l, cfg, s, beat, beatPhase), l, cfg, s, time);
@@ -124,6 +124,7 @@ export function drawLamprey(
   drawLampreyFlung(ctx, l, fx.flung);
   fx.crumbs.draw(ctx, l.tile);
   ctx.restore();
+  return p;
 }
 
 /** The body: the fin round the tail under it, its shadow, lit from the key, the skin's detail (`lamprey-skin.ts`), and the blow's red. */

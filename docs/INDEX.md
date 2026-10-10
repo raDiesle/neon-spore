@@ -633,7 +633,7 @@ by hand never moves.
 | `packages/sim/src/lance-burn.ts` | **THE LANCE going off**: the lobe coming full, and the column burning on that tick |
 | `packages/sim/src/lamprey-hand.ts` | THE LAMPREY's three handles: the tail, the head and the teeth, heard on the tick |
 | `packages/sim/src/lamprey-hash.ts` | What THE LAMPREY puts into `hashWorld`, and nothing else |
-| `packages/sim/src/lamprey-shot.ts` | **THE LAMPREY's shot**: the lit gullet |
+| `packages/sim/src/lamprey-shot.ts` | **THE LAMPREY's shot**: the lit gullet, met on the tile the eel rears on, not past the top |
 | `packages/sim/src/lamprey-step.ts` | THE LAMPREY's clock, once a beat: the worm crawling in |
 | `packages/sim/src/lamprey-leap.ts` | **Where THE LAMPREY leaps to**: a tile `jump` away from where it is |
 | `packages/sim/src/lamprey-roam.ts` | **THE LAMPREY as a worm on the field** (the owner, 6 October 2026) |
@@ -2262,6 +2262,7 @@ by hand never moves.
 | `packages/render/src/lamprey-shape.ts` | **THE LAMPREY's shape** (§41, *The look*): two drafts combined, named on the shape sheet |
 | `packages/render/src/lamprey-skin.ts` | **THE LAMPREY's skin**: what makes the olive tube read as an eel |
 | `packages/render/src/lamprey-settle.ts` | **THE LAMPREY settling onto a tile it crawled to** (the owner, 9 October 2026 |
+| `packages/render/src/lamprey-stop.ts` | **Where a bolt meets THE LAMPREY**: the lit gullet's near rim, up its tile's column |
 | `packages/render/src/lamprey-verdicts.ts` | **THE LAMPREY's marks answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
 | `packages/render/src/lamprey-grip.ts` | **THE LAMPREY's hands**: the pinner's thumb on the jaw, following it, and the tapper's tap on the nearest tooth |
 | `packages/render/src/lamprey-gills.ts` | **THE LAMPREY's gills and eyes**: a row of seven pores down each flank behind the head |

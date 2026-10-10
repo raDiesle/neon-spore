@@ -10563,6 +10563,14 @@ rule for bosses (`docs/miss-rule-audit.md`): the bite goes through
 on — the wave is lost anyway (`wave-fail.ts`). With the script done it is
 limp (`lampreySpent`) for `lampreySpentBeats` and falls away (`lampreyOut`).
 
+**A bolt meets the reared gullet on its tile** (the owner, 10 October 2026:
+*the shot should not go through, and in the exact moment of hitting indicate
+the boss was damaged*): judged up the tile's column at the tile's row
+(`sim/core-along.ts`, `sim/lamprey-shot.ts`), never past the top of the
+field, and drawn ending and bursting on the gullet's near rim a few ticks
+before (`render/lamprey-stop.ts`). A bolt already above the head when the
+gullet lit meets nothing.
+
 **The worm on the field** (the owner, 6 October 2026, `sim/lamprey-roam.ts`):
 *let the enemy appear as an intro animation, eat its way through things that
 fall … leave crumbs … crawl out of the picture and back … between each slow

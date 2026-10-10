@@ -4,6 +4,7 @@ import type { Effects } from "./effects.js";
 import { drawFlue } from "./flue-draw.js";
 import { drawGovernor } from "./governor-draw.js";
 import { drawLamprey } from "./lamprey-draw.js";
+import { lampreyStopper } from "./lamprey-stop.js";
 import { drawLatch } from "./latch-draw.js";
 import type { Layout } from "./layout.js";
 import { drawMimic } from "./mimic-draw.js";
@@ -83,10 +84,12 @@ export function drawLatestPairBoss(
 
   // THE LAMPREY: an eel bitten onto the hull and crawling along it, held
   // under by one seat while the other taps its lit tooth out, then reared
-  // with its gullet lit and shot (`lamprey-draw.ts`); its marks' verdicts on
+  // with its gullet lit and shot, a bolt stopping in it (`lamprey-stop.ts`,
+  // `lamprey-draw.ts`); its marks' verdicts on
   // a touch are `lamprey-verdicts.ts`.
   if (boss.kind === "lamprey") {
-    drawLamprey(ctx, l, world, boss, beat, beatPhase, time, effects.boss.lamprey);
+    const p = drawLamprey(ctx, l, world, boss, beat, beatPhase, time, effects.boss.lamprey);
+    effects.bolts.aim(lampreyStopper(world, boss, p));
     return;
   }
 
