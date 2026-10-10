@@ -6,5 +6,9 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { PULL_BEACON } from "./pull-handle/beacon/index.js";
+import { PULL_COMET } from "./pull-handle/comet/index.js";
+import { PULL_SLIME } from "./pull-handle/slime/index.js";
+import { PULL_TENDON } from "./pull-handle/tendon/index.js";
 
-export const VARIANTS: Variant[] = [];
+export const VARIANTS: Variant[] = [PULL_BEACON, PULL_COMET, PULL_SLIME, PULL_TENDON];

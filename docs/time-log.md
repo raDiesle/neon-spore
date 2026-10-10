@@ -37333,3 +37333,19 @@ Bottleneck: the hidden pane silently starving `requestAnimationFrame`, which
 looked like the jump code was wrong.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — Four looks for every pull handle, in VERSUS and the PULL LAB
+
+- reading: 0 min. The pull records and the VERSUS scaffold were the last
+  piece's.
+- writing: 10 min. BEACON, COMET, SLIME and TENDON, the lab's EVERY LOOK
+  sheet and its `?pulllab=` door, the pose row, the tests.
+- looking: 5 min. The sheet through `bun run shot` twice — a word clipped at a
+  cell's edge, BEACON's count too quiet — and one `versus:shot` on THE
+  LAMPREY.
+- friction: 0 min.
+- landing: 5 min. Two lint fixes, a test that named the slot rewritten,
+  `check:fast`, `land`.
+
+Bottleneck: looking — the live pane's screenshots are too small to judge a
+knob, which is what the sheet was built for.

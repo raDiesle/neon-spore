@@ -3549,6 +3549,7 @@ by hand never moves.
 | `tools/director/src/pull-lab-paint.ts` | One frame of the PULL LAB (`pull-lab.ts`): the empty field |
 | `tools/director/src/pull-lab-rule.ts` | **The one generic PULL, as the lab plays it** — a toy rule beside the twenty-odd the simulation keeps |
 | `tools/director/src/pull-lab-shapes.ts` | **The shapes the one generic PULL can take**, for the PULL LAB (`pull-lab.ts`) |
+| `tools/director/src/pull-lab-sheet.ts` | **EVERY LOOK, EVERY STATE** — the PULL LAB's comparison sheet: one row per look (what ships |
 | `tools/director/src/pull-lab.ts` | **THE PULL LAB** — the one generic PULL on an empty field, to be pulled by hand (the owner, 10 October 2026) |
 | `tools/director/src/versus-crop.ts` | One side of a VERSUS pair: a whole phone, drawn, shown through the window its pose's own `crop` cuts in it |
 | `tools/director/src/versus-diff.ts` | How two pictures of the same frame are compared — the pixel arithmetic behind `versus-seat.ts` |

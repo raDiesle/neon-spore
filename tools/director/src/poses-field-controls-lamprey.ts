@@ -125,6 +125,8 @@ const LAMPREY_TAIL: Pose = {
 
 const LAMPREY_HEAD: Pose = {
   name: "LAMPREY · THE HEAD PULLED",
+  // VERSUS's `pull:handle` opens here: a pull knob and its channel half way,
+  // held, on the look the owner named as the best of the pulls (10 October 2026).
   note: "The same stay on player 2's screen: the head's knob on the tile, its channel running straight up, the thumb half way, the mouth coming off the tile with it.",
   lookAt: "whether the head's channel reads as *drag this up*",
   crop: "field",

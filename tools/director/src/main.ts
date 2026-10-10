@@ -17,6 +17,7 @@ import { bindNotes } from "./notes-page.js";
 import { bindPairPanel } from "./pair-panel.js";
 import { bindPalette } from "./palette.js";
 import { onPhone } from "./phone-view.js";
+import { openPullLabAsked } from "./pull-lab.js";
 import { bindRail } from "./rail.js";
 import { rememberedWave } from "./rail-arrive.js";
 import { followHash } from "./section-follow.js";
@@ -205,5 +206,6 @@ bindExpanders();
 bindContents();
 // After every sheet has restored itself from the query string.
 followHash();
+openPullLabAsked(window.location.search);
 
 void io.load();

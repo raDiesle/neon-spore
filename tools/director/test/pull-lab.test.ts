@@ -1,6 +1,8 @@
 import { describe, expect, test } from "bun:test";
-import { pullTrackPoint } from "@neon-spore/render";
+import { PULL_KNOB, pullTrackPoint } from "@neon-spore/render";
+import type { Variant } from "../../versus/variant.js";
 import { AUTO_SECONDS, autoThumb } from "../src/pull-lab-auto.js";
+import { pullLooks } from "../src/pull-lab-paint.js";
 import {
   freshPull,
   knobAt,
@@ -12,6 +14,7 @@ import {
   tick,
 } from "../src/pull-lab-rule.js";
 import { LAB_H, LAB_SHAPES, LAB_W, type LabShape, labShape } from "../src/pull-lab-shapes.js";
+import { MOMENTS, pullAt } from "../src/pull-lab-sheet.js";
 
 /**
  * The PULL LAB's rule and its thumb, without a canvas (`pull-lab.ts` draws;
@@ -120,5 +123,44 @@ describe("AUTO's thumb", () => {
       }
       expect([s.key, pull.counted, pull.refused]).toEqual([s.key, 1, 1]);
     }
+  });
+});
+
+describe("the EVERY LOOK sheet", () => {
+  test("each moment shows the state it is labelled with, on every shape", () => {
+    const want: Record<string, [string, string | null]> = {
+      WAITING: ["idle", null],
+      "HELD · HALF WAY": ["held", null],
+      COUNTED: ["full", "counted"],
+      "SHORT · HELD": ["held", null],
+      "SHORT · REFUSED": ["home", "refused"],
+    };
+    for (const s of LAB_SHAPES) {
+      for (const m of MOMENTS) {
+        const { pull } = pullAt(s, m.at);
+        expect([s.key, m.label, pull.phase, pull.verdict]).toEqual([
+          s.key,
+          m.label,
+          ...(want[m.label] ?? []),
+        ]);
+      }
+    }
+  });
+
+  test("the LOOK picker takes a candidate by the records it patches, never by its slot", () => {
+    const where = { file: "packages/render/src/pull-knob.ts", symbol: "PULL_KNOB" };
+    const pull: Variant = {
+      slot: "any:slot",
+      name: "a",
+      sentence: "",
+      dir: "",
+      patches: [{ target: PULL_KNOB, reached: () => PULL_KNOB, where, fields: {} }],
+    };
+    const other: Variant = {
+      ...pull,
+      name: "b",
+      patches: [{ ...pull.patches[0], target: {} } as never],
+    };
+    expect(pullLooks([pull, other])).toEqual([pull]);
   });
 });

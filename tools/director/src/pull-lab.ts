@@ -15,6 +15,7 @@ import {
   tick,
 } from "./pull-lab-rule.js";
 import { LAB_H, LAB_SHAPES, LAB_W, type LabShape, labShape } from "./pull-lab-shapes.js";
+import { labSheet } from "./pull-lab-sheet.js";
 
 /**
  * **THE PULL LAB** — the one generic PULL on an empty field, to be pulled by
@@ -39,7 +40,7 @@ import { LAB_H, LAB_SHAPES, LAB_W, type LabShape, labShape } from "./pull-lab-sh
 /** Device pixels per lab pixel, at most: the knob's rim is a line of 1.6. */
 const MAX_DPR = 4;
 
-export function openPullLab(first = "down"): void {
+export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): void {
   let shape: LabShape = labShape(first);
   let pull: LabPull = freshPull(shape);
   let look: Variant | null = null;
@@ -63,9 +64,22 @@ export function openPullLab(first = "down"): void {
   const readout = text("span", "", "try-readout");
   const life = new AbortController();
 
+  let sheet = opts.sheet === true;
+  const sheetButton = text("button", "▤ EVERY LOOK, EVERY STATE");
+  /** The room shows the live canvas, or the sheet of every look for this shape. */
+  const show = (): void => {
+    sheetButton.classList.toggle("on", sheet);
+    room.classList.toggle("pull-lab-room-sheet", sheet);
+    room.replaceChildren(sheet ? labSheet(shape) : canvas);
+  };
+  sheetButton.addEventListener("click", () => {
+    sheet = !sheet;
+    show();
+  });
   const reset = (): void => {
     pull = freshPull(shape);
     autoTime = 0;
+    if (sheet) show();
   };
   const autoButton = text("button", "", "");
   const setAuto = (on: boolean): void => {
@@ -119,6 +133,7 @@ export function openPullLab(first = "down"): void {
       },
     ),
     autoButton,
+    sheetButton,
     readout,
     close,
   );
@@ -210,5 +225,14 @@ export function openPullLab(first = "down"): void {
   shade.append(bar, like, room);
   document.body.appendChild(shade);
   fit();
+  show();
   requestAnimationFrame(frame);
+}
+
+/** `?pulllab=<shape>` opens the lab as the page loads, and `&pullsheet=1` on
+ * its sheet — so `bun run shot` can photograph either with no clicks. */
+export function openPullLabAsked(search: string): void {
+  const params = new URLSearchParams(search);
+  const shape = params.get("pulllab");
+  if (shape !== null) openPullLab(shape, { sheet: params.get("pullsheet") === "1" });
 }

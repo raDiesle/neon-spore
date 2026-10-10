@@ -95,11 +95,13 @@ function paintVerdict(ctx: CanvasRenderingContext2D, { shape, pull }: LabFrame):
   const k = knobAt(shape, pull);
   ctx.save();
   ctx.font = `600 ${LAB_TILE * 0.36}px ui-monospace, monospace`;
-  ctx.textAlign = "center";
+  // Leaning away from the nearer side wall, so a crop round the track keeps it whole.
+  const left = k.x < LAB_W / 2;
+  ctx.textAlign = left ? "left" : "right";
   ctx.fillStyle = toneOf(pull).hex === PALETTE.cyan ? PALETTE.dim : toneOf(pull).hex;
   ctx.globalAlpha = Math.max(0, 1 - pull.since / 1.2);
   const above = k.y < LAB_TILE * 2 ? LAB_KNOB * 2.6 : -LAB_KNOB * 2.2;
-  ctx.fillText(VERDICT_WORDS[pull.verdict] ?? "", k.x, k.y + above);
+  ctx.fillText(VERDICT_WORDS[pull.verdict] ?? "", k.x + (left ? -LAB_KNOB : LAB_KNOB), k.y + above);
   ctx.restore();
 }
 
