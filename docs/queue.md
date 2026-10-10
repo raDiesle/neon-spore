@@ -740,3 +740,10 @@ The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts o
 - **Files:** `packages/render/src/fleet-grip-draw.ts`, `packages/render/src/pull-knob.ts`, `packages/render/test/fleet-grip.test.ts`
 
 Drawn from player 2's screen (the STATES card `THE FLEET · WRECK`, now `role: "p2"`), the word under the wreck's pull knob is two copies of PULL a few pixels apart, one over the other. `drawFleetGrip` calls `drawHandleHint` once and `drawHandleHint` fills the text once, so the second copy comes from somewhere else that draws under the same knob — find it, keep one, and add a frame test that counts one `fillText("PULL")` for the navigator in the wreck.
+
+## AUTO's PINBALL shot hops on the cannon for a whole flight
+
+- **Found:** 2026-10-10, claude/pinball-table-touch-area-7a3f1f
+- **Files:** `packages/hands/src/boss-hands-rounds.ts`, `packages/sim/src/pinball-physics.ts`, `packages/sim/src/pinball-funnel.ts`, `packages/sim/src/pinball-round.ts`
+
+`pinballHand` latches the needle on its first tick and launches on the next, so every AUTO shot leaves at `angleMilli` 0 and `powerMilli` 4: straight up from x 5500, it climbs to y ≈ 7.8 tiles (no peg is lower than 3), falls, and is thrown back up from y ≈ 13.7 with `vxMilli` 0 and no height lost, over and over. It never crosses the floor at 14000, so each flight runs about 60 beats (~38 s at 96 bpm) until `pinballFlightBeats` times it out. A played PINBALL is three of those and a verdict: the table offers the shove the whole time and nothing on the board is ever touched (`bun run probe` on `waveWorld("pinball")` with `playedBeat`). Two things to settle: what at y ≈ 13.7 returns a vertical ball with no loss, when the bounce should take `bouncePermille` off and the cannon should catch a ball that falls back onto it; and give the hand an aim and a power that reach the board, with a test that an AUTO PINBALL flight ends under the flight clock and lights at least one piece.
