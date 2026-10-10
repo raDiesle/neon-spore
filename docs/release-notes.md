@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 3f7f2daad — Queue AUTO's PINBALL shot hopping on the cannon for a whole flight
+
+AUTO launches every PINBALL shot straight up at the lowest power, and the ball bounces in place above the cannon for about 38 seconds a flight without touching the board. Queued, with the two things to settle.
+
 ## 2026-10-10 · b33703338 — A director reload stays on DOCUMENTATION → CONTROLS → ON THE FIELD
 
 The URL kept the open sheet and its tab, but not the tab inside CONTROLS, so a reload on ON THE FIELD or EVERY WAVE came back on PANELS. The place now carries a third level, `sub`, written when that bar is clicked and restored after the inner tab on load; it is dropped whenever its room is left. Not a look: the director only.
