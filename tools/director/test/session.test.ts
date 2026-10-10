@@ -70,3 +70,63 @@ describe("mountSheet's restore", () => {
     }
   });
 });
+
+/** DOCUMENTATION's shape: an inner bar whose CONTROLS room has a bar of its own. */
+function mountThree(search: string): {
+  inner: FakeEl[];
+  sub: FakeEl[];
+  url: () => string;
+  restore: () => void;
+} {
+  const inner = makeBar(["wordings", "controlsets"]);
+  const sub = makeBar(["panels", "field", "every"]);
+  const dom = installDom({ search, bars: { "#statesTabs": inner, "#controlsInnerTabs": sub } });
+  bindPlace(10);
+  mountSheet({
+    name: "states",
+    sheet: new FakeEl() as unknown as HTMLElement,
+    open: new FakeEl() as unknown as HTMLElement,
+    close: new FakeEl() as unknown as HTMLElement,
+    innerBar: "#statesTabs",
+    subBars: { controlsets: "#controlsInnerTabs" },
+  });
+  return { inner, sub, url: dom.url, restore: dom.restore };
+}
+
+describe("mountSheet's third level", () => {
+  test("a reload on ON THE FIELD comes back on ON THE FIELD", () => {
+    const { inner, sub, url, restore } = mountThree("?sheet=states&inner=controlsets&sub=field");
+    try {
+      expect(inner[1]?.classList.contains("on")).toBe(true);
+      expect(sub[1]?.classList.contains("on")).toBe(true);
+      expect(url()).toContain("sub=field");
+    } finally {
+      restore();
+    }
+  });
+
+  test("a click on a sub tab is written, and leaving its room drops it", () => {
+    const { inner, sub, url, restore } = mountThree("?sheet=states&inner=controlsets");
+    try {
+      sub[2]?.click();
+      expect(url()).toContain("inner=controlsets&sub=every");
+      inner[0]?.click();
+      expect(url()).not.toContain("sub=");
+      // Back in the room, the bar still shows the tab it was left on.
+      inner[1]?.click();
+      expect(url()).toContain("sub=every");
+    } finally {
+      restore();
+    }
+  });
+
+  test("a sub tab clicked while another room is up writes nothing", () => {
+    const { sub, url, restore } = mountThree("?sheet=states&inner=wordings");
+    try {
+      sub[1]?.click();
+      expect(url()).not.toContain("sub=");
+    } finally {
+      restore();
+    }
+  });
+});

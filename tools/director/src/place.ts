@@ -32,6 +32,12 @@ export interface Place {
   sheet: string | null;
   /** The open sheet's own inner tab, by name, or null when it has none open. Always null when `sheet` is. */
   inner: string | null;
+  /**
+   * The tab inside that inner tab, for the one room that has a bar of its
+   * own — DOCUMENTATION → CONTROLS → ON THE FIELD. Always null when `inner`
+   * is: a third level means nothing without the second it sits in.
+   */
+  sub: string | null;
 }
 
 /**
@@ -53,17 +59,21 @@ export function parsePlace(search: string): Place {
   // sheet the reader meant to reopen — dropped the same way a wave with no
   // digits is.
   const inner = sheet ? params.get("inner") || null : null;
+  const sub = inner ? params.get("sub") || null : null;
 
-  return { wave, sheet, inner };
+  return { wave, sheet, inner, sub };
 }
 
-/** The query string a `Place` round-trips to, e.g. `"?wave=7&sheet=backlog&inner=spec"` — never a trailing `?` alone. */
+/** The query string a `Place` round-trips to, e.g. `"?wave=7&sheet=states&inner=controlsets&sub=field"` — never a trailing `?` alone. */
 export function placeToSearch(place: Place): string {
   const params = new URLSearchParams();
   if (place.wave !== null) params.set("wave", String(place.wave));
   if (place.sheet !== null) {
     params.set("sheet", place.sheet);
-    if (place.inner !== null) params.set("inner", place.inner);
+    if (place.inner !== null) {
+      params.set("inner", place.inner);
+      if (place.sub !== null) params.set("sub", place.sub);
+    }
   }
   const query = params.toString();
   return query ? `?${query}` : "";

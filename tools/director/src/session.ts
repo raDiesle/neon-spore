@@ -40,6 +40,9 @@
  * already gets, because a URL outlives the code that wrote it. `inner` rides
  * beside `sheet` and is cleared whenever it is, so a sheet closed and
  * reloaded comes back closed rather than remembering a tab nobody can see.
+ * One room has a third level — DOCUMENTATION → CONTROLS → ON THE FIELD — and
+ * `subBars` keeps it as `sub`, cleared with `inner` the way `inner` is with
+ * `sheet` (the owner, 10 October 2026: a reload stays on the page it was on).
  */
 
 import { type Place, parsePlace, placeToSearch } from "./place.js";
@@ -66,7 +69,7 @@ function writePlace(place: Place): void {
  * `mountSheet`'s wiring are the only things that ever change it, and every
  * change goes straight to `writePlace`.
  */
-let current: Place = { wave: null, sheet: null, inner: null };
+let current: Place = { wave: null, sheet: null, inner: null, sub: null };
 
 export interface PlaceSession {
   /** The wave index named by the URL at startup, already clamped to `[0, waveCount)`. */
@@ -110,13 +113,17 @@ function initialInner(name: string): string | null {
   return current.sheet === name ? current.inner : null;
 }
 
-function openSheet(name: string, inner: string | null): void {
-  current = { ...current, sheet: name, inner };
+function initialSub(name: string): string | null {
+  return current.sheet === name ? current.sub : null;
+}
+
+function openSheet(name: string, inner: string | null, sub: string | null): void {
+  current = { ...current, sheet: name, inner, sub: inner ? sub : null };
   writePlace(current);
 }
 
 function closeSheet(): void {
-  current = { ...current, sheet: null, inner: null };
+  current = { ...current, sheet: null, inner: null, sub: null };
   writePlace(current);
 }
 
@@ -133,6 +140,13 @@ export interface SheetSpec {
   close: HTMLElement;
   /** Selector for this sheet's own inner tab bar, if it has one — `bindTabs` must already be wired to it, so a click here can read the `.on` class it just set. */
   innerBar?: string;
+  /**
+   * An inner tab's own bar, keyed by that inner tab's name — the third level,
+   * kept in the URL as `sub`. Only DOCUMENTATION → CONTROLS has one
+   * (`#controlsInnerTabs`), and its `bindTabs` must be wired before this
+   * call for the same reason `innerBar`'s must.
+   */
+  subBars?: Record<string, string>;
   /** Run every time the sheet opens — a lazy `load()`/render, or unlocking audio. */
   onOpen?: () => void;
   /** Run every time the sheet closes, after the place is cleared — a running player to hush, say. */
@@ -153,7 +167,15 @@ export interface SheetSpec {
  * simply never found, the same fallback an unknown top-level `tab` gets.
  */
 export function mountSheet(spec: SheetSpec): void {
-  const { name, sheet, open, close, innerBar, onOpen, onClose } = spec;
+  const { name, sheet, open, close, innerBar, subBars = {}, onOpen, onClose } = spec;
+
+  // The sub tab showing under `inner`, read off its bar's `.on` the same way
+  // the inner tab is — a bar keeps its tab while another room is up, so
+  // coming back to CONTROLS still names the tab it shows.
+  const subOf = (inner: string | null): string | null => {
+    const bar = inner ? subBars[inner] : undefined;
+    return bar ? currentInnerTab(bar) : null;
+  };
 
   const show = (on: boolean): void => {
     sheet.classList.toggle("on", on);
@@ -162,7 +184,8 @@ export function mountSheet(spec: SheetSpec): void {
       onClose?.();
       return;
     }
-    openSheet(name, innerBar ? currentInnerTab(innerBar) : null);
+    const inner = innerBar ? currentInnerTab(innerBar) : null;
+    openSheet(name, inner, subOf(inner));
     onOpen?.();
   };
 
@@ -174,7 +197,18 @@ export function mountSheet(spec: SheetSpec): void {
 
   if (innerBar) {
     for (const tab of document.querySelectorAll<HTMLElement>(`${innerBar} button`)) {
-      tab.addEventListener("click", () => openSheet(name, tab.dataset.tab ?? null));
+      const inner = tab.dataset.tab ?? null;
+      tab.addEventListener("click", () => openSheet(name, inner, subOf(inner)));
+    }
+  }
+
+  for (const [inner, bar] of Object.entries(subBars)) {
+    for (const tab of document.querySelectorAll<HTMLElement>(`${bar} button`)) {
+      tab.addEventListener("click", () => {
+        if (current.sheet === name && current.inner === inner) {
+          openSheet(name, inner, tab.dataset.tab ?? null);
+        }
+      });
     }
   }
 
@@ -182,11 +216,18 @@ export function mountSheet(spec: SheetSpec): void {
     // Before the click, never after: `open.click()` records the bar's own
     // default over `current.inner` and there is nothing left here to read.
     const wantInner = innerBar ? initialInner(name) : null;
+    const wantSub = initialSub(name);
     open.click();
     if (wantInner) {
       document
         .querySelector<HTMLButtonElement>(`${innerBar} button[data-tab="${wantInner}"]`)
         ?.click();
+      const subBar = subBars[wantInner];
+      if (subBar && wantSub) {
+        document
+          .querySelector<HTMLButtonElement>(`${subBar} button[data-tab="${wantSub}"]`)
+          ?.click();
+      }
     }
   }
 }

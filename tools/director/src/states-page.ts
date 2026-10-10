@@ -104,6 +104,7 @@ export function bindStates(): void {
     open,
     close,
     innerBar: "#statesTabs",
+    subBars: { controlsets: "#controlsInnerTabs" },
     onOpen: renderWordings,
   });
 }
