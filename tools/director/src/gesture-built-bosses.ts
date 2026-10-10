@@ -8,7 +8,9 @@ import type { Gesture } from "./gesture-types.js";
  * TILT, AS A LEVEL was the eighth, and the owner ruled it out on 27 September
  * 2026; it is in `gesture-missed.ts`. CHORD was another, until THE TRIVET
  * left the game on 8 October 2026, and the owner ruled it out the same day;
- * it is in `gesture-missed.ts`.
+ * it is in `gesture-missed.ts`. SENDING NOTHING — a step passed by hands
+ * off the glass — had a card here until the owner ruled on 10 October 2026
+ * that it is not a control; the step is `sim/seam-step.ts`'s.
  */
 
 export const BUILT_FOR_BOSSES: readonly Gesture[] = [
@@ -31,24 +33,6 @@ export const BUILT_FOR_BOSSES: readonly Gesture[] = [
       window: { from: 5, to: 9, label: "frozen" },
     },
     where: ["packages/sim/src/valve-hand.ts"],
-  },
-  {
-    name: "SENDING NOTHING",
-    state: "built",
-    does: "A step passed by not touching for N beats. The one thing the input layer has never had to express — an absence, graded.",
-    hand: [
-      { k: "text", at: [20, 60], text: "hands off" },
-      { k: "cross", at: [46, 90] },
-    ],
-    timeline: {
-      lanes: [
-        { event: "pointerdown", marks: [0.5] },
-        { event: "pointerup", marks: [1.2] },
-      ],
-      beats: [2, 4, 6, 8],
-      window: { from: 2, to: 8, label: "nothing, three beats" },
-    },
-    where: ["packages/sim/src/seam-step.ts"],
   },
   {
     name: "TAPS ON A MOVING TARGET",

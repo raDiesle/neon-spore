@@ -24,7 +24,7 @@ export const GESTURE_NOTES: Readonly<Record<string, string>> = {
   "TRACING A PATH":
     "THE FILAMENT's alone now. Possibly a PULL along a drawn path with a " +
     "tolerance off it — `docs/spec/ideas.md`, A pull along a path.",
-  "TWO THUMBS ON ONE PHONE": "Keep. Each pointer by its own id.",
+  "TWO THUMBS ON ONE PHONE": "Keep. Each pointer by its own id; at a PC, the keys stand in.",
   "BOTH SEATS IN ONE WINDOW":
     "Make the together-mark generic: one ring on both screens that fills " +
     "only while both are down.",
@@ -34,7 +34,6 @@ export const GESTURE_NOTES: Readonly<Record<string, string>> = {
   "FREEZE TAP":
     "Stamped SPEC'D but built: THE VALVE, THE TRAPEZE, THE FLUE, " +
     "THE GOVERNOR. Move to BUILT; make THE VALVE's pin the generic one.",
-  "SENDING NOTHING": "Stamped SPEC'D but built: `RestraintGate` in THE FLUE. " + "Move to BUILT.",
   "TAPS ON A MOVING TARGET": "Stamped SPEC'D but built: THE RATCHET's pawl. Move to BUILT.",
   RUB:
     "Stamped SPEC'D but built: THE CAPSTAN. Move " +
@@ -61,7 +60,8 @@ export const GESTURE_NOTES: Readonly<Record<string, string>> = {
   "FLICK, BY SPEED": "Keep ruled out — a speed on the wire does not heal.",
   "TWO-FINGER ROTATE": "Keep ruled out — ROUND A CIRCLE does it with one finger.",
   "FACE DOWN": "Keep ruled out — the player's half of the picture is the game.",
-  "HOLD THE PHONE STILL": "Keep ruled out — SENDING NOTHING does it on the glass.",
+  "HOLD THE PHONE STILL":
+    "Keep ruled out — hands off the glass for a few beats asks the same, and honestly.",
   "LONG PRESS, THE OS's WAY": "Keep refused. Every hold depends on it staying refused.",
 };
 

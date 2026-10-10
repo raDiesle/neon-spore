@@ -3515,6 +3515,7 @@ by hand never moves.
 | `tools/director/src/gesture-phone.ts` | The left half of a GESTURES card: a phone in portrait |
 | `tools/director/src/gesture-prims.ts` | What a GESTURES figure is drawn in: the viewBox, the primitives and the director's own colours as literals |
 | `tools/director/src/gesture-types.ts` | What a card on CONTROLS › GESTURES is made of: a gesture, where it stands |
+| `tools/director/src/gesture-desk.ts` | The PC half of a gesture card: a keyboard and a mouse, with the keys the gesture is played on drawn held |
 | `tools/director/src/gestures-page.ts` | How a gesture is drawn on CONTROLS › ON THE FIELD: a card per gesture |
 | `tools/director/src/held.ts` | **What the author is carrying**: the brush that is armed, and — while a drag is in the air |
 | `tools/director/src/helpers-aim.ts` | CONTROLS › HELPERS, the second half: where a shot goes, the words and counts that stand on a body |

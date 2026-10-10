@@ -74,6 +74,18 @@ export interface Timeline {
   note?: string;
 }
 
+/**
+ * How a PC does what a hand on the glass does, for a gesture a desk has to
+ * stand in for — the owner, 10 October 2026: *it should say how it's usable
+ * on PC and show it.* Drawn as a keyboard and a mouse (`gesture-desk.ts`).
+ */
+export interface DeskWay {
+  /** What the person at the keyboard does, in a sentence or two. */
+  does: string;
+  /** The keys drawn held down, by `KeyboardEvent.code`. */
+  held: readonly string[];
+}
+
 export interface Gesture {
   name: string;
   state: GestureState;
@@ -84,6 +96,8 @@ export interface Gesture {
   timeline: Timeline;
   /** Files in the tree for `built`; a spec heading for `specd`. */
   where?: readonly string[];
+  /** The same thing at a PC, where the gesture has a desk way. */
+  desk?: DeskWay;
   /** What differs between an iPhone and an Android. */
   platform?: string;
   /** For `missed`: the argument. */

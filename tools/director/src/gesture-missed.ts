@@ -133,7 +133,7 @@ export const STAY_MISSED: readonly Gesture[] = [
       lanes: [{ event: "devicemotion", marks: [[1, 9]] }],
       note: "a missing sensor also reads as still",
     },
-    why: "Sensor noise, a refused permission and no sensor at all look the same as stillness. SENDING NOTHING is the honest version.",
+    why: "Sensor noise, a refused permission and no sensor at all look the same as stillness. Hands off the glass for a few beats is the honest version.",
   },
   {
     name: "LONG PRESS, THE OS's WAY",

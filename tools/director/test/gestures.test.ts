@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { GESTURES } from "../src/gesture-catalogue.js";
+import { DESK_H, DESK_W, drawnKeys, layoutDesk } from "../src/gesture-desk.js";
 import { BROWSER_EVENTS } from "../src/gesture-events.js";
 import { LABEL_X, layoutFigure, textWidth, VIEW_H, VIEW_W } from "../src/gesture-figure.js";
 import { PHONE } from "../src/gesture-phone.js";
@@ -106,6 +107,25 @@ describe("a gesture's figure", () => {
         if (p.t === "text" && p.x < LABEL_X)
           expect(x1, label).toBeLessThanOrEqual(PHONE.x + PHONE.w);
       }
+    });
+  }
+});
+
+describe("a gesture's PC half", () => {
+  for (const g of GESTURES.filter((x) => x.desk)) {
+    test(`${g.name}'s keyboard stays inside its frame, and holds keys it draws`, () => {
+      const desk = g.desk;
+      if (!desk) return;
+      for (const p of layoutDesk(desk)) {
+        const [x0, y0, x1, y1] = extent(p);
+        const label = `${p.t} ${"text" in p ? p.text : ""}`;
+        expect(x0, label).toBeGreaterThanOrEqual(-0.5);
+        expect(y0, label).toBeGreaterThanOrEqual(-0.5);
+        expect(x1, label).toBeLessThanOrEqual(DESK_W + 0.5);
+        expect(y1, label).toBeLessThanOrEqual(DESK_H + 0.5);
+      }
+      const keys = drawnKeys();
+      expect(desk.held.filter((k) => !keys.includes(k))).toEqual([]);
     });
   }
 });

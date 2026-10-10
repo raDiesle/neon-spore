@@ -135,7 +135,7 @@ describe("CONTROLS › ON THE FIELD", () => {
     expect(placed.length).toBe(new Set(placed).size);
   });
 
-  test("the built gestures no action starts from are the ones every wave has, and the odd few", () => {
-    expect(unplacedGestures()).toEqual(["TWO THUMBS ON ONE PHONE", "SENDING NOTHING"]);
+  test("the built gestures no action starts from are the one only a shared screen needs", () => {
+    expect(unplacedGestures()).toEqual(["TWO THUMBS ON ONE PHONE"]);
   });
 });

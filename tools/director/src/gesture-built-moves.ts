@@ -110,10 +110,12 @@ export const BUILT_MOVING: readonly Gesture[] = [
   {
     name: "TWO THUMBS ON ONE PHONE",
     state: "built",
-    does: "One player, two fingers at once — a thumb on the strip and one on a lobe. Each pointer is tracked by its own id.",
+    does: "Two fingers down at once, each pointer tracked by its own id. Used when one screen plays both seats — the TEST screen, or two people round one phone: player 1's cannon strip and player 2's shield strip answer together. In the two-phone game a player never has two down at once (the owner, 8 October 2026).",
     hand: [
       { k: "hold", at: [20, 128] },
       { k: "touch", at: [72, 128] },
+      { k: "text", at: [8, 110], text: "① P1" },
+      { k: "text", at: [60, 110], text: "② P2" },
     ],
     timeline: {
       lanes: [
@@ -124,7 +126,16 @@ export const BUILT_MOVING: readonly Gesture[] = [
       ],
       note: "② has its own pointerId",
     },
-    where: ["apps/game/src/input.ts"],
+    desk: {
+      does: "One keyboard is both seats' hands, so two keys held are two thumbs: player 1 holds D to slide the cannon while player 2 holds Q to fill red. The mouse is a third hand: hold 1 or 2 and it is that seat's, hold 3 and one click is both seats' (THE INSTAR's two-thumb marks).",
+      held: ["KeyD", "KeyQ"],
+    },
+    where: [
+      "apps/game/src/input.ts",
+      "apps/game/src/keys.ts",
+      "packages/content/src/keys-desk.ts",
+      "packages/render/src/desk-seat.ts",
+    ],
   },
   {
     name: "BOTH SEATS IN ONE WINDOW",

@@ -37467,3 +37467,18 @@ Bottleneck: picking a frame per helper that actually shows it — a gallery pose
 named for a state often holds the helper too small, or not at all.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — TWO THUMBS ON ONE PHONE says where and shows the PC; SENDING NOTHING is not a control
+
+- reading: 10 min. The game's pointer rig, the desk keys (`keys-desk.ts`),
+  the mouse's seat keys (`desk-seat.ts`) and the owner's ruling that a player
+  never has two fingers down at once.
+- writing: 10 min. The card's new sentence, a keyboard-and-mouse picture
+  drawn off `deskKeys`, the AT A PC row, the SENDING NOTHING card out, tests.
+- looking: 5 min. The card in this tree's director, then the PNG; number keys
+  printed "DIGIT1" and were fixed.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: finding out what the gesture is for — the game uses it only when
+one screen plays both seats, which the card never said.

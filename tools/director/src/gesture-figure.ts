@@ -196,13 +196,23 @@ function el(p: Prim): SVGElement {
   return node;
 }
 
-/** The card's figure, drawn. Browser only. */
-export function figureSvg(g: Gesture): SVGSVGElement {
+/** A list of primitives as an SVG of the given size. Browser only. */
+export function primsSvg(
+  prims: readonly Prim[],
+  w: number,
+  h: number,
+  label: string,
+): SVGSVGElement {
   const svg = document.createElementNS(SVG_NS, "svg") as SVGSVGElement;
-  svg.setAttribute("viewBox", `0 0 ${VIEW_W} ${VIEW_H}`);
+  svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
   svg.setAttribute("class", "gesture-figure");
   svg.setAttribute("role", "img");
-  svg.setAttribute("aria-label", `${g.name}: ${g.does}`);
-  for (const p of layoutFigure(g)) svg.appendChild(el(p));
+  svg.setAttribute("aria-label", label);
+  for (const p of prims) svg.appendChild(el(p));
   return svg;
+}
+
+/** The card's figure, drawn. Browser only. */
+export function figureSvg(g: Gesture): SVGSVGElement {
+  return primsSvg(layoutFigure(g), VIEW_W, VIEW_H, `${g.name}: ${g.does}`);
 }
