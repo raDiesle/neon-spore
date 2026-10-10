@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 0a0c2cfa3 — The PULL LAB draws no grey thumb over the drop
+
+The soft grey disc that stood for the finger — AUTO's and the mouse's — is gone from the lab and its sheet, so nothing lies over the drop being judged. It was never in the game: on a phone the hand on the glass is the thumb.
+
 ## 2026-10-10 · cf053d4e9 — PULL LAB: FIZZ at once and quieter, a ball that follows its rim, four ways to grab
 
 FIZZ, the owner's pick of the five endings, opens the lab and starts boiling the moment the drop is counted, with no green moment held first, no ring rolling out of it and smaller pops. The 3D ball's surface is laid onto the outline actually drawn, lumps and lean, so nothing vanishes at a straight line: its bubbles, pits and beads are scattered over the whole sphere in different sizes and shapes, drift on their own, and fade as they turn away. The tail leaves the drop in the drop's own colour and is green a short way on. A new bar choice, GRAB, offers four ways to take and pull the drop: LEAN as before, SQUISH (pressed flat, a splash, a quiver as it stretches), LIFT (it rises towards the eye over its own light on the floor) and CHARGE (lit from inside, light running up the tail, greener near the end). The ball drop and SQUISH are what the lab opens on, and AUTO's counting pull sways less, so half a tile — the owner's pick — does not flash red on it.
