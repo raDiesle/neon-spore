@@ -68,7 +68,7 @@ export const DECISIONS: readonly FieldDecision[] = [
     text:
       "Nineteen rows count a carry once it has gone far enough, and each " +
       "names its own direction in prose. Suggest: one generic PULL whose " +
-      "direction is a field (down · up · either · signed), drawn as one " +
+      "direction is a field (down · up · either · signed · opposed), drawn as one " +
       "arrow, refused the same way when it falls short.",
     rows: ["THE WARDEN'S TETHER", "THE ANTIPHON'S RAIL", "PINBALL'S PLUNGER"],
   },
@@ -89,6 +89,10 @@ export const ROW_NOTES: Readonly<Record<string, string>> = {
     "The fallback for a phone with no motion, one at each wall. Keep, and " +
     "keep it for every sensor the game ever reads.",
   "THE LIGHT": "Keep. The only generic press that is on both screens at once.",
+  "THE GAUGE'S TONGUE":
+    "A PULL whose direction is the seat's own choice — the owner's reading, " +
+    "10 October 2026. The special variant: two hands, each picks left or " +
+    "right, and only opposite counts. The generic PULL's `opposed` direction.",
   "THE PLUMB'S LEFT STONE":
     "Was TILT until the owner's ruling. Keep as a LEVER; say in the row " +
     "that no sensor is read.",

@@ -12,7 +12,8 @@ export const DRAG_TYPES: readonly ControlType[] = [
     says:
       "A carry that counts once, when it has gone far enough; short of it, " +
       "nothing. The direction asked differs: down only, up or down, signed " +
-      "sideways, either way across.",
+      "sideways, either way across — or, on THE GAUGE'S TONGUE, a way each " +
+      "seat chooses, so long as the two pull opposite.",
     suggest:
       "Make it one generic PULL with the direction a named field " +
       "(down · up · either · signed) and one drawn arrow for it. Decide once " +

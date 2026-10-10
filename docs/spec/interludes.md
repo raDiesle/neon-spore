@@ -226,10 +226,12 @@ the round (`packages/sim/src/gauge-tooth.ts`, THE GAUGE'S TOOTH in
 **The twisted tongue** (30 September 2026). The owner, in the same sentence:
 *or to rotate the tongue that it gets twisted by both players*. The rest after
 the second level is `gaugeTongueBeats` long, and the tongue lolls out of the
-mouth on both screens. There is no split in it: each seat takes a side and
-drags, and it is wrung only when both hands are on it and dragged opposite
+mouth on both screens. There is no split in it: each seat takes hold and
+pulls, and it is wrung only when both hands are on it and pulled opposite
 ways by `gaugeTongueTwistMilli` or more each — so the talking is a count, *three,
-two, one, now*, rather than a description. Wrung, the rest ends early after
+two, one, now*, rather than a description. It is a pull whose direction each
+seat chooses (the owner, 10 October 2026: *a special variant of pull*):
+nothing says who goes left, only that the two differ. Wrung, the rest ends early after
 `gaugeRegrowBeats`; a hand let go unwinds its half, and a rest that runs out
 with the tongue still out loses the round
 (`packages/sim/src/gauge-tongue.ts`, THE GAUGE'S TONGUE in `controls.md`).

@@ -72,15 +72,18 @@ export const GAUGE_CONTROLS: readonly FieldControlDef[] = [
     where:
       "a ring on each side of the tongue, on both screens, only in the rest " +
       "after the second level while the tongue is out",
-    seat: "both — each seat wrings its own half, and neither half does anything alone",
+    seat: "both — each seat pulls its own half, and neither half does anything alone",
     gesture: "grab and drag",
     does:
-      "Twists the tongue: each press carries its drag across as a twist of its " +
-      "own half. When both hands are on it and have dragged opposite ways by " +
-      "gaugeTongueTwistMilli or more, it is wrung, and the rest ends early " +
-      "after the ordinary regrow; the same way round wrings nothing, and a " +
-      "rest of gaugeTongueBeats that runs out with the tongue still out loses " +
-      "the round (sim/gauge-tongue.ts).",
+      "A pull whose direction each seat chooses — the owner's reading, 10 " +
+      "October 2026: a special variant of PULL. Each press carries its half " +
+      "sideways, left or right as that seat likes; when both hands are on it " +
+      "and have pulled opposite ways by gaugeTongueTwistMilli or more, the " +
+      "tongue is wrung and the rest ends early after the ordinary regrow. " +
+      "Which seat goes which way is never asked — only that they differ, so " +
+      "the pair has to agree it out loud; the same way round wrings nothing, " +
+      "and a rest of gaugeTongueBeats that runs out with the tongue still out " +
+      "loses the round (sim/gauge-tongue.ts).",
     source: "touch.ts — gaugeGripUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "gaugeTongue",

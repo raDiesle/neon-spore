@@ -37179,3 +37179,13 @@ Bottleneck: looking — reaching one STATES card with `bun run shot` took
 three tries to guess the group's title.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — THE GAUGE'S TONGUE is written as a pull whose direction each seat chooses
+
+- reading: 5 min. The tongue's row in `controls.md`, the director's row and its PULL type, `sim/gauge-tongue.ts`.
+- writing: 5 min. The row, the PULL type's directions, a row note and the interludes paragraph.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the control was already filed under PULL, so the work was finding every sentence that still called it a twist.
