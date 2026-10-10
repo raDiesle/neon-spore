@@ -5,6 +5,7 @@ import { podHashParts } from "./hash-pods.js";
 import { shipHashParts } from "./hash-ship.js";
 import { scarHashParts } from "./hull-types.js";
 import { spendHashParts } from "./spend.js";
+import { FAIL_CAUSES } from "./wave-fail.js";
 import type { World } from "./world.js";
 
 /**
@@ -139,6 +140,9 @@ export function hashWorld(world: World): number {
   // And the tick the picture froze on: two devices that disagree about it draw
   // the struck field at two different points of one glide (`wave-fail.ts`).
   push(world.heldTick);
+  // And why: two devices that disagree about it say two different things over
+  // one held field (`wave-fail.ts`).
+  push(FAIL_CAUSES.indexOf(world.failCause));
   push(world.retries);
   push(world.playTicks);
   push(world.waveTries);

@@ -1,4 +1,5 @@
-import { metColor, missedColor } from "./balance.js";
+import { metColor } from "./balance.js";
+import { bossColourMissed } from "./boss-wrong-colour.js";
 import { midCol } from "./config.js";
 import {
   seamBoss,
@@ -38,7 +39,7 @@ export function seamStruck(world: World, bullet: Bullet): boolean {
     return true;
   }
   if (verdict === "wrong") {
-    missedColor(world);
+    bossColourMissed(world);
     return true;
   }
   if (step.color !== "either") metColor(world);

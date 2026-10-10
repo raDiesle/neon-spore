@@ -1,3 +1,4 @@
+import { wrongColourFails } from "./boss-wrong-colour.js";
 import type { SimConfig } from "./config.js";
 import type { CoreVerdict } from "./core-verdict.js";
 import {
@@ -56,6 +57,7 @@ export function scuttleStruck(world: World, b: Bullet): boolean {
   const col = scuttlePartCol(s, cfg, socket);
   if (verdict === "wrong") {
     world.events.push({ type: "scuttleRebuff", col });
+    wrongColourFails(world);
     return true;
   }
   s.parts[socket] = null;

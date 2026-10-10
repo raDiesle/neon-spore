@@ -27,5 +27,5 @@ export function shotWasted(world: World): boolean {
 
 /** A bolt that met nothing, told to the wave: lost, if HARD says so. */
 export function wasteShot(world: World): void {
-  if (shotWasted(world)) failWave(world);
+  if (shotWasted(world)) failWave(world, "wasted");
 }

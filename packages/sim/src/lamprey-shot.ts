@@ -1,4 +1,5 @@
-import { metColor, missedColor } from "./balance.js";
+import { metColor } from "./balance.js";
+import { bossColourMissed } from "./boss-wrong-colour.js";
 import { lampreyBoss, lampreyFiring } from "./lamprey.js";
 import { lampreyRecoiled } from "./lamprey-step.js";
 import type { Bullet } from "./types.js";
@@ -22,7 +23,7 @@ export function lampreyStruck(world: World, bullet: Bullet): boolean {
   if (step === undefined) return true;
   if (step.color !== "either") {
     if (bullet.color !== step.color) {
-      missedColor(world);
+      bossColourMissed(world);
       return true;
     }
     metColor(world);

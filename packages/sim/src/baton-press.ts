@@ -1,10 +1,11 @@
-import { metColor, missedColor } from "./balance.js";
+import { metColor } from "./balance.js";
 import { type BatonBead, type BatonState, batonLocked } from "./baton.js";
 import { batonSwingCol } from "./baton-arm.js";
 import { batonBeadCol, batonBeadRowMilli, batonLaunchable, batonSocketCol } from "./baton-bead.js";
 import { batonAct, batonActor, batonCrossLaunch, batonCrossStruck } from "./baton-cross.js";
 import { batonKnock } from "./baton-knock.js";
 import { batonBoss } from "./baton-step.js";
+import { bossColourMissed } from "./boss-wrong-colour.js";
 import { reachesShip } from "./ship-verbs.js";
 import type { Bullet, TimedCommand } from "./types.js";
 import { MILLI, type World } from "./world.js";
@@ -143,7 +144,7 @@ export function batonStruck(world: World, bullet: Bullet, milli: number): void {
   const bead = beadAlong(world, b, bullet.col, milli, milli);
   if (bead === null) return;
   if (bullet.color !== bead.color) {
-    missedColor(world);
+    bossColourMissed(world);
     world.events.push({ type: "reject", col: bullet.col, row: Math.round(milli / MILLI) });
     batonKnock(world, b, bead, milli);
     return;

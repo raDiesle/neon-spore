@@ -1,4 +1,5 @@
-import { metColor, missedColor } from "./balance.js";
+import { metColor } from "./balance.js";
+import { bossColourMissed } from "./boss-wrong-colour.js";
 import { removeCreature, removeCreatures } from "./field.js";
 import type { Bullet, Creature } from "./types.js";
 import { wardenColor, wardenCycle } from "./warden-cycle.js";
@@ -40,7 +41,7 @@ export function resolveQueen(world: World, b: Bullet, hit: Creature): void {
   if (hit.color === null || hit.color !== b.color) {
     // A colour that could never have matched. Which of the two marks it went
     // up does not change that, so it is the colour balance's to carry.
-    missedColor(world);
+    bossColourMissed(world);
     world.events.push({ type: "reject", col: b.col, row: hit.row });
     return;
   }
@@ -94,7 +95,7 @@ export function resolveWarden(world: World, b: Bullet, hit: Creature): void {
   if (b.color !== rim) {
     // The rim has carried this colour since the tether attached, on both
     // screens. Getting it wrong is a colour miss and nothing else.
-    missedColor(world);
+    bossColourMissed(world);
     world.events.push({ type: "reject", col: b.col, row: hit.row });
     return;
   }

@@ -168,6 +168,9 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
     // And a film's shots are the film's, not the pair's: one that goes out of
     // the top on HARD is not a wave lost (`wastedShotFails`).
     wastedShotFails: false,
+    // Nor is one in the wrong colour at a boss: a page shows the boss's own
+    // answer to it, and a held field would stop the film (`bossWrongColourFails`).
+    bossWrongColourFails: false,
     // THE RATCHET's story between the teeth is met in the wave, as its bolt
     // is: the film teaches the tooth, and stops before either.
     ratchetStory: false,

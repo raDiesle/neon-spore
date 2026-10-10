@@ -9,6 +9,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { drawWaveCleared } from "./cleared.js";
+import { drawFailCause } from "./fail-cause.js";
 import { GUIDE_LOOK } from "./guide-look.js";
 import { drawProsePage } from "./guide-prose.js";
 import type { GuideStage } from "./guide-scene.js";
@@ -111,6 +112,9 @@ export function drawWaveOpening(
   // can press. The owner, 18 September 2026: *when on a wave Tutorial/guide it
   // shows hull/ship damage, it should not show the 'wave lost'.* The film goes
   // on standing on its last frame instead, which is what it does between pages.
+  // **Why it was lost, over the pause before that** (`fail-cause.ts`): a
+  // shot in the wrong colour breaks nothing the field could show.
+  if (!view.rehearsal) drawFailCause(ctx, l, world);
   if (lostAsks(world) && !view.rehearsal) {
     drawLostScreen(ctx, l, world, {
       age: fx?.age ?? SETTLED_AGE,

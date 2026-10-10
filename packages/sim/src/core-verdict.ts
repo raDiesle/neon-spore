@@ -1,4 +1,5 @@
-import { metColor, missedColor } from "./balance.js";
+import { metColor } from "./balance.js";
+import { bossColourMissed } from "./boss-wrong-colour.js";
 import { midCol } from "./config.js";
 import type { Color } from "./types.js";
 import type { World } from "./world.js";
@@ -17,7 +18,8 @@ import type { World } from "./world.js";
  *   not a fire step. It costs nothing (`shot-out.ts`).
  * - `"target"`: open on a fire step, in the step's colour, or either colour on
  *   a step authored `"either"`, the white core.
- * - `"wrong"`: open on a fire step, in the other colour: a colour missed.
+ * - `"wrong"`: open on a fire step, in the other colour: a colour missed, and
+ *   the wave lost for it (`boss-wrong-colour.ts`).
  *
  * Pure, so the picture asks it where a bolt stops (`render/core-stop.ts`) and
  * the boss's `…Struck` acts on the same answer through `coreTaken`.
@@ -62,11 +64,12 @@ export function coreVerdict(
 }
 
 /**
- * Acts on a verdict's colour: a colour missed or met on the balance sheet.
+ * Acts on a verdict's colour: a colour met on the balance sheet, or missed and
+ * the wave lost.
  * True only when the core takes the hit, which the boss then counts.
  */
 export function coreTaken(world: World, verdict: CoreVerdict, step: CoreStep | null): boolean {
-  if (verdict === "wrong") missedColor(world);
+  if (verdict === "wrong") bossColourMissed(world);
   if (verdict !== "target") return false;
   if (step !== null && step.color !== "either") metColor(world);
   return true;

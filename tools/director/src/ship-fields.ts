@@ -92,6 +92,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   hullInvulnerable: "PLUMBING — not a dial a person turns",
   // Set by the difficulty picker with the tempo, never on its own.
   wastedShotFails: "PLUMBING — not a dial a person turns",
+  bossWrongColourFails: "PLUMBING — not a dial a person turns",
   maxHoles: "HULL — damage and repair",
   maxScars: "HULL — damage and repair",
   waveRestBeats: "THE BEAT",

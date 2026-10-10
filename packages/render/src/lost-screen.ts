@@ -2,6 +2,7 @@ import { waveHasGuide } from "@neon-spore/content";
 import { spanOf, type World } from "@neon-spore/sim";
 import { breachHue } from "./breach-hue.js";
 import { strikeSeed } from "./breach-strike.js";
+import { failReason } from "./fail-cause.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawLostAnswer, lostButtons } from "./lost-answer.js";
@@ -64,13 +65,17 @@ export function drawLostScreen(
   // The veil and the words are `LOST_LOOK`'s, and the shipped record draws
   // exactly what this function used to draw in these two places. The split is
   // the seam a candidate reaches through (`lost-look.ts`).
-  const scarred = world.scars[world.scars.length - 1];
+  // The breach is the last scar only when a breach lost the wave. Scars stand
+  // the whole run, so a shot in the wrong colour or at nothing would replay a
+  // tear from three waves back as the place this one got through.
+  const scarred = world.failCause === "hull" ? world.scars[world.scars.length - 1] : undefined;
   const paint = {
     l,
     age: v.age,
     wave: world.wave + 1,
     name: waveName(world),
     tries: Math.max(1, world.runTries),
+    reason: failReason(world),
     breachX: scarred === undefined ? null : tileCX(l, scarred.col),
     // **The colour the hit arrived in, off the scar itself.** A `Scar` carried
     // what hit the ship and not what colour it was wearing until 17 September

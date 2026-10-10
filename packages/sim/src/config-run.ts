@@ -45,6 +45,13 @@ export interface RunConfig {
    * every film, which is a rehearsal and not the pair's play.
    */
   wastedShotFails: boolean;
+  /**
+   * A boss shot in the wrong colour loses the wave, on every level
+   * (`boss-wrong-colour.ts`). On in play and off in every film, which is a
+   * rehearsal: a page that shows the wrong colour shows the boss's answer to
+   * it, and a held field would stop the film.
+   */
+  bossWrongColourFails: boolean;
 }
 
 export const RUN_DEFAULTS: RunConfig = {
@@ -52,4 +59,5 @@ export const RUN_DEFAULTS: RunConfig = {
   waveFailBeats: 2,
   hullInvulnerable: false,
   wastedShotFails: false,
+  bossWrongColourFails: true,
 };

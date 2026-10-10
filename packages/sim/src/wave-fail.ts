@@ -59,13 +59,24 @@ const ASKED = -2;
  * the host is asked, the field held until it answers. */
 const ANSWERED = -3;
 
-/** The hull took damage: the wave is lost, from this tick. */
-export function failWave(world: World): void {
+/**
+ * **Why the wave was lost**, which the held field says in words
+ * (`render/fail-cause.ts`): the hull hit, HARD's shot at nothing
+ * (`shot-wasted.ts`), or a boss shot in the wrong colour
+ * (`boss-wrong-colour.ts`). Indexed by `hashWorld`, so a new cause goes on
+ * the end.
+ */
+export const FAIL_CAUSES = ["hull", "wasted", "wrongColour"] as const;
+export type FailCause = (typeof FAIL_CAUSES)[number];
+
+/** The wave is lost, from this tick — by default because the hull took damage. */
+export function failWave(world: World, cause: FailCause = "hull"): void {
   if (world.cfg.hullInvulnerable || world.over) return;
   if (world.failTick !== NOT_FAILED) return;
   world.failTick = world.tick;
   world.heldTick = world.tick;
-  world.events.push({ type: "waveFailed", wave: world.wave });
+  world.failCause = cause;
+  world.events.push({ type: "waveFailed", wave: world.wave, cause });
 }
 
 /**

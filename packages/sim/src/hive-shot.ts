@@ -1,3 +1,4 @@
+import { wrongColourFails } from "./boss-wrong-colour.js";
 import { midCol } from "./config.js";
 import type { CoreVerdict } from "./core-verdict.js";
 import {
@@ -85,6 +86,7 @@ function hiveJudge(world: World, s: HiveState, i: number, col: number, color: Co
   if (verdict === "wrong") {
     s.spillBeat -= world.cfg.hiveProvokeBeats;
     world.events.push({ type: "hiveWrong", col, ...row });
+    wrongColourFails(world);
     return;
   }
   s.sealed[i] = true;

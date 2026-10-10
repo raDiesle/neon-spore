@@ -18,7 +18,7 @@ export type { ShipState } from "./world-ship.js";
 import type { PodEntry, SpawnEntry } from "./entries.js";
 import type { SimEvent } from "./events.js";
 import type { Bullet, Creature, GuardStats, Pod, Scar } from "./types.js";
-import { NOT_FAILED } from "./wave-fail.js";
+import { type FailCause, NOT_FAILED } from "./wave-fail.js";
 
 // `step` is the shape of a tick, not of the world's own state — it lives in
 // step.ts along with `progressWave`. Re-exported here so nothing that already
@@ -155,6 +155,8 @@ export interface World extends ShipState, FaultState {
    * where it was struck rather than finishing the step (`wave-fail.ts`).
    */
   heldTick: number;
+  /** Why the last failure failed, `"hull"` while none has (`wave-fail.ts`). */
+  failCause: FailCause;
   /** How many times a wave has been gone again, over the whole run. */
   retries: number;
   /** Ticks the pair has spent with a wave live, over the whole run. */
@@ -215,6 +217,7 @@ export function createWorld(
     restBeat: 0,
     failTick: NOT_FAILED,
     heldTick: NOT_FAILED,
+    failCause: "hull",
     retries: 0,
     playTicks: 0,
     waveTries: 0,

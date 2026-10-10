@@ -1,4 +1,5 @@
-import { metColor, missedColor } from "./balance.js";
+import { metColor } from "./balance.js";
+import { bossColourMissed } from "./boss-wrong-colour.js";
 import type { CoreVerdict } from "./core-verdict.js";
 import { curtainBody, curtainBoss, curtainCoreBare } from "./curtain.js";
 import { curtainDrift, curtainFire, curtainLobeOff, enterCurtain } from "./curtain-step.js";
@@ -60,7 +61,7 @@ export function curtainStruck(world: World, b: Bullet): boolean {
   if (c === null || verdict === null) return false;
   if (verdict === "armour") return true;
   if (verdict === "wrong") {
-    missedColor(world);
+    bossColourMissed(world);
     curtainFire(world, c);
     return true;
   }

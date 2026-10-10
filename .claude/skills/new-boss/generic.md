@@ -214,7 +214,12 @@ item naming the rule, never a fix made in passing.
   wave fail and requires retry* — and, shown that 48 other bosses answer some
   mistake otherwise: *i will do every boss separately and individual*. So a
   boss's mistakes are its own spec's, and what each costs today is in
-  `docs/miss-rule-audit.md`; no lane changes one unasked.
+  `docs/miss-rule-audit.md`; no lane changes one unasked. **One default
+  stands over all of them**: a cannon shot in the wrong colour at a lit
+  target loses the wave (the owner, 10 October 2026). A new boss's `"wrong"`
+  branch calls `bossColourMissed` (`sim/boss-wrong-colour.ts`), never
+  `missedColor`; a boss whose wrong colour does something of its own goes
+  on `OWN_WRONG_COLOUR` with the ruling that made it so.
 - **One finger per player, at any moment** (8 October 2026, in his words
   *"do never use again multi finger for same player, as its not supported
   on pc"*). A step never asks one seat for two touches at once — no chord,

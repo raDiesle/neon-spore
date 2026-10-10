@@ -1,4 +1,5 @@
-import { metColor, missedColor } from "./balance.js";
+import { metColor } from "./balance.js";
+import { bossColourMissed } from "./boss-wrong-colour.js";
 import { midCol, type SimConfig } from "./config.js";
 import type { CoreVerdict } from "./core-verdict.js";
 import { type KeelState, keelBoss, keelMarrowLit, keelThrown, NO_JOINT, NO_ROCK } from "./keel.js";
@@ -41,7 +42,7 @@ export function keelStruck(world: World, bullet: Bullet): boolean {
   if (keelMarrowStruck(world, s, bullet)) return true;
   if (v === "armour") return true;
   if (v === "wrong") {
-    missedColor(world);
+    bossColourMissed(world);
     return true;
   }
   metColor(world);

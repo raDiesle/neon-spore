@@ -5,6 +5,7 @@ import type { FleetEvent } from "./events-fleet.js";
 import type { RoundEvent } from "./events-rounds.js";
 import type { BreachWeight } from "./hull-damage.js";
 import type { Color, Creature, PodKind } from "./types.js";
+import type { FailCause } from "./wave-fail.js";
 
 /**
  * Everything the simulation reports about a tick, and the whole of what it
@@ -26,7 +27,7 @@ export type SimEvent =
    * watch the tutorial again before playing it. */
   | { type: "needWave"; wave: number; retry?: true; guide?: true }
   /** A hit failed the wave: the field holds, then the pair is asked. */
-  | { type: "waveFailed"; wave: number }
+  | { type: "waveFailed"; wave: number; cause: FailCause }
   /** One seat answered QUIT on the lost screen: the run is over for both,
    * and the other phone is told who it was (`wave-fail.ts`). */
   | { type: "quit"; player: 1 | 2 }

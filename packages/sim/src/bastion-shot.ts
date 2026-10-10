@@ -24,7 +24,7 @@ import type { World } from "./world.js";
  * top of the field (`shot-out.ts`).
  *
  * - **The ring**: the gun turned to the front, over the middle column, in
- *   its own colour. The wrong colour is a colour missed, and the gun stays.
+ *   its own colour. The wrong colour loses the wave (`boss-wrong-colour.ts`).
  * - **The port**: the open port's column, in either colour — the bolt goes
  *   down it into the inner hull.
  * - Anything else of the moon, any shell, is armour: met, and nothing.

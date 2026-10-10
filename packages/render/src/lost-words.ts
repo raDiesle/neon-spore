@@ -123,5 +123,16 @@ export function words(ctx: CanvasRenderingContext2D, p: LostPaint): void {
     ctx.fillText(`${p.name} · ${triesText(p.tries)}`, 0, 0);
   });
 
+  // **The reason**, where a breach is not it (`fail-cause.ts`): the line the
+  // held field fell in, said again in the heading's red under the name.
+  const reason = p.reason;
+  if (reason !== null) {
+    drop(ctx, mid, y + LINE * 2, p.age, 3, 0, () => {
+      ctx.font = '700 20px "Courier New",monospace';
+      ctx.fillStyle = PALETTE.red;
+      ctx.fillText(reason, 0, 0);
+    });
+  }
+
   ctx.textAlign = "left";
 }

@@ -51,6 +51,15 @@
 > pods, is dropped the tick the boss leaves. The wave clears once what is
 > already on the field has been answered (`dropScriptAfterBoss`,
 > `sim/wave-end.ts`).
+>
+> **Since 10 October 2026, a boss shot in the wrong colour fails its wave**,
+> on every level. The owner, of THE BASTION: *it should fail the boss wave …
+> like a default for boss waves for cannon shots*, and say why *in very
+> visible text … in the exact moment the shot hit wrong*. WRONG COLOUR is
+> stamped over the held field on the tick, and said again on the lost screen
+> (`bossWrongColourFails`, `sim/boss-wrong-colour.ts`, `render/fail-cause.ts`).
+> Off in a film. THE BATON, THE GORGE, THE HIVE, THE TASTER and THE CURTAIN
+> keep the answer their wrong colour already had (`OWN_WRONG_COLOUR`).
 
 - Waves come **all at once as a closed set**, then a short rest, then the next
 - Wave length 30–60 s; the rests shrink as the wave number rises

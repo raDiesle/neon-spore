@@ -667,7 +667,7 @@ const SAMPLES: Record<string, SimEvent> = {
   bastionRegrow: { type: "bastionRegrow", col: 5, layer: "plates" },
   bastionSpent: { type: "bastionSpent", col: 5 },
   bastionOut: { type: "bastionOut", col: 5 },
-  waveFailed: { type: "waveFailed", wave: 2 },
+  waveFailed: { type: "waveFailed", wave: 2, cause: "hull" },
   quit: { type: "quit", player: 2 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },
   mirrorEcho: { type: "mirrorEcho", step: "guard", index: 2, of: 3 },

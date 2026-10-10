@@ -37569,3 +37569,17 @@ Bottleneck: the registrations outside the simulation — ten files for two
 events and one ask, found from the skill's list rather than red tests.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — A boss shot in the wrong colour loses the wave, and says so
+
+- reading: 15 min. Every boss's `"wrong"` branch across twenty-odd `…Struck`
+  files, `failWave`, the lost screen and its record.
+- writing: 15 min. `boss-wrong-colour.ts`, `failCause` on the world and in
+  the hash, `fail-cause.ts`, the reason line, two test files, the docs.
+- looking: 5 min. Two frames of THE BASTION: the hit and the lost screen.
+- friction: 5 min. `--boss-json` refused a `kind`; a probe of the shipped
+  wave never lit the ring, because the plates come first.
+- landing: 5 min. `check:fast` red once on doc drift for the new field.
+
+Bottleneck: reading — the wrong colour is judged in twenty files, so finding
+every branch took as long as writing the rule.

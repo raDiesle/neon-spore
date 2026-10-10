@@ -51,6 +51,9 @@ export interface LostPaint {
   readonly wave: number;
   readonly name: string;
   readonly tries: number;
+  /** Why it was lost, where the field does not show it — `WRONG COLOUR` —
+   * or null for a breach, whose tear is the reason (`fail-cause.ts`). */
+  readonly reason: string | null;
   /**
    * Where the hull was broken, in pixels, or null when nothing scarred it — a
    * wall earths through the dome and leaves no mark on the skin at all

@@ -281,6 +281,7 @@ describe("the fingerprint covers the world", () => {
         "choirArmTick",
         "creatures",
         "events",
+        "failCause",
         "failTick",
         "faults",
         "guard",

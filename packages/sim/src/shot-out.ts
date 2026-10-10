@@ -142,7 +142,7 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   });
   // After the event, so the picture has the shot's own word before the
   // wave's: the bolt that lost it is the one it draws coming back.
-  if (wasted) failWave(world);
+  if (wasted) failWave(world, "wasted");
 }
 
 /**

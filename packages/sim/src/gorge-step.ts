@@ -1,4 +1,5 @@
-import { metColor, missedColor } from "./balance.js";
+import { metColor } from "./balance.js";
+import { bossColourMissed } from "./boss-wrong-colour.js";
 import { midCol } from "./config.js";
 import {
   type GorgeIntake,
@@ -148,7 +149,7 @@ export function gorgeStruck(world: World, bullet: Bullet): void {
     if (gorgeSated(k)) sated(world, g, col, color);
     return;
   }
-  missedColor(world);
+  bossColourMissed(world);
   spill(k, color);
   world.events.push({
     type: "gorgeEmptied",

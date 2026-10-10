@@ -1,4 +1,5 @@
-import { metColor, missedColor } from "./balance.js";
+import { metColor } from "./balance.js";
+import { bossColourMissed } from "./boss-wrong-colour.js";
 import type { CoreVerdict } from "./core-verdict.js";
 import { ledgerBoss, ledgerCovers, ledgerPhase, ledgerSeamCol, ledgerWhips } from "./ledger.js";
 import { startBead, widenSeam } from "./ledger-bead.js";
@@ -43,7 +44,7 @@ export function ledgerStruck(world: World, bullet: Bullet): boolean {
   const t = ledgerBoss(world);
   const verdict = ledgerVerdict(world, bullet.col, bullet.color);
   if (t === null || verdict === null) return false;
-  if (verdict === "wrong") missedColor(world);
+  if (verdict === "wrong") bossColourMissed(world);
   if (verdict !== "target") {
     refuse(world, bullet.col);
     return true;

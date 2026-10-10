@@ -444,6 +444,7 @@ by hand never moves.
 | `packages/sim/src/boss-phases.ts` | **Every boss's phases, in one table**, for the director's STATES sheet |
 | `packages/sim/src/boss-hands.ts` | **The choreographed bosses' hands, read on the tick** |
 | `packages/sim/src/boss-hands-scripted.ts` | **The scripted bosses' hands, read on the tick** |
+| `packages/sim/src/boss-wrong-colour.ts` | **A boss shot in the wrong colour loses the wave** |
 | `packages/sim/src/config-crawler.ts` | THE CRAWLER's five numbers: how long a worm is when the wave does not say, how fast it walks |
 | `packages/sim/src/crawler-beat.ts` | **A beat of every worm on the field**: the step it takes, the shield it may walk into |
 | `packages/sim/src/crawler-round.ts` | **How a worm comes on, how its body closes up, and what a shot into one does** |
@@ -2165,6 +2166,7 @@ by hand never moves.
 | `packages/render/src/fault-emitter.ts` | the malfunction's visible cause: the LANTERN emitter hanging from the top of the field and its beam down to the button, dome or muzzle the fault has taken on this screen |
 | `packages/render/src/fault-beam-ends.ts` | Where the fault's beam lands on this screen — GUARD or the dome, the colour lobes or the muzzle, the cannon strip's node for THE CHOKE |
 | `packages/render/src/fault-label.ts` | the words beside the fault's lantern — MIRRORED, SHIELD STUCK ON — one line per fault in force, on the screens it is meant for |
+| `packages/render/src/fail-cause.ts` | **Why the wave was lost, in words, from the tick it was** |
 | `packages/render/src/grip-arrows.ts` | THE PUSH's pause: two white arrows beside a rock just carried, fading out over the beat it must stand still |
 | `packages/render/src/grip-beam.ts` | The beam of a brake — the one part of a hand on a rock that is visible from across the room |
 | `packages/render/src/grip-rings.ts` | The three rings a thumb on a boss's picture is drawn with: asked for, held, thrown off — the queen's and the mirror's |

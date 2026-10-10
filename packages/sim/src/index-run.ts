@@ -85,6 +85,7 @@ export { isScriptedEntry, type ScriptedEntry } from "./wave-boss-scripted.js";
 export { clearHolds, restSeconds, roundSpent } from "./wave-end.js";
 export {
   clockText,
+  type FailCause,
   failHolds,
   failWave,
   framePhase,

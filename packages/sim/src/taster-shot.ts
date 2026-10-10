@@ -1,4 +1,5 @@
-import { metColor, missedColor } from "./balance.js";
+import { metColor } from "./balance.js";
+import { bossColourMissed } from "./boss-wrong-colour.js";
 import type { CoreVerdict } from "./core-verdict.js";
 import { closeSlow } from "./slow.js";
 import {
@@ -119,7 +120,7 @@ export function tasterStruck(world: World, bullet: Bullet): boolean {
   }
   if (verdict === "armour") return true;
   if (verdict === "wrong") {
-    missedColor(world);
+    bossColourMissed(world);
     if (k.layers < cfg.tasterThickMax) k.layers += 1;
     world.events.push({ type: "tasterThick", col, layers: k.layers });
     return true;
@@ -184,7 +185,7 @@ function interlock(world: World, t: TasterState, bullet: Bullet, col: number): v
   }
   const want = tasterWeak(world, t);
   if (want === null || bullet.color !== want) {
-    missedColor(world);
+    bossColourMissed(world);
     world.events.push({ type: "tasterRefused", col });
     return;
   }

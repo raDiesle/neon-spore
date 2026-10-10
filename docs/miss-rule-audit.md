@@ -22,9 +22,15 @@ unasked (`.claude/skills/new-boss/generic.md`).
 
 ## The kinds
 
-1. **A wrong-colour shot at a lit target** costs `missedColor`, a number on
-   the balance sheet, and the step stays lit (`core-verdict.ts:48`,
-   `balance.ts:182`). Every sky boss that judges a core, and most others.
+1. **A wrong-colour shot at a lit target fails the wave**, on every level,
+   since 10 October 2026 — the owner, of THE BASTION: *it makes sense to
+   have it like a default for boss waves for cannon shots.* The boss's
+   `…Struck` calls `bossColourMissed` (`boss-wrong-colour.ts`), and the held
+   field says WRONG COLOUR (`render/fail-cause.ts`). Five keep the answer
+   their wrong colour already had, by name in `OWN_WRONG_COLOUR`: THE BATON's
+   knock, THE GORGE's spill, THE HIVE's provoke, THE TASTER's thickened blade
+   and THE CURTAIN's rock. Until that day it cost `missedColor` alone, a
+   number on the balance sheet, and the step stayed lit.
 2. **A shot into armour or a shut core** is *met*, and costs nothing on any
    difficulty (`core-verdict.ts:39`, `shot-out.ts:62-73`) — the owner's
    wording of 27 September.

@@ -1,6 +1,7 @@
-import { metColor, missedColor } from "./balance.js";
+import { metColor } from "./balance.js";
 import type { VaneEntry } from "./boss-entries.js";
 import type { VaneState } from "./boss-state.js";
+import { bossColourMissed } from "./boss-wrong-colour.js";
 import { isMount } from "./gyre.js";
 import { type Bullet, spanOf } from "./types.js";
 import { vaneFold } from "./vane-arm.js";
@@ -172,7 +173,7 @@ export function vaneMouthStruck(world: World, bullet: Bullet): void {
   // the colour goes on turning at the rate the pair already learned
   // (`vane-cycle.ts`).
   if (bullet.color !== vaneColor(world.cfg, vaneOpeningNow(world.waveBeat))) {
-    missedColor(world);
+    bossColourMissed(world);
     world.events.push({ type: "reject", col: bullet.col, row: world.cfg.vaneArmRow });
     return;
   }

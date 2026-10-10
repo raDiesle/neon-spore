@@ -22,6 +22,7 @@ export function resetRun(world: World): void {
   world.over = false;
   world.failTick = NOT_FAILED;
   world.heldTick = NOT_FAILED;
+  world.failCause = "hull";
   world.retries = 0;
   world.playTicks = 0;
   world.waveTries = 0;
