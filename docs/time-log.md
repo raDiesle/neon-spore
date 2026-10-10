@@ -37202,3 +37202,5 @@ Bottleneck: reading — the control was already filed under PULL, so the work wa
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: none to speak of — the seam was already written; it lacked one level.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

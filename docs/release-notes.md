@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · b33703338 — A director reload stays on DOCUMENTATION → CONTROLS → ON THE FIELD
+
+The URL kept the open sheet and its tab, but not the tab inside CONTROLS, so a reload on ON THE FIELD or EVERY WAVE came back on PANELS. The place now carries a third level, `sub`, written when that bar is clicked and restored after the inner tab on load; it is dropped whenever its room is left. Not a look: the director only.
+
 ## 2026-10-10 · 93fe22c9b — THE GAUGE'S TONGUE is written as a pull whose direction each seat chooses
 
 The owner's reading, 10 October 2026: the tongue is a special variant of the pull, where each player chooses which way to pull and only the two pulling opposite ways counts. The controls page, the director's CONTROLS row, the PULL type's list of directions, and the interludes paragraph now say this instead of calling it only a twist. A row note proposes `opposed` as a direction for the generic PULL. The game itself is unchanged: the TWIST cue and the simulation stay as they are.
