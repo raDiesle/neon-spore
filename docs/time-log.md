@@ -37701,3 +37701,15 @@ Bottleneck: seeing a frame — no tool photographs one moment of a pull up close
 so one was written in scratch before anything could be judged.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — The PULL LAB draws no grey thumb
+
+- reading: 0 min. `paintThumb` was the lab's alone, known from the question before.
+- writing: 5 min. The disc, its failed-under rule and the frame's `thumb` out
+  of `pull-lab-paint.ts`, the sheet and the GOO test.
+- looking: 5 min. One grid of frames, waiting to fizz, with nothing over the drop.
+- friction: 0 min.
+- landing: 5 min. `format`, `check:fast`, `land`.
+
+Bottleneck: none worth the name — `pull-lab.ts` at its 250-line limit made a
+switch dearer than removing the disc, which the owner allowed.

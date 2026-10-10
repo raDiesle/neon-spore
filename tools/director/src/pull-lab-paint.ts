@@ -1,4 +1,3 @@
-import type { Point } from "@neon-spore/content";
 import {
   drawPullKnob,
   drawPullTrack,
@@ -19,8 +18,9 @@ import { STRAY_TILES, type Stray } from "./pull-lab-stray.js";
 /**
  * One frame of the PULL LAB (`pull-lab.ts`): the empty field, the pull drawn
  * by the game's own `drawPullTrack` and `drawPullKnob` — with a look held in
- * their records for the length of the call, when one is picked — and the
- * finger over it. No word on the field: the owner, 10 October 2026, *not
+ * their records for the length of the call, when one is picked. No finger
+ * over it: the owner, 10 October 2026, *remove the grey cursor* — the hand
+ * on the glass is the game's, never drawn. No word on the field either, *not
  * required to show any text*; the bar's readout says the verdict. The colours
  * are the game's convention: the control's own, green counted, red refused.
  */
@@ -63,7 +63,6 @@ export interface LabFrame {
   pull: LabPull;
   look: Variant | null;
   time: number;
-  thumb: { at: Point; down: boolean } | null;
   /** The bar's OFF PATH rule; its band is drawn under the pull when it has one. */
   stray?: Stray;
 }
@@ -77,14 +76,6 @@ export function paintLab(ctx: CanvasRenderingContext2D, f: LabFrame): void {
   } finally {
     if (applied) restore(applied);
   }
-  if (f.thumb && !failedUnder(f.pull, f.thumb.down)) paintThumb(ctx, f.thumb.at, f.thumb.down);
-}
-
-/** A thumb still down on a pull that has already failed under it is not drawn: the
- * owner, 10 October 2026, *when the red border is crossed, do not show animation of
- * grey ball which continues the direction - skip it*. It shows again once lifted. */
-function failedUnder(pull: LabPull, down: boolean): boolean {
-  return down && pull.phase !== "held" && pull.phase !== "full";
 }
 
 function toneOf(pull: LabPull): { hex: string; rim: string } {
@@ -176,15 +167,4 @@ function paintField(ctx: CanvasRenderingContext2D): void {
   for (let y = LAB_TILE / 2; y < LAB_H; y += LAB_TILE) ctx.rect(0, y, LAB_W, 0);
   ctx.stroke();
   ctx.globalAlpha = 1;
-}
-
-/** Where the finger is: a soft disc, solid while it presses. */
-function paintThumb(ctx: CanvasRenderingContext2D, at: Point, down: boolean): void {
-  ctx.save();
-  ctx.fillStyle = PALETTE.text;
-  ctx.globalAlpha = down ? 0.28 : 0.1;
-  ctx.beginPath();
-  ctx.arc(at.x, at.y, LAB_KNOB * 1.15, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
 }

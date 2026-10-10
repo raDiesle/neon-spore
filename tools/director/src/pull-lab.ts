@@ -220,7 +220,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     ctx.setTransform(canvas.width / LAB_W, 0, 0, canvas.height / LAB_H, 0, 0);
-    paintLab(ctx, { shape, pull, look, time, thumb, stray });
+    paintLab(ctx, { shape, pull, look, time, stray });
   };
 
   const onKey = (e: KeyboardEvent): void => {

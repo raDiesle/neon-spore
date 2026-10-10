@@ -40,8 +40,7 @@ describe("the GOO looks", () => {
           down = th.down;
           tick(shape, pull, step);
           if (i % 6 === 0)
-            for (const look of GOO_LOOKS)
-              paintLab(c, { shape, pull, look, time: t, thumb: th, stray });
+            for (const look of GOO_LOOKS) paintLab(c, { shape, pull, look, time: t, stray });
         }
       }
   });
@@ -68,7 +67,7 @@ describe("the GOO looks", () => {
               if (!th.down && down) lift(shape, pull, "refuse");
               down = th.down;
               tick(shape, pull, step);
-              paintLab(c, { shape, pull, look, time: t, thumb: th, stray: "half" });
+              paintLab(c, { shape, pull, look, time: t, stray: "half" });
             }
           }
         }

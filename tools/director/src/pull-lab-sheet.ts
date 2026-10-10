@@ -83,16 +83,8 @@ function cell(
   if (!ctx) return canvas;
   const k = s * dpr;
   ctx.setTransform(k, 0, 0, k, -crop.x * k, -crop.y * k);
-  const { pull, down } = pullAt(shape, seconds);
-  const th = autoThumb(shape, seconds, SHEET_STRAY !== "free");
-  paintLab(ctx, {
-    shape,
-    pull,
-    look,
-    time: seconds,
-    thumb: { at: th.at, down },
-    stray: SHEET_STRAY,
-  });
+  const { pull } = pullAt(shape, seconds);
+  paintLab(ctx, { shape, pull, look, time: seconds, stray: SHEET_STRAY });
   return canvas;
 }
 
