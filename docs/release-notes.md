@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 7fb4fe542 — TWO THUMBS ON ONE PHONE is ruled out; ON THE FIELD is four parts
+
+The owner ruled on 10 October 2026 that no wave may ask for two fingers at once on one screen: only the director's TEST screen reads two pointers, to play both seats, and that is not one player's two thumbs. The card moves to SHOULD STAY MISSED with that reason, the AT A PC picture made for it goes, and part 3, OTHER GESTURES THE GAME READS, is gone with its last card; every gesture the game reads is drawn under an action. The input code is untouched.
+
 ## 2026-10-10 · 7e1723975 — TWO THUMBS ON ONE PHONE says where it is used and shows the PC; SENDING NOTHING is not a control
 
 CONTROLS › ON THE FIELD, part 3: the TWO THUMBS card now says the game uses two fingers at once only when one screen plays both seats (the TEST screen, or two people round one phone), and that in the two-phone game a player never has two down. Under its phone picture is a new AT A PC picture: the keyboard with each seat's keys in its colour (read off `deskKeys`), D and Q drawn held as the two thumbs, and the mouse with 1, 2 and 3 saying whose hand it is. The SENDING NOTHING card is gone, by the owner's ruling of 10 October 2026 that hands off the glass is not a control; the step it named stays in the simulation.

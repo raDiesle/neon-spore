@@ -37497,3 +37497,5 @@ one screen plays both seats, which the card never said.
 - landing: 5 min. `bun run index`, `check:fast`, `land`.
 
 Bottleneck: none worth the name — a removal and its test.
+
+*Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
