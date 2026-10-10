@@ -37235,3 +37235,5 @@ was a gesture the game could not hear at all.
 
 Bottleneck: friction — a dozen documents count or name the creatures, and
 only the tests say which.
+
+*Measured: 12 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

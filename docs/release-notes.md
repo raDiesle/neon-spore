@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 32331e7d3 — THE GUM is taken out of the game, whole
+
+The owner asked for it gone on 10 October 2026: "please remove the gum from game - we have blister for that". Its simulation, drawing, splash, sound, wave and rehearsal, AUTO's swipe, director cards and pose are deleted rather than switched off, as THE HALTER's were; `git log -S gumSwiped` finds them. THE SURGE's burst threw gums, so it now throws three SWIPE blisters either seat may knock out with one stroke, two rows under the bulb so their bars clear its HOLD marks (`surgeBurstBlisters`, `surgeBlister`) — a look the owner asked for by name, in the removal. The sac contour THE WEIGHT shares stays, as `silhouettes-sac.ts`. The waves after act 5's gum move up one; the game has a hundred and twenty.
+
 ## 2026-10-10 · 622a836fd — THE SCOUT's prime is a hold: a thumb off the stern lights the thruster while it stays
 
 The owner called THE SCOUT'S PRIME a hold, not a pull, and the game could not do either: the prime was a carry of a tile and a half counted on the lift, but a drag's lift reports no distance unless it is a swipe, so a thumb's carry reached the simulation as nought and a heavy ship's burn could never be lit from a phone. Now it is the line's gesture on the pilot's ring — the press lights the thruster, it answers while the thumb is down, the lift puts it out. `primeTick`, `scoutPrimeMilli` and `scoutPrimeTicks` are gone; the ring is lit and full while held, as the line's is. ON THE FIELD files it under HOLD, and its card, `controls.md` and the interludes spec say so.
