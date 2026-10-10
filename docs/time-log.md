@@ -37316,3 +37316,18 @@ Bottleneck: reading — the pull look was already one look in twenty-two
 files, which took finding before it could be made patchable in one place.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — A link to every section of DOCUMENTATION and NOT BUILT YET
+
+- reading: 10 min. `session.ts`/`place.ts` for what the URL already carries,
+  the contents menu in `tabs.ts`, and the backlog card.
+- writing: 10 min. `section-link.ts`, `section-follow.ts`, the 🔗 in the
+  contents rows and the card heads, a contents menu on RESEARCH, the test.
+- looking: 10 min. Deep links on BOSSES and STYLE in the browser pane; the
+  first one never scrolled.
+- friction: 5 min. The pane was hidden, so `requestAnimationFrame` never
+  fired — the wait is a timer now, which a background tab needs anyway.
+- landing: 5 min. Import sort, `bun run index`, `check:fast`, `land`.
+
+Bottleneck: the hidden pane silently starving `requestAnimationFrame`, which
+looked like the jump code was wrong.

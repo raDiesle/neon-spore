@@ -2929,6 +2929,8 @@ by hand never moves.
 | `tools/director/src/backlog.ts` | the one page NOT BUILT YET is arranged into, cut to what is not implemented yet |
 | `tools/director/src/backlog-api.ts` | `GET /api/backlog`: two spec files read, parsed and joined into one response |
 | `tools/director/src/sections.ts` | the "## N Title — tail" shape shared by several spec files |
+| `tools/director/src/section-follow.ts` | opening a section link: scroll to the section its `#slug` names once the page draws |
+| `tools/director/src/section-link.ts` | the 🔗 beside a contents row or a NOT BUILT YET card: a URL to one section |
 | `tools/director/src/concepts.ts` | couplings, assist forms, unbuilt systems and the idea store |
 | `tools/director/src/shapes-panel.ts` | the shape catalogue: drafts, then spare, then spent |
 | `tools/director/src/shapes-motion.ts` | a sway in tiles turned into a card that does not clip |

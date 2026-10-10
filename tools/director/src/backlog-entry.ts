@@ -12,6 +12,7 @@
 import { conceptArt, draftFor, hasConceptArt } from "./concept-art.js";
 import { detailBox, inline, renderMarkdown } from "./markdown.js";
 import { onTheField } from "./scene-box.js";
+import { linkButton } from "./section-link.js";
 import { isWide } from "./shape-figure.js";
 
 export interface PlainRow {
@@ -62,6 +63,8 @@ export function renderEntry(item: BacklogEntry, reading = false): HTMLElement {
     name.className = "name";
     name.textContent = item.name;
     head.appendChild(name);
+    // A link to this card, to paste elsewhere (`section-link.ts`).
+    head.appendChild(linkButton(item.name));
   }
 
   if (item.kind) {

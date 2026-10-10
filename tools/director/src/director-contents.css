@@ -84,10 +84,10 @@
   padding-left: calc(7px + 1.4em + 10px);
   font-size: 0.85em;
 }
-.contents-list li.within > button {
+.contents-list li.within > button:first-child {
   background: #1a1338;
 }
-.contents-list li.here > button {
+.contents-list li.here > button:first-child {
   background: #2a1f4e;
   box-shadow: inset 3px 0 0 var(--gold);
 }

@@ -1,4 +1,5 @@
 import { depthOf, markHere, type Spot, standBar } from "./contents-here.js";
+import { linkButton } from "./section-link.js";
 
 /**
  * Buttons carrying `data-tab`, pages with the matching `<prefix><name>` id.
@@ -201,7 +202,8 @@ function fillContents(spot: Spot, list: HTMLElement): void {
       heading.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
-    item.appendChild(jump);
+    // A link to this section, to paste elsewhere (`section-link.ts`).
+    item.append(jump, linkButton(heading.textContent ?? ""));
     list.appendChild(item);
     spot.rows.set(heading, item);
   }

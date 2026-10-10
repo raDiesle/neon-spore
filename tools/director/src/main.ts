@@ -19,6 +19,7 @@ import { bindPalette } from "./palette.js";
 import { onPhone } from "./phone-view.js";
 import { bindRail } from "./rail.js";
 import { rememberedWave } from "./rail-arrive.js";
+import { followHash } from "./section-follow.js";
 import { makeSelection } from "./selection.js";
 import { bindPlace, type PlaceSession } from "./session.js";
 import { bindSheetDoors } from "./sheet-doors.js";
@@ -202,5 +203,7 @@ bindSoundPage();
 bindSheetDoors();
 bindExpanders();
 bindContents();
+// After every sheet has restored itself from the query string.
+followHash();
 
 void io.load();
