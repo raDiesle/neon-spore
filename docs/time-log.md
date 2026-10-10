@@ -37177,3 +37177,5 @@ Bottleneck: writing — thirty-six suggestions, each read off a boss's rule rath
 
 Bottleneck: looking — reaching one STATES card with `bun run shot` took
 three tries to guess the group's title.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

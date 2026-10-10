@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 2316718b3 — THE FLEET's wreck card is drawn from the navigator's screen
+
+The STATES card THE FLEET · WRECK, which the ON THE FIELD row for THE FLEET'S WRECK also shows, was drawn from the test screen, which draws player 1's seat: the pilot's HOLD ring on the hull, never the navigator's pull knob. The row says grab and drag and the picture showed a hold. The pose now draws player 2's screen, where the knob with the arrow down is. Director only; nothing in the game changed.
+
 ## 2026-10-10 · 7ee02451d — A queue entry per boss for a part that turns, and a step seen from another side on every choreographed boss
 
 The queue now has 49 lanes, one for each shipping boss except THE INSTAR. Each lane gives its boss a part that turns, so the eye sees it from a new side: a head, claws, a turret, or a machine's whole shape. Each is offered as SWAY, LOOK and COCK on VERSUS, the way THE INSTAR's head was. Every choreographed boss's section also gains a suggested step in which its body turns to show another side, and that turn brings a mechanic with it. The owner said of THE BASTION: "very 3 dimensional and even user action is 3d to rotate". The suggestions appear on the NOT BUILT YET sheet. The depth skill notes that COCK ships with two rounds in four.
