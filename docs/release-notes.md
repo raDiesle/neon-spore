@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · bcd847f4f — DOUBLE TAP and A DRAWN GLYPH are ruled out, and CALL AND RESPONSE leaves the gestures
+
+The owner ruled on 10 October 2026: DOUBLE TAP is not worth a category of its own, since TAP COUNT already asks for more than one tap, and A DRAWN GLYPH is too fragile and no control — a shape is recognised by tapping tiles, as THE MIMIC's picture is painted. Both now stand under SHOULD STAY MISSED on CONTROLS › ON THE FIELD with the ruling. CALL AND RESPONSE is a way of using TAP RHYTHM with the beat, not a control; it is off the catalogue and kept in §4.3 of `docs/spec/transfers-touch.md` for a boss that may use it later. With nothing left worth considering, that group is gone from the page.
+
 ## 2026-10-10 · 12ebceece — Four looks for every pull handle, in VERSUS and the PULL LAB
 
 VERSUS has a pull:handle slot, opening on THE LAMPREY's head, with four answers to the knob and channel every pull handle in the game shares: BEACON (a ghost knob plays the pull to a socket, a ring fills round the knob, the socket rings out), COMET (a runway of lights popping green behind a tail of fire, a shockwave at the end), SLIME (a drop of goo whose neck stretches and snaps) and TENDON (THE WARDEN's braided cord, thinning as it stretches, a clamp that shuts). The PULL LAB plays each on every shape, and its EVERY LOOK, EVERY STATE sheet puts them side by side at five moments — waiting, half way, counted, short, refused. Nothing the game draws changed; a look taken in VERSUS changes all twenty-two pull handles at once.

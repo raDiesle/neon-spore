@@ -37363,3 +37363,5 @@ knob, which is what the sheet was built for.
 
 Bottleneck: none to speak of — moving the rulings past 250 lines in
 `gesture-missed.ts` asked for a split first.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
