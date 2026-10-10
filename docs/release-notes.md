@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 622a836fd — THE SCOUT's prime is a hold: a thumb off the stern lights the thruster while it stays
+
+The owner called THE SCOUT'S PRIME a hold, not a pull, and the game could not do either: the prime was a carry of a tile and a half counted on the lift, but a drag's lift reports no distance unless it is a swipe, so a thumb's carry reached the simulation as nought and a heavy ship's burn could never be lit from a phone. Now it is the line's gesture on the pilot's ring — the press lights the thruster, it answers while the thumb is down, the lift puts it out. `primeTick`, `scoutPrimeMilli` and `scoutPrimeTicks` are gone; the ring is lit and full while held, as the line's is. ON THE FIELD files it under HOLD, and its card, `controls.md` and the interludes spec say so.
+
 ## 2026-10-10 · 3f7f2daad — Queue AUTO's PINBALL shot hopping on the cannon for a whole flight
 
 AUTO launches every PINBALL shot straight up at the lowest power, and the ball bounces in place above the cannon for about 38 seconds a flight without touching the board. Queued, with the two things to settle.

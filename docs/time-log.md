@@ -37218,3 +37218,5 @@ Bottleneck: none to speak of — the seam was already written; it lacked one lev
 
 Bottleneck: reading — the ask was a word on a document, and the code under it
 was a gesture the game could not hear at all.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
