@@ -66,9 +66,6 @@
 .gesture-group.state-specd h2 {
   color: var(--cyan);
 }
-.gesture-group.state-consider h2 {
-  color: var(--gold);
-}
 .gesture-group.state-missed h2 {
   color: var(--red);
 }
@@ -95,9 +92,6 @@
 }
 .gesture-card.state-specd {
   border-left-color: var(--cyan);
-}
-.gesture-card.state-consider {
-  border-left-color: var(--gold);
 }
 .gesture-card.state-missed {
   border-left-color: var(--red);

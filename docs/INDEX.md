@@ -3506,15 +3506,15 @@ by hand never moves.
 | `tools/director/src/gesture-built-moves.ts` | The gestures the game reads today, second half: everything where the finger — or the phone — **moves** |
 | `tools/director/src/gesture-built-bosses.ts` | The gestures the boss roster brought in |
 | `tools/director/src/gesture-built.ts` | The gestures the game reads today, first half: everything a finger does **without travelling** — a press |
-| `tools/director/src/gesture-catalogue.ts` | Every gesture on CONTROLS › GESTURES, in the order the page shows them: built, specified, worth considering, stay missed |
+| `tools/director/src/gesture-catalogue.ts` | Every gesture on CONTROLS › GESTURES, in the order the page shows them: built, specified, missed on purpose |
 | `tools/director/src/gesture-events.ts` | The raw events a phone browser hands a page, what an iPhone and an Android do with each, and which file of the game listens |
 | `tools/director/src/gesture-figure.ts` | The picture on a GESTURES card, as a list of primitives with absolute coordinates |
 | `tools/director/src/gesture-marks.ts` | The hand on a GESTURES card's phone: a touch, a hold, a path, an arc, a rub, a body being squeezed |
 | `tools/director/src/gesture-missed.ts` | What the game does not read, **on purpose** — each with the reason, which is the point of drawing it |
+| `tools/director/src/gesture-missed-ruled.ts` | Gestures **the owner ruled out**, each with the date and the reason in its `why` |
 | `tools/director/src/gesture-phone.ts` | The left half of a GESTURES card: a phone in portrait |
 | `tools/director/src/gesture-prims.ts` | What a GESTURES figure is drawn in: the viewBox, the primitives and the director's own colours as literals |
 | `tools/director/src/gesture-types.ts` | What a card on CONTROLS › GESTURES is made of: a gesture, where it stands |
-| `tools/director/src/gesture-unbuilt-b.ts` | The gestures worth having that no boss asks for yet — split off what is `gesture-built-bosses.ts` now |
 | `tools/director/src/gestures-page.ts` | How a gesture is drawn on CONTROLS › ON THE FIELD: a card per gesture |
 | `tools/director/src/held.ts` | **What the author is carrying**: the brush that is armed, and — while a drag is in the air |
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |

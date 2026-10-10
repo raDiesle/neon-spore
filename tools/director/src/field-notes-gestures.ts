@@ -52,13 +52,11 @@ export const GESTURE_NOTES: Readonly<Record<string, string>> = {
     "player at once, since a PC has one pointer. Move to MISSED with the ruling.",
   "HOLD, THEN SWIPE": "Stamped SPEC'D but built: THE SLING, THE TRAPEZE. Move to BUILT.",
   "A DRAWN GLYPH":
-    "Worth a boss: describing a shape is exactly the talking the game is. " +
-    "Recognise on the drawing phone, send one command.",
+    "Ruled out by the owner on 10 October 2026: too fragile, and not a " +
+    "control. Tapping tiles recognises a shape, as THE MIMIC does.",
   "DOUBLE TAP":
-    "Only as a confirm on something one tap cannot mean. No boss asks for it; leave it.",
-  "CALL AND RESPONSE":
-    "Worth a boss, and nearly free: THE BEATBOX already grades a rhythm. " +
-    "The first candidate for a new one.",
+    "Ruled out by the owner on 10 October 2026: TAP COUNT already asks " +
+    "for more than one tap, so it is not worth a category of its own.",
   PRESSURE: "Keep ruled out — it splits the pair by device.",
   "SWIPE IN FROM THE EDGE": "Keep ruled out — the edge is the OS's.",
   "THREE FINGERS, TRIPLE TAP": "Keep ruled out — iOS owns it, and a hand on a call has one thumb.",

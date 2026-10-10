@@ -67,7 +67,7 @@ describe("the gesture catalogue", () => {
   });
 
   test("an unbuilt gesture says why", () => {
-    for (const g of GESTURES.filter((x) => x.state === "consider" || x.state === "missed")) {
+    for (const g of GESTURES.filter((x) => x.state === "missed")) {
       expect(g.why?.length ?? 0, g.name).toBeGreaterThan(20);
     }
   });

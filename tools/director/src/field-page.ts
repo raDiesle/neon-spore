@@ -52,7 +52,7 @@ const PART = {
   events: { id: "fp-events", title: "THE RAW EVENTS" },
 } satisfies Record<string, Part>;
 
-const IDEA_STATES: readonly GestureState[] = ["specd", "consider", "missed"];
+const IDEA_STATES: readonly GestureState[] = ["specd", "missed"];
 
 function partHead(part: Part, sub: string): HTMLElement {
   const head = document.createElement("div");

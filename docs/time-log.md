@@ -37351,3 +37351,15 @@ Bottleneck: looking — the live pane's screenshots are too small to judge a
 knob, which is what the sheet was built for.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — DOUBLE TAP and A DRAWN GLYPH ruled out, CALL AND RESPONSE off the gestures
+
+- reading: 5 min. The gesture catalogue, its notes and §4.3 of the spec.
+- writing: 5 min. The owner's rulings split into `gesture-missed-ruled.ts`,
+  and the empty `consider` state taken out of the type, page and CSS.
+- looking: 5 min. The ON THE FIELD tab, its two moved cards.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none to speak of — moving the rulings past 250 lines in
+`gesture-missed.ts` asked for a split first.

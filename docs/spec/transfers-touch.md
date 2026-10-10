@@ -652,16 +652,23 @@ Each is delay-tolerant: a level held, or a thing graded against a beat window.
   tenant, carries its lobes shut by one thumb now.
 - **A drawn glyph, recognised on the device** — one phone shows it, the other
   draws it (3.15). The recogniser runs where milliseconds are allowed and sends
-  one command, as the shake does.
+  one command, as the shake does. **Ruled out by the owner, 10 October 2026**:
+  too fragile, and not a control. A shape is recognised by tapping tiles
+  instead, as THE MIMIC's picture is painted.
 - **Chord** — "hold two and five": easy to say, indifferent to the beat, inside
   the iPhone's finger limit at two or three. **Ruled out by the owner, 8
   October 2026**, with the pinch: one finger a player.
 - **Double tap**, only where a single tap means nothing — a confirm verb that
-  does not slow the fire buttons by the ~250 ms a double tap costs.
+  does not slow the fire buttons by the ~250 ms a double tap costs. **Ruled
+  out by the owner, 10 October 2026**: tap count already asks for more than
+  one tap, so it is not worth a category of its own.
 - **Tilt as a level**, always with an on-screen twin (THE CHOIR's rule), and
   only after the iOS permission is asked for.
 - **Call and response in rhythm** — one phone shows a pattern quantised to the
   beat, the other taps it back. THE BEATBOX's grading already does the judging.
+  **Not a control, the owner, 10 October 2026**: it is a way of using tap
+  rhythm with the beat, and off the gesture catalogue. Kept here for a boss
+  that may use it later.
 - **Hold, then swipe** (Beatstar) — a held note ending in a direction. Two built
   verbs joined.
 - **The iOS motion permission itself** — it turns an input the game already

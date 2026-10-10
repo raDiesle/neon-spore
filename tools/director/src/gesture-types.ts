@@ -16,10 +16,9 @@ export type Pt = readonly [number, number];
 /**
  * - `built` — the game reads it today, and `where` names the file.
  * - `specd` — a boss in the spec asks for it and nothing reads it yet.
- * - `consider` — missed, and worth having; each survives the voice delay.
  * - `missed` — missed, and should stay missed; `why` says why.
  */
-export type GestureState = "built" | "specd" | "consider" | "missed";
+export type GestureState = "built" | "specd" | "missed";
 
 /** One thing drawn on the phone half of a card. */
 export type HandMark =
@@ -87,7 +86,7 @@ export interface Gesture {
   where?: readonly string[];
   /** What differs between an iPhone and an Android. */
   platform?: string;
-  /** For `consider` and `missed`: the argument. */
+  /** For `missed`: the argument. */
   why?: string;
 }
 
@@ -97,11 +96,6 @@ export const STATE_TITLES: Record<GestureState, { title: string; stamp: string; 
     title: "SPECIFIED",
     stamp: "SPECIFIED",
     sub: "a boss in the spec asks for it; nothing reads it yet",
-  },
-  consider: {
-    title: "MISSED — WORTH CONSIDERING",
-    stamp: "TO CONSIDER",
-    sub: "not in the game, and each one survives half a second to two of voice",
   },
   missed: {
     title: "MISSED — SHOULD STAY MISSED",
