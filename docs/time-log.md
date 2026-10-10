@@ -37331,3 +37331,5 @@ files, which took finding before it could be made patchable in one place.
 
 Bottleneck: the hidden pane silently starving `requestAnimationFrame`, which
 looked like the jump code was wrong.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 7759036f5 — A link to every section of DOCUMENTATION and NOT BUILT YET
+
+Every row of a sheet page's contents menu, and every named card on NOT BUILT YET, has a 🔗 that copies a URL to that one section — the sheet and tab already in the query string, the section's own words as the hash (`?sheet=backlog&inner=bosses#the-instar`, `?sheet=states&inner=style#colour`). Opening one scrolls to the section once the page has drawn and outlines it for a moment. RESEARCH gets a contents menu, so its sections have links too.
+
 ## 2026-10-10 · 609ff7d49 — THE PULL LAB: the one generic pull, tried by hand on an empty field
 
 CONTROLS › ON THE FIELD opens a lab from PULL PAST A DISTANCE and from GRAB AND DRAG: one pull on an empty field, as a DOWN, UP, UP OR DOWN, SIDEWAYS, CURVE, S-CURVE or ROPE · ANY WAY, a switch for whether a short pull is refused red or ignored, and AUTO's thumb playing a whole pull and a short one until the mouse takes over. Every pull handle's knob and channel are now drawn through two records, PULL_KNOB and PULL_TRACK, so the lab's LOOK picker can show any VERSUS candidate in their place; nothing the game draws changed.
