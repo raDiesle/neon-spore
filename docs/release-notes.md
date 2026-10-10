@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 7ee02451d — A queue entry per boss for a part that turns, and a step seen from another side on every choreographed boss
+
+The queue now has 49 lanes, one for each shipping boss except THE INSTAR. Each lane gives its boss a part that turns, so the eye sees it from a new side: a head, claws, a turret, or a machine's whole shape. Each is offered as SWAY, LOOK and COCK on VERSUS, the way THE INSTAR's head was. Every choreographed boss's section also gains a suggested step in which its body turns to show another side, and that turn brings a mechanic with it. The owner said of THE BASTION: "very 3 dimensional and even user action is 3d to rotate". The suggestions appear on the NOT BUILT YET sheet. The depth skill notes that COCK ships with two rounds in four.
+
 ## 2026-10-10 · 80a47273b — THE INSTAR's head cocks two rounds in four
 
 The face-on head now glances COCK, SWAY, COCK, LOOK, six seconds a round. The owner liked COCK best and asked for it to get a bigger share. The resting tail's two ways (STATIONS, PENDULUM) swap which comes first every four rounds, so every glance still meets both.

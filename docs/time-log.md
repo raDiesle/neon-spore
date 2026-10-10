@@ -37162,3 +37162,5 @@ Bottleneck: friction — an edit script that opened the file for writing before 
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: writing — thirty-six suggestions, each read off a boss's rule rather than its body.
+
+*Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
