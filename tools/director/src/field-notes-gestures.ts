@@ -7,13 +7,9 @@
 
 export const GESTURE_NOTES: Readonly<Record<string, string>> = {
   TAP: "Keep. Every press begins here; nothing to decide.",
-  "TAP OR HOLD, ON ONE CONTROL":
-    "Keep, on the colour lobes only. A second control with two meanings on " +
-    "one press would make every tap there wait to learn which it was.",
   "HOLD, AS A LEVEL":
     "The commonest verb, under a dozen names. Make it the generic PIN and " +
     "LEVER of the boss families.",
-  "TIMED WHOLE-SCREEN HOLD": "Keep for the guide. Borrow its closing ring for the both-seats mark.",
   "LETTING GO TOGETHER":
     "Keep, THE SURGE's only. Offer it to a second boss before calling it generic.",
   "TAP COUNT": "Keep. Held down is one tap — say that on every boss that counts.",

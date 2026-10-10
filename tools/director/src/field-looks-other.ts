@@ -121,16 +121,16 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "The alien on the swing, wherever it swings, haloed on the pilot's screen in the lock level.",
     move: "A tap draws a red sight round it and locks the cannon on it, green; the navigator's next shot hits it from the side.",
   },
-  "THE GALL'S TAPS AND PULL": {
-    find: "The alien on its point of the seam, haloed on the screen of the seat whose half it sits on.",
-    move: "Taps wind it up; a pull up toward the top throws it to the other half, green.",
-  },
   // SHAKE
   "THE CHOIR'S LEFT ARROW": {
     find: "Two big arrows against the walls of the field, each marked SWIPE, on the pilot's screen while a membrane is up.",
     move: "One outward swipe opens a window and the whole screen starts shaking; the second, at the other wall, draws the two voices together.",
   },
-  // STEP BY STEP
+  // ONE MARK WHOSE GESTURE CHANGES STEP BY STEP, filed under every type a step uses
+  "THE GALL'S TAPS AND PULL": {
+    find: "The alien on its point of the seam, haloed on the screen of the seat whose half it sits on.",
+    move: "Taps wind it up; a pull up toward the top throws it to the other half, green.",
+  },
   "THE INSTAR'S MARKS": {
     find: "A red ring on the part of the body the script wants, with the gesture drawn inside it and its word in a box over it; a second ring closing in is the window.",
     move: "The part moves the way the word says; every mark of the step done together lands it.",

@@ -130,6 +130,10 @@
   font-size: 0.875rem;
   color: var(--dim);
 }
+.field-use .step {
+  margin: -2px 0 6px;
+  font-size: 0.875rem;
+}
 .field-use-shots {
   display: flex;
   flex-wrap: wrap;

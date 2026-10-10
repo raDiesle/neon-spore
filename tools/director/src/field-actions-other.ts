@@ -13,6 +13,11 @@ import type { FieldAction } from "./field-actions.js";
  * THE FLEET's rake joined it the same day: filed as a TRACE, it marks only
  * while her thumb is on the plume and the wreck sinks only while his is still
  * on the hull, so it is BOTH SEATS HOLDING AT ONCE with a thumb that slides.
+ *
+ * STEP BY STEP is gone the same day: the owner called it how a control is
+ * used, not a kind of action. Its four rows — one mark whose gesture changes
+ * step by step — are filed under every type a step of them uses, each with
+ * its `steps` line, here and in `field-actions-drag.ts`.
  */
 export const OTHER_ACTIONS: readonly FieldAction[] = [
   {
@@ -42,7 +47,11 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
           "THE FLEET'S PLUME",
           "THE LAMPREY'S TAIL",
           "THE SCOUT'S PRIME",
+          "THE QUEEN'S MARKS",
         ],
+        steps: {
+          "THE QUEEN'S MARKS": "SCREAM — the real mark held open, up to its beats.",
+        },
       },
       {
         key: "both",
@@ -60,7 +69,13 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
           "THE OCULUS'S LEFT LEAF",
           "THE OCULUS'S RIGHT LEAF",
           "THE FLEET'S RAKE",
+          "THE INSTAR'S MARKS",
+          "THE MIRROR'S LOBES",
         ],
+        steps: {
+          "THE INSTAR'S MARKS": "HOLD BOTH — both thumbs on a middle mark for its beats.",
+          "THE MIRROR'S LOBES": "THE PIN — one seat on its cannon, the other on its shield.",
+        },
       },
       {
         key: "autoaim",
@@ -113,7 +128,17 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
           "THE GORGE'S TAP",
           "THE LIGHT",
           "THE TRAPEZE'S ALIEN",
+          "THE INSTAR'S MARKS",
+          "THE MIRROR'S LOBES",
+          "THE QUEEN'S MARKS",
+          "THE GALL'S TAPS AND PULL",
         ],
+        steps: {
+          "THE INSTAR'S MARKS": "TAP TAP — every grab on the mark is one slap.",
+          "THE MIRROR'S LOBES": "THE LAST ROUND — a tap on its cannon, a press on its shield.",
+          "THE QUEEN'S MARKS": "BROOD — a press on the real mark opens it.",
+          "THE GALL'S TAPS AND PULL": "THE TAPS — each one winds the alien a turn tighter.",
+        },
       },
     ],
   },
@@ -133,27 +158,6 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
           "each wall of the field marked SWIPE (`apps/game/src/shake.ts`, " +
           "`render/choir-arrows.ts`).",
         rows: ["THE CHOIR'S LEFT ARROW", "THE CHOIR'S RIGHT ARROW"],
-      },
-    ],
-  },
-  {
-    key: "script",
-    title: "STEP BY STEP",
-    says: "One mark whose gesture changes step by step.",
-    types: [
-      {
-        key: "script",
-        title: "ONE MARK, MANY GESTURES",
-        says: "One target whose gesture changes step by step, each borrowed from another action.",
-        suggest:
-          "Keep specific: these are scripts, not verbs. Each step should use the " +
-          "generic control it borrows, once that exists.",
-        rows: [
-          "THE INSTAR'S MARKS",
-          "THE MIRROR'S LOBES",
-          "THE QUEEN'S MARKS",
-          "THE GALL'S TAPS AND PULL",
-        ],
       },
     ],
   },

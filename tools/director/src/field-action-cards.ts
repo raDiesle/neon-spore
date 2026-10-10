@@ -61,11 +61,15 @@ function touchLine(area: TouchArea): HTMLElement {
 
 /** One enemy's or boss wave's use of a type: its rows, drawn once per look —
  * a left and a right handle posed in one frame are one picture. */
-function useCard(user: string, rows: readonly FieldControlDef[]): HTMLElement {
+function useCard(user: string, rows: readonly FieldControlDef[], t: ControlType): HTMLElement {
   const card = document.createElement("section");
   card.className = "field-use";
   card.appendChild(text("h4", user));
   card.appendChild(text("p", rows.map((r) => r.name).join(" · "), "rows"));
+  // A row of many steps is on several types; say which of its steps this is.
+  for (const step of rows.map((r) => t.steps?.[r.name])) {
+    if (step) card.appendChild(text("p", `THIS STEP · ${step}`, "step"));
+  }
   const shots = document.createElement("div");
   shots.className = "field-use-shots";
   for (const name of new Set(rows.map((r) => r.pose))) {
@@ -206,7 +210,7 @@ function typeBlock(
       .filter((name) => userOf(name) === user)
       .map((name) => byName.get(name))
       .filter((r): r is FieldControlDef => r !== undefined);
-    grid.appendChild(useCard(user, rows));
+    grid.appendChild(useCard(user, rows, t));
   }
   box.appendChild(grid);
   return box;

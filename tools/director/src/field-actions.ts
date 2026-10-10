@@ -11,7 +11,8 @@ import { OTHER_ACTIONS } from "./field-actions-other.js";
  * The rows reached on every wave have a tab of their own, EVERY WAVE, beside
  * ON THE FIELD. A row the owner took off the page is in `OFF_THE_PAGE` with
  * the reason, so `test/field-page.test.ts` can still hold every row to
- * exactly one place.
+ * exactly one place — but a row of many steps, one card under each type a
+ * step of it uses (`ControlType.steps`).
  *
  * Rows are named, never re-described: the row itself is `FIELD_CONTROLS`
  * (`field-controls-page.ts`).
@@ -31,6 +32,12 @@ export interface ControlType {
    * generic control, tried on an empty field before any of its uses. */
   lab?: string;
   rows: readonly string[];
+  /** For a row whose one mark asks a different gesture step by step (THE
+   * INSTAR's, THE MIRROR's, THE QUEEN's, THE GALL's): which of its steps is
+   * this type. Such a row is filed under every type one of its steps uses —
+   * the owner, 10 October 2026: STEP BY STEP is how a control is used, not
+   * a kind of action — and only such a row may be on more than one. */
+  steps?: Readonly<Record<string, string>>;
 }
 
 export interface FieldAction {

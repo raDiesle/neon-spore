@@ -6,6 +6,10 @@ import type { Gesture } from "./gesture-types.js";
  * ones that move are `gesture-built-moves.ts`, split on line count along that
  * seam. Every `where` is a file in the tree, and `test/gestures.test.ts`
  * fails the day one of them is moved or deleted.
+ *
+ * The lance's tap-or-hold and the guide's timed hold are not here: the owner,
+ * 10 October 2026, called neither a control of its own — each reuses TAP and
+ * HOLD, and each is a row of EVERY WAVE already (THE CANNON, THE GUIDE'S HOLD).
  */
 
 export const BUILT_STILL: readonly Gesture[] = [
@@ -28,25 +32,6 @@ export const BUILT_STILL: readonly Gesture[] = [
     ],
   },
   {
-    name: "TAP OR HOLD, ON ONE CONTROL",
-    state: "built",
-    does: "The colour lobes: a tap fires a shot; a thumb kept on the same colour fills the lance round the cannon lobe, and at the top it goes on its own.",
-    hand: [
-      { k: "hold", at: [26, 128] },
-      { k: "text", at: [44, 124], text: "tap: shot" },
-      { k: "text", at: [44, 134], text: "hold: lance" },
-    ],
-    timeline: {
-      lanes: [
-        { event: "pointerdown", marks: [1] },
-        { event: "pointerup", marks: [9] },
-      ],
-      beats: [2, 4, 6, 8],
-      window: { from: 1, to: 7, label: "three beats fill it" },
-    },
-    where: ["packages/sim/src/lance.ts"],
-  },
-  {
     name: "HOLD, AS A LEVEL",
     state: "built",
     does: "A thumb resting on a thing, worth something for every tick it stays. The game's commonest verb: the grip on a rock, THE WARDEN's tether, THE PULSE's bar.",
@@ -63,23 +48,6 @@ export const BUILT_STILL: readonly Gesture[] = [
       note: "worth something every tick between down and up",
     },
     where: ["packages/sim/src/grip.ts", "packages/sim/src/pulse-hand.ts"],
-  },
-  {
-    name: "TIMED WHOLE-SCREEN HOLD",
-    state: "built",
-    does: "A thumb anywhere on the guide, held until a ring closes. Lifting early cancels; nothing on the field is aimed at.",
-    hand: [
-      { k: "zone", at: [4, 12], w: 84, h: 96, tone: "window" },
-      { k: "hold", at: [46, 64] },
-    ],
-    timeline: {
-      lanes: [
-        { event: "pointerdown", marks: [1] },
-        { event: "pointerup", marks: [8] },
-      ],
-      window: { from: 1, to: 7, label: "ring closes" },
-    },
-    where: ["apps/game/src/briefing.ts"],
   },
   {
     name: "LETTING GO TOGETHER",

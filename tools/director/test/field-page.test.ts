@@ -23,7 +23,8 @@ import { TRIED_CONTROLS } from "../src/tried-controls-page.js";
  * themselves stay in `FIELD_CONTROLS`. A name is a promise nothing else
  * checks — a row renamed, added or cut would leave the page silently short or
  * pointing at nothing. So every row is in exactly one place — EVERY WAVE, one
- * type of one action, or off the page with a reason — every name the page
+ * type of one action, or off the page with a reason; a row of many steps on
+ * every type one of its steps uses, saying which — every name the page
  * uses is a row, every row belongs to a wave that exists, and every gesture and tried control has its SUGGESTED
  * line.
  */
@@ -44,13 +45,37 @@ describe("CONTROLS › ON THE FIELD", () => {
     ),
   ];
 
-  test("every row is in exactly one place", () => {
+  /** A row of many steps, on a type that names which step it is. */
+  const stepped = new Set(TYPES.flatMap((t) => Object.keys(t.steps ?? {})));
+
+  test("every row is in exactly one place, or one card per step it has", () => {
     const seen = new Map<string, string[]>();
     for (const [key, rows] of PLACES)
       for (const name of rows) seen.set(name, [...(seen.get(name) ?? []), key]);
-    const twice = [...seen].filter(([, keys]) => keys.length > 1).map(([n]) => n);
+    const twice = [...seen]
+      .filter(([n, keys]) => keys.length > 1 && !stepped.has(n))
+      .map(([n]) => n);
     const nowhere = [...ROWS].filter((n) => !seen.has(n));
     expect({ twice, nowhere }).toEqual({ twice: [], nowhere: [] });
+  });
+
+  test("a row of many steps names its step on every type it is on, and only there", () => {
+    const unnamed = TYPES.flatMap((t) =>
+      t.rows.filter((r) => stepped.has(r) && !t.steps?.[r]).map((r) => `${t.key}: ${r}`),
+    );
+    const astray = TYPES.flatMap((t) =>
+      Object.keys(t.steps ?? {})
+        .filter((r) => !t.rows.includes(r))
+        .map((r) => `${t.key}: ${r}`),
+    );
+    const anywhereElse = [...EVERY_WAVE_ROWS, ...Object.keys(OFF_THE_PAGE)].filter((r) =>
+      stepped.has(r),
+    );
+    expect({ unnamed, astray, anywhereElse }).toEqual({
+      unnamed: [],
+      astray: [],
+      anywhereElse: [],
+    });
   });
 
   test("every name the page uses is a row", () => {
@@ -111,11 +136,6 @@ describe("CONTROLS › ON THE FIELD", () => {
   });
 
   test("the built gestures no action starts from are the ones every wave has, and the odd few", () => {
-    expect(unplacedGestures()).toEqual([
-      "TAP OR HOLD, ON ONE CONTROL",
-      "TIMED WHOLE-SCREEN HOLD",
-      "TWO THUMBS ON ONE PHONE",
-      "SENDING NOTHING",
-    ]);
+    expect(unplacedGestures()).toEqual(["TWO THUMBS ON ONE PHONE", "SENDING NOTHING"]);
   });
 });

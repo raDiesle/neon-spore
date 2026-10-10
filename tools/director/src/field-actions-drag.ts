@@ -44,7 +44,16 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE TRAPEZE'S RIGHT ZONE",
       "THE BASTION'S LEFT SLAB",
       "THE BASTION'S RIGHT SLAB",
+      "THE INSTAR'S MARKS",
+      "THE MIRROR'S LOBES",
+      "THE GALL'S TAPS AND PULL",
     ],
+    steps: {
+      "THE INSTAR'S MARKS": "SWIPE DOWN — a carry past its distance and a lift is one egg off.",
+      "THE MIRROR'S LOBES":
+        "THE LAST ROUND — its cannon carried left or right; the other seat's swiped for a colour.",
+      "THE GALL'S TAPS AND PULL": "THE PULL — up toward the top throws it to the other half.",
+    },
   },
   {
     key: "lever",
@@ -74,7 +83,11 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE CAPSTAN'S PULL",
       "THE LATCH'S LEFT GRIP",
       "THE LATCH'S RIGHT GRIP",
+      "THE INSTAR'S MARKS",
     ],
+    steps: {
+      "THE INSTAR'S MARKS": "PULL DOWN · PULL UP — the part stands at the depth the thumb has it.",
+    },
   },
   {
     key: "carry",
@@ -133,7 +146,11 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE VALVE'S WHEEL",
       "THE BASTION'S RIM",
       "THE BLISTER'S TURN",
+      "THE INSTAR'S MARKS",
     ],
+    steps: {
+      "THE INSTAR'S MARKS": "TURN — wound clockwise round the ring, a quarter turn a ratchet.",
+    },
   },
   {
     key: "trace",

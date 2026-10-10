@@ -37401,3 +37401,17 @@ Bottleneck: the trunk was not fetched from the local `main` before starting —
 same fix, landed but not pushed.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — STEP BY STEP and two borrowed gestures off ON THE FIELD
+
+- reading: 5 min. `field-actions-other.ts`, `field-action-cards.ts`, the four
+  many-step rows and the sim files saying what each step is.
+- writing: 10 min. `ControlType.steps`, the four rows filed under every type
+  a step uses, the THIS STEP line, the two gesture cards cut, the test.
+- looking: 5 min. The sheet at `…&sub=field` on this tree's director.
+- friction: 0 min.
+- landing: 5 min. `field-action-cards.ts` went to 254 lines; trimmed, then
+  `check:fast` and `land`.
+
+Bottleneck: deciding how one row sits on several types without losing the
+page's one-place check — answered by naming the step on each.
