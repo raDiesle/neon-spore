@@ -12,11 +12,11 @@ import {
   move,
   press,
   type ShortPull,
-  type Stray,
   tick,
 } from "./pull-lab-rule.js";
 import { LAB_H, LAB_SHAPES, LAB_W, type LabShape, labShape } from "./pull-lab-shapes.js";
 import { labSheet } from "./pull-lab-sheet.js";
+import type { Stray } from "./pull-lab-stray.js";
 
 /**
  * **THE PULL LAB** — the one generic PULL on an empty field, to be pulled by
@@ -35,7 +35,7 @@ import { labSheet } from "./pull-lab-sheet.js";
  *   picked when the lab opens;
  * - **a short pull**: refused red, or ignored (`pull-lab-rule.ts`);
  * - **a thumb off the path**: free, as today, or a failure past one tile or
- *   half a tile, with the band drawn (`Stray`) — one tile when it opens.
+ *   half a tile, with the band drawn (`Stray`) — half a tile when it opens.
  *
  * AUTO's thumb (`pull-lab-auto.ts`) plays a whole pull and a short one on a
  * loop until the mouse takes over.
@@ -49,7 +49,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
   let pull: LabPull = freshPull(shape);
   let look: Variant | null = GOO_LOOKS[0] ?? null;
   let short: ShortPull = "refuse";
-  let stray: Stray = "tile";
+  let stray: Stray = "half";
   let auto = true;
   let speed = 1;
   let time = 0;

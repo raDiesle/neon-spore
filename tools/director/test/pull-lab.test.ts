@@ -11,8 +11,6 @@ import {
   press,
   progress,
   type ShortPull,
-  STRAY_TILES,
-  type Stray,
   tick,
 } from "../src/pull-lab-rule.js";
 import {
@@ -24,6 +22,7 @@ import {
   labShape,
 } from "../src/pull-lab-shapes.js";
 import { MOMENTS, pullAt } from "../src/pull-lab-sheet.js";
+import { STRAY_TILES, type Stray } from "../src/pull-lab-stray.js";
 
 /**
  * The PULL LAB's rule and its thumb, without a canvas (`pull-lab.ts` draws;

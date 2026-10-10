@@ -12,8 +12,9 @@ import {
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { apply, restore, type Variant } from "../../versus/variant.js";
 import { GOO_LOOKS } from "./pull-goo/index.js";
-import { knobAt, type LabPull, progress, STRAY_TILES, type Stray } from "./pull-lab-rule.js";
+import { knobAt, type LabPull, progress } from "./pull-lab-rule.js";
 import { LAB_H, LAB_KNOB, LAB_TILE, LAB_W, type LabShape } from "./pull-lab-shapes.js";
+import { STRAY_TILES, type Stray } from "./pull-lab-stray.js";
 
 /**
  * One frame of the PULL LAB (`pull-lab.ts`): the empty field, the pull drawn

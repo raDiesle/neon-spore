@@ -1,6 +1,7 @@
 import type { Point } from "@neon-spore/content";
-import { PULL_GRAB, type PullTrack, pullTrackPoint } from "@neon-spore/render";
-import { LAB_KNOB, LAB_TILE, type LabShape } from "./pull-lab-shapes.js";
+import { PULL_GRAB, pullTrackPoint } from "@neon-spore/render";
+import { LAB_KNOB, type LabShape } from "./pull-lab-shapes.js";
+import { nearest, type Stray, strayReach } from "./pull-lab-stray.js";
 
 /**
  * **The one generic PULL, as the lab plays it** — a toy rule beside the
@@ -13,28 +14,14 @@ import { LAB_KNOB, LAB_TILE, type LabShape } from "./pull-lab-shapes.js";
  *   knob stays there until the lift;
  * - **a short lift is one of two answers**, chosen on the lab's bar
  *   (`ShortPull`): refused, red, or ignored, the knob simply going home;
- * - **a thumb off the path** is ignored, as every pull in the game ignores it
- *   today, or fails past a tolerance (`Stray`) — the owner, 10 October 2026:
- *   *maybe every pull should allow for failure with some tolerance to pull
- *   away from the required path*, which would make TRACE ALONG A LINE a pull
- *   whose path bends (`docs/spec/ideas.md`, A pull along a path).
+ * - **a thumb off the path** is ignored, or fails past a tolerance
+ *   (`Stray`, `pull-lab-stray.ts`).
  *
  * Seconds, not ticks: this is the director's own clock, and nothing here is
  * stored by the game.
  */
 
 export type ShortPull = "refuse" | "ignore";
-
-/** What a thumb that leaves the path comes to: nothing, or a failure past
- * one tile or half a tile from it. */
-export type Stray = "free" | "tile" | "half";
-
-/** The tolerance either side of the path, in tiles; `null` is no limit. */
-export const STRAY_TILES: Readonly<Record<Stray, number | null>> = {
-  free: null,
-  tile: 1,
-  half: 0.5,
-};
 
 export type PullPhase = "idle" | "held" | "full" | "home";
 
@@ -64,6 +51,10 @@ export interface LabPull {
   rested: number;
   /** The last verdict given, kept until the next press. */
   last: "counted" | "refused" | null;
+  /** Where the knob was when that verdict was given: along the track, and off it. */
+  from: { at: number; off: Point };
+  /** Seconds since the last lift, whatever it came to. */
+  lifted: number;
 }
 
 /** Seconds a verdict is shown before the knob is idle again. */
@@ -93,7 +84,18 @@ export function freshPull(shape: LabShape): LabPull {
     age: 0,
     rested: 0,
     last: null,
+    from: { at: shape.origin, off: { x: 0, y: 0 } },
+    lifted: 0,
   };
+}
+
+/** A verdict given now, where the knob is: the clocks restart and `last` and `from` keep it. */
+function give(p: LabPull, verdict: NonNullable<LabPull["verdict"]>): void {
+  p.verdict = verdict;
+  p.since = 0;
+  p.age = 0;
+  p.from = { at: p.at, off: { ...p.off } };
+  if (verdict !== "ignored") p.last = verdict === "counted" ? "counted" : "refused";
 }
 
 export function knobAt(shape: LabShape, p: LabPull): Point {
@@ -120,38 +122,16 @@ export function press(shape: LabShape, p: LabPull, at: Point): boolean {
   return true;
 }
 
-/** The nearest point of the track to `at`, searched near where the knob is
- * so a curve that doubles back is not jumped across, and how far off it the
- * thumb is. */
-function nearest(t: PullTrack, from: number, at: Point): { k: number; off: number } {
-  let best = from;
-  let bestD = Number.POSITIVE_INFINITY;
-  for (let i = 0; i <= 200; i++) {
-    const k = i / 200;
-    if (Math.abs(k - from) > 0.3) continue;
-    const q = pullTrackPoint(t, k);
-    const d = Math.hypot(q.x - at.x, q.y - at.y);
-    if (d < bestD) {
-      bestD = d;
-      best = k;
-    }
-  }
-  return { k: best, off: bestD };
-}
-
 export function move(shape: LabShape, p: LabPull, at: Point, stray: Stray = "free"): void {
   if (p.phase !== "held") return;
   const n = nearest(shape.track, p.at, at);
   const q = pullTrackPoint(shape.track, n.k);
   p.off = { x: at.x - q.x, y: at.y - q.y };
-  const limit = STRAY_TILES[stray];
-  if (limit !== null && n.off > limit * LAB_TILE) {
+  const reach = strayReach(stray);
+  if (reach !== null && n.off > reach) {
     // Off the path is a failure, wherever along it the knob had got to.
     p.phase = "home";
-    p.verdict = "strayed";
-    p.since = 0;
-    p.age = 0;
-    p.last = "refused";
+    give(p, "strayed");
     p.strayed++;
     p.slow = true;
     return;
@@ -162,15 +142,13 @@ export function move(shape: LabShape, p: LabPull, at: Point, stray: Stray = "fre
   if (progress(shape, p) >= FULL) {
     p.off = { x: 0, y: 0 };
     p.phase = "full";
-    p.verdict = "counted";
-    p.since = 0;
-    p.age = 0;
-    p.last = "counted";
+    give(p, "counted");
     p.counted++;
   }
 }
 
 export function lift(shape: LabShape, p: LabPull, short: ShortPull): void {
+  if (p.phase === "full" || p.phase === "held") p.lifted = 0;
   if (p.phase === "full") {
     p.phase = "home";
     p.since = 0;
@@ -183,18 +161,16 @@ export function lift(shape: LabShape, p: LabPull, short: ShortPull): void {
     p.off = { x: 0, y: 0 };
     return;
   }
-  p.verdict = short === "refuse" ? "refused" : "ignored";
+  give(p, short === "refuse" ? "refused" : "ignored");
   if (short === "refuse") p.refused++;
   p.slow = short === "refuse";
-  p.since = 0;
-  p.age = 0;
-  if (short === "refuse") p.last = "refused";
 }
 
 /** The clock: a knob let go springs home, and a verdict fades. */
 export function tick(shape: LabShape, p: LabPull, dt: number): void {
   if (p.verdict) p.since += dt;
   p.age += dt;
+  p.lifted += dt;
   if (p.phase === "idle") p.rested += dt;
   if (p.verdict && p.since > VERDICT_SECONDS && p.phase !== "full") {
     p.verdict = null;

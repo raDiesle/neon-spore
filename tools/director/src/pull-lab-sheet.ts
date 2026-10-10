@@ -2,8 +2,9 @@ import type { Variant } from "../../versus/variant.js";
 import { text } from "./gestures-page.js";
 import { autoThumb } from "./pull-lab-auto.js";
 import { labLooks, paintLab } from "./pull-lab-paint.js";
-import { freshPull, type LabPull, lift, move, press, type Stray, tick } from "./pull-lab-rule.js";
+import { freshPull, type LabPull, lift, move, press, tick } from "./pull-lab-rule.js";
 import { LAB_KNOB, LAB_TILE, type LabShape } from "./pull-lab-shapes.js";
+import type { Stray } from "./pull-lab-stray.js";
 
 /**
  * **EVERY LOOK, EVERY STATE** — the PULL LAB's comparison sheet: one row per
