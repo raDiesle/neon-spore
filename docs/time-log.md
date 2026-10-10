@@ -37136,3 +37136,15 @@ Bottleneck: looking — a pose that idles says nothing for hundreds of ticks, so
 Bottleneck: reading — ninety-six rows across forty bosses' hand files, done by a background agent while the TRY log was built.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — THE INSTAR's head cocks two rounds in four
+
+- reading: 0 min. The glance's and the tail's rounds were this session's own.
+- writing: 5 min. The order COCK, SWAY, COCK, LOOK, the tail's swap every
+  four rounds so each glance still meets both ways, the test.
+- looking: 0 min. The owner had seen all three rounds.
+- friction: 5 min. A scripted edit failed halfway and emptied a file; restored
+  from git.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — an edit script that opened the file for writing before its check passed.

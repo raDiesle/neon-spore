@@ -11,8 +11,8 @@ import { bodyLife } from "./motion-life.js";
  * to middle and left*.
  *
  * The head glances (taken 9 October 2026): on top of the third-of-the-way
- * turn `instar-turn.ts` gives it, it does a round each of COCK, SWAY and LOOK
- * in turn (`instar-glance-styles.ts`), halved on a device asking for less
+ * turn `instar-turn.ts` gives it, it goes COCK, SWAY, COCK, LOOK, a round
+ * each (`instar-glance-styles.ts`), halved on a device asking for less
  * motion (`bodyLife`). The tail rests (taken 9 October 2026) in a round each
  * of STATIONS and PENDULUM in turn (`instar-tail-lean.ts`), halved the same
  * way, and wherever it leans it is kept on the screen (`instar-tail-fit.ts`).

@@ -1,10 +1,11 @@
 import { smoothstep } from "./ease.js";
 
 /**
- * **THE INSTAR's three glances, taken in turn** — the owner, 9 October 2026,
+ * **THE INSTAR's three glances, taken in turn, COCK most** — the owner, 9 October 2026,
  * on VERSUS `instar:glance`: *all really cool ... apply all three across the
  * levels for more variety*, and of the three *the cock variant looks the
- * best*. So the head does one round of each, six seconds a round, COCK first:
+ * best*, and asked on 10 October for COCK to get the bigger share. So the head
+ * goes COCK, SWAY, COCK, LOOK, six seconds a round — COCK two rounds in four:
  *
  * - **COCK** turns from looking left to looking right and back, and cocks
  *   side to side three times as fast.
@@ -63,17 +64,18 @@ function looking(t: number): number {
   return MIDDLE;
 }
 
-const STYLES: readonly ((t: number) => GlancePose)[] = [
-  (t) => ({
-    swing: turning(t, REACH.cock),
-    roll: COCK * Math.sin((2 * Math.PI * COCKS * t) / GLANCE_ROUND),
-  }),
-  (t) => ({ swing: turning(t, REACH.sway), roll: 0 }),
-  (t) => {
-    const swing = looking(t);
-    return { swing, roll: (swing - MIDDLE) * TILT };
-  },
-];
+const cock = (t: number): GlancePose => ({
+  swing: turning(t, REACH.cock),
+  roll: COCK * Math.sin((2 * Math.PI * COCKS * t) / GLANCE_ROUND),
+});
+const sway = (t: number): GlancePose => ({ swing: turning(t, REACH.sway), roll: 0 });
+const look = (t: number): GlancePose => {
+  const swing = looking(t);
+  return { swing, roll: (swing - MIDDLE) * TILT };
+};
+
+/** The rounds in order, then again: COCK, the owner's favourite, every other one. */
+const STYLES: readonly ((t: number) => GlancePose)[] = [cock, sway, cock, look];
 
 /** Where the head glances `time` seconds in: whichever round it is in, and how far through. */
 export function glanceAt(time: number): GlancePose {

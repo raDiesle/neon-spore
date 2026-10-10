@@ -36,8 +36,8 @@ function posed(swing: number, roll: number, p: { x: number; y: number }) {
 
 describe("THE INSTAR's glance", () => {
   it("ships turning in all three glances, handing over without a jump", () => {
-    // A round each of COCK, SWAY and LOOK: each swings both ways, and only COCK and LOOK roll.
-    const rounds = [0, 1, 2].map((k) =>
+    // COCK, SWAY, COCK, LOOK: each swings both ways, and only COCK and LOOK roll.
+    const rounds = [0, 1, 2, 3].map((k) =>
       Array.from({ length: 120 }, (_, i) => glanceAt(k * GLANCE_ROUND + (i * GLANCE_ROUND) / 120)),
     );
     for (const round of rounds) {
@@ -47,9 +47,11 @@ describe("THE INSTAR's glance", () => {
     const rolls = rounds.map((round) => Math.max(...round.map((g) => Math.abs(g.roll))));
     expect(rolls[0]).toBeGreaterThan(0.05);
     expect(rolls[1]).toBe(0);
-    expect(rolls[2]).toBeGreaterThan(0.02);
+    expect(rolls[2]).toBeGreaterThan(0.05);
+    expect(rolls[3]).toBeGreaterThan(0.02);
+    expect(glanceAt(2 * GLANCE_ROUND + 1)).toEqual(glanceAt(1));
     // Across every hand-over the head is where it was a moment before.
-    for (let k = 1; k <= 6; k++) {
+    for (let k = 1; k <= 8; k++) {
       const a = glanceAt(k * GLANCE_ROUND - 1e-6);
       const z = glanceAt(k * GLANCE_ROUND);
       expect(Math.abs(a.swing - z.swing)).toBeLessThan(1e-4);
@@ -109,6 +111,13 @@ describe("THE INSTAR's resting tail", () => {
       );
     }
     expect(INSTAR_TAIL_REST.lean(7)).toBeCloseTo(tailLeanAt(7), 9);
+    // Every glance meets both ways: half a second in, STATIONS still stands straight up.
+    const met = new Set<string>();
+    for (let k = 0; k < 8; k++) {
+      const at = k * TAIL_ROUND + 0.5;
+      met.add(`${k % 4 === 3 ? "look" : k % 2 ? "sway" : "cock"} ${tailLeanAt(at) === 0}`);
+    }
+    expect(met.size).toBe(6);
   });
 
   it("leans the resting fork from the right of the rear to its left", () => {

@@ -13,8 +13,9 @@ import { smoothstep } from "./ease.js";
  *   middle to the right, and back to the middle.
  *
  * Every round begins and ends straight up, so one hands over to the next
- * without a jump. Against the head's three glances of the same length
- * (`instar-glance-styles.ts`) the two make six pairings before they repeat.
+ * without a jump. The head's glances run in fours of the same length
+ * (`instar-glance-styles.ts`), so after every four rounds the tail swaps
+ * which way comes first, and each glance meets both ways in turn.
  * The lean is 1 up and to the right of the rear, 0 straight up, -1 up and to
  * the left (`instar-glance.ts`); a lash takes it over (`instar-tail.ts`).
  */
@@ -55,6 +56,7 @@ const WAYS: readonly ((t: number) => number)[] = [stations, pendulum];
 /** Which way the resting tail leans `time` seconds in: whichever round it is in, and how far through. */
 export function tailLeanAt(time: number): number {
   const round = Math.floor(time / TAIL_ROUND);
-  const way = WAYS[((round % WAYS.length) + WAYS.length) % WAYS.length];
+  const turn = round + Math.floor(round / 4);
+  const way = WAYS[((turn % WAYS.length) + WAYS.length) % WAYS.length];
   return (way as (typeof WAYS)[number])(time - round * TAIL_ROUND);
 }
