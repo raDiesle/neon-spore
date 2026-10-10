@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 0126ee270 — THE LAMPREY's plug is seen inside the ship
+
+In the fourth level the eel is drawn going down through the hull into the ship, its sucker clamped on the bitten panel button, and the button comes out of its socket like a plug half out of the wall: lifted and tipped, the socket dark and bleeding under it, three wires stretched between. Once let go the button stays loose, a little out. Where the eel bit, the hull is a torn, bleeding hole for the rest of the fight. The other seat sees the mouth clamped on a socket it cannot read.
+
 ## 2026-10-10 · 1d8f0363e — PULL LAB: four GOO looks on OOZE's guides, told apart by how a count ends
 
 The lab's GOO looks are rebuilt from the owner's notes on OOZE and on the first four: OOZE's call, dots ahead with the next one blinking, ghost run, turning place and ring of how far, in TAR's colour with JELLY's tail. Behind the drop only a quiet green left by the fluid; a red edge only where the drop's rim touches the limit, no walls; a failure slurped home by its own tail. The four looks are four endings — SINK, SCATTER, SLING, BLOOM — each playing the same drop from the place back to its start, none falling.
