@@ -37648,3 +37648,5 @@ had to be run on both clocks to see that nothing in it had changed meaning.
 
 Bottleneck: landing — the trunk changed the same shot file an hour earlier;
 the fix itself existed for every other core and only the table row was missing.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
