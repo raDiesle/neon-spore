@@ -2,8 +2,9 @@ import type { Point } from "@neon-spore/content";
 import type { Variant } from "../../versus/variant.js";
 import { choice } from "./field-try-bar.js";
 import { text } from "./gestures-page.js";
+import { GOO_LOOKS } from "./pull-goo/index.js";
 import { autoThumb } from "./pull-lab-auto.js";
-import { paintLab, pullLooks, readoutOf } from "./pull-lab-paint.js";
+import { labLooks, paintLab, readoutOf } from "./pull-lab-paint.js";
 import {
   freshPull,
   type LabPull,
@@ -27,13 +28,14 @@ import { labSheet } from "./pull-lab-sheet.js";
  *
  * - **the shape** (`pull-lab-shapes.ts`): down, up, either, signed, a curve,
  *   an S, a rope that goes any way;
- * - **the look**: what every pull handle in the game draws today, or any
+ * - **the look**: what every pull handle in the game draws today, any
  *   VERSUS candidate that patches the knob or the channel (`PULL_KNOB`,
  *   `PULL_TRACK`) — found by the records it patches, never by its slot's
- *   name, so taking or dropping one needs nothing changed here;
+ *   name — and the lab's own GOO looks (`pull-goo/`), the first of them
+ *   picked when the lab opens;
  * - **a short pull**: refused red, or ignored (`pull-lab-rule.ts`);
  * - **a thumb off the path**: free, as today, or a failure past one tile or
- *   half a tile, with the band drawn (`Stray`).
+ *   half a tile, with the band drawn (`Stray`) — one tile when it opens.
  *
  * AUTO's thumb (`pull-lab-auto.ts`) plays a whole pull and a short one on a
  * loop until the mouse takes over.
@@ -45,9 +47,9 @@ const MAX_DPR = 4;
 export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): void {
   let shape: LabShape = labShape(first);
   let pull: LabPull = freshPull(shape);
-  let look: Variant | null = null;
+  let look: Variant | null = GOO_LOOKS[0] ?? null;
   let short: ShortPull = "refuse";
-  let stray: Stray = "free";
+  let stray: Stray = "tile";
   let auto = true;
   let speed = 1;
   let time = 0;
@@ -107,7 +109,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     choice(
       [
         ["AS SHIPPED", null] as [string, Variant | null],
-        ...pullLooks().map((v) => [v.name.toUpperCase(), v] as [string, Variant]),
+        ...labLooks().map((v) => [v.name.toUpperCase(), v] as [string, Variant]),
       ],
       look,
       (v) => {

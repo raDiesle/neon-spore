@@ -37499,3 +37499,20 @@ one screen plays both seats, which the card never said.
 Bottleneck: none worth the name — a removal and its test.
 
 *Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-10 — GOO: four living-slime pull looks in the PULL LAB, built on OOZE
+
+- reading: 5 min. The lab's rule, paint, sheet and AUTO; OOZE's four files;
+  how VERSUS finds a pull look and where the slot is judged.
+- writing: 10 min. The GOO engine (`pull-goo/`, eleven files), the rule's
+  `age`, `rested` and `last`, `PullAfter`'s four optional fields, the sheet's
+  moments, two tests.
+- looking: 5 min. Four sheets through `bun run shot`: pills that should have
+  been drops, a splash as flat as a pancake, specks before a landing, a
+  strayed drop cut off by its cell — each fixed and shot again.
+- friction: 0 min. The worktree began behind the local `main` (already
+  queued); a fast-forward fixed it.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: reading a slime's motion off still cells — the sheet shows a
+moment, and whether a splash or a snap *feels* right is only told at tempo.

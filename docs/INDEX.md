@@ -3817,5 +3817,15 @@ by hand never moves.
 | `tools/compaction/report.ts` | The compaction trial's figures for one period, and the two periods side by side |
 | `tools/compaction/run.ts` | `bun run compaction` — is the compaction trial of 29 September 2026 working? bun run compaction… |
 | `tools/compaction/transcript.ts` | One Claude Code transcript read as the events the compaction trial is judged on |
+| `tools/director/src/pull-goo/body.ts` | **A body of GOO**: a closed contour with lumps that creep |
+| `tools/director/src/pull-goo/fx.ts` | What two of the GOO looks do that the others do not: HONEY's drops that hang and fall under their own weight |
+| `tools/director/src/pull-goo/guide.ts` | **What tells the hand where to go**: the band it may wander in, the ideal line down its middle |
+| `tools/director/src/pull-goo/knob.ts` | **The drop of a GOO look**: OOZE's drop under the hand wherever the hand has it, made a living slime |
+| `tools/director/src/pull-goo/moment.ts` | **Where a GOO pull is in its story**, read the same way by the channel and the drop from what the PULL LAB… |
+| `tools/director/src/pull-goo/noise.ts` | The irregular in GOO: noise that is the same every frame for the same input |
+| `tools/director/src/pull-goo/splash.ts` | **The two ends of a GOO pull that are events**: a count |
+| `tools/director/src/pull-goo/strand.ts` | **The slime the drop has been pulled out of**: one strand from the start to the drop |
+| `tools/director/src/pull-goo/style.ts` | **What one GOO look is made of** — the four answers to the owner's notes on OOZE (10 October 2026) |
+| `tools/director/src/pull-goo/track.ts` | **The channel of a GOO look**: everything round the drop |
 
 <!-- index:code:end -->

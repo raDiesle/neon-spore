@@ -797,6 +797,13 @@ After the entry above lands: THE CURTAIN's hem and THE STARE's lashes (up), THE 
 
 After the first entry lands: THE LAMPREY's head (a curve), THE ANTIPHON's rail (down a vein), THE WARDEN's tether and THE BASTION's slabs (a rope, any way), THE GAUGE's tooth and PINBALL's plunger onto the one rule. A curve is a path the rule measures along, as the PULL LAB's CURVE and S-CURVE do. THE GUM and SNAKE's jaws are pulls by a body rather than a knob — say in the entry's commit whether they join or why not.
 
+## THE PULL LAB's rule is 248 lines: the stray check out of `pull-lab-rule.ts`
+
+- **Found:** 2026-10-10, claude/ooze-variants-visuals-91ef25
+- **Files:** `tools/director/src/pull-lab-rule.ts`
+
+The rule grew to 248 lines when the GOO looks needed `age`, `rested` and `last` on `LabPull`. Cut along the seam it already has: `nearest`, `ropeFor` and the off-path test inside `move` (`STRAY_TILES`, the `strayed` verdict) go to `pull-lab-stray.ts`, so `pull-lab-rule.ts` keeps the phases, the lift and the clock. `bun test tools/director/test/pull-lab.test.ts tools/director/test/pull-goo.test.ts` says nothing moved.
+
 ## THE PULL LAB's bar out of `pull-lab.ts`
 
 - **Found:** 2026-10-10, claude/trace-line-visual-alignment-cab018

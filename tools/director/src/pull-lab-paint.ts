@@ -11,6 +11,7 @@ import {
 } from "@neon-spore/render";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { apply, restore, type Variant } from "../../versus/variant.js";
+import { GOO_LOOKS } from "./pull-goo/index.js";
 import {
   knobAt,
   type LabPull,
@@ -23,11 +24,11 @@ import { LAB_H, LAB_KNOB, LAB_TILE, LAB_W, type LabShape } from "./pull-lab-shap
 
 /**
  * One frame of the PULL LAB (`pull-lab.ts`): the empty field, the pull drawn
- * by the game's own `drawPullTrack` and `drawPullKnob` — with a VERSUS
- * candidate held in their records for the length of the call, when one is
- * picked — then the lab's own word for the verdict and the finger over it.
- * The colours are the game's convention: the control's own, green counted,
- * red refused.
+ * by the game's own `drawPullTrack` and `drawPullKnob` — with a look held in
+ * their records for the length of the call, when one is picked — and the
+ * finger over it. No word on the field: the owner, 10 October 2026, *not
+ * required to show any text*; the bar's readout says the verdict. The colours
+ * are the game's convention: the control's own, green counted, red refused.
  */
 
 /** Every candidate drawn here: one that patches the pull's own records —
@@ -37,6 +38,12 @@ export function pullLooks(all: readonly Variant[] = VARIANTS): Variant[] {
   return all.filter((v) =>
     v.patches.some((p) => p.target === PULL_KNOB || p.target === PULL_TRACK),
   );
+}
+
+/** The LOOK picker: the VERSUS candidates for the pull, then the lab's own GOO looks
+ * (`pull-goo/`), which draw their own band. */
+export function labLooks(): Variant[] {
+  return [...pullLooks(), ...GOO_LOOKS];
 }
 
 export const VERDICT_WORDS: Readonly<Record<string, string>> = {
@@ -69,14 +76,13 @@ export interface LabFrame {
 
 export function paintLab(ctx: CanvasRenderingContext2D, f: LabFrame): void {
   paintField(ctx);
-  paintBand(ctx, f);
+  if (!f.look || !GOO_LOOKS.includes(f.look)) paintBand(ctx, f);
   const applied = f.look ? apply(f.look) : null;
   try {
     paintPull(ctx, f);
   } finally {
     if (applied) restore(applied);
   }
-  paintVerdict(ctx, f);
   if (f.thumb) paintThumb(ctx, f.thumb.at, f.thumb.down);
 }
 
@@ -87,10 +93,14 @@ function toneOf(pull: LabPull): { hex: string; rim: string } {
   return { hex: PALETTE.cyan, rim: PALETTE.cyanRim };
 }
 
-function paintPull(ctx: CanvasRenderingContext2D, { shape, pull, time }: LabFrame): void {
+function paintPull(ctx: CanvasRenderingContext2D, { shape, pull, time, stray }: LabFrame): void {
   const held = pull.phase === "held" || pull.phase === "full";
   const tone = toneOf(pull);
-  const after = afterOf(pull);
+  const limit = STRAY_TILES[stray ?? "free"];
+  const after = afterOf(
+    pull,
+    limit === null || shape.direction === "free" ? null : limit * LAB_TILE,
+  );
   drawPullTrack(ctx, trackOf(shape, pull), {
     ...tone,
     held,
@@ -110,10 +120,18 @@ function paintPull(ctx: CanvasRenderingContext2D, { shape, pull, time }: LabFram
 }
 
 /** What a look is told of the last lift: a stray is a refusal to the eye. */
-function afterOf(pull: LabPull): PullAfter {
+function afterOf(pull: LabPull, reach: number | null): PullAfter {
   const v = pull.verdict;
   const verdict = v === "counted" ? v : v === "refused" || v === "strayed" ? "refused" : null;
-  return { verdict, since: pull.since, off: pull.off };
+  return {
+    verdict,
+    since: pull.since,
+    off: pull.off,
+    age: pull.age,
+    rested: pull.rested,
+    last: pull.last,
+    ...(reach === null ? {} : { reach }),
+  };
 }
 
 /** Along the track towards the end the pull is going to: the far end, or
@@ -122,21 +140,6 @@ function wayNow(shape: LabShape, pull: LabPull): PullWay {
   const q = pullTrackPoint(trackOf(shape, pull), pull.at);
   const s = pull.sign === -1 ? -1 : 1;
   return { dx: q.dx * s, dy: q.dy * s };
-}
-
-function paintVerdict(ctx: CanvasRenderingContext2D, { shape, pull }: LabFrame): void {
-  if (!pull.verdict) return;
-  const k = knobAt(shape, pull);
-  ctx.save();
-  ctx.font = `600 ${LAB_TILE * 0.36}px ui-monospace, monospace`;
-  // Leaning away from the nearer side wall, so a crop round the track keeps it whole.
-  const left = k.x < LAB_W / 2;
-  ctx.textAlign = left ? "left" : "right";
-  ctx.fillStyle = toneOf(pull).hex === PALETTE.cyan ? PALETTE.dim : toneOf(pull).hex;
-  ctx.globalAlpha = Math.max(0, 1 - pull.since / 1.2);
-  const above = k.y < LAB_TILE * 2 ? LAB_KNOB * 2.6 : -LAB_KNOB * 2.2;
-  ctx.fillText(VERDICT_WORDS[pull.verdict] ?? "", k.x + (left ? -LAB_KNOB : LAB_KNOB), k.y + above);
-  ctx.restore();
 }
 
 /** The tolerance either side of the path: a faint band the thumb must stay

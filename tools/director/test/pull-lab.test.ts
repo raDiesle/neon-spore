@@ -219,22 +219,37 @@ describe("AUTO's thumb", () => {
 
 describe("the EVERY LOOK sheet", () => {
   test("each moment shows the state it is labelled with, on every shape", () => {
-    const want: Record<string, [string, string | null]> = {
+    // The rope has no path to leave, so its second pull is a short one.
+    const want = (s: LabShape): Record<string, [string, string | null]> => ({
       WAITING: ["idle", null],
-      "HELD · HALF WAY": ["held", null],
-      COUNTED: ["full", "counted"],
-      "SHORT · HELD": ["held", null],
-      "SHORT · REFUSED": ["home", "refused"],
-    };
+      "HELD · OFF THE MIDDLE": ["held", null],
+      "COUNTED · IT FALLS": ["full", "counted"],
+      "COUNTED · SPLASH": ["full", "counted"],
+      "A FRESH DROP": ["idle", null],
+      "NEAR THE EDGE": ["held", null],
+      "OFF THE PATH": s.direction === "free" ? ["held", null] : ["home", "strayed"],
+      "GOING HOME": s.direction === "free" ? ["home", "refused"] : ["home", null],
+    });
     for (const s of LAB_SHAPES) {
       for (const m of MOMENTS) {
         const { pull } = pullAt(s, m.at);
         expect([s.key, m.label, pull.phase, pull.verdict]).toEqual([
           s.key,
           m.label,
-          ...(want[m.label] ?? []),
+          ...(want(s)[m.label] ?? []),
         ]);
       }
+    }
+  });
+
+  test("a fresh drop is only just back, and one off the middle is still inside the band", () => {
+    for (const s of LAB_SHAPES) {
+      const fresh = pullAt(s, 3.8).pull;
+      expect([s.key, fresh.last, fresh.rested < 0.25]).toEqual([s.key, "counted", true]);
+      const held = pullAt(s, 1.6).pull;
+      const off = Math.hypot(held.off.x, held.off.y);
+      if (s.direction !== "free")
+        expect([s.key, off > 6, off < LAB_TILE / 2]).toEqual([s.key, true, true]);
     }
   });
 

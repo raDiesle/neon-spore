@@ -60,6 +60,15 @@ export interface PullAfter {
   readonly verdict: "counted" | "refused" | null;
   readonly since: number;
   readonly off: Point;
+  /** How far either side of the path the hand may take the knob before the
+   * pull fails, in field pixels; absent where a thumb off it is free. */
+  readonly reach?: number;
+  /** Seconds since the verdict, on a clock the lift does not restart. */
+  readonly age?: number;
+  /** Seconds the knob has rested at its start since it last came home. */
+  readonly rested?: number;
+  /** The last verdict given, kept after it stops being shown, until the next press. */
+  readonly last?: "counted" | "refused" | null;
 }
 
 /** The channel's half-width, as a share of the knob's radius: thin, so the knob is the control. */

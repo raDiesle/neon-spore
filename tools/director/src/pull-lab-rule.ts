@@ -59,6 +59,13 @@ export interface LabPull {
   off: Point;
   /** The knob is on its way home from a failure, slowly, whatever the verdict shows. */
   slow: boolean;
+  /** Seconds since the verdict, not restarted by the lift that follows a count. */
+  age: number;
+  /** Seconds the knob has rested at its start with no verdict shown; 0
+   * while it is held or on its way home. */
+  rested: number;
+  /** The last verdict given, kept until the next press. */
+  last: "counted" | "refused" | null;
 }
 
 /** Seconds a verdict is shown before the knob is idle again. */
@@ -86,6 +93,9 @@ export function freshPull(shape: LabShape): LabPull {
     strayed: 0,
     off: { x: 0, y: 0 },
     slow: false,
+    age: 0,
+    rested: 0,
+    last: null,
   };
 }
 
@@ -111,6 +121,8 @@ export function press(shape: LabShape, p: LabPull, at: Point): boolean {
   p.phase = "held";
   p.verdict = null;
   p.slow = false;
+  p.last = null;
+  p.rested = 0;
   return true;
 }
 
@@ -164,6 +176,8 @@ export function move(shape: LabShape, p: LabPull, at: Point, stray: Stray = "fre
       p.phase = "home";
       p.verdict = "strayed";
       p.since = 0;
+      p.age = 0;
+      p.last = "refused";
       p.strayed++;
       p.slow = true;
       return;
@@ -177,6 +191,8 @@ export function move(shape: LabShape, p: LabPull, at: Point, stray: Stray = "fre
     p.phase = "full";
     p.verdict = "counted";
     p.since = 0;
+    p.age = 0;
+    p.last = "counted";
     p.counted++;
   }
 }
@@ -198,12 +214,20 @@ export function lift(shape: LabShape, p: LabPull, short: ShortPull): void {
   if (short === "refuse") p.refused++;
   p.slow = short === "refuse";
   p.since = 0;
+  p.age = 0;
+  if (short === "refuse") p.last = "refused";
 }
 
 /** The clock: a knob let go springs home, and a verdict fades. */
 export function tick(shape: LabShape, p: LabPull, dt: number): void {
   if (p.verdict) p.since += dt;
-  if (p.verdict && p.since > VERDICT_SECONDS && p.phase !== "full") p.verdict = null;
+  p.age += dt;
+  if (p.phase === "idle") p.rested += dt;
+  if (p.verdict && p.since > VERDICT_SECONDS && p.phase !== "full") {
+    p.verdict = null;
+    // Rest is counted from when nothing is shown any more.
+    p.rested = 0;
+  }
   if (p.phase !== "home") return;
   // A counted pull rests at the end a moment before it goes home, and a
   // failed one where it was let go.
@@ -217,6 +241,7 @@ export function tick(shape: LabShape, p: LabPull, dt: number): void {
     p.off = { x: 0, y: 0 };
     p.slow = false;
     p.phase = "idle";
+    p.rested = 0;
     p.sign = 0;
     p.rope = null;
   }
