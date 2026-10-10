@@ -11,8 +11,9 @@ import { PULL_TRACK_W } from "@neon-spore/render";
  *
  * Each is a track in the lab's own field pixels (`LAB_W` × `LAB_H`, a tile of
  * `LAB_TILE`) and **where along it the hand takes hold**: 0 for a pull that
- * goes one way, ½ for one that may go either. `rope` is the one with no
- * track of its own — THE WARDEN's, laid the way the hand goes (`free`).
+ * goes one way, ½ for one that may go either. There was a rope that went any
+ * way, laid the way the hand went; the owner took that pull out of the game
+ * (10 October 2026), and THE WARDEN's tether is a DOWN now.
  */
 
 export const LAB_TILE = 34;
@@ -21,8 +22,8 @@ export const LAB_H = LAB_TILE * 12;
 /** The knob's radius: the game's handles are about four tenths of a tile. */
 export const LAB_KNOB = LAB_TILE * 0.42;
 
-/** The four directions the suggestion names, and the two the lab adds. */
-export type PullDirection = "down" | "up" | "either" | "signed" | "path" | "free";
+/** The four directions the suggestion names, and the path the lab adds. */
+export type PullDirection = "down" | "up" | "either" | "signed" | "path";
 
 export interface LabShape {
   key: string;
@@ -60,7 +61,7 @@ export const LAB_SHAPES: readonly LabShape[] = [
     key: "down",
     label: "DOWN",
     direction: "down",
-    like: "THE HIVE's haul, THE VANE's housing, THE FLEET's wreck, THE LEDGER's pull",
+    like: "THE WARDEN's tether, THE HIVE's haul, THE VANE's housing, THE FLEET's wreck, THE LEDGER's pull",
     track: straight(MID, LAB_TILE * 3, MID, LAB_TILE * 3 + LEN),
     origin: 0,
   },
@@ -110,15 +111,6 @@ export const LAB_SHAPES: readonly LabShape[] = [
       x: MID + LAB_TILE * 2.4 * Math.sin(u * Math.PI * 2),
       y: LAB_TILE * 2.5 + u * LAB_TILE * 7,
     })),
-    origin: 0,
-  },
-  {
-    key: "rope",
-    label: "ROPE · ANY WAY",
-    direction: "free",
-    like: "THE WARDEN's tether, THE BASTION's slabs — and GRAB AND DRAG on its own",
-    // Laid down until a hand takes it; `pull-lab-rule.ts` lays it the hand's way.
-    track: straight(MID, LAB_H / 2 - LAB_TILE * 2, MID, LAB_H / 2 - LAB_TILE * 2 + LEN),
     origin: 0,
   },
 ];

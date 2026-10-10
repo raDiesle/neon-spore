@@ -55,8 +55,8 @@ const SHORT_DRIFT = 24;
  * correct path, but also around the path in the tolerance*). */
 const WANDER = 13;
 
-/** Where the thumb is `t` seconds into the loop. The rope goes down and out
- * to the right; a two-way pull goes one way whole and the other way short. */
+/** Where the thumb is `t` seconds into the loop. A two-way pull goes one way
+ * whole and the other way short. */
 export function autoThumb(shape: LabShape, t: number, strays = false): AutoThumb {
   const s = ((t % AUTO_SECONDS) + AUTO_SECONDS) % AUTO_SECONDS;
   let from = 0;
@@ -71,7 +71,7 @@ export function autoThumb(shape: LabShape, t: number, strays = false): AutoThumb
   const u = smoothstep(Math.min(1, (s - start) / Math.max(0.001, beat.until - start)));
   const share = beat.down ? from + (beat.to - from) * u : 0;
   const second = s > 4.4;
-  if (strays && second && shape.direction !== "free" && beat.down) {
+  if (strays && second && beat.down) {
     const reach = share / (LOOP[6] as Beat).to;
     return { at: strayAt(shape, reach), down: true };
   }
@@ -90,12 +90,6 @@ function strayAt(shape: LabShape, reach: number): Point {
 
 function thumbAt(shape: LabShape, share: number, second: boolean): Point {
   const t = shape.track;
-  if (shape.direction === "free") {
-    const [a, b] = t.pts as [Point, Point];
-    const len = Math.hypot(b.x - a.x, b.y - a.y) * share;
-    const ang = second ? Math.PI * 0.85 : Math.PI * 0.3;
-    return { x: a.x + Math.cos(ang) * len, y: a.y + Math.sin(ang) * len };
-  }
   const k = shape.origin > 0 ? shape.origin + (second ? -1 : 1) * share * shape.origin : share;
   const on = beyond(shape, k);
   const q = pullTrackPoint(t, k);

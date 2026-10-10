@@ -34,13 +34,6 @@ import { MOMENTS, pullAt } from "../src/pull-lab-sheet.js";
 
 /** Where the whole of `shape`'s pull ends: the far end, or for a two-way pull, the 1 end. */
 function farEnd(shape: LabShape) {
-  if (shape.direction === "free") {
-    const [a, b] = shape.track.pts;
-    return {
-      x: (b?.x ?? 0) + ((b?.x ?? 0) - (a?.x ?? 0)),
-      y: (b?.y ?? 0) + ((b?.y ?? 0) - (a?.y ?? 0)),
-    };
-  }
   return pullTrackPoint(shape.track, 1);
 }
 
@@ -144,7 +137,7 @@ describe("the generic pull", () => {
 });
 
 describe("a thumb off the path", () => {
-  const pathed = LAB_SHAPES.filter((s) => s.direction !== "free");
+  const pathed = LAB_SHAPES;
 
   test("is nothing while the rule is free, as every pull in the game has it", () => {
     for (const s of pathed) {
@@ -173,14 +166,6 @@ describe("a thumb off the path", () => {
       }
     });
   }
-
-  test("never fails the rope, which has no path", () => {
-    const s = labShape("rope");
-    const pull = freshPull(s);
-    press(s, pull, knobAt(s, pull));
-    walk(s, pull, { x: LAB_W * 0.9, y: LAB_H * 0.5 }, "half");
-    expect(pull.strayed).toBe(0);
-  });
 
   test("AUTO's short pull strays when the rule is on, so the loop shows both", () => {
     for (const s of pathed) {
@@ -219,24 +204,23 @@ describe("AUTO's thumb", () => {
 
 describe("the EVERY LOOK sheet", () => {
   test("each moment shows the state it is labelled with, on every shape", () => {
-    // The rope has no path to leave, so its second pull is a short one.
-    const want = (s: LabShape): Record<string, [string, string | null]> => ({
+    const want: Record<string, [string, string | null]> = {
       WAITING: ["idle", null],
       "HELD · OFF THE MIDDLE": ["held", null],
       "COUNTED · IT FALLS": ["full", "counted"],
       "COUNTED · SPLASH": ["full", "counted"],
       "A FRESH DROP": ["idle", null],
       "NEAR THE EDGE": ["held", null],
-      "OFF THE PATH": s.direction === "free" ? ["held", null] : ["home", "strayed"],
-      "GOING HOME": s.direction === "free" ? ["home", "refused"] : ["home", null],
-    });
+      "OFF THE PATH": ["home", "strayed"],
+      "GOING HOME": ["home", null],
+    };
     for (const s of LAB_SHAPES) {
       for (const m of MOMENTS) {
         const { pull } = pullAt(s, m.at);
         expect([s.key, m.label, pull.phase, pull.verdict]).toEqual([
           s.key,
           m.label,
-          ...(want(s)[m.label] ?? []),
+          ...(want[m.label] ?? []),
         ]);
       }
     }
@@ -248,8 +232,7 @@ describe("the EVERY LOOK sheet", () => {
       expect([s.key, fresh.last, fresh.rested < 0.25]).toEqual([s.key, "counted", true]);
       const held = pullAt(s, 1.6).pull;
       const off = Math.hypot(held.off.x, held.off.y);
-      if (s.direction !== "free")
-        expect([s.key, off > 6, off < LAB_TILE / 2]).toEqual([s.key, true, true]);
+      expect([s.key, off > 6, off < LAB_TILE / 2]).toEqual([s.key, true, true]);
     }
   });
 

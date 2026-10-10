@@ -12,14 +12,7 @@ import {
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { apply, restore, type Variant } from "../../versus/variant.js";
 import { GOO_LOOKS } from "./pull-goo/index.js";
-import {
-  knobAt,
-  type LabPull,
-  progress,
-  STRAY_TILES,
-  type Stray,
-  trackOf,
-} from "./pull-lab-rule.js";
+import { knobAt, type LabPull, progress, STRAY_TILES, type Stray } from "./pull-lab-rule.js";
 import { LAB_H, LAB_KNOB, LAB_TILE, LAB_W, type LabShape } from "./pull-lab-shapes.js";
 
 /**
@@ -97,11 +90,8 @@ function paintPull(ctx: CanvasRenderingContext2D, { shape, pull, time, stray }: 
   const held = pull.phase === "held" || pull.phase === "full";
   const tone = toneOf(pull);
   const limit = STRAY_TILES[stray ?? "free"];
-  const after = afterOf(
-    pull,
-    limit === null || shape.direction === "free" ? null : limit * LAB_TILE,
-  );
-  drawPullTrack(ctx, trackOf(shape, pull), {
+  const after = afterOf(pull, limit === null ? null : limit * LAB_TILE);
+  drawPullTrack(ctx, shape.track, {
     ...tone,
     held,
     origin: shape.origin,
@@ -137,16 +127,16 @@ function afterOf(pull: LabPull, reach: number | null): PullAfter {
 /** Along the track towards the end the pull is going to: the far end, or
  * for a two-way pull the way it has gone (both heads until it has). */
 function wayNow(shape: LabShape, pull: LabPull): PullWay {
-  const q = pullTrackPoint(trackOf(shape, pull), pull.at);
+  const q = pullTrackPoint(shape.track, pull.at);
   const s = pull.sign === -1 ? -1 : 1;
   return { dx: q.dx * s, dy: q.dy * s };
 }
 
 /** The tolerance either side of the path: a faint band the thumb must stay
- * in, red while a pull that left it is shown. Not on the rope, which has none. */
+ * in, red while a pull that left it is shown. */
 function paintBand(ctx: CanvasRenderingContext2D, { shape, pull, stray }: LabFrame): void {
   const limit = STRAY_TILES[stray ?? "free"];
-  if (limit === null || shape.direction === "free") return;
+  if (limit === null) return;
   const pts = shape.track.pts;
   ctx.save();
   ctx.strokeStyle = pull.verdict === "strayed" ? PALETTE.red : PALETTE.dim;

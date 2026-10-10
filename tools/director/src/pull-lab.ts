@@ -27,7 +27,7 @@ import { labSheet } from "./pull-lab-sheet.js";
  * Three choices on the bar, and nothing else on the screen to look at:
  *
  * - **the shape** (`pull-lab-shapes.ts`): down, up, either, signed, a curve,
- *   an S, a rope that goes any way;
+ *   an S;
  * - **the look**: what every pull handle in the game draws today, any
  *   VERSUS candidate that patches the knob or the channel (`PULL_KNOB`,
  *   `PULL_TRACK`) — found by the records it patches, never by its slot's

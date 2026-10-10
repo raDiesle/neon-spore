@@ -54,23 +54,12 @@ export function pullAt(
 function cropOf(shape: LabShape): { x: number; y: number; w: number; h: number } {
   // Room for a knob's rings, and for one let go a tile and more off the path.
   const pad = LAB_KNOB * 3.4 + (SHEET_STRAY === "free" ? 0 : LAB_TILE);
-  const pts = shape.direction === "free" ? ropeReach(shape) : shape.track.pts;
+  const pts = shape.track.pts;
   const xs = pts.map((p) => p.x);
   const ys = pts.map((p) => p.y);
   const x = Math.min(...xs) - pad;
   const y = Math.min(...ys) - pad;
   return { x, y, w: Math.max(...xs) + pad - x, h: Math.max(...ys) + pad - y };
-}
-
-/** A rope can be carried any way: its reach is a circle round the bolt. */
-function ropeReach(shape: LabShape) {
-  const [a, b] = shape.track.pts;
-  if (!a || !b) return shape.track.pts;
-  const len = Math.hypot(b.x - a.x, b.y - a.y);
-  return [
-    { x: a.x - len, y: a.y - len },
-    { x: a.x + len, y: a.y + len },
-  ];
 }
 
 function cell(

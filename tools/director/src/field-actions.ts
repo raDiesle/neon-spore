@@ -79,7 +79,6 @@ export const FIELD_ACTIONS: readonly FieldAction[] = [
     title: "GRAB AND DRAG",
     says: "A finger put on a thing and moved.",
     gestures: ["DRAG, AS A DISPLACEMENT"],
-    lab: "rope",
     types: DRAG_TYPES,
   },
   ...OTHER_ACTIONS,

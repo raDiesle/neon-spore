@@ -26,7 +26,7 @@ import { LAB_KNOB, LAB_TILE, type LabShape } from "./pull-lab-shapes.js";
 export type ShortPull = "refuse" | "ignore";
 
 /** What a thumb that leaves the path comes to: nothing, or a failure past
- * one tile or half a tile from it. The rope has no path, and never strays. */
+ * one tile or half a tile from it. */
 export type Stray = "free" | "tile" | "half";
 
 /** The tolerance either side of the path, in tiles; `null` is no limit. */
@@ -48,8 +48,6 @@ export interface LabPull {
   since: number;
   /** -1 or 1 once a two-way pull has gone one way; 0 before. */
   sign: -1 | 0 | 1;
-  /** The rope's own track, laid the way the hand went (`free` only). */
-  rope: PullTrack | null;
   counted: number;
   refused: number;
   /** Pulls failed off the path; counted apart from the short ones. */
@@ -87,7 +85,6 @@ export function freshPull(shape: LabShape): LabPull {
     verdict: null,
     since: 0,
     sign: 0,
-    rope: null,
     counted: 0,
     refused: 0,
     strayed: 0,
@@ -99,11 +96,8 @@ export function freshPull(shape: LabShape): LabPull {
   };
 }
 
-/** The track as it is drawn now: the rope's own once a hand has laid it. */
-export const trackOf = (shape: LabShape, p: LabPull): PullTrack => p.rope ?? shape.track;
-
 export function knobAt(shape: LabShape, p: LabPull): Point {
-  const q = pullTrackPoint(trackOf(shape, p), p.at);
+  const q = pullTrackPoint(shape.track, p.at);
   return { x: q.x, y: q.y };
 }
 
@@ -145,45 +139,24 @@ function nearest(t: PullTrack, from: number, at: Point): { k: number; off: numbe
   return { k: best, off: bestD };
 }
 
-/** The rope, laid from where it rests towards the hand, its whole length. */
-function ropeFor(shape: LabShape, at: Point): { track: PullTrack; at: number } {
-  const [a, b] = shape.track.pts as [Point, Point];
-  const len = Math.hypot(b.x - a.x, b.y - a.y);
-  const dx = at.x - a.x;
-  const dy = at.y - a.y;
-  const went = Math.hypot(dx, dy);
-  const ux = went > 1 ? dx / went : 0;
-  const uy = went > 1 ? dy / went : 1;
-  return {
-    track: { pts: [a, { x: a.x + ux * len, y: a.y + uy * len }], w: shape.track.w },
-    at: Math.min(1, went / len),
-  };
-}
-
 export function move(shape: LabShape, p: LabPull, at: Point, stray: Stray = "free"): void {
   if (p.phase !== "held") return;
-  if (shape.direction === "free") {
-    const r = ropeFor(shape, at);
-    p.rope = r.track;
-    p.at = r.at;
-  } else {
-    const n = nearest(shape.track, p.at, at);
-    const q = pullTrackPoint(shape.track, n.k);
-    p.off = { x: at.x - q.x, y: at.y - q.y };
-    const limit = STRAY_TILES[stray];
-    if (limit !== null && n.off > limit * LAB_TILE) {
-      // Off the path is a failure, wherever along it the knob had got to.
-      p.phase = "home";
-      p.verdict = "strayed";
-      p.since = 0;
-      p.age = 0;
-      p.last = "refused";
-      p.strayed++;
-      p.slow = true;
-      return;
-    }
-    p.at = n.k;
+  const n = nearest(shape.track, p.at, at);
+  const q = pullTrackPoint(shape.track, n.k);
+  p.off = { x: at.x - q.x, y: at.y - q.y };
+  const limit = STRAY_TILES[stray];
+  if (limit !== null && n.off > limit * LAB_TILE) {
+    // Off the path is a failure, wherever along it the knob had got to.
+    p.phase = "home";
+    p.verdict = "strayed";
+    p.since = 0;
+    p.age = 0;
+    p.last = "refused";
+    p.strayed++;
+    p.slow = true;
+    return;
   }
+  p.at = n.k;
   if (shape.origin > 0 && p.sign === 0 && Math.abs(p.at - shape.origin) > 0.08)
     p.sign = p.at > shape.origin ? 1 : -1;
   if (progress(shape, p) >= FULL) {
@@ -243,6 +216,5 @@ export function tick(shape: LabShape, p: LabPull, dt: number): void {
     p.phase = "idle";
     p.rested = 0;
     p.sign = 0;
-    p.rope = null;
   }
 }
