@@ -37383,3 +37383,19 @@ Bottleneck: landing — the PULL LAB landed under this lane mid-task, and it
 turned out to be the place the experiment belonged.
 
 *Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — A skill for adding a page to the director
+
+- reading: 10 min. `place.ts`, `session.ts`, `controlsets-page.ts`, the
+  restore order in `documentation-rooms.ts`, and what a new page touches.
+- writing: 20 min. A `sub` level for the URL, its tests, and the
+  `director-page` skill — then the code dropped, because main had the same
+  fix since the morning, and the skill rewritten against main's `subBars`.
+- looking: 5 min. The director at `…&sub=field` on this branch, then on main.
+- friction: 5 min. `land` refused on four conflicting files; the fix was
+  already there.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the trunk was not fetched from the local `main` before starting —
+`git merge --ff-only origin/main` said up to date while local `main` held the
+same fix, landed but not pushed.
