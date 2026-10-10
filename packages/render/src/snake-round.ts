@@ -1,4 +1,4 @@
-import type { SnakeState, World } from "@neon-spore/sim";
+import { type SnakeState, snakeCrashed, type World } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
 import type { Effects } from "./effects.js";
 import { drawBackground } from "./field.js";
@@ -12,18 +12,10 @@ import { drawShipAir } from "./ship-air.js";
 import { drawSnakeBody, snakeSlide } from "./snake-body.js";
 import { emerge01, flick, gape } from "./snake-clock.js";
 import { crash01, drawSnakeCrash } from "./snake-crash.js";
-import {
-  type Arena,
-  drawArena,
-  drawSnakeItems,
-  drawSnakeRocks,
-  SNAKE_HEADER,
-  SNAKE_NAME_Y,
-  snakeArena,
-} from "./snake-draw.js";
+import { type Arena, drawArena, drawSnakeItems, drawSnakeRocks, snakeArena } from "./snake-draw.js";
 import { clipAboveHull, drawEmergeSlime, emergeOffset } from "./snake-emerge.js";
 import { drawSnakeGate, snakeIntake } from "./snake-home.js";
-import { drawTally, drawTitle, drawVerdict } from "./snake-panel.js";
+import { drawSnakeFuse, drawVerdict, snakeFuseRest } from "./snake-panel.js";
 import { drawSnakeShot } from "./snake-shot.js";
 
 /**
@@ -40,7 +32,7 @@ import { drawSnakeShot } from "./snake-shot.js";
  * band (`snake-button.ts`); and the body comes out of the hull's own mouth
  * rather than the hull folding into it (`snake-emerge.ts`).
  *
- * **The order is the picture.** Background, ship air, the header, the
+ * **The order is the picture.** Background, ship air, the fuse, the
  * arena's lines and what stands in them, then the hull — and *then* the body,
  * clipped to the sky above the ship's skin (`clipAboveHull`), so a body still
  * inside the ship is under its skin and shows only where it has climbed out
@@ -48,9 +40,8 @@ import { drawSnakeShot } from "./snake-shot.js";
  * over them.
  *
  * This file is the arena: what is standing in it and the body in it.
- * Everything *around* it — the name, the line under it, the clock and the
- * verdict — is `snake-panel.ts`, which is the half that says which screen
- * this is.
+ * Everything *around* it — the fuse over it and the verdict — is
+ * `snake-panel.ts`.
  */
 
 /**
@@ -86,15 +77,13 @@ export function drawSnakeRound(
   drawBackground(ctx, l, world.wave, view.time);
   drawShipAir(ctx, l, view.time, skin);
 
-  ctx.textAlign = "center";
-  // The header hugs the arena. On a screen where the width is what limits the
+  // The fuse hugs the arena. On a screen where the width is what limits the
   // tiles, the arena is shorter than the air it was given and stands on the
-  // hull, so the name comes down to meet it rather than leaving the gap at
-  // the top (`snakeArena`).
+  // hull, so the fuse comes down to meet it rather than staying at the top
+  // (`snakeArena`).
   const arena = snakeArena(l, world.cfg);
-  const top = Math.max(l.playHeight * SNAKE_NAME_Y, arena.y - SNAKE_HEADER);
-  drawTitle(ctx, l, view.role, boss, top);
-  drawTally(ctx, l, view, boss, top + 30);
+  const crashed = snakeCrashed(boss);
+  drawSnakeFuse(ctx, l, arena, snakeFuseRest(view, boss, crashed));
   drawArena(ctx, arena);
   drawStanding(ctx, arena, view, boss);
 
@@ -122,7 +111,7 @@ export function drawSnakeRound(
   ctx.textAlign = "center";
   // The verdict stands through `spent` too: the round is over and holding
   // its own picture until the next wave arrives (`sim/wave-end.ts`).
-  if (boss.phase === "verdict" || boss.phase === "spent") drawVerdict(ctx, l, boss);
+  if (boss.phase === "verdict" || boss.phase === "spent") drawVerdict(ctx, l, boss, crashed);
   ctx.textAlign = "left";
 }
 

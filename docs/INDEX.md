@@ -1608,7 +1608,7 @@ by hand never moves.
 | `packages/render/src/pinball-aim.ts` | you are changing what PINBALL's aim shows — the real flight path out of the bucket, and the strength bar beside the table |
 | `packages/render/src/pinball-piece.ts` | you are drawing what stands on PINBALL's table — a peg as a living cell, a block as a slab of the same tissue |
 | `packages/render/src/snake-skin.ts` | What the body is made of: its contour, its light and its scales |
-| `packages/render/src/snake-mouth.ts` | What is in the mouth: the space itself, the fangs hung in it, and the tongue |
+| `packages/render/src/snake-mouth.ts` | What is in the mouth: the fangs hung in it, and the tongue |
 | `packages/render/src/rind-shed.ts` | the event of a layer coming off a rind — which body, how big it was and is — handed to `RIND_LOOK` to draw |
 | `packages/render/src/rind-skin.ts` | the shipped picture of a rind losing a layer — the outline crushed onto the smaller body, the skin thrown out as a ring |
 | `packages/render/src/rind-slough.ts` | SLOUGH — a kept look for THE RIND's shed, drawn only on the GRAPHICS page's LIBRARY |

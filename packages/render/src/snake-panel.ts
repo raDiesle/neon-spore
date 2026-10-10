@@ -1,124 +1,85 @@
-import { type SnakeState, snakeCrashed } from "@neon-spore/sim";
-import type { Layout, ViewRole } from "./layout.js";
+import type { SnakeState } from "@neon-spore/sim";
+import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
+import { drawFuseLine, fuseColours } from "./slow-fuse.js";
+import type { Arena } from "./snake-draw.js";
 
 /**
- * The words around SNAKE's arena: what this screen is told, how long the
- * attempt has, and how it went.
+ * What stands around SNAKE's arena: how long the attempt has, and how it went.
  *
- * Split from `snake-round.ts` on the seam the round is built on — that file is
- * the arena and the body in it, this one is the header over them — and the
- * header is where the two screens differ in *words*. `LINES` below is the
- * whole of that difference, written as a table so both halves can be read at
- * once and neither can quietly become a restatement of the other.
+ * **The top of the arena says nothing, 10 October 2026.** The owner: *remove
+ * the permanent text during wave play on top. use generic time progress bar we
+ * use for bosses.* The name, the line telling each seat its half and the
+ * `ROUND 1 OF 3` row with its little bar are gone — the band's four buttons
+ * say whose press is whose, and the guide said it before the round. What is
+ * left is THE SLOW's fuse, drawn by the same function in the same colours as
+ * every boss's and PINBALL's (`pinball-fuse.ts`, which the owner asked for the
+ * same way on 30 September), burning in from both ends over the attempt's
+ * beats and meeting in the middle on the beat the clock runs out.
  *
  * The four buttons used to be drawn here too, as a slab panel of the round's
- * own. They are lobes on the band now, in the sockets every other control
- * stands in (`snake-button.ts`), since the owner asked for them to look like
- * the others.
+ * own. They are lobes on the band now (`snake-button.ts`).
  */
 
+/** From the fuse to the arena's top edge, in the arena's tiles. */
+const FUSE_UP = 0.9;
+
+/** How far each end stands in from the side of the screen, in tiles — the
+ * round cap and the spark, the side `slow-fuse-place.ts` leaves. */
+const SIDE = 0.5;
+
 /**
- * The name, and the one line that teaches this seat its half. Different on the
- * two screens because the hands are, though the picture under them is one.
+ * The share of this attempt's beats still to run, 0 to 1, at a drawn phase.
+ * Nought outside play, once the arena is cleared — the way home is not on the
+ * clock — and once the body has crashed: there is nothing left to count down.
  */
-export function drawTitle(
+export function snakeFuseRest(view: ViewState, round: SnakeState, crashed: boolean): number {
+  if (round.phase !== "play" || round.clearBeat >= 0 || crashed) return 0;
+  const beats = round.rounds[round.round]?.beats ?? 0;
+  if (beats <= 0) return 0;
+  const run = view.world.beat - round.roundBeat + view.beatPhase;
+  return Math.max(0, Math.min(1, (beats - run) / beats));
+}
+
+/** The fuse for this frame, across the screen just over the arena. */
+export function drawSnakeFuse(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  role: ViewRole,
-  round: SnakeState,
-  top: number,
+  arena: Arena,
+  rest: number,
 ): void {
-  // The name's baseline; the two rows hang off it. The caller says where the
-  // top is.
-  const y = top;
-  ctx.fillStyle = PALETTE.hull;
-  ctx.font = '600 16px "Courier New",monospace';
-  ctx.fillText("SNAKE", l.width / 2, y);
-  ctx.fillStyle = PALETTE.text;
-  ctx.font = '11px "Courier New",monospace';
-  const lines = LINES[role];
-  ctx.fillText(round.phase === "morph" ? lines.emerging : lines.taught, l.width / 2, y + 18);
+  if (rest <= 0) return;
+  const x = l.width / 2;
+  const at = { x, y: arena.y - arena.tile * FUSE_UP, half: Math.max(0, x - l.tile * SIDE) };
+  const { body, core } = fuseColours(rest);
+  drawFuseLine(ctx, l, at, rest, body, core);
 }
 
 /**
- * The line under the name, one row per screen. A table rather than three
- * functions: they are one thought — what this seat has, and what it is not
- * being shown — and reading them side by side is how anybody checks the two
- * halves are still different from each other. The row that used to say what
- * each seat is *not* shown went with the slab panel: the header is one line
- * now so the arena under it can be as tall as the screen allows.
- */
-const LINES: Record<ViewRole, { emerging: string; taught: string }> = {
-  p1: {
-    emerging: "it is coming out. You shoot and eat.",
-    taught: "you shoot and eat. Player 2 steers.",
-  },
-  p2: {
-    emerging: "it is coming out. You steer it.",
-    taught: "you steer, left and right. Player 1 shoots and eats.",
-  },
-  test: {
-    emerging: "the body is coming out of the ship",
-    taught: "one of you drives it, the other works it",
-  },
-};
-
-/**
- * How long this attempt has, and which attempt it is, in one row under the
- * name.
+ * How it went, over the arena for a few beats: cleared, or the clock — and a
+ * lost round is the wave lost, so the second line says what happens next
+ * rather than what it cost (`sim/wave-fail.ts`; the retry count is the HUD's
+ * corner).
  *
- * It used to carry two rows of pips — enemies left, points left — and the
- * owner had them taken out: they are player 1's screen written twice, and on
- * player 2's they were a count of things that seat is not allowed to know
- * about. What is left is the one number both of them are inside: the clock,
- * which costs the hull when it runs out, so a pair who cannot see it spending
- * are being charged for a thing nobody showed them. It stood under the arena
- * until the ship took that ground; now it is the header's last row.
+ * **Nothing on a crash**, the owner, 10 October 2026: *remove the "crashed"
+ * animation. it is enough.* The body knocking into what stopped it and the
+ * hit coming down the screen say it already (`snake-crash.ts`,
+ * `round-hit.ts`), and a banner across the arena hid the place it went wrong.
  */
-export function drawTally(
+export function drawVerdict(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  view: ViewState,
   round: SnakeState,
-  y: number,
+  crashed: boolean,
 ): void {
-  const target = round.rounds[round.round];
-  if (!target) return;
-  // The clock stops on the beat the arena is cleared: the way home is not on it.
-  const now = round.clearBeat >= 0 ? round.clearBeat : view.world.beat;
-  const spent = now - round.roundBeat;
-  const left01 = Math.max(0, Math.min(1, 1 - spent / target.beats));
-  ctx.fillStyle = PALETTE.dim;
-  ctx.font = '9px "Courier New",monospace';
-  ctx.textAlign = "left";
-  ctx.fillText(`ROUND ${round.round + 1} OF ${round.rounds.length}`, l.width * 0.12, y + 4);
-  ctx.textAlign = "center";
-  const barW = l.width * 0.4;
-  const barX = l.width * 0.48;
-  ctx.fillStyle = "#241B4F";
-  ctx.fillRect(barX, y, barW, 4);
-  if (left01 > 0) {
-    ctx.fillStyle = left01 < 0.25 ? PALETTE.ember : PALETTE.hull;
-    ctx.fillRect(barX, y, Math.max(1, barW * left01), 4);
-  }
-}
-
-/**
- * How it went, over the arena for a few beats. Three ways out and a word for
- * each: cleared, the clock, or the body meeting something — and a lost round
- * is the wave lost, so the second line says what happens next rather than
- * what it cost (`sim/wave-fail.ts`; the retry count is the HUD's corner).
- */
-export function drawVerdict(ctx: CanvasRenderingContext2D, l: Layout, round: SnakeState): void {
+  if (crashed && !round.passed) return;
   const y = l.playHeight * 0.42;
   ctx.fillStyle = "rgba(5,4,11,.78)";
   ctx.fillRect(0, y - 46, l.width, 96);
   ctx.fillStyle = round.passed ? PALETTE.good : PALETTE.ember;
   ctx.font = '600 20px "Courier New",monospace';
-  const word = round.passed ? "CLEARED" : snakeCrashed(round) ? "CRASHED" : "OUT OF TIME";
-  ctx.fillText(word, l.width / 2, y);
+  ctx.fillText(round.passed ? "CLEARED" : "OUT OF TIME", l.width / 2, y);
   ctx.fillStyle = round.passed ? PALETTE.dim : PALETTE.ember;
   ctx.font = '9px "Courier New",monospace';
   ctx.fillText(round.passed ? "the field is next" : "THE WAVE GOES AGAIN", l.width / 2, y + 30);

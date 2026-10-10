@@ -37533,3 +37533,19 @@ Bottleneck: reading — the vector pull was shared with THE LID, and deciding
 where the line falls between the two took longer than the change.
 
 *Measured: 207 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-10 — SNAKE without its jaws grip, its header or its CRASHED
+
+- reading: 10 min. Every file that named the jaws grip — sim, render, net,
+  audio, hands, the director and the frames tool — and PINBALL's fuse to copy.
+- writing: 10 min. The grip out with its marks, events, sound and target;
+  the fuse, the big lobes and their words, the verdict and the mouth.
+- looking: 5 min. Before and after on both seats, the open mouth up close,
+  the crash.
+- friction: 15 min. A `check:fast` that stalled past ten minutes on a busy
+  machine, its six timeouts run again alone to prove them green.
+- landing: 15 min. `land` refused: `main` had moved 65 commits and nine files
+  conflicted with PINBALL's and THE SCOUT's own removals.
+
+Bottleneck: landing — the trunk moved under a lane that touched every list
+of drag targets, so each list conflicted.

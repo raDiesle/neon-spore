@@ -37,22 +37,22 @@ export interface Arena {
 }
 
 /**
- * Where SNAKE's name sits when nothing is over it, in play heights — THE
- * PULSE's own height, so the two rounds open the same way. The job line and
- * the tally hang under it, and the arena's top under those.
+ * The highest the arena's top may stand, in play heights — clear of the seat
+ * switch and the menu over the field. The name and the job line that used to
+ * stand here went on 10 October 2026, and the fuse stands just over the
+ * arena's top instead (`snake-panel.ts`), inside `SNAKE_FUSE_ROOM`.
  */
-export const SNAKE_NAME_Y = 0.07;
+export const SNAKE_TOP_Y = 0.07;
 
-/** From the name's baseline to the arena's top: the job line, the round's
- * clock and a breath of air, in pixels. */
-export const SNAKE_HEADER = 46;
+/** The air over the arena's top that the fuse stands in, in pixels. */
+export const SNAKE_FUSE_ROOM = 22;
 
 /**
- * The arena: the widest square-tile grid that fits between the header and the
+ * The arena: the widest square-tile grid that fits between the fuse and the
  * hull, centred on the ship.
  *
  * **The ship is on the screen**, so the arena is the air above it — from the
- * foot of the header down to the hull's real surface (`hullY`), and as wide as
+ * fuse down to the hull's real surface (`hullY`), and as wide as
  * the field's columns — which is every pixel the round has once the hull and
  * the band have theirs. The owner asked for the arena to be widened to the
  * whole of the screen (18 September 2026); this is where it stopped growing.
@@ -65,7 +65,7 @@ export const SNAKE_HEADER = 46;
  * a tile gets said out loud. Its floor is the hull.
  */
 export function snakeArena(l: Layout, cfg: SimConfig): Arena {
-  const top = l.playHeight * SNAKE_NAME_Y + SNAKE_HEADER;
+  const top = l.playHeight * SNAKE_TOP_Y + SNAKE_FUSE_ROOM;
   const bottom = l.hullY;
   const tile = Math.max(1, Math.min(l.gridWidth / cfg.snakeCols, (bottom - top) / cfg.snakeRows));
   const w = tile * cfg.snakeCols;

@@ -4,7 +4,6 @@ import { halo } from "./glow.js";
 import type { Circle } from "./layout.js";
 import { paintLobe } from "./lobe-shell.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { drawNose, drawSwing } from "./scout-button.js";
 import type { SeatSkin } from "./seat-skin.js";
 import { flick, gape } from "./snake-clock.js";
 import { drawSnakeHead } from "./snake-head.js";
@@ -18,12 +17,17 @@ import { drawSnakeHead } from "./snake-head.js";
  * THE SCOUT's and THE PULSE's are, and this file draws only what is *on* each
  * face. The socket, the gloss and the tissue around it are not its business.
  *
- * **Player 2's two carry the heading, live.** Each turn shows the way the
- * body is actually going — read off the round, never animated here — with an
- * arc round it saying which way the button swings it, which is THE SCOUT's
- * nose on THE SCOUT's own call. A turn already queued lights its button until
- * the body takes it, so the driver can see the press was heard before the
- * head moves.
+ * **Every face says its verb in a word**, the owner, 10 October 2026: *make
+ * the buttons bigger and more understandable what each does.* They are big
+ * on this round's band (`snake-layout.ts`), and each carries one picture over
+ * one word: LEFT, RIGHT, SHOOT, EAT.
+ *
+ * **Player 2's two are a road sign's turn.** An arrow going up and bending
+ * off to its side, which is what a quarter turn *relative to the heading* is
+ * — the live nose showing which way the body pointed, THE SCOUT's glyph, read
+ * as a compass and was taken off. A turn already queued lights its button
+ * until the body takes it, so the driver can see the press was heard before
+ * the head moves.
  *
  * **Player 1's two carry the head itself, and their verb.** SHOOT is the head with a bolt of
  * venom standing off its snout, and the bolt fades while the trigger rests;
@@ -68,12 +72,8 @@ export function drawSnakeLobe(
     ctx.strokeStyle = hex;
     ctx.lineWidth = STROKE.outline;
     paintLobe(ctx, x, y, r, "both");
-    const ink = on ? "#1B0630" : hex;
-    // The grid's heading as the nose's sine and cosine: a column step is the
-    // sine and a row step up is the cosine, which is what "straight up is
-    // zero, clockwise is positive" comes to on a grid.
-    drawNose(ctx, x, y, r, ink, round?.dirCol ?? 0, -(round?.dirRow ?? -1));
-    drawSwing(ctx, x, y, r, ink, dir);
+    drawTurn(ctx, x, y - r * WORD_ROOM, r, on ? INK : hex, dir);
+    drawWord(ctx, x, y + r * WORD_Y, r, dir === -1 ? "LEFT" : "RIGHT", on);
     return;
   }
   const open = which === "maw" && live ? gape(world.cfg, world.tick, round) : 0;
@@ -94,18 +94,58 @@ export function drawSnakeLobe(
   if (which === "fire")
     drawVenom(ctx, x, top, r, live && round !== null ? restLeft(world, round) : 1);
   drawSnakeHead(ctx, arena, { x, y: headY }, 0, -1, open, flick(world.tick));
-  drawWord(ctx, x, y + r * 0.56, r, which === "fire" ? "SHOOT" : "EAT", lit);
+  drawWord(ctx, x, y + r * WORD_Y, r, which === "fire" ? "SHOOT" : "EAT", lit);
 }
 
-/** How far the picture on player 1's faces is lifted to leave room for the word. */
+/** How far the picture on a face is lifted to leave room for the word. */
 const WORD_ROOM = 0.2;
+
+/** Where the word stands below the face's middle, in radii. */
+const WORD_Y = 0.56;
+
+/** The dark the picture and the word are drawn in on a lit face. */
+const INK = "#1B0630";
+
+/**
+ * A turn, as the road sign draws it: a stem going up and bending a quarter
+ * round to the side the button turns to, with the head on the end. Relative,
+ * as the press is — *left* is the body's left, wherever it is going.
+ */
+function drawTurn(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  ink: string,
+  dir: -1 | 1,
+): void {
+  const foot = { x: x - dir * r * 0.18, y: y + r * 0.34 };
+  const bend = { x: foot.x, y: y - r * 0.2 };
+  const tip = { x: x + dir * r * 0.36, y: y - r * 0.2 };
+  const head = r * 0.2;
+  ctx.save();
+  ctx.strokeStyle = ink;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.lineWidth = Math.max(2, r * 0.15);
+  ctx.beginPath();
+  ctx.moveTo(foot.x, foot.y);
+  ctx.lineTo(bend.x, bend.y + r * 0.16);
+  ctx.quadraticCurveTo(bend.x, bend.y, bend.x + dir * r * 0.16, bend.y);
+  ctx.lineTo(tip.x, tip.y);
+  ctx.moveTo(tip.x - dir * head, tip.y - head);
+  ctx.lineTo(tip.x, tip.y);
+  ctx.lineTo(tip.x - dir * head, tip.y + head);
+  ctx.stroke();
+  ctx.restore();
+}
 
 /**
  * The button's verb on its own face: **SHOOT** and **EAT**, the words the
- * field's hint says over the item (`boss-cue-read-g.ts`). The owner, 25
- * September 2026: *the controls button is not clear if its eating or
- * shooting.* A dark copy under it, one pixel down, keeps it readable over the
- * lit fill as well as the dead one.
+ * field's hint says over the item (`boss-cue-read-g.ts`), and **LEFT** and
+ * **RIGHT**. The owner, 25 September 2026: *the controls button is not clear
+ * if its eating or shooting.* A dark copy under it, one pixel down, keeps it
+ * readable over the lit fill as well as the dead one.
  */
 function drawWord(
   ctx: CanvasRenderingContext2D,
@@ -115,14 +155,14 @@ function drawWord(
   word: string,
   lit: boolean,
 ): void {
-  const size = Math.max(7, Math.round(r * 0.3));
+  const size = Math.max(7, Math.round(r * 0.34));
   ctx.save();
   ctx.font = `800 ${size}px "Courier New",monospace`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillStyle = "#1B0630";
+  ctx.fillStyle = INK;
   ctx.fillText(word, x + 1, y + 1);
-  ctx.fillStyle = lit ? "#1B0630" : PALETTE.text;
+  ctx.fillStyle = lit ? INK : PALETTE.text;
   ctx.fillText(word, x, y);
   ctx.restore();
 }

@@ -713,6 +713,18 @@ runs out, and an amber-pod one whose jaws open with the mouth's own window.
 `touch-lobe.ts` answers all four as one press each, so the round needs no
 listener of its own in the app or the director.
 
+**The picture, cleared, 10 October 2026** (the owner, four asks in one). The
+name, the line telling each seat its half and the `ROUND 1 OF 3` row over the
+arena are gone, and the boss fuse stands just over the arena's top in their
+place, burning down over the attempt's beats and out once the arena is
+cleared or the body has crashed (`render/snake-panel.ts`). The four buttons
+fill this round's short band (`render/snake-layout.ts`) and each face says
+its verb in a word under one picture — LEFT and RIGHT under a road sign's
+turn arrow, where the live nose read as a compass, and SHOOT and EAT under
+the head. A crash draws no verdict: the bump and the hit coming down the
+screen say it, and the banner hid the place it went wrong. And the open
+mouth is not filled — the jaws swing apart over whatever is behind them.
+
 **The fold is gone, and the body comes out of the ship instead**
 (`render/snake-emerge.ts`). The round used to open with the hull scaled down
 into the body's first tile; the owner asked for the ship to stay and for the
@@ -742,7 +754,8 @@ under the verdict. Missing the mouth is a crash like any other wall.
 
 **The hull and the band stand at half their height in this round**
 (`snakeHullPct`, `render/snake-layout.ts`, the owner, 25 September 2026: the
-round's buttons are fewer and smaller). The field moves down into the room
+round's buttons are fewer and smaller). The buttons themselves are big on it
+since 10 October 2026: they stand in the band's middle and fill most of it. The field moves down into the room
 they give up. The arena is as wide as the field already, so on a phone it keeps
 its size and comes down with the hull. The frame and the finger read one layout
 (`render/world-layout.ts`), so a lobe is pressed where it is drawn.
@@ -770,7 +783,7 @@ the body back at the start with the arena standing, after a pause to watch —
 and once a hit stopped the field none of that could ever run, so it is gone.
 What is left of the pause is its first part, the bump: the head knocks against
 whatever stopped it and the body folds up behind it, then stands where it
-stopped under the verdict until the wave comes back (`render/snake-crash.ts`).
+stopped until the wave comes back (`render/snake-crash.ts`).
 
 **The meteors are the exception, and they are what proves the rule.** They can
 be neither shot nor swallowed, and a shot stops dead on one, so the only answer

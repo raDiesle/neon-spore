@@ -1,44 +1,21 @@
 import { PALETTE } from "./palette.js";
 
 /**
- * What is in the mouth: the space itself, the fangs hung in it, and the tongue.
+ * What is in the mouth: the fangs hung in it, and the tongue.
  *
  * Split off `snake-head.ts` when that file passed the 250-line ceiling
  * CLAUDE.md sets. It is a good seam rather than a convenient one: everything
  * here is drawn in the head's own turned coordinates and says nothing about
  * how the head is shaped or where it is pointing, which is the whole of what
  * is left next door.
- */
-
-/**
- * The mouth: the space between the jaws, and nothing in it.
  *
- * It was a red throat with a glottis, taken from the reference. At this size
- * that red was the loudest thing on the screen and it did not read as the
- * inside of anything — the owner's note was that the open mouth looked
- * strange, and the red was why. What is drawn now is a hole: darker than the
- * arena floor so the grid does not run through it, and no colour of its own.
+ * **The mouth itself is not drawn**: the owner, 10 October 2026, *remove the
+ * black background colour inside the mouth when snake opens it (should likely
+ * be transparent to see background of screen)*. It was a red throat first,
+ * then a dark hole so the arena's grid did not run through it; now the jaws
+ * swing apart over whatever is behind them, and the fangs and the tongue hang
+ * in that.
  */
-export function cavity(ctx: CanvasRenderingContext2D, r: number, swing: number): void {
-  // **Shorter the wider it opens.** A jaw's tip is about `r * 1.5` from the
-  // hinge, so swinging it away pulls the tip back to `cos(swing)` of that; a
-  // throat at a fixed reach therefore grew out past the snout at a full gape
-  // and read as a red flag flying off the front of the head. It follows the
-  // tips instead, and stops short of them.
-  const reach = r * 1.5 * Math.cos(swing) * 0.86;
-  // Wide enough to fill the gape rather than the reach: the corners follow
-  // where the jaw *tips* have swung to, so no strip of the floor is left
-  // showing between the throat and the jaw that is meant to be holding it.
-  const open = Math.sin(swing) * r * 1.5;
-  ctx.beginPath();
-  ctx.moveTo(-r * 0.4, 0);
-  ctx.lineTo(reach * 0.9, -open);
-  ctx.lineTo(reach, 0);
-  ctx.lineTo(reach * 0.9, open);
-  ctx.closePath();
-  ctx.fillStyle = "#0A0616";
-  ctx.fill();
-}
 
 /**
  * One fang: **rooted on the gum and hanging into the mouth.**

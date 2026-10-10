@@ -1,7 +1,7 @@
 import { PALETTE } from "./palette.js";
 import type { Arena } from "./snake-draw.js";
 import { drawJaws } from "./snake-jaw.js";
-import { cavity, fang, tongue } from "./snake-mouth.js";
+import { fang, tongue } from "./snake-mouth.js";
 
 /**
  * The head, shut and open.
@@ -101,7 +101,7 @@ function drawShut(
   eyes(ctx, r, 0);
 }
 
-/** Open: the same two jaws, swung apart about the neck, cavity between. */
+/** Open: the same two jaws, swung apart about the neck, nothing between. */
 function drawOpen(
   ctx: CanvasRenderingContext2D,
   arena: Arena,
@@ -111,7 +111,6 @@ function drawOpen(
   flick: number,
 ): void {
   const swing = GAPE_ANGLE * gape;
-  cavity(ctx, r, swing);
   // Out of the mouth rather than out of a shut snout, so it starts at the
   // hinge and is drawn before the jaws — whatever of it is behind a jaw is
   // covered by that jaw, which is what puts it *in* the mouth.
