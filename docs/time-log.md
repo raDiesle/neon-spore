@@ -37482,3 +37482,5 @@ named for a state often holds the helper too small, or not at all.
 
 Bottleneck: finding out what the gesture is for — the game uses it only when
 one screen plays both seats, which the card never said.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 7e1723975 — TWO THUMBS ON ONE PHONE says where it is used and shows the PC; SENDING NOTHING is not a control
+
+CONTROLS › ON THE FIELD, part 3: the TWO THUMBS card now says the game uses two fingers at once only when one screen plays both seats (the TEST screen, or two people round one phone), and that in the two-phone game a player never has two down. Under its phone picture is a new AT A PC picture: the keyboard with each seat's keys in its colour (read off `deskKeys`), D and Q drawn held as the two thumbs, and the mouse with 1, 2 and 3 saying whose hand it is. The SENDING NOTHING card is gone, by the owner's ruling of 10 October 2026 that hands off the glass is not a control; the step it named stays in the simulation.
+
 ## 2026-10-10 · d6c7f41b1 — CONTROLS › HELPERS lists every picture the field draws to explain rather than to be touched
 
 A fourth tab under DOCUMENTATION › CONTROLS, beside ON THE FIELD and in its shape: twenty-two helpers in five groups — the siren, the strip, the torch and magnet alarms; the scanner box and what each seat sees in it, THE SEARCH for a body one screen cannot see, NEXT TO FALL; the gunsight, EMBER and the colour it does not know, EMBER on the fire button; the words and counts on a body; the halo, clock, hold mark and green arc on a boss's part. Each row is a real frame drawn as the screen that is shown the helper, with where it stands, whose screen, what it says and the render file behind it. It restores at `?sheet=states&inner=controlsets&sub=helpers`.
