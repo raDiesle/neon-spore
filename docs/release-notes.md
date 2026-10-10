@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · fff8adc4d — A skill for adding a page to the director
+
+`.claude/skills/director-page` says what a new sheet, a room inside one, a tab bar inside a room and a linkable section each touch: the markup, the lazy draw, the binding order the URL restore depends on, which level of the URL (`sheet`, `inner`, `sub`, `#section`) it lives at, the tests that catch a tab with no page, and how to see it in this tree's director — so a new page comes back where it was on a reload from the start.
+
 ## 2026-10-10 · 0be51a247 — THE PULL LAB can fail a thumb off the path
 
 The PULL LAB has an OFF PATH switch beside SHORT: free, as every pull in the game has it today, or a failure past one tile or half a tile off any of the six paths, with the band the thumb must stay in drawn under the pull, and AUTO's short pull turned into one that strays. It is the owner's experiment of 10 October 2026 — every pull with a path and a tolerance off it, which would make TRACE ALONG A LINE a pull whose path bends — felt by hand before the simulation is asked for it. Director only; the game draws nothing new.
