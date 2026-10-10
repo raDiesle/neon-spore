@@ -37148,3 +37148,5 @@ Bottleneck: reading — ninety-six rows across forty bosses' hand files, done by
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: friction — an edit script that opened the file for writing before its check passed.
+
+*Measured: 3 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

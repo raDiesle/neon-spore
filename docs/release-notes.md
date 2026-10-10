@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 80a47273b — THE INSTAR's head cocks two rounds in four
+
+The face-on head now glances COCK, SWAY, COCK, LOOK, six seconds a round. The owner liked COCK best and asked for it to get a bigger share. The resting tail's two ways (STATIONS, PENDULUM) swap which comes first every four rounds, so every glance still meets both.
+
 ## 2026-10-09 · e93ace936 — ON THE FIELD shows the numbers each control's gesture is held to
 
 Every card now lists the SimConfig fields that decide whether its gesture counts — how far a carry must go, how long a window stays open, how near a mark is near enough — with their values read from DEFAULT_CONFIG, so two uses of one type can be compared by what they ask of a thumb. A rule no field holds is said in a line naming the constant or file, and how far every handle reaches is said once at the top.
