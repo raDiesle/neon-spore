@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-10 · 51872d370 — PULL LAB: FIZZ alone, SQUISH splashes on the field, specks that stay put, RETRY and a growing entrance
+
+The lab keeps only FIZZ as a success look; SINK, STRAINER, VORTEX and WELL are gone. A short pull is always refused, red, and a thumb half a tile off the path fails: the SHORT · IGNORED and other OFF PATH switches are gone. SQUISH throws its drops onto the field, where they lie about a second before they fade. The tail's specks are placed along the path, so a dot once drawn never moves while the drop is pulled. ↻ RETRY puts a fresh pull on the field: the drop and its arrow grow in together, the path's dots blink in one after another, and the place at the end pops in last.
+
 ## 2026-10-10 · 0a0c2cfa3 — The PULL LAB draws no grey thumb over the drop
 
 The soft grey disc that stood for the finger — AUTO's and the mouse's — is gone from the lab and its sheet, so nothing lies over the drop being judged. It was never in the game: on a phone the hand on the glass is the thumb.

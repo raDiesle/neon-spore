@@ -37732,3 +37732,5 @@ switch dearer than removing the disc, which the owner allowed.
 
 Bottleneck: looking — every timing (the entrance, the splash's stay) was judged
 from stepped frames, which is slow but was the only way to see them.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
