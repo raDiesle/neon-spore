@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · e5869cff9 — ⏸ and ↺ WAVE stand over the map, in view however far it scrolls
+
+The MAP column carries its own pause and retry at its top, stuck there while the map scrolls under them and left standing when MAP is folded, so a wave can be stopped and run again without crossing to RUN. Both ⏸ say the same thing; the sideways scroll moved from the column to the map's body so the bar can stick.
+
 ## 2026-10-11 · f41e368be — ↺ WAVE plays the wave again even when the stage was paused
 
 Both retry buttons, RUN's and the one beside the field, now do what REPEAT WAVE?'s yes does: the wave is rebuilt from the top and runs. Before, a retry pressed while paused rebuilt the wave and left it standing still.
