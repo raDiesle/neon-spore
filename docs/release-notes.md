@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 59070730c — The wave editor keeps unsaved edits across a reload, counts them on SAVE, and RESET drops them
+
+Every edit in the director's wave editor is now stored in localStorage until it is saved, and a reload lays it back over the act files. The save button reads "SAVE waves.ts · N", where N is how many waves differ from disk, and a new RESET beside it (asked to confirm) goes back to the files as loaded. If the act files moved between the two loads, only the waves the draft edited are laid over the fresh files.
+
 ## 2026-10-11 · 6bb465f8b — PULL LAB: GRAB is SQUISH alone — LEAN, LIFT and CHARGE are gone
 
 The PULL LAB's GRAB choice is gone from the bar. Every GOO drop, FIZZ's included, is taken with SQUISH: pressed flat under the thumb, it springs up wobbling and splashes drops of goo onto the field, then stretches and quivers as it is pulled. LEAN, LIFT's shadow and CHARGE's light are removed along with the hooks they had in the channel and the drop.

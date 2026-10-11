@@ -37778,3 +37778,5 @@ through `track.ts` and `knob.ts`.
 
 Bottleneck: none worth the name; the draft against moved files was the one
 thing to decide.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
