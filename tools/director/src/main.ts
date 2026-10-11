@@ -40,6 +40,7 @@ import {
 import { bindStates } from "./states-page.js";
 import { initSubcols } from "./subcols.js";
 import { bindContents, bindExpanders, bindTabs } from "./tabs.js";
+import { makeWaveDraft } from "./waves-draft.js";
 import { bindWaveIo } from "./waves-io.js";
 
 // The director: one screen where a wave is placed, played and judged — not
@@ -73,6 +74,10 @@ const place: PlaceSession = bindPlace(store.waves.length, rememberedWave());
 store.index = place.initialWave;
 
 const saveButton = document.getElementById("save");
+const resetButton = document.getElementById("reset") as HTMLButtonElement | null;
+// Unsaved edits, kept in localStorage across a reload — see `waves-draft.ts`.
+const draft = makeWaveDraft();
+let unsaved = 0;
 const status = document.getElementById("status");
 const setStatus = (text: string, cls = ""): void => {
   if (!status) return;
@@ -178,18 +183,26 @@ function onProse(): void {
 }
 
 // The save button is the indicator: blue while there is something to write,
-// green once the store matches disk. Only a message the button cannot carry —
-// a refusal, a failed save, no server — still needs words beside it.
+// green once the store matches disk, and how many waves differ. Only a message
+// the button cannot carry — a refusal, a failed save, no server — still needs
+// words beside it. Every repaint also stores (or forgets) the draft.
 function paintStatus(): void {
   const bad = refuse(store.waves);
   setStatus(bad ?? "", bad ? "bad" : "");
-  saveButton?.classList.toggle("saved", !bad && !store.dirty);
+  unsaved = draft.settle(store.waves);
+  saveButton?.classList.toggle("saved", !bad && unsaved === 0);
+  if (saveButton) saveButton.textContent = unsaved ? `SAVE waves.ts · ${unsaved}` : "SAVE waves.ts";
+  if (resetButton) resetButton.disabled = unsaved === 0;
 }
 
 // Reading and writing the act files, and the base revision that keeps a save
 // from overwriting an edit this page never saw — see `waves-io.ts`.
-const io = bindWaveIo({ store, setStatus, repaint: paintStatus, refresh: refreshAll });
+const io = bindWaveIo({ store, draft, setStatus, repaint: paintStatus, refresh: refreshAll });
 saveButton?.addEventListener("click", () => void io.save());
+resetButton?.addEventListener("click", () => {
+  const what = unsaved === 1 ? "1 unsaved wave" : `${unsaved} unsaved waves`;
+  if (unsaved > 0 && window.confirm(`Drop ${what}?`)) io.reset();
+});
 
 // `#tabs` holds no tab any more, only the arrows and the wave's own number
 // (`index.html`, `rail-steps.ts`) — so there is no `?tab=` button left to click

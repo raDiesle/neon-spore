@@ -15,16 +15,21 @@
 
 import type { Wave } from "@neon-spore/content";
 import { refuse, type Store } from "./state.js";
+import type { WaveDraft } from "./waves-draft.js";
 
 export interface WaveIo {
   /** Write the store back to the act files, if nothing else has since loaded. */
   save(): Promise<void>;
-  /** Read the act files, replacing the bundled fallback. */
+  /** Read the act files, replacing the bundled fallback, then lay any
+   * unsaved draft from the last visit over them (`waves-draft.ts`). */
   load(): Promise<void>;
+  /** Throw away every unsaved edit and go back to the files as loaded. */
+  reset(): void;
 }
 
 interface Wiring {
   store: Store;
+  draft: WaveDraft;
   setStatus: (text: string, cls?: string) => void;
   /** After a save: the status line, now that the store is clean again. */
   repaint: () => void;
@@ -32,7 +37,7 @@ interface Wiring {
   refresh: () => void;
 }
 
-export function bindWaveIo({ store, setStatus, repaint, refresh }: Wiring): WaveIo {
+export function bindWaveIo({ store, draft, setStatus, repaint, refresh }: Wiring): WaveIo {
   /**
    * Which revision of the act files this page's list came off. Empty until the
    * first load answers — a save before then would be a save with no base, and
@@ -58,6 +63,7 @@ export function bindWaveIo({ store, setStatus, repaint, refresh }: Wiring): Wave
       // Biome runs after the write, so the files this page is now based on are
       // not the ones it sent. The server hashes them again and says which.
       if (body.token) token = body.token;
+      draft.setBase(store.waves, token);
       store.dirty = false;
       repaint();
     } catch (err) {
@@ -76,9 +82,23 @@ export function bindWaveIo({ store, setStatus, repaint, refresh }: Wiring): Wave
       // No server — the bundled copy is still worth editing, just not saving.
       setStatus("no server — read only", "bad");
     }
+    draft.setBase(store.waves, token);
+    const kept = draft.restore(store.waves, token);
+    if (kept) {
+      store.waves = kept;
+      store.dirty = true;
+    }
     store.index = Math.min(store.index, store.waves.length - 1);
     refresh();
   }
 
-  return { save, load };
+  function reset(): void {
+    store.waves = draft.base();
+    draft.forget();
+    store.dirty = false;
+    store.index = Math.min(store.index, store.waves.length - 1);
+    refresh();
+  }
+
+  return { save, load, reset };
 }

@@ -3301,6 +3301,7 @@ by hand never moves.
 | `tools/director/src/waves-acts.ts` | The act files, and the save that writes a wave list back across them |
 | `tools/director/src/waves-act-files.ts` | **Where the waves live on disk**, and nothing about writing them |
 | `tools/director/src/waves-baseline.ts` | A save runs `baseline:blank` in a fresh process before it commits, so a wave changed under its baseline row cannot land `main` red |
+| `tools/director/src/waves-draft.ts` | Unsaved wave edits kept in localStorage across a reload, the count on SAVE, and what RESET goes back to |
 | `tools/director/src/wordings-glossary.ts` | The words on the WORDINGS page that have no one place on the picture — the list under the two labelled screens |
 | `tools/director/src/wordings-page.ts` | DOCUMENTATION → WORDINGS: an ordinary screen with every part of it named |
 | `tools/director/src/wordings-world.ts` | The one ordinary screen the WORDINGS page names things on |

@@ -69,6 +69,7 @@
   }
   body.menu-open header h1,
   body.menu-open header #save,
+  body.menu-open header #reset,
   body.menu-open header #status,
   body.menu-open header #buildStamp,
   body.menu-open header .spacer {

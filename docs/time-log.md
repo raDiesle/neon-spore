@@ -37766,3 +37766,15 @@ Bottleneck: none to speak of — reading the hooks the three grabs had laid
 through `track.ts` and `knob.ts`.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — the wave editor keeps unsaved edits across a reload
+
+- reading: 5 min. `main.ts`, `waves-io.ts`, `remembered.ts`, how the rail
+  adds and deletes waves.
+- writing: 10 min. `waves-draft.ts`, the count on SAVE, RESET, its test.
+- looking: 5 min. The director-here pane: an edit, a reload, a RESET.
+- friction: 0 min.
+- landing: 5 min. A typecheck on the test, `bun run index`, `check:fast`.
+
+Bottleneck: none worth the name; the draft against moved files was the one
+thing to decide.

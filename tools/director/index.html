@@ -31,6 +31,9 @@
       <button type="button" id="menuToggle" aria-label="Menu">☰ MENU</button>
       <h1>NEON SPORE — DIRECTOR</h1>
       <button type="button" id="save" class="primary">SAVE waves.ts</button>
+      <!-- Drops every edit not yet saved; the edits otherwise survive a
+           reload in localStorage (waves-draft.ts). -->
+      <button type="button" id="reset" disabled>RESET</button>
       <span id="status">loading…</span>
       <!-- Which bundle this is — see tools/build-stamp.ts. A date under a
            dev server would be noise, so it says DEV BUILD there instead.
