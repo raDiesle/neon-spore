@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 63138d730 — Longer and curved pulls are put to the owner, with what holds each length
+
+Every straight pull was tried at half again its length: each is held by its boss's own geometry (THE LAMPREY's landings, THE BASTION's screen edge, THE CURTAIN's rail, THE FLEET's chart), so nothing is lengthened unasked. Curves need the sim to measure a pull along a path; which pulls bend is asked. Two queue entries carry the questions and the options.
+
 ## 2026-10-11 · b3bd4a76b — THE HOLD LAB: the one generic hold on an empty field, in six looks
 
 The owner asked for a HOLD LAB like the PULL LAB, with looks that match FIZZ. It has a door in the topbar beside the PULL LAB's, a button on CONTROLS › ON THE FIELD › HOLD, and `holdlab=` in the URL (`&holdsheet=1` opens its sheet). HOLD FOR picks 1, 2 or 4 beats. The rule takes the pull's picks and applies them to a hold: let go early is refused, in red; half a tile off the mark fails; a tap counts for nothing. AUTO plays a whole hold, an early one and one that slips. The looks: AS SHIPPED, the game's red circle with a thumbprint and its dial; and five GOO holds that use FIZZ's drop, SQUISH grab and FIZZ ending. FILL: green rises inside.
