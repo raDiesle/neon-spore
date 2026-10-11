@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 7b8ac118f — The map editor places on every tile, odd columns included
+
+A wave was authored on seven columns and remapped onto the field's eleven, so the map could only reach tiles 0, 2, 3, 5, 7, 8 and 10. A wave may now say `cols: 11` and be counted on every tile: the remap reads it, the map draws eleven columns for it, and ON EVERY TILE under the map moves a seven-column wave there in one press, every arrival on the tile it already played on. New waves start on every tile. No shipped wave changes.
+
 ## 2026-10-11 · 041f988d3 — PULL LAB: the place blinks on the dots' beat, DROP is SOFT PLASTIC and its variants — a still drop and three craters
 
 Waiting, the ghost now lights the dots at one steady pace and the place lights one dot's beat after the last, with no pause before it; coming in, the place pops one dot's gap after the last dot too. The DROP choice keeps SOFT PLASTIC and drops FLAT, 3D BALL, SLIME, SPONGE and DOUGH. Beside it: PLASTIC · STILL, which slows to a stop while pulled and catches its turning up again once let go; CRATER, a hollow that is the drop's own rim drawn smaller — turning with it, its lumps and lean kept at half so it moves less — set in the middle of the drop where the arrow is, as big as leaves a fifth of the drop clear of the rim, its lip inside that; CRATER · STILL, the two together; and CRATER · RIPPLES, rings drifting slowly out across its floor.
