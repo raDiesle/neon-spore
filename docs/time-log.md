@@ -38032,3 +38032,5 @@ diff and obvious in the first screenshot.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: none — the seam was the one the entry named.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

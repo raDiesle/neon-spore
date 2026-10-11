@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 559aef0e5 — THE PULL LAB's bar is a file of its own
+
+The shape, look, speed, AUTO, RETRY and sheet buttons are built in `pull-lab-bar.ts` from one `LabState`, and `openPullLab` keeps the canvas, the pointer, the clock and the frame — 181 lines, room for the lab's URL and door next. Nothing on the screen moved.
+
 ## 2026-10-11 · b172c2ddf — RUN in the director is as narrow as its widest control
 
 Pause, retry, sheet, briefings and keys are icons now, with their words on hover, and the column is sized to its widest control instead of a fixed 140px — 116px, set by the difficulty picker. The BRUSH & MAP column's minimum is 740px, so the eleven-tile map no longer runs off its right edge.
