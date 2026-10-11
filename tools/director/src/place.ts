@@ -38,6 +38,16 @@ export interface Place {
    * is: a third level means nothing without the second it sits in.
    */
   sub: string | null;
+  /**
+   * THE PULL LAB open over everything, on its path's key (`pull-lab-shapes.ts`),
+   * or null when it is shut. Beside `sheet` rather than one of them: the lab
+   * opens over CONTROLS as well as over the editor, and shut it leaves the
+   * page under it where it was (the owner, 11 October 2026: a reload stays
+   * on the lab). `pulllab=` in the URL, the name its first link had.
+   */
+  lab: string | null;
+  /** The lab shows EVERY LOOK, EVERY STATE rather than the live pull — `pullsheet=1`. Always false when `lab` is null. */
+  labSheet: boolean;
 }
 
 /**
@@ -60,8 +70,10 @@ export function parsePlace(search: string): Place {
   // digits is.
   const inner = sheet ? params.get("inner") || null : null;
   const sub = inner ? params.get("sub") || null : null;
+  const lab = params.get("pulllab") || null;
+  const labSheet = lab !== null && params.get("pullsheet") === "1";
 
-  return { wave, sheet, inner, sub };
+  return { wave, sheet, inner, sub, lab, labSheet };
 }
 
 /** The query string a `Place` round-trips to, e.g. `"?wave=7&sheet=states&inner=controlsets&sub=field"` — never a trailing `?` alone. */
@@ -74,6 +86,10 @@ export function placeToSearch(place: Place): string {
       params.set("inner", place.inner);
       if (place.sub !== null) params.set("sub", place.sub);
     }
+  }
+  if (place.lab !== null) {
+    params.set("pulllab", place.lab);
+    if (place.labSheet) params.set("pullsheet", "1");
   }
   const query = params.toString();
   return query ? `?${query}` : "";

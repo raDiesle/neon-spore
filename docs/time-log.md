@@ -38068,3 +38068,18 @@ Bottleneck: a worktree cut from a stale base; the trunk step fetched
 `origin/main`, but the PULL LAB had moved on the local `main`.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — THE PULL LAB has a door, and a place in the URL
+
+- reading: 10 min. `place.ts`, `session.ts`, `sheet-doors.ts` and the phone
+  menu, for where an overlay over a sheet belongs.
+- writing: 10 min. `lab` and `labSheet` in `Place`, `placeLab`, the door,
+  the Escape that shut the sheet under the lab too, the tests.
+- looking: 5 min. Door, path, sheet, reload, ✕ and Escape driven in the
+  browser pane; the phone menu photographed.
+- friction: 5 min. The pane was hidden and a frame-timed script never
+  returned; Playwright's tap on MENU folded it again — the class set directly.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: deciding the lab is a field beside `sheet`, not a sheet — it
+opens over one.

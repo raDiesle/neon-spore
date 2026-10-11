@@ -16,6 +16,7 @@ import {
 import { LAB_H, LAB_W, labShape } from "./pull-lab-shapes.js";
 import { labSheet } from "./pull-lab-sheet.js";
 import type { Stray } from "./pull-lab-stray.js";
+import { initialLab, placeLab } from "./session.js";
 
 /**
  * **THE PULL LAB** — the one generic PULL on an empty field, to be pulled by
@@ -48,7 +49,11 @@ import type { Stray } from "./pull-lab-stray.js";
 /** Device pixels per lab pixel, at most: the knob's rim is a line of 1.6. */
 const MAX_DPR = 4;
 
+/** The lab on screen, shut by a second opening — there is only ever one. */
+let shutOpen: (() => void) | null = null;
+
 export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): void {
+  shutOpen?.();
   const state: LabState = {
     shape: labShape(first),
     look: GOO_LOOKS[0] ?? null,
@@ -78,6 +83,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
 
   /** The room shows the live canvas, or the sheet of every look for this shape. */
   const show = (): void => {
+    placeLab({ shape: state.shape.key, sheet: state.sheet });
     bar.paintSheet();
     room.classList.toggle("pull-lab-room-sheet", state.sheet);
     room.replaceChildren(state.sheet ? labSheet(state.shape) : canvas);
@@ -85,7 +91,9 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
   const reset = (): void => {
     pull = freshPull(state.shape);
     autoTime = 0;
+    // `show` writes the place too, so a new path is in the URL either way.
     if (state.sheet) show();
+    else placeLab({ shape: state.shape.key, sheet: false });
   };
   const bar = labBar(state, { reset, show, close: () => shut() });
   bar.setAuto(true);
@@ -159,16 +167,24 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     paintLab(ctx, { shape: state.shape, pull, look: state.look, time, stray, touch: touch() });
   };
 
+  // Caught on the way down and stopped: a sheet under the lab closes on
+  // Escape too (`session.ts`), and one press should shut only the lab.
   const onKey = (e: KeyboardEvent): void => {
-    if (e.key === "Escape") shut();
+    if (e.key !== "Escape") return;
+    e.stopPropagation();
+    shut();
   };
   const shut = (): void => {
+    if (life.signal.aborted) return;
+    shutOpen = null;
+    placeLab(null);
     life.abort();
     shade.remove();
-    window.removeEventListener("keydown", onKey);
+    document.removeEventListener("keydown", onKey, { capture: true });
     window.removeEventListener("resize", fit);
   };
-  window.addEventListener("keydown", onKey);
+  shutOpen = shut;
+  document.addEventListener("keydown", onKey, { capture: true });
   window.addEventListener("resize", fit);
   shade.append(bar.el, like, room);
   document.body.appendChild(shade);
@@ -177,10 +193,15 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
   requestAnimationFrame(frame);
 }
 
-/** `?pulllab=<shape>` opens the lab as the page loads, and `&pullsheet=1` on
- * its sheet — so `bun run shot` can photograph either with no clicks. */
-export function openPullLabAsked(search: string): void {
-  const params = new URLSearchParams(search);
-  const shape = params.get("pulllab");
-  if (shape !== null) openPullLab(shape, { sheet: params.get("pullsheet") === "1" });
+/**
+ * The lab's door in the topbar, and the lab reopened where the URL left it
+ * (`place.ts`'s `lab`): `?pulllab=<shape>` on that path, `&pullsheet=1` on its
+ * sheet — a reload stays on the lab, and `bun run shot` photographs either with
+ * no clicks. Run after every sheet has restored itself, so the lab opens over
+ * the page it was opened from.
+ */
+export function bindPullLab(): void {
+  document.getElementById("pullLabOpen")?.addEventListener("click", () => openPullLab());
+  const asked = initialLab();
+  if (asked) openPullLab(asked.shape, { sheet: asked.sheet });
 }

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { bindPlace, mountSheet } from "../src/session.js";
+import { bindPlace, initialLab, mountSheet, placeLab } from "../src/session.js";
 import { FakeEl, installDom, makeBar } from "./fake-dom.js";
 
 /**
@@ -125,6 +125,26 @@ describe("mountSheet's third level", () => {
     try {
       sub[1]?.click();
       expect(url()).not.toContain("sub=");
+    } finally {
+      restore();
+    }
+  });
+});
+
+describe("THE PULL LAB's place", () => {
+  test("survives a wave moved under it, a sheet beside it, and goes when shut", () => {
+    const { url, restore } = mount("?wave=3&sheet=backlog&pulllab=curve&pullsheet=1");
+    try {
+      expect(initialLab()).toEqual({ shape: "curve", sheet: true });
+      bindPlace(10).persist(4);
+      expect(url()).toContain("pulllab=curve&pullsheet=1");
+      expect(url()).toContain("sheet=backlog");
+      placeLab({ shape: "s", sheet: false });
+      expect(url()).toContain("pulllab=s");
+      expect(url()).not.toContain("pullsheet");
+      placeLab(null);
+      expect(url()).not.toContain("pulllab");
+      expect(url()).toContain("sheet=backlog");
     } finally {
       restore();
     }

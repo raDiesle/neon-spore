@@ -17,6 +17,7 @@ a nicety.
 | room (inner tab) | DOCUMENTATION → CONTROLS | `inner=` | `mountSheet`'s `innerBar` |
 | sub tab | CONTROLS → ON THE FIELD | `sub=` | `mountSheet`'s `subBars` |
 | section | STYLE → COLOUR | `#colour` | the page's contents menu (`section-link.ts`) |
+| overlay | THE PULL LAB, over any of the above | `pulllab=` | `placeLab` (`src/session.ts`) |
 
 Only navigation goes in the URL — what is looked at, never a dial, a skin or
 an edit (`session.ts`'s header says why). A fourth level would be a new field

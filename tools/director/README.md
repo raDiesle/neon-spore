@@ -318,6 +318,13 @@ one seat and not the other. The rows are `src/helpers-calls.ts` and
 every source file a row names. The pieces a builder picks from are
 `docs/controls-catalogue.md`.
 
+**THE PULL LAB** (`src/pull-lab.ts`) is the one generic pull on an empty
+field, opened from the topbar's ⇣ PULL LAB door or from a TRY THE GENERIC
+PULL button under ON THE FIELD. It covers whatever is on screen and keeps
+itself in the URL beside the sheet under it — `pulllab=<path>`, and
+`pullsheet=1` on EVERY LOOK, EVERY STATE — so a reload stays on it, and ✕ or
+Escape shuts only the lab.
+
 ## RELEASE NOTES
 
 `≡ RELEASE NOTES` in the header is the other full-screen sheet: what landed on

@@ -69,7 +69,7 @@ function writePlace(place: Place): void {
  * `mountSheet`'s wiring are the only things that ever change it, and every
  * change goes straight to `writePlace`.
  */
-let current: Place = { wave: null, sheet: null, inner: null, sub: null };
+let current: Place = parsePlace("");
 
 export interface PlaceSession {
   /** The wave index named by the URL at startup, already clamped to `[0, waveCount)`. */
@@ -103,6 +103,17 @@ export function bindPlace(waveCount: number, fallback: number | null = null): Pl
       writePlace(current);
     },
   };
+}
+
+/** THE PULL LAB as the URL left it at startup, or null when it was shut. */
+export function initialLab(): { shape: string; sheet: boolean } | null {
+  return current.lab === null ? null : { shape: current.lab, sheet: current.labSheet };
+}
+
+/** THE PULL LAB opened, moved to another path or sheet, or shut (`null`). */
+export function placeLab(lab: { shape: string; sheet: boolean } | null): void {
+  current = { ...current, lab: lab?.shape ?? null, labSheet: lab?.sheet ?? false };
+  writePlace(current);
 }
 
 function initialSheet(name: string): boolean {
