@@ -306,6 +306,10 @@ zero. Each pose is drawn a few dozen times with a long `dt` first and only the
 last frame is kept: the easing settled, and the last tick's events still fresh,
 so a deflection is drawn with its flash on.
 
+Every picture under CONTROLS — a panel, a use card, a helper — is a world
+posed and drawn, so each is drawn only as it comes within a screen of being
+seen (`src/when-seen.ts`); a dashed box its size holds its place until then.
+
 **CONTROLS › HELPERS** (`?sheet=states&inner=controlsets&sub=helpers`) is the
 other half of ON THE FIELD: every picture the field draws to *explain*
 something rather than to be touched — the siren, the scanner box and what each

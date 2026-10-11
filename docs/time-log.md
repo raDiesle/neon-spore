@@ -38103,3 +38103,17 @@ Bottleneck: measuring on a phone that is not here — the profile is a
 throttled desk Chrome, and a real phone's GPU is unverified.
 
 *Measured: 17 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-11 — CONTROLS draws a picture when it is about to be seen
+
+- reading: 5 min. The load profile already said it: `useCard` → `focusArt`,
+  twenty of twenty-seven seconds; `states-section.ts` had the observer.
+- writing: 10 min. `when-seen.ts` out of `states-section.ts`, with a
+  screen's margin; the use card's picture into `field-use-shot.ts`; PANELS
+  and HELPERS held the same way; the boxes that hold their places.
+- looking: 5 min. Profiled again at phone size; a scripted scroll counting
+  pictures drawn, and the screen photographed.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: none past the first profile — it named the function.

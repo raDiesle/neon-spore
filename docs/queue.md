@@ -854,3 +854,10 @@ A sixth (claude/pull-lab-visual-refinements-253cc3, 11 October 2026) wrote the S
 - **Files:** `tools/director/index.html`, `tools/director/src/rail-filter.ts`
 
 Under `#waveList` the director says *a wave without a sentence is padding and does not save*, and the filter's `title` still offers *sentence* as a term — but the owner took `sentence` off every wave on 25 September 2026 (`Wave` in `packages/content/src/wave-types.ts`), and the save no longer refuses on it. Drop the paragraph (or say what the save does refuse: a wave with no name), and take *sentence* out of the filter's tooltip and the `waveHaystack` comment. `bun test tools/director` stays green.
+
+## The brush palette draws every brush's picture at startup, on any page
+
+- **Found:** 2026-10-11, claude/pull-lab-perf-routing-b551b5
+- **Files:** `tools/director/src/palette.ts`, `tools/director/src/brush-art.ts`, `tools/director/src/when-seen.ts`
+
+A profile of the director loaded at phone size with the CPU slowed four times spends about 1.5 s of a 3.5 s load in `bindPalette` → `render` → `brushArtImage` → `brushSpecimen`: every brush's picture is a world posed and drawn to a data URL before the first paint, even when the URL opens DOCUMENTATION or THE PULL LAB over it and the WAVE column is not on a phone's screen at all. Hold each brush button's picture behind `whenSeen` (`when-seen.ts`, as CONTROLS' cards are) so a palette that is not on screen draws nothing. A scratch Playwright profile (`Profiler.start` around `page.goto`, `Emulation.setCPUThrottlingRate` 4) shows `brushArtImage` gone from a load of `?sheet=states&inner=controlsets`; `bun test tools/director` stays green.

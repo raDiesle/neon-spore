@@ -1,5 +1,6 @@
 import { poseArt } from "./pose-art.js";
 import type { Pose, PoseGroup } from "./pose-kit.js";
+import { whenSeen } from "./when-seen.js";
 
 /**
  * One STATES group on the page: its heading, its note and its row of cards,
@@ -53,34 +54,6 @@ function card(pose: Pose): HTMLElement {
 }
 
 /**
- * One group's own watcher, shared across every group's `section`: thirty-odd
- * of them exist on the page at once, and a group scrolled into view is the
- * one thing every one of these entries has in common, so one observer sorts
- * them by `entry.target` rather than the page carrying thirty.
- */
-let sectionWatcher: IntersectionObserver | null = null;
-const sectionFillers = new WeakMap<Element, () => void>();
-
-function watchSection(el: Element, fill: () => void): void {
-  if (typeof IntersectionObserver !== "function") {
-    fill();
-    return;
-  }
-  sectionFillers.set(el, fill);
-  sectionWatcher ??= new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      const seen = sectionFillers.get(entry.target);
-      if (!seen) continue;
-      sectionFillers.delete(entry.target);
-      sectionWatcher?.unobserve(entry.target);
-      seen();
-    }
-  });
-  sectionWatcher.observe(el);
-}
-
-/**
  * One group: its heading and note drawn at once, its row of cards filled the
  * moment the group scrolls into view or its heading is clicked — never
  * before. Card art is a hand walked to a state (`pose-art.ts`), and
@@ -117,7 +90,7 @@ export function section(group: PoseGroup): HTMLElement {
     for (const pose of group.poses) row.appendChild(card(pose));
   };
   h2.addEventListener("click", fill);
-  watchSection(el, fill);
+  whenSeen(el, fill);
 
   return el;
 }

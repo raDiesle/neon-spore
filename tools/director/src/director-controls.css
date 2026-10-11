@@ -69,6 +69,12 @@
 .control-set-shot canvas {
   display: block;
 }
+/* Not drawn yet (`controlsets-page.ts`): held open at about a panel's size. */
+.control-set-shot:empty {
+  width: 340px;
+  max-width: 100%;
+  height: 160px;
+}
 .control-set-cols {
   display: flex;
   gap: 20px;

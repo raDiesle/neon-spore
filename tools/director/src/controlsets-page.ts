@@ -18,6 +18,7 @@ import {
 import { renderFieldPage } from "./field-page.js";
 import { frameWorld } from "./pose-art.js";
 import { bindTabs } from "./tabs.js";
+import { whenSeen } from "./when-seen.js";
 
 /**
  * CONTROLS: every registered panel, drawn, plus the things the pair touches
@@ -131,7 +132,10 @@ function setCard(set: ControlSet): HTMLElement {
 
   const shot = document.createElement("div");
   shot.className = "control-set-shot";
-  shot.appendChild(frameWorld(setWorld(set), "test", "band", PANEL_WIDTH).canvas);
+  // Drawn when the card nears the screen (`when-seen.ts`): a posed world each.
+  whenSeen(shot, () =>
+    shot.appendChild(frameWorld(setWorld(set), "test", "band", PANEL_WIDTH).canvas),
+  );
   card.appendChild(shot);
 
   const reduces = reductionNote(set);

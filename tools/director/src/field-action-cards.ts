@@ -1,18 +1,14 @@
 import { type ControlType, type FieldAction, typeUses, userOf, usersOf } from "./field-actions.js";
 import type { FieldControlDef } from "./field-control-def.js";
-import type { TouchArea } from "./field-focus.js";
-import { cardArea, focusArt } from "./field-focus-art.js";
 import { lookOf } from "./field-looks.js";
 import { ROW_NOTES } from "./field-notes.js";
 import { GESTURE_NOTES } from "./field-notes-gestures.js";
 import { numbersBlock } from "./field-numbers.js";
-import { stillsStrip } from "./field-stills-art.js";
 import { compareStills, type StillsUse } from "./field-stills-compare.js";
-import { LEAST_TARGET, narrowest } from "./field-touch-paint.js";
-import { openTry } from "./field-try.js";
+import { useShot } from "./field-use-shot.js";
 import { GESTURES } from "./gesture-catalogue.js";
 import { card, text } from "./gestures-page.js";
-import { openZoom, type ZoomView, zoomable } from "./picture-zoom.js";
+import { openZoom } from "./picture-zoom.js";
 import { poseNamed } from "./poses.js";
 import { openPullLab } from "./pull-lab.js";
 
@@ -29,12 +25,6 @@ import { openPullLab } from "./pull-lab.js";
  * asked for the action and its users, not the paragraph (6 October 2026).
  */
 
-/** Two pictures side by side fit the sheet's column. */
-const SHOT_WIDTH = 240;
-/** Tallest a card's picture is drawn; a click draws it again as tall as the
- * window (`picture-zoom.ts`). */
-const SHOT_CAP = 300;
-
 export function suggested(line: string): HTMLElement {
   const p = text("p", "", "suggested");
   p.appendChild(text("b", "SUGGESTED "));
@@ -47,16 +37,6 @@ const bare = (name: string): string => name.replace(/^THE /, "");
 
 function countOf(n: number): HTMLElement {
   return text("span", `${n} ${n === 1 ? "USE" : "USES"}`, "count");
-}
-
-/** Under a card's picture: how wide its narrowest touch patch is, in red
- * under the platforms' least target (`field-touch-paint.ts`). */
-function touchLine(area: TouchArea): HTMLElement {
-  const least = narrowest(area);
-  if (least === null) return text("p", "TOUCH AREA · not found on this frame", "touch-size");
-  const line = text("p", `TOUCH AREA · narrowest ${Math.round(least)} pt`, "touch-size");
-  if (least < LEAST_TARGET) line.classList.add("small");
-  return line;
 }
 
 /** One enemy's or boss wave's use of a type: its rows, drawn once per look —
@@ -73,32 +53,8 @@ function useCard(user: string, rows: readonly FieldControlDef[], t: ControlType)
   const shots = document.createElement("div");
   shots.className = "field-use-shots";
   for (const name of new Set(rows.map((r) => r.pose))) {
-    const pose = poseNamed(name);
     const own = rows.filter((r) => r.pose === name);
-    const title = `${user} · ${own.map((r) => r.name).join(" · ")}`;
-    const views: ZoomView[] = [
-      { label: "THE CONTROL", draw: (w, h) => focusArt(pose, own, w, h) },
-      { label: "TOUCH AREA", draw: (w, h) => focusArt(pose, own, w, h, "touch") },
-      { label: "WHOLE PHONE", draw: (w, h) => focusArt(pose, own, w, h, "whole") },
-      {
-        label: "STILLS",
-        draw: (w, h) => stillsStrip(pose, own, Math.floor(w / 3) - 8, (h - 60) / 2),
-      },
-    ];
-    const shot = document.createElement("div");
-    shot.appendChild(zoomable(focusArt(pose, own, SHOT_WIDTH, SHOT_CAP), title, views));
-    // The same frame, live and under the mouse (`field-try.ts`), and its
-    // moments before, under and after AUTO's thumb (`field-stills-art.ts`).
-    const play = text("button", "▶ TRY IT", "field-try");
-    play.addEventListener("click", () => openTry(title, pose, own));
-    const stills = text("button", "▤ STILLS", "field-try");
-    stills.addEventListener("click", () => openZoom(title, views, views.length - 1));
-    const buttons = document.createElement("div");
-    buttons.className = "field-try-row";
-    buttons.append(play, stills);
-    shot.appendChild(touchLine(cardArea(pose, own)));
-    shot.appendChild(buttons);
-    shots.appendChild(shot);
+    shots.appendChild(useShot(user, poseNamed(name), own));
   }
   card.appendChild(shots);
   const numbers = numbersBlock(rows.map((r) => r.name));

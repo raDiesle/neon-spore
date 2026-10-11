@@ -3306,6 +3306,7 @@ by hand never moves.
 | `tools/director/src/wordings-page.ts` | DOCUMENTATION → WORDINGS: an ordinary screen with every part of it named |
 | `tools/director/src/wordings-world.ts` | The one ordinary screen the WORDINGS page names things on |
 | `tools/director/src/wordings.ts` | DOCUMENTATION → WORDINGS: what each thing on an ordinary screen is called |
+| `tools/director/src/when-seen.ts` | **A picture drawn when it is about to be seen, and not before** |
 | `tools/hooks/after-sim-edit.ts` | Determinism is the one thing a reviewer cannot see by looking |
 | `tools/hooks/check-on-stop.ts` | The last thing before Claude hands the turn back |
 | `tools/hooks/format-edited.ts` | Formatting is not a conversation |
@@ -3648,6 +3649,7 @@ by hand never moves.
 | `tools/director/src/field-stills-art.ts` | A card's strip of stills, drawn: its pose played forward with AUTO's hand |
 | `tools/director/src/field-stills-compare.ts` | **Every use of one control type, stills under stills** |
 | `tools/director/src/field-stills.ts` | **The moments a card's strip of stills shows** |
+| `tools/director/src/field-use-shot.ts` | One picture on a use card of CONTROLS › ON THE FIELD (`field-action-cards.ts`) |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-boss.ts` | The `BossConfig` fields of every boss that is not choreographed — the queen, the warden, the cairn |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |

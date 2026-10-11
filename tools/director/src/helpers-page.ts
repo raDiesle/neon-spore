@@ -4,6 +4,7 @@ import type { HelperDef, HelperGroup } from "./helpers-def.js";
 import { poseArt } from "./pose-art.js";
 import type { Pose } from "./pose-kit.js";
 import { poseNamed } from "./poses.js";
+import { whenSeen } from "./when-seen.js";
 
 /**
  * CONTROLS › HELPERS — every picture the game draws on the field to explain
@@ -55,7 +56,8 @@ function helperRow(h: HelperDef): HTMLElement {
 
   const shot = document.createElement("div");
   shot.className = "field-control-shot";
-  shot.appendChild(poseArt(helperPose(h), SHOT_WIDTH));
+  // Drawn when the row nears the screen (`when-seen.ts`): a posed world each.
+  whenSeen(shot, () => shot.appendChild(poseArt(helperPose(h), SHOT_WIDTH)));
   section.appendChild(shot);
 
   const look = document.createElement("p");
@@ -96,7 +98,7 @@ function groupHead(g: HelperGroup): HTMLElement {
 
 let drawn = false;
 
-/** The whole tab, once: every row poses a world and draws a canvas. */
+/** The whole tab, once; each row's picture is drawn as it comes near. */
 export function renderHelpers(): void {
   if (drawn) return;
   const body = document.getElementById("helpersBody");

@@ -53,6 +53,12 @@
 .field-control-shot canvas {
   display: block;
 }
+/* Not drawn yet (`helpers-page.ts`): held open at about a picture's size. */
+.field-control-shot:empty {
+  width: 340px;
+  max-width: 100%;
+  aspect-ratio: 1;
+}
 .field-control-look {
   margin: 0 0 6px;
   font-size: 0.875rem;

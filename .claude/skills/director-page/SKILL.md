@@ -42,7 +42,10 @@ in `Place` (`src/place.ts`) and its tests, not a parameter read somewhere else.
 2. **A file of its own**, `src/<name>-page.ts`, under ~250 lines: a
    `render<Name>()` guarded by a `drawn` flag, and a `bind<Name>Tab()` that
    adds it as a click listener on its own tab button. `style-page.ts` is the
-   shortest whole example.
+   shortest whole example. A room of many drawn pictures also holds each
+   one behind `whenSeen` (`src/when-seen.ts`), in a box its size, so the room
+   opens on its first screenful — CONTROLS drew a hundred up front and took
+   27 s on a phone-speed CPU.
 3. **Bind it before the sheet is mounted.** `mountSheet` replays the URL as
    real clicks, and a room bound after it restores to a blank page. For
    DOCUMENTATION that is one line in `documentation-rooms.ts`; for the others,

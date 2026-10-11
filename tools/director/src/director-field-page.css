@@ -139,6 +139,15 @@
   flex-wrap: wrap;
   gap: 6px;
 }
+/* A card's picture before it is drawn (`field-use-shot.ts`): about its size,
+   so the page does not jump when it arrives. */
+.field-shot-wait {
+  width: 240px;
+  max-width: 100%;
+  aspect-ratio: 1;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+}
 .field-use dl {
   margin: 6px 0 0;
   font-size: 0.875rem;
