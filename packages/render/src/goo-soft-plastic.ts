@@ -1,9 +1,9 @@
 import { KEY } from "@neon-spore/content";
-import { rgba } from "@neon-spore/render";
-import { bodyPath, centre } from "./body.js";
-import { hash, mix } from "./noise.js";
-import { SHADE } from "./press.js";
-import type { SoftDrop, SoftScene } from "./soft.js";
+import { bodyPath, centre } from "./goo-body.js";
+import { hash, mix } from "./goo-noise.js";
+import { SHADE } from "./goo-press.js";
+import type { SoftDrop, SoftScene } from "./goo-soft.js";
+import { rgba } from "./hex.js";
 
 /**
  * **SOFT PLASTIC** — a squeezy toy: satin all over and calm in the middle,

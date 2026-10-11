@@ -1,7 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { slots } from "../../versus/variant.js";
-import { pullLooks } from "../src/pull-lab-paint.js";
 import { JUDGED_ELSEWHERE, listedSlots } from "../src/versus-page.js";
 
 /**
@@ -16,11 +15,5 @@ describe("the VERSUS list", () => {
         s.slot,
         !Object.hasOwn(JUDGED_ELSEWHERE, s.slot),
       ]);
-  });
-
-  test("pull:handle is off the list and every one of its looks is still in the PULL LAB", () => {
-    expect(listedSlots().some((s) => s.slot === "pull:handle")).toBe(false);
-    const handle = VARIANTS.filter((v) => v.slot === "pull:handle");
-    for (const v of handle) expect(pullLooks()).toContain(v);
   });
 });

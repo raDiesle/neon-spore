@@ -1,7 +1,8 @@
 import type { Point } from "@neon-spore/content";
-import { PALETTE, type PullTrack, pullTrackPoint } from "@neon-spore/render";
-import { lengthOf } from "./beat.js";
-import { fbm, hash, mix } from "./noise.js";
+import { lengthOf } from "./goo-beat.js";
+import { fbm, hash, mix } from "./goo-noise.js";
+import { PALETTE } from "./palette.js";
+import { type PullTrack, pullTrackPoint } from "./pull-track.js";
 
 /**
  * **What is left behind the drop**: the tail it is pulled out of — JELLY's,

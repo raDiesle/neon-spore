@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { PALETTE } from "../src/palette.js";
 import { showsLampreyHand } from "../src/view-role-clocks-c.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES } from "./frame-harness.js";
+import { GOO_KNOB } from "./goo-needles.js";
 import { BITE, count, frame, GULLET, PULL, posed } from "./lamprey-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -53,9 +54,7 @@ describe("THE LAMPREY's body", () => {
   it.each(ROLES)("draws the tail's and the head's knobs only while it bites, on %s", (role) => {
     const biting = frame(role, (w) => posed(w, "bite", PULL));
     const leaping = frame(role, (w) => posed(w, "leap", PULL));
-    expect(count(biting, PALETTE.hullRim) + count(biting, PALETTE.dim)).toBeGreaterThan(
-      count(leaping, PALETTE.hullRim) + count(leaping, PALETTE.dim),
-    );
+    expect(count(biting, GOO_KNOB)).toBeGreaterThan(count(leaping, GOO_KNOB));
   });
 
   it.each(ROLES)("lights the gullet in the shot's colour only while reared, on %s", (role) => {

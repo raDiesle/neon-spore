@@ -70,7 +70,8 @@ function drawn(role: ViewRole, paint: (ctx: CanvasRenderingContext2D, role: View
 }
 
 const count = (text: string, needle: string): number => text.split(needle).length - 1;
-const HALO = "createRadialGradient";
+// `lightWithin`'s own blend: the knob under it, FIZZ's drop, lights itself with gradients too.
+const HALO = "globalCompositeOperation=hard-light";
 
 function grip(role: ViewRole, phase: FleetState["phase"], o: Partial<FleetState> = {}): string {
   const { world, b } = wounded(phase, o);

@@ -33,7 +33,8 @@ describe("THE MAZE's shot", () => {
     // is the route, and the route is the one thing the shot is there to find.
     // Against the read less the string knob's two-headed arrow, five segments,
     // which a string in travel does not draw.
-    const ARROW_SEGMENTS = 5;
+    // FIZZ's arrow is built in a `Path2D`: no segment of it reaches the context.
+    const ARROW_SEGMENTS = 0;
     const read = watch("p1", mazeState({ phase: "read" }), 3).segments;
     expect(red.segments).toBe(read - ARROW_SEGMENTS);
 

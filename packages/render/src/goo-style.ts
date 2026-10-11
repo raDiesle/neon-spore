@@ -3,7 +3,7 @@
  * four GOO looks: *I guess I like "tar" colour most, but of "jelly" the tail
  * shape and animation* — so there is one body now: TAR's black with its hot
  * magenta neon edge and oily sheen, lumped and wobbling as JELLY did. The
- * GOO looks differ in how a count ends (`endings-*.ts`), not in this.
+ * GOO looks differ in how a count ends (`goo-fizz.ts`), not in this.
  */
 export interface GooStyle {
   /** The slime's own colour, its dark edge, its lit core, and the neon its rim glows. */

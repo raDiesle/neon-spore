@@ -1,11 +1,11 @@
 import type { Point } from "@neon-spore/content";
-import { PALETTE } from "@neon-spore/render";
-import { paintArrow } from "./arrow.js";
-import { drop, type GooBody } from "./body.js";
-import { type Ending, greenAt, halo, intoPlace, onward, paintDrop } from "./ending.js";
-import { ENDING } from "./moment.js";
-import { clamp01, hash, mix } from "./noise.js";
-import type { Scene } from "./scene.js";
+import { paintArrow } from "./goo-arrow.js";
+import { drop, type GooBody } from "./goo-body.js";
+import { type Ending, greenAt, halo, intoPlace, onward, paintDrop } from "./goo-ending.js";
+import { ENDING } from "./goo-moment.js";
+import { clamp01, hash, mix } from "./goo-noise.js";
+import type { Scene } from "./goo-scene.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * **FIZZ**, the drop boiling away into green bubbles that rise and pop — the

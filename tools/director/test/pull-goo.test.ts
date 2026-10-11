@@ -1,37 +1,43 @@
 import { beforeAll, describe, expect, test } from "bun:test";
+import { arrowSize, capSeat, splitOf } from "../../../packages/render/src/goo-arrow.js";
+import {
+  dotCount,
+  dotsEnd,
+  ghostFront,
+  passed,
+  placeBeat,
+} from "../../../packages/render/src/goo-beat.js";
+import { centre, DROP_SPIN, drop, rimAt } from "../../../packages/render/src/goo-body.js";
+import { GOO_DROP } from "../../../packages/render/src/goo-drop-look.js";
+import {
+  DOTS_SPAN,
+  dotIn,
+  entering,
+  grown,
+  POP,
+  placeIn,
+} from "../../../packages/render/src/goo-enter.js";
+import { SPAWN } from "../../../packages/render/src/goo-moment.js";
+import { stillSpin, stoppedSpin } from "../../../packages/render/src/goo-soft.js";
+import { liftOf } from "../../../packages/render/src/goo-soft-cap.js";
+import { CLEAR, craterOf, RIPPLES_STILL } from "../../../packages/render/src/goo-soft-crater.js";
+import { specks, splashAt } from "../../../packages/render/src/goo-strand.js";
+import { GOO } from "../../../packages/render/src/goo-style.js";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
-import { VARIANTS } from "../../versus/candidates/index.js";
-import { arrowSize, capSeat, splitOf } from "../src/pull-goo/arrow.js";
-import { dotCount, dotsEnd, ghostFront, passed, placeBeat } from "../src/pull-goo/beat.js";
-import { centre, DROP_SPIN, drop, rimAt } from "../src/pull-goo/body.js";
-import { GOO_DROP } from "../src/pull-goo/drop-look.js";
-import { DOTS_SPAN, dotIn, entering, grown, POP, placeIn } from "../src/pull-goo/enter.js";
-import { GOO_LOOKS } from "../src/pull-goo/index.js";
-import { SPAWN } from "../src/pull-goo/moment.js";
-import { stillSpin, stoppedSpin } from "../src/pull-goo/soft.js";
-import { liftOf } from "../src/pull-goo/soft-cap.js";
-import { CLEAR, craterOf, RIPPLES_STILL } from "../src/pull-goo/soft-crater.js";
-import { specks, splashAt } from "../src/pull-goo/strand.js";
-import { GOO } from "../src/pull-goo/style.js";
 import { autoThumb } from "../src/pull-lab-auto.js";
-import { labLooks, paintLab } from "../src/pull-lab-paint.js";
+import { paintLab } from "../src/pull-lab-paint.js";
 import { freshPull, lift, move, press, tick } from "../src/pull-lab-rule.js";
 import { LAB_SHAPES } from "../src/pull-lab-shapes.js";
 
 /**
- * The PULL LAB's own GOO looks (`pull-goo/`): they are on the lab's picker
- * and nowhere in VERSUS, and every one of them draws every moment of AUTO's
+ * FIZZ, the PULL LAB's GOO look and every pull handle's in the game since 11
+ * October 2026 (`packages/render/src/goo-*.ts`): the lab draws every moment of AUTO's
  * loop on every shape — under either OFF PATH rule — through the strict
  * canvas, which names a NaN, a bad colour or a negative radius.
  */
 beforeAll(installCanvasGlobals);
 
-describe("the GOO looks", () => {
-  test("are on the lab's picker beside OOZE, and are not VERSUS candidates", () => {
-    expect(labLooks().map((v) => v.name)).toEqual(["ooze", ...GOO_LOOKS.map((v) => v.name)]);
-    for (const v of GOO_LOOKS) expect(VARIANTS).not.toContain(v);
-  });
-
+describe("the GOO look, as it ships", () => {
   test("draw every moment of the loop on every shape without a bad call", () => {
     const { ctx } = stubCanvas();
     const c = ctx as unknown as CanvasRenderingContext2D;
@@ -48,8 +54,7 @@ describe("the GOO looks", () => {
           if (!th.down && down) lift(shape, pull, "refuse");
           down = th.down;
           tick(shape, pull, step);
-          if (i % 6 === 0)
-            for (const look of GOO_LOOKS) paintLab(c, { shape, pull, look, time: t, stray });
+          if (i % 6 === 0) paintLab(c, { shape, pull, look: null, time: t, stray });
         }
       }
   });
@@ -58,7 +63,7 @@ describe("the GOO looks", () => {
     const { ctx } = stubCanvas();
     const c = ctx as unknown as CanvasRenderingContext2D;
     const step = 1 / 30;
-    const look = GOO_LOOKS[0] ?? null;
+    const look = null;
     for (const shape of LAB_SHAPES) {
       const pull = freshPull(shape);
       let down = false;

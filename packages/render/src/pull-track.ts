@@ -1,4 +1,5 @@
 import type { Point } from "@neon-spore/content";
+import { paintGooTrack } from "./goo-track.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { PullWay } from "./pull-line.js";
 
@@ -50,9 +51,10 @@ export interface PullTrackDraw {
   readonly at: number;
   readonly time: number;
   /** What the last lift came to and how many seconds ago, while it is shown,
-   * and how far off the path the hand has the knob, in field pixels. Only the
-   * PULL LAB fills these today, so a VERSUS look can answer a refusal where it
-   * happened; nothing in the game reads them. */
+   * and how far off the path the hand has the knob, in field pixels. FIZZ
+   * (`goo-track.ts`) plays its count, its refusal and a fresh drop coming in
+   * from these; only the PULL LAB fills them today, so in the game a knob
+   * waits and is held and nothing more. */
   readonly after?: PullAfter;
 }
 
@@ -204,8 +206,8 @@ export function drawPullTrack(ctx: CanvasRenderingContext2D, t: PullTrack, o: Pu
   PULL_TRACK.paint(ctx, t, o);
 }
 
-/** **The channel as it ships**, held in `PULL_TRACK` for the reason
- * `paintPullKnob` is held in `PULL_KNOB` (`pull-knob.ts`). */
+/** **The thin channel**: every pull's until FIZZ (11 October 2026), and still a
+ * turn's — FIZZ's channel draws this one where the track is `closed`. */
 export function paintPullTrack(
   ctx: CanvasRenderingContext2D,
   t: PullTrack,
@@ -236,6 +238,7 @@ export function paintPullTrack(
   ctx.restore();
 }
 
-/** What `drawPullTrack` draws with: the shipped channel, unless something
- * holds another in its place for a frame. */
-export const PULL_TRACK: { paint: typeof paintPullTrack } = { paint: paintPullTrack };
+/** What `drawPullTrack` draws with: the PULL LAB's FIZZ channel (`goo-track.ts`) — the
+ * one above on a closed track, a turn — unless something holds another in its place
+ * for a frame. */
+export const PULL_TRACK: { paint: typeof paintPullTrack } = { paint: paintGooTrack };

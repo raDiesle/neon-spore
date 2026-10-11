@@ -1,11 +1,11 @@
 import { KEY, type Point } from "@neon-spore/content";
-import { rgba } from "@neon-spore/render";
-import { centre, type GooBody, rimAt, smoothPath } from "./body.js";
-import { mix } from "./noise.js";
-import { SHADE } from "./press.js";
-import type { SoftDrop, SoftScene } from "./soft.js";
-import { PLASTIC, plasticSheen } from "./soft-plastic.js";
-import type { GooStyle } from "./style.js";
+import { centre, type GooBody, rimAt, smoothPath } from "./goo-body.js";
+import { mix } from "./goo-noise.js";
+import { SHADE } from "./goo-press.js";
+import type { SoftDrop, SoftScene } from "./goo-soft.js";
+import { PLASTIC, plasticSheen } from "./goo-soft-plastic.js";
+import type { GooStyle } from "./goo-style.js";
+import { rgba } from "./hex.js";
 
 /**
  * **A crater where the thumb is**, in SOFT PLASTIC — the owner, 11 October

@@ -27,15 +27,11 @@ import { poseForSlot } from "./versus-pose.js";
 
 /**
  * Slots judged somewhere else, and where — left off this list, though their
- * candidates are still open and still reached by `versus-one.ts`. The owner,
- * 10 October 2026, of `pull:handle`: *"remove the PULL:HANDLE from versus
- * page, i do not need it. it is enough to see the other page on controls"* —
- * the PULL LAB plays every pull look on every shape, which one LAMPREY pose
- * here cannot.
+ * candidates are still open and still reached by `versus-one.ts`. The first
+ * was `pull:handle`, judged in the PULL LAB from 10 October 2026 until its
+ * FIZZ went into the game the next day; none is today.
  */
-export const JUDGED_ELSEWHERE: Readonly<Record<string, string>> = {
-  "pull:handle": "the PULL LAB, under CONTROLS › ON THE FIELD",
-};
+export const JUDGED_ELSEWHERE: Readonly<Record<string, string>> = {};
 
 /** The open slots this list shows: every one not judged somewhere else. */
 export function listedSlots(variants: readonly Variant[] = VARIANTS): Slot[] {

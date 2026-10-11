@@ -1,10 +1,10 @@
 import type { Point } from "@neon-spore/content";
-import type { PullTrack } from "@neon-spore/render";
+import type { PullTrack } from "./pull-track.js";
 
 /**
  * **Where a path's dots sit and when they light** — how many, how far short
  * of the place they stop, and the beat of the ghost, the flash and the blink
- * that run along them and on into the place (`parts.ts` draws them).
+ * that run along them and on into the place (`goo-parts.ts` draws them).
  */
 
 /** How many dots a path has between its start and its end. */

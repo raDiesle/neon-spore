@@ -1,16 +1,16 @@
-import type { GooBody } from "./body.js";
-import { type Press, UNPRESSED } from "./press.js";
-import { paintSoft, type SoftDrop, type Turn } from "./soft.js";
-import { RIPPLES_STILL } from "./soft-crater.js";
-import type { GooStyle } from "./style.js";
+import type { GooBody } from "./goo-body.js";
+import { type Press, UNPRESSED } from "./goo-press.js";
+import { paintSoft, type SoftDrop, type Turn } from "./goo-soft.js";
+import { RIPPLES_STILL } from "./goo-soft-crater.js";
+import type { GooStyle } from "./goo-style.js";
 
 /**
  * **How every GOO drop is drawn**: as a soft drop a thumb sinks into
- * (`soft.ts`) — the owner, 11 October 2026: *more alternatives of how pull
+ * (`goo-soft.ts`) — the owner, 11 October 2026: *more alternatives of how pull
  * button looks … not changing colour, but the 3d effect … like a slime or a
  * sponge or … soft plastic*. SOFT PLASTIC was picked the same day, then its
  * crater with ripples on a drop that all but stops turning while pulled,
- * RIPPLES · STILL (`soft-crater.ts`); and the same day again the rest went —
+ * RIPPLES · STILL (`goo-soft-crater.ts`); and the same day again the rest went —
  * *remove all variants of "drop" but keep "ripples * still"* — and with them
  * the PULL LAB's DROP picker.
  */

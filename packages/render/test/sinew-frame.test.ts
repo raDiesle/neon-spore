@@ -234,14 +234,20 @@ describe("THE SINEW's tendon", () => {
     expect(drawn(gone, role, 3).calls).toBeGreaterThan(0);
   });
 
-  it.each(ROLES)("draws the handles swinging after a snap, with no hint word, on %s", (role) => {
-    const world = hung();
-    const s = tendon(world);
-    s.snapBeat = world.beat;
-    const frame = drawn(world, role, 3);
-    expect(frame.text).toContain(PALETTE.ember);
-    expect(frame.words.some((w) => w === "PULL")).toBe(false);
-  });
+  it.each(ROLES)(
+    "draws the handles swinging after a snap faded, with no hint word, on %s",
+    (role) => {
+      const still = drawn(hung(), role, 3);
+      const world = hung();
+      const s = tendon(world);
+      s.snapBeat = world.beat;
+      const frame = drawn(world, role, 3);
+      // FIZZ's drop wears no ember: a knob no hand can take is faded, as the partner's is.
+      const faded = (text: string) => text.split("set globalAlpha=0.4|").length;
+      expect(faded(frame.text)).toBeGreaterThan(faded(still.text));
+      expect(frame.words.some((w) => w === "PULL")).toBe(false);
+    },
+  );
 
   it.each(ROLES)("draws the falling mass on its way to the hull, on %s", (role) => {
     const world = hung();

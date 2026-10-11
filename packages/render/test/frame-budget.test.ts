@@ -379,6 +379,10 @@ function rope(fromYMilli: number) {
 const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
   "THE WARDEN's eye": [
     {
+      // **11 October 2026, FIZZ**: the cord's knob and channel are the PULL LAB's
+      // drop and path (`goo-knob.ts`, `goo-track.ts`) — a soft drop with its cap,
+      // ripples and moulded arrow, and the path's dots and place — so every row
+      // the knob's old disc and arrow sat in rose with it.
       // **Four ops more on 18 September 2026, when the field learned to say the
       // word** (`boss-cue-read-f.ts`): one mark stands on this seat's screen
       // while the eye is open — `HOLD` on the handle — and it is a slab, its
@@ -412,53 +416,58 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // circle with a thumbprint (`hold-mark.ts`) in place of the scan box —
       // the ring's glow, five ridges and the loop; `save` and `new Path2D`
       // one each.
-      stroke: 148,
+      stroke: 169,
       // Four more: the two patches of the wet film, the eyelids and their
       // pupils. Flat, whatever the openness.
-      fill: 79,
+      fill: 108,
       // Two more than the body's own: the film and the veins share a single
       // clip to it, and the lens opens one of its own so the lids can cut the
       // pupil instead of the pupil being sized to miss them (`eye-lens.ts`).
-      clip: 8,
+      clip: 10,
       // Three of these are the ball: the dome, the iris on its own tangent
       // plane, and the wet point, each in a frame of its own (`eye-ball.ts`).
       // **Two more on 27 September 2026, when the ring began to rock**: the
       // body and the grip are each drawn in the pose, a frame apiece, and the
       // rope between them is not (`warden-frame.ts`).
-      save: 51,
+      save: 62,
       // Two of these are the ball as well, and they are the whole of what it
       // costs: the dome is a sprite baked once per colour and size, and the wet
       // point is `halo`'s. Neither builds a gradient, which is why the two
       // gradient rows below did not move at all.
       drawImage: 29,
-      createLinearGradient: 21,
+      createLinearGradient: 30,
       createRadialGradient: 11,
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
       // the skin's, and there are four of them however much of it is showing.
       // One is the lids' folds, and it is one however far apart they stand.
       // One more on 25 September 2026: the circle to start at the rope's end
       // is `drawPullKnob`'s disc, a path of its own (`pull-knob.ts`).
-      "new Path2D": 80,
+      "new Path2D": 84,
       fillText: 2,
     },
     {
+      // FIZZ, as in frame 0.
       fillRect: 57,
       // The hold's circle, as in frame 0.
-      stroke: 150,
-      fill: 79,
-      clip: 8,
-      save: 51,
+      stroke: 171,
+      fill: 108,
+      clip: 10,
+      save: 62,
       drawImage: 29,
-      createLinearGradient: 12,
+      createLinearGradient: 21,
       createRadialGradient: 8,
       // One more on 25 September 2026, the rope's knob, as in frame 0; one
       // more on 2 October, the hold's circle.
-      "new Path2D": 55,
+      "new Path2D": 59,
       fillText: 2,
     },
   ],
   "THE LID": [
     {
+      // **11 October 2026, FIZZ**: the cord's knob and channel are the PULL LAB's
+      // drop and path (`goo-knob.ts`, `goo-track.ts`) — a soft drop with its cap,
+      // ripples and moulded arrow, and the path's dots and place — so every row
+      // the knob's old disc and arrow sat in rose with it.
       // Remeasured on 11 September 2026, when the armour became IRIS
       // (`lid-iris.ts`): six leaves in place of two sliding plates. Each leaf
       // is a face filled, a curl filled from its own radial gradient and a cut
@@ -471,38 +480,39 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // count does (`eye-iris.ts`). One more on 29 September 2026: the lid
       // string's knob carries the way it pulls, an arrow stroked once
       // (`pull-knob.ts`, `way-arrow.ts`).
-      stroke: 115,
-      fill: 72,
+      stroke: 136,
+      fill: 99,
       // The one op this body's share of the new lens costs: the clip the lids
       // cut the pupil through (`eye-lens.ts`).
-      clip: 8,
-      save: 44,
+      clip: 10,
+      save: 54,
       drawImage: 29,
-      createLinearGradient: 22,
+      createLinearGradient: 31,
       createRadialGradient: 17,
       // Two more on 26 September 2026, when the cord's handle became the
       // pull channel every pulled handle wears (`lid-track.ts`): the channel,
       // its chevrons and the knob's disc are paths of their own, where the
       // ring it replaced built one and drew its dial on the context's path.
-      "new Path2D": 57,
+      "new Path2D": 60,
       fillText: 2,
     },
     {
+      // FIZZ, as in frame 0.
       fillRect: 55,
       // One more on 29 September 2026, the knob's arrow, as in frame 0.
-      stroke: 117,
-      fill: 72,
-      clip: 8,
-      save: 44,
+      stroke: 138,
+      fill: 99,
+      clip: 10,
+      save: 54,
       drawImage: 29,
-      createLinearGradient: 13,
+      createLinearGradient: 22,
       // The eye builds none of its own: the wash around it is a `halo` sprite
       // cached by colour and radius, and the one left is `key-light.ts`'s
       // layout-only slot (`render/eye.ts`). The other six are the leaves'
       // curls (`lid-iris.ts`).
       createRadialGradient: 14,
       // The channel's two, as the row above.
-      "new Path2D": 32,
+      "new Path2D": 35,
       fillText: 2,
     },
   ],

@@ -1,13 +1,13 @@
 import type { Point } from "@neon-spore/content";
-import { lumps } from "./noise.js";
-import type { GooStyle } from "./style.js";
+import { lumps } from "./goo-noise.js";
+import type { GooStyle } from "./goo-style.js";
 
 /**
  * **A body of GOO**: a closed contour with lumps that creep, pulled into a
  * teardrop the way it leans and flattened onto the ground when it lands, with
  * a neon glowing out of it rather than a white line round it (the owner on
  * OOZE: *the white border looks boring, maybe some neon is cool*). How it is
- * lit is the drop's material (`soft.ts`).
+ * lit is the drop's material (`goo-soft.ts`).
  */
 
 export interface GooBody {
@@ -25,7 +25,7 @@ export interface GooBody {
   readonly point?: number;
   /** How far round its lumps have turned, in radians; `DROP_SPIN` a second when not given. */
   readonly spin?: number;
-  /** How far a soft drop's cap stands up towards the player, in pixels (`soft-cap.ts`):
+  /** How far a soft drop's cap stands up towards the player, in pixels (`goo-soft-cap.ts`):
    * an arrow laid on it rides up with it. */
   readonly lift?: number;
   /** Lobes standing out of the rim, `depth` of the radius: a drop in bloom. */
@@ -50,7 +50,7 @@ export const drop = (at: Point, r: number, rest: Partial<GooBody> = {}): GooBody
 
 /** Where the rim is at screen angle `a`, as an offset from `centre(b)`: the lumps, the
  * lean and the petals, squashed. A moulded arrow and a crater are laid onto this
- * (`soft-arrow.ts`, `soft-crater.ts`), so they follow the rim actually drawn, lumps and all. */
+ * (`goo-soft-arrow.ts`, `goo-soft-crater.ts`), so they follow the rim actually drawn, lumps and all. */
 export function rimAt(b: GooBody, style: GooStyle, time: number, a: number): Point {
   const sq = b.squash ?? 1;
   const lean = b.lean ?? { x: 0, y: 0 };

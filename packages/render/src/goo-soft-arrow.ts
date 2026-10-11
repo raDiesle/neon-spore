@@ -1,8 +1,8 @@
 import { KEY, type Point } from "@neon-spore/content";
-import { PALETTE } from "@neon-spore/render";
-import { centre, type GooBody, rimAt, smoothPath } from "./body.js";
-import { mix } from "./noise.js";
-import type { GooStyle } from "./style.js";
+import { centre, type GooBody, rimAt, smoothPath } from "./goo-body.js";
+import { mix } from "./goo-noise.js";
+import type { GooStyle } from "./goo-style.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * **The way to pull, moulded into a soft drop** — the owner, 11 October 2026,

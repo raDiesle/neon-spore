@@ -1,6 +1,6 @@
-import { smoothstep } from "@neon-spore/render";
-import { SPAWN } from "./moment.js";
-import { clamp01, settle } from "./noise.js";
+import { smoothstep } from "./ease.js";
+import { SPAWN } from "./goo-moment.js";
+import { clamp01, settle } from "./goo-noise.js";
 
 /**
  * **How a drop and its path come onto the field** — the owner, 10 October

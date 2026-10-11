@@ -2,7 +2,6 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { DEFAULT_CONFIG, mazeCoreEntrance, mazeFault, mazeRadiusMilli } from "@neon-spore/sim";
 import { computeLayout } from "../src/layout.js";
 import { drawMaze } from "../src/maze-draw.js";
-import { PALETTE } from "../src/palette.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 import { clicked, layoutFor, mazeState, watch, wheel } from "./maze-harness.js";
 
@@ -31,14 +30,15 @@ const CFG = DEFAULT_CONFIG;
 
 beforeAll(installCanvasGlobals);
 
-/** The pilot's colours with the arrow's one ink taken out: the entry whose
- * removal leaves his list as long as hers and no more than the word apart. */
+/** The pilot's colours with the arrow's inks taken out: the one run of entries —
+ * FIZZ's arrow sets several (`goo-soft-arrow.ts`) — whose removal leaves his list
+ * as long as hers and no more than the word apart. */
 function withoutArrow(mine: readonly string[], hers: readonly string[]): string[] {
-  for (let i = 0; i < mine.length; i++) {
-    if (mine[i] !== PALETTE.text) continue;
-    const rest = [...mine.slice(0, i), ...mine.slice(i + 1)];
-    if (rest.length === hers.length && rest.filter((c, k) => c !== hers[k]).length <= 1)
-      return rest;
+  const n = mine.length - hers.length;
+  if (n <= 0) return [...mine];
+  for (let i = 0; i + n <= mine.length; i++) {
+    const rest = [...mine.slice(0, i), ...mine.slice(i + n)];
+    if (rest.filter((c, k) => c !== hers[k]).length <= 1) return rest;
   }
   return [...mine];
 }
@@ -62,7 +62,8 @@ describe("THE MAZE's wheel", () => {
     const askedOne = watch("p1", m, 3, 0, true);
     const askedTwo = watch("p2", m, 3, 0, true);
     expect(one.arcs - askedOne.arcs).toBe(two.arcs - askedTwo.arcs);
-    const ARROW_LINES = 3;
+    // FIZZ's arrow is built in a `Path2D`, so it adds no line to the context's count.
+    const ARROW_LINES = 0;
     expect(one.lines - askedOne.lines).toBe(two.lines - askedTwo.lines + ARROW_LINES);
     // The asking is one run of draws in the middle of the frame; take it out.
     const without = <T>(all: readonly T[], run: readonly T[]): T[] => {

@@ -8,10 +8,9 @@ import {
   type PullWay,
   pullTrackPoint,
 } from "@neon-spore/render";
+import { splitOf } from "../../../packages/render/src/goo-arrow.js";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { apply, restore, type Variant } from "../../versus/variant.js";
-import { splitOf } from "./pull-goo/arrow.js";
-import { GOO_LOOKS } from "./pull-goo/index.js";
 import { knobAt, type LabPull, progress } from "./pull-lab-rule.js";
 import { LAB_H, LAB_KNOB, LAB_TILE, LAB_W, type LabShape } from "./pull-lab-shapes.js";
 import { type Stray, strayReach } from "./pull-lab-stray.js";
@@ -35,10 +34,10 @@ export function pullLooks(all: readonly Variant[] = VARIANTS): Variant[] {
   );
 }
 
-/** The LOOK picker: the VERSUS candidates for the pull, then the lab's own GOO looks
- * (`pull-goo/`), which draw their own band. */
+/** The LOOK picker past AS SHIPPED — the PULL LAB's FIZZ, in the game since 11
+ * October 2026 (`packages/render/src/goo-*.ts`): the VERSUS candidates for the pull. */
 export function labLooks(): Variant[] {
-  return [...pullLooks(), ...GOO_LOOKS];
+  return pullLooks();
 }
 
 export const VERDICT_WORDS: Readonly<Record<string, string>> = {
@@ -73,7 +72,8 @@ export interface LabFrame {
 
 export function paintLab(ctx: CanvasRenderingContext2D, f: LabFrame): void {
   paintField(ctx);
-  if (!f.look || !GOO_LOOKS.includes(f.look)) paintBand(ctx, f);
+  // FIZZ draws its own edge where the drop nears the limit; a candidate is given the band.
+  if (f.look) paintBand(ctx, f);
   const applied = f.look ? apply(f.look) : null;
   try {
     paintPull(ctx, f);

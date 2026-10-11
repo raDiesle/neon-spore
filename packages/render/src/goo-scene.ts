@@ -1,14 +1,14 @@
 import type { Point } from "@neon-spore/content";
-import { type PullTrack, pullTrackPoint } from "@neon-spore/render";
-import { goals } from "../../../versus/candidates/pull-handle/ooze/goo.js";
-import { lengthOf } from "./beat.js";
-import type { GooMoment } from "./moment.js";
-import type { GooStyle } from "./style.js";
+import { lengthOf } from "./goo-beat.js";
+import type { GooMoment } from "./goo-moment.js";
+import { goals } from "./goo-ooze.js";
+import type { GooStyle } from "./goo-style.js";
+import { type PullTrack, pullTrackPoint } from "./pull-track.js";
 
 /**
  * What an ending and a failure are drawn from: the track, the drop's size,
  * where it was when the verdict came and where it goes home to, and the end
- * it was going to. Built once a frame by the channel (`track.ts`).
+ * it was going to. Built once a frame by the channel (`goo-track.ts`).
  */
 export interface Scene {
   readonly ctx: CanvasRenderingContext2D;

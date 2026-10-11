@@ -1,7 +1,7 @@
 import { type Facet, KEY, type Point } from "@neon-spore/content";
-import { smoothstep } from "@neon-spore/render";
-import { bodyPath, centre, DROP_SPIN, type GooBody, glow, rimAt } from "./body.js";
-import type { GooMoment } from "./moment.js";
+import { smoothstep } from "./ease.js";
+import { bodyPath, centre, DROP_SPIN, type GooBody, glow, rimAt } from "./goo-body.js";
+import type { GooMoment } from "./goo-moment.js";
 import {
   type Dent,
   dentOf,
@@ -12,15 +12,15 @@ import {
   pressed,
   type Tones,
   tonesOf,
-} from "./press.js";
-import { liftOf, paintCap } from "./soft-cap.js";
-import type { GooStyle } from "./style.js";
+} from "./goo-press.js";
+import { liftOf, paintCap } from "./goo-soft-cap.js";
+import type { GooStyle } from "./goo-style.js";
 
 /**
  * **A soft drop**: the GOO drop made of something a thumb sinks into, in GOO's
  * own colours — the owner, 11 October 2026: *not changing colour, but the 3d
  * effect*. Each material paints its body and what is on it; this frame
- * presses it (`press.ts`), clips it, puts the bow and the dent on it between
+ * presses it (`goo-press.ts`), clips it, puts the bow and the dent on it between
  * the material's body and its top, and leaves the rim to the material.
  */
 
@@ -41,13 +41,13 @@ export interface SoftScene {
 export interface SoftDrop {
   readonly name: string;
   readonly give: Give;
-  /** It stands up as a cap to be pressed while it is untouched (`soft-cap.ts`). */
+  /** It stands up as a cap to be pressed while it is untouched (`goo-soft-cap.ts`). */
   readonly cap?: boolean;
   /** It slows while it is pulled (`stillSpin`), to this share of its turning: 0 stops it. */
   readonly still?: number;
   /** The body and what is on it, clipped to the drop, under the dent. */
   body(s: SoftScene): void;
-  /** In place of the dent and the bow, still clipped: its own hollow (`soft-crater.ts`). */
+  /** In place of the dent and the bow, still clipped: its own hollow (`goo-soft-crater.ts`). */
   hollow?(s: SoftScene): void;
   /** Over the dent, still clipped: what a hollow does not hide. */
   top?(s: SoftScene): void;

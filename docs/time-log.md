@@ -38134,3 +38134,19 @@ Bottleneck: none past the first profile — it named the function.
 Bottleneck: the first lane built a checkbox where the owner had asked for a drag.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — FIZZ is every pull handle's knob and channel in the game
+
+- reading: 15 min. The PULL LAB's GOO files and how `PULL_KNOB` and
+  `PULL_TRACK` reach them; the twelve callers of `drawPullKnob` and the
+  colours each passes.
+- writing: 20 min. Twenty-four files moved to `packages/render/src/goo-*.ts`
+  with their imports rewritten by a script, the two records pointed at them,
+  the lab opening on AS SHIPPED, OOZE's slot dropped, the catalogue rows.
+- looking: 10 min. THE WARDEN's cord and THE MAZE's ring in real frames.
+- friction: 35 min. Twenty-seven render tests counted a handle by the
+  colour the old ring wore, punched or stroked; each needed what the drop
+  draws instead (`goo-needles.ts`), and three budget rows a remeasure.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: friction — the tests read the knob's colours, not the knob.

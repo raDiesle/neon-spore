@@ -1,0 +1,60 @@
+import type { Point } from "@neon-spore/content";
+import { arrowSize, paintArrow } from "./goo-arrow.js";
+import { drop } from "./goo-body.js";
+import { paintGoo } from "./goo-drop-look.js";
+import { grown } from "./goo-enter.js";
+import { type Hold, heldBody, overHeld, pressOf } from "./goo-grab.js";
+import { momentOf, SPAWN } from "./goo-moment.js";
+import { call } from "./goo-parts.js";
+import { GOO } from "./goo-style.js";
+import { noteMark } from "./mark-spots.js";
+import type { PullKnobDraw } from "./pull-knob.js";
+
+/**
+ * **The drop under the hand**: OOZE's drop made TAR's slime, wherever the
+ * hand has it. Waiting, it breathes and ripples call the thumb; taken, it
+ * goes as a SQUISH has it (`goo-grab.ts`) and red as its rim nears the
+ * edge of the path.
+ * Once counted or refused it is not drawn here — the channel plays the same
+ * drop through its ending or its failure (`goo-track.ts`), until it is home.
+ */
+export function paintGooKnob(
+  ctx: CanvasRenderingContext2D,
+  on: Point,
+  r: number,
+  o: PullKnobDraw,
+): void {
+  const style = GOO;
+  const m = momentOf(o.held, o.time, o.after, r);
+  const at = { x: on.x + m.off.x, y: on.y + m.off.y };
+  noteMark(ctx, at.x, at.y, r);
+  if (m.owner !== "knob") return;
+  const way = o.way ? { x: o.way.dx, y: o.way.dy } : { x: 0, y: 0 };
+  // Coming in, the drop and its arrow grow together (`goo-enter.ts`), the arrow ahead (`goo-arrow.ts`).
+  const g = grown(m.enter);
+  if (g < 0.02) return;
+  const rr = r * g;
+  ctx.save();
+  if (o.theirs) ctx.globalAlpha = 0.4;
+  if (!o.held && !o.theirs && m.enter >= SPAWN) call(ctx, at, r, style, o.time);
+  const hold: Hold = { at, r: rr, way, near: m.near, grabbed: m.grabbed, time: o.time };
+  const body = o.held
+    ? heldBody(hold)
+    : drop(at, rr, { squash: 1 + 0.07 * Math.sin(o.time * 3.4) });
+  const tint = { red: 0.7 * m.near, alpha: o.theirs ? 0.4 : 1 };
+  const press = o.held ? pressOf(hold) : undefined;
+  const drawn = paintGoo(ctx, body, style, o.time, tint, m, press);
+  if (o.held) overHeld(ctx, hold, style);
+  if (o.way) {
+    const split = o.after?.split ?? (o.either ? 1 : 0);
+    const time = o.time;
+    paintArrow(ctx, at, arrowSize(r, g), style, {
+      ...o.way,
+      split,
+      held: o.held,
+      time,
+      body: drawn,
+    });
+  }
+  ctx.restore();
+}

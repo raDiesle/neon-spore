@@ -81,7 +81,9 @@ const MEASURE = false;
 // took the knurl's place on every ring, and the test screen draws two.
 // Every phase up two the same day: the cannon's column became a gunsight in
 // the seat's colour, a glow and one path of rails and ticks (`cannon-column.ts`).
-const CALLS = { still: 369, turn: 439, shear: 377, open: 383 } as const;
+// `turn` rose by sixty-two on 11 October 2026: the rings' knobs are FIZZ's drop
+// (`goo-knob.ts`), a soft body with a cap and an arrow, where a disc was.
+const CALLS = { still: 369, turn: 501, shear: 377, open: 383 } as const;
 
 /** The canvas calls one frame of `world` costs on `role`'s screen. */
 function cost(world: World, role: (typeof ROLES)[number]): number {

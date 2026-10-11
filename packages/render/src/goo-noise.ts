@@ -1,4 +1,5 @@
-import { sinHash, smoothstep } from "@neon-spore/render";
+import { smoothstep } from "./ease.js";
+import { sinHash } from "./hash.js";
 
 /**
  * The irregular in GOO: noise that is the same every frame for the same

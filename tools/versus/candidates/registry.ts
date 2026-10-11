@@ -6,6 +6,5 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { PULL_OOZE } from "./pull-handle/ooze/index.js";
 
-export const VARIANTS: Variant[] = [PULL_OOZE];
+export const VARIANTS: Variant[] = [];

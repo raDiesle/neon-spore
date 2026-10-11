@@ -1,10 +1,16 @@
 import type { Point } from "@neon-spore/content";
-import { PALETTE } from "@neon-spore/render";
-import { drop, type GooBody } from "./body.js";
-import { clamp01, mix } from "./noise.js";
-import { type ArrowAt, paintSoftArrows, SOFT_HELD, SOFT_REACH, SOFT_SLIDE } from "./soft-arrow.js";
-import { CAP_HEIGHT } from "./soft-cap.js";
-import type { GooStyle } from "./style.js";
+import { drop, type GooBody } from "./goo-body.js";
+import { clamp01, mix } from "./goo-noise.js";
+import {
+  type ArrowAt,
+  paintSoftArrows,
+  SOFT_HELD,
+  SOFT_REACH,
+  SOFT_SLIDE,
+} from "./goo-soft-arrow.js";
+import { CAP_HEIGHT } from "./goo-soft-cap.js";
+import type { GooStyle } from "./goo-style.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * **The way to pull, inside a GOO drop** — the loudest thing on it: dark
@@ -23,9 +29,9 @@ import type { GooStyle } from "./style.js";
  * between them (`split` 1); pulled, the one it goes towards grows into the
  * single arrow and the other shrinks away (`split` towards 0).
  *
- * The arrow is moulded into the drop's own lumps (`soft-arrow.ts`), laid on
+ * The arrow is moulded into the drop's own lumps (`goo-soft-arrow.ts`), laid on
  * `body` — the drop it is in, when the caller has it. While the drop's cap
- * stands up untouched (`soft-cap.ts`) it is smaller and sits half way up,
+ * stands up untouched (`goo-soft-cap.ts`) it is smaller and sits half way up,
  * in the middle of the whole tall cap rather than on its face — the owner,
  * 11 October 2026: *reduce arrow size so it does not overlap with top border
  * and shape — move it more down … so it should look centered of tall area*.

@@ -1,4 +1,5 @@
 import type { Point } from "@neon-spore/content";
+import { paintGooKnob } from "./goo-knob.js";
 import { noteMark } from "./mark-spots.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { PullWay } from "./pull-line.js";
@@ -64,12 +65,12 @@ export function drawPullKnob(
 }
 
 /**
- * **The knob as it ships**, which `PULL_KNOB` holds and every pull handle in
- * the game reaches through `drawPullKnob`. One record rather than a function
- * so a second answer to the knob can be held beside this one and drawn in its
- * place for the length of a frame — VERSUS's `pull:handle`, and the PULL LAB
- * (`tools/director/src/pull-lab.ts`), which plays any of them on an empty
- * field. Nothing in the game patches it.
+ * **The ring knob**, every pull handle's until the PULL LAB's FIZZ took its
+ * place in `PULL_KNOB` (11 October 2026; `goo-knob.ts`). `PULL_KNOB` is one
+ * record rather than a function so a second answer to the knob can be held
+ * in its place for the length of a frame — the PULL LAB
+ * (`tools/director/src/pull-lab.ts`) plays any of them on an empty field.
+ * Nothing in the game patches it.
  */
 export function paintPullKnob(
   ctx: CanvasRenderingContext2D,
@@ -151,9 +152,9 @@ function strokeWay(
   drawWayArrow(ctx, at.x, at.y, r * ARROW, way.dx, way.dy, time, either ? 2 : 1);
 }
 
-/** What `drawPullKnob` draws with: the shipped knob, unless something holds
- * another in its place for a frame (`paintPullKnob`). */
-export const PULL_KNOB: { paint: typeof paintPullKnob } = { paint: paintPullKnob };
+/** What `drawPullKnob` draws with: the PULL LAB's FIZZ drop (`goo-knob.ts`), unless
+ * something holds another in its place for a frame. */
+export const PULL_KNOB: { paint: typeof paintPullKnob } = { paint: paintGooKnob };
 
 /** A circle as its own path, so it adds nothing to the context's current one. */
 function ring(at: Point, r: number): Path2D {

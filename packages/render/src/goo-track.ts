@@ -1,20 +1,21 @@
+import { edge } from "./goo-border.js";
+import { paintEnding } from "./goo-ending.js";
+import { paintFailure } from "./goo-fail.js";
+import { FIZZ } from "./goo-fizz.js";
+import { fieldSplash } from "./goo-grab.js";
+import { type GooMoment, momentOf } from "./goo-moment.js";
+import { paintPath } from "./goo-parts.js";
+import { sceneOf } from "./goo-scene.js";
+import { paintTail, specks, tailPath } from "./goo-strand.js";
+import { GOO, type GooStyle } from "./goo-style.js";
+import { PALETTE } from "./palette.js";
 import {
-  PALETTE,
   PULL_TRACK_W,
   type PullTrack,
   type PullTrackDraw,
+  paintPullTrack,
   pullTrackPoint,
-} from "@neon-spore/render";
-import { paintPullTrack } from "../../../../packages/render/src/pull-track.js";
-import { edge } from "./border.js";
-import { type Ending, paintEnding } from "./ending.js";
-import { paintFailure } from "./fail.js";
-import { fieldSplash } from "./grab.js";
-import { type GooMoment, momentOf } from "./moment.js";
-import { paintPath } from "./parts.js";
-import { sceneOf } from "./scene.js";
-import { paintTail, specks, tailPath } from "./strand.js";
-import type { GooStyle } from "./style.js";
+} from "./pull-track.js";
 
 /**
  * **The channel of a GOO look**: everything round the drop. Waiting or held,
@@ -25,21 +26,19 @@ import type { GooStyle } from "./style.js";
  * Counted or refused, the channel draws the drop itself, through the look's
  * ending or the failure. Under all of it, SQUISH's splash where it was taken.
  */
-export function gooTrack(style: GooStyle, ending: Ending) {
-  return (ctx: CanvasRenderingContext2D, t: PullTrack, o: PullTrackDraw): void => {
-    if (t.closed) {
-      paintPullTrack(ctx, t, o);
-      return;
-    }
-    const r = t.w / PULL_TRACK_W;
-    const m = momentOf(o.held, o.time, o.after, r);
-    ctx.save();
-    fieldSplash(ctx, pullTrackPoint(t, o.origin), r, style, m.grabbed);
-    if (m.owner === "ending") paintEnding(sceneOf(ctx, t, r, style, m, o.origin), ending);
-    else if (m.owner === "failure") paintFailure(sceneOf(ctx, t, r, style, m, o.origin));
-    else guides(ctx, t, o, r, style, m);
-    ctx.restore();
-  };
+export function paintGooTrack(ctx: CanvasRenderingContext2D, t: PullTrack, o: PullTrackDraw): void {
+  if (t.closed) {
+    paintPullTrack(ctx, t, o);
+    return;
+  }
+  const r = t.w / PULL_TRACK_W;
+  const m = momentOf(o.held, o.time, o.after, r);
+  ctx.save();
+  fieldSplash(ctx, pullTrackPoint(t, o.origin), r, GOO, m.grabbed);
+  if (m.owner === "ending") paintEnding(sceneOf(ctx, t, r, GOO, m, o.origin), FIZZ);
+  else if (m.owner === "failure") paintFailure(sceneOf(ctx, t, r, GOO, m, o.origin));
+  else guides(ctx, t, o, r, GOO, m);
+  ctx.restore();
 }
 
 function guides(

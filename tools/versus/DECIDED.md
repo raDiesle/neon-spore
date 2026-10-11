@@ -1757,3 +1757,11 @@ Written into `packages/render/src/scuttle-shape.ts`, `SCUTTLE_FRAME`: `padX`
 and `padY`.
 
 It was the only answer offered.
+
+## `pull:handle` — nothing taken, 2026-10-11
+
+The PULL LAB's FIZZ, built on OOZE, was taken into the game by hand (11
+October 2026); the OOZE helpers it read went with it to
+packages/render/src/goo-ooze.ts.
+
+The other answer offered was `ooze`; it went with the slot.

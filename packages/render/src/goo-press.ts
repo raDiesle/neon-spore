@@ -1,8 +1,9 @@
 import { KEY, type Point } from "@neon-spore/content";
-import { PALETTE, rgba } from "@neon-spore/render";
-import { centre, type GooBody } from "./body.js";
-import { mix } from "./noise.js";
-import type { GooStyle } from "./style.js";
+import { centre, type GooBody } from "./goo-body.js";
+import { mix } from "./goo-noise.js";
+import type { GooStyle } from "./goo-style.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * **A thumb pressed into a soft drop** — the owner, 11 October 2026: *it looks

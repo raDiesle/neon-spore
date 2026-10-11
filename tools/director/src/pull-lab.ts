@@ -1,7 +1,6 @@
 import type { Point } from "@neon-spore/content";
 import { coverPage } from "./cover.js";
 import { text } from "./gestures-page.js";
-import { GOO_LOOKS } from "./pull-goo/index.js";
 import { autoThumb } from "./pull-lab-auto.js";
 import { type LabState, labBar } from "./pull-lab-bar.js";
 import { paintLab, readoutOf } from "./pull-lab-paint.js";
@@ -28,11 +27,12 @@ import { initialLab, placeLab } from "./session.js";
  * The choices on the bar, and nothing else on the screen to look at:
  *
  * - **the shape** (`pull-lab-shapes.ts`): down, up, either, signed, curve, S;
- * - **the look**: what every pull handle in the game draws today, any
- *   VERSUS candidate that patches the knob or the channel (`PULL_KNOB`,
- *   `PULL_TRACK`) — found by the records it patches, never by its slot's
- *   name — and the lab's own GOO looks (`pull-goo/`), the first picked when
- *   the lab opens; for those, a flat drop or a 3D ball (`drop-look.ts`);
+ * - **the look**: what every pull handle in the game draws today — the
+ *   lab's own FIZZ, taken into the game on 11 October 2026 (the owner:
+ *   *current version of "pull lab" "fizz" i like. build it into game*;
+ *   `packages/render/src/goo-*.ts`) — and any VERSUS candidate that
+ *   patches the knob or the channel (`PULL_KNOB`, `PULL_TRACK`), found by
+ *   the records it patches, never by its slot's name;
  *
  * A short pull is refused, red, and a thumb half a tile off the path fails:
  * the owner's picks of the rule's answers (10 October 2026: *for the
@@ -43,7 +43,7 @@ import { initialLab, placeLab } from "./session.js";
  *
  * AUTO's thumb (`pull-lab-auto.ts`) plays a whole pull and a straying one on
  * a loop. RETRY puts a fresh pull on the field, so the drop and its path are
- * seen coming in (`pull-goo/enter.ts`) — the owner: *give me a retry button
+ * seen coming in (`packages/render/src/goo-enter.ts`) — the owner: *give me a retry button
  * … so i can clearly see the appearing animation*.
  */
 
@@ -60,7 +60,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
   shutOpen?.();
   const state: LabState = {
     shape: labShape(first),
-    look: GOO_LOOKS[0] ?? null,
+    look: null,
     speed: 1,
     auto: true,
     sheet: opts.sheet === true,

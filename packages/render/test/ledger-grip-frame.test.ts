@@ -21,6 +21,7 @@ import {
   runFrames,
   waveWith,
 } from "./frame-harness.js";
+import { GOO_ARROW, GOO_KNOB } from "./goo-needles.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -100,7 +101,11 @@ const HERS: ViewRole[] = ROLES.filter((r) => r !== "p1");
 
 /** How many rings are standing on this screen, net of the body's two halves. */
 function rings(world: World, role: ViewRole = "test"): number {
-  return count(drawn(world, role), PALETTE.background) - HALVES;
+  // A ring punches its disc; a pull knob is FIZZ's drop, which punches none and
+  // whose arrow has an edge in the field's colour (`goo-needles.ts`).
+  const frame = drawn(world, role);
+  const discs = count(frame, PALETTE.background) - HALVES - 2 * count(frame, GOO_ARROW);
+  return discs + count(frame, GOO_KNOB);
 }
 
 describe("THE LEDGER's ring on the root", () => {

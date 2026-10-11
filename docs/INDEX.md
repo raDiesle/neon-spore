@@ -2204,6 +2204,31 @@ by hand never moves.
 | `packages/render/src/governor-receipts.ts` | **THE GOVERNOR's receipts, drawn** — what `governor-fx.ts` holds between frames |
 | `packages/render/src/governor-tip.ts` | **What THE GOVERNOR is shot at, and the way a bolt gets to it** |
 | `packages/render/src/governor-trim.ts` | **THE GOVERNOR's works, made strange** (`governor-works.ts`): the collars cased round the shaft |
+| `packages/render/src/goo-arrow.ts` | **The way to pull, inside a GOO drop** — the loudest thing on it: dark under, neon round, near-white on top |
+| `packages/render/src/goo-beat.ts` | **Where a path's dots sit and when they light** — how many, how far short of the place they stop |
+| `packages/render/src/goo-body.ts` | **A body of GOO**: a closed contour with lumps that creep |
+| `packages/render/src/goo-border.ts` | **The edge of the tolerance, only where the drop touches it** |
+| `packages/render/src/goo-drop-look.ts` | **How every GOO drop is drawn**: as a soft drop a thumb sinks into (`soft.ts`) — the owner, 11 October 2026 |
+| `packages/render/src/goo-ending.ts` | **How a count ends** — what tells one GOO look from another |
+| `packages/render/src/goo-enter.ts` | **How a drop and its path come onto the field** — the owner, 10 October 2026 |
+| `packages/render/src/goo-fail.ts` | **A failure, short or off the path**: the owner, 10 October 2026, on SHORT · RED |
+| `packages/render/src/goo-fizz.ts` | **FIZZ**, the drop boiling away into green bubbles that rise and pop |
+| `packages/render/src/goo-grab.ts` | **How a GOO drop is taken, and how it goes while it is pulled**: SQUISH — pressed flat under the thumb |
+| `packages/render/src/goo-knob.ts` | **The drop under the hand**: OOZE's drop made TAR's slime, wherever the hand has it |
+| `packages/render/src/goo-moment.ts` | **Where a GOO pull is in its story**, read the same way by the channel and the drop from what the PULL LAB… |
+| `packages/render/src/goo-noise.ts` | The irregular in GOO: noise that is the same every frame for the same input |
+| `packages/render/src/goo-ooze.ts` | **What GOO kept of OOZE's shared helpers**: which end the pull goes to, how far it has come |
+| `packages/render/src/goo-parts.ts` | **What GOO keeps of OOZE**, the owner's base (10 October 2026) |
+| `packages/render/src/goo-press.ts` | **A thumb pressed into a soft drop** — the owner, 11 October 2026 |
+| `packages/render/src/goo-scene.ts` | What an ending and a failure are drawn from: the track, the drop's size |
+| `packages/render/src/goo-soft-arrow.ts` | **The way to pull, moulded into a soft drop** — the owner, 11 October 2026, on SOFT PLASTIC |
+| `packages/render/src/goo-soft-cap.ts` | **A button standing up to be pressed** — the owner, 11 October 2026 |
+| `packages/render/src/goo-soft-crater.ts` | **A crater where the thumb is**, in SOFT PLASTIC — the owner, 11 October 2026: *a crater when pulling |
+| `packages/render/src/goo-soft-plastic.ts` | **SOFT PLASTIC** — a squeezy toy: satin all over and calm in the middle, where the arrow is |
+| `packages/render/src/goo-soft.ts` | **A soft drop**: the GOO drop made of something a thumb sinks into, in GOO's own colours — the owner |
+| `packages/render/src/goo-strand.ts` | **What is left behind the drop**: the tail it is pulled out of — JELLY's, the owner's pick |
+| `packages/render/src/goo-style.ts` | **What a GOO drop is made of** |
+| `packages/render/src/goo-track.ts` | **The channel of a GOO look**: everything round the drop |
 | `packages/render/src/gimbal-draw.ts` | **THE GIMBAL**: a sealed drum hung in a yoke over the middle of the field inside two rings set at right… |
 | `packages/render/src/gimbal-drum.ts` | **The sealed drum the two rings hang round, and the clock the whole scene is posed off** (§18, *Animation*) |
 | `packages/render/src/gimbal-ring.ts` | **The half of THE GIMBAL a hand is on**: one ring, drawn on the screen of the seat that grips it |
@@ -3828,29 +3853,5 @@ by hand never moves.
 | `tools/compaction/report.ts` | The compaction trial's figures for one period, and the two periods side by side |
 | `tools/compaction/run.ts` | `bun run compaction` — is the compaction trial of 29 September 2026 working? bun run compaction… |
 | `tools/compaction/transcript.ts` | One Claude Code transcript read as the events the compaction trial is judged on |
-| `tools/director/src/pull-goo/body.ts` | **A body of GOO**: a closed contour with lumps that creep |
-| `tools/director/src/pull-goo/border.ts` | **The edge of the tolerance, only where the drop touches it** |
-| `tools/director/src/pull-goo/beat.ts` | **Where a path's dots sit and when they light** — how many, how far short of the place they stop |
-| `tools/director/src/pull-goo/knob.ts` | **The drop under the hand**: OOZE's drop made TAR's slime, wherever the hand has it |
-| `tools/director/src/pull-goo/moment.ts` | **Where a GOO pull is in its story**, read the same way by the channel and the drop from what the PULL LAB… |
-| `tools/director/src/pull-goo/noise.ts` | The irregular in GOO: noise that is the same every frame for the same input |
-| `tools/director/src/pull-goo/strand.ts` | **What is left behind the drop**: the tail it is pulled out of — JELLY's, the owner's pick |
-| `tools/director/src/pull-goo/style.ts` | **What a GOO drop is made of** |
-| `tools/director/src/pull-goo/scene.ts` | What an ending and a failure are drawn from: the track, the drop's size |
-| `tools/director/src/pull-goo/soft-plastic.ts` | **SOFT PLASTIC** — a squeezy toy: satin all over and calm in the middle, where the arrow is |
-| `tools/director/src/pull-goo/soft-arrow.ts` | **The way to pull, moulded into a soft drop** — the owner, 11 October 2026, on SOFT PLASTIC |
-| `tools/director/src/pull-goo/soft-crater.ts` | **A crater where the thumb is**, in SOFT PLASTIC — the owner, 11 October 2026: *a crater when pulling |
-| `tools/director/src/pull-goo/soft-cap.ts` | **A button standing up to be pressed**: a cap inside the drop's neon edge, untouched, that a thumb pushes level |
-| `tools/director/src/pull-goo/soft.ts` | **A soft drop**: the GOO drop made of something a thumb sinks into, in GOO's own colours — the frame each soft material is painted through |
-| `tools/director/src/pull-goo/track.ts` | **The channel of a GOO look**: everything round the drop |
-| `tools/director/src/pull-goo/ending.ts` | **How a count ends** — what tells one GOO look from another |
-| `tools/director/src/pull-goo/enter.ts` | **How a drop and its path come onto the field** — the owner, 10 October 2026 |
-| `tools/director/src/pull-goo/fail.ts` | **A failure, short or off the path**: the owner, 10 October 2026, on SHORT · RED |
-| `tools/director/src/pull-goo/fizz.ts` | **FIZZ**, the drop boiling away into green bubbles that rise and pop |
-| `tools/director/src/pull-goo/parts.ts` | **What GOO keeps of OOZE**, the owner's base (10 October 2026) |
-| `tools/director/src/pull-goo/press.ts` | **A thumb pressed into a soft drop** — the press, the dent and the bow every soft drop shares |
-| `tools/director/src/pull-goo/drop-look.ts` | **How every GOO drop is drawn**: as a soft drop a thumb sinks into (`soft.ts`) — the owner, 11 October 2026 |
-| `tools/director/src/pull-goo/grab.ts` | **How a GOO drop is taken, and how it goes while it is pulled** — the owner, 10 October 2026 |
-| `tools/director/src/pull-goo/arrow.ts` | **The way to pull, inside a GOO drop**: sized ahead of the drop as it grows and shrinks, and two short arrows apart for a two-way pull until it is pulled a way |
 
 <!-- index:code:end -->

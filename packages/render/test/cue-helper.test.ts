@@ -232,7 +232,8 @@ describe("the way a pull goes", () => {
       );
     const withArrow = knob({ dx: 0, dy: 1 });
     const without = knob(null);
-    expect(withArrow.filter((c) => c.startsWith("lineTo")).length).toBeGreaterThan(0);
-    expect(without.filter((c) => c.startsWith("lineTo"))).toEqual([]);
+    // FIZZ's drop draws the same body either way; the arrow is strokes over it.
+    const strokes = (calls: string[]) => calls.filter((c) => c.startsWith("stroke(")).length;
+    expect(strokes(withArrow)).toBeGreaterThan(strokes(without));
   });
 });

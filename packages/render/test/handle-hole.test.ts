@@ -12,6 +12,7 @@ import {
   runFrames,
   waveWith,
 } from "./frame-harness.js";
+import { GOO_ARROW, GOO_KNOB } from "./goo-needles.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -51,6 +52,8 @@ function drawn(world: World, role: ViewRole): string {
   });
   return log.join("|");
 }
+
+const count = (text: string, needle: string): number => text.split(needle).length - 1;
 
 /** How many discs are punched out of this screen. */
 function holes(world: World, role: ViewRole): number {
@@ -114,7 +117,7 @@ describe("PINBALL's ring, the pilot's plunger", () => {
 });
 
 describe("THE BALLOON's pair, one handle to a seat on every body", () => {
-  it("punches one disc a body on each phone, and both on the rig", () => {
+  it("draws both knobs a body on each phone and on the rig, and punches no hole", () => {
     // The only creature in the game with a handle per seat, and the reason
     // `HandleWords` carries one at all (`handle-word.ts`): a hand on each of
     // two different bodies is no hands at all, so each seat has to see the
@@ -123,10 +126,13 @@ describe("THE BALLOON's pair, one handle to a seat on every body", () => {
     const world = peakWorld("theBalloon");
     const bodies = world.creatures.filter((c) => c.kind === "balloon").length;
     expect(bodies).toBeGreaterThan(0);
-    expect(holes(world, "p1")).toBe(bodies);
-    expect(holes(world, "p2")).toBe(bodies);
-    // The rig is both seats at once, which is what makes a two-seat control
-    // drawable in one frame (`balloon-handles.ts`).
-    expect(holes(world, "test")).toBe(bodies * 2);
+    // Each knob is FIZZ's drop (11 October 2026), which punches no disc, this
+    // seat's or the partner's; its arrow's dark edge is the field's colour.
+    for (const role of ["p1", "p2", "test"] as const) {
+      const frame = drawn(world, role);
+      const knobs = count(frame, GOO_KNOB);
+      expect(knobs).toBe(bodies * 2);
+      expect(holes(world, role) - 2 * count(frame, GOO_ARROW)).toBe(0);
+    }
   });
 });

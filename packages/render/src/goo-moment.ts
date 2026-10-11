@@ -1,6 +1,6 @@
 import type { Point } from "@neon-spore/content";
-import type { PullAfter } from "@neon-spore/render";
-import { clamp01 } from "./noise.js";
+import { clamp01 } from "./goo-noise.js";
+import type { PullAfter } from "./pull-track.js";
 
 /**
  * **Where a GOO pull is in its story**, read the same way by the channel and
@@ -20,7 +20,7 @@ import { clamp01 } from "./noise.js";
 export const ENDING = 0.75;
 /** Seconds after a count a fresh drop may start to come in, the hand being off. */
 export const FRESH_AFTER = 0.45;
-/** Seconds a fresh drop takes to grow at the start (`enter.ts` has the rest). */
+/** Seconds a fresh drop takes to grow at the start (`goo-enter.ts` has the rest). */
 export const SPAWN = 0.35;
 /** A failure: seconds it shudders where it was let go, is carried home, and settles. */
 export const FAIL_HOLD = 0.2;
@@ -50,7 +50,7 @@ export interface GooMoment {
   readonly grabbed: number;
   readonly lifted: number;
   /** Seconds since a drop came in at the start — a fresh one after a count, or the
-   * first one on the field — and the path with it (`enter.ts`); long ago otherwise. */
+   * first one on the field — and the path with it (`goo-enter.ts`); long ago otherwise. */
   readonly enter: number;
 }
 

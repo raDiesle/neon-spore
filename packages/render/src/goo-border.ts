@@ -1,7 +1,8 @@
 import type { Point } from "@neon-spore/content";
-import { PALETTE, type PullTrack, pullTrackPoint } from "@neon-spore/render";
-import { lengthOf } from "./beat.js";
-import { fbm } from "./noise.js";
+import { lengthOf } from "./goo-beat.js";
+import { fbm } from "./goo-noise.js";
+import { PALETTE } from "./palette.js";
+import { type PullTrack, pullTrackPoint } from "./pull-track.js";
 
 /**
  * **The edge of the tolerance, only where the drop touches it.** The owner,

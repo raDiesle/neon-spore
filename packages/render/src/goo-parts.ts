@@ -1,10 +1,10 @@
 import type { Point } from "@neon-spore/content";
-import { type PullTrack, pullTrackPoint } from "@neon-spore/render";
-import { blob, dot, FULL, goals, share } from "../../../versus/candidates/pull-handle/ooze/goo.js";
-import { blinkAt, dotCount, dotsEnd, ghostFront, passed, placeBeat } from "./beat.js";
-import { bodyPath } from "./body.js";
-import { dotIn, entering, placeIn } from "./enter.js";
-import type { GooStyle } from "./style.js";
+import { blinkAt, dotCount, dotsEnd, ghostFront, passed, placeBeat } from "./goo-beat.js";
+import { bodyPath } from "./goo-body.js";
+import { dotIn, entering, placeIn } from "./goo-enter.js";
+import { blob, dot, FULL, goals, share } from "./goo-ooze.js";
+import type { GooStyle } from "./goo-style.js";
+import { type PullTrack, pullTrackPoint } from "./pull-track.js";
 
 /**
  * **What GOO keeps of OOZE**, the owner's base (10 October 2026): *it has
@@ -13,7 +13,7 @@ import type { GooStyle } from "./style.js";
  * projection where to go and where to stop.* OOZE's own contour (`blob`)
  * in GOO's tar and neon — but only the dots still ahead of the drop: the
  * ones it has passed are gone, and what it leaves is its green tail and
- * specks (`strand.ts`). The progress circle went later the same day: *the
+ * specks (`goo-strand.ts`). The progress circle went later the same day: *the
  * green circle indicator around the pull is not required*.
  */
 
@@ -52,7 +52,7 @@ export function call(
 
 /** The dots from the drop to the end, the next one blinking while it is held, lit one
  * after another by the ghost while it waits, and coming in one after another with a
- * blink while the path comes in (`enter`, `enter.ts`). `came` is how far the drop has come. */
+ * blink while the path comes in (`enter`, `goo-enter.ts`). `came` is how far the drop has come. */
 export function runway(
   ctx: CanvasRenderingContext2D,
   t: PullTrack,
@@ -156,7 +156,7 @@ export function ghost(
 /**
  * The place the drop goes: OOZE's turning dashed drop, filling as the drop
  * nears, popping in with a blink after the last dot while the path comes in
- * (`enter.ts`). Held past the last dot, it blinks as the dots did, the next
+ * (`goo-enter.ts`). Held past the last dot, it blinks as the dots did, the next
  * thing ahead — the owner, 11 October 2026: *when the path dots are blinking
  * and reach the last one, also the placeholder should blink next*. And while
  * nothing is held, the same: the ghost lights the dots one after another and,

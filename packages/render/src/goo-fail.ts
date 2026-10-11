@@ -1,13 +1,15 @@
 import type { Point } from "@neon-spore/content";
-import { PALETTE, pullTrackPoint, smoothstep } from "@neon-spore/render";
-import { paintArrow, splitOf } from "./arrow.js";
-import { drop, type GooBody } from "./body.js";
-import { edge } from "./border.js";
-import { paintGoo } from "./drop-look.js";
-import { FAIL_BACK, FAIL_HOLD, FAIL_SETTLE } from "./moment.js";
-import { clamp01, hash, settle } from "./noise.js";
-import type { Scene } from "./scene.js";
-import { paintTail, type Run, runPoint, tailPath } from "./strand.js";
+import { smoothstep } from "./ease.js";
+import { paintArrow, splitOf } from "./goo-arrow.js";
+import { drop, type GooBody } from "./goo-body.js";
+import { edge } from "./goo-border.js";
+import { paintGoo } from "./goo-drop-look.js";
+import { FAIL_BACK, FAIL_HOLD, FAIL_SETTLE } from "./goo-moment.js";
+import { clamp01, hash, settle } from "./goo-noise.js";
+import type { Scene } from "./goo-scene.js";
+import { paintTail, type Run, runPoint, tailPath } from "./goo-strand.js";
+import { PALETTE } from "./palette.js";
+import { pullTrackPoint } from "./pull-track.js";
 
 /**
  * **A failure, short or off the path**: the owner, 10 October 2026, on SHORT
@@ -59,7 +61,7 @@ export function paintFailure(s: Scene): void {
   arrowIn(s, s.home, s.origin, r, paintGoo(ctx, b, style, time, { red }, m));
 }
 
-/** The arrow stays in the drop all the way home (`arrow.ts`), laid on `body`: the way the
+/** The arrow stays in the drop all the way home (`goo-arrow.ts`), laid on `body`: the way the
  * pull went at `k` along the track, split again for a two-way pull as it nears its start. */
 function arrowIn(s: Scene, at: Point, k: number, rr: number, body: GooBody): void {
   const q = pullTrackPoint(s.t, k);

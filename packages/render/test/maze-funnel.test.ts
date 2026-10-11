@@ -17,6 +17,7 @@ import { FUNNEL_DEPTH, mazeFunnelHalfMilli, mazeFunnelLips } from "../src/maze-f
 import { mazeStringCircle, mazeStringHandle } from "../src/maze-string.js";
 import { mazeDrum } from "../src/maze-walls.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { GOO_KNOB } from "./goo-needles.js";
 
 // The cap, applied per file because bun applies it to the file it is in
 // (`canvas-stub.ts`).
@@ -134,8 +135,8 @@ describe("THE MAZE's lit way in and the lever's knob", () => {
       },
     }) as unknown as CanvasRenderingContext2D;
     drawMaze(spy, l, CFG, m, "p1", 3, 0, 0);
-    const knobArc = `Path2D.arc(${r3(knob.x)}, ${r3(knob.y)}, ${r3(rest.r)},`;
-    const disc = log.map((op) => op.startsWith(knobArc)).lastIndexOf(true);
+    // The knob is FIZZ's drop (11 October 2026): its satin body is its disc.
+    const disc = log.map((op) => op.endsWith(GOO_KNOB)).lastIndexOf(true);
     const lips = mazeFunnelLips(CFG, w, d, mazeEntranceAngle(w, m.angleMilli, 0)).map((lip) =>
       log.indexOf(`moveTo(${r3(lip.from.x)}, ${r3(lip.from.y)})`),
     );

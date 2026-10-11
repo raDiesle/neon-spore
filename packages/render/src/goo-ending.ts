@@ -1,14 +1,15 @@
 import type { Point } from "@neon-spore/content";
-import { PALETTE, smoothstep } from "@neon-spore/render";
-import { arrowSize, paintArrow, splitOf } from "./arrow.js";
-import { drop, type GooBody } from "./body.js";
-import { paintGoo } from "./drop-look.js";
-import { grown } from "./enter.js";
-import { ENDING, SPAWN } from "./moment.js";
-import { clamp01 } from "./noise.js";
-import { paintPath } from "./parts.js";
-import { homeward, type Scene } from "./scene.js";
-import { paintTail, specks, splashPath, tailPath } from "./strand.js";
+import { smoothstep } from "./ease.js";
+import { arrowSize, paintArrow, splitOf } from "./goo-arrow.js";
+import { drop, type GooBody } from "./goo-body.js";
+import { paintGoo } from "./goo-drop-look.js";
+import { grown } from "./goo-enter.js";
+import { ENDING, SPAWN } from "./goo-moment.js";
+import { clamp01 } from "./goo-noise.js";
+import { paintPath } from "./goo-parts.js";
+import { homeward, type Scene } from "./goo-scene.js";
+import { paintTail, specks, splashPath, tailPath } from "./goo-strand.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * **How a count ends** — what tells one GOO look from another. The owner, 10
@@ -29,7 +30,7 @@ export function paintEnding(s: Scene, ending: Ending): void {
   const { m } = s;
   const e = m.age;
   // The tail is drawn up into the drop, the specks fade where they fell, and the splash
-  // it was pulled out of stays at the start a little longer (`strand.ts`).
+  // it was pulled out of stays at the start a little longer (`goo-strand.ts`).
   const run = { t: s.t, origin: s.origin, at: m.from.at, off: m.from.off };
   specks(s.ctx, run, s.r, 1 - clamp01(e / 0.6));
   const pull = smoothstep(clamp01(e / 0.22));
@@ -65,7 +66,7 @@ export function paintDrop(s: Scene, b: GooBody, green: number, alpha = 1): GooBo
 }
 
 /** A fresh drop coming in at the start, `f` seconds in, and the path with it
- * (`enter.ts`): the dots one after another, the place at the end, and the drop
+ * (`goo-enter.ts`): the dots one after another, the place at the end, and the drop
  * growing with its arrow — while the old one may still be boiling away. */
 function comingIn(s: Scene, f: number): void {
   paintPath(s.ctx, s.t, s.r, s.style, {

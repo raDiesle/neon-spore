@@ -202,7 +202,9 @@ export function drawSinewHandles(
       drawSinewChannel(ctx, rest, head, len, pull, held, time);
     }
     drawSinewHandleHalo(ctx, head, mine, asks, time);
-    // The shared knob, carrying the way down on its owner's screen alone.
+    // The shared knob, carrying the way down on its owner's screen alone. FIZZ's
+    // drop does not wear `hex`, so a swinging one, which no hand can take, is
+    // faded as the partner's is; its dial keeps the ember.
     const rim = swinging ? PALETTE.emberRim : mine ? PALETTE.text : PALETTE.rock;
     drawPullKnob(ctx, head, head.r, {
       hex: swinging ? PALETTE.ember : mine ? PALETTE.rock : PALETTE.dim,
@@ -210,7 +212,7 @@ export function drawSinewHandles(
       held,
       time,
       way: mine ? PULL_DOWN : null,
-      theirs: !mine,
+      theirs: !mine || swinging,
     });
     drawHandleDial(ctx, head.x, head.y, head.r, rim, pull);
     drawSinewPower(ctx, s, head, side, beatPhase);

@@ -47,7 +47,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 beforeAll(installCanvasGlobals);
 
 const TPB = ticksPerBeat(CFG);
-const HALO = "createRadialGradient";
+// `lightWithin`'s own blend: the knob under it, FIZZ's drop, lights itself with gradients too.
+const HALO = "globalCompositeOperation=hard-light";
 const count = (text: string, needle: string): number => text.split(needle).length - 1;
 
 function hung(): World {

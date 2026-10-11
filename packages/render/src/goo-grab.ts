@@ -1,9 +1,9 @@
 import type { Point } from "@neon-spore/content";
-import { smoothstep } from "@neon-spore/render";
-import { drop, type GooBody } from "./body.js";
-import { clamp01, hash, mix, settle } from "./noise.js";
-import type { Press } from "./press.js";
-import type { GooStyle } from "./style.js";
+import { smoothstep } from "./ease.js";
+import { drop, type GooBody } from "./goo-body.js";
+import { clamp01, hash, mix, settle } from "./goo-noise.js";
+import type { Press } from "./goo-press.js";
+import type { GooStyle } from "./goo-style.js";
 
 /**
  * **How a GOO drop is taken, and how it goes while it is pulled**: SQUISH —
@@ -37,7 +37,7 @@ export function heldBody(h: Hold): GooBody {
   });
 }
 
-/** How deep the thumb is in the held drop, for a soft one (`press.ts`): in at once,
+/** How deep the thumb is in the held drop, for a soft one (`goo-press.ts`): in at once,
  * sinking a little past and springing back, and the way it is pulled. */
 export function pressOf(h: Hold): Press {
   const into = smoothstep(clamp01(h.grabbed / 0.15));

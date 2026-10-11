@@ -4,6 +4,7 @@ import { latchBodies, latchGripY, latchKnotY } from "../src/latch-shape.js";
 import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, VIEWPORT } from "./frame-harness.js";
+import { GOO_KNOB, GOO_TRACK } from "./goo-needles.js";
 import { count, frame, posed, stood } from "./latch-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -66,14 +67,12 @@ describe("THE LATCH's grips", () => {
   it("lays the puller's channel on the puller's own screen alone", () => {
     const p1 = frame("p1", (w) => posed(w));
     const p2 = frame("p2", (w) => posed(w));
-    expect(count(p1, PALETTE.hullRim)).toBeGreaterThan(count(p2, PALETTE.hullRim));
+    expect(count(p1, GOO_TRACK)).toBeGreaterThan(count(p2, GOO_TRACK));
   });
 
   it.each(ROLES)("takes the grips away once the colony is torn loose, on %s", (role) => {
     const hanging = frame(role, (w) => posed(w));
     const gone = frame(role, (w) => posed(w, "spent"));
-    expect(count(gone, PALETTE.dim) + count(gone, PALETTE.hullRim)).toBeLessThan(
-      count(hanging, PALETTE.dim) + count(hanging, PALETTE.hullRim),
-    );
+    expect(count(gone, GOO_KNOB)).toBeLessThan(count(hanging, GOO_KNOB));
   });
 });

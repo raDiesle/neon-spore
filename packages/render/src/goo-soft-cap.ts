@@ -1,9 +1,10 @@
 import { KEY } from "@neon-spore/content";
-import { rgba, smoothstep } from "@neon-spore/render";
-import { bodyPath, centre, type GooBody } from "./body.js";
-import { mix } from "./noise.js";
-import { SHADE } from "./press.js";
-import type { SoftScene } from "./soft.js";
+import { smoothstep } from "./ease.js";
+import { bodyPath, centre, type GooBody } from "./goo-body.js";
+import { mix } from "./goo-noise.js";
+import { SHADE } from "./goo-press.js";
+import type { SoftScene } from "./goo-soft.js";
+import { rgba } from "./hex.js";
 
 /**
  * **A button standing up to be pressed** — the owner, 11 October 2026: *in

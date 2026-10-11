@@ -136,7 +136,15 @@ export function drawCrankDial(
     ctx.save();
     ctx.globalAlpha = 0.4;
     drawMazeLever(ctx, boss, knob, kr, false);
-    drawPullKnob(ctx, knob, kr, { hex: skin.dead[1], rim: skin.dead[1], held, time, way: null });
+    drawPullKnob(ctx, knob, kr, {
+      hex: skin.dead[1],
+      rim: skin.dead[1],
+      held,
+      time,
+      way: null,
+      // FIZZ's drop wears no `hex`: faded, as a knob no hand here can use.
+      theirs: true,
+    });
     ctx.restore();
   }
 
