@@ -38166,3 +38166,5 @@ Bottleneck: friction — the tests read the knob's colours, not the knob.
 
 Bottleneck: reading — a count is each boss's own fact, and half of them
 vanish on the tick it happens.
+
+*Measured: 18 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

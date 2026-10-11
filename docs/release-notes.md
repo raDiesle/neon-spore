@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 077b27da5 — FIZZ plays in the game what it plays in the lab: in, squish, home, fizz
+
+Every pull handle in the game now has a memory across frames. Its drop comes in when it appears, squishes when taken, is slurped home when let go short and the boss sends it back, and fizzes away where it counted. A count comes from the boss's own event (bastion, blister, gimbal, hasp, lamprey, latch stroke, sinew); a cord the hand must keep holding taut (the warden, the lid, the curtain) never fizzes under the hand, and a let-go from the end of the way is no short pull. Closed channels (crank, bastion rim) and knob-only handles get the coming-in and the squish, nothing more.
+
 ## 2026-10-11 · 4f1f596c3 — FIZZ is every pull handle in the game: the PULL LAB's drop and path
 
 Every knob and channel a thumb pulls — THE WARDEN's cord, THE LID, THE LAMPREY, THE LATCH, THE SINEW, THE BALLOON, THE LEDGER, THE FLEET, THE MAZE, THE GIMBAL, THE HASP, THE OCULUS and the crank — now draws the PULL LAB's FIZZ: the soft slime drop with its ripples and moulded arrow, the dots to a place at the end, the ghost running the pull and the green tail behind the hand. It wears GOO's colours, never the handle's own, so a knob no hand may take (THE SINEW's swinging after a snap, the crank's dead one) is faded as the partner's is. A turn's closed ring keeps its thin channel. The lab opens on AS SHIPPED, which is FIZZ; VERSUS's pull:handle slot and its OOZE are gone. In the game a knob only waits and is held so far: the fizz on a count, the slurp home on a refusal and the drop coming in need the game to say when a pull was counted, the next lane.
