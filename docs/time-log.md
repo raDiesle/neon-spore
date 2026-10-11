@@ -37748,3 +37748,5 @@ from stepped frames, which is slow but was the only way to see them.
 
 Bottleneck: a worktree brought up to `origin/main` instead of the local
 `main` built on a stale engine and lost its first half.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

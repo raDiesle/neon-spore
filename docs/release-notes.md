@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 5383ebe2e — PULL LAB: the drop comes in first, from a speck; the path and the place come quicker
+
+A fresh pull in the PULL LAB now enters in three beats, each quicker than the one before. The drop and its arrow appear alone as a small speck and grow fast, a little past full size, then settle (about 0.35 s). Once the drop is nearly full size the path's dots blink in one after another, all in 0.15 s. The place at the end pops in last, in 0.13 s. The EVERY LOOK sheet's COMING IN column is now three: THE DROP, THE PATH, THE PLACE.
+
 ## 2026-10-10 · 51872d370 — PULL LAB: FIZZ alone, SQUISH splashes on the field, specks that stay put, RETRY and a growing entrance
 
 The lab keeps only FIZZ as a success look; SINK, STRAINER, VORTEX and WELL are gone. A short pull is always refused, red, and a thumb half a tile off the path fails: the SHORT · IGNORED and other OFF PATH switches are gone. SQUISH throws its drops onto the field, where they lie about a second before they fade. The tail's specks are placed along the path, so a dot once drawn never moves while the drop is pulled. ↻ RETRY puts a fresh pull on the field: the drop and its arrow grow in together, the path's dots blink in one after another, and the place at the end pops in last.
